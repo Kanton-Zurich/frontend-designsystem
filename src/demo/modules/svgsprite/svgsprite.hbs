@@ -1,0 +1,17 @@
+{{#each preview}}
+	<div class="m-svgsprite">
+		<h3 class="m-svgsprite__title">Sprite Name: {{@key}}</h3>
+		<ul class="m-svgsprite__list">
+			{{#each this}}
+			<li class="m-svgsprite__item">
+				<svg class="m-svgsprite__icon m-svgsprite__icon--{{this}}" focusable="false">
+					<use xlink:href="#{{this}}" />
+				</svg>
+				<span>
+					{{this}}
+				</span>
+			</li>
+			{{/each}}
+		</ul>
+	</div>
+{{/each}}

@@ -1,0 +1,7 @@
+<div class="m-slideshow" data-init="slideshow"{{#if data}} data-slideshow-data='{{data}}'{{/if}}{{#if options}} data-slideshow-options='{{options}}'{{/if}}>
+	<div class="m-slideshow__slides" data-slideshow="slides">
+		{{#each slides}}
+			{{> "demo/modules/slideshow/_slideshow_slide.js" this}}
+		{{/each}}
+	</div>
+</div>
