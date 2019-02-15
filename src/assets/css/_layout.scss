@@ -23,7 +23,7 @@ nav {
 .l-columns {
   display: flex;
 
-  .no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
+  .no-flexbox.no-flexboxlegacy.no-flexboxtweener & { //stylelint-disable-line
     @include clearfix;
   }
 }
@@ -31,7 +31,7 @@ nav {
 .l-main {
   width: 75%;
 
-  .no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
+  .no-flexbox.no-flexboxlegacy.no-flexboxtweener & { //stylelint-disable-line
     float: left;
   }
 }
@@ -39,7 +39,7 @@ nav {
 .l-sidebar {
   flex: 1;
 
-  .no-flexbox.no-flexboxlegacy.no-flexboxtweener & {
+  .no-flexbox.no-flexboxlegacy.no-flexboxtweener & { //stylelint-disable-line
     float: right;
     width: 25%;
   }

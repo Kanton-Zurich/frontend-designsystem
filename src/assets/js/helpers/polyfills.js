@@ -22,9 +22,9 @@ import 'mdn-polyfills/CustomEvent';
 export default function loadPolyfills() {
   const requiredPolyfills = [];
 
-  if (!window.fetch) {
-    requiredPolyfills.push(import('whatwg-fetch'));
-  }
+  // if (!window.fetch) {
+  //   requiredPolyfills.push(import('whatwg-fetch'));
+  // }
 
   return Promise.all(requiredPolyfills);
 }

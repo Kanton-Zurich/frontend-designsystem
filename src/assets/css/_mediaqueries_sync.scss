@@ -5,10 +5,10 @@
  * font-family property of head element contains all breakpoints
  */
 
-@include mq($from: 0px) {
+@include mq($from: 0) {
 
   title {
-    font-family: mqGetBreakpointJSON("tiny", "0px");
+    font-family: mqGetBreakpointJSON('tiny', '0px');
   }
 }
 

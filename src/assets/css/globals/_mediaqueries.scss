@@ -37,10 +37,10 @@ $mqShowBreakpoints: (small, medium, large);
 
 
 @function mqGetBreakpointWidth($name) {
-  @if(map-has-key($mqBreakpoints, $name)) {
+  @if (map-has-key($mqBreakpoints, $name)) {
     @return map-get($mqBreakpoints, $name);
   } @else {
-    @warn "Breakpoint #{$name} does not exist";
+    @warn 'Breakpoint #{$name} does not exist';
   }
 }
 
@@ -67,17 +67,16 @@ $mqShowBreakpoints: (small, medium, large);
  */
 
 @mixin mq($from: false, $to: false, $and: false, $height: false, $media: all) {
-  
   // Initialize variables
   $minSize: 0;
   $maxSize: 0;
-  $mediaQuery: "";
-  $axis: if($height, "height", "width");
+  $mediaQuery: '';
+  $axis: if($height, 'height', 'width');
   // From: this breakpoint (inclusive)
   @if $from {
     @if type-of($from) == number {
       $minSize: pxToEm($from, 16);
-    } @else { 
+    } @else {
       $minSize: pxToEm(mqGetBreakpointWidth($from), 16);
     }
   }
@@ -85,9 +84,9 @@ $mqShowBreakpoints: (small, medium, large);
   // To: that breakpoint (exclusive)
   @if $to {
     @if type-of($to) == number {
-      $maxSize: pxToEm($to, 16) - .01em;
+      $maxSize: pxToEm($to, 16) - 0.01em;
     } @else {
-      $maxSize: pxToEm(mqGetBreakpointWidth($to), 16) - .01em;
+      $maxSize: pxToEm(mqGetBreakpointWidth($to), 16) - 0.01em;
     }
   }
 
@@ -104,14 +103,20 @@ $mqShowBreakpoints: (small, medium, large);
       }
     } @else {
       // Throw a warning if $mqStaticBreakpoint is not in the $mqBreakpoints list
-      @warn "No static styles will be output: #{$staticBreakpointWidth}";
+      @warn 'No static styles will be output: #{$staticBreakpointWidth}';
     }
   }
   // Responsive support is enabled, output rules inside @media queries
   @else {
-    @if $minSize != 0 { $mediaQuery: "#{$mediaQuery} and (min-#{$axis}: #{$minSize})"; }
-    @if $maxSize != 0 { $mediaQuery: "#{$mediaQuery} and (max-#{$axis}: #{$maxSize})"; }
-    @if $and { $mediaQuery: "#{$mediaQuery} and #{$and}"; }
+    @if $minSize != 0 {
+      $mediaQuery: '#{$mediaQuery} and (min-#{$axis}: #{$minSize})';
+    }
+    @if $maxSize != 0 {
+      $mediaQuery: '#{$mediaQuery} and (max-#{$axis}: #{$maxSize})';
+    }
+    @if $and {
+      $mediaQuery: '#{$mediaQuery} and #{$and}';
+    }
 
     $mediaQuery: unquote(#{$mediaQuery});
 
@@ -135,19 +140,19 @@ $mqShowBreakpoints: (small, medium, large);
  * Create JSON string of map of breakpoints
  */
 @function mqGetBreakpointsJSON($breakpoints: $mqBreakpoints) {
-  $json: "{";
+  $json: '{';
 
   @each $name in map-keys($breakpoints) {
     $value: map-get($breakpoints, $name);
 
-    $json: $json + '"#{$name}":"#{$value}",';
+    $json: $json + ''#{$name}':'#{$value}',';
   }
 
-  // Remove last ","
+  // Remove last ','
   $json: str-slice($json, 1, str-length($json) - 1);
 
   // Close JSON string
-  $json: $json + "}";
+  $json: $json + '}';
 
   @return $json;
 }
@@ -157,5 +162,5 @@ $mqShowBreakpoints: (small, medium, large);
  * Create JSON string of single breakpoint
  */
 @function mqGetBreakpointJSON($name, $value) {
-  @return "{\"name\":\"#{$name}\",\"value\":\"#{$value}\"}";
+  @return '{\'name\':\'#{$name}\',\'value\':\'#{$value}\'}';
 }

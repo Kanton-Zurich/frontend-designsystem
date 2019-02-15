@@ -37,9 +37,9 @@ class SlideShow extends Module {
     this.initUi();
     this.initEventListeners();
 
-    if (this.options.url) {
-      this.fetchSlides();
-    }
+    // if (this.options.url) {
+    //   this.fetchSlides();
+    // }
 
     this.resize();
     this.show(this.options.initialItem);
@@ -175,26 +175,26 @@ class SlideShow extends Module {
     MediaQuery.addMQChangeListener(this.resize.bind(this), this.uuid);
   }
 
-  async fetchSlides() {
-    if (!window.fetch) {
-      await import('whatwg-fetch');
-    }
-    // Exemplary AJAX request to mocked data with optional delay parameter
-    // (works with local preview server only)
-    return fetch(this.options.url)
-      .then(response => response.json())
-      .then((response) => {
-        // Loop through slides and add them
-        if (response.slides) {
-          response.slides.forEach((slide) => {
-            this.add(slide);
-          });
-        }
-      })
-      .catch((err) => {
-        this.log('NOO!', err);
-      });
-  }
+  // async fetchSlides() {
+  //   if (!window.fetch) {
+  //     await import('whatwg-fetch');
+  //   }
+  //   // Exemplary AJAX request to mocked data with optional delay parameter
+  //   // (works with local preview server only)
+  //   return fetch(this.options.url)
+  //     .then(response => response.json())
+  //     .then((response) => {
+  //       // Loop through slides and add them
+  //       if (response.slides) {
+  //         response.slides.forEach((slide) => {
+  //           this.add(slide);
+  //         });
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       this.log('NOO!', err);
+  //     });
+  // }
 
   /**
    * Unbind events, remove data, custom teardown

@@ -49,7 +49,7 @@
     "function-comma-space-before": "never",
     "function-linear-gradient-no-nonstandard-direction": true,
     "function-max-empty-lines": 0,
-    "function-name-case": "lower",
+    "function-name-case": null,
     "function-parentheses-newline-inside": "always-multi-line",
     "function-parentheses-space-inside": "never",
     "function-url-no-scheme-relative": true,
@@ -73,7 +73,7 @@
     "media-query-list-comma-newline-before": "never-multi-line",
     "media-query-list-comma-space-after": "always-single-line",
     "media-query-list-comma-space-before": "never",
-    "no-descending-specificity": true,
+    "no-descending-specificity": null,
     "no-duplicate-selectors": true,
     "no-empty-source": true,
     "no-eol-whitespace": true,
@@ -99,7 +99,7 @@
     "selector-list-comma-space-before": "never",
     "selector-max-empty-lines": 0,
     "selector-max-compound-selectors": 4,
-    "selector-max-specificity": ["0,3,0", {
+    "selector-max-specificity": ["1,4,1", {
       "ignoreSelectors": ["/regex/", "string", ":before", ":after", ":checked", ":hover", ":focus", ":active", ":last-of-type", ":first-of-type", "@if", "@else", "[disabled]", ":nth-child", ":nth-last-child", ":last-child", ":first-child"]
     }],
     "selector-max-id": 0,

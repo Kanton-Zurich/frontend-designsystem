@@ -2,7 +2,6 @@
 
   // stylelint-disable-next-line plugin/selector-bem-pattern
   .js & {
-    
     // stylelint-disable-next-line max-nesting-depth
     &:not(.is-activated) {
       // stylelint-disable-next-line max-nesting-depth,plugin/selector-bem-pattern
@@ -21,10 +20,10 @@
   }
 }
 
-.m-slideshow__slide {
+.m-slideshow__slide { //stylelint-disable-line
   height: 0;
   overflow: hidden;
-  padding-bottom: 33.3333333%;
+  padding-bottom: 33.333%;
   position: relative;
 }
 
