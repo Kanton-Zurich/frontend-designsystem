@@ -9,7 +9,7 @@ import loadPolyfills from './polyfills';
 /** Demo modules * */
 // import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
 // import SlideShow from '../../../demo/modules/slideshow/slideshow';
-import TypescriptTest from '../../../modules/typescript_test/typescript_test.ts';
+import TypescriptTest from '../../../modules/typescript_test/typescript_test';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
