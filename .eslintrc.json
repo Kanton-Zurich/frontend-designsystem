@@ -1,0 +1,38 @@
+{
+  "extends": [
+    "airbnb"
+  ],
+  "rules": {
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": true,
+      "optionalDependencies": false
+    }],
+    "import/order": 0,
+    "no-new": 0,
+    "class-methods-use-this": 0,
+    "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+    "no-param-reassign": ["error", { "props": false}]
+  },
+  "parser": "babel-eslint",
+  "globals": {
+    "document": true,
+    "window": true,
+    "Vue": true,
+    "_": true,
+    "localStorage": true,
+    "CustomEvent": true,
+    "Event": true,
+    "XMLHttpRequest": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts"
+        ]
+      }
+    }
+  }
+}

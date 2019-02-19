@@ -8,7 +8,7 @@ import Module from '../../assets/js/helpers/module';
 import namespace from '../../assets/js/helpers/namespace';
 
 class {{className}} extends Module {
-  constructor($element, data, options) {
+  constructor($element: any, data: Object, options: Object) {
     const defaultData = {
     };
     const defaultOptions = {

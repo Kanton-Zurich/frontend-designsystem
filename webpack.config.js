@@ -16,6 +16,18 @@ module.exports = [
       publicPath: '/assets/js/',
     },
     mode: env.dev ? 'development' : 'production',
+    module: {
+      rules: [
+        {
+          test: /(\.ts)$/,
+          exclude: /node_modules/,
+          loader: 'ts-loader',
+        },
+      ],
+    },
+    resolve: {
+      extensions: ['.ts', '.js', '.jsx'],
+    },
   }),
   {
     entry: {

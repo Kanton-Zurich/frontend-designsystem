@@ -4,6 +4,17 @@ import uniqueId from 'lodash/uniqueId';
 import namespace from './namespace';
 
 class Module {
+  name: string;
+  ui: {
+    element: any;
+  };
+  data: Object;
+  options: Object;
+  uuid: string;
+  log: any;
+  _log: any;
+  eventDelegate: any;
+
   /**
    * Helper Class
    * @param  {DOMNode} element - DOM element where to initialise the module

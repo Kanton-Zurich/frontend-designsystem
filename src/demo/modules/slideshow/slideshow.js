@@ -1,4 +1,4 @@
-import Module from '../../../assets/js/helpers/module';
+import Module from '../../../assets/js/helpers/module.ts';
 import MediaQuery from '../../../assets/js/helpers/mediaqueries';
 import WindowEventListener from '../../../assets/js/helpers/events';
 

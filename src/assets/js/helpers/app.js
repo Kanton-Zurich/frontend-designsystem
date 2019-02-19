@@ -7,8 +7,9 @@ import namespace from './namespace';
 import loadPolyfills from './polyfills';
 
 /** Demo modules * */
-import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
-import SlideShow from '../../../demo/modules/slideshow/slideshow';
+// import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
+// import SlideShow from '../../../demo/modules/slideshow/slideshow';
+import TypescriptTest from '../../../modules/typescript_test/typescript_test.ts';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -20,8 +21,9 @@ class App {
 
     // Module registry - mapping module name (used in data-init) to module Class
     this.modules = {};
-    this.modules.slideshow = SlideShow;
-    this.modules.skiplinks = SkipLinks;
+    // this.modules.slideshow = SlideShow;
+    // this.modules.skiplinks = SkipLinks;
+    this.modules.typescriptTest = TypescriptTest;
 		/* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
