@@ -29,11 +29,11 @@ const variants = _.mapValues({
     meta: {
       demo: compiledVariant,
 
-      // code: {
-      //  handlebars: dataHelper.getFormattedHandlebars(template),
-      //  html: dataHelper.getFormattedHtml(compiledVariant),
-      //  data: dataHelper.getFormattedJson(variantProps)
-      // }
+      code: {
+        handlebars: dataHelper.getFormattedHandlebars(template),
+        // data: dataHelper.getFormattedJson(variantProps),
+        // html: dataHelper.getFormattedHtml(compiledVariant),
+      },
     },
   });
 
