@@ -1,6 +1,9 @@
 import Helper from './helper';
 
 class FontLoader extends Helper {
+  public logger:Function;
+  public cssHref: string;
+
   constructor(href = '/assets/css/fonts.css?v1') {
     super();
     this.logger = this.log(FontLoader.name);
@@ -18,7 +21,7 @@ class FontLoader extends Helper {
     }
   }
 
-  injectFontsStylesheet() {
+  public injectFontsStylesheet() {
     if (this.supportsLocalStorageAndXHR()) {
       if (this.cacheIsValid(this.cssHref)) {
         this.injectRawStyle(localStorage.fontCssCache);
@@ -30,7 +33,7 @@ class FontLoader extends Helper {
     }
   }
 
-  fetchAndStoreStylesheet() {
+  public fetchAndStoreStylesheet() {
     const xhr = new XMLHttpRequest();
 
     xhr.open('GET', this.cssHref, true);
@@ -51,7 +54,7 @@ class FontLoader extends Helper {
     xhr.send();
   }
 
-  createFontStylesheet() {
+  public createFontStylesheet() {
     const stylesheet = document.createElement('link');
 
     stylesheet.href = this.cssHref;
@@ -65,8 +68,8 @@ class FontLoader extends Helper {
     document.cookie = 'fontCssCache';
   }
 
-  supportsLocalStorageAndXHR() {
-    return window.localStorage && window.XMLHttpRequest;
+  public supportsLocalStorageAndXHR() {
+    return window.localStorage && (<any>window).XMLHttpRequest;
   }
 
   /**
@@ -74,7 +77,7 @@ class FontLoader extends Helper {
    *
    * @return {Boolean}
    */
-  fileIsCached() {
+  public fileIsCached() {
     return (window.localStorage && localStorage.fontCssCache) || document.cookie.indexOf('fontCssCache') > -1;
   }
 
@@ -86,13 +89,16 @@ class FontLoader extends Helper {
    *
    * @return {Boolean}
    */
-  cacheIsValid(href) {
+  public cacheIsValid(href) {
     return localStorage.fontCssCache && (localStorage.fontCssCacheFile === href);
   }
 
-  // this is the simple utility that injects the cached or loaded css text
-  injectRawStyle(text) {
-    const style = document.createElement('style');
+  /**
+   * this is the simple utility that injects the cached or loaded css text
+   * @param text
+   */
+  public injectRawStyle(text) {
+    const style: any = document.createElement('style');
 
     // cater for IE8 which doesn't support style.innerHTML
     style.setAttribute('type', 'text/css');

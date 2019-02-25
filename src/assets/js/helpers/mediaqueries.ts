@@ -28,11 +28,15 @@ import { Delegate } from 'dom-delegate';
 import WindowEventListener from './events';
 
 class MediaQuery {
-  constructor() {
-    this.eventDelegate = new Delegate(document);
-    this.eventHandlers = {};
-    this.customEventName = 'mq';
 
+  public eventDelegate = new Delegate(document);
+  public eventHandlers = {};
+  public customEventName = 'mq';
+  public ui:any;
+  public breakpoints: any[];
+  public currentBreakpoint: any;
+
+  constructor() {
     this.ui = {
       all: document.head,
       current: document.querySelector('title'),
@@ -44,7 +48,7 @@ class MediaQuery {
     this.breakpoints = this.parseCssProperty(breakpointsString);
     this.currentBreakpoint = this.parseCssProperty(currentBreakpointString);
 
-    WindowEventListener.addDebouncedResizeListener(() => {
+    (<any>WindowEventListener).addDebouncedResizeListener(() => {
       const breakpoint = this.parseCssProperty(this.getCurrentBreakpointString());
       const prevBreakpoint = this.currentBreakpoint;
 

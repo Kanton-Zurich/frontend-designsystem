@@ -15,7 +15,7 @@ const inspector = new Inspector();
 const a11y = new A11y();
 
 // Keyboard triggered helpers
-document.onkeydown = (e) => {
+document.onkeydown = (e: any) => {
   const event = e || window.event;
 
   if (event.keyCode === 77 && event.ctrlKey) { // ctrl+m

@@ -12,14 +12,13 @@ import SlideShow from '../../../demo/modules/slideshow/slideshow';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
+  public initEvents = [];
+  public modules: any = {};
   constructor() {
     // Module instances
     window[namespace].modules = {};
 
-    this.initEvents = [];
-
     // Module registry - mapping module name (used in data-init) to module Class
-    this.modules = {};
     this.modules.slideshow = SlideShow;
     this.modules.skiplinks = SkipLinks;
 		/* autoinsertmodule */ // eslint-disable-line

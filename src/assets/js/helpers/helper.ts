@@ -14,7 +14,11 @@ class Helper {
    * The output form depends on build flag - without --dev it will be plain message
    * with the --dev flag it will be more corefull message using bows plugin
    */
-  log(context) {
+  /**
+   * Log function
+   * @param context
+   */
+  public log(context) {
     let fn = () => {};
 
     if (window.localStorage && localStorage.debug) {
@@ -28,8 +32,13 @@ class Helper {
     return fn;
   }
 
-  // a simple event handler wrapper
-  on(el, ev, callback) {
+  /**
+   * a simple event handler wrapper
+   * @param el
+   * @param ev
+   * @param callback
+   */
+  public on(el, ev, callback) {
     if (el.addEventListener) {
       el.addEventListener(ev, callback, false);
     } else if (el.attachEvent) {
@@ -37,8 +46,12 @@ class Helper {
     }
   }
 
-  // Deep extend
-  extend(destination, source) {
+  /**
+   * Deep extend
+   * @param destination
+   * @param source
+   */
+  public extend(destination, source) {
     let property;
 
     for (property in source) { // eslint-disable-line no-restricted-syntax
@@ -52,7 +65,6 @@ class Helper {
         destination[property] = source[property]; // eslint-disable-line no-param-reassign
       }
     }
-
     return destination;
   }
 }
