@@ -1,3 +1,29 @@
-.a-headings {
-  display: inherit;
+h1,
+.a-heading.a-heading--level1 {
+  color: #c71a29;
+}
+
+h2,
+.a-heading.a-heading--level2 {
+  color: #d36b0f;
+}
+
+h3,
+.a-heading.a-heading--level3 {
+  color: #e2ae0d;
+}
+
+h4,
+.a-heading.a-heading--level4 {
+  color: #1b883f;
+}
+
+h5,
+.a-heading.a-heading--level5 {
+  color: #372ff8;
+}
+
+h6,
+.a-heading.a-heading--level6 {
+  color: #8b28f1;
 }
