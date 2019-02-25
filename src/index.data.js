@@ -16,6 +16,7 @@ const transform = (originalData, filePath) => {
 };
 
 const data = _.merge({}, defaultData, {
+  atoms: dataHelper.getDataGlob('./src/atoms/**/*.data.js', transform),
   pages: dataHelper.getDataGlob('./src/pages/**/*.data.js', transform),
   // demoPages: dataHelper.getDataGlob('./src/demo/pages/**/*.data.js', transform),
   modules: dataHelper.getDataGlob('./src/modules/**/*.data.js', transform),
@@ -30,5 +31,7 @@ data.modules = _.sortBy(data.modules, item => item.meta.title)
   .concat(_.sortBy(data.demoModules, item => item.meta.title));
 
 data.styleguide = _.sortBy(data.styleguide, item => item.meta.title);
+
+data.atoms = _.sortBy(data.atoms, item => item.meta.title);
 
 module.exports = data;

@@ -19,9 +19,9 @@ class Helper {
 
     if (window.localStorage && localStorage.debug) {
       if (typeof context === 'string' && context.length > 0) {
-        fn = Function.prototype.bind.call(console.log, console, `${context} ☞`);
+        fn = Function.prototype.bind.call(console.log, console, `${context} ☞`); //eslint-disable-line
       } else {
-        fn = Function.prototype.bind.call(console.log, console);
+        fn = Function.prototype.bind.call(console.log, console); //eslint-disable-line
       }
     }
 
