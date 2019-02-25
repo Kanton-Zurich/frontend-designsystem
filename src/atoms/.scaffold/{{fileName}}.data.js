@@ -3,13 +3,13 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const template = dataHelper.getFileContent('typescript_test.hbs');
+const template = dataHelper.getFileContent('{{fileName}}.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'TypescriptTest',
-    className: 'TypescriptTest',
+    title: '{{name}}',
+    className: '{{className}}',
     jira: 'ESTATICO-*',
-    documentation: dataHelper.getDocumentation('typescript_test.md'),
+    documentation: dataHelper.getDocumentation('{{fileName}}.md'),
   },
   props: {
 
@@ -32,7 +32,6 @@ const variants = _.mapValues({
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
         data: dataHelper.getFormattedJson(variantProps),
-        // html: dataHelper.getFormattedHtml(compiledVariant),
       },
     },
   });

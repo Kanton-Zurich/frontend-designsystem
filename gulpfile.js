@@ -24,6 +24,7 @@ gulp.task('html', () => {
       // './src/demo/pages/**/*.hbs',
       // '!./src/demo/pages/handlebars/*.hbs',
       './src/modules/**/!(_)*.hbs',
+      './src/atoms/**/*.hbs',
       // './src/demo/modules/**/!(_)*.hbs',
       './src/preview/styleguide/*.hbs',
       '!./src/preview/styleguide/colors.hbs',
@@ -80,6 +81,10 @@ gulp.task('html', () => {
           return Buffer.from(readFileSyncCached('./src/preview/layouts/module.hbs'));
         }
 
+        if (file.path.match(/(\\|\/)atoms(\\|\/)/)) {
+          return Buffer.from(readFileSyncCached('./src/preview/layouts/atom.hbs'));
+        }
+
         return file.contents;
       },
       // Relativify absolute paths
@@ -123,6 +128,7 @@ gulp.task('html:validate', () => {
       './dist/*.html',
       './dist/modules/**/*.html',
       './dist/pages/**/*.html',
+      './dist/atoms/**/*.html',
     ],
     srcBase: './dist/',
     watch: {
@@ -130,6 +136,7 @@ gulp.task('html:validate', () => {
         './dist/*.html',
         './dist/modules/**/*.html',
         './dist/pages/**/*.html',
+        './dist/atoms/**/*.html',
       ],
       name: 'html:validate',
     },
@@ -580,22 +587,24 @@ gulp.task('serve', () => {
 gulp.task('scaffold', () => {
   const task = require('@unic/estatico-scaffold');
 
+  const transformModuleInput = (answers) => {
+    const changeCase = require('change-case');
+    const name = answers.newName || answers.name;
+
+    return Object.assign({}, answers, {
+      [answers.newName ? 'newFileName' : 'fileName']: changeCase.snake(path.basename(name)),
+      [answers.newName ? 'newClassName' : 'className']: changeCase.pascal(path.basename(name)),
+      [answers.newName ? 'newModuleName' : 'moduleName']: changeCase.camel(path.basename(name)),
+    });
+  };
+
   const instance = task({
     types: [
       {
         name: 'Module',
         src: './src/modules/.scaffold/*',
         dest: './src/modules/',
-        transformInput: (answers) => {
-          const changeCase = require('change-case'),
-            name = answers.newName || answers.name;
-
-          return Object.assign({}, answers, {
-            [answers.newName ? 'newFileName' : 'fileName']: changeCase.snake(path.basename(name)),
-            [answers.newName ? 'newClassName' : 'className']: changeCase.pascal(path.basename(name)),
-            [answers.newName ? 'newModuleName' : 'moduleName']: changeCase.camel(path.basename(name)),
-          });
-        },
+        transformInput: transformModuleInput,
         modifications: (answers) => {
           const moduleName = answers.newModuleName || answers.moduleName;
           const className = answers.newClassName || answers.className;
@@ -668,12 +677,46 @@ gulp.task('scaffold', () => {
         src: './src/pages/.scaffold/*',
         dest: './src/pages/',
         transformInput: (answers) => {
-          const changeCase = require('change-case'),
-            name = answers.newName || answers.name;
+          const changeCase = require('change-case');
+          const name = answers.newName || answers.name;
 
           return Object.assign({}, answers, {
             [answers.newName ? 'newFileName' : 'fileName']: changeCase.snake(path.basename(name)),
           });
+        },
+      },
+      {
+        name: 'Atom',
+        src: './src/atoms/.scaffold/*',
+        dest: './src/atoms',
+        transformInput: transformModuleInput,
+        modifications: (answers) => {
+          const fileName = answers.newFileName || answers.fileName;
+
+          const isRemove = (answers.action === 'Remove');
+
+          switch (answers.action) {
+            case 'Add':
+            case 'Copy':
+              return [{
+                type: 'modify',
+                path: './src/assets/css/main.scss',
+                pattern: /(\s+)(\/\/\*autoinsertatom\*)/m,
+                template: `$1@import '../../atoms/${fileName}/${fileName}';$1$2`,
+                abortOnFail: true,
+              }];
+            case 'Rename':
+            case 'Remove':
+              return [{
+                type: 'modify',
+                path: './src/assets/css/main.scss',
+                pattern: new RegExp(`(\\s+)?@import "../../atoms/${answers.fileName}/${answers.fileName}";`, 'm'),
+                template: isRemove ? '' : `$1@import "../../atoms/${fileName}/${fileName}";`,
+                abortOnFail: true,
+              }];
+            default:
+              return [];
+          }
         },
       },
     ],
