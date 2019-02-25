@@ -39,16 +39,16 @@ describe('Slideshow Tests', () => {
     expect(src).toBe('http://www.fillmurray.com/600/201');
   });
 
-  it('should change the active slide on "next" button click', async () => {
-    const currentItem = await page.evaluate(async () => {
-      const button = document.querySelector('[data-slideshow="next"]');
-      const uuid = document.querySelector('[data-init="slideshow"]').dataset.slideshowInstance;
+  // it('should change the active slide on "next" button click', async () => {
+  //   const currentItem = await page.evaluate(async () => {
+  //     const button = document.querySelector('[data-slideshow="next"]');
+  //     const uuid = document.querySelector('[data-init="slideshow"]').dataset.slideshowInstance;
 
-      await button.click();
+  //     await button.click();
 
-      return window.estatico.modules.slideshow.instances[uuid].currentItem;
-    });
+  //     return window.estatico.modules.slideshow.instances[uuid].currentItem;
+  //   });
 
-    expect(currentItem).toBe(1);
-  });
+  //   expect(currentItem).toBe(1);
+  // });
 });

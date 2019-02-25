@@ -3,7 +3,7 @@
  */
 
 .estatico-dev-overlay {
-  $color: rgba(100,200,255,.4);
+  $color: rgba(100, 200, 255, 0.4);
 
   position: relative;
   box-shadow: inset 0 0 0 4px $color;
@@ -23,7 +23,7 @@
 }
 
 .estatico-dev-overlay--variant {
-  $color: rgba(208,235,98,.4);
+  $color: rgba(208, 235, 98, 0.4);
 
   box-shadow: inset 0 0 0 4px $color;
 

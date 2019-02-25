@@ -12,11 +12,11 @@
   @return (toPx($px) / toPx($ref) * 100%);
 }
 @function toEm($val) {
-  @return ($val + 0em);
+  @return ($val + 0em); //stylelint-disable-line
 }
 @function toRem($val) {
-  @return ($val + 0rem);
+  @return ($val + 0rem); //stylelint-disable-line
 }
 @function toPx($val) {
-  @return ($val + 0px);
+  @return ($val + 0px); //stylelint-disable-line
 }

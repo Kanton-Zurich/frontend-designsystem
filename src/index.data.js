@@ -1,7 +1,7 @@
 const _ = require('lodash');
+const path = require('path');
 const dataHelper = require('@unic/estatico-data');
 const defaultData = require('./data/default.data.js');
-const path = require('path');
 
 const transform = (originalData, filePath) => {
   const previewUrl = path.relative('./src/', filePath).replace('.data.js', '.html');
@@ -17,9 +17,9 @@ const transform = (originalData, filePath) => {
 
 const data = _.merge({}, defaultData, {
   pages: dataHelper.getDataGlob('./src/pages/**/*.data.js', transform),
-  demoPages: dataHelper.getDataGlob('./src/demo/pages/**/*.data.js', transform),
+  // demoPages: dataHelper.getDataGlob('./src/demo/pages/**/*.data.js', transform),
   modules: dataHelper.getDataGlob('./src/modules/**/*.data.js', transform),
-  demoModules: dataHelper.getDataGlob('./src/demo/modules/**/*.data.js', transform),
+  // demoModules: dataHelper.getDataGlob('./src/demo/modules/**/*.data.js', transform),
   styleguide: dataHelper.getDataGlob('./src/preview/styleguide/*.data.js', transform),
 });
 

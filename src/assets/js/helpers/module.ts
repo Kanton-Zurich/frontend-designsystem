@@ -4,13 +4,15 @@ import uniqueId from 'lodash/uniqueId';
 import namespace from './namespace';
 
 class Module {
-  public name:string;
-  public ui: any;
-  public data: any;
-  public options: any;
+  public name: string;
+  public ui: {
+    element: any;
+  };
+  public data: Object;
+  public options: Object;
   public uuid: string;
   public log: Function;
-  public eventDelegate:Delegate;
+  public eventDelegate: Delegate;
   private _log: Function;
 
   /**

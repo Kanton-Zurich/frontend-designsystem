@@ -21,10 +21,10 @@ gulp.task('html', () => {
     src: [
       './src/*.hbs',
       './src/pages/**/*.hbs',
-      './src/demo/pages/**/*.hbs',
-      '!./src/demo/pages/handlebars/*.hbs',
+      // './src/demo/pages/**/*.hbs',
+      // '!./src/demo/pages/handlebars/*.hbs',
       './src/modules/**/!(_)*.hbs',
-      './src/demo/modules/**/!(_)*.hbs',
+      // './src/demo/modules/**/!(_)*.hbs',
       './src/preview/styleguide/*.hbs',
       '!./src/preview/styleguide/colors.hbs',
     ],
@@ -602,7 +602,7 @@ gulp.task('scaffold', () => {
           const fileName = answers.newFileName || answers.fileName;
 
           const isRemove = (answers.action === 'Remove');
-          const hasJs = answers.files ? answers.files.find(file => file.match(/{{fileName}}\.js/)) : true;
+          const hasJs = answers.files ? answers.files.find(file => file.match(/{{fileName}}\.ts/)) : true;
           const hasCss = answers.files ? answers.files.find(file => file.match(/{{fileName}}\.scss/)) : true;
 
           switch (answers.action) {
@@ -628,7 +628,7 @@ gulp.task('scaffold', () => {
                   type: 'modify',
                   path: './src/assets/css/main.scss',
                   pattern: /(\s+)(\/\/\*autoinsertmodule\*)/m,
-                  template: `$1@import "../../modules/${fileName}/${fileName}";$1$2`,
+                  template: `$1@import '../../modules/${fileName}/${fileName}';$1$2`,
                   abortOnFail: true,
                 },
               ] : []);
@@ -776,7 +776,7 @@ gulp.task('clean', () => {
  * Test & lint / validate
  */
 gulp.task('lint', gulp.parallel('css:lint', 'js:lint', 'data:lint'));
-gulp.task('test', gulp.parallel('html:validate', 'js:test'));
+gulp.task('test', gulp.parallel('html:validate'/* 'js:test' */));
 
 /**
  * Create complete build

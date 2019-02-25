@@ -1,5 +1,5 @@
 .m-media__iconfont {
-  @include icon("twitter");
+  @include icon('twitter');
 
   &:before {
     font-size: pxToEm(120);
@@ -13,7 +13,7 @@
 }
 
 .m-media__dataurl {
-  @include iconDataurl("twitter");
+  @include iconDataurl('twitter');
 
   &:hover,
   &:focus,
@@ -22,13 +22,13 @@
 
     // stylelint-disable-next-line max-nesting-depth
     &:before {
-      @include iconDataurlStyles("twitter", $color: "active", $skipDimensions: true);
+      @include iconDataurlStyles('twitter', $color: 'active', $skipDimensions: true);
     }
   }
 }
 
 .m-media__pngsprite {
-  @include pngsprite("twitter");
+  @include pngsprite('twitter');
 
   &:hover,
   &:focus,
@@ -37,7 +37,7 @@
 
     // stylelint-disable-next-line max-nesting-depth
     &:before {
-      @include pngspriteStyles("twitter_active", $skipDimensions: true);
+      @include pngspriteStyles('twitter_active', $skipDimensions: true);
     }
   }
 }
