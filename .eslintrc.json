@@ -12,7 +12,8 @@
     "class-methods-use-this": 0,
     "no-trailing-spaces": ["error", { "skipBlankLines": true }],
     "no-param-reassign": ["error", { "props": false}],
-    "no-console": ["warn", { "allow": ["error"] }]
+    "no-console": ["warn", { "allow": ["error"] }],
+    "array-bracket-spacing": 0
   },
   "parser": "babel-eslint",
   "globals": {
