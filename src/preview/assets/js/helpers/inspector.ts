@@ -6,26 +6,32 @@
 import Helper from '../../../../assets/js/helpers/helper';
 
 class Inspector extends Helper {
+  public logger: Function;
+
+  public state: any = {
+    visible: false,
+  };
+
+  public DOM: any = {
+    dataAttribute: 'estaticoDev',
+    class: {
+      moduleDecorator: 'estatico-dev-overlay',
+      variantDecorator: 'estatico-dev-overlay--variant',
+    },
+  };
+
   constructor() {
     super();
     this.logger = this.log(Inspector.name);
 
-    this.state = {
-      visible: false,
-    };
-
-    this.DOM = {
-      dataAttribute: 'estaticoDev',
-      class: {
-        moduleDecorator: 'estatico-dev-overlay',
-        variantDecorator: 'estatico-dev-overlay--variant',
-      },
-    };
 
     this.logger(`Initialized ${Inspector.name}`);
   }
 
-  run() {
+  /**
+   * Run
+   */
+  public run() {
     if (document.documentElement.classList) {
       // Set the mode we're in (1 = show modules, 0 = hide modules)
       if (!this.state.visible) {
@@ -38,8 +44,10 @@ class Inspector extends Helper {
     }
   }
 
-  // Add class to all modules
-  showModules() {
+  /**
+   * Add class to all modules
+   */
+  public showModules() {
     [].forEach.call(document.querySelectorAll('[class]'), (node) => {
       let log = '';
       let module = '';
@@ -79,8 +87,10 @@ class Inspector extends Helper {
     this.state.visible = 1;
   }
 
-  // Remove class from modules
-  hideModules() {
+  /**
+   * Remove class from modules
+   */
+  public hideModules() {
     [].forEach.call(document.querySelectorAll('[class]'), (node) => {
       node.classList.remove(this.DOM.class.moduleDecorator);
       node.classList.remove(this.DOM.class.variantDecorator);

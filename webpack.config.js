@@ -6,8 +6,8 @@ const path = require('path');
 module.exports = [
   merge({}, defaults, {
     entry: {
-      head: './src/assets/js/head.js',
-      main: './src/assets/js/main.js',
+      head: './src/assets/js/head.ts',
+      main: './src/assets/js/main.ts',
     },
     output: {
       path: path.resolve('./dist/assets/js'),
@@ -16,22 +16,34 @@ module.exports = [
       publicPath: '/assets/js/',
     },
     mode: env.dev ? 'development' : 'production',
+    module: {
+      rules: [
+        {
+          test: /(\.ts)$/,
+          exclude: /node_modules/,
+          loader: 'ts-loader',
+        },
+      ],
+    },
+    resolve: {
+      extensions: ['.ts', '.js', '.jsx'],
+    },
   }),
   {
     entry: {
-      dev: './src/preview/assets/js/dev.js',
+      dev: './src/preview/assets/js/dev.ts',
     },
     module: {
       rules: [
         {
-          test: /(\.js|\.jsx)$/,
+          test: /\.tsx?$/,
+          use: 'ts-loader',
           exclude: /node_modules/,
-          loader: 'babel-loader',
-          options: {
-            // See .babelrc.js
-          },
         },
       ],
+    },
+    resolve: {
+      extensions: [ '.tsx', '.ts', '.js' ]
     },
     output: {
       path: path.resolve('./dist/preview/assets/js'),

@@ -18,6 +18,8 @@ import throttle from 'raf-throttle';
  */
 
 class WindowEventListener {
+  public eventDelegate = new Delegate(document);
+  public eventHandlers:any = {};
   constructor() {
     const events = {
       resize: {
@@ -28,12 +30,9 @@ class WindowEventListener {
       },
     };
 
-    this.eventDelegate = new Delegate(document);
-    this.eventHandlers = {};
-
     for (const eventName of Object.keys(events)) { // eslint-disable-line no-restricted-syntax
       this.registerDebouncedEvent(eventName, events[eventName]);
-      this.registerThrottledEvent(eventName, events[eventName]);
+      this.registerThrottledEvent(eventName);
     }
   }
 

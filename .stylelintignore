@@ -4,3 +4,5 @@ node_modules/
 **/*.jsx
 dist/
 .tmp/
+src/assets/preview
+{{fileName}}.scss

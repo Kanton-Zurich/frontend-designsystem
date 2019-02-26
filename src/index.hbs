@@ -1,17 +1,38 @@
 {{#extend "preview/layouts/layout"}}
 	{{#content "content"}}
 		<div class="sg_index">
-			{{#if pages}}
+
+			{{#if atoms}}
 				<div class="sg_inner_wrapper">
-					<h2 class="sg_h2">Pages</h2>
+					<h2 class="sg_h2">Atome</h2>
 
 					<ul class="sg_index_list">
-						{{#each pages}}
+						{{#each atoms}}
 							{{#unless meta.hideFromListing}}
 								<li>
-									<a href="{{meta.previewUrl}}">{{meta.title}}</a>
+									<a href="{{meta.previewUrl}}">
+										{{meta.title}}
+									</a>
+								</li>
+							{{/unless}}
+						{{/each}}
+					</ul>
+				</div>
+			{{/if}}
+
+			{{#if modules}}
+				<div class="sg_inner_wrapper">
+					<h2 class="sg_h2">Organismen</h2>
+
+					<ul class="sg_index_list">
+						{{#each modules}}
+							{{#unless meta.hideFromListing}}
+								<li>
+									<a href="{{meta.previewUrl}}">
+										{{meta.title}}
+									</a>
 									{{#if meta.jira}}
-                                        (<a href="#{{meta.jira}}">
+                                       (<a href="#{{meta.jira}}">
 											{{meta.jira}}
 										</a>)
 									{{/if}}
@@ -23,19 +44,17 @@
 				</div>
 			{{/if}}
 
-			{{#if modules}}
+			{{#if pages}}
 				<div class="sg_inner_wrapper">
-					<h2 class="sg_h2">Modules</h2>
+					<h2 class="sg_h2">Seitentypen</h2>
 
 					<ul class="sg_index_list">
-						{{#each modules}}
+						{{#each pages}}
 							{{#unless meta.hideFromListing}}
 								<li>
-									<a href="{{meta.previewUrl}}">
-										{{meta.title}}
-									</a>
+									<a href="{{meta.previewUrl}}">{{meta.title}}</a>
 									{{#if meta.jira}}
-                                       (<a href="#{{meta.jira}}">
+                                        (<a href="#{{meta.jira}}">
 											{{meta.jira}}
 										</a>)
 									{{/if}}

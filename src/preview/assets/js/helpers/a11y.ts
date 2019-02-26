@@ -7,20 +7,25 @@
 import Helper from '../../../../assets/js/helpers/helper';
 
 class A11y extends Helper {
+  public logger: Function;
+  public mode = null;
+  public dataAttribute = 'estaticoDev';
+  public className = 'estatico-dev-overlay';
+  public activeElInterval = null;
+  public currentActiveEl = null;
+
   constructor() {
     super();
     this.logger = this.log(A11y.name);
 
-    this.mode = null;
-    this.dataAttribute = 'estaticoDev';
-    this.className = 'estatico-dev-overlay';
-    this.activeElInterval = null;
-    this.currentActiveEl = null;
 
     this.logger(`Initialized ${A11y.name}`);
   }
 
-  run() {
+  /**
+   * Run
+   */
+  public run() {
     if (document.documentElement.classList) {
       // Set the mode we're in (1 = focused element, 2 = aria elements)
       if (this.mode === null) {
@@ -44,8 +49,10 @@ class A11y extends Helper {
     }
   }
 
-  // Add class to the active element
-  addActiveElement() {
+  /**
+   * Add class to the active element
+   */
+  public addActiveElement() {
     let activeEl = null;
 
     this.activeElInterval = setInterval(() => {
@@ -65,15 +72,19 @@ class A11y extends Helper {
     }, 200);
   }
 
-  // Remove active element
-  removeActiveElement() {
+  /**
+   * Remove active element
+   */
+  public removeActiveElement() {
     clearInterval(this.activeElInterval);
 
     this.currentActiveEl.classList.remove(this.className);
   }
 
-  // Add class to all aria elements
-  addClassToAriaElements() {
+  /**
+   * Add class to all aria elements
+   */
+  public addClassToAriaElements() {
     [].forEach.call(document.querySelectorAll('[*]'), (node) => {
       let log = '';
 
@@ -92,8 +103,10 @@ class A11y extends Helper {
     });
   }
 
-  // Remove class from aria elements
-  removeClassFromAriaElements() {
+  /**
+   * Remove class from aria elements
+   */
+  public removeClassFromAriaElements() {
     [].forEach.call(document.querySelectorAll('[*]'), (node) => {
       node.classList.remove(this.className);
     });

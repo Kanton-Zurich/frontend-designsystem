@@ -7,21 +7,23 @@ import namespace from './namespace';
 import loadPolyfills from './polyfills';
 
 /** Demo modules * */
-import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
-import SlideShow from '../../../demo/modules/slideshow/slideshow';
+// import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
+// import SlideShow from '../../../demo/modules/slideshow/slideshow';
+import TypescriptTest from '../../../modules/typescript_test/typescript_test';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
+  public initEvents = [];
+  public modules: any = {};
   constructor() {
     // Module instances
     window[namespace].modules = {};
 
-    this.initEvents = [];
-
     // Module registry - mapping module name (used in data-init) to module Class
     this.modules = {};
-    this.modules.slideshow = SlideShow;
-    this.modules.skiplinks = SkipLinks;
+    // this.modules.slideshow = SlideShow;
+    // this.modules.skiplinks = SkipLinks;
+    this.modules.typescriptTest = TypescriptTest;
 		/* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
@@ -119,7 +121,7 @@ class App {
     try {
       return JSON.parse(data);
     } catch (err) {
-      console.log(`Failed when parsing "${data}"`, element, err);
+      console.error(`Failed when parsing "${data}"`, element, err);
 
       return null;
     }
