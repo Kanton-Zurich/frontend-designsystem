@@ -1,29 +1,67 @@
 h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.a-heading {
+  line-height: $sizeLineHeightNarrow;
+  margin: 0 0 0.6em;
+
+  @include mq($from: medium) {
+    line-height: $sizeLineHeightNarrower;
+    margin-bottom: 0.5em;
+  }
+}
+
+h1,
 .a-heading.a-heading--level1 {
-  color: #c71a29;
+  $map: (
+    $sizeBreakpointTiny: $sizeFontSmallBig,
+    $sizeBreakpointXSmall: $sizeFontBig,
+    $sizeBreakpointSmall: $sizeFontBiggerBig,
+    $sizeBreakpointMedium: $sizeFontSmallHuge,
+    $sizeBreakpointLarge: $sizeFontHuge,
+    $sizeBreakpointXLarge: $sizeFontGiant
+  );
+
+  @include poly-fluid-sizing('font-size', $map);
 }
 
 h2,
 .a-heading.a-heading--level2 {
-  color: #d36b0f;
+  $map: (
+    $sizeBreakpointXSmall: $sizeFontLarge,
+    $sizeBreakpointSmall: $sizeFontSmallBig,
+    $sizeBreakpointMedium: $sizeFontBig,
+    $sizeBreakpointLarge: $sizeFontBiggerBig,
+    $sizeBreakpointXLarge: $sizeFontSmallHuge
+  );
+
+  @include poly-fluid-sizing('font-size', $map);
 }
 
 h3,
 .a-heading.a-heading--level3 {
-  color: #e2ae0d;
+  $map: (
+    $sizeBreakpointTiny: $sizeFontBiggerRegular,
+    $sizeBreakpointXSmall: $sizeFontMedium,
+    $sizeBreakpointLarge: $sizeFontLarge,
+    $sizeBreakpointXLarge: $sizeFontSmallBig
+  );
+
+  @include poly-fluid-sizing('font-size', $map);
 }
 
 h4,
-.a-heading.a-heading--level4 {
-  color: #1b883f;
-}
-
 h5,
-.a-heading.a-heading--level5 {
-  color: #372ff8;
-}
-
 h6,
-.a-heading.a-heading--level6 {
-  color: #8b28f1;
+.a-heading.a-heading--level4 {
+  $map: (
+    $sizeBreakpointTiny: $sizeFontRegular,
+    $sizeBreakpointXSmall: $sizeFontBiggerRegular,
+    $sizeBreakpointXLarge: $sizeFontMedium
+  );
+
+  @include poly-fluid-sizing('font-size', $map);
 }
