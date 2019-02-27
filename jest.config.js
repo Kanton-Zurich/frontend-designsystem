@@ -7,7 +7,9 @@ module.exports = {
   globalSetup: path.join(dir, './setup.js'),
   globalTeardown: path.join(dir, './teardown.js'),
   testEnvironment: path.join(dir, './environment.js'),
-  testRegex: 'src/.*\\.test\\.js$',
+  preset: 'ts-jest',
+  testMatch: ['<rootDir>/src/**/*.test.ts'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   projects: [{
     // This seems to be the only way for now to pass options to setup.js
     // https://github.com/facebook/jest/issues/5957#issuecomment-422027349
