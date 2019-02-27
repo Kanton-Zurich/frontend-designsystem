@@ -1,0 +1,12 @@
+p {
+  $map: (
+    $sizeBreakpointTiny: $sizeFontRegular,
+    $sizeBreakpointXSmall: $sizeFontBiggerRegular,
+    $sizeBreakpointXLarge: $sizeFontMedium
+  );
+
+  @include poly-fluid-sizing('font-size', $map);
+
+  line-height: $sizeLineHeightBase;
+  margin: 0 0 0.75em;
+}
