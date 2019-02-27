@@ -4,9 +4,12 @@
 @import 'globals/mixins';
 @import 'globals/mediaqueries';
 
-
 // Reset / normalize styles
 @import '../../../node_modules/normalize.css/normalize';
+
+// Importing of XY-Grid
+@import '../../../node_modules/foundation-sites/scss/foundation';
+@import 'globals/grid';
 
 // Icons (as font or dataurl), PNG sprites
 // @import '../.tmp/iconfont';

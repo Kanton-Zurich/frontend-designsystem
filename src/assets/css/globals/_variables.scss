@@ -3,6 +3,9 @@
  */
 $sizeWidthContent: 1168px;
 
+// Variable needed for xy-grid
+$global-width: $sizeWidthContent;
+
 /**
  * Font sizes
  */
@@ -38,6 +41,17 @@ $sizeBreakpointSmall: 600px;
 $sizeBreakpointMedium: 840px;
 $sizeBreakpointLarge: 1024px;
 $sizeBreakpointXLarge: 1280px;
+
+$breakpoints: (
+  tiny: 0,
+  xsmall: 400px,
+  small: 600px,
+  medium: 840px,
+  large: 1024px,
+  xlarge: 1280px
+);
+
+$breakpoint-classes: (tiny xsmall small medium large xlarge);
 
 
 /**
