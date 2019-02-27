@@ -1,22 +1,48 @@
 /**
- * Default variables
+ * Layout
  */
+$sizeWidthContent: 1168px;
 
-$sizeFontBase: 12px;
+/**
+ * Font sizes
+ */
+$sizeFontTiny: 12px;
+$sizeFontSmall: 14px;
+$sizeFontRegular: 16px;
+$sizeFontBiggerRegular: 18px;
+$sizeFontMedium: 20px;
+$sizeFontLarge: 24px;
+$sizeFontSmallBig: 28px;
+$sizeFontBig: 32px;
+$sizeFontBiggerBig: 40px;
+$sizeFontSmallHuge: 48px;
+$sizeFontHuge: 56px;
+$sizeFontGiant: 72px;
+
+$sizeFontBase: $sizeFontRegular;
 $fontFamilyBase: Arial, sans-serif;
+
+/**
+ * Line heights
+ */
+$sizeLineHeightNarrower: 1;
+$sizeLineHeightNarrow: 1.2;
 $sizeLineHeightBase: 1.5;
 
-$sizeWidthContent: 960px;
-
-$sizeBreakpointSmall: 661px;
-$sizeBreakpointMedium: 1025px;
-$sizeBreakpointLarge: 1281px;
+/**
+ * Breakpoints
+ */
+$sizeBreakpointTiny: 320px;
+$sizeBreakpointXSmall: 400px;
+$sizeBreakpointSmall: 600px;
+$sizeBreakpointMedium: 840px;
+$sizeBreakpointLarge: 1024px;
+$sizeBreakpointXLarge: 1280px;
 
 
 /**
  * Custom colors
  */
-
 $colorText: #000;
 $colorBg: #fff;
 $colorActive: #a4c400;

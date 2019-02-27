@@ -76,30 +76,6 @@ const variants = _.mapValues({
       variant: 'level4',
     },
   },
-  h5: {
-    meta: {
-      title: 'H5',
-      desc: 'Beliebige HTML-Elemente mit Klassen a-heading und a-heading--level5',
-    },
-    props: {
-      title: 'Überschrift Stufe',
-      small: 'gestylt als H5',
-      link: 'und einem Link',
-      variant: 'level5',
-    },
-  },
-  h6: {
-    meta: {
-      title: 'H6',
-      desc: 'Beliebige HTML-Elemente mit Klassen a-heading und a-heading--level6',
-    },
-    props: {
-      title: 'Überschrift Stufe',
-      small: 'gestylt als H6',
-      link: 'und einem Link',
-      variant: 'level6',
-    },
-  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
