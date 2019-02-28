@@ -3,12 +3,12 @@
   foundation-xy-grid-classes(
     $base-grid: true,
     $margin-grid: true,
-    $padding-grid: true,
-    $block-grid: true,
-    $collapse: true,
+    $padding-grid: false,
+    $block-grid: false,
+    $collapse: false,
     $offset: true,
-    $vertical-grid: true,
-    $frame-grid: true
+    $vertical-grid: false,
+    $frame-grid: false
   );
 
 .cell {

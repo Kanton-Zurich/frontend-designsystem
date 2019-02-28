@@ -219,6 +219,7 @@ gulp.task('css', () => {
     watch: {
       src: [
         './src/**/*.scss',
+        './src/preview/assets/css/**/*.scss',
       ],
       name: 'css',
       dependencyGraph: {

@@ -7,6 +7,13 @@ $sizeWidthContent: 1168px;
 $global-width: $sizeWidthContent;
 
 /**
+  * Gutter sizes
+  */
+$sizeGutterTiny: 16px;
+$sizeGutterMedium: 24px;
+$sizeGutterLarge: 30px;
+
+/**
  * Font sizes
  */
 $sizeFontTiny: 12px;
@@ -42,6 +49,9 @@ $sizeBreakpointMedium: 840px;
 $sizeBreakpointLarge: 1024px;
 $sizeBreakpointXLarge: 1280px;
 
+/**
+ * Breakpoint Variables for Foundation Grid
+ */
 $breakpoints: (
   tiny: 0,
   xsmall: 400px,
@@ -49,6 +59,12 @@ $breakpoints: (
   medium: 840px,
   large: 1024px,
   xlarge: 1280px
+);
+
+$grid-margin-gutters: (
+  tiny: $sizeGutterTiny,
+  medium: $sizeGutterMedium,
+  large: $sizeGutterLarge
 );
 
 $breakpoint-classes: (tiny xsmall small medium large xlarge);
