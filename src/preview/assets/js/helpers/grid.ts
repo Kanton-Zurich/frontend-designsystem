@@ -4,7 +4,7 @@
  * Start the debugging with ctrl+g
  */
 import Helper from '../../../../assets/js/helpers/helper';
-// import MediaQuery from '../../../../assets/js/helpers/mediaqueries';
+import MediaQuery from '../../../../assets/js/helpers/mediaqueries';
 
 class Grid extends Helper {
   public logger: Function;
@@ -24,6 +24,8 @@ class Grid extends Helper {
     this.logger = this.log(Grid.name);
 
     this.logger(`Initialized ${Grid.name}`);
+
+    console.log(MediaQuery);
   }
 
   /**
