@@ -222,47 +222,47 @@ gulp.task('css', () => {
         './src/preview/assets/css/**/*.scss',
       ],
       name: 'css',
-      dependencyGraph: {
-        srcBase: './',
-        resolver: {
-          scss: {
-            match: /@import[\s-]*["|']?([^"\s(]+).*?/g,
-            resolve: (match, filePath) => {
-              if (!match[1]) {
-                return null;
-              }
+      // dependencyGraph: {
+      //   srcBase: './',
+      //   resolver: {
+      //     scss: {
+      //       match: /@import[\s-]*["|']?([^"\s(]+).*?/g,
+      //       resolve: (match, filePath) => {
+      //         if (!match[1]) {
+      //           return null;
+      //         }
 
-              // Find possible path candidates
-              const candidates = [
-                path.dirname(filePath),
-                './src/',
-                './src/assets/css/',
-              ].map((dir) => {
-                const partialPath = match[1].replace(path.basename(match[1]), `_${path.basename(match[1])}`);
-                const candidatePath = path.resolve(dir, match[1]);
-                const candidatePartialPath = path.resolve(dir, partialPath);
-                const candidatePaths = [
-                  candidatePath,
-                  candidatePartialPath,
-                  // .scss extension
-                  path.extname(candidatePath) ? candidatePath : `${candidatePath}.scss`,
-                  path.extname(candidatePartialPath) ? candidatePartialPath : `${candidatePartialPath}.scss`,
-                  // .css extension
-                  path.extname(candidatePath) ? candidatePath : `${candidatePath}.css`,
-                ];
+      //         // Find possible path candidates
+      //         const candidates = [
+      //           path.dirname(filePath),
+      //           './src/',
+      //           './src/assets/css/',
+      //         ].map((dir) => {
+      //           const partialPath = match[1].replace(path.basename(match[1]), `_${path.basename(match[1])}`);
+      //           const candidatePath = path.resolve(dir, match[1]);
+      //           const candidatePartialPath = path.resolve(dir, partialPath);
+      //           const candidatePaths = [
+      //             candidatePath,
+      //             candidatePartialPath,
+      //             // .scss extension
+      //             path.extname(candidatePath) ? candidatePath : `${candidatePath}.scss`,
+      //             path.extname(candidatePartialPath) ? candidatePartialPath : `${candidatePartialPath}.scss`,
+      //             // .css extension
+      //             path.extname(candidatePath) ? candidatePath : `${candidatePath}.css`,
+      //           ];
 
-                // Remove duplicates
-                return [...new Set(candidatePaths)];
-              }).reduce((arr, curr) => arr.concat(curr), []); // Flatten
+      //           // Remove duplicates
+      //           return [...new Set(candidatePaths)];
+      //         }).reduce((arr, curr) => arr.concat(curr), []); // Flatten
 
-              return candidates.find((candidatePath) => { // eslint-disable-line arrow-body-style
-                // Ignore inexistent files
-                return fs.existsSync(candidatePath) && fs.statSync(candidatePath).isFile();
-              }) || null;
-            },
-          },
-        },
-      },
+      //         return candidates.find((candidatePath) => { // eslint-disable-line arrow-body-style
+      //           // Ignore inexistent files
+      //           return fs.existsSync(candidatePath) && fs.statSync(candidatePath).isFile();
+      //         }) || null;
+      //       },
+      //     },
+      //   },
+      // },
       watcher: estaticoWatch,
     },
     plugins: {
