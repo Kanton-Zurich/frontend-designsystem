@@ -42,23 +42,31 @@ $sizeLineHeightBase: 1.5;
 /**
  * Breakpoints
  */
-$sizeBreakpointTiny: 320px;
+$sizeBreakpointTiny: 0;
 $sizeBreakpointXSmall: 400px;
 $sizeBreakpointSmall: 600px;
 $sizeBreakpointMedium: 840px;
 $sizeBreakpointLarge: 1024px;
 $sizeBreakpointXLarge: 1280px;
 
+$wrapperSpacing: (
+  tiny: 12px,
+  xsmall: 16px,
+  small: 32px,
+  medium: 32px,
+  large: 40px,
+);
+
 /**
  * Breakpoint Variables for Foundation Grid
  */
 $breakpoints: (
-  tiny: 0,
-  xsmall: 400px,
-  small: 600px,
-  medium: 840px,
-  large: 1024px,
-  xlarge: 1280px
+  tiny: $sizeBreakpointTiny,
+  xsmall: $sizeBreakpointXSmall,
+  small: $sizeBreakpointSmall,
+  medium: $sizeBreakpointMedium,
+  large: $sizeBreakpointLarge,
+  xlarge: $sizeBreakpointXLarge
 );
 
 $grid-margin-gutters: (
