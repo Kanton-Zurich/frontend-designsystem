@@ -6,6 +6,7 @@
   "scripts": {
     "test": "npm run build",
     "jest": "jest",
+    "ts-jest": "ts-jest",
     "gulp": "gulp",
     "build": "gulp build --ci",
     "start": "gulp --dev --watch",
@@ -15,6 +16,8 @@
   "repository": "https://github.com/unic/estatico-nou/tree/master/packages/estatico-boilerplate",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@types/jest": "^24.0.9",
+    "@types/lodash": "^4.14.121",
     "@unic/estatico-browsersync": "0.0.11",
     "@unic/estatico-copy": "0.0.11",
     "@unic/estatico-data": "0.0.8",
@@ -49,6 +52,7 @@
     "minimist": "^1.2.0",
     "node-sass-json-importer": "^3.2.0",
     "strip-ansi": "^5.0.0",
+    "ts-jest": "^24.0.0",
     "ts-loader": "^5.3.3",
     "typescript": "^3.3.3"
   },
