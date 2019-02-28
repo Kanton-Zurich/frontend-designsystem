@@ -28,7 +28,6 @@ import { Delegate } from 'dom-delegate';
 import WindowEventListener from './events';
 
 class MediaQuery {
-
   public eventDelegate = new Delegate(document);
   public eventHandlers = {};
   public customEventName = 'mq';

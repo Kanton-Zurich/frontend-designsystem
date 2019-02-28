@@ -2,6 +2,7 @@
   "extends": [
     "airbnb"
   ],
+  "parser": "@typescript-eslint/parser",
   "rules": {
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": true,
@@ -9,13 +10,16 @@
     }],
     "import/order": 0,
     "no-new": 0,
+    "lines-between-class-members": 0,
     "class-methods-use-this": 0,
     "no-trailing-spaces": ["error", { "skipBlankLines": true }],
     "no-param-reassign": ["error", { "props": false}],
     "no-console": ["warn", { "allow": ["error"] }],
     "array-bracket-spacing": 0
   },
-  "parser": "babel-eslint",
+  "env": {
+    "jest": true
+  },
   "globals": {
     "document": true,
     "window": true,

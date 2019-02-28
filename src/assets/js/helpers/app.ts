@@ -15,10 +15,10 @@ import TypescriptTest from '../../../modules/typescript_test/typescript_test';
 class App {
   public initEvents = [];
   public modules: any = {};
+
   constructor() {
     // Module instances
     window[namespace].modules = {};
-
     // Module registry - mapping module name (used in data-init) to module Class
     this.modules = {};
     // this.modules.slideshow = SlideShow;

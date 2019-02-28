@@ -1,5 +1,6 @@
 /* eslint-disable global-require */
 const gulp = require('gulp');
+const eslint = require('gulp-eslint');
 const path = require('path');
 const fs = require('fs');
 const env = require('minimist')(process.argv.slice(2));
@@ -15,7 +16,7 @@ const env = require('minimist')(process.argv.slice(2));
 gulp.task('html', () => {
   const task = require('@unic/estatico-handlebars');
   const estaticoWatch = require('@unic/estatico-watch');
-  const { readFileSyncCached } = require('@unic/estatico-utils');
+  const {readFileSyncCached} = require('@unic/estatico-utils');
 
   const instance = task({
     src: [
@@ -390,17 +391,17 @@ gulp.task('js', (cb) => {
  * Adding `--fix` will auto-fix issues and save the files back to the file system
  */
 gulp.task('js:lint', () => {
-  const task = require('@unic/estatico-eslint');
+  const task = require('./gulp/estatico-eslint-2.js');
 
   const instance = task({
     src: [
-      './src/**/*.js',
+      './src/**/*.ts',
     ],
     srcBase: './src',
     dest: './src',
     watch: {
       src: [
-        './src/**/*.js',
+        './src/**/*.ts',
       ],
       name: 'js:lint',
     },
@@ -425,12 +426,12 @@ gulp.task('js:lint', () => {
  * Instead of running this task it is possible to just execute `npm run jest`
  */
 gulp.task('js:test', (done) => { // eslint-disable-line consistent-return
-  // Skip task when skipping tests
+                                 // Skip task when skipping tests
   if (env.skipTests) {
     return done();
   }
 
-  const { spawn } = require('child_process');
+  const {spawn} = require('child_process');
   const stripAnsi = require('strip-ansi');
 
   let failed = false;

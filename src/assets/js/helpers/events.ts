@@ -20,6 +20,7 @@ import throttle from 'raf-throttle';
 class WindowEventListener {
   public eventDelegate = new Delegate(document);
   public eventHandlers:any = {};
+
   constructor() {
     const events = {
       resize: {
