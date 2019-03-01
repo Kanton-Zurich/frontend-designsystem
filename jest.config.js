@@ -12,7 +12,7 @@ module.exports = {
     // This seems to be the only way for now to pass options to setup.js
     // https://github.com/facebook/jest/issues/5957#issuecomment-422027349
     puppeteerServer: {
-      port: 3000,
+      port: 3005,
       dir: './dist',
       puppeteer: {
         // Our current Teamcity agents expect Puppeteer to run in no-sandbox mode
