@@ -1,5 +1,5 @@
 describe('TypescriptTests', () => {
-  let page;
+  let page: any;
 
   beforeAll(async () => {
     // eslint-disable-next-line no-underscore-dangle
@@ -7,7 +7,7 @@ describe('TypescriptTests', () => {
 
     // eslint-disable-next-line no-underscore-dangle
     page = await (<any>global).__BROWSER__.newPage();
-
+    // eslint-disable-next-line
     page.on('pageerror', console.log);
 
     await page.goto(url, {

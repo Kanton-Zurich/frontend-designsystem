@@ -5,7 +5,7 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import namespace from '../../assets/js/helpers/namespace';
+// import namespace from '../../assets/js/helpers/namespace';
 
 class TypescriptTest extends Module {
   constructor($element: any, data: Object, options: Object) {
@@ -53,7 +53,6 @@ class TypescriptTest extends Module {
    */
   destroy() {
     super.destroy();
-
     // Custom destroy actions go here
   }
 }
