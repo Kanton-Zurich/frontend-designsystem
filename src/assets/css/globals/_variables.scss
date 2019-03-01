@@ -50,11 +50,11 @@ $sizeBreakpointLarge: 1024px;
 $sizeBreakpointXLarge: 1280px;
 
 $wrapperSpacing: (
-  tiny: 12px,
-  xsmall: 16px,
-  small: 32px,
-  medium: 32px,
-  large: 40px,
+  tiny: pxToEm(12px),
+  xsmall: pxToEm(16px),
+  small: pxToEm(32px),
+  medium: pxToEm(32px),
+  large: pxToEm(40px),
 );
 
 /**

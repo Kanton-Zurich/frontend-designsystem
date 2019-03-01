@@ -11,8 +11,9 @@
     $frame-grid: false
   );
 
-.cell {
+.test-grid .cell {
   //Test values
   height: 20px;
+  margin-bottom: 20px;
   background: #f00;
 }

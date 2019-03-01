@@ -11,11 +11,11 @@ class Grid extends Helper {
 
   private isActive: Boolean = false;
 
-  private options = {
+  private domClasses = {
     wrapperClasses: ['.l-wrapper'],
-    gridClasses: ['fake-grid', 'grid-x', 'grid-margin-x'],
+    gridClasses: ['grid-x', 'grid-margin-x'],
     cellClasses: ['cell', 'tiny-1'],
-    fakeGridClass: 'fake-grid',
+    mainClass: 'dev-grid',
   }
 
   constructor() {
@@ -24,8 +24,6 @@ class Grid extends Helper {
     this.logger = this.log(Grid.name);
 
     this.logger(`Initialized ${Grid.name}`);
-
-    console.log(MediaQuery);
   }
 
   /**
@@ -35,19 +33,20 @@ class Grid extends Helper {
    */
   run() {
     if (!this.isActive) {
-      this.options.wrapperClasses.forEach((className) => {
+      this.domClasses.wrapperClasses.forEach((className) => {
         const foundNodes = document.querySelectorAll(className);
 
-        foundNodes.forEach((node) => node.appendChild(this.generateFakeGrid()));
+        foundNodes.forEach((node) => node.appendChild(this.generateDevGrid()));
       });
 
       this.isActive = true;
     } else {
-      const fakeGrids = document.querySelectorAll(`.${this.options.fakeGridClass}`);
+      const fakeGrids = document.querySelectorAll(`.${this.domClasses.mainClass}`);
 
       fakeGrids.forEach((fakeGrid) => fakeGrid.remove());
 
       this.isActive = false;
+      MediaQuery.removeMQChangeListener('devGrid');
     }
   }
 
@@ -57,20 +56,47 @@ class Grid extends Helper {
    * @returns <NodeElement> A HTML NodeElement to append to the foundNodes
    * @memberof Grid
    */
-  generateFakeGrid() {
-    const gridXNode = document.createElement('div');
+  generateDevGrid() {
+    const devGrid = document.createElement('div');
+    const columns = MediaQuery.query({ from: 'tiny', to: 'small' }) ? 6 : 12;
 
-    gridXNode.classList.add(...this.options.gridClasses);
+    devGrid.classList.add(this.domClasses.mainClass, ...this.domClasses.gridClasses);
 
-    for (let i = 0; i < 12; i += 1) {
+    for (let i = 0; i < columns; i += 1) {
       const cellNode = document.createElement('div');
 
-      cellNode.classList.add(...this.options.cellClasses);
+      cellNode.classList.add(...this.domClasses.cellClasses);
 
-      gridXNode.appendChild(cellNode);
+      devGrid.appendChild(cellNode);
     }
 
-    return gridXNode;
+    MediaQuery.addMQChangeListener(this.recalcColumns.bind(this), 'devGrid')
+
+    return devGrid;
+  }
+
+  recalcColumns() {
+    const columns = MediaQuery.query({ from: 'tiny', to: 'small' }) ? 6 : 12;
+    const devGrids = document.querySelectorAll(`.${this.domClasses.mainClass}`);
+
+    devGrids.forEach((devGrid) => {
+      const nCells = devGrid.querySelectorAll(`.${this.domClasses.cellClasses[0]}`).length;
+      if (nCells !== columns) {
+        if ((columns - nCells) === -6) {
+          for (let i = 0; i < (nCells - columns); i += 1) {
+            devGrid.removeChild(devGrid.firstChild);
+          }
+        } else {
+          for (let i = 0; i < (columns - nCells); i += 1) {
+            const cellNode = document.createElement('div');
+
+            cellNode.classList.add(...this.domClasses.cellClasses);
+
+            devGrid.appendChild(cellNode);
+          }
+        }
+      }
+    });
   }
 }
 
