@@ -10,9 +10,15 @@
 						{{#each atoms}}
 							{{#unless meta.hideFromListing}}
 								<li>
-									<a href="{{meta.previewUrl}}">
-										{{meta.title}}
-									</a>
+                  <a href="{{meta.previewUrl}}">
+                    {{meta.title}}
+                  </a>
+                  {{#if meta.jira}}
+                    (<a href="#{{meta.jira}}">
+                    {{meta.jira}}
+                  </a>)
+                  {{/if}}
+                  {{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
 								</li>
 							{{/unless}}
 						{{/each}}
@@ -22,7 +28,7 @@
 
 			{{#if modules}}
 				<div class="sg_inner_wrapper">
-					<h2 class="sg_h2">Organismen</h2>
+					<h2 class="sg_h2">Module</h2>
 
 					<ul class="sg_index_list">
 						{{#each modules}}

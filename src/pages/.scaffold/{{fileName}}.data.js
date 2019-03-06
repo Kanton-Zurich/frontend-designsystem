@@ -1,9 +1,13 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
+const dataHelper = require('@unic/estatico-data');
 
 const data = _.merge({}, defaultData, {
   meta: {
     title: '{{name}}',
+    jira: 'CZHDEV-*',
+    content: dataHelper.getFileContent('{{fileName}}.hbs'),
+    documentation: dataHelper.getDocumentation('{{fileName}}.md'),
   },
   props: {
     title: 'Title',
