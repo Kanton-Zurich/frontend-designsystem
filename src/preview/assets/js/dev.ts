@@ -2,6 +2,7 @@ import bows from 'bows';
 import A11y from './helpers/a11y';
 import Inspector from './helpers/inspector';
 import namespace from '../../../assets/js/helpers/namespace';
+import Grid from './helpers/grid';
 
 // Enable by default
 // Remove these lines and run "localStorage.removeItem('debug');" to disable
@@ -13,6 +14,7 @@ window[namespace].helpers.log = bows;
 
 const inspector = new Inspector();
 const a11y = new A11y();
+const grid = new Grid();
 
 // Keyboard triggered helpers
 document.onkeydown = (e: any) => {
@@ -22,5 +24,7 @@ document.onkeydown = (e: any) => {
     inspector.run();
   } else if (e.keyCode === 65 && event.ctrlKey) { // ctrl+a
     a11y.run();
+  } else if (e.keyCode === 71 && event.ctrlKey) { // ctrl + g
+    grid.run();
   }
 };

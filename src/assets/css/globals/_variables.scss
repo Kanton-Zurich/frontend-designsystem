@@ -3,6 +3,16 @@
  */
 $sizeWidthContent: 1168px;
 
+// Variable needed for xy-grid
+$global-width: $sizeWidthContent;
+
+/**
+  * Gutter sizes
+  */
+$sizeGutterTiny: 16px;
+$sizeGutterMedium: 24px;
+$sizeGutterLarge: 32px;
+
 /**
  * Font sizes
  */
@@ -32,7 +42,7 @@ $sizeLineHeightBase: 1.5;
 /**
  * Breakpoints
  */
-$sizeBreakpointTiny: 320px;
+$sizeBreakpointTiny: 0;
 $sizeBreakpointXSmall: 400px;
 $sizeBreakpointSmall: 600px;
 $sizeBreakpointMedium: 840px;
@@ -79,6 +89,35 @@ $sizeCurves: (
     xlarge: $sizeRegular
   )
 );
+
+// Layout Wrapper Spacing
+$wrapperSpacing: (
+  tiny: pxToEm($sizeSmallRegular),
+  xsmall: pxToEm($sizeRegular),
+  small: pxToEm($sizeBig),
+  large: pxToEm($sizeBiggerBig),
+);
+
+/**
+ * Breakpoint Variables for Foundation Grid
+ */
+$breakpoints: (
+  tiny: $sizeBreakpointTiny,
+  xsmall: $sizeBreakpointXSmall,
+  small: $sizeBreakpointSmall,
+  medium: $sizeBreakpointMedium,
+  large: $sizeBreakpointLarge,
+  xlarge: $sizeBreakpointXLarge
+);
+
+$grid-margin-gutters: (
+  tiny: $sizeGutterTiny,
+  medium: $sizeGutterMedium,
+  large: $sizeGutterLarge
+);
+
+$breakpoint-classes: (tiny xsmall small medium large xlarge);
+
 
 /**
  * Custom colors

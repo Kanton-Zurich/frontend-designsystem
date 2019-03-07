@@ -148,7 +148,7 @@ $mqShowBreakpoints: (tiny, xsmall, small, medium, large, xlarge);
   @each $name in map-keys($breakpoints) {
     $value: map-get($breakpoints, $name);
 
-    $json: $json + ''#{$name}':'#{$value}',';
+    $json: $json + '"#{$name}":"#{$value}",';
   }
 
   // Remove last ','
@@ -165,5 +165,5 @@ $mqShowBreakpoints: (tiny, xsmall, small, medium, large, xlarge);
  * Create JSON string of single breakpoint
  */
 @function mqGetBreakpointJSON($name, $value) {
-  @return '{\'name\':\'#{$name}\',\'value\':\'#{$value}\'}';
+  @return '{"name":"#{$name}","value":"#{$value}"}';
 }
