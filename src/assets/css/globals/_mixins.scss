@@ -263,3 +263,79 @@
 
   @return $newList;
 }
+
+/**
+ * Get Value For Breakpoint or next smalles which is in target map available
+ *
+ * @param $targetMap - A Sass Map which is the target
+ * @param $breakpoint - The whanted breakpoint
+ * @returns A value in rem
+ * @author Marcel Bührig <marcel.buehrig@zeix.com>
+ */
+@function getValueForBreakpoint($targetMap, $breakpoint) {
+  @if map-has-key($targetMap, $breakpoint) {
+    @return pxToRem(map-get($targetMap, $breakpoint));
+  } @else {
+    $breakpointIndex: index(map-keys($mqBreakpoints), $breakpoint);
+
+    @if $breakpointIndex {
+      $breakpointIndex: $breakpointIndex - 1;
+
+      @while $breakpointIndex >= 0 {
+        $searchableBreakpoint: nth(map-keys($mqBreakpoints), $breakpointIndex);
+
+        @if map-has-key($targetMap, $searchableBreakpoint) {
+          @return pxToRem(map-get($targetMap, $searchableBreakpoint));
+        }
+
+        $breakpointIndex: $breakpointIndex - 1;
+      }
+
+      @error 'Something went horribly wrong, it seems your targetMap doesn\'t have real breakpoints, please consider $mqBreakpoints for the breakpoint names';
+    } @else {
+      @error 'The given breakpoint `#{$breakpoint}` hasn\'t been found in $mqBreakpoints';
+    }
+  }
+}
+
+/**
+ * Generate CSS by giving a list or string and a value
+ *
+ * @param $listOrString - Either a list or a astring
+ * @param $value - String, can be whatever value you like
+ */
+@mixin generateCSSFromListOrString($listOrString, $value) {
+  @if (type-of($listOrString) == list) {
+    @for $i from 1 through length($listOrString) {
+      #{nth($listOrString, $i)}: $value;
+    }
+  } @else if (type-of($listOrString) == string) {
+    #{$listOrString}: $value;
+  } @else {
+    @error 'The targeted variable is neither a list nor a string. BAD';
+  }
+}
+
+/**
+ * Gets the according values from the sizeCurves and maps it to the wanted attributes
+ *
+ * @param $attributes - A list or a string of attributes (if string, there is only one)
+ * @param $curve - The key value of the curve, e.g. regular
+ */
+@mixin sizeCurve($attributes, $curve) {
+  @if (map-has-key($sizeCurves, $curve)) {
+    $selectedCurve: map-get($sizeCurves, $curve);
+
+    @each $breakpoint, $size in $selectedCurve {
+      @if $breakpoint == tiny {
+        @include generateCSSFromListOrString($attributes, pxToRem(map-get($selectedCurve, tiny)));
+      } @else {
+        @include mq($from: $breakpoint) {
+          @include generateCSSFromListOrString($attributes, pxToRem(map-get($selectedCurve, $breakpoint)));
+        }
+      }
+    }
+  } @else {
+    @error 'The curve `#{$curve}` doesn\'t exist in $sizeCurves';
+  }
+}

@@ -14,6 +14,8 @@
 .test-grid .cell {
   //Test values
   height: 20px;
-  margin-bottom: 20px;
+
+  @include sizeCurve(margin-bottom, regular);
+
   background: #f00;
 }

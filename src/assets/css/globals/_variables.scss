@@ -7,13 +7,6 @@ $sizeWidthContent: 1168px;
 $global-width: $sizeWidthContent;
 
 /**
-  * Gutter sizes
-  */
-$sizeGutterTiny: 16px;
-$sizeGutterMedium: 24px;
-$sizeGutterLarge: 32px;
-
-/**
  * Font sizes
  */
 $sizeFontTiny: 12px;
@@ -50,7 +43,7 @@ $sizeBreakpointLarge: 1024px;
 $sizeBreakpointXLarge: 1280px;
 
 // Size Curves
-$sizeMini: 8px;
+$sizeTiny: 8px;
 $sizeSmallRegular: 12px;
 $sizeRegular: 16px;
 $sizeSmallLarge: 20px;
@@ -92,10 +85,10 @@ $sizeCurves: (
 
 // Layout Wrapper Spacing
 $wrapperSpacing: (
-  tiny: pxToEm($sizeSmallRegular),
-  xsmall: pxToEm($sizeRegular),
-  small: pxToEm($sizeBig),
-  large: pxToEm($sizeBiggerBig),
+  tiny: $sizeSmallRegular,
+  xsmall: $sizeRegular,
+  small: $sizeBig,
+  large: $sizeBiggerBig,
 );
 
 /**
@@ -111,13 +104,12 @@ $breakpoints: (
 );
 
 $grid-margin-gutters: (
-  tiny: $sizeGutterTiny,
-  medium: $sizeGutterMedium,
-  large: $sizeGutterLarge
+  tiny: $sizeRegular,
+  medium: $sizeLarge,
+  large: $sizeBig
 );
 
 $breakpoint-classes: (tiny xsmall small medium large xlarge);
-
 
 /**
  * Custom colors
