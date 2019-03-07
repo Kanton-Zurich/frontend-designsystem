@@ -39,6 +39,46 @@ $sizeBreakpointMedium: 840px;
 $sizeBreakpointLarge: 1024px;
 $sizeBreakpointXLarge: 1280px;
 
+// Size Curves
+$sizeMini: 8px;
+$sizeSmallRegular: 12px;
+$sizeRegular: 16px;
+$sizeSmallLarge: 20px;
+$sizeLarge: 24px;
+$sizeBig: 32px;
+$sizeBiggerBig: 40px;
+$sizeHuge: 56px;
+$sizeGiant: 80px;
+
+$sizeCurves: (
+  big: (
+    tiny: $sizeHuge,
+    medium: $sizeGiant
+  ),
+  large: (
+    tiny: $sizeBiggerBig,
+    medium: $sizeHuge,
+  ),
+  medium: (
+    tiny: $sizeLarge,
+    medium: $sizeBig,
+    xlarge: $sizeBiggerBig
+  ),
+  regular: (
+    tiny: $sizeRegular,
+    medium: $sizeSmallLarge,
+    xlarge: $sizeLarge
+  ),
+  small: (
+    tiny: $sizeSmallRegular,
+    xlarge: $sizeRegular
+  ),
+  tiny: (
+    tiny: $sizeTiny,
+    medium: $sizeSmallRegular,
+    xlarge: $sizeRegular
+  )
+);
 
 /**
  * Custom colors
