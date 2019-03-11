@@ -27,17 +27,20 @@ class A11y extends Helper {
    */
   public run() {
     if (document.documentElement.classList) {
+      const focusedElement = 1;
+      const ariaElements = 2;
+
       // Set the mode we're in (1 = focused element, 2 = aria elements)
       if (this.mode === null) {
-        this.mode = 1;
+        this.mode = focusedElement;
       } else {
         this.mode += 1;
       }
 
       // Run the current mode
-      if (this.mode === 1) {
+      if (this.mode === focusedElement) {
         this.addActiveElement();
-      } else if (this.mode === 2) {
+      } else if (this.mode === ariaElements) {
         this.removeActiveElement();
 
         this.addClassToAriaElements();
@@ -54,6 +57,7 @@ class A11y extends Helper {
    */
   public addActiveElement() {
     let activeEl = null;
+    const waitInterval = 200;
 
     this.activeElInterval = setInterval(() => {
       this.currentActiveEl = document.activeElement;
@@ -69,7 +73,7 @@ class A11y extends Helper {
 
         this.currentActiveEl.classList.add(this.className);
       }
-    }, 200);
+    }, waitInterval);
   }
 
   /**
@@ -87,9 +91,10 @@ class A11y extends Helper {
   public addClassToAriaElements() {
     [].forEach.call(document.querySelectorAll('[*]'), (node) => {
       let log = '';
+      const ariaPrefix = 'aria-';
 
       node.attributes.forEach((attribute) => {
-        if (attribute.name === 'role' || attribute.name.substring(0, 5) === 'aria-') {
+        if (attribute.name === 'role' || attribute.name.substring(0, ariaPrefix.length) === ariaPrefix) {
           log += `[${attribute.name}=${attribute.value}]`;
         }
       });

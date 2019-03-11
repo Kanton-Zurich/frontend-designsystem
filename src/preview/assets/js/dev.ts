@@ -17,10 +17,12 @@ const a11y = new A11y();
 // Keyboard triggered helpers
 document.onkeydown = (e: any) => {
   const event = e || window.event;
+  const keyA = 65;
+  const keyM = 77;
 
-  if (event.keyCode === 77 && event.ctrlKey) { // ctrl+m
+  if (event.keyCode === keyM && event.ctrlKey) { // ctrl+m
     inspector.run();
-  } else if (e.keyCode === 65 && event.ctrlKey) { // ctrl+a
+  } else if (e.keyCode === keyA && event.ctrlKey) { // ctrl+a
     a11y.run();
   }
 };

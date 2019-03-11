@@ -20,7 +20,7 @@ class TypescriptTest extends Module {
       },
     };
 
-    console.log('test');
+    console.log('test'); // eslint-disable-line
 
     super($element, defaultData, defaultOptions, data, options);
 
