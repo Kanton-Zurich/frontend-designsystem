@@ -18,6 +18,11 @@ class Grid extends Helper {
     mainClass: 'dev-grid',
   }
 
+  //eslint-disable
+  private mobileColumns: number = 6;
+  private desktopColumns: number = 12;
+  //eslint-enable
+
   constructor() {
     super();
 
@@ -36,14 +41,14 @@ class Grid extends Helper {
       this.domClasses.wrapperClasses.forEach((className) => {
         const foundNodes = document.querySelectorAll(className);
 
-        foundNodes.forEach((node) => node.appendChild(this.generateDevGrid()));
+        foundNodes.forEach(node => node.appendChild(this.generateDevGrid()));
       });
 
       this.isActive = true;
     } else {
       const fakeGrids = document.querySelectorAll(`.${this.domClasses.mainClass}`);
 
-      fakeGrids.forEach((fakeGrid) => fakeGrid.remove());
+      fakeGrids.forEach(fakeGrid => fakeGrid.remove());
 
       this.isActive = false;
       MediaQuery.removeMQChangeListener('devGrid');
@@ -58,7 +63,7 @@ class Grid extends Helper {
    */
   generateDevGrid() {
     const devGrid = document.createElement('div');
-    const columns = MediaQuery.query({ from: 'tiny', to: 'small' }) ? 6 : 12;
+    const columns = MediaQuery.query({ from: 'tiny', to: 'small' }) ? this.mobileColumns : this.desktopColumns;
 
     devGrid.classList.add(this.domClasses.mainClass, ...this.domClasses.gridClasses);
 
@@ -70,19 +75,19 @@ class Grid extends Helper {
       devGrid.appendChild(cellNode);
     }
 
-    MediaQuery.addMQChangeListener(this.recalcColumns.bind(this), 'devGrid')
+    MediaQuery.addMQChangeListener(this.recalcColumns.bind(this), 'devGrid');
 
     return devGrid;
   }
 
   recalcColumns() {
-    const columns = MediaQuery.query({ from: 'tiny', to: 'small' }) ? 6 : 12;
+    const columns: number = MediaQuery.query({ from: 'tiny', to: 'small' }) ? this.mobileColumns : this.desktopColumns;
     const devGrids = document.querySelectorAll(`.${this.domClasses.mainClass}`);
 
     devGrids.forEach((devGrid) => {
       const nCells = devGrid.querySelectorAll(`.${this.domClasses.cellClasses[0]}`).length;
       if (nCells !== columns) {
-        if ((columns - nCells) === -6) {
+        if ((columns - nCells) === -1 * this.mobileColumns) {
           for (let i = 0; i < (nCells - columns); i += 1) {
             devGrid.removeChild(devGrid.firstChild);
           }
