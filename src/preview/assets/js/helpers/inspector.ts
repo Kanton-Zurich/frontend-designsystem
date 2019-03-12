@@ -52,10 +52,11 @@ class Inspector extends Helper {
       let log = '';
       let module = '';
       const variations = [];
+      const modulePrefix = 'm-';
 
       node.classList.forEach((className) => {
-        if (className.substring(0, 2) === 'm-') {
-          module = className.substring(2).replace(/_/g, ' ');
+        if (className.substring(0, modulePrefix.length) === modulePrefix) {
+          module = className.substring(modulePrefix.length).replace(/_/g, ' ');
         }
 
         if (className.match(/(.*?)--/)) {
