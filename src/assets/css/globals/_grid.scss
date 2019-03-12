@@ -1,0 +1,19 @@
+
+@include
+  foundation-xy-grid-classes(
+    $base-grid: true,
+    $margin-grid: true,
+    $padding-grid: false,
+    $block-grid: false,
+    $collapse: false,
+    $offset: true,
+    $vertical-grid: false,
+    $frame-grid: false
+  );
+
+.test-grid .cell {
+  //Test values
+  height: 20px;
+  margin-bottom: 20px;
+  background: #f00;
+}

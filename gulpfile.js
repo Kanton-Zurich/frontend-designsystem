@@ -220,13 +220,14 @@ gulp.task('css', () => {
     watch: {
       src: [
         './src/**/*.scss',
+        './src/preview/assets/css/**/*.scss',
       ],
       name: 'css',
       dependencyGraph: {
         srcBase: './',
         resolver: {
           scss: {
-            match: /@import[\s-]*["|']?([^"\s(]+).*?/g,
+            match: /@import[\s-]*["|']?([^("|')\s(]+).*?/g,
             resolve: (match, filePath) => {
               if (!match[1]) {
                 return null;

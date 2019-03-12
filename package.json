@@ -66,6 +66,7 @@
   "dependencies": {
     "bows": "^1.7.0",
     "dom-delegate": "^2.2.0",
+    "foundation-sites": "^6.5.3",
     "highlight.js": "^9.12.0",
     "jest": "^23.6.0",
     "lodash": "^4.17.10",

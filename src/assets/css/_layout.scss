@@ -1,9 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
   background: $colorBg;
   color: $colorText;
   font-family: $fontFamilyBase;
   font-size: $sizeFontBase / 16px * 100%;
   line-height: $sizeLineHeightBase;
+}
+
+html,
+body {
+  overflow-x: hidden;
 }
 
 nav {
@@ -18,29 +27,18 @@ nav {
   margin: 0 auto;
   width: pxToEm($sizeWidthContent);
   max-width: 100%;
-}
 
-.l-columns {
-  display: flex;
+  position: relative;
 
-  .no-flexbox.no-flexboxlegacy.no-flexboxtweener & { //stylelint-disable-line
-    @include clearfix;
-  }
-}
-
-.l-main {
-  width: 75%;
-
-  .no-flexbox.no-flexboxlegacy.no-flexboxtweener & { //stylelint-disable-line
-    float: left;
-  }
-}
-
-.l-sidebar {
-  flex: 1;
-
-  .no-flexbox.no-flexboxlegacy.no-flexboxtweener & { //stylelint-disable-line
-    float: right;
-    width: 25%;
+  @each $bp, $bpWidth in $mqBreakpoints {
+    @if map-has-key($map: $wrapperSpacing, $key: $bp) {
+      @include mq($bp) {
+        max-width: calc(100% - #{2 * pxToRem(map-get($wrapperSpacing, $bp))});
+      }
+    } @else {
+      @include mq($bp) {
+        max-width: 100%;
+      }
+    }
   }
 }
