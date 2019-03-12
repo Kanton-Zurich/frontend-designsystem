@@ -15,7 +15,8 @@
     "no-trailing-spaces": ["error", { "skipBlankLines": true }],
     "no-param-reassign": ["error", { "props": false}],
     "no-console": ["warn", { "allow": ["error"] }],
-    "array-bracket-spacing": 0
+    "array-bracket-spacing": 0,
+    "no-magic-numbers": ["error", { "ignore": [-1, 0, 1], "ignoreArrayIndexes": true }]
   },
   "env": {
     "jest": true

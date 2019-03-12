@@ -25,7 +25,7 @@ gulp.task('html', () => {
       // './src/demo/pages/**/*.hbs',
       // '!./src/demo/pages/handlebars/*.hbs',
       './src/modules/**/!(_)*.hbs',
-      './src/atoms/**/*.hbs',
+      './src/atoms/**/!(_)*.hbs',
       // './src/demo/modules/**/!(_)*.hbs',
       './src/preview/styleguide/*.hbs',
       '!./src/preview/styleguide/colors.hbs',

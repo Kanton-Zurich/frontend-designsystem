@@ -40,7 +40,10 @@ class FontLoader extends Helper {
 
     // cater for IE8 which does not support addEventListener or attachEvent on XMLHttpRequest
     xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4 && xhr.status === 200) {
+      const ajaxDone = 4;
+      const statusOk = 200;
+
+      if (xhr.readyState === ajaxDone && xhr.status === statusOk) {
         // once we have the content, quickly inject the css rules
         this.injectRawStyle(xhr.responseText);
 

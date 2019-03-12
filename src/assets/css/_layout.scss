@@ -33,7 +33,7 @@ nav {
   @each $bp, $bpWidth in $mqBreakpoints {
     @if map-has-key($map: $wrapperSpacing, $key: $bp) {
       @include mq($bp) {
-        max-width: calc(100% - #{2 * map-get($wrapperSpacing, $bp)});
+        max-width: calc(100% - #{2 * pxToRem(map-get($wrapperSpacing, $bp))});
       }
     } @else {
       @include mq($bp) {
