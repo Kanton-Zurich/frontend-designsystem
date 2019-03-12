@@ -26,64 +26,58 @@
 		</h1>
 
 		{{#if variants}}
-			<section class="sg_variants sg_inner_wrapper">
+			<section class="sg_inner_wrapper">
 				<h2 class="sg_h2">Vorschau des Atoms</h2>
 
-				<div class="sg_tabs">
-					{{#each variants}}
-						<input type="radio" name="variants" class="tab_trigger" id="variants{{@index}}"{{#unless @index}} checked{{/unless}} aria-controls="panel{{@index}} panelDesc{{@index}}" />
-					{{/each}}
+				<ul class="sg_atoms">
 
-					<div class="panels">
-						{{#each variants}}
-							<div class="tab_content" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}">
-								<div class="sg_demo">
-									{{{meta.demo}}}
-								</div>
-							</div>
-						{{/each}}
-					</div>
-
-					<div class="labels" aria-hidden="true">
-						{{#each variants}}
-							<label for="variants{{@index}}" id="tabLabel{{@index}}">{{meta.title}}</label>
-						{{/each}}
-					</div>
-
-					<div class="panels">
-						{{#each variants}}
-							<div class="tab_content" id="panelDesc{{@index}}" aria-labelledby="tabLabel{{@index}}">
-								{{!-- "content" is a reserved word in Handlebars, therefore we need the "this" keyword here. --}}
-								{{#if meta}}
-									<div class="sg_variant_meta">
-										{{#if meta.desc}}
-											<p>{{meta.desc}}</p>
-										{{/if}}
-									</div>
-								{{/if}}
-{{! Indentation matters... }}
-{{> "preview/partials/code"}}
-
-							</div>
-						{{/each}}
-					</div>
-
-				</div>
+          {{#each variants}}
+              <li class="sg_atom">
+                <div class="sg_atom-rendition">
+                  <div class="sg_atom-label">
+                    <h3 class="sg_h3">{{ meta.title }}</h3>
+                    <p>{{ meta.desc }}</p>
+                  </div>
+                  <div class="sg_atom-demo">
+                    {{{meta.demo}}}
+                  </div>
+                </div>
+                <div class="sg_atom-html">
+                  {{#if meta.code.html}}
+                    <h4 class="sg_h4">Rendered HTML</h4>
+                    <pre class="sg_code hljs">{{{meta.code.html}}}</pre>
+                  {{/if}}
+                </div>
+              </li>
+          {{/each}}
+        </ul>
 			</section>
 		{{else}}
 			<section class="sg_inner_wrapper">
 				<h2 class="sg_h2">Vorschau des Atoms</h2>
 
-				{{#each variants}}
-					<div class="sg_demo">
-						{{#block "content"}}
-							{{{meta.demo}}}
-						{{/block}}
-					</div>
+				<ul class="sg_atoms">
 
-{{! Indentation matters... }}
-{{> "preview/partials/code"}}
-				{{/each}}
+          {{#each variants}}
+              <li class="sg_atom-wrapper">
+                <div class="sg_atom-rendition">
+                  <div class="sg_atom-label">
+                    <h3>{{ meta.title }}</h3>
+                    <p>{{ meta.desc }}</p>
+                  </div>
+                  <div class="sg_atom-demo">
+                    {{{meta.demo}}}
+                  </div>
+                </div>
+                <div class="sg_atom-html">
+                  {{#if meta.code.html}}
+                    <h3 class="sg_h3">Rendered HTML</h3>
+                    <pre class="sg_code hljs">{{{meta.code.html}}}</pre>
+                  {{/if}}
+                </div>
+              </li>
+          {{/each}}
+        </ul>
 			</section>
 		{{/if}}
 

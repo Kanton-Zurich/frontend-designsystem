@@ -18,11 +18,6 @@ class Grid extends Helper {
     mainClass: 'dev-grid',
   }
 
-  //eslint-disable
-  private mobileColumns: number = 6;
-  private desktopColumns: number = 12;
-  //eslint-enable
-
   constructor() {
     super();
 
@@ -63,7 +58,7 @@ class Grid extends Helper {
    */
   generateDevGrid() {
     const devGrid = document.createElement('div');
-    const columns = MediaQuery.query({ from: 'tiny', to: 'small' }) ? this.mobileColumns : this.desktopColumns;
+    const columns = MediaQuery.query({ from: 'tiny', to: 'small' }) ? 6 : 12; // eslint-disable-line no-magic-numbers
 
     devGrid.classList.add(this.domClasses.mainClass, ...this.domClasses.gridClasses);
 
@@ -81,13 +76,14 @@ class Grid extends Helper {
   }
 
   recalcColumns() {
-    const columns: number = MediaQuery.query({ from: 'tiny', to: 'small' }) ? this.mobileColumns : this.desktopColumns;
+    const mobileColumns: number = 6;
+    const columns: number = MediaQuery.query({ from: 'tiny', to: 'small' }) ? mobileColumns : 12; // eslint-disable-line no-magic-numbers
     const devGrids = document.querySelectorAll(`.${this.domClasses.mainClass}`);
 
     devGrids.forEach((devGrid) => {
       const nCells = devGrid.querySelectorAll(`.${this.domClasses.cellClasses[0]}`).length;
       if (nCells !== columns) {
-        if ((columns - nCells) === -1 * this.mobileColumns) {
+        if ((columns - nCells) === -1 * mobileColumns) {
           for (let i = 0; i < (nCells - columns); i += 1) {
             devGrid.removeChild(devGrid.firstChild);
           }

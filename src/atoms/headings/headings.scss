@@ -4,7 +4,7 @@ h3,
 h4,
 h5,
 h6,
-.a-heading {
+.atm-heading {
   line-height: $sizeLineHeightNarrow;
   margin: 0 0 0.6em;
 
@@ -15,7 +15,7 @@ h6,
 }
 
 h1,
-.a-heading.a-heading--level1 {
+.atm-heading.atm-heading--level1 {
   $map: (
     $sizeBreakpointTiny: $sizeFontSmallBig,
     $sizeBreakpointXSmall: $sizeFontBig,
@@ -29,7 +29,7 @@ h1,
 }
 
 h2,
-.a-heading.a-heading--level2 {
+.atm-heading.atm-heading--level2 {
   $map: (
     $sizeBreakpointXSmall: $sizeFontLarge,
     $sizeBreakpointSmall: $sizeFontSmallBig,
@@ -42,7 +42,7 @@ h2,
 }
 
 h3,
-.a-heading.a-heading--level3 {
+.atm-heading.atm-heading--level3 {
   $map: (
     $sizeBreakpointTiny: $sizeFontBiggerRegular,
     $sizeBreakpointXSmall: $sizeFontMedium,
@@ -56,7 +56,7 @@ h3,
 h4,
 h5,
 h6,
-.a-heading.a-heading--level4 {
+.atm-heading.atm-heading--level4 {
   $map: (
     $sizeBreakpointTiny: $sizeFontRegular,
     $sizeBreakpointXSmall: $sizeFontBiggerRegular,
