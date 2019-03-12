@@ -61,7 +61,11 @@
 .sg_atom {
   display: flex;
   flex-direction: column;
-  margin-bottom: 3rem;
+  padding: 2.5rem 0;
+
+  .sg_h3 {
+    margin-top: 0;
+  }
 
   &:last-of-type {
     margin-bottom: 0;
@@ -90,9 +94,7 @@
   padding-right: 1rem;
 
   p {
-    display: block;
-    background: #f0f0f0;
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 
