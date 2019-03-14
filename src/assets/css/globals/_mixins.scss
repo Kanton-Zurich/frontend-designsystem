@@ -321,10 +321,11 @@
  *
  * @param $attributes - A list or a string of attributes (if string, there is only one)
  * @param $curve - The key value of the curve, e.g. regular
+ * @param $curveMap - The Map with all the wanted size curves inside - default: $sizeCurves
  */
-@mixin sizeCurve($attributes, $curve) {
-  @if (map-has-key($sizeCurves, $curve)) {
-    $selectedCurve: map-get($sizeCurves, $curve);
+@mixin sizeCurve($attributes, $curve, $curveMap: $sizeCurves) {
+  @if (map-has-key($curveMap, $curve)) {
+    $selectedCurve: map-get($curveMap, $curve);
 
     @each $breakpoint, $size in $selectedCurve {
       @if $breakpoint == tiny {
@@ -336,6 +337,6 @@
       }
     }
   } @else {
-    @error 'The curve `#{$curve}` doesn\'t exist in $sizeCurves';
+    @error 'The curve `#{$curve}` doesn\'t exist in the provided $curveMap';
   }
 }

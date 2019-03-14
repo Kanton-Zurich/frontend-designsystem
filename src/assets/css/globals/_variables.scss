@@ -22,6 +22,47 @@ $sizeFontSmallHuge: 48px;
 $sizeFontHuge: 56px;
 $sizeFontGiant: 72px;
 
+// Font-Size curves
+$fontSizeCurves: (
+  h1: (
+    tiny: $sizeFontSmallBig,
+    xsmall: $sizeFontBig,
+    small: $sizeFontBiggerBig,
+    medium: $sizeFontSmallHuge,
+    large: $sizeFontHuge,
+    xlarge: $sizeFontGiant
+  ),
+  h2: (
+    tiny: $sizeFontLarge,
+    small: $sizeFontSmallBig,
+    medium: $sizeFontBig,
+    large: $sizeFontBiggerBig,
+    xlarge: $sizeFontSmallHuge
+  ),
+  h3: (
+    tiny: $sizeFontBiggerRegular,
+    xsmall: $sizeFontMedium,
+    large: $sizeFontLarge,
+    xlarge: $sizeFontSmallBig
+  ),
+  h4: (
+    tiny: $sizeFontRegular,
+    xsmall: $sizeFontBiggerRegular,
+    large: $sizeFontMedium,
+  ),
+  // Leads & Blockquotes
+  lead: (
+    tiny: $sizeFontBiggerRegular,
+    small: $sizeFontMedium,
+    large: $sizeFontLarge
+  ),
+  default: (
+    tiny: $sizeFontRegular,
+    small: $sizeFontBiggerRegular,
+    large: $sizeFontMedium,
+  )
+);
+
 $sizeFontBase: $sizeFontRegular;
 $fontFamilyBase: Arial, sans-serif;
 
