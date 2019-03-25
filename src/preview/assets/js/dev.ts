@@ -21,12 +21,13 @@ document.onkeydown = (e: any) => {
   const event = e || window.event;
   const keyA = 65;
   const keyM = 77;
+  const keyG = 71;
 
   if (event.keyCode === keyM && event.ctrlKey) { // ctrl+m
     inspector.run();
   } else if (e.keyCode === keyA && event.ctrlKey) { // ctrl+a
     a11y.run();
-  } else if (e.keyCode === 71 && event.ctrlKey) { // ctrl + g
+  } else if (e.keyCode === keyG && event.ctrlKey) { // ctrl + g
     grid.run();
   }
 };

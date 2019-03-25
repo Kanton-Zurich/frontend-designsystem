@@ -49,3 +49,55 @@
     height: 100%;
   }
 }
+
+/** stlyeguide atom styles */
+
+.sg_atoms {
+  margin: 0;
+  padding: 0 1rem;
+  list-style-type: none;
+}
+
+.sg_atom {
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 0;
+
+  .sg_h3 {
+    margin-top: 0;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .sg_code {
+    max-width: none;
+    margin: 0;
+    flex-basis: 80%;
+  }
+}
+
+.sg_atom-rendition,
+.sg_atom-html {
+  display: flex;
+}
+
+.sg_atom-label,
+.sg_atom-html .sg_h4 {
+  flex-basis: 20%;
+  flex-grow: 0;
+  margin-top: 0;
+}
+
+.sg_atom-label {
+  padding-right: 1rem;
+
+  p {
+    font-size: 14px;
+  }
+}
+
+.sg_atom-demo {
+  flex-basis: 80%;
+}

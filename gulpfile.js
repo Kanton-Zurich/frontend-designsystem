@@ -16,7 +16,7 @@ const env = require('minimist')(process.argv.slice(2));
 gulp.task('html', () => {
   const task = require('@unic/estatico-handlebars');
   const estaticoWatch = require('@unic/estatico-watch');
-  const {readFileSyncCached} = require('@unic/estatico-utils');
+  const { readFileSyncCached } = require('@unic/estatico-utils');
 
   const instance = task({
     src: [
