@@ -41,9 +41,8 @@
   bottom: 0;
 
   .cell {
-    background: rgba(0, 0, 0, 0.4);
-    border-left: 2px solid rgba(0, 0, 0, 1);
-    border-right: 2px solid rgba(0, 0, 0, 1);
+    background: #ec554e;
+    opacity: 0.2;
 
     box-sizing: border-box;
     height: 100%;
