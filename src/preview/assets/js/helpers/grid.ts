@@ -12,9 +12,9 @@ class Grid extends Helper {
   private isActive: Boolean = false;
 
   private domClasses = {
-    wrapperClasses: ['.l-wrapper'],
+    wrapperClasses: ['.lyt-wrapper'],
     gridClasses: ['grid-x', 'grid-margin-x'],
-    cellClasses: ['cell', 'tiny-1'],
+    cellClasses: ['cell', 'tiny-auto'],
     mainClass: 'dev-grid',
   }
 

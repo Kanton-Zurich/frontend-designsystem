@@ -28,6 +28,7 @@ document.onkeydown = (e: any) => {
   } else if (e.keyCode === keyA && event.ctrlKey) { // ctrl+a
     a11y.run();
   } else if (e.keyCode === keyG && event.ctrlKey) { // ctrl + g
+    console.log('test');
     grid.run();
   }
 };
