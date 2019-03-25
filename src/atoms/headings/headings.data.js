@@ -85,7 +85,7 @@ const variants = _.mapValues({
 
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant),
+        html: dataHelper.getFormattedHtml(compiledVariant()),
         data: dataHelper.getFormattedJson(variantProps),
       },
     },
