@@ -7,13 +7,6 @@ $sizeWidthContent: 1168px;
 $global-width: $sizeWidthContent;
 
 /**
-  * Gutter sizes
-  */
-$sizeGutterTiny: 16px;
-$sizeGutterMedium: 24px;
-$sizeGutterLarge: 32px;
-
-/**
  * Font sizes
  */
 $sizeFontTiny: 12px;
@@ -28,6 +21,47 @@ $sizeFontBiggerBig: 40px;
 $sizeFontSmallHuge: 48px;
 $sizeFontHuge: 56px;
 $sizeFontGiant: 72px;
+
+// Font-Size curves
+$fontSizeCurves: (
+  h1: (
+    tiny: $sizeFontSmallBig,
+    xsmall: $sizeFontBig,
+    small: $sizeFontBiggerBig,
+    medium: $sizeFontSmallHuge,
+    large: $sizeFontHuge,
+    xlarge: $sizeFontGiant
+  ),
+  h2: (
+    tiny: $sizeFontLarge,
+    small: $sizeFontSmallBig,
+    medium: $sizeFontBig,
+    large: $sizeFontBiggerBig,
+    xlarge: $sizeFontSmallHuge
+  ),
+  h3: (
+    tiny: $sizeFontBiggerRegular,
+    xsmall: $sizeFontMedium,
+    large: $sizeFontLarge,
+    xlarge: $sizeFontSmallBig
+  ),
+  h4: (
+    tiny: $sizeFontRegular,
+    xsmall: $sizeFontBiggerRegular,
+    large: $sizeFontMedium,
+  ),
+  // Leads & Blockquotes
+  lead: (
+    tiny: $sizeFontBiggerRegular,
+    small: $sizeFontMedium,
+    large: $sizeFontLarge
+  ),
+  default: (
+    tiny: $sizeFontRegular,
+    small: $sizeFontBiggerRegular,
+    large: $sizeFontMedium,
+  )
+);
 
 $sizeFontBase: $sizeFontRegular;
 $fontFamilyBase: Arial, sans-serif;
@@ -49,12 +83,53 @@ $sizeBreakpointMedium: 840px;
 $sizeBreakpointLarge: 1024px;
 $sizeBreakpointXLarge: 1280px;
 
+// Size Curves
+$sizeTiny: 8px;
+$sizeSmallRegular: 12px;
+$sizeRegular: 16px;
+$sizeSmallLarge: 20px;
+$sizeLarge: 24px;
+$sizeBig: 32px;
+$sizeBiggerBig: 40px;
+$sizeHuge: 56px;
+$sizeGiant: 80px;
+
+$sizeCurves: (
+  big: (
+    tiny: $sizeHuge,
+    medium: $sizeGiant
+  ),
+  large: (
+    tiny: $sizeBiggerBig,
+    medium: $sizeHuge,
+  ),
+  medium: (
+    tiny: $sizeLarge,
+    medium: $sizeBig,
+    xlarge: $sizeBiggerBig
+  ),
+  regular: (
+    tiny: $sizeRegular,
+    medium: $sizeSmallLarge,
+    xlarge: $sizeLarge
+  ),
+  small: (
+    tiny: $sizeSmallRegular,
+    xlarge: $sizeRegular
+  ),
+  tiny: (
+    tiny: $sizeTiny,
+    medium: $sizeSmallRegular,
+    xlarge: $sizeRegular
+  )
+);
+
+// Layout Wrapper Spacing
 $wrapperSpacing: (
-  tiny: 12px,
-  xsmall: 16px,
-  small: 32px,
-  medium: 32px,
-  large: 40px,
+  tiny: $sizeSmallRegular,
+  xsmall: $sizeRegular,
+  small: $sizeBig,
+  large: $sizeBiggerBig,
 );
 
 /**
@@ -70,13 +145,12 @@ $breakpoints: (
 );
 
 $grid-margin-gutters: (
-  tiny: $sizeGutterTiny,
-  medium: $sizeGutterMedium,
-  large: $sizeGutterLarge
+  tiny: $sizeRegular,
+  medium: $sizeLarge,
+  large: $sizeBig
 );
 
 $breakpoint-classes: (tiny xsmall small medium large xlarge);
-
 
 /**
  * Custom colors

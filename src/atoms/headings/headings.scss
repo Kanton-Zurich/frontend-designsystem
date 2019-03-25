@@ -16,52 +16,22 @@ h6,
 
 h1,
 .a-heading.a-heading--level1 {
-  $map: (
-    $sizeBreakpointTiny: $sizeFontSmallBig,
-    $sizeBreakpointXSmall: $sizeFontBig,
-    $sizeBreakpointSmall: $sizeFontBiggerBig,
-    $sizeBreakpointMedium: $sizeFontSmallHuge,
-    $sizeBreakpointLarge: $sizeFontHuge,
-    $sizeBreakpointXLarge: $sizeFontGiant
-  );
-
-  @include poly-fluid-sizing('font-size', $map);
+  @include sizeCurve(font-size, h1, $fontSizeCurves);
 }
 
 h2,
 .a-heading.a-heading--level2 {
-  $map: (
-    $sizeBreakpointXSmall: $sizeFontLarge,
-    $sizeBreakpointSmall: $sizeFontSmallBig,
-    $sizeBreakpointMedium: $sizeFontBig,
-    $sizeBreakpointLarge: $sizeFontBiggerBig,
-    $sizeBreakpointXLarge: $sizeFontSmallHuge
-  );
-
-  @include poly-fluid-sizing('font-size', $map);
+  @include sizeCurve(font-size, h2, $fontSizeCurves);
 }
 
 h3,
 .a-heading.a-heading--level3 {
-  $map: (
-    $sizeBreakpointTiny: $sizeFontBiggerRegular,
-    $sizeBreakpointXSmall: $sizeFontMedium,
-    $sizeBreakpointLarge: $sizeFontLarge,
-    $sizeBreakpointXLarge: $sizeFontSmallBig
-  );
-
-  @include poly-fluid-sizing('font-size', $map);
+  @include sizeCurve(font-size, h3, $fontSizeCurves);
 }
 
 h4,
 h5,
 h6,
 .a-heading.a-heading--level4 {
-  $map: (
-    $sizeBreakpointTiny: $sizeFontRegular,
-    $sizeBreakpointXSmall: $sizeFontBiggerRegular,
-    $sizeBreakpointXLarge: $sizeFontMedium
-  );
-
-  @include poly-fluid-sizing('font-size', $map);
+  @include sizeCurve(font-size, h4, $fontSizeCurves);
 }
