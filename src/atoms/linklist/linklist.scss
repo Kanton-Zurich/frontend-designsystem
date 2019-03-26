@@ -68,42 +68,70 @@
    */
 
   &--cv-blue {
+    .atm-linklist__title {
+      color: $colorBlue;
+    }
+
     .atm-linklist__link {
       color: $colorBlue;
     }
   }
 
   &--cv-darkblue {
+    .atm-linklist__title {
+      color: $colorDarkBlue;
+    }
+
     .atm-linklist__link {
       color: $colorDarkBlue;
     }
   }
 
   &--cv-turqoise {
+    .atm-linklist__title {
+      color: $colorTurqoise;
+    }
+
     .atm-linklist__link {
       color: $colorTurqoise;
     }
   }
 
   &--cv-green {
+    .atm-linklist__title {
+      color: $colorGreen;
+    }
+
     .atm-linklist__link {
       color: $colorGreen;
     }
   }
 
   &--cv-bordeaux {
+    .atm-linklist__title {
+      color: $colorBordeaux;
+    }
+
     .atm-linklist__link {
       color: $colorBordeaux;
     }
   }
 
   &--cv-magenta {
+    .atm-linklist__title {
+      color: $colorMagenta;
+    }
+
     .atm-linklist__link {
       color: $colorMagenta;
     }
   }
 
   &--cv-violet {
+    .atm-linklist__title {
+      color: $colorViolet;
+    }
+
     .atm-linklist__link {
       color: $colorViolet;
     }
