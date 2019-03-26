@@ -5,7 +5,7 @@
   <ul class="atm-linklist__list">
     {{#each links}}
       <li class="atm-linklist__item">
-        <a class="atm-linklist__link" href="{{target}}">
+        <a class="atm-linklist__link" href="{{href}}"{{#if target}} target="_{{target}}"{{/if}}>
           <span>{{title}}</span>
           <svg class="icon atm-linklist__arrow">
             <use xlink:href="#arrow-right"></use>

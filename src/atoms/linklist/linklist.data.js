@@ -15,15 +15,16 @@ const data = _.merge({}, defaultData, {
     links: [
       {
         title: 'Link 1',
-        target: '/',
+        href: '/',
       },
       {
         title: 'Link 2',
-        target: 'https://www.google.ch',
+        href: 'https://www.google.ch',
+        target: 'blank',
       },
       {
         title: 'Link 3',
-        target: '/index.html',
+        href: '/index.html',
       },
     ],
     hasTitle: true,
