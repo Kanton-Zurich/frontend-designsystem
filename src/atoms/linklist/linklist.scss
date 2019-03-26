@@ -58,9 +58,13 @@
     }
   }
 
-  &__arrow use {
-    fill: $colorBlack60;
-    transition: fill $transitionTimeSimple $transitionEasingDefault;
+  &__arrow {
+    @include sizeCurve(margin-left, tiny);
+
+    use {
+      fill: $colorBlack60;
+      transition: fill $transitionTimeSimple $transitionEasingDefault;
+    }
   }
 
   /**
