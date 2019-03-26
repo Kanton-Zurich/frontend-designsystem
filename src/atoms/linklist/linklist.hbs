@@ -1,3 +1,17 @@
-<div class="atm-linklist">
-	Linklist
+<div class="atm-linklist{{#if colorVariation}} atm-linklist--cv-{{{colorVariation}}}{{/if}}">
+  {{#if hasTitle}}
+  <h{{{headingLevel}}} class="atm-linklist__title">Linkliste</h{{{headingLevel}}}>
+  {{/if}}
+  <ul class="atm-linklist__list">
+    {{#each links}}
+      <li class="atm-linklist__item">
+        <a class="atm-linklist__link" href="{{target}}">
+          <span>{{title}}</span>
+          <svg class="icon atm-linklist__arrow">
+            <use xlink:href="#arrow-right"></use>
+          </svg>
+        </a>
+      </li>
+    {{/each}}
+  </ul>
 </div>

@@ -1,22 +1,20 @@
 {
-	"colorIcyIvory": "#ffffff",
-	"colorSoulSide": "#FF990C",
-	"colorClearChill": "#0B9CB0",
-	"colorLiquidLime": "#CDF80C",
-	"colorEclecticEggplant": "#B809B8",
-	"colorCharmedChalice": "#999999",
+  "colorBlue": "#0076BD",
+  "colorDarkBlue": "#00407C",
+  "colorTurqoise": "#00797B",
+  "colorGreen": "#1A7F1F",
+  "colorBordeaux": "#B01657",
+  "colorMagenta": "#D40053",
+  "colorViolet": "#7F3DA7",
+  "colorBlack60": "#666666",
 
-	"colorAlpineAlabaster": "#f8f8f8",
-	"colorTrueTangerine": "#EA8700",
-	"colorBondiBlue": "#027E8F",
-	"colorLividLime": "#B8E100",
-	"colorEnergicEggplant": "#B300B3",
-	"colorGreasyGray": "#808080",
+  "colorBlack100": "#000000",
+  "colorBlack80": "#333333",
+  "colorBlack40": "#949494",
+  "colorBlack20": "#CCCCCC",
+  "colorBlack10": "#F0F0F0",
+  "colorBlack5": "#F7F7F7",
 
-	"colorAltruisticAlto": "#dddddd",
-	"colorIndocileIndochine": "#B96B00",
-	"colorLambentLagoon": "#026472",
-	"colorGraspingGrass": "#92B300",
-	"colorPoppyPompadour": "#790079",
-	"colorDottedDove": "#666666"
+  "colorCyan": "#009EE0",
+  "colorRed": "#E2001A"
 }

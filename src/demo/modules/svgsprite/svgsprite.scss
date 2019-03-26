@@ -15,13 +15,7 @@
   height: 32px;
   padding: 0;
   opacity: 0;
-  fill: $colorClearChill;
   transition: fill 1s ease;
-
-  &:hover {
-    fill: $colorLambentLagoon;
-  }
-
   // stylelint-disable-next-line plugin/selector-bem-pattern
   .svgsprites--loaded & {
     opacity: 1;

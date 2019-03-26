@@ -1,6 +1,6 @@
 {
   "rules": {
-    "at-rule-empty-line-before": [ "always", { "except": [ "first-nested", "after-same-name" ], "ignore": ["after-comment"], "ignoreAtRules": ["if", "import", "else" ] } ],
+    "at-rule-empty-line-before": [ "always", { "except": [ "first-nested", "after-same-name" ], "ignore": ["after-comment", "first-nested"], "ignoreAtRules": ["if", "import", "else" ] } ],
     "at-rule-name-case": "lower",
     "at-rule-name-newline-after": "always-multi-line",
     "at-rule-name-space-after": "always-single-line",
@@ -86,7 +86,7 @@
     "number-no-trailing-zeros": true,
     "property-case": "lower",
     "property-no-vendor-prefix": true,
-    "rule-empty-line-before": [ "always", { "ignore": ["after-comment"] } ],
+    "rule-empty-line-before": [ "always", { "except": ["first-nested"] }, { "ignore": ["after-comment"] } ],
     "selector-attribute-brackets-space-inside": "always",
     "selector-attribute-operator-space-after": "never",
     "selector-attribute-operator-space-before": "never",

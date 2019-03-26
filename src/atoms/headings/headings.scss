@@ -16,22 +16,22 @@ h6,
 
 h1,
 .a-heading.a-heading--level1 {
-  @include sizeCurve(font-size, h1, $fontSizeCurves);
+  @include sizeCurve(font-size, huge, $fontSizeCurves);
 }
 
 h2,
 .a-heading.a-heading--level2 {
-  @include sizeCurve(font-size, h2, $fontSizeCurves);
+  @include sizeCurve(font-size, big, $fontSizeCurves);
 }
 
 h3,
 .a-heading.a-heading--level3 {
-  @include sizeCurve(font-size, h3, $fontSizeCurves);
+  @include sizeCurve(font-size, medium, $fontSizeCurves);
 }
 
 h4,
 h5,
 h6,
 .a-heading.a-heading--level4 {
-  @include sizeCurve(font-size, h4, $fontSizeCurves);
+  @include sizeCurve(font-size, regular, $fontSizeCurves);
 }

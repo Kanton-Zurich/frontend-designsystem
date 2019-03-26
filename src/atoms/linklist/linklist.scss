@@ -1,3 +1,117 @@
 .atm-linklist {
-  display: inherit;
+  @include sizeCurve(margin-bottom, regular);
+
+  &__title {
+    @include sizeCurve(margin-bottom, tiny);
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: rgba($colorText, 0.6);
+    font-weight: $fontWeightBlack;
+    position: relative;
+
+    @include sizeCurve(font-size, regular, $fontSizeCurves);
+    @include sizeCurve(padding-top padding-bottom, small);
+
+    border-bottom: 2px solid transparent;
+
+    transition: color $transitionTimeSimple $transitionEasingDefault;
+
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    &:after {
+      display: block;
+      content: ' ';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba($colorText, 0.2);
+      height: 2px;
+
+      transform: translateY(50%) scaleY(1);
+
+      transition: transform $transitionTimeAreaSmall $transitionEasingDefault;
+    }
+
+    &:hover {
+      color: rgba($colorText, 1);
+
+      &:after {
+        transform: translateY(50%) scaleY(2);
+        background: $colorText;
+      }
+
+      .atm-linklist__arrow use {
+        fill: $colorText;
+      }
+    }
+  }
+
+  &__arrow use {
+    fill: $colorBlack60;
+    transition: fill $transitionTimeSimple $transitionEasingDefault;
+  }
+
+  /**
+   * Color variations
+   */
+
+  &--cv-blue {
+    .atm-linklist__link {
+      color: $colorBlue;
+    }
+  }
+
+  &--cv-darkblue {
+    .atm-linklist__link {
+      color: $colorDarkBlue;
+    }
+  }
+
+  &--cv-turqoise {
+    .atm-linklist__link {
+      color: $colorTurqoise;
+    }
+  }
+
+  &--cv-green {
+    .atm-linklist__link {
+      color: $colorGreen;
+    }
+  }
+
+  &--cv-bordeaux {
+    .atm-linklist__link {
+      color: $colorBordeaux;
+    }
+  }
+
+  &--cv-magenta {
+    .atm-linklist__link {
+      color: $colorMagenta;
+    }
+  }
+
+  &--cv-violet {
+    .atm-linklist__link {
+      color: $colorViolet;
+    }
+  }
+
+  &[ class*='--cv-' ] {
+    .atm-linklist__link:hover {
+      color: $colorBlack100;
+    }
+  }
 }
