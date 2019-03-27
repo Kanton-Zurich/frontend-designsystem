@@ -6,7 +6,7 @@ pipeline {
       steps {
         sh 'node -v && npm -v'
         sh 'npm install'
-        sh 'npm run gulp -v'
+        sh 'gulp -v'
         sh 'npm run build'
       }
     }
