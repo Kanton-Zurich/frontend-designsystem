@@ -18,7 +18,7 @@ module.exports = {
       dir: './dist',
       puppeteer: {
         // Our current Teamcity agents expect Puppeteer to run in no-sandbox mode
-        args: env.ci ? ['--no-sandbox'] : [],
+        args: env.ci ? ['--no-sandbox'] : ['--no-sandbox'],
       },
     },
   }],
