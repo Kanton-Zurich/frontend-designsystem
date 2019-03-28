@@ -1,0 +1,110 @@
+@mixin blackColorHover() {
+  &:hover {
+    color: rgba($colorText, 1);
+  }
+}
+
+.atm-linklist_item {
+  text-decoration: none;
+  color: rgba($colorText, 0.6);
+  font-weight: $fontWeightBlack;
+  position: relative;
+
+  @include sizeCurve(font-size, regular, $fontSizeCurves);
+  @include sizeCurve(padding-top padding-bottom, small);
+
+  border-bottom: 2px solid transparent;
+
+  transition: color $transitionTimeSimple $transitionEasingDefault;
+
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  &:after {
+    display: block;
+    content: ' ';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($colorText, 0.2);
+    height: 2px;
+
+    transform: translateY(50%) scaleY(1);
+
+    transition: transform $transitionTimeAreaSmall $transitionEasingDefault;
+  }
+
+  &:hover {
+    color: rgba($colorText, 1);
+
+    &:after {
+      transform: translateY(50%) scaleY(2);
+      background: $colorText;
+    }
+
+    .atm-linklist_item__arrow use {
+      fill: $colorText;
+    }
+  }
+
+  &__arrow {
+    @include sizeCurve(margin-left, tiny);
+
+    use {
+      fill: $colorBlack60;
+      transition: fill $transitionTimeSimple $transitionEasingDefault;
+    }
+  }
+
+  &--cv-blue,
+  [ class*='--cv-blue' ] & {
+    color: $colorBlue;
+
+    @include blackColorHover();
+  }
+
+  &--cv-darkblue,
+  [ class*='--cv-darkblue' ] & {
+    color: $colorDarkBlue;
+
+    @include blackColorHover();
+  }
+
+  &--cv-turqoise,
+  [ class*='--cv-turqoise' ] & {
+    color: $colorTurqoise;
+
+    @include blackColorHover();
+  }
+
+  &--cv-green,
+  [ class*='--cv-green' ] & {
+    color: $colorGreen;
+
+    @include blackColorHover();
+  }
+
+  &--cv-bordeaux,
+  [ class*='--cv-bordeaux' ] & {
+    color: $colorBordeaux;
+
+    @include blackColorHover();
+  }
+
+  &--cv-magenta,
+  [ class*='--cv-magenta' ] & {
+    color: $colorMagenta;
+
+    @include blackColorHover();
+  }
+
+  &--cv-violet,
+  [ class*='--cv-violet' ] & {
+    color: $colorViolet;
+
+    @include blackColorHover();
+  }
+}

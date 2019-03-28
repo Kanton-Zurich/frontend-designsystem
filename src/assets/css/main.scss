@@ -3,6 +3,7 @@
 @import 'globals/functions';
 @import 'globals/mixins';
 @import 'globals/mediaqueries';
+@import 'globals/icons';
 
 // Reset / normalize styles
 @import '../../../node_modules/normalize.css/normalize';
@@ -26,6 +27,7 @@
 // Atoms
 @import '../../atoms/headings/headings';
 @import '../../atoms/paragraph/paragraph';
+@import '../../atoms/linklist_item/linklist_item';
 //*autoinsertatom*
 
 // Modules
@@ -36,7 +38,7 @@
 @import '../../demo/modules/slideshow/slideshow';
 @import '../../demo/modules/imageversions/imageversions';
 @import '../../demo/modules/svgsprite/svgsprite';
-@import '../../modules/typescript_test/typescript_test';
+@import '../../modules/linklist/linklist';
 //*autoinsertmodule*
 
 @media print {

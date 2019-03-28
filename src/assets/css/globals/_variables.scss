@@ -24,7 +24,7 @@ $sizeFontGiant: 72px;
 
 // Font-Size curves
 $fontSizeCurves: (
-  h1: (
+  huge: (
     tiny: $sizeFontSmallBig,
     xsmall: $sizeFontBig,
     small: $sizeFontBiggerBig,
@@ -32,34 +32,44 @@ $fontSizeCurves: (
     large: $sizeFontHuge,
     xlarge: $sizeFontGiant
   ),
-  h2: (
+  big: (
     tiny: $sizeFontLarge,
     small: $sizeFontSmallBig,
     medium: $sizeFontBig,
     large: $sizeFontBiggerBig,
     xlarge: $sizeFontSmallHuge
   ),
-  h3: (
+  large: (
+    tiny: $sizeFontBiggerRegular,
+    medium: $sizeFontLarge,
+    large: $sizeFontSmallBig,
+    xlarge: $sizeFontBig
+  ),
+  medium: (
     tiny: $sizeFontBiggerRegular,
     xsmall: $sizeFontMedium,
     large: $sizeFontLarge,
     xlarge: $sizeFontSmallBig
   ),
-  h4: (
+  regular: (
     tiny: $sizeFontRegular,
     xsmall: $sizeFontBiggerRegular,
     large: $sizeFontMedium,
   ),
   // Leads & Blockquotes
-  lead: (
+  biggerRegular: (
     tiny: $sizeFontBiggerRegular,
     small: $sizeFontMedium,
     large: $sizeFontLarge
   ),
-  default: (
-    tiny: $sizeFontRegular,
-    small: $sizeFontBiggerRegular,
-    large: $sizeFontMedium,
+  small: (
+    tiny: $sizeFontSmall,
+    medium: $sizeFontRegular,
+    large: $sizeFontBiggerRegular,
+  ),
+  tiny: (
+    tiny: $sizeFontTiny,
+    small: $sizeFontSmall
   )
 );
 
@@ -153,9 +163,32 @@ $grid-margin-gutters: (
 
 $breakpoint-classes: (tiny xsmall small medium large xlarge);
 
+/** Font-Weights */
+$fontWeightBlack: 900;
+
 /**
  * Custom colors
  */
-$colorText: #000;
-$colorBg: #fff;
-$colorActive: #a4c400;
+$colorBlack: $colorBlack100;
+$colorText: $colorBlack100;
+$colorBg: $colorBlack5;
+
+/**
+ * Transition and Easings and Timings
+ * documented here: https://we.one-inside.com/confluence/display/CZHDEV/04.11.09+Verhalten+und+Animation
+ */
+
+$transitionTimeSimple: 100ms;
+$transitionTimeFade: 200ms;
+$transitionTimeFadeIn: $transitionTimeFade;
+$transitionTimeFadeOut: $transitionTimeFade;
+$transitionTimeDefault: 250ms;
+$transitionTimeMorph: 500ms;
+
+$transitionTimeAreaSmall: 150ms;
+$transitionTimeAreaMedium: 350ms;
+$transitionTimeAreaLarge: 500ms;
+
+$transitionEasingDefault: ease;
+$transitionEasingAccelerate: cubic-bezier(0.2, 0.04, 0.87, 0.62);
+$transitionEasingDecelerate: cubic-bezier(0.01, 0.13, 0.63, 0.99);

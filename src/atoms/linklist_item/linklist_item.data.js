@@ -3,16 +3,17 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const template = dataHelper.getFileContent('typescript_test.hbs');
+const template = dataHelper.getFileContent('linklist_item.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'TypescriptTest',
-    className: 'TypescriptTest',
-    jira: 'CZHDEV-*',
-    documentation: dataHelper.getDocumentation('typescript_test.md'),
+    title: 'LinklistItem',
+    className: 'LinklistItem',
+    jira: 'CZHDEV-188',
+    documentation: dataHelper.getDocumentation('linklist_item.md'),
   },
   props: {
-
+    title: 'Test',
+    href: '/',
   },
 });
 const variants = _.mapValues({
@@ -32,7 +33,7 @@ const variants = _.mapValues({
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
         data: dataHelper.getFormattedJson(variantProps),
-        // html: dataHelper.getFormattedHtml(compiledVariant),
+        html: dataHelper.getFormattedHtml(compiledVariant()),
       },
     },
   });
