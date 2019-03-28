@@ -6,7 +6,6 @@
  */
 
 @include mq($from: 0) {
-
   title {
     font-family: mqGetBreakpointJSON('tiny', '0px');
   }
@@ -16,7 +15,6 @@
   $value: map-get($mqBreakpoints, $name);
 
   @include mq($from: $name) {
-
     title {
       font-family: mqGetBreakpointJSON($name, $value);
     }

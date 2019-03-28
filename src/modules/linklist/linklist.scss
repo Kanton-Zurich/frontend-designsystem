@@ -1,0 +1,66 @@
+.mdl-linklist {
+  @include sizeCurve(margin-bottom, regular);
+
+  &__title {
+    @include sizeCurve(margin-bottom, tiny);
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  /**
+   * Color variations
+   */
+
+  &--cv-blue,
+  [ class*='--cv-blue' ] & {
+    .mdl-linklist__title {
+      color: $colorBlue;
+    }
+  }
+
+  &--cv-darkblue,
+  [ class*='--cv-darkblue' ] & {
+    .mdl-linklist__title {
+      color: $colorDarkBlue;
+    }
+  }
+
+  &--cv-turqoise,
+  [ class*='--cv-turqoise' ] & {
+    .mdl-linklist__title {
+      color: $colorTurqoise;
+    }
+  }
+
+  &--cv-green,
+  [ class*='--cv-green' ] & {
+    .mdl-linklist__title {
+      color: $colorGreen;
+    }
+  }
+
+  &--cv-bordeaux,
+  [ class*='--cv-bordeaux' ] & {
+    .mdl-linklist__title {
+      color: $colorBordeaux;
+    }
+  }
+
+  &--cv-magenta,
+  [ class*='--cv-magenta' ] & {
+    .mdl-linklist__title {
+      color: $colorMagenta;
+    }
+  }
+
+  &--cv-violet,
+  [ class*='--cv-violet' ] & {
+    .mdl-linklist__title {
+      color: $colorViolet;
+    }
+  }
+}
