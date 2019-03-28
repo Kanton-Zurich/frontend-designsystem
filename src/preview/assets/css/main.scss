@@ -214,8 +214,10 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   );
 
   @include poly-fluid-sizing('padding', $map);
+}
 
-  margin: 0 auto;
+.sg_module .sg_demo {
+  max-width: none;
 }
 
 .sg_documentation {
