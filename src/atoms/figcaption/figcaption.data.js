@@ -8,11 +8,12 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Figcaption',
     className: 'Figcaption',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-191',
     documentation: dataHelper.getDocumentation('figcaption.md'),
   },
   props: {
-
+    caption: 'Bildlegende Fluss Quelle mit lange Texte in der Legende',
+    inverted: false,
   },
 });
 const variants = _.mapValues({
@@ -20,6 +21,15 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+  },
+  inverted: {
+    meta: {
+      title: 'Inverted',
+      desc: 'Inverted for image galleries and carousels',
+    },
+    props: {
+      inverted: true,
     },
   },
 }, (variant) => {

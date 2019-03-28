@@ -1,3 +1,8 @@
 .atm-figcaption {
-  display: inherit;
+  color: rgba($colorText, 0.6);
+
+  &--cv-inverted,
+  [ class*='--cv-inverted' ] {
+    color: $colorBlack20;
+  }
 }
