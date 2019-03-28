@@ -1,0 +1,36 @@
+<div class="mdl-table{{#if variant}} mdl-table--{{variant}}{{/if}}" data-init="table">
+	<h2>{{title}}</h2>
+	<table>
+		<thead>
+			<tr>
+				{{#each headers}}
+					<th scope="col">{{{this}}}</th>
+				{{/each}}
+			</tr>
+		</thead>
+		<tbody>
+			{{#each bodyrows}}
+				<tr>
+					{{#each this}}
+						{{#if @index}}
+							<td>{{{this}}}</td>
+						{{else}}
+							<th scope="row">{{{this}}}</th>
+						{{/if}}
+					{{/each}}
+				</tr>
+			{{/each}}
+		</tbody>
+		<tfoot>
+			<tr>
+				{{#each footers}}
+				    {{#if @index}}
+					    <td>{{{this}}}</td>
+					{{else}}
+						<th scope="row">{{{this}}}</th>
+					{{/if}}
+				{{/each}}
+			</tr>
+		</tfoot>
+	</table>
+</div>
