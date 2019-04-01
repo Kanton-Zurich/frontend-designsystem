@@ -10,7 +10,7 @@
   font-weight: $fontWeightBlack;
   position: relative;
 
-  @include sizeCurve(font-size, regular, $fontSizeCurves);
+  @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
   @include sizeCurve(padding-top padding-bottom, small);
 
   border-bottom: 2px solid transparent;

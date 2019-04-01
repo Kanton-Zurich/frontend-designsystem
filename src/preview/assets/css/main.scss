@@ -205,15 +205,8 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   @include clearfix;
 
   max-width: $sizeWidthContent;
-  $map: (
-    $sizeBreakpointTiny: $sizeFontTiny,
-    $sizeBreakpointXSmall: $sizeFontRegular,
-    $sizeBreakpointSmall: $sizeFontBig,
-    $sizeBreakpointLarge: $sizeFontBiggerBig,
-    $sizeBreakpointXLarge: $sizeFontHuge
-  );
 
-  @include poly-fluid-sizing('padding', $map);
+  @include polyFluidSizing('padding', map-get($fontSizeCurves, regular));
 
   margin: 0 auto;
 }
