@@ -2,30 +2,31 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const linkListItemDefaultData = require('../../atoms/linklist_item/linklist_item.data').variants.default;
 
 const template = dataHelper.getFileContent('linklist.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Link-Liste',
     className: 'Linklist',
-    jira: 'CZHDEV-115',
+    jira: 'CZHDEV-187',
     documentation: dataHelper.getDocumentation('linklist.md'),
   },
   props: {
     links: [
-      {
+      _.merge({}, linkListItemDefaultData, {
         title: 'Link 1',
         href: '/',
-      },
-      {
+      }),
+      _.merge({}, linkListItemDefaultData, {
         title: 'Link 2',
         href: 'https://www.google.ch',
         target: 'blank',
-      },
-      {
+      }),
+      _.merge({}, linkListItemDefaultData, {
         title: 'Link 3',
         href: '/index.html',
-      },
+      }),
     ],
     hasTitle: true,
     headingLevel: 2,

@@ -14,27 +14,27 @@
 
 h1 {
   &.atm-heading {
-    @include sizeCurve(font-size, huge, $fontSizeCurves);
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, huge));
   }
 }
 
-h2 {
+h2{
   &.atm-heading {
-    @include sizeCurve(font-size, big, $fontSizeCurves);
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
   }
 }
 
 h3 {
   &.atm-heading {
-    @include sizeCurve(font-size, medium, $fontSizeCurves);
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
   }
 }
 
 h4,
 h5,
-h6 {
+h6{
   &.atm-heading {
-    @include sizeCurve(font-size, regular, $fontSizeCurves);
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
   }
 }
 
