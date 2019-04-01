@@ -3,7 +3,7 @@ const parseArgs = require('minimist');
 const env = parseArgs(process.argv.slice(2));
 const data = {
   meta: {
-    project: 'Estático',
+    project: 'CZHDEV - Living Styleguide',
   },
   env,
   props: {

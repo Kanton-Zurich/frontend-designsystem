@@ -2,6 +2,7 @@
  * Layout
  */
 $sizeWidthContent: 1168px;
+$sizeWidthTextContent: 768px;
 
 // Variable needed for xy-grid
 $global-width: $sizeWidthContent;
@@ -123,6 +124,11 @@ $sizeCurves: (
     medium: $sizeSmallLarge,
     xlarge: $sizeLarge
   ),
+  regular-negative: (
+    tiny: - $sizeRegular,
+    medium: - $sizeSmallLarge,
+    xlarge: - $sizeLarge,
+  ),
   small: (
     tiny: $sizeSmallRegular,
     xlarge: $sizeRegular
@@ -131,7 +137,55 @@ $sizeCurves: (
     tiny: $sizeTiny,
     medium: $sizeSmallRegular,
     xlarge: $sizeRegular
-  )
+  ),
+  mini: (
+    tiny: $sizeTiny,
+    medium: $sizeTiny,
+    xlarge: $sizeTiny,
+  ),
+);
+
+// List Size Curves
+$listSpaceTiny: 9px;
+$listSpaceSmall: 10px;
+$listSpaceRegular: 12px;
+$listSpaceBiggerRegular: 12px;
+$listSpaceMedium: 13px;
+$listSpaceLarge: 15px;
+$listSpaceSmallBig: 17px;
+$listSpaceBig: 19px;
+$listSpaceBiggerBig: 24px;
+$listSpaceSmallHuge: 24px;
+$listSpaceHuge: 28px;
+$listSpaceGiant: 36px;
+
+// text list spacings
+$listSpacings: (
+  regular: (
+    tiny: $listSpaceTiny,
+    small: $listSpaceSmall,
+    medium: $listSpaceMedium,
+    large: $listSpaceLarge,
+  ),
+);
+
+// Quote indentation
+$qouteIndentTiny: 22px;
+$qouteIndentSmall: 46px;
+$qouteIndentMedium: 67px;
+$qouteIndentLarge: 81px;
+$qouteIndentHuge: 100px;
+
+
+// text list spacings
+$quoteSpacings: (
+  regular: (
+    tiny: $qouteIndentTiny,
+    small: $qouteIndentSmall,
+    medium: $qouteIndentMedium,
+    large: $qouteIndentLarge,
+    xlarge: $qouteIndentHuge,
+  ),
 );
 
 // Layout Wrapper Spacing
@@ -165,6 +219,10 @@ $breakpoint-classes: (tiny xsmall small medium large xlarge);
 
 /** Font-Weights */
 $fontWeightBlack: 900;
+$fontWeightQuote: 800;
+
+/** Text indents */
+$indentLarge: 64px;
 
 /**
  * Custom colors

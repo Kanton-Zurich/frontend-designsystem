@@ -1,0 +1,66 @@
+.mdl-richtext {
+  max-width: $sizeWidthTextContent;
+
+  h1 {
+    @include mq($from: xsmall, $to: small) {
+      margin-left: $indentLarge;
+    }
+  }
+
+  p {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+    @include polyFluidSizing('margin-bottom', map-get($sizeCurves, regular));
+    margin-top: 0;
+
+    &.mdl-richtext__lead {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+      @include mq($from: xsmall, $to: small) {
+        margin-left: $indentLarge;
+      }
+      font-weight: $fontWeightBlack;
+    }
+  }
+
+  .mdl-richtext__quote {
+    @include polyFluidSizing('margin-left', map-get($quoteSpacings, regular));
+    @include polyFluidSizing('margin-bottom', map-get($sizeCurves, medium));
+
+    p {
+      @include polyFluidSizing('margin-bottom', map-get($sizeCurves, mini));
+
+      font-weight: $fontWeightQuote;
+      color: $colorTurqoise;
+    }
+
+    span {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+    }
+  }
+
+  ul {
+    margin: 0;
+    list-style: none;
+
+    @include polyFluidSizing('padding-left', map-get($sizeCurves, regular));
+    @include polyFluidSizing('margin-bottom', map-get($sizeCurves, regular));
+
+    li {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include polyFluidSizing('margin-bottom', map-get($listSpacings, regular));
+
+      &:before {
+        @include polyFluidSizing('margin-left', map-get($sizeCurves, regular-negative));
+        position: absolute;
+        content: '\2013';
+      }
+    }
+  }
+
+  &--inverted {
+    p,
+    li {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+      color: $colorWhite;
+    }
+  }
+}

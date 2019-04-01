@@ -26,7 +26,6 @@
 
 // Atoms
 @import '../../atoms/headings/headings';
-@import '../../atoms/paragraph/paragraph';
 @import '../../atoms/linklist_item/linklist_item';
 //*autoinsertatom*
 
@@ -39,6 +38,7 @@
 @import '../../demo/modules/imageversions/imageversions';
 @import '../../demo/modules/svgsprite/svgsprite';
 @import '../../modules/linklist/linklist';
+@import '../../modules/richtext/richtext';
 //*autoinsertmodule*
 
 @media print {

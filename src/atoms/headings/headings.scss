@@ -1,38 +1,43 @@
 .atm-heading {
   line-height: $sizeLineHeightNarrow;
-  margin: 0 0 0.6em;
+  margin: 0;
 
   @include mq($from: medium) {
     line-height: $sizeLineHeightNarrower;
-    margin-bottom: 0.5em;
+    // margin-bottom: 0.5em;
   }
 
   &--inverted {
-    color: #fff;
+    color: $colorWhite;
   }
 }
 
 h1 {
   &.atm-heading {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, huge));
+    @include polyFluidSizing('margin-bottom', map-get($sizeCurves, medium));
   }
 }
 
-h2{
+h2 {
   &.atm-heading {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+    @include polyFluidSizing('padding-top', map-get($sizeCurves, regular));
+    @include polyFluidSizing('margin-bottom', map-get($sizeCurves, regular));
   }
 }
 
 h3 {
   &.atm-heading {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
+    @include polyFluidSizing('padding-top', map-get($sizeCurves, small));
+    @include polyFluidSizing('margin-bottom', map-get($sizeCurves, mini));
   }
 }
 
 h4,
 h5,
-h6{
+h6 {
   &.atm-heading {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
   }
