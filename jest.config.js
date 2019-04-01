@@ -1,7 +1,7 @@
 const path = require('path');
 const env = require('minimist')(process.argv.slice(2));
 
-const dir = path.dirname(require.resolve('@unic/estatico-jest'));
+const dir = path.dirname(require.resolve('./gulp/estatico-jest-2'));
 
 module.exports = {
   globalSetup: path.join(dir, './setup.js'),
