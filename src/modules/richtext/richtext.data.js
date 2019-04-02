@@ -31,9 +31,11 @@ const data = _.merge({}, defaultData, {
     listItem2: 'Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt.',
     listItem3: 'Koordinaten begegnen uns täglich.',
     benefitItem: 'Informiert werden, sobald eine Sendung unterwegs ist. Informiert werden, sobald eine Sendung unterwegs ist',
+    emphasisText: 'Das richtige Paradigma von Projektmanagementerfolg stützt sich nicht auf die Einhaltung von Rahmenbedingungen,'
+      + ' sondern orientiert sich am tieferen Sinn der Aufgabe: Das Transformieren von Ressourcen in Resultate, welche dem Unternehmen einen Nutzen stiften.',
     quoteText: '«Das richtige Paradigma von Projektmanagementerfolg stützt sich nicht auf die Einhaltung von'
-     + ' Rahmenbedingungen, sondern orientiert sich am tieferen Sinn der Aufgabe: Das Transformieren von Ressourcen in'
-     + ' Resultate, welche dem Unternehmen einen Nutzen stiften.»',
+      + ' Rahmenbedingungen, sondern orientiert sich am tieferen Sinn der Aufgabe: Das Transformieren von Ressourcen in'
+      + ' Resultate, welche dem Unternehmen einen Nutzen stiften.»',
     quoteAuthor: 'Claudia Pletscher, Leiterin Entwicklung',
   },
 });
@@ -43,16 +45,78 @@ const variants = _.mapValues({
       title: 'Primary',
       desc: '',
     },
-    props: {
-    },
+    props: {},
   },
   inverted: {
     meta: {
-      title: 'Inverted',
+      title: 'Invertiert',
       desc: '',
     },
     props: {
       inverted: true,
+    },
+  },
+  blue: {
+    meta: {
+      title: 'ZH Blau',
+      desc: '',
+    },
+    props: {
+      colorVariation: 'blue',
+    },
+  },
+  darkblue: {
+    meta: {
+      title: 'ZH Dunkelblau',
+      desc: '',
+    },
+    props: {
+      colorVariation: 'darkblue',
+    },
+  },
+  turqoise: {
+    meta: {
+      title: 'ZH Türkis',
+      desc: '',
+    },
+    props: {
+      colorVariation: 'turqoise',
+    },
+  },
+  green: {
+    meta: {
+      title: 'ZH Grün',
+      desc: '',
+    },
+    props: {
+      colorVariation: 'green',
+    },
+  },
+  bordeaux: {
+    meta: {
+      title: 'ZH Bordeaux',
+      desc: '',
+    },
+    props: {
+      colorVariation: 'bordeaux',
+    },
+  },
+  magenta: {
+    meta: {
+      title: 'ZH Magenta',
+      desc: '',
+    },
+    props: {
+      colorVariation: 'magenta',
+    },
+  },
+  violet: {
+    meta: {
+      title: 'ZH Violett',
+      desc: '',
+    },
+    props: {
+      colorVariation: 'violet',
     },
   },
 }, (variant) => {

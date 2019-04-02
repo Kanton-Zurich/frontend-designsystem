@@ -1,4 +1,4 @@
-<div class="mdl-richtext{{#if inverted}} mdl-richtext--inverted{{/if}}">
+<div class="mdl-richtext{{#if inverted}} mdl-richtext--inverted{{/if}}{{#if colorVariation}} mdl-richtext--cv-{{{colorVariation}}}{{/if}}">
   <h1 class="atm-heading{{#if inverted}} atm-heading--inverted{{/if}}">
     {{h1Text}}
   </h1>
@@ -50,4 +50,15 @@
     <li>{{benefitItem}}</li>
     <li>{{benefitItem}}</li>
   </ul>
+  <p>
+    {{pText2}}
+  </p>
+  <div class="mdl-richtext__emphasis">
+    <p>{{emphasisText}}</p>
+  </div>
+  <ol>
+    <li>{{benefitItem}}</li>
+    <li>{{benefitItem}}</li>
+    <li>{{benefitItem}}</li>
+  </ol>
 </div>

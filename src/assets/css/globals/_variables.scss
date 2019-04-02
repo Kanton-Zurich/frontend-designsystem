@@ -52,16 +52,16 @@ $fontSizeCurves: (
     large: $sizeFontLarge,
     xlarge: $sizeFontSmallBig
   ),
-  regular: (
-    tiny: $sizeFontRegular,
-    xsmall: $sizeFontBiggerRegular,
-    large: $sizeFontMedium,
-  ),
   // Leads & Blockquotes
   biggerRegular: (
     tiny: $sizeFontBiggerRegular,
     small: $sizeFontMedium,
     large: $sizeFontLarge
+  ),
+  regular: (
+    tiny: $sizeFontRegular,
+    xsmall: $sizeFontBiggerRegular,
+    large: $sizeFontMedium,
   ),
   small: (
     tiny: $sizeFontSmall,
@@ -119,8 +119,8 @@ $sizeCurves: (
     medium: $sizeBig,
     xlarge: $sizeBiggerBig
   ),
-  xregular: (
-    tiny: $sizeRegular,
+  biggerRegular: (
+    tiny: $sizeSmallLarge,
     medium: $sizeLarge,
     xlarge: $sizeBig
   ),
@@ -128,11 +128,6 @@ $sizeCurves: (
     tiny: $sizeRegular,
     medium: $sizeSmallLarge,
     xlarge: $sizeLarge
-  ),
-  regular-negative: (
-    tiny: - $sizeRegular,
-    medium: - $sizeSmallLarge,
-    xlarge: - $sizeLarge,
   ),
   small: (
     tiny: $sizeSmallRegular,
@@ -181,7 +176,6 @@ $qouteIndentMedium: 67px;
 $qouteIndentLarge: 81px;
 $qouteIndentHuge: 100px;
 
-
 // text list spacings
 $quoteSpacings: (
   regular: (
@@ -190,6 +184,15 @@ $quoteSpacings: (
     medium: $qouteIndentMedium,
     large: $qouteIndentLarge,
     xlarge: $qouteIndentHuge,
+  ),
+);
+
+// text lead spacings
+$leadSpacings: (
+  regular: (
+    tiny: 0,
+    xsmall: 64px,
+    small: 96px,
   ),
 );
 
@@ -226,8 +229,6 @@ $breakpoint-classes: (tiny xsmall small medium large xlarge);
 $fontWeightBlack: 900;
 $fontWeightQuote: 800;
 
-/** Text indents */
-$indentLarge: 64px;
 
 /**
  * Custom colors
