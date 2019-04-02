@@ -119,6 +119,11 @@ $sizeCurves: (
     medium: $sizeBig,
     xlarge: $sizeBiggerBig
   ),
+  xregular: (
+    tiny: $sizeRegular,
+    medium: $sizeLarge,
+    xlarge: $sizeBig
+  ),
   regular: (
     tiny: $sizeRegular,
     medium: $sizeSmallLarge,
@@ -142,7 +147,7 @@ $sizeCurves: (
     tiny: $sizeTiny,
     medium: $sizeTiny,
     xlarge: $sizeTiny,
-  ),
+  )
 );
 
 // List Size Curves

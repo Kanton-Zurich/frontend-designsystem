@@ -54,6 +54,30 @@
         content: '\2013';
       }
     }
+
+    &.mdl-richtext__benefits {
+      @include polyFluidSizing('padding-left', map-get($sizeCurves, xregular));
+      @include polyFluidSizing('padding-top', map-get($sizeCurves, mini));
+      @include mq($from: tiny, $to: medium) {
+        padding-top: 0;
+      }
+
+      li {
+        &:before {
+          content: '\2003\2003\2003';
+          background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorTurqoise, 0.99) + '" /></svg>');
+          background-size: cover;
+          display: block;
+          margin-left: -30px;
+          @include polyFluidSizing('width', map-get($sizeCurves, regular));
+          @include polyFluidSizing('height', map-get($sizeCurves, regular));
+
+          background-repeat: no-repeat;
+          background-position-x: center;
+          background-position-y: -2px;
+        }
+      }
+    }
   }
 
   &--inverted {

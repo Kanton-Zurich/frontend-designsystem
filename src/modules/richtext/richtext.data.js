@@ -22,12 +22,15 @@ const data = _.merge({}, defaultData, {
       + ' Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.'
       + ' Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen'
       + ' Kontrollpunktfür mobile Geräte eingerichtet – den ersten in der Schweiz.',
+    pText2: ' Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt'
+      + ' für mobile Geräte eingerichtet – den ersten in der Schweiz.',
     leadText: 'Lead: ExtraBold Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.'
       + ' Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt'
       + ' für mobile Geräte eingerichtet – den ersten in der Schweiz.',
     listItem1: 'P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.',
     listItem2: 'Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt.',
     listItem3: 'Koordinaten begegnen uns täglich.',
+    benefitItem: 'Informiert werden, sobald eine Sendung unterwegs ist. Informiert werden, sobald eine Sendung unterwegs ist',
     quoteText: '«Das richtige Paradigma von Projektmanagementerfolg stützt sich nicht auf die Einhaltung von'
      + ' Rahmenbedingungen, sondern orientiert sich am tieferen Sinn der Aufgabe: Das Transformieren von Ressourcen in'
      + ' Resultate, welche dem Unternehmen einen Nutzen stiften.»',
