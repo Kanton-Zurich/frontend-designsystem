@@ -28,7 +28,6 @@ gulp.task('html', () => {
       './src/atoms/**/!(_)*.hbs',
       // './src/demo/modules/**/!(_)*.hbs',
       './src/preview/styleguide/*.hbs',
-      '!./src/preview/styleguide/colors.hbs',
     ],
     srcBase: './src',
     dest: './dist',

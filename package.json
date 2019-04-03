@@ -12,9 +12,7 @@
     "start": "gulp --dev --watch",
     "netlify": "gulp build --skipTests"
   },
-  "author": "Unic AG",
-  "repository": "https://github.com/unic/estatico-nou/tree/master/packages/estatico-boilerplate",
-  "license": "Apache-2.0",
+  "author": "Unic AG / One Inside AG / Zeix AG",
   "devDependencies": {
     "@types/jest": "^24.0.9",
     "@types/lodash": "^4.14.121",
