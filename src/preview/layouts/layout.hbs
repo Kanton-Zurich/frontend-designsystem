@@ -20,10 +20,11 @@
   <h1 class="sg_title">
     <a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
   </h1>
-  <div class="sg_revisioninfo">
+  <div class="sg_revisioninfo sg_revisioninfo--overview">
+    <h4>Quellcodeverwaltung</h4>
     <ul>
-      <li>Revision: <a href="{{meta.gitRemoteLink}}">{{meta.gitShort}}</a></li>
-      <li>Date: {{meta.gitDate}}</li>
+      <li>Revisions Nummer: <a href="{{meta.gitRemoteLink}}">{{meta.gitShort}}</a></li>
+      <li>Datum: {{meta.gitDate}}</li>
       <li>Branch: {{meta.gitBranch}}</li>
     </ul>
   </div>

@@ -97,21 +97,30 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   .sg_h2 {
     font-size: pxToEm(25px);
   }
+
+  .sg_revisioninfo {
+    font-family: $sg_font;
+    font-size: 9px;
+    padding: 6px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px 0 rgba(200, 200, 200, 0.4);
+
+    &--overview {
+      margin-left: 20px;
+      width: 450px;
+    }
+
+    h4 {
+      margin-top: 0;
+    }
+  }
 }
 
 .sg_warning {
   border: 1px solid $sg_colorWarning;
   color: $sg_colorWarning;
   padding: 1em;
-}
-
-.sg_revisioninfo {
-  font-family: $sg_font;
-  padding: 2px;
-  background-color: #fff;
-  border-radius: 5px;
-  margin: 10px;
-  box-shadow: 0 2px 2px 0 rgba(200, 200, 200, 0.4);
 }
 
 
