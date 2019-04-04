@@ -14,9 +14,14 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('image_figure.md'),
   },
   props: {
-    srcsets: [{
-      width: '320w',
+    srcsets: [ {
+      width: 1024,
       image: '/assets/media/image/image_ktzh_example.jpg',
+      deviceWidth: 1024,
+    }, {
+      width: 768,
+      image: '/assets/media/image/image_ktzh_example_full.png',
+      deviceWidth: 0,
     }],
     alt: 'Das ist ein Beispielbild',
     caption: _.merge({}, defFigcaptionData, {
@@ -41,8 +46,9 @@ const variants = _.mapValues({
     },
     props: {
       srcsets: [{
-        width: '320w',
+        width: 320,
         image: '/assets/media/image/image_ktzh_example_small.jpg',
+        deviceWidth: 0,
       }],
       isSmall: true,
     },
@@ -54,8 +60,9 @@ const variants = _.mapValues({
     },
     props: {
       srcsets: [{
-        width: '320w',
+        width: 320,
         image: '/assets/media/image/image_ktzh_example_full.png',
+        deviceWidth: 0,
       }],
       isWide: true,
     },
