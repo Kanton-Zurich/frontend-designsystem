@@ -1,9 +1,8 @@
 /* eslint-disable global-require */
 const gulp = require('gulp');
-const eslint = require('gulp-eslint');
 const path = require('path');
 const fs = require('fs');
-const env = require('minimist')(process.argv.slice(2));
+const env = require('minimist')(process.argv.slice(2)); // eslint-disable-line
 
 
 /**
@@ -73,6 +72,9 @@ gulp.task('html', () => {
       handlebars: {
         partials: [
           './src/**/*.hbs',
+        ],
+        helpers: [
+          './gulp/handlebars-helpers.js',
         ],
       },
       // Wrap with module layout
@@ -426,12 +428,12 @@ gulp.task('js:lint', () => {
  * Instead of running this task it is possible to just execute `npm run jest`
  */
 gulp.task('js:test', (done) => { // eslint-disable-line consistent-return
-                                 // Skip task when skipping tests
+  // Skip task when skipping tests
   if (env.skipTests) {
     return done();
   }
 
-  const {spawn} = require('child_process');
+  const { spawn } = require('child_process');
   const stripAnsi = require('strip-ansi');
 
   let failed = false;

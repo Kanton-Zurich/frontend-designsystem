@@ -1,3 +1,77 @@
 .mdl-table {
-  display: block;
+  @include sizeCurve(margin-bottom, regular);
+
+  &__title {
+    @include sizeCurve(margin-bottom, tiny);
+  }
+
+  &__table {
+    border-spacing: 0;
+  }
+
+  &__row--odd &__cell {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  &__cell,
+  &--align-right &__cell:first-child {
+    text-align: left;
+  }
+
+  &--align-right &__cell {
+    text-align: right;
+  }
+
+  /**
+   * Color variations
+   */
+
+  &--cv-blue,
+  [ class*='--cv-blue' ] & {
+    .mdl-table__cell strong {
+      color: $colorBlue;
+    }
+  }
+
+  &--cv-darkblue,
+  [ class*='--cv-darkblue' ] & {
+    .mdl-table__cell strong {
+      color: $colorDarkBlue;
+    }
+  }
+
+  &--cv-turqoise,
+  [ class*='--cv-turqoise' ] & {
+    .mdl-table__cell strong {
+      color: $colorTurqoise;
+    }
+  }
+
+  &--cv-green,
+  [ class*='--cv-green' ] & {
+    .mdl-table__cell strong {
+      color: $colorGreen;
+    }
+  }
+
+  &--cv-bordeaux,
+  [ class*='--cv-bordeaux' ] & {
+    .mdl-table__cell strong {
+      color: $colorBordeaux;
+    }
+  }
+
+  &--cv-magenta,
+  [ class*='--cv-magenta' ] & {
+    .mdl-table__cell strong {
+      color: $colorMagenta;
+    }
+  }
+
+  &--cv-violet,
+  [ class*='--cv-violet' ] & {
+    .mdl-table__cell strong {
+      color: $colorViolet;
+    }
+  }
 }

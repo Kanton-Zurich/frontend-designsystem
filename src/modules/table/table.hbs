@@ -1,36 +1,40 @@
-<div class="mdl-table{{#if variant}} mdl-table--{{variant}}{{/if}}" data-init="table">
-	<h2>{{title}}</h2>
-	<table>
+<div class="mdl-table{{#if alignRight}} mdl-table--align-right{{/if}}{{#if colorVariation}} mdl-table--cv-{{{colorVariation}}}{{/if}}" data-init="table">
+	{{#if hasTitle}}
+		<h{{{headingLevel}}} class="mdl-table__title">{{title}}</h{{{headingLevel}}}>
+	{{/if}}
+	<table class="mdl-table__table">
 		<thead>
-			<tr>
+			<tr class="mdl-table__row">
 				{{#each headers}}
-					<th scope="col">{{{this}}}</th>
+					<th scope="col" class="mdl-table__cell">{{{this}}}</th>
 				{{/each}}
 			</tr>
 		</thead>
 		<tbody>
 			{{#each bodyrows}}
-				<tr>
+				<tr class="mdl-table__row mdl-table__row--{{#if_even @index}}even{{else}}odd{{/if_even}}">
 					{{#each this}}
-						{{#if @index}}
-							<td>{{{this}}}</td>
+						{{#if @first}}
+							<th scope="row" class="mdl-table__cell">{{{this}}}</th>
 						{{else}}
-							<th scope="row">{{{this}}}</th>
+							<td class="mdl-table__cell">{{{this}}}</td>
 						{{/if}}
 					{{/each}}
 				</tr>
 			{{/each}}
 		</tbody>
-		<tfoot>
-			<tr>
-				{{#each footers}}
-				    {{#if @index}}
-					    <td>{{{this}}}</td>
-					{{else}}
-						<th scope="row">{{{this}}}</th>
-					{{/if}}
-				{{/each}}
-			</tr>
-		</tfoot>
+		{{#if footers}}
+			<tfoot>
+				<tr class="mdl-table__row">
+					{{#each footers}}
+						{{#if @first}}
+							<th scope="row" class="mdl-table__cell"><strong>{{{this}}}</strong></th>
+						{{else}}
+							<td class="mdl-table__cell"><strong>{{{this}}}</strong></td>
+						{{/if}}
+					{{/each}}
+				</tr>
+			</tfoot>
+		{{/if}}
 	</table>
 </div>
