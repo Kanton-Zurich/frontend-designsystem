@@ -147,7 +147,7 @@
 
   /* Color variation blue */
   &--cv-blue,
-  [ class*='--cv-blue' ] &  {
+  [ class*='--cv-blue' ] & {
     ul {
       &.mdl-richtext__benefits {
         li:before {
