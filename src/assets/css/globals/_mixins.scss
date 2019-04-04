@@ -208,7 +208,7 @@
  */
 @function getValueForBreakpoint($targetMap, $breakpoint) {
   @if map-has-key($targetMap, $breakpoint) {
-    @return pxToRem(map-get($targetMap, $breakpoint));
+    @return map-get($targetMap, $breakpoint);
   } @else {
     $breakpointIndex: index(map-keys($mqBreakpoints), $breakpoint);
 
@@ -219,7 +219,7 @@
         $searchableBreakpoint: nth(map-keys($mqBreakpoints), $breakpointIndex);
 
         @if map-has-key($targetMap, $searchableBreakpoint) {
-          @return pxToRem(map-get($targetMap, $searchableBreakpoint));
+          @return map-get($targetMap, $searchableBreakpoint);
         }
 
         $breakpointIndex: $breakpointIndex - 1;
@@ -238,13 +238,21 @@
  * @param $listOrString - Either a list or a astring
  * @param $value - String, can be whatever value you like
  */
-@mixin generateCSSFromListOrString($listOrString, $value) {
+@mixin generateCSSFromListOrString($listOrString, $value, $isNegative: false) {
   @if (type-of($listOrString) == list) {
     @for $i from 1 through length($listOrString) {
-      #{nth($listOrString, $i)}: $value;
+      @if $isNegative {
+        #{nth($listOrString, $i)}: -1 * $value;
+      } @else {
+        #{nth($listOrString, $i)}: $value;
+      }
     }
   } @else if (type-of($listOrString) == string) {
-    #{$listOrString}: $value;
+    @if $isNegative {
+      #{$listOrString, $i}: -1 * $value;
+    } @else {
+      #{$listOrString}: $value;
+    }
   } @else {
     @error 'The targeted variable is neither a list nor a string. BAD';
   }
@@ -255,22 +263,45 @@
  *
  * @param $attributes - A list or a string of attributes (if string, there is only one)
  * @param $curve - The key value of the curve, e.g. regular
- * @param $curveMap - The Map with all the wanted size curves inside - default: $sizeCurves
+ * @param $map- The Map with all the wanted size curves inside - default: $sizeCurves
  */
-@mixin sizeCurve($attributes, $curve, $curveMap: $sizeCurves) {
-  @if (map-has-key($curveMap, $curve)) {
-    $selectedCurve: map-get($curveMap, $curve);
+@mixin sizeCurve($attributes, $curve, $map: $sizeCurves, $isNegative: false) {
+  @if (map-has-key($map, $curve)) {
+    $selectedCurve: map-get($map, $curve);
 
     @each $breakpoint, $size in $selectedCurve {
       @if $breakpoint == tiny {
-        @include generateCSSFromListOrString($attributes, pxToRem(map-get($selectedCurve, tiny)));
+        @include generateCSSFromListOrString($attributes, pxToRem(map-get($selectedCurve, tiny)), $isNegative);
       } @else {
         @include mq($from: $breakpoint) {
-          @include generateCSSFromListOrString($attributes, pxToRem(map-get($selectedCurve, $breakpoint)));
+          @include generateCSSFromListOrString($attributes, pxToRem(map-get($selectedCurve, $breakpoint)), $isNegative);
         }
       }
     }
   } @else {
-    @error 'The curve `#{$curve}` doesn\'t exist in the provided $curveMap';
+    @error 'The curve `#{$curve}` doesn\'t exist in the provided $map';
+  }
+}
+
+/**
+ * Grid bleeding for content elements
+ */
+@mixin gridBleed() {
+  width: 100vw;
+  max-width: 1440px;
+  transform: translateX(-50%);
+  margin-left: 50%;
+
+  @include mq($from: small, $to: medium) {
+    $translateLeft: -50% - (2/12/2) * 100;
+    $additionalRem: pxToRem(map-get($grid-margin-gutters, tiny)) * 1.5/6;
+
+    transform: translateX(calc(#{$translateLeft} + #{$additionalRem}));
+  }
+  @include mq($from: medium, $to: large) {
+    $translateLeft: -50% - (1/12/2) * 100;
+    $additionalRem: pxToRem(map-get($grid-margin-gutters, medium))/12 - 0.01;
+
+    transform: translateX(calc(#{$translateLeft} + #{$additionalRem}));
   }
 }

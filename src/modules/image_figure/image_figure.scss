@@ -1,0 +1,85 @@
+$smallImageWidths: (
+  tiny: (
+    left: 16.67%,
+    right: 16.67%,
+  ),
+  small: (
+    left: 10%,
+    right: 30%
+  ),
+  medium: (
+    left: 22.222%,
+    right: 22.222%
+  ),
+  large: (
+    left: 25%,
+    right: 25%,
+  )
+);
+
+.mdl-image-figure {
+  margin: 0;
+
+  @include sizeCurve(margin-bottom, medium);
+
+  &__img {
+    max-width: 100%;
+  }
+
+  &__meta {
+    display: flex;
+  }
+
+  &__caption {
+    display: flex;
+    align-items: flex-start;
+
+    .atm-figcaption {
+      flex-grow: 1;
+    }
+  }
+
+  &__download {
+    @include sizeCurve(padding-left padding-right, tiny);
+    @include sizeCurve(margin-left margin-right, tiny, $isNegative: true);
+
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    &:hover .mdl-image-figure__download-icon use {
+      fill: $colorBlack100;
+    }
+  }
+
+  &__download-icon {
+    width: 1rem;
+    height: 1rem;
+
+    use {
+      fill: $colorBlack60;
+      transition: fill $transitionTimeSimple $transitionEasingDefault;
+    }
+  }
+
+  /**
+   * Size variations for images
+   */
+  &--imagesmall {
+    @each $bp, $bpWidth in $breakpoints {
+      @include mq($bp) {
+        $paddings: getValueForBreakpoint($smallImageWidths, $bp);
+
+        padding-left: calc(#{map-get($paddings, left)} + #{getValueForBreakpoint($grid-margin-gutters, $bp) / 4});
+        padding-right: calc(#{map-get($paddings, right)} + #{getValueForBreakpoint($grid-margin-gutters, $bp) / 4});
+      }
+    }
+  }
+
+  &--fullwidth {
+    @include sizeCurve(margin-top, large);
+
+    .mdl-image-figure__img {
+      @include gridBleed;
+    }
+  }
+}
