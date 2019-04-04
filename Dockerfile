@@ -1,21 +1,42 @@
-FROM ubuntu:18.04
+FROM node:10-slim
 
-RUN apt-get update --fix-missing && apt-get install -y build-essential
+# See https://crbug.com/795759
+RUN apt-get update && apt-get install -yq libgconf-2-4
 
-# Some utilities for npm
-RUN apt-get install -y \
-    python \
-    git
+# Install latest chrome dev package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
+# Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer
+# installs, work.
+RUN apt-get update && apt-get install -y wget --no-install-recommends \
+    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+    && apt-get update \
+    && apt-get install -y git graphicsmagick lsof procps nano google-chrome-unstable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst ttf-freefont \
+      --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get purge --auto-remove -y curl \
+    && rm -rf /src/*.deb
 
-# GraphicsMagick is used for image resizing
-RUN apt-get install -y graphicsmagick
+# It's a good idea to use dumb-init to help prevent zombie chrome processes.
+ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 /usr/local/bin/dumb-init
+RUN chmod +x /usr/local/bin/dumb-init
 
-# nvm is used to run specific Node versions, see https://github.com/creationix/nvm
-# Node has to be installed manually via "nvm install" after starting the container
-RUN apt-get install -y curl
-RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+# Uncomment to skip the chromium download when installing puppeteer. If you do,
+# you'll need to launch puppeteer with:
+#     browser.launch({executablePath: 'google-chrome-unstable'})
+# ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
-# Prepare directory to mount app
+# Install puppeteer so it's available in the container.
+RUN npm i puppeteer
+
+# Add user so we don't need --no-sandbox.
+RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
+    && mkdir -p /home/pptruser/Downloads \
+    && chown -R pptruser:pptruser /home/pptruser \
+    && chown -R pptruser:pptruser /node_modules
+
+# Run everything after as non-privileged user.
+USER pptruser
+
 WORKDIR /app
 
 # Expose dev server and livereload

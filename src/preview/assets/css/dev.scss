@@ -101,3 +101,10 @@
 .sg_atom-demo {
   flex-basis: 80%;
 }
+
+/** Special styles for preview module */
+.sg_module {
+  .sg_demo {
+    padding: 0;
+  }
+}

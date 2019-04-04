@@ -8,7 +8,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Überschriften',
     className: 'Überschriften',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-189',
     documentation: dataHelper.getDocumentation('headings.md'),
     hideFromListing: false,
   },
@@ -28,52 +28,29 @@ const variants = _.mapValues({
       link: 'und einem Link',
     },
   },
-  h1: {
+  primary: {
     meta: {
-      title: 'H1',
-      desc: 'Beliebige HTML-Elemente mit Klassen a-heading und a-heading--level1',
+      title: 'Primary',
+      desc: 'Beliebige HTML-Elemente mit Klassen atm-heading',
     },
     props: {
       title: 'Überschrift Stufe',
-      small: 'gestylt als H1',
+      small: '',
       link: 'und einem Link',
-      variant: 'level1',
+      variant: 'primary',
     },
   },
-  h2: {
+  inverted: {
     meta: {
-      title: 'H2',
-      desc: 'Beliebige HTML-Elemente mit Klassen a-heading und a-heading--level2',
+      title: 'Inverted',
+      desc: 'Beliebige HTML-Elemente mit Klassen atm-heading und atm-heading--inverted',
     },
     props: {
       title: 'Überschrift Stufe',
-      small: 'gestylt als H2',
+      small: '',
       link: 'und einem Link',
-      variant: 'level2',
-    },
-  },
-  h3: {
-    meta: {
-      title: 'H3',
-      desc: 'Beliebige HTML-Elemente mit Klassen a-heading und a-heading--level3',
-    },
-    props: {
-      title: 'Überschrift Stufe',
-      small: 'gestylt als H3',
-      link: 'und einem Link',
-      variant: 'level3',
-    },
-  },
-  h4: {
-    meta: {
-      title: 'H4',
-      desc: 'Beliebige HTML-Elemente mit Klassen a-heading und a-heading--level4',
-    },
-    props: {
-      title: 'Überschrift Stufe',
-      small: 'gestylt als H4',
-      link: 'und einem Link',
-      variant: 'level4',
+      variant: 'inverted',
+      modifier: 'inverted',
     },
   },
 }, (variant) => {

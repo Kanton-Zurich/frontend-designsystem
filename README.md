@@ -1,15 +1,10 @@
-# @unic/estatico-boilerplate
+# CZHDEV 
 
-Demo repo based on old Estático. Tasks were completely replaced with new ones and the source files were adapted where necessary.
+Kanton Zürich Estatico Nuo Living Styleguide
 
 ## Installation
 
 ```bash
-# Use git to get boilerplate subpackage from monorepo
-# We are only interested in the current directory, so we can get rid of everthing else via `git filter-branch`
-git clone https://github.com/unic/estatico-nou.git
-cd estatico-nou
-git filter-branch --subdirectory-filter packages/estatico-boilerplate
 
 # Optionally use Docker container, see below
 
@@ -31,16 +26,12 @@ See `gulpfile.js` for details.
 
 ```bash
 # Create image (only initially and after changes to the Dockerfile)
-docker build -t estatico .
+docker build -t czhdev .
 
 # Start container and mount project directory
-docker container run -it -p 9000:9000 -p 35729:35729 -v $(pwd):/app estatico /bin/bash
+docker container run -it -p 9000:9000 -p 35729:35729 -v $(pwd):/app czhdev /bin/bash
 
 # Continue above (nvm is preinstalled in the box)
 # After installing the correct node version via nvm, it might be helpful to commit this new state so it is persisted for the next run:
-# docker commit CONTAINER_ID estatico
+# docker commit CONTAINER_ID czhdev
 ```
-
-## License
-
-Apache 2.0.

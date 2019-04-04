@@ -1,0 +1,17 @@
+<figure class="mdl-image-figure{{#if isSmall}} mdl-image-figure--imagesmall{{/if}}{{#if isWide}} mdl-image-figure--fullwidth{{/if}}">
+  <img
+    class="mdl-image-figure__img"
+    src="{{srcsets.[0].image}}"
+    srcset="{{#each srcsets}}{{image}} {{width}}{{#if @last}}{{else}}, {{/if}}{{/each}}"
+    alt="{{alt}}"
+  />
+  <figcaption class="mdl-image-figure__caption">
+    {{> "atoms/figcaption/figcaption" caption}}
+    {{#if hasDownload}}<a href="{{srcsets.[0].image}}" download class="mdl-image-figure__download">
+      <svg class="icon mdl-image-figure__download-icon">
+        <use xlink:href="#download"></use>
+      </svg>
+      <span class="visuallyhidden">Das Originalbild herunterladen</span>
+    </a>{{/if}}
+  </figcaption>
+</figure>
