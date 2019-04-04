@@ -1,16 +1,26 @@
 {{#extend "preview/layouts/layout"}}
 	{{#content "content"}}
-		<ul class="sg_inner_wrapper sg_color_list">
 			{{#each colors}}
 				{{#unless hideFromStyleguide}}
-					<li class="sg_color_item" title="{{color}}">
-						<div class="sg_color_preview" style="background-color: {{color}}"></div>
-						<div class="sg_color_name">{{name}}</div>
-						<div class="sg_color_variable_name">$color{{capitalize name}}</div>
-						<div class="sg_color_value">{{color}}</div>
-					</li>
+          <div class="sg_palette sg_palette--rect">
+            <div class="sg_palette-color">
+              <div class="sg_palette-color__rect" style="background-color: {{color}}">
+                <div>
+                  <div style-valid="{{whiteSmall}}">Aa</div>
+                  <div style-valid="{{blackSmall}}">Aa</div>
+                </div>
+                <div>
+                  <div style-valid="{{whiteLarge}}">Aa</div>
+                  <div style-valid="{{blackLarge}}">Aa</div>
+                </div>
+              </div>
+            </div>
+            <div class="sg_palette-color__content">
+              <h1>{{name}}</h1>
+              <span>{{color}}</span>
+            </div>
+          </div>
 				{{/unless}}
 			{{/each}}
-		</ul>
 	{{/content}}
 {{/extend}}

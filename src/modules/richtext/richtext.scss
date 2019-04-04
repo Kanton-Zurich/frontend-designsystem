@@ -1,0 +1,308 @@
+.mdl-richtext {
+  max-width: $sizeWidthTextContent;
+
+  h1 {
+    @include mq($from: xsmall, $to: small) {
+      @include polyFluidSizing('margin-left', map-get($leadSpacings, regular));
+    }
+  }
+
+  p {
+    margin-top: 0;
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+    @include sizeCurve('margin-bottom', regular);
+
+    &.mdl-richtext__lead {
+      font-weight: $fontWeightBlack;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+      @include mq($from: xsmall, $to: small) {
+        @include polyFluidSizing('margin-left', map-get($leadSpacings, regular));
+      }
+    }
+  }
+
+  &__quote,
+  &__emphasis {
+    @include polyFluidSizing('margin-left', map-get($quoteSpacings, regular));
+    @include sizeCurve('margin-bottom', medium);
+
+    p {
+      font-weight: $fontWeightQuote;
+      color: $colorBlack;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+      @include sizeCurve('margin-bottom', mini);
+    }
+
+    span {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+    }
+  }
+
+  ul {
+    margin: 0;
+    list-style: none;
+
+    @include sizeCurve('padding-left', regular);
+    @include sizeCurve('margin-bottom', regular);
+
+    li {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include polyFluidSizing('margin-bottom', map-get($listSpacings, regular));
+
+      &:before {
+        position: absolute;
+        content: '\2013';
+
+        @include sizeCurve('margin-left' '', regular, $isNegative: true);
+      }
+    }
+
+    &.mdl-richtext__benefits {
+      padding-left: $sizeBiggerBig;
+      margin-bottom: 0;
+
+      @include sizeCurve('padding-bottom', small);
+      @include mq($from: tiny, $to: medium) {
+        padding-left: $sizeLarge;
+      }
+
+      li {
+        @include sizeCurve('padding-top', mini);
+
+        &:before {
+          content: '\2003';
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorBlack, 0.99) + '" /></svg>');
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position-x: center;
+          display: block;
+          margin-left: - $sizeBig;
+          margin-top: 0;
+
+          @include sizeCurve('width', regular);
+          @include sizeCurve('height', regular);
+          @include mq($from: tiny, $to: medium) {
+            margin-left: - $sizeSmallLarge;
+            margin-top: 2px;
+          }
+        }
+      }
+    }
+  }
+
+  ol {
+    margin: 0;
+    padding-left: $sizeBig;
+    list-style: none;
+    counter-reset: ol-counter;
+
+    @include sizeCurve('padding-bottom', small);
+    @include sizeCurve('padding-left', medium);
+    @include mq($from: tiny, $to: medium) {
+      padding-top: 0;
+    }
+
+    li {
+      counter-increment: ol-counter;
+
+      @include sizeCurve('padding-top', mini);
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include polyFluidSizing('margin-bottom', map-get($listSpacings, regular));
+
+      &:before {
+        position: absolute;
+        content: '0' counter(ol-counter);
+        font-weight: $fontWeightBlack;
+        color: $colorBlack;
+
+        @include sizeCurve('margin-left' '', medium, $isNegative: true);
+      }
+    }
+  }
+
+  /* Inverted */
+  &--inverted {
+    p,
+    li {
+      color: $colorWhite;
+    }
+
+    ul {
+      &.mdl-richtext__benefits li:before {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorWhite, 0.99) + '" /></svg>');
+      }
+    }
+
+    ol li:before {
+      color: $colorWhite;
+    }
+
+    .mdl-richtext__quote span {
+      color: $colorWhite;
+    }
+  }
+
+  /* Color variation blue */
+  &--cv-blue,
+  [ class*='--cv-blue' ] & {
+    ul {
+      &.mdl-richtext__benefits {
+        li:before {
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorBlue, 0.99) + '" /></svg>');
+        }
+      }
+    }
+
+    ol li:before {
+      color: $colorBlue;
+    }
+
+    .mdl-richtext__quote,
+    .mdl-richtext__emphasis {
+      p {
+        color: $colorBlue;
+      }
+    }
+  }
+
+  /* Color variation darkblue */
+  &--cv-darkblue,
+  [ class*='--cv-darkblue' ] & {
+    ul {
+      &.mdl-richtext__benefits {
+        li:before {
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorDarkBlue, 0.99) + '" /></svg>');
+        }
+      }
+    }
+
+    ol li:before {
+      color: $colorDarkBlue;
+    }
+
+    .mdl-richtext__quote,
+    .mdl-richtext__emphasis {
+      p {
+        color: $colorDarkBlue;
+      }
+    }
+  }
+
+  /* Color variation turqoise */
+  &--cv-turqoise,
+  [ class*='--cv-turqoise' ] & {
+    ul {
+      &.mdl-richtext__benefits {
+        li:before {
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorTurqoise, 0.99) + '" /></svg>');
+        }
+      }
+    }
+
+    ol li:before {
+      color: $colorTurqoise;
+    }
+
+    .mdl-richtext__quote,
+    .mdl-richtext__emphasis {
+      p {
+        color: $colorTurqoise;
+      }
+    }
+  }
+
+  /* Color variation green */
+  &--cv-green,
+  [ class*='--cv-green' ] & {
+    ul {
+      &.mdl-richtext__benefits {
+        li:before {
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorGreen, 0.99) + '" /></svg>');
+        }
+      }
+    }
+
+    ol li:before {
+      color: $colorGreen;
+    }
+
+    .mdl-richtext__quote,
+    .mdl-richtext__emphasis {
+      p {
+        color: $colorGreen;
+      }
+    }
+  }
+
+  /* Color variation bordeaux */
+  &--cv-bordeaux,
+  [ class*='--cv-bordeaux' ] & {
+    ul {
+      &.mdl-richtext__benefits {
+        li:before {
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorBordeaux, 0.99) + '" /></svg>');
+        }
+      }
+    }
+
+    ol li:before {
+      color: $colorBordeaux;
+    }
+
+    .mdl-richtext__quote,
+    .mdl-richtext__emphasis {
+      p {
+        color: $colorBordeaux;
+      }
+    }
+  }
+
+  /* Color variation magenta */
+  &--cv-magenta,
+  [ class*='--cv-magenta' ] & {
+    ul {
+      &.mdl-richtext__benefits {
+        li:before {
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorMagenta, 0.99) + '" /></svg>');
+        }
+      }
+    }
+
+    ol li:before {
+      color: $colorMagenta;
+    }
+
+    .mdl-richtext__quote,
+    .mdl-richtext__emphasis {
+      p {
+        color: $colorMagenta;
+      }
+    }
+  }
+
+  /* Color variation violet */
+  &--cv-violet,
+  [ class*='--cv-violet' ] & {
+    ul {
+      &.mdl-richtext__benefits {
+        li:before {
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorViolet, 0.99) + '" /></svg>');
+        }
+      }
+    }
+
+    ol li:before {
+      color: $colorViolet;
+    }
+
+    .mdl-richtext__quote,
+    .mdl-richtext__emphasis {
+      p {
+        color: $colorViolet;
+      }
+    }
+  }
+}
