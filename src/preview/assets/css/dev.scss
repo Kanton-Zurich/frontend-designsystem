@@ -100,7 +100,18 @@
 
 .sg_atom-demo {
   flex-basis: 80%;
+  padding-left: 10px;
+
+  &--inverted {
+    background: #0076bd;
+  }
 }
+
+.sg_atom-demo,
+.sg_atom-label {
+  padding-top: 10px;
+}
+
 
 /** Special styles for preview module */
 .sg_module {
