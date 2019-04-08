@@ -18,4 +18,3 @@ pipeline {
     }
   }
 }
-https://bitbucket.org/inside-repo/frontend-living-styleguide
