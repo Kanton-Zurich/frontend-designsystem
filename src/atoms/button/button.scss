@@ -91,6 +91,15 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
         fill: $colorBlack100;
       }
     }
+
+    &:active {
+      background: $colorBlack100;
+      color: $colorWhite;
+
+      .atm-button__icon use {
+        fill: $colorWhite;
+      }
+    }
   }
 
   /**
@@ -120,6 +129,15 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
 
       &:hover {
         background: rgba($colorBlack100, 0.4);
+      }
+
+      &:active {
+        background: rgba($colorWhite, 1);
+        color: $colorBlack100;
+
+        .atm-button__icon use {
+          fill: $colorBlack100;
+        }
       }
     }
   }
