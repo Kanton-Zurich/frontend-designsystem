@@ -1,0 +1,126 @@
+$normalButtonSize: $sizeBiggerBig + $sizeTiny;
+
+.atm-button {
+  background: $colorBlack;
+  border: none;
+
+  border-radius: 1px;
+  height: pxToRem($normalButtonSize);
+  font-size: 1rem;
+  color: $colorWhite;
+  font-weight: $fontWeightBlack;
+  min-width: pxToRem($normalButtonSize);
+  padding-top: 2px;
+
+  display: flex;
+  align-items: center;
+
+  @include sizeCurve(padding-left padding-right, regular);
+
+  transition: background $transitionTimeSimple $transitionEasingDefault;
+  cursor: pointer;
+
+  &__icon {
+    use {
+      fill: $colorWhite;
+    }
+  }
+
+  &__text:not(.visuallyhidden) + .atm-button__icon {
+    margin-left: pxToRem(12px);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background: $colorBlack80;
+  }
+
+  &--icon-only {
+    padding: 0;
+    justify-content: space-around;
+  }
+
+  /**
+   * Size variations
+   */
+  &--small {
+    height: pxToRem($sizeBig);
+    min-width: pxToRem($sizeBig);
+
+    font-size: pxToRem($sizeFontSmall);
+
+    .atm-button__icon {
+      transform: scale(0.667);
+    }
+  }
+
+  &--big {
+    height: pxToRem($sizeHuge);
+
+    .atm-button__icon {
+      order: 1;
+      margin-right: pxToRem(12px);
+      // Important necessary to override that the margin left is only aplied when text is not visuallyhidden
+      margin-left: 0 !important; //stylelint-disable-line
+    }
+
+    .atm-button__text {
+      order: 2;
+    }
+  }
+
+  /**
+   * Type variations
+   */
+  &--secondary {
+    background: $colorBlack10;
+    color: $colorBlack60;
+
+    .atm-button__icon use {
+      fill: $colorBlack60;
+    }
+
+    &:hover {
+      background: $colorBlack15;
+      color: $colorBlack100;
+
+      .atm-button__icon use {
+        fill: $colorBlack100;
+      }
+    }
+  }
+
+  /**
+   * Inverted
+   */
+  &--cv-inverted,
+  [ class*='--cv-inverted' ] & {
+    background: rgba($colorWhite, 1);
+    color: $colorBlack100;
+
+    .atm-button__icon use {
+      fill: $colorBlack100;
+    }
+
+    &:hover {
+      background: rgba($colorWhite, 0.7);
+    }
+
+    //Secondary Button Inverted styles
+    &.atm-button--secondary {
+      background: rgba($colorBlack100, 0.2);
+      color: $colorWhite;
+
+      .atm-button__icon use {
+        fill: $colorWhite;
+      }
+
+      &:hover {
+        background: rgba($colorBlack100, 0.4);
+      }
+    }
+  }
+}
