@@ -1,3 +1,55 @@
 .mdl-carousel {
+  @include gridBleed;
+  @include sizeCurve(margin-bottom, medium);
 
+  overflow-x: hidden;
+
+  &__title,
+  &__slides,
+  &__control-wrapper {
+    @extend .lyt-wrapper;
+  }
+
+  &__slides {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__slide {
+    @each $bp, $gutter in $grid-margin-gutters {
+      @if $bp == tiny {
+        min-width: calc(100% + #{pxToRem($gutter)});
+      } @else {
+        @include mq($from: $bp) {
+          min-width: calc(100% + #{pxToRem($gutter)});
+        }
+      }
+    }
+  }
+
+  &__control {
+    justify-content: center;
+    height: pxToRem($normalButtonSize);
+
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  &__indicator {
+    @extend .atm-figcaption;
+  }
+
+  /**
+   * Cascading styles
+   */
+  .mdl-image-figure {
+    @include sizeCurve(margin-bottom, small);
+  }
+
+  .mdl-button_group {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 }

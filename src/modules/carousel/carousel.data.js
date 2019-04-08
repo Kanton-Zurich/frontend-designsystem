@@ -3,16 +3,44 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
+const imageDefaultData = require('../../modules/image_figure/image_figure.data').variants.default;
+const buttonGroupDefaultData = require('../../modules/button_group/button_group.data').variants.default.props;
+const buttonDefaultData = require('../../atoms/button/button.data').variants.default.props;
+
 const template = dataHelper.getFileContent('carousel.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Carousel',
+    title: 'Slider / Carousel (Bildergalerie)',
     className: 'Carousel',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-207',
     documentation: dataHelper.getDocumentation('carousel.md'),
   },
   props: {
-
+    title: {
+      level: 2,
+      text: 'Kontrollpunkt für mobile Geräte eingerichtet - den ersten in der Schweiz',
+    },
+    slides: [
+      _.merge({}, imageDefaultData),
+      _.merge({}, imageDefaultData),
+      _.merge({}, imageDefaultData),
+    ],
+    controlButtons: _.assign({}, buttonGroupDefaultData, {
+      buttons: [
+        _.merge({}, buttonDefaultData, {
+          isSecondary: true,
+          isTextVisible: false,
+          icon: 'angle_left',
+          additionalAttribute: 'data-carousel-prev',
+        }),
+        _.merge({}, buttonDefaultData, {
+          isSecondary: true,
+          isTextVisible: false,
+          icon: 'angle_right',
+          additionalAttribute: 'data-carousel-next',
+        }),
+      ],
+    }),
   },
 });
 const variants = _.mapValues({

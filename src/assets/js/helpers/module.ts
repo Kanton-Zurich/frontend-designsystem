@@ -2,6 +2,8 @@ import { Delegate } from 'dom-delegate';
 import extend from 'lodash/extend';
 import uniqueId from 'lodash/uniqueId';
 import namespace from './namespace';
+import wrist from 'wrist';
+import { watch } from 'fs';
 
 class Module {
   public name: string;
@@ -49,6 +51,56 @@ class Module {
 
   static get initEvents() {
     return ['DOMContentLoaded', 'ajaxLoaded'];
+  }
+
+  /**
+   * Watches a property on an object, default object is this.data
+   *
+   * @private
+   * @param {string} propertyName
+   * @param {Function} callback
+   * @param {Object} watchable
+   * @memberof Module
+   */
+  private watch(propertyName: string, callback: Function, watchable: Object) {
+    const watchableObj = this.getWatchable(watchable);
+
+    if (Object.prototype.hasOwnProperty.call(watchableObj, propertyName)) {
+      wrist.watch(watchableObj, propertyName, callback);
+    } else {
+      console.error(`The given property to watch doesn't exist: ${propertyName}`);
+    }
+  }
+
+  /**
+   * Unwatches a property on an object, default object is this.data
+   *
+   * @private
+   * @param {string} propertyName
+   * @param {Function} callback
+   * @param {Object} watchable
+   * @memberof Module
+   */
+  private unwatch(propertyName: string, callback: Function, watchable: Object) {
+    const watchableObj = this.getWatchable(watchable);
+
+    if (Object.prototype.hasOwnProperty.call(watchableObj, propertyName)) {
+      wrist.unwatch(watchableObj, propertyName, callback);
+    } else {
+      console.error(`The given property to unwatch doesn't exist: ${propertyName}`);
+    }
+  }
+
+  /**
+   * Returns the correct watchable
+   *
+   * @private
+   * @param {Object} watchable
+   * @returns Object
+   * @memberof Module
+   */
+  private getWatchable(watchable: Object) {
+    return typeof watchable === typeof undefined ? this.data : watchable;
   }
 
   /**

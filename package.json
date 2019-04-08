@@ -75,7 +75,8 @@
     "normalize.css": "^8.0.0",
     "raf-throttle": "^2.0.3",
     "skip-link-focus": "^1.0.0",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.0.0",
+    "wrist": "0.0.3"
   },
   "engines": {
     "node": ">=8"
