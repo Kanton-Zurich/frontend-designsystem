@@ -1,0 +1,43 @@
+.mdl-texthighlight {
+  padding: 24px;
+
+  $tl-color-variations: (
+    cv-blue: $colorBlue,
+    cv-darkblue: $colorDarkBlue,
+    cv-turqoise: $colorTurqoise,
+    cv-green: $colorGreen,
+    cv-bordeaux: $colorBordeaux,
+    cv-magenta: $colorMagenta,
+    cv-violet: $colorViolet,
+  );
+
+  @each $key, $val in $tl-color-variations {
+    &--#{$key},
+    [ class*='#{$key}' ] & {
+      background-color: #{rgba($val, 0.07)};
+
+      .mdl-richtext {
+        color: #{$val};
+
+        ul {
+          &.mdl-richtext__benefits {
+            li:before {
+              background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($val, 0.99) + '" /></svg>');
+            }
+          }
+        }
+
+        ol li:before {
+          color: #{$val};
+        }
+
+        &__quote,
+        &__emphasis {
+          p {
+            color: #{$val};
+          }
+        }
+      }
+    }
+  }
+}
