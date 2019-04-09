@@ -24,6 +24,7 @@ const data = _.merge({}, defaultData, {
   styleguide: dataHelper.getDataGlob('./src/preview/styleguide/*.data.js', transform),
 });
 
+
 data.pages = _.sortBy(data.pages, item => item.meta.title)
   .concat(_.sortBy(data.demoPages, item => item.meta.title));
 

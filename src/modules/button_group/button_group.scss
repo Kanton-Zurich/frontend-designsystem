@@ -1,0 +1,11 @@
+.mdl-button_group {
+  display: flex;
+
+  .atm-button {
+    margin-right: 2px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}

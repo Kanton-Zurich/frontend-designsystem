@@ -11,7 +11,7 @@
 // Lesson learned, OrT: browsers decided to reduce font size from 16px to 13px when the font applied is the fallbacked monospace.
 // Solution: declare monospace and then give it another fallback.
 // http://meyerweb.com/eric/thoughts/2010/02/12/fixed-monospace-sizing/
-$sg_font: monospace, serif;
+$sg_font: Helvetica, serif;
 
 $sg_breakpoint: 941px;
 $sg_marginsBoxed: 20px;
@@ -63,15 +63,15 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   .sg_documentation,
   .sg_code,
   .sg_variant_meta,
-  .sg_tests {
+  .sg_tests,
+  .sg_revisioninfo {
     @include sgBoxed;
   }
 
   .sg_title {
     @include sgBoxedMargins;
 
-    margin-bottom: pxToEm(70px, 35px);
-    font-family: Helvetica, serif;
+    font-family: $sg_font;
     font-size: pxToEm(35px);
 
     a {
@@ -96,6 +96,24 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
   .sg_h2 {
     font-size: pxToEm(25px);
+  }
+
+  .sg_revisioninfo {
+    font-family: $sg_font;
+    font-size: 9px;
+    padding: 6px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px 0 rgba(200, 200, 200, 0.4);
+
+    &--overview {
+      margin-left: 20px;
+      width: 450px;
+    }
+
+    h4 {
+      margin-top: 0;
+    }
   }
 }
 
