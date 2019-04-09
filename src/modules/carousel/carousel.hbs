@@ -6,13 +6,13 @@
   </div>
   <div class="mdl-carousel__slides" data-carousel="slide-wrapper">
     {{#each slides}}
-      <div class="mdl-carousel__slide" data-carousel="slide">
+      <button class="mdl-carousel__slide" data-carousel="slide">
         <div class="grid-margin-x grid-x">
           <div class="cell small-offset-2 medium-offset-2 large-offset-2 small-10 medium-9 large-8">
             {{> "modules/image_figure/image_figure" this}}
           </div>
         </div>
-      </div>
+      </button>
     {{/each}}
   </div>
   <div class="mdl-carousel__control-wrapper">

@@ -19,9 +19,19 @@
 
   &__slide {
     min-width: 100%;
+    display: block;
+    background: none;
+    border: none;
 
     transition: margin-left $transitionTimeAreaLarge $transitionEasingDefault;
     transform: translate3d(0, 0, 0);
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   &__control {
@@ -46,7 +56,16 @@
 
   .mdl-button_group {
     position: absolute;
-    top: 0;
-    right: 0;
+
+    @include mq($from: large) {
+      top: 0;
+      right: 0;
+    }
+    @include mq($to: large) {
+      left: 0;
+      justify-content: flex-end;
+
+      @include gridBleed;
+    }
   }
 }

@@ -82,7 +82,8 @@ class Carousel extends Module {
           default:
             break;
         }
-      });
+      })
+      .on('click',);
   }
 
   /**
