@@ -10,6 +10,7 @@ const data = {
     gitBranch: git.branch(),
     gitShort: git.short(),
     gitDate: git.date(),
+    buildDate: Date(Date.now()).toString(),
   },
   env,
   props: {
