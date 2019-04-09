@@ -224,6 +224,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   @include clearfix;
 
   max-width: $sizeWidthContent;
+  background: $colorWhite;
 
   @include polyFluidSizing('padding', map-get($fontSizeCurves, regular));
 }
