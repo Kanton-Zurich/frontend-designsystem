@@ -3,7 +3,7 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const imageDefaultData = require('../../modules/image_figure/image_figure.data').variants.default;
+const imageDataFile = require('../../modules/image_figure/image_figure.data');
 const buttonGroupDefaultData = require('../../modules/button_group/button_group.data').variants.default.props;
 const buttonDefaultData = require('../../atoms/button/button.data').variants.default.props;
 
@@ -12,7 +12,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Slider / Carousel (Bildergalerie)',
     className: 'Carousel',
-    jira: 'CZHDEV-207',
+    jira: 'CZHDEV-113',
     documentation: dataHelper.getDocumentation('carousel.md'),
   },
   props: {
@@ -21,9 +21,11 @@ const data = _.merge({}, defaultData, {
       text: 'Kontrollpunkt für mobile Geräte eingerichtet - den ersten in der Schweiz',
     },
     slides: [
-      _.merge({}, imageDefaultData),
-      _.merge({}, imageDefaultData),
-      _.merge({}, imageDefaultData),
+      _.merge({}, imageDataFile.variants.default.props),
+      _.merge({}, imageDataFile.variants.small.props),
+      _.merge({}, imageDataFile.variants.full.props, {
+        isWide: false,
+      }),
     ],
     controlButtons: _.assign({}, buttonGroupDefaultData, {
       buttons: [
@@ -31,13 +33,13 @@ const data = _.merge({}, defaultData, {
           isSecondary: true,
           isTextVisible: false,
           icon: 'angle_left',
-          additionalAttribute: 'data-carousel-prev',
+          additionalAttribute: 'data-carousel="prev"',
         }),
         _.merge({}, buttonDefaultData, {
           isSecondary: true,
           isTextVisible: false,
           icon: 'angle_right',
-          additionalAttribute: 'data-carousel-next',
+          additionalAttribute: 'data-carousel="next"',
         }),
       ],
     }),

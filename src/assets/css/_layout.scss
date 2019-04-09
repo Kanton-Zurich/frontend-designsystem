@@ -29,6 +29,9 @@ nav {
 
   position: relative;
 
+  @extend .grid-container;
+  @extend .full;
+
   @each $bp, $bpWidth in $mqBreakpoints {
     @if map-has-key($map: $wrapperSpacing, $key: $bp) {
       @include mq($bp) {

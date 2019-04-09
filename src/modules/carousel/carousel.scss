@@ -12,19 +12,16 @@
 
   &__slides {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-x: hidden;
   }
 
   &__slide {
-    @each $bp, $gutter in $grid-margin-gutters {
-      @if $bp == tiny {
-        min-width: calc(100% + #{pxToRem($gutter)});
-      } @else {
-        @include mq($from: $bp) {
-          min-width: calc(100% + #{pxToRem($gutter)});
-        }
-      }
-    }
+    min-width: 100%;
+
+    transition: margin-left $transitionTimeAreaLarge $transitionEasingDefault;
+    transform: translate3d(0, 0, 0);
   }
 
   &__control {

@@ -23,9 +23,9 @@ class App {
     this.modules = {};
     // this.modules.slideshow = SlideShow;
     // this.modules.skiplinks = SkipLinks;
-		this.modules.carousel = Carousel;
-		this.modules.carousel = Carousel;
-		/* autoinsertmodule */ // eslint-disable-line
+
+    this.modules.carousel = Carousel;
+    /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
     window[namespace].helpers.initModule = this.initModule;

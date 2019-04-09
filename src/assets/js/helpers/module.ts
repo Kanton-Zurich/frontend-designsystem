@@ -3,7 +3,6 @@ import extend from 'lodash/extend';
 import uniqueId from 'lodash/uniqueId';
 import namespace from './namespace';
 import wrist from 'wrist';
-import { watch } from 'fs';
 
 class Module {
   public name: string;
@@ -11,11 +10,15 @@ class Module {
     element: any;
   };
   public data: Object;
-  public options: Object;
+  public options: {
+    domSelectors: Object;
+    stateClasses: Object;
+  };
   public uuid: string;
   public log: Function;
   public eventDelegate: Delegate;
   private _log: Function;
+  public watchers: Object;
 
   /**
    * Helper Class
@@ -27,6 +30,7 @@ class Module {
    */
   constructor(element, _defaultData, _defaultOptions, data, options) {
     this.name = this.constructor.name.toLowerCase();
+    this.watchers = {};
 
     this.ui = {
       element,
@@ -61,46 +65,36 @@ class Module {
    * @param {Function} callback
    * @param {Object} watchable
    * @memberof Module
+   * @retusn {Object} watcher
    */
-  private watch(propertyName: string, callback: Function, watchable: Object) {
-    const watchableObj = this.getWatchable(watchable);
+  protected watch(watchable: Object, propertyName: string, callback: Function) {
+    if (Object.prototype.hasOwnProperty.call(watchable, propertyName)) {
+      const watcher = wrist.watch(watchable, propertyName, callback);
 
-    if (Object.prototype.hasOwnProperty.call(watchableObj, propertyName)) {
-      wrist.watch(watchableObj, propertyName, callback);
-    } else {
-      console.error(`The given property to watch doesn't exist: ${propertyName}`);
+      this.watchers[propertyName] = watcher;
+      return watcher;
     }
+
+    console.error(`The given property to watch doesn't exist: ${propertyName}`);
+
+    return null;
   }
 
   /**
-   * Unwatches a property on an object, default object is this.data
+   *Initializes the ui automatically according to domSelectors list
    *
-   * @private
-   * @param {string} propertyName
-   * @param {Function} callback
-   * @param {Object} watchable
+   * @protected
    * @memberof Module
    */
-  private unwatch(propertyName: string, callback: Function, watchable: Object) {
-    const watchableObj = this.getWatchable(watchable);
+  protected initUi() {
+    const domSelectorKeys = Object.keys(this.options.domSelectors);
 
-    if (Object.prototype.hasOwnProperty.call(watchableObj, propertyName)) {
-      wrist.unwatch(watchableObj, propertyName, callback);
-    } else {
-      console.error(`The given property to unwatch doesn't exist: ${propertyName}`);
-    }
-  }
+    domSelectorKeys.forEach((selectorKey) => {
+      const queryElements = this.ui.element
+        .querySelectorAll(this.options.domSelectors[selectorKey]);
 
-  /**
-   * Returns the correct watchable
-   *
-   * @private
-   * @param {Object} watchable
-   * @returns Object
-   * @memberof Module
-   */
-  private getWatchable(watchable: Object) {
-    return typeof watchable === typeof undefined ? this.data : watchable;
+      this.ui[selectorKey] = queryElements.length > 1 ? queryElements : queryElements[0];
+    });
   }
 
   /**
@@ -117,6 +111,13 @@ class Module {
   destroy() {
     // Remove event listeners connected to this instance
     this.eventDelegate.off();
+
+    // Unwatch all watchers
+    const watcherKeys = Object.keys(this.watchers);
+
+    watcherKeys.forEach((key) => {
+      this.watchers[key].unwatch();
+    });
 
     // Delete references to instance
     delete this.ui.element.dataset[`${this.name}Instance`];

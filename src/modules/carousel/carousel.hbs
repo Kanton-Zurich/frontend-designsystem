@@ -4,11 +4,13 @@
       <h{{{title.level}}} class="cell small-offset-2 medium-offset-2 large-offset-2 small-10 medium-9 large-8">{{ title.text }}</h{{{title.level}}}>
     </div>
   </div>
-  <div class="mdl-carousel__slides">
+  <div class="mdl-carousel__slides" data-carousel="slide-wrapper">
     {{#each slides}}
-      <div class="mdl-carousel__slide grid-x grid-margin-x">
-        <div class="cell small-offset-2 medium-offset-2 large-offset-2 small-10 medium-9 large-8">
-          {{> "modules/image_figure/image_figure" this.props}}
+      <div class="mdl-carousel__slide" data-carousel="slide">
+        <div class="grid-margin-x grid-x">
+          <div class="cell small-offset-2 medium-offset-2 large-offset-2 small-10 medium-9 large-8">
+            {{> "modules/image_figure/image_figure" this}}
+          </div>
         </div>
       </div>
     {{/each}}
@@ -16,7 +18,7 @@
   <div class="mdl-carousel__control-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="mdl-carousel__control cell small-offset-2 medium-offset-2 large-offset-2 small-10 medium-9 large-8">
-        <span class="mdl-carousel__indicator">1 von {{ slides.length }}</span>
+        <span class="mdl-carousel__indicator"><span data-carousel="indicator">1</span> von {{ slides.length }}</span>
         {{> "modules/button_group/button_group" controlButtons}}
       </div>
     </div>

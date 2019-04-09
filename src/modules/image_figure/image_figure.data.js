@@ -77,9 +77,15 @@ const variants = _.mapValues({
     },
   },
 }, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
+  // eslint-disable-next-line consistent-return
+  const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
+    if (key === 'srcsets') {
+      return variantValue;
+    }
+  }).props;
+
   const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
+  const variantData = _.mergeWith({}, data, variant, {
     meta: {
       demo: compiledVariant,
 
@@ -89,6 +95,11 @@ const variants = _.mapValues({
         data: dataHelper.getFormattedJson(variantProps),
       },
     },
+  // eslint-disable-next-line consistent-return
+  }, (dataValue, variantValue, key) => {
+    if (key === 'srcsets') {
+      return variantValue;
+    }
   });
 
   return variantData;
