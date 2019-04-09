@@ -24,12 +24,39 @@
     }
   }
 
+  &__scroll-area {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  &__wrapper {
+    width: 100%;
+    overflow: auto;
+  }
+
   &__table {
     border-spacing: 0;
     color: $colorBlack60;
     font-size: $sizeFontRegular;
     line-height: $sizeLineHeightBase;
     width: 100%;
+  }
+
+  &__table--cloned {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+
+    & .mdl-table__cell {
+      visibility: hidden;
+    }
+
+    & .mdl-table__row-header,
+    & .mdl-table__column-header:first-child {
+      visibility: visible;
+    }
   }
 
   &__cell.mdl-table__column-header {
