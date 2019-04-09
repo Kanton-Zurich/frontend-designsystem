@@ -56,6 +56,7 @@ const data = _.merge({}, defaultData, {
     hasCaption: true,
     alignRight: false,
     colorVariation: false,
+    isFirstColumnFixed: false,
   },
 });
 const variants = _.mapValues({
@@ -161,6 +162,62 @@ const variants = _.mapValues({
           data: ['65–79 Jahre', '293', '68', '225', '1691', '1398'],
         },
       ],
+    },
+  },
+  firstColumnFixed: {
+    meta: {
+      title: 'Mit fixierter erster Spalte',
+      desc: 'Erste Spalte fixiert, horizontal scrollbar',
+    },
+    props: {
+      title: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
+      headingLevel: 3,
+      hasSubtitle: false,
+      hasCaption: true,
+      isFirstColumnFixed: true,
+      hasRowHeader: true,
+      headers: [
+        {
+          title: '<span class="visuallyhidden">Region</span>',
+          isSortable: false,
+        }, {
+          title: 'Arbeitsstätten',
+          isSortable: false,
+        }, {
+          title: 'Anteil an der Gesamtwirtschaft',
+          isSortable: false,
+        }, {
+          title: 'Anteil an der Gesamtschweiz',
+          isSortable: false,
+        }, {
+          title: 'Beschäftigte Vollzeit',
+          isSortable: false,
+        }, {
+          title: 'Beschäftigte Teilzeit',
+          isSortable: false,
+        }, {
+          title: 'Gesamtumsatz* in Mio. CHF',
+          isSortable: false,
+        }, {
+          title: 'Bruttowertschöpfung** in Mio. CHF',
+          isSortable: false,
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['Zürich', '293', '4,5%', '68%', '1691', '1398', '487', '287'],
+        }, {
+          data: ['Bern', '293', '4,5%', '68%', '1691', '1398', '487', '287'],
+        }, {
+          data: ['Basel', '293', '4,5%', '68%', '1691', '1398', '487', '287'],
+        }, {
+          data: ['Gesamtschweiz', '293', '4,5%', '68%', '1691', '1398', '487', '287'],
+          isHighlighted: true,
+        },
+      ],
+      caption: {
+        caption: 'Quelle: BZ 2008, BFS; eigene Berechnungen Statistisches Amt des Kantons Zürich',
+      }
     },
   },
   blue: {

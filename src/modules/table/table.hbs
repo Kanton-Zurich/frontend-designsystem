@@ -8,6 +8,10 @@
 	{{#if hasCaption}}
 		<figure class="mdl-table__figure">
 	{{/if}}
+	{{#if isFirstColumFixed}}
+		<div class="mdl-table__scroll-area">
+			<div class="mdl-table__wrapper">
+	{{/if}}
 	<table class="mdl-table__table">
 		{{#if hasColumnHeader}}
 			<thead>
@@ -40,6 +44,10 @@
 			{{/each}}
 		</tbody>
 	</table>
+	{{#if isFirstColumFixed}}
+			</div>
+		</div>
+	{{/if}}
 	{{#if hasCaption}}
 			<figcaption class="mdl-table__figcaption">
 				{{> "atoms/figcaption/figcaption" caption}}
