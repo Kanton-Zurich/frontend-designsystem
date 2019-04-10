@@ -14,13 +14,23 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('image_figure.md'),
   },
   props: {
-    srcsets: [ {
-      width: 1024,
-      image: '/assets/media/image/image_ktzh_example.jpg',
-      deviceWidth: 1024,
+    srcsets: [{
+      width: 1152,
+      image: '/assets/media/image/content_768_x15.jpeg',
+      deviceWidth: 768,
+      retina: true,
     }, {
       width: 768,
-      image: '/assets/media/image/image_ktzh_example_full.png',
+      image: '/assets/media/image/content_768.jpeg',
+      deviceWidth: 601,
+    }, {
+      width: 666,
+      image: '/assets/media/image/content_444_x15.jpeg',
+      deviceWidth: 0,
+      retina: true,
+    }, {
+      width: 444,
+      image: '/assets/media/image/content_444.jpeg',
       deviceWidth: 0,
     }],
     alt: 'Das ist ein Beispielbild',
@@ -39,32 +49,122 @@ const variants = _.mapValues({
       desc: 'Ein Standard Inhaltsbild ist so breit wie der Content, bzw. das Parent-Element',
     },
   },
-  small: {
+  full169: {
     meta: {
-      title: 'kleines Inhaltsbild',
-      desc: 'Ein kleines Inhaltsbild, halb so breit wie der Content, bzw. das Parent-Element',
+      title: 'Inhaltsbild, volle Breite 16:9',
+      desc: 'Ein Inhaltsbild, welches über die volle Breite geht (Verhältnis 16:9)',
     },
     props: {
-      srcsets: [{
-        width: 320,
-        image: '/assets/media/image/image_ktzh_example_small.jpg',
+      srcsets: [ {
+        width: 2160,
+        image: '/assets/media/image/fullwidth_16_9_1440_x15.jpeg',
+        deviceWidth: 1025,
+        retina: true,
+      },
+      {
+        width: 1440,
+        image: '/assets/media/image/fullwidth_16_9_1440.jpeg',
+        deviceWidth: 1025,
+        retina: false,
+      },
+      {
+        width: 1536,
+        image: '/assets/media/image/fullwidth_16_9_1024_x15.jpeg',
+        deviceWidth: 601,
+        retina: true,
+      }, {
+        width: 1024,
+        image: '/assets/media/image/fullwidth_16_9_1024.jpeg',
+        deviceWidth: 601,
+        retina: false,
+      },
+      {
+        width: 900,
+        image: '/assets/media/image/fullwidth_16_9_600_x15.jpeg',
         deviceWidth: 0,
-      }],
-      isSmall: true,
-    },
-  },
-  full: {
-    meta: {
-      title: 'Inhaltsbild, volle Breite',
-      desc: 'Ein Inhaltsbild, welches über die volle Breite geht',
-    },
-    props: {
-      srcsets: [{
-        width: 320,
-        image: '/assets/media/image/image_ktzh_example_full.png',
+        retina: true,
+      }, {
+        width: 600,
+        image: '/assets/media/image/fullwidth_16_9_600.jpeg',
         deviceWidth: 0,
+        retina: false,
       }],
       isWide: true,
+    },
+  },
+  full219: {
+    meta: {
+      title: 'Inhaltsbild, volle Breite 21:9',
+      desc: 'Ein Inhaltsbild, welches über die volle Breite geht (Verhältnis 21:9)',
+    },
+    props: {
+      srcsets: [ {
+        width: 2160,
+        image: '/assets/media/image/fullwidth_21_9_1440_x15.jpeg',
+        deviceWidth: 1025,
+        retina: true,
+      },
+      {
+        width: 1440,
+        image: '/assets/media/image/fullwidth_21_9_1440.jpeg',
+        deviceWidth: 1025,
+        retina: false,
+      },
+      {
+        width: 1536,
+        image: '/assets/media/image/fullwidth_21_9_1024_x15.jpeg',
+        deviceWidth: 601,
+        retina: true,
+      }, {
+        width: 1024,
+        image: '/assets/media/image/fullwidth_21_9_1024.jpeg',
+        deviceWidth: 601,
+        retina: false,
+      },
+      {
+        width: 900,
+        image: '/assets/media/image/fullwidth_21_9_600_x15.jpeg',
+        deviceWidth: 0,
+        retina: true,
+      }, {
+        width: 600,
+        image: '/assets/media/image/fullwidth_21_9_600.jpeg',
+        deviceWidth: 0,
+        retina: false,
+      }],
+      isWide: true,
+    },
+  },
+  small: {
+    meta: {
+      title: 'Inhaltbild (klein)',
+      desc: 'Ein Inhaltsbild, welches "klein" dargestellt wird',
+    },
+    props: {
+      srcsets: [ {
+        width: 552,
+        image: '/assets/media/image/small_368_x15.jpeg',
+        deviceWidth: 601,
+        retina: true,
+      },
+      {
+        width: 368,
+        image: '/assets/media/image/small_368.jpeg',
+        deviceWidth: 601,
+        retina: false,
+      },
+      {
+        width: 390,
+        image: '/assets/media/image/small_260_x15.jpeg',
+        deviceWidth: 0,
+        retina: true,
+      }, {
+        width: 260,
+        image: '/assets/media/image/small_260.jpeg',
+        deviceWidth: 0,
+        retina: false,
+      }],
+      isSmall: true,
     },
   },
   withDownload: {

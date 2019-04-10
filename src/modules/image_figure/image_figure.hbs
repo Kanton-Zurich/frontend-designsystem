@@ -3,7 +3,9 @@
     class="mdl-image-figure__img"
     src="{{srcsets.[0].image}}"
     srcset="{{#each srcsets}}{{image}} {{width}}w{{#if @last}}{{else}}, {{/if}}{{/each}}"
-    sizes="{{#each srcsets}}{{#if @last}}{{width}}px{{else}}(min-width: {{deviceWidth}}px) {{width}}px, {{/if}}{{/each}}"
+    sizes="{{#each srcsets}}
+      (min-width: {{deviceWidth}}px){{#if retina}} and (resolution: 250dpi){{/if}} {{width}}px{{#unless @last}}, {{/unless}}
+    {{/each}}"
     alt="{{alt}}"
   />
   <figcaption class="mdl-image-figure__caption">
