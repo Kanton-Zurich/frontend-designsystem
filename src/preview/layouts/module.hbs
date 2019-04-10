@@ -16,8 +16,10 @@
 
 	{{#if env.dev}}
 		<link rel="stylesheet" href="/preview/assets/css/dev.css">
-		<script src="/preview/assets/js/dev.js"></script>
+  {{else}}
+    <link rel="stylesheet" href="/preview/assets/css/dev.min.css">
 	{{/if}}
+  <script src="/preview/assets/js/dev.js"></script>
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}>
 	<div class="sg_wrapper sg_module">
