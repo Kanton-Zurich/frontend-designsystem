@@ -17,6 +17,7 @@ class Carousel extends Module {
     slides: any;
     indicator: any;
     slideWrapper: any;
+    download: any;
   }
   public options: {
     domSelectors: {
@@ -30,6 +31,7 @@ class Carousel extends Module {
     stateClasses: {
       fullscreen: string,
       inverted: string,
+      downloadHidden: string,
     };
   }
 
@@ -46,10 +48,12 @@ class Carousel extends Module {
         slides: '[data-carousel="slide"]',
         slideWrapper: '[data-carousel="slide-wrapper"]',
         close: '[data-carousel="close"]',
+        download: '[data-carousel="download"]',
       },
       stateClasses: {
         fullscreen: 'mdl-carousel--fullscreen',
         inverted: 'mdl-carousel--cv-inverted',
+        downloadHidden: 'mdl-carousel__download--hidden',
       },
     };
 
@@ -60,6 +64,9 @@ class Carousel extends Module {
     this.initWatchers();
 
     this.data.length = this.ui.slides.length ? this.ui.slides.length : 1;
+
+    // Initializing options
+    this.checkCurrentDownload();
   }
 
   static get events() {
@@ -139,6 +146,7 @@ class Carousel extends Module {
   onActiveChange() {
     this.setTransformValue();
     this.setIndicatorText();
+    this.checkCurrentDownload();
   }
 
   /**
@@ -164,6 +172,11 @@ class Carousel extends Module {
     this.ui.indicator.textContent = active;
   }
 
+  /**
+   * Toggling the fullscreen classes
+   *
+   * @memberof Carousel
+   */
   toggleFullscreen() {
     if (this.data.isFullscreen) {
       this.ui.element.classList.add(this.options.stateClasses.fullscreen);
@@ -171,6 +184,25 @@ class Carousel extends Module {
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
       this.ui.element.classList.remove(this.options.stateClasses.inverted);
+    }
+  }
+
+  /**
+   * Check current download
+   *
+   * @memberof Carousel
+   */
+  checkCurrentDownload() {
+    const { active } = this.data;
+    const slide = this.ui.slides[active - 1];
+    const image = slide.querySelector('img');
+
+    if (image.hasAttribute('data-image-has-download')) {
+      this.ui.download.classList.remove(this.options.stateClasses.downloadHidden);
+      this.ui.download.setAttribute('href', image.getAttribute('src'));
+    } else {
+      this.ui.download.classList.add(this.options.stateClasses.downloadHidden);
+      this.ui.download.setAttribute('href', '#');
     }
   }
 

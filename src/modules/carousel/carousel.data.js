@@ -21,10 +21,15 @@ const data = _.merge({}, defaultData, {
       text: 'Kontrollpunkt für mobile Geräte eingerichtet - den ersten in der Schweiz',
     },
     slides: [
-      _.merge({}, imageDataFile.variants.default.props),
-      _.merge({}, imageDataFile.variants.small.props),
+      _.merge({}, imageDataFile.variants.default.props, {
+        hasDownload: true,
+      }),
+      _.merge({}, imageDataFile.variants.small.props, {
+        hasDownload: true,
+      }),
       _.merge({}, imageDataFile.variants.full.props, {
         isWide: false,
+        hasDownload: true,
       }),
     ],
     controlButtons: _.assign({}, buttonGroupDefaultData, {

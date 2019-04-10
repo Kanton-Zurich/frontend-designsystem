@@ -6,6 +6,7 @@
         srcset="{{#each srcsets}}{{image}} {{width}}w{{#if @last}}{{else}}, {{/if}}{{/each}}"
         sizes="{{#each srcsets}}{{#if @last}}{{width}}px{{else}}(min-width: {{deviceWidth}}px) {{width}}px, {{/if}}{{/each}}"
         alt="{{alt}}"
+        {{#if hasDownload}}data-image-has-download{{/if}}
       />
   </div>
   <figcaption class="mdl-image-figure__caption">
