@@ -176,6 +176,7 @@ const variants = _.mapValues({
       hasCaption: true,
       isFirstColumnFixed: true,
       hasRowHeader: true,
+      alignRight: true,
       headers: [
         {
           title: '<span class="visuallyhidden">Region</span>',

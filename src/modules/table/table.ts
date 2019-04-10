@@ -8,22 +8,47 @@ import Module from '../../assets/js/helpers/module';
 // import namespace from '../../assets/js/helpers/namespace';
 
 class Table extends Module {
+  public ui: {
+    element: any,
+    table: any,
+    scrollArea: any,
+  };
+  public options: {
+    domSelectors: {
+      table: string,
+      scrollArea: string,
+    },
+    stateClasses: {
+      firstColumnFixed: string,
+      sortable: string,
+      cloned: string,
+    },
+  };
+
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
     };
     const defaultOptions = {
       domSelectors: {
         // item: '[data-${{{className}}.name}="item"]'
+        table: '[data-table="table"]',
+        scrollArea: '[data-table="scroll-area"]',
       },
       stateClasses: {
         // activated: 'is-activated'
+        firstColumnFixed: 'mdl-table--first-column-fixed',
+        sortable: 'mdl-table--sortable',
+        cloned: 'mdl-table--cloned',
       },
     };
 
     super($element, defaultData, defaultOptions, data, options);
 
-    this.initUi();
-    this.initEventListeners();
+    if (this.ui.element.classList.contains(this.options.stateClasses.firstColumnFixed)) {
+      this.initUi();
+      this.initEventListeners();
+      this.cloneTable();
+    }
   }
 
   static get events() {
@@ -37,6 +62,8 @@ class Table extends Module {
    */
   initUi() {
     // DOM element pointers
+    this.ui.table = this.ui.element.querySelector(this.options.domSelectors.table);
+    this.ui.scrollArea = this.ui.element.querySelector(this.options.domSelectors.scrollArea);
   }
 
   /**
@@ -44,6 +71,15 @@ class Table extends Module {
    */
   initEventListeners() {
     // Event listeners
+  }
+
+  /**
+   * Clone table for fixed first column
+   */
+  cloneTable() {
+    const clonedTable = this.ui.table.cloneNode(true);
+    clonedTable.classList.add(this.options.stateClasses.cloned).removeAttribute('data-table').setAttribute('aria-hidden', 'true');
+    this.ui.scrollArea.appendChild(clonedTable);
   }
 
   /**

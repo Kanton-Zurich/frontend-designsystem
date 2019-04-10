@@ -1,4 +1,6 @@
-<div class="mdl-table{{#if alignRight}} mdl-table--align-right{{/if}}{{#if colorVariation}} mdl-table--cv-{{ colorVariation }}{{/if}}" data-init="table">
+<div class="mdl-table{{#if alignRight}} mdl-table--align-right{{/if}}
+	{{#if colorVariation}} mdl-table--cv-{{ colorVariation }}{{/if}}
+	{{#if isFirstColumnFixed}} mdl-table--first-column-fixed{{/if}}" data-init="table">
 	{{#if hasTitle}}
 		<h{{ headingLevel }} class="mdl-table__title">{{ title }}</h{{ headingLevel }}>
 		{{#if hasSubtitle}}
@@ -9,10 +11,10 @@
 		<figure class="mdl-table__figure">
 	{{/if}}
 	{{#if isFirstColumnFixed}}
-		<div class="mdl-table__scroll-area">
+		<div class="mdl-table__scroll-area" data-table="scroll-area">
 			<div class="mdl-table__wrapper">
 	{{/if}}
-	<table class="mdl-table__table">
+	<table class="mdl-table__table" data-table="table">
 		{{#if hasColumnHeader}}
 			<thead>
 				<tr class="mdl-table__row">
@@ -46,38 +48,6 @@
 	</table>
 	{{#if isFirstColumnFixed}}
 			</div>
-			<table class="mdl-table__table mdl-table__table--cloned" aria-hidden="true">
-				{{#if hasColumnHeader}}
-					<thead>
-						<tr class="mdl-table__row">
-							{{#each headers}}
-								<th scope="col" class="mdl-table__cell mdl-table__column-header">{{{ this.title }}}</th>
-							{{/each}}
-						</tr>
-					</thead>
-				{{/if}}
-				<tbody>
-					{{#each bodyrows}}
-						<tr class="mdl-table__row mdl-table__row--{{#if_even @index}}odd{{else}}even{{/if_even}}
-							{{#if this.isHighlighted}}mdl-table__row--highlighted{{/if}}">
-							{{#each this.data}}
-								{{#if @first}}
-									<th scope="row" class="mdl-table__cell
-										{{#if  ../../hasRowHeader}}mdl-table__row-header{{/if}}">
-										{{{ this }}}
-									</th>
-								{{else}}
-									{{#if ../this.isHighlighted}}
-										<td class="mdl-table__cell"><strong>{{{ this }}}</strong></td>
-									{{else}}
-										<td class="mdl-table__cell">{{{ this }}}</td>
-									{{/if}}
-								{{/if}}
-							{{/each}}
-						</tr>
-					{{/each}}
-				</tbody>
-			</table>
 		</div>
 	{{/if}}
 	{{#if hasCaption}}
