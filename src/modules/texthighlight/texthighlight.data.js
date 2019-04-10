@@ -4,6 +4,7 @@ const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const dataRichtext = require('../richtext/richtext.data');
 const dataLinklist = require('../linklist/linklist.data');
+const imageFigureData = require('../image_figure/image_figure.data');
 
 const template = dataHelper.getFileContent('texthighlight.hbs');
 const data = _.merge({}, defaultData, {
@@ -45,6 +46,16 @@ const variants = _.mapValues({
     props: _.merge(dataLinklist.props, {
       colorVariation: 'magenta',
       linklistVariation: true,
+    }),
+  },
+  imageFigureBlue: {
+    meta: {
+      title: 'Image Figure Blue',
+      desc: '',
+    },
+    props: _.merge(imageFigureData.props, {
+      colorVariation: 'blue',
+      imageVariation: true,
     }),
   },
 }, (variant) => {
