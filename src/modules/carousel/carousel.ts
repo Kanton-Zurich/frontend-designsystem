@@ -10,6 +10,7 @@ class Carousel extends Module {
   public data: {
     active: number,
     length: number,
+    isFullscreen: boolean,
   };
   public ui: {
     element: any;
@@ -24,13 +25,18 @@ class Carousel extends Module {
       nextButton: string,
       slides: string,
       slideWrapper: string,
+      close: string,
     },
-    stateClasses: Object;
+    stateClasses: {
+      fullscreen: string,
+      inverted: string,
+    };
   }
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
       active: 1,
+      isFullscreen: false,
     };
     const defaultOptions = {
       domSelectors: {
@@ -39,9 +45,11 @@ class Carousel extends Module {
         nextButton: '[data-carousel="next"]',
         slides: '[data-carousel="slide"]',
         slideWrapper: '[data-carousel="slide-wrapper"]',
+        close: '[data-carousel="close"]',
       },
       stateClasses: {
-        // activated: 'is-activated'
+        fullscreen: 'mdl-carousel--fullscreen',
+        inverted: 'mdl-carousel--cv-inverted',
       },
     };
 
@@ -83,7 +91,8 @@ class Carousel extends Module {
             break;
         }
       })
-      .on('click',);
+      .on('click', this.options.domSelectors.slides, () => { this.data.isFullscreen = true; })
+      .on('click', this.options.domSelectors.close, () => { this.data.isFullscreen = false; });
   }
 
   /**
@@ -93,6 +102,7 @@ class Carousel extends Module {
    */
   initWatchers() {
     this.watch(this.data, 'active', this.onActiveChange.bind(this));
+    this.watch(this.data, 'isFullscreen', this.toggleFullscreen.bind(this));
   }
 
   /**
@@ -152,6 +162,16 @@ class Carousel extends Module {
     const { active } = this.data;
 
     this.ui.indicator.textContent = active;
+  }
+
+  toggleFullscreen() {
+    if (this.data.isFullscreen) {
+      this.ui.element.classList.add(this.options.stateClasses.fullscreen);
+      this.ui.element.classList.add(this.options.stateClasses.inverted);
+    } else {
+      this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
+      this.ui.element.classList.remove(this.options.stateClasses.inverted);
+    }
   }
 
   /**

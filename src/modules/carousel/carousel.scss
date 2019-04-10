@@ -10,24 +10,56 @@
     @extend .lyt-wrapper;
   }
 
+  &__meta {
+    @include sizeCurve(padding-top padding-right, small);
+
+    padding-bottom: pxToRem(9px);
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: stretch;
+  }
+
+  &__close {
+    @include blankButton;
+
+    margin-right: -5px;
+  }
+
+  &__download {
+    .icon {
+      transform: translateY(3px);
+    }
+  }
+
+
+  &__close,
+  &__download {
+    padding: 0 pxToRem(5px);
+
+    use {
+      fill: $colorWhite;
+    }
+  }
+
   &__slides {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     overflow-x: hidden;
+
+    flex-grow: 1;
   }
 
   &__slide {
     min-width: 100%;
     display: block;
-    background: none;
-    border: none;
 
     transition: margin-left $transitionTimeAreaLarge $transitionEasingDefault;
     transform: translate3d(0, 0, 0);
-    padding: 0;
-    text-align: left;
     cursor: pointer;
+
+    @include blankButton;
 
     &:focus {
       outline: none;
@@ -66,6 +98,84 @@
       justify-content: flex-end;
 
       @include gridBleed;
+    }
+  }
+
+  /**
+   * Fullscreen styles
+   */
+  &--fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+
+    background: $colorBlack80;
+    margin: 0;
+    max-width: none;
+    transform: none;
+
+    display: flex;
+    flex-direction: column;
+
+    .mdl-carousel__title {
+      display: none;
+    }
+
+    .mdl-carousel__slides {
+      align-items: stretch;
+    }
+
+    .mdl-carousel__slides,
+    .mdl-carousel__control-wrapper {
+      max-width: none;
+      width: 100%;
+
+      .grid-margin-x {
+        margin: 0;
+        width: 100%;
+      }
+    }
+
+    .mdl-carousel__slide {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+
+      .grid-margin-x {
+        flex-grow: 1;
+      }
+
+      .cell {
+        margin: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        max-height: 100%;
+
+        @include sizeCurve(padding-left padding-right, medium);
+      }
+    }
+
+    .mdl-carousel__control {
+      margin: 0;
+      width: 100%;
+    }
+
+    .mdl-button_group {
+      margin: 0 pxToRem(2px) pxToRem(2px) 0;
+      max-width: none;
+      transform: none;
+    }
+  }
+
+  &:not(.mdl-carousel--fullscreen) {
+    .mdl-carousel__meta {
+      display: none;
     }
   }
 }
