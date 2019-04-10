@@ -49,6 +49,6 @@ module.exports = [
       path: path.resolve('./dist/preview/assets/js'),
       filename: `[name].js`,
     },
-    mode: env.dev ? 'development' : 'production',
+    mode: 'development',
   },
 ];
