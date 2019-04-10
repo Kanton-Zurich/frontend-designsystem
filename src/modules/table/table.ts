@@ -38,7 +38,7 @@ class Table extends Module {
         // activated: 'is-activated'
         firstColumnFixed: 'mdl-table--first-column-fixed',
         sortable: 'mdl-table--sortable',
-        cloned: 'mdl-table--cloned',
+        cloned: 'mdl-table__table--cloned',
       },
     };
 
@@ -78,8 +78,10 @@ class Table extends Module {
    */
   cloneTable() {
     const clonedTable = this.ui.table.cloneNode(true);
-    clonedTable.classList.add(this.options.stateClasses.cloned).removeAttribute('data-table').setAttribute('aria-hidden', 'true');
-    this.ui.scrollArea.appendChild(clonedTable);
+    clonedTable.classList.add(this.options.stateClasses.cloned);
+    clonedTable.removeAttribute('data-table');
+    clonedTable.setAttribute('aria-hidden', 'true');
+    this.ui.scrollArea.append(clonedTable);
   }
 
   /**

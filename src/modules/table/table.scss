@@ -51,6 +51,11 @@
 
     & .mdl-table__cell {
       visibility: hidden;
+      background: $colorWhite;
+    }
+
+    & .mdl-table__row--odd .mdl-table__cell {
+      background: $colorBlack5;
     }
 
     & .mdl-table__row-header,
@@ -78,7 +83,7 @@
   }
 
   &__row--odd &__cell {
-    background: rgba(0, 0, 0, 0.05);
+    background: $colorBlack5; // background: rgba(0, 0, 0, 0.05);
   }
 
   &__cell,
@@ -88,6 +93,25 @@
 
   &--align-right &__cell {
     text-align: right;
+  }
+
+  /**
+   * Inverted
+   */
+  &--inverted {
+    .mdl-table__row--odd .mdl-table__cell {
+      background: $colorWhite;
+    }
+
+    .mdl-table__table--cloned {
+      & .mdl-table__cell {
+        background: $colorBlack5;
+      }
+
+      & .mdl-table__row--odd .mdl-table__cell {
+        background: $colorWhite;
+      }
+    }
   }
 
   /**

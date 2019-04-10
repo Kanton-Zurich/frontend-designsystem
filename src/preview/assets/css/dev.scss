@@ -117,5 +117,9 @@
 .sg_module {
   .sg_demo {
     padding: 0;
+
+    &--inverted {
+      background: #f7f7f7;
+    }
   }
 }

@@ -75,6 +75,15 @@ const variants = _.mapValues({
       alignRight: true,
     },
   },
+  isInverted: {
+    meta: {
+      title: 'Invertiert',
+      desc: 'Invertierte Variante',
+    },
+    props: {
+      isInverted: true,
+    },
+  },
   noTitle: {
     meta: {
       title: 'Ohne Titel',

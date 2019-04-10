@@ -1,5 +1,6 @@
 <div class="mdl-table{{#if alignRight}} mdl-table--align-right{{/if}}
 	{{#if colorVariation}} mdl-table--cv-{{ colorVariation }}{{/if}}
+	{{#if isInverted}} mdl-table--inverted{{/if}}
 	{{#if isFirstColumnFixed}} mdl-table--first-column-fixed{{/if}}" data-init="table">
 	{{#if hasTitle}}
 		<h{{ headingLevel }} class="mdl-table__title">{{ title }}</h{{ headingLevel }}>
