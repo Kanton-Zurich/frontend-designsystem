@@ -1,14 +1,5 @@
 .mdl-carousel {
-  @include gridBleed;
   @include sizeCurve(margin-bottom, medium);
-
-  overflow-x: hidden;
-
-  &__title,
-  &__slides,
-  &__control-wrapper {
-    @extend .lyt-wrapper;
-  }
 
   &__meta {
     @include sizeCurve(padding-top padding-right, small);
@@ -46,9 +37,9 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    overflow-x: hidden;
 
     flex-grow: 1;
+    overflow-x: hidden;
   }
 
   &__slide {
@@ -126,17 +117,12 @@
 
     .mdl-carousel__slides {
       align-items: stretch;
+      overflow: visible;
     }
 
     .mdl-carousel__slides,
     .mdl-carousel__control-wrapper {
       max-width: none;
-      width: 100%;
-
-      .grid-margin-x {
-        margin: 0;
-        width: 100%;
-      }
     }
 
     .mdl-carousel__slide {
@@ -144,21 +130,9 @@
       flex-direction: column;
       align-items: stretch;
 
-      .grid-margin-x {
-        flex-grow: 1;
-      }
+      max-height: 100%;
 
-      .cell {
-        margin: 0;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-
-        max-height: 100%;
-
-        @include sizeCurve(padding-left padding-right, medium);
-      }
+      @include sizeCurve(padding-left padding-right, medium);
     }
 
     .mdl-carousel__control {

@@ -1,16 +1,8 @@
 <div class="mdl-carousel" data-init="carousel">
   <div class="mdl-carousel__title">
-    <div class="grid-margin-x grid-x">
-      <h{{{title.level}}} class="cell small-offset-2 medium-offset-2 large-offset-2 small-10 medium-9 large-8">{{ title.text }}</h{{{title.level}}}>
-    </div>
+    <h{{{title.level}}}>{{ title.text }}</h{{{title.level}}}>
   </div>
   <div class="mdl-carousel__meta">
-    <a class="mdl-carousel__download" data-carousel="download" href="#" download>
-      <span class="visuallyhidden">Bild herunterladen</span>
-      <svg class="icon">
-        <use xlink:href="#download"></use>
-      </svg>
-    </a>
     <button class="mdl-carousel__close" data-carousel="close">
       <span class="visuallyhidden">Schliessen</span>
       <svg class="icon">
@@ -21,17 +13,12 @@
   <div class="mdl-carousel__slides" data-carousel="slide-wrapper">
     {{#each slides}}
       <button class="mdl-carousel__slide" data-carousel="slide">
-        <div class="grid-margin-x grid-x">
-          <div class="cell small-offset-2 medium-offset-2 large-offset-2 small-10 medium-9 large-8">
-            {{> "modules/image_figure/image_figure" this}}
-          </div>
-        </div>
+        {{> "modules/image_figure/image_figure" this}}
       </button>
     {{/each}}
   </div>
   <div class="mdl-carousel__control-wrapper">
-    <div class="grid-x grid-margin-x">
-      <div class="mdl-carousel__control cell small-offset-2 medium-offset-2 large-offset-2 small-10 medium-9 large-8">
+      <div class="mdl-carousel__control">
         <span class="mdl-carousel__indicator"><span data-carousel="indicator">1</span> von {{ slides.length }}</span>
         {{> "modules/button_group/button_group" controlButtons}}
       </div>

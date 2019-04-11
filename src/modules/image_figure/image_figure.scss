@@ -24,6 +24,7 @@ $smallImageWidths: (
 
   &__img-wrapper {
     margin-bottom: pxToRem($sizeTiny);
+    line-height: 0;
   }
 
   &__img {
@@ -89,7 +90,6 @@ $smallImageWidths: (
 
   /** When embedded in fullscreen view */
   [ class*='--fullscreen' ] & {
-    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -98,18 +98,34 @@ $smallImageWidths: (
       flex-grow: 1;
 
       display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .mdl-image-figure__img {
-      max-width: 100%;
-      max-height: 100%;
-      width: 100%;
+      object-fit: contain;
     }
 
     .mdl-image-figure__download {
-      display: none;
+      position: fixed;
+
+      top: pxToRem(-35px);
+      right: pxToRem($sizeBig);
+
+      @include sizeCurve(margin-right, small);
+
+      padding: 0;
+
+      .icon {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      use {
+        fill: $colorWhite;
+      }
+    }
+
+    &.mdl-image-figure--imagesmall {
+      padding: 0 16.67%;
     }
   }
 }
