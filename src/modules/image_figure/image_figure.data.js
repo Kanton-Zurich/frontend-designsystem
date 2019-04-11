@@ -15,23 +15,11 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     srcsets: [{
-      width: 1152,
       image: '/assets/media/image/content_768_x15.jpeg',
       deviceWidth: 768,
-      retina: true,
     }, {
-      width: 768,
-      image: '/assets/media/image/content_768.jpeg',
-      deviceWidth: 601,
-    }, {
-      width: 666,
       image: '/assets/media/image/content_444_x15.jpeg',
-      deviceWidth: 0,
-      retina: true,
-    }, {
-      width: 444,
-      image: '/assets/media/image/content_444.jpeg',
-      deviceWidth: 0,
+      deviceWidth: 1,
     }],
     alt: 'Das ist ein Beispielbild',
     caption: _.merge({}, defFigcaptionData, {
@@ -56,38 +44,16 @@ const variants = _.mapValues({
     },
     props: {
       srcsets: [ {
-        width: 2160,
         image: '/assets/media/image/fullwidth_16_9_1440_x15.jpeg',
         deviceWidth: 1025,
-        retina: true,
       },
       {
-        width: 1440,
-        image: '/assets/media/image/fullwidth_16_9_1440.jpeg',
-        deviceWidth: 1025,
-        retina: false,
-      },
-      {
-        width: 1536,
         image: '/assets/media/image/fullwidth_16_9_1024_x15.jpeg',
         deviceWidth: 601,
-        retina: true,
-      }, {
-        width: 1024,
-        image: '/assets/media/image/fullwidth_16_9_1024.jpeg',
-        deviceWidth: 601,
-        retina: false,
       },
       {
-        width: 900,
         image: '/assets/media/image/fullwidth_16_9_600_x15.jpeg',
-        deviceWidth: 0,
-        retina: true,
-      }, {
-        width: 600,
-        image: '/assets/media/image/fullwidth_16_9_600.jpeg',
-        deviceWidth: 0,
-        retina: false,
+        deviceWidth: 1,
       }],
       isWide: true,
     },
@@ -99,38 +65,16 @@ const variants = _.mapValues({
     },
     props: {
       srcsets: [ {
-        width: 2160,
         image: '/assets/media/image/fullwidth_21_9_1440_x15.jpeg',
         deviceWidth: 1025,
-        retina: true,
       },
       {
-        width: 1440,
-        image: '/assets/media/image/fullwidth_21_9_1440.jpeg',
-        deviceWidth: 1025,
-        retina: false,
-      },
-      {
-        width: 1536,
         image: '/assets/media/image/fullwidth_21_9_1024_x15.jpeg',
         deviceWidth: 601,
-        retina: true,
-      }, {
-        width: 1024,
-        image: '/assets/media/image/fullwidth_21_9_1024.jpeg',
-        deviceWidth: 601,
-        retina: false,
       },
       {
-        width: 900,
         image: '/assets/media/image/fullwidth_21_9_600_x15.jpeg',
-        deviceWidth: 0,
-        retina: true,
-      }, {
-        width: 600,
-        image: '/assets/media/image/fullwidth_21_9_600.jpeg',
-        deviceWidth: 0,
-        retina: false,
+        deviceWidth: 1,
       }],
       isWide: true,
     },
@@ -142,27 +86,12 @@ const variants = _.mapValues({
     },
     props: {
       srcsets: [ {
-        width: 552,
         image: '/assets/media/image/small_368_x15.jpeg',
         deviceWidth: 601,
-        retina: true,
       },
       {
-        width: 368,
-        image: '/assets/media/image/small_368.jpeg',
-        deviceWidth: 601,
-        retina: false,
-      },
-      {
-        width: 390,
         image: '/assets/media/image/small_260_x15.jpeg',
-        deviceWidth: 0,
-        retina: true,
-      }, {
-        width: 260,
-        image: '/assets/media/image/small_260.jpeg',
-        deviceWidth: 0,
-        retina: false,
+        deviceWidth: 1,
       }],
       isSmall: true,
     },
