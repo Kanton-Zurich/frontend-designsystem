@@ -9,6 +9,7 @@ import loadPolyfills from './polyfills';
 /** Demo modules * */
 // import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
 // import SlideShow from '../../../demo/modules/slideshow/slideshow';
+import ImageGallery from '../../../modules/image_gallery/image_gallery';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -22,6 +23,7 @@ class App {
     this.modules = {};
     // this.modules.slideshow = SlideShow;
     // this.modules.skiplinks = SkipLinks;
+		this.modules.imageGallery = ImageGallery;
 		/* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

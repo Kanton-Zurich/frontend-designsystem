@@ -1,0 +1,6 @@
+.mdl-image_gallery {
+  @include gridBleed;
+
+  background: $colorBlack80;
+  min-height: 200px;
+}
