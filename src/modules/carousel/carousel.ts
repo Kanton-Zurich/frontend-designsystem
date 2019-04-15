@@ -198,11 +198,13 @@ class Carousel extends Module {
       objectFitImages();
 
       disableBodyScroll(this.ui.element);
+      document.documentElement.classList.add('locked');
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
       this.ui.element.classList.remove(this.options.stateClasses.inverted);
 
       enableBodyScroll(this.ui.element);
+      document.documentElement.classList.remove('locked');
     }
   }
 
