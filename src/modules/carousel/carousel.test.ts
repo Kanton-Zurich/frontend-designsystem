@@ -46,7 +46,7 @@ describe('Carousel', () => {
   it('working fullscreen mode', async () => {
     const hasFullscreenClass = await page.evaluate(() => {
       const carousel = document.querySelector('[data-init="carousel"]');
-      const firstSlide = document.querySelectorAll('[data-carousel="slide"]')[0];
+      const firstSlide = document.querySelectorAll('[data-carousel="open"]')[0];
 
       (<any>firstSlide).click();
 

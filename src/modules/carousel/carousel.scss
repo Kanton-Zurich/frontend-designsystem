@@ -50,8 +50,6 @@
     transform: translate3d(0, 0, 0);
     cursor: pointer;
 
-    @include blankButton;
-
     &:focus {
       outline: none;
     }
@@ -87,6 +85,7 @@
     @include mq($to: large) {
       left: 0;
       justify-content: flex-end;
+      padding-right: 2px;
 
       @include gridBleed;
     }
@@ -108,6 +107,8 @@
     max-width: none;
     transform: none;
 
+    padding-bottom: 2px;
+
     display: flex;
     flex-direction: column;
 
@@ -126,12 +127,6 @@
     }
 
     .mdl-carousel__slide {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-
-      max-height: 100%;
-
       @include sizeCurve(padding-left padding-right, medium);
     }
 

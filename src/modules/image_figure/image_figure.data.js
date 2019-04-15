@@ -30,6 +30,7 @@ const data = _.merge({}, defaultData, {
     isSmall: false,
     isWide: false,
     hasDownload: false,
+    useInCarousel: false,
   },
 });
 const variants = _.mapValues({

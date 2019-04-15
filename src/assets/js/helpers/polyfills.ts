@@ -11,6 +11,7 @@
  * automatically with @babel/preset-env
  * Website: https://www.npmjs.com/package/core-js
  */
+import '@babel/polyfill';
 import 'mdn-polyfills/NodeList.prototype.forEach';
 import 'mdn-polyfills/CustomEvent';
 

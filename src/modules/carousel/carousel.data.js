@@ -23,13 +23,16 @@ const data = _.merge({}, defaultData, {
     slides: [
       _.merge({}, imageDataFile.variants.default.props, {
         hasDownload: true,
+        useInCarousel: true,
       }),
       _.merge({}, imageDataFile.variants.small.props, {
         hasDownload: true,
+        useInCarousel: true,
       }),
       _.merge({}, imageDataFile.variants.full.props, {
         isWide: false,
         hasDownload: true,
+        useInCarousel: true,
       }),
     ],
     controlButtons: _.assign({}, buttonGroupDefaultData, {

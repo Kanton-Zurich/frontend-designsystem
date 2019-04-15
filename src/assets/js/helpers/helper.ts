@@ -130,37 +130,9 @@ class Helper {
           eventName = diffY > 0 ? 'swipeUp' : 'swipeDown';
         }
 
-        eventDelegate.dispatchEvent(this.createEvent(eventName));
+        eventDelegate.dispatchEvent(new CustomEvent(eventName));
       }
     }
-  }
-
-  /**
-   * Creates a custom event and works also as polyfill
-   *
-   * @param {string} name
-   * @returns CustomEvent
-   * @memberof Helper
-   */
-  public createEvent(name: string) {
-    if (typeof (<any>window).CustomEvent === 'function') {
-      return new CustomEvent(name);
-    }
-
-    const polyFillCustomEvent = (event, params) => {
-      // eslint-disable-next-line
-      params = params || { bubbles: false, cancelable: false, detail: undefined };
-      const evt = document.createEvent('CustomEvent');
-
-      evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-      return evt;
-    };
-
-    polyFillCustomEvent.prototype = (<any>window).Event.prototype;
-
-    (<any>window).CustomEvent = CustomEvent;
-
-    return new CustomEvent(name);
   }
 }
 

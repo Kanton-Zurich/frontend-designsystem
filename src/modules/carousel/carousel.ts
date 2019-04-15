@@ -4,6 +4,9 @@
  * @author
  * @copyright
  */
+import objectFitImages from 'object-fit-images';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+
 import Module from '../../assets/js/helpers/module';
 
 class Carousel extends Module {
@@ -18,6 +21,7 @@ class Carousel extends Module {
     indicator: any;
     slideWrapper: any;
     download: any;
+    close: any;
   }
   public options: {
     domSelectors: {
@@ -27,11 +31,12 @@ class Carousel extends Module {
       slides: string,
       slideWrapper: string,
       close: string,
+      open: string,
     },
     stateClasses: {
       fullscreen: string,
       inverted: string,
-      downloadHidden: string,
+      active: string,
     };
   }
 
@@ -49,10 +54,12 @@ class Carousel extends Module {
         slideWrapper: '[data-carousel="slide-wrapper"]',
         close: '[data-carousel="close"]',
         download: '[data-carousel="download"]',
+        open: '[data-carousel="open"]',
       },
       stateClasses: {
         fullscreen: 'mdl-carousel--fullscreen',
         inverted: 'mdl-carousel--cv-inverted',
+        active: 'mdl-carousel__slide--active',
       },
     };
 
@@ -94,7 +101,7 @@ class Carousel extends Module {
             break;
         }
       })
-      .on('click', this.options.domSelectors.slides, () => { this.data.isFullscreen = true; })
+      .on('click', this.options.domSelectors.open, () => { this.data.isFullscreen = true; })
       .on('click', this.options.domSelectors.close, () => { this.data.isFullscreen = false; });
   }
 
@@ -154,6 +161,13 @@ class Carousel extends Module {
     const transform = ((active - 1) * 100) * -1;
 
     this.ui.slides[0].style.marginLeft = `${transform}%`;
+
+    // Taking the nodelist into an array, due to IE incompability to handle foreach on NodeList
+    Array.prototype.slice.call(this.ui.slides).forEach((slide, index) => {
+      const classListMethod = index === (active - 1) ? 'add' : 'remove';
+
+      slide.classList[classListMethod](this.options.stateClasses.active);
+    });
   }
 
   /**
@@ -176,9 +190,19 @@ class Carousel extends Module {
     if (this.data.isFullscreen) {
       this.ui.element.classList.add(this.options.stateClasses.fullscreen);
       this.ui.element.classList.add(this.options.stateClasses.inverted);
+
+      this.ui.close.focus();
+      this.setTransformValue();
+
+      // Polyfill for IE11
+      objectFitImages();
+
+      disableBodyScroll(this.ui.element);
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
       this.ui.element.classList.remove(this.options.stateClasses.inverted);
+
+      enableBodyScroll(this.ui.element);
     }
   }
 

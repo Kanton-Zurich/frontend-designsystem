@@ -12,16 +12,16 @@
   </div>
   <div class="mdl-carousel__slides" data-carousel="slide-wrapper">
     {{#each slides}}
-      <button class="mdl-carousel__slide" data-carousel="slide">
+      <div class="mdl-carousel__slide" data-carousel="slide">
+        <span class="visuallyhidden">Bild im Vollbildmodus anzeigen</span>
         {{> "modules/image_figure/image_figure" this}}
-      </button>
+      </div>
     {{/each}}
   </div>
   <div class="mdl-carousel__control-wrapper">
-      <div class="mdl-carousel__control">
-        <span class="mdl-carousel__indicator"><span data-carousel="indicator">1</span> von {{ slides.length }}</span>
-        {{> "modules/button_group/button_group" controlButtons}}
-      </div>
+    <div class="mdl-carousel__control">
+      <span class="mdl-carousel__indicator"><span data-carousel="indicator">1</span> von {{ slides.length }}</span>
+      {{> "modules/button_group/button_group" controlButtons}}
     </div>
   </div>
 </div>

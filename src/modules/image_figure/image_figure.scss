@@ -102,6 +102,7 @@ $smallImageWidths: (
 
     .mdl-image-figure__img {
       object-fit: contain;
+      font-family: 'object-fit: contain';
     }
 
     .mdl-image-figure__download {
@@ -113,6 +114,9 @@ $smallImageWidths: (
       @include sizeCurve(margin-right, small);
 
       padding: 0;
+      opacity: 0;
+
+      transition: opacity $transitionTimeFadeOut $transitionEasingAccelerate;
 
       .icon {
         width: 1.5rem;
@@ -126,6 +130,14 @@ $smallImageWidths: (
 
     &.mdl-image-figure--imagesmall {
       padding: 0 16.67%;
+    }
+  }
+
+  // When is on fullscreen and on active slide
+  [ class*='--fullscreen' ] .mdl-carousel__slide--active & {
+    .mdl-image-figure__download {
+      opacity: 1;
+      transition: opacity $transitionTimeFadeIn $transitionEasingDecelerate;
     }
   }
 }
