@@ -47,7 +47,7 @@ module.exports = [
     },
     output: {
       path: path.resolve('./dist/preview/assets/js'),
-      filename: `[name]${env.dev ? '' : '.min'}.js`,
+      filename: `[name].js`,
     },
     mode: 'development',
   },

@@ -14,19 +14,17 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     links: [
-      _.merge({}, linkListItemDefaultData, {
+      {
         title: 'Link 1',
         href: '/',
-      }),
-      _.merge({}, linkListItemDefaultData, {
+      },{
         title: 'Link 2',
         href: 'https://www.google.ch',
         target: 'blank',
-      }),
-      _.merge({}, linkListItemDefaultData, {
+      },{
         title: 'Link 3',
         href: '/index.html',
-      }),
+      },
     ],
     hasTitle: true,
     headingLevel: 2,

@@ -793,6 +793,10 @@ gulp.task('copy:ci', () => {
   const prod = task({
     src: [
       './dist/**/*',
+      '!./dist/assets/js/*',
+      '!./dist/assets/css/*',
+      './dist/assets/js/*.min.*',
+      './dist/assets/css/*.min.*',
       '!./dist/ci/**/*',
       '!./dist/**/*.dev.html',
       '!./dist/**/dev.*',

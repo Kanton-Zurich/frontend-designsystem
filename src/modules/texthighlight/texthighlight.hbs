@@ -1,0 +1,11 @@
+<div class="mdl-texthighlight{{#if colorVariation}} mdl-texthighlight--cv-{{{colorVariation}}}{{/if}}">
+  {{#if textVariation}}
+  {{> "modules/richtext/richtext"}}
+  {{/if}}
+  {{#if linklistVariation}}
+    {{> "modules/linklist/linklist"}}
+  {{/if}}
+  {{#if imageVariation}}
+    {{> "modules/image_figure/image_figure"}}
+  {{/if}}
+</div>
