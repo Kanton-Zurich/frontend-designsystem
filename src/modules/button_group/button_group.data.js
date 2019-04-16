@@ -2,7 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const defaultButtonData = require('../../atoms/button/button.data').variants.default;
+const defaultButtonData = require('../../atoms/button/button.data').variants.default.props;
 
 const template = dataHelper.getFileContent('button_group.hbs');
 const data = _.merge({}, defaultData, {
@@ -15,22 +15,16 @@ const data = _.merge({}, defaultData, {
   props: {
     buttons: [
       _.merge({}, defaultButtonData, {
-        props: {
-          text: 'Group Item',
-          isSecondary: true,
-        },
+        text: 'Group Item',
+        isSecondary: true,
       }),
       _.merge({}, defaultButtonData, {
-        props: {
-          text: 'Group Item',
-          isSecondary: true,
-        },
+        text: 'Group Item',
+        isSecondary: true,
       }),
       _.merge({}, defaultButtonData, {
-        props: {
-          text: 'Group Item',
-          isSecondary: true,
-        },
+        text: 'Group Item',
+        isSecondary: true,
       }),
     ],
   },

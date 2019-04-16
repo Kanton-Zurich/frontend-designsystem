@@ -22,6 +22,15 @@ $smallImageWidths: (
 
   @include sizeCurve(margin-bottom, medium);
 
+  &__img-wrapper {
+    margin-bottom: pxToRem($sizeTiny);
+    line-height: 0;
+
+    @at-root button#{&} {
+      @include blankButton;
+    }
+  }
+
   &__img {
     width: 100%;
   }
@@ -86,6 +95,62 @@ $smallImageWidths: (
     }
   }
 
+  /** When embedded in fullscreen view */
+  [ class*='--fullscreen' ] & {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    // Necessary to overwrite mediaqueries
+    margin-bottom: 0 !important; //stylelint-disable-line declaration-no-important
+
+    .mdl-image-figure__img-wrapper {
+      flex-grow: 1;
+
+      display: flex;
+      min-height: 0;
+    }
+
+    .mdl-image-figure__img {
+      object-fit: contain;
+      font-family: 'object-fit: contain';
+
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .mdl-image-figure__download {
+      position: fixed;
+
+      top: pxToRem(-35px);
+      right: pxToRem($sizeBig);
+
+      @include sizeCurve(margin-right, small);
+
+      padding: 0;
+      opacity: 0;
+
+      transition: opacity $transitionTimeFadeOut $transitionEasingAccelerate;
+
+      .icon {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      use {
+        fill: $colorWhite;
+      }
+    }
+
+    &.mdl-image-figure--imagesmall {
+      padding: 0 16.67%;
+    }
+  }
+
+  // When is on fullscreen and on active slide
+  [ class*='--fullscreen' ] .mdl-carousel__slide--active & {
+    .mdl-image-figure__download {
+      opacity: 1;
+      transition: opacity $transitionTimeFadeIn $transitionEasingDecelerate;
   /**
    * Embedded in gallery
    */

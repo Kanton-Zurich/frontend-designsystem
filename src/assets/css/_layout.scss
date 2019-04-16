@@ -13,6 +13,10 @@ html {
 html,
 body {
   overflow-x: hidden;
+
+  &.locked {
+    overflow: hidden;
+  }
 }
 
 nav {
@@ -28,6 +32,9 @@ nav {
   max-width: 100%;
 
   position: relative;
+
+  @extend .grid-container;
+  @extend .full;
 
   @each $bp, $bpWidth in $mqBreakpoints {
     @if map-has-key($map: $wrapperSpacing, $key: $bp) {

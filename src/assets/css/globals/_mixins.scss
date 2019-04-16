@@ -305,3 +305,21 @@
     transform: translateX(calc(#{$translateLeft} + #{$additionalRem}));
   }
 }
+
+/**
+ * Resets the button no styling
+ */
+@mixin blankButton() {
+  border: none;
+  background: none;
+  padding: 0;
+  -webkit-appearance: none; //stylelint-disable-line
+  line-height: 1;
+
+  text-align: left;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
