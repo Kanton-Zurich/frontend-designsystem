@@ -17,7 +17,7 @@
     <script src="/preview/assets/js/dev.js"></script>
   {{/if}}
 </head>
-<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}>
+<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}} {{#if props.fonts}} data-fonts='{{props.fonts}}'{{/if}}>
 {{#block "header"}}
 {{/block}}
 
