@@ -9,6 +9,7 @@ import loadPolyfills from './polyfills';
 /** Demo modules * */
 // import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
 // import SlideShow from '../../../demo/modules/slideshow/slideshow';
+import Carousel from '../../../modules/carousel/carousel';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -22,7 +23,9 @@ class App {
     this.modules = {};
     // this.modules.slideshow = SlideShow;
     // this.modules.skiplinks = SkipLinks;
-		/* autoinsertmodule */ // eslint-disable-line
+
+    this.modules.carousel = Carousel;
+    /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
     window[namespace].helpers.initModule = this.initModule;

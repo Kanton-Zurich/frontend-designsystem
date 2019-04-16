@@ -75,7 +75,7 @@ $fontSizeCurves: (
 );
 
 $sizeFontBase: $sizeFontRegular;
-$fontFamilyBase: Arial, sans-serif;
+$fontFamilyBase: Helvetica, sans-serif;
 
 /**
  * Line heights
@@ -222,6 +222,7 @@ $grid-margin-gutters: (
   medium: $sizeLarge,
   large: $sizeBig
 );
+
 
 $breakpoint-classes: (tiny xsmall small medium large xlarge);
 

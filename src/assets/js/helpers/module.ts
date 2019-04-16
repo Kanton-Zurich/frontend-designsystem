@@ -2,6 +2,7 @@ import { Delegate } from 'dom-delegate';
 import extend from 'lodash/extend';
 import uniqueId from 'lodash/uniqueId';
 import namespace from './namespace';
+import wrist from 'wrist';
 
 class Module {
   public name: string;
@@ -9,11 +10,15 @@ class Module {
     element: any;
   };
   public data: Object;
-  public options: Object;
+  public options: {
+    domSelectors: Object;
+    stateClasses: Object;
+  };
   public uuid: string;
   public log: Function;
   public eventDelegate: Delegate;
   private _log: Function;
+  public watchers: Object;
 
   /**
    * Helper Class
@@ -25,6 +30,7 @@ class Module {
    */
   constructor(element, _defaultData, _defaultOptions, data, options) {
     this.name = this.constructor.name.toLowerCase();
+    this.watchers = {};
 
     this.ui = {
       element,
@@ -52,6 +58,46 @@ class Module {
   }
 
   /**
+   * Watches a property on an object, default object is this.data
+   *
+   * @private
+   * @param {string} propertyName
+   * @param {Function} callback
+   * @param {Object} watchable
+   * @memberof Module
+   * @retusn {Object} watcher
+   */
+  protected watch(watchable: Object, propertyName: string, callback: Function) {
+    if (Object.prototype.hasOwnProperty.call(watchable, propertyName)) {
+      const watcher = wrist.watch(watchable, propertyName, callback);
+
+      this.watchers[propertyName] = watcher;
+      return watcher;
+    }
+
+    console.error(`The given property to watch doesn't exist: ${propertyName}`);
+
+    return null;
+  }
+
+  /**
+   *Initializes the ui automatically according to domSelectors list
+   *
+   * @protected
+   * @memberof Module
+   */
+  protected initUi() {
+    const domSelectorKeys = Object.keys(this.options.domSelectors);
+
+    domSelectorKeys.forEach((selectorKey) => {
+      const queryElements = this.ui.element
+        .querySelectorAll(this.options.domSelectors[selectorKey]);
+
+      this.ui[selectorKey] = queryElements.length > 1 ? queryElements : queryElements[0];
+    });
+  }
+
+  /**
    * Destroy method
    *
    * Should be overwritten in module if there are additional DOM elements, DOM data
@@ -65,6 +111,13 @@ class Module {
   destroy() {
     // Remove event listeners connected to this instance
     this.eventDelegate.off();
+
+    // Unwatch all watchers
+    const watcherKeys = Object.keys(this.watchers);
+
+    watcherKeys.forEach((key) => {
+      this.watchers[key].unwatch();
+    });
 
     // Delete references to instance
     delete this.ui.element.dataset[`${this.name}Instance`];

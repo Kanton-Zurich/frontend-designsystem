@@ -1,4 +1,12 @@
+import { debounce } from 'lodash';
+
 class Helper {
+  /** So Touchmove and touchstart can talk about initial values */
+  private swipeData: {
+    initialX: number;
+    initialY: number;
+  }
+
   /*
    * Create a console.log wrapper with optional namespace/context
    * Run "localStorage.debug = true;" to enable
@@ -66,6 +74,65 @@ class Helper {
       }
     }
     return destination;
+  }
+
+  /**
+   * Adds the event listeners for swipe support
+   *
+   * @param {any} element
+   * @memberof Helper
+   */
+  public addSwipeSupport(element: any, eventDelegate: any) {
+    const debounceDelay = 100;
+
+    element.addEventListener('touchstart', (event) => { this.onTouchStart(event); }, false);
+    element.addEventListener('touchmove', debounce((event) => { this.onTouchMove(event, element, eventDelegate); }, debounceDelay), false);
+  }
+
+  /**
+   * Handler for touchstart
+   *
+   * @private
+   * @param {any} event
+   * @memberof Helper
+   */
+  private onTouchStart(event: any) {
+    this.swipeData = {
+      initialX: event.touches[0].clientX,
+      initialY: event.touches[0].clientY,
+    };
+  }
+
+  /**
+   * Handler for touchmove
+   *
+   * @private
+   * @param {any} event
+   * @param {any} element
+   * @memberof Helper
+   */
+  private onTouchMove(event: any, element: any, eventDelegate: any) {
+    if (this.swipeData) {
+      const tolerance = 33;
+      const currentX = event.touches[0].clientX;
+      const currentY = event.touches[0].clientY;
+
+      const diffX = this.swipeData.initialX - currentX;
+      const diffY = this.swipeData.initialY - currentY;
+
+      let eventName: string = '';
+
+      // When the movement was bigger than a certain tolerance
+      if (Math.abs(diffX) > tolerance || Math.abs(diffY) > tolerance) {
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+          eventName = diffX > 0 ? 'swipeLeft' : 'swipeRight';
+        } else {
+          eventName = diffY > 0 ? 'swipeUp' : 'swipeDown';
+        }
+
+        eventDelegate.dispatchEvent(new CustomEvent(eventName));
+      }
+    }
   }
 }
 
