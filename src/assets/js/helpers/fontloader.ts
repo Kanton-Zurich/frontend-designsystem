@@ -1,24 +1,25 @@
 import Helper from './helper';
 
 class FontLoader extends Helper {
-  public logger:Function;
+  public logger: Function;
   public cssHref: string;
 
-  constructor(href = '/assets/css/fonts.css?v1') {
+  constructor() {
     super();
     this.logger = this.log(FontLoader.name);
 
     // once cached, the css file is stored on the client forever unless
     // the URL below is changed. Any change will invalidate the cache
-    this.cssHref = href;
-
-    if (this.fileIsCached()) {
-      this.logger('just use the cached version');
-      this.injectFontsStylesheet();
-    } else {
-      this.logger('don\'t block the loading of the page; wait until it\'s done; then download fonts');
-      this.on(window, 'load', this.injectFontsStylesheet.bind(this));
-    }
+    this.on(window, 'load', () => {
+      this.cssHref = document.body.getAttribute('data-fonts');
+      if (this.fileIsCached()) {
+        this.logger('just use the cached version');
+        this.injectFontsStylesheet();
+      } else {
+        this.logger('don\'t block the loading of the page; wait until it\'s done; then download fonts');
+        this.injectFontsStylesheet.bind(this);
+      }
+    });
   }
 
   public injectFontsStylesheet() {
