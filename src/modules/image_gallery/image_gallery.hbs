@@ -1,10 +1,13 @@
 <div class="mdl-image_gallery mdl-image_gallery--cv-inverted" data-init="imageGallery">
-  <div class="mdl-image_gallery__title">
-    <h2 class="atm-heading">{{ title }}</h2>
-  </div>
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
+      <h2 class="atm-heading atm-heading--bordered cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10">{{ title }}</h2>
+      <div class="mdl-image_gallery__highlight cell tiny-12 small-6">
+        {{> "modules/image_figure/image_figure" highlightImage}}
+      </div>
+      <div class="mdl-image_gallery__images cell tiny-12 small-6">
 
+      </div>
     </div>
   </div>
 </div>
