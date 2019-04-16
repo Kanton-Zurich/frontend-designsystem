@@ -3,6 +3,10 @@
   @include sizeCurve(padding-top, big);
 
   background: $colorBlack80;
-  min-height: 200px;
   overflow-x: hidden;
+
+  &__image {
+    padding-top: 82%;
+    position: relative;
+  }
 }

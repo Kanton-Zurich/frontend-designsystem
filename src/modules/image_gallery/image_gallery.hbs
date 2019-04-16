@@ -2,8 +2,10 @@
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <h2 class="atm-heading atm-heading--bordered cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10">{{ title }}</h2>
-      <div class="mdl-image_gallery__highlight cell tiny-12 small-6">
-        {{> "modules/image_figure/image_figure" highlightImage}}
+      <div class="cell tiny-12 small-6">
+        <div class="mdl-image_gallery__image">
+          {{> "modules/image_figure/image_figure" highlight}}
+        </div>
       </div>
       <div class="mdl-image_gallery__images cell tiny-12 small-6">
 

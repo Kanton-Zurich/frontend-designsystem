@@ -23,8 +23,8 @@ class App {
     this.modules = {};
     // this.modules.slideshow = SlideShow;
     // this.modules.skiplinks = SkipLinks;
-		this.modules.imageGallery = ImageGallery;
-		/* autoinsertmodule */ // eslint-disable-line
+    this.modules.imageGallery = ImageGallery;
+    /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
     window[namespace].helpers.initModule = this.initModule;

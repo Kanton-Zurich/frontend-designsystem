@@ -3,7 +3,7 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const defImageFigureData = require('../image_figure/image_figure.data').variants.default;
+const defImageFigureData = require('../image_figure/image_figure.data').variants.default.props;
 
 const template = dataHelper.getFileContent('image_gallery.hbs');
 const data = _.merge({}, defaultData, {
@@ -15,7 +15,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     title: 'H2: Bildergalerie',
-    highlightImage: defImageFigureData,
+    highlight: defImageFigureData,
   },
 });
 const variants = _.mapValues({
