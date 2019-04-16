@@ -35,7 +35,7 @@ const data = _.merge({}, defaultData, {
     title: 'H2: Bildergalerie',
     loadMore: _.merge({}, defButtonData, {
       text: 'Mehr anzeigen',
-      additionalAttributes: 'data-image-gallery="showMore"',
+      additionalAttribute: 'data-image-gallery="showMore"',
     }),
     highlight: _.merge({}, defImageFigureData, {
       srcsets: [

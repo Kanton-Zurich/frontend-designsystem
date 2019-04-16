@@ -151,6 +151,9 @@ $smallImageWidths: (
     .mdl-image-figure__download {
       opacity: 1;
       transition: opacity $transitionTimeFadeIn $transitionEasingDecelerate;
+    }
+  }
+
   /**
    * Embedded in gallery
    */
@@ -165,6 +168,10 @@ $smallImageWidths: (
 
     .mdl-image-figure__caption {
       @include polyFluidSizing(height, $captionHeightCurve);
+    }
+
+    .mdl-image-figure__img-wrapper {
+      margin-bottom: 0.3rem;
     }
   }
 }
