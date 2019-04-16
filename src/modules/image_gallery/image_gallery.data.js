@@ -4,6 +4,24 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const defImageFigureData = require('../image_figure/image_figure.data').variants.default.props;
+const defButtonData = require('../../atoms/button/button.data').variants.secondary.props;
+
+const smallGalleryImage = _.merge({}, defImageFigureData, {
+  srcsets: [
+    {
+      image: '/assets/media/image/gallery-small_300.jpeg',
+      deviceWidth: 1025,
+    },
+    {
+      image: '/assets/media/image/gallery-small_213.jpeg',
+      deviceWidth: 601,
+    },
+    {
+      image: '/assets/media/image/gallery-small_125.jpeg',
+      deviceWidth: 1,
+    },
+  ],
+});
 
 const template = dataHelper.getFileContent('image_gallery.hbs');
 const data = _.merge({}, defaultData, {
@@ -15,6 +33,10 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     title: 'H2: Bildergalerie',
+    loadMore: _.merge({}, defButtonData, {
+      text: 'Mehr anzeigen',
+      additionalAttributes: 'data-image-gallery="showMore"',
+    }),
     highlight: _.merge({}, defImageFigureData, {
       srcsets: [
         {
@@ -31,6 +53,17 @@ const data = _.merge({}, defaultData, {
         },
       ],
     }),
+    imagesTeasered: [
+      smallGalleryImage,
+      smallGalleryImage,
+      smallGalleryImage,
+      smallGalleryImage,
+    ],
+    furtherImages: [
+      smallGalleryImage,
+      smallGalleryImage,
+      smallGalleryImage,
+    ],
   },
 });
 const variants = _.mapValues({

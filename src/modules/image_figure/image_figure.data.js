@@ -23,7 +23,7 @@ const data = _.merge({}, defaultData, {
     }],
     alt: 'Das ist ein Beispielbild',
     caption: _.merge({}, defFigcaptionData, {
-      caption: 'Das ist ein Bild, Quelle: unbekannt',
+      caption: 'Das ist ein Bild, Quelle: unbekannt aber nicht verloren',
     }),
     isSmall: false,
     isWide: false,

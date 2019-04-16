@@ -85,4 +85,21 @@ $smallImageWidths: (
       @include gridBleed;
     }
   }
+
+  /**
+   * Embedded in gallery
+   */
+  .mdl-image_gallery & {
+    $captionHeightCurve: (
+      tiny: $sizeFontTiny * 1.5 * 4,
+      small: $sizeFontSmall * 1.5 * 4,
+      medium: $sizeFontSmall * 1.5 * 2,
+    );
+
+    @include sizeCurve(margin-bottom, regular);
+
+    .mdl-image-figure__caption {
+      @include polyFluidSizing(height, $captionHeightCurve);
+    }
+  }
 }

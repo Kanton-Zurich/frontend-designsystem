@@ -1,11 +1,21 @@
 .mdl-image_gallery {
   @include gridBleed;
   @include sizeCurve(padding-top, big);
+  @include sizeCurve(padding-bottom, large);
 
   background: $colorBlack80;
   overflow-x: hidden;
 
-  &__image {
-    position: relative;
+  &__images {
+    height: 100%;
+  }
+
+  &__more {
+    display: flex;
+    flex-direction: column;
+
+    .atm-button {
+      align-self: center;
+    }
   }
 }
