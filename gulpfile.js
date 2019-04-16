@@ -738,13 +738,13 @@ gulp.task('copy', () => {
 
   const instance = task({
     src: [
-      './src/**/*.{png,gif,jpg,woff,ttf}',
+      './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
     ],
     srcBase: './src',
     dest: './dist',
     watch: {
       src: [
-        './src/**/*.{png,gif,jpg,woff,ttf}',
+        './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
       ],
       name: 'copy',
     },
