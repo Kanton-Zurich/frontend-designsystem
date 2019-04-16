@@ -18,6 +18,7 @@ const data = {
       '/assets/media/svgsprite/base.svg',
       '/assets/media/svgsprite/demo.svg',
     ]),
+    fonts: '/assets/css/fonts.css?v1',
   },
 };
 

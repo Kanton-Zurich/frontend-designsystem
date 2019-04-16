@@ -95,9 +95,7 @@ gulp.task('html', () => {
         relPathPrefix = relPathPrefix
           .replace(new RegExp(`\\${path.sep}g`), '/') // Normalize path separator
           .replace(/\.\.$/, ''); // Remove trailing ..
-
-        content = content.replace(/('|")\/(?!\^)/g, `$1${relPathPrefix}`);
-
+        content = content.replace(/('|"|&quot;)\/(?!\^)/g, `$1${relPathPrefix}`);
         content = Buffer.from(content);
 
         return content;
