@@ -2,8 +2,8 @@
   <img
     class="mdl-image-figure__img"
     src="{{srcsets.[0].image}}"
-    srcset="{{#each srcsets}}{{image}} {{width}}w{{#if @last}}{{else}}, {{/if}}{{/each}}"
-    sizes="{{#each srcsets}}{{#if @last}}{{width}}px{{else}}(min-width: {{deviceWidth}}px) {{width}}px, {{/if}}{{/each}}"
+    srcset="{{#each srcsets}}{{image}} {{deviceWidth}}w{{#if @last}}{{else}}, {{/if}}{{/each}}"
+    sizes="100vw"
     alt="{{alt}}"
   />
   <figcaption class="mdl-image-figure__caption">
