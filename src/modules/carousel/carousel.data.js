@@ -24,15 +24,56 @@ const data = _.merge({}, defaultData, {
       _.merge({}, imageDataFile.variants.default.props, {
         hasDownload: true,
         useInCarousel: true,
+        srcsets: [
+          {
+            image: '/assets/media/image/carousel_1440_x15.jpeg',
+            deviceWidth: 1025,
+          },
+          {
+            image: '/assets/media/image/carousel_1024_x15.jpeg',
+            deviceWidth: 601,
+          },
+          {
+            image: '/assets/media/image/carousel_600_x15.jpeg',
+            deviceWidth: 1,
+          },
+        ],
       }),
-      _.merge({}, imageDataFile.variants.small.props, {
+      _.merge({}, imageDataFile.variants.default.props, {
         hasDownload: true,
         useInCarousel: true,
+        srcsets: [
+          {
+            image: '/assets/media/image/carousel_1440_x15.jpeg',
+            deviceWidth: 1025,
+          },
+          {
+            image: '/assets/media/image/carousel_1024_x15.jpeg',
+            deviceWidth: 601,
+          },
+          {
+            image: '/assets/media/image/carousel_600_x15.jpeg',
+            deviceWidth: 1,
+          },
+        ],
       }),
-      _.merge({}, imageDataFile.variants.full.props, {
-        isWide: false,
+      _.merge({}, imageDataFile.variants.default.props, {
         hasDownload: true,
         useInCarousel: true,
+        srcsets: [
+          {
+            image: '/assets/media/image/carousel_1440_x15.jpeg',
+            deviceWidth: 1025,
+          },
+          {
+            image: '/assets/media/image/carousel_1024_x15.jpeg',
+            deviceWidth: 601,
+          },
+          {
+            image: '/assets/media/image/carousel_600_x15.jpeg',
+            deviceWidth: 1,
+          },
+        ],
       }),
     ],
     controlButtons: _.assign({}, buttonGroupDefaultData, {
