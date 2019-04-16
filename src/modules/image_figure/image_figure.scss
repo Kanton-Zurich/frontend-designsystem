@@ -75,20 +75,14 @@ $smallImageWidths: (
     }
   }
 
+  /**
+   * Size variation for fullwidth
+   */
   &--fullwidth {
     @include sizeCurve(margin-top, large);
 
     .mdl-image-figure__img {
       @include gridBleed;
     }
-  }
-
-  /** Styles for being embedded in Image Gallery */
-  .mdl-image_gallery & {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
   }
 }

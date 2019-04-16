@@ -15,7 +15,22 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     title: 'H2: Bildergalerie',
-    highlight: defImageFigureData,
+    highlight: _.merge({}, defImageFigureData, {
+      srcsets: [
+        {
+          image: '/assets/media/image/gallery-big_640.jpg',
+          deviceWidth: 1025,
+        },
+        {
+          image: '/assets/media/image/gallery-big_455.jpeg',
+          deviceWidth: 601,
+        },
+        {
+          image: '/assets/media/image/gallery-big_267.jpeg',
+          deviceWidth: 1,
+        },
+      ],
+    }),
   },
 });
 const variants = _.mapValues({
