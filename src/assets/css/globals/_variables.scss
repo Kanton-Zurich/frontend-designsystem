@@ -34,7 +34,7 @@ $fontSizeCurves: (
     xlarge: $sizeFontGiant
   ),
   big: (
-    tiny: $sizeFontLarge,
+    xsmall: $sizeFontLarge,
     small: $sizeFontSmallBig,
     medium: $sizeFontBig,
     large: $sizeFontBiggerBig,
@@ -49,19 +49,22 @@ $fontSizeCurves: (
   medium: (
     tiny: $sizeFontBiggerRegular,
     xsmall: $sizeFontMedium,
+    medium: $sizeFontMedium,
     large: $sizeFontLarge,
     xlarge: $sizeFontSmallBig
   ),
   // Leads & Blockquotes
   biggerRegular: (
-    tiny: $sizeFontBiggerRegular,
+    xsmall: $sizeFontBiggerRegular,
     small: $sizeFontMedium,
-    large: $sizeFontLarge
+    large: $sizeFontMedium,
+    xlarge: $sizeFontLarge
   ),
   regular: (
     tiny: $sizeFontRegular,
     xsmall: $sizeFontBiggerRegular,
-    large: $sizeFontMedium,
+    large: $sizeFontBiggerRegular,
+    xlarge: $sizeFontMedium,
   ),
   small: (
     tiny: $sizeFontSmall,
@@ -69,7 +72,7 @@ $fontSizeCurves: (
     large: $sizeFontBiggerRegular,
   ),
   tiny: (
-    tiny: $sizeFontTiny,
+    xsmall: $sizeFontTiny,
     small: $sizeFontSmall
   )
 );
@@ -87,7 +90,8 @@ $sizeLineHeightBase: 1.5;
 /**
  * Breakpoints
  */
-$sizeBreakpointTiny: 0;
+$sizeBreakpointZero: 0;
+$sizeBreakpointTiny: 320px;
 $sizeBreakpointXSmall: 400px;
 $sizeBreakpointSmall: 600px;
 $sizeBreakpointMedium: 840px;
@@ -116,6 +120,7 @@ $sizeCurves: (
   ),
   medium: (
     tiny: $sizeLarge,
+    small: $sizeLarge,
     medium: $sizeBig,
     xlarge: $sizeBiggerBig
   ),
@@ -129,6 +134,12 @@ $sizeCurves: (
     medium: $sizeSmallLarge,
     xlarge: $sizeLarge
   ),
+  smallerRegular: (
+    tiny: $sizeRegular,
+    xsmall: $sizeSmallLarge,
+    large: $sizeSmallLarge,
+    xlarge: $sizeLarge
+  ),
   small: (
     tiny: $sizeSmallRegular,
     xlarge: $sizeRegular
@@ -140,7 +151,6 @@ $sizeCurves: (
   ),
   mini: (
     tiny: $sizeTiny,
-    medium: $sizeTiny,
     xlarge: $sizeTiny,
   )
 );
@@ -209,7 +219,7 @@ $wrapperSpacing: (
  * Breakpoint Variables for Foundation Grid
  */
 $breakpoints: (
-  tiny: $sizeBreakpointTiny,
+  tiny: $sizeBreakpointZero,
   xsmall: $sizeBreakpointXSmall,
   small: $sizeBreakpointSmall,
   medium: $sizeBreakpointMedium,

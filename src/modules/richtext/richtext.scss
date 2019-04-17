@@ -1,9 +1,14 @@
 .mdl-richtext {
   max-width: $sizeWidthTextContent;
 
+  ::selection {
+    color: $colorWhite;
+    background: $colorBlack;
+  }
+
   h1 {
     @include mq($from: xsmall, $to: small) {
-      @include polyFluidSizing('margin-left', map-get($leadSpacings, regular));
+      @include sizeCurve('margin-left',regular, $leadSpacings);
     }
   }
 
@@ -18,7 +23,7 @@
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
       @include mq($from: xsmall, $to: small) {
-        @include polyFluidSizing('margin-left', map-get($leadSpacings, regular));
+        @include sizeCurve('margin-left',regular, $leadSpacings);
       }
     }
   }
@@ -125,6 +130,11 @@
 
   /* Inverted */
   &--inverted {
+    ::selection {
+      color: $colorBlack;
+      background: $colorWhite;
+    }
+
     p,
     li {
       color: $colorWhite;
@@ -148,6 +158,10 @@
   /* Color variation blue */
   &--cv-blue,
   [ class*='--cv-blue' ] & {
+    ::selection {
+      background: $colorBlue;
+    }
+
     ul {
       &.mdl-richtext__benefits {
         li:before {
@@ -171,6 +185,10 @@
   /* Color variation darkblue */
   &--cv-darkblue,
   [ class*='--cv-darkblue' ] & {
+    ::selection {
+      background: $colorBlue;
+    }
+
     ul {
       &.mdl-richtext__benefits {
         li:before {
@@ -194,6 +212,10 @@
   /* Color variation turqoise */
   &--cv-turqoise,
   [ class*='--cv-turqoise' ] & {
+    ::selection {
+      background: $colorTurqoise;
+    }
+
     ul {
       &.mdl-richtext__benefits {
         li:before {
@@ -217,6 +239,10 @@
   /* Color variation green */
   &--cv-green,
   [ class*='--cv-green' ] & {
+    ::selection {
+      background: $colorGreen;
+    }
+
     ul {
       &.mdl-richtext__benefits {
         li:before {
@@ -240,6 +266,10 @@
   /* Color variation bordeaux */
   &--cv-bordeaux,
   [ class*='--cv-bordeaux' ] & {
+    ::selection {
+      background: $colorBordeaux;
+    }
+
     ul {
       &.mdl-richtext__benefits {
         li:before {
@@ -263,6 +293,10 @@
   /* Color variation magenta */
   &--cv-magenta,
   [ class*='--cv-magenta' ] & {
+    ::selection {
+      background: $colorMagenta;
+    }
+
     ul {
       &.mdl-richtext__benefits {
         li:before {
@@ -286,6 +320,10 @@
   /* Color variation violet */
   &--cv-violet,
   [ class*='--cv-violet' ] & {
+    ::selection {
+      background: $colorViolet;
+    }
+
     ul {
       &.mdl-richtext__benefits {
         li:before {

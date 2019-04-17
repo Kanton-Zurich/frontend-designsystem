@@ -1,5 +1,5 @@
 .mdl-texthighlight {
-  padding: 24px;
+  @include sizeCurve('padding', smallerRegular);
 
   $tl-color-variations: (
     cv-blue: $colorBlue,
