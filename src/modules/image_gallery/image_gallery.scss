@@ -18,4 +18,23 @@
       align-self: center;
     }
   }
+
+  &__more-images {
+    display: none;
+  }
+
+  /**
+   * Expanded style
+   */
+  &--expanded {
+    .mdl-image_gallery__more-images {
+      display: flex;
+    }
+
+    .mdl-image_gallery__more {
+      .atm-button {
+        display: none;
+      }
+    }
+  }
 }

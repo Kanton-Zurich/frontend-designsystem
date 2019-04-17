@@ -7,22 +7,41 @@
 import Module from '../../assets/js/helpers/module';
 
 class ImageGallery extends Module {
+  public options: {
+    domSelectors: {
+      showMore: string,
+    }
+    stateClasses: {
+      expanded: string,
+    }
+  }
+
+  public data: {
+    isExpanded: boolean,
+  }
+
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
+      isExpanded: false,
     };
     const defaultOptions = {
       domSelectors: {
-        // item: '[data-${{{className}}.name}="item"]'
+        more: '[data-image-gallery="more"]',
+        showMore: '[data-image-gallery="showMore"]',
       },
       stateClasses: {
-        // activated: 'is-activated'
+        expanded: 'mdl-image_gallery--expanded',
       },
     };
 
     super($element, defaultData, defaultOptions, data, options);
 
-    this.initUi();
     this.initEventListeners();
+    this.initWatchers();
+  }
+
+  setExpanded() {
+    this.ui.element.classList.add(this.options.stateClasses.expanded);
   }
 
   static get events() {
@@ -32,17 +51,22 @@ class ImageGallery extends Module {
   }
 
   /**
-   * Initialisation of variables, which point to DOM elements
+   *Initializing the watchers
+   *
+   * @memberof Carousel
    */
-  initUi() {
-    // DOM element pointers
+  initWatchers() {
+    this.watch(this.data, 'isExpanded', this.setExpanded.bind(this));
   }
 
   /**
    * Event listeners initialisation
    */
   initEventListeners() {
-    // Event listeners
+    this.eventDelegate
+      .on('click', this.options.domSelectors.showMore, () => {
+        this.data.isExpanded = true;
+      });
   }
 
   /**
