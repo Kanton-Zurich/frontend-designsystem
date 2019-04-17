@@ -1,9 +1,9 @@
 /* eslint-disable global-require */
 const gulp = require('gulp');
-const eslint = require('gulp-eslint');
 const path = require('path');
 const fs = require('fs');
 const env = require('minimist')(process.argv.slice(2));
+const git = require('git-rev-sync');
 
 
 /**
@@ -16,7 +16,7 @@ const env = require('minimist')(process.argv.slice(2));
 gulp.task('html', () => {
   const task = require('@unic/estatico-handlebars');
   const estaticoWatch = require('@unic/estatico-watch');
-  const { readFileSyncCached } = require('@unic/estatico-utils');
+  const {readFileSyncCached} = require('@unic/estatico-utils');
 
   const instance = task({
     src: [
@@ -424,7 +424,7 @@ gulp.task('js:lint', () => {
  * Instead of running this task it is possible to just execute `npm run jest`
  */
 gulp.task('js:test', (done) => { // eslint-disable-line consistent-return
-                                 // Skip task when skipping tests
+  // Skip task when skipping tests
   if (env.skipTests) {
     return done();
   }
@@ -757,6 +757,51 @@ gulp.task('copy', () => {
 });
 
 /**
+ * Copy files for AEM
+ * Copies files, optionally renames them.
+ *
+ * Using `--watch` (or manually setting `env` to `{ watch: true }`) starts file watcher
+ * When combined with `--skipBuild`, the task will not run immediately but only after changes
+ */
+gulp.task('copy:aem', () => {
+  const task = require('@unic/estatico-copy');
+
+  const instance = task({
+    src: [
+      './dist/assets/**/*.{css,js,svg}',
+    ],
+    srcBase: './dist/assets',
+    dest: '../czhdev-backend/sources/ktzh-core/ktzh-core-content/src/main/resources/jcr_root/apps/zhweb/core/clientlibs/publish/resources/',
+    plugins: {
+      changed: null,
+      rename: (filePath) => {
+        let returnPath = filePath;
+
+        if (filePath.match(/\.min\.js/)) {
+          returnPath = returnPath.replace(/\.min\.js/, '.' + git.short() + '.min.js');
+        } else if (filePath.match(/\.js/)) {
+          returnPath = returnPath.replace(/\.js/, '.' + git.short() + '.js');
+        }
+
+        if (filePath.match(/\.min\.css/)) {
+          returnPath = returnPath.replace(/\.min\.css/, '.' + git.short() + '.min.css');
+        } else if (filePath.match(/\.css/)) {
+          returnPath = returnPath.replace(/\.css/, '.' + git.short() + '.css');
+        }
+
+        if (filePath.match(/\.svg/)) {
+          returnPath = returnPath.replace(/\.svg/, '.' + git.short() + '.svg');
+        }
+
+        return returnPath;
+      },
+    },
+  }, env);
+
+  return instance();
+});
+
+/**
  * Create dev and prod build directories
  * Copies specific files into `dist/ci/dev` and `dist/ci/prod`, respectively
  */
@@ -852,7 +897,7 @@ gulp.task('build', (done) => {
 
   // Create CI build structure
   if (env.ci) {
-    task = gulp.series(task, 'copy:ci');
+    task = gulp.series(task, 'copy:ci', 'copy:aem');
   }
 
   if (env.watch && (!env.skipBuild && !env.noInteractive && !env.skipTests && !env.ci)) {
