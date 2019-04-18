@@ -51,6 +51,8 @@ class Module {
     this._log = window[namespace].helpers.log; // eslint-disable-line no-underscore-dangle
 
     this.eventDelegate = new Delegate(element);
+
+    this.initUi();
   }
 
   static get initEvents() {

@@ -135,10 +135,6 @@ $smallImageWidths: (
         width: 1.5rem;
         height: 1.5rem;
       }
-
-      use {
-        fill: $colorWhite;
-      }
     }
 
     &.mdl-image-figure--imagesmall {
@@ -158,20 +154,20 @@ $smallImageWidths: (
    * Embedded in gallery
    */
   .mdl-image_gallery & {
-    $captionHeightCurve: (
-      tiny: $sizeFontTiny * 1.5 * 4,
-      small: $sizeFontSmall * 1.5 * 4,
-      medium: $sizeFontSmall * 1.5 * 2,
-    );
-
     @include sizeCurve(margin-bottom, regular);
-
-    .mdl-image-figure__caption {
-      @include polyFluidSizing(height, $captionHeightCurve);
-    }
 
     .mdl-image-figure__img-wrapper {
       margin-bottom: 0.3rem;
+    }
+  }
+
+  /**
+   * Embedded in color variation inverted
+   */
+  [ class*='--cv-inverted' ] &,
+  [ class*='--fullscreen' ] & {
+    .mdl-image-figure__download use {
+      fill: $colorWhite;
     }
   }
 }

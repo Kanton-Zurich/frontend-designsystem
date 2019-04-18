@@ -10,10 +10,18 @@ class ImageGallery extends Module {
   public options: {
     domSelectors: {
       showMore: string,
+      openCarousel: string,
+      carousel: string,
     }
     stateClasses: {
       expanded: string,
+      fullscreen: string,
     }
+  }
+
+  public ui: {
+    element: Element,
+    carousel: Element,
   }
 
   public data: {
@@ -28,9 +36,12 @@ class ImageGallery extends Module {
       domSelectors: {
         more: '[data-image-gallery="more"]',
         showMore: '[data-image-gallery="showMore"]',
+        carousel: '[data-init="carousel"]',
+        openCarousel: '[data-carousel="open"]',
       },
       stateClasses: {
         expanded: 'mdl-image_gallery--expanded',
+        fullscreen: 'mdl-image_gallery--fullscreen',
       },
     };
 
@@ -38,16 +49,21 @@ class ImageGallery extends Module {
 
     this.initEventListeners();
     this.initWatchers();
+
+    this.setIndexNumbers();
+
+    (<any>window).estatico.lineClamper.initLineClamping();
   }
 
+  /**
+   * Set expanded classes of Image Gallery
+   *
+   * @memberof ImageGallery
+   */
   setExpanded() {
     this.ui.element.classList.add(this.options.stateClasses.expanded);
-  }
 
-  static get events() {
-    return {
-      // eventname: `eventname.${ ImageGallery.name }.${  }`
-    };
+    (<any>window).estatico.lineClamper.updateLineClamping();
   }
 
   /**
@@ -66,7 +82,31 @@ class ImageGallery extends Module {
     this.eventDelegate
       .on('click', this.options.domSelectors.showMore, () => {
         this.data.isExpanded = true;
+      })
+      .on('click', this.options.domSelectors.openCarousel, (event, target) => {
+        this.ui.element.classList.add(this.options.stateClasses.fullscreen);
+
+        this.ui.carousel.dispatchEvent(new (<any>CustomEvent)('ImageGallery.open', {
+          detail: parseInt(target.getAttribute('data-gallery-index'), 10),
+        }));
+      })
+      .on('Carousel.close', () => {
+        this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
       });
+  }
+
+  /**
+   * Setting of the index numbers of the images
+   *
+   * @memberof ImageGallery
+   */
+  setIndexNumbers() {
+    const images = this.ui.element
+      .firstElementChild.querySelectorAll(this.options.domSelectors.openCarousel);
+
+    images.forEach((image, index) => {
+      image.setAttribute('data-gallery-index', index.toString());
+    });
   }
 
   /**

@@ -5,6 +5,7 @@ const defaultData = require('../../data/default.data.js');
 
 const defImageFigureData = require('../image_figure/image_figure.data').variants.default.props;
 const defButtonData = require('../../atoms/button/button.data').variants.secondary.props;
+const defCarouselData = require('../carousel/carousel.data').variants.default.props;
 
 const smallGalleryImage = _.merge({}, defImageFigureData, {
   srcsets: [
@@ -18,6 +19,29 @@ const smallGalleryImage = _.merge({}, defImageFigureData, {
     },
     {
       image: '/assets/media/image/gallery-small_125.jpeg',
+      deviceWidth: 1,
+    },
+  ],
+  hasDownload: true,
+  useInCarousel: true,
+  caption: {
+    caption: 'Das ist ein Bild mit grauem Hintergrund und den Dimensionen des Bildes, Quelle: Max Mustermann',
+  },
+});
+
+const slideImage = _.merge({}, defImageFigureData, {
+  hasDownload: true,
+  srcsets: [
+    {
+      image: '/assets/media/image/carousel_1440_x15.jpeg',
+      deviceWidth: 1025,
+    },
+    {
+      image: '/assets/media/image/carousel_1024_x15.jpeg',
+      deviceWidth: 601,
+    },
+    {
+      image: '/assets/media/image/carousel_600_x15.jpeg',
       deviceWidth: 1,
     },
   ],
@@ -52,6 +76,8 @@ const data = _.merge({}, defaultData, {
           deviceWidth: 1,
         },
       ],
+      useInCarousel: true,
+      hasDownload: true,
     }),
     imagesTeasered: [
       smallGalleryImage,
@@ -64,6 +90,19 @@ const data = _.merge({}, defaultData, {
       smallGalleryImage,
       smallGalleryImage,
     ],
+    carousel: _.merge({}, defCarouselData, {
+      title: null,
+      slides: [
+        slideImage,
+        slideImage,
+        slideImage,
+        slideImage,
+        slideImage,
+        slideImage,
+        slideImage,
+        slideImage,
+      ],
+    }),
   },
 });
 const variants = _.mapValues({

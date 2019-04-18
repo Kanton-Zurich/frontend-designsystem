@@ -65,7 +65,6 @@ class Carousel extends Module {
 
     super($element, defaultData, defaultOptions, data, options);
 
-    this.initUi();
     this.initEventListeners();
     this.initWatchers();
 
@@ -102,7 +101,17 @@ class Carousel extends Module {
         }
       })
       .on('click', this.options.domSelectors.open, () => { this.data.isFullscreen = true; })
-      .on('click', this.options.domSelectors.close, () => { this.data.isFullscreen = false; });
+      .on('click', this.options.domSelectors.close, () => {
+        this.data.isFullscreen = false;
+
+        if (this.ui.element.parentElement.classList.contains('mdl-image_gallery')) {
+          this.ui.element.parentElement.dispatchEvent(new CustomEvent('Carousel.close'));
+        }
+      })
+      .on('ImageGallery.open', (e) => {
+        this.data.active = e.detail + 1;
+        this.data.isFullscreen = true;
+      });
   }
 
   /**
