@@ -1,0 +1,35 @@
+{{#extend "layouts/layout"}}
+	{{#content "header"}}
+		<header>
+			<h1 class="visuallyhidden">Navigation</h1>
+			
+			<nav class="visuallyhidden">
+				<h2 class="visuallyhidden">Sprunglinks</h2>
+				<ul>
+					<li><a href="/" accesskey="0">Startseite</a></li>
+					<li><a href="#navigation" accesskey="1">Navigation</a></li>
+					<li><a href="#content" accesskey="2">Inhalt</a></li>
+					<li><a href="/kontakt.html" accesskey="3">Kontakt</a></li>
+					<li><a href="/suche.html" accesskey="5">Suche</a></li>
+					<li><a href="#contentinfo" accesskey="6">Fussbereich</a></li>
+				</ul>
+			</nav>
+		</header>
+	{{/content}}
+
+	{{#content "content"}}
+		<main id="content">
+			<h1>{{props.title}}</h1>
+
+			<p>{{props.text}}</p>
+		</main>
+	{{/content}}
+
+	{{#content "footer"}}
+		<footer id="contentinfo">
+			<h1 class="visuallyhidden">Fussbereich</h1>
+
+
+		</footer>
+	{{/content}}
+{{/extend}}
