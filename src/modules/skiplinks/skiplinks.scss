@@ -1,0 +1,18 @@
+.mdl-skiplinks {
+
+  &__list {
+    @include resetList;
+  }
+
+  &__link {
+    @include visuallyhiddenFocusable;
+
+    &:focus {
+      @include sizeCurve(padding-top padding-bottom, mini);
+      @include sizeCurve(padding-left padding-right, small);
+      position: absolute;
+      background: $colorWhite;
+      z-index: 1000;
+    }
+  }
+}
