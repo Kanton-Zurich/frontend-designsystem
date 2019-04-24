@@ -32,11 +32,11 @@ const data = _.merge({}, defaultData, {
         label: 'Kontakt',
       }, {
         href: '/suche.html',
-        accesskey: 4,
+        accesskey: 5,
         label: 'Suche',
       }, {
         href: '#contentinfo',
-        accesskey: 5,
+        accesskey: 6,
         label: 'Fussbereich',
       },
     ],
