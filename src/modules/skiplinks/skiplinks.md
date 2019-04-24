@@ -1,4 +1,4 @@
-## Beschreibung
+### Beschreibung
 
 Die Sprunglinks sind eine versteckte Navigation, damit Screenreader-User wichtige Seiten und Seitenbereiche schnell anzuspringen können.
 
@@ -11,6 +11,6 @@ Die Belegung ist folgendermassen (gemäss [Empfehlung von der Stiftung «Zugang 
 * 5: Suche
 * 6: Fussbereich
 
-## Integration
+### Integration
 
 HTML kopieren.
