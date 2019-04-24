@@ -101,8 +101,8 @@ class Carousel extends Module {
             break;
         }
       })
-      .on('click', this.options.domSelectors.open, () => { this.data.isFullscreen = true; })
-      .on('click', this.options.domSelectors.close, () => { this.data.isFullscreen = false; });
+      .on('click', this.options.domSelectors.open, this.open.bind(this))
+      .on('click', this.options.domSelectors.close, this.close.bind(this));
   }
 
   /**
@@ -182,6 +182,30 @@ class Carousel extends Module {
   }
 
   /**
+   * Opens the fullscreen view
+   *
+   * @memberof Carousel
+   */
+  open() {
+    this.data.isFullscreen = true;
+  }
+
+  /**
+   * Closes the fullscreen view
+   *
+   * @memberof Carousel
+   */
+  close() {
+    this.data.isFullscreen = false;
+  }
+
+  closeOnEscape(event) {
+    if (event.key === 'Escape') {
+      this.close();
+    }
+  }
+
+  /**
    * Toggling the fullscreen classes
    *
    * @memberof Carousel
@@ -199,12 +223,16 @@ class Carousel extends Module {
 
       disableBodyScroll(this.ui.element);
       document.documentElement.classList.add('locked');
+
+      window.addEventListener('keydown', this.closeOnEscape.bind(this));
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
       this.ui.element.classList.remove(this.options.stateClasses.inverted);
 
       enableBodyScroll(this.ui.element);
       document.documentElement.classList.remove('locked');
+
+      window.removeEventListener('keydown', this.closeOnEscape.bind(this));
     }
   }
 
