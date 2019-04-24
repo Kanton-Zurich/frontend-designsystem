@@ -1,0 +1,15 @@
+.mdl-video {
+  margin: 0;
+  padding: 0;
+
+  &__frame {
+    border: none;
+    width: 100%;
+  }
+
+  &--fullwidth {
+    .mdl-video__frame {
+      @include gridBleed;
+    }
+  }
+}
