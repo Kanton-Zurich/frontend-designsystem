@@ -2,12 +2,16 @@
   margin: 0;
   padding: 0;
 
+  @include sizeCurve(margin-bottom, medium);
+
   &__frame {
     border: none;
     width: 100%;
   }
 
   &--fullwidth {
+    @include sizeCurve(margin-bottom margin-top, big);
+
     .mdl-video__frame {
       @include gridBleed;
     }
