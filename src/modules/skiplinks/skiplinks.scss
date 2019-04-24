@@ -12,7 +12,7 @@
       @include sizeCurve(padding-left padding-right, small);
       position: absolute;
       background: $colorWhite;
-      z-index: 1000;
+      z-index: $zIndexSkiplinks;
     }
   }
 }

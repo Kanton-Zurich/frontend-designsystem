@@ -6,7 +6,7 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('skiplinks.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Skiplinks',
+    title: 'Sprunglinks',
     className: 'Skiplinks',
     jira: 'CZHDEV-292',
     documentation: dataHelper.getDocumentation('skiplinks.md'),
@@ -46,7 +46,7 @@ const variants = _.mapValues({
   default: {
     meta: {
       title: 'Standard',
-      desc: 'Standard-Implementation',
+      desc: 'Keine visuelle Darstellung ausser, wenn ein Sprunglink Fokus erhält.',
     },
   },
 }, (variant) => {
