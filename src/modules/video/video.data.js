@@ -38,6 +38,7 @@ const variants = _.mapValues({
     },
     props: {
       headingLevel: 3,
+      videoId: 'xk0DEe_syF4',
     },
   },
   h4: {
@@ -47,6 +48,7 @@ const variants = _.mapValues({
     },
     props: {
       headingLevel: 4,
+      videoId: 'X6v66XvVo_Q',
     },
   },
   withoutTitle: {
@@ -56,6 +58,7 @@ const variants = _.mapValues({
     },
     props: {
       title: null,
+      videoId: 'bFfn2pkzAew',
     },
   },
   fullwidthH2: {
@@ -65,6 +68,7 @@ const variants = _.mapValues({
     },
     props: {
       isFullwidth: true,
+      videoId: 'p_KzDh9yan4',
     },
   },
   fullwidthH3: {
@@ -75,6 +79,7 @@ const variants = _.mapValues({
     props: {
       isFullwidth: true,
       headingLevel: 3,
+      videoId: 'c2beBLA8z-E',
     },
   },
   fullwidthH4: {
@@ -85,6 +90,7 @@ const variants = _.mapValues({
     props: {
       isFullwidth: true,
       headingLevel: 4,
+      videoId: 'TUBPWKf9gVs',
     },
   },
   fullwidthWithoutTitle: {
@@ -95,6 +101,7 @@ const variants = _.mapValues({
     props: {
       isFullwidth: true,
       title: null,
+      videoId: 'UjU2R87m_gQ',
     },
   },
 }, (variant) => {
