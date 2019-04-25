@@ -23,11 +23,13 @@ $smallImageWidths: (
   @include sizeCurve(margin-bottom, medium);
 
   &__img-wrapper {
-    margin-bottom: pxToRem($sizeTiny);
     line-height: 0;
+    max-height: 100%;
 
     @at-root button#{&} {
       @include blankButton;
+
+      line-height: 0;
     }
   }
 
@@ -136,6 +138,10 @@ $smallImageWidths: (
       use {
         fill: $colorWhite;
       }
+    }
+
+    .mdl-image-figure__caption {
+      padding-top: pxToRem($sizeTiny);
     }
 
     &.mdl-image-figure--imagesmall {

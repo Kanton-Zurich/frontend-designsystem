@@ -11,6 +11,14 @@
     align-items: stretch;
   }
 
+  &__title {
+    .atm-heading {
+      margin-bottom: 0;
+    }
+
+    margin-bottom: $sizeTiny;
+  }
+
   &__close {
     @include blankButton;
 
@@ -40,6 +48,7 @@
 
     flex-grow: 1;
     overflow-x: hidden;
+    padding-top: $sizeSmallRegular;
   }
 
   &__slide {
@@ -66,6 +75,8 @@
 
   &__indicator {
     @extend .atm-figcaption;
+
+    font-size: pxToRem($sizeFontTiny);
   }
 
   /**
@@ -119,6 +130,8 @@
     .mdl-carousel__slides {
       align-items: stretch;
       overflow: visible;
+      padding-top: 0;
+      min-height: 0;
     }
 
     .mdl-carousel__slides,
@@ -141,6 +154,15 @@
       margin: 0 pxToRem(2px) pxToRem(2px) 0;
       max-width: none;
       transform: none;
+    }
+  }
+
+  // Disabling arrow buttons on touch devices when fullscreen is opened
+  .touch & {
+    &.mdl-carousel--fullscreen {
+      .mdl-button_group {
+        display: none;
+      }
     }
   }
 
