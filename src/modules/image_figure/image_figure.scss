@@ -25,6 +25,7 @@ $smallImageWidths: (
   &__img-wrapper {
     margin-bottom: pxToRem($sizeTiny);
     line-height: 0;
+    max-height: 100%;
 
     @at-root button#{&} {
       @include blankButton;
