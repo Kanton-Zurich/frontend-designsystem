@@ -270,27 +270,19 @@ class Carousel extends Module {
 
     caption.removeAttribute('style');
 
-    const imageScrollHeight = image.scrollHeight;
+    const divider = 2;
     const imageWrapperScrollHeight = imageWrapper.scrollHeight;
     const imageNaturalAspectRatio = image.naturalWidth / image.naturalHeight;
     const imageWrapperScrollWidth = image.scrollWidth;
     const imageActualWidth = imageWrapperScrollHeight * imageNaturalAspectRatio;
+    const imageActualHeight = imageWrapperScrollWidth / imageNaturalAspectRatio;
 
-    if (imageWrapperScrollHeight > imageScrollHeight) {
-      // Position on x axis of image bottom
-      const imagePositionEnd = imageScrollHeight + image.getBoundingClientRect().top;
-
-      // Position on x axis of caption top border
-      const captionPositionBegin = caption.getBoundingClientRect().top;
-
+    if (imageWrapperScrollHeight > imageActualHeight) {
       // Margin which has to be subtracted from caption to get it to image
-      const negativeTopMargin = imagePositionEnd - captionPositionBegin;
+      const negativeTopMargin = ((imageWrapperScrollHeight - imageActualHeight) / divider) * -1;
 
       caption.style.marginTop = `${negativeTopMargin}px`;
     } else if (imageWrapperScrollWidth > imageActualWidth) {
-      // Divider because no magic number
-      const divider = 2;
-
       // Padding Value which has to be added
       const paddingValue = (imageWrapperScrollWidth - imageActualWidth) / divider;
 
