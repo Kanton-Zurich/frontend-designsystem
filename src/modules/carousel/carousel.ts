@@ -286,8 +286,6 @@ class Carousel extends Module {
       // Margin which has to be subtracted from caption to get it to image
       const negativeTopMargin = imagePositionEnd - captionPositionBegin;
 
-      console.log(negativeTopMargin);
-
       caption.style.marginTop = `${negativeTopMargin}px`;
     } else if (imageWrapperScrollWidth > imageActualWidth) {
       // Divider because no magic number
