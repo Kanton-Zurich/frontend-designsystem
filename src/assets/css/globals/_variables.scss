@@ -155,57 +155,6 @@ $sizeCurves: (
   )
 );
 
-// List Size Curves
-$listSpaceTiny: 9px;
-$listSpaceSmall: 10px;
-$listSpaceRegular: 12px;
-$listSpaceBiggerRegular: 12px;
-$listSpaceMedium: 13px;
-$listSpaceLarge: 15px;
-$listSpaceSmallBig: 17px;
-$listSpaceBig: 19px;
-$listSpaceBiggerBig: 24px;
-$listSpaceSmallHuge: 24px;
-$listSpaceHuge: 28px;
-$listSpaceGiant: 36px;
-
-// text list spacings
-$listSpacings: (
-  regular: (
-    tiny: $listSpaceTiny,
-    small: $listSpaceSmall,
-    medium: $listSpaceMedium,
-    large: $listSpaceLarge,
-  ),
-);
-
-// Quote indentation
-$qouteIndentTiny: 22px;
-$qouteIndentSmall: 46px;
-$qouteIndentMedium: 67px;
-$qouteIndentLarge: 81px;
-$qouteIndentHuge: 100px;
-
-// text list spacings
-$quoteSpacings: (
-  regular: (
-    tiny: $qouteIndentTiny,
-    small: $qouteIndentSmall,
-    medium: $qouteIndentMedium,
-    large: $qouteIndentLarge,
-    xlarge: $qouteIndentHuge,
-  ),
-);
-
-// text lead spacings
-$leadSpacings: (
-  regular: (
-    tiny: 0,
-    xsmall: 64px,
-    small: 96px,
-  ),
-);
-
 // Layout Wrapper Spacing
 $wrapperSpacing: (
   tiny: $sizeSmallRegular,
@@ -247,6 +196,20 @@ $fontWeightQuote: 800;
 $colorBlack: $colorBlack100;
 $colorText: $colorBlack100;
 $colorBg: $colorBlack5;
+
+/**
+ * Color variations
+ */
+$tl-color-variations: (
+  cv-blue: $colorBlue,
+  cv-darkblue: $colorDarkBlue,
+  cv-turqoise: $colorTurqoise,
+  cv-green: $colorGreen,
+  cv-bordeaux: $colorBordeaux,
+  cv-magenta: $colorMagenta,
+  cv-violet: $colorViolet,
+);
+
 /**
  * Transition and Easings and Timings
  * documented here: https://we.one-inside.com/confluence/display/CZHDEV/04.11.09+Verhalten+und+Animation
