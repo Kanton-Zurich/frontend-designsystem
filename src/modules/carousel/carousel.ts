@@ -111,7 +111,6 @@ class Carousel extends Module {
 
     (<any>WindowEventListener).addDebouncedResizeListener(() => {
       if (this.data.isFullscreen) {
-        console.log('hallo');
         this.setCaptionPositions();
       }
     });
@@ -279,7 +278,9 @@ class Carousel extends Module {
 
     if (imageWrapperScrollHeight > imageActualHeight) {
       // Margin which has to be subtracted from caption to get it to image
-      const negativeTopMargin = ((imageWrapperScrollHeight - imageActualHeight) / divider) * -1;
+      const captionHeight = caption.scrollHeight / divider;
+      const differenceActualHeight = imageWrapperScrollHeight - imageActualHeight;
+      const negativeTopMargin = (differenceActualHeight / divider) * -1 - captionHeight;
 
       caption.style.marginTop = `${negativeTopMargin}px`;
     } else if (imageWrapperScrollWidth > imageActualWidth) {
