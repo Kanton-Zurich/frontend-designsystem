@@ -1,0 +1,10 @@
+<div class="mdl-skiplinks" data-init="skiplinks">
+	<h2 class="visuallyhidden">{{title}}</h2>
+	<ul class="mdl-skiplinks__list">
+		{{#each links}}
+			<li class="mdl-skiplinks__item">
+				<a href="{{this.href}}" accesskey="{{this.accesskey}}" class="mdl-skiplinks__link">{{this.label}}</a>
+			</li>
+		{{/each}}
+	</ul>
+</div>
