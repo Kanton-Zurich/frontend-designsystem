@@ -1,5 +1,6 @@
 .atm-heading {
   line-height: $sizeLineHeightNarrow;
+  font-weight: $fontWeightBlack;
   margin-top: 0;
 
   @include mq($from: medium) {
