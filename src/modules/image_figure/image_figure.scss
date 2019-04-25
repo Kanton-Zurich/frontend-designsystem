@@ -44,8 +44,6 @@ $smallImageWidths: (
   &__caption {
     display: flex;
     align-items: flex-start;
-    padding-top: pxToRem($sizeTiny);
-
 
     .atm-figcaption {
       flex-grow: 1;
@@ -140,6 +138,10 @@ $smallImageWidths: (
       use {
         fill: $colorWhite;
       }
+    }
+
+    .mdl-image-figure__caption {
+      padding-top: pxToRem($sizeTiny);
     }
 
     &.mdl-image-figure--imagesmall {

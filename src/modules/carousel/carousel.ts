@@ -7,6 +7,7 @@
 import objectFitImages from 'object-fit-images';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
+import WindowEventListener from '../../assets/js/helpers/events';
 import Module from '../../assets/js/helpers/module';
 
 class Carousel extends Module {
@@ -107,6 +108,13 @@ class Carousel extends Module {
       })
       .on('click', this.options.domSelectors.open, this.open.bind(this))
       .on('click', this.options.domSelectors.close, this.close.bind(this));
+
+    (<any>WindowEventListener).addDebouncedResizeListener(() => {
+      if (this.data.isFullscreen) {
+        console.log('hallo');
+        this.setCaptionPositions();
+      }
+    });
   }
 
   /**
@@ -240,6 +248,8 @@ class Carousel extends Module {
       this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
       this.ui.element.classList.remove(this.options.stateClasses.inverted);
 
+      this.removeCaptionStyles();
+
       enableBodyScroll(this.ui.element);
       document.documentElement.classList.remove('locked');
 
@@ -247,10 +257,18 @@ class Carousel extends Module {
     }
   }
 
+  /**
+   * Calcing the position of the caption for this slide
+   *
+   * @param {Element} slide
+   * @memberof Carousel
+   */
   calcCaptionPosition(slide) {
     const image = slide.querySelector(this.options.domSelectors.image);
     const imageWrapper = slide.querySelector(this.options.domSelectors.open);
     const caption = slide.querySelector(this.options.domSelectors.caption);
+
+    caption.removeAttribute('style');
 
     const imageScrollHeight = image.scrollHeight;
     const imageWrapperScrollHeight = imageWrapper.scrollHeight;
@@ -268,9 +286,14 @@ class Carousel extends Module {
       // Margin which has to be subtracted from caption to get it to image
       const negativeTopMargin = imagePositionEnd - captionPositionBegin;
 
+      console.log(negativeTopMargin);
+
       caption.style.marginTop = `${negativeTopMargin}px`;
     } else if (imageWrapperScrollWidth > imageActualWidth) {
+      // Divider because no magic number
       const divider = 2;
+
+      // Padding Value which has to be added
       const paddingValue = (imageWrapperScrollWidth - imageActualWidth) / divider;
 
       caption.style.paddingLeft = `${paddingValue}px`;
@@ -278,9 +301,27 @@ class Carousel extends Module {
     }
   }
 
+  /**
+   * Setting the caption position slides
+   *
+   * @memberof Carousel
+   */
   setCaptionPositions() {
     this.ui.slides.forEach((slide) => {
       this.calcCaptionPosition(slide);
+    });
+  }
+
+  /**
+   * Removing the caption styles
+   *
+   * @memberof Carousel
+   */
+  removeCaptionStyles() {
+    const captions = document.querySelectorAll(this.options.domSelectors.caption);
+
+    captions.forEach((caption) => {
+      caption.removeAttribute('style');
     });
   }
 
