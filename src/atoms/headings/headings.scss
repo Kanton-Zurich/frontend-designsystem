@@ -8,8 +8,25 @@
     // margin-bottom: 0.5em;
   }
 
-  &--inverted {
+  &--inverted,
+  [ class*='--cv-inverted' ] & {
     color: $colorWhite;
+  }
+
+  &--bordered {
+    position: relative;
+
+    &:before {
+      content: ' ';
+      height: pxToRem(3px);
+      display: block;
+      position: absolute;
+
+      background: $colorWhite;
+      width: 100vw;
+      left: 0;
+      top: 0;
+    }
   }
 }
 

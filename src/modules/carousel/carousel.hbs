@@ -1,7 +1,9 @@
-<div class="mdl-carousel" data-init="carousel">
-  <div class="mdl-carousel__title">
-    <h{{{title.level}}} class="atm-heading">{{ title.text }}</h{{{title.level}}}>
-  </div>
+<div class="mdl-carousel" data-init="carousel" {{#if isInGallery}}data-image-gallery="carousel"{{/if}}>
+  {{#if title}}
+    <div class="mdl-carousel__title">
+      <h{{{title.level}}} class="atm-heading">{{ title.text }}</h{{{title.level}}}>
+    </div>
+  {{/if}}
   <div class="mdl-carousel__meta">
     <button class="mdl-carousel__close" data-carousel="close">
       <span class="visuallyhidden">Schliessen</span>

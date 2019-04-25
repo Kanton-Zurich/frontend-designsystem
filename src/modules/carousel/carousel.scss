@@ -171,4 +171,17 @@
       display: none;
     }
   }
+
+  /*
+   * Styling used in image_gallery
+   */
+  .mdl-image_gallery & {
+    &:not(.mdl-carousel--fullscreen) {
+      display: none;
+
+      .mdl-carousel__slide {
+        transition: none;
+      }
+    }
+  }
 }

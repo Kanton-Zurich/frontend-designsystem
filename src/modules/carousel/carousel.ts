@@ -70,7 +70,6 @@ class Carousel extends Module {
 
     super($element, defaultData, defaultOptions, data, options);
 
-    this.initUi();
     this.initEventListeners();
     this.initWatchers();
 
@@ -105,6 +104,10 @@ class Carousel extends Module {
           default:
             break;
         }
+      })
+      .on('ImageGallery.open', (e) => {
+        this.data.active = e.detail + 1;
+        this.data.isFullscreen = true;
       })
       .on('click', this.options.domSelectors.open, this.open.bind(this))
       .on('click', this.options.domSelectors.close, this.close.bind(this));
@@ -208,6 +211,10 @@ class Carousel extends Module {
    */
   close() {
     this.data.isFullscreen = false;
+
+    if (this.ui.element.parentElement.classList.contains('mdl-image_gallery')) {
+      this.ui.element.parentElement.dispatchEvent(new CustomEvent('Carousel.close'));
+    }
   }
 
   /**
