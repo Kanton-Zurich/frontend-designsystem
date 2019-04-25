@@ -29,7 +29,8 @@
     "localStorage": true,
     "CustomEvent": true,
     "Event": true,
-    "XMLHttpRequest": true
+    "XMLHttpRequest": true,
+    "navigator": true
   },
   "settings": {
     "import/resolver": {

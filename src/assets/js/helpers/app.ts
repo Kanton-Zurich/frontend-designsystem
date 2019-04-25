@@ -30,6 +30,11 @@ class App {
 
     // expose initModule function
     window[namespace].helpers.initModule = this.initModule;
+
+    // Check for touch support
+    const hasTouchSupport = 'ontouchstart' in window || navigator.msMaxTouchPoints;
+
+    if (hasTouchSupport) document.documentElement.classList.add('touch');
   }
 
   async start() {

@@ -7,6 +7,7 @@
 import objectFitImages from 'object-fit-images';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
+import WindowEventListener from '../../assets/js/helpers/events';
 import Module from '../../assets/js/helpers/module';
 
 class Carousel extends Module {
@@ -32,6 +33,8 @@ class Carousel extends Module {
       slideWrapper: string,
       close: string,
       open: string,
+      image: string,
+      caption: string,
     },
     stateClasses: {
       fullscreen: string,
@@ -55,6 +58,8 @@ class Carousel extends Module {
         close: '[data-carousel="close"]',
         download: '[data-carousel="download"]',
         open: '[data-carousel="open"]',
+        image: '[data-image-figure="image"]',
+        caption: '[data-figcaption="caption"]',
       },
       stateClasses: {
         fullscreen: 'mdl-carousel--fullscreen',
@@ -100,18 +105,18 @@ class Carousel extends Module {
             break;
         }
       })
-      .on('click', this.options.domSelectors.open, () => { this.data.isFullscreen = true; })
-      .on('click', this.options.domSelectors.close, () => {
-        this.data.isFullscreen = false;
-
-        if (this.ui.element.parentElement.classList.contains('mdl-image_gallery')) {
-          this.ui.element.parentElement.dispatchEvent(new CustomEvent('Carousel.close'));
-        }
-      })
       .on('ImageGallery.open', (e) => {
         this.data.active = e.detail + 1;
         this.data.isFullscreen = true;
-      });
+      })
+      .on('click', this.options.domSelectors.open, this.open.bind(this))
+      .on('click', this.options.domSelectors.close, this.close.bind(this));
+
+    (<any>WindowEventListener).addDebouncedResizeListener(() => {
+      if (this.data.isFullscreen) {
+        this.setCaptionPositions();
+      }
+    });
   }
 
   /**
@@ -191,6 +196,40 @@ class Carousel extends Module {
   }
 
   /**
+   * Opens the fullscreen view
+   *
+   * @memberof Carousel
+   */
+  open() {
+    this.data.isFullscreen = true;
+  }
+
+  /**
+   * Closes the fullscreen view
+   *
+   * @memberof Carousel
+   */
+  close() {
+    this.data.isFullscreen = false;
+
+    if (this.ui.element.parentElement.classList.contains('mdl-image_gallery')) {
+      this.ui.element.parentElement.dispatchEvent(new CustomEvent('Carousel.close'));
+    }
+  }
+
+  /**
+   * Close on escape
+   *
+   * @param {*} event
+   * @memberof Carousel
+   */
+  closeOnEscape(event) {
+    if (event.key === 'Escape') {
+      this.close();
+    }
+  }
+
+  /**
    * Toggling the fullscreen classes
    *
    * @memberof Carousel
@@ -205,16 +244,83 @@ class Carousel extends Module {
 
       // Polyfill for IE11
       objectFitImages();
+      this.setCaptionPositions();
 
       disableBodyScroll(this.ui.element);
       document.documentElement.classList.add('locked');
+
+      window.addEventListener('keydown', this.closeOnEscape.bind(this));
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
       this.ui.element.classList.remove(this.options.stateClasses.inverted);
 
+      this.removeCaptionStyles();
+
       enableBodyScroll(this.ui.element);
       document.documentElement.classList.remove('locked');
+
+      window.removeEventListener('keydown', this.closeOnEscape.bind(this));
     }
+  }
+
+  /**
+   * Calcing the position of the caption for this slide
+   *
+   * @param {Element} slide
+   * @memberof Carousel
+   */
+  calcCaptionPosition(slide) {
+    const image = slide.querySelector(this.options.domSelectors.image);
+    const imageWrapper = slide.querySelector(this.options.domSelectors.open);
+    const caption = slide.querySelector(this.options.domSelectors.caption);
+
+    caption.removeAttribute('style');
+
+    const divider = 2;
+    const imageWrapperScrollHeight = imageWrapper.scrollHeight;
+    const imageNaturalAspectRatio = image.naturalWidth / image.naturalHeight;
+    const imageWrapperScrollWidth = image.scrollWidth;
+    const imageActualWidth = imageWrapperScrollHeight * imageNaturalAspectRatio;
+    const imageActualHeight = imageWrapperScrollWidth / imageNaturalAspectRatio;
+
+    if (imageWrapperScrollHeight > imageActualHeight) {
+      // Margin which has to be subtracted from caption to get it to image
+      const captionHeight = caption.scrollHeight / divider;
+      const differenceActualHeight = imageWrapperScrollHeight - imageActualHeight;
+      const negativeTopMargin = (differenceActualHeight / divider) * -1 - captionHeight;
+
+      caption.style.marginTop = `${negativeTopMargin}px`;
+    } else if (imageWrapperScrollWidth > imageActualWidth) {
+      // Padding Value which has to be added
+      const paddingValue = (imageWrapperScrollWidth - imageActualWidth) / divider;
+
+      caption.style.paddingLeft = `${paddingValue}px`;
+      caption.style.paddingRight = `${paddingValue}px`;
+    }
+  }
+
+  /**
+   * Setting the caption position slides
+   *
+   * @memberof Carousel
+   */
+  setCaptionPositions() {
+    this.ui.slides.forEach((slide) => {
+      this.calcCaptionPosition(slide);
+    });
+  }
+
+  /**
+   * Removing the caption styles
+   *
+   * @memberof Carousel
+   */
+  removeCaptionStyles() {
+    const captions = document.querySelectorAll(this.options.domSelectors.caption);
+
+    captions.forEach((caption) => {
+      caption.removeAttribute('style');
+    });
   }
 
 
