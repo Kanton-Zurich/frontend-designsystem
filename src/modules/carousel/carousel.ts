@@ -32,6 +32,8 @@ class Carousel extends Module {
       slideWrapper: string,
       close: string,
       open: string,
+      image: string,
+      caption: string,
     },
     stateClasses: {
       fullscreen: string,
@@ -55,6 +57,8 @@ class Carousel extends Module {
         close: '[data-carousel="close"]',
         download: '[data-carousel="download"]',
         open: '[data-carousel="open"]',
+        image: '[data-image-figure="image"]',
+        caption: '[data-figcaption="caption"]',
       },
       stateClasses: {
         fullscreen: 'mdl-carousel--fullscreen',
@@ -199,6 +203,12 @@ class Carousel extends Module {
     this.data.isFullscreen = false;
   }
 
+  /**
+   * Close on escape
+   *
+   * @param {*} event
+   * @memberof Carousel
+   */
   closeOnEscape(event) {
     if (event.key === 'Escape') {
       this.close();
@@ -220,6 +230,7 @@ class Carousel extends Module {
 
       // Polyfill for IE11
       objectFitImages();
+      this.setCaptionPositions();
 
       disableBodyScroll(this.ui.element);
       document.documentElement.classList.add('locked');
@@ -234,6 +245,43 @@ class Carousel extends Module {
 
       window.removeEventListener('keydown', this.closeOnEscape.bind(this));
     }
+  }
+
+  calcCaptionPosition(slide) {
+    const image = slide.querySelector(this.options.domSelectors.image);
+    const imageWrapper = slide.querySelector(this.options.domSelectors.open);
+    const caption = slide.querySelector(this.options.domSelectors.caption);
+
+    const imageScrollHeight = image.scrollHeight;
+    const imageWrapperScrollHeight = imageWrapper.scrollHeight;
+    const imageNaturalAspectRatio = image.naturalWidth / image.naturalHeight;
+    const imageWrapperScrollWidth = image.scrollWidth;
+    const imageActualWidth = imageWrapperScrollHeight * imageNaturalAspectRatio;
+
+    if (imageWrapperScrollHeight > imageScrollHeight) {
+      // Position on x axis of image bottom
+      const imagePositionEnd = imageScrollHeight + image.getBoundingClientRect().top;
+
+      // Position on x axis of caption top border
+      const captionPositionBegin = caption.getBoundingClientRect().top;
+
+      // Margin which has to be subtracted from caption to get it to image
+      const negativeTopMargin = imagePositionEnd - captionPositionBegin;
+
+      caption.style.marginTop = `${negativeTopMargin}px`;
+    } else if (imageWrapperScrollWidth > imageActualWidth) {
+      const divider = 2;
+      const paddingValue = (imageWrapperScrollWidth - imageActualWidth) / divider;
+
+      caption.style.paddingLeft = `${paddingValue}px`;
+      caption.style.paddingRight = `${paddingValue}px`;
+    }
+  }
+
+  setCaptionPositions() {
+    this.ui.slides.forEach((slide) => {
+      this.calcCaptionPosition(slide);
+    });
   }
 
 
