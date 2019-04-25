@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Video',
     className: 'Video',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-123',
     documentation: dataHelper.getDocumentation('video.md'),
   },
   props: {
