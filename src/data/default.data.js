@@ -10,6 +10,7 @@ const data = {
     gitBranch: git.branch(),
     gitShort: git.short(),
     gitDate: git.date(),
+    buildDate: Date(Date.now()).toString(),
   },
   env,
   props: {
@@ -17,6 +18,7 @@ const data = {
       '/assets/media/svgsprite/base.svg',
       '/assets/media/svgsprite/demo.svg',
     ]),
+    fonts: '/assets/css/fonts.css?v1',
   },
 };
 

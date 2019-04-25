@@ -2,7 +2,9 @@
 const gulp = require('gulp');
 const path = require('path');
 const fs = require('fs');
-const env = require('minimist')(process.argv.slice(2)); // eslint-disable-line
+const env = require('minimist')(process.argv.slice(2));
+const git = require('git-rev-sync');
+const nodeSass = require('node-sass');
 
 
 /**
@@ -15,7 +17,7 @@ const env = require('minimist')(process.argv.slice(2)); // eslint-disable-line
 gulp.task('html', () => {
   const task = require('@unic/estatico-handlebars');
   const estaticoWatch = require('@unic/estatico-watch');
-  const { readFileSyncCached } = require('@unic/estatico-utils');
+  const {readFileSyncCached} = require('@unic/estatico-utils');
 
   const instance = task({
     src: [
@@ -97,9 +99,7 @@ gulp.task('html', () => {
         relPathPrefix = relPathPrefix
           .replace(new RegExp(`\\${path.sep}g`), '/') // Normalize path separator
           .replace(/\.\.$/, ''); // Remove trailing ..
-
-        content = content.replace(/('|")\/(?!\^)/g, `$1${relPathPrefix}`);
-
+        content = content.replace(/('|"|&quot;)\/(?!\^)/g, `$1${relPathPrefix}`);
         content = Buffer.from(content);
 
         return content;
@@ -277,6 +277,12 @@ gulp.task('css', () => {
           // Add importer being able to deal with json files like colors, e.g.
           nodeSassJsonImporter,
         ],
+        functions: {
+          'encode_Base64($string)': function ($string) {
+            var buffer = new Buffer($string.getValue());
+            return nodeSass.types.String(buffer.toString('base64'));
+          }
+        },
       },
       // Use task default (autoprefixer with .browserslistrc config)
       // postcss: [],
@@ -740,13 +746,13 @@ gulp.task('copy', () => {
 
   const instance = task({
     src: [
-      './src/**/*.{png,gif,jpg,woff,ttf}',
+      './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
     ],
     srcBase: './src',
     dest: './dist',
     watch: {
       src: [
-        './src/**/*.{png,gif,jpg,woff,ttf}',
+        './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
       ],
       name: 'copy',
     },
@@ -756,6 +762,51 @@ gulp.task('copy', () => {
   if (env.watch && env.skipBuild) {
     return instance;
   }
+
+  return instance();
+});
+
+/**
+ * Copy files for AEM
+ * Copies files, optionally renames them.
+ *
+ * Using `--watch` (or manually setting `env` to `{ watch: true }`) starts file watcher
+ * When combined with `--skipBuild`, the task will not run immediately but only after changes
+ */
+gulp.task('copy:aem', () => {
+  const task = require('@unic/estatico-copy');
+
+  const instance = task({
+    src: [
+      './dist/assets/**/*.{css,js,svg}',
+    ],
+    srcBase: './dist/assets',
+    dest: '../czhdev-backend/sources/ktzh-core/ktzh-core-content/src/main/resources/jcr_root/apps/zhweb/core/clientlibs/publish/resources/',
+    plugins: {
+      changed: null,
+      rename: (filePath) => {
+        let returnPath = filePath;
+
+        if (filePath.match(/\.min\.js/)) {
+          returnPath = returnPath.replace(/\.min\.js/, '.' + git.short() + '.min.js');
+        } else if (filePath.match(/\.js/)) {
+          returnPath = returnPath.replace(/\.js/, '.' + git.short() + '.js');
+        }
+
+        if (filePath.match(/\.min\.css/)) {
+          returnPath = returnPath.replace(/\.min\.css/, '.' + git.short() + '.min.css');
+        } else if (filePath.match(/\.css/)) {
+          returnPath = returnPath.replace(/\.css/, '.' + git.short() + '.css');
+        }
+
+        if (filePath.match(/\.svg/)) {
+          returnPath = returnPath.replace(/\.svg/, '.' + git.short() + '.svg');
+        }
+
+        return returnPath;
+      },
+    },
+  }, env);
 
   return instance();
 });
@@ -856,7 +907,7 @@ gulp.task('build', (done) => {
 
   // Create CI build structure
   if (env.ci) {
-    task = gulp.series(task, 'copy:ci');
+    task = gulp.series(task, 'copy:ci', 'copy:aem');
   }
 
   if (env.watch && (!env.skipBuild && !env.noInteractive && !env.skipTests && !env.ci)) {

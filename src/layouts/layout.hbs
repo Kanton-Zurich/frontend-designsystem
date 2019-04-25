@@ -1,13 +1,14 @@
 <!doctype html>
-<!--[if IE 7]>         <html lang="en" class="no-js ie7 lte-ie9 lte-ie8 lte-ie7"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" class="no-js ie8 lte-ie9 lte-ie8">         <![endif]-->
-<!--[if IE 9]>         <html lang="en" class="no-js ie9 lte-ie9">                 <![endif]-->
-<!--[if gt IE 9]><!--> <html lang="en" class="no-js">                         <!--<![endif]-->
+<html lang="de" class="no-js">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>{{#if title}}{{title}} – {{/if}}{{meta.project}}</title>
+	<meta name="description" content="{{#if description}}{{description}}{{/if}}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	{{! <link rel="manifest" href="site.webmanifest"> }}
+	{{! <link rel="apple-touch-icon" href="icon.png"> }}
 
 	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 
@@ -17,8 +18,10 @@
 		<link rel="stylesheet" href="/preview/assets/css/dev.css">
 		<script src="/preview/assets/js/dev.js"></script>
 	{{/if}}
+
+	{{! <meta name="theme-color" content="#fafafa"> }}
 </head>
-<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}>
+<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}} {{#if props.fonts}} data-fonts='{{props.fonts}}'{{/if}}>
 	{{#block "header"}}
 	{{/block}}
 
@@ -26,6 +29,9 @@
 		{{#block "content"}}
 		{{/block}}
 	</div>
+
+	{{#block "footer"}}
+	{{/block}}
 
 	<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
 

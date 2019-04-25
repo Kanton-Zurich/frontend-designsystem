@@ -1,0 +1,33 @@
+.mdl-texthighlight {
+  @include sizeCurve('padding', smallerRegular);
+
+  @each $key, $val in $tl-color-variations {
+    &--#{$key},
+    [ class*='#{$key}' ] & {
+      background-color: #{rgba($val, 0.07)};
+
+      .mdl-richtext {
+        color: #{$val};
+
+        ul {
+          &.mdl-richtext__benefits {
+            li:before {
+              background-image: url(svg-tickmark($val)); // stylelint-disable-line
+            }
+          }
+        }
+
+        ol li:before {
+          color: #{$val};
+        }
+
+        &__quote,
+        &__emphasis {
+          p {
+            color: #{$val};
+          }
+        }
+      }
+    }
+  }
+}

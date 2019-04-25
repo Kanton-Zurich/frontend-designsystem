@@ -34,7 +34,7 @@ $fontSizeCurves: (
     xlarge: $sizeFontGiant
   ),
   big: (
-    tiny: $sizeFontLarge,
+    xsmall: $sizeFontLarge,
     small: $sizeFontSmallBig,
     medium: $sizeFontBig,
     large: $sizeFontBiggerBig,
@@ -49,19 +49,22 @@ $fontSizeCurves: (
   medium: (
     tiny: $sizeFontBiggerRegular,
     xsmall: $sizeFontMedium,
+    medium: $sizeFontMedium,
     large: $sizeFontLarge,
     xlarge: $sizeFontSmallBig
   ),
   // Leads & Blockquotes
   biggerRegular: (
-    tiny: $sizeFontBiggerRegular,
+    xsmall: $sizeFontBiggerRegular,
     small: $sizeFontMedium,
-    large: $sizeFontLarge
+    large: $sizeFontMedium,
+    xlarge: $sizeFontLarge
   ),
   regular: (
     tiny: $sizeFontRegular,
     xsmall: $sizeFontBiggerRegular,
-    large: $sizeFontMedium,
+    large: $sizeFontBiggerRegular,
+    xlarge: $sizeFontMedium,
   ),
   small: (
     tiny: $sizeFontSmall,
@@ -69,13 +72,13 @@ $fontSizeCurves: (
     large: $sizeFontBiggerRegular,
   ),
   tiny: (
-    tiny: $sizeFontTiny,
+    xsmall: $sizeFontTiny,
     small: $sizeFontSmall
   )
 );
 
 $sizeFontBase: $sizeFontRegular;
-$fontFamilyBase: Arial, sans-serif;
+$fontFamilyBase: Helvetica, sans-serif;
 
 /**
  * Line heights
@@ -87,7 +90,8 @@ $sizeLineHeightBase: 1.5;
 /**
  * Breakpoints
  */
-$sizeBreakpointTiny: 0;
+$sizeBreakpointZero: 0;
+$sizeBreakpointTiny: 320px;
 $sizeBreakpointXSmall: 400px;
 $sizeBreakpointSmall: 600px;
 $sizeBreakpointMedium: 840px;
@@ -116,6 +120,7 @@ $sizeCurves: (
   ),
   medium: (
     tiny: $sizeLarge,
+    small: $sizeLarge,
     medium: $sizeBig,
     xlarge: $sizeBiggerBig
   ),
@@ -129,6 +134,12 @@ $sizeCurves: (
     medium: $sizeSmallLarge,
     xlarge: $sizeLarge
   ),
+  smallerRegular: (
+    tiny: $sizeRegular,
+    xsmall: $sizeSmallLarge,
+    large: $sizeSmallLarge,
+    xlarge: $sizeLarge
+  ),
   small: (
     tiny: $sizeSmallRegular,
     xlarge: $sizeRegular
@@ -140,60 +151,8 @@ $sizeCurves: (
   ),
   mini: (
     tiny: $sizeTiny,
-    medium: $sizeTiny,
     xlarge: $sizeTiny,
   )
-);
-
-// List Size Curves
-$listSpaceTiny: 9px;
-$listSpaceSmall: 10px;
-$listSpaceRegular: 12px;
-$listSpaceBiggerRegular: 12px;
-$listSpaceMedium: 13px;
-$listSpaceLarge: 15px;
-$listSpaceSmallBig: 17px;
-$listSpaceBig: 19px;
-$listSpaceBiggerBig: 24px;
-$listSpaceSmallHuge: 24px;
-$listSpaceHuge: 28px;
-$listSpaceGiant: 36px;
-
-// text list spacings
-$listSpacings: (
-  regular: (
-    tiny: $listSpaceTiny,
-    small: $listSpaceSmall,
-    medium: $listSpaceMedium,
-    large: $listSpaceLarge,
-  ),
-);
-
-// Quote indentation
-$qouteIndentTiny: 22px;
-$qouteIndentSmall: 46px;
-$qouteIndentMedium: 67px;
-$qouteIndentLarge: 81px;
-$qouteIndentHuge: 100px;
-
-// text list spacings
-$quoteSpacings: (
-  regular: (
-    tiny: $qouteIndentTiny,
-    small: $qouteIndentSmall,
-    medium: $qouteIndentMedium,
-    large: $qouteIndentLarge,
-    xlarge: $qouteIndentHuge,
-  ),
-);
-
-// text lead spacings
-$leadSpacings: (
-  regular: (
-    tiny: 0,
-    xsmall: 64px,
-    small: 96px,
-  ),
 );
 
 // Layout Wrapper Spacing
@@ -209,7 +168,7 @@ $wrapperSpacing: (
  * Breakpoint Variables for Foundation Grid
  */
 $breakpoints: (
-  tiny: $sizeBreakpointTiny,
+  tiny: $sizeBreakpointZero,
   xsmall: $sizeBreakpointXSmall,
   small: $sizeBreakpointSmall,
   medium: $sizeBreakpointMedium,
@@ -222,6 +181,7 @@ $grid-margin-gutters: (
   medium: $sizeLarge,
   large: $sizeBig
 );
+
 
 $breakpoint-classes: (tiny xsmall small medium large xlarge);
 
@@ -236,6 +196,20 @@ $fontWeightQuote: 800;
 $colorBlack: $colorBlack100;
 $colorText: $colorBlack100;
 $colorBg: $colorBlack5;
+
+/**
+ * Color variations
+ */
+$tl-color-variations: (
+  cv-blue: $colorBlue,
+  cv-darkblue: $colorDarkBlue,
+  cv-turqoise: $colorTurqoise,
+  cv-green: $colorGreen,
+  cv-bordeaux: $colorBordeaux,
+  cv-magenta: $colorMagenta,
+  cv-violet: $colorViolet,
+);
+
 /**
  * Transition and Easings and Timings
  * documented here: https://we.one-inside.com/confluence/display/CZHDEV/04.11.09+Verhalten+und+Animation
@@ -255,3 +229,8 @@ $transitionTimeAreaLarge: 500ms;
 $transitionEasingDefault: ease;
 $transitionEasingAccelerate: cubic-bezier(0.2, 0.04, 0.87, 0.62);
 $transitionEasingDecelerate: cubic-bezier(0.01, 0.13, 0.63, 0.99);
+
+/**
+ * Z-Indexes
+ */
+$zIndexSkiplinks: 1000;

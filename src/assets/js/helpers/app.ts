@@ -10,6 +10,8 @@ import loadPolyfills from './polyfills';
 // import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
 // import SlideShow from '../../../demo/modules/slideshow/slideshow';
 import Table from '../../../modules/table/table';
+import Carousel from '../../../modules/carousel/carousel';
+import ImageGallery from '../../../modules/image_gallery/image_gallery';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -24,10 +26,17 @@ class App {
     // this.modules.slideshow = SlideShow;
     // this.modules.skiplinks = SkipLinks;
     this.modules.table = Table;
-		/* autoinsertmodule */ // eslint-disable-line
+    this.modules.imageGallery = ImageGallery;
+    this.modules.carousel = Carousel;
+    /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
     window[namespace].helpers.initModule = this.initModule;
+
+    // Check for touch support
+    const hasTouchSupport = 'ontouchstart' in window || navigator.msMaxTouchPoints;
+
+    if (hasTouchSupport) document.documentElement.classList.add('touch');
   }
 
   async start() {

@@ -4,7 +4,6 @@
  * See http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
  * for discussion of different solutions
  */
-
 @mixin visuallyhidden() {
   border: 0;
   clip: rect(0 0 0 0);
@@ -15,6 +14,10 @@
   position: absolute;
   width: 1px;
 }
+
+/**
+ *
+ */
 @mixin visuallyhiddenReset() {
   clip: auto;
   height: auto;
@@ -23,6 +26,10 @@
   position: static;
   width: auto;
 }
+
+/**
+ *
+ */
 @mixin visuallyhiddenFocusable() {
   @include visuallyhidden;
 
@@ -32,13 +39,11 @@
   }
 }
 
-
 /**
  * Contain floats with clearfix
  *
  * http://nicolasgallagher.com/micro-clearfix-hack/
  */
-
 @mixin clearfix() {
   *zoom: 1;
 
@@ -95,6 +100,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/**
+ *
+ */
 @mixin fontSmoothingReset() {
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: auto;
@@ -104,7 +113,6 @@
 /**
  * Placeholder in input fields
  */
-
 @mixin placeholder() {
   &::-webkit-input-placeholder {
     @content;
@@ -249,7 +257,7 @@
     }
   } @else if (type-of($listOrString) == string) {
     @if $isNegative {
-      #{$listOrString, $i}: -1 * $value;
+      #{$listOrString}: -1 * $value;
     } @else {
       #{$listOrString}: $value;
     }
@@ -284,6 +292,40 @@
 }
 
 /**
+ * Grid offset for content elements
+ */
+@mixin gridNestedOffset($attributes, $offsetColumnCount ) {
+  @include mq($from: tiny, $to: small) {
+    $gutters: pxToEm(map-get($grid-margin-gutters, tiny)) * $offsetColumnCount;
+    $columnsOffset: (100% / 6) * $offsetColumnCount;
+    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, tiny)) / 6) * $offsetColumnCount;
+
+    @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+  }
+  @include mq($from: small, $to: medium) {
+    $gutters: pxToEm(map-get($grid-margin-gutters, tiny)) * $offsetColumnCount;
+    $columnsOffset: (100% / 10) * $offsetColumnCount;
+    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, tiny)) / 10) * $offsetColumnCount;
+
+    @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+  }
+  @include mq($from: medium, $to: large) {
+    $gutters: pxToEm(map-get($grid-margin-gutters, medium)) * $offsetColumnCount;
+    $columnsOffset: (100% / 9) * $offsetColumnCount;
+    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, medium)) / 9) * $offsetColumnCount;
+
+    @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+  }
+  @include mq($from: large) {
+    $gutters: pxToEm(map-get($grid-margin-gutters, large)) * $offsetColumnCount;
+    $columnsOffset: (100% / 8) * $offsetColumnCount;
+    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, large)) / 8) * $offsetColumnCount;
+
+    @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+  }
+}
+
+/**
  * Grid bleeding for content elements
  */
 @mixin gridBleed() {
@@ -305,3 +347,30 @@
     transform: translateX(calc(#{$translateLeft} + #{$additionalRem}));
   }
 }
+
+/**
+ * Resets the button no styling
+ */
+@mixin blankButton() {
+  border: none;
+  background: none;
+  padding: 0;
+  -webkit-appearance: none; //stylelint-disable-line
+  line-height: 1;
+
+  text-align: left;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+/**
+ * SVG Icons
+ */
+@function svg-tickmark($color) {
+  $encodedSvg: encode_Base64('<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 18" style="enable-background:new 0 0 24 18" xml:space="preserve"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($color, 0.99) + '" /></svg>'); // stylelint-disable-line
+
+  @return 'data:image/svg+xml;base64,#{$encodedSvg}';
+}
+

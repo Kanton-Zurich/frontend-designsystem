@@ -1,0 +1,187 @@
+.mdl-carousel {
+  @include sizeCurve(margin-bottom, medium);
+
+  &__meta {
+    @include sizeCurve(padding-top padding-right, small);
+
+    padding-bottom: pxToRem(9px);
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: stretch;
+  }
+
+  &__title {
+    .atm-heading {
+      margin-bottom: 0;
+    }
+
+    margin-bottom: $sizeTiny;
+  }
+
+  &__close {
+    @include blankButton;
+
+    margin-right: -5px;
+  }
+
+  &__download {
+    .icon {
+      transform: translateY(3px);
+    }
+  }
+
+
+  &__close,
+  &__download {
+    padding: 0 pxToRem(5px);
+
+    use {
+      fill: $colorWhite;
+    }
+  }
+
+  &__slides {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    flex-grow: 1;
+    overflow-x: hidden;
+    padding-top: $sizeSmallRegular;
+  }
+
+  &__slide {
+    min-width: 100%;
+    display: block;
+
+    transition: margin-left $transitionTimeAreaLarge $transitionEasingDefault;
+    transform: translate3d(0, 0, 0);
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__control {
+    justify-content: center;
+    height: pxToRem($normalButtonSize);
+
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  &__indicator {
+    @extend .atm-figcaption;
+
+    font-size: pxToRem($sizeFontTiny);
+  }
+
+  /**
+   * Cascading styles
+   */
+  .mdl-image-figure {
+    @include sizeCurve(margin-bottom, small);
+  }
+
+  .mdl-button_group {
+    position: absolute;
+
+    @include mq($from: large) {
+      top: 0;
+      right: 0;
+    }
+    @include mq($to: large) {
+      left: 0;
+      justify-content: flex-end;
+      padding-right: 2px;
+
+      @include gridBleed;
+    }
+  }
+
+  /**
+   * Fullscreen styles
+   */
+  &--fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+
+    background: $colorBlack80;
+    margin: 0;
+    max-width: none;
+    transform: none;
+
+    padding-bottom: 2px;
+
+    display: flex;
+    flex-direction: column;
+
+    .mdl-carousel__title {
+      display: none;
+    }
+
+    .mdl-carousel__slides {
+      align-items: stretch;
+      overflow: visible;
+      padding-top: 0;
+      min-height: 0;
+    }
+
+    .mdl-carousel__slides,
+    .mdl-carousel__control-wrapper {
+      max-width: none;
+    }
+
+    .mdl-carousel__slide {
+      @include sizeCurve(padding-left padding-right, medium);
+
+      max-height: 100%;
+    }
+
+    .mdl-carousel__control {
+      margin: 0;
+      width: 100%;
+    }
+
+    .mdl-button_group {
+      margin: 0 pxToRem(2px) pxToRem(2px) 0;
+      max-width: none;
+      transform: none;
+    }
+  }
+
+  // Disabling arrow buttons on touch devices when fullscreen is opened
+  .touch & {
+    &.mdl-carousel--fullscreen {
+      .mdl-button_group {
+        display: none;
+      }
+    }
+  }
+
+  &:not(.mdl-carousel--fullscreen) {
+    .mdl-carousel__meta {
+      display: none;
+    }
+  }
+
+  /*
+   * Styling used in image_gallery
+   */
+  .mdl-image_gallery & {
+    &:not(.mdl-carousel--fullscreen) {
+      display: none;
+
+      .mdl-carousel__slide {
+        transition: none;
+      }
+    }
+  }
+}

@@ -1,38 +1,114 @@
 .mdl-richtext {
   max-width: $sizeWidthTextContent;
 
+  // Indentation curves
+  $indentCurve: (
+    list: (
+      tiny: 16px,
+      small: 24px,
+      xlarge: 32px,
+    ),
+    benefits: (
+      tiny: 32px,
+      medium: 40px
+    ),
+    quote: (
+      tiny: 18px,
+      xsmall: 22px,
+      small: 24px
+    )
+  );
+
+  // benefit and number list spacings
+  $listSpacings: (
+    top: (
+      tiny: 0,
+      large: 4px,
+    ),
+    bottom: (
+      tiny: 12px,
+      xlarge: 16px
+    ),
+  );
+
+
+  ::selection {
+    color: $colorWhite;
+    background: $colorBlack;
+  }
+
   h1 {
     @include mq($from: xsmall, $to: small) {
-      @include polyFluidSizing('margin-left', map-get($leadSpacings, regular));
+      @include gridNestedOffset('margin-left', 1);
     }
   }
 
   p {
     margin-top: 0;
+    line-height: 1.5em;
+
+    a {
+      color: inherit;
+      opacity: 0.6;
+      text-decoration: none;
+      border-bottom: 1px solid $colorBlue;
+
+      &:hover {
+        color: $colorBlack;
+        opacity: 1;
+        border-color: $colorBlack;
+      }
+
+      &:focus {
+        border-radius: 3px;
+        border: 2px solid $colorCyan !important; // stylelint-disable-line
+        opacity: 1;
+        outline: 0;
+        padding: 5px 2px;
+        position: relative;
+        margin-left: -4px;
+        margin-right: -4px;
+      }
+    }
 
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
     @include sizeCurve('margin-bottom', regular);
 
     &.mdl-richtext__lead {
       font-weight: $fontWeightBlack;
+      line-height: 1.3em;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
       @include mq($from: xsmall, $to: small) {
-        @include polyFluidSizing('margin-left', map-get($leadSpacings, regular));
+        @include gridNestedOffset('margin-left', 1);
       }
     }
   }
 
   &__quote,
   &__emphasis {
-    @include polyFluidSizing('margin-left', map-get($quoteSpacings, regular));
     @include sizeCurve('margin-bottom', medium);
+    @include mq($from: tiny, $to: small) {
+      @include sizeCurve('margin-left', quote, $indentCurve);
+    }
+    @include mq($from: small) {
+      @include gridNestedOffset('margin-left', 1);
+    }
+
+    padding-top: $sizeSmallRegular;
 
     p {
       font-weight: $fontWeightQuote;
+      line-height: 1.3em;
       color: $colorBlack;
+      margin-bottom: 0;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+    }
+  }
+
+  &__quote {
+    p {
       @include sizeCurve('margin-bottom', mini);
     }
 
@@ -45,47 +121,48 @@
     margin: 0;
     list-style: none;
 
-    @include sizeCurve('padding-left', regular);
+    @include sizeCurve('padding-left', list, $indentCurve);
     @include sizeCurve('margin-bottom', regular);
 
     li {
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-      @include polyFluidSizing('margin-bottom', map-get($listSpacings, regular));
+
+      margin-bottom: 1em;
 
       &:before {
         position: absolute;
         content: '\2013';
 
-        @include sizeCurve('margin-left' '', regular, $isNegative: true);
+        @include sizeCurve('margin-left', list, $indentCurve, $isNegative: true);
+      }
+
+      ul li:first-child {
+        padding-top: 1em;
       }
     }
 
     &.mdl-richtext__benefits {
-      padding-left: $sizeBiggerBig;
-      margin-bottom: 0;
-
-      @include sizeCurve('padding-bottom', small);
-      @include mq($from: tiny, $to: medium) {
-        padding-left: $sizeLarge;
-      }
+      @include sizeCurve('margin-bottom', small);
+      @include sizeCurve('padding-left', benefits, $indentCurve);
 
       li {
-        @include sizeCurve('padding-top', mini);
+        @include sizeCurve('padding-top', top, $listSpacings);
+        @include sizeCurve('margin-bottom', bottom, $listSpacings);
 
         &:before {
-          content: '\2003';
-          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorBlack, 0.99) + '" /></svg>');
-          background-size: cover;
+          content: '\2003\2003';
+          background-image: url(svg-tickmark($colorBlack));// stylelint-disable-line
           background-repeat: no-repeat;
           background-position-x: center;
+          background-position-y: center;
           display: block;
-          margin-left: - $sizeBig;
-          margin-top: 0;
+          margin-top: -2px;
+          padding-left: 10px;
 
+          @include sizeCurve('margin-left', benefits, $indentCurve, $isNegative: true);
           @include sizeCurve('width', regular);
           @include sizeCurve('height', regular);
           @include mq($from: tiny, $to: medium) {
-            margin-left: - $sizeSmallLarge;
             margin-top: 2px;
           }
         }
@@ -99,8 +176,8 @@
     list-style: none;
     counter-reset: ol-counter;
 
-    @include sizeCurve('padding-bottom', small);
-    @include sizeCurve('padding-left', medium);
+    @include sizeCurve('margin-bottom', small);
+    @include sizeCurve('padding-left', benefits, $indentCurve);
     @include mq($from: tiny, $to: medium) {
       padding-top: 0;
     }
@@ -108,9 +185,9 @@
     li {
       counter-increment: ol-counter;
 
-      @include sizeCurve('padding-top', mini);
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-      @include polyFluidSizing('margin-bottom', map-get($listSpacings, regular));
+      @include sizeCurve('padding-top', top, $listSpacings);
+      @include sizeCurve('margin-bottom', bottom, $listSpacings);
 
       &:before {
         position: absolute;
@@ -118,21 +195,39 @@
         font-weight: $fontWeightBlack;
         color: $colorBlack;
 
-        @include sizeCurve('margin-left' '', medium, $isNegative: true);
+        @include sizeCurve('margin-left', benefits, $indentCurve, true);
       }
     }
   }
 
   /* Inverted */
   &--inverted {
+    ::selection {
+      color: $colorBlack;
+      background: $colorWhite;
+    }
+
     p,
     li {
       color: $colorWhite;
+
+      a {
+        color: $colorWhite;
+        text-decoration: none;
+        border-bottom: 1px solid $colorWhite;
+        opacity: 0.5;
+
+        &:hover {
+          color: $colorWhite;
+          border-color: $colorWhite;
+          opacity: 1;
+        }
+      }
     }
 
     ul {
       &.mdl-richtext__benefits li:before {
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorWhite, 0.99) + '" /></svg>');
+        background-image: url(svg-tickmark($colorWhite)); // stylelint-disable-line
       }
     }
 
@@ -145,163 +240,40 @@
     }
   }
 
-  /* Color variation blue */
-  &--cv-blue,
-  [ class*='--cv-blue' ] & {
-    ul {
-      &.mdl-richtext__benefits {
-        li:before {
-          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorBlue, 0.99) + '" /></svg>');
+  @each $key, $val in $tl-color-variations {
+    &--#{$key},
+    [ class*='#{$key}' ] & {
+      ::selection {
+        background: #{$val};
+      }
+
+      p {
+        a {
+          border-color: #{$val};
+
+          &:hover {
+            border-color: $colorBlack;
+          }
         }
       }
-    }
 
-    ol li:before {
-      color: $colorBlue;
-    }
-
-    .mdl-richtext__quote,
-    .mdl-richtext__emphasis {
-      p {
-        color: $colorBlue;
-      }
-    }
-  }
-
-  /* Color variation darkblue */
-  &--cv-darkblue,
-  [ class*='--cv-darkblue' ] & {
-    ul {
-      &.mdl-richtext__benefits {
-        li:before {
-          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorDarkBlue, 0.99) + '" /></svg>');
+      ul {
+        &.mdl-richtext__benefits {
+          li:before {
+            background-image: url(svg-tickmark($val)); // stylelint-disable-line
+          }
         }
       }
-    }
 
-    ol li:before {
-      color: $colorDarkBlue;
-    }
-
-    .mdl-richtext__quote,
-    .mdl-richtext__emphasis {
-      p {
-        color: $colorDarkBlue;
+      ol li:before {
+        color: #{$val};
       }
-    }
-  }
 
-  /* Color variation turqoise */
-  &--cv-turqoise,
-  [ class*='--cv-turqoise' ] & {
-    ul {
-      &.mdl-richtext__benefits {
-        li:before {
-          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorTurqoise, 0.99) + '" /></svg>');
+      .mdl-richtext__quote,
+      .mdl-richtext__emphasis {
+        p {
+          color: #{$val};
         }
-      }
-    }
-
-    ol li:before {
-      color: $colorTurqoise;
-    }
-
-    .mdl-richtext__quote,
-    .mdl-richtext__emphasis {
-      p {
-        color: $colorTurqoise;
-      }
-    }
-  }
-
-  /* Color variation green */
-  &--cv-green,
-  [ class*='--cv-green' ] & {
-    ul {
-      &.mdl-richtext__benefits {
-        li:before {
-          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorGreen, 0.99) + '" /></svg>');
-        }
-      }
-    }
-
-    ol li:before {
-      color: $colorGreen;
-    }
-
-    .mdl-richtext__quote,
-    .mdl-richtext__emphasis {
-      p {
-        color: $colorGreen;
-      }
-    }
-  }
-
-  /* Color variation bordeaux */
-  &--cv-bordeaux,
-  [ class*='--cv-bordeaux' ] & {
-    ul {
-      &.mdl-richtext__benefits {
-        li:before {
-          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorBordeaux, 0.99) + '" /></svg>');
-        }
-      }
-    }
-
-    ol li:before {
-      color: $colorBordeaux;
-    }
-
-    .mdl-richtext__quote,
-    .mdl-richtext__emphasis {
-      p {
-        color: $colorBordeaux;
-      }
-    }
-  }
-
-  /* Color variation magenta */
-  &--cv-magenta,
-  [ class*='--cv-magenta' ] & {
-    ul {
-      &.mdl-richtext__benefits {
-        li:before {
-          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorMagenta, 0.99) + '" /></svg>');
-        }
-      }
-    }
-
-    ol li:before {
-      color: $colorMagenta;
-    }
-
-    .mdl-richtext__quote,
-    .mdl-richtext__emphasis {
-      p {
-        color: $colorMagenta;
-      }
-    }
-  }
-
-  /* Color variation violet */
-  &--cv-violet,
-  [ class*='--cv-violet' ] & {
-    ul {
-      &.mdl-richtext__benefits {
-        li:before {
-          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="17"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($colorViolet, 0.99) + '" /></svg>');
-        }
-      }
-    }
-
-    ol li:before {
-      color: $colorViolet;
-    }
-
-    .mdl-richtext__quote,
-    .mdl-richtext__emphasis {
-      p {
-        color: $colorViolet;
       }
     }
   }

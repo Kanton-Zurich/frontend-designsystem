@@ -14,22 +14,21 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('image_figure.md'),
   },
   props: {
-    srcsets: [ {
-      width: 1024,
-      image: '/assets/media/image/image_ktzh_example.jpg',
-      deviceWidth: 1024,
+    srcsets: [{
+      image: '/assets/media/image/content_768_x15.jpeg',
+      deviceWidth: 768,
     }, {
-      width: 768,
-      image: '/assets/media/image/image_ktzh_example_full.png',
-      deviceWidth: 0,
+      image: '/assets/media/image/content_444_x15.jpeg',
+      deviceWidth: 1,
     }],
     alt: 'Das ist ein Beispielbild',
     caption: _.merge({}, defFigcaptionData, {
-      caption: 'Das ist ein Bild, Quelle: unbekannt',
+      caption: 'Das ist ein Bild, Quelle: Fotograf Andreas Andreasen',
     }),
     isSmall: false,
     isWide: false,
     hasDownload: false,
+    useInCarousel: false,
   },
 });
 const variants = _.mapValues({
@@ -39,32 +38,63 @@ const variants = _.mapValues({
       desc: 'Ein Standard Inhaltsbild ist so breit wie der Content, bzw. das Parent-Element',
     },
   },
-  small: {
+  full169: {
     meta: {
-      title: 'kleines Inhaltsbild',
-      desc: 'Ein kleines Inhaltsbild, halb so breit wie der Content, bzw. das Parent-Element',
+      title: 'Inhaltsbild, volle Breite 16:9',
+      desc: 'Ein Inhaltsbild, welches über die volle Breite geht (Verhältnis 16:9)',
     },
     props: {
-      srcsets: [{
-        width: 320,
-        image: '/assets/media/image/image_ktzh_example_small.jpg',
-        deviceWidth: 0,
-      }],
-      isSmall: true,
-    },
-  },
-  full: {
-    meta: {
-      title: 'Inhaltsbild, volle Breite',
-      desc: 'Ein Inhaltsbild, welches über die volle Breite geht',
-    },
-    props: {
-      srcsets: [{
-        width: 320,
-        image: '/assets/media/image/image_ktzh_example_full.png',
-        deviceWidth: 0,
+      srcsets: [ {
+        image: '/assets/media/image/fullwidth_16_9_1440_x15.jpeg',
+        deviceWidth: 1025,
+      },
+      {
+        image: '/assets/media/image/fullwidth_16_9_1024_x15.jpeg',
+        deviceWidth: 601,
+      },
+      {
+        image: '/assets/media/image/fullwidth_16_9_600_x15.jpeg',
+        deviceWidth: 1,
       }],
       isWide: true,
+    },
+  },
+  full219: {
+    meta: {
+      title: 'Inhaltsbild, volle Breite 21:9',
+      desc: 'Ein Inhaltsbild, welches über die volle Breite geht (Verhältnis 21:9)',
+    },
+    props: {
+      srcsets: [ {
+        image: '/assets/media/image/fullwidth_21_9_1440_x15.jpeg',
+        deviceWidth: 1025,
+      },
+      {
+        image: '/assets/media/image/fullwidth_21_9_1024_x15.jpeg',
+        deviceWidth: 601,
+      },
+      {
+        image: '/assets/media/image/fullwidth_21_9_600_x15.jpeg',
+        deviceWidth: 1,
+      }],
+      isWide: true,
+    },
+  },
+  small: {
+    meta: {
+      title: 'Inhaltbild (klein)',
+      desc: 'Ein Inhaltsbild, welches "klein" dargestellt wird',
+    },
+    props: {
+      srcsets: [ {
+        image: '/assets/media/image/small_368_x15.jpeg',
+        deviceWidth: 601,
+      },
+      {
+        image: '/assets/media/image/small_260_x15.jpeg',
+        deviceWidth: 1,
+      }],
+      isSmall: true,
     },
   },
   withDownload: {
@@ -77,9 +107,15 @@ const variants = _.mapValues({
     },
   },
 }, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
+  // eslint-disable-next-line consistent-return
+  const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
+    if (key === 'srcsets') {
+      return variantValue;
+    }
+  }).props;
+
   const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
+  const variantData = _.mergeWith({}, data, variant, {
     meta: {
       demo: compiledVariant,
 
@@ -89,6 +125,11 @@ const variants = _.mapValues({
         data: dataHelper.getFormattedJson(variantProps),
       },
     },
+  // eslint-disable-next-line consistent-return
+  }, (dataValue, variantValue, key) => {
+    if (key === 'srcsets') {
+      return variantValue;
+    }
   });
 
   return variantData;

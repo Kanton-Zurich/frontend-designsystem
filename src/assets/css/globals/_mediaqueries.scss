@@ -16,6 +16,7 @@ $mqResponsive: true;
  * stakeholders, designers, developers, and testers.
  */
 $mqBreakpoints: (
+  zero: $sizeBreakpointZero,
   tiny: $sizeBreakpointTiny,
   xsmall: $sizeBreakpointXSmall,
   small: $sizeBreakpointSmall,
@@ -36,7 +37,7 @@ $mqStaticBreakpoint: xsmall;
  * right corner of your site during development, add the breakpoints
  * to this list, ordered by width, e.g. (mobile, tablet, desktop).
  */
-$mqShowBreakpoints: (tiny, xsmall, small, medium, large, xlarge);
+$mqShowBreakpoints: (zero, tiny, xsmall, small, medium, large, xlarge);
 
 
 @function mqGetBreakpointWidth($name) {

@@ -56,12 +56,15 @@
     "minimist": "^1.2.0",
     "node-sass-json-importer": "^3.2.0",
     "strip-ansi": "^5.0.0",
+    "terser-webpack-plugin": "^1.2.3",
     "through2": "^3.0.0",
     "ts-jest": "^24.0.0",
     "ts-loader": "^5.3.3",
     "typescript": "^3.3.3"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.3",
+    "body-scroll-lock": "^2.6.1",
     "bows": "^1.7.0",
     "dom-delegate": "^2.2.0",
     "foundation-sites": "^6.5.3",
@@ -72,10 +75,13 @@
     "lodash": "^4.17.10",
     "mdn-polyfills": "^5.12.0",
     "merge-stream": "^1.0.1",
+    "node-sass": "^4.11.0",
     "normalize.css": "^8.0.0",
+    "object-fit-images": "^3.2.4",
     "raf-throttle": "^2.0.3",
     "skip-link-focus": "^1.0.0",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.0.0",
+    "wrist": "0.0.3"
   },
   "engines": {
     "node": ">=8"

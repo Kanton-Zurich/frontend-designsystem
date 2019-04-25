@@ -1,0 +1,47 @@
+.mdl-image_gallery {
+  @include gridBleed;
+  @include sizeCurve(padding-top, big);
+  @include sizeCurve(padding-bottom, large);
+
+  background: $colorBlack80;
+  overflow-x: hidden;
+
+  &__images {
+    height: 100%;
+  }
+
+  &__more {
+    display: flex;
+    flex-direction: column;
+
+    .atm-button {
+      align-self: center;
+    }
+  }
+
+  &__more-images {
+    display: none;
+  }
+
+  /**
+   * Expanded style
+   */
+  &--expanded {
+    .mdl-image_gallery__more-images {
+      display: flex;
+    }
+
+    .mdl-image_gallery__more {
+      .atm-button {
+        display: none;
+      }
+    }
+  }
+
+  /**
+   * Fullscreen behaviour
+   */
+  &--fullscreen {
+    transform: none;
+  }
+}

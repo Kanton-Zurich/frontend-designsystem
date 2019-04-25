@@ -19,6 +19,7 @@ const data = _.merge({}, defaultData, {
     isSmall: false,
     isBig: false,
     isInverted: false,
+    additionalAttribute: null,
   },
 });
 const variants = _.mapValues({
