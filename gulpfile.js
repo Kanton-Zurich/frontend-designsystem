@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const env = require('minimist')(process.argv.slice(2));
 const git = require('git-rev-sync');
+const nodeSass = require('node-sass');
 
 
 /**
@@ -273,6 +274,12 @@ gulp.task('css', () => {
           // Add importer being able to deal with json files like colors, e.g.
           nodeSassJsonImporter,
         ],
+        functions: {
+          'encode_Base64($string)': function ($string) {
+            var buffer = new Buffer($string.getValue());
+            return nodeSass.types.String(buffer.toString('base64'));
+          }
+        },
       },
       // Use task default (autoprefixer with .browserslistrc config)
       // postcss: [],
