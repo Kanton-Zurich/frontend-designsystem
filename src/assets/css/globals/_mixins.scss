@@ -392,3 +392,13 @@
   }
 }
 
+@function multiplyMapValues($map, $factor) {
+  $newMap: ();
+
+  @each $breakpoint, $value in $map {
+    $newMap: map-merge($newMap, ($breakpoint: $value * $factor));
+  }
+
+  @return $newMap;
+}
+

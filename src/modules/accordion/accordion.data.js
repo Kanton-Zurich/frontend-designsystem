@@ -41,7 +41,7 @@ const data = _.merge({}, defaultData, {
         ],
       },
       {
-        title: 'Ein Accordion mit viel Inhalt',
+        title: 'Ein Accordion mit viel Inhalt und einem langen Titel für Testzwecke',
         techName: 'acc_item_3',
         children: [
           {

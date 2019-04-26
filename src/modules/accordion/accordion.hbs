@@ -2,6 +2,9 @@
   <h{{headingLevel}} class="atm-heading atm-heading--bordered">
     {{title}}
   </h{{headingLevel}}>
+  <p class="visuallyhidden">
+   Verwenden Sie die Akkordeon-Bedienelemente, um die Sichtbarkeit der jeweiligen Panels (unterhalb der Bedienelemente) umzuschalten.
+  </p>
   <div>
     {{#each items}}
       <div class="mdl-accordion__item" data-accordion="item">
@@ -15,7 +18,7 @@
           />
           <label class="mdl-accordion__label" for="accordion__{{techName}}">
             <span class="mdl-accordion__item-title">
-              {{title}}
+              {{title}}<span class="visuallyhidden"> anzeigen</span>
             </span>
             <svg class="icon mdl-accordion__plus">
               <use class="vertical" xlink:href="#plus-vertical"></use>

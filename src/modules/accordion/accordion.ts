@@ -15,6 +15,7 @@ class Accordion extends Module {
       triggers: string,
       panel: string,
       panelContent: string,
+      title: string,
     },
     stateClasses: {
       open: string,
@@ -43,6 +44,7 @@ class Accordion extends Module {
         triggers: '[data-accordion="trigger"]',
         panel: '[data-accordion="panel"]',
         panelContent: '[data-accordion="panel-content"]',
+        title: '[data-accordion="title"]',
       },
       stateClasses: {
         open: 'mdl-accordion__item--open',
@@ -50,6 +52,8 @@ class Accordion extends Module {
     };
 
     super($element, defaultData, defaultOptions, data, options);
+
+    (<any>window).estatico.lineClamper.initLineClamping();
 
     this.initUi();
     this.initEventListeners();

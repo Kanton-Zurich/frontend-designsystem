@@ -7,7 +7,7 @@
 
   &__label {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     position: relative;
     cursor: pointer;
 
@@ -51,6 +51,11 @@
       .mdl-accordion__panel {
         @include transition(max-height);
       }
+
+      .mdl-accordion__item-title {
+        max-height: none;
+        white-space: normal;
+      }
     }
 
     &:hover:not(.mdl-accordion__item--open) {
@@ -63,16 +68,25 @@
 
   &__item-title {
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 1.5));
+
+    display: block;
 
     letter-spacing: -0.3px;
     flex-grow: 1;
     color: $colorBlack60;
+    overflow: hidden;
+    width: calc(100% - 24px);
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     @include transition(color);
   }
 
 
   &__plus {
+    margin-top: 1px;
+
     use {
       fill: $colorBlack60;
 
