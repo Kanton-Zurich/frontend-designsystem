@@ -36,6 +36,7 @@ gulp.task('html', () => {
       src: [
         './src/**/*.hbs',
         './src/**/*.data.js',
+        './gulp/helpers/*.js',
       ],
       name: 'html',
       dependencyGraph: {
@@ -74,6 +75,9 @@ gulp.task('html', () => {
       handlebars: {
         partials: [
           './src/**/*.hbs',
+        ],
+        helpers: [
+          './gulp/helpers/*.js',
         ],
       },
       // Wrap with module layout

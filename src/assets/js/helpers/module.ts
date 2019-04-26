@@ -70,8 +70,17 @@ class Module {
    * @retusn {Object} watcher
    */
   protected watch(watchable: Object, propertyName: string, callback: Function) {
-    if (Object.prototype.hasOwnProperty.call(watchable, propertyName)) {
-      const watcher = wrist.watch(watchable, propertyName, callback);
+    const isDomElement = typeof (<Element>watchable).tagName !== 'undefined';
+
+    if (Object.prototype.hasOwnProperty.call(watchable, propertyName) || isDomElement) {
+      let watcher = null;
+      if (isDomElement) {
+        watcher = wrist.watch(watchable, propertyName, (propName, oldVal, newVal) => {
+          callback(propName, oldVal, newVal, watchable);
+        });
+      } else {
+        watcher = wrist.watch(watchable, propertyName, callback);
+      }
 
       this.watchers[propertyName] = watcher;
       return watcher;

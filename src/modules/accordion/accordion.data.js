@@ -3,16 +3,62 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
+const defaultImageData = require('../image_figure/image_figure.data');
+const defaultRichtextData = require('../richtext/richtext.data');
+const defaultVideoData = require('../video/video.data');
+
 const template = dataHelper.getFileContent('accordion.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Accordion',
     className: 'Accordion',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-109',
     documentation: dataHelper.getDocumentation('accordion.md'),
   },
   props: {
-
+    headingLevel: 2,
+    title: 'Accordion',
+    items: [
+      {
+        title: 'Kurzer Accordiontitel',
+        techName: 'acc_item_1',
+        children: [
+          {
+            text: 'Wird ein Lernfahrgesuch erstmals eingereicht, muss der/die Gesuchsteller/in persönlich bei der Gemeindeverwaltung/Einwohnerkontrolle oder beim Strassenverkehrsamt vorsprechen und einen gültigen Identifikationsnachweis mit Foto (CH-Bürger: Identitätskarte/Pass, Ausländer: Originalausländerausweis) vorlegen. Für die erstmalige Identifikation wird beim Strassenverkehrsamt eine Gebühr von Fr. 20.-- erhoben. Sie haben bereits einmal ein Gesuch eingereicht oder sind bereits im Besitz eines Führerausweises im Kredikartenformat können Sie das Gesuch per Post oder am Schalter direkt einreichen (ohne Identifikationsbestätigung).',
+          },
+        ],
+      },
+      {
+        title: 'Kurzer Accordiontitel',
+        techName: 'acc_item_2',
+        children: [
+          {
+            text: 'Wird ein Lernfahrgesuch erstmals eingereicht, muss der/die Gesuchsteller/in persönlich bei der Gemeindeverwaltung/Einwohnerkontrolle oder beim Strassenverkehrsamt vorsprechen und einen gültigen Identifikationsnachweis mit Foto (CH-Bürger: Identitätskarte/Pass, Ausländer: Originalausländerausweis) vorlegen. Für die erstmalige Identifikation wird beim Strassenverkehrsamt eine Gebühr von Fr. 20.-- erhoben. Sie haben bereits einmal ein Gesuch eingereicht oder sind bereits im Besitz eines Führerausweises im Kredikartenformat können Sie das Gesuch per Post oder am Schalter direkt einreichen (ohne Identifikationsbestätigung).',
+          },
+          {
+            partial: defaultImageData.variants.default.meta.demo,
+          },
+        ],
+      },
+      {
+        title: 'Ein Accordion mit viel Inhalt',
+        techName: 'acc_item_3',
+        children: [
+          {
+            partial: defaultRichtextData.variants.default.meta.demo,
+          },
+        ],
+      },
+      {
+        title: 'Ein Accordion mit Video',
+        techName: 'acc_item_4',
+        children: [
+          {
+            partial: defaultVideoData.variants.withoutTitle.meta.demo,
+          },
+        ],
+      },
+    ],
   },
 });
 const variants = _.mapValues({

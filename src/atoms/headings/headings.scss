@@ -11,6 +11,10 @@
   &--inverted,
   [ class*='--cv-inverted' ] & {
     color: $colorWhite;
+
+    &.atm-heading--bordered:before {
+      background: $colorWhite;
+    }
   }
 
   &--bordered {
@@ -22,7 +26,7 @@
       display: block;
       position: absolute;
 
-      background: $colorWhite;
+      background: $colorBlack;
       width: 100vw;
       left: 0;
       top: 0;
