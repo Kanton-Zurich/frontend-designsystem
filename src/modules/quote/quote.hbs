@@ -1,0 +1,12 @@
+<div class="mdl-quote {{#if hasImage}}mdl-quote--withimage{{/if}}">
+{{#if hasImage}}<img
+    class=""
+    src="{{srcsets.[0].image}}"
+    srcset="{{#each srcsets}}{{image}} {{deviceWidth}}w{{#if @last}}{{else}}, {{/if}}{{/each}}"
+    sizes="100vw"
+    alt="{{alt}}"
+    />{{/if}}<div>
+    <p>{{quoteText}}</p>
+    <span>{{quoteAuthor}}</span>
+  </div>
+</div>

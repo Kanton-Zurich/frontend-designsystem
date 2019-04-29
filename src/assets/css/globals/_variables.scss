@@ -164,6 +164,45 @@ $wrapperSpacing: (
   large: $sizeBiggerBig,
 );
 
+// Indentation curves
+$indentCurve: (
+  list: (
+    tiny: 16px,
+    small: 24px,
+    xlarge: 32px,
+  ),
+  benefits: (
+    tiny: 32px,
+    medium: 40px
+  ),
+  quote: (
+    tiny: 18px,
+    xsmall: 22px,
+    small: 24px
+  ),
+  quoteParagraph: (
+    tiny: $sizeRegular,
+    medium: $sizeLarge,
+    large: $sizeBig
+  )
+);
+
+// custom vertical spacings
+$verticalSpacingCurves: (
+  quoteWithImage: (
+    tiny: $sizeBiggerBig,
+    large: $sizeHuge
+  )
+);
+
+// content grid numbers for width calculation
+$gridOffsetColumns: (
+  tiny: 6,
+  small: 10,
+  medium: 9,
+  large: 8
+);
+
 /**
  * Breakpoint Variables for Foundation Grid
  */
