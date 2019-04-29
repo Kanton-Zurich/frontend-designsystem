@@ -23,11 +23,13 @@ $smallImageWidths: (
   @include sizeCurve(margin-bottom, medium);
 
   &__img-wrapper {
-    margin-bottom: pxToRem($sizeTiny);
     line-height: 0;
+    max-height: 100%;
 
     @at-root button#{&} {
       @include blankButton;
+
+      line-height: 0;
     }
   }
 
@@ -84,6 +86,9 @@ $smallImageWidths: (
     }
   }
 
+  /**
+   * Size variation for fullwidth
+   */
   &--fullwidth {
     @include sizeCurve(margin-top, large);
 
@@ -132,10 +137,10 @@ $smallImageWidths: (
         width: 1.5rem;
         height: 1.5rem;
       }
+    }
 
-      use {
-        fill: $colorWhite;
-      }
+    .mdl-image-figure__caption {
+      padding-top: pxToRem($sizeTiny);
     }
 
     &.mdl-image-figure--imagesmall {
@@ -148,6 +153,27 @@ $smallImageWidths: (
     .mdl-image-figure__download {
       opacity: 1;
       transition: opacity $transitionTimeFadeIn $transitionEasingDecelerate;
+    }
+  }
+
+  /**
+   * Embedded in gallery
+   */
+  .mdl-image_gallery & {
+    @include sizeCurve(margin-bottom, regular);
+
+    .mdl-image-figure__img-wrapper {
+      margin-bottom: 0.3rem;
+    }
+  }
+
+  /**
+   * Embedded in color variation inverted
+   */
+  [ class*='--cv-inverted' ] &,
+  [ class*='--fullscreen' ] & {
+    .mdl-image-figure__download use {
+      fill: $colorWhite;
     }
   }
 }

@@ -7,4 +7,17 @@
   [ class*='--cv-inverted' ] & {
     color: $colorBlack20;
   }
+
+  .mdl-image_gallery & {
+    $captionHeightCurve: (
+      tiny: $sizeFontTiny * 1.5 * 4,
+      small: $sizeFontSmall * 1.5 * 4,
+      medium: $sizeFontSmall * 1.5 * 2,
+    );
+
+    @include polyFluidSizing(max-height, $captionHeightCurve);
+
+    overflow: hidden;
+    text-overflow: -o-ellipsis-lastline;
+  }
 }
