@@ -69,6 +69,8 @@
     "dom-delegate": "^2.2.0",
     "foundation-sites": "^6.5.3",
     "git-rev-sync": "^1.12.0",
+    "gulp-string-replace": "^1.1.2",
+    "gulp-util": "^3.0.8",
     "handlebars": "^4.1.1",
     "highlight.js": "^9.12.0",
     "jest": "^23.6.0",

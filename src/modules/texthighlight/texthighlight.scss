@@ -6,10 +6,18 @@
     [ class*='#{$key}' ] & {
       background-color: #{rgba($val, 0.07)};
 
-      .mdl-richtext {
+      .atm-figcaption {
         color: #{$val};
+      }
+
+      .mdl-richtext {
+        p {
+          color: #{$val};
+        }
 
         ul {
+          color: #{$val};
+
           &.mdl-richtext__benefits {
             li:before {
               background-image: url(svg-tickmark($val)); // stylelint-disable-line
@@ -17,11 +25,24 @@
           }
         }
 
+        .mdl-quote {
+          span {
+            color: #{$val};
+          }
+        }
+
+        .atm-heading {
+          color: #{$val};
+        }
+
+        ol {
+          color: #{$val};
+        }
+
         ol li:before {
           color: #{$val};
         }
 
-        &__quote,
         &__emphasis {
           p {
             color: #{$val};
