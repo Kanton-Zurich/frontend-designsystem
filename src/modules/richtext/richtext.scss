@@ -1,24 +1,6 @@
 .mdl-richtext {
   max-width: $sizeWidthTextContent;
 
-  // Indentation curves
-  $indentCurve: (
-    list: (
-      tiny: 16px,
-      small: 24px,
-      xlarge: 32px,
-    ),
-    benefits: (
-      tiny: 32px,
-      medium: 40px
-    ),
-    quote: (
-      tiny: 18px,
-      xsmall: 22px,
-      small: 24px
-    )
-  );
-
   // benefit and number list spacings
   $listSpacings: (
     top: (
@@ -31,7 +13,6 @@
     ),
   );
 
-
   ::selection {
     color: $colorWhite;
     background: $colorBlack;
@@ -39,23 +20,22 @@
 
   h1 {
     @include mq($from: xsmall, $to: small) {
-      @include gridNestedOffset('margin-left', 1);
+      @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
     }
   }
 
   p {
     margin-top: 0;
     line-height: 1.5em;
+    color: rgba(0, 0, 0, 0.6);
 
     a {
       color: inherit;
-      opacity: 0.6;
       text-decoration: none;
       border-bottom: 1px solid $colorBlue;
 
       &:hover {
         color: $colorBlack;
-        opacity: 1;
         border-color: $colorBlack;
       }
 
@@ -75,24 +55,25 @@
     @include sizeCurve('margin-bottom', regular);
 
     &.mdl-richtext__lead {
+      color: $colorBlack;
       font-weight: $fontWeightBlack;
       line-height: 1.3em;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
       @include mq($from: xsmall, $to: small) {
-        @include gridNestedOffset('margin-left', 1);
+        @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
       }
     }
   }
 
-  &__quote,
+
   &__emphasis {
     @include sizeCurve('margin-bottom', medium);
     @include mq($from: tiny, $to: small) {
       @include sizeCurve('margin-left', quote, $indentCurve);
     }
     @include mq($from: small) {
-      @include gridNestedOffset('margin-left', 1);
+      @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
     }
 
     padding-top: $sizeSmallRegular;
@@ -107,19 +88,10 @@
     }
   }
 
-  &__quote {
-    p {
-      @include sizeCurve('margin-bottom', mini);
-    }
-
-    span {
-      @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
-    }
-  }
-
   ul {
     margin: 0;
     list-style: none;
+    color: rgba(0, 0, 0, 0.6);
 
     @include sizeCurve('padding-left', list, $indentCurve);
     @include sizeCurve('margin-bottom', regular);
@@ -152,7 +124,7 @@
 
         &:before {
           content: '\2003\2003';
-          background-image: url(svg-tickmark($colorBlack));// stylelint-disable-line
+          background-image: url(svg-tickmark($colorBlack)); // stylelint-disable-line
           background-repeat: no-repeat;
           background-position-x: center;
           background-position-y: center;
@@ -176,6 +148,7 @@
     padding-left: $sizeBig;
     list-style: none;
     counter-reset: ol-counter;
+    color: rgba(0, 0, 0, 0.6);
 
     @include sizeCurve('margin-bottom', small);
     @include sizeCurve('padding-left', benefits, $indentCurve);
@@ -209,15 +182,18 @@
       background: $colorWhite;
     }
 
+    p.mdl-richtext__lead {
+      color: $colorWhite;
+    }
+
     p,
     li {
       color: $colorWhite;
 
       a {
-        color: $colorWhite;
+        color: rgba($colorWhite, 0.6);
         text-decoration: none;
-        border-bottom: 1px solid $colorWhite;
-        opacity: 0.5;
+        border-bottom: 1px solid rgba($colorWhite, 0.6);
 
         &:hover {
           color: $colorWhite;
@@ -237,8 +213,11 @@
       color: $colorWhite;
     }
 
-    .mdl-richtext__quote span {
-      color: $colorWhite;
+    .mdl-quote {
+      p,
+      span {
+        color: $colorWhite;
+      }
     }
   }
 
@@ -271,7 +250,7 @@
         color: #{$val};
       }
 
-      .mdl-richtext__quote,
+      .mdl-quote,
       .mdl-richtext__emphasis {
         p {
           color: #{$val};

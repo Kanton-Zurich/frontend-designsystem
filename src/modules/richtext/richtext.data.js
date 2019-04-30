@@ -2,6 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const dataQuote = require('../quote/quote.data');
 
 const template = dataHelper.getFileContent('richtext.hbs');
 const data = _.merge({}, defaultData, {
@@ -11,7 +12,7 @@ const data = _.merge({}, defaultData, {
     jira: 'CZHDEV-111',
     documentation: dataHelper.getDocumentation('richtext.md'),
   },
-  props: {
+  props:_.merge({
     h1Text: 'H1: Pagetitle Black Strassenverkehrsamt',
     h2Text: 'H2: Content title Black',
     h3Text: 'H3: Black title Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
@@ -33,11 +34,7 @@ const data = _.merge({}, defaultData, {
     benefitItem: 'Informiert werden, sobald eine Sendung unterwegs ist. Informiert werden, sobald eine Sendung unterwegs ist',
     emphasisText: 'Das richtige Paradigma von Projektmanagementerfolg stützt sich nicht auf die Einhaltung von Rahmenbedingungen,'
       + ' sondern orientiert sich am tieferen Sinn der Aufgabe: Das Transformieren von Ressourcen in Resultate, welche dem Unternehmen einen Nutzen stiften.',
-    quoteText: '«Das richtige Paradigma von Projektmanagementerfolg stützt sich nicht auf die Einhaltung von'
-      + ' Rahmenbedingungen, sondern orientiert sich am tieferen Sinn der Aufgabe: Das Transformieren von Ressourcen in'
-      + ' Resultate, welche dem Unternehmen einen Nutzen stiften.»',
-    quoteAuthor: 'Claudia Pletscher, Leiterin Entwicklung',
-  },
+  }, dataQuote.props),
 });
 const variants = _.mapValues({
   default: {
@@ -49,20 +46,22 @@ const variants = _.mapValues({
   },
   inverted: {
     meta: {
-      title: 'Invertiert',
+      title: 'Invertiert (mit Image Zitat)',
       desc: '',
     },
     props: {
       inverted: true,
+      hasImage: true,
     },
   },
   blue: {
     meta: {
-      title: 'ZH Blau',
+      title: 'ZH Blau (mit Image Zitat)',
       desc: '',
     },
     props: {
       colorVariation: 'blue',
+      hasImage: true,
     },
   },
   darkblue: {
@@ -76,11 +75,12 @@ const variants = _.mapValues({
   },
   turqoise: {
     meta: {
-      title: 'ZH Türkis',
+      title: 'ZH Türkis (mit Image Zitat)',
       desc: '',
     },
     props: {
       colorVariation: 'turqoise',
+      hasImage: true,
     },
   },
   green: {
@@ -112,11 +112,12 @@ const variants = _.mapValues({
   },
   violet: {
     meta: {
-      title: 'ZH Violett',
+      title: 'ZH Violett (mit Image Zitat)',
       desc: '',
     },
     props: {
       colorVariation: 'violet',
+      hasImage: true,
     },
   },
 }, (variant) => {
