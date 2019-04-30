@@ -63,7 +63,7 @@
 
       img {
         @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
-        @include gridNestedOffset('width' 'height', 4, $gridOffsetColumns, $trailingGutter: false);
+        @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 4, $gridOffsetColumns, $trailingGutter: false);
       }
 
       p,
@@ -78,7 +78,7 @@
     @include mq($from: small, $to: large) {
       img {
         @include gridNestedOffset('margin-left', 2, $gridOffsetColumns, $isNegative: true);
-        @include gridNestedOffset('width' 'height', 4, $gridWidthColumns, $trailingGutter: false);
+        @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 4, $gridWidthColumns, $trailingGutter: false);
       }
 
       p,
@@ -89,7 +89,7 @@
     @include mq($from: large) {
       img {
         @include gridNestedOffset('margin-left', 1, $gridOffsetColumns, $isNegative: true);
-        @include gridNestedOffset('width' 'height', 3, $gridWidthColumns, $trailingGutter: false);
+        @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 3, $gridWidthColumns, $trailingGutter: false);
       }
 
       p,
