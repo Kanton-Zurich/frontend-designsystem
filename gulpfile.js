@@ -9,7 +9,7 @@ const gulpUtil = require('gulp-util');
 require('./gulp/deploy-aem');
 
 gulpUtil.env.assetsTarget = './build/assets/';
-gulpUtil.env.aemTargetBase = '../czhdev-backend/sources/ktzh-core/ktzh-core-content/src/main/resources/jcr_root/apps/zhweb/core/';
+gulpUtil.env.aemTargetBase = '../czhdev-backend/sources/zhweb-core/zhweb-core-content/src/main/resources/jcr_root/apps/zhweb/core/';
 gulpUtil.env.aemTargetBaseResources = `${gulpUtil.env.aemTargetBase}clientlibs/publish/resources/`;
 gulpUtil.env.aemAssetsProxy = '/etc.clientlibs/sanagate/core/clientlibs/publish/resources/';
 gulpUtil.env.revision = `.${git.short()}`;
