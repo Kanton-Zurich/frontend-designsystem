@@ -230,6 +230,70 @@ const variants = _.mapValues({
       }
     },
   },
+  wideFirstColumnFixed: {
+    meta: {
+      title: 'Volle Breite mit fixierter erster Spalte',
+      desc: 'Erste Spalte fixiert, horizontal scrollbar, auf volle Inhaltsbreite',
+    },
+    props: {
+      title: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
+      headingLevel: 3,
+      hasSubtitle: false,
+      hasCaption: true,
+      isWide: true,
+      isFirstColumnFixed: true,
+      hasRowHeader: true,
+      alignRight: true,
+      headers: [
+        {
+          title: '<span class="visuallyhidden">Region</span>',
+          isSortable: false,
+        }, {
+          title: 'Arbeitsstätten',
+          isSortable: false,
+        }, {
+          title: 'Anteil an der Gesamtwirtschaft',
+          isSortable: false,
+        }, {
+          title: 'Anteil an der Gesamtschweiz',
+          isSortable: false,
+        }, {
+          title: 'Beschäftigte Vollzeit',
+          isSortable: false,
+        }, {
+          title: 'Beschäftigte Teilzeit',
+          isSortable: false,
+        }, {
+          title: 'Beschäftigte Vollzeit Vorjahr',
+          isSortable: false,
+        }, {
+          title: 'Beschäftigte Teilzeit Vorjahr',
+          isSortable: false,
+        }, {
+          title: 'Gesamtumsatz* in Mio. CHF',
+          isSortable: false,
+        }, {
+          title: 'Bruttowertschöpfung** in Mio. CHF',
+          isSortable: false,
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['Zürich', '293', '4,5%', '68%', '1691', '1398', '1691', '1398', '487', '287'],
+        }, {
+          data: ['Bern', '293', '4,5%', '68%', '1691', '1398', '1691', '1398', '487', '287'],
+        }, {
+          data: ['Basel', '293', '4,5%', '68%', '1691', '1398', '1691', '1398', '487', '287'],
+        }, {
+          data: ['Gesamtschweiz', '293', '4,5%', '68%', '1691', '1398', '1691', '1398', '487', '287'],
+          isHighlighted: true,
+        },
+      ],
+      caption: {
+        caption: 'Quelle: BZ 2008, BFS; eigene Berechnungen Statistisches Amt des Kantons Zürich',
+      }
+    },
+  },
   blue: {
     meta: {
       title: 'Blau ZH',

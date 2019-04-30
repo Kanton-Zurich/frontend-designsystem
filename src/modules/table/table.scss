@@ -13,6 +13,7 @@
 
   &__figure {
     margin: 0;
+    background: $colorWhite;
   }
 
   &__figcaption {
@@ -99,6 +100,10 @@
    * Inverted
    */
   &--inverted {
+    .mdl-table__figure {
+      background: $colorBlack5;
+    }
+
     .mdl-table__row--odd .mdl-table__cell {
       background: $colorWhite;
     }
@@ -111,6 +116,17 @@
       & .mdl-table__row--odd .mdl-table__cell {
         background: $colorWhite;
       }
+    }
+  }
+
+  /**
+   * Full width
+   */
+  &--fullwidth {
+    @include sizeCurve(margin-bottom margin-top, big);
+
+    .mdl-table__figure {
+      @include gridBleed;
     }
   }
 

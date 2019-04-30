@@ -1,60 +1,59 @@
 <div class="mdl-table{{#if alignRight}} mdl-table--align-right{{/if}}
 	{{#if colorVariation}} mdl-table--cv-{{ colorVariation }}{{/if}}
 	{{#if isInverted}} mdl-table--inverted{{/if}}
+	{{#if isWide}} mdl-table--fullwidth{{/if}}
 	{{#if isFirstColumnFixed}} mdl-table--first-column-fixed{{/if}}" data-init="table">
 	{{#if hasTitle}}
-		<h{{ headingLevel }} class="mdl-table__title">{{ title }}</h{{ headingLevel }}>
+		<h{{ headingLevel }} class="atm-heading mdl-table__title">{{ title }}</h{{ headingLevel }}>
 		{{#if hasSubtitle}}
 			<p class="mdl-table__subtitle">{{ subtitle }}</p>
 		{{/if}}
 	{{/if}}
-	{{#if hasCaption}}
-		<figure class="mdl-table__figure">
-	{{/if}}
-	{{#if isFirstColumnFixed}}
-		<div class="mdl-table__scroll-area" data-table="scroll-area">
-			<div class="mdl-table__wrapper">
-	{{/if}}
-	<table class="mdl-table__table" data-table="table">
-		{{#if hasColumnHeader}}
-			<thead>
-				<tr class="mdl-table__row">
-					{{#each headers}}
-						<th scope="col" class="mdl-table__cell mdl-table__column-header">{{{ this.title }}}</th>
-					{{/each}}
-				</tr>
-			</thead>
+	<figure class="mdl-table__figure">
+		{{#if isFirstColumnFixed}}
+			<div class="mdl-table__scroll-area" data-table="scroll-area">
+				<div class="mdl-table__wrapper">
 		{{/if}}
-		<tbody>
-			{{#each bodyrows}}
-				<tr class="mdl-table__row mdl-table__row--{{#if_even @index}}odd{{else}}even{{/if_even}}
-					{{#if this.isHighlighted}}mdl-table__row--highlighted{{/if}}">
-					{{#each this.data}}
-						{{#if @first}}
-							<th scope="row" class="mdl-table__cell
-								{{#if  ../../hasRowHeader}}mdl-table__row-header{{/if}}">
-								{{{ this }}}
-							</th>
-						{{else}}
-							{{#if ../this.isHighlighted}}
-								<td class="mdl-table__cell"><strong>{{{ this }}}</strong></td>
+		<table class="mdl-table__table" data-table="table">
+			{{#if hasColumnHeader}}
+				<thead>
+					<tr class="mdl-table__row">
+						{{#each headers}}
+							<th scope="col" class="mdl-table__cell mdl-table__column-header">{{{ this.title }}}</th>
+						{{/each}}
+					</tr>
+				</thead>
+			{{/if}}
+			<tbody>
+				{{#each bodyrows}}
+					<tr class="mdl-table__row mdl-table__row--{{#if_even @index}}odd{{else}}even{{/if_even}}
+						{{#if this.isHighlighted}}mdl-table__row--highlighted{{/if}}">
+						{{#each this.data}}
+							{{#if @first}}
+								<th scope="row" class="mdl-table__cell
+									{{#if  ../../hasRowHeader}}mdl-table__row-header{{/if}}">
+									{{{ this }}}
+								</th>
 							{{else}}
-								<td class="mdl-table__cell">{{{ this }}}</td>
+								{{#if ../this.isHighlighted}}
+									<td class="mdl-table__cell"><strong>{{{ this }}}</strong></td>
+								{{else}}
+									<td class="mdl-table__cell">{{{ this }}}</td>
+								{{/if}}
 							{{/if}}
-						{{/if}}
-					{{/each}}
-				</tr>
-			{{/each}}
-		</tbody>
-	</table>
-	{{#if isFirstColumnFixed}}
+						{{/each}}
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
+		{{#if isFirstColumnFixed}}
+				</div>
 			</div>
-		</div>
-	{{/if}}
-	{{#if hasCaption}}
+		{{/if}}
+		{{#if hasCaption}}
 			<figcaption class="mdl-table__figcaption">
 				{{> "atoms/figcaption/figcaption" caption}}
 			</figcaption>
-		</figure>
-	{{/if}}
+		{{/if}}
+	</figure>
 </div>
