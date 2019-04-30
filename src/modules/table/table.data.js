@@ -33,7 +33,7 @@ const data = _.merge({}, defaultData, {
     ],
     bodyrows: [
       {
-        data: ['Kanton Zürich', '1498643', '15,2', '1005751'],
+        data: ['<a href="#" class="atm-text_link">Kanton Zürich</a>', '1498643', '15,2', '1005751'],
         isHighlighted: true,
       }, {
         data: ['Affoltern', '53531', '18,4', '17171'],
@@ -114,16 +114,16 @@ const variants = _.mapValues({
       ],
       bodyrows: [
         {
-          data: ['<a href="#">Gemeindesteuerfüsse 2019</a>', 'Januar bis März'],
+          data: ['<a href="#" class="atm-text_link">Gemeindesteuerfüsse 2019</a>', 'Januar bis März'],
         },
         {
-          data: ['<a href="#">Kantonale Bevölkerungsstatistik 2018 (prov.)</a>', '08. Februar'],
+          data: ['<a href="#" class="atm-text_link">Kantonale Bevölkerungsstatistik 2018 (prov.)</a>', '08. Februar'],
         },
         {
-          data: ['<a href="#">Abstimmungsanalyse Februar</a>', 'Ende Februar'],
+          data: ['<a href="#" class="atm-text_link">Abstimmungsanalyse Februar</a>', 'Ende Februar'],
         },
         {
-          data: ['<a href="#">Ausländerstatistik 2018</a>', 'März'],
+          data: ['<a href="#" class="atm-text_link">Ausländerstatistik 2018</a>', 'März'],
         },
       ],
     },

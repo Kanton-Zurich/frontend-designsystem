@@ -18,7 +18,7 @@ const data = _.merge({}, defaultData, {
     h3Text: 'H3: Black title Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
     h4Text: 'H4: Black title',
     pText: 'P, Regular Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die'
-      + ' Baudirektion hat beim <a href="">Landesmuseum</a> in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunktfür'
+      + ' Baudirektion hat beim <a href="#" class="atm-text_link">Landesmuseum</a> in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunktfür'
       + ' mobile Geräte eingerichtet – den ersten in der Schweiz.P, Helvetic Roman Interessierte können ab sofort die'
       + ' Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.'
       + ' Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen'

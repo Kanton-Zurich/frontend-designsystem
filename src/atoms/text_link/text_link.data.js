@@ -23,27 +23,16 @@ const variants = _.mapValues({
   default: {
     meta: {
       title: 'Standard',
-      desc: 'Standard ohne Icon',
+      desc: 'Normaler Textlink',
     },
   },
-  defaultWithLeadingIcon: {
+  inverted: {
     meta: {
-      title: 'mit Icon vorne',
-      desc: 'Standard mit Icon vorne',
+      title: 'Invertiert',
+      desc: 'Normaler Textlink auf dunklem Grund',
     },
     props: {
-      hasLeadingIcon: true,
-      icon: 'plus',
-    },
-  },
-  defaultWithTrailingIcon: {
-    meta: {
-      title: 'mit Icon hinten',
-      desc: 'Standard mit Icon hinten',
-    },
-    props: {
-      hasTrailingIcon: true,
-      icon: 'arrow-right',
+      isInverted: true,
     },
   },
 }, (variant) => {
