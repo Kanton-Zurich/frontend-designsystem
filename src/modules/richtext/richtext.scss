@@ -128,6 +128,7 @@
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
 
       margin-bottom: 1em;
+      position: relative;
 
       &:before {
         position: absolute;
@@ -184,6 +185,7 @@
 
     li {
       counter-increment: ol-counter;
+      position: relative;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
       @include sizeCurve('padding-top', top, $listSpacings);
