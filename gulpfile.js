@@ -1,5 +1,6 @@
 /* eslint-disable global-require */
 const gulp = require('gulp');
+const zip = require('gulp-zip');
 const path = require('path');
 const fs = require('fs');
 const env = require('minimist')(process.argv.slice(2));
@@ -24,7 +25,7 @@ gulpUtil.env.revision = `.${git.short()}`;
 gulp.task('html', () => {
   const task = require('@unic/estatico-handlebars');
   const estaticoWatch = require('@unic/estatico-watch');
-  const { readFileSyncCached } = require('@unic/estatico-utils');
+  const {readFileSyncCached} = require('@unic/estatico-utils');
 
   const instance = task({
     src: [
@@ -438,7 +439,7 @@ gulp.task('js:lint', () => {
  * Instead of running this task it is possible to just execute `npm run jest`
  */
 gulp.task('js:test', (done) => { // eslint-disable-line consistent-return
-                                 // Skip task when skipping tests
+  // Skip task when skipping tests
   if (env.skipTests) {
     return done();
   }
@@ -820,7 +821,7 @@ gulp.task('copy:aem', () => {
  */
 gulp.task('clean:aem', function (callback) {
   const del = require('del');
-  return del(gulpUtil.env.aemTargetBaseResources, { force: true }, callback);
+  return del(gulpUtil.env.aemTargetBaseResources, {force: true}, callback);
 });
 
 /**
@@ -886,6 +887,15 @@ gulp.task('clean', () => {
 });
 
 /**
+ * Zip deployment package
+ */
+gulp.task('zip', () => {
+  return gulp.src('dist/ci/prod/**/*')
+    .pipe(zip(`deploy${gulpUtil.env.revision}.zip`))
+    .pipe(gulp.dest('dist/ci'));
+});
+
+/**
  * Test & lint / validate
  */
 gulp.task('lint', gulp.parallel('css:lint', 'js:lint', 'data:lint'));
@@ -919,7 +929,7 @@ gulp.task('build', (done) => {
 
   // Create CI build structure
   if (env.ci) {
-    task = gulp.series(task, 'copy:ci', 'copy:aem', 'deploy:aem');
+    task = gulp.series(task, 'copy:ci', 'copy:aem', 'deploy:aem', 'zip');
   }
 
   if (env.watch && (!env.skipBuild && !env.noInteractive && !env.skipTests && !env.ci)) {
