@@ -819,9 +819,10 @@ gulp.task('copy:aem', () => {
 /**
  * Clean AEM Assets
  */
-gulp.task('clean:aem', function (callback) {
+gulp.task('clean:aem', (callback) => {
   const del = require('del');
-  return del(gulpUtil.env.aemTargetBaseResources, {force: true}, callback);
+
+  return del(gulpUtil.env.aemTargetBaseResources, { force: true }, callback);
 });
 
 /**
@@ -874,7 +875,16 @@ gulp.task('copy:ci', () => {
     },
   }, env);
 
-  return merge(dev(), prod());
+  // perserve .content.xml file in resource folder
+  const contentXML = task({
+    src: [
+      `${gulpUtil.env.aemTargetBaseResources}../css/.content.xml`,
+    ],
+    srcBase: `${gulpUtil.env.aemTargetBaseResources}../css/`,
+    dest: gulpUtil.env.aemTargetBaseResources,
+  }, env);
+
+  return merge(dev(), prod(), contentXML());
 });
 
 /**
