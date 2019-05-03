@@ -217,9 +217,11 @@ $breakpoints: (
 );
 
 $grid-margin-gutters: (
-  tiny: $sizeRegular,
+  tiny: $sizeSmallRegular,
+  xsmall: $sizeRegular,
   medium: $sizeLarge,
-  large: $sizeBig
+  large: $sizeLarge,
+  xlarge: $sizeBig
 );
 
 

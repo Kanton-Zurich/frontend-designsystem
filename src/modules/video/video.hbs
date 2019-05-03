@@ -1,11 +1,15 @@
 <figure class="mdl-video {{#if isFullwidth}}mdl-video--fullwidth{{/if}}" data-init="video">
   {{#if title}}<h{{headingLevel}} class="atm-heading">{{title}}</h{{headingLevel}}>{{/if}}
+  <div class="mdl-video__wrapper">
   <iframe
     class="mdl-video__frame"
     src="http://www.youtube.com/embed/{{videoId}}?modestbranding=1&rel=0&showInfo=0"
-    height="{{height}}"
+    height="768"
+    width="432"
+    allowfullscreen
     aria-describedby="mdl-video__{{videoId}}__alt-text"
   ></iframe>
+  </div>
   <figcaption>
     {{> "atoms/figcaption/figcaption" caption}}
     <span id="mdl-video__{{videoId}}__alt-text" class="visuallyhidden">{{alt}}</span>
