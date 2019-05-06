@@ -64,7 +64,6 @@ $slidePaddingCurve: (
     display: block;
 
     transition: margin-left $transitionTimeAreaLarge $transitionEasingDefault;
-    transform: translate3d(0, 0, 0);
     cursor: pointer;
 
     &:focus {

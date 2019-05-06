@@ -123,7 +123,7 @@ $smallImageWidths: (
     .mdl-image-figure__download {
       position: fixed;
 
-      top: pxToRem(-35px);
+      @include sizeCurve(top, small);
       right: pxToRem($sizeBig);
 
       @include sizeCurve(margin-right, small);
