@@ -61,6 +61,7 @@ $slidePaddingCurve: (
 
   &__slide {
     min-width: 100%;
+    max-width: 100%;
     display: block;
 
     transition: margin-left $transitionTimeAreaLarge $transitionEasingDefault;
