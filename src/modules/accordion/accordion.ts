@@ -53,7 +53,7 @@ class Accordion extends Module {
 
     super($element, defaultData, defaultOptions, data, options);
 
-    (<any>window).estatico.lineClamper.initLineClamping();
+    // (<any>window).estatico.lineClamper.initLineClamping();
 
     this.initUi();
     this.initEventListeners();
