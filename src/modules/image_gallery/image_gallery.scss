@@ -5,6 +5,10 @@
   background: $colorBlack80;
   overflow-x: hidden;
 
+  h2.mdl-image_gallery__title {
+    @include sizeCurve(margin-bottom, large);
+  }
+
   &__images {
     height: 100%;
   }
