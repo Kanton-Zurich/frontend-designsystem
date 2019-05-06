@@ -16,13 +16,19 @@
   &__wrapper {
     position: relative;
     overflow: hidden;
-    padding-top: 56.25%; // stylelint-disable-line
+    padding-top: 56.25%; // stylelint-disable-line -- preserve 16:6 aspect ratio
   }
 
   &--fullwidth {
     @include sizeCurve(margin-bottom margin-top, big);
 
-    .mdl-video__frame {
+    .mdl-video__wrapper {
+      padding-top: calc(100vw / 1.777); // stylelint-disable-line -- preserve aspect 16:9 ratio
+
+      @media ( min-width: $sizeGlobalMaxWidth ) {
+        padding-top: 810px; // stylelint-disable-line -- preserve 16:9 aspect ratio
+      }
+
       @include gridBleed;
     }
   }
