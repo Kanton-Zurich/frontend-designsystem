@@ -3,11 +3,6 @@
   font-weight: $fontWeightBlack;
   margin-top: 0;
 
-  @include mq($from: medium) {
-    line-height: $sizeLineHeightNarrower;
-    // margin-bottom: 0.5em;
-  }
-
   &--inverted,
   [ class*='--cv-inverted' ] & {
     color: $colorWhite;
@@ -38,6 +33,9 @@ h1 {
   &.atm-heading {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, huge));
     @include sizeCurve('margin-bottom', medium);
+    @include mq($from: medium) {
+      line-height: $sizeLineHeightNarrower;
+    }
   }
 }
 
@@ -46,14 +44,25 @@ h2 {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
     @include sizeCurve('padding-top', regular);
     @include sizeCurve('margin-bottom', regular);
+    @include mq($to: small) {
+      line-height: $sizeLineHeightMedium;
+    }
+    @include mq($from: xlarge) {
+      line-height: $sizeLineHeightNarrower;
+    }
   }
 }
 
 h3 {
   &.atm-heading {
+    line-height: $sizeLineHeightMedium;
+
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
     @include sizeCurve('padding-top', small);
     @include sizeCurve('margin-bottom', mini);
+    @include mq($from: xlarge) {
+      line-height: $sizeLineHeightNarrow;
+    }
   }
 }
 
@@ -61,8 +70,13 @@ h4,
 h5,
 h6 {
   &.atm-heading {
-    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+    line-height: $sizeLineHeightMedium;
     margin-bottom: 0;
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+    @include mq($to: xsmall) {
+      line-height: $sizeLineHeightBase;
+    }
   }
 }
 

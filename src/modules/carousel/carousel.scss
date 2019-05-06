@@ -132,6 +132,11 @@
       overflow: visible;
       padding-top: 0;
       min-height: 0;
+      height: 100%;
+
+      .mdl-image-figure__img-wrapper {
+        height: 100%;
+      }
     }
 
     .mdl-carousel__slides,

@@ -1,11 +1,31 @@
 /* eslint-disable global-require */
 const gulp = require('gulp');
+const zip = require('gulp-zip');
 const path = require('path');
 const fs = require('fs');
+const process = require('process');
 const env = require('minimist')(process.argv.slice(2));
 const git = require('git-rev-sync');
 const nodeSass = require('node-sass');
+const gulpUtil = require('gulp-util');
+require('./gulp/deploy-aem');
 
+gulpUtil.env.assetsTarget = './build/assets/';
+gulpUtil.env.aemTargetBase = '../czhdev-backend/sources/zhweb-core/zhweb-core-content/src/main/resources/jcr_root/apps/zhweb/core/';
+gulpUtil.env.aemTargetBaseResources = `${gulpUtil.env.aemTargetBase}clientlibs/publish/resources/`;
+gulpUtil.env.aemAssetsProxy = '/etc.clientlibs/sanagate/core/clientlibs/publish/resources/';
+gulpUtil.env.revision = `.${git.short()}`;
+gulpUtil.env.aemPresent = false;
+
+try {
+  if (fs.existsSync(gulpUtil.env.aemTargetBaseResources)) {
+    gulpUtil.env.aemPresent = true;
+  } else {
+    console.log('AEM not present for deployment, skipping deployment of assets');
+  }
+} catch (err) {
+  console.log('AEM not present for deployment, skipping deployment of assets');
+}
 
 /**
  * HTML task
@@ -435,7 +455,7 @@ gulp.task('js:lint', () => {
  * Instead of running this task it is possible to just execute `npm run jest`
  */
 gulp.task('js:test', (done) => { // eslint-disable-line consistent-return
-  // Skip task when skipping tests
+                                 // Skip task when skipping tests
   if (env.skipTests) {
     return done();
   }
@@ -782,26 +802,26 @@ gulp.task('copy:aem', () => {
       './dist/assets/**/*.{css,js,svg}',
     ],
     srcBase: './dist/assets',
-    dest: '../czhdev-backend/sources/ktzh-core/ktzh-core-content/src/main/resources/jcr_root/apps/zhweb/core/clientlibs/publish/resources/',
+    dest: gulpUtil.env.aemTargetBaseResources,
     plugins: {
       changed: null,
       rename: (filePath) => {
         let returnPath = filePath;
 
         if (filePath.match(/\.min\.js/)) {
-          returnPath = returnPath.replace(/\.min\.js/, '.' + git.short() + '.min.js');
+          returnPath = returnPath.replace(/\.min\.js/, `.${git.short()}.min.js`);
         } else if (filePath.match(/\.js/)) {
-          returnPath = returnPath.replace(/\.js/, '.' + git.short() + '.js');
+          returnPath = returnPath.replace(/\.js/, `.${git.short()}.js`);
         }
 
         if (filePath.match(/\.min\.css/)) {
-          returnPath = returnPath.replace(/\.min\.css/, '.' + git.short() + '.min.css');
+          returnPath = returnPath.replace(/\.min\.css/, `.${git.short()}.min.css`);
         } else if (filePath.match(/\.css/)) {
-          returnPath = returnPath.replace(/\.css/, '.' + git.short() + '.css');
+          returnPath = returnPath.replace(/\.css/, `.${git.short()}.css`);
         }
 
         if (filePath.match(/\.svg/)) {
-          returnPath = returnPath.replace(/\.svg/, '.' + git.short() + '.svg');
+          returnPath = returnPath.replace(/\.svg/, `.${git.short()}.svg`);
         }
 
         return returnPath;
@@ -810,6 +830,15 @@ gulp.task('copy:aem', () => {
   }, env);
 
   return instance();
+});
+
+/**
+ * Clean AEM Assets
+ */
+gulp.task('clean:aem', (callback) => {
+  const del = require('del');
+
+  return del(gulpUtil.env.aemTargetBaseResources, {force: true}, callback);
 });
 
 /**
@@ -862,6 +891,18 @@ gulp.task('copy:ci', () => {
     },
   }, env);
 
+  // perserve .content.xml file in resource folder
+  const contentXML = task({
+    src: [
+      `${gulpUtil.env.aemTargetBaseResources}../css/.content.xml`,
+    ],
+    srcBase: `${gulpUtil.env.aemTargetBaseResources}../css/`,
+    dest: gulpUtil.env.aemTargetBaseResources,
+  }, env);
+
+  if (gulpUtil.env.aemPresent) {
+    return merge(dev(), prod(), contentXML());
+  }
   return merge(dev(), prod());
 });
 
@@ -872,6 +913,15 @@ gulp.task('clean', () => {
   const del = require('del');
 
   return del(['./dist', './src/assets/.tmp']);
+});
+
+/**
+ * Zip deployment package
+ */
+gulp.task('zip', () => {
+  return gulp.src('dist/ci/prod/**/*')
+    .pipe(zip(`deploy${gulpUtil.env.revision}.zip`))
+    .pipe(gulp.dest('dist/ci'));
 });
 
 /**
@@ -903,12 +953,16 @@ gulp.task('build', (done) => {
 
   // Clean first
   if (!env.skipBuild) {
-    task = gulp.series('clean', task);
+    task = gulp.series('clean', 'clean:aem', task);
   }
 
   // Create CI build structure
   if (env.ci) {
-    task = gulp.series(task, 'copy:ci', 'copy:aem');
+    if (gulpUtil.env.aemPresent) {
+      task = gulp.series(task, 'copy:ci', 'copy:aem', 'deploy:aem', 'zip');
+    } else {
+      task = gulp.series(task, 'copy:ci', 'zip');
+    }
   }
 
   if (env.watch && (!env.skipBuild && !env.noInteractive && !env.skipTests && !env.ci)) {

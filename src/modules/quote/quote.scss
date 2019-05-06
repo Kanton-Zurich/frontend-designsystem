@@ -1,0 +1,105 @@
+.mdl-quote {
+  $gridWidthColumns: (
+    tiny: 2,
+    small: 10,
+    medium: 9,
+    large: 8
+  );
+
+  @include sizeCurve('margin-bottom', medium);
+  @include mq($from: tiny, $to: small) {
+    @include sizeCurve('margin-left', quote, $indentCurve);
+  }
+  @include mq($from: small) {
+    @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
+  }
+  padding-top: $sizeSmallRegular;
+
+  p {
+    font-weight: $fontWeightQuote;
+    line-height: 1.3em;
+    color: $colorBlack;
+    margin-bottom: 0;
+
+    @include sizeCurve('margin-bottom', mini);
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+  }
+
+  span {
+    color: rgba($colorBlack, 0.6);
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+  }
+
+  &--withimage {
+    display: flex;
+    margin-left: 0;
+    font-size: 0;
+    padding-top: 0;
+
+    p {
+      margin-top: 0;
+    }
+
+    @include sizeCurve('margin-top', quoteWithImage, $verticalSpacingCurves);
+    @include sizeCurve('margin-bottom', quoteWithImage, $verticalSpacingCurves);
+    @include mq($from: tiny, $to: xsmall) {
+      display: block;
+
+      @include sizeCurve('margin-left', quote, $indentCurve);
+
+      img {
+        width: 100%;
+
+        @include sizeCurve('padding-right', quote, $indentCurve);
+      }
+
+      p {
+        padding-top: $sizeLarge;
+      }
+    }
+    @include mq($from: xsmall, $to: small) {
+      display: block;
+
+      img {
+        @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
+        @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 4, $gridOffsetColumns, $trailingGutter: false);
+      }
+
+      p,
+      span {
+        @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
+      }
+
+      p {
+        padding-top: $sizeLarge;
+      }
+    }
+    @include mq($from: small, $to: large) {
+      img {
+        @include gridNestedOffset('margin-left', 2, $gridOffsetColumns, $isNegative: true);
+        @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 4, $gridWidthColumns, $trailingGutter: false);
+      }
+
+      p,
+      span {
+        @include sizeCurve('margin-left', quoteParagraph, $indentCurve);
+      }
+    }
+    @include mq($from: large) {
+      img {
+        @include gridNestedOffset('margin-left', 1, $gridOffsetColumns, $isNegative: true);
+        @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 3, $gridWidthColumns, $trailingGutter: false);
+      }
+
+      p,
+      span {
+        @include sizeCurve('margin-left', quoteParagraph, $indentCurve);
+      }
+
+      div {
+        @include gridNestedOffset('margin-right', 1, $gridWidthColumns, $trailingGutter: true, $isNegative: true);
+      }
+    }
+  }
+}

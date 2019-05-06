@@ -164,12 +164,12 @@
     $nextSizeValue: map-get($map, nth($keys, ($i+1)));
 
     @media ( min-width: $breakpointValue ) {
-      #{$property}: linearInterpolation(($breakpointValue: $sizeValue, $nextBreakpointValue: $nextSizeValue));
+      #{$property}: linearInterpolation(($breakpointValue: $sizeValue, $nextBreakpointValue: $nextSizeValue)); //stylelint-disable-line
     }
   }
 
   // Maxmimum size
-  @media ( min-width: map-get( $mqBreakpoints, nth( $keys, $length ) ) ) {
+  @media (min-width: map-get($mqBreakpoints, nth($keys, $length))) { //stylelint-disable-line
     #{$property}: map-get($map, nth($keys, $length));
   }
 }
@@ -203,7 +203,7 @@
     $b: abs($b);
   }
 
-  @return calc(#{$m*100}vw #{$sign} #{$b});
+  @return calc(#{$m*100}vw #{$sign} #{$b}); //stylelint-disable-line
 }
 
 /**
@@ -250,14 +250,14 @@
   @if (type-of($listOrString) == list) {
     @for $i from 1 through length($listOrString) {
       @if $isNegative {
-        #{nth($listOrString, $i)}: -1 * $value;
+        #{nth($listOrString, $i)}: -$value;
       } @else {
         #{nth($listOrString, $i)}: $value;
       }
     }
   } @else if (type-of($listOrString) == string) {
     @if $isNegative {
-      #{$listOrString}: -1 * $value;
+      #{$listOrString}: -$value;
     } @else {
       #{$listOrString}: $value;
     }
@@ -294,34 +294,54 @@
 /**
  * Grid offset for content elements
  */
-@mixin gridNestedOffset($attributes, $offsetColumnCount ) {
+@mixin gridNestedOffset($attributes, $offsetColumnCount, $columnsWidthCount, $isNegative: false, $trailingGutter: true) {
   @include mq($from: tiny, $to: small) {
-    $gutters: pxToEm(map-get($grid-margin-gutters, tiny)) * $offsetColumnCount;
     $columnsOffset: (100% / 6) * $offsetColumnCount;
-    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, tiny)) / 6) * $offsetColumnCount;
-
-    @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, tiny)) / map-get($columnsWidthCount, tiny)) * $offsetColumnCount;
+    @if ($trailingGutter == false) {
+      $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, tiny)) / map-get($columnsWidthCount, tiny)) * $offsetColumnCount - pxToRem(map-get($grid-margin-gutters, tiny));
+    }
+    @if $isNegative == true {
+      @include generateCSSFromListOrString($attributes, calc(-#{$columnsOffset} - #{$gutterCorrection}));
+    } @else {
+      @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+    }
   }
   @include mq($from: small, $to: medium) {
-    $gutters: pxToEm(map-get($grid-margin-gutters, tiny)) * $offsetColumnCount;
     $columnsOffset: (100% / 10) * $offsetColumnCount;
-    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, tiny)) / 10) * $offsetColumnCount;
-
-    @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, tiny)) / map-get($columnsWidthCount, small)) * $offsetColumnCount;
+    @if ($trailingGutter == false) {
+      $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, tiny)) / map-get($columnsWidthCount, small)) * $offsetColumnCount - pxToRem(map-get($grid-margin-gutters, tiny));
+    }
+    @if $isNegative == true {
+      @include generateCSSFromListOrString($attributes, calc(-#{$columnsOffset} - #{$gutterCorrection}));
+    } @else {
+      @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+    }
   }
   @include mq($from: medium, $to: large) {
-    $gutters: pxToEm(map-get($grid-margin-gutters, medium)) * $offsetColumnCount;
     $columnsOffset: (100% / 9) * $offsetColumnCount;
-    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, medium)) / 9) * $offsetColumnCount;
-
-    @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, medium)) / map-get($columnsWidthCount, medium)) * $offsetColumnCount;
+    @if ($trailingGutter == false) {
+      $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, medium)) / map-get($columnsWidthCount, medium)) * $offsetColumnCount - pxToRem(map-get($grid-margin-gutters, medium));
+    }
+    @if $isNegative == true {
+      @include generateCSSFromListOrString($attributes, calc(-#{$columnsOffset} - #{$gutterCorrection}));
+    } @else {
+      @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+    }
   }
   @include mq($from: large) {
-    $gutters: pxToEm(map-get($grid-margin-gutters, large)) * $offsetColumnCount;
     $columnsOffset: (100% / 8) * $offsetColumnCount;
-    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, large)) / 8) * $offsetColumnCount;
-
-    @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, large)) / map-get($columnsWidthCount, large)) * $offsetColumnCount;
+    @if ($trailingGutter == false) {
+      $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, large)) / map-get($columnsWidthCount, large)) * $offsetColumnCount - pxToRem(map-get($grid-margin-gutters, large));
+    }
+    @if $isNegative == true {
+      @include generateCSSFromListOrString($attributes, calc(-#{$columnsOffset} - #{$gutterCorrection}));
+    } @else {
+      @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+    }
   }
 }
 
@@ -365,6 +385,7 @@
     outline: none;
   }
 }
+
 /**
  * SVG Icons
  */
