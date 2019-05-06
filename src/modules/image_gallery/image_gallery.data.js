@@ -45,6 +45,7 @@ const slideImage = _.merge({}, defImageFigureData, {
       deviceWidth: 1,
     },
   ],
+  useInCarousel: true,
 });
 
 const template = dataHelper.getFileContent('image_gallery.hbs');
