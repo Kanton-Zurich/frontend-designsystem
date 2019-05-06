@@ -1,10 +1,13 @@
 .mdl-image_gallery {
   @include gridBleed;
-  @include sizeCurve(padding-top, big);
-  @include sizeCurve(padding-bottom, large);
+  @include sizeCurve(padding-top padding-bottom, big);
 
   background: $colorBlack80;
   overflow-x: hidden;
+
+  h2.mdl-image_gallery__title {
+    @include sizeCurve(margin-bottom, large);
+  }
 
   &__images {
     height: 100%;

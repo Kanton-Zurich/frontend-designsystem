@@ -30,7 +30,8 @@
     "CustomEvent": true,
     "Event": true,
     "XMLHttpRequest": true,
-    "navigator": true
+    "navigator": true,
+    "Image": true
   },
   "settings": {
     "import/resolver": {

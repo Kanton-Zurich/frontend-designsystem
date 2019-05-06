@@ -4,7 +4,7 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const defImageFigureData = require('../image_figure/image_figure.data').variants.default.props;
-const defButtonData = require('../../atoms/button/button.data').variants.secondary.props;
+const defButtonData = require('../../atoms/button/button.data').variants.secondarySmall.props;
 const defCarouselData = require('../carousel/carousel.data').variants.default.props;
 
 const smallGalleryImage = _.merge({}, defImageFigureData, {
@@ -45,6 +45,7 @@ const slideImage = _.merge({}, defImageFigureData, {
       deviceWidth: 1,
     },
   ],
+  useInCarousel: true,
 });
 
 const template = dataHelper.getFileContent('image_gallery.hbs');

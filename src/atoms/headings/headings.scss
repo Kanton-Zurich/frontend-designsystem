@@ -46,6 +46,10 @@ h2 {
     @include mq($from: xlarge) {
       line-height: $sizeLineHeightNarrower;
     }
+
+    &.atm-heading--bordered {
+      @include sizeCurve('padding-top', small);
+    }
   }
 }
 
