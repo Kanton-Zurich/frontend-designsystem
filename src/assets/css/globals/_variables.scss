@@ -1,6 +1,7 @@
 /**
  * Layout
  */
+$sizeGlobalMaxWidth: 1440px;
 $sizeWidthContent: 1168px;
 $sizeWidthTextContent: 768px;
 
@@ -217,9 +218,11 @@ $breakpoints: (
 );
 
 $grid-margin-gutters: (
-  tiny: $sizeRegular,
+  tiny: $sizeSmallRegular,
+  xsmall: $sizeRegular,
   medium: $sizeLarge,
-  large: $sizeBig
+  large: $sizeLarge,
+  xlarge: $sizeBig
 );
 
 
