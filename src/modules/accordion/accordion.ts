@@ -20,12 +20,14 @@ class Accordion extends Module {
     stateClasses: {
       open: string,
     }
+    focusableElements: string,
   }
 
   public ui: {
     element: any,
     items: any,
     triggers: any,
+    panelContent: any,
   }
 
   public data: {
@@ -49,6 +51,7 @@ class Accordion extends Module {
       stateClasses: {
         open: 'mdl-accordion__item--open',
       },
+      focusableElements: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
     };
 
     super($element, defaultData, defaultOptions, data, options);
@@ -58,13 +61,15 @@ class Accordion extends Module {
     this.initUi();
     this.initEventListeners();
     this.initWachers();
+
+    this.initTabindex();
   }
 
   /**
    * Toggling the item
    *
-   * @param {string} propName in this case always checked
-   * @param {Boolean} checkedBefore if the accordion was checked before click
+   * @param {string} propName in this case always checked // not needed
+   * @param {Boolean} checkedBefore if the accordion was checked before click // not needed
    * @param {Boolean} checkedNow is it checked now
    * @param {Element} element The clicked element
    * @memberof Accordion
@@ -72,13 +77,18 @@ class Accordion extends Module {
   toggleItem(propName, checkedBefore, checkedNow, element) {
     const accordionItem = element.parentElement.parentElement;
     const panel = accordionItem.querySelector(this.options.domSelectors.panel);
+    const focusableChildren = panel.querySelectorAll(this.options.focusableElements);
 
     accordionItem.classList.toggle(this.options.stateClasses.open);
 
     if (checkedNow) {
       panel.style.maxHeight = `${this.calcHeight(accordionItem)}px`;
+
+      this.setTabindex(focusableChildren, 0);
     } else {
       panel.style.maxHeight = '0px';
+
+      this.setTabindex(focusableChildren, -1);
     }
   }
 
@@ -121,10 +131,29 @@ class Accordion extends Module {
   }
 
   /**
+   * Catching the event key to preventing default
+   *
+   * @param {*} event
+   * @memberof Accordion
+   * @returns {boolean} If the event is allowed to continue its default propagation
+   */
+  handleKeyOnTrigger(event) {
+    if (event.key === 'Enter') {
+      event.target.click();
+
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
    * Event listeners initialisation
    */
   initEventListeners() {
     (<any>WindowEventListener).addDebouncedResizeListener(this.checkForOpen.bind(this));
+
+    this.eventDelegate.on('keydown', this.options.domSelectors.triggers, this.handleKeyOnTrigger.bind(this));
   }
 
   /**
@@ -135,6 +164,30 @@ class Accordion extends Module {
   initWachers() {
     this.ui.triggers.forEach((trigger) => {
       this.watch(trigger, 'checked', this.toggleItem.bind(this));
+    });
+  }
+
+  /**
+   * Initializing the tabindex for all focusable children of panelContent(s)
+   *
+   * @memberof Accordion
+   */
+  initTabindex() {
+    this.ui.panelContent.forEach((panelContent) => {
+      this.setTabindex(panelContent.querySelectorAll(this.options.focusableElements), -1);
+    });
+  }
+
+  /**
+   * Setting the tabindex for a list of focusable elements
+   *
+   * @param {NodeList} focusableElements
+   * @param {Number} tabindex -1 or 0
+   * @memberof Accordion
+   */
+  setTabindex(focusableElements, tabindex) {
+    focusableElements.forEach((focusable) => {
+      focusable.setAttribute('tabindex', tabindex);
     });
   }
 
