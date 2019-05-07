@@ -119,5 +119,9 @@
 .sg_module {
   .sg_demo {
     padding: 0;
+
+    > .cell > .mdl-context_menu {
+      position: static;
+    }
   }
 }

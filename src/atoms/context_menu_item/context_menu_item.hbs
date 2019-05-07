@@ -1,15 +1,15 @@
-<a
+<{{#if isButton}}button{{else}}a{{/if}}
   class="atm-context_menu_item {{#if selectable}}atm-context_menu_item--selectable{{/if}}"
   {{#if href}}href="{{href}}"{{/if}}
 >
   {{#if iconBefore}}
     <svg class="icon atm-context_menu_item__icon">
-      <use xlink:href="#{{iconBefore}}"
+      <use xlink:href="#{{iconBefore}}"></use>
     </svg>
   {{/if}}
   {{#if selectable}}
     <svg class="icon atm-context_menu_item__icon">
-      <use xlink:href="#check"
+      <use xlink:href="#check"></use>
     </svg>
   {{/if}}
   <span class="atm-context_menu_item__label">{{text}}</span>
@@ -18,4 +18,4 @@
       <use xlink:href="#{{iconAfter}}"></use>
     </svg>
   {{/if}}
-</a>
+</{{#if isButton}}button{{else}}a{{/if}}>

@@ -24,6 +24,16 @@ const variants = _.mapValues({
       desc: 'Item mit Icon nach dem Text',
     },
   },
+  defaultAsButton: {
+    meta: {
+      title: 'Standard als Button',
+      desc: 'Item mit Icon nach dem Text, aber als Button',
+    },
+    props: {
+      isButton: true,
+      href: false,
+    },
+  },
   iconBefore: {
     meta: {
       title: 'Icon vor Text',
@@ -52,6 +62,19 @@ const variants = _.mapValues({
       iconBefore: false,
       iconAfter: false,
       selectable: true,
+      isButton: true,
+      href: false,
+    },
+  },
+  download: {
+    meta: {
+      title: 'Sprache für Download',
+      desc: 'Sprachauswahl für einen Download mit mehreren Sprachen',
+    },
+    props: {
+      iconBefore: 'download',
+      iconAfter: false,
+      text: 'Sprache',
     },
   },
 }, (variant) => {

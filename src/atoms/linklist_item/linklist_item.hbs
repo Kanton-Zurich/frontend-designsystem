@@ -1,4 +1,9 @@
-<{{#if isButton}}button{{else}}a{{/if}} class="atm-linklist_item {{#if isDownload}}atm-linklist_item--download{{/if}}" {{#if href}}href="{{href}}"{{/if}}{{#if target}} target="_{{target}}"{{/if}} {{#if isDownload}}{{#unless isButton}}download{{/unless}}{{/if}}>
+<{{#if isButton}}button{{else}}a{{/if}}
+  class="atm-linklist_item {{#if isDownload}}atm-linklist_item--download{{/if}}"
+  {{#if href}}href="{{href}}"{{/if}}{{#if target}} target="_{{target}}"{{/if}}
+  {{#if isDownload}}{{#unless isButton}}download{{/unless}}{{/if}}
+  {{#if domSelector}}{{{domSelector}}}{{/if}}
+>
   {{#if isDownload}}
     <svg class="icon atm-linklist_item__download">
       <use xlink:href="#download"></use>

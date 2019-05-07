@@ -6,10 +6,12 @@ const defaultData = require('../../data/default.data.js');
 const downloadLinkItem = require('../../atoms/linklist_item/linklist_item.data').variants.download.props;
 const downloadButtonItem = require('../../atoms/linklist_item/linklist_item.data').variants.downloadAsButton.props;
 
+const contextMenuDownload = require('../context_menu/context_menu.data').variants.download.props;
+
 const template = dataHelper.getFileContent('download_list.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'DownloadList',
+    title: 'Download-Liste',
     className: 'DownloadList',
     jira: 'CZHDEV-172',
     documentation: dataHelper.getDocumentation('download_list.md'),
@@ -20,9 +22,20 @@ const data = _.merge({}, defaultData, {
       text: 'H2: Titel',
     },
     links: [
-      downloadLinkItem,
-      downloadLinkItem,
-      downloadButtonItem,
+      {
+        link: downloadLinkItem,
+      },
+      {
+        link: downloadLinkItem,
+      },
+      {
+        link: _.merge({}, downloadButtonItem, {
+          domSelector: 'data-download_list="openContext"',
+        }),
+        contextMenu: _.merge({}, contextMenuDownload, {
+          domSelector: 'data-download_list="contextMenu"',
+        }),
+      },
     ],
   },
 });
@@ -48,7 +61,7 @@ const variants = _.mapValues({
   h4: {
     meta: {
       title: 'Standard mit h4',
-      desc: 'Eine Downloadliste mit h3-Titel',
+      desc: 'Eine Downloadliste mit h4-Titel',
     },
     props: {
       title: {

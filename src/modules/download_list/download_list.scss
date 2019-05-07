@@ -10,4 +10,8 @@
 
     @include sizeCurve(padding-top, small);
   }
+
+  .mdl-context_menu {
+    display: none;
+  }
 }

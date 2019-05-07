@@ -5,7 +5,10 @@
   <ul class="mdl-download_list__list">
     {{#each links}}
       <li class="mdl-download_list__item">
-        {{> "atoms/linklist_item/linklist_item" this}}
+        {{> "atoms/linklist_item/linklist_item" link}}
+        {{#if contextMenu}}
+          {{> "modules/context_menu/context_menu" contextMenu}}
+        {{/if}}
       </li>
     {{/each}}
   </ul>
