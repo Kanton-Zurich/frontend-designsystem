@@ -40,9 +40,13 @@ class LineClamper {
   private setLineClamping() {
     if (this.elements.length > 0) {
       this.elements.forEach((element) => {
-        const elementHeight = element.clientHeight;
+        if (!element.hasAttribute('data-line-clamped')) {
+          element.setAttribute('title', element.innerText);
 
-        element.setAttribute('title', element.innerText);
+          element.setAttribute('data-line-clamped', 'true');
+        }
+
+        const elementHeight = element.clientHeight;
 
         while (element.scrollHeight > elementHeight) {
           element.textContent = element.textContent.replace(/\W*\s(\S)*$/, '...');
