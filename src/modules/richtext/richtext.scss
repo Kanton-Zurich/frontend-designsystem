@@ -5,12 +5,18 @@
   $listSpacings: (
     top: (
       tiny: 0,
-      large: 4px,
+      medium: 4px,
+      xlarge: 8px
     ),
     bottom: (
       tiny: 12px,
       xlarge: 16px
     ),
+    containerBottom: (
+      tiny: 8px,
+      medium: 12px,
+      xlarge: 16px
+    )
   );
 
   ::selection {
@@ -19,7 +25,7 @@
   }
 
   h1 {
-    @include mq($from: xsmall, $to: small) {
+    @include mq($from: tiny, $to: small) {
       @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
     }
   }
@@ -60,6 +66,9 @@
       line-height: 1.3em;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+      @include mq($from: tiny, $to: xsmall) {
+        @include gridNestedOffset('text-indent', 1, $gridOffsetColumns);
+      }
       @include mq($from: xsmall, $to: small) {
         @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
       }
@@ -115,12 +124,14 @@
     }
 
     &.mdl-richtext__benefits {
-      @include sizeCurve('margin-bottom', small);
+      @include sizeCurve('margin-bottom', containerBottom, $listSpacings);
       @include sizeCurve('padding-left', benefits, $indentCurve);
 
       li {
+        margin-bottom: 0;
+
         @include sizeCurve('padding-top', top, $listSpacings);
-        @include sizeCurve('margin-bottom', bottom, $listSpacings);
+        @include sizeCurve('padding-bottom', bottom, $listSpacings);
 
         &:before {
           content: '\2003\2003';
@@ -129,7 +140,6 @@
           background-position-x: center;
           background-position-y: center;
           display: block;
-          margin-top: -2px;
           padding-left: 10px;
 
           @include sizeCurve('margin-left', benefits, $indentCurve, $isNegative: true);
@@ -137,6 +147,9 @@
           @include sizeCurve('height', regular);
           @include mq($from: tiny, $to: medium) {
             margin-top: 2px;
+          }
+          @include mq($from: xlarge) {
+            margin-top: -2px;
           }
         }
       }
@@ -150,7 +163,7 @@
     counter-reset: ol-counter;
     color: rgba(0, 0, 0, 0.6);
 
-    @include sizeCurve('margin-bottom', small);
+    @include sizeCurve('margin-bottom', containerBottom, $listSpacings);
     @include sizeCurve('padding-left', benefits, $indentCurve);
     @include mq($from: tiny, $to: medium) {
       padding-top: 0;
@@ -159,10 +172,11 @@
     li {
       counter-increment: ol-counter;
       position: relative;
+      margin-bottom: 0;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
       @include sizeCurve('padding-top', top, $listSpacings);
-      @include sizeCurve('margin-bottom', bottom, $listSpacings);
+      @include sizeCurve('padding-bottom', bottom, $listSpacings);
 
       &:before {
         position: absolute;
