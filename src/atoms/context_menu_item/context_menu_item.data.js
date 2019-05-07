@@ -20,8 +20,38 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+      title: 'Standard',
+      desc: 'Item mit Icon nach dem Text',
+    },
+  },
+  iconBefore: {
+    meta: {
+      title: 'Icon vor Text',
+      desc: 'Item mit einem Icon vor dem Text',
+    },
+    props: {
+      iconAfter: false,
+      iconBefore: 'location',
+    },
+  },
+  twoIcons: {
+    meta: {
+      title: 'Mit 2 Icons',
+      desc: 'Item mit Icons vor und nach dem Text',
+    },
+    props: {
+      iconBefore: 'location',
+    },
+  },
+  selectable: {
+    meta: {
+      title: 'Auswählbarer Eintrag',
+      desc: 'Item welches angewählt werden kann',
+    },
+    props: {
+      iconBefore: false,
+      iconAfter: false,
+      selectable: true,
     },
   },
 }, (variant) => {

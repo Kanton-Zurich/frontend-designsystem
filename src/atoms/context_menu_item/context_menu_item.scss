@@ -9,11 +9,37 @@
   padding: 0 $sizeSmallRegular;
   text-decoration: none;
 
-  &:hover {
+  @include transition(color);
+
+  &:hover,
+  &:active,
+  &--selected {
     color: $colorBlack;
+    background: $colorBlack5;
 
     .atm-context_menu_item__icon use {
       fill: $colorBlack;
+    }
+  }
+
+  &:active,
+  &--selected {
+    background: $colorCyan;
+  }
+
+  // Selectable states
+  &--selectable {
+    .atm-context_menu_item__icon:first-child {
+      opacity: 0;
+
+      @include transition(opacity);
+    }
+
+    &.atm-context_menu_item--selected {
+
+      .atm-context_menu_item__icon:first-child {
+        opacity: 1;
+      }
     }
   }
 
@@ -23,11 +49,17 @@
 
   &__icon {
     use {
+      @include transition(fill);
+
       fill: $colorBlack60;
     }
 
     &:last-child {
       margin-right: pxToRem(5px);
+    }
+
+    &:first-child {
+      margin-right: pxToRem($sizeTiny);
     }
   }
 }

@@ -1,10 +1,15 @@
 <a
-  class="atm-context_menu_item"
+  class="atm-context_menu_item {{#if selectable}}atm-context_menu_item--selectable{{/if}}"
   {{#if href}}href="{{href}}"{{/if}}
 >
   {{#if iconBefore}}
     <svg class="icon atm-context_menu_item__icon">
       <use xlink:href="#{{iconBefore}}"
+    </svg>
+  {{/if}}
+  {{#if selectable}}
+    <svg class="icon atm-context_menu_item__icon">
+      <use xlink:href="#check"
     </svg>
   {{/if}}
   <span class="atm-context_menu_item__label">{{text}}</span>
