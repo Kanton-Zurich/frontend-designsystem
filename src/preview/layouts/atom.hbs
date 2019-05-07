@@ -13,8 +13,10 @@
 	<link rel="stylesheet" href="/preview/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
+  <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js" defer></script>
 
-	{{#if env.dev}}
+
+  {{#if env.dev}}
 		<link rel="stylesheet" href="/preview/assets/css/dev.css">
 		<script src="/preview/assets/js/dev.js"></script>
 	{{/if}}
@@ -111,9 +113,6 @@
 				{{/each}}
 			</section>
 		{{/if}}
-
-		<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
-
 		{{#block "scripts"}}
 		{{/block}}
 	</div>

@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="/preview/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 
   <script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
+  <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js" defer></script>
+
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}} {{#if props.fonts}} data-fonts='{{props.fonts}}'{{/if}}>
 <div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}}">
