@@ -1,0 +1,33 @@
+.atm-context_menu_item {
+  min-height: pxToRem($sizeTiny + $sizeBiggerBig);
+
+  display: flex;
+  align-items: center;
+  font-size: pxToRem($sizeFontRegular);
+  color: $colorBlack60;
+
+  padding: 0 $sizeSmallRegular;
+  text-decoration: none;
+
+  &:hover {
+    color: $colorBlack;
+
+    .atm-context_menu_item__icon use {
+      fill: $colorBlack;
+    }
+  }
+
+  &__label {
+    flex-grow: 1;
+  }
+
+  &__icon {
+    use {
+      fill: $colorBlack60;
+    }
+
+    &:last-child {
+      margin-right: pxToRem(5px);
+    }
+  }
+}

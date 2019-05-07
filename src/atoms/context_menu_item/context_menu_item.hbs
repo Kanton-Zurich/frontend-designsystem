@@ -1,0 +1,16 @@
+<a
+  class="atm-context_menu_item"
+  {{#if href}}href="{{href}}"{{/if}}
+>
+  {{#if iconBefore}}
+    <svg class="icon atm-context_menu_item__icon">
+      <use xlink:href="#{{iconBefore}}"
+    </svg>
+  {{/if}}
+  <span class="atm-context_menu_item__label">{{text}}</span>
+  {{#if iconAfter}}
+    <svg class="icon atm-context_menu_item__icon">
+      <use xlink:href="#{{iconAfter}}"></use>
+    </svg>
+  {{/if}}
+</a>

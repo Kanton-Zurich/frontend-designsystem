@@ -11,7 +11,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'DownloadList',
     className: 'DownloadList',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-172',
     documentation: dataHelper.getDocumentation('download_list.md'),
   },
   props: {
