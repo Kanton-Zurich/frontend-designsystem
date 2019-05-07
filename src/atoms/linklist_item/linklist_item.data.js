@@ -23,6 +23,29 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
+  download: {
+    meta: {
+      title: 'Downloadlink',
+      desc: 'Link für die Downloadliste',
+    },
+    props: {
+      isDownload: true,
+      label: 'Dateityp | Seiten | Sprache | 100kb',
+      href: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    },
+  },
+  downloadAsButton: {
+    meta: {
+      title: 'Downloadlink als Button (für mehrere Sprachen)',
+      desc: 'Ein Button für die Downloadliste, welches ein Kontext-Menü öffnet',
+    },
+    props: {
+      isDownload: true,
+      label: 'Dateityp | Seiten | Sprache | 100kb',
+      isButton: true,
+      href: false,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

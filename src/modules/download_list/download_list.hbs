@@ -1,0 +1,12 @@
+<div class="mdl-download_list" data-init="downloadList">
+	{{#if title}}
+    <h{{title.level}} class="atm-heading mdl-download_list__title">{{title.text}}</h{{title.level}}>
+  {{/if}}
+  <ul class="mdl-download_list__list">
+    {{#each links}}
+      <li class="mdl-download_list__item">
+        {{> "atoms/linklist_item/linklist_item" this}}
+      </li>
+    {{/each}}
+  </ul>
+</div>

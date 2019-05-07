@@ -400,7 +400,7 @@
   background: none;
   padding: 0;
   -webkit-appearance: none; //stylelint-disable-line
-  line-height: 1;
+  line-height: 1.5;
 
   text-align: left;
   cursor: pointer;
@@ -417,5 +417,11 @@
   $encodedSvg: encode_Base64('<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 18" style="enable-background:new 0 0 24 18" xml:space="preserve"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($color, 0.99) + '" /></svg>'); // stylelint-disable-line
 
   @return 'data:image/svg+xml;base64,#{$encodedSvg}';
+}
+
+@mixin resetList() {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
