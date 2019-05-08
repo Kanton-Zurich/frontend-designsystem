@@ -46,6 +46,19 @@ const variants = _.mapValues({
       href: false,
     },
   },
+  legalFoundation: {
+    meta: {
+      title: 'Rechliche Grundlage herunterladen',
+      desc: 'Ein Link welches ermöglicht eine rechtliche Grundlage herunterzuladen',
+    },
+    props: {
+      href: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      label: 'RRB Nr. 258 | 21.03.2019 | Direktion der Justiz und des Inneren',
+      title: 'ZHAW Hochschule Winterthur, Campus Technikumstrasse, Projektierung "Campus T" 1. Etappe, gebunde Ausgabe',
+      isLegalFoundation: true,
+      isDownload: true,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

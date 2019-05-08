@@ -53,14 +53,33 @@
       background: $colorText;
     }
 
-    .atm-linklist_item__arrow use,
-    .atm-linklist_item__download use {
+    .icon use {
       fill: $colorText;
     }
   }
 
   &--download {
     align-items: flex-start;
+  }
+
+  &--legalfoundation {
+    flex-direction: column;
+
+    .atm-linklist_item__label {
+      margin-top: pxToRem($sizeTiny);
+    }
+
+    .atm-linklist_item__download-button {
+      margin-top: pxToRem($sizeTiny);
+      display: flex;
+      align-items: center;
+      font-weight: $fontWeightDefault;
+      font-size: pxToRem($sizeFontSmall);
+
+      .icon {
+        margin-right: pxToRem($sizeSmallRegular);
+      }
+    }
   }
 
   &__arrow {
@@ -84,8 +103,7 @@
     font-weight: $fontWeightDefault;
   }
 
-  &__arrow use,
-  &__download use {
+  .icon use {
     fill: $colorBlack60;
     transition: fill $transitionTimeSimple $transitionEasingDefault;
   }

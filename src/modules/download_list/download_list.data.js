@@ -5,6 +5,7 @@ const defaultData = require('../../data/default.data.js');
 
 const downloadLinkItem = require('../../atoms/linklist_item/linklist_item.data').variants.download.props;
 const downloadButtonItem = require('../../atoms/linklist_item/linklist_item.data').variants.downloadAsButton.props;
+const downloadLegalFoundation = require('../../atoms/linklist_item/linklist_item.data').variants.legalFoundation.props;
 
 const contextMenuDownload = require('../context_menu/context_menu.data').variants.download.props;
 
@@ -85,6 +86,32 @@ const variants = _.mapValues({
     },
     props: {
       title: false,
+    },
+  },
+  legalFoundationDownloadList: {
+    meta: {
+      title: 'Rechtliche Grundlagen',
+      desc: 'Eine Downloadliste mit rechtlichen Grundlagen',
+    },
+    props: {
+      title: {
+        level: 3,
+        text: 'Rechtliche Grundlagen',
+      },
+      links: [
+        {
+          link: downloadLegalFoundation,
+        },
+        {
+          link: downloadLegalFoundation,
+        },
+        {
+          link: downloadLegalFoundation,
+        },
+        {
+          link: downloadLegalFoundation,
+        },
+      ],
     },
   },
 }, (variant) => {
