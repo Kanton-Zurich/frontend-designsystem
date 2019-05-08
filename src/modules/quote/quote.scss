@@ -17,7 +17,7 @@
     @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
   }
 
-  &__text {
+  .mdl-quote__text {
     font-weight: $fontWeightQuote;
     line-height: 1.3em;
     color: $colorBlack;
@@ -27,7 +27,7 @@
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
   }
 
-  &__author {
+  .mdl-quote__author {
     color: rgba($colorBlack, 0.6);
     font-style: normal;
 
