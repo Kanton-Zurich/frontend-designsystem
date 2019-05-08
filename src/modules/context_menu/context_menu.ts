@@ -4,6 +4,8 @@
  * @author
  * @copyright
  */
+import { uniqueId } from 'lodash';
+
 import Module from '../../assets/js/helpers/module';
 import WindowEventListener from '../../assets/js/helpers/events';
 
@@ -11,7 +13,9 @@ class ContextMenu extends Module {
   public options: {
     showImmediate: Boolean,
     attachTo: HTMLElement,
+    trigger: HTMLElement,
     domSelectors: any,
+    focusableElements: string,
     stateClasses: {
       active: string;
     },
@@ -21,6 +25,7 @@ class ContextMenu extends Module {
     copiedNode: HTMLElement,
     isActive: Boolean,
     escapeEvent: any,
+    uniqueId: string,
   }
 
   constructor($element: any, data: Object, options: Object) {
@@ -28,10 +33,13 @@ class ContextMenu extends Module {
       copiedNode: null,
       isActive: false,
       escapeEvent: null,
+      uniqueId: '',
     };
     const defaultOptions = {
       showImmediate: false,
       attachTo: null,
+      trigger: null,
+      focusableElements: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
       domSelectors: {
         // item: '[data-${{{className}}.name}="item"]'
       },
@@ -44,6 +52,8 @@ class ContextMenu extends Module {
 
     this.initUi();
     this.initEventListeners();
+
+    this.initARIA();
 
     if (this.options.showImmediate) {
       this.show();
@@ -77,6 +87,10 @@ class ContextMenu extends Module {
     this.copyDomNode();
     this.positionMenu();
     this.addEscapeEvent();
+
+    this.options.trigger.setAttribute('aria-expanded', 'true');
+
+    this.setFocusOnOpen();
   }
 
   /**
@@ -90,6 +104,11 @@ class ContextMenu extends Module {
     this.removeDomNode();
 
     window.removeEventListener('keydown', this.data.escapeEvent);
+
+    this.options.trigger.setAttribute('aria-expanded', 'false');
+
+    // Setting the focus on the trigger
+    this.options.trigger.focus();
   }
 
   /**
@@ -104,6 +123,8 @@ class ContextMenu extends Module {
     this.data.copiedNode.addEventListener('hide', this.hide.bind(this));
 
     document.body.appendChild(this.data.copiedNode);
+
+    this.ui.element.removeAttribute('id');
   }
 
   /**
@@ -158,12 +179,23 @@ class ContextMenu extends Module {
   }
 
   /**
+   * Setting the focus on the first "focusable" element in the context menu
+   *
+   * @memberof ContextMenu
+   */
+  setFocusOnOpen() {
+    (<HTMLElement> this.data.copiedNode.querySelector(this.options.focusableElements)).focus();
+  }
+
+  /**
    * Removing the copied dom node
    *
    * @memberof ContextMenu
    */
   removeDomNode() {
     document.body.removeChild(this.data.copiedNode);
+
+    this.ui.element.setAttribute('id', this.data.uniqueId);
 
     this.data.copiedNode = null;
   }
@@ -182,6 +214,13 @@ class ContextMenu extends Module {
         this.positionMenu();
       }
     });
+  }
+
+  initARIA() {
+    this.data.uniqueId = uniqueId('contextmenu');
+
+    this.options.trigger.setAttribute('aria-controls', this.data.uniqueId);
+    this.ui.element.setAttribute('id', this.data.uniqueId);
   }
 
   /**

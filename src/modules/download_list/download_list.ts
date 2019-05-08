@@ -74,10 +74,9 @@ class DownloadList extends Module {
       const listElement = button.parentNode;
       const contextMenu = listElement.querySelector(this.options.domSelectors.contextMenu);
 
-      button.setAttribute('aria-expanded', 'false');
-
       new ContextMenu(contextMenu, {}, {
         attachTo: listElement,
+        trigger: button,
       });
     });
   }
