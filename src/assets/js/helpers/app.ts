@@ -12,6 +12,7 @@ import loadPolyfills from './polyfills';
 import Table from '../../../modules/table/table';
 import Carousel from '../../../modules/carousel/carousel';
 import ImageGallery from '../../../modules/image_gallery/image_gallery';
+import Accordion from '../../../modules/accordion/accordion';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -28,6 +29,7 @@ class App {
     this.modules.table = Table;
     this.modules.imageGallery = ImageGallery;
     this.modules.carousel = Carousel;
+    this.modules.accordion = Accordion;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

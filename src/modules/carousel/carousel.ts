@@ -273,12 +273,24 @@ class Carousel extends Module {
     const image = slide.querySelector(this.options.domSelectors.image);
     const imageWrapper = slide.querySelector(this.options.domSelectors.open);
     const caption = slide.querySelector(this.options.domSelectors.caption);
+    const hasBackgroundImage = image.style.backgroundImage !== '';
 
     caption.removeAttribute('style');
 
     const divider = 2;
     const imageWrapperScrollHeight = imageWrapper.scrollHeight;
-    const imageNaturalAspectRatio = image.naturalWidth / image.naturalHeight;
+    let imageNaturalAspectRatio = 0;
+
+    if (hasBackgroundImage) {
+      const imageSrc = image.style.backgroundImage.replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
+      const artificialImage = new Image();
+
+      artificialImage.src = imageSrc;
+
+      imageNaturalAspectRatio = artificialImage.width / artificialImage.height;
+    } else {
+      imageNaturalAspectRatio = image.naturalWidth / image.naturalHeight;
+    }
     const imageWrapperScrollWidth = image.scrollWidth;
     const imageActualWidth = imageWrapperScrollHeight * imageNaturalAspectRatio;
     const imageActualHeight = imageWrapperScrollWidth / imageNaturalAspectRatio;

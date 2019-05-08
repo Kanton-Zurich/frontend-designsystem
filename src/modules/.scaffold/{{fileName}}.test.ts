@@ -1,4 +1,4 @@
-describe({{className}}, () => {
+describe('{{className}}', () => {
   let page: any;
 
   beforeAll(async () => {

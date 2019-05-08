@@ -1,0 +1,124 @@
+.mdl-accordion {
+  @include sizeCurve(margin-bottom, big);
+
+  &__control {
+    margin: 0;
+  }
+
+  &__label {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    cursor: pointer;
+
+    @include sizeCurve(padding-top padding-bottom, small);
+  }
+
+  &__input:focus + &__label {
+    outline: 2px solid $colorCyan;
+  }
+
+  &__item {
+    position: relative;
+
+    &:after {
+      display: block;
+      content: ' ';
+      left: 0;
+      right: 0;
+      height: 1px;
+      position: absolute;
+      bottom: 0;
+      transform: scaleY(1);
+
+      background: $colorBlack20;
+
+      @include transition(background transform);
+    }
+
+    &--open,
+    &:hover {
+      .mdl-accordion__item-title {
+        color: $colorBlack100;
+      }
+
+      .mdl-accordion__plus use {
+        fill: $colorBlack100;
+      }
+    }
+
+    &--open {
+      .mdl-accordion__plus .vertical {
+        transform: rotate(90deg);
+      }
+
+      .mdl-accordion__panel {
+        @include transition(max-height);
+      }
+
+      .mdl-accordion__item-title {
+        max-height: none;
+        white-space: normal;
+      }
+    }
+
+    &:hover:not(.mdl-accordion__item--open) {
+      &:after {
+        transform: scaleY(3);
+        background: $colorBlack100;
+      }
+    }
+  }
+
+  &__item-title {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 1.5));
+
+    display: block;
+
+    letter-spacing: -0.3px;
+    flex-grow: 1;
+    color: $colorBlack60;
+    overflow: hidden;
+    width: calc(100% - 24px);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @include transition(color);
+  }
+
+
+  &__plus {
+    margin-top: 1px;
+
+    use {
+      fill: $colorBlack60;
+
+      @include transition(fill);
+    }
+
+    .vertical {
+      transform: rotate(0);
+      transform-origin: 12px 12px;
+
+      @include transition(transform);
+    }
+  }
+
+  &__panel {
+    max-height: 0;
+    overflow: hidden;
+
+    @include transition(max-height, $easing: $transitionEasingDecelerate);
+  }
+
+  &__panel-content {
+    > :last-child {
+      @include sizeCurve(margin-bottom, medium);
+    }
+
+    > p:last-child {
+      @include sizeCurve(margin-bottom, regular);
+    }
+  }
+}

@@ -16,7 +16,6 @@ const data = _.merge({}, defaultData, {
   props: {
     headingLevel: 2,
     videoId: 'o2UzLWmUoiw',
-    height: 500,
     caption: _.merge({}, defFigcaptionData, {
       caption: 'Video der Kantonspolizei Zürich; Quelle: KaPo Zürich',
     }),
