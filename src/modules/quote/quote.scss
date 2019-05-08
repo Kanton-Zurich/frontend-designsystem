@@ -6,6 +6,9 @@
     large: 8
   );
 
+  padding-top: $sizeSmallRegular;
+  margin: 0;
+
   @include sizeCurve('margin-bottom', medium);
   @include mq($from: tiny, $to: small) {
     @include sizeCurve('margin-left', quote, $indentCurve);
@@ -13,7 +16,6 @@
   @include mq($from: small) {
     @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
   }
-  padding-top: $sizeSmallRegular;
 
   &__text {
     font-weight: $fontWeightQuote;
