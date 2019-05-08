@@ -36,6 +36,14 @@ const data = _.merge({}, defaultData, {
           domSelector: 'data-download_list="contextMenu"',
         }),
       },
+      {
+        link: _.merge({}, downloadButtonItem, {
+          domSelector: 'data-download_list="openContext"',
+        }),
+        contextMenu: _.merge({}, contextMenuDownload, {
+          domSelector: 'data-download_list="contextMenu"',
+        }),
+      },
     ],
   },
 });

@@ -37,6 +37,8 @@ class DownloadList extends Module {
 
     this.initUi();
     this.initEventListeners();
+
+    this.initContextMenus();
   }
 
   /**
@@ -49,14 +51,7 @@ class DownloadList extends Module {
     const target = event.path.find(node => node.tagName === 'LI');
     const contextMenu = target.querySelector(this.options.domSelectors.contextMenu);
 
-    if (!target.hasAttribute('data-open')) {
-      new ContextMenu(contextMenu, {}, {
-        attachTo: target,
-        showImmediate: true,
-      });
-
-      target.setAttribute('data-open', '');
-    }
+    contextMenu.dispatchEvent(new CustomEvent('toggle'));
   }
 
   /**
@@ -65,6 +60,26 @@ class DownloadList extends Module {
   initEventListeners() {
     this.eventDelegate
       .on('click', this.options.domSelectors.openContext, this.openContext.bind(this));
+  }
+
+  /**
+   * Initializing the context menus
+   *
+   * @memberof DownloadList
+   */
+  initContextMenus() {
+    const buttonsInList = this.ui.element.querySelectorAll(this.options.domSelectors.openContext);
+
+    buttonsInList.forEach((button) => {
+      const listElement = button.parentNode;
+      const contextMenu = listElement.querySelector(this.options.domSelectors.contextMenu);
+
+      button.setAttribute('aria-expanded', 'false');
+
+      new ContextMenu(contextMenu, {}, {
+        attachTo: listElement,
+      });
+    });
   }
 
   /**
