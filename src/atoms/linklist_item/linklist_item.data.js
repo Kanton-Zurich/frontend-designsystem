@@ -57,6 +57,7 @@ const variants = _.mapValues({
       title: 'ZHAW Hochschule Winterthur, Campus Technikumstrasse, Projektierung "Campus T" 1. Etappe, gebunde Ausgabe',
       isLegalFoundation: true,
       isDownload: true,
+      isButton: false,
     },
   },
 }, (variant) => {
