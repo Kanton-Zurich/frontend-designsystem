@@ -30,7 +30,7 @@ gulp.task('critical', (callback) => {
   httpServer.listen(7999);
 
   minimalcss
-    .minimize({ urls: ['http://localhost:7999/pages/barebone/barebone.html'] })
+    .minimize({ urls: ['http://localhost:7999/pages/barebone/barebone.html'], puppeteerArgs: ['--no-sandbox'] })
     .then((result) => {
       fs.writeFileSync('dist/assets/css/critical.css', result.finalCss);
       httpServer.close();
