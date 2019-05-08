@@ -201,7 +201,9 @@ class Carousel extends Module {
    * @memberof Carousel
    */
   open() {
-    this.data.isFullscreen = true;
+    if (!this.data.isFullscreen) {
+      this.data.isFullscreen = true;
+    }
   }
 
   /**
