@@ -27,10 +27,10 @@ gulp.task('critical', (callback) => {
 
   const httpServer = http.createServer(staticServe);
 
-  httpServer.listen(8080);
+  httpServer.listen(7999);
 
   minimalcss
-    .minimize({ urls: ['http://localhost:8080/pages/barebone/barebone.html'] })
+    .minimize({ urls: ['http://localhost:7999/pages/barebone/barebone.html'] })
     .then((result) => {
       fs.writeFileSync('dist/assets/css/critical.css', result.finalCss);
       httpServer.close();
