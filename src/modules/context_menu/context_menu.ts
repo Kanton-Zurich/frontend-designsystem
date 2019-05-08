@@ -117,6 +117,7 @@ class ContextMenu extends Module {
 
     this.data.copiedNode.style.top = `${attachToPos.top + documentScrollTop + attachToPos.height}px`;
     this.data.copiedNode.style.left = `${attachToPos.left}px`;
+    this.data.copiedNode.style.maxWidth = `${attachToPos.width}px`;
 
     // Check if context menu is not completely visible, then put it above attach to target
     const copiedNodeRect = this.data.copiedNode.getBoundingClientRect();
