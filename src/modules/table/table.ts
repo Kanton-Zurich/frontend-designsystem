@@ -9,9 +9,10 @@ import Module from '../../assets/js/helpers/module';
 
 class Table extends Module {
   public ui: {
-    element: any,
-    table: any,
-    scrollArea: any,
+    element: HTMLElement,
+    table: HTMLElement,
+    scrollArea: HTMLElement,
+    scrollAreaWrapper: HTMLElement,
   };
   public options: {
     domSelectors: {
@@ -25,14 +26,20 @@ class Table extends Module {
     },
   };
 
+  public data: {
+    clonedTable: any,
+  }
+
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
+      clonedTable: null,
     };
     const defaultOptions = {
       domSelectors: {
         // item: '[data-${{{className}}.name}="item"]'
         table: '[data-table="table"]',
         scrollArea: '[data-table="scroll-area"]',
+        scrollAreaWrapper: '[data-table="scroll-area-wrapper"]',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -48,6 +55,8 @@ class Table extends Module {
       this.initUi();
       this.initEventListeners();
       this.cloneTable();
+
+      this.setupShades();
     }
   }
 
@@ -77,11 +86,11 @@ class Table extends Module {
    * Clone table for fixed first column
    */
   cloneTable() {
-    const clonedTable = this.ui.table.cloneNode(true);
-    clonedTable.classList.add(this.options.stateClasses.cloned);
-    clonedTable.removeAttribute('data-table');
-    clonedTable.setAttribute('aria-hidden', 'true');
-    this.ui.scrollArea.append(clonedTable);
+    this.data.clonedTable = this.ui.table.cloneNode(true);
+    this.data.clonedTable.classList.add(this.options.stateClasses.cloned);
+    this.data.clonedTable.removeAttribute('data-table');
+    this.data.clonedTable.setAttribute('aria-hidden', 'true');
+    this.ui.scrollArea.append(this.data.clonedTable);
   }
 
   /**
