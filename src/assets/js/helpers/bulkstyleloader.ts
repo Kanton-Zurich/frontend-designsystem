@@ -1,39 +1,38 @@
 import Helper from './helper';
 
-class FontLoader extends Helper {
+class BulkStyleLoader extends Helper {
   public logger: Function;
   public cssHref: string;
 
   constructor() {
     super();
-    this.logger = this.log(FontLoader.name);
+    this.logger = this.log(BulkStyleLoader.name);
 
     // once cached, the css file is stored on the client forever unless
     // the URL below is changed. Any change will invalidate the cache
-    this.on(window, 'load', () => {
-
-    });
     document.addEventListener('DOMContentLoaded', () => {
-      this.cssHref = document.body.getAttribute('data-fonts');
-      if (this.fileIsCached()) {
-        this.logger('just use the cached version');
-        this.injectFontsStylesheet();
-      } else {
-        this.logger('don\'t block the loading of the page; wait until it\'s done; then download fonts');
-        this.on(window, 'load', this.injectFontsStylesheet.bind(this));
+      this.cssHref = document.body.getAttribute('data-style-main');
+      if (this.cssHref !== null) {
+        if (this.fileIsCached()) {
+          this.logger('just use the cached version');
+          this.injectStylesheet();
+        } else {
+          this.logger('don\'t block the loading of the page; wait until it\'s done; then download styles');
+          this.on(window, 'load', this.injectStylesheet.bind(this));
+        }
       }
     });
   }
 
-  public injectFontsStylesheet() {
+  public injectStylesheet() {
     if (this.supportsLocalStorageAndXHR()) {
       if (this.cacheIsValid(this.cssHref)) {
-        this.injectRawStyle(localStorage.fontCssCache);
+        this.injectRawStyle(localStorage.styleCssCache);
       } else {
         this.fetchAndStoreStylesheet();
       }
     } else {
-      this.createFontStylesheet();
+      this.createStylesheet();
     }
   }
 
@@ -53,15 +52,15 @@ class FontLoader extends Helper {
 
         // and cache the text content for further use
         // notice that this overwrites anything that might have already been previously cached
-        localStorage.fontCssCache = xhr.responseText;
-        localStorage.fontCssCacheFile = this.cssHref;
+        localStorage.styleCssCache = xhr.responseText;
+        localStorage.styleCssCacheFile = this.cssHref;
       }
     };
 
     xhr.send();
   }
 
-  public createFontStylesheet() {
+  public createStylesheet() {
     const stylesheet = document.createElement('link');
 
     stylesheet.href = this.cssHref;
@@ -72,7 +71,7 @@ class FontLoader extends Helper {
 
     // just use the native browser cache
     // this requires a good expires header on the server
-    document.cookie = 'fontCssCache';
+    document.cookie = 'styleCssCache';
   }
 
   public supportsLocalStorageAndXHR() {
@@ -85,7 +84,7 @@ class FontLoader extends Helper {
    * @return {Boolean}
    */
   public fileIsCached() {
-    return (window.localStorage && localStorage.fontCssCache) || document.cookie.indexOf('fontCssCache') > -1;
+    return (window.localStorage && localStorage.styleCssCache) || document.cookie.indexOf('styleCssCache') > -1;
   }
 
   /**
@@ -97,7 +96,7 @@ class FontLoader extends Helper {
    * @return {Boolean}
    */
   public cacheIsValid(href) {
-    return localStorage.fontCssCache && (localStorage.fontCssCacheFile === href);
+    return localStorage.styleCssCache && (localStorage.styleCssCacheFile === href);
   }
 
   /**
@@ -120,4 +119,4 @@ class FontLoader extends Helper {
   }
 }
 
-export default FontLoader;
+export default BulkStyleLoader;
