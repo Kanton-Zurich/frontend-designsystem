@@ -1,3 +1,10 @@
+$headingCurves: (
+  borderedTopPadding: (
+    tiny: $sizeSmallRegular,
+    large: $sizeRegular,
+  )
+);
+
 .atm-heading {
   line-height: $sizeLineHeightNarrow;
   font-weight: $fontWeightBlack;
@@ -52,7 +59,7 @@ h2 {
     }
 
     &.atm-heading--bordered {
-      @include sizeCurve('padding-top', small);
+      @include sizeCurve(padding-top, borderedTopPadding, $headingCurves);
     }
   }
 }

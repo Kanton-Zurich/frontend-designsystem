@@ -13,7 +13,7 @@ $imageGalleryPaddingCurve: (
   overflow-x: hidden;
 
   h2.mdl-image_gallery__title {
-    @include sizeCurve(margin-bottom, large);
+    @include sizeCurve(margin-bottom, medium);
   }
 
   &__images {
