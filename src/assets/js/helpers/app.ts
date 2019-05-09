@@ -12,6 +12,8 @@ import loadPolyfills from './polyfills';
 import Carousel from '../../../modules/carousel/carousel';
 import ImageGallery from '../../../modules/image_gallery/image_gallery';
 import Accordion from '../../../modules/accordion/accordion';
+import DownloadList from '../../../modules/download_list/download_list';
+import ContextMenu from '../../../modules/context_menu/context_menu';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -28,6 +30,8 @@ class App {
     this.modules.imageGallery = ImageGallery;
     this.modules.carousel = Carousel;
     this.modules.accordion = Accordion;
+    this.modules.downloadList = DownloadList;
+    this.modules.contextMenu = ContextMenu;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
