@@ -48,8 +48,13 @@ class DownloadList extends Module {
    * @memberof DownloadList
    */
   openContext(event) {
-    const target = event.path.find(node => node.tagName === 'LI');
-    const contextMenu = target.querySelector(this.options.domSelectors.contextMenu);
+    let correctLiNode = event.target.parentNode;
+
+    while (correctLiNode.tagName !== 'LI') {
+      correctLiNode = correctLiNode.parentNode;
+    }
+
+    const contextMenu = correctLiNode.querySelector(this.options.domSelectors.contextMenu);
 
     contextMenu.dispatchEvent(new CustomEvent('toggle'));
   }
