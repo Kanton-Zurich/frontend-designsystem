@@ -16,6 +16,7 @@ class Table extends Module {
     scrollAreaWrapper: HTMLElement,
   };
   public options: {
+    isFixedFirstColumn: Boolean,
     domSelectors: {
       table: string,
       scrollArea: string,
@@ -46,6 +47,7 @@ class Table extends Module {
       },
     };
     const defaultOptions = {
+      isFixedFirstColumn: false,
       domSelectors: {
         // item: '[data-${{{className}}.name}="item"]'
         table: '[data-table="table"]',
@@ -61,16 +63,18 @@ class Table extends Module {
         shadeLeft: 'mdl-table--shade-left',
       },
     };
-
     super($element, defaultData, defaultOptions, data, options);
 
-    if (this.ui.element.classList.contains(this.options.stateClasses.firstColumnFixed)) {
-      this.initUi();
-      this.initEventListeners();
-      this.cloneTable();
 
-      this.setupShades();
-    }
+    this.initUi();
+
+    this.options.isFixedFirstColumn = this.ui.element.classList
+      .contains(this.options.stateClasses.firstColumnFixed);
+
+    this.initEventListeners();
+    this.cloneTable();
+
+    this.setupShades();
   }
 
   static get events() {
@@ -106,7 +110,7 @@ class Table extends Module {
     this.ui.scrollAreaWrapper.addEventListener('scroll', this.setShades.bind(this));
 
     this.createShadeNodes();
-    this.setLeftOffset();
+
     this.setShades();
   }
 
@@ -168,7 +172,9 @@ class Table extends Module {
     }
 
     // Temporarily here, have to find a better solution
-    this.setLeftOffset();
+    if (this.options.isFixedFirstColumn) {
+      this.setLeftOffset();
+    }
   }
 
   getScrollPercentage() {

@@ -29,7 +29,7 @@ const data = _.merge({}, defaultData, {
       }, {
         title: 'Beschäftigte 2015',
         isSortable: false,
-      }
+      },
     ],
     bodyrows: [
       {
@@ -227,7 +227,7 @@ const variants = _.mapValues({
       ],
       caption: {
         caption: 'Quelle: BZ 2008, BFS; eigene Berechnungen Statistisches Amt des Kantons Zürich',
-      }
+      },
     },
   },
   wideFirstColumnFixed: {
@@ -291,7 +291,7 @@ const variants = _.mapValues({
       ],
       caption: {
         caption: 'Quelle: BZ 2008, BFS; eigene Berechnungen Statistisches Amt des Kantons Zürich',
-      }
+      },
     },
   },
   blue: {
@@ -355,6 +355,51 @@ const variants = _.mapValues({
     },
     props: {
       colorVariation: 'violet',
+    },
+  },
+  sortable: {
+    meta: {
+      title: 'Sortierbare Spalte',
+      desc: 'Ausgewählte Spalten können sortiert werden.',
+    },
+    props: {
+      title: 'Beliebteste Filme im Kanton',
+      subtitle: '1995-2007',
+      headers: [
+        {
+          title: 'Rang',
+          isSortable: true,
+        },
+        {
+          title: 'Filmtitel',
+          isSortable: false,
+        },
+        {
+          title: 'Herkunft',
+          isSortable: true,
+        },
+        {
+          title: 'Besucher/-innen',
+          isSortable: true,
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['1', 'Titanic', 'USA', '296521'],
+        },
+        {
+          data: ['2', 'Finding Nemo', 'USA', '207095'],
+        },
+        {
+          data: ['3', 'Casino Royale (James Bond) Remake 2006', 'UK/USA', '200026'],
+        },
+        {
+          data: ['4', 'Ice Age 2', 'USA', '187757'],
+        },
+      ],
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Quelle: Pro Cinema',
+      }),
     },
   },
 }, (variant) => {
