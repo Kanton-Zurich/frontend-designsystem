@@ -1,0 +1,34 @@
+<!doctype html>
+<!--[if IE 7]>         <html lang="en" class="no-js ie7 lte-ie9 lte-ie8 lte-ie7"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js ie8 lte-ie9 lte-ie8">         <![endif]-->
+<!--[if IE 9]>         <html lang="en" class="no-js ie9 lte-ie9">                 <![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="en" class="no-js">                         <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{#if title}}{{title}} – {{/if}}{{meta.project}}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
+
+  <script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
+  <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js" defer></script>
+</head>
+<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}} {{#if props.fonts}}
+                               data-fonts='{{props.fonts}}'{{/if}}>
+{{#block "header"}}
+{{/block}}
+<div class="lyt-wrapper">
+  <div class="sg_demo grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      {{#block "content"}}
+      {{/block}}
+    </div>
+  </div>
+</div>
+{{#block "footer"}}
+{{/block}}
+{{#block "scripts"}}
+{{/block}}
+</body>
+</html>

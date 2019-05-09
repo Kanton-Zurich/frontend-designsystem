@@ -6,6 +6,9 @@
     large: 8
   );
 
+  padding-top: $sizeSmallRegular;
+  margin: 0;
+
   @include sizeCurve('margin-bottom', medium);
   @include mq($from: tiny, $to: small) {
     @include sizeCurve('margin-left', quote, $indentCurve);
@@ -13,9 +16,8 @@
   @include mq($from: small) {
     @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
   }
-  padding-top: $sizeSmallRegular;
 
-  &__text {
+  .mdl-quote__text {
     font-weight: $fontWeightQuote;
     line-height: 1.3em;
     color: $colorBlack;
@@ -25,7 +27,7 @@
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
   }
 
-  &__author {
+  .mdl-quote__author {
     color: rgba($colorBlack, 0.6);
     font-style: normal;
 

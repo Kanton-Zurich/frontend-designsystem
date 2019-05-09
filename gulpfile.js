@@ -9,8 +9,8 @@ const git = require('git-rev-sync');
 const nodeSass = require('node-sass');
 const gulpUtil = require('gulp-util');
 require('./gulp/deploy-aem');
+require('./gulp/critical-css');
 
-gulpUtil.env.assetsTarget = './build/assets/';
 gulpUtil.env.aemTargetBase = '../czhdev-backend/sources/zhweb-core/zhweb-core-content/src/main/resources/jcr_root/apps/zhweb/core/';
 gulpUtil.env.aemTargetBaseResources = `${gulpUtil.env.aemTargetBase}clientlibs/publish/resources/`;
 gulpUtil.env.aemAssetsProxy = '/etc.clientlibs/sanagate/core/clientlibs/publish/resources/';
@@ -880,6 +880,7 @@ gulp.task('copy:ci', () => {
       '!./dist/assets/css/*',
       './dist/assets/js/*.min.*',
       './dist/assets/css/*.min.*',
+      './dist/assets/css/critical.css',
       '!./dist/ci/**/*',
       '!./dist/**/*.dev.html',
       '!./dist/**/dev.*',
@@ -947,7 +948,7 @@ gulp.task('build', (done) => {
     'copy',
     // When starting watcher without building, "css:fonts" will never finish
     // In order for "css" to still run properly, we switch from serial to parallel execution
-    (env.watch && env.skipBuild) ? gulp.parallel('css:fonts', 'css') : gulp.series('css:fonts', 'css'),
+    (env.watch && env.skipBuild) ? gulp.parallel('css:fonts', 'css') : gulp.series('css:fonts', 'css', 'critical'),
   );
   let readEnv = new Promise(resolve => resolve());
 
