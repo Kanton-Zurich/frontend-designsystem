@@ -1,3 +1,4 @@
+
 $normalButtonSize: $sizeBiggerBig + $sizeTiny;
 
 .atm-button {
@@ -10,12 +11,11 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
   color: $colorWhite;
   font-weight: $fontWeightBlack;
   min-width: pxToRem($normalButtonSize);
-  padding-top: 2px;
+  padding: 1px $sizeLarge 0;
 
   display: flex;
   align-items: center;
-
-  @include sizeCurve(padding-left padding-right, regular);
+  line-height: 1.4;
 
   transition: background $transitionTimeSimple $transitionEasingDefault;
   cursor: pointer;

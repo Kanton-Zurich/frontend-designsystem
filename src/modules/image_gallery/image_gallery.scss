@@ -1,12 +1,19 @@
+$imageGalleryPaddingCurve: (
+  default: (
+    tiny: $sizeBiggerBig,
+    large: $sizeGiant,
+  )
+);
+
 .mdl-image_gallery {
   @include gridBleed;
-  @include sizeCurve(padding-top padding-bottom, big);
+  @include sizeCurve(padding-top padding-bottom, default, $imageGalleryPaddingCurve);
 
   background: $colorBlack80;
   overflow-x: hidden;
 
   h2.mdl-image_gallery__title {
-    @include sizeCurve(margin-bottom, large);
+    @include sizeCurve(margin-bottom, medium);
   }
 
   &__images {
