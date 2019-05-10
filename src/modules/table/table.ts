@@ -14,12 +14,15 @@ class Table extends Module {
     table: HTMLElement,
     scrollArea: HTMLElement,
     scrollAreaWrapper: HTMLElement,
+    sortable: NodeList,
   };
   public options: {
     isFixedFirstColumn: Boolean,
+    isSortable: Boolean,
     domSelectors: {
       table: string,
       scrollArea: string,
+      sortable: string,
     },
     stateClasses: {
       firstColumnFixed: string,
@@ -48,11 +51,13 @@ class Table extends Module {
     };
     const defaultOptions = {
       isFixedFirstColumn: false,
+      isSortable: false,
       domSelectors: {
         // item: '[data-${{{className}}.name}="item"]'
         table: '[data-table="table"]',
         scrollArea: '[data-table="scroll-area"]',
         scrollAreaWrapper: '[data-table="scroll-area-wrapper"]',
+        sortable: '[data-table="sortable"]',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -70,6 +75,7 @@ class Table extends Module {
 
     this.options.isFixedFirstColumn = this.ui.element.classList
       .contains(this.options.stateClasses.firstColumnFixed);
+    this.options.isSortable = typeof this.ui.sortable !== 'undefined';
 
     this.initEventListeners();
     this.cloneTable();

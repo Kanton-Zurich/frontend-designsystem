@@ -98,8 +98,42 @@
   &__cell.mdl-table__column-header {
     color: rgba($colorBlack, 1);
     font-size: $sizeFontTiny;
-    font-weight: 900;
+    font-weight: $fontWeightBlack;
     vertical-align: bottom;
+
+    &--sortable {
+      color: $colorCyan;
+      position: relative;
+      padding-right: 1.25rem;
+
+      > button {
+        @include blankButton();
+
+        display: flex;
+        font-weight: $fontWeightBlack;
+        align-items: center;
+
+        &:hover {
+          .mdl-table__sort-arrow use {
+            fill: $colorBlack60;
+          }
+        }
+      }
+    }
+  }
+
+  &__sort-arrow {
+    width: 1.25rem;
+    height: 1.25rem;
+    min-width: 1.25rem;
+    min-height: 1.25rem;
+    z-index: 1;
+
+    use {
+      fill: transparent;
+
+      @include transition(fill);
+    }
   }
 
   &__cell.mdl-table__row-header,

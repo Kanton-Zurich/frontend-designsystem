@@ -17,7 +17,16 @@
               <thead>
                 <tr class="mdl-table__row">
                   {{#each headers}}
-                    <th scope="col" class="mdl-table__cell mdl-table__column-header">{{{ this.title }}}</th>
+                    <th scope="col" class="mdl-table__cell mdl-table__column-header {{#if isSortable}}mdl-table__column-header--sortable{{/if}}">
+                      {{#if isSortable}}<button data-table="sortable" data-sort="{{isSortable}}">{{/if}}
+                        <span>{{{ this.title }}}</span>
+                        {{#if isSortable}}
+                          <svg class="icon mdl-table__sort-arrow">
+                            <use xlink:href="#arrow-up"></use>
+                          </svg>
+                        {{/if}}
+                      {{#if isSortable}}</button>{{/if}}
+                    </th>
                   {{/each}}
                 </tr>
               </thead>

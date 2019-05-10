@@ -368,7 +368,7 @@ const variants = _.mapValues({
       headers: [
         {
           title: 'Rang',
-          isSortable: true,
+          isSortable: 'enum',
         },
         {
           title: 'Filmtitel',
@@ -376,11 +376,11 @@ const variants = _.mapValues({
         },
         {
           title: 'Herkunft',
-          isSortable: true,
+          isSortable: 'alpha',
         },
         {
           title: 'Besucher/-innen',
-          isSortable: true,
+          isSortable: 'enum',
         },
       ],
       bodyrows: [
