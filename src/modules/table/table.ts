@@ -107,7 +107,8 @@ class Table extends Module {
     (<any>WindowEventListener).addDebouncedResizeListener(this.setShades.bind(this));
 
     this.eventDelegate
-      .on('click', this.options.domSelectors.sortable, this.sortTable.bind(this));
+      .on('click', this.options.domSelectors.sortable, this.sortTable.bind(this))
+      .on('redraw', this.setShades.bind(this));
   }
 
   /**
@@ -269,8 +270,6 @@ class Table extends Module {
     } else {
       sortedTableData = this.data.tableData;
     }
-
-    console.log('hello');
 
     this.redrawTable(sortedTableData);
   }

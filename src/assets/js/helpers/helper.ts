@@ -77,6 +77,20 @@ class Helper {
   }
 
   /**
+   * Sending the redraw event to all children who need it
+   *
+   * @param {HTMLElement} container
+   * @memberof Helper
+   */
+  public sendRedrawEvent(container) {
+    const childNodes = container.querySelectorAll('[data-redraw]');
+
+    childNodes.forEach((child) => {
+      child.dispatchEvent(new CustomEvent('redraw'));
+    });
+  }
+
+  /**
    * Adds the event listeners for swipe support
    *
    * @param {any} element
