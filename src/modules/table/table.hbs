@@ -2,7 +2,10 @@
 	{{#if colorVariation}} mdl-table--cv-{{ colorVariation }}{{/if}}
 	{{#if isInverted}} mdl-table--inverted{{/if}}
 	{{#if isWide}} mdl-table--fullwidth{{/if}}
-	{{#if isFirstColumnFixed}} mdl-table--first-column-fixed{{/if}}" data-init="table">
+	{{#if isFirstColumnFixed}} mdl-table--first-column-fixed{{/if}}"
+  data-init="table"
+  data-redraw="true"
+  >
 	{{#if hasTitle}}
 		<h{{ headingLevel }} class="atm-heading mdl-table__title">{{ title }}</h{{ headingLevel }}>
 		{{#if hasSubtitle}}
@@ -18,7 +21,7 @@
                 <tr class="mdl-table__row">
                   {{#each headers}}
                     <th scope="col" class="mdl-table__cell mdl-table__column-header {{#if isSortable}}mdl-table__column-header--sortable{{/if}}">
-                      {{#if isSortable}}<button data-table="sortable" data-sort="{{isSortable}}">{{/if}}
+                      {{#if isSortable}}<button data-table="sortable" data-sort="{{isSortable}}" data-column-index="{{@index}}">{{/if}}
                         <span>{{{ this.title }}}</span>
                         {{#if isSortable}}
                           <svg class="icon mdl-table__sort-arrow">
@@ -38,14 +41,15 @@
                   {{#each this.data}}
                     {{#if @first}}
                       <th scope="row" class="mdl-table__cell
-                        {{#if  ../../hasRowHeader}}mdl-table__row-header{{/if}}">
+                        {{#if  ../../hasRowHeader}}mdl-table__row-header{{/if}}"
+                        data-table="cell">
                         {{{ this }}}
                       </th>
                     {{else}}
                       {{#if ../this.isHighlighted}}
-                        <td class="mdl-table__cell"><strong>{{{ this }}}</strong></td>
+                        <td class="mdl-table__cell" data-table="cell"><strong>{{{ this }}}</strong></td>
                       {{else}}
-                        <td class="mdl-table__cell">{{{ this }}}</td>
+                        <td class="mdl-table__cell" data-table="cell">{{{ this }}}</td>
                       {{/if}}
                     {{/if}}
                   {{/each}}

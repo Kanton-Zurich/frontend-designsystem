@@ -4,6 +4,8 @@
  * @author
  * @copyright
  */
+import { orderBy } from 'lodash';
+
 import WindowEventListener from '../../assets/js/helpers/events';
 import Module from '../../assets/js/helpers/module';
 // import namespace from '../../assets/js/helpers/namespace';
@@ -23,6 +25,7 @@ class Table extends Module {
       table: string,
       scrollArea: string,
       sortable: string,
+      cell: string,
     },
     stateClasses: {
       firstColumnFixed: string,
@@ -30,6 +33,8 @@ class Table extends Module {
       cloned: string,
       shadeRight: string,
       shadeLeft: string,
+      columnAscending: string,
+      columnDescending: string,
     },
   };
 
@@ -39,11 +44,13 @@ class Table extends Module {
       right: any,
     },
     clonedTable: any,
+    tableData: Array<Object>,
   };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
       clonedTable: null,
+      tableData: null,
       shades: {
         left: null,
         right: null,
@@ -58,6 +65,7 @@ class Table extends Module {
         scrollArea: '[data-table="scroll-area"]',
         scrollAreaWrapper: '[data-table="scroll-area-wrapper"]',
         sortable: '[data-table="sortable"]',
+        cell: '[data-table="cell"]',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -66,6 +74,8 @@ class Table extends Module {
         cloned: 'mdl-table__table--cloned',
         shadeRight: 'mdl-table--shade-right',
         shadeLeft: 'mdl-table--shade-left',
+        columnAscending: 'mdl-table__column--asc',
+        columnDescending: 'mdl-table__column--desc',
       },
     };
     super($element, defaultData, defaultOptions, data, options);
@@ -78,7 +88,8 @@ class Table extends Module {
     this.options.isSortable = typeof this.ui.sortable !== 'undefined';
 
     this.initEventListeners();
-    this.cloneTable();
+
+    if (this.options.isFixedFirstColumn) this.cloneTable();
 
     this.setupShades();
   }
@@ -94,6 +105,9 @@ class Table extends Module {
    */
   initEventListeners() {
     (<any>WindowEventListener).addDebouncedResizeListener(this.setShades.bind(this));
+
+    this.eventDelegate
+      .on('click', this.options.domSelectors.sortable, this.sortTable.bind(this));
   }
 
   /**
@@ -183,10 +197,146 @@ class Table extends Module {
     }
   }
 
+  /**
+   * Gets the scrolling amount in percentage
+   *
+   * @returns
+   * @memberof Table
+   */
   getScrollPercentage() {
     const scrollWrapper = this.ui.scrollAreaWrapper;
 
     return 100 * scrollWrapper.scrollLeft / (scrollWrapper.scrollWidth - scrollWrapper.clientWidth);
+  }
+
+  /**
+   * Sorting the table
+   *
+   * @param event {MouseEvent} the click event of the mouse
+   * @memberof Table
+   */
+  sortTable(event) {
+    if (!this.data.tableData) {
+      this.readTableData();
+    }
+
+    let columnHeader = event.target;
+
+    if (columnHeader.tagName !== 'BUTTON') {
+      columnHeader = columnHeader.parentNode;
+
+      while (columnHeader.tagName !== 'BUTTON') {
+        columnHeader = columnHeader.parentNode;
+      }
+    }
+
+    const isSorted = columnHeader.classList.contains(this.options.stateClasses.columnAscending)
+      || columnHeader.classList.contains(this.options.stateClasses.columnDescending);
+    const sortOrder = isSorted ? (columnHeader.getAttribute('data-sort-orientation')) : false;
+    const isNumeric = columnHeader.getAttribute('data-sort') === 'enum';
+    let sortedTableData = null;
+    const column = columnHeader.getAttribute('data-column-index');
+    let sort = null;
+
+    this.cleanSortableColumns();
+
+    switch (sortOrder) {
+      // The current sortOrder is ascending, so the new one has to be descending
+      case 'asc':
+        sort = 'desc';
+
+        columnHeader.classList.add(this.options.stateClasses.columnDescending);
+        break;
+      // The current sortOrder is descending, next stage is no sort at all (default)
+      case 'desc':
+        columnHeader.removeAttribute('data-sort-orientation');
+
+        break;
+      // There is no active sortOrder next stage is ascending
+      default:
+        sort = 'asc';
+
+        columnHeader.classList.add(this.options.stateClasses.columnAscending);
+
+        break;
+    }
+    if (sort) {
+      sortedTableData = isNumeric
+        ? orderBy(this.data.tableData, o => parseFloat(o[column]), [sort])
+        : orderBy(this.data.tableData, [column], [sort]);
+
+      columnHeader.setAttribute('data-sort-orientation', sort);
+    } else {
+      sortedTableData = this.data.tableData;
+    }
+
+    console.log('hello');
+
+    this.redrawTable(sortedTableData);
+  }
+
+  /**
+   * Reading the current table data (is done by the first sort interaction)
+   *
+   * @memberof Table
+   */
+  readTableData() {
+    const tableRows = [];
+    const domRows = this.ui.table.querySelectorAll('tbody tr');
+
+    domRows.forEach((row) => {
+      const cells = row.querySelectorAll(this.options.domSelectors.cell);
+      const rowData = Array.prototype.slice.call(cells).map(cell => cell.textContent.trim());
+      const rowObject = {};
+
+      rowData.forEach((textContent, index) => {
+        rowObject[index] = textContent;
+      });
+
+      tableRows.push(rowObject);
+    });
+
+    this.data.tableData = tableRows;
+  }
+
+  /**
+   * Readraws the table with the newly sorted data
+   *
+   * @param {*} sortedData
+   * @memberof Table
+   */
+  redrawTable(sortedData) {
+    if (this.data.clonedTable) {
+      this.data.clonedTable.remove();
+    }
+
+    const tBodyRows = this.ui.table.querySelectorAll('tbody tr');
+
+    tBodyRows.forEach((row, rowIndex) => {
+      const cells = row.querySelectorAll(this.options.domSelectors.cell);
+
+      cells.forEach((cell, cellIndex) => {
+        cell.textContent = sortedData[rowIndex][cellIndex];
+      });
+    });
+
+    if (this.options.isFixedFirstColumn) {
+      this.cloneTable();
+    }
+  }
+
+  /**
+   * Cleaning the table from unnecessary sorting classes
+   *
+   * @memberof Table
+   */
+  cleanSortableColumns() {
+    const sortableButtons = this.ui.table.querySelectorAll('thead tr th button');
+
+    sortableButtons.forEach((sortableButton) => {
+      sortableButton.classList.remove(this.options.stateClasses.columnAscending);
+      sortableButton.classList.remove(this.options.stateClasses.columnDescending);
+    });
   }
 
   /**

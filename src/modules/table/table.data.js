@@ -359,7 +359,7 @@ const variants = _.mapValues({
   },
   sortable: {
     meta: {
-      title: 'Sortierbare Spalte',
+      title: 'Standard mit sortierbaren Spalten',
       desc: 'Ausgewählte Spalten können sortiert werden.',
     },
     props: {
@@ -400,6 +400,63 @@ const variants = _.mapValues({
       caption: _.merge({}, defFigcaptionData, {
         caption: 'Quelle: Pro Cinema',
       }),
+    },
+  },
+  firstColumnFixedSortable: {
+    meta: {
+      title: 'Mit fixierter erster Spalte und sortierbaren Spalten',
+      desc: 'Erste Spalte fixiert, horizontal scrollbar',
+    },
+    props: {
+      title: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
+      headingLevel: 3,
+      hasSubtitle: false,
+      hasCaption: true,
+      isFirstColumnFixed: true,
+      hasRowHeader: true,
+      alignRight: true,
+      headers: [
+        {
+          title: '<span class="visuallyhidden">Region</span>',
+          isSortable: 'alpha',
+        }, {
+          title: 'Arbeitsstätten',
+          isSortable: false,
+        }, {
+          title: 'Anteil an der Gesamtwirtschaft',
+          isSortable: 'enum',
+        }, {
+          title: 'Anteil an der Gesamtschweiz',
+          isSortable: 'enum',
+        }, {
+          title: 'Beschäftigte Vollzeit',
+          isSortable: 'enum',
+        }, {
+          title: 'Beschäftigte Teilzeit',
+          isSortable: 'enum',
+        }, {
+          title: 'Gesamtumsatz* in Mio. CHF',
+          isSortable: 'enum',
+        }, {
+          title: 'Bruttowertschöpfung** in Mio. CHF',
+          isSortable: 'enum',
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['Zürich', '293', '3%', '68%', '1691', '1398', '487', '287'],
+        }, {
+          data: ['Bern', '293', '4%', '68%', '1691', '1398', '487', '287'],
+        }, {
+          data: ['Basel', '293', '4,5%', '68%', '1691', '1398', '487', '287'],
+        }, {
+          data: ['Gesamtschweiz', '293', '5%', '68%', '1691', '1398', '487', '287'],
+          isHighlighted: true,
+        },
+      ],
+      caption: {
+        caption: 'Quelle: BZ 2008, BFS; eigene Berechnungen Statistisches Amt des Kantons Zürich',
+      },
     },
   },
 }, (variant) => {
