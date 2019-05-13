@@ -46,11 +46,11 @@ const variants = _.mapValues({
     props: {
       srcsets: [ {
         image: '/assets/media/image/fullwidth_16_9_1440_x15.jpeg',
-        deviceWidth: 1025,
+        deviceWidth: 1024,
       },
       {
         image: '/assets/media/image/fullwidth_16_9_1024_x15.jpeg',
-        deviceWidth: 601,
+        deviceWidth: 600,
       },
       {
         image: '/assets/media/image/fullwidth_16_9_600_x15.jpeg',
@@ -67,11 +67,11 @@ const variants = _.mapValues({
     props: {
       srcsets: [ {
         image: '/assets/media/image/fullwidth_21_9_1440_x15.jpeg',
-        deviceWidth: 1025,
+        deviceWidth: 1024,
       },
       {
         image: '/assets/media/image/fullwidth_21_9_1024_x15.jpeg',
-        deviceWidth: 601,
+        deviceWidth: 600,
       },
       {
         image: '/assets/media/image/fullwidth_21_9_600_x15.jpeg',
@@ -88,7 +88,7 @@ const variants = _.mapValues({
     props: {
       srcsets: [ {
         image: '/assets/media/image/small_368_x15.jpeg',
-        deviceWidth: 601,
+        deviceWidth: 600,
       },
       {
         image: '/assets/media/image/small_260_x15.jpeg',

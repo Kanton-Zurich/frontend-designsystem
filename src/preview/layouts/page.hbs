@@ -8,11 +8,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>{{#if title}}{{title}} – {{/if}}{{meta.project}}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
-
   <script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
-
-
 
   {{#if env.dev}}
     <link rel="stylesheet" href="/preview/assets/css/dev.css">
@@ -20,16 +16,21 @@
   {{/if}}
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
-  data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'>
+                               data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'
+                               data-style-main='/assets/css/main{{#unless env.dev}}.min{{/unless}}.css'
+                               data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
 {{#block "header"}}
 {{/block}}
 
-<div class="l-wrapper" id="main">
-  {{#block "content"}}
-  {{/block}}
+<div class="lyt-wrapper" id="main">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      {{#block "content"}}
+      {{/block}}
+    </div>
+  </div>
 </div>
 {{#block "scripts"}}
-  <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js" async></script>
 {{/block}}
 </body>
 </html>

@@ -116,11 +116,13 @@ gulp.task('html', () => {
       transformAfter: (file) => {
         let content = file.contents.toString();
         let relPathPrefix = path.join(path.relative(file.path, './src'));
+        if (path.basename(file.path) !== 'scaffolding.hbs') {
+          relPathPrefix = relPathPrefix
+            .replace(new RegExp(`\\${path.sep}g`), '/') // Normalize path separator
+            .replace(/\.\.$/, ''); // Remove trailing ..
+          content = content.replace(/('|"|&quot;)\/(?!\^)/g, `$1${relPathPrefix}`);
+        }
 
-        relPathPrefix = relPathPrefix
-          .replace(new RegExp(`\\${path.sep}g`), '/') // Normalize path separator
-          .replace(/\.\.$/, ''); // Remove trailing ..
-        content = content.replace(/('|"|&quot;)\/(?!\^)/g, `$1${relPathPrefix}`);
         content = Buffer.from(content);
 
         return content;
