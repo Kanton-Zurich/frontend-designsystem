@@ -5,8 +5,7 @@
 	{{#if isFirstColumnFixed}} mdl-table--first-column-fixed{{/if}}"
   data-init="table"
   data-redraw="true"
-  role="grid"
-  aria-readonly="true"
+
   >
 	{{#if hasTitle}}
 		<h{{ headingLevel }} class="atm-heading mdl-table__title">{{ title }}</h{{ headingLevel }}>
@@ -17,10 +16,10 @@
 	<figure class="mdl-table__figure">
 			<div class="mdl-table__scroll-area" data-table="scroll-area">
 				<div class="mdl-table__wrapper" data-table="scroll-area-wrapper">
-          <table class="mdl-table__table" data-table="table">
+          <table class="mdl-table__table" data-table="table" role="grid" aria-readonly="true">
             {{#if hasColumnHeader}}
               <thead>
-                <tr class="mdl-table__row">
+                <tr role="row" class="mdl-table__row">
                   {{#each headers}}
                     <th
                       scope="col"
@@ -43,22 +42,22 @@
             {{/if}}
             <tbody class="mdl-table__body">
               {{#each bodyrows}}
-                <tr class="mdl-table__row mdl-table__row
+                <tr role="row" class="mdl-table__row mdl-table__row
                   {{#if this.isHighlighted}} mdl-table__row--highlighted{{/if}}">
                   {{#each this.data}}
                     {{#if @first}}
                       <th scope="row" class="mdl-table__cell
                         {{#if  ../../hasRowHeader}}mdl-table__row-header{{/if}}"
                         data-table="cell"
-                        {{#if ../../hasRowHeader}}role="rowheader"{{/if}}
+                        {{#if ../../hasRowHeader}}role="rowheader"{{else}}role="gridcell"{{/if}}
                       >
                         {{{ this }}}
                       </th>
                     {{else}}
                       {{#if ../this.isHighlighted}}
-                        <td class="mdl-table__cell" data-table="cell"><strong>{{{ this }}}</strong></td>
+                        <td class="mdl-table__cell" role="gridcell" data-table="cell"><strong>{{{ this }}}</strong></td>
                       {{else}}
-                        <td class="mdl-table__cell" data-table="cell">{{{ this }}}</td>
+                        <td class="mdl-table__cell" role="gridcell" data-table="cell">{{{ this }}}</td>
                       {{/if}}
                     {{/if}}
                   {{/each}}
