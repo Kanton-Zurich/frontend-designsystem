@@ -21,7 +21,7 @@
                 <tr class="mdl-table__row">
                   {{#each headers}}
                     <th scope="col" class="mdl-table__cell mdl-table__column-header {{#if isSortable}}mdl-table__column-header--sortable{{/if}}">
-                      {{#if isSortable}}<button data-table="sortable" data-sort="{{isSortable}}" data-column-index="{{@index}}">{{/if}}
+                      {{#if isSortable}}<button data-table="sortable" data-order="{{isSortable}}" data-column-index="{{@index}}">{{/if}}
                         <span>{{{ this.title }}}</span>
                         {{#if isSortable}}
                           <svg class="icon mdl-table__sort-arrow">

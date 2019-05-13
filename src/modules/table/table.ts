@@ -107,7 +107,7 @@ class Table extends Module {
     (<any>WindowEventListener).addDebouncedResizeListener(this.setShades.bind(this));
 
     this.eventDelegate
-      .on('click', this.options.domSelectors.sortable, this.sortTable.bind(this))
+      .on('click', this.options.domSelectors.sortable, this.orderTable.bind(this))
       .on('redraw', this.setShades.bind(this));
   }
 
@@ -216,7 +216,7 @@ class Table extends Module {
    * @param event {MouseEvent} the click event of the mouse
    * @memberof Table
    */
-  sortTable(event) {
+  orderTable(event) {
     if (!this.data.tableData) {
       this.readTableData();
     }
@@ -231,47 +231,54 @@ class Table extends Module {
       }
     }
 
-    const isSorted = columnHeader.classList.contains(this.options.stateClasses.columnAscending)
-      || columnHeader.classList.contains(this.options.stateClasses.columnDescending);
-    const sortOrder = isSorted ? (columnHeader.getAttribute('data-sort-orientation')) : false;
-    const isNumeric = columnHeader.getAttribute('data-sort') === 'enum';
-    let sortedTableData = null;
     const column = columnHeader.getAttribute('data-column-index');
-    let sort = null;
 
-    this.cleanSortableColumns();
+    if (this.isInClonedTable(columnHeader)) {
+      const buttonInDefaultTable = this.ui.table.querySelector(`[data-column-index="${column}"]`);
 
-    switch (sortOrder) {
-      // The current sortOrder is ascending, so the new one has to be descending
-      case 'asc':
-        sort = 'desc';
-
-        columnHeader.classList.add(this.options.stateClasses.columnDescending);
-        break;
-      // The current sortOrder is descending, next stage is no sort at all (default)
-      case 'desc':
-        columnHeader.removeAttribute('data-sort-orientation');
-
-        break;
-      // There is no active sortOrder next stage is ascending
-      default:
-        sort = 'asc';
-
-        columnHeader.classList.add(this.options.stateClasses.columnAscending);
-
-        break;
-    }
-    if (sort) {
-      sortedTableData = isNumeric
-        ? orderBy(this.data.tableData, o => parseFloat(o[column]), [sort])
-        : orderBy(this.data.tableData, [column], [sort]);
-
-      columnHeader.setAttribute('data-sort-orientation', sort);
+      (<HTMLElement>buttonInDefaultTable).click();
     } else {
-      sortedTableData = this.data.tableData;
-    }
+      const isOrderedBy = columnHeader.classList.contains(this.options.stateClasses.columnAscending)
+        || columnHeader.classList.contains(this.options.stateClasses.columnDescending);
+      const orderDirection = isOrderedBy ? (columnHeader.getAttribute('data-order-by')) : false;
+      const isNumeric = columnHeader.getAttribute('data-order') === 'enum';
+      let orderedByTableData = null;
+      let order = null;
 
-    this.redrawTable(sortedTableData);
+      this.cleanSortableColumns();
+
+      switch (orderDirection) {
+        // The current sortOrder is ascending, so the new one has to be descending
+        case 'asc':
+          order = 'desc';
+
+          columnHeader.classList.add(this.options.stateClasses.columnDescending);
+          break;
+        // The current sortOrder is descending, next stage is no sort at all (default)
+        case 'desc':
+          columnHeader.removeAttribute('data-order-by');
+
+          break;
+        // There is no active sortOrder next stage is ascending
+        default:
+          order = 'asc';
+
+          columnHeader.classList.add(this.options.stateClasses.columnAscending);
+
+          break;
+      }
+      if (order) {
+        orderedByTableData = isNumeric
+          ? orderBy(this.data.tableData, o => parseFloat(o[column]), [order])
+          : orderBy(this.data.tableData, [column], [order]);
+
+        columnHeader.setAttribute('data-order-by', order);
+      } else {
+        orderedByTableData = this.data.tableData;
+      }
+
+      this.redrawTable(orderedByTableData);
+    }
   }
 
   /**
@@ -336,6 +343,27 @@ class Table extends Module {
       sortableButton.classList.remove(this.options.stateClasses.columnAscending);
       sortableButton.classList.remove(this.options.stateClasses.columnDescending);
     });
+  }
+
+  /**
+   * Check if an element is inside the cloned table
+   *
+   * @param {*} element
+   * @returns
+   * @memberof Table
+   */
+  isInClonedTable(element) {
+    let elementParent = element.parentNode;
+
+    while (!elementParent.classList.contains('mdl-table__table--cloned')) {
+      elementParent = elementParent.parentNode;
+
+      if (elementParent.classList.contains('mdl-table')) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   /**
