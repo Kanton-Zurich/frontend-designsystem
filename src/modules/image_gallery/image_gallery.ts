@@ -29,7 +29,6 @@ class ImageGallery extends Module {
   }
 
   constructor($element: any, data: Object, options: Object) {
-    console.log('Image gallery loading');
     const defaultData = {
       isExpanded: false,
     };
@@ -47,14 +46,12 @@ class ImageGallery extends Module {
     };
 
     super($element, defaultData, defaultOptions, data, options);
-
     this.initEventListeners();
     this.initWatchers();
 
     this.setIndexNumbers();
 
     (<any>window).estatico.lineClamper.initLineClamping();
-    console.log('Image gallery loaded');
   }
 
   /**

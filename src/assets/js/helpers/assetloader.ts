@@ -17,7 +17,7 @@ class AssetLoader extends Helper {
     document.addEventListener('DOMContentLoaded', () => {
       this.dataHref = document.body.getAttribute(this.dataAttr);
       if (this.dataHref !== null) {
-        this.logger('don\'t block the loading of the page; wait until it\'s done; then download asset ' + this.dataHref);
+        this.logger(`don't block the loading of the page; wait until it's done; then download asset ${this.dataHref}`);
         this.on(window, 'load', this.injectAsset.bind(this));
       }
     });

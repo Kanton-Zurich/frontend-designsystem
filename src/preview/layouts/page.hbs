@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 
   <script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
-  <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js" defer></script>
+
 
 
   {{#if env.dev}}
@@ -19,7 +19,8 @@
     <script src="/preview/assets/js/dev.js"></script>
   {{/if}}
 </head>
-<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}} {{#if props.fonts}} data-fonts='{{props.fonts}}'{{/if}}>
+<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
+  data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'>
 {{#block "header"}}
 {{/block}}
 
@@ -28,6 +29,7 @@
   {{/block}}
 </div>
 {{#block "scripts"}}
+  <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js" async></script>
 {{/block}}
 </body>
 </html>

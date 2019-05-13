@@ -19,7 +19,8 @@
 		<script src="/preview/assets/js/dev.js"></script>
 	{{/if}}
 </head>
-<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}} {{#if props.fonts}} data-fonts='{{props.fonts}}'{{/if}}>
+<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
+  data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'>
 	<div class="sg_wrapper sg_module">
 		<h1 class="sg_title">
 			<a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
@@ -124,7 +125,7 @@
 			</section>
 		{{/if}}
 		{{#block "scripts"}}
-      <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
+      <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js" async></script>
 		{{/block}}
 	</div>
 </body>
