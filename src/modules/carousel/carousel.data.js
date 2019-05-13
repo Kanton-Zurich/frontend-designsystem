@@ -27,15 +27,15 @@ const data = _.merge({}, defaultData, {
         srcsets: [
           {
             image: '/assets/media/image/carousel_1440_x15.jpeg',
-            deviceWidth: 1440,
+            deviceWidth: 2160,
           },
           {
             image: '/assets/media/image/carousel_1024_x15.jpeg',
-            deviceWidth: 1024,
+            deviceWidth: 1536,
           },
           {
             image: '/assets/media/image/carousel_600_x15.jpeg',
-            deviceWidth: 600,
+            deviceWidth: 900,
           },
         ],
       }),
@@ -45,15 +45,15 @@ const data = _.merge({}, defaultData, {
         srcsets: [
           {
             image: '/assets/media/image/carousel_1440_x15.jpeg',
-            deviceWidth: 1440,
+            deviceWidth: 2160,
           },
           {
             image: '/assets/media/image/carousel_1024_x15.jpeg',
-            deviceWidth: 1024,
+            deviceWidth: 1536,
           },
           {
             image: '/assets/media/image/carousel_600_x15.jpeg',
-            deviceWidth: 600,
+            deviceWidth: 900,
           },
         ],
       }),
@@ -63,15 +63,15 @@ const data = _.merge({}, defaultData, {
         srcsets: [
           {
             image: '/assets/media/image/carousel_1440_x15.jpeg',
-            deviceWidth: 1440,
+            deviceWidth: 2160,
           },
           {
             image: '/assets/media/image/carousel_1024_x15.jpeg',
-            deviceWidth: 1024,
+            deviceWidth: 1536,
           },
           {
             image: '/assets/media/image/carousel_600_x15.jpeg',
-            deviceWidth: 600,
+            deviceWidth: 900,
           },
         ],
       }),
