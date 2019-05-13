@@ -242,6 +242,7 @@ class Table extends Module {
         || columnHeader.classList.contains(this.options.stateClasses.columnDescending);
       const orderDirection = isOrderedBy ? (columnHeader.getAttribute('data-order-by')) : false;
       const isNumeric = columnHeader.getAttribute('data-order') === 'enum';
+      const th = columnHeader.parentNode;
       let orderedByTableData = null;
       let order = null;
 
@@ -253,10 +254,12 @@ class Table extends Module {
           order = 'desc';
 
           columnHeader.classList.add(this.options.stateClasses.columnDescending);
+          th.setAttribute('aria-sort', 'descending');
           break;
         // The current sortOrder is descending, next stage is no sort at all (default)
         case 'desc':
           columnHeader.removeAttribute('data-order-by');
+          th.setAttribute('aria-sort', 'none');
 
           break;
         // There is no active sortOrder next stage is ascending
@@ -264,6 +267,7 @@ class Table extends Module {
           order = 'asc';
 
           columnHeader.classList.add(this.options.stateClasses.columnAscending);
+          th.setAttribute('aria-sort', 'ascending');
 
           break;
       }

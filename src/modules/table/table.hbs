@@ -5,6 +5,8 @@
 	{{#if isFirstColumnFixed}} mdl-table--first-column-fixed{{/if}}"
   data-init="table"
   data-redraw="true"
+  role="grid"
+  aria-readonly="true"
   >
 	{{#if hasTitle}}
 		<h{{ headingLevel }} class="atm-heading mdl-table__title">{{ title }}</h{{ headingLevel }}>
@@ -20,7 +22,12 @@
               <thead>
                 <tr class="mdl-table__row">
                   {{#each headers}}
-                    <th scope="col" class="mdl-table__cell mdl-table__column-header {{#if isSortable}}mdl-table__column-header--sortable{{/if}}">
+                    <th
+                      scope="col"
+                      class="mdl-table__cell mdl-table__column-header {{#if isSortable}}mdl-table__column-header--sortable{{/if}}"
+                      role="columnheader"
+                      {{#if isSortable}}aria-sort="none"{{/if}}
+                    >
                       {{#if isSortable}}<button data-table="sortable" data-order="{{isSortable}}" data-column-index="{{@index}}">{{/if}}
                         <span>{{{ this.title }}}</span>
                         {{#if isSortable}}
@@ -42,7 +49,9 @@
                     {{#if @first}}
                       <th scope="row" class="mdl-table__cell
                         {{#if  ../../hasRowHeader}}mdl-table__row-header{{/if}}"
-                        data-table="cell">
+                        data-table="cell"
+                        {{#if ../../hasRowHeader}}role="rowheader"{{/if}}
+                      >
                         {{{ this }}}
                       </th>
                     {{else}}
