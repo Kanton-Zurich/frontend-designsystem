@@ -20,6 +20,7 @@ const data = {
     ]),
     fonts: '/assets/css/fonts.css',
     styles: '/assets/css/main.css',
+    script: '/assets/js/main.js',
   },
 };
 

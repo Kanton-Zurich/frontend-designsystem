@@ -2,6 +2,7 @@ const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js');
 const richtextData = require('../../modules/richtext/richtext.data.js');
+const imageGalleryData = require('../../modules/image_gallery/image_gallery.data.js');
 const dataHelper = require('@unic/estatico-data');
 
 const data = _.merge({}, defaultData, {
@@ -18,6 +19,7 @@ const data = _.merge({}, defaultData, {
       // xy: require('../../modules/xy/xy.data.js').props
       skiplinks: skiplinksData.props,
       richtext: richtextData.props,
+      imageGallery: imageGalleryData.props,
     },
   },
 });
