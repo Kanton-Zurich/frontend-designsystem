@@ -97,7 +97,7 @@
       background: $colorWhite;
     }
 
-    & .mdl-table__row--odd .mdl-table__cell {
+    & tbody .mdl-table__row:nth-child(odd) .mdl-table__cell {
       background: $colorBlack5;
     }
 
@@ -172,7 +172,7 @@
     font-weight: 400;
   }
 
-  &__row--odd &__cell {
+  &__body &__row:nth-child(odd) &__cell {
     background: $colorBlack5; // background: rgba(0, 0, 0, 0.05);
   }
 
@@ -193,7 +193,7 @@
       background: $colorBlack5;
     }
 
-    .mdl-table__row--odd .mdl-table__cell {
+    .mdl-table__row:nth-child(odd) .mdl-table__cell {
       background: $colorWhite;
     }
 
@@ -202,7 +202,7 @@
         background: $colorBlack5;
       }
 
-      & .mdl-table__row--odd .mdl-table__cell {
+      & .mdl-table__row:nth-child(odd) .mdl-table__cell {
         background: $colorWhite;
       }
     }

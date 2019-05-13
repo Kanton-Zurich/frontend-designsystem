@@ -34,10 +34,10 @@
                 </tr>
               </thead>
             {{/if}}
-            <tbody>
+            <tbody class="mdl-table__body">
               {{#each bodyrows}}
-                <tr class="mdl-table__row mdl-table__row--{{#if_even @index}}odd{{else}}even{{/if_even}}
-                  {{#if this.isHighlighted}}mdl-table__row--highlighted{{/if}}">
+                <tr class="mdl-table__row mdl-table__row
+                  {{#if this.isHighlighted}} mdl-table__row--highlighted{{/if}}">
                   {{#each this.data}}
                     {{#if @first}}
                       <th scope="row" class="mdl-table__cell
