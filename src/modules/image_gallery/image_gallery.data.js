@@ -11,15 +11,15 @@ const smallGalleryImage = _.merge({}, defImageFigureData, {
   srcsets: [
     {
       image: '/assets/media/image/gallery-small_300.jpeg',
-      deviceWidth: 1025,
+      deviceWidth: 300,
     },
     {
       image: '/assets/media/image/gallery-small_213.jpeg',
-      deviceWidth: 601,
+      deviceWidth: 213,
     },
     {
       image: '/assets/media/image/gallery-small_125.jpeg',
-      deviceWidth: 1,
+      deviceWidth: 125,
     },
   ],
   hasDownload: true,
@@ -34,15 +34,15 @@ const slideImage = _.merge({}, defImageFigureData, {
   srcsets: [
     {
       image: '/assets/media/image/carousel_1440_x15.jpeg',
-      deviceWidth: 1025,
+      deviceWidth: 1440,
     },
     {
       image: '/assets/media/image/carousel_1024_x15.jpeg',
-      deviceWidth: 601,
+      deviceWidth: 1024,
     },
     {
       image: '/assets/media/image/carousel_600_x15.jpeg',
-      deviceWidth: 1,
+      deviceWidth: 600,
     },
   ],
   useInCarousel: true,
@@ -66,15 +66,15 @@ const data = _.merge({}, defaultData, {
       srcsets: [
         {
           image: '/assets/media/image/gallery-big_640.jpg',
-          deviceWidth: 1025,
+          deviceWidth: 640,
         },
         {
           image: '/assets/media/image/gallery-big_455.jpeg',
-          deviceWidth: 601,
+          deviceWidth: 455,
         },
         {
           image: '/assets/media/image/gallery-big_267.jpeg',
-          deviceWidth: 1,
+          deviceWidth: 267,
         },
       ],
       useInCarousel: true,

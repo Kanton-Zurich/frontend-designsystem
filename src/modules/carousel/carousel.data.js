@@ -27,15 +27,15 @@ const data = _.merge({}, defaultData, {
         srcsets: [
           {
             image: '/assets/media/image/carousel_1440_x15.jpeg',
-            deviceWidth: 1025,
+            deviceWidth: 1440,
           },
           {
             image: '/assets/media/image/carousel_1024_x15.jpeg',
-            deviceWidth: 601,
+            deviceWidth: 1024,
           },
           {
             image: '/assets/media/image/carousel_600_x15.jpeg',
-            deviceWidth: 1,
+            deviceWidth: 600,
           },
         ],
       }),
@@ -45,15 +45,15 @@ const data = _.merge({}, defaultData, {
         srcsets: [
           {
             image: '/assets/media/image/carousel_1440_x15.jpeg',
-            deviceWidth: 1025,
+            deviceWidth: 1440,
           },
           {
             image: '/assets/media/image/carousel_1024_x15.jpeg',
-            deviceWidth: 601,
+            deviceWidth: 1024,
           },
           {
             image: '/assets/media/image/carousel_600_x15.jpeg',
-            deviceWidth: 1,
+            deviceWidth: 600,
           },
         ],
       }),

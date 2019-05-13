@@ -16,10 +16,10 @@ const data = _.merge({}, defaultData, {
   props: {
     srcsets: [{
       image: '/assets/media/image/content_768_x15.jpeg',
-      deviceWidth: 768,
+      imageWidth: 768,
     }, {
       image: '/assets/media/image/content_444_x15.jpeg',
-      deviceWidth: 1,
+      imageWidth: 444,
     }],
     alt: 'Das ist ein Beispielbild',
     caption: _.merge({}, defFigcaptionData, {
@@ -46,15 +46,15 @@ const variants = _.mapValues({
     props: {
       srcsets: [ {
         image: '/assets/media/image/fullwidth_16_9_1440_x15.jpeg',
-        deviceWidth: 1024,
+        imageWidth: 1440,
       },
       {
         image: '/assets/media/image/fullwidth_16_9_1024_x15.jpeg',
-        deviceWidth: 600,
+        imageWidth: 1024,
       },
       {
         image: '/assets/media/image/fullwidth_16_9_600_x15.jpeg',
-        deviceWidth: 1,
+        imageWidth: 600,
       }],
       isWide: true,
     },
@@ -67,15 +67,15 @@ const variants = _.mapValues({
     props: {
       srcsets: [ {
         image: '/assets/media/image/fullwidth_21_9_1440_x15.jpeg',
-        deviceWidth: 1024,
+        imageWidth: 1440,
       },
       {
         image: '/assets/media/image/fullwidth_21_9_1024_x15.jpeg',
-        deviceWidth: 600,
+        imageWidth: 1024,
       },
       {
         image: '/assets/media/image/fullwidth_21_9_600_x15.jpeg',
-        deviceWidth: 1,
+        imageWidth: 600,
       }],
       isWide: true,
     },
@@ -88,11 +88,11 @@ const variants = _.mapValues({
     props: {
       srcsets: [ {
         image: '/assets/media/image/small_368_x15.jpeg',
-        deviceWidth: 600,
+        imageWidth: 368,
       },
       {
         image: '/assets/media/image/small_260_x15.jpeg',
-        deviceWidth: 1,
+        imageWidth: 260,
       }],
       isSmall: true,
     },
