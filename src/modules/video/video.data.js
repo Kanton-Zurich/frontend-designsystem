@@ -19,7 +19,7 @@ const data = _.merge({}, defaultData, {
     caption: _.merge({}, defFigcaptionData, {
       caption: 'Video der Kantonspolizei Zürich; Quelle: KaPo Zürich',
     }),
-    title: 'Video über die KaPo Zürich',
+    video_title: 'Video über die KaPo Zürich',
     alt: 'Das ist ein Alternativ-Text',
   },
 });
@@ -56,7 +56,7 @@ const variants = _.mapValues({
       desc: 'Standardmässige Videoeinbindung ohne Titel',
     },
     props: {
-      title: null,
+      video_title: null,
       videoId: 'bFfn2pkzAew',
     },
   },
@@ -99,7 +99,7 @@ const variants = _.mapValues({
     },
     props: {
       isFullwidth: true,
-      title: null,
+      video_title: null,
       videoId: 'UjU2R87m_gQ',
     },
   },
