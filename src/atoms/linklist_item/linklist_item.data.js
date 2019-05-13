@@ -23,6 +23,43 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
+  download: {
+    meta: {
+      title: 'Downloadlink',
+      desc: 'Link für die Downloadliste',
+    },
+    props: {
+      isDownload: true,
+      label: 'Dateityp | Seiten | Sprache | 100kb',
+      href: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    },
+  },
+  downloadAsButton: {
+    meta: {
+      title: 'Downloadlink als Button (für mehrere Sprachen)',
+      desc: 'Ein Button für die Downloadliste, welches ein Kontext-Menü öffnet',
+    },
+    props: {
+      isDownload: true,
+      label: 'Dateityp | Seiten | Sprache | 100kb',
+      isButton: true,
+      href: false,
+    },
+  },
+  legalFoundation: {
+    meta: {
+      title: 'Rechliche Grundlage herunterladen',
+      desc: 'Ein Link welches ermöglicht eine rechtliche Grundlage herunterzuladen',
+    },
+    props: {
+      href: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      label: 'RRB Nr. 258 | 21.03.2019 | Direktion der Justiz und des Inneren',
+      title: 'ZHAW Hochschule Winterthur, Campus Technikumstrasse, Projektierung "Campus T" 1. Etappe, gebunde Ausgabe',
+      isLegalFoundation: true,
+      isDownload: true,
+      isButton: false,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

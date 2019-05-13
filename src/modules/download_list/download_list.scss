@@ -1,0 +1,17 @@
+.mdl-download_list {
+  @include sizeCurve(margin-bottom, regular);
+
+  &__list {
+    @include resetList;
+  }
+
+  &__title.atm-heading {
+    margin-bottom: pxToRem($sizeTiny);
+
+    @include sizeCurve(padding-top, small);
+  }
+
+  .mdl-context_menu {
+    display: none;
+  }
+}

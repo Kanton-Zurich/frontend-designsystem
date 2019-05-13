@@ -1,0 +1,14 @@
+.mdl-context_menu {
+  padding: pxToRem($sizeTiny) 0;
+  background: $colorWhite;
+  border-radius: 1px;
+  box-shadow: 0 0 1rem rgba($colorBlack, 0.16), 0 0 2px rgba($colorBlack, 0.32);
+
+  width: 320px;
+
+  position: absolute;
+
+  &__list {
+    @include resetList();
+  }
+}
