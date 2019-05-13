@@ -1,0 +1,15 @@
+{{#extend "preview/layouts/layout"}}
+  {{#content "content"}}
+    <section class="sg_inner_wrapper">
+      <h2 class="sg_h2">Code</h2>
+
+    {{#if code.handlebars}}
+        <h3 class="sg_h3">Handlebars Template</h3>
+        <pre class="sg_code hljs">{{{code.handlebars.content }}}</pre>
+        <h3 class="sg_h3">HTML (DEV)</h3>
+        <pre class="sg_code hljs">{{{code.html}}}</pre>
+        <h3 class="sg_h3">HTML (PROD)</h3>
+        <pre class="sg_code hljs">{{{code.html_prod}}}</pre>
+    {{/if}}
+  {{/content}}
+{{/extend}}

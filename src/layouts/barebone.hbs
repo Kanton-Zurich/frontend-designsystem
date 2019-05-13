@@ -12,14 +12,14 @@
   <link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 
   <script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
-  <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js" defer></script>
+  <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js" async></script>
 </head>
-<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}} {{#if props.fonts}}
-                               data-fonts='{{props.fonts}}'{{/if}}>
+<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
+  data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'>
 {{#block "header"}}
 {{/block}}
-<div class="lyt-wrapper">
-  <div class="sg_demo grid-x grid-margin-x">
+<div class="lyt-wrapper" id="main">
+  <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
       {{#block "content"}}
       {{/block}}

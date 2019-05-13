@@ -46,7 +46,6 @@ class ImageGallery extends Module {
     };
 
     super($element, defaultData, defaultOptions, data, options);
-
     this.initEventListeners();
     this.initWatchers();
 

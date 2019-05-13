@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+  <!--------------------------->
+  <!-- Page header goes here -->
+  <!--------------------------->
+  <link href="{{meta.aemPath}}/assets/css/critical.{{meta.gitShort}}.css" rel="stylesheet">
+  <script src="{{meta.aemPath}}/assets/js/head.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.js"></script>
+</head>
+<body {{#if props.svgSprites}} data-svgsprites-options='[&quot;{{meta.aemPath}}/assets/media/svgsprite/base.svg&quot;]'{{/if}}
+                               data-fonts='{{meta.aemPath}}/assets/css/fonts.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.css'
+                               data-style-main='{{meta.aemPath}}/assets/css/main.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.css'
+                               data-script-main='{{meta.aemPath}}/assets/js/main.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.js'>
+<!---------------------->
+<!-- Header goes here -->
+<!---------------------->
+<div class="lyt-wrapper" id="main">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      <!-------------------------------->
+      <!-- Content components go here -->
+      <!-------------------------------->
+    </div>
+  </div>
+</div>
+<!---------------------->
+<!-- Footer goes here -->
+<!---------------------->
+</body>
+</html>
