@@ -14,6 +14,10 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'sshuserLsgFE', passwordVariable: 'passWord', usernameVariable: 'userName')]) {
           sh 'sshpass -p $passWord scp -o StrictHostKeyChecking=no -P 9022 -r dist/ci/dev/ $userName@10.100.128.12:/usr/local/apache2/htdocs/czhdev/develop/'
         }
+        
+        withCredentials([usernamePassword(credentialsId: 'aspectraWriter', passwordVariable: 'passWord', usernameVariable: 'userName')]) {
+          sh 'curl -v -u $userName:$passWord --upload-file ci/deploy.zip https://nexus.one-inside.com/nexus/repository/czhdev_lsg/'
+        }
       }
     }
   }
