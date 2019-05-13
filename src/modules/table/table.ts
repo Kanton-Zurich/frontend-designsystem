@@ -292,12 +292,18 @@ class Table extends Module {
 
     domRows.forEach((row) => {
       const cells = row.querySelectorAll(this.options.domSelectors.cell);
-      const rowData = Array.prototype.slice.call(cells).map(cell => cell.textContent.trim());
-      const rowObject = {};
+      const rowData = Array.prototype.slice.call(cells).map(cell => cell.innerHTML);
+      const rowObject = {
+        isHighlighted: false,
+      };
 
-      rowData.forEach((textContent, index) => {
-        rowObject[index] = textContent;
+      rowData.forEach((innerHTML, index) => {
+        rowObject[index] = innerHTML;
       });
+
+      if (row.classList.contains('mdl-table__row--highlighted')) {
+        rowObject.isHighlighted = true;
+      }
 
       tableRows.push(rowObject);
     });
@@ -322,8 +328,14 @@ class Table extends Module {
       const cells = row.querySelectorAll(this.options.domSelectors.cell);
 
       cells.forEach((cell, cellIndex) => {
-        cell.textContent = sortedData[rowIndex][cellIndex];
+        cell.innerHTML = sortedData[rowIndex][cellIndex];
       });
+
+      if (sortedData[rowIndex].isHighlighted) {
+        row.classList.add('mdl-table__row--highlighted');
+      } else {
+        row.classList.remove('mdl-table__row--highlighted');
+      }
     });
 
     if (this.options.isFixedFirstColumn) {
