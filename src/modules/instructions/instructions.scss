@@ -67,9 +67,10 @@
 
     &--checklist {
       position: absolute;
-      top: 0;
+      top: 3px;
       left: 0;
       line-height: 1;
+      font-size: 0;
 
       .icon {
         @include sizeCurve('width' 'height', checkerIconSize, $customSizing);
