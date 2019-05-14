@@ -1,6 +1,8 @@
 .mdl-button_group {
   display: flex;
 
+  @include resetList;
+
   .atm-button {
     margin-right: 2px;
 
