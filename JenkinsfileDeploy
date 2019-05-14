@@ -16,7 +16,7 @@ pipeline {
         }
         
         withCredentials([usernamePassword(credentialsId: 'aspectraWriter', passwordVariable: 'passWord', usernameVariable: 'userName')]) {
-          sh 'curl -v -u $userName:$passWord --upload-file ci/deploy.zip https://nexus.one-inside.com/nexus/repository/czhdev_lsg/'
+          sh 'curl -v -u $userName:$passWord --upload-file dist/ci/deploy.zip https://nexus.one-inside.com/nexus/repository/czhdev_lsg/'
         }
       }
     }
