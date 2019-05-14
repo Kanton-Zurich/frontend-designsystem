@@ -273,8 +273,18 @@ class Table extends Module {
       }
       if (order) {
         orderedByTableData = isNumeric
-          ? orderBy(this.data.tableData, o => parseFloat(o[column]), [order])
-          : orderBy(this.data.tableData, [column], [order]);
+          ? orderBy(this.data.tableData, (o) => {
+            const tmp = document.createElement('DIV');
+            tmp.innerHTML = o[column];
+
+            return parseFloat(tmp.textContent.replace(',', '.'));
+          }, [order])
+          : orderBy(this.data.tableData, (o) => {
+            const tmp = document.createElement('DIV');
+            tmp.innerHTML = o[column];
+
+            return tmp.textContent;
+          }, [order]);
 
         columnHeader.setAttribute('data-order-by', order);
       } else {
