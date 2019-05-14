@@ -3,7 +3,7 @@
 
   @include resetList;
 
-  .atm-button {
+  &__item {
     margin-right: 2px;
 
     &:last-of-type {
