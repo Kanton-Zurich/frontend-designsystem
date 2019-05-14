@@ -1,0 +1,32 @@
+<div class="mdl-image_gallery mdl-image_gallery--cv-inverted" data-init="imageGallery">
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+      <h2 class="mdl-image_gallery__title atm-heading atm-heading--bordered cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10">{{ title }}</h2>
+      <div class="cell tiny-12 medium-6">
+        <div class="mdl-image_gallery__image mdl-image_gallery__image--highlight">
+          {{> "modules/image_figure/image_figure" highlight}}
+        </div>
+      </div>
+      <div class="cell tiny-12 medium-6">
+        <div class="mdl-image_gallery__images grid-x grid-margin-x">
+          {{#each imagesTeasered}}
+            <div class="cell tiny-6">
+              {{> "modules/image_figure/image_figure" this}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+      <div class="cell tiny-12 mdl-image_gallery__more">
+        {{> "atoms/button/button" loadMore}}
+        <div class="grid-x grid-margin-x mdl-image_gallery__more-images" data-image-gallery="more">
+          {{#each furtherImages}}
+            <div class="cell tiny-6 medium-3">
+              {{> "modules/image_figure/image_figure" this}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> "modules/carousel/carousel" carousel}}
+</div>

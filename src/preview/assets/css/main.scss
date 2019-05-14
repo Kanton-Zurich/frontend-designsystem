@@ -11,11 +11,11 @@
 // Lesson learned, OrT: browsers decided to reduce font size from 16px to 13px when the font applied is the fallbacked monospace.
 // Solution: declare monospace and then give it another fallback.
 // http://meyerweb.com/eric/thoughts/2010/02/12/fixed-monospace-sizing/
-$sg_font: monospace, serif;
+$sg_font: Helvetica, serif;
 
-$sg_breakpoint: 941px;
+$sg_breakpoint: 1480px;
 $sg_marginsBoxed: 20px;
-$sg_maxWidth: 900px;
+$sg_maxWidth: 1440px;
 
 // Colors
 $sg_colorWhite: #fff;
@@ -40,6 +40,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   margin-left: $sg_marginsBoxed;
   margin-right: $sg_marginsBoxed;
 }
+
 @mixin sgBoxed {
   @include sgBoxedMargins;
 
@@ -62,15 +63,15 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   .sg_documentation,
   .sg_code,
   .sg_variant_meta,
-  .sg_tests {
+  .sg_tests,
+  .sg_revisioninfo {
     @include sgBoxed;
   }
 
   .sg_title {
     @include sgBoxedMargins;
 
-    margin-bottom: pxToEm(70px, 35px);
-    font-family: Georgia, serif;
+    font-family: $sg_font;
     font-size: pxToEm(35px);
 
     a {
@@ -95,6 +96,24 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
   .sg_h2 {
     font-size: pxToEm(25px);
+  }
+
+  .sg_revisioninfo {
+    font-family: $sg_font;
+    font-size: 9px;
+    padding: 6px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px 0 rgba(200, 200, 200, 0.4);
+
+    &--overview {
+      margin-left: 20px;
+      width: 450px;
+    }
+
+    h4 {
+      margin-top: 0;
+    }
   }
 }
 
@@ -207,8 +226,10 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   max-width: $sizeWidthContent;
 
   @include polyFluidSizing('padding', map-get($fontSizeCurves, regular));
+}
 
-  margin: 0 auto;
+.sg_module .sg_demo {
+  max-width: none;
 }
 
 .sg_documentation {
@@ -366,51 +387,102 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
 // Preview: Colors page
 // ----------------------------------------------------------------------------------------------------
-
-.sg_color_list {
-  @include clearfix;
-  @include resetList;
-
-  margin: 0 pxToEm(-10);
-}
-
-.sg_color_item {
-  font-size: pxToEm(14);
-  padding: pxToEm(15, 14) pxToEm(10, 14) pxToEm(20, 14);
-  width: pxToEm(($sg_maxWidth/6), 14);
+.sg_palette {
   float: left;
-  text-align: center;
-  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 0 1px 1px 0 rgba(200, 200, 200, 0.3);
 
-  &:hover {
+  .sg_palette-color {
+    &__content {
+      padding: 10px;
+      color: #a9abab;
 
-    .sg_color_preview {
-      transform: scale(1.25);
-      box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.2);
+      h1 {
+        font-size: 12px;
+        color: #444545;
+        line-height: 0.6em;
+      }
+
+      span {
+        font-size: 11px;
+        line-height: 0.4em;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  /* Square */
+  &.sg_palette--rect {
+    margin: 40px;
+    width: 300px;
+    height: 200px;
+
+    .sg_palette-color {
+      height: 140px;
+
+      &__rect {
+        height: 100%;
+
+        > div {
+          box-sizing: border-box;
+          width: 97px;
+          height: 70px;
+          margin-left: auto;
+          border-left: 1px rgba(255, 255, 255, 0.4) solid;
+
+          &:first-child {
+            border-bottom: 1px rgba(255, 255, 255, 0.4) solid;
+          }
+
+          &:last-child {
+            font-size: 1.2em;
+
+            div {
+              padding: 25px 4px;
+            }
+          }
+
+          div {
+            box-sizing: border-box;
+            font-weight: 900;
+            float: right;
+            width: 48px;
+            height: 70px;
+            line-height: 20px;
+            padding: 25px 8px;
+
+            &:first-child {
+              color: #fff;
+            }
+
+            &:after {
+              position: relative;
+              left: 11px;
+              font-size: 10px;
+              color: #fff;
+            }
+
+            &[ style-valid='true' ] {
+              border-right: 10px solid #0a0;
+
+              &:after {
+                content: '\2713';
+              }
+            }
+
+            &[ style-valid='false' ] {
+              border-right: 10px solid #e00;
+
+              &:after {
+                content: 'X';
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
-
-.sg_color_preview {
-  width: 7.5em;
-  height: 7.5em;
-  margin: 0 auto;
-  // border: 1px solid $sg_colorLightGray;
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.025);
-
-  transition: $sg_defaultTransition;
-}
-
-.sg_color_name {
-  padding-top: 0.8em;
-  font-weight: bold; //stylelint-disable-line
-}
-
-.sg_color_value {
-  display: inherit;
-}
-
 
 // Preview: Fonts page
 // ----------------------------------------------------------------------------------------------------

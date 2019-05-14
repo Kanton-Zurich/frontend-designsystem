@@ -1,10 +1,31 @@
 /* eslint-disable global-require */
 const gulp = require('gulp');
-const eslint = require('gulp-eslint');
+const zip = require('gulp-zip');
 const path = require('path');
 const fs = require('fs');
+const process = require('process');
 const env = require('minimist')(process.argv.slice(2));
+const git = require('git-rev-sync');
+const nodeSass = require('node-sass');
+const gulpUtil = require('gulp-util');
+require('./gulp/deploy-aem');
+require('./gulp/critical-css');
 
+gulpUtil.env.aemTargetBase = '../czhdev-backend/sources/zhweb-core/zhweb-core-content/src/main/resources/jcr_root/apps/zhweb/core/';
+gulpUtil.env.aemTargetBaseResources = `${gulpUtil.env.aemTargetBase}clientlibs/publish/resources/`;
+gulpUtil.env.aemAssetsProxy = '/etc.clientlibs/sanagate/core/clientlibs/publish/resources/';
+gulpUtil.env.revision = `.${git.short()}`;
+gulpUtil.env.aemPresent = false;
+
+try {
+  if (fs.existsSync(gulpUtil.env.aemTargetBaseResources)) {
+    gulpUtil.env.aemPresent = true;
+  } else {
+    console.log('AEM not present for deployment, skipping deployment of assets');
+  }
+} catch (err) {
+  console.log('AEM not present for deployment, skipping deployment of assets');
+}
 
 /**
  * HTML task
@@ -16,7 +37,7 @@ const env = require('minimist')(process.argv.slice(2));
 gulp.task('html', () => {
   const task = require('@unic/estatico-handlebars');
   const estaticoWatch = require('@unic/estatico-watch');
-  const { readFileSyncCached } = require('@unic/estatico-utils');
+  const {readFileSyncCached} = require('@unic/estatico-utils');
 
   const instance = task({
     src: [
@@ -28,7 +49,6 @@ gulp.task('html', () => {
       './src/atoms/**/!(_)*.hbs',
       // './src/demo/modules/**/!(_)*.hbs',
       './src/preview/styleguide/*.hbs',
-      '!./src/preview/styleguide/colors.hbs',
     ],
     srcBase: './src',
     dest: './dist',
@@ -36,6 +56,7 @@ gulp.task('html', () => {
       src: [
         './src/**/*.hbs',
         './src/**/*.data.js',
+        './gulp/helpers/*.js',
       ],
       name: 'html',
       dependencyGraph: {
@@ -75,6 +96,9 @@ gulp.task('html', () => {
         partials: [
           './src/**/*.hbs',
         ],
+        helpers: [
+          './gulp/helpers/*.js',
+        ],
       },
       // Wrap with module layout
       transformBefore: (file) => {
@@ -92,12 +116,12 @@ gulp.task('html', () => {
       transformAfter: (file) => {
         let content = file.contents.toString();
         let relPathPrefix = path.join(path.relative(file.path, './src'));
-
-        relPathPrefix = relPathPrefix
-          .replace(new RegExp(`\\${path.sep}g`), '/') // Normalize path separator
-          .replace(/\.\.$/, ''); // Remove trailing ..
-
-        content = content.replace(/('|")\/(?!\^)/g, `$1${relPathPrefix}`);
+        if (path.basename(file.path) !== 'scaffolding.hbs') {
+          relPathPrefix = relPathPrefix
+            .replace(new RegExp(`\\${path.sep}g`), '/') // Normalize path separator
+            .replace(/\.\.$/, ''); // Remove trailing ..
+          content = content.replace(/('|"|&quot;)\/(?!\^)/g, `$1${relPathPrefix}`);
+        }
 
         content = Buffer.from(content);
 
@@ -276,6 +300,12 @@ gulp.task('css', () => {
           // Add importer being able to deal with json files like colors, e.g.
           nodeSassJsonImporter,
         ],
+        functions: {
+          'encode_Base64($string)': function ($string) {
+            var buffer = new Buffer($string.getValue());
+            return nodeSass.types.String(buffer.toString('base64'));
+          }
+        },
       },
       // Use task default (autoprefixer with .browserslistrc config)
       // postcss: [],
@@ -622,14 +652,14 @@ gulp.task('scaffold', () => {
               return [].concat(hasJs ? [
                 {
                   type: 'modify',
-                  path: './src/assets/js/helpers/app.js',
+                  path: './src/assets/js/helpers/app.ts',
                   pattern: /(\s+)(\/\* autoinsertmodule \*\/)/m,
                   template: `$1this.modules.${moduleName} = ${className};$1$2`,
                   abortOnFail: true,
                 },
                 {
                   type: 'modify',
-                  path: './src/assets/js/helpers/app.js',
+                  path: './src/assets/js/helpers/app.ts',
                   pattern: /(\s+)(\/\* autoinsertmodulereference \*\/)/m,
                   template: `$1import ${className} from '../../../modules/${fileName}/${fileName}';$1$2`,
                   abortOnFail: true,
@@ -648,14 +678,14 @@ gulp.task('scaffold', () => {
               return [].concat(hasJs ? [
                 {
                   type: 'modify',
-                  path: './src/assets/js/helpers/app.js',
+                  path: './src/assets/js/helpers/app.ts',
                   pattern: new RegExp(`(\\s+)?this.modules.${answers.moduleName} = ${answers.className};`, 'm'),
                   template: isRemove ? '' : `$1this.modules.${moduleName} = ${className};`,
                   abortOnFail: true,
                 },
                 {
                   type: 'modify',
-                  path: './src/assets/js/helpers/app.js',
+                  path: './src/assets/js/helpers/app.ts',
                   pattern: new RegExp(`(\\s+)?import ${answers.className} from '../../../modules/${answers.fileName}/${answers.fileName}';`, 'm'),
                   template: isRemove ? '' : `$1import ${className} from '../../../modules/${fileName}/${fileName}';`,
                   abortOnFail: true,
@@ -739,13 +769,13 @@ gulp.task('copy', () => {
 
   const instance = task({
     src: [
-      './src/**/*.{png,gif,jpg,woff,ttf}',
+      './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
     ],
     srcBase: './src',
     dest: './dist',
     watch: {
       src: [
-        './src/**/*.{png,gif,jpg,woff,ttf}',
+        './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
       ],
       name: 'copy',
     },
@@ -757,6 +787,60 @@ gulp.task('copy', () => {
   }
 
   return instance();
+});
+
+/**
+ * Copy files for AEM
+ * Copies files, optionally renames them.
+ *
+ * Using `--watch` (or manually setting `env` to `{ watch: true }`) starts file watcher
+ * When combined with `--skipBuild`, the task will not run immediately but only after changes
+ */
+gulp.task('copy:aem', () => {
+  const task = require('@unic/estatico-copy');
+
+  const instance = task({
+    src: [
+      './dist/assets/**/*.{css,js,svg}',
+    ],
+    srcBase: './dist/assets',
+    dest: gulpUtil.env.aemTargetBaseResources,
+    plugins: {
+      changed: null,
+      rename: (filePath) => {
+        let returnPath = filePath;
+
+        if (filePath.match(/\.min\.js/)) {
+          returnPath = returnPath.replace(/\.min\.js/, `.${git.short()}.min.js`);
+        } else if (filePath.match(/\.js/)) {
+          returnPath = returnPath.replace(/\.js/, `.${git.short()}.js`);
+        }
+
+        if (filePath.match(/\.min\.css/)) {
+          returnPath = returnPath.replace(/\.min\.css/, `.${git.short()}.min.css`);
+        } else if (filePath.match(/\.css/)) {
+          returnPath = returnPath.replace(/\.css/, `.${git.short()}.css`);
+        }
+
+        if (filePath.match(/\.svg/)) {
+          returnPath = returnPath.replace(/\.svg/, `.${git.short()}.svg`);
+        }
+
+        return returnPath;
+      },
+    },
+  }, env);
+
+  return instance();
+});
+
+/**
+ * Clean AEM Assets
+ */
+gulp.task('clean:aem', (callback) => {
+  const del = require('del');
+
+  return del(gulpUtil.env.aemTargetBaseResources, {force: true}, callback);
 });
 
 /**
@@ -794,6 +878,11 @@ gulp.task('copy:ci', () => {
   const prod = task({
     src: [
       './dist/**/*',
+      '!./dist/assets/js/*',
+      '!./dist/assets/css/*',
+      './dist/assets/js/*.min.*',
+      './dist/assets/css/*.min.*',
+      './dist/assets/css/critical.css',
       '!./dist/ci/**/*',
       '!./dist/**/*.dev.html',
       '!./dist/**/dev.*',
@@ -805,6 +894,18 @@ gulp.task('copy:ci', () => {
     },
   }, env);
 
+  // perserve .content.xml file in resource folder
+  const contentXML = task({
+    src: [
+      `${gulpUtil.env.aemTargetBaseResources}../css/.content.xml`,
+    ],
+    srcBase: `${gulpUtil.env.aemTargetBaseResources}../css/`,
+    dest: gulpUtil.env.aemTargetBaseResources,
+  }, env);
+
+  if (gulpUtil.env.aemPresent) {
+    return merge(dev(), prod(), contentXML());
+  }
   return merge(dev(), prod());
 });
 
@@ -815,6 +916,15 @@ gulp.task('clean', () => {
   const del = require('del');
 
   return del(['./dist', './src/assets/.tmp']);
+});
+
+/**
+ * Zip deployment package
+ */
+gulp.task('zip', () => {
+  return gulp.src('dist/ci/prod/**/*')
+    .pipe(zip('deploy.zip'))
+    .pipe(gulp.dest('dist/ci'));
 });
 
 /**
@@ -840,18 +950,22 @@ gulp.task('build', (done) => {
     'copy',
     // When starting watcher without building, "css:fonts" will never finish
     // In order for "css" to still run properly, we switch from serial to parallel execution
-    (env.watch && env.skipBuild) ? gulp.parallel('css:fonts', 'css') : gulp.series('css:fonts', 'css'),
+    (env.watch && env.skipBuild) ? gulp.parallel('css:fonts', 'css') : gulp.series('css:fonts', 'css', 'critical'),
   );
   let readEnv = new Promise(resolve => resolve());
 
   // Clean first
   if (!env.skipBuild) {
-    task = gulp.series('clean', task);
+    task = gulp.series('clean', 'clean:aem', task);
   }
 
   // Create CI build structure
   if (env.ci) {
-    task = gulp.series(task, 'copy:ci');
+    if (gulpUtil.env.aemPresent) {
+      task = gulp.series(task, 'copy:ci', 'copy:aem', 'deploy:aem', 'zip');
+    } else {
+      task = gulp.series(task, 'copy:ci', 'zip');
+    }
   }
 
   if (env.watch && (!env.skipBuild && !env.noInteractive && !env.skipTests && !env.ci)) {

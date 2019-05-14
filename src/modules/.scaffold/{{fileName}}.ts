@@ -33,13 +33,6 @@ class {{className}} extends Module {
   }
 
   /**
-   * Initialisation of variables, which point to DOM elements
-   */
-  initUi() {
-    // DOM element pointers
-  }
-
-  /**
    * Event listeners initialisation
    */
   initEventListeners() {

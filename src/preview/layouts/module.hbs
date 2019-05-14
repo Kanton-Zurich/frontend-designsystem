@@ -14,16 +14,26 @@
 
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 
-	{{#if env.dev}}
+  {{#if env.dev}}
 		<link rel="stylesheet" href="/preview/assets/css/dev.css">
 		<script src="/preview/assets/js/dev.js"></script>
 	{{/if}}
 </head>
-<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}>
+<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
+  data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'>
 	<div class="sg_wrapper sg_module">
 		<h1 class="sg_title">
 			<a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
 		</h1>
+    <div class="sg_revisioninfo">
+      <h4>Quellcodeverwaltung</h4>
+      <ul>
+        <li>Revisions Nummer: <a href="{{meta.gitRemoteLink}}">{{meta.gitShort}}</a></li>
+        <li>Datum: {{meta.gitDate}}</li>
+        <li>Branch: {{meta.gitBranch}}</li>
+        <li>Build Datum: {{meta.buildDate}}</li>
+      </ul>
+    </div>
 
 		{{#if variants}}
 			<section class="sg_variants sg_inner_wrapper">
@@ -37,9 +47,13 @@
 					<div class="panels">
 						{{#each variants}}
 							<div class="tab_content" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}">
-								<div class="sg_demo">
-									{{{meta.demo}}}
-								</div>
+                <div class="lyt-wrapper">
+                  <div class="sg_demo grid-x grid-margin-x">
+                    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+                      {{{meta.demo}}}
+                    </div>
+                  </div>
+                </div>
 							</div>
 						{{/each}}
 					</div>
@@ -110,10 +124,8 @@
 				{{/each}}
 			</section>
 		{{/if}}
-
-		<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
-
 		{{#block "scripts"}}
+      <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js" async></script>
 		{{/block}}
 	</div>
 </body>

@@ -1,0 +1,12 @@
+<blockquote class="mdl-quote {{#if hasImage}}mdl-quote--withimage{{/if}}">
+{{#if hasImage}}<img
+    class="mdl-quote__image"
+    src="{{srcsets.[0].image}}"
+    srcset="{{#each srcsets}}{{image}} {{deviceWidth}}w{{#if @last}}{{else}}, {{/if}}{{/each}}"
+    sizes="100vw"
+    alt="{{alt}}"
+    />{{/if}}<div>
+    <p class="mdl-quote__text">{{quoteText}}</p>
+    <cite class="mdl-quote__author">{{quoteAuthor}}</cite>
+  </div>
+</blockquote>

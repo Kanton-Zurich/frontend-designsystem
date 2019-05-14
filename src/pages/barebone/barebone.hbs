@@ -1,0 +1,18 @@
+{{#extend "layouts/barebone"}}
+  {{#content "header"}}
+    <header>
+      <h1 class="visuallyhidden">Navigation</h1>
+      {{> "modules/skiplinks/skiplinks" props.modules.skiplinks}}
+    </header>
+  {{/content}}
+
+  {{#content "content"}}
+      {{> "modules/richtext/richtext" props.modules.richtext}}
+  {{/content}}
+
+  {{#content "footer"}}
+    <footer id="contentinfo">
+      <h1 class="visuallyhidden">Fussbereich</h1>
+    </footer>
+  {{/content}}
+{{/extend}}

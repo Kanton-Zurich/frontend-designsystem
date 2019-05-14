@@ -1,0 +1,179 @@
+$smallImageWidths: (
+  tiny: (
+    left: 16.67%,
+    right: 16.67%,
+  ),
+  small: (
+    left: 10%,
+    right: 30%
+  ),
+  medium: (
+    left: 22.222%,
+    right: 22.222%
+  ),
+  large: (
+    left: 25%,
+    right: 25%,
+  )
+);
+
+.mdl-image-figure {
+  margin: 0;
+
+  @include sizeCurve(margin-bottom, medium);
+
+  &__img-wrapper {
+    line-height: 0;
+    max-height: 100%;
+
+    @at-root button#{&} {
+      @include blankButton;
+
+      line-height: 0;
+    }
+  }
+
+  &__img {
+    width: 100%;
+  }
+
+  &__meta {
+    display: flex;
+  }
+
+  &__caption {
+    display: flex;
+    align-items: flex-start;
+
+    .atm-figcaption {
+      flex-grow: 1;
+    }
+  }
+
+  &__download {
+    @include sizeCurve(padding-left padding-right, tiny);
+    @include sizeCurve(margin-left margin-right, tiny, $isNegative: true);
+
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    &:hover .mdl-image-figure__download-icon use {
+      fill: $colorBlack100;
+    }
+  }
+
+  &__download-icon {
+    width: 1rem;
+    height: 1rem;
+
+    use {
+      fill: $colorBlack60;
+      transition: fill $transitionTimeSimple $transitionEasingDefault;
+    }
+  }
+
+  /**
+   * Size variations for images
+   */
+  &--imagesmall {
+    @each $bp, $bpWidth in $breakpoints {
+      @include mq($bp) {
+        $paddings: getValueForBreakpoint($smallImageWidths, $bp);
+
+        padding-left: calc(#{map-get($paddings, left)} + #{getValueForBreakpoint($grid-margin-gutters, $bp) / 4});
+        padding-right: calc(#{map-get($paddings, right)} + #{getValueForBreakpoint($grid-margin-gutters, $bp) / 4});
+      }
+    }
+  }
+
+  /**
+   * Size variation for fullwidth
+   */
+  &--fullwidth {
+    @include sizeCurve(margin-top, large);
+
+    .mdl-image-figure__img {
+      @include gridBleed;
+    }
+  }
+
+  /** When embedded in fullscreen view */
+  [ class*='--fullscreen' ] & {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    // Necessary to overwrite mediaqueries
+    margin-bottom: 0 !important; //stylelint-disable-line declaration-no-important
+
+    .mdl-image-figure__img-wrapper {
+      flex-grow: 1;
+
+      display: flex;
+      min-height: 0;
+    }
+
+    .mdl-image-figure__img {
+      object-fit: contain;
+      font-family: 'object-fit: contain';
+
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .mdl-image-figure__download {
+      position: fixed;
+
+      @include sizeCurve(top, small);
+      right: pxToRem($sizeBig);
+
+      @include sizeCurve(margin-right, small);
+
+      padding: 0;
+      opacity: 0;
+
+      transition: opacity $transitionTimeFadeOut $transitionEasingAccelerate;
+
+      .icon {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+
+    .mdl-image-figure__caption {
+      padding-top: pxToRem($sizeTiny);
+    }
+
+    &.mdl-image-figure--imagesmall {
+      padding: 0 16.67%;
+    }
+  }
+
+  // When is on fullscreen and on active slide
+  [ class*='--fullscreen' ] .mdl-carousel__slide--active & {
+    .mdl-image-figure__download {
+      opacity: 1;
+      transition: opacity $transitionTimeFadeIn $transitionEasingDecelerate;
+    }
+  }
+
+  /**
+   * Embedded in gallery
+   */
+  .mdl-image_gallery & {
+    @include sizeCurve(margin-bottom, regular);
+
+    .mdl-image-figure__img-wrapper {
+      margin-bottom: 0.3rem;
+    }
+  }
+
+  /**
+   * Embedded in color variation inverted
+   */
+  [ class*='--cv-inverted' ] &,
+  [ class*='--fullscreen' ] & {
+    .mdl-image-figure__download use {
+      fill: $colorWhite;
+    }
+  }
+}

@@ -1,7 +1,9 @@
 /**
  * Layout
  */
+$sizeGlobalMaxWidth: 1440px;
 $sizeWidthContent: 1168px;
+$sizeWidthTextContent: 768px;
 
 // Variable needed for xy-grid
 $global-width: $sizeWidthContent;
@@ -33,7 +35,7 @@ $fontSizeCurves: (
     xlarge: $sizeFontGiant
   ),
   big: (
-    tiny: $sizeFontLarge,
+    xsmall: $sizeFontLarge,
     small: $sizeFontSmallBig,
     medium: $sizeFontBig,
     large: $sizeFontBiggerBig,
@@ -48,19 +50,22 @@ $fontSizeCurves: (
   medium: (
     tiny: $sizeFontBiggerRegular,
     xsmall: $sizeFontMedium,
+    medium: $sizeFontMedium,
     large: $sizeFontLarge,
     xlarge: $sizeFontSmallBig
+  ),
+  // Leads & Blockquotes
+  biggerRegular: (
+    xsmall: $sizeFontBiggerRegular,
+    small: $sizeFontMedium,
+    large: $sizeFontMedium,
+    xlarge: $sizeFontLarge
   ),
   regular: (
     tiny: $sizeFontRegular,
     xsmall: $sizeFontBiggerRegular,
-    large: $sizeFontMedium,
-  ),
-  // Leads & Blockquotes
-  biggerRegular: (
-    tiny: $sizeFontBiggerRegular,
-    small: $sizeFontMedium,
-    large: $sizeFontLarge
+    large: $sizeFontBiggerRegular,
+    xlarge: $sizeFontMedium,
   ),
   small: (
     tiny: $sizeFontSmall,
@@ -68,25 +73,27 @@ $fontSizeCurves: (
     large: $sizeFontBiggerRegular,
   ),
   tiny: (
-    tiny: $sizeFontTiny,
+    xsmall: $sizeFontTiny,
     small: $sizeFontSmall
   )
 );
 
 $sizeFontBase: $sizeFontRegular;
-$fontFamilyBase: Arial, sans-serif;
+$fontFamilyBase: Helvetica, sans-serif;
 
 /**
  * Line heights
  */
 $sizeLineHeightNarrower: 1;
 $sizeLineHeightNarrow: 1.2;
+$sizeLineHeightMedium: 1.3;
 $sizeLineHeightBase: 1.5;
 
 /**
  * Breakpoints
  */
-$sizeBreakpointTiny: 0;
+$sizeBreakpointZero: 0;
+$sizeBreakpointTiny: 320px;
 $sizeBreakpointXSmall: 400px;
 $sizeBreakpointSmall: 600px;
 $sizeBreakpointMedium: 840px;
@@ -115,12 +122,24 @@ $sizeCurves: (
   ),
   medium: (
     tiny: $sizeLarge,
+    small: $sizeLarge,
     medium: $sizeBig,
     xlarge: $sizeBiggerBig
+  ),
+  biggerRegular: (
+    tiny: $sizeSmallLarge,
+    medium: $sizeLarge,
+    xlarge: $sizeBig
   ),
   regular: (
     tiny: $sizeRegular,
     medium: $sizeSmallLarge,
+    xlarge: $sizeLarge
+  ),
+  smallerRegular: (
+    tiny: $sizeRegular,
+    xsmall: $sizeSmallLarge,
+    large: $sizeSmallLarge,
     xlarge: $sizeLarge
   ),
   small: (
@@ -131,6 +150,10 @@ $sizeCurves: (
     tiny: $sizeTiny,
     medium: $sizeSmallRegular,
     xlarge: $sizeRegular
+  ),
+  mini: (
+    tiny: $sizeTiny,
+    xlarge: $sizeTiny,
   )
 );
 
@@ -143,11 +166,50 @@ $wrapperSpacing: (
   large: $sizeBiggerBig,
 );
 
+// Indentation curves
+$indentCurve: (
+  list: (
+    tiny: 16px,
+    small: 24px,
+    xlarge: 32px,
+  ),
+  benefits: (
+    tiny: 32px,
+    medium: 40px
+  ),
+  quote: (
+    tiny: 18px,
+    xsmall: 22px,
+    small: 24px
+  ),
+  quoteParagraph: (
+    tiny: $sizeRegular,
+    medium: $sizeLarge,
+    large: $sizeBig
+  )
+);
+
+// custom vertical spacings
+$verticalSpacingCurves: (
+  quoteWithImage: (
+    tiny: $sizeBiggerBig,
+    large: $sizeHuge
+  )
+);
+
+// content grid numbers for width calculation
+$gridOffsetColumns: (
+  tiny: 6,
+  small: 10,
+  medium: 9,
+  large: 8
+);
+
 /**
  * Breakpoint Variables for Foundation Grid
  */
 $breakpoints: (
-  tiny: $sizeBreakpointTiny,
+  tiny: $sizeBreakpointZero,
   xsmall: $sizeBreakpointXSmall,
   small: $sizeBreakpointSmall,
   medium: $sizeBreakpointMedium,
@@ -156,15 +218,21 @@ $breakpoints: (
 );
 
 $grid-margin-gutters: (
-  tiny: $sizeRegular,
+  tiny: $sizeSmallRegular,
+  xsmall: $sizeRegular,
   medium: $sizeLarge,
-  large: $sizeBig
+  large: $sizeLarge,
+  xlarge: $sizeBig
 );
+
 
 $breakpoint-classes: (tiny xsmall small medium large xlarge);
 
 /** Font-Weights */
 $fontWeightBlack: 900;
+$fontWeightQuote: 800;
+$fontWeightDefault: 400;
+
 
 /**
  * Custom colors
@@ -172,6 +240,19 @@ $fontWeightBlack: 900;
 $colorBlack: $colorBlack100;
 $colorText: $colorBlack100;
 $colorBg: $colorBlack5;
+
+/**
+ * Color variations
+ */
+$tl-color-variations: (
+  cv-blue: $colorBlue,
+  cv-darkblue: $colorDarkBlue,
+  cv-turqoise: $colorTurqoise,
+  cv-green: $colorGreen,
+  cv-bordeaux: $colorBordeaux,
+  cv-magenta: $colorMagenta,
+  cv-violet: $colorViolet,
+);
 
 /**
  * Transition and Easings and Timings
@@ -192,3 +273,8 @@ $transitionTimeAreaLarge: 500ms;
 $transitionEasingDefault: ease;
 $transitionEasingAccelerate: cubic-bezier(0.2, 0.04, 0.87, 0.62);
 $transitionEasingDecelerate: cubic-bezier(0.01, 0.13, 0.63, 0.99);
+
+/**
+ * Z-Indexes
+ */
+$zIndexSkiplinks: 1000;

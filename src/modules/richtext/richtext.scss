@@ -1,0 +1,284 @@
+.mdl-richtext {
+  max-width: $sizeWidthTextContent;
+
+  // benefit and number list spacings
+  $listSpacings: (
+    top: (
+      tiny: 0,
+      medium: 4px,
+      xlarge: 8px
+    ),
+    bottom: (
+      tiny: 12px,
+      xlarge: 16px
+    ),
+    containerBottom: (
+      tiny: 8px,
+      medium: 12px,
+      xlarge: 16px
+    )
+  );
+
+  ::selection {
+    color: $colorWhite;
+    background: $colorBlack;
+  }
+
+  h1 {
+    @include mq($from: tiny, $to: small) {
+      @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
+    }
+  }
+
+  p {
+    margin-top: 0;
+    line-height: 1.5em;
+    color: rgba(0, 0, 0, 0.6);
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid $colorBlue;
+
+      &:hover {
+        color: $colorBlack;
+        border-color: $colorBlack;
+      }
+
+      &:focus {
+        border-radius: 3px;
+        border: 2px solid $colorCyan !important; // stylelint-disable-line
+        opacity: 1;
+        outline: 0;
+        padding: 5px 2px;
+        position: relative;
+        margin-left: -4px;
+        margin-right: -4px;
+      }
+    }
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+    @include sizeCurve('margin-bottom', regular);
+
+    &.mdl-richtext__lead {
+      color: $colorBlack;
+      font-weight: $fontWeightBlack;
+      line-height: 1.3em;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+      @include mq($from: tiny, $to: xsmall) {
+        @include gridNestedOffset('text-indent', 1, $gridOffsetColumns);
+      }
+      @include mq($from: xsmall, $to: small) {
+        @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
+      }
+    }
+  }
+
+  &__lead {
+    strong {
+      font-weight: $fontWeightBlack;
+    }
+  }
+
+  &__emphasis {
+    @include sizeCurve('margin-bottom', medium);
+    @include mq($from: tiny, $to: small) {
+      @include sizeCurve('margin-left', quote, $indentCurve);
+    }
+    @include mq($from: small) {
+      @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
+    }
+
+    padding-top: $sizeSmallRegular;
+
+    p {
+      font-weight: $fontWeightQuote;
+      line-height: 1.3em;
+      color: $colorBlack;
+      margin-bottom: 0;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+    }
+
+    em {
+      font-style: normal;
+    }
+  }
+
+  ul {
+    margin: 0;
+    list-style: none;
+    color: rgba(0, 0, 0, 0.6);
+
+    @include sizeCurve('padding-left', list, $indentCurve);
+    @include sizeCurve('margin-bottom', regular);
+
+    li {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+
+      margin-bottom: 1em;
+      position: relative;
+
+      &:before {
+        position: absolute;
+        content: '\2013';
+
+        @include sizeCurve('margin-left', list, $indentCurve, $isNegative: true);
+      }
+
+      ul li:first-child {
+        padding-top: 1em;
+      }
+    }
+
+    &.mdl-richtext__benefits {
+      @include sizeCurve('margin-bottom', containerBottom, $listSpacings);
+      @include sizeCurve('padding-left', benefits, $indentCurve);
+
+      li {
+        margin-bottom: 0;
+
+        @include sizeCurve('padding-top', top, $listSpacings);
+        @include sizeCurve('padding-bottom', bottom, $listSpacings);
+
+        &:before {
+          content: '\2003\2003';
+          background-image: url(svg-tickmark($colorBlack)); // stylelint-disable-line
+          background-repeat: no-repeat;
+          background-position-x: center;
+          background-position-y: center;
+          display: block;
+          padding-left: 10px;
+
+          @include sizeCurve('margin-left', benefits, $indentCurve, $isNegative: true);
+          @include sizeCurve('width', regular);
+          @include sizeCurve('height', regular);
+          @include mq($from: tiny, $to: medium) {
+            margin-top: 2px;
+          }
+          @include mq($from: xlarge) {
+            margin-top: -2px;
+          }
+        }
+      }
+    }
+  }
+
+  ol {
+    margin: 0;
+    padding-left: $sizeBig;
+    list-style: none;
+    counter-reset: ol-counter;
+    color: rgba(0, 0, 0, 0.6);
+
+    @include sizeCurve('margin-bottom', containerBottom, $listSpacings);
+    @include sizeCurve('padding-left', benefits, $indentCurve);
+    @include mq($from: tiny, $to: medium) {
+      padding-top: 0;
+    }
+
+    li {
+      counter-increment: ol-counter;
+      position: relative;
+      margin-bottom: 0;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include sizeCurve('padding-top', top, $listSpacings);
+      @include sizeCurve('padding-bottom', bottom, $listSpacings);
+
+      &:before {
+        position: absolute;
+        content: '0' counter(ol-counter);
+        font-weight: $fontWeightBlack;
+        color: $colorBlack;
+
+        @include sizeCurve('margin-left', benefits, $indentCurve, true);
+      }
+    }
+  }
+
+  /* Inverted */
+  &--inverted {
+    ::selection {
+      color: $colorBlack;
+      background: $colorWhite;
+    }
+
+    p.mdl-richtext__lead {
+      color: $colorWhite;
+    }
+
+    p,
+    li {
+      color: $colorWhite;
+
+      a {
+        color: rgba($colorWhite, 0.6);
+        text-decoration: none;
+        border-bottom: 1px solid rgba($colorWhite, 0.6);
+
+        &:hover {
+          color: $colorWhite;
+          border-color: $colorWhite;
+          opacity: 1;
+        }
+      }
+    }
+
+    ul {
+      &.mdl-richtext__benefits li:before {
+        background-image: url(svg-tickmark($colorWhite)); // stylelint-disable-line
+      }
+    }
+
+    ol li:before {
+      color: $colorWhite;
+    }
+
+    .mdl-quote {
+      p,
+      span {
+        color: $colorWhite;
+      }
+    }
+  }
+
+  @each $key, $val in $tl-color-variations {
+    &--#{$key},
+    [ class*='#{$key}' ] & {
+      ::selection {
+        background: #{$val};
+      }
+
+      p {
+        a {
+          border-color: #{$val};
+
+          &:hover {
+            border-color: $colorBlack;
+          }
+        }
+      }
+
+      ul {
+        &.mdl-richtext__benefits {
+          li:before {
+            background-image: url(svg-tickmark($val)); // stylelint-disable-line
+          }
+        }
+      }
+
+      ol li:before {
+        color: #{$val};
+      }
+
+      .mdl-quote,
+      .mdl-richtext__emphasis {
+        p {
+          color: #{$val};
+        }
+      }
+    }
+  }
+}

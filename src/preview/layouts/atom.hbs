@@ -14,16 +14,25 @@
 
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 
-	{{#if env.dev}}
+  {{#if env.dev}}
 		<link rel="stylesheet" href="/preview/assets/css/dev.css">
 		<script src="/preview/assets/js/dev.js"></script>
 	{{/if}}
 </head>
-<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}>
+<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
+                               data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'
+                               data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
 	<div class="sg_wrapper sg_module">
 		<h1 class="sg_title">
 			<a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
 		</h1>
+    <div class="sg_revisioninfo">
+      <ul>
+        <li>Revision: <a href="{{meta.gitRemoteLink}}">{{meta.gitShort}}</a></li>
+        <li>Date: {{meta.gitDate}}</li>
+        <li>Branch: {{meta.gitBranch}}</li>
+      </ul>
+    </div>
 
 		{{#if variants}}
 			<section class="sg_inner_wrapper">
@@ -38,7 +47,7 @@
                     <h3 class="sg_h3">{{ meta.title }}</h3>
                     <p>{{ meta.desc }}</p>
                   </div>
-                  <div class="sg_atom-demo">
+                  <div class="sg_atom-demo {{#if props.isInverted}}sg_atom-demo--inverted{{/if}}">
                     {{{meta.demo}}}
                   </div>
                 </div>
@@ -104,9 +113,6 @@
 				{{/each}}
 			</section>
 		{{/if}}
-
-		<script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js"></script>
-
 		{{#block "scripts"}}
 		{{/block}}
 	</div>

@@ -1,7 +1,0 @@
-p {
-
-  @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-
-  line-height: $sizeLineHeightBase;
-  margin: 0 0 0.75em;
-}

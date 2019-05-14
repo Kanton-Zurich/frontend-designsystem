@@ -9,6 +9,11 @@ import loadPolyfills from './polyfills';
 /** Demo modules * */
 // import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
 // import SlideShow from '../../../demo/modules/slideshow/slideshow';
+import Carousel from '../../../modules/carousel/carousel';
+import ImageGallery from '../../../modules/image_gallery/image_gallery';
+import Accordion from '../../../modules/accordion/accordion';
+import DownloadList from '../../../modules/download_list/download_list';
+import ContextMenu from '../../../modules/context_menu/context_menu';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -22,10 +27,20 @@ class App {
     this.modules = {};
     // this.modules.slideshow = SlideShow;
     // this.modules.skiplinks = SkipLinks;
-		/* autoinsertmodule */ // eslint-disable-line
+    this.modules.imageGallery = ImageGallery;
+    this.modules.carousel = Carousel;
+    this.modules.accordion = Accordion;
+    this.modules.downloadList = DownloadList;
+    this.modules.contextMenu = ContextMenu;
+    /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
     window[namespace].helpers.initModule = this.initModule;
+
+    // Check for touch support
+    const hasTouchSupport = 'ontouchstart' in window || navigator.msMaxTouchPoints;
+
+    if (hasTouchSupport) document.documentElement.classList.add('touch');
   }
 
   async start() {
@@ -85,14 +100,13 @@ class App {
     return window[namespace].modules[moduleName].initEvents.indexOf(eventType) !== -1;
   }
 
-  initModules(event) {
+  initModules() {
     [].slice.call(document.querySelectorAll('[data-init]')).forEach((element) => {
       const modules = element.dataset.init.split(' ');
 
       modules.forEach((moduleName) => {
         if (this.isRegistered(moduleName)
-            && !this.isInitialised(element, moduleName)
-            && this.isInitEvent(event.type, moduleName)) {
+            && !this.isInitialised(element, moduleName)) {
           this.initModule(moduleName, element);
         }
       });
@@ -100,13 +114,7 @@ class App {
   }
 
   initModuleInitialiser() {
-    if (!this.initEvents.length) {
-      return;
-    }
-
-    this.initEvents.forEach((event) => {
-      document.addEventListener(event, this.initModules.bind(this), false);
-    });
+    this.initModules();
   }
 
   parseData(element, key) {

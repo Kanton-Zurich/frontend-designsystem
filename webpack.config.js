@@ -1,3 +1,5 @@
+const TerserPlugin = require('terser-webpack-plugin');
+
 const defaults = require('@unic/estatico-webpack/webpack.config.js');
 const env = require('minimist')(process.argv.slice(2));
 const merge = require('lodash.merge');
@@ -28,6 +30,13 @@ module.exports = [
     resolve: {
       extensions: ['.ts', '.js', '.jsx'],
     },
+    optimization: {
+      minimizer: [new TerserPlugin({
+        terserOptions: {
+          keep_fnames: true,
+        },
+      })],
+    },
   }),
   {
     entry: {
@@ -47,7 +56,7 @@ module.exports = [
     },
     output: {
       path: path.resolve('./dist/preview/assets/js'),
-      filename: `[name]${env.dev ? '' : '.min'}.js`,
+      filename: `[name].js`,
     },
     mode: 'development',
   },

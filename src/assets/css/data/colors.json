@@ -2,19 +2,21 @@
   "colorBlue": "#0076BD",
   "colorDarkBlue": "#00407C",
   "colorTurqoise": "#00797B",
-  "colorGreen": "#1A7F1F",
   "colorBordeaux": "#B01657",
   "colorMagenta": "#D40053",
   "colorViolet": "#7F3DA7",
-  "colorBlack60": "#666666",
 
   "colorBlack100": "#000000",
   "colorBlack80": "#333333",
+  "colorBlack60": "#666666",
   "colorBlack40": "#949494",
   "colorBlack20": "#CCCCCC",
+  "colorBlack15": "#D9D9D9",
   "colorBlack10": "#F0F0F0",
   "colorBlack5": "#F7F7F7",
+  "colorWhite": "#FFFFFF",
 
+  "colorGreen": "#1A7F1F",
   "colorCyan": "#009EE0",
   "colorRed": "#E2001A"
 }
