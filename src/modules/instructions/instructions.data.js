@@ -13,12 +13,12 @@ const texthighlightDemoData = require('../texthighlight/texthighlight.data');
 const template = dataHelper.getFileContent('instructions.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'instructions',
+    title: 'Anleitung',
     className: 'Instructions',
     jira: 'CZHDEV-223',
     documentation: dataHelper.getDocumentation('instructions.md'),
   },
-  props: _.merge({ instructions_title: 'Module Überschrift - Anleitung(H2)' },
+  props: _.merge({ instructions_title: 'Anleitung (H2)' },
     richtextDemoData.props, linklistDemoData.props, videoDemoData.props, { headingLevel: 4 },
     imageFigureDemoData.props, carouselDemoData.props, { title: { level: 4 } },
     texthighlightDemoData.props),
@@ -27,7 +27,7 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Anleitungsliste (Default - Black)',
+      title: 'Anleitungsliste (Standard)',
       desc: 'Standart Implementation mit einer nummerierten Liste',
     },
     props: {
@@ -36,7 +36,7 @@ const variants = _.mapValues({
   },
   unordered: {
     meta: {
-      title: 'Checkpunktliste (Default - Black)',
+      title: 'Checkpunktliste (Standard)',
       desc: 'Standart Implementation mit einer unnummerierten Liste',
     },
     props: {
