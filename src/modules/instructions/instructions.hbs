@@ -119,7 +119,47 @@
           {{#if isUnordered}}Checklistenpunkt{{else}}Anleitungsschritt{{/if}}-Titel (mit Richtext Module)
         </h3>
         <div class="mdl-instructions__item-content">
-          {{> "modules/richtext/richtext"}}
+          <div class="mdl-richtext{{#if inverted}} mdl-richtext--inverted{{/if}}{{#if colorVariation}} mdl-richtext--cv-{{{colorVariation}}}{{/if}}">
+            <h4 class="atm-heading{{#if inverted}} atm-heading--inverted{{/if}}">{{ h4Text }}</h4>
+            <p>
+              {{{pText}}}
+            </p>
+            <ul>
+              <li>{{listItem1}}</li>
+              <li>{{listItem2}}</li>
+              <li>{{listItem3}}
+                <ul>
+                  <li>{{listItem1}}</li>
+                  <li>{{listItem2}}</li>
+                  <li>{{listItem3}}</li>
+                </ul>
+              </li>
+            </ul>
+            <p>
+              {{{pText}}}
+            </p>
+            {{> "modules/quote/quote"}}
+            <p>
+              {{pText2}}
+            </p>
+            <ul class="mdl-richtext__benefits">
+              <li>{{benefitItem}}</li>
+              <li>{{benefitItem}}</li>
+              <li>{{benefitItem}}</li>
+            </ul>
+            <p>
+              {{pText2}}
+            </p>
+            <div class="mdl-richtext__emphasis">
+              <p>{{emphasisText}}</p>
+            </div>
+            <ol>
+              <li>{{benefitItem}}</li>
+              <li>{{benefitItem}}</li>
+              <li>{{benefitItem}}</li>
+            </ol>
+          </div>
+
         </div>
       </div>
     </li>

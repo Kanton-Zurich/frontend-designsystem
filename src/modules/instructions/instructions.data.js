@@ -18,10 +18,10 @@ const data = _.merge({}, defaultData, {
     jira: 'CZHDEV-223',
     documentation: dataHelper.getDocumentation('instructions.md'),
   },
-  props: _.merge({
-    instructions_title: 'Module Überschrift - Anleitung(H2)',
-  }, richtextDemoData.props, linklistDemoData.props, videoDemoData.props,
-  imageFigureDemoData.props, carouselDemoData.props, texthighlightDemoData.props),
+  props: _.merge({ instructions_title: 'Module Überschrift - Anleitung(H2)' },
+    richtextDemoData.props, linklistDemoData.props, videoDemoData.props, { headingLevel: 4 },
+    imageFigureDemoData.props, carouselDemoData.props, { title: { level: 4 } },
+    texthighlightDemoData.props),
 });
 
 const variants = _.mapValues({
@@ -30,7 +30,9 @@ const variants = _.mapValues({
       title: 'Anleitungsliste (Default - Black)',
       desc: 'Standart Implementation mit einer nummerierten Liste',
     },
-    props: {},
+    props: {
+      videoId: 'QHCHVcU3_w4',
+    },
   },
   unordered: {
     meta: {
@@ -39,6 +41,7 @@ const variants = _.mapValues({
     },
     props: {
       isUnordered: true,
+      videoId: 'xk0DEe_syF4',
     },
   },
   bordeauxOrdered: {
@@ -57,6 +60,7 @@ const variants = _.mapValues({
     },
     props: {
       colorVariation: 'magenta',
+      videoId: 'X6v66XvVo_Q',
     },
   },
   violetOrdered: {
@@ -66,6 +70,7 @@ const variants = _.mapValues({
     },
     props: {
       colorVariation: 'violet',
+      videoId: 'bFfn2pkzAew',
     },
   },
   blueOrdered: {
@@ -75,7 +80,7 @@ const variants = _.mapValues({
     },
     props: {
       colorVariation: 'blue',
-
+      videoId: 'p_KzDh9yan4',
     },
   },
   darkblueOrdered: {
@@ -85,6 +90,7 @@ const variants = _.mapValues({
     },
     props: {
       colorVariation: 'darkblue',
+      videoId: 'c2beBLA8z-E',
     },
   },
   turqoiseOrdered: {
@@ -94,6 +100,7 @@ const variants = _.mapValues({
     },
     props: {
       colorVariation: 'turqoise',
+      videoId: 'TUBPWKf9gVs',
     },
   },
   greenOrdered: {
@@ -103,6 +110,7 @@ const variants = _.mapValues({
     },
     props: {
       colorVariation: 'green',
+      videoId: 'UjU2R87m_gQ',
     },
   },
   bordeauxUnordered: {
@@ -113,6 +121,7 @@ const variants = _.mapValues({
     props: {
       colorVariation: 'bordeaux',
       isUnordered: true,
+      videoId: '3auDhuR-P4M',
     },
   },
   magentaUnordered: {
@@ -123,6 +132,7 @@ const variants = _.mapValues({
     props: {
       colorVariation: 'magenta',
       isUnordered: true,
+      videoId: 'XYZNskmNhY8',
     },
   },
   violetUnordered: {
@@ -133,6 +143,7 @@ const variants = _.mapValues({
     props: {
       colorVariation: 'violet',
       isUnordered: true,
+      videoId: 'Jclove2NkTI',
     },
   },
   blueUnordered: {
@@ -143,6 +154,7 @@ const variants = _.mapValues({
     props: {
       colorVariation: 'blue',
       isUnordered: true,
+      videoId: 'vKDBTl9_agI',
     },
   },
   darkblueUnordered: {
@@ -153,6 +165,7 @@ const variants = _.mapValues({
     props: {
       colorVariation: 'darkblue',
       isUnordered: true,
+      videoId: 'EcyunmYIkIA',
     },
   },
   turqoiseUnordered: {
@@ -163,6 +176,7 @@ const variants = _.mapValues({
     props: {
       colorVariation: 'turqoise',
       isUnordered: true,
+      videoId: '3I0MLVZx2Pg',
     },
   },
   greenUnordered: {
@@ -173,6 +187,7 @@ const variants = _.mapValues({
     props: {
       colorVariation: 'green',
       isUnordered: true,
+      videoId: 'MAyiReJzRTU',
     },
   },
 }, (variant) => {
