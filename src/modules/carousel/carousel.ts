@@ -74,6 +74,8 @@ class Carousel extends Module {
     this.initWatchers();
 
     this.data.length = this.ui.slides.length ? this.ui.slides.length : 1;
+
+    this.setTabindexForSlides();
   }
 
   static get events() {
@@ -108,6 +110,8 @@ class Carousel extends Module {
       .on('ImageGallery.open', (e) => {
         this.data.active = e.detail + 1;
         this.data.isFullscreen = true;
+
+        this.setTabindexForSlides();
       })
       .on('click', this.options.domSelectors.open, this.open.bind(this))
       .on('click', this.options.domSelectors.close, this.close.bind(this));
@@ -163,6 +167,8 @@ class Carousel extends Module {
   onActiveChange() {
     this.setTransformValue();
     this.setIndicatorText();
+
+    this.setTabindexForSlides();
   }
 
   /**
@@ -337,9 +343,30 @@ class Carousel extends Module {
     });
   }
 
+  /**
+   * Setting the tabindex for slides, to make it more accessible
+   *
+   * @memberof Carousel
+   */
+  setTabindexForSlides() {
+    const activeIndex = this.data.active - 1;
+    const slidesArray = Array.prototype.slice.call(this.ui.slides);
+
+    slidesArray[activeIndex].removeAttribute('tabindex');
+
+    slidesArray.splice(activeIndex, 1);
+
+    slidesArray.forEach((slide) => {
+      slide.setAttribute('tabindex', '-1');
+    });
+  }
+
 
   /**
    * Unbind events, remove data, custom teardown
+   *
+   *
+   * @memberof Carousel
    */
   destroy() {
     super.destroy();
