@@ -9,13 +9,14 @@ import { uniqueId } from 'lodash';
 import Module from '../../assets/js/helpers/module';
 import WindowEventListener from '../../assets/js/helpers/events';
 
+import { INTERACTION_ELEMENTS_QUERY } from '../../assets/js/helpers/constants';
+
 class ContextMenu extends Module {
   public options: {
     showImmediate: Boolean,
     attachTo: HTMLElement,
     trigger: HTMLElement,
     domSelectors: any,
-    focusableElements: string,
     stateClasses: {
       active: string;
     },
@@ -39,7 +40,6 @@ class ContextMenu extends Module {
       showImmediate: false,
       attachTo: null,
       trigger: null,
-      focusableElements: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
       domSelectors: {
         // item: '[data-${{{className}}.name}="item"]'
       },
@@ -184,7 +184,7 @@ class ContextMenu extends Module {
    * @memberof ContextMenu
    */
   setFocusOnOpen() {
-    (<HTMLElement> this.data.copiedNode.querySelector(this.options.focusableElements)).focus();
+    (<HTMLElement> this.data.copiedNode.querySelector(INTERACTION_ELEMENTS_QUERY)).focus();
   }
 
   /**
