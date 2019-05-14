@@ -27,15 +27,15 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Ordered (Default - Black)',
-      desc: 'Default implementation with an ordered list',
+      title: 'Anleitungsliste (Default - Black)',
+      desc: 'Standart Implementation mit einer nummerierten Liste',
     },
     props: {},
   },
   unordered: {
     meta: {
-      title: 'Unordered (Default - Black)',
-      desc: 'Implementation with an unordered list',
+      title: 'Checkpunktliste (Default - Black)',
+      desc: 'Standart Implementation mit einer unnummerierten Liste',
     },
     props: {
       isUnordered: true,
@@ -43,7 +43,7 @@ const variants = _.mapValues({
   },
   bordeauxOrdered: {
     meta: {
-      title: 'Ordered (Bordeaux)',
+      title: 'Anleitungsliste (Bordeaux)',
       desc: '',
     },
     props: {
@@ -52,7 +52,7 @@ const variants = _.mapValues({
   },
   magentaOrdered: {
     meta: {
-      title: 'Ordered (Magenta)',
+      title: 'Anleitungsliste (Magenta)',
       desc: '',
     },
     props: {
@@ -61,7 +61,7 @@ const variants = _.mapValues({
   },
   violetOrdered: {
     meta: {
-      title: 'Ordered (Violett)',
+      title: 'Anleitungsliste (Violett)',
       desc: '',
     },
     props: {
@@ -70,7 +70,7 @@ const variants = _.mapValues({
   },
   blueOrdered: {
     meta: {
-      title: 'Ordered (Blau)',
+      title: 'Anleitungsliste (Blau)',
       desc: '',
     },
     props: {
@@ -80,7 +80,7 @@ const variants = _.mapValues({
   },
   darkblueOrdered: {
     meta: {
-      title: 'Ordered (Dunkelblau)',
+      title: 'Anleitungsliste (Dunkelblau)',
       desc: '',
     },
     props: {
@@ -89,7 +89,7 @@ const variants = _.mapValues({
   },
   turqoiseOrdered: {
     meta: {
-      title: 'Ordered (Türkis)',
+      title: 'Anleitungsliste (Türkis)',
       desc: '',
     },
     props: {
@@ -98,7 +98,7 @@ const variants = _.mapValues({
   },
   greenOrdered: {
     meta: {
-      title: 'Ordered (Grün)',
+      title: 'Anleitungsliste (Grün)',
       desc: '',
     },
     props: {
@@ -107,7 +107,7 @@ const variants = _.mapValues({
   },
   bordeauxUnordered: {
     meta: {
-      title: 'Unordered (Bordeaux)',
+      title: 'Checkpunktliste (Bordeaux)',
       desc: '',
     },
     props: {
@@ -117,7 +117,7 @@ const variants = _.mapValues({
   },
   magentaUnordered: {
     meta: {
-      title: 'Unordered (Magenta)',
+      title: 'Checkpunktliste (Magenta)',
       desc: '',
     },
     props: {
@@ -127,7 +127,7 @@ const variants = _.mapValues({
   },
   violetUnordered: {
     meta: {
-      title: 'Unordered (Violett)',
+      title: 'Checkpunktliste (Violett)',
       desc: '',
     },
     props: {
@@ -137,7 +137,7 @@ const variants = _.mapValues({
   },
   blueUnordered: {
     meta: {
-      title: 'Unordered (Blau)',
+      title: 'Checkpunktliste (Blau)',
       desc: '',
     },
     props: {
@@ -147,7 +147,7 @@ const variants = _.mapValues({
   },
   darkblueUnordered: {
     meta: {
-      title: 'Unordered (Dunkelblau)',
+      title: 'Checkpunktliste (Dunkelblau)',
       desc: '',
     },
     props: {
@@ -157,7 +157,7 @@ const variants = _.mapValues({
   },
   turqoiseUnordered: {
     meta: {
-      title: 'Unordered (Türkis)',
+      title: 'Checkpunktliste (Türkis)',
       desc: '',
     },
     props: {
@@ -167,7 +167,7 @@ const variants = _.mapValues({
   },
   greenUnordered: {
     meta: {
-      title: 'Unordered (Grün)',
+      title: 'Checkpunktliste (Grün)',
       desc: '',
     },
     props: {
