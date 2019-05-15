@@ -14,8 +14,8 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('table.md'),
   },
   props: {
-    title: 'Der Kanton in Zahlen',
-    subtitle: '2007–2017',
+    tableTitle: 'Der Kanton in Zahlen',
+    tableSubtitle: '2007–2017',
     headers: [
       {
         title: '<span class="visuallyhidden">Bezirk</span>',
@@ -49,7 +49,7 @@ const data = _.merge({}, defaultData, {
       caption: '<sup>1</sup> Nach zivilrechtlichem Wohnsitzbegriff, Daten per Ende Jahr<br><sup>2</sup> Stand 2016',
     }),
     hasTitle: true,
-    headingLevel: 2,
+    tableHeadingLevel: 2,
     hasSubtitle: true,
     hasColumnHeader: true,
     hasRowHeader: false,
@@ -99,8 +99,8 @@ const variants = _.mapValues({
       desc: 'Variante mit Links, Titel als H3',
     },
     props: {
-      title: 'H3: 28px Black title Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
-      headingLevel: 3,
+      tableTitle: 'H3: 28px Black title Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
+      tableHeadingLevel: 3,
       hasSubtitle: false,
       hasCaption: false,
       headers: [
@@ -134,8 +134,8 @@ const variants = _.mapValues({
       desc: 'Variante mit Reihenüberschriften, Titel als H4',
     },
     props: {
-      title: 'Demografische Altersmasszahlen nach Gebiet 2016',
-      headingLevel: 4,
+      tableTitle: 'Demografische Altersmasszahlen nach Gebiet 2016',
+      tableHeadingLevel: 4,
       hasSubtitle: false,
       hasRowHeader: true,
       alignRight: true,
@@ -179,8 +179,8 @@ const variants = _.mapValues({
       desc: 'Erste Spalte fixiert, horizontal scrollbar',
     },
     props: {
-      title: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
-      headingLevel: 3,
+      tableTitle: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
+      tableHeadingLevel: 3,
       hasSubtitle: false,
       hasCaption: true,
       isFirstColumnFixed: true,
@@ -236,8 +236,8 @@ const variants = _.mapValues({
       desc: 'Erste Spalte fixiert, horizontal scrollbar, auf volle Inhaltsbreite',
     },
     props: {
-      title: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
-      headingLevel: 3,
+      tableTitle: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
+      tableHeadingLevel: 3,
       hasSubtitle: false,
       hasCaption: true,
       isWide: true,
@@ -363,8 +363,8 @@ const variants = _.mapValues({
       desc: 'Ausgewählte Spalten können sortiert werden.',
     },
     props: {
-      title: 'Beliebteste Filme im Kanton',
-      subtitle: '1995-2007',
+      tableTitle: 'Beliebteste Filme im Kanton',
+      tableSubtitle: '1995-2007',
       headers: [
         {
           title: 'Rang',
@@ -408,8 +408,8 @@ const variants = _.mapValues({
       desc: 'Erste Spalte fixiert, horizontal scrollbar',
     },
     props: {
-      title: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
-      headingLevel: 3,
+      tableTitle: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
+      tableHeadingLevel: 3,
       hasSubtitle: false,
       hasCaption: true,
       isFirstColumnFixed: true,
