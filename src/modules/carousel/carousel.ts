@@ -23,6 +23,7 @@ class Carousel extends Module {
     slideWrapper: any;
     download: any;
     close: any;
+    textalternative: any;
   }
   public options: {
     domSelectors: {
@@ -60,6 +61,7 @@ class Carousel extends Module {
         open: '[data-carousel="open"]',
         image: '[data-image-figure="image"]',
         caption: '[data-figcaption="caption"]',
+        textalternative: '[data-carousel="textalternative"]',
       },
       stateClasses: {
         fullscreen: 'mdl-carousel--fullscreen',
@@ -169,6 +171,7 @@ class Carousel extends Module {
     this.setIndicatorText();
 
     this.setTabindexForSlides();
+    this.setAlternativeText();
   }
 
   /**
@@ -361,6 +364,18 @@ class Carousel extends Module {
     });
   }
 
+  /**
+   * Set textalternative for accessibility
+   *
+   * @memberof Carousel
+   */
+  setAlternativeText() {
+    const activeIndex = this.data.active - 1;
+    const activeSlideImg = this.ui.slides[activeIndex].querySelector('img');
+    const altAttribute = activeSlideImg.getAttribute('img');
+
+    this.ui.textalternative.textContent = altAttribute;
+  }
 
   /**
    * Unbind events, remove data, custom teardown
