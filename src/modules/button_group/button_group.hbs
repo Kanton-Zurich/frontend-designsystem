@@ -1,5 +1,7 @@
-<div class="mdl-button_group" data-init="buttonGroup">
-	{{#each buttons}}
-    {{> "atoms/button/button" this}}
+<ul class="mdl-button_group" data-init="buttonGroup">
+  {{#each buttons}}
+    <li class="mdl-button_group__item">
+      {{> "atoms/button/button" this}}
+    </li>
   {{/each}}
-</div>
+</ul>

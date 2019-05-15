@@ -1,5 +1,5 @@
 <button class="atm-button{{#unless isTextVisible}} atm-button--icon-only{{/unless}}{{#if isSecondary}} atm-button--secondary{{/if}}{{#if isSmall}} atm-button--small{{/if}}{{#if isBig}} atm-button--big{{/if}}{{#if isInverted}} atm-button--cv-inverted{{/if}}" {{#if additionalAttribute}}{{{additionalAttribute}}}{{/if}}>
-  <span class="atm-button__text {{#unless isTextVisible}}visuallyhidden{{/unless}}">{{text}}</span>
+  <span class="atm-button__text {{#unless isTextVisible}}visuallyhidden{{/unless}}">{{{text}}}</span>
   {{#if icon}}
     <svg class="icon atm-button__icon">
       <use xlink:href="#{{icon}}"></use>

@@ -59,7 +59,7 @@ const data = _.merge({}, defaultData, {
   props: {
     title: 'H2: Bildergalerie',
     loadMore: _.merge({}, defButtonData, {
-      text: 'Mehr anzeigen',
+      text: 'Mehr <span class="visuallyhidden">Bilder</span> anzeigen',
       additionalAttribute: 'data-image-gallery="showMore"',
     }),
     highlight: _.merge({}, defImageFigureData, {

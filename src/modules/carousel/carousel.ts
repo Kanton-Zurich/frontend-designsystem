@@ -109,11 +109,13 @@ class Carousel extends Module {
             break;
         }
       })
-      .on('ImageGallery.open', (e) => {
-        this.data.active = e.detail + 1;
-        this.data.isFullscreen = true;
+      .on('ImageGallery.open', (e) => {   
+        if (!this.data.isFullscreen) {
+          this.data.active = e.detail + 1;
+          this.data.isFullscreen = true;
 
-        this.setTabindexForSlides();
+          this.setTabindexForSlides();
+        }
       })
       .on('click', this.options.domSelectors.open, this.open.bind(this))
       .on('click', this.options.domSelectors.close, this.close.bind(this));
@@ -172,6 +174,7 @@ class Carousel extends Module {
 
     this.setTabindexForSlides();
     this.setAlternativeText();
+    this.ui.close.focus();
   }
 
   /**
