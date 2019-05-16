@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const dataRichtext = require('../richtext/richtext.data');
 const dataLinklist = require('../linklist/linklist.data');
