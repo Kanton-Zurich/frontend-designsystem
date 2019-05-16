@@ -22,11 +22,24 @@ const data = _.merge({}, defaultData, {
     teaserDescription_listItem1: 'Die Projekte von Herzog & de Meuron und Christ & Gantebein werten das Hochschulgebiet Zürich Zentrum (HGZZ) auf.',
     teaserDescription_listItem2: 'Der Regierungsrat hat den Flughafenbericht verabschiedet. Die vorgegeben Ziele wurden erreicht, der Fluglärm-Index stieg hingegen wiederum an. ',
     teaserDescription: 'Der Newsletter des Kantons informiert Sie rasch über verabschiedete Geschäfte des Regierungsrates und hält Sie per E-Mail über Neuigkeiten aus der kantonalen Verwaltung auf dem Laufenden. ',
+    teaserDescription_maxTextOverlow: 'Der Elternbildungstag am Samstag, 28 März 2015, rund um das Thema Kind und Familie bot interessierten Vätern und Müttern Anregung für den Erziehungsalltag. Müttern Anregungen für den Erziehungsaltag. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
     teaserDisplayDate: '14.12.2018',
     teaserMachineReadableDate: '2018-12-14',
     teaserButtonLabel: 'Mehr erfahren',
-  }, imageFigureDemoData.props),
+  }, imageFigureDemoData.props, {
+    srcsets: [{
+      image: '/assets/media/image/teaserimage_4_3_584_15.jpeg',
+      deviceWidth: 1024,
+    }, {
+      image: '/assets/media/image/teaserimage_16_9_905_15.jpeg',
+      deviceWidth: 600,
+    }, {
+      image: '/assets/media/image/teaserimage_16_9_530_15.jpeg',
+      deviceWidth: 1,
+    } ],
+  }),
 });
+
 const variants = _.mapValues({
   default: {
     meta: {
