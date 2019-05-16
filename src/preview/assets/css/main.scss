@@ -131,8 +131,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   $numTabs: 100;
   $bgcolorActive: $sg_colorLightGray;
 
-  .labels,
-  .cv-labels {
+  .labels {
     @include clearfix;
     @include sgBoxed;
 
@@ -180,28 +179,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     } */
     $i: $i - 1;
   }
-
-
-  .color_trigger {
-    @include visuallyhidden;
-
-    &:checked + label {
-      background-color: $bgcolorActive;
-      font-weight: bold; //stylelint-disable-line
-    }
-
-    @each $key, $val in $tl-color-variations {
-      &.#{$key} {
-        + label {
-          color: $val;
-        }
-
-        &:checked + label {
-          background-color: rgba($val, 0.07);
-        }
-      }
-    }
-  }
 }
 
 .hljs {
@@ -231,6 +208,43 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   .sg_forms &,
   .sg_icons & {
     @include sgBoxed;
+  }
+
+  $bgcolorActive: $sg_colorLightGray;
+
+  .cv-labels {
+    @include clearfix;
+    @include sgBoxed;
+
+    border-bottom: 1px solid $sg_colorLightGray;
+    border-top: 1px solid $sg_colorLightGray;
+
+    & > label {
+      //border-radius: 4px 4px 0 0;
+      display: inline-block;
+      padding: 8px 18px;
+    }
+  }
+
+  .color_trigger {
+    @include visuallyhidden;
+
+    &:checked + label {
+      background-color: $bgcolorActive;
+      font-weight: bold; //stylelint-disable-line
+    }
+
+    @each $key, $val in $tl-color-variations {
+      &.#{$key} {
+        + label {
+          color: $val;
+        }
+
+        &:checked + label {
+          background-color: rgba($val, 0.07);
+        }
+      }
+    }
   }
 }
 

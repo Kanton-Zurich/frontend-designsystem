@@ -16,6 +16,9 @@ const data = _.merge({}, defaultData, {
     inverted: false,
   },
 });
+
+data.colorVariations = []; // no color variations available
+
 const variants = _.mapValues({
   default: {
     meta: {
