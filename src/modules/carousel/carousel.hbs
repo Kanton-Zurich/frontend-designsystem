@@ -21,7 +21,11 @@
   </div>
   <div class="mdl-carousel__control-wrapper">
     <div class="mdl-carousel__control">
-      <span class="mdl-carousel__indicator"><span data-carousel="indicator">1</span> von {{ slides.length }}</span>
+      <span class="mdl-carousel__indicator" aria-live="polite">
+        <span class="visuallyhidden" data-carousel="textalternative"></span>
+        <span data-carousel="indicator">1</span> von {{ slides.length }}</span>
+      </span>
+
       {{> "modules/button_group/button_group" controlButtons}}
     </div>
   </div>
