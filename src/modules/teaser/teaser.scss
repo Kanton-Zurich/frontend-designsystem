@@ -1,0 +1,167 @@
+.mdl-teaser {
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+
+  & + .mdl-teaser {
+    margin-top: 56px;
+  }
+
+  &__content {
+    padding: 32px;
+  }
+
+  &__date {
+    font-weight: 900;
+    font-size: 12px;
+    line-height: 18px;
+    color: rgba($colorBlack, 0.6);
+  }
+
+  .atm-heading {
+    line-height: 30px;
+    color: $colorBlack100; //$colorBlue;
+    margin: 4px 0 8px;
+    padding-top: 0;
+  }
+
+  &__description {
+    font-size: 14px;
+    line-height: 20px;
+    color: $colorBlack60;
+    margin: 0;
+  }
+
+  .atm-button {
+    margin-top: 16px;
+    display: inline-flex;
+  }
+
+  &--inverted {
+
+    .mdl-teaser__content {
+      background-color: $colorBlack100;
+    }
+
+    time,
+    .mdl-teaser__title,
+    .mdl-teaser__description {
+      color: $colorWhite;
+    }
+  }
+
+  /*
+  * COLOR VARIATIONS
+   */
+  @each $key, $val in $tl-color-variations {
+    &--#{$key} {
+      background-color: $colorWhite;
+
+      .mdl-teaser__title {
+        color: #{$val};
+      }
+
+      &.mdl-teaser--inverted .mdl-teaser__content {
+        background-color: #{$val};
+
+        time,
+        .mdl-teaser__title {
+          color: $colorWhite;
+        }
+      }
+    }
+  }
+
+  /*
+  * OVERWRITES
+   */
+  .mdl-image-figure {
+    margin-bottom: 0;
+  }
+
+  .mdl-image-figure__caption {
+    @include visuallyhidden();
+  }
+
+  @include mq($from: xsmall) {
+    max-width: calc(100% - 4rem);
+    margin: 0 auto;
+
+    &__wrapper {
+
+      @include gridBleed;
+    }
+
+    .atm-heading {
+      margin: 4px 0 16px;
+      line-height: 34px;
+    }
+
+    &__description {
+      line-height: 24px;
+    }
+  }
+  @include mq($from: large) {
+    max-width: calc(100% - 5rem);
+    flex-direction: row;
+
+    & + .mdl-teaser {
+      margin-top: 80px;
+    }
+
+    &__content,
+    &__image {
+      flex-basis: 50%;
+      flex-grow: 1;
+      position: relative;
+    }
+
+    &--left {
+      flex-direction: row-reverse;
+    }
+
+    .atm-heading {
+      margin: 4px 0 20px;
+      line-height: 48px;
+    }
+
+    .atm-button {
+      margin-top: 24px;
+    }
+
+    &__content {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__title + div:not(.mdl-teaser__description),
+    &__description + div {
+      margin-top: auto;
+    }
+
+    &__image {
+      overflow: hidden;
+      padding-top: calc(50% / 1.3333);
+
+      figure {
+        img {
+          height: calc(100% / 1.3333);
+          min-height: 100%;
+          width: auto;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+  @include mq($from: xlarge) {
+    .atm-heading {
+      margin: 4px 0 24px;
+      line-height: 48px;
+    }
+  }
+}
