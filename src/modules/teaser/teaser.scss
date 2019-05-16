@@ -1,3 +1,6 @@
+$maxTextLinesSmall: 6;
+$maxTextLinesDefault: 4;
+
 .mdl-teaser {
   text-decoration: none;
   cursor: pointer;
@@ -20,10 +23,20 @@
   }
 
   .atm-heading {
-    line-height: 30px;
     color: $colorBlack100;
     margin: 4px 0 8px;
     padding-top: 0;
+
+    $titleHeightCurve: (
+      tiny: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLinesSmall,
+      small: $sizeFontSmallBig * $sizeLineHeightBase * $maxTextLinesDefault,
+      medium: $sizeFontBig * $sizeLineHeightBase * $maxTextLinesDefault,
+      large: $sizeFontBiggerBig * $sizeLineHeightBase * $maxTextLinesDefault,
+      xlarge: $sizeFontSmallHuge * $maxTextLinesDefault,
+    );
+
+    @include polyFluidSizing('max-height', $titleHeightCurve);
+    overflow: hidden;
   }
 
   &__description {
@@ -31,10 +44,10 @@
     margin: 0;
 
     $descripionHeightCurve: (
-      tiny: $sizeFontSmall * 1.5 * 6,
-      small: $sizeFontSmall * 1.5 * 4,
-      medium: $sizeFontRegular * 1.5 * 4,
-      large: $sizeFontBiggerRegular * 1.5 * 4,
+      tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLinesSmall,
+      small: $sizeFontSmall * $sizeLineHeightBase * $maxTextLinesDefault,
+      medium: $sizeFontRegular * $sizeLineHeightBase * $maxTextLinesDefault,
+      large: $sizeFontBiggerRegular * $sizeLineHeightBase * $maxTextLinesDefault,
     );
 
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
@@ -105,11 +118,6 @@
 
     .atm-heading {
       margin: 4px 0 16px;
-      line-height: 34px;
-    }
-
-    &__description {
-      line-height: 24px;
     }
   }
   @include mq($from: large) {
@@ -137,7 +145,6 @@
 
     .atm-heading {
       margin: 4px 0 20px;
-      line-height: 48px;
     }
 
     .atm-button {
@@ -176,9 +183,9 @@
     &__wrapper {
       width: 73em;
     }
+
     .atm-heading {
       margin: 4px 0 24px;
-      line-height: 48px;
     }
 
     &--noImage {

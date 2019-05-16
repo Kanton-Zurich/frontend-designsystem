@@ -48,10 +48,6 @@ class Teaser extends Module {
 
     // Custom destroy actions go here
   }
-
-  updateLineClamper() {
-    (<any>window).estatico.lineClamper.updateLineClamping();
-  }
 }
 
 export default Teaser;

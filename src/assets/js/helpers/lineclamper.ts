@@ -44,6 +44,8 @@ class LineClamper {
           element.setAttribute('title', element.innerText);
 
           element.setAttribute('data-line-clamped', 'true');
+        } else {
+          element.textContent = element.getAttribute('title');
         }
 
         const elementHeight = element.clientHeight;

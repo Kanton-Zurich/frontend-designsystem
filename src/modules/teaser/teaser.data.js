@@ -15,7 +15,7 @@ const data = _.merge({}, defaultData, {
   props: _.merge({
     teaserLink: '#',
     teaserTitle_listItem1: 'Hochschulgebiet Zürich Zentrum',
-    teaserTitle_listItem2: 'Flughafenbericht 2018',
+    teaserTitle_listItem2: 'Flughafenbericht 2018 - das ist ein neuer Flughafenbericht des Flughafens Zürich (ZRH). Bericht. Bericht. Bericht. Bericht. Bericht',
     teaserTitle: 'Kanton Zürich Newsletter',
     teaserTitle_headingOnly: 'Dietikon: Ueberlandstrasse wird ausgebaut und leistungsfähiger',
     teaserTitle_maxTextOverlow: '150 Mütter und Väter erhalten am Kantonalen Elternbildungstag Anregungen für den Erziehungsantrag beim Kantonalen Amt.',
