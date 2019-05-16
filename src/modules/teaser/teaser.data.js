@@ -29,13 +29,13 @@ const data = _.merge({}, defaultData, {
   }, imageFigureDemoData.props, {
     srcsets: [{
       image: '/assets/media/image/teaserimage_4_3_584_15.jpeg',
-      deviceWidth: 1024,
+      imageWidth: 1024,
     }, {
       image: '/assets/media/image/teaserimage_16_9_905_15.jpeg',
-      deviceWidth: 600,
+      imageWidth: 600,
     }, {
       image: '/assets/media/image/teaserimage_16_9_530_15.jpeg',
-      deviceWidth: 1,
+      imageWidth: 320,
     } ],
   }),
 });
