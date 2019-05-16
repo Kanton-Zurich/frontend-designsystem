@@ -27,12 +27,25 @@
                       role="columnheader"
                       {{#if isSortable}}aria-sort="none"{{/if}}
                     >
-                      {{#if isSortable}}<button data-table="sortable" data-order="{{isSortable}}" data-column-index="{{@index}}">{{/if}}
+                      {{#if isSortable}}
+                        <button
+                          aria-live="polite"
+                          data-table="sortable"
+                          data-order="{{isSortable}}"
+                          data-column-index="{{@index}}"
+                        >
+                      {{/if}}
                         <span>{{{ this.title }}}</span>
                         {{#if isSortable}}
                           <svg class="icon mdl-table__sort-arrow">
                             <use xlink:href="#arrow-up"></use>
                           </svg>
+                          <span class="visuallyhidden">
+                            <span class="mdl-table__sort-label mdl-table__sort-label--none">nicht </span>
+                            <span class="mdl-table__sort-label mdl-table__sort-label--asc" aria-hidden="true">aufsteigend </span>
+                            <span class="mdl-table__sort-label mdl-table__sort-label--desc" aria-hidden="true">absteigend </span>
+                            sortiert
+                          </span>
                         {{/if}}
                       {{#if isSortable}}</button>{{/if}}
                     </th>
