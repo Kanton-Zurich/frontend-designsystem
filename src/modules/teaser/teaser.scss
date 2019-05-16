@@ -27,10 +27,20 @@
   }
 
   &__description {
-    font-size: 14px;
-    line-height: 20px;
     color: $colorBlack60;
     margin: 0;
+
+    $descripionHeightCurve: (
+      tiny: $sizeFontSmall * 1.5 * 6,
+      small: $sizeFontSmall * 1.5 * 4,
+      medium: $sizeFontRegular * 1.5 * 4,
+      large: $sizeFontBiggerRegular * 1.5 * 4,
+    );
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+    @include polyFluidSizing('max-height', $descripionHeightCurve);
+
+    overflow: hidden;
   }
 
   .atm-button {

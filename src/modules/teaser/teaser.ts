@@ -5,7 +5,6 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import namespace from '../../assets/js/helpers/namespace';
 
 class Teaser extends Module {
   constructor($element: any, data: Object, options: Object) {
@@ -26,7 +25,6 @@ class Teaser extends Module {
     this.initEventListeners();
 
     (<any>window).estatico.lineClamper.initLineClamping();
-    this.updateLineClamper();
   }
 
   static get events() {
