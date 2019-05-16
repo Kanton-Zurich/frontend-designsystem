@@ -5,6 +5,7 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import { INTERACTION_ELEMENTS_QUERY } from '../../assets/js/helpers/constants';
 
 class ImageGallery extends Module {
   public options: {
@@ -22,6 +23,8 @@ class ImageGallery extends Module {
   public ui: {
     element: Element,
     carousel: Element,
+    gallery: HTMLElement,
+    more: HTMLElement,
   }
 
   public data: {
@@ -38,6 +41,7 @@ class ImageGallery extends Module {
         showMore: '[data-image-gallery="showMore"]',
         carousel: '[data-init="carousel"]',
         openCarousel: '[data-carousel="open"]',
+        gallery: '[data-image-gallery="gallery"]',
       },
       stateClasses: {
         expanded: 'mdl-image_gallery--expanded',
@@ -46,7 +50,6 @@ class ImageGallery extends Module {
     };
 
     super($element, defaultData, defaultOptions, data, options);
-
     this.initEventListeners();
     this.initWatchers();
 
@@ -64,6 +67,8 @@ class ImageGallery extends Module {
     this.ui.element.classList.add(this.options.stateClasses.expanded);
 
     (<any>window).estatico.lineClamper.updateLineClamping();
+
+    (<HTMLElement> this.ui.more.querySelector(INTERACTION_ELEMENTS_QUERY)).focus();
   }
 
   /**
@@ -84,14 +89,22 @@ class ImageGallery extends Module {
         this.data.isExpanded = true;
       })
       .on('click', this.options.domSelectors.openCarousel, (event, target) => {
-        this.ui.element.classList.add(this.options.stateClasses.fullscreen);
+        if (!this.ui.element.classList.contains(this.options.stateClasses.fullscreen)) {
+          this.ui.element.classList.add(this.options.stateClasses.fullscreen);
 
-        this.ui.carousel.dispatchEvent(new (<any>CustomEvent)('ImageGallery.open', {
-          detail: parseInt(target.getAttribute('data-gallery-index'), 10),
-        }));
+          this.ui.carousel.dispatchEvent(new (<any>CustomEvent)('ImageGallery.open', {
+            detail: parseInt(target.getAttribute('data-gallery-index'), 10),
+          }));
+
+          (<any>window).estatico.helpers
+            .setHiddenTabIndex(this.ui.gallery.querySelectorAll(INTERACTION_ELEMENTS_QUERY));
+        }
       })
       .on('Carousel.close', () => {
         this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
+
+        (<any>window).estatico.helpers
+          .resetHiddenTabIndex(this.ui.gallery.querySelectorAll(INTERACTION_ELEMENTS_QUERY));
       });
   }
 

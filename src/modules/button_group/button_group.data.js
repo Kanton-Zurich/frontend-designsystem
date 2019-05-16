@@ -15,15 +15,15 @@ const data = _.merge({}, defaultData, {
   props: {
     buttons: [
       _.merge({}, defaultButtonData, {
-        text: 'Group Item',
+        text: 'Taste 1',
         isSecondary: true,
       }),
       _.merge({}, defaultButtonData, {
-        text: 'Group Item',
+        text: 'Taste 2',
         isSecondary: true,
       }),
       _.merge({}, defaultButtonData, {
-        text: 'Group Item',
+        text: 'Taste 3',
         isSecondary: true,
       }),
     ],
@@ -32,37 +32,34 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+      title: 'Standard',
+      desc: 'Normale Darstellung',
     },
   },
   iconsOnly: {
     meta: {
       title: 'Nur Icons',
-      desc: 'Die Buttons in der Button Group haben jetzt nur icons',
+      desc: 'Die Buttons in der Button Group haben jetzt nur Icons',
     },
     props: {
       buttons: [
         _.merge({}, defaultButtonData, {
-          props: {
-            isSecondary: true,
-            isTextVisible: false,
-            icon: 'angle_left',
-          },
+          text: 'nach links',
+          isSecondary: true,
+          isTextVisible: false,
+          icon: 'angle_left',
         }),
         _.merge({}, defaultButtonData, {
-          props: {
-            isSecondary: true,
-            isTextVisible: false,
-            icon: 'angle_drop_down',
-          },
+          text: 'nach unten',
+          isSecondary: true,
+          isTextVisible: false,
+          icon: 'angle_drop_down',
         }),
         _.merge({}, defaultButtonData, {
-          props: {
-            isSecondary: true,
-            isTextVisible: false,
-            icon: 'angle_right',
-          },
+          text: 'nach rechts',
+          isSecondary: true,
+          isTextVisible: false,
+          icon: 'angle_right',
         }),
       ],
     },

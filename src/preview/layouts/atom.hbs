@@ -13,15 +13,15 @@
 	<link rel="stylesheet" href="/preview/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
-  <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js" defer></script>
-
 
   {{#if env.dev}}
 		<link rel="stylesheet" href="/preview/assets/css/dev.css">
 		<script src="/preview/assets/js/dev.js"></script>
 	{{/if}}
 </head>
-<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}} {{#if props.fonts}} data-fonts='{{props.fonts}}'{{/if}}>
+<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
+                               data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'
+                               data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
 	<div class="sg_wrapper sg_module">
 		<h1 class="sg_title">
 			<a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}

@@ -16,10 +16,7 @@ const data = {
   props: {
     svgSprites: JSON.stringify([
       '/assets/media/svgsprite/base.svg',
-      '/assets/media/svgsprite/demo.svg',
     ]),
-    fonts: '/assets/css/fonts.css',
-    styles: '/assets/css/main.css',
   },
 };
 

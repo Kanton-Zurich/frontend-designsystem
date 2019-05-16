@@ -106,8 +106,10 @@ class Carousel extends Module {
         }
       })
       .on('ImageGallery.open', (e) => {
-        this.data.active = e.detail + 1;
-        this.data.isFullscreen = true;
+        if (!this.data.isFullscreen) {
+          this.data.active = e.detail + 1;
+          this.data.isFullscreen = true;
+        }
       })
       .on('click', this.options.domSelectors.open, this.open.bind(this))
       .on('click', this.options.domSelectors.close, this.close.bind(this));
@@ -163,6 +165,8 @@ class Carousel extends Module {
   onActiveChange() {
     this.setTransformValue();
     this.setIndicatorText();
+
+    this.ui.close.focus();
   }
 
   /**

@@ -102,14 +102,13 @@ class App {
     return window[namespace].modules[moduleName].initEvents.indexOf(eventType) !== -1;
   }
 
-  initModules(event) {
+  initModules() {
     [].slice.call(document.querySelectorAll('[data-init]')).forEach((element) => {
       const modules = element.dataset.init.split(' ');
 
       modules.forEach((moduleName) => {
         if (this.isRegistered(moduleName)
-            && !this.isInitialised(element, moduleName)
-            && this.isInitEvent(event.type, moduleName)) {
+            && !this.isInitialised(element, moduleName)) {
           this.initModule(moduleName, element);
         }
       });
@@ -117,13 +116,7 @@ class App {
   }
 
   initModuleInitialiser() {
-    if (!this.initEvents.length) {
-      return;
-    }
-
-    this.initEvents.forEach((event) => {
-      document.addEventListener(event, this.initModules.bind(this), false);
-    });
+    this.initModules();
   }
 
   parseData(element, key) {

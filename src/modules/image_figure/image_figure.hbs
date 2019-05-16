@@ -4,7 +4,7 @@
     <img
         class="mdl-image-figure__img"
         src="{{srcsets.[0].image}}"
-        srcset="{{#each srcsets}}{{image}} {{deviceWidth}}w{{#if @last}}{{else}}, {{/if}}{{/each}}"
+        srcset="{{#each srcsets}}{{image}} {{imageWidth}}w{{#if @last}}{{else}}, {{/if}}{{/each}}"
         sizes="100vw"
         alt="{{alt}}"
         {{#if hasDownload}}data-image-has-download{{/if}}
@@ -17,7 +17,7 @@
       <svg class="icon mdl-image-figure__download-icon">
         <use xlink:href="#download"></use>
       </svg>
-      <span class="visuallyhidden">Das Originalbild herunterladen</span>
+      <span class="visuallyhidden">Bild{{#if alt}} «{{alt}}»{{/if}} herunterladen</span>
     </a>{{/if}}
   </figcaption>
 </figure>

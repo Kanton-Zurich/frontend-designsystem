@@ -160,7 +160,7 @@ $smallImageWidths: (
    * Embedded in gallery
    */
   .mdl-image_gallery & {
-    @include sizeCurve(margin-bottom, regular);
+    @include sizeCurve(margin-bottom, small);
 
     .mdl-image-figure__img-wrapper {
       margin-bottom: 0.3rem;
