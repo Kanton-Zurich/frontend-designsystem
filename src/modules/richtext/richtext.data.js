@@ -50,7 +50,7 @@ const variants = _.mapValues({
       desc: '',
     },
     props: {
-      inverted: true,
+      isInverted: true,
       hasImage: true,
     },
   },

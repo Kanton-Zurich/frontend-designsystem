@@ -46,14 +46,15 @@ const variants = _.mapValues({
   inverted: {
     meta: {
       title: 'Inverted',
-      desc: 'Beliebige HTML-Elemente mit Klassen atm-heading und atm-heading--inverted',
+      desc: 'Beliebige HTML-Elemente mit Klassen atm-heading und atm-heading--cv-inverted',
     },
     props: {
       title: 'Überschrift Stufe',
       small: '',
       link: 'und einem Link',
+      isInverted: true,
+      modifier: 'cv-inverted',
       variant: 'inverted',
-      modifier: 'inverted',
     },
   },
 }, (variant) => {

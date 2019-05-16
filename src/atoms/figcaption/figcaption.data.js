@@ -32,7 +32,7 @@ const variants = _.mapValues({
       desc: 'Inverted for image galleries and carousels',
     },
     props: {
-      inverted: true,
+      isInverted: true,
     },
   },
 }, (variant) => {
