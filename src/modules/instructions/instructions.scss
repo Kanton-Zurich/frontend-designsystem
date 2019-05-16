@@ -2,8 +2,8 @@
 
   $customSizing: (
     itemTop: (
-      tiny: 24px,
-      xlarge: 40px
+      tiny: $sizeLarge,
+      xlarge: $sizeBiggerBig
     ),
     counterFontSize: (
       tiny: $sizeFontSmallBig,
@@ -153,19 +153,18 @@
       }
     }
   }
+}
 
+/*
+* COLOR-VARIATIONS
+*/
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-instructions__bullet {
+      color: #{$val};
 
-  /*
-  * COLOR-VARIATIONS
-  */
-  @each $key, $val in $tl-color-variations {
-    &--#{$key} {
-      .mdl-instructions__bullet {
-        color: #{$val};
-
-        svg use {
-          fill: #{$val};
-        }
+      svg use {
+        fill: #{$val};
       }
     }
   }
