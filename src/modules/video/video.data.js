@@ -23,6 +23,9 @@ const data = _.merge({}, defaultData, {
     alt: 'Das ist ein Alternativ-Text',
   },
 });
+
+data.colorVariations = []; // no color variations available
+
 const variants = _.mapValues({
   default: {
     meta: {

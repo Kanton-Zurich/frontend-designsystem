@@ -15,3 +15,17 @@
     display: none;
   }
 }
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-download_list {
+      .atm-linklist_item {
+        color: rgba($colorText, 0.6);
+
+        &:hover {
+          color: rgba($colorText, 1);
+        }
+      }
+    }
+  }
+}
