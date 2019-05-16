@@ -21,7 +21,7 @@ const data = _.merge({}, defaultData, {
         title: '<span class="visuallyhidden">Bezirk</span>',
         isSortable: false,
       }, {
-        title: 'Einwohnerzahl<sup>1</sup> 2017',
+        title: 'Einwohnerzahl<sup>1</sup> <span class="visuallyhidden">Nach zivilrechtlichem Wohnsitzbegriff, Daten per Ende Jahr</span> 2017',
         isSortable: false,
       }, {
         title: 'Bevölkerungswachstum<br> 2007–2017 in %',
@@ -36,7 +36,7 @@ const data = _.merge({}, defaultData, {
         data: ['<a href="#" class="atm-text_link">Kanton Zürich</a>', '1498643', '15,2', '1005751'],
         isHighlighted: true,
       }, {
-        data: ['Affoltern', '53531', '18,4', '17171'],
+        data: ['Affoltern<sup>2</sup> <span class="visuallyhidden">Stand 2016</span>', '53531', '18,4', '17171'],
       }, {
         data: ['Andelfingen', '31140', '9,6', '11094'],
       }, {
