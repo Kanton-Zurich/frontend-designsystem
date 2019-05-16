@@ -1,4 +1,4 @@
-<div class="mdl-instructions{{#if colorVariation}} mdl-instructions--cv-{{{colorVariation}}}{{/if}}" data-init="instructions">
+<div class="mdl-instructions" data-init="instructions">
   <h2 class="atm-heading atm-heading--bordered">{{instructions_title}}</h2>
 
   <{{#if isUnordered}}ul{{else}}ol{{/if}} class="mdl-instructions__list {{#unless isUnordered}} mdl-instructions__list--ordered{{/unless}}">
@@ -118,7 +118,7 @@
           {{#if isUnordered}}Checklistenpunkt{{else}}Anleitungsschritt{{/if}}-Titel (mit Richtext Module)
         </h3>
         <div class="mdl-instructions__item-content">
-          <div class="mdl-richtext{{#if colorVariation}} mdl-richtext--cv-{{{colorVariation}}}{{/if}}">
+          <div class="mdl-richtext">
             <h4 class="atm-heading">{{ h4Text }}</h4>
             <p>
               {{{pText}}}
