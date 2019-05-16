@@ -8,23 +8,22 @@ $maxTextLinesDefault: 4;
   flex-direction: column;
 
   & + .mdl-teaser {
-    margin-top: 56px;
+    margin-top: $sizeHuge;
   }
 
   &__content {
-    padding: 32px;
+    padding: $sizeBig;
   }
 
   &__date {
     font-weight: 900;
-    font-size: 12px;
-    line-height: 18px;
+    font-size: $sizeFontTiny;
     color: rgba($colorBlack, 0.6);
   }
 
   .atm-heading {
     color: $colorBlack100;
-    margin: 4px 0 8px;
+    margin: 4px 0 $sizeTiny;
     padding-top: 0;
 
     $titleHeightCurve: (
@@ -57,7 +56,7 @@ $maxTextLinesDefault: 4;
   }
 
   .atm-button {
-    margin-top: 16px;
+    margin-top: $sizeRegular;
     display: inline-flex;
   }
 
@@ -117,7 +116,7 @@ $maxTextLinesDefault: 4;
     }
 
     .atm-heading {
-      margin: 4px 0 16px;
+      margin: 4px 0 $sizeRegular;
     }
   }
   @include mq($from: large) {
@@ -125,7 +124,7 @@ $maxTextLinesDefault: 4;
     flex-direction: row;
 
     & + .mdl-teaser {
-      margin-top: 80px;
+      margin-top: $sizeGiant;
     }
 
     &__content,
@@ -144,15 +143,15 @@ $maxTextLinesDefault: 4;
     }
 
     .atm-heading {
-      margin: 4px 0 20px;
+      margin: 4px 0 $sizeSmallLarge;
     }
 
     .atm-button {
-      margin-top: 24px;
+      margin-top: $sizeLarge;
     }
 
     &__content {
-      padding: 40px;
+      padding: $sizeBiggerBig;
       display: flex;
       flex-direction: column;
     }
@@ -185,7 +184,7 @@ $maxTextLinesDefault: 4;
     }
 
     .atm-heading {
-      margin: 4px 0 24px;
+      margin: 4px 0 $sizeLarge;
     }
 
     &--noImage {
