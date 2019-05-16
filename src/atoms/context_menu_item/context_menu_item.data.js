@@ -17,6 +17,9 @@ const data = _.merge({}, defaultData, {
     href: '../../',
   },
 });
+
+data.colorVariations = []; // no color variations available
+
 const variants = _.mapValues({
   default: {
     meta: {

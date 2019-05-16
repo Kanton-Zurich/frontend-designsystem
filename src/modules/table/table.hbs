@@ -1,12 +1,11 @@
-<div class="mdl-table{{#if alignRight}} mdl-table--align-right{{/if}}
-	{{#if colorVariation}} mdl-table--cv-{{ colorVariation }}{{/if}}
-	{{#if isInverted}} mdl-table--inverted{{/if}}
-	{{#if isWide}} mdl-table--fullwidth{{/if}}
-	{{#if isFirstColumnFixed}} mdl-table--first-column-fixed{{/if}}"
+<div class="mdl-table
+  {{#if alignRight}} mdl-table--align-right{{/if}}
+  {{#if isInverted}} mdl-table--inverted{{/if}}
+  {{#if isWide}} mdl-table--fullwidth{{/if}}
+  {{#if isFirstColumnFixed}} mdl-table--first-column-fixed{{/if}}"
   data-init="table"
   data-redraw="true"
-
-  >
+>
 	{{#if hasTitle}}
 		<h{{ tableHeadingLevel }} class="atm-heading mdl-table__title">{{ tableTitle }}</h{{ tableHeadingLevel }}>
 		{{#if hasSubtitle}}
