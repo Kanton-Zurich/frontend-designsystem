@@ -21,7 +21,7 @@
 
   .atm-heading {
     line-height: 30px;
-    color: $colorBlack100; //$colorBlue;
+    color: $colorBlack100;
     margin: 4px 0 8px;
     padding-top: 0;
   }
@@ -121,6 +121,10 @@
       flex-direction: row-reverse;
     }
 
+    &--noImage {
+      max-width: 622px;
+    }
+
     .atm-heading {
       margin: 4px 0 20px;
       line-height: 48px;
@@ -159,9 +163,16 @@
     }
   }
   @include mq($from: xlarge) {
+    &__wrapper {
+      width: 73em;
+    }
     .atm-heading {
       margin: 4px 0 24px;
       line-height: 48px;
+    }
+
+    &--noImage {
+      max-width: 770px;
     }
   }
 }

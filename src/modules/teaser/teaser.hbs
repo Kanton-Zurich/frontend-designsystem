@@ -91,7 +91,7 @@
      data-init="teaser">
     <div class="mdl-teaser__content">
       <h2 class="mdl-teaser__title atm-heading">
-        {{teaserTitle}}
+        {{teaserTitle_headingOnly}}
       </h2>
       <div>
         <div class="atm-button atm-button--secondary">
@@ -118,7 +118,9 @@
       <h2 class="mdl-teaser__title atm-heading">
         {{teaserTitle}}
       </h2>
-
+      <p class="mdl-teaser__description">
+        {{teaserDescription}}
+      </p>
       <div>
         <div class="atm-button atm-button--secondary">
           <span class="atm-button__text ">{{teaserButtonLabel}}</span>
@@ -128,16 +130,18 @@
   </a>
 </div>
 
+
+
 <h2>Teaser - mit Artikel(TODO)</h2>
 <div class="mdl-teaser__wrapper">
   <a href="{{teaserLink}}" class="mdl-teaser mdl-teaser--inverted{{#if colorVariation}} mdl-teaser--cv-{{{colorVariation}}}{{/if}}"
      data-init="teaser">
     <div class="mdl-teaser__content">
       <h2 class="mdl-teaser__title atm-heading">
-        {{teaserTitle}}
+        {{teaserTitle_listItem2}}
       </h2>
       <p class="mdl-teaser__description">
-        {{teaserDescription}}
+        {{teaserDescription_listItem2}}
       </p>
 
       <div>
@@ -145,7 +149,10 @@
           <span class="atm-button__text ">{{teaserButtonLabel}}</span>
         </div>
       </div>
+    </div>
 
+    <div class="mdl-teaser__image">
+      {{> "modules/image_figure/image_figure"}}
     </div>
   </a>
 </div>
@@ -157,10 +164,10 @@
      data-init="teaser">
     <div class="mdl-teaser__content">
       <h2 class="mdl-teaser__title atm-heading">
-        {{teaserTitle}}
+        {{teaserTitle_maxTextOverlow}}
       </h2>
       <p class="mdl-teaser__description">
-        {{teaserDescription}}
+        {{teaserDescription_maxTextOverlow}}
       </p>
 
       <div>
@@ -168,14 +175,15 @@
           <span class="atm-button__text ">{{teaserButtonLabel}}</span>
         </div>
       </div>
+    </div>
 
+    <div class="mdl-teaser__image">
+      {{> "modules/image_figure/image_figure"}}
     </div>
   </a>
 </div>
 
 
-//Teaser-Artikel
-//Teaser-Artikel mit Textkürzung
 
 Heanding und Text kürzen von bei einer Bildschirmbreite von 320px-599px auf max 6 Zeilen
 Bei einer Bildschirmbreite ab 600 auf max 4 Zeilen
