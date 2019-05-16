@@ -17,18 +17,17 @@ const data = _.merge({}, defaultData, {
       {
         title: 'Link 1',
         href: '/',
-      },{
+      }, {
         title: 'Link 2',
         href: 'https://www.google.ch',
         target: 'blank',
-      },{
+      }, {
         title: 'Link 3',
         href: '/index.html',
       },
     ],
     hasTitle: true,
     headingLevel: 2,
-    colorVariation: false,
   },
 });
 const variants = _.mapValues({

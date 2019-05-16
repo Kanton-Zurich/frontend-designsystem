@@ -1,0 +1,172 @@
+.mdl-instructions {
+
+  $customSizing: (
+    itemTop: (
+      tiny: 24px,
+      xlarge: 40px
+    ),
+    counterFontSize: (
+      tiny: $sizeFontSmallBig,
+      small: $sizeFontBiggerBig,
+      xlarge: $sizeFontGiant
+    ),
+    counterLineHeight: (
+      tiny: 34px,
+      small: 48px,
+      xlarge: 72px
+    ),
+    checkerIconSize: (
+      zero: 19.38px,
+      small: 25.83px,
+      xlarge: 38.75px
+    ),
+  );
+
+  &__list {
+    position: relative;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    // Accessibility counter
+    &--ordered {
+      counter-reset: item-counter;
+
+      > li {
+        counter-increment: item-counter;
+      }
+
+      > li:before {
+        @include visuallyhidden;
+        content: counter(item-counter) '.';
+        top: 0;
+        left: -1rem;
+      }
+    }
+  }
+
+  &__item {
+    position: relative;
+
+    @include sizeCurve('margin-top', itemTop, $customSizing);
+    @include mq($from: small) {
+      display: flex;
+    }
+
+    .atm-heading {
+      padding: 0;
+    }
+  }
+
+  &__bullet {
+    font-weight: 900;
+    word-break: break-all; // break all on overflowing counters
+
+    @include polyFluidSizing('font-size', map-get($customSizing, counterFontSize));
+    @include sizeCurve('line-height', counterLineHeight, $customSizing);
+
+    &--checklist {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      line-height: 1;
+      font-size: 0;
+
+      .icon {
+        @include sizeCurve('width' 'height', checkerIconSize, $customSizing);
+      }
+
+      @include mq($from: small) {
+        position: relative;
+        top: auto;
+        left: auto;
+        line-height: 0;
+      }
+    }
+
+    @include mq($from: small) {
+      text-align: right;
+
+      @include gridNestedOffset('margin-left', 2, $gridOffsetColumns, $isNegative: true);
+      @include gridNestedOffset('width' 'min-width', 2, $gridOffsetColumns, $trailingGutter: false);
+    }
+  }
+
+  &__bullet + div {
+    @include mq($from: small) {
+      @include sizeCurve('margin-left', quoteParagraph, $indentCurve);
+      flex-grow: 1;
+    }
+  }
+
+  &__bullet--checklist + div > .atm-heading {
+    padding-left: 10px;
+    margin-left: 19.38px;
+
+    @include mq($from: small) {
+      padding-left: 0;
+      margin-left: 0;
+    }
+  }
+
+  &__item-content {
+    // Remove from every li content the bottom space except from the last li
+    &:not(:last-of-type) {
+      *:last-of-type {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+
+
+  /*
+  *  MODULE OVERWRITES
+  */
+  .mdl-richtext {
+    .atm-heading {
+      margin-left: 0;
+    }
+
+    .mdl-richtext__lead {
+      text-indent: 0;
+    }
+  }
+
+  .mdl-button_group {
+    width: 100%;
+    transform: none;
+    margin: 0;
+    padding-right: 0;
+  }
+
+  .mdl-carousel__control {
+    @include mq($from: large) {
+      justify-content: flex-end;
+
+      .mdl-carousel__indicator {
+        margin: 0 auto;
+      }
+
+      .mdl-button_group {
+        width: auto;
+      }
+    }
+  }
+
+
+  /*
+  * COLOR-VARIATIONS
+  */
+  @each $key, $val in $tl-color-variations {
+    &--#{$key} {
+      .mdl-instructions__bullet {
+        color: #{$val};
+
+        svg use {
+          fill: #{$val};
+        }
+      }
+    }
+  }
+}

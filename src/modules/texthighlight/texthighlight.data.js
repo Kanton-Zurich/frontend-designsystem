@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const dataRichtext = require('../richtext/richtext.data');
 const dataLinklist = require('../linklist/linklist.data');
@@ -14,7 +14,7 @@ const data = _.merge({}, defaultData, {
     jira: 'CZHDEV-117',
     documentation: dataHelper.getDocumentation('texthighlight.md'),
   },
-  props: {}
+  props: {},
 });
 
 const variants = _.mapValues({
@@ -24,7 +24,7 @@ const variants = _.mapValues({
       desc: '',
     },
     props: _.merge({
-      colorVariation: 'blue',
+      colorTheme: 'blue',
       textVariation: true,
     }, dataRichtext.props),
   },
@@ -34,7 +34,7 @@ const variants = _.mapValues({
       desc: '',
     },
     props: _.merge({
-      colorVariation: 'green',
+      colorTheme: 'green',
       textVariation: true,
     }, dataRichtext.props),
   },
@@ -44,7 +44,7 @@ const variants = _.mapValues({
       desc: '',
     },
     props: _.merge(dataLinklist.props, {
-      colorVariation: 'magenta',
+      colorTheme: 'magenta',
       linklistVariation: true,
     }),
   },
@@ -54,7 +54,7 @@ const variants = _.mapValues({
       desc: '',
     },
     props: _.merge(imageFigureData.props, {
-      colorVariation: 'blue',
+      colorTheme: 'blue',
       imageVariation: true,
     }),
   },
