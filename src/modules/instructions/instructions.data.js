@@ -27,7 +27,7 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Anleitungsliste (Standard)',
+      title: 'Anleitungsliste',
       desc: 'Standart Implementation mit einer nummerierten Liste',
     },
     props: {
@@ -36,7 +36,7 @@ const variants = _.mapValues({
   },
   unordered: {
     meta: {
-      title: 'Checkpunktliste (Standard)',
+      title: 'Checkpunktliste',
       desc: 'Standart Implementation mit einer unnummerierten Liste',
     },
     props: {
