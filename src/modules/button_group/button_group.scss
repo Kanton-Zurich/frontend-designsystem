@@ -1,7 +1,9 @@
 .mdl-button_group {
   display: flex;
 
-  .atm-button {
+  @include resetList;
+
+  &__item {
     margin-right: 2px;
 
     &:last-of-type {

@@ -3,7 +3,7 @@
     {{h1Text}}
   </h1>
   <p class="mdl-richtext__lead">
-    {{leadText}}
+    <strong>{{leadText}}</strong>
   </p>
   <h2 class="atm-heading{{#if inverted}} atm-heading--inverted{{/if}}">
     {{h2Text}}
@@ -42,7 +42,7 @@
   <p>
     {{pText2}}
   </p>
-  <ul class="mdl-richtext__benefits">
+  <ul class="mdl-richtext__benefits" aria-label="Vorteile">
     <li>{{benefitItem}}</li>
     <li>{{benefitItem}}</li>
     <li>{{benefitItem}}</li>
@@ -51,7 +51,9 @@
     {{pText2}}
   </p>
   <div class="mdl-richtext__emphasis">
-    <p>{{emphasisText}}</p>
+    <p>
+      <em>{{emphasisText}}</em>
+    </p>
   </div>
   <ol>
     <li>{{benefitItem}}</li>
