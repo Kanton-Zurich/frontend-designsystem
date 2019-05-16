@@ -400,7 +400,7 @@
   background: none;
   padding: 0;
   -webkit-appearance: none; //stylelint-disable-line
-  line-height: 1;
+  line-height: 1.5;
 
   text-align: left;
   cursor: pointer;
@@ -445,5 +445,11 @@
   }
 
   @return $newMap;
+}
+
+@mixin resetList() {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 

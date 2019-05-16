@@ -8,6 +8,8 @@
 import Module from '../../assets/js/helpers/module';
 import WindowEventListener from '../../assets/js/helpers/events';
 
+import { INTERACTION_ELEMENTS_QUERY } from '../../assets/js/helpers/constants';
+
 class Accordion extends Module {
   public options: {
     domSelectors: {
@@ -20,7 +22,6 @@ class Accordion extends Module {
     stateClasses: {
       open: string,
     }
-    focusableElements: string,
   }
 
   public ui: {
@@ -51,7 +52,6 @@ class Accordion extends Module {
       stateClasses: {
         open: 'mdl-accordion__item--open',
       },
-      focusableElements: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
     };
 
     super($element, defaultData, defaultOptions, data, options);
@@ -77,7 +77,7 @@ class Accordion extends Module {
   toggleItem(propName, checkedBefore, checkedNow, element) {
     const accordionItem = element.parentElement.parentElement;
     const panel = accordionItem.querySelector(this.options.domSelectors.panel);
-    const focusableChildren = panel.querySelectorAll(this.options.focusableElements);
+    const focusableChildren = panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY);
 
     accordionItem.classList.toggle(this.options.stateClasses.open);
 
@@ -177,7 +177,7 @@ class Accordion extends Module {
    */
   initTabindex() {
     this.ui.panelContent.forEach((panelContent) => {
-      this.setTabindex(panelContent.querySelectorAll(this.options.focusableElements), -1);
+      this.setTabindex(panelContent.querySelectorAll(INTERACTION_ELEMENTS_QUERY), -1);
     });
   }
 

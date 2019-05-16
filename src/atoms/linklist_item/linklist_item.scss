@@ -10,6 +10,10 @@
   font-weight: $fontWeightBlack;
   position: relative;
 
+  @at-root button {
+    @include blankButton;
+  }
+
   @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
   @include sizeCurve(padding-top padding-bottom, small);
 
@@ -49,18 +53,59 @@
       background: $colorText;
     }
 
-    .atm-linklist_item__arrow use {
+    .icon use {
       fill: $colorText;
+    }
+  }
+
+  &--download {
+    align-items: flex-start;
+  }
+
+  &--legalfoundation {
+    flex-direction: column;
+
+    .atm-linklist_item__label {
+      margin-top: pxToRem($sizeTiny);
+    }
+
+    .atm-linklist_item__download-button {
+      margin-top: pxToRem($sizeTiny);
+      display: flex;
+      align-items: center;
+      font-weight: $fontWeightDefault;
+      font-size: pxToRem($sizeFontSmall);
+
+      .icon {
+        margin-right: pxToRem($sizeSmallRegular);
+      }
     }
   }
 
   &__arrow {
     @include sizeCurve(margin-left, tiny);
+  }
 
-    use {
-      fill: $colorBlack60;
-      transition: fill $transitionTimeSimple $transitionEasingDefault;
+  &__download {
+    @include sizeCurve(margin-right, regular);
+  }
+
+  &__text {
+    line-height: 1.33;
+
+    > span {
+      display: block;
     }
+  }
+
+  &__label {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+    font-weight: $fontWeightDefault;
+  }
+
+  .icon use {
+    fill: $colorBlack60;
+    transition: fill $transitionTimeSimple $transitionEasingDefault;
   }
 
   &--cv-blue,

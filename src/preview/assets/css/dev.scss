@@ -101,6 +101,8 @@
 .sg_atom-demo {
   flex-basis: 80%;
   padding-left: 10px;
+  padding-right: 10px;
+  background: #fff;
 
   &--inverted {
     background: #0076bd;
@@ -120,6 +122,10 @@
 
     &--inverted {
       background: #f7f7f7;
+    }
+
+    > .cell > .mdl-context_menu {
+      position: static;
     }
   }
 }

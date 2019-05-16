@@ -148,6 +148,39 @@ class Helper {
       }
     }
   }
+  /**
+   * Sets tabindex -1 for a nodelist and saves existing tabindexes
+   *
+   * @param {NodeList} nodes
+   * @memberof Helper
+   */
+  public setHiddenTabIndex(nodes) {
+    nodes.forEach((node) => {
+      if (node.hasAttribute('tabindex')) {
+        node.setAttribute('data-tabindex', node.getAttribute('tabindex'));
+      }
+
+      node.setAttribute('tabindex', -1);
+    });
+  }
+
+  /**
+   * Resets the tabindex by removing the attribute or taking the saved value in data-tabindex
+   *
+   * @param {NodeList} nodes
+   * @memberof Helper
+   */
+  public resetHiddenTabIndex(nodes) {
+    nodes.forEach((node) => {
+      const tabindex = node.hasAttribute('data-tabindex') ? node.getAttribute('data-tabindex') : false;
+
+      if (tabindex) {
+        node.setAttribute('tabindex', tabindex);
+      } else {
+        node.removeAttribute('tabindex');
+      }
+    });
+  }
 }
 
 export default Helper;

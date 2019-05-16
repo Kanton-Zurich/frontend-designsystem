@@ -75,6 +75,11 @@
     }
   }
 
+  &__lead {
+    strong {
+      font-weight: $fontWeightBlack;
+    }
+  }
 
   &__emphasis {
     @include sizeCurve('margin-bottom', medium);
@@ -94,6 +99,10 @@
       margin-bottom: 0;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+    }
+
+    em {
+      font-style: normal;
     }
   }
 

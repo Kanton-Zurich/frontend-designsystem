@@ -1,6 +1,30 @@
-<a class="atm-linklist_item" href="{{href}}"{{#if target}} target="_{{target}}"{{/if}}>
-  <span>{{title}}</span>
-  <svg class="icon atm-linklist_item__arrow">
-    <use xlink:href="#arrow-right"></use>
-  </svg>
-</a>
+<{{#if isButton}}button{{else}}a{{/if}}
+  class="atm-linklist_item {{#if isDownload}}atm-linklist_item--download{{/if}} {{#if isLegalFoundation}}atm-linklist_item--legalfoundation{{/if}}"
+  {{#if href}}href="{{href}}"{{/if}}{{#if target}} target="_{{target}}"{{/if}}
+  {{#if isDownload}}{{#unless isButton}}download{{/unless}}{{/if}}
+  {{#if domSelector}}{{{domSelector}}}{{/if}}
+  {{#if isButton}}aria-expanded="false"{{/if}}
+>
+  {{#if isDownload}}{{#unless isLegalFoundation}}
+    <svg class="icon atm-linklist_item__download">
+      <use xlink:href="#download"></use>
+    </svg>
+  {{/unless}}{{/if}}
+  <span class="atm-linklist_item__text">
+    <span>{{title}}</span>
+    {{#if label}}<span class="atm-linklist_item__label">{{label}}</span>{{/if}}
+  </span>
+  {{#unless isDownload}}
+    <svg class="icon atm-linklist_item__arrow">
+      <use xlink:href="#arrow-right"></use>
+    </svg>
+  {{/unless}}
+  {{#if isLegalFoundation}}
+    <span class="atm-linklist_item__download-button">
+      <svg class="icon">
+        <use xlink:href="#download"></use>
+      </svg>
+      <span>Download</span>
+    </span>
+  {{/if}}
+</{{#if isButton}}button{{else}}a{{/if}}>

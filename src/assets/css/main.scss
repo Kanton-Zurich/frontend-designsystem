@@ -30,6 +30,7 @@
 @import '../../atoms/figcaption/figcaption';
 @import '../../atoms/button/button';
 @import '../../atoms/text_link/text_link';
+@import '../../atoms/context_menu_item/context_menu_item';
 //*autoinsertatom*
 
 // Modules
@@ -52,6 +53,8 @@
 @import '../../modules/image_gallery/image_gallery';
 @import '../../modules/quote/quote';
 @import '../../modules/accordion/accordion';
+@import '../../modules/download_list/download_list';
+@import '../../modules/context_menu/context_menu';
 //*autoinsertmodule*
 
 @media print {
