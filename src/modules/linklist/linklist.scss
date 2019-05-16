@@ -10,57 +10,16 @@
     padding: 0;
     list-style-type: none;
   }
+}
+// default text color different from color variation
+.cv-default {
+  .mdl-linklist {
+    .atm-linklist_item {
+      color: rgba($colorText, 0.6);
 
-  /**
-   * Color variations
-   */
-
-  &--cv-blue,
-  [ class*='--cv-blue' ] & {
-    .mdl-linklist__title {
-      color: $colorBlue;
-    }
-  }
-
-  &--cv-darkblue,
-  [ class*='--cv-darkblue' ] & {
-    .mdl-linklist__title {
-      color: $colorDarkBlue;
-    }
-  }
-
-  &--cv-turqoise,
-  [ class*='--cv-turqoise' ] & {
-    .mdl-linklist__title {
-      color: $colorTurqoise;
-    }
-  }
-
-  &--cv-green,
-  [ class*='--cv-green' ] & {
-    .mdl-linklist__title {
-      color: $colorGreen;
-    }
-  }
-
-  &--cv-bordeaux,
-  [ class*='--cv-bordeaux' ] & {
-    .mdl-linklist__title {
-      color: $colorBordeaux;
-    }
-  }
-
-  &--cv-magenta,
-  [ class*='--cv-magenta' ] & {
-    .mdl-linklist__title {
-      color: $colorMagenta;
-    }
-  }
-
-  &--cv-violet,
-  [ class*='--cv-violet' ] & {
-    .mdl-linklist__title {
-      color: $colorViolet;
+      &:hover {
+        color: rgba($colorText, 1);
+      }
     }
   }
 }

@@ -14,47 +14,35 @@ const data = _.merge({}, defaultData, {
     jira: 'CZHDEV-117',
     documentation: dataHelper.getDocumentation('texthighlight.md'),
   },
-  props: {},
+  props: {
+  },
 });
 
 const variants = _.mapValues({
   textblue: {
     meta: {
-      title: 'Text Blau',
+      title: 'Text',
       desc: '',
     },
     props: _.merge({
-      colorTheme: 'blue',
-      textVariation: true,
-    }, dataRichtext.props),
-  },
-  textgreen: {
-    meta: {
-      title: 'Text Grün',
-      desc: '',
-    },
-    props: _.merge({
-      colorTheme: 'green',
       textVariation: true,
     }, dataRichtext.props),
   },
   linklistmagenta: {
     meta: {
-      title: 'Link-List Magenta',
+      title: 'Link-List',
       desc: '',
     },
     props: _.merge(dataLinklist.props, {
-      colorTheme: 'magenta',
       linklistVariation: true,
     }),
   },
   imageFigureBlue: {
     meta: {
-      title: 'Image Figure Blue',
+      title: 'Bild',
       desc: '',
     },
     props: _.merge(imageFigureData.props, {
-      colorTheme: 'blue',
       imageVariation: true,
     }),
   },
