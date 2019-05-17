@@ -26,9 +26,9 @@ describe('Table', () => {
 
   it('should be ordered without a problem', async () => {
     const orderedTableResult = await page.evaluate(() => {
-      (<HTMLElement>document.querySelector('input#variants16')).click();
+      (<HTMLElement>document.querySelector('input#variants9')).click();
 
-      const panel = document.querySelector('#panel16');
+      const panel = document.querySelector('#panel9');
       const table = panel.querySelector('.mdl-table__table');
       const testingColumn = table.querySelectorAll('[data-table="sortable"]')[1];
       const rowheaders = table.querySelectorAll('[role="rowheader"]');
