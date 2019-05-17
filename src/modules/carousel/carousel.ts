@@ -109,7 +109,7 @@ class Carousel extends Module {
             break;
         }
       })
-      .on('ImageGallery.open', (e) => {   
+      .on('ImageGallery.open', (e) => {
         if (!this.data.isFullscreen) {
           this.data.active = e.detail + 1;
           this.data.isFullscreen = true;
