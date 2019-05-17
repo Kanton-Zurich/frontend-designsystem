@@ -26,6 +26,15 @@ class Inspector extends Helper {
 
 
     this.logger(`Initialized ${Inspector.name}`);
+    document.addEventListener('DOMContentLoaded',
+      () => {
+        [].forEach.call(document.querySelectorAll('[class^=\'color_trigger\']'), (node) => {
+          node.addEventListener('change', () => {
+            const elem = document.getElementById('module_main');
+            elem.className = elem.className.replace(/cv-\w+/, node.value);
+          });
+        });
+      });
   }
 
   /**

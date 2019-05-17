@@ -83,17 +83,22 @@ const data = _.merge({}, defaultData, {
           isTextVisible: false,
           icon: 'angle_left',
           additionalAttribute: 'data-carousel="prev"',
+          text: 'Vorheriges Bild',
         }),
         _.merge({}, buttonDefaultData, {
           isSecondary: true,
           isTextVisible: false,
           icon: 'angle_right',
           additionalAttribute: 'data-carousel="next"',
+          text: 'Nächstes Bild',
         }),
       ],
     }),
   },
 });
+
+data.colorVariations = []; // no color variations available
+
 const variants = _.mapValues({
   default: {
     meta: {

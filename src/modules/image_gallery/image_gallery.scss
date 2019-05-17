@@ -18,6 +18,9 @@ $imageGalleryPaddingCurve: (
 
   &__images {
     height: 100%;
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
   }
 
   &__more {

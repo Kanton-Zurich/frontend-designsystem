@@ -19,11 +19,6 @@
     )
   );
 
-  ::selection {
-    color: $colorWhite;
-    background: $colorBlack;
-  }
-
   h1 {
     @include mq($from: tiny, $to: small) {
       @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
@@ -199,7 +194,7 @@
   }
 
   /* Inverted */
-  &--inverted {
+  &--cv-inverted {
     ::selection {
       color: $colorBlack;
       background: $colorWhite;
@@ -243,14 +238,11 @@
       }
     }
   }
+}
 
-  @each $key, $val in $tl-color-variations {
-    &--#{$key},
-    [ class*='#{$key}' ] & {
-      ::selection {
-        background: #{$val};
-      }
-
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-richtext {
       p {
         a {
           border-color: #{$val};
@@ -273,11 +265,16 @@
         color: #{$val};
       }
 
-      .mdl-quote,
       .mdl-richtext__emphasis {
         p {
           color: #{$val};
         }
+      }
+    }
+
+    .mdl-quote {
+      p {
+        color: #{$val};
       }
     }
   }

@@ -3,7 +3,7 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const defFigcaptionData = require('../../atoms/figcaption/figcaption.data').variants.default;
+const defFigcaptionData = require('../../atoms/figcaption/figcaption.data').props;
 
 const template = dataHelper.getFileContent('image_figure.hbs');
 const data = _.merge({}, defaultData, {
@@ -31,6 +31,9 @@ const data = _.merge({}, defaultData, {
     useInCarousel: false,
   },
 });
+
+data.colorVariations = []; // no color variations available
+
 const variants = _.mapValues({
   default: {
     meta: {

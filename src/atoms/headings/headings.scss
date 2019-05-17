@@ -10,7 +10,7 @@ $headingCurves: (
   font-weight: $fontWeightBlack;
   margin-top: 0;
 
-  &--inverted,
+  &--cv-inverted,
   [ class*='--cv-inverted' ] & {
     color: $colorWhite;
 

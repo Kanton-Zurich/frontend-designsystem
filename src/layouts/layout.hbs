@@ -21,7 +21,7 @@
 
   {{! <meta name="theme-color" content="#fafafa"> }}
 </head>
-<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
+<body class="cv-default" {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
   data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'
   data-style-main='/assets/css/main{{#unless env.dev}}.min{{/unless}}.css'
   data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
