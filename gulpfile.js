@@ -885,7 +885,6 @@ gulp.task('copy:ci', () => {
       './dist/assets/css/critical.css',
       '!./dist/ci/**/*',
       '!./dist/**/*.dev.html',
-      '!./dist/**/dev.*',
     ],
     srcBase: './dist',
     dest: './dist/ci/prod',
