@@ -14,14 +14,12 @@
 
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 
-  {{#if env.dev}}
-		<link rel="stylesheet" href="/preview/assets/css/dev.css">
-		<script src="/preview/assets/js/dev.js"></script>
-	{{/if}}
+  <link rel="stylesheet" href="/preview/assets/css/dev{{#unless env.dev}}.min{{/unless}}.css">
+  <script src="/preview/assets/js/dev.js"></script>
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
   data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'>
-	<div class="sg_wrapper sg_module">
+	<div class="sg_wrapper sg_module {{props.defaultColorVariation}}" id="module_main">
 		<h1 class="sg_title">
 			<a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
 		</h1>
@@ -48,7 +46,7 @@
 						{{#each variants}}
 							<div class="tab_content" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}">
                 <div class="lyt-wrapper">
-                  <div class="sg_demo grid-x grid-margin-x">
+                  <div class="sg_demo {{#if props.isInverted}}sg_demo--inverted{{/if}} grid-x grid-margin-x">
                     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
                       {{{meta.demo}}}
                     </div>
@@ -63,6 +61,14 @@
 							<label for="variants{{@index}}" id="tabLabel{{@index}}">{{meta.title}}</label>
 						{{/each}}
 					</div>
+
+          <div class="cv-labels" aria-hidden="true">
+            {{#each colorVariations}}
+              <input type="radio" name="colorVariations" class="color_trigger {{name}}" value="{{name}}" id="colorVariations{{@index}}"{{#unless @index}} checked{{/unless}} />
+              <label for="colorVariations{{@index}}" id="cv-label{{@index}}">{{name}}</label>
+            <!-- <input type="button" class="sg_colorVariation_button" value="{{name}}" style="background-color: {{color}}"/>-->
+            {{/each}}
+          </div>
 
 					<div class="panels">
 						{{#each variants}}
@@ -89,7 +95,7 @@
 				<h2 class="sg_h2">Vorschau der Komponente</h2>
 
 				{{#each variants}}
-					<div class="sg_demo">
+					<div class="sg_demo {{#if props.isInverted}}sg_demo--inverted{{/if}}">
 						{{#block "content"}}
 							{{{meta.demo}}}
 						{{/block}}

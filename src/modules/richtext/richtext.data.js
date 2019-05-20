@@ -50,73 +50,16 @@ const variants = _.mapValues({
       desc: '',
     },
     props: {
-      inverted: true,
+      isInverted: true,
       hasImage: true,
     },
   },
   blue: {
     meta: {
-      title: 'ZH Blau (mit Image Zitat)',
+      title: 'mit Image Zitat',
       desc: '',
     },
     props: {
-      colorVariation: 'blue',
-      hasImage: true,
-    },
-  },
-  darkblue: {
-    meta: {
-      title: 'ZH Dunkelblau',
-      desc: '',
-    },
-    props: {
-      colorVariation: 'darkblue',
-    },
-  },
-  turqoise: {
-    meta: {
-      title: 'ZH Türkis (mit Image Zitat)',
-      desc: '',
-    },
-    props: {
-      colorVariation: 'turqoise',
-      hasImage: true,
-    },
-  },
-  green: {
-    meta: {
-      title: 'ZH Grün',
-      desc: '',
-    },
-    props: {
-      colorVariation: 'green',
-    },
-  },
-  bordeaux: {
-    meta: {
-      title: 'ZH Bordeaux',
-      desc: '',
-    },
-    props: {
-      colorVariation: 'bordeaux',
-    },
-  },
-  magenta: {
-    meta: {
-      title: 'ZH Magenta',
-      desc: '',
-    },
-    props: {
-      colorVariation: 'magenta',
-    },
-  },
-  violet: {
-    meta: {
-      title: 'ZH Violett (mit Image Zitat)',
-      desc: '',
-    },
-    props: {
-      colorVariation: 'violet',
       hasImage: true,
     },
   },

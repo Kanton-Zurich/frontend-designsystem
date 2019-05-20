@@ -23,6 +23,7 @@ class Carousel extends Module {
     slideWrapper: any;
     download: any;
     close: any;
+    textalternative: any;
   }
   public options: {
     domSelectors: {
@@ -60,6 +61,7 @@ class Carousel extends Module {
         open: '[data-carousel="open"]',
         image: '[data-image-figure="image"]',
         caption: '[data-figcaption="caption"]',
+        textalternative: '[data-carousel="textalternative"]',
       },
       stateClasses: {
         fullscreen: 'mdl-carousel--fullscreen',
@@ -74,6 +76,8 @@ class Carousel extends Module {
     this.initWatchers();
 
     this.data.length = this.ui.slides.length ? this.ui.slides.length : 1;
+
+    this.setTabindexForSlides();
   }
 
   static get events() {
@@ -109,6 +113,8 @@ class Carousel extends Module {
         if (!this.data.isFullscreen) {
           this.data.active = e.detail + 1;
           this.data.isFullscreen = true;
+
+          this.setTabindexForSlides();
         }
       })
       .on('click', this.options.domSelectors.open, this.open.bind(this))
@@ -166,6 +172,8 @@ class Carousel extends Module {
     this.setTransformValue();
     this.setIndicatorText();
 
+    this.setTabindexForSlides();
+    this.setAlternativeText();
     this.ui.close.focus();
   }
 
@@ -341,9 +349,42 @@ class Carousel extends Module {
     });
   }
 
+  /**
+   * Setting the tabindex for slides, to make it more accessible
+   *
+   * @memberof Carousel
+   */
+  setTabindexForSlides() {
+    const activeIndex = this.data.active - 1;
+    const slidesArray = Array.prototype.slice.call(this.ui.slides);
+
+    slidesArray[activeIndex].removeAttribute('tabindex');
+
+    slidesArray.splice(activeIndex, 1);
+
+    slidesArray.forEach((slide) => {
+      slide.setAttribute('tabindex', '-1');
+    });
+  }
+
+  /**
+   * Set textalternative for accessibility
+   *
+   * @memberof Carousel
+   */
+  setAlternativeText() {
+    const activeIndex = this.data.active - 1;
+    const activeSlideImg = this.ui.slides[activeIndex].querySelector('img');
+    const altAttribute = activeSlideImg.getAttribute('img');
+
+    this.ui.textalternative.textContent = altAttribute;
+  }
 
   /**
    * Unbind events, remove data, custom teardown
+   *
+   *
+   * @memberof Carousel
    */
   destroy() {
     super.destroy();

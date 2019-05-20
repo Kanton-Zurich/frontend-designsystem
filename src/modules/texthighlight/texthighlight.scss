@@ -1,9 +1,11 @@
 .mdl-texthighlight {
   @include sizeCurve('padding', smallerRegular);
+}
 
-  @each $key, $val in $tl-color-variations {
-    &--#{$key},
-    [ class*='#{$key}' ] & {
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-texthighlight {
+
       background-color: #{rgba($val, 0.07)};
 
       .atm-figcaption {
@@ -26,7 +28,7 @@
         }
 
         .mdl-quote {
-          span {
+          cite {
             color: #{$val};
           }
         }
@@ -47,6 +49,54 @@
           p {
             color: #{$val};
           }
+        }
+      }
+
+      .mdl-linklist {
+        &__title {
+          color: $val;
+        }
+
+        .atm-linklist_item {
+          color: rgba($val, 1);
+
+          &:after {
+            background: rgba($val, 1);
+          }
+
+          &:hover {
+            color: rgba($colorBlack, 1);
+
+            &:after {
+              background: $colorBlack;
+            }
+
+            .icon use {
+              fill: $colorBlack;
+            }
+          }
+
+          .icon use {
+            fill: rgba($val, 1);
+          }
+        }
+      }
+    }
+  }
+}
+
+.cv-default {
+  .mdl-texthighlight {
+    .mdl-linklist {
+      .atm-linklist_item {
+        color: rgba($colorBlack, 0.6);
+
+        &:after {
+          background: rgba($colorBlack, 0.6);
+        }
+
+        .icon use {
+          fill: rgba($colorBlack, 0.6);
         }
       }
     }

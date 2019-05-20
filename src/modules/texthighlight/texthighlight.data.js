@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const dataRichtext = require('../richtext/richtext.data');
 const dataLinklist = require('../linklist/linklist.data');
@@ -14,47 +14,35 @@ const data = _.merge({}, defaultData, {
     jira: 'CZHDEV-117',
     documentation: dataHelper.getDocumentation('texthighlight.md'),
   },
-  props: {}
+  props: {
+  },
 });
 
 const variants = _.mapValues({
   textblue: {
     meta: {
-      title: 'Text Blau',
+      title: 'Text',
       desc: '',
     },
     props: _.merge({
-      colorVariation: 'blue',
-      textVariation: true,
-    }, dataRichtext.props),
-  },
-  textgreen: {
-    meta: {
-      title: 'Text Grün',
-      desc: '',
-    },
-    props: _.merge({
-      colorVariation: 'green',
       textVariation: true,
     }, dataRichtext.props),
   },
   linklistmagenta: {
     meta: {
-      title: 'Link-List Magenta',
+      title: 'Link-List',
       desc: '',
     },
     props: _.merge(dataLinklist.props, {
-      colorVariation: 'magenta',
       linklistVariation: true,
     }),
   },
   imageFigureBlue: {
     meta: {
-      title: 'Image Figure Blue',
+      title: 'Bild',
       desc: '',
     },
     props: _.merge(imageFigureData.props, {
-      colorVariation: 'blue',
       imageVariation: true,
     }),
   },

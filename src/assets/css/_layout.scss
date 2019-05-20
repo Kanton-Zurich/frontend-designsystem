@@ -48,3 +48,14 @@ nav {
     }
   }
 }
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    * {
+      ::selection {
+        background: #{$val};
+        color: $colorWhite;
+      }
+    }
+  }
+}
