@@ -48,69 +48,6 @@ const variants = _.mapValues({
     },
     props: {},
   },
-  blue: {
-    meta: {
-      title: 'Ausprägung: Blau',
-      desc: '',
-    },
-    props: {
-      colorVariation: 'blue',
-    },
-  },
-  darkblue: {
-    meta: {
-      title: 'Ausprägung: Dunkelblau',
-      desc: '',
-    },
-    props: {
-      colorVariation: 'darkblue',
-    },
-  },
-  turqoise: {
-    meta: {
-      title: 'Ausprägung: Türkis',
-      desc: '',
-    },
-    props: {
-      colorVariation: 'turqoise',
-    },
-  },
-  green: {
-    meta: {
-      title: 'Ausprägung :Grün',
-      desc: '',
-    },
-    props: {
-      colorVariation: 'green',
-    },
-  },
-  bordeaux: {
-    meta: {
-      title: 'Ausprägung: Bordeaux',
-      desc: '',
-    },
-    props: {
-      colorVariation: 'bordeaux',
-    },
-  },
-  magenta: {
-    meta: {
-      title: 'Ausprägung: Magenta',
-      desc: '',
-    },
-    props: {
-      colorVariation: 'magenta',
-    },
-  },
-  violet: {
-    meta: {
-      title: 'Ausprägung: Violett',
-      desc: '',
-    },
-    props: {
-      colorVariation: 'violet',
-    },
-  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

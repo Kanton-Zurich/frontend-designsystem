@@ -17,3 +17,4 @@ window[namespace] = {
 };
 
 document.addEventListener('DOMContentLoaded', loadSvgSprites);
+document.addEventListener('DOMContentLoaded', () => { (<any>window).estatico.lineClamper.initLineClamping(); });
