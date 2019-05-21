@@ -23,8 +23,6 @@ class Teaser extends Module {
 
     this.initUi();
     this.initEventListeners();
-
-    (<any>window).estatico.lineClamper.initLineClamping();
   }
 
   static get events() {
