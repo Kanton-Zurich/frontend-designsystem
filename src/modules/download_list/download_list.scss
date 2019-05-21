@@ -5,7 +5,7 @@
     @include resetList;
 
     .atm-linklist_item__label {
-      line-height: 1.5;
+      line-height: $sizeLineHeightBase;
     }
   }
 
