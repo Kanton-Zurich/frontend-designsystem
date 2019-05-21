@@ -1,0 +1,195 @@
+$maxTextLinesSmall: 6;
+$maxTextLinesDefault: 4;
+$titleLineHeightCorrection: 1.1;
+
+.mdl-teaser {
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+
+  & + .mdl-teaser {
+    margin-top: $sizeHuge;
+  }
+
+  &__content {
+    padding: $sizeBig;
+  }
+
+  &__date {
+    font-weight: 900;
+    font-size: $sizeFontTiny;
+    color: rgba($colorBlack, 0.6);
+  }
+
+  .atm-heading {
+    color: $colorBlack100;
+    margin: 4px 0 $sizeTiny;
+    padding-top: 0;
+    word-break: break-word;
+
+    @include mq($from: xlarge) {
+      line-height: $titleLineHeightCorrection;
+    }
+
+    $titleHeightCurve: (
+      tiny: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLinesSmall,
+      small: $sizeFontSmallBig * $sizeLineHeightBase * $maxTextLinesDefault,
+      medium: $sizeFontBig * $sizeLineHeightBase * $maxTextLinesDefault,
+      large: $sizeFontBiggerBig * $sizeLineHeightBase * $maxTextLinesDefault,
+      xlarge: $sizeFontSmallHuge * $titleLineHeightCorrection * $maxTextLinesDefault,
+    );
+
+    @include polyFluidSizing('max-height', $titleHeightCurve);
+  }
+
+  &__description {
+    color: $colorBlack60;
+    margin: 0;
+
+    $descripionHeightCurve: (
+      tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLinesSmall,
+      small: $sizeFontSmall * $sizeLineHeightBase * $maxTextLinesDefault,
+      medium: $sizeFontRegular * $sizeLineHeightBase * $maxTextLinesDefault,
+      large: $sizeFontBiggerRegular * $sizeLineHeightBase * $maxTextLinesDefault,
+    );
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+    @include polyFluidSizing('max-height', $descripionHeightCurve);
+
+    overflow: hidden;
+  }
+
+  .atm-button {
+    margin-top: $sizeRegular;
+    display: inline-flex;
+  }
+
+  &--inverted {
+
+    .mdl-teaser__content {
+      background-color: $colorBlack100;
+    }
+
+    time,
+    .mdl-teaser__title,
+    .mdl-teaser__description {
+      color: $colorWhite;
+    }
+  }
+
+  /*
+  * OVERWRITES
+   */
+  .mdl-image-figure {
+    margin-bottom: 0;
+  }
+
+  .mdl-image-figure__caption {
+    @include visuallyhidden();
+  }
+
+  @include mq($from: xsmall) {
+    margin: 0 auto;
+
+    &__wrapper {
+      @include gridBleed($trailingGutters: true);
+    }
+
+    .atm-heading {
+      margin: 4px 0 $sizeRegular;
+    }
+  }
+  @include mq($from: large) {
+    flex-direction: row;
+
+    & + .mdl-teaser {
+      margin-top: $sizeGiant;
+    }
+
+    &__content,
+    &__image {
+      flex-basis: 50%;
+      flex-grow: 1;
+      position: relative;
+    }
+
+    &--left {
+      flex-direction: row-reverse;
+    }
+
+    &--noImage {
+      max-width: 622px;
+    }
+
+    .atm-heading {
+      margin: 4px 0 $sizeSmallLarge;
+    }
+
+    .atm-button {
+      margin-top: $sizeLarge;
+    }
+
+    &__content {
+      padding: $sizeBiggerBig;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__title + div:not(.mdl-teaser__description),
+    &__description + div {
+      margin-top: auto;
+    }
+
+    &__image {
+      overflow: hidden;
+      padding-top: calc(50% / 1.3333);
+
+      figure {
+        img {
+          height: calc(100% / 1.3333);
+          min-height: 100%;
+          width: auto;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+  @include mq($from: xlarge) {
+    .atm-heading {
+      margin: 4px 0 $sizeLarge;
+    }
+
+    &--noImage {
+      max-width: 770px;
+    }
+  }
+}
+
+
+/*
+  * COLOR VARIATIONS
+   */
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-teaser {
+      background-color: $colorWhite;
+    }
+
+    .mdl-teaser__title {
+      color: #{$val};
+    }
+
+    .mdl-teaser--inverted .mdl-teaser__content {
+      background-color: #{$val};
+
+      time,
+      .mdl-teaser__title {
+        color: $colorWhite;
+      }
+    }
+  }
+}

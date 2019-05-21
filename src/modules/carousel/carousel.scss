@@ -170,15 +170,6 @@ $slidePaddingCurve: (
     }
   }
 
-  // Disabling arrow buttons on touch devices when fullscreen is opened
-  .touch & {
-    &.mdl-carousel--fullscreen {
-      .mdl-button_group {
-        display: none;
-      }
-    }
-  }
-
   &:not(.mdl-carousel--fullscreen) {
     .mdl-carousel__meta {
       display: none;
