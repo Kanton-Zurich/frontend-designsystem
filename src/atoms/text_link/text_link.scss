@@ -1,0 +1,44 @@
+.atm-text_link {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid $colorCyan;
+
+  &:hover {
+    color: $colorBlack;
+    border-color: $colorBlack;
+  }
+
+  &:focus {
+    border-radius: 3px;
+    border: 2px solid $colorCyan !important; // stylelint-disable-line
+    outline: 0;
+    padding: 5px 2px;
+    position: relative;
+    margin-left: -4px;
+    margin-right: -4px;
+  }
+
+  /* Inverted */
+  &--cv-inverted,
+  [ class*='--cv-inverted' ] & {
+    color: $colorWhite;
+    border-color: $colorWhite;
+
+    &:hover {
+      color: rgba($colorWhite, 0.6);
+      border-color: rgba($colorWhite, 0.6);
+    }
+
+    &:focus {
+      border-color: $colorWhite !important;  // stylelint-disable-line
+    }
+  }
+
+  /* Color Variations */
+  @each $key, $val in $tl-color-variations {
+    &--#{$key},
+    [ class*='#{$key}' ] & {
+      border-color: #{$val};
+    }
+  }
+}

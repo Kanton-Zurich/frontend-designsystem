@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const dataQuote = require('../quote/quote.data');
 
@@ -12,13 +12,13 @@ const data = _.merge({}, defaultData, {
     jira: 'CZHDEV-111',
     documentation: dataHelper.getDocumentation('richtext.md'),
   },
-  props:_.merge({
+  props: _.merge({
     h1Text: 'H1: Pagetitle Black Strassenverkehrsamt',
     h2Text: 'H2: Content title Black',
     h3Text: 'H3: Black title Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
     h4Text: 'H4: Black title',
     pText: 'P, Regular Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die'
-      + ' Baudirektion hat beim <a href="">Landesmuseum</a> in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunktfür'
+      + ' Baudirektion hat beim <a href="#" class="atm-text_link">Landesmuseum</a> in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunktfür'
       + ' mobile Geräte eingerichtet – den ersten in der Schweiz.P, Helvetic Roman Interessierte können ab sofort die'
       + ' Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.'
       + ' Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen'
