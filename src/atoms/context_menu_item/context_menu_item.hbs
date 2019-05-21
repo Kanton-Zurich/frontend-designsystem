@@ -1,11 +1,13 @@
 <{{#if isButton}}button{{else}}a{{/if}}
   class="atm-context_menu_item {{#if selectable}}atm-context_menu_item--selectable{{/if}}"
+  {{#if isDownload}}download{{/if}}
   {{#if href}}href="{{href}}"{{/if}}
 >
   {{#if iconBefore}}
     <svg class="icon atm-context_menu_item__icon">
       <use xlink:href="#{{iconBefore}}"></use>
     </svg>
+    <span class="visuallyhidden">Download</span>
   {{/if}}
   {{#if selectable}}
     <svg class="icon atm-context_menu_item__icon">

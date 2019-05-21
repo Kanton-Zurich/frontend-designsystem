@@ -20,14 +20,17 @@ class ContextMenu extends Module {
     stateClasses: {
       active: string;
     },
-  }
+  };
 
   public data: {
     copiedNode: HTMLElement,
     isActive: Boolean,
     escapeEvent: any,
     uniqueId: string,
-  }
+  };
+
+  public hideListener: any;
+
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -49,6 +52,10 @@ class ContextMenu extends Module {
     };
 
     super($element, defaultData, defaultOptions, data, options);
+
+    this.hideListener = () => {
+      this.hide();
+    };
 
     this.initUi();
     this.initEventListeners();
@@ -91,6 +98,12 @@ class ContextMenu extends Module {
     this.options.trigger.setAttribute('aria-expanded', 'true');
 
     this.setFocusOnOpen();
+
+    // deferred event to listen for clicking outside, this is removed
+    // as soon as the menu is destroyed or hidden
+    setTimeout(() => {
+      document.addEventListener('click', this.hideListener);
+    }, 100);
   }
 
   /**
@@ -99,6 +112,8 @@ class ContextMenu extends Module {
    * @memberof ContextMenu
    */
   hide() {
+    // remove deferred hide listener
+    document.removeEventListener('click', this.hideListener);
     this.data.isActive = false;
 
     this.removeDomNode();
@@ -184,7 +199,7 @@ class ContextMenu extends Module {
    * @memberof ContextMenu
    */
   setFocusOnOpen() {
-    (<HTMLElement> this.data.copiedNode.querySelector(INTERACTION_ELEMENTS_QUERY)).focus();
+    (<HTMLElement>this.data.copiedNode.querySelector(INTERACTION_ELEMENTS_QUERY)).focus(); //eslint-disable-line
   }
 
   /**
