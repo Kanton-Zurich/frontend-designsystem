@@ -1,0 +1,52 @@
+.mdl-descriptionlist {
+  $customSizing: (
+    termFontSize: (
+      tiny: $sizeFontTiny,
+      large: $sizeFontTiny,
+      xlarge: $sizeFontSmall
+    ),
+    definitonFontSize: (
+      tiny: $sizeFontRegular,
+      xsmall: $sizeFontBiggerRegular,
+      large: $sizeFontBiggerRegular,
+      xlarge: $sizeFontMedium
+    )
+  );
+  text-decoration: none;
+  color: $colorText;
+  position: relative;
+  margin: 0;
+  padding: $sizeSmallRegular 0 10px;
+  border-bottom: 1px solid rgba($colorBlack, 0.2);
+
+  dt {
+    @include polyFluidSizing('font-size', map-get($customSizing, termFontSize));
+    font-weight: $fontWeightBlack;
+  }
+
+  dd {
+    margin-left: 0;
+    font-weight: $fontWeightDefault;
+    color: rgba($colorBlack, 0.6);
+
+    @include polyFluidSizing('font-size', map-get($customSizing, definitonFontSize));
+  }
+
+  dt,
+  dd {
+    line-height: $sizeLineHeightBase;
+  }
+
+  /**
+  * BREAKPOINT 400px and above
+  */
+  @include mq($from: xsmall) {
+    padding: 14px 0 $sizeTiny;
+  }
+  /**
+  * BREAKPOINT 1280px and above
+  */
+  @include mq($from: xlarge) {
+    padding: 19px 0 14px;
+  }
+}
