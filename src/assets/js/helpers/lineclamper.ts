@@ -11,6 +11,9 @@ class LineClamper {
   };
 
   private elements: any = null;
+  private timeoutLock: boolean = false;
+  private maxIterations: number = 20; // eslint-disable-line no-magic-numbers
+  private timeoutLimit = 2000; // eslint-disable-line no-magic-numbers
 
   constructor() {
     this.options = {
@@ -37,26 +40,22 @@ class LineClamper {
    * @memberof LineClamper
    */
   private setLineClamping() {
-    const defaultFallbackFunc = (el, maxLines, elHeight, elLineHeight) => {
-      // todo: find solution for non webkit browsers for the three dots
-      /* while (el.scrollHeight > elHeight) {
-        el.textContent = el.textContent.replace(/\W*\s(\S)*$/, '...');
-      } */
-      if (maxLines) {
-        let lineHeight = elLineHeight;
-        if (isNaN(lineHeight)) {// eslint-disable-line
-          // line-height must be a number (of pixels), falling back to 16px
-          lineHeight = 16; // eslint-disable-line
+    if (this.timeoutLock) {
+      return;
+    }
+    this.timeoutLock = true;
+    // only do line clamping every 2 seconds for performance reasons
+    setTimeout(() => { this.timeoutLock = false; }, this.timeoutLimit);
+    const defaultFallbackFunc = (el, maxLines, elHeight) => {
+      let maxIt = this.maxIterations;
+      let currentScrollHeight = 0;
+      while (el.scrollHeight > elHeight && maxIt > 0) {
+        if (el.scrollHeight !== currentScrollHeight) {
+          maxIt = this.maxIterations;
+          currentScrollHeight = el.scrollHeight;
         }
-
-        const maxHeight = lineHeight * maxLines;
-
-        el.style.maxHeight = maxHeight ? maxHeight + 'px' : ''; // eslint-disable-line
-        el.style.overflowX = 'hidden';
-        el.style.lineHeight = lineHeight + 'px'; // eslint-disable-line
-      } else {
-        el.style.maxHeight = '';
-        el.style.overflowX = '';
+        el.textContent = el.textContent.replace(/\W*\s(\S)*$/, '...');
+        maxIt -= 1;
       }
     };
 
@@ -64,10 +63,10 @@ class LineClamper {
       ? undefined
       : defaultFallbackFunc;
 
-    const truncateText = (el, maxLines, elHeight, elLineHeight) => {
+    const truncateText = (el, maxLines, elHeight) => {
       if (!isNaN(maxLines)) { // eslint-disable-line
         if (useFallbackFunc) {
-          useFallbackFunc(el, maxLines, elHeight, elLineHeight);
+          useFallbackFunc(el, maxLines, elHeight);
         } else {
           el.style.overflow = 'hidden';
           el.style.textOverflow = 'ellipsis';
@@ -92,7 +91,7 @@ class LineClamper {
         }
         const computedLineHeight = parseInt(window.getComputedStyle(element).getPropertyValue('line-height'), 10);
         const lines = Math.floor(elementHeight / computedLineHeight);
-        truncateText(element, lines, elementHeight, computedLineHeight);
+        truncateText(element, lines, elementHeight);
       });
     }
   }

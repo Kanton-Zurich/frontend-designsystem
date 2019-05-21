@@ -1,5 +1,6 @@
 $maxTextLinesSmall: 6;
 $maxTextLinesDefault: 4;
+$titleLineHeightCorrection: 1.1;
 
 .mdl-teaser {
   text-decoration: none;
@@ -25,13 +26,18 @@ $maxTextLinesDefault: 4;
     color: $colorBlack100;
     margin: 4px 0 $sizeTiny;
     padding-top: 0;
+    word-break: break-word;
+
+    @include mq($from: xlarge) {
+      line-height: $titleLineHeightCorrection;
+    }
 
     $titleHeightCurve: (
       tiny: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLinesSmall,
       small: $sizeFontSmallBig * $sizeLineHeightBase * $maxTextLinesDefault,
       medium: $sizeFontBig * $sizeLineHeightBase * $maxTextLinesDefault,
       large: $sizeFontBiggerBig * $sizeLineHeightBase * $maxTextLinesDefault,
-      xlarge: $sizeFontSmallHuge * $maxTextLinesDefault,
+      xlarge: $sizeFontSmallHuge * $titleLineHeightCorrection * $maxTextLinesDefault,
     );
 
     @include polyFluidSizing('max-height', $titleHeightCurve);
@@ -84,12 +90,10 @@ $maxTextLinesDefault: 4;
   }
 
   @include mq($from: xsmall) {
-    max-width: calc(100% - 4rem);
     margin: 0 auto;
 
     &__wrapper {
-
-      @include gridBleed;
+      @include gridBleed($trailingGutters: true);
     }
 
     .atm-heading {
@@ -97,7 +101,6 @@ $maxTextLinesDefault: 4;
     }
   }
   @include mq($from: large) {
-    max-width: calc(100% - 5rem);
     flex-direction: row;
 
     & + .mdl-teaser {
@@ -156,10 +159,6 @@ $maxTextLinesDefault: 4;
     }
   }
   @include mq($from: xlarge) {
-    &__wrapper {
-      width: 73em;
-    }
-
     .atm-heading {
       margin: 4px 0 $sizeLarge;
     }

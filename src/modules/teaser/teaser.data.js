@@ -7,7 +7,7 @@ const imageFigureDemoData = require('../image_figure/image_figure.data');
 const template = dataHelper.getFileContent('teaser.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'teaser',
+    title: 'Teaser',
     className: 'Teaser',
     jira: 'CZHDEV-347',
     documentation: dataHelper.getDocumentation('teaser.md'),
