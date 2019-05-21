@@ -20,8 +20,9 @@
   border-bottom: 1px solid rgba($colorBlack, 0.2);
 
   dt {
-    @include polyFluidSizing('font-size', map-get($customSizing, termFontSize));
     font-weight: $fontWeightBlack;
+
+    @include polyFluidSizing('font-size', map-get($customSizing, termFontSize));
   }
 
   dd {
