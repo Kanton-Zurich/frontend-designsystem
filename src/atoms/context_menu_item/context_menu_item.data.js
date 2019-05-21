@@ -78,6 +78,8 @@ const variants = _.mapValues({
       iconBefore: 'download',
       iconAfter: false,
       text: 'Sprache',
+      href: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      isDownload: true,
     },
   },
 }, (variant) => {
