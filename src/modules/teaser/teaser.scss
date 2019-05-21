@@ -35,7 +35,6 @@ $maxTextLinesDefault: 4;
     );
 
     @include polyFluidSizing('max-height', $titleHeightCurve);
-    overflow: hidden;
   }
 
   &__description {
@@ -70,28 +69,6 @@ $maxTextLinesDefault: 4;
     .mdl-teaser__title,
     .mdl-teaser__description {
       color: $colorWhite;
-    }
-  }
-
-  /*
-  * COLOR VARIATIONS
-   */
-  @each $key, $val in $tl-color-variations {
-    &--#{$key} {
-      background-color: $colorWhite;
-
-      .mdl-teaser__title {
-        color: #{$val};
-      }
-
-      &.mdl-teaser--inverted .mdl-teaser__content {
-        background-color: #{$val};
-
-        time,
-        .mdl-teaser__title {
-          color: $colorWhite;
-        }
-      }
     }
   }
 
@@ -189,6 +166,31 @@ $maxTextLinesDefault: 4;
 
     &--noImage {
       max-width: 770px;
+    }
+  }
+}
+
+
+/*
+  * COLOR VARIATIONS
+   */
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-teaser {
+      background-color: $colorWhite;
+    }
+
+    .mdl-teaser__title {
+      color: #{$val};
+    }
+
+    .mdl-teaser--inverted .mdl-teaser__content {
+      background-color: #{$val};
+
+      time,
+      .mdl-teaser__title {
+        color: $colorWhite;
+      }
     }
   }
 }
