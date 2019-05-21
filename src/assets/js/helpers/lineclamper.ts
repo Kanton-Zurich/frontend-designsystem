@@ -63,12 +63,13 @@ class LineClamper {
       ? undefined
       : defaultFallbackFunc;
 
-    const truncateText = (el, maxLines, elHeight) => {
+    const truncateText = (el, maxLines, elHeight, elBottomPadding) => {
       if (!isNaN(maxLines)) { // eslint-disable-line
         if (useFallbackFunc) {
           useFallbackFunc(el, maxLines, elHeight);
         } else {
           el.style.overflow = 'hidden';
+          el.style.paddingBottom = `${elBottomPadding}px`;
           el.style.textOverflow = 'ellipsis';
           el.style.webkitBoxOrient = 'vertical';
           el.style.display = '-webkit-box';
@@ -90,8 +91,13 @@ class LineClamper {
           elementHeight = parseInt(window.getComputedStyle(element).getPropertyValue('height'), 10);
         }
         const computedLineHeight = parseInt(window.getComputedStyle(element).getPropertyValue('line-height'), 10);
+        const computedFontSize = parseInt(window.getComputedStyle(element).getPropertyValue('font-size'), 10);
         const lines = Math.floor(elementHeight / computedLineHeight);
-        truncateText(element, lines, elementHeight);
+        let bottomFontPadding = 0;
+        if (computedLineHeight / computedFontSize < 1.1) { // eslint-disable-line
+          bottomFontPadding = 0.1 * computedLineHeight; // eslint-disable-line
+        }
+        truncateText(element, lines, elementHeight, bottomFontPadding);
       });
     }
   }
