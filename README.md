@@ -22,6 +22,17 @@ npm install
 
 See `gulpfile.js` for details.
 
+
+- Basic run/watch command
+```bash
+npm run gulp -- --dev --watch
+```
+
+- Create a new module / page /atom
+```bash
+npm run gulp scaffold
+```
+
 ## Docker
 
 ```bash

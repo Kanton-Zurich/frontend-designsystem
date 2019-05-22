@@ -90,6 +90,9 @@ class Accordion extends Module {
 
       this.setTabindex(focusableChildren, -1);
     }
+
+    // Sending event to all children who have to be redrawn
+    (<any>window).estatico.helpers.sendRedrawEvent(panel);
   }
 
   /**

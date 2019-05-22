@@ -225,6 +225,15 @@ $grid-margin-gutters: (
   xlarge: $sizeBig
 );
 
+$grid-outer-gutters: (
+  bleed: (
+    tiny: $sizeSmallRegular,
+    xsmall: $sizeRegular,
+    small: $sizeBig,
+    large: $sizeBiggerBig,
+    xlarge: 0
+  )
+);
 
 $breakpoint-classes: (tiny xsmall small medium large xlarge);
 

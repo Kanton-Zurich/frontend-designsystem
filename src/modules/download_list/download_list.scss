@@ -3,6 +3,10 @@
 
   &__list {
     @include resetList;
+
+    .atm-linklist_item__label {
+      line-height: $sizeLineHeightBase;
+    }
   }
 
   &__title.atm-heading {

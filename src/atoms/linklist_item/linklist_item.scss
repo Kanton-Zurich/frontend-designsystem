@@ -4,6 +4,10 @@
   font-weight: $fontWeightBlack;
   position: relative;
 
+  .icon {
+    min-width: pxToRem(24);
+  }
+
   @at-root button {
     @include blankButton;
   }

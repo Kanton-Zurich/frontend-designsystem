@@ -1,0 +1,232 @@
+.mdl-table {
+  @include sizeCurve(margin-bottom, medium);
+
+  &__title {
+    margin-bottom: $sizeTiny;
+  }
+
+  &__subtitle {
+    margin-top: -$sizeTiny;
+    margin-bottom: $sizeTiny;
+    color: rgba($colorBlack, 0.6);
+  }
+
+  &__figure {
+    margin: 0;
+    background: $colorWhite;
+  }
+
+  &__figcaption {
+    margin: $sizeSmallRegular 0 0;
+
+    & .atm-figcaption {
+      color: rgba($colorBlack, 0.6);
+      font-size: $sizeFontTiny;
+    }
+  }
+
+  &__scroll-area {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  &__wrapper {
+    width: 100%;
+    overflow: auto;
+  }
+
+  &__shade-left,
+  &__shade-right {
+    position: absolute;
+    content: ' ';
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    opacity: 0;
+
+    @include transition(opacity);
+  }
+
+  &__shade-right {
+    right: 0;
+
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
+
+    .mdl-table--shade-right & {
+      opacity: 1;
+    }
+  }
+
+  &__shade-left {
+    background: linear-gradient(270deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
+
+    .mdl-table--shade-left & {
+      opacity: 1;
+    }
+  }
+
+  &__table {
+    border-spacing: 0;
+    color: rgba($colorBlack, 0.6);
+    font-size: $sizeFontRegular;
+    line-height: $sizeLineHeightBase;
+    width: 100%;
+  }
+
+  &__table--cloned {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+
+    thead tr th:first-child {
+      z-index: 2;
+
+      button {
+        pointer-events: all;
+      }
+
+      .mdl-table__sort-arrow {
+        z-index: 3;
+      }
+    }
+
+    & .mdl-table__cell {
+      visibility: hidden;
+      background: $colorWhite;
+    }
+
+    & tbody .mdl-table__row:nth-child(odd) .mdl-table__cell {
+      background: $colorBlack5;
+    }
+
+    & .mdl-table__row-header,
+    & .mdl-table__column-header:first-child {
+      visibility: visible;
+    }
+  }
+
+  &__cell.mdl-table__column-header {
+    color: rgba($colorBlack, 1);
+    font-size: $sizeFontTiny;
+    font-weight: $fontWeightBlack;
+    vertical-align: bottom;
+
+    &--sortable {
+      color: $colorCyan;
+      position: relative;
+      padding-right: 1.25rem;
+
+      > button {
+        @include blankButton();
+
+        display: flex;
+        font-weight: $fontWeightBlack;
+        align-items: center;
+        width: 100%;
+
+        &:hover {
+          .mdl-table__sort-arrow use {
+            fill: $colorBlack60;
+          }
+        }
+
+        &.mdl-table__column--asc,
+        &.mdl-table__column--desc {
+          .mdl-table__sort-arrow use {
+            fill: $colorBlue;
+          }
+        }
+
+        &.mdl-table__column--desc {
+          .mdl-table__sort-arrow {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+  }
+
+  &__sort-arrow {
+    width: 1.25rem;
+    height: 1.25rem;
+    min-width: 1.25rem;
+    min-height: 1.25rem;
+
+    use {
+      fill: transparent;
+
+      @include transition(fill);
+    }
+  }
+
+  &__cell.mdl-table__row-header,
+  &__row--highlighted &__cell {
+    color: rgba($colorBlack, 1);
+    font-weight: 900;
+  }
+
+  &__cell {
+    padding: $sizeRegular $sizeRegular $sizeTiny;
+    font-weight: 400;
+  }
+
+  &__body &__row:nth-child(odd) &__cell {
+    background: $colorBlack5; // background: rgba(0, 0, 0, 0.05);
+  }
+
+  &__cell,
+  &--align-right &__cell:first-child {
+    text-align: left;
+  }
+
+  &--align-right &__cell {
+    text-align: right;
+  }
+
+  /**
+   * Inverted
+   */
+  &--inverted {
+    .mdl-table__figure {
+      background: $colorBlack5;
+    }
+
+    .mdl-table__row:nth-child(odd) .mdl-table__cell {
+      background: $colorWhite;
+    }
+
+    .mdl-table__table--cloned {
+      & .mdl-table__cell {
+        background: $colorBlack5;
+      }
+
+      & .mdl-table__row:nth-child(odd) .mdl-table__cell {
+        background: $colorWhite;
+      }
+    }
+  }
+
+  /**
+   * Full width
+   */
+  &--fullwidth {
+    @include sizeCurve(margin-bottom margin-top, big);
+
+    .mdl-table__figure {
+      @include gridBleed;
+    }
+  }
+}
+
+/**
+ * Color variations
+ */
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-table__row--highlighted .mdl-table__cell {
+      color: #{$val};
+    }
+  }
+}

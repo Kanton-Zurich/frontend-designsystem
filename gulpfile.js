@@ -462,7 +462,7 @@ gulp.task('js:test', (done) => { // eslint-disable-line consistent-return
     return done();
   }
 
-  const {spawn} = require('child_process');
+  const { spawn } = require('child_process');
   const stripAnsi = require('strip-ansi');
 
   let failed = false;

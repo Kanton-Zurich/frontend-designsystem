@@ -16,6 +16,19 @@ const inspector = new Inspector();
 const a11y = new A11y();
 const grid = new Grid();
 
+window.addEventListener('DOMContentLoaded', () => {
+  const variantsInput = document.querySelectorAll('input[name="variants"]');
+
+  variantsInput.forEach((input) => {
+    input.addEventListener('change', (event) => {
+      const panel = document.querySelector(`#panel${(<any> event.target).getAttribute('id').replace('variants', '')}`);
+
+      // Sending event to all children who have to be redrawn
+      (<any>window).estatico.helpers.sendRedrawEvent(panel);
+    });
+  });
+});
+
 // Keyboard triggered helpers
 document.onkeydown = (e: any) => {
   const event = e || window.event;
