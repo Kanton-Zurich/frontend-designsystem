@@ -57,13 +57,13 @@
       display: flex;
 
       .atm-heading {
-        padding-top: 4px;
+        padding-top: pxToRem($sizeTiny / 2);
       }
     }
 
     @include mq($from: xlarge) {
       .atm-heading {
-        padding-top: 12px;
+        padding-top: pxToRem($sizeSmallRegular);
       }
     }
   }
