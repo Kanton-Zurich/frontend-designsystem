@@ -60,7 +60,6 @@
         padding-top: pxToRem($sizeTiny / 2);
       }
     }
-
     @include mq($from: xlarge) {
       .atm-heading {
         padding-top: pxToRem($sizeSmallRegular);
