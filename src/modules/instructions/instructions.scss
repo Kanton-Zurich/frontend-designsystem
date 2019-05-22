@@ -48,13 +48,22 @@
   &__item {
     position: relative;
 
+    .atm-heading {
+      padding: 0;
+    }
+
     @include sizeCurve('margin-top', itemTop, $customSizing);
     @include mq($from: small) {
       display: flex;
-    }
 
-    .atm-heading {
-      padding: 0;
+      .atm-heading {
+        padding-top: pxToRem($sizeTiny / 2);
+      }
+    }
+    @include mq($from: xlarge) {
+      .atm-heading {
+        padding-top: pxToRem($sizeSmallRegular);
+      }
     }
   }
 
