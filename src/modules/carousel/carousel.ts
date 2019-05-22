@@ -36,6 +36,7 @@ class Carousel extends Module {
       open: string,
       image: string,
       caption: string,
+      ariaFullscreen: string,
     },
     stateClasses: {
       fullscreen: string,
@@ -62,6 +63,7 @@ class Carousel extends Module {
         image: '[data-image-figure="image"]',
         caption: '[data-figcaption="caption"]',
         textalternative: '[data-carousel="textalternative"]',
+        ariaFullscreen: '[data-carousel="ariaFullscreen"]',
       },
       stateClasses: {
         fullscreen: 'mdl-carousel--fullscreen',
@@ -78,6 +80,7 @@ class Carousel extends Module {
     this.data.length = this.ui.slides.length ? this.ui.slides.length : 1;
 
     this.setTabindexForSlides();
+    this.setAlternativeText();
   }
 
   static get events() {
@@ -264,6 +267,8 @@ class Carousel extends Module {
       document.documentElement.classList.add('locked');
 
       window.addEventListener('keydown', this.closeOnEscape.bind(this));
+
+      this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen).forEach(e => e.setAttribute('aria-hidden', 'true'));
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
       this.ui.element.classList.remove(this.options.stateClasses.inverted);
@@ -274,6 +279,8 @@ class Carousel extends Module {
       document.documentElement.classList.remove('locked');
 
       window.removeEventListener('keydown', this.closeOnEscape.bind(this));
+
+      this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen).forEach(e => e.setAttribute('aria-hidden', 'false'));
     }
   }
 
@@ -375,7 +382,7 @@ class Carousel extends Module {
   setAlternativeText() {
     const activeIndex = this.data.active - 1;
     const activeSlideImg = this.ui.slides[activeIndex].querySelector('img');
-    const altAttribute = activeSlideImg.getAttribute('img');
+    const altAttribute = activeSlideImg.getAttribute('alt');
 
     this.ui.textalternative.textContent = altAttribute;
   }
