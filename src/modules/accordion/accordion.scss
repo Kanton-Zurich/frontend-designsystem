@@ -5,6 +5,10 @@
     margin: 0;
   }
 
+  .atm-heading {
+    @include sizeCurve(margin-bottom, medium);
+  }
+
   &__label {
     display: flex;
     align-items: flex-start;
