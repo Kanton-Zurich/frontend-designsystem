@@ -18,6 +18,7 @@ class Accordion extends Module {
       panel: string,
       panelContent: string,
       title: string,
+      verticalIcon: string,
     },
     stateClasses: {
       open: string,
@@ -48,6 +49,7 @@ class Accordion extends Module {
         panel: '[data-accordion="panel"]',
         panelContent: '[data-accordion="panel-content"]',
         title: '[data-accordion="title"]',
+        verticalIcon: '[data-accordion="verticalIcon"]',
       },
       stateClasses: {
         open: 'mdl-accordion__item--open',
@@ -78,15 +80,20 @@ class Accordion extends Module {
     const accordionItem = element.parentElement.parentElement;
     const panel = accordionItem.querySelector(this.options.domSelectors.panel);
     const focusableChildren = panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY);
+    const verticalIcon = accordionItem.querySelector(this.options.domSelectors.verticalIcon);
 
     accordionItem.classList.toggle(this.options.stateClasses.open);
 
     if (checkedNow) {
       panel.style.maxHeight = `${this.calcHeight(accordionItem)}px`;
 
+      verticalIcon.setAttribute('transform', 'rotate(90)');
+
       this.setTabindex(focusableChildren, 0);
     } else {
       panel.style.maxHeight = '0px';
+
+      verticalIcon.removeAttribute('transform');
 
       this.setTabindex(focusableChildren, -1);
     }
