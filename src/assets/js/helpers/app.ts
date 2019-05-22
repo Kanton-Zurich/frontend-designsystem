@@ -14,7 +14,6 @@ import ImageGallery from '../../../modules/image_gallery/image_gallery';
 import Accordion from '../../../modules/accordion/accordion';
 import DownloadList from '../../../modules/download_list/download_list';
 import ContextMenu from '../../../modules/context_menu/context_menu';
-import PublicationTeaser from '../../../modules/publication_teaser/publication_teaser';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -33,7 +32,6 @@ class App {
     this.modules.accordion = Accordion;
     this.modules.downloadList = DownloadList;
     this.modules.contextMenu = ContextMenu;
-    this.modules.publicationTeaser = PublicationTeaser;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
