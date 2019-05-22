@@ -1,8 +1,8 @@
 .mdl-publication_teaser {
-  margin-bottom: 40px;
+  margin-bottom: $sizeBiggerBig;
 
   &__image {
-    margin-top: 8px;
+    margin-top: $sizeTiny;
   }
 
   .mdl-image-figure {
@@ -14,7 +14,7 @@
   }
 
   @include mq($from: medium) {
-    margin-bottom: 56px;
+    margin-bottom: $sizeHuge;
 
     .mdl-publication_teaser__image {
       padding-right: $sizeLarge;
@@ -37,7 +37,7 @@
   }
   @include mq($from: xlarge) {
     .mdl-publication_teaser__image {
-      margin-top: 16px;
+      margin-top: $sizeRegular;
     }
   }
 }
