@@ -38,16 +38,10 @@
     line-height: $sizeLineHeightBase;
   }
 
-  /**
-  * BREAKPOINT 400px and above
-  */
   @include mq($from: xsmall) {
     padding: 14px 0 $sizeTiny;
   }
-  /**
-  * BREAKPOINT 1280px and above
-  */
   @include mq($from: xlarge) {
-    padding: 16px 0 14px;
+    padding: $sizeRegular 0 14px;
   }
 }
