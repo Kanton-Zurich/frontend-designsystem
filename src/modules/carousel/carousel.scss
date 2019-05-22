@@ -120,7 +120,7 @@ $slidePaddingCurve: (
     right: 0;
     bottom: 0;
     height: 100vh;
-    z-index: 1;
+    z-index: $zIndexOverlays;
 
     background: $colorBlack80;
     margin: 0;
