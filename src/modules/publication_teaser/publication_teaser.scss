@@ -39,5 +39,10 @@
     .mdl-publication_teaser__image {
       margin-top: $sizeRegular;
     }
+
+    .mdl-publication_teaser__image,
+    .mdl-publication_teaser__content {
+      width: calc(50% - 2rem);
+    }
   }
 }

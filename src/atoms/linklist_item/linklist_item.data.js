@@ -30,7 +30,7 @@ const variants = _.mapValues({
     },
     props: {
       linkListItemIsDownload: true,
-      linkListItemLabel: 'Dateityp | Seiten | Sprache | 100kb',
+      linkListItemLabel: 'Dateityp | Seiten | DE | 100kb',
       linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
     },
   },
