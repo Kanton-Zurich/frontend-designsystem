@@ -79,7 +79,7 @@ class Carousel extends Module {
 
     this.data.length = this.ui.slides.length ? this.ui.slides.length : 1;
 
-    this.setTabindexForSlides();
+    this.setAccessibilityAttributesForSlides();
     this.setAlternativeText();
   }
 
@@ -117,7 +117,7 @@ class Carousel extends Module {
           this.data.active = e.detail + 1;
           this.data.isFullscreen = true;
 
-          this.setTabindexForSlides();
+          this.setAccessibilityAttributesForSlides();
         }
       })
       .on('click', this.options.domSelectors.open, this.open.bind(this))
@@ -175,7 +175,7 @@ class Carousel extends Module {
     this.setTransformValue();
     this.setIndicatorText();
 
-    this.setTabindexForSlides();
+    this.setAccessibilityAttributesForSlides();
     this.setAlternativeText();
     this.ui.close.focus();
   }
@@ -361,16 +361,18 @@ class Carousel extends Module {
    *
    * @memberof Carousel
    */
-  setTabindexForSlides() {
+  setAccessibilityAttributesForSlides() {
     const activeIndex = this.data.active - 1;
     const slidesArray = Array.prototype.slice.call(this.ui.slides);
 
-    slidesArray[activeIndex].removeAttribute('tabindex');
+    slidesArray[activeIndex].querySelector('button').removeAttribute('tabindex');
+    slidesArray[activeIndex].removeAttribute('aria-hidden');
 
     slidesArray.splice(activeIndex, 1);
 
     slidesArray.forEach((slide) => {
-      slide.setAttribute('tabindex', '-1');
+      slide.querySelector('button').setAttribute('tabindex', '-1');
+      slide.setAttribute('aria-hidden', 'true');
     });
   }
 
