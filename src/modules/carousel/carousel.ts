@@ -365,13 +365,13 @@ class Carousel extends Module {
     const activeIndex = this.data.active - 1;
     const slidesArray = Array.prototype.slice.call(this.ui.slides);
 
-    slidesArray[activeIndex].querySelector('button').removeAttribute('tabindex');
+    slidesArray[activeIndex].querySelectorAll('button, a').forEach(e => e.removeAttribute('tabindex'));
     slidesArray[activeIndex].removeAttribute('aria-hidden');
 
     slidesArray.splice(activeIndex, 1);
 
     slidesArray.forEach((slide) => {
-      slide.querySelector('button').setAttribute('tabindex', '-1');
+      slide.querySelectorAll('button, a').forEach(e => e.setAttribute('tabindex', '-1'));
       slide.setAttribute('aria-hidden', 'true');
     });
   }
