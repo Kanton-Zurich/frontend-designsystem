@@ -12,8 +12,8 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('linklist_item.md'),
   },
   props: {
-    title: 'Test',
-    href: '/',
+    linkListItemTitle: 'Test',
+    linkListItemHref: '/',
   },
 });
 const variants = _.mapValues({
@@ -29,9 +29,9 @@ const variants = _.mapValues({
       desc: 'Link für die Downloadliste',
     },
     props: {
-      isDownload: true,
-      label: 'Dateityp | Seiten | Sprache | 100kb',
-      href: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      linkListItemIsDownload: true,
+      linkListItemLabel: 'Dateityp | Seiten | Sprache | 100kb',
+      linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
     },
   },
   downloadAsButton: {
@@ -40,10 +40,10 @@ const variants = _.mapValues({
       desc: 'Ein Button für die Downloadliste, welches ein Kontext-Menü öffnet',
     },
     props: {
-      isDownload: true,
-      label: 'Dateityp | Seiten | Sprache | 100kb',
+      linkListItemIsDownload: true,
+      linkListItemLabel: 'Dateityp | Seiten | Sprache | 100kb',
       isButton: true,
-      href: false,
+      linkListItemHref: false,
     },
   },
   legalFoundation: {
@@ -52,11 +52,11 @@ const variants = _.mapValues({
       desc: 'Ein Link welches ermöglicht eine rechtliche Grundlage herunterzuladen',
     },
     props: {
-      href: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-      label: 'RRB Nr. 258 | 21.03.2019 | Direktion der Justiz und des Inneren',
-      title: 'ZHAW Hochschule Winterthur, Campus Technikumstrasse, Projektierung "Campus T" 1. Etappe, gebunde Ausgabe',
+      linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      linkListItemLabel: 'RRB Nr. 258 | 21.03.2019 | Direktion der Justiz und des Inneren',
+      linkListItemTitle: 'ZHAW Hochschule Winterthur, Campus Technikumstrasse, Projektierung "Campus T" 1. Etappe, gebunde Ausgabe',
       isLegalFoundation: true,
-      isDownload: true,
+      linkListItemIsDownload: true,
       isButton: false,
     },
   },

@@ -6,13 +6,32 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('descriptionlist.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'descriptionlist',
+    title: 'Gelabelte Liste',
     className: 'Descriptionlist',
     jira: 'CZHDEV-*',
     documentation: dataHelper.getDocumentation('descriptionlist.md'),
   },
   props: {
-
+    descriptionListItems: [
+      {
+        item: {
+          term: 'Label 1',
+          description: 'Value 1',
+        },
+      },
+      {
+        item: {
+          term: 'Label 2',
+          description: 'Value 2',
+        },
+      },
+      {
+        item: {
+          term: 'Label 3',
+          description: 'Value 3',
+        },
+      },
+    ],
   },
 });
 const variants = _.mapValues({

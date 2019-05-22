@@ -1,3 +1,30 @@
 .mdl-publication_teaser {
+  margin-bottom: 40px;
 
+  &__image {
+    margin-top: 8px;
+  }
+
+  .mdl-image-figure {
+    margin-bottom: 0;
+
+    .mdl-image-figure__caption {
+      @include visuallyhidden();
+    }
+  }
+
+  @include mq($from: medium) {
+    margin-bottom: 56px;
+
+    .medium-5 {
+      width: calc(44.4444444444% - #{$sizeLarge} - #{$sizeLarge});
+    }
+  }
+  @include mq($from: xlarge) {
+    &__image {
+      margin-top: 16px;
+    }
+
+
+  }
 }
