@@ -93,6 +93,8 @@
   }
 
   &__bullet + div {
+    width: 100%;
+
     @include mq($from: small) {
       @include sizeCurve('margin-left', quoteParagraph, $indentCurve);
       flex-grow: 1;
