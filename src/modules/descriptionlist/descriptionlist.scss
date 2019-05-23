@@ -1,0 +1,47 @@
+.mdl-descriptionlist {
+  $customSizing: (
+    termFontSize: (
+      tiny: $sizeFontTiny,
+      large: $sizeFontTiny,
+      xlarge: $sizeFontSmall
+    ),
+    definitonFontSize: (
+      tiny: $sizeFontRegular,
+      xsmall: $sizeFontBiggerRegular,
+      large: $sizeFontBiggerRegular,
+      xlarge: $sizeFontMedium
+    )
+  );
+  text-decoration: none;
+  color: $colorText;
+  position: relative;
+  margin: 0;
+  padding: $sizeSmallRegular 0 10px;
+  border-bottom: 1px solid rgba($colorBlack, 0.2);
+
+  dt {
+    font-weight: $fontWeightBlack;
+
+    @include polyFluidSizing('font-size', map-get($customSizing, termFontSize));
+  }
+
+  dd {
+    margin-left: 0;
+    font-weight: $fontWeightDefault;
+    color: rgba($colorBlack, 0.6);
+
+    @include polyFluidSizing('font-size', map-get($customSizing, definitonFontSize));
+  }
+
+  dt,
+  dd {
+    line-height: $sizeLineHeightBase;
+  }
+
+  @include mq($from: xsmall) {
+    padding: 14px 0 $sizeTiny;
+  }
+  @include mq($from: xlarge) {
+    padding: $sizeRegular 0 14px;
+  }
+}

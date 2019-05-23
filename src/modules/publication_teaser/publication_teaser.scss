@@ -1,0 +1,48 @@
+.mdl-publication_teaser {
+  margin-bottom: $sizeBiggerBig;
+
+  &__image {
+    margin-top: $sizeTiny;
+  }
+
+  .mdl-image-figure {
+    margin-bottom: 0;
+
+    .mdl-image-figure__caption {
+      @include visuallyhidden();
+    }
+  }
+
+  @include mq($from: medium) {
+    margin-bottom: $sizeHuge;
+
+    .mdl-publication_teaser__image {
+      padding-right: $sizeLarge;
+      width: calc(44.4444% - #{$sizeLarge});
+    }
+
+    .mdl-publication_teaser__content {
+      width: calc(55.5556% - #{$sizeLarge});
+    }
+  }
+  @include mq($from: large) {
+    .mdl-publication_teaser__image {
+      padding-right: $sizeBig;
+    }
+
+    .mdl-publication_teaser__image,
+    .mdl-publication_teaser__content {
+      width: calc(50% - 1.5rem);
+    }
+  }
+  @include mq($from: xlarge) {
+    .mdl-publication_teaser__image {
+      margin-top: $sizeRegular;
+    }
+
+    .mdl-publication_teaser__image,
+    .mdl-publication_teaser__content {
+      width: calc(50% - 2rem);
+    }
+  }
+}
