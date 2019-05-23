@@ -1,20 +1,20 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const downloadLinkItem = {
-  title: 'Dokument',
-  isDownload: true,
-  label: 'PDF | 1 Seite | DE | 100kb',
-  href: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+  linkListItemTitle: 'Dokument',
+  linkListItemIsDownload: true,
+  linkListItemLabel: 'PDF | 1 Seite | DE | 100kb',
+  linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 };
 const downloadButtonItem = {
-  title: 'Documents',
-  isDownload: true,
-  label: 'PDF | 1 Seite | DE, FR, IT | 100kb',
+  linkListItemTitle: 'Documents',
+  linkListItemIsDownload: true,
+  linkListItemLabel: 'PDF | 1 Seite | DE, FR, IT | 100kb',
   isButton: true,
-  href: false,
+  linkListItemHref: false,
 };
 const downloadLegalFoundation = require('../../atoms/linklist_item/linklist_item.data').variants.legalFoundation.props;
 
