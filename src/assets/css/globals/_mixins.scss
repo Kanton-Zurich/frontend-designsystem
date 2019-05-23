@@ -372,9 +372,16 @@
 /**
  * Grid bleeding for content elements
  */
-@mixin gridBleed() {
-  width: 100vw;
-  max-width: 1440px;
+@mixin gridBleed($trailingGutters: false) {
+  @if $trailingGutters == true {
+    @include sizeCurve(padding-left padding-right, bleed, $grid-outer-gutters);
+
+    width: 100vw;
+    max-width: $sizeWidthContent;
+  }@else {
+    width: calc(100vw + 2px);
+    max-width: $sizeGlobalMaxWidth;
+  }
   transform: translateX(-50%);
   margin-left: 50%;
 

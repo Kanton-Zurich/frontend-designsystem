@@ -17,7 +17,11 @@ const data = _.merge({}, defaultData, {
   props: {
     lists: [
       {
-        items: [contextMenuItemDef, contextMenuItemDef, contextMenuItemDef],
+        items: [
+          _.merge({}, contextMenuItemDef, { text: 'Menupunkt 1' }),
+          _.merge({}, contextMenuItemDef, { text: 'Menupunkt 2' }),
+          _.merge({}, contextMenuItemDef, { text: 'Menupunkt 3' }),
+        ],
       },
     ],
   },
@@ -40,7 +44,11 @@ const variants = _.mapValues({
     props: {
       lists: [
         {
-          items: [contextMenuItemDownload, contextMenuItemDownload, contextMenuItemDownload],
+          items: [
+            _.merge({}, contextMenuItemDownload, { text: 'Deutsch' }),
+            _.merge({}, contextMenuItemDownload, { text: 'Français' }),
+            _.merge({}, contextMenuItemDownload, { text: 'Italiano' }),
+          ],
         },
       ],
     },

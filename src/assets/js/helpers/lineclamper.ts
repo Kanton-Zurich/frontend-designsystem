@@ -8,10 +8,12 @@ import WindowEventListener from './events';
 class LineClamper {
   private options: {
     selector: string,
-  }
+  };
 
-  private elements: any;
-  private recalcExisting: boolean;
+  private elements: any = null;
+  private timeoutLock: boolean = false;
+  private maxIterations: number = 20; // eslint-disable-line no-magic-numbers
+  private timeoutLimit = 2000; // eslint-disable-line no-magic-numbers
 
   constructor() {
     this.options = {
@@ -26,10 +28,10 @@ class LineClamper {
    */
   public initLineClamping() {
     this.elements = document.querySelectorAll(this.options.selector);
-
-    this.setLineClamping();
     this.initEventListeners();
+    this.setLineClamping();
   }
+
 
   /**
    * Is setting the line clamping for the found elements
@@ -38,19 +40,64 @@ class LineClamper {
    * @memberof LineClamper
    */
   private setLineClamping() {
+    if (this.timeoutLock) {
+      return;
+    }
+    this.timeoutLock = true;
+    // only do line clamping every 2 seconds for performance reasons
+    setTimeout(() => { this.timeoutLock = false; }, this.timeoutLimit);
+    const defaultFallbackFunc = (el, maxLines, elHeight) => {
+      let maxIt = this.maxIterations;
+      let currentScrollHeight = 0;
+      while (el.scrollHeight > elHeight && maxIt > 0) {
+        if (el.scrollHeight !== currentScrollHeight) {
+          maxIt = this.maxIterations;
+          currentScrollHeight = el.scrollHeight;
+        }
+        el.textContent = el.textContent.replace(/\W*\s(\S)*$/, '...');
+        maxIt -= 1;
+      }
+    };
+
+    const useFallbackFunc = 'webkitLineClamp' in document.body.style
+      ? undefined
+      : defaultFallbackFunc;
+
+    const truncateText = (el, maxLines, elHeight, elBottomPadding) => {
+      if (!isNaN(maxLines)) { // eslint-disable-line
+        if (useFallbackFunc) {
+          useFallbackFunc(el, maxLines, elHeight);
+        } else {
+          el.style.overflow = 'hidden';
+          el.style.paddingBottom = `${elBottomPadding}px`;
+          el.style.textOverflow = 'ellipsis';
+          el.style.webkitBoxOrient = 'vertical';
+          el.style.display = '-webkit-box';
+          el.style.webkitLineClamp = maxLines ? maxLines : ''; // eslint-disable-line
+        }
+      }
+    };
+
     if (this.elements.length > 0) {
       this.elements.forEach((element) => {
         if (!element.hasAttribute('data-line-clamped')) {
           element.setAttribute('title', element.innerText);
-
           element.setAttribute('data-line-clamped', 'true');
+        } else {
+          element.textContent = element.getAttribute('title');
         }
-
-        const elementHeight = element.clientHeight;
-
-        while (element.scrollHeight > elementHeight) {
-          element.textContent = element.textContent.replace(/\W*\s(\S)*$/, '...');
+        let elementHeight = parseInt(window.getComputedStyle(element).getPropertyValue('max-height'), 10);
+        if (isNaN(elementHeight)) {// eslint-disable-line
+          elementHeight = parseInt(window.getComputedStyle(element).getPropertyValue('height'), 10);
         }
+        const computedLineHeight = parseInt(window.getComputedStyle(element).getPropertyValue('line-height'), 10);
+        const computedFontSize = parseInt(window.getComputedStyle(element).getPropertyValue('font-size'), 10);
+        const lines = Math.floor(elementHeight / computedLineHeight);
+        let bottomFontPadding = 0;
+        if (computedLineHeight / computedFontSize < 1.1) { // eslint-disable-line
+          bottomFontPadding = 0.1 * computedLineHeight; // eslint-disable-line
+        }
+        truncateText(element, lines, elementHeight, bottomFontPadding);
       });
     }
   }

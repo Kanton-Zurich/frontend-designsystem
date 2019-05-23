@@ -120,6 +120,7 @@ $slidePaddingCurve: (
     right: 0;
     bottom: 0;
     height: 100vh;
+    z-index: $zIndexOverlays;
 
     background: $colorBlack80;
     margin: 0;
@@ -167,15 +168,6 @@ $slidePaddingCurve: (
       margin: 0 pxToRem(2px) pxToRem(2px) 0;
       max-width: none;
       transform: none;
-    }
-  }
-
-  // Disabling arrow buttons on touch devices when fullscreen is opened
-  .touch & {
-    &.mdl-carousel--fullscreen {
-      .mdl-button_group {
-        display: none;
-      }
     }
   }
 

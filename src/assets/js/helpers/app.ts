@@ -9,11 +9,13 @@ import loadPolyfills from './polyfills';
 /** Demo modules * */
 // import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
 // import SlideShow from '../../../demo/modules/slideshow/slideshow';
+import Table from '../../../modules/table/table';
 import Carousel from '../../../modules/carousel/carousel';
 import ImageGallery from '../../../modules/image_gallery/image_gallery';
 import Accordion from '../../../modules/accordion/accordion';
 import DownloadList from '../../../modules/download_list/download_list';
 import ContextMenu from '../../../modules/context_menu/context_menu';
+import Teaser from '../../../modules/teaser/teaser';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -27,11 +29,13 @@ class App {
     this.modules = {};
     // this.modules.slideshow = SlideShow;
     // this.modules.skiplinks = SkipLinks;
+    this.modules.table = Table;
     this.modules.imageGallery = ImageGallery;
     this.modules.carousel = Carousel;
     this.modules.accordion = Accordion;
     this.modules.downloadList = DownloadList;
     this.modules.contextMenu = ContextMenu;
+    this.modules.teaser = Teaser;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

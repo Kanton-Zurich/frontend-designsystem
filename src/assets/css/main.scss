@@ -29,6 +29,7 @@
 @import '../../atoms/linklist_item/linklist_item';
 @import '../../atoms/figcaption/figcaption';
 @import '../../atoms/button/button';
+@import '../../atoms/text_link/text_link';
 @import '../../atoms/context_menu_item/context_menu_item';
 //*autoinsertatom*
 
@@ -41,6 +42,7 @@
 // @import '../../demo/modules/imageversions/imageversions';
 // @import '../../demo/modules/svgsprite/svgsprite';
 @import '../../modules/linklist/linklist';
+@import '../../modules/table/table';
 @import '../../modules/image_figure/image_figure';
 @import '../../modules/richtext/richtext';
 @import '../../modules/button_group/button_group';
@@ -53,6 +55,9 @@
 @import '../../modules/accordion/accordion';
 @import '../../modules/download_list/download_list';
 @import '../../modules/context_menu/context_menu';
+@import '../../modules/teaser/teaser';
+@import '../../modules/descriptionlist/descriptionlist';
+@import '../../modules/publication_teaser/publication_teaser';
 @import '../../modules/instructions/instructions';
 //*autoinsertmodule*
 
