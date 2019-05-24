@@ -11,9 +11,7 @@ class LineClamper {
   };
 
   private elements: any = null;
-  private timeoutLock: boolean = false;
   private maxIterations: number = 20; // eslint-disable-line no-magic-numbers
-  private timeoutLimit = 2000; // eslint-disable-line no-magic-numbers
 
   constructor() {
     this.options = {
@@ -40,12 +38,6 @@ class LineClamper {
    * @memberof LineClamper
    */
   private setLineClamping() {
-    if (this.timeoutLock) {
-      return;
-    }
-    this.timeoutLock = true;
-    // only do line clamping every 2 seconds for performance reasons
-    setTimeout(() => { this.timeoutLock = false; }, this.timeoutLimit);
     const defaultFallbackFunc = (el, maxLines, elHeight) => {
       let maxIt = this.maxIterations;
       let currentScrollHeight = 0;
