@@ -19,6 +19,15 @@
     padding-top: 56.25%; // stylelint-disable-line -- preserve 16:6 aspect ratio
   }
 
+  &__caption {
+    display: flex;
+    align-items: flex-start;
+
+    .atm-figcaption {
+      flex-grow: 1;
+    }
+  }
+
   &--fullwidth {
     @include sizeCurve(margin-bottom margin-top, big);
 
