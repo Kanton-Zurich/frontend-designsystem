@@ -17,6 +17,7 @@
     position: relative;
     overflow: hidden;
     padding-top: 56.25%; // stylelint-disable-line -- preserve 16:6 aspect ratio
+    margin-bottom: $sizeTiny;
   }
 
   &__caption {
