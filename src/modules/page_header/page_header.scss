@@ -1,0 +1,16 @@
+.mdl-page-header {
+  @include gridBleed;
+}
+
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-page-header {
+      @if ($key == cv-default) {
+        background-color: unset;
+      } @else {
+        background-color: #{$val};
+      }
+    }
+  }
+}
