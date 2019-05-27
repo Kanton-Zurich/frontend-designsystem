@@ -1,3 +1,119 @@
 .atm-anchorlink {
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
 
+  /*
+  * Regular Anchorlink Style
+  */
+  &:not(.atm-anchorlink--tag) {
+    padding: 14px 0;
+    margin: 0 calc(#{$sizeRegular} / 2);
+    font-weight: $fontWeightDefault;
+    color: $colorBlack;
+    font-size: $sizeFontSmall;
+    line-height: 1.4285; // 20px;
+
+    &:first-of-type {
+      margin-left: $sizeSmallRegular;
+    }
+
+    &:active,
+    &.atm-anchorlink--active {
+      font-weight: $fontWeightBlack;
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 100%;
+        height: 2px;
+        background-color: $colorBlack;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      &:not(:active):not(.atm-anchorlink--active) {
+        color: rgba($colorBlack, 0.6);
+      }
+    }
+
+    @include mq($from: xsmall) {
+      font-size: $sizeFontRegular;
+      line-height: 1.625; // 26px;
+    }
+  }
+
+  /*
+  * Tag Style
+  */
+  &--tag {
+    color: rgba($colorBlack, 0.6);
+    border-radius: 75.5px;
+    padding: calc(#{$sizeTiny} / 2) $sizeRegular;
+    background: $colorBlack10;
+
+    &:hover {
+      color: $colorBlack;
+      background: rgba($colorBlack, 0.15);
+    }
+
+    &:active,
+    &.atm-anchorlink--active {
+      background-color: $colorBlack;
+      color: $colorWhite;
+
+      &:hover {
+        background-color: rgba($colorBlack, 0.8);
+      }
+    }
+
+    // Active and inverted but not topic.
+    &.atm-anchorlink--inverted.atm-anchorlink--active:not(.atm-anchorlink--tag-topic) {
+      background: $colorWhite;
+      color: $colorBlack;
+
+      &:hover {
+        background: rgba($colorWhite, 0.7);
+      }
+    }
+
+    // The rest.
+    &.atm-anchorlink--inverted:not(.atm-anchorlink--active) {
+      background: rgba($colorBlack, 0.2);
+      color: $colorWhite;
+
+      &:hover {
+        background: rgba($colorBlack, 0.4);
+      }
+    }
+
+    /*
+    * Style Topic Variante
+    */
+    &-topic {
+      font-size: $sizeFontTiny;
+      line-height: $sizeLineHeightBase; // 18px;
+      padding: 3px $sizeTiny;
+    }
+
+    /*
+    * Style Topitem Variante
+    */
+    &-top {
+      font-weight: $fontWeightBlack;
+      font-size: $sizeFontBig;
+      line-height: 1.1875; // 38px;
+      padding: 5px $sizeLarge;
+
+      &-small {
+        font-size: $sizeFontBiggerRegular;
+        line-height: 1.3334; // 24px;
+        padding: $sizeTiny $sizeSmallRegular;
+      }
+    }
+  }
 }

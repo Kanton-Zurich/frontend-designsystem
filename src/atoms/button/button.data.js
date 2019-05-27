@@ -19,6 +19,11 @@ const data = _.merge({}, defaultData, {
     isSmall: false,
     isBig: false,
     isInverted: false,
+    isTagButton: false,
+    isTagFilter: false,
+    isTopic: false,
+    isEdit: false,
+    isTopTag: false,
     additionalAttribute: null,
   },
 });
