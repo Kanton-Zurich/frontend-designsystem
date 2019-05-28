@@ -18,10 +18,6 @@
     @include sizeCurve(padding-top padding-bottom, small);
   }
 
-  &__input:focus + &__label {
-    outline: 2px solid $colorCyan;
-  }
-
   &__item {
     position: relative;
 
