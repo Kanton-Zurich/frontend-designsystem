@@ -200,6 +200,7 @@
 
   @if ($b < 0) {
     $sign: '-';
+    $altSign: '+';
     $b: abs($b);
   }
 

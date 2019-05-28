@@ -108,6 +108,7 @@ $sizeSmallLarge: 20px;
 $sizeLarge: 24px;
 $sizeBig: 32px;
 $sizeBiggerBig: 40px;
+$sizeSmallHuge: 48px;
 $sizeHuge: 56px;
 $sizeGiant: 80px;
 
@@ -194,7 +195,57 @@ $verticalSpacingCurves: (
   quoteWithImage: (
     tiny: $sizeBiggerBig,
     large: $sizeHuge
-  )
+  ),
+  breadcrumpMarginBottom: (
+    tiny: $sizeSmallRegular,
+    xlarge: $sizeRegular
+  ),
+  pageHeaderTop: (
+    tiny: $sizeLarge,
+    small: $sizeBig,
+    medium: $sizeBiggerBig,
+    xlarge: $sizeSmallHuge
+  ),
+  ktzhLogoPaddingTop: (
+    tiny: 0,
+    xsmall: 4px,
+    small: 4px,
+    medium: 0,
+    large: 0,
+    xlarge: 4px,
+  ),
+  ktzhLogoTop: (
+    tiny: 25px,
+    xsmall: 22px,
+    small: 16px,
+    medium: 0,
+    large: -9px,
+    xlarge: -15px,
+  ),
+  ktzhLogoTopFF: (
+    tiny: 24px,
+    xsmall: 21px,
+    small: 15px,
+    medium: -3px,
+    large: -13px,
+    xlarge: -18px,
+  ),
+);
+
+$customSize: (
+  ktzhLogoMarginLeft: (
+    tiny: -6px,
+    xsmall: -6px,
+    small: 0,
+  ),
+  ktzhLogoWidth: (
+    tiny: 54px,
+    xsmall: 66px,
+    small: 87px,
+    medium: 125px,
+    large: 153px,
+    xlarge: 184px,
+  ),
 );
 
 // content grid numbers for width calculation

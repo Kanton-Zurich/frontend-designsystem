@@ -1,5 +1,35 @@
 .mdl-page-header {
   @include gridBleed;
+  //@include sizeCurve('padding-top', pageHeaderTop, $verticalSpacingCurves);
+  padding-top: 40px;
+
+  &__logo {
+    position: relative;
+
+    @include polyFluidSizing('width', map-get($customSize, ktzhLogoWidth));
+    @include polyFluidSizing('height', map-get($customSize, ktzhLogoWidth));
+    @include sizeCurve('padding-top', ktzhLogoPaddingTop, $verticalSpacingCurves);
+    @include polyFluidSizing('top', map-get($verticalSpacingCurves, ktzhLogoTop));
+    @include polyFluidSizing('margin-left', map-get($customSize, ktzhLogoMarginLeft));
+  }
+
+  &__breadcrumb {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+    @include sizeCurve('margin-bottom', breadcrumpMarginBottom, $verticalSpacingCurves);
+  }
+
+  .atm-lead {
+    margin-top: 0;
+    margin-left: 0;
+  }
+}
+
+@-moz-document url-prefix('') {
+  .mdl-page-header {
+    &__logo {
+      @include polyFluidSizing('top', map-get($verticalSpacingCurves, ktzhLogoTopFF));
+    }
+  }
 }
 
 
@@ -10,6 +40,12 @@
         background-color: unset;
       } @else {
         background-color: #{$val};
+
+        .atm-heading,
+        .atm-lead,
+        &__breadcrumb {
+          color: $colorWhite;
+        }
       }
     }
   }

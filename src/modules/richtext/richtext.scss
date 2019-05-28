@@ -23,12 +23,29 @@
     @include mq($from: tiny, $to: small) {
       @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
     }
+    @include mq($from: small, $to: xlarge) {
+      margin-left: 0;
+    }
   }
 
   p {
     margin-top: 0;
     line-height: 1.5em;
     color: rgba($colorBlack, 0.6);
+
+    &.atm-lead {
+      color: $colorBlack;
+
+      @include mq($from: xsmall, $to: small) {
+        @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
+      }
+      @include mq($from: tiny, $to: xsmall) {
+        margin-left: 0;
+      }
+      @include mq($from: small) {
+        margin-left: 0;
+      }
+    }
 
     a {
       color: inherit;
@@ -54,26 +71,6 @@
 
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
     @include sizeCurve('margin-bottom', regular);
-
-    &.mdl-richtext__lead {
-      color: $colorBlack;
-      font-weight: $fontWeightBlack;
-      line-height: 1.3em;
-
-      @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
-      @include mq($from: tiny, $to: xsmall) {
-        @include gridNestedOffset('text-indent', 1, $gridOffsetColumns);
-      }
-      @include mq($from: xsmall, $to: small) {
-        @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
-      }
-    }
-  }
-
-  &__lead {
-    strong {
-      font-weight: $fontWeightBlack;
-    }
   }
 
   &__emphasis {
@@ -200,7 +197,7 @@
       background: $colorWhite;
     }
 
-    p.mdl-richtext__lead {
+    p.atm-lead {
       color: $colorWhite;
     }
 

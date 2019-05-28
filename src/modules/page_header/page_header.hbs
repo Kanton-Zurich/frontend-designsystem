@@ -1,8 +1,28 @@
 <div class="mdl-page-header">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
-      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-        <h1 class="atm-heading">Titel</h1>
+      <div class="cell tiny-2 xsmall-2 small-2 medium-2 large-2 xlarge-2">
+{{#if inverted}}
+        <svg viewBox="0 0 100 100"class="mdl-page-header__logo">
+          <use xlink:href="#ktzh_inverted"></use>
+        </svg>
+{{else}}
+        <svg viewBox="0 0 100 100"class="mdl-page-header__logo">
+          <use xlink:href="#ktzh"></use>
+        </svg>
+{{/if}}
+      </div>
+      <div class="cell tiny-10 xsmall-10 small-10 medium-10 large-10 xlarge-10">
+        <div class="mdl-page-header__breadcrumb">
+          {{{breadcumbText}}}
+        </div>
+        <h1 class="atm-heading">{{pageTitle}}</h1>
+      </div>
+    </div>
+    <div class="grid-x grid-margin-x">
+      <div
+        class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
+        {{> "atoms/lead/lead"}}
       </div>
     </div>
   </div>

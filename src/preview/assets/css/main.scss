@@ -243,6 +243,10 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
         &:checked + label {
           background-color: rgba($val, 0.07);
         }
+
+        &:disabled + label {
+          color: $sg_colorLightGray;
+        }
       }
     }
   }
