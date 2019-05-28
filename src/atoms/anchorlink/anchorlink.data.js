@@ -12,14 +12,16 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('anchorlink.md'),
   },
   props: {
-    anchorlinkText: 'Anchorlink',
-    anchorlinkAdress: '#',
-    anchorlinkIsActive: false,
-    anchorlinkIsTagAnchor: false,
-    anchorlinkIsInverted: false,
-    anchorlinkIsTagTopic: false,
-    anchorlinkIsTopitem: false,
-    anchorlinkIsTopitemSmall: false,
+    anchorlink: {
+      anchorlinkText: 'Anchorlink',
+      anchorlinkAdress: '#',
+      anchorlinkIsActive: false,
+      anchorlinkIsTagAnchor: false,
+      anchorlinkIsInverted: false,
+      anchorlinkIsTagTopic: false,
+      anchorlinkIsTopitem: false,
+      anchorlinkIsTopitemSmall: false,
+    },
   },
 });
 const variants = _.mapValues({
@@ -35,7 +37,9 @@ const variants = _.mapValues({
       desc: 'Default implementation eines Anchorlinks im "active state".',
     },
     props: {
-      anchorlinkIsActive: true,
+      anchorlink: {
+        anchorlinkIsActive: true,
+      },
     },
   },
   tag: {
@@ -44,8 +48,10 @@ const variants = _.mapValues({
       desc: 'Implementation eines Tag Label Anchorlinks.',
     },
     props: {
-      anchorlinkText: 'Tag Label',
-      anchorlinkIsTagAnchor: true,
+      anchorlink: {
+        anchorlinkText: 'Tag Label',
+        anchorlinkIsTagAnchor: true,
+      },
     },
   },
   tagActive: {
@@ -54,9 +60,11 @@ const variants = _.mapValues({
       desc: 'Implementation eines Tag Label Anchorlinks im "active state".',
     },
     props: {
-      anchorlinkText: 'Tag Label',
-      anchorlinkIsTagAnchor: true,
-      anchorlinkIsActive: true,
+      anchorlink: {
+        anchorlinkText: 'Tag Label',
+        anchorlinkIsTagAnchor: true,
+        anchorlinkIsActive: true,
+      },
     },
   },
   tagTopic: {
@@ -65,10 +73,12 @@ const variants = _.mapValues({
       desc: 'Implementation eines Topic Tag Anchorlinks.',
     },
     props: {
-      anchorlinkText: 'Topic Tag',
-      anchorlinkIsTagAnchor: true,
-      anchorlinkIsActive: true,
-      anchorlinkIsTagTopic: true,
+      anchorlink: {
+        anchorlinkText: 'Topic Tag',
+        anchorlinkIsTagAnchor: true,
+        anchorlinkIsActive: true,
+        anchorlinkIsTagTopic: true,
+      },
     },
   },
   tagTopTags: {
@@ -77,9 +87,11 @@ const variants = _.mapValues({
       desc: 'Implementation eines Topitem Tag Anchorlink.',
     },
     props: {
-      anchorlinkText: 'Topitem',
-      anchorlinkIsTagAnchor: true,
-      anchorlinkIsTopitem: true,
+      anchorlink: {
+        anchorlinkText: 'Topitem',
+        anchorlinkIsTagAnchor: true,
+        anchorlinkIsTopitem: true,
+      },
     },
   },
   tagTopTagsSmall: {
@@ -88,10 +100,12 @@ const variants = _.mapValues({
       desc: 'Implementation eines Topitem Tag Anchorlink (klein).',
     },
     props: {
-      anchorlinkText: 'Topitem',
-      anchorlinkIsTagAnchor: true,
-      anchorlinkIsTopitem: true,
-      anchorlinkIsTopitemSmall: true,
+      anchorlink: {
+        anchorlinkText: 'Topitem',
+        anchorlinkIsTagAnchor: true,
+        anchorlinkIsTopitem: true,
+        anchorlinkIsTopitemSmall: true,
+      },
     },
   },
   tagInverted: {
@@ -100,9 +114,11 @@ const variants = _.mapValues({
       desc: 'Implementation eines Tag Label Anchorlinks.',
     },
     props: {
-      anchorlinkText: 'Tag Label',
-      anchorlinkIsTagAnchor: true,
-      anchorlinkIsInverted: true,
+      anchorlink: {
+        anchorlinkText: 'Tag Label',
+        anchorlinkIsTagAnchor: true,
+        anchorlinkIsInverted: true,
+      },
       isInverted: true,
     },
   },
@@ -112,10 +128,12 @@ const variants = _.mapValues({
       desc: 'Implementation eines Tag Label Anchorlinks im "active state".',
     },
     props: {
-      anchorlinkText: 'Tag Label',
-      anchorlinkIsTagAnchor: true,
-      anchorlinkIsActive: true,
-      anchorlinkIsInverted: true,
+      anchorlink: {
+        anchorlinkText: 'Tag Label',
+        anchorlinkIsTagAnchor: true,
+        anchorlinkIsActive: true,
+        anchorlinkIsInverted: true,
+      },
       isInverted: true,
     },
   },
@@ -125,11 +143,13 @@ const variants = _.mapValues({
       desc: 'Implementation eines Topic Tag Anchorlinks.',
     },
     props: {
-      anchorlinkText: 'Topic Tag',
-      anchorlinkIsTagAnchor: true,
-      anchorlinkIsActive: true,
-      anchorlinkIsTagTopic: true,
-      anchorlinkIsInverted: true,
+      anchorlink: {
+        anchorlinkText: 'Topic Tag',
+        anchorlinkIsTagAnchor: true,
+        anchorlinkIsActive: true,
+        anchorlinkIsTagTopic: true,
+        anchorlinkIsInverted: true,
+      },
       isInverted: true,
     },
   },
@@ -139,10 +159,12 @@ const variants = _.mapValues({
       desc: 'Implementation eines Topitem Tag Anchorlink.',
     },
     props: {
-      anchorlinkText: 'Topitem',
-      anchorlinkIsTagAnchor: true,
-      anchorlinkIsTopitem: true,
-      anchorlinkIsInverted: true,
+      anchorlink: {
+        anchorlinkText: 'Topitem',
+        anchorlinkIsTagAnchor: true,
+        anchorlinkIsTopitem: true,
+        anchorlinkIsInverted: true,
+      },
       isInverted: true,
     },
   },
@@ -152,11 +174,13 @@ const variants = _.mapValues({
       desc: 'Implementation eines Topitem Tag Anchorlink (klein).',
     },
     props: {
-      anchorlinkText: 'Topitem',
-      anchorlinkIsTagAnchor: true,
-      anchorlinkIsTopitem: true,
-      anchorlinkIsTopitemSmall: true,
-      anchorlinkIsInverted: true,
+      anchorlink: {
+        anchorlinkText: 'Topitem',
+        anchorlinkIsTagAnchor: true,
+        anchorlinkIsTopitem: true,
+        anchorlinkIsTopitemSmall: true,
+        anchorlinkIsInverted: true,
+      },
       isInverted: true,
     },
   },

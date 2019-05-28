@@ -1,3 +1,85 @@
-.mdl-tag_group {
+.mdl-tag-group {
+  $customSizing: (
+    containerTopPadding: (
+      tiny: $sizeBiggerBig,
+      medium: $sizeBiggerBig,
+      large: $sizeHuge
+    ),
+    containerBottomPadding: (
+      tiny: $sizeLarge,
+      medium: $sizeLarge,
+      large: $sizeBig,
+      xlarge: $sizeBiggerBig
+    ),
+    headingBottomMargin: (
+      tiny: 8px,
+      medium: 8px,
+      large: 12px
+    ),
+  );
 
+  background-color: $colorBordeaux;
+  padding-left: $sizeSmallRegular;
+  padding-right: $sizeSmallRegular;
+
+  @include gridBleed($trailingGutters: true);
+  @include sizeCurve('padding-top', containerTopPadding, $customSizing);
+  @include sizeCurve('padding-bottom', containerBottomPadding, $customSizing);
+
+  &__content {
+    background-color: $colorBlue;
+    /*@include gridNestedOffset('width' 'min-width', 6, $gridOffsetColumns, $trailingGutter: false);*/
+
+    // MEDIUM
+    @include gridNestedOffset('margin-left', 0, $gridOffsetColumns, $trailingGutter: false);
+
+
+    // MEDIUM
+    /*@include gridNestedOffset('margin-left',1, $gridOffsetColumns, $trailingGutter: false);
+    @include gridNestedOffset('width' 'min-width', 4, $gridOffsetColumns, $trailingGutter: true);*/
+  }
+
+  h6 {
+    color: $colorWhite;
+    font-size: $sizeFontTiny;
+
+    @include sizeCurve('margin-bottom', headingBottomMargin, $customSizing);
+  }
+
+  &__tags {
+   /* margin-left: calc( -#{$sizeTiny} / 2);
+    margin-right: calc(-#{$sizeTiny} / 2);*/
+  }
+
+  a {
+    margin-bottom: 4px;
+  }
+
+  @include mq($from: xsmall) {
+    /*padding-left: $sizeRegular;
+    padding-right: $sizeRegular;*/
+  }
+
+  @include mq($from: small) {
+    /*padding-left: 0;
+    padding-right: 0;*/
+
+    &__content {
+      @include gridNestedOffset('margin-left', 2, $gridOffsetColumns, $trailingGutter: true);
+      /*@include gridNestedOffset('width' 'min-width', 10, $gridOffsetColumns, $trailingGutter: true);*/
+    }
+
+    &__tags {
+      /*margin-left: - #{$sizeSmallRegular};
+      margin-right: - #{$sizeSmallRegular};*/
+    }
+  }
+
+  @include mq($from: medium ) {
+
+  }
+
+  @include mq($from: large ) {
+    @include gridBleed($trailingGutters: false);
+  }
 }

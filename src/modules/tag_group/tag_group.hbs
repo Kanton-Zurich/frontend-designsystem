@@ -1,3 +1,35 @@
-<div class="mdl-tag_group" data-init="tagGroup">
-	TagGroup
+<div class="mdl-tag-group" data-init="tagGroup">
+  <div class="">  <!--grid-x grid-margin-x-->
+    <div class="mdl-tag-group__content ">  <!--cell small-offset-2-->
+      <h6 class="atm-heading">Für dieses Thema zuständig: </h6>
+      <div class="mdl-tag-group__tags">
+        {{#each anchorLinks}}
+          {{> "atoms/anchorlink/anchorlink" this}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div class="mdl-tag-group" data-init="tagGroup">
+  <div class="grid-x grid-margin-x">
+    <div class="mdl-tag-group__content cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-10 large-10 xlarge-10">
+      <h6 class="atm-heading">Für dieses Thema zuständig: </h6>
+      <div class="mdl-tag-group__tags">
+        {{#each anchorLinks}}
+          {{> "atoms/anchorlink/anchorlink" this}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<br>
+
+<div class="grid-x grid-margin-x">
+  <div style="background-color: #00aa00;" class="cell small-offset-2 large-offset-2 xlarge-offset-2 small-10 large-10 xlarge-10">cell 1</div>
+  <div style="background-color: #a4c400;" class="cell small-offset-2 large-offset-2 xlarge-offset-2 small-10 large-10 xlarge-10">cell 2</div>
 </div>

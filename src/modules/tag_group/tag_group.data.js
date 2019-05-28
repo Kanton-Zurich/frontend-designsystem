@@ -1,18 +1,67 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const { handlebars } = require('@unic/estatico-handlebars');
+const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
+const anchorlink1 = {
+    anchorlinkText: 'Amt für Raumentwicklung',
+    anchorlinkAdress: '#',
+    anchorlinkIsActive: false,
+    anchorlinkIsTagAnchor: true,
+    anchorlinkIsInverted: true,
+    anchorlinkIsTopitem: true,
+    anchorlinkIsTopitemSmall: true,
+  },
+  anchorlink2 = {
+    anchorlinkText: 'Strassenverkehrsamt',
+    anchorlinkAdress: '#',
+    anchorlinkIsActive: false,
+    anchorlinkIsTagAnchor: true,
+    anchorlinkIsInverted: true,
+    anchorlinkIsTopitem: true,
+    anchorlinkIsTopitemSmall: true,
+  },
+  anchorlink3 = {
+    anchorlinkText: 'Kantonspolizei',
+    anchorlinkAdress: '#',
+    anchorlinkIsActive: false,
+    anchorlinkIsTagAnchor: true,
+    anchorlinkIsInverted: true,
+    anchorlinkIsTopitem: true,
+    anchorlinkIsTopitemSmall: true,
+  },
+  anchorlink4 = {
+    anchorlinkText: 'Koordinationsstelle Velo',
+    anchorlinkAdress: '#',
+    anchorlinkIsActive: false,
+    anchorlinkIsTagAnchor: true,
+    anchorlinkIsInverted: true,
+    anchorlinkIsTopitem: true,
+    anchorlinkIsTopitemSmall: true,
+  };
 const template = dataHelper.getFileContent('tag_group.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'TagGroup',
+    title: 'Tag Group',
     className: 'TagGroup',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-261',
     documentation: dataHelper.getDocumentation('tag_group.md'),
   },
   props: {
-
+    anchorLinks: [
+      {
+        anchorlink: anchorlink1,
+      },
+      {
+        anchorlink: anchorlink2,
+      },
+      {
+        anchorlink: anchorlink3,
+      },
+      {
+        anchorlink: anchorlink4,
+      },
+    ],
   },
 });
 const variants = _.mapValues({
