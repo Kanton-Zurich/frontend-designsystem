@@ -32,7 +32,7 @@ $maxTextLinesDefault: 4;
       small: $sizeFontSmallBig * $sizeLineHeightBase * $maxTextLinesDefault,
       medium: $sizeFontBig * $sizeLineHeightBase * $maxTextLinesDefault,
       large: $sizeFontBiggerBig * $sizeLineHeightBase * $maxTextLinesDefault,
-      xlarge: $sizeFontSmallHuge * $maxTextLinesDefault,
+      xlarge: $sizeFontSmallHuge * $maxTextLinesDefault + ($sizeFontSmallHuge * 0.08),
     );
 
     @include polyFluidSizing('max-height', $titleHeightCurve);

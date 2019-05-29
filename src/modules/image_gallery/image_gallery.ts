@@ -54,8 +54,6 @@ class ImageGallery extends Module {
     this.initWatchers();
 
     this.setIndexNumbers();
-
-    (<any>window).estatico.lineClamper.initLineClamping();
   }
 
   /**
