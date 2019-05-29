@@ -20,8 +20,8 @@
   background: #f00;
 }
 
-
 .sg_fullwidth-test-module-container {
   background-color: $colorTurqoise;
+
   @include gridBleed($trailingGutters: false);
 }
