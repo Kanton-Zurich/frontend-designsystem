@@ -2,12 +2,14 @@
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="mdl-tag-group__content cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-10 large-10 xlarge-10">
-        <h6 class="atm-heading">Für dieses Thema zuständig: </h6>
-        <div class="mdl-tag-group__tags">
+        <h2 class="atm-heading">Für dieses Thema zuständig: </h2>
+        <ul class="mdl-tag-group__tags">
           {{#each anchorLinks}}
+            <li>
             {{> "atoms/anchorlink/anchorlink" this}}
+            </li>
           {{/each}}
-        </div>
+        </ul>
       </div>
     </div>
   </div>

@@ -1,18 +1,20 @@
 .atm-anchorlink {
   position: relative;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+
 
   /*
   * Regular Anchorlink Style
   */
   &:not(.atm-anchorlink--tag) {
-    padding: 14px 0;
+    height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
     margin: 0 calc(#{$sizeRegular} / 2);
     font-weight: $fontWeightDefault;
     color: $colorBlack;
     font-size: $sizeFontSmall;
-    line-height: 1.4285; // 20px;
+    line-height: $sizeLineHeightBase;
 
     &:first-of-type {
       margin-left: $sizeSmallRegular;
@@ -43,7 +45,8 @@
 
     @include mq($from: xsmall) {
       font-size: $sizeFontRegular;
-      line-height: 1.625; // 26px;
+      line-height: $sizeLineHeightBase;
+      height: $sizeHuge;
     }
   }
 
@@ -53,8 +56,9 @@
   &--tag {
     color: rgba($colorBlack, 0.6);
     border-radius: 75.5px;
-    padding: calc(#{$sizeTiny} / 2) $sizeRegular;
+    padding: 0 $sizeRegular;
     background: $colorBlack10;
+    height: calc(#{$sizeSmallLarge} + #{$sizeSmallRegular});
 
     &:hover {
       color: $colorBlack;
@@ -96,8 +100,9 @@
     */
     &-topic {
       font-size: $sizeFontTiny;
-      line-height: $sizeLineHeightBase; // 18px;
-      padding: 3px $sizeTiny;
+      line-height: $sizeLineHeightBase;
+      padding: 0 $sizeTiny;
+      height: calc(2 * #{$sizeSmallRegular});
     }
 
     /*
@@ -106,13 +111,15 @@
     &-top {
       font-weight: $fontWeightBlack;
       font-size: $sizeFontBig;
-      line-height: 1.1875; // 38px;
-      padding: 5px $sizeLarge;
+      line-height: $sizeLineHeightNarrow;
+      padding: 0 $sizeLarge;
+      height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
 
       &-small {
         font-size: $sizeFontBiggerRegular;
-        line-height: 1.3334; // 24px;
-        padding: $sizeTiny $sizeSmallRegular;
+        line-height: $sizeLineHeightMedium;
+        padding: 0 $sizeSmallRegular;
+        height: $sizeBiggerBig;
       }
     }
   }
