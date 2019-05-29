@@ -158,6 +158,10 @@ $maxTextLinesDefault: 4;
       margin: 4px 0 $sizeLarge;
     }
 
+    &__content {
+      padding: $sizeHuge;
+    }
+
     &--noImage {
       max-width: 770px;
     }
