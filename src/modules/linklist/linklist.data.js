@@ -14,15 +14,15 @@ const data = _.merge({}, defaultData, {
   props: {
     links: [
       {
-        title: 'Link 1',
-        href: '/',
+        linkListItemTitle: 'Link 1',
+        linkListItemHref: '/',
       }, {
-        title: 'Link 2',
-        href: 'https://www.google.ch',
+        linkListItemTitle: 'Link 2',
+        linkListItemHref: 'https://www.google.ch',
         target: 'blank',
       }, {
-        title: 'Link 3',
-        href: '/index.html',
+        linkListItemTitle: 'Link 3',
+        linkListItemHref: '/index.html',
       },
     ],
     hasTitle: true,

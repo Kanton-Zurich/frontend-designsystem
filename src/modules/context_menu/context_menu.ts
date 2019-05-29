@@ -185,7 +185,7 @@ class ContextMenu extends Module {
    */
   addEscapeEvent() {
     this.data.escapeEvent = (keyEvent) => {
-      if (this.data.isActive && keyEvent.key === 'Escape') {
+      if (this.data.isActive && (keyEvent.key === 'Escape' || keyEvent.key === 'Esc')) {
         this.hide();
       }
     };
