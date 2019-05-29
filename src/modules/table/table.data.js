@@ -141,13 +141,13 @@ const variants = _.mapValues({
       ],
       bodyrows: [
         {
-          data: ['<a href="#" class="atm-text_link">Gemeindesteuerfüsse 2019</a>', 'Januar bis März'],
+          data: ['<a href="#" class="atm-text_link">Gemeindesteuerfüsse 2019</a>', '<ul><li>Januar<ul><li>17. Januar</li><li>31. Januar</li></ul></li><li>Februar</li><li>März</li></ul>'],
         },
         {
           data: ['<a href="#" class="atm-text_link">Kantonale Bevölkerungsstatistik 2018 (prov.)</a>', '08. Februar'],
         },
         {
-          data: ['<a href="#" class="atm-text_link">Abstimmungsanalyse Februar</a>', 'Ende Februar'],
+          data: ['<a href="#" class="atm-text_link">Abstimmungsanalyse</a>', '<ol><li>Ende Februar</li><li>Ende Mai</li><li>Ende September</li></ol>'],
         },
         {
           data: ['<a href="#" class="atm-text_link">Ausländerstatistik 2018</a>', 'März'],

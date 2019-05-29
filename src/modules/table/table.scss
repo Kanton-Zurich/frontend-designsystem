@@ -1,10 +1,10 @@
 .mdl-table {
   @include sizeCurve(margin-bottom, medium);
 
-  &__title {
+  &__title.atm-heading {
     margin-bottom: $sizeTiny;
   }
-  
+
   &__figure {
     margin: 0;
     background: $colorWhite;
@@ -158,12 +158,13 @@
   &__cell.mdl-table__row-header,
   &__row--highlighted &__cell {
     color: rgba($colorBlack, 1);
-    font-weight: 900;
+    font-weight: $fontWeightBlack;
   }
 
   &__cell {
     padding: $sizeRegular $sizeRegular $sizeTiny;
-    font-weight: 400;
+    font-weight: $fontWeightDefault;
+    vertical-align: top;
   }
 
   &__body &__row:nth-child(odd) &__cell {
@@ -177,6 +178,52 @@
 
   &--align-right &__cell {
     text-align: right;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    list-style: none;
+    padding-left: $sizeLarge;
+
+    li {
+      margin-bottom: $sizeTiny;
+      position: relative;
+
+      &:before {
+        position: absolute;
+        margin-left: -$sizeLarge;
+      }
+
+      ul li:first-child {
+        padding-top: $sizeTiny;
+      }
+    }
+  }
+
+  ul {
+    li {
+      &:before {
+        content: '\2013';
+      }
+    }
+  }
+
+  ol {
+    counter-reset: ol-counter;
+    padding-left: $sizeBig;
+
+    li {
+      counter-increment: ol-counter;
+      position: relative;
+
+      &:before {
+        content: '0' counter(ol-counter);
+        font-weight: $fontWeightBlack;
+        color: $colorBlack;
+        margin-left: -$sizeBig;
+      }
+    }
   }
 
   /**
@@ -220,6 +267,10 @@
 @each $key, $val in $tl-color-variations {
   .#{$key} {
     .mdl-table__row--highlighted .mdl-table__cell {
+      color: #{$val};
+    }
+
+    .mdl-table ol li:before {
       color: #{$val};
     }
   }
