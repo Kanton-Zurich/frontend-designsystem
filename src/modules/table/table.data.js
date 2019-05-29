@@ -15,13 +15,12 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     tableTitle: 'Der Kanton in Zahlen',
-    tableSubtitle: '2007–2017',
     headers: [
       {
         title: '<span class="visuallyhidden">Bezirk</span>',
         isSortable: false,
       }, {
-        title: 'Einwohnerzahl<sup>1</sup> <span class="visuallyhidden">Nach zivilrechtlichem Wohnsitzbegriff, Daten per Ende Jahr</span> 2017',
+        title: 'Einwohnerzahl 2017',
         isSortable: false,
       }, {
         title: 'Bevölkerungswachstum<br> 2007–2017 in %',
@@ -36,7 +35,7 @@ const data = _.merge({}, defaultData, {
         data: ['<a href="#" class="atm-text_link">Kanton Zürich</a>', '1498643', '15,2', '1005751'],
         isHighlighted: true,
       }, {
-        data: ['Affoltern<sup>2</sup> <span class="visuallyhidden">Stand 2016</span>', '53531', '18,4', '17171'],
+        data: ['Affoltern', '53531', '18,4', '17171'],
       }, {
         data: ['Andelfingen', '31140', '9,6', '11094'],
       }, {
@@ -45,15 +44,11 @@ const data = _.merge({}, defaultData, {
         data: ['Dielsdorf', '89221', '19,1', '38164'],
       },
     ],
-    caption: _.merge({}, defFigcaptionData, {
-      caption: '<sup>1</sup> Nach zivilrechtlichem Wohnsitzbegriff, Daten per Ende Jahr<br><sup>2</sup> Stand 2016',
-    }),
     hasTitle: true,
     tableHeadingLevel: 2,
-    hasSubtitle: true,
     hasColumnHeader: true,
     hasRowHeader: false,
-    hasCaption: true,
+    hasCaption: false,
     alignRight: false,
     colorVariation: false,
     isFirstColumnFixed: false,
@@ -68,11 +63,44 @@ const variants = _.mapValues({
   },
   alignRight: {
     meta: {
-      title: 'Rechtsbündig',
+      title: 'Rechtsbündig, mit Tabellenunterschrift und Fussnoten',
       desc: 'Variante mit rechtsbündig ausgerichteten Datenzellen',
     },
     props: {
       alignRight: true,
+      headers: [
+        {
+          title: '<span class="visuallyhidden">Bezirk</span>',
+          isSortable: false,
+        }, {
+          title: 'Einwohnerzahl<sup>1</sup> <span class="visuallyhidden">Nach zivilrechtlichem Wohnsitzbegriff, Daten per Ende Jahr</span> 2017',
+          isSortable: false,
+        }, {
+          title: 'Bevölkerungswachstum<br> 2007–2017 in %',
+          isSortable: false,
+        }, {
+          title: 'Beschäftigte 2015',
+          isSortable: false,
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['<a href="#" class="atm-text_link">Kanton Zürich</a>', '1498643', '15,2', '1005751'],
+          isHighlighted: true,
+        }, {
+          data: ['Affoltern<sup>2</sup> <span class="visuallyhidden">Stand 2016</span>', '53531', '18,4', '17171'],
+        }, {
+          data: ['Andelfingen', '31140', '9,6', '11094'],
+        }, {
+          data: ['Bülach', '148897', '21,3', '110370'],
+        }, {
+          data: ['Dielsdorf', '89221', '19,1', '38164'],
+        },
+      ],
+      caption: _.merge({}, defFigcaptionData, {
+        caption: '<sup>1</sup> Nach zivilrechtlichem Wohnsitzbegriff, Daten per Ende Jahr<br><sup>2</sup> Stand 2016',
+      }),
+      hasCaption: true,
     },
   },
   isInverted: {
@@ -95,13 +123,12 @@ const variants = _.mapValues({
   },
   withLinks: {
     meta: {
-      title: 'Mit Links',
+      title: 'Mit Links und Aufzählungen',
       desc: 'Variante mit Links, Titel als H3',
     },
     props: {
       tableTitle: 'H3: 28px Black title Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
       tableHeadingLevel: 3,
-      hasSubtitle: false,
       hasCaption: false,
       headers: [
         {
@@ -136,7 +163,6 @@ const variants = _.mapValues({
     props: {
       tableTitle: 'Demografische Altersmasszahlen nach Gebiet 2016',
       tableHeadingLevel: 4,
-      hasSubtitle: false,
       hasRowHeader: true,
       alignRight: true,
       headers: [
@@ -181,7 +207,6 @@ const variants = _.mapValues({
     props: {
       tableTitle: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
       tableHeadingLevel: 3,
-      hasSubtitle: false,
       hasCaption: true,
       isFirstColumnFixed: true,
       hasRowHeader: true,
@@ -238,7 +263,6 @@ const variants = _.mapValues({
     props: {
       tableTitle: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
       tableHeadingLevel: 3,
-      hasSubtitle: false,
       hasCaption: true,
       isWide: true,
       isFirstColumnFixed: true,
@@ -301,7 +325,6 @@ const variants = _.mapValues({
     },
     props: {
       tableTitle: 'Beliebteste Filme im Kanton',
-      tableSubtitle: '1995-2007',
       headers: [
         {
           title: 'Rang',
@@ -347,7 +370,6 @@ const variants = _.mapValues({
     props: {
       tableTitle: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
       tableHeadingLevel: 3,
-      hasSubtitle: false,
       hasCaption: true,
       isFirstColumnFixed: true,
       hasRowHeader: true,

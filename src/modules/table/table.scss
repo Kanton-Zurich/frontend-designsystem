@@ -4,13 +4,7 @@
   &__title {
     margin-bottom: $sizeTiny;
   }
-
-  &__subtitle {
-    margin-top: -$sizeTiny;
-    margin-bottom: $sizeTiny;
-    color: rgba($colorBlack, 0.6);
-  }
-
+  
   &__figure {
     margin: 0;
     background: $colorWhite;
