@@ -19,3 +19,9 @@
 
   background: #f00;
 }
+
+
+.fullwidth-test-module-container {
+  background-color: $colorTurqoise;
+  @include gridBleed($trailingGutters: false);
+}
