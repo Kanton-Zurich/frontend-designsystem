@@ -1,16 +1,16 @@
-<div class="mdl-page-header">
+<div class="mdl-page-header {{#if hasImage}}mdl-page-header--headerimage{{/if}} {{#if inverted}}mdl-page-header--inverted{{/if}} {{#if hasImageTitle}}mdl-page-header--image-title{{/if}}">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="cell tiny-2 xsmall-2 small-2 medium-2 large-2 xlarge-2">
-{{#if inverted}}
-        <svg viewBox="0 0 100 100"class="mdl-page-header__logo">
-          <use xlink:href="#ktzh_inverted"></use>
-        </svg>
-{{else}}
-        <svg viewBox="0 0 100 100"class="mdl-page-header__logo">
-          <use xlink:href="#ktzh"></use>
-        </svg>
-{{/if}}
+        {{#if inverted}}
+          <svg viewBox="0 0 100 100" class="mdl-page-header__logo">
+            <use xlink:href="#ktzh_inverted"></use>
+          </svg>
+        {{else}}
+          <svg viewBox="0 0 100 100" class="mdl-page-header__logo">
+            <use xlink:href="#ktzh"></use>
+          </svg>
+        {{/if}}
       </div>
       <div class="cell tiny-10 xsmall-10 small-10 medium-10 large-10 xlarge-10">
         <div class="mdl-page-header__breadcrumb">
@@ -23,7 +23,25 @@
       <div
         class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
         {{> "atoms/lead/lead"}}
+        {{#if inverted}}
+          {{> "atoms/button/button" buttonData.primaryInverted.props}}
+        {{else}}
+          {{> "atoms/button/button" buttonData.default.props}}
+        {{/if}}
+        {{#if hasImage}}{{> "modules/image_figure/image_figure" imageData.props}}{{/if}}
       </div>
     </div>
   </div>
+{{#if hasImage}}
+  <div class="mdl-page-header__subsection">
+    <div class="lyt-wrapper">
+      <div class="grid-x grid-margin-x">
+        <div
+          class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
+          {{> "atoms/lead/lead"}}
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}
 </div>

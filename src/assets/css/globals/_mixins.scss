@@ -379,7 +379,7 @@
 
     width: 100vw;
     max-width: $sizeWidthContent;
-  }@else {
+  } @else {
     width: calc(100vw + 2px);
     max-width: $sizeGlobalMaxWidth;
   }

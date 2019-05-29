@@ -106,15 +106,3 @@
     transition: fill $transitionTimeSimple $transitionEasingDefault;
   }
 }
-
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .atm-linklist_item:not(.atm-linklist_item--download) {
-      color: rgba($val, 1);
-
-      &:hover {
-        color: rgba($colorText, 1);
-      }
-    }
-  }
-}

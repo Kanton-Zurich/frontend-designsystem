@@ -27,6 +27,7 @@ const data = _.merge({}, defaultData, {
     ],
     hasTitle: true,
     headingLevel: 2,
+    disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue' ],
   },
 });
 

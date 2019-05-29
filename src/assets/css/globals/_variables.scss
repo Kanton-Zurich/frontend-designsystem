@@ -206,6 +206,26 @@ $verticalSpacingCurves: (
     medium: $sizeBiggerBig,
     xlarge: $sizeSmallHuge
   ),
+  headerImagePadding: (
+    tiny: ($sizeBiggerBig + $sizeLarge),
+    medium: ($sizeHuge + $sizeBig),
+    xlarge: ($sizeHuge + $sizeBiggerBig),
+  ),
+  headerImageMargin: (
+    tiny: $sizeBiggerBig,
+    medium: $sizeHuge
+  ),
+  headerImagePaddingCaptioned: (
+    tiny: ($sizeBiggerBig + $sizeLarge + $sizeRegular + $sizeTiny),
+    small: ($sizeBiggerBig + $sizeLarge + $sizeSmallLarge + $sizeTiny),
+    medium: ($sizeHuge + $sizeBig + $sizeSmallLarge + $sizeTiny),
+    xlarge: ($sizeHuge + $sizeBiggerBig + $sizeSmallLarge + $sizeTiny),
+  ),
+  headerImageMarginCaptioned: (
+    tiny: ($sizeBiggerBig + $sizeRegular + $sizeTiny),
+    small: ($sizeBiggerBig + $sizeSmallLarge + $sizeTiny),
+    medium: ($sizeHuge + $sizeSmallLarge + $sizeTiny),
+  ),
   ktzhLogoPaddingTop: (
     tiny: 0,
     xsmall: 4px,
@@ -246,6 +266,14 @@ $customSize: (
     large: 153px,
     xlarge: 184px,
   ),
+  headerImageWidth: (
+    tiny: 265px,
+    xsmall: 323px,
+    small: 488px,
+    medium: 678px,
+    large: 828px,
+    xlarge: 1036px,
+  )
 );
 
 // content grid numbers for width calculation
@@ -305,7 +333,6 @@ $colorBg: $colorBlack5;
  * Color variations
  */
 $tl-color-variations: (
-  cv-default: $colorBlack,
   cv-blue: $colorBlue,
   cv-darkblue: $colorDarkBlue,
   cv-turqoise: $colorTurqoise,
@@ -313,6 +340,7 @@ $tl-color-variations: (
   cv-bordeaux: $colorBordeaux,
   cv-magenta: $colorMagenta,
   cv-violet: $colorViolet,
+  cv-monochrome: $colorBlack,
 );
 
 /**
