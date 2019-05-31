@@ -2,8 +2,9 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const defImageFigureData = require('../image_figure/image_figure.data').variants;
-const defButtonData = require('../../atoms/button/button.data').variants;
+const defImageFigureData = require('../image_figure/image_figure.data');
+const defButtonData = require('../../atoms/button/button.data').props;
+
 
 const template = dataHelper.getFileContent('page_header.hbs');
 const data = _.merge({}, defaultData, {
@@ -17,8 +18,11 @@ const data = _.merge({}, defaultData, {
     title: 'Seitenkopf',
     pageTitle: 'H1: Pagetitle Black Strassenverkehrsamt',
     leadText: 'Lead: ExtraBold Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
-    breadcumbText: '<strong>Placeholder</strong> &#8227; Placeholder',
-    buttonData: defButtonData,
+    breadcrumbText1: '<strong>Kanton Zürich</strong>',
+    breadcrumbText2: 'Level inactive',
+    breadcrumbText3: 'Level active',
+    backlinkText: 'Zurück zur Übersicht',
+    buttonData: _.merge(defButtonData, { text: 'Formular beantragen' }),
   },
 });
 
@@ -31,6 +35,7 @@ const variants = _.mapValues({
     props: {
       disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue' ],
       defaultColorVariation: 'cv-blue',
+      hasBreadcrumb: true,
     },
   },
   defaultImage: {
@@ -41,8 +46,9 @@ const variants = _.mapValues({
     props: {
       disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue' ],
       defaultColorVariation: 'cv-blue',
-      imageData: defImageFigureData.header,
+      imageData: defImageFigureData.variants.header.props,
       hasImage: true,
+      hasBacklink: true,
     },
   },
   colored: {
@@ -54,6 +60,8 @@ const variants = _.mapValues({
       disabledColorVariations: ['cv-monochrome'],
       defaultColorVariation: 'cv-blue',
       inverted: true,
+      buttonData: _.merge({}, defButtonData, { isInverted: true }),
+      hasBreadcrumb: true,
     },
   },
   coloredImage: {
@@ -64,9 +72,11 @@ const variants = _.mapValues({
     props: {
       disabledColorVariations: ['cv-monochrome'],
       defaultColorVariation: 'cv-blue',
-      imageData: defImageFigureData.headerNoTitle,
+      imageData: defImageFigureData.variants.headerNoTitle.props,
       inverted: true,
       hasImage: true,
+      buttonData: _.merge({}, defButtonData, { isInverted: true }),
+      hasBacklink: true,
     },
   },
   coloredImageTitle: {
@@ -77,10 +87,12 @@ const variants = _.mapValues({
     props: {
       disabledColorVariations: ['cv-monochrome'],
       defaultColorVariation: 'cv-blue',
-      imageData: defImageFigureData.header,
+      imageData: defImageFigureData.variants.header.props,
       inverted: true,
       hasImageTitle: true,
       hasImage: true,
+      buttonData: _.merge({}, defButtonData, { isInverted: true }),
+      hasBacklink: true,
     },
   },
 }, (variant) => {

@@ -2,6 +2,8 @@
   @include gridBleed;
   padding-top: 40px;
 
+  @include sizeCurve(padding-bottom, pageHeaderBottom, $verticalSpacingCurves);
+
   &__logo {
     position: relative;
 
@@ -15,6 +17,18 @@
   &__breadcrumb {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
     @include sizeCurve('margin-bottom', breadcrumpMarginBottom, $verticalSpacingCurves);
+
+    span {
+      color: $colorBlack60;
+    }
+  }
+
+  &__breadcrumb-angle,
+  &__breadcrumb-backlink {
+    vertical-align: text-top;
+
+    @include polyFluidSizing(width, map-get($fontSizeCurves, regular));
+    @include polyFluidSizing(height, map-get($fontSizeCurves, regular));
   }
 
   .atm-lead {
@@ -22,9 +36,19 @@
     margin-left: 0;
   }
 
+  .atm-button {
+    @include sizeCurve('margin-bottom', regular);
+  }
+
   &--headerimage {
+    padding-bottom: 0;
+
     .mdl-page-header__subsection {
       @include sizeCurve(padding-top, headerImagePadding, $verticalSpacingCurves);
+
+      .lyt-wrapper {
+        @include sizeCurve(padding-bottom, pageHeaderBottom, $verticalSpacingCurves);
+      }
     }
 
     .lyt-wrapper {
@@ -62,14 +86,32 @@
       &--inverted {
         background-color: #{$val};
 
+        ::selection {
+          color: $colorBlack;
+          background: $colorWhite;
+        }
+
         .atm-heading,
         .atm-lead,
         .mdl-page-header__breadcrumb {
           color: $colorWhite;
+
+          span {
+            color: $colorWhite;
+          }
+        }
+
+        .mdl-page-header__breadcrumb use {
+          fill: $colorWhite;
         }
 
         .mdl-page-header__subsection {
           background-color: $colorWhite;
+
+          ::selection {
+            background: #{$val};
+            color: $colorWhite;
+          }
 
           .atm-heading,
           .atm-lead,

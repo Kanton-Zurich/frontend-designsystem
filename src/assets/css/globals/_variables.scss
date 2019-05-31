@@ -206,6 +206,10 @@ $verticalSpacingCurves: (
     medium: $sizeBiggerBig,
     xlarge: $sizeSmallHuge
   ),
+  pageHeaderBottom: (
+    tiny: $sizeLarge,
+    medium: $sizeBiggerBig,
+  ),
   headerImagePadding: (
     tiny: ($sizeBiggerBig + $sizeLarge),
     medium: ($sizeHuge + $sizeBig),
@@ -216,15 +220,15 @@ $verticalSpacingCurves: (
     medium: $sizeHuge
   ),
   headerImagePaddingCaptioned: (
-    tiny: ($sizeBiggerBig + $sizeLarge + $sizeRegular + $sizeTiny),
-    small: ($sizeBiggerBig + $sizeLarge + $sizeSmallLarge + $sizeTiny),
-    medium: ($sizeHuge + $sizeBig + $sizeSmallLarge + $sizeTiny),
-    xlarge: ($sizeHuge + $sizeBiggerBig + $sizeSmallLarge + $sizeTiny),
+    tiny: ($sizeBiggerBig + $sizeLarge + $sizeRegular),
+    small: ($sizeBiggerBig + $sizeLarge + $sizeSmallLarge),
+    medium: ($sizeHuge + $sizeBig + $sizeSmallLarge),
+    xlarge: ($sizeHuge + $sizeBiggerBig + $sizeSmallLarge),
   ),
   headerImageMarginCaptioned: (
-    tiny: ($sizeBiggerBig + $sizeRegular + $sizeTiny),
-    small: ($sizeBiggerBig + $sizeSmallLarge + $sizeTiny),
-    medium: ($sizeHuge + $sizeSmallLarge + $sizeTiny),
+    tiny: ($sizeBiggerBig + $sizeRegular),
+    small: ($sizeBiggerBig + $sizeSmallLarge),
+    medium: ($sizeHuge + $sizeSmallLarge),
   ),
   ktzhLogoPaddingTop: (
     tiny: 0,
@@ -273,7 +277,7 @@ $customSize: (
     medium: 678px,
     large: 828px,
     xlarge: 1036px,
-  )
+  ),
 );
 
 // content grid numbers for width calculation
