@@ -1,55 +1,57 @@
 <div class="mdl-teaser__wrapper">
-  <a href="{{teaserLink}}" class="mdl-teaser"
-     data-init="teaser">
-    <div class="mdl-teaser__content">
-      <time class="mdl-teaser__date" datetime="{{teaserMachineReadableDate}}">{{teaserDisplayDate}}</time>
-      <h2 class="mdl-teaser__title atm-heading" data-lineclamp="true">
-        {{teaserTitle_listItem1}}
-      </h2>
+  <div class="lyt-wrapper">
+{{#if default}}
+    <a href="{{teaserLink}}" class="mdl-teaser"
+       data-init="teaser">
+      <div class="mdl-teaser__content">
+        <time class="mdl-teaser__date" datetime="{{teaserMachineReadableDate}}">{{teaserDisplayDate}}</time>
+        <h2 class="mdl-teaser__title atm-heading" data-lineclamp="true">
+          {{teaserTitle_listItem1}}
+        </h2>
 
-      <p data-teaser="teaserDescription" data-lineclamp="true" class="mdl-teaser__description">
-        {{teaserDescription_listItem1}}
-      </p>
+        <p data-teaser="teaserDescription" data-lineclamp="true" class="mdl-teaser__description">
+          {{teaserDescription_listItem1}}
+        </p>
 
-      <div>
-        <div class="atm-button">
-          <span class="atm-button__text ">{{teaserButtonLabel}}</span>
+        <div>
+          <div class="atm-button">
+            <span class="atm-button__text ">{{teaserButtonLabel}}</span>
+          </div>
         </div>
+
       </div>
+      <div class="mdl-teaser__image">
+        {{> "modules/image_figure/image_figure"}}
+      </div>
+    </a>
+{{/if}}
+{{#if defaultLeft}}
+    <a href="{{teaserLink}}"
+       class="mdl-teaser mdl-teaser--left"
+       data-init="teaser">
+      <div class="mdl-teaser__content">
+        <time class="mdl-teaser__date" datetime="{{teaserMachineReadableDate}}">{{teaserDisplayDate}}</time>
+        <h2 class="mdl-teaser__title atm-heading" data-lineclamp="true">
+          {{teaserTitle_listItem2}}
+        </h2>
 
-    </div>
-    <div class="mdl-teaser__image">
-      {{> "modules/image_figure/image_figure"}}
-    </div>
-  </a>
+        <p class="mdl-teaser__description" data-lineclamp="true">
+          {{teaserDescription_listItem2}}
+        </p>
 
-  <a href="{{teaserLink}}"
-     class="mdl-teaser mdl-teaser--left"
-     data-init="teaser">
-    <div class="mdl-teaser__content">
-      <time class="mdl-teaser__date" datetime="{{teaserMachineReadableDate}}">{{teaserDisplayDate}}</time>
-      <h2 class="mdl-teaser__title atm-heading" data-lineclamp="true">
-        {{teaserTitle_listItem2}}
-      </h2>
-
-      <p class="mdl-teaser__description" data-lineclamp="true">
-        {{teaserDescription_listItem2}}
-      </p>
-
-      <div>
-        <div class="atm-button">
-          <span class="atm-button__text ">{{teaserButtonLabel}}</span>
+        <div>
+          <div class="atm-button">
+            <span class="atm-button__text ">{{teaserButtonLabel}}</span>
+          </div>
         </div>
+
       </div>
-
-    </div>
-    <div class="mdl-teaser__image">
-      {{> "modules/image_figure/image_figure"}}
-    </div>
-  </a>
-</div>
-
-<div class="mdl-teaser__wrapper">
+      <div class="mdl-teaser__image">
+        {{> "modules/image_figure/image_figure"}}
+      </div>
+    </a>
+{{/if}}
+{{#if inverted}}
   <a href="{{teaserLink}}"
      class="mdl-teaser mdl-teaser--inverted"
      data-init="teaser">
@@ -64,7 +66,7 @@
       </p>
 
       <div>
-        <div class="atm-button atm-button--secondary">
+        <div class="atm-button atm-button--cv-inverted">
           <span class="atm-button__text ">{{teaserButtonLabel}}</span>
         </div>
       </div>
@@ -74,6 +76,31 @@
       {{> "modules/image_figure/image_figure"}}
     </div>
   </a>
+{{/if}}
+{{#if noImage}}
+  <a href="{{teaserLink}}"
+     class="mdl-teaser mdl-teaser--inverted mdl-teaser--noImage"
+     data-init="teaser">
+    <div class="mdl-teaser__content">
+      <h2 class="mdl-teaser__title atm-heading" data-lineclamp="true">
+        {{teaserTitle}}
+      </h2>
+      <p class="mdl-teaser__description" data-lineclamp="true">
+        {{teaserDescription}}
+      </p>
+      <div>
+        <div class="atm-button atm-button--cv-inverted">
+          <span class="atm-button__text ">{{teaserButtonLabel}}</span>
+        </div>
+      </div>
+    </div>
+  </a>
+{{/if}}
+  </div>
+</div>
+<!--
+<div class="mdl-teaser__wrapper">
+
 </div>
 
 <div class="mdl-teaser__wrapper">
@@ -164,3 +191,4 @@
     </div>
   </a>
 </div>
+-->
