@@ -26,9 +26,17 @@
   &__breadcrumb-angle,
   &__breadcrumb-backlink {
     vertical-align: text-top;
+    width: $sizeFontMedium;
+    height: $sizeFontMedium;
+    margin-left: 0;
 
-    @include polyFluidSizing(width, map-get($fontSizeCurves, regular));
-    @include polyFluidSizing(height, map-get($fontSizeCurves, regular));
+    @include mq($from: tiny, $to: medium) {
+      margin-left: -$sizeFontMedium;
+    }
+  }
+
+  &__breadcrumb-backlink use {
+    fill: $colorBlack60;
   }
 
   .atm-lead {
