@@ -373,15 +373,19 @@
 /**
  * Grid bleeding for content elements
  */
-@mixin gridBleed($trailingGutters: false) {
+@mixin gridBleed($trailingGutters: false, $fullwidth: false) {
   @if $trailingGutters == true {
     @include sizeCurve(padding-left padding-right, bleed, $grid-outer-gutters);
 
     width: 100vw;
-    max-width: $sizeWidthContent;
+    @if $fullwidth == false {
+      max-width: $sizeGlobalMaxWidth;
+    }
   } @else {
     width: calc(100vw + 2px);
-    max-width: $sizeGlobalMaxWidth;
+    @if $fullwidth == false {
+      max-width: $sizeGlobalMaxWidth;
+    }
   }
   transform: translateX(-50%);
   margin-left: 50%;

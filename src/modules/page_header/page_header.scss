@@ -1,5 +1,5 @@
 .mdl-page-header {
-  @include gridBleed;
+  @include gridBleed($fullwidth: true);
   padding-top: 40px;
 
   @include sizeCurve(padding-bottom, pageHeaderBottom, $verticalSpacingCurves);
