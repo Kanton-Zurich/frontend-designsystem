@@ -49,7 +49,7 @@ const data = _.merge({}, defaultData, {
     ],
     linkListItemTitle: 'Download Publikumsfassung',
     linkListItemIsDownload: true,
-    linkListItemLabel: 'PDF | 2 Seiten | Sprache | 117kb',
+    linkListItemLabel: 'PDF | 2 Seiten | Sprache | 117kB',
     linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
   },
 });
