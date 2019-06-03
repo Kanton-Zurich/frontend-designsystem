@@ -19,31 +19,34 @@ const data = _.merge({}, defaultData, {
 });
 
 const variants = _.mapValues({
-  textblue: {
+  text: {
     meta: {
       title: 'Text',
       desc: '',
     },
     props: _.merge({
       textVariation: true,
+      texthighlightId: _.uniqueId('texthighlight'),
     }, dataRichtext.props),
   },
-  linklistmagenta: {
+  linklist: {
     meta: {
-      title: 'Link-List',
+      title: 'Linkliste',
       desc: '',
     },
     props: _.merge(dataLinklist.props, {
       linklistVariation: true,
+      texthighlightId: _.uniqueId('texthighlight'),
     }),
   },
-  imageFigureBlue: {
+  image: {
     meta: {
       title: 'Bild',
       desc: '',
     },
     props: _.merge(imageFigureData.props, {
       imageVariation: true,
+      texthighlightId: _.uniqueId('texthighlight'),
     }),
   },
 }, (variant) => {
