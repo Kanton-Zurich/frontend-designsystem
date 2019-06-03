@@ -84,6 +84,10 @@ $maxTextLinesDefault: 4;
     @include visuallyhidden();
   }
 
+  .mdl-image-figure__img-wrapper {
+    margin-bottom: 0;
+  }
+
   @include mq($from: xsmall) {
     margin: 0 auto;
 
