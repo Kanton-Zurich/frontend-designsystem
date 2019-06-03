@@ -1,4 +1,4 @@
-<div class="mdl-page-header {{#if hasImage}}mdl-page-header--headerimage{{/if}} {{#if hasVideo}}mdl-page-header--headerimage{{/if}} {{#if inverted}}mdl-page-header--inverted{{/if}} {{#if hasImageTitle}}mdl-page-header--image-title{{/if}}">
+<div class="mdl-page-header {{#if hasImage}}mdl-page-header--headerimage{{/if}} {{#if inverted}}mdl-page-header--inverted{{/if}} {{#if hasImageTitle}}mdl-page-header--image-title{{/if}}">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="cell tiny-2 xsmall-2 small-2 medium-2 large-2 xlarge-2">
@@ -45,24 +45,12 @@
           {{> "atoms/button/button" buttonData}}
         {{/if}}
         {{/unless}}
-        {{#if hasImage}}{{> "modules/image_figure/image_figure" imageData}}{{/if}}
+        {{#if hasImage}}{{#unless hasVideo}}{{> "modules/image_figure/image_figure" imageData}}{{/unless}}{{/if}}
         {{#if hasVideo}}{{> "modules/video/video" videoData}}{{/if}}
       </div>
     </div>
   </div>
 {{#if hasImage}}
-  <div class="mdl-page-header__subsection">
-    <div class="lyt-wrapper">
-      <div class="grid-x grid-margin-x">
-        <div
-          class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
-          {{> "atoms/lead/lead"}}
-        </div>
-      </div>
-    </div>
-  </div>
-{{/if}}
-{{#if hasVideo}}
   <div class="mdl-page-header__subsection">
     <div class="lyt-wrapper">
       <div class="grid-x grid-margin-x">

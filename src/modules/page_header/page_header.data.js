@@ -108,6 +108,7 @@ const variants = _.mapValues({
       inverted: true,
       hasImageTitle: true,
       hasVideo: true,
+      hasImage: true,
       buttonData: _.merge({}, defButtonData, { isInverted: true }),
       hasBacklink: true,
     },
