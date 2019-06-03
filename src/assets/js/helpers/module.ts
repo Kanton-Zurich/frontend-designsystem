@@ -97,14 +97,14 @@ class Module {
    * @protected
    * @memberof Module
    */
-  protected initUi() {
+  protected initUi(enforceNodeList: Boolean = false) {
     const domSelectorKeys = Object.keys(this.options.domSelectors);
 
     domSelectorKeys.forEach((selectorKey) => {
       const queryElements = this.ui.element
         .querySelectorAll(this.options.domSelectors[selectorKey]);
 
-      this.ui[selectorKey] = queryElements.length > 1 ? queryElements : queryElements[0];
+      this.ui[selectorKey] = queryElements.length > 1 || enforceNodeList ? queryElements : queryElements[0];
     });
   }
 

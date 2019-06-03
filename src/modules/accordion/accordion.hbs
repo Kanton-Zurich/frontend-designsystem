@@ -1,14 +1,14 @@
 <div class="mdl-accordion" data-init="accordion">
-  <h{{headingLevel}} class="atm-heading atm-heading--bordered">
-    {{title}}
-  </h{{headingLevel}}>
+  <h{{accordionHeading.level}} class="atm-heading atm-heading--bordered">
+    {{accordionHeading.title}}
+  </h{{accordionHeading.level}}>
   <p class="visuallyhidden">
    Verwenden Sie die Akkordeon-Bedienelemente, um die Sichtbarkeit der jeweiligen Panels (unterhalb der Bedienelemente) umzuschalten.
   </p>
   <div>
     {{#each items}}
       <div class="mdl-accordion__item" data-accordion="item">
-        <h{{increment ../headingLevel}} class="mdl-accordion__control">
+        <h{{increment ../accordionHeading.level}} class="mdl-accordion__control">
           <input
             class="visuallyhidden mdl-accordion__input"
             type="checkbox"
@@ -25,7 +25,7 @@
               <use xlink:href="#plus-horizontal"></use>
             </svg>
           </label>
-        </h{{increment ../headingLevel}}>
+        </h{{increment ../accordionHeading.level}}>
         <div class="mdl-accordion__panel" data-accordion="panel">
           <div class="mdl-accordion__panel-content" data-accordion="panel-content">
             {{#each children}}
