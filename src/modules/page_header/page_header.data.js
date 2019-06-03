@@ -3,6 +3,7 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defImageFigureData = require('../image_figure/image_figure.data');
+const defVideoData = require('../video/video.data');
 const defButtonData = require('../../atoms/button/button.data').props;
 
 
@@ -91,6 +92,22 @@ const variants = _.mapValues({
       inverted: true,
       hasImageTitle: true,
       hasImage: true,
+      buttonData: _.merge({}, defButtonData, { isInverted: true }),
+      hasBacklink: true,
+    },
+  },
+  coloredVideoTitle: {
+    meta: {
+      title: 'Mit Farbe, Video und Untertitel',
+      desc: '',
+    },
+    props: {
+      disabledColorVariations: ['cv-monochrome'],
+      defaultColorVariation: 'cv-blue',
+      videoData: defVideoData.variants.header.props,
+      inverted: true,
+      hasImageTitle: true,
+      hasVideo: true,
       buttonData: _.merge({}, defButtonData, { isInverted: true }),
       hasBacklink: true,
     },

@@ -190,11 +190,23 @@ $indentCurve: (
   )
 );
 
-// custom vertical spacings
-$verticalSpacingCurves: (
-  quoteWithImage: (
-    tiny: $sizeBiggerBig,
-    large: $sizeHuge
+// used in video and image
+$imageCustomSizes: (
+  headerImageWidth: (
+    tiny: 265px,
+    xsmall: 323px,
+    small: 488px,
+    medium: 678px,
+    large: 828px,
+    xlarge: 1036px,
+  ),
+  headerImageWidthAspect: (
+    tiny: 149px,
+    xsmall:182px,
+    small:274px,
+    medium: 381px,
+    large: 466px,
+    xlarge: 583px,
   ),
 );
 

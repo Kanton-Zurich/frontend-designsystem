@@ -17,17 +17,6 @@ $smallImageWidths: (
   )
 );
 
-$imageCuzstomSizes: (
-  headerImageWidth: (
-    tiny: 265px,
-    xsmall: 323px,
-    small: 488px,
-    medium: 678px,
-    large: 828px,
-    xlarge: 1036px,
-  ),
-);
-
 .mdl-image-figure {
   margin: 0;
 
@@ -121,7 +110,8 @@ $imageCuzstomSizes: (
 
       max-width: $maxImageWidth;
 
-      @include polyFluidSizing('width', map-get($imageCuzstomSizes, headerImageWidth));
+      @include polyFluidSizing('width', map-get($imageCustomSizes, headerImageWidth));
+      @include polyFluidSizing('height', map-get($imageCustomSizes, headerImageWidthAspect));
       $breakpointValue: $maxLayoutBreakPointWidth;
       $sizeValue: $sizeBreakpointLarge;
       $nextBreakpointValue: $sizeGlobalMaxWidth;
