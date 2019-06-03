@@ -53,7 +53,7 @@ const data = _.merge({}, defaultData, {
     linkListItemIsDownload: true,
     isButton: true,
     linkListItemHref: false,
-    linkListItemLabel: 'PDF | 2 Seiten | DE, FR, IT | 117kb',
+    linkListItemLabel: 'PDF | 2 Seiten | DE, FR, IT | 117kB',
     domSelector: 'data-download_list="openContext"',
     contextMenu: _.merge({}, contextMenuDownload, {
       domSelector: 'data-download_list="contextMenu"',
