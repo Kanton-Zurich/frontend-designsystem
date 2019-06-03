@@ -121,10 +121,6 @@ gulp.task('html', () => {
             .replace(new RegExp(`\\${path.sep}g`), '/') // Normalize path separator
             .replace(/\.\.$/, ''); // Remove trailing ..
 
-          if (path.basename(file.path) === 'image_figure.hbs') {
-            console.log('content', content);
-          }
-
           content = content.replace(/('|"|&quot;|,\s)\/(?!\^)/g, `$1${relPathPrefix}`);
         }
 
