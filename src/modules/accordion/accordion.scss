@@ -87,6 +87,8 @@
     width: calc(100% - 24px);
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-weight: $fontWeightBlack;
+    line-height: 1.3;
 
     @include transition(color);
   }
