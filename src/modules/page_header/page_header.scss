@@ -1,22 +1,96 @@
+$pageHeaderCurves: (
+  ktzhLogoPaddingTop: (
+    tiny: 0,
+    xsmall: 4px,
+    small: 4px,
+    medium: 0,
+    large: 0,
+    xlarge: 4px,
+  ),
+  ktzhLogoTop: (
+    tiny: 25px,
+    xsmall: 22px,
+    small: 16px,
+    medium: 0,
+    large: -9px,
+    xlarge: -15px,
+  ),
+  ktzhLogoTopFF: (
+    tiny: 24px,
+    xsmall: 21px,
+    small: 15px,
+    medium: -3px,
+    large: -13px,
+    xlarge: -18px,
+  ),
+  ktzhLogoMarginLeft: (
+    tiny: -6px,
+    xsmall: -6px,
+    small: 0,
+  ),
+  ktzhLogoWidth: (
+    tiny: 54px,
+    xsmall: 66px,
+    small: 87px,
+    medium: 125px,
+    large: 153px,
+    xlarge: 184px,
+  ),
+  pageHeaderTop: (
+    tiny: $sizeLarge,
+    small: $sizeBig,
+    medium: $sizeBiggerBig,
+    xlarge: $sizeSmallHuge
+  ),
+  pageHeaderBottom: (
+    tiny: $sizeLarge,
+    medium: $sizeBiggerBig,
+  ),
+  headerImagePadding: (
+    tiny: ($sizeBiggerBig + $sizeLarge),
+    medium: ($sizeHuge + $sizeBig),
+    xlarge: ($sizeHuge + $sizeBiggerBig),
+  ),
+  headerImageMargin: (
+    tiny: $sizeBiggerBig,
+    medium: $sizeHuge
+  ),
+  headerImagePaddingCaptioned: (
+    tiny: ($sizeBiggerBig + $sizeLarge + $sizeRegular),
+    small: ($sizeBiggerBig + $sizeLarge + $sizeSmallLarge),
+    medium: ($sizeHuge + $sizeBig + $sizeSmallLarge),
+    xlarge: ($sizeHuge + $sizeBiggerBig + $sizeSmallLarge),
+  ),
+  headerImageMarginCaptioned: (
+    tiny: ($sizeBiggerBig + $sizeRegular),
+    small: ($sizeBiggerBig + $sizeSmallLarge),
+    medium: ($sizeHuge + $sizeSmallLarge),
+  ),
+  breadcrumpMarginBottom: (
+    tiny: $sizeSmallRegular,
+    xlarge: $sizeRegular
+  ),
+);
+
 .mdl-page-header {
   @include gridBleed($fullwidth: true);
   padding-top: 40px;
 
-  @include sizeCurve(padding-bottom, pageHeaderBottom, $verticalSpacingCurves);
+  @include sizeCurve(padding-bottom, pageHeaderBottom, $pageHeaderCurves);
 
   &__logo {
     position: relative;
 
-    @include polyFluidSizing('width', map-get($customSize, ktzhLogoWidth));
-    @include polyFluidSizing('height', map-get($customSize, ktzhLogoWidth));
-    @include sizeCurve('padding-top', ktzhLogoPaddingTop, $verticalSpacingCurves);
-    @include polyFluidSizing('top', map-get($verticalSpacingCurves, ktzhLogoTop));
-    @include polyFluidSizing('margin-left', map-get($customSize, ktzhLogoMarginLeft));
+    @include polyFluidSizing('width', map-get($pageHeaderCurves, ktzhLogoWidth));
+    @include polyFluidSizing('height', map-get($pageHeaderCurves, ktzhLogoWidth));
+    @include sizeCurve('padding-top', ktzhLogoPaddingTop, $pageHeaderCurves);
+    @include polyFluidSizing('top', map-get($pageHeaderCurves, ktzhLogoTop));
+    @include polyFluidSizing('margin-left', map-get($pageHeaderCurves, ktzhLogoMarginLeft));
   }
 
   &__breadcrumb {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-    @include sizeCurve('margin-bottom', breadcrumpMarginBottom, $verticalSpacingCurves);
+    @include sizeCurve('margin-bottom', breadcrumpMarginBottom, $pageHeaderCurves);
 
     span {
       color: $colorBlack60;
@@ -52,29 +126,29 @@
     padding-bottom: 0;
 
     .mdl-page-header__subsection {
-      @include sizeCurve(padding-top, headerImagePadding, $verticalSpacingCurves);
+      @include sizeCurve(padding-top, headerImagePadding, $pageHeaderCurves);
 
       .lyt-wrapper {
-        @include sizeCurve(padding-bottom, pageHeaderBottom, $verticalSpacingCurves);
+        @include sizeCurve(padding-bottom, pageHeaderBottom, $pageHeaderCurves);
       }
     }
 
     .lyt-wrapper {
-      @include sizeCurve(margin-bottom, headerImageMargin, $verticalSpacingCurves, $isNegative: true);
+      @include sizeCurve(margin-bottom, headerImageMargin, $pageHeaderCurves, $isNegative: true);
     }
 
-    @include sizeCurve(padding-bottom, headerImageMargin, $verticalSpacingCurves);
+    @include sizeCurve(padding-bottom, headerImageMargin, $pageHeaderCurves);
 
     &.mdl-page-header--image-title {
       .mdl-page-header__subsection {
-        @include sizeCurve(padding-top, headerImagePaddingCaptioned, $verticalSpacingCurves);
+        @include sizeCurve(padding-top, headerImagePaddingCaptioned, $pageHeaderCurves);
       }
 
       .lyt-wrapper {
-        @include sizeCurve(margin-bottom, headerImageMarginCaptioned, $verticalSpacingCurves, $isNegative: true);
+        @include sizeCurve(margin-bottom, headerImageMarginCaptioned, $pageHeaderCurves, $isNegative: true);
       }
 
-      @include sizeCurve(padding-bottom, headerImageMarginCaptioned, $verticalSpacingCurves);
+      @include sizeCurve(padding-bottom, headerImageMarginCaptioned, $pageHeaderCurves);
     }
   }
 }
@@ -82,7 +156,7 @@
 @-moz-document url-prefix('') {
   .mdl-page-header {
     &__logo {
-      @include polyFluidSizing('top', map-get($verticalSpacingCurves, ktzhLogoTopFF));
+      @include polyFluidSizing('top', map-get($pageHeaderCurves, ktzhLogoTopFF));
     }
   }
 }
