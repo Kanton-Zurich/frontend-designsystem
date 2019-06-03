@@ -1,0 +1,97 @@
+.mdl-tag-group {
+  $customSizing: (
+    containerTopPadding: (
+      tiny: $sizeBiggerBig,
+      medium: $sizeBiggerBig,
+      large: $sizeHuge
+    ),
+    containerBottomPadding: (
+      tiny: $sizeLarge,
+      medium: $sizeLarge,
+      large: $sizeBig,
+      xlarge: $sizeBiggerBig
+    ),
+    headingBottomMargin: (
+      tiny: $sizeTiny,
+      medium: $sizeTiny,
+      large: $sizeSmallRegular
+    ),
+  );
+
+  background-color: $colorBordeaux;
+
+  @include gridBleed($trailingGutters: true);
+  @include sizeCurve('padding-top', containerTopPadding, $customSizing);
+  @include sizeCurve('padding-bottom', containerBottomPadding, $customSizing);
+
+  .lyt-wrapper {
+    margin: 0;
+    max-width: 100%;
+  }
+
+  h2 {
+    color: $colorWhite;
+    font-size: $sizeFontTiny;
+
+    @include sizeCurve('margin-bottom', headingBottomMargin, $customSizing);
+  }
+
+  &__tags {
+    margin-left: calc(-#{$sizeTiny} / 2);
+    margin-right: calc(-#{$sizeTiny} / 2);
+    margin-bottom: $sizeSmallRegular;
+    padding: 0;
+    list-style-type: none;
+    font-size: 0;
+
+    li {
+      display: inline-block;
+      margin-right: 2px;
+    }
+  }
+
+  a {
+    margin-bottom: calc(#{$sizeTiny} / 2);
+  }
+
+  @include mq($from: xsmall) {
+    padding-left: $sizeRegular;
+    padding-right: $sizeRegular;
+  }
+  @include mq($from: small) {
+    padding-left: 0;
+    padding-right: 0;
+
+    .lyt-wrapper {
+      margin: 0 auto;
+      max-width: calc(100% - 4rem);
+    }
+
+    &__tags {
+      margin-left: - #{$sizeSmallRegular};
+      margin-right: - #{$sizeSmallRegular};
+    }
+  }
+  @include mq($from: large ) {
+    @include gridBleed($trailingGutters: false);
+
+    .lyt-wrapper {
+      max-width: calc(100% - 5rem);
+    }
+
+    &__tags {
+      margin-bottom: $sizeRegular;
+    }
+  }
+}
+
+/*
+* COLOR-VARIATIONS
+*/
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-tag-group {
+      background-color: #{$val};
+    }
+  }
+}
