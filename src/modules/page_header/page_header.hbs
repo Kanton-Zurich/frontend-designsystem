@@ -32,6 +32,13 @@
           {{/if}}&nbsp;
         </div>
         <h1 class="atm-heading">{{pageTitle}}</h1>
+        {{#if hasAchors}}
+          {{#each anchorLinks}}
+             <li>
+              {{> "atoms/anchorlink/anchorlink" this}}
+            </li>
+          {{/each}}
+        {{/if}}
       </div>
     </div>
     <div class="grid-x grid-margin-x">
