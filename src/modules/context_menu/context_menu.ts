@@ -157,7 +157,6 @@ class ContextMenu extends Module {
 
     // Check if context menu is not completely visible, then put it above attach to target
     const copiedNodeRect = this.data.copiedNode.getBoundingClientRect();
-    console.log(copiedNodeRect);
     const contextMenuBottomPoint = copiedNodeRect.top + copiedNodeRect.height;
 
     if (contextMenuBottomPoint > document.documentElement.clientHeight) {
