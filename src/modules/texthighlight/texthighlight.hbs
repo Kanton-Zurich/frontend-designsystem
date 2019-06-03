@@ -1,4 +1,4 @@
-<div class="mdl-texthighlight">
+<div {{#if texthighlightId}} id="{{texthighlightId}}"{{/if}}class="mdl-texthighlight">
   {{#if textVariation}}
   {{> "modules/richtext/richtext"}}
   {{/if}}

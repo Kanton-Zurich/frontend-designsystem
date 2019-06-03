@@ -5,6 +5,8 @@ const defaultData = require('../../data/default.data.js');
 
 const defFigcaptionData = require('../../atoms/figcaption/figcaption.data').props;
 
+const contextMenuDownload = require('../context_menu/context_menu.data').variants.download.props;
+
 const template = dataHelper.getFileContent('publication_teaser.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -49,8 +51,13 @@ const data = _.merge({}, defaultData, {
     ],
     linkListItemTitle: 'Download Publikumsfassung',
     linkListItemIsDownload: true,
-    linkListItemLabel: 'PDF | 2 Seiten | Sprache | 117kb',
-    linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    isButton: true,
+    linkListItemHref: false,
+    linkListItemLabel: 'PDF | 2 Seiten | DE, FR, IT | 117kB',
+    domSelector: 'data-download_list="openContext"',
+    contextMenu: _.merge({}, contextMenuDownload, {
+      domSelector: 'data-download_list="contextMenu"',
+    }),
   },
 });
 const variants = _.mapValues({

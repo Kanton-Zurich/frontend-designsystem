@@ -8,6 +8,7 @@ Die Belegung ist folgendermassen (gemäss [Empfehlung von der Stiftung «Zugang 
 * 1: Navigation
 * 2: Inhalt
 * 3: Kontakt
+* 4: Inhaltsverzeichnis
 * 5: Suche
 * 6: Fussbereich
 

@@ -2,6 +2,7 @@
 $normalButtonSize: $sizeBiggerBig + $sizeTiny;
 
 .atm-button {
+  position: relative;
   background: $colorBlack;
   border: none;
 
@@ -134,6 +135,89 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
         .atm-button__icon use {
           fill: $colorBlack100;
         }
+      }
+    }
+  }
+
+  /**
+  * Tag-Buttons
+  */
+  &--tag {
+    display: inline-flex;
+    border-radius: 75.5px;
+    padding: 0 $sizeRegular;
+    min-width: auto;
+
+    &:hover:not(.atm-button--cv-inverted) {
+      &:not(.atm-button--secondary) {
+        background: rgba($colorBlack100, 0.8);
+      }
+      background: rgba($colorBlack100, 0.15);
+    }
+
+    &:not(.atm-button--tag-top) {
+      font-weight: $fontWeightDefault;
+    }
+
+    &-filter {
+      box-sizing: border-box;
+      transition: border-color $transitionTimeDefault $transitionEasingDefault;
+      padding: 0 $sizeBig 0 $sizeRegular;
+
+      &:not(.atm-button--cv-inverted) {
+        border: 1px solid transparent;
+
+        &:hover {
+          border: 1px solid rgba(0, 0, 0, 0.42);
+        }
+      }
+
+      .icon.atm-button__icon {
+        position: absolute;
+        right: 11.25px;
+        margin-left: 0;
+        transform: scale(0.3958) translateX(50%);
+      }
+    }
+
+    &-topic {
+      padding: 0 calc(#{$sizeRegular} / 2);
+      height: pxToRem($sizeLarge);
+      border-radius: $sizeSmallRegular;
+      background: $colorBlack100;
+      color: $colorWhite;
+      font-size: $sizeFontTiny;
+
+      &:hover {
+        background: rgba($colorBlack100, 0.8);
+      }
+    }
+
+    &-top {
+      height: $sizeBiggerBig;
+      padding: 0 $sizeSmallRegular;
+      font-size: pxToRem($sizeFontBiggerRegular);
+
+      &:not(.atm-button--small) {
+        height: pxToRem(48px);
+        font-size: pxToRem($sizeFontBig);
+        padding: 0 $sizeLarge;
+      }
+    }
+
+    &-edit {
+      align-items: left;
+      padding-left: 0;
+
+      span {
+        order: 2;
+      }
+
+      .icon.atm-button__icon {
+        order: 1;
+        margin-left: 13px;
+        margin-right: 9px;
+        transform: scale(0.625);
       }
     }
   }

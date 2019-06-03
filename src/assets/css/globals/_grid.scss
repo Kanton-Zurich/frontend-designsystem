@@ -11,11 +11,17 @@
     $frame-grid: false
   );
 
-.test-grid .cell {
+.sg_test-grid .cell {
   //Test values
   height: 20px;
 
   @include sizeCurve(margin-bottom, regular);
 
   background: #f00;
+}
+
+.sg_fullwidth-test-module-container {
+  background-color: $colorTurqoise;
+
+  @include gridBleed($trailingGutters: false);
 }
