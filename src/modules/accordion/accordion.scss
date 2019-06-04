@@ -33,7 +33,7 @@ $accordionMap: (
 
     &--open,
     &:hover {
-      .mdl-accordion__item-title {
+      .mdl-accordion__control {
         color: $colorBlack100;
       }
 
@@ -51,7 +51,7 @@ $accordionMap: (
         @include transition(max-height);
       }
 
-      .mdl-accordion__item-title {
+      .mdl-accordion__control {
         max-height: none;
         white-space: normal;
       }
