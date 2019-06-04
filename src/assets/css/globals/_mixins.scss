@@ -374,21 +374,22 @@
  * Grid bleeding for content elements
  */
 @mixin gridBleed($trailingGutters: false, $fullwidth: false) {
+
   @if $trailingGutters == true {
     @include sizeCurve(padding-left padding-right, bleed, $grid-outer-gutters);
 
     width: calc(100vw);
-    width: calc(100vw - var(--scrollbar-wd)); //stylelint-disable-line
     @if $fullwidth == false {
       max-width: $sizeGlobalMaxWidth;
     }
   } @else {
     width: calc(100vw + 2px);
-    width: calc(100vw + 2px - var(--scrollbar-wd)); //stylelint-disable-line
+
     @if $fullwidth == false {
       max-width: $sizeGlobalMaxWidth;
     }
   }
+  width: calc(100vw - var(--scrollbar-wd)); //stylelint-disable-line
   transform: translateX(-50%);
   margin-left: 50%;
 

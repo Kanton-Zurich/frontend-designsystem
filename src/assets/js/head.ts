@@ -21,12 +21,8 @@ document.addEventListener('DOMContentLoaded', loadSvgSprites);
 document.addEventListener('DOMContentLoaded', () => {
   (<any>window).estatico.lineClamper.initLineClamping();
   const adjustScrollbarWidth = () => {
-    const hasScrollbar = window.innerWidth > document.documentElement.clientWidth;
-    if (hasScrollbar) {
-      document.documentElement.style.setProperty('--scrollbar-wd', '17px');
-    } else {
-      document.documentElement.style.setProperty('--scrollbar-wd', '0px');
-    }
+    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.documentElement.style.setProperty('--scrollbar-wd', `${scrollBarWidth}px`);
   };
   (<any>WindowEventListener).addDebouncedResizeListener(() => {
     adjustScrollbarWidth();
