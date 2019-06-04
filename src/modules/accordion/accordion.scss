@@ -1,3 +1,11 @@
+$accordionMap: (
+  controlMargin: (
+    tiny: 12px,
+    small: 14.5px,
+    large: 17px,
+  )
+);
+
 .mdl-accordion {
   @include sizeCurve(margin-bottom, big);
 
@@ -76,13 +84,16 @@
     width: calc(100% - 24px);
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin: 0;
 
+    @include sizeCurve(margin-top margin-bottom, controlMargin, $accordionMap);
     @include transition(color);
   }
 
 
   &__plus {
     overflow: hidden;
+    margin-right: 2px;
 
     use {
       fill: $colorBlack60;
