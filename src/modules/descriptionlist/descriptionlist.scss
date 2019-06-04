@@ -46,7 +46,6 @@
       line-height: $sizeLineHeightBigger;
     }
   }
-
   @include mq($from: xlarge) {
     padding: $sizeRegular 0 14px;
   }
