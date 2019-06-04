@@ -52,9 +52,6 @@ $smallImageWidths: (
   }
 
   &__download {
-    @include sizeCurve(padding-left padding-right, tiny);
-    @include sizeCurve(margin-left margin-right, tiny, $isNegative: true);
-
     padding-top: 2px;
     padding-bottom: 2px;
 

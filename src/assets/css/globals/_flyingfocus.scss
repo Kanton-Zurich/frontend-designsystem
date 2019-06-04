@@ -15,10 +15,10 @@
 
     &:after { // stylelint-disable-line
       position: absolute;
-      top: -4px;
-      right: -4px;
-      bottom: -4px;
-      left: -4px;
+      top: -1px;
+      right: -1px;
+      bottom: -1px;
+      left: -1px;
       border: 2px solid $colorCyan;
       border-radius: 3px;
       content: '';

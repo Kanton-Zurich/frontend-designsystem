@@ -30,7 +30,9 @@ $slidePaddingCurve: (
   &__close {
     @include blankButton;
 
-    margin-right: -5px;
+    .icon {
+      width: 1.5rem * 0.63;
+    }
   }
 
   &__download {
@@ -57,12 +59,15 @@ $slidePaddingCurve: (
     flex-grow: 1;
     overflow-x: hidden;
     padding-top: $sizeSmallRegular;
+    overflow-anchor: none;
   }
 
   &__slide {
     min-width: 100%;
     max-width: 100%;
     display: block;
+
+    overflow-anchor: none;
 
     transition: margin-left $transitionTimeAreaLarge $transitionEasingDefault;
     cursor: pointer;

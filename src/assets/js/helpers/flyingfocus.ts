@@ -107,7 +107,7 @@ class FlyingFocus {
   private isJustPressed() {
     return Date.now() - this.keyDownTime < 42; // eslint-disable-line no-magic-numbers
   }
-  
+
   /**
    * Get offset of element
    *
@@ -144,7 +144,7 @@ class FlyingFocus {
         this.keyDownTime = Date.now();
       }
     }, true);
-    
+
     this.docElement.addEventListener('focus', (event) => {
       this.showFlyingFocus(event);
     }, true);
