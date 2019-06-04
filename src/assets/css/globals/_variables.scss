@@ -305,3 +305,12 @@ $zIndexDropDowns: 10;
 $zIndexScaffolds: 100; // für fixed Header/ Footer
 $zIndexOverlays: 1000;
 $zIndexSkiplinks: 2000;
+
+:root {
+
+  --scrollbar-wd: 17px;
+}
+
+html {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}

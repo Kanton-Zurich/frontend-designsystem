@@ -111,7 +111,7 @@ $smallImageWidths: (
       max-width: $maxImageWidth;
 
       @include polyFluidSizing('width', map-get($imageCustomSizes, headerImageWidth));
-      @include polyFluidSizing('height', map-get($imageCustomSizes, headerImageWidthAspect));
+
       $breakpointValue: $maxLayoutBreakPointWidth;
       $sizeValue: $sizeBreakpointLarge;
       $nextBreakpointValue: $sizeGlobalMaxWidth;
@@ -123,6 +123,9 @@ $smallImageWidths: (
 
       @include mq($from: tiny, $to: xsmall) {
         @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
+      }
+      @include mq($from: xsmall, $to: xlarge) {
+        margin-left: 0;
       }
     }
 

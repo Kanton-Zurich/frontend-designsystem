@@ -377,12 +377,14 @@
   @if $trailingGutters == true {
     @include sizeCurve(padding-left padding-right, bleed, $grid-outer-gutters);
 
-    width: 100vw;
+    width: calc(100vw);
+    width: calc(100vw - var(--scrollbar-wd)); //stylelint-disable-line
     @if $fullwidth == false {
       max-width: $sizeGlobalMaxWidth;
     }
   } @else {
     width: calc(100vw + 2px);
+    width: calc(100vw + 2px - var(--scrollbar-wd)); //stylelint-disable-line
     @if $fullwidth == false {
       max-width: $sizeGlobalMaxWidth;
     }

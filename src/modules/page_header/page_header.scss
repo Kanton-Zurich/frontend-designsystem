@@ -122,6 +122,50 @@ $pageHeaderCurves: (
     @include sizeCurve('margin-bottom', regular);
   }
 
+  .mdl-tag-group {
+    max-width: $sizeWidthTextContent;
+
+    .atm-heading {
+      padding-top: 0;
+
+      @include mq($from: tiny, $to: medium) {
+        margin-bottom: 0;
+      }
+      @include mq($from: medium, $to: xlarge) {
+        margin-bottom: 4px;
+      }
+      @include mq($from: xlarge) {
+        margin-bottom: 4px;
+        margin-left: $sizeLarge;
+      }
+    }
+
+    .mdl-tag-group__tags {
+      @include mq($from: tiny, $to: medium) {
+        margin-left: calc(-#{$sizeSmallRegular});
+        margin-right: calc(-#{$sizeSmallRegular});
+        margin-bottom: 16px;
+      }
+      @include mq($from: medium) {
+        margin-left: calc(-#{$sizeRegular});
+        margin-right: calc(-#{$sizeRegular});
+        margin-bottom: 24px;
+      }
+
+      .atm-anchorlink--tag-top {
+        margin-bottom: 0;
+        margin-top: 8px;
+
+        @include polyFluidSizing('font-size', map-get($fontSizeCurves, large));
+        @include mq($from: tiny, $to: medium) {
+          border-radius: 75.5px;
+          padding: 0 $sizeRegular;
+          height: calc(#{$sizeSmallLarge} + #{$sizeSmallRegular});
+        }
+      }
+    }
+  }
+
   &--headerimage {
     padding-bottom: 0;
 

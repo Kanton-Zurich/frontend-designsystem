@@ -1,4 +1,5 @@
 import loadSvgSprites from '@unic/estatico-svgsprite/lib/loader';
+import WindowEventListener from './helpers/events';
 import './helpers/modernizrrc';
 import FontLoader from './helpers/fontloader';
 import Helper from './helpers/helper';
@@ -17,4 +18,18 @@ window[namespace] = {
 };
 
 document.addEventListener('DOMContentLoaded', loadSvgSprites);
-document.addEventListener('DOMContentLoaded', () => { (<any>window).estatico.lineClamper.initLineClamping(); });
+document.addEventListener('DOMContentLoaded', () => {
+  (<any>window).estatico.lineClamper.initLineClamping();
+  const adjustScrollbarWidth = () => {
+    const hasScrollbar = window.innerWidth > document.documentElement.clientWidth;
+    if (hasScrollbar) {
+      document.documentElement.style.setProperty('--scrollbar-wd', '17px');
+    } else {
+      document.documentElement.style.setProperty('--scrollbar-wd', '0px');
+    }
+  };
+  (<any>WindowEventListener).addDebouncedResizeListener(() => {
+    adjustScrollbarWidth();
+  }, 'update-scrollbar-handling');
+  adjustScrollbarWidth();
+});

@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const { handlebars } = require('@unic/estatico-handlebars');
+const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defImageFigureData = require('../image_figure/image_figure.data');
 const defVideoData = require('../video/video.data');
@@ -23,7 +23,7 @@ const data = _.merge({}, defaultData, {
     breadcrumbText2: 'Level inactive',
     breadcrumbText3: 'Level active',
     backlinkText: 'Zurück zur Übersicht',
-    buttonData: _.merge(defButtonData, { text: 'Formular beantragen' }),
+    buttonData: _.merge(defButtonData, {text: 'Formular beantragen'}),
   },
 });
 
@@ -34,7 +34,7 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
-      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue' ],
+      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue'],
       defaultColorVariation: 'cv-blue',
       hasBreadcrumb: true,
     },
@@ -45,7 +45,7 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
-      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue' ],
+      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue'],
       defaultColorVariation: 'cv-blue',
       imageData: defImageFigureData.variants.header.props,
       hasImage: true,
@@ -61,8 +61,68 @@ const variants = _.mapValues({
       disabledColorVariations: ['cv-monochrome'],
       defaultColorVariation: 'cv-blue',
       inverted: true,
-      buttonData: _.merge({}, defButtonData, { isInverted: true }),
+      buttonData: _.merge({}, defButtonData, {isInverted: true}),
       hasBreadcrumb: true,
+    },
+  },
+  coloredAnchors: {
+    meta: {
+      title: 'Mit Farbe und Tags',
+      desc: '',
+    },
+    props: {
+      disabledColorVariations: ['cv-monochrome'],
+      defaultColorVariation: 'cv-blue',
+      inverted: true,
+      buttonData: _.merge({}, defButtonData, {isInverted: true}),
+      hasBreadcrumb: true,
+      hasAnchors: true,
+      anchorLinks: [
+        {
+          anchorlink: {
+            anchorlinkText: 'eAutoindex',
+            anchorlinkAdress: '#',
+            anchorlinkIsActive: false,
+            anchorlinkIsTagAnchor: true,
+            anchorlinkIsInverted: true,
+            anchorlinkIsTopitem: true,
+            anchorlinkIsTopitemSmall: false,
+          },
+        },
+        {
+          anchorlink: {
+            anchorlinkText: 'Fahrzeugprüfung',
+            anchorlinkAdress: '#',
+            anchorlinkIsActive: false,
+            anchorlinkIsTagAnchor: true,
+            anchorlinkIsInverted: true,
+            anchorlinkIsTopitem: true,
+            anchorlinkIsTopitemSmall: false,
+          },
+        },
+        {
+          anchorlink: {
+            anchorlinkText: 'Drohnen und Flugmodelle',
+            anchorlinkAdress: '#',
+            anchorlinkIsActive: false,
+            anchorlinkIsTagAnchor: true,
+            anchorlinkIsInverted: true,
+            anchorlinkIsTopitem: true,
+            anchorlinkIsTopitemSmall: false,
+          },
+        },
+        {
+          anchorlink: {
+            anchorlinkText: 'Veloschulen',
+            anchorlinkAdress: '#',
+            anchorlinkIsActive: false,
+            anchorlinkIsTagAnchor: true,
+            anchorlinkIsInverted: true,
+            anchorlinkIsTopitem: true,
+            anchorlinkIsTopitemSmall: false,
+          },
+        },
+      ],
     },
   },
   coloredImage: {
@@ -76,7 +136,7 @@ const variants = _.mapValues({
       imageData: defImageFigureData.variants.headerNoTitle.props,
       inverted: true,
       hasImage: true,
-      buttonData: _.merge({}, defButtonData, { isInverted: true }),
+      buttonData: _.merge({}, defButtonData, {isInverted: true}),
       hasBacklink: true,
     },
   },
@@ -92,7 +152,7 @@ const variants = _.mapValues({
       inverted: true,
       hasImageTitle: true,
       hasImage: true,
-      buttonData: _.merge({}, defButtonData, { isInverted: true }),
+      buttonData: _.merge({}, defButtonData, {isInverted: true}),
       hasBacklink: true,
     },
   },
@@ -109,7 +169,7 @@ const variants = _.mapValues({
       hasImageTitle: true,
       hasVideo: true,
       hasImage: true,
-      buttonData: _.merge({}, defButtonData, { isInverted: true }),
+      buttonData: _.merge({}, defButtonData, {isInverted: true}),
       hasBacklink: true,
     },
   },
