@@ -23,6 +23,14 @@
     display: none;
   }
 
+  .atm-linklist_item__label {
+    line-height: $sizeLineHeightBase;
+
+    @include mq($from: small) {
+      line-height: 1.4; // TODO Replace with variable as soon CZHDEV-548 is merged
+    }
+  }
+
   @include mq($from: medium) {
     margin-bottom: $sizeHuge;
 
