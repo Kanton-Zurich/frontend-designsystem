@@ -5,11 +5,29 @@
     margin-top: $sizeTiny;
   }
 
+  &__content > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
   .mdl-image-figure {
     margin-bottom: 0;
 
     .mdl-image-figure__caption {
       @include visuallyhidden();
+    }
+  }
+
+  .mdl-context_menu {
+    display: none;
+  }
+
+  .atm-linklist_item__label {
+    line-height: $sizeLineHeightBase;
+
+    @include mq($from: small) {
+      line-height: 1.4; // TODO Replace with variable as soon CZHDEV-548 is merged
     }
   }
 

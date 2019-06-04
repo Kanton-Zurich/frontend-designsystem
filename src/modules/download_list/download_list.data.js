@@ -6,13 +6,13 @@ const defaultData = require('../../data/default.data.js');
 const downloadLinkItem = {
   linkListItemTitle: 'Dokument',
   linkListItemIsDownload: true,
-  linkListItemLabel: 'PDF | 1 Seite | DE | 100kb',
+  linkListItemLabel: 'PDF | 1 Seite | DE | 2MB',
   linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 };
 const downloadButtonItem = {
   linkListItemTitle: 'Documents',
   linkListItemIsDownload: true,
-  linkListItemLabel: 'PDF | 1 Seite | DE, FR, IT | 100kb',
+  linkListItemLabel: 'PDF | 1 Seite | DE, FR, IT | 100kB',
   isButton: true,
   linkListItemHref: false,
 };

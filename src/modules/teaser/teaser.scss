@@ -58,6 +58,11 @@ $textLineRoundTolerance: 5;
   .atm-button {
     margin-top: $sizeRegular;
     display: inline-flex;
+    height: 2rem;
+
+    span {
+      font-size: $sizeFontSmall;
+    }
   }
 
   &--inverted {
@@ -82,6 +87,10 @@ $textLineRoundTolerance: 5;
 
   .mdl-image-figure__caption {
     @include visuallyhidden();
+  }
+
+  .mdl-image-figure__img-wrapper {
+    margin-bottom: 0;
   }
 
   @include mq($from: xsmall) {

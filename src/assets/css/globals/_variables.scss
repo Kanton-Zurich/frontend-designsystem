@@ -170,18 +170,18 @@ $wrapperSpacing: (
 // Indentation curves
 $indentCurve: (
   list: (
-    tiny: 16px,
-    small: 24px,
-    xlarge: 32px,
+    tiny: $sizeRegular,
+    small: $sizeLarge,
+    xlarge: $sizeBig,
   ),
   benefits: (
-    tiny: 32px,
-    medium: 40px
+    tiny: $sizeBig,
+    medium: $sizeBiggerBig
   ),
   quote: (
     tiny: 18px,
     xsmall: 22px,
-    small: 24px
+    small: $sizeLarge
   ),
   quoteParagraph: (
     tiny: $sizeRegular,
@@ -190,86 +190,8 @@ $indentCurve: (
   )
 );
 
-// custom vertical spacings
-$verticalSpacingCurves: (
-  quoteWithImage: (
-    tiny: $sizeBiggerBig,
-    large: $sizeHuge
-  ),
-  breadcrumpMarginBottom: (
-    tiny: $sizeSmallRegular,
-    xlarge: $sizeRegular
-  ),
-  pageHeaderTop: (
-    tiny: $sizeLarge,
-    small: $sizeBig,
-    medium: $sizeBiggerBig,
-    xlarge: $sizeSmallHuge
-  ),
-  pageHeaderBottom: (
-    tiny: $sizeLarge,
-    medium: $sizeBiggerBig,
-  ),
-  headerImagePadding: (
-    tiny: ($sizeBiggerBig + $sizeLarge),
-    medium: ($sizeHuge + $sizeBig),
-    xlarge: ($sizeHuge + $sizeBiggerBig),
-  ),
-  headerImageMargin: (
-    tiny: $sizeBiggerBig,
-    medium: $sizeHuge
-  ),
-  headerImagePaddingCaptioned: (
-    tiny: ($sizeBiggerBig + $sizeLarge + $sizeRegular),
-    small: ($sizeBiggerBig + $sizeLarge + $sizeSmallLarge),
-    medium: ($sizeHuge + $sizeBig + $sizeSmallLarge),
-    xlarge: ($sizeHuge + $sizeBiggerBig + $sizeSmallLarge),
-  ),
-  headerImageMarginCaptioned: (
-    tiny: ($sizeBiggerBig + $sizeRegular),
-    small: ($sizeBiggerBig + $sizeSmallLarge),
-    medium: ($sizeHuge + $sizeSmallLarge),
-  ),
-  ktzhLogoPaddingTop: (
-    tiny: 0,
-    xsmall: 4px,
-    small: 4px,
-    medium: 0,
-    large: 0,
-    xlarge: 4px,
-  ),
-  ktzhLogoTop: (
-    tiny: 25px,
-    xsmall: 22px,
-    small: 16px,
-    medium: 0,
-    large: -9px,
-    xlarge: -15px,
-  ),
-  ktzhLogoTopFF: (
-    tiny: 24px,
-    xsmall: 21px,
-    small: 15px,
-    medium: -3px,
-    large: -13px,
-    xlarge: -18px,
-  ),
-);
-
-$customSize: (
-  ktzhLogoMarginLeft: (
-    tiny: -6px,
-    xsmall: -6px,
-    small: 0,
-  ),
-  ktzhLogoWidth: (
-    tiny: 54px,
-    xsmall: 66px,
-    small: 87px,
-    medium: 125px,
-    large: 153px,
-    xlarge: 184px,
-  ),
+// used in video and image
+$imageCustomSizes: (
   headerImageWidth: (
     tiny: 265px,
     xsmall: 323px,
@@ -277,6 +199,14 @@ $customSize: (
     medium: 678px,
     large: 828px,
     xlarge: 1036px,
+  ),
+  headerImageWidthAspect: (
+    tiny: 149px,
+    xsmall:182px,
+    small:274px,
+    medium: 381px,
+    large: 466px,
+    xlarge: 583px,
   ),
 );
 
@@ -375,3 +305,12 @@ $zIndexDropDowns: 10;
 $zIndexScaffolds: 100; // für fixed Header/ Footer
 $zIndexOverlays: 1000;
 $zIndexSkiplinks: 2000;
+
+:root {
+
+  --scrollbar-wd: 17px;
+}
+
+html {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
