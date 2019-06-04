@@ -57,10 +57,9 @@ const data = _.merge({}, defaultData, {
         }),
       },
     ],
+    disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue' ],
   },
 });
-
-data.colorVariations = []; // no color variations available
 
 const variants = _.mapValues({
   default: {

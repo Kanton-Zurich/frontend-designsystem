@@ -2,8 +2,8 @@
   $customSizing: (
     termFontSize: (
       tiny: $sizeFontTiny,
-      large: $sizeFontTiny,
-      xlarge: $sizeFontSmall
+      xsmall: $sizeFontTiny,
+      small: $sizeFontSmall
     ),
     definitonFontSize: (
       tiny: $sizeFontRegular,
@@ -41,6 +41,12 @@
   @include mq($from: xsmall) {
     padding: 14px 0 $sizeTiny;
   }
+  @include mq($from: small) {
+    dt {
+      line-height: $sizeLineHeightBigger;
+    }
+  }
+
   @include mq($from: xlarge) {
     padding: $sizeRegular 0 14px;
   }
