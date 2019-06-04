@@ -1,25 +1,8 @@
 .mdl-accordion {
   @include sizeCurve(margin-bottom, big);
 
-  &__control {
-    margin: 0;
-  }
-
   .atm-heading {
     @include sizeCurve(margin-bottom, medium);
-  }
-
-  &__label {
-    display: flex;
-    align-items: flex-start;
-    position: relative;
-    cursor: pointer;
-
-    @include sizeCurve(padding-top padding-bottom, small);
-  }
-
-  &__input:focus + &__label {
-    outline: 2px solid $colorCyan;
   }
 
   &__item {
@@ -74,11 +57,17 @@
     }
   }
 
-  &__item-title {
+  &__button {
+    display: flex;
+    width: 100%;
+
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__control {
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
     @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 1.5));
-
-    display: block;
 
     letter-spacing: -0.3px;
     flex-grow: 1;
@@ -93,7 +82,6 @@
 
 
   &__plus {
-    margin-top: 1px;
     overflow: hidden;
 
     use {
