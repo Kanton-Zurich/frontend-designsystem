@@ -1,5 +1,6 @@
 $maxTextLinesSmall: 6;
 $maxTextLinesDefault: 4;
+$textLineRoundTolerance: 5;
 
 .mdl-teaser {
   text-decoration: none;
@@ -28,11 +29,11 @@ $maxTextLinesDefault: 4;
     word-break: break-word;
 
     $titleHeightCurve: (
-      tiny: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLinesSmall,
-      small: $sizeFontSmallBig * $sizeLineHeightBase * $maxTextLinesDefault,
-      medium: $sizeFontBig * $sizeLineHeightBase * $maxTextLinesDefault,
-      large: $sizeFontBiggerBig * $sizeLineHeightBase * $maxTextLinesDefault,
-      xlarge: $sizeFontSmallHuge * $maxTextLinesDefault + ($sizeFontSmallHuge * 0.08),
+      tiny: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLinesSmall + $textLineRoundTolerance,
+      small: $sizeFontSmallBig * $sizeLineHeightBase * $maxTextLinesDefault + $textLineRoundTolerance,
+      medium: $sizeFontBig * $sizeLineHeightBase * $maxTextLinesDefault + $textLineRoundTolerance,
+      large: $sizeFontBiggerBig * $sizeLineHeightBase * $maxTextLinesDefault + $textLineRoundTolerance,
+      xlarge: $sizeFontSmallHuge * $maxTextLinesDefault + ($sizeFontSmallHuge * 0.08) + $textLineRoundTolerance,
     );
 
     @include polyFluidSizing('max-height', $titleHeightCurve);
@@ -43,10 +44,9 @@ $maxTextLinesDefault: 4;
     margin: 0;
 
     $descripionHeightCurve: (
-      tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLinesSmall,
-      small: $sizeFontSmall * $sizeLineHeightBase * $maxTextLinesDefault,
-      medium: $sizeFontRegular * $sizeLineHeightBase * $maxTextLinesDefault,
-      large: $sizeFontBiggerRegular * $sizeLineHeightBase * $maxTextLinesDefault,
+      tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLinesSmall + $textLineRoundTolerance,
+      small: $sizeFontSmall * $sizeLineHeightBase * $maxTextLinesDefault + $textLineRoundTolerance,
+      large: $sizeFontBiggerRegular * $sizeLineHeightBase * $maxTextLinesDefault + $textLineRoundTolerance,
     );
 
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
@@ -58,6 +58,11 @@ $maxTextLinesDefault: 4;
   .atm-button {
     margin-top: $sizeRegular;
     display: inline-flex;
+    height: 2rem;
+
+    span {
+      font-size: $sizeFontSmall;
+    }
   }
 
   &--inverted {
@@ -92,7 +97,7 @@ $maxTextLinesDefault: 4;
     margin: 0 auto;
 
     &__wrapper {
-      @include gridBleed($trailingGutters: true);
+      @include gridBleed();
     }
 
     .atm-heading {

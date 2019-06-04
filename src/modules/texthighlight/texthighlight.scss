@@ -59,45 +59,17 @@
 
         .atm-linklist_item {
           color: rgba($val, 1);
-
-          &:after {
-            background: rgba($val, 1);
-          }
-
-          &:hover {
-            color: rgba($colorBlack, 1);
-
-            &:after {
-              background: $colorBlack;
-            }
-
-            .icon use {
-              fill: $colorBlack;
-            }
-          }
-
-          .icon use {
-            fill: rgba($val, 1);
-          }
         }
       }
     }
   }
 }
 
-.cv-default {
+.cv-monochrome {
   .mdl-texthighlight {
     .mdl-linklist {
       .atm-linklist_item {
         color: rgba($colorBlack, 0.6);
-
-        &:after {
-          background: rgba($colorBlack, 0.6);
-        }
-
-        .icon use {
-          fill: rgba($colorBlack, 0.6);
-        }
       }
     }
   }

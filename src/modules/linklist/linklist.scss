@@ -11,15 +11,3 @@
     list-style-type: none;
   }
 }
-// default text color different from color variation
-.cv-default {
-  .mdl-linklist {
-    .atm-linklist_item {
-      color: rgba($colorText, 0.6);
-
-      &:hover {
-        color: rgba($colorText, 1);
-      }
-    }
-  }
-}

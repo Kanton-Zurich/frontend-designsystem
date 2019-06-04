@@ -200,6 +200,7 @@
 
   @if ($b < 0) {
     $sign: '-';
+    $altSign: '+';
     $b: abs($b);
   }
 
@@ -372,16 +373,23 @@
 /**
  * Grid bleeding for content elements
  */
-@mixin gridBleed($trailingGutters: false) {
+@mixin gridBleed($trailingGutters: false, $fullwidth: false) {
+
   @if $trailingGutters == true {
     @include sizeCurve(padding-left padding-right, bleed, $grid-outer-gutters);
 
-    width: 100vw;
-    max-width: $sizeWidthContent;
-  }@else {
+    width: calc(100vw);
+    @if $fullwidth == false {
+      max-width: $sizeGlobalMaxWidth;
+    }
+  } @else {
     width: calc(100vw + 2px);
-    max-width: $sizeGlobalMaxWidth;
+
+    @if $fullwidth == false {
+      max-width: $sizeGlobalMaxWidth;
+    }
   }
+  width: calc(100vw - var(--scrollbar-wd)); //stylelint-disable-line
   transform: translateX(-50%);
   margin-left: 50%;
 

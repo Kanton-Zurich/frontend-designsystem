@@ -1,5 +1,5 @@
 <div class="mdl-publication_teaser" data-init="publicationTeaser">
-	<h3 class="atm-heading">
+  <h3 class="atm-heading">
     {{publicationTitle}}
   </h3>
   <div class="grid-x grid-margin-x">
@@ -8,7 +8,12 @@
     </div>
     <div class="mdl-publication_teaser__content cell tiny-12 medium-6 large-6">
       {{> "modules/descriptionlist/descriptionlist"}}
-      {{> "atoms/linklist_item/linklist_item"}}
+      <ul>
+        <li>
+          {{> "atoms/linklist_item/linklist_item"}}
+          {{> "modules/context_menu/context_menu" contextMenu}}
+        </li>
+      </ul>
     </div>
   </div>
 </div>
@@ -24,7 +29,12 @@
     </div>
     <div class="mdl-publication_teaser__content cell tiny-12 medium-6 large-6">
       {{> "modules/descriptionlist/descriptionlist"}}
-      {{> "atoms/linklist_item/linklist_item"}}
+      <ul>
+        <li>
+          {{> "atoms/linklist_item/linklist_item"}}
+          {{> "modules/context_menu/context_menu" contextMenu}}
+        </li>
+      </ul>
     </div>
   </div>
 </div>
