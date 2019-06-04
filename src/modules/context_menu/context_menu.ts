@@ -137,7 +137,7 @@ class ContextMenu extends Module {
     this.data.copiedNode.classList.add(this.options.stateClasses.active);
     this.data.copiedNode.addEventListener('hide', this.hide.bind(this));
 
-    document.body.appendChild(this.data.copiedNode);
+    this.options.attachTo.appendChild(this.data.copiedNode);
 
     this.ui.element.removeAttribute('id');
   }
@@ -149,19 +149,18 @@ class ContextMenu extends Module {
    */
   positionMenu() {
     const attachToPos = this.options.attachTo.getBoundingClientRect();
-    const documentScrollTop = document.documentElement.scrollTop;
 
-    this.data.copiedNode.style.top = `${attachToPos.top + documentScrollTop + attachToPos.height}px`;
-    this.data.copiedNode.style.left = `${attachToPos.left}px`;
     this.data.copiedNode.style.maxWidth = `${attachToPos.width}px`;
+    this.data.copiedNode.style.position = 'absolute';
+    this.data.copiedNode.style.display = 'block';
+    this.data.copiedNode.style.zIndex = '1000'; // overlay zIndex
 
     // Check if context menu is not completely visible, then put it above attach to target
     const copiedNodeRect = this.data.copiedNode.getBoundingClientRect();
     const contextMenuBottomPoint = copiedNodeRect.top + copiedNodeRect.height;
 
-
     if (contextMenuBottomPoint > document.documentElement.clientHeight) {
-      this.data.copiedNode.style.top = `${attachToPos.top + documentScrollTop - copiedNodeRect.height}px`;
+      this.data.copiedNode.style.marginTop = `${0 - copiedNodeRect.height - attachToPos.height}px`;
     }
   }
 
@@ -208,7 +207,7 @@ class ContextMenu extends Module {
    * @memberof ContextMenu
    */
   removeDomNode() {
-    document.body.removeChild(this.data.copiedNode);
+    this.options.attachTo.removeChild(this.data.copiedNode);
 
     this.ui.element.setAttribute('id', this.data.uniqueId);
 
