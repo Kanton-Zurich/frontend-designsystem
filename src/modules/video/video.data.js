@@ -106,6 +106,17 @@ const variants = _.mapValues({
       videoId: 'UjU2R87m_gQ',
     },
   },
+  header: {
+    meta: {
+      title: 'Header Video',
+      desc: 'Rechts inhaltsabfallend Einbindung ohne Titel',
+    },
+    props: {
+      isHeader: true,
+      video_title: null,
+      videoId: 'WzInVZXi_FA',
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
