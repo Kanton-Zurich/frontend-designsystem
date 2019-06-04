@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defImageFigureData = require('../image_figure/image_figure.data');
 const defVideoData = require('../video/video.data');
@@ -10,7 +10,7 @@ const defButtonData = require('../../atoms/button/button.data').props;
 const template = dataHelper.getFileContent('page_header.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Seitekopf',
+    title: 'Seitenkopf',
     className: 'PageHeader',
     jira: 'CZHDEV-395',
     documentation: dataHelper.getDocumentation('page_header.md'),
