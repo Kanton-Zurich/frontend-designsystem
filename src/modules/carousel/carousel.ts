@@ -15,6 +15,7 @@ class Carousel extends Module {
     active: number,
     length: number,
     isFullscreen: boolean,
+    isInGallery: boolean,
   };
   public ui: {
     element: any;
@@ -24,6 +25,7 @@ class Carousel extends Module {
     download: any;
     close: any;
     textalternative: any;
+    open: any;
   }
   public options: {
     domSelectors: {
@@ -49,6 +51,7 @@ class Carousel extends Module {
     const defaultData = {
       active: 1,
       isFullscreen: false,
+      isInGallery: false,
     };
     const defaultOptions = {
       domSelectors: {
@@ -81,6 +84,10 @@ class Carousel extends Module {
 
     this.setAccessibilityAttributesForSlides();
     this.setAlternativeText();
+
+    if (this.ui.element.parentElement.classList.contains('mdl-image_gallery')) {
+      this.data.isInGallery = true;
+    }
   }
 
   static get events() {
@@ -118,6 +125,10 @@ class Carousel extends Module {
           this.data.isFullscreen = true;
 
           this.setAccessibilityAttributesForSlides();
+
+
+          (<any>window).estatico.helpers
+            .setHiddenTabIndex(this.ui.element);
         }
       })
       .on('click', this.options.domSelectors.open, this.open.bind(this))
@@ -218,6 +229,9 @@ class Carousel extends Module {
   open() {
     if (!this.data.isFullscreen) {
       this.data.isFullscreen = true;
+
+      (<any>window).estatico.helpers
+        .setHiddenTabIndex(this.ui.element);
     }
   }
 
@@ -230,8 +244,11 @@ class Carousel extends Module {
     this.data.isFullscreen = false;
 
     if (this.ui.element.parentElement.classList.contains('mdl-image_gallery')) {
-      this.ui.element.parentElement.dispatchEvent(new CustomEvent('Carousel.close'));
+      this.ui.element.parentElement.dispatchEvent(new CustomEvent('Carousel.close', { detail: this.data.active }));
     }
+
+    (<any>window).estatico.helpers
+      .resetHiddenTabIndex();
   }
 
   /**
@@ -243,6 +260,10 @@ class Carousel extends Module {
   closeOnEscape(event) {
     if (event.key === 'Escape') {
       this.close();
+
+      if (!this.data.isInGallery) {
+        this.ui.open[this.data.active - 1].focus();
+      }
     }
   }
 
