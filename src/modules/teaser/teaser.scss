@@ -58,6 +58,11 @@ $maxTextLinesDefault: 4;
   .atm-button {
     margin-top: $sizeRegular;
     display: inline-flex;
+    height: 2rem;
+
+    span {
+      font-size: $sizeFontSmall;
+    }
   }
 
   &--inverted {
