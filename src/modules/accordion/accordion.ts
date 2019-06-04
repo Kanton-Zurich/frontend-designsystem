@@ -60,7 +60,7 @@ class Accordion extends Module {
 
     // (<any>window).estatico.lineClamper.initLineClamping();
 
-    this.initUi();
+    this.initUi(true);
     this.initEventListeners();
     this.initWachers();
 

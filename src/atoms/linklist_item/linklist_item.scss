@@ -118,3 +118,18 @@
     }
   }
 }
+
+/**
+ * When used in an accordion
+ */
+.mdl-accordion__item {
+  li:last-child {
+    .atm-linklist_item {
+      border-bottom: 0;
+
+      &:after {
+        display: none;
+      }
+    }
+  }
+}
