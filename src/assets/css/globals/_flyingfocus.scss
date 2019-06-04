@@ -22,6 +22,8 @@
       border: 2px solid $colorCyan;
       border-radius: 3px;
       content: '';
+      box-sizing: border-box;
+      display: block;
     }
   }
 }
