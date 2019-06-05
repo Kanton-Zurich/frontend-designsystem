@@ -106,3 +106,30 @@
     transition: fill $transitionTimeSimple $transitionEasingDefault;
   }
 }
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .atm-linklist_item:not(.atm-linklist_item--download) {
+      color: rgba($val, 1);
+
+      &:hover {
+        color: rgba($colorText, 1);
+      }
+    }
+  }
+}
+
+/**
+ * When used in an accordion
+ */
+.mdl-accordion__item {
+  li:last-child {
+    .atm-linklist_item {
+      border-bottom: 0;
+
+      &:after {
+        display: none;
+      }
+    }
+  }
+}

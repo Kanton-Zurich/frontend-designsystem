@@ -127,6 +127,29 @@ const variants = _.mapValues({
       ],
     },
   },
+  legalFoundationDownloadListNoTitle: {
+    meta: {
+      title: 'Rechtliche Grundlagen (ohne Titel)',
+      desc: 'Eine Downloadliste mit rechtlichen Grundlagen (kein Titel)',
+    },
+    props: {
+      title: false,
+      links: [
+        {
+          link: downloadLegalFoundation,
+        },
+        {
+          link: downloadLegalFoundation,
+        },
+        {
+          link: downloadLegalFoundation,
+        },
+        {
+          link: downloadLegalFoundation,
+        },
+      ],
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
