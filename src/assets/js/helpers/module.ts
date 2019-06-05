@@ -104,8 +104,8 @@ class Module {
       const queryElements = this.ui.element
         .querySelectorAll(this.options.domSelectors[selectorKey]);
 
-      this.ui[selectorKey] = queryElements.length > 1 || enforceNodeList ?
-        queryElements : queryElements[0];
+      this.ui[selectorKey] = queryElements.length > 1 || enforceNodeList
+        ? queryElements : queryElements[0];
     });
   }
 
