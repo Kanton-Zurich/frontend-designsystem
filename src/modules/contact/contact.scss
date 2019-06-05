@@ -1,0 +1,346 @@
+.mdl-contact {
+  $customSizing: (
+    titleFontSize: (
+      tiny: $sizeFontLarge,
+      xsmall: $sizeFontLarge,
+      small: $sizeFontSmallBig,
+      large: $sizeFontSmallBig,
+      xlarge: $sizeFontSmallHuge
+    ),
+    subtitleFontSize: (
+      tiny: $sizeFontBiggerRegular,
+      large: $sizeFontBiggerRegular,
+      xlarge: $sizeFontSmallBig
+    ),
+    addressAndRouteLinkFontSize: (
+      tiny: $sizeFontRegular,
+      xsmall: $sizeFontRegular,
+      small: $sizeFontBiggerRegular,
+      large: $sizeFontBiggerRegular,
+      xlarge: $sizeFontMedium
+    ),
+    openingTimesFontSize: (
+      tiny: $sizeFontSmall,
+      xsmall: $sizeFontSmall,
+      small: $sizeFontRegular,
+      large: $sizeFontRegular,
+      xlarge: $sizeFontBiggerRegular
+    ),
+  );
+
+  /*
+    Address / Anchor Route anzeigen
+    Anchor Tel
+    Anchor Email
+    16/24 - 1.5 // 0-599
+    18/24 - 1.5 // 600-1279
+    20/26 - 1.3 // 1280-end
+
+    Address additionalInfos
+    Phone additionalInfos
+    Email additionalInfos
+    Öffnungszeiten
+    14/20 - 1.4
+    16/24 - 1.5
+    18/26 - 1.5
+ */
+
+  background-color: $colorViolet;
+  color: $colorWhite;
+  padding: pxToRem($sizeLarge) pxToRem($sizeSmallRegular);
+
+  &--fullwidth {
+    @include gridBleed;
+    /* ($trailingGutters:true) */
+    padding: $sizeHuge 0;
+  }
+
+  .atm-heading {
+    @include polyFluidSizing('font-size', map-get($customSizing, titleFontSize));
+    line-height: $sizeLineHeightMedium;
+    margin-bottom: pxToRem($sizeLarge);
+
+    &--bordered:before {
+      background: $colorWhite;
+    }
+  }
+
+  &__subtitle {
+    @include polyFluidSizing('font-size', map-get($customSizing, subtitleFontSize));
+    line-height: $sizeLineHeightMedium;
+    margin-bottom: $sizeRegular;
+    margin-top: 0;
+
+    a {
+      display: inline-block;
+      position: relative;
+      color: inherit;
+      font-size: $sizeFontRegular;
+      font-weight: $fontWeightDefault;
+      line-height: $sizeLineHeightBase;
+      padding-right: 27px;
+      padding-bottom: $sizeTiny;
+
+      svg {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        use {
+          fill: $colorWhite;
+        }
+      }
+    }
+  }
+
+  &__section {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  &__section-cell {
+    position: relative;
+
+    & + .mdl-contact__section-cell {
+      margin-top: $sizeRegular;
+    }
+
+    /*&.cell:not(:last-of-type) {
+      padding-bottom: 16px;
+    }*/
+  }
+
+  &__cell-icon {
+    display: inline-flex;
+    width: pxToRem($sizeBig);
+    height: pxToRem($sizeBig);
+    border-radius: 50%;
+    background-color: $colorWhite;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__icon-location {
+    width: pxToRem(14.4px);
+    height: pxToRem(17.6px);
+  }
+
+  &__icon-phone {
+    width: pxToRem(17.6px);
+    height: pxToRem(17.6px);
+  }
+
+  &__icon-email {
+    width: pxToRem(17.6px);
+    height: pxToRem(14.4px);
+  }
+
+  &__cell-content {
+    padding-left: calc(#{$sizeSmallRegular} + #{$sizeBiggerBig});
+  }
+
+  &__address {
+    font-style: normal;
+
+    p {
+      margin: 0;
+    }
+
+    p:last-of-type {
+      font-weight: $fontWeightDefault;
+      margin-top: $sizeTiny;
+    }
+  }
+
+  &__address,
+  &__show-route,
+  &__phone a,
+  &__mail a {
+    @include polyFluidSizing('font-size', map-get($customSizing, addressAndRouteLinkFontSize));
+    font-weight: $fontWeightBlack;
+    line-height: $sizeLineHeightBase;
+    /*
+    Address / Anchor Route anzeigen
+    Anchor Tel
+    Anchor Email
+    16/24 - 1.5 // 0-599
+    18/24 - 1.5 // 600-1279
+    20/26 - 1.3 // 1280-end
+
+    Address additionalInfos
+    Phone additionalInfos
+    Email additionalInfos
+    Öffnungszeiten
+    14/20 - 1.4
+    16/24 - 1.5
+    18/26 - 1.5
+     */
+  }
+
+  &__show-route + p,
+  &__times,
+  &__phone,
+  &__mail {
+    @include polyFluidSizing('font-size', map-get($customSizing, openingTimesFontSize));
+    line-height: $sizeLineHeightBigger;
+  }
+
+  &__show-route {
+    display: inline-block;
+    margin-top: calc((#{$sizeFontRegular} * #{$sizeLineHeightBase}) / 2);
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid $colorWhite;
+  }
+
+  &__times {
+    /*
+    top/bottom space
+    8
+    12
+    16
+    */
+    /* margin-top: calc((#{$sizeFontSmall} * #{$sizeLineHeightBigger}) / 2); */
+    margin: $sizeTiny 0;
+
+    strong {
+      /* margin-top: $sizeSmallRegular; */
+      display: block;
+    }
+  }
+
+  &__phone,
+  &__mail {
+    margin: 0;
+    font-weight: $fontWeightDefault;
+
+    a {
+      display: inline-block;
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid $colorWhite;
+      margin-bottom: $sizeTiny;
+    }
+  }
+
+  &__times + .mdl-contact__phone {
+    padding-top: $sizeTiny;
+  }
+
+  /*
+  * Media Queries
+  */
+  @include mq($from: small) {
+    padding: pxToRem($sizeLarge) 0;
+
+    .mdl-contact__section-cell {
+      margin-top: 0;
+    }
+    // TODO find a better/cleaner way (evaluate first fullwidth)
+    &:not(.mdl-contact--fullwidth) {
+      > * {
+        @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
+        @include gridNestedOffset('margin-right', 1, $gridOffsetColumns);
+      }
+    }
+
+    .atm-heading {
+      line-height: $sizeLineHeightNarrow;
+    }
+
+    &__times {
+      margin: $sizeSmallRegular 0;
+      /* margin-top: calc((#{$sizeFontRegular} * #{$sizeLineHeightBase}) / 2); */
+    }
+
+    &__times + .mdl-contact__phone {
+      padding-top: $sizeSmallRegular;
+    }
+
+    &__show-route + p,
+    &__times,
+    &__phone,
+    &__mail {
+      line-height: $sizeLineHeightBase;
+    }
+
+    &__mail a {
+      margin-bottom: $sizeSmallRegular;
+    }
+  }
+  @include mq($from: xlarge) {
+    padding: pxToRem($sizeBiggerBig) 0;
+
+    &--fullwidth {
+      padding: pxToRem($sizeGiant) 0;
+    }
+
+    .atm-heading {
+      line-height: $sizeLineHeightNarrower;
+      margin-bottom: pxToRem($sizeBiggerBig);
+    }
+
+    &__subtitle {
+      line-height: $sizeLineHeightNarrow;
+      /* padding-top: $sizeBiggerBig; */
+      margin-bottom: $sizeLarge;
+
+      br {
+        display: none;
+      }
+
+      a {
+        padding-left: 18px;
+      }
+    }
+
+    &__show-route {
+      margin-top: calc((#{$sizeFontMedium} * #{$sizeLineHeightMedium}) / 2);
+    }
+
+    &__times {
+      margin: $sizeRegular 0;
+      /* margin-top: calc((#{$sizeFontBiggerRegular} * #{$sizeLineHeightBase}) / 2); */
+    }
+
+    &__times + .mdl-contact__phone {
+      padding-top: $sizeRegular;
+    }
+
+    &__mail a {
+      margin-bottom: $sizeRegular;
+    }
+
+    &__address,
+    &__show-route,
+    &__phone a,
+    &__mail a {
+      line-height: $sizeLineHeightMedium;
+    }
+  }
+}
+
+/*
+* COLOR-VARIATIONS
+*/
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-contact {
+      background-color: #{$val};
+    }
+
+    .mdl-contact__cell-icon {
+      svg use {
+        fill: #{$val};
+      }
+    }
+  }
+}

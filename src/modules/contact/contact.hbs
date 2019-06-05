@@ -1,0 +1,111 @@
+<div class="mdl-contact{{#if fullWidth}} mdl-contact--fullwidth{{/if}}" data-init="contact">
+  {{#if fullWidth}}
+  <div class="lyt-wrapper">
+    <div class="grid-x">
+      <div class="cell small-offset-2 small-10">
+  {{/if}}
+
+  {{#if contactTitle}}<h2 class="atm-heading atm-heading--bordered">{{contactTitle}}</h2>{{/if}}
+
+  {{#if contactSubtitle}}
+    <h3 class="mdl-contact__subtitle">
+      {{contactSubtitle}}
+      {{#if contactSubtitleMoreInfo}}
+        <br>
+        <a href="{{contactSubtitleMoreInfo.href}}">
+          {{contactSubtitleMoreInfo.label}}<svg class="icon"><use xlink:href="#arrow-right"></use></svg>
+        </a>
+      {{/if}}
+    </h3>
+  {{/if}}
+
+  <div class="mdl-contact__section grid-x">
+    {{#if contactAddress}}
+      <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-6 xlarge-4{{/if}}">
+        <div class="mdl-contact__cell-icon">
+          <svg class="icon mdl-contact__icon-location">
+            <use xlink:href="#location2"></use>
+          </svg>
+        </div>
+        <div class="mdl-contact__cell-content">
+          <address class="mdl-contact__address">
+            <p>{{contactAddress.name}}</p>
+            <p>{{contactAddress.street}}</p>
+            <p>{{contactAddress.zip}} {{contactAddress.city}}</p>
+            <a target="_blank" href="{{contactAddress.routeLinkHref}}"
+               class="mdl-contact__show-route">{{contactAddress.routeLinkLabel}}</a>
+            <p>{{contactAddress.additionalInfo}}</p>
+          </address>
+
+          {{#if contactAddress.openingTimes}}
+            {{#each contactAddress.openingTimes}}
+              <p class="mdl-contact__times">
+                <strong>{{this.openingTitle}}</strong>
+                {{#each this.times}}
+                  {{this.text}}
+                  <time datetime="{{this.maschineTimeFrom}}">{{this.timeFrom}}</time>
+                  {{this.spaceSymbol}}
+                  <time datetime="{{this.maschineTimeTo}}">{{this.timeTo}}</time>
+                {{/each}}
+              </p>
+            {{/each}}
+          {{/if}}
+
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if contactPhone}}
+      <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-6 xlarge-4{{/if}}">
+        <div class="mdl-contact__cell-icon">
+          <svg class="icon mdl-contact__icon-phone">
+            <use xlink:href="#phone-call2"></use>
+          </svg>
+        </div>
+        <div class="mdl-contact__cell-content">
+          {{#each contactPhone}}
+            <p class="mdl-contact__phone">
+              <a href="tel:{{this.phoneNumer}}">{{this.anchorLabel}}</a><br>
+              {{this.additionalInfo}}
+            </p>
+            {{#if this.openingTimes}}
+              <p class="mdl-contact__times">
+                {{#each this.openingTimes}}
+                  {{this.text}}
+                  <time datetime="{{this.maschineTimeFrom}}">{{this.timeFrom}}</time>
+                  {{this.spaceSymbol}}
+                  <time datetime="{{this.maschineTimeTo}}">{{this.timeTo}}</time>
+                  <br>
+                {{/each}}
+              </p>
+            {{/if}}
+          {{/each}}
+
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if contactMail}}
+      <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-6 xlarge-4{{/if}}">
+        <div class="mdl-contact__cell-icon">
+          <svg class="icon mdl-contact__icon-email">
+            <use xlink:href="#email2"></use>
+          </svg>
+        </div>
+        <div class="mdl-contact__cell-content">
+          <p class="mdl-contact__mail">
+            <a href="mailto:{{contactMail.address}}">{{contactMail.address}}</a><br>
+            {{contactMail.additionalInfo}}
+          </p>
+        </div>
+      </div>
+    {{/if}}
+
+  </div>
+
+  {{#if fullWidth}}
+      </div>
+    </div>
+  </div>
+  {{/if}}
+</div>
