@@ -2,6 +2,8 @@ const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js');
 const richtextData = require('../../modules/richtext/richtext.data.js');
+const pageHeaderData = require('../../modules/page_header/page_header.data.js');
+const linkListData = require('../../modules/linklist/linklist.data.js');
 const dataHelper = require('@unic/estatico-data');
 
 const data = _.merge({}, defaultData, {
@@ -15,8 +17,10 @@ const data = _.merge({}, defaultData, {
     title: 'Barebone Page',
     text: 'This page is used for minimal CSS creation',
     modules: {
-      skiplinks: skiplinksData.props,
-      richtext: richtextData.props,
+      skiplinks: skiplinksData,
+      pageHeaderData: pageHeaderData,
+      richtext: richtextData,
+      linklistData: linkListData,
     },
   },
 });
