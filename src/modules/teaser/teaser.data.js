@@ -46,7 +46,36 @@ const variants = _.mapValues({
       title: 'Default',
       desc: 'Default implementation - keine Hintergrundfarbe aber mit Datum und Kurztext, Bild-Kachel rechts',
     },
-    props: {},
+    props: {
+      default: true,
+    },
+  },
+  defaultLeft: {
+    meta: {
+      title: 'Default Links',
+      desc: 'Default implementation - keine Hintergrundfarbe aber mit Datum und Kurztext, Bild-Kachel links',
+    },
+    props: {
+      defaultLeft: true,
+    },
+  },
+  inverted: {
+    meta: {
+      title: 'Invertiert',
+      desc: 'Default implementation - invertierte Hintergrundfarbe aber mit Datum und Kurztext, Bild-Kachel rechts',
+    },
+    props: {
+      inverted: true,
+    },
+  },
+  noImage: {
+    meta: {
+      title: 'Ohne Bild',
+      desc: 'Default implementation - keine Hintergrundfarbe aber mit Datum und Kurztext, Bild-Kachel rechts',
+    },
+    props: {
+      noImage: true,
+    },
   },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;

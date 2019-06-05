@@ -28,12 +28,19 @@ class Inspector extends Helper {
     this.logger(`Initialized ${Inspector.name}`);
     document.addEventListener('DOMContentLoaded',
       () => {
-        [].forEach.call(document.querySelectorAll('[class^=\'color_trigger\']'), (node) => {
-          node.addEventListener('change', () => {
-            const elem = document.getElementById('module_main');
-            elem.className = elem.className.replace(/cv-\w+/, node.value);
+        const variantsInput = document.querySelectorAll('input[name="variants"]');
+        variantsInput.forEach((input) => {
+          input.addEventListener('change', (event) => {
+            Inspector.triggerVariantChangeOnElement(<any>event.target);
           });
         });
+
+        [].forEach.call(document.querySelectorAll('[class^=\'color_trigger\']'), (node) => {
+          node.addEventListener('change', () => {
+            Inspector.triggerColorChangeOnElement(node);
+          });
+        });
+        Inspector.triggerVariantChangeOnElement(variantsInput[0]);
       });
   }
 
@@ -51,6 +58,38 @@ class Inspector extends Helper {
     } else {
       this.logger('Element.classList not supported in this browser');
     }
+  }
+
+  public static triggerColorChangeOnElement(node) {
+    const elem = document.getElementById('module_main');
+    elem.className = elem.className.replace(/cv-\w+/, node.value);
+  }
+
+  public static triggerVariantChangeOnElement(node) {
+    const selectorIndex = node.getAttribute('id')
+      .replace('variants', '');
+    const panel = document.querySelector(`#panel${selectorIndex}`);
+    const disabledColorVariationsElement = document
+      .getElementById(`disabledColorVariations${selectorIndex}`);
+    // update color exceptions
+    if (disabledColorVariationsElement) {
+      const disabledColors = JSON
+        .parse(decodeURIComponent(disabledColorVariationsElement
+          .getAttribute('value')));
+      const defaultColor = document
+        .getElementById(`defaultColorVariation${selectorIndex}`).getAttribute('value');
+      document.querySelectorAll('input[name="colorVariations"]').forEach((cvInput: HTMLInputElement) => {
+        cvInput.disabled = disabledColors.indexOf(cvInput.getAttribute('value')) >= 0;
+        if (cvInput.getAttribute('value') === defaultColor) {
+          cvInput.checked = true;
+          Inspector.triggerColorChangeOnElement(cvInput);
+        } else {
+          cvInput.checked = false;
+        }
+      });
+    }
+    // Sending event to all children who have to be redrawn
+    (<any>window).estatico.helpers.sendRedrawEvent(panel);
   }
 
   /**

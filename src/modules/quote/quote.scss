@@ -6,6 +6,13 @@
     large: 8
   );
 
+  $verticalSpacingCurves: (
+    quoteWithImage: (
+      tiny: $sizeBiggerBig,
+      large: $sizeHuge
+    ),
+  );
+
   padding-top: $sizeSmallRegular;
   margin: 0;
 

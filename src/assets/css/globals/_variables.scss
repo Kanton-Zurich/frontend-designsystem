@@ -87,6 +87,7 @@ $fontFamilyBase: Helvetica, sans-serif;
 $sizeLineHeightNarrower: 1;
 $sizeLineHeightNarrow: 1.2;
 $sizeLineHeightMedium: 1.3;
+$sizeLineHeightBigger: 1.4;
 $sizeLineHeightBase: 1.5;
 
 /**
@@ -108,6 +109,7 @@ $sizeSmallLarge: 20px;
 $sizeLarge: 24px;
 $sizeBig: 32px;
 $sizeBiggerBig: 40px;
+$sizeSmallHuge: 48px;
 $sizeHuge: 56px;
 $sizeGiant: 80px;
 
@@ -189,12 +191,24 @@ $indentCurve: (
   )
 );
 
-// custom vertical spacings
-$verticalSpacingCurves: (
-  quoteWithImage: (
-    tiny: $sizeBiggerBig,
-    large: $sizeHuge
-  )
+// used in video and image
+$imageCustomSizes: (
+  headerImageWidth: (
+    tiny: 265px,
+    xsmall: 323px,
+    small: 488px,
+    medium: 678px,
+    large: 828px,
+    xlarge: 1036px,
+  ),
+  headerImageWidthAspect: (
+    tiny: 149px,
+    xsmall:182px,
+    small:274px,
+    medium: 381px,
+    large: 466px,
+    xlarge: 583px,
+  ),
 );
 
 // content grid numbers for width calculation
@@ -254,7 +268,6 @@ $colorBg: $colorBlack5;
  * Color variations
  */
 $tl-color-variations: (
-  cv-default: $colorBlack,
   cv-blue: $colorBlue,
   cv-darkblue: $colorDarkBlue,
   cv-turqoise: $colorTurqoise,
@@ -262,6 +275,7 @@ $tl-color-variations: (
   cv-bordeaux: $colorBordeaux,
   cv-magenta: $colorMagenta,
   cv-violet: $colorViolet,
+  cv-monochrome: $colorBlack,
 );
 
 /**
@@ -292,3 +306,12 @@ $zIndexDropDowns: 10;
 $zIndexScaffolds: 100; // für fixed Header/ Footer
 $zIndexOverlays: 1000;
 $zIndexSkiplinks: 2000;
+
+:root {
+
+  --scrollbar-wd: 17px;
+}
+
+html {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}

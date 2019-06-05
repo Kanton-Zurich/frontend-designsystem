@@ -50,7 +50,7 @@ const data = {
     svgSprites: JSON.stringify([
       '/assets/media/svgsprite/base.svg',
     ]),
-    defaultColorVariation: 'cv-default',
+    defaultColorVariation: 'cv-blue',
   },
 };
 
