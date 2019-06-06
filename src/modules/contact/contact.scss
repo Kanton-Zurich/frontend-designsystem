@@ -32,7 +32,7 @@
   padding: pxToRem($sizeLarge) pxToRem($sizeSmallRegular);
 
   &--fullwidth {
-    @include gridBleed($trailingGutters:true);
+    @include gridBleed;
     padding: $sizeHuge 0;
   }
 
@@ -60,7 +60,8 @@
       font-weight: $fontWeightDefault;
       line-height: $sizeLineHeightBase;
       padding-right: pxToRem(27px);
-      padding-bottom: $sizeTiny;
+      margin-bottom: pxToRem($sizeTiny);
+      text-decoration: none;
 
       svg {
         position: absolute;
@@ -82,9 +83,10 @@
 
   &__section-cell {
     position: relative;
+    width: 100%;
 
     & + .mdl-contact__section-cell {
-      margin-top: $sizeRegular;
+      margin-top: pxToRem($sizeRegular);
     }
   }
 
@@ -102,27 +104,16 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) scale(0.8);
     }
-  }
-
-  &__icon-location {
-    width: pxToRem(14.4px);
-    height: pxToRem(17.6px);
-  }
-
-  &__icon-phone {
-    width: pxToRem(17.6px);
-    height: pxToRem(17.6px);
-  }
-
-  &__icon-email {
-    width: pxToRem(17.6px);
-    height: pxToRem(14.4px);
   }
 
   &__cell-content {
     padding-left: calc(#{$sizeSmallRegular} + #{$sizeBiggerBig});
+
+    > *:last-of-type {
+      margin-bottom: 0;
+    }
   }
 
   &__address {
@@ -132,9 +123,9 @@
       margin: 0;
     }
 
-    p:last-of-type {
+    .mdl-contact__show-route + p {
       font-weight: $fontWeightDefault;
-      margin-top: $sizeTiny;
+      margin-top: pxToRem($sizeTiny);
     }
   }
 
@@ -164,11 +155,21 @@
   }
 
   &__times {
-    margin: $sizeTiny 0;
+    margin: pxToRem($sizeTiny) 0;
 
     strong {
       display: block;
+      margin-top: pxToRem($sizeRegular);
+
+      &:first-of-type {
+        margin-top: 0;
+      }
     }
+  }
+
+  &__phone span {
+    display: block;
+    margin-top: pxToRem($sizeTiny);
   }
 
   &__phone,
@@ -181,8 +182,11 @@
       color: inherit;
       text-decoration: none;
       border-bottom: 1px solid $colorWhite;
-      margin-bottom: $sizeTiny;
     }
+  }
+
+  &__mail a {
+    margin-bottom: pxToRem($sizeTiny);
   }
 
   &__times + .mdl-contact__phone {
@@ -190,25 +194,31 @@
   }
 
   /*
-  * Media Queries
+  * Media Queries SMALL
   */
   @include mq($from: small) {
     padding: pxToRem($sizeLarge) 0;
 
     &--fullwidth {
+      padding: pxToRem($sizeHuge) 0;
+
       .mdl-contact__subtitle {
         margin-bottom: 0;
       }
 
+      .mdl-contact__cell:last-of-type {
+        padding-top: pxToRem($sizeSmallRegular);
+      }
+
       .mdl-contact__cell-icon {
-        margin-top: $sizeRegular;
+        margin-top: pxToRem($sizeRegular);
         position: relative;
         top: auto;
         left: auto;
       }
 
       .mdl-contact__cell-content {
-        margin-top: $sizeTiny;
+        margin-top: pxToRem($sizeTiny);
         padding-left: 0;
       }
     }
@@ -216,7 +226,7 @@
     .mdl-contact__section-cell {
       margin-top: 0;
     }
-    // TODO find a better/cleaner way (evaluate first fullwidth)
+    // Maybe find a better/cleaner way (evaluate first fullwidth)
     &:not(.mdl-contact--fullwidth) {
       > * {
         @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
@@ -228,8 +238,22 @@
       line-height: $sizeLineHeightNarrow;
     }
 
+    &__address {
+      .mdl-contact__show-route + p {
+        margin-top: pxToRem($sizeSmallRegular);
+      }
+    }
+
+    &__show-route {
+      margin-top: calc((#{$sizeFontBiggerRegular} * #{$sizeLineHeightMedium}) / 2);
+    }
+
     &__times {
-      margin: $sizeSmallRegular 0;
+      margin: pxToRem($sizeSmallRegular) 0;
+
+      strong {
+        margin-top: pxToRem($sizeSmallRegular);
+      }
     }
 
     &__times + .mdl-contact__phone {
@@ -243,10 +267,17 @@
       line-height: $sizeLineHeightBase;
     }
 
+    &__phone span {
+      margin-top: pxToRem($sizeSmallRegular);
+    }
+
     &__mail a {
-      margin-bottom: $sizeSmallRegular;
+      margin-bottom: pxToRem($sizeSmallRegular);
     }
   }
+  /*
+  * Media Queries XLARGE
+  */
   @include mq($from: xlarge) {
     padding: pxToRem($sizeBiggerBig) 0;
 
@@ -260,6 +291,13 @@
       .mdl-contact__cell-icon {
         margin-top: 0;
       }
+
+      .mdl-contact__address {
+        & + .mdl-contact__times,
+        .mdl-contact__show-route + p {
+          display: block;
+        }
+      }
     }
 
     .atm-heading {
@@ -269,14 +307,21 @@
 
     &__subtitle {
       line-height: $sizeLineHeightNarrow;
-      margin-bottom: $sizeLarge;
+      margin-bottom: pxToRem($sizeLarge);
 
       br {
         display: none;
       }
 
       a {
-        padding-left: 18px;
+        padding-left: pxToRem(18px);
+      }
+    }
+
+    &__address {
+      & + .mdl-contact__times,
+      .mdl-contact__show-route + p {
+        display: none;
       }
     }
 
@@ -285,15 +330,23 @@
     }
 
     &__times {
-      margin: $sizeRegular 0;
+      margin: pxToRem($sizeRegular) 0;
+
+      strong {
+        margin-top: pxToRem($sizeRegular);
+      }
+
+      & + .mdl-contact__phone {
+        padding-top: $sizeRegular;
+      }
     }
 
-    &__times + .mdl-contact__phone {
-      padding-top: $sizeRegular;
+    &__phone span {
+      margin-top: pxToRem($sizeRegular);
     }
 
     &__mail a {
-      margin-bottom: $sizeRegular;
+      margin-bottom: pxToRem($sizeRegular);
     }
 
     &__address,
