@@ -3,6 +3,7 @@
 
   padding: pxToRem($sizeRegular) 0;
   box-sizing: border-box;
+  flex-basis: 100%;
 
   line-height: $sizeLineHeightBigger;
   position: relative;

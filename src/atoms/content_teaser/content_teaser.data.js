@@ -24,6 +24,15 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
+  withoutBuzzwords: {
+    meta: {
+      title: 'Ohne Buzzwords',
+      desc: 'Ein Content Teaser ohne Buzzwords',
+    },
+    props: {
+      buzzwords: null,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
