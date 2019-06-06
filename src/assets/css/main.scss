@@ -33,6 +33,7 @@
 @import '../../atoms/context_menu_item/context_menu_item';
 @import '../../atoms/lead/lead';
 @import '../../atoms/anchorlink/anchorlink';
+@import '../../atoms/content_teaser/content_teaser';
 //*autoinsertatom*
 
 // Modules
@@ -63,6 +64,7 @@
 @import '../../modules/instructions/instructions';
 @import '../../modules/tag_group/tag_group';
 @import '../../modules/page_header/page_header';
+@import '../../modules/content_nav/content_nav';
 //*autoinsertmodule*
 
 @media print {
