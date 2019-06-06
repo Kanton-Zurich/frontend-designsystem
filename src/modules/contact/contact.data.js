@@ -169,6 +169,39 @@ const variants = _.mapValues({
       },
     },
   },
+  fullWidthLessData: {
+    meta: {
+      title: 'Kontakt volle Breite (Nur Titel)',
+      desc: 'Kontakt unter Verwendung des gesamten Platzes - reduzierte Informationen',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Koordinationsstelle Veloverkehr',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+      },
+      contactAddress: {
+        name: 'Zürich-Albisgütli',
+        street: 'Uetlibergstrasse 301',
+        zip: '8036',
+        city: 'Zürich',
+        routeLinkHref: '#',
+        routeLinkLabel: 'Route anzeigen',
+      },
+      contactPhone: [
+        {
+          anchorLabel: '058 811 30 00',
+          phoneNumer: '+41588113000',
+          additionalInfo: 'Telefon',
+        },
+      ],
+      contactMail: {
+        address: 'velo@vd.zh.ch',
+      },
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
