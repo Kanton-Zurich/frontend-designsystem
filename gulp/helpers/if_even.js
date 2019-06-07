@@ -7,4 +7,4 @@ module.exports.register = function h(handlebars) {
     }
     return options.inverse(this);
   });
-}
+};

@@ -10,7 +10,7 @@
   {{#content "content"}}
     <main id="content">
       <h1>{{props.title}}</h1>
-
+      {{> "modules/video/video" props.modules.video}}
       {{> "modules/richtext/richtext" props.modules.richtext}}
       {{> "modules/image_gallery/image_gallery" props.modules.imageGallery }}
     </main>

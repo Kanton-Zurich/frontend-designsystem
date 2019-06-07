@@ -1,0 +1,60 @@
+$contentNavGrid: (
+  tiny: 1fr,
+  medium: 1fr 1fr,
+  large: 1fr 1fr 1fr,
+);
+
+.mdl-content_nav {
+  &__list {
+    // stylelint-disable
+    display: -ms-grid;
+    display: grid;
+    // stylelint-enable
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
+    @each $bp, $fracture in $contentNavGrid {
+      @include mq($from: $bp) {
+        grid-template-columns: $fracture;
+      }
+    }
+    @each $bp, $gutterSize in $grid-margin-gutters {
+      @include mq($from: $bp) {
+        grid-column-gap: pxToRem($gutterSize);
+      }
+    }
+  }
+
+  &__item {
+    display: flex;
+  }
+
+  &--single-column {
+    .mdl-content_nav__list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &--two-columns {
+    @include mq($from: medium) {
+      .mdl-content_nav__list {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  }
+}
+
+.mdl-content_nav:not(.mdl-content_nav--single-column):not(.mdl-content_nav--two-columns) {
+  @include mq($from: large) {
+    .mdl-content_nav__list {
+      @include grid-column-position(-3);
+
+      margin-right: calc(-50% - #{$sizeBiggerBig * 0.16});
+      margin-left: $sizeBiggerBig * -0.16;
+    }
+  }
+}
+

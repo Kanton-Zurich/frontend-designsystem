@@ -245,7 +245,11 @@ $grid-outer-gutters: (
     xsmall: $sizeRegular,
     small: $sizeBig,
     large: $sizeBiggerBig,
-    xlarge: 0
+    xlarge: 0,
+  ),
+  contentWidthBleed: (
+    large: $sizeSmallHuge / 2,
+    xlarge: 0,
   )
 );
 
