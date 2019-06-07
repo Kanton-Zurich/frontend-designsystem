@@ -84,6 +84,8 @@ $accordionMap: (
     width: calc(100% - 24px);
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-weight: $fontWeightBlack;
+    line-height: $sizeLineHeightMedium;
     margin: 0;
 
     @include sizeCurve(margin-top margin-bottom, controlMargin, $accordionMap);

@@ -2,12 +2,15 @@
   {{#content "header"}}
     <header>
       <h1 class="visuallyhidden">Navigation</h1>
-      {{> "modules/skiplinks/skiplinks" props.modules.skiplinks}}
+      {{> "modules/skiplinks/skiplinks" props.modules.skiplinks.props}}
+      {{> "modules/page_header/page_header" props.modules.pageHeaderData.variants.default.props}}
+      {{> "modules/page_header/page_header" props.modules.pageHeaderData.variants.coloredImage.props}}
     </header>
   {{/content}}
 
   {{#content "content"}}
-      {{> "modules/richtext/richtext" props.modules.richtext}}
+      {{> "modules/richtext/richtext" props.modules.richtext.variants.blue.props}}
+      {{> "modules/linklist/linklist" props.modules.linklistData.props}}
   {{/content}}
 
   {{#content "footer"}}
