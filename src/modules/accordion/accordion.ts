@@ -19,6 +19,7 @@ class Accordion extends Module {
       panelContent: string,
       title: string,
       verticalIcon: string,
+      trigger: string,
     },
     stateClasses: {
       open: string,
@@ -50,6 +51,7 @@ class Accordion extends Module {
         panelContent: '[data-accordion="panel-content"]',
         title: '[data-accordion="title"]',
         verticalIcon: '[data-accordion="verticalIcon"]',
+        trigger: '[data-accordion="trigger"]',
       },
       stateClasses: {
         open: 'mdl-accordion__item--open',
@@ -62,44 +64,23 @@ class Accordion extends Module {
 
     this.initUi(true);
     this.initEventListeners();
-    this.initWachers();
 
     this.initTabindex();
   }
 
-  /**
-   * Toggling the item
-   *
-   * @param {string} propName in this case always checked // not needed
-   * @param {Boolean} checkedBefore if the accordion was checked before click // not needed
-   * @param {Boolean} checkedNow is it checked now
-   * @param {Element} element The clicked element
-   * @memberof Accordion
-   */
-  toggleItem(propName, checkedBefore, checkedNow, element) {
-    const accordionItem = element.parentElement.parentElement;
-    const panel = accordionItem.querySelector(this.options.domSelectors.panel);
-    const focusableChildren = panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY);
-    const verticalIcon = accordionItem.querySelector(this.options.domSelectors.verticalIcon);
+  toggleItem(event, eventDelegate) {
+    const panel = eventDelegate.nextElementSibling;
+    const item = eventDelegate.parentElement;
+    const ariaExpanded = eventDelegate.getAttribute('aria-expanded') === 'true';
 
-    accordionItem.classList.toggle(this.options.stateClasses.open);
-
-    if (checkedNow) {
-      panel.style.maxHeight = `${this.calcHeight(accordionItem)}px`;
-
-      verticalIcon.setAttribute('transform', 'rotate(90)');
-
-      this.setTabindex(focusableChildren, 0);
-    } else {
+    if (ariaExpanded) {
       panel.style.maxHeight = '0px';
-
-      verticalIcon.removeAttribute('transform');
-
-      this.setTabindex(focusableChildren, -1);
+    } else {
+      panel.style.maxHeight = `${this.calcHeight(panel)}px`;
     }
 
-    // Sending event to all children who have to be redrawn
-    (<any>window).estatico.helpers.sendRedrawEvent(panel);
+    eventDelegate.setAttribute('aria-expanded', !ariaExpanded);
+    item.classList.toggle(this.options.stateClasses.open);
   }
 
   /**
@@ -163,18 +144,8 @@ class Accordion extends Module {
   initEventListeners() {
     (<any>WindowEventListener).addDebouncedResizeListener(this.checkForOpen.bind(this));
 
-    this.eventDelegate.on('keydown', this.options.domSelectors.triggers, this.handleKeyOnTrigger.bind(this));
-  }
-
-  /**
-   * initializing the watchers
-   *
-   * @memberof Accordion
-   */
-  initWachers() {
-    this.ui.triggers.forEach((trigger) => {
-      this.watch(trigger, 'checked', this.toggleItem.bind(this));
-    });
+    this.eventDelegate.on('keydown', this.options.domSelectors.trigger, this.handleKeyOnTrigger.bind(this));
+    this.eventDelegate.on('click', this.options.domSelectors.trigger, this.toggleItem.bind(this));
   }
 
   /**
