@@ -87,6 +87,7 @@ $accordionMap: (
     font-weight: $fontWeightBlack;
     line-height: $sizeLineHeightMedium;
     margin: 0;
+    display: block;
 
     @include sizeCurve(margin-top margin-bottom, controlMargin, $accordionMap);
     @include transition(color);

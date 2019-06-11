@@ -75,8 +75,12 @@ class Accordion extends Module {
 
     if (ariaExpanded) {
       panel.style.maxHeight = '0px';
+
+      this.setTabindex(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY), '-1');
     } else {
       panel.style.maxHeight = `${this.calcHeight(panel)}px`;
+
+      this.setTabindex(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY), null);
     }
 
     eventDelegate.setAttribute('aria-expanded', !ariaExpanded);
@@ -168,7 +172,11 @@ class Accordion extends Module {
    */
   setTabindex(focusableElements, tabindex) {
     focusableElements.forEach((focusable) => {
-      focusable.setAttribute('tabindex', tabindex);
+      if (tabindex) {
+        focusable.setAttribute('tabindex', tabindex);
+      } else {
+        focusable.removeAttribute('tabindex');
+      }
     });
   }
 
