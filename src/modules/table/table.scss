@@ -230,11 +230,16 @@
    * Inverted
    */
   &--inverted {
+    @include gridBleed;
+    @include sizeCurve(padding-top padding-bottom, big);
+
+    background: $colorBlack5;
+
     .mdl-table__figure {
       background: $colorBlack5;
     }
 
-    .mdl-table__row:nth-child(odd) .mdl-table__cell {
+    tbody .mdl-table__row:nth-child(odd) .mdl-table__cell {
       background: $colorWhite;
     }
 
