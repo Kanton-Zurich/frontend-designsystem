@@ -120,6 +120,14 @@
         align-items: center;
         width: 100%;
 
+        .mdl-table--align-right & {
+          text-align: right;
+
+          .icon {
+            order: -1;
+          }
+        }
+
         &:hover {
           .mdl-table__sort-arrow use {
             fill: $colorBlack60;
