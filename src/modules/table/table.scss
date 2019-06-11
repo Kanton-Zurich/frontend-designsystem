@@ -120,14 +120,6 @@
         align-items: center;
         width: 100%;
 
-        .mdl-table--align-right & {
-          text-align: right;
-
-          .icon {
-            order: -1;
-          }
-        }
-
         &:hover {
           .mdl-table__sort-arrow use {
             fill: $colorBlack60;
@@ -186,6 +178,28 @@
 
   &--align-right &__cell {
     text-align: right;
+  }
+
+  &--align-right {
+    .mdl-table__column-header--sortable {
+      > button {
+        text-align: right;
+      }
+
+      .icon {
+        order: -1;
+      }
+
+      &:first-child {
+        > button {
+          text-align: left;
+        }
+
+        .icon {
+          order: 2;
+        }
+      }
+    }
   }
 
   ul,
