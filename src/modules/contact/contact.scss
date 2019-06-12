@@ -1,32 +1,4 @@
 .mdl-contact {
-  $customSizing: (
-    titleFontSize: (
-      tiny: $sizeFontLarge,
-      xsmall: $sizeFontLarge,
-      small: $sizeFontSmallBig,
-      large: $sizeFontSmallBig,
-      xlarge: $sizeFontSmallHuge
-    ),
-    subtitleFontSize: (
-      tiny: $sizeFontBiggerRegular,
-      large: $sizeFontBiggerRegular,
-      xlarge: $sizeFontSmallBig
-    ),
-    addressAndRouteLinkFontSize: (
-      tiny: $sizeFontRegular,
-      xsmall: $sizeFontRegular,
-      small: $sizeFontBiggerRegular,
-      large: $sizeFontBiggerRegular,
-      xlarge: $sizeFontMedium
-    ),
-    openingTimesFontSize: (
-      tiny: $sizeFontSmall,
-      xsmall: $sizeFontSmall,
-      small: $sizeFontRegular,
-      large: $sizeFontRegular,
-      xlarge: $sizeFontBiggerRegular
-    ),
-  );
   background-color: $colorViolet;
   color: $colorWhite;
   padding: pxToRem($sizeLarge) pxToRem($sizeSmallRegular);
@@ -37,7 +9,7 @@
   }
 
   .atm-heading {
-    @include polyFluidSizing('font-size', map-get($customSizing, titleFontSize));
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
     line-height: $sizeLineHeightMedium;
     margin-bottom: pxToRem($sizeLarge);
 
@@ -47,7 +19,7 @@
   }
 
   &__subtitle {
-    @include polyFluidSizing('font-size', map-get($customSizing, subtitleFontSize));
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
     line-height: $sizeLineHeightMedium;
     margin-bottom: $sizeRegular;
     margin-top: 0;
@@ -133,7 +105,7 @@
   &__show-route,
   &__phone a,
   &__mail a {
-    @include polyFluidSizing('font-size', map-get($customSizing, addressAndRouteLinkFontSize));
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
     font-weight: $fontWeightBlack;
     line-height: $sizeLineHeightBase;
   }
@@ -142,7 +114,7 @@
   &__times,
   &__phone,
   &__mail {
-    @include polyFluidSizing('font-size', map-get($customSizing, openingTimesFontSize));
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
     line-height: $sizeLineHeightBigger;
   }
 
