@@ -37,6 +37,7 @@
   .mdl-quote__author {
     color: rgba($colorBlack, 0.6);
     font-style: normal;
+    display: block;
 
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
   }

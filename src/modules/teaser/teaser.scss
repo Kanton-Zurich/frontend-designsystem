@@ -1,6 +1,6 @@
 $maxTextLinesSmall: 6;
 $maxTextLinesDefault: 4;
-$textLineRoundTolerance: 5;
+$textLineRoundTolerance: 5px;
 
 .mdl-teaser {
   text-decoration: none;
@@ -28,15 +28,27 @@ $textLineRoundTolerance: 5;
     padding-top: 0;
     word-break: break-word;
 
-    $titleHeightCurve: (
-      tiny: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLinesSmall + $textLineRoundTolerance,
-      small: $sizeFontSmallBig * $sizeLineHeightBase * $maxTextLinesDefault + $textLineRoundTolerance,
-      medium: $sizeFontBig * $sizeLineHeightBase * $maxTextLinesDefault + $textLineRoundTolerance,
+    $titleHeightCurveSmall: (
+      tiny: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLinesSmall ,
+      small: $sizeFontSmallBig * $sizeLineHeightBase * $maxTextLinesSmall,
+      medium: $sizeFontBig * $sizeLineHeightBase * $maxTextLinesDefault ,
       large: $sizeFontBiggerBig * $sizeLineHeightBase * $maxTextLinesDefault + $textLineRoundTolerance,
       xlarge: $sizeFontSmallHuge * $maxTextLinesDefault + ($sizeFontSmallHuge * 0.08) + $textLineRoundTolerance,
     );
 
-    @include polyFluidSizing('max-height', $titleHeightCurve);
+    $titleHeightCurveLarge: (
+      small: $sizeFontSmallBig * $sizeLineHeightMedium * $maxTextLinesDefault,
+      medium: $sizeFontBig * $sizeLineHeightMedium * $maxTextLinesDefault ,
+      large: $sizeFontBiggerBig * $sizeLineHeightBase * $maxTextLinesDefault + $textLineRoundTolerance,
+      xlarge: $sizeFontSmallHuge * $maxTextLinesDefault + ($sizeFontSmallHuge * 0.08) + $textLineRoundTolerance,
+    );
+
+    @include mq($from: tiny, $to: small) {
+      @include polyFluidSizing('max-height', $titleHeightCurveSmall);
+    }
+    @include mq($from: small) {
+      @include polyFluidSizing('max-height', $titleHeightCurveLarge);
+    }
   }
 
   &__description {
@@ -44,13 +56,20 @@ $textLineRoundTolerance: 5;
     margin: 0;
 
     $descripionHeightCurve: (
-      tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLinesSmall + $textLineRoundTolerance,
-      small: $sizeFontSmall * $sizeLineHeightBase * $maxTextLinesDefault + $textLineRoundTolerance,
-      large: $sizeFontBiggerRegular * $sizeLineHeightBase * $maxTextLinesDefault + $textLineRoundTolerance,
+      small: ($sizeFontRegular * $sizeLineHeightBase * $maxTextLinesDefault) + $textLineRoundTolerance,
+      xlarge: ($sizeFontBiggerRegular * $sizeLineHeightBase * $maxTextLinesDefault) + $textLineRoundTolerance,
     );
 
+    @include mq($from: tiny, $to: xsmall) {
+      max-height: ($sizeFontSmall * $sizeLineHeightBase * $maxTextLinesSmall) + $textLineRoundTolerance;
+    }
+    @include mq($from: xsmall, $to: small) {
+      max-height: ($sizeFontRegular * $sizeLineHeightBase * $maxTextLinesSmall) + $textLineRoundTolerance;
+    }
+    @include mq($from: small) {
+      @include polyFluidSizing('max-height', $descripionHeightCurve);
+    }
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
-    @include polyFluidSizing('max-height', $descripionHeightCurve);
 
     overflow: hidden;
   }

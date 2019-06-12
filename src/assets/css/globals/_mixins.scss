@@ -4,16 +4,18 @@
  * See http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
  * for discussion of different solutions
  */
+// stylelint-disable
 @mixin visuallyhidden() {
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px;
-  margin: -1px;
+  margin: -1px !important;
   overflow: hidden;
-  padding: 0;
+  padding: 0 !important;
   position: absolute;
   width: 1px;
 }
+// stylelint-enable
 
 /**
  *
@@ -373,20 +375,30 @@
 /**
  * Grid bleeding for content elements
  */
-@mixin gridBleed($trailingGutters: false, $fullwidth: false) {
+@mixin gridBleed($trailingGutters: false, $fullwidth: false, $isContentWidth: false) {
 
   @if $trailingGutters == true {
-    @include sizeCurve(padding-left padding-right, bleed, $grid-outer-gutters);
+    @if ($isContentWidth == false) {
+      @include sizeCurve(padding-left padding-right, bleed, $grid-outer-gutters);
+    } @else {
+      @include sizeCurve(padding-left padding-right, bleed, $grid-outer-gutters);
+    }
 
     width: calc(100vw);
     @if $fullwidth == false {
       max-width: $sizeGlobalMaxWidth;
+    }
+    @if $isContentWidth == true {
+      max-width: $sizeWidthContent;
     }
   } @else {
     width: calc(100vw + 2px);
 
     @if $fullwidth == false {
       max-width: $sizeGlobalMaxWidth;
+    }
+    @if $isContentWidth == true {
+      max-width: $sizeWidthContent;
     }
   }
   width: calc(100vw - var(--scrollbar-wd)); //stylelint-disable-line

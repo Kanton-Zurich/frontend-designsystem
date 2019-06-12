@@ -73,10 +73,11 @@ class LineClamper {
     if (this.elements.length > 0) {
       this.elements.forEach((element) => {
         if (!element.hasAttribute('data-line-clamped')) {
-          element.setAttribute('title', element.innerText);
+          element.setAttribute('title', element.innerText.trim());
+          element.setAttribute('data-content-before', element.innerHTML.trim());
           element.setAttribute('data-line-clamped', 'true');
         } else {
-          element.textContent = element.getAttribute('title');
+          element.innerHTML = element.getAttribute('data-content-before');
         }
         let elementHeight = parseInt(window.getComputedStyle(element).getPropertyValue('max-height'), 10);
         if (isNaN(elementHeight)) {// eslint-disable-line
