@@ -15,7 +15,7 @@ const data = _.merge({}, defaultData, {
     quoteText: '«Das richtige Paradigma von Projektmanagementerfolg stützt sich nicht auf die Einhaltung von'
       + ' Rahmenbedingungen, sondern orientiert sich am tieferen Sinn der Aufgabe: Das Transformieren von Ressourcen in'
       + ' Resultate, welche dem Unternehmen einen Nutzen stiften.»',
-    quoteAuthor: 'Claudia Pletscher, Leiterin Entwicklung',
+    quoteAuthor: 'Claudia Pletscher, Leiterin Entwicklung Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolor',
     srcsets: [{
       image: '/assets/media/image/square_260_x15.png',
       deviceWidth: 1024,
