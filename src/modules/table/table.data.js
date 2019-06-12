@@ -32,8 +32,19 @@ const data = _.merge({}, defaultData, {
     ],
     bodyrows: [
       {
-        data: ['<a href="#" class="atm-text_link">Kanton Zürich</a>', '1498643', '15,2', '1005751'],
-        isHighlighted: true,
+        data: [{
+          cellContent: '<a href="#" class="atm-text_link">Kanton Zürich</a>',
+          isHighlighted: true,
+        }, {
+          cellContent: '1498643',
+          isHighlighted: true,
+        }, {
+          cellContent: '15,2',
+          isHighlighted: true,
+        }, {
+          cellContent: '1005751',
+          isHighlighted: true,
+        }],
       }, {
         data: ['Affoltern', '53531', '18,4', '17171'],
       }, {
@@ -85,8 +96,19 @@ const variants = _.mapValues({
       ],
       bodyrows: [
         {
-          data: ['<a href="#" class="atm-text_link">Kanton Zürich</a>', '1498643', '15,2', '1005751'],
-          isHighlighted: true,
+          data: [{
+            cellContent: '<a href="#" class="atm-text_link">Kanton Zürich</a>',
+            isHighlighted: true,
+          }, {
+            cellContent: '1498643',
+            isHighlighted: true,
+          }, {
+            cellContent: '15,2',
+            isHighlighted: true,
+          }, {
+            cellContent: '1005751',
+            isHighlighted: true,
+          }],
         }, {
           data: ['Affoltern<sup>2</sup> <span class="visuallyhidden">Stand 2016</span>', '53531', '18,4', '17171'],
         }, {

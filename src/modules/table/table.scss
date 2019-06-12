@@ -156,7 +156,7 @@
   }
 
   &__cell.mdl-table__row-header,
-  &__row--highlighted &__cell {
+  &__cell--highlighted.mdl-table__cell {
     color: rgba($colorBlack, 1);
     font-weight: $fontWeightBlack;
   }
@@ -293,7 +293,7 @@
  */
 @each $key, $val in $tl-color-variations {
   .#{$key} {
-    .mdl-table__row--highlighted .mdl-table__cell {
+    .mdl-table__cell--highlighted {
       color: #{$val};
     }
 
