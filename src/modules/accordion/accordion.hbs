@@ -8,24 +8,15 @@
   <div>
     {{#each items}}
       <div class="mdl-accordion__item" data-accordion="item">
-        <h{{increment ../accordionHeading.level}} class="mdl-accordion__control">
-          <input
-            class="visuallyhidden mdl-accordion__input"
-            type="checkbox"
-            id="accordion__{{techName}}"
-            data-accordion="trigger"
-            data-index={{@index}}
-          />
-          <label class="mdl-accordion__label" for="accordion__{{techName}}">
-            <span class="mdl-accordion__item-title">
-              {{title}}<span class="visuallyhidden"> anzeigen</span>
-            </span>
-            <svg class="icon mdl-accordion__plus">
-              <use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
-              <use xlink:href="#plus-horizontal"></use>
-            </svg>
-          </label>
-        </h{{increment ../accordionHeading.level}}>
+        <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger">
+          <span class="mdl-accordion__control">
+            {{title}}
+          </span>
+          <svg class="icon mdl-accordion__plus">
+            <use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
+            <use xlink:href="#plus-horizontal"></use>
+          </svg>
+        </button>
         <div class="mdl-accordion__panel" data-accordion="panel">
           <div class="mdl-accordion__panel-content" data-accordion="panel-content">
             {{#each children}}

@@ -1,25 +1,16 @@
+$accordionMap: (
+  controlMargin: (
+    tiny: 12px,
+    small: 14.5px,
+    large: 17px,
+  )
+);
+
 .mdl-accordion {
   @include sizeCurve(margin-bottom, big);
 
-  &__control {
-    margin: 0;
-  }
-
   .atm-heading {
     @include sizeCurve(margin-bottom, medium);
-  }
-
-  &__label {
-    display: flex;
-    align-items: flex-start;
-    position: relative;
-    cursor: pointer;
-
-    @include sizeCurve(padding-top padding-bottom, small);
-  }
-
-  &__input:focus + &__label {
-    outline: 2px solid $colorCyan;
   }
 
   &__item {
@@ -42,7 +33,7 @@
 
     &--open,
     &:hover {
-      .mdl-accordion__item-title {
+      .mdl-accordion__control {
         color: $colorBlack100;
       }
 
@@ -60,7 +51,7 @@
         @include transition(max-height);
       }
 
-      .mdl-accordion__item-title {
+      .mdl-accordion__control {
         max-height: none;
         white-space: normal;
       }
@@ -74,11 +65,17 @@
     }
   }
 
-  &__item-title {
+  &__button {
+    display: flex;
+    width: 100%;
+
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__control {
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
     @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 1.5));
-
-    display: block;
 
     letter-spacing: -0.3px;
     flex-grow: 1;
@@ -89,14 +86,17 @@
     white-space: nowrap;
     font-weight: $fontWeightBlack;
     line-height: $sizeLineHeightMedium;
+    margin: 0;
+    display: block;
 
+    @include sizeCurve(margin-top margin-bottom, controlMargin, $accordionMap);
     @include transition(color);
   }
 
 
   &__plus {
-    margin-top: 1px;
     overflow: hidden;
+    margin-right: 2px;
 
     use {
       fill: $colorBlack60;
