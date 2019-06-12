@@ -180,6 +180,28 @@
     text-align: right;
   }
 
+  &--align-right {
+    .mdl-table__column-header--sortable {
+      > button {
+        text-align: right;
+      }
+
+      .icon {
+        order: -1;
+      }
+
+      &:first-child {
+        > button {
+          text-align: left;
+        }
+
+        .icon {
+          order: 2;
+        }
+      }
+    }
+  }
+
   ul,
   ol {
     margin: 0;
@@ -230,11 +252,16 @@
    * Inverted
    */
   &--inverted {
+    @include gridBleed;
+    @include sizeCurve(padding-top padding-bottom, big);
+
+    background: $colorBlack5;
+
     .mdl-table__figure {
       background: $colorBlack5;
     }
 
-    .mdl-table__row:nth-child(odd) .mdl-table__cell {
+    tbody .mdl-table__row:nth-child(odd) .mdl-table__cell {
       background: $colorWhite;
     }
 

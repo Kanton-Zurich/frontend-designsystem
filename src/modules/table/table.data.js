@@ -362,6 +362,51 @@ const variants = _.mapValues({
       }),
     },
   },
+  sortableAlignRight: {
+    meta: {
+      title: 'Standard mit sortierbaren Spalten, rechtsbündig',
+      desc: 'Ausgewählte Spalten können sortiert werden. Die ganze Tabelle ist rechtsbündig formatiert.',
+    },
+    props: {
+      alignRight: true,
+      tableTitle: 'Beliebteste Filme im Kanton',
+      headers: [
+        {
+          title: 'Rang',
+          isSortable: 'enum',
+        },
+        {
+          title: 'Filmtitel',
+          isSortable: false,
+        },
+        {
+          title: 'Herkunft',
+          isSortable: 'alpha',
+        },
+        {
+          title: 'Besucher/-innen',
+          isSortable: 'enum',
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['1', 'Titanic', 'USA', '296521'],
+        },
+        {
+          data: ['2', 'Finding Nemo', 'USA', '207095'],
+        },
+        {
+          data: ['3', 'Casino Royale (James Bond) Remake 2006', 'UK/USA', '200026'],
+        },
+        {
+          data: ['4', 'Ice Age 2', 'USA', '187757'],
+        },
+      ],
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Quelle: Pro Cinema',
+      }),
+    },
+  },
   firstColumnFixedSortable: {
     meta: {
       title: 'Mit fixierter erster Spalte und sortierbaren Spalten',
