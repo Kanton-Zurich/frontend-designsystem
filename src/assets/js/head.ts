@@ -32,4 +32,3 @@ document.addEventListener('DOMContentLoaded', () => {
   adjustScrollbarWidth();
 });
 document.addEventListener('DOMContentLoaded', () => { (<any>window).estatico.flyingFocus.initFlyingFocus(); });
-
