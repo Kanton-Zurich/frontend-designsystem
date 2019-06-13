@@ -4,6 +4,16 @@
   display: inline-flex;
   align-items: center;
 
+  $customSizeCurves: (
+    maxWidth: (
+      tiny: 296px,
+      xsmall: 368px,
+      small: 443px,
+      medium: 576px,
+      large: 622px,
+      xlarge: 768px,
+    ),
+  );
 
   /*
   * Regular Anchorlink Style
@@ -111,13 +121,20 @@
     &-top {
       font-weight: $fontWeightBlack;
       font-size: $sizeFontBig;
-      line-height: $sizeLineHeightNarrow;
+      line-height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      @include sizeCurve(max-width, maxWidth, $customSizeCurves);
+
+      display: inline-block;
       padding: 0 $sizeLarge;
       height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
 
       &-small {
         font-size: $sizeFontBiggerRegular;
-        line-height: $sizeLineHeightMedium;
+        line-height: $sizeBiggerBig;
         padding: 0 $sizeSmallRegular;
         height: $sizeBiggerBig;
       }

@@ -55,6 +55,7 @@
   h2 {
     color: $colorWhite;
     font-size: $sizeFontTiny;
+    padding-top: 0;
 
     @include sizeCurve('margin-bottom', headingBottomMargin, $customSizing);
   }
