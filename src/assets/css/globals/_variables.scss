@@ -305,11 +305,12 @@ $transitionEasingDecelerate: cubic-bezier(0.01, 0.13, 0.63, 0.99);
 /**
  * Z-Indexes
  */
-$zIndexInner: 1; // für Übersteuerung innerhalb der Komponente
+$zIndexInner: 1;
 $zIndexDropDowns: 10;
-$zIndexScaffolds: 100; // für fixed Header/ Footer
+$zIndexScaffolds: 100; // for fixed header/ footer
 $zIndexOverlays: 1000;
 $zIndexSkiplinks: 2000;
+$zIndexFlyingFocus: 9999;
 
 :root {
 
@@ -319,3 +320,4 @@ $zIndexSkiplinks: 2000;
 html {
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
+

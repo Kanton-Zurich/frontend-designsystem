@@ -31,10 +31,6 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
     margin-left: pxToRem(12px);
   }
 
-  &:focus {
-    outline: none;
-  }
-
   &:hover {
     background: $colorBlack80;
   }
