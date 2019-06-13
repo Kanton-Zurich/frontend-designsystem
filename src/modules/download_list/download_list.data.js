@@ -57,10 +57,9 @@ const data = _.merge({}, defaultData, {
         }),
       },
     ],
+    disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue' ],
   },
 });
-
-data.colorVariations = []; // no color variations available
 
 const variants = _.mapValues({
   default: {
@@ -112,6 +111,29 @@ const variants = _.mapValues({
         level: 3,
         text: 'Rechtliche Grundlagen',
       },
+      links: [
+        {
+          link: downloadLegalFoundation,
+        },
+        {
+          link: downloadLegalFoundation,
+        },
+        {
+          link: downloadLegalFoundation,
+        },
+        {
+          link: downloadLegalFoundation,
+        },
+      ],
+    },
+  },
+  legalFoundationDownloadListNoTitle: {
+    meta: {
+      title: 'Rechtliche Grundlagen (ohne Titel)',
+      desc: 'Eine Downloadliste mit rechtlichen Grundlagen (kein Titel)',
+    },
+    props: {
+      title: false,
       links: [
         {
           link: downloadLegalFoundation,

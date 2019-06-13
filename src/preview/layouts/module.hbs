@@ -8,6 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>{{#if meta.title}}{{meta.title}} – {{/if}}{{meta.project}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
 
 	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 	<link rel="stylesheet" href="/preview/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
@@ -42,7 +43,7 @@
 						<input type="radio" name="variants" class="tab_trigger" id="variants{{@index}}"{{#unless @index}} checked{{/unless}} aria-controls="panel{{@index}} panelDesc{{@index}}" />
 					{{/each}}
 
-					<div class="panels">
+					<div class="panels tab_content_wrapper">
 						{{#each variants}}
 							<div class="tab_content" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}">
                 <div class="lyt-wrapper">
@@ -52,6 +53,10 @@
                     </div>
                   </div>
                 </div>
+                {{#if props.disabledColorVariations}}
+                  <input type="hidden" id="defaultColorVariation{{@index}}" value="{{props.defaultColorVariation}}" />
+                  <input type="hidden" id="disabledColorVariations{{@index}}" value="{{json props.disabledColorVariations}}" />
+                {{/if}}
 							</div>
 						{{/each}}
 					</div>

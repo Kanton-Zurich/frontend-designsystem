@@ -1,10 +1,17 @@
+$accordionMap: (
+  controlMargin: (
+    tiny: 12px,
+    small: 14.5px,
+    large: 17px,
+  )
+);
+
 .mdl-accordion {
   @include sizeCurve(margin-bottom, big);
 
   &__control {
     margin: 0;
   }
-
   .atm-heading {
     @include sizeCurve(margin-bottom, medium);
   }
@@ -36,9 +43,8 @@
       @include transition(background transform);
     }
 
-    &--open,
-    &:hover {
-      .mdl-accordion__item-title {
+    @include hover() {
+      .mdl-accordion__control {
         color: $colorBlack100;
       }
 
@@ -56,13 +62,18 @@
         @include transition(max-height);
       }
 
-      .mdl-accordion__item-title {
+      .mdl-accordion__control {
         max-height: none;
         white-space: normal;
+        color: $colorBlack100;
+      }
+
+      .mdl-accordion__plus use {
+        fill: $colorBlack100;
       }
     }
 
-    &:hover:not(.mdl-accordion__item--open) {
+    @include hover('.mdl-accordion__item--open') {
       &:after {
         transform: scaleY(3);
         background: $colorBlack100;
@@ -70,11 +81,17 @@
     }
   }
 
-  &__item-title {
+  &__button {
+    display: flex;
+    width: 100%;
+
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__control {
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
     @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 1.5));
-
-    display: block;
 
     letter-spacing: -0.3px;
     flex-grow: 1;
@@ -83,14 +100,19 @@
     width: calc(100% - 24px);
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-weight: $fontWeightBlack;
+    line-height: $sizeLineHeightMedium;
+    margin: 0;
+    display: block;
 
+    @include sizeCurve(margin-top margin-bottom, controlMargin, $accordionMap);
     @include transition(color);
   }
 
 
   &__plus {
-    margin-top: 1px;
     overflow: hidden;
+    margin-right: 2px;
 
     use {
       fill: $colorBlack60;
@@ -114,6 +136,12 @@
   }
 
   &__panel-content {
+    p {
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+
+      color: $colorBlack60;
+    }
+
     > :last-child {
       @include sizeCurve(margin-bottom, medium);
     }

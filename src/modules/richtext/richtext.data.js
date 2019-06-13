@@ -44,16 +44,6 @@ const variants = _.mapValues({
     },
     props: {},
   },
-  inverted: {
-    meta: {
-      title: 'Invertiert (mit Image Zitat)',
-      desc: '',
-    },
-    props: {
-      isInverted: true,
-      hasImage: true,
-    },
-  },
   blue: {
     meta: {
       title: 'mit Image Zitat',

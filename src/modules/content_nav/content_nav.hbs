@@ -1,0 +1,15 @@
+<div class="
+  mdl-content_nav
+  {{#ifLengthBetween items 1 1}}mdl-content_nav--single-column{{/ifLengthBetween}}
+  {{#ifLengthBetween items 2 4}}mdl-content_nav--two-columns{{/ifLengthBetween}}"
+  data-init="contentNav"
+>
+  <h{{contentNavTitle.level}} class="atm-heading atm-heading--bordered {{#if contentNavTitle.isHidden}}visuallyhidden{{/if}}">{{contentNavTitle.title}}</h{{contentNavTitle.level}}>
+  <ul class="mdl-content_nav__list">
+    {{#each items}}
+      <li class="mdl-content_nav__item">
+        {{> "atoms/content_teaser/content_teaser" this}}
+      </li>
+    {{/each}}
+  </ul>
+</div>

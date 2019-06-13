@@ -18,15 +18,38 @@
     ),
   );
 
-  background-color: $colorBordeaux;
+  &--wrapped {
+    background-color: $colorBordeaux;
 
-  @include gridBleed($trailingGutters: true);
-  @include sizeCurve('padding-top', containerTopPadding, $customSizing);
-  @include sizeCurve('padding-bottom', containerBottomPadding, $customSizing);
+    @include gridBleed($trailingGutters: true);
+    @include sizeCurve('padding-top', containerTopPadding, $customSizing);
+    @include sizeCurve('padding-bottom', containerBottomPadding, $customSizing);
 
-  .lyt-wrapper {
-    margin: 0;
-    max-width: 100%;
+    .lyt-wrapper {
+      margin: 0;
+      max-width: 100%;
+    }
+
+    @include mq($from: xsmall) {
+      padding-left: $sizeRegular;
+      padding-right: $sizeRegular;
+    }
+    @include mq($from: small) {
+      padding-left: 0;
+      padding-right: 0;
+
+      .lyt-wrapper {
+        margin: 0 auto;
+        max-width: calc(100% - 4rem);
+      }
+    }
+    @include mq($from: large) {
+      @include gridBleed($trailingGutters: false);
+
+      .lyt-wrapper {
+        max-width: calc(100% - 5rem);
+      }
+    }
   }
 
   h2 {
@@ -54,31 +77,13 @@
     margin-bottom: calc(#{$sizeTiny} / 2);
   }
 
-  @include mq($from: xsmall) {
-    padding-left: $sizeRegular;
-    padding-right: $sizeRegular;
-  }
   @include mq($from: small) {
-    padding-left: 0;
-    padding-right: 0;
-
-    .lyt-wrapper {
-      margin: 0 auto;
-      max-width: calc(100% - 4rem);
-    }
-
     &__tags {
       margin-left: - #{$sizeSmallRegular};
       margin-right: - #{$sizeSmallRegular};
     }
   }
   @include mq($from: large ) {
-    @include gridBleed($trailingGutters: false);
-
-    .lyt-wrapper {
-      max-width: calc(100% - 5rem);
-    }
-
     &__tags {
       margin-bottom: $sizeRegular;
     }
@@ -90,7 +95,7 @@
 */
 @each $key, $val in $tl-color-variations {
   .#{$key} {
-    .mdl-tag-group {
+    .mdl-tag-group--wrapped {
       background-color: #{$val};
     }
   }

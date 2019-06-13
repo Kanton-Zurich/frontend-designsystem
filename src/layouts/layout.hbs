@@ -6,6 +6,7 @@
   <title>{{#if title}}{{title}} – {{/if}}{{meta.project}}</title>
   <meta name="description" content="{{#if description}}{{description}}{{/if}}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no">
 
   {{! <link rel="manifest" href="site.webmanifest"> }}
   {{! <link rel="apple-touch-icon" href="icon.png"> }}
@@ -21,7 +22,7 @@
 
   {{! <meta name="theme-color" content="#fafafa"> }}
 </head>
-<body class="cv-default" {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
+<body class="cv-blue" {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
   data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'
   data-style-main='/assets/css/main{{#unless env.dev}}.min{{/unless}}.css'
   data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>

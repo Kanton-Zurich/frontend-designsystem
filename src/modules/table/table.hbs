@@ -6,6 +6,11 @@
   data-init="table"
   data-redraw="true"
 >
+  {{#if isInverted}}
+    <div class="lyt-wrapper" data-image-gallery="gallery">
+      <div class="grid-x grid-margin-x">
+        <div class=" cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10 medium-8">
+  {{/if}}
 	{{#if hasTitle}}
 		<h{{ tableHeadingLevel }} class="atm-heading mdl-table__title">{{ tableTitle }}</h{{ tableHeadingLevel }}>
 	{{/if}}
@@ -82,4 +87,9 @@
 			</figcaption>
 		{{/if}}
 	</figure>
+  {{#if isInverted}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
 </div>

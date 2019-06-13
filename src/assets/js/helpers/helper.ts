@@ -1,5 +1,8 @@
 import { debounce } from 'lodash';
 
+import { INTERACTION_ELEMENTS_QUERY } from './constants';
+
+
 class Helper {
   /** So Touchmove and touchstart can talk about initial values */
   private swipeData: {
@@ -154,13 +157,15 @@ class Helper {
    * @param {NodeList} nodes
    * @memberof Helper
    */
-  public setHiddenTabIndex(nodes) {
-    nodes.forEach((node) => {
-      if (node.hasAttribute('tabindex')) {
-        node.setAttribute('data-tabindex', node.getAttribute('tabindex'));
-      }
+  public setHiddenTabIndex(excludeNode) {
+    window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY).forEach((focusable) => {
+      if (!excludeNode.contains(focusable)) {
+        if (focusable.hasAttribute('tabindex')) {
+          focusable.setAttribute('data-tabindex', focusable.getAttribute('tabindex'));
+        }
 
-      node.setAttribute('tabindex', -1);
+        focusable.setAttribute('tabindex', '-1');
+      }
     });
   }
 
@@ -170,14 +175,14 @@ class Helper {
    * @param {NodeList} nodes
    * @memberof Helper
    */
-  public resetHiddenTabIndex(nodes) {
-    nodes.forEach((node) => {
-      const tabindex = node.hasAttribute('data-tabindex') ? node.getAttribute('data-tabindex') : false;
+  public resetHiddenTabIndex() {
+    window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY).forEach((focusable) => {
+      const tabindex = focusable.hasAttribute('data-tabindex') ? focusable.getAttribute('data-tabindex') : false;
 
       if (tabindex) {
-        node.setAttribute('tabindex', tabindex);
+        focusable.setAttribute('tabindex', tabindex);
       } else {
-        node.removeAttribute('tabindex');
+        focusable.removeAttribute('tabindex');
       }
     });
   }
