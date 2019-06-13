@@ -8,15 +8,17 @@
   <div>
     {{#each items}}
       <div class="mdl-accordion__item" data-accordion="item">
-        <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger">
-          <span class="mdl-accordion__control">
-            {{title}}
-          </span>
-          <svg class="icon mdl-accordion__plus">
-            <use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
-            <use xlink:href="#plus-horizontal"></use>
-          </svg>
-        </button>
+        <h{{increment ../accordionHeading.level}} class="mdl-accordion__header">
+          <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger">
+            <span class="mdl-accordion__control">
+              {{title}}
+            </span>
+            <svg class="icon mdl-accordion__plus">
+              <use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
+              <use xlink:href="#plus-horizontal"></use>
+            </svg>
+          </button>
+        </h{{increment ../accordionHeading.level}}>
         <div class="mdl-accordion__panel" data-accordion="panel">
           <div class="mdl-accordion__panel-content" data-accordion="panel-content">
             {{#each children}}
