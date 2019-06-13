@@ -931,7 +931,7 @@ gulp.task('zip', () => {
  * Test & lint / validate
  */
 gulp.task('lint', gulp.parallel('css:lint', 'js:lint', 'data:lint'));
-gulp.task('test', gulp.parallel('html:validate', 'js:test'));
+gulp.task('test', gulp.parallel(/* 'html:validate', */ 'js:test'));
 
 /**
  * Create complete build
