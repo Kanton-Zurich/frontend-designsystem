@@ -9,9 +9,6 @@ $accordionMap: (
 .mdl-accordion {
   @include sizeCurve(margin-bottom, big);
 
-  &__control {
-    margin: 0;
-  }
   .atm-heading {
     @include sizeCurve(margin-bottom, medium);
   }
