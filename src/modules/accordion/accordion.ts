@@ -69,8 +69,8 @@ class Accordion extends Module {
   }
 
   toggleItem(event, eventDelegate) {
-    const panel = eventDelegate.nextElementSibling;
-    const item = eventDelegate.parentElement;
+    const panel = eventDelegate.parentElement.nextElementSibling;
+    const item = eventDelegate.parentElement.parentElement;
     const ariaExpanded = eventDelegate.getAttribute('aria-expanded') === 'true';
 
     if (ariaExpanded) {

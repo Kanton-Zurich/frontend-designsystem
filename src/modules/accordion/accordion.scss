@@ -86,6 +86,10 @@ $accordionMap: (
     align-items: center;
   }
 
+  &__header {
+    margin: 0;
+  }
+
   &__control {
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
     @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 1.5));
