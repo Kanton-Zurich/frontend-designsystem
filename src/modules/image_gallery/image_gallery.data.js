@@ -38,17 +38,14 @@ const slideImage = _.merge({}, defImageFigureData, {
     {
       image: '/assets/media/image/carousel_1440_x15.jpeg',
       imageWidth: 2160,
-      useInGallery: true,
     },
     {
       image: '/assets/media/image/carousel_1024_x15.jpeg',
       imageWidth: 1536,
-      useInGallery: true,
     },
     {
       image: '/assets/media/image/carousel_600_x15.jpeg',
       imageWidth: 900,
-      useInGallery: true,
     },
   ],
   useInCarousel: true,
