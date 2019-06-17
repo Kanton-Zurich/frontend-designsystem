@@ -74,8 +74,7 @@ $pageHeaderCurves: (
 
 .mdl-page-header {
   @include gridBleed($fullwidth: true);
-  padding-top: 40px;
-
+  @include sizeCurve('padding-top', pageHeaderTop, $pageHeaderCurves);
   @include sizeCurve(padding-bottom, pageHeaderBottom, $pageHeaderCurves);
 
   &__logo {
@@ -126,8 +125,6 @@ $pageHeaderCurves: (
     max-width: $sizeWidthTextContent;
 
     .atm-heading {
-      padding-top: 0;
-
       @include mq($from: tiny, $to: medium) {
         margin-bottom: 0;
       }
@@ -136,7 +133,6 @@ $pageHeaderCurves: (
       }
       @include mq($from: xlarge) {
         margin-bottom: 4px;
-        margin-left: $sizeLarge;
       }
     }
 
@@ -147,8 +143,8 @@ $pageHeaderCurves: (
         margin-bottom: 16px;
       }
       @include mq($from: medium) {
-        margin-left: calc(-#{$sizeRegular});
-        margin-right: calc(-#{$sizeRegular});
+        margin-left: calc(-#{$sizeLarge});
+        margin-right: calc(-#{$sizeLarge});
         margin-bottom: 24px;
       }
 
@@ -161,6 +157,7 @@ $pageHeaderCurves: (
           border-radius: 75.5px;
           padding: 0 $sizeRegular;
           height: calc(#{$sizeSmallLarge} + #{$sizeSmallRegular});
+          line-height: calc(#{$sizeSmallLarge} + #{$sizeSmallRegular});
         }
       }
     }
