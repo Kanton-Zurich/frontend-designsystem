@@ -22,6 +22,11 @@
     }
   }
 
+  // CZHDEV-559
+  &:focus {
+    outline: none;
+  }
+
   &:active,
   &--selected {
     background: $colorCyan;
