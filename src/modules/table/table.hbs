@@ -56,23 +56,31 @@
             {{/if}}
             <tbody class="mdl-table__body">
               {{#each bodyrows}}
-                <tr role="row" class="mdl-table__row mdl-table__row
-                  {{#if this.isHighlighted}} mdl-table__row--highlighted{{/if}}">
+                <tr role="row" class="mdl-table__row mdl-table__row">
                   {{#each this.data}}
                     {{#if @first}}
                       <th scope="row" class="mdl-table__cell
-                        {{#if  ../../hasRowHeader}}mdl-table__row-header{{/if}}"
+                        {{#if  ../../hasRowHeader}}mdl-table__row-header{{/if}}
+                        {{#if this.isHighlighted}}mdl-table__cell--highlighted{{/if}}"
                         data-table="cell"
                         {{#if ../../hasRowHeader}}role="rowheader"{{else}}role="gridcell"{{/if}}
                       >
-                        {{{ this }}}
+                        {{#if_object this}}
+                          {{{ ../this.cellContent }}}
+                        {{else}}
+                          {{{ ../this }}}
+                        {{/if_object}}
                       </th>
                     {{else}}
-                      {{#if ../this.isHighlighted}}
-                        <td class="mdl-table__cell" role="gridcell" data-table="cell"><strong>{{{ this }}}</strong></td>
-                      {{else}}
-                        <td class="mdl-table__cell" role="gridcell" data-table="cell">{{{ this }}}</td>
-                      {{/if}}
+                        <td class="mdl-table__cell {{#if this.isHighlighted}}mdl-table__cell--highlighted{{/if}}" role="gridcell" data-table="cell">
+                          {{#if this.isHighlighted}}<strong>{{/if}}
+                            {{#if_object this}}
+                              {{{ ../this.cellContent }}}
+                            {{else}}
+                              {{{ ../this }}}
+                            {{/if_object}}
+                          {{#if this.isHighlighted}}</strong>{{/if}}
+                        </td>
                     {{/if}}
                   {{/each}}
                 </tr>
