@@ -84,6 +84,12 @@ $slidePaddingCurve: (
     display: flex;
     align-items: center;
     position: relative;
+
+    .mdl-button_group {
+      .touch & {
+        display: none;
+      }
+    }
   }
 
   &__indicator {
