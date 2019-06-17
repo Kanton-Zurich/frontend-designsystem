@@ -4,7 +4,7 @@
   display: inline-flex;
   align-items: center;
 
-  $customSizeCurves: (
+  $anchorlinkSizeCurves: (
     maxWidth: (
       tiny: 296px,
       xsmall: 368px,
@@ -126,7 +126,7 @@
       text-overflow: ellipsis;
       white-space: nowrap;
 
-      @include sizeCurve(max-width, maxWidth, $customSizeCurves);
+      @include sizeCurve(max-width, maxWidth, $anchorlinkSizeCurves);
 
       display: inline-block;
       padding: 0 $sizeLarge;
