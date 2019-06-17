@@ -29,6 +29,7 @@ const data = _.merge({}, defaultData, {
     isWide: false,
     hasDownload: false,
     useInCarousel: false,
+    useInGallery: false,
   },
 });
 
