@@ -38,7 +38,7 @@ class LineClamper {
    * @memberof LineClamper
    */
   private setLineClamping() {
-    const defaultFallbackFunc = (el, maxLines, elHeight) => {
+    const truncateText = (el, maxLines, elHeight) => {
       let maxIt = this.maxIterations;
       let currentScrollHeight = 0;
       while (el.scrollHeight > elHeight && maxIt > 0) {
@@ -48,25 +48,6 @@ class LineClamper {
         }
         el.textContent = el.textContent.replace(/\W*\s(\S)*$/, '...');
         maxIt -= 1;
-      }
-    };
-
-    const useFallbackFunc = 'webkitLineClamp' in document.body.style
-      ? undefined
-      : defaultFallbackFunc;
-
-    const truncateText = (el, maxLines, elHeight, elBottomPadding) => {
-      if (!isNaN(maxLines)) { // eslint-disable-line
-        if (useFallbackFunc) {
-          useFallbackFunc(el, maxLines, elHeight);
-        } else {
-          el.style.overflow = 'hidden';
-          el.style.paddingBottom = `${elBottomPadding}px`;
-          el.style.textOverflow = 'ellipsis';
-          el.style.webkitBoxOrient = 'vertical';
-          el.style.display = '-webkit-box';
-          el.style.webkitLineClamp = maxLines ? maxLines : ''; // eslint-disable-line
-        }
       }
     };
 
@@ -84,13 +65,9 @@ class LineClamper {
           elementHeight = parseInt(window.getComputedStyle(element).getPropertyValue('height'), 10);
         }
         const computedLineHeight = parseInt(window.getComputedStyle(element).getPropertyValue('line-height'), 10);
-        const computedFontSize = parseInt(window.getComputedStyle(element).getPropertyValue('font-size'), 10);
         const lines = Math.floor(elementHeight / computedLineHeight);
-        let bottomFontPadding = 0;
-        if (computedLineHeight / computedFontSize < 1.1) { // eslint-disable-line
-          bottomFontPadding = 0.1 * computedLineHeight; // eslint-disable-line
-        }
-        truncateText(element, lines, elementHeight, bottomFontPadding);
+
+        truncateText(element, lines, elementHeight);
       });
     }
   }
