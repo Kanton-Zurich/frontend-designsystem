@@ -56,6 +56,7 @@
     color: $colorWhite;
     font-size: $sizeFontTiny;
     padding-top: 0;
+    line-height: $sizeLineHeightBase;
 
     @include sizeCurve('margin-bottom', headingBottomMargin, $customSizing);
   }
