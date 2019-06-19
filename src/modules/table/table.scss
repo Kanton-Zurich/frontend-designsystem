@@ -259,7 +259,8 @@
   /**
    * Inverted
    */
-  &--inverted {
+  &--inverted,
+  [ class*='--inverted' ] & {
     @include gridBleed;
     @include sizeCurve(padding-top padding-bottom, big);
 
