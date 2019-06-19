@@ -1,0 +1,22 @@
+<ol class="mdl-breadcrumb {{#if backOnly}}mdl-breadcrumb--back-only{{/if}}" data-init="breadcrumb">
+  {{#each path}}
+    <li class="mdl-breadcrumb__item
+      {{#if @first}}mdl-breadcrumb__item--main{{/if}}
+      {{#if @last}}mdl-breadcrumb__item--active{{/if}}
+    ">
+      {{#unless @first}}
+        <svg class="icon">
+          <use xlink:href="#angle_right"></use>
+        </svg>
+      {{/unless}}
+      <svg class="icon mdl-breadcrumb__arrow-left">
+        <use xlink:href="#arrow-left"></use>
+      </svg>
+      {{#if href}}
+        <a class="mdl-breadcrumb__link" href="{{{href}}}">{{title}}</a>
+      {{else}}
+        <span class="mdl-breadcrumb__link">{{title}}</span>
+      {{/if}}
+    </li>
+  {{/each}}
+</ol>
