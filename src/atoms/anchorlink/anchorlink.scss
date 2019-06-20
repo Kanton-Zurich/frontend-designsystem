@@ -69,6 +69,7 @@
     padding: 0 $sizeRegular;
     background: $colorBlack10;
     height: calc(#{$sizeSmallLarge} + #{$sizeSmallRegular});
+    max-width: 100%;
 
     &:hover {
       color: $colorBlack;
@@ -131,6 +132,10 @@
       display: inline-block;
       padding: 0 $sizeLarge;
       height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
+
+      @include mq($to: small) {
+        max-width: 100%;
+      }
 
       &-small {
         font-size: $sizeFontBiggerRegular;
