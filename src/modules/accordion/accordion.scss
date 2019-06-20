@@ -161,12 +161,23 @@ $accordionMap: (
 
     h2.atm-heading.atm-heading--bordered,
     h3.atm-heading.atm-heading--bordered,
-    h4.atm-heading.atm-heading--bordered {
+    h4.atm-heading.atm-heading--bordered,
+    h2.atm-heading,
+    h3.atm-heading,
+    h4.atm-heading {
       color: $colorBlack;
 
       &:before {
         background: $colorBlack;
       }
+    }
+  }
+}
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-accordion--cv-inverted .mdl-table .atm-text_link {
+      color: $val;
     }
   }
 }
