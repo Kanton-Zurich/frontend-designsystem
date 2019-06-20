@@ -151,4 +151,22 @@ $accordionMap: (
       @include sizeCurve(margin-bottom, regular);
     }
   }
+
+  /** Inverted style */
+  &--cv-inverted {
+    @include gridBleed;
+    @include sizeCurve(padding-top padding-bottom, big);
+
+    background: $colorBlack5;
+
+    h2.atm-heading.atm-heading--bordered,
+    h3.atm-heading.atm-heading--bordered,
+    h4.atm-heading.atm-heading--bordered {
+      color: $colorBlack;
+
+      &:before {
+        background: $colorBlack;
+      }
+    }
+  }
 }
