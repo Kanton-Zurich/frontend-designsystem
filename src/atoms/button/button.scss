@@ -18,8 +18,16 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
   align-items: center;
   line-height: 1.4;
 
+  max-width: 100%;
+
   transition: background $transitionTimeSimple $transitionEasingDefault;
   cursor: pointer;
+
+  &__text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   &__icon {
     use {
