@@ -22,6 +22,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('accordion.md'),
   },
   props: {
+    isInverted: false,
     accordionHeading: {
       level: 2,
       title: 'Accordion',
@@ -82,6 +83,7 @@ const variants = _.mapValues({
       desc: 'Das Accordion in der Variante "Weiterführende Informationen"',
     },
     props: {
+      isInverted: true,
       accordionHeading: {
         level: 2,
         title: 'Weiterführende Informationen',
