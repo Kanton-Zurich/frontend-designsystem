@@ -9,7 +9,7 @@ $accordionMap: (
 .mdl-accordion {
   @include sizeCurve(margin-bottom, big);
 
-  .atm-heading {
+  .atm-heading--bordered { // CZHDEV-428
     @include sizeCurve(margin-bottom, medium);
   }
 
