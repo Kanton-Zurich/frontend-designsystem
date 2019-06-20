@@ -30,6 +30,8 @@
     display: flex;
     align-items: center;
 
+    order: 1;
+
     min-height: pxToRem(30px);
 
     .icon {
@@ -47,6 +49,23 @@
       .icon use {
         fill: $colorBlack100;
       }
+    }
+
+    &--main {
+      order: -1;
+    }
+  }
+
+  &__hidden-items {
+    display: none;
+    order: 0;
+
+    .mdl-context_menu {
+      display: none;
+    }
+
+    .mdl-context_menu__list li {
+      display: none;
     }
   }
 

@@ -3,6 +3,9 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
+const contextMenuProps = require('../context_menu/context_menu.data').props;
+const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
+
 const template = dataHelper.getFileContent('breadcrumb.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -35,6 +38,17 @@ const data = _.merge({}, defaultData, {
         title: 'aktuelle Seite',
       },
     ],
+    contextMenu: _.merge({}, contextMenuProps, {
+      lists: [
+        {
+          items: [
+            _.merge({}, contextMenuItemDef, { text: 'Urgrosselternseite' }),
+            _.merge({}, contextMenuItemDef, { text: 'Grosselternseite' }),
+            _.merge({}, contextMenuItemDef, { text: 'Elternseite' }),
+          ],
+        },
+      ],
+    }),
   },
 });
 const variants = _.mapValues({
@@ -51,6 +65,7 @@ const variants = _.mapValues({
     },
     props: {
       backOnly: true,
+      contextMenu: false,
       path: [
         {
           title: 'Zurück zur Übersicht',
