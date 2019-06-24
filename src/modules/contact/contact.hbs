@@ -26,7 +26,8 @@
     {{#if contactAddress}}
       <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-6 xlarge-4{{else}}{{/if}}">
         <div class="mdl-contact__cell-icon">
-          <svg class="icon mdl-contact__icon-location">
+          <h3 class="visuallyhidden">{{{contactAriaTitle_location}}}</h3>
+          <svg class="icon mdl-contact__icon-location" aria-hidden="true">
             <use xlink:href="#location"></use>
           </svg>
         </div>
@@ -68,7 +69,8 @@
     {{#if contactPhone}}
       <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-6 xlarge-4{{/if}}">
         <div class="mdl-contact__cell-icon">
-          <svg class="icon mdl-contact__icon-phone">
+          <h3 class="visuallyhidden">{{{contactAriaTitle_phone}}}</h3>
+          <svg class="icon mdl-contact__icon-phone" aria-hidden="true">
             <use xlink:href="#phone-call"></use>
           </svg>
         </div>
@@ -103,7 +105,8 @@
     {{#if contactMail}}
       <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-6 xlarge-4{{/if}}">
         <div class="mdl-contact__cell-icon">
-          <svg class="icon mdl-contact__icon-email">
+          <h3 class="visuallyhidden">{{{contactAriaTitle_email}}}</h3>
+          <svg class="icon mdl-contact__icon-email" aria-hidden="true">
             <use xlink:href="#email"></use>
           </svg>
         </div>
