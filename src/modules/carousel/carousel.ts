@@ -290,6 +290,8 @@ class Carousel extends Module {
       window.addEventListener('keydown', this.closeOnEscape.bind(this));
 
       this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen).forEach(e => e.setAttribute('aria-hidden', 'true'));
+
+      this.wrapAccessibility();
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
       this.ui.element.classList.remove(this.options.stateClasses.inverted);
@@ -302,6 +304,8 @@ class Carousel extends Module {
       window.removeEventListener('keydown', this.closeOnEscape.bind(this));
 
       this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen).forEach(e => e.setAttribute('aria-hidden', 'false'));
+
+      this.unwrapAccessibility();
     }
   }
 
@@ -408,6 +412,36 @@ class Carousel extends Module {
     const altAttribute = activeSlideImg.getAttribute('alt');
 
     this.ui.textalternative.textContent = altAttribute;
+  }
+
+  /**
+   * Wraps around the html elements for accessibility reasons
+   */
+  wrapAccessibility() {
+    const dialogWrapper = document.createElement('div');
+    const documentWrapper = document.createElement('div');
+
+    dialogWrapper.setAttribute('role', 'dialog');
+    documentWrapper.setAttribute('role', 'document');
+
+    this.ui.element.parentNode.insertBefore(documentWrapper, this.ui.element);
+
+    documentWrapper.appendChild(this.ui.element);
+
+    documentWrapper.parentNode.insertBefore(dialogWrapper, documentWrapper);
+
+    dialogWrapper.appendChild(documentWrapper);
+  }
+
+  /**
+   * Removes the two accessibility wrappers
+   */
+  unwrapAccessibility() {
+    const dialogWrapper = this.ui.element.parentNode.parentNode;
+
+    dialogWrapper.parentNode.appendChild(this.ui.element);
+
+    dialogWrapper.remove();
   }
 
   /**
