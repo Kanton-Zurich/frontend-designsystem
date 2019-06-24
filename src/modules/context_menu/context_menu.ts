@@ -15,8 +15,9 @@ class ContextMenu extends Module {
   public options: {
     showImmediate: Boolean,
     attachTo: HTMLElement,
-    trigger: HTMLElement,
+    trigger: HTMLButtonElement,
     domSelectors: any,
+    customTrigger: Boolean,
     stateClasses: {
       active: string;
     },
@@ -150,10 +151,12 @@ class ContextMenu extends Module {
   positionMenu() {
     const attachToPos = this.options.attachTo.getBoundingClientRect();
 
-    this.data.copiedNode.style.maxWidth = `${attachToPos.width}px`;
+    this.data.copiedNode.style.maxWidth = '320px';
     this.data.copiedNode.style.position = 'absolute';
     this.data.copiedNode.style.display = 'block';
     this.data.copiedNode.style.zIndex = '1000'; // overlay zIndex
+
+    this.data.copiedNode.style.top = `${attachToPos.height}px`;
 
     // Check if context menu is not completely visible, then put it above attach to target
     const copiedNodeRect = this.data.copiedNode.getBoundingClientRect();
@@ -222,6 +225,10 @@ class ContextMenu extends Module {
       .on('show', this.show.bind(this))
       .on('hide', this.hide.bind(this))
       .on('toggle', this.toggle.bind(this));
+
+    if (!this.options.customTrigger) {
+      this.options.trigger.addEventListener('click', this.show.bind(this));
+    }
 
     (<any>WindowEventListener).addDebouncedResizeListener(() => {
       if (this.data.isActive) {

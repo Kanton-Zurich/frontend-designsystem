@@ -5,16 +5,34 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import ContextMenu from '../context_menu/context_menu';
 
 class Breadcrumb extends Module {
   public ui: {
     element: any,
     item: any,
+    ellipsis: any,
+    showContext: any,
+    contextMenu: any,
+    contextMenuItem: Array<HTMLElement>,
   }
 
   public data: {
     itemsWiderThanElement: Boolean,
     hiddenItems: Array<Number>,
+    hideableItems: Number,
+  }
+
+  public options: {
+    domSelectors: {
+      item: string,
+      ellipsis: string,
+      showContext: string,
+    },
+    stateClasses: {
+      visible: string,
+      hidden: string,
+    }
   }
 
   constructor($element: any, data: Object, options: Object) {
@@ -23,11 +41,17 @@ class Breadcrumb extends Module {
       hiddenItems: [],
     };
     const defaultOptions = {
+      customTrigger: false,
       domSelectors: {
         item: '[data-breadcrumb="item"]',
+        ellipsis: '[data-breadcrumb="ellipsis"]',
+        showContext: '[data-breadcrumb="showContext"]',
+        contextMenu: '.mdl-context_menu',
+        contextMenuItem: '[data-context-menu="item"]',
       },
       stateClasses: {
-        // activated: 'is-activated'
+        visible: 'mdl-breadcrumb__item--visible',
+        hidden: 'mdl-breadcrumb__item--hidden',
       },
     };
 
@@ -37,7 +61,11 @@ class Breadcrumb extends Module {
     this.initEventListeners();
 
     if (this.ui.item.length) {
+      // eslint-disable-next-line no-magic-numbers
+      this.data.hideableItems = this.ui.item.length - 2;
       this.checkSpace();
+      this.moveEllipsis();
+      this.initContextMenu();
     }
   }
 
@@ -50,18 +78,61 @@ class Breadcrumb extends Module {
     return scrollWidth > clientWidth;
   }
 
+  /** Check if space is available for Breadcrumb */
   checkSpace() {
-    let hideItem = 1;
+    let hideItem = this.data.hiddenItems.length + 1;
 
-    while (this.isElementNotEnoughWide()) {
+    while (this.isElementNotEnoughWide()
+    && this.data.hiddenItems.length <= this.data.hideableItems) {
       this.hideItem(hideItem);
 
       hideItem += 1;
     }
   }
 
+  /**
+   * Hiding the defined item, and enabling it in the context menu
+   * @param itemIndex <Number> the index of the breadcrumb path item
+   */
   hideItem(itemIndex) {
-    this.ui.item[itemIndex].classList.add('visuallyhidden');
+    this.ui.item[itemIndex].classList.add(this.options.stateClasses.hidden);
+
+    this.data.hiddenItems.push(itemIndex);
+
+    this.showItemInContextMenu(itemIndex);
+
+    if (this.data.hiddenItems.length > 0) {
+      this.ui.ellipsis.classList.add(this.options.stateClasses.visible);
+    }
+  }
+
+  showItemInContextMenu(itemIndex) {
+    console.log(this.ui.contextMenuItem);
+    this.ui.contextMenuItem[itemIndex - 1].style.display = 'flex';
+  }
+
+  /**
+   * Moving the ellipsis to its correct position
+   */
+  moveEllipsis() {
+    const secondItem = this.ui.item[1];
+    const ellipsis = this.ui.ellipsis.cloneNode(true);
+
+    const newEllipsis = this.ui.element.insertBefore(ellipsis, secondItem);
+
+    this.ui.ellipsis.remove();
+
+    this.ui.ellipsis = newEllipsis;
+    this.ui.showContext = newEllipsis.querySelector('[data-breadcrumb="showContext"]');
+  }
+
+  initContextMenu() {
+    const { ellipsis, showContext, contextMenu } = this.ui;
+
+    new ContextMenu(contextMenu, {}, {
+      attachTo: ellipsis,
+      trigger: showContext,
+    });
   }
 
   /**

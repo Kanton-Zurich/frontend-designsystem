@@ -9,6 +9,10 @@
     }
   }
 
+  &__item {
+    position: relative;
+  }
+
   &__title.atm-heading {
     margin-bottom: pxToRem($sizeTiny);
 

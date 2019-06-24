@@ -82,6 +82,7 @@ class DownloadList extends Module {
       new ContextMenu(contextMenu, {}, {
         attachTo: listElement,
         trigger: button,
+        customTrigger: true,
       });
     });
   }
