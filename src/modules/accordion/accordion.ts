@@ -76,9 +76,13 @@ class Accordion extends Module {
     if (ariaExpanded) {
       panel.style.maxHeight = '0px';
 
+      panel.setAttribute('aria-hidden', 'true');
+
       this.setTabindex(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY), '-1');
     } else {
       panel.style.maxHeight = `${this.calcHeight(panel)}px`;
+
+      panel.setAttribute('aria-hidden', 'false');
 
       this.setTabindex(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY), null);
     }
