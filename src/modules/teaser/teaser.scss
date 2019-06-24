@@ -157,6 +157,7 @@ $textLineRoundTolerance: 5px;
       padding: $sizeBiggerBig;
       display: flex;
       flex-direction: column;
+      max-width: 50%;
     }
 
     &__title + div:not(.mdl-teaser__description),
