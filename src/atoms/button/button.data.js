@@ -24,6 +24,7 @@ const data = _.merge({}, defaultData, {
     isTopic: false,
     isEdit: false,
     isTopTag: false,
+    isAnchor: false,
     additionalAttribute: null,
   },
 });
@@ -433,6 +434,17 @@ const variants = _.mapValues({
       isTagButton: true,
       isTopTag: true,
       isInverted: true,
+    },
+  },
+  primaryAnchor: {
+    meta: {
+      title: 'Primary Link',
+      desc: 'Link mit Erscheinung des primary Button ohne Icon.',
+    },
+    props: {
+      text: 'Primary Link',
+      isAnchor: true,
+      anchorLink: '#',
     },
   },
 }, (variant) => {
