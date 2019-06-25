@@ -5,98 +5,29 @@ const defaultData = require('../../data/default.data.js');
 
 const template = dataHelper.getFileContent('contact.hbs');
 
-const demoAddressTimesData = [
+const demoAddressTimesDataFullWidth = [
   {
-    openingTitle: 'Bürozeiten',
+    timeTitle: 'Bürozeiten',
     times: [
-      {
-        text: 'Mo-Fr:',
-        spaceSymbol: '-',
-        timeFrom: '8.00',
-        maschineTimeFrom: '08:00',
-        timeTo: '11.30',
-        maschineTimeTo: '11:30',
-      },
-      {
-        text: ' & ',
-        spaceSymbol: '-',
-        timeFrom: '13.30',
-        maschineTimeFrom: '13:30',
-        timeTo: '17.00',
-        maschineTimeTo: '17:00',
-      },
+      { text: 'Mo-Fr: 8.00 - 11:30 &' },
+      { text: '13:30 - 17:00' },
     ],
   },
   {
-    openingTitle: 'Schalter',
+    timeTitle: 'Schalter',
     times: [
-      {
-        text: 'Mo - Mi:',
-        spaceSymbol: '-',
-        timeFrom: '13.30',
-        maschineTimeFrom: '12:30',
-        timeTo: '17.30',
-        maschineTimeTo: '17:30',
-        insertLineBreak: true,
-      },
-      {
-        text: ' Do: ',
-        spaceSymbol: '-',
-        timeFrom: '13:30',
-        maschineTimeFrom: '13:30',
-        timeTo: '19.00',
-        maschineTimeTo: '19:00',
-      },
+      { text: 'Mo - Mi: 12:30 - 17:30' },
+      { text: 'Do: 13:30 - 19:00' },
     ],
   },
 ];
 
-const demoAddressTimesDataFullWidth = [
-  {
-    openingTitle: 'Bürozeiten',
-    times: [
-      {
-        text: 'Mo-Fr:',
-        spaceSymbol: '-',
-        timeFrom: '8.00',
-        maschineTimeFrom: '08:00',
-        timeTo: '11.30',
-        maschineTimeTo: '11:30',
-      },
-      {
-        text: ' & ',
-        spaceSymbol: '-',
-        timeFrom: '13.30',
-        maschineTimeFrom: '13:30',
-        timeTo: '17.00',
-        maschineTimeTo: '17:00',
-      },
-    ],
-  },
-  {
-    openingTitle: 'Schalter',
-    times: [
-      {
-        text: 'Mo - Mi:',
-        spaceSymbol: '-',
-        timeFrom: '13.30',
-        maschineTimeFrom: '12:30',
-        timeTo: '17.30',
-        maschineTimeTo: '17:30',
-        insertLineBreak: true,
-      },
-    ],
-  },
+const demoPhoneTimesData = [
   {
     times: [
-      {
-        text: ' Do: ',
-        spaceSymbol: '-',
-        timeFrom: '13:30',
-        maschineTimeFrom: '13:30',
-        timeTo: '19.00',
-        maschineTimeTo: '19:00',
-      },
+      { text: 'Mo-Mi: 13.30 - 17:30' },
+      { text: 'Do: 13.30 - 19.00' },
+      { text: 'Fr: 13.30 - 17.30' },
     ],
   },
 ];
@@ -109,8 +40,9 @@ const demoAddressData = {
   routeLinkHref: '#',
   routeLinkLabel: 'Route anzeigen',
   additionalInfo: 'Wir befinden uns im 2.Obergeschoss',
-  openingTimes: demoAddressTimesData,
+  openingTimes: demoAddressTimesDataFullWidth,
 };
+
 
 const demoAddressDataFullWidth = {
   name: 'Zürich-Albisgütli',
@@ -122,37 +54,6 @@ const demoAddressDataFullWidth = {
   additionalInfo: 'Wir befinden uns im 2.Obergeschoss',
   openingTimes: demoAddressTimesDataFullWidth,
 };
-
-const demoPhoneTimesData = [
-  {
-    text: 'Mo-Mi: ',
-    spaceSymbol: '-',
-    timeFrom: '13.30',
-    maschineTimeFrom: '13:30',
-    timeTo: '17.30',
-    maschineTimeTo: '17:30',
-    insertLineBreak: true,
-  },
-  {
-    text: 'Do: ',
-    spaceSymbol: '-',
-    timeFrom: '13.30',
-    maschineTimeFrom: '13:30',
-    timeTo: '19.00',
-    maschineTimeTo: '19:00',
-    insertLineBreak: true,
-  },
-  {
-    text: 'Fr: ',
-    spaceSymbol: '-',
-    timeFrom: '13.30',
-    maschineTimeFrom: '13:30',
-    timeTo: '17.30',
-    maschineTimeTo: '17:30',
-    insertLineBreak: true,
-  },
-
-];
 
 const demoPhoneData = [
   {
@@ -193,6 +94,7 @@ const data = _.merge({}, defaultData, {
 
   },
 });
+
 const variants = _.mapValues({
   default: {
     meta: {
