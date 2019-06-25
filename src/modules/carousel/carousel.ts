@@ -207,7 +207,12 @@ class Carousel extends Module {
 
     this.setAccessibilityAttributesForSlides();
     this.setAlternativeText();
-    this.ui.close.focus();
+
+    if (this.data.isFullscreen) {
+      this.ui.slides[this.data.active - 1].querySelector('button').focus();
+    } else {
+      this.ui.slides[this.data.active - 1].querySelector('figure').focus();
+    }
   }
 
   /**
