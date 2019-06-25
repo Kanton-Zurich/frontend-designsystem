@@ -8,7 +8,6 @@ import Module from '../../assets/js/helpers/module';
 import ContextMenu from '../context_menu/context_menu';
 
 import WindowEventListener from '../../assets/js/helpers/events';
-import { timingSafeEqual } from 'crypto';
 
 class Breadcrumb extends Module {
   public ui: {
@@ -25,6 +24,7 @@ class Breadcrumb extends Module {
     hiddenItems: Array<Number>,
     hideableItems: Number,
     windowWidth: Number,
+    isBackOnly: Boolean,
   }
 
   public options: {
@@ -36,6 +36,8 @@ class Breadcrumb extends Module {
     stateClasses: {
       visible: string,
       hidden: string,
+      backOnly: string,
+      parentOnly: string,
     }
   }
 
@@ -56,6 +58,8 @@ class Breadcrumb extends Module {
       stateClasses: {
         visible: 'mdl-breadcrumb__item--visible',
         hidden: 'mdl-breadcrumb__item--hidden',
+        backOnly: 'mdl-breadcrumb--back-only',
+        parentOnly: 'mdl-breadcrumb--parent-only',
       },
     };
 
@@ -89,12 +93,56 @@ class Breadcrumb extends Module {
     let hideItem = this.data.hiddenItems.length + 1;
 
     while (this.isElementNotEnoughWide()
-    && this.data.hiddenItems.length <= this.data.hideableItems) {
+    && hideItem <= this.data.hideableItems) {
       this.hideItem(hideItem);
 
       hideItem += 1;
     }
+
+    if (this.isElementNotEnoughWide()) {
+      this.setBackOnly();
+    }
   }
+
+  /**
+   * Check space after the resize actually enlarged the screen
+   */
+  checkSpaceAfterWidening() {
+    if (this.data.isBackOnly) {
+      this.removeBackOnly();
+    }
+
+    let unhideItem = this.data.hiddenItems.length;
+    let notTooWide = true;
+
+    while (unhideItem > 0 && notTooWide) {
+      this.unhideItem(unhideItem);
+
+      if (this.isElementNotEnoughWide()) {
+        this.checkSpace();
+
+        notTooWide = false;
+      }
+
+      unhideItem -= 1;
+    }
+  }
+
+
+  setBackOnly() {
+    this.ui.element.classList.add(this.options.stateClasses.backOnly);
+    this.ui.element.classList.add(this.options.stateClasses.parentOnly);
+
+    this.data.isBackOnly = true;
+  }
+
+  removeBackOnly() {
+    this.ui.element.classList.remove(this.options.stateClasses.backOnly);
+    this.ui.element.classList.remove(this.options.stateClasses.parentOnly);
+
+    this.data.isBackOnly = false;
+  }
+
 
   /**
    * Hiding the defined item, and enabling it in the context menu
@@ -112,20 +160,36 @@ class Breadcrumb extends Module {
     }
   }
 
+  /**
+   * Makes an element visible again and hides in the context menu
+   * @param itemIndex <Number> the index of the breadcrumb path item
+   */
   unhideItem(itemIndex) {
     this.ui.item[itemIndex].classList.remove(this.options.stateClasses.hidden);
 
-    this.data.hiddenItems.filter(value => value === itemIndex);
+    this.data.hiddenItems.splice(itemIndex - 1, 1);
 
     if (this.data.hiddenItems.length === 0) {
       this.ui.ellipsis.classList.remove(this.options.stateClasses.visible);
     }
   }
 
+  /**
+   * Show Item in context menu
+   *
+   * @param {Number} itemIndex
+   * @memberof Breadcrumb
+   */
   showItemInContextMenu(itemIndex) {
     this.ui.contextMenuItem[itemIndex - 1].style.display = 'flex';
   }
 
+  /**
+   * Hide item in context menu
+   *
+   * @param {Number} itemIndex
+   * @memberof Breadcrumb
+   */
   hideItemInContextMenu(itemIndex) {
     this.ui.contextMenuItem[itemIndex - 1].removeAttribute('style');
   }
@@ -162,10 +226,12 @@ class Breadcrumb extends Module {
       const windowWidth = document.documentElement.clientWidth;
 
       if (windowWidth > this.data.windowWidth) {
-
+        this.checkSpaceAfterWidening();
       } else if (windowWidth < this.data.windowWidth) {
         this.checkSpace();
       }
+
+      this.data.windowWidth = windowWidth;
     });
   }
 

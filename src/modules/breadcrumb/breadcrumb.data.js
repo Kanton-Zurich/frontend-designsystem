@@ -42,9 +42,9 @@ const data = _.merge({}, defaultData, {
       lists: [
         {
           items: [
-            _.merge({}, contextMenuItemDef, { text: 'Urgrosselternseite' }),
-            _.merge({}, contextMenuItemDef, { text: 'Grosselternseite' }),
-            _.merge({}, contextMenuItemDef, { text: 'Elternseite' }),
+            _.merge({}, contextMenuItemDef, { text: 'Urgrosselternseite', iconAfter: false, iconBefore: false }),
+            _.merge({}, contextMenuItemDef, { text: 'Grosselternseite', iconAfter: false, iconBefore: false }),
+            _.merge({}, contextMenuItemDef, { text: 'Elternseite', iconAfter: false, iconBefore: false }),
           ],
         },
       ],
