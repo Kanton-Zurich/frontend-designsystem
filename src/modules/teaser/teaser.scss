@@ -14,15 +14,26 @@ $textLineRoundTolerance: 5px;
 
   &__content {
     padding: $sizeBig;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title,
+  &__date,
+  &__description,
+  &__description + div {
+    min-width: 100%;
   }
 
   &__date {
+    order: 1;
     font-weight: 900;
     font-size: $sizeFontTiny;
     color: rgba($colorBlack, 0.6);
   }
 
   .atm-heading {
+    order: 2;
     color: $colorBlack100;
     margin: 4px 0 $sizeTiny;
     padding-top: 0;
@@ -52,6 +63,7 @@ $textLineRoundTolerance: 5px;
   }
 
   &__description {
+    order: 3;
     color: $colorBlack60;
     margin: 0;
 
@@ -72,6 +84,10 @@ $textLineRoundTolerance: 5px;
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
 
     overflow: hidden;
+  }
+
+  &__description + div {
+    order: 4;
   }
 
   .atm-button {
