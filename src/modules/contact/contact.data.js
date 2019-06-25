@@ -190,7 +190,9 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('contact.md'),
   },
   props: {
-
+    contactAriaTitle_location: 'Adresse',
+    contactAriaTitle_phone: 'Telefon',
+    contactAriaTitle_email: 'E-Mail',
   },
 });
 const variants = _.mapValues({

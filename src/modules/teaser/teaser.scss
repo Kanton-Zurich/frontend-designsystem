@@ -104,10 +104,6 @@ $textLineRoundTolerance: 5px;
     margin-bottom: 0;
   }
 
-  .mdl-image-figure__caption {
-    @include visuallyhidden();
-  }
-
   .mdl-image-figure__img-wrapper {
     margin-bottom: 0;
   }
@@ -157,6 +153,7 @@ $textLineRoundTolerance: 5px;
       padding: $sizeBiggerBig;
       display: flex;
       flex-direction: column;
+      max-width: 50%;
     }
 
     &__title + div:not(.mdl-teaser__description),

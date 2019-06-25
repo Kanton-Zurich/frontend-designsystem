@@ -9,7 +9,7 @@ $accordionMap: (
 .mdl-accordion {
   @include sizeCurve(margin-bottom, big);
 
-  .atm-heading {
+  .atm-heading--bordered { // CZHDEV-428
     @include sizeCurve(margin-bottom, medium);
   }
 
@@ -149,6 +149,35 @@ $accordionMap: (
 
     > p:last-child {
       @include sizeCurve(margin-bottom, regular);
+    }
+  }
+
+  /** Inverted style */
+  &--cv-inverted {
+    @include gridBleed;
+    @include sizeCurve(padding-top padding-bottom, big);
+
+    background: $colorBlack5;
+
+    h2.atm-heading.atm-heading--bordered,
+    h3.atm-heading.atm-heading--bordered,
+    h4.atm-heading.atm-heading--bordered,
+    h2.atm-heading,
+    h3.atm-heading,
+    h4.atm-heading {
+      color: $colorBlack;
+
+      &:before {
+        background: $colorBlack;
+      }
+    }
+  }
+}
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-accordion--cv-inverted .mdl-table .atm-text_link {
+      color: $val;
     }
   }
 }

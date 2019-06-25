@@ -112,6 +112,10 @@
       position: relative;
       padding-right: 1.25rem;
 
+      .mdl-table--align-right & {
+        padding-right: 1rem;
+      }
+
       > button {
         @include blankButton();
 
@@ -137,6 +141,10 @@
           .mdl-table__sort-arrow {
             transform: rotate(180deg);
           }
+        }
+
+        .mdl-table--align-right & {
+          justify-content: flex-end;
         }
       }
     }
@@ -251,8 +259,13 @@
   /**
    * Inverted
    */
+
   &--inverted {
     @include gridBleed;
+  }
+
+  &--inverted,
+  [ class*='--inverted' ] & {
     @include sizeCurve(padding-top padding-bottom, big);
 
     background: $colorBlack5;

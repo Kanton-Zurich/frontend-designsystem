@@ -1,4 +1,10 @@
-<div class="mdl-accordion" data-init="accordion">
+
+<div class="mdl-accordion {{#if isInverted}}mdl-accordion--cv-inverted cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10{{/if}}" data-init="accordion">
+{{#if isInverted}}
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+      <div class="cell small-offset-2 medium-offset-2 large-offset-2 small-10 medium-9 large-8">
+{{/if}}
   <h{{accordionHeading.level}} class="atm-heading atm-heading--bordered">
     {{accordionHeading.title}}
   </h{{accordionHeading.level}}>
@@ -19,7 +25,7 @@
             </svg>
           </button>
         </h{{increment ../accordionHeading.level}}>
-        <div class="mdl-accordion__panel" data-accordion="panel">
+        <div class="mdl-accordion__panel" data-accordion="panel" aria-hidden="true">
           <div class="mdl-accordion__panel-content" data-accordion="panel-content">
             {{#each children}}
               {{#if text}}
@@ -33,4 +39,10 @@
       </div>
     {{/each}}
   </div>
+  {{#if isInverted}}
+      </div>
+    </div>
+  </div>
+  {{/if}}
 </div>
+
