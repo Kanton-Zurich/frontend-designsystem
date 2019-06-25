@@ -38,7 +38,7 @@ const data = _.merge({}, defaultData, {
       },
       {
         item: {
-          term: 'Publicationsdatum',
+          term: 'Publikationsdatum',
           description: 'Februar 2019',
         },
       },

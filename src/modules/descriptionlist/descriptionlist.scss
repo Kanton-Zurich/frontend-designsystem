@@ -16,11 +16,10 @@
   color: $colorText;
   position: relative;
   margin: 0;
-  padding: $sizeSmallRegular 0 10px;
-  border-bottom: 1px solid rgba($colorBlack, 0.2);
 
   dt {
     font-weight: $fontWeightBlack;
+    padding-top: $sizeSmallRegular;
 
     @include polyFluidSizing('font-size', map-get($customSizing, termFontSize));
   }
@@ -29,6 +28,8 @@
     margin-left: 0;
     font-weight: $fontWeightDefault;
     color: rgba($colorBlack, 0.6);
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba($colorBlack, 0.2);
 
     @include polyFluidSizing('font-size', map-get($customSizing, definitonFontSize));
   }
@@ -39,7 +40,13 @@
   }
 
   @include mq($from: xsmall) {
-    padding: 14px 0 $sizeTiny;
+    dt {
+      padding-top: 14px;
+    }
+
+    dd {
+      padding-bottom: $sizeTiny;
+    }
   }
   @include mq($from: small) {
     dt {
@@ -47,6 +54,12 @@
     }
   }
   @include mq($from: xlarge) {
-    padding: $sizeRegular 0 14px;
+    dt {
+      padding-top: $sizeRegular;
+    }
+
+    dd {
+      padding-bottom: 14px;
+    }
   }
 }
