@@ -26,6 +26,7 @@ class Carousel extends Module {
     close: any;
     textalternative: any;
     open: any;
+    nextButton: any;
   }
   public options: {
     domSelectors: {
@@ -132,7 +133,25 @@ class Carousel extends Module {
         }
       })
       .on('click', this.options.domSelectors.open, this.open.bind(this))
-      .on('click', this.options.domSelectors.close, this.close.bind(this));
+      .on('click', this.options.domSelectors.close, this.close.bind(this))
+      .on('keydown', this.options.domSelectors.close, (event) => {
+        if (event.key === 'Tab' && event.shiftKey && this.data.isFullscreen) {
+          this.ui.nextButton.focus();
+
+          return false;
+        }
+
+        return true;
+      })
+      .on('keydown', this.options.domSelectors.nextButton, (event) => {
+        if (event.key === 'Tab' && !event.shiftKey && this.data.isFullscreen) {
+          this.ui.close.focus();
+
+          return false;
+        }
+
+        return true;
+      });
 
     (<any>WindowEventListener).addDebouncedResizeListener(() => {
       if (this.data.isFullscreen) {
@@ -390,13 +409,19 @@ class Carousel extends Module {
     const activeIndex = this.data.active - 1;
     const slidesArray = Array.prototype.slice.call(this.ui.slides);
 
-    slidesArray[activeIndex].querySelectorAll('button, a').forEach(e => e.removeAttribute('tabindex'));
+    slidesArray[activeIndex].querySelectorAll('button, a').forEach((e) => {
+      e.removeAttribute('tabindex');
+      e.removeAttribute('aria-hidden');
+    });
     slidesArray[activeIndex].removeAttribute('aria-hidden');
 
     slidesArray.splice(activeIndex, 1);
 
     slidesArray.forEach((slide) => {
-      slide.querySelectorAll('button, a').forEach(e => e.setAttribute('tabindex', '-1'));
+      slide.querySelectorAll('button, a').forEach((e) => {
+        e.setAttribute('tabindex', '-1');
+        e.setAttribute('aria-hidden', 'true');
+      });
       slide.setAttribute('aria-hidden', 'true');
     });
   }
