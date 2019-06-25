@@ -151,7 +151,7 @@ class ContextMenu extends Module {
   positionMenu() {
     const attachToPos = this.options.attachTo.getBoundingClientRect();
 
-    this.data.copiedNode.style.maxWidth = '320px';
+    this.data.copiedNode.style.maxWidth = '300px';
     this.data.copiedNode.style.position = 'absolute';
     this.data.copiedNode.style.display = 'block';
     this.data.copiedNode.style.zIndex = '1000'; // overlay zIndex
@@ -161,9 +161,16 @@ class ContextMenu extends Module {
     // Check if context menu is not completely visible, then put it above attach to target
     const copiedNodeRect = this.data.copiedNode.getBoundingClientRect();
     const contextMenuBottomPoint = copiedNodeRect.top + copiedNodeRect.height;
+    const contextMenuRightPoint = copiedNodeRect.left + copiedNodeRect.width;
 
     if (contextMenuBottomPoint > document.documentElement.clientHeight) {
       this.data.copiedNode.style.marginTop = `${0 - copiedNodeRect.height - attachToPos.height}px`;
+    }
+
+    if (contextMenuRightPoint > document.documentElement.clientWidth) {
+      const variableAmount = 10;
+
+      this.data.copiedNode.style.transform = `translateX(-${contextMenuRightPoint - document.documentElement.clientWidth + variableAmount}px)`;
     }
   }
 

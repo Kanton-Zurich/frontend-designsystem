@@ -7,6 +7,9 @@
 import Module from '../../assets/js/helpers/module';
 import ContextMenu from '../context_menu/context_menu';
 
+import WindowEventListener from '../../assets/js/helpers/events';
+import { timingSafeEqual } from 'crypto';
+
 class Breadcrumb extends Module {
   public ui: {
     element: any,
@@ -21,6 +24,7 @@ class Breadcrumb extends Module {
     itemsWiderThanElement: Boolean,
     hiddenItems: Array<Number>,
     hideableItems: Number,
+    windowWidth: Number,
   }
 
   public options: {
@@ -61,6 +65,8 @@ class Breadcrumb extends Module {
     this.initEventListeners();
 
     if (this.ui.item.length) {
+      this.data.windowWidth = document.documentElement.clientWidth;
+
       // eslint-disable-next-line no-magic-numbers
       this.data.hideableItems = this.ui.item.length - 2;
       this.checkSpace();
@@ -106,9 +112,22 @@ class Breadcrumb extends Module {
     }
   }
 
+  unhideItem(itemIndex) {
+    this.ui.item[itemIndex].classList.remove(this.options.stateClasses.hidden);
+
+    this.data.hiddenItems.filter(value => value === itemIndex);
+
+    if (this.data.hiddenItems.length === 0) {
+      this.ui.ellipsis.classList.remove(this.options.stateClasses.visible);
+    }
+  }
+
   showItemInContextMenu(itemIndex) {
-    console.log(this.ui.contextMenuItem);
     this.ui.contextMenuItem[itemIndex - 1].style.display = 'flex';
+  }
+
+  hideItemInContextMenu(itemIndex) {
+    this.ui.contextMenuItem[itemIndex - 1].removeAttribute('style');
   }
 
   /**
@@ -139,7 +158,15 @@ class Breadcrumb extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    // Event listeners
+    (<any>WindowEventListener).addDebouncedResizeListener(() => {
+      const windowWidth = document.documentElement.clientWidth;
+
+      if (windowWidth > this.data.windowWidth) {
+
+      } else if (windowWidth < this.data.windowWidth) {
+        this.checkSpace();
+      }
+    });
   }
 
   /**
