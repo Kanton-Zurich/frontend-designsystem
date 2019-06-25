@@ -15,6 +15,7 @@ const data = _.merge({}, defaultData, {
     shortTitle: 'Topictitle',
     buzzwords: 'Buzzword, Buzzword, Buzzword, Buzzword, Buzzword, Buzzword',
     target: '#',
+    isPromotopic: false,
   },
 });
 const variants = _.mapValues({
@@ -31,6 +32,15 @@ const variants = _.mapValues({
     },
     props: {
       buzzwords: null,
+    },
+  },
+  promotopic: {
+    meta: {
+      title: 'Promotopic',
+      desc: 'Ein Content Teaser welcher als Promotopic ausgewählt ist.',
+    },
+    props: {
+      isPromotopic: true,
     },
   },
 }, (variant) => {

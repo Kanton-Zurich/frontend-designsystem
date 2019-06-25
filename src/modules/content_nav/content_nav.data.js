@@ -4,6 +4,7 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants.default.props;
+const contentTeaserPromoData = require('../../atoms/content_teaser/content_teaser.data').variants.promotopic.props;
 
 const template = dataHelper.getFileContent('content_nav.hbs');
 const data = _.merge({}, defaultData, {
@@ -85,6 +86,15 @@ const variants = _.mapValues({
         isHidden: false,
         title: 'Das könnte Sie auch interessieren',
       },
+    },
+  },
+  withPromotopic: {
+    meta: {
+      Title: 'mit einem Promotopic',
+      desc: 'Diese Variante verfügt über eine Promotopic',
+    },
+    props: {
+      promotopic: contentTeaserPromoData,
     },
   },
 }, (variant) => {
