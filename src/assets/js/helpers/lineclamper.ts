@@ -56,8 +56,6 @@ class LineClamper {
         while (i <= this.options.maxIterations && difference > heightTolerance) {
           element.textContent = element.textContent.replace(/\W*\s(\S)*$/, '...');
 
-          console.log(difference);
-
           difference = element.scrollHeight - element.clientHeight;
           i += 1;
         }
