@@ -8,14 +8,15 @@ import WindowEventListener from './events';
 class LineClamper {
   private options: {
     selector: string,
+    maxIterations: Number,
   };
 
   private elements: any = null;
-  private maxIterations: number = 20; // eslint-disable-line no-magic-numbers
 
   constructor() {
     this.options = {
       selector: '[data-lineclamp="true"]',
+      maxIterations: 50,
     };
   }
 
@@ -38,19 +39,6 @@ class LineClamper {
    * @memberof LineClamper
    */
   private setLineClamping() {
-    const truncateText = (el, maxLines, elHeight) => {
-      let maxIt = this.maxIterations;
-      let currentScrollHeight = 0;
-      while (el.scrollHeight > elHeight && maxIt > 0) {
-        if (el.scrollHeight !== currentScrollHeight) {
-          maxIt = this.maxIterations;
-          currentScrollHeight = el.scrollHeight;
-        }
-        el.textContent = el.textContent.replace(/\W*\s(\S)*$/, '...');
-        maxIt -= 1;
-      }
-    };
-
     if (this.elements.length > 0) {
       this.elements.forEach((element) => {
         if (!element.hasAttribute('data-line-clamped')) {
@@ -60,17 +48,19 @@ class LineClamper {
         } else {
           element.innerHTML = element.getAttribute('data-content-before');
         }
-        let elementHeight = parseInt(window.getComputedStyle(element).getPropertyValue('max-height'), 10);
-        if (isNaN(elementHeight)) {// eslint-disable-line
-          elementHeight = parseInt(window.getComputedStyle(element).getPropertyValue('height'), 10);
+
+        let i = 0;
+        let difference = element.scrollHeight - element.clientHeight;
+        const heightTolerance = 5;
+
+        while (i <= this.options.maxIterations && difference > heightTolerance) {
+          element.textContent = element.textContent.replace(/\W*\s(\S)*$/, '...');
+
+          console.log(difference);
+
+          difference = element.scrollHeight - element.clientHeight;
+          i += 1;
         }
-
-        const computedLineHeight = parseInt(window.getComputedStyle(element).getPropertyValue('line-height'), 10);
-        const lines = Math.floor(elementHeight / computedLineHeight);
-
-        console.log(elementHeight);
-
-        truncateText(element, lines, elementHeight);
       });
     }
   }
