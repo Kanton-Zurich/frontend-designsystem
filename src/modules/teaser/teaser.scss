@@ -8,7 +8,7 @@ $textLineRoundTolerance: 5px;
   display: flex;
   flex-direction: column;
 
-  & + .mdl-teaser {
+  &__wrapper + .mdl-teaser__wrapper {
     margin-top: $sizeHuge;
   }
 
@@ -138,7 +138,7 @@ $textLineRoundTolerance: 5px;
   @include mq($from: large) {
     flex-direction: row;
 
-    & + .mdl-teaser {
+    &__wrapper + .mdl-teaser__wrapper {
       margin-top: $sizeGiant;
     }
 
