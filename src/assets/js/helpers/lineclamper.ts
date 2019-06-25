@@ -38,10 +38,7 @@ class LineClamper {
    * @memberof LineClamper
    */
   private setLineClamping() {
-    console.log("-- setLineClamping --");
-    console.log('this.elements: ', this.elements);
     const truncateText = (el, maxLines, elHeight) => {
-      console.log('el.scrollHeight: ', el.scrollHeight);
       let maxIt = this.maxIterations;
       let currentScrollHeight = 0;
       while (el.scrollHeight > elHeight && maxIt > 0) {
@@ -63,16 +60,15 @@ class LineClamper {
         } else {
           element.innerHTML = element.getAttribute('data-content-before');
         }
-        console.log('max-height: ', window.getComputedStyle(element).getPropertyValue('max-height'));
         let elementHeight = parseInt(window.getComputedStyle(element).getPropertyValue('max-height'), 10);
         if (isNaN(elementHeight)) {// eslint-disable-line
-          console.log('***** max-height is not a number ****');
-          console.log(element.clientHeight);
           elementHeight = parseInt(window.getComputedStyle(element).getPropertyValue('height'), 10);
         }
-        console.log('line-height: ', window.getComputedStyle(element).getPropertyValue('line-height'));
+
         const computedLineHeight = parseInt(window.getComputedStyle(element).getPropertyValue('line-height'), 10);
         const lines = Math.floor(elementHeight / computedLineHeight);
+
+        console.log(elementHeight);
 
         truncateText(element, lines, elementHeight);
       });
