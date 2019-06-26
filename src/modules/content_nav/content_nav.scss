@@ -26,7 +26,8 @@ $contentNavGrid: (
         grid-column-gap: pxToRem($gutterSize);
 
         .is-ie & {
-          padding: pxToRem($gutterSize) 0 0 pxToRem($gutterSize);
+          padding: 0 0 0 pxToRem($gutterSize / 2);
+          margin: 0 pxToRem($gutterSize / - 2);
         }
       }
     }
@@ -57,12 +58,22 @@ $contentNavGrid: (
     .mdl-content_nav__list {
       grid-template-columns: 1fr;
     }
+
+    .mdl-content_nav__item {
+      .is-ie & {
+        width: 100%;
+      }
+    }
   }
 
   &--two-columns {
     @include mq($from: medium) {
       .mdl-content_nav__list {
         grid-template-columns: 1fr 1fr;
+      }
+
+      .mdl-content_nav__item {
+        width: 50%;
       }
     }
   }
