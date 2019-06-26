@@ -17,6 +17,7 @@ import DownloadList from '../../../modules/download_list/download_list';
 import ContextMenu from '../../../modules/context_menu/context_menu';
 import Teaser from '../../../modules/teaser/teaser';
 import PublicationTeaser from '../../../modules/publication_teaser/publication_teaser';
+import Breadcrumb from '../../../modules/breadcrumb/breadcrumb';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -38,6 +39,7 @@ class App {
     this.modules.contextMenu = ContextMenu;
     this.modules.teaser = Teaser;
     this.modules.publicationTeaser = PublicationTeaser;
+    this.modules.breadcrumb = Breadcrumb;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

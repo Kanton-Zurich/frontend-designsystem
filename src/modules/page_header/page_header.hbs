@@ -15,21 +15,11 @@
       <div class="cell tiny-10 xsmall-10 small-10 medium-10 large-10 xlarge-10">
         <div class="mdl-page-header__breadcrumb">
           {{#if hasBacklink}}
-            <svg class="mdl-page-header__breadcrumb-backlink" focusable="false">
-              <use xlink:href="#arrow-left" />
-            </svg><span>{{backlinkText}}</span>
+            {{> "modules/breadcrumb/breadcrumb" backlink}}
           {{/if}}
           {{#if hasBreadcrumb}}
-          {{{breadcrumbText1}}}
-          <svg class="mdl-page-header__breadcrumb-angle" focusable="false">
-            <use xlink:href="#angle_right" />
-          </svg>
-          <span>{{{breadcrumbText2}}}</span>
-          <svg class="mdl-page-header__breadcrumb-angle" focusable="false">
-            <use xlink:href="#angle_right" />
-          </svg>
-          {{{breadcrumbText3}}}
-          {{/if}}&nbsp;
+            {{> "modules/breadcrumb/breadcrumb" breadcrumb}}
+          {{/if}}
         </div>
         <h1 class="atm-heading">{{pageTitle}}</h1>
         {{#if hasAnchors}}

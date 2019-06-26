@@ -27,6 +27,7 @@ const data = _.merge({}, defaultData, {
     className: 'DownloadList',
     jira: 'CZHDEV-172',
     documentation: dataHelper.getDocumentation('download_list.md'),
+    disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue' ],
   },
   props: {
     title: {
@@ -57,7 +58,6 @@ const data = _.merge({}, defaultData, {
         }),
       },
     ],
-    disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue' ],
   },
 });
 
