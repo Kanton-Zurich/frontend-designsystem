@@ -1,5 +1,4 @@
-$maxTextLinesSmall: 6;
-$maxTextLinesDefault: 4;
+$maxTextLines: 6;
 $textLineRoundTolerance: 5px;
 
 .mdl-teaser {
@@ -28,27 +27,15 @@ $textLineRoundTolerance: 5px;
     padding-top: 0;
     word-break: break-word;
 
-    $titleHeightCurveSmall: (
-      tiny: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLinesSmall ,
-      small: $sizeFontSmallBig * $sizeLineHeightBase * $maxTextLinesSmall,
-      medium: $sizeFontBig * $sizeLineHeightBase * $maxTextLinesDefault ,
-      large: $sizeFontBiggerBig * $sizeLineHeightBase * $maxTextLinesDefault + $textLineRoundTolerance,
-      xlarge: $sizeFontSmallHuge * $maxTextLinesDefault + ($sizeFontSmallHuge * 0.08) + $textLineRoundTolerance,
+    $titleHeightCurve: (
+      tiny: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLines ,
+      small: $sizeFontSmallBig * $sizeLineHeightBase * $maxTextLines,
+      medium: $sizeFontBig * $sizeLineHeightMedium * $maxTextLines ,
+      large: $sizeFontBiggerBig * $sizeLineHeightBase * $maxTextLines,
+      xlarge: $sizeFontSmallHuge * $maxTextLinesDefault + ($sizeFontSmallHuge * 0.08),
     );
 
-    $titleHeightCurveLarge: (
-      small: $sizeFontSmallBig * $sizeLineHeightMedium * $maxTextLinesDefault,
-      medium: $sizeFontBig * $sizeLineHeightMedium * $maxTextLinesDefault ,
-      large: $sizeFontBiggerBig * $sizeLineHeightBase * $maxTextLinesDefault + $textLineRoundTolerance,
-      xlarge: $sizeFontSmallHuge * $maxTextLinesDefault + ($sizeFontSmallHuge * 0.08) + $textLineRoundTolerance,
-    );
-
-    @include mq($from: tiny, $to: small) {
-      @include polyFluidSizing('max-height', $titleHeightCurveSmall);
-    }
-    @include mq($from: small) {
-      @include polyFluidSizing('max-height', $titleHeightCurveLarge);
-    }
+    @include polyFluidSizing(max-height, $titleHeightCurve);
   }
 
   &__description {
