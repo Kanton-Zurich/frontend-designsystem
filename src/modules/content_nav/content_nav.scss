@@ -52,6 +52,11 @@ $contentNavGrid: (
   .atm-button {
     margin-top: $sizeLarge;
 
+    svg {
+      margin-left: $sizeSmallRegular;
+      transform: scale(0.625);
+    }
+
     @include mq($from: xlarge) {
       margin-top: $sizeBig;
     }
