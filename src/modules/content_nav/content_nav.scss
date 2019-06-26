@@ -9,10 +9,7 @@ $contentNavGrid: (
   @include polyFluidSizing('margin-bottom', map-get($sizeCurves, big));
 
   &__list {
-    // stylelint-disable
-    display: -ms-grid;
     display: grid;
-    // stylelint-enable
 
     margin: 0;
     padding: 0;
@@ -27,12 +24,33 @@ $contentNavGrid: (
     @each $bp, $gutterSize in $grid-margin-gutters {
       @include mq($from: $bp) {
         grid-column-gap: pxToRem($gutterSize);
+
+        .is-ie & {
+          padding: pxToRem($gutterSize) 0 0 pxToRem($gutterSize);
+        }
       }
+    }
+
+    .is-ie & {
+      display: flex;
+      flex-wrap: wrap;
     }
   }
 
   &__item {
     display: flex;
+
+    .is-ie & {
+      width: 33.333%;
+
+      border: 0 solid transparent;
+
+      @each $bp, $gutterSize in $grid-margin-gutters {
+        @include mq($from: $bp) {
+          border-width: 0 pxToRem($gutterSize) pxToRem($gutterSize) 0;
+        }
+      }
+    }
   }
 
   &--single-column {
