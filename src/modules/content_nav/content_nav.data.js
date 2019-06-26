@@ -4,11 +4,12 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants.default.props;
+const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
 
 const template = dataHelper.getFileContent('content_nav.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'ContentNav',
+    title: 'Themenliste/ContentNav',
     className: 'ContentNav',
     jira: 'CZHDEV-389',
     documentation: dataHelper.getDocumentation('content_nav.md'),
@@ -84,6 +85,68 @@ const variants = _.mapValues({
       contentNavTitle: {
         isHidden: false,
         title: 'Das könnte Sie auch interessieren',
+      },
+    },
+  },
+  themeList: {
+    meta: {
+      title: 'Themenliste (CZHDEV-505)',
+      desc: 'Themenliste ist eine Variante der Content-Navigation mit Titel, Intro, einer Liste mit einzelnen Buzzwords und einem "Alle anzeigen" Knopf',
+    },
+    props: {
+      contentNavTitle: {
+        isHidden: false,
+        title: 'Unsere Themen',
+        lead: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore '
+        + 'et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. '
+        + 'Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit '
+        + 'amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam '
+        + 'erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, '
+        + 'no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+      },
+      items: [
+        _.merge({}, contentTeaserDataWithoutBuzzwords, {
+          shortTitle: 'Führerausweis',
+        }),
+        _.merge({}, contentTeaserDataWithoutBuzzwords, {
+          shortTitle: 'Fahrzeug',
+        }),
+        _.merge({}, contentTeaserDataWithoutBuzzwords, {
+          shortTitle: 'Autonummern',
+        }),
+        _.merge({}, contentTeaserDataWithoutBuzzwords, {
+          shortTitle: 'Führerausweis',
+        }),
+        _.merge({}, contentTeaserDataWithoutBuzzwords, {
+          shortTitle: 'Velo',
+        }),
+        _.merge({}, contentTeaserDataWithoutBuzzwords, {
+          shortTitle: 'Ausweis oder Schild verloren',
+        }),
+        _.merge({}, contentTeaserDataWithoutBuzzwords, {
+          shortTitle: 'Ausweisentzug & Verwarnung',
+        }),
+        _.merge({}, contentTeaserDataWithoutBuzzwords, {
+          shortTitle: 'Schiffahrt',
+        }),
+        _.merge({}, contentTeaserDataWithoutBuzzwords, {
+          shortTitle: 'Spezielle Bewilligungen',
+        }),
+        _.merge({}, contentTeaserDataWithoutBuzzwords, {
+          shortTitle: 'Velo',
+        }),
+        _.merge({}, contentTeaserDataWithoutBuzzwords, {
+          shortTitle: 'Velo',
+        }),
+        _.merge({}, contentTeaserDataWithoutBuzzwords, {
+          shortTitle: 'Ausweis oder Schild verloren',
+        }),
+        _.merge({}, contentTeaserDataWithoutBuzzwords, {
+          shortTitle: 'Fahren im Alter',
+        }),
+      ],
+      loadMore: {
+        text: 'Alle anzeigen',
       },
     },
   },

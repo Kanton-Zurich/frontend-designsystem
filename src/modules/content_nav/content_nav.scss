@@ -48,6 +48,14 @@ $contentNavGrid: (
       }
     }
   }
+
+  .atm-button {
+    margin-top: $sizeLarge;
+
+    @include mq($from: xlarge) {
+      margin-top: $sizeBig;
+    }
+  }
 }
 
 .mdl-content_nav:not(.mdl-content_nav--single-column):not(.mdl-content_nav--two-columns) {

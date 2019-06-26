@@ -5,6 +5,7 @@
   data-init="contentNav"
 >
   <h{{contentNavTitle.level}} class="atm-heading atm-heading--bordered {{#if contentNavTitle.isHidden}}visuallyhidden{{/if}}">{{contentNavTitle.title}}</h{{contentNavTitle.level}}>
+  {{#if contentNavTitle.lead}}<p>{{{contentNavTitle.lead}}}</p>{{/if}}
   <ul class="mdl-content_nav__list">
     {{#each items}}
       <li class="mdl-content_nav__item">
@@ -12,4 +13,12 @@
       </li>
     {{/each}}
   </ul>
+  {{#if loadMore}}
+    <button class="atm-button">
+        {{{loadMore.text}}}
+      <svg class="icon atm-button__icon">
+        <use xlink:href="#layer1"></use>
+      </svg>
+    </button>
+  {{/if}}
 </div>
