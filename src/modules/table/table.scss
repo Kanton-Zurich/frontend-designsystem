@@ -116,6 +116,14 @@
         padding-right: 1rem;
       }
 
+      &:first-child {
+        > button {
+          .mdl-table--align-right & {
+            justify-content: flex-start;
+          }
+        }
+      }
+
       > button {
         @include blankButton();
 
