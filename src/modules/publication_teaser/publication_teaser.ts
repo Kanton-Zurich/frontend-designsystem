@@ -50,7 +50,7 @@ class PublicationTeaser extends Module {
   openContext(event) {
     let correctLiNode = event.target.parentNode;
 
-    while (correctLiNode.tagName !== 'LI') {
+    while (correctLiNode.tagName !== 'DIV') {
       correctLiNode = correctLiNode.parentNode;
     }
 
