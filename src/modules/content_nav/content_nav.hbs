@@ -11,5 +11,10 @@
         {{> "atoms/content_teaser/content_teaser" this}}
       </li>
     {{/each}}
+    {{#if promotopic}}
+      <li class="mdl-content_nav__item">
+        {{> "atoms/content_teaser/content_teaser" promotopic}}
+      </li>
+    {{/if}}
   </ul>
 </div>
