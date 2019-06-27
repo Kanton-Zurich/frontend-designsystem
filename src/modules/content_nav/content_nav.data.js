@@ -4,6 +4,8 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants.default.props;
+const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
+const contentTeaserPromoData = require('../../atoms/content_teaser/content_teaser.data').variants.promotopic.props;
 
 const template = dataHelper.getFileContent('content_nav.hbs');
 const data = _.merge({}, defaultData, {
