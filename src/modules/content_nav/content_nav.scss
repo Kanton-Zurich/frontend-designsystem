@@ -4,9 +4,25 @@ $contentNavGrid: (
   large: 1fr 1fr 1fr,
 );
 
+$leadFontCurve: (
+  tiny: $sizeFontRegular,
+  large: $sizeFontRegular,
+  xlarge: $sizeFontMedium,
+);
+
 .mdl-content_nav {
   @include polyFluidSizing('padding-top', map-get($sizeCurves, big));
   @include polyFluidSizing('margin-bottom', map-get($sizeCurves, big));
+
+  &__lead {
+    @include polyFluidSizing('font-size', $leadFontCurve);
+    line-height: $sizeLineHeightBase;
+    margin: $sizeLarge 0 $sizeRegular;
+
+    @include mq($from: xlarge) {
+      margin: $sizeBiggerBig 0 $sizeLarge;
+    }
+  }
 
   &__list {
     // stylelint-disable
@@ -33,6 +49,10 @@ $contentNavGrid: (
 
   &__item {
     display: flex;
+
+    &--hidden {
+      display: none;
+    }
   }
 
   &--single-column {

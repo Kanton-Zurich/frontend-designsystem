@@ -5,22 +5,23 @@
   data-init="contentNav"
 >
   <h{{contentNavTitle.level}} class="atm-heading atm-heading--bordered {{#if contentNavTitle.isHidden}}visuallyhidden{{/if}}">{{contentNavTitle.title}}</h{{contentNavTitle.level}}>
-  {{#if contentNavTitle.lead}}<p>{{{contentNavTitle.lead}}}</p>{{/if}}
+  {{#if contentNavTitle.lead}}<p class="mdl-content_nav__lead">{{{contentNavTitle.lead}}}</p>{{/if}}
   <ul class="mdl-content_nav__list">
     {{#each items}}
-      <li class="mdl-content_nav__item">
+      <li class="mdl-content_nav__item{{#if_compare @index ">" 11}} mdl-content_nav__item--hidden{{/if_compare}}">
         {{> "atoms/content_teaser/content_teaser" this}}
       </li>
     {{/each}}
   </ul>
-  {{#if loadMore}}
+
+  {{#if_compare items.length ">" 12}}
     <div class="mdl-content_nav__fullwidth-wrapper">
       <button class="atm-button">
-        {{{loadMore.text}}}
+        {{{showMoreButtonText}}}
         <svg class="icon atm-button__icon">
           <use xlink:href="#layer1"></use>
         </svg>
       </button>
     </div>
-  {{/if}}
+  {{/if_compare}}
 </div>

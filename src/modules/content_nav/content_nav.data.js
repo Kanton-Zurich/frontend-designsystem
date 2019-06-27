@@ -145,9 +145,7 @@ const variants = _.mapValues({
           shortTitle: 'Fahren im Alter',
         }),
       ],
-      loadMore: {
-        text: 'Alle anzeigen',
-      },
+      showMoreButtonText: 'Alle anzeigen',
     },
   },
 }, (variant) => {
