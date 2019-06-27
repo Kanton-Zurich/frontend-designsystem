@@ -5,6 +5,8 @@ const defaultData = require('../../data/default.data.js');
 const defImageFigureData = require('../image_figure/image_figure.data');
 const defVideoData = require('../video/video.data');
 const defButtonData = require('../../atoms/button/button.data').props;
+const defBreadcrumbData = require('../breadcrumb/breadcrumb.data').props;
+const backOnlyBreadcrumbData = require('../breadcrumb/breadcrumb.data').variants.singlePathItem.props;
 
 
 const template = dataHelper.getFileContent('page_header.hbs');
@@ -19,11 +21,9 @@ const data = _.merge({}, defaultData, {
     title: 'Seitenkopf',
     pageTitle: 'H1: Pagetitle Black Strassenverkehrsamt',
     leadText: 'Lead: ExtraBold Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
-    breadcrumbText1: '<strong>Kanton Zürich</strong>',
-    breadcrumbText2: 'Level inactive',
-    breadcrumbText3: 'Level active',
-    backlinkText: 'Zurück zur Übersicht',
-    buttonData: _.merge(defButtonData, {text: 'Formular beantragen'}),
+    breadcrumb: defBreadcrumbData,
+    backlink: backOnlyBreadcrumbData,
+    buttonData: _.merge(defButtonData, { text: 'Formular beantragen' }),
   },
 });
 
@@ -32,10 +32,10 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
-    },
-    props: {
       disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue'],
       defaultColorVariation: 'cv-blue',
+    },
+    props: {
       hasBreadcrumb: true,
     },
   },
@@ -43,10 +43,11 @@ const variants = _.mapValues({
     meta: {
       title: 'Default mit Bild',
       desc: 'Default implementation',
-    },
-    props: {
       disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue'],
       defaultColorVariation: 'cv-blue',
+    },
+    props: {
+
       imageData: defImageFigureData.variants.header.props,
       hasImage: true,
       hasBacklink: true,
@@ -56,12 +57,13 @@ const variants = _.mapValues({
     meta: {
       title: 'Mit Farbe',
       desc: '',
-    },
-    props: {
       disabledColorVariations: ['cv-monochrome'],
       defaultColorVariation: 'cv-blue',
+    },
+    props: {
+
       inverted: true,
-      buttonData: _.merge({}, defButtonData, {isInverted: true}),
+      buttonData: _.merge({}, defButtonData, { isInverted: true }),
       hasBreadcrumb: true,
     },
   },
@@ -69,12 +71,13 @@ const variants = _.mapValues({
     meta: {
       title: 'Mit Farbe und Tags',
       desc: '',
-    },
-    props: {
       disabledColorVariations: ['cv-monochrome'],
       defaultColorVariation: 'cv-blue',
+    },
+    props: {
+
       inverted: true,
-      buttonData: _.merge({}, defButtonData, {isInverted: true}),
+      buttonData: _.merge({}, defButtonData, { isInverted: true }),
       hasBreadcrumb: true,
       hasAnchors: true,
       anchorLinks: [
@@ -129,10 +132,10 @@ const variants = _.mapValues({
     meta: {
       title: 'Mit Farbe und Bild',
       desc: '',
-    },
-    props: {
       disabledColorVariations: ['cv-monochrome'],
       defaultColorVariation: 'cv-blue',
+    },
+    props: {
       imageData: defImageFigureData.variants.headerNoTitle.props,
       inverted: true,
       hasImage: true,
@@ -143,10 +146,11 @@ const variants = _.mapValues({
     meta: {
       title: 'Mit Farbe, Bild und Untertitel',
       desc: '',
-    },
-    props: {
       disabledColorVariations: ['cv-monochrome'],
       defaultColorVariation: 'cv-blue',
+    },
+    props: {
+
       imageData: defImageFigureData.variants.header.props,
       inverted: true,
       hasImageTitle: true,
@@ -158,15 +162,17 @@ const variants = _.mapValues({
     meta: {
       title: 'Mit Farbe, Video und Untertitel',
       desc: '',
-    },
-    props: {
       disabledColorVariations: ['cv-monochrome'],
       defaultColorVariation: 'cv-blue',
+    },
+    props: {
+
       videoData: defVideoData.variants.header.props,
       inverted: true,
       hasImageTitle: true,
       hasVideo: true,
       hasImage: true,
+      buttonData: _.merge({}, defButtonData, { isInverted: true }),
       hasBacklink: true,
     },
   },

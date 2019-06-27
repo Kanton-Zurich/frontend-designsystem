@@ -23,7 +23,7 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
   transition: background $transitionTimeSimple $transitionEasingDefault;
   cursor: pointer;
 
-  &:not(button){
+  &:not(button) {
     display: inline-flex;
     text-decoration: none;
   }

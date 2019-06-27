@@ -25,10 +25,7 @@ $leadFontCurve: (
   }
 
   &__list {
-    // stylelint-disable
-    display: -ms-grid;
     display: grid;
-    // stylelint-enable
 
     margin: 0;
     padding: 0;
@@ -43,12 +40,34 @@ $leadFontCurve: (
     @each $bp, $gutterSize in $grid-margin-gutters {
       @include mq($from: $bp) {
         grid-column-gap: pxToRem($gutterSize);
+
+        .is-ie & {
+          padding: 0 0 0 pxToRem($gutterSize / 2);
+          margin: 0 pxToRem($gutterSize / - 2);
+        }
       }
+    }
+
+    .is-ie & {
+      display: flex;
+      flex-wrap: wrap;
     }
   }
 
   &__item {
     display: flex;
+
+    .is-ie & {
+      width: 33.333%;
+
+      border: 0 solid transparent;
+
+      @each $bp, $gutterSize in $grid-margin-gutters {
+        @include mq($from: $bp) {
+          border-width: 0 pxToRem($gutterSize) pxToRem($gutterSize) 0;
+        }
+      }
+    }
 
     &--hidden {
       display: none;
@@ -59,12 +78,22 @@ $leadFontCurve: (
     .mdl-content_nav__list {
       grid-template-columns: 1fr;
     }
+
+    .mdl-content_nav__item {
+      .is-ie & {
+        width: 100%;
+      }
+    }
   }
 
   &--two-columns {
     @include mq($from: medium) {
       .mdl-content_nav__list {
         grid-template-columns: 1fr 1fr;
+      }
+
+      .mdl-content_nav__item {
+        width: 50%;
       }
     }
   }

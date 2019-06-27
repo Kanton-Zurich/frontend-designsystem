@@ -53,9 +53,9 @@
                     </div>
                   </div>
                 </div>
-                {{#if props.disabledColorVariations}}
-                  <input type="hidden" id="defaultColorVariation{{@index}}" value="{{props.defaultColorVariation}}" />
-                  <input type="hidden" id="disabledColorVariations{{@index}}" value="{{json props.disabledColorVariations}}" />
+                {{#if meta.disabledColorVariations}}
+                  <input type="hidden" id="defaultColorVariation{{@index}}" value="{{meta.defaultColorVariation}}" />
+                  <input type="hidden" id="disabledColorVariations{{@index}}" value="{{json meta.disabledColorVariations}}" />
                 {{/if}}
 							</div>
 						{{/each}}

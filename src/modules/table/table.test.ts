@@ -31,7 +31,7 @@ describe('Table', () => {
       const panel = document.querySelector('#panel10');
       const table = panel.querySelector('.mdl-table__table');
       const testingColumn = table.querySelectorAll('[data-table="sortable"]')[1];
-      const rowheaders = table.querySelectorAll('[role="rowheader"]');
+      const rowheaders = table.querySelectorAll('.mdl-table__row-header');
 
       const arrayAscending = [];
       const arrayDescending = [];

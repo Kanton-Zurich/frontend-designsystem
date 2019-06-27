@@ -262,7 +262,7 @@ const variants = _.mapValues({
       ],
       bodyrows: [
         {
-          data: ['Zürich', '293', '4,5%', '68%', '1691', '1398', '487', '287'],
+          data: ['Zürich', '293', '4,5%', '68%', '1691<br>mehr Text in dieser Zelle', '1398', '487', '287'],
         }, {
           data: ['Bern', '293', '4,5%', '68%', '1691', '1398', '487', '287'],
         }, {
@@ -325,7 +325,7 @@ const variants = _.mapValues({
       ],
       bodyrows: [
         {
-          data: ['Zürich', '293', '4,5%', '68%', '1691', '1398', '1691', '1398', '487', '287'],
+          data: ['Zürich', '293', '4,5%', '68%', '1691<br>mehr Text in dieser Zelle', '1398', '1691', '1398', '487', '287'],
         }, {
           data: ['Bern', '293', '4,5%', '68%', '1691', '1398', '1691', '1398', '487', '287'],
         }, {
@@ -483,6 +483,97 @@ const variants = _.mapValues({
       caption: {
         caption: 'Quelle: BZ 2008, BFS; eigene Berechnungen Statistisches Amt des Kantons Zürich',
       },
+    },
+  },
+  sortableFullWidth: {
+    meta: {
+      title: 'Volle Breite mit sortierbaren Spalten',
+      desc: 'Ausgewählte Spalten können sortiert werden, die Tabelle geht über die volle Breite.',
+    },
+    props: {
+      tableTitle: 'Beliebteste Filme im Kanton',
+      isWide: true,
+      headers: [
+        {
+          title: 'Rang',
+          isSortable: 'enum',
+        },
+        {
+          title: 'Filmtitel',
+          isSortable: false,
+        },
+        {
+          title: 'Herkunft',
+          isSortable: 'alpha',
+        },
+        {
+          title: 'Besucher/-innen',
+          isSortable: 'enum',
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['1', 'Titanic', 'USA', '296521'],
+        },
+        {
+          data: ['2', 'Finding Nemo', 'USA', '207095'],
+        },
+        {
+          data: ['3', 'Casino Royale (James Bond) Remake 2006', 'UK/USA', '200026'],
+        },
+        {
+          data: ['4', 'Ice Age 2', 'USA', '187757'],
+        },
+      ],
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Quelle: Pro Cinema',
+      }),
+    },
+  },
+  sortableFullWidthAlignRight: {
+    meta: {
+      title: 'Volle Breite mit sortierbaren Spalten, rechtsbündig',
+      desc: 'Ausgewählte Spalten können sortiert werden, die Tabelle geht über die volle Breite und ist rechtsbündig.',
+    },
+    props: {
+      tableTitle: 'Beliebteste Filme im Kanton',
+      isWide: true,
+      alignRight: true,
+      headers: [
+        {
+          title: 'Rang',
+          isSortable: 'enum',
+        },
+        {
+          title: 'Filmtitel',
+          isSortable: false,
+        },
+        {
+          title: 'Herkunft',
+          isSortable: 'alpha',
+        },
+        {
+          title: 'Besucher/-innen',
+          isSortable: 'enum',
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['1', 'Titanic', 'USA', '296521'],
+        },
+        {
+          data: ['2', 'Finding Nemo', 'USA', '207095'],
+        },
+        {
+          data: ['3', 'Casino Royale (James Bond) Remake 2006', 'UK/USA', '200026'],
+        },
+        {
+          data: ['4', 'Ice Age 2', 'USA', '187757'],
+        },
+      ],
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Quelle: Pro Cinema',
+      }),
     },
   },
 }, (variant) => {
