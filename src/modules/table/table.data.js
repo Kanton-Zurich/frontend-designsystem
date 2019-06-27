@@ -485,6 +485,97 @@ const variants = _.mapValues({
       },
     },
   },
+  sortableFullWidth: {
+    meta: {
+      title: 'Volle Breite mit sortierbaren Spalten',
+      desc: 'Ausgewählte Spalten können sortiert werden, die Tabelle geht über die volle Breite.',
+    },
+    props: {
+      tableTitle: 'Beliebteste Filme im Kanton',
+      isWide: true,
+      headers: [
+        {
+          title: 'Rang',
+          isSortable: 'enum',
+        },
+        {
+          title: 'Filmtitel',
+          isSortable: false,
+        },
+        {
+          title: 'Herkunft',
+          isSortable: 'alpha',
+        },
+        {
+          title: 'Besucher/-innen',
+          isSortable: 'enum',
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['1', 'Titanic', 'USA', '296521'],
+        },
+        {
+          data: ['2', 'Finding Nemo', 'USA', '207095'],
+        },
+        {
+          data: ['3', 'Casino Royale (James Bond) Remake 2006', 'UK/USA', '200026'],
+        },
+        {
+          data: ['4', 'Ice Age 2', 'USA', '187757'],
+        },
+      ],
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Quelle: Pro Cinema',
+      }),
+    },
+  },
+  sortableFullWidthAlignRight: {
+    meta: {
+      title: 'Volle Breite mit sortierbaren Spalten, rechtsbündig',
+      desc: 'Ausgewählte Spalten können sortiert werden, die Tabelle geht über die volle Breite und ist rechtsbündig.',
+    },
+    props: {
+      tableTitle: 'Beliebteste Filme im Kanton',
+      isWide: true,
+      alignRight: true,
+      headers: [
+        {
+          title: 'Rang',
+          isSortable: 'enum',
+        },
+        {
+          title: 'Filmtitel',
+          isSortable: false,
+        },
+        {
+          title: 'Herkunft',
+          isSortable: 'alpha',
+        },
+        {
+          title: 'Besucher/-innen',
+          isSortable: 'enum',
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['1', 'Titanic', 'USA', '296521'],
+        },
+        {
+          data: ['2', 'Finding Nemo', 'USA', '207095'],
+        },
+        {
+          data: ['3', 'Casino Royale (James Bond) Remake 2006', 'UK/USA', '200026'],
+        },
+        {
+          data: ['4', 'Ice Age 2', 'USA', '187757'],
+        },
+      ],
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Quelle: Pro Cinema',
+      }),
+    },
+  },
 }, (variant) => {
   // eslint-disable-next-line consistent-return
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
