@@ -49,6 +49,13 @@ class App {
     const hasTouchSupport = 'ontouchstart' in window || navigator.msMaxTouchPoints;
 
     if (hasTouchSupport) document.documentElement.classList.add('touch');
+
+    const sAgent = window.navigator.userAgent;
+    const isIE = sAgent.indexOf('MSIE');
+
+    if (isIE > 0 || !!navigator.userAgent.match(/Trident\/7\./)) {
+      document.documentElement.classList.add('is-ie');
+    }
   }
 
   async start() {
