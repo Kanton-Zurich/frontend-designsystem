@@ -49,6 +49,15 @@ $contentNavGrid: (
     }
   }
 
+  &__fullwidth-wrapper {
+    @include gridBleed($fullwidth: true);
+    text-align: center;
+
+    .atm-button {
+      display: inline-flex;
+    }
+  }
+
   .atm-button {
     margin-top: $sizeLarge;
 

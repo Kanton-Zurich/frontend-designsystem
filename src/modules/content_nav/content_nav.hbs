@@ -14,11 +14,13 @@
     {{/each}}
   </ul>
   {{#if loadMore}}
-    <button class="atm-button">
+    <div class="mdl-content_nav__fullwidth-wrapper">
+      <button class="atm-button">
         {{{loadMore.text}}}
-      <svg class="icon atm-button__icon">
-        <use xlink:href="#layer1"></use>
-      </svg>
-    </button>
+        <svg class="icon atm-button__icon">
+          <use xlink:href="#layer1"></use>
+        </svg>
+      </button>
+    </div>
   {{/if}}
 </div>
