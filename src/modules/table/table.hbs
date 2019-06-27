@@ -17,15 +17,14 @@
 	<figure class="mdl-table__figure">
 			<div class="mdl-table__scroll-area" data-table="scroll-area">
 				<div class="mdl-table__wrapper" data-table="scroll-area-wrapper">
-          <table class="mdl-table__table" data-table="table" role="grid" aria-readonly="true">
+          <table class="mdl-table__table" data-table="table">
             {{#if hasColumnHeader}}
               <thead>
-                <tr role="row" class="mdl-table__row">
+                <tr class="mdl-table__row">
                   {{#each headers}}
                     <th
                       scope="col"
                       class="mdl-table__cell mdl-table__column-header {{#if isSortable}}mdl-table__column-header--sortable{{/if}}"
-                      role="columnheader"
                       {{#if isSortable}}aria-sort="none"{{/if}}
                     >
                       {{#if isSortable}}
@@ -56,14 +55,13 @@
             {{/if}}
             <tbody class="mdl-table__body">
               {{#each bodyrows}}
-                <tr role="row" class="mdl-table__row mdl-table__row">
+                <tr class="mdl-table__row mdl-table__row">
                   {{#each this.data}}
                     {{#if @first}}
                       <th scope="row" class="mdl-table__cell
                         {{#if  ../../hasRowHeader}}mdl-table__row-header{{/if}}
                         {{#if this.isHighlighted}}mdl-table__cell--highlighted{{/if}}"
                         data-table="cell"
-                        {{#if ../../hasRowHeader}}role="rowheader"{{else}}role="gridcell"{{/if}}
                       >
                         {{#if_object this}}
                           {{{ ../this.cellContent }}}
@@ -72,7 +70,7 @@
                         {{/if_object}}
                       </th>
                     {{else}}
-                        <td class="mdl-table__cell {{#if this.isHighlighted}}mdl-table__cell--highlighted{{/if}}" role="gridcell" data-table="cell">
+                        <td class="mdl-table__cell {{#if this.isHighlighted}}mdl-table__cell--highlighted{{/if}}" data-table="cell">
                           {{#if this.isHighlighted}}<strong>{{/if}}
                             {{#if_object this}}
                               {{{ ../this.cellContent }}}
