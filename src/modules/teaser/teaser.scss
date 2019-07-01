@@ -155,6 +155,10 @@ $textLineRoundTolerance: 5px;
 
     &--noImage {
       max-width: 622px;
+
+      .mdl-teaser__content {
+        max-width: 100%;
+      }
     }
 
     .atm-heading {
