@@ -1,0 +1,24 @@
+.mdl-biometrie_appointment {
+
+  &__logininput {
+    color: #bbb;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+
+    label {
+      font-weight: bold;
+      display: block;
+
+    }
+
+    input {
+      display: inline-block;
+
+    }
+
+    &:focus {
+      border-color: #009ee0;
+    }
+  }
+
+}
