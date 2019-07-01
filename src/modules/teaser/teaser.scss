@@ -1,4 +1,5 @@
 $maxTextLines: 6;
+$maxTextLinesDesktop: 4;
 
 .mdl-teaser {
   text-decoration: none;
@@ -28,10 +29,10 @@ $maxTextLines: 6;
 
     $titleHeightCurve: (
       tiny: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLines ,
-      small: $sizeFontSmallBig * $sizeLineHeightNarrow * $maxTextLines,
-      medium: $sizeFontBig * $sizeLineHeightNarrow * $maxTextLines ,
-      large: $sizeFontBiggerBig * $sizeLineHeightNarrow * $maxTextLines,
-      xlarge: $sizeFontSmallHuge * $sizeLineHeightNarrower * $maxTextLines,
+      small: $sizeFontSmallBig * $sizeLineHeightNarrow * $maxTextLinesDesktop,
+      medium: $sizeFontBig * $sizeLineHeightNarrow * $maxTextLinesDesktop ,
+      large: $sizeFontBiggerBig * $sizeLineHeightNarrow * $maxTextLinesDesktop,
+      xlarge: $sizeFontSmallHuge * $sizeLineHeightNarrower * $maxTextLinesDesktop,
     );
 
     @include polyFluidSizing(max-height, $titleHeightCurve);
@@ -44,8 +45,8 @@ $maxTextLines: 6;
     $descripionHeightCurve: (
       tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLines,
       xsmall: $sizeFontSmall * $sizeLineHeightMedium * $maxTextLines,
-      small: $sizeFontRegular * $sizeLineHeightMedium * $maxTextLines,
-      large: $sizeFontBiggerRegular * $sizeLineHeightMedium * $maxTextLines,
+      small: $sizeFontRegular * $sizeLineHeightMedium * $maxTextLinesDesktop,
+      large: $sizeFontBiggerRegular * $sizeLineHeightMedium * $maxTextLinesDesktop,
     );
 
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
