@@ -1,0 +1,63 @@
+$leadFontCurve: (
+  tiny: $sizeFontRegular,
+  large: $sizeFontRegular,
+  xlarge: $sizeFontMedium,
+);
+
+.mdl-topiclist {
+  padding: $sizeHuge 0;
+
+  &__heading {
+    padding-top: $sizeSmallRegular;
+  }
+
+  &__lead {
+    @include polyFluidSizing('font-size', $leadFontCurve);
+    line-height: $sizeLineHeightBase;
+    padding: $sizeTiny 0 $sizeRegular;
+    margin: 0;
+  }
+
+  .mdl-content_nav {
+
+    &__item--hidden {
+      display: none;
+    }
+  }
+
+  &__fullwidth-wrapper {
+    @include gridBleed($fullwidth: true);
+    text-align: center;
+
+    .atm-button {
+      display: inline-flex;
+    }
+  }
+
+  .atm-button {
+    margin: $sizeLarge 0;
+
+    svg {
+      margin-left: $sizeSmallRegular;
+      transform: scale(0.625);
+    }
+  }
+
+  @include mq($from: large) {
+    padding: $sizeGiant 0;
+  }
+
+  @include mq($from: xlarge) {
+    &__heading {
+
+    }
+
+    &__lead {
+      padding: $sizeRegular 0 $sizeHuge;
+    }
+
+    .atm-button {
+      margin: $sizeBig 0;
+    }
+  }
+}

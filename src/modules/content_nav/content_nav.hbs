@@ -4,8 +4,6 @@
   {{#ifLengthBetween items 2 4}}mdl-content_nav--two-columns{{/ifLengthBetween}}"
   data-init="contentNav"
 >
-  <h{{contentNavTitle.level}} class="atm-heading atm-heading--bordered {{#if contentNavTitle.isHidden}}visuallyhidden{{/if}}">{{contentNavTitle.title}}</h{{contentNavTitle.level}}>
-  {{#if contentNavTitle.lead}}<p class="mdl-content_nav__lead">{{{contentNavTitle.lead}}}</p>{{/if}}
   <ul class="mdl-content_nav__list">
     {{#each items}}
       <li class="mdl-content_nav__item{{#if_compare @index ">" 11}} mdl-content_nav__item--hidden{{/if_compare}}">
@@ -18,15 +16,4 @@
       </li>
     {{/if}}
   </ul>
-
-  {{#if_compare items.length ">" 12}}
-    <div class="mdl-content_nav__fullwidth-wrapper">
-      <button class="atm-button">
-        {{{showMoreButtonText}}}
-        <svg class="icon atm-button__icon">
-          <use xlink:href="#layer1"></use>
-        </svg>
-      </button>
-    </div>
-  {{/if_compare}}
 </div>

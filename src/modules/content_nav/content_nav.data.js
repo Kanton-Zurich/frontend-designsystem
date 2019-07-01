@@ -4,23 +4,17 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants.default.props;
-const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
 const contentTeaserPromoData = require('../../atoms/content_teaser/content_teaser.data').variants.promotopic.props;
 
 const template = dataHelper.getFileContent('content_nav.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Themenliste/ContentNav',
+    title: 'ContentNav',
     className: 'ContentNav',
     jira: 'CZHDEV-389',
     documentation: dataHelper.getDocumentation('content_nav.md'),
   },
   props: {
-    contentNavTitle: {
-      level: 2,
-      title: 'Themen',
-      isHidden: true,
-    },
     items: [
       contentTeaserDefaultData,
       _.merge({}, contentTeaserDefaultData, {
@@ -77,85 +71,13 @@ const variants = _.mapValues({
       ],
     },
   },
-  relatedContent: {
-    meta: {
-      title: 'Verwandte Inhalte (CZHDEV-397)',
-      desc: 'Verwandte Inhalte ist eine Variante der Content-Navigation',
-    },
-    props: {
-      contentNavTitle: {
-        isHidden: false,
-        title: 'Das könnte Sie auch interessieren',
-      },
-    },
-  },
   withPromotopic: {
     meta: {
-      Title: 'mit einem Promotopic',
+      title: 'Mit einem Promotopic',
       desc: 'Diese Variante verfügt über eine Promotopic',
     },
     props: {
       promotopic: contentTeaserPromoData,
-    },
-  },
-  themeList: {
-    meta: {
-      title: 'Themenliste (CZHDEV-505)',
-      desc: 'Themenliste ist eine Variante der Content-Navigation mit Titel, Intro, einer Liste mit einzelnen Buzzwords und einem "Alle anzeigen" Knopf',
-    },
-    props: {
-      contentNavTitle: {
-        isHidden: false,
-        title: 'Unsere Themen',
-        lead: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore '
-        + 'et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. '
-        + 'Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit '
-        + 'amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam '
-        + 'erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, '
-        + 'no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-      },
-      items: [
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Führerausweis',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Fahrzeug',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Autonummern',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Führerausweis',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Velo',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Ausweis oder Schild verloren',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Ausweisentzug & Verwarnung',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Schiffahrt',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Spezielle Bewilligungen',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Velo',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Velo',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Ausweis oder Schild verloren',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Fahren im Alter',
-        }),
-      ],
-      showMoreButtonText: 'Alle anzeigen',
     },
   },
 }, (variant) => {

@@ -3,6 +3,7 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
 const defContentNavData = require('../../modules/content_nav/content_nav.data.js');
+const defReleatedContentData = require('../../modules/related_content/related_content.data.js');
 const defContactData = require('../../modules/contact/contact.data.js');
 const defTagGroupData = require('../../modules/tag_group/tag_group.data.js');
 
@@ -19,6 +20,7 @@ const data = _.merge({}, defaultData, {
     modules: {
       pageHeaderData: defPageHeaderData,
       contentNavData: defContentNavData,
+      releatedContentData: defReleatedContentData,
       contactData: defContactData,
       tagGroupData: defTagGroupData,
     },

@@ -1,0 +1,21 @@
+.mdl-related-content {
+  @include polyFluidSizing('padding-top', map-get($sizeCurves, big));
+  @include polyFluidSizing('margin-bottom', map-get($sizeCurves, big));
+
+  .atm-heading {
+    padding-top: $sizeSmallRegular;
+    margin-bottom: $sizeLarge;
+  }
+
+  @include mq($from: large) {
+    .atm-heading {
+      margin-bottom: $sizeBig;
+    }
+  }
+
+  @include mq($from: xlarge) {
+    .atm-heading {
+      margin-bottom: $sizeBiggerBig;
+    }
+  }
+}
