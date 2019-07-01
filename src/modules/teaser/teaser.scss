@@ -1,5 +1,4 @@
 $maxTextLines: 6;
-$textLineRoundTolerance: 5px;
 
 .mdl-teaser {
   text-decoration: none;
@@ -43,22 +42,21 @@ $textLineRoundTolerance: 5px;
     margin: 0;
 
     $descripionHeightCurve: (
-      small: ($sizeFontRegular * $sizeLineHeightBase * $maxTextLines) + $textLineRoundTolerance,
-      xlarge: ($sizeFontBiggerRegular * $sizeLineHeightMedium * $maxTextLines) + $textLineRoundTolerance,
+      tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLines,
+      xsmall: $sizeFontSmall * $sizeLineHeightMedium * $maxTextLines,
+      small: $sizeFontRegular * $sizeLineHeightMedium * $maxTextLines,
+      large: $sizeFontBiggerRegular * $sizeLineHeightMedium * $maxTextLines,
     );
 
-    @include mq($from: tiny, $to: xsmall) {
-      max-height: ($sizeFontSmall * $sizeLineHeightBase * $maxTextLines) + $textLineRoundTolerance;
-    }
-    @include mq($from: xsmall, $to: small) {
-      max-height: ($sizeFontRegular * $sizeLineHeightBase * $maxTextLines) + $textLineRoundTolerance;
-    }
-    @include mq($from: small) {
-      @include polyFluidSizing('max-height', $descripionHeightCurve);
-    }
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+    @include polyFluidSizing('max-height', $descripionHeightCurve);
 
+    line-height: $sizeLineHeightMedium;
     overflow: hidden;
+
+    @include mq($to: xsmall) {
+      line-height: $sizeLineHeightBase;
+    }
   }
 
   .atm-button {
