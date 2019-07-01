@@ -1,0 +1,100 @@
+.mdl-focus_card {
+  $gridWidthColumns: (
+    tiny: 6,
+    small: 10,
+    medium: 9,
+    large: 8
+  );
+
+  $paddingSizes: (
+    gutters: $grid-margin-gutters,
+    items: (
+      tiny: $sizeRegular,
+      medium: $sizeLarge
+    ),
+  );
+
+  text-decoration: none;
+  color: rgba($colorText, 0.6);
+  position: relative;
+
+  // @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+  @include sizeCurve(margin-top padding-bottom, items, $paddingSizes);
+
+  border-bottom: 2px solid transparent;
+
+  @include transition(color);
+  @include mq($from: medium) {
+    display: flex;
+  }
+
+  width: 100%;
+
+  .atm-heading {
+    padding-top: 0;
+    color: $colorBlack;
+    margin-bottom: $sizeTiny;
+  }
+
+  &__image {
+    @include mq($from: tiny, $to: medium) {
+      @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 6, $gridWidthColumns, $trailingGutter: false);
+    }
+    @include mq($from: medium) {
+      @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 3, $gridWidthColumns, $trailingGutter: false);
+    }
+  }
+
+  &__content {
+    @include mq($from: medium) {
+      @include sizeCurve(padding-left, gutters, $paddingSizes);
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: $sizeRegular;
+    }
+
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+      top: -3px;
+      left: $sizeSmallRegular;
+      position: relative;
+
+      use {
+        fill: $colorBlack60;
+      }
+    }
+  }
+
+  &:after {
+    display: block;
+    content: ' ';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($colorText, 0.2);
+    height: 1px;
+
+    transform: translateY(50%) scaleY(1);
+
+    @include transition(transform, $transitionTimeAreaSmall);
+  }
+
+  &:hover {
+    color: rgba($colorText, 1);
+
+    .icon {
+      use {
+        fill: rgba($colorText, 1);
+      }
+    }
+
+    &:after {
+      transform: translateY(50%) scaleY(3);
+      background: $colorText;
+    }
+  }
+}
