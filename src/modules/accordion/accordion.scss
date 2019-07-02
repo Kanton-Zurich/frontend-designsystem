@@ -7,7 +7,7 @@ $accordionMap: (
 );
 
 .mdl-accordion {
-  @include sizeCurve(margin-bottom, big);
+  @include sizeCurve(padding-bottom, big);
 
   .atm-heading--bordered { // CZHDEV-428
     @include sizeCurve(margin-bottom, medium);
@@ -154,8 +154,8 @@ $accordionMap: (
 
   /** Inverted style */
   &--cv-inverted {
-    @include gridBleed;
-    @include sizeCurve(padding-top padding-bottom, big);
+    @include gridBleed($fullwidth: true);
+    @include sizeCurve(padding-top, big);
 
     background: $colorBlack5;
 
