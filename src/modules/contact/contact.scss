@@ -101,6 +101,7 @@
     }
 
     p,
+    a,
     h4,
     ul,
     li {
@@ -112,6 +113,10 @@
     p,
     ul {
       margin-bottom: pxToRem($sizeTiny);
+    }
+
+    a {
+      color: $colorWhite;
     }
   }
 
