@@ -12,11 +12,10 @@ class Topiclist extends Module {
     domSelectors: {
       showAllButton: string,
       contentNavItems: string,
+      hiddenContentNavItems: any,
     },
     stateClasses: {
-      fullscreen: string,
-      inverted: string,
-      active: string,
+      hiddenItem: string,
     };
   }
   constructor($element: any, data: Object, options: Object) {
@@ -25,17 +24,18 @@ class Topiclist extends Module {
     const defaultOptions = {
       domSelectors: {
         showAllButton: '[data-topiclist="showAllTrigger"]',
-        contentNavItems: '[data-init="topiclist"] .mdl-content_nav > ul > li'
+        contentNavItems: '[data-init="topiclist"] .mdl-content_nav > ul > li',
+        hiddenContentNavItems: '[data-init="topiclist"] .mdl-content_nav > ul > li.mdl-content_nav__item--hidden'
       },
       stateClasses: {
-        // activated: 'is-activated'
+        hiddenItem: 'mdl-content_nav__item--hidden',
       },
     };
-
     super($element, defaultData, defaultOptions, data, options);
 
     this.initUi();
     this.initEventListeners();
+
   }
 
   static get events() {
@@ -56,8 +56,9 @@ class Topiclist extends Module {
    * Shows all hidden items from the content nav list
    */
   showAll() {
-    console.log('click', this);
-    /*contentNavItems: this.ui.element.querySelectorAll('.mdl-content_nav > ul > li')*/
+    (<any>this.ui).hiddenContentNavItems.forEach( element => {
+      element.classList.remove(this.options.stateClasses.hiddenItem);
+    });
   }
 
   /**

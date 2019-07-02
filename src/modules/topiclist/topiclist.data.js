@@ -19,8 +19,9 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation bzw. reguläre Themenliste. Title mit Fliesstext sowie einer Content-Navigation und einem "Alle anzeigen" Button',
+      title: 'Default Themenliste (CZHDEV-505 )',
+      desc: 'Default implementation bzw. reguläre Themenliste. Title mit Fliesstext sowie einer Content-Navigation nur'
+      + ' mit buzzwords und einem "Alle anzeigen" Button sowie versteckten Items ab einer Anzahl von mehr als 12.',
     },
     props: {
       topiclistHeading: {
@@ -74,7 +75,19 @@ const variants = _.mapValues({
             shortTitle: 'Ausweis oder Schild verloren',
           }),
           _.merge({}, contentTeaserDataWithoutBuzzwords, {
-            shortTitle: 'Fahren im Alter',
+            shortTitle: 'Fahren im Alter1',
+          }),
+          _.merge({}, contentTeaserDataWithoutBuzzwords, {
+            shortTitle: 'Fahren im Alter2',
+          }),
+          _.merge({}, contentTeaserDataWithoutBuzzwords, {
+            shortTitle: 'Fahren im Alter3',
+          }),
+          _.merge({}, contentTeaserDataWithoutBuzzwords, {
+            shortTitle: 'Fahren im Alter4',
+          }),
+          _.merge({}, contentTeaserDataWithoutBuzzwords, {
+            shortTitle: 'Fahren im Alter5',
           }),
         ],
       }),

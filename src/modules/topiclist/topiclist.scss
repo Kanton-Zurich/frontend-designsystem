@@ -18,10 +18,12 @@ $leadFontCurve: (
     margin: 0;
   }
 
-  .mdl-content_nav {
-
-    &__item--hidden {
-      display: none;
+  // Hide items only on default topiclist
+  &:not(&--office) {
+    .mdl-content_nav {
+      &__item--hidden {
+        display: none;
+      }
     }
   }
 
@@ -48,10 +50,6 @@ $leadFontCurve: (
   }
 
   @include mq($from: xlarge) {
-    &__heading {
-
-    }
-
     &__lead {
       padding: $sizeRegular 0 $sizeHuge;
     }
