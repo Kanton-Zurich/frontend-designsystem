@@ -10,13 +10,13 @@
 						{{#each atoms}}
 							{{#unless meta.hideFromListing}}
 								<li>
-                  <a href="{{meta.previewUrl}}">
+                  <a class="atm-text_link" href="{{meta.previewUrl}}">
                     {{meta.title}}
                   </a>
                   {{#if meta.jira}}
-                    (<a href="https://we.one-inside.com/jira/browse/{{meta.jira}}">
+                    <a class="sg_jira-link" href="https://we.one-inside.com/jira/browse/{{meta.jira}}">
                     {{meta.jira}}
-                  </a>)
+                  </a>
                   {{/if}}
                   {{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
 								</li>
@@ -34,13 +34,13 @@
 						{{#each modules}}
 							{{#unless meta.hideFromListing}}
 								<li>
-									<a href="{{meta.previewUrl}}">
+									<a class="atm-text_link"  href="{{meta.previewUrl}}">
 										{{meta.title}}
 									</a>
 									{{#if meta.jira}}
-                                       (<a href="https://we.one-inside.com/jira/browse/{{meta.jira}}">
+                                       <a class="sg_jira-link" href="https://we.one-inside.com/jira/browse/{{meta.jira}}">
 											{{meta.jira}}
-										</a>)
+										</a>
 									{{/if}}
 									{{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
 								</li>
@@ -58,11 +58,11 @@
 						{{#each pages}}
 							{{#unless meta.hideFromListing}}
 								<li>
-									<a href="{{meta.previewUrl}}">{{meta.title}}</a>
+									<a class="atm-text_link" href="{{meta.previewUrl}}">{{meta.title}}</a>
 									{{#if meta.jira}}
-                                        (<a href="https://we.one-inside.com/jira/browse/{{meta.jira}}">
+                                        <a class="sg_jira-link" href="https://we.one-inside.com/jira/browse/{{meta.jira}}">
 											{{meta.jira}}
-										</a>)
+										</a>
 									{{/if}}
 									{{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
 								</li>
@@ -80,7 +80,7 @@
 						{{#each styleguide}}
 							{{#unless meta.hideFromListing}}
 								<li>
-									<a href="{{meta.previewUrl}}">
+									<a class="atm-text_link" href="{{meta.previewUrl}}">
 										{{meta.title}}
 									</a>
 								</li>
