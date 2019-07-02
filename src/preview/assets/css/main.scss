@@ -98,17 +98,35 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     font-size: pxToEm(25px);
   }
 
+  .sg_index_header {
+    display: flex;
+    padding: 8px;
+    align-items: center;
+
+    .sg_title--top {
+      margin: 0 10px;
+    }
+
+    .sg_logo {
+      width: 100px;
+    }
+  }
+
   .sg_revisioninfo {
+    background-color: rgba($colorBlue, 0.1);
     font-family: $sg_font;
-    font-size: 9px;
+    font-size: 11px;
     padding: 6px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 2px 0 rgba(200, 200, 200, 0.4);
+    color: $colorBlue;
+
+    a {
+      color: $colorBlue;
+    }
 
     &--overview {
-      margin-left: 20px;
-      width: 450px;
+      margin-left: pxToEm(25px);
+      margin-right: pxToEm(25px);
+      max-width: unset;
     }
 
     h4 {
@@ -139,7 +157,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     border-top: 1px solid $sg_colorLightGray;
 
     & > label {
-      //border-radius: 4px 4px 0 0;
       display: inline-block;
       padding: 8px 18px;
     }
@@ -353,7 +370,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   }
 
   .sg_inner_wrapper {
-    border-top: 6px solid;
+    border-top: 3px solid;
     box-sizing: border-box;
     padding: 1em 0;
 
@@ -367,6 +384,21 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     @include mq($from: 900px) {
       flex-basis: 30%;
     }
+  }
+
+  .sg_jira-link {
+    background: #dfe1e6;
+    border: 1px solid #dfe1e6;
+    border-radius: 3px;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 99%;
+    margin: 0;
+    padding: 2px 5px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
   }
 }
 
