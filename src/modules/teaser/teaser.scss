@@ -15,6 +15,11 @@ $maxTextLinesDesktop: 4;
     padding: $sizeBig;
     display: flex;
     flex-direction: column;
+
+    div:last-of-type {
+      order: 3;
+      margin-top: auto;
+    }
   }
 
   &__title,
