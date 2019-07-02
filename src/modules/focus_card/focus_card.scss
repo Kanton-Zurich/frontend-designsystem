@@ -18,7 +18,6 @@
   color: rgba($colorText, 0.6);
   position: relative;
 
-  // @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
   @include sizeCurve(margin-top padding-bottom, items, $paddingSizes);
 
   border-bottom: 2px solid transparent;
