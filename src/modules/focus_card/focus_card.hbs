@@ -1,0 +1,19 @@
+<button class="mdl-focus_card" data-init="focusCard">
+  <img
+    class="mdl-focus_card__image"
+    src="{{srcsets.[0].image}}"
+    srcset="{{#each srcsets}}{{image}} {{#if @last}}{{else}}, {{/if}}{{/each}}"
+    sizes="100vw"
+    alt="{{alt}}"
+  />
+  <div class="mdl-focus_card__content">
+    <h3 class="atm-heading mdl-focus_card__title">
+      {{ title }}
+    </h3>
+    <p>{{ description }}</p>
+    <span>{{ arrowLink }}</span>
+    <svg class="icon">
+      <use xlink:href="#arrow-right"></use>
+    </svg>
+  </div>
+</button>
