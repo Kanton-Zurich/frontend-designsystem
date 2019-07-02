@@ -2,14 +2,19 @@ $maxTextLines: 6;
 $maxTextLinesDesktop: 4;
 
 .mdl-teaser {
+  $teaserMargins: (
+    marginBottom: (
+      tiny: $sizeBiggerBig,
+      large: $sizeHuge,
+    ),
+  );
   text-decoration: none;
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
 
-  &__wrapper + .mdl-teaser__wrapper {
-    margin-top: $sizeHuge;
-  }
+  @include sizeCurve(margin-bottom, marginBottom, $teaserMargins);
 
   &__content {
     padding: $sizeBig;
@@ -110,9 +115,7 @@ $maxTextLinesDesktop: 4;
     margin-bottom: 0;
   }
 
-  @include mq($from: xsmall) {
-    margin: 0 auto;
-
+  @include mq($from: tiny) {
     &__wrapper {
       @include gridBleed();
     }
