@@ -94,6 +94,10 @@ h6,
     @include mq($to: xsmall) {
       line-height: $sizeLineHeightBase;
     }
+
+    &--bordered {
+      @include sizeCurve('padding-top', small);
+    }
   }
 }
 
