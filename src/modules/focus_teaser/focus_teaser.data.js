@@ -2,7 +2,6 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const focusCardData = require('../../modules/focus_card/focus_card.data');
 
 const template = dataHelper.getFileContent('focus_teaser.hbs');
 const data = _.merge({}, defaultData, {
@@ -46,6 +45,15 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+  },
+  header: {
+    meta: {
+      title: 'Mit Header',
+      desc: '',
+    },
+    props: {
+      hasHeader: true,
     },
   },
 }, (variant) => {
