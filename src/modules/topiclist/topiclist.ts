@@ -54,9 +54,13 @@ class Topiclist extends Module {
    * Shows all hidden items from the content nav list
    */
   showAll() {
+    const firstHiddenItem = (<any> this.ui).hiddenContentNavItems[0];
+
     (<any> this.ui).hiddenContentNavItems.forEach((element: any) => {
       element.classList.remove(this.options.stateClasses.hiddenItem);
     });
+    (<any> this.ui).showAllButton.remove();
+    firstHiddenItem.querySelector('a').focus();
   }
 
   /**
