@@ -25,7 +25,6 @@ $leadFontCurve: (
       margin-bottom: $sizeBig;
     }
   }
-
   @include mq($from: xlarge) {
     .atm-heading {
       margin-bottom: $sizeBiggerBig;
