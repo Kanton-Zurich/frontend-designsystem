@@ -25,7 +25,7 @@ describe('Topiclist', () => {
 
   it('should load without error', async () => true);
 
-  it('when show all button is clicked no items should have the hidden class', async () => {
+  it('when show all button was clicked no items should have the hidden class', async () => {
     const hasHiddenClass = await page.evaluate(() => {
       const topiclist = document.querySelector('[data-init="topiclist"]');
       const showAllButton = topiclist.querySelector('[data-topiclist="showAllTrigger"]');
@@ -40,7 +40,7 @@ describe('Topiclist', () => {
     expect(hasHiddenClass).toBe(false);
   });
 
-  it('when button is clicked he should be removed from the module', async () => {
+  it('when button was clicked he should be removed from the module', async () => {
     const buttonExists = await page.evaluate(() => {
       const topiclist = document.querySelector('[data-init="topiclist"]');
       let showAllButton = topiclist.querySelector('[data-topiclist="showAllTrigger"]');
