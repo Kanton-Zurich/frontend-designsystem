@@ -1,4 +1,5 @@
-<div class="mdl-page-header {{#if hasImage}}mdl-page-header--headerimage{{/if}} {{#if inverted}}mdl-page-header--inverted{{/if}} {{#if hasImageTitle}}mdl-page-header--image-title{{/if}}">
+<div class="mdl-page-header {{#if hasImage}}mdl-page-header--headerimage{{/if}} {{#if
+  inverted}}mdl-page-header--inverted{{/if}} {{#if hasImageTitle}}mdl-page-header--image-title{{/if}}">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="mdl-page-header__logo-container cell tiny-2 xsmall-2 small-2 medium-2 large-2 xlarge-2">
@@ -42,15 +43,12 @@
         class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
         {{#unless hasImage}}
           {{> "atoms/lead/lead"}}
-            {{#unless hasAnchors }}
-              {{#unless noButton}}
-                {{> "atoms/button/button" buttonData}}
-              {{/unless}}
-            {{/unless}}
           {{#unless hasAnchors }}
-
-            {{> "atoms/button/button" buttonData}}
-
+            {{#unless noButton}}
+              {{> "atoms/button/button" buttonData}}
+            {{/unless}}
+          {{/unless}}
+          {{#unless hasAnchors }}
           {{/unless}}
         {{/unless}}
         {{#if hasImage}}{{#unless hasVideo}}{{> "modules/image_figure/image_figure" imageData}}{{/unless}}{{/if}}
@@ -60,21 +58,21 @@
   </div>
 
   {{#if hasImage}}
-  <div class="mdl-page-header__subsection">
-    <div class="lyt-wrapper">
-      <div class="grid-x grid-margin-x">
-        <div
-          class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
-    {{#unless noSubsection}}
-          {{> "atoms/lead/lead"}}
-          {{#unless noButton}}
-          {{> "atoms/button/button" buttonData}}
-          {{/unless}}
-    {{/unless}}
+    <div class="mdl-page-header__subsection">
+      <div class="lyt-wrapper">
+        <div class="grid-x grid-margin-x">
+          <div
+            class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
+            {{#unless noSubsection}}
+              {{> "atoms/lead/lead"}}
+              {{#unless noButton}}
+                {{> "atoms/button/button" buttonData}}
+              {{/unless}}
+            {{/unless}}
+          </div>
         </div>
       </div>
     </div>
-  </div>
   {{/if}}
 
 </div>

@@ -9,6 +9,7 @@ const dataHelper = require('@unic/estatico-data');
 const defPageHeaderCustomData = {
   pageTitle: 'biz Kloten',
   leadText: 'Gerne unterstützen wir Sie bei der Berufs- und Studienwahl sowie bei der Gestaltung Ihrer beruflichen Laufbahn',
+  noButton: true,
   breadcrumb: {
     path: [
       {
@@ -106,7 +107,7 @@ const data = _.merge({}, defaultData, {
     title: 'Einzelseite',
     text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
     modules: {
-      pageHeaderData: _.merge({}, _.omit(defPageHeaderData, ['buttonData']), defPageHeaderCustomData),
+      pageHeaderData: _.merge({}, defPageHeaderData, defPageHeaderCustomData),
       topicListData: _.merge({}, _.omit(defTopicListData, ['contentNavData']), defTopicListCustomData),
       contactData: defContactCustomData,
       teaserData: _.merge({}, defTeaserData, defTeaserCustomData),
