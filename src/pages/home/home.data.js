@@ -137,7 +137,7 @@ const defContactCustomData = {
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Home',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-334',
     content: dataHelper.getFileContent('home.hbs'),
     documentation: dataHelper.getDocumentation('home.md'),
   },
