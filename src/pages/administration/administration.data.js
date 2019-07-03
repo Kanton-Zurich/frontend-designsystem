@@ -2,13 +2,13 @@ const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
-const defContentNavData = require('../../modules/content_nav/content_nav.data.js');
+const defRelatedContent = require('../../modules/related_content/related_content.data.js');
 const defContactData = require('../../modules/contact/contact.data.js');
 const defFocusTeaserData = require('../../modules/focus_teaser/focus_teaser.data.js');
 const defVideoData = require('../../modules/video/video.data.js');
 
-defContentNavData.variants.relatedContent.props.items = defContentNavData
-  .variants.relatedContent.props.items.slice(0, 3);
+defRelatedContent.variants.default.props.contentNavData.items = defRelatedContent.variants.default
+  .props.contentNavData.items.slice(0, 3);
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -22,7 +22,7 @@ const data = _.merge({}, defaultData, {
     text: '',
     modules: {
       pageHeaderData: _.merge(defPageHeaderData,{}, { variants: { coloredImageOnly: { props: { pageTitle: 'Sicherheitsdirektion' }}}}),
-      contentNavData: defContentNavData.variants.relatedContent.props,
+      relatedContentData: defRelatedContent.variants.default.props,
       contactData: defContactData,
       focusTeaserData: defFocusTeaserData,
       videoData: defVideoData,

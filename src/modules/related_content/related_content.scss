@@ -5,7 +5,7 @@ $leadFontCurve: (
 );
 
 .mdl-related-content {
-  @include polyFluidSizing('padding-top', map-get($sizeCurves, big));
+  @include polyFluidSizing('margin-top', map-get($sizeCurves, big));
   @include polyFluidSizing('margin-bottom', map-get($sizeCurves, big));
 
   &__lead {

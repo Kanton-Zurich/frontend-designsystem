@@ -43,7 +43,9 @@
         {{#unless hasImage}}
           {{> "atoms/lead/lead"}}
           {{#unless hasAnchors }}
+            {{#unless noButton}}
             {{> "atoms/button/button" buttonData}}
+            {{/unless}}
           {{/unless}}
         {{/unless}}
         {{#if hasImage}}{{#unless hasVideo}}{{> "modules/image_figure/image_figure" imageData}}{{/unless}}{{/if}}

@@ -7,13 +7,7 @@
 
   {{#content "content"}}
     <h1>(--ANKER NAVIGATON PLACEHOLDER--)</h1>
-    <h2 class="atm-heading atm-heading--bordered">Ämter und Bereiche</h2>
-    <div class="mdl-richtext">
-      <p>
-        Der Sicherheitsdirektion sind folgende Ämter, Bereiche und Fachstellen untergeordnet.
-      </p>
-    </div>
-    {{> "modules/content_nav/content_nav" props.modules.contentNavData.variants.default.props}}
+    {{> "modules/related_content/related_content" props.modules.relatedContentData.variants.amtNavigation.props}}
     {{> "modules/focus_teaser/focus_teaser" props.modules.focusTeaserData.variants.header.props}}
     <h2 class="atm-heading atm-heading--bordered">Über uns</h2>
     <div class="mdl-richtext">
