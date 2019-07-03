@@ -9,7 +9,8 @@
 
   color: $colorBlack;
   font-weight: $fontWeightBlack;
-  line-height: 1.3em;
+  line-height: $sizeLineHeightMedium;
+  hyphens: auto;
 
   @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
   @include sizeCurve('margin-bottom', leadMarginBottom, $leadMargins);

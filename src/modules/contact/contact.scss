@@ -4,7 +4,7 @@
   padding: pxToRem($sizeLarge) pxToRem($sizeSmallRegular);
 
   &--fullwidth {
-    @include gridBleed;
+    @include gridBleed($fullwidth: true);
     padding: $sizeHuge 0;
   }
 
@@ -13,9 +13,15 @@
     line-height: $sizeLineHeightMedium;
     margin-bottom: pxToRem($sizeLarge);
 
-    &--bordered:before {
-      background: $colorWhite;
+    &--bordered {
+      &:before {
+        background: $colorWhite;
+      }
     }
+  }
+
+  h2.atm-heading--bordered {
+    margin-top: 0;
   }
 
   &__subtitle {
@@ -95,6 +101,7 @@
   &__text {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
     margin-top: pxToRem($sizeTiny);
+    hyphens: auto;
 
     ul {
       @include resetList();

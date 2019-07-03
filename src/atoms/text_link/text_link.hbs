@@ -1,1 +1,15 @@
-<a class="atm-text_link{{#if isInverted}} atm-text_link--cv-inverted{{/if}}" href="#">{{ text }}</a>
+<a class="atm-text_link{{#if isInverted}} atm-text_link--cv-inverted{{/if}}{{#if icon}} atm-text_link--icon{{/if}}"
+   href="{{{textLinkSrc}}}"
+  {{#if textLinkTargetBlank}}target="_blank"{{/if}}>
+  {{#if hasLeadingIcon}}
+    <svg class="icon icon--iframe-add">
+      <use xlink:href="#{{{icon}}}"></use>
+    </svg>
+  {{/if}}
+  {{text}}
+  {{#if hasTrailingIcon}}
+    <svg class="icon icon--iframe-arrow">
+      <use xlink:href="#{{{icon}}}"></use>
+    </svg>
+  {{/if}}
+</a>

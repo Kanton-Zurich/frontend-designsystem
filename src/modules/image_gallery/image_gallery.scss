@@ -16,6 +16,10 @@ $imageGalleryPaddingCurve: (
     @include sizeCurve(margin-bottom, medium);
   }
 
+  h2.atm-heading--bordered {
+    margin-top: 0;
+  }
+
   &__images {
     height: 100%;
     list-style: none;

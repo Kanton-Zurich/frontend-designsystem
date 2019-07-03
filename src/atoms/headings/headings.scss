@@ -2,13 +2,18 @@ $headingCurves: (
   borderedTopPadding: (
     tiny: $sizeSmallRegular,
     large: $sizeRegular,
-  )
+  ),
+  borderedTopMargin: (
+    tiny: $sizeHuge,
+    large: $sizeGiant,
+  ),
 );
 
 .atm-heading {
   line-height: $sizeLineHeightNarrow;
   font-weight: $fontWeightBlack;
   margin-top: 0;
+  hyphens: auto;
 
   &--cv-inverted,
   [ class*='--cv-inverted' ] & {
@@ -62,6 +67,7 @@ h2,
 
     &.atm-heading--bordered {
       @include sizeCurve(padding-top, borderedTopPadding, $headingCurves);
+      @include sizeCurve(margin-top, borderedTopMargin, $headingCurves);
     }
   }
 }

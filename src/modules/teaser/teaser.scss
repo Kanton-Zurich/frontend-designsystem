@@ -63,6 +63,7 @@ $maxTextLinesDesktop: 4;
     order: 3;
     color: $colorBlack60;
     margin: 0;
+    hyphens: auto;
 
     $descripionHeightCurve: (
       tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLines,
