@@ -26,7 +26,7 @@
   &--wrapped {
     background-color: $colorBordeaux;
 
-    @include gridBleed($trailingGutters: true);
+    @include gridBleed($fullwidth: true, $trailingGutters: true);
     @include sizeCurve('padding-top', containerTopPadding, $tagGroupSizeMaps);
     @include sizeCurve('padding-bottom', containerBottomPadding, $tagGroupSizeMaps);
 
@@ -49,7 +49,7 @@
       }
     }
     @include mq($from: large) {
-      @include gridBleed($trailingGutters: false);
+      @include gridBleed($fullwidth: true);
 
       .lyt-wrapper {
         max-width: calc(100% - 5rem);

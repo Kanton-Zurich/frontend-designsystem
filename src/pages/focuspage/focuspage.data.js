@@ -6,10 +6,11 @@ const defContentNavData = require('../../modules/content_nav/content_nav.data.js
 const defContactData = require('../../modules/contact/contact.data.js');
 const defFocusTeaserData = require('../../modules/focus_teaser/focus_teaser.data.js');
 
+
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Schwerpunktseite',
-    jira: 'CZHDEV-340',
+    jira: 'CZHDEV-509',
     content: dataHelper.getFileContent('focuspage.hbs'),
     documentation: dataHelper.getDocumentation('focuspage.md'),
   },
@@ -17,7 +18,7 @@ const data = _.merge({}, defaultData, {
     title: 'Schwerpunktseite',
     text: '',
     modules: {
-      pageHeaderData: _.merge(defPageHeaderData,{}, { variants: { colored: { props: { pageTitle: 'Sicherheitsdirektion' }}}}),
+      pageHeaderData: _.merge(defPageHeaderData,{}, { variants: { colored: { props: { pageTitle: 'Sicherheit' }}}}),
       contentNavData: defContentNavData,
       contactData: defContactData,
       focusTeaserData: defFocusTeaserData,

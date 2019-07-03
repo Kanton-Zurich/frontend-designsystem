@@ -139,7 +139,8 @@ const variants = _.mapValues({
       imageData: defImageFigureData.variants.headerNoTitle.props,
       inverted: true,
       hasImage: true,
-      hasBacklink: true,
+      hasBreadcrumb: true,
+      noButton: true,
     },
   },
   coloredImageTitle: {
