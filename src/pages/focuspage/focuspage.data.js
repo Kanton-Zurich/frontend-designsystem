@@ -6,7 +6,6 @@ const defRelatedContentData = require('../../modules/related_content/related_con
 const defContactData = require('../../modules/contact/contact.data.js');
 const defFocusTeaserData = require('../../modules/focus_teaser/focus_teaser.data.js');
 
-
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Schwerpunktseite',
@@ -26,7 +25,5 @@ const data = _.merge({}, defaultData, {
   },
   defaultColorVariation: 'cv-blue',
 });
-
-console.log(data.props.modules.pageHeaderData.variants.colored);
 
 module.exports = data;
