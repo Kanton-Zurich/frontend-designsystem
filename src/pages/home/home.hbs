@@ -1,13 +1,21 @@
 {{#extend "layouts/layout"}}
   {{#content "header"}}
     <header>
-      {{> "modules/page_header/page_header" props.modules.pageHeaderData.variants.coloredAnchors.props}}
+      {{> "modules/page_header/page_header" props.modules.pageHeaderData}}
     </header>
   {{/content}}
 
 	{{#content "content"}}
-		<h2>{{props.title}}</h2>
-
-		<p>{{props.text}}</p>
+    <h1>(--THEMELISTE FILTER PLACEHOLDER--)</h1>
+    {{> "modules/content_nav/content_nav" props.modules.contentNavData}}
+    <h1>(--NEWS TEASER PLACEHOLDER--)</h1>
 	{{/content}}
+
+  {{#content "footer"}}
+    <footer id="contentinfo">
+      {{> "modules/contact/contact" props.modules.contactData}}
+      <h1>(--FOOTER PLACEHOLDER--)</h1>
+      <h1 class="visuallyhidden">Fussbereich</h1>
+    </footer>
+  {{/content}}
 {{/extend}}
