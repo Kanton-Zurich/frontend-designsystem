@@ -24,4 +24,34 @@ describe('Topiclist', () => {
   });
 
   it('should load without error', async () => true);
+
+  it('when show all button is clicked no items should have the hidden class', async () => {
+    const hasHiddenClass = await page.evaluate(() => {
+      const topiclist = document.querySelector('[data-init="topiclist"]');
+      const showAllButton = topiclist.querySelector('[data-topiclist="showAllTrigger"]');
+
+      (<any>showAllButton).click();
+
+      const hiddenItems = topiclist.querySelectorAll('.mdl-content_nav__item--hidden');
+
+      return Boolean(hiddenItems.length);
+    });
+
+    expect(hasHiddenClass).toBe(false);
+  });
+
+  it('when button is clicked he should be removed from the module', async () => {
+    const buttonExists = await page.evaluate(() => {
+      const topiclist = document.querySelector('[data-init="topiclist"]');
+      let showAllButton = topiclist.querySelector('[data-topiclist="showAllTrigger"]');
+
+      (<any>showAllButton).click();
+
+      showAllButton = topiclist.querySelector('[data-topiclist="showAllTrigger"]');
+
+      return Boolean(showAllButton);
+    });
+
+    expect(buttonExists).toBe(false);
+  });
 });
