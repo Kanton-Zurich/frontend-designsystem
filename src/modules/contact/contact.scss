@@ -95,6 +95,7 @@
   &__text {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
     margin-top: pxToRem($sizeTiny);
+    hyphens: auto;
 
     ul {
       @include resetList();
