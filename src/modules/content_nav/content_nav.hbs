@@ -4,10 +4,9 @@
   {{#ifLengthBetween items 2 4}}mdl-content_nav--two-columns{{/ifLengthBetween}}"
   data-init="contentNav"
 >
-  <h{{contentNavTitle.level}} class="atm-heading atm-heading--bordered {{#if contentNavTitle.isHidden}}visuallyhidden{{/if}}">{{contentNavTitle.title}}</h{{contentNavTitle.level}}>
   <ul class="mdl-content_nav__list">
     {{#each items}}
-      <li class="mdl-content_nav__item">
+      <li class="mdl-content_nav__item{{#if_compare @index ">" 11}} mdl-content_nav__item--hidden{{/if_compare}}">
         {{> "atoms/content_teaser/content_teaser" this}}
       </li>
     {{/each}}
