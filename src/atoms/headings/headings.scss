@@ -13,6 +13,7 @@ $headingCurves: (
   line-height: $sizeLineHeightNarrow;
   font-weight: $fontWeightBlack;
   margin-top: 0;
+  hyphens: auto;
 
   &--cv-inverted,
   [ class*='--cv-inverted' ] & {
