@@ -5,9 +5,6 @@ $contentNavGrid: (
 );
 
 .mdl-content_nav {
-  // @include polyFluidSizing('padding-top', map-get($sizeCurves, big));
-  @include polyFluidSizing('margin-bottom', map-get($sizeCurves, big));
-
   &__list {
     display: grid;
 
