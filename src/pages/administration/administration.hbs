@@ -1,37 +1,25 @@
 {{#extend "layouts/layout"}}
   {{#content "header"}}
     <header>
-      {{> "modules/page_header/page_header" props.modules.pageHeaderData.variants.coloredImage.props}}
+      {{> "modules/page_header/page_header" props.modules.pageHeaderData.variants.colored.props}}
     </header>
   {{/content}}
 
   {{#content "content"}}
+    <h1>(--ANKER NAVIGATON PLACEHOLDER--)</h1>
+    {{> "modules/related_content/related_content" props.modules.relatedContentData.variants.amtNavigation.props}}
+    {{> "modules/focus_teaser/focus_teaser" props.modules.focusTeaserData.variants.header.props}}
+    <h2 class="atm-heading atm-heading--bordered">Über uns</h2>
     <div class="mdl-richtext">
-      <h2 class="atm-heading">Kantonspolizei</h2>
-      {{> "modules/video/video" props.modules.videoData.variants.default.props}}
       <p>
-        Die Kantonspolizei Zürich umfasst die Kriminal-, Sicherheits- und Verkehrspolizei.
-        Kernaufgabe der Polizei ist es, Gefahren für die öffentliche Sicherheit und Ordnung abzuwehren und Störungen zu beseitigen. Dazu gehören insbesondere die Verhütung strafbarer Handlungen, die Erhöhung der Verkehrssicherheit und die Verhütung von Unfällen im Strassenverkehr.
-        Die Polizei hilft Menschen, die unmittelbar an Leib und Leben bedroht sind. Sie leistet den Justiz- und Verwaltungsbehörden  Hilfe, soweit dies zur Durchsetzung der Rechtsordnung erforderlich ist. Weiter stellt die Polizei Straftaten fest und wirkt bei ihrer Aufklärung mit.
+        Die Sicherheitsdirektion ist eine von sieben Direktionen des Kantons Zürich. Sie beschäftigt rund 4800 Mitarbeiterinnen und Mitarbeiter.
+        Obwohl die Aufgabenbereiche der Sicherheitsdirektion auf den ersten Blick sehr unterschiedlich scheinen, verfolgen sie ein gemeinsames Ziel: Sie dienen der Gewährleistung von Sicherheit in unserem Kanton – Sicherheit im umfassenden Sinn: Nicht nur als Abwesenheit von Gewalt oder Kriminalität sondern auch als Garantie für ein sicheres soziales Netz.
+        Wir verfolgen eine Sozial- und Ausländerpolitik, die für alle Beteiligten fair ist. Und nicht zuletzt sind weite Bevölkerungskreise sportlich aktiv.
       </p>
     </div>
-    {{> "modules/linklist/linklist" props.modules.linklist.list1}}
-    <div class="mdl-richtext">
-      <h2 class="atm-heading">Amt für Militär und Umweltschutz</h2>
-      <p>
-        Das AMZ vollzieht die bundesrechtlichen Vorschriften in den Bereichen Militärverwaltung, Zivilschutz und Wehrpflichtersatz.
-      </p>
-    </div>
-    {{> "modules/linklist/linklist" props.modules.linklist.list1}}
-    <div class="mdl-richtext">
-      <h2 class="atm-heading">Strassenverkehrsamt</h2>
-      <p>
-        Das Strassenverkehrsamt überprüft die Betriebssicherheit der im Verkehr stehenden oder neu zuzulassenden Fahrzeuge und Schiffe anlässlich der technischen Kontrollen. Es führt die theoretischen und praktischen Führerprüfungen, die verkehrs-medizinischen Kontrollen und das Massnahmerecht (Verwarnungen, Führerausweisentzüge, Fahrverbote, Verkehrsunterricht usw.) durch. Diese Aufgaben wirken sich direkt auf die Verkehrssicherheit aus.
-        Dazu übernimmt das Strassenverkehrsamt das Inkasso der kantonalen Verkehrsabgaben, die in den Strassenfonds fliessen, und der pauschalen Schwerverkehrsabgaben, die dem Bund abzuliefern sind.
-      </p>
-    </div>
-    {{> "modules/linklist/linklist" props.modules.linklist.list1}}
-    {{> "modules/related_content/related_content" props.modules.relatedContentData}}
+    <h2 class="atm-heading atm-heading--bordered">News</h2>
+    <h1>(--NEWS TEASER PLACEHOLDER--)</h1>
+    {{> "modules/contact/contact" props.modules.contactData.variants.fullWidthLessData.props}}
   {{/content}}
   {{#content "footer"}}
     <footer id="contentinfo">
