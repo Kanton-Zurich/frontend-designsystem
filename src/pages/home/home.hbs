@@ -1,0 +1,13 @@
+{{#extend "layouts/layout"}}
+  {{#content "header"}}
+    <header>
+      {{> "modules/page_header/page_header" props.modules.pageHeaderData.variants.coloredAnchors.props}}
+    </header>
+  {{/content}}
+
+	{{#content "content"}}
+		<h2>{{props.title}}</h2>
+
+		<p>{{props.text}}</p>
+	{{/content}}
+{{/extend}}
