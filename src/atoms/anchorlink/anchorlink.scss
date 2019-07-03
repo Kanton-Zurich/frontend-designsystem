@@ -1,0 +1,148 @@
+.atm-anchorlink {
+  position: relative;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+
+  $anchorlinkSizeCurves: (
+    maxWidth: (
+      tiny: 296px,
+      xsmall: 368px,
+      small: 443px,
+      medium: 576px,
+      large: 622px,
+      xlarge: 768px,
+    ),
+  );
+
+  /*
+  * Regular Anchorlink Style
+  */
+  &:not(.atm-anchorlink--tag) {
+    height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
+    margin: 0 calc(#{$sizeRegular} / 2);
+    font-weight: $fontWeightDefault;
+    color: $colorBlack;
+    font-size: $sizeFontSmall;
+    line-height: $sizeLineHeightBase;
+
+    &:first-of-type {
+      margin-left: $sizeSmallRegular;
+    }
+
+    &:active,
+    &.atm-anchorlink--active {
+      font-weight: $fontWeightBlack;
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 100%;
+        height: 2px;
+        background-color: $colorBlack;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      &:not(:active):not(.atm-anchorlink--active) {
+        color: rgba($colorBlack, 0.6);
+      }
+    }
+
+    @include mq($from: xsmall) {
+      font-size: $sizeFontRegular;
+      line-height: $sizeLineHeightBase;
+      height: $sizeHuge;
+    }
+  }
+
+  /*
+  * Tag Style
+  */
+  &--tag {
+    color: rgba($colorBlack, 0.6);
+    border-radius: 75.5px;
+    padding: 0 $sizeRegular;
+    background: $colorBlack10;
+    height: calc(#{$sizeSmallLarge} + #{$sizeSmallRegular});
+    max-width: 100%;
+
+    &:hover {
+      color: $colorBlack;
+      background: rgba($colorBlack, 0.15);
+    }
+
+    &:active,
+    &.atm-anchorlink--active {
+      background-color: $colorBlack;
+      color: $colorWhite;
+
+      &:hover {
+        background-color: rgba($colorBlack, 0.8);
+      }
+    }
+
+    // Active and inverted but not topic.
+    &.atm-anchorlink--inverted.atm-anchorlink--active:not(.atm-anchorlink--tag-topic) {
+      background: $colorWhite;
+      color: $colorBlack;
+
+      &:hover {
+        background: rgba($colorWhite, 0.7);
+      }
+    }
+
+    // The rest.
+    &.atm-anchorlink--inverted:not(.atm-anchorlink--active) {
+      background: rgba($colorBlack, 0.2);
+      color: $colorWhite;
+
+      &:hover {
+        background: rgba($colorBlack, 0.4);
+      }
+    }
+
+    /*
+    * Style Topic Variante
+    */
+    &-topic {
+      font-size: $sizeFontTiny;
+      line-height: $sizeLineHeightBase;
+      padding: 0 $sizeTiny;
+      height: calc(2 * #{$sizeSmallRegular});
+    }
+
+    /*
+    * Style Topitem Variante
+    */
+    &-top {
+      font-weight: $fontWeightBlack;
+      font-size: $sizeFontBig;
+      line-height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      @include sizeCurve(max-width, maxWidth, $anchorlinkSizeCurves);
+
+      display: inline-block;
+      padding: 0 $sizeLarge;
+      height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
+
+      @include mq($to: small) {
+        max-width: 100%;
+      }
+
+      &-small {
+        font-size: $sizeFontBiggerRegular;
+        line-height: $sizeBiggerBig;
+        padding: 0 $sizeSmallRegular;
+        height: $sizeBiggerBig;
+      }
+    }
+  }
+}

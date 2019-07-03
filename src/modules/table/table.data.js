@@ -15,13 +15,12 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     tableTitle: 'Der Kanton in Zahlen',
-    tableSubtitle: '2007–2017',
     headers: [
       {
         title: '<span class="visuallyhidden">Bezirk</span>',
         isSortable: false,
       }, {
-        title: 'Einwohnerzahl<sup>1</sup> <span class="visuallyhidden">Nach zivilrechtlichem Wohnsitzbegriff, Daten per Ende Jahr</span> 2017',
+        title: 'Einwohnerzahl 2017',
         isSortable: false,
       }, {
         title: 'Bevölkerungswachstum<br> 2007–2017 in %',
@@ -33,10 +32,21 @@ const data = _.merge({}, defaultData, {
     ],
     bodyrows: [
       {
-        data: ['<a href="#" class="atm-text_link">Kanton Zürich</a>', '1498643', '15,2', '1005751'],
-        isHighlighted: true,
+        data: [{
+          cellContent: '<a href="#" class="atm-text_link">Kanton Zürich</a>',
+          isHighlighted: true,
+        }, {
+          cellContent: '1498643',
+          isHighlighted: true,
+        }, {
+          cellContent: '15,2',
+          isHighlighted: true,
+        }, {
+          cellContent: '1005751',
+          isHighlighted: true,
+        }],
       }, {
-        data: ['Affoltern<sup>2</sup> <span class="visuallyhidden">Stand 2016</span>', '53531', '18,4', '17171'],
+        data: ['Affoltern', '53531', '18,4', '17171'],
       }, {
         data: ['Andelfingen', '31140', '9,6', '11094'],
       }, {
@@ -45,15 +55,11 @@ const data = _.merge({}, defaultData, {
         data: ['Dielsdorf', '89221', '19,1', '38164'],
       },
     ],
-    caption: _.merge({}, defFigcaptionData, {
-      caption: '<sup>1</sup> Nach zivilrechtlichem Wohnsitzbegriff, Daten per Ende Jahr<br><sup>2</sup> Stand 2016',
-    }),
     hasTitle: true,
     tableHeadingLevel: 2,
-    hasSubtitle: true,
     hasColumnHeader: true,
     hasRowHeader: false,
-    hasCaption: true,
+    hasCaption: false,
     alignRight: false,
     colorVariation: false,
     isFirstColumnFixed: false,
@@ -68,11 +74,55 @@ const variants = _.mapValues({
   },
   alignRight: {
     meta: {
-      title: 'Rechtsbündig',
+      title: 'Rechtsbündig, mit Tabellenunterschrift und Fussnoten',
       desc: 'Variante mit rechtsbündig ausgerichteten Datenzellen',
     },
     props: {
       alignRight: true,
+      headers: [
+        {
+          title: '<span class="visuallyhidden">Bezirk</span>',
+          isSortable: false,
+        }, {
+          title: 'Einwohnerzahl<sup>1</sup> <span class="visuallyhidden">Nach zivilrechtlichem Wohnsitzbegriff, Daten per Ende Jahr</span> 2017',
+          isSortable: false,
+        }, {
+          title: 'Bevölkerungswachstum<br> 2007–2017 in %',
+          isSortable: false,
+        }, {
+          title: 'Beschäftigte 2015',
+          isSortable: false,
+        },
+      ],
+      bodyrows: [
+        {
+          data: [{
+            cellContent: '<a href="#" class="atm-text_link">Kanton Zürich</a>',
+            isHighlighted: true,
+          }, {
+            cellContent: '1498643',
+            isHighlighted: true,
+          }, {
+            cellContent: '15,2',
+            isHighlighted: true,
+          }, {
+            cellContent: '1005751',
+            isHighlighted: true,
+          }],
+        }, {
+          data: ['Affoltern<sup>2</sup> <span class="visuallyhidden">Stand 2016</span>', '53531', '18,4', '17171'],
+        }, {
+          data: ['Andelfingen', '31140', '9,6', '11094'],
+        }, {
+          data: ['Bülach', '148897', '21,3', '110370'],
+        }, {
+          data: ['Dielsdorf', '89221', '19,1', '38164'],
+        },
+      ],
+      caption: _.merge({}, defFigcaptionData, {
+        caption: '<sup>1</sup> Nach zivilrechtlichem Wohnsitzbegriff, Daten per Ende Jahr<br><sup>2</sup> Stand 2016',
+      }),
+      hasCaption: true,
     },
   },
   isInverted: {
@@ -95,13 +145,12 @@ const variants = _.mapValues({
   },
   withLinks: {
     meta: {
-      title: 'Mit Links',
+      title: 'Mit Links und Aufzählungen',
       desc: 'Variante mit Links, Titel als H3',
     },
     props: {
       tableTitle: 'H3: 28px Black title Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
       tableHeadingLevel: 3,
-      hasSubtitle: false,
       hasCaption: false,
       headers: [
         {
@@ -114,13 +163,13 @@ const variants = _.mapValues({
       ],
       bodyrows: [
         {
-          data: ['<a href="#" class="atm-text_link">Gemeindesteuerfüsse 2019</a>', 'Januar bis März'],
+          data: ['<a href="#" class="atm-text_link">Gemeindesteuerfüsse 2019</a>', '<ul><li>Januar<ul><li>17. Januar</li><li>31. Januar</li></ul></li><li>Februar</li><li>März</li></ul>'],
         },
         {
           data: ['<a href="#" class="atm-text_link">Kantonale Bevölkerungsstatistik 2018 (prov.)</a>', '08. Februar'],
         },
         {
-          data: ['<a href="#" class="atm-text_link">Abstimmungsanalyse Februar</a>', 'Ende Februar'],
+          data: ['<a href="#" class="atm-text_link">Abstimmungsanalyse</a>', '<ol><li>Ende Februar</li><li>Ende Mai</li><li>Ende September</li></ol>'],
         },
         {
           data: ['<a href="#" class="atm-text_link">Ausländerstatistik 2018</a>', 'März'],
@@ -136,7 +185,6 @@ const variants = _.mapValues({
     props: {
       tableTitle: 'Demografische Altersmasszahlen nach Gebiet 2016',
       tableHeadingLevel: 4,
-      hasSubtitle: false,
       hasRowHeader: true,
       alignRight: true,
       headers: [
@@ -181,7 +229,6 @@ const variants = _.mapValues({
     props: {
       tableTitle: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
       tableHeadingLevel: 3,
-      hasSubtitle: false,
       hasCaption: true,
       isFirstColumnFixed: true,
       hasRowHeader: true,
@@ -215,7 +262,7 @@ const variants = _.mapValues({
       ],
       bodyrows: [
         {
-          data: ['Zürich', '293', '4,5%', '68%', '1691', '1398', '487', '287'],
+          data: ['Zürich', '293', '4,5%', '68%', '1691<br>mehr Text in dieser Zelle', '1398', '487', '287'],
         }, {
           data: ['Bern', '293', '4,5%', '68%', '1691', '1398', '487', '287'],
         }, {
@@ -238,7 +285,6 @@ const variants = _.mapValues({
     props: {
       tableTitle: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
       tableHeadingLevel: 3,
-      hasSubtitle: false,
       hasCaption: true,
       isWide: true,
       isFirstColumnFixed: true,
@@ -279,7 +325,7 @@ const variants = _.mapValues({
       ],
       bodyrows: [
         {
-          data: ['Zürich', '293', '4,5%', '68%', '1691', '1398', '1691', '1398', '487', '287'],
+          data: ['Zürich', '293', '4,5%', '68%', '1691<br>mehr Text in dieser Zelle', '1398', '1691', '1398', '487', '287'],
         }, {
           data: ['Bern', '293', '4,5%', '68%', '1691', '1398', '1691', '1398', '487', '287'],
         }, {
@@ -301,7 +347,51 @@ const variants = _.mapValues({
     },
     props: {
       tableTitle: 'Beliebteste Filme im Kanton',
-      tableSubtitle: '1995-2007',
+      headers: [
+        {
+          title: 'Rang',
+          isSortable: 'enum',
+        },
+        {
+          title: 'Filmtitel',
+          isSortable: false,
+        },
+        {
+          title: 'Herkunft',
+          isSortable: 'alpha',
+        },
+        {
+          title: 'Besucher/-innen',
+          isSortable: 'enum',
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['1', 'Titanic', 'USA', '296521'],
+        },
+        {
+          data: ['2', 'Finding Nemo', 'USA', '207095'],
+        },
+        {
+          data: ['3', 'Casino Royale (James Bond) Remake 2006', 'UK/USA', '200026'],
+        },
+        {
+          data: ['4', 'Ice Age 2', 'USA', '187757'],
+        },
+      ],
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Quelle: Pro Cinema',
+      }),
+    },
+  },
+  sortableAlignRight: {
+    meta: {
+      title: 'Standard mit sortierbaren Spalten, rechtsbündig',
+      desc: 'Ausgewählte Spalten können sortiert werden. Die ganze Tabelle ist rechtsbündig formatiert.',
+    },
+    props: {
+      alignRight: true,
+      tableTitle: 'Beliebteste Filme im Kanton',
       headers: [
         {
           title: 'Rang',
@@ -347,7 +437,6 @@ const variants = _.mapValues({
     props: {
       tableTitle: 'Vergleich Life Sciences-Sektor Zürich mit ausgewählten Kantonen/Regionen',
       tableHeadingLevel: 3,
-      hasSubtitle: false,
       hasCaption: true,
       isFirstColumnFixed: true,
       hasRowHeader: true,
@@ -394,6 +483,97 @@ const variants = _.mapValues({
       caption: {
         caption: 'Quelle: BZ 2008, BFS; eigene Berechnungen Statistisches Amt des Kantons Zürich',
       },
+    },
+  },
+  sortableFullWidth: {
+    meta: {
+      title: 'Volle Breite mit sortierbaren Spalten',
+      desc: 'Ausgewählte Spalten können sortiert werden, die Tabelle geht über die volle Breite.',
+    },
+    props: {
+      tableTitle: 'Beliebteste Filme im Kanton',
+      isWide: true,
+      headers: [
+        {
+          title: 'Rang',
+          isSortable: 'enum',
+        },
+        {
+          title: 'Filmtitel',
+          isSortable: false,
+        },
+        {
+          title: 'Herkunft',
+          isSortable: 'alpha',
+        },
+        {
+          title: 'Besucher/-innen',
+          isSortable: 'enum',
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['1', 'Titanic', 'USA', '296521'],
+        },
+        {
+          data: ['2', 'Finding Nemo', 'USA', '207095'],
+        },
+        {
+          data: ['3', 'Casino Royale (James Bond) Remake 2006', 'UK/USA', '200026'],
+        },
+        {
+          data: ['4', 'Ice Age 2', 'USA', '187757'],
+        },
+      ],
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Quelle: Pro Cinema',
+      }),
+    },
+  },
+  sortableFullWidthAlignRight: {
+    meta: {
+      title: 'Volle Breite mit sortierbaren Spalten, rechtsbündig',
+      desc: 'Ausgewählte Spalten können sortiert werden, die Tabelle geht über die volle Breite und ist rechtsbündig.',
+    },
+    props: {
+      tableTitle: 'Beliebteste Filme im Kanton',
+      isWide: true,
+      alignRight: true,
+      headers: [
+        {
+          title: 'Rang',
+          isSortable: 'enum',
+        },
+        {
+          title: 'Filmtitel',
+          isSortable: false,
+        },
+        {
+          title: 'Herkunft',
+          isSortable: 'alpha',
+        },
+        {
+          title: 'Besucher/-innen',
+          isSortable: 'enum',
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['1', 'Titanic', 'USA', '296521'],
+        },
+        {
+          data: ['2', 'Finding Nemo', 'USA', '207095'],
+        },
+        {
+          data: ['3', 'Casino Royale (James Bond) Remake 2006', 'UK/USA', '200026'],
+        },
+        {
+          data: ['4', 'Ice Age 2', 'USA', '187757'],
+        },
+      ],
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Quelle: Pro Cinema',
+      }),
     },
   },
 }, (variant) => {

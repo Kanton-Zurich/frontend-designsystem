@@ -1,0 +1,253 @@
+$pageHeaderCurves: (
+  ktzhLogoPaddingTop: (
+    tiny: 0,
+    xsmall: 4px,
+    small: 4px,
+    medium: 0,
+    large: 0,
+    xlarge: 4px,
+  ),
+  ktzhLogoTop: (
+    tiny: 25px,
+    xsmall: 22px,
+    small: 16px,
+    medium: 0,
+    large: -9px,
+    xlarge: -15px,
+  ),
+  ktzhLogoTopFF: (
+    tiny: 24px,
+    xsmall: 21px,
+    small: 15px,
+    medium: -3px,
+    large: -13px,
+    xlarge: -18px,
+  ),
+  ktzhLogoMarginLeft: (
+    tiny: -6px,
+    xsmall: -6px,
+    small: 0,
+  ),
+  ktzhLogoWidth: (
+    tiny: 54px,
+    xsmall: 66px,
+    small: 87px,
+    medium: 125px,
+    large: 153px,
+    xlarge: 184px,
+  ),
+  pageHeaderTop: (
+    tiny: $sizeLarge,
+    small: $sizeBig,
+    medium: $sizeBiggerBig,
+    xlarge: $sizeSmallHuge
+  ),
+  pageHeaderBottom: (
+    tiny: $sizeLarge,
+    medium: $sizeBiggerBig,
+  ),
+  headerImagePadding: (
+    tiny: ($sizeBiggerBig + $sizeLarge),
+    medium: ($sizeHuge + $sizeBig),
+    xlarge: ($sizeHuge + $sizeBiggerBig),
+  ),
+  headerImageMargin: (
+    tiny: $sizeBiggerBig,
+    medium: $sizeHuge
+  ),
+  headerImagePaddingCaptioned: (
+    tiny: ($sizeBiggerBig + $sizeLarge + $sizeRegular),
+    small: ($sizeBiggerBig + $sizeLarge + $sizeSmallLarge),
+    medium: ($sizeHuge + $sizeBig + $sizeSmallLarge),
+    xlarge: ($sizeHuge + $sizeBiggerBig + $sizeSmallLarge),
+  ),
+  headerImageMarginCaptioned: (
+    tiny: ($sizeBiggerBig + $sizeRegular),
+    small: ($sizeBiggerBig + $sizeSmallLarge),
+    medium: ($sizeHuge + $sizeSmallLarge),
+  ),
+  breadcrumpMarginBottom: (
+    tiny: $sizeSmallRegular,
+    xlarge: $sizeRegular
+  ),
+);
+
+.mdl-page-header {
+  @include gridBleed($fullwidth: true);
+  @include sizeCurve('padding-top', pageHeaderTop, $pageHeaderCurves);
+  @include sizeCurve(padding-bottom, pageHeaderBottom, $pageHeaderCurves);
+
+  &__logo-container {
+    height: 0;
+  }
+
+  &__logo {
+    position: relative;
+
+    @include polyFluidSizing('width', map-get($pageHeaderCurves, ktzhLogoWidth));
+    @include polyFluidSizing('height', map-get($pageHeaderCurves, ktzhLogoWidth));
+    @include sizeCurve('padding-top', ktzhLogoPaddingTop, $pageHeaderCurves);
+    @include polyFluidSizing('top', map-get($pageHeaderCurves, ktzhLogoTop));
+    @include polyFluidSizing('margin-left', map-get($pageHeaderCurves, ktzhLogoMarginLeft));
+  }
+
+  &__breadcrumb {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+    @include sizeCurve('margin-bottom', breadcrumpMarginBottom, $pageHeaderCurves);
+
+    span {
+      color: $colorBlack60;
+    }
+  }
+
+  &__breadcrumb-angle,
+  &__breadcrumb-backlink {
+    vertical-align: text-top;
+    width: $sizeFontMedium;
+    height: $sizeFontMedium;
+    margin-left: 0;
+
+    @include mq($from: tiny, $to: medium) {
+      margin-left: -$sizeFontMedium;
+    }
+  }
+
+  &__breadcrumb-backlink use {
+    fill: $colorBlack60;
+  }
+
+  .atm-lead {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  .atm-button {
+    @include sizeCurve('margin-bottom', regular);
+  }
+
+  .mdl-tag-group {
+    max-width: $sizeWidthTextContent;
+
+    .atm-heading {
+      @include mq($from: tiny, $to: medium) {
+        margin-bottom: 0;
+      }
+      @include mq($from: medium, $to: xlarge) {
+        margin-bottom: 4px;
+      }
+      @include mq($from: xlarge) {
+        margin-bottom: 4px;
+      }
+    }
+
+    .mdl-tag-group__tags {
+      @include mq($from: tiny, $to: medium) {
+        margin-left: calc(-#{$sizeSmallRegular});
+        margin-right: calc(-#{$sizeSmallRegular});
+        margin-bottom: 16px;
+      }
+      @include mq($from: medium) {
+        margin-left: calc(-#{$sizeLarge});
+        margin-right: calc(-#{$sizeLarge});
+        margin-bottom: 24px;
+      }
+
+      .atm-anchorlink--tag-top {
+        margin-bottom: 0;
+        margin-top: 8px;
+
+        @include polyFluidSizing('font-size', map-get($fontSizeCurves, large));
+        @include mq($from: tiny, $to: medium) {
+          border-radius: 75.5px;
+          padding: 0 $sizeRegular;
+          height: calc(#{$sizeSmallLarge} + #{$sizeSmallRegular});
+          line-height: calc(#{$sizeSmallLarge} + #{$sizeSmallRegular});
+        }
+      }
+    }
+  }
+
+  &--headerimage {
+    padding-bottom: 0;
+
+    .mdl-page-header__subsection {
+      @include sizeCurve(padding-top, headerImagePadding, $pageHeaderCurves);
+
+      .lyt-wrapper {
+        @include sizeCurve(padding-bottom, pageHeaderBottom, $pageHeaderCurves);
+      }
+    }
+
+    .lyt-wrapper {
+      @include sizeCurve(margin-bottom, headerImageMargin, $pageHeaderCurves, $isNegative: true);
+    }
+
+    @include sizeCurve(padding-bottom, headerImageMargin, $pageHeaderCurves);
+
+    &.mdl-page-header--image-title {
+      .mdl-page-header__subsection {
+        @include sizeCurve(padding-top, headerImagePaddingCaptioned, $pageHeaderCurves);
+      }
+
+      .lyt-wrapper {
+        @include sizeCurve(margin-bottom, headerImageMarginCaptioned, $pageHeaderCurves, $isNegative: true);
+      }
+
+      @include sizeCurve(padding-bottom, headerImageMarginCaptioned, $pageHeaderCurves);
+    }
+  }
+}
+
+@-moz-document url-prefix('') {
+  .mdl-page-header {
+    &__logo {
+      @include polyFluidSizing('top', map-get($pageHeaderCurves, ktzhLogoTopFF));
+    }
+  }
+}
+
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-page-header {
+      &--inverted,
+      [ class*='--inverted' ] & {
+        background-color: #{$val};
+
+        ::selection {
+          color: $colorBlack;
+          background: $colorWhite;
+        }
+
+        .atm-heading,
+        .atm-lead,
+        .mdl-page-header__breadcrumb {
+          color: $colorWhite;
+
+          span {
+            color: $colorWhite;
+          }
+        }
+
+        .mdl-page-header__breadcrumb use {
+          fill: $colorWhite;
+        }
+
+        .mdl-page-header__subsection {
+          background-color: $colorWhite;
+
+          ::selection {
+            background: #{$val};
+            color: $colorWhite;
+          }
+
+          .atm-heading,
+          .atm-lead,
+          .mdl-page-header__breadcrumb {
+            color: $colorBlack;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,63 +1,100 @@
-$maxTextLinesSmall: 6;
-$maxTextLinesDefault: 4;
+$maxTextLines: 6;
+$maxTextLinesDesktop: 4;
 
 .mdl-teaser {
+  $teaserMargins: (
+    marginBottom: (
+      tiny: $sizeBiggerBig,
+      large: $sizeHuge,
+    ),
+  );
   text-decoration: none;
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
 
-  & + .mdl-teaser {
-    margin-top: $sizeHuge;
-  }
+  @include sizeCurve(margin-bottom, marginBottom, $teaserMargins);
 
   &__content {
     padding: $sizeBig;
+    display: flex;
+    flex-direction: column;
+
+    div:last-of-type {
+      order: 3;
+      margin-top: auto;
+    }
+  }
+
+  &__title,
+  &__date,
+  &__description,
+  &__description + div {
+    min-width: 100%;
   }
 
   &__date {
+    order: 1;
     font-weight: 900;
     font-size: $sizeFontTiny;
     color: rgba($colorBlack, 0.6);
   }
 
   .atm-heading {
+    order: 2;
     color: $colorBlack100;
     margin: 4px 0 $sizeTiny;
     padding-top: 0;
     word-break: break-word;
 
     $titleHeightCurve: (
-      tiny: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLinesSmall,
-      small: $sizeFontSmallBig * $sizeLineHeightBase * $maxTextLinesDefault,
-      medium: $sizeFontBig * $sizeLineHeightBase * $maxTextLinesDefault,
-      large: $sizeFontBiggerBig * $sizeLineHeightBase * $maxTextLinesDefault,
-      xlarge: $sizeFontSmallHuge * $maxTextLinesDefault,
+      tiny: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLines ,
+      small: $sizeFontSmallBig * $sizeLineHeightNarrow * $maxTextLinesDesktop,
+      medium: $sizeFontBig * $sizeLineHeightNarrow * $maxTextLinesDesktop ,
+      large: $sizeFontBiggerBig * $sizeLineHeightNarrow * $maxTextLinesDesktop,
+      xlarge: $sizeFontSmallHuge * $sizeLineHeightNarrower * $maxTextLinesDesktop,
     );
 
-    @include polyFluidSizing('max-height', $titleHeightCurve);
+    @include polyFluidSizing(max-height, $titleHeightCurve);
   }
 
   &__description {
+    order: 3;
     color: $colorBlack60;
     margin: 0;
+    hyphens: auto;
 
     $descripionHeightCurve: (
-      tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLinesSmall,
-      small: $sizeFontSmall * $sizeLineHeightBase * $maxTextLinesDefault,
-      medium: $sizeFontRegular * $sizeLineHeightBase * $maxTextLinesDefault,
-      large: $sizeFontBiggerRegular * $sizeLineHeightBase * $maxTextLinesDefault,
+      tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLines,
+      xsmall: $sizeFontSmall * $sizeLineHeightMedium * $maxTextLines,
+      small: $sizeFontRegular * $sizeLineHeightMedium * $maxTextLinesDesktop,
+      large: $sizeFontBiggerRegular * $sizeLineHeightMedium * $maxTextLinesDesktop,
     );
 
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
     @include polyFluidSizing('max-height', $descripionHeightCurve);
 
+    line-height: $sizeLineHeightMedium;
     overflow: hidden;
+
+    @include mq($to: xsmall) {
+      line-height: $sizeLineHeightBase;
+    }
+  }
+
+  &__description + div {
+    order: 4;
   }
 
   .atm-button {
     margin-top: $sizeRegular;
     display: inline-flex;
+    height: 2rem;
+
+    span {
+      font-size: $sizeFontSmall;
+    }
   }
 
   &--inverted {
@@ -80,15 +117,13 @@ $maxTextLinesDefault: 4;
     margin-bottom: 0;
   }
 
-  .mdl-image-figure__caption {
-    @include visuallyhidden();
+  .mdl-image-figure__img-wrapper {
+    margin-bottom: 0;
   }
 
-  @include mq($from: xsmall) {
-    margin: 0 auto;
-
+  @include mq($from: tiny) {
     &__wrapper {
-      @include gridBleed($trailingGutters: true);
+      @include gridBleed();
     }
 
     .atm-heading {
@@ -98,7 +133,7 @@ $maxTextLinesDefault: 4;
   @include mq($from: large) {
     flex-direction: row;
 
-    & + .mdl-teaser {
+    &__wrapper + .mdl-teaser__wrapper {
       margin-top: $sizeGiant;
     }
 
@@ -115,6 +150,10 @@ $maxTextLinesDefault: 4;
 
     &--noImage {
       max-width: 622px;
+
+      .mdl-teaser__content {
+        max-width: 100%;
+      }
     }
 
     .atm-heading {
@@ -129,6 +168,7 @@ $maxTextLinesDefault: 4;
       padding: $sizeBiggerBig;
       display: flex;
       flex-direction: column;
+      max-width: 50%;
     }
 
     &__title + div:not(.mdl-teaser__description),
@@ -156,6 +196,10 @@ $maxTextLinesDefault: 4;
   @include mq($from: xlarge) {
     .atm-heading {
       margin: 4px 0 $sizeLarge;
+    }
+
+    &__content {
+      padding: $sizeHuge;
     }
 
     &--noImage {

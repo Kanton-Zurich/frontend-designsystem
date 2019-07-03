@@ -1,0 +1,133 @@
+.mdl-breadcrumb {
+  @include resetList;
+
+  display: flex;
+
+  &__link {
+    color: $colorBlack60;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    @include transition(color);
+
+    line-height: $sizeLineHeightBase;
+
+    .mdl-breadcrumb__item--main &,
+    .mdl-breadcrumb__item--active &,
+    &:hover {
+      color: $colorBlack100;
+    }
+
+    .mdl-breadcrumb__item--main & {
+      font-weight: $fontWeightBlack;
+    }
+  }
+
+  &__item {
+
+    display: flex;
+    align-items: center;
+
+    min-height: pxToRem(30px);
+
+    .icon {
+      flex-basis: 1.5rem;
+      min-width: 1.5rem;
+      transform: translateY(-1px);
+
+      use {
+        fill: $colorBlack60;
+      }
+    }
+
+    &--main,
+    &--active {
+      .icon use {
+        fill: $colorBlack100;
+      }
+    }
+
+    &.mdl-breadcrumb__item--visible {
+      display: flex;
+    }
+
+    &.mdl-breadcrumb__item--hidden {
+      display: none;
+    }
+  }
+
+  &__hidden-items {
+    display: none;
+    position: relative;
+  }
+
+
+  &__arrow-left {
+    display: none;
+  }
+
+  /** Variants */
+  &--back-only {
+    .mdl-breadcrumb__arrow-left {
+      display: block;
+    }
+
+    .icon:not(.mdl-breadcrumb__arrow-left) {
+      display: none;
+    }
+
+    .mdl-breadcrumb__item--main,
+    .mdl-breadcrumb__item--active {
+      .mdl-breadcrumb__link {
+        font-weight: $fontWeightDefault;
+        color: $colorBlack60;
+
+        &:hover {
+          color: $colorBlack;
+        }
+      }
+
+      use {
+        fill: $colorBlack60;
+      }
+    }
+
+    .mdl-breadcrumb__hidden-items {
+      display: none;
+    }
+
+    @include mq($to: small) {
+      margin-left: pxToRem(-1 * $sizeLarge);
+    }
+  }
+
+  &--parent-only {
+    .mdl-breadcrumb__item {
+      display: none;
+
+      &:nth-last-child(2) {
+        display: flex;
+      }
+    }
+  }
+
+  /** Styles for inverted use */
+  [ class*='--inverted' ] & {
+    &__link,
+    &--back-only .mdl-breadcrumb__item--main .mdl-breadcrumb__link,
+    &--back-only .mdl-breadcrumb__item--active .mdl-breadcrumb__link {
+      color: $colorWhite;
+    }
+  }
+
+  .mdl-context_menu {
+    display: none;
+
+    a {
+      display: none;
+    }
+  }
+}
+

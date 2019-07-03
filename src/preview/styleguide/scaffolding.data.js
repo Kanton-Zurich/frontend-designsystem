@@ -13,12 +13,12 @@ const data = _.merge({}, defaultData, {
     handlebars: dataHelper.getFormattedHandlebars(template),
     html: dataHelper.getFormattedHtml(handlebars.compile(template)(_.merge({
       meta: {
-        aemPath: '/etc.clientlibs/sanagate/core/clientlibs/publish/resources',
+        aemPath: '/etc.clientlibs/zhweb/core/clientlibs/publish/resources',
       },
     }, defaultData))),
     html_prod: dataHelper.getFormattedHtml(handlebars.compile(template)(_.merge({
       meta: {
-        aemPath: '/etc.clientlibs/sanagate/core/clientlibs/publish/resources',
+        aemPath: '/etc.clientlibs/zhweb/core/clientlibs/publish/resources',
       },
     }, defaultData, { env: { dev: false } }))),
   },

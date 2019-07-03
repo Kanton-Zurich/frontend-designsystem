@@ -4,16 +4,18 @@
  * See http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
  * for discussion of different solutions
  */
+// stylelint-disable
 @mixin visuallyhidden() {
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px;
-  margin: -1px;
+  margin: -1px !important;
   overflow: hidden;
-  padding: 0;
+  padding: 0 !important;
   position: absolute;
   width: 1px;
 }
+// stylelint-enable
 
 /**
  *
@@ -200,6 +202,7 @@
 
   @if ($b < 0) {
     $sign: '-';
+    $altSign: '+';
     $b: abs($b);
   }
 
@@ -372,16 +375,33 @@
 /**
  * Grid bleeding for content elements
  */
-@mixin gridBleed($trailingGutters: false) {
-  @if $trailingGutters == true {
-    @include sizeCurve(padding-left padding-right, bleed, $grid-outer-gutters);
+@mixin gridBleed($trailingGutters: false, $fullwidth: false, $isContentWidth: false) {
 
-    width: 100vw;
-    max-width: $sizeWidthContent;
-  }@else {
+  @if $trailingGutters == true {
+    @if ($isContentWidth == false) {
+      @include sizeCurve(padding-left padding-right, bleed, $grid-outer-gutters);
+    } @else {
+      @include sizeCurve(padding-left padding-right, bleed, $grid-outer-gutters);
+    }
+
+    width: calc(100vw);
+    @if $fullwidth == false {
+      max-width: $sizeGlobalMaxWidth;
+    }
+    @if $isContentWidth == true {
+      max-width: $sizeWidthContent;
+    }
+  } @else {
     width: calc(100vw + 2px);
-    max-width: $sizeGlobalMaxWidth;
+
+    @if $fullwidth == false {
+      max-width: $sizeGlobalMaxWidth;
+    }
+    @if $isContentWidth == true {
+      max-width: $sizeWidthContent;
+    }
   }
+  width: calc(100vw - var(--scrollbar-wd)); //stylelint-disable-line
   transform: translateX(-50%);
   margin-left: 50%;
 
@@ -458,5 +478,22 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+/**
+ * A Special Mixin to disable hover effects on mobile
+ */
+@mixin hover($additionalNot: false) {
+  @media not all and ( hover: none ) {
+    @if $additionalNot {
+      &:hover:not(#{$additionalNot}) {
+        @content;
+      }
+    } @else {
+      &:hover {
+        @content;
+      }
+    }
+  }
 }
 

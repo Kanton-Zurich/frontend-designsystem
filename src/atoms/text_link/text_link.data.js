@@ -14,6 +14,7 @@ const data = _.merge({}, defaultData, {
   props: {
     icon: null,
     text: 'Text Link',
+    textLinkSrc: '#',
     isInverted: false,
     hasLeadingIcon: false,
     hasTrailingIcon: false,
@@ -33,6 +34,44 @@ const variants = _.mapValues({
     },
     props: {
       isInverted: true,
+    },
+  },
+  iconBefore: {
+    meta: {
+      title: 'Link mit Icon links',
+      desc: 'Normaler Textlink mit Icon auf der linken Seite',
+    },
+    props: {
+      icon: 'add-new',
+      text: 'Text Link',
+      isInverted: false,
+      hasLeadingIcon: true,
+      hasTrailingIcon: false,
+    },
+  },
+  iconAfter: {
+    meta: {
+      title: 'Link mit Icon rechts',
+      desc: 'Normaler Textlink mit Icon auf der rechten Seite',
+    },
+    props: {
+      icon: 'arrow-right',
+      text: 'Text Link',
+      hasLeadingIcon: false,
+      hasTrailingIcon: true,
+    },
+  },
+  iconAfterInverted: {
+    meta: {
+      title: 'Link mit Icon rechts (invertiert)',
+      desc: 'Normaler Textlink mit Icon auf der rechten Seite',
+    },
+    props: {
+      icon: 'arrow-right',
+      text: 'Text Link',
+      isInverted: true,
+      hasLeadingIcon: false,
+      hasTrailingIcon: true,
     },
   },
 }, (variant) => {

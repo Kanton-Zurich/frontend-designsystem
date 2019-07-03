@@ -15,6 +15,7 @@ class Carousel extends Module {
     active: number,
     length: number,
     isFullscreen: boolean,
+    isInGallery: boolean,
   };
   public ui: {
     element: any;
@@ -24,6 +25,8 @@ class Carousel extends Module {
     download: any;
     close: any;
     textalternative: any;
+    open: any;
+    nextButton: any;
   }
   public options: {
     domSelectors: {
@@ -49,6 +52,7 @@ class Carousel extends Module {
     const defaultData = {
       active: 1,
       isFullscreen: false,
+      isInGallery: false,
     };
     const defaultOptions = {
       domSelectors: {
@@ -81,6 +85,10 @@ class Carousel extends Module {
 
     this.setAccessibilityAttributesForSlides();
     this.setAlternativeText();
+
+    if (this.ui.element.parentElement.classList.contains('mdl-image_gallery')) {
+      this.data.isInGallery = true;
+    }
   }
 
   static get events() {
@@ -118,10 +126,32 @@ class Carousel extends Module {
           this.data.isFullscreen = true;
 
           this.setAccessibilityAttributesForSlides();
+
+
+          (<any>window).estatico.helpers
+            .setHiddenTabIndex(this.ui.element);
         }
       })
       .on('click', this.options.domSelectors.open, this.open.bind(this))
-      .on('click', this.options.domSelectors.close, this.close.bind(this));
+      .on('click', this.options.domSelectors.close, this.close.bind(this))
+      .on('keydown', this.options.domSelectors.close, (event) => {
+        if (event.key === 'Tab' && event.shiftKey && this.data.isFullscreen) {
+          this.ui.nextButton.focus();
+
+          return false;
+        }
+
+        return true;
+      })
+      .on('keydown', this.options.domSelectors.nextButton, (event) => {
+        if (event.key === 'Tab' && !event.shiftKey && this.data.isFullscreen) {
+          this.ui.close.focus();
+
+          return false;
+        }
+
+        return true;
+      });
 
     (<any>WindowEventListener).addDebouncedResizeListener(() => {
       if (this.data.isFullscreen) {
@@ -177,7 +207,12 @@ class Carousel extends Module {
 
     this.setAccessibilityAttributesForSlides();
     this.setAlternativeText();
-    this.ui.close.focus();
+
+    if (this.data.isFullscreen) {
+      this.ui.slides[this.data.active - 1].querySelector('button').focus();
+    } else {
+      this.ui.slides[this.data.active - 1].querySelector('figure').focus();
+    }
   }
 
   /**
@@ -218,6 +253,9 @@ class Carousel extends Module {
   open() {
     if (!this.data.isFullscreen) {
       this.data.isFullscreen = true;
+
+      (<any>window).estatico.helpers
+        .setHiddenTabIndex(this.ui.element);
     }
   }
 
@@ -230,8 +268,11 @@ class Carousel extends Module {
     this.data.isFullscreen = false;
 
     if (this.ui.element.parentElement.classList.contains('mdl-image_gallery')) {
-      this.ui.element.parentElement.dispatchEvent(new CustomEvent('Carousel.close'));
+      this.ui.element.parentElement.dispatchEvent(new CustomEvent('Carousel.close', { detail: this.data.active }));
     }
+
+    (<any>window).estatico.helpers
+      .resetHiddenTabIndex();
   }
 
   /**
@@ -243,6 +284,10 @@ class Carousel extends Module {
   closeOnEscape(event) {
     if (event.key === 'Escape') {
       this.close();
+
+      if (!this.data.isInGallery) {
+        this.ui.open[this.data.active - 1].focus();
+      }
     }
   }
 
@@ -269,6 +314,8 @@ class Carousel extends Module {
       window.addEventListener('keydown', this.closeOnEscape.bind(this));
 
       this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen).forEach(e => e.setAttribute('aria-hidden', 'true'));
+
+      this.wrapAccessibility();
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
       this.ui.element.classList.remove(this.options.stateClasses.inverted);
@@ -281,6 +328,8 @@ class Carousel extends Module {
       window.removeEventListener('keydown', this.closeOnEscape.bind(this));
 
       this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen).forEach(e => e.setAttribute('aria-hidden', 'false'));
+
+      this.unwrapAccessibility();
     }
   }
 
@@ -365,13 +414,19 @@ class Carousel extends Module {
     const activeIndex = this.data.active - 1;
     const slidesArray = Array.prototype.slice.call(this.ui.slides);
 
-    slidesArray[activeIndex].querySelectorAll('button, a').forEach(e => e.removeAttribute('tabindex'));
+    slidesArray[activeIndex].querySelectorAll('button, a').forEach((e) => {
+      e.removeAttribute('tabindex');
+      e.removeAttribute('aria-hidden');
+    });
     slidesArray[activeIndex].removeAttribute('aria-hidden');
 
     slidesArray.splice(activeIndex, 1);
 
     slidesArray.forEach((slide) => {
-      slide.querySelectorAll('button, a').forEach(e => e.setAttribute('tabindex', '-1'));
+      slide.querySelectorAll('button, a').forEach((e) => {
+        e.setAttribute('tabindex', '-1');
+        e.setAttribute('aria-hidden', 'true');
+      });
       slide.setAttribute('aria-hidden', 'true');
     });
   }
@@ -387,6 +442,36 @@ class Carousel extends Module {
     const altAttribute = activeSlideImg.getAttribute('alt');
 
     this.ui.textalternative.textContent = altAttribute;
+  }
+
+  /**
+   * Wraps around the html elements for accessibility reasons
+   */
+  wrapAccessibility() {
+    const dialogWrapper = document.createElement('div');
+    const documentWrapper = document.createElement('div');
+
+    dialogWrapper.setAttribute('role', 'dialog');
+    documentWrapper.setAttribute('role', 'document');
+
+    this.ui.element.parentNode.insertBefore(documentWrapper, this.ui.element);
+
+    documentWrapper.appendChild(this.ui.element);
+
+    documentWrapper.parentNode.insertBefore(dialogWrapper, documentWrapper);
+
+    dialogWrapper.appendChild(documentWrapper);
+  }
+
+  /**
+   * Removes the two accessibility wrappers
+   */
+  unwrapAccessibility() {
+    const dialogWrapper = this.ui.element.parentNode.parentNode;
+
+    dialogWrapper.parentNode.appendChild(this.ui.element);
+
+    dialogWrapper.remove();
   }
 
   /**

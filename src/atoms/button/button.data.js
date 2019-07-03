@@ -19,6 +19,12 @@ const data = _.merge({}, defaultData, {
     isSmall: false,
     isBig: false,
     isInverted: false,
+    isTagButton: false,
+    isTagFilter: false,
+    isTopic: false,
+    isEdit: false,
+    isTopTag: false,
+    isAnchor: false,
     additionalAttribute: null,
   },
 });
@@ -29,13 +35,13 @@ const variants = _.mapValues({
   default: {
     meta: {
       title: 'Primary',
-      desc: 'Primary Button ohne Icon',
+      desc: 'Primary Button ohne Icon.',
     },
   },
   defaultWithIcon: {
     meta: {
       title: 'Primary mit Icon',
-      desc: 'Primary Button mit Icon',
+      desc: 'Primary Button mit Icon.',
     },
     props: {
       icon: 'edit',
@@ -44,7 +50,7 @@ const variants = _.mapValues({
   defaultWithoutText: {
     meta: {
       title: 'Primary nur Icon',
-      desc: 'Primary Button nur mit Icon und ohne (sichtbaren) Text',
+      desc: 'Primary Button nur mit Icon und ohne (sichtbaren) Text.',
     },
     props: {
       isTextVisible: false,
@@ -54,7 +60,7 @@ const variants = _.mapValues({
   secondary: {
     meta: {
       title: 'Secondary',
-      desc: 'Secondary Button nur mit Text',
+      desc: 'Secondary Button nur mit Text.',
     },
     props: {
       isSecondary: true,
@@ -63,7 +69,7 @@ const variants = _.mapValues({
   secondaryWithIcon: {
     meta: {
       title: 'Secondary mit Icon',
-      desc: 'Secondary Button mit Icon und Text',
+      desc: 'Secondary Button mit Icon und Text.',
     },
     props: {
       isSecondary: true,
@@ -73,7 +79,7 @@ const variants = _.mapValues({
   secondaryWithoutText: {
     meta: {
       title: 'Secondary nur Icon',
-      desc: 'Secondary Button nur mit Icon und ohne (sichtbaren) Text',
+      desc: 'Secondary Button nur mit Icon und ohne (sichtbaren) Text.',
     },
     props: {
       isTextVisible: false,
@@ -83,8 +89,8 @@ const variants = _.mapValues({
   },
   primarySmall: {
     meta: {
-      title: 'kleiner Primary',
-      desc: 'kleiner Primary Button nur mit Text',
+      title: 'Kleiner Primary',
+      desc: 'Kleiner Primary Button nur mit Text.',
     },
     props: {
       isSmall: true,
@@ -92,8 +98,8 @@ const variants = _.mapValues({
   },
   primarySmallOnlyIcon: {
     meta: {
-      title: 'kleiner Primary nur Icon',
-      desc: 'kleiner Primary Button nur mit einem Icon',
+      title: 'Kleiner Primary nur Icon',
+      desc: 'Kleiner Primary Button nur mit einem Icon.',
     },
     props: {
       isSmall: true,
@@ -103,8 +109,8 @@ const variants = _.mapValues({
   },
   secondarySmall: {
     meta: {
-      title: 'kleiner Secondary',
-      desc: 'kleiner Secondary Button nur mit Text',
+      title: 'Kleiner Secondary',
+      desc: 'Kleiner Secondary Button nur mit Text.',
     },
     props: {
       isSmall: true,
@@ -113,8 +119,8 @@ const variants = _.mapValues({
   },
   bigPrimary: {
     meta: {
-      title: 'grosser Primary',
-      desc: 'grosser Primary Button mit Text und Icon',
+      title: 'Grosser Primary',
+      desc: 'Grosser Primary Button mit Text und Icon.',
     },
     props: {
       text: 'Video',
@@ -122,10 +128,112 @@ const variants = _.mapValues({
       isBig: true,
     },
   },
+  tag: {
+    meta: {
+      title: 'Tag-Button normal',
+      desc: 'Normaler Tag Button nur mit Text.',
+    },
+    props: {
+      text: 'Tag Label',
+      isSecondary: true,
+      isSmall: true,
+      isTagButton: true,
+    },
+  },
+  tagActive: {
+    meta: {
+      title: 'Tag-Button normal (aktiv)',
+      desc: 'Normaler Tag Button nur mit Text.',
+    },
+    props: {
+      text: 'Tag Label',
+      isSmall: true,
+      isTagButton: true,
+    },
+  },
+  tagFilter: {
+    meta: {
+      title: 'Tag-Filter-Button',
+      desc: 'Filter Tag Button mit Text und Icon rechts.',
+    },
+    props: {
+      text: 'Tag Filter',
+      isSecondary: true,
+      isSmall: true,
+      isTagButton: true,
+      isTagFilter: true,
+      icon: 'exit',
+    },
+  },
+  tagFilterActive: {
+    meta: {
+      title: 'Tag-Filter-Button (aktiv)',
+      desc: 'Filter Tag Button mit Text und Icon rechts.',
+    },
+    props: {
+      text: 'Tag Filter',
+      isSmall: true,
+      isTagButton: true,
+      isTagFilter: true,
+      icon: 'exit',
+    },
+  },
+  tagTopic: {
+    meta: {
+      title: 'Tag-Topic-Button',
+      desc: 'Topic Tag Button mit Text.',
+    },
+    props: {
+      text: 'Topic Tag',
+      isSmall: true,
+      isTagButton: true,
+      isTopic: true,
+    },
+  },
+  tagEdit: {
+    meta: {
+      title: 'Tag-editieren-Button',
+      desc: 'Topic Tag Button mit Text.',
+    },
+    props: {
+      text: 'Liste edititeren',
+      isSecondary: true,
+      isSmall: true,
+      isTagButton: true,
+      isEdit: true,
+      icon: 'edit',
+    },
+  },
+  tagTopBig: {
+    meta: {
+      title: 'Top Tags (gross)',
+      desc: 'Top-Tags Button mit Text.',
+    },
+    props: {
+      text: 'Topitem',
+      isSecondary: true,
+      isBig: true,
+      isTagButton: true,
+      isTopTag: true,
+    },
+  },
+  tagTopSmall: {
+    meta: {
+      title: 'Top Tags (klein)',
+      desc: 'Top-Tags Button mit Text.',
+    },
+    props: {
+      text: 'Topitem',
+      isSecondary: true,
+      isSmall: true,
+      isTagButton: true,
+      isTopTag: true,
+    },
+  },
   primaryInverted: {
     meta: {
-      title: 'Primary (Inverted)',
-      desc: 'Primary Button ohne Icon',
+      title: 'Primary (invertiert)',
+      desc: 'Primary Button ohne Icon.',
     },
     props: {
       isInverted: true,
@@ -133,8 +241,8 @@ const variants = _.mapValues({
   },
   primaryInvertedWithIcon: {
     meta: {
-      title: 'Primary mit Icon (Inverted)',
-      desc: 'Primary Button mit Icon',
+      title: 'Primary mit Icon (invertiert)',
+      desc: 'Primary Button mit Icon.',
     },
     props: {
       icon: 'edit',
@@ -143,8 +251,8 @@ const variants = _.mapValues({
   },
   primaryInvertedOnlyIcon: {
     meta: {
-      title: 'Primary nur Icon (Inverted)',
-      desc: 'Primary Button nur mit Icon und ohne (sichtbaren) Text',
+      title: 'Primary nur Icon (invertiert)',
+      desc: 'Primary Button nur mit Icon und ohne (sichtbaren) Text.',
     },
     props: {
       isTextVisible: false,
@@ -154,8 +262,8 @@ const variants = _.mapValues({
   },
   secondaryInverted: {
     meta: {
-      title: 'Secondary (Inverted)',
-      desc: 'Secondary Button nur mit Text',
+      title: 'Secondary (invertiert)',
+      desc: 'Secondary Button nur mit Text.',
     },
     props: {
       isSecondary: true,
@@ -164,8 +272,8 @@ const variants = _.mapValues({
   },
   secondaryWithIconInverted: {
     meta: {
-      title: 'Secondary mit Icon (Inverted)',
-      desc: 'Secondary Button mit Icon und Text',
+      title: 'Secondary mit Icon (invertiert)',
+      desc: 'Secondary Button mit Icon und Text.',
     },
     props: {
       isSecondary: true,
@@ -175,8 +283,8 @@ const variants = _.mapValues({
   },
   secondaryWithoutTextInverted: {
     meta: {
-      title: 'Secondary nur Icon (Inverted)',
-      desc: 'Secondary Button nur mit Icon und ohne (sichtbaren) Text',
+      title: 'Secondary nur Icon (invertiert)',
+      desc: 'Secondary Button nur mit Icon und ohne (sichtbaren) Text.',
     },
     props: {
       isTextVisible: false,
@@ -187,8 +295,8 @@ const variants = _.mapValues({
   },
   primarySmallInverted: {
     meta: {
-      title: 'kleiner Primary (Inverted)',
-      desc: 'kleiner Primary Button nur mit Text',
+      title: 'kleiner Primary (invertiert)',
+      desc: 'kleiner Primary Button nur mit Text.',
     },
     props: {
       isSmall: true,
@@ -197,8 +305,8 @@ const variants = _.mapValues({
   },
   primarySmallOnlyIconInverted: {
     meta: {
-      title: 'kleiner Primary nur Icon (Inverted)',
-      desc: 'kleiner Primary Button nur mit einem Icon',
+      title: 'kleiner Primary nur Icon (invertiert)',
+      desc: 'kleiner Primary Button nur mit einem Icon.',
     },
     props: {
       isSmall: true,
@@ -209,13 +317,134 @@ const variants = _.mapValues({
   },
   secondarySmallInverted: {
     meta: {
-      title: 'kleiner Secondary (Inverted)',
-      desc: 'kleiner Secondary Button nur mit Text',
+      title: 'kleiner Secondary (invertiert)',
+      desc: 'kleiner Secondary Button nur mit Text.',
     },
     props: {
       isSmall: true,
       isSecondary: true,
       isInverted: true,
+    },
+  },
+  tagInverted: {
+    meta: {
+      title: 'Tag-Button normal (invertiert)',
+      desc: 'normaler Tag Button nur mit Text.',
+    },
+    props: {
+      text: 'Tag Label',
+      isSecondary: true,
+      isSmall: true,
+      isTagButton: true,
+      isInverted: true,
+    },
+  },
+  tagActiveInverted: {
+    meta: {
+      title: 'Tag-Button normal (aktiv/invertiert)',
+      desc: 'normaler Tag Button nur mit Text.',
+    },
+    props: {
+      text: 'Tag Label',
+      isSmall: true,
+      isTagButton: true,
+      isInverted: true,
+    },
+  },
+  tagFilterInverted: {
+    meta: {
+      title: 'Tag-Filter-Button (invertiert)',
+      desc: 'Filter Tag Button mit Text und Icon rechts.',
+    },
+    props: {
+      text: 'Tag Filter',
+      isSecondary: true,
+      isSmall: true,
+      isTagButton: true,
+      isTagFilter: true,
+      icon: 'exit',
+      isInverted: true,
+    },
+  },
+  tagFilterActiveInverted: {
+    meta: {
+      title: 'Tag-Filter-Button (aktiv/invertiert)',
+      desc: 'Filter Tag Button mit Text und Icon rechts.',
+    },
+    props: {
+      text: 'Tag Filter',
+      isSmall: true,
+      isTagButton: true,
+      isTagFilter: true,
+      icon: 'exit',
+      isInverted: true,
+    },
+  },
+  tagTopicInverted: {
+    meta: {
+      title: 'Tag-Topic-Button (invertiert)',
+      desc: 'Topic Tag Button mit Text.',
+    },
+    props: {
+      text: 'Topic Tag',
+      isSmall: true,
+      isTagButton: true,
+      isTopic: true,
+      isInverted: true,
+    },
+  },
+  tagEditInverted: {
+    meta: {
+      title: 'Tag-editieren-Button (invertiert)',
+      desc: 'Tag-editier-Button mit Text und icon Links.',
+    },
+    props: {
+      text: 'Liste edititeren',
+      isSecondary: true,
+      isSmall: true,
+      isTagButton: true,
+      isEdit: true,
+      isInverted: true,
+      icon: 'edit',
+    },
+  },
+  tagTopBigInverted: {
+    meta: {
+      title: 'Top Tags (gross/invertiert)',
+      desc: 'Top-Tags Button mit Text.',
+    },
+    props: {
+      text: 'Topitem',
+      isSecondary: true,
+      isBig: true,
+      isTagButton: true,
+      isTopTag: true,
+      isInverted: true,
+    },
+  },
+  tagTopSmallInverted: {
+    meta: {
+      title: 'Top Tags (klein/invertiert)',
+      desc: 'Top-Tags Button mit Text.',
+    },
+    props: {
+      text: 'Topitem',
+      isSecondary: true,
+      isSmall: true,
+      isTagButton: true,
+      isTopTag: true,
+      isInverted: true,
+    },
+  },
+  primaryAnchor: {
+    meta: {
+      title: 'Primary Link',
+      desc: 'Link mit Erscheinung des primary Button ohne Icon.',
+    },
+    props: {
+      text: 'Primary Link',
+      isAnchor: true,
+      anchorLink: '#',
     },
   },
 }, (variant) => {

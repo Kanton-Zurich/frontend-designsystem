@@ -1,4 +1,4 @@
-<figure class="mdl-video {{#if isFullwidth}}mdl-video--fullwidth{{/if}}" data-init="video">
+<figure class="mdl-video {{#if isFullwidth}}mdl-video--fullwidth{{/if}} {{#if isHeader}}mdl-video--header{{/if}}" data-init="video">
   {{#if title}}<h{{headingLevel}} class="atm-heading">{{video_title}}</h{{headingLevel}}>{{/if}}
   <div class="mdl-video__wrapper">
   <iframe
@@ -10,7 +10,7 @@
     aria-describedby="mdl-video__{{videoId}}__alt-text"
   ></iframe>
   </div>
-  <figcaption>
+  <figcaption class="mdl-video__caption">
     {{> "atoms/figcaption/figcaption" caption}}
     <span id="mdl-video__{{videoId}}__alt-text" class="visuallyhidden">{{alt}}</span>
   </figcaption>

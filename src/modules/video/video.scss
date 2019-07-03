@@ -17,6 +17,16 @@
     position: relative;
     overflow: hidden;
     padding-top: 56.25%; // stylelint-disable-line -- preserve 16:6 aspect ratio
+    margin-bottom: $sizeTiny;
+  }
+
+  &__caption {
+    display: flex;
+    align-items: flex-start;
+
+    .atm-figcaption {
+      flex-grow: 1;
+    }
   }
 
   &--fullwidth {
@@ -30,6 +40,40 @@
       }
 
       @include gridBleed;
+    }
+  }
+
+  &--header {
+    margin-bottom: 0;
+
+    .mdl-video__wrapper {
+      $maxImageWidth: 1104px;
+      $maxLayoutBreakPointWidth: 1248px;
+
+      max-width: $maxImageWidth;
+      max-height: calc(#{$maxImageWidth} / 1.777);
+
+      @include polyFluidSizing('width', map-get($imageCustomSizes, headerImageWidth));
+      @include polyFluidSizing('height', map-get($imageCustomSizes, headerImageWidthAspect));
+      $breakpointValue: $maxLayoutBreakPointWidth;
+      $sizeValue: $sizeBreakpointLarge;
+      $nextBreakpointValue: $sizeGlobalMaxWidth;
+      $nextSizeValue: $maxImageWidth;
+
+      @media ( min-width: $breakpointValue ) {
+        width: linearInterpolation(($breakpointValue: $sizeValue, $nextBreakpointValue: $nextSizeValue)); //stylelint-disable-line
+        height: linearInterpolation(($breakpointValue: ($sizeValue / 1.777), $nextBreakpointValue: ($nextSizeValue / 1.777))); //stylelint-disable-line
+      }
+
+      @include mq($from: tiny, $to: xsmall) {
+        @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
+      }
+    }
+
+    @include mq($from: tiny, $to: xsmall) {
+      .mdl-video__caption {
+        @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
+      }
     }
   }
 }

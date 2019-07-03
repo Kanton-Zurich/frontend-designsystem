@@ -1,0 +1,37 @@
+$leadFontCurve: (
+  tiny: $sizeFontRegular,
+  large: $sizeFontRegular,
+  xlarge: $sizeFontMedium,
+);
+
+.mdl-related-content {
+  @include polyFluidSizing('margin-top', map-get($sizeCurves, big));
+  @include polyFluidSizing('margin-bottom', map-get($sizeCurves, big));
+
+  &__lead {
+    @include polyFluidSizing('font-size', $leadFontCurve);
+    line-height: $sizeLineHeightBase;
+    padding: $sizeTiny 0 $sizeRegular;
+    margin: 0;
+  }
+
+  .atm-heading {
+    padding-top: $sizeSmallRegular;
+    margin-bottom: $sizeLarge;
+  }
+
+  @include mq($from: large) {
+    .atm-heading {
+      margin-bottom: $sizeBig;
+    }
+  }
+  @include mq($from: xlarge) {
+    .atm-heading {
+      margin-bottom: $sizeBiggerBig;
+    }
+
+    &__lead {
+      padding: $sizeRegular 0 $sizeHuge;
+    }
+  }
+}

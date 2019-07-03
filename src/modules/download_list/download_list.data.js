@@ -6,13 +6,13 @@ const defaultData = require('../../data/default.data.js');
 const downloadLinkItem = {
   linkListItemTitle: 'Dokument',
   linkListItemIsDownload: true,
-  linkListItemLabel: 'PDF | 1 Seite | DE | 100kb',
+  linkListItemLabel: 'PDF | 1 Seite | DE | 2MB',
   linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
 };
 const downloadButtonItem = {
   linkListItemTitle: 'Documents',
   linkListItemIsDownload: true,
-  linkListItemLabel: 'PDF | 1 Seite | DE, FR, IT | 100kb',
+  linkListItemLabel: 'PDF | 1 Seite | DE, FR, IT | 100kB',
   isButton: true,
   linkListItemHref: false,
 };
@@ -27,6 +27,7 @@ const data = _.merge({}, defaultData, {
     className: 'DownloadList',
     jira: 'CZHDEV-172',
     documentation: dataHelper.getDocumentation('download_list.md'),
+    disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue' ],
   },
   props: {
     title: {
@@ -59,8 +60,6 @@ const data = _.merge({}, defaultData, {
     ],
   },
 });
-
-data.colorVariations = []; // no color variations available
 
 const variants = _.mapValues({
   default: {
@@ -112,6 +111,29 @@ const variants = _.mapValues({
         level: 3,
         text: 'Rechtliche Grundlagen',
       },
+      links: [
+        {
+          link: downloadLegalFoundation,
+        },
+        {
+          link: downloadLegalFoundation,
+        },
+        {
+          link: downloadLegalFoundation,
+        },
+        {
+          link: downloadLegalFoundation,
+        },
+      ],
+    },
+  },
+  legalFoundationDownloadListNoTitle: {
+    meta: {
+      title: 'Rechtliche Grundlagen (ohne Titel)',
+      desc: 'Eine Downloadliste mit rechtlichen Grundlagen (kein Titel)',
+    },
+    props: {
+      title: false,
       links: [
         {
           link: downloadLegalFoundation,

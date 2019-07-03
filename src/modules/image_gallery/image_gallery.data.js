@@ -12,14 +12,17 @@ const smallGalleryImage = _.merge({}, defImageFigureData, {
     {
       image: '/assets/media/image/gallery-small_300.jpeg',
       imageWidth: 450,
+      useInGallery: true,
     },
     {
       image: '/assets/media/image/gallery-small_213.jpeg',
       imageWidth: 320,
+      useInGallery: true,
     },
     {
       image: '/assets/media/image/gallery-small_125.jpeg',
       imageWidth: 188,
+      useInGallery: true,
     },
   ],
   hasDownload: true,
@@ -67,14 +70,17 @@ const data = _.merge({}, defaultData, {
         {
           image: '/assets/media/image/gallery-big_640.jpg',
           imageWidth: 960,
+          useInGallery: true,
         },
         {
           image: '/assets/media/image/gallery-big_455.jpeg',
           imageWidth: 682,
+          useInGallery: true,
         },
         {
           image: '/assets/media/image/gallery-big_267.jpeg',
           imageWidth: 400,
+          useInGallery: true,
         },
       ],
       useInCarousel: true,
@@ -117,7 +123,7 @@ const variants = _.mapValues({
     },
   },
 }, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
+  const variantProps = _.mergeWith({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
   const variantData = _.merge({}, data, variant, {
     meta: {

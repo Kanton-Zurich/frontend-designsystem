@@ -28,20 +28,22 @@ const variants = _.mapValues({
   default: {
     meta: {
       title: 'Anleitungsliste',
-      desc: 'Standart Implementation mit einer nummerierten Liste',
+      desc: 'Standard-Implementation mit einer nummerierten Liste',
     },
     props: {
       videoId: 'QHCHVcU3_w4',
+      texthighlightId: _.uniqueId('texthighlight'),
     },
   },
   unordered: {
     meta: {
       title: 'Checkpunktliste',
-      desc: 'Standart Implementation mit einer unnummerierten Liste',
+      desc: 'Standard-Implementation mit einer unnummerierten Liste',
     },
     props: {
       isUnordered: true,
       videoId: 'xk0DEe_syF4',
+      texthighlightId: _.uniqueId('texthighlight'),
     },
   },
 }, (variant) => {

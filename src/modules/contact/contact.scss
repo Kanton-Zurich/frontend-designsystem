@@ -1,0 +1,296 @@
+.mdl-contact {
+  background-color: $colorViolet;
+  color: $colorWhite;
+  padding: pxToRem($sizeLarge) pxToRem($sizeSmallRegular);
+
+  &--fullwidth {
+    @include gridBleed($fullwidth: true);
+    padding: $sizeHuge 0;
+  }
+
+  .atm-heading {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+    line-height: $sizeLineHeightMedium;
+    margin-bottom: pxToRem($sizeLarge);
+
+    &--bordered {
+      &:before {
+        background: $colorWhite;
+      }
+    }
+  }
+
+  h2.atm-heading--bordered {
+    margin-top: 0;
+  }
+
+  &__subtitle {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
+    line-height: $sizeLineHeightMedium;
+    margin-bottom: $sizeRegular;
+    margin-top: 0;
+
+    a {
+      display: inline-block;
+      position: relative;
+      color: inherit;
+      font-size: $sizeFontRegular;
+      font-weight: $fontWeightDefault;
+      line-height: $sizeLineHeightBase;
+      padding-right: pxToRem(27px);
+      margin-bottom: pxToRem($sizeTiny);
+      text-decoration: none;
+
+      svg {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+
+        use {
+          fill: $colorWhite;
+        }
+      }
+    }
+  }
+
+  &__section {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  &__section-cell {
+    position: relative;
+    width: 100%;
+
+    & + .mdl-contact__section-cell {
+      margin-top: pxToRem($sizeRegular);
+    }
+  }
+
+  &__cell-icon {
+    display: inline-flex;
+    width: pxToRem($sizeBig);
+    height: pxToRem($sizeBig);
+    border-radius: 50%;
+    background-color: $colorWhite;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+  }
+
+  &__cell-content {
+    padding-left: calc(#{$sizeSmallRegular} + #{$sizeBiggerBig});
+
+    > *:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  &__address {
+    font-style: normal;
+  }
+
+  &__text {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+    margin-top: pxToRem($sizeTiny);
+    hyphens: auto;
+
+    ul {
+      @include resetList();
+    }
+
+    p,
+    a,
+    h4,
+    ul,
+    li {
+      font-size: inherit;
+      line-height: $sizeLineHeightBigger;
+      margin: 0;
+    }
+
+    p,
+    ul {
+      margin-bottom: pxToRem($sizeTiny);
+    }
+
+    a {
+      color: $colorWhite;
+    }
+  }
+
+  &__address,
+  &__show-route,
+  &__phone,
+  &__mail {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+    font-weight: $fontWeightBlack;
+    line-height: $sizeLineHeightBase;
+  }
+
+  &__show-route {
+    display: inline-block;
+    margin-top: calc((#{$sizeFontRegular} * #{$sizeLineHeightBase}) / 2);
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid $colorWhite;
+  }
+
+  &__phone:not(:first-of-type) {
+    margin-top: pxToRem($sizeTiny);
+  }
+
+  &__phone,
+  &__mail {
+    margin: 0;
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid $colorWhite;
+  }
+
+  &__mail {
+    margin-bottom: pxToRem($sizeTiny);
+  }
+
+  /*
+  * Media Queries SMALL
+  */
+  @include mq($from: small) {
+    padding: pxToRem($sizeLarge) 0;
+
+    &--fullwidth {
+      padding: pxToRem($sizeHuge) 0;
+
+      .mdl-contact__subtitle {
+        margin-bottom: 0;
+      }
+
+      .mdl-contact__cell:last-of-type {
+        padding-top: pxToRem($sizeSmallRegular);
+      }
+
+      .mdl-contact__cell-icon {
+        margin-top: pxToRem($sizeRegular);
+        position: relative;
+        top: auto;
+        left: auto;
+      }
+
+      .mdl-contact__cell-content {
+        margin-top: pxToRem($sizeTiny);
+        padding-left: 0;
+      }
+    }
+
+    .mdl-contact__section-cell {
+      margin-top: 0;
+    }
+
+    &:not(.mdl-contact--fullwidth) {
+      > * {
+        @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
+        @include gridNestedOffset('margin-right', 1, $gridOffsetColumns);
+      }
+    }
+
+    .atm-heading {
+      line-height: $sizeLineHeightNarrow;
+    }
+
+    &__address,
+    &__show-route,
+    &__phone,
+    &__mail {
+      line-height: $sizeLineHeightMedium;
+    }
+
+    &__show-route {
+      margin-top: calc((#{$sizeFontBiggerRegular} * #{$sizeLineHeightMedium}) / 2);
+    }
+
+    &__phone:not(:first-of-type) {
+      margin-top: pxToRem($sizeSmallRegular);
+    }
+
+    &__mail {
+      margin-bottom: pxToRem($sizeSmallRegular);
+    }
+  }
+  /*
+  * Media Queries XLARGE
+  */
+  @include mq($from: xlarge) {
+    padding: pxToRem($sizeBiggerBig) 0;
+
+    &--fullwidth {
+      padding: pxToRem($sizeGiant) 0;
+
+      .mdl-contact__subtitle {
+        margin-bottom: pxToRem($sizeLarge);
+      }
+
+      .mdl-contact__cell-icon {
+        margin-top: 0;
+      }
+    }
+
+    .atm-heading {
+      line-height: $sizeLineHeightNarrower;
+      margin-bottom: pxToRem($sizeBiggerBig);
+    }
+
+    &__subtitle {
+      line-height: $sizeLineHeightNarrow;
+      margin-bottom: pxToRem($sizeLarge);
+
+      br {
+        display: none;
+      }
+
+      a {
+        padding-left: pxToRem(18px);
+      }
+    }
+
+    &__show-route {
+      margin-top: calc((#{$sizeFontMedium} * #{$sizeLineHeightMedium}) / 2);
+    }
+
+    &__mail {
+      margin-bottom: pxToRem($sizeRegular);
+    }
+
+    &__address,
+    &__show-route,
+    &__phone,
+    &__mail {
+      line-height: $sizeLineHeightMedium;
+    }
+  }
+}
+
+/*
+* COLOR-VARIATIONS
+*/
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-contact {
+      background-color: #{$val};
+    }
+
+    .mdl-contact__cell-icon {
+      svg use {
+        fill: #{$val};
+      }
+    }
+  }
+}

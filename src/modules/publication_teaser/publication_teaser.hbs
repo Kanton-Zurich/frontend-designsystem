@@ -1,30 +1,18 @@
 <div class="mdl-publication_teaser" data-init="publicationTeaser">
-	<h3 class="atm-heading">
-    {{publicationTitle}}
-  </h3>
-  <div class="grid-x grid-margin-x">
-    <div class="mdl-publication_teaser__image cell tiny-8 small-6 medium-5 large-6">
-      {{> "modules/image_figure/image_figure"}}
-    </div>
-    <div class="mdl-publication_teaser__content cell tiny-12 medium-6 large-6">
-      {{> "modules/descriptionlist/descriptionlist"}}
-      {{> "atoms/linklist_item/linklist_item"}}
-    </div>
-  </div>
-</div>
-
-
-<div class="mdl-publication_teaser" data-init="publicationTeaser">
   <h3 class="atm-heading">
     {{publicationTitle}}
   </h3>
   <div class="grid-x grid-margin-x">
     <div class="mdl-publication_teaser__image cell tiny-8 small-6 medium-5 large-6">
-      {{> "modules/image_figure/image_figure"}}
+      {{> "modules/image_figure/image_figure" imageFigure}}
     </div>
     <div class="mdl-publication_teaser__content cell tiny-12 medium-6 large-6">
-      {{> "modules/descriptionlist/descriptionlist"}}
-      {{> "atoms/linklist_item/linklist_item"}}
+      {{> "modules/descriptionlist/descriptionlist" descriptionList}}
+      <div>
+        {{> "atoms/linklist_item/linklist_item" linkListItem}}
+        {{> "modules/context_menu/context_menu" contextMenu}}
+      </div>
     </div>
   </div>
 </div>
+

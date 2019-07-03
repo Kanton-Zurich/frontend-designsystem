@@ -1,0 +1,99 @@
+.atm-content_teaser {
+  display: block;
+
+  padding: pxToRem($sizeRegular) 0;
+  box-sizing: border-box;
+  flex-basis: 100%;
+
+  line-height: $sizeLineHeightBase;
+  position: relative;
+  cursor: pointer;
+  color: $colorBlack60;
+  text-decoration: none;
+
+  &:after {
+    content: '';
+    display: block;
+
+    @include transition(all);
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 1px;
+    background-color: $colorBlack20;
+    transform: scaleY(1);
+  }
+
+  &:hover {
+    color: $colorBlack100;
+
+    &:after {
+      background-color: $colorBlack100;
+      transform: scaleY(3);
+    }
+  }
+
+  &__title {
+    font-weight: $fontWeightBlack;
+  }
+
+  &__content {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    // 4.2 because of line height 1.4 multiply with max 3 lines (1.4 * 3)
+    @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 4.2));
+
+    overflow-y: hidden;
+    display: block;
+
+    @include mq($to: medium) {
+      // 2.8 because of line height 1.4 multiplied with max 2 lines (1.4 * 2)
+      @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 2.8));
+    }
+  }
+
+  /** Promotopic variation */
+  &--promo {
+    @include sizeCurve(padding-left padding-right, regular);
+
+    .atm-content_teaser__content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .atm-content_teaser__content,
+    .atm-content_teaser__content:hover {
+      color: $colorWhite;
+    }
+
+    &:after {
+      display: none;
+    }
+  }
+}
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .atm-content_teaser:not(.atm-content_teaser--promo) {
+      .atm-content_teaser__title {
+        color: $val;
+      }
+
+      &:hover {
+        .atm-content_teaser__title {
+          color: $colorBlack100;
+        }
+      }
+    }
+
+    .atm-content_teaser--promo {
+      background: $val;
+
+      .atm-content_teaser__title {
+        color: $colorWhite;
+      }
+    }
+  }
+}

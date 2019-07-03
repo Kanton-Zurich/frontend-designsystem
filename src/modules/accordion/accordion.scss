@@ -1,11 +1,15 @@
+$accordionMap: (
+  controlMargin: (
+    tiny: 12px,
+    small: 14.5px,
+    large: 17px,
+  )
+);
+
 .mdl-accordion {
-  @include sizeCurve(margin-bottom, big);
+  @include sizeCurve(padding-bottom, big);
 
-  &__control {
-    margin: 0;
-  }
-
-  .atm-heading {
+  .atm-heading--bordered { // CZHDEV-428
     @include sizeCurve(margin-bottom, medium);
   }
 
@@ -16,10 +20,6 @@
     cursor: pointer;
 
     @include sizeCurve(padding-top padding-bottom, small);
-  }
-
-  &__input:focus + &__label {
-    outline: 2px solid $colorCyan;
   }
 
   &__item {
@@ -40,9 +40,8 @@
       @include transition(background transform);
     }
 
-    &--open,
-    &:hover {
-      .mdl-accordion__item-title {
+    @include hover() {
+      .mdl-accordion__control {
         color: $colorBlack100;
       }
 
@@ -60,13 +59,18 @@
         @include transition(max-height);
       }
 
-      .mdl-accordion__item-title {
+      .mdl-accordion__control {
         max-height: none;
         white-space: normal;
+        color: $colorBlack100;
+      }
+
+      .mdl-accordion__plus use {
+        fill: $colorBlack100;
       }
     }
 
-    &:hover:not(.mdl-accordion__item--open) {
+    @include hover('.mdl-accordion__item--open') {
       &:after {
         transform: scaleY(3);
         background: $colorBlack100;
@@ -74,11 +78,21 @@
     }
   }
 
-  &__item-title {
+  &__button {
+    display: flex;
+    width: 100%;
+
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__header {
+    margin: 0;
+  }
+
+  &__control {
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
     @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 1.5));
-
-    display: block;
 
     letter-spacing: -0.3px;
     flex-grow: 1;
@@ -87,14 +101,19 @@
     width: calc(100% - 24px);
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-weight: $fontWeightBlack;
+    line-height: $sizeLineHeightMedium;
+    margin: 0;
+    display: block;
 
+    @include sizeCurve(margin-top margin-bottom, controlMargin, $accordionMap);
     @include transition(color);
   }
 
 
   &__plus {
-    margin-top: 1px;
     overflow: hidden;
+    margin-right: 2px;
 
     use {
       fill: $colorBlack60;
@@ -118,12 +137,51 @@
   }
 
   &__panel-content {
+    p {
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+
+      color: $colorBlack60;
+    }
+
     > :last-child {
       @include sizeCurve(margin-bottom, medium);
     }
 
     > p:last-child {
       @include sizeCurve(margin-bottom, regular);
+    }
+  }
+
+  /** Inverted style */
+  &--cv-inverted {
+    @include gridBleed($fullwidth: true);
+    @include sizeCurve(padding-top, big);
+
+    background: $colorBlack5;
+
+    h2.atm-heading.atm-heading--bordered,
+    h3.atm-heading.atm-heading--bordered,
+    h4.atm-heading.atm-heading--bordered,
+    h2.atm-heading,
+    h3.atm-heading,
+    h4.atm-heading {
+      color: $colorBlack;
+
+      &:before {
+        background: $colorBlack;
+      }
+    }
+
+    h2.atm-heading--bordered {
+      margin-top: 0;
+    }
+  }
+}
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-accordion--cv-inverted .mdl-table .atm-text_link {
+      color: $val;
     }
   }
 }

@@ -6,7 +6,7 @@ $imageGalleryPaddingCurve: (
 );
 
 .mdl-image_gallery {
-  @include gridBleed;
+  @include gridBleed($fullwidth: true);
   @include sizeCurve(padding-top padding-bottom, default, $imageGalleryPaddingCurve);
 
   background: $colorBlack80;
@@ -14,6 +14,10 @@ $imageGalleryPaddingCurve: (
 
   h2.mdl-image_gallery__title {
     @include sizeCurve(margin-bottom, medium);
+  }
+
+  h2.atm-heading--bordered {
+    margin-top: 0;
   }
 
   &__images {

@@ -1,14 +1,8 @@
 .mdl-table {
   @include sizeCurve(margin-bottom, medium);
 
-  &__title {
+  &__title.atm-heading {
     margin-bottom: $sizeTiny;
-  }
-
-  &__subtitle {
-    margin-top: -$sizeTiny;
-    margin-bottom: $sizeTiny;
-    color: rgba($colorBlack, 0.6);
   }
 
   &__figure {
@@ -112,11 +106,24 @@
     font-size: $sizeFontTiny;
     font-weight: $fontWeightBlack;
     vertical-align: bottom;
+    hyphens: manual;
 
     &--sortable {
       color: $colorCyan;
       position: relative;
       padding-right: 1.25rem;
+
+      .mdl-table--align-right & {
+        padding-right: 1rem;
+      }
+
+      &:first-child {
+        > button {
+          .mdl-table--align-right & {
+            justify-content: flex-start;
+          }
+        }
+      }
 
       > button {
         @include blankButton();
@@ -144,6 +151,10 @@
             transform: rotate(180deg);
           }
         }
+
+        .mdl-table--align-right & {
+          justify-content: flex-end;
+        }
       }
     }
   }
@@ -162,14 +173,16 @@
   }
 
   &__cell.mdl-table__row-header,
-  &__row--highlighted &__cell {
+  &__cell--highlighted.mdl-table__cell {
     color: rgba($colorBlack, 1);
-    font-weight: 900;
+    font-weight: $fontWeightBlack;
   }
 
   &__cell {
     padding: $sizeRegular $sizeRegular $sizeTiny;
-    font-weight: 400;
+    font-weight: $fontWeightDefault;
+    vertical-align: top;
+    hyphens: auto;
   }
 
   &__body &__row:nth-child(odd) &__cell {
@@ -185,15 +198,94 @@
     text-align: right;
   }
 
+  &--align-right {
+    .mdl-table__column-header--sortable {
+      > button {
+        text-align: right;
+      }
+
+      .icon {
+        order: -1;
+      }
+
+      &:first-child {
+        > button {
+          text-align: left;
+        }
+
+        .icon {
+          order: 2;
+        }
+      }
+    }
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    list-style: none;
+    padding-left: $sizeLarge;
+    hyphens: auto;
+
+    li {
+      margin-bottom: $sizeTiny;
+      position: relative;
+
+      &:before {
+        position: absolute;
+        margin-left: -$sizeLarge;
+      }
+
+      ul li:first-child {
+        padding-top: $sizeTiny;
+      }
+    }
+  }
+
+  ul {
+    li {
+      &:before {
+        content: '\2013';
+      }
+    }
+  }
+
+  ol {
+    counter-reset: ol-counter;
+    padding-left: $sizeBig;
+
+    li {
+      counter-increment: ol-counter;
+      position: relative;
+
+      &:before {
+        content: '0' counter(ol-counter);
+        font-weight: $fontWeightBlack;
+        color: $colorBlack;
+        margin-left: -$sizeBig;
+      }
+    }
+  }
+
   /**
    * Inverted
    */
+
   &--inverted {
+    @include gridBleed;
+  }
+
+  &--inverted,
+  [ class*='--inverted' ] & {
+    @include sizeCurve(padding-top padding-bottom, big);
+
+    background: $colorBlack5;
+
     .mdl-table__figure {
       background: $colorBlack5;
     }
 
-    .mdl-table__row:nth-child(odd) .mdl-table__cell {
+    tbody .mdl-table__row:nth-child(odd) .mdl-table__cell {
       background: $colorWhite;
     }
 
@@ -225,7 +317,11 @@
  */
 @each $key, $val in $tl-color-variations {
   .#{$key} {
-    .mdl-table__row--highlighted .mdl-table__cell {
+    .mdl-table__cell--highlighted {
+      color: #{$val};
+    }
+
+    .mdl-table ol li:before {
       color: #{$val};
     }
   }

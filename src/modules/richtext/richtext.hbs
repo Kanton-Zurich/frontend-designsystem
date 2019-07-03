@@ -1,10 +1,8 @@
-<div class="mdl-richtext{{#if isInverted}} mdl-richtext--cv-inverted{{/if}}">
+<div class="mdl-richtext">
   <h1 class="atm-heading">
     {{h1Text}}
   </h1>
-  <p class="mdl-richtext__lead">
-    <strong>{{leadText}}</strong>
-  </p>
+  {{> "atoms/lead/lead"}}
   <h2 class="atm-heading">
     {{h2Text}}
   </h2>
@@ -44,10 +42,10 @@
   <p>
     {{pText2}}
   </p>
-  <ul class="mdl-richtext__benefits" aria-label="Vorteile">
-    <li>{{benefitItem}}</li>
-    <li>{{benefitItem}}</li>
-    <li>{{benefitItem}}</li>
+  <ul class="mdl-richtext__benefits">
+    <li><span class="visuallyhidden">Vorteil:</span> {{benefitItem}}</li>
+    <li><span class="visuallyhidden">Vorteil:</span> {{benefitItem}}</li>
+    <li><span class="visuallyhidden">Vorteil:</span> {{benefitItem}}</li>
   </ul>
   <p>
     {{pText2}}
@@ -62,4 +60,7 @@
     <li>{{benefitItem}}</li>
     <li>{{benefitItem}}</li>
   </ol>
+  <p>
+    Bei Fragen wenden Sie sich in elektronischer Form an <a href="mailto:info@zh.ch" class="at-text_link">info@zh.ch</a>
+  </p>
 </div>

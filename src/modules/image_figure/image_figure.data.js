@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const { handlebars } = require('@unic/estatico-handlebars');
+const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const defFigcaptionData = require('../../atoms/figcaption/figcaption.data').props;
@@ -29,6 +29,7 @@ const data = _.merge({}, defaultData, {
     isWide: false,
     hasDownload: false,
     useInCarousel: false,
+    useInGallery: false,
   },
 });
 
@@ -47,7 +48,7 @@ const variants = _.mapValues({
       desc: 'Ein Inhaltsbild, welches über die volle Breite geht (Verhältnis 16:9)',
     },
     props: {
-      srcsets: [ {
+      srcsets: [{
         image: '/assets/media/image/fullwidth_16_9_1440_x15.jpeg',
         imageWidth: 2160,
       },
@@ -68,7 +69,7 @@ const variants = _.mapValues({
       desc: 'Ein Inhaltsbild, welches über die volle Breite geht (Verhältnis 21:9)',
     },
     props: {
-      srcsets: [ {
+      srcsets: [{
         image: '/assets/media/image/fullwidth_21_9_1440_x15.jpeg',
         imageWidth: 2160,
       },
@@ -89,7 +90,7 @@ const variants = _.mapValues({
       desc: 'Ein Inhaltsbild, welches "klein" dargestellt wird',
     },
     props: {
-      srcsets: [ {
+      srcsets: [{
         image: '/assets/media/image/small_368_x15.jpeg',
         imageWidth: 552,
       },
@@ -107,6 +108,49 @@ const variants = _.mapValues({
     },
     props: {
       hasDownload: true,
+    },
+  },
+  header: {
+    meta: {
+      title: 'Headerbild',
+      desc: 'Ein HeaderBild',
+    },
+    props: {
+      srcsets: [{
+        image: '/assets/media/image/header_1440_x15.jpg',
+        imageWidth: 1656,
+      },
+      {
+        image: '/assets/media/image/header_1024_x15.jpg',
+        imageWidth: 1218,
+      },
+      {
+        image: '/assets/media/image/header_600_x15.jpg',
+        imageWidth: 720,
+      }],
+      isHeader: true,
+    },
+  },
+  headerNoTitle: {
+    meta: {
+      title: 'Headerbild Ohne titel',
+      desc: 'Ein HeaderBild ohne title',
+    },
+    props: {
+      srcsets: [{
+        image: '/assets/media/image/header_1440_x15.jpg',
+        imageWidth: 1656,
+      },
+      {
+        image: '/assets/media/image/header_1024_x15.jpg',
+        imageWidth: 1218,
+      },
+      {
+        image: '/assets/media/image/header_600_x15.jpg',
+        imageWidth: 720,
+      }],
+      isHeader: true,
+      noTitle: true,
     },
   },
 }, (variant) => {
@@ -128,7 +172,7 @@ const variants = _.mapValues({
         data: dataHelper.getFormattedJson(variantProps),
       },
     },
-  // eslint-disable-next-line consistent-return
+    // eslint-disable-next-line consistent-return
   }, (dataValue, variantValue, key) => {
     if (key === 'srcsets') {
       return variantValue;

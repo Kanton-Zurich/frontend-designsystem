@@ -1,0 +1,75 @@
+<div class="mdl-page-header {{#if hasImage}}mdl-page-header--headerimage{{/if}} {{#if inverted}}mdl-page-header--inverted{{/if}} {{#if hasImageTitle}}mdl-page-header--image-title{{/if}}">
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+      <div class="mdl-page-header__logo-container cell tiny-2 xsmall-2 small-2 medium-2 large-2 xlarge-2">
+        <span class="visuallyhidden">Logo des Kantons Zürich</span>
+        {{#if inverted}}
+          <svg viewBox="0 0 100 100" class="mdl-page-header__logo">
+            <use xlink:href="#ktzh_inverted"></use>
+          </svg>
+        {{else}}
+          <svg viewBox="0 0 100 100" class="mdl-page-header__logo">
+            <use xlink:href="#ktzh"></use>
+          </svg>
+        {{/if}}
+      </div>
+      <div class="cell tiny-10 xsmall-10 small-10 medium-10 large-10 xlarge-10">
+        <div class="mdl-page-header__breadcrumb">
+          {{#if hasBacklink}}
+            {{> "modules/breadcrumb/breadcrumb" backlink}}
+          {{/if}}
+          {{#if hasBreadcrumb}}
+            {{> "modules/breadcrumb/breadcrumb" breadcrumb}}
+          {{/if}}
+        </div>
+        <h1 class="atm-heading">{{pageTitle}}</h1>
+        {{#if hasAnchors}}
+          <div class="mdl-tag-group">
+            <h2 class="atm-heading">Meist gesucht</h2>
+            <ul class="mdl-tag-group__tags">
+              {{#each anchorLinks}}
+                <li>
+                  {{> "atoms/anchorlink/anchorlink" this}}
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+    <div class="grid-x grid-margin-x">
+      <div
+        class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
+        {{#unless hasImage}}
+          {{> "atoms/lead/lead"}}
+          {{#unless hasAnchors }}
+            {{#unless noButton}}
+            {{> "atoms/button/button" buttonData}}
+            {{/unless}}
+          {{/unless}}
+        {{/unless}}
+        {{#if hasImage}}{{#unless hasVideo}}{{> "modules/image_figure/image_figure" imageData}}{{/unless}}{{/if}}
+        {{#if hasVideo}}{{> "modules/video/video" videoData}}{{/if}}
+      </div>
+    </div>
+  </div>
+
+  {{#if hasImage}}
+  <div class="mdl-page-header__subsection">
+    <div class="lyt-wrapper">
+      <div class="grid-x grid-margin-x">
+        <div
+          class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
+    {{#unless noSubsection}}
+          {{> "atoms/lead/lead"}}
+          {{#unless noButton}}
+          {{> "atoms/button/button" buttonData}}
+          {{/unless}}
+    {{/unless}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+
+</div>

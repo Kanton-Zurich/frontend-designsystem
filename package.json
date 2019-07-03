@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run build",
     "jest": "jest",
-    "ts-jest": "ts-jest",
+    "ts-jest": "npm run gulp js:test",
     "gulp": "gulp",
     "build": "gulp build --ci",
     "start": "gulp --dev --watch",

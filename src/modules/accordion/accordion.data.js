@@ -7,6 +7,12 @@ const defaultImageData = require('../image_figure/image_figure.data');
 const defaultRichtextData = require('../richtext/richtext.data');
 const defaultVideoData = require('../video/video.data');
 
+// Module für Weiterführende Informationen
+const downloadListData = require('../download_list/download_list.data');
+const linklistData = require('../linklist/linklist.data');
+const tableData = require('../table/table.data');
+const publicationTeaserData = require('../publication_teaser/publication_teaser.data');
+
 const template = dataHelper.getFileContent('accordion.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -16,8 +22,11 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('accordion.md'),
   },
   props: {
-    headingLevel: 2,
-    title: 'Accordion',
+    isInverted: false,
+    accordionHeading: {
+      level: 2,
+      title: 'Accordion',
+    },
     items: [
       {
         title: 'Kurzer Accordiontitel',
@@ -68,8 +77,84 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
+  furtherInformation: {
+    meta: {
+      title: 'Weiterführende Informationen',
+      desc: 'Das Accordion in der Variante "Weiterführende Informationen"',
+    },
+    props: {
+      isInverted: true,
+      accordionHeading: {
+        level: 2,
+        title: 'Weiterführende Informationen',
+      },
+      items: [
+        {
+          title: 'Merkblätter & Downloads',
+          techName: 'wi_item_1',
+          children: [
+            {
+              partial: downloadListData.variants.defaultWithoutTitle.meta.demo(),
+            },
+          ],
+        },
+        {
+          title: 'Weiterführende Links',
+          techname: 'wi_item_2',
+          children: [
+            {
+              partial: linklistData.variants.noTitle.meta.demo(),
+            },
+          ],
+        },
+        {
+          title: 'Rechtliche Grundlagen',
+          techName: 'wi_item_3',
+          children: [
+            {
+              partial: downloadListData.variants.legalFoundationDownloadListNoTitle.meta.demo(),
+            },
+          ],
+        },
+        {
+          title: 'Daten & Statistiken',
+          techName: 'wi_item_4',
+          children: [
+            {
+              text: 'Das ist ein Beispieltext für die Komponente "Weiterführende Informationen".',
+            },
+            {
+              partial: defaultImageData.variants.default.meta.demo,
+            },
+            {
+              partial: tableData.variants.default.meta.demo,
+            },
+            {
+              partial: publicationTeaserData.variants.default.meta.demo,
+            },
+          ],
+        },
+      ],
+    },
+  },
+  h4: {
+    meta: {
+      title: 'Accordion mit H4-Titel',
+      desc: 'Ein Standard-Accordion mit einem h4 als Titel',
+    },
+    props: {
+      accordionHeading: {
+        level: 4,
+      },
+    },
+  },
 }, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
+  // eslint-disable-next-line consistent-return
+  const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
+    if (key === 'items' || key === 'children') {
+      return variantValue;
+    }
+  }).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
   const variantData = _.merge({}, data, variant, {
     meta: {

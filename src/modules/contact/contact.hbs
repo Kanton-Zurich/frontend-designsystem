@@ -1,0 +1,135 @@
+<div class="mdl-contact{{#if fullWidth}} mdl-contact--fullwidth{{/if}}" data-init="contact">
+  {{#if fullWidth}}
+  <div class="lyt-wrapper">
+  <div class="grid-x grid-margin-x">
+  <div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10">
+  {{/if}}
+
+  {{#if contactTitle}}
+    <h2 class="atm-heading atm-heading--bordered">{{contactTitle}}</h2>
+  {{/if}}
+
+  {{#if contactSubtitle}}
+    <h3 class="mdl-contact__subtitle">
+      {{contactSubtitle}}
+      {{#if contactSubtitleMoreInfo}}
+        <br>
+        <a href="{{contactSubtitleMoreInfo.href}}">
+          {{contactSubtitleMoreInfo.label}}
+          <svg class="icon">
+            <use xlink:href="#arrow-right"></use>
+          </svg>
+        </a>
+      {{/if}}
+    </h3>
+  {{/if}}
+
+  <div class="mdl-contact__section grid-x{{#if fullWidth}} grid-margin-x{{/if}}">
+
+    {{#if contactAddress}}
+      <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-6 xlarge-4{{else}}{{/if}}">
+        <div class="mdl-contact__cell-icon">
+          <h3 class="visuallyhidden">{{{contactAriaTitle_location}}}</h3>
+          <svg class="icon mdl-contact__icon-location" aria-hidden="true">
+            <use xlink:href="#location"></use>
+          </svg>
+        </div>
+        <div class="mdl-contact__cell-content">
+          <address class="mdl-contact__address">
+            {{contactAddress.name}}{{#if contactAddress.name}}<br>{{/if}}
+            {{contactAddress.street}}<br>
+            {{contactAddress.zip}} {{contactAddress.city}}<br>
+            {{#if contactAddress.routeLinkHref}}
+              <a target="_blank"
+                 href="{{contactAddress.routeLinkHref}}"
+                 class="mdl-contact__show-route">{{contactAddress.routeLinkLabel}}
+              </a>
+            {{/if}}
+          </address>
+
+          <div class="mdl-contact__text">
+            <p>
+              {{contactAddress.additionalInfo}}
+            </p>
+
+            {{#each contactAddress.openingTimes}}
+              {{#if this.timeTitle}}
+                <h4>{{this.timeTitle}}</h4>
+              {{/if}}
+              <ul>
+                {{#each this.times}}
+                  <li>{{this.text}}</li>
+                {{/each}}
+              </ul>
+            {{/each}}
+          </div>
+
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if contactPhone}}
+      <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-6 xlarge-4{{/if}}">
+        <div class="mdl-contact__cell-icon">
+          <h3 class="visuallyhidden">{{{contactAriaTitle_phone}}}</h3>
+          <svg class="icon mdl-contact__icon-phone" aria-hidden="true">
+            <use xlink:href="#phone-call"></use>
+          </svg>
+        </div>
+        <div class="mdl-contact__cell-content">
+          {{#each contactPhone}}
+            <a class="mdl-contact__phone" href="tel:{{this.phoneNumer}}">{{this.anchorLabel}}</a>
+
+            <div class="mdl-contact__text">
+              <p>
+                {{this.additionalInfo}}
+              </p>
+              <p>
+                {{this.additionalInfoSpaced}}
+              </p>
+              {{#if this.openingTimes}}
+                {{#each this.openingTimes}}
+                  {{#if this.timeTitle}}
+                    <h4>{{this.timeTitle}}</h4>
+                  {{/if}}
+                  <ul>
+                    {{#each this.times}}
+                      <li>{{this.text}}</li>
+                    {{/each}}
+                  </ul>
+                {{/each}}
+              {{/if}}
+            </div>
+          {{/each}}
+
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if contactMail}}
+      <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-6 xlarge-4{{/if}}">
+        <div class="mdl-contact__cell-icon">
+          <h3 class="visuallyhidden">{{{contactAriaTitle_email}}}</h3>
+          <svg class="icon mdl-contact__icon-email" aria-hidden="true">
+            <use xlink:href="#email"></use>
+          </svg>
+        </div>
+        <div class="mdl-contact__cell-content">
+          <a class="mdl-contact__mail" href="mailto:{{contactMail.address}}">{{contactMail.address}}</a><br>
+          <div class="mdl-contact__text">
+            <p>
+              {{contactMail.additionalInfo}}
+            </p>
+          </div>
+        </div>
+      </div>
+    {{/if}}
+
+  </div>
+
+  {{#if fullWidth}}
+  </div>
+  </div>
+  </div>
+  {{/if}}
+</div>

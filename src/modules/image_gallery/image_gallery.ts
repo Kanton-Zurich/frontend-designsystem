@@ -25,6 +25,7 @@ class ImageGallery extends Module {
     carousel: Element,
     gallery: HTMLElement,
     more: HTMLElement,
+    openCarousel: NodeListOf<HTMLElement>;
   }
 
   public data: {
@@ -54,8 +55,6 @@ class ImageGallery extends Module {
     this.initWatchers();
 
     this.setIndexNumbers();
-
-    (<any>window).estatico.lineClamper.initLineClamping();
   }
 
   /**
@@ -95,16 +94,12 @@ class ImageGallery extends Module {
           this.ui.carousel.dispatchEvent(new (<any>CustomEvent)('ImageGallery.open', {
             detail: parseInt(target.getAttribute('data-gallery-index'), 10),
           }));
-
-          (<any>window).estatico.helpers
-            .setHiddenTabIndex(this.ui.gallery.querySelectorAll(INTERACTION_ELEMENTS_QUERY));
         }
       })
-      .on('Carousel.close', () => {
+      .on('Carousel.close', (e) => {
         this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
 
-        (<any>window).estatico.helpers
-          .resetHiddenTabIndex(this.ui.gallery.querySelectorAll(INTERACTION_ELEMENTS_QUERY));
+        this.ui.openCarousel[e.detail - 1].focus();
       });
   }
 

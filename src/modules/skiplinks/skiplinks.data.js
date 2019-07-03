@@ -12,8 +12,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('skiplinks.md'),
   },
   props: {
-    title: 'Sprunglinks',
-    links: [
+    skiplinks: [
       {
         href: '/',
         accesskey: 0,
@@ -27,11 +26,15 @@ const data = _.merge({}, defaultData, {
         accesskey: 2,
         label: 'Inhalt',
       }, {
-        href: '/kontakt.html',
+        href: '#contact',
         accesskey: 3,
         label: 'Kontakt',
       }, {
-        href: '/suche.html',
+        href: '#toc',
+        accesskey: 4,
+        label: 'Inhaltsverzeichnis',
+      }, {
+        href: '#search',
         accesskey: 5,
         label: 'Suche',
       }, {

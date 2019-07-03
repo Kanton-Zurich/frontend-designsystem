@@ -8,7 +8,6 @@
   <script src="{{meta.aemPath}}/js/head.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.js"></script>
 </head>
 <!-- color variations
-  cv-default
   cv-blue
   cv-darkblue
   cv-turqoise
@@ -16,8 +15,9 @@
   cv-magenta
   cv-violet
   cv-green
+  cv-monochrome
 -->
-<body class="cv-default" {{#if props.svgSprites}} data-svgsprites-options='[&quot;{{meta.aemPath}}/media/svgsprite/base.svg&quot;]'{{/if}}
+<body class="cv-blue" {{#if props.svgSprites}} data-svgsprites-options='[&quot;{{meta.aemPath}}/media/svgsprite/base.svg&quot;]'{{/if}}
                                data-fonts='{{meta.aemPath}}/css/fonts.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.css'
                                data-style-main='{{meta.aemPath}}/css/main.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.css'
                                data-script-main='{{meta.aemPath}}/js/main.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.js'>

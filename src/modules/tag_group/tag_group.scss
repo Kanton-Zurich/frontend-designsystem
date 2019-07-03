@@ -1,0 +1,108 @@
+.mdl-tag-group {
+  $tagGroupSizeMaps: (
+    containerTopPadding: (
+      tiny: $sizeBiggerBig,
+      medium: $sizeBiggerBig,
+      large: $sizeHuge
+    ),
+    containerBottomPadding: (
+      tiny: $sizeLarge,
+      medium: $sizeLarge,
+      large: $sizeBig,
+      xlarge: $sizeBiggerBig
+    ),
+    headingBottomMargin: (
+      tiny: $sizeTiny,
+      medium: $sizeTiny,
+      large: $sizeSmallRegular
+    ),
+    tagsBottomMargin: (
+      tiny: $sizeSmallRegular,
+      large: $sizeRegular,
+      xlarge: $sizeSmallLarge,
+    ),
+  );
+
+  &--wrapped {
+    background-color: $colorBordeaux;
+
+    @include gridBleed($fullwidth: true, $trailingGutters: true);
+    @include sizeCurve('padding-top', containerTopPadding, $tagGroupSizeMaps);
+    @include sizeCurve('padding-bottom', containerBottomPadding, $tagGroupSizeMaps);
+
+    .lyt-wrapper {
+      margin: 0;
+      max-width: 100%;
+    }
+
+    @include mq($from: xsmall) {
+      padding-left: $sizeRegular;
+      padding-right: $sizeRegular;
+    }
+    @include mq($from: small) {
+      padding-left: 0;
+      padding-right: 0;
+
+      .lyt-wrapper {
+        margin: 0 auto;
+        max-width: calc(100% - 4rem);
+      }
+    }
+    @include mq($from: large) {
+      @include gridBleed($fullwidth: true);
+
+      .lyt-wrapper {
+        max-width: calc(100% - 5rem);
+      }
+    }
+  }
+
+  h2 {
+    color: $colorWhite;
+    font-size: $sizeFontTiny;
+    padding-top: 0;
+    line-height: $sizeLineHeightBase;
+
+    @include sizeCurve('margin-bottom', headingBottomMargin, $tagGroupSizeMaps);
+  }
+
+  &__tags {
+    margin-left: calc(-#{$sizeTiny} / 2);
+    margin-right: calc(-#{$sizeTiny} / 2);
+
+    @include sizeCurve(margin-bottom, tagsBottomMargin, $tagGroupSizeMaps);
+
+    padding: 0;
+    list-style-type: none;
+    font-size: 0;
+    max-width: 100%;
+
+    li {
+      display: inline-block;
+      margin-right: 2px;
+      max-width: 100%;
+    }
+  }
+
+  a {
+    margin-bottom: calc(#{$sizeTiny} / 2);
+  }
+
+  @include mq($from: small) {
+    &__tags {
+      margin-left: - #{$sizeSmallRegular};
+      margin-right: - #{$sizeSmallRegular};
+    }
+  }
+}
+
+/*
+* COLOR-VARIATIONS
+*/
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-tag-group--wrapped {
+      background-color: #{$val};
+    }
+  }
+}

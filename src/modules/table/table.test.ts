@@ -26,12 +26,12 @@ describe('Table', () => {
 
   it('should be ordered without a problem', async () => {
     const orderedTableResult = await page.evaluate(() => {
-      (<HTMLElement>document.querySelector('input#variants9')).click();
+      (<HTMLElement>document.querySelector('input#variants10')).click();
 
-      const panel = document.querySelector('#panel9');
+      const panel = document.querySelector('#panel10');
       const table = panel.querySelector('.mdl-table__table');
       const testingColumn = table.querySelectorAll('[data-table="sortable"]')[1];
-      const rowheaders = table.querySelectorAll('[role="rowheader"]');
+      const rowheaders = table.querySelectorAll('.mdl-table__row-header');
 
       const arrayAscending = [];
       const arrayDescending = [];
