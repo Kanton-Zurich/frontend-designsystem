@@ -36,7 +36,7 @@ const variants = _.mapValues({
       + 'no sea takimata sanctus est Lorem ipsum dolor sit amet.',
       topiclistButtonLabel: 'Alle anzeigen',
       topiclistInputPlaceholder: '',
-      contentNavData: _.merge(contentNavDataDef, {
+      topiclistcontentNavData: _.merge({}, contentNavDataDef, {
         items: [
           _.merge({}, contentTeaserDataWithoutBuzzwords, {
             shortTitle: 'Führerausweis',
