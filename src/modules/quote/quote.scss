@@ -29,6 +29,7 @@
     line-height: 1.3em;
     color: $colorBlack;
     margin-bottom: 0;
+    hyphens: auto;
 
     @include sizeCurve('margin-bottom', mini);
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
