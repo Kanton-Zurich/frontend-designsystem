@@ -48,7 +48,6 @@ $leadFontCurve: (
   @include mq($from: large) {
     padding: $sizeGiant 0;
   }
-
   @include mq($from: xlarge) {
     &__lead {
       padding: $sizeRegular 0 $sizeHuge;

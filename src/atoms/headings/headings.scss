@@ -2,7 +2,11 @@ $headingCurves: (
   borderedTopPadding: (
     tiny: $sizeSmallRegular,
     large: $sizeRegular,
-  )
+  ),
+  borderedTopMargin: (
+    tiny: $sizeHuge,
+    large: $sizeGiant,
+  ),
 );
 
 .atm-heading {
@@ -63,6 +67,7 @@ h2,
 
     &.atm-heading--bordered {
       @include sizeCurve(padding-top, borderedTopPadding, $headingCurves);
+      @include sizeCurve(margin-top, borderedTopMargin, $headingCurves);
     }
   }
 }
