@@ -19,6 +19,7 @@ import Teaser from '../../../modules/teaser/teaser';
 import PublicationTeaser from '../../../modules/publication_teaser/publication_teaser';
 import Breadcrumb from '../../../modules/breadcrumb/breadcrumb';
 import BiometrieAppointment from '../../../modules/biometrie_appointment/biometrie_appointment';
+import Topiclist from '../../../modules/topiclist/topiclist';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -42,6 +43,7 @@ class App {
     this.modules.publicationTeaser = PublicationTeaser;
     this.modules.breadcrumb = Breadcrumb;
     this.modules.biometrieAppointment = BiometrieAppointment;
+    this.modules.topiclist = Topiclist;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

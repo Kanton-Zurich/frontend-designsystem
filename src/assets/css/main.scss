@@ -35,6 +35,7 @@
 @import '../../atoms/lead/lead';
 @import '../../atoms/anchorlink/anchorlink';
 @import '../../atoms/content_teaser/content_teaser';
+@import '../../atoms/iframe/iframe';
 //*autoinsertatom*
 
 // Modules
@@ -69,6 +70,10 @@
 @import '../../modules/content_nav/content_nav';
 @import '../../modules/breadcrumb/breadcrumb';
 @import '../../modules/biometrie_appointment/biometrie_appointment';
+@import '../../modules/topiclist/topiclist';
+@import '../../modules/related_content/related_content';
+@import '../../modules/focus_card/focus_card';
+@import '../../modules/focus_teaser/focus_teaser';
 //*autoinsertmodule*
 
 @media print {

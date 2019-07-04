@@ -23,9 +23,14 @@
                                data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'
                                data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
 <div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}}">
-  <h1 class="sg_title">
+  <div class="sg_index_header">
+  <svg viewBox="0 0 100 100" class="sg_logo">
+    <use xlink:href="#ktzh"></use>
+  </svg>
+  <h1 class="sg_title sg_title--top">
     <a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
   </h1>
+  </div>
   <div class="sg_revisioninfo sg_revisioninfo--overview">
     <h4>Quellcodeverwaltung</h4>
     <ul>

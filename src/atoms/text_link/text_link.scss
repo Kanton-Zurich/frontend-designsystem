@@ -1,22 +1,54 @@
 .atm-text_link {
-  color: inherit;
+  color: $colorBlack60;
   text-decoration: none;
   border-bottom: 1px solid $colorCyan;
+  display: inline-flex;
+  align-items: center;
+  height: $sizeBig;
+
+  &--icon {
+    border: none;
+  }
+
+  .icon {
+    fill: $colorBlack60;
+
+    &--iframe-add {
+      transform: scale(0.9167);
+      margin-right: 9px;
+    }
+
+    &--iframe-arrow {
+      margin-left: 7px;
+    }
+  }
 
   &:hover {
     color: $colorBlack;
     border-color: $colorBlack;
+
+    .icon {
+      fill: $colorBlack;
+    }
   }
 
   /* Inverted */
   &--cv-inverted,
   [ class*='--cv-inverted' ] & {
     color: $colorWhite;
-    border-color: $colorWhite;
+    border-bottom-color: $colorWhite;
+
+    .icon {
+      fill: $colorWhite;
+    }
 
     &:hover {
       color: rgba($colorWhite, 0.6);
       border-color: rgba($colorWhite, 0.6);
+
+      .icon {
+        fill: rgba($colorWhite, 0.6);
+      }
     }
   }
 

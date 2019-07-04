@@ -137,6 +137,17 @@ const variants = _.mapValues({
       ],
     },
   },
+  h4: {
+    meta: {
+      title: 'Accordion mit H4-Titel',
+      desc: 'Ein Standard-Accordion mit einem h4 als Titel',
+    },
+    props: {
+      accordionHeading: {
+        level: 4,
+      },
+    },
+  },
 }, (variant) => {
   // eslint-disable-next-line consistent-return
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {

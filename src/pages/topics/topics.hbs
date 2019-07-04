@@ -6,14 +6,15 @@
   {{/content}}
 
   {{#content "content"}}
-    {{> "modules/content_nav/content_nav" props.modules.contentNavData.variants.default.props}}
+    <h1>(--ANKERNAVIGATION PLACEHOLDER--)</h1>
+    {{> "modules/content_nav/content_nav" props.modules.contentNavData }}
     <h2 class="atm-heading atm-heading--bordered">Services</h2>
     <h1>(--SERVICE BOX PLACEHOLDER--)</h1>
     {{> "modules/contact/contact" props.modules.contactData.variants.fullWidth.props}}
     <br/>
     <h2 class="atm-heading atm-heading--bordered">News</h2>
     <h1>(--NEWS TEASER PLACEHOLDER--)</h1>
-    {{> "modules/content_nav/content_nav" props.modules.contentNavData.variants.relatedContent.props}}
+    {{> "modules/related_content/related_content" props.modules.releatedContentData.variants.default.props}}
     {{> "modules/tag_group/tag_group" props.modules.tagGroupData.variants.default.props}}
   {{/content}}
 

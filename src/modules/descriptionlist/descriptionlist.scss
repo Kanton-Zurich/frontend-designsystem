@@ -37,6 +37,7 @@
   dt,
   dd {
     line-height: $sizeLineHeightBase;
+    hyphens: auto;
   }
 
   @include mq($from: xsmall) {

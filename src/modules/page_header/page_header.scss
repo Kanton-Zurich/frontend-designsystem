@@ -77,6 +77,10 @@ $pageHeaderCurves: (
   @include sizeCurve('padding-top', pageHeaderTop, $pageHeaderCurves);
   @include sizeCurve(padding-bottom, pageHeaderBottom, $pageHeaderCurves);
 
+  &__logo-container {
+    height: 0;
+  }
+
   &__logo {
     position: relative;
 

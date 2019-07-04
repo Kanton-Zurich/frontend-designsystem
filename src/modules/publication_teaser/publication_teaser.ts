@@ -42,29 +42,10 @@ class PublicationTeaser extends Module {
   }
 
   /**
-   * Open a context menu
-   *
-   * @param {*} event
-   * @memberof DownloadList
-   */
-  openContext(event) {
-    let correctLiNode = event.target.parentNode;
-
-    while (correctLiNode.tagName !== 'DIV') {
-      correctLiNode = correctLiNode.parentNode;
-    }
-
-    const contextMenu = correctLiNode.querySelector(this.options.domSelectors.contextMenu);
-
-    contextMenu.dispatchEvent(new CustomEvent('toggle'));
-  }
-
-  /**
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.eventDelegate
-      .on('click', this.options.domSelectors.openContext, this.openContext.bind(this));
+
   }
 
   /**

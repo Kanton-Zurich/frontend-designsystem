@@ -5,6 +5,10 @@
     margin-top: $sizeTiny;
   }
 
+  &__content > div {
+    position: relative;
+  }
+
   /**
   * OVERWRITES
   */
