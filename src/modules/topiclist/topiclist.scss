@@ -5,7 +5,7 @@ $leadFontCurve: (
 );
 
 .mdl-topiclist {
-  padding: $sizeHuge 0;
+  margin: $sizeHuge 0;
 
   &__heading {
     padding-top: $sizeSmallRegular;
@@ -46,7 +46,7 @@ $leadFontCurve: (
   }
 
   @include mq($from: large) {
-    padding: $sizeGiant 0;
+    margin: $sizeGiant 0;
   }
   @include mq($from: xlarge) {
     &__lead {
