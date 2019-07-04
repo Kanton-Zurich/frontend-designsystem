@@ -77,7 +77,7 @@
 @each $key, $val in $tl-color-variations {
   .#{$key} {
     .atm-content_teaser:not(.atm-content_teaser--promo) {
-      &__title {
+      .atm-content_teaser__title {
         color: $val;
       }
 

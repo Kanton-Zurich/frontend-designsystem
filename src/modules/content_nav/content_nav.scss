@@ -73,7 +73,9 @@ $contentNavGrid: (
       }
 
       .mdl-content_nav__item {
-        width: 50%;
+        .is-ie & {
+          width: 50%;
+        }
       }
     }
   }
