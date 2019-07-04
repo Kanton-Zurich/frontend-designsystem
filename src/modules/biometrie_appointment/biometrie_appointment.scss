@@ -1,24 +1,124 @@
 .mdl-biometrie_appointment {
+  margin-bottom: $sizeHuge;
 
   &__logininput {
-    color: #bbb;
-    border: 1px solid #bbb;
+    border: 2px solid;
     border-radius: 4px;
+    padding: $sizeRegular;
+    position: relative;
 
     label {
-      font-weight: bold;
+      font-weight: $fontWeightBlack;
+      color: $colorBlack100;
       display: block;
-
+      margin-bottom: $sizeTiny;
     }
 
-    input {
-      display: inline-block;
+    div {
+      color: $colorBlack15;
 
+      input {
+        font-size: $sizeFontBiggerRegular;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        border-bottom: 1px solid $colorBlack15;
+        display: inline-block;
+        width: 4em;
+        color: $colorBlack100;
+        margin-right: $sizeTiny;
+
+
+        + input {
+          margin-left: $sizeTiny;
+        }
+
+        &.filled {
+          border: 0;
+        }
+      }
     }
 
-    &:focus {
-      border-color: #009ee0;
+    .icon-error {
+      display: none;
+    }
+
+    &.error {
+      border-color: $colorRed;
+
+      .icon-error {
+        color: $colorWhite;
+        background-color: $colorRed;
+        text-align: center;
+        border-radius: 50%;
+        font-size: $sizeFontBiggerRegular;
+        font-weight: $fontWeightBlack;
+        line-height: 1.5rem;
+        display: block;
+        position: absolute;
+        right: $sizeRegular;
+        top: calc(50% - 0.75rem);
+      }
     }
   }
 
+  &__loginhint {
+    min-height: 5rem;
+    border-bottom: 2px solid $colorBlack100;
+    margin-bottom: $sizeRegular;
+
+    .alert.alert-error {
+      display: none;
+      padding: $sizeTiny $sizeRegular;
+      background-color: $colorRed;
+      color: $colorWhite;
+      border-radius: 4px;
+      margin-top: 1em;
+      margin-bottom: 1em;
+      padding-left: $sizeSmallHuge;
+      line-height: $sizeLineHeightNarrow;
+      position: relative;
+
+      &:before {
+        content: '!';
+        background-color: $colorWhite;
+        color: $colorRed;
+        text-align: center;
+        border-radius: 50%;
+        font-size: $sizeFontBiggerRegular;
+        font-weight: $fontWeightBlack;
+        line-height: $sizeFontLarge;
+        display: block;
+        position: absolute;
+        left: $sizeRegular;
+        top: calc(50% - 0.75rem);
+        width: $sizeFontLarge;
+      }
+
+      &.show {
+        display: block;
+      }
+    }
+  }
+
+  &__loginsubmit {
+    clear: both;
+    overflow: hidden;
+
+    > * {
+      float: right;
+    }
+  }
+}
+
+
+/*
+* COLOR-VARIATIONS
+*/
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-biometrie_appointment__logininput:not(.error) {
+      border-color: #{$val};
+    }
+  }
 }

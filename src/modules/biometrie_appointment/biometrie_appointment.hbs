@@ -1,12 +1,32 @@
-<div class="mdl-biometrie_appointment">
-  <h2>Termin verschieben</h2>
-  <p>Melden sie sich an um ihrenTermin verschieben zu können.</p>
-  <h3>Login</h3>
-  <div class="mdl-biometrie_appointment__logininput">
-    <label>Token</label>
-    <input data-biometrie_appointment="input" name="token_0" maxlength="4" /> -
-    <input data-biometrie_appointment="input" name="token_1" maxlength="4" /> -
-    <input data-biometrie_appointment="input" name="token_2" maxlength="4" /> -
-    <input data-biometrie_appointment="input" name="token_3" maxlength="4" />
-  </div>
+<div class="mdl-biometrie_appointment" data-init="biometrieAppointment">
+  {{#if heading}}<h2>{{ heading }}</h2>{{/if}}
+
+
+  <!--  LOGIN-->
+  {{#with messages.login}}
+
+    <p>{{beforeParagraph}}</p>
+    <h3>{{head}}</h3>
+    <div class="mdl-biometrie_appointment__logininput" data-biometrie_appointment="inputfieldswrapper">
+      <div class="icon icon-error">!</div>
+      <label>{{inputLabel}}</label>
+      <div>
+        <input data-biometrie_appointment="input" name="token_0" maxlength="5" />&mdash;
+        <input data-biometrie_appointment="input" name="token_1" maxlength="5" />&mdash;
+        <input data-biometrie_appointment="input" name="token_2" maxlength="5" />&mdash;
+        <input data-biometrie_appointment="input" name="token_3" maxlength="4" />
+      </div>
+    </div>
+    <div class="mdl-biometrie_appointment__loginhint" data-biometrie_appointment="loginHint">
+      <p >{{hint}}</p>
+      <div class="alert alert-error" data-biometrie_appointment="loginAlertErr1">{{ loginErrMsg1 }}</div>
+      <div class="alert alert-error" data-biometrie_appointment="loginAlertErr2">{{ loginErrMsg2 }}</div>
+      <div class="alert alert-error" data-biometrie_appointment="loginAlertErr3">{{ loginErrMsg3 }}</div>
+    </div>
+    <div class="mdl-biometrie_appointment__loginsubmit">
+      {{> "atoms/button/button" loginSubmitBtn}}
+    </div>
+  {{/with}}
+  <!--  ######-->
+
 </div>
