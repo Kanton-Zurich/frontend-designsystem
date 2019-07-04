@@ -269,6 +269,14 @@
       margin-bottom: pxToRem($sizeRegular);
     }
 
+    &__cell-icon {
+      width: pxToRem($sizeBiggerBig);
+      height: pxToRem($sizeBiggerBig);
+      svg {
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
     &__address,
     &__show-route,
     &__phone,
