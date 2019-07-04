@@ -3,6 +3,12 @@
   color: $colorWhite;
   padding: pxToRem($sizeLarge) pxToRem($sizeSmallRegular);
 
+  @include sizeCurve(margin-bottom, big);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   &--fullwidth {
     @include gridBleed($fullwidth: true);
     padding: $sizeHuge 0;
@@ -19,6 +25,7 @@
       }
     }
   }
+
 
   h2.atm-heading--bordered {
     margin-top: 0;
