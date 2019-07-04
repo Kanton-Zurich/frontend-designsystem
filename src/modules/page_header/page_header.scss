@@ -221,12 +221,9 @@ $pageHeaderCurves: (
 
         .atm-heading,
         .atm-lead,
-        .mdl-page-header__breadcrumb {
+        .mdl-page-header__breadcrumb,
+        .mdl-breadcrumb__show-context {
           color: $colorWhite;
-
-          span {
-            color: $colorWhite;
-          }
         }
 
         .mdl-page-header__breadcrumb use {
