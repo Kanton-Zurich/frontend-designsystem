@@ -883,7 +883,7 @@ gulp.task('copy:ci', () => {
       '!./dist/assets/css/*',
       './dist/assets/js/*.min.*',
       './dist/assets/css/*.min.*',
-      './dist/assets/css/critical.css',
+      // './dist/assets/css/critical.css',
       '!./dist/ci/**/*',
       '!./dist/**/*.dev.html',
     ],
@@ -950,7 +950,7 @@ gulp.task('build', (done) => {
     'copy',
     // When starting watcher without building, "css:fonts" will never finish
     // In order for "css" to still run properly, we switch from serial to parallel execution
-    (env.watch && env.skipBuild) ? gulp.parallel('css:fonts', 'css') : gulp.series('css:fonts', 'css', 'critical'),
+    (env.watch && env.skipBuild) ? gulp.parallel('css:fonts', 'css') : gulp.series('css:fonts', 'css' /* , 'critical' */),
   );
   let readEnv = new Promise(resolve => resolve());
 
