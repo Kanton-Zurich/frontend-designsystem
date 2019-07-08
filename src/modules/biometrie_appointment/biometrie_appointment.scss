@@ -1,5 +1,8 @@
 .mdl-biometrie_appointment {
-  margin-bottom: $sizeHuge;
+
+  &__view {
+    margin-bottom: $sizeHuge;
+  }
 
   &__logininput {
     border: 2px solid;
@@ -14,30 +17,29 @@
       margin-bottom: $sizeTiny;
     }
 
-    div {
-      color: $colorBlack15;
+    span.input {
+      font-size: $sizeFontBiggerRegular;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      border-bottom: 1px solid $colorBlack15;
+      display: inline-block;
+      min-width: 1.2em;
+      color: $colorBlack100;
+      margin-right: $sizeTiny;
 
-      input {
-        font-size: $sizeFontBiggerRegular;
+      + .input {
+        margin-left: $sizeTiny;
+      }
+
+      &.filled {
         border: 0;
-        outline: 0;
-        background: transparent;
-        border-bottom: 1px solid $colorBlack15;
-        display: inline-block;
-        width: 4em;
-        color: $colorBlack100;
-        margin-right: $sizeTiny;
-
-
-        + input {
-          margin-left: $sizeTiny;
-        }
-
-        &.filled {
-          border: 0;
-        }
       }
     }
+    //div {
+    //  color: $colorBlack15;
+    //
+    //}
 
     .icon-error {
       display: none;
@@ -97,6 +99,30 @@
 
       &.show {
         display: block;
+      }
+    }
+  }
+
+  &__details {
+    table {
+      width: 100%;
+      border-spacing: 0;
+      font-size: $sizeFontTiny;
+
+      tr {
+        background-color: $colorWhite;
+
+        &:nth-child(odd) {
+          background-color: $colorBlack5;
+        }
+
+        th {
+          text-align: left;
+        }
+
+        th, td {
+          padding: $sizeTiny;
+        }
       }
     }
   }

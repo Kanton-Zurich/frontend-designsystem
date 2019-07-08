@@ -5,6 +5,9 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import MigekApiService, { ApiForbidden } from './service/migek-api.service';
+import LoginResponse from './model/login-response.interface';
+
 
 enum LoginAlert {
   Incomplete,
@@ -36,13 +39,15 @@ class BiometrieAppointment extends Module {
     }
   };
 
+  private apiService: MigekApiService;
+
   private loginToken: string;
 
   private loginReqAttempts: number;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
-      apiBase: 'http://localhost:3000/biometrie/',
+      apiBase: 'https://internet-acc.zh.ch/proxy/migek/',
     };
     const defaultOptions = {
       domSelectors: {
@@ -68,12 +73,18 @@ class BiometrieAppointment extends Module {
     this.log('Biometrie appointment init!', this);
 
     this.loginReqAttempts = 0;
+
+    this.initApiService();
   }
 
   static get events() {
     return {
       // eventname: `eventname.${ BiometrieAppointment.name }.${  }`
     };
+  }
+
+  private initApiService(): void {
+    this.apiService = new MigekApiService(this.data.apiBase, this.log);
   }
 
   private validateTokenCharacter(charStr: string) {
@@ -84,38 +95,99 @@ class BiometrieAppointment extends Module {
   }
 
   private cleanTokenValue(inValue: string): string {
-    let cleanStr = '';
-    for (let i = 0; i < inValue.length; i += 1) {
-      cleanStr += this.validateTokenCharacter(inValue[i]);
+    let cleanedVal = '';
+    for (let i = 0; i < Math.min(inValue.length, TOKEN_BLOCK_LENGTH * TOKEN_BLOCKS); i += 1) {
+      cleanedVal += this.validateTokenCharacter(inValue[i]);
     }
-    return cleanStr;
+    const regexPattern = `.{1,${TOKEN_BLOCK_LENGTH}}`;
+    const tokenBlocks = cleanedVal.match(new RegExp(regexPattern, 'g'));
+    return tokenBlocks.join('-');
   }
 
   /**
    * Event listeners initialisation
    */
   initEventListeners() {
+    const inputEls = document
+      .querySelectorAll<HTMLInputElement>(this.options.domSelectors.inputFields);
+
+
+    const fillLoginInputFields = () => {
+      const tokenBlocks = this.loginToken.split('-');
+      inputEls.forEach((el, i) => {
+        if (tokenBlocks.length > i) {
+          el.innerText = tokenBlocks[i];
+        } else {
+          el.value = '';
+        }
+      });
+    };
+
     // Event listeners
     this.eventDelegate
-      // .on('keydown', this.options.domSelectors.inputFields, (event, targetInput) => {
-      //   //TODO needed?
-      // })
-      .on('keyup', this.options.domSelectors.inputFields, (event, targetInput) => {
-        const targetValue = targetInput.value;
-        const caretPos = event.target.selectionStart;
+      .on('keydown', this.options.domSelectors.inputFields, (event, targetInput) => {
+        let caretPos = window.getSelection().getRangeAt(0).startOffset;
         this.log('Event KeyDown: ', event, targetInput, caretPos);
 
-        if (caretPos >= TOKEN_BLOCK_LENGTH) {
-          const nextInput = targetInput.nextSibling.nextSibling;
-          if (nextInput) {
-            nextInput.focus();
+        let targetInputIdx = -1;
+        inputEls.forEach((el, i) => {
+          if (el === targetInput) {
+            targetInputIdx = i;
+          }
+        });
+
+        if (caretPos === TOKEN_BLOCK_LENGTH && targetInputIdx < inputEls.length) {
+          if (this.validateTokenCharacter(event.key)) {
+            const focusEl = inputEls[targetInputIdx + 1];
+            focusEl.focus();
+            if (focusEl.childNodes[0]) {
+              window.getSelection().getRangeAt(0).setStart(focusEl.childNodes[0], 0);
+            }
           }
         } else if (caretPos === 0 && (event.key === 'Left' || event.key === 'ArrowLeft' || event.key === 'Backspace')) {
-          const prevInput = targetInput.previousSibling.previousSibling;
-          if (prevInput) {
-            prevInput.focus();
+          if (targetInputIdx > 0) {
+            const focusEl = inputEls[targetInputIdx - 1];
+            caretPos = Math.min(focusEl.innerText.length, TOKEN_BLOCK_LENGTH);
           }
         }
+      })
+      .on('paste', this.options.domSelectors.inputFields, (event, targetInput) => {
+        const pasteEv = event as ClipboardEvent;
+        let totalStr = '';
+        inputEls.forEach((el) => {
+          if (el === targetInput) {
+            const caretPos = event.target.selectionStart;
+            const targetVal = targetInput.value;
+            const beforePaste = targetVal.substring(0, caretPos);
+            totalStr += beforePaste;
+            totalStr += pasteEv.clipboardData.getData('text');
+            totalStr += targetVal.substring(caretPos);
+          } else {
+            totalStr += el.value;
+          }
+        });
+        this.log('Total Input: ', totalStr);
+
+        this.loginToken = this.cleanTokenValue(totalStr);
+        fillLoginInputFields();
+
+        pasteEv.preventDefault();
+      })
+      .on('keyup', this.options.domSelectors.inputFields, (event, target) => {
+        const targetInput = (target as HTMLSpanElement);
+        const targetValue = targetInput.innerText || '';
+        let caretPos = window.getSelection().getRangeAt(0).startOffset;
+        this.log('Event KeyUp: ', event, targetInput, caretPos);
+
+
+        let totalStr = '';
+        let targetInputIdx = -1;
+        inputEls.forEach((el, i) => {
+          totalStr += el.innerText;
+          if (el === targetInput) {
+            targetInputIdx = i;
+          }
+        });
 
         if (targetValue.length >= TOKEN_BLOCK_LENGTH) {
           targetInput.classList.add('filled');
@@ -123,22 +195,28 @@ class BiometrieAppointment extends Module {
           targetInput.classList.remove('filled');
         }
 
-        const inputEls = document
-          .querySelectorAll<HTMLInputElement>(this.options.domSelectors.inputFields);
-        let totalStr = '';
-        inputEls.forEach((el) => {
-          totalStr += el.value;
-        });
         this.log('Total Input: ', totalStr);
 
         this.loginToken = this.cleanTokenValue(totalStr);
-        inputEls.forEach((el, i) => {
-          if (totalStr.length > i * TOKEN_BLOCK_LENGTH) {
-            el.value = this.loginToken.substr(i * TOKEN_BLOCK_LENGTH, TOKEN_BLOCK_LENGTH);
-          } else {
-            el.value = '';
+        fillLoginInputFields();
+
+
+        let focusEl = targetInput;
+        if (caretPos > TOKEN_BLOCK_LENGTH) {
+          if (targetInputIdx < TOKEN_BLOCKS) {
+            caretPos %= TOKEN_BLOCK_LENGTH;
           }
-        });
+        } else if (caretPos === 0 && (event.key === 'Left' || event.key === 'ArrowLeft' || event.key === 'Backspace')) {
+          if (targetInputIdx > 0) {
+            focusEl = inputEls[targetInputIdx - 1];
+            caretPos = Math.min(focusEl.innerText.length, TOKEN_BLOCK_LENGTH);
+          }
+        }
+        focusEl.focus();
+        if (focusEl.childNodes[0]) {
+          window.getSelection().getRangeAt(0).setStart(focusEl.childNodes[0], caretPos);
+        }
+        this.log('Range: ', window.getSelection().getRangeAt(0).cloneRange());
 
         if (totalStr.length >= TOKEN_BLOCKS * TOKEN_BLOCK_LENGTH) {
           this.showLoginAlert();
@@ -151,29 +229,17 @@ class BiometrieAppointment extends Module {
           this.log('Incomplete login token', this.loginToken);
           this.showLoginAlert(LoginAlert.Incomplete);
         } else {
-          this.createLoginToken();
+          this.apiService.login(this.loginToken)
+            .then(loginResp => this.handleLogintokenResponse(loginResp))
+            .catch((rejectionCause) => {
+              if (rejectionCause === ApiForbidden) {
+                this.handleUnauthedLogin();
+              } else {
+                this.handleError(rejectionCause);
+              }
+            });
         }
       });
-  }
-
-  private createLoginToken() {
-    const loginUrl = `${this.data.apiBase}login`;
-
-    // TODO: Refactor to Service
-    const xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status >= 200 && xhr.status < 300) {
-          const response = JSON.parse(xhr.responseText);
-          this.handleLogintokenResponse(response);
-        } else if (xhr.status === 403) {
-          this.handleUnauthedLogin();
-        }
-      }
-    };
-    xhr.open('POST', loginUrl, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(this.getLoginPayload());
   }
 
   private handleUnauthedLogin(): void {
@@ -186,14 +252,8 @@ class BiometrieAppointment extends Module {
     }
   }
 
-  private handleLogintokenResponse(tokenRes: { token: string, _links: any[]}) {
+  private handleLogintokenResponse(tokenRes: LoginResponse) {
     this.log('Received Login: ', tokenRes);
-  }
-
-  private getLoginPayload() {
-    return JSON.stringify({
-      token: this.loginToken,
-    });
   }
 
   /**
@@ -228,6 +288,12 @@ class BiometrieAppointment extends Module {
         wrapperEl.classList.remove('error');
         alertConDirectChildren[0].style.display = 'block';
     }
+  }
+
+  // TODO
+  private handleError(e: Error) {
+    this.log('Error occured!');
+    this.log(e.message);
   }
 
   /**
