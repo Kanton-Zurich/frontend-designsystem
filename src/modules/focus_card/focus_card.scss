@@ -17,6 +17,7 @@
   text-decoration: none;
   color: rgba($colorText, 0.6);
   position: relative;
+  display: inline-block;
 
   @include sizeCurve(margin-top padding-bottom, items, $paddingSizes);
 
