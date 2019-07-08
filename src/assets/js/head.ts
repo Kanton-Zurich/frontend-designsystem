@@ -11,7 +11,6 @@ import AssetLoader from './helpers/assetloader';
 window[namespace] = {
   data: {}, // Content data
   options: {}, // Module options
-  styleLoader: new AssetLoader('data-style-main', 'style'),
   scriptLoader: new AssetLoader('data-script-main', 'script'),
   fontLoader: new FontLoader(),
   helpers: new Helper(),
