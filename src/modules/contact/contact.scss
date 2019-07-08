@@ -26,7 +26,6 @@
     }
   }
 
-
   h2.atm-heading--bordered {
     margin-top: 0;
   }
@@ -279,6 +278,7 @@
     &__cell-icon {
       width: pxToRem($sizeBiggerBig);
       height: pxToRem($sizeBiggerBig);
+
       svg {
         transform: translate(-50%, -50%) scale(1);
       }
