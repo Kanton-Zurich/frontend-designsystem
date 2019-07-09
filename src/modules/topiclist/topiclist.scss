@@ -5,19 +5,6 @@ $leadFontCurve: (
 );
 
 .mdl-topiclist {
-  margin: $sizeHuge 0;
-
-  &__heading {
-    padding-top: $sizeSmallRegular;
-  }
-
-  &__lead {
-    @include polyFluidSizing('font-size', $leadFontCurve);
-    line-height: $sizeLineHeightBase;
-    padding: $sizeTiny 0 $sizeRegular;
-    margin: 0;
-  }
-
   // Hide items only on default topiclist
   &:not(&--office) {
     .mdl-content_nav {
@@ -45,16 +32,22 @@ $leadFontCurve: (
     }
   }
 
+  @include polyFluidSizing('margin-top', map-get($sizeCurves, big));
+  @include polyFluidSizing('margin-bottom', map-get($sizeCurves, big));
+
+  .atm-heading {
+    padding-top: $sizeSmallRegular;
+    margin-bottom: $sizeLarge;
+  }
+
   @include mq($from: large) {
-    margin: $sizeGiant 0;
+    .atm-heading {
+      margin-bottom: $sizeBig;
+    }
   }
   @include mq($from: xlarge) {
-    &__lead {
-      padding: $sizeRegular 0 $sizeHuge;
-    }
-
-    .atm-button {
-      margin: $sizeBig 0;
+    .atm-heading {
+      margin-bottom: $sizeBiggerBig;
     }
   }
 }

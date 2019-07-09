@@ -15,4 +15,8 @@
       @include sizeCurve(margin-bottom, vertical, $marginSizes);
     }
   }
+
+  .atm-paragraph {
+    display: inline-block;
+  }
 }
