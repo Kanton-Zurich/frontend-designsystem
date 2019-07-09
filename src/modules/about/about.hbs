@@ -1,0 +1,32 @@
+<div class="mdl-about">
+  <div class="mdl-about__block">
+  <h2 class="atm-heading atm-heading--bordered">{{{title}}}</h2>
+  </div>
+  <div class="mdl-about__block">
+    <h3 class="atm-heading">{{{sTitle1}}}</h3>
+    <p class="atm-paragraph">
+      {{{pText1}}}
+    </p>
+    {{> "modules/linklist/linklist" linklist.list1}}
+  </div>
+  <div class="mdl-about__block">
+    <h3 class="atm-heading">{{{sTitle2}}}</h3>
+    {{> "modules/carousel/carousel" carouselData }}
+  </div>
+  <div class="mdl-about__block">
+    <div id="myId" class="mdl-texthighlight">
+      <h4 class="atm-heading">{{{infoTitle}}}</h4>
+      <p class="atm-paragraph">
+        {{{infoText}}}
+      </p>
+    </div>
+  </div>
+  <div class="mdl-about__block">
+    <div class="mdl-about__smallcaption">{{{smallTitle1}}}</div>
+    {{> "modules/content_nav/content_nav" topicsData}}
+  </div>
+  <div class="mdl-about__block">
+    <div class="mdl-about__smallcaption">{{{smallTitle2}}}</div>
+    {{> "modules/download_list/download_list" downloadListData}}
+  </div>
+</div>
