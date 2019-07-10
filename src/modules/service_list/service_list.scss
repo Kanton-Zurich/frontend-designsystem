@@ -1,4 +1,6 @@
 .mdl-service_list {
+  $lineCountMobile: 3;
+  $lineCountDesktop: 2;
   $serviceListCurves: (
     itemPadding: (
       tiny: $sizeRegular,
@@ -10,11 +12,11 @@
     ),
   );
   $textHeightCurve: (
-    tiny: $sizeFontRegular * $sizeLineHeightBase * 3 ,
-    small: $sizeFontBiggerRegular * $sizeLineHeightBase * 3,
-    medium: $sizeFontBiggerRegular * $sizeLineHeightBase * 2 ,
-    large: $sizeFontBiggerRegular * $sizeLineHeightBase * 2,
-    xlarge: $sizeFontMedium * $sizeLineHeightBase * 2,
+    tiny: $sizeFontRegular * $sizeLineHeightBase * $lineCountMobile ,
+    small: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountMobile,
+    medium: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountDesktop ,
+    large: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountDesktop,
+    xlarge: $sizeFontMedium * $sizeLineHeightBase * $lineCountDesktop,
   );
 
   @include sizeCurve(margin-bottom, big);
