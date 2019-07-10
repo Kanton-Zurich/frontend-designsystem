@@ -61,7 +61,7 @@
   }
 
   &__item-button {
-    display: flex;
+    display: inline-flex;
     min-width: unset;
 
     @include mq($from: tiny, $to: xsmall) {
