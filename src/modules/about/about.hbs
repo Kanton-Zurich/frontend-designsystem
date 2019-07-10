@@ -1,12 +1,14 @@
 <div class="mdl-about">
   <div class="mdl-about__block">
-  <h2 class="atm-heading atm-heading--bordered">{{{title}}}</h2>
+    <h2 class="atm-heading atm-heading--bordered">{{{title}}}</h2>
   </div>
   <div class="mdl-about__block">
     <h3 class="atm-heading">{{{sTitle1}}}</h3>
-    <p class="atm-paragraph">
-      {{{pText1}}}
-    </p>
+    <div class="mdl-richtext">
+      <p class="atm-paragraph">
+        {{{pText1}}}
+      </p>
+    </div>
     {{> "modules/linklist/linklist" linklist.list1}}
   </div>
   <div class="mdl-about__block">
@@ -15,10 +17,12 @@
   </div>
   <div class="mdl-about__block">
     <div id="myId" class="mdl-texthighlight">
-      <h4 class="atm-heading">{{{infoTitle}}}</h4>
-      <p class="atm-paragraph">
-        {{{infoText}}}
-      </p>
+      <div class="mdl-richtext">
+        <h4 class="atm-heading">{{{infoTitle}}}</h4>
+        <p class="atm-paragraph">
+          {{{infoText}}}
+        </p>
+      </div>
     </div>
   </div>
   <div class="mdl-about__block">
