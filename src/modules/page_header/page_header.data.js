@@ -177,6 +177,47 @@ const variants = _.mapValues({
       hasBacklink: true,
     },
   },
+  servicePage: {
+    meta: {
+      title: 'Service Seite (CZHDEV-468)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+      defaultColorVariation: 'cv-green',
+    },
+    props: {
+      pageTitle: 'Führerausweis bestellen',
+      inverted: true,
+      hasImageTitle: false,
+      hasVideo: false,
+      hasImage: false,
+      hasBacklink: false,
+      hasBreadcrumb: false,
+      noButton: true,
+      noText: true,
+      hasCloseButton: true,
+    },
+  },
+  servicePageSmall: {
+    meta: {
+      title: 'Service Seite klein (CZHDEV-468)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+      defaultColorVariation: 'cv-green',
+    },
+    props: {
+      pageTitle: 'Internationalen Führerausweis bestellen',
+      inverted: true,
+      hasImageTitle: false,
+      hasVideo: false,
+      hasImage: false,
+      hasBacklink: false,
+      hasBreadcrumb: false,
+      noButton: true,
+      noText: true,
+      minimal: true,
+      hasCloseButton: true,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
