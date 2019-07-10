@@ -1,0 +1,20 @@
+<div class="mdl-service_list">
+  {{#if hasHeading}}
+  <h2 class="atm-heading atm-heading--bordered ">{{headingText}}</h2>
+  {{/if}}
+{{#each items}}
+  <a class="mdl-service_list__item">
+    <div class="mdl-service_list__item-container">
+      <h4 class="atm-heading mdl-service_list__item-title">{{title}}</h4>
+      {{#if text}}
+      <p class="atm-paragraph mdl-service_list__item-text" data-lineclamp="true">{{text}}</p>
+      {{/if}}
+    </div>
+    <button class="mdl-service_list__item-button atm-button atm-button--small">
+      <span class="atm-button__text ">
+        {{buttonTitle}}
+      </span>
+    </button>
+  </a>
+  {{/each}}
+</div>
