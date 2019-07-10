@@ -2,19 +2,29 @@ $maxTextLines: 6;
 $maxTextLinesDesktop: 4;
 
 .mdl-teaser {
+  $teaserMargins: (
+    marginBottom: (
+      tiny: $sizeBiggerBig,
+      large: $sizeHuge,
+    ),
+  );
   text-decoration: none;
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
 
-  &__wrapper + .mdl-teaser__wrapper {
-    margin-top: $sizeHuge;
-  }
+  @include sizeCurve(margin-bottom, marginBottom, $teaserMargins);
 
   &__content {
     padding: $sizeBig;
     display: flex;
     flex-direction: column;
+
+    div:last-of-type {
+      order: 3;
+      margin-top: auto;
+    }
   }
 
   &__title,
@@ -53,23 +63,20 @@ $maxTextLinesDesktop: 4;
     order: 3;
     color: $colorBlack60;
     margin: 0;
+    hyphens: auto;
 
     $descripionHeightCurve: (
       tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLines,
-      xsmall: $sizeFontSmall * $sizeLineHeightMedium * $maxTextLines,
-      small: $sizeFontRegular * $sizeLineHeightMedium * $maxTextLinesDesktop,
-      large: $sizeFontBiggerRegular * $sizeLineHeightMedium * $maxTextLinesDesktop,
+      xsmall: $sizeFontSmall * $sizeLineHeightBase * $maxTextLines,
+      small: $sizeFontRegular * $sizeLineHeightBase * $maxTextLinesDesktop,
+      large: $sizeFontBiggerRegular * $sizeLineHeightBase * $maxTextLinesDesktop,
     );
 
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
     @include polyFluidSizing('max-height', $descripionHeightCurve);
 
-    line-height: $sizeLineHeightMedium;
+    line-height: $sizeLineHeightBase;
     overflow: hidden;
-
-    @include mq($to: xsmall) {
-      line-height: $sizeLineHeightBase;
-    }
   }
 
   &__description + div {
@@ -110,9 +117,7 @@ $maxTextLinesDesktop: 4;
     margin-bottom: 0;
   }
 
-  @include mq($from: xsmall) {
-    margin: 0 auto;
-
+  @include mq($from: tiny) {
     &__wrapper {
       @include gridBleed();
     }

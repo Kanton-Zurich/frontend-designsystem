@@ -1,0 +1,22 @@
+.mdl-focus_teaser {
+  $marginSizes: (
+    vertical: (
+      tiny: $sizeBig,
+      large: $sizeBiggerBig,
+    ),
+  );
+
+  .mdl-focus_card {
+    &:first-child {
+      @include sizeCurve(margin-top, vertical, $marginSizes);
+    }
+
+    &:last-child {
+      @include sizeCurve(margin-bottom, vertical, $marginSizes);
+    }
+  }
+
+  .atm-paragraph {
+    display: inline-block;
+  }
+}

@@ -36,7 +36,7 @@
         </div>
         <div class="mdl-contact__cell-content">
           <address class="mdl-contact__address">
-            {{contactAddress.name}}<br>
+            {{contactAddress.name}}{{#if contactAddress.name}}<br>{{/if}}
             {{contactAddress.street}}<br>
             {{contactAddress.zip}} {{contactAddress.city}}<br>
             {{#if contactAddress.routeLinkHref}}

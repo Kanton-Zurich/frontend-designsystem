@@ -3,8 +3,14 @@
   color: $colorWhite;
   padding: pxToRem($sizeLarge) pxToRem($sizeSmallRegular);
 
+  @include sizeCurve(margin-bottom, big);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   &--fullwidth {
-    @include gridBleed;
+    @include gridBleed($fullwidth: true);
     padding: $sizeHuge 0;
   }
 
@@ -13,9 +19,15 @@
     line-height: $sizeLineHeightMedium;
     margin-bottom: pxToRem($sizeLarge);
 
-    &--bordered:before {
-      background: $colorWhite;
+    &--bordered {
+      &:before {
+        background: $colorWhite;
+      }
     }
+  }
+
+  h2.atm-heading--bordered {
+    margin-top: 0;
   }
 
   &__subtitle {
@@ -95,12 +107,14 @@
   &__text {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
     margin-top: pxToRem($sizeTiny);
+    hyphens: auto;
 
     ul {
       @include resetList();
     }
 
     p,
+    a,
     h4,
     ul,
     li {
@@ -112,6 +126,10 @@
     p,
     ul {
       margin-bottom: pxToRem($sizeTiny);
+    }
+
+    a {
+      color: $colorWhite;
     }
   }
 
@@ -255,6 +273,15 @@
 
     &__mail {
       margin-bottom: pxToRem($sizeRegular);
+    }
+
+    &__cell-icon {
+      width: pxToRem($sizeBiggerBig);
+      height: pxToRem($sizeBiggerBig);
+
+      svg {
+        transform: translate(-50%, -50%) scale(1);
+      }
     }
 
     &__address,

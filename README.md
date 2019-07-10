@@ -23,15 +23,26 @@ npm install
 See `gulpfile.js` for details.
 
 
-- Basic run/watch command
+## Basic run/watch command
 ```bash
 npm run gulp -- --dev --watch
 ```
 
-- Create a new module / page /atom
+## Create a new module / page /atom
 ```bash
 npm run gulp scaffold
 ```
+
+## Run Js tests only
+```bash
+npm run gulp js:test
+```
+
+## Run bringover for backend
+```bash
+npm run gulp build
+```
+The detailed description can be found in this [confluence entre](https://we.one-inside.com/confluence/display/CZHDEV/FE+%3E+BE+Bringover+Workflow)
 
 ## Docker
 

@@ -139,7 +139,8 @@ const variants = _.mapValues({
       imageData: defImageFigureData.variants.headerNoTitle.props,
       inverted: true,
       hasImage: true,
-      hasBacklink: true,
+      hasBreadcrumb: true,
+      noButton: true,
     },
   },
   coloredImageTitle: {
@@ -172,7 +173,7 @@ const variants = _.mapValues({
       hasImageTitle: true,
       hasVideo: true,
       hasImage: true,
-      buttonData: _.merge({}, defButtonData, { isInverted: true }),
+      buttonData: _.merge({}, defButtonData),
       hasBacklink: true,
     },
   },

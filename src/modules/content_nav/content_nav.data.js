@@ -15,11 +15,6 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('content_nav.md'),
   },
   props: {
-    contentNavTitle: {
-      level: 2,
-      title: 'Themen',
-      isHidden: true,
-    },
     items: [
       contentTeaserDefaultData,
       _.merge({}, contentTeaserDefaultData, {
@@ -76,21 +71,9 @@ const variants = _.mapValues({
       ],
     },
   },
-  relatedContent: {
-    meta: {
-      title: 'Verwandte Inhalte (CZHDEV-397)',
-      desc: 'Verwandte Inhalte ist eine Variante der Content-Navigation',
-    },
-    props: {
-      contentNavTitle: {
-        isHidden: false,
-        title: 'Das könnte Sie auch interessieren',
-      },
-    },
-  },
   withPromotopic: {
     meta: {
-      Title: 'mit einem Promotopic',
+      title: 'Mit einem Promotopic',
       desc: 'Diese Variante verfügt über eine Promotopic',
     },
     props: {

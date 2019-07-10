@@ -77,6 +77,10 @@ $pageHeaderCurves: (
   @include sizeCurve('padding-top', pageHeaderTop, $pageHeaderCurves);
   @include sizeCurve(padding-bottom, pageHeaderBottom, $pageHeaderCurves);
 
+  &__logo-container {
+    height: 0;
+  }
+
   &__logo {
     position: relative;
 
@@ -217,12 +221,9 @@ $pageHeaderCurves: (
 
         .atm-heading,
         .atm-lead,
-        .mdl-page-header__breadcrumb {
+        .mdl-page-header__breadcrumb,
+        .mdl-breadcrumb__show-context {
           color: $colorWhite;
-
-          span {
-            color: $colorWhite;
-          }
         }
 
         .mdl-page-header__breadcrumb use {

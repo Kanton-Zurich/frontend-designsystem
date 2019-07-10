@@ -11,8 +11,7 @@
   {{! <link rel="manifest" href="site.webmanifest"> }}
   {{! <link rel="apple-touch-icon" href="icon.png"> }}
 
-  <link href="/assets/css/critical.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 
   {{#if env.dev}}
@@ -24,10 +23,15 @@
 </head>
 <body {{#if props.defaultColorVariation}}class="{{props.defaultColorVariation}}"{{/if}} {{#unless props.defaultColorVariation}}class="cv-blue"{{/unless}} {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
   data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'
-  data-style-main='/assets/css/main{{#unless env.dev}}.min{{/unless}}.css'
   data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
-{{#block "header"}}
-{{/block}}
+<div class="lyt-wrapper" id="header">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      {{#block "header"}}
+      {{/block}}
+    </div>
+  </div>
+</div>
 <div class="lyt-wrapper" id="main">
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
@@ -36,7 +40,13 @@
     </div>
   </div>
 </div>
-{{#block "footer"}}
-{{/block}}
+<div class="lyt-wrapper" id="footer">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      {{#block "footer"}}
+      {{/block}}
+    </div>
+  </div>
+</div>
 </body>
 </html>

@@ -1,0 +1,53 @@
+$leadFontCurve: (
+  tiny: $sizeFontRegular,
+  large: $sizeFontRegular,
+  xlarge: $sizeFontMedium,
+);
+
+.mdl-topiclist {
+  // Hide items only on default topiclist
+  &:not(&--office) {
+    .mdl-content_nav {
+      &__item--hidden {
+        display: none;
+      }
+    }
+  }
+
+  &__fullwidth-wrapper {
+    @include gridBleed($fullwidth: true);
+    text-align: center;
+
+    .atm-button {
+      display: inline-flex;
+    }
+  }
+
+  .atm-button {
+    margin: $sizeLarge 0;
+
+    svg {
+      margin-left: $sizeSmallRegular;
+      transform: scale(0.625);
+    }
+  }
+
+  @include polyFluidSizing('margin-top', map-get($sizeCurves, big));
+  @include polyFluidSizing('margin-bottom', map-get($sizeCurves, big));
+
+  .atm-heading {
+    padding-top: $sizeSmallRegular;
+    margin-bottom: $sizeLarge;
+  }
+
+  @include mq($from: large) {
+    .atm-heading {
+      margin-bottom: $sizeBig;
+    }
+  }
+  @include mq($from: xlarge) {
+    .atm-heading {
+      margin-bottom: $sizeBiggerBig;
+    }
+  }
+}

@@ -319,5 +319,10 @@ $zIndexFlyingFocus: 9999;
 
 html {
   -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  [ data-lineclamp="true" ] { //stylelint-disable-line
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+  }
 }
 

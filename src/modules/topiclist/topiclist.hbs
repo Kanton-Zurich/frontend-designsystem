@@ -1,0 +1,19 @@
+<div class="mdl-topiclist{{#if isOfficeNavigation}} mdl-topiclist--office{{/if}}" data-init="topiclist">
+  <h{{topiclistHeading.level}} class="atm-heading atm-heading--bordered {{#if topiclistHeading.isHidden}}visuallyhidden{{/if}}">{{topiclistHeading.title}}</h{{topiclistHeading.level}}>
+  {{#if topiclistLead}}<p class="atm-paragraph">{{{topiclistLead}}}</p>{{/if}}
+
+  {{> "modules/content_nav/content_nav" topiclistcontentNavData}}
+
+  {{#if  topiclistButtonLabel}}
+    {{#if_compare topiclistcontentNavData.items.length ">" 12}}
+      <div class="mdl-topiclist__fullwidth-wrapper">
+        <button class="atm-button" data-topiclist="showAllTrigger">
+          {{{topiclistButtonLabel}}}
+          <svg class="icon atm-button__icon">
+            <use xlink:href="#layer1"></use>
+          </svg>
+        </button>
+      </div>
+    {{/if_compare}}
+  {{/if}}
+</div>
