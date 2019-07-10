@@ -27,6 +27,7 @@
 
   &__item {
     cursor: pointer;
+    text-decoration: none;
     background-color: rgba($colorBlack, 0.05);
     display: flex;
     justify-content: space-between;
