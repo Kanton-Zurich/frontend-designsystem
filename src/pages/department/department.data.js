@@ -1,11 +1,11 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
-
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.colored.props;
 const topicListData = require('../../modules/topiclist/topiclist.data').props;
 const contactData = require('../../modules/contact/contact.data').variants.fullWidth.props;
 const teaserData = require('../../modules/teaser/teaser.data').variants.inverted.props;
+const defAboutData = require('../../modules/about/about.data').props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -24,6 +24,7 @@ const data = _.merge({}, defaultData, {
       topiclist: topicListData,
       contact: contactData,
       teaser: teaserData,
+      about: defAboutData,
     },
   },
 });
