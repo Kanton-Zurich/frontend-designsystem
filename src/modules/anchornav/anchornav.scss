@@ -19,7 +19,7 @@
   ul {
     @include resetList();
     width: 100%;
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: hidden;
     display: flex;
     scroll-behavior: smooth;

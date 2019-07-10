@@ -88,15 +88,7 @@ const variants = _.mapValues({
       isSticky: false,
     },
   },
-  sticky: {
-    meta: {
-      title: 'Sticky',
-      desc: 'Navigation bleibt immer am oberen Rand kleben.',
-    },
-    props: {
-      isSticky: true,
-    },
-  },
+
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
