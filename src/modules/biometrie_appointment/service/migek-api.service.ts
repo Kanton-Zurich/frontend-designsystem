@@ -1,4 +1,4 @@
-import LoginResponse from '../model/login-response.interface';
+import { ReservationDetails } from '../model/reservation-details.model';
 
 export class ApiForbidden implements Error {
   name: 'Forbidden';
@@ -6,8 +6,8 @@ export class ApiForbidden implements Error {
 }
 
 class MigekApiService {
-
   private apiBasePath: string;
+  private bearerStr: string;
 
   private log: Function = () => undefined;
 
@@ -18,11 +18,19 @@ class MigekApiService {
     }
   }
 
-  public login(loginToken: string): Promise<LoginResponse> {
-    const loginUrl = `${this.apiBasePath}login`;
+  public login(loginToken: string): Promise<ReservationDetails> {
+    const loginPath = 'login';
     const body = this.getLoginRequestBody(loginToken);
-    return this.doPost(loginUrl, body).then(respObj => respObj as LoginResponse)
-      .catch(e => this.log(e));
+    return this.doPost(loginPath, body).then((respObj) => {
+      const loginResp = respObj as LoginResponse;
+      this.bearerStr = loginResp.token;
+      // eslint-disable-next-line no-underscore-dangle
+      const pathToReservationDetails = new URL(loginResp._links.find.href).pathname;
+      return this.doGet(pathToReservationDetails).then((responseObj) => {
+        const detailResp = responseObj as ReservationDetailResponse;
+        return detailResp.reservation as ReservationDetails;
+      });
+    }).catch(e => this.log(e));
   }
 
   private getLoginRequestBody(tokenStr: string) {
@@ -31,11 +39,16 @@ class MigekApiService {
     });
   }
 
-  private doPost(url: string, jsonBody: any): Promise<any> {
-    return this.doSendXhr('POST', url, jsonBody);
+  private doGet(path: string): Promise<any> {
+    return this.doSendXhr('GET', path);
   }
 
-  private doSendXhr(method: 'POST' | 'GET', url: string, jsonBody?: any): Promise<any> {
+  private doPost(path: string, jsonBody: any): Promise<any> {
+    return this.doSendXhr('POST', path, jsonBody);
+  }
+
+  private doSendXhr(method: HttpMethod, path: string, jsonBody?: any): Promise<any> {
+    const url = this.apiBasePath + path;
     return new Promise<any>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = () => {
@@ -55,11 +68,43 @@ class MigekApiService {
         }
       };
       xhr.open(method, url, true);
-      xhr.setRequestHeader('Content-Type', 'application/json');
+
+      if (jsonBody) {
+        xhr.setRequestHeader('Content-Type', 'application/json');
+      }
+
+      if (this.bearerStr) {
+        xhr.setRequestHeader('Authorization', `Bearer ${this.bearerStr}`);
+      }
+
       xhr.setRequestHeader('Accept', 'application/hal+json;charset=UTF-8');
       xhr.send(jsonBody);
     });
   }
 }
+
+interface LoginResponse {
+  token: string;
+  _links: {
+    self: PayloadLinkObject;
+    find: PayloadLinkObject;
+  }
+}
+
+interface ReservationDetailResponse {
+  reservation: ReservationDetails;
+  _links: {
+    self: PayloadLinkObject;
+    postpone: PayloadLinkObject;
+  }
+}
+
+interface PayloadLinkObject {
+  href: string;
+  type: HttpMethod;
+}
+
+// TODO: Limit method to those which are actually used
+type HttpMethod = 'POST' | 'GET' | 'PUT' | 'DELETE' | 'OPTIONS' | 'HEAD';
 
 export default MigekApiService;

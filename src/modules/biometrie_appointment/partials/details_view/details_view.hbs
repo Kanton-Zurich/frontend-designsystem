@@ -1,0 +1,96 @@
+{{#with messages}}
+  <div class="mdl-biometrie_appointment__details view">
+    <table>
+      <tr>
+        <th>{{ labelLastName }}</th>
+        <td data-biometrie_appointment="reservation-details__lastName"></td>
+      </tr>
+      <tr>
+        <th>{{ labelFirstName }}</th>
+        <td data-biometrie_appointment="reservation-details__firstName"></td>
+      </tr>
+      <tr>
+        <th>{{ labelDateOfBirth }}</th>
+        <td data-biometrie_appointment="reservation-details__dateOfBirth"></td>
+      </tr>
+      <!--        TODO: Not in detail response so far-->
+      <!--        <tr>-->
+      <!--          <th>Nationalität</th>-->
+      <!--          <td data-biometrie_appointment="reservation-details__nation"></td>-->
+      <!--        </tr>-->
+    </table>
+
+    <h2>{{ headingAppointment }}</h2>
+    <table>
+      <tr>
+        <th>{{ labelDate }}</th>
+        <td data-biometrie_appointment="reservation-details__appointmentDateString"></td>
+      </tr>
+      <tr>
+        <th>{{ labelTime }}</th>
+        <td>
+          <span data-biometrie_appointment="reservation-details__fromTimeString"></span>{{ fromUntilConjunction }}<span
+          data-biometrie_appointment="reservation-details__untilTimeString"></span>
+        </td>
+      </tr>
+    </table>
+    <div class="mdl-biometrie_appointment__rescheduleBtn">
+      {{> "atoms/button/button" rescheduleBtn}}
+    </div>
+    <p>{{ calLinksDescr }}</p>
+
+    <div class="mdl-biometrie_appointment__details__cal-linklist">
+
+      <a class="cal-linklist_item"
+         href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">
+
+          <span class="cal-linklist_item__button">
+            <svg class="icon">
+              <use xlink:href="#download"></use>
+            </svg>
+            <span>iCal</span>
+          </span>
+      </a>
+
+      <a class="cal-linklist_item"
+         href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">
+
+          <span class="cal-linklist_item__button">
+            <svg class="icon">
+              <use xlink:href="#download"></use>
+            </svg>
+            <span>Google</span>
+          </span>
+      </a>
+
+      <a class="cal-linklist_item"
+         href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">
+
+          <span class="cal-linklist_item__button">
+            <svg class="icon">
+              <use xlink:href="#download"></use>
+            </svg>
+            <span>Outlook</span>
+          </span>
+      </a>
+    </div>
+
+    {{#with location}}
+      <div class="mdl-biometrie_appointment__details__location">
+        <h3>{{ heading }}</h3>
+        {{#each paragraphs }}
+          <p>{{{ this }}}</p>
+        {{/each}}
+      </div>
+    {{/with}}
+
+    {{#with additionalInfo}}
+      <div class="mdl-biometrie_appointment__details__addInfo">
+        <h3>{{ heading }}</h3>
+        {{#each contenBlocks }}
+          <div>{{{ this }}}</div>
+        {{/each}}
+      </div>
+    {{/with}}
+  </div>
+{{/with}}

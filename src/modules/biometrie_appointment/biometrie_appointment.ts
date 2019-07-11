@@ -6,17 +6,13 @@
  */
 import Module from '../../assets/js/helpers/module';
 import MigekApiService, { ApiForbidden } from './service/migek-api.service';
-import LoginResponse from './model/login-response.interface';
+import { LoginAlert } from './model/login-alert-type.enum';
+import Reservation, { ReservationDetails } from './model/reservation-details.model';
 
-
-enum LoginAlert {
-  Incomplete,
-  Unauthorized,
-  ShowTelephone
-}
 
 const TOKEN_BLOCKS: number = 4;
 const TOKEN_BLOCK_LENGTH: number = 4;
+const TOKEN_BLOCK_SEPERATOR: string = '-';
 
 const ATTEMPTS_BEFORE_SHOW_TELEPHONE: number = 3;
 
@@ -34,6 +30,7 @@ class BiometrieAppointment extends Module {
       loginAlertErr2: string,
       loginAlertErr3: string,
       loginHint: string,
+      reservationDetails: string,
     }
     stateClasses: {
     }
@@ -51,14 +48,14 @@ class BiometrieAppointment extends Module {
     };
     const defaultOptions = {
       domSelectors: {
-        inputFieldsWrapper: '[data-biometrie_appointment="inputfieldswrapper"]',
-        inputFields: '[data-biometrie_appointment="input"]',
-        submitBtn: '[data-biometrie_appointment="submit"]',
-        loginAlertErr1: '[data-biometrie_appointment="loginAlertErr1"]',
-        loginAlertErr2: '[data-biometrie_appointment="loginAlertErr2"]',
-        loginAlertErr3: '[data-biometrie_appointment="loginAlertErr3"]',
-        loginHint: '[data-biometrie_appointment="loginHint"]',
-
+        inputFieldsWrapper: '[data-biometrie_appointment=inputfieldswrapper]',
+        inputFields: '[data-biometrie_appointment=input]',
+        submitBtn: '[data-biometrie_appointment=submit]',
+        loginAlertErr1: '[data-biometrie_appointment=loginAlertErr1]',
+        loginAlertErr2: '[data-biometrie_appointment=loginAlertErr2]',
+        loginAlertErr3: '[data-biometrie_appointment=loginAlertErr3]',
+        loginHint: '[data-biometrie_appointment=loginHint]',
+        reservationDetails: '[data-biometrie_appointment^=reservation-details__]',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -96,12 +93,12 @@ class BiometrieAppointment extends Module {
 
   private cleanTokenValue(inValue: string): string {
     let cleanedVal = '';
-    for (let i = 0; i < Math.min(inValue.length, TOKEN_BLOCK_LENGTH * TOKEN_BLOCKS); i += 1) {
+    for (let i = 0; i < inValue.length; i += 1) {
       cleanedVal += this.validateTokenCharacter(inValue[i]);
     }
     const regexPattern = `.{1,${TOKEN_BLOCK_LENGTH}}`;
     const tokenBlocks = cleanedVal.match(new RegExp(regexPattern, 'g'));
-    return tokenBlocks.join('-');
+    return tokenBlocks ? tokenBlocks.join(TOKEN_BLOCK_SEPERATOR) : '';
   }
 
   /**
@@ -113,7 +110,7 @@ class BiometrieAppointment extends Module {
 
 
     const fillLoginInputFields = () => {
-      const tokenBlocks = this.loginToken.split('-');
+      const tokenBlocks = this.loginToken.split(TOKEN_BLOCK_SEPERATOR);
       inputEls.forEach((el, i) => {
         if (tokenBlocks.length > i) {
           el.innerText = tokenBlocks[i];
@@ -158,10 +155,14 @@ class BiometrieAppointment extends Module {
           if (el === targetInput) {
             const caretPos = event.target.selectionStart;
             const targetVal = targetInput.value;
-            const beforePaste = targetVal.substring(0, caretPos);
-            totalStr += beforePaste;
-            totalStr += pasteEv.clipboardData.getData('text');
-            totalStr += targetVal.substring(caretPos);
+            if (targetVal) {
+              const beforePaste = targetVal.substring(0, caretPos);
+              totalStr += beforePaste;
+              totalStr += pasteEv.clipboardData.getData('text');
+              totalStr += targetVal.substring(caretPos);
+            } else {
+              totalStr += pasteEv.clipboardData.getData('text');
+            }
           } else {
             totalStr += el.value;
           }
@@ -230,7 +231,7 @@ class BiometrieAppointment extends Module {
           this.showLoginAlert(LoginAlert.Incomplete);
         } else {
           this.apiService.login(this.loginToken)
-            .then(loginResp => this.handleLogintokenResponse(loginResp))
+            .then(detailsObj => this.handleReservationDetails(detailsObj))
             .catch((rejectionCause) => {
               if (rejectionCause === ApiForbidden) {
                 this.handleUnauthedLogin();
@@ -252,8 +253,20 @@ class BiometrieAppointment extends Module {
     }
   }
 
-  private handleLogintokenResponse(tokenRes: LoginResponse) {
-    this.log('Received Login: ', tokenRes);
+  private handleReservationDetails(details: ReservationDetails) {
+    this.log('Received Reservation: ', details);
+
+    const reservation = new Reservation(details);
+
+    const detailFields = document
+      .querySelectorAll<HTMLInputElement>(this.options.domSelectors.reservationDetails);
+    detailFields.forEach((el) => {
+      const fn = el
+        .getAttribute('data-biometrie_appointment').replace('reservation-details__', '');
+      if (reservation[fn]) {
+        el.innerText = reservation[fn];
+      }
+    });
   }
 
   /**

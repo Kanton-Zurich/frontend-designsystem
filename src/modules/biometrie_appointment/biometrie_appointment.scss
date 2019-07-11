@@ -1,107 +1,124 @@
 .mdl-biometrie_appointment {
 
-  &__view {
+  .view {
     margin-bottom: $sizeHuge;
-  }
 
-  &__logininput {
-    border: 2px solid;
-    border-radius: 4px;
-    padding: $sizeRegular;
-    position: relative;
-
-    label {
-      font-weight: $fontWeightBlack;
-      color: $colorBlack100;
-      display: block;
-      margin-bottom: $sizeTiny;
+    h2 {
+      margin-top: $sizeHuge;
     }
 
-    span.input {
-      font-size: $sizeFontBiggerRegular;
-      border: 0;
-      outline: 0;
-      background: transparent;
-      border-bottom: 1px solid $colorBlack15;
-      display: inline-block;
-      min-width: 1.2em;
-      color: $colorBlack100;
-      margin-right: $sizeTiny;
-
-      + .input {
-        margin-left: $sizeTiny;
-      }
-
-      &.filled {
-        border: 0;
-      }
-    }
-    //div {
-    //  color: $colorBlack15;
-    //
-    //}
-
-    .icon-error {
-      display: none;
-    }
-
-    &.error {
-      border-color: $colorRed;
-
-      .icon-error {
-        color: $colorWhite;
-        background-color: $colorRed;
-        text-align: center;
-        border-radius: 50%;
-        font-size: $sizeFontBiggerRegular;
-        font-weight: $fontWeightBlack;
-        line-height: 1.5rem;
-        display: block;
-        position: absolute;
-        right: $sizeRegular;
-        top: calc(50% - 0.75rem);
-      }
+    h3 {
+      margin-top: $sizeSmallHuge;
     }
   }
 
-  &__loginhint {
-    min-height: 5rem;
-    border-bottom: 2px solid $colorBlack100;
-    margin-bottom: $sizeRegular;
+  &__loginview {
 
-    .alert.alert-error {
-      display: none;
-      padding: $sizeTiny $sizeRegular;
-      background-color: $colorRed;
-      color: $colorWhite;
+    &__input {
+      border: 2px solid;
       border-radius: 4px;
-      margin-top: 1em;
-      margin-bottom: 1em;
-      padding-left: $sizeSmallHuge;
-      line-height: $sizeLineHeightNarrow;
+      padding: $sizeRegular;
       position: relative;
 
-      &:before {
-        content: '!';
-        background-color: $colorWhite;
-        color: $colorRed;
-        text-align: center;
-        border-radius: 50%;
-        font-size: $sizeFontBiggerRegular;
+      label {
         font-weight: $fontWeightBlack;
-        line-height: $sizeFontLarge;
+        color: $colorBlack100;
         display: block;
-        position: absolute;
-        left: $sizeRegular;
-        top: calc(50% - 0.75rem);
-        width: $sizeFontLarge;
+        margin-bottom: $sizeTiny;
       }
 
-      &.show {
-        display: block;
+      span.input {
+        font-size: $sizeFontBiggerRegular;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        border-bottom: 1px solid $colorBlack15;
+        display: inline-block;
+        min-width: 1.2em;
+        color: $colorBlack100;
+        margin-right: $sizeTiny;
+
+        + .input {
+          margin-left: $sizeTiny;
+        }
+
+        &.filled {
+          border: 0;
+        }
+      }
+
+      .icon-error {
+        display: none;
+      }
+
+      &.error {
+        border-color: $colorRed;
+
+        .icon-error {
+          color: $colorWhite;
+          background-color: $colorRed;
+          text-align: center;
+          border-radius: 50%;
+          font-size: $sizeFontBiggerRegular;
+          font-weight: $fontWeightBlack;
+          line-height: 1.5rem;
+          display: block;
+          position: absolute;
+          right: $sizeRegular;
+          top: calc(50% - 0.75rem);
+        }
+      }
+    }
+
+    &__hint {
+      min-height: 2rem;
+      border-bottom: 2px solid $colorBlack100;
+      margin-bottom: $sizeRegular;
+
+      .alert.alert-error {
+        display: none;
+        padding: $sizeTiny $sizeRegular;
+        background-color: $colorRed;
+        color: $colorWhite;
+        border-radius: 4px;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        padding-left: $sizeSmallHuge;
+        line-height: $sizeLineHeightNarrow;
+        position: relative;
+
+        &:before {
+          content: '!';
+          background-color: $colorWhite;
+          color: $colorRed;
+          text-align: center;
+          border-radius: 50%;
+          font-size: $sizeFontBiggerRegular;
+          font-weight: $fontWeightBlack;
+          line-height: $sizeFontLarge;
+          display: block;
+          position: absolute;
+          left: $sizeRegular;
+          top: calc(50% - 0.75rem);
+          width: $sizeFontLarge;
+        }
+
+        &.show {
+          display: block;
+        }
+      }
+    }
+
+    &__submit {
+      clear: both;
+      overflow: hidden;
+
+      > * {
+        float: right;
       }
     }
   }
+
 
   &__details {
     table {
@@ -118,21 +135,68 @@
 
         th {
           text-align: left;
+          width: 35%;
         }
 
-        th, td {
+        th,
+        td {
           padding: $sizeTiny;
         }
       }
     }
-  }
 
-  &__loginsubmit {
-    clear: both;
-    overflow: hidden;
+    &__cal-linklist {
+      .cal-linklist_item {
+        display: inline-block;
+        margin-right: 2rem;
+        text-decoration: none;
+        color:  $colorBlack60;
+        font-weight: 900;
+        position: relative;
+        font-size: 16px;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid transparent;
+        transition: color 100ms ease;
+        justify-content: space-between;
+        align-items: center;
 
-    > * {
-      float: right;
+        @media (min-width: 1024px) {
+          font-size: calc(0.78125vw + 10px);
+        }
+        @media (min-width: 400px) {
+          font-size: calc(0vw + 18px);
+        }
+        @media (min-width: 320px)  {
+          font-size: calc(2.5vw + 8px);
+        }
+
+        &__button {
+          margin-top: 0.5rem;
+          display: flex;
+          align-items: center;
+          font-weight: 400;
+          font-size: 0.875rem;
+          color: $colorBlack60;
+
+          .icon {
+            margin-right: 0.75rem;
+            use {
+              fill: $colorBlack60;
+              transition: fill 100ms ease;
+            }
+          }
+        }
+
+        &:hover {
+          .cal-linklist_item__button {
+            color: $colorBlack100;
+            .icon use {
+              fill: $colorBlack100;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -143,7 +207,7 @@
 */
 @each $key, $val in $tl-color-variations {
   .#{$key} {
-    .mdl-biometrie_appointment__logininput:not(.error) {
+    .mdl-biometrie_appointment__loginview__input:not(.error) {
       border-color: #{$val};
     }
   }

@@ -1,71 +1,10 @@
 <div class="mdl-biometrie_appointment" data-init="biometrieAppointment">
-  {{#if heading}}<h2>{{ heading }}</h2>{{/if}}
-
+  {{#if heading}}<h1>{{ heading }}</h1>{{/if}}
 
   <!--  LOGIN -->
-  {{#with messages.login}}
-  <div class="mdl-biometrie_appointment__view">
-    <p>{{beforeParagraph}}</p>
-    <h3>{{head}}</h3>
-    <div class="mdl-biometrie_appointment__logininput" data-biometrie_appointment="inputfieldswrapper">
-      <div class="icon icon-error">!</div>
-      <label>{{inputLabel}}</label>
-      <div>
-        <span class="input" data-biometrie_appointment="input" contenteditable="true" ></span>&mdash;
-        <span class="input" data-biometrie_appointment="input" contenteditable="true" ></span>&mdash;
-        <span class="input" data-biometrie_appointment="input" contenteditable="true" ></span>&mdash;
-        <span class="input" data-biometrie_appointment="input" contenteditable="true" ></span>
-      </div>
-    </div>
-    <div class="mdl-biometrie_appointment__loginhint" data-biometrie_appointment="loginHint">
-      <p >{{hint}}</p>
-      <div class="alert alert-error" data-biometrie_appointment="loginAlertErr1">{{ loginErrMsg1 }}</div>
-      <div class="alert alert-error" data-biometrie_appointment="loginAlertErr2">{{ loginErrMsg2 }}</div>
-      <div class="alert alert-error" data-biometrie_appointment="loginAlertErr3">{{ loginErrMsg3 }}</div>
-    </div>
-    <div class="mdl-biometrie_appointment__loginsubmit">
-      {{> "atoms/button/button" loginSubmitBtn}}
-    </div>
-  </div>
-  {{/with}}
-  <!--  ######-->
+  {{> "modules/biometrie_appointment/partials/login_view/login_view" loginViewProps}}
 
   <!--  DETAILS -->
-  {{#with messages.details}}
-    <div class="mdl-biometrie_appointment__details">
-      <table>
-        <tr>
-          <th>Familienname</th>
-          <td></td>
-        </tr>
-        <tr>
-          <th>Vorname</th>
-          <td></td>
-        </tr>
-        <tr>
-          <th>Geburtsdatum</th>
-          <td></td>
-        </tr>
-        <tr>
-          <th>Nationalität</th>
-          <td></td>
-        </tr>
-      </table>
-      <h3>Ihr Termin</h3>
-      <table>
-        <tr>
-          <th>Datum</th>
-          <td></td>
-        </tr>
-        <tr>
-          <th>Uhrzeit</th>
-          <td></td>
-        </tr>
-      </table>
-    </div>
-
-
-  {{/with}}
-  <!--  ######-->
+  {{> "modules/biometrie_appointment/partials/details_view/details_view" detailsViewProps}}
 
 </div>

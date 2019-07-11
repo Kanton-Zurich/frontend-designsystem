@@ -1,0 +1,26 @@
+<div class="mdl-biometrie_appointment__loginview view">
+{{#with messages}}
+    {{#each beforeParagraphs }}
+      <p>{{{ this }}}</p>
+    {{/each}}
+    <h2>{{head}}</h2>
+    <div class="mdl-biometrie_appointment__loginview__input" data-biometrie_appointment="inputfieldswrapper">
+      <div class="icon icon-error">!</div>
+      <label>{{inputLabel}}</label>
+      <div>
+        <span class="input" data-biometrie_appointment="input" contenteditable="true" ></span>&mdash;
+        <span class="input" data-biometrie_appointment="input" contenteditable="true" ></span>&mdash;
+        <span class="input" data-biometrie_appointment="input" contenteditable="true" ></span>&mdash;
+        <span class="input" data-biometrie_appointment="input" contenteditable="true" ></span>
+      </div>
+    </div>
+    <div class="mdl-biometrie_appointment__loginview__hint" data-biometrie_appointment="loginHint">
+      <div class="alert alert-error" data-biometrie_appointment="loginAlertErr1">{{ loginErrMsg1 }}</div>
+      <div class="alert alert-error" data-biometrie_appointment="loginAlertErr2">{{ loginErrMsg2 }}</div>
+      <div class="alert alert-error" data-biometrie_appointment="loginAlertErr3">{{ loginErrMsg3 }}</div>
+    </div>
+    <div class="mdl-biometrie_appointment__loginview__submit">
+      {{> "atoms/button/button" loginSubmitBtn}}
+    </div>
+  {{/with}}
+</div>
