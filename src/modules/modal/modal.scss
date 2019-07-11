@@ -1,0 +1,23 @@
+.mdl-modal {
+  position: fixed;
+  overflow-y: scroll;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  opacity: 0;
+  animation: modalfade 0.5s linear forwards;
+  background-color: $colorWhite;
+
+  &--show {
+    display: block;
+  }
+
+  @keyframes modalfade {
+    100% {
+      opacity: 1;
+    }
+  }
+}

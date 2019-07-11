@@ -1,0 +1,29 @@
+<!-- Helper markup (do not include) -->
+<button class="atm-button atm-button--big" onclick="document.querySelector('#{{modalId}}').dispatchEvent(new CustomEvent('Modal.open'))">Service anzeigen</button>
+<!-- / -->
+<div id="{{modalId}}" class="mdl-modal" data-init="modal">
+  <!-- modal page content -->
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+        <!-- modal header -->
+        {{> "modules/page_header/page_header" modules.servicePageHeaderData }}
+      </div>
+    </div>
+  </div>
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+        <!-- modal content -->
+        {{> "module/service_box/service_box" }}
+    </div>
+  </div>
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+        <!-- modal footer -->
+      </div>
+    </div>
+  </div>
+  <!-- / modal page content -->
+</div>
