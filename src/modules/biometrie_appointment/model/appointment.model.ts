@@ -1,21 +1,12 @@
+import AppointmentPayload from './appointment-payload.interface';
 
-
-export interface ReservationDetails {
-  id: number;
-  from: string;
-  until: string;
-  lastName: string;
-  firstName: string;
-  dateOfBirth: string;
-}
-
-class Reservation {
-  private details: ReservationDetails;
+class Appointment {
+  private details: AppointmentPayload;
   private locale: string[] = ['de-CH'];
 
   private timeFormatOptions = { hour: '2-digit', minute: '2-digit' };
 
-  constructor(_details: ReservationDetails, _locale?: string) {
+  constructor(_details: AppointmentPayload, _locale?: string) {
     this.details = _details;
 
     if (_locale) {
@@ -36,7 +27,7 @@ class Reservation {
   }
 
   get appointmentDateString(): string {
-    const date = this.getAppointmentDate();
+    const date = this.getAppointmentStartDate();
     return date.toLocaleDateString(this.locale);
   }
 
@@ -50,9 +41,13 @@ class Reservation {
     return untilDate.toLocaleTimeString(this.locale, this.timeFormatOptions);
   }
 
-  getAppointmentDate(): Date {
+  getAppointmentStartDate(): Date {
     return new Date(this.details.from);
+  }
+
+  getAppointmentEndDate(): Date {
+    return new Date(this.details.until);
   }
 }
 
-export default Reservation;
+export default Appointment;

@@ -7,7 +7,9 @@
 import Module from '../../assets/js/helpers/module';
 import MigekApiService, { ApiForbidden } from './service/migek-api.service';
 import { LoginAlert } from './model/login-alert-type.enum';
-import Reservation, { ReservationDetails } from './model/reservation-details.model';
+import Appointment from './model/appointment.model';
+import AppointmentPayload from './model/appointment-payload.interface';
+import CalendarLinkGenerator from './service/calendar-link-generator.service';
 
 
 const TOKEN_BLOCKS: number = 4;
@@ -31,12 +33,15 @@ class BiometrieAppointment extends Module {
       loginAlertErr3: string,
       loginHint: string,
       reservationDetails: string,
+      calendarLinks: string,
     }
     stateClasses: {
     }
   };
 
   private apiService: MigekApiService;
+
+  private calendarLinkGenerator: CalendarLinkGenerator;
 
   private loginToken: string;
 
@@ -56,6 +61,7 @@ class BiometrieAppointment extends Module {
         loginAlertErr3: '[data-biometrie_appointment=loginAlertErr3]',
         loginHint: '[data-biometrie_appointment=loginHint]',
         reservationDetails: '[data-biometrie_appointment^=reservation-details__]',
+        calendarLinks: '[data-biometrie_appointment^=cal-link__]',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -71,17 +77,26 @@ class BiometrieAppointment extends Module {
 
     this.loginReqAttempts = 0;
 
-    this.initApiService();
+    this.initServices();
+  }
+
+  private initServices(): void {
+    this.apiService = new MigekApiService(this.data.apiBase, this.log);
+
+    this.calendarLinkGenerator = new CalendarLinkGenerator({
+      title: 'Kanton Zürich - Erfassung biometrischer Daten',
+      location: 'Migrationsamt des Kantons Zürich',
+      geo: {
+        lat: 47.403555,
+        lon: 8.546418,
+      },
+    });
   }
 
   static get events() {
     return {
       // eventname: `eventname.${ BiometrieAppointment.name }.${  }`
     };
-  }
-
-  private initApiService(): void {
-    this.apiService = new MigekApiService(this.data.apiBase, this.log);
   }
 
   private validateTokenCharacter(charStr: string) {
@@ -253,19 +268,35 @@ class BiometrieAppointment extends Module {
     }
   }
 
-  private handleReservationDetails(details: ReservationDetails) {
+  private handleReservationDetails(details: AppointmentPayload): void {
     this.log('Received Reservation: ', details);
 
-    const reservation = new Reservation(details);
+    const appointment = new Appointment(details);
 
     const detailFields = document
       .querySelectorAll<HTMLInputElement>(this.options.domSelectors.reservationDetails);
     detailFields.forEach((el) => {
       const fn = el
         .getAttribute('data-biometrie_appointment').replace('reservation-details__', '');
-      if (reservation[fn]) {
-        el.innerText = reservation[fn];
+      if (appointment[fn]) {
+        el.innerText = appointment[fn];
       }
+    });
+    this.fillCalendarLinks(appointment);
+  }
+
+  private fillCalendarLinks(appointment: Appointment): void {
+    const start = appointment.getAppointmentStartDate();
+    const end = appointment.getAppointmentEndDate();
+    const calLinkEls = document
+      .querySelectorAll<HTMLInputElement>(this.options.domSelectors.calendarLinks);
+    calLinkEls.forEach((el) => {
+      let hrefVal: string;
+      const calType = el.getAttribute('data-biometrie_appointment').replace('cal-link__', '');
+      if (CalendarLinkGenerator.isSupportedCalType(calType)) {
+        hrefVal = this.calendarLinkGenerator.getCalendarLinkHrefVal(calType, start, end);
+      }
+      el.setAttribute('href', hrefVal);
     });
   }
 
@@ -299,7 +330,6 @@ class BiometrieAppointment extends Module {
       default:
         // Reset
         wrapperEl.classList.remove('error');
-        alertConDirectChildren[0].style.display = 'block';
     }
   }
 
