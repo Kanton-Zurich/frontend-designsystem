@@ -72,6 +72,7 @@ class Accordion extends Module {
     const panel = eventDelegate.parentElement.nextElementSibling;
     const item = eventDelegate.parentElement.parentElement;
     const ariaExpanded = eventDelegate.getAttribute('aria-expanded') === 'true';
+    const verticalIcon = document.documentElement.classList.contains('is-ie') ? item.querySelector(this.options.domSelectors.verticalIcon) : null;
 
     if (ariaExpanded) {
       panel.style.maxHeight = '0px';
@@ -79,12 +80,17 @@ class Accordion extends Module {
       panel.setAttribute('aria-hidden', 'true');
 
       this.setTabindex(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY), '-1');
+
+      if (verticalIcon) verticalIcon.removeAttribute('transform');
     } else {
       panel.style.maxHeight = `${this.calcHeight(panel)}px`;
 
       panel.setAttribute('aria-hidden', 'false');
 
       this.setTabindex(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY), null);
+
+      // CZHDEV - 424, if ie add manual transform
+      if (verticalIcon) verticalIcon.setAttribute('transform', 'rotate(90)');
     }
 
     eventDelegate.setAttribute('aria-expanded', !ariaExpanded);
