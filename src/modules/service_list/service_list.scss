@@ -1,0 +1,81 @@
+.mdl-service_list {
+  $lineCountMobile: 3;
+  $lineCountDesktop: 2;
+  $serviceListCurves: (
+    itemPadding: (
+      tiny: $sizeRegular,
+      large:$sizeLarge,
+    ),
+    headingBottomMargin: (
+      tiny: $sizeLarge,
+      medium: $sizeBig,
+    ),
+  );
+  $textHeightCurve: (
+    tiny: $sizeFontRegular * $sizeLineHeightBase * $lineCountMobile ,
+    small: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountMobile,
+    medium: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountDesktop ,
+    large: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountDesktop,
+    xlarge: $sizeFontMedium * $sizeLineHeightBase * $lineCountDesktop,
+  );
+
+  @include sizeCurve(margin-bottom, big);
+
+  h2.atm-heading--bordered {
+    @include sizeCurve(margin-bottom, headingBottomMargin, $serviceListCurves);
+  }
+
+  &__item {
+    cursor: pointer;
+    text-decoration: none;
+    background-color: rgba($colorBlack, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin-bottom: $sizeTiny;
+
+    @include sizeCurve(padding, itemPadding, $serviceListCurves);
+    @include mq($from: tiny, $to: xsmall) {
+      display: block;
+    }
+
+    &:hover {
+      .mdl-service_list__item-title,
+      .mdl-service_list__item-text {
+        color: $colorBlack;
+      }
+    }
+  }
+
+  &__item-text {
+    margin-top: $sizeTiny;
+    margin-bottom: 0;
+    margin-right: $sizeTiny;
+
+    @include polyFluidSizing(max-height, $textHeightCurve);
+    @include mq($from: tiny, $to: xsmall) {
+      margin-right: 0;
+      margin-bottom: $sizeRegular;
+    }
+  }
+
+  &__item-button {
+    display: inline-flex;
+    min-width: unset;
+
+    @include mq($from: tiny, $to: xsmall) {
+      margin-top: $sizeTiny;
+    }
+  }
+}
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-service_list {
+      &__item-title {
+        color: #{$val};
+      }
+    }
+  }
+}

@@ -107,6 +107,7 @@ $sizeSmallRegular: 12px;
 $sizeRegular: 16px;
 $sizeSmallLarge: 20px;
 $sizeLarge: 24px;
+$sizeSmallBig: 28px;
 $sizeBig: 32px;
 $sizeBiggerBig: 40px;
 $sizeSmallHuge: 48px;
@@ -319,5 +320,10 @@ $zIndexFlyingFocus: 9999;
 
 html {
   -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  [ data-lineclamp="true" ] { //stylelint-disable-line
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+  }
 }
 

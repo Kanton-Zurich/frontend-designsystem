@@ -1,5 +1,9 @@
 .mdl-texthighlight {
   @include sizeCurve('padding', smallerRegular);
+
+  *:last-child {
+    margin-bottom: 0;
+  }
 }
 
 @each $key, $val in $tl-color-variations {
@@ -12,43 +16,41 @@
         color: #{$val};
       }
 
-      .mdl-richtext {
+      .atm-paragraph {
+        color: #{$val};
+      }
+
+      ul {
+        color: #{$val};
+
+        &.mdl-richtext__benefits {
+          li:before {
+            background-image: url(svg-tickmark($val)); // stylelint-disable-line
+          }
+        }
+      }
+
+      .mdl-quote {
+        cite {
+          color: #{$val};
+        }
+      }
+
+      .atm-heading {
+        color: #{$val};
+      }
+
+      ol {
+        color: #{$val};
+      }
+
+      ol li:before {
+        color: #{$val};
+      }
+
+      &__emphasis {
         p {
           color: #{$val};
-        }
-
-        ul {
-          color: #{$val};
-
-          &.mdl-richtext__benefits {
-            li:before {
-              background-image: url(svg-tickmark($val)); // stylelint-disable-line
-            }
-          }
-        }
-
-        .mdl-quote {
-          cite {
-            color: #{$val};
-          }
-        }
-
-        .atm-heading {
-          color: #{$val};
-        }
-
-        ol {
-          color: #{$val};
-        }
-
-        ol li:before {
-          color: #{$val};
-        }
-
-        &__emphasis {
-          p {
-            color: #{$val};
-          }
         }
       }
 

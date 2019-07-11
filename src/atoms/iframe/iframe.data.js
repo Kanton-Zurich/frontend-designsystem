@@ -22,6 +22,10 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
+      iframeScreenReaderHeading: {
+        title: 'This is the homepage of the Inside Solutions GmbH',
+        level: 3,
+      },
       iframeSrc: 'https://www.one-inside.com/de/',
       iframeHeight: 600,
       iframeTextLink: {

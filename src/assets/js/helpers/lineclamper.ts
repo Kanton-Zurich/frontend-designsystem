@@ -59,6 +59,7 @@ class LineClamper {
           difference = element.scrollHeight - element.clientHeight;
           i += 1;
         }
+        element.style.opacity = 1.0;
       });
     }
   }

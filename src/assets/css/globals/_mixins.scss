@@ -144,7 +144,7 @@
  *   @include polyFluidSizing('font-size', (small: 22px, medium: 24px, large: 34px));
  * @author Jake Wilson <jake.e.wilson@gmail.com>
  */
-@mixin polyFluidSizing($property, $map) {
+@mixin polyFluidSizing($property, $map, $margin: 0) {
   // Get the number of provided breakpoints
   $length: length(map-keys($map));
 
@@ -166,13 +166,17 @@
     $nextSizeValue: map-get($map, nth($keys, ($i+1)));
 
     @media ( min-width: $breakpointValue ) {
-      #{$property}: linearInterpolation(($breakpointValue: $sizeValue, $nextBreakpointValue: $nextSizeValue)); //stylelint-disable-line
+      #{$property}: linearInterpolation(($breakpointValue: $sizeValue, $nextBreakpointValue: $nextSizeValue), $margin); //stylelint-disable-line
     }
   }
 
   // Maxmimum size
   @media (min-width: map-get($mqBreakpoints, nth($keys, $length))) { //stylelint-disable-line
-    #{$property}: map-get($map, nth($keys, $length));
+    @if ($margin > 0) {
+      #{$property}: calc(#{map-get($map, nth($keys, $length))} + #{$margin}px);
+    } @else {
+      #{$property}: map-get($map, nth($keys, $length));
+    }
   }
 }
 
@@ -185,7 +189,7 @@
  *   font-size: linearInterpolation((tiny: 18px, medium: 26px));
  * @author Jake Wilson <jake.e.wilson@gmail.com>
  */
-@function linearInterpolation($map) {
+@function linearInterpolation($map, $margin: 0) {
   $keys: map-keys($map);
 
   @if (length($keys) != 2) {
@@ -205,8 +209,12 @@
     $altSign: '+';
     $b: abs($b);
   }
-
-  @return calc(#{$m*100}vw #{$sign} #{$b}); //stylelint-disable-line
+  @if ($margin > 0) {
+    @return calc(#{$m*100}vw #{$sign} #{$b} + #{$margin}px); //stylelint-disable-line
+  }
+  @else {
+    @return calc(#{$m*100}vw #{$sign} #{$b}); //stylelint-disable-line
+  }
 }
 
 /**
