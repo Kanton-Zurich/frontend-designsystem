@@ -1,0 +1,23 @@
+.mdl-about {
+  $aboutCurves: (
+    bottomMargin: (
+      tiny: $sizeHuge,
+      medium: $sizeGiant,
+    ),
+    blockBottomMargin: (
+      tiny:$sizeLarge,
+      medium: $sizeBiggerBig,
+    ),
+  );
+
+  @include sizeCurve('margin-bottom', bottomMargin, $aboutCurves);
+
+  &__block {
+    @include sizeCurve('margin-bottom', blockBottomMargin, $aboutCurves);
+  }
+
+  &__smallcaption {
+    font-size: $sizeFontTiny;
+    color: rgba($colorBlack, 0.6);
+  }
+}

@@ -42,9 +42,25 @@ $pageHeaderCurves: (
     medium: $sizeBiggerBig,
     xlarge: $sizeSmallHuge
   ),
+  closeButtonWidth: (
+    tiny: $sizeSmallRegular,
+    medium: $sizeRegular,
+  ),
+  closeButtonTop: (
+    tiny: $sizeRegular,
+    medium: $sizeLarge,
+  ),
   pageHeaderBottom: (
     tiny: $sizeLarge,
     medium: $sizeBiggerBig,
+  ),
+  pageHeaderMinimal: (
+    tiny: $sizeLarge,
+    medium: $sizeSmallBig,
+  ),
+  pageTitleMinimalLineHeight: (
+    tiny: $sizeFontBiggerRegular,
+    medium: $sizeFontLarge,
   ),
   headerImagePadding: (
     tiny: ($sizeBiggerBig + $sizeLarge),
@@ -72,10 +88,24 @@ $pageHeaderCurves: (
   ),
 );
 
+
 .mdl-page-header {
   @include gridBleed($fullwidth: true);
   @include sizeCurve('padding-top', pageHeaderTop, $pageHeaderCurves);
   @include sizeCurve(padding-bottom, pageHeaderBottom, $pageHeaderCurves);
+
+  &--minimal {
+    @include sizeCurve(padding-bottom padding-top, pageHeaderMinimal, $pageHeaderCurves);
+
+    .mdl-page-header__breadcrumb {
+      margin-bottom: 0;
+      min-height: unset;
+    }
+
+    .mdl-page-header__title {
+      @include sizeCurve(line-height, pageTitleMinimalLineHeight, $pageHeaderCurves);
+    }
+  }
 
   &__logo-container {
     height: 0;
@@ -92,11 +122,36 @@ $pageHeaderCurves: (
   }
 
   &__breadcrumb {
+    min-height: 1.5em;
+
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
     @include sizeCurve('margin-bottom', breadcrumpMarginBottom, $pageHeaderCurves);
 
     span {
       color: $colorBlack60;
+    }
+
+    .mdl-page-header__closebutton {
+      position: fixed;
+      line-height: 1.5em;
+
+      @include mq($from: tiny, $to: large) {
+        right: $sizeBig;
+      }
+      @include mq($from: large) {
+        right: $sizeBiggerBig;
+      }
+      @include sizeCurve('top', closeButtonTop, $pageHeaderCurves);
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+
+      .icon {
+        @include sizeCurve('width', closeButtonWidth, $pageHeaderCurves);
+        display: inline-block;
+        vertical-align: middle;
+        top: -2px;
+        left: $sizeTiny;
+        position: relative;
+      }
     }
   }
 
@@ -222,7 +277,8 @@ $pageHeaderCurves: (
         .atm-heading,
         .atm-lead,
         .mdl-page-header__breadcrumb,
-        .mdl-breadcrumb__show-context {
+        .mdl-breadcrumb__show-context,
+        .mdl-page-header__closebutton {
           color: $colorWhite;
         }
 

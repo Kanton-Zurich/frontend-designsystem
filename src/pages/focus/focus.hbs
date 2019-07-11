@@ -6,36 +6,49 @@
   {{/content}}
 
   {{#content "content"}}
-    <div class="mdl-richtext">
-      <h2 class="atm-heading">Kantonspolizei</h2>
-      {{> "modules/video/video" props.modules.videoData.variants.default.props}}
-      <p class="atm-paragraph">
-        Die Kantonspolizei Zürich umfasst die Kriminal-, Sicherheits- und Verkehrspolizei.
-        Kernaufgabe der Polizei ist es, Gefahren für die öffentliche Sicherheit und Ordnung abzuwehren und Störungen zu beseitigen. Dazu gehören insbesondere die Verhütung strafbarer Handlungen, die Erhöhung der Verkehrssicherheit und die Verhütung von Unfällen im Strassenverkehr.
-        Die Polizei hilft Menschen, die unmittelbar an Leib und Leben bedroht sind. Sie leistet den Justiz- und Verwaltungsbehörden  Hilfe, soweit dies zur Durchsetzung der Rechtsordnung erforderlich ist. Weiter stellt die Polizei Straftaten fest und wirkt bei ihrer Aufklärung mit.
-      </p>
-    </div>
-    {{> "modules/linklist/linklist" props.modules.linklist.list1}}
-    <div class="mdl-richtext">
-      <h2 class="atm-heading">Amt für Militär und Umweltschutz</h2>
-      <p class="atm-paragraph">
-        Das AMZ vollzieht die bundesrechtlichen Vorschriften in den Bereichen Militärverwaltung, Zivilschutz und Wehrpflichtersatz.
-      </p>
-    </div>
-    {{> "modules/linklist/linklist" props.modules.linklist.list1}}
-    <div class="mdl-richtext">
-      <h2 class="atm-heading">Strassenverkehrsamt</h2>
-      <p class="atm-paragraph">
-        Das Strassenverkehrsamt überprüft die Betriebssicherheit der im Verkehr stehenden oder neu zuzulassenden Fahrzeuge und Schiffe anlässlich der technischen Kontrollen. Es führt die theoretischen und praktischen Führerprüfungen, die verkehrs-medizinischen Kontrollen und das Massnahmerecht (Verwarnungen, Führerausweisentzüge, Fahrverbote, Verkehrsunterricht usw.) durch. Diese Aufgaben wirken sich direkt auf die Verkehrssicherheit aus.
-        Dazu übernimmt das Strassenverkehrsamt das Inkasso der kantonalen Verkehrsabgaben, die in den Strassenfonds fliessen, und der pauschalen Schwerverkehrsabgaben, die dem Bund abzuliefern sind.
-      </p>
-    </div>
-    {{> "modules/linklist/linklist" props.modules.linklist.list1}}
-    {{> "modules/related_content/related_content" props.modules.relatedContentData}}
+    <div class="mdl-about">
+      <div class="mdl-about__block">
+        <h2 class="atm-heading">Kantonspolizei</h2>
+        {{> "modules/video/video" props.modules.videoData.variants.default.props}}
+        <p class="atm-paragraph">
+          Die Kantonspolizei Zürich umfasst die Kriminal-, Sicherheits- und Verkehrspolizei.
+          Kernaufgabe der Polizei ist es, Gefahren für die öffentliche Sicherheit und Ordnung abzuwehren und Störungen
+          zu beseitigen. Dazu gehören insbesondere die Verhütung strafbarer Handlungen, die Erhöhung der
+          Verkehrssicherheit und die Verhütung von Unfällen im Strassenverkehr.
+          Die Polizei hilft Menschen, die unmittelbar an Leib und Leben bedroht sind. Sie leistet den Justiz- und
+          Verwaltungsbehörden Hilfe, soweit dies zur Durchsetzung der Rechtsordnung erforderlich ist. Weiter stellt die
+          Polizei Straftaten fest und wirkt bei ihrer Aufklärung mit.
+        </p>
+        {{> "modules/linklist/linklist" props.modules.linklist.list1}}
+      </div>
+      <div class="mdl-about__block">
+        <h2 class="atm-heading">Amt für Militär und Umweltschutz</h2>
+        <p class="atm-paragraph">
+          Das AMZ vollzieht die bundesrechtlichen Vorschriften in den Bereichen Militärverwaltung, Zivilschutz und
+          Wehrpflichtersatz.
+        </p>
+        {{> "modules/linklist/linklist" props.modules.linklist.list1}}
+      </div>
+      <div class="mdl-about__block">
+        <h2 class="atm-heading">Strassenverkehrsamt</h2>
+        <p class="atm-paragraph">
+          Das Strassenverkehrsamt überprüft die Betriebssicherheit der im Verkehr stehenden oder neu zuzulassenden
+          Fahrzeuge und Schiffe anlässlich der technischen Kontrollen. Es führt die theoretischen und praktischen
+          Führerprüfungen, die verkehrs-medizinischen Kontrollen und das Massnahmerecht (Verwarnungen,
+          Führerausweisentzüge, Fahrverbote, Verkehrsunterricht usw.) durch. Diese Aufgaben wirken sich direkt auf die
+          Verkehrssicherheit aus.
+          Dazu übernimmt das Strassenverkehrsamt das Inkasso der kantonalen Verkehrsabgaben, die in den Strassenfonds
+          fliessen, und der pauschalen Schwerverkehrsabgaben, die dem Bund abzuliefern sind.
+        </p>
+        {{> "modules/linklist/linklist" props.modules.linklist.list1}}
+      </div>
+      <div class="mdl-about__block">
+        {{> "modules/related_content/related_content" props.modules.relatedContentData}}
+      </div>
   {{/content}}
   {{#content "footer"}}
-    <footer id="contentinfo">
-      <h1 class="visuallyhidden">Fussbereich</h1>
-    </footer>
+      <footer id="contentinfo">
+        <h1 class="visuallyhidden">Fussbereich</h1>
+      </footer>
   {{/content}}
 {{/extend}}
