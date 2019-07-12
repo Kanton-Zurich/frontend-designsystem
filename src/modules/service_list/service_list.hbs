@@ -1,20 +1,24 @@
-<div class="mdl-service_list">
+<div class="mdl-service_list" data-init="servicelist">
   {{#if hasHeading}}
-  <h2 class="atm-heading atm-heading--bordered ">{{headingText}}</h2>
+    <h2 class="atm-heading atm-heading--bordered ">{{headingText}}</h2>
   {{/if}}
-{{#each items}}
-  <a href="#" class="mdl-service_list__item">
-    <div class="mdl-service_list__item-container">
-      <h4 class="atm-heading mdl-service_list__item-title">{{title}}</h4>
-      {{#if text}}
-      <p class="atm-paragraph mdl-service_list__item-text" data-lineclamp="true">{{text}}</p>
-      {{/if}}
-    </div>
-    <span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
+  {{#each items}}
+    <a href="{{serviceLink}}" class="mdl-service_list__item"
+       role="{{#unless external}}internal-service{{/unless}}{{#if external}}external-service{{/if}}" {{#unless external}}aria-controls="{{modalData.modalId}}"{{/unless}}>
+      <div class="mdl-service_list__item-container">
+        <h4 class="atm-heading mdl-service_list__item-title">{{title}}</h4>
+        {{#if text}}
+          <p class="atm-paragraph mdl-service_list__item-text" data-lineclamp="true">{{text}}</p>
+        {{/if}}
+      </div>
+      <span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
       <span class="atm-button__text">
         {{buttonTitle}}
       </span>
     </span>
-  </a>
+    </a>
+    {{#unless external}}
+      {{> "modules/modal/modal" modalData }}
+    {{/unless}}
   {{/each}}
 </div>

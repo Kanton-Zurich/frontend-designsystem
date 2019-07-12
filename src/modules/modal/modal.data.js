@@ -2,30 +2,21 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const defServiceBoxData = require('../service_box/service_box.data.js');
 
 const template = dataHelper.getFileContent('modal.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'modal',
+    title: 'Modal',
     className: 'Modal',
     jira: 'CZHDEV-517',
     documentation: dataHelper.getDocumentation('modal.md'),
   },
   props: {
-    modalId: 'service-modal-01',
+    defaultColorVariation: 'cv-green',
+    preview: true,
     modules: {
-      servicePageHeaderData: {
-        pageTitle: 'Führerausweis bestellen',
-        inverted: true,
-        hasImageTitle: false,
-        hasVideo: false,
-        hasImage: false,
-        hasBacklink: false,
-        hasBreadcrumb: false,
-        noButton: true,
-        noText: true,
-        hasCloseButton: true,
-      },
+      serviceBoxData: defServiceBoxData.variants.default.props,
     },
   },
 });
@@ -35,6 +26,47 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+    props: {
+      modalId: 'service-modal-01',
+      modules: {
+        servicePageHeaderData: {
+          pageTitle: 'Führerausweis bestellen',
+          inverted: true,
+          hasImageTitle: false,
+          hasVideo: false,
+          hasImage: false,
+          hasBacklink: false,
+          hasBreadcrumb: false,
+          noButton: true,
+          noText: true,
+          hasCloseButton: true,
+        },
+      },
+    },
+  },
+  minimal: {
+    meta: {
+      title: 'Minimal Header',
+      desc: '',
+    },
+    props: {
+      modalId: 'service-modal-02',
+      modules: {
+        servicePageHeaderData: {
+          pageTitle: 'Internationalen Führerausweis bestellen',
+          inverted: true,
+          hasImageTitle: false,
+          hasVideo: false,
+          hasImage: false,
+          hasBacklink: false,
+          hasBreadcrumb: false,
+          noButton: true,
+          noText: true,
+          minimal: true,
+          hasCloseButton: true,
+        },
+      },
     },
   },
 }, (variant) => {

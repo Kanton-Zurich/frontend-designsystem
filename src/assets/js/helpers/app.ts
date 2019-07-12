@@ -20,6 +20,7 @@ import PublicationTeaser from '../../../modules/publication_teaser/publication_t
 import Breadcrumb from '../../../modules/breadcrumb/breadcrumb';
 import Topiclist from '../../../modules/topiclist/topiclist';
 import Modal from '../../../modules/modal/modal';
+import ServiceList from '../../../modules/service_list/service_list';
 import Tabs from '../../../modules/tabs/tabs';
 /* autoinsertmodulereference */ // eslint-disable-line
 
@@ -46,6 +47,7 @@ class App {
     this.modules.topiclist = Topiclist;
     this.modules.tabs = Tabs;
     this.modules.modal = Modal;
+    this.modules.servicelist = ServiceList;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

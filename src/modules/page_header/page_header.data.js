@@ -177,9 +177,9 @@ const variants = _.mapValues({
       hasBacklink: true,
     },
   },
-  servicePage: {
+  serviceModal: {
     meta: {
-      title: 'Service Seite (CZHDEV-468)',
+      title: 'Service Modal (CZHDEV-468)',
       desc: '',
       disabledColorVariations: ['cv-monochrome'],
       defaultColorVariation: 'cv-green',
@@ -195,6 +195,24 @@ const variants = _.mapValues({
       noButton: true,
       noText: true,
       hasCloseButton: true,
+    },
+  },
+  servicePage: {
+    meta: {
+      title: 'Service Stand alone (CZHDEV-468)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+      defaultColorVariation: 'cv-green',
+    },
+    props: {
+      pageTitle: 'Führerausweis bestellen',
+      inverted: true,
+      hasImageTitle: false,
+      hasVideo: false,
+      hasImage: false,
+      hasBacklink: false,
+      hasBreadcrumb: true,
+      noButton: true,
     },
   },
   servicePageSmall: {
