@@ -8,8 +8,8 @@ $headerCurves: (
 
 .mdl-header {
   @include gridBleed($fullwidth: true);
-  @include sizeCurve(padding-bottom, big);
 
+  padding-bottom: pxToRem(5px);
   position: relative;
 
   &__wrapper {
