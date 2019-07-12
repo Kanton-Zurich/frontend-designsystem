@@ -8,7 +8,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Header',
     className: 'Header',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-496',
     documentation: dataHelper.getDocumentation('header.md'),
   },
   props: {
