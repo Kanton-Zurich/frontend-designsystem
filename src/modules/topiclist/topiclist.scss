@@ -6,10 +6,18 @@ $leadFontCurve: (
 
 .mdl-topiclist {
   // Hide items only on default topiclist
-  &:not(&--office) {
+  .mdl-content_nav {
+    &__item:nth-child(1n+12) {
+      display: none;
+    }
+  }
+
+  &--expanded,
+  &--home,
+  &--office {
     .mdl-content_nav {
-      &__item--hidden {
-        display: none;
+      &__item:nth-child(1n+12) {
+        display: flex;
       }
     }
   }
@@ -48,6 +56,19 @@ $leadFontCurve: (
   @include mq($from: xlarge) {
     .atm-heading {
       margin-bottom: $sizeBiggerBig;
+    }
+  }
+
+  .atm-form_input {
+    @include sizeCurve(margin-bottom, large);
+  }
+
+  /**
+   * SPECIAL STYLES FOR TOPICLIST HOME
+  */
+  &--home {
+    .atm-button {
+      display: none;
     }
   }
 }

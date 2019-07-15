@@ -1,0 +1,30 @@
+$sizeInput: 72px;
+$sizeInputSmall: 48px;
+
+.atm-form_input {
+  display: block;
+
+  &__input {
+    background: $colorWhite;
+    line-height: $sizeLineHeightBase;
+
+    height: pxToRem($sizeInput);
+    padding: 0 pxToRem(44px) 0 pxToRem($sizeRegular);
+
+    border: 2px solid $colorBlack40;
+    border-radius: 1px;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      border-color: $colorCyan;
+    }
+  }
+
+  // Special styles
+  &--small {
+    .atm-form_input__input {
+      height: pxToRem($sizeInputSmall);
+    }
+  }
+}

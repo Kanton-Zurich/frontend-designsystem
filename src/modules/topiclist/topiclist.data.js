@@ -5,6 +5,8 @@ const defaultData = require('../../data/default.data.js');
 
 const contentNavDataDef = require('../content_nav/content_nav.data').variants.default.props;
 const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
+const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants.default.props;
+const inputFormData = require('../../atoms/form_input/form_input.data').props;
 
 const template = dataHelper.getFileContent('topiclist.hbs');
 const data = _.merge({}, defaultData, {
@@ -92,8 +94,88 @@ const variants = _.mapValues({
       + ' mit buzzwords und einem "Alle anzeigen" Button sowie versteckten Items ab einer Anzahl von mehr als 12.',
     },
   },
+  home: {
+    meta: {
+      title: 'Themenliste Home (CZHDEV-507)',
+      desc: 'Themenliste auf der Startseite mit Filtermöglichkeit',
+    },
+    props: {
+      topiclistInput: _.merge({}, inputFormData, {
+        label: 'Themen nach Stichwort filtern',
+        isSmall: true,
+      }),
+      topiclistHeading: false,
+      topiclistLead: false,
+      isTopiclistHome: true,
+      topiclistcontentNavData: _.merge({}, contentNavDataDef, {
+        items: [
+          _.merge({}, contentTeaserDefaultData, {
+            shortTitle: 'Gesundheit',
+            buzzwords: 'Krankenversicherung, Gesundheitsversorgung, Gesundheitsberufe, Gesund bleiben',
+          }),
+          _.merge({}, contentTeaserDefaultData, {
+            shortTitle: 'Familie',
+            buzzwords: 'Partnerschaft, Eltern & Kinder, Unterstützung für Kinder & Jugendliche, Alter, Tod, Vormundschaft',
+          }),
+          _.merge({}, contentTeaserDefaultData, {
+            shortTitle: 'Soziales',
+            buzzwords: 'Arbeitslosigkeit, Finanzielle Hilfen, Sozialversicherungen, Beratungsangebote, Soziale Einrichtungen',
+          }),
+          _.merge({}, contentTeaserDefaultData, {
+            shortTitle: 'Bildung',
+            buzzwords: 'Bildungssystem, Schulen, Unterrichten, Schwierigkeiten in der Schule, Weiterbildung, Forschung, Bildungsgerechtigkeit',
+          }),
+          _.merge({}, contentTeaserDefaultData, {
+            shortTitle: 'Sport & Kultur',
+            buzzwords: 'Jugendsport, Sportförderung, Kulturpolitik, Kulturförderung, Kulturpreise, Archäologie',
+          }),
+          _.merge({}, contentTeaserDefaultData, {
+            shortTitle: 'Wirtschaft & Arbeit',
+            buzzwords: 'Arbeitsmarkt, Arbeitnehmer- & Arbeitgeberverhältnis, Schwarzarbeit',
+          }),
+          _.merge({}, contentTeaserDefaultData, {
+            shortTitle: 'Steuern',
+            buzzwords: 'Steuererklärung, Steuern bezahlen, Grundlagen',
+          }),
+          _.merge({}, contentTeaserDefaultData, {
+            shortTitle: 'Mobilität',
+            buzzwords: 'Reisen: Pass & ID, Fahren lernen, Führerausweis, Fahrzeuge, Autonummern, Gesamtverkehr, Öffentlicher Verkehr',
+          }),
+          _.merge({}, contentTeaserDefaultData, {
+            shortTitle: 'Bauen & Planen',
+            buzzwords: 'Karten, Bauprojekte (Hochbau), Baubewilligung, Wohnbauförderung, Energie, Lärm',
+          }),
+          _.merge({}, contentTeaserDefaultData, {
+            shortTitle: 'Umwelt & Tier',
+            buzzwords: 'Tier, Umweltschutz, Boden, Wald & Pflanzen, Wasser, Luft, Politik & Staat',
+          }),
+          _.merge({}, contentTeaserDefaultData, {
+            shortTitle: 'Wahlen & Abstimmungen',
+            buzzwords: 'Bezirke, Gemeinden, Daten & Statistik, Recht & Gesetze, Beschlüsse, Vernehmlassungen',
+          }),
+          _.merge({}, contentTeaserDefaultData, {
+            shortTitle: 'Migration & Integration',
+            buzzwords: 'Willkommen im Kanton Zürich, Einreise, Aufenthalt, Wegweisung, Asyl, Integration, Einbürgerung',
+          }),
+          _.merge({}, contentTeaserDefaultData, {
+            shortTitle: 'Sicherheit & Justiz',
+            buzzwords: 'Polizeimeldungen, Bussen, ePolice, Strafanzeige, Prävention, Kriminalitätsstatisik',
+          }),
+          _.merge({}, contentTeaserDefaultData, {
+            shortTitle: 'Über den Kanton',
+            buzzwords: 'Zahlen & Fakten, So funktioniert der Kanton, Grossprojekte, Ausgewählte Publikationen',
+          }),
+        ],
+      }),
+    },
+  },
 }, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
+  // eslint-disable-next-line consistent-return
+  const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
+    if (key === 'items') {
+      return variantValue;
+    }
+  }).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
   const variantData = _.merge({}, data, variant, {
     meta: {

@@ -14,7 +14,7 @@ class Topiclist extends Module {
       hiddenContentNavItems: any,
     },
     stateClasses: {
-      hiddenItem: string,
+      expanded: string,
     };
   }
   constructor($element: any, data: Object, options: Object) {
@@ -24,10 +24,9 @@ class Topiclist extends Module {
       domSelectors: {
         showAllButton: '[data-topiclist="showAllTrigger"]',
         contentNavItems: '[data-init="topiclist"] .mdl-content_nav > ul > li',
-        hiddenContentNavItems: '[data-init="topiclist"] .mdl-content_nav > ul > li.mdl-content_nav__item--hidden',
       },
       stateClasses: {
-        hiddenItem: 'mdl-content_nav__item--hidden',
+        expanded: 'mdl-topiclist--expanded',
       },
     };
     super($element, defaultData, defaultOptions, data, options);
@@ -54,13 +53,8 @@ class Topiclist extends Module {
    * Shows all hidden items from the content nav list
    */
   showAll() {
-    const firstHiddenItem = (<any> this.ui).hiddenContentNavItems[0];
-
-    (<any> this.ui).hiddenContentNavItems.forEach((element: any) => {
-      element.classList.remove(this.options.stateClasses.hiddenItem);
-    });
-    (<any> this.ui).showAllButton.remove();
-    firstHiddenItem.querySelector('a').focus();
+    console.log('hello', this.ui.element.classList);
+    this.ui.element.classList.add(this.options.stateClasses.expanded);
   }
 
   /**

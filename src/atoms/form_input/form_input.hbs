@@ -1,0 +1,11 @@
+<label class="atm-form_input{{#if isSmall}} atm-form_input--small{{/if}}">
+  <span class="atm-form_input__label {{#unless isFloatingLabel}}visuallyhidden{{/unless}}" for="{{uuid}}">{{label}}</span>
+  <input
+    type="{{type}}"
+    placeholder="{{label}}"
+    name="{{uuid}}"
+    id="{{uuid}}"
+    class="atm-form_input__input"
+    {{#if selector}}{{selector}}{{/if}}
+  />
+</label>

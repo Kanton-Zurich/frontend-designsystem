@@ -6,7 +6,7 @@
 >
   <ul class="mdl-content_nav__list">
     {{#each items}}
-      <li class="mdl-content_nav__item{{#if_compare @index ">" 11}} mdl-content_nav__item--hidden{{/if_compare}}">
+      <li class="mdl-content_nav__item">
         {{> "atoms/content_teaser/content_teaser" this}}
       </li>
     {{/each}}
