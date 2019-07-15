@@ -36,10 +36,42 @@ class ServiceList extends Module {
     const serviceElements = this.ui.element.querySelectorAll(this.options.domSelectors.items);
     serviceElements.forEach((service) => {
       service.addEventListener('click', (event) => {
-        document.querySelector(`#${service.getAttribute('aria-controls')}`).dispatchEvent(new CustomEvent('Modal.open'));
+        const openModal = () => {
+          document.querySelector(`#${service.getAttribute('aria-controls')}`).dispatchEvent(new CustomEvent('Modal.open'));
+        };
+        const modal = document.querySelector(`#${service.getAttribute('aria-controls')}`);
+        if (modal.getAttribute('data-loaded')) {
+          openModal();
+        } else {
+          this.fetchServicePage(service.getAttribute('href'), (data) => {
+            modal.innerHTML = data;
+            modal.setAttribute('data-loaded', 'true');
+            document.querySelector(`#${service.getAttribute('aria-controls')}`).dispatchEvent(new CustomEvent('Modal.setCloseButton'));
+            openModal();
+          });
+        }
         event.preventDefault();
       });
     });
+  }
+
+  /**
+   * Fetch page data
+   */
+  async fetchServicePage(url: string, callback: Function) {
+    if (!window.fetch) {
+      await import('whatwg-fetch');
+    }
+
+    return window.fetch(url)
+      .then((response) => {
+        if (response) {
+          response.text().then((text) => { callback(text); });
+        }
+      })
+      .catch((err) => {
+        this.log('Data could not be loaded!', err);
+      });
   }
 
   /**

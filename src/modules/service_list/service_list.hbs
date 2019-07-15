@@ -18,7 +18,8 @@
     </span>
     </a>
     {{#unless external}}
-      {{> "modules/modal/modal" modalData }}
+    <div id="{{modalData.modalId}}" class="mdl-modal" data-init="modal">
+    </div>
     {{/unless}}
   {{/each}}
 </div>

@@ -10,6 +10,7 @@ import Module from '../../assets/js/helpers/module';
 class Modal extends Module {
   private parentScrollPosition: number;
   private closeOnEscapeFunction: any;
+  private hasCloseBtn: boolean;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
@@ -31,6 +32,7 @@ class Modal extends Module {
   static get events() {
     return {
       openModal: 'Modal.open',
+      setModalContent: 'Modal.setCloseButton',
     };
   }
 
@@ -40,14 +42,30 @@ class Modal extends Module {
   initEventListeners() {
     this.closeOnEscapeFunction = this.closeOnEscape.bind(this);
     const closeButton = this.ui.element.querySelector(this.options.domSelectors.closeButton);
-    closeButton.addEventListener('click',
-      () => { this.closeModal(); });
+    if (closeButton) {
+      closeButton.addEventListener('click',
+        () => {
+          this.closeModal();
+        });
+      this.hasCloseBtn = true;
+    }
     this.eventDelegate.on('Modal.open', () => {
       window.addEventListener('keydown', this.closeOnEscapeFunction);
       this.parentScrollPosition = document.documentElement.scrollTop;
       this.ui.element.classList.add(this.options.stateClasses.show);
       this.ui.element.focus();
       this.ui.element.scrollTo(0, 0);
+    });
+    this.eventDelegate.on('Modal.setCloseButton', () => {
+      if (!this.hasCloseBtn) {
+        const closeBtn = this.ui.element.querySelector(this.options.domSelectors.closeButton);
+        if (closeBtn) {
+          closeBtn.addEventListener('click',
+            () => {
+              this.closeModal();
+            });
+        }
+      }
     });
   }
 

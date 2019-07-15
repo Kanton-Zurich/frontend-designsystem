@@ -2,7 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const defModalData0 = require('../modal/modal.data.js').variants.default.props;
+const defModalData0 = require('../modal/modal.data.js').variants.minimal.props;
 const defModalData1 = require('../modal/modal.data.js').variants.minimal.props;
 
 const template = dataHelper.getFileContent('service_list.hbs');
@@ -19,20 +19,20 @@ const data = _.merge({}, defaultData, {
       {
         title: 'Service Titel',
         buttonTitle: 'Start',
-        serviceLink: '',
-        modalData: _.merge({}, defModalData0, { modalId: 'service-modal0', preview: false }),
+        serviceLink: 'service_page.mock.html',
+        modalData: { modalId: 'service-modal0' },
       },
       {
         title: 'Service Titel',
         buttonTitle: 'Start',
-        serviceLink: '',
-        modalData: _.merge({}, defModalData1, { modalId: 'service-modal1', preview: false }),
+        serviceLink: 'service_page.mock.html',
+        modalData: { modalId: 'service-modal1' },
       },
       {
         title: 'Terminverschiebung periodische Fahrzeugprüfung',
         buttonTitle: 'Start',
-        serviceLink: '',
-        modalData: _.merge({}, defModalData0, { modalId: 'service-modal2', preview: false }),
+        serviceLink: 'service_page_small.mock.html',
+        modalData: { modalId: 'service-modal2' },
       },
       {
         title: 'Internationalen Führerschein beantragen',
