@@ -34,7 +34,7 @@
         </td>
       </tr>
     </table>
-    <div class="mdl-biometrie_appointment__rescheduleBtn">
+    <div class="mdl-biometrie_appointment__details__rescheduleBtn">
       {{> "atoms/button/button" rescheduleBtn}}
     </div>
     <p>{{ calLinksDescr }}</p>
@@ -42,7 +42,7 @@
     <div class="mdl-biometrie_appointment__details__cal-linklist">
 
       <a class="cal-linklist_item" data-biometrie_appointment="cal-link__ical"
-         href="" download="biometrie_appointment.ics">
+         download="biometrie_appointment.ics">
 
           <span class="cal-linklist_item__button">
             <svg class="icon">
@@ -52,9 +52,7 @@
           </span>
       </a>
 
-      <a class="cal-linklist_item" data-biometrie_appointment="cal-link__google" target="_blank"
-         href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">
-
+      <a class="cal-linklist_item" data-biometrie_appointment="cal-link__google" target="_blank">
           <span class="cal-linklist_item__button">
             <svg class="icon">
               <use xlink:href="#download"></use>
@@ -63,8 +61,8 @@
           </span>
       </a>
 
-      <a class="cal-linklist_item" data-biometrie_appointment="cal-link__outlook"
-         href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf">
+      <a class="cal-linklist_item" data-biometrie_appointment="cal-link__outlook" target="_blank"
+         download="biometrie_appointment.ics">
 
           <span class="cal-linklist_item__button">
             <svg class="icon">

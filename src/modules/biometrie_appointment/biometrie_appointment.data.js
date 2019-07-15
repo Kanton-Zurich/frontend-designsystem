@@ -4,6 +4,7 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const loginViewProps = require('./partials/login_view/login_view.data').props;
 const detailsViewProps = require('./partials/details_view/details_view.data').props;
+const rescheduleViewProps = require('./partials/reschedule_view/reschedule_view.data').props;
 
 
 const template = dataHelper.getFileContent('biometrie_appointment.hbs');
@@ -19,6 +20,7 @@ const data = _.merge({}, defaultData, {
     heading: 'Termin zur Erfassung der biometrischen Daten verschieben',
     loginViewProps,
     detailsViewProps,
+    rescheduleViewProps,
   },
 
 });

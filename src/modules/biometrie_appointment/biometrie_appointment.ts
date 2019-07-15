@@ -5,18 +5,13 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import MigekApiService, { ApiForbidden } from './service/migek-api.service';
-import { LoginAlert } from './model/login-alert-type.enum';
+import MigekApiService from './service/migek-api.service';
 import Appointment from './model/appointment.model';
-import AppointmentPayload from './model/appointment-payload.interface';
 import CalendarLinkGenerator from './service/calendar-link-generator.service';
-
-
-const TOKEN_BLOCKS: number = 4;
-const TOKEN_BLOCK_LENGTH: number = 4;
-const TOKEN_BLOCK_SEPERATOR: string = '-';
-
-const ATTEMPTS_BEFORE_SHOW_TELEPHONE: number = 3;
+import ViewController from './util/view-controller.interface';
+import BiometrieLoginView, { LoginViewSelectors } from './partials/login_view/login_view';
+import BiometrieDetailsView, { DetailsViewSelectors } from './partials/details_view/details_view';
+import BiometrieRescheduleView, { RescheduleViewSelectors } from './partials/reschedule_view/reschedule_view';
 
 class BiometrieAppointment extends Module {
   public data: {
@@ -24,45 +19,49 @@ class BiometrieAppointment extends Module {
   };
 
   public options: {
-    domSelectors: {
-      inputFieldsWrapper: string,
-      inputFields: string,
-      submitBtn: string,
-      loginAlertErr1: string,
-      loginAlertErr2: string,
-      loginAlertErr3: string,
-      loginHint: string,
-      reservationDetails: string,
-      calendarLinks: string,
-    }
-    stateClasses: {
-    }
+    domSelectors: any
+    stateClasses: any
   };
+
+  private loginViewSelectors: LoginViewSelectors;
+  private detailsViewSelectors: DetailsViewSelectors;
+  private rescheduleViewSelectors: RescheduleViewSelectors;
+
+  private loginViewCntrl: BiometrieLoginView;
+  private detailsViewCntrl: BiometrieDetailsView;
+  private rescheduleViewCntrl: BiometrieRescheduleView;
+  private viewController: ViewController[];
 
   private apiService: MigekApiService;
 
   private calendarLinkGenerator: CalendarLinkGenerator;
 
-  private loginToken: string;
-
-  private loginReqAttempts: number;
-
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
       apiBase: 'https://internet-acc.zh.ch/proxy/migek/',
     };
+    const loginViewSelectors: LoginViewSelectors = {
+      inputFieldsWrapper: '[data-biometrie_appointment=inputfieldswrapper]',
+      inputFields: '[data-biometrie_appointment=input]',
+      submitBtn: '[data-biometrie_appointment=submit]',
+      loginAlertErr1: '[data-biometrie_appointment=loginAlertErr1]',
+      loginAlertErr2: '[data-biometrie_appointment=loginAlertErr2]',
+      loginAlertErr3: '[data-biometrie_appointment=loginAlertErr3]',
+      loginHint: '[data-biometrie_appointment=loginHint]',
+    };
+    const detailViewSelectors: DetailsViewSelectors = {
+      reservationDetails: '[data-biometrie_appointment^=reservation-details__]',
+      rescheduleBtn: '[data-biometrie_appointment=reschedule]',
+      calendarLinks: '[data-biometrie_appointment^=cal-link__]',
+    };
+    const rescheduleViewSelectors: RescheduleViewSelectors = {
+      nextOpenSlotField: '[data-biometrie_appointment=nextOpenSlot]',
+      otherSlotsContainer: '[data-biometrie_appointment=otherSlotsSelect]',
+      rescheduleToNextBtn: '[data-biometrie_appointment=doRescheduleNext]',
+    };
     const defaultOptions = {
-      domSelectors: {
-        inputFieldsWrapper: '[data-biometrie_appointment=inputfieldswrapper]',
-        inputFields: '[data-biometrie_appointment=input]',
-        submitBtn: '[data-biometrie_appointment=submit]',
-        loginAlertErr1: '[data-biometrie_appointment=loginAlertErr1]',
-        loginAlertErr2: '[data-biometrie_appointment=loginAlertErr2]',
-        loginAlertErr3: '[data-biometrie_appointment=loginAlertErr3]',
-        loginHint: '[data-biometrie_appointment=loginHint]',
-        reservationDetails: '[data-biometrie_appointment^=reservation-details__]',
-        calendarLinks: '[data-biometrie_appointment^=cal-link__]',
-      },
+      domSelectors: Object.assign({},
+        loginViewSelectors, detailViewSelectors, rescheduleViewSelectors),
       stateClasses: {
         // activated: 'is-activated'
       },
@@ -70,14 +69,18 @@ class BiometrieAppointment extends Module {
 
     super($element, defaultData, defaultOptions, data, options);
 
+    this.loginViewSelectors = loginViewSelectors;
+    this.detailsViewSelectors = detailViewSelectors;
+    this.rescheduleViewSelectors = rescheduleViewSelectors;
+
     this.initUi();
-    this.initEventListeners();
 
     this.log('Biometrie appointment init!', this);
 
-    this.loginReqAttempts = 0;
-
     this.initServices();
+    this.initViewController();
+
+    this.initEventListeners();
   }
 
   private initServices(): void {
@@ -93,250 +96,63 @@ class BiometrieAppointment extends Module {
     });
   }
 
+  private initViewController() {
+    this.viewController = [];
+
+    this.loginViewCntrl = new BiometrieLoginView(this.loginViewSelectors, this.apiService)
+      .onAppointment((appointment) => {
+        this.enterDetailsView(appointment);
+      });
+    this.viewController.push(this.loginViewCntrl);
+
+    this.detailsViewCntrl = new BiometrieDetailsView(this.detailsViewSelectors,
+      this.calendarLinkGenerator).onRescheduleClicked((rescheduleIntention) => {
+      if (rescheduleIntention) {
+        this.enterRescheduleView();
+      }
+    });
+    this.viewController.push(this.detailsViewCntrl);
+
+    this.rescheduleViewCntrl = new BiometrieRescheduleView(this.rescheduleViewSelectors,
+      this.apiService);
+    this.viewController.push(this.rescheduleViewCntrl);
+
+    this.viewController.forEach(cntrl => (cntrl as ViewController).appendLogFunction(this.log));
+  }
+
+
   static get events() {
     return {
       // eventname: `eventname.${ BiometrieAppointment.name }.${  }`
     };
   }
 
-  private validateTokenCharacter(charStr: string) {
-    if (/^[a-zA-Z0-9]{1}$/.test(charStr)) {
-      return charStr.toUpperCase();
-    }
-    return '';
-  }
-
-  private cleanTokenValue(inValue: string): string {
-    let cleanedVal = '';
-    for (let i = 0; i < inValue.length; i += 1) {
-      cleanedVal += this.validateTokenCharacter(inValue[i]);
-    }
-    const regexPattern = `.{1,${TOKEN_BLOCK_LENGTH}}`;
-    const tokenBlocks = cleanedVal.match(new RegExp(regexPattern, 'g'));
-    return tokenBlocks ? tokenBlocks.join(TOKEN_BLOCK_SEPERATOR) : '';
-  }
-
   /**
    * Event listeners initialisation
    */
   initEventListeners() {
-    const inputEls = document
-      .querySelectorAll<HTMLInputElement>(this.options.domSelectors.inputFields);
-
-
-    const fillLoginInputFields = () => {
-      const tokenBlocks = this.loginToken.split(TOKEN_BLOCK_SEPERATOR);
-      inputEls.forEach((el, i) => {
-        if (tokenBlocks.length > i) {
-          el.innerText = tokenBlocks[i];
-        } else {
-          el.value = '';
-        }
-      });
-    };
-
-    // Event listeners
-    this.eventDelegate
-      .on('keydown', this.options.domSelectors.inputFields, (event, targetInput) => {
-        let caretPos = window.getSelection().getRangeAt(0).startOffset;
-        this.log('Event KeyDown: ', event, targetInput, caretPos);
-
-        let targetInputIdx = -1;
-        inputEls.forEach((el, i) => {
-          if (el === targetInput) {
-            targetInputIdx = i;
-          }
-        });
-
-        if (caretPos === TOKEN_BLOCK_LENGTH && targetInputIdx < inputEls.length) {
-          if (this.validateTokenCharacter(event.key)) {
-            const focusEl = inputEls[targetInputIdx + 1];
-            focusEl.focus();
-            if (focusEl.childNodes[0]) {
-              window.getSelection().getRangeAt(0).setStart(focusEl.childNodes[0], 0);
-            }
-          }
-        } else if (caretPos === 0 && (event.key === 'Left' || event.key === 'ArrowLeft' || event.key === 'Backspace')) {
-          if (targetInputIdx > 0) {
-            const focusEl = inputEls[targetInputIdx - 1];
-            caretPos = Math.min(focusEl.innerText.length, TOKEN_BLOCK_LENGTH);
-          }
-        }
-      })
-      .on('paste', this.options.domSelectors.inputFields, (event, targetInput) => {
-        const pasteEv = event as ClipboardEvent;
-        let totalStr = '';
-        inputEls.forEach((el) => {
-          if (el === targetInput) {
-            const caretPos = event.target.selectionStart;
-            const targetVal = targetInput.value;
-            if (targetVal) {
-              const beforePaste = targetVal.substring(0, caretPos);
-              totalStr += beforePaste;
-              totalStr += pasteEv.clipboardData.getData('text');
-              totalStr += targetVal.substring(caretPos);
-            } else {
-              totalStr += pasteEv.clipboardData.getData('text');
-            }
-          } else {
-            totalStr += el.value;
-          }
-        });
-        this.log('Total Input: ', totalStr);
-
-        this.loginToken = this.cleanTokenValue(totalStr);
-        fillLoginInputFields();
-
-        pasteEv.preventDefault();
-      })
-      .on('keyup', this.options.domSelectors.inputFields, (event, target) => {
-        const targetInput = (target as HTMLSpanElement);
-        const targetValue = targetInput.innerText || '';
-        let caretPos = window.getSelection().getRangeAt(0).startOffset;
-        this.log('Event KeyUp: ', event, targetInput, caretPos);
-
-
-        let totalStr = '';
-        let targetInputIdx = -1;
-        inputEls.forEach((el, i) => {
-          totalStr += el.innerText;
-          if (el === targetInput) {
-            targetInputIdx = i;
-          }
-        });
-
-        if (targetValue.length >= TOKEN_BLOCK_LENGTH) {
-          targetInput.classList.add('filled');
-        } else {
-          targetInput.classList.remove('filled');
-        }
-
-        this.log('Total Input: ', totalStr);
-
-        this.loginToken = this.cleanTokenValue(totalStr);
-        fillLoginInputFields();
-
-
-        let focusEl = targetInput;
-        if (caretPos > TOKEN_BLOCK_LENGTH) {
-          if (targetInputIdx < TOKEN_BLOCKS) {
-            caretPos %= TOKEN_BLOCK_LENGTH;
-          }
-        } else if (caretPos === 0 && (event.key === 'Left' || event.key === 'ArrowLeft' || event.key === 'Backspace')) {
-          if (targetInputIdx > 0) {
-            focusEl = inputEls[targetInputIdx - 1];
-            caretPos = Math.min(focusEl.innerText.length, TOKEN_BLOCK_LENGTH);
-          }
-        }
-        focusEl.focus();
-        if (focusEl.childNodes[0]) {
-          window.getSelection().getRangeAt(0).setStart(focusEl.childNodes[0], caretPos);
-        }
-        this.log('Range: ', window.getSelection().getRangeAt(0).cloneRange());
-
-        if (totalStr.length >= TOKEN_BLOCKS * TOKEN_BLOCK_LENGTH) {
-          this.showLoginAlert();
-          this.log('Token string complete: ', this.loginToken);
-        }
-      })
-
-      .on('click', this.options.domSelectors.submitBtn, () => {
-        if (!this.loginToken || this.loginToken.length < TOKEN_BLOCKS * TOKEN_BLOCK_LENGTH) {
-          this.log('Incomplete login token', this.loginToken);
-          this.showLoginAlert(LoginAlert.Incomplete);
-        } else {
-          this.apiService.login(this.loginToken)
-            .then(detailsObj => this.handleReservationDetails(detailsObj))
-            .catch((rejectionCause) => {
-              if (rejectionCause === ApiForbidden) {
-                this.handleUnauthedLogin();
-              } else {
-                this.handleError(rejectionCause);
-              }
-            });
-        }
-      });
+    // Init Controller Event listeners
+    this.viewController.forEach(cntrl => cntrl.initEventListeners(this.eventDelegate));
   }
 
-  private handleUnauthedLogin(): void {
-    this.log('Unauthorised!');
-    this.loginReqAttempts += 1;
-    if (this.loginReqAttempts < ATTEMPTS_BEFORE_SHOW_TELEPHONE) {
-      this.showLoginAlert(LoginAlert.Unauthorized);
-    } else {
-      this.showLoginAlert(LoginAlert.ShowTelephone);
-    }
+  private enterDetailsView(appointment: Appointment): void {
+    this.log('Received Appointment: ', appointment);
+    this.detailsViewCntrl.prepareView(appointment);
   }
 
-  private handleReservationDetails(details: AppointmentPayload): void {
-    this.log('Received Reservation: ', details);
-
-    const appointment = new Appointment(details);
-
-    const detailFields = document
-      .querySelectorAll<HTMLInputElement>(this.options.domSelectors.reservationDetails);
-    detailFields.forEach((el) => {
-      const fn = el
-        .getAttribute('data-biometrie_appointment').replace('reservation-details__', '');
-      if (appointment[fn]) {
-        el.innerText = appointment[fn];
-      }
-    });
-    this.fillCalendarLinks(appointment);
-  }
-
-  private fillCalendarLinks(appointment: Appointment): void {
-    const start = appointment.getAppointmentStartDate();
-    const end = appointment.getAppointmentEndDate();
-    const calLinkEls = document
-      .querySelectorAll<HTMLInputElement>(this.options.domSelectors.calendarLinks);
-    calLinkEls.forEach((el) => {
-      let hrefVal: string;
-      const calType = el.getAttribute('data-biometrie_appointment').replace('cal-link__', '');
-      if (CalendarLinkGenerator.isSupportedCalType(calType)) {
-        hrefVal = this.calendarLinkGenerator.getCalendarLinkHrefVal(calType, start, end);
-      }
-      el.setAttribute('href', hrefVal);
-    });
-  }
-
-  /**
-   * Method to display alert messages concerning the Login
-   *
-   * @param {LoginAlert} loginAlert
-   *        alert type, optional leave empty to reset input field and hint.
-   */
-  private showLoginAlert(loginAlert?: LoginAlert) {
-    const wrapperEl = document.querySelector(this.options.domSelectors.inputFieldsWrapper);
-
-    const alertConDirectChildren = document.querySelectorAll<HTMLElement>(`${this.options.domSelectors.loginHint} > *`);
-    alertConDirectChildren.forEach((child) => {
-      child.style.display = 'none';
-    });
-
-    switch (loginAlert) {
-      case LoginAlert.Incomplete:
-        wrapperEl.classList.add('error');
-        document.querySelector<HTMLElement>(this.options.domSelectors.loginAlertErr1).style.display = 'block';
-        return;
-      case LoginAlert.Unauthorized:
-        wrapperEl.classList.add('error');
-        document.querySelector<HTMLElement>(this.options.domSelectors.loginAlertErr2).style.display = 'block';
-        return;
-      case LoginAlert.ShowTelephone:
-        wrapperEl.classList.add('error');
-        document.querySelector<HTMLElement>(this.options.domSelectors.loginAlertErr3).style.display = 'block';
-        return;
-      default:
-        // Reset
-        wrapperEl.classList.remove('error');
-    }
-  }
-
-  // TODO
-  private handleError(e: Error) {
-    this.log('Error occured!');
-    this.log(e.message);
+  private enterRescheduleView(): void {
+    this.log('Entering Reschedule View.');
+    this.rescheduleViewCntrl.prepareView();
+    // this.apiService.getTimeSlots().then((timeslots) => {
+    //   this.log('Timeslots', timeslots);
+    //
+    //   if (timeslots && timeslots.length > 0) {
+    //     const nextSlot = new Timeslot(timeslots[0]);
+    //     const nextOpenSpan = document
+    //       .querySelector<HTMLElement>(this.options.domSelectors.nextOpenSlotField);
+    //     nextOpenSpan.innerText = `${nextSlot.getDateStr()} ${nextSlot.getTimeStr()}`;
+    //   }
+    // });
   }
 
   /**

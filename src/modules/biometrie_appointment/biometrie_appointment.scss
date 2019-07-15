@@ -145,6 +145,10 @@
       }
     }
 
+    &__rescheduleBtn {
+      margin: $sizeBig 0;
+    }
+
     &__cal-linklist {
       .cal-linklist_item {
         display: inline-block;
@@ -160,24 +164,16 @@
         transition: color 100ms ease;
         justify-content: space-between;
         align-items: center;
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
 
-        @media (min-width: 1024px) {
-          font-size: calc(0.78125vw + 10px);
-        }
-        @media (min-width: 400px) {
-          font-size: calc(0vw + 18px);
-        }
-        @media (min-width: 320px)  {
-          font-size: calc(2.5vw + 8px);
-        }
 
         &__button {
           margin-top: 0.5rem;
           display: flex;
           align-items: center;
           font-weight: 400;
-          font-size: 0.875rem;
           color: $colorBlack60;
+          @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
 
           .icon {
             margin-right: 0.75rem;
@@ -197,6 +193,12 @@
           }
         }
       }
+    }
+  }
+
+  &__reschedule {
+    &__nextopen {
+
     }
   }
 }

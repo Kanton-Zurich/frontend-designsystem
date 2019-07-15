@@ -1,0 +1,21 @@
+{{#with messages}}
+  <div class="mdl-biometrie_appointment__reschedule view">
+    <div class="mdl-biometrie_appointment__reschedule__nextopen">
+      <h2>{{ nextOpenSlotHeading }}</h2>
+
+      <div data-biometrie_appointment="nextOpenSlot"></div>
+      <span>An diesem Termin sind noch 4 weitere Schalter frei.</span>
+
+      <div class="mdl-biometrie_appointment__reschedule__scheduleNextBtn">
+        {{> "atoms/button/button" scheduleNextBtn}}
+      </div>
+    </div>
+
+    <div class="mdl-biometrie_appointment__reschedule__allopen">
+      <h2>{{ otherSlotsHeading }}</h2>
+      <div data-biometrie_appointment="otherSlotsSelect">
+
+      </div>
+    </div>
+  </div>
+{{/with}}
