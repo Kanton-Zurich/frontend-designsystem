@@ -65,7 +65,25 @@ const data = _.merge({}, defaultData, {
             shortTitle: 'Führerausweis verloren/kaputt',
             buzzwords: 'Ersatz beantragen',
           }),
-        ]
+        ],
+      },
+      serviceListData: {
+        headingText: 'Service',
+        hasHeading: true,
+        items: [
+          {
+            title: 'Lernfahrausweis beantragen',
+            buttonTitle: 'Start',
+          },
+          {
+            title: 'Internationalen Führerschein beantragen',
+            buttonTitle: 'Start',
+          },
+          {
+            title: 'WAB-Kursanbieter finden',
+            buttonTitle: 'Start',
+          },
+        ],
       },
       releatedContentData: defReleatedContentData,
       contactData: defContactData,

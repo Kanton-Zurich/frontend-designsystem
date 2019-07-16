@@ -1,18 +1,28 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const { handlebars } = require('@unic/estatico-handlebars');
+const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const defTabsData = require('../tabs/tabs.data');
 
-const template = dataHelper.getFileContent('iframe.hbs');
+const template = dataHelper.getFileContent('service_box.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'iframe',
-    className: 'Iframe',
-    jira: 'CZHDEV-481',
-    documentation: dataHelper.getDocumentation('iframe.md'),
+    title: 'Service Box',
+    className: 'ServiceBox',
+    jira: 'CZHDEV-473',
+    documentation: dataHelper.getDocumentation('service_box.md'),
   },
   props: {
-
+    tabs: defTabsData.props.tabs,
+    linklist: {
+      list1: {
+        links: [
+          {
+            linkListItemTitle: 'Stellungsnahme des Direktors', linkListItemHref: '/',
+          },
+        ],
+      },
+    },
   },
 });
 const variants = _.mapValues({
@@ -20,23 +30,6 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
-    },
-    props: {
-      iframeScreenReaderHeading: {
-        title: 'This is the homepage of the Inside Solutions GmbH',
-        level: 3,
-      },
-      iframeSrc: 'https://www.one-inside.com/de/',
-      iframeHeight: 600,
-      iframeTextLink: {
-        icon: 'arrow-right',
-        text: 'Inhalt in seperater Seite anzeigen',
-        isInverted: false,
-        hasLeadingIcon: false,
-        hasTrailingIcon: true,
-        textLinkSrc: 'https://www.one-inside.com/de/',
-        textLinkTargetBlank: true,
-      },
     },
   },
 }, (variant) => {
@@ -48,8 +41,8 @@ const variants = _.mapValues({
 
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
-        data: dataHelper.getFormattedJson(variantProps),
         html: dataHelper.getFormattedHtml(compiledVariant()),
+        data: dataHelper.getFormattedJson(variantProps),
       },
     },
   });

@@ -1,7 +1,9 @@
-<div class="mdl-page-header {{#if hasImage}}mdl-page-header--headerimage{{/if}} {{#if inverted}}mdl-page-header--inverted{{/if}} {{#if hasImageTitle}}mdl-page-header--image-title{{/if}}">
+<div class="mdl-page-header {{#if hasImage}}mdl-page-header--headerimage{{/if}} {{#if
+  inverted}}mdl-page-header--inverted{{/if}} {{#if minimal}}mdl-page-header--minimal{{/if}} {{#if hasImageTitle}}mdl-page-header--image-title{{/if}}">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
-      <div class="mdl-page-header__logo-container cell tiny-2 xsmall-2 small-2 medium-2 large-2 xlarge-2">
+      <div class="mdl-page-header__logo-container cell {{#if minimal}}tiny-0{{/if}}{{#unless minimal}}tiny-2{{/unless}} xsmall-2 small-2 medium-2 large-2 xlarge-2">
+        {{#unless minimal}}
         <span class="visuallyhidden">Logo des Kantons Zürich</span>
         {{#if inverted}}
           <svg viewBox="0 0 100 100" class="mdl-page-header__logo">
@@ -12,16 +14,32 @@
             <use xlink:href="#ktzh"></use>
           </svg>
         {{/if}}
+        {{/unless}}
       </div>
-      <div class="cell tiny-10 xsmall-10 small-10 medium-10 large-10 xlarge-10">
-        <div class="mdl-page-header__breadcrumb">
-          {{#if hasBacklink}}
-            {{> "modules/breadcrumb/breadcrumb" backlink}}
-          {{/if}}
-          {{#if hasBreadcrumb}}
-            {{> "modules/breadcrumb/breadcrumb" breadcrumb}}
-          {{/if}}
-        </div>
+      <div class="cell {{#if minimal}}tiny-6 xsmall-6 small-7{{/if}} {{#unless minimal}}tiny-10 xsmall-10 small-10{{/unless}} medium-10 large-10 xlarge-10">
+        {{#unless minimal}}
+        {{#if hasBacklink}}
+          <div class="mdl-page-header__breadcrumb">
+            {{> "modules/breadcrumb/breadcrumb" backlink}}</div>
+        {{/if}}
+        {{#if hasBreadcrumb}}
+          <div class="mdl-page-header__breadcrumb">
+            {{> "modules/breadcrumb/breadcrumb" breadcrumb}}</div>
+        {{/if}}
+        {{/unless}}
+        {{#if hasCloseButton}}
+          <div class="mdl-page-header__breadcrumb">
+            <button class="mdl-page-header__closebutton">Schliessen
+              <svg class="icon">
+              <use xlink:href="#exit"></use>
+            </svg></button>
+
+          </div>
+        {{/if}}
+        {{#if minimal}}
+          <h4 class="atm-heading mdl-page-header__title">{{pageTitle}}</h4>
+        {{/if}}
+        {{#unless minimal}}
         <h1 class="atm-heading">{{pageTitle}}</h1>
         {{#if hasAnchors}}
           <div class="mdl-tag-group">
@@ -35,13 +53,16 @@
             </ul>
           </div>
         {{/if}}
+        {{/unless}}
       </div>
     </div>
     <div class="grid-x grid-margin-x">
       <div
         class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
         {{#unless hasImage}}
-          {{> "atoms/lead/lead"}}
+          {{#unless noText}}
+            {{> "atoms/lead/lead"}}
+          {{/unless}}
           {{#unless hasAnchors }}
             {{#unless noButton}}
               {{> "atoms/button/button" buttonData}}
@@ -61,7 +82,9 @@
           <div
             class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
             {{#unless noSubsection}}
-              {{> "atoms/lead/lead"}}
+              {{#unless noText}}
+                {{> "atoms/lead/lead"}}
+              {{/unless}}
               {{#unless noButton}}
                 {{> "atoms/button/button" buttonData}}
               {{/unless}}
