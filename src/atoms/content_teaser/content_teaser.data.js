@@ -51,6 +51,7 @@ const variants = _.mapValues({
       demo: compiledVariant,
 
       code: {
+        template,
         handlebars: dataHelper.getFormattedHandlebars(template),
         data: dataHelper.getFormattedJson(variantProps),
         html: dataHelper.getFormattedHtml(compiledVariant()),

@@ -1,8 +1,10 @@
 <div class="
   mdl-content_nav
   {{#ifLengthBetween items 1 1}}mdl-content_nav--single-column{{/ifLengthBetween}}
-  {{#ifLengthBetween items 2 4}}mdl-content_nav--two-columns{{/ifLengthBetween}}"
+  {{#ifLengthBetween items 2 4}}mdl-content_nav--two-columns{{/ifLengthBetween}}
+  {{#if additionalClasses}} {{{additionalClasses}}}{{/if}}"
   data-init="contentNav"
+  {{#if selector}}{{{selector}}}{{/if}}
 >
   <ul class="mdl-content_nav__list">
     {{#each items}}

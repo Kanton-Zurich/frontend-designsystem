@@ -10,6 +10,14 @@
 
   {{> "modules/content_nav/content_nav" topiclistcontentNavData}}
 
+  {{#if isTopiclistHome}}
+    {{> "modules/content_nav/content_nav" autosuggestTopicList}}
+
+    <script id="content-teaser-template" type="text/x-handlebars-template">
+      {{{ contentTeaserTemplate }}}
+    </script>
+  {{/if}}
+
   {{#if  topiclistButtonLabel}}
     {{#if_compare topiclistcontentNavData.items.length ">" 12}}
       <div class="mdl-topiclist__fullwidth-wrapper">
