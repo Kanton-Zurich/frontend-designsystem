@@ -52,6 +52,9 @@ class App {
 
     // expose initModule function
     window[namespace].helpers.initModule = this.initModule;
+    window[namespace].helpers.registerModulesInElement = this.registerModulesInElement;
+    window[namespace].helpers.initModulesInElement = this.initModulesInElement;
+    window[namespace].helpers.app = this;
 
     // Check for touch support
     const hasTouchSupport = 'ontouchstart' in window || navigator.msMaxTouchPoints;
@@ -84,7 +87,11 @@ class App {
   }
 
   registerModules() {
-    [].slice.call(document.querySelectorAll('[data-init]')).forEach((element) => {
+    this.registerModulesInElement(document);
+  }
+
+  registerModulesInElement(queryElement: any) {
+    [].slice.call(queryElement.querySelectorAll('[data-init]')).forEach((element) => {
       const modules = element.dataset.init.split(' ');
 
       modules.forEach((moduleName) => {
@@ -124,12 +131,16 @@ class App {
   }
 
   initModules() {
-    [].slice.call(document.querySelectorAll('[data-init]')).forEach((element) => {
+    this.initModulesInElement(document);
+  }
+
+  initModulesInElement(queryElement: any) {
+    [].slice.call(queryElement.querySelectorAll('[data-init]')).forEach((element) => {
       const modules = element.dataset.init.split(' ');
 
       modules.forEach((moduleName) => {
         if (this.isRegistered(moduleName)
-            && !this.isInitialised(element, moduleName)) {
+          && !this.isInitialised(element, moduleName)) {
           this.initModule(moduleName, element);
         }
       });

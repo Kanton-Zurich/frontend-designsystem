@@ -46,7 +46,7 @@ class ServiceList extends Module {
           this.fetchServicePage(service.getAttribute('href'), (data) => {
             modal.innerHTML = data;
             modal.setAttribute('data-loaded', 'true');
-            document.querySelector(`#${service.getAttribute('aria-controls')}`).dispatchEvent(new CustomEvent('Modal.setCloseButton'));
+            document.querySelector(`#${service.getAttribute('aria-controls')}`).dispatchEvent(new CustomEvent('Modal.initContent'));
             openModal();
           });
         }

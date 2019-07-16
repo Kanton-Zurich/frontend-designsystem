@@ -32,7 +32,7 @@ class Modal extends Module {
   static get events() {
     return {
       openModal: 'Modal.open',
-      setModalContent: 'Modal.setCloseButton',
+      initContent: 'Modal.initContent',
     };
   }
 
@@ -56,7 +56,7 @@ class Modal extends Module {
       this.ui.element.focus();
       this.ui.element.scrollTo(0, 0);
     });
-    this.eventDelegate.on('Modal.setCloseButton', () => {
+    this.eventDelegate.on('Modal.initContent', () => {
       if (!this.hasCloseBtn) {
         const closeBtn = this.ui.element.querySelector(this.options.domSelectors.closeButton);
         if (closeBtn) {
@@ -66,6 +66,10 @@ class Modal extends Module {
             });
         }
       }
+      (<any>window).estatico.helpers.registerModulesInElement
+        .bind((<any>window).estatico.helpers.app)(this.ui.element);
+      (<any>window).estatico.helpers.initModulesInElement
+        .bind((<any>window).estatico.helpers.app)(this.ui.element);
     });
   }
 
