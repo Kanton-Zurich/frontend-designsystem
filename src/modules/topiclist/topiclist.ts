@@ -17,6 +17,12 @@ class Topiclist extends Module {
       expanded: string,
     };
   }
+
+  public ui: {
+    element: any,
+    showAllButton: any,
+  }
+
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
     };
@@ -53,8 +59,9 @@ class Topiclist extends Module {
    * Shows all hidden items from the content nav list
    */
   showAll() {
-    console.log('hello', this.ui.element.classList);
     this.ui.element.classList.add(this.options.stateClasses.expanded);
+
+    this.ui.showAllButton.remove();
   }
 
   /**

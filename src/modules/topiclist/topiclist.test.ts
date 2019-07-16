@@ -25,16 +25,14 @@ describe('Topiclist', () => {
 
   it('should load without error', async () => true);
 
-  it('when show all button was clicked no items should have the hidden class', async () => {
+  it('when show all button was clicked the expanded class should be set', async () => {
     const hasHiddenClass = await page.evaluate(() => {
       const topiclist = document.querySelector('[data-init="topiclist"]');
       const showAllButton = topiclist.querySelector('[data-topiclist="showAllTrigger"]');
 
       (<any>showAllButton).click();
 
-      const hiddenItems = topiclist.querySelectorAll('.mdl-content_nav__item--hidden');
-
-      return Boolean(hiddenItems.length);
+      return Boolean(topiclist.classList.contains('.mdl-topiclist--expanded'));
     });
 
     expect(hasHiddenClass).toBe(false);
