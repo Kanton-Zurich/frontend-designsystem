@@ -8,29 +8,36 @@ import Module from '../../assets/js/helpers/module';
 import MigekApiService from './service/migek-api.service';
 import Appointment from './model/appointment.model';
 import CalendarLinkGenerator from './service/calendar-link-generator.service';
-import ViewController from './util/view-controller.interface';
 import BiometrieLoginView, { LoginViewSelectors } from './partials/login_view/login_view';
 import BiometrieDetailsView, { DetailsViewSelectors } from './partials/details_view/details_view';
-import BiometrieRescheduleView, { RescheduleViewSelectors } from './partials/reschedule_view/reschedule_view';
+import BiometrieRescheduleView, {
+  rescheduleViewSelectorsValues,
+} from './partials/reschedule_view/reschedule_view';
+import { WithEventListeners } from './util/view-controller.class';
 
 class BiometrieAppointment extends Module {
   public data: {
     apiBase: string,
+    appointment: Appointment,
+    loading: boolean,
   };
 
   public options: {
-    domSelectors: any
+    domSelectors: {
+      loadingSpinner: string;
+      viewCon: string;
+    }
     stateClasses: any
   };
 
   private loginViewSelectors: LoginViewSelectors;
   private detailsViewSelectors: DetailsViewSelectors;
-  private rescheduleViewSelectors: RescheduleViewSelectors;
+  // private rescheduleViewSelectors: RescheduleViewSelectors;
 
   private loginViewCntrl: BiometrieLoginView;
   private detailsViewCntrl: BiometrieDetailsView;
   private rescheduleViewCntrl: BiometrieRescheduleView;
-  private viewController: ViewController[];
+  private viewController: WithEventListeners[];
 
   private apiService: MigekApiService;
 
@@ -39,6 +46,8 @@ class BiometrieAppointment extends Module {
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
       apiBase: 'https://internet-acc.zh.ch/proxy/migek/',
+      appointment: undefined,
+      loading: true,
     };
     const loginViewSelectors: LoginViewSelectors = {
       inputFieldsWrapper: '[data-biometrie_appointment=inputfieldswrapper]',
@@ -54,14 +63,13 @@ class BiometrieAppointment extends Module {
       rescheduleBtn: '[data-biometrie_appointment=reschedule]',
       calendarLinks: '[data-biometrie_appointment^=cal-link__]',
     };
-    const rescheduleViewSelectors: RescheduleViewSelectors = {
-      nextOpenSlotField: '[data-biometrie_appointment=nextOpenSlot]',
-      otherSlotsContainer: '[data-biometrie_appointment=otherSlotsSelect]',
-      rescheduleToNextBtn: '[data-biometrie_appointment=doRescheduleNext]',
-    };
+    // const rescheduleViewSelectors: RescheduleViewSelectors = rescheduleViewSelectorsValues;
     const defaultOptions = {
-      domSelectors: Object.assign({},
-        loginViewSelectors, detailViewSelectors, rescheduleViewSelectors),
+      domSelectors: Object.assign({
+        loadingSpinner: '[data-biometrie_appointment=loading-spinner]',
+        viewCon: '[data-biometrie_appointment^=view__]',
+      },
+      loginViewSelectors, detailViewSelectors, rescheduleViewSelectorsValues),
       stateClasses: {
         // activated: 'is-activated'
       },
@@ -71,16 +79,18 @@ class BiometrieAppointment extends Module {
 
     this.loginViewSelectors = loginViewSelectors;
     this.detailsViewSelectors = detailViewSelectors;
-    this.rescheduleViewSelectors = rescheduleViewSelectors;
+    // this.rescheduleViewSelectors = rescheduleViewSelectors;
 
+    this.log('Module "Biometrie Appointment" init!', this);
     this.initUi();
-
-    this.log('Biometrie appointment init!', this);
 
     this.initServices();
     this.initViewController();
 
     this.initEventListeners();
+    this.initWatchers();
+
+    this.enterLoginView();
   }
 
   private initServices(): void {
@@ -99,25 +109,22 @@ class BiometrieAppointment extends Module {
   private initViewController() {
     this.viewController = [];
 
-    this.loginViewCntrl = new BiometrieLoginView(this.loginViewSelectors, this.apiService)
-      .onAppointment((appointment) => {
-        this.enterDetailsView(appointment);
-      });
+    this.loginViewCntrl = new BiometrieLoginView(this.data, this.loginViewSelectors, this.log,
+      this.apiService);
     this.viewController.push(this.loginViewCntrl);
 
-    this.detailsViewCntrl = new BiometrieDetailsView(this.detailsViewSelectors,
-      this.calendarLinkGenerator).onRescheduleClicked((rescheduleIntention) => {
-      if (rescheduleIntention) {
-        this.enterRescheduleView();
-      }
-    });
+    this.detailsViewCntrl = new BiometrieDetailsView(this.data, this.detailsViewSelectors, this.log,
+      this.calendarLinkGenerator)
+      .onRescheduleClicked((rescheduleIntention) => {
+        if (rescheduleIntention) {
+          this.enterRescheduleView();
+        }
+      });
     this.viewController.push(this.detailsViewCntrl);
 
-    this.rescheduleViewCntrl = new BiometrieRescheduleView(this.rescheduleViewSelectors,
-      this.apiService);
+    this.rescheduleViewCntrl = new BiometrieRescheduleView(this.data, rescheduleViewSelectorsValues,
+      this.log, this.apiService);
     this.viewController.push(this.rescheduleViewCntrl);
-
-    this.viewController.forEach(cntrl => (cntrl as ViewController).appendLogFunction(this.log));
   }
 
 
@@ -128,6 +135,15 @@ class BiometrieAppointment extends Module {
   }
 
   /**
+   *Initializing the watchers
+   *
+   */
+  initWatchers() {
+    this.watch(this.data, 'appointment', this.enterDetailsView.bind(this));
+    this.watch(this.data, 'loading', this.toggleLoadingSpinner.bind(this));
+  }
+
+  /**
    * Event listeners initialisation
    */
   initEventListeners() {
@@ -135,24 +151,43 @@ class BiometrieAppointment extends Module {
     this.viewController.forEach(cntrl => cntrl.initEventListeners(this.eventDelegate));
   }
 
-  private enterDetailsView(appointment: Appointment): void {
-    this.log('Received Appointment: ', appointment);
-    this.detailsViewCntrl.prepareView(appointment);
+  private toggleLoadingSpinner(): void {
+    const loadingConClassList = document
+      .querySelector<HTMLInputElement>(this.options.domSelectors.loadingSpinner).classList;
+    if (loadingConClassList.contains('show')) {
+      loadingConClassList.remove('show');
+    } else {
+      loadingConClassList.add('show');
+    }
+  }
+
+  private enterLoginView():void {
+    this.enterView('login');
+  }
+
+  private enterDetailsView(): void {
+    this.log('Received Appointment: ', this.data.appointment);
+    this.detailsViewCntrl.prepareView();
+    this.enterView('details');
   }
 
   private enterRescheduleView(): void {
     this.log('Entering Reschedule View.');
     this.rescheduleViewCntrl.prepareView();
-    // this.apiService.getTimeSlots().then((timeslots) => {
-    //   this.log('Timeslots', timeslots);
-    //
-    //   if (timeslots && timeslots.length > 0) {
-    //     const nextSlot = new Timeslot(timeslots[0]);
-    //     const nextOpenSpan = document
-    //       .querySelector<HTMLElement>(this.options.domSelectors.nextOpenSlotField);
-    //     nextOpenSpan.innerText = `${nextSlot.getDateStr()} ${nextSlot.getTimeStr()}`;
-    //   }
-    // });
+    this.enterView('reschedule');
+  }
+
+  private enterView(viewName: string):void {
+    const viewCon = document.querySelectorAll<HTMLInputElement>(this.options.domSelectors.viewCon);
+
+    viewCon.forEach((el) => {
+      const elViewName = el.getAttribute('data-biometrie_appointment').replace('view__', '');
+      if (viewName === elViewName) {
+        el.classList.add('show');
+      } else {
+        el.classList.remove('show');
+      }
+    });
   }
 
   /**

@@ -1,13 +1,22 @@
 <div class="mdl-biometrie_appointment" data-init="biometrieAppointment">
-  {{#if heading}}<h1>{{ heading }}</h1>{{/if}}
+  {{#if heading}}<h2 class="atm-heading mdl-biometrie_appointment__heading">{{ heading }}</h2>{{/if}}
 
   <!--  LOGIN -->
-  {{> "modules/biometrie_appointment/partials/login_view/login_view" loginViewProps}}
+  <div class="view" data-biometrie_appointment="view__login">
+    {{> "modules/biometrie_appointment/partials/login_view/login_view" loginViewProps}}
+  </div>
 
   <!--  DETAILS -->
-  {{> "modules/biometrie_appointment/partials/details_view/details_view" detailsViewProps}}
+  <div class="view" data-biometrie_appointment="view__details">
+    {{> "modules/biometrie_appointment/partials/details_view/details_view" detailsViewProps}}
+  </div>
 
   <!--  RESCHEDULING -->
-  {{> "modules/biometrie_appointment/partials/reschedule_view/reschedule_view" rescheduleViewProps}}
+  <div class="view" data-biometrie_appointment="view__reschedule" >
+    {{> "modules/biometrie_appointment/partials/reschedule_view/reschedule_view" rescheduleViewProps}}
+  </div>
 
+  <div class="mdl-biometrie_appointment__loading-spinner show" data-biometrie_appointment="loading-spinner" >
+    <div class="atm-dual-ring"></div>
+  </div>
 </div>

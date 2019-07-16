@@ -1,92 +1,97 @@
 {{#with messages}}
-  <div class="mdl-biometrie_appointment__details view">
-    <table>
-      <tr>
-        <th>{{ labelLastName }}</th>
-        <td data-biometrie_appointment="reservation-details__lastName"></td>
-      </tr>
-      <tr>
-        <th>{{ labelFirstName }}</th>
-        <td data-biometrie_appointment="reservation-details__firstName"></td>
-      </tr>
-      <tr>
-        <th>{{ labelDateOfBirth }}</th>
-        <td data-biometrie_appointment="reservation-details__dateOfBirth"></td>
-      </tr>
-      <!--        TODO: Not in detail response so far-->
-      <!--        <tr>-->
-      <!--          <th>Nationalität</th>-->
-      <!--          <td data-biometrie_appointment="reservation-details__nation"></td>-->
-      <!--        </tr>-->
-    </table>
+  <div class="mdl-biometrie_appointment__details">
 
-    <h2>{{ headingAppointment }}</h2>
-    <table>
-      <tr>
-        <th>{{ labelDate }}</th>
-        <td data-biometrie_appointment="reservation-details__appointmentDateString"></td>
-      </tr>
-      <tr>
-        <th>{{ labelTime }}</th>
-        <td>
-          <span data-biometrie_appointment="reservation-details__fromTimeString"></span>{{ fromUntilConjunction }}<span
-          data-biometrie_appointment="reservation-details__untilTimeString"></span>
-        </td>
-      </tr>
-    </table>
-    <div class="mdl-biometrie_appointment__details__rescheduleBtn">
-      {{> "atoms/button/button" rescheduleBtn}}
+    <div class="mdl-biometrie_appointment__details__persondata">
+      <table>
+        <tr>
+          <th>{{ labelLastName }}</th>
+          <td data-biometrie_appointment="reservation-details__lastName"></td>
+        </tr>
+        <tr>
+          <th>{{ labelFirstName }}</th>
+          <td data-biometrie_appointment="reservation-details__firstName"></td>
+        </tr>
+        <tr>
+          <th>{{ labelDateOfBirth }}</th>
+          <td data-biometrie_appointment="reservation-details__dateOfBirth"></td>
+        </tr>
+        <!--        TODO: Not in detail response so far-->
+        <!--        <tr>-->
+        <!--          <th>Nationalität</th>-->
+        <!--          <td data-biometrie_appointment="reservation-details__nation"></td>-->
+        <!--        </tr>-->
+      </table>
     </div>
-    <p>{{ calLinksDescr }}</p>
 
-    <div class="mdl-biometrie_appointment__details__cal-linklist">
+    <div class="mdl-biometrie_appointment__details__appointmentdata">
+      <h2>{{ headingAppointment }}</h2>
+      <table>
+        <tr>
+          <th>{{ labelDate }}</th>
+          <td data-biometrie_appointment="reservation-details__appointmentDateString"></td>
+        </tr>
+        <tr>
+          <th>{{ labelTime }}</th>
+          <td>
+            <span data-biometrie_appointment="reservation-details__fromTimeString"></span>{{ fromUntilConjunction }}<span
+            data-biometrie_appointment="reservation-details__untilTimeString"></span>
+          </td>
+        </tr>
+      </table>
+      <div class="mdl-biometrie_appointment__details__rescheduleBtn">
+        {{> "atoms/button/button" rescheduleBtn}}
+      </div>
+      <p class="atm-paragraph">{{ calLinksDescr }}</p>
 
-      <a class="cal-linklist_item" data-biometrie_appointment="cal-link__ical"
-         download="biometrie_appointment.ics">
+      <div class="mdl-biometrie_appointment__details__cal-linklist">
 
-          <span class="cal-linklist_item__button">
-            <svg class="icon">
-              <use xlink:href="#download"></use>
-            </svg>
-            <span>iCal</span>
-          </span>
-      </a>
+        <a class="cal-linklist_item" data-biometrie_appointment="cal-link__ical"
+           download="biometrie_appointment.ics">
 
-      <a class="cal-linklist_item" data-biometrie_appointment="cal-link__google" target="_blank">
-          <span class="cal-linklist_item__button">
-            <svg class="icon">
-              <use xlink:href="#download"></use>
-            </svg>
-            <span>Google</span>
-          </span>
-      </a>
+            <span class="cal-linklist_item__button">
+              <svg class="icon">
+                <use xlink:href="#download"></use>
+              </svg>
+              <span>iCal</span>
+            </span>
+        </a>
 
-      <a class="cal-linklist_item" data-biometrie_appointment="cal-link__outlook" target="_blank"
-         download="biometrie_appointment.ics">
+        <a class="cal-linklist_item" data-biometrie_appointment="cal-link__google" target="_blank">
+            <span class="cal-linklist_item__button">
+              <svg class="icon">
+                <use xlink:href="#download"></use>
+              </svg>
+              <span>Google</span>
+            </span>
+        </a>
 
-          <span class="cal-linklist_item__button">
-            <svg class="icon">
-              <use xlink:href="#download"></use>
-            </svg>
-            <span>Outlook</span>
-          </span>
-      </a>
+        <a class="cal-linklist_item" data-biometrie_appointment="cal-link__outlook" target="_blank"
+           download="biometrie_appointment.ics">
+
+            <span class="cal-linklist_item__button">
+              <svg class="icon">
+                <use xlink:href="#download"></use>
+              </svg>
+              <span>Outlook</span>
+            </span>
+        </a>
+      </div>
     </div>
 
     {{#with location}}
-      <div class="mdl-biometrie_appointment__details__location">
-        <h3>{{ heading }}</h3>
+      <div class="mdl-biometrie_appointment__details__addinfo-block">
+        <h3 class="atm-heading">{{ heading }}</h3>
         {{#each paragraphs }}
-          <p>{{{ this }}}</p>
+          <p class="atm-paragraph">{{{ this }}}</p>
         {{/each}}
       </div>
     {{/with}}
 
     {{#with additionalInfo}}
       <div class="mdl-biometrie_appointment__details__addInfo">
-        <h3>{{ heading }}</h3>
+        <h3 class="atm-heading">{{ heading }}</h3>
         {{#each contenBlocks }}
-          <div>{{{ this }}}</div>
+          <div class="mdl-richtext">{{{ this }}}</div>
         {{/each}}
       </div>
     {{/with}}

@@ -11,6 +11,7 @@ class MigekApiService {
   private bearerStr: string;
 
   private currentAppointment: AppointmentPayload;
+  private pathToReservationDetails: string;
   private postponePath: string;
 
   private log: Function = () => undefined;
@@ -29,15 +30,22 @@ class MigekApiService {
       const loginResp = respObj as LoginResponse;
       this.bearerStr = loginResp.token;
       // eslint-disable-next-line no-underscore-dangle
-      const pathToReservationDetails = new URL(loginResp._links.find.href).pathname;
-      return this.doGet(pathToReservationDetails).then((responseObj) => {
-        const detailResp = responseObj as AppointmentDetailsResponse;
-        // eslint-disable-next-line no-underscore-dangle
-        this.postponePath = new URL(detailResp._links.postpone.href).pathname;
+      this.pathToReservationDetails = new URL(loginResp._links.find.href).pathname;
+      return this.getReservationDetails();
+    });
+  }
 
-        this.currentAppointment = detailResp.reservation;
-        return new Appointment(this.currentAppointment);
-      });
+  public getReservationDetails(): Promise<Appointment> {
+    if (!this.pathToReservationDetails) {
+      throw new Error('Unexpected runtime error'); // TODO
+    }
+    return this.doGet(this.pathToReservationDetails).then((responseObj) => {
+      const detailResp = responseObj as AppointmentDetailsResponse;
+      // eslint-disable-next-line no-underscore-dangle
+      this.postponePath = new URL(detailResp._links.postpone.href).pathname;
+
+      this.currentAppointment = detailResp.reservation;
+      return new Appointment(this.currentAppointment);
     });
   }
 

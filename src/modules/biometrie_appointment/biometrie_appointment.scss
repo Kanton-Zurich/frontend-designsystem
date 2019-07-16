@@ -1,14 +1,29 @@
+$biometrieViewTransitionDuration: 300ms;
+
 .mdl-biometrie_appointment {
+  margin-bottom: $sizeHuge;
+
+  &__heading {
+    hyphens: initial;
+
+    &.atm-heading {
+      @include sizeCurve('margin-bottom', medium);
+    }
+  }
 
   .view {
-    margin-bottom: $sizeHuge;
+    //transform: translateX(-100%);
+    opacity: 0;
+    transition: opacity $biometrieViewTransitionDuration;
+    max-height: 0;
+    pointer-events: none;
 
-    h2 {
-      margin-top: $sizeHuge;
-    }
-
-    h3 {
-      margin-top: $sizeSmallHuge;
+    &.show {
+      //transform: translateX(0);
+      opacity: 1;
+      transition-delay: $biometrieViewTransitionDuration;
+      max-height: inherit;
+      pointer-events: all;
     }
   }
 
@@ -19,6 +34,7 @@
       border-radius: 4px;
       padding: $sizeRegular;
       position: relative;
+      border-color: $colorBlack15;
 
       label {
         font-weight: $fontWeightBlack;
@@ -49,6 +65,10 @@
 
       .icon-error {
         display: none;
+      }
+
+      &.focused {
+        border-color: $colorCyan;
       }
 
       &.error {
@@ -145,6 +165,14 @@
       }
     }
 
+    &__persondata {
+      @include sizeCurve('margin-bottom', large);
+    }
+
+    &__appointmentdata {
+      @include sizeCurve('margin-bottom', large);
+    }
+
     &__rescheduleBtn {
       margin: $sizeBig 0;
     }
@@ -154,7 +182,7 @@
         display: inline-block;
         margin-right: 2rem;
         text-decoration: none;
-        color:  $colorBlack60;
+        color: $colorBlack60;
         font-weight: 900;
         position: relative;
         font-size: 16px;
@@ -164,8 +192,8 @@
         transition: color 100ms ease;
         justify-content: space-between;
         align-items: center;
-        @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
 
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
 
         &__button {
           margin-top: 0.5rem;
@@ -173,10 +201,12 @@
           align-items: center;
           font-weight: 400;
           color: $colorBlack60;
+
           @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
 
           .icon {
             margin-right: 0.75rem;
+
             use {
               fill: $colorBlack60;
               transition: fill 100ms ease;
@@ -187,6 +217,7 @@
         &:hover {
           .cal-linklist_item__button {
             color: $colorBlack100;
+
             .icon use {
               fill: $colorBlack100;
             }
@@ -194,23 +225,75 @@
         }
       }
     }
+
+    &__addinfo-block {
+      @include sizeCurve('margin-bottom', medium);
+    }
   }
 
   &__reschedule {
-    &__nextopen {
+    &__backlink {
+      @include sizeCurve('margin-bottom', medium);
+    }
 
+    &__nextopen {
+      @include sizeCurve('margin-bottom', large);
+
+      strong {
+        @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+      }
+
+      .atm-heading {
+        @include sizeCurve('margin-bottom', regular);
+      }
+    }
+
+    &__scheduleNextBtn {
+      @include sizeCurve('margin-top', regular);
     }
   }
-}
 
+  &__loading-spinner {
+    &.show {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
 
-/*
-* COLOR-VARIATIONS
-*/
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .mdl-biometrie_appointment__loginview__input:not(.error) {
-      border-color: #{$val};
+      .atm-dual-ring {
+        position: absolute;
+        height: 64px;
+        width: 64px;
+        left: 50%;
+        margin-left: -32px;
+        top: 50%;
+        margin-top: -50px;
+        display: inline-block;
+      }
+
+      .atm-dual-ring:after {
+        content: ' ';
+        display: block;
+        width: 46px;
+        height: 46px;
+        margin: 1px;
+        border-radius: 50%;
+        border: 5px solid;
+        border-color: #fff transparent;
+        animation: atm-dual-ring 1.2s linear infinite;
+      }
+
+      @keyframes atm-dual-ring {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
     }
   }
 }

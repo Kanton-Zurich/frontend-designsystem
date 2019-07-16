@@ -1,5 +1,5 @@
 import MigekApiService, { ApiForbidden } from '../../service/migek-api.service';
-import ViewController from '../../util/view-controller.interface';
+import { ViewController } from '../../util/view-controller.class';
 import { LoginAlert } from '../../model/login-alert-type.enum';
 import Appointment from '../../model/appointment.model';
 
@@ -18,34 +18,30 @@ export interface LoginViewSelectors {
   loginAlertErr3: string,
   loginHint: string,
 }
+interface LoginViewData {
+  appointment: Appointment;
+  loading: boolean;
+}
 
-class BiometrieLoginView implements ViewController {
-  selectors: LoginViewSelectors;
-
+class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewData> {
   private apiService: MigekApiService;
 
   private loginToken: string;
 
   private loginReqAttempts: number;
 
-  private callbackFn: (appointment: Appointment) => void;
-
-  logFn: Function;
-
-  constructor(_selectors: LoginViewSelectors, _apiService: MigekApiService) {
-
+  constructor(_data: any, _selectors: LoginViewSelectors, _logFn: Function, _apiService: MigekApiService) {
+    super(_selectors, _data as LoginViewData, _logFn);
     this.selectors = _selectors;
     this.apiService = _apiService;
 
     this.loginReqAttempts = 0;
   }
 
-  public onAppointment(callback: (appointment: Appointment) => void): BiometrieLoginView {
-    this.callbackFn = callback;
-    return this;
-  }
-
   initEventListeners(eventDelegate): void {
+    const inputWrapper = document
+      .querySelector<HTMLInputElement>(this.selectors.inputFieldsWrapper);
+
     const inputEls = document
       .querySelectorAll<HTMLInputElement>(this.selectors.inputFields);
 
@@ -62,6 +58,12 @@ class BiometrieLoginView implements ViewController {
     };
 
     eventDelegate
+      .on('focus', this.selectors.inputFields, () => {
+        inputWrapper.classList.add('focused');
+      })
+      .on('blur', this.selectors.inputFields, () => {
+        inputWrapper.classList.remove('focused');
+      })
       .on('keydown', this.selectors.inputFields, (event, targetInput) => {
         let caretPos = window.getSelection().getRangeAt(0).startOffset;
         this.log('Event KeyDown: ', event, targetInput, caretPos);
@@ -170,21 +172,30 @@ class BiometrieLoginView implements ViewController {
           this.log('Incomplete login token', this.loginToken);
           this.showLoginAlert(LoginAlert.Incomplete);
         } else {
+          this.data.loading = true;
           this.apiService.login(this.loginToken)
             .then((appointment) => {
               if (appointment) {
-                this.callbackFn(appointment);
+                this.data.appointment = appointment;
               }
             })
             .catch((rejectionCause) => {
+              this.log('Login rejected');
               if (rejectionCause === ApiForbidden) {
                 this.handleUnauthedLogin();
               } else {
                 this.handleError(rejectionCause);
               }
+            })
+            .finally(() => {
+              this.data.loading = false;
             });
         }
       });
+
+    setTimeout(() => {
+      this.data.loading = false;
+    }, 0);
   }
 
   private validateTokenCharacter(charStr: string) {
@@ -251,16 +262,6 @@ class BiometrieLoginView implements ViewController {
   private handleError(e: Error) {
     this.log('Error occured!');
     this.log(e.message);
-  }
-
-  log(msg: string, ...args: any[]): void {
-    if (this.logFn) {
-      this.logFn(msg, args);
-    }
-  }
-
-  public appendLogFunction(logFn: Function): void {
-    this.logFn = logFn;
   }
 }
 

@@ -1,9 +1,17 @@
 {{#with messages}}
-  <div class="mdl-biometrie_appointment__reschedule view">
-    <div class="mdl-biometrie_appointment__reschedule__nextopen">
-      <h2>{{ nextOpenSlotHeading }}</h2>
+  <div class="mdl-biometrie_appointment__reschedule">
 
-      <div data-biometrie_appointment="nextOpenSlot"></div>
+    <a class="atm-text_link atm-text_link--icon mdl-biometrie_appointment__reschedule__backlink" data-biometrie_appointment="rescheduleBack">
+      <svg class="icon icon--iframe-add">
+        <use xlink:href="#arrow-left"></use>
+      </svg>
+      Zurück
+    </a>
+
+    <div class="mdl-biometrie_appointment__reschedule__nextopen">
+      <h3 class="atm-heading">{{ nextOpenSlotHeading }}</h3>
+
+      <strong data-biometrie_appointment="nextOpenSlot">Montag, 01.07.2019 08:00-08:15</strong><br>
       <span>An diesem Termin sind noch 4 weitere Schalter frei.</span>
 
       <div class="mdl-biometrie_appointment__reschedule__scheduleNextBtn">
@@ -12,7 +20,7 @@
     </div>
 
     <div class="mdl-biometrie_appointment__reschedule__allopen">
-      <h2>{{ otherSlotsHeading }}</h2>
+      <h3 class="atm-heading">{{ otherSlotsHeading }}</h3>
       <div data-biometrie_appointment="otherSlotsSelect">
 
       </div>

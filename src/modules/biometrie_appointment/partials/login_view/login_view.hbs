@@ -1,9 +1,9 @@
-<div class="mdl-biometrie_appointment__loginview view">
+<div class="mdl-biometrie_appointment__loginview">
 {{#with messages}}
     {{#each beforeParagraphs }}
-      <p>{{{ this }}}</p>
+      <p class="atm-paragraph">{{{ this }}}</p>
     {{/each}}
-    <h2>{{head}}</h2>
+    <h3 class="atm-heading">{{head}}</h3>
     <div class="mdl-biometrie_appointment__loginview__input" data-biometrie_appointment="inputfieldswrapper">
       <div class="icon icon-error">!</div>
       <label>{{inputLabel}}</label>

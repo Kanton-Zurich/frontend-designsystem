@@ -1,4 +1,4 @@
-import ViewController from '../../util/view-controller.interface';
+import { ViewController } from '../../util/view-controller.class';
 import Appointment from '../../model/appointment.model';
 import CalendarLinkGenerator from '../../service/calendar-link-generator.service';
 
@@ -7,20 +7,19 @@ export interface DetailsViewSelectors {
   rescheduleBtn: string,
   calendarLinks: string,
 }
-
-class BiometrieDetailsView implements ViewController {
-  selectors: DetailsViewSelectors;
-
+interface DetailsViewData {
+  appointment: Appointment;
+  loading: boolean;
+}
+class BiometrieDetailsView extends ViewController<DetailsViewSelectors, DetailsViewData> {
   private calendarLinkGenerator: CalendarLinkGenerator;
 
   private rescheduleCallbackFn: (doReschedule: boolean) => void;
 
   private appointmentToShow: Appointment;
 
-  logFn: Function;
-
-  constructor(_selectors: any, _calendarLinkGenerator: CalendarLinkGenerator) {
-    this.selectors = _selectors;
+  constructor(_data: any, _selectors: DetailsViewSelectors, _logFn: Function, _calendarLinkGenerator: CalendarLinkGenerator) {
+    super(_selectors, _data as DetailsViewData, _logFn);
     this.calendarLinkGenerator = _calendarLinkGenerator;
   }
 
@@ -36,7 +35,9 @@ class BiometrieDetailsView implements ViewController {
     });
   }
 
-  public prepareView(appointment: Appointment) {
+  public prepareView() {
+    const { appointment } = this.data;
+
     this.appointmentToShow = appointment;
     const detailFields = document
       .querySelectorAll<HTMLInputElement>(this.selectors.reservationDetails);
@@ -64,16 +65,6 @@ class BiometrieDetailsView implements ViewController {
       }
       el.setAttribute('href', hrefVal);
     });
-  }
-
-  log(msg: string, ...args: any[]): void {
-    if (this.logFn) {
-      this.logFn(msg, args);
-    }
-  }
-
-  public appendLogFunction(logFn: Function): void {
-    this.logFn = logFn;
   }
 }
 

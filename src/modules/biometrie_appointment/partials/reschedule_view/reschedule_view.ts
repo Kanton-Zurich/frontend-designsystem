@@ -1,33 +1,58 @@
-import ViewController from '../../util/view-controller.interface';
+import { ViewController } from '../../util/view-controller.class';
 import Timeslot from '../../model/timeslot.model';
 import MigekApiService from '../../service/migek-api.service';
+import Appointment from '../../model/appointment.model';
+
+export const rescheduleViewSelectorsValues: RescheduleViewSelectors = {
+  rescheduleBackLink: '[data-biometrie_appointment=rescheduleBack]',
+  nextOpenSlotField: '[data-biometrie_appointment=nextOpenSlot]',
+  otherSlotsContainer: '[data-biometrie_appointment=otherSlotsSelect]',
+  rescheduleToNextBtn: '[data-biometrie_appointment=doRescheduleNext]',
+};
 
 export interface RescheduleViewSelectors {
+  rescheduleBackLink: string,
   nextOpenSlotField: string,
   otherSlotsContainer: string,
   rescheduleToNextBtn: string,
 }
-
-class BiometrieRescheduleView implements ViewController {
-  selectors: RescheduleViewSelectors;
-  logFn: Function;
-
+interface RescheduleViewData {
+  appointment: Appointment;
+  loading: boolean;
+}
+class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, RescheduleViewData> {
   private apiService: MigekApiService;
 
   private nextOpenSlot: Timeslot;
 
-  constructor(_selectors: RescheduleViewSelectors, _apiService: MigekApiService) {
-    this.selectors = _selectors;
+  constructor(_data: any, _selectors: RescheduleViewSelectors, _logFn: Function, _apiService: MigekApiService) {
+    super(_selectors, _data, _logFn);
     this.apiService = _apiService;
   }
 
   initEventListeners(eventDelegate): void {
-    eventDelegate.on('click', this.selectors.rescheduleToNextBtn, () => {
-      this.log('Do Reschedule to next open slot.');
-      if (this.nextOpenSlot) {
-        this.apiService.rescheduleToTimeslot(this.nextOpenSlot);
-      }
-    });
+    eventDelegate
+      .on('click', this.selectors.rescheduleToNextBtn, () => {
+        this.log('Do Reschedule to next open slot.');
+        if (this.nextOpenSlot) {
+          this.apiService.rescheduleToTimeslot(this.nextOpenSlot);
+        }
+      })
+      .on('click', this.selectors.rescheduleBackLink, () => {
+        this.log('Backlink clicked.');
+        this.data.loading = true;
+        this.apiService.getReservationDetails()
+          // Refresh details, to prevent inconsistency between views
+          .then((refreshedAppointment) => {
+            this.data.appointment = refreshedAppointment;
+          })
+          .finally(() => {
+            this.data.loading = false;
+          });
+        if (this.nextOpenSlot) {
+          this.apiService.rescheduleToTimeslot(this.nextOpenSlot);
+        }
+      });
   }
 
   public prepareView(): void {
@@ -42,16 +67,6 @@ class BiometrieRescheduleView implements ViewController {
         this.nextOpenSlot = nextSlot;
       }
     });
-  }
-
-  log(msg: string, ...args: any[]): void {
-    if (this.logFn) {
-      this.logFn(msg, args);
-    }
-  }
-
-  public appendLogFunction(logFn: Function): void {
-    this.logFn = logFn;
   }
 }
 export default BiometrieRescheduleView;
