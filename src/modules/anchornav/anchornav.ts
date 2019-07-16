@@ -5,7 +5,6 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import namespace from '../../assets/js/helpers/namespace';
 import jump from 'jump.js';
 import Impetus from 'impetus';
 import WindowEventListener from '../../assets/js/helpers/events';
@@ -70,7 +69,12 @@ class Anchornav extends Module {
 
     this.initUi();
     this.initEventListeners();
-    this.initModule();
+    // Custom methodes
+    this.storeNavigationPosition();
+    this.calculatePageAnchorDistances();
+    this.onPageScroll();
+    this.setupControlButtons();
+    this.initializeImpetus();
   }
 
   static get events() {
@@ -95,15 +99,10 @@ class Anchornav extends Module {
     (<any>WindowEventListener).addEventListener('scroll', this.onPageScroll.bind(this)); // Necessary for jump.js plugin
   }
 
-
-  initModule() {
-    this.storeNavigationPosition();
-    this.calculatePageAnchorDistances();
-    this.onPageScroll();
-    this.setupControlButtons();
-    this.initializeImpetus();
-  }
-
+  /**
+   * Store the inital positon of the navigation if they is not fixed
+   * otherwise take the postion from the placeholder div
+   */
   storeNavigationPosition() {
     let navElement;
     if (window.getComputedStyle(this.ui.element, null).position !== 'fixed') {
@@ -114,6 +113,14 @@ class Anchornav extends Module {
     this.originalNavPosition = this.getDistanzeToPageTopFor(navElement);
   }
 
+  /**
+   * Creates the pageAnchors array
+   *
+   * pageAnchor-item = {
+   *  navItem: navitem-reference (atm-anchorlink) <HTMLElement>
+   *  pageHookDistanceToTop: scroll pixel distance to page top <number>
+   * }
+   */
   calculatePageAnchorDistances() {
     this.pageAnchors = [];
 
@@ -439,8 +446,8 @@ class Anchornav extends Module {
           || scrollPosition <= positiveTopDistance) {
           // Inbetween
           anchor = (<any> currentItem).navItem;
-        } else if (scrollPosition >= 0
-          && scrollPosition < (<any> this.pageAnchors)[0].pageHookDistanceToTop) {
+        } else if (scrollPosition <= 0
+          && scrollPosition > -(<any> this.pageAnchors)[0].pageHookDistanceToTop) {
           // Absolut top
           anchor = (<any> this.pageAnchors)[0].navItem;
         } else if (scrollPosition > (<any> this.pageAnchors)[maxIndex].pageHookDistanceToTop) {
