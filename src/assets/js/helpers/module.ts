@@ -11,8 +11,8 @@ class Module {
   };
   public data: Object;
   public options: {
-    domSelectors: Object;
-    stateClasses: Object;
+    domSelectors: any;
+    stateClasses: any;
   };
   public uuid: string;
   public log: Function;

@@ -27,7 +27,7 @@ class Carousel extends Module {
     textalternative: any;
     open: any;
     nextButton: any;
-  }
+  };
   public options: {
     domSelectors: {
       indicator: string,
@@ -46,7 +46,8 @@ class Carousel extends Module {
       inverted: string,
       active: string,
     };
-  }
+  };
+  private closeOnEscapeFunction: any;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -158,6 +159,7 @@ class Carousel extends Module {
         this.setCaptionPositions();
       }
     });
+    this.closeOnEscapeFunction = this.closeOnEscape.bind(this);
   }
 
   /**
@@ -282,7 +284,7 @@ class Carousel extends Module {
    * @memberof Carousel
    */
   closeOnEscape(event) {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' || event.key === 'Esc') {
       this.close();
 
       if (!this.data.isInGallery) {
@@ -311,7 +313,7 @@ class Carousel extends Module {
       disableBodyScroll(this.ui.element);
       document.documentElement.classList.add('locked');
 
-      window.addEventListener('keydown', this.closeOnEscape.bind(this));
+      window.addEventListener('keydown', this.closeOnEscapeFunction);
 
       this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen).forEach(e => e.setAttribute('aria-hidden', 'true'));
 
@@ -324,8 +326,7 @@ class Carousel extends Module {
 
       enableBodyScroll(this.ui.element);
       document.documentElement.classList.remove('locked');
-
-      window.removeEventListener('keydown', this.closeOnEscape.bind(this));
+      window.removeEventListener('keydown', this.closeOnEscapeFunction);
 
       this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen).forEach(e => e.setAttribute('aria-hidden', 'false'));
 
