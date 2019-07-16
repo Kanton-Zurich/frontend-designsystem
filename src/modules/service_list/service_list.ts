@@ -12,7 +12,7 @@ class ServiceList extends Module {
     const defaultData = {};
     const defaultOptions = {
       domSelectors: {
-        items: 'a[role="internal-service"]',
+        items: '[data-url]',
       },
       stateClasses: {},
     };
@@ -43,7 +43,7 @@ class ServiceList extends Module {
         if (modal.getAttribute('data-loaded')) {
           openModal();
         } else {
-          this.fetchServicePage(service.getAttribute('href'), (data) => {
+          this.fetchServicePage(service.getAttribute('data-url'), (data) => {
             modal.innerHTML = data;
             modal.setAttribute('data-loaded', 'true');
             this.ui.element.querySelector(`#${service.getAttribute('aria-controls')}`).dispatchEvent(new CustomEvent('Modal.initContent'));
