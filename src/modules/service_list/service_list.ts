@@ -37,16 +37,16 @@ class ServiceList extends Module {
     serviceElements.forEach((service) => {
       service.addEventListener('click', (event) => {
         const openModal = () => {
-          document.querySelector(`#${service.getAttribute('aria-controls')}`).dispatchEvent(new CustomEvent('Modal.open'));
+          this.ui.element.querySelector(`#${service.getAttribute('aria-controls')}`).dispatchEvent(new CustomEvent('Modal.open'));
         };
-        const modal = document.querySelector(`#${service.getAttribute('aria-controls')}`);
+        const modal = this.ui.element.querySelector(`#${service.getAttribute('aria-controls')}`);
         if (modal.getAttribute('data-loaded')) {
           openModal();
         } else {
           this.fetchServicePage(service.getAttribute('href'), (data) => {
             modal.innerHTML = data;
             modal.setAttribute('data-loaded', 'true');
-            document.querySelector(`#${service.getAttribute('aria-controls')}`).dispatchEvent(new CustomEvent('Modal.initContent'));
+            this.ui.element.querySelector(`#${service.getAttribute('aria-controls')}`).dispatchEvent(new CustomEvent('Modal.initContent'));
             openModal();
           });
         }
