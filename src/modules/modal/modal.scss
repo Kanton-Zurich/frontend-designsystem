@@ -17,6 +17,22 @@
     display: block;
   }
 
+  .mdl-page-header {
+    transform: initial;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: min-height 1s, max-height 1s;
+    max-height: 400px;
+    min-height: 150px;
+
+    &--minimal {
+      min-height: 50px;
+      max-height: 100px;
+    }
+  }
+
   @keyframes modalfade {
     100% {
       opacity: 1;
