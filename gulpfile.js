@@ -102,7 +102,7 @@ gulp.task('html', () => {
       },
       // Wrap with module layout
       transformBefore: (file) => {
-        if (file.path.match(/(\\|\/)modules(\\|\/)/)) {
+        if (file.path.match(/(\\|\/)modules(\\|\/)/) && file.path.indexOf('.mock.') < 0) {
           return Buffer.from(readFileSyncCached('./src/preview/layouts/module.hbs'));
         }
 
