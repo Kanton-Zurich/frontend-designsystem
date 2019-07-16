@@ -1,32 +1,34 @@
-<div class="mdl-anchornav" data-init="anchornav">
+<div class="mdl-anchornav mdl-anchornav--sticky" data-init="anchornav">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="cell tiny-12 xsmall-12 small-10 medium-10 large-10 xlarge-10 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2">
 
         <div class="mdl-anchornav__content">
           <h{{{anchornavTitle.level}}} class="atm-heading">{{ anchornavTitle.title }}</h{{{anchornavTitle.level}}}>
-          <div data-anchornav="scroll-area">
+          <div class="mdl-anchornav__ctrl mdl-anchornav__ctrl--left">
+            <button>
+              <svg class="icon atm-button__icon">
+                <use xlink:href="#angle_left"></use>
+              </svg>
+            </button>
+          </div>
+
+          <div class="mdl-anchornav__list-wrapper" data-anchornav="scroll-area">
             <ul class="mdl-anchornav__list">
-              <li class="mdl-anchornav__ctrl mdl-anchornav__ctrl--left">
-                <button>
-                  <svg class="icon atm-button__icon">
-                    <use xlink:href="#angle_left"></use>
-                  </svg>
-                </button>
-              </li>
               {{#each anchornavItems}}
                 <li class="mdl-anchornav__item">
                   {{> "atoms/anchorlink/anchorlink" this}}
                 </li>
               {{/each}}
-              <li class="mdl-anchornav__ctrl mdl-anchornav__ctrl--right">
-                <button>
-                  <svg class="icon atm-button__icon">
-                    <use xlink:href="#angle_right"></use>
-                  </svg>
-                </button>
-              </li>
             </ul>
+          </div>
+
+          <div class="mdl-anchornav__ctrl mdl-anchornav__ctrl--right">
+            <button>
+              <svg class="icon atm-button__icon">
+                <use xlink:href="#angle_right"></use>
+              </svg>
+            </button>
           </div>
         </div>
 
@@ -77,14 +79,14 @@
   <br>
 
   <div>
-    <a name="Bildergallerie" ></a>
+    <a name="bildergallerie" ></a>
     <h3>Bildergallerie</h3>
     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
   </div>
   <br>
 
   <div>
-    <a name="Download" data-anchornav="scrollTrigger"></a>
+    <a name="download" data-anchornav="scrollTrigger"></a>
     <h3>Download</h3>
     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
   </div>

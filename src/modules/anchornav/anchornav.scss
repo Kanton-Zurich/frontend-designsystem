@@ -1,3 +1,12 @@
+.ie11-bleed-test {
+  @include gridBleed($fullwidth: true);
+  background-color: #009EE0;
+
+  > div {
+    background-color: #cc3300;
+  }
+}
+
 .mdl-anchornav {
   @include gridBleed($fullwidth: true);
   padding-top: 16px;
@@ -6,7 +15,8 @@
   background-color: $colorWhite;
 
   &__content {
-
+    position: relative;
+    padding-right: 56px;
   }
 
   /*> div {
@@ -15,12 +25,27 @@
     !*overflow: hidden;*!
     padding-right: pxToRem($sizeHuge);
   }*/
+  &__list-wrapper {
+    position: relative;
+    height: 56px;
+    overflow: hidden;
+    width: 100%;
+  }
 
   ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: left .2s ease-out;
+
     @include resetList();
-    width: 100%;
-    overflow-x: hidden;
+    min-width: 100%;
+   /* overflow-x: scroll;
+    overflow-y: hidden;*/
+    -ms-overflow-style: none;
+    overflow: auto;
     overflow-y: hidden;
+
     display: flex;
     scroll-behavior: smooth;
   }
@@ -42,7 +67,7 @@
 
   &__ctrl {
     position: absolute;
-    top: 0;
+    bottom: 0;
     display: none;
 
     min-width: pxToRem($sizeHuge);
@@ -103,7 +128,7 @@
   /**
   * Module Overwrites
   */
-  &__item:nth-child(2) a.atm-anchorlink {
+  &__item:first-of-type a.atm-anchorlink {
     margin-left: 0;
   }
   &__item {

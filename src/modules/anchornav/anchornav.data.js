@@ -62,17 +62,17 @@ const data = _.merge({}, defaultData, {
       {
         anchorlink: {
           anchorlinkText: 'Bildergallerie',
-          anchorlinkAdress: 'https://www.google.ch/?hl=de',
+          anchorlinkAdress: '#bildergallerie',
           anchorlinkIsActive: false,
-          anchorlinkIsOpensInNewTab: true,
+          anchorlinkIsOpensInNewTab: false,
         },
       },
       {
         anchorlink: {
           anchorlinkText: 'Download',
-          anchorlinkAdress: 'https://developer.mozilla.org/en-US/',
+          anchorlinkAdress: '#download',
           anchorlinkIsActive: false,
-          anchorlinkIsOpensInNewTab: true,
+          anchorlinkIsOpensInNewTab: false,
         },
       },
     ],
@@ -88,7 +88,6 @@ const variants = _.mapValues({
       isSticky: false,
     },
   },
-
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
