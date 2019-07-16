@@ -1,6 +1,6 @@
 .atm-iframe {
+  @include gridBleed($fullwidth: true);
   color: $colorBlack60;
-  margin: $sizeHuge 0;
 
   iframe {
     width: 100%;
@@ -10,9 +10,5 @@
 
   a {
     color: inherit;
-  }
-
-  @include mq($from: xlarge) {
-    margin: $sizeGiant 0;
   }
 }

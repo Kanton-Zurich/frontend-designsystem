@@ -11,9 +11,7 @@ const data = _.merge({}, defaultData, {
     jira: 'CZHDEV-481',
     documentation: dataHelper.getDocumentation('iframe.md'),
   },
-  props: {
-
-  },
+  props: {},
 });
 const variants = _.mapValues({
   default: {
