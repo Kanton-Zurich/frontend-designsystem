@@ -6,9 +6,9 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('person_card.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'person-card',
+    title: 'Personen Card',
     className: 'PersonCard',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-178',
     documentation: dataHelper.getDocumentation('person_card.md'),
   },
   props: {
