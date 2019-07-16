@@ -323,15 +323,22 @@ class Anchornav extends Module {
    */
   onControlBtnClick(data) {
     const maxIndex = (<any> this.ui).navItems.length - 1;
-    let position;
     if (data === 'right') {
-      this.invisibleScrollIndex = this.invisibleScrollIndex >= maxIndex ? maxIndex : this.invisibleScrollIndex + 1 ;
-      position = -(this.getNavItemsHorizontalPositions((<any> this.ui).navItems[this.invisibleScrollIndex]) - this.showButtonTolerance);
-    } else {
-      this.invisibleScrollIndex = this.invisibleScrollIndex <= 0 ? (<any> this.ui).navItems.length -1 : this.invisibleScrollIndex - 1;
-      position = -(this.getNavItemsHorizontalPositions((<any> this.ui).navItems[this.invisibleScrollIndex]) - this.showButtonTolerance);
+      if (this.invisibleScrollIndex >= maxIndex) {
+        this.invisibleScrollIndex = maxIndex;
+      } else {
+        this.invisibleScrollIndex = this.invisibleScrollIndex + 1;
+      }
+    } else if (data === 'left') {
+      if (this.invisibleScrollIndex <= 0) {
+        this.invisibleScrollIndex = (<any> this.ui).navItems.length - 1;
+      } else {
+        this.invisibleScrollIndex = this.invisibleScrollIndex - 1;
+      }
     }
-    this.emulateSwipeTo(position);
+    const anchor = (<any> this.ui).navItems[this.invisibleScrollIndex];
+    const position = this.getNavItemsHorizontalPositions(anchor);
+    this.emulateSwipeTo(-(position - this.showButtonTolerance));
   }
 
   /**
@@ -345,23 +352,24 @@ class Anchornav extends Module {
     if (direction === 'right') {
       for (let i = 0; i < (<any> this.ui).navItems.length; i += 1) {
         const position = -(this.getNavItemsHorizontalPositions((<any> this.ui).navItems[i]));
-        if (this.navPositionHorizontal >= position && this.navPositionHorizontal <= (position + this.showButtonTolerance)) {
+        if (this.navPositionHorizontal >= position
+          && this.navPositionHorizontal <= (position + this.showButtonTolerance)) {
           lastMatchedIndex = i;
         }
       }
     } else {
-      for (let i = (<any> this.ui).navItems.length -1; i >= 0; i -= 1) {
+      for (let i = (<any> this.ui).navItems.length - 1; i >= 0; i -= 1) {
         const position = -(this.getNavItemsHorizontalPositions((<any> this.ui).navItems[i]));
-        if (this.navPositionHorizontal >= position && this.navPositionHorizontal <= (position + this.showButtonTolerance)) {
+        if (this.navPositionHorizontal >= position
+          && this.navPositionHorizontal <= (position + this.showButtonTolerance)) {
           lastMatchedIndex = i;
         }
       }
     }
 
-    if (lastMatchedIndex !== undefined ){
+    if (lastMatchedIndex !== undefined) {
       this.invisibleScrollIndex = lastMatchedIndex;
     }
-
   }
 
   /**
@@ -370,12 +378,13 @@ class Anchornav extends Module {
    */
   emulateSwipeTo(position) {
     const boarderRight = this.getSwipeBorder();
-    if (position >= 0) {
-      position = 0;
-    } else if(position <= boarderRight) {
-      position = boarderRight;
+    let x = position;
+    if (x >= 0) {
+      x = 0;
+    } else if (x <= boarderRight) {
+      x = boarderRight;
     }
-    this.impetusUpdate(position);
+    this.impetusUpdate(x);
   }
 
   /**
@@ -395,13 +404,12 @@ class Anchornav extends Module {
   onPageScroll() {
     const currentScrollPosition = document.documentElement.getBoundingClientRect().top;
     const pinPos = -(this.originalNavPosition);
-    const unpinPos = -(this.originalNavPosition);
 
     // Handle sticky nav
     if (currentScrollPosition <= pinPos && !this.navigationIsFixed) {
       this.createPlaceholder();
       this.pinNavigation();
-    } else if (currentScrollPosition >= unpinPos && this.navigationIsFixed) {
+    } else if (currentScrollPosition >= pinPos && this.navigationIsFixed) {
       this.unpinNavigation();
     }
   }
@@ -411,7 +419,9 @@ class Anchornav extends Module {
    * and do beside the autoscroll if its possible
    */
   onPageDebounceScrolled() {
-    const currentScrollPosition = document.documentElement.getBoundingClientRect().top;
+    let anchor;
+    const maxIndex = this.pageAnchors.length - 1;
+    const scrollPosition = document.documentElement.getBoundingClientRect().top;
     // Handle active item class on scrolling
     if (this.pageAnchors.length > 0) {
       const navHeight = this.ui.element.getBoundingClientRect().height;
@@ -425,17 +435,24 @@ class Anchornav extends Module {
         const positiveTopDistance = -((<any> currentItem).pageHookDistanceToTop
           + -(navHeight)) + this.activeStateScrollTolerance;
 
-        if (currentScrollPosition <= negativeTopDistance
-          || currentScrollPosition <= positiveTopDistance) {
-          this.toggleActiveNavigationItemClass((<any> currentItem).navItem);
-          this.emulateSwipeTo(-(this.getNavItemsHorizontalPositions((<any> currentItem).navItem) - this.showButtonTolerance));
-        }else if (currentScrollPosition >= 0  && currentScrollPosition < (<any> this.pageAnchors)[0].pageHookDistanceToTop) {
-          this.toggleActiveNavigationItemClass((<any> this.pageAnchors)[0].navItem);
-        }else if (currentScrollPosition > (<any> this.pageAnchors)[this.pageAnchors.length -1].pageHookDistanceToTop) {
-          this.toggleActiveNavigationItemClass((<any> this.pageAnchors)[this.pageAnchors.length - 1].navItem);
+        if (scrollPosition <= negativeTopDistance
+          || scrollPosition <= positiveTopDistance) {
+          // Inbetween
+          anchor = (<any> currentItem).navItem;
+        } else if (scrollPosition >= 0
+          && scrollPosition < (<any> this.pageAnchors)[0].pageHookDistanceToTop) {
+          // Absolut top
+          anchor = (<any> this.pageAnchors)[0].navItem;
+        } else if (scrollPosition > (<any> this.pageAnchors)[maxIndex].pageHookDistanceToTop) {
+          // Absolut bottom
+          anchor = (<any> this.pageAnchors)[maxIndex].navItem;
         }
       }
     }
+
+    const anchorLeft = this.getNavItemsHorizontalPositions(anchor);
+    this.toggleActiveNavigationItemClass(anchor);
+    this.emulateSwipeTo(-(anchorLeft - this.showButtonTolerance));
   }
 
   /**
