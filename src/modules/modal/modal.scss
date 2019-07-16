@@ -1,4 +1,9 @@
 .mdl-modal {
+  $scrollHeightMax: 400px;
+  $scrollHeightMedium: 150px;
+  $scrollHeightSmall: 100px;
+  $scrollHeightTiny: 50px;
+
   position: fixed;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -24,12 +29,12 @@
     top: 0;
     left: 0;
     transition: min-height 1s, max-height 1s;
-    max-height: 400px;
-    min-height: 150px;
+    max-height: $scrollHeightMax;
+    min-height: $scrollHeightMedium;
 
     &--minimal {
-      min-height: 50px;
-      max-height: 100px;
+      min-height: $scrollHeightTiny;
+      max-height: $scrollHeightSmall;
     }
   }
 
