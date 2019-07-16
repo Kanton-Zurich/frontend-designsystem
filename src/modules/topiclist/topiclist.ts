@@ -6,6 +6,8 @@
  */
 import debounce from 'lodash/debounce';
 
+import Handlebars from '../../../node_modules/handlebars/lib/handlebars.js'
+
 import Module from '../../assets/js/helpers/module';
 
 class Topiclist extends Module {
@@ -30,7 +32,10 @@ class Topiclist extends Module {
         synonyms: Array<string>,
       }>,
     },
-    topics: Array<Object>,
+    topics: Array<{
+      title: string,
+      synonyms: Array<string>,
+    }>,
   }
 
   public ui: {
@@ -39,6 +44,7 @@ class Topiclist extends Module {
     input: any,
     autosuggest: any,
     contentNav: any,
+    contentTeaserTemplate: any,
   }
 
   constructor($element: any, data: Object, options: Object) {
@@ -56,6 +62,7 @@ class Topiclist extends Module {
         input: '[data-topiclist="input"]',
         autosuggest: '[data-topiclist="autosuggest"]',
         contentNav: '[data-topiclist="contentNav"]',
+        contentTeaserTemplate: '[data-topiclist="contentTeaserTemplate"]',
       },
       stateClasses: {
         expanded: 'mdl-topiclist--expanded',
@@ -147,7 +154,14 @@ class Topiclist extends Module {
   }
 
   renderAutoSuggest() {
-    
+    this.data.topics.forEach((topic) => {
+      const template = Handlebars.compile(this.ui.contentTeaserTemplate.innerHTML);
+      const html = template({
+        shortTitle: topic.title,
+      });
+
+      this.log(html);
+    });
   }
 
   /**
