@@ -10,5 +10,4 @@ const data = {
   serviceBoxData: _.merge({}, defModalData.variants.default.props.modules.serviceBoxData),
 };
 
-
 module.exports = data;

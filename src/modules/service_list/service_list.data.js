@@ -38,7 +38,7 @@ const data = _.merge({}, defaultData, {
         title: 'Internationalen Führerschein beantragen',
         text: 'In nicht englischsprachigen Ländern ausserhalb der EU empfehlen wir Ihnen, einen internationalen Führerschein ausstellen zu lassen.',
         buttonTitle: 'Start',
-        serviceLink: '#',
+        serviceLink: 'https://www.google.com',
         external: true,
       },
     ],
