@@ -72,9 +72,9 @@ $customParagrapCurve: (
 
     // Overwirte item paragraph-atom
     p {
+      @include polyFluidSizing(font-size, $customParagrapCurve);
       margin: pxToRem($sizeTiny) 0;
       line-height: $sizeLineHeightBigger;
-      @include polyFluidSizing(font-size, $customParagrapCurve);
     }
   }
 
@@ -119,6 +119,7 @@ $customParagrapCurve: (
       img {
         min-height: pxToRem(135px);
       }
+
       p {
         line-height: $sizeLineHeightBase;
       }
