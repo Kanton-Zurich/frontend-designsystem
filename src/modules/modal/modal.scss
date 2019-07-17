@@ -1,4 +1,9 @@
 .mdl-modal {
+  $scrollHeightMax: 400px;
+  $scrollHeightMedium: 150px;
+  $scrollHeightSmall: 100px;
+  $scrollHeightTiny: 50px;
+
   position: fixed;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -15,6 +20,22 @@
 
   &--show {
     display: block;
+  }
+
+  .mdl-page-header {
+    transform: initial;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: min-height 1s, max-height 1s;
+    max-height: $scrollHeightMax;
+    min-height: $scrollHeightMedium;
+
+    &--minimal {
+      min-height: $scrollHeightTiny;
+      max-height: $scrollHeightSmall;
+    }
   }
 
   @keyframes modalfade {
