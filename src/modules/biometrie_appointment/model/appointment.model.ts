@@ -1,3 +1,5 @@
+import { AppointmentPayload } from './api-payload.interfaces';
+
 class Appointment {
   private details: AppointmentPayload;
   private locale: string[] = ['de-CH'];

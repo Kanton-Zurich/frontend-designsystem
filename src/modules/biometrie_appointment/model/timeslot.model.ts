@@ -1,14 +1,5 @@
 import moment, { Moment } from 'moment';
-
-export interface TimeslotPayload {
-
-  startTime: string;
-
-  endTime: string;
-
-  capacity: number;
-
-}
+import { TimeslotPayload } from './api-payload.interfaces';
 
 class Timeslot {
   from: string;

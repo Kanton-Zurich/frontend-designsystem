@@ -1,5 +1,14 @@
 import Appointment from '../model/appointment.model';
-import Timeslot, { TimeslotPayload } from '../model/timeslot.model';
+import Timeslot from '../model/timeslot.model';
+
+/* eslint-disable no-unused-vars */
+import {
+  AppointmentDetailsResponse,
+  AppointmentPayload,
+  LoginResponse, TimeslotPayload,
+  TimeslotsResponse,
+} from '../model/api-payload.interfaces';
+/* eslint-disable no-unused-vars */
 
 export class ApiForbidden implements Error {
   name: 'Forbidden';
@@ -154,35 +163,6 @@ class MigekApiService {
       xhr.send(jsonBody);
     });
   }
-}
-
-interface LoginResponse {
-  token: string;
-  _links: {
-    self: PayloadLinkObject;
-    find: PayloadLinkObject;
-  }
-}
-
-interface AppointmentDetailsResponse {
-  reservation: AppointmentPayload;
-  _links: {
-    self: PayloadLinkObject;
-    postpone: PayloadLinkObject;
-  }
-}
-
-interface TimeslotsResponse {
-  timeSlots: TimeslotPayload[];
-  _links: {
-    self: PayloadLinkObject;
-    next: PayloadLinkObject;
-  }
-}
-
-interface PayloadLinkObject {
-  href: string;
-  type: HttpMethod;
 }
 
 // TODO: Limit method to those which are actually used
