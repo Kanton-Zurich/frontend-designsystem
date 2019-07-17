@@ -1,7 +1,9 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const { handlebars } = require('@unic/estatico-handlebars');
+const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const defModalData0 = require('../modal/modal.data.js').variants.minimal.props;
+const defModalData1 = require('../modal/modal.data.js').variants.minimal.props;
 
 const template = dataHelper.getFileContent('service_list.hbs');
 const data = _.merge({}, defaultData, {
@@ -17,19 +19,30 @@ const data = _.merge({}, defaultData, {
       {
         title: 'Service Titel',
         buttonTitle: 'Start',
+        serviceLink: 'service_page.mock.html',
+        href: '../../pages/service/service.html',
+        modalData: { modalId: 'service-modal0' },
       },
       {
         title: 'Service Titel',
         buttonTitle: 'Start',
+        serviceLink: 'service_page.mock.html',
+        href: '../../pages/service/service.html',
+        modalData: { modalId: 'service-modal1' },
       },
       {
         title: 'Terminverschiebung periodische Fahrzeugprüfung',
         buttonTitle: 'Start',
+        serviceLink: 'service_page_small.mock.html',
+        href: '../../pages/service/service.html',
+        modalData: { modalId: 'service-modal2' },
       },
       {
         title: 'Internationalen Führerschein beantragen',
         text: 'In nicht englischsprachigen Ländern ausserhalb der EU empfehlen wir Ihnen, einen internationalen Führerschein ausstellen zu lassen.',
         buttonTitle: 'Start',
+        href: '../../pages/service/service.html',
+        external: true,
       },
     ],
   },

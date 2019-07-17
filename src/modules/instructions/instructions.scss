@@ -20,6 +20,10 @@
       small: 25.83px,
       xlarge: 38.75px
     ),
+    headingPaddingTop: (
+      small: $sizeMini,
+      xlarge: $sizeSmallRegular,
+    ),
   );
 
   &__list {
@@ -50,20 +54,13 @@
 
     .atm-heading {
       padding: 0;
+
+      @include sizeCurve(padding-top, headingPaddingTop, $customSizing);
     }
 
     @include sizeCurve('margin-top', itemTop, $customSizing);
     @include mq($from: small) {
       display: flex;
-
-      .atm-heading {
-        padding-top: pxToRem($sizeTiny / 2);
-      }
-    }
-    @include mq($from: xlarge) {
-      .atm-heading {
-        padding-top: pxToRem($sizeSmallRegular);
-      }
     }
   }
 
@@ -73,6 +70,7 @@
 
     @include polyFluidSizing('font-size', map-get($customSizing, counterFontSize));
     @include sizeCurve('line-height', counterLineHeight, $customSizing);
+    @include sizeCurve(padding-top, headingPaddingTop, $customSizing);
 
     &--checklist {
       position: absolute;
@@ -129,7 +127,7 @@
       }
     }
 
-    *:last-child {
+    > *:last-child {
       margin-bottom: 0;
     }
   }
