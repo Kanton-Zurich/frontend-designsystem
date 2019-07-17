@@ -1,0 +1,68 @@
+<div class="mdl-news-teaser" data-init="newsTeaser">
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+      <div class="mdl-news-teaser__content cell tiny-12 small-12 medium-12 large-12 xlarge-12">
+
+        <div class="mdl-news-teaser__head">
+          <h2 class="atm-heading atm-heading--bordered">
+            News Teaser
+          </h2>
+          <a class="atm-text_link atm-text_link--icon" href="#">
+            Text Link
+            <svg class="icon icon--iframe-arrow">
+              <use xlink:href="#arrow-right"></use>
+            </svg>
+          </a>
+        </div>
+
+        <ul>
+          <li class="mdl-news-teaser__item">
+            <a href="">
+              <div>
+                <time datetime="">14.12.2018</time>
+                <h3 class="atm-heading">
+                  Winterthur: Unbekannter Mann raubt Tankstellen-Shop aus
+                </h3>
+              </div>
+                {{#if imageFigure}}
+              <div class="mdl-news-teaser__item-image">
+                  {{> "modules/image_figure/image_figure" imageFigure}}
+              </div>
+                {{/if}}
+            </a>
+          </li>
+          <li class="mdl-news-teaser__item">
+            <a href="">
+              <div>
+                <time datetime="">14.12.2018</time>
+                <h3 class="atm-heading">
+                  Zürich-Flughafen:12312312 3123123123 123123123 Drogenkurier verhaftet und Kokain sichergestellt
+                </h3>
+              </div>
+              {{#if imageFigure}}
+              <div class="mdl-news-teaser__item-image">
+                {{> "modules/image_figure/image_figure" imageFigure}}
+              </div>
+              {{/if}}
+            </a>
+          </li>
+          <li class="mdl-news-teaser__item">
+            <a href="">
+              <div>
+                <time datetime="">14.12.2018</time>
+                <h3 class="atm-heading">
+                  Weiningen: Vermisstmeldung - Willi Müller
+                </h3>
+              </div>
+                {{#if imageFigure}}
+              <div class="mdl-news-teaser__item-image">
+                  {{> "modules/image_figure/image_figure" imageFigure}}
+              </div>
+                {{/if}}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

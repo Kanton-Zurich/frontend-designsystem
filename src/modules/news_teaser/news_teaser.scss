@@ -1,0 +1,53 @@
+.mdl-news-teaser {
+  @include gridBleed($fullwidth: true);
+
+  ul {
+    @include resetList();
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__content {
+    /*background-color: #cc3300;*/
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    border: pxToRem(8px) solid $colorBlack10;
+
+    a {
+      text-decoration: none;
+    }
+
+    div {
+      /*background-color: $white;*/
+      /*background-color: blue;*/
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      min-height: pxToRem(129px);
+    }
+  }
+
+  &__item-image {
+
+  }
+
+  @include mq($from: small) {
+    ul {
+      max-width: 100%;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    &__item {
+      flex-basis: 50%;
+      max-width: 50%;
+      flex-grow: 1;
+    }
+  }
+}
