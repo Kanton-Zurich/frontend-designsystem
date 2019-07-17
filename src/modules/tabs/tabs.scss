@@ -1,0 +1,13 @@
+.mdl-tabs {
+  .mdl-button_group {
+    @include sizeCurve(margin-bottom, medium);
+  }
+
+  &__tab {
+    display: none;
+
+    &--active {
+      display: block;
+    }
+  }
+}
