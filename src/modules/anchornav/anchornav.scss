@@ -1,12 +1,3 @@
-.ie11-bleed-test {
-  @include gridBleed($fullwidth: true);
-  background-color: #009EE0;
-
-  > div {
-    background-color: #cc3300;
-  }
-}
-
 .mdl-anchornav {
   @include gridBleed($fullwidth: true);
   padding-top: 16px;
@@ -19,12 +10,6 @@
     padding-right: 56px;
   }
 
-  /*> div {
-    position: relative;
-    max-width: 100%;
-    !*overflow: hidden;*!
-    padding-right: pxToRem($sizeHuge);
-  }*/
   &__list-wrapper {
     position: relative;
     height: 56px;
@@ -36,33 +21,16 @@
     position: absolute;
     top: 0;
     left: 0;
-    transition: left .2s ease-out;
+    transition: left 0.2s ease-out;
 
     @include resetList();
     min-width: 100%;
-   /* overflow-x: scroll;
-    overflow-y: hidden;*/
     -ms-overflow-style: none;
     overflow: auto;
     overflow-y: hidden;
 
     display: flex;
     scroll-behavior: smooth;
-  }
-
-
-
-  &__item {
-    /*a.atm-anchorlink {
-      margin-left: 0;
-      box-sizing: border-box;
-      background-color: #009EE0 !important;
-    }*/
-
-    /*a.atm-anchorlink {
-      min-width: 100%;
-      width: 100%;
-    }*/
   }
 
   &__ctrl {
@@ -85,6 +53,7 @@
 
     &--right {
       right: 0;
+
       button:after {
         left: -8px;
         background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.05) 100%);
@@ -131,6 +100,7 @@
   &__item:first-of-type a.atm-anchorlink {
     margin-left: 0;
   }
+
   &__item {
     a.atm-anchorlink {
       white-space: nowrap;
