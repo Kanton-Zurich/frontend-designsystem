@@ -1,67 +1,52 @@
-<div class="mdl-news-teaser" data-init="newsTeaser">
+<div class="mdl-news-teaser{{#if newsTeaserModuleHeader}} mdl-news-teaser--more-info{{/if}}" data-init="newsTeaser">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="mdl-news-teaser__content cell tiny-12 small-12 medium-12 large-12 xlarge-12">
 
-        <div class="mdl-news-teaser__head">
+        {{#if newsTeaserModuleHeader}}
+        <div class="mdl-news-teaser__header">
           <h2 class="atm-heading atm-heading--bordered">
-            News Teaser
+            {{{newsTeaserModuleHeader.title}}}
           </h2>
-          <a class="atm-text_link atm-text_link--icon" href="#">
-            Text Link
+          <a class="atm-text_link atm-text_link--icon" href="{{{newsTeaserModuleHeader.allArticleHref}}}">
+            {{{newsTeaserModuleHeader.allArticleLabel}}}
             <svg class="icon icon--iframe-arrow">
               <use xlink:href="#arrow-right"></use>
             </svg>
           </a>
         </div>
+        {{/if}}
 
         <ul>
+          {{#each newsTeaserItems}}
           <li class="mdl-news-teaser__item">
-            <a href="">
+            <a href="{{{this.href}}}">
               <div>
-                <time datetime="">14.12.2018</time>
+                <time datetime="{{{this.dateMachineReadable}}}">{{{this.date}}}</time>
                 <h3 class="atm-heading">
-                  Winterthur: Unbekannter Mann raubt Tankstellen-Shop aus
+                  {{{this.title}}}
                 </h3>
               </div>
-                {{#if imageFigure}}
-              <div class="mdl-news-teaser__item-image">
-                  {{> "modules/image_figure/image_figure" imageFigure}}
-              </div>
-                {{/if}}
-            </a>
-          </li>
-          <li class="mdl-news-teaser__item">
-            <a href="">
-              <div>
-                <time datetime="">14.12.2018</time>
-                <h3 class="atm-heading">
-                  Zürich-Flughafen:12312312 3123123123 123123123 Drogenkurier verhaftet und Kokain sichergestellt
-                </h3>
-              </div>
-              {{#if imageFigure}}
-              <div class="mdl-news-teaser__item-image">
-                {{> "modules/image_figure/image_figure" imageFigure}}
-              </div>
+              {{#if this.imageData}}
+                <div class="mdl-news-teaser__item-image">
+                  {{> "modules/image_figure/image_figure" this.imageData}}
+                </div>
+              {{/if}}
+              {{#if this.text}}
+                <div>
+                  <p class="atm-paragraph">{{{this.text}}}</p>
+                </div>
               {{/if}}
             </a>
           </li>
-          <li class="mdl-news-teaser__item">
-            <a href="">
-              <div>
-                <time datetime="">14.12.2018</time>
-                <h3 class="atm-heading">
-                  Weiningen: Vermisstmeldung - Willi Müller
-                </h3>
-              </div>
-                {{#if imageFigure}}
-              <div class="mdl-news-teaser__item-image">
-                  {{> "modules/image_figure/image_figure" imageFigure}}
-              </div>
-                {{/if}}
-            </a>
-          </li>
+          {{/each}}
         </ul>
+
+      </div>
+      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-12 small-10 medium-10 large-10 xlarge-8">
+        {{#if newsTeaserLinkListData}}
+          {{> "modules/linklist/linklist" newsTeaserLinkListData}}
+        {{/if}}
       </div>
     </div>
   </div>

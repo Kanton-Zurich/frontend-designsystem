@@ -25,6 +25,7 @@ const data = _.merge({}, defaultData, {
         linkListItemHref: '/index.html',
       },
     ],
+    linkListTitle: 'Linkliste',
     hasTitle: true,
     headingLevel: 2,
   },
