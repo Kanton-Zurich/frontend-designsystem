@@ -6,12 +6,14 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('iframe.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'iframe',
-    className: 'Iframe',
+    title: 'iFrame',
+    className: 'IFrame',
     jira: 'CZHDEV-481',
     documentation: dataHelper.getDocumentation('iframe.md'),
   },
-  props: {},
+  props: {
+
+  },
 });
 const variants = _.mapValues({
   default: {
@@ -46,8 +48,8 @@ const variants = _.mapValues({
 
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
-        data: dataHelper.getFormattedJson(variantProps),
         html: dataHelper.getFormattedHtml(compiledVariant()),
+        data: dataHelper.getFormattedJson(variantProps),
       },
     },
   });
