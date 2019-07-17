@@ -8,7 +8,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Anchornav',
     className: 'Anchornav',
-    jira: 'CZHDEV-502',
+    jira: 'CZHDEV-259',
     documentation: dataHelper.getDocumentation('anchornav.md'),
   },
   props: {
