@@ -37,7 +37,7 @@ const variants = _.mapValues({
     props: {
       name: 'Max Mustermann',
       role: 'Berufs-, Studien- und Laufbahnberater',
-      contactInfo: '<a href="mailto:max.mustermann@ajb.zh.ch" class="atm-text_link">max.mustermann@ajb.zh.ch </a><br>043 258 48 92 (Mo–Do)<br> Sekundarschulen: Grafstal in Lindau | 9 Plus in Rüti | Schweissrüti in Wila, Berufswahlschule Uster',
+      contactInfo: '<a href="mailto:max.mustermann@ajb.zh.ch" class="atm-text_link">max.mustermann@ajb.zh.ch </a><br>043 258 48 92 (Mo–Do)<br> Sekundarschulen: Grafstal in Lindau | 9 Plus in Rüti | Schweissrüti in Wila, Berufswahlschule Uster', // eslint-disable-line
       buttonText: 'Mehr erfahren',
       hasImage: true,
     },

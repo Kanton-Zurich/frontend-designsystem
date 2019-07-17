@@ -8,8 +8,42 @@
       tiny: $sizeSmallLarge,
       medium: $sizeBig,
       xlarge: $sizeBiggerBig,
-    )
+    ),
+    imageContainerWidth :(
+      medium: 176px,
+      xlarge: 236px,
+    ),
   );
+
+  display: inline-block;
+  width: 100%;
+
+  @include mq($from: small) {
+    display: flex;
+  }
+
+  &__imagecontainer {
+    @include polyFluidSizing(min-width, map-get($personCardCurves,imageContainerWidth));
+
+    overflow: hidden;
+    line-height: 0;
+
+    img {
+      width: 100%;
+    }
+
+    @include mq($from: small) {
+      position: relative;
+
+      img {
+        width: unset;
+        position: absolute;
+        height: 100%;
+        transform: translateX(-50%);
+        margin-left: 50%;
+      }
+    }
+  }
 
   &__container {
     background-color: $colorBlack5;
