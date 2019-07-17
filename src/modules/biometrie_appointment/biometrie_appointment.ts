@@ -6,13 +6,13 @@
  */
 import Module from '../../assets/js/helpers/module';
 import MigekApiService from './service/migek-api.service';
-import Appointment from './model/appointment.model';
 import CalendarLinkGenerator from './service/calendar-link-generator.service';
-import BiometrieLoginView, { LoginViewSelectors } from './partials/login_view/login_view';
-import BiometrieDetailsView, { DetailsViewSelectors } from './partials/details_view/details_view';
 import BiometrieRescheduleView, {
   rescheduleViewSelectorsValues,
 } from './partials/reschedule_view/reschedule_view';
+import Appointment from './model/appointment.model';
+import BiometrieLoginView, { LoginViewSelectors } from './partials/login_view/login_view';
+import BiometrieDetailsView, { DetailsViewSelectors } from './partials/details_view/details_view';
 import { WithEventListeners } from './util/view-controller.class';
 
 class BiometrieAppointment extends Module {

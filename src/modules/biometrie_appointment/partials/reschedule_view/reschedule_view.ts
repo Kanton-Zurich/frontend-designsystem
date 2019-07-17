@@ -35,7 +35,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
       .on('click', this.selectors.rescheduleToNextBtn, () => {
         this.log('Do Reschedule to next open slot.');
         if (this.nextOpenSlot) {
-          this.apiService.rescheduleToTimeslot(this.nextOpenSlot);
+          this.requestTimeslot(this.nextOpenSlot);
         }
       })
       .on('click', this.selectors.rescheduleBackLink, () => {
@@ -53,6 +53,12 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
           this.apiService.rescheduleToTimeslot(this.nextOpenSlot);
         }
       });
+  }
+
+  private requestTimeslot(timeslot: Timeslot): void {
+    if (timeslot) {
+      this.apiService.rescheduleToTimeslot(timeslot);
+    }
   }
 
   public prepareView(): void {

@@ -22,6 +22,15 @@ export interface TimeslotsResponse {
   }
 }
 
+export interface PostponeResponse {
+  reservation: AppointmentPayload;
+  _links: {
+    self: PayloadLinkObject;
+    find: PayloadLinkObject;
+    confirmation: PayloadLinkObject;
+  }
+}
+
 export interface PayloadLinkObject {
   href: string;
   type: string;
@@ -40,4 +49,12 @@ export interface TimeslotPayload {
   startTime: string;
   endTime: string;
   capacity: number;
+}
+
+export interface ErrorResponse {
+  timestamp: string;
+  status: number;
+  error: string;
+  message: string;
+  path: string;
 }
