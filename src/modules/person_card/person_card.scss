@@ -1,3 +1,29 @@
 .mdl-person_card {
+  $personCardCurves: (
+    headingMarginBottom: (
+      tiny: 0,
+      medium: $sizeMini,
+    ),
+    containerPadding :(
+      tiny: $sizeSmallLarge,
+      medium: $sizeBig,
+      xlarge: $sizeBiggerBig,
+    )
+  );
 
+  &__container {
+    background-color: $colorBlack5;
+
+    @include sizeCurve(padding, containerPadding, $personCardCurves);
+
+    .atm-paragraph {
+      margin-bottom: $sizeRegular;
+      font-size: $sizeFontRegular;
+      line-height: $sizeLineHeightBase;
+    }
+
+    h4.atm-heading {
+      @include sizeCurve(margin-bottom, headingMarginBottom, $personCardCurves);
+    }
+  }
 }
