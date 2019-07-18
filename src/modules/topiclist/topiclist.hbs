@@ -8,8 +8,10 @@
     {{> "atoms/form_input/form_input" topiclistInput}}
   {{/if}}
 
+  <!-- Standard Topiclist -->
   {{> "modules/content_nav/content_nav" topiclistcontentNavData}}
 
+  <!-- "Autosuggest" Topiclist" -->
   {{#if isTopiclistHome}}
     {{> "modules/content_nav/content_nav" autosuggestTopicList}}
 

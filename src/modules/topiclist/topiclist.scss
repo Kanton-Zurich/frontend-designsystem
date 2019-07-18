@@ -12,6 +12,10 @@ $leadFontCurve: (
     }
   }
 
+  .mdl-topiclist__autosuggest {
+    display: none;
+  }
+
   &--expanded,
   &--home,
   &--office {
@@ -69,6 +73,19 @@ $leadFontCurve: (
   &--home {
     .atm-button {
       display: none;
+    }
+  }
+
+  /** SPECIAL STYLES WHEN LIST IS FILTERED */
+  &--filtered {
+    .mdl-content_nav {
+      &:first-of-type {
+        display: none;
+      }
+    }
+
+    .mdl-topiclist__autosuggest {
+      display: inherit;
     }
   }
 }

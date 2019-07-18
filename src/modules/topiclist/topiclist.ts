@@ -4,9 +4,7 @@
  * @author
  * @copyright
  */
-import debounce from 'lodash/debounce';
-
-import Handlebars from '../../../node_modules/handlebars/lib/handlebars.js'
+import { debounce, template } from 'lodash';
 
 import Module from '../../assets/js/helpers/module';
 
@@ -21,6 +19,7 @@ class Topiclist extends Module {
     },
     stateClasses: {
       expanded: string,
+      filtered: string,
     };
   }
 
@@ -30,11 +29,13 @@ class Topiclist extends Module {
       topics: Array<{
         title: string,
         synonyms: Array<string>,
+        path: string,
       }>,
     },
     topics: Array<{
       title: string,
       synonyms: Array<string>,
+      path: string,
     }>,
   }
 
@@ -66,6 +67,7 @@ class Topiclist extends Module {
       },
       stateClasses: {
         expanded: 'mdl-topiclist--expanded',
+        filtered: 'mdl-topiclist--filtered',
       },
     };
     super($element, defaultData, defaultOptions, data, options);
@@ -114,7 +116,17 @@ class Topiclist extends Module {
 
     if (this.data.query.length > 1) {
       this.filterTopics(this.data.query);
-      this.renderAutoSuggest();
+      this.ui.autosuggest.innerHTML = '';
+
+      this.ui.element.classList.add(this.options.stateClasses.filtered);
+
+      if (this.data.topics.length > 0) {
+        this.renderAutoSuggest();
+      } else {
+        this.ui.element.classList.remove(this.options.stateClasses.filtered);
+      }
+    } else {
+      this.ui.element.classList.remove(this.options.stateClasses.filtered);
     }
     return true;
   }
@@ -155,12 +167,18 @@ class Topiclist extends Module {
 
   renderAutoSuggest() {
     this.data.topics.forEach((topic) => {
-      const template = Handlebars.compile(this.ui.contentTeaserTemplate.innerHTML);
-      const html = template({
+      const compiled = template(this.ui.contentTeaserTemplate.innerHTML);
+      const html = compiled({
         shortTitle: topic.title,
+        buzzwords: '',
+        target: topic.path,
       });
 
-      this.log(html);
+      const parsedHTML = new DOMParser().parseFromString(html, 'text/html').querySelector('a');
+
+      parsedHTML.querySelector('[data-lineclamp]').removeAttribute('data-lineclamp');
+
+      this.ui.autosuggest.append(parsedHTML);
     });
   }
 
