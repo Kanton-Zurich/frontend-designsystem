@@ -129,7 +129,7 @@ class Anchornav extends Module {
       if (currentItem.getAttribute('href')[0] === '#') {
         let anchorHrefName = currentItem.getAttribute('href');
         anchorHrefName = anchorHrefName.slice(1, anchorHrefName.length);
-        const tempAnchor = document.querySelector(`a[name="${anchorHrefName}"]`);
+        const tempAnchor = document.querySelector(`a[id="${anchorHrefName}"]`);
 
         // prevent missspelled anchor names
         if (tempAnchor !== null) {
@@ -212,7 +212,7 @@ class Anchornav extends Module {
     const targetName = target.hash.slice(1, target.hash.length);
     // Check that the anchor is referring to the own page and if the string contains letters
     if (target.getAttribute('href')[0] === '#' && targetName.length !== 0 && isClickEvent) {
-      jump(`a[name="${targetName}"]`, {
+      jump(`a[id="${targetName}"]`, {
         offset: -(this.ui.element.getBoundingClientRect().height + this.jumpToTolerance),
       });
     }

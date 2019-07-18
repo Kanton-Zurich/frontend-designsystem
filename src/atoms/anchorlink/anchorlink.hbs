@@ -1,3 +1,3 @@
-<a href="{{{anchorlink.anchorlinkAdress}}}" class="atm-anchorlink{{#if anchorlink.anchorlinkIsActive}} atm-anchorlink--active{{/if}}{{#if anchorlink.anchorlinkIsInverted}} atm-anchorlink--inverted{{/if}}{{#if anchorlink.anchorlinkIsTagAnchor}} atm-anchorlink--tag{{/if}}{{#if anchorlink.anchorlinkIsTagTopic}} atm-anchorlink--tag-topic{{/if}}{{#if anchorlink.anchorlinkIsTopitem}} atm-anchorlink--tag-top{{/if}}{{#if anchorlink.anchorlinkIsTopitemSmall}} atm-anchorlink--tag-top-small{{/if}}">
+<{{#if anchorlink.anchorlinkAsButton}}button{{else}}a{{/if}} href="{{{anchorlink.anchorlinkAdress}}}" class="atm-anchorlink{{#if anchorlink.anchorlinkIsActive}} atm-anchorlink--active{{/if}}{{#if anchorlink.anchorlinkIsInverted}} atm-anchorlink--inverted{{/if}}{{#if anchorlink.anchorlinkIsTagAnchor}} atm-anchorlink--tag{{/if}}{{#if anchorlink.anchorlinkIsTagTopic}} atm-anchorlink--tag-topic{{/if}}{{#if anchorlink.anchorlinkIsTopitem}} atm-anchorlink--tag-top{{/if}}{{#if anchorlink.anchorlinkIsTopitemSmall}} atm-anchorlink--tag-top-small{{/if}}">
   {{{anchorlink.anchorlinkText}}}
-</a>
+</{{#if anchorlink.anchorlinkAsButton}}button{{else}}a{{/if}}>

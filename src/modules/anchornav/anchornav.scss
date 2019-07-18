@@ -1,18 +1,41 @@
 .mdl-anchornav {
   @include gridBleed($fullwidth: true);
-  padding-top: 16px;
+  padding-top: pxToRem($sizeRegular);
   margin-bottom: pxToRem($sizeBiggerBig);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   background-color: $colorWhite;
 
+  /*
+  @include mq($from: zero, $to: xsmall) {
+    > .lyt-wrapper {
+      max-width: calc(100% - 0.75rem);
+      margin-right: -0.375rem;
+      margin-left: 0.75rem;
+    }
+  }
+
+  @include mq($from: xsmall, $to: small) {
+    > .lyt-wrapper {
+      max-width: calc(100% - 0.75rem);
+      margin-right: -0.375rem;
+      margin-left: 1rem;
+    }
+  }
+  @include mq($from: small, $to: medium) {
+    > .lyt-wrapper {
+      margin-right: -0.5rem;
+      margin-left: 2rem;
+    }
+  }
+  */
+
   &__content {
     position: relative;
-    padding-right: 56px;
   }
 
   &__list-wrapper {
     position: relative;
-    height: 56px;
+    height: pxToRem($sizeHuge);
     overflow: hidden;
     width: 100%;
   }
@@ -55,7 +78,7 @@
       right: 0;
 
       button:after {
-        left: -8px;
+        left: -(pxToRem($sizeTiny));
         background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.05) 100%);
       }
     }
@@ -71,7 +94,7 @@
         top: 0;
         z-index: 1;
         display: block;
-        width: 8px;
+        width: pxToRem($sizeTiny);
         height: 100%;
       }
     }
@@ -92,17 +115,24 @@
     &__ctrl {
       display: none;
     }
+
+    &__content {
+      padding-right: pxToRem($sizeHuge);
+    }
   }
 
   /**
   * Module Overwrites
   */
-  &__item:first-of-type a.atm-anchorlink {
-    margin-left: 0;
+  &__item:first-of-type {
+    .atm-anchorlink {
+      margin-left: 0;
+    }
+
   }
 
   &__item {
-    a.atm-anchorlink {
+    .atm-anchorlink {
       white-space: nowrap;
     }
   }

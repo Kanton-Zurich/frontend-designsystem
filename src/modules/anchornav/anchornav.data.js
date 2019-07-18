@@ -22,6 +22,7 @@ const data = _.merge({}, defaultData, {
           anchorlinkText: 'Themen',
           anchorlinkAdress: '#themen',
           anchorlinkIsActive: true,
+          anchorlinkAsButton: true,
         },
       },
       {
@@ -29,6 +30,7 @@ const data = _.merge({}, defaultData, {
           anchorlinkText: 'Service',
           anchorlinkAdress: '#service',
           anchorlinkIsActive: false,
+          anchorlinkAsButton: true,
         },
       },
       {
@@ -43,6 +45,7 @@ const data = _.merge({}, defaultData, {
           anchorlinkText: 'Weiterführende Informationen',
           anchorlinkAdress: '#infos',
           anchorlinkIsActive: false,
+          anchorlinkAsButton: true,
         },
       },
       {
@@ -50,6 +53,7 @@ const data = _.merge({}, defaultData, {
           anchorlinkText: 'Kontakt',
           anchorlinkAdress: '#contact',
           anchorlinkIsActive: false,
+          anchorlinkAsButton: true,
         },
       },
       {
@@ -57,6 +61,7 @@ const data = _.merge({}, defaultData, {
           anchorlinkText: 'Standorte',
           anchorlinkAdress: '#locations',
           anchorlinkIsActive: false,
+          anchorlinkAsButton: true,
         },
       },
       {
@@ -65,6 +70,7 @@ const data = _.merge({}, defaultData, {
           anchorlinkAdress: '#bildergallerie',
           anchorlinkIsActive: false,
           anchorlinkIsOpensInNewTab: false,
+          anchorlinkAsButton: true,
         },
       },
       {
@@ -73,6 +79,7 @@ const data = _.merge({}, defaultData, {
           anchorlinkAdress: '#download',
           anchorlinkIsActive: false,
           anchorlinkIsOpensInNewTab: false,
+          anchorlinkAsButton: true,
         },
       },
     ],
