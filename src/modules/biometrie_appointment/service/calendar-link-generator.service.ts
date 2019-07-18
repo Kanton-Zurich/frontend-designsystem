@@ -1,5 +1,3 @@
-import * as ics from 'ics';
-
 export interface GeneralEventData {
   title: string;
   description?: string;
@@ -88,18 +86,62 @@ class CalendarLinkGenerator {
   }
 
   private getIcsBase64String(appointmentFrom: Date, appointmentUntil: Date): string {
-    const start = DateHelper.getDateIcsFormated(appointmentFrom);
-    const end = DateHelper.getDateIcsFormated(appointmentUntil);
-    const appointmentData = Object.assign({
-      start,
-      end,
-    }, this.generalData);
+    let geoStr;
+    if (this.generalData.geo) {
+      geoStr = `${this.generalData.geo.lat};${this.generalData.geo.lon}`;
+    }
+    const value = this.buildIcsFileContent({
+      start: appointmentFrom,
+      end: appointmentUntil,
+      summary: this.generalData.title,
+      geo: geoStr,
+      location: this.generalData.location,
+    });
+    return window.btoa(unescape(encodeURIComponent(value)));
+  }
 
-    return ics.createEvent(appointmentData, (error, value) => {
-      if (error) {
-        throw error;
-      }
-      return window.btoa(unescape(encodeURIComponent(value)));
+  private buildIcsFileContent(eventData: {
+    start: Date;
+    end: Date;
+    summary: string;
+    geo?: string;
+    location?: string;
+  }): string {
+    const dtstamp = DateHelper.getStrippedIsoString(new Date());
+    const dtstart = DateHelper.getStrippedIsoString(eventData.start);
+    const dtend = DateHelper.getStrippedIsoString(eventData.end);
+
+    let contentStr = 'BEGIN:VCALENDAR\nVERSION:2.0\nCALSCALE:GREGORIAN\nPRODID:czbdev\nMETHOD:PUBLISH\nX-PUBLISHED-TTL:PT1H\nBEGIN:VEVENT\n';
+
+    contentStr += `UID:${this.generateGuid()}\n`;
+    contentStr += `SUMMARY:${eventData.summary}\n`;
+
+    contentStr += `DTSTAMP:${dtstamp}\n`;
+    contentStr += `DTSTART:${dtstart}\n`;
+    contentStr += `DTEND:${dtend}\n`;
+
+    if (eventData.geo) {
+      contentStr += `GEO:${eventData.geo}\n`;
+    }
+
+    if (eventData.location) {
+      contentStr += `LOCATION:${eventData.location}\n`;
+    }
+
+    contentStr += 'STATUS:CONFIRMED\n';
+
+    contentStr += 'END:VEVENT\nEND:VCALENDAR';
+    return contentStr;
+  }
+
+  private generateGuid(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      // Sorry! I dont intend to translate this hence disabling linting.
+      /* eslint-disable no-bitwise, no-magic-numbers, no-mixed-operators */
+      const r = Math.random() * 16 | 0;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+      /* eslint-enable */
     });
   }
 }
