@@ -131,7 +131,7 @@ class MigekApiService {
             const hiddenA = document.createElement('a');
             hiddenA.style.display = 'none';
             hiddenA.href = fileURL;
-            hiddenA.download = 'Bestätigung_Biometrie.pdf';
+            hiddenA.download = 'Bestätigung_Biometrie.pdf'; // TODO Filename konfigurierbar
             document.body.appendChild(hiddenA);
             hiddenA.click();
 

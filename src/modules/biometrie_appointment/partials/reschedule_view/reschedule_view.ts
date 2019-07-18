@@ -6,6 +6,7 @@ import Appointment from '../../model/appointment.model';
 export const rescheduleViewSelectorsValues: RescheduleViewSelectors = {
   rescheduleBackLink: '[data-biometrie_appointment=rescheduleBack]',
   nextOpenSlotField: '[data-biometrie_appointment=nextOpenSlot]',
+  nextOpenSlotCapacity: '[data-biometrie_appointment=nextOpenSlot__capacity]',
   otherSlotsContainer: '[data-biometrie_appointment=otherSlotsSelect]',
   rescheduleToNextBtn: '[data-biometrie_appointment=doRescheduleNext]',
 };
@@ -13,6 +14,7 @@ export const rescheduleViewSelectorsValues: RescheduleViewSelectors = {
 export interface RescheduleViewSelectors {
   rescheduleBackLink: string,
   nextOpenSlotField: string,
+  nextOpenSlotCapacity: string;
   otherSlotsContainer: string,
   rescheduleToNextBtn: string,
 }
@@ -76,6 +78,10 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
         const nextOpenSpan = document
           .querySelector<HTMLElement>(this.selectors.nextOpenSlotField);
         nextOpenSpan.innerText = `${nextSlot.getDateStr()} ${nextSlot.getTimeStr()}`;
+        const nextOpenCapacityField = document
+          .querySelector<HTMLElement>(this.selectors.nextOpenSlotCapacity);
+        nextOpenCapacityField.innerText = nextSlot.capacity.toString();
+
         this.nextOpenSlot = nextSlot;
       }
     });

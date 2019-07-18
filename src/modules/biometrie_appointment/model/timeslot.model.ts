@@ -6,13 +6,16 @@ class Timeslot {
   until: string;
   start: Moment;
   end: Moment;
+  capacity: number;
 
-  constructor(timeslot: TimeslotPayload) {
-    this.from = timeslot.startTime;
-    this.until = timeslot.endTime;
+  constructor(timeslotPayload: TimeslotPayload) {
+    this.from = timeslotPayload.startTime;
+    this.until = timeslotPayload.endTime;
 
     this.start = moment(this.from);
     this.end = moment(this.until);
+
+    this.capacity = timeslotPayload.capacity;
   }
 
   public getDateStr(): string {
