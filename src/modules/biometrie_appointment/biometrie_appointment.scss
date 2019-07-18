@@ -1,0 +1,333 @@
+$biometrieViewTransitionDuration: 300ms;
+
+.mdl-biometrie_appointment {
+  margin-bottom: $sizeHuge;
+
+  &__heading {
+    hyphens: initial;
+
+    &.atm-heading {
+      @include sizeCurve('margin-bottom', medium);
+    }
+  }
+
+  .view {
+    //transform: translateX(-100%);
+    opacity: 0;
+    transition: opacity $biometrieViewTransitionDuration;
+    max-height: 0;
+    pointer-events: none;
+
+    &.show {
+      //transform: translateX(0);
+      opacity: 1;
+      transition-delay: $biometrieViewTransitionDuration;
+      max-height: inherit;
+      pointer-events: all;
+    }
+  }
+
+  &__loginview {
+
+    &__input {
+      border: 2px solid;
+      border-radius: 4px;
+      padding: $sizeRegular;
+      position: relative;
+      border-color: $colorBlack15;
+
+      label {
+        font-weight: $fontWeightBlack;
+        color: $colorBlack100;
+        display: block;
+        margin-bottom: $sizeTiny;
+      }
+
+      span.input {
+        font-size: $sizeFontBiggerRegular;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        border-bottom: 1px solid $colorBlack15;
+        display: inline-block;
+        min-width: 1.2em;
+        color: $colorBlack100;
+        margin-right: $sizeTiny;
+
+        + .input {
+          margin-left: $sizeTiny;
+        }
+
+        &.filled {
+          border: 0;
+        }
+      }
+
+      .icon-error {
+        display: none;
+      }
+
+      &.focused {
+        border-color: $colorCyan;
+      }
+
+      &.error {
+        border-color: $colorRed;
+
+        .icon-error {
+          color: $colorWhite;
+          background-color: $colorRed;
+          text-align: center;
+          border-radius: 50%;
+          font-size: $sizeFontBiggerRegular;
+          font-weight: $fontWeightBlack;
+          line-height: 1.5rem;
+          display: block;
+          position: absolute;
+          right: $sizeRegular;
+          top: calc(50% - 0.75rem);
+        }
+      }
+    }
+
+    &__hint {
+      min-height: 2rem;
+      border-bottom: 2px solid $colorBlack100;
+      margin-bottom: $sizeRegular;
+
+      .alert.alert-error {
+        display: none;
+        padding: $sizeTiny $sizeRegular;
+        background-color: $colorRed;
+        color: $colorWhite;
+        border-radius: 4px;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        padding-left: $sizeSmallHuge;
+        line-height: $sizeLineHeightNarrow;
+        position: relative;
+
+        &:before {
+          content: '!';
+          background-color: $colorWhite;
+          color: $colorRed;
+          text-align: center;
+          border-radius: 50%;
+          font-size: $sizeFontBiggerRegular;
+          font-weight: $fontWeightBlack;
+          line-height: $sizeFontLarge;
+          display: block;
+          position: absolute;
+          left: $sizeRegular;
+          top: calc(50% - 0.75rem);
+          width: $sizeFontLarge;
+        }
+
+        &.show {
+          display: block;
+        }
+      }
+    }
+
+    &__submit {
+      clear: both;
+      overflow: hidden;
+
+      > * {
+        float: right;
+      }
+    }
+  }
+
+
+  &__details {
+    table {
+      width: 100%;
+      border-spacing: 0;
+      font-size: $sizeFontTiny;
+
+      tr {
+        background-color: $colorWhite;
+
+        &:nth-child(odd) {
+          background-color: $colorBlack5;
+        }
+
+        th {
+          text-align: left;
+          width: 35%;
+        }
+
+        th,
+        td {
+          padding: $sizeTiny;
+        }
+      }
+    }
+
+    &__confirmation {
+      display: none;
+      &.visible {
+        display: block;
+      }
+
+      h3 {
+        @include sizeCurve('margin-bottom', medium);
+
+        &:after {
+          content: '';
+          display: inline-block;
+          position: relative;
+          transform: rotate(45deg);
+          top: 2px;
+          border-bottom: $sizeMini solid $colorGreen;
+          border-right: $sizeMini solid $colorGreen;
+
+          @include sizeCurve(width, small);
+          @include sizeCurve(height left, biggerRegular);
+        }
+      }
+
+      .alert-box {
+        &.success {
+          background-color: #ebf4e9;
+
+          @include sizeCurve(padding, smallerRegular);
+        }
+      }
+
+      @include sizeCurve('margin-bottom', large);
+    }
+
+    &__persondata {
+      @include sizeCurve('margin-bottom', large);
+    }
+
+    &__appointmentdata {
+      @include sizeCurve('margin-bottom', large);
+    }
+
+    &__rescheduleBtn {
+      margin: $sizeBig 0;
+    }
+
+    &__cal-linklist {
+      .cal-linklist_item {
+        display: inline-block;
+        margin-right: 2rem;
+        text-decoration: none;
+        color: $colorBlack60;
+        font-weight: 900;
+        position: relative;
+        font-size: 16px;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid transparent;
+        transition: color 100ms ease;
+        justify-content: space-between;
+        align-items: center;
+
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+
+        &__button {
+          margin-top: 0.5rem;
+          display: flex;
+          align-items: center;
+          font-weight: 400;
+          color: $colorBlack60;
+
+          @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+
+          .icon {
+            margin-right: 0.75rem;
+
+            use {
+              fill: $colorBlack60;
+              transition: fill 100ms ease;
+            }
+          }
+        }
+
+        &:hover {
+          .cal-linklist_item__button {
+            color: $colorBlack100;
+
+            .icon use {
+              fill: $colorBlack100;
+            }
+          }
+        }
+      }
+    }
+
+    &__addinfo-block {
+      @include sizeCurve('margin-bottom', medium);
+    }
+  }
+
+  &__reschedule {
+    &__backlink {
+      @include sizeCurve('margin-bottom', medium);
+    }
+
+    &__nextopen {
+      @include sizeCurve('margin-bottom', large);
+
+      strong {
+        @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+      }
+
+      .atm-heading {
+        @include sizeCurve('margin-bottom', regular);
+      }
+    }
+
+    &__scheduleNextBtn {
+      @include sizeCurve('margin-top', regular);
+    }
+  }
+
+  &__loading-spinner {
+    &.show {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+
+      .atm-dual-ring {
+        position: absolute;
+        height: 64px;
+        width: 64px;
+        left: 50%;
+        margin-left: -32px;
+        top: 50%;
+        margin-top: -50px;
+        display: inline-block;
+      }
+
+      .atm-dual-ring:after {
+        content: ' ';
+        display: block;
+        width: 46px;
+        height: 46px;
+        margin: 1px;
+        border-radius: 50%;
+        border: 5px solid;
+        border-color: #fff transparent;
+        animation: atm-dual-ring 1.2s linear infinite;
+      }
+
+      @keyframes atm-dual-ring {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
+}

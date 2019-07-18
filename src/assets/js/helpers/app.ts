@@ -18,6 +18,7 @@ import ContextMenu from '../../../modules/context_menu/context_menu';
 import Teaser from '../../../modules/teaser/teaser';
 import PublicationTeaser from '../../../modules/publication_teaser/publication_teaser';
 import Breadcrumb from '../../../modules/breadcrumb/breadcrumb';
+import BiometrieAppointment from '../../../modules/biometrie_appointment/biometrie_appointment';
 import Topiclist from '../../../modules/topiclist/topiclist';
 import Modal from '../../../modules/modal/modal';
 import ServiceList from '../../../modules/service_list/service_list';
@@ -44,6 +45,7 @@ class App {
     this.modules.teaser = Teaser;
     this.modules.publicationTeaser = PublicationTeaser;
     this.modules.breadcrumb = Breadcrumb;
+    this.modules.biometrieAppointment = BiometrieAppointment;
     this.modules.topiclist = Topiclist;
     this.modules.tabs = Tabs;
     this.modules.modal = Modal;
