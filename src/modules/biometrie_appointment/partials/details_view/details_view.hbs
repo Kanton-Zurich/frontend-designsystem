@@ -1,6 +1,14 @@
 {{#with messages}}
   <div class="mdl-biometrie_appointment__details">
 
+    <div class="mdl-biometrie_appointment__details__confirmation" data-biometrie_appointment="reschedule-success">
+      <h3 class="atm-heading">Ihr Termin ist verschoben</h3>
+      <div class="alert-box success">
+        <p class="atm-paragraph">Bitte drucken Sie die neue Terminbestätigung aus und bringen Sie diese mit zu Ihrem Termin</p>
+        {{> "atoms/button/button" printConfirmationBtn}}
+      </div>
+    </div>
+
     <div class="mdl-biometrie_appointment__details__persondata">
       <table>
         <tr>
@@ -24,7 +32,7 @@
     </div>
 
     <div class="mdl-biometrie_appointment__details__appointmentdata">
-      <h2>{{ headingAppointment }}</h2>
+      <h3 class="atm-heading">{{ headingAppointment }}</h3>
       <table>
         <tr>
           <th>{{ labelDate }}</th>

@@ -11,8 +11,8 @@ import BiometrieRescheduleView, {
   rescheduleViewSelectorsValues,
 } from './partials/reschedule_view/reschedule_view';
 import Appointment from './model/appointment.model';
-import BiometrieLoginView, { LoginViewSelectors } from './partials/login_view/login_view';
-import BiometrieDetailsView, { DetailsViewSelectors } from './partials/details_view/details_view';
+import BiometrieLoginView, { loginViewSelectors } from './partials/login_view/login_view';
+import BiometrieDetailsView, { detailViewSelectors } from './partials/details_view/details_view';
 import { WithEventListeners } from './util/view-controller.class';
 
 class BiometrieAppointment extends Module {
@@ -30,10 +30,6 @@ class BiometrieAppointment extends Module {
     stateClasses: any
   };
 
-  private loginViewSelectors: LoginViewSelectors;
-  private detailsViewSelectors: DetailsViewSelectors;
-  // private rescheduleViewSelectors: RescheduleViewSelectors;
-
   private loginViewCntrl: BiometrieLoginView;
   private detailsViewCntrl: BiometrieDetailsView;
   private rescheduleViewCntrl: BiometrieRescheduleView;
@@ -49,21 +45,7 @@ class BiometrieAppointment extends Module {
       appointment: undefined,
       loading: true,
     };
-    const loginViewSelectors: LoginViewSelectors = {
-      inputFieldsWrapper: '[data-biometrie_appointment=inputfieldswrapper]',
-      inputFields: '[data-biometrie_appointment=input]',
-      submitBtn: '[data-biometrie_appointment=submit]',
-      loginAlertErr1: '[data-biometrie_appointment=loginAlertErr1]',
-      loginAlertErr2: '[data-biometrie_appointment=loginAlertErr2]',
-      loginAlertErr3: '[data-biometrie_appointment=loginAlertErr3]',
-      loginHint: '[data-biometrie_appointment=loginHint]',
-    };
-    const detailViewSelectors: DetailsViewSelectors = {
-      reservationDetails: '[data-biometrie_appointment^=reservation-details__]',
-      rescheduleBtn: '[data-biometrie_appointment=reschedule]',
-      calendarLinks: '[data-biometrie_appointment^=cal-link__]',
-    };
-    // const rescheduleViewSelectors: RescheduleViewSelectors = rescheduleViewSelectorsValues;
+
     const defaultOptions = {
       domSelectors: Object.assign({
         loadingSpinner: '[data-biometrie_appointment=loading-spinner]',
@@ -76,10 +58,6 @@ class BiometrieAppointment extends Module {
     };
 
     super($element, defaultData, defaultOptions, data, options);
-
-    this.loginViewSelectors = loginViewSelectors;
-    this.detailsViewSelectors = detailViewSelectors;
-    // this.rescheduleViewSelectors = rescheduleViewSelectors;
 
     this.log('Module "Biometrie Appointment" init!', this);
     this.initUi();
@@ -109,12 +87,12 @@ class BiometrieAppointment extends Module {
   private initViewController() {
     this.viewController = [];
 
-    this.loginViewCntrl = new BiometrieLoginView(this.data, this.loginViewSelectors, this.log,
+    this.loginViewCntrl = new BiometrieLoginView(this.data, loginViewSelectors, this.log,
       this.apiService);
     this.viewController.push(this.loginViewCntrl);
 
-    this.detailsViewCntrl = new BiometrieDetailsView(this.data, this.detailsViewSelectors, this.log,
-      this.calendarLinkGenerator)
+    this.detailsViewCntrl = new BiometrieDetailsView(this.data, detailViewSelectors, this.log,
+      this.apiService, this.calendarLinkGenerator)
       .onRescheduleClicked((rescheduleIntention) => {
         if (rescheduleIntention) {
           this.enterRescheduleView();
@@ -139,8 +117,8 @@ class BiometrieAppointment extends Module {
    *
    */
   initWatchers() {
-    this.watch(this.data, 'appointment', this.enterDetailsView.bind(this));
     this.watch(this.data, 'loading', this.toggleLoadingSpinner.bind(this));
+    this.watch(this.data, 'appointment', this.enterDetailsView.bind(this));
   }
 
   /**

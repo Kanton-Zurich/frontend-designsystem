@@ -40,6 +40,11 @@ const data = _.merge({}, defaultData, {
       isPrimary: true,
       additionalAttribute: 'data-biometrie_appointment="reschedule"',
     }),
+    printConfirmationBtn: _.merge({}, defaultButtonData, {
+      text: 'Terminbestätigung drucken',
+      isPrimary: true,
+      additionalAttribute: 'data-biometrie_appointment="printConfirmation"',
+    }),
   },
 });
 

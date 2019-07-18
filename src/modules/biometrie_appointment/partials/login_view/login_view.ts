@@ -1,4 +1,4 @@
-import MigekApiService, { ApiForbidden } from '../../service/migek-api.service';
+import MigekApiService, { ApiConnectionFailure, ApiFailureType } from '../../service/migek-api.service';
 import { ViewController } from '../../util/view-controller.class';
 import { LoginAlert } from '../../model/login-alert-type.enum';
 import Appointment from '../../model/appointment.model';
@@ -9,6 +9,15 @@ const TOKEN_BLOCK_SEPERATOR: string = '-';
 
 const ATTEMPTS_BEFORE_SHOW_TELEPHONE: number = 3;
 
+export const loginViewSelectors: LoginViewSelectors = {
+  inputFieldsWrapper: '[data-biometrie_appointment=inputfieldswrapper]',
+  inputFields: '[data-biometrie_appointment=input]',
+  submitBtn: '[data-biometrie_appointment=submit]',
+  loginAlertErr1: '[data-biometrie_appointment=loginAlertErr1]',
+  loginAlertErr2: '[data-biometrie_appointment=loginAlertErr2]',
+  loginAlertErr3: '[data-biometrie_appointment=loginAlertErr3]',
+  loginHint: '[data-biometrie_appointment=loginHint]',
+};
 export interface LoginViewSelectors {
   inputFieldsWrapper: string;
   inputFields: string;
@@ -30,7 +39,8 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
 
   private loginReqAttempts: number;
 
-  constructor(_data: any, _selectors: LoginViewSelectors, _logFn: Function, _apiService: MigekApiService) {
+  constructor(_data: any, _selectors: LoginViewSelectors, _logFn: Function,
+    _apiService: MigekApiService) {
     super(_selectors, _data as LoginViewData, _logFn);
     this.selectors = _selectors;
     this.apiService = _apiService;
@@ -181,11 +191,14 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
             })
             .catch((rejectionCause) => {
               this.log('Login rejected');
-              if (rejectionCause === ApiForbidden) {
-                this.handleUnauthedLogin();
-              } else {
-                this.handleError(rejectionCause);
+
+              if (rejectionCause && rejectionCause instanceof ApiConnectionFailure) {
+                if ((rejectionCause as ApiConnectionFailure).type === ApiFailureType.FORBIDDEN) {
+                  this.handleUnauthedLogin();
+                  return;
+                }
               }
+              this.handleError(rejectionCause);
             })
             .finally(() => {
               this.data.loading = false;

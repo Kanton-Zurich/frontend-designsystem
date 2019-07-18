@@ -165,6 +165,40 @@ $biometrieViewTransitionDuration: 300ms;
       }
     }
 
+    &__confirmation {
+      display: none;
+      &.visible {
+        display: block;
+      }
+
+      h3 {
+        @include sizeCurve('margin-bottom', medium);
+
+        &:after {
+          content: '';
+          display: inline-block;
+          position: relative;
+          transform: rotate(45deg);
+          top: 2px;
+          border-bottom: $sizeMini solid $colorGreen;
+          border-right: $sizeMini solid $colorGreen;
+
+          @include sizeCurve(width, small);
+          @include sizeCurve(height left, biggerRegular);
+        }
+      }
+
+      .alert-box {
+        &.success {
+          background-color: #ebf4e9;
+
+          @include sizeCurve(padding, smallerRegular);
+        }
+      }
+
+      @include sizeCurve('margin-bottom', large);
+    }
+
     &__persondata {
       @include sizeCurve('margin-bottom', large);
     }

@@ -19,6 +19,7 @@ export interface RescheduleViewSelectors {
 interface RescheduleViewData {
   appointment: Appointment;
   loading: boolean;
+  rescheduled: boolean;
 }
 class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, RescheduleViewData> {
   private apiService: MigekApiService;
@@ -57,7 +58,11 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
 
   private requestTimeslot(timeslot: Timeslot): void {
     if (timeslot) {
-      this.apiService.rescheduleToTimeslot(timeslot);
+      this.apiService.rescheduleToTimeslot(timeslot)
+        .then((appointment) => {
+          this.data.rescheduled = true;
+          this.data.appointment = appointment;
+        });
     }
   }
 
@@ -66,7 +71,8 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
       this.log('Timeslots', timeslots);
 
       if (timeslots && timeslots.length > 0) {
-        const nextSlot = new Timeslot(timeslots[0]);
+        const openSlots = timeslots.filter(slot => slot.capacity > 0);
+        const nextSlot = new Timeslot(openSlots[0]);
         const nextOpenSpan = document
           .querySelector<HTMLElement>(this.selectors.nextOpenSlotField);
         nextOpenSpan.innerText = `${nextSlot.getDateStr()} ${nextSlot.getTimeStr()}`;

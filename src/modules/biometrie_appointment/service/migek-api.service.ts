@@ -56,6 +56,7 @@ class MigekApiService {
   private currentAppointment: AppointmentPayload;
   private pathToReservationDetails: string;
   private postponePath: string;
+  private confirmationPath: string;
 
   private log: Function = () => undefined;
 
@@ -107,14 +108,17 @@ class MigekApiService {
       .then((resp) => {
         const postponeResp = resp as PostponeResponse;
         this.currentAppointment = postponeResp.reservation;
+
+        // eslint-disable-next-line no-underscore-dangle
+        this.confirmationPath = new URL(postponeResp._links.confirmation.href).pathname;
         return new Appointment(this.currentAppointment);
       });
   }
 
   public openConfirmationPDF(): void {
-    if (this.currentAppointment && this.bearerStr) {
-      const pathToConfirmation = `api/v1/confirmations/${this.currentAppointment.id}`;
-      const reqUrl = this.apiBasePath + pathToConfirmation;
+    if (this.confirmationPath && this.bearerStr) {
+      // const pathToConfirmation = `api/v1/confirmations/${this.currentAppointment.id}`;
+      const reqUrl = this.apiBasePath + this.confirmationPath;
 
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = () => {
@@ -137,7 +141,7 @@ class MigekApiService {
         xhr.setRequestHeader('Authorization', `Bearer ${this.bearerStr}`);
       }
 
-      xhr.setRequestHeader('Accept', 'application/pdf');
+      // xhr.setRequestHeader('Accept', 'application/pdf');
       xhr.send();
     }
   }
