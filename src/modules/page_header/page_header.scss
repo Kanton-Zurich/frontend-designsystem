@@ -94,19 +94,6 @@ $pageHeaderCurves: (
   @include sizeCurve('padding-top', pageHeaderTop, $pageHeaderCurves);
   @include sizeCurve(padding-bottom, pageHeaderBottom, $pageHeaderCurves);
 
-  &--minimal {
-    @include sizeCurve(padding-bottom padding-top, pageHeaderMinimal, $pageHeaderCurves);
-
-    .mdl-page-header__breadcrumb {
-      margin-bottom: 0;
-      min-height: unset;
-    }
-
-    .mdl-page-header__title {
-      @include sizeCurve(line-height, pageTitleMinimalLineHeight, $pageHeaderCurves);
-    }
-  }
-
   &__logo-container {
     height: 0;
   }
@@ -137,9 +124,11 @@ $pageHeaderCurves: (
 
       @include mq($from: tiny, $to: large) {
         right: $sizeBig;
+        right: calc(#{$sizeBig} + var(--scrollbar-wd)); // stylelint-disable-line
       }
       @include mq($from: large) {
         right: $sizeBiggerBig;
+        right: calc(#{$sizeBiggerBig} + var(--scrollbar-wd)); // stylelint-disable-line
       }
       @include sizeCurve('top', closeButtonTop, $pageHeaderCurves);
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
@@ -170,6 +159,27 @@ $pageHeaderCurves: (
   &__breadcrumb-backlink use {
     fill: $colorBlack60;
   }
+
+  &--minimal {
+    @include sizeCurve(padding-bottom padding-top, pageHeaderMinimal, $pageHeaderCurves);
+
+    .mdl-page-header__breadcrumb {
+      margin-bottom: 0;
+      min-height: unset;
+    }
+
+    .mdl-page-header__title {
+      @include sizeCurve(line-height, pageTitleMinimalLineHeight, $pageHeaderCurves);
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+
+      margin-bottom: 0;
+    }
+
+    .mdl-page-header__logo-container {
+      display: none;
+    }
+  }
+
 
   .atm-lead {
     margin-top: 0;
