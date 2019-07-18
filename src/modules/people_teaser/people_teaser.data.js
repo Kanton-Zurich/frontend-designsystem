@@ -2,6 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const defPersonCardData = require('../person_card/person_card.data.js').variants;
 
 const template = dataHelper.getFileContent('people_teaser.hbs');
 const data = _.merge({}, defaultData, {
@@ -12,7 +13,10 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('people_teaser.md'),
   },
   props: {
-
+    personCardData0: defPersonCardData.default.props,
+    personCardData1: defPersonCardData.alt.props,
+    personCardData2: defPersonCardData.noImageAlt.props,
+    personCardData3: defPersonCardData.noImage.props,
   },
 });
 const variants = _.mapValues({

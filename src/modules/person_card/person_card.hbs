@@ -1,4 +1,4 @@
-<div class="mdl-person_card">
+<div class="mdl-person_card {{#isPromo}}mdl-person_card--promo{{/isPromo}}">
   {{#if hasImage}}
     <div class="mdl-person_card__imagecontainer">
       <img class="mdl-person_card__image" src="../../assets/media/image/person_card_256_x15.jpg"
@@ -9,9 +9,13 @@
   <div class="mdl-person_card__container">
     <h4 class="atm-heading mdl-person_card__name">{{name}}</h4>
     <p class="atm-paragraph mdl-person_card__role">{{role}}</p>
+    {{#if contactInfo}}
     <p class="atm-paragraph mdl-person_card__contactinfo">
       {{{contactInfo}}}
     </p>
+    {{/if}}
+    {{#if hasButton}}
     <div class="atm-button atm-button--small atm-button--secondary">{{buttonText}}</div>
+    {{/if}}
   </div>
 </div>

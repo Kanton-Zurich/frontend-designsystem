@@ -13,8 +13,13 @@
       medium: 176px,
       xlarge: 236px,
     ),
+    imageContainerWidthPromo :(
+      medium: 145px,
+      xlarge: 186px,
+    ),
   );
 
+  background-color: $colorBlack5;
   display: inline-block;
   width: 100%;
 
@@ -27,6 +32,7 @@
 
     overflow: hidden;
     line-height: 0;
+    padding: $sizeSmallLarge $sizeSmallLarge 0 $sizeSmallLarge;
 
     img {
       width: 100%;
@@ -34,6 +40,7 @@
 
     @include mq($from: small) {
       position: relative;
+      padding: 0;
 
       img {
         width: unset;
@@ -45,8 +52,14 @@
     }
   }
 
+  &--promo {
+    .mdl-person_card__imagecontainer {
+      @include polyFluidSizing(min-width, map-get($personCardCurves,imageContainerWidthPromo));
+    }
+  }
+
   &__container {
-    background-color: $colorBlack5;
+    width: 100%;
 
     @include sizeCurve(padding, containerPadding, $personCardCurves);
 
@@ -54,6 +67,14 @@
       margin-bottom: $sizeRegular;
       font-size: $sizeFontRegular;
       line-height: $sizeLineHeightBase;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+
+    .atm-button {
+      margin-top: $sizeRegular;
     }
 
     h4.atm-heading {
