@@ -7,8 +7,6 @@ const TOKEN_BLOCKS: number = 4;
 const TOKEN_BLOCK_LENGTH: number = 4;
 const TOKEN_BLOCK_SEPERATOR: string = '-';
 
-const ATTEMPTS_BEFORE_SHOW_TELEPHONE: number = 3;
-
 export const loginViewSelectors: LoginViewSelectors = {
   inputFieldsWrapper: '[data-biometrie_appointment=inputfieldswrapper]',
   inputFields: '[data-biometrie_appointment=input]',
@@ -30,6 +28,7 @@ export interface LoginViewSelectors {
 interface LoginViewData {
   appointment: Appointment;
   loading: boolean;
+  attemptsBeforeTelephone: number;
 }
 
 class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewData> {
@@ -231,7 +230,8 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
   private handleUnauthedLogin(): void {
     this.log('Unauthorised!');
     this.loginReqAttempts += 1;
-    if (this.loginReqAttempts >= ATTEMPTS_BEFORE_SHOW_TELEPHONE) {
+    if (this.data.attemptsBeforeTelephone > 0
+      && this.loginReqAttempts >= this.data.attemptsBeforeTelephone) {
       this.showLoginAlert(LoginAlert.ShowTelephone);
     } else {
       this.showLoginAlert(LoginAlert.Unauthorized);

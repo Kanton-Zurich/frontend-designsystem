@@ -15,11 +15,14 @@ import BiometrieLoginView, { loginViewSelectors } from './partials/login_view/lo
 import BiometrieDetailsView, { detailViewSelectors } from './partials/details_view/details_view';
 import { WithEventListeners } from './util/view-controller.class';
 
+const ATTEMPTS_BEFORE_SHOW_TELEPHONE: number = 3;
+
 class BiometrieAppointment extends Module {
   public data: {
-    apiBase: string,
-    appointment: Appointment,
-    loading: boolean,
+    apiBase: string;
+    appointment: Appointment;
+    loading: boolean;
+    attemptsBeforeTelephone: number;
   };
 
   public options: {
@@ -43,6 +46,7 @@ class BiometrieAppointment extends Module {
     const defaultData = {
       apiBase: 'https://internet-acc.zh.ch/proxy/migek/',
       appointment: undefined,
+      attemptsBeforeTelephone: ATTEMPTS_BEFORE_SHOW_TELEPHONE,
       loading: true,
     };
 
