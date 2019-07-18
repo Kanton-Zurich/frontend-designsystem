@@ -115,7 +115,7 @@ class MigekApiService {
       });
   }
 
-  public openConfirmationPDF(): void {
+  public triggerConfirmationDownload(): void {
     if (this.confirmationPath && this.bearerStr) {
       // const pathToConfirmation = `api/v1/confirmations/${this.currentAppointment.id}`;
       const reqUrl = this.apiBasePath + this.confirmationPath;
@@ -127,7 +127,16 @@ class MigekApiService {
             const arrayBuffer = xhr.response;
             const file = new Blob([arrayBuffer], { type: 'application/pdf' });
             const fileURL = URL.createObjectURL(file);
-            window.open(fileURL);
+
+            const hiddenA = document.createElement('a');
+            hiddenA.style.display = 'none';
+            hiddenA.href = fileURL;
+            hiddenA.download = 'Bestätigung_Biometrie.pdf';
+            document.body.appendChild(hiddenA);
+            hiddenA.click();
+
+            hiddenA.remove();
+            URL.revokeObjectURL(fileURL);
           } else {
             throw new Error('API connection failure'); // TODO
           }

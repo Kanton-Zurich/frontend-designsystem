@@ -90,7 +90,7 @@ class BiometrieDetailsView extends ViewController<DetailsViewSelectors, DetailsV
   }
 
   private doPrintConfirmation(): void {
-    this.apiService.openConfirmationPDF();
+    this.apiService.triggerConfirmationDownload();
   }
 }
 
