@@ -36,7 +36,6 @@
 @import '../../atoms/paragraph/paragraph';
 @import '../../atoms/anchorlink/anchorlink';
 @import '../../atoms/content_teaser/content_teaser';
-@import '../../atoms/iframe/iframe';
 //*autoinsertatom*
 
 // Modules
@@ -80,6 +79,7 @@
 @import '../../modules/modal/modal';
 @import '../../modules/person_card/person_card';
 @import '../../modules/people_teaser/people_teaser';
+@import '../../modules/iframe/iframe';
 //*autoinsertmodule*
 
 @media print {

@@ -45,19 +45,19 @@
           <h4 class="atm-heading mdl-page-header__title">{{pageTitle}}</h4>
         {{/if}}
         {{#unless minimal}}
-          <h1 class="atm-heading">{{pageTitle}}</h1>
-          {{#if hasAnchors}}
-            <div class="mdl-tag-group">
-              <h2 class="atm-heading">Meist gesucht</h2>
-              <ul class="mdl-tag-group__tags">
-                {{#each anchorLinks}}
-                  <li>
-                    {{> "atoms/anchorlink/anchorlink" this}}
-                  </li>
-                {{/each}}
-              </ul>
-            </div>
-          {{/if}}
+        <h1 class="atm-heading mdl-page-header__title">{{pageTitle}}</h1>
+        {{#if hasAnchors}}
+          <div class="mdl-tag-group">
+            <h2 class="atm-heading">Meist gesucht</h2>
+            <ul class="mdl-tag-group__tags">
+              {{#each anchorLinks}}
+                <li>
+                  {{> "atoms/anchorlink/anchorlink" this}}
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
         {{/unless}}
       </div>
     </div>
