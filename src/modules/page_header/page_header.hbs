@@ -5,6 +5,7 @@
       <div class="mdl-page-header__logo-container cell {{#if minimal}}tiny-0{{/if}}{{#unless minimal}}tiny-2{{/unless}} xsmall-2 small-2 medium-2 large-2 xlarge-2">
         {{#unless minimal}}
         <span class="visuallyhidden">Logo des Kantons Zürich</span>
+        <a href="{{homelink}}" target="_blank" title="Home">
         {{#if inverted}}
           <svg viewBox="0 0 100 100" class="mdl-page-header__logo">
             <use xlink:href="#ktzh_inverted"></use>
@@ -14,6 +15,7 @@
             <use xlink:href="#ktzh"></use>
           </svg>
         {{/if}}
+        </a>
         {{/unless}}
       </div>
       <div class="cell {{#if minimal}}tiny-6 xsmall-6 small-7{{/if}} {{#unless minimal}}tiny-10 xsmall-10 small-10{{/unless}} medium-10 large-10 xlarge-10">
