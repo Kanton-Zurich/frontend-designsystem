@@ -4,8 +4,9 @@
   margin-bottom: pxToRem($sizeBiggerBig);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   background-color: $colorWhite;
+  z-index: $zIndexScaffolds;
 
-  /*
+
   @include mq($from: zero, $to: xsmall) {
     > .lyt-wrapper {
       max-width: calc(100% - 0.75rem);
@@ -13,7 +14,6 @@
       margin-left: 0.75rem;
     }
   }
-
   @include mq($from: xsmall, $to: small) {
     > .lyt-wrapper {
       max-width: calc(100% - 0.75rem);
@@ -24,10 +24,10 @@
   @include mq($from: small, $to: medium) {
     > .lyt-wrapper {
       margin-right: -0.5rem;
+      max-width: calc(100% - 2rem);
       margin-left: 2rem;
     }
   }
-  */
 
   &__content {
     position: relative;
@@ -38,6 +38,31 @@
     height: pxToRem($sizeHuge);
     overflow: hidden;
     width: 100%;
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      min-width: pxToRem($sizeTiny);
+      height: pxToRem($sizeHuge);
+      max-height: pxToRem($sizeHuge);
+    }
+
+    &--shadow-left {
+      &:before {
+        left: 0;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+      }
+    }
+
+    &--shadow-right {
+      &:after {
+        visibility: hidden;
+        right: 0;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.05) 100%);
+      }
+    }
   }
 
   ul {
@@ -67,36 +92,16 @@
 
     &--left {
       left: -(pxToRem($sizeHuge));
-
-      button:after {
-        right: -(pxToRem($sizeTiny));
-        background: linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-      }
     }
 
     &--right {
       right: 0;
-
-      button:after {
-        left: -(pxToRem($sizeTiny));
-        background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.05) 100%);
-      }
     }
 
     button {
       position: relative;
       width: 100%;
       height: 100%;
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: 0;
-        z-index: 1;
-        display: block;
-        width: pxToRem($sizeTiny);
-        height: 100%;
-      }
     }
 
     svg {
@@ -112,6 +117,8 @@
   }
 
   @include mq($from: medium) {
+    margin-bottom: pxToRem($sizeHuge);
+
     &__ctrl {
       display: none;
     }
@@ -119,16 +126,26 @@
     &__content {
       padding-right: pxToRem($sizeHuge);
     }
+
+    &__list-wrapper--shadow-right:after {
+      visibility: visible;
+    }
   }
 
   /**
   * Module Overwrites
   */
+  .atm-heading {
+    margin-top: $sizeRegular;
+    font-size: $sizeFontTiny;
+    line-height: $sizeLineHeightBase;
+    font-weight: $fontWeightDefault;
+  }
+
   &__item:first-of-type {
     .atm-anchorlink {
       margin-left: 0;
     }
-
   }
 
   &__item {

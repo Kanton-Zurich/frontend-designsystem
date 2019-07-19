@@ -14,7 +14,7 @@ const data = _.merge({}, defaultData, {
   props: {
     anchornavTitle: {
       level: 5,
-      title: 'Inhaltsverzeichniss',
+      title: 'Inhaltsverzeichnis',
     },
     anchornavItems: [
       {
@@ -38,6 +38,7 @@ const data = _.merge({}, defaultData, {
           anchorlinkText: 'Unterlagen',
           anchorlinkAdress: '#unterlagen',
           anchorlinkIsActive: false,
+          anchorlinkAsButton: true,
         },
       },
       {
@@ -90,9 +91,6 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
-    },
-    props: {
-      isSticky: false,
     },
   },
 }, (variant) => {

@@ -6,10 +6,10 @@
   {{/content}}
 
   {{#content "content"}}
-      <h1>(--ANKERNAVIGATION PLACEHOLDER--)</h1>
+      {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
       {{> "modules/topiclist/topiclist" props.modules.topiclist }}
       {{> "modules/about/about" props.modules.about }}
-      <h1>(--NEWS TEASER PLACEHOLDER--)</h1>
+      <h1 id="news_TODO">(--NEWS TEASER PLACEHOLDER--)</h1>
       {{> "modules/contact/contact" props.modules.contact }}
       {{> "modules/teaser/teaser" props.modules.teaser }}
       <h1>(--SOCIAL MEDIA STREAM--)</h1>

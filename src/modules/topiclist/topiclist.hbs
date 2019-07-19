@@ -1,5 +1,5 @@
 <div class="mdl-topiclist{{#if isOfficeNavigation}} mdl-topiclist--office{{/if}}" data-init="topiclist">
-  <h{{topiclistHeading.level}} class="atm-heading atm-heading--bordered {{#if topiclistHeading.isHidden}}visuallyhidden{{/if}}">{{topiclistHeading.title}}</h{{topiclistHeading.level}}>
+  <h{{topiclistHeading.level}} id="{{{topiclistHeading.anchorNavReference}}}" class="atm-heading atm-heading--bordered {{#if topiclistHeading.isHidden}}visuallyhidden{{/if}}">{{topiclistHeading.title}}</h{{topiclistHeading.level}}>
   {{#if topiclistLead}}<p class="atm-paragraph">{{{topiclistLead}}}</p>{{/if}}
 
   {{> "modules/content_nav/content_nav" topiclistcontentNavData}}

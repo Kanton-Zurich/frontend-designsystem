@@ -13,6 +13,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('teaser.md'),
   },
   props: _.merge({
+    anchorNavReference: '',
     teaserLink: '#',
 
     teaserTitle_listItem1: 'Flughafenbericht 2018 - das ist ein neuer Flughafenbericht des Flughafens Zürich (ZRH). Flughafenbericht 2018 - das ist ein neuer Flughafenbericht des Flughafens Zürich (ZRH). Flughafenbericht 2018 - das ist ein neuer Flughafenbericht des Flughafens Zürich (ZRH). ',

@@ -32,9 +32,15 @@ class Anchornav extends Module {
       scrollArea: string,
       activeNavItem: string,
       navItems: string,
+      scrollAreaWrapper: string,
+      ctrlRight: string,
+      ctrlLeft: string,
+      content: string,
     },
     stateClasses: {
       activeNavItem: string,
+      shadowRight: string,
+      shadowLeft: string,
     },
   };
 
@@ -44,6 +50,7 @@ class Anchornav extends Module {
     const defaultOptions = {
       domSelectors: {
         scrollArea: '.mdl-anchornav__list',
+        scrollAreaWrapper: '.mdl-anchornav__list-wrapper',
         activeNavItem: '.mdl-anchornav__list .atm-anchorlink--active',
         navItems: '.mdl-anchornav__list .atm-anchorlink',
         ctrlRight: '.mdl-anchornav__ctrl--right button',
@@ -53,13 +60,15 @@ class Anchornav extends Module {
       stateClasses: {
         activeNavItem: 'atm-anchorlink--active',
         stickyMode: 'mdl-anchornav--sticky',
+        shadowRight: 'mdl-anchornav__list-wrapper--shadow-right',
+        shadowLeft: 'mdl-anchornav__list-wrapper--shadow-left',
       },
     };
 
     super($element, defaultData, defaultOptions, data, options);
 
     this.buttonBreakpoint = 840;
-    this.activeStateScrollTolerance = 40;
+    this.activeStateScrollTolerance = 60;
     this.jumpToTolerance = 20;
     this.swipeTolerance = 2;
     this.showButtonTolerance = 10;
@@ -126,10 +135,10 @@ class Anchornav extends Module {
 
     for (let i = 0; i < (<any> this.ui).navItems.length; i += 1) {
       const currentItem = (<any> this.ui).navItems[i];
-      if (currentItem.getAttribute('href')[0] === '#') {
-        let anchorHrefName = currentItem.getAttribute('href');
+      if (currentItem.dataset.href[0] === '#') {
+        let anchorHrefName = currentItem.dataset.href;
         anchorHrefName = anchorHrefName.slice(1, anchorHrefName.length);
-        const tempAnchor = document.querySelector(`a[id="${anchorHrefName}"]`);
+        const tempAnchor = document.querySelector(`#${anchorHrefName}`);
 
         // prevent missspelled anchor names
         if (tempAnchor !== null) {
@@ -147,11 +156,31 @@ class Anchornav extends Module {
    */
   setupControlButtons() {
     this.navScrollSpaceHorizontal = this.getSwipeBorder();
-    if (window.innerWidth >= this.buttonBreakpoint
-    && (this.navScrollSpaceHorizontal > 1 || this.navScrollSpaceHorizontal < -1)) {
-      this.handleControlButtons();
+    if ((this.navScrollSpaceHorizontal > 1 || this.navScrollSpaceHorizontal < -1)) {
+      if (window.innerWidth >= this.buttonBreakpoint) {
+        this.handleControlButtons();
+      }
     } else {
       this.showControlButton('none');
+    }
+  }
+
+  handleShadow() {
+    const rightClass = this.options.stateClasses.shadowRight;
+    const leftClass = this.options.stateClasses.shadowLeft;
+    const scrollWrapper = (<any> this.ui).scrollAreaWrapper;
+
+    if (this.navPositionHorizontal <= 0
+      && this.navPositionHorizontal >= -(this.showButtonTolerance)) {
+      scrollWrapper.classList.add(rightClass);
+      scrollWrapper.classList.remove(leftClass);
+    } else if (this.navPositionHorizontal >= this.navScrollSpaceHorizontal
+      && this.navPositionHorizontal <= (this.navScrollSpaceHorizontal + this.showButtonTolerance)) {
+      scrollWrapper.classList.remove(rightClass);
+      scrollWrapper.classList.add(leftClass);
+    } else {
+      scrollWrapper.classList.add(rightClass);
+      scrollWrapper.classList.add(leftClass);
     }
   }
 
@@ -209,13 +238,16 @@ class Anchornav extends Module {
     }
     const { target } = event;
     // Parse away the #-symbol from the string
-    const targetName = target.hash.slice(1, target.hash.length);
+    const targetName = target.dataset.href.slice(1, target.dataset.href.length);
     // Check that the anchor is referring to the own page and if the string contains letters
-    if (target.getAttribute('href')[0] === '#' && targetName.length !== 0 && isClickEvent) {
-      jump(`a[id="${targetName}"]`, {
+    if (target.dataset.href[0] === '#' && targetName.length !== 0 && isClickEvent) {
+      // TODO: check if its possible to scroll to target
+      // TODO: otherwise scroll as much as possible and simple toggle class to
+      jump(`#${targetName}`, {
         offset: -(this.ui.element.getBoundingClientRect().height + this.jumpToTolerance),
       });
     }
+
     return true;
   }
 
@@ -268,6 +300,7 @@ class Anchornav extends Module {
 
     this.navPositionHorizontal = x;
     this.updateInvisibleIndexOnSwipe(dir);
+    this.handleShadow();
 
     (<any> this.ui).scrollArea.style.left = `${x}px`;
     if (window.innerWidth >= this.buttonBreakpoint
@@ -283,18 +316,20 @@ class Anchornav extends Module {
    * @param {string} state
    */
   showControlButton(state: string) {
+    const buttonParentRight = (<any> this.ui).ctrlRight.parentNode;
+    const buttonParentLeft = (<any> this.ui).ctrlLeft.parentNode;
     if (state === 'right') {
-      (<any> this.ui).ctrlRight.parentNode.style.display = 'block';
-      (<any> this.ui).ctrlLeft.parentNode.style.display = 'none';
+      buttonParentRight.style.display = 'block';
+      buttonParentLeft.style.display = 'none';
     } else if (state === 'left') {
-      (<any> this.ui).ctrlLeft.parentNode.style.display = 'block';
-      (<any> this.ui).ctrlRight.parentNode.style.display = 'none';
+      buttonParentRight.style.display = 'none';
+      buttonParentLeft.style.display = 'block';
     } else if (state === 'both') {
-      (<any> this.ui).ctrlRight.parentNode.style.display = 'block';
-      (<any> this.ui).ctrlLeft.parentNode.style.display = 'block';
+      buttonParentRight.style.display = 'block';
+      buttonParentLeft.style.display = 'block';
     } else {
-      (<any> this.ui).ctrlRight.parentNode.style.display = 'none';
-      (<any> this.ui).ctrlLeft.parentNode.style.display = 'none';
+      buttonParentRight.style.display = 'none';
+      buttonParentLeft.style.display = 'none';
     }
   }
 
@@ -458,6 +493,8 @@ class Anchornav extends Module {
     }
 
     const anchorLeft = this.getNavItemsHorizontalPositions(anchor);
+    // TODO: check if its possible to scroll to target
+    // TODO: otherwise scroll as much as possible and simple toggle class to
     this.toggleActiveNavigationItemClass(anchor);
     this.emulateSwipeTo(-(anchorLeft - this.showButtonTolerance));
   }

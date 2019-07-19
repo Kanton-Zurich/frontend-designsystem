@@ -6,10 +6,10 @@
   {{/content}}
 
   {{#content "content"}}
-    <h1>(--ANKER NAVIGATON PLACEHOLDER--)</h1>
-    {{> "modules/related_content/related_content" props.modules.relatedContentData.variants.amtNavigation.props}}
-    {{> "modules/focus_teaser/focus_teaser" props.modules.focusTeaserData.variants.header.props}}
-    <div class="mdl-about">
+    {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
+    {{> "modules/related_content/related_content" props.modules.relatedContentData}}
+    {{> "modules/focus_teaser/focus_teaser" props.modules.focusTeaserData}}
+    <!--<div class="mdl-about">
       <div class="mdl-about__block">
         <h2 class="atm-heading atm-heading--bordered">Über uns</h2>
       </div>
@@ -25,10 +25,11 @@
           weite Bevölkerungskreise sportlich aktiv.
         </p>
       </div>
-    </div>
-    <h2 class="atm-heading atm-heading--bordered">News</h2>
+    </div>-->
+    {{> "modules/about/about" props.modules.about }}
+    <h2 id="newsTODO" class="atm-heading atm-heading--bordered">News</h2>
     <h1>(--NEWS TEASER PLACEHOLDER--)</h1>
-    {{> "modules/contact/contact" props.modules.contactData.variants.fullWidthLessData.props}}
+    {{> "modules/contact/contact" props.modules.contactData}}
   {{/content}}
   {{#content "footer"}}
     <footer id="contentinfo">

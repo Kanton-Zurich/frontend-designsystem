@@ -7,6 +7,47 @@ const contactData = require('../../modules/contact/contact.data').variants.fullW
 const teaserData = require('../../modules/teaser/teaser.data').variants.inverted.props;
 const defAboutData = require('../../modules/about/about.data').props;
 
+const defAnchorNavData = {
+  anchornavTitle: {
+    level: 5,
+    title: 'Inhaltsverzeichniss',
+  },
+  anchornavItems: [
+    {
+      anchorlink: {
+        anchorlinkText: 'Themen',
+        anchorlinkAdress: '#ourtopics',
+        anchorlinkIsActive: true,
+        anchorlinkAsButton: true,
+      },
+    },
+    {
+      anchorlink: {
+        anchorlinkText: 'Unser Amt',
+        anchorlinkAdress: '#aboutus',
+        anchorlinkIsActive: false,
+        anchorlinkAsButton: true,
+      },
+    },
+    {
+      anchorlink: {
+        anchorlinkText: 'News',
+        anchorlinkAdress: '#news_TODO',
+        anchorlinkIsActive: false,
+        anchorlinkAsButton: true,
+      },
+    },
+    {
+      anchorlink: {
+        anchorlinkText: 'Kontakt',
+        anchorlinkAdress: '#contact',
+        anchorlinkIsActive: false,
+        anchorlinkAsButton: true,
+      },
+    },
+  ],
+};
+
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Amtsseite',
@@ -21,10 +62,11 @@ const data = _.merge({}, defaultData, {
       pageHeader: _.merge({}, defPageHeaderData, {
         noButton: true,
       }),
-      topiclist: topicListData,
-      contact: contactData,
-      teaser: teaserData,
-      about: defAboutData,
+      anchorNav: defAnchorNavData,
+      topiclist: _.merge({}, topicListData, { topiclistHeading: { anchorNavReference: 'ourtopics' } }),
+      contact: _.merge({}, contactData, { anchorNavReference: 'contact' }),
+      teaser: _.merge({}, teaserData, { anchorNavReference: 'department_teaser' }),
+      about: _.merge({}, defAboutData, { anchorNavReference: 'aboutus' }),
     },
   },
 });
