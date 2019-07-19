@@ -1,14 +1,14 @@
 import Appointment from '../model/appointment.model';
-import Timeslot from '../model/timeslot.model';
 
+// TODO: Interfaces an enums are marked as unused by eslint (?)
 /* eslint-disable no-unused-vars */
+import Timeslot from '../model/timeslot.model';
 import {
   AppointmentDetailsResponse,
   AppointmentPayload, ErrorResponse,
   LoginResponse, PostponeResponse, TimeslotPayload,
   TimeslotsResponse,
 } from '../model/api-payload.interfaces';
-/* eslint-enable no-unused-vars */
 
 export enum ApiFailureType {
   FORBIDDEN,
@@ -18,6 +18,8 @@ export enum ApiFailureType {
   UNKNOWN,
   UNPARSEABLE,
 }
+/* eslint-enable no-unused-vars */
+
 export class ApiConnectionFailure implements Error {
   name: 'Connection failure - MigekApi';
   message: string;

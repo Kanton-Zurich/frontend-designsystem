@@ -1,7 +1,10 @@
 import { ViewController } from '../../util/view-controller.class';
 import Timeslot from '../../model/timeslot.model';
-import MigekApiService from '../../service/migek-api.service';
+
+// TODO: Marked as unused by eslint although required (?)
+/* eslint-disable no-unused-vars */
 import Appointment from '../../model/appointment.model';
+/* eslint-enable */
 
 export const rescheduleViewSelectorsValues: RescheduleViewSelectors = {
   rescheduleBackLink: '[data-biometrie_appointment=rescheduleBack]',
@@ -24,13 +27,10 @@ interface RescheduleViewData {
   rescheduled: boolean;
 }
 class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, RescheduleViewData> {
-  private apiService: MigekApiService;
-
   private nextOpenSlot: Timeslot;
 
-  constructor(_data: any, _selectors: RescheduleViewSelectors, _logFn: Function, _apiService: MigekApiService) {
-    super(_selectors, _data, _logFn);
-    this.apiService = _apiService;
+  constructor(_data: any, _selectors: RescheduleViewSelectors) {
+    super(_selectors, _data);
   }
 
   initEventListeners(eventDelegate): void {

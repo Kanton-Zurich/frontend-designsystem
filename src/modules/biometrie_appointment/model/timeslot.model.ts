@@ -1,5 +1,9 @@
-import { TimeslotPayload } from './api-payload.interfaces';
 import DateHelper from '../../../util/date-helper.class';
+
+// TODO: Marked as unused by eslint although required (?)
+/* eslint-disable no-unused-vars */
+import { TimeslotPayload } from './api-payload.interfaces';
+/* eslint-enable */
 
 class Timeslot {
   public readonly payload: TimeslotPayload;
