@@ -11,7 +11,9 @@ const data = _.merge({}, defaultData, {
     jira: 'CZHDEV-178',
     documentation: dataHelper.getDocumentation('person_card.md'),
   },
-  props: {},
+  props: {
+    detailPageLink: '#'
+  },
 });
 const variants = _.mapValues({
   default: {
