@@ -13,7 +13,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     anchornavTitle: {
-      level: 5,
+      level: 2,
       title: 'Inhaltsverzeichnis',
     },
     anchornavItems: [
