@@ -1,3 +1,5 @@
+import DateHelper from '../../../util/date-helper.class';
+
 export interface GeneralEventData {
   title: string;
   description?: string;
@@ -10,24 +12,7 @@ export interface GeneralEventData {
   status?: 'CONFIRMED' | 'TENTATIVE' | 'CANCELLED';
   startInputType?: 'utc' | 'local';
 }
-class DateHelper {
-  public static getDateIcsFormated(date: Date): number[] {
-    return [
-      date.getUTCFullYear(),
-      date.getUTCMonth() + 1,
-      date.getUTCDate(),
-      date.getUTCHours(),
-      date.getMinutes(),
-    ];
-  }
 
-  // "2019-07-11T14:00:01.839Z" -> "20190711T140001Z" for GoogleCal
-  public static getStrippedIsoString(date: Date): string {
-    return date.toISOString()
-      .replace(/[-:]/g, '')
-      .replace(/[.]\d{3}/g, '');
-  }
-}
 class CalendarLinkGenerator {
   public static readonly CALENDER_TYPES = {
     ICAL: 'ical',

@@ -163,9 +163,10 @@ class MigekApiService {
 
   private getPostponeRequestBody(slot: Timeslot): string {
     if (this.currentAppointment) {
-      const reqAppointment = Object.assign({}, this.currentAppointment);
-      reqAppointment.from = slot.from;
-      reqAppointment.until = slot.until;
+      const reqAppointment = Object.assign({}, this.currentAppointment, {
+        from: slot.payload.startTime,
+        until: slot.payload.endTime,
+      });
       return JSON.stringify(reqAppointment);
     }
     return '';
