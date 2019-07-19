@@ -3,8 +3,6 @@ const _ = require('lodash');
 const git = require('git-rev-sync');
 const dataHelper = require('@unic/estatico-data');
 
-const headerData = require('../modules/header/header.data').props;
-
 function hexToRgb(hex) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result ? {
@@ -53,7 +51,6 @@ const data = {
       '/assets/media/svgsprite/base.svg',
     ]),
     defaultColorVariation: 'cv-blue',
-    header: headerData,
   },
 };
 
