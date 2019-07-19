@@ -3,6 +3,7 @@ $sizeInputSmall: 48px;
 
 .atm-form_input {
   display: block;
+  position: relative;
 
   &__input {
     background: $colorWhite;
@@ -18,6 +19,26 @@ $sizeInputSmall: 48px;
     &:focus {
       outline: none;
       border-color: $colorCyan;
+    }
+  }
+
+  &__clear {
+    display: block;
+    position: absolute;
+
+    @include blankButton;
+
+    right: pxToRem($sizeSmallRegular);
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 0;
+
+    svg use {
+      fill: $colorBlack60;
+    }
+
+    &:hover svg use {
+      fill: $colorBlack;
     }
   }
 

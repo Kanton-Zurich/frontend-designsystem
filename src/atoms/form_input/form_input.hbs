@@ -8,4 +8,12 @@
     class="atm-form_input__input"
     {{#if selector}}{{{selector}}}{{/if}}
   />
+  {{#if hasClearButton}}
+    <button data-form-input="clear" class="atm-form_input__clear">
+      <svg class="icon">
+        <use xlink:href="#clear"></use>
+      </svg>
+    </button>
+
+  {{/if}}
 </label>

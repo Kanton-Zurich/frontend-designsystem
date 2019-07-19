@@ -105,6 +105,7 @@ const variants = _.mapValues({
         label: 'Themen nach Stichwort filtern',
         isSmall: true,
         selector: 'data-topiclist="input"',
+        hasClearButton: true,
       }),
       topiclistHeading: false,
       topiclistLead: false,
