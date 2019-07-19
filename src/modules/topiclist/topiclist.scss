@@ -35,6 +35,32 @@ $leadFontCurve: (
     }
   }
 
+  &__search {
+    display: flex;
+
+    @include sizeCurve(padding-top padding-bottom, regular);
+    align-items: center;
+
+    text-decoration: none;
+    color: $colorBlack60;
+
+    .icon {
+      margin-right: $sizeTiny;
+
+      use {
+        fill: $colorBlack60;
+      }
+    }
+
+    &:hover {
+      color: $colorBlack100;
+
+      .icon use {
+        fill: $colorBlack100;
+      }
+    }
+  }
+
   .atm-button {
     margin: $sizeLarge 0;
 

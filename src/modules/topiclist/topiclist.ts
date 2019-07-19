@@ -24,13 +24,18 @@ class Topiclist extends Module {
   }
 
   public data: {
-    query: String,
+    query: string,
     json: {
       topics: Array<{
         title: string,
         synonyms: Array<string>,
         path: string,
       }>,
+      filterField: {
+        noResultsLabel: string,
+        searchInSiteSearchLabel: string,
+        searchPage: string,
+      },
     },
     topics: Array<{
       title: string,
@@ -46,6 +51,7 @@ class Topiclist extends Module {
     autosuggest: any,
     contentNav: any,
     contentTeaserTemplate: any,
+    searchLink: any,
   }
 
   constructor($element: any, data: Object, options: Object) {
@@ -64,6 +70,7 @@ class Topiclist extends Module {
         autosuggest: '[data-topiclist="autosuggest"]',
         contentNav: '[data-topiclist="contentNav"]',
         contentTeaserTemplate: '[data-topiclist="contentTeaserTemplate"]',
+        searchLink: '[data-topiclist="searchLink"]',
       },
       stateClasses: {
         expanded: 'mdl-topiclist--expanded',
@@ -123,7 +130,7 @@ class Topiclist extends Module {
       if (this.data.topics.length > 0) {
         this.renderAutoSuggest();
       } else {
-        this.ui.element.classList.remove(this.options.stateClasses.filtered);
+        this.renderNoResult();
       }
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.filtered);
@@ -180,6 +187,34 @@ class Topiclist extends Module {
 
       this.ui.autosuggest.append(parsedHTML);
     });
+  }
+
+  renderNoResult() {
+    const compiled = template(this.ui.contentTeaserTemplate.innerHTML);
+    const html = compiled({
+      shortTitle: this.data.json.filterField.noResultsLabel,
+      buzzwords: '',
+      target: '',
+    });
+
+    const parsedHTML = new DOMParser().parseFromString(html, 'text/html').querySelector('a');
+
+    parsedHTML.setAttribute('disabled', 'disabled');
+    parsedHTML.querySelector('[data-lineclamp]').removeAttribute('data-lineclamp');
+    parsedHTML.removeAttribute('href');
+
+    this.ui.autosuggest.append(parsedHTML);
+
+    // Render the link to the search
+    const compiled2 = template(this.ui.searchLink.innerHTML);
+    const html2 = compiled2({
+      title: this.data.json.filterField.searchInSiteSearchLabel.replace(/\${query}/g, this.data.query),
+      path: this.data.json.filterField.searchPage.replace(/\${query}/g, this.data.query),
+    });
+
+    const parsedLink = new DOMParser().parseFromString(html2, 'text/html').querySelector('a');
+
+    this.ui.autosuggest.append(parsedLink);
   }
 
   /**
