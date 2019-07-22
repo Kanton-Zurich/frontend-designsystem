@@ -6,10 +6,37 @@ $leadFontCurve: (
 
 .mdl-topiclist {
   // Hide items only on default topiclist
-  &:not(&--office) {
+  .mdl-content_nav {
+    &__item:nth-child(1n+12) {
+      display: none;
+    }
+  }
+
+  .mdl-topiclist__autosuggest {
+    display: none;
+
     .mdl-content_nav {
-      &__item--hidden {
+      &__item:nth-child(1n+10) {
         display: none;
+      }
+    }
+  }
+
+  &--expanded,
+  &--home,
+  &--office {
+    .mdl-content_nav:not(.mdl-topiclist__autosuggest) {
+      &__item:nth-child(1n+12),
+      &__item:nth-child(1n+9) {
+        display: flex;
+      }
+    }
+  }
+
+  &--expanded {
+    .mdl-topiclist__autosuggest {
+      .mdl-content_nav__item:nth-child(1n+9) {
+        display: flex;
       }
     }
   }
@@ -20,6 +47,32 @@ $leadFontCurve: (
 
     .atm-button {
       display: inline-flex;
+    }
+  }
+
+  &__search {
+    display: flex;
+
+    @include sizeCurve(padding-top padding-bottom, regular);
+    align-items: center;
+
+    text-decoration: none;
+    color: $colorBlack60;
+
+    .icon {
+      margin-right: $sizeTiny;
+
+      use {
+        fill: $colorBlack60;
+      }
+    }
+
+    &:hover {
+      color: $colorBlack100;
+
+      .icon use {
+        fill: $colorBlack100;
+      }
     }
   }
 
@@ -48,6 +101,32 @@ $leadFontCurve: (
   @include mq($from: xlarge) {
     .atm-heading {
       margin-bottom: $sizeBiggerBig;
+    }
+  }
+
+  .atm-form_input {
+    @include sizeCurve(margin-bottom, large);
+  }
+
+  /**
+   * SPECIAL STYLES FOR TOPICLIST HOME
+  */
+  &--home {
+    .atm-button {
+      display: none;
+    }
+  }
+
+  /** SPECIAL STYLES WHEN LIST IS FILTERED */
+  &--filtered {
+    .mdl-content_nav {
+      &:first-of-type {
+        display: none;
+      }
+    }
+
+    .mdl-topiclist__autosuggest {
+      display: inherit;
     }
   }
 }
