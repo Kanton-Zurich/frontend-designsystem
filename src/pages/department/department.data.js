@@ -6,11 +6,12 @@ const topicListData = require('../../modules/topiclist/topiclist.data').props;
 const contactData = require('../../modules/contact/contact.data').variants.fullWidth.props;
 const teaserData = require('../../modules/teaser/teaser.data').variants.inverted.props;
 const defAboutData = require('../../modules/about/about.data').props;
+const headerData = require('../../modules/header/header.data').props;
 
 const defAnchorNavData = {
   anchornavTitle: {
-    level: 5,
-    title: 'Inhaltsverzeichniss',
+    level: 2,
+    title: 'Inhaltsverzeichnis',
   },
   anchornavItems: [
     {
@@ -56,6 +57,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('department.md'),
   },
   props: {
+    header: headerData,
     title: 'Amtsseite',
     text: '',
     modules: {

@@ -1,8 +1,37 @@
-<div class="mdl-topiclist{{#if isOfficeNavigation}} mdl-topiclist--office{{/if}}" data-init="topiclist">
-  <h{{topiclistHeading.level}} id="{{{topiclistHeading.anchorNavReference}}}" class="atm-heading atm-heading--bordered {{#if topiclistHeading.isHidden}}visuallyhidden{{/if}}">{{topiclistHeading.title}}</h{{topiclistHeading.level}}>
+<div class="mdl-topiclist{{#if isOfficeNavigation}} mdl-topiclist--office{{/if}}{{#if isTopiclistHome}} mdl-topiclist--home{{/if}}" data-init="topiclist">
+  {{#if topiclistHeading}}
+    <h{{topiclistHeading.level}}
+      class="atm-heading atm-heading--bordered {{#if topiclistHeading.isHidden}}visuallyhidden{{/if}}"
+      id="{{{topiclistHeading.anchorNavReference}}}"
+    >
+      {{topiclistHeading.title}}
+    </h{{topiclistHeading.level}}>
+  {{/if}}
   {{#if topiclistLead}}<p class="atm-paragraph">{{{topiclistLead}}}</p>{{/if}}
 
+  {{#if topiclistInput}}
+    {{> "atoms/form_input/form_input" topiclistInput}}
+  {{/if}}
+
+  <!-- Standard Topiclist -->
   {{> "modules/content_nav/content_nav" topiclistcontentNavData}}
+
+  <!-- "Autosuggest" Topiclist" -->
+  {{#if isTopiclistHome}}
+    {{> "modules/content_nav/content_nav" autosuggestTopicList}}
+
+    <script data-topiclist="contentTeaserTemplate" type="text/x-handlebars-template">
+      {{{ contentTeaserTemplate }}}
+    </script>
+    <script data-topiclist="searchLink" type="text/x-handlebars-template">
+      <a href="${path}" class="mdl-topiclist__search">
+        <svg class="icon">
+          <use xlink:href="#search"></use>
+        </svg>
+        <span>${title}</span>
+      </a>
+    </script>
+  {{/if}}
 
   {{#if  topiclistButtonLabel}}
     {{#if_compare topiclistcontentNavData.items.length ">" 12}}
@@ -16,4 +45,5 @@
       </div>
     {{/if_compare}}
   {{/if}}
+
 </div>

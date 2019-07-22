@@ -3,6 +3,7 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 const defBreadcrumbData = require('../../modules/breadcrumb/breadcrumb.data.js').props;
 const defServiceBoxData = require('../../modules/service_box/service_box.data.js').props;
+const headerData = require('../../modules/header/header.data').props;
 
 
 const data = _.merge({}, defaultData, {
@@ -13,6 +14,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('service.md'),
   },
   props: {
+    header: headerData,
     title: 'Serviceseite',
     text: '',
     defaultColorVariation: 'cv-green',

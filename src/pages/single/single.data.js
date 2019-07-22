@@ -5,6 +5,7 @@ const defTopicListData = require('../../modules/topiclist/topiclist.data.js').va
 const defTeaserData = require('../../modules/teaser/teaser.data.js').variants.inverted.props;
 const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
 const dataHelper = require('@unic/estatico-data');
+const headerData = require('../../modules/header/header.data').props;
 
 const defPageHeaderCustomData = {
   pageTitle: 'biz Kloten',
@@ -37,7 +38,7 @@ const defPageHeaderCustomData = {
 const defAnchorNavData = {
   anchornavTitle: {
     level: 5,
-    title: 'Inhaltsverzeichniss',
+    title: 'Inhaltsverzeichnis',
   },
   anchornavItems: [
     {
@@ -145,6 +146,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('single.md'),
   },
   props: {
+    header: headerData,
     title: 'Einzelseite',
     text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
     modules: {

@@ -36,7 +36,7 @@
 @import '../../atoms/paragraph/paragraph';
 @import '../../atoms/anchorlink/anchorlink';
 @import '../../atoms/content_teaser/content_teaser';
-@import '../../atoms/iframe/iframe';
+@import '../../atoms/form_input/form_input';
 //*autoinsertatom*
 
 // Modules
@@ -78,7 +78,10 @@
 @import '../../modules/tabs/tabs';
 @import '../../modules/service_list/service_list';
 @import '../../modules/about/about';
+@import '../../modules/header/header';
+@import '../../modules/search/search';
 @import '../../modules/modal/modal';
+@import '../../modules/iframe/iframe';
 //*autoinsertmodule*
 
 @media print {

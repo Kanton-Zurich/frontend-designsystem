@@ -20,6 +20,8 @@ import PublicationTeaser from '../../../modules/publication_teaser/publication_t
 import Breadcrumb from '../../../modules/breadcrumb/breadcrumb';
 import Topiclist from '../../../modules/topiclist/topiclist';
 import Anchornav from '../../../modules/anchornav/anchornav';
+import Header from '../../../modules/header/header';
+import Search from '../../../modules/search/search';
 import Modal from '../../../modules/modal/modal';
 import ServiceList from '../../../modules/service_list/service_list';
 import Tabs from '../../../modules/tabs/tabs';
@@ -47,6 +49,8 @@ class App {
     this.modules.breadcrumb = Breadcrumb;
     this.modules.topiclist = Topiclist;
     this.modules.anchornav = Anchornav;
+    this.modules.header = Header;
+    this.modules.search = Search;
     this.modules.tabs = Tabs;
     this.modules.modal = Modal;
     this.modules.servicelist = ServiceList;

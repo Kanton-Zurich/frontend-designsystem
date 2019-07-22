@@ -2,21 +2,17 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const templateConverter = require('../../../gulp/helpers/templateConverter');
 
-const template = dataHelper.getFileContent('content_teaser.hbs');
+const template = dataHelper.getFileContent('iframe.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'ContentTeaser',
-    className: 'ContentTeaser',
-    jira: 'CZHDEV-389',
-    documentation: dataHelper.getDocumentation('content_teaser.md'),
+    title: 'iFrame',
+    className: 'IFrame',
+    jira: 'CZHDEV-481',
+    documentation: dataHelper.getDocumentation('iframe.md'),
   },
   props: {
-    shortTitle: 'Topictitle',
-    buzzwords: 'Buzzword, Buzzword, Buzzword, Buzzword, Buzzword, Buzzword',
-    target: '#',
-    isPromotopic: false,
+
   },
 });
 const variants = _.mapValues({
@@ -25,23 +21,22 @@ const variants = _.mapValues({
       title: 'Default',
       desc: 'Default implementation',
     },
-  },
-  withoutBuzzwords: {
-    meta: {
-      title: 'Ohne Buzzwords',
-      desc: 'Ein Content Teaser ohne Buzzwords',
-    },
     props: {
-      buzzwords: null,
-    },
-  },
-  promotopic: {
-    meta: {
-      title: 'Promotopic',
-      desc: 'Ein Content Teaser welcher als Promotopic ausgewählt ist.',
-    },
-    props: {
-      isPromotopic: true,
+      iframeScreenReaderHeading: {
+        title: 'This is the homepage of the Inside Solutions GmbH',
+        level: 3,
+      },
+      iframeSrc: 'https://www.one-inside.com/de/',
+      iframeHeight: 600,
+      iframeTextLink: {
+        icon: 'arrow-right',
+        text: 'Inhalt in seperater Seite anzeigen',
+        isInverted: false,
+        hasLeadingIcon: false,
+        hasTrailingIcon: true,
+        textLinkSrc: 'https://www.one-inside.com/de/',
+        textLinkTargetBlank: true,
+      },
     },
   },
 }, (variant) => {
@@ -52,13 +47,13 @@ const variants = _.mapValues({
       demo: compiledVariant,
 
       code: {
-        template: templateConverter(template),
         handlebars: dataHelper.getFormattedHandlebars(template),
-        data: dataHelper.getFormattedJson(variantProps),
         html: dataHelper.getFormattedHtml(compiledVariant()),
+        data: dataHelper.getFormattedJson(variantProps),
       },
     },
   });
+
   return variantData;
 });
 
