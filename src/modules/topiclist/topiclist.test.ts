@@ -38,16 +38,16 @@ describe('Topiclist', () => {
     expect(hasHiddenClass).toBe(false);
   });
 
-  it('when button was clicked he should be removed from the module', async () => {
+  it('when button was clicked he should be hidden from the module', async () => {
     const buttonExists = await page.evaluate(() => {
       const topiclist = document.querySelector('[data-init="topiclist"]');
-      let showAllButton = topiclist.querySelector('[data-topiclist="showAllTrigger"]');
+      const showAllButton = topiclist.querySelector('[data-topiclist="showAllTrigger"]');
 
       (<any>showAllButton).click();
 
-      showAllButton = topiclist.querySelector('[data-topiclist="showAllTrigger"]');
+      const style = window.getComputedStyle(showAllButton);
 
-      return Boolean(showAllButton);
+      return Boolean(style.display === 'none');
     });
 
     expect(buttonExists).toBe(false);
