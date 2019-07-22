@@ -19,6 +19,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     title: 'Seitenkopf',
+    homelink: '#',
     pageTitle: 'H1: Pagetitle Black Strassenverkehrsamt',
     leadText: 'Lead: ExtraBold Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
     breadcrumb: defBreadcrumbData,
