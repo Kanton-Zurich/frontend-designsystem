@@ -110,6 +110,7 @@ const variants = _.mapValues({
       topiclistHeading: false,
       topiclistLead: false,
       isTopiclistHome: true,
+      topiclistButtonLabel: 'Alle anzeigen',
       topiclistcontentNavData: _.merge({}, contentNavDataDef, {
         items: [
           _.merge({}, contentTeaserDefaultData.variants.default.props, {

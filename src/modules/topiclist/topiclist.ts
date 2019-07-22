@@ -107,13 +107,14 @@ class Topiclist extends Module {
   showAll() {
     this.ui.element.classList.add(this.options.stateClasses.expanded);
 
-    this.ui.showAllButton.remove();
+    this.ui.showAllButton.style.display = 'none';
   }
 
   async onValueChange(propName, valueBefore, valueAfter) {
     if (valueBefore === valueAfter) {
       return false;
     }
+    const entriesToShowButton = 9;
 
     this.data.query = valueAfter;
 
@@ -129,6 +130,14 @@ class Topiclist extends Module {
 
       if (this.data.topics.length > 0) {
         this.renderAutoSuggest();
+
+        this.ui.element.classList.remove(this.options.stateClasses.expanded);
+
+        if (this.data.topics.length >= entriesToShowButton) {
+          this.ui.showAllButton.style.display = 'inline-flex';
+        } else {
+          this.ui.showAllButton.style.display = 'none';
+        }
       } else {
         this.renderNoResult();
       }
@@ -175,13 +184,15 @@ class Topiclist extends Module {
   renderAutoSuggest() {
     this.data.topics.forEach((topic) => {
       const compiled = template(this.ui.contentTeaserTemplate.innerHTML);
-      const html = compiled({
+      let html = compiled({
         shortTitle: topic.title,
         buzzwords: '',
         target: topic.path,
       });
 
-      const parsedHTML = new DOMParser().parseFromString(html, 'text/html').querySelector('a');
+      html = `<li class="mdl-content_nav__item">${html}</li>`;
+
+      const parsedHTML = new DOMParser().parseFromString(html, 'text/html').querySelector('li');
 
       parsedHTML.querySelector('[data-lineclamp]').removeAttribute('data-lineclamp');
 
