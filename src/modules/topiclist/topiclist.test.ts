@@ -50,6 +50,6 @@ describe('Topiclist', () => {
       return Boolean(style.display === 'none');
     });
 
-    expect(buttonExists).toBe(false);
+    expect(buttonExists).toBe(true);
   });
 });
