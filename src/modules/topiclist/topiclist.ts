@@ -173,12 +173,25 @@ class Topiclist extends Module {
   filterTopics(query) {
     const queryRegEx = new RegExp(query, 'gi');
 
-    this.data.topics = this.data.json.topics.filter((item) => {
-      const titleMatch = queryRegEx.test(item.title);
-      const synonymMatch = item.synonyms.filter(synonym => queryRegEx.test(synonym)).length > 0;
+    this.data.topics = this.data.json.topics
+      .filter(item => this.checkItemForMatch(item, queryRegEx));
+  }
 
-      return titleMatch || synonymMatch;
-    });
+  checkItemForMatch(item, query) {
+    const titleMatch = query.test(item.title);
+    let synonymMatch = true;
+    let subpagesMatch = true;
+
+    if (item.synonyms) {
+      synonymMatch = item.synonyms.filter(synonym => query.test(synonym)).length > 0;
+    }
+
+    if (Object.prototype.hasOwnProperty.call(item, 'subpages')) {
+      subpagesMatch = item.subpages
+        .filter(subpage => this.checkItemForMatch(subpage, query)).length > 0;
+    }
+
+    return titleMatch || synonymMatch || subpagesMatch;
   }
 
   renderAutoSuggest() {
