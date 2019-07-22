@@ -102,6 +102,10 @@ $pageHeaderCurves: (
 
   &__logo-container {
     height: 0;
+
+    a {
+      display: inline-block;
+    }
   }
 
   &__logo {
