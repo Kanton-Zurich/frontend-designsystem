@@ -114,7 +114,7 @@ class Topiclist extends Module {
     if (valueBefore === valueAfter) {
       return false;
     }
-    const entriesToShowButton = 9;
+    const entriesToShowButton = 8;
 
     this.data.query = valueAfter;
 
@@ -194,9 +194,9 @@ class Topiclist extends Module {
 
       const parsedHTML = new DOMParser().parseFromString(html, 'text/html').querySelector('li');
 
-      parsedHTML.querySelector('[data-lineclamp]').removeAttribute('data-lineclamp');
-
       this.ui.autosuggest.append(parsedHTML);
+
+      window.dispatchEvent(new CustomEvent('reloadLineClamper'));
     });
   }
 

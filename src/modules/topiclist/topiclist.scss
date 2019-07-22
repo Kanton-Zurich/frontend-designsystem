@@ -27,7 +27,7 @@ $leadFontCurve: (
   &--office {
     .mdl-content_nav:not(.mdl-topiclist__autosuggest) {
       &__item:nth-child(1n+12),
-      &__item:nth-child(1n+10) {
+      &__item:nth-child(1n+9) {
         display: flex;
       }
     }
@@ -35,7 +35,7 @@ $leadFontCurve: (
 
   &--expanded {
     .mdl-topiclist__autosuggest {
-      .mdl-content_nav__item:nth-child(1n+10) {
+      .mdl-content_nav__item:nth-child(1n+9) {
         display: flex;
       }
     }

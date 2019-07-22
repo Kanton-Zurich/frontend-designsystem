@@ -32,7 +32,7 @@ const data = {
     },
     {
       path: '/content/zhweb/de/gesundheit.html',
-      title: 'Gesundheit 1',
+      title: 'Gesundheitsversorgungstarifplanänderung',
       keywords: 'Keyword 1, Keyword 2',
       synonyms: ['Krankenversicherung', 'Gesundsheitsversorgung', 'Gesundsheitsberufe', 'Gesund bleiben'],
       subpages: [{
