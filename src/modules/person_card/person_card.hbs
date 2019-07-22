@@ -7,7 +7,7 @@
     </div>
   {{/if}}
   <div class="mdl-person_card__container">
-    <h4 class="atm-heading mdl-person_card__name">{{name}}</h4>
+    <h{{headingLevel}} class="h4 atm-heading mdl-person_card__name">{{name}}</h{{headingLevel}}>
     <p class="atm-paragraph mdl-person_card__role">{{role}}</p>
     {{#if contactInfo}}
     <p class="atm-paragraph mdl-person_card__contactinfo">
