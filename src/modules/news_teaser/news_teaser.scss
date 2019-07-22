@@ -15,6 +15,13 @@ $customParagrapCurve: (
       @include resetList();
       display: flex;
       flex-direction: column;
+      border-width: pxToRem($sizeTiny) 0 0 pxToRem($sizeTiny);
+    }
+
+    ul,
+    ul > li {
+      border-style: solid;
+      border-color: $colorBlack10;
     }
   }
 
@@ -38,7 +45,7 @@ $customParagrapCurve: (
 
   &__item {
     padding: pxToRem($sizeBig); // 32px;
-    border: pxToRem($sizeTiny) solid $colorBlack10;
+    border-width: 0 pxToRem($sizeTiny) pxToRem($sizeTiny) 0;
     flex-grow: 1;
 
     a {
