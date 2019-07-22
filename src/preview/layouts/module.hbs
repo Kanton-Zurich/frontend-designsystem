@@ -47,9 +47,16 @@
 							<div class="tab_content" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}">
                 <div class="lyt-wrapper">
                   <div class="sg_demo {{#if props.isInverted}}sg_demo--inverted{{/if}} grid-x grid-margin-x">
-                    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-                      {{{meta.demo}}}
-                    </div>
+                    {{#if meta.noOffset}}
+                      <div class="cell tiny-12">
+                        {{{meta.demo}}}
+                      </div>
+                    {{else}}
+                      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+                        {{{meta.demo}}}
+                      </div>
+                    {{/if}}
+
                   </div>
                 </div>
                 {{#if meta.disabledColorVariations}}

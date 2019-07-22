@@ -3,6 +3,7 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.coloredAnchors.props;
+const headerData = require('../../modules/header/header.data').props;
 
 const defPageHeaderCustomData = {
   pageTitle: 'Kanton Zürich',
@@ -142,6 +143,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('home.md'),
   },
   props: {
+    header: headerData,
     title: 'Title',
     text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et '
     + 'dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita '
