@@ -49,6 +49,7 @@ const demoLinkListData = {
 const demoDefaultItems = [
   {
     href: '#',
+    dateLabel: 'Medienmitteilung',
     date: '14.12.2018',
     dateMachineReadable: '2018-12-14',
     title: 'Winterthur: Unbekannter Mann raubt Tankstellen-Shop aus',
@@ -61,6 +62,7 @@ const demoDefaultItems = [
   },
   {
     href: '#',
+    dateLabel: 'Medienmitteilung',
     date: '14.12.2018',
     dateMachineReadable: '2018-12-14',
     title: 'Weiningen: Vermisstmeldung - Willi Müller',
