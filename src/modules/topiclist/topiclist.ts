@@ -179,8 +179,8 @@ class Topiclist extends Module {
 
   checkItemForMatch(item, query) {
     const titleMatch = query.test(item.title);
-    let synonymMatch = true;
-    let subpagesMatch = true;
+    let synonymMatch = false;
+    let subpagesMatch = false;
 
     if (item.synonyms) {
       synonymMatch = item.synonyms.filter(synonym => query.test(synonym)).length > 0;
