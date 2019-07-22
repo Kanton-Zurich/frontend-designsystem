@@ -89,7 +89,7 @@ const data = _.merge({}, defaultData, {
         },
       }),
       contentNavData: {
-        anchorNavReference: 'related_content',
+        anchorNavReference: 'ourtopics',
         items: [
           _.merge({}, contentTeaserDefaultData, {
             shortTitle: 'Autofahren lernen',

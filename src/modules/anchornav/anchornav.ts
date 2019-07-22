@@ -23,6 +23,7 @@ class Anchornav extends Module {
   public navPositionHorizontal: number;
   public navScrollSpaceHorizontal: number;
   public invisibleScrollIndex: number;
+  public documentHeight: number;
 
   public buttonBreakpoint: number;
   public showCtrlButtons: boolean;
@@ -79,6 +80,7 @@ class Anchornav extends Module {
     this.initUi();
     this.initEventListeners();
     // Custom methodes
+    this.setDocumentHeight();
     this.storeNavigationPosition();
     this.calculatePageAnchorDistances();
     this.onPageScroll();
@@ -131,7 +133,11 @@ class Anchornav extends Module {
    * }
    */
   calculatePageAnchorDistances() {
+    console.log('--- calculatePageAnchorDistances ---');
     this.pageAnchors = [];
+    const maxScrollY = this.getDocumentHeight() - window.innerHeight;
+    let pageExceedFactor;
+    let foundFirstEceedItem = false;
 
     for (let i = 0; i < (<any> this.ui).navItems.length; i += 1) {
       const currentItem = (<any> this.ui).navItems[i];
@@ -140,11 +146,25 @@ class Anchornav extends Module {
         anchorHrefName = anchorHrefName.slice(1, anchorHrefName.length);
         const tempAnchor = document.querySelector(`#${anchorHrefName}`);
 
-        // prevent missspelled anchor names
-        if (tempAnchor !== null) {
+
+        if (tempAnchor !== null) { // prevent missspelled anchor names
+
+          if (this.getDistanzeToPageTopFor(tempAnchor) > maxScrollY && !foundFirstEceedItem) {
+            console.log('Trigger position exceeds page-length at index: ', (<any> this.ui).navItems.length - (i));
+            foundFirstEceedItem = true
+            pageExceedFactor = (<any> this.ui).navItems.length - (i);
+          }
+          let tempDistance = this.getDistanzeToPageTopFor(tempAnchor);
+        /*  console.log('PAGE EXCEED normal dist: ', tempDistance);
+          if(foundFirstEceedItem) {
+            tempDistance = maxScrollY - this.ui.element.getBoundingClientRect().height - (pageExceedFactor * 10);
+            pageExceedFactor -= 1;
+          }
+          console.log('PAGE EXCEED new dist: ', tempDistance);
+          console.log('this.getDistanzeToPageTopFor(tempAnchor): ', this.getDistanzeToPageTopFor(tempAnchor));*/
           this.pageAnchors.push({
             navItem: currentItem,
-            pageHookDistanceToTop: this.getDistanzeToPageTopFor(tempAnchor),
+            pageHookDistanceToTop: tempDistance,
           });
         }
       }
@@ -241,14 +261,32 @@ class Anchornav extends Module {
     const targetName = target.dataset.href.slice(1, target.dataset.href.length);
     // Check that the anchor is referring to the own page and if the string contains letters
     if (target.dataset.href[0] === '#' && targetName.length !== 0 && isClickEvent) {
-      // TODO: check if its possible to scroll to target
-      // TODO: otherwise scroll as much as possible and simple toggle class to
       jump(`#${targetName}`, {
         offset: -(this.ui.element.getBoundingClientRect().height + this.jumpToTolerance),
       });
     }
 
     return true;
+  }
+
+  getPageAnchorScrollTopFromNavTriggerElement(element) {
+    for (let i = 0 ; i < this.pageAnchors.length; i += 1) {
+      if ((<any> this.pageAnchors)[i].navItem === element) {
+        return (<any> this.pageAnchors)[i].pageHookDistanceToTop;
+      }
+    }
+  }
+
+  getDocumentHeight() {
+    return this.documentHeight;
+  }
+
+  setDocumentHeight() {
+    let body = document.body;
+    let html = document.documentElement;
+
+    this.documentHeight = Math.max( body.scrollHeight, body.offsetHeight,
+      html.clientHeight, html.scrollHeight, html.offsetHeight );
   }
 
   /**
@@ -434,6 +472,7 @@ class Anchornav extends Module {
    */
   onResize() {
     this.storeNavigationPosition();
+    this.setDocumentHeight();
     this.calculatePageAnchorDistances();
     this.onPageScroll();
     this.setupControlButtons();
@@ -464,37 +503,95 @@ class Anchornav extends Module {
     let anchor;
     const maxIndex = this.pageAnchors.length - 1;
     const scrollPosition = document.documentElement.getBoundingClientRect().top;
+    const maxScrollY = this.getDocumentHeight() - window.innerHeight;
     // Handle active item class on scrolling
+    var y = window.scrollY;
+    console.log('**************************');
+    console.log('* onPageDebounceScrolled *');
+    console.log('*                        *');
+    console.log("* scrollPosition: ", scrollPosition); // 14px über maxScrollY somehow
+    console.log("window height: ", window.innerHeight);
+    console.log("this.getDocumentHeight(): ", this.getDocumentHeight());
+    console.log("maxScrollY: ", maxScrollY);
+    console.log('**************************');
+
     if (this.pageAnchors.length > 0) {
       const navHeight = this.ui.element.getBoundingClientRect().height;
 
       for (let i = 0; i < this.pageAnchors.length; i += 1) {
         const currentItem = this.pageAnchors[i];
 
-        const negativeTopDistance = -((<any> currentItem).pageHookDistanceToTop
+        let negativeTopDistance = -((<any> currentItem).pageHookDistanceToTop
           - -(navHeight)) - this.activeStateScrollTolerance;
 
-        const positiveTopDistance = -((<any> currentItem).pageHookDistanceToTop
+        let positiveTopDistance = -((<any> currentItem).pageHookDistanceToTop
           + -(navHeight)) + this.activeStateScrollTolerance;
+
+        console.log("negativeTopDistance: ", negativeTopDistance);
+        console.log("positiveTopDistance: ", positiveTopDistance);
+
+        if ((<any> currentItem).pageHookDistanceToTop + window.innerHeight > this.getDocumentHeight()) {
+          console.log("top-dis + window-height: ", (<any> currentItem).pageHookDistanceToTop + window.innerHeight);
+          negativeTopDistance = -((<any> currentItem).pageHookDistanceToTop - -(navHeight));
+          positiveTopDistance = -((<any> currentItem).pageHookDistanceToTop - -(navHeight));
+        }
+
+        console.log("negativeTopDistance(AFTER): ", negativeTopDistance);
+        console.log("positiveTopDistance(AFTER): ", positiveTopDistance);
 
         if (scrollPosition <= negativeTopDistance
           || scrollPosition <= positiveTopDistance) {
           // Inbetween
+          console.log("-----Inbetween-----");
+          /*
+          console.log("negativeTopDistance: ", negativeTopDistance);
+          console.log("positiveTopDistance: ", positiveTopDistance);*/
           anchor = (<any> currentItem).navItem;
         } else if (scrollPosition <= 0
           && scrollPosition > -(<any> this.pageAnchors)[0].pageHookDistanceToTop) {
           // Absolut top
+          console.log("----Absolut top----");
+         /*
+         console.log("currentItem.pageHookDistanceToTop: ", (<any> currentItem).pageHookDistanceToTop);
+          console.log("negativeTopDistance: ", negativeTopDistance);
+          console.log("positiveTopDistance: ", positiveTopDistance);
+          console.log("FIRST ITEM pageHookDistanceToTop: ", -(<any> this.pageAnchors)[0].pageHookDistanceToTop);*/
           anchor = (<any> this.pageAnchors)[0].navItem;
-        } else if (scrollPosition > (<any> this.pageAnchors)[maxIndex].pageHookDistanceToTop) {
+        } else if (scrollPosition < -(<any> this.pageAnchors)[maxIndex].pageHookDistanceToTop - -(navHeight)) {
           // Absolut bottom
+          console.log("----Absolut bottom----");
+          /*
+          console.log("negativeTopDistance: ", negativeTopDistance);
+          console.log("positiveTopDistance: ", positiveTopDistance);*/
           anchor = (<any> this.pageAnchors)[maxIndex].navItem;
         }
+        /*
+        else if(scrollPosition > window.innerHeight + this.getDocumentHeight()
+          && (<any> currentItem).pageHookDistanceToTop  + window.innerHeight > this.getDocumentHeight()) {
+          // Not enough space to scroll correctly to
+          console.log("----Not enough space to scroll correctly to----");
+
+          anchor = (<any> currentItem).navItem;
+        }
+        */
+
+        console.log('**************************');
+      }
+      if (window.innerHeight + Math.abs(scrollPosition) >= this.getDocumentHeight()) {
+        console.log("We scroll but there is not space");
       }
     }
+    // if
 
     const anchorLeft = this.getNavItemsHorizontalPositions(anchor);
     // TODO: check if its possible to scroll to target
     // TODO: otherwise scroll as much as possible and simple toggle class to
+    /*console.log('window.height: ', window.innerHeight);
+    console.log('window.pageYOffset: ', window.pageYOffset );
+    console.log('document.documentElement.scrollTop: ', document.documentElement.scrollTop);
+    console.log('document.documentElement.clientHeight: ', document.documentElement.clientHeight);
+    console.log('this.getCompleteDocumentHeight(): ', this.getDocumentHeight());*/
+    // console.log(this.getPageAnchorScrollTopFromNavTriggerElement(target));
     this.toggleActiveNavigationItemClass(anchor);
     this.emulateSwipeTo(-(anchorLeft - this.showButtonTolerance));
   }
