@@ -147,6 +147,34 @@ const variants = _.mapValues({
       newsTeaserLinkListData: demoLinkListData,
     },
   },
+  withTwoItems: {
+    meta: {
+      title: 'Zwei News Teaser',
+      desc: 'Mit einem News Teaser',
+    },
+    props: {
+      newsTeaserItems: [demoImageItems[0], demoTextItems[1]],
+      newsTeaserModuleHeader: {
+        title: 'News',
+        allArticleHref: '#',
+        allArticleLabel: 'Alle Beiträge',
+      }
+    },
+  },
+  withOneItems: {
+    meta: {
+      title: 'Ein News Teaser',
+      desc: 'Mit einem News Teaser',
+    },
+    props: {
+      newsTeaserItems: [demoImageItems[0]],
+      newsTeaserModuleHeader: {
+        title: 'News',
+        allArticleHref: '#',
+        allArticleLabel: 'Alle Beiträge',
+      },
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

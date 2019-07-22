@@ -139,6 +139,20 @@ $customParagrapCurve: (
       margin-top: pxToRem($sizeGiant);
     }
 
+    .mdl-news-teaser__content--one-item ul {
+      width: 50%;
+
+      .mdl-news-teaser__item {
+        flex-basis: 100%;
+        max-width: 100%;
+      }
+    }
+
+    .large-8 .mdl-news-teaser__item {
+      flex-basis: 50%;
+      max-width: 50%;
+    }
+
     &__item {
       flex-basis: 33.33%;
       max-width: 33.33%;
