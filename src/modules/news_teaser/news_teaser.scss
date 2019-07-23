@@ -1,4 +1,4 @@
-$customParagrapCurve: (
+$customParagraphCurve: (
   tiny: $sizeFontSmall,
   xsmall: $sizeFontSmall,
   small: $sizeFontRegular,
@@ -43,7 +43,7 @@ $customParagrapCurve: (
     }
 
     // Overwrite heading atom style
-    h2.atm-heading {
+    .atm-heading {
       margin-top: pxToRem($sizeBig);
       margin-bottom: pxToRem($sizeLarge);
     }
@@ -124,17 +124,21 @@ $customParagrapCurve: (
       min-height: pxToRem(117px);
     }
 
-    // Overwirte item heading-atom
+    // Overwrite item heading atom
     .atm-heading {
       padding-top: pxToRem($sizeMini);
       margin-bottom: pxToRem($sizeTiny);
+      order: 2;
     }
 
-    // Overwirte item paragraph-atom
-    p:not(.mdl-news-teaser__item-label) {
-      @include polyFluidSizing(font-size, $customParagrapCurve);
-      margin: pxToRem($sizeTiny) 0;
-      line-height: $sizeLineHeightBigger;
+    // Overwrite item paragraph atom
+    .atm-paragraph {
+      order: 3;
+      margin: 0;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+
+      line-height: $sizeLineHeightBase;
     }
   }
 
@@ -143,6 +147,7 @@ $customParagrapCurve: (
     line-height: $sizeLineHeightBase;
     font-weight: $fontWeightBlack;
     margin: 0;
+    order: 1;
 
     time {
       font-weight: $fontWeightDefault;
@@ -150,6 +155,7 @@ $customParagrapCurve: (
   }
 
   &__item-image {
+    order: 3;
     margin-top: auto;
 
     // Overwrite item image-figure-module
@@ -187,7 +193,7 @@ $customParagrapCurve: (
     }
 
     &__header {
-      h2.atm-heading {
+      .atm-heading {
         margin-top: pxToRem($sizeBiggerBig);
       }
     }
@@ -231,7 +237,7 @@ $customParagrapCurve: (
       padding-bottom: pxToRem($sizeGiant);
 
       .mdl-news-teaser__header {
-        h2.atm-heading {
+        .atm-heading {
           margin-top: pxToRem($sizeGiant);
         }
       }
@@ -253,11 +259,6 @@ $customParagrapCurve: (
 
       img {
         min-height: pxToRem(178px);
-      }
-
-      // Overwrite item paragraph atom
-      .atm-paragraph {
-        margin: pxToRem($sizeTiny) 0 pxToRem($sizeRegular);
       }
     }
 

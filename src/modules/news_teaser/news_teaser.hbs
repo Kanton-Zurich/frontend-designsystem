@@ -32,10 +32,13 @@
           {{#each newsTeaserItems}}
           <li class="mdl-news-teaser__item">
             <a href="{{this.href}}">
-              <p class="mdl-news-teaser__item-label">{{#if this.dateLabel}}{{this.dateLabel}} {{/if}}<time datetime="{{this.dateMachineReadable}}">{{this.date}}</time></p>
               <h3 class="atm-heading">
                 {{{this.title}}}
               </h3>
+              <p class="mdl-news-teaser__item-label">
+                {{#if this.dateLabel}}{{this.dateLabel}}{{/if}}
+                <time datetime="{{this.dateMachineReadable}}">{{this.date}}</time>
+              </p>
               {{#if this.imageData}}
                 <div class="mdl-news-teaser__item-image">
                   {{> "modules/image_figure/image_figure" this.imageData}}
