@@ -72,6 +72,15 @@
       display: none;
     }
   }
+
+  &[ disabled='disabled' ] {
+    cursor: default;
+    pointer-events: none;
+
+    .atm-content_teaser__title {
+      color: $colorBlack !important; //stylelint-disable-line
+    }
+  }
 }
 
 @each $key, $val in $tl-color-variations {
