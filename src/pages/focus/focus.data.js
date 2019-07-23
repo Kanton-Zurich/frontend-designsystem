@@ -6,6 +6,8 @@ const defRelatedContent = require('../../modules/related_content/related_content
 const defContactData = require('../../modules/contact/contact.data.js');
 const defFocusTeaserData = require('../../modules/focus_teaser/focus_teaser.data.js');
 const defVideoData = require('../../modules/video/video.data.js');
+const headerData = require('../../modules/header/header.data').props;
+
 
 const defRelatedContentProps = _.merge({}, defRelatedContent);
 defRelatedContentProps.variants.default.props.contentNavData.items = defRelatedContentProps
@@ -19,6 +21,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('focus.md'),
   },
   props: {
+    header: headerData,
     title: 'Schwerpunktseite',
     text: '',
     modules: {

@@ -5,6 +5,7 @@ const defPageHeaderData = require('../../modules/page_header/page_header.data.js
 const defRelatedContentData = require('../../modules/related_content/related_content.data.js');
 const defContactData = require('../../modules/contact/contact.data.js');
 const defFocusTeaserData = require('../../modules/focus_teaser/focus_teaser.data.js');
+const headerData = require('../../modules/header/header.data').props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -14,6 +15,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('administration.md'),
   },
   props: {
+    header: headerData,
     title: 'Direktionsseite',
     text: '',
     modules: {
