@@ -2,8 +2,6 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const defModalData0 = require('../modal/modal.data.js').variants.minimal.props;
-const defModalData1 = require('../modal/modal.data.js').variants.minimal.props;
 
 const template = dataHelper.getFileContent('service_list.hbs');
 const data = _.merge({}, defaultData, {
