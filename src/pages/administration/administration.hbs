@@ -26,8 +26,7 @@
         </p>
       </div>
     </div>
-    <h2 class="atm-heading atm-heading--bordered">News</h2>
-    <h1>(--NEWS TEASER PLACEHOLDER--)</h1>
+    {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
     {{> "modules/contact/contact" props.modules.contactData.variants.fullWidthLessData.props}}
   {{/content}}
   {{#content "footer"}}

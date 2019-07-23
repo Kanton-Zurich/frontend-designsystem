@@ -6,6 +6,8 @@ const defRelatedContentData = require('../../modules/related_content/related_con
 const defContactData = require('../../modules/contact/contact.data.js');
 const defFocusTeaserData = require('../../modules/focus_teaser/focus_teaser.data.js');
 const headerData = require('../../modules/header/header.data').props;
+const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withoutLinklist.props;
+
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -33,6 +35,7 @@ const data = _.merge({}, defaultData, {
       relatedContentData: defRelatedContentData,
       contactData: defContactData,
       focusTeaserData: defFocusTeaserData,
+      newsTeaserData: defNewsTeaserData,
     },
   },
   defaultColorVariation: 'cv-blue',

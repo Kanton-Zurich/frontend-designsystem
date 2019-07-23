@@ -8,6 +8,7 @@ const defContactData = require('../../modules/contact/contact.data.js');
 const defTeaserData = require('../../modules/teaser/teaser.data.js');
 const defTagGroupData = require('../../modules/tag_group/tag_group.data.js');
 const headerData = require('../../modules/header/header.data').props;
+const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withoutLinklist.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -90,6 +91,7 @@ const data = _.merge({}, defaultData, {
       contactData: defContactData,
       teaserData: defTeaserData,
       tagGroupData: defTagGroupData,
+      newsTeaserData: defNewsTeaserData,
     },
     defaultColorVariation: 'cv-green',
   },
