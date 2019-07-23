@@ -10,7 +10,7 @@ pipeline {
           println(branch)
           env.BRANCH_NAME = branch
         }
-        sh 'echo ${env.BRANCH_NAME}'
+        sh 'echo ${BRANCH_NAME}'
    //     sh 'node -v && npm -v'
    //     sh 'npm install'
    //     sh 'npm run build'
