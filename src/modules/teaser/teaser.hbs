@@ -146,5 +146,34 @@
         </div>
       </a>
     {{/if}}
+
+    {{#if teaserArticle}}
+      <a href="{{teaserLink}}"
+         class="mdl-teaser mdl-teaser--inverted mdl-teaser--article"
+         data-init="teaser">
+        <div class="mdl-teaser__content">
+          <h2 class="mdl-teaser__title atm-heading" data-lineclamp="true">
+            {{teaserTitle}}
+          </h2>
+          <time class="mdl-teaser__date" datetime="{{teaserMachineReadableDate}}">{{teaserDisplayDate}}</time>
+
+          <p class="mdl-teaser__description" data-lineclamp="true">
+            {{teaserDescription}}
+          </p>
+
+          <div>
+        <span class="atm-button atm-button--cv-inverted">
+          <span class="atm-button__text ">{{teaserButtonLabel}}</span>
+        </span>
+          </div>
+
+        </div>
+        <div class="mdl-teaser__image">
+          {{> "modules/image_figure/image_figure"}}
+        </div>
+      </a>
+      {{> "modules/news_teaser/news_teaser" newsTeaserdata.props}}
+    {{/if}}
+
   </div>
 </div>

@@ -113,7 +113,7 @@ const variants = _.mapValues({
       desc: 'Default implementation. News Teaser nur mit Überschrift.',
     },
     props: {
-      newsTeaserItems: demoDefaultItems,
+      newsTeaserItems: _.merge({}, demoDefaultItems),
     },
   },
   withImages: {
@@ -122,7 +122,7 @@ const variants = _.mapValues({
       desc: 'News Teaser mit Überschrift, Datum und Bild.',
     },
     props: {
-      newsTeaserItems: demoImageItems,
+      newsTeaserItems: _.merge({}, demoImageItems),
     },
   },
   withText: {
@@ -160,7 +160,7 @@ const variants = _.mapValues({
         title: 'News',
         allArticleHref: '#',
         allArticleLabel: 'Alle Beiträge',
-      }
+      },
     },
   },
   withOneItems: {

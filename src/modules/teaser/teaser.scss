@@ -16,6 +16,15 @@ $maxTextLinesDesktop: 4;
 
   @include sizeCurve(margin-bottom, marginBottom, $teaserMargins);
 
+  &--article {
+    margin-bottom: 0;
+
+    & + .mdl-news-teaser {
+      margin-top: 0;
+      transform: translateX(-50%);
+    }
+  }
+
   &__content {
     padding: $sizeBig;
     display: flex;

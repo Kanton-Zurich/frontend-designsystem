@@ -3,6 +3,7 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const imageFigureDemoData = require('../image_figure/image_figure.data');
+const newsTeaserData = require('../news_teaser/news_teaser.data').variants.default;
 
 const template = dataHelper.getFileContent('teaser.hbs');
 const data = _.merge({}, defaultData, {
@@ -88,6 +89,16 @@ const variants = _.mapValues({
     },
     props: {
       multiple: true,
+    },
+  },
+  teaserArticle: {
+    meta: {
+      title: 'Teaser Artikel',
+      desc: 'Teaser mit News-Teaser',
+    },
+    props: {
+      teaserArticle: true,
+      newsTeaserdata: newsTeaserData,
     },
   },
 }, (variant) => {
