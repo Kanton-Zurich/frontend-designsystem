@@ -49,6 +49,7 @@ h1,
     @include mq($from: medium) {
       line-height: $sizeLineHeightNarrower;
     }
+    @include headingFullWidth();
   }
 }
 
@@ -68,6 +69,7 @@ h2,
     &.atm-heading--bordered {
       @include sizeCurve(padding-top, borderedTopPadding, $headingCurves);
       @include sizeCurve(margin-top, borderedTopMargin, $headingCurves);
+      @include headingFullWidth();
     }
   }
 }
