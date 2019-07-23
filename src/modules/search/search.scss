@@ -1,0 +1,88 @@
+$searchInputCurves: (
+  height: (
+    tiny: 48px,
+    xsmall: 56px,
+    medium: 72px
+  )
+);
+
+.mdl-search {
+  position: relative;
+  display: flex;
+  float: left;
+
+  align-items: center;
+
+  background: rgba($colorWhite, 0.4);
+
+  @include sizeCurve(height, height, $searchInputCurves);
+
+  &__label {
+    @include sizeCurve(line-height, nav, $lineHeightCurves, $pxToRem: false);
+    @include sizeCurve(padding-left padding-right, regular);
+
+    display: block;
+    color: $colorBlack80;
+
+    > span {
+      position: relative;
+      z-index: 1;
+
+      display: flex;
+    }
+  }
+
+  &__label-text {
+    transform: translateY(1px);
+
+    @include mq($to: medium) {
+      @include visuallyhidden();
+    }
+  }
+
+  &__icon {
+    margin-left: pxToRem($sizeFontSmall);
+
+    @include mq($to: medium) {
+      margin-left: 0;
+    }
+
+    use {
+      fill: $colorBlack80;
+    }
+  }
+
+  &__search {
+    border: none;
+    padding: 0;
+    position: absolute;
+
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+    background: transparent;
+    color: $colorBlack80;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.cv-monochrome {
+  .mdl-search {
+    background: $colorBlack10;
+
+    &__label {
+      color: $colorBlack60;
+    }
+
+    &__icon {
+      use {
+        fill: $colorBlack60;
+      }
+    }
+  }
+}

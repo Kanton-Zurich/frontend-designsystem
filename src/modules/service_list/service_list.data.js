@@ -33,7 +33,7 @@ const data = _.merge({}, defaultData, {
       {
         title: 'Terminverschiebung periodische Fahrzeugprüfung',
         buttonTitle: 'Start',
-        serviceLink: 'service_page_small.mock.html',
+        serviceLink: 'service_page.mock.html',
         href: '../../pages/service/service.html',
         modalData: { modalId: 'service-modal2' },
       },

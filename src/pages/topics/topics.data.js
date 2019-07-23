@@ -7,11 +7,12 @@ const defReleatedContentData = require('../../modules/related_content/related_co
 const defContactData = require('../../modules/contact/contact.data.js').variants.fullWidth.props;
 const defTeaserData = require('../../modules/teaser/teaser.data.js');
 const defTagGroupData = require('../../modules/tag_group/tag_group.data.js').variants.default.props;
+const headerData = require('../../modules/header/header.data').props;
 
 const defAnchorNavData = {
   anchornavTitle: {
-    level: 5,
-    title: 'Inhaltsverzeichniss',
+    level: 2,
+    title: 'Inhaltsverzeichnis',
   },
   anchornavItems: [
     {
@@ -65,7 +66,6 @@ const defAnchorNavData = {
   ],
 };
 
-
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Themenseite',
@@ -74,6 +74,7 @@ const data = _.merge({}, defaultData, {
     content: dataHelper.getFileContent('topics.hbs'),
   },
   props: {
+    header: headerData,
     title: 'Themenseite',
     text: '',
     modules: {

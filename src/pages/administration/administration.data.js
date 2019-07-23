@@ -6,11 +6,12 @@ const defRelatedContentData = require('../../modules/related_content/related_con
 const defContactData = require('../../modules/contact/contact.data.js').variants.fullWidthLessData.props;
 const defFocusTeaserData = require('../../modules/focus_teaser/focus_teaser.data.js').props;
 const defAboutData = require('../../modules/about/about.data').props;
+const headerData = require('../../modules/header/header.data').props;
 
 const defAnchorNavData = {
   anchornavTitle: {
-    level: 5,
-    title: 'Inhaltsverzeichniss',
+    level: 2,
+    title: 'Inhaltsverzeichnis',
   },
   anchornavItems: [
     {
@@ -64,6 +65,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('administration.md'),
   },
   props: {
+    header: headerData,
     title: 'Direktionsseite',
     text: '',
     modules: {

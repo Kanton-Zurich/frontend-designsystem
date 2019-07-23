@@ -6,6 +6,7 @@ const pageHeaderData = require('../../modules/page_header/page_header.data.js');
 const linkListData = require('../../modules/linklist/linklist.data.js');
 const videoData = require('../../modules/video/video.data.js');
 const dataHelper = require('@unic/estatico-data');
+const headerData = require('../../modules/header/header.data').props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -15,6 +16,7 @@ const data = _.merge({}, defaultData, {
     content: dataHelper.getFileContent('barebone.hbs'),
   },
   props: {
+    header: headerData,
     title: 'Barebone Page',
     text: 'This page is used for minimal CSS creation',
     modules: {
