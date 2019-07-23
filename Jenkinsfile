@@ -7,7 +7,7 @@ pipeline {
         script {
           def branch = "${GIT_BRANCH}" 
           branch = branch.replaceAll("origin/", "")
-         // java.net.URLEncoder.encode(branch, "UTF-8")
+          java.net.URLEncoder.encode(branch, "UTF-8")
           env.BRANCH_NAME = branch
           println(branch)
         }
