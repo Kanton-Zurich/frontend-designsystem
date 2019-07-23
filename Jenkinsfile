@@ -9,7 +9,7 @@ pipeline {
           branch = branch.replaceAll("origin/", "")       
           println(branch)
           env.BRANCH_NAME = branch
-          println('${BRANCH_NAME}')
+          println('${env.BRANCH_NAME}')
         }
    //     sh 'node -v && npm -v'
    //     sh 'npm install'
