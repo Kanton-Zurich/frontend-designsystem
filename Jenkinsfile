@@ -5,7 +5,7 @@ pipeline {
       stage('build') {
       steps {
         script {
-          def branch = "${GIT_BRANCH}" 
+          def branch = "hello/bla/blub_&_amp${GIT_BRANCH}" 
           branch = branch.replaceAll("origin/", "")
           java.net.URLEncoder.encode(branch, "UTF-8")
           env.BRANCH_NAME = branch
