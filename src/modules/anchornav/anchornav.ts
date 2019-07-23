@@ -102,7 +102,7 @@ class Anchornav extends Module {
   initEventListeners() {
     this.eventDelegate
       .on('mousedown', (<any> this.options).domSelectors.navItems, this.onMouseDown.bind(this))
-      .on('mouseup', (<any> this.options).domSelectors.navItems, this.moveToAnchor.bind(this))
+      .on('mouseup', (<any> this.options).domSelectors.navItems, this.onMouseUp.bind(this))
       .on('click', (<any> this.options).domSelectors.navItems, this.onMouseClick.bind(this))
       .on('click', (<any> this.options).domSelectors.ctrlRight, this.onControlBtnClick.bind(this, 'right'))
       .on('click', (<any> this.options).domSelectors.ctrlLeft, this.onControlBtnClick.bind(this, 'left'));
@@ -135,10 +135,8 @@ class Anchornav extends Module {
    * }
    */
   calculatePageAnchorDistances() {
-    console.log('--- calculatePageAnchorDistances ---');
     this.pageAnchors = [];
     const maxScrollY = this.getDocumentHeight() - window.innerHeight;
-    console.log('max scroll Y: ', maxScrollY);
     let pageExceedFactor;
     let foundFirstEceedItem = false;
     this.containsExceedingTriggerPoints = false;
@@ -152,23 +150,13 @@ class Anchornav extends Module {
 
 
         if (tempAnchor !== null) { // prevent missspelled anchor names
-
           if (this.getDistanzeToPageTopFor(tempAnchor) > maxScrollY && !foundFirstEceedItem) {
-            /*console.log('Trigger position exceeds page-length at index: ', (<any> this.ui).navItems.length - (i));*/
             foundFirstEceedItem = true
             pageExceedFactor = (<any> this.ui).navItems.length - (i);
             this.containsExceedingTriggerPoints = true;
           }
           let tempDistance = this.getDistanzeToPageTopFor(tempAnchor);
-          /*console.log('PAGE EXCEED normal dist: ', tempDistance);*/
-          /*if (foundFirstEceedItem) {
-            console.log('NEW SCROLL POINT TRIGGER: ', maxScrollY - (this.activeStateScrollTolerance + pageExceedFactor * 20));
-            tempDistance = maxScrollY - (pageExceedFactor * 20);
-            pageExceedFactor -= 1;
-          }*/
 
-          /*console.log('PAGE EXCEED new dist: ', tempDistance);
-          console.log('this.getDistanzeToPageTopFor(tempAnchor): ', this.getDistanzeToPageTopFor(tempAnchor));*/
           this.pageAnchors.push({
             navItem: currentItem,
             pageHookDistanceToTop: tempDistance,
@@ -193,6 +181,9 @@ class Anchornav extends Module {
     }
   }
 
+  /**
+   * Toggle left-/right-shadow class on nav list wrapper
+   */
   handleShadow() {
     const rightClass = this.options.stateClasses.shadowRight;
     const leftClass = this.options.stateClasses.shadowLeft;
@@ -209,6 +200,11 @@ class Anchornav extends Module {
     } else {
       scrollWrapper.classList.add(rightClass);
       scrollWrapper.classList.add(leftClass);
+    }
+
+    if ((this.navScrollSpaceHorizontal <= 1 && this.navScrollSpaceHorizontal >= -1)) {
+      scrollWrapper.classList.remove(rightClass);
+      scrollWrapper.classList.remove(leftClass);
     }
   }
 
@@ -249,76 +245,58 @@ class Anchornav extends Module {
   }
 
   /**
-   * OnClick callback on navigation anchors.
-   * Check if its a swipe or a real click and launches the jump.js plugin
-   * to move to the corresponing named anchor on the page
+   * On Mouse up callback
+   * Checks the mouse down/up delta to decide if its a swipe or a click.
    *
    * @param event
    */
-  moveToAnchor(event) {
+  onMouseUp(event) {
     // Stop event if the delta is to big
     const mouseEventDelta = event.screenX - this.mousePositionOnDown;
     let isClickEvent = false;
+
     if (mouseEventDelta < this.swipeTolerance && mouseEventDelta > -(this.swipeTolerance)) {
       isClickEvent = true;
     } else {
       return false;
     }
-    console.log('moveToAnchor CLICK');
-    const scrollPosition = document.documentElement.getBoundingClientRect().top;
 
-    const {target} = event;
-    console.log(target);
+    const { target } = event;
     // Parse away the #-symbol from the string
     const targetName = target.dataset.href.slice(1, target.dataset.href.length);
-    // Check that the anchor is referring to the own page and if the string contains letters
-    /*
-    for (let i = 0; i < this.pageAnchors.length; i += 1) {
-      // Got the clicked item
-      if (target === (<any> this).pageAnchors[i].navItem) {
-        if (target.dataset.href[0] === '#' && targetName.length !== 0 && isClickEvent) {
-          if ((<any> this).pageAnchors[i].containsExceedingTriggerPoints) {
-            console.log("this.getDocumentHeight(): ", this.getDocumentHeight());
-            let tmpScrollToPoint;
-            let spaceFromBottom
-            if (Math.abs(document.documentElement.getBoundingClientRect().top ) > (<any> this).pageAnchors[i].pageHookDistanceToTop) {
-              console.log('CLICK IF' );
-              console.log("* moveToAnchor-scrollPosition: ", scrollPosition);
-              spaceFromBottom = -((<any> this.ui).navItems.length - (i)* 20); //  this.getDocumentHeight() - (window.innerHeight  + ((<any> this.ui).navItems.length - (i)* 20));
-              tmpScrollToPoint = spaceFromBottom;
-            } else {
-              console.log('CLICK ELSE');
-              spaceFromBottom = (<any> this).pageAnchors[i].pageHookDistanceToTop;
-            }
-            console.log('Jump to: ', spaceFromBottom);
-            jump(spaceFromBottom);
-          } else {
-
-            jump(`#${targetName}`, {
-              offset: -(this.ui.element.getBoundingClientRect().height + this.jumpToTolerance),
-            });
-          }
-          this.toggleActiveNavigationItemClass(target)
-        }
-      }
-    }
-    */
-    console.log('moveToAnchor CLICK END');
+    // Check that the anchor is referring to the own page and if the string contains letters^
     if (target.dataset.href[0] === '#' && targetName.length !== 0 && isClickEvent) {
-      jump(`#${targetName}`, {
-        offset: -(this.ui.element.getBoundingClientRect().height + this.jumpToTolerance),
-      });
+      this.moveToAnchor(targetName);
     }
+
     return true;
   }
 
+  /**
+   * Launches the jump.js plugin to move to the corresponing named anchor on the page
+   *
+   * @param targetName<string>
+   */
+  moveToAnchor(targetName) {
+    jump(`#${targetName}`, {
+      offset: -(this.ui.element.getBoundingClientRect().height + this.jumpToTolerance),
+    });
+  }
+
+  /**
+   * Returns the current document height from module variable
+   * @return {number}
+   */
   getDocumentHeight() {
     return this.documentHeight;
   }
 
+  /**
+   * Sets the current document height to module variable
+   */
   setDocumentHeight() {
-    let body = document.body;
-    let html = document.documentElement;
+    const body = document.body;
+    const html = document.documentElement;
 
     this.documentHeight = Math.max(body.scrollHeight, body.offsetHeight,
       html.clientHeight, html.scrollHeight, html.offsetHeight);
@@ -375,8 +353,7 @@ class Anchornav extends Module {
     this.handleShadow();
 
     (<any> this.ui).scrollArea.style.left = `${x}px`;
-    if (window.innerWidth >= this.buttonBreakpoint
-      && (this.navScrollSpaceHorizontal > this.showButtonTolerance
+    if ((this.navScrollSpaceHorizontal > this.showButtonTolerance
         || this.navScrollSpaceHorizontal < -(this.showButtonTolerance))) {
       this.handleControlButtons();
     }
@@ -402,6 +379,10 @@ class Anchornav extends Module {
     } else {
       buttonParentRight.style.display = 'none';
       buttonParentLeft.style.display = 'none';
+    }
+
+    if(window.innerWidth <= this.buttonBreakpoint) {
+      buttonParentRight.style.display = 'none';
     }
   }
 
@@ -511,6 +492,11 @@ class Anchornav extends Module {
     this.onPageScroll();
     this.setupControlButtons();
     (<any> this.impetusInstance).setBoundX([this.getSwipeBorder(), 0]);
+    this.handleShadow();
+    // If its enough space for all items align the wrapper let to 0
+    if ((this.navScrollSpaceHorizontal <= 1 && this.navScrollSpaceHorizontal >= -1)) {
+      this.emulateSwipeTo(0);
+    }
   }
 
   /**
@@ -536,7 +522,7 @@ class Anchornav extends Module {
   onPageDebounceScrolled() {
     let anchor;
     const scrollPosition = document.documentElement.getBoundingClientRect().top;
-    console.log(scrollPosition);
+
     // Handle active item class on scrolling
     if (this.pageAnchors.length > 0) {
       const navHeight = this.ui.element.getBoundingClientRect().height;
@@ -546,19 +532,6 @@ class Anchornav extends Module {
 
         let negativeTopDistance;
         let positiveTopDistance;
-
-        // *TRY* Handle too less space to scroll to the trigger coordinate
-       /* if (!(<any> currentItem).containsExceedingTriggerPoints) {
-          negativeTopDistance = -((<any> currentItem).pageHookDistanceToTop
-            - -(navHeight)) - this.activeStateScrollTolerance;
-
-          positiveTopDistance = -((<any> currentItem).pageHookDistanceToTop
-            + -(navHeight)) + this.activeStateScrollTolerance;
-        } else {
-          negativeTopDistance = -((<any> currentItem).pageHookDistanceToTop
-            - -(navHeight)) - this.activeStateScrollTolerance;
-          positiveTopDistance = negativeTopDistance  + 10;
-        }*/
 
         negativeTopDistance = -((<any> currentItem).pageHookDistanceToTop
           - -(navHeight)) - this.activeStateScrollTolerance;
