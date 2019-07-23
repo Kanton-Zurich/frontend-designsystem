@@ -40,19 +40,6 @@ $customParagrapCurve: (
       right: 0;
       font-size: pxToRem($sizeFontRegular);
       line-height: $sizeLineHeightBase;
-
-      @include mq($from: small) {
-        bottom: -1px;
-      }
-      @include mq($from: medium) {
-        bottom: 0;
-      }
-      @include mq($from: large) {
-        bottom: 2px;
-      }
-      @include mq($from: large) {
-        bottom: 1px;
-      }
     }
 
     // Overwrite heading atom style
@@ -71,7 +58,9 @@ $customParagrapCurve: (
 
     // HOVER OVER ITEMS
     &:hover {
-      .atm-heading {
+      .atm-heading,
+      time,
+      p {
         color: $colorBlack;
       }
 
@@ -90,7 +79,7 @@ $customParagrapCurve: (
         left: 0;
 
         width: calc(100%);
-        height: 8px;
+        height: pxToRem($sizeTiny);
       }
 
       &:before {
@@ -105,7 +94,7 @@ $customParagrapCurve: (
       > a:after {
         top: -8px;
 
-        width: 8px;
+        width: pxToRem($sizeTiny);
         height: calc(100% + 16px);
       }
 
@@ -153,6 +142,7 @@ $customParagrapCurve: (
     font-size: $sizeFontTiny;
     line-height: $sizeLineHeightBase;
     font-weight: $fontWeightBlack;
+    margin: 0;
 
     time {
       font-weight: $fontWeightDefault;
@@ -216,10 +206,6 @@ $customParagrapCurve: (
       img {
         min-height: pxToRem(135px);
       }
-
-      p {
-        line-height: $sizeLineHeightBase;
-      }
     }
     // Single item style
     .medium-6 ul {
@@ -269,8 +255,8 @@ $customParagrapCurve: (
         min-height: pxToRem(178px);
       }
 
-      // Overwirte item paragraph-atom
-      p {
+      // Overwrite item paragraph atom
+      .atm-paragraph {
         margin: pxToRem($sizeTiny) 0 pxToRem($sizeRegular);
       }
     }
