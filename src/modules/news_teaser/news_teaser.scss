@@ -8,8 +8,13 @@ $customParagrapCurve: (
 
 .mdl-news-teaser {
   @include gridBleed($fullwidth: true);
-  margin-top: pxToRem($sizeBig);
-  margin-bottom: pxToRem($sizeBig);
+  padding-top: pxToRem($sizeBig);
+  padding-bottom: pxToRem($sizeBig);
+  background-color: $colorBlack5;
+
+  &--more-info {
+    margin-top: 0;
+  }
 
   &__content {
     ul {
@@ -39,7 +44,7 @@ $customParagrapCurve: (
 
     // Overwrite heading atom style
     h2.atm-heading {
-      margin-top: 0;
+      margin-top: pxToRem($sizeBig);
       margin-bottom: pxToRem($sizeLarge);
     }
   }
@@ -49,6 +54,7 @@ $customParagrapCurve: (
     padding: pxToRem($sizeBig); // 32px;
     border-width: 0 pxToRem($sizeTiny) pxToRem($sizeTiny) 0;
     flex-grow: 1;
+    background-color: $white;
 
     // HOVER OVER ITEMS
     &:hover {
@@ -169,8 +175,14 @@ $customParagrapCurve: (
   @include mq($from: small) {
 
     &--more-info {
-      margin-top: pxToRem($sizeBiggerBig);
-      margin-bottom: pxToRem($sizeBiggerBig);
+      padding-top: 0;
+      padding-bottom: pxToRem($sizeBiggerBig);
+    }
+
+    &__header {
+      h2.atm-heading {
+        margin-top: pxToRem($sizeBiggerBig);
+      }
     }
 
     &__content {
@@ -201,13 +213,27 @@ $customParagrapCurve: (
     }
   }
   @include mq($from: large) {
-    margin-top: pxToRem($sizeBiggerBig);
-    margin-bottom: pxToRem($sizeBiggerBig);
+    padding-top: pxToRem($sizeBiggerBig);
+    padding-bottom: pxToRem($sizeBiggerBig);
+
+    &__header {
+      // Overwrite heading atom style
+      .atm-heading {
+        margin-bottom: pxToRem($sizeBiggerBig);
+      }
+    }
 
     &--more-info {
-      margin-top: pxToRem($sizeGiant);
-      margin-bottom: pxToRem($sizeGiant);
+      padding-top: 0;
+      padding-bottom: pxToRem($sizeGiant);
+
+      .mdl-news-teaser__header {
+        h2.atm-heading {
+          margin-top: pxToRem($sizeGiant);
+        }
+      }
     }
+
     // Single item style
     .medium-6 ul {
       max-width: 50%;
@@ -232,15 +258,8 @@ $customParagrapCurve: (
       }
     }
 
-    &__header {
-      // Overwrite heading atom style
-      h2.atm-heading {
-        margin-bottom: pxToRem($sizeBiggerBig);
-      }
-    }
-
     .mdl-linklist {
-      margin: calc(#{$sizeBiggerBig} + #{$sizeRegular}) 0 $sizeGiant;
+      margin: calc(#{$sizeBiggerBig} + #{$sizeRegular}) 0 0;
     }
   }
 }

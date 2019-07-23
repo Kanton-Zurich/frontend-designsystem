@@ -150,6 +150,20 @@ const variants = _.mapValues({
       newsTeaserLinkListData: demoLinkListData,
     },
   },
+  withoutLinklist: {
+    meta: {
+      title: 'Weiteren Infos ohne Linkliste',
+      desc: 'News Teaser mit Überschrift, Datum und Fliesstext.',
+    },
+    props: {
+      newsTeaserItems: [demoImageItems[0], demoTextItems[1], demoImageItems[2]],
+      newsTeaserModuleHeader: {
+        title: 'News',
+        allArticleHref: '#',
+        allArticleLabel: 'Alle Beiträge',
+      },
+    },
+  },
   withProminentTeaser: {
     meta: {
       title: 'Mit prominenten Teaser',

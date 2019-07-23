@@ -18,9 +18,11 @@ $maxTextLinesDesktop: 4;
 
   &--article {
     margin-bottom: 0;
-
+    // News Teaser Overwrites
     & + .mdl-news-teaser {
-      margin-top: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      background-color: $white;
       transform: translateX(-50%);
     }
   }
