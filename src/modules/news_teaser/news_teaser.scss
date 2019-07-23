@@ -35,11 +35,24 @@ $customParagrapCurve: (
     position: relative;
 
     a {
-      @include sizeCurve(padding-top, borderedTopPadding, $headingCurves);
       position: absolute;
-      top: 0;
+      bottom: 0;
       right: 0;
-      height: 100%;
+      font-size: pxToRem($sizeFontRegular);
+      line-height: $sizeLineHeightBase;
+
+      @include mq($from: small) {
+        bottom: -1px;
+      }
+      @include mq($from: medium) {
+        bottom: 0;
+      }
+      @include mq($from: large) {
+        bottom: 2px;
+      }
+      @include mq($from: large) {
+        bottom: 1px;
+      }
     }
 
     // Overwrite heading atom style

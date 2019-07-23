@@ -7,13 +7,13 @@
             <div class="mdl-news-teaser__header">
               <h2 class="atm-heading atm-heading--bordered">
                 {{{newsTeaserModuleHeader.title}}}
+                <a class="atm-text_link atm-text_link--icon" href="{{{newsTeaserModuleHeader.allArticleHref}}}">
+                  {{{newsTeaserModuleHeader.allArticleLabel}}}
+                  <svg class="icon icon--iframe-arrow">
+                    <use xlink:href="#arrow-right"></use>
+                  </svg>
+                </a>
               </h2>
-              <a class="atm-text_link atm-text_link--icon" href="{{{newsTeaserModuleHeader.allArticleHref}}}">
-                {{{newsTeaserModuleHeader.allArticleLabel}}}
-                <svg class="icon icon--iframe-arrow">
-                  <use xlink:href="#arrow-right"></use>
-                </svg>
-              </a>
             </div>
         </div>
       {{/if}}
