@@ -44,7 +44,7 @@ const demoLinkListData = {
     },
   ],
   hasTitle: true,
-  headingLevel: 4,
+  headingLevel: 3,
 };
 
 const demoDefaultItems = [
