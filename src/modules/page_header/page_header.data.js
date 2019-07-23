@@ -7,6 +7,7 @@ const defVideoData = require('../video/video.data');
 const defButtonData = require('../../atoms/button/button.data').props;
 const defBreadcrumbData = require('../breadcrumb/breadcrumb.data').props;
 const backOnlyBreadcrumbData = require('../breadcrumb/breadcrumb.data').variants.singlePathItem.props;
+const defPersonCardData = require('../person_card/person_card.data.js').variants.promo.props;
 
 
 const template = dataHelper.getFileContent('page_header.hbs');
@@ -25,6 +26,7 @@ const data = _.merge({}, defaultData, {
     breadcrumb: defBreadcrumbData,
     backlink: backOnlyBreadcrumbData,
     buttonData: _.merge(defButtonData, { text: 'Formular beantragen' }),
+    personCardData: defPersonCardData,
   },
 });
 
@@ -48,7 +50,6 @@ const variants = _.mapValues({
       defaultColorVariation: 'cv-blue',
     },
     props: {
-
       imageData: defImageFigureData.variants.header.props,
       hasImage: true,
       hasBacklink: true,
@@ -176,6 +177,22 @@ const variants = _.mapValues({
       hasImage: true,
       buttonData: _.merge({}, defButtonData),
       hasBacklink: true,
+    },
+  },
+  colorPeopleTeaser: {
+    meta: {
+      title: 'Mit Farbe und Personen Teaser',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+      defaultColorVariation: 'cv-blue',
+    },
+    props: {
+      imageData: defImageFigureData.variants.headerNoTitle.props,
+      inverted: true,
+      hasBreadcrumb: true,
+      noButton: true,
+      hasImage: false,
+      hasPersonCard: true,
     },
   },
   serviceModal: {
