@@ -58,6 +58,10 @@ $customParagrapCurve: (
 
     // HOVER OVER ITEMS
     &:hover {
+      .atm-heading {
+        color: $colorBlack;
+      }
+
       &:before,
       &:after,
       > a:before,
