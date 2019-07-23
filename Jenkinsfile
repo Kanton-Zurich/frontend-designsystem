@@ -6,11 +6,17 @@ pipeline {
       steps {
         script {
           def branch = "${GIT_BRANCH}" 
-          branch = branch.replaceAll("origin/", "")       
-          println(branch)
+          branch = branch.replaceAll("origin/", "")
+          branch = branch.replaceAll("/", "_")
+          branch = branch.replaceAll("\\", "_")
+          branch = branch.replaceAll("&", "_")
+          branch = branch.replaceAll(" ", "_")
+          branch = branch.replaceAll(".", "_")
+          java.net.URLEncoder.encode(branch, "UTF-8")
           env.BRANCH_NAME = branch
+          println(branch)
         }
-        sh 'node -v && npm -v'
+      /*  sh 'node -v && npm -v'
         sh 'npm install'
         sh 'npm run build'
         sh 'pwd'
@@ -19,7 +25,7 @@ pipeline {
         }
         withCredentials([usernamePassword(credentialsId: 'sshuserLsgFE', passwordVariable: 'passWord', usernameVariable: 'userName')]) {
           sh 'sshpass -p $passWord scp -o StrictHostKeyChecking=no -P 9022 -r dist/ci/dev/ $userName@10.100.128.12:/usr/local/apache2/htdocs/czhdev/${BRANCH_NAME}/'
-        }
+        }*/
       }
     }
   }
