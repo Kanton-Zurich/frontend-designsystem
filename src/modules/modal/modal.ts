@@ -23,6 +23,7 @@ class Modal extends Module {
       },
       stateClasses: {
         show: 'mdl-modal--show',
+        dynamicHeader: 'mdl-modal--dynamicheader',
       },
     };
     super($element, defaultData, defaultOptions, data, options);
@@ -67,9 +68,11 @@ class Modal extends Module {
 
   initContent() {
     const closeButton = this.ui.element.querySelector(this.options.domSelectors.closeButton);
-    this.ui.element.addEventListener('scroll', (event) => {
-      this.updateOnScroll(event.target.scrollTop);
-    });
+    if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
+      this.ui.element.addEventListener('scroll', (event) => {
+        this.updateOnScroll(event.target.scrollTop);
+      });
+    }
     if (closeButton) {
       closeButton.addEventListener('click',
         () => {
