@@ -70,6 +70,7 @@ class LineClamper {
    * @memberof LineClamper
    */
   public updateLineClamping() {
+    this.elements = document.querySelectorAll(this.options.selector);
     this.setLineClamping();
   }
 
@@ -83,6 +84,10 @@ class LineClamper {
     (<any>WindowEventListener).addDebouncedResizeListener(() => {
       this.updateLineClamping();
     }, 'update-line-clamping');
+
+    window.addEventListener('reloadLineClamper', () => {
+      this.updateLineClamping();
+    });
   }
 }
 

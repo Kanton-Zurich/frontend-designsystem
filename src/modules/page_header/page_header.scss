@@ -62,29 +62,35 @@ $pageHeaderCurves: (
     tiny: $sizeFontBiggerRegular,
     medium: $sizeFontLarge,
   ),
-  headerImagePadding: (
-    tiny: ($sizeBiggerBig + $sizeLarge),
-    medium: ($sizeHuge + $sizeBig),
-    xlarge: ($sizeHuge + $sizeBiggerBig),
-  ),
-  headerImageMargin: (
-    tiny: $sizeBiggerBig,
-    medium: $sizeHuge
-  ),
-  headerImagePaddingCaptioned: (
-    tiny: ($sizeBiggerBig + $sizeLarge + $sizeRegular),
-    small: ($sizeBiggerBig + $sizeLarge + $sizeSmallLarge),
-    medium: ($sizeHuge + $sizeBig + $sizeSmallLarge),
-    xlarge: ($sizeHuge + $sizeBiggerBig + $sizeSmallLarge),
-  ),
-  headerImageMarginCaptioned: (
-    tiny: ($sizeBiggerBig + $sizeRegular),
-    small: ($sizeBiggerBig + $sizeSmallLarge),
-    medium: ($sizeHuge + $sizeSmallLarge),
-  ),
   breadcrumpMarginBottom: (
     tiny: $sizeSmallRegular,
     xlarge: $sizeRegular
+  ),
+  subsectionMarginBottom: (
+    tiny: $sizeLarge,
+    medium: $sizeBiggerBig,
+  ),
+  subsectionMarginTop: (
+    tiny: $sizeSmallHuge,
+    medium : $sizeHuge,
+    xlarge: $sizeHuge,
+  ),
+  subsectionPaddingTop: (
+    tiny: ($sizeSmallHuge + $sizeLarge),
+    medium : ($sizeHuge + $sizeBig),
+    xlarge: ($sizeHuge + $sizeBiggerBig),
+  ),
+  subsectionImageTitleMarginTop: (
+    tiny: ($sizeSmallHuge + $sizeFontBiggerRegular + $sizeTiny),
+    xsmall: ($sizeSmallHuge + $sizeFontMedium + $sizeTiny),
+    medium : ($sizeHuge + $sizeFontMedium + $sizeTiny),
+    xlarge: ($sizeHuge + $sizeFontMedium + $sizeTiny),
+  ),
+  subsectionImageTitlePaddingTop: (
+    tiny: ($sizeSmallHuge + $sizeFontBiggerRegular + $sizeLarge + $sizeTiny),
+    xsmall: ($sizeSmallHuge + $sizeFontMedium + $sizeBig + $sizeTiny),
+    medium : ($sizeHuge + $sizeFontMedium + $sizeBig + $sizeTiny),
+    xlarge: ($sizeHuge + $sizeFontMedium + $sizeBiggerBig + $sizeTiny),
   ),
 );
 
@@ -94,21 +100,12 @@ $pageHeaderCurves: (
   @include sizeCurve('padding-top', pageHeaderTop, $pageHeaderCurves);
   @include sizeCurve(padding-bottom, pageHeaderBottom, $pageHeaderCurves);
 
-  &--minimal {
-    @include sizeCurve(padding-bottom padding-top, pageHeaderMinimal, $pageHeaderCurves);
-
-    .mdl-page-header__breadcrumb {
-      margin-bottom: 0;
-      min-height: unset;
-    }
-
-    .mdl-page-header__title {
-      @include sizeCurve(line-height, pageTitleMinimalLineHeight, $pageHeaderCurves);
-    }
-  }
-
   &__logo-container {
     height: 0;
+
+    a {
+      display: inline-block;
+    }
   }
 
   &__logo {
@@ -137,9 +134,11 @@ $pageHeaderCurves: (
 
       @include mq($from: tiny, $to: large) {
         right: $sizeBig;
+        right: calc(#{$sizeBig} + var(--scrollbar-wd)); // stylelint-disable-line
       }
       @include mq($from: large) {
         right: $sizeBiggerBig;
+        right: calc(#{$sizeBiggerBig} + var(--scrollbar-wd)); // stylelint-disable-line
       }
       @include sizeCurve('top', closeButtonTop, $pageHeaderCurves);
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
@@ -171,6 +170,27 @@ $pageHeaderCurves: (
     fill: $colorBlack60;
   }
 
+  &--minimal {
+    @include sizeCurve(padding-bottom padding-top, pageHeaderMinimal, $pageHeaderCurves);
+
+    .mdl-page-header__breadcrumb {
+      margin-bottom: 0;
+      min-height: unset;
+    }
+
+    .mdl-page-header__title {
+      @include sizeCurve(line-height, pageTitleMinimalLineHeight, $pageHeaderCurves);
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+
+      margin-bottom: 0;
+    }
+
+    .mdl-page-header__logo-container {
+      display: none;
+    }
+  }
+
+
   .atm-lead {
     margin-top: 0;
     margin-left: 0;
@@ -178,6 +198,12 @@ $pageHeaderCurves: (
 
   .atm-button {
     @include sizeCurve('margin-bottom', regular);
+  }
+
+  .mdl-person_card {
+    .atm-button {
+      margin-bottom: 0;
+    }
   }
 
   .mdl-tag-group {
@@ -225,30 +251,30 @@ $pageHeaderCurves: (
   &--headerimage {
     padding-bottom: 0;
 
-    .mdl-page-header__subsection {
-      @include sizeCurve(padding-top, headerImagePadding, $pageHeaderCurves);
-
-      .lyt-wrapper {
-        @include sizeCurve(padding-bottom, pageHeaderBottom, $pageHeaderCurves);
+    .mdl-image-figure {
+      &__img-wrapper {
+        margin-bottom: 0;
       }
     }
 
-    .lyt-wrapper {
-      @include sizeCurve(margin-bottom, headerImageMargin, $pageHeaderCurves, $isNegative: true);
-    }
+    .mdl-page-header__subsection {
+      @include sizeCurve(margin-top, subsectionMarginTop, $pageHeaderCurves, $isNegative: true);
+      @include sizeCurve(padding-top, subsectionPaddingTop, $pageHeaderCurves);
 
-    @include sizeCurve(padding-bottom, headerImageMargin, $pageHeaderCurves);
+      .lyt-wrapper {
+        @include sizeCurve(margin-bottom, subsectionMarginBottom, $pageHeaderCurves);
+      }
+    }
 
     &.mdl-page-header--image-title {
+      .mdl-image-figure__img-wrapper {
+        margin-bottom: $sizeTiny;
+      }
+
       .mdl-page-header__subsection {
-        @include sizeCurve(padding-top, headerImagePaddingCaptioned, $pageHeaderCurves);
+        @include sizeCurve(margin-top, subsectionImageTitleMarginTop, $pageHeaderCurves, $isNegative: true);
+        @include sizeCurve(padding-top, subsectionImageTitlePaddingTop, $pageHeaderCurves);
       }
-
-      .lyt-wrapper {
-        @include sizeCurve(margin-bottom, headerImageMarginCaptioned, $pageHeaderCurves, $isNegative: true);
-      }
-
-      @include sizeCurve(padding-bottom, headerImageMarginCaptioned, $pageHeaderCurves);
     }
   }
 }
@@ -280,6 +306,12 @@ $pageHeaderCurves: (
         .mdl-breadcrumb__show-context,
         .mdl-page-header__closebutton {
           color: $colorWhite;
+        }
+
+        .mdl-person_card {
+          .atm-heading {
+            color: $colorBlack;
+          }
         }
 
         .mdl-page-header__breadcrumb use {

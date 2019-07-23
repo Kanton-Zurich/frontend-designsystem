@@ -7,7 +7,7 @@ const defReleatedContentData = require('../../modules/related_content/related_co
 const defContactData = require('../../modules/contact/contact.data.js');
 const defTeaserData = require('../../modules/teaser/teaser.data.js');
 const defTagGroupData = require('../../modules/tag_group/tag_group.data.js');
-
+const headerData = require('../../modules/header/header.data').props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -17,6 +17,7 @@ const data = _.merge({}, defaultData, {
     content: dataHelper.getFileContent('topics.hbs'),
   },
   props: {
+    header: headerData,
     title: 'Themenseite',
     text: '',
     modules: {

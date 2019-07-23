@@ -284,16 +284,24 @@
  * @param $curve - The key value of the curve, e.g. regular
  * @param $map- The Map with all the wanted size curves inside - default: $sizeCurves
  */
-@mixin sizeCurve($attributes, $curve, $map: $sizeCurves, $isNegative: false) {
+@mixin sizeCurve($attributes, $curve, $map: $sizeCurves, $isNegative: false, $pxToRem: true) {
   @if (map-has-key($map, $curve)) {
     $selectedCurve: map-get($map, $curve);
 
     @each $breakpoint, $size in $selectedCurve {
       @if $breakpoint == tiny {
-        @include generateCSSFromListOrString($attributes, pxToRem(map-get($selectedCurve, tiny)), $isNegative);
+        @if $pxToRem {
+          @include generateCSSFromListOrString($attributes, pxToRem(map-get($selectedCurve, tiny)), $isNegative);
+        } @else {
+          @include generateCSSFromListOrString($attributes, map-get($selectedCurve, tiny), $isNegative);
+        }
       } @else {
         @include mq($from: $breakpoint) {
-          @include generateCSSFromListOrString($attributes, pxToRem(map-get($selectedCurve, $breakpoint)), $isNegative);
+          @if $pxToRem {
+            @include generateCSSFromListOrString($attributes, pxToRem(map-get($selectedCurve, $breakpoint)), $isNegative);
+          } @else {
+            @include generateCSSFromListOrString($attributes, map-get($selectedCurve, $breakpoint), $isNegative);
+          }
         }
       }
     }

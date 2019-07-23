@@ -31,7 +31,9 @@
     "Event": true,
     "XMLHttpRequest": true,
     "navigator": true,
-    "Image": true
+    "Image": true,
+    "fetch": true,
+    "DOMParser": true
   },
   "settings": {
     "import/resolver": {

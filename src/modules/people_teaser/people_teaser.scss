@@ -1,0 +1,37 @@
+.mdl-people_teaser {
+  $personCardCurves: (
+    blockMarginBottom: (
+      tiny: $sizeBig,
+      medium: $sizeBiggerBig,
+      xlarge: $sizeHuge,
+    ),
+    cardMarginBottom: (
+      tiny: $sizeLarge,
+      medium: $sizeBig,
+      xlarge: $sizeBiggerBig,
+    ),
+  );
+
+  &__block {
+    @include sizeCurve(margin-bottom, cardMarginBottom, $personCardCurves);
+
+    h3.atm-heading {
+      padding-top: $sizeSmallRegular;
+      margin-bottom: $sizeTiny;
+    }
+
+    .mdl-people_teaser__cardlist {
+      @include sizeCurve(margin-bottom, cardMarginBottom, $personCardCurves);
+
+      padding-top: $sizeRegular;
+
+      .mdl-person_card {
+        margin-bottom: $sizeRegular;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
