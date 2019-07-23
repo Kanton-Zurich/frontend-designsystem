@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { ViewController } from '../../util/view-controller.class';
 import Appointment from '../../model/appointment.model';
 import CalendarLinkGenerator from '../../service/calendar-link-generator.service';

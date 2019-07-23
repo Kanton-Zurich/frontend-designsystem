@@ -1,14 +1,13 @@
+/* eslint-disable */
 import Appointment from '../model/appointment.model';
 import Timeslot from '../model/timeslot.model';
 
-/* eslint-disable no-unused-vars */
 import {
   AppointmentDetailsResponse,
   AppointmentPayload, ErrorResponse,
   LoginResponse, PostponeResponse, TimeslotPayload,
   TimeslotsResponse,
 } from '../model/api-payload.interfaces';
-/* eslint-enable no-unused-vars */
 
 export enum ApiFailureType {
   FORBIDDEN,

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Delegate } from 'dom-delegate';
 
 export interface WithEventListeners {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import MigekApiService, { ApiConnectionFailure, ApiFailureType } from '../../service/migek-api.service';
 import { ViewController } from '../../util/view-controller.class';
 import { LoginAlert } from '../../model/login-alert-type.enum';

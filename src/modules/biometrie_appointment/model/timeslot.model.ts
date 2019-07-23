@@ -1,3 +1,4 @@
+/* eslint-disable */
 import moment, { Moment } from 'moment';
 import { TimeslotPayload } from './api-payload.interfaces';
 

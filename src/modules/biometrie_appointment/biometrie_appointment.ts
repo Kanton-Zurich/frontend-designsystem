@@ -10,9 +10,11 @@ import CalendarLinkGenerator from './service/calendar-link-generator.service';
 import BiometrieRescheduleView, {
   rescheduleViewSelectorsValues,
 } from './partials/reschedule_view/reschedule_view';
+/* eslint-disable no-unused-vars */
 import Appointment from './model/appointment.model';
 import BiometrieLoginView, { loginViewSelectors } from './partials/login_view/login_view';
 import BiometrieDetailsView, { detailViewSelectors } from './partials/details_view/details_view';
+/* eslint-disable no-unused-vars */
 import { WithEventListeners } from './util/view-controller.class';
 
 const ATTEMPTS_BEFORE_SHOW_TELEPHONE: number = 3;

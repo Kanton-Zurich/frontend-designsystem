@@ -167,6 +167,7 @@ $biometrieViewTransitionDuration: 300ms;
 
     &__confirmation {
       display: none;
+
       &.visible {
         display: block;
       }
