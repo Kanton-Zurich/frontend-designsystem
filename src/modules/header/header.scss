@@ -12,6 +12,20 @@ $headerCurves: (
   padding-bottom: pxToRem(5px);
   position: relative;
 
+  @include transition(background);
+
+
+  &--open {
+    position: fixed;
+    top: 0;
+
+    margin-left: 0;
+    transform: none;
+    left: 0;
+
+    z-index: $zIndexFlyouts;
+  }
+
   &__wrapper {
     &:after {
       height: 5px;
@@ -21,6 +35,8 @@ $headerCurves: (
       position: absolute;
       display: block;
       content: ' ';
+
+      @include transition(background);
     }
   }
 
@@ -42,6 +58,12 @@ $headerCurves: (
     align-items: center;
 
     color: $colorWhite;
+
+    @include transition(color);
+
+    &--active {
+      font-weight: $fontWeightBlack;
+    }
   }
 
   /** Special design for header */
@@ -63,7 +85,7 @@ $headerCurves: (
 // Monochrome version
 .cv-monochrome {
   .mdl-header {
-    background: transparent;
+    background: $colorWhite;
 
     &__nav-item {
       color: $colorBlack100;
@@ -73,4 +95,8 @@ $headerCurves: (
       background: $colorBlack;
     }
   }
+}
+
+.cv-monochrome.mdl-header {
+  background: $colorWhite;
 }

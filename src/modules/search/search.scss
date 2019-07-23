@@ -15,6 +15,8 @@ $searchInputCurves: (
 
   background: rgba($colorWhite, 0.4);
 
+  @include transition(background);
+
   @include sizeCurve(height, height, $searchInputCurves);
 
   &__label {
@@ -23,6 +25,8 @@ $searchInputCurves: (
 
     display: block;
     color: $colorBlack80;
+
+    @include transition(color);
 
     > span {
       position: relative;

@@ -5,6 +5,10 @@ $leadFontCurve: (
 );
 
 .mdl-topiclist {
+
+  @include sizeCurve('margin-top', big);
+  @include sizeCurve('margin-bottom', big);
+
   // Hide items only on default topiclist
   .mdl-content_nav {
     &__item:nth-child(1n+12) {
@@ -26,8 +30,8 @@ $leadFontCurve: (
   &--home,
   &--office {
     .mdl-content_nav:not(.mdl-topiclist__autosuggest) {
-      &__item:nth-child(1n+12),
-      &__item:nth-child(1n+9) {
+      .mdl-content_nav__item:nth-child(1n+12),
+      .mdl-content_nav__item:nth-child(1n+9) {
         display: flex;
       }
     }
@@ -39,6 +43,10 @@ $leadFontCurve: (
         display: flex;
       }
     }
+  }
+
+  &--nav {
+    @include sizeCurve(margin-top, large);
   }
 
   &__fullwidth-wrapper {
@@ -84,9 +92,6 @@ $leadFontCurve: (
       transform: scale(0.625);
     }
   }
-
-  @include polyFluidSizing('margin-top', map-get($sizeCurves, big));
-  @include polyFluidSizing('margin-bottom', map-get($sizeCurves, big));
 
   .atm-heading {
     padding-top: $sizeSmallRegular;

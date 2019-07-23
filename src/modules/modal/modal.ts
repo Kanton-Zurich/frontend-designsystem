@@ -35,6 +35,7 @@ class Modal extends Module {
     return {
       openModal: 'Modal.open',
       initContent: 'Modal.initContent',
+      closeModal: 'Modal.close',
     };
   }
 
@@ -63,6 +64,8 @@ class Modal extends Module {
       (<any>window).estatico.helpers.initModulesInElement
         .bind((<any>window).estatico.helpers.app)(this.ui.element);
     });
+
+    this.eventDelegate.on('Modal.close', this.closeModal.bind(this));
   }
 
   initContent() {
@@ -71,10 +74,7 @@ class Modal extends Module {
       this.updateOnScroll(event.target.scrollTop);
     });
     if (closeButton) {
-      closeButton.addEventListener('click',
-        () => {
-          this.closeModal();
-        });
+      closeButton.addEventListener('click', this.closeModal.bind(this));
       this.hasCloseBtn = true;
     }
   }

@@ -5,7 +5,7 @@
         <ul class="mdl-header__navigation" role="navigation">
           {{#each navItem}}
             <li>
-              <button class="mdl-header__nav-item" data-header="{{function}}">
+              <button class="mdl-header__nav-item" data-header="openModal" data-modal="{{modal}}">
                 {{title}}
               </button>
             </li>
@@ -16,3 +16,7 @@
   </div>
   {{> "modules/search/search"}}
 </header>
+
+{{#each modals}}
+  {{> "modules/modal/modal" this}}
+{{/each}}
