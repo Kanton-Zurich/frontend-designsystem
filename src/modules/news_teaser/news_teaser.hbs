@@ -1,21 +1,29 @@
 <div class="mdl-news-teaser{{#if newsTeaserModuleHeader}} mdl-news-teaser--more-info{{/if}}" data-init="newsTeaser">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
-      <div class="mdl-news-teaser__content cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-12 small-10 medium-10 large-10 xlarge-10">
-        {{#if newsTeaserModuleHeader}}
-          <div class="mdl-news-teaser__header">
-            <h2 class="atm-heading atm-heading--bordered">
-              {{{newsTeaserModuleHeader.title}}}
-            </h2>
-            <a class="atm-text_link atm-text_link--icon" href="{{{newsTeaserModuleHeader.allArticleHref}}}">
-              {{{newsTeaserModuleHeader.allArticleLabel}}}
-              <svg class="icon icon--iframe-arrow">
-                <use xlink:href="#arrow-right"></use>
-              </svg>
-            </a>
-          </div>
-        {{/if}}
-      </div>
+
+      {{#if newsTeaserModuleHeader}}
+        <div class="mdl-news-teaser__content cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-12 small-10 medium-10 large-10 xlarge-10">
+            <div class="mdl-news-teaser__header">
+              <h2 class="atm-heading atm-heading--bordered">
+                {{{newsTeaserModuleHeader.title}}}
+              </h2>
+              <a class="atm-text_link atm-text_link--icon" href="{{{newsTeaserModuleHeader.allArticleHref}}}">
+                {{{newsTeaserModuleHeader.allArticleLabel}}}
+                <svg class="icon icon--iframe-arrow">
+                  <use xlink:href="#arrow-right"></use>
+                </svg>
+              </a>
+            </div>
+        </div>
+      {{/if}}
+
+      {{#if prominentTeaser}}
+        <div class="mdl-news-teaser__content cell tiny-12 small-12 medium-12 large-12 xlarge-12">
+          {{> "modules/teaser/teaser" prominentTeaser}}
+        </div>
+      {{/if}}
+
       <div class="mdl-news-teaser__content cell tiny-12
           {{#if_compare newsTeaserItems.length "===" 1 }}small-offset-2 small-6 medium-offset-2 medium-6 large-offset-2 large-8 xlarge-offset-2 xlarge-8{{/if_compare}}
           {{#if_compare newsTeaserItems.length "===" 2 }}small-12 medium-12 large-offset-2 large-8 xlarge-offset-2 xlarge-8{{/if_compare}}

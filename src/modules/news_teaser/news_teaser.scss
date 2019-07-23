@@ -9,6 +9,7 @@ $customParagrapCurve: (
 .mdl-news-teaser {
   @include gridBleed($fullwidth: true);
   margin-top: pxToRem($sizeBig);
+  margin-bottom: pxToRem($sizeBig);
 
   &__content {
     ul {
@@ -154,12 +155,22 @@ $customParagrapCurve: (
     margin: calc(#{$sizeRegular} + #{$sizeSmallLarge}) 0 0;
   }
 
+  .mdl-teaser__wrapper {
+    transform: translateX(-50%);
+  }
+
+  .mdl-teaser {
+    margin-bottom: 0;
+  }
+
   /*
   * MEDIA QUERIES
   */
   @include mq($from: small) {
+
     &--more-info {
       margin-top: pxToRem($sizeBiggerBig);
+      margin-bottom: pxToRem($sizeBiggerBig);
     }
 
     &__content {
@@ -191,9 +202,11 @@ $customParagrapCurve: (
   }
   @include mq($from: large) {
     margin-top: pxToRem($sizeBiggerBig);
+    margin-bottom: pxToRem($sizeBiggerBig);
 
     &--more-info {
       margin-top: pxToRem($sizeGiant);
+      margin-bottom: pxToRem($sizeGiant);
     }
     // Single item style
     .medium-6 ul {

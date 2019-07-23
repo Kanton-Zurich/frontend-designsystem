@@ -4,6 +4,7 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const template = dataHelper.getFileContent('news_teaser.hbs');
+const demoTeaserData = require('../teaser/teaser.data').variants.inverted.props;
 
 const demoImageFigureData = {
   srcsets: [
@@ -147,6 +148,21 @@ const variants = _.mapValues({
         allArticleLabel: 'Alle Beiträge',
       },
       newsTeaserLinkListData: demoLinkListData,
+    },
+  },
+  withProminentTeaser: {
+    meta: {
+      title: 'Mit prominenten Teaser',
+      desc: 'News Teaser mit Überschrift, Datum und Fliesstext.',
+    },
+    props: {
+      newsTeaserItems: [demoImageItems[0], demoTextItems[1], demoImageItems[2]],
+      newsTeaserModuleHeader: {
+        title: 'News',
+        allArticleHref: '#',
+        allArticleLabel: 'Alle Beiträge',
+      },
+      prominentTeaser: demoTeaserData,
     },
   },
   withTwoItems: {
