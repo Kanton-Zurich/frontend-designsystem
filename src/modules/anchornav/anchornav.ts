@@ -406,6 +406,7 @@ class Anchornav extends Module {
 
     if (window.innerWidth <= this.buttonBreakpoint) {
       buttonParentRight.style.display = 'none';
+      buttonParentLeft.style.display = 'none';
     }
   }
 
