@@ -43,7 +43,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'News',
-        anchorlinkAdress: '#newsTODO',
+        anchorlinkAdress: '#news_teaser',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },

@@ -105,7 +105,9 @@ const data = _.merge({}, defaultData, {
     jira: 'CZHDEV-502',
     documentation: dataHelper.getDocumentation('news_teaser.md'),
   },
-  props: {},
+  props: {
+    anchorNavReference: 'news_teaser',
+  },
 });
 const variants = _.mapValues({
   default: {
