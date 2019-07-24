@@ -158,7 +158,7 @@ class Helper {
    * @memberof Helper
    */
   public setHiddenTabIndex(excludeNode) {
-    [].slice.call(window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY)).forEach((focusable) => {
+    [].slice.call(window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY)).forEach((focusable) => { // eslint-disable-line
       if (!excludeNode.contains(focusable)) {
         if (focusable.hasAttribute('tabindex')) {
           focusable.setAttribute('data-tabindex', focusable.getAttribute('tabindex'));
@@ -176,7 +176,7 @@ class Helper {
    * @memberof Helper
    */
   public resetHiddenTabIndex() {
-    [].slice.call(window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY)).forEach((focusable) => {
+    [].slice.call(window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY)).forEach((focusable) => { // eslint-disable-line
       const tabindex = focusable.hasAttribute('data-tabindex') ? focusable.getAttribute('data-tabindex') : false;
 
       if (tabindex) {
