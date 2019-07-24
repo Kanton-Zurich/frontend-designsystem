@@ -80,15 +80,18 @@ class Anchornav extends Module {
     this.containsExceedingTriggerPoints = false;
 
     this.initUi();
-    this.initEventListeners();
+
     // Custom methodes
     this.setDocumentHeight();
     this.storeNavigationPosition();
     this.calculatePageAnchorDistances();
-    this.onPageScroll();
-    this.setupControlButtons();
-    this.initializeImpetus();
-    this.onPageDebounceScrolled();
+    if (this.pageAnchors.length > 0) {
+      this.initEventListeners();
+      this.onPageScroll();
+      this.setupControlButtons();
+      this.initializeImpetus();
+      this.onPageDebounceScrolled();
+    }
   }
 
   static get events() {
