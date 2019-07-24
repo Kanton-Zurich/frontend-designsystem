@@ -185,66 +185,11 @@ const variants = _.mapValues({
       topiclistLead: false,
       isTopiclistHome: true,
       topiclistButtonLabel: 'Alle anzeigen',
-      topiclistcontentNavData: _.merge({}, contentNavDataDef, {
-        items: [
-          _.merge({}, contentTeaserDefaultData.variants.default.props, {
-            shortTitle: 'Gesundheit',
-            buzzwords: 'Krankenversicherung, Gesundheitsversorgung, Gesundheitsberufe, Gesund bleiben',
-          }),
-          _.merge({}, contentTeaserDefaultData.variants.default.props, {
-            shortTitle: 'Familie',
-            buzzwords: 'Partnerschaft, Eltern & Kinder, Unterstützung für Kinder & Jugendliche, Alter, Tod, Vormundschaft',
-          }),
-          _.merge({}, contentTeaserDefaultData.variants.default.props, {
-            shortTitle: 'Soziales',
-            buzzwords: 'Arbeitslosigkeit, Finanzielle Hilfen, Sozialversicherungen, Beratungsangebote, Soziale Einrichtungen',
-          }),
-          _.merge({}, contentTeaserDefaultData.variants.default.props, {
-            shortTitle: 'Bildung',
-            buzzwords: 'Bildungssystem, Schulen, Unterrichten, Schwierigkeiten in der Schule, Weiterbildung, Forschung, Bildungsgerechtigkeit',
-          }),
-          _.merge({}, contentTeaserDefaultData.variants.default.props, {
-            shortTitle: 'Sport & Kultur',
-            buzzwords: 'Jugendsport, Sportförderung, Kulturpolitik, Kulturförderung, Kulturpreise, Archäologie',
-          }),
-          _.merge({}, contentTeaserDefaultData.variants.default.props, {
-            shortTitle: 'Wirtschaft & Arbeit',
-            buzzwords: 'Arbeitsmarkt, Arbeitnehmer- & Arbeitgeberverhältnis, Schwarzarbeit',
-          }),
-          _.merge({}, contentTeaserDefaultData.variants.default.props, {
-            shortTitle: 'Steuern',
-            buzzwords: 'Steuererklärung, Steuern bezahlen, Grundlagen',
-          }),
-          _.merge({}, contentTeaserDefaultData.variants.default.props, {
-            shortTitle: 'Mobilität',
-            buzzwords: 'Reisen: Pass & ID, Fahren lernen, Führerausweis, Fahrzeuge, Autonummern, Gesamtverkehr, Öffentlicher Verkehr',
-          }),
-          _.merge({}, contentTeaserDefaultData.variants.default.props, {
-            shortTitle: 'Bauen & Planen',
-            buzzwords: 'Karten, Bauprojekte (Hochbau), Baubewilligung, Wohnbauförderung, Energie, Lärm',
-          }),
-          _.merge({}, contentTeaserDefaultData.variants.default.props, {
-            shortTitle: 'Umwelt & Tier',
-            buzzwords: 'Tier, Umweltschutz, Boden, Wald & Pflanzen, Wasser, Luft, Politik & Staat',
-          }),
-          _.merge({}, contentTeaserDefaultData.variants.default.props, {
-            shortTitle: 'Wahlen & Abstimmungen',
-            buzzwords: 'Bezirke, Gemeinden, Daten & Statistik, Recht & Gesetze, Beschlüsse, Vernehmlassungen',
-          }),
-          _.merge({}, contentTeaserDefaultData.variants.default.props, {
-            shortTitle: 'Migration & Integration',
-            buzzwords: 'Willkommen im Kanton Zürich, Einreise, Aufenthalt, Wegweisung, Asyl, Integration, Einbürgerung',
-          }),
-          _.merge({}, contentTeaserDefaultData.variants.default.props, {
-            shortTitle: 'Sicherheit & Justiz',
-            buzzwords: 'Polizeimeldungen, Bussen, ePolice, Strafanzeige, Prävention, Kriminalitätsstatisik',
-          }),
-          _.merge({}, contentTeaserDefaultData.variants.default.props, {
-            shortTitle: 'Über den Kanton',
-            buzzwords: 'Zahlen & Fakten, So funktioniert der Kanton, Grossprojekte, Ausgewählte Publikationen',
-          }),
-        ],
-      }),
+      topiclistcontentNavData: {
+        items: [],
+        selector: 'data-topiclist="navigation"',
+        additionalClasses: 'mdl-topiclist__navigation',
+      },
       autosuggestTopicList: {
         items: [],
         selector: 'data-topiclist="autosuggest"',

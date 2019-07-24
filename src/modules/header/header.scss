@@ -3,6 +3,11 @@ $headerCurves: (
     tiny: 48px,
     xsmall: 56px,
     medium: 72px
+  ),
+  heightWithBorder: (
+    tiny: 53px,
+    xsmall: 61px,
+    medium: 77px
   )
 );
 
@@ -99,4 +104,9 @@ $headerCurves: (
 
 .cv-monochrome.mdl-header {
   background: $colorWhite;
+}
+
+/** SPECIAL STYLE FOR HTML-TAG TO ADD PADDING TO COMPENSATE FIXED HEADER */
+html.fixed-header {
+  @include sizeCurve(padding-top, heightWithBorder, $headerCurves);
 }

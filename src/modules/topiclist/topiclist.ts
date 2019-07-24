@@ -20,11 +20,13 @@ class Topiclist extends Module {
     stateClasses: {
       expanded: string,
       filtered: string,
+      nav: string,
     };
   }
 
   public data: {
     query: string,
+    isNav: boolean,
     json: {
       topics: Array<{
         title: string,
@@ -59,6 +61,7 @@ class Topiclist extends Module {
       query: '',
       json: {},
       topics: [],
+      isNav: false,
     };
     const defaultOptions = {
       hasFilter: false,
@@ -75,11 +78,14 @@ class Topiclist extends Module {
       stateClasses: {
         expanded: 'mdl-topiclist--expanded',
         filtered: 'mdl-topiclist--filtered',
+        nav: 'mdl-topiclist--nav',
       },
     };
     super($element, defaultData, defaultOptions, data, options);
 
     this.options.hasFilter = typeof this.ui.input !== typeof undefined;
+
+    this.data.isNav = this.ui.element.classList.contains(this.options.stateClasses.nav);
 
     this.initUi();
     this.initEventListeners();
@@ -95,6 +101,15 @@ class Topiclist extends Module {
   initEventListeners() {
     this.eventDelegate
       .on('click', this.options.domSelectors.showAllButton, this.showAll.bind(this));
+
+    if (this.data.isNav) {
+      this.eventDelegate
+        .on('loadNavigation', async () => {
+          if (Object.keys(this.data.json).length === 0) {
+            await this.fetchData();
+          }
+        });
+    }
   }
 
   initWatchers() {

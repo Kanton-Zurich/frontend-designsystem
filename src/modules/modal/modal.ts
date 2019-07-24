@@ -14,15 +14,23 @@ class Modal extends Module {
   private headerHeight: number;
   public scrollThreshold: number;
 
+  public options: {
+    domSelectors: any,
+    stateClasses: any;
+    transitionTime: number,
+  }
+
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
     const defaultOptions = {
+      transitionTime: 500,
       domSelectors: {
         pageHeader: '.mdl-page-header',
         closeButton: '.mdl-page-header__closebutton',
       },
       stateClasses: {
         show: 'mdl-modal--show',
+        transHide: 'mdl-modal--transition-hide',
       },
     };
     super($element, defaultData, defaultOptions, data, options);
@@ -54,6 +62,8 @@ class Modal extends Module {
       this.updateOnScroll(0);
       this.updateSizing();
       document.documentElement.style.overflowY = 'hidden';
+
+      this.ui.element.setAttribute('aria-hidden', 'false');
     });
     this.eventDelegate.on('Modal.initContent', () => {
       if (!this.hasCloseBtn) {
@@ -123,9 +133,16 @@ class Modal extends Module {
 
   closeModal() {
     document.documentElement.style.overflowY = 'initial';
-    this.ui.element.classList.remove(this.options.stateClasses.show);
+    this.ui.element.classList.add(this.options.stateClasses.transHide);
     document.documentElement.scrollTo(0, this.parentScrollPosition);
     window.removeEventListener('keydown', this.closeOnEscapeFunction);
+
+    this.ui.element.setAttribute('aria-hidden', 'true');
+
+    setTimeout(() => {
+      this.ui.element.classList.remove(this.options.stateClasses.show);
+      this.ui.element.classList.remove(this.options.stateClasses.transHide);
+    }, this.options.transitionTime);
   }
 
   /**
