@@ -35,6 +35,46 @@ const defPageHeaderCustomData = {
     ],
   },
 };
+const defAnchorNavData = {
+  anchornavTitle: {
+    level: 5,
+    title: 'Inhaltsverzeichnis',
+  },
+  anchornavItems: [
+    {
+      anchorlink: {
+        anchorlinkText: 'Themen',
+        anchorlinkAdress: '#ourtopics',
+        anchorlinkIsActive: true,
+        anchorlinkAsButton: true,
+      },
+    },
+    {
+      anchorlink: {
+        anchorlinkText: 'Veranstaltungen',
+        anchorlinkAdress: '#eventsTODO',
+        anchorlinkIsActive: false,
+        anchorlinkAsButton: true,
+      },
+    },
+    {
+      anchorlink: {
+        anchorlinkText: 'Kontakt',
+        anchorlinkAdress: '#contact',
+        anchorlinkIsActive: false,
+        anchorlinkAsButton: true,
+      },
+    },
+    {
+      anchorlink: {
+        anchorlinkText: 'Team',
+        anchorlinkAdress: '#teamTODO',
+        anchorlinkIsActive: false,
+        anchorlinkAsButton: true,
+      },
+    },
+  ],
+};
 
 const defTopicListCustomData = {
   contentNavData: _.merge({}, {
@@ -61,6 +101,7 @@ const defTopicListCustomData = {
 const defContactCustomData = {
   fullWidth: true,
   contactTitle: 'Kontakt',
+  anchorNavReference: 'contact',
   contactAddress: {
     name: 'biz Kloten',
     street: 'Hamelirainstrasse 4',
@@ -95,7 +136,7 @@ const defContactCustomData = {
 const defTeaserCustomData = {
   teaserTitle: 'Werden Sie Teil unseres Teams',
   teaserDescription: 'Wir bieten Ihnen ein spannendes Tätigkeitsfeld und eine angenehme Arbeitsumgebung',
-}
+};
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -110,7 +151,8 @@ const data = _.merge({}, defaultData, {
     text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData, defPageHeaderCustomData),
-      topicListData: _.merge({}, _.omit(defTopicListData, ['contentNavData']), defTopicListCustomData),
+      anchorNav: defAnchorNavData,
+      topicListData: _.merge({}, _.omit(defTopicListData, ['contentNavData']), defTopicListCustomData, { topiclistHeading: { anchorNavReference: 'ourtopics' } }),
       contactData: defContactCustomData,
       teaserData: _.merge({}, defTeaserData, defTeaserCustomData),
     },

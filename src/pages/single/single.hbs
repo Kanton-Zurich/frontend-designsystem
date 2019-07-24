@@ -7,12 +7,12 @@
   {{/content}}
 
   {{#content "content"}}
-    <h1>(--ANKERNAVIGATION PLACEHOLDER--)</h1>
+    {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
     {{> "modules/topiclist/topiclist" props.modules.topicListData}}
-    <h1>(--VERANSTALTUNGEN KOMPONENTE PLACEHOLDER--)</h1>
+    <h1 id="eventsTODO">(--VERANSTALTUNGEN KOMPONENTE PLACEHOLDER--)</h1>
     {{> "modules/contact/contact" props.modules.contactData}}
     <h1>(--MAP PLACEHOLDER--)</h1>
-    <h1>(--PERSONEN-TEASER PLACEHOLDER--)</h1>
+    <h1 id="teamTODO">(--PERSONEN-TEASER PLACEHOLDER--)</h1>
     {{> "modules/teaser/teaser" props.modules.teaserData}}
     <h1>(--SOCIALMEDIA PLACEHOLDER--)</h1>
   {{/content}}

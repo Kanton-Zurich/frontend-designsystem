@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const template = dataHelper.getFileContent('service_list.hbs');
@@ -53,6 +53,9 @@ const variants = _.mapValues({
     },
     props: {
       hasHeading: true,
+      serviceListHeading: {
+        title: 'Service',
+      },
     },
   },
   noHeading: {

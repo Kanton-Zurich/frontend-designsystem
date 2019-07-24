@@ -1,4 +1,4 @@
-<div class="mdl-contact{{#if fullWidth}} mdl-contact--fullwidth{{/if}}" data-init="contact">
+<div class="mdl-contact{{#if fullWidth}} mdl-contact--fullwidth{{/if}}" data-init="contact"{{#unless contactTitle}} id="{{anchorNavReference}}"{{/unless}}>
   {{#if fullWidth}}
   <div class="lyt-wrapper">
   <div class="grid-x grid-margin-x">
@@ -6,7 +6,7 @@
   {{/if}}
 
   {{#if contactTitle}}
-    <h2 class="atm-heading atm-heading--bordered">{{contactTitle}}</h2>
+    <h2 {{#if anchorNavReference}}id="{{anchorNavReference}}" {{/if}}class="atm-heading atm-heading--bordered">{{contactTitle}}</h2>
   {{/if}}
 
   {{#if contactSubtitle}}
