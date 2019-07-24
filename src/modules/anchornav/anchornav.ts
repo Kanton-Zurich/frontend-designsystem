@@ -284,6 +284,7 @@ class Anchornav extends Module {
     // Check that the anchor is referring to the own page and if the string contains letters^
     if (target.dataset.href[0] === '#' && targetName.length !== 0 && isClickEvent) {
       this.moveToAnchor(targetName);
+      this.toggleActiveNavigationItemClass(target);
     }
 
     return true;
@@ -545,8 +546,11 @@ class Anchornav extends Module {
    */
   onPageDebounceScrolled() {
     let anchor;
+    /*
+    const maxIndex = this.pageAnchors.length - 1; // Handle items if there is not enough space
+    */
     const scrollPosition = document.documentElement.getBoundingClientRect().top;
-
+    
     // Handle active item class on scrolling
     if (this.pageAnchors.length > 0) {
       const navHeight = this.ui.element.getBoundingClientRect().height;
@@ -570,6 +574,14 @@ class Anchornav extends Module {
           // TOP
           anchor = (<any> this.pageAnchors)[0].navItem;
         }
+        /*
+        // Handle items if there is not enough space
+        else if (scrollPosition <
+        -(<any> this.pageAnchors)[maxIndex].pageHookDistanceToTop - -(navHeight)) {
+          console.log('Bottom');
+          anchor = (<any> this.pageAnchors)[maxIndex].navItem;
+        }
+        */
       }
     }
 
