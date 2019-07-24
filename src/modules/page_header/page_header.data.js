@@ -267,6 +267,8 @@ const variants = _.mapValues({
       pageTitle: 'Applikation',
       applicationHeader: true,
       inverted: true,
+      noButton: true,
+      noText: true,
       buttonData: _.merge({}, defButtonData, {isInverted: true}),
       hasBreadcrumb: true,
     },
@@ -281,6 +283,8 @@ const variants = _.mapValues({
     props: {
       pageTitle: 'Applikation',
       inverted: true,
+      noButton: true,
+      noText: true,
       buttonData: _.merge({}, defButtonData, {isInverted: true}),
       hasBreadcrumb: true,
     },
