@@ -38,6 +38,9 @@
 
   &__image {
     @include mq($from: tiny, $to: medium) {
+      display: block;
+      margin-bottom: $sizeRegular;
+
       @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 6, $gridWidthColumns, $trailingGutter: false);
     }
     @include mq($from: medium) {
