@@ -135,7 +135,6 @@
       height: pxToRem($sizeHuge);
     }
   }
-
   @include mq($from: medium) {
     margin-bottom: pxToRem($sizeHuge);
 
@@ -169,6 +168,7 @@
     .atm-anchorlink {
       margin-left: 0;
       height: pxToRem(48px);
+
       @include mq($from: xsmall) {
         height: pxToRem($sizeHuge);
       }
