@@ -10,7 +10,7 @@
     gutters: $grid-margin-gutters,
     items: (
       tiny: $sizeRegular,
-      medium: $sizeLarge
+      large: $sizeLarge
     ),
   );
 
@@ -53,17 +53,18 @@
       @include sizeCurve(padding-left, gutters, $paddingSizes);
     }
 
-    p,
     span {
       line-height: 1.5em;
-
-      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      font-size: $sizeFontRegular;
     }
 
     p {
       margin-top: 0;
       margin-bottom: $sizeRegular;
       hyphens: auto;
+      line-height: 1.5em;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
     }
 
     .icon {
