@@ -317,7 +317,7 @@ class Table extends Module {
    */
   readTableData() {
     const tableRows = [];
-    const domRows = this.ui.table.querySelectorAll('tbody tr');
+    const domRows = [].slice.call(this.ui.table.querySelectorAll('tbody tr'));
 
     domRows.forEach((row) => {
       const cells = row.querySelectorAll(this.options.domSelectors.cell);
@@ -351,10 +351,10 @@ class Table extends Module {
       this.data.clonedTable.remove();
     }
 
-    const tBodyRows = this.ui.table.querySelectorAll('tbody tr');
+    const tBodyRows = [].slice.call(this.ui.table.querySelectorAll('tbody tr'));
 
     tBodyRows.forEach((row, rowIndex) => {
-      const cells = row.querySelectorAll(this.options.domSelectors.cell);
+      const cells = [].slice.call(row.querySelectorAll(this.options.domSelectors.cell));
 
       cells.forEach((cell, cellIndex) => {
         cell.innerHTML = sortedData[rowIndex][cellIndex];
@@ -378,7 +378,7 @@ class Table extends Module {
    * @memberof Table
    */
   cleanSortableColumns() {
-    const sortableButtons = this.ui.table.querySelectorAll('thead tr th button');
+    const sortableButtons = [].slice.call(this.ui.table.querySelectorAll('thead tr th button'));
 
     sortableButtons.forEach((sortableButton) => {
       sortableButton.classList.remove(this.options.stateClasses.columnAscending);

@@ -34,14 +34,14 @@ class Grid extends Helper {
   run() {
     if (!this.isActive) {
       this.domClasses.wrapperClasses.forEach((className) => {
-        const foundNodes = document.querySelectorAll(className);
+        const foundNodes = [].slice.call(document.querySelectorAll(className));
 
         foundNodes.forEach(node => node.appendChild(this.generateDevGrid()));
       });
 
       this.isActive = true;
     } else {
-      const fakeGrids = document.querySelectorAll(`.${this.domClasses.mainClass}`);
+      const fakeGrids = [].slice.call(document.querySelectorAll(`.${this.domClasses.mainClass}`));
 
       fakeGrids.forEach(fakeGrid => fakeGrid.remove());
 
@@ -78,10 +78,10 @@ class Grid extends Helper {
   recalcColumns() {
     const mobileColumns: number = 6;
     const columns: number = MediaQuery.query({ from: 'tiny', to: 'small' }) ? mobileColumns : 12; // eslint-disable-line no-magic-numbers
-    const devGrids = document.querySelectorAll(`.${this.domClasses.mainClass}`);
+    const devGrids = [].slice.call(document.querySelectorAll(`.${this.domClasses.mainClass}`));
 
     devGrids.forEach((devGrid) => {
-      const nCells = devGrid.querySelectorAll(`.${this.domClasses.cellClasses[0]}`).length;
+      const nCells = [].slice.call(devGrid.querySelectorAll(`.${this.domClasses.cellClasses[0]}`)).length;
       if (nCells !== columns) {
         if ((columns - nCells) === -1 * mobileColumns) {
           for (let i = 0; i < (nCells - columns); i += 1) {

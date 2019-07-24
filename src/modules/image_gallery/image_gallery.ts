@@ -109,8 +109,8 @@ class ImageGallery extends Module {
    * @memberof ImageGallery
    */
   setIndexNumbers() {
-    const images = this.ui.element
-      .firstElementChild.querySelectorAll(this.options.domSelectors.openCarousel);
+    const images = [].slice.call(this.ui.element
+      .firstElementChild.querySelectorAll(this.options.domSelectors.openCarousel));
 
     images.forEach((image, index) => {
       image.setAttribute('data-gallery-index', index.toString());
