@@ -40,6 +40,7 @@ class Anchornav extends Module {
       content: string,
     },
     stateClasses: {
+      stickyMode: string,
       activeNavItem: string,
       shadowRight: string,
       shadowLeft: string,
@@ -97,8 +98,8 @@ class Anchornav extends Module {
   }
 
   /**
-  * Event listeners initialisation
-  */
+   * Event listeners initialisation
+   */
   initEventListeners() {
     this.eventDelegate
       .on('mousedown', (<any> this.options).domSelectors.navItems, this.onMouseDown.bind(this))
@@ -106,19 +107,34 @@ class Anchornav extends Module {
       .on('click', (<any> this.options).domSelectors.navItems, this.onMouseClick.bind(this))
       .on('click', (<any> this.options).domSelectors.ctrlRight, this.onControlBtnClick.bind(this, 'right'))
       .on('click', (<any> this.options).domSelectors.ctrlLeft, this.onControlBtnClick.bind(this, 'left'));
+    /*
+    // For subtask
+    .on('scroll', (<any> this.options).domSelectors.content, this.scrollOnContent.bind(this));
+    */
 
     (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
     (<any>WindowEventListener).addDebouncedScrollListener(this.onPageDebounceScrolled.bind(this));
     (<any>WindowEventListener).addEventListener('scroll', this.onPageScroll.bind(this)); // Necessary for jump.js plugin
   }
 
-  /**
-  * Store the inital positon of the navigation if they is not fixed
-  * otherwise take the postion from the placeholder div
+  /*
+  // For subtask
+  scrollOnContent(event) {
+    this.impetusUpdate(-event.target.scrollLeft);
+  }
   */
+
+  /**
+   * Store the inital positon of the navigation if they is not fixed
+   * otherwise take the postion from the placeholder div
+   */
   storeNavigationPosition() {
     let navElement;
     if (window.getComputedStyle(this.ui.element, null).position !== 'fixed') {
+      /*
+      // For subtask
+      navElement = (<any> this.ui).scrollArea;
+      */
       navElement = this.ui.element;
     } else {
       navElement = this.placeholder;
@@ -127,13 +143,13 @@ class Anchornav extends Module {
   }
 
   /**
-  * Creates the pageAnchors array
-  *
-  * pageAnchor-item = {
+   * Creates the pageAnchors array
+   *
+   * pageAnchor-item = {
   *  navItem: navitem-reference (atm-anchorlink) <HTMLElement>
   *  pageHookDistanceToTop: scroll pixel distance to page top <number>
   * }
-  */
+   */
   calculatePageAnchorDistances() {
     this.pageAnchors = [];
     const maxScrollY = this.getDocumentHeight() - window.innerHeight;
@@ -165,8 +181,8 @@ class Anchornav extends Module {
   }
 
   /**
-  * Initial button check if window is over 840 and there is some scrollable space
-  */
+   * Initial button check if window is over 840 and there is some scrollable space
+   */
   setupControlButtons() {
     this.navScrollSpaceHorizontal = this.getSwipeBorder();
     if ((this.navScrollSpaceHorizontal > 1 || this.navScrollSpaceHorizontal < -1)) {
@@ -179,36 +195,39 @@ class Anchornav extends Module {
   }
 
   /**
-  * Toggle left-/right-shadow class on nav list wrapper
-  */
+   * Toggle left-/right-shadow class on nav list wrapper
+   */
   handleShadow() {
     const rightClass = this.options.stateClasses.shadowRight;
     const leftClass = this.options.stateClasses.shadowLeft;
     const scrollWrapper = (<any> this.ui).scrollAreaWrapper;
 
-    if (this.navPositionHorizontal <= 0
-      && this.navPositionHorizontal >= -(this.showButtonTolerance)) {
+    const navPosition = Math.abs(this.navPositionHorizontal);
+    const scrollSpaceRight = Math.abs(this.navScrollSpaceHorizontal);
+
+
+    if (navPosition >= 0 && navPosition <= this.showButtonTolerance) {
       scrollWrapper.classList.add(rightClass);
       scrollWrapper.classList.remove(leftClass);
-    } else if (this.navPositionHorizontal >= this.navScrollSpaceHorizontal
-      && this.navPositionHorizontal <= (this.navScrollSpaceHorizontal + this.showButtonTolerance)) {
+    } else if (navPosition >= scrollSpaceRight
+      && navPosition >= (scrollSpaceRight - this.showButtonTolerance)) {
       scrollWrapper.classList.remove(rightClass);
       scrollWrapper.classList.add(leftClass);
-    } else {
+    } else if (navPosition > this.showButtonTolerance
+      && navPosition < (scrollSpaceRight - this.showButtonTolerance)) {
       scrollWrapper.classList.add(rightClass);
       scrollWrapper.classList.add(leftClass);
     }
 
-    if ((this.navScrollSpaceHorizontal <= this.showButtonTolerance
-      && this.navScrollSpaceHorizontal >= -(this.showButtonTolerance))) {
+    if (scrollSpaceRight <= 1) {
       scrollWrapper.classList.remove(rightClass);
       scrollWrapper.classList.remove(leftClass);
     }
   }
 
   /**
-  * Toggle the buttons corresponding to scrollable space position(left/right/both)
-  */
+   * Toggle the buttons corresponding to scrollable space position(left/right/both)
+   */
   handleControlButtons() {
     if (this.navPositionHorizontal >= 0 && this.navPositionHorizontal < this.showButtonTolerance) {
       this.showControlButton('right');
@@ -226,28 +245,28 @@ class Anchornav extends Module {
   }
 
   /**
-  * Mousedown-Callback on navigation anchors.
-  * Store initial click position to differentiate click and swipe in mouseup event
-  * @param event
-  */
+   * Mousedown-Callback on navigation anchors.
+   * Store initial click position to differentiate click and swipe in mouseup event
+   * @param event
+   */
   onMouseDown(event) {
     this.mousePositionOnDown = event.screenX;
   }
 
   /**
-  * Click-Callback on navigation anchors.
-  * Only nessesary to prevent standart behavior
-  */
+   * Click-Callback on navigation anchors.
+   * Only nessesary to prevent standart behavior
+   */
   onMouseClick() {
     return false;
   }
 
   /**
-  * On Mouse up callback
-  * Checks the mouse down/up delta to decide if its a swipe or a click.
-  *
-  * @param event
-  */
+   * On Mouse up callback
+   * Checks the mouse down/up delta to decide if its a swipe or a click.
+   *
+   * @param event
+   */
   onMouseUp(event) {
     // Stop event if the delta is to big
     const mouseEventDelta = event.screenX - this.mousePositionOnDown;
@@ -271,10 +290,10 @@ class Anchornav extends Module {
   }
 
   /**
-  * Launches the jump.js plugin to move to the corresponing named anchor on the page
-  *
-  * @param targetName<string>
-  */
+   * Launches the jump.js plugin to move to the corresponing named anchor on the page
+   *
+   * @param targetName<string>
+   */
   moveToAnchor(targetName) {
     jump(`#${targetName}`, {
       offset: -(this.ui.element.getBoundingClientRect().height + this.jumpToTolerance),
@@ -282,16 +301,16 @@ class Anchornav extends Module {
   }
 
   /**
-  * Returns the current document height from module variable
-  * @return {number}
-  */
+   * Returns the current document height from module variable
+   * @return {number}
+   */
   getDocumentHeight() {
     return this.documentHeight;
   }
 
   /**
-  * Sets the current document height to module variable
-  */
+   * Sets the current document height to module variable
+   */
   setDocumentHeight() {
     const { body } = document;
     const html = document.documentElement;
@@ -301,8 +320,8 @@ class Anchornav extends Module {
   }
 
   /**
-  * Initialize the impetus instance
-  */
+   * Initialize the impetus instance
+   */
   initializeImpetus() {
     this.impetusInstance = new Impetus({
       source: (<any> this.ui).scrollArea,
@@ -313,10 +332,10 @@ class Anchornav extends Module {
   }
 
   /**
-  * Get the posible translation offset of the scrollable content
-  *
-  * @return {number}
-  */
+   * Get the posible translation offset of the scrollable content
+   *
+   * @return {number}
+   */
   getSwipeBorder() {
     // IE11 do not work correctly with getBoundingClientRect
     const scrollAreaWidth = (<any> this.ui).scrollArea.scrollWidth;
@@ -334,10 +353,10 @@ class Anchornav extends Module {
   }
 
   /**
-  * Update callback from impetus plugin
-  *
-  * @param x
-  */
+   * Update callback from impetus plugin
+   *
+   * @param x
+   */
   impetusUpdate(x) {
     let dir;
     if (x < this.navPositionHorizontal) {
@@ -351,17 +370,22 @@ class Anchornav extends Module {
     this.handleShadow();
 
     (<any> this.ui).scrollArea.style.left = `${x}px`;
+    /*
+    // For subtask
+    (<any> this.ui).scrollArea.scrollTo(Math.abs(x), 0);
+    */
+
     if ((this.navScrollSpaceHorizontal > this.showButtonTolerance
-        || this.navScrollSpaceHorizontal < -(this.showButtonTolerance))) {
+      || this.navScrollSpaceHorizontal < -(this.showButtonTolerance))) {
       this.handleControlButtons();
     }
   }
 
   /**
-  * Toggle the nav buttons styles
-  *
-  * @param {string} state
-  */
+   * Toggle the nav buttons styles
+   *
+   * @param {string} state
+   */
   showControlButton(state: string) {
     const buttonParentRight = (<any> this.ui).ctrlRight.parentNode;
     const buttonParentLeft = (<any> this.ui).ctrlLeft.parentNode;
@@ -385,11 +409,11 @@ class Anchornav extends Module {
   }
 
   /**
-  * Remove the active class from the last active element
-  * an apply it to the given target parameter
-  *
-  * @param target
-  */
+   * Remove the active class from the last active element
+   * an apply it to the given target parameter
+   *
+   * @param target
+   */
   toggleActiveNavigationItemClass(target) {
     (<any> this.ui).activeNavItem.classList.remove(this.options.stateClasses.activeNavItem);
     target.classList.add(this.options.stateClasses.activeNavItem);
@@ -397,11 +421,11 @@ class Anchornav extends Module {
   }
 
   /**
-  * Calculate to distance from the given element to the page top
-  *
-  * @param element
-  * @return {number}
-  */
+   * Calculate to distance from the given element to the page top
+   *
+   * @param element
+   * @return {number}
+   */
   getDistanzeToPageTopFor(element): number {
     const rect = element.getBoundingClientRect();
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -409,11 +433,11 @@ class Anchornav extends Module {
   }
 
   /**
-  * Handle clicks on the navigation control buttons to calculate the next valid scroll area offset
-  * and in-/decrement the invisible index
-  *
-  * @param data ("left"/"rigth")
-  */
+   * Handle clicks on the navigation control buttons to calculate the next valid scroll area offset
+   * and in-/decrement the invisible index
+   *
+   * @param data ("left"/"rigth")
+   */
   onControlBtnClick(data) {
     const maxIndex = (<any> this.ui).navItems.length - 1;
     if (data === 'right') {
@@ -435,11 +459,11 @@ class Anchornav extends Module {
   }
 
   /**
-  * Updates the invisible index based on the swipe direction
-  * and the current horizontal position of the scrollable content
-  *
-  * @param {string} direction
-  */
+   * Updates the invisible index based on the swipe direction
+   * and the current horizontal position of the scrollable content
+   *
+   * @param {string} direction
+   */
   updateInvisibleIndexOnSwipe(direction: string) {
     let lastMatchedIndex;
     if (direction === 'right') {
@@ -466,9 +490,9 @@ class Anchornav extends Module {
   }
 
   /**
-  * Validate the given position and pass it to the impetus update function
-  * @param position
-  */
+   * Validate the given position and pass it to the impetus update function
+   * @param position
+   */
   emulateSwipeTo(position) {
     const boarderRight = this.getSwipeBorder();
     let x = position;
@@ -481,8 +505,8 @@ class Anchornav extends Module {
   }
 
   /**
-  * On resize callback. Calls all function that set relevant attributes
-  */
+   * On resize callback. Calls all function that set relevant attributes
+   */
   onResize() {
     this.storeNavigationPosition();
     this.setDocumentHeight();
@@ -490,6 +514,7 @@ class Anchornav extends Module {
     this.onPageScroll();
     this.setupControlButtons();
     (<any> this.impetusInstance).setBoundX([this.getSwipeBorder(), 0]);
+
     this.handleShadow();
 
     // If its enough space for all items align the wrapper let to 0
@@ -499,8 +524,8 @@ class Anchornav extends Module {
   }
 
   /**
-  * Plain scroll callback. Responsible for the pin-/unpining the anchornav
-  */
+   * Plain scroll callback. Responsible for the pin-/unpining the anchornav
+   */
   onPageScroll() {
     const currentScrollPosition = document.documentElement.getBoundingClientRect().top;
     const pinPos = -(this.originalNavPosition);
@@ -515,9 +540,9 @@ class Anchornav extends Module {
   }
 
   /**
-  * Debounced scroll callback. Responsible for toggling the anchornav item active class
-  * and do beside the autoscroll if its possible
-  */
+   * Debounced scroll callback. Responsible for toggling the anchornav item active class
+   * and do beside the autoscroll if its possible
+   */
   onPageDebounceScrolled() {
     let anchor;
     const scrollPosition = document.documentElement.getBoundingClientRect().top;
@@ -554,9 +579,9 @@ class Anchornav extends Module {
   }
 
   /**
-  * Create the placeholder div if its not define
-  * else it just positionated the div relative in the docmuent flow
-  */
+   * Create the placeholder div if its not define
+   * else it just positionated the div relative in the docmuent flow
+   */
   createPlaceholder() {
     if (this.placeholder === undefined) {
       this.placeholder = document.createElement('div');
@@ -568,9 +593,10 @@ class Anchornav extends Module {
   }
 
   /**
-  * Calculate the nav height for the placeholder div
-  */
+   * Calculate the nav height for the placeholder div
+   */
   setPlaceholderHeight() {
+    // Numbers from style definition/figma
     const smallMargin = 40;
     const bigMargin = 56;
     const toleranceDivider = 4;
@@ -585,35 +611,25 @@ class Anchornav extends Module {
   }
 
   /**
-  * Add all fixed-styles to the anchornav
-  */
+   * Add all fixed-styles to the anchornav
+   */
   pinNavigation() {
-    this.ui.element.style.position = 'fixed';
-    this.ui.element.style.top = '0';
-    this.ui.element.style.left = '0';
-    this.ui.element.style.transform = 'none';
-    this.ui.element.style.marginLeft = '0';
-
+    this.ui.element.classList.add(this.options.stateClasses.stickyMode);
     this.navigationIsFixed = true;
   }
 
   /**
-  * Removed all fixed-styles on the anchornav
-  */
+   * Removed all fixed-styles on the anchornav
+   */
   unpinNavigation() {
-    this.ui.element.style.removeProperty('position');
-    this.ui.element.style.removeProperty('top');
-    this.ui.element.style.removeProperty('left');
-    this.ui.element.style.removeProperty('transform');
-    this.ui.element.style.removeProperty('margin-left');
-
+    this.ui.element.classList.remove(this.options.stateClasses.stickyMode);
     this.placeholder.style.position = 'absolute';
     this.navigationIsFixed = false;
   }
 
   /**
-  * Unbind events, remove data, custom teardown
-  */
+   * Unbind events, remove data, custom teardown
+   */
   destroy() {
     super.destroy();
 

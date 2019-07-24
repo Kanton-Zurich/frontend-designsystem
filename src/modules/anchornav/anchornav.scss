@@ -6,6 +6,19 @@
   background-color: $colorWhite;
   z-index: $zIndexScaffolds;
 
+  &--sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: none;
+    margin-left: 0;
+    padding-top: 0;
+
+    .atm-heading {
+      display: none;
+    }
+  }
+
 
   @include mq($from: zero, $to: xsmall) {
     > .lyt-wrapper {
@@ -74,7 +87,7 @@
     @include resetList();
     min-width: 100%;
     -ms-overflow-style: none;
-    overflow: auto;
+    overflow: scroll;
     overflow-y: hidden;
 
     display: flex;
@@ -136,11 +149,13 @@
   * Module Overwrites
   */
   .atm-heading {
-    margin-top: $sizeRegular;
+    padding-top: 0;
+    margin-top: 0;
     margin-bottom: 0;
     font-size: $sizeFontTiny;
     line-height: $sizeLineHeightBase;
     font-weight: $fontWeightDefault;
+    color: $colorBlack60;
   }
 
   &__item:first-of-type {
