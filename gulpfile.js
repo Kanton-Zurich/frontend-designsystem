@@ -586,8 +586,6 @@ gulp.task('media:imageversions', () => {
     dest: './dist/',
   }, env);
 
-  console.log(instance);
-
   // Don't immediately run task when skipping build
   if (env.watch && env.skipBuild) {
     return instance;
