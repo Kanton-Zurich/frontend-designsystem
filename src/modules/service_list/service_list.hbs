@@ -1,6 +1,6 @@
 <div class="mdl-service_list" data-init="servicelist">
-  {{#if hasHeading}}
-    <h2 class="atm-heading atm-heading--bordered ">{{headingText}}</h2>
+  {{#if serviceListHeading}}
+    <h2 class="atm-heading atm-heading--bordered"{{#if serviceListHeading.anchorNavReference}} id="{{serviceListHeading.anchorNavReference}}"{{/if}}>{{serviceListHeading.title}}</h2>
   {{/if}}
   {{#each items}}
     <a href="{{href}}" class="mdl-service_list__item" {{#if external}}target="_blank"{{/if}}
