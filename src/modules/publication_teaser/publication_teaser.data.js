@@ -10,7 +10,7 @@ const contextMenuDownload = require('../context_menu/context_menu.data').variant
 const demoImageFigureData = {
   srcsets: [{
     image: '/assets/media/image/publication-teaser_5_7_372x526_x15.jpeg',
-    imageWidth: 666,
+    imageWidth: 558,
   }],
   alt: 'Das ist ein Beispielbild',
   caption: _.merge({}, defFigcaptionData, {

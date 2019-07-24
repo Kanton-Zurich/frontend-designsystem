@@ -8,6 +8,7 @@ const defContactData = require('../../modules/contact/contact.data.js').variants
 const defTeaserData = require('../../modules/teaser/teaser.data.js');
 const defTagGroupData = require('../../modules/tag_group/tag_group.data.js').variants.default.props;
 const headerData = require('../../modules/header/header.data').props;
+const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withoutLinklist.props;
 
 const defAnchorNavData = {
   anchornavTitle: {
@@ -151,6 +152,7 @@ const data = _.merge({}, defaultData, {
       contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
       teaserData: defTeaserData,
       tagGroupData: _.merge({}, defTagGroupData, { tagGroupdHeading: { anchorNavReference: 'responsibilities' } }),
+      newsTeaserData: defNewsTeaserData,
     },
     defaultColorVariation: 'cv-green',
   },

@@ -9,26 +9,8 @@
     {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
     {{> "modules/related_content/related_content" props.modules.relatedContentData}}
     {{> "modules/focus_teaser/focus_teaser" props.modules.focusTeaserData}}
-    <!--<div class="mdl-about">
-      <div class="mdl-about__block">
-        <h2 class="atm-heading atm-heading--bordered">Über uns</h2>
-      </div>
-      <div class="mdl-about__block">
-        <p class="atm-paragraph">
-          Die Sicherheitsdirektion ist eine von sieben Direktionen des Kantons Zürich. Sie beschäftigt rund 4800
-          Mitarbeiterinnen und Mitarbeiter.
-          Obwohl die Aufgabenbereiche der Sicherheitsdirektion auf den ersten Blick sehr unterschiedlich scheinen,
-          verfolgen sie ein gemeinsames Ziel: Sie dienen der Gewährleistung von Sicherheit in unserem Kanton –
-          Sicherheit im umfassenden Sinn: Nicht nur als Abwesenheit von Gewalt oder Kriminalität sondern auch als
-          Garantie für ein sicheres soziales Netz.
-          Wir verfolgen eine Sozial- und Ausländerpolitik, die für alle Beteiligten fair ist. Und nicht zuletzt sind
-          weite Bevölkerungskreise sportlich aktiv.
-        </p>
-      </div>
-    </div>-->
     {{> "modules/about/about" props.modules.about }}
-    <h2 id="newsTODO" class="atm-heading atm-heading--bordered">News</h2>
-    <h1 style="height: 293px">(--NEWS TEASER PLACEHOLDER--)</h1>
+    {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
     {{> "modules/contact/contact" props.modules.contactData}}
   {{/content}}
   {{#content "footer"}}

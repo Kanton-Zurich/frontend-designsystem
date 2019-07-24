@@ -15,7 +15,7 @@ const data = _.merge({}, defaultData, {
   props: _.merge({
     anchorNavReference: '',
     teaserLink: '#',
-
+    inverted: false,
     teaserTitle_listItem1: 'Flughafenbericht 2018 - das ist ein neuer Flughafenbericht des Flughafens Zürich (ZRH). Flughafenbericht 2018 - das ist ein neuer Flughafenbericht des Flughafens Zürich (ZRH). Flughafenbericht 2018 - das ist ein neuer Flughafenbericht des Flughafens Zürich (ZRH). ',
     teaserTitle_listItem2: 'Hochschulgebiet Zürich Zentrum',
     teaserTitle: 'Kanton Zürich Newsletter',
