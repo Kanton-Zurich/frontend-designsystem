@@ -176,6 +176,10 @@ $pageHeaderCurves: (
     .mdl-page-header__breadcrumb {
       margin-bottom: 0;
       min-height: unset;
+
+      .mdl-breadcrumb {
+        display: none;
+      }
     }
 
     .mdl-page-header__title {
@@ -187,6 +191,31 @@ $pageHeaderCurves: (
 
     .mdl-page-header__logo-container {
       display: none;
+    }
+
+    .mdl-page-header__expander {
+      margin-top: -$sizeMini;
+
+      @include mq($from: tiny, $to: medium) {
+        margin-top: -$sizeTiny;
+      }
+    }
+
+    .lyt-wrapper:first-child {
+      .grid-x:nth-child(2) {
+        display: none;
+      }
+    }
+  }
+
+  &__expander {
+    position: fixed;
+    right: 0;
+    margin-top: $sizeTiny;
+    padding-right: $sizeRegular;
+
+    @include mq($from: tiny, $to: medium) {
+      margin-top: -$sizeTiny;
     }
   }
 
