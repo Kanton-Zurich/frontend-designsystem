@@ -86,7 +86,7 @@ class Helper {
    * @memberof Helper
    */
   public sendRedrawEvent(container) {
-    const childNodes = container.querySelectorAll('[data-redraw]');
+    const childNodes = [].slice.call(container.querySelectorAll('[data-redraw]'));
 
     childNodes.forEach((child) => {
       child.dispatchEvent(new CustomEvent('redraw'));
@@ -158,7 +158,7 @@ class Helper {
    * @memberof Helper
    */
   public setHiddenTabIndex(excludeNode) {
-    window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY).forEach((focusable) => {
+    [].slice.call(window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY)).forEach((focusable) => {
       if (!excludeNode.contains(focusable)) {
         if (focusable.hasAttribute('tabindex')) {
           focusable.setAttribute('data-tabindex', focusable.getAttribute('tabindex'));
@@ -176,7 +176,7 @@ class Helper {
    * @memberof Helper
    */
   public resetHiddenTabIndex() {
-    window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY).forEach((focusable) => {
+    [].slice.call(window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY)).forEach((focusable) => {
       const tabindex = focusable.hasAttribute('data-tabindex') ? focusable.getAttribute('data-tabindex') : false;
 
       if (tabindex) {
