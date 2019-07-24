@@ -13,7 +13,6 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('modal.md'),
   },
   props: {
-    defaultColorVariation: 'cv-green',
     preview: true,
     modules: {
       serviceBoxData: defServiceBoxData.variants.default.props,

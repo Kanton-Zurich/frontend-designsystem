@@ -25,6 +25,7 @@ import Search from '../../../modules/search/search';
 import Modal from '../../../modules/modal/modal';
 import ServiceList from '../../../modules/service_list/service_list';
 import Tabs from '../../../modules/tabs/tabs';
+import PageHeader from '../../../modules/page_header/page_header';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -54,6 +55,7 @@ class App {
     this.modules.tabs = Tabs;
     this.modules.modal = Modal;
     this.modules.servicelist = ServiceList;
+    this.modules.pageHeader = PageHeader;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
