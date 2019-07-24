@@ -550,7 +550,7 @@ class Anchornav extends Module {
     const maxIndex = this.pageAnchors.length - 1; // Handle items if there is not enough space
     */
     const scrollPosition = document.documentElement.getBoundingClientRect().top;
-    
+
     // Handle active item class on scrolling
     if (this.pageAnchors.length > 0) {
       const navHeight = this.ui.element.getBoundingClientRect().height;
@@ -584,7 +584,6 @@ class Anchornav extends Module {
         */
       }
     }
-
     const anchorLeft = this.getNavItemsHorizontalPositions(anchor);
     this.toggleActiveNavigationItemClass(anchor);
     this.emulateSwipeTo(-(anchorLeft - this.showButtonTolerance));

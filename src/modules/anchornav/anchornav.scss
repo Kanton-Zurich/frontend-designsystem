@@ -48,7 +48,8 @@
 
   &__list-wrapper {
     position: relative;
-    height: pxToRem($sizeHuge);
+    height: pxToRem(48px);
+
     overflow: hidden;
     width: 100%;
 
@@ -129,6 +130,12 @@
     }
   }
 
+  @include mq($from: xsmall) {
+    &__list-wrapper {
+      height: pxToRem($sizeHuge);
+    }
+  }
+
   @include mq($from: medium) {
     margin-bottom: pxToRem($sizeHuge);
 
@@ -161,12 +168,21 @@
   &__item:first-of-type {
     .atm-anchorlink {
       margin-left: 0;
+      height: pxToRem(48px);
+      @include mq($from: xsmall) {
+        height: pxToRem($sizeHuge);
+      }
     }
   }
 
   &__item {
     .atm-anchorlink {
       white-space: nowrap;
+    }
+
+    .atm-anchorlink:not(.atm-anchorlink--tag):active:after,
+    .atm-anchorlink:not(.atm-anchorlink--tag).atm-anchorlink--active:after {
+      bottom: 0;
     }
   }
 }
