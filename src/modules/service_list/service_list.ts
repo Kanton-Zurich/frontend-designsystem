@@ -33,7 +33,8 @@ class ServiceList extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    const serviceElements = this.ui.element.querySelectorAll(this.options.domSelectors.items);
+    const serviceElements = [].slice
+      .call(this.ui.element.querySelectorAll(this.options.domSelectors.items));
     serviceElements.forEach((service) => {
       service.addEventListener('click', (event) => {
         const openModal = () => {

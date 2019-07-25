@@ -38,6 +38,7 @@ const data = _.merge({}, defaultData, {
       ],
     },
     topicsData: {
+      forceTwoColums: true,
       items: [
         {
           shortTitle: 'Abteilungen',
