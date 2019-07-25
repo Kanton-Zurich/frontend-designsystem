@@ -138,7 +138,7 @@ class Anchornav extends Module {
       // For subtask
       navElement = (<any> this.ui).scrollArea;
       */
-      navElement = this.ui.element;
+      navElement = (<any> this.ui).scrollAreaWrapper;
     } else {
       navElement = this.placeholder;
     }
@@ -612,6 +612,7 @@ class Anchornav extends Module {
    */
   setPlaceholderHeight() {
     // Numbers from style definition/figma
+    const padding = 16;
     const smallMargin = 40;
     const bigMargin = 56;
     const toleranceDivider = 4;
@@ -622,7 +623,7 @@ class Anchornav extends Module {
     } else {
       marginBottom = smallMargin;
     }
-    this.placeholder.style.height = `${(this.ui.element.getBoundingClientRect().height + marginBottom / toleranceDivider)}px`;
+    this.placeholder.style.height = `${(this.ui.element.getBoundingClientRect().height + padding + marginBottom / toleranceDivider)}px`;
   }
 
   /**
