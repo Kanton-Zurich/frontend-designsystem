@@ -1,7 +1,7 @@
 <div class="mdl-page-header {{#if hasImage}}mdl-page-header--headerimage{{/if}} {{#if
   hasPersonCard}}mdl-page-header--headerimage{{/if}} {{#if
   inverted}}mdl-page-header--inverted{{/if}} {{#if minimal}}mdl-page-header--minimal{{/if}} {{#if
-  hasImageTitle}}mdl-page-header--image-title{{/if}}">
+  hasImageTitle}}mdl-page-header--image-title{{/if}}" data-init="pageHeader">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="mdl-page-header__logo-container cell {{#if minimal}}tiny-0{{/if}}{{#unless
@@ -87,6 +87,17 @@
           {{> "modules/person_card/person_card" personCardData}}
         </div>
       </div>
+    {{/if}}
+    {{#if applicationHeader}}
+    <button
+      class="mdl-page-header__expander atm-button atm-button--secondary atm-button--small atm-button--cv-inverted">
+      <span class="atm-button__text" data-expand="{{expandNav}}" data-collapse="{{collapseNav}}">
+        {{collapseNav}}
+      </span>
+      <svg class="mdl-page-header__expander-icon icon atm-button__icon">
+        <use xlink:href="#angle_drop_up"></use>
+      </svg>
+    </button>
     {{/if}}
   </div>
 
