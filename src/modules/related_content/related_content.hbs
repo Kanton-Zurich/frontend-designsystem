@@ -1,5 +1,5 @@
 <div class="mdl-related-content" data-init="relatedContent">
-  <h{{relatedContentHeading.level}} class="atm-heading atm-heading--bordered">{{relatedContentHeading.title}}</h{{relatedContentHeading.level}}>
+  <h{{relatedContentHeading.level}}{{#if relatedContentHeading.anchorNavReference}} id="{{relatedContentHeading.anchorNavReference}}"{{/if}} class="atm-heading atm-heading--bordered">{{relatedContentHeading.title}}</h{{relatedContentHeading.level}}>
   {{#if relatedContentLead}}<p class="atm-paragraph">{{{relatedContentLead}}}</p>{{/if}}
   {{> "modules/content_nav/content_nav" contentNavData}}
 </div>

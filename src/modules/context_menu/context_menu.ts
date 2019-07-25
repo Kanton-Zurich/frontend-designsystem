@@ -180,7 +180,7 @@ class ContextMenu extends Module {
    * @memberof ContextMenu
    */
   closeOther() {
-    const activeContextMenus = document.querySelectorAll(`.${this.options.stateClasses.active}`);
+    const activeContextMenus = [].slice.call(document.querySelectorAll(`.${this.options.stateClasses.active}`));
 
     activeContextMenus.forEach((actMenu) => {
       actMenu.dispatchEvent(new CustomEvent('hide'));

@@ -73,7 +73,8 @@ class DownloadList extends Module {
    * @memberof DownloadList
    */
   initContextMenus() {
-    const buttonsInList = this.ui.element.querySelectorAll(this.options.domSelectors.openContext);
+    const buttonsInList = [].slice
+      .call(this.ui.element.querySelectorAll(this.options.domSelectors.openContext));
 
     buttonsInList.forEach((button) => {
       const listElement = button.parentNode;

@@ -21,6 +21,7 @@ const data = _.merge({}, defaultData, {
       anchorlinkIsTagTopic: false,
       anchorlinkIsTopitem: false,
       anchorlinkIsTopitemSmall: false,
+      anchorlinkAsButton: false,
     },
   },
 });

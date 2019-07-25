@@ -19,6 +19,7 @@ import Teaser from '../../../modules/teaser/teaser';
 import PublicationTeaser from '../../../modules/publication_teaser/publication_teaser';
 import Breadcrumb from '../../../modules/breadcrumb/breadcrumb';
 import Topiclist from '../../../modules/topiclist/topiclist';
+import Anchornav from '../../../modules/anchornav/anchornav';
 import Header from '../../../modules/header/header';
 import Search from '../../../modules/search/search';
 import Modal from '../../../modules/modal/modal';
@@ -48,6 +49,7 @@ class App {
     this.modules.publicationTeaser = PublicationTeaser;
     this.modules.breadcrumb = Breadcrumb;
     this.modules.topiclist = Topiclist;
+    this.modules.anchornav = Anchornav;
     this.modules.header = Header;
     this.modules.search = Search;
     this.modules.tabs = Tabs;

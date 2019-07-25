@@ -6,7 +6,7 @@
   {{/content}}
 
   {{#content "content"}}
-      <h1>(--ANKERNAVIGATION PLACEHOLDER--)</h1>
+      {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
       {{> "modules/topiclist/topiclist" props.modules.topiclist }}
       {{> "modules/about/about" props.modules.about }}
       {{> "modules/news_teaser/news_teaser" props.modules.newsTeaser }}

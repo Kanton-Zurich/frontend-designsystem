@@ -1,6 +1,11 @@
 <div class="mdl-topiclist{{#if isOfficeNavigation}} mdl-topiclist--office{{/if}}{{#if isTopiclistHome}} mdl-topiclist--home{{/if}}" data-init="topiclist">
   {{#if topiclistHeading}}
-    <h{{topiclistHeading.level}} class="atm-heading atm-heading--bordered {{#if topiclistHeading.isHidden}}visuallyhidden{{/if}}">{{topiclistHeading.title}}</h{{topiclistHeading.level}}>
+    <h{{topiclistHeading.level}}
+      class="atm-heading atm-heading--bordered {{#if topiclistHeading.isHidden}}visuallyhidden{{/if}}"
+      id="{{{topiclistHeading.anchorNavReference}}}"
+    >
+      {{topiclistHeading.title}}
+    </h{{topiclistHeading.level}}>
   {{/if}}
   {{#if topiclistLead}}<p class="atm-paragraph">{{{topiclistLead}}}</p>{{/if}}
 
@@ -40,6 +45,5 @@
       </div>
     {{/if_compare}}
   {{/if}}
-
 
 </div>
