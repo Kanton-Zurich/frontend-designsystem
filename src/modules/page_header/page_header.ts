@@ -17,6 +17,7 @@ class PageHeader extends Module {
         expander: '.mdl-page-header__expander',
         expanderText: '.mdl-page-header__expander .atm-button__text',
         expanderIcon: '.mdl-page-header__expander-icon use',
+        header: '.mdl-header',
       },
       stateClasses: {
         headerMinimal: 'mdl-page-header--minimal',
@@ -39,23 +40,30 @@ class PageHeader extends Module {
     const pageLogo = this.ui.element.querySelector(this.options.domSelectors.pageLogo);
     const xlink = this.ui.element.querySelector(this.options.domSelectors.expanderIcon);
     const text = this.ui.element.querySelector(this.options.domSelectors.expanderText);
-    const headerContainer = this.ui.element.querySelectorAll('.cell')[1];
+    const pageHeaderContainer = this.ui.element.querySelectorAll('.cell')[1];
+    const headerElement = document.querySelector(this.options.domSelectors.header);
     if (!expanded) {
       pageLogo.classList.remove('tiny-2');
-      headerContainer.classList.remove('tiny-10', 'xsmall-10', 'small-10');
+      pageHeaderContainer.classList.remove('tiny-10', 'xsmall-10', 'small-10');
       this.ui.element.classList.add(this.options.stateClasses.headerMinimal);
       pageLogo.classList.add('tiny-0');
-      headerContainer.classList.add('tiny-6', 'xsmall-6', 'small-7');
-      xlink.setAttribute('xlink:href', '#angle_drop_down');
-      text.innerHTML = text.getAttribute('data-expand');
+      pageHeaderContainer.classList.add('tiny-6', 'xsmall-6', 'small-7');
+      if (xlink) {
+        xlink.setAttribute('xlink:href', '#angle_drop_down');
+        text.innerHTML = text.getAttribute('data-expand');
+        headerElement.classList.add('visuallyhidden');
+      }
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.headerMinimal);
       pageLogo.classList.remove('tiny-0');
-      headerContainer.classList.remove('tiny-6', 'xsmall-6', 'small-7');
+      pageHeaderContainer.classList.remove('tiny-6', 'xsmall-6', 'small-7');
       pageLogo.classList.add('tiny-2');
-      headerContainer.classList.add('tiny-10', 'xsmall-10', 'small-10');
-      xlink.setAttribute('xlink:href', '#angle_drop_up');
-      text.innerHTML = text.getAttribute('data-collapse');
+      pageHeaderContainer.classList.add('tiny-10', 'xsmall-10', 'small-10');
+      if (xlink) {
+        xlink.setAttribute('xlink:href', '#angle_drop_up');
+        text.innerHTML = text.getAttribute('data-collapse');
+        headerElement.classList.remove('visuallyhidden');
+      }
     }
   }
 

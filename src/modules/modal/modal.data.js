@@ -28,6 +28,30 @@ const variants = _.mapValues({
     },
     props: {
       modalId: 'service-modal-01',
+      dynamicHeader: true,
+      modules: {
+        servicePageHeaderData: {
+          pageTitle: 'Führerausweis bestellen',
+          inverted: true,
+          hasImageTitle: false,
+          hasVideo: false,
+          hasImage: false,
+          hasBacklink: false,
+          hasBreadcrumb: false,
+          noButton: true,
+          noText: true,
+          hasCloseButton: true,
+        },
+      },
+    },
+  },
+  large: {
+    meta: {
+      title: 'Header Fix',
+      desc: '',
+    },
+    props: {
+      modalId: 'service-modal-011',
       modules: {
         servicePageHeaderData: {
           pageTitle: 'Führerausweis bestellen',
