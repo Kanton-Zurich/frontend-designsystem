@@ -13,6 +13,7 @@ const defImageGalleryData = require('../../modules/image_gallery/image_gallery.d
 const defLinklistData = require('../../modules/linklist/linklist.data');
 const defcontactData = require('../../modules/contact/contact.data');
 const defPersonCardData = require('../../modules/person_card/person_card.data.js');
+const defSocialLinksData = require('../../modules/social_media_links/social_media_links.data.js');
 
 const defAnchorNavData = {
   anchornavTitle: {
@@ -105,7 +106,7 @@ const defClearTableData = {
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Person Detail',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-515',
     content: dataHelper.getFileContent('person_detail.hbs'),
     documentation: dataHelper.getDocumentation('person_detail.md'),
   },
@@ -220,6 +221,7 @@ const data = _.merge({}, defaultData, {
         }),
       personCardData: defPersonCardData.variants.default.props,
       contactData: _.merge({}, defcontactData.variants.fullWidthLessData.props, { anchorNavReference: 'contact' }),
+      socialLinksData: _.omit(defSocialLinksData.variants.default.props, ['linkedIn'], ['youtube']),
     },
   },
 });
