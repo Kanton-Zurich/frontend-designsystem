@@ -16,10 +16,12 @@ class AssetLoader extends Helper {
     // the URL below is changed. Any change will invalidate the cache
     document.addEventListener('DOMContentLoaded', () => {
       const rootElement = document.querySelector(`[${this.dataAttr}]`);
-      this.dataHref = rootElement.getAttribute(this.dataAttr);
-      if (this.dataHref !== null) {
-        this.logger(`don't block the loading of the page; wait until it's done; then download asset ${this.dataHref}`);
-        this.on(window, 'load', this.injectAsset.bind(this));
+      if(rootElement) {
+        this.dataHref = rootElement.getAttribute(this.dataAttr);
+        if (this.dataHref !== null) {
+          this.logger(`don't block the loading of the page; wait until it's done; then download asset ${this.dataHref}`);
+          this.on(window, 'load', this.injectAsset.bind(this));
+        }
       }
     });
   }
