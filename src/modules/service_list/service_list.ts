@@ -45,7 +45,9 @@ class ServiceList extends Module {
           openModal();
         } else {
           this.fetchServicePage(service.getAttribute('data-url'), (data) => {
-            modal.innerHTML = data;
+            const elem = document.createElement('div');
+            elem.innerHTML = data;
+            modal.innerHTML = elem.querySelector('#lightbox-content').innerHTML;
             modal.setAttribute('data-loaded', 'true');
             this.ui.element.querySelector(`#${service.getAttribute('aria-controls')}`).dispatchEvent(new CustomEvent('Modal.initContent'));
             openModal();
