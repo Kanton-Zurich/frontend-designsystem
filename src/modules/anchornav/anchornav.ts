@@ -20,9 +20,13 @@ class Anchornav extends Module {
   public navigationIsFixed: boolean;
   public navigationHeight: number;
   public scrollReferences: Array<object>;
+  public impetusInstance: object;
+
   public scrollDirection: string;
   public lastYScrollPositon: number;
   public scrollPositonX: number;
+  public scrollWidthX: number;
+  public mousePositonDown: number;
   public jumpPossible: boolean;
 
   public options: {
@@ -31,16 +35,20 @@ class Anchornav extends Module {
       scrollContent: string,
       navItems: string,
       navItemActive: string,
+      btnRight: string,
+      btnLeft: string,
     },
     stateClasses: {
       stickyMode: string,
       activeItemClass: string,
       shadowRight: string,
       shadowLeft: string,
+      showButton: string,
     },
     tolerances: {
       jumpToMargin: number,
       showButton: number,
+      swipe: number,
     }
   };
 
@@ -52,16 +60,20 @@ class Anchornav extends Module {
         scrollContent: '.mdl-anchornav__list',
         navItems: '.mdl-anchornav__list .atm-anchorlink',
         navItemActive: '.mdl-anchornav__list .atm-anchorlink--active',
+        btnRight: '.mdl-anchornav__ctrl--right button',
+        btnLeft: '.mdl-anchornav__ctrl--left button',
       },
       stateClasses: {
         stickyMode: 'mdl-anchornav--sticky',
         activeItemClass: 'atm-anchorlink--active',
         shadowRight: 'mdl-anchornav__list-wrapper--shadow-right',
         shadowLeft: 'mdl-anchornav__list-wrapper--shadow-left',
+        showButton: 'visible',
       },
       tolerances: {
         jumpToMargin: 5,
         showButton: 10,
+        swipe: 10,
       },
     };
 
@@ -81,6 +93,7 @@ class Anchornav extends Module {
     if (this.scrollReferences.length > 0) {
       this.initEventListeners();
       this.updateActiveAnchorState();
+      this.initializeImpetus();
     }
   }
 
@@ -98,14 +111,9 @@ class Anchornav extends Module {
       .on('mousedown', (<any> this.options).domSelectors.navItems, this.onMouseDown.bind(this))
       .on('mouseup', (<any> this.options).domSelectors.navItems, this.onMouseUp.bind(this))
       .on('click', (<any> this.options).domSelectors.navItems, this.onMouseClick.bind(this))
-      .on('scroll', (<any> this.options).domSelectors.scrollContent, this.onHorizontalScroll.bind(this));
-
-    /*.on('click', (<any> this.options).domSelectors.ctrlRight, this.onControlBtnClick.bind(this, 'right'))
-    .on('click', (<any> this.options).domSelectors.ctrlLeft, this.onControlBtnClick.bind(this, 'left'));*/
-    /*
-    // For subtask
-    .on('scroll', (<any> this.options).domSelectors.content, this.scrollOnContent.bind(this));
-    */
+      .on('scroll', (<any> this.options).domSelectors.scrollContent, this.onHorizontalScroll.bind(this))
+      .on('click', (<any> this.options).domSelectors.btnRight, this.onControlBtnClick.bind(this, 'right'))
+      .on('click', (<any> this.options).domSelectors.btnLeft, this.onControlBtnClick.bind(this, 'left'));
 
     (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
     (<any>WindowEventListener).addDebouncedScrollListener(this.onPageDebounceScrolled.bind(this));
@@ -119,10 +127,17 @@ class Anchornav extends Module {
     this.scrollPositonX = (<any> this.ui).scrollContent.scrollLeft;
     this.updateShadows();
     this.updateVerticalScrollInfo();
+    (<any> this.impetusInstance).setBoundX([-this.getScrollWidth(), 0]);
+
+    if(window.innerWidth < this.mediumBreakpoint) {
+      (<any> this.impetusInstance).pause();
+    } else {
+      (<any> this.impetusInstance).resume();
+    }
   }
 
   onPageDebounceScrolled() {
-    this.updateActiveAnchorState();
+    /*this.updateActiveAnchorState();*/
   }
 
   /**
@@ -131,6 +146,7 @@ class Anchornav extends Module {
   onVerticalScroll() {
     this.updateVerticalScrollInfo();
     this.updateNavigationState();
+    this.updateActiveAnchorState();
   }
 
   onHorizontalScroll() {
@@ -146,6 +162,7 @@ class Anchornav extends Module {
     if (this.navigationIsFixed) {
       navElement = this.placeholder;
     } else {
+      // navElement = (<any> this.ui).scrollContent;
       navElement = (<any> this.ui).scrollMask;
     }
     this.navigationHeight = this.ui.element.getBoundingClientRect().height;
@@ -268,7 +285,7 @@ class Anchornav extends Module {
 
         let nextItemUpperMargin;
         let previousIndex = i - 1;
-        if(previousIndex >= 0) {
+        if (previousIndex >= 0) {
           nextItemUpperMargin = (<any> this.scrollReferences[previousIndex]).triggerYPosition;
         } else {
           nextItemUpperMargin = triggerY;
@@ -281,6 +298,13 @@ class Anchornav extends Module {
         if (currentScrollPosition < (<any> this.scrollReferences[1]).triggerYPosition) {
           this.toggleActiveNavigationItemClass((<any> this.scrollReferences[0]).correspondingAnchor);
         }
+
+        // This case needs to be catched beauce of reinitialization
+        const maxIndex = this.scrollReferences.length - 1;
+        if (currentScrollPosition === (<any> this.scrollReferences[maxIndex]).triggerYPosition) {
+          this.toggleActiveNavigationItemClass((<any> this.scrollReferences[maxIndex]).correspondingAnchor);
+        }
+
       }
     }
   }
@@ -289,39 +313,83 @@ class Anchornav extends Module {
     const scrollSpace = this.getScrollWidth();
     const rightClass = this.options.stateClasses.shadowRight;
     const leftClass = this.options.stateClasses.shadowLeft;
+    const showBtnClass = this.options.stateClasses.showButton;
+    const leftButton = (<any> this.ui).btnLeft;
+    const rightButton = (<any> this.ui).btnRight;
     const scrollParent = (<any> this.ui).scrollMask;
     const tolerance = this.options.tolerances.showButton;
     const scrollX = Math.abs(this.scrollPositonX);
 
     if (scrollX >= 0 && scrollX <= tolerance) {
       scrollParent.classList.add(rightClass);
+      rightButton.classList.add(showBtnClass);
       scrollParent.classList.remove(leftClass);
+      leftButton.classList.remove(showBtnClass);
     } else if (scrollX < scrollSpace
       && scrollX >= (scrollSpace - tolerance)) {
       scrollParent.classList.remove(rightClass);
+      rightButton.classList.remove(showBtnClass);
       scrollParent.classList.add(leftClass);
+      leftButton.classList.add(showBtnClass);
     } else if (scrollX > tolerance
       && scrollX < (scrollSpace - tolerance)) {
       scrollParent.classList.add(rightClass);
+      rightButton.classList.add(showBtnClass);
       scrollParent.classList.add(leftClass);
+      leftButton.classList.add(showBtnClass);
     }
 
     if (scrollSpace <= 1) {
       scrollParent.classList.remove(rightClass);
+      rightButton.classList.remove(showBtnClass);
       scrollParent.classList.remove(leftClass);
+      leftButton.classList.remove(showBtnClass);
     }
-
-
   }
 
-  getScrollWidth() {
+  /**
+   * Initialize the impetus instance
+   */
+  initializeImpetus() {
+    this.impetusInstance = new Impetus({
+      source: (<any> this.ui).scrollContent,
+      boundX: [-(this.getScrollWidth()), 0],
+      bounce: false,
+      multiplier: 2,
+      friction: 0,
+      update: this.impetusUpdate.bind(this),
+    });
+
+    if(window.innerWidth < this.mediumBreakpoint) {
+      (<any> this.impetusInstance).pause();
+    } else {
+      (<any> this.impetusInstance).resume();
+    }
+  }
+
+  /**
+   * Get the posible translation offset of the scrollable content
+   *
+   * @return {number}
+   */
+  getScrollWidth():number {
     // IE11 do not work correctly with getBoundingClientRect
     const scrollAreaWidth = (<any> this.ui).scrollContent.scrollWidth;
 
     const ParentOffsetWidth = (<any> this.ui).scrollMask.getBoundingClientRect().width;
     const scrollableWidth = (ParentOffsetWidth - scrollAreaWidth);
 
+    this.scrollWidthX = Math.abs(scrollableWidth);
     return Math.abs(scrollableWidth);
+  }
+
+  /**
+   * Update callback from impetus plugin
+   *
+   * @param x
+   */
+  impetusUpdate(x) {
+    (<any> this.ui).scrollContent.scrollLeft = Math.abs(x);
   }
 
   /**
@@ -396,24 +464,12 @@ class Anchornav extends Module {
   }
 
   /**
-   * Returns the current document height
-   * @return {number}
-   */
-  getDocumentHeight() {
-    const { body } = document;
-    const html = document.documentElement;
-
-    return Math.max(body.scrollHeight, body.offsetHeight,
-      html.clientHeight, html.scrollHeight, html.offsetHeight);
-  }
-
-  /**
    * Mousedown-Callback on navigation anchors.
    * Store initial click position to differentiate click and swipe in mouseup event
    * @param event
    */
   onMouseDown(event) {
-
+    this.mousePositonDown = event.screenX;
   }
 
   /**
@@ -433,7 +489,18 @@ class Anchornav extends Module {
   onMouseUp(event) {
     const { target } = event;
     let tmpPos;
+    // Stop event if the delta is to big
+    const mouseEventDelta = event.screenX - this.mousePositonDown;
+    let isClickEvent = false;
+    let swipeTolerance = this.options.tolerances.swipe;
 
+    if (mouseEventDelta < swipeTolerance && mouseEventDelta > -(swipeTolerance)) {
+      isClickEvent = true;
+    } else {
+      return false;
+    }
+
+    // Get the trigger coordinates for a standart click jump
     for (let i = 0; i < this.scrollReferences.length; i += 1) {
       if ((<any> this.scrollReferences)[i].correspondingAnchor === target) {
         tmpPos = (<any> this.scrollReferences)[i].triggerYPosition - this.lastYScrollPositon;
@@ -442,11 +509,35 @@ class Anchornav extends Module {
         }
       }
     }
-
     if (this.jumpPossible) {
       this.toggleJumpFlag();
       this.moveToAnchor(tmpPos);
     }
+  }
+
+  onControlBtnClick(data) {
+    for (let i = 0; i < 10; i += 1) {
+      if (data === 'right') {
+        (<any> this.ui).scrollContent.scrollLeft += 10;
+        this.animatedButtonScroll((<any> this.ui).scrollContent, ((<any> this.ui).scrollContent.scrollLeft + 100), data, 100);
+      } else {
+        this.animatedButtonScroll((<any> this.ui).scrollContent, ((<any> this.ui).scrollContent.scrollLeft - 100), data, 100);
+      }
+    }
+  }
+
+  animatedButtonScroll(element, to, dir, duration) {
+    if (duration <= 0) return;
+
+    setTimeout(function() {
+      if (dir === 'right') {
+        element.scrollLeft += 100;
+      } else {
+        element.scrollLeft -= 100;
+      }
+
+      this.animatedButtonScroll(element, to, dir, duration -20);
+    }.bind(this), 1);
   }
 
   /**

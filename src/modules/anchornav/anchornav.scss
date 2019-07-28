@@ -49,6 +49,7 @@
   &__list-wrapper {
     position: relative;
     height: pxToRem(48px);
+    -webkit-overflow-scrolling: touch;
 
     overflow: hidden;
     width: 100%;
@@ -61,7 +62,7 @@
       min-width: pxToRem($sizeTiny);
       height: pxToRem($sizeHuge);
       max-height: pxToRem($sizeHuge);
-      /*visibility: hidden;*/
+      /* visibility: hidden; */
     }
 
     &--shadow-left {
@@ -88,19 +89,31 @@
     */
 
     @include resetList();
+    /*height: pxToRem(88px);*/
     min-width: 100%;
     -ms-overflow-style: none;
-    overflow: scroll;
+    overflow-x: scroll;
     overflow-y: hidden;
 
     display: flex;
     scroll-behavior: smooth;
+
+    &::-webkit-scrollbar-track {
+      //    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.1);
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar {
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      //    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+      background-color: transparent;
+    }
   }
 
   &__ctrl {
     position: absolute;
     bottom: 0;
-    display: none;
 
     min-width: pxToRem($sizeHuge);
     height: pxToRem($sizeHuge);
@@ -116,6 +129,7 @@
 
     button {
       position: relative;
+      display: none;
       width: 100%;
       height: 100%;
     }
@@ -141,7 +155,10 @@
     margin-bottom: pxToRem($sizeHuge);
 
     &__ctrl {
-      display: none;
+      /* display: none; */
+      button.visible {
+        display: block;
+      }
     }
 
     &__content {
@@ -180,6 +197,23 @@
   &__item {
     .atm-anchorlink {
       white-space: nowrap;
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 50% !important;
+        transform: translateX(-50%) scaleX(0);
+        bottom: -1px;
+        height: 2px;
+        background-color: #000000;
+        transition: 400ms transform ease-out;
+        width: 100%;
+      }
+
+      &--active:after {
+        /* width: 100%; */
+        transform: translateX(-50%) scaleX(1);
+      }
     }
 
     .atm-anchorlink:not(.atm-anchorlink--tag):active:after,
