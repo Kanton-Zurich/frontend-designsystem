@@ -64,6 +64,38 @@ const defAnchorNavData = {
         anchorlinkAsButton: true,
       },
     },
+    {
+      anchorlink: {
+        anchorlinkText: 'someID1',
+        anchorlinkAdress: '#someID1',
+        anchorlinkIsActive: false,
+        anchorlinkAsButton: true,
+      },
+    },
+    {
+      anchorlink: {
+        anchorlinkText: 'someID2',
+        anchorlinkAdress: '#someID2',
+        anchorlinkIsActive: false,
+        anchorlinkAsButton: true,
+      },
+    },
+    {
+      anchorlink: {
+        anchorlinkText: 'someID3',
+        anchorlinkAdress: '#someID3',
+        anchorlinkIsActive: false,
+        anchorlinkAsButton: true,
+      },
+    },
+    {
+      anchorlink: {
+        anchorlinkText: 'someID4',
+        anchorlinkAdress: '#someID4',
+        anchorlinkIsActive: false,
+        anchorlinkAsButton: true,
+      },
+    },
   ],
 };
 
@@ -130,7 +162,7 @@ const data = _.merge({}, defaultData, {
       anchorNav: defAnchorNavData,
       serviceListData: {
         serviceListHeading: {
-          title: 'Service',
+          title: 'Service123',
           anchorNavReference: 'services',
         },
         items: [

@@ -61,6 +61,7 @@
       min-width: pxToRem($sizeTiny);
       height: pxToRem($sizeHuge);
       max-height: pxToRem($sizeHuge);
+      /*visibility: hidden;*/
     }
 
     &--shadow-left {
@@ -72,7 +73,6 @@
 
     &--shadow-right {
       &:after {
-        visibility: hidden;
         right: 0;
         background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.05) 100%);
       }
@@ -80,10 +80,12 @@
   }
 
   ul {
+    /*
     position: absolute;
     top: 0;
     left: 0;
     transition: left 0.2s ease-out;
+    */
 
     @include resetList();
     min-width: 100%;

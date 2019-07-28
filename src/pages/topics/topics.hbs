@@ -12,9 +12,13 @@
     {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
     {{> "modules/related_content/related_content" props.modules.releatedContentData}}
     {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
+    <h1 id="someID1">SomeID1</h1>
+    <h1 id="someID2">SomeID2</h1>
+    <h1 id="someID3">SomeID3</h1>
+    <h1 id="someID4">SomeID4</h1>
   {{/content}}
   {{#content "footer"}}
-    <footer id="contentinfo">
+    <footer id="contentinfo" style="height: 200px;">
       <h1 class="visuallyhidden">Fussbereich</h1>
     </footer>
   {{/content}}
