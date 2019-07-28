@@ -156,6 +156,7 @@
 
     &__ctrl {
       /* display: none; */
+      // TODO fix empty overlay 
       button.visible {
         display: block;
       }
