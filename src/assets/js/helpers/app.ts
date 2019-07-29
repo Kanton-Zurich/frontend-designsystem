@@ -26,6 +26,7 @@ import Modal from '../../../modules/modal/modal';
 import ServiceList from '../../../modules/service_list/service_list';
 import Tabs from '../../../modules/tabs/tabs';
 import PageHeader from '../../../modules/page_header/page_header';
+import FormInput from '../../../modules/form_input/form_input';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -56,6 +57,7 @@ class App {
     this.modules.modal = Modal;
     this.modules.servicelist = ServiceList;
     this.modules.pageHeader = PageHeader;
+    this.modules.formInput = FormInput;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

@@ -1,0 +1,155 @@
+.mdl-form_input {
+  position: relative;
+
+  input {
+    background: $colorWhite;
+    line-height: $sizeLineHeightBase;
+
+    padding: pxToRem(22px) pxToRem(44px) pxToRem(22px) pxToRem($sizeRegular);
+
+    border: 2px solid $colorBlack40;
+    border-radius: 1px;
+    width: 100%;
+
+    &:not(:placeholder-shown) {
+
+      & + label {
+        padding: 0;
+        top: pxToRem($sizeRegular);
+        font-weight: 900;
+        font-size: 12px;
+        line-height: 18px;
+        color: $colorBlack;
+      }
+
+      &:invalid {
+        border-color: $colorRed;
+        & + label + span {
+          svg:last-of-type {
+            display: block;
+            fill: $colorRed;
+          }
+        }
+        & ~ p {
+          padding-top: pxToRem(7px);
+          padding-bottom: pxToRem(5px);
+          height: auto;
+          opacity: 1;
+          transform: translateY(0) scaleY(1);
+        }
+      }
+
+      &:valid {
+        & + label + span {
+          svg:first-of-type {
+            display: block;
+            fill: $colorGreen;
+          }
+        }
+      }
+    }
+
+    &:placeholder-shown {
+      & + label {
+        top: pxToRem($sizeLarge + 2px);
+      }
+    }
+  }
+
+  label {
+    position: absolute;
+    left: pxToRem($sizeRegular + 2px);
+    color: $colorBlack60;
+    transition: top 200ms, font-size 400ms, color 400ms ease-in-out;
+    display: none;
+  }
+
+  span {
+    position: absolute;
+    top: 25px;
+    right: 13px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    svg {
+      display: none;
+    }
+  }
+
+  button {
+    display: block;
+    position: absolute;
+
+    @include blankButton;
+
+    right: pxToRem($sizeSmallRegular);
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 0;
+
+    svg use {
+      fill: $colorBlack60;
+    }
+
+    &:hover svg use {
+      fill: $colorBlack;
+    }
+  }
+
+  p {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0;
+    padding-left: pxToRem($sizeRegular + 2px);
+    color: $colorWhite;
+    background-color: $colorRed;
+    transform: translateY(-50%) scaleY(0);
+    transition: transform 400ms, opacity 400ms, height 400ms ease-in-out;
+    height: 0;
+    opacity: 0;
+  }
+
+  &--floated {
+    label {
+      display: block;
+    }
+
+    input {
+      // Edge
+      &::-webkit-input-placeholder {
+        color: transparent;
+      }
+
+      // Internet Explorer 10-11
+      &::-ms-input-placeholder {
+        color: transparent;
+      }
+
+      &::placeholder {
+        color: transparent;
+      }
+
+      &:not(:placeholder-shown) {
+        padding-top: pxToRem(32px);
+        padding-bottom: pxToRem(12px);
+      }
+    }
+  }
+
+  &--unitLeft {
+    input {
+      padding: pxToRem(22px) pxToRem($sizeRegular) pxToRem(22px) pxToRem(62);
+    }
+  }
+
+  // Special styles
+  &--small {
+    button {
+      height: pxToRem($sizeInputSmall);
+    }
+  }
+}

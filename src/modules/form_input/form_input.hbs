@@ -1,0 +1,36 @@
+<div class="mdl-form_input{{#if isFloatingLabel}} mdl-form_input--floated{{/if}}{{#if
+  isSmall}} mdl-form_input--small{{/if}}{{#if unitLeft}} mdl-form_input--unitLeft{{/if}}" data-init="formInput"{{#if additionalFunctionality}}
+     data-hasbutton="true"{{/if}}>
+
+  <input{{#if validation.pattern }} pattern="{{validation.pattern}}"
+  {{/if}}{{#if validation.min }}min="{{validation.min}}"{{/if}} id="{{uuid}}" placeholder="{{label}}"
+    value="{{inputContent}}" type="{{type}}"{{#if isRequired}} required{{/if}}{{#if isReadOnly}} readonly{{/if}}>
+
+  <label for="{{uuid}}">{{label}}</label>
+
+  {{# unless additionalFunctionality}}
+    {{#if validation }}
+      <span>
+            <span class="visuallyhidden">{{validation.ariaTextValid}}</span>
+            <svg class="icon">
+              <use xlink:href="#confirm"></use>
+            </svg>
+            <span class="visuallyhidden">{{validation.ariaTextInvalid}}</span>
+           <svg class="icon">
+              <use xlink:href="#caution"></use>
+            </svg>
+        </span>
+    {{/if}}
+  {{/unless}}
+
+  {{#if validation.errorMsg}}<p>{{validation.errorMsg}}</p>{{/if}}
+
+  {{#if additionalFunctionality}}
+    <button data-buttontype="{{additionalFunctionality.buttontype}}">
+      <span class="visuallyhidden">{{additionalFunctionality.ariaText}}</span>
+      <svg class="icon">
+        <use xlink:href="#{{additionalFunctionality.icon }}"></use>
+      </svg>
+    </button>
+  {{/if}}
+</div>
