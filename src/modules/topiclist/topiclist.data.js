@@ -206,6 +206,45 @@ const variants = _.mapValues({
       subnavigationTemplate,
     },
   },
+  organisationNav: {
+    meta: {
+      title: 'Organisation Hauptnavigation',
+      desc: 'Organisationen für die Hauptnavigation',
+    },
+    props: {
+      isNavigation: true,
+      topiclistInput: _.merge({}, inputFormData, {
+        label: 'Organisationen nach Stichwort filtern',
+        isSmall: true,
+        selector: 'data-topiclist="input"',
+        hasClearButton: true,
+      }),
+      topiclistHeading: false,
+      topiclistLead: false,
+      isTopiclistHome: true,
+      topiclistButtonLabel: 'Alle anzeigen',
+      topiclistcontentNavData: {
+        items: [],
+        selector: 'data-topiclist="navigation"',
+        additionalClasses: 'mdl-topiclist__navigation',
+      },
+      autosuggestTopicList: {
+        items: [],
+        selector: 'data-topiclist="autosuggest"',
+        additionalClasses: 'mdl-topiclist__autosuggest mdl-content_nav--single-column',
+      },
+      contentTeaserTemplate: contentTeaserDefaultData.variants.default.meta.code.template,
+      options: JSON.stringify({
+        url: '/mocks/modules/topiclist/topiclist.json',
+      }),
+      subnavigationTemplate,
+      organisationTeaser: {
+        orgTitle: 'Regierungsrat',
+        orgLead: 'Der Regierungsrat ist die oberste leitende und vollziehende Behörde des Kantons. Er wahrt die Verfassung und setzt die Gesetze, Verordnungen und die Beschlüsse des Kantonsrates um.',
+        url: '#',
+      },
+    },
+  },
 }, (variant) => {
   // eslint-disable-next-line consistent-return
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
