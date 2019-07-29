@@ -7,6 +7,14 @@
 {{/if}}
 <!-- modal page content -->
 <div id="{{modalId}}" class="mdl-modal {{#if mainNavigation}}mdl-modal--flyout cv-monochrome{{/if}}" aria-hidden="true" data-init="modal">
+  {{#if mainNavigation}}
+    <button class="mdl-modal__close" data-modal="close">
+      <span class="mdl-modal__close-label">Schliessen</span>
+      <svg class="icon mdl-modal__exit">
+        <use xlink:href="#exit"></use>
+      </svg>
+    </button>
+  {{/if}}
   {{#unless mainNavigation}}
     <div class="lyt-wrapper">
       <div class="grid-x grid-margin-x">

@@ -7,6 +7,7 @@ const contentNavDataDef = require('../content_nav/content_nav.data').variants.de
 const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
 const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data');
 const inputFormData = require('../../atoms/form_input/form_input.data').props;
+const subnavigationTemplate = require('../subnavigation/subnavigation.data').variants.default.meta.code.template;
 
 const template = dataHelper.getFileContent('topiclist.hbs');
 const data = _.merge({}, defaultData, {
@@ -163,9 +164,12 @@ const variants = _.mapValues({
       autosuggestTopicList: {
         items: [],
         selector: 'data-topiclist="autosuggest"',
-        additionalClasses: 'mdl-topiclist__autosuggest',
+        additionalClasses: 'mdl-topiclist__autosuggest mdl-content_nav--single-column',
       },
       contentTeaserTemplate: contentTeaserDefaultData.variants.default.meta.code.template,
+      options: JSON.stringify({
+        url: '/mocks/modules/topiclist/topiclist.json',
+      }),
     },
   },
   topicsNav: {
@@ -193,9 +197,13 @@ const variants = _.mapValues({
       autosuggestTopicList: {
         items: [],
         selector: 'data-topiclist="autosuggest"',
-        additionalClasses: 'mdl-topiclist__autosuggest',
+        additionalClasses: 'mdl-topiclist__autosuggest mdl-content_nav--single-column',
       },
       contentTeaserTemplate: contentTeaserDefaultData.variants.default.meta.code.template,
+      options: JSON.stringify({
+        url: '/mocks/modules/topiclist/topiclist.json',
+      }),
+      subnavigationTemplate,
     },
   },
 }, (variant) => {
@@ -205,8 +213,9 @@ const variants = _.mapValues({
       return variantValue;
     }
   }).props;
+
   const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
+  const variantData = _.mergeWith({}, data, variant, {
     meta: {
       demo: compiledVariant,
 
@@ -216,6 +225,11 @@ const variants = _.mapValues({
         data: dataHelper.getFormattedJson(variantProps),
       },
     },
+    // eslint-disable-next-line consistent-return
+  }, (dataValue, variantValue, key) => {
+    if (key === 'items') {
+      return variantValue;
+    }
   });
 
   return variantData;

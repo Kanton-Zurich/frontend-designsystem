@@ -513,3 +513,26 @@
   }
 }
 
+/**
+ * The button with only text and "possibly" an icon, changes from dark grey to black
+ */
+@mixin textButton() {
+  color: $colorBlack60;
+
+  @include transition(color);
+
+  use {
+    fill: $colorBlack60;
+
+    @include transition(fill);
+  }
+
+  &:hover {
+    color: $colorBlack;
+
+    use {
+      fill: $colorBlack;
+    }
+  }
+}
+

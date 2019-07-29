@@ -47,13 +47,17 @@ $leadFontCurve: (
 
   &--nav {
     @include sizeCurve(margin-top, large);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &__fullwidth-wrapper {
     @include gridBleed($fullwidth: true);
     text-align: center;
 
-    .atm-button {
+    .mdl-topiclist__show-all {
       display: inline-flex;
     }
   }
@@ -84,7 +88,7 @@ $leadFontCurve: (
     }
   }
 
-  .atm-button {
+  .mdl-topiclist__show-all {
     margin: $sizeLarge 0;
 
     svg {
@@ -117,7 +121,7 @@ $leadFontCurve: (
    * SPECIAL STYLES FOR TOPICLIST HOME
   */
   &--home {
-    .atm-button {
+    .mdl-topiclist__show-all {
       display: none;
     }
   }
@@ -133,5 +137,18 @@ $leadFontCurve: (
     .mdl-topiclist__autosuggest {
       display: inherit;
     }
+  }
+
+  /** Default styles for further layers */
+  [ data-layer ] {
+    display: none;
+
+    &.mdl-topiclist--visible {
+      display: inherit;
+    }
+  }
+
+  &--hidden {
+    display: none;
   }
 }

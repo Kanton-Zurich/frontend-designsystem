@@ -1,13 +1,11 @@
 /* eslint-disable no-template-curly-in-string */
 
 const data = {
-  closeLabel: 'Schliessen',
+  labelTopics: 'Themen',
   filterField: {
     searchPage: '/content/zhweb/de/suche.html?q=${query}',
-    filterLabel: 'Themen nach Stichworte filtern',
     noResultsLabel: 'Keine Resultate',
     searchInSiteSearchLabel: 'Gesamte Website nach «${query}» durchsuchen.',
-    displayAllLabel: 'Alle anzeigen',
   },
   topics: [
     {

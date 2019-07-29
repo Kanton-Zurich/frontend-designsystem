@@ -26,8 +26,6 @@ const data = _.merge({}, defaultData, {
   },
 });
 
-console.log(topiclist.variants.topicsNav.props);
-
 const variants = _.mapValues({
   default: {
     meta: {

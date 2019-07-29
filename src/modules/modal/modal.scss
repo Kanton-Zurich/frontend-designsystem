@@ -1,3 +1,15 @@
+$modalCurves: (
+  closeTop: (
+    xsmall: $sizeRegular,
+    medium: $sizeBig,
+    xlarge: $sizeLarge
+  ),
+  closeRight: (
+    tiny: $sizeRegular,
+    medium: $sizeSmallBig,
+  )
+);
+
 .mdl-modal {
   $scrollHeightMax: 400px;
   $scrollHeightMedium: 150px;
@@ -50,6 +62,30 @@
         @include transition(opacity transform, $transitionTimeMorph, $transitionEasingDecelerate);
       }
     }
+  }
+
+  &__close {
+    position: absolute;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+
+    @include sizeCurve(margin-top, closeTop, $modalCurves);
+    @include sizeCurve(margin-right, closeRight, $modalCurves);
+    @include textButton;
+  }
+
+  &__close-label {
+    @include mq($to: large) {
+      @include visuallyhidden;
+    }
+  }
+
+  &__exit {
+    height: 0.62 * $sizeLarge;
+    width: 0.62 * $sizeLarge;
+    margin-left: $sizeSmallRegular;
   }
 
   .mdl-page-header {

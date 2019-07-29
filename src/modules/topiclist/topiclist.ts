@@ -10,17 +10,21 @@ import Module from '../../assets/js/helpers/module';
 
 class Topiclist extends Module {
   public options: {
+    url: string,
     hasFilter: Boolean,
     inputDelay: number,
     domSelectors: {
       showAllButton: string,
       contentNavItems: string,
       hiddenContentNavItems: any,
+      subnavLayerUp: string,
     },
     stateClasses: {
       expanded: string,
       filtered: string,
       nav: string,
+      hidden: string,
+      visible: string,
     };
   }
 
@@ -28,10 +32,12 @@ class Topiclist extends Module {
     query: string,
     isNav: boolean,
     json: {
+      labelTopics: string,
       topics: Array<{
         title: string,
         synonyms: Array<string>,
         path: string,
+        keywords: string,
       }>,
       filterField: {
         noResultsLabel: string,
@@ -43,7 +49,9 @@ class Topiclist extends Module {
       title: string,
       synonyms: Array<string>,
       path: string,
+      keywprds: string,
     }>,
+    currentLayer: number,
   }
 
   public ui: {
@@ -54,6 +62,10 @@ class Topiclist extends Module {
     contentNav: any,
     contentTeaserTemplate: any,
     searchLink: any,
+    navigation: any,
+    subnavigationTemplate: any,
+    firstLayer: any,
+    furtherLayers: any,
   }
 
   constructor($element: any, data: Object, options: Object) {
@@ -62,6 +74,7 @@ class Topiclist extends Module {
       json: {},
       topics: [],
       isNav: false,
+      currentLayer: 0,
     };
     const defaultOptions = {
       hasFilter: false,
@@ -74,11 +87,18 @@ class Topiclist extends Module {
         contentNav: '[data-topiclist="contentNav"]',
         contentTeaserTemplate: '[data-topiclist="contentTeaserTemplate"]',
         searchLink: '[data-topiclist="searchLink"]',
+        navigation: '[data-topiclist="navigation"]',
+        subnavigationTemplate: '[data-topiclist="subnavigationTemplate"]',
+        firstLayer: '[data-topiclist="firstLayer"]',
+        furtherLayers: '[data-topiclist="furtherLayers"]',
+        subnavLayerUp: '[data-subnavigation="layerUp"]',
       },
       stateClasses: {
         expanded: 'mdl-topiclist--expanded',
         filtered: 'mdl-topiclist--filtered',
         nav: 'mdl-topiclist--nav',
+        hidden: 'mdl-topiclist--hidden',
+        visible: 'mdl-topiclist--visible',
       },
     };
     super($element, defaultData, defaultOptions, data, options);
@@ -107,6 +127,8 @@ class Topiclist extends Module {
         .on('loadNavigation', async () => {
           if (Object.keys(this.data.json).length === 0) {
             await this.fetchData();
+
+            this.renderNavigation();
           }
         });
     }
@@ -114,6 +136,7 @@ class Topiclist extends Module {
 
   initWatchers() {
     this.watch(this.ui.input, 'value', debounce(this.onValueChange.bind(this), this.options.inputDelay));
+    this.watch(this.data, 'currentLayer', this.onLayerChange.bind(this));
   }
 
   /**
@@ -125,6 +148,12 @@ class Topiclist extends Module {
     this.ui.showAllButton.style.display = 'none';
   }
 
+  /**
+   * Async function which is fired when the filter value is changed
+   * @param propName the name of the property (not used)
+   * @param valueBefore the value before the change
+   * @param valueAfter the value after the change (the current value)
+   */
   async onValueChange(propName, valueBefore, valueAfter) {
     if (valueBefore === valueAfter) {
       return false;
@@ -139,7 +168,7 @@ class Topiclist extends Module {
 
     if (this.data.query.length > 1) {
       this.filterTopics(this.data.query);
-      this.ui.autosuggest.innerHTML = '';
+      this.ui.autosuggest.querySelector('ul').innerHTML = '';
 
       this.ui.element.classList.add(this.options.stateClasses.filtered);
 
@@ -158,16 +187,20 @@ class Topiclist extends Module {
       }
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.filtered);
+      this.ui.showAllButton.style.display = 'none';
     }
     return true;
   }
 
+  /**
+   * Fetching the data from the json, is only fired once
+   */
   async fetchData() {
     if (!window.fetch) {
       await import('whatwg-fetch');
     }
 
-    return fetch('/mocks/modules/topiclist/topiclist.json')
+    return fetch(this.options.url)
       .then(response => response.json())
       .then((response) => {
         if (response) {
@@ -185,6 +218,10 @@ class Topiclist extends Module {
       });
   }
 
+  /**
+   * Filtering the topics
+   * @param query The input of the filter field
+   */
   filterTopics(query) {
     const queryRegEx = new RegExp(query, 'gi');
 
@@ -193,6 +230,11 @@ class Topiclist extends Module {
     });
   }
 
+  /**
+   * Returns all matching items with the query
+   * @param item a contentnav item delivered by the json
+   * @param query The regex for the query
+   */
   getMatchingItems(item, query) {
     const titleMatch = query.test(item.title);
     let synonymMatch = false;
@@ -210,42 +252,68 @@ class Topiclist extends Module {
     }
   }
 
-  checkItemForMatch(item, query) {
-    const titleMatch = query.test(item.title);
-    let synonymMatch = false;
-    let subpagesMatch = false;
-
-    if (item.synonyms) {
-      synonymMatch = item.synonyms.filter(synonym => query.test(synonym)).length > 0;
-    }
-
-    if (Object.prototype.hasOwnProperty.call(item, 'subpages')) {
-      subpagesMatch = item.subpages
-        .filter(subpage => this.checkItemForMatch(subpage, query)).length > 0;
-    }
-
-    return titleMatch || synonymMatch || subpagesMatch;
-  }
-
+  /**
+   * The found items will be rendered as autosuggest
+   */
   renderAutoSuggest() {
     this.data.topics.forEach((topic) => {
-      const compiled = template(this.ui.contentTeaserTemplate.innerHTML);
-      let html = compiled({
+      this.renderContentTeaser(this.ui.autosuggest, {
         shortTitle: topic.title,
         buzzwords: '',
         target: topic.path,
-      });
-
-      html = `<li class="mdl-content_nav__item">${html}</li>`;
-
-      const parsedHTML = new DOMParser().parseFromString(html, 'text/html').querySelector('li');
-
-      this.ui.autosuggest.append(parsedHTML);
-
-      window.dispatchEvent(new CustomEvent('reloadLineClamper'));
+      }, false, topic);
     });
+
+    window.dispatchEvent(new CustomEvent('reloadLineClamper'));
   }
 
+  /**
+   * This renders the initial navigation
+   */
+  renderNavigation() {
+    const { topics } = this.data.json;
+
+    topics.forEach((topic) => {
+      this.renderContentTeaser(this.ui.navigation, {
+        shortTitle: topic.title,
+        buzzwords: topic.keywords,
+        target: Object.prototype.hasOwnProperty.call(topic, 'subpages') ? '' : topic.path,
+      }, Object.prototype.hasOwnProperty.call(topic, 'subpages'),
+      topic);
+    });
+
+    window.dispatchEvent(new CustomEvent('reloadLineClamper'));
+
+    this.addNavigationEventListeners();
+  }
+
+  /**
+   * Renders the content teaser which is appended to a content nav
+   * @param appendTo The container to which the teaser is applied to
+   * @param context The data of the item
+   * @param isButton If the item should be rendered as button
+   (dependent on if the item has subpages, or is in the navigation)
+   * @param topic The topic item, with all the data
+   */
+  renderContentTeaser(appendTo, context, isButton, topic) {
+    const compiled = template(this.ui.contentTeaserTemplate.innerHTML);
+    let html = compiled(context);
+
+    html = `<li class="mdl-content_nav__item">${html}</li>`;
+
+    const parsedHTML = new DOMParser().parseFromString(html, 'text/html').querySelector('li');
+
+    if (isButton) {
+      parsedHTML.querySelector('a').setAttribute('role', 'button');
+      parsedHTML.querySelector('a').setAttribute('data-topic', JSON.stringify(topic));
+    }
+
+    appendTo.querySelector('ul').append(parsedHTML);
+  }
+
+  /**
+   * Renders the no result display for the filter
+   */
   renderNoResult() {
     const compiled = template(this.ui.contentTeaserTemplate.innerHTML);
     const html = compiled({
@@ -272,6 +340,77 @@ class Topiclist extends Module {
     const parsedLink = new DOMParser().parseFromString(html2, 'text/html').querySelector('a');
 
     this.ui.autosuggest.append(parsedLink);
+  }
+
+  setSubnav(topic) {
+    const compiled = template(this.ui.subnavigationTemplate.innerHTML);
+    const html = compiled({
+      title: topic.title,
+      pageUrl: topic.path,
+      layer: this.data.currentLayer + 1,
+      parent: this.data.currentLayer === 0 ? document.querySelector('.mdl-header__nav-item--active').textContent.trim() : this.ui.element.querySelector(`[data-layer="${this.data.currentLayer}"] h3`).textContent.trim(),
+    });
+
+    const parsedHTML = new DOMParser().parseFromString(html, 'text/html').querySelector('div');
+
+    parsedHTML.querySelector(this.options.domSelectors.subnavLayerUp).addEventListener('click', () => { this.data.currentLayer -= 1; });
+
+    this.ui.furtherLayers.append(parsedHTML);
+
+    this.setContentNavOfSubnav(topic, parsedHTML);
+
+    this.data.currentLayer += 1;
+
+    (<HTMLElement>parsedHTML.querySelector(this.options.domSelectors.subnavLayerUp)).focus();
+  }
+
+  setContentNavOfSubnav(topic, subnav) {
+    if (Object.prototype.hasOwnProperty.call(topic, 'subpages')) {
+      const { subpages } = topic;
+
+      subpages.forEach((subtopic) => {
+        this.renderContentTeaser(subnav.querySelector('[data-subnavigation="contentNav"]'), {
+          shortTitle: subtopic.title,
+          buzzwords: subtopic.keywords,
+          target: Object.prototype.hasOwnProperty.call(subtopic, 'subpages') ? '' : subtopic.path,
+        }, Object.prototype.hasOwnProperty.call(subtopic, 'subpages'), subtopic);
+      });
+
+      this.addNavigationEventListeners();
+      window.dispatchEvent(new CustomEvent('reloadLineClamper'));
+    }
+  }
+
+  onLayerChange(propName, oldValue, newValue) {
+    if (newValue === 0) {
+      this.ui.firstLayer.classList.remove(this.options.stateClasses.hidden);
+
+      this.ui.element.querySelector(`[data-layer="${oldValue}"]`).remove();
+
+      (<HTMLElement>document.querySelector('[data-modal="close"]')).focus();
+    } else {
+      this.ui.firstLayer.classList.add(this.options.stateClasses.hidden);
+
+      this.ui.element.querySelector(`[data-layer="${newValue}"]`).classList.add(this.options.stateClasses.visible);
+
+      if (oldValue > newValue) {
+        this.ui.element.querySelector(`[data-layer="${oldValue}"]`).remove();
+      } else if (this.ui.element.querySelector(`[data-layer="${oldValue}"]`)) {
+        this.ui.element.querySelector(`[data-layer="${oldValue}"]`).classList.remove(this.options.stateClasses.visible);
+      }
+    }
+  }
+
+  addNavigationEventListeners() {
+    this.eventDelegate.on('click', '[role="button"]', (event, delegate) => {
+      event.preventDefault();
+
+      const buttonData = JSON.parse(delegate.getAttribute('data-topic'));
+
+      this.setSubnav(buttonData);
+
+      return false;
+    });
   }
 
   /**

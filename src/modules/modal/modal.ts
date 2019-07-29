@@ -27,6 +27,7 @@ class Modal extends Module {
       domSelectors: {
         pageHeader: '.mdl-page-header',
         closeButton: '.mdl-page-header__closebutton',
+        close: '[data-modal="close"]',
       },
       stateClasses: {
         show: 'mdl-modal--show',
@@ -64,6 +65,11 @@ class Modal extends Module {
       document.documentElement.style.overflowY = 'hidden';
 
       this.ui.element.setAttribute('aria-hidden', 'false');
+
+      // If there is the navigation topic list a child, then load the navigation
+      if (this.ui.element.querySelector('.mdl-topiclist--nav')) {
+        this.ui.element.querySelector('.mdl-topiclist--nav').dispatchEvent(new CustomEvent('loadNavigation'));
+      }
     });
     this.eventDelegate.on('Modal.initContent', () => {
       if (!this.hasCloseBtn) {
@@ -76,6 +82,8 @@ class Modal extends Module {
     });
 
     this.eventDelegate.on('Modal.close', this.closeModal.bind(this));
+
+    this.eventDelegate.on('click', this.options.domSelectors.close, this.closeModal.bind(this));
   }
 
   initContent() {
@@ -138,6 +146,8 @@ class Modal extends Module {
     window.removeEventListener('keydown', this.closeOnEscapeFunction);
 
     this.ui.element.setAttribute('aria-hidden', 'true');
+
+    window.dispatchEvent(new CustomEvent('Modal.closed'));
 
     setTimeout(() => {
       this.ui.element.classList.remove(this.options.stateClasses.show);

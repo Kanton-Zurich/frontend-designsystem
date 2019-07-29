@@ -7,8 +7,6 @@ const defContactData = require('../../modules/contact/contact.data.js');
 const defFocusTeaserData = require('../../modules/focus_teaser/focus_teaser.data.js');
 const headerData = require('../../modules/header/header.data').props;
 
-console.log(headerData.modals[0].modules.contentModules[0]());
-
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Direktionsseite',

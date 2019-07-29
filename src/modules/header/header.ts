@@ -14,6 +14,7 @@ class Header extends Module {
     },
     domSelectors: {
       openModal: string,
+      close: string,
     },
     stateClasses: {
       activeItem: string,
@@ -27,6 +28,7 @@ class Header extends Module {
 
   public ui: {
     element: any,
+    close: any,
   }
 
   public data: {
@@ -46,6 +48,7 @@ class Header extends Module {
       },
       domSelectors: {
         openModal: '[data-header="openModal"]',
+        close: '[data-modal="close"]',
       },
       stateClasses: {
         activeItem: 'mdl-header__nav-item--active',
@@ -76,6 +79,7 @@ class Header extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.openModal, this.toggleFlyout.bind(this));
 
     window.addEventListener('keydown', this.closeOnEscape.bind(this));
+    window.addEventListener('Modal.closed', this.unsetClasses.bind(this));
   }
 
   toggleFlyout(event, delegate) {
@@ -84,6 +88,8 @@ class Header extends Module {
     }
 
     this.showFlyout(delegate);
+
+    (<HTMLElement>document.querySelector(this.options.domSelectors.close)).focus();
   }
 
   closeOnEscape(event) {
