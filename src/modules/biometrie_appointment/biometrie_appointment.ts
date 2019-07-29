@@ -10,14 +10,14 @@ import CalendarLinkGenerator from './service/calendar-link-generator.service';
 import BiometrieRescheduleView, {
   rescheduleViewSelectorsValues,
 } from './partials/reschedule_view/reschedule_view';
-/* eslint-disable no-unused-vars */
-import Appointment from './model/appointment.model';
 import BiometrieLoginView, { loginViewSelectors } from './partials/login_view/login_view';
 import BiometrieDetailsView, { detailViewSelectors } from './partials/details_view/details_view';
-/* eslint-disable no-unused-vars */
-import { WithEventListeners } from './util/view-controller.class';
 
-const ATTEMPTS_BEFORE_SHOW_TELEPHONE: number = 3;
+// TODO: Marked as unused by eslint although required (?)
+/* eslint-disable no-unused-vars */
+import Appointment from './model/appointment.model';
+import { BiometrieViewController } from './util/view-controller.class';
+/* eslint-enable */
 
 class BiometrieAppointment extends Module {
   public data: {
@@ -38,7 +38,7 @@ class BiometrieAppointment extends Module {
   private loginViewCntrl: BiometrieLoginView;
   private detailsViewCntrl: BiometrieDetailsView;
   private rescheduleViewCntrl: BiometrieRescheduleView;
-  private viewController: WithEventListeners[];
+  private viewController: BiometrieViewController[];
 
   private apiService: MigekApiService;
 
@@ -48,7 +48,7 @@ class BiometrieAppointment extends Module {
     const defaultData = {
       apiBase: 'https://internet-acc.zh.ch/proxy/migek/',
       appointment: undefined,
-      attemptsBeforeTelephone: ATTEMPTS_BEFORE_SHOW_TELEPHONE,
+      attemptsBeforeTelephone: 3,
       loading: true,
     };
 
@@ -93,12 +93,11 @@ class BiometrieAppointment extends Module {
   private initViewController() {
     this.viewController = [];
 
-    this.loginViewCntrl = new BiometrieLoginView(this.data, loginViewSelectors, this.log,
-      this.apiService);
+    this.loginViewCntrl = new BiometrieLoginView(this.data, loginViewSelectors);
     this.viewController.push(this.loginViewCntrl);
 
-    this.detailsViewCntrl = new BiometrieDetailsView(this.data, detailViewSelectors, this.log,
-      this.apiService, this.calendarLinkGenerator)
+    this.detailsViewCntrl = new BiometrieDetailsView(this.data, detailViewSelectors,
+      this.calendarLinkGenerator)
       .onRescheduleClicked((rescheduleIntention) => {
         if (rescheduleIntention) {
           this.enterRescheduleView();
@@ -106,9 +105,13 @@ class BiometrieAppointment extends Module {
       });
     this.viewController.push(this.detailsViewCntrl);
 
-    this.rescheduleViewCntrl = new BiometrieRescheduleView(this.data, rescheduleViewSelectorsValues,
-      this.log, this.apiService);
+    this.rescheduleViewCntrl = new BiometrieRescheduleView(this.data,
+      rescheduleViewSelectorsValues);
     this.viewController.push(this.rescheduleViewCntrl);
+
+    this.viewController.forEach((cntrl) => {
+      cntrl.withLogFn(this.log).withApi(this.apiService);
+    });
   }
 
 

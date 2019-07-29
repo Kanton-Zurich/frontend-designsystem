@@ -1,8 +1,16 @@
-/* eslint-disable */
-import MigekApiService, { ApiConnectionFailure, ApiFailureType } from '../../service/migek-api.service';
 import { ViewController } from '../../util/view-controller.class';
-import { LoginAlert } from '../../model/login-alert-type.enum';
+import { ApiConnectionFailure, ApiFailureType } from '../../service/migek-api.service';
+
+// TODO: Marked as unused by eslint although required (?)
+/* eslint-disable no-unused-vars */
 import Appointment from '../../model/appointment.model';
+
+enum LoginAlert {
+  Incomplete,
+  Unauthorized,
+  ShowTelephone
+}
+/* eslint-enable */
 
 const TOKEN_BLOCKS: number = 4;
 const TOKEN_BLOCK_LENGTH: number = 4;
@@ -33,17 +41,12 @@ interface LoginViewData {
 }
 
 class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewData> {
-  private apiService: MigekApiService;
-
   private loginToken: string;
-
   private loginReqAttempts: number;
 
-  constructor(_data: any, _selectors: LoginViewSelectors, _logFn: Function,
-    _apiService: MigekApiService) {
-    super(_selectors, _data as LoginViewData, _logFn);
+  constructor(_data: any, _selectors: LoginViewSelectors) {
+    super(_selectors, _data as LoginViewData);
     this.selectors = _selectors;
-    this.apiService = _apiService;
 
     this.loginReqAttempts = 0;
   }
@@ -85,7 +88,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
           }
         });
 
-        if (caretPos === TOKEN_BLOCK_LENGTH && targetInputIdx < inputEls.length) {
+        if (caretPos === TOKEN_BLOCK_LENGTH && targetInputIdx < inputEls.length - 1) {
           if (this.validateTokenCharacter(event.key)) {
             const focusEl = inputEls[targetInputIdx + 1];
             focusEl.focus();

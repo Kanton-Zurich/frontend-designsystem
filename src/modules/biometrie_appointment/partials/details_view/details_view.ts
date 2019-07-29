@@ -1,8 +1,11 @@
 /* eslint-disable */
 import { ViewController } from '../../util/view-controller.class';
-import Appointment from '../../model/appointment.model';
 import CalendarLinkGenerator from '../../service/calendar-link-generator.service';
-import MigekApiService from '../../service/migek-api.service';
+
+// TODO: Marked as unused by eslint although required (?)
+/* eslint-disable no-unused-vars */
+import Appointment from '../../model/appointment.model';
+/* eslint-enable */
 
 export const detailViewSelectors: DetailsViewSelectors = {
   reservationDetails: '[data-biometrie_appointment^=reservation-details__]',
@@ -25,17 +28,15 @@ interface DetailsViewData {
 }
 class BiometrieDetailsView extends ViewController<DetailsViewSelectors, DetailsViewData> {
   private calendarLinkGenerator: CalendarLinkGenerator;
-  private apiService: MigekApiService;
 
   private rescheduleCallbackFn: (doReschedule: boolean) => void;
 
   private appointmentToShow: Appointment;
 
-  constructor(_data: any, _selectors: DetailsViewSelectors, _logFn: Function,
-    _apiService: MigekApiService, _calendarLinkGenerator: CalendarLinkGenerator) {
-    super(_selectors, _data as DetailsViewData, _logFn);
+  constructor(_data: any, _selectors: DetailsViewSelectors,
+    _calendarLinkGenerator: CalendarLinkGenerator) {
+    super(_selectors, _data as DetailsViewData);
     this.calendarLinkGenerator = _calendarLinkGenerator;
-    this.apiService = _apiService;
   }
 
   public onRescheduleClicked(callback: (doReschedule: boolean) => void): BiometrieDetailsView {

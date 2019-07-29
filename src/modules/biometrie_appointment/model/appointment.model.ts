@@ -1,5 +1,7 @@
+// TODO: Marked as unused by eslint although required (?)
 /* eslint-disable no-unused-vars */
 import { AppointmentPayload } from './api-payload.interfaces';
+/* eslint-enable */
 
 class Appointment {
   private details: AppointmentPayload;

@@ -1,7 +1,8 @@
-/* eslint-disable */
 import Appointment from '../model/appointment.model';
-import Timeslot from '../model/timeslot.model';
 
+// TODO: Interfaces an enums are marked as unused by eslint (?)
+/* eslint-disable no-unused-vars */
+import Timeslot from '../model/timeslot.model';
 import {
   AppointmentDetailsResponse,
   AppointmentPayload, ErrorResponse,
@@ -17,6 +18,8 @@ export enum ApiFailureType {
   UNKNOWN,
   UNPARSEABLE,
 }
+/* eslint-enable no-unused-vars */
+
 export class ApiConnectionFailure implements Error {
   name: 'Connection failure - MigekApi';
   message: string;
@@ -162,9 +165,10 @@ class MigekApiService {
 
   private getPostponeRequestBody(slot: Timeslot): string {
     if (this.currentAppointment) {
-      const reqAppointment = Object.assign({}, this.currentAppointment);
-      reqAppointment.from = slot.from;
-      reqAppointment.until = slot.until;
+      const reqAppointment = Object.assign({}, this.currentAppointment, {
+        from: slot.payload.startTime,
+        until: slot.payload.endTime,
+      });
       return JSON.stringify(reqAppointment);
     }
     return '';

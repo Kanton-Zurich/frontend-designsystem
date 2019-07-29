@@ -1,30 +1,37 @@
-/* eslint-disable */
-import moment, { Moment } from 'moment';
+import DateHelper from '../../../util/date-helper.class';
+
+// TODO: Marked as unused by eslint although required (?)
+/* eslint-disable no-unused-vars */
 import { TimeslotPayload } from './api-payload.interfaces';
+/* eslint-enable */
 
 class Timeslot {
-  from: string;
-  until: string;
-  start: Moment;
-  end: Moment;
-  capacity: number;
+  public readonly payload: TimeslotPayload;
 
   constructor(timeslotPayload: TimeslotPayload) {
-    this.from = timeslotPayload.startTime;
-    this.until = timeslotPayload.endTime;
+    this.payload = timeslotPayload;
+  }
 
-    this.start = moment(this.from);
-    this.end = moment(this.until);
+  get startDate(): Date {
+    return new Date(this.payload.startTime);
+  }
 
-    this.capacity = timeslotPayload.capacity;
+  get endDate(): Date {
+    return new Date(this.payload.endTime);
+  }
+
+  get capacity(): number {
+    return this.payload.capacity;
   }
 
   public getDateStr(): string {
-    return this.start.format('dddd, DD.MM.YYYY');
+    return DateHelper.getDeDateStr(this.startDate);
   }
 
   public getTimeStr(): string {
-    return `${this.start.format('hh:mm')}-${this.end.format('hh:mm')}`;
+    const fromTime = DateHelper.getTrimTimeStr(this.startDate);
+    const toTime = DateHelper.getTrimTimeStr(this.endDate);
+    return `${fromTime}-${toTime}`;
   }
 }
 
