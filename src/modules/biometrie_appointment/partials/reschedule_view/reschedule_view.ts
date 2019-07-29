@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { ViewController } from '../../util/view-controller.class';
 import Timeslot from '../../model/timeslot.model';
 

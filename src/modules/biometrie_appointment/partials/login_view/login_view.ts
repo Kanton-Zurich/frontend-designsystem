@@ -88,7 +88,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
           }
         });
 
-        if (caretPos === TOKEN_BLOCK_LENGTH && targetInputIdx < inputEls.length) {
+        if (caretPos === TOKEN_BLOCK_LENGTH && targetInputIdx < inputEls.length - 1) {
           if (this.validateTokenCharacter(event.key)) {
             const focusEl = inputEls[targetInputIdx + 1];
             focusEl.focus();
