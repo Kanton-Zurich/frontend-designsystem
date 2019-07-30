@@ -32,6 +32,7 @@ class Modal extends Module {
       stateClasses: {
         show: 'mdl-modal--show',
         transHide: 'mdl-modal--transition-hide',
+        dynamicHeader: 'mdl-modal--dynamicheader',
       },
     };
     super($element, defaultData, defaultOptions, data, options);
@@ -60,7 +61,9 @@ class Modal extends Module {
       this.ui.element.classList.add(this.options.stateClasses.show);
       this.ui.element.focus();
       this.ui.element.scrollTo(0, 0);
-      this.updateOnScroll(0);
+      if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
+        this.updateOnScroll(0);
+      }
       this.updateSizing();
       document.documentElement.style.overflowY = 'hidden';
 
@@ -88,9 +91,11 @@ class Modal extends Module {
 
   initContent() {
     const closeButton = this.ui.element.querySelector(this.options.domSelectors.closeButton);
-    this.ui.element.addEventListener('scroll', (event) => {
-      this.updateOnScroll(event.target.scrollTop);
-    });
+    if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
+      this.ui.element.addEventListener('scroll', (event) => {
+        this.updateOnScroll(event.target.scrollTop);
+      });
+    }
     if (closeButton) {
       closeButton.addEventListener('click', this.closeModal.bind(this));
       this.hasCloseBtn = true;
@@ -100,20 +105,10 @@ class Modal extends Module {
   updateOnScroll(scrollTop) {
     const pageHeader = this.ui.element.querySelector(this.options.domSelectors.pageHeader);
     if (pageHeader) {
-      const pageLogo = pageHeader.querySelector('.mdl-page-header__logo-container');
-      const headerContainer = pageHeader.querySelectorAll('.cell')[1];
       if (scrollTop > this.scrollThreshold) {
-        pageLogo.classList.remove('tiny-2');
-        headerContainer.classList.remove('tiny-10', 'xsmall-10', 'small-10');
-        pageHeader.classList.add('mdl-page-header--minimal');
-        pageLogo.classList.add('tiny-0');
-        headerContainer.classList.add('tiny-6', 'xsmall-6', 'small-7');
+        pageHeader.dispatchEvent(new CustomEvent('PageHeader.collapse'));
       } else {
-        pageHeader.classList.remove('mdl-page-header--minimal');
-        pageLogo.classList.remove('tiny-0');
-        headerContainer.classList.remove('tiny-6', 'xsmall-6', 'small-7');
-        pageLogo.classList.add('tiny-2');
-        headerContainer.classList.add('tiny-10', 'xsmall-10', 'small-10');
+        pageHeader.dispatchEvent(new CustomEvent('PageHeader.expand'));
       }
     }
   }

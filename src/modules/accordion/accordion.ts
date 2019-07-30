@@ -79,7 +79,7 @@ class Accordion extends Module {
 
       panel.setAttribute('aria-hidden', 'true');
 
-      this.setTabindex(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY), '-1');
+      this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), '-1');
 
       if (verticalIcon) verticalIcon.removeAttribute('transform');
     } else {
@@ -87,7 +87,7 @@ class Accordion extends Module {
 
       panel.setAttribute('aria-hidden', 'false');
 
-      this.setTabindex(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY), null);
+      this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), null);
 
       // CZHDEV - 424, if ie add manual transform
       if (verticalIcon) verticalIcon.setAttribute('transform', 'rotate(90)');
@@ -169,7 +169,8 @@ class Accordion extends Module {
    */
   initTabindex() {
     this.ui.panelContent.forEach((panelContent) => {
-      this.setTabindex(panelContent.querySelectorAll(INTERACTION_ELEMENTS_QUERY), -1);
+      this.setTabindex([].slice
+        .call(panelContent.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), -1);
     });
   }
 

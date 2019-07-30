@@ -1,8 +1,11 @@
 <div class="mdl-page-header {{#if hasImage}}mdl-page-header--headerimage{{/if}} {{#if
-  inverted}}mdl-page-header--inverted{{/if}} {{#if minimal}}mdl-page-header--minimal{{/if}} {{#if hasImageTitle}}mdl-page-header--image-title{{/if}}">
+  hasPersonCard}}mdl-page-header--headerimage{{/if}} {{#if
+  inverted}}mdl-page-header--inverted{{/if}} {{#if minimal}}mdl-page-header--minimal{{/if}} {{#if
+  hasImageTitle}}mdl-page-header--image-title{{/if}}" data-init="pageHeader">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
-      <div class="mdl-page-header__logo-container cell {{#if minimal}}tiny-0{{/if}}{{#unless minimal}}tiny-2{{/unless}} xsmall-2 small-2 medium-2 large-2 xlarge-2">
+      <div class="mdl-page-header__logo-container cell {{#if minimal}}tiny-0{{/if}}{{#unless
+        minimal}}tiny-2{{/unless}} xsmall-2 small-2 medium-2 large-2 xlarge-2">
         {{#unless minimal}}
           <a href="{{homelink}}">
             <span class="visuallyhidden">Logo des Kantons Zürich</span>
@@ -18,7 +21,8 @@
           </a>
         {{/unless}}
       </div>
-      <div class="cell {{#if minimal}}tiny-6 xsmall-6 small-7{{/if}} {{#unless minimal}}tiny-10 xsmall-10 small-10{{/unless}} medium-10 large-10 xlarge-10">
+      <div class="cell {{#if minimal}}tiny-6 xsmall-6 small-7{{/if}} {{#unless
+        minimal}}tiny-10 xsmall-10 small-10{{/unless}} medium-10 large-10 xlarge-10">
         {{#unless minimal}}
           {{#if hasBacklink}}
             <div class="mdl-page-header__breadcrumb">
@@ -33,8 +37,9 @@
           <div class="mdl-page-header__breadcrumb">
             <button class="mdl-page-header__closebutton">Schliessen
               <svg class="icon">
-              <use xlink:href="#exit"></use>
-            </svg></button>
+                <use xlink:href="#exit"></use>
+              </svg>
+            </button>
 
           </div>
         {{/if}}
@@ -75,26 +80,42 @@
         {{#if hasVideo}}{{> "modules/video/video" videoData}}{{/if}}
       </div>
     </div>
+    {{#if hasPersonCard}}
+      <div class="grid-x grid-margin-x">
+        <div
+          class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
+          {{> "modules/person_card/person_card" personCardData}}
+        </div>
+      </div>
+    {{/if}}
+    {{#if applicationHeader}}
+    <button
+      class="mdl-page-header__expander atm-button atm-button--secondary atm-button--small atm-button--cv-inverted">
+      <span class="atm-button__text" data-expand="{{expandNav}}" data-collapse="{{collapseNav}}">
+        {{collapseNav}}
+      </span>
+      <svg class="mdl-page-header__expander-icon icon atm-button__icon">
+        <use xlink:href="#angle_drop_up"></use>
+      </svg>
+    </button>
+    {{/if}}
   </div>
 
-  {{#if hasImage}}
-    <div class="mdl-page-header__subsection">
+  <div class="mdl-page-header__subsection">
+    {{#if hasImage}}
       <div class="lyt-wrapper">
         <div class="grid-x grid-margin-x">
           <div
             class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
-            {{#unless noSubsection}}
-              {{#unless noText}}
-                {{> "atoms/lead/lead"}}
-              {{/unless}}
-              {{#unless noButton}}
-                {{> "atoms/button/button" buttonData}}
-              {{/unless}}
+            {{#unless noText}}
+              {{> "atoms/lead/lead"}}
+            {{/unless}}
+            {{#unless noButton}}
+              {{> "atoms/button/button" buttonData}}
             {{/unless}}
           </div>
         </div>
       </div>
-    </div>
-  {{/if}}
-
+    {{/if}}
+  </div>
 </div>

@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const template = dataHelper.getFileContent('focus_teaser.hbs');
@@ -54,6 +54,10 @@ const variants = _.mapValues({
     },
     props: {
       hasHeader: true,
+      focusTeaserHeader: {
+        title: 'Das könnte Sie auch interessieren',
+        text: 'Die Sicherheitsdirektion kümmert sich um ein grosens Leistungsspektrum des Kantons. Die folgenden Schwerpunkte liegen uns besonders am Herzen.',
+      },
     },
   },
 }, (variant) => {

@@ -315,7 +315,7 @@ class Carousel extends Module {
 
       window.addEventListener('keydown', this.closeOnEscapeFunction);
 
-      this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen).forEach(e => e.setAttribute('aria-hidden', 'true'));
+      [].slice.call(this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen)).forEach(e => e.setAttribute('aria-hidden', 'true'));
 
       this.wrapAccessibility();
     } else {
@@ -328,7 +328,7 @@ class Carousel extends Module {
       document.documentElement.classList.remove('locked');
       window.removeEventListener('keydown', this.closeOnEscapeFunction);
 
-      this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen).forEach(e => e.setAttribute('aria-hidden', 'false'));
+      [].slice.call(this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen)).forEach(e => e.setAttribute('aria-hidden', 'false'));
 
       this.unwrapAccessibility();
     }
@@ -399,7 +399,7 @@ class Carousel extends Module {
    * @memberof Carousel
    */
   removeCaptionStyles() {
-    const captions = document.querySelectorAll(this.options.domSelectors.caption);
+    const captions = [].slice.call(document.querySelectorAll(this.options.domSelectors.caption));
 
     captions.forEach((caption) => {
       caption.removeAttribute('style');
@@ -415,7 +415,7 @@ class Carousel extends Module {
     const activeIndex = this.data.active - 1;
     const slidesArray = Array.prototype.slice.call(this.ui.slides);
 
-    slidesArray[activeIndex].querySelectorAll('button, a').forEach((e) => {
+    [].slice.call(slidesArray[activeIndex].querySelectorAll('button, a')).forEach((e) => {
       e.removeAttribute('tabindex');
       e.removeAttribute('aria-hidden');
     });
@@ -424,7 +424,7 @@ class Carousel extends Module {
     slidesArray.splice(activeIndex, 1);
 
     slidesArray.forEach((slide) => {
-      slide.querySelectorAll('button, a').forEach((e) => {
+      [].slice.call(slide.querySelectorAll('button, a')).forEach((e) => {
         e.setAttribute('tabindex', '-1');
         e.setAttribute('aria-hidden', 'true');
       });

@@ -28,7 +28,7 @@ class Inspector extends Helper {
     this.logger(`Initialized ${Inspector.name}`);
     document.addEventListener('DOMContentLoaded',
       () => {
-        const variantsInput = document.querySelectorAll('input[name="variants"]');
+        const variantsInput = [].slice.call(document.querySelectorAll('input[name="variants"]'));
         variantsInput.forEach((input) => {
           input.addEventListener('change', (event) => {
             Inspector.triggerVariantChangeOnElement(<any>event.target);
@@ -78,7 +78,7 @@ class Inspector extends Helper {
           .getAttribute('value')));
       const defaultColor = document
         .getElementById(`defaultColorVariation${selectorIndex}`).getAttribute('value');
-      document.querySelectorAll('input[name="colorVariations"]').forEach((cvInput: HTMLInputElement) => {
+      [].slice.call(document.querySelectorAll('input[name="colorVariations"]')).forEach((cvInput: HTMLInputElement) => {
         cvInput.disabled = disabledColors.indexOf(cvInput.getAttribute('value')) >= 0;
         if (cvInput.getAttribute('value') === defaultColor) {
           cvInput.checked = true;

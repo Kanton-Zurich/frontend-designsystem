@@ -33,8 +33,8 @@ class Tabs extends Module {
       39: 1,
     };
 
-    this.tabs = $element.querySelectorAll('[role="tab"]');
-    this.panels = $element.querySelectorAll('[role="tabpanel"]');
+    this.tabs = [].slice.call($element.querySelectorAll('[role="tab"]'));
+    this.panels = [].slice.call($element.querySelectorAll('[role="tabpanel"]'));
     this.initUi();
     this.initEventListeners();
   }

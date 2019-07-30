@@ -1,12 +1,13 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const { handlebars } = require('@unic/estatico-handlebars');
+const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defImageFigureData = require('../image_figure/image_figure.data');
 const defVideoData = require('../video/video.data');
 const defButtonData = require('../../atoms/button/button.data').props;
 const defBreadcrumbData = require('../breadcrumb/breadcrumb.data').props;
 const backOnlyBreadcrumbData = require('../breadcrumb/breadcrumb.data').variants.singlePathItem.props;
+const defPersonCardData = require('../person_card/person_card.data.js').variants.promo.props;
 
 
 const template = dataHelper.getFileContent('page_header.hbs');
@@ -24,7 +25,10 @@ const data = _.merge({}, defaultData, {
     leadText: 'Lead: ExtraBold Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
     breadcrumb: defBreadcrumbData,
     backlink: backOnlyBreadcrumbData,
-    buttonData: _.merge(defButtonData, { text: 'Formular beantragen' }),
+    buttonData: _.merge(defButtonData, {text: 'Formular beantragen'}),
+    personCardData: defPersonCardData,
+    expandNav: 'Navigation anzeigen',
+    collapseNav: 'Navigation ausblenden',
   },
 });
 
@@ -48,7 +52,6 @@ const variants = _.mapValues({
       defaultColorVariation: 'cv-blue',
     },
     props: {
-
       imageData: defImageFigureData.variants.header.props,
       hasImage: true,
       hasBacklink: true,
@@ -64,7 +67,7 @@ const variants = _.mapValues({
     props: {
 
       inverted: true,
-      buttonData: _.merge({}, defButtonData, { isInverted: true }),
+      buttonData: _.merge({}, defButtonData, {isInverted: true}),
       hasBreadcrumb: true,
     },
   },
@@ -78,7 +81,7 @@ const variants = _.mapValues({
     props: {
 
       inverted: true,
-      buttonData: _.merge({}, defButtonData, { isInverted: true }),
+      buttonData: _.merge({}, defButtonData, {isInverted: true}),
       hasBreadcrumb: true,
       hasAnchors: true,
       anchorLinks: [
@@ -178,6 +181,22 @@ const variants = _.mapValues({
       hasBacklink: true,
     },
   },
+  colorPeopleTeaser: {
+    meta: {
+      title: 'Mit Farbe und Personen Teaser',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+      defaultColorVariation: 'cv-blue',
+    },
+    props: {
+      imageData: defImageFigureData.variants.headerNoTitle.props,
+      inverted: true,
+      hasBreadcrumb: true,
+      noButton: true,
+      hasImage: false,
+      hasPersonCard: true,
+    },
+  },
   serviceModal: {
     meta: {
       title: 'Service Modal (CZHDEV-468)',
@@ -225,6 +244,80 @@ const variants = _.mapValues({
     },
     props: {
       pageTitle: 'Internationalen Führerausweis bestellen',
+      inverted: true,
+      hasImageTitle: false,
+      hasVideo: false,
+      hasImage: false,
+      hasBacklink: false,
+      hasBreadcrumb: false,
+      noButton: true,
+      noText: true,
+      minimal: true,
+      hasCloseButton: true,
+    },
+  },
+  application: {
+    meta: {
+      title: 'Applikation (CZHDEV-533)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+      defaultColorVariation: 'cv-darkblue',
+    },
+    props: {
+      pageTitle: 'Applikation',
+      applicationHeader: true,
+      inverted: true,
+      noButton: true,
+      noText: true,
+      buttonData: _.merge({}, defButtonData, {isInverted: true}),
+      hasBreadcrumb: true,
+    },
+  },
+  applicationStandalone: {
+    meta: {
+      title: 'Applikation Standalone (CZHDEV-533)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+      defaultColorVariation: 'cv-darkblue',
+    },
+    props: {
+      pageTitle: 'Applikation',
+      inverted: true,
+      noButton: true,
+      noText: true,
+      buttonData: _.merge({}, defButtonData, {isInverted: true}),
+      hasBreadcrumb: true,
+    },
+  },
+  applicationModal: {
+    meta: {
+      title: 'Applikation Modal (CZHDEV-533)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+      defaultColorVariation: 'cv-darkblue',
+    },
+    props: {
+      pageTitle: 'Applikation',
+      inverted: true,
+      hasImageTitle: false,
+      hasVideo: false,
+      hasImage: false,
+      hasBacklink: false,
+      hasBreadcrumb: false,
+      noButton: true,
+      noText: true,
+      hasCloseButton: true,
+    },
+  },
+  applicationModalSmall: {
+    meta: {
+      title: 'Applikation Modal klein (CZHDEV-533)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+      defaultColorVariation: 'cv-darkblue',
+    },
+    props: {
+      pageTitle: 'Applikation',
       inverted: true,
       hasImageTitle: false,
       hasVideo: false,

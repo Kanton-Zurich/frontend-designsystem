@@ -13,6 +13,7 @@
  */
 import '@babel/polyfill';
 import 'mdn-polyfills/NodeList.prototype.forEach';
+import 'mdn-polyfills/Node.prototype.remove';
 import 'mdn-polyfills/CustomEvent';
 
 /**

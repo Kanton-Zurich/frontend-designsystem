@@ -26,7 +26,7 @@ class LineClamper {
    * @memberof LineClamper
    */
   public initLineClamping() {
-    this.elements = document.querySelectorAll(this.options.selector);
+    this.elements = [].slice.call(document.querySelectorAll(this.options.selector));
     this.initEventListeners();
     this.setLineClamping();
   }
@@ -40,6 +40,8 @@ class LineClamper {
    */
   private setLineClamping() {
     if (this.elements.length > 0) {
+      // IE Hack so foreach is supported
+      this.elements = [].slice.call(this.elements);
       this.elements.forEach((element) => {
         if (!element.hasAttribute('data-line-clamped')) {
           element.setAttribute('title', element.innerText.trim());
@@ -70,7 +72,7 @@ class LineClamper {
    * @memberof LineClamper
    */
   public updateLineClamping() {
-    this.elements = document.querySelectorAll(this.options.selector);
+    this.elements = [].slice.call(document.querySelectorAll(this.options.selector));
     this.setLineClamping();
   }
 

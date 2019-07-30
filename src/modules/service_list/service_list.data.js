@@ -53,6 +53,9 @@ const variants = _.mapValues({
     },
     props: {
       hasHeading: true,
+      serviceListHeading: {
+        title: 'Service',
+      },
     },
   },
   noHeading: {

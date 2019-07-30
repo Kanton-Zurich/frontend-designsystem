@@ -6,7 +6,7 @@
 <!--  -->
 {{/if}}
 <!-- modal page content -->
-<div id="{{modalId}}" class="mdl-modal {{#if mainNavigation}}mdl-modal--flyout cv-monochrome{{/if}}" aria-hidden="true" data-init="modal">
+<div id="{{modalId}}" class="mdl-modal {{#if mainNavigation}}mdl-modal--flyout cv-monochrome{{/if}} {{#if dynamicHeader}}mdl-modal--dynamicheader{{/if}}" aria-hidden="true" data-init="modal">
   {{#if mainNavigation}}
     <button class="mdl-modal__close" data-modal="close">
       <span class="mdl-modal__close-label">Schliessen</span>

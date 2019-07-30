@@ -305,7 +305,7 @@ gulp.task('css', () => {
           'encode_Base64($string)': function ($string) {
             var buffer = new Buffer($string.getValue());
             return nodeSass.types.String(buffer.toString('base64'));
-          }
+          },
         },
       },
       // Use task default (autoprefixer with .browserslistrc config)
@@ -771,6 +771,7 @@ gulp.task('copy', () => {
   const instance = task({
     src: [
       './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
+      './src/assets/media/image/*.svg',
     ],
     srcBase: './src',
     dest: './dist',
@@ -841,7 +842,7 @@ gulp.task('copy:aem', () => {
 gulp.task('clean:aem', (callback) => {
   const del = require('del');
 
-  return del(gulpUtil.env.aemTargetBaseResources, {force: true}, callback);
+  return del(gulpUtil.env.aemTargetBaseResources, { force: true }, callback);
 });
 
 /**
