@@ -2,36 +2,20 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const organisationTeaserTemplate = require('../organisation_teaser/organisation_teaser.data').variants.default.meta.code.template;
+const organisationTopiclist = require('../topiclist/topiclist.data').variants.organisationNav.props;
 
-const modalData = require('../modal/modal.data');
-
-const template = dataHelper.getFileContent('header.hbs');
+const template = dataHelper.getFileContent('organisation_navigation.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Header',
-    className: 'Header',
-    jira: 'CZHDEV-496',
-    documentation: dataHelper.getDocumentation('header.md'),
+    title: 'OrganisationNavigation',
+    className: 'OrganisationNavigation',
+    jira: 'CZHDEV-*',
+    documentation: dataHelper.getDocumentation('organisation_navigation.md'),
   },
   props: {
-    navItem: [
-      {
-        title: 'Themen',
-        modal: 'flyout-topics',
-      },
-      {
-        title: 'Organisation',
-        modal: 'flyout-organisation',
-      },
-    ],
-    modals: [
-      _.merge({}, modalData.variants.topicFlyout.props, {
-        preview: false,
-      }),
-      _.merge({}, modalData.variants.organisationFlyout.props, {
-        preview: false,
-      }),
-    ],
+    organisationTeaserTemplate,
+    organisationTopiclist,
   },
 });
 const variants = _.mapValues({

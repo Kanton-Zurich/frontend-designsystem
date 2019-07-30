@@ -47,6 +47,7 @@ $leadFontCurve: (
 
   &--nav {
     @include sizeCurve(margin-top, large);
+    @include sizeCurve(margin-bottom, large);
 
     &:last-child {
       margin-bottom: 0;

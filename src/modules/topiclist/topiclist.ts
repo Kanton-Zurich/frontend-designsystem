@@ -32,25 +32,14 @@ class Topiclist extends Module {
     query: string,
     isNav: boolean,
     json: {
-      labelTopics: string,
-      topics: Array<{
-        title: string,
-        synonyms: Array<string>,
-        path: string,
-        keywords: string,
-      }>,
+      pages: any,
       filterField: {
         noResultsLabel: string,
         searchInSiteSearchLabel: string,
         searchPage: string,
       },
     },
-    topics: Array<{
-      title: string,
-      synonyms: Array<string>,
-      path: string,
-      keywprds: string,
-    }>,
+    filteredPages: any,
     currentLayer: number,
   }
 
@@ -130,6 +119,10 @@ class Topiclist extends Module {
 
             this.renderNavigation();
           }
+
+          this.ui.element.dispatchEvent(new CustomEvent('loadNavigationFinished', {
+            detail: this.data.json,
+          }));
         });
     }
   }
@@ -167,17 +160,17 @@ class Topiclist extends Module {
     }
 
     if (this.data.query.length > 1) {
-      this.filterTopics(this.data.query);
+      this.filterPages(this.data.query);
       this.ui.autosuggest.querySelector('ul').innerHTML = '';
 
       this.ui.element.classList.add(this.options.stateClasses.filtered);
 
-      if (this.data.topics.length > 0) {
+      if (this.data.filteredPages.length > 0) {
         this.renderAutoSuggest();
 
         this.ui.element.classList.remove(this.options.stateClasses.expanded);
 
-        if (this.data.topics.length >= entriesToShowButton) {
+        if (this.data.filteredPages.length >= entriesToShowButton) {
           this.ui.showAllButton.style.display = 'inline-flex';
         } else {
           this.ui.showAllButton.style.display = 'none';
@@ -206,10 +199,6 @@ class Topiclist extends Module {
         if (response) {
           const response2 = response;
 
-          response2.topics.forEach((element, index) => {
-            element.id = index;
-          });
-
           this.data.json = response2;
         }
       })
@@ -222,10 +211,10 @@ class Topiclist extends Module {
    * Filtering the topics
    * @param query The input of the filter field
    */
-  filterTopics(query) {
+  filterPages(query) {
     const queryRegEx = new RegExp(query, 'gi');
 
-    this.data.json.topics.forEach((item) => {
+    this.data.json.pages.middleSection.forEach((item) => {
       this.getMatchingItems(item, queryRegEx);
     });
   }
@@ -243,7 +232,7 @@ class Topiclist extends Module {
       synonymMatch = item.synonyms.filter(synonym => query.test(synonym)).length > 0;
     }
 
-    if (titleMatch || synonymMatch) this.data.topics.push(item);
+    if (titleMatch || synonymMatch) this.data.filteredPages.push(item);
 
     if (item.subpages) {
       item.subpages.forEach((subpage) => {
@@ -256,7 +245,7 @@ class Topiclist extends Module {
    * The found items will be rendered as autosuggest
    */
   renderAutoSuggest() {
-    this.data.topics.forEach((topic) => {
+    this.data.filteredPages.forEach((topic) => {
       this.renderContentTeaser(this.ui.autosuggest, {
         shortTitle: topic.title,
         buzzwords: '',
@@ -271,9 +260,9 @@ class Topiclist extends Module {
    * This renders the initial navigation
    */
   renderNavigation() {
-    const { topics } = this.data.json;
+    const { middleSection } = this.data.json.pages;
 
-    topics.forEach((topic) => {
+    middleSection.forEach((topic) => {
       this.renderContentTeaser(this.ui.navigation, {
         shortTitle: topic.title,
         buzzwords: topic.keywords,
@@ -399,6 +388,10 @@ class Topiclist extends Module {
         this.ui.element.querySelector(`[data-layer="${oldValue}"]`).classList.remove(this.options.stateClasses.visible);
       }
     }
+
+    this.ui.element.dispatchEvent(new CustomEvent('layerChange', {
+      detail: newValue,
+    }));
   }
 
   addNavigationEventListeners() {

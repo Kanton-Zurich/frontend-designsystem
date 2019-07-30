@@ -5,6 +5,7 @@ const defaultData = require('../../data/default.data.js');
 const defServiceBoxData = require('../service_box/service_box.data.js');
 
 const topiclist = require('../topiclist/topiclist.data');
+const organisationNavigation = require('../organisation_navigation/organisation_navigation.data');
 
 const template = dataHelper.getFileContent('modal.hbs');
 const data = _.merge({}, defaultData, {
@@ -85,6 +86,21 @@ const variants = _.mapValues({
       modules: {
         contentModules: [
           () => handlebars.compile(dataHelper.getFileContent('../topiclist/topiclist.hbs'))(topiclist.variants.topicsNav.props),
+        ],
+      },
+    },
+  },
+  organisationFlyout: {
+    meta: {
+      title: 'Flyout Organisation',
+      desc: 'Das Modal welches in der Hauptnavigation genutzt wird.',
+    },
+    props: {
+      modalId: 'flyout-organisation',
+      mainNavigation: true,
+      modules: {
+        contentModules: [
+          () => handlebars.compile(dataHelper.getFileContent('../organisation_navigation/organisation_navigation.hbs'))(organisationNavigation.variants.default.props),
         ],
       },
     },

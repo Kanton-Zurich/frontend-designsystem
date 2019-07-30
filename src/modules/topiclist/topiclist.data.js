@@ -214,7 +214,7 @@ const variants = _.mapValues({
     props: {
       isNavigation: true,
       topiclistInput: _.merge({}, inputFormData, {
-        label: 'Organisationen nach Stichwort filtern',
+        label: 'Filtern nach Amt, Fachstelle, Direktion',
         isSmall: true,
         selector: 'data-topiclist="input"',
         hasClearButton: true,
@@ -235,7 +235,7 @@ const variants = _.mapValues({
       },
       contentTeaserTemplate: contentTeaserDefaultData.variants.default.meta.code.template,
       options: JSON.stringify({
-        url: '/mocks/modules/topiclist/topiclist.json',
+        url: '/mocks/modules/topiclist/topiclist.organisations.json',
       }),
       subnavigationTemplate,
       organisationTeaser: {

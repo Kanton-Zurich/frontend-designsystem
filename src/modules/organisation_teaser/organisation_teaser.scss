@@ -1,3 +1,13 @@
 .mdl-organisation_teaser {
+  &:first-child {
+    .atm-heading {
+      padding-top: 0;
+    }
+  }
 
+  &:last-child {
+    .atm-paragraph {
+      margin-bottom: 0;
+    }
+  }
 }

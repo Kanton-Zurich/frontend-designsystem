@@ -25,6 +25,7 @@ import Modal from '../../../modules/modal/modal';
 import ServiceList from '../../../modules/service_list/service_list';
 import Tabs from '../../../modules/tabs/tabs';
 import Subnavigation from '../../../modules/subnavigation/subnavigation';
+import OrganisationNavigation from '../../../modules/organisation_navigation/organisation_navigation';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -54,6 +55,7 @@ class App {
     this.modules.modal = Modal;
     this.modules.servicelist = ServiceList;
     this.modules.subnavigation = Subnavigation;
+    this.modules.organisationNavigation = OrganisationNavigation;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
