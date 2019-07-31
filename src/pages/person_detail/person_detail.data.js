@@ -105,7 +105,7 @@ const defClearTableData = {
 
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Person Detail',
+    title: 'Personen-Detailseite',
     jira: 'CZHDEV-515',
     content: dataHelper.getFileContent('person_detail.hbs'),
     documentation: dataHelper.getDocumentation('person_detail.md'),
