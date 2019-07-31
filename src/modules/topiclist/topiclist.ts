@@ -61,7 +61,7 @@ class Topiclist extends Module {
     const defaultData = {
       query: '',
       json: {},
-      topics: [],
+      filteredPages: [],
       isNav: false,
       currentLayer: 0,
     };
