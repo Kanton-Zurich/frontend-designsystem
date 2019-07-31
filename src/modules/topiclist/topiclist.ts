@@ -197,9 +197,7 @@ class Topiclist extends Module {
       .then(response => response.json())
       .then((response) => {
         if (response) {
-          const response2 = response;
-
-          this.data.json = response2;
+          this.data.json = response;
         }
       })
       .catch((err) => {
