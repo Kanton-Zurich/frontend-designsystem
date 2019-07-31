@@ -73,7 +73,7 @@ class Anchornav extends Module {
 
     super($element, defaultData, defaultOptions, data, options);
 
-    this.buttonBreakpoint = 839;
+    this.buttonBreakpoint = 840;
     this.activeStateScrollTolerance = 60;
     this.jumpToTolerance = 20;
     this.swipeTolerance = 2;
@@ -192,9 +192,10 @@ class Anchornav extends Module {
    */
   setupControlButtons() {
     this.navScrollSpaceHorizontal = this.getSwipeBorder();
-    if ((this.navScrollSpaceHorizontal > 1 || this.navScrollSpaceHorizontal < -1)
-      && window.innerWidth > this.buttonBreakpoint) {
-      this.handleControlButtons();
+    if ((this.navScrollSpaceHorizontal > 1 || this.navScrollSpaceHorizontal < -1)) {
+      if (window.innerWidth >= this.buttonBreakpoint) {
+        this.handleControlButtons();
+      }
     } else {
       this.showControlButton('none');
     }
@@ -557,7 +558,6 @@ class Anchornav extends Module {
     const maxIndex = this.pageAnchors.length - 1; // Handle items if there is not enough space
     */
     const scrollPosition = document.documentElement.getBoundingClientRect().top;
-    console.log('scrollPosition: ', scrollPosition);
 
     // Handle active item class on scrolling
     if (this.pageAnchors.length > 0) {
