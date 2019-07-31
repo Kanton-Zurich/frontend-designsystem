@@ -8,6 +8,7 @@ const data = {
   servicePageHeaderData: _.merge({},
     defModalData.variants.default.props.modules.servicePageHeaderData),
   serviceBoxData: _.merge({}, defModalData.variants.default.props.modules.serviceBoxData),
+  canonical: 'http://www.zh.ch/de/mobilitaet/internationaler-fuehrerschein.html',
 };
 
 module.exports = data;
