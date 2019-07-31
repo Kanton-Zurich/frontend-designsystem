@@ -100,6 +100,9 @@ $pageHeaderCurves: (
   @include sizeCurve('padding-top', pageHeaderTop, $pageHeaderCurves);
   @include sizeCurve(padding-bottom, pageHeaderBottom, $pageHeaderCurves);
 
+  z-index: $zIndexInner;
+  overflow: visible;
+
   &__logo-container {
     height: 0;
 
