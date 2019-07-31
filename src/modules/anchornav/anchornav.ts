@@ -557,7 +557,6 @@ class Anchornav extends Module {
     const maxIndex = this.pageAnchors.length - 1; // Handle items if there is not enough space
     */
     const scrollPosition = document.documentElement.getBoundingClientRect().top;
-    console.log('scrollPosition: ', scrollPosition);
 
     // Handle active item class on scrolling
     if (this.pageAnchors.length > 0) {
