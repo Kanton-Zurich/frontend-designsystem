@@ -8,13 +8,14 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Form Input',
     className: 'FormInput',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-844',
     documentation: dataHelper.getDocumentation('form_input.md'),
   },
   props: {
     type: 'text',
     label: 'Placeholder',
     uuid: _.uniqueId('input'),
+    name: 'input_name',
   },
 });
 const variants = _.mapValues({
@@ -24,15 +25,28 @@ const variants = _.mapValues({
       desc: 'Standard Implementierung ohne Floating Label (nur Placeholder)',
     },
   },
-  readOnly: {
+  textarea: {
     meta: {
-      title: 'Standard Input(read only)',
-      desc: 'Standard Implementierung ohne Floating Label (nur Placeholder) nicht editierbar.',
+      title: 'Standard Textfeld',
+      desc: 'Standard Implementierung ohne Floating Label (nur Placeholder)',
     },
     props: {
-      isReadOnly: true,
-      uuid: _.uniqueId('float_input_readonly'),
-      inputContent: 'Dieser Text kann nicht bearbeitet werden',
+      isTextarea: true,
+      isFloatingLabel: true,
+      label: 'Placeholder',
+      uuid: _.uniqueId('textarea'),
+      name: 'input_name',
+    },
+  },
+  disabled: {
+    meta: {
+      title: 'Input(disabled)',
+      desc: 'Standard Implementierung disabled (nicht editierbar).',
+    },
+    props: {
+      disabled: true,
+      uuid: _.uniqueId('float_input_disabled'),
+      inputContent: 'Dieser Text kann nicht bearbeitet werden und wird nicht übertragen.',
     },
   },
   float: {
@@ -57,7 +71,7 @@ const variants = _.mapValues({
       type: 'text',
       label: 'Validation',
       validation: {
-        pattern: '[A-Za-z]{3,6}',
+        pattern: '^([a-zA-Z]){3,6}$',
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
         errorMsg: 'Hier mindestens 3 und maximal 6 Buchstaben eingeben!',
@@ -77,7 +91,7 @@ const variants = _.mapValues({
       label: 'Validation',
       uuid: _.uniqueId('float_input_clear'),
       validation: {
-        pattern: '[A-Za-z]{3,6}',
+        pattern: '^([a-zA-Z]){3,6}$',
         errorMsg: 'Hier mindestens 3 und maximal 6 Buchstaben eingeben!',
       },
       isFloatingLabel: true,
@@ -99,11 +113,12 @@ const variants = _.mapValues({
       label: 'Password',
       uuid: _.uniqueId('float_input_password'),
       validation: {
-        pattern: '[A-Za-z]{3,6}',
+        pattern: '^([a-zA-Z]){3,6}$',
         errorMsg: 'Hier mindestens 3 und maximal 6 Buchstaben eingeben!',
       },
       isFloatingLabel: true,
       isRequired: true,
+      autocompleteOff: true,
       additionalFunctionality: {
         icon: 'hide',
         buttontype: 'password',
@@ -113,47 +128,47 @@ const variants = _.mapValues({
   },
   unitLeft: {
     meta: {
-      title: 'Eingabe mit Einheitsangabe (links)',
+      title: 'Nummereingabe mit Einheitsangabe (links)',
       desc: 'Input mit floating Label, validierung und mit zeige/verstecke Passwort funktionalität.',
     },
     props: {
+      uuid: _.uniqueId('float_input_unitLeft'),
       unitLeft: true,
+      unitLeftLabel: 'CHF',
+      type: 'number',
+      inputContent: '0.00',
+      label: '0.00',
+      step: 0.01,
     },
   },
   unitRight: {
     meta: {
-      title: 'Eingabe mit Einheitsangabe (rechts)',
+      title: 'Nummereingabe mit Einheitsangabe (rechts)',
       desc: 'Input mit floating Label, validierung und mit zeige/verstecke Passwort funktionalität.',
     },
     props: {
-
+      uuid: _.uniqueId('float_input_unitRight'),
+      unitLeftLabel: 'cm',
+      type: 'number',
+      unitRight: true,
+      inputContent: '100',
+      label: '100',
+      step: 1,
     },
   },
-  dateFromTo: {
+  small: {
     meta: {
-      title: 'Eingabe für von-bis Datum',
-      desc: 'Input mit floating Label, validierung und mit zeige/verstecke Passwort funktionalität.',
+      title: 'Input-Klein (ThemenList)',
+      desc: 'Eine kleine Variante des Inputs für die Themenlist(home)',
     },
     props: {
-
-    },
-  },
-  plainDropDown: {
-    meta: {
-      title: 'Eingabe für ein standart Dropdown',
-      desc: 'Input mit floating Label, validierung und mit zeige/verstecke Passwort funktionalität.',
-    },
-    props: {
-
-    },
-  },
-  telDropDown: {
-    meta: {
-      title: 'Eingabe für Vorwahl-Dropdown',
-      desc: 'Input mit floating Label, validierung und mit zeige/verstecke Passwort funktionalität.',
-    },
-    props: {
-
+      isSmall: true,
+      uuid: _.uniqueId('float_input_smallTopic'),
+      additionalFunctionality: {
+        icon: 'clear',
+        buttontype: 'text',
+        ariaText: 'Lösche Eingabe',
+      },
     },
   },
 }, (variant) => {
