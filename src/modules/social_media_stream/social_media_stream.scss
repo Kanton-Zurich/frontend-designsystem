@@ -1,148 +1,24 @@
-.mdl-social_media_stream {
-  $socialMediaSizeCurves: (
-    itemPadding: (
-      tiny: $sizeLarge,
-      small: $sizeBig,
-      xlarge: $sizeSmallHuge,
-    ),
-    socialMediaButtonSize: (
-      tiny: $sizeLarge,
-      small: $sizeBiggerBig,
-    ),
-    socialMediaIconSize: (
-      tiny: $sizeSmallRegular,
-      small: $sizeSmallLarge,
-    ),
-    interactionPaddingLeft: (
-      tiny: $sizeLarge,
-      medium: $sizeBiggerBig,
-    ),
-    authorInfoMarginBottom :(
-      tiny: $sizeRegular,
-      small: $sizeLarge,
-      medium: 0
-    ),
-  );
-  $colorBlackHover: #e4e4e4;
-
+.mdl-social-media-stream {
   &__items {
     padding: 0;
   }
 
-  &__text {
-    word-break: break-word;
+  &__footer {
+    margin-top: $sizeLarge;
+    display: flex;
+    justify-content: center;
   }
 
   &__item {
-    list-style-type: none;
-    border-width: pxToRem($sizeTiny);
-    border-style: solid;
-    border-color: $colorBlack10;
-    margin-top: - pxToRem($sizeTiny);
+    .mdl-image-figure {
+      margin-bottom: $sizeLarge;
+    }
 
-    @include sizeCurve(padding, itemPadding, $socialMediaSizeCurves);
+    list-style-type: none;
+    margin-top: - pxToRem($sizeTiny);
 
     &:first-child {
       margin-top: 0;
-    }
-
-    &:hover {
-      border-color: $colorBlackHover;
-      position: relative;
-    }
-
-    &-footer {
-      display: flex;
-      justify-content: space-between;
-
-      @include mq($from: tiny, $to: medium) {
-        display: block;
-      }
-    }
-
-    &-authorinfo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: rgba($colorBlack, 0.6);
-
-      @include sizeCurve(margin-bottom, authorInfoMarginBottom, $socialMediaSizeCurves);
-      @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
-
-      span {
-        padding-left: pxToRem($sizeTiny);
-      }
-
-      span:first-of-type {
-        font-weight: $fontWeightBlack;
-      }
-
-      .atm-button {
-        border-radius: 50%;
-
-        @include sizeCurve(width height min-width, socialMediaButtonSize, $socialMediaSizeCurves);
-
-        .icon {
-          @include sizeCurve(width height, socialMediaIconSize, $socialMediaSizeCurves);
-        }
-      }
-
-      &:hover {
-        color: $colorBlack;
-
-        .atm-button {
-          background: rgba($colorBlack100, 0.15);
-          color: $colorBlack100;
-
-          .atm-button__icon use {
-            fill: $colorBlack100;
-          }
-        }
-      }
-    }
-
-    &-interaction {
-      display: inline-flex;
-      align-items: center;
-      font-size: $sizeFontSmall;
-
-      a {
-        text-decoration: none;
-        color: rgba($colorBlack, 0.6);
-        display: inline-flex;
-        align-items: center;
-
-        @include sizeCurve(padding-left, interactionPaddingLeft, $socialMediaSizeCurves);
-
-        &:first-of-type {
-          padding-left: 0;
-        }
-
-        span {
-          padding-left: pxToRem($sizeTiny);
-        }
-
-        .icon {
-          width: pxToRem($sizeFontSmall);
-          height: pxToRem($sizeFontSmall);
-
-          use {
-            fill: $colorBlack60;
-          }
-        }
-
-        &:hover {
-          color: $colorBlack;
-
-          .icon use {
-            fill: $colorBlack;
-          }
-        }
-      }
-    }
-
-    .mdl-image-figure {
-      margin-bottom: $sizeLarge;
     }
   }
 }

@@ -1,0 +1,190 @@
+.mdl-social-media-post {
+  $socialMediaSizeCurves: (
+    itemPadding: (
+      tiny: $sizeLarge,
+      small: $sizeBig,
+      xlarge: $sizeSmallHuge,
+    ),
+    socialMediaButtonSize: (
+      tiny: $sizeLarge,
+      small: $sizeBiggerBig,
+    ),
+    socialMediaIconSize: (
+      tiny: $sizeSmallRegular,
+      small: $sizeSmallLarge,
+    ),
+    interactionPaddingLeft: (
+      tiny: $sizeLarge,
+      medium: $sizeBiggerBig,
+    ),
+    authorInfoMarginBottom :(
+      tiny: $sizeRegular,
+      small: $sizeLarge,
+      medium: 0
+    ),
+    citeVerticalMargins: (
+      tiny: $sizeLarge,
+      medium: $sizeBig,
+    ),
+    citeIndent: (
+      tiny: $sizeRegular,
+      small: $sizeLarge,
+      medium: $sizeBig,
+    ),
+    citeFontSize: (
+      tiny: $sizeFontTiny,
+      medium: $sizeFontSmall,
+    ),
+    citeContentMargins: (
+      tiny: $sizeSmallRegular,
+      small: $sizeRegular,
+    )
+  );
+  $colorBlackHover: #e4e4e4;
+
+  border-width: pxToRem($sizeTiny);
+  border-style: solid;
+  border-color: $colorBlack10;
+
+  @include sizeCurve(padding, itemPadding, $socialMediaSizeCurves);
+
+  &:hover {
+    border-color: $colorBlackHover;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .mdl-image-figure {
+    margin-bottom: $sizeLarge;
+  }
+
+  &__text {
+    word-break: break-word;
+
+    &:hover {
+      color: $colorBlack;
+    }
+  }
+
+  &__cite {
+    border-left: 3px solid $colorBlack10;
+
+    .atm-paragraph {
+      @include polyFluidSizing('font-size', map-get($socialMediaSizeCurves, citeFontSize));
+    }
+
+    .atm-paragraph,
+    .mdl-image-figure {
+      @include sizeCurve(margin-bottom, citeContentMargins, $socialMediaSizeCurves);
+    }
+
+    .mdl-social_media_stream__item-authorinfo {
+      font-size: $sizeFontTiny;
+
+      span {
+        &:first-of-type {
+          padding-left: 0;
+        }
+
+        &:last-of-type {
+          @include mq($from: tiny, $to: medium) {
+            display: none;
+          }
+        }
+      }
+    }
+
+    @include sizeCurve(padding-left, citeIndent, $socialMediaSizeCurves);
+    @include sizeCurve(margin-top margin-bottom, citeVerticalMargins, $socialMediaSizeCurves);
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+
+    @include mq($from: tiny, $to: medium) {
+      display: block;
+    }
+  }
+
+  &__authorinfo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: rgba($colorBlack, 0.6);
+
+    @include sizeCurve(margin-bottom, authorInfoMarginBottom, $socialMediaSizeCurves);
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+
+    span {
+      padding-left: pxToRem($sizeTiny);
+    }
+
+    span:first-of-type {
+      font-weight: $fontWeightBlack;
+    }
+
+    .atm-button {
+      border-radius: 50%;
+
+      @include sizeCurve(width height min-width, socialMediaButtonSize, $socialMediaSizeCurves);
+
+      .icon {
+        @include sizeCurve(width height, socialMediaIconSize, $socialMediaSizeCurves);
+      }
+    }
+
+    &:hover {
+      color: $colorBlack;
+
+      .atm-button {
+        background: rgba($colorBlack100, 0.15);
+        color: $colorBlack100;
+
+        .atm-button__icon use {
+          fill: $colorBlack100;
+        }
+      }
+    }
+  }
+
+  &__interaction {
+    display: inline-flex;
+    align-items: center;
+    font-size: $sizeFontSmall;
+
+    button {
+      text-decoration: none;
+      color: rgba($colorBlack, 0.6);
+      display: inline-flex;
+      align-items: center;
+
+      @include sizeCurve(padding-left, interactionPaddingLeft, $socialMediaSizeCurves);
+
+      &:first-of-type {
+        padding-left: 0;
+      }
+
+      span {
+        padding-left: pxToRem($sizeTiny);
+      }
+
+      .icon {
+        width: pxToRem($sizeFontSmall);
+        height: pxToRem($sizeFontSmall);
+
+        use {
+          fill: $colorBlack60;
+        }
+      }
+
+      &:hover {
+        color: $colorBlack;
+
+        .icon use {
+          fill: $colorBlack;
+        }
+      }
+    }
+  }
+}
