@@ -166,6 +166,7 @@ class Topiclist extends Module {
       this.ui.element.classList.add(this.options.stateClasses.filtered);
 
       if (this.data.filteredPages.length > 0) {
+        this.removeNoResult();
         this.renderAutoSuggest();
 
         this.ui.element.classList.remove(this.options.stateClasses.expanded);
@@ -312,6 +313,7 @@ class Topiclist extends Module {
     const parsedHTML = new DOMParser().parseFromString(html, 'text/html').querySelector('a');
 
     parsedHTML.setAttribute('disabled', 'disabled');
+    parsedHTML.setAttribute('data-topiclist', 'noResult');
     parsedHTML.querySelector('[data-lineclamp]').removeAttribute('data-lineclamp');
     parsedHTML.removeAttribute('href');
 
@@ -325,8 +327,21 @@ class Topiclist extends Module {
     });
 
     const parsedLink = new DOMParser().parseFromString(html2, 'text/html').querySelector('a');
+    parsedLink.setAttribute('data-topiclist', 'noResult');
+
 
     this.ui.autosuggest.append(parsedLink);
+  }
+
+  /**
+   * Removing the no result block
+   */
+  removeNoResult() {
+    const noResultBlocks = this.ui.element.querySelectorAll('[data-topiclist="noResult"]');
+
+    noResultBlocks.forEach((block) => {
+      block.remove();
+    });
   }
 
   setSubnav(topic) {
