@@ -19,7 +19,6 @@
     }
   }
 
-
   @include mq($from: zero, $to: xsmall) {
     > .lyt-wrapper {
       max-width: calc(100% - 0.75rem);
@@ -62,7 +61,6 @@
       min-width: pxToRem($sizeTiny);
       height: pxToRem($sizeHuge);
       max-height: pxToRem($sizeHuge);
-      /* visibility: hidden; */
     }
 
     &--shadow-left {
@@ -81,15 +79,7 @@
   }
 
   ul {
-    /*
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: left 0.2s ease-out;
-    */
-
     @include resetList();
-    /*height: pxToRem(88px);*/
     min-width: 100%;
     -ms-overflow-style: none;
     overflow-x: scroll;
@@ -99,14 +89,14 @@
     scroll-behavior: smooth;
 
     &::-webkit-scrollbar-track {
-      //    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.1);
       background-color: transparent;
     }
+
     &::-webkit-scrollbar {
       background-color: transparent;
     }
+
     &::-webkit-scrollbar-thumb {
-      //    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
       background-color: transparent;
     }
   }
@@ -125,6 +115,7 @@
 
     &--right {
       right: 0;
+      display: none;
     }
 
     button {
@@ -155,8 +146,8 @@
     margin-bottom: pxToRem($sizeHuge);
 
     &__ctrl {
-      /* display: none; */
-      // TODO fix empty overlay
+      display: block;
+
       button.visible {
         display: block;
       }
@@ -200,20 +191,7 @@
       white-space: nowrap;
 
       &:after {
-        content: '';
-        position: absolute;
-        left: 50% !important;
-        transform: translateX(-50%) scaleX(0);
-        bottom: -1px;
-        height: 2px;
-        background-color: #000000;
         transition: 400ms transform ease-out;
-        width: 100%;
-      }
-
-      &--active:after {
-        /* width: 100%; */
-        transform: translateX(-50%) scaleX(1);
       }
     }
 
