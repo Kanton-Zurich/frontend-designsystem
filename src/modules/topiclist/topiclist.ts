@@ -164,9 +164,10 @@ class Topiclist extends Module {
       this.ui.autosuggest.querySelector('ul').innerHTML = '';
 
       this.ui.element.classList.add(this.options.stateClasses.filtered);
+      this.removeNoResult();
+
 
       if (this.data.filteredPages.length > 0) {
-        this.removeNoResult();
         this.renderAutoSuggest();
 
         this.ui.element.classList.remove(this.options.stateClasses.expanded);
