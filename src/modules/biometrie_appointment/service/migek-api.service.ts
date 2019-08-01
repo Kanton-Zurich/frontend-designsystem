@@ -56,6 +56,7 @@ class MigekApiService {
   private bearerStr: string;
 
   private currentAppointment: AppointmentPayload;
+
   private pathToReservationDetails: string;
   private postponePath: string;
   private confirmationPath: string;
@@ -76,7 +77,7 @@ class MigekApiService {
       const loginResp = respObj as LoginResponse;
       this.bearerStr = loginResp.token;
       // eslint-disable-next-line no-underscore-dangle
-      this.pathToReservationDetails = new URL(loginResp._links.find.href).pathname;
+      this.pathToReservationDetails = loginResp._links.find.href;
       return this.getReservationDetails();
     });
   }
@@ -88,7 +89,7 @@ class MigekApiService {
     return this.doGet(this.pathToReservationDetails).then((responseObj) => {
       const detailResp = responseObj as AppointmentDetailsResponse;
       // eslint-disable-next-line no-underscore-dangle
-      this.postponePath = new URL(detailResp._links.postpone.href).pathname;
+      this.postponePath = detailResp._links.postpone.href;
 
       this.currentAppointment = detailResp.reservation;
       return new Appointment(this.currentAppointment);
@@ -112,16 +113,13 @@ class MigekApiService {
         this.currentAppointment = postponeResp.reservation;
 
         // eslint-disable-next-line no-underscore-dangle
-        this.confirmationPath = new URL(postponeResp._links.confirmation.href).pathname;
+        this.confirmationPath = postponeResp._links.confirmation.href;
         return new Appointment(this.currentAppointment);
       });
   }
 
   public triggerConfirmationDownload(): void {
     if (this.confirmationPath && this.bearerStr) {
-      // const pathToConfirmation = `api/v1/confirmations/${this.currentAppointment.id}`;
-      const reqUrl = this.apiBasePath + this.confirmationPath;
-
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -146,13 +144,12 @@ class MigekApiService {
       };
 
       xhr.responseType = 'arraybuffer';
-      xhr.open('GET', reqUrl, true);
+      xhr.open('GET', this.confirmationPath, true);
 
       if (this.bearerStr) {
         xhr.setRequestHeader('Authorization', `Bearer ${this.bearerStr}`);
       }
-
-      // xhr.setRequestHeader('Accept', 'application/pdf');
+      // xhr.setRequestHeader('Accept', 'application/pdf'); // TODO: Required?
       xhr.send();
     }
   }
@@ -182,8 +179,11 @@ class MigekApiService {
     return this.doSendXhr('POST', path, jsonBody);
   }
 
-  private doSendXhr(method: HttpMethod, path: string, jsonBody?: any): Promise<any> {
-    const url = this.apiBasePath + path;
+  private doSendXhr(method: HttpMethod, href: string, jsonBody?: any): Promise<any> {
+    let url = href;
+    if (!url.startsWith('http')) {
+      url = this.apiBasePath + href;
+    }
     return new Promise<any>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = () => {
