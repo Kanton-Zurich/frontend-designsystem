@@ -12,7 +12,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Appointment (Biometrie)',
     className: 'BiometrieAppointment',
-    jira: 'CZHDEV-*',
+    jira: 'CZBDEV',
     documentation: dataHelper.getDocumentation('biometrie_appointment.md'),
   },
   props: {
