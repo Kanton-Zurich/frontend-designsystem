@@ -44,7 +44,6 @@ $biometrieViewTransitionDuration: 300ms;
       }
 
       span.input {
-        font-size: $sizeFontBiggerRegular;
         border: 0;
         outline: 0;
         background: transparent;
@@ -52,7 +51,11 @@ $biometrieViewTransitionDuration: 300ms;
         display: inline-block;
         min-width: 1.2em;
         color: $colorBlack100;
-        margin-right: $sizeTiny;
+
+        @include sizeCurve('margin-right', tiny);
+        @include sizeCurve('line-height', medium);
+        @include sizeCurve('height', biggerRegular);
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, biggerRegular));
 
         + .input {
           margin-left: $sizeTiny;
