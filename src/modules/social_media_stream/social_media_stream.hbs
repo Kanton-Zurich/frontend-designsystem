@@ -1,4 +1,4 @@
-<div class="mdl-social-media-stream" data-init="socialMediaStream" data-source="/mocks/modules/social_media_stream/social_media_stream.json">
+<div class="mdl-social-media-stream" data-init="socialMediaStream" data-source="/mocks/modules/social_media_stream/social_media_stream_start_{start}_limit_{limit}.json" data-fetch-limit="3">
   {{#if heading}}
     <h{{heading.level}}
       class="atm-heading atm-heading--bordered {{#if heading.isHidden}}visuallyhidden{{/if}}"
@@ -19,7 +19,7 @@
   <script data-social-media="_image_partial" type="text/x-handlebars-template">
 {{{templates._image_partial}}}</script>
   <div class="mdl-social-media-stream__footer">
-    <button class="atm-button">
+    <button class="atm-button mdl-social-media-stream__footer-button">
     <span class="atm-button__text ">
       {{showMore}}
     </span>

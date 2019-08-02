@@ -1,11 +1,20 @@
 .mdl-social-media-stream {
+  $socialMediaStreamCruves: (
+    verticalMargins: (
+      tiny: $sizeHuge,
+      medium: $sizeGiant,
+    )
+  );
+
+  @include sizeCurve(margin-bottom, verticalMargins, $socialMediaStreamCruves);
+
   &__items {
     padding: 0;
   }
 
   &__footer {
     margin-top: $sizeLarge;
-    display: flex;
+    display: none;
     justify-content: center;
   }
 
