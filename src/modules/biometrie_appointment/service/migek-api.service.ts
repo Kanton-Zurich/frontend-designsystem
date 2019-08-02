@@ -2,7 +2,6 @@ import Appointment from '../model/appointment.model';
 
 // TODO: Interfaces an enums are marked as unused by eslint (?)
 /* eslint-disable no-unused-vars */
-import Timeslot from '../model/timeslot.model';
 import {
   AppointmentDetailsResponse,
   AppointmentPayload, ErrorResponse,
@@ -103,11 +102,11 @@ class MigekApiService {
     });
   }
 
-  public rescheduleToTimeslot(timeslot: Timeslot): Promise<Appointment> {
+  public rescheduleTo(startTime: string, endTime: string): Promise<Appointment> {
     if (!this.currentAppointment || !this.bearerStr) {
       throw new Error('Unexpected runtime error'); // TODO
     }
-    return this.doPost(this.postponePath, this.getPostponeRequestBody(timeslot))
+    return this.doPost(this.postponePath, this.getPostponeRequestBody(startTime, endTime))
       .then((resp) => {
         const postponeResp = resp as PostponeResponse;
         this.currentAppointment = postponeResp.reservation;
@@ -160,11 +159,11 @@ class MigekApiService {
     });
   }
 
-  private getPostponeRequestBody(slot: Timeslot): string {
+  private getPostponeRequestBody(startTime: string, endTime: string): string {
     if (this.currentAppointment) {
       const reqAppointment = Object.assign({}, this.currentAppointment, {
-        from: slot.payload.startTime,
-        until: slot.payload.endTime,
+        from: startTime,
+        until: endTime,
       });
       return JSON.stringify(reqAppointment);
     }

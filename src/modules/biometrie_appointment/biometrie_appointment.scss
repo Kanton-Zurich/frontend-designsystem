@@ -192,14 +192,6 @@ $biometrieViewTransitionDuration: 300ms;
         }
       }
 
-      .alert-box {
-        &.success {
-          background-color: #ebf4e9;
-
-          @include sizeCurve(padding, smallerRegular);
-        }
-      }
-
       @include sizeCurve('margin-bottom', large);
     }
 
@@ -289,6 +281,123 @@ $biometrieViewTransitionDuration: 300ms;
     &__scheduleNextBtn {
       @include sizeCurve('margin-top', regular);
     }
+
+    &__allopen {
+
+      &__wrapper {
+        @include sizeCurve('margin-top', regular);
+
+        ul {
+          display: inline-flex;
+
+          @include sizeCurve('margin-right', regular);
+        }
+
+        .btn-line {
+          position: relative;
+
+          @include sizeCurve('margin-right', regular);
+          @include sizeCurve('bottom', mini);
+        }
+
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+      }
+
+      &__slotselect {
+        @include sizeCurve('margin-top', medium);
+        display: flex;
+        justify-content: space-between;
+        max-height: 64vh;
+        overflow-y: scroll;
+
+        .weekday-column {
+          width: 19%;
+          font-size: pxToRem($sizeFontSmall);
+          color: $colorBlack60;
+          font-weight: 900;
+          text-align: center;
+
+          .weekday-head {
+            color: $colorText;
+            text-align: center;
+            font-weight: 900;
+
+            @include sizeCurve('margin-bottom', tiny);
+            @include sizeCurve('line-height', biggerRegular);
+            @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+          }
+
+          .weekday-slotscontainer {
+            .weekday-slot {
+              height: pxToRem($sizeBig);
+              line-height: pxToRem($sizeBig);
+              font-size: pxToRem($sizeFontSmall);
+
+              @include sizeCurve('margin-bottom', small);
+
+              button.atm-button {
+                width: 100%;
+                padding: 0;
+
+                .atm-button__text {
+                  width: 100%;
+                  text-align: center;
+                }
+              }
+
+              .selected {
+                background: $colorGreen;
+                color: $colorWhite;
+              }
+            }
+          }
+
+          .no-openslots-msg {
+            display: none;
+
+            @include sizeCurve('padding', regular);
+          }
+
+          &.no-slots-available {
+            .no-openslots-msg {
+              display: block;
+
+              @include sizeCurve('padding-top', mini);
+            }
+          }
+        }
+      }
+    }
+
+    &__selectiondetails {
+      &.dropshadow-top {
+        margin-top: 3px;
+        box-shadow: 0 -10px 5px -10px rgba(0, 0, 0, 0.5);
+        min-height: 23px;
+      }
+
+      &__wrapper {
+        display: none;
+        overflow: hidden;
+
+        @include sizeCurve('padding-top', regular);
+        @include sizeCurve('padding-bottom', regular);
+
+        &.show {
+          display: block;
+        }
+
+        .atm-button {
+          float: left;
+
+          @include sizeCurve('margin-top', regular);
+
+          + .atm-button {
+            float: right;
+          }
+        }
+      }
+    }
   }
 
   &__loading-spinner {
@@ -333,5 +442,23 @@ $biometrieViewTransitionDuration: 300ms;
         }
       }
     }
+  }
+}
+
+[ class^='mdl-biometrie_appointment__' ] {
+  .alert-box {
+    &.success {
+      background-color: #ebf4e9;
+
+      @include sizeCurve(padding, smallerRegular);
+    }
+
+    .super-head {
+      margin-bottom: unset;
+    }
+  }
+
+  .lighter {
+    font-weight: 200;
   }
 }
