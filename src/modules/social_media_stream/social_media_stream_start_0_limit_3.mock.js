@@ -23,7 +23,6 @@ const data = [
         link: 'https://www.facebook/author-link',
       },
       likes: 2,
-      comments: 4,
       forwards: 7,
     },
   },
@@ -53,7 +52,6 @@ const data = [
     icon: '../../assets/media/image/instagram.svg',
     likes: 233,
     comments: 2,
-    forwards: 2,
   },
 ];
 

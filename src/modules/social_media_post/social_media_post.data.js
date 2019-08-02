@@ -3,11 +3,7 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const templateConverter = require('../../../gulp/helpers/templateConverter');
-
 const template = dataHelper.getFileContent('social_media_post.hbs');
-const citePartialTemplate = dataHelper.getFileContent('_cite_partial.hbs');
-const textPartialTemplate = dataHelper.getFileContent('_text_partial.hbs');
-const imagePartialTemplate = dataHelper.getFileContent('_image_partial.hbs');
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -17,9 +13,6 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('social_media_post.md'),
     code: {
       template: templateConverter(template.replace(/modules\/social_media_post\//gm, ''), false),
-      _cite_partial: templateConverter(citePartialTemplate.replace(/modules\/social_media_post\//gm, ''), false),
-      _text_partial: templateConverter(textPartialTemplate.replace(/modules\/social_media_post\//gm, ''), false),
-      _image_partial: templateConverter(imagePartialTemplate.replace(/modules\/social_media_post\//gm, ''), false),
     },
   },
   props: {

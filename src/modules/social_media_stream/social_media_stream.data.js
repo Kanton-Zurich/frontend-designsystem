@@ -21,9 +21,6 @@ const data = _.merge({}, defaultData, {
     showMore: 'Mehr anzeigen',
     templates: {
       template: defPostData.meta.code.template,
-      _cite_partial: defPostData.meta.code._cite_partial,
-      _text_partial: defPostData.meta.code._text_partial,
-      _image_partial: defPostData.meta.code._image_partial,
     },
     posts: [
       defPostData.variants.default.props,
