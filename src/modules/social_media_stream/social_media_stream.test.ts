@@ -23,5 +23,28 @@ describe('SocialMediaStream', () => {
     await page.close();
   });
 
+  it('when more button is clicked item list size increases', async () => {
+    await ((ms) => { return new Promise(resolve => setTimeout(resolve, ms));})(250); // eslint-disable-line
+    const preResult = await page.evaluate(() => {
+      const itemList = document.querySelector('.mdl-social-media-stream__items');
+      const itemCount = itemList.children.length;
+      const moreButton = document.querySelector('.mdl-social-media-stream__footer-button');
+      (<any>moreButton).click();
+      return itemCount;
+    });
+    await ((ms) => { return new Promise(resolve => setTimeout(resolve, ms));})(250); // eslint-disable-line
+    const postResult = await page.evaluate(() => {
+      const itemList = document.querySelector('.mdl-social-media-stream__items');
+      return itemList.children.length;
+    });
+    const result = {
+      diff: postResult > preResult,
+    };
+
+    expect(result).toEqual({
+      diff: true,
+    });
+  });
+
   it('should load without error', async () => true);
 });

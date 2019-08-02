@@ -40,7 +40,6 @@
       small: $sizeRegular,
     )
   );
-  $colorBlackHover: #e4e4e4;
 
   border-width: pxToRem($sizeTiny);
   border-style: solid;
@@ -49,7 +48,7 @@
   @include sizeCurve(padding, itemPadding, $socialMediaSizeCurves);
 
   &:hover {
-    border-color: $colorBlackHover;
+    border-color: $colorBorderFrameHover;
     position: relative;
     cursor: pointer;
   }
