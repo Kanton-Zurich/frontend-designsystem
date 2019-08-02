@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { ViewController } from '../../util/view-controller.class';
 import CalendarLinkGenerator from '../../service/calendar-link-generator.service';
 
