@@ -52,13 +52,13 @@ class LineClamper {
         }
 
         let i = 0;
-        let difference = element.scrollHeight - element.clientHeight;
+        const cHeight = element.clientHeight;
+        let difference = element.scrollHeight - cHeight;
         const heightTolerance = 5;
 
         while (i <= this.options.maxIterations && difference > heightTolerance) {
           element.innerHTML = element.innerHTML.replace(/\W*\s(\S)*$/, '...');
-
-          difference = element.scrollHeight - element.clientHeight;
+          difference = element.scrollHeight - cHeight;
           i += 1;
         }
         element.style.opacity = 1.0;
