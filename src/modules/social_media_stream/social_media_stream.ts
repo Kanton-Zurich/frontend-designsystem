@@ -15,9 +15,8 @@ class SocialMediaStream extends Module {
     moreButton: any,
     footer: any,
   };
-  private currentPosition: number;
+  private currentPage: number;
   private dataIdle: boolean;
-  private limit: number;
 
 
   constructor($element: any, data: Object, options: Object) {
@@ -31,15 +30,9 @@ class SocialMediaStream extends Module {
       },
       stateClasses: {},
     };
-
     super($element, defaultData, defaultOptions, data, options);
-
-    this.currentPosition = 0;
+    this.currentPage = 0;
     this.dataIdle = true;
-    this.limit = 3;
-    if (this.ui.element.getAttribute('data-fetch-limit')) {
-      this.limit = this.ui.element.getAttribute('data-fetch-limit');
-    }
     this.initUi();
     this.initEventListeners();
     this.loadPosts();
@@ -59,7 +52,7 @@ class SocialMediaStream extends Module {
   }
 
   async fetchData(callback: Function) {
-    const dataSource = this.ui.element.getAttribute('data-source').replace('{start}', this.currentPosition).replace('{limit}', this.limit);
+    const dataSource = this.ui.element.getAttribute('data-source').replace('{page}', this.currentPage);
     if (!window.fetch) {
       await import('whatwg-fetch');
     }
@@ -84,9 +77,10 @@ class SocialMediaStream extends Module {
     // Custom destroy actions go here
   }
 
-  private populatePostList(items) {
-    this.currentPosition += items.length;
-    if (items.length >= this.limit) {
+  private populatePostList(jsonData) {
+    const items = jsonData.posts;
+    this.currentPage += 1;
+    if (jsonData.hasMorePosts) {
       this.ui.footer.style.display = 'flex';
     } else {
       this.ui.footer.style.display = 'none';
