@@ -14,13 +14,16 @@ class FontLoader extends Helper {
 
     });
     document.addEventListener('DOMContentLoaded', () => {
-      this.cssHref = document.body.getAttribute('data-fonts');
-      if (this.fileIsCached()) {
-        this.logger('just use the cached version');
-        this.injectFontsStylesheet();
-      } else {
-        this.logger('don\'t block the loading of the page; wait until it\'s done; then download fonts');
-        this.on(window, 'load', this.injectFontsStylesheet.bind(this));
+      const rootElement = document.querySelector(`[data-fonts]`);
+      if(rootElement) {
+        this.cssHref = rootElement.getAttribute('data-fonts');
+        if (this.fileIsCached()) {
+          this.logger('just use the cached version');
+          this.injectFontsStylesheet();
+        } else {
+          this.logger('don\'t block the loading of the page; wait until it\'s done; then download fonts');
+          this.on(window, 'load', this.injectFontsStylesheet.bind(this));
+        }
       }
     });
   }
