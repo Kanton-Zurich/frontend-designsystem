@@ -70,6 +70,7 @@ $modalCurves: (
 
     display: flex;
     align-items: center;
+    z-index: $zIndexOverlays;
 
     @include sizeCurve(margin-top, closeTop, $modalCurves);
     @include sizeCurve(margin-right, closeRight, $modalCurves);

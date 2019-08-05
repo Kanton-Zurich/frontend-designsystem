@@ -62,9 +62,8 @@ class OrganisationNavigation extends Module {
         this.data.topSection = topSection;
         this.data.bottomSection = bottomSection;
         this.data.moreLabel = (<CustomEvent>event).detail.moreInformationLabel;
+        this.renderOrganisationTeasers();
       }
-
-      this.renderOrganisationTeasers();
     });
 
     this.ui.topiclist.addEventListener('layerChange', (event) => {

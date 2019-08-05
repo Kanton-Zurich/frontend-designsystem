@@ -84,7 +84,9 @@ class Header extends Module {
 
   toggleFlyout(event, delegate) {
     if (this.data.activeModal) {
-      this.hideFlyout();
+      const unsetHeaderClasses = this.data.activeItem.getAttribute('data-modal') === delegate.getAttribute('data-modal');
+
+      this.hideFlyout(unsetHeaderClasses);
     }
 
     this.showFlyout(delegate);
@@ -110,10 +112,12 @@ class Header extends Module {
     document.documentElement.classList.add(this.options.stateClasses.fixedHeader);
   }
 
-  hideFlyout() {
+  hideFlyout(unsetClasses) {
     this.data.activeModal.dispatchEvent(new CustomEvent('Modal.close'));
 
-    setTimeout(this.unsetClasses.bind(this), this.options.transitionDelays.small);
+    if (unsetClasses) {
+      setTimeout(this.unsetClasses.bind(this), this.options.transitionDelays.small);
+    }
   }
 
   unsetClasses() {
