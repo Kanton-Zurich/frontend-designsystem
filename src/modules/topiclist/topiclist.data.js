@@ -6,7 +6,7 @@ const defaultData = require('../../data/default.data.js');
 const contentNavDataDef = require('../content_nav/content_nav.data').variants.default.props;
 const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
 const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data');
-const inputFormData = require('../../atoms/form_input/form_input.data').props;
+const inputFormData = require('../../atoms/form_input/form_input.data').variants.small.props;
 
 const template = dataHelper.getFileContent('topiclist.hbs');
 const data = _.merge({}, defaultData, {
@@ -104,9 +104,7 @@ const variants = _.mapValues({
     props: {
       topiclistInput: _.merge({}, inputFormData, {
         label: 'Themen nach Stichwort filtern',
-        isSmall: true,
-        selector: 'data-topiclist="input"',
-        hasClearButton: true,
+        dataSelector: 'data-topiclist="input"',
       }),
       topiclistHeading: false,
       topiclistLead: false,
