@@ -1,10 +1,10 @@
 {{#with messages}}
   <div class="mdl-biometrie_appointment__details">
 
-    <div class="mdl-biometrie_appointment__details__confirmation" data-biometrie_appointment="reschedule-success">
-      <h3 class="atm-heading">Ihr Termin ist verschoben</h3>
+    <div class="mdl-biometrie_appointment__details__confirmation {{#if withConfirmation}}show{{/if}}" data-biometrie_appointment="reschedule-success">
+      <h3 class="atm-heading">{{ rescheduleSuccessHead }}</h3>
       <div class="alert-box success">
-        <p class="atm-paragraph">Bitte drucken Sie die neue Terminbestätigung aus und bringen Sie diese mit zu Ihrem Termin</p>
+        <p class="atm-paragraph">{{{ confirmationIntroParagraph }}}</p>
         {{> "atoms/button/button" printConfirmationBtn}}
       </div>
     </div>
@@ -13,15 +13,15 @@
       <table>
         <tr>
           <th>{{ labelLastName }}</th>
-          <td data-biometrie_appointment="reservation-details__lastName"></td>
+          <td data-biometrie_appointment="reservation-details__lastName">{{#if withMockData}}Petersen{{/if}}</td>
         </tr>
         <tr>
           <th>{{ labelFirstName }}</th>
-          <td data-biometrie_appointment="reservation-details__firstName"></td>
+          <td data-biometrie_appointment="reservation-details__firstName">{{#if withMockData}}Claus{{/if}}</td>
         </tr>
         <tr>
           <th>{{ labelDateOfBirth }}</th>
-          <td data-biometrie_appointment="reservation-details__dateOfBirth"></td>
+          <td data-biometrie_appointment="reservation-details__dateOfBirth">{{#if withMockData}}19.01.1952{{/if}}</td>
         </tr>
       </table>
     </div>
@@ -31,13 +31,13 @@
       <table>
         <tr>
           <th>{{ labelDate }}</th>
-          <td data-biometrie_appointment="reservation-details__appointmentDateString"></td>
+          <td data-biometrie_appointment="reservation-details__appointmentDateString">{{#if withMockData}}Montag 05.08.2019{{/if}}</td>
         </tr>
         <tr>
           <th>{{ labelTime }}</th>
           <td>
-            <span data-biometrie_appointment="reservation-details__fromTimeString"></span>{{ fromUntilConjunction }}<span
-            data-biometrie_appointment="reservation-details__untilTimeString"></span>
+            <span data-biometrie_appointment="reservation-details__fromTimeString">{{#if withMockData}}10:45{{/if}}</span>{{ fromUntilConjunction }}<span
+            data-biometrie_appointment="reservation-details__untilTimeString">{{#if withMockData}}11:00{{/if}}</span>
           </td>
         </tr>
       </table>
