@@ -59,12 +59,12 @@ $unitLeftSpace: 62px;
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       /* display: none; <- Crashes Chrome on hover */
-      -webkit-appearance: none;
+      -webkit-appearance: none; //stylelint-disable-line
       margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
     }
 
     &[ type='number' ] {
-      -moz-appearance: textfield; /* Firefox */
+      -moz-appearance: textfield; /* Firefox */ //stylelint-disable-line
     }
 
     // Hide IE 11 default clear cross & show hide password
