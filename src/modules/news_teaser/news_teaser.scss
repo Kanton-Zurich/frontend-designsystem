@@ -71,7 +71,7 @@ $customParagraphCurve: (
         content: '';
         position: absolute;
         display: block;
-        background-color: #e4e4e4;
+        background-color: $colorBorderFrameHover;
       }
 
       &:before,
