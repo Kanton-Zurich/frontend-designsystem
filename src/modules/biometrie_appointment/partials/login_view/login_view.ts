@@ -37,12 +37,14 @@ export interface LoginViewSelectors {
 interface LoginViewData {
   appointment: Appointment;
   loading: boolean;
+  loggedIn: boolean;
   attemptsBeforeTelephone: number;
 }
 
 class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewData> {
   private loginToken: string;
   private loginReqAttempts: number;
+
 
   constructor(_data: any, _selectors: LoginViewSelectors) {
     super(_selectors, _data as LoginViewData);
@@ -52,24 +54,52 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
   }
 
   initEventListeners(eventDelegate): void {
+    this.initInputEvents(eventDelegate);
+
+    eventDelegate.on('click', this.selectors.submitBtn, () => {
+      if (!this.loginToken || this.loginToken.length < TOKEN_BLOCKS * TOKEN_BLOCK_LENGTH) {
+        this.log('Incomplete login token', this.loginToken);
+        this.showLoginAlert(LoginAlert.Incomplete);
+      } else {
+        this.data.loading = true;
+        this.apiService.login(this.loginToken)
+          .then((appointment) => {
+            if (appointment) {
+              this.data.appointment = appointment;
+              this.data.loggedIn = true;
+            }
+          })
+          .catch((rejectionCause) => {
+            this.log('Login rejected');
+
+            if (rejectionCause && rejectionCause instanceof ApiConnectionFailure) {
+              if ((rejectionCause as ApiConnectionFailure).type === ApiFailureType.FORBIDDEN) {
+                this.handleUnauthedLogin();
+                return;
+              }
+            }
+            this.handleError(rejectionCause);
+          })
+          .finally(() => {
+            this.data.loading = false;
+          });
+      }
+    });
+
+    setTimeout(() => {
+      this.data.loading = false;
+    }, 0);
+  }
+
+  private initInputEvents(eventDelegate): void {
     const inputWrapper = document
       .querySelector<HTMLInputElement>(this.selectors.inputFieldsWrapper);
 
     const inputEls = document
       .querySelectorAll<HTMLInputElement>(this.selectors.inputFields);
 
-
-    const fillLoginInputFields = () => {
-      const tokenBlocks = this.loginToken.split(TOKEN_BLOCK_SEPERATOR);
-      inputEls.forEach((el, i) => {
-        if (tokenBlocks.length > i) {
-          el.innerText = tokenBlocks[i];
-        } else {
-          el.value = '';
-        }
-      });
-    };
-
+    let inPaste = false;
+    let caretPos = 0;
     eventDelegate
       .on('focus', this.selectors.inputFields, () => {
         inputWrapper.classList.add('focused');
@@ -78,7 +108,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
         inputWrapper.classList.remove('focused');
       })
       .on('keydown', this.selectors.inputFields, (event, targetInput) => {
-        let caretPos = window.getSelection().getRangeAt(0).startOffset;
+        caretPos = window.getSelection().getRangeAt(0).startOffset;
         this.log('Event KeyDown: ', event, targetInput, caretPos);
 
         let targetInputIdx = -1;
@@ -96,45 +126,69 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
               window.getSelection().getRangeAt(0).setStart(focusEl.childNodes[0], 0);
             }
           }
-        } else if (caretPos === 0 && (event.key === 'Left' || event.key === 'ArrowLeft' || event.key === 'Backspace')) {
-          if (targetInputIdx > 0) {
-            const focusEl = inputEls[targetInputIdx - 1];
-            caretPos = Math.min(focusEl.innerText.length, TOKEN_BLOCK_LENGTH);
-          }
         }
+
+        inPaste = false;
       })
       .on('paste', this.selectors.inputFields, (event, targetInput) => {
+        this.log('Event Paste: ', event, targetInput);
+        inPaste = true;
         const pasteEv = event as ClipboardEvent;
         let totalStr = '';
+        let beforeCaretLength = 0;
+        let afterCaretLength = 0;
+        let overallCaretPos = 0;
         inputEls.forEach((el) => {
           if (el === targetInput) {
-            const caretPos = event.target.selectionStart;
-            const targetVal = targetInput.value;
+            overallCaretPos += caretPos;
+            const targetVal = targetInput.innerText;
             if (targetVal) {
               const beforePaste = targetVal.substring(0, caretPos);
+              const afterPaste = targetVal.substring(caretPos);
               totalStr += beforePaste;
               totalStr += pasteEv.clipboardData.getData('text');
-              totalStr += targetVal.substring(caretPos);
+              totalStr += afterPaste;
+
+              beforeCaretLength += beforePaste.length;
+              afterCaretLength += afterPaste.length;
             } else {
               totalStr += pasteEv.clipboardData.getData('text');
             }
           } else {
-            totalStr += el.value;
+            const targetVal = el.innerText;
+            totalStr += targetVal;
+
+            if (beforeCaretLength > 0) {
+              afterCaretLength += targetVal.length;
+            } else {
+              beforeCaretLength += TOKEN_BLOCK_LENGTH;
+              overallCaretPos += TOKEN_BLOCK_LENGTH;
+            }
           }
         });
         this.log('Total Input: ', totalStr);
+        setTimeout(() => {
+          this.fillLoginTokenCleaned(totalStr);
 
-        this.loginToken = this.cleanTokenValue(totalStr);
-        fillLoginInputFields();
+          const cleanPasteLength = this.loginToken.length - (beforeCaretLength + afterCaretLength);
+          overallCaretPos += cleanPasteLength;
 
-        pasteEv.preventDefault();
+          const focusElIdx = Math.max(
+            Math.floor(overallCaretPos / TOKEN_BLOCK_LENGTH),
+            TOKEN_BLOCKS - 1,
+          );
+          caretPos = overallCaretPos % TOKEN_BLOCK_LENGTH;
+
+          this.setFocusAndCaret(inputEls.item(focusElIdx), caretPos);
+        }, 0);
       })
       .on('keyup', this.selectors.inputFields, (event, target) => {
+        if (inPaste) {
+          return;
+        }
+        this.log('Event KeyUp: ', event, target);
         const targetInput = (target as HTMLSpanElement);
-        const targetValue = targetInput.innerText || '';
-        let caretPos = window.getSelection().getRangeAt(0).startOffset;
-        this.log('Event KeyUp: ', event, targetInput, caretPos);
-
+        caretPos = window.getSelection().getRangeAt(0).startOffset;
 
         let totalStr = '';
         let targetInputIdx = -1;
@@ -145,17 +199,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
           }
         });
 
-        if (targetValue.length >= TOKEN_BLOCK_LENGTH) {
-          targetInput.classList.add('filled');
-        } else {
-          targetInput.classList.remove('filled');
-        }
-
-        this.log('Total Input: ', totalStr);
-
-        this.loginToken = this.cleanTokenValue(totalStr);
-        fillLoginInputFields();
-
+        this.fillLoginTokenCleaned(totalStr);
 
         let focusEl = targetInput;
         if (caretPos > TOKEN_BLOCK_LENGTH) {
@@ -167,53 +211,20 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
             focusEl = inputEls[targetInputIdx - 1];
             caretPos = Math.min(focusEl.innerText.length, TOKEN_BLOCK_LENGTH);
           }
+        } else if ((caretPos === TOKEN_BLOCK_LENGTH) && (event.key === 'Right' || event.key === 'ArrowRight')) {
+          if (targetInputIdx < TOKEN_BLOCKS - 1) {
+            focusEl = inputEls[targetInputIdx + 1];
+            caretPos = 0;
+          }
         }
-        focusEl.focus();
-        if (focusEl.childNodes[0]) {
-          window.getSelection().getRangeAt(0).setStart(focusEl.childNodes[0], caretPos);
-        }
-        this.log('Range: ', window.getSelection().getRangeAt(0).cloneRange());
-
-        if (totalStr.length >= TOKEN_BLOCKS * TOKEN_BLOCK_LENGTH) {
-          this.showLoginAlert();
-          this.log('Token string complete: ', this.loginToken);
-        }
-      })
-
-      .on('click', this.selectors.submitBtn, () => {
-        if (!this.loginToken || this.loginToken.length < TOKEN_BLOCKS * TOKEN_BLOCK_LENGTH) {
-          this.log('Incomplete login token', this.loginToken);
-          this.showLoginAlert(LoginAlert.Incomplete);
-        } else {
-          this.data.loading = true;
-          this.apiService.login(this.loginToken)
-            .then((appointment) => {
-              if (appointment) {
-                this.data.appointment = appointment;
-              }
-            })
-            .catch((rejectionCause) => {
-              this.log('Login rejected');
-
-              if (rejectionCause && rejectionCause instanceof ApiConnectionFailure) {
-                if ((rejectionCause as ApiConnectionFailure).type === ApiFailureType.FORBIDDEN) {
-                  this.handleUnauthedLogin();
-                  return;
-                }
-              }
-              this.handleError(rejectionCause);
-            })
-            .finally(() => {
-              this.data.loading = false;
-            });
-        }
+        this.setFocusAndCaret(focusEl, caretPos);
       });
-
-    setTimeout(() => {
-      this.data.loading = false;
-    }, 0);
   }
 
+  /**
+   * Validates a single character for a Token string.
+   * @param { string } charStr to process
+   */
   private validateTokenCharacter(charStr: string) {
     if (/^[a-zA-Z0-9]{1}$/.test(charStr)) {
       return charStr.toUpperCase();
@@ -221,6 +232,12 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
     return '';
   }
 
+  /**
+   * Strips invalid characters form a given string, injects the TokenBlockSeperators
+   * and cuts the string to max length of a valid token.
+   *
+   * @param { string } inValue string to process
+   */
   private cleanTokenValue(inValue: string): string {
     let cleanedVal = '';
     for (let i = 0; i < inValue.length; i += 1) {
@@ -228,7 +245,57 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
     }
     const regexPattern = `.{1,${TOKEN_BLOCK_LENGTH}}`;
     const tokenBlocks = cleanedVal.match(new RegExp(regexPattern, 'g'));
-    return tokenBlocks ? tokenBlocks.join(TOKEN_BLOCK_SEPERATOR) : '';
+    cleanedVal = tokenBlocks ? tokenBlocks.join(TOKEN_BLOCK_SEPERATOR) : '';
+    this.log('Value cleaned: ', cleanedVal);
+    const maxLength = TOKEN_BLOCKS * TOKEN_BLOCK_LENGTH + (TOKEN_BLOCKS - 1);
+    return cleanedVal.length > maxLength ? cleanedVal.substr(0, maxLength) : cleanedVal;
+  }
+
+  /**
+   * Cleans the given string from invalid characters, splits it in token blocks and places the token
+   * content in the relevant input fields.
+   * LoginToken is set in controller and LoginAlerts are cleaned when the TokelnLength is reached.
+   *
+   * @param { string } totalStr string to process
+   */
+  private fillLoginTokenCleaned(totalStr) {
+    const cleanedStr = this.cleanTokenValue(totalStr);
+    const tokenBlocks = cleanedStr.split(TOKEN_BLOCK_SEPERATOR);
+    document.querySelectorAll<HTMLInputElement>(this.selectors.inputFields)
+      .forEach((el, i) => {
+        if (tokenBlocks.length > i) {
+          el.innerText = tokenBlocks[i];
+        } else {
+          el.innerText = '';
+        }
+
+        if (el.innerText.length >= TOKEN_BLOCK_LENGTH) {
+          el.classList.add('filled');
+        } else {
+          el.classList.remove('filled');
+        }
+      });
+
+    if (cleanedStr.length >= TOKEN_BLOCKS * TOKEN_BLOCK_LENGTH) {
+      this.showLoginAlert();
+      this.log('Token string complete: ', this.loginToken);
+    }
+
+    this.loginToken = cleanedStr;
+  }
+
+  /**
+   * Sets focus to the given input element and places the caret at the given position in the element
+   * @param { HTMLElement } focusEl the HTML to set focus to.
+   * @param { number } caretPos the position to put caret in the focused object.
+   */
+  private setFocusAndCaret(focusEl: HTMLElement, caretPos: number): void {
+    if (focusEl) {
+      focusEl.focus();
+      if (focusEl.childNodes[0]) {
+        window.getSelection().getRangeAt(0).setStart(focusEl.childNodes[0], caretPos);
+      }
+    }
   }
 
   private handleUnauthedLogin(): void {

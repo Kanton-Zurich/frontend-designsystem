@@ -12,12 +12,13 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Appointment (Biometrie)',
     className: 'BiometrieAppointment',
-    jira: 'CZHDEV-*',
+    jira: 'CZBDEV',
     documentation: dataHelper.getDocumentation('biometrie_appointment.md'),
   },
   props: {
     apiBase: 'http://localhost:3000/biometrie/',
     heading: 'Termin zur Erfassung der biometrischen Daten verschieben',
+    logoutLinkText: 'Logout & Schliessen',
     loginViewProps,
     detailsViewProps,
     rescheduleViewProps,

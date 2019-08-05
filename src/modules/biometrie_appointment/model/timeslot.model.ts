@@ -6,10 +6,13 @@ import { TimeslotPayload } from './api-payload.interfaces';
 /* eslint-enable */
 
 class Timeslot {
+  public readonly id: string;
   public readonly payload: TimeslotPayload;
 
   constructor(timeslotPayload: TimeslotPayload) {
     this.payload = timeslotPayload;
+
+    this.id = this.startDate.getTime().toString();
   }
 
   get startDate(): Date {
@@ -25,7 +28,7 @@ class Timeslot {
   }
 
   public getDateStr(): string {
-    return DateHelper.getDeDateStr(this.startDate);
+    return DateHelper.getVerboseDeDateStr(this.startDate);
   }
 
   public getTimeStr(): string {

@@ -34,6 +34,8 @@ const data = _.merge({}, defaultData, {
           + '<li>Geburtsschein (bei Neugeborenen)</li></ul>',
         ],
       },
+      rescheduleSuccessHead: 'Ihr Termin ist verschoben',
+      confirmationIntroParagraph: 'Bitte drucken Sie die neue Terminbestätigung aus und bringen Sie diese mit zu Ihrem Termin',
     },
     rescheduleBtn: _.merge({}, defaultButtonData, {
       text: 'Termin verschieben',
@@ -53,6 +55,26 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+  },
+  withMockData: {
+    meta: {
+      title: 'mit Dummy Daten',
+      desc: 'Ansicht gefüllt mit Dummy Daten',
+    },
+    props: {
+      withMockData: true,
+      withConfirmation: false,
+    },
+  },
+  confirmed: {
+    meta: {
+      title: 'mit Bestätigungsmeldung',
+      desc: 'Ansicht gefüllt mit Dummy Daten und Bestätigungsmeldung',
+    },
+    props: {
+      withMockData: true,
+      withConfirmation: true,
     },
   },
 }, (variant) => {

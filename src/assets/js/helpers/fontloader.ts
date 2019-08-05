@@ -14,8 +14,8 @@ class FontLoader extends Helper {
 
     });
     document.addEventListener('DOMContentLoaded', () => {
-      const rootElement = document.querySelector(`[data-fonts]`);
-      if(rootElement) {
+      const rootElement = document.querySelector('[data-fonts]');
+      if (rootElement) {
         this.cssHref = rootElement.getAttribute('data-fonts');
         if (this.fileIsCached()) {
           this.logger('just use the cached version');

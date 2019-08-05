@@ -9,12 +9,42 @@ const data = _.merge({}, defaultData, {
   props: {
     messages: {
       nextOpenSlotHeading: 'Nächster freier Termin',
+      slotCapacityMsg: 'An diesem Termin gibt es noch {schalter} freie(n) Schalter.',
       otherSlotsHeading: 'Anderen Termin wählen',
+      noOpenSlotsMsg: 'Keine Termine verfügbar',
     },
     scheduleNextBtn: _.merge({}, defaultButtonData, {
       text: 'Termin reservieren',
       isPrimary: true,
       additionalAttribute: 'data-biometrie_appointment="doRescheduleNext"',
+    }),
+    nextWeekBtn: _.merge({}, defaultButtonData, {
+      isTextVisible: false,
+      isSecondary: true,
+      icon: 'angle_right',
+      additionalAttribute: 'data-biometrie_appointment="toNextWeek"',
+    }),
+    prevWeekBtn: _.merge({}, defaultButtonData, {
+      isTextVisible: false,
+      isSecondary: true,
+      icon: 'angle_left',
+      additionalAttribute: 'data-biometrie_appointment="toPrevWeek"',
+    }),
+    slotSelectBtn: _.merge({}, defaultButtonData, {
+      text: '{timeslot-range}',
+      isSecondary: true,
+      isSmall: true,
+      additionalAttribute: 'data-biometrie_appointment="timeSlotSelect"',
+    }),
+    cancelBtn: _.merge({}, defaultButtonData, {
+      text: 'Abbrechen',
+      isSecondary: true,
+      additionalAttribute: 'data-biometrie_appointment="cancelBtn"',
+    }),
+    scheduleSelectedBtn: _.merge({}, defaultButtonData, {
+      text: 'Termin reservieren',
+      isPrimary: true,
+      additionalAttribute: 'data-biometrie_appointment="doScheduleSelected"',
     }),
   },
 });
@@ -24,6 +54,26 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+  },
+  mockFew: {
+    meta: {
+      title: 'mit DummyDaten (wenige)',
+      desc: 'Füllt die Ansicht mit Dummy TimeSlots.',
+    },
+    props: {
+      withMockedData: true,
+      isMockDataMore: false,
+    },
+  },
+  mockFewAndMuch: {
+    meta: {
+      title: 'mit DummyDaten (wenige und viele)',
+      desc: 'Füllt die Ansicht mit Dummy TimeSlots.',
+    },
+    props: {
+      withMockedData: true,
+      isMockDataMore: true,
     },
   },
 }, (variant) => {

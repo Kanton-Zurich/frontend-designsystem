@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { ViewController } from '../../util/view-controller.class';
 import CalendarLinkGenerator from '../../service/calendar-link-generator.service';
 
@@ -58,7 +57,7 @@ class BiometrieDetailsView extends ViewController<DetailsViewSelectors, DetailsV
     if (this.data.rescheduled) {
       const successBox = document
         .querySelector<HTMLInputElement>(this.selectors.rescheduleSuccesssBox);
-      successBox.classList.add('visible');
+      successBox.classList.add('show');
     }
     const { appointment } = this.data;
 

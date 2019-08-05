@@ -2,7 +2,6 @@ import Appointment from '../model/appointment.model';
 
 // TODO: Interfaces an enums are marked as unused by eslint (?)
 /* eslint-disable no-unused-vars */
-import Timeslot from '../model/timeslot.model';
 import {
   AppointmentDetailsResponse,
   AppointmentPayload, ErrorResponse,
@@ -56,6 +55,7 @@ class MigekApiService {
   private bearerStr: string;
 
   private currentAppointment: AppointmentPayload;
+
   private pathToReservationDetails: string;
   private postponePath: string;
   private confirmationPath: string;
@@ -76,7 +76,7 @@ class MigekApiService {
       const loginResp = respObj as LoginResponse;
       this.bearerStr = loginResp.token;
       // eslint-disable-next-line no-underscore-dangle
-      this.pathToReservationDetails = new URL(loginResp._links.find.href).pathname;
+      this.pathToReservationDetails = loginResp._links.find.href;
       return this.getReservationDetails();
     });
   }
@@ -88,44 +88,50 @@ class MigekApiService {
     return this.doGet(this.pathToReservationDetails).then((responseObj) => {
       const detailResp = responseObj as AppointmentDetailsResponse;
       // eslint-disable-next-line no-underscore-dangle
-      this.postponePath = new URL(detailResp._links.postpone.href).pathname;
+      this.postponePath = detailResp._links.postpone.href;
 
       this.currentAppointment = detailResp.reservation;
       return new Appointment(this.currentAppointment);
     });
   }
 
-  public getTimeSlots(): Promise<TimeslotPayload[]> {
-    return this.doGet('api/v1/timeslots/?days=10').then((respObj) => {
+  // TODO: Konstanten rausziehen.
+  public getTimeSlots(notBeforeDate?: Date): Promise<TimeslotPayload[]> {
+    let path = 'api/v1/timeslots/?days=7';
+    if (notBeforeDate) {
+      const notBeforeIsoString = notBeforeDate.toISOString();
+      const toIdx = notBeforeIsoString.indexOf('T');
+      const notBeforeVal = notBeforeIsoString.substring(0, toIdx);
+      path += `&notBefore=${notBeforeVal}`;
+    }
+    return this.doGet(path).then((respObj) => {
       const resp = respObj as TimeslotsResponse;
       return resp.timeSlots;
     });
   }
 
-  public rescheduleToTimeslot(timeslot: Timeslot): Promise<Appointment> {
+  public rescheduleTo(startTime: string, endTime: string): Promise<Appointment> {
     if (!this.currentAppointment || !this.bearerStr) {
       throw new Error('Unexpected runtime error'); // TODO
     }
-    return this.doPost(this.postponePath, this.getPostponeRequestBody(timeslot))
+    return this.doPost(this.postponePath, this.getPostponeRequestBody(startTime, endTime))
       .then((resp) => {
         const postponeResp = resp as PostponeResponse;
         this.currentAppointment = postponeResp.reservation;
 
         // eslint-disable-next-line no-underscore-dangle
-        this.confirmationPath = new URL(postponeResp._links.confirmation.href).pathname;
+        this.confirmationPath = postponeResp._links.confirmation.href;
         return new Appointment(this.currentAppointment);
       });
   }
 
   public triggerConfirmationDownload(): void {
     if (this.confirmationPath && this.bearerStr) {
-      // const pathToConfirmation = `api/v1/confirmations/${this.currentAppointment.id}`;
-      const reqUrl = this.apiBasePath + this.confirmationPath;
-
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status >= HttpStatusCodes.OK && xhr.status < HttpStatusCodes.MULTIPLE) {
+            this.log('Response: ', xhr.response);
             const arrayBuffer = xhr.response;
             const file = new Blob([arrayBuffer], { type: 'application/pdf' });
             const fileURL = URL.createObjectURL(file);
@@ -146,15 +152,23 @@ class MigekApiService {
       };
 
       xhr.responseType = 'arraybuffer';
-      xhr.open('GET', reqUrl, true);
+      xhr.open('GET', this.confirmationPath, true);
 
       if (this.bearerStr) {
         xhr.setRequestHeader('Authorization', `Bearer ${this.bearerStr}`);
       }
-
-      // xhr.setRequestHeader('Accept', 'application/pdf');
+      xhr.setRequestHeader('Accept', 'application/pdf');
       xhr.send();
     }
+  }
+
+  public logoutReset(): void {
+    this.bearerStr = undefined;
+    this.currentAppointment = undefined;
+    this.pathToReservationDetails = undefined;
+    this.postponePath = undefined;
+    this.confirmationPath = undefined;
+    window.location.reload();
   }
 
   private getLoginRequestBody(tokenStr: string): string {
@@ -163,11 +177,11 @@ class MigekApiService {
     });
   }
 
-  private getPostponeRequestBody(slot: Timeslot): string {
+  private getPostponeRequestBody(startTime: string, endTime: string): string {
     if (this.currentAppointment) {
       const reqAppointment = Object.assign({}, this.currentAppointment, {
-        from: slot.payload.startTime,
-        until: slot.payload.endTime,
+        from: startTime,
+        until: endTime,
       });
       return JSON.stringify(reqAppointment);
     }
@@ -182,8 +196,11 @@ class MigekApiService {
     return this.doSendXhr('POST', path, jsonBody);
   }
 
-  private doSendXhr(method: HttpMethod, path: string, jsonBody?: any): Promise<any> {
-    const url = this.apiBasePath + path;
+  private doSendXhr(method: HttpMethod, href: string, jsonBody?: any): Promise<any> {
+    let url = href;
+    if (!url.startsWith('http')) {
+      url = this.apiBasePath + href;
+    }
     return new Promise<any>((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = () => {

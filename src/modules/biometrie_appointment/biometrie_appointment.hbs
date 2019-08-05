@@ -1,4 +1,12 @@
 <div class="mdl-biometrie_appointment" data-init="biometrieAppointment">
+
+    <a class="atm-text_link atm-text_link--icon mdl-biometrie_appointment__logout" data-biometrie_appointment="logout">
+        {{ logoutLinkText }}
+        <svg class="icon">
+            <use xlink:href="#exit"></use>
+        </svg>
+    </a>
+
   {{#if heading}}<h2 class="atm-heading mdl-biometrie_appointment__heading">{{ heading }}</h2>{{/if}}
 
   <!--  LOGIN -->
