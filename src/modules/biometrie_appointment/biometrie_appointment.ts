@@ -31,6 +31,7 @@ class BiometrieAppointment extends Module {
     domSelectors: {
       loadingSpinner: string;
       viewCon: string;
+      logoutLink: string;
     }
     stateClasses: any
   };
@@ -50,12 +51,14 @@ class BiometrieAppointment extends Module {
       appointment: undefined,
       attemptsBeforeTelephone: 3,
       loading: true,
+      loggedIn: false,
     };
 
     const defaultOptions = {
       domSelectors: Object.assign({
         loadingSpinner: '[data-biometrie_appointment=loading-spinner]',
         viewCon: '[data-biometrie_appointment^=view__]',
+        logoutLink: '[data-biometrie_appointment=logout]',
       },
       loginViewSelectors, detailViewSelectors, rescheduleViewSelectorsValues),
       stateClasses: {
@@ -114,7 +117,6 @@ class BiometrieAppointment extends Module {
     });
   }
 
-
   static get events() {
     return {
       // eventname: `eventname.${ BiometrieAppointment.name }.${  }`
@@ -127,6 +129,7 @@ class BiometrieAppointment extends Module {
    */
   initWatchers() {
     this.watch(this.data, 'loading', this.toggleLoadingSpinner.bind(this));
+    this.watch(this.data, 'loggedIn', this.toggleLogoutLink.bind(this));
     this.watch(this.data, 'appointment', this.enterDetailsView.bind(this));
   }
 
@@ -136,6 +139,10 @@ class BiometrieAppointment extends Module {
   initEventListeners() {
     // Init Controller Event listeners
     this.viewController.forEach(cntrl => cntrl.initEventListeners(this.eventDelegate));
+
+    this.eventDelegate.on('click', this.options.domSelectors.logoutLink, () => {
+      this.doLogout();
+    });
   }
 
   private toggleLoadingSpinner(): void {
@@ -146,6 +153,21 @@ class BiometrieAppointment extends Module {
     } else {
       loadingConClassList.add('show');
     }
+  }
+
+  private toggleLogoutLink(varName, valOld, valNew): void {
+    this.log('Watcher fired for: ', varName, valOld, valNew);
+    const logoutLink = document
+      .querySelector<HTMLInputElement>(this.options.domSelectors.logoutLink).classList;
+    if (valNew) {
+      logoutLink.add('show');
+    } else {
+      logoutLink.remove('show');
+    }
+  }
+
+  private doLogout(): void {
+    this.apiService.logoutReset();
   }
 
   private enterLoginView():void {

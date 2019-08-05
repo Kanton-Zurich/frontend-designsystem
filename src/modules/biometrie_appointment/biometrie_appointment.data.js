@@ -18,6 +18,7 @@ const data = _.merge({}, defaultData, {
   props: {
     apiBase: 'http://localhost:3000/biometrie/',
     heading: 'Termin zur Erfassung der biometrischen Daten verschieben',
+    logoutLinkText: 'Logout & Schliessen',
     loginViewProps,
     detailsViewProps,
     rescheduleViewProps,

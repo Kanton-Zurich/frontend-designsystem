@@ -37,6 +37,7 @@ export interface LoginViewSelectors {
 interface LoginViewData {
   appointment: Appointment;
   loading: boolean;
+  loggedIn: boolean;
   attemptsBeforeTelephone: number;
 }
 
@@ -65,6 +66,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
           .then((appointment) => {
             if (appointment) {
               this.data.appointment = appointment;
+              this.data.loggedIn = true;
             }
           })
           .catch((rejectionCause) => {

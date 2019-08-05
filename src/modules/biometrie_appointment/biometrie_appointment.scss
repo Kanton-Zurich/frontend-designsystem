@@ -11,6 +11,20 @@ $biometrieViewTransitionDuration: 300ms;
     }
   }
 
+  &__logout {
+    display: none;
+    text-align: right;
+
+    .icon {
+      @include sizeCurve('margin-left', mini);
+      @include sizeCurve('height', tiny);
+    }
+
+    &.show {
+      display: block;
+    }
+  }
+
   .view {
     //transform: translateX(-100%);
     opacity: 0;
