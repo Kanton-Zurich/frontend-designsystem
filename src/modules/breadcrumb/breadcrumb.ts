@@ -68,7 +68,7 @@ class Breadcrumb extends Module {
     this.initUi();
     this.initEventListeners();
 
-    if (this.ui.item.length) {
+    if (this.ui.item && this.ui.item.length) {
       this.data.windowWidth = document.documentElement.clientWidth;
 
       // eslint-disable-next-line no-magic-numbers

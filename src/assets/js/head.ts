@@ -26,7 +26,7 @@ const loadSvgSprites = () => {
   setTimeout(() => {
     const rootElement = document.querySelector('[data-svgsprites-options]');
     if (rootElement) {
-      spritesToLoad = JSON.parse(document.body.getAttribute('data-svgsprites-options'));
+      spritesToLoad = JSON.parse(rootElement.getAttribute('data-svgsprites-options'));
       spritesAmount = spritesToLoad.length;
 
       /**
