@@ -96,7 +96,7 @@ class Header extends Module {
 
   closeOnEscape(event) {
     if (event.key === 'Escape' || event.key === 'Esc') {
-      this.hideFlyout();
+      this.hideFlyout(true);
     }
   }
 
