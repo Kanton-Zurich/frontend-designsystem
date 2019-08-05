@@ -22,11 +22,13 @@ const data = _.merge({}, defaultData, {
       isTextVisible: false,
       isSecondary: true,
       icon: 'angle_right',
+      additionalAttribute: 'data-biometrie_appointment="toNextWeek"',
     }),
     prevWeekBtn: _.merge({}, defaultButtonData, {
       isTextVisible: false,
       isSecondary: true,
       icon: 'angle_left',
+      additionalAttribute: 'data-biometrie_appointment="toPrevWeek"',
     }),
     slotSelectBtn: _.merge({}, defaultButtonData, {
       text: '{timeslot-range}',

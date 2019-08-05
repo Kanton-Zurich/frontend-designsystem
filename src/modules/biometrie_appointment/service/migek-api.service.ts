@@ -95,8 +95,16 @@ class MigekApiService {
     });
   }
 
-  public getTimeSlots(): Promise<TimeslotPayload[]> {
-    return this.doGet('api/v1/timeslots/?days=10').then((respObj) => {
+  // TODO: Konstanten rausziehen.
+  public getTimeSlots(notBeforeDate?: Date): Promise<TimeslotPayload[]> {
+    let path = 'api/v1/timeslots/?days=7';
+    if (notBeforeDate) {
+      const notBeforeIsoString = notBeforeDate.toISOString();
+      const toIdx = notBeforeIsoString.indexOf('T');
+      const notBeforeVal = notBeforeIsoString.substring(0, toIdx);
+      path += `&notBefore=${notBeforeVal}`;
+    }
+    return this.doGet(path).then((respObj) => {
       const resp = respObj as TimeslotsResponse;
       return resp.timeSlots;
     });
@@ -123,6 +131,7 @@ class MigekApiService {
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status >= HttpStatusCodes.OK && xhr.status < HttpStatusCodes.MULTIPLE) {
+            this.log('Response: ', xhr.response);
             const arrayBuffer = xhr.response;
             const file = new Blob([arrayBuffer], { type: 'application/pdf' });
             const fileURL = URL.createObjectURL(file);
@@ -148,9 +157,18 @@ class MigekApiService {
       if (this.bearerStr) {
         xhr.setRequestHeader('Authorization', `Bearer ${this.bearerStr}`);
       }
-      // xhr.setRequestHeader('Accept', 'application/pdf'); // TODO: Required?
+      xhr.setRequestHeader('Accept', 'application/pdf');
       xhr.send();
     }
+  }
+
+  public logoutReset(): void {
+    this.bearerStr = undefined;
+    this.currentAppointment = undefined;
+    this.pathToReservationDetails = undefined;
+    this.postponePath = undefined;
+    this.confirmationPath = undefined;
+    window.location.reload();
   }
 
   private getLoginRequestBody(tokenStr: string): string {

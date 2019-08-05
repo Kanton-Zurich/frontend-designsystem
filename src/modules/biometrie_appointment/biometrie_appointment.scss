@@ -305,6 +305,16 @@ $biometrieViewTransitionDuration: 300ms;
           display: inline-flex;
 
           @include sizeCurve('margin-right', regular);
+
+          button.disabled {
+            cursor: not-allowed;
+            pointer-events: none;
+            background-color: $colorBlack5;
+
+            use {
+              fill: $colorBlack20;
+            }
+          }
         }
 
         .btn-line {
