@@ -8,7 +8,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Form Input',
     className: 'FormInput',
-    jira: 'CZHDEV-844',
+    jira: 'CZHDEV-*',
     documentation: dataHelper.getDocumentation('form_input.md'),
   },
   props: {
@@ -59,7 +59,6 @@ const variants = _.mapValues({
       label: 'Floating Label',
       uuid: _.uniqueId('float_input_float'),
       isFloatingLabel: true,
-      isRequired: true,
     },
   },
   floatValidate: {
@@ -71,7 +70,7 @@ const variants = _.mapValues({
       type: 'text',
       label: 'Validation',
       validation: {
-        pattern: '^([a-zA-Z]){3,6}$',
+        pattern: '',
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
         errorMsg: 'Hier mindestens 3 und maximal 6 Buchstaben eingeben!',
@@ -180,8 +179,8 @@ const variants = _.mapValues({
 
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
         data: dataHelper.getFormattedJson(variantProps),
+        html: dataHelper.getFormattedHtml(compiledVariant()),
       },
     },
   });

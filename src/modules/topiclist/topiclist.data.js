@@ -6,7 +6,7 @@ const defaultData = require('../../data/default.data.js');
 const contentNavDataDef = require('../content_nav/content_nav.data').variants.default.props;
 const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
 const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data');
-const inputFormData = require('../../modules/form_input/form_input.data').variants.small.props;
+const inputFormData = require('../../atoms/form_input/form_input.data').variants.small.props;
 
 const template = dataHelper.getFileContent('topiclist.hbs');
 const data = _.merge({}, defaultData, {

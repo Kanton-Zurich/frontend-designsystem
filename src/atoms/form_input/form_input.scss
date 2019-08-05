@@ -7,7 +7,7 @@ $topSpace_without_border: 22px;
 $rightSpace: 44px;
 $unitLeftSpace: 62px;
 
-.mdl-form_input {
+.atm-form_input {
   position: relative;
 
   &__input {
@@ -159,7 +159,7 @@ $unitLeftSpace: 62px;
       display: block;
     }
 
-    .mdl-form_input__input {
+    .atm-form_input__input {
       &::placeholder {
         color: transparent;
       }
@@ -228,7 +228,7 @@ $unitLeftSpace: 62px;
       * VALID
       */
       &.valid {
-        & ~ .mdl-form_input__validate-icon {
+        & ~ .atm-form_input__validate-icon {
           span:first-of-type {
             display: block;
 
@@ -245,7 +245,7 @@ $unitLeftSpace: 62px;
       &.invalid {
         border-color: $colorRed;
 
-        & ~ .mdl-form_input__validate-icon {
+        & ~ .atm-form_input__validate-icon {
           span:last-of-type {
             display: block;
 
