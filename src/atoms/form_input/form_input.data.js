@@ -8,7 +8,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Form Input',
     className: 'FormInput',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-844',
     documentation: dataHelper.getDocumentation('form_input.md'),
   },
   props: {
