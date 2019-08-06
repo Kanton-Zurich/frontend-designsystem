@@ -467,6 +467,39 @@ $biometrieViewTransitionDuration: 300ms;
       }
     }
   }
+
+  &__unavailable-alert {
+    position: relative;
+    display: none;
+
+    .alert {
+      color: $colorRed;
+      line-height: $sizeLineHeightBase;
+
+      @include sizeCurve('padding-left', big);
+
+      &:before {
+        content: '!';
+        background-color: $colorRed;
+        color: $colorWhite;
+        text-align: center;
+        border-radius: 50%;
+        display: block;
+        position: absolute;
+        left: 0;
+
+        @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+        @include sizeCurve('width', large);
+        @include sizeCurve('height', large);
+        @include sizeCurve('line-height', large);
+      }
+    }
+
+    &.show {
+      display: block;
+
+    }
+  }
 }
 
 [ class^='mdl-biometrie_appointment__' ] {

@@ -85,10 +85,6 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
           });
       }
     });
-
-    setTimeout(() => {
-      this.data.loading = false;
-    }, 0);
   }
 
   private initInputEvents(eventDelegate): void {
