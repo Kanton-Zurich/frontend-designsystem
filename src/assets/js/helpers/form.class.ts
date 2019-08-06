@@ -84,7 +84,7 @@ class Form {
   }
 
   validateField() {
-    console.log('mist');
+    console.log('validating Field');
   }
 }
 
