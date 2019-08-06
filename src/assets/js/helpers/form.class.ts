@@ -65,7 +65,6 @@ class Form {
    * @param newValue the value after the change a.k.a the current value
    */
   onInputValueChange(domElement, oldValue, newValue) {
-    console.log('hello');
     if (newValue.length !== 0) {
       domElement.classList.add(this.options.inputClasses.dirty);
     } else {
