@@ -380,6 +380,9 @@ $biometrieViewTransitionDuration: 300ms;
             display: none;
 
             @include sizeCurve('padding', regular);
+            @include mq($to: small) {
+              padding: 0;
+            }
           }
 
           &.no-slots-available {
@@ -516,5 +519,17 @@ $biometrieViewTransitionDuration: 300ms;
 
   .lighter {
     font-weight: 200;
+  }
+
+  .hidden-small-down {
+    @include mq($to: small) {
+      display: none;
+    }
+  }
+
+  .hidden-small-up {
+    @include mq($from: small) {
+      display: none;
+    }
   }
 }

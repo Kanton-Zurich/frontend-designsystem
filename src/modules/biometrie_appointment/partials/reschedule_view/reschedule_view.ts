@@ -127,6 +127,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     if (timeslot) {
       this.data.loading = true;
       const p = timeslot.payload;
+      // TODO: Handle case where slot has just been filled.
       this.apiService.rescheduleTo(p.startTime, p.endTime)
         .then((appointment) => {
           this.data.rescheduled = true;
@@ -288,8 +289,11 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
               const clone = document.importNode(content, true);
               const slotElement = clone.firstElementChild;
               const { innerHTML } = slotElement;
+              const timeStr = timeslot.getTimeStr();
+              const startDateStr = DateHelper.getTrimTimeStr(timeslot.startDate);
+              const timeHtml = `<span class="hidden-small-down">${timeStr}</span><span class="hidden-small-up">${startDateStr}</span>`;
               if (innerHTML) {
-                slotElement.innerHTML = innerHTML.replace('{timeslot-range}', timeslot.getTimeStr());
+                slotElement.innerHTML = innerHTML.replace('{timeslot-range}', timeHtml);
               }
               const slotSelect = slotElement.querySelector(this.selectors.slotSelect);
               if (slotSelect) {
