@@ -94,9 +94,7 @@ const variants = _.mapValues({
     props: {
       topiclistInput: _.merge({}, inputFormData, {
         label: 'Themen nach Stichwort filtern',
-        isSmall: true,
-        selector: 'data-topiclist="input"',
-        hasClearButton: true,
+        dataSelector: 'data-topiclist="input"',
       }),
       topiclistHeading: false,
       topiclistLead: false,

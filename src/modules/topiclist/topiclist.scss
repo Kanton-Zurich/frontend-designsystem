@@ -11,7 +11,7 @@ $leadFontCurve: (
 
   // Hide items only on default topiclist
   .mdl-content_nav {
-    &__item:nth-child(1n+12) {
+    &__item:nth-child(1n+13) {
       display: none;
     }
   }
@@ -30,8 +30,8 @@ $leadFontCurve: (
   &--home,
   &--office {
     .mdl-content_nav:not(.mdl-topiclist__autosuggest) {
-      .mdl-content_nav__item:nth-child(1n+12),
-      .mdl-content_nav__item:nth-child(1n+9) {
+      &__item:nth-child(1n+13),
+      &__item:nth-child(1n+10) {
         display: flex;
       }
     }

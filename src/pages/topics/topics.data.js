@@ -130,7 +130,7 @@ const data = _.merge({}, defaultData, {
       anchorNav: defAnchorNavData,
       serviceListData: {
         serviceListHeading: {
-          title: 'Service',
+          title: 'Service123',
           anchorNavReference: 'services',
         },
         items: [

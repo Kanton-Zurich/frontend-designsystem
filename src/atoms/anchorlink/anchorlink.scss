@@ -30,18 +30,23 @@
       margin-left: $sizeSmallRegular;
     }
 
+    &:after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -1px;
+      transform: translateX(-50%) scaleX(0);
+      width: 100%;
+      height: 2px;
+      background-color: $colorBlack;
+    }
+
     &:active,
     &.atm-anchorlink--active {
       font-weight: $fontWeightBlack;
 
       &:after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -1px;
-        width: 100%;
-        height: 2px;
-        background-color: $colorBlack;
+        transform: translateX(-50%) scaleX(1);
       }
     }
 
