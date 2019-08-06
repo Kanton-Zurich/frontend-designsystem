@@ -1,5 +1,5 @@
 <div class="atm-form_input{{#if isFloatingLabel}} atm-form_input--floated{{/if}}{{#if
-  isSmall}} atm-form_input--small{{/if}}{{#if unitLeft}} atm-form_input--unitLeft{{/if}}"{{#if additionalFunctionality}} data-hasbutton="true"{{/if}}>
+  isSmall}} atm-form_input--small{{/if}}{{#if unitLeft}} atm-form_input--unitLeft{{/if}}">
 
   {{# if isTextarea}}
     <textarea class="atm-form_input__input atm-form_input__input--txtarea" id="{{uuid}}" placeholder="{{label}}"{{#if name }}
@@ -9,7 +9,8 @@
               readonly{{/if}}{{#if
       disabled}} disabled{{/if}}
       {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
-      {{#if validation}} data-validation{{/if}}></textarea>
+      {{#if validation}} data-validation{{/if}}
+      {{#if isFloatingLabel}} data-floating{{/if}}></textarea>
   {{else}}
     <input class="atm-form_input__input"
       {{#if validation.pattern }} data-pattern="{{validation.pattern}}"{{/if}}
@@ -25,7 +26,8 @@
       {{#if autocompleteOff}} [autocomplete="off"]{{/if}}
       {{#if disabled}} disabled{{/if}}
       {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
-      {{#if validation}} data-validation{{/if}}>
+      {{#if validation}} data-validation{{/if}}
+      {{#if isFloatingLabel}} data-floating{{/if}}>
   {{/if}}
   <label for="{{uuid}}">{{label}}</label>
 
@@ -51,7 +53,7 @@
   {{#if validation.errorMsg}}<p>{{validation.errorMsg}}</p>{{/if}}
 
   {{#if additionalFunctionality}}
-    <button class="atm-form_input__functionality" data-buttontype="{{additionalFunctionality.buttontype}}">
+    <button class="atm-form_input__functionality" type="button" data-buttontype="{{additionalFunctionality.buttontype}}">
       <span class="visuallyhidden">{{additionalFunctionality.ariaText}}</span>
       <svg class="icon">
         <use xlink:href="#{{additionalFunctionality.icon }}"></use>

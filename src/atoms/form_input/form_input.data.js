@@ -98,7 +98,7 @@ const variants = _.mapValues({
       isFloatingLabel: true,
       additionalFunctionality: {
         icon: 'clear',
-        buttontype: 'text',
+        buttontype: 'clear',
         ariaText: 'Lösche Eingabe',
       },
     },
@@ -166,7 +166,7 @@ const variants = _.mapValues({
       uuid: _.uniqueId('float_input_smallTopic'),
       additionalFunctionality: {
         icon: 'clear',
-        buttontype: 'text',
+        buttontype: 'clear',
         ariaText: 'Lösche Eingabe',
       },
     },

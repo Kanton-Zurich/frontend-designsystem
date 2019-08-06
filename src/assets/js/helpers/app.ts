@@ -29,6 +29,9 @@ import PageHeader from '../../../modules/page_header/page_header';
 import SocialMediaStream from '../../../modules/social_media_stream/social_media_stream';
 /* autoinsertmodulereference */ // eslint-disable-line
 
+import Form from './form.class';
+import FormGlobalHelper from './form';
+
 class App {
   public initEvents = [];
   public modules: any = {};
@@ -65,6 +68,7 @@ class App {
     window[namespace].helpers.registerModulesInElement = this.registerModulesInElement;
     window[namespace].helpers.initModulesInElement = this.initModulesInElement;
     window[namespace].helpers.app = this;
+    window[namespace].form = new FormGlobalHelper();
 
     // Check for touch support
     const hasTouchSupport = 'ontouchstart' in window || navigator.msMaxTouchPoints;
@@ -84,6 +88,7 @@ class App {
 
     this.registerModules();
     this.initModuleInitialiser();
+    this.registerForms();
   }
 
   initModule(moduleName, element) {
@@ -175,6 +180,14 @@ class App {
 
       return null;
     }
+  }
+
+  registerForms() {
+    const forms = document.querySelectorAll('form[novalidate]');
+
+    forms.forEach((form) => {
+      new Form(form);
+    });
   }
 }
 
