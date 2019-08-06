@@ -5,9 +5,11 @@
     <textarea class="atm-form_input__input atm-form_input__input--txtarea" id="{{uuid}}" placeholder="{{label}}"{{#if name }}
               name="{{name}}"{{/if}}{{#if cols }}
               cols="{{cols}}"{{/if}}{{#if rows }} rows="{{rows}}"{{/if}}{{#if validation.max }}
-              maxlength="{{validation.max}}"{{/if}}{{#if isRequired}} required{{/if}}{{#if isReadOnly}}
+              maxlength="{{validation.max}}"{{/if}}{{#if validation.isRequired}} required{{/if}}{{#if isReadOnly}}
               readonly{{/if}}{{#if
-      disabled}} disabled{{/if}}></textarea>
+      disabled}} disabled{{/if}}
+      {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
+      {{#if validation}} data-validation{{#/if}}></textarea>
   {{else}}
     <input class="atm-form_input__input"
       {{#if validation.pattern }} data-pattern="{{validation.pattern}}"{{/if}}
