@@ -95,6 +95,12 @@ const variants = _.mapValues({
       topiclistInput: _.merge({}, inputFormData, {
         label: 'Themen nach Stichwort filtern',
         dataSelector: 'data-topiclist="input"',
+        isSmall: true,
+        additionalFunctionality: {
+          icon: 'clear',
+          buttontype: 'text',
+          ariaText: 'Lösche Eingabe',
+        },
       }),
       topiclistHeading: false,
       topiclistLead: false,
