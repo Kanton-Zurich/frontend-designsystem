@@ -154,6 +154,13 @@ $unitLeftSpace: 62px;
     opacity: 0;
   }
 
+  &__functionality {
+    display: none;
+  }
+
+  /**
+   * FLOATED STYLES
+   */
   &--floated {
     label {
       display: block;
@@ -190,6 +197,10 @@ $unitLeftSpace: 62px;
               padding-top: pxToRem(18px);
             }
           }
+        }
+
+        .atm-form_input__functionality {
+          display: block;
         }
       }
 
