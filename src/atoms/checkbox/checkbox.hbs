@@ -1,0 +1,11 @@
+<div class="atm-checkbox">
+  <input type="checkbox" id="checkbox1{{#if isDisabled}}disabled{{/if}}{{#if isChecked}}checked{{/if}}" name="checkgroup" {{#if isDisabled}}disabled{{/if}}{{#if isChecked}}checked{{/if}}>
+  <label for="checkbox1{{#if isDisabled}}disabled{{/if}}{{#if isChecked}}checked{{/if}}">
+    Checkbox-Label{{#if isDisabled}}(disabled){{/if}}{{#if isChecked}}(checked){{/if}}
+    <span>
+      <svg class="icon icon--iframe-arrow">
+        <use xlink:href="#check"></use>
+      </svg>
+    </span>
+  </label>
+</div>
