@@ -6,7 +6,6 @@
  */
 import Module from '../../assets/js/helpers/module';
 import MigekApiService from './service/migek-api.service';
-import CalendarLinkGenerator, { GeneralEventData } from './service/calendar-link-generator.service';
 import BiometrieRescheduleView, {
   rescheduleViewSelectorsValues,
 } from './partials/reschedule_view/reschedule_view';
@@ -15,6 +14,7 @@ import BiometrieDetailsView, { detailViewSelectors } from './partials/details_vi
 
 // TODO: Marked as unused by eslint although required (?)
 /* eslint-disable no-unused-vars */
+import CalendarLinkGenerator, { GeneralEventData } from './service/calendar-link-generator.service';
 import Appointment from './model/appointment.model';
 import { BiometrieViewController } from './util/view-controller.class';
 /* eslint-enable */
