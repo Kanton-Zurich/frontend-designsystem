@@ -1,7 +1,6 @@
 import { ViewController } from '../../util/view-controller.class';
 import { ApiConnectionFailure, ApiFailureType } from '../../service/migek-api.service';
 
-// TODO: Marked as unused by eslint although required (?)
 /* eslint-disable no-unused-vars */
 import Appointment from '../../model/appointment.model';
 
@@ -39,6 +38,7 @@ interface LoginViewData {
   appointment: Appointment;
   loading: boolean;
   loggedIn: boolean;
+  apiAvailable: boolean;
   attemptsBeforeTelephone: number;
 }
 
@@ -340,10 +340,13 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
     }
   }
 
-  // TODO
-  private handleError(e: Error) {
-    this.log('Error occured!');
-    this.log(e.message);
+  /**
+   * Method to handle API exceptions that the current view can not recover from.
+   * @param exception
+   */
+  private handleError(exception): void {
+    this.log('Unexpected exception connecting to API', exception);
+    this.data.apiAvailable = true;
   }
 }
 
