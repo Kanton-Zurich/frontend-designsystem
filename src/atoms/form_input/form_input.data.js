@@ -71,7 +71,7 @@ const variants = _.mapValues({
       type: 'text',
       label: 'Validation',
       validation: {
-        pattern: '',
+        pattern: '^([a-zA-Z]){3,6}$',
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
         errorMsg: 'Hier mindestens 3 und maximal 6 Buchstaben eingeben!',

@@ -50,7 +50,8 @@
     {{/if}}
   {{/unless}}
 
-  {{#if validation.errorMsg}}<p>{{validation.errorMsg}}</p>{{/if}}
+  {{#if validation.errorMsg}}<p data-message="pattern">{{validation.errorMsg}}</p>{{/if}}
+  {{#if validation.isRequired}}<p data-message="required">Dies ist ein Pflichtfeld</p>{{/if}}
 
   {{#if additionalFunctionality}}
     <button class="atm-form_input__functionality" type="button" data-buttontype="{{additionalFunctionality.buttontype}}">

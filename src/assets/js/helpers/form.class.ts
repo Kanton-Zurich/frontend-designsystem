@@ -2,6 +2,8 @@ import { Delegate } from 'dom-delegate';
 import wrist from 'wrist';
 import { debounce } from 'lodash';
 
+import namespace from './namespace';
+
 class Form {
   private ui: {
     element: HTMLElement,
@@ -12,6 +14,8 @@ class Form {
     eventEmitters: any,
     inputClasses: any,
     validateDelay: number,
+    messageClasses: any,
+    messageSelector: string,
   }
 
   private eventDelegate: any;
@@ -31,6 +35,12 @@ class Form {
       },
       inputClasses: {
         dirty: 'dirty',
+        valid: 'valid',
+        invalid: 'invalid',
+      },
+      messageSelector: '[data-message]',
+      messageClasses: {
+        show: 'show',
       },
     };
 
@@ -46,6 +56,7 @@ class Form {
   addEventListeners() {
     this.eventDelegate.on('click', this.options.eventEmitters.clearButton, this.clearField.bind(this));
     this.eventDelegate.on('keyup', this.options.watchEmitters.input, debounce(this.validateField.bind(this), this.options.validateDelay));
+    this.eventDelegate.on('blur', this.options.watchEmitters.input, this.validateField.bind(this));
   }
 
   addWatchers() {
@@ -82,8 +93,24 @@ class Form {
     inputElement.value = '';
   }
 
-  validateField() {
-    console.log('validating Field');
+  validateField(event, delegate) {
+    const validation = window[namespace].form.validateField(delegate);
+
+    delegate.parentElement.querySelectorAll(this.options.messageSelector).forEach((message) => {
+      message.classList.remove(this.options.messageClasses.show);
+    });
+
+    if (validation.validationResult) {
+      delegate.classList.add(this.options.inputClasses.valid);
+      delegate.classList.remove(this.options.inputClasses.invalid);
+    } else {
+      delegate.classList.add(this.options.inputClasses.invalid);
+      delegate.classList.remove(this.options.inputClasses.valid);
+
+      validation.messages.forEach((messageID) => {
+        delegate.parentElement.querySelector(`[data-message="${messageID}"]`).classList.add('show');
+      });
+    }
   }
 }
 

@@ -275,7 +275,7 @@ $unitLeftSpace: 62px;
           }
         }
 
-        & ~ p {
+        & ~ p.show {
           padding-top: pxToRem(7px);
           padding-bottom: pxToRem(5px);
           height: auto;
