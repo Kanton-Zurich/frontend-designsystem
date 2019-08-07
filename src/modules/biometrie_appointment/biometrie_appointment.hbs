@@ -1,6 +1,12 @@
 <div class="mdl-biometrie_appointment" data-init="biometrieAppointment" data-biometrie_appointment_settings='{
         "apiBase": "{{moduleSettings.apiBase}}",
-        "attemptsBeforeTelephone": "{{ moduleSettings.attemptsBeforeTelephone }}"
+        "attemptsBeforeTelephone": {{ moduleSettings.attemptsBeforeTelephone }},
+        "calendarLinkProperties": {
+            "title": "{{ moduleSettings.calendarLinkProperties.title }}",
+            "location": "{{ moduleSettings.calendarLinkProperties.location }}",
+            "description": "{{ moduleSettings.calendarLinkProperties.description }}",
+            "htmlDescription": "{{ moduleSettings.calendarLinkProperties.htmlDescription }}"
+        }
     }'>
 
     <a class="atm-text_link atm-text_link--icon mdl-biometrie_appointment__logout" data-biometrie_appointment="logout">

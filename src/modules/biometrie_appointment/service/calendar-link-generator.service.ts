@@ -3,6 +3,7 @@ import DateHelper from '../../../util/date-helper.class';
 export interface GeneralEventData {
   title: string;
   description?: string;
+  htmlDescription?: string;
   location?: string;
   url?: string;
   geo?: {
@@ -10,7 +11,6 @@ export interface GeneralEventData {
     lon: number;
   }
   status?: 'CONFIRMED' | 'TENTATIVE' | 'CANCELLED';
-  startInputType?: 'utc' | 'local';
 }
 
 class CalendarLinkGenerator {
@@ -50,7 +50,8 @@ class CalendarLinkGenerator {
   }
 
   private getGoogleCalendarLink(start: Date, end: Date): string {
-    let details = this.generalData.description;
+    let details = this.generalData.htmlDescription
+      ? this.generalData.htmlDescription : this.generalData.description;
     if (this.generalData.url) {
       const linktag = `<a href="${this.generalData.url}">Link</a>`;
       if (details) {
@@ -71,16 +72,10 @@ class CalendarLinkGenerator {
   }
 
   private getIcsBase64String(appointmentFrom: Date, appointmentUntil: Date): string {
-    let geoStr;
-    if (this.generalData.geo) {
-      geoStr = `${this.generalData.geo.lat};${this.generalData.geo.lon}`;
-    }
     const value = this.buildIcsFileContent({
       start: appointmentFrom,
       end: appointmentUntil,
       summary: this.generalData.title,
-      geo: geoStr,
-      location: this.generalData.location,
     });
     return window.btoa(unescape(encodeURIComponent(value)));
   }
@@ -89,8 +84,6 @@ class CalendarLinkGenerator {
     start: Date;
     end: Date;
     summary: string;
-    geo?: string;
-    location?: string;
   }): string {
     const dtstamp = DateHelper.getStrippedIsoString(new Date());
     const dtstart = DateHelper.getStrippedIsoString(eventData.start);
@@ -105,12 +98,27 @@ class CalendarLinkGenerator {
     contentStr += `DTSTART:${dtstart}\n`;
     contentStr += `DTEND:${dtend}\n`;
 
-    if (eventData.geo) {
-      contentStr += `GEO:${eventData.geo}\n`;
+    if (this.generalData.geo) {
+      const geoStr = `${this.generalData.geo.lat};${this.generalData.geo.lon}`;
+      contentStr += `GEO:${geoStr}\n`;
     }
 
-    if (eventData.location) {
-      contentStr += `LOCATION:${eventData.location}\n`;
+    if (this.generalData.location) {
+      contentStr += `LOCATION:${this.generalData.location}\n`;
+    }
+
+    let escapedDesc = '';
+    if (this.generalData.description) {
+      escapedDesc += this.generalData.description
+        .replace(/\n/gm, '\\n');
+    }
+    if (this.generalData.url) {
+      escapedDesc += `\\n\\n${this.generalData.url}\\n\\n`;
+    }
+    contentStr += `DESCRIPTION:${escapedDesc}\n`;
+
+    if (this.generalData.htmlDescription) {
+      contentStr += `X-ALT-DESC;FMTTYPE=text/html:${this.generalData.htmlDescription}\n`;
     }
 
     contentStr += 'STATUS:CONFIRMED\n';

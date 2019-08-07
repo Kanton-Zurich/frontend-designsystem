@@ -6,7 +6,7 @@
  */
 import Module from '../../assets/js/helpers/module';
 import MigekApiService from './service/migek-api.service';
-import CalendarLinkGenerator from './service/calendar-link-generator.service';
+import CalendarLinkGenerator, { GeneralEventData } from './service/calendar-link-generator.service';
 import BiometrieRescheduleView, {
   rescheduleViewSelectorsValues,
 } from './partials/reschedule_view/reschedule_view';
@@ -27,6 +27,7 @@ class BiometrieAppointment extends Module {
     loading: boolean;
     apiAvailable: boolean;
     attemptsBeforeTelephone: number;
+    calendarLinkProperties: GeneralEventData;
   };
 
   public options: {
@@ -65,6 +66,14 @@ class BiometrieAppointment extends Module {
     const defaultSettings = {
       apiBase: '/proxy/migek/',
       attemptsBeforeTelephone: 3,
+      calendarLinkProperties: {
+        title: 'Kanton Zürich - Erfassung biometrischer Daten',
+        location: 'Migrationsamt des Kantons Zürich',
+        geo: {
+          lat: 47.403555,
+          lon: 8.546418,
+        },
+      },
     };
     let settings = {};
     try {
@@ -72,8 +81,7 @@ class BiometrieAppointment extends Module {
         .getAttribute(SETTINGS_ATTR_NAME);
       settings = JSON.parse(settingsStr);
     } catch (e) {
-      // swallow
-      console.error(e);
+      console.error('Unparseable settings object: ', e);
     }
     settings = Object.assign(defaultSettings, settings);
     const defaultData = Object.assign({
@@ -106,14 +114,7 @@ class BiometrieAppointment extends Module {
       this.data.loading = false;
     });
 
-    this.calendarLinkGenerator = new CalendarLinkGenerator({
-      title: 'Kanton Zürich - Erfassung biometrischer Daten',
-      location: 'Migrationsamt des Kantons Zürich',
-      geo: {
-        lat: 47.403555,
-        lon: 8.546418,
-      },
-    });
+    this.calendarLinkGenerator = new CalendarLinkGenerator(this.data.calendarLinkProperties);
   }
 
   private initViewController() {

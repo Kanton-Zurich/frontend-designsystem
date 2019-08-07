@@ -9,6 +9,26 @@ const rescheduleViewProps = require('./partials/reschedule_view/reschedule_view.
 const moduleSettings = {
   apiBase: 'https://internet-acc.zh.ch/proxy/migek/',
   attemptsBeforeTelephone: 3,
+  calendarLinkProperties: {
+    title: 'Kanton Zürich - Erfassung biometrischer Daten',
+    location: 'Migrationsamt des Kantons Zürich',
+    description: 'Migrationsamt des Kantons Zürichs \\nBerninastrasse 45 \\n8057 Zürich \\n \\n'
+      + '*Schalter G-S* (bitte Ticket beim *Eingang rechts* ziehen) \\n \\n'
+      + 'Telefonnummer: 043 259 88 40 \\n \\n'
+      + 'Montag - Freitag 08:00-12:00Uhr und 13:00-16:30Uhr \\n'
+      + ' \\n \\n \\n'
+      + 'Bringen Sie bitte folgende Unterlagen mit \\n'
+      + ' - Terminbestätigung \\n'
+      + ' - Original Ausländerausweis (außer bei erstmaligem Gesuch) \\n'
+      + ' - Original heimatlicher Reisepass \\n'
+      + ' - Geburtsschein (bei Neugeborenen) \\n \\n \\n',
+    htmlDescription: ' <h3>Ort</h3> <p>Migrationsamt des Kantons Zürichs<br>Berninastrasse 45<br>80'
+      + '57 Zürich</p> <p><strong>Schalter G-R</strong> (bitte Ticket beim <strong>Eingang rechts</'
+      + 'strong> ziehen)</p> <p>Telefonnummer: 043 259 88 40</p> <p>Montag - Freitag 08:00-12:00Uhr'
+      + ' und 13:00-16:30Uhr</p> <h3>Bringen Sie bitte folgende Unterlagen mit</h3> <ul> <li>Termin'
+      + 'bestätigung</li> <li>Original Ausländerausweis (außer bei erstmaligem Gesuch)</li> <li>Ori'
+      + 'ginal heimatlicher Reisepass</li> <li>Geburtsschein (bei Neugeborenen)</li> </ul>',
+  },
 };
 const template = dataHelper.getFileContent('biometrie_appointment.hbs');
 const data = _.merge({}, defaultData, {
