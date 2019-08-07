@@ -289,6 +289,13 @@
         </div>
       </div>
     </div>
+
+      <div class="mdl-biometrie_appointment__reschedule__blockedslot-overlay {{#if isSlotFull}}show{{/if}}" data-biometrie_appointment="slotFullOverlay" >
+          <div class="overlay-content">
+              {{{blockedSlotInfo}}}
+              {{> "atoms/button/button" closeBlockedInfoBtn}}
+          </div>
+      </div>
   </div>
 
   <template data-biometrie_appointment="capacityMsgTemplate">

@@ -499,17 +499,24 @@ $biometrieViewTransitionDuration: 300ms;
         }
       }
     }
+
+    &__blockedslot-overlay {
+      @extend .overlay;
+      display: none;
+
+      button {
+        @include sizeCurve('margin-top', regular);
+      }
+
+      &.show {
+        display: block;
+      }
+    }
   }
 
   &__loading-spinner {
     &.show {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 101;
+      @extend .overlay;
 
       .atm-dual-ring {
         position: absolute;
@@ -575,6 +582,42 @@ $biometrieViewTransitionDuration: 300ms;
 
     &.show {
       display: block;
+    }
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 101;
+
+    .overlay-content {
+      position: absolute;
+      background-color: $colorWhite;
+      left: 50%;
+      width: 90%;
+      margin-left: -45%;
+      top: 10%;
+
+      @include mq($from: small) {
+        width: 70%;
+        margin-left: -35%;
+        top: 15%;
+      }
+      @include mq($from: medium) {
+        width: 66%;
+        margin-left: -33%;
+        top: 25%;
+      }
+      @include mq($from: large) {
+        width: 38%;
+        margin-left: -19%;
+        top: 40%;
+      }
+      @include sizeCurve('padding', biggerRegular);
     }
   }
 }
