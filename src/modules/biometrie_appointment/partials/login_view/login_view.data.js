@@ -34,6 +34,42 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
+  alertIncomplete: {
+    meta: {
+      title: 'DEMO unvollständiger Token',
+      desc: 'Zeigt die Warnung für unvollständige Token.',
+    },
+    props: {
+      demoAlert: true,
+      demoAlertMsg1: true,
+      demoAlertMsg2: false,
+      demoAlertMsg3: false,
+    },
+  },
+  alertInvalid: {
+    meta: {
+      title: 'DEMO invalider Token',
+      desc: 'Zeigt die Warnung für invalide Token.',
+    },
+    props: {
+      demoAlert: true,
+      demoAlertMsg1: false,
+      demoAlertMsg2: true,
+      demoAlertMsg3: false,
+    },
+  },
+  alertPhone: {
+    meta: {
+      title: 'DEMO mit Telefonnummer',
+      desc: 'Zeigt die Warnung für invalide Token mit Telefonnummer.',
+    },
+    props: {
+      demoAlert: true,
+      demoAlertMsg1: false,
+      demoAlertMsg2: false,
+      demoAlertMsg3: true,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

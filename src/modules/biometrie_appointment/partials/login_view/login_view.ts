@@ -15,6 +15,7 @@ enum LoginAlert {
 const TOKEN_BLOCKS: number = 4;
 const TOKEN_BLOCK_LENGTH: number = 4;
 const TOKEN_BLOCK_SEPERATOR: string = '-';
+const VALID_TOKEN_LENGTH = TOKEN_BLOCKS * TOKEN_BLOCK_LENGTH + (TOKEN_BLOCKS - 1);
 
 export const loginViewSelectors: LoginViewSelectors = {
   inputFieldsWrapper: '[data-biometrie_appointment=inputfieldswrapper]',
@@ -57,7 +58,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
     this.initInputEvents(eventDelegate);
 
     eventDelegate.on('click', this.selectors.submitBtn, () => {
-      if (!this.loginToken || this.loginToken.length < TOKEN_BLOCKS * TOKEN_BLOCK_LENGTH) {
+      if (!this.loginToken || this.loginToken.length < VALID_TOKEN_LENGTH) {
         this.log('Incomplete login token', this.loginToken);
         this.showLoginAlert(LoginAlert.Incomplete);
       } else {
@@ -134,6 +135,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
         let beforeCaretLength = 0;
         let afterCaretLength = 0;
         let overallCaretPos = 0;
+        let targetInputProcessed = false;
         inputEls.forEach((el) => {
           if (el === targetInput) {
             overallCaretPos += caretPos;
@@ -144,17 +146,17 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
               totalStr += beforePaste;
               totalStr += pasteEv.clipboardData.getData('text');
               totalStr += afterPaste;
-
               beforeCaretLength += beforePaste.length;
               afterCaretLength += afterPaste.length;
             } else {
               totalStr += pasteEv.clipboardData.getData('text');
             }
+            targetInputProcessed = true;
           } else {
             const targetVal = el.innerText;
             totalStr += targetVal;
 
-            if (beforeCaretLength > 0) {
+            if (targetInputProcessed) {
               afterCaretLength += targetVal.length;
             } else {
               beforeCaretLength += TOKEN_BLOCK_LENGTH;
@@ -165,15 +167,16 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
         this.log('Total Input: ', totalStr);
         setTimeout(() => {
           this.fillLoginTokenCleaned(totalStr);
-
           const cleanPasteLength = this.loginToken.length - (beforeCaretLength + afterCaretLength);
           overallCaretPos += cleanPasteLength;
 
-          const focusElIdx = Math.max(
-            Math.floor(overallCaretPos / TOKEN_BLOCK_LENGTH),
-            TOKEN_BLOCKS - 1,
-          );
-          caretPos = overallCaretPos % TOKEN_BLOCK_LENGTH;
+          let focusElIdx = Math.floor(overallCaretPos / (TOKEN_BLOCK_LENGTH + 1));
+          if (focusElIdx > TOKEN_BLOCKS - 1) {
+            focusElIdx = TOKEN_BLOCKS - 1;
+            caretPos = TOKEN_BLOCK_LENGTH;
+          } else {
+            caretPos = overallCaretPos % (TOKEN_BLOCK_LENGTH + 1);
+          }
 
           this.setFocusAndCaret(inputEls.item(focusElIdx), caretPos);
         }, 0);
@@ -242,9 +245,8 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
     const regexPattern = `.{1,${TOKEN_BLOCK_LENGTH}}`;
     const tokenBlocks = cleanedVal.match(new RegExp(regexPattern, 'g'));
     cleanedVal = tokenBlocks ? tokenBlocks.join(TOKEN_BLOCK_SEPERATOR) : '';
-    this.log('Value cleaned: ', cleanedVal);
-    const maxLength = TOKEN_BLOCKS * TOKEN_BLOCK_LENGTH + (TOKEN_BLOCKS - 1);
-    return cleanedVal.length > maxLength ? cleanedVal.substr(0, maxLength) : cleanedVal;
+    return cleanedVal.length > VALID_TOKEN_LENGTH
+      ? cleanedVal.substr(0, VALID_TOKEN_LENGTH) : cleanedVal;
   }
 
   /**
@@ -276,7 +278,6 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
       this.showLoginAlert();
       this.log('Token string complete: ', this.loginToken);
     }
-
     this.loginToken = cleanedStr;
   }
 
@@ -286,6 +287,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
    * @param { number } caretPos the position to put caret in the focused object.
    */
   private setFocusAndCaret(focusEl: HTMLElement, caretPos: number): void {
+    this.log('Set focus and caret: ', focusEl, caretPos);
     if (focusEl) {
       focusEl.focus();
       if (focusEl.childNodes[0]) {
@@ -316,21 +318,21 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
 
     const alertConDirectChildren = document.querySelectorAll<HTMLElement>(`${this.selectors.loginHint} > *`);
     alertConDirectChildren.forEach((child) => {
-      child.style.display = 'none';
+      child.classList.remove('show');
     });
 
     switch (loginAlert) {
       case LoginAlert.Incomplete:
         wrapperEl.classList.add('error');
-        document.querySelector<HTMLElement>(this.selectors.loginAlertErr1).style.display = 'block';
+        document.querySelector<HTMLElement>(this.selectors.loginAlertErr1).classList.add('show');
         return;
       case LoginAlert.Unauthorized:
         wrapperEl.classList.add('error');
-        document.querySelector<HTMLElement>(this.selectors.loginAlertErr2).style.display = 'block';
+        document.querySelector<HTMLElement>(this.selectors.loginAlertErr2).classList.add('show');
         return;
       case LoginAlert.ShowTelephone:
         wrapperEl.classList.add('error');
-        document.querySelector<HTMLElement>(this.selectors.loginAlertErr3).style.display = 'block';
+        document.querySelector<HTMLElement>(this.selectors.loginAlertErr3).classList.add('show');
         return;
       default:
         // Reset
