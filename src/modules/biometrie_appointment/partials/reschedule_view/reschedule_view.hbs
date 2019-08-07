@@ -42,199 +42,53 @@
             <strong class="btn-line" data-biometrie_appointment="selectedWeekRange"></strong>
         {{/if}}
         <div data-biometrie_appointment="otherSlotsSelect" class="mdl-biometrie_appointment__reschedule__allopen__slotselect">
-
             {{#if withMockedData}}
-                <div data-biometrie_appointment="weekDayColumn" class="weekday-column">
-                    <div data-biometrie_appointment="weekDayHead" class="weekday-head">Montag<br/>1.7.</div>
-                    <div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
-                        <div class="weekday-slot">
-                            <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                <span class="atm-button__text">
-                                    <span class="hidden-small-down">08:00-08:15</span>
-                                    <span class="hidden-small-up">08:00</span>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="weekday-slot">
-                            <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                <span class="atm-button__text ">
-                                    <span class="hidden-small-down">11:15-11:30</span>
-                                    <span class="hidden-small-up">11:15</span>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="weekday-slot">
-                            <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                <span class="atm-button__text ">
-                                    <span class="hidden-small-down">12:30-12:45</span>
-                                    <span class="hidden-small-up">12:30</span>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="weekday-slot">
-                            <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                <span class="atm-button__text ">
-                                    <span class="hidden-small-down">16:15-16:30</span>
-                                    <span class="hidden-small-up">16:15</span>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
+                <div class="slotselect-headrow">
+                    <div data-biometrie_appointment="weekDayHead" class="weekday-head col-head">Montag<br/>1.7.</div>
+                    <div data-biometrie_appointment="weekDayHead" class="weekday-head col-head">Dienstag<br/>2.7.</div>
+                    <div data-biometrie_appointment="weekDayHead" class="weekday-head col-head">Mittwoch<br/>3.7.</div>
+                    <div data-biometrie_appointment="weekDayHead" class="weekday-head col-head">Donnerstag<br/>4.7.</div>
+                    <div data-biometrie_appointment="weekDayHead" class="weekday-head col-head">Freitag<br/>5.7.</div>
                 </div>
-                <div data-biometrie_appointment="weekDayColumn" class="weekday-column no-slots-available">
-                    <div data-biometrie_appointment="weekDayHead" class="weekday-head">Dienstag<br/>2.7.</div>
-                    <div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
+                <div class="slotselect-slotsrow">
 
-                    </div>
-                    <div class="no-openslots-msg">
-                        {{ noOpenSlotsMsg }}
-                    </div>
-                </div>
-                <div data-biometrie_appointment="weekDayColumn" class="weekday-column">
-                    <div data-biometrie_appointment="weekDayHead" class="weekday-head">Mittwoch<br/>3.7.</div>
-                    <div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
-                        <div class="weekday-slot">
-                            <button class="atm-button atm-button--secondary atm-button--small selected" data-biometrie_appointment="timeSlotSelect">
-                                <span class="atm-button__text ">
-                                    <span class="hidden-small-down">08:30-08:45</span>
-                                    <span class="hidden-small-up">08:30</span>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="weekday-slot">
-                            <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                <span class="atm-button__text ">
-                                    <span class="hidden-small-down">09:45-10:00</span>
-                                    <span class="hidden-small-up">09:45</span>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div data-biometrie_appointment="weekDayColumn" class="weekday-column">
-                    <div data-biometrie_appointment="weekDayHead" class="weekday-head">Donnerstag<br/>4.7.</div>
-                    <div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
-                        <div class="weekday-slot">
-                            <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                <span class="atm-button__text ">
-                                    <span class="hidden-small-down">08:00-08:15</span>
-                                    <span class="hidden-small-up">08:00</span>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="weekday-slot">
-                            <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                <span class="atm-button__text ">
-                                    <span class="hidden-small-down">08:15-08:30</span>
-                                    <span class="hidden-small-up">08:15</span>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="weekday-slot">
-                            <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                <span class="atm-button__text ">
-                                    <span class="hidden-small-down">08:45-09:00</span><span class="hidden-small-up">08:45</span>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="weekday-slot">
-                            <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                <span class="atm-button__text ">
-                                    <span class="hidden-small-down">09:00-09:15</span><span class="hidden-small-up">09:00</span>
-                                </span>
-                            </button>
-                        </div>
-                        <div class="weekday-slot">
-                            <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                <span class="atm-button__text ">
-                                    <span class="hidden-small-down">09:45-10:00</span><span class="hidden-small-up">09:45</span>
-                                </span>
-                            </button>
-                        </div>
-                        {{#if isMockDataMore}}
+                    <div data-biometrie_appointment="weekDayColumn" class="weekday-column column">
+                        <div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
                             <div class="weekday-slot">
                                 <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                    <span class="atm-button__text ">
-                                        <span class="hidden-small-down">10:15-10:30</span><span class="hidden-small-up">10:15</span>
+                                    <span class="atm-button__text">
+                                        <span class="hidden-small-down">08:00-08:15</span>
+                                        <span class="hidden-small-up">08:00</span>
                                     </span>
                                 </button>
                             </div>
                             <div class="weekday-slot">
                                 <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
                                     <span class="atm-button__text ">
-                                        <span class="hidden-small-down">10:30-10:45</span><span class="hidden-small-up">10:30</span>
+                                        <span class="hidden-small-down">11:15-11:30</span>
+                                        <span class="hidden-small-up">11:15</span>
                                     </span>
                                 </button>
                             </div>
                             <div class="weekday-slot">
                                 <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
                                     <span class="atm-button__text ">
-                                        <span class="hidden-small-down">11:15-11:30</span><span class="hidden-small-up">11:15</span>
+                                        <span class="hidden-small-down">12:30-12:45</span>
+                                        <span class="hidden-small-up">12:30</span>
                                     </span>
                                 </button>
                             </div>
                             <div class="weekday-slot">
                                 <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
                                     <span class="atm-button__text ">
-                                        <span class="hidden-small-down">11:30-11:45</span><span class="hidden-small-up">11:30</span>
+                                        <span class="hidden-small-down">16:15-16:30</span>
+                                        <span class="hidden-small-up">16:15</span>
                                     </span>
                                 </button>
                             </div>
-                            <div class="weekday-slot">
-                                <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                    <span class="atm-button__text ">
-                                        <span class="hidden-small-down">12:00-12:15</span><span class="hidden-small-up">12:00</span>
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="weekday-slot">
-                                <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                    <span class="atm-button__text ">
-                                        <span class="hidden-small-down">13:15-13:30</span><span class="hidden-small-up">13:15</span>
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="weekday-slot">
-                                <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                    <span class="atm-button__text ">
-                                        <span class="hidden-small-down">13:45-14:00</span><span class="hidden-small-up">13:45</span>
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="weekday-slot">
-                                <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                    <span class="atm-button__text ">
-                                        <span class="hidden-small-down">14:30-14:45</span><span class="hidden-small-up">14:30</span>
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="weekday-slot">
-                                <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                    <span class="atm-button__text ">
-                                        <span class="hidden-small-down">16:15-16:30</span><span class="hidden-small-up">16:15</span>
-                                    </span>
-                                </button>
-                            </div>
-                        {{/if}}
-                    </div>
-                </div>
-                <div data-biometrie_appointment="weekDayColumn" class="weekday-column">
-                    <div data-biometrie_appointment="weekDayHead" class="weekday-head">Freitag<br/>5.7.</div>
-                    <div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
-                        <div class="weekday-slot">
-                            <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
-                                <span class="atm-button__text ">
-                                    09:00-09:15
-                                </span>
-                            </button>
                         </div>
                     </div>
-                </div>
-
-            {{else}}
-                {{#times 5}}
-                    <div data-biometrie_appointment="weekDayColumn" class="weekday-column">
-                        <div data-biometrie_appointment="weekDayHead" class="weekday-head">Wochentag<br/>dd.MM.</div>
+                    <div data-biometrie_appointment="weekDayColumn" class="weekday-column no-slots-available">
                         <div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
 
                         </div>
@@ -242,7 +96,178 @@
                             {{ noOpenSlotsMsg }}
                         </div>
                     </div>
-                {{/times}}
+                    <div data-biometrie_appointment="weekDayColumn" class="weekday-column column">
+                        <div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
+                            <div class="weekday-slot">
+                                <button class="atm-button atm-button--secondary atm-button--small selected" data-biometrie_appointment="timeSlotSelect">
+                                    <span class="atm-button__text ">
+                                        <span class="hidden-small-down">08:30-08:45</span>
+                                        <span class="hidden-small-up">08:30</span>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="weekday-slot">
+                                <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                    <span class="atm-button__text ">
+                                        <span class="hidden-small-down">09:45-10:00</span>
+                                        <span class="hidden-small-up">09:45</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-biometrie_appointment="weekDayColumn" class="weekday-column column">
+                        <div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
+                            <div class="weekday-slot">
+                                <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                    <span class="atm-button__text ">
+                                        <span class="hidden-small-down">08:00-08:15</span>
+                                        <span class="hidden-small-up">08:00</span>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="weekday-slot">
+                                <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                    <span class="atm-button__text ">
+                                        <span class="hidden-small-down">08:15-08:30</span>
+                                            <span class="hidden-small-up">08:15</span>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="weekday-slot">
+                                <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                    <span class="atm-button__text ">
+                                        <span class="hidden-small-down">08:45-09:00</span>
+                                        <span class="hidden-small-up">08:45</span>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="weekday-slot">
+                                <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                    <span class="atm-button__text ">
+                                        <span class="hidden-small-down">09:00-09:15</span>
+                                        <span class="hidden-small-up">09:00</span>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="weekday-slot">
+                                <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                    <span class="atm-button__text ">
+                                        <span class="hidden-small-down">09:45-10:00</span>
+                                        <span class="hidden-small-up">09:45</span>
+                                    </span>
+                                </button>
+                            </div>
+                            {{#if isMockDataMore}}
+                                <div class="weekday-slot">
+                                    <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                        <span class="atm-button__text ">
+                                            <span class="hidden-small-down">10:15-10:30</span>
+                                            <span class="hidden-small-up">10:15</span>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="weekday-slot">
+                                    <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                        <span class="atm-button__text ">
+                                            <span class="hidden-small-down">10:30-10:45</span>
+                                            <span class="hidden-small-up">10:30</span>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="weekday-slot">
+                                    <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                        <span class="atm-button__text ">
+                                            <span class="hidden-small-down">11:15-11:30</span>
+                                            <span class="hidden-small-up">11:15</span>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="weekday-slot">
+                                    <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                        <span class="atm-button__text ">
+                                            <span class="hidden-small-down">11:30-11:45</span>
+                                            <span class="hidden-small-up">11:30</span>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="weekday-slot">
+                                    <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                        <span class="atm-button__text ">
+                                            <span class="hidden-small-down">12:00-12:15</span>
+                                            <span class="hidden-small-up">12:00</span>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="weekday-slot">
+                                    <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                        <span class="atm-button__text ">
+                                            <span class="hidden-small-down">13:15-13:30</span>
+                                            <span class="hidden-small-up">13:15</span>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="weekday-slot">
+                                    <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                        <span class="atm-button__text ">
+                                            <span class="hidden-small-down">13:45-14:00</span>
+                                            <span class="hidden-small-up">13:45</span>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="weekday-slot">
+                                    <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                        <span class="atm-button__text ">
+                                            <span class="hidden-small-down">14:30-14:45</span>
+                                            <span class="hidden-small-up">14:30</span>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="weekday-slot">
+                                    <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                        <span class="atm-button__text ">
+                                            <span class="hidden-small-down">16:15-16:30</span>
+                                            <span class="hidden-small-up">16:15</span>
+                                        </span>
+                                    </button>
+                                </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div data-biometrie_appointment="weekDayColumn" class="weekday-column column">
+                        <div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
+                            <div class="weekday-slot">
+                                <button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+                                    <span class="atm-button__text ">
+                                        <span class="hidden-small-down">09:15-09:30</span>
+                                        <span class="hidden-small-up">09:15</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {{else}}
+                <div class="slotselect-headrow">
+                    <div class="timescale-column col-head"></div>
+                    {{#times 5}}
+                        <div data-biometrie_appointment="weekDayHead" class="weekday-head col-head"></div>
+                    {{/times}}
+                </div>
+                <div class="slotselect-slotsrow">
+                    <div data-biometrie_appointment="timescale" class="timescale-column"></div>
+                    {{#times 5}}
+                        <div data-biometrie_appointment="weekDayColumn" class="weekday-column column">
+                            <div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
+
+                            </div>
+                            <div class="no-openslots-msg">
+                                {{ noOpenSlotsMsg }}
+                            </div>
+                        </div>
+                    {{/times}}
+                </div>
              {{/if}}
 
         </div>
@@ -278,6 +303,11 @@
   <template data-biometrie_appointment="slotEmptyTemplate">
       <div class="weekday-slot">
           &mdash;
+      </div>
+  </template>
+  <template data-biometrie_appointment="slotTimescaleTemplate">
+      <div class="slot lighter">
+          {timeString}
       </div>
   </template>
 

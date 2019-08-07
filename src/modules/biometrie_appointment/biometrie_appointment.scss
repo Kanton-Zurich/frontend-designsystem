@@ -329,67 +329,141 @@ $biometrieViewTransitionDuration: 300ms;
 
       &__slotselect {
         @include sizeCurve('margin-top', medium);
-        display: flex;
-        justify-content: space-between;
-        max-height: 64vh;
-        overflow-y: scroll;
+        position: relative;
 
-        .weekday-column {
+        .column {
           width: 19%;
-          font-size: pxToRem($sizeFontSmall);
-          color: $colorBlack60;
-          font-weight: 900;
-          text-align: center;
+          vertical-align: top;
+
+          + .column {
+            margin-left: 1%;
+          }
+        }
+
+        .row {
+          display: flex;
+          position: relative;
+        }
+
+        .col-head {
+          background-image: linear-gradient(to top, rgba(255, 255, 255, 0), $colorWhite pxToRem($sizeFontSmall));
+
+          @include sizeCurve('height', big);
+        }
+
+        .slotselect-headrow {
+          z-index: 100;
+
+          @extend .row;
 
           .weekday-head {
             color: $colorText;
+            overflow: hidden;
             text-align: center;
+            text-overflow: ellipsis;
             font-weight: 900;
 
-            @include sizeCurve('margin-bottom', tiny);
+            @extend .column;
+            @extend .col-head;
+
             @include sizeCurve('line-height', biggerRegular);
             @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
           }
+        }
 
-          .weekday-slotscontainer {
-            .weekday-slot {
-              height: pxToRem($sizeBig);
-              line-height: pxToRem($sizeBig);
-              font-size: pxToRem($sizeFontSmall);
+        .slotselect-slotsrow {
+          margin-top: -1 * pxToRem($sizeFontSmall);
+          padding-top: pxToRem($sizeFontSmall);
+          max-height: 64vh;
+          overflow-y: scroll;
 
-              @include sizeCurve('margin-bottom', small);
+          @extend .row;
 
-              button.atm-button {
-                width: 100%;
-                padding: 0;
+          .weekday-column {
+            font-size: pxToRem($sizeFontSmall);
+            color: $colorBlack60;
+            font-weight: 900;
+            text-align: center;
+            height: auto;
 
-                .atm-button__text {
+            @extend .column;
+
+            .weekday-slotscontainer {
+              .weekday-slot {
+                height: pxToRem($sizeBig);
+                line-height: pxToRem($sizeBig);
+                font-size: pxToRem($sizeFontSmall);
+
+                @include sizeCurve('margin-bottom', small);
+
+                button.atm-button {
                   width: 100%;
-                  text-align: center;
+                  padding: 0;
+
+                  .atm-button__text {
+                    width: 100%;
+                    text-align: center;
+                  }
+                }
+
+                .selected {
+                  background: $colorGreen;
+                  color: $colorWhite;
                 }
               }
+            }
 
-              .selected {
-                background: $colorGreen;
-                color: $colorWhite;
+            .no-openslots-msg {
+              display: none;
+
+              @include sizeCurve('padding', regular);
+              @include mq($to: small) {
+                padding: 0;
+              }
+            }
+
+            &.no-slots-available {
+              .no-openslots-msg {
+                display: block;
+
+                @include sizeCurve('padding-top', mini);
               }
             }
           }
+        }
 
-          .no-openslots-msg {
-            display: none;
+        .slot {
+          height: pxToRem($sizeBig);
+          line-height: pxToRem($sizeBig);
+          font-size: pxToRem($sizeFontSmall);
 
-            @include sizeCurve('padding', regular);
-            @include mq($to: small) {
-              padding: 0;
+          @include sizeCurve('margin-bottom', small);
+        }
+
+        .timescale-column {
+          display: none;
+          width: 7.5%;
+          text-align: right;
+
+          @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+
+          .slot {
+            visibility: hidden;
+
+            &:nth-child(4n+1) {
+              visibility: visible;
             }
           }
+        }
 
-          &.no-slots-available {
-            .no-openslots-msg {
-              display: block;
+        &.detailed {
+          @include mq($from: small) {
+            .timescale-column {
+              display: inline-block;
+            }
 
-              @include sizeCurve('padding-top', mini);
+            .column {
+              width: 17.5%;
             }
           }
         }
@@ -435,6 +509,7 @@ $biometrieViewTransitionDuration: 300ms;
       right: 0;
       bottom: 0;
       background-color: rgba(0, 0, 0, 0.5);
+      z-index: 101;
 
       .atm-dual-ring {
         position: absolute;

@@ -31,6 +31,8 @@ export const rescheduleViewSelectorsValues: RescheduleViewSelectors = {
   weekDaySlotsContainer: '[data-biometrie_appointment=weekDaySlots]',
   slotSelectTemplate: '[data-biometrie_appointment=slotSelectTemplate]',
   slotEmptyTemplate: '[data-biometrie_appointment=slotEmptyTemplate]',
+  slotTimescaleTemplate: '[data-biometrie_appointment=slotTimescaleTemplate]',
+  timescaleCon: '[data-biometrie_appointment=timescale]',
   slotSelect: '[data-biometrie_appointment=timeSlotSelect]',
   selectionDetails: `[data-biometrie_appointment^=${SELECTION_DETAILS_GROUP_STR}]`,
   cancelBtn: '[data-biometrie_appointment=cancelBtn]',
@@ -52,6 +54,8 @@ export interface RescheduleViewSelectors {
   weekDaySlotsContainer: string,
   slotSelectTemplate: string,
   slotEmptyTemplate: string,
+  slotTimescaleTemplate: string,
+  timescaleCon: string,
   slotSelect: string,
   selectionDetails: string,
   cancelBtn: string,
@@ -258,21 +262,32 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
       this.otherSlotsContainer.nextElementSibling.classList.remove('dropshadow-top');
     }
 
+    let idxWithMax;
+    // detect one of the most filled columns for timescale rendering
+    if (this.detailedView) {
+      idxWithMax = openSlotsPerWeekDay.findIndex(slots => slots.length >= maxSlotsPerDay);
+    }
+
     const slotSelectTemplate = document
       .querySelector<HTMLTemplateElement>(this.selectors.slotSelectTemplate);
     const slotEmptyTemplate = document
       .querySelector<HTMLTemplateElement>(this.selectors.slotEmptyTemplate);
-    const weekdayColumnsNodeList = this.otherSlotsContainer
-      .querySelectorAll<HTMLDivElement>(this.selectors.weekDayColumns);
-    weekdayColumnsNodeList.forEach((colEl, i) => {
+
+    const weekdayHeads = this.otherSlotsContainer
+      .querySelectorAll<HTMLDivElement>(this.selectors.weekDayHeads);
+    weekdayHeads.forEach((headEl, i) => {
       const colDate = weeksDates[i];
-      const colHeadEl = colEl.querySelector<HTMLElement>(this.selectors.weekDayHeads);
-      colHeadEl.innerHTML = colDate.toLocaleDateString('de', {
+      // const colHeadEl = headEl.querySelector<HTMLElement>(this.selectors.weekDayHeads);
+      headEl.innerHTML = colDate.toLocaleDateString('de', {
         weekday: 'long',
         day: '2-digit',
         month: '2-digit',
       }).replace(', ', '<br>');
+    });
 
+    const weekdayColumnsNodeList = this.otherSlotsContainer
+      .querySelectorAll<HTMLDivElement>(this.selectors.weekDayColumns);
+    weekdayColumnsNodeList.forEach((colEl, i) => {
       let daysSlots = openSlotsPerWeekDay[i];
       if (this.compressedView) {
         daysSlots = daysSlots.filter(slot => slot.capacity > 0);
@@ -310,10 +325,50 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
             }
           }
         });
+        if (this.detailedView && idxWithMax === i) {
+          this.fillAndShowTimeScale(daysSlots);
+        }
       } else if (!colEl.classList.contains('no-slots-available')) {
         colEl.classList.add('no-slots-available');
       }
     });
+  }
+
+  /**
+   * Fill the timescale container for detailed view (i.e. when there are many slots available)
+   * or empty the container if no slots are given
+   *
+   * @param { Timeslot[] } slots an array of timeslots from which to receive the time strings.
+   *    If omitted this method will empty the timescale container.
+   */
+  private fillAndShowTimeScale(slots?: Timeslot[]): void {
+    const timescale = this.otherSlotsContainer.querySelector(this.selectors.timescaleCon);
+    timescale.innerHTML = '';
+
+    if (slots && slots.length > 0) {
+      this.log('Rendering timescale for detailed view.');
+      const { content } = document
+        .querySelector<HTMLTemplateElement>(this.selectors.slotTimescaleTemplate);
+      if (content) {
+        slots.forEach((timeslot) => {
+          const clone = document.importNode(content, true);
+          const slotElement = clone.firstElementChild;
+          const { innerHTML } = slotElement;
+          const startDateStr = DateHelper.getTrimTimeStr(timeslot.startDate);
+          if (innerHTML) {
+            slotElement.innerHTML = innerHTML.replace('{timeString}', startDateStr);
+          }
+          timescale.appendChild(clone);
+        });
+      }
+
+      if (!this.otherSlotsContainer.classList.contains('detailed')) {
+        this.otherSlotsContainer.classList.add('detailed');
+      }
+    } else {
+      this.log('Hiding detailed view.');
+      this.otherSlotsContainer.classList.remove('detailed');
+    }
   }
 
   private onSlotSelect(ev: Event): void {

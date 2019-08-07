@@ -58,7 +58,7 @@ const variants = _.mapValues({
   },
   mockFew: {
     meta: {
-      title: 'mit DummyDaten (wenige)',
+      title: 'DEMO mit DummyDaten (wenige)',
       desc: 'Füllt die Ansicht mit Dummy TimeSlots.',
     },
     props: {
@@ -68,7 +68,7 @@ const variants = _.mapValues({
   },
   mockFewAndMuch: {
     meta: {
-      title: 'mit DummyDaten (wenige und viele)',
+      title: 'DEMO mit DummyDaten (wenige und viele)',
       desc: 'Füllt die Ansicht mit Dummy TimeSlots.',
     },
     props: {
