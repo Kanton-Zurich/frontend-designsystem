@@ -130,7 +130,7 @@ class MigekApiService {
 
   public rescheduleTo(startTime: string, endTime: string): Promise<Appointment> {
     if (!this.currentAppointment || !this.bearerStr) {
-      throw new Error('Unexpected runtime error'); // TODO
+      throw new Error('Unexpected runtime error');
     }
     return this.doPost(this.postponePath, this.getPostponeRequestBody(startTime, endTime))
       .then((resp) => {
@@ -250,7 +250,6 @@ class MigekApiService {
     });
   }
 
-  // TODO Incomplete
   private handleConnectionFailure(xhr: XMLHttpRequest): ApiConnectionFailure {
     let failure = new ApiConnectionFailure(ApiFailureType.UNKNOWN, 'Unexpected API connection failure!');
     if (xhr.status === HttpStatusCodes.FORBIDDEN) {

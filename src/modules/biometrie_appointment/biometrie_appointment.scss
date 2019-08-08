@@ -584,6 +584,36 @@ $biometrieViewTransitionDuration: 300ms;
       display: block;
     }
   }
+}
+
+[ class^='mdl-biometrie_appointment' ] {
+  .alert-box {
+    &.success {
+      background-color: #ebf4e9;
+
+      @include sizeCurve(padding, smallerRegular);
+    }
+
+    .super-head {
+      margin-bottom: unset;
+    }
+  }
+
+  .lighter {
+    font-weight: 200;
+  }
+
+  .hidden-small-down {
+    @include mq($to: small) {
+      display: none;
+    }
+  }
+
+  .hidden-small-up {
+    @include mq($from: small) {
+      display: none;
+    }
+  }
 
   .overlay {
     position: fixed;
@@ -618,36 +648,6 @@ $biometrieViewTransitionDuration: 300ms;
         top: 40%;
       }
       @include sizeCurve('padding', biggerRegular);
-    }
-  }
-}
-
-[ class^='mdl-biometrie_appointment__' ] {
-  .alert-box {
-    &.success {
-      background-color: #ebf4e9;
-
-      @include sizeCurve(padding, smallerRegular);
-    }
-
-    .super-head {
-      margin-bottom: unset;
-    }
-  }
-
-  .lighter {
-    font-weight: 200;
-  }
-
-  .hidden-small-down {
-    @include mq($to: small) {
-      display: none;
-    }
-  }
-
-  .hidden-small-up {
-    @include mq($from: small) {
-      display: none;
     }
   }
 }
