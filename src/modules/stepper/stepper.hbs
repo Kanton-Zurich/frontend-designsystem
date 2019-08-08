@@ -1,0 +1,18 @@
+<div class="mdl-stepper" data-init="stepper">
+  <h2 class="atm-heading">{{title}}</h2>
+
+  <!-- PLACEHOLDER STEPPER NAVIGATION -->
+
+  <form class="mdl-stepper__wrapper form" novalidate>
+    {{#each steps}}
+      <div class="mdl-stepper__step" data-stepper="step">
+
+      </div>
+    {{/each}}
+  </form>
+
+  <div class="mdl-stepper__control">
+    <button class="atm-button atm-button--secondary" data-stepper="back">Zurück</button>
+    <button class="atm-button" data-stepper="next">Weiter</button>
+  </div>
+</div>

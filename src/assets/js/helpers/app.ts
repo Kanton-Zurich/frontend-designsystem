@@ -28,6 +28,7 @@ import Subnavigation from '../../../modules/subnavigation/subnavigation';
 import OrganisationNavigation from '../../../modules/organisation_navigation/organisation_navigation';
 import PageHeader from '../../../modules/page_header/page_header';
 import SocialMediaStream from '../../../modules/social_media_stream/social_media_stream';
+import Stepper from '../../../modules/stepper/stepper';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 class App {
@@ -60,6 +61,7 @@ class App {
     this.modules.organisationNavigation = OrganisationNavigation;
     this.modules.pageHeader = PageHeader;
     this.modules.socialMediaStream = SocialMediaStream;
+    this.modules.stepper = Stepper;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

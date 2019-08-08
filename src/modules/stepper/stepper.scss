@@ -1,0 +1,100 @@
+.mdl-stepper {
+
+  &__wrapper {
+    overflow-x: hidden;
+
+    position: relative;
+    min-height: 20px;
+  }
+
+  &__step {
+    min-width: 100%;
+    transition: transform $transitionTimeAreaLarge $transitionEasingDefault;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: 2;
+
+    &--transition-left {
+      animation: transitionInLeft $transitionTimeAreaMedium;
+    }
+
+    &--transition-right {
+      animation: transitionInRight $transitionTimeAreaMedium;
+    }
+
+    &--transition-out {
+      animation: transitionOut $transitionTimeAreaMedium;
+    }
+
+    &--hidden {
+      display: none;
+    }
+
+    /** Only for testing purposes */
+    /** @TODO: Remove */
+    height: 20px;
+    background: $colorBlack;
+
+    &:nth-child(2) {
+      background: $colorCyan;
+    }
+
+    &:nth-child(3) {
+      background: $colorGreen;
+    }
+
+    &:nth-child(4) {
+      background: $colorMagenta;
+    }
+    /** END OF TESTING BLOCK */
+  }
+
+  &__control {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: pxToRem($sizeLarge);
+    padding-top: pxToRem($sizeRegular);
+
+    border-top: 3px solid $colorBlack;
+
+    button:last-child {
+      margin-left: pxToRem($sizeTiny);
+    }
+  }
+}
+
+@keyframes transitionOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes transitionInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(20%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+@keyframes transitionInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
