@@ -102,6 +102,7 @@ $pageHeaderCurves: (
 
   z-index: $zIndexInner;
   overflow: visible;
+  position: relative;
 
   &__logo-container {
     height: 0;
