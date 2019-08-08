@@ -12,7 +12,10 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('checkbox.md'),
   },
   props: {
-
+    label: 'Checkbox label',
+    id: 1,
+    groupName: 'checkbox',
+    value: 'value',
   },
 });
 const variants = _.mapValues({

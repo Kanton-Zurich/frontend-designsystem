@@ -4,7 +4,7 @@
     overflow-x: hidden;
 
     position: relative;
-    min-height: 20px;
+    min-height: 0;
   }
 
   &__step {
@@ -15,7 +15,10 @@
     top: 0;
     left: 0;
 
+    background: $colorWhite;
+
     z-index: 2;
+    opacity: 1;
 
     &--transition-left {
       animation: transitionInLeft $transitionTimeAreaMedium;
@@ -27,29 +30,13 @@
 
     &--transition-out {
       animation: transitionOut $transitionTimeAreaMedium;
+      z-index: 1;
     }
 
     &--hidden {
       display: none;
+      opacity: 1;
     }
-
-    /** Only for testing purposes */
-    /** @TODO: Remove */
-    height: 20px;
-    background: $colorBlack;
-
-    &:nth-child(2) {
-      background: $colorCyan;
-    }
-
-    &:nth-child(3) {
-      background: $colorGreen;
-    }
-
-    &:nth-child(4) {
-      background: $colorMagenta;
-    }
-    /** END OF TESTING BLOCK */
   }
 
   &__control {

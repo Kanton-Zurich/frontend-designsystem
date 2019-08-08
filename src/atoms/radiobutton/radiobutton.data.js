@@ -12,7 +12,10 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('radiobutton.md'),
   },
   props: {
-
+    label: 'Radio button label',
+    groupName: 'Radiogroup',
+    id: 1,
+    value: 'value',
   },
 });
 const variants = _.mapValues({

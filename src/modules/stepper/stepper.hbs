@@ -3,10 +3,10 @@
 
   <!-- PLACEHOLDER STEPPER NAVIGATION -->
 
-  <form class="mdl-stepper__wrapper form" novalidate>
+  <form class="mdl-stepper__wrapper form" data-stepper="wrapper" novalidate>
     {{#each steps}}
       <div class="mdl-stepper__step" data-stepper="step">
-
+        {{> "modules/form/form" this}}
       </div>
     {{/each}}
   </form>

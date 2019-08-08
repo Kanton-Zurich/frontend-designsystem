@@ -1,0 +1,53 @@
+$gapSize: pxToRem($sizeRegular);
+
+.form {
+
+  &__section-title {
+    margin-bottom: pxToRem($sizeSmallRegular);
+  }
+
+  &__row {
+    display: flex;
+
+    margin-left: -($gapSize/2);
+    margin-right: -($gapSize/2);
+    padding-bottom: $gapSize;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  &__cell {
+    flex-basis: 50%;
+    padding: 0 $gapSize/2;
+
+    &:first-child:last-child {
+      flex-basis: 100%;
+    }
+
+    &--small {
+      flex-basis: 25%;
+    }
+  }
+
+  &__fieldset {
+    padding: 0;
+    border: none;
+  }
+
+  &__legend {
+    font-size: pxToRem($sizeFontTiny);
+    line-height: $sizeLineHeightBase;
+
+    font-weight: $fontWeightBlack;
+    margin-bottom: pxToRem($sizeTiny);
+  }
+
+  &__fieldset-list {
+    &--vertical {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

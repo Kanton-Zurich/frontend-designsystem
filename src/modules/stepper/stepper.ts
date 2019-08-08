@@ -16,6 +16,7 @@ class Stepper extends Module {
     steps: any,
     back: HTMLButtonElement,
     next: HTMLButtonElement,
+    wrapper: HTMLFormElement,
   }
 
   public options: {
@@ -34,6 +35,7 @@ class Stepper extends Module {
         steps: '[data-stepper="step"]',
         back: '[data-stepper="back"]',
         next: '[data-stepper="next"]',
+        wrapper: '[data-stepper="wrapper"]',
       },
       stateClasses: {
         hiddenStep: 'mdl-stepper__step--hidden',
@@ -50,6 +52,7 @@ class Stepper extends Module {
     this.initWatchers();
 
     this.deactiveSteps();
+    this.setWrapperHeight();
   }
 
   static get events() {
@@ -77,6 +80,14 @@ class Stepper extends Module {
     this.watch(this.data, 'active', this.onStepChange.bind(this));
   }
 
+  /**
+   * When step changes, do the transitions and other functions
+   *
+   * @param {string} propName is always "active"
+   * @param {number} oldValue value before the change
+   * @param {number} newValue value after the change
+   * @memberof Stepper
+   */
   onStepChange(propName, oldValue, newValue) {
     const transitionMoveClass = newValue > oldValue
       ? this.options.stateClasses.transitionRight
@@ -86,9 +97,16 @@ class Stepper extends Module {
     this.ui.steps[newValue].classList.remove(this.options.stateClasses.hiddenStep);
     this.ui.steps[oldValue].classList.add(this.options.stateClasses.transitionOut);
 
+    this.setWrapperHeight();
+
     setTimeout(this.deactiveSteps.bind(this), this.options.transitionTime);
   }
 
+  /**
+   * Deactivate the steps and removes classes which are used for transitions
+   *
+   * @memberof Stepper
+   */
   deactiveSteps() {
     this.ui.steps.forEach((step, index) => {
       if (index !== this.data.active) {
@@ -99,6 +117,17 @@ class Stepper extends Module {
         step.classList.remove(this.options.stateClasses.transitionLeft);
       }
     });
+  }
+
+  /**
+   * Sets the wrapper height to the one of the child
+   *
+   * @memberof Stepper
+   */
+  setWrapperHeight() {
+    const currentStepHeight = this.ui.steps[this.data.active].getBoundingClientRect().height;
+
+    this.ui.wrapper.style.minHeight = `${currentStepHeight}px`;
   }
 
   /**

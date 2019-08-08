@@ -3,6 +3,8 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
+const formVariants = require('../form/form.data').variants;
+
 const template = dataHelper.getFileContent('stepper.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -13,7 +15,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     title: 'Formular mit Schritten',
-    steps: [{}, {}, {}, {}, {}],
+    steps: [formVariants.default.props, formVariants.careerInfo.props, formVariants.default.props, formVariants.careerInfo.props],
   },
 });
 const variants = _.mapValues({
