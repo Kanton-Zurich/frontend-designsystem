@@ -1,4 +1,4 @@
-// TODO: Marked as unused by eslint although required (?)
+import DateHelper from '../../../util/date-helper.class';
 /* eslint-disable no-unused-vars */
 import { AppointmentPayload } from './api-payload.interfaces';
 /* eslint-enable */
@@ -35,21 +35,21 @@ class Appointment {
   }
 
   get fromTimeString(): string {
-    const fromDate = new Date(this.details.from);
+    const fromDate = DateHelper.getDateFromString(this.details.from);
     return fromDate.toLocaleTimeString(this.locale, this.timeFormatOptions);
   }
 
   get untilTimeString(): string {
-    const untilDate = new Date(this.details.until);
+    const untilDate = DateHelper.getDateFromString(this.details.until);
     return untilDate.toLocaleTimeString(this.locale, this.timeFormatOptions);
   }
 
   getAppointmentStartDate(): Date {
-    return new Date(this.details.from);
+    return DateHelper.getDateFromString(this.details.from);
   }
 
   getAppointmentEndDate(): Date {
-    return new Date(this.details.until);
+    return DateHelper.getDateFromString(this.details.until);
   }
 }
 

@@ -123,6 +123,10 @@ class DateHelper {
     }
     return datesOfWeek;
   }
+
+  public static getDateFromString(str: string): Date {
+    return new Date(str.replace(/([+-]\d{2})(\d{2})$/g, '$1:$2')); // Adds colon in timezone for IE
+  }
 }
 
 export default DateHelper;

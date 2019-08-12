@@ -16,11 +16,11 @@ class Timeslot {
   }
 
   get startDate(): Date {
-    return new Date(this.payload.startTime);
+    return DateHelper.getDateFromString(this.payload.startTime);
   }
 
   get endDate(): Date {
-    return new Date(this.payload.endTime);
+    return DateHelper.getDateFromString(this.payload.endTime);
   }
 
   get capacity(): number {
