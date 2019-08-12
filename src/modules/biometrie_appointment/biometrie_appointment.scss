@@ -584,6 +584,10 @@ $biometrieViewTransitionDuration: 300ms;
       display: block;
     }
   }
+
+  &__contenttemplate {
+    display: none;
+  }
 }
 
 [ class^='mdl-biometrie_appointment' ] {
