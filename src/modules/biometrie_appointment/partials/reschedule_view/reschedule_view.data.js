@@ -12,6 +12,7 @@ const data = _.merge({}, defaultData, {
       slotCapacityMsg: 'An diesem Termin gibt es noch {schalter} freie(n) Schalter.',
       otherSlotsHeading: 'Anderen Termin wählen',
       noOpenSlotsMsg: 'Keine Termine verfügbar',
+      blockedSlotInfo: '<strong>Diesen Termin hat soeben jemand reserviert.<br/>Er ist nicht mehr verfügbar.</strong>',
     },
     scheduleNextBtn: _.merge({}, defaultButtonData, {
       text: 'Termin reservieren',
@@ -46,6 +47,12 @@ const data = _.merge({}, defaultData, {
       isPrimary: true,
       additionalAttribute: 'data-biometrie_appointment="doScheduleSelected"',
     }),
+    closeBlockedInfoBtn: _.merge({}, defaultButtonData, {
+      text: 'Anderen Termin auswählen',
+      isPrimary: true,
+      isSmall: true,
+      additionalAttribute: 'data-biometrie_appointment="cancelBtn"',
+    }),
   },
 });
 
@@ -58,22 +65,35 @@ const variants = _.mapValues({
   },
   mockFew: {
     meta: {
-      title: 'mit DummyDaten (wenige)',
+      title: 'DEMO mit DummyDaten (wenige)',
       desc: 'Füllt die Ansicht mit Dummy TimeSlots.',
     },
     props: {
       withMockedData: true,
       isMockDataMore: false,
+      isSlotFull: false,
     },
   },
   mockFewAndMuch: {
     meta: {
-      title: 'mit DummyDaten (wenige und viele)',
+      title: 'DEMO mit DummyDaten (wenige und viele)',
       desc: 'Füllt die Ansicht mit Dummy TimeSlots.',
     },
     props: {
       withMockedData: true,
       isMockDataMore: true,
+      isSlotFull: false,
+    },
+  },
+  demoSlotFull: {
+    meta: {
+      title: 'DEMO Overlay slotfull',
+      desc: 'Zeigt das Overlay für den Fall, dass der angefragte Timeslot ausgebucht ist.',
+    },
+    props: {
+      withMockedData: true,
+      isMockDataMore: true,
+      isSlotFull: true,
     },
   },
 }, (variant) => {

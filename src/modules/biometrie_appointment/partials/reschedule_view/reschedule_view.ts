@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { ViewController } from '../../util/view-controller.class';
 import Timeslot from '../../model/timeslot.model';
 
@@ -6,6 +5,7 @@ import Timeslot from '../../model/timeslot.model';
 /* eslint-disable no-unused-vars */
 import Appointment from '../../model/appointment.model';
 import DateHelper from '../../../../util/date-helper.class';
+import { ApiConnectionFailure, ApiFailureType } from '../../service/migek-api.service';
 /* eslint-enable */
 
 // Selector groups
@@ -31,10 +31,13 @@ export const rescheduleViewSelectorsValues: RescheduleViewSelectors = {
   weekDaySlotsContainer: '[data-biometrie_appointment=weekDaySlots]',
   slotSelectTemplate: '[data-biometrie_appointment=slotSelectTemplate]',
   slotEmptyTemplate: '[data-biometrie_appointment=slotEmptyTemplate]',
+  slotTimescaleTemplate: '[data-biometrie_appointment=slotTimescaleTemplate]',
+  timescaleCon: '[data-biometrie_appointment=timescale]',
   slotSelect: '[data-biometrie_appointment=timeSlotSelect]',
   selectionDetails: `[data-biometrie_appointment^=${SELECTION_DETAILS_GROUP_STR}]`,
   cancelBtn: '[data-biometrie_appointment=cancelBtn]',
   doRescheduleBtn: '[data-biometrie_appointment=doScheduleSelected]',
+  slotFullOverlay: '[data-biometrie_appointment=slotFullOverlay]',
 };
 
 export interface RescheduleViewSelectors {
@@ -52,15 +55,19 @@ export interface RescheduleViewSelectors {
   weekDaySlotsContainer: string,
   slotSelectTemplate: string,
   slotEmptyTemplate: string,
+  slotTimescaleTemplate: string,
+  timescaleCon: string,
   slotSelect: string,
   selectionDetails: string,
   cancelBtn: string,
   doRescheduleBtn: string,
+  slotFullOverlay: string;
 }
 interface RescheduleViewData {
   appointment: Appointment;
   loading: boolean;
   rescheduled: boolean;
+  apiAvailable: boolean;
 }
 const SLOTS_MAX_WITHOUT_SCROLL = 11; // TODO: Configurable?
 const MIN_SLOTS_FOR_DETAILED_VIEW = 33; // TODO: Configurable?
@@ -80,6 +87,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     .querySelector<HTMLTemplateElement>(this.selectors.capacityMsgTemplate).content.cloneNode(true);
   private otherSlotsContainer = document
     .querySelector<HTMLElement>(this.selectors.otherSlotsContainer);
+  private slotFullOverlay = document.querySelector<HTMLElement>(this.selectors.slotFullOverlay);
 
   constructor(_data: any, _selectors: RescheduleViewSelectors) {
     super(_selectors, _data);
@@ -131,6 +139,16 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
         .then((appointment) => {
           this.data.rescheduled = true;
           this.data.appointment = appointment;
+        }).catch((rejectionCause) => {
+          this.log('Postpone request rejected');
+
+          if (rejectionCause && rejectionCause instanceof ApiConnectionFailure) {
+            if ((rejectionCause as ApiConnectionFailure).type === ApiFailureType.SLOT_FULL) {
+              this.slotFullOverlay.classList.add('show');
+              return;
+            }
+          }
+          this.handleFatal(rejectionCause);
         }).finally(() => {
           this.data.loading = false;
         });
@@ -157,6 +175,8 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
 
         this.prepareOtherSlotsSelectView();
       }
+    }).catch((rejectionCause) => {
+      this.handleFatal(rejectionCause);
     }).finally(() => {
       this.data.loading = false;
     });
@@ -179,6 +199,8 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
         this.resetView();
         this.prepareOtherSlotsSelectView();
       }
+    }).catch((rejectionCause) => {
+      this.handleFatal(rejectionCause);
     }).finally(() => {
       this.data.loading = false;
     });
@@ -257,21 +279,22 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
       this.otherSlotsContainer.nextElementSibling.classList.remove('dropshadow-top');
     }
 
-    const slotSelectTemplate = document
-      .querySelector<HTMLTemplateElement>(this.selectors.slotSelectTemplate);
+    let idxWithMax;
+    // detect one of the most filled columns for timescale rendering
+    if (this.detailedView) {
+      idxWithMax = openSlotsPerWeekDay.findIndex(slots => slots.length >= maxSlotsPerDay);
+    }
+
+    this.fillWeekDayTableHeads(weeksDates);
+
+    const slotSelectTemplateContent = document
+      .querySelector<HTMLTemplateElement>(this.selectors.slotSelectTemplate).content;
     const slotEmptyTemplate = document
       .querySelector<HTMLTemplateElement>(this.selectors.slotEmptyTemplate);
+
     const weekdayColumnsNodeList = this.otherSlotsContainer
       .querySelectorAll<HTMLDivElement>(this.selectors.weekDayColumns);
     weekdayColumnsNodeList.forEach((colEl, i) => {
-      const colDate = weeksDates[i];
-      const colHeadEl = colEl.querySelector<HTMLElement>(this.selectors.weekDayHeads);
-      colHeadEl.innerHTML = colDate.toLocaleDateString('de', {
-        weekday: 'long',
-        day: '2-digit',
-        month: '2-digit',
-      }).replace(', ', '<br>');
-
       let daysSlots = openSlotsPerWeekDay[i];
       if (this.compressedView) {
         daysSlots = daysSlots.filter(slot => slot.capacity > 0);
@@ -283,22 +306,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
 
         daysSlots.forEach((timeslot) => {
           if (timeslot.capacity > 0) {
-            const { content } = slotSelectTemplate;
-            if (content) {
-              const clone = document.importNode(content, true);
-              const slotElement = clone.firstElementChild;
-              const { innerHTML } = slotElement;
-              if (innerHTML) {
-                slotElement.innerHTML = innerHTML.replace('{timeslot-range}', timeslot.getTimeStr());
-              }
-              const slotSelect = slotElement.querySelector(this.selectors.slotSelect);
-              if (slotSelect) {
-                slotSelect.setAttribute('data-timeslot-id', timeslot.id);
-                slotSelect.addEventListener('click', ev => this.onSlotSelect(ev));
-              }
-
-              slotsCon.appendChild(clone);
-            }
+            this.appendSlotBtn(slotsCon, slotSelectTemplateContent, timeslot);
           } else {
             const { content } = slotEmptyTemplate;
             if (content) {
@@ -306,10 +314,85 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
             }
           }
         });
+        if (this.detailedView && idxWithMax === i) {
+          this.fillAndShowTimeScale(daysSlots);
+        }
       } else if (!colEl.classList.contains('no-slots-available')) {
         colEl.classList.add('no-slots-available');
       }
     });
+  }
+
+  private appendSlotBtn(slotsCon: HTMLElement,
+    templateContent : DocumentFragment, timeslot: Timeslot): void {
+    if (templateContent) {
+      const clone = document.importNode(templateContent, true);
+      const slotElement = clone.firstElementChild;
+      const { innerHTML } = slotElement;
+      const timeStr = timeslot.getTimeStr();
+      const startDateStr = DateHelper.getTrimTimeStr(timeslot.startDate);
+      const timeHtml = `<span class="hidden-small-down">${timeStr}</span><span class="hidden-small-up">${startDateStr}</span>`;
+      if (innerHTML) {
+        slotElement.innerHTML = innerHTML.replace('{timeslot-range}', timeHtml);
+      }
+      const slotSelect = slotElement.querySelector(this.selectors.slotSelect);
+      if (slotSelect) {
+        slotSelect.setAttribute('data-timeslot-id', timeslot.id);
+        slotSelect.addEventListener('click', ev => this.onSlotSelect(ev));
+      }
+
+      slotsCon.appendChild(clone);
+    }
+  }
+
+  private fillWeekDayTableHeads(weeksDates: Date[]): void {
+    const weekdayHeads = this.otherSlotsContainer
+      .querySelectorAll<HTMLDivElement>(this.selectors.weekDayHeads);
+    weekdayHeads.forEach((headEl, i) => {
+      const colDate = weeksDates[i];
+      headEl.innerHTML = colDate.toLocaleDateString('de', {
+        weekday: 'long',
+        day: '2-digit',
+        month: '2-digit',
+      }).replace(', ', '<br>');
+    });
+  }
+
+  /**
+   * Fill the timescale container for detailed view (i.e. when there are many slots available)
+   * or empty the container if no slots are given
+   *
+   * @param { Timeslot[] } slots an array of timeslots from which to receive the time strings.
+   *    If omitted this method will empty the timescale container.
+   */
+  private fillAndShowTimeScale(slots?: Timeslot[]): void {
+    const timescale = this.otherSlotsContainer.querySelector(this.selectors.timescaleCon);
+    timescale.innerHTML = '';
+
+    if (slots && slots.length > 0) {
+      this.log('Rendering timescale for detailed view.');
+      const { content } = document
+        .querySelector<HTMLTemplateElement>(this.selectors.slotTimescaleTemplate);
+      if (content) {
+        slots.forEach((timeslot) => {
+          const clone = document.importNode(content, true);
+          const slotElement = clone.firstElementChild;
+          const { innerHTML } = slotElement;
+          const startDateStr = DateHelper.getTrimTimeStr(timeslot.startDate);
+          if (innerHTML) {
+            slotElement.innerHTML = innerHTML.replace('{timeString}', startDateStr);
+          }
+          timescale.appendChild(clone);
+        });
+      }
+
+      if (!this.otherSlotsContainer.classList.contains('detailed')) {
+        this.otherSlotsContainer.classList.add('detailed');
+      }
+    } else {
+      this.log('Hiding detailed view.');
+      this.otherSlotsContainer.classList.remove('detailed');
+    }
   }
 
   private onSlotSelect(ev: Event): void {
@@ -358,7 +441,17 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     });
   }
 
+  /**
+   * Method to handle exceptions that the current view can not recover from.
+   * @param exception
+   */
+  private handleFatal(exception): void {
+    this.log('Unexpected exception connecting to API', exception);
+    this.data.apiAvailable = true;
+  }
+
   private resetView(doClearNextOpenSlot?: boolean): void {
+    this.slotFullOverlay.classList.remove('show');
     this.otherSlotsContainer.nextElementSibling.classList.remove('dropshadow-top');
     this.fillInSlotDetails(
       document.querySelectorAll<HTMLElement>(this.selectors.selectionDetails),

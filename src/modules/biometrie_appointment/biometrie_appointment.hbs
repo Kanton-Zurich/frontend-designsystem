@@ -1,4 +1,13 @@
-<div class="mdl-biometrie_appointment" data-init="biometrieAppointment">
+<div class="mdl-biometrie_appointment" data-init="biometrieAppointment" data-biometrie_appointment_settings='{
+        "apiBase": "{{moduleSettings.apiBase}}",
+        "attemptsBeforeTelephone": {{ moduleSettings.attemptsBeforeTelephone }},
+        "calendarLinkProperties": {
+            "title": "{{ moduleSettings.calendarLinkProperties.title }}",
+            "location": "{{ moduleSettings.calendarLinkProperties.location }}",
+            "description": "{{ moduleSettings.calendarLinkProperties.description }}",
+            "htmlDescription": "{{ moduleSettings.calendarLinkProperties.htmlDescription }}"
+        }
+    }'>
 
     <a class="atm-text_link atm-text_link--icon mdl-biometrie_appointment__logout" data-biometrie_appointment="logout">
         {{ logoutLinkText }}
@@ -7,24 +16,29 @@
         </svg>
     </a>
 
-  {{#if heading}}<h2 class="atm-heading mdl-biometrie_appointment__heading">{{ heading }}</h2>{{/if}}
+    {{#if heading}}<h2 class="atm-heading mdl-biometrie_appointment__heading">{{ heading }}</h2>{{/if}}
 
-  <!--  LOGIN -->
-  <div class="view" data-biometrie_appointment="view__login">
-    {{> "modules/biometrie_appointment/partials/login_view/login_view" loginViewProps}}
-  </div>
+    <!--  LOGIN -->
+    <div class="view" data-biometrie_appointment="view__login">
+        {{> "modules/biometrie_appointment/partials/login_view/login_view" loginViewProps}}
+    </div>
 
-  <!--  DETAILS -->
-  <div class="view" data-biometrie_appointment="view__details">
-    {{> "modules/biometrie_appointment/partials/details_view/details_view" detailsViewProps}}
-  </div>
+    <!--  DETAILS -->
+    <div class="view" data-biometrie_appointment="view__details">
+        {{> "modules/biometrie_appointment/partials/details_view/details_view" detailsViewProps}}
+    </div>
 
-  <!--  RESCHEDULING -->
-  <div class="view" data-biometrie_appointment="view__reschedule" >
-    {{> "modules/biometrie_appointment/partials/reschedule_view/reschedule_view" rescheduleViewProps}}
-  </div>
+    <!--  RESCHEDULING -->
+    <div class="view" data-biometrie_appointment="view__reschedule">
+        {{> "modules/biometrie_appointment/partials/reschedule_view/reschedule_view" rescheduleViewProps}}
+    </div>
 
-  <div class="mdl-biometrie_appointment__loading-spinner show" data-biometrie_appointment="loading-spinner" >
-    <div class="atm-dual-ring"></div>
-  </div>
+    <div class="mdl-biometrie_appointment__loading-spinner show" data-biometrie_appointment="loading-spinner">
+        <div class="atm-dual-ring"></div>
+    </div>
+
+    <div class="mdl-biometrie_appointment__unavailable-alert" data-biometrie_appointment="unavailable-alert">
+        <div class="alert">{{{apiUnavailableMsg}}}</div>
+    </div>
+
 </div>
