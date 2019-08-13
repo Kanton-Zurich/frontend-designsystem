@@ -8,30 +8,12 @@
   }
 
   &__step {
-    min-width: 100%;
     transition: transform $transitionTimeAreaLarge $transitionEasingDefault;
-
-    position: absolute;
-    top: 0;
-    left: 0;
 
     background: $colorWhite;
 
     z-index: 2;
     opacity: 1;
-
-    &--transition-left {
-      animation: transitionInLeft $transitionTimeAreaMedium;
-    }
-
-    &--transition-right {
-      animation: transitionInRight $transitionTimeAreaMedium;
-    }
-
-    &--transition-out {
-      animation: transitionOut $transitionTimeAreaMedium;
-      z-index: 1;
-    }
 
     &--hidden {
       display: none;
@@ -60,34 +42,3 @@
   }
 }
 
-@keyframes transitionOut {
-  0% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes transitionInRight {
-  0% {
-    opacity: 0;
-    transform: translateX(20%);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0%);
-  }
-}
-@keyframes transitionInLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(-20%);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0%);
-  }
-}

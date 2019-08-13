@@ -106,7 +106,6 @@ $unitLeftSpace: 62px;
   &__unit,
   label,
   &__validate-icon,
-  p,
   button {
     position: absolute;
   }
@@ -147,8 +146,7 @@ $unitLeftSpace: 62px;
   }
 
   p {
-    top: 100%;
-    left: 0;
+    display: block;
     width: 100%;
     font-size: pxToRem($sizeFontTiny);
     line-height: $sizeLineHeightBase;

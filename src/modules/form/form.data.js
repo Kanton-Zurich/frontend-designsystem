@@ -67,6 +67,9 @@ const data = _.merge({}, defaultData, {
             isFloatingLabel: true,
             label: 'Vorname',
             name: 'prename',
+            validation: {
+              isRequired: true,
+            },
           })),
       },
       {
@@ -76,6 +79,9 @@ const data = _.merge({}, defaultData, {
             isFloatingLabel: true,
             label: 'Nachname',
             name: 'surname',
+            validation: {
+              isRequired: true,
+            },
           })),
       }],
       [{
@@ -86,6 +92,9 @@ const data = _.merge({}, defaultData, {
             isFloatingLabel: true,
             label: 'PLZ',
             name: 'zip',
+            validation: {
+              isRequired: true,
+            },
           })),
       },
       {
@@ -95,6 +104,9 @@ const data = _.merge({}, defaultData, {
             isFloatingLabel: true,
             label: 'Ort',
             name: 'city',
+            validation: {
+              isRequired: true,
+            },
           })),
       }],
     ],
@@ -158,6 +170,9 @@ const variants = _.mapValues({
                 isFloatingLabel: true,
                 label: 'Aktuelle Berufsebezichnung',
                 name: 'current_job',
+                validation: {
+                  isRequired: true,
+                },
               })),
           },
         ],
@@ -169,6 +184,9 @@ const variants = _.mapValues({
                 isFloatingLabel: true,
                 label: 'Berufslehre als',
                 name: 'education_origin',
+                validation: {
+                  isRequired: true,
+                },
               })),
           },
         ],

@@ -60,12 +60,11 @@ class Stepper extends Module {
     this.initWatchers();
 
     this.deactiveSteps();
-    this.setWrapperHeight();
   }
 
   static get events() {
     return {
-      // eventname: `eventname.${ Stepper.name }.${  }`
+      validateSection: 'validateSection',
     };
   }
 
@@ -74,10 +73,10 @@ class Stepper extends Module {
    */
   initEventListeners() {
     this.eventDelegate.on('click', this.options.domSelectors.next, () => {
-      if (this.data.active + 1 < this.ui.steps.length) this.data.active += 1;
+      this.changePage(this.data.active + 1);
     });
     this.eventDelegate.on('click', this.options.domSelectors.back, () => {
-      if (this.data.active > 0) this.data.active -= 1;
+      this.changePage(this.data.active - 1);
     });
     this.eventDelegate.on('click', this.options.domSelectors.send, this.sendForm.bind(this));
     this.eventDelegate.on('submit', this.options.domSelectors.wrapper, () => {
@@ -102,19 +101,11 @@ class Stepper extends Module {
    * @memberof Stepper
    */
   onStepChange(propName, oldValue, newValue) {
-    const transitionMoveClass = newValue > oldValue
-      ? this.options.stateClasses.transitionRight
-      : this.options.stateClasses.transitionLeft;
-
-    this.ui.steps[newValue].classList.add(transitionMoveClass);
     this.ui.steps[newValue].classList.remove(this.options.stateClasses.hiddenStep);
-    this.ui.steps[oldValue].classList.add(this.options.stateClasses.transitionOut);
 
-    this.setWrapperHeight();
     this.setButtonVisibility();
     this.setOnPageChangeFocus();
-
-    setTimeout(this.deactiveSteps.bind(this), this.options.transitionTime);
+    this.deactiveSteps();
   }
 
   /**
@@ -126,23 +117,8 @@ class Stepper extends Module {
     this.ui.steps.forEach((step, index) => {
       if (index !== this.data.active) {
         step.classList.add(this.options.stateClasses.hiddenStep);
-        step.classList.remove(this.options.stateClasses.transitionOut);
-      } else {
-        step.classList.remove(this.options.stateClasses.transitionRight);
-        step.classList.remove(this.options.stateClasses.transitionLeft);
       }
     });
-  }
-
-  /**
-   * Sets the wrapper height to the one of the child
-   *
-   * @memberof Stepper
-   */
-  setWrapperHeight() {
-    const currentStepHeight = this.ui.steps[this.data.active].getBoundingClientRect().height;
-
-    this.ui.wrapper.style.minHeight = `${currentStepHeight}px`;
   }
 
   /**
@@ -181,10 +157,30 @@ class Stepper extends Module {
     if (this.data.hasNavigation) {
       this.log('hasnavigation');
     } else {
-      const step = this.ui.steps[this.data.active - 1];
+      const step = this.ui.steps[this.data.active];
 
       step.querySelector('.form__section-title').focus();
     }
+  }
+
+  changePage(newIndex) {
+    if (newIndex > this.data.active) {
+      const section = this.ui.steps[this.data.active].querySelector('section');
+
+      this.ui.wrapper.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
+        detail: {
+          section,
+        },
+      }));
+
+      if (this.ui.wrapper.hasAttribute('form-has-errors')) {
+        return false;
+      }
+    }
+
+    this.data.active = newIndex;
+
+    return true;
   }
 
   sendForm() {
