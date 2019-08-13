@@ -3,25 +3,17 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const formVariants = require('../form/form.data').variants;
-
-const template = dataHelper.getFileContent('stepper.hbs');
+const template = dataHelper.getFileContent('notification.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Stepper',
-    className: 'Stepper',
-    jira: 'CZHDEV-850',
-    documentation: dataHelper.getDocumentation('stepper.md'),
+    title: 'Popup Nachricht',
+    className: 'Notification',
+    jira: 'CZHDEV-*',
+    documentation: dataHelper.getDocumentation('notification.md'),
   },
   props: {
-    title: 'Formular mit Schritten',
-    steps: [
-      formVariants.default.props,
-      formVariants.careerInfo.props,
-      formVariants.default.props,
-      formVariants.careerInfo.props,
-    ],
-    action: '/mocks/modules/form/form.json',
+    message: 'Bitte kontrollieren Sie ihre Angaben für folgende Felder: <button>Vorname</button>',
+    icon: '#caution',
   },
 });
 const variants = _.mapValues({
@@ -40,8 +32,8 @@ const variants = _.mapValues({
 
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
         data: dataHelper.getFormattedJson(variantProps),
+        html: dataHelper.getFormattedHtml(compiledVariant()),
       },
     },
   });

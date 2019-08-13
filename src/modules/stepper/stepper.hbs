@@ -11,6 +11,12 @@
     {{/each}}
   </form>
 
+  <div class="mdl-stepper__message"
+    data-singular-text="Bitte kontrollieren Sie Ihre Angabe für das Feld <button>${fieldLabel}</button>."
+    data-plural-text="Bitte kontrollieren Sie Ihre Angaben für die folgenden Felder: ${list}"
+  >
+  </div>
+
   <div class="mdl-stepper__control" data-stepper="control">
     <button class="atm-button atm-button--secondary mdl-stepper__back" data-stepper="back">Zurück</button>
     <button class="atm-button mdl-stepper__next" data-stepper="next">Weiter</button>

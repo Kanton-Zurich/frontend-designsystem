@@ -1,0 +1,35 @@
+.atm-notification {
+  display: flex;
+  align-items: center;
+
+  border-radius: 3px;
+  background: $colorRed;
+  padding: 0 pxToRem($sizeRegular);
+
+  .icon use {
+    fill: $colorWhite;
+  }
+
+  &__message {
+    flex-grow: 1;
+    margin-left: pxToRem($sizeRegular);
+
+    color: $colorWhite;
+
+    button {
+      color: $colorWhite;
+      position: relative;
+
+      &:after {
+        content: ' ';
+        width: 100%;
+        position: absolute;
+
+        bottom: 1px;
+        left: 0;
+        height: 1px;
+        background: $colorWhite;
+      }
+    }
+  }
+}
