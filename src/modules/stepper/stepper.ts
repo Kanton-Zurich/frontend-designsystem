@@ -79,6 +79,11 @@ class Stepper extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.back, () => {
       if (this.data.active > 0) this.data.active -= 1;
     });
+    this.eventDelegate.on('click', this.options.domSelectors.send, this.sendForm.bind(this));
+    this.eventDelegate.on('submit', this.options.domSelectors.wrapper, () => {
+      this.sendForm();
+      return false;
+    });
   }
 
   /**
@@ -180,6 +185,12 @@ class Stepper extends Module {
 
       step.querySelector('.form__section-title').focus();
     }
+  }
+
+  sendForm() {
+    const form = this.ui.wrapper;
+
+    this.log(form);
   }
 
   /**

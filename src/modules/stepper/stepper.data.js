@@ -16,6 +16,7 @@ const data = _.merge({}, defaultData, {
   props: {
     title: 'Formular mit Schritten',
     steps: [formVariants.default.props, formVariants.careerInfo.props, formVariants.default.props, formVariants.careerInfo.props],
+    action: '/mocks/modules/form/form.json',
   },
 });
 const variants = _.mapValues({
