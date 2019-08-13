@@ -59,12 +59,13 @@ $unitLeftSpace: 62px;
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       /* display: none; <- Crashes Chrome on hover */
+      -webkit-appearance: none; //stylelint-disable-line
       appearance: none;
       margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
     }
 
     &[ type='number' ] {
-      appearance: textfield; /* Firefox */
+      -moz-appearance: textfield; /* Firefox */ //stylelint-disable-line
     }
 
     // Hide IE 11 default clear cross & show hide password
@@ -72,7 +73,14 @@ $unitLeftSpace: 62px;
     &::-ms-reveal {
       display: none;
     }
+
+    &.dirty {
+      ~ .atm-form_input__functionality {
+        display: block;
+      }
+    }
   }
+
   // Hide palceholder
   &__input::placeholder,
   &__unit,
@@ -104,7 +112,7 @@ $unitLeftSpace: 62px;
   }
 
   label {
-    top: pxToRem($topSpace_without_border);
+    top: pxToRem($topSpace_without_border + 2px);
     transition: top 200ms, font-size 400ms, color 400ms ease-in-out;
     display: none;
   }
@@ -154,6 +162,13 @@ $unitLeftSpace: 62px;
     opacity: 0;
   }
 
+  &__functionality {
+    display: none;
+  }
+
+  /**
+   * FLOATED STYLES
+   */
   &--floated {
     label {
       display: block;
@@ -214,6 +229,12 @@ $unitLeftSpace: 62px;
         // for some reason the @at-root selector stuff dont work here so the modifier class above
       }
 
+      &.dirty {
+        .atm-form_input__functionality {
+          display: block;
+        }
+      }
+
       &--txtarea {
         &.dirty,
         &:focus {
@@ -255,7 +276,7 @@ $unitLeftSpace: 62px;
           }
         }
 
-        & ~ p {
+        & ~ p.show {
           padding-top: pxToRem(7px);
           padding-bottom: pxToRem(5px);
           height: auto;
@@ -266,6 +287,9 @@ $unitLeftSpace: 62px;
     }
   }
 
+  /**
+   * UNIT LEFT
+   */
   &--unitLeft {
     input {
       padding-left: pxToRem($unitLeftSpace);
@@ -273,6 +297,9 @@ $unitLeftSpace: 62px;
     }
   }
 
+  /**
+   * UNIT RIGHT
+   */
   &--unitRight {
     input {
       padding-right: pxToRem($unitLeftSpace);
