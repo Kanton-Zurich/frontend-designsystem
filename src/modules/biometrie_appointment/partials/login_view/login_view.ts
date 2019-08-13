@@ -144,12 +144,12 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
               const beforePaste = targetVal.substring(0, caretPos);
               const afterPaste = targetVal.substring(caretPos);
               totalStr += beforePaste;
-              totalStr += pasteEv.clipboardData.getData('text');
+              totalStr += this.getPasteStr(pasteEv);
               totalStr += afterPaste;
               beforeCaretLength += beforePaste.length;
               afterCaretLength += afterPaste.length;
             } else {
-              totalStr += pasteEv.clipboardData.getData('text');
+              totalStr += this.getPasteStr(pasteEv);
             }
             targetInputProcessed = true;
           } else {
@@ -218,6 +218,23 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
         }
         this.setFocusAndCaret(focusEl, caretPos);
       });
+  }
+
+  /**
+   * Browser agnostic get clipboard content str.
+   *
+   * @param pasteEv
+   */
+  private getPasteStr(pasteEv): string {
+    // eslint-disable-next-line dot-notation
+    const ieClipboardData = window['clipboardData'];
+    if (ieClipboardData && ieClipboardData.getData) { // IE
+      return ieClipboardData.getData('Text');
+    }
+    if (pasteEv.clipboardData && pasteEv.clipboardData.getData) {
+      return pasteEv.clipboardData.getData('text/plain');
+    }
+    return '';
   }
 
   /**

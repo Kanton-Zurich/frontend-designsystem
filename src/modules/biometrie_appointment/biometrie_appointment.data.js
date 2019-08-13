@@ -14,7 +14,6 @@ const moduleSettings = {
     location: 'Migrationsamt des Kantons Zürich',
     description: 'Migrationsamt des Kantons Zürichs \\nBerninastrasse 45 \\n8057 Zürich \\n \\n'
       + '*Schalter G-S* (bitte Ticket beim *Eingang rechts* ziehen) \\n \\n'
-      + 'Telefonnummer: 043 259 88 40 \\n \\n'
       + 'Montag - Freitag 08:00-12:00Uhr und 13:00-16:30Uhr \\n'
       + ' \\n \\n \\n'
       + 'Bringen Sie bitte folgende Unterlagen mit \\n'
@@ -24,7 +23,7 @@ const moduleSettings = {
       + ' - Geburtsschein (bei Neugeborenen) \\n \\n \\n',
     htmlDescription: ' <h3>Ort</h3> <p>Migrationsamt des Kantons Zürichs<br>Berninastrasse 45<br>80'
       + '57 Zürich</p> <p><strong>Schalter G-R</strong> (bitte Ticket beim <strong>Eingang rechts</'
-      + 'strong> ziehen)</p> <p>Telefonnummer: 043 259 88 40</p> <p>Montag - Freitag 08:00-12:00Uhr'
+      + 'strong> ziehen)</p><p>Montag - Freitag 08:00-12:00Uhr'
       + ' und 13:00-16:30Uhr</p> <h3>Bringen Sie bitte folgende Unterlagen mit</h3> <ul> <li>Termin'
       + 'bestätigung</li> <li>Original Ausländerausweis (außer bei erstmaligem Gesuch)</li> <li>Ori'
       + 'ginal heimatlicher Reisepass</li> <li>Geburtsschein (bei Neugeborenen)</li> </ul>',
@@ -39,7 +38,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('biometrie_appointment.md'),
   },
   props: {
-    heading: 'Termin zur Erfassung der biometrischen Daten verschieben',
+    heading: 'Termin verschieben',
     logoutLinkText: 'Logout & Schliessen',
     apiUnavailableMsg: '<p>Entschuldigung, der Service ist nicht verfügbar. Grund dafür ist ein technisches Problem.</p>Bitte versuchen Sie es später noch einmal.',
 

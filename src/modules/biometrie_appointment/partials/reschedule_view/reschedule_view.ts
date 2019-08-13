@@ -1,7 +1,6 @@
 import { ViewController } from '../../util/view-controller.class';
 import Timeslot from '../../model/timeslot.model';
 
-// TODO: Marked as unused by eslint although required (?)
 /* eslint-disable no-unused-vars */
 import Appointment from '../../model/appointment.model';
 import DateHelper from '../../../../util/date-helper.class';
@@ -84,7 +83,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
   private detailedView = false;
 
   private capacityMsgClone = document
-    .querySelector<HTMLTemplateElement>(this.selectors.capacityMsgTemplate).content.cloneNode(true);
+    .querySelector<HTMLDivElement>(this.selectors.capacityMsgTemplate).firstChild.cloneNode(true);
   private otherSlotsContainer = document
     .querySelector<HTMLElement>(this.selectors.otherSlotsContainer);
   private slotFullOverlay = document.querySelector<HTMLElement>(this.selectors.slotFullOverlay);
@@ -287,10 +286,10 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
 
     this.fillWeekDayTableHeads(weeksDates);
 
-    const slotSelectTemplateContent = document
-      .querySelector<HTMLTemplateElement>(this.selectors.slotSelectTemplate).content;
+    const slotSelectTemplate = document
+      .querySelector<HTMLElement>(this.selectors.slotSelectTemplate).firstElementChild;
     const slotEmptyTemplate = document
-      .querySelector<HTMLTemplateElement>(this.selectors.slotEmptyTemplate);
+      .querySelector<HTMLElement>(this.selectors.slotEmptyTemplate).firstElementChild;
 
     const weekdayColumnsNodeList = this.otherSlotsContainer
       .querySelectorAll<HTMLDivElement>(this.selectors.weekDayColumns);
@@ -306,12 +305,9 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
 
         daysSlots.forEach((timeslot) => {
           if (timeslot.capacity > 0) {
-            this.appendSlotBtn(slotsCon, slotSelectTemplateContent, timeslot);
+            this.appendSlotBtn(slotsCon, slotSelectTemplate, timeslot);
           } else {
-            const { content } = slotEmptyTemplate;
-            if (content) {
-              slotsCon.appendChild(document.importNode(content, true));
-            }
+            slotsCon.appendChild(document.importNode(slotEmptyTemplate, true));
           }
         });
         if (this.detailedView && idxWithMax === i) {
@@ -324,10 +320,10 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
   }
 
   private appendSlotBtn(slotsCon: HTMLElement,
-    templateContent : DocumentFragment, timeslot: Timeslot): void {
+    templateContent: Element, timeslot: Timeslot): void {
     if (templateContent) {
-      const clone = document.importNode(templateContent, true);
-      const slotElement = clone.firstElementChild;
+      const slotElement = document.importNode(templateContent, true);
+      // const slotElement = clone.firstElementChild;
       const { innerHTML } = slotElement;
       const timeStr = timeslot.getTimeStr();
       const startDateStr = DateHelper.getTrimTimeStr(timeslot.startDate);
@@ -341,7 +337,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
         slotSelect.addEventListener('click', ev => this.onSlotSelect(ev));
       }
 
-      slotsCon.appendChild(clone);
+      slotsCon.appendChild(slotElement);
     }
   }
 
@@ -371,18 +367,17 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
 
     if (slots && slots.length > 0) {
       this.log('Rendering timescale for detailed view.');
-      const { content } = document
-        .querySelector<HTMLTemplateElement>(this.selectors.slotTimescaleTemplate);
-      if (content) {
+      const timescaleSlotTemplate = document
+        .querySelector<HTMLElement>(this.selectors.slotTimescaleTemplate).firstElementChild;
+      if (timescaleSlotTemplate) {
         slots.forEach((timeslot) => {
-          const clone = document.importNode(content, true);
-          const slotElement = clone.firstElementChild;
+          const slotElement = document.importNode(timescaleSlotTemplate, true);
           const { innerHTML } = slotElement;
           const startDateStr = DateHelper.getTrimTimeStr(timeslot.startDate);
           if (innerHTML) {
             slotElement.innerHTML = innerHTML.replace('{timeString}', startDateStr);
           }
-          timescale.appendChild(clone);
+          timescale.appendChild(slotElement);
         });
       }
 

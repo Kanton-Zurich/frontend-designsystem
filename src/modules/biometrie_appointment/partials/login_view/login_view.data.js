@@ -9,12 +9,11 @@ const data = _.merge({}, defaultData, {
   props: {
     messages: {
       beforeParagraphs: [
-        'Melden sie sich an, um ihren Termin verschieben zu können.',
-        'Den dazu notwendigen <em>Token</em> finden Sie auf der Terminbestätigung',
+        'Melden Sie sich an, um Ihren Termin zur Erfassung der biometrischen Daten verschieben zu können.',
       ],
       head: 'Login',
       inputLabel: 'Token',
-      hint: 'Den 16 stelligen Token finden sie auf der Terminbestätigung.',
+      hint: 'Den 16-stelligen Token finden Sie auf der Terminbestätigung',
       loginErrMsg1: 'Invalider oder unvollständiger Token. Der Token ist 16 stellig und besteht ausschließlich aus Buchstaben (ohne Umlaute) und Ziffern.',
       loginErrMsg2: 'Der Token ist Falsch. Bitte überprüfen sie ihre Angaben.',
       loginErrMsg3: 'Der Token ist Falsch. Bitte überprüfen sie ihre Angaben. Wenn sie sich nicht anmelden können, rufen sie uns unter der Telefonnummer 043 259 888 40 an. Öffnungszeiten: Montag - Freitag 10:00 Uhr - 12:00 Uhr.',

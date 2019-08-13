@@ -61,14 +61,21 @@ class CalendarLinkGenerator {
       }
     }
 
-    const calURL = new URL('https://calendar.google.com/calendar/r/eventedit');
-    const { searchParams } = calURL;
-    searchParams.append('text', this.generalData.title);
-    searchParams.append('details', details);
-    searchParams.append('location', this.generalData.location);
-    searchParams.append('dates', `${DateHelper.getStrippedIsoString(start)}/${DateHelper.getStrippedIsoString(end)}`);
-    searchParams.append('ctz', 'CET');
-    return calURL.href;
+    let calHref = 'https://calendar.google.com/calendar/r/eventedit?';
+    calHref += this.getAsSearchParamStr('text', this.generalData.title);
+    calHref += '&';
+    calHref += this.getAsSearchParamStr('details', details);
+    calHref += '&';
+    calHref += this.getAsSearchParamStr('location', this.generalData.location);
+    calHref += '&';
+    calHref += this.getAsSearchParamStr('dates', `${DateHelper.getStrippedIsoString(start)}/${DateHelper.getStrippedIsoString(end)}`);
+    calHref += '&';
+    calHref += this.getAsSearchParamStr('ctz', 'CET');
+    return calHref;
+  }
+
+  private getAsSearchParamStr(key: string, value: string | number | boolean): string {
+    return `${key}=${encodeURIComponent(value)}`;
   }
 
   private getIcsBase64String(appointmentFrom: Date, appointmentUntil: Date): string {
