@@ -39,7 +39,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     heading: 'Termin verschieben',
-    logoutLinkText: 'Logout & Schliessen',
+    logoutLinkText: 'Logout',
     apiUnavailableMsg: '<p>Entschuldigung, der Service ist nicht verfügbar. Grund dafür ist ein technisches Problem.</p>Bitte versuchen Sie es später noch einmal.',
 
     loginViewProps,
