@@ -47,7 +47,9 @@
                     <p>{{ meta.desc }}</p>
                   </div>
                   <div class="sg_atom-demo {{#if props.isInverted}}sg_atom-demo--inverted{{/if}}">
+                    {{#if meta.wrapInForm}}<form novalidate>{{/if}}
                     {{{meta.demo}}}
+                    {{#if meta.wrapInForm}}</form>{{/if}}
                   </div>
                 </div>
                 <div class="sg_atom-html">
