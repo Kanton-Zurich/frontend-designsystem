@@ -4,6 +4,10 @@ $gapSize: pxToRem($sizeRegular);
 
   &__section-title {
     margin-bottom: pxToRem($sizeSmallRegular);
+
+    &:focus {
+      outline: none;
+    }
   }
 
   &__row {

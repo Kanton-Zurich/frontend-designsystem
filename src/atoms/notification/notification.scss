@@ -10,6 +10,12 @@
     fill: $colorWhite;
   }
 
+  &__title {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+
+    margin-bottom: 0;
+  }
+
   &__message {
     flex-grow: 1;
     margin-left: pxToRem($sizeRegular);
@@ -30,6 +36,18 @@
         height: 1px;
         background: $colorWhite;
       }
+    }
+  }
+
+  /** Green variation for form confirmation */
+  &--green {
+    background: $colorGreen;
+  }
+
+  &--big {
+    .icon {
+      width: 2rem;
+      height: 2rem;
     }
   }
 }

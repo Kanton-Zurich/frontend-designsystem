@@ -9,6 +9,10 @@
         {{> "modules/form/form" this}}
       </div>
     {{/each}}
+
+    <div class="mdl-stepper__step" data-stepper="step">
+     {{> "atoms/notification/notification" confirmation}}
+    </div>
   </form>
 
   <div class="mdl-stepper__message"

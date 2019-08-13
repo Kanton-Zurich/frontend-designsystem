@@ -158,8 +158,13 @@ class Stepper extends Module {
       this.log('hasnavigation');
     } else {
       const step = this.ui.steps[this.data.active];
+      const stepTitle = step.querySelector('.form__section-title');
 
-      step.querySelector('.form__section-title').focus();
+      if (stepTitle) {
+        stepTitle.focus();
+      } else {
+        step.querySelector('.atm-notification').focus();
+      }
     }
   }
 
@@ -167,15 +172,15 @@ class Stepper extends Module {
     if (newIndex > this.data.active) {
       const section = this.ui.steps[this.data.active].querySelector('section');
 
-      this.ui.wrapper.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
-        detail: {
-          section,
-        },
-      }));
+      // // this.ui.wrapper.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
+      // //   detail: {
+      // //     section,
+      // //   },
+      // // }));
 
-      if (this.ui.wrapper.hasAttribute('form-has-errors')) {
-        return false;
-      }
+      // if (this.ui.wrapper.hasAttribute('form-has-errors')) {
+      //   return false;
+      // }
     }
 
     this.data.active = newIndex;
@@ -183,11 +188,27 @@ class Stepper extends Module {
     return true;
   }
 
-  sendForm() {
+  async sendForm() {
     const form = this.ui.wrapper;
+    const action = form.getAttribute('action');
+    const formData = new FormData(this.ui.wrapper);
 
-    this.log(form);
+    if (!window.fetch) {
+      await import('whatwg-fetch');
+    }
+
+    fetch(action, {
+      method: 'post',
+      body: formData,
+    })
+      .then(() => {
+        this.data.active += 1;
+      })
+      .catch((err) => {
+        this.log('error', err);
+      });
   }
+
 
   /**
    * Unbind events, remove data, custom teardown
