@@ -104,4 +104,10 @@ $modalCurves: (
       max-height: $scrollHeightSmall;
     }
   }
+
+  .mdl-application__wrapper--fullWidth {
+    transform: initial;
+    position: initial;
+    margin-left: 0;
+  }
 }
