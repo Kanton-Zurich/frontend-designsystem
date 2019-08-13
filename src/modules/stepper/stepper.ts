@@ -9,6 +9,7 @@ import Module from '../../assets/js/helpers/module';
 class Stepper extends Module {
   public data: {
     active: number,
+    hasNavigation: boolean,
   }
 
   public ui: {
@@ -17,6 +18,8 @@ class Stepper extends Module {
     back: HTMLButtonElement,
     next: HTMLButtonElement,
     wrapper: HTMLFormElement,
+    send: HTMLButtonElement,
+    control: HTMLDivElement,
   }
 
   public options: {
@@ -28,6 +31,7 @@ class Stepper extends Module {
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
       active: 0,
+      hasNavigation: false,
     };
     const defaultOptions = {
       transitionTime: 350,
@@ -36,6 +40,8 @@ class Stepper extends Module {
         back: '[data-stepper="back"]',
         next: '[data-stepper="next"]',
         wrapper: '[data-stepper="wrapper"]',
+        send: '[data-stepper="send"]',
+        control: '[data-stepper="control"]',
       },
       stateClasses: {
         hiddenStep: 'mdl-stepper__step--hidden',
@@ -47,7 +53,9 @@ class Stepper extends Module {
 
     super($element, defaultData, defaultOptions, data, options);
 
-    this.initUi();
+    // Enforce steps to be wrapped in array
+    this.initUi(['steps']);
+
     this.initEventListeners();
     this.initWatchers();
 
@@ -98,6 +106,8 @@ class Stepper extends Module {
     this.ui.steps[oldValue].classList.add(this.options.stateClasses.transitionOut);
 
     this.setWrapperHeight();
+    this.setButtonVisibility();
+    this.setOnPageChangeFocus();
 
     setTimeout(this.deactiveSteps.bind(this), this.options.transitionTime);
   }
@@ -128,6 +138,48 @@ class Stepper extends Module {
     const currentStepHeight = this.ui.steps[this.data.active].getBoundingClientRect().height;
 
     this.ui.wrapper.style.minHeight = `${currentStepHeight}px`;
+  }
+
+  /**
+   * Sets the visibility of the buttons, according to the stage
+   *
+   * @memberof Stepper
+   */
+  setButtonVisibility() {
+    if (this.data.active === 0) {
+      this.ui.back.removeAttribute('style');
+    } else {
+      this.ui.back.style.display = 'block';
+    }
+
+    // If the second to last page
+    if (this.data.active + 1 === this.ui.steps.length - 1) {
+      this.ui.next.style.display = 'none';
+      this.ui.send.style.display = 'block';
+    } else {
+      this.ui.next.style.display = 'block';
+      this.ui.send.style.display = 'none';
+    }
+
+    // If the last page show no buttons
+    if (this.data.active === this.ui.steps.length - 1) {
+      this.ui.control.style.display = 'none';
+    }
+  }
+
+  /**
+   * Sets the focus on the correct element after change of the form section
+   *
+   * @memberof Stepper
+   */
+  setOnPageChangeFocus() {
+    if (this.data.hasNavigation) {
+      this.log('hasnavigation');
+    } else {
+      const step = this.ui.steps[this.data.active - 1];
+
+      step.querySelector('.form__section-title').focus();
+    }
   }
 
   /**

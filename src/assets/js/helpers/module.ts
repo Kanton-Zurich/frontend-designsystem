@@ -97,14 +97,16 @@ class Module {
    * @protected
    * @memberof Module
    */
-  protected initUi(enforceNodeList: Boolean = false) {
+  protected initUi(enforceNodeList: any = []) {
     const domSelectorKeys = Object.keys(this.options.domSelectors);
 
     domSelectorKeys.forEach((selectorKey) => {
+      const wrapInArray = enforceNodeList.indexOf(selectorKey) !== -1;
+
       const queryElements = this.ui.element
         .querySelectorAll(this.options.domSelectors[selectorKey]);
 
-      this.ui[selectorKey] = queryElements.length > 1 || enforceNodeList
+      this.ui[selectorKey] = queryElements.length > 1 || wrapInArray
         ? queryElements : queryElements[0];
     });
   }

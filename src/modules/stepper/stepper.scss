@@ -48,9 +48,15 @@
 
     border-top: 3px solid $colorBlack;
 
-    button:last-child {
+    .mdl-stepper__next,
+    .mdl-stepper__send {
       margin-left: pxToRem($sizeTiny);
     }
+  }
+
+  &__back,
+  &__send {
+    display: none;
   }
 }
 
