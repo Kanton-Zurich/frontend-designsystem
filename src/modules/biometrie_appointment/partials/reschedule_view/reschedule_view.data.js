@@ -8,17 +8,11 @@ const template = dataHelper.getFileContent('reschedule_view.hbs');
 const data = _.merge({}, defaultData, {
   props: {
     messages: {
-      nextOpenSlotHeading: 'Nächster freier Termin',
       slotCapacityMsg: 'An diesem Termin gibt es noch {schalter} freie(n) Schalter.',
-      otherSlotsHeading: 'Anderen Termin wählen',
-      noOpenSlotsMsg: 'Keine Termine verfügbar',
+      otherSlotsHeading: 'Termin wählen',
+      noOpenSlotsMsg: 'Keine Termine',
       blockedSlotInfo: '<strong>Diesen Termin hat soeben jemand reserviert.<br/>Er ist nicht mehr verfügbar.</strong>',
     },
-    scheduleNextBtn: _.merge({}, defaultButtonData, {
-      text: 'Termin reservieren',
-      isPrimary: true,
-      additionalAttribute: 'data-biometrie_appointment="doRescheduleNext"',
-    }),
     nextWeekBtn: _.merge({}, defaultButtonData, {
       isTextVisible: false,
       isSecondary: true,
@@ -36,11 +30,6 @@ const data = _.merge({}, defaultData, {
       isSecondary: true,
       isSmall: true,
       additionalAttribute: 'data-biometrie_appointment="timeSlotSelect"',
-    }),
-    cancelBtn: _.merge({}, defaultButtonData, {
-      text: 'Abbrechen',
-      isSecondary: true,
-      additionalAttribute: 'data-biometrie_appointment="cancelBtn"',
     }),
     scheduleSelectedBtn: _.merge({}, defaultButtonData, {
       text: 'Termin reservieren',

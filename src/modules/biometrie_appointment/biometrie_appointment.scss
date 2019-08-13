@@ -374,22 +374,6 @@ $biometrieViewTransitionDuration: 300ms;
       @include sizeCurve('margin-bottom', medium);
     }
 
-    &__nextopen {
-      @include sizeCurve('margin-bottom', large);
-
-      strong {
-        @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
-      }
-
-      .atm-heading {
-        @include sizeCurve('margin-bottom', regular);
-      }
-    }
-
-    &__scheduleNextBtn {
-      @include sizeCurve('margin-top', regular);
-    }
-
     &__allopen {
 
       &__wrapper {
@@ -409,6 +393,15 @@ $biometrieViewTransitionDuration: 300ms;
               fill: $colorBlack20;
             }
           }
+
+          @include mq($to: small) {
+            width: 100%;
+
+            .details {
+              width: 100%;
+              text-align: center;
+            }
+          }
         }
 
         .btn-line {
@@ -422,8 +415,9 @@ $biometrieViewTransitionDuration: 300ms;
       }
 
       &__slotselect {
-        @include sizeCurve('margin-top', medium);
+        @include sizeCurve('margin-top', tiny);
         position: relative;
+        border-bottom: 2px solid $colorBlack100;
 
         .column {
           width: 19%;
@@ -439,16 +433,15 @@ $biometrieViewTransitionDuration: 300ms;
           position: relative;
         }
 
-        .col-head {
-          background-image: linear-gradient(to top, rgba(255, 255, 255, 0), $colorWhite pxToRem($sizeFontSmall));
-
-          @include sizeCurve('height', big);
-        }
-
         .slotselect-headrow {
           z-index: 100;
+          border-top: 2px solid $colorBlack100;
 
           @extend .row;
+
+          @include mq($from: small) {
+            border-bottom: 2px solid $colorBlack100;
+          }
 
           .weekday-head {
             color: $colorText;
@@ -458,17 +451,38 @@ $biometrieViewTransitionDuration: 300ms;
             font-weight: 900;
 
             @extend .column;
-            @extend .col-head;
 
-            @include sizeCurve('line-height', biggerRegular);
+            @include sizeCurve('line-height', regular);
+            @include sizeCurve('padding-top', regular);
+            @include sizeCurve('padding-bottom', regular);
             @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+
+            &__date {
+              color: $colorBlack60;
+            }
+
+            &__day_short {
+              display: none;
+            }
+          }
+
+          @include mq($to: small) {
+            .weekday-head {
+              &__day_short {
+                display: block;
+              }
+
+              &__day {
+                display: none;
+              }
+            }
           }
         }
 
         .slotselect-slotsrow {
-          margin-top: -1 * pxToRem($sizeFontSmall);
-          padding-top: pxToRem($sizeFontSmall);
-          max-height: 64vh;
+          @include sizeCurve(padding-top, mini);
+
+          max-height: 450px;
           overflow-y: scroll;
 
           @extend .row;
@@ -501,7 +515,7 @@ $biometrieViewTransitionDuration: 300ms;
                 }
 
                 .selected {
-                  background: $colorGreen;
+                  background: $colorBlue;
                   color: $colorWhite;
                 }
               }
@@ -533,62 +547,67 @@ $biometrieViewTransitionDuration: 300ms;
 
           @include sizeCurve('margin-bottom', small);
         }
-
-        .timescale-column {
-          display: none;
-          width: 7.5%;
-          text-align: right;
-
-          @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
-
-          .slot {
-            visibility: hidden;
-
-            &:nth-child(4n+1) {
-              visibility: visible;
-            }
-          }
-        }
-
-        &.detailed {
-          @include mq($from: small) {
-            .timescale-column {
-              display: inline-block;
-            }
-
-            .column {
-              width: 17.5%;
-            }
-          }
-        }
       }
     }
 
     &__selectiondetails {
-      &.dropshadow-top {
-        margin-top: 3px;
-        box-shadow: 0 -10px 5px -10px rgba(0, 0, 0, 0.5);
-        min-height: 23px;
+      display: none;
+      overflow: hidden;
+
+      @include sizeCurve('padding-top', regular);
+      @include sizeCurve('padding-bottom', regular);
+
+      &.show {
+        display: block;
+      }
+
+      .atm-button {
+        float: right;
+      }
+
+      @include mq($to: small) {
+        .atm-button {
+          width: 100%;
+
+          .atm-button__text {
+            width: 100%;
+            text-align: center;
+          }
+        }
       }
 
       &__wrapper {
-        display: none;
-        overflow: hidden;
+        float: left;
 
-        @include sizeCurve('padding-top', regular);
-        @include sizeCurve('padding-bottom', regular);
 
-        &.show {
-          display: block;
+        .selection-details {
+
+          &__date {
+            color: $colorBlue;
+          }
+
+          &__counter {
+            @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+          }
+
+          &__byselection {
+            display: block;
+          }
+
+          &__next {
+            display: none;
+          }
         }
+      }
 
-        .atm-button {
-          float: left;
+      &.next {
+        .selection-details {
+          &__byselection {
+            display: none;
+          }
 
-          @include sizeCurve('margin-top', regular);
-
-          + .atm-button {
-            float: right;
+          &__next {
+            display: block;
           }
         }
       }
@@ -697,8 +716,13 @@ $biometrieViewTransitionDuration: 300ms;
     }
   }
 
+  .strong {
+    color: $colorText;
+    font-weight: 900;
+  }
+
   .lighter {
-    font-weight: 200;
+    color: $colorBlack60;
   }
 
   .hidden-small-down {
