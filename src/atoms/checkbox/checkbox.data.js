@@ -3,35 +3,16 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const modalData = require('../modal/modal.data');
-
-const template = dataHelper.getFileContent('header.hbs');
+const template = dataHelper.getFileContent('checkbox.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Header',
-    className: 'Header',
-    jira: 'CZHDEV-496',
-    documentation: dataHelper.getDocumentation('header.md'),
+    title: 'Checkbox',
+    className: 'Checkbox',
+    jira: 'CZHDEV-*',
+    documentation: dataHelper.getDocumentation('checkbox.md'),
   },
   props: {
-    navItem: [
-      {
-        title: 'Themen',
-        modal: 'flyout-topics',
-      },
-      {
-        title: 'Organisation',
-        modal: 'flyout-organisation',
-      },
-    ],
-    modals: [
-      _.merge({}, modalData.variants.topicFlyout.props, {
-        preview: false,
-      }),
-      _.merge({}, modalData.variants.organisationFlyout.props, {
-        preview: false,
-      }),
-    ],
+
   },
 });
 const variants = _.mapValues({
@@ -39,6 +20,24 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+  },
+  checked: {
+    meta: {
+      title: 'Vorausgewählt',
+      desc: 'Initial Ausgewählt/aktiv.',
+    },
+    props: {
+      isChecked: true,
+    },
+  },
+  disabled: {
+    meta: {
+      title: 'Deaktiviert',
+      desc: 'Initial deaktiviert, nicht click- bzw auswählbar.',
+    },
+    props: {
+      isDisabled: true,
     },
   },
 }, (variant) => {
@@ -50,8 +49,8 @@ const variants = _.mapValues({
 
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
         data: dataHelper.getFormattedJson(variantProps),
+        html: dataHelper.getFormattedHtml(compiledVariant()),
       },
     },
   });

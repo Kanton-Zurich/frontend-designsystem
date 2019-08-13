@@ -60,6 +60,7 @@ $unitLeftSpace: 62px;
     &::-webkit-inner-spin-button {
       /* display: none; <- Crashes Chrome on hover */
       -webkit-appearance: none; //stylelint-disable-line
+      appearance: none;
       margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
     }
 

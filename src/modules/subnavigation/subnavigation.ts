@@ -1,12 +1,12 @@
 /*!
- * Teaser
+ * Subnavigation
  *
  * @author
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
 
-class Teaser extends Module {
+class Subnavigation extends Module {
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
     };
@@ -27,7 +27,7 @@ class Teaser extends Module {
 
   static get events() {
     return {
-      // eventname: `eventname.${ Teaser.name }.${  }`
+      // eventname: `eventname.${ Subnavigation.name }.${  }`
     };
   }
 
@@ -48,4 +48,4 @@ class Teaser extends Module {
   }
 }
 
-export default Teaser;
+export default Subnavigation;

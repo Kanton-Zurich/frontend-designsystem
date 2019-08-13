@@ -15,7 +15,6 @@ import ImageGallery from '../../../modules/image_gallery/image_gallery';
 import Accordion from '../../../modules/accordion/accordion';
 import DownloadList from '../../../modules/download_list/download_list';
 import ContextMenu from '../../../modules/context_menu/context_menu';
-import Teaser from '../../../modules/teaser/teaser';
 import PublicationTeaser from '../../../modules/publication_teaser/publication_teaser';
 import Breadcrumb from '../../../modules/breadcrumb/breadcrumb';
 import Topiclist from '../../../modules/topiclist/topiclist';
@@ -25,6 +24,8 @@ import Search from '../../../modules/search/search';
 import Modal from '../../../modules/modal/modal';
 import ServiceList from '../../../modules/service_list/service_list';
 import Tabs from '../../../modules/tabs/tabs';
+import Subnavigation from '../../../modules/subnavigation/subnavigation';
+import OrganisationNavigation from '../../../modules/organisation_navigation/organisation_navigation';
 import PageHeader from '../../../modules/page_header/page_header';
 import SocialMediaStream from '../../../modules/social_media_stream/social_media_stream';
 /* autoinsertmodulereference */ // eslint-disable-line
@@ -49,7 +50,6 @@ class App {
     this.modules.accordion = Accordion;
     this.modules.downloadList = DownloadList;
     this.modules.contextMenu = ContextMenu;
-    this.modules.teaser = Teaser;
     this.modules.publicationTeaser = PublicationTeaser;
     this.modules.breadcrumb = Breadcrumb;
     this.modules.topiclist = Topiclist;
@@ -59,6 +59,8 @@ class App {
     this.modules.tabs = Tabs;
     this.modules.modal = Modal;
     this.modules.servicelist = ServiceList;
+    this.modules.subnavigation = Subnavigation;
+    this.modules.organisationNavigation = OrganisationNavigation;
     this.modules.pageHeader = PageHeader;
     this.modules.socialMediaStream = SocialMediaStream;
     /* autoinsertmodule */ // eslint-disable-line

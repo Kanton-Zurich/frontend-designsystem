@@ -37,6 +37,8 @@
 @import '../../atoms/anchorlink/anchorlink';
 @import '../../atoms/content_teaser/content_teaser';
 @import '../../atoms/form_input/form_input';
+@import '../../atoms/radiobutton/radiobutton';
+@import '../../atoms/checkbox/checkbox';
 //*autoinsertatom*
 
 // Modules
@@ -88,6 +90,9 @@
 @import '../../modules/social_media_links/social_media_links';
 @import '../../modules/social_media_stream/social_media_stream';
 @import '../../modules/social_media_post/social_media_post';
+@import '../../modules/subnavigation/subnavigation';
+@import '../../modules/organisation_teaser/organisation_teaser';
+@import '../../modules/organisation_navigation/organisation_navigation';
 //*autoinsertmodule*
 
 @media print {

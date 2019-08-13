@@ -1,0 +1,20 @@
+<div class="mdl-organisation_navigation" data-init="organisationNavigation">
+
+  <div class="mdl-organisation_navigation__top" data-organisation_navigation="topSection"></div>
+
+  {{> "modules/topiclist/topiclist" organisationTopiclist}}
+
+  <div class="mdl-organisation_navigation__highlight">
+    <div class="lyt-wrapper">
+      <div class="grid-x grid-margin-x">
+        <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8" data-organisation_navigation="bottomSection">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script data-organisation_navigation="organisationTeaserTemplate" type="text/x-handlebars-template">
+    {{{organisationTeaserTemplate}}}
+  </script>
+</div>

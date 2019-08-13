@@ -1,0 +1,17 @@
+.mdl-organisation_navigation {
+  @include sizeCurve(margin-top, medium);
+
+  &__highlight {
+    @include gridBleed($fullwidth: true);
+    @include sizeCurve(padding-top padding-bottom, large);
+
+    background: $colorBlack5;
+  }
+
+  &--next-layer {
+    .mdl-organisation_navigation__highlight,
+    .mdl-organisation_navigation__top {
+      display: none;
+    }
+  }
+}

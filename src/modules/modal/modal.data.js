@@ -1,8 +1,11 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defServiceBoxData = require('../service_box/service_box.data.js');
+
+const topiclist = require('../topiclist/topiclist.data');
+const organisationNavigation = require('../organisation_navigation/organisation_navigation.data');
 
 const template = dataHelper.getFileContent('modal.hbs');
 const data = _.merge({}, defaultData, {
@@ -14,8 +17,11 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     preview: true,
+    mainNavigation: false,
     modules: {
-      serviceBoxData: defServiceBoxData.variants.default.props,
+      contentModules: [
+        () => handlebars.compile(dataHelper.getFileContent('../service_box/service_box.hbs'))(defServiceBoxData.variants.default.props),
+      ],
     },
   },
 });
@@ -89,6 +95,36 @@ const variants = _.mapValues({
           minimal: true,
           hasCloseButton: true,
         },
+      },
+    },
+  },
+  topicFlyout: {
+    meta: {
+      title: 'Flyout Themen',
+      desc: 'Das Modal welches in der Hauptnavigation genutzt wird.',
+    },
+    props: {
+      modalId: 'flyout-topics',
+      mainNavigation: true,
+      modules: {
+        contentModules: [
+          () => handlebars.compile(dataHelper.getFileContent('../topiclist/topiclist.hbs'))(topiclist.variants.topicsNav.props),
+        ],
+      },
+    },
+  },
+  organisationFlyout: {
+    meta: {
+      title: 'Flyout Organisation',
+      desc: 'Das Modal welches in der Hauptnavigation genutzt wird.',
+    },
+    props: {
+      modalId: 'flyout-organisation',
+      mainNavigation: true,
+      modules: {
+        contentModules: [
+          () => handlebars.compile(dataHelper.getFileContent('../organisation_navigation/organisation_navigation.hbs'))(organisationNavigation.variants.default.props),
+        ],
       },
     },
   },

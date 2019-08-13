@@ -2,36 +2,19 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const templateConverter = require('../../../gulp/helpers/templateConverter');
 
-const modalData = require('../modal/modal.data');
-
-const template = dataHelper.getFileContent('header.hbs');
+const template = dataHelper.getFileContent('subnavigation.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Header',
-    className: 'Header',
-    jira: 'CZHDEV-496',
-    documentation: dataHelper.getDocumentation('header.md'),
+    title: 'Subnavigation',
+    className: 'Subnavigation',
+    jira: 'CZHDEV-*',
+    documentation: dataHelper.getDocumentation('subnavigation.md'),
   },
   props: {
-    navItem: [
-      {
-        title: 'Themen',
-        modal: 'flyout-topics',
-      },
-      {
-        title: 'Organisation',
-        modal: 'flyout-organisation',
-      },
-    ],
-    modals: [
-      _.merge({}, modalData.variants.topicFlyout.props, {
-        preview: false,
-      }),
-      _.merge({}, modalData.variants.organisationFlyout.props, {
-        preview: false,
-      }),
-    ],
+    title: 'Mobilität',
+    pageURL: 'pages/topic/topic.html',
   },
 });
 const variants = _.mapValues({
@@ -49,6 +32,7 @@ const variants = _.mapValues({
       demo: compiledVariant,
 
       code: {
+        template: templateConverter(template),
         handlebars: dataHelper.getFormattedHandlebars(template),
         html: dataHelper.getFormattedHtml(compiledVariant()),
         data: dataHelper.getFormattedJson(variantProps),

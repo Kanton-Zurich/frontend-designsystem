@@ -14,15 +14,24 @@ class Modal extends Module {
   private headerHeight: number;
   public scrollThreshold: number;
 
+  public options: {
+    domSelectors: any,
+    stateClasses: any;
+    transitionTime: number,
+  }
+
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
     const defaultOptions = {
+      transitionTime: 500,
       domSelectors: {
         pageHeader: '.mdl-page-header',
         closeButton: '.mdl-page-header__closebutton',
+        close: '[data-modal="close"]',
       },
       stateClasses: {
         show: 'mdl-modal--show',
+        transHide: 'mdl-modal--transition-hide',
         dynamicHeader: 'mdl-modal--dynamicheader',
       },
     };
@@ -36,6 +45,7 @@ class Modal extends Module {
     return {
       openModal: 'Modal.open',
       initContent: 'Modal.initContent',
+      closeModal: 'Modal.close',
     };
   }
 
@@ -56,6 +66,13 @@ class Modal extends Module {
       }
       this.updateSizing();
       document.documentElement.style.overflowY = 'hidden';
+
+      this.ui.element.setAttribute('aria-hidden', 'false');
+
+      // If there is the navigation topic list a child, then load the navigation
+      if (this.ui.element.querySelector('.mdl-topiclist--nav')) {
+        this.ui.element.querySelector('.mdl-topiclist--nav').dispatchEvent(new CustomEvent('loadNavigation'));
+      }
     });
     this.eventDelegate.on('Modal.initContent', () => {
       if (!this.hasCloseBtn) {
@@ -66,6 +83,10 @@ class Modal extends Module {
       (<any>window).estatico.helpers.initModulesInElement
         .bind((<any>window).estatico.helpers.app)(this.ui.element);
     });
+
+    this.eventDelegate.on('Modal.close', this.closeModal.bind(this));
+
+    this.eventDelegate.on('click', this.options.domSelectors.close, this.closeModal.bind(this));
   }
 
   initContent() {
@@ -76,10 +97,7 @@ class Modal extends Module {
       });
     }
     if (closeButton) {
-      closeButton.addEventListener('click',
-        () => {
-          this.closeModal();
-        });
+      closeButton.addEventListener('click', this.closeModal.bind(this));
       this.hasCloseBtn = true;
     }
   }
@@ -118,9 +136,18 @@ class Modal extends Module {
 
   closeModal() {
     document.documentElement.style.overflowY = 'initial';
-    this.ui.element.classList.remove(this.options.stateClasses.show);
+    this.ui.element.classList.add(this.options.stateClasses.transHide);
     document.documentElement.scrollTo(0, this.parentScrollPosition);
     window.removeEventListener('keydown', this.closeOnEscapeFunction);
+
+    this.ui.element.setAttribute('aria-hidden', 'true');
+
+    window.dispatchEvent(new CustomEvent('Modal.closed'));
+
+    setTimeout(() => {
+      this.ui.element.classList.remove(this.options.stateClasses.show);
+      this.ui.element.classList.remove(this.options.stateClasses.transHide);
+    }, this.options.transitionTime);
   }
 
   /**
