@@ -165,27 +165,36 @@ $biometrieViewTransitionDuration: 300ms;
 
 
   &__details {
-    table {
-      width: 100%;
-      border-spacing: 0;
-      font-size: $sizeFontTiny;
 
-      tr {
-        background-color: $colorWhite;
 
-        &:nth-child(odd) {
-          background-color: $colorBlack5;
-        }
+    .cell {
+      border-bottom: 1px solid $colorBlack20;
 
-        th {
-          text-align: left;
-          width: 35%;
-        }
+      @include sizeCurve('margin-top', mini);
 
-        th,
-        td {
-          padding: $sizeTiny;
-        }
+      .label {
+        font-weight: 900;
+
+        @include sizeCurve('padding-bottom', mini);
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+      }
+
+      .data {
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+        @include polyFluidSizing(line-height, map-get($fontSizeCurves, biggerRegular));
+      }
+    }
+
+
+    .info-box {
+      padding: $sizeRegular;
+      background-color: #0076bd11;
+      color: $colorBlue;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+
+      .atm-button {
+        @include sizeCurve('margin-top', medium);
       }
     }
 
@@ -194,6 +203,36 @@ $biometrieViewTransitionDuration: 300ms;
 
       &.show {
         display: block;
+      }
+
+      .success-box {
+        padding: $sizeRegular;
+        background-color: $colorGreen;
+        color: $colorWhite;
+
+        @include sizeCurve('margin-bottom', medium);
+
+        .icon-con {
+          background-color: $colorWhite;
+          display: inline-block;
+          color: $colorGreen;
+          border-radius: 50%;
+          margin-right: $sizeRegular;
+
+          @include polyFluidSizing(width, map-get($fontSizeCurves, big));
+          @include polyFluidSizing(height, map-get($fontSizeCurves, big));
+
+          svg {
+            fill: $colorGreen;
+
+            @include polyFluidSizing(width, map-get($fontSizeCurves, big));
+            @include polyFluidSizing(height, map-get($fontSizeCurves, big));
+          }
+        }
+
+        .details {
+          display: inline-block;
+        }
       }
 
       h3 {
@@ -277,7 +316,55 @@ $biometrieViewTransitionDuration: 300ms;
       }
     }
 
-    &__addinfo-block {
+    &__addinfo {
+      .block {
+        border-bottom: 2px solid $colorBlack20;
+
+        &.cell {
+          @include sizeCurve('margin-bottom', tiny);
+        }
+
+        .label {
+          padding-bottom: 0;
+        }
+      }
+    }
+
+    &__checklist {
+      @extend .info-box;
+
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+
+        li {
+          position: relative;
+
+          @include sizeCurve('margin-left', mini);
+          @include sizeCurve('padding-left', medium);
+
+          + li {
+            @include sizeCurve('margin-top', regular);
+          }
+
+          &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            transform: rotate(45deg);
+            top: 2px;
+            left: 0;
+            border-bottom: $sizeMini solid $colorBlue;
+            border-right: $sizeMini solid $colorBlue;
+
+            @include sizeCurve(width, mini);
+            //@include sizeCurve(left, mini);
+            @include polyFluidSizing('height', map-get($fontSizeCurves, regular));
+          }
+        }
+      }
+
+      @include sizeCurve('margin-top', medium);
       @include sizeCurve('margin-bottom', medium);
     }
   }

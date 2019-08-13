@@ -11,31 +11,37 @@ const data = _.merge({}, defaultData, {
       labelLastName: 'Familienname',
       labelFirstName: 'Vorname',
       labelDateOfBirth: 'Geburtsdatum',
-      headingAppointment: 'Ihr Termin',
+      headingAppointment: 'Termin Details',
       labelDate: 'Datum',
       labelTime: 'Uhrzeit',
       fromUntilConjunction: ' bis ',
       calLinksDescr: 'Zu meinem Kalender hinzufügen',
-      location: {
-        heading: 'Ort',
-        paragraphs: [
-          'Migrationsamt des Kantons Zürichs<br>Berninastrasse 45<br>8057 Zürich',
-          '<strong>Schalter G-R</strong> (bitte Ticket beim <strong>Eingang rechts</strong> ziehen)',
-          'Telefonnummer: 043 259 88 40',
-          'Montag - Freitag 08:00-12:00Uhr und 13:00-16:30Uhr',
+      addinfo: {
+        blocks: [
+          {
+            label: 'Ort',
+            content: 'Migrationsamt des Kantons Zürichs<br>Berninastrasse 45, 8057 Zürich<br>'
+              + '<br>Schalter G-R (bitte beim Eingang rechts ziehen)<br><br><a href="#" '
+              + 'target="_blank">Route anzeigen</a>',
+          },
+          {
+            label: 'Telefon',
+            content: '+ 41 43 259 88 40<br>Montag - Freitag 08:00 - 12:00 und 13:00 - 16:30Uhr',
+          },
         ],
       },
-      additionalInfo: {
+      checkList: {
         heading: 'Bringen Sie bitte folgende Unterlagen mit',
-        contenBlocks: [
-          '<ul><li>Terminbestätigung</li>'
-          + '<li>Original Ausländerausweis (außer bei erstmaligem Gesuch)</li>'
-          + '<li>Original heimatlicher Reisepass</li>'
-          + '<li>Geburtsschein (bei Neugeborenen)</li></ul>',
+        items: [
+          'Terminbestätigung',
+          'Original Ausländerausweis (außer bei erstmaligem Gesuch)',
+          'Original heimatlicher Reisepass',
+          'Geburtsschein (bei Neugeborenen)',
         ],
       },
-      rescheduleSuccessHead: 'Ihr Termin ist verschoben',
-      confirmationIntroParagraph: 'Bitte drucken Sie die neue Terminbestätigung aus und bringen Sie diese mit zu Ihrem Termin',
+      rescheduleSuccessHead: 'Ihr Termin wurde verschoben',
+      confirmationHead: 'Bitte beachten',
+      confirmationIntroParagraph: 'Drucken Sie die neue Terminbestätigung aus und nehmen Sie diese mit an den Termin.',
     },
     rescheduleBtn: _.merge({}, defaultButtonData, {
       text: 'Termin verschieben',
@@ -43,7 +49,8 @@ const data = _.merge({}, defaultData, {
       additionalAttribute: 'data-biometrie_appointment="reschedule"',
     }),
     printConfirmationBtn: _.merge({}, defaultButtonData, {
-      text: 'Terminbestätigung drucken',
+      icon: 'download',
+      text: 'Bestätigung herunterladen',
       isPrimary: true,
       additionalAttribute: 'data-biometrie_appointment="printConfirmation"',
     }),

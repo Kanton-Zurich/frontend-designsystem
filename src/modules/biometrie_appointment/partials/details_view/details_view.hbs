@@ -2,45 +2,65 @@
   <div class="mdl-biometrie_appointment__details">
 
     <div class="mdl-biometrie_appointment__details__confirmation {{#if withConfirmation}}show{{/if}}" data-biometrie_appointment="reschedule-success">
-      <h3 class="atm-heading">{{ rescheduleSuccessHead }}</h3>
-      <div class="alert-box success">
-        <p class="atm-paragraph">{{{ confirmationIntroParagraph }}}</p>
+        <div class="success-box">
+            <div class="icon-con">
+                <svg class="icon">
+                    <use xlink:href="#check"></use>
+                </svg>
+            </div>
+            <div class="details">
+                <strong>{{ rescheduleSuccessHead }}</strong><br>
+                <span data-biometrie_appointment="reservation-details__appointmentDateString">
+                    {{#if withMockData}}Montag 05.08.2019{{/if}}
+                </span>
+                &nbsp;
+                <span data-biometrie_appointment="reservation-details__fromTimeString">{{#if withMockData}}10:45{{/if}}</span>
+                &ndash;
+                <span data-biometrie_appointment="reservation-details__untilTimeString">{{#if withMockData}}11:00{{/if}}</span>
+            </div>
+        </div>
+      <div class="info-box">
+          <strong>{{ confirmationHead }}</strong>
+        <p>{{{ confirmationIntroParagraph }}}</p>
         {{> "atoms/button/button" printConfirmationBtn}}
       </div>
     </div>
 
-    <div class="mdl-biometrie_appointment__details__persondata">
-      <table>
-        <tr>
-          <th>{{ labelLastName }}</th>
-          <td data-biometrie_appointment="reservation-details__lastName">{{#if withMockData}}Petersen{{/if}}</td>
-        </tr>
-        <tr>
-          <th>{{ labelFirstName }}</th>
-          <td data-biometrie_appointment="reservation-details__firstName">{{#if withMockData}}Claus{{/if}}</td>
-        </tr>
-        <tr>
-          <th>{{ labelDateOfBirth }}</th>
-          <td data-biometrie_appointment="reservation-details__dateOfBirth">{{#if withMockData}}19.01.1952{{/if}}</td>
-        </tr>
-      </table>
+    <div class="grid-x grid-margin-x mdl-biometrie_appointment__details__persondata">
+        <div class="cell tiny-6">
+            <div class="label">{{ labelLastName }}</div>
+            <div class="atm-paragraph data" data-biometrie_appointment="reservation-details__lastName">{{#if withMockData}}Russo{{/if}}</div>
+        </div>
+        <div class="cell tiny-6">
+            <div class="label">{{ labelFirstName }}</div>
+            <div class="atm-paragraph data" data-biometrie_appointment="reservation-details__firstName">{{#if withMockData}}Maria{{/if}}</div>
+        </div>
+        <div class="cell tiny-6">
+            <div class="label">{{ labelDateOfBirth }}</div>
+            <div class="atm-paragraph data" data-biometrie_appointment="reservation-details__dateOfBirth">{{#if withMockData}}24.04.1983{{/if}}</div>
+        </div>
     </div>
 
+    <h3 class="atm-heading">{{ headingAppointment }}</h3>
     <div class="mdl-biometrie_appointment__details__appointmentdata">
-      <h3 class="atm-heading">{{ headingAppointment }}</h3>
-      <table>
-        <tr>
-          <th>{{ labelDate }}</th>
-          <td data-biometrie_appointment="reservation-details__appointmentDateString">{{#if withMockData}}Montag 05.08.2019{{/if}}</td>
-        </tr>
-        <tr>
-          <th>{{ labelTime }}</th>
-          <td>
-            <span data-biometrie_appointment="reservation-details__fromTimeString">{{#if withMockData}}10:45{{/if}}</span>{{ fromUntilConjunction }}<span
-            data-biometrie_appointment="reservation-details__untilTimeString">{{#if withMockData}}11:00{{/if}}</span>
-          </td>
-        </tr>
-      </table>
+        <div class="grid-x grid-margin-x" >
+            <div class="cell tiny-12 medium-6">
+                <div class="label">{{ labelDate }}</div>
+                <div class="atm-paragraph data"
+                     data-biometrie_appointment="reservation-details__appointmentDateString">
+                    {{#if withMockData}}Montag 05.08.2019{{/if}}
+                </div>
+            </div>
+            <div class="cell tiny-12 medium-6">
+                <div class="label">{{ labelTime }}</div>
+                <div class="atm-paragraph data">
+                    <span data-biometrie_appointment="reservation-details__fromTimeString">{{#if withMockData}}10:45{{/if}}</span>
+                    {{ fromUntilConjunction }}
+                    <span data-biometrie_appointment="reservation-details__untilTimeString">{{#if withMockData}}11:00{{/if}}</span>
+                </div>
+            </div>
+        </div>
+
       <div class="mdl-biometrie_appointment__details__rescheduleBtn">
         {{> "atoms/button/button" rescheduleBtn}}
       </div>
@@ -81,21 +101,27 @@
       </div>
     </div>
 
-    {{#with location}}
-      <div class="mdl-biometrie_appointment__details__addinfo-block">
-        <h3 class="atm-heading">{{ heading }}</h3>
-        {{#each paragraphs }}
-          <p class="atm-paragraph">{{{ this }}}</p>
-        {{/each}}
+    {{#with addinfo }}
+      <div class="mdl-biometrie_appointment__details__addinfo">
+          <div class="grid-x grid-margin-x" >
+                {{#each blocks }}
+                    <div class="block cell tiny-12">
+                        <div class="label">{{ this.label}}</div>
+                        <p class="atm-paragraph">{{{ this.content }}}</p>
+                    </div>
+                {{/each}}
+          </div>
       </div>
     {{/with}}
 
-    {{#with additionalInfo}}
-      <div class="mdl-biometrie_appointment__details__addInfo">
-        <h3 class="atm-heading">{{ heading }}</h3>
-        {{#each contenBlocks }}
-          <div class="mdl-richtext">{{{ this }}}</div>
-        {{/each}}
+    {{#with checkList}}
+      <div class="mdl-biometrie_appointment__details__checklist">
+          <h3 class="atm-heading">{{ heading }}</h3>
+          <ul>
+            {{#each items }}
+                <li>{{ this }}</li>
+            {{/each}}
+          </ul>
       </div>
     {{/with}}
   </div>
