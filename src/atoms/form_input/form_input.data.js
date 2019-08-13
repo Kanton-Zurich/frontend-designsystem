@@ -10,6 +10,7 @@ const data = _.merge({}, defaultData, {
     className: 'FormInput',
     jira: 'CZHDEV-844',
     documentation: dataHelper.getDocumentation('form_input.md'),
+    wrapInForm: true,
   },
   props: {
     type: 'text',
@@ -70,14 +71,14 @@ const variants = _.mapValues({
       type: 'text',
       label: 'Validation',
       validation: {
-        pattern: '',
+        pattern: '^([a-zA-Z]){3,6}$',
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
         errorMsg: 'Hier mindestens 3 und maximal 6 Buchstaben eingeben!',
+        isRequired: true,
       },
       uuid: _.uniqueId('float_input_valid'),
       isFloatingLabel: true,
-      isRequired: true,
     },
   },
   clearButton: {
@@ -92,12 +93,12 @@ const variants = _.mapValues({
       validation: {
         pattern: '^([a-zA-Z]){3,6}$',
         errorMsg: 'Hier mindestens 3 und maximal 6 Buchstaben eingeben!',
+        isRequired: true,
       },
       isFloatingLabel: true,
-      isRequired: true,
       additionalFunctionality: {
         icon: 'clear',
-        buttontype: 'text',
+        buttontype: 'clear',
         ariaText: 'Lösche Eingabe',
       },
     },
@@ -114,9 +115,9 @@ const variants = _.mapValues({
       validation: {
         pattern: '^([a-zA-Z]){3,6}$',
         errorMsg: 'Hier mindestens 3 und maximal 6 Buchstaben eingeben!',
+        isRequired: true,
       },
       isFloatingLabel: true,
-      isRequired: true,
       autocompleteOff: true,
       additionalFunctionality: {
         icon: 'hide',
@@ -165,7 +166,7 @@ const variants = _.mapValues({
       uuid: _.uniqueId('float_input_smallTopic'),
       additionalFunctionality: {
         icon: 'clear',
-        buttontype: 'text',
+        buttontype: 'clear',
         ariaText: 'Lösche Eingabe',
       },
     },
