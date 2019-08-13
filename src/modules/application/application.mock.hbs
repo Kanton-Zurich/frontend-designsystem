@@ -112,8 +112,12 @@
         circleArray[i].update();
       }
     }
-
     spa_animate();
     spa_init();
+    document.addEventListener("DOMContentLoaded", function(event) {
+      spa_canvas.width = container.clientWidth;
+      spa_canvas.height = container.clientHeight;
+      spa_init();
+    });
   })();
 </script>

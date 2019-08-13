@@ -4,6 +4,7 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defServiceBoxData = require('../service_box/service_box.data.js');
 const defApplicationData = require('../application/application.data.js');
+const defIFrameData = require('../iframe/iframe.data.js');
 const topiclist = require('../topiclist/topiclist.data');
 const organisationNavigation = require('../organisation_navigation/organisation_navigation.data');
 
@@ -100,15 +101,40 @@ const variants = _.mapValues({
   },
   spa: {
     meta: {
-      title: 'Single Page Application (CZHDEV-792)',
+      title: 'Single Page Application (CZHDEV-792, CZHDEV-533)',
       desc: '',
     },
     props: {
       modalId: 'service-modal-03',
-      singlePageApp: handlebars.compile(dataHelper.getFileContent('../application/application.hbs'))(defApplicationData.variants.fullWidth.props),
+      fullWidthApp: handlebars.compile(dataHelper.getFileContent('../application/application.hbs'))(defApplicationData.variants.fullWidth.props),
       modules: {
         servicePageHeaderData: {
           pageTitle: 'Applikation',
+          inverted: true,
+          hasImageTitle: false,
+          hasVideo: false,
+          hasImage: false,
+          hasBacklink: false,
+          hasBreadcrumb: false,
+          noButton: true,
+          noText: true,
+          minimal: true,
+          hasCloseButton: true,
+        },
+      },
+    },
+  },
+  iframe: {
+    meta: {
+      title: 'iFrame Modal (CZHDEV-533)',
+      desc: '',
+    },
+    props: {
+      modalId: 'service-modal-04',
+      fullWidthApp: handlebars.compile(dataHelper.getFileContent('../iframe/iframe.hbs'))(defIFrameData.variants.fullSize.props),
+      modules: {
+        servicePageHeaderData: {
+          pageTitle: 'IFrame',
           inverted: true,
           hasImageTitle: false,
           hasVideo: false,

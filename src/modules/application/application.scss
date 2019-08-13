@@ -4,9 +4,10 @@
 
     &--fullWidth {
       height: 100%;
-      transform: initial;
       position: fixed;
-      margin-left: 0;
+      transform: initial;
+      margin: 0;
+      left: 0;
 
       .mdl-application {
         height: 100%;
@@ -25,5 +26,4 @@
     margin-top: pxToRem($sizeGiant);
     margin-bottom: pxToRem($sizeGiant);
   }
-
 }
