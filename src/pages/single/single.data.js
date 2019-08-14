@@ -3,6 +3,8 @@ const defaultData = require('../../data/default.data.js');
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.colored.props;
 const defTopicListData = require('../../modules/topiclist/topiclist.data.js').variants.default.props;
 const defTeaserData = require('../../modules/teaser/teaser.data.js').variants.inverted.props;
+const defSPAData = require('../../modules/application/application.data.js').variants.default.props;
+const defiframeData = require('../../modules/iframe/iframe.data.js').variants.default.props;
 const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
 const dataHelper = require('@unic/estatico-data');
 const headerData = require('../../modules/header/header.data').props;
@@ -155,6 +157,8 @@ const data = _.merge({}, defaultData, {
       topicListData: _.merge({}, _.omit(defTopicListData, ['contentNavData']), defTopicListCustomData, { topiclistHeading: { anchorNavReference: 'ourtopics' } }),
       contactData: defContactCustomData,
       teaserData: _.merge({}, defTeaserData, defTeaserCustomData),
+      SPAData: defSPAData,
+      iframeData: defiframeData,
     },
   },
 });

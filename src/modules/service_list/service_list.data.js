@@ -36,6 +36,14 @@ const data = _.merge({}, defaultData, {
         modalData: { modalId: 'service-modal2' },
       },
       {
+        title: 'App Titel',
+        buttonTitle: 'Start',
+        serviceLink: '../application/modalexample.mock.html',
+        href: '../../pages/application/application.html',
+        staticHeader: true,
+        modalData: { modalId: 'app-modal1' },
+      },
+      {
         title: 'Internationalen Führerschein beantragen',
         text: 'In nicht englischsprachigen Ländern ausserhalb der EU empfehlen wir Ihnen, einen internationalen Führerschein ausstellen zu lassen.',
         buttonTitle: 'Start',
