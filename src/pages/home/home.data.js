@@ -1,47 +1,14 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
-
-const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.coloredAnchors.props;
+const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.colored.props;
 const headerData = require('../../modules/header/header.data').props;
 const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withProminentTeaser.props;
 
 const defPageHeaderCustomData = {
   pageTitle: 'Kanton Zürich',
-  leadText: '',
-  anchorLinks: [
-    {
-      anchorlink: {
-        anchorlinkText: 'Schulferien 2019',
-      },
-    },
-    {
-      anchorlink: {
-        anchorlinkText: 'Kurs für Hundehalter',
-      },
-    },
-    {
-      anchorlink: {
-        anchorlinkText: 'Quellensteuer',
-      },
-    },
-    {
-      anchorlink: {
-        anchorlinkText: 'Handelsregistereintrag',
-      },
-    },
-    {
-      anchorlink: {
-        anchorlinkText: 'Velo',
-        anchorlinkAdress: '#',
-        anchorlinkIsActive: false,
-        anchorlinkIsTagAnchor: true,
-        anchorlinkIsInverted: true,
-        anchorlinkIsTopitem: true,
-        anchorlinkIsTopitemSmall: false,
-      },
-    },
-  ],
+  leadText: 'Lead: ExtraBold Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
+  buttonData: { buttonTitle: 'Formular beantragen', serviceLink: '../../modules/service_list/service_page.mock.html', modalData: { modalId: 'service-modal0'},},
 };
 
 const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants.default.props;

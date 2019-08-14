@@ -6,7 +6,6 @@
  */
 import Module from '../../assets/js/helpers/module';
 
-
 class Modal extends Module {
   private parentScrollPosition: number;
   private closeOnEscapeFunction: any;
@@ -83,10 +82,10 @@ class Modal extends Module {
       (<any>window).estatico.helpers.initModulesInElement
         .bind((<any>window).estatico.helpers.app)(this.ui.element);
     });
-
     this.eventDelegate.on('Modal.close', this.closeModal.bind(this));
-
     this.eventDelegate.on('click', this.options.domSelectors.close, this.closeModal.bind(this));
+    // move to the end of the DOM
+    (<any>window).estatico.helpers.bodyElement.appendChild(this.ui.element);
   }
 
   initContent() {
