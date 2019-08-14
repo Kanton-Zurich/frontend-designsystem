@@ -2,6 +2,9 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const defRichtextData = require('../richtext/richtext.data.js');
+const defDownloadListData = require('../download_list/download_list.data');
+const defCarouselData = require('../carousel/carousel.data');
 
 const template = dataHelper.getFileContent('tabs.hbs');
 const data = _.merge({}, defaultData, {
@@ -19,11 +22,15 @@ const data = _.merge({}, defaultData, {
       },
       {
         title: 'Online',
-        data: '<p class="atm-paragraph">Klären Sie ab, ob Sie für Ihr Reiseziel einen internationalen Führerschein benötigen. Ihr Reisebüro oder das Konsulat Ihres Reiseziels können Ihnen dabei helfen. </p>',
+        data: handlebars.compile(dataHelper.getFileContent('../download_list/download_list.hbs'))(defDownloadListData.variants.default.props),
       },
       {
         title: 'Per Post',
-        data: '<p class="atm-paragraph">Holen Sie den internationalen Führerschein direkt am Schalter einer unserer Strassenverkehrsämter ab.</p>',
+        data: handlebars.compile(dataHelper.getFileContent('../richtext/richtext.hbs'))(defRichtextData.variants.default.props),
+      },
+      {
+        title: 'Test Gallerie',
+        data: handlebars.compile(dataHelper.getFileContent('../carousel/carousel.hbs'))(defCarouselData.variants.default.props),
       },
     ],
   },

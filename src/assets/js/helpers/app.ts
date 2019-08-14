@@ -6,9 +6,6 @@
 import namespace from './namespace';
 import loadPolyfills from './polyfills';
 
-/** Demo modules * */
-// import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
-// import SlideShow from '../../../demo/modules/slideshow/slideshow';
 import Table from '../../../modules/table/table';
 import Carousel from '../../../modules/carousel/carousel';
 import ImageGallery from '../../../modules/image_gallery/image_gallery';
@@ -30,6 +27,8 @@ import PageHeader from '../../../modules/page_header/page_header';
 import SocialMediaStream from '../../../modules/social_media_stream/social_media_stream';
 import Stepper from '../../../modules/stepper/stepper';
 import StepperNavigation from '../../../modules/stepper_navigation/stepper_navigation';
+import ServiceButton from '../../../modules/service_button/service_button';
+import Application from '../../../modules/application/application';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -44,8 +43,6 @@ class App {
     window[namespace].modules = {};
     // Module registry - mapping module name (used in data-init) to module Class
     this.modules = {};
-    // this.modules.slideshow = SlideShow;
-    // this.modules.skiplinks = SkipLinks;
     this.modules.table = Table;
     this.modules.imageGallery = ImageGallery;
     this.modules.carousel = Carousel;
@@ -66,6 +63,9 @@ class App {
     this.modules.pageHeader = PageHeader;
     this.modules.socialMediaStream = SocialMediaStream;
     this.modules.stepper = Stepper;
+    this.modules.stepperNavigation = StepperNavigation;
+    this.modules.serviceButton = ServiceButton;
+    this.modules.application = Application;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
@@ -74,6 +74,12 @@ class App {
     window[namespace].helpers.initModulesInElement = this.initModulesInElement;
     window[namespace].helpers.app = this;
     window[namespace].form = new FormGlobalHelper();
+    const bodyElement = document.querySelector('[data-body-element]');
+    if (bodyElement) {
+      window[namespace].helpers.bodyElement = bodyElement;
+    } else {
+      window[namespace].helpers.bodyElement = document.body;
+    }
 
     // Check for touch support
     const hasTouchSupport = 'ontouchstart' in window || navigator.msMaxTouchPoints;

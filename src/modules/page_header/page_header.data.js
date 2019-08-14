@@ -4,7 +4,7 @@ const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defImageFigureData = require('../image_figure/image_figure.data');
 const defVideoData = require('../video/video.data');
-const defButtonData = require('../../atoms/button/button.data').props;
+const defServiceButtonData = require('../service_button/service_button.data').props;
 const defBreadcrumbData = require('../breadcrumb/breadcrumb.data').props;
 const backOnlyBreadcrumbData = require('../breadcrumb/breadcrumb.data').variants.singlePathItem.props;
 const defPersonCardData = require('../person_card/person_card.data.js').variants.promo.props;
@@ -25,7 +25,6 @@ const data = _.merge({}, defaultData, {
     leadText: 'Lead: ExtraBold Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
     breadcrumb: defBreadcrumbData,
     backlink: backOnlyBreadcrumbData,
-    buttonData: _.merge(defButtonData, {text: 'Formular beantragen'}),
     personCardData: defPersonCardData,
     expandNav: 'Navigation anzeigen',
     collapseNav: 'Navigation ausblenden',
@@ -42,6 +41,7 @@ const variants = _.mapValues({
     },
     props: {
       hasBreadcrumb: true,
+      buttonData: _.merge(defServiceButtonData, {buttonTitle: 'Formular beantragen', modalData: { modalId: 'service-modal0' }}),
     },
   },
   defaultImage: {
@@ -55,6 +55,7 @@ const variants = _.mapValues({
       imageData: defImageFigureData.variants.header.props,
       hasImage: true,
       hasBacklink: true,
+      noButton: true,
     },
   },
   colored: {
@@ -67,7 +68,7 @@ const variants = _.mapValues({
     props: {
 
       inverted: true,
-      buttonData: _.merge({}, defButtonData, {isInverted: true}),
+      buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: { modalId: 'service-modal1' }}),
       hasBreadcrumb: true,
     },
   },
@@ -81,7 +82,7 @@ const variants = _.mapValues({
     props: {
 
       inverted: true,
-      buttonData: _.merge({}, defButtonData, {isInverted: true}),
+      buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: { modalId: 'service-modal2' }}),
       hasBreadcrumb: true,
       hasAnchors: true,
       anchorLinks: [
@@ -155,7 +156,7 @@ const variants = _.mapValues({
       defaultColorVariation: 'cv-blue',
     },
     props: {
-
+      noButton: true,
       imageData: defImageFigureData.variants.header.props,
       inverted: true,
       hasImageTitle: true,
@@ -177,7 +178,7 @@ const variants = _.mapValues({
       hasImageTitle: true,
       hasVideo: true,
       hasImage: true,
-      buttonData: _.merge({}, defButtonData),
+      buttonData: _.merge({}, defServiceButtonData),
       hasBacklink: true,
     },
   },
@@ -269,7 +270,7 @@ const variants = _.mapValues({
       inverted: true,
       noButton: true,
       noText: true,
-      buttonData: _.merge({}, defButtonData, {isInverted: true}),
+      buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: { modalId: 'service-modal4' }}),
       hasBreadcrumb: true,
     },
   },
@@ -285,7 +286,7 @@ const variants = _.mapValues({
       inverted: true,
       noButton: true,
       noText: true,
-      buttonData: _.merge({}, defButtonData, {isInverted: true}),
+      buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: { modalId: 'service-modal5' }}),
       hasBreadcrumb: true,
     },
   },
