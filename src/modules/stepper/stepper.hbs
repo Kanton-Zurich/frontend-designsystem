@@ -1,7 +1,9 @@
 <div class="mdl-stepper" data-init="stepper">
   <h2 class="atm-heading">{{title}}</h2>
 
-  <!-- PLACEHOLDER STEPPER NAVIGATION -->
+  {{#if navigation}}
+    {{> "modules/stepper_navigation/stepper_navigation" navigation}}
+  {{/if}}
 
   <form class="mdl-stepper__wrapper form" data-stepper="wrapper" novalidate action="{{action}}">
     {{#each steps}}

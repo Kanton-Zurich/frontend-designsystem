@@ -5,6 +5,7 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import StepperNavigation from '../stepper_navigation/stepper_navigation';
 
 class Stepper extends Module {
   public data: {
@@ -20,6 +21,7 @@ class Stepper extends Module {
     wrapper: HTMLFormElement,
     send: HTMLButtonElement,
     control: HTMLDivElement,
+    navigation: HTMLOListElement,
   }
 
   public options: {
@@ -42,6 +44,7 @@ class Stepper extends Module {
         wrapper: '[data-stepper="wrapper"]',
         send: '[data-stepper="send"]',
         control: '[data-stepper="control"]',
+        navigation: '[data-init="stepperNavigation"]',
       },
       stateClasses: {
         hiddenStep: 'mdl-stepper__step--hidden',
@@ -60,11 +63,17 @@ class Stepper extends Module {
     this.initWatchers();
 
     this.deactiveSteps();
+
+
+    if (this.ui.navigation) {
+      new StepperNavigation(this.ui.navigation, { active: this.data.active }, {});
+    }
   }
 
   static get events() {
     return {
       validateSection: 'validateSection',
+      stepChange: 'stepChange',
     };
   }
 
@@ -83,6 +92,11 @@ class Stepper extends Module {
       this.sendForm();
       return false;
     });
+
+    this.ui.navigation.addEventListener(StepperNavigation.events.navigationChange,
+      (event) => {
+        this.data.active = (<any>event).detail.clickedPage;
+      });
   }
 
   /**
@@ -106,6 +120,14 @@ class Stepper extends Module {
     this.setButtonVisibility();
     this.setOnPageChangeFocus();
     this.deactiveSteps();
+
+    if (this.ui.navigation) {
+      this.ui.navigation.dispatchEvent(new CustomEvent(Stepper.events.stepChange, {
+        detail: {
+          newStep: newValue,
+        },
+      }));
+    }
   }
 
   /**
@@ -172,15 +194,23 @@ class Stepper extends Module {
     if (newIndex > this.data.active) {
       const section = this.ui.steps[this.data.active].querySelector('section');
 
-      // // this.ui.wrapper.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
-      // //   detail: {
-      // //     section,
-      // //   },
-      // // }));
+      this.ui.wrapper.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
+        detail: {
+          section,
+        },
+      }));
 
-      // if (this.ui.wrapper.hasAttribute('form-has-errors')) {
-      //   return false;
-      // }
+      if (this.ui.wrapper.hasAttribute('form-has-errors')) {
+        return false;
+      }
+
+      if (this.ui.navigation) {
+        this.ui.navigation.dispatchEvent(new CustomEvent(Stepper.events.stepChange, {
+          detail: {
+            newStep: newIndex,
+          },
+        }));
+      }
     }
 
     this.data.active = newIndex;

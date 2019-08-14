@@ -3,28 +3,20 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const formVariants = require('../form/form.data').variants;
-const notification = require('../../atoms/notification/notification.data').variants;
-
-const template = dataHelper.getFileContent('stepper.hbs');
+const template = dataHelper.getFileContent('stepper_navigation.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Stepper',
-    className: 'Stepper',
-    jira: 'CZHDEV-850',
-    documentation: dataHelper.getDocumentation('stepper.md'),
+    title: 'StepperNavigation',
+    className: 'StepperNavigation',
+    jira: 'CZHDEV-*',
+    documentation: dataHelper.getDocumentation('stepper_navigation.md'),
   },
   props: {
-    title: 'Formular mit Schritten',
     steps: [
-      formVariants.default.props,
-      formVariants.careerInfo.props,
+      'Persönliche Angaben',
+      'Berufliche Informationen',
+      'Bestätigung',
     ],
-    action: '/mocks/modules/form/form.json',
-    confirmation: notification.formConfirmation.props,
-    navigation: {
-      steps: ['Persönliche Angaben', 'Berufliche Informationen', 'Bestätigung'],
-    },
   },
 });
 const variants = _.mapValues({

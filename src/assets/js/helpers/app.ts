@@ -29,6 +29,7 @@ import OrganisationNavigation from '../../../modules/organisation_navigation/org
 import PageHeader from '../../../modules/page_header/page_header';
 import SocialMediaStream from '../../../modules/social_media_stream/social_media_stream';
 import Stepper from '../../../modules/stepper/stepper';
+import StepperNavigation from '../../../modules/stepper_navigation/stepper_navigation';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
