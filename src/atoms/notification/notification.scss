@@ -4,7 +4,7 @@
 
   border-radius: 3px;
   background: $colorRed;
-  padding: 0 pxToRem($sizeRegular);
+  padding: pxToRem($sizeRegular);
 
   .icon use {
     fill: $colorWhite;
@@ -14,6 +14,7 @@
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
 
     margin-bottom: 0;
+    margin-top: 0;
   }
 
   &__message {
@@ -35,6 +36,25 @@
         left: 0;
         height: 1px;
         background: $colorWhite;
+      }
+    }
+
+    ul {
+      @include resetList;
+
+      display: inline;
+      list-style-type: none;
+
+      li {
+        display: inline;
+
+        &:after {
+          content: ', ';
+        }
+
+        &:last-child:after {
+          content: '';
+        }
       }
     }
   }

@@ -25,6 +25,7 @@ const data = _.merge({}, defaultData, {
     navigation: {
       steps: ['Persönliche Angaben', 'Berufliche Informationen', 'Bestätigung'],
     },
+    notificationTemplate: notification.default.meta.code.template,
   },
 });
 const variants = _.mapValues({

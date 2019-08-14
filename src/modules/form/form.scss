@@ -20,6 +20,10 @@ $gapSize: pxToRem($sizeRegular);
     &:last-child {
       padding-bottom: 0;
     }
+
+    @include mq($to: small) {
+      flex-direction: column;
+    }
   }
 
   &__cell {
@@ -32,6 +36,15 @@ $gapSize: pxToRem($sizeRegular);
 
     &--small {
       flex-basis: 25%;
+    }
+
+    @include mq($to: small) {
+      flex-basis: 100%;
+      margin-bottom: $gapSize;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 

@@ -40,5 +40,9 @@
   &__send {
     display: none;
   }
+
+  .atm-notification {
+    margin-top: pxToRem($sizeLarge);
+  }
 }
 

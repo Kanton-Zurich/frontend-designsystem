@@ -13,6 +13,10 @@ $stepperNavigationCurves: (
   justify-content: space-between;
   position: relative;
 
+  @include mq($to: medium) {
+    padding-bottom: pxToRem($sizeRegular * $sizeLineHeightBase);
+  }
+
   &:after {
     position: absolute;
     content: ' ';
@@ -25,6 +29,10 @@ $stepperNavigationCurves: (
     background: $colorBlack20;
 
     top: 33%;
+
+    @include mq($to: small) {
+      top: 25%;
+    }
   }
 
   &__step {
@@ -59,6 +67,17 @@ $stepperNavigationCurves: (
       font-weight: $sizeLineHeightBigger;
 
       @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+      @include mq($to: medium) {
+        display: none;
+
+        .mdl-stepper_navigation__step--active & {
+          display: block;
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          left: 0;
+        }
+      }
     }
 
 
@@ -72,6 +91,11 @@ $stepperNavigationCurves: (
 
       use {
         fill: $colorBlue;
+      }
+
+      @include mq($to: small) {
+        width: 2rem;
+        height: 2rem;
       }
     }
 

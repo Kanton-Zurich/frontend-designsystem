@@ -62,6 +62,9 @@ class Form {
       this.validateField(field);
     });
     this.eventDelegate.on('validateSection', this.validateSection.bind(this));
+    this.eventDelegate.on('showFieldInvalid', (event) => {
+      this.showFieldInvalid(event.detail.field);
+    });
   }
 
   addWatchers() {
@@ -118,6 +121,11 @@ class Form {
 
       this.ui.element.setAttribute('form-has-errors', 'true');
     }
+  }
+
+  showFieldInvalid(field) {
+    field.classList.add(this.options.inputClasses.invalid);
+    field.classList.remove(this.options.inputClasses.valid);
   }
 
   validateSection(event) {

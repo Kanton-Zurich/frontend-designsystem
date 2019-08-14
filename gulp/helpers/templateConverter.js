@@ -9,6 +9,6 @@ module.exports = (handlebarsTemplate, purgeConditionals = true) => {
       return `<% if (typeof(${attr}) !== "undefined" && ${attr} !== false) { %>`;
     }).replace(/{{\/if}}/gm, '<% } %>');
   }
-  return output.replace(/{{{/gm, '${').replace(/}}}/gm, '}')
-    .replace(/{{/gm, '${').replace(/}}/gm, '}');
+  return output.replace(/{{{/gm, '<%=').replace(/}}}/gm, '%>')
+    .replace(/{{/gm, '<%=').replace(/}}/gm, '%>');
 };

@@ -3,6 +3,8 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
+const templateConverter = require('../../../gulp/helpers/templateConverter');
+
 const template = dataHelper.getFileContent('notification.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -46,6 +48,7 @@ const variants = _.mapValues({
       demo: compiledVariant,
 
       code: {
+        template: templateConverter(template, false),
         handlebars: dataHelper.getFormattedHandlebars(template),
         data: dataHelper.getFormattedJson(variantProps),
         html: dataHelper.getFormattedHtml(compiledVariant()),
