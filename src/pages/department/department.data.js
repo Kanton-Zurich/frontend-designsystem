@@ -18,7 +18,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Themen',
-        anchorlinkAdress: '#ourtopics',
+        anchorlinkAdress: 'ourtopics',
         anchorlinkIsActive: true,
         anchorlinkAsButton: true,
       },
@@ -26,7 +26,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Unser Amt',
-        anchorlinkAdress: '#aboutus',
+        anchorlinkAdress: 'aboutus',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -34,7 +34,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'News',
-        anchorlinkAdress: '#news_teaser',
+        anchorlinkAdress: 'news_teaser',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -42,7 +42,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Kontakt',
-        anchorlinkAdress: '#contact',
+        anchorlinkAdress: 'contact',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
