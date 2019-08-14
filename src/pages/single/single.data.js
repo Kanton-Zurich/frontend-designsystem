@@ -46,7 +46,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Themen',
-        anchorlinkAdress: '#ourtopics',
+        anchorlinkAdress: 'ourtopics',
         anchorlinkIsActive: true,
         anchorlinkAsButton: true,
       },
@@ -54,7 +54,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Veranstaltungen',
-        anchorlinkAdress: '#eventsTODO',
+        anchorlinkAdress: 'eventsTODO',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -62,7 +62,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Kontakt',
-        anchorlinkAdress: '#contact',
+        anchorlinkAdress: 'contact',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -70,7 +70,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Team',
-        anchorlinkAdress: '#teamTODO',
+        anchorlinkAdress: 'teamTODO',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
