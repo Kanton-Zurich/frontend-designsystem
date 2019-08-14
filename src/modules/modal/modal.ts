@@ -5,6 +5,7 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import WindowEventListener from '../../assets/js/helpers/events';
 
 class Modal extends Module {
   private parentScrollPosition: number;
@@ -17,7 +18,7 @@ class Modal extends Module {
     domSelectors: any,
     stateClasses: any;
     transitionTime: number,
-  }
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
@@ -27,6 +28,7 @@ class Modal extends Module {
         pageHeader: '.mdl-page-header',
         closeButton: '.mdl-page-header__closebutton',
         close: '[data-modal="close"]',
+        singlePageApp: '[data-init="application"]',
       },
       stateClasses: {
         show: 'mdl-modal--show',
@@ -64,6 +66,7 @@ class Modal extends Module {
         this.updateOnScroll(0);
       }
       this.updateSizing();
+      (<any>WindowEventListener).addDebouncedResizeListener(this.updateSizing.bind(this));
       document.documentElement.style.overflowY = 'hidden';
 
       this.ui.element.setAttribute('aria-hidden', 'false');
@@ -71,6 +74,11 @@ class Modal extends Module {
       // If there is the navigation topic list a child, then load the navigation
       if (this.ui.element.querySelector('.mdl-topiclist--nav')) {
         this.ui.element.querySelector('.mdl-topiclist--nav').dispatchEvent(new CustomEvent('loadNavigation'));
+      }
+      // reload Single page Applications scripts in case of asynchronous loading
+      const spa = this.ui.element.querySelector(this.options.domSelectors.singlePageApp);
+      if (spa) {
+        spa.dispatchEvent(new CustomEvent('Application.initScripts'));
       }
     });
     this.eventDelegate.on('Modal.initContent', () => {
