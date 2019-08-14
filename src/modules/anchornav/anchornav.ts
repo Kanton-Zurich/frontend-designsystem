@@ -218,7 +218,8 @@ class Anchornav extends Module {
     this.scrollReferences = [];
 
     for (let i = 0; i < this.ui.navItems.length; i += 1) {
-      const element = document.querySelector(this.ui.navItems[i].dataset.href);
+      const selectorString = `[id= ${this.ui.navItems[i].dataset.href.split('#')[1]} ]`;
+      const element = document.querySelector(selectorString);
       const itemLeft = Math.abs(this.ui.navItems[i].getBoundingClientRect().left);
       const hTriggerPos = itemLeft - this.ui.scrollContent.getBoundingClientRect().left;
       if (element !== null) {
