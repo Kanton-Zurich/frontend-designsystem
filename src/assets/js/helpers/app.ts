@@ -28,6 +28,7 @@ import Subnavigation from '../../../modules/subnavigation/subnavigation';
 import OrganisationNavigation from '../../../modules/organisation_navigation/organisation_navigation';
 import PageHeader from '../../../modules/page_header/page_header';
 import SocialMediaStream from '../../../modules/social_media_stream/social_media_stream';
+import ServiceButton from '../../../modules/service_button/service_button';
 import Application from '../../../modules/application/application';
 /* autoinsertmodulereference */ // eslint-disable-line
 
@@ -64,6 +65,7 @@ class App {
     this.modules.organisationNavigation = OrganisationNavigation;
     this.modules.pageHeader = PageHeader;
     this.modules.socialMediaStream = SocialMediaStream;
+    this.modules.serviceButton = ServiceButton;
     this.modules.application = Application;
     /* autoinsertmodule */ // eslint-disable-line
 
@@ -73,6 +75,12 @@ class App {
     window[namespace].helpers.initModulesInElement = this.initModulesInElement;
     window[namespace].helpers.app = this;
     window[namespace].form = new FormGlobalHelper();
+    const bodyElement = document.querySelector('[data-body-element]');
+    if (bodyElement) {
+      window[namespace].helpers.bodyElement = bodyElement;
+    } else {
+      window[namespace].helpers.bodyElement = document.body;
+    }
 
     // Check for touch support
     const hasTouchSupport = 'ontouchstart' in window || navigator.msMaxTouchPoints;
