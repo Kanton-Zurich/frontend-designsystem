@@ -129,6 +129,7 @@ class Stepper extends Module {
     this.deactiveSteps();
 
     if (this.ui.navigation) {
+      this.log('test');
       this.ui.navigation.dispatchEvent(new CustomEvent(Stepper.events.stepChange, {
         detail: {
           newStep: newValue,

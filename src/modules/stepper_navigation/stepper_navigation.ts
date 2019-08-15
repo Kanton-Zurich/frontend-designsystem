@@ -23,6 +23,7 @@ class StepperNavigation extends Module {
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
+      active: 0,
     };
     const defaultOptions = {
       domSelectors: {
@@ -74,6 +75,8 @@ class StepperNavigation extends Module {
     if (before !== null) {
       this.ui.step[before].classList.remove(this.options.stateClasses.activeStep);
     }
+
+    this.log(after);
 
     this.ui.step[after].classList.add(this.options.stateClasses.activeStep);
     this.ui.step[after].classList.remove(this.options.stateClasses.visitedStep);
