@@ -16,7 +16,7 @@ class LineClamper {
   constructor() {
     this.options = {
       selector: '[data-lineclamp="true"]',
-      maxIterations: 100,
+      maxIterations: 1000,
     };
   }
 

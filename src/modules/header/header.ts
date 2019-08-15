@@ -113,21 +113,25 @@ class Header extends Module {
   }
 
   hideFlyout(unsetClasses) {
-    this.data.activeModal.dispatchEvent(new CustomEvent('Modal.close'));
+    if (this.data.activeModal) {
+      this.data.activeModal.dispatchEvent(new CustomEvent('Modal.close'));
 
-    if (unsetClasses) {
-      setTimeout(this.unsetClasses.bind(this), this.options.transitionDelays.small);
+      if (unsetClasses) {
+        setTimeout(this.unsetClasses.bind(this), this.options.transitionDelays.small);
+      }
     }
   }
 
   unsetClasses() {
-    this.ui.element.classList.remove(this.options.stateClasses.open);
-    this.ui.element.classList.remove(this.options.colorClasses.monochrome);
-    this.data.activeItem.classList.remove(this.options.stateClasses.activeItem);
-    document.documentElement.classList.remove(this.options.stateClasses.fixedHeader);
+    if (this.data.activeModal) {
+      this.ui.element.classList.remove(this.options.stateClasses.open);
+      this.ui.element.classList.remove(this.options.colorClasses.monochrome);
+      this.data.activeItem.classList.remove(this.options.stateClasses.activeItem);
+      document.documentElement.classList.remove(this.options.stateClasses.fixedHeader);
 
-    this.data.activeModal = null;
-    this.data.activeItem = null;
+      this.data.activeModal = null;
+      this.data.activeItem = null;
+    }
   }
 
   /**

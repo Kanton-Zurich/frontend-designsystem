@@ -37,10 +37,10 @@ class ServiceList extends Module {
       .call(this.ui.element.querySelectorAll(this.options.domSelectors.items));
     serviceElements.forEach((service) => {
       service.addEventListener('click', (event) => {
+        const modal = document.querySelector(`#${service.getAttribute('aria-controls')}`);
         const openModal = () => {
-          this.ui.element.querySelector(`#${service.getAttribute('aria-controls')}`).dispatchEvent(new CustomEvent('Modal.open'));
+          modal.dispatchEvent(new CustomEvent('Modal.open'));
         };
-        const modal = this.ui.element.querySelector(`#${service.getAttribute('aria-controls')}`);
         if (modal.getAttribute('data-loaded')) {
           openModal();
         } else {
@@ -49,7 +49,7 @@ class ServiceList extends Module {
             elem.innerHTML = data;
             modal.innerHTML = elem.querySelector('#lightbox-content').innerHTML;
             modal.setAttribute('data-loaded', 'true');
-            this.ui.element.querySelector(`#${service.getAttribute('aria-controls')}`).dispatchEvent(new CustomEvent('Modal.initContent'));
+            modal.dispatchEvent(new CustomEvent('Modal.initContent'));
             openModal();
           });
         }
