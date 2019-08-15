@@ -196,12 +196,12 @@ const variants = _.mapValues({
     },
   },
 }, (variant) => {
-  // eslint-disable-next-line
+  // eslint-disable
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
-    if (key === 'rows' || Array.isArray(variantValue)) { return variantValue; }
+    if (key === 'rows' || Array.isArray(variantValue)) { return variantValue; }
   }).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
+  const variantData = _.mergeWith({}, data, variant, {
     meta: {
       demo: compiledVariant,
 
@@ -211,10 +211,13 @@ const variants = _.mapValues({
         data: dataHelper.getFormattedJson(variantProps),
       },
     },
+  }, (dataValue, variantValue, key) => {
+    if (key === 'rows' || Array.isArray(variantValue)) { return variantValue; }
   });
 
   return variantData;
 });
+
 
 data.variants = variants;
 

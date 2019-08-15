@@ -6,9 +6,9 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('stepper_navigation.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'StepperNavigation',
+    title: 'Formular-Navigation',
     className: 'StepperNavigation',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-850',
     documentation: dataHelper.getDocumentation('stepper_navigation.md'),
   },
   props: {

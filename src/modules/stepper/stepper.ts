@@ -100,10 +100,12 @@ class Stepper extends Module {
       return false;
     });
 
-    this.ui.navigation.addEventListener(StepperNavigation.events.navigationChange,
-      (event) => {
-        this.data.active = (<any>event).detail.clickedPage;
-      });
+    if (this.ui.navigation) {
+      this.ui.navigation.addEventListener(StepperNavigation.events.navigationChange,
+        (event) => {
+          this.data.active = (<any>event).detail.clickedPage;
+        });
+    }
   }
 
   /**

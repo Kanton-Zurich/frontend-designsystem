@@ -6,10 +6,12 @@ const defaultData = require('../../data/default.data.js');
 const formVariants = require('../form/form.data').variants;
 const notification = require('../../atoms/notification/notification.data').variants;
 
+console.log(formVariants.careerInfo.props.rows[1]);
+
 const template = dataHelper.getFileContent('stepper.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Stepper',
+    title: 'Formularschritte',
     className: 'Stepper',
     jira: 'CZHDEV-850',
     documentation: dataHelper.getDocumentation('stepper.md'),
@@ -33,6 +35,15 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+  },
+  withoutNavigation: {
+    meta: {
+      title: 'Ohne Navigation',
+      desc: 'Implementierung der Formularschritte',
+    },
+    props: {
+      navigation: false,
     },
   },
 }, (variant) => {
