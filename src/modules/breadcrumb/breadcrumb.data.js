@@ -13,7 +13,7 @@ const data = _.merge({}, defaultData, {
     className: 'Breadcrumb',
     jira: 'CZHDEV-436',
     documentation: dataHelper.getDocumentation('breadcrumb.md'),
-    disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue'],
+    disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
     defaultColorVariation: 'cv-blue',
   },
   props: {
