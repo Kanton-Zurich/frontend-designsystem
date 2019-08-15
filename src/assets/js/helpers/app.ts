@@ -4,7 +4,6 @@
  * @license APLv2
  */
 import namespace from './namespace';
-import loadPolyfills from './polyfills';
 
 /** Demo modules * */
 // import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
@@ -96,8 +95,6 @@ class App {
   }
 
   async start() {
-    await loadPolyfills();
-
     this.registerModules();
     this.initModuleInitialiser();
     this.registerForms();
