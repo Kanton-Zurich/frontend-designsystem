@@ -19,14 +19,12 @@ export const rescheduleViewSelectorsValues: RescheduleViewSelectors = {
   weekDayHeads: '[data-biometrie_appointment=weekDayHead]',
   weekDaySlotsContainer: '[data-biometrie_appointment=weekDaySlots]',
   slotSelectTemplate: '[data-biometrie_appointment=slotSelectTemplate]',
-  slotEmptyTemplate: '[data-biometrie_appointment=slotEmptyTemplate]',
   slotSelect: '[data-biometrie_appointment=timeSlotSelect]',
   selectionDetailsWrapper: '[data-biometrie_appointment=selection-details__wrapper',
   selectionDetailsDate: '[data-biometrie_appointment=selection-details__date',
   selectionDetailsCapacity: '[data-biometrie_appointment=selection-details__capacity',
-  cancelBtn: '[data-biometrie_appointment=cancelBtn]',
   doRescheduleBtn: '[data-biometrie_appointment=doScheduleSelected]',
-  slotFullOverlay: '[data-biometrie_appointment=slotFullOverlay]',
+  slotFullMsg: '[data-biometrie_appointment=slotFullMsg]',
 };
 
 export interface RescheduleViewSelectors {
@@ -41,14 +39,12 @@ export interface RescheduleViewSelectors {
   weekDayHeads: string,
   weekDaySlotsContainer: string,
   slotSelectTemplate: string,
-  slotEmptyTemplate: string,
   slotSelect: string,
   selectionDetailsWrapper: string;
   selectionDetailsDate: string,
   selectionDetailsCapacity: string;
-  cancelBtn: string,
   doRescheduleBtn: string,
-  slotFullOverlay: string;
+  slotFullMsg: string;
 }
 interface RescheduleViewData {
   appointment: Appointment;
@@ -69,7 +65,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     .querySelector<HTMLDivElement>(this.selectors.capacityMsgTemplate).firstChild.cloneNode(true);
   private otherSlotsContainer = document
     .querySelector<HTMLElement>(this.selectors.otherSlotsContainer);
-  private slotFullOverlay = document.querySelector<HTMLElement>(this.selectors.slotFullOverlay);
+  private slotFullMsg = document.querySelector<HTMLElement>(this.selectors.slotFullMsg);
 
   constructor(_data: any, _selectors: RescheduleViewSelectors) {
     super(_selectors, _data);
@@ -97,13 +93,11 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
         this.log('Request to previous week slots triggered');
         this.getAndRenderWeek(false);
       })
-      .on('click', this.selectors.cancelBtn, () => {
-        this.prepareView();
-        this.resetView();
-      })
       .on('click', this.selectors.doRescheduleBtn, () => {
         this.requestTimeslot(this.selectedSlot);
       });
+
+    this.addWeekDayHeadListeners();
   }
 
 
@@ -120,7 +114,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
 
           if (rejectionCause && rejectionCause instanceof ApiConnectionFailure) {
             if ((rejectionCause as ApiConnectionFailure).type === ApiFailureType.SLOT_FULL) {
-              this.slotFullOverlay.classList.add('show');
+              this.handleSlotFull(timeslot.id);
               return;
             }
           }
@@ -129,6 +123,18 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
           this.data.loading = false;
         });
     }
+  }
+
+  private handleSlotFull(timeslotId: string):void {
+    this.slotFullMsg.classList.add('show');
+    const detailWrapper = document
+      .querySelector<HTMLElement>(this.selectors.selectionDetailsWrapper);
+    detailWrapper.classList.remove('next');
+    detailWrapper.classList.add('none');
+
+    const timeSlotEl = document
+      .querySelector<HTMLElement>(`[data-timeslot-id="${timeslotId}"]`);
+    timeSlotEl.classList.add('disabled');
   }
 
   public prepareView(): void {
@@ -245,8 +251,6 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
 
     const slotSelectTemplate = document
       .querySelector<HTMLElement>(this.selectors.slotSelectTemplate).firstElementChild;
-    const slotEmptyTemplate = document
-      .querySelector<HTMLElement>(this.selectors.slotEmptyTemplate).firstElementChild;
 
     const weekdayColumnsNodeList = this.otherSlotsContainer
       .querySelectorAll<HTMLDivElement>(this.selectors.weekDayColumns);
@@ -260,8 +264,6 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
         daysSlots.forEach((timeslot) => {
           if (timeslot.capacity > 0) {
             this.appendSlotBtn(slotsCon, slotSelectTemplate, timeslot);
-          } else {
-            slotsCon.appendChild(document.importNode(slotEmptyTemplate, true));
           }
         });
       } else if (!colEl.classList.contains('no-slots-available')) {
@@ -286,11 +288,8 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     if (templateContent) {
       const slotElement = document.importNode(templateContent, true);
       const { innerHTML } = slotElement;
-      const timeStr = timeslot.getTimeStr();
-      const startDateStr = DateHelper.getTrimTimeStr(timeslot.startDate);
-      const timeHtml = `<span class="hidden-small-down">${timeStr}</span><span class="hidden-small-up">${startDateStr}</span>`;
       if (innerHTML) {
-        slotElement.innerHTML = innerHTML.replace('{timeslot-range}', timeHtml);
+        slotElement.innerHTML = innerHTML.replace('{timeslot-range}', timeslot.getTimeStr());
       }
       const slotSelect = slotElement.querySelector(this.selectors.slotSelect);
       if (slotSelect) {
@@ -317,6 +316,18 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
       });
       headEl.innerHTML = `<div class="weekday-head__day_short">${dayShort}</div><div class="weekday-head__day">${dayName}</div><div class="weekday-head__date">${dayDate}</div>`;
     });
+  }
+
+  private addWeekDayHeadListeners(): void {
+    const weekdayHeads = this.otherSlotsContainer
+      .querySelectorAll<HTMLDivElement>(this.selectors.weekDayHeads);
+    weekdayHeads.forEach((headEl, i) => {
+      headEl.addEventListener('click', () => {
+        this.otherSlotsContainer.setAttribute('data-selected-weekday', `${i}`);
+      });
+    });
+    // initally set to first col.
+    this.otherSlotsContainer.setAttribute('data-selected-weekday', '0');
   }
 
   private onSlotSelect(ev: Event): void {
@@ -349,12 +360,13 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     if (slot) {
       detailWrapper.classList.add('show');
       detailWrapper.classList.remove('next');
+      detailWrapper.classList.remove('none');
       detailDate.innerText = `${slot.getDateStr()} ${slot.getTimeStr()}`;
 
       const capacityMsg = this.capacityMsgClone.textContent;
       detailCapacity.innerText = capacityMsg.replace('{schalter}', slot.capacity.toString());
     } else {
-      detailWrapper.classList.remove('show');
+      detailWrapper.classList.add('none');
       detailDate.innerText = '';
       detailCapacity.innerText = '';
     }
@@ -370,7 +382,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
   }
 
   private resetView(doClearSelection?: boolean): void {
-    this.slotFullOverlay.classList.remove('show');
+    this.slotFullMsg.classList.remove('show');
     document.querySelectorAll<HTMLElement>(this.selectors.weekDaySlotsContainer)
       .forEach((slotCon) => {
         slotCon.innerHTML = '';

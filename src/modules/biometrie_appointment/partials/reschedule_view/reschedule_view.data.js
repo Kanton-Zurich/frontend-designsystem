@@ -11,7 +11,7 @@ const data = _.merge({}, defaultData, {
       slotCapacityMsg: 'An diesem Termin gibt es noch {schalter} freie(n) Schalter.',
       otherSlotsHeading: 'Termin wählen',
       noOpenSlotsMsg: 'Keine Termine',
-      blockedSlotInfo: '<strong>Diesen Termin hat soeben jemand reserviert.<br/>Er ist nicht mehr verfügbar.</strong>',
+      blockedSlotInfo: 'Diesen Termin hat soeben jemand reserviert. Er ist nicht mehr verfügbar.',
     },
     nextWeekBtn: _.merge({}, defaultButtonData, {
       isTextVisible: false,
@@ -52,36 +52,23 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
-  mockFew: {
+  mockData: {
     meta: {
-      title: 'DEMO mit DummyDaten (wenige)',
+      title: 'DEMO mit DummyDaten',
       desc: 'Füllt die Ansicht mit Dummy TimeSlots.',
     },
     props: {
       withMockedData: true,
-      isMockDataMore: false,
-      isSlotFull: false,
-    },
-  },
-  mockFewAndMuch: {
-    meta: {
-      title: 'DEMO mit DummyDaten (wenige und viele)',
-      desc: 'Füllt die Ansicht mit Dummy TimeSlots.',
-    },
-    props: {
-      withMockedData: true,
-      isMockDataMore: true,
       isSlotFull: false,
     },
   },
   demoSlotFull: {
     meta: {
-      title: 'DEMO Overlay slotfull',
-      desc: 'Zeigt das Overlay für den Fall, dass der angefragte Timeslot ausgebucht ist.',
+      title: 'DEMO Slotfull',
+      desc: 'Zeigt die Meldung für den Fall, dass der angefragte Timeslot ausgebucht ist.',
     },
     props: {
       withMockedData: true,
-      isMockDataMore: true,
       isSlotFull: true,
     },
   },
