@@ -33,9 +33,12 @@
 @import '../../atoms/text_link/text_link';
 @import '../../atoms/context_menu_item/context_menu_item';
 @import '../../atoms/lead/lead';
+@import '../../atoms/paragraph/paragraph';
 @import '../../atoms/anchorlink/anchorlink';
 @import '../../atoms/content_teaser/content_teaser';
-@import '../../atoms/iframe/iframe';
+@import '../../atoms/form_input/form_input';
+@import '../../atoms/radiobutton/radiobutton';
+@import '../../atoms/checkbox/checkbox';
 //*autoinsertatom*
 
 // Modules
@@ -73,6 +76,25 @@
 @import '../../modules/related_content/related_content';
 @import '../../modules/focus_card/focus_card';
 @import '../../modules/focus_teaser/focus_teaser';
+@import '../../modules/anchornav/anchornav';
+@import '../../modules/tabs/tabs';
+@import '../../modules/service_list/service_list';
+@import '../../modules/about/about';
+@import '../../modules/header/header';
+@import '../../modules/search/search';
+@import '../../modules/modal/modal';
+@import '../../modules/person_card/person_card';
+@import '../../modules/people_teaser/people_teaser';
+@import '../../modules/news_teaser/news_teaser';
+@import '../../modules/iframe/iframe';
+@import '../../modules/social_media_links/social_media_links';
+@import '../../modules/social_media_stream/social_media_stream';
+@import '../../modules/social_media_post/social_media_post';
+@import '../../modules/subnavigation/subnavigation';
+@import '../../modules/organisation_teaser/organisation_teaser';
+@import '../../modules/organisation_navigation/organisation_navigation';
+@import '../../modules/service_button/service_button';
+@import '../../modules/application/application';
 //*autoinsertmodule*
 
 @media print {

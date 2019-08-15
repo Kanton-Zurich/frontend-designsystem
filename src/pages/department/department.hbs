@@ -1,0 +1,23 @@
+{{#extend "layouts/layout"}}
+  {{#content "header"}}
+    <header>
+      {{> "modules/page_header/page_header" props.modules.pageHeader}}
+    </header>
+  {{/content}}
+
+  {{#content "content"}}
+      {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
+      {{> "modules/topiclist/topiclist" props.modules.topiclist }}
+      {{> "modules/about/about" props.modules.about }}
+      {{> "modules/news_teaser/news_teaser" props.modules.newsTeaser }}
+      {{> "modules/contact/contact" props.modules.contact }}
+      {{> "modules/teaser/teaser" props.modules.teaser }}
+      <h1>(--SOCIAL MEDIA STREAM--)</h1>
+  {{/content}}
+
+  {{#content "footer"}}
+    <footer id="contentinfo">
+      <h1 class="visuallyhidden">Fussbereich</h1>
+    </footer>
+  {{/content}}
+{{/extend}}

@@ -1,11 +1,9 @@
 <div class="mdl-focus_teaser">
-  {{#if hasHeader }}
-  <h2 class="atm-heading atm-heading--bordered ">Das könnte Sie auch interessieren</h2>
-  <div class="mdl-richtext">
-  <p>
-    Sie Sicherheitsdirektion kümmert sich um ein grosens Leistungsspektrum des Kantons. Die folgenden Schwerpunkte liegen uns besonders am Herzen.
+  {{#if focusTeaserHeader }}
+  <h2 class="atm-heading atm-heading--bordered"{{#if focusTeaserHeader.anchorNavReference}} id="{{focusTeaserHeader.anchorNavReference}}"{{/if}}>{{focusTeaserHeader.title}}</h2>
+  <p class="atm-paragraph">
+    {{focusTeaserHeader.text}}
   </p>
-  </div>
   {{/if}}
   {{#each items}}
     {{> "modules/focus_card/focus_card" this}}

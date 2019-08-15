@@ -43,14 +43,14 @@
   &__content {
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
     // 4.2 because of line height 1.4 multiply with max 3 lines (1.4 * 3)
-    @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 4.2));
+    @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 4.2), 5);
 
     overflow-y: hidden;
     display: block;
 
     @include mq($to: medium) {
       // 2.8 because of line height 1.4 multiplied with max 2 lines (1.4 * 2)
-      @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 2.8));
+      @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 2.8), 5);
     }
   }
 
@@ -70,6 +70,15 @@
 
     &:after {
       display: none;
+    }
+  }
+
+  &[ disabled='disabled' ] {
+    cursor: default;
+    pointer-events: none;
+
+    .atm-content_teaser__title {
+      color: $colorBlack !important; //stylelint-disable-line
     }
   }
 }

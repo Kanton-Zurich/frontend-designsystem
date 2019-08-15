@@ -90,6 +90,15 @@ $sizeLineHeightMedium: 1.3;
 $sizeLineHeightBigger: 1.4;
 $sizeLineHeightBase: 1.5;
 
+$lineHeightCurves: (
+  nav: (
+    tiny: $sizeLineHeightBase,
+    xsmall: $sizeLineHeightMedium,
+    medium: $sizeLineHeightBigger,
+    xlarge: $sizeLineHeightBase,
+  ),
+);
+
 /**
  * Breakpoints
  */
@@ -102,11 +111,13 @@ $sizeBreakpointLarge: 1024px;
 $sizeBreakpointXLarge: 1280px;
 
 // Size Curves
+$sizeMini: 4px;
 $sizeTiny: 8px;
 $sizeSmallRegular: 12px;
 $sizeRegular: 16px;
 $sizeSmallLarge: 20px;
 $sizeLarge: 24px;
+$sizeSmallBig: 28px;
 $sizeBig: 32px;
 $sizeBiggerBig: 40px;
 $sizeSmallHuge: 48px;
@@ -267,6 +278,7 @@ $fontWeightDefault: 400;
 $colorBlack: $colorBlack100;
 $colorText: $colorBlack100;
 $colorBg: $colorBlack5;
+$colorBorderFrameHover: #e4e4e4;
 
 /**
  * Color variations
@@ -305,10 +317,12 @@ $transitionEasingDecelerate: cubic-bezier(0.01, 0.13, 0.63, 0.99);
 /**
  * Z-Indexes
  */
+$zIndexInvisible: -1;
 $zIndexInner: 1;
 $zIndexDropDowns: 10;
 $zIndexScaffolds: 100; // for fixed header/ footer
 $zIndexOverlays: 1000;
+$zIndexFlyouts: 1100;
 $zIndexSkiplinks: 2000;
 $zIndexFlyingFocus: 9999;
 
@@ -319,5 +333,10 @@ $zIndexFlyingFocus: 9999;
 
 html {
   -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  [ data-lineclamp="true" ] { //stylelint-disable-line
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+  }
 }
 

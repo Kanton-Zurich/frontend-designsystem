@@ -1,12 +1,19 @@
 <div class="
   mdl-content_nav
-  {{#ifLengthBetween items 1 1}}mdl-content_nav--single-column{{/ifLengthBetween}}
-  {{#ifLengthBetween items 2 4}}mdl-content_nav--two-columns{{/ifLengthBetween}}"
+  {{#if forceTwoColums}}mdl-content_nav--two-columns{{/if}}
+  {{#unless forceTwoColumns}}
+    {{#ifLengthBetween items 1 1}}mdl-content_nav--single-column{{/ifLengthBetween}}
+    {{#ifLengthBetween items 2 4}}mdl-content_nav--two-columns{{/ifLengthBetween}}
+  {{/unless}}
+  {{#if additionalClasses}} {{{additionalClasses}}}{{/if}}"
+  {{#if anchorNavReference}} id="{{anchorNavReference}}"{{/if}}
   data-init="contentNav"
+  aria-live="polite"
+  {{#if selector}}{{{selector}}}{{/if}}
 >
   <ul class="mdl-content_nav__list">
     {{#each items}}
-      <li class="mdl-content_nav__item{{#if_compare @index ">" 11}} mdl-content_nav__item--hidden{{/if_compare}}">
+      <li class="mdl-content_nav__item">
         {{> "atoms/content_teaser/content_teaser" this}}
       </li>
     {{/each}}

@@ -1,0 +1,112 @@
+$headerCurves: (
+  height: (
+    tiny: 48px,
+    xsmall: 56px,
+    medium: 72px
+  ),
+  heightWithBorder: (
+    tiny: 53px,
+    xsmall: 61px,
+    medium: 77px
+  )
+);
+
+.mdl-header {
+  @include gridBleed($fullwidth: true);
+
+  padding-bottom: pxToRem(5px);
+  position: relative;
+
+  @include transition(background);
+
+
+  &--open {
+    position: fixed;
+    top: 0;
+
+    margin-left: 0;
+    transform: none;
+    left: 0;
+
+    z-index: $zIndexFlyouts;
+  }
+
+  &__wrapper {
+    &:after {
+      height: 5px;
+      background: $colorWhite;
+
+      width: 100vw;
+      position: absolute;
+      display: block;
+      content: ' ';
+
+      @include transition(background);
+    }
+  }
+
+  &__navigation {
+    display: flex;
+
+    @include resetList;
+
+    li {
+      margin-right: pxToRem($sizeFontLarge);
+    }
+  }
+
+  &__nav-item {
+    @include sizeCurve(line-height, nav, $lineHeightCurves, $pxToRem: false);
+    @include sizeCurve(height, height, $headerCurves);
+
+    display: flex;
+    align-items: center;
+
+    color: $colorWhite;
+
+    @include transition(color);
+
+    &--active {
+      font-weight: $fontWeightBlack;
+    }
+  }
+
+  /** Special design for header */
+  .mdl-search {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-header {
+      background: $val;
+    }
+  }
+}
+
+// Monochrome version
+.cv-monochrome {
+  .mdl-header {
+    background: $colorWhite;
+
+    &__nav-item {
+      color: $colorBlack100;
+    }
+
+    &__wrapper:after {
+      background: $colorBlack;
+    }
+  }
+}
+
+.cv-monochrome.mdl-header {
+  background: $colorWhite;
+}
+
+/** SPECIAL STYLE FOR HTML-TAG TO ADD PADDING TO COMPENSATE FIXED HEADER */
+html.fixed-header {
+  @include sizeCurve(padding-top, heightWithBorder, $headerCurves);
+}

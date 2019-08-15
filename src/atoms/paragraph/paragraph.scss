@@ -1,0 +1,34 @@
+.atm-paragraph {
+  margin-top: 0;
+  line-height: $sizeLineHeightBase;
+  color: rgba($colorBlack, 0.6);
+  hyphens: auto;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid $colorBlue;
+
+    &:hover {
+      color: $colorBlack;
+      border-color: $colorBlack;
+    }
+  }
+
+  @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+  @include sizeCurve('margin-bottom', regular);
+}
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .atm-paragraph {
+      a {
+        border-color: #{$val};
+
+        &:hover {
+          border-color: $colorBlack;
+        }
+      }
+    }
+  }
+}

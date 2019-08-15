@@ -5,25 +5,52 @@ $leadFontCurve: (
 );
 
 .mdl-topiclist {
-  padding: $sizeHuge 0;
 
-  &__heading {
-    padding-top: $sizeSmallRegular;
-  }
-
-  &__lead {
-    @include polyFluidSizing('font-size', $leadFontCurve);
-    line-height: $sizeLineHeightBase;
-    padding: $sizeTiny 0 $sizeRegular;
-    margin: 0;
-  }
+  @include sizeCurve('margin-top', big);
+  @include sizeCurve('margin-bottom', big);
 
   // Hide items only on default topiclist
-  &:not(&--office) {
+  .mdl-content_nav {
+    &__item:nth-child(1n+13) {
+      display: none;
+    }
+  }
+
+  .mdl-topiclist__autosuggest {
+    display: none;
+
     .mdl-content_nav {
-      &__item--hidden {
+      &__item:nth-child(1n+10) {
         display: none;
       }
+    }
+  }
+
+  &--expanded,
+  &--home,
+  &--office {
+    .mdl-content_nav:not(.mdl-topiclist__autosuggest) {
+      &__item:nth-child(1n+13),
+      &__item:nth-child(1n+10) {
+        display: flex;
+      }
+    }
+  }
+
+  &--expanded {
+    .mdl-topiclist__autosuggest {
+      .mdl-content_nav__item:nth-child(1n+9) {
+        display: flex;
+      }
+    }
+  }
+
+  &--nav {
+    @include sizeCurve(margin-top, large);
+    @include sizeCurve(margin-bottom, large);
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 
@@ -31,12 +58,38 @@ $leadFontCurve: (
     @include gridBleed($fullwidth: true);
     text-align: center;
 
-    .atm-button {
+    .mdl-topiclist__show-all {
       display: inline-flex;
     }
   }
 
-  .atm-button {
+  &__search {
+    display: flex;
+
+    @include sizeCurve(padding-top padding-bottom, regular);
+    align-items: center;
+
+    text-decoration: none;
+    color: $colorBlack60;
+
+    .icon {
+      margin-right: $sizeTiny;
+
+      use {
+        fill: $colorBlack60;
+      }
+    }
+
+    &:hover {
+      color: $colorBlack100;
+
+      .icon use {
+        fill: $colorBlack100;
+      }
+    }
+  }
+
+  .mdl-topiclist__show-all {
     margin: $sizeLarge 0;
 
     svg {
@@ -45,16 +98,58 @@ $leadFontCurve: (
     }
   }
 
+  .atm-heading {
+    padding-top: $sizeSmallRegular;
+    margin-bottom: $sizeLarge;
+  }
+
   @include mq($from: large) {
-    padding: $sizeGiant 0;
+    .atm-heading {
+      margin-bottom: $sizeBig;
+    }
   }
   @include mq($from: xlarge) {
-    &__lead {
-      padding: $sizeRegular 0 $sizeHuge;
+    .atm-heading {
+      margin-bottom: $sizeBiggerBig;
+    }
+  }
+
+  .atm-form_input {
+    @include sizeCurve(margin-bottom, large);
+  }
+
+  /**
+   * SPECIAL STYLES FOR TOPICLIST HOME
+  */
+  &--home {
+    .mdl-topiclist__show-all {
+      display: none;
+    }
+  }
+
+  /** SPECIAL STYLES WHEN LIST IS FILTERED */
+  &--filtered {
+    .mdl-content_nav {
+      &:first-of-type {
+        display: none;
+      }
     }
 
-    .atm-button {
-      margin: $sizeBig 0;
+    .mdl-topiclist__autosuggest {
+      display: inherit;
     }
+  }
+
+  /** Default styles for further layers */
+  [ data-layer ] {
+    display: none;
+
+    &.mdl-topiclist--visible {
+      display: inherit;
+    }
+  }
+
+  &--hidden {
+    display: none;
   }
 }

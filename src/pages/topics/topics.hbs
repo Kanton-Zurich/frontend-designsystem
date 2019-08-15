@@ -4,22 +4,17 @@
       {{> "modules/page_header/page_header" props.modules.pageHeaderData.variants.colored.props}}
     </header>
   {{/content}}
-
   {{#content "content"}}
-    <h1>(--ANKERNAVIGATION PLACEHOLDER--)</h1>
+    {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
     {{> "modules/content_nav/content_nav" props.modules.contentNavData }}
-    <h2 class="atm-heading atm-heading--bordered">Services</h2>
-    <h1>(--SERVICE BOX PLACEHOLDER--)</h1>
-    {{> "modules/contact/contact" props.modules.contactData.variants.fullWidth.props}}
-    <br/>
-    <h2 class="atm-heading atm-heading--bordered">News</h2>
-    <h1>(--NEWS TEASER PLACEHOLDER--)</h1>
-    {{> "modules/related_content/related_content" props.modules.releatedContentData.variants.default.props}}
-    {{> "modules/tag_group/tag_group" props.modules.tagGroupData.variants.default.props}}
+    {{> "modules/service_list/service_list" props.modules.serviceListData }}
+    {{> "modules/contact/contact" props.modules.contactData}}
+    {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
+    {{> "modules/related_content/related_content" props.modules.releatedContentData}}
+    {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
   {{/content}}
-
   {{#content "footer"}}
-    <footer id="contentinfo">
+    <footer id="contentinfo" style="height: 200px;">
       <h1 class="visuallyhidden">Fussbereich</h1>
     </footer>
   {{/content}}

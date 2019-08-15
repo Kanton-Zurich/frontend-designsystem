@@ -1,0 +1,74 @@
+.atm-radiobutton {
+  position: relative;
+  display: inline-flex;
+  padding-left: pxToRem($sizeLarge);
+  padding-right: pxToRem($sizeRegular);
+
+  input {
+    appearance: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: pxToRem($sizeLarge);
+    height: pxToRem($sizeLarge);
+    visibility: hidden;
+
+    &:checked + label:after {
+      border-color: $colorCyan;
+    }
+
+    &:checked + label:before {
+      transform: scale(1);
+    }
+
+    // No cursor when disabled
+    &:disabled + label {
+      cursor: auto;
+    }
+
+    &:disabled + label:after {
+      border-color: $colorBlack20;
+    }
+  }
+
+  label {
+    margin-left: pxToRem($sizeTiny);
+    font-size: pxToRem($sizeFontRegular);
+    line-height: $sizeLineHeightBase;
+    cursor: pointer;
+
+    &:hover:after {
+      border-color: $colorCyan;
+    }
+
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      z-index: 1;
+    }
+
+    &:after {
+      left: 0;
+      top: 0;
+      width: pxToRem($sizeLarge);
+      height: pxToRem($sizeLarge);
+      box-sizing: border-box;
+      border-radius: 50%;
+      border: 2px solid $colorBlack40;
+      transition: 0.2s border-color ease;
+    }
+
+    &:before {
+      left: pxToRem(6px);
+      top: pxToRem(6px);
+      height: pxToRem($sizeSmallRegular);
+      width: pxToRem($sizeSmallRegular);
+      border-radius: 50%;
+      transform: scale(0);
+      transition: 0.2s transform ease;
+      background-color: $colorCyan;
+    }
+  }
+}

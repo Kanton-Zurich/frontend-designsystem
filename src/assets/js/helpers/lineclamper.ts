@@ -16,7 +16,7 @@ class LineClamper {
   constructor() {
     this.options = {
       selector: '[data-lineclamp="true"]',
-      maxIterations: 100,
+      maxIterations: 1000,
     };
   }
 
@@ -26,7 +26,7 @@ class LineClamper {
    * @memberof LineClamper
    */
   public initLineClamping() {
-    this.elements = document.querySelectorAll(this.options.selector);
+    this.elements = [].slice.call(document.querySelectorAll(this.options.selector));
     this.initEventListeners();
     this.setLineClamping();
   }
@@ -40,6 +40,8 @@ class LineClamper {
    */
   private setLineClamping() {
     if (this.elements.length > 0) {
+      // IE Hack so foreach is supported
+      this.elements = [].slice.call(this.elements);
       this.elements.forEach((element) => {
         if (!element.hasAttribute('data-line-clamped')) {
           element.setAttribute('title', element.innerText.trim());
@@ -50,15 +52,16 @@ class LineClamper {
         }
 
         let i = 0;
-        let difference = element.scrollHeight - element.clientHeight;
+        const cHeight = element.clientHeight;
+        let difference = element.scrollHeight - cHeight;
         const heightTolerance = 5;
 
         while (i <= this.options.maxIterations && difference > heightTolerance) {
           element.innerHTML = element.innerHTML.replace(/\W*\s(\S)*$/, '...');
-
-          difference = element.scrollHeight - element.clientHeight;
+          difference = element.scrollHeight - cHeight;
           i += 1;
         }
+        element.style.opacity = 1.0;
       });
     }
   }
@@ -69,6 +72,7 @@ class LineClamper {
    * @memberof LineClamper
    */
   public updateLineClamping() {
+    this.elements = [].slice.call(document.querySelectorAll(this.options.selector));
     this.setLineClamping();
   }
 
@@ -82,6 +86,10 @@ class LineClamper {
     (<any>WindowEventListener).addDebouncedResizeListener(() => {
       this.updateLineClamping();
     }, 'update-line-clamping');
+
+    window.addEventListener('reloadLineClamper', () => {
+      this.updateLineClamping();
+    });
   }
 }
 

@@ -1,0 +1,35 @@
+$subnavigationCurves: (
+  textLinkMarginLeft: (
+    tiny: 0,
+    medium: $sizeRegular,
+    xlarge: $sizeLarge,
+  ),
+  headerPaddingTop: (
+    tiny: $sizeLarge,
+    xlarge: $sizeBig,
+  )
+);
+
+.mdl-subnavigation {
+  &__title {
+    display: flex;
+
+    align-items: baseline;
+
+    @include mq($to: medium) {
+      flex-direction: column;
+
+      .atm-heading {
+        margin-bottom: pxToRem(3px);
+      }
+    }
+
+    .atm-heading {
+      @include sizeCurve(padding-top, headerPaddingTop, $subnavigationCurves);
+    }
+  }
+
+  .atm-text_link {
+    @include sizeCurve(margin-left, textLinkMarginLeft, $subnavigationCurves);
+  }
+}

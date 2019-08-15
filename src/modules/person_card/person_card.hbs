@@ -1,0 +1,21 @@
+<div class="mdl-person_card {{#isPromo}}mdl-person_card--promo{{/isPromo}}">
+  {{#if hasImage}}
+    <div class="mdl-person_card__imagecontainer">
+      <img class="mdl-person_card__image" src="../../assets/media/image/person_card_256_x15.jpg"
+           srcset="../../assets/media/image/person_card_256_x15.jpg 2400w, ../../assets/media/image/person_card_480_x15.jpg 599w" sizes="100vw"
+           sizes="100vw" alt=""/>
+    </div>
+  {{/if}}
+  <div class="mdl-person_card__container">
+    <h{{headingLevel}} class="h4 atm-heading mdl-person_card__name">{{name}}</h{{headingLevel}}>
+    <p class="atm-paragraph mdl-person_card__role">{{role}}</p>
+    {{#if contactInfo}}
+    <p class="atm-paragraph mdl-person_card__contactinfo">
+      {{{contactInfo}}}
+    </p>
+    {{/if}}
+    {{#if hasButton}}
+    <a href="{{detailPageLink}}" class="atm-button atm-button--small atm-button--secondary">{{buttonText}}</a>
+    {{/if}}
+  </div>
+</div>

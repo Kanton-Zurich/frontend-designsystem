@@ -102,7 +102,7 @@ gulp.task('html', () => {
       },
       // Wrap with module layout
       transformBefore: (file) => {
-        if (file.path.match(/(\\|\/)modules(\\|\/)/)) {
+        if (file.path.match(/(\\|\/)modules(\\|\/)/) && file.path.indexOf('.mock.') < 0) {
           return Buffer.from(readFileSyncCached('./src/preview/layouts/module.hbs'));
         }
 
@@ -305,7 +305,7 @@ gulp.task('css', () => {
           'encode_Base64($string)': function ($string) {
             var buffer = new Buffer($string.getValue());
             return nodeSass.types.String(buffer.toString('base64'));
-          }
+          },
         },
       },
       // Use task default (autoprefixer with .browserslistrc config)
@@ -771,6 +771,7 @@ gulp.task('copy', () => {
   const instance = task({
     src: [
       './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
+      './src/assets/media/image/*.svg',
     ],
     srcBase: './src',
     dest: './dist',
@@ -841,7 +842,7 @@ gulp.task('copy:aem', () => {
 gulp.task('clean:aem', (callback) => {
   const del = require('del');
 
-  return del(gulpUtil.env.aemTargetBaseResources, {force: true}, callback);
+  return del(gulpUtil.env.aemTargetBaseResources, { force: true }, callback);
 });
 
 /**
@@ -883,7 +884,7 @@ gulp.task('copy:ci', () => {
       '!./dist/assets/css/*',
       './dist/assets/js/*.min.*',
       './dist/assets/css/*.min.*',
-      './dist/assets/css/critical.css',
+      // './dist/assets/css/critical.css',
       '!./dist/ci/**/*',
       '!./dist/**/*.dev.html',
     ],
@@ -950,7 +951,7 @@ gulp.task('build', (done) => {
     'copy',
     // When starting watcher without building, "css:fonts" will never finish
     // In order for "css" to still run properly, we switch from serial to parallel execution
-    (env.watch && env.skipBuild) ? gulp.parallel('css:fonts', 'css') : gulp.series('css:fonts', 'css', 'critical'),
+    (env.watch && env.skipBuild) ? gulp.parallel('css:fonts', 'css') : gulp.series('css:fonts', 'css' /* , 'critical' */),
   );
   let readEnv = new Promise(resolve => resolve());
 

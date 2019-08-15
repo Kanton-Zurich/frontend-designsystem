@@ -86,7 +86,7 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
    * Type variations
    */
   &--secondary {
-    background: $colorBlack10;
+    background: rgba($colorBlack100, 0.1);
     color: $colorBlack60;
 
     .atm-button__icon use {
@@ -94,7 +94,7 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
     }
 
     &:hover {
-      background: $colorBlack15;
+      background: rgba($colorBlack100, 0.15);
       color: $colorBlack100;
 
       .atm-button__icon use {

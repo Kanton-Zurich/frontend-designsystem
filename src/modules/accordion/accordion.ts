@@ -23,7 +23,9 @@ class Accordion extends Module {
     },
     stateClasses: {
       open: string,
+      transitionEnd: string,
     }
+    transitionTime: number,
   }
 
   public ui: {
@@ -55,7 +57,9 @@ class Accordion extends Module {
       },
       stateClasses: {
         open: 'mdl-accordion__item--open',
+        transitionEnd: 'mdl-accordion__item--transition-end',
       },
+      transitionTime: 100,
     };
 
     super($element, defaultData, defaultOptions, data, options);
@@ -72,23 +76,38 @@ class Accordion extends Module {
     const panel = eventDelegate.parentElement.nextElementSibling;
     const item = eventDelegate.parentElement.parentElement;
     const ariaExpanded = eventDelegate.getAttribute('aria-expanded') === 'true';
+    const verticalIcon = document.documentElement.classList.contains('is-ie') ? item.querySelector(this.options.domSelectors.verticalIcon) : null;
 
     if (ariaExpanded) {
       panel.style.maxHeight = '0px';
 
       panel.setAttribute('aria-hidden', 'true');
 
-      this.setTabindex(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY), '-1');
+      this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), '-1');
+
+      if (verticalIcon) verticalIcon.removeAttribute('transform');
+
+      item.classList.remove(this.options.stateClasses.open);
+      item.classList.remove(this.options.stateClasses.transitionEnd);
     } else {
       panel.style.maxHeight = `${this.calcHeight(panel)}px`;
 
       panel.setAttribute('aria-hidden', 'false');
 
-      this.setTabindex(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY), null);
+      this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), null);
+
+      // CZHDEV - 424, if ie add manual transform
+      if (verticalIcon) verticalIcon.setAttribute('transform', 'rotate(90)');
+
+      item.classList.add(this.options.stateClasses.open);
+
+      // Adding extra class to set overflow to visible, so dropdowns are seen completely
+      setTimeout(() => {
+        item.classList.add(this.options.stateClasses.transitionEnd);
+      }, this.options.transitionTime);
     }
 
     eventDelegate.setAttribute('aria-expanded', !ariaExpanded);
-    item.classList.toggle(this.options.stateClasses.open);
   }
 
   /**
@@ -163,7 +182,8 @@ class Accordion extends Module {
    */
   initTabindex() {
     this.ui.panelContent.forEach((panelContent) => {
-      this.setTabindex(panelContent.querySelectorAll(INTERACTION_ELEMENTS_QUERY), -1);
+      this.setTabindex([].slice
+        .call(panelContent.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), -1);
     });
   }
 

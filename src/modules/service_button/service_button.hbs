@@ -1,0 +1,12 @@
+<a href="{{href}}" class="mdl-service_button " data-init="serviceButton" {{#if external}}target="_blank"{{/if}}
+  {{#unless external}}data-url="{{serviceLink}}" aria-controls="{{modalData.modalId}}"{{/unless}}>
+  <span class="atm-button {{#if isInverted}} atm-button--cv-inverted{{/if}}" aria-hidden="true">
+      <span class="atm-button__text">
+        {{buttonTitle}}
+      </span>
+    </span>
+</a>
+{{#unless external}}
+  <div id="{{modalData.modalId}}" class="mdl-modal mdl-modal--dynamicheader" data-init="modal">
+  </div>
+{{/unless}}

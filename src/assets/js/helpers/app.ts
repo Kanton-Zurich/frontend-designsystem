@@ -15,11 +15,25 @@ import ImageGallery from '../../../modules/image_gallery/image_gallery';
 import Accordion from '../../../modules/accordion/accordion';
 import DownloadList from '../../../modules/download_list/download_list';
 import ContextMenu from '../../../modules/context_menu/context_menu';
-import Teaser from '../../../modules/teaser/teaser';
 import PublicationTeaser from '../../../modules/publication_teaser/publication_teaser';
 import Breadcrumb from '../../../modules/breadcrumb/breadcrumb';
 import Topiclist from '../../../modules/topiclist/topiclist';
+import Anchornav from '../../../modules/anchornav/anchornav';
+import Header from '../../../modules/header/header';
+import Search from '../../../modules/search/search';
+import Modal from '../../../modules/modal/modal';
+import ServiceList from '../../../modules/service_list/service_list';
+import Tabs from '../../../modules/tabs/tabs';
+import Subnavigation from '../../../modules/subnavigation/subnavigation';
+import OrganisationNavigation from '../../../modules/organisation_navigation/organisation_navigation';
+import PageHeader from '../../../modules/page_header/page_header';
+import SocialMediaStream from '../../../modules/social_media_stream/social_media_stream';
+import ServiceButton from '../../../modules/service_button/service_button';
+import Application from '../../../modules/application/application';
 /* autoinsertmodulereference */ // eslint-disable-line
+
+import Form from './form.class';
+import FormGlobalHelper from './form';
 
 class App {
   public initEvents = [];
@@ -38,14 +52,35 @@ class App {
     this.modules.accordion = Accordion;
     this.modules.downloadList = DownloadList;
     this.modules.contextMenu = ContextMenu;
-    this.modules.teaser = Teaser;
     this.modules.publicationTeaser = PublicationTeaser;
     this.modules.breadcrumb = Breadcrumb;
     this.modules.topiclist = Topiclist;
+    this.modules.anchornav = Anchornav;
+    this.modules.header = Header;
+    this.modules.search = Search;
+    this.modules.tabs = Tabs;
+    this.modules.modal = Modal;
+    this.modules.servicelist = ServiceList;
+    this.modules.subnavigation = Subnavigation;
+    this.modules.organisationNavigation = OrganisationNavigation;
+    this.modules.pageHeader = PageHeader;
+    this.modules.socialMediaStream = SocialMediaStream;
+    this.modules.serviceButton = ServiceButton;
+    this.modules.application = Application;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
     window[namespace].helpers.initModule = this.initModule;
+    window[namespace].helpers.registerModulesInElement = this.registerModulesInElement;
+    window[namespace].helpers.initModulesInElement = this.initModulesInElement;
+    window[namespace].helpers.app = this;
+    window[namespace].form = new FormGlobalHelper();
+    const bodyElement = document.querySelector('[data-body-element]');
+    if (bodyElement) {
+      window[namespace].helpers.bodyElement = bodyElement;
+    } else {
+      window[namespace].helpers.bodyElement = document.body;
+    }
 
     // Check for touch support
     const hasTouchSupport = 'ontouchstart' in window || navigator.msMaxTouchPoints;
@@ -65,6 +100,7 @@ class App {
 
     this.registerModules();
     this.initModuleInitialiser();
+    this.registerForms();
   }
 
   initModule(moduleName, element) {
@@ -78,7 +114,11 @@ class App {
   }
 
   registerModules() {
-    [].slice.call(document.querySelectorAll('[data-init]')).forEach((element) => {
+    this.registerModulesInElement(document);
+  }
+
+  registerModulesInElement(queryElement: any) {
+    [].slice.call(queryElement.querySelectorAll('[data-init]')).forEach((element) => {
       const modules = element.dataset.init.split(' ');
 
       modules.forEach((moduleName) => {
@@ -118,12 +158,16 @@ class App {
   }
 
   initModules() {
-    [].slice.call(document.querySelectorAll('[data-init]')).forEach((element) => {
+    this.initModulesInElement(document);
+  }
+
+  initModulesInElement(queryElement: any) {
+    [].slice.call(queryElement.querySelectorAll('[data-init]')).forEach((element) => {
       const modules = element.dataset.init.split(' ');
 
       modules.forEach((moduleName) => {
         if (this.isRegistered(moduleName)
-            && !this.isInitialised(element, moduleName)) {
+          && !this.isInitialised(element, moduleName)) {
           this.initModule(moduleName, element);
         }
       });
@@ -148,6 +192,14 @@ class App {
 
       return null;
     }
+  }
+
+  registerForms() {
+    const forms = document.querySelectorAll('form[novalidate]');
+
+    forms.forEach((form) => {
+      new Form(form);
+    });
   }
 }
 

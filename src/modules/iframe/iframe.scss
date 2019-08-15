@@ -1,0 +1,37 @@
+.mdl-iframe {
+  @include gridBleed($fullwidth: true);
+  color: $colorBlack60;
+  margin-top: pxToRem($sizeHuge);
+  margin-bottom: pxToRem($sizeHuge);
+
+  @include mq($from: xlarge) {
+    margin-top: pxToRem($sizeGiant);
+    margin-bottom: pxToRem($sizeGiant);
+  }
+
+  iframe {
+    width: 100%;
+    border: 2px solid $colorBlack10;
+    margin-bottom: $sizeTiny;
+  }
+
+  &--fullWidth {
+    height: 100%;
+    position: fixed;
+    transform: initial;
+    margin-top: 0;
+    margin-bottom: 0;
+    left: 0;
+
+    iframe {
+      height: 100%;
+      position: relative;
+      border: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  a {
+    color: inherit;
+  }
+}

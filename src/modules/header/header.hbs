@@ -1,0 +1,22 @@
+<header class="mdl-header" data-init="header" role="header">
+  <div class="lyt-wrapper">
+    <div class="grid-margin-x grid-x">
+      <div class="mdl-header__wrapper cell tiny-offset-2 xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-10">
+        <ul class="mdl-header__navigation" role="navigation">
+          {{#each navItem}}
+            <li>
+              <button class="mdl-header__nav-item" data-header="openModal" data-modal="{{modal}}">
+                {{title}}
+              </button>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+  {{> "modules/search/search"}}
+</header>
+
+{{#each modals}}
+  {{> "modules/modal/modal" this}}
+{{/each}}

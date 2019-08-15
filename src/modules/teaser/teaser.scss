@@ -16,6 +16,17 @@ $maxTextLinesDesktop: 4;
 
   @include sizeCurve(margin-bottom, marginBottom, $teaserMargins);
 
+  &--article {
+    margin-bottom: 0;
+    // News Teaser Overwrites
+    & + .mdl-news-teaser {
+      padding-top: 0;
+      padding-bottom: 0;
+      background-color: $white;
+      transform: translateX(-50%);
+    }
+  }
+
   &__content {
     padding: $sizeBig;
     display: flex;
@@ -67,20 +78,16 @@ $maxTextLinesDesktop: 4;
 
     $descripionHeightCurve: (
       tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLines,
-      xsmall: $sizeFontSmall * $sizeLineHeightMedium * $maxTextLines,
-      small: $sizeFontRegular * $sizeLineHeightMedium * $maxTextLinesDesktop,
-      large: $sizeFontBiggerRegular * $sizeLineHeightMedium * $maxTextLinesDesktop,
+      xsmall: $sizeFontSmall * $sizeLineHeightBase * $maxTextLines,
+      small: $sizeFontRegular * $sizeLineHeightBase * $maxTextLinesDesktop,
+      large: $sizeFontBiggerRegular * $sizeLineHeightBase * $maxTextLinesDesktop,
     );
 
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
     @include polyFluidSizing('max-height', $descripionHeightCurve);
 
-    line-height: $sizeLineHeightMedium;
+    line-height: $sizeLineHeightBase;
     overflow: hidden;
-
-    @include mq($to: xsmall) {
-      line-height: $sizeLineHeightBase;
-    }
   }
 
   &__description + div {

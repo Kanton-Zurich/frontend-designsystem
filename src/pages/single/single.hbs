@@ -1,25 +1,29 @@
 {{#extend "layouts/layout"}}
+
   {{#content "header"}}
     <header>
-      <h1 class="visuallyhidden">Navigation</h1>
-
-      {{> "modules/skiplinks/skiplinks" props.modules.skiplinks}}
-	</header>
+      {{> "modules/page_header/page_header" props.modules.pageHeaderData}}
+    </header>
   {{/content}}
 
   {{#content "content"}}
-    <main id="content">
-      <h1>{{props.title}}</h1>
-      {{> "modules/video/video" props.modules.video}}
-      {{> "modules/richtext/richtext" props.modules.richtext}}
-      {{> "modules/image_gallery/image_gallery" props.modules.imageGallery }}
-    </main>
+    {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
+    {{> "modules/topiclist/topiclist" props.modules.topicListData}}
+    <h1 id="eventsTODO">(--VERANSTALTUNGEN KOMPONENTE PLACEHOLDER--)</h1>
+    {{> "modules/contact/contact" props.modules.contactData}}
+    <h1>(--MAP PLACEHOLDER--)</h1>
+    <h1 id="teamTODO">(--PERSONEN-TEASER PLACEHOLDER--)</h1>
+    {{> "modules/teaser/teaser" props.modules.teaserData}}
+    <h1>(--SOCIALMEDIA PLACEHOLDER--)</h1>
+    <h2>SPA</h2>
+    {{> "modules/application/application" props.modules.SPAData}}
+    <h2>iFrame</h2>
+    {{> "modules/iframe/iframe" props.modules.iframeData}}
   {{/content}}
 
   {{#content "footer"}}
     <footer id="contentinfo">
-      <h1 class="visuallyhidden">Fussbereich</h1>
-
+      <h1>(--FOOTER PLACEHOLDER--)</h1>
     </footer>
   {{/content}}
 {{/extend}}

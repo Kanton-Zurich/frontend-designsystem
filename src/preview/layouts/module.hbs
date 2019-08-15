@@ -12,7 +12,6 @@
 
 	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 	<link rel="stylesheet" href="/preview/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
-
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 
   <link rel="stylesheet" href="/preview/assets/css/dev{{#unless env.dev}}.min{{/unless}}.css">
@@ -20,7 +19,7 @@
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
   data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'>
-	<div class="sg_wrapper sg_module {{props.defaultColorVariation}}" id="module_main">
+	<div class="sg_wrapper sg_module {{props.defaultColorVariation}}" id="module_main" data-body-element>
 		<h1 class="sg_title">
 			<a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
 		</h1>
@@ -48,9 +47,16 @@
 							<div class="tab_content" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}">
                 <div class="lyt-wrapper">
                   <div class="sg_demo {{#if props.isInverted}}sg_demo--inverted{{/if}} grid-x grid-margin-x">
-                    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-                      {{{meta.demo}}}
-                    </div>
+                    {{#if meta.noOffset}}
+                      <div class="cell tiny-12">
+                        {{{meta.demo}}}
+                      </div>
+                    {{else}}
+                      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+                        {{{meta.demo}}}
+                      </div>
+                    {{/if}}
+
                   </div>
                 </div>
                 {{#if meta.disabledColorVariations}}
