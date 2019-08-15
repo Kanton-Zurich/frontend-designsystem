@@ -129,7 +129,6 @@ class Stepper extends Module {
     this.deactiveSteps();
 
     if (this.ui.navigation) {
-      this.log('test');
       this.ui.navigation.dispatchEvent(new CustomEvent(Stepper.events.stepChange, {
         detail: {
           newStep: newValue,
@@ -186,6 +185,7 @@ class Stepper extends Module {
   setOnPageChangeFocus() {
     if (this.data.hasNavigation) {
       this.log('hasnavigation');
+      // @TODO: Discuss where to focus has to be set
     } else {
       const step = this.ui.steps[this.data.active];
       const stepTitle = step.querySelector('.form__section-title');
@@ -325,8 +325,6 @@ class Stepper extends Module {
 
   addNotificationEventListeners(notification) {
     const buttons = notification.querySelectorAll('button');
-
-    this.log(buttons);
 
     buttons.forEach((button) => {
       button.addEventListener('click', (event) => {

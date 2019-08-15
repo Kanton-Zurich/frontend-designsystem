@@ -63,7 +63,6 @@ class App {
     this.modules.pageHeader = PageHeader;
     this.modules.socialMediaStream = SocialMediaStream;
     this.modules.stepper = Stepper;
-    this.modules.stepperNavigation = StepperNavigation;
     this.modules.serviceButton = ServiceButton;
     this.modules.application = Application;
     /* autoinsertmodule */ // eslint-disable-line

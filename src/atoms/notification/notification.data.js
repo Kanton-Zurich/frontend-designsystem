@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Popup Nachricht',
     className: 'Notification',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-850',
     documentation: dataHelper.getDocumentation('notification.md'),
   },
   props: {

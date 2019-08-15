@@ -76,8 +76,6 @@ class StepperNavigation extends Module {
       this.ui.step[before].classList.remove(this.options.stateClasses.activeStep);
     }
 
-    this.log(after);
-
     this.ui.step[after].classList.add(this.options.stateClasses.activeStep);
     this.ui.step[after].classList.remove(this.options.stateClasses.visitedStep);
 
