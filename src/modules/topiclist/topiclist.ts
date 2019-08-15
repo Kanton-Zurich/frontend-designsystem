@@ -362,7 +362,11 @@ class Topiclist extends Module {
 
     this.setContentNavOfSubnav(topic, parsedHTML);
 
+    this.log(this.data.currentLayer);
+
     this.data.currentLayer += 1;
+
+    this.log(this.data.currentLayer);
 
     (<HTMLElement>parsedHTML.querySelector(this.options.domSelectors.subnavLayerUp)).focus();
   }
@@ -413,6 +417,8 @@ class Topiclist extends Module {
       event.preventDefault();
 
       const buttonData = JSON.parse(delegate.getAttribute('data-topic'));
+
+      this.log(buttonData);
 
       this.setSubnav(buttonData);
 
