@@ -69,6 +69,8 @@ const data = _.merge({}, defaultData, {
             name: 'prename',
             validation: {
               isRequired: true,
+              pattern: '/^[0-9]{4,4}$/',
+              errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
             },
           })),
       },
