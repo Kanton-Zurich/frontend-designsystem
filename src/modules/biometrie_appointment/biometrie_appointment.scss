@@ -374,26 +374,15 @@ $biometrieViewTransitionDuration: 300ms;
       @include sizeCurve('margin-bottom', medium);
     }
 
-    &__nextopen {
-      @include sizeCurve('margin-bottom', large);
-
-      strong {
-        @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
-      }
-
-      .atm-heading {
-        @include sizeCurve('margin-bottom', regular);
-      }
-    }
-
-    &__scheduleNextBtn {
-      @include sizeCurve('margin-top', regular);
-    }
-
     &__allopen {
 
       &__wrapper {
         @include sizeCurve('margin-top', regular);
+
+        .group-wrapper {
+          overflow: hidden;
+          clear: both;
+        }
 
         ul {
           display: inline-flex;
@@ -409,21 +398,47 @@ $biometrieViewTransitionDuration: 300ms;
               fill: $colorBlack20;
             }
           }
+
+          @include mq($to: small) {
+            width: 100%;
+
+            .details {
+              width: 100%;
+              text-align: center;
+            }
+          }
         }
 
         .btn-line {
           position: relative;
 
-          @include sizeCurve('margin-right', regular);
+          @include sizeCurve('margin-right', tiny);
           @include sizeCurve('bottom', mini);
         }
 
+        @include mq($from: small, $to: medium) {
+          ul {
+            float: left;
+          }
+
+          .btn-line {
+            bottom: 0;
+
+            + .btn-line {
+              @include sizeCurve('bottom', mini);
+
+              display: block;
+            }
+          }
+        }
         @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
       }
 
       &__slotselect {
-        @include sizeCurve('margin-top', medium);
+        @include sizeCurve('margin-top', tiny);
         position: relative;
+        border-bottom: 2px solid $colorBlack100;
+        overflow: hidden;
 
         .column {
           width: 19%;
@@ -439,14 +454,10 @@ $biometrieViewTransitionDuration: 300ms;
           position: relative;
         }
 
-        .col-head {
-          background-image: linear-gradient(to top, rgba(255, 255, 255, 0), $colorWhite pxToRem($sizeFontSmall));
-
-          @include sizeCurve('height', big);
-        }
-
         .slotselect-headrow {
           z-index: 100;
+          border-top: 2px solid $colorBlack100;
+          border-bottom: 2px solid $colorBlack100;
 
           @extend .row;
 
@@ -458,18 +469,28 @@ $biometrieViewTransitionDuration: 300ms;
             font-weight: 900;
 
             @extend .column;
-            @extend .col-head;
 
-            @include sizeCurve('line-height', biggerRegular);
+            @include sizeCurve('line-height', regular);
+            @include sizeCurve('padding-top', regular);
+            @include sizeCurve('padding-bottom', regular);
             @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+
+            &__date {
+              color: $colorBlack60;
+            }
+
+            &__day_short {
+              display: none;
+            }
           }
         }
 
         .slotselect-slotsrow {
-          margin-top: -1 * pxToRem($sizeFontSmall);
-          padding-top: pxToRem($sizeFontSmall);
-          max-height: 64vh;
+          @include sizeCurve(padding-top, mini);
+          height: 40vh;
+          max-height: 450px;
           overflow-y: scroll;
+          overflow-x: hidden;
 
           @extend .row;
 
@@ -498,22 +519,31 @@ $biometrieViewTransitionDuration: 300ms;
                     width: 100%;
                     text-align: center;
                   }
+
+                  &.selected {
+                    background: $colorBlue;
+                    color: $colorWhite;
+                  }
+
+                  &.disabled {
+                    background: $colorBlack5;
+                    color: $colorBlack20;
+                  }
                 }
 
-                .selected {
-                  background: $colorGreen;
-                  color: $colorWhite;
+                &:hover {
+                  button.atm-button {
+                    background: $colorBlack20;
+                    color: $colorBlack100;
+                  }
                 }
               }
             }
 
             .no-openslots-msg {
-              display: none;
-
               @include sizeCurve('padding', regular);
-              @include mq($to: small) {
-                padding: 0;
-              }
+
+              display: none;
             }
 
             &.no-slots-available {
@@ -534,30 +564,71 @@ $biometrieViewTransitionDuration: 300ms;
           @include sizeCurve('margin-bottom', small);
         }
 
-        .timescale-column {
-          display: none;
-          width: 7.5%;
-          text-align: right;
+        @include mq($to: medium) {
 
-          @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+          @each $idx in 0, 1, 2, 3, 4 {
+            &[ data-selected-weekday='#{$idx}' ] {
+              .slotselect-slotsrow {
+                right: $idx * 100%;
+              }
 
-          .slot {
-            visibility: hidden;
+              .weekday-head:nth-child(#{$idx + 1}) {
+                border-bottom: 2px solid $colorBlack100;
+                margin-bottom: -1px;
+              }
+            }
+          }
 
-            &:nth-child(4n+1) {
-              visibility: visible;
+          .slotselect-headrow {
+            border-bottom: 1px solid $colorBlack15;
+
+            .weekday-head {
+              &__day_short {
+                display: block;
+              }
+
+              &__day {
+                display: none;
+              }
+            }
+          }
+
+          .slotselect-slotsrow {
+            width: 500%;
+            transition: right 0.8s ease-in-out;
+
+            .weekday-column {
+              width: 100%;
+              margin-left: 0;
+
+              .weekday-slotscontainer {
+                text-align: left;
+                margin-left: -2%;
+
+                .weekday-slot {
+                  display: inline-block;
+                  width: 30%;
+                  margin-left: 2%;
+                }
+              }
+
+              .no-openslots-msg {
+                padding: 0;
+              }
             }
           }
         }
+        @include mq($to: xsmall) {
+          .slotselect-slotsrow {
+            .weekday-column {
+              .weekday-slotscontainer {
+                margin-left: -2%;
 
-        &.detailed {
-          @include mq($from: small) {
-            .timescale-column {
-              display: inline-block;
-            }
-
-            .column {
-              width: 17.5%;
+                .weekday-slot {
+                  width: 47%;
+                  margin-left: 2%;
+                }
+              }
             }
           }
         }
@@ -565,42 +636,108 @@ $biometrieViewTransitionDuration: 300ms;
     }
 
     &__selectiondetails {
-      &.dropshadow-top {
-        margin-top: 3px;
-        box-shadow: 0 -10px 5px -10px rgba(0, 0, 0, 0.5);
-        min-height: 23px;
+      display: none;
+      overflow: hidden;
+
+      @include sizeCurve('padding-top', regular);
+      @include sizeCurve('padding-bottom', regular);
+
+      &.show {
+        display: block;
+      }
+
+      .atm-button {
+        float: right;
+        height: 2.5rem;
+
+        @include sizeCurve(padding-left padding-right, biggerRegular);
+      }
+
+      @include mq($to: small) {
+        .atm-button {
+          width: 100%;
+
+          .atm-button__text {
+            width: 100%;
+            text-align: center;
+          }
+        }
       }
 
       &__wrapper {
-        display: none;
-        overflow: hidden;
+        float: left;
+        max-width: 65%;
 
-        @include sizeCurve('padding-top', regular);
-        @include sizeCurve('padding-bottom', regular);
+        @include mq($to: small) {
+          max-width: 100%;
+        }
 
-        &.show {
-          display: block;
+        .selection-details {
+
+          &__date {
+            color: $colorBlue;
+          }
+
+          &__counter {
+            @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+          }
+
+          &__byselection {
+            display: block;
+          }
+
+          &__next {
+            display: none;
+          }
+
+          &__none {
+            display: none;
+          }
+        }
+      }
+
+      &.next {
+        .selection-details {
+          &__byselection {
+            display: none;
+          }
+
+          &__next {
+            display: block;
+          }
+        }
+      }
+
+      &.none {
+        .selection-details {
+          &__byselection {
+            display: none;
+          }
+
+          &__date {
+            display: none;
+          }
+
+          &__counter {
+            display: none;
+          }
+
+          &__none {
+            display: block;
+          }
         }
 
         .atm-button {
-          float: left;
-
-          @include sizeCurve('margin-top', regular);
-
-          + .atm-button {
-            float: right;
-          }
+          cursor: not-allowed;
+          pointer-events: none;
+          background-color: $colorBlack40;
+          color: $colorWhite;
         }
       }
     }
 
-    &__blockedslot-overlay {
-      @extend .overlay;
+    &__blockedslot {
       display: none;
-
-      button {
-        @include sizeCurve('margin-top', regular);
-      }
 
       &.show {
         display: block;
@@ -697,8 +834,13 @@ $biometrieViewTransitionDuration: 300ms;
     }
   }
 
+  .strong {
+    color: $colorText;
+    font-weight: 900;
+  }
+
   .lighter {
-    font-weight: 200;
+    color: $colorBlack60;
   }
 
   .hidden-small-down {
@@ -746,6 +888,43 @@ $biometrieViewTransitionDuration: 300ms;
         top: 40%;
       }
       @include sizeCurve('padding', biggerRegular);
+    }
+  }
+
+  .alert.alert-error {
+    display: none;
+    background-color: $colorRed;
+    color: $colorWhite;
+    border-radius: 4px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-left: $sizeSmallHuge;
+    padding-right: $sizeSmallHuge;
+    line-height: $sizeLineHeightNarrow;
+    position: relative;
+    font-weight: 200;
+
+    @include sizeCurve(padding-top padding-bottom, smallerRegular);
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+
+    &:before {
+      content: '!';
+      background-color: $colorWhite;
+      color: $colorRed;
+      text-align: center;
+      border-radius: 50%;
+      font-size: $sizeFontBiggerRegular;
+      font-weight: $fontWeightBlack;
+      line-height: $sizeFontLarge;
+      display: block;
+      position: absolute;
+      left: $sizeRegular;
+      top: calc(50% - 0.75rem);
+      width: $sizeFontLarge;
+    }
+
+    &.show {
+      display: block;
     }
   }
 }

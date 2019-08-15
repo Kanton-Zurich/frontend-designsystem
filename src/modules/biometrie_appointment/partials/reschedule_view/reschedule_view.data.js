@@ -8,17 +8,11 @@ const template = dataHelper.getFileContent('reschedule_view.hbs');
 const data = _.merge({}, defaultData, {
   props: {
     messages: {
-      nextOpenSlotHeading: 'Nächster freier Termin',
       slotCapacityMsg: 'An diesem Termin gibt es noch {schalter} freie(n) Schalter.',
-      otherSlotsHeading: 'Anderen Termin wählen',
-      noOpenSlotsMsg: 'Keine Termine verfügbar',
-      blockedSlotInfo: '<strong>Diesen Termin hat soeben jemand reserviert.<br/>Er ist nicht mehr verfügbar.</strong>',
+      otherSlotsHeading: 'Termin wählen',
+      noOpenSlotsMsg: 'Keine Termine',
+      blockedSlotInfo: 'Diesen Termin hat soeben jemand reserviert. Er ist nicht mehr verfügbar.',
     },
-    scheduleNextBtn: _.merge({}, defaultButtonData, {
-      text: 'Termin reservieren',
-      isPrimary: true,
-      additionalAttribute: 'data-biometrie_appointment="doRescheduleNext"',
-    }),
     nextWeekBtn: _.merge({}, defaultButtonData, {
       isTextVisible: false,
       isSecondary: true,
@@ -36,11 +30,6 @@ const data = _.merge({}, defaultData, {
       isSecondary: true,
       isSmall: true,
       additionalAttribute: 'data-biometrie_appointment="timeSlotSelect"',
-    }),
-    cancelBtn: _.merge({}, defaultButtonData, {
-      text: 'Abbrechen',
-      isSecondary: true,
-      additionalAttribute: 'data-biometrie_appointment="cancelBtn"',
     }),
     scheduleSelectedBtn: _.merge({}, defaultButtonData, {
       text: 'Termin reservieren',
@@ -63,36 +52,23 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
-  mockFew: {
+  mockData: {
     meta: {
-      title: 'DEMO mit DummyDaten (wenige)',
+      title: 'DEMO mit DummyDaten',
       desc: 'Füllt die Ansicht mit Dummy TimeSlots.',
     },
     props: {
       withMockedData: true,
-      isMockDataMore: false,
-      isSlotFull: false,
-    },
-  },
-  mockFewAndMuch: {
-    meta: {
-      title: 'DEMO mit DummyDaten (wenige und viele)',
-      desc: 'Füllt die Ansicht mit Dummy TimeSlots.',
-    },
-    props: {
-      withMockedData: true,
-      isMockDataMore: true,
       isSlotFull: false,
     },
   },
   demoSlotFull: {
     meta: {
-      title: 'DEMO Overlay slotfull',
-      desc: 'Zeigt das Overlay für den Fall, dass der angefragte Timeslot ausgebucht ist.',
+      title: 'DEMO Slotfull',
+      desc: 'Zeigt die Meldung für den Fall, dass der angefragte Timeslot ausgebucht ist.',
     },
     props: {
       withMockedData: true,
-      isMockDataMore: true,
       isSlotFull: true,
     },
   },
