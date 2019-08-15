@@ -6,8 +6,6 @@ const defaultData = require('../../data/default.data.js');
 const formVariants = require('../form/form.data').variants;
 const notification = require('../../atoms/notification/notification.data').variants;
 
-console.log(formVariants.careerInfo.props.rows[1]);
-
 const template = dataHelper.getFileContent('stepper.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -18,10 +16,6 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     title: 'Formular mit Schritten',
-    steps: [
-      formVariants.default.props,
-      formVariants.careerInfo.props,
-    ],
     action: '/mocks/modules/form/form.json',
     confirmation: notification.formConfirmation.props,
     navigation: {
@@ -36,6 +30,12 @@ const variants = _.mapValues({
       title: 'Default',
       desc: 'Default implementation',
     },
+    props: {
+      steps: [
+        formVariants.default.props,
+        formVariants.careerInfo.props,
+      ],
+    },
   },
   withoutNavigation: {
     meta: {
@@ -44,6 +44,9 @@ const variants = _.mapValues({
     },
     props: {
       navigation: false,
+      steps: [
+        formVariants.default.props,
+      ],
     },
   },
 }, (variant) => {

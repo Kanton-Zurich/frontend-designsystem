@@ -70,6 +70,7 @@ class Stepper extends Module {
 
     this.deactiveSteps();
 
+    this.setButtonVisibility();
 
     if (this.ui.navigation) {
       new StepperNavigation(this.ui.navigation, { active: this.data.active }, {});
@@ -158,19 +159,23 @@ class Stepper extends Module {
    * @memberof Stepper
    */
   setButtonVisibility() {
-    if (this.data.active === 0) {
-      this.ui.back.removeAttribute('style');
-    } else {
-      this.ui.back.style.display = 'block';
+    if (this.ui.back) {
+      if (this.data.active === 0) {
+        this.ui.back.removeAttribute('style');
+      } else {
+        this.ui.back.style.display = 'block';
+      }
     }
 
-    // If the second to last page
-    if (this.data.active + 1 === this.ui.steps.length - 1) {
-      this.ui.next.style.display = 'none';
-      this.ui.send.style.display = 'block';
-    } else {
-      this.ui.next.style.display = 'block';
-      this.ui.send.style.display = 'none';
+    if (this.ui.next && this.ui.send) {
+      // If the second to last page
+      if (this.data.active + 1 === this.ui.steps.length - 1) {
+        this.ui.next.style.display = 'none';
+        this.ui.send.style.display = 'block';
+      } else {
+        this.ui.next.style.display = 'block';
+        this.ui.send.style.display = 'none';
+      }
     }
 
     // If the last page show no buttons
