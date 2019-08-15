@@ -26,7 +26,6 @@ import OrganisationNavigation from '../../../modules/organisation_navigation/org
 import PageHeader from '../../../modules/page_header/page_header';
 import SocialMediaStream from '../../../modules/social_media_stream/social_media_stream';
 import Stepper from '../../../modules/stepper/stepper';
-import StepperNavigation from '../../../modules/stepper_navigation/stepper_navigation';
 import ServiceButton from '../../../modules/service_button/service_button';
 import Application from '../../../modules/application/application';
 /* autoinsertmodulereference */ // eslint-disable-line
