@@ -100,7 +100,7 @@ class OrganisationNavigation extends Module {
 
     const parsedHTML = new DOMParser().parseFromString(htmlString, 'text/html').querySelector('div');
 
-    appendTo.append(parsedHTML);
+    appendTo.appendChild(parsedHTML);
   }
 
 
