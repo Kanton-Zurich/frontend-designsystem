@@ -32,15 +32,31 @@ class CalendarLinkGenerator {
     return CalendarLinkGenerator.SUPPORTED_CALENDAR_TYPE_IDS.indexOf(calType) > -1;
   }
 
-  public getCalendarLinkHrefVal(calType: string, start: Date, end: Date): string {
+  public prepareCalendarLink(linkEl: HTMLAnchorElement, calType: string,
+    start: Date, end: Date): void {
     if (calType === CalendarLinkGenerator.CALENDER_TYPES.ICS) {
       const baseEncodedIcs = this.getIcsBase64String(start, end);
-      return `data:application/octet-stream;charset=utf-16le;base64,${baseEncodedIcs}`;
+      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        const byteCharacters = atob(baseEncodedIcs);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i += 1) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const file = new Blob([byteArray], { type: 'application/octet-stream' });
+
+        const fileName = linkEl.getAttribute('download');
+        linkEl.addEventListener('click', (ev) => {
+          window.navigator.msSaveOrOpenBlob(file, fileName);
+          ev.stopPropagation();
+        });
+      } else {
+        linkEl.href = `data:application/octet-stream;charset=utf-16le;base64,${baseEncodedIcs}`;
+      }
     }
     if (calType === CalendarLinkGenerator.CALENDER_TYPES.GOOGLE) {
-      return this.getGoogleCalendarLink(start, end);
+      linkEl.href = this.getGoogleCalendarLink(start, end);
     }
-    return '';
   }
 
   private getGoogleCalendarLink(start: Date, end: Date): string {
