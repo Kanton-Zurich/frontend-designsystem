@@ -15,14 +15,12 @@ export interface GeneralEventData {
 
 class CalendarLinkGenerator {
   public static readonly CALENDER_TYPES = {
-    ICAL: 'ical',
+    ICS: 'ics',
     GOOGLE: 'google',
-    OUTLOOK: 'outlook',
   };
   public static readonly SUPPORTED_CALENDAR_TYPE_IDS = [
-    CalendarLinkGenerator.CALENDER_TYPES.ICAL,
+    CalendarLinkGenerator.CALENDER_TYPES.ICS,
     CalendarLinkGenerator.CALENDER_TYPES.GOOGLE,
-    // CalendarLinkGenerator.CALENDER_TYPES.OUTLOOK,
   ];
   private generalData: GeneralEventData;
 
@@ -35,16 +33,12 @@ class CalendarLinkGenerator {
   }
 
   public getCalendarLinkHrefVal(calType: string, start: Date, end: Date): string {
-    if (calType === CalendarLinkGenerator.CALENDER_TYPES.ICAL) {
+    if (calType === CalendarLinkGenerator.CALENDER_TYPES.ICS) {
       const baseEncodedIcs = this.getIcsBase64String(start, end);
       return `data:application/octet-stream;charset=utf-16le;base64,${baseEncodedIcs}`;
     }
     if (calType === CalendarLinkGenerator.CALENDER_TYPES.GOOGLE) {
       return this.getGoogleCalendarLink(start, end);
-    }
-    if (calType === CalendarLinkGenerator.CALENDER_TYPES.OUTLOOK) {
-      // TODO Outlook uses .ics doesn't it?
-      return 'unhandled';
     }
     return '';
   }
