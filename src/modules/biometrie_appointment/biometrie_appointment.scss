@@ -332,6 +332,7 @@ $biometrieViewTransitionDuration: 300ms;
 
     &__checklist {
       @extend .info-box;
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
 
       ul {
         list-style-type: none;
@@ -352,13 +353,11 @@ $biometrieViewTransitionDuration: 300ms;
             display: block;
             position: absolute;
             transform: rotate(45deg);
-            top: 2px;
             left: 0;
             border-bottom: $sizeMini solid $colorBlue;
             border-right: $sizeMini solid $colorBlue;
 
             @include sizeCurve(width, mini);
-            //@include sizeCurve(left, mini);
             @include polyFluidSizing('height', map-get($fontSizeCurves, regular));
           }
         }
