@@ -15,6 +15,8 @@ $biometrieViewTransitionDuration: 300ms;
     display: none;
     text-align: right;
 
+    @include sizeCurve('font-size', tiny);
+
     .icon {
       @include sizeCurve('margin-left', mini);
       @include sizeCurve('height', tiny);
@@ -332,6 +334,7 @@ $biometrieViewTransitionDuration: 300ms;
 
     &__checklist {
       @extend .info-box;
+
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
 
       ul {
