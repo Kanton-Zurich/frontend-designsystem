@@ -1,5 +1,21 @@
 $biometrieViewTransitionDuration: 300ms;
 
+/* stylelint-disable */
+#content-column .mdl-biometrie_appointment {
+  ul {
+    font-size: unset;
+    margin: unset;
+    padding-left: unset;
+  }
+
+  li {
+    margin-left: unset;
+    padding-left: unset;
+    margin-bottom: unset;
+  }
+}
+/* stylelint-enable */
+
 .mdl-biometrie_appointment {
   margin-bottom: $sizeHuge;
 
@@ -15,7 +31,7 @@ $biometrieViewTransitionDuration: 300ms;
     display: none;
     text-align: right;
 
-    @include sizeCurve('font-size', tiny);
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
 
     .icon {
       @include sizeCurve('margin-left', mini);
@@ -193,8 +209,6 @@ $biometrieViewTransitionDuration: 300ms;
             position: relative;
             left: 0;
             margin-bottom: 1rem;
-
-            @include sizeCurve(top, smallerRegular);
           }
 
           .alert__close {
