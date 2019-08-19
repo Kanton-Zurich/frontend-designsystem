@@ -19,7 +19,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'FormSection',
     className: 'FormSection',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-850',
     documentation: dataHelper.getDocumentation('form.md'),
     hideFromListing: true,
   },
