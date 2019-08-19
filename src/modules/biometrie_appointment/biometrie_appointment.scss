@@ -384,12 +384,24 @@ $biometrieViewTransitionDuration: 300ms;
         .group-wrapper {
           overflow: hidden;
           clear: both;
+          line-height: 1;
         }
 
         ul {
           display: inline-flex;
+          padding-left: 0;
+          margin: 0;
+          line-height: 1;
 
           @include sizeCurve('margin-right', regular);
+          @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+
+          li {
+            margin-left: 0;
+            padding-left: 0;
+            margin-bottom: 0;
+          }
+
 
           button.disabled {
             cursor: not-allowed;
@@ -424,11 +436,9 @@ $biometrieViewTransitionDuration: 300ms;
           }
 
           .btn-line {
-            bottom: 0;
+            @include sizeCurve('top', mini);
 
             + .btn-line {
-              @include sizeCurve('bottom', mini);
-
               display: block;
             }
           }
@@ -457,7 +467,6 @@ $biometrieViewTransitionDuration: 300ms;
         }
 
         .slotselect-headrow {
-          z-index: 100;
           border-top: 2px solid $colorBlack100;
           border-bottom: 2px solid $colorBlack100;
 
