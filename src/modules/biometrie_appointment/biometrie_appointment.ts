@@ -36,6 +36,8 @@ class BiometrieAppointment extends Module {
       viewCon: string;
       logoutLink: string;
       apiAlert: string;
+      settings: string;
+      alertDismiss: string;
     }
     stateClasses: any
   };
@@ -57,6 +59,7 @@ class BiometrieAppointment extends Module {
         logoutLink: '[data-biometrie_appointment=logout]',
         apiAlert: '[data-biometrie_appointment=unavailable-alert]',
         settings: `[${SETTINGS_ATTR_NAME}]`,
+        alertDismiss: '[data-biometrie_appointment=alertClose]',
       },
       loginViewSelectors, detailViewSelectors, rescheduleViewSelectorsValues),
       stateClasses: {
@@ -167,6 +170,22 @@ class BiometrieAppointment extends Module {
 
     this.eventDelegate.on('click', this.options.domSelectors.logoutLink, () => {
       this.doLogout();
+    });
+
+    this.addAlertDismissListeners();
+  }
+
+
+  private addAlertDismissListeners(): void {
+    console.log("Adding Listeners");
+    const alertDismissElements = document
+      .querySelectorAll<HTMLDivElement>(this.options.domSelectors.alertDismiss);
+    alertDismissElements.forEach((alertDismiss) => {
+      const alertClasslist = alertDismiss.parentElement.classList;
+      alertDismiss.addEventListener('click', () => {
+        console.log('Hnlded Click');
+        alertClasslist.remove('show');
+      });
     });
   }
 

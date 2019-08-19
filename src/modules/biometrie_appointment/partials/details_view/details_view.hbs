@@ -2,12 +2,12 @@
   <div class="mdl-biometrie_appointment__details">
 
     <div class="mdl-biometrie_appointment__details__confirmation {{#if withConfirmation}}show{{/if}}" data-biometrie_appointment="reschedule-success">
-        <div class="success-box">
-            <div class="icon-con">
+        <div class="alert alert-success {{#if withConfirmation}}show{{/if}}">
+            <span class="success-icon">
                 <svg class="icon">
                     <use xlink:href="#check"></use>
                 </svg>
-            </div>
+            </span>
             <div class="details">
                 <strong>{{ rescheduleSuccessHead }}</strong><br>
                 <span data-biometrie_appointment="reservation-details__appointmentDateString">
@@ -18,6 +18,11 @@
                 &ndash;
                 <span data-biometrie_appointment="reservation-details__untilTimeString">{{#if withMockData}}11:00{{/if}}</span>
             </div>
+            <span class="alert__close" data-biometrie_appointment="alertClose">
+                  <svg class="icon">
+                      <use xlink:href="#exit"></use>
+                  </svg>
+              </span>
         </div>
       <div class="info-box">
           <strong>{{ confirmationHead }}</strong>

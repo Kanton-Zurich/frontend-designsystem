@@ -123,39 +123,6 @@ $biometrieViewTransitionDuration: 300ms;
       min-height: 2rem;
       border-bottom: 2px solid $colorBlack100;
       margin-bottom: $sizeRegular;
-
-      .alert.alert-error {
-        display: none;
-        padding: $sizeTiny $sizeRegular;
-        background-color: $colorRed;
-        color: $colorWhite;
-        border-radius: 4px;
-        margin-top: 1em;
-        margin-bottom: 1em;
-        padding-left: $sizeSmallHuge;
-        line-height: $sizeLineHeightNarrow;
-        position: relative;
-
-        &:before {
-          content: '!';
-          background-color: $colorWhite;
-          color: $colorRed;
-          text-align: center;
-          border-radius: 50%;
-          font-size: $sizeFontBiggerRegular;
-          font-weight: $fontWeightBlack;
-          line-height: $sizeFontLarge;
-          display: block;
-          position: absolute;
-          left: $sizeRegular;
-          top: calc(50% - 0.75rem);
-          width: $sizeFontLarge;
-        }
-
-        &.show {
-          display: block;
-        }
-      }
     }
 
     &__submit {
@@ -210,33 +177,29 @@ $biometrieViewTransitionDuration: 300ms;
         display: block;
       }
 
-      .success-box {
-        padding: $sizeRegular;
-        background-color: $colorGreen;
-        color: $colorWhite;
-
+      .alert.alert-success.show {
         @include sizeCurve('margin-bottom', medium);
-
-        .icon-con {
-          background-color: $colorWhite;
-          display: inline-block;
-          color: $colorGreen;
-          border-radius: 50%;
-          margin-right: $sizeRegular;
-
-          @include polyFluidSizing(width, map-get($fontSizeCurves, big));
-          @include polyFluidSizing(height, map-get($fontSizeCurves, big));
-
-          svg {
-            fill: $colorGreen;
-
-            @include polyFluidSizing(width, map-get($fontSizeCurves, big));
-            @include polyFluidSizing(height, map-get($fontSizeCurves, big));
-          }
-        }
 
         .details {
           display: inline-block;
+        }
+
+        @include mq($to: xsmall) {
+
+          @include sizeCurve(padding-left padding-right, smallerRegular);
+
+          .success-icon {
+            display: block;
+            position: relative;
+            left: 0;
+            margin-bottom: 1rem;
+
+            @include sizeCurve(top, smallerRegular);
+          }
+
+          .alert__close {
+            @include sizeCurve(top, smallerRegular);
+          }
         }
       }
 
@@ -905,36 +868,74 @@ $biometrieViewTransitionDuration: 300ms;
     }
   }
 
-  .alert.alert-error {
+  .alert {
     display: none;
-    background-color: $colorRed;
     color: $colorWhite;
     border-radius: 4px;
     margin-top: 1em;
     margin-bottom: 1em;
-    padding-left: $sizeSmallHuge;
-    padding-right: $sizeSmallHuge;
     line-height: $sizeLineHeightNarrow;
     position: relative;
     font-weight: 200;
 
     @include sizeCurve(padding-top padding-bottom, smallerRegular);
+    @include sizeCurve(padding-left padding-right, big);
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
 
-    &:before {
-      content: '!';
-      background-color: $colorWhite;
-      color: $colorRed;
-      text-align: center;
-      border-radius: 50%;
-      font-size: $sizeFontBiggerRegular;
-      font-weight: $fontWeightBlack;
-      line-height: $sizeFontLarge;
+    &.alert-error {
+      background-color: $colorRed;
+
+      &:before {
+        content: '!';
+        background-color: $colorWhite;
+        color: $colorRed;
+        text-align: center;
+        border-radius: 50%;
+        font-size: $sizeFontBiggerRegular;
+        font-weight: $fontWeightBlack;
+        line-height: $sizeFontLarge;
+        display: block;
+        position: absolute;
+        left: $sizeRegular;
+        top: calc(50% - 0.75rem);
+        width: $sizeFontLarge;
+      }
+    }
+
+    &.alert-success {
+      background-color: $colorGreen;
+
+      .success-icon {
+        display: block;
+        position: absolute;
+        background-color: $colorWhite;
+        border-radius: 50%;
+        top: calc(50% - 0.75rem);
+        left: $sizeRegular;
+
+        @include polyFluidSizing(width, map-get($fontSizeCurves, big));
+        @include polyFluidSizing(height, map-get($fontSizeCurves, big));
+
+        svg {
+          fill: $colorGreen;
+
+          @include polyFluidSizing(width, map-get($fontSizeCurves, big));
+          @include polyFluidSizing(height, map-get($fontSizeCurves, big));
+        }
+      }
+    }
+
+    &__close {
       display: block;
       position: absolute;
-      left: $sizeRegular;
+      right: $sizeRegular;
       top: calc(50% - 0.75rem);
-      width: $sizeFontLarge;
+      cursor: pointer;
+
+      svg {
+        width: $sizeFontRegular;
+        fill: $colorWhite;
+      }
     }
 
     &.show {
