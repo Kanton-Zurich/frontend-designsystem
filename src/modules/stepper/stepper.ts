@@ -302,7 +302,7 @@ class Stepper extends Module {
 
     const parsedNotification = new DOMParser().parseFromString(notificationHTML, 'text/html').querySelector('.atm-notification');
 
-    this.ui.messageWrapper.append(parsedNotification);
+    this.ui.messageWrapper.appendChild(parsedNotification);
     this.addNotificationEventListeners(parsedNotification);
   }
 
