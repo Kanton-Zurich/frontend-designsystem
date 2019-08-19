@@ -4,7 +4,6 @@
  * @license APLv2
  */
 import namespace from './namespace';
-import loadPolyfills from './polyfills';
 
 import Table from '../../../modules/table/table';
 import Carousel from '../../../modules/carousel/carousel';
@@ -93,8 +92,6 @@ class App {
   }
 
   async start() {
-    await loadPolyfills();
-
     this.registerModules();
     this.initModuleInitialiser();
     this.registerForms();

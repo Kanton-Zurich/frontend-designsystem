@@ -297,7 +297,7 @@ class Topiclist extends Module {
       parsedHTML.querySelector('a').setAttribute('data-topic', JSON.stringify(topic));
     }
 
-    appendTo.querySelector('ul').append(parsedHTML);
+    appendTo.querySelector('ul').appendChild(parsedHTML);
   }
 
   /**
@@ -318,7 +318,7 @@ class Topiclist extends Module {
     parsedHTML.querySelector('[data-lineclamp]').removeAttribute('data-lineclamp');
     parsedHTML.removeAttribute('href');
 
-    this.ui.autosuggest.append(parsedHTML);
+    this.ui.autosuggest.appendChild(parsedHTML);
 
     // Render the link to the search
     const compiled2 = template(this.ui.searchLink.innerHTML);
@@ -331,7 +331,7 @@ class Topiclist extends Module {
     parsedLink.setAttribute('data-topiclist', 'noResult');
 
 
-    this.ui.autosuggest.append(parsedLink);
+    this.ui.autosuggest.appendChild(parsedLink);
   }
 
   /**
@@ -358,7 +358,7 @@ class Topiclist extends Module {
 
     parsedHTML.querySelector(this.options.domSelectors.subnavLayerUp).addEventListener('click', () => { this.data.currentLayer -= 1; });
 
-    this.ui.furtherLayers.append(parsedHTML);
+    this.ui.furtherLayers.appendChild(parsedHTML);
 
     this.setContentNavOfSubnav(topic, parsedHTML);
 

@@ -54,8 +54,7 @@ class LineClamper {
         let i = 0;
         const cHeight = element.clientHeight;
         let difference = element.scrollHeight - cHeight;
-        const heightTolerance = 5;
-
+        const heightTolerance = parseInt((<any>window).getComputedStyle(element, null).getPropertyValue('font-size'))/2; // eslint-disable-line
         while (i <= this.options.maxIterations && difference > heightTolerance) {
           element.innerHTML = element.innerHTML.replace(/\W*\s(\S)*$/, '...');
           difference = element.scrollHeight - cHeight;
