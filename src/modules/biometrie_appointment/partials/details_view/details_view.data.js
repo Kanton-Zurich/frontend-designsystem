@@ -16,6 +16,7 @@ const data = _.merge({}, defaultData, {
       labelTime: 'Uhrzeit',
       fromUntilConjunction: ' bis ',
       calLinksDescr: 'Zu meinem Kalender hinzufügen',
+      calIcsFileName: 'biometrie_appointment.ics',
       addinfo: {
         blocks: [
           {

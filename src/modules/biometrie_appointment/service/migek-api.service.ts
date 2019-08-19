@@ -48,8 +48,11 @@ const HttpStatusCodes = {
   FORBIDDEN: 403,
 };
 class MigekApiService {
+  public static readonly CONFIRMATION_FILENAME = 'Bestätigung_Biometrie.pdf'; // TODO Filename konfigurierbar
+
   private static readonly FAILURE_MSG_UNCHANGED = 'The start and end time of the reservation is unchanged';
   private static readonly FAILURE_MSG_SLOTFULL = 'The time slot is fully booked';
+
 
   private apiBasePath: string;
   private bearerStr: string;
@@ -101,7 +104,7 @@ class MigekApiService {
 
   public getReservationDetails(): Promise<Appointment> {
     if (!this.pathToReservationDetails) {
-      throw new Error('Unexpected runtime error'); // TODO
+      throw new Error('Unexpected runtime error');
     }
     return this.doGet(this.pathToReservationDetails).then((responseObj) => {
       const detailResp = responseObj as AppointmentDetailsResponse;
@@ -149,27 +152,30 @@ class MigekApiService {
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status >= HttpStatusCodes.OK && xhr.status < HttpStatusCodes.MULTIPLE) {
-            this.log('Response: ', xhr.response);
-            const arrayBuffer = xhr.response;
-            const file = new Blob([arrayBuffer], { type: 'application/pdf' });
-            const fileURL = URL.createObjectURL(file);
-
-            const hiddenA = document.createElement('a');
-            hiddenA.style.display = 'none';
-            hiddenA.href = fileURL;
-            hiddenA.download = 'Bestätigung_Biometrie.pdf'; // TODO Filename konfigurierbar
-            document.body.appendChild(hiddenA);
-            hiddenA.click();
-
-            hiddenA.remove();
-            URL.revokeObjectURL(fileURL);
+            const arrayBuffer = [new Uint8Array(xhr.response)];
+            const file = new Blob(arrayBuffer, { type: 'application/pdf' });
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+              window.navigator.msSaveOrOpenBlob(file, MigekApiService.CONFIRMATION_FILENAME);
+            } else {
+              const fileURL = URL.createObjectURL(file);
+              const hiddenA = document.createElement('a');
+              hiddenA.style.display = 'none';
+              hiddenA.href = fileURL;
+              hiddenA.download = MigekApiService.CONFIRMATION_FILENAME;
+              document.body.appendChild(hiddenA);
+              hiddenA.click();
+              hiddenA.remove();
+              URL.revokeObjectURL(fileURL);
+            }
           } else {
-            throw new Error('API connection failure'); // TODO
+            throw new Error('API connection failure');
           }
         }
       };
+      xhr.onloadstart = () => {
+        xhr.responseType = 'arraybuffer';
+      };
 
-      xhr.responseType = 'arraybuffer';
       xhr.open('GET', this.confirmationPath, true);
 
       if (this.bearerStr) {

@@ -79,14 +79,12 @@ class BiometrieDetailsView extends ViewController<DetailsViewSelectors, DetailsV
 
   private fillCalendarLinks(start: Date, end: Date): void {
     const calLinkEls = document
-      .querySelectorAll<HTMLInputElement>(this.selectors.calendarLinks);
+      .querySelectorAll<HTMLAnchorElement>(this.selectors.calendarLinks);
     calLinkEls.forEach((el) => {
-      let hrefVal: string;
       const calType = el.getAttribute('data-biometrie_appointment').replace('cal-link__', '');
       if (CalendarLinkGenerator.isSupportedCalType(calType)) {
-        hrefVal = this.calendarLinkGenerator.getCalendarLinkHrefVal(calType, start, end);
+        this.calendarLinkGenerator.prepareCalendarLink(el, calType, start, end);
       }
-      el.setAttribute('href', hrefVal);
     });
   }
 
