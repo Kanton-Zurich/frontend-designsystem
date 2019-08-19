@@ -253,21 +253,33 @@ class Anchornav extends Module {
       const currentItem = this.scrollReferences[i];
       const currentTriggerPosition = this.getPageYPositionFor(currentItem.triggerElement);
       this.scrollReferences[i].triggerYPosition = currentTriggerPosition - this.navigationHeight;
-
       if (currentTriggerPosition > scrollMax && !foundExceed) {
         exceedCounter = this.scrollReferences.length - i;
         exceedIndex = i;
         foundExceed = true;
-        lastFittingTriggerPosition = this.scrollReferences[exceedIndex - 1].triggerYPosition;
+        exceedIndex = exceedIndex - 1 > 0 ? exceedIndex - 1 : exceedIndex;
+        lastFittingTriggerPosition = this.scrollReferences[exceedIndex].triggerYPosition;
         evenDistances = (scrollMax - lastFittingTriggerPosition) / exceedCounter;
       }
     }
-    if (foundExceed) {
+
+    // Handling exceed
+    if (foundExceed && exceedIndex > 0) {
+      // Later or last item exceed scrolling possibility,
+      // so spread evenly from last fitting position with even distances
       for (let i = exceedIndex; i < this.scrollReferences.length; i += 1) {
         const currentItem = this.scrollReferences[i];
         const sum = lastFittingTriggerPosition + evenDistances;
         (<any> currentItem).triggerYPosition = Math.round(sum);
         lastFittingTriggerPosition += evenDistances;
+      }
+    } else {
+      // First item exceed already the scrolling possibility,
+      // so spread evenly from zero downwards
+      for (let i = exceedIndex; i < this.scrollReferences.length; i += 1) {
+        const currentItem = this.scrollReferences[i];
+        const sum = scrollMax / this.scrollReferences.length * i;
+        (<any> currentItem).triggerYPosition = Math.round(sum);
       }
     }
   }
@@ -277,7 +289,6 @@ class Anchornav extends Module {
    */
   updateVerticalScrollInfo() {
     const currentScrollPosition = this.getDocumnetScrollPosition();
-
     if (currentScrollPosition > this.lastYScrollPositon) {
       this.scrollDirection = 'down';
     } else {
