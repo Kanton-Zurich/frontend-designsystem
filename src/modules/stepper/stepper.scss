@@ -1,4 +1,11 @@
 .mdl-stepper {
+  opacity: 0;
+
+  &--initialised {
+    opacity: 1;
+
+    @include transition(opacity, $transitionTimeFade);
+  }
 
   &__wrapper {
     overflow-x: hidden;

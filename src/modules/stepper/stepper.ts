@@ -58,6 +58,7 @@ class Stepper extends Module {
         transitionLeft: 'mdl-stepper__step--transition-left',
         transitionRight: 'mdl-stepper__step--transition-right',
         transitionOut: 'mdl-stepper__step--transition-out',
+        initialised: 'mdl-stepper--initialised',
       },
     };
 
@@ -76,6 +77,8 @@ class Stepper extends Module {
     if (this.ui.navigation) {
       new StepperNavigation(this.ui.navigation, { active: this.data.active }, {});
     }
+
+    this.ui.element.classList.add(this.options.stateClasses.initialised);
   }
 
   static get events() {
