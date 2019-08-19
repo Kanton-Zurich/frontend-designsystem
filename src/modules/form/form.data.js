@@ -200,104 +200,104 @@ const variants = _.mapValues({
         ],
       ],
     },
-    defaultDuplicate: {
-      meta: {
-        title: 'Default mit anderen IDs',
-        desc: '',
-      },
-      props: {
-        rows: [
-          [
-            {
-              isSmall: true,
-              cellContent: () => handlebars.compile(formFieldsetHBS)({
-                fieldsetTitle: 'Anrede',
-                options: [
-                  () => handlebars.compile(radioHBS)(_.merge({},
-                    radioData.variants.default.props,
-                    {
-                      label: 'Frau',
-                      groupName: 'salutation',
-                      id: 6,
-                      value: 'mrs',
-                    })),
-                  () => handlebars.compile(radioHBS)(_.merge({},
-                    radioData.variants.default.props,
-                    {
-                      label: 'Herr',
-                      groupName: 'salutation',
-                      id: 7,
-                      value: 'mr',
-                    })),
-                  () => handlebars.compile(radioHBS)(_.merge({},
-                    radioData.variants.default.props,
-                    {
-                      label: 'Keine Angabe',
-                      groupName: 'salutation',
-                      id: 8,
-                      value: 'no',
-                    })),
-                ],
-              }),
-            },
-          ],
-          [{
-            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-              formInputData.variants.default.props,
-              {
-                isFloatingLabel: true,
-                label: 'Vorname',
-                name: 'prename',
-                uuid: 'prename2',
-                validation: {
-                  isRequired: true,
-                },
-              })),
-          },
+  },
+  defaultDuplicate: {
+    meta: {
+      title: 'Default mit anderen IDs',
+      desc: '',
+    },
+    props: {
+      rows: [
+        [
           {
-            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-              formInputData.variants.default.props,
-              {
-                isFloatingLabel: true,
-                label: 'Nachname',
-                name: 'surname',
-                uuid: 'surname2',
-                validation: {
-                  isRequired: true,
-                },
-              })),
-          }],
-          [{
             isSmall: true,
-            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-              formInputData.variants.default.props,
-              {
-                isFloatingLabel: true,
-                label: 'PLZ',
-                name: 'zip',
-                uuid: 'zip2',
-                validation: {
-                  isRequired: true,
-                  pattern: '^[0-9]{4,4}$',
-                  errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
-                },
-              })),
+            cellContent: () => handlebars.compile(formFieldsetHBS)({
+              fieldsetTitle: 'Anrede',
+              options: [
+                () => handlebars.compile(radioHBS)(_.merge({},
+                  radioData.variants.default.props,
+                  {
+                    label: 'Frau',
+                    groupName: 'salutation2',
+                    id: 6,
+                    value: 'mrs',
+                  })),
+                () => handlebars.compile(radioHBS)(_.merge({},
+                  radioData.variants.default.props,
+                  {
+                    label: 'Herr',
+                    groupName: 'salutation2',
+                    id: 7,
+                    value: 'mr',
+                  })),
+                () => handlebars.compile(radioHBS)(_.merge({},
+                  radioData.variants.default.props,
+                  {
+                    label: 'Keine Angabe',
+                    groupName: 'salutation2',
+                    id: 8,
+                    value: 'no',
+                  })),
+              ],
+            }),
           },
-          {
-            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-              formInputData.variants.default.props,
-              {
-                isFloatingLabel: true,
-                label: 'Ort',
-                name: 'city',
-                uuid: 'city2',
-                validation: {
-                  isRequired: true,
-                },
-              })),
-          }],
         ],
-      },
+        [{
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Vorname',
+              name: 'prename',
+              uuid: 'prename2',
+              validation: {
+                isRequired: true,
+              },
+            })),
+        },
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Nachname',
+              name: 'surname',
+              uuid: 'surname2',
+              validation: {
+                isRequired: true,
+              },
+            })),
+        }],
+        [{
+          isSmall: true,
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'PLZ',
+              name: 'zip',
+              uuid: 'zip2',
+              validation: {
+                isRequired: true,
+                pattern: '^[0-9]{4,4}$',
+                errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
+              },
+            })),
+        },
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Ort',
+              name: 'city',
+              uuid: 'city2',
+              validation: {
+                isRequired: true,
+              },
+            })),
+        }],
+      ],
     },
   },
 }, (variant) => {

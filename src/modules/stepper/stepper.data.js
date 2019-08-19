@@ -45,7 +45,7 @@ const variants = _.mapValues({
     props: {
       navigation: false,
       steps: [
-        formVariants.default.props,
+        formVariants.defaultDuplicate.props,
       ],
     },
   },
