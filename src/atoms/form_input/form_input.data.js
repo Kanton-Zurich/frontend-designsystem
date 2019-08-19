@@ -79,6 +79,8 @@ const variants = _.mapValues({
       },
       uuid: _.uniqueId('float_input_valid'),
       isFloatingLabel: true,
+      isRequired: true,
+      
     },
   },
   clearButton: {

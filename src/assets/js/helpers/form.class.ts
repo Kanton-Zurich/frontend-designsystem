@@ -55,8 +55,16 @@ class Form {
 
   addEventListeners() {
     this.eventDelegate.on('click', this.options.eventEmitters.clearButton, this.clearField.bind(this));
-    this.eventDelegate.on('keyup', this.options.watchEmitters.input, debounce(this.validateField.bind(this), this.options.validateDelay));
-    this.eventDelegate.on('blur', this.options.watchEmitters.input, this.validateField.bind(this));
+    this.eventDelegate.on('keyup', this.options.watchEmitters.input, debounce((event, field) => {
+      this.validateField(field);
+    }, this.options.validateDelay));
+    this.eventDelegate.on('blur', this.options.watchEmitters.input, (event, field) => {
+      this.validateField(field);
+    });
+    this.eventDelegate.on('validateSection', this.validateSection.bind(this));
+    this.eventDelegate.on('showFieldInvalid', (event) => {
+      this.showFieldInvalid(event.detail.field);
+    });
   }
 
   addWatchers() {
@@ -93,23 +101,45 @@ class Form {
     inputElement.value = '';
   }
 
-  validateField(event, delegate) {
-    const validation = window[namespace].form.validateField(delegate);
+  validateField(field) {
+    const validation = window[namespace].form.validateField(field);
 
-    delegate.parentElement.querySelectorAll(this.options.messageSelector).forEach((message) => {
+    field.parentElement.querySelectorAll(this.options.messageSelector).forEach((message) => {
       message.classList.remove(this.options.messageClasses.show);
     });
 
     if (validation.validationResult) {
-      delegate.classList.add(this.options.inputClasses.valid);
-      delegate.classList.remove(this.options.inputClasses.invalid);
+      field.classList.add(this.options.inputClasses.valid);
+      field.classList.remove(this.options.inputClasses.invalid);
     } else {
-      delegate.classList.add(this.options.inputClasses.invalid);
-      delegate.classList.remove(this.options.inputClasses.valid);
+      field.classList.add(this.options.inputClasses.invalid);
+      field.classList.remove(this.options.inputClasses.valid);
 
       validation.messages.forEach((messageID) => {
-        delegate.parentElement.querySelector(`[data-message="${messageID}"]`).classList.add('show');
+        field.parentElement.querySelector(`[data-message="${messageID}"]`).classList.add('show');
       });
+
+      this.ui.element.setAttribute('form-has-errors', 'true');
+    }
+  }
+
+  showFieldInvalid(field) {
+    field.classList.add(this.options.inputClasses.invalid);
+    field.classList.remove(this.options.inputClasses.valid);
+  }
+
+  validateSection(event) {
+    const formSection = event.detail.section;
+    const fieldsInSection = formSection.querySelectorAll(this.options.watchEmitters.input);
+
+    fieldsInSection.forEach(this.validateField.bind(this));
+
+    const errorsInFields = formSection.querySelectorAll(`.${this.options.inputClasses.invalid}`).length > 0;
+
+    if (errorsInFields) {
+      this.ui.element.setAttribute('form-has-errors', 'true');
+    } else {
+      this.ui.element.removeAttribute('form-has-errors');
     }
   }
 }

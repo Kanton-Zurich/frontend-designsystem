@@ -3,19 +3,20 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const template = dataHelper.getFileContent('radiobutton.hbs');
+const template = dataHelper.getFileContent('stepper_navigation.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Radiobutton',
-    className: 'Radiobutton',
-    jira: 'CZHDEV-847',
-    documentation: dataHelper.getDocumentation('radiobutton.md'),
+    title: 'Formular-Navigation',
+    className: 'StepperNavigation',
+    jira: 'CZHDEV-850',
+    documentation: dataHelper.getDocumentation('stepper_navigation.md'),
   },
   props: {
-    label: 'Radio button label',
-    groupName: 'Radiogroup',
-    id: 1,
-    value: 'value',
+    steps: [
+      'Persönliche Angaben',
+      'Berufliche Informationen',
+      'Bestätigung',
+    ],
   },
 });
 const variants = _.mapValues({
@@ -23,24 +24,6 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
-    },
-  },
-  checked: {
-    meta: {
-      title: 'Vorausgewählt',
-      desc: 'Initial Ausgewählt/aktiv.',
-    },
-    props: {
-      isChecked: true,
-    },
-  },
-  disabled: {
-    meta: {
-      title: 'Deaktiviert',
-      desc: 'Initial deaktiviert, nicht click- bzw auswählbar.',
-    },
-    props: {
-      isDisabled: true,
     },
   },
 }, (variant) => {
@@ -52,8 +35,8 @@ const variants = _.mapValues({
 
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
-        data: dataHelper.getFormattedJson(variantProps),
         html: dataHelper.getFormattedHtml(compiledVariant()),
+        data: dataHelper.getFormattedJson(variantProps),
       },
     },
   });

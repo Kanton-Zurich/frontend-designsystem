@@ -1,0 +1,8 @@
+<fieldset class="form__fieldset">
+  <legend class="form__legend">{{fieldsetTitle}}</legend>
+  <div class="form__fieldset-list {{#if isVertical}}form__fieldset-list--vertical{{/if}}">
+    {{#each options}}
+      {{{this}}}
+    {{/each}}
+  </div>
+</fieldset>

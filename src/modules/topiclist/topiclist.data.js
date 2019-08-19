@@ -95,7 +95,7 @@ const variants = _.mapValues({
       topiclistInput: _.merge({}, inputFormData, {
         label: 'Themen nach Stichwort filtern',
         dataSelector: 'data-topiclist="input"',
-		isSmall: true,
+        isSmall: true,
         additionalFunctionality: {
           icon: 'clear',
           buttontype: 'clear',
@@ -187,7 +187,7 @@ const variants = _.mapValues({
       topiclistInput: _.merge({}, inputFormData, {
         label: 'Themen nach Stichwort filtern',
         isSmall: true,
-        selector: 'data-topiclist="input"',
+        dataSelector: 'data-topiclist="input"',
         hasClearButton: true,
       }),
       topiclistHeading: false,
@@ -221,7 +221,7 @@ const variants = _.mapValues({
       topiclistInput: _.merge({}, inputFormData, {
         label: 'Filtern nach Amt, Fachstelle, Direktion',
         isSmall: true,
-        selector: 'data-topiclist="input"',
+        dataSelector: 'data-topiclist="input"',
         hasClearButton: true,
       }),
       topiclistHeading: false,

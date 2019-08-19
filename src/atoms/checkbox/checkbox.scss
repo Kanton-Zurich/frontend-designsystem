@@ -2,7 +2,11 @@
   position: relative;
   display: flex;
   padding-left: pxToRem($sizeLarge);
-  margin-bottom: 16px;
+  margin-bottom: pxToRem($sizeRegular);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   &:hover span {
     border-color: $colorCyan;

@@ -1,0 +1,12 @@
+<section class="form__section">
+  <h3 class="atm-heading form__section-title" tabindex="0">{{ sectionTitle }}</h3>
+  {{#each rows}}
+    <div class="form__row">
+      {{#each this}}
+        <div class="form__cell {{#if isSmall}}form__cell--small{{/if}}">
+          {{{cellContent}}}
+        </div>
+      {{/each}}
+    </div>
+  {{/each}}
+</section>

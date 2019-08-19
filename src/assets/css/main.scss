@@ -39,6 +39,7 @@
 @import '../../atoms/form_input/form_input';
 @import '../../atoms/radiobutton/radiobutton';
 @import '../../atoms/checkbox/checkbox';
+@import '../../atoms/notification/notification';
 //*autoinsertatom*
 
 // Modules
@@ -93,6 +94,9 @@
 @import '../../modules/subnavigation/subnavigation';
 @import '../../modules/organisation_teaser/organisation_teaser';
 @import '../../modules/organisation_navigation/organisation_navigation';
+@import '../../modules/stepper/stepper';
+@import '../../modules/form/form';
+@import '../../modules/stepper_navigation/stepper_navigation';
 @import '../../modules/service_button/service_button';
 @import '../../modules/application/application';
 //*autoinsertmodule*

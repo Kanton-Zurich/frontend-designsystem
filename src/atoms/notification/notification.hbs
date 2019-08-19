@@ -1,0 +1,9 @@
+<div class="atm-notification {{#if isGreen}}atm-notification--green{{/if}} {{#if isBig}}atm-notification--big{{/if}}" tabindex="0" >
+  <svg class="icon">
+    <use xlink:href="{{icon}}"></use>
+  </svg>
+  <span class="atm-notification__message">
+    <div>{{#if title}}<h3 class="atm-notification__title">{{title}}</h3>{{/if}}
+    {{{message}}}</div>
+  </span>
+</div>
