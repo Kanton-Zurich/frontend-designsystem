@@ -63,21 +63,24 @@ $biometrieViewTransitionDuration: 300ms;
         font-weight: $fontWeightBlack;
         color: $colorBlack100;
         display: block;
+
+        @include sizeCurve('margin-bottom', mini);
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
       }
 
       span.input {
         border: 0;
         outline: 0;
         background: transparent;
-        border-bottom: 1px solid $colorBlack100;
         display: inline-block;
         min-width: 1.2em;
         color: $colorBlack100;
-        font-size: $sizeRegular;
         height: $sizeRegular;
         line-height: $sizeSmallLarge;
         caret-color: $colorCyan;
+        font-weight: 200;
 
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, biggerRegular));
         @include sizeCurve('margin-right', tiny);
 
         + .input {
