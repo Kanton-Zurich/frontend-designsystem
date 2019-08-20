@@ -1,6 +1,7 @@
 $biometrieViewTransitionDuration: 300ms;
 
 /* stylelint-disable */
+// Whole block is needed to overwrite id-stylerules used in the old CMS
 #content-column .mdl-biometrie_appointment {
   ul {
     font-size: unset;
@@ -13,11 +14,26 @@ $biometrieViewTransitionDuration: 300ms;
     padding-left: unset;
     margin-bottom: unset;
   }
+
+  &__checklist {
+    li {
+      @include sizeCurve('margin-left', mini);
+      @include sizeCurve('padding-left', medium);
+      margin-bottom: unset;
+    }
+  }
+
+  .block {
+    a {
+      padding-bottom: unset;
+    }
+  }
 }
 /* stylelint-enable */
 
 .mdl-biometrie_appointment {
   margin-bottom: $sizeHuge;
+  overflow: hidden;
 
   &__heading {
     hyphens: initial;
@@ -44,14 +60,12 @@ $biometrieViewTransitionDuration: 300ms;
   }
 
   .view {
-    //transform: translateX(-100%);
     opacity: 0;
     transition: opacity $biometrieViewTransitionDuration;
     max-height: 0;
     pointer-events: none;
 
     &.show {
-      //transform: translateX(0);
       opacity: 1;
       transition-delay: $biometrieViewTransitionDuration;
       max-height: inherit;
@@ -317,6 +331,11 @@ $biometrieViewTransitionDuration: 300ms;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
 
+      strong {
+        @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+        @include sizeCurve('margin-bottom', tiny);
+      }
+
       ul {
         list-style-type: none;
         padding-left: 0;
@@ -337,8 +356,8 @@ $biometrieViewTransitionDuration: 300ms;
             position: absolute;
             transform: rotate(45deg);
             left: 0;
-            border-bottom: $sizeMini solid $colorBlue;
-            border-right: $sizeMini solid $colorBlue;
+            border-bottom: 3px solid $colorBlue;
+            border-right: 3px solid $colorBlue;
 
             @include sizeCurve(width, mini);
             @include polyFluidSizing('height', map-get($fontSizeCurves, regular));
@@ -924,7 +943,6 @@ $biometrieViewTransitionDuration: 300ms;
         position: absolute;
         background-color: $colorWhite;
         border-radius: 50%;
-        top: calc(50% - 0.75rem);
         left: $sizeRegular;
 
         @include polyFluidSizing(width, map-get($fontSizeCurves, big));
