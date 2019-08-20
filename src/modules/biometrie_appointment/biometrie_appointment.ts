@@ -34,6 +34,7 @@ class BiometrieAppointment extends Module {
     domSelectors: {
       loadingSpinner: string;
       viewCon: string;
+      backLink: string;
       logoutLink: string;
       apiAlert: string;
       settings: string;
@@ -56,6 +57,7 @@ class BiometrieAppointment extends Module {
       domSelectors: Object.assign({
         loadingSpinner: '[data-biometrie_appointment=loading-spinner]',
         viewCon: '[data-biometrie_appointment^=view__]',
+        backLink: '[data-biometrie_appointment=rescheduleBack]',
         logoutLink: '[data-biometrie_appointment=logout]',
         apiAlert: '[data-biometrie_appointment=unavailable-alert]',
         settings: `[${SETTINGS_ATTR_NAME}]`,
@@ -157,7 +159,6 @@ class BiometrieAppointment extends Module {
   initWatchers() {
     this.watch(this.data, 'loading', this.toggleLoadingSpinner.bind(this));
     this.watch(this.data, 'apiAvailable', this.showApiUnavailable.bind(this));
-    this.watch(this.data, 'loggedIn', this.toggleLogoutLink.bind(this));
     this.watch(this.data, 'appointment', this.enterDetailsView.bind(this));
   }
 
@@ -168,7 +169,18 @@ class BiometrieAppointment extends Module {
     // Init Controller Event listeners
     this.viewController.forEach(cntrl => cntrl.initEventListeners(this.eventDelegate));
 
-    this.eventDelegate.on('click', this.options.domSelectors.logoutLink, () => {
+    this.eventDelegate.on('click', this.options.domSelectors.backLink, () => {
+      this.data.loading = true;
+      this.apiService.getReservationDetails()
+      // Refresh details, to prevent inconsistency between views
+        .then((refreshedAppointment) => {
+          this.data.appointment = refreshedAppointment;
+        })
+        .finally(() => {
+          this.data.loading = false;
+        });
+      this.rescheduleViewCntrl.resetView(true);
+    }).on('click', this.options.domSelectors.logoutLink, () => {
       this.doLogout();
     });
 
@@ -177,13 +189,11 @@ class BiometrieAppointment extends Module {
 
 
   private addAlertDismissListeners(): void {
-    console.log("Adding Listeners");
     const alertDismissElements = document
       .querySelectorAll<HTMLDivElement>(this.options.domSelectors.alertDismiss);
     alertDismissElements.forEach((alertDismiss) => {
       const alertClasslist = alertDismiss.parentElement.classList;
       alertDismiss.addEventListener('click', () => {
-        console.log('Hnlded Click');
         alertClasslist.remove('show');
       });
     });
@@ -213,11 +223,20 @@ class BiometrieAppointment extends Module {
     }
   }
 
-  private toggleLogoutLink(varName, valOld, valNew): void {
-    this.log('Watcher fired for: ', varName, valOld, valNew);
+  private toggleLogoutLink(setVisible: boolean): void {
     const logoutLink = document
       .querySelector<HTMLInputElement>(this.options.domSelectors.logoutLink).classList;
-    if (valNew) {
+    if (setVisible) {
+      logoutLink.add('show');
+    } else {
+      logoutLink.remove('show');
+    }
+  }
+
+  private toggleBackLink(setVisible: boolean): void {
+    const logoutLink = document
+      .querySelector<HTMLInputElement>(this.options.domSelectors.backLink).classList;
+    if (setVisible) {
       logoutLink.add('show');
     } else {
       logoutLink.remove('show');
@@ -225,6 +244,8 @@ class BiometrieAppointment extends Module {
   }
 
   private doLogout(): void {
+    this.toggleBackLink(false);
+    this.toggleLogoutLink(false);
     this.apiService.logoutReset();
   }
 
@@ -234,6 +255,8 @@ class BiometrieAppointment extends Module {
 
   private enterDetailsView(): void {
     this.log('Received Appointment: ', this.data.appointment);
+    this.toggleBackLink(false);
+    this.toggleLogoutLink(true);
     this.detailsViewCntrl.prepareView();
     this.enterView('details');
   }
@@ -241,6 +264,8 @@ class BiometrieAppointment extends Module {
   private enterRescheduleView(): void {
     this.log('Entering Reschedule View.');
     this.rescheduleViewCntrl.prepareView();
+    this.toggleLogoutLink(false);
+    this.toggleBackLink(true);
     this.enterView('reschedule');
   }
 
@@ -262,8 +287,6 @@ class BiometrieAppointment extends Module {
    */
   destroy() {
     super.destroy();
-
-    // Custom destroy actions go here
   }
 }
 

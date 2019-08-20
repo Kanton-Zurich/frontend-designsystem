@@ -58,34 +58,38 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
     this.initInputEvents(eventDelegate);
 
     eventDelegate.on('click', this.selectors.submitBtn, () => {
-      if (!this.loginToken || this.loginToken.length < VALID_TOKEN_LENGTH) {
-        this.log('Incomplete login token', this.loginToken);
-        this.showLoginAlert(LoginAlert.Incomplete);
-      } else {
-        this.data.loading = true;
-        this.apiService.login(this.loginToken)
-          .then((appointment) => {
-            if (appointment) {
-              this.data.appointment = appointment;
-              this.data.loggedIn = true;
-            }
-          })
-          .catch((rejectionCause) => {
-            this.log('Login rejected');
-
-            if (rejectionCause && rejectionCause instanceof ApiConnectionFailure) {
-              if ((rejectionCause as ApiConnectionFailure).type === ApiFailureType.FORBIDDEN) {
-                this.handleUnauthedLogin();
-                return;
-              }
-            }
-            this.handleError(rejectionCause);
-          })
-          .finally(() => {
-            this.data.loading = false;
-          });
-      }
+      this.doAttemptLogin();
     });
+  }
+
+  private doAttemptLogin(): void {
+    if (!this.loginToken || this.loginToken.length < VALID_TOKEN_LENGTH) {
+      this.log('Incomplete login token', this.loginToken);
+      this.showLoginAlert(LoginAlert.Incomplete);
+    } else {
+      this.data.loading = true;
+      this.apiService.login(this.loginToken)
+        .then((appointment) => {
+          if (appointment) {
+            this.data.appointment = appointment;
+            this.data.loggedIn = true;
+          }
+        })
+        .catch((rejectionCause) => {
+          this.log('Login rejected');
+
+          if (rejectionCause && rejectionCause instanceof ApiConnectionFailure) {
+            if ((rejectionCause as ApiConnectionFailure).type === ApiFailureType.FORBIDDEN) {
+              this.handleUnauthedLogin();
+              return;
+            }
+          }
+          this.handleError(rejectionCause);
+        })
+        .finally(() => {
+          this.data.loading = false;
+        });
+    }
   }
 
   private initInputEvents(eventDelegate): void {
@@ -104,9 +108,17 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
       .on('blur', this.selectors.inputFields, () => {
         inputWrapper.classList.remove('focused');
       })
-      .on('keydown', this.selectors.inputFields, (event, targetInput) => {
-        caretPos = window.getSelection().getRangeAt(0).startOffset;
+      .on('keydown', this.selectors.inputFields, (event: KeyboardEvent, targetInput) => {
         this.log('Event KeyDown: ', event, targetInput, caretPos);
+        caretPos = window.getSelection().getRangeAt(0).startOffset;
+        inPaste = false;
+
+        if (event.key === 'Enter') {
+          this.doAttemptLogin();
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
 
         let targetInputIdx = -1;
         inputEls.forEach((el, i) => {
@@ -124,8 +136,6 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
             }
           }
         }
-
-        inPaste = false;
       })
       .on('paste', this.selectors.inputFields, (event, targetInput) => {
         this.log('Event Paste: ', event, targetInput);
@@ -185,6 +195,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
         if (inPaste) {
           return;
         }
+
         this.log('Event KeyUp: ', event, target);
         const targetInput = (target as HTMLSpanElement);
         caretPos = window.getSelection().getRangeAt(0).startOffset;
@@ -201,7 +212,6 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
         this.fillLoginTokenCleaned(totalStr);
 
         const maxFocusElIdx = Math.floor(this.loginToken.length / TOKEN_BLOCKS);
-
         let focusEl = targetInput;
         if (targetInputIdx >= maxFocusElIdx) {
           focusEl = inputEls[maxFocusElIdx];

@@ -8,7 +8,6 @@ import { ApiConnectionFailure, ApiFailureType } from '../../service/migek-api.se
 /* eslint-enable */
 
 export const rescheduleViewSelectorsValues: RescheduleViewSelectors = {
-  rescheduleBackLink: '[data-biometrie_appointment=rescheduleBack]',
   otherSlotsContainer: '[data-biometrie_appointment=otherSlotsSelect]',
   capacityMsgTemplate: '[data-biometrie_appointment=capacityMsgTemplate]',
   toPrevWeekBtn: '[data-biometrie_appointment=toPrevWeek]',
@@ -20,15 +19,14 @@ export const rescheduleViewSelectorsValues: RescheduleViewSelectors = {
   weekDaySlotsContainer: '[data-biometrie_appointment=weekDaySlots]',
   slotSelectTemplate: '[data-biometrie_appointment=slotSelectTemplate]',
   slotSelect: '[data-biometrie_appointment=timeSlotSelect]',
-  selectionDetailsWrapper: '[data-biometrie_appointment=selection-details__wrapper',
-  selectionDetailsDate: '[data-biometrie_appointment=selection-details__date',
-  selectionDetailsCapacity: '[data-biometrie_appointment=selection-details__capacity',
+  selectionDetailsWrapper: '[data-biometrie_appointment=selection-details__wrapper]',
+  selectionDetailsDate: '[data-biometrie_appointment=selection-details__date]',
+  selectionDetailsCapacity: '[data-biometrie_appointment=selection-details__capacity]',
   doRescheduleBtn: '[data-biometrie_appointment=doScheduleSelected]',
   slotFullMsg: '[data-biometrie_appointment=slotFullMsg]',
 };
 
 export interface RescheduleViewSelectors {
-  rescheduleBackLink: string,
   otherSlotsContainer: string,
   capacityMsgTemplate: string,
   toPrevWeekBtn: string,
@@ -73,18 +71,6 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
 
   initEventListeners(eventDelegate): void {
     eventDelegate
-      .on('click', this.selectors.rescheduleBackLink, () => {
-        this.data.loading = true;
-        this.apiService.getReservationDetails()
-        // Refresh details, to prevent inconsistency between views
-          .then((refreshedAppointment) => {
-            this.data.appointment = refreshedAppointment;
-          })
-          .finally(() => {
-            this.data.loading = false;
-          });
-        this.resetView(true);
-      })
       .on('click', this.selectors.toNextWeekBtn, () => {
         this.log('Request to next week slots triggered');
         this.getAndRenderWeek();
@@ -385,7 +371,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     this.data.apiAvailable = true;
   }
 
-  private resetView(doClearSelection?: boolean): void {
+  public resetView(doClearSelection?: boolean): void {
     this.slotFullMsg.classList.remove('show');
     document.querySelectorAll<HTMLElement>(this.selectors.weekDaySlotsContainer)
       .forEach((slotCon) => {
