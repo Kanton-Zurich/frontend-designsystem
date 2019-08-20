@@ -1,0 +1,71 @@
+.mdl-news-filter-mobile {
+  $filterSizes: (
+    backIconHeight: (
+      tiny: $sizeSmallLarge,
+      xsmall: $sizeSmallLarge,
+      small: $sizeLarge,
+      medium: $sizeLarge,
+      large: $sizeSmallBig,
+    ),
+    backIconWidth: (
+      tiny: $sizeLarge,
+      small: $sizeSmallBig,
+      medium: $sizeBig,
+    )
+  );
+  $footerHeight: 72px;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .lyt-wrapper {
+    flex: 1 1 auto;
+  }
+
+  &__footer {
+    min-height: $footerHeight;
+    background-color: $colorBlack5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__sublevel {
+    &-icon {
+      @include polyFluidSizing(height, map-get($filterSizes, backIconHeight));
+      @include sizeCurve(width, backIconWidth, $filterSizes);
+
+      use {
+        fill: rgba($colorText, 0.6);
+      }
+    }
+
+    position: relative;
+
+    &-container {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      height: 100vh;
+      background-color: $colorWhite;
+      width: 100%;
+      transform: translate(100%, 0);
+      transition: 0.3s ease-in-out;
+      opacity: 0;
+      z-index: $zIndexOverlays;
+      cursor: pointer;
+
+      div:first-child {
+        flex: 1 1 auto;
+      }
+    }
+
+    &.visible {
+      div:first-child {
+        transform: unset;
+        opacity: 1;
+      }
+    }
+  }
+}
