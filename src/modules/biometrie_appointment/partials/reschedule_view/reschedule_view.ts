@@ -20,9 +20,9 @@ export const rescheduleViewSelectorsValues: RescheduleViewSelectors = {
   weekDaySlotsContainer: '[data-biometrie_appointment=weekDaySlots]',
   slotSelectTemplate: '[data-biometrie_appointment=slotSelectTemplate]',
   slotSelect: '[data-biometrie_appointment=timeSlotSelect]',
-  selectionDetailsWrapper: '[data-biometrie_appointment=selection-details__wrapper',
-  selectionDetailsDate: '[data-biometrie_appointment=selection-details__date',
-  selectionDetailsCapacity: '[data-biometrie_appointment=selection-details__capacity',
+  selectionDetailsWrapper: '[data-biometrie_appointment=selection-details__wrapper]',
+  selectionDetailsDate: '[data-biometrie_appointment=selection-details__date]',
+  selectionDetailsCapacity: '[data-biometrie_appointment=selection-details__capacity]',
   doRescheduleBtn: '[data-biometrie_appointment=doScheduleSelected]',
   slotFullMsg: '[data-biometrie_appointment=slotFullMsg]',
 };
