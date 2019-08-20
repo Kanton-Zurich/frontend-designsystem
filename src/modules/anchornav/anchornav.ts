@@ -12,6 +12,7 @@ import WindowEventListener from '../../assets/js/helpers/events';
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import Header from '../header/header';
 
 class Anchornav extends Module {
   public placeholder: HTMLElement;
@@ -114,7 +115,8 @@ class Anchornav extends Module {
 
   static get events() {
     return {
-      // eventname: `eventname.${ Anchornav.name }.${  }`
+      isSticky: 'isSticky.anchornav',
+      isNotSticky: 'isNotSticky.anchornav',
     };
   }
 
@@ -135,6 +137,14 @@ class Anchornav extends Module {
     // Necessary for jump.js plugin.
     // Is triggered before the debounced callback.
     (<any>WindowEventListener).addEventListener('scroll', this.onVerticalScroll.bind(this));
+
+    window.addEventListener(Header.events.showHeader, (event) => {
+      if (this.navigationIsFixed) {
+        this.addHeaderToPlaceHolderHeight((<any>event).detail);
+      }
+    });
+
+    window.addEventListener(Header.events.hideHeader, this.calcHeight.bind(this));
   }
 
   /**
@@ -501,6 +511,12 @@ class Anchornav extends Module {
   createPlaceholder() {
     this.placeholder = document.createElement('div');
 
+    this.calcHeight();
+
+    this.ui.element.parentNode.insertBefore(this.placeholder, this.ui.element);
+  }
+
+  calcHeight() {
     // Style definition from figma layout
     const smallMargin = 40;
     const bigMargin = 56;
@@ -513,8 +529,12 @@ class Anchornav extends Module {
     }
     this.placeholder.style.height = `${(this.ui.element.getBoundingClientRect().height + marginBottom)}px`;
     this.placeholder.style.display = 'none';
+  }
 
-    this.ui.element.parentNode.insertBefore(this.placeholder, this.ui.element);
+  addHeaderToPlaceHolderHeight(headerHeight) {
+    const currentHeight = this.placeholder.getBoundingClientRect().height;
+
+    this.placeholder.style.height = `${currentHeight + headerHeight}px`;
   }
 
   /**
@@ -523,6 +543,8 @@ class Anchornav extends Module {
   pinNavigation() {
     this.ui.element.classList.add(this.options.stateClasses.stickyMode);
     this.placeholder.style.display = 'block';
+
+    window.dispatchEvent(new CustomEvent(Anchornav.events.isSticky));
   }
 
   /**
@@ -531,6 +553,8 @@ class Anchornav extends Module {
   unpinNavigation() {
     this.ui.element.classList.remove(this.options.stateClasses.stickyMode);
     this.placeholder.style.display = 'none';
+
+    window.dispatchEvent(new CustomEvent(Anchornav.events.isNotSticky));
   }
 
   /**
