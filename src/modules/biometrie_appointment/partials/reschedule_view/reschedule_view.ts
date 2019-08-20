@@ -214,9 +214,11 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     this.prevBtnActive(this.firstOpenSlot.startDate.getTime() < earliestDate.getTime());
 
     const weekNo = DateHelper.getWeekNumber(earliestDate);
-    const weekIndicator = document
-      .querySelector<HTMLElement>(this.selectors.weekIndicator);
-    weekIndicator.innerText = `KW ${weekNo.toString()}`;
+    const weekIndicators = document
+      .querySelectorAll<HTMLElement>(this.selectors.weekIndicator);
+    weekIndicators.forEach((el) => {
+      el.innerText = `KW ${weekNo.toString()}`;
+    });
 
     const weeksDates = DateHelper.getDatesOfWeek(earliestDate);
     // Setting sunday as the "notBefore" parameter for request to this weeks timeslots.
@@ -224,9 +226,11 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     // Setting saturday as the "notBefore" parameter for next week request (and remove from array)
     this.nextNotBefore = weeksDates.pop();
     const [weeksMonday,,,, weeksFriday ] = weeksDates;
-    const weekRangeEl = document
-      .querySelector<HTMLElement>(this.selectors.weekRange);
-    weekRangeEl.innerText = `${DateHelper.getDeDateStr(weeksMonday)}-${DateHelper.getDeDateStr(weeksFriday)}`;
+    const weekRangeElements = document
+      .querySelectorAll<HTMLElement>(this.selectors.weekRange);
+    weekRangeElements.forEach((weekRangeEl) => {
+      weekRangeEl.innerText = `${DateHelper.getDeDateStr(weeksMonday)}-${DateHelper.getDeDateStr(weeksFriday)}`;
+    });
 
     const openSlotsPerWeekDay: Timeslot[][] = [];
     let maxSlotsPerDay = 0;

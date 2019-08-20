@@ -200,7 +200,14 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
 
         this.fillLoginTokenCleaned(totalStr);
 
+        const maxFocusElIdx = Math.floor(this.loginToken.length / TOKEN_BLOCKS);
+
         let focusEl = targetInput;
+        if (targetInputIdx >= maxFocusElIdx) {
+          focusEl = inputEls[maxFocusElIdx];
+          const maxCaretPos = this.loginToken.length % (TOKEN_BLOCK_LENGTH + 1);
+          caretPos = Math.min(maxCaretPos, caretPos);
+        }
         if (caretPos > TOKEN_BLOCK_LENGTH) {
           if (targetInputIdx < TOKEN_BLOCKS) {
             caretPos %= TOKEN_BLOCK_LENGTH;
@@ -216,6 +223,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
             caretPos = 0;
           }
         }
+
         this.setFocusAndCaret(focusEl, caretPos);
       });
   }
@@ -278,20 +286,18 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
     const tokenBlocks = cleanedStr.split(TOKEN_BLOCK_SEPERATOR);
     document.querySelectorAll<HTMLInputElement>(this.selectors.inputFields)
       .forEach((el, i) => {
-        if (tokenBlocks.length > i) {
-          el.innerText = tokenBlocks[i];
-        } else {
-          el.innerText = '';
+        let setText = '';
+        for (let j = 0; j < TOKEN_BLOCK_LENGTH; j += 1) {
+          if (tokenBlocks.length > i && tokenBlocks[i].length > j) {
+            setText += tokenBlocks[i][j];
+          } else {
+            setText += '_';
+          }
         }
-
-        if (el.innerText.length >= TOKEN_BLOCK_LENGTH) {
-          el.classList.add('filled');
-        } else {
-          el.classList.remove('filled');
-        }
+        el.innerText = setText;
       });
 
-    if (cleanedStr.length >= TOKEN_BLOCKS * TOKEN_BLOCK_LENGTH) {
+    if (cleanedStr.length >= VALID_TOKEN_LENGTH) {
       this.showLoginAlert();
       this.log('Token string complete: ', this.loginToken);
     }
