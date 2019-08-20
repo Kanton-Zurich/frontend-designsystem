@@ -566,7 +566,9 @@ class Anchornav extends Module {
   getPageYPositionFor(element): number {
     const elementTop = element.getBoundingClientRect().top;
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    return elementTop + scrollTop;
+    const headerHeight = document.querySelector('.mdl-header').getBoundingClientRect().height;
+
+    return elementTop + scrollTop - headerHeight;
   }
 
   /**
