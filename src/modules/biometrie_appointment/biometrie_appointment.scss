@@ -47,17 +47,34 @@ $biometrieViewTransitionDuration: 300ms;
     display: none;
     text-align: right;
 
-    @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
 
     .icon {
-      @include sizeCurve('margin-left', mini);
-      @include sizeCurve('height', tiny);
+      @include sizeCurve('height', smallerRegular);
+      margin-bottom: -3px;
+      fill: none;
+      stroke: $colorBlack60;
+      stroke-width: 2;
     }
 
     &.show {
       display: block;
     }
   }
+
+  &__backlink {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    display: none;
+
+    .icon {
+      margin-bottom: -4px;
+    }
+
+    &.show {
+      display: block;
+    }
+  }
+
 
   .view {
     opacity: 0;
@@ -371,9 +388,6 @@ $biometrieViewTransitionDuration: 300ms;
   }
 
   &__reschedule {
-    &__backlink {
-      @include sizeCurve('margin-bottom', medium);
-    }
 
     &__allopen {
 

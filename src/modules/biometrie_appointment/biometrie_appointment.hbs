@@ -9,11 +9,17 @@
         }
     }'>
 
-    <a class="atm-text_link atm-text_link--icon mdl-biometrie_appointment__logout" data-biometrie_appointment="logout">
-        {{ logoutLinkText }}
+    <a class="atm-text_link atm-text_link--icon mdl-biometrie_appointment__backlink" data-biometrie_appointment="rescheduleBack">
         <svg class="icon">
-            <use xlink:href="#exit"></use>
+            <use xlink:href="#arrow-left"></use>
         </svg>
+        Zurück
+    </a>
+    <a class="atm-text_link atm-text_link--icon mdl-biometrie_appointment__logout" data-biometrie_appointment="logout">
+        <svg class="icon">
+            <use xlink:href="#logout"></use>
+        </svg>
+        {{ logoutLinkText }}
     </a>
 
     {{#if heading}}<h2 class="atm-heading mdl-biometrie_appointment__heading">{{ heading }}</h2>{{/if}}
