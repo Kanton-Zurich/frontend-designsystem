@@ -192,7 +192,7 @@ $unitLeftSpace: 62px;
       top: 50%;
       right: 2px;
       width: calc(100% - 86px);
-      height: calc(100% - 4px);
+      height: calc(100% - #{$sizeMini});
       transform: translateY(-50%);
       border: none;
       appearance: textfield;
@@ -227,8 +227,8 @@ $unitLeftSpace: 62px;
       transform: translateY(-50%);
       height: 100%;
       display: inline-flex;
-      width: 40px;
-      margin-right: 32px;
+      width: pxToRem($sizeBiggerBig);
+      margin-right: pxToRem($sizeBig);
       align-items: center;
       justify-content: flex-end;
     }
@@ -249,7 +249,7 @@ $unitLeftSpace: 62px;
     .icon {
       position: absolute;
       top: 50%;
-      right: 12px;
+      right: pxToRem($sizeSmallRegular);
       transform: translate(-50%, -50%);
       fill: $colorBlack40;
     }
