@@ -4,15 +4,15 @@ $biometrieViewTransitionDuration: 300ms;
 // Whole block is needed to overwrite id-stylerules used in the old CMS
 #content-column .mdl-biometrie_appointment {
   ul {
-    font-size: unset;
-    margin: unset;
-    padding-left: unset;
+    font-size: inherit;
+    margin: initial;
+    padding-left: initial;
   }
 
   li {
-    margin-left: unset;
-    padding-left: unset;
-    margin-bottom: unset;
+    margin-left: initial;
+    padding-left: initial;
+    margin-bottom: initial;
   }
 
   &__details__checklist {
@@ -25,7 +25,7 @@ $biometrieViewTransitionDuration: 300ms;
 
   .block {
     a {
-      padding-bottom: unset;
+      padding-bottom: initial;
     }
   }
 }
@@ -206,7 +206,7 @@ $biometrieViewTransitionDuration: 300ms;
 
 
     .info-box {
-      padding: $sizeRegular;
+      padding: $sizeSmallRegular $sizeRegular $sizeLarge;
       background-color: #0076bd11;
       color: $colorBlue;
 
@@ -348,9 +348,15 @@ $biometrieViewTransitionDuration: 300ms;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
 
+      strong.boxhead {
+        @include sizeCurve('margin-bottom', tiny);
+      }
+
       ul {
         list-style-type: none;
         padding-left: 0;
+        margin: 0;
+        padding-bottom: $sizeSmallRegular;
 
         li {
           position: relative;
@@ -359,7 +365,7 @@ $biometrieViewTransitionDuration: 300ms;
           @include sizeCurve('padding-left', medium);
 
           + li {
-            @include sizeCurve('margin-top', regular);
+            @include sizeCurve('margin-top', smallerRegular);
           }
 
           &:before {
