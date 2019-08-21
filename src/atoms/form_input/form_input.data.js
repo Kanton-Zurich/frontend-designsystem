@@ -15,6 +15,7 @@ const data = _.merge({}, defaultData, {
   props: {
     type: 'text',
     label: 'Placeholder',
+    isInput: true,
     uuid: _.uniqueId('input'),
     name: 'input_name',
   },
@@ -33,6 +34,7 @@ const variants = _.mapValues({
     },
     props: {
       isTextarea: true,
+      isInput: false,
       isFloatingLabel: true,
       label: 'Placeholder',
       uuid: _.uniqueId('textarea'),
@@ -186,17 +188,33 @@ const variants = _.mapValues({
       },
     },
   },
-  dropdownTrigger: {
+  triggerDefault: {
     meta: {
-      title: 'Dropdown Select Trigger',
+      title: 'Select Trigger(default)',
       desc: 'Input mit floating Label',
     },
     props: {
       type: 'text',
       isSelectTrigger: true,
-      label: 'Floating Label',
-      uuid: _.uniqueId('float_input_float'),
       isFloatingLabel: true,
+      isInput: false,
+      label: 'Select Float Label',
+      uuid: _.uniqueId('float_button-'),
+    },
+  },
+  triggerPhone: {
+    meta: {
+      title: 'Select Trigger(phone)',
+      desc: 'Input mit floating Label',
+    },
+    props: {
+      type: 'text',
+      isSelectTrigger: true,
+      isTriggerWithInput: true,
+      isFloatingLabel: true,
+      isInput: false,
+      label: 'Select Float Label',
+      uuid: _.uniqueId('float_button-'),
     },
   },
 }, (variant) => {

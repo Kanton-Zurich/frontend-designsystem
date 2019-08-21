@@ -79,6 +79,23 @@ $unitLeftSpace: 62px;
         display: block;
       }
     }
+
+    button {
+      @include blankButton;
+      position: absolute;
+      right: pxToRem($sizeSmallRegular);
+      top: 50%;
+      transform: translateY(-50%);
+      line-height: 0;
+
+      svg use {
+        fill: $colorBlack60;
+      }
+
+      &:hover svg use {
+        fill: $colorBlack;
+      }
+    }
   }
 
   // Hide palceholder
@@ -105,8 +122,7 @@ $unitLeftSpace: 62px;
 
   &__unit,
   label,
-  &__validate-icon,
-  button {
+  &__validate-icon  {
     position: absolute;
   }
 
@@ -128,7 +144,7 @@ $unitLeftSpace: 62px;
     }
   }
 
-  button {
+  /*button:not(.atm-form_input__input--trigger) {
     @include blankButton;
 
     right: pxToRem($sizeSmallRegular);
@@ -143,7 +159,7 @@ $unitLeftSpace: 62px;
     &:hover svg use {
       fill: $colorBlack;
     }
-  }
+  }*/
 
   p {
     display: block;
@@ -164,10 +180,17 @@ $unitLeftSpace: 62px;
     display: none;
   }
 
+  &--trigger {
+
+  }
+
+  &--trigger,
   &--icon {
+    button:focus .icon,
     input:focus ~ .icon {
       fill: $colorBlack;
     }
+
     .icon {
       position: absolute;
       top: 50%;
