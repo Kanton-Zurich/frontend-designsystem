@@ -27,6 +27,7 @@ import SocialMediaStream from '../../../modules/social_media_stream/social_media
 import Stepper from '../../../modules/stepper/stepper';
 import ServiceButton from '../../../modules/service_button/service_button';
 import Application from '../../../modules/application/application';
+import Select from '../../../modules/select/select';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -63,6 +64,7 @@ class App {
     this.modules.stepper = Stepper;
     this.modules.serviceButton = ServiceButton;
     this.modules.application = Application;
+    this.modules.select = Select;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

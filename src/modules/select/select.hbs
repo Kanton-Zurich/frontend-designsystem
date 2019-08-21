@@ -1,0 +1,42 @@
+<div class="mdl-select{{#if hasFilter}} mdl-select--filter{{/if}}{{#if hasFilterAndButton}} mdl-select--filter-ext{{/if}}" data-init="select">
+
+  <div class="atm-form_input{{#if hasFilter}} atm-form_input--phone{{else}} atm-form_input--floated{{/if}}">
+
+    <button aria-labelledby="{{#if isMultiSelect}}checkbox{{/if}}{{#if isSingleSelect}}radio{{/if}}-aria-label {{#if
+      isMultiSelect}}checkbox{{/if}}{{#if isSingleSelect}}radio{{/if}}-aria-button-id"
+            id="{{#if isMultiSelect}}checkbox{{/if}}{{#if isSingleSelect}}radio{{/if}}-aria-button-id"
+            {{#unless hasFilter}}class="atm-form_input__input atm-form_input__input--dropdown"{{/unless}}{{#if
+      isMultiSelect}}
+            data-multiselectpostfix="gewählt"{{/if}}>
+
+      {{#unless hasFilter}}
+        <span id="{{#if isMultiSelect}}checkbox{{/if}}{{#if isSingleSelect}}radio{{/if}}-aria-label"
+              class="atm-form_input__dropdown-label">{{selectTriggerLabel}}</span>
+      {{/unless}}
+
+      <span class="atm-form_input__selection-value"></span>
+
+      <span class="visuallyhidden" data-ariatxtopen="Dropdown geöffnet" data-ariatxtclose="Dropdown geschlossen">Dropdown geschlossen</span>
+
+      <svg class="icon" focusable="false">
+        <use xlink:href="#angle_drop_down"></use>
+      </svg>
+
+    </button>
+    {{#if hasFilter}}<input class="atm-form_input__input" type="number" placeholder="Telefonnummer">{{/if}}
+  </div>
+  <div class="mdl-select__options">
+    <div>
+      <input type="text">
+      <svg class="icon" focusable="false">
+        <use xlink:href="#search"></use>
+      </svg>
+    </div>
+
+    {{> "atoms/list/list" listData }}
+
+    <div>
+      <button class="btn">Anwenden</button>
+    </div>
+  </div>
+</div>
