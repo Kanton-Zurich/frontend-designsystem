@@ -13,6 +13,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('service_wrapper.md'),
   },
   props: {
+    serviceWrapperId: 'serviceOverlay1',
     instructions: defInstructionData.variants.serviceDemo.props,
     listItem1: 'Unterschreiben Sie den Führerausweis',
     listItem2: 'Führen Sie immer Ihren normalen Führerausweis zusätzlich mit sich. Der internaltionale Führerausweis ist alleine nicht gültig.',
@@ -26,7 +27,6 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
-      preview: true,
     },
   },
 }, (variant) => {

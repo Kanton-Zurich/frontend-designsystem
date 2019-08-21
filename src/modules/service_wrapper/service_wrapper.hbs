@@ -1,11 +1,4 @@
-{{#if preview}}
-  <!-- Helper markup (do not include) -->
-  <button class="atm-button atm-button--big"
-          onclick="document.querySelector('.mdl-service-wrapper').dispatchEvent(new CustomEvent('ServiceWrapper.showOverlay'))">Overlay anzeigen
-  </button>
-  <!--  -->
-{{/if}}
-<div class="mdl-service-wrapper" data-init="serviceWrapper">
+<div class="mdl-service-wrapper" data-init="serviceWrapper" id="{{serviceWrapperId}}">
   <div class="mdl-service-wrapper__overlay">
     <div class="mdl-richtext">
       <h2 class="atm-heading">Vielen Dank</h2>

@@ -49,6 +49,20 @@ const variants = _.mapValues({
       ],
     },
   },
+  serviceForm: {
+    meta: {
+      title: 'Service Form (CZHDEV-775)',
+      desc: '',
+    },
+    props: {
+      title: null,
+      navigation: false,
+      overlayId: 'serviceOverlay1',
+      steps: [
+        _.merge({}, formVariants.defaultDuplicate.props, { sectionTitle: null }),
+      ],
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
