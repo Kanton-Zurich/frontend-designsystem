@@ -1,0 +1,25 @@
+<ul class="atm-list">
+
+  {{#each selectOptions}}
+    <li class="atm-list__item{{#if ../hasCheckIcon}} atm-list__item--check-icon{{/if}}{{#if ../hasIconLeft}} atm-list__item--icon-left{{/if}}{{#if ../hasIconRight}} atm-list__item--icon-right{{/if}}{{#if this.preSelected}} selected{{/if}}">
+      {{#if_compare ../hasIconLeft "||" ../hasCheckIcon }}
+        <svg class="icon">
+          <use xlink:href="#{{{../iconLeft}}}"></use>
+        </svg>
+      {{/if_compare}}
+      <input name="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-group"
+             id="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-item{{@index}}"
+             type="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}"
+             value="{{{ this.value }}}" placeholder="{{{ this.label }}}"{{#if
+        preSelected}} checked{{/if}}>
+
+      {{#if ../hasIconRight}}
+        <svg class="icon">
+          <use xlink:href="#{{{../iconRight}}}"></use>
+        </svg>
+      {{/if}}
+
+      {{{ this.label }}}
+    </li>
+  {{/each}}
+</ul>
