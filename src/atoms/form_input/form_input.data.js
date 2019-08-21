@@ -80,7 +80,7 @@ const variants = _.mapValues({
       uuid: _.uniqueId('float_input_valid'),
       isFloatingLabel: true,
       isRequired: true,
-      
+
     },
   },
   clearButton: {
@@ -171,6 +171,32 @@ const variants = _.mapValues({
         buttontype: 'clear',
         ariaText: 'Lösche Eingabe',
       },
+    },
+  },
+  smallWithIcon: {
+    meta: {
+      title: 'Input-Klein-Icon (Select mit Filter)',
+      desc: 'Eine kleine Variante des Inputs mit Icon rechts',
+    },
+    props: {
+      isSmall: true,
+      uuid: _.uniqueId('float_input_smallTopic'),
+      iconOnly: {
+        icon: 'search',
+      },
+    },
+  },
+  dropdownTrigger: {
+    meta: {
+      title: 'Dropdown Select Trigger',
+      desc: 'Input mit floating Label',
+    },
+    props: {
+      type: 'text',
+      isSelectTrigger: true,
+      label: 'Floating Label',
+      uuid: _.uniqueId('float_input_float'),
+      isFloatingLabel: true,
     },
   },
 }, (variant) => {

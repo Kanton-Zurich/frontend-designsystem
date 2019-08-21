@@ -164,6 +164,19 @@ $unitLeftSpace: 62px;
     display: none;
   }
 
+  &--icon {
+    input:focus ~ .icon {
+      fill: $colorBlack;
+    }
+    .icon {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translate(-50%, -50%);
+      fill: $colorBlack40;
+    }
+  }
+
   /**
    * FLOATED STYLES
    */

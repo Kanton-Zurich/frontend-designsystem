@@ -1,5 +1,5 @@
 <div class="atm-form_input{{#if isFloatingLabel}} atm-form_input--floated{{/if}}{{#if
-  isSmall}} atm-form_input--small{{/if}}{{#if unitLeft}} atm-form_input--unitLeft{{/if}}">
+  isSmall}} atm-form_input--small{{/if}}{{#if unitLeft}} atm-form_input--unitLeft{{/if}}{{#if iconOnly}} atm-form_input--icon{{/if}}">
 
   {{# if isTextarea}}
     <textarea class="atm-form_input__input atm-form_input__input--txtarea" id="{{uuid}}" placeholder="{{label}}"{{#if name }}
@@ -61,6 +61,13 @@
       </svg>
     </button>
   {{/if}}
+
+  {{#if iconOnly}}
+    <svg class="icon">
+      <use xlink:href="#{{iconOnly.icon }}"></use>
+    </svg>
+  {{/if}}
+  
   {{#if unitLeft}}
     <span class="atm-form_input__unit atm-form_input__unit--left">
       {{unitLeftLabel}}
