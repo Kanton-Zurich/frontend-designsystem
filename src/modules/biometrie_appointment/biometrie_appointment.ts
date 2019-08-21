@@ -39,6 +39,7 @@ class BiometrieAppointment extends Module {
       apiAlert: string;
       settings: string;
       alertDismiss: string;
+      connectRetry: string;
     }
     stateClasses: any
   };
@@ -62,6 +63,7 @@ class BiometrieAppointment extends Module {
         apiAlert: '[data-biometrie_appointment=unavailable-alert]',
         settings: `[${SETTINGS_ATTR_NAME}]`,
         alertDismiss: '[data-biometrie_appointment=alertClose]',
+        connectRetry: '[data-biometrie_appointment=retryConnect]',
       },
       loginViewSelectors, detailViewSelectors, rescheduleViewSelectorsValues),
       stateClasses: {
@@ -91,7 +93,7 @@ class BiometrieAppointment extends Module {
     settings = Object.assign(defaultSettings, settings);
     const defaultData = Object.assign({
       appointment: undefined,
-      apiAvailable: true,
+      apiAvailable: undefined,
       loading: true,
       loggedIn: false,
     }, settings);
@@ -113,7 +115,8 @@ class BiometrieAppointment extends Module {
     this.apiService.getStatus().then((statusOk) => {
       this.log('ApiService initialiside. StatusOk: ', statusOk);
       this.data.apiAvailable = statusOk;
-    }).catch(() => {
+    }).catch((exception) => {
+      this.log('Caught Exception on API status request: ', exception);
       this.data.apiAvailable = false;
     }).finally(() => {
       this.data.loading = false;
@@ -176,11 +179,17 @@ class BiometrieAppointment extends Module {
         .then((refreshedAppointment) => {
           this.data.appointment = refreshedAppointment;
         })
+        .catch((exception) => {
+          this.log('Unexpected exception connecting to API', exception);
+          this.data.apiAvailable = false;
+        })
         .finally(() => {
           this.data.loading = false;
         });
       this.rescheduleViewCntrl.resetView(true);
     }).on('click', this.options.domSelectors.logoutLink, () => {
+      this.doLogout();
+    }).on('click', this.options.domSelectors.connectRetry, () => {
       this.doLogout();
     });
 
@@ -214,7 +223,7 @@ class BiometrieAppointment extends Module {
     if (!valNew) {
       try {
         document
-          .querySelector<HTMLInputElement>(this.options.domSelectors.apiAlert)
+          .querySelector<HTMLElement>(this.options.domSelectors.apiAlert)
           .classList.add('show');
         this.enterView(); // Remove other view containers.
       } catch (e) {

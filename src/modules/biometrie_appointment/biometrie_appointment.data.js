@@ -5,6 +5,7 @@ const defaultData = require('../../data/default.data.js');
 const loginViewProps = require('./partials/login_view/login_view.data').props;
 const detailsViewProps = require('./partials/details_view/details_view.data').props;
 const rescheduleViewProps = require('./partials/reschedule_view/reschedule_view.data').props;
+const defaultButtonData = require('../../atoms/button/button.data').variants.default.props;
 
 const moduleSettings = {
   apiBase: 'https://internet-acc.zh.ch/proxy/migek/',
@@ -40,8 +41,14 @@ const data = _.merge({}, defaultData, {
   props: {
     heading: 'Termin verschieben',
     logoutLinkText: 'Logout',
-    apiUnavailableMsg: '<p>Entschuldigung, der Service ist nicht verfügbar. Grund dafür ist ein technisches Problem.</p>Bitte versuchen Sie es später noch einmal.',
-
+    apiUnavailableHead: 'Entschuldigung, der Service ist nicht verfügbar.',
+    apiUnavailableMsg: 'Grund dafür ist ein technisches Problem. Bitte versuchen Sie es später noch einmal.',
+    connectionRetryBtn: _.merge({}, defaultButtonData, {
+      text: 'Erneut versuchen',
+      isPrimary: true,
+      isSmall: true,
+      additionalAttribute: 'data-biometrie_appointment="retryConnect"',
+    }),
     loginViewProps,
     detailsViewProps,
     rescheduleViewProps,

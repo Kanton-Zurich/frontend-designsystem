@@ -379,7 +379,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
    */
   private handleError(exception): void {
     this.log('Unexpected exception connecting to API', exception);
-    this.data.apiAvailable = true;
+    this.data.apiAvailable = false;
   }
 }
 
