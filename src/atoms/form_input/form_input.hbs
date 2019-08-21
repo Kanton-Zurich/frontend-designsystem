@@ -9,7 +9,7 @@
         <use xlink:href="#angle_drop_down"></use>
       </svg>
     </button>
-    {{#if isTriggerWithInput}}<input type="number" placeholder="Telefonnummer">{{/if}}
+    {{#if isTriggerWithInput}}<input id="select_phone_input" name="phone_input" type="number" placeholder="Telefonnummer"><label class="visuallyhidden" for="select_phone_input">Bitte hier ihre Telefonnummer eingeben</label>{{/if}}
   {{/if}}
 
   {{# if isTextarea}}
