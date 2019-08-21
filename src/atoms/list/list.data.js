@@ -14,6 +14,7 @@ const data = _.merge({}, defaultData, {
   props: {
     iconRight: 'arrow-right',
     iconLeft: 'check',
+    groupPostfix: 'default',
     selectOptions: [
       { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
       { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
@@ -33,6 +34,7 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
+      groupPostfix: 'defaultSingle',
       isSingleSelect: true,
     },
   },
@@ -42,15 +44,17 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
+      groupPostfix: 'defaultMulti',
       isMultiSelect: true,
     },
   },
   iconLeft: {
     meta: {
       title: 'Mehrfachauswahl mit Icon links',
-      desc: 'Liste mit Icon links bei Auswahl',
+      desc: 'Liste mit Icon links nur bei Auswahl',
     },
     props: {
+      groupPostfix: 'iconLeftMulti',
       isMultiSelect: true,
       hasFilterAndButton: true,
       hasOptionIcon: true,
@@ -73,6 +77,7 @@ const variants = _.mapValues({
       desc: 'Liste mit Icon rechts',
     },
     props: {
+      groupPostfix: 'iconRightSingle',
       isSingleSelect: true,
       hasOptionIcon: true,
       hasIconRight: true,
@@ -84,6 +89,7 @@ const variants = _.mapValues({
       desc: 'Liste mit Icon rechts und links',
     },
     props: {
+      groupPostfix: 'iconBothSingle',
       isSingleSelect: true,
       hasOptionIcon: true,
       hasIconLeft: true,
