@@ -89,6 +89,7 @@ class Modal extends Module {
         .bind((<any>window).estatico.helpers.app)(this.ui.element);
       (<any>window).estatico.helpers.initModulesInElement
         .bind((<any>window).estatico.helpers.app)(this.ui.element);
+      (<any>window).estatico.helpers.app.registerForms();
     });
     this.eventDelegate.on('Modal.close', this.closeModal.bind(this));
     this.eventDelegate.on('click', this.options.domSelectors.close, this.closeModal.bind(this));

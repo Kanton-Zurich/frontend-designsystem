@@ -194,7 +194,10 @@ class App {
     const forms = document.querySelectorAll('form[novalidate]');
 
     forms.forEach((form) => {
-      new Form(form);
+      if (!form.getAttribute('initialized')) {
+        new Form(form);
+        form.setAttribute('initialized', 'true');
+      }
     });
   }
 }
