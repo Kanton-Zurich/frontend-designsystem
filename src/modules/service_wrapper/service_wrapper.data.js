@@ -1,28 +1,22 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const defTabsData = require('../tabs/tabs.data');
+const defInstructionData = require('../instructions/instructions.data');
 
-const template = dataHelper.getFileContent('service_box.hbs');
+const template = dataHelper.getFileContent('service_wrapper.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Service Box',
-    className: 'ServiceBox',
-    jira: 'CZHDEV-473',
-    documentation: dataHelper.getDocumentation('service_box.md'),
+    title: 'Service Wrapper',
+    className: 'ServiceWrapper',
+    jira: 'CZHDEV-775',
+    documentation: dataHelper.getDocumentation('service_wrapper.md'),
   },
   props: {
-    tabs: defTabsData.props.tabs,
-    linklist: {
-      list1: {
-        links: [
-          {
-            linkListItemTitle: 'Stellungsnahme des Direktors', linkListItemHref: '/',
-          },
-        ],
-      },
-    },
+    instructions: defInstructionData.variants.serviceDemo.props,
+    listItem1: 'Unterschreiben Sie den Führerausweis',
+    listItem2: 'Führen Sie immer Ihren normalen Führerausweis zusätzlich mit sich. Der internaltionale Führerausweis ist alleine nicht gültig.',
+    listItem3: 'At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
   },
 });
 const variants = _.mapValues({
@@ -30,6 +24,9 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+    props: {
+      preview: true,
     },
   },
 }, (variant) => {
