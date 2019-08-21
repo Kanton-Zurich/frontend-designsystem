@@ -101,6 +101,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
 
     let inPaste = false;
     let caretPos = 0;
+    let keyDownCaretPos = 0;
     eventDelegate
       .on('focus', this.selectors.inputFields, () => {
         inputWrapper.classList.add('focused');
@@ -119,6 +120,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
           event.stopPropagation();
           return;
         }
+        keyDownCaretPos = caretPos;
 
         let targetInputIdx = -1;
         inputEls.forEach((el, i) => {
@@ -148,11 +150,16 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
         let targetInputProcessed = false;
         inputEls.forEach((el) => {
           if (el === targetInput) {
-            overallCaretPos += caretPos;
-            const targetVal = targetInput.innerText;
-            if (targetVal) {
-              const beforePaste = targetVal.substring(0, caretPos);
-              const afterPaste = targetVal.substring(caretPos);
+            let targetValueBeforePaste = targetInput.innerText.replace(this.getPasteStr(event), '');
+            if (targetValueBeforePaste) {
+              this.log('Login TargetValue before Paste:', targetValueBeforePaste);
+              targetValueBeforePaste = targetValueBeforePaste.replace(/_/g, '');
+              const beforePaste = targetValueBeforePaste.substring(0, caretPos);
+              const afterPaste = targetValueBeforePaste.substring(caretPos);
+              this.log('Login: Paste before and after strings ', beforePaste, afterPaste);
+              if (beforePaste.length === 0) {
+                caretPos = 0;
+              }
               totalStr += beforePaste;
               totalStr += this.getPasteStr(pasteEv);
               totalStr += afterPaste;
@@ -161,9 +168,10 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
             } else {
               totalStr += this.getPasteStr(pasteEv);
             }
+            overallCaretPos += caretPos;
             targetInputProcessed = true;
           } else {
-            const targetVal = el.innerText;
+            const targetVal = el.innerText.replace(/_/g, '');
             totalStr += targetVal;
 
             if (targetInputProcessed) {
@@ -177,7 +185,10 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
         this.log('Total Input: ', totalStr);
         setTimeout(() => {
           this.fillLoginTokenCleaned(totalStr);
+          this.log('Login Paste: Initial Caret position ', caretPos, overallCaretPos);
+          this.log('Login Paste: Segment lengths ', this.loginToken.length, beforeCaretLength, afterCaretLength);
           const cleanPasteLength = this.loginToken.length - (beforeCaretLength + afterCaretLength);
+          this.log('Login Paste: CleanPaste length ', cleanPasteLength);
           overallCaretPos += cleanPasteLength;
 
           let focusElIdx = Math.floor(overallCaretPos / (TOKEN_BLOCK_LENGTH + 1));
@@ -210,19 +221,28 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
         });
 
         this.fillLoginTokenCleaned(totalStr);
+        this.log('Login KeyUp: Initial Caret position ', caretPos);
 
         const maxFocusElIdx = Math.floor(this.loginToken.length / TOKEN_BLOCKS);
         let focusEl = targetInput;
         if (targetInputIdx >= maxFocusElIdx) {
+          this.log('Login KeyUp: Input focus ahead  ', targetInputIdx, maxFocusElIdx);
           focusEl = inputEls[maxFocusElIdx];
           const maxCaretPos = this.loginToken.length % (TOKEN_BLOCK_LENGTH + 1);
           caretPos = Math.min(maxCaretPos, caretPos);
         }
         if (caretPos > TOKEN_BLOCK_LENGTH) {
-          if (targetInputIdx < TOKEN_BLOCKS) {
+          if (targetInputIdx < TOKEN_BLOCKS - 1) {
             caretPos %= TOKEN_BLOCK_LENGTH;
+          } else {
+            caretPos = TOKEN_BLOCK_LENGTH;
           }
-        } else if (caretPos === 0 && (event.key === 'Left' || event.key === 'ArrowLeft' || event.key === 'Backspace')) {
+        } else if (keyDownCaretPos === 0 && (event.key === 'Left' || event.key === 'ArrowLeft')) {
+          if (targetInputIdx > 0) {
+            focusEl = inputEls[targetInputIdx - 1];
+            caretPos = Math.min(focusEl.innerText.length, TOKEN_BLOCK_LENGTH);
+          }
+        } else if (caretPos === 0 && event.key === 'Backspace') {
           if (targetInputIdx > 0) {
             focusEl = inputEls[targetInputIdx - 1];
             caretPos = Math.min(focusEl.innerText.length, TOKEN_BLOCK_LENGTH);
@@ -320,11 +340,21 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
    * @param { number } caretPos the position to put caret in the focused object.
    */
   private setFocusAndCaret(focusEl: HTMLElement, caretPos: number): void {
-    this.log('Set focus and caret: ', focusEl, caretPos);
+    this.log('Login: Set focus and caret: ', focusEl, caretPos);
     if (focusEl) {
       focusEl.focus();
-      if (focusEl.childNodes[0]) {
-        window.getSelection().getRangeAt(0).setStart(focusEl.childNodes[0], caretPos);
+
+      if (document.createRange) {
+        const range = document.createRange();
+        range.selectNodeContents(focusEl);
+
+
+        range.setStart(focusEl.firstChild, caretPos);
+        range.setEnd(focusEl.firstChild, caretPos);
+
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
       }
     }
   }
@@ -379,7 +409,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
    */
   private handleError(exception): void {
     this.log('Unexpected exception connecting to API', exception);
-    this.data.apiAvailable = true;
+    this.data.apiAvailable = false;
   }
 }
 

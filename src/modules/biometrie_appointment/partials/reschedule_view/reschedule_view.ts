@@ -368,7 +368,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
    */
   private handleFatal(exception): void {
     this.log('Unexpected exception connecting to API', exception);
-    this.data.apiAvailable = true;
+    this.data.apiAvailable = false;
   }
 
   public resetView(doClearSelection?: boolean): void {

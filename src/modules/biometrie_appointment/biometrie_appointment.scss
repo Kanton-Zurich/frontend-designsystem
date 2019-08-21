@@ -4,18 +4,18 @@ $biometrieViewTransitionDuration: 300ms;
 // Whole block is needed to overwrite id-stylerules used in the old CMS
 #content-column .mdl-biometrie_appointment {
   ul {
-    font-size: unset;
-    margin: unset;
-    padding-left: unset;
+    font-size: inherit;
+    margin: initial;
+    padding-left: initial;
   }
 
   li {
-    margin-left: unset;
-    padding-left: unset;
-    margin-bottom: unset;
+    margin-left: initial;
+    padding-left: initial;
+    margin-bottom: initial;
   }
 
-  &__checklist {
+  &__details__checklist {
     li {
       @include sizeCurve('margin-left', mini);
       @include sizeCurve('padding-left', medium);
@@ -25,7 +25,7 @@ $biometrieViewTransitionDuration: 300ms;
 
   .block {
     a {
-      padding-bottom: unset;
+      padding-bottom: initial;
     }
   }
 }
@@ -206,7 +206,7 @@ $biometrieViewTransitionDuration: 300ms;
 
 
     .info-box {
-      padding: $sizeRegular;
+      padding: $sizeSmallRegular $sizeRegular $sizeLarge;
       background-color: #0076bd11;
       color: $colorBlue;
 
@@ -348,14 +348,15 @@ $biometrieViewTransitionDuration: 300ms;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
 
-      strong {
-        @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+      strong.boxhead {
         @include sizeCurve('margin-bottom', tiny);
       }
 
       ul {
         list-style-type: none;
         padding-left: 0;
+        margin: 0;
+        padding-bottom: $sizeSmallRegular;
 
         li {
           position: relative;
@@ -364,7 +365,7 @@ $biometrieViewTransitionDuration: 300ms;
           @include sizeCurve('padding-left', medium);
 
           + li {
-            @include sizeCurve('margin-top', regular);
+            @include sizeCurve('margin-top', smallerRegular);
           }
 
           &:before {
@@ -809,29 +810,59 @@ $biometrieViewTransitionDuration: 300ms;
   }
 
   &__unavailable-alert {
+    @include sizeCurve('padding', regular);
+    @include sizeCurve('padding-left', big);
     position: relative;
+    box-shadow: 0 0 5px $colorBlack;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-left: 4px solid $colorRed;
     display: none;
+    overflow: hidden;
 
-    .alert {
-      color: $colorRed;
-      line-height: $sizeLineHeightBase;
+    &__content {
+      strong.boxhead {
+        color: $colorRed;
+      }
+    }
 
-      @include sizeCurve('padding-left', big);
+    &:before {
+      content: '!';
+      background-color: $colorRed;
+      color: $colorWhite;
+      text-align: center;
+      border-radius: 50%;
+      display: block;
+      position: absolute;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+      @include sizeCurve('width', large);
+      @include sizeCurve('left', mini);
+      @include sizeCurve('height', large);
+      @include sizeCurve('line-height', large);
+    }
+
+    @include mq($from: medium) {
+      .atm-button {
+        @include sizeCurve('margin-top', medium);
+        float: right;
+      }
+
+      &__content {
+        display: inline-block;
+      }
+    }
+    @include mq($to: small) {
+      @include sizeCurve('padding-left', regular);
+      @include sizeCurve('padding-top', big);
 
       &:before {
-        content: '!';
-        background-color: $colorRed;
-        color: $colorWhite;
-        text-align: center;
-        border-radius: 50%;
-        display: block;
-        position: absolute;
-        left: 0;
+        @include sizeCurve('left', regular);
+        @include sizeCurve('top', regular);
+      }
 
-        @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
-        @include sizeCurve('width', large);
-        @include sizeCurve('height', large);
-        @include sizeCurve('line-height', large);
+      &__content {
+        @include sizeCurve('margin-top', mini);
       }
     }
 
@@ -987,5 +1018,12 @@ $biometrieViewTransitionDuration: 300ms;
     &.show {
       display: block;
     }
+  }
+
+  strong.boxhead {
+    display: block;
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+    @include sizeCurve('margin-bottom', tiny);
   }
 }
