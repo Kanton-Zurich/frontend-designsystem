@@ -5,6 +5,7 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import Anchornav from '../anchornav/anchornav';
 
 class Header extends Module {
   public options: {
@@ -20,6 +21,7 @@ class Header extends Module {
       activeItem: string,
       open: string,
       fixedHeader: string,
+      fixed: string,
     },
     colorClasses: {
       monochrome: string,
@@ -34,12 +36,16 @@ class Header extends Module {
   public data: {
     activeModal: HTMLElement,
     activeItem: HTMLElement,
+    scrollPosition: number,
+    headerIsFixed: boolean,
   }
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
       activeModal: null,
       activeItem: null,
+      scrollPosition: 0,
+      headerIsFixed: false,
     };
     const defaultOptions = {
       transitionDelays: {
@@ -54,6 +60,7 @@ class Header extends Module {
         activeItem: 'mdl-header__nav-item--active',
         open: 'mdl-header--open',
         fixedHeader: 'fixed-header',
+        fixed: 'mdl-header--fixed',
       },
       colorClasses: {
         monochrome: 'cv-monochrome',
@@ -62,13 +69,17 @@ class Header extends Module {
 
     super($element, defaultData, defaultOptions, data, options);
 
+    this.data.scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
     this.initUi();
     this.initEventListeners();
+    this.initWatchers();
   }
 
   static get events() {
     return {
-      // eventname: `eventname.${ Header.name }.${  }`
+      showHeader: 'showHeader.header',
+      hideHeader: 'hideHeader.header',
     };
   }
 
@@ -80,6 +91,19 @@ class Header extends Module {
 
     window.addEventListener('keydown', this.closeOnEscape.bind(this));
     window.addEventListener('Modal.closed', this.unsetClasses.bind(this));
+    window.addEventListener('scroll', this.handleScroll.bind(this));
+
+    window.addEventListener(Anchornav.events.isSticky, () => {
+      this.ui.element.classList.add(this.options.colorClasses.monochrome);
+    });
+
+    window.addEventListener(Anchornav.events.isNotSticky, () => {
+      this.ui.element.classList.remove(this.options.colorClasses.monochrome);
+    });
+  }
+
+  initWatchers() {
+    this.watch(this.data, 'headerIsFixed', this.toggleFixedHeader.bind(this));
   }
 
   toggleFlyout(event, delegate) {
@@ -131,6 +155,35 @@ class Header extends Module {
 
       this.data.activeModal = null;
       this.data.activeItem = null;
+    }
+  }
+
+  handleScroll() {
+    const newScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (this.data.scrollPosition > newScrollPosition && !this.data.headerIsFixed) {
+      this.data.headerIsFixed = true;
+    } else if (this.data.scrollPosition < newScrollPosition && this.data.headerIsFixed) {
+      this.data.headerIsFixed = false;
+    }
+
+    this.data.scrollPosition = newScrollPosition;
+  }
+
+  toggleFixedHeader(propName, valueBefore, valueAfter) {
+    const anchornavIsSticky = document.querySelector('.mdl-anchornav').classList.contains('.mdl-anchornav--sticky');
+
+    if (valueAfter) {
+      if (anchornavIsSticky) {
+        this.ui.element.classList.add(this.options.colorClasses.monochrome);
+      }
+
+      this.ui.element.classList.add(this.options.stateClasses.fixed);
+      document.documentElement.classList.add(this.options.stateClasses.fixedHeader);
+    } else {
+      this.ui.element.classList.remove(this.options.colorClasses.monochrome);
+      this.ui.element.classList.remove(this.options.stateClasses.fixed);
+      document.documentElement.classList.remove(this.options.stateClasses.fixedHeader);
     }
   }
 

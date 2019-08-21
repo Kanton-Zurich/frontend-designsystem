@@ -8,13 +8,17 @@ $headerCurves: (
     tiny: 53px,
     xsmall: 61px,
     medium: 77px
-  )
+  ),
+  borderHeight: (
+    tiny: 2px,
+    medium: 5px,
+  ),
 );
 
 .mdl-header {
   @include gridBleed($fullwidth: true);
+  @include sizeCurve(padding-bottom, borderHeight, $headerCurves);
 
-  padding-bottom: pxToRem(5px);
   position: relative;
 
   @include transition(background);
@@ -31,9 +35,19 @@ $headerCurves: (
     z-index: $zIndexFlyouts;
   }
 
+  &--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    transition: none;
+
+    z-index: $zIndexFlyouts;
+  }
+
   &__wrapper {
     &:after {
-      height: 5px;
+      @include sizeCurve(height, borderHeight, $headerCurves);
       background: $colorWhite;
 
       width: 100vw;
@@ -58,6 +72,8 @@ $headerCurves: (
   &__nav-item {
     @include sizeCurve(line-height, nav, $lineHeightCurves, $pxToRem: false);
     @include sizeCurve(height, height, $headerCurves);
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    @include blankButton();
 
     display: flex;
     align-items: center;
