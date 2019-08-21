@@ -1,3 +1,59 @@
+$selectHeight: 208px;
+$selectHeightWithFilter: 360px;
+$selectHeightWithFilterExtended: 424px;
+//mdl-select--open
 .mdl-select {
+  position: relative;
 
+  &__options {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    width: 100%;
+    height: 0;
+    transition: 400ms height ease-out;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
+    background-color: $colorWhite;
+    overflow: hidden;
+    border-radius: 1px;
+
+    ul {
+      // Overwrite list atom styles
+      box-shadow: none;
+      border-radius: 0;
+      height: 100%;
+    }
+  }
+
+  &__filter,
+  &__apply {
+    height: pxToRem($sizeGiant);
+    padding: pxToRem($sizeRegular);
+  }
+
+  &__filter {
+
+  }
+
+  &__apply {
+
+  }
+
+  &--open {
+    .mdl-select__options {
+      height: pxToRem($selectHeight);
+    }
+
+    &.mdl-select--filter {
+      .mdl-select__options {
+        height: pxToRem($selectHeightWithFilter);
+      }
+    }
+
+    &.mdl-select--filter-ext {
+      .mdl-select__options {
+        height: pxToRem($selectHeightWithFilterExtended);
+      }
+    }
+  }
 }

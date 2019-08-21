@@ -4,6 +4,7 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const listDemoData = require('../../atoms/list/list.data');
+const inputDemoData = require('../../atoms/form_input/form_input.data');
 
 const template = dataHelper.getFileContent('select.hbs');
 const data = _.merge({}, defaultData, {
@@ -14,7 +15,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('select.md'),
   },
   props: {
-    listData: listDemoData.props,
+
   },
 });
 const variants = _.mapValues({
@@ -22,6 +23,35 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+    props: {
+      listData: listDemoData.props,
+      selectInputData: inputDemoData.variants.triggerDefault.props,
+      filterInputDtat: inputDemoData.variants.smallWithIcon.props,
+    },
+  },
+  selectPhone: {
+    meta: {
+      title: 'Phone',
+      desc: 'Default implementation',
+    },
+    props: {
+      hasFilter: true,
+      listData: listDemoData.props,
+      selectInputData: inputDemoData.variants.triggerDefault.props,
+      filterInputDtat: inputDemoData.variants.smallWithIcon.props,
+    },
+  },
+  multiSelect: {
+    meta: {
+      title: 'multiSelect',
+      desc: 'Default implementation',
+    },
+    props: {
+      hasFilter: true,
+      listData: listDemoData.props,
+      selectInputData: inputDemoData.variants.triggerDefault.props,
+      filterInputDtat: inputDemoData.variants.smallWithIcon.props,
     },
   },
 }, (variant) => {
