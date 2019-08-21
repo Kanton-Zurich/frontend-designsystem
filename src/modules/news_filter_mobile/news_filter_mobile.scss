@@ -11,6 +11,10 @@
       tiny: $sizeLarge,
       small: $sizeSmallBig,
       medium: $sizeBig,
+    ),
+    topPadding: (
+      tiny: $sizeLarge,
+      small: $sizeHuge,
     )
   );
   $footerHeight: 72px;
@@ -19,8 +23,14 @@
   flex-direction: column;
   height: 100%;
 
+
+
   .lyt-wrapper {
     flex: 1 1 auto;
+  }
+
+  &__title.atm-heading {
+    @include sizeCurve(padding-top, topPadding, $filterSizes);
   }
 
   &__footer {
