@@ -94,10 +94,10 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
 
   private initInputEvents(eventDelegate): void {
     const inputWrapper = document
-      .querySelector<HTMLInputElement>(this.selectors.inputFieldsWrapper);
+      .querySelector<HTMLDivElement>(this.selectors.inputFieldsWrapper);
 
-    const inputEls = document
-      .querySelectorAll<HTMLInputElement>(this.selectors.inputFields);
+    const inputEls = inputWrapper
+      .querySelectorAll<HTMLSpanElement>(this.selectors.inputFields);
 
     let inPaste = false;
     let caretPos = 0;
@@ -256,6 +256,10 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
 
         this.setFocusAndCaret(focusEl, caretPos);
       });
+
+    setTimeout(() => {
+      this.setFocusAndCaret(inputEls.item(0), 0);
+    }, 0);
   }
 
   /**
