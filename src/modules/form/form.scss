@@ -85,6 +85,31 @@ $gapSize: pxToRem($sizeRegular);
     border: none;
   }
 
+  &__fieldset-error-message {
+    display: block;
+    width: 100%;
+    font-size: pxToRem($sizeFontTiny);
+    line-height: $sizeLineHeightBase;
+    margin: 0;
+    padding-left: pxToRem($sizeRegular + 2px);
+    color: $colorWhite;
+    background-color: $colorRed;
+    transform: translateY(-50%) scaleY(0);
+    transition: transform 400ms, opacity 400ms, height 400ms ease-in-out;
+    height: 0;
+    opacity: 0;
+
+    margin-top: $sizeTiny;
+
+    .invalid & {
+      padding-top: pxToRem(7px);
+      padding-bottom: pxToRem(5px);
+      height: auto;
+      opacity: 1;
+      transform: translateY(0) scaleY(1);
+    }
+  }
+
   &__legend {
     font-size: pxToRem($sizeFontTiny);
     line-height: $sizeLineHeightBase;
