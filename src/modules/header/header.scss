@@ -43,6 +43,8 @@ $headerCurves: (
     transition: none;
 
     z-index: $zIndexFlyouts;
+    transform: translateX(0);
+    margin-left: 0;
   }
 
   &__wrapper {
