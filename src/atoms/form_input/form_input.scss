@@ -97,6 +97,7 @@ $unitLeftSpace: 62px;
       }
     }
 
+    &--datepicker,
     &--trigger {
       position: relative;
       height: $heightRegular;
@@ -171,7 +172,7 @@ $unitLeftSpace: 62px;
   }
 
   /**
-  * DROPDOWN/SELECT with number input
+  * DROPDOWN/SELECT with additional number input
   */
   &--trigger-phone {
     .atm-form_input__input--trigger {
@@ -239,6 +240,7 @@ $unitLeftSpace: 62px;
     color: $colorBlack60;
   }
 
+  &--datepicker,
   &--trigger,
   &--icon {
     button:focus .icon,
@@ -253,6 +255,15 @@ $unitLeftSpace: 62px;
       transform: translate(-50%, -50%);
       fill: $colorBlack40;
     }
+  }
+
+  &__date-value {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
   }
 
   /**

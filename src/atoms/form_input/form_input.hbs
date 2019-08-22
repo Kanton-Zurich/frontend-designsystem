@@ -1,19 +1,24 @@
 <div class="atm-form_input{{#if isFloatingLabel}} atm-form_input--floated{{/if}}{{#if
-  isSmall}} atm-form_input--small{{/if}}{{#if unitLeft}} atm-form_input--unitLeft{{/if}}{{#if iconOnly}} atm-form_input--icon{{/if}}{{#if isSelectTrigger}} atm-form_input--trigger{{/if}}{{#if isTriggerWithInput}} atm-form_input--trigger-phone{{/if}}">
+  isSmall}} atm-form_input--small{{/if}}{{#if unitLeft}} atm-form_input--unitLeft{{/if}}{{#if
+  iconOnly}} atm-form_input--icon{{/if}}{{#if isSelectTrigger}} atm-form_input--trigger{{/if}}{{#if
+  isTriggerWithInput}} atm-form_input--trigger-phone{{/if}}">
 
-  {{# if isSelectTrigger}}
+  {{#if isSelectTrigger}}
     <button id="{{uuid}}" class="atm-form_input__input atm-form_input__input--trigger">
       <span class="atm-form_input__trigger-label">{{label}}</span>
       <span class="atm-form_input__trigger-value">{{#if demoTel}}+41{{/if}}</span>
       <svg class="icon" focusable="false">
-        <use xlink:href="#angle_drop_down"></use>
+        <use xlink:href="#{{icon}}"></use>
       </svg>
     </button>
-    {{#if isTriggerWithInput}}<input id="select_phone_input" name="phone_input" type="number" placeholder="Telefonnummer"><label class="visuallyhidden" for="select_phone_input">Bitte hier ihre Telefonnummer eingeben</label>{{/if}}
+    {{#if isTriggerWithInput}}
+      <input id="select_phone_input" name="phone_input" type="number" placeholder="Telefonnummer"><label
+      class="visuallyhidden" for="select_phone_input">Bitte hier ihre Telefonnummer eingeben</label>{{/if}}
   {{/if}}
 
   {{# if isTextarea}}
-    <textarea class="atm-form_input__input atm-form_input__input--txtarea" id="{{uuid}}" placeholder="{{label}}"{{#if name }}
+    <textarea class="atm-form_input__input atm-form_input__input--txtarea" id="{{uuid}}" placeholder="{{label}}"{{#if
+      name }}
               name="{{name}}"{{/if}}{{#if cols }}
               cols="{{cols}}"{{/if}}{{#if rows }} rows="{{rows}}"{{/if}}{{#if validation.max }}
               maxlength="{{validation.max}}"{{/if}}{{#if validation.isRequired}} required{{/if}}{{#if isReadOnly}}
@@ -36,7 +41,7 @@
       {{#if dataSelector}} {{{dataSelector}}}{{/if}}
       {{#if validation.isRequired}} required{{/if}}
       {{#if isReadOnly}} readonly{{/if}}
-      {{#if autocompleteOff}} [autocomplete="off"]{{/if}}
+      {{#if autocompleteOff}} [autocomplete="off" ]{{/if}}
       {{#if disabled}} disabled{{/if}}
       {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
       {{#if validation}} data-validation{{/if}}
@@ -68,7 +73,8 @@
     {{#if validation.isRequired}}<p data-message="required">Dies ist ein Pflichtfeld</p>{{/if}}
 
     {{#if additionalFunctionality}}
-      <button class="atm-form_input__functionality" type="button" data-buttontype="{{additionalFunctionality.buttontype}}">
+      <button class="atm-form_input__functionality" type="button"
+              data-buttontype="{{additionalFunctionality.buttontype}}">
         <span class="visuallyhidden">{{additionalFunctionality.ariaText}}</span>
         <svg class="icon">
           <use xlink:href="#{{additionalFunctionality.icon }}"></use>

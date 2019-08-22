@@ -198,6 +198,7 @@ const variants = _.mapValues({
       isSelectTrigger: true,
       isFloatingLabel: true,
       isInput: false,
+      icon: 'angle_drop_down',
       label: 'Select Float Label',
       uuid: _.uniqueId('float_button-'),
     },
@@ -213,8 +214,25 @@ const variants = _.mapValues({
       isTriggerWithInput: true,
       isInput: false,
       label: 'Select Float Label',
+      icon: 'angle_drop_down',
       demoTel: true,
       uuid: _.uniqueId('float_button-'),
+    },
+  },
+  datePicker: {
+    meta: {
+      title: 'Datepicker',
+      desc: 'Input mit floating Label',
+    },
+    props: {
+      type: 'text',
+      isFloatingLabel: true,
+      isInput: true,
+      iconOnly: {
+        icon: 'time',
+      },
+      label: 'Uhrzeit',
+      uuid: _.uniqueId('datepicker-'),
     },
   },
 }, (variant) => {
