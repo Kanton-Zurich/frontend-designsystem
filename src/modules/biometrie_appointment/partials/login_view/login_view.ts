@@ -110,8 +110,8 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
         inputWrapper.classList.remove('focused');
       })
       .on('keydown', this.selectors.inputFields, (event: KeyboardEvent, targetInput) => {
-        this.log('Event KeyDown: ', event, targetInput, caretPos);
         caretPos = window.getSelection().getRangeAt(0).startOffset;
+        this.log('Event KeyDown: ', event, targetInput, caretPos);
         inPaste = false;
 
         if (event.key === 'Enter') {
@@ -128,14 +128,22 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
             targetInputIdx = i;
           }
         });
-
         if (caretPos === TOKEN_BLOCK_LENGTH && targetInputIdx < inputEls.length - 1) {
-          if (this.validateTokenCharacter(event.key)) {
-            const focusEl = inputEls[targetInputIdx + 1];
-            focusEl.focus();
-            if (focusEl.childNodes[0]) {
-              window.getSelection().getRangeAt(0).setStart(focusEl.childNodes[0], 0);
+          let charStr = event.key;
+          if (!charStr || charStr === 'Unidentified') {
+            try {
+              const eventTargetText = targetInput.innerText;
+              charStr = eventTargetText.substr(caretPos - 1, 1);
+            } catch (e) {
+              this.log('Login: Unable to get character from KeyEvent. ', e);
             }
+          }
+          if (this.validateTokenCharacter(charStr)) {
+            setTimeout(() => {
+              const focusEl = inputEls.item(targetInputIdx + 1);
+              this.log('LOGIN: keydown jump to next ', focusEl);
+              this.setFocusAndCaret(focusEl, 1);
+            }, 0);
           }
         }
       })
@@ -219,7 +227,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
             targetInputIdx = i;
           }
         });
-
+        this.log('Login: Total token input: ', totalStr);
         this.fillLoginTokenCleaned(totalStr);
         this.log('Login KeyUp: Initial Caret position ', caretPos);
 
