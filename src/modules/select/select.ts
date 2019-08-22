@@ -85,6 +85,7 @@ class Select extends Module {
     this.currentIndex = 0;
 
     this.itemType = this.ui.list.dataset[this.options.dataSelectors.itemType];
+    console.log('init', this.ui.items);
 
     this.initUi();
     this.initEventListeners();
@@ -134,19 +135,19 @@ class Select extends Module {
 
     if (key === 'ArrowUp' || key === 'Up' ) {
       if (this.itemType === 'radio') {
-        this.selectNextItem();
+        this.selectPreviousItem();
       }
       if (this.itemType === 'checkbox') {
-        this.focusNextItem();
+        this.focusPreviousItem();
       }
     } else if (key === 'ArrowDown' || key === 'Down') {
       /*event.preventDefault();
       event.stopPropagation();*/
       if (this.itemType === 'radio') {
-        this.selectPreviousItem();
+        this.selectNextItem();
       }
       if (this.itemType === 'checkbox') {
-        this.focusPreviousItem();
+        this.focusNextItem();
       }
     }
     /*
@@ -158,33 +159,43 @@ class Select extends Module {
   }
 
   selectItemByIndex(index: number = this.currentIndex) {
+    console.log('selectItemByIndex');
     const item = this.ui.items[index];
     this.selectItem(item);
     this.currentIndex = index;
   }
 
   selectNextItem() {
-    let selectIndex = this.currentIndex + 1;
-    if (selectIndex < 0) {
-      selectIndex = 0;
+    console.log('selectNextItem');
+    console.log(this.currentIndex);
+    this.currentIndex += 1;
+    console.log(this.ui.items);
+    if (this.currentIndex > this.ui.items.length) {
+      this.currentIndex = 0;
     }
-    const item = this.ui.items[selectIndex];
+
+    const item = this.ui.items[this.currentIndex];
+    console.log(this.currentIndex);
+    console.log(item);
     this.selectItem(item);
-    this.currentIndex = selectIndex;
+    //this.currentIndex = selectIndex;
   }
 
   selectPreviousItem() {
+    console.log('selectPreviousItem');
     let selectIndex = this.currentIndex - 1;
-    if (selectIndex > this.ui.items.length) {
-      selectIndex = 0;
+    if (this.currentIndex < 0) {
+      this.currentIndex = 0;
     }
+
     const item = this.ui.items[selectIndex];
+    console.log(item);
     this.selectItem(item);
     this.currentIndex = selectIndex;
   }
 
   selectItem(item: any) {
-    console.log(item);
+    console.log('selectItem', item);
     let itemInput = item.querySelector('input');
     /*
     if (this.itemType === 'radio') {
@@ -200,7 +211,7 @@ class Select extends Module {
       item.classList.add('selected');
       itemInput.checked = true;
     }
-    this.updateSelections();
+    // this.updateSelections();
   }
 
   clearSelections() {
@@ -217,6 +228,7 @@ class Select extends Module {
 
   updateSelections() {
     this.ui.items = this.ui.list.querySelectorAll('.atm-list__item.selected');
+    //this.selectionsItems = this.ui.list.querySelectorAll('.atm-list__item.selected');
   }
 
   focusNextItem() {
