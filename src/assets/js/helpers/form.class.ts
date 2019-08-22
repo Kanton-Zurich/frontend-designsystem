@@ -76,8 +76,6 @@ class Form {
   addWatchers(targetElement = this.ui.element) {
     const watchableInputs = targetElement.querySelectorAll(this.options.watchEmitters.input);
 
-    console.log(targetElement);
-
     watchableInputs.forEach((input) => {
       wrist.watch(input, 'value', (propName, oldValue, newValue) => {
         this.onInputValueChange(input, oldValue, newValue);
