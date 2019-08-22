@@ -40,6 +40,16 @@ $selectHeightWithFilterExtended: 424px;
   }
 
   &--open {
+    .atm-form_input--trigger {
+      button {
+        border-color: $colorCyan;
+        outline: 0;
+      }
+
+      .icon {
+        transform: translate(-50%, -50%) rotate(180deg);
+      }
+    }
     .mdl-select__options {
       height: pxToRem($selectHeight);
     }
@@ -47,12 +57,37 @@ $selectHeightWithFilterExtended: 424px;
     &.mdl-select--filter {
       .mdl-select__options {
         height: pxToRem($selectHeightWithFilter);
+
+        ul {
+          height: calc(100% - 80px);
+        }
       }
     }
 
     &.mdl-select--filter-ext {
       .mdl-select__options {
         height: pxToRem($selectHeightWithFilterExtended);
+
+        ul {
+          height: calc(100% - 160px);
+        }
+      }
+    }
+  }
+
+  &--selected,
+  &--open {
+    .atm-form_input {
+
+      &__trigger-label {
+        pointer-events: none;
+        padding: 0;
+        top: pxToRem($sizeFontSmall);
+        font-weight: $fontWeightBlack;
+        font-size: pxToRem($sizeFontTiny);
+        line-height: $sizeLineHeightBase;
+        color: $colorBlack;
+        transform: none;
       }
     }
   }

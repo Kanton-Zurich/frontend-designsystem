@@ -18,6 +18,7 @@ const data = _.merge({}, defaultData, {
 
   },
 });
+
 const variants = _.mapValues({
   default: {
     meta: {
@@ -25,7 +26,7 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
-      listData: listDemoData.props,
+      listData: _.merge({}, listDemoData.variants.defaultSingle.props, { setHiddenIndex: true }),
       selectInputData: inputDemoData.variants.triggerDefault.props,
       filterInputDtat: inputDemoData.variants.smallWithIcon.props,
     },
@@ -37,7 +38,7 @@ const variants = _.mapValues({
     },
     props: {
       hasFilter: true,
-      listData: listDemoData.props,
+      listData: _.merge({}, listDemoData.variants.defaultSingle.props, { setHiddenIndex: true }),
       selectInputData: inputDemoData.variants.triggerDefault.props,
       filterInputDtat: inputDemoData.variants.smallWithIcon.props,
     },
@@ -49,7 +50,8 @@ const variants = _.mapValues({
     },
     props: {
       hasFilter: true,
-      listData: listDemoData.props,
+      hasFilterAndButton: true,
+      listData: _.merge({}, listDemoData.variants.iconLeft.props, { setHiddenIndex: true }),
       selectInputData: inputDemoData.variants.triggerDefault.props,
       filterInputDtat: inputDemoData.variants.smallWithIcon.props,
     },

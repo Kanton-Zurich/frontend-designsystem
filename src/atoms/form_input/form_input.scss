@@ -250,7 +250,8 @@ $unitLeftSpace: 62px;
       position: absolute;
       top: 50%;
       right: pxToRem($sizeSmallRegular);
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) rotate(0deg);
+      transition: 400ms transform ease-out;
       fill: $colorBlack40;
     }
   }
