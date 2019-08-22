@@ -3,6 +3,7 @@
   {{#if linkListItemHref}}href="{{linkListItemHref}}"{{/if}}{{#if target}} target="_{{target}}"{{/if}}
   {{#if linkListItemIsDownload}}{{#unless isButton}}download{{/unless}}{{/if}}
   {{#if domSelector}}{{{domSelector}}}{{/if}}
+  {{#if subTitlePattern}} data-subtitle-pattern="{{subTitlePattern}}"{{/if}}
   {{#if isButton}}aria-expanded="false"{{/if}}
 >
   {{#if linkListItemIsDownload}}{{#unless isLegalFoundation}}

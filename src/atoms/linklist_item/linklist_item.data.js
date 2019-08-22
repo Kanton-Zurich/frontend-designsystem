@@ -67,6 +67,7 @@ const variants = _.mapValues({
     },
     props: {
       subtitle: '2 gewählt',
+      subTitlePattern: '% gewählt',
       noColor: true,
     },
   },

@@ -1,4 +1,5 @@
 {{#if preview}}
+  <!-- helper markup, can be ignored -->
   <button class="atm-button atm-button--big"
           onclick="document.querySelector('#{{modalId}}').dispatchEvent(new CustomEvent('Modal.open'))">Filter
     einblenden
@@ -11,13 +12,30 @@
         <div class="cell small-offset-1 medium-offset-1 large-offset-2 xlarge-offset-2 small-10 medium-10 large-8">
           <div class="mdl-news-filter-mobile__sublevel">
             <div class="mdl-news-filter-mobile__sublevel-container">
-              <div>
-                <h2 class="atm-heading mdl-news-filter-mobile__title">
+              <h1 class="atm-heading mdl-news-filter-mobile__title">
+                <a href="#" class="mdl-news-filter-mobile__sublevel-backbutton">
                   <svg class="icon mdl-news-filter-mobile__sublevel-icon">
                     <use xlink:href="#arrow-left"></use>
                   </svg>
-                  Themen
-                </h2>
+                </a>
+                Themen
+              </h1>
+              <form novalidate>
+                {{> "atoms/form_input/form_input" topicFilter.topicFilterInput}}
+              </form>
+              <div class="mdl-news-filter-mobile__sublevel-list">
+                <ul id="{{topicFilter.topicFilterInput.additionalFunctionality.ariaControls}}" class="atm-list">
+                  {{#each topicFilter.topics}}
+                    <li id="{{id}}" class="atm-list__item atm-list__item--check-icon">
+                      <svg class="icon">
+                        <use xlink:href="#check"></use>
+                      </svg>
+                      <input name="group-iconLeftMulti" id="checkbox-{{id}}" type="checkbox" value="{{value}}"
+                             placeholder="{{title}}">
+                      {{title}}
+                    </li>
+                  {{/each}}
+                </ul>
               </div>
               <div class="mdl-news-filter-mobile__footer">
                 <button class="atm-button">Anwenden</button>
@@ -26,20 +44,39 @@
           </div>
           <div class="mdl-news-filter-mobile__sublevel">
             <div class="mdl-news-filter-mobile__sublevel-container">
-              <div>
-                <h2 class="atm-heading mdl-news-filter-mobile__title">
-                  <svg class="icon mdl-news-filter-mobile__sublevel-icon">
-                    <use xlink:href="#arrow-left"></use>
-                  </svg>
-                  Organisation
-                </h2>
+              <h1 class="atm-heading mdl-news-filter-mobile__title">
+                <a href="#" class="mdl-news-filter-mobile__sublevel-backbutton">
+                <svg class="icon mdl-news-filter-mobile__sublevel-icon">
+                  <use xlink:href="#arrow-left"></use>
+                </svg>
+                </a>
+                Organisation
+              </h1>
+              <form novalidate>
+                {{> "atoms/form_input/form_input" organisationFilter.organisationFilterInput}}
+              </form>
+              <div class="mdl-news-filter-mobile__sublevel-list">
+                <ul id="{{organisationFilter.organisationFilterInput.additionalFunctionality.ariaControls}}"
+                    class="atm-list">
+                  {{#each organisationFilter.organisations}}
+                    <li id="{{id}}" class="atm-list__item atm-list__item--check-icon">
+                      <svg class="icon">
+                        <use xlink:href="#check"></use>
+                      </svg>
+                      <input name="group-iconLeftMulti" id="checkbox-{{id}}" type="checkbox" value="{{value}}"
+                             placeholder="{{title}}">
+                      {{title}}
+                    </li>
+                  {{/each}}
+                </ul>
               </div>
               <div class="mdl-news-filter-mobile__footer">
                 <button class="atm-button">Anwenden</button>
               </div>
             </div>
           </div>
-          <h2 class="atm-heading mdl-news-filter-mobile__title">Filter</h2>
+          <h1 class="atm-heading mdl-news-filter-mobile__title">Filter</h1>
+
           {{> "atoms/linklist_item/linklist_item" dateDropDown}}
           {{> "atoms/linklist_item/linklist_item" topicFilter}}
           {{> "atoms/linklist_item/linklist_item" organisationFilter}}

@@ -57,7 +57,7 @@ class Modal extends Module {
     this.closeOnEscapeFunction = this.closeOnEscape.bind(this);
     this.initContent();
     this.eventDelegate.on('Modal.open', () => {
-      window.addEventListener('keydown', this.closeOnEscapeFunction);
+      window.addEventListener('keyup', this.closeOnEscapeFunction);
       this.parentScrollPosition = document.documentElement.scrollTop;
       this.ui.element.classList.add(this.options.stateClasses.show);
       this.ui.element.focus();
@@ -145,7 +145,7 @@ class Modal extends Module {
     document.documentElement.style.overflowY = 'initial';
     this.ui.element.classList.add(this.options.stateClasses.transHide);
     document.documentElement.scrollTo(0, this.parentScrollPosition);
-    window.removeEventListener('keydown', this.closeOnEscapeFunction);
+    window.removeEventListener('keyup', this.closeOnEscapeFunction);
 
     this.ui.element.setAttribute('aria-hidden', 'true');
 
