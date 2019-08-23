@@ -31,6 +31,7 @@ const data = _.merge({}, defaultData, {
           isSmall: true,
           cellContent: () => handlebars.compile(formFieldsetHBS)({
             fieldsetTitle: 'Anrede',
+            requiredMessage: 'Bitte geben Sie ihre Anrede an.',
             options: [
               () => handlebars.compile(radioHBS)(_.merge({},
                 radioData.variants.default.props,
@@ -39,6 +40,9 @@ const data = _.merge({}, defaultData, {
                   groupName: 'salutation',
                   id: 1,
                   value: 'mrs',
+                  validation: {
+                    isRequired: true,
+                  },
                 })),
               () => handlebars.compile(radioHBS)(_.merge({},
                 radioData.variants.default.props,
@@ -47,6 +51,9 @@ const data = _.merge({}, defaultData, {
                   groupName: 'salutation',
                   id: 2,
                   value: 'mr',
+                  validation: {
+                    isRequired: true,
+                  },
                 })),
               () => handlebars.compile(radioHBS)(_.merge({},
                 radioData.variants.default.props,
@@ -55,6 +62,9 @@ const data = _.merge({}, defaultData, {
                   groupName: 'salutation',
                   id: 3,
                   value: 'no',
+                  validation: {
+                    isRequired: true,
+                  },
                 })),
             ],
           }),
@@ -138,6 +148,7 @@ const variants = _.mapValues({
             isSmall: true,
             cellContent: () => handlebars.compile(formFieldsetHBS)({
               fieldsetTitle: 'Auswahl',
+              requiredMessage: 'Bitte geben Sie eine Option an.',
               isVertical: true,
               options: [
                 () => handlebars.compile(checkboxHBS)(_.merge({},
@@ -147,6 +158,9 @@ const variants = _.mapValues({
                     groupName: 'checkboxgroup',
                     id: 11,
                     value: '1',
+                    validation: {
+                      isRequired: true,
+                    },
                   })),
                 () => handlebars.compile(checkboxHBS)(_.merge({},
                   checkboxData.variants.default.props,
@@ -155,6 +169,9 @@ const variants = _.mapValues({
                     groupName: 'checkboxgroup',
                     id: 12,
                     value: '2',
+                    validation: {
+                      isRequired: true,
+                    },
                   })),
                 () => handlebars.compile(checkboxHBS)(_.merge({},
                   checkboxData.variants.default.props,
@@ -163,6 +180,9 @@ const variants = _.mapValues({
                     groupName: 'checkboxgroup',
                     id: 313,
                     value: '3',
+                    validation: {
+                      isRequired: true,
+                    },
                   })),
               ],
             }),
@@ -213,6 +233,7 @@ const variants = _.mapValues({
             isSmall: true,
             cellContent: () => handlebars.compile(formFieldsetHBS)({
               fieldsetTitle: 'Anrede',
+              requiredMessage: 'Bitte geben Sie ihre Anrede an.',
               options: [
                 () => handlebars.compile(radioHBS)(_.merge({},
                   radioData.variants.default.props,
@@ -221,6 +242,9 @@ const variants = _.mapValues({
                     groupName: 'salutation2',
                     id: 6,
                     value: 'mrs',
+                    validation: {
+                      isRequired: true,
+                    },
                   })),
                 () => handlebars.compile(radioHBS)(_.merge({},
                   radioData.variants.default.props,
@@ -229,6 +253,9 @@ const variants = _.mapValues({
                     groupName: 'salutation2',
                     id: 7,
                     value: 'mr',
+                    validation: {
+                      isRequired: true,
+                    },
                   })),
                 () => handlebars.compile(radioHBS)(_.merge({},
                   radioData.variants.default.props,
@@ -237,6 +264,9 @@ const variants = _.mapValues({
                     groupName: 'salutation2',
                     id: 8,
                     value: 'no',
+                    validation: {
+                      isRequired: true,
+                    },
                   })),
               ],
             }),
