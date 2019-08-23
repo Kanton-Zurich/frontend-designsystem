@@ -22,7 +22,7 @@ const data = _.merge({}, defaultData, {
           {
             label: 'Ort',
             content: 'Migrationsamt des Kantons Zürichs<br>Berninastrasse 45, 8057 Zürich<br>'
-              + '<br>Schalter G-R (bitte beim Eingang rechts ziehen)<br><br><a href="#" '
+              + '<br>Schalter G-S (bitte beim Eingang rechts ziehen)<br><br><a href="#" '
               + 'target="_blank">Route anzeigen</a>',
           },
           {

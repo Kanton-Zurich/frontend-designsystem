@@ -8,6 +8,12 @@ class Appointment {
   private locale: string[] = ['de-CH'];
 
   private timeFormatOptions = { hour: '2-digit', minute: '2-digit' };
+  private dateFormatOptions = {
+    day: '2-digit',
+    month: '2-digit',
+    weekday: 'long',
+    year: 'numeric',
+  };
 
   constructor(_details: AppointmentPayload, _locale?: string) {
     this.details = _details;
@@ -31,7 +37,7 @@ class Appointment {
 
   get appointmentDateString(): string {
     const date = this.getAppointmentStartDate();
-    return date.toLocaleDateString(this.locale);
+    return date.toLocaleDateString(this.locale, this.dateFormatOptions);
   }
 
   get fromTimeString(): string {
