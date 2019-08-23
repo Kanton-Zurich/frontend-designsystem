@@ -353,7 +353,10 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
       detailWrapper.classList.remove('none');
       detailDate.innerText = `${slot.getDateStr()} ${slot.getTimeStr()}`;
 
-      const capacityMsg = this.capacityMsgClone.textContent;
+      const capacityTextContent = this.capacityMsgClone.textContent;
+      const shadowDiv = document.createElement('div');
+      shadowDiv.innerHTML = capacityTextContent;
+      const capacityMsg = shadowDiv.innerText;
       detailCapacity.innerText = capacityMsg.replace('{schalter}', slot.capacity.toString());
     } else {
       detailWrapper.classList.add('none');
