@@ -208,7 +208,7 @@ $biometrieViewTransitionDuration: 300ms;
     .info-box {
       font-size: 100%;
       padding: $sizeSmallRegular $sizeRegular $sizeLarge;
-      background-color: #0076bd11;
+      background-color: rgba($colorBlue, 0.07);
       color: $colorBlue;
 
       strong {
