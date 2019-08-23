@@ -33,7 +33,6 @@ $biometrieViewTransitionDuration: 300ms;
 
 .mdl-biometrie_appointment {
   margin-bottom: $sizeHuge;
-  overflow: hidden;
 
   &__heading {
     hyphens: initial;
@@ -206,11 +205,19 @@ $biometrieViewTransitionDuration: 300ms;
 
 
     .info-box {
+      font-size: 100%;
       padding: $sizeSmallRegular $sizeRegular $sizeLarge;
-      background-color: #0076bd11;
+      background-color: rgba($colorBlue, 0.07);
       color: $colorBlue;
 
-      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      strong {
+        @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+      }
+
+      p {
+        @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+        @include sizeCurve('margin-top', mini);
+      }
 
       .atm-button {
         @include sizeCurve('margin-top', medium);
@@ -425,6 +432,14 @@ $biometrieViewTransitionDuration: 300ms;
             use {
               fill: $colorBlack20;
             }
+
+            &.atm-button--secondary:hover {
+              background-color: $colorBlack5;
+
+              .atm-button__icon use {
+                fill: $colorBlack20;
+              }
+            }
           }
 
           @include mq($to: small) {
@@ -560,6 +575,11 @@ $biometrieViewTransitionDuration: 300ms;
                   button.atm-button {
                     background: $colorBlack20;
                     color: $colorBlack100;
+
+                    &.selected {
+                      background: $colorBlue;
+                      color: $colorWhite;
+                    }
                   }
                 }
               }
@@ -657,6 +677,17 @@ $biometrieViewTransitionDuration: 300ms;
             }
           }
         }
+
+        &.next {
+          .slotselect-slotsrow .weekday-column .weekday-slotscontainer .weekday-slot {
+            button.atm-button {
+              &.selected {
+                background: $colorBlack10;
+                color: $colorBlue;
+              }
+            }
+          }
+        }
       }
     }
 
@@ -744,6 +775,10 @@ $biometrieViewTransitionDuration: 300ms;
           }
 
           &__counter {
+            display: none;
+          }
+
+          &__next {
             display: none;
           }
 
