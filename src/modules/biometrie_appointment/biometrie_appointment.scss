@@ -51,14 +51,18 @@ $biometrieViewTransitionDuration: 300ms;
     display: none;
     text-align: right;
 
-    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
 
     .icon {
       @include sizeCurve('height', smallerRegular);
-      margin-bottom: -3px;
+      margin-bottom: -5px;
       fill: none;
       stroke: $colorBlack60;
       stroke-width: 2;
+    }
+
+    .atm-text_link:hover .icon {
+      fill: none;
     }
 
     &.show {
@@ -67,11 +71,11 @@ $biometrieViewTransitionDuration: 300ms;
   }
 
   &__backlink {
-    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
     display: none;
 
     .icon {
-      margin-bottom: -4px;
+      margin-bottom: -5px;
     }
 
     &.show {
