@@ -206,11 +206,19 @@ $biometrieViewTransitionDuration: 300ms;
 
 
     .info-box {
+      font-size: 100%;
       padding: $sizeSmallRegular $sizeRegular $sizeLarge;
       background-color: #0076bd11;
       color: $colorBlue;
 
-      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      strong {
+        @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+      }
+
+      p {
+        @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+        @include sizeCurve('margin-top', mini);
+      }
 
       .atm-button {
         @include sizeCurve('margin-top', medium);
