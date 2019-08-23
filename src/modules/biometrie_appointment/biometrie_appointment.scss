@@ -16,10 +16,15 @@ $biometrieViewTransitionDuration: 300ms;
   }
 
   &__details__checklist {
-    li {
-      @include sizeCurve('margin-left', mini);
-      @include sizeCurve('padding-left', medium);
-      margin-bottom: unset;
+    ul {
+      margin: 0;
+      padding-left: 0;
+
+      li {
+        @include sizeCurve('margin-left', mini);
+        @include sizeCurve('padding-left', medium);
+        margin-bottom: unset;
+      }
     }
   }
 
@@ -353,8 +358,6 @@ $biometrieViewTransitionDuration: 300ms;
     &__checklist {
       @extend .info-box;
 
-      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-
       strong.boxhead {
         @include sizeCurve('margin-bottom', tiny);
       }
@@ -368,6 +371,7 @@ $biometrieViewTransitionDuration: 300ms;
         li {
           position: relative;
 
+          @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
           @include sizeCurve('margin-left', mini);
           @include sizeCurve('padding-left', medium);
 
