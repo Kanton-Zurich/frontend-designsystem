@@ -15,6 +15,23 @@ $biometrieViewTransitionDuration: 300ms;
     margin-bottom: initial;
   }
 
+  &__reschedule__allopen__wrapper {
+    ul {
+      padding-left: 0;
+      margin: 0;
+      line-height: 1;
+
+      @include sizeCurve('margin-right', regular);
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+
+      li {
+        margin-left: 0;
+        padding-left: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+
   &__details__checklist {
     ul {
       margin: 0;
@@ -730,7 +747,7 @@ $biometrieViewTransitionDuration: 300ms;
 
       &__wrapper {
         float: left;
-        max-width: 65%;
+        max-width: 64%;
 
         @include mq($to: small) {
           max-width: 100%;
