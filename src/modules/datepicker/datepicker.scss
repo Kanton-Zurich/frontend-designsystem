@@ -1,0 +1,13 @@
+.mdl-datepicker {
+  position: relative;
+
+  &.open {
+    .icon {
+      fill: $colorBlack;
+    }
+  }
+
+  .atm-form_input__input.active {
+    border-color: $colorCyan;
+  }
+}
