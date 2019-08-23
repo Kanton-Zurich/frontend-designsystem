@@ -432,6 +432,14 @@ $biometrieViewTransitionDuration: 300ms;
             use {
               fill: $colorBlack20;
             }
+
+            &.atm-button--secondary:hover {
+              background-color: $colorBlack5;
+
+              .atm-button__icon use {
+                fill: $colorBlack20;
+              }
+            }
           }
 
           @include mq($to: small) {
@@ -669,6 +677,17 @@ $biometrieViewTransitionDuration: 300ms;
             }
           }
         }
+
+        &.next {
+          .slotselect-slotsrow .weekday-column .weekday-slotscontainer .weekday-slot {
+            button.atm-button {
+              &.selected {
+                background: $colorBlack10;
+                color: $colorBlue;
+              }
+            }
+          }
+        }
       }
     }
 
@@ -756,6 +775,10 @@ $biometrieViewTransitionDuration: 300ms;
           }
 
           &__counter {
+            display: none;
+          }
+
+          &__next {
             display: none;
           }
 
