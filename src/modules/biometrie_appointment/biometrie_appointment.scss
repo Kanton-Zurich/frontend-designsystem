@@ -568,6 +568,11 @@ $biometrieViewTransitionDuration: 300ms;
                   button.atm-button {
                     background: $colorBlack20;
                     color: $colorBlack100;
+
+                    &.selected {
+                      background: $colorBlue;
+                      color: $colorWhite;
+                    }
                   }
                 }
               }
