@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Datepicker',
     className: 'Datepicker',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-849',
     documentation: dataHelper.getDocumentation('datepicker.md'),
   },
   props: {
