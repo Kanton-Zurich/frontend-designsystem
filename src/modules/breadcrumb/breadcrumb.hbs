@@ -8,11 +8,11 @@
       data-breadcrumb="item"
     >
       {{#unless @first}}
-        <svg class="icon">
+        <svg class="icon" tabindex="-1">
           <use xlink:href="#angle_right"></use>
         </svg>
       {{/unless}}
-      <svg class="icon mdl-breadcrumb__arrow-left">
+      <svg class="icon mdl-breadcrumb__arrow-left" tabindex="-1">
         <use xlink:href="#arrow-left"></use>
       </svg>
       {{#if href}}
@@ -23,7 +23,7 @@
     </li>
   {{/each}}
   <li class="mdl-breadcrumb__item mdl-breadcrumb__hidden-items" data-breadcrumb="ellipsis">
-    <svg class="icon">
+    <svg class="icon" tabindex="-1">
       <use xlink:href="#angle_right"></use>
     </svg>
     <button class="mdl-breadcrumb__show-context" data-breadcrumb="showContext">
