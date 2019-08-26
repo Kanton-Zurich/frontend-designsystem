@@ -10,6 +10,10 @@ $gapSize: pxToRem($sizeRegular);
     }
   }
 
+  &__group + &__group {
+    margin-top: $gapSize;
+  }
+
   &__row {
     display: flex;
 
@@ -17,12 +21,36 @@ $gapSize: pxToRem($sizeRegular);
     margin-right: -($gapSize/2);
     padding-bottom: $gapSize;
 
-    &:last-child {
+    &:last-of-type {
       padding-bottom: 0;
+    }
+
+    &:not(:last-of-type) {
+      button {
+        display: none;
+      }
     }
 
     @include mq($to: small) {
       flex-direction: column;
+    }
+
+    &--duplicatable {
+      .form__cell {
+        flex-grow: 1;
+      }
+    }
+  }
+
+  &__duplicated {
+    .form__row:last-of-type() {
+      padding-bottom: $gapSize;
+    }
+
+    &:last-child() {
+      .form__row:last-of-type() {
+        padding-bottom: 0;
+      }
     }
   }
 
@@ -30,12 +58,16 @@ $gapSize: pxToRem($sizeRegular);
     flex-basis: 50%;
     padding: 0 $gapSize/2;
 
+    flex-grow: 1;
+
     &:first-child:last-child {
       flex-basis: 100%;
     }
 
     &--small {
       flex-basis: 25%;
+
+      flex-grow: 0;
     }
 
     @include mq($to: small) {
@@ -90,6 +122,21 @@ $gapSize: pxToRem($sizeRegular);
     &--vertical {
       display: flex;
       flex-direction: column;
+    }
+  }
+
+  &__duplicator,
+  &__remover {
+    padding: 0 $gapSize/2;
+
+    use {
+      fill: $colorBlack60;
+    }
+
+    &:hover {
+      use {
+        fill: $colorBlack;
+      }
     }
   }
 }
