@@ -338,30 +338,6 @@ class Select extends Module {
   }
 
   /**
-   * Calculate and returns the previous index position from the current selectionIndex
-   * @return {number}
-   */
-  getPreviousIndex(): number {
-    let selectIndex = this.selectionIndex - 1;
-    if (selectIndex < 0) {
-      selectIndex = this.ui.items.length - 1;
-    }
-    return selectIndex;
-  }
-
-  /**
-   * Calculate and returns the next index position from the current selectionIndex
-   * @return {number}
-   */
-  getNextIndex(): number {
-    let selectIndex = this.selectionIndex + 1;
-    if (selectIndex > this.ui.items.length - 1) {
-      selectIndex = 0;
-    }
-    return selectIndex;
-  }
-
-  /**
    * Select an item based on the given index or the current selectionIndex
    * @param {number} index
    */
@@ -470,14 +446,22 @@ class Select extends Module {
     return this.focusItem(item);
   }
 
+  /**
+   * Focus the given item
+   * @param item
+   */
   focusItem(item: any) {
     this.ui.items[this.lastHoverIndex].classList.remove('hover');
     item.classList.add('hover');
     this.lastHoverIndex = this.selectionIndex;
   }
 
+  /**
+   * Adds the given item to the selections array
+   * @param item
+   */
   addSelection(item: any) {
-    const index = this.getInitialIndex(item);
+    const index = this.getIndexForItem(item);
     this.selectionIndex = index;
     this.selections.push({
       initialIndex: index,
@@ -486,8 +470,12 @@ class Select extends Module {
     this.setButtonLabel();
   }
 
+  /**
+   * Removes the given item from the selections array
+   * @param selectedItem
+   */
   removeSelection(selectedItem: any) {
-    const selectionIndex = this.getInitialIndex(selectedItem);
+    const selectionIndex = this.getIndexForItem(selectedItem);
     let indexToRemove: number;
 
     this.selections.forEach((item, index) => {
@@ -500,10 +488,39 @@ class Select extends Module {
     this.setButtonLabel();
   }
 
-  getInitialIndex(item: any): number {
+  /**
+   * Calculate and returns the previous index position from the current selectionIndex
+   * @return {number}
+   */
+  getPreviousIndex(): number {
+    let selectIndex = this.selectionIndex - 1;
+    if (selectIndex < 0) {
+      selectIndex = this.ui.items.length - 1;
+    }
+    return selectIndex;
+  }
+
+  /**
+   * Calculate and returns the next index position from the current selectionIndex
+   * @return {number}
+   */
+  getNextIndex(): number {
+    let selectIndex = this.selectionIndex + 1;
+    if (selectIndex > this.ui.items.length - 1) {
+      selectIndex = 0;
+    }
+    return selectIndex;
+  }
+
+  /**
+   * Get the index of the given item. Returns index if its found else -1.
+   * @param item
+   * @return {number}
+   */
+  getIndexForItem(item: any): number {
     let index = -1;
-    for (let i = 0; i < this.initialItems.length; i += 1) {
-      if (this.initialItems[i] === item) {
+    for (let i = 0; i < this.ui.items.length; i += 1) {
+      if (this.ui.items[i] === item) {
         index = i;
       }
     }
@@ -683,7 +700,8 @@ class Select extends Module {
   }
 
   /**
-   * On list blur callback. Sets the corresping boolean flag.
+   * On list blur callback. Sets the corresping boolean flag
+   * and closes he dropdown if nothing relevat is focused.
    */
   onListBlur() {
     this.focusOnList = false;
