@@ -17,6 +17,10 @@
     .atm-heading {
       display: none;
     }
+
+    .fixed-header & {
+      @include sizeCurve(top, height, $headerCurves);
+    }
   }
 
   @include mq($from: zero, $to: xsmall) {

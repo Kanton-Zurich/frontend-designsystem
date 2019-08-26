@@ -17,6 +17,10 @@
     </div>
   </form>
 
+  {{#if remark}}<p class="mdl-stepper__remark">
+    {{{remark}}}
+  </p>{{/if}}
+
   <div class="mdl-stepper__message"
     data-stepper="messageWrapper"
     data-singular-text="Bitte kontrollieren Sie Ihre Angabe für das Feld <%= list %>."
