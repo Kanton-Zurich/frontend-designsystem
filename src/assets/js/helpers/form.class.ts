@@ -1,6 +1,7 @@
 import { Delegate } from 'dom-delegate';
 import wrist from 'wrist';
 import { debounce } from 'lodash';
+import DuplicationElement from './duplication.class';
 
 import namespace from './namespace';
 
@@ -16,6 +17,7 @@ class Form {
     validateDelay: number,
     messageClasses: any,
     messageSelector: string,
+    duplicateSelector: string,
   }
 
   private eventDelegate: any;
@@ -42,6 +44,7 @@ class Form {
       messageClasses: {
         show: 'show',
       },
+      duplicateSelector: '[data-form="duplicatable"]',
     };
 
     this.eventDelegate = new Delegate(el);
@@ -51,6 +54,9 @@ class Form {
 
     // Inputs will be watched
     this.addWatchers();
+
+    // Initialize duplication elements
+    this.initDuplicationElements();
   }
 
   addEventListeners() {
@@ -67,13 +73,25 @@ class Form {
     });
   }
 
-  addWatchers() {
-    const watchableInputs = this.ui.element.querySelectorAll(this.options.watchEmitters.input);
+  addWatchers(targetElement = this.ui.element) {
+    const watchableInputs = targetElement.querySelectorAll(this.options.watchEmitters.input);
 
     watchableInputs.forEach((input) => {
-      wrist.watch(input, 'value', (propName, oldValue, newValue) => {
-        this.onInputValueChange(input, oldValue, newValue);
-      });
+      const inputType = input.getAttribute('type');
+
+      switch (inputType) {
+        case 'radio':
+        case 'checkbox':
+          wrist.watch(input, 'checked', () => {
+            this.validateField(input);
+          });
+          break;
+        default:
+          wrist.watch(input, 'value', (propName, oldValue, newValue) => {
+            this.onInputValueChange(input, oldValue, newValue);
+          });
+          break;
+      }
     });
   }
 
@@ -109,14 +127,16 @@ class Form {
     });
 
     if (validation.validationResult) {
-      field.classList.add(this.options.inputClasses.valid);
-      field.classList.remove(this.options.inputClasses.invalid);
+      this.showFieldValid(field);
     } else {
-      field.classList.add(this.options.inputClasses.invalid);
-      field.classList.remove(this.options.inputClasses.valid);
+      this.showFieldInvalid(field);
 
       validation.messages.forEach((messageID) => {
-        field.parentElement.querySelector(`[data-message="${messageID}"]`).classList.add('show');
+        const message = field.parentElement.querySelector(`[data-message="${messageID}"]`);
+
+        if (message) {
+          message.classList.add('show');
+        }
       });
 
       this.ui.element.setAttribute('form-has-errors', 'true');
@@ -124,8 +144,38 @@ class Form {
   }
 
   showFieldInvalid(field) {
-    field.classList.add(this.options.inputClasses.invalid);
-    field.classList.remove(this.options.inputClasses.valid);
+    const fieldType = field.getAttribute('type');
+
+    switch (fieldType) {
+      case 'radio':
+      case 'checkbox':
+        field.parentElement.parentElement.parentElement
+          .classList.add(this.options.inputClasses.invalid);
+        field.parentElement.parentElement.parentElement
+          .classList.remove(this.options.inputClasses.valid);
+        break;
+      default:
+        field.classList.add(this.options.inputClasses.invalid);
+        field.classList.remove(this.options.inputClasses.valid);
+        break;
+    }
+  }
+
+  showFieldValid(field) {
+    const fieldType = field.getAttribute('type');
+
+    switch (fieldType) {
+      case 'radio':
+      case 'checkbox':
+        field.parentElement.parentElement.parentElement
+          .classList.remove(this.options.inputClasses.invalid);
+        field.parentElement.parentElement.parentElement
+          .classList.add(this.options.inputClasses.valid);
+        break;
+      default:
+        field.classList.remove(this.options.inputClasses.invalid);
+        field.classList.add(this.options.inputClasses.valid);
+    }
   }
 
   validateSection(event) {
@@ -141,6 +191,18 @@ class Form {
     } else {
       this.ui.element.removeAttribute('form-has-errors');
     }
+  }
+
+  initDuplicationElements() {
+    const duplicationElements = this.ui.element.querySelectorAll(this.options.duplicateSelector);
+
+    duplicationElements.forEach((duplicatableElement) => {
+      new DuplicationElement(duplicatableElement);
+
+      duplicatableElement.addEventListener(DuplicationElement.events.domReParsed, (event) => {
+        this.addWatchers((<any>event).detail);
+      });
+    });
   }
 }
 

@@ -1,5 +1,13 @@
 <div class="atm-radiobutton">
-  <input id="radio{{id}}{{#if isDisabled}}disabled{{/if}}{{#if isChecked}}checked{{/if}}" type="radio" value="{{value}}" name="{{groupName}}" {{#if isDisabled}}disabled{{/if}}{{#if isChecked}}checked{{/if}}>
+  <input
+    id="radio{{id}}{{#if isDisabled}}disabled{{/if}}{{#if isChecked}}checked{{/if}}"
+    type="radio" value="{{value}}"
+    name="{{groupName}}"
+    {{#if isDisabled}}disabled{{/if}}
+    {{#if isChecked}}checked{{/if}}
+    {{#if validation}}data-validation{{/if}}
+    {{#if validation.isRequired}}required{{/if}}
+  >
   <label for="radio{{id}}{{#if isDisabled}}disabled{{/if}}{{#if isChecked}}checked{{/if}}">
     {{label}}{{#if isDisabled}}(disabled){{/if}}{{#if isChecked}}(checked){{/if}}
   </label>

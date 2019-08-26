@@ -43,6 +43,17 @@ const variants = _.mapValues({
       isDisabled: true,
     },
   },
+  required: {
+    meta: {
+      title: 'Erforderlich',
+      desc: 'Die Checkbox ist erforderlich',
+    },
+    props: {
+      validation: {
+        isRequired: true,
+      },
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

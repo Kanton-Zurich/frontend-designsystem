@@ -35,6 +35,18 @@ $headerCurves: (
     z-index: $zIndexFlyouts;
   }
 
+  &--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    transition: none;
+
+    z-index: $zIndexFlyouts;
+    transform: translateX(0);
+    margin-left: 0;
+  }
+
   &__wrapper {
     &:after {
       @include sizeCurve(height, borderHeight, $headerCurves);
@@ -63,6 +75,7 @@ $headerCurves: (
     @include sizeCurve(line-height, nav, $lineHeightCurves, $pxToRem: false);
     @include sizeCurve(height, height, $headerCurves);
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    @include blankButton();
 
     display: flex;
     align-items: center;
