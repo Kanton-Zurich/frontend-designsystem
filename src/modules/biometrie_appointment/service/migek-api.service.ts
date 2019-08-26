@@ -53,7 +53,6 @@ class MigekApiService {
   private static readonly FAILURE_MSG_UNCHANGED = 'The start and end time of the reservation is unchanged';
   private static readonly FAILURE_MSG_SLOTFULL = 'The time slot is fully booked';
 
-
   private apiBasePath: string;
   private bearerStr: string;
 
@@ -116,7 +115,6 @@ class MigekApiService {
     });
   }
 
-  // TODO: Konstanten rausziehen.
   public getTimeSlots(notBeforeDate?: Date): Promise<TimeslotPayload[]> {
     let path = 'api/v1/timeslots/?days=7';
     if (notBeforeDate) {
@@ -146,6 +144,12 @@ class MigekApiService {
       });
   }
 
+  /**
+   * Method will load the confirmation PDF content from the API as Blob.
+   * For IE 11 it will attempt to open the PDF with 'msSaveOrOpenBlob'
+   * For IOS >12 it will attempt to open the PDF in a new window
+   * For all proper clients it is suppose to trigger a download using a hidden anchor tag.
+   */
   public triggerConfirmationDownload(): void {
     if (this.confirmationPath && this.bearerStr) {
       const xhr = new XMLHttpRequest();
@@ -158,14 +162,20 @@ class MigekApiService {
               window.navigator.msSaveOrOpenBlob(file, MigekApiService.CONFIRMATION_FILENAME);
             } else {
               const fileURL = URL.createObjectURL(file);
-              const hiddenA = document.createElement('a');
-              hiddenA.style.display = 'none';
-              hiddenA.href = fileURL;
-              hiddenA.download = MigekApiService.CONFIRMATION_FILENAME;
-              document.body.appendChild(hiddenA);
-              hiddenA.click();
-              hiddenA.remove();
-              URL.revokeObjectURL(fileURL);
+              const iosVersion = this.detectIOsVersion();
+              // eslint-disable-next-line no-magic-numbers
+              if (iosVersion && iosVersion[0] >= 12) {
+                window.open(fileURL, '_blank');
+              } else {
+                const hiddenA = document.createElement('a');
+                hiddenA.style.display = 'none';
+                hiddenA.href = fileURL;
+                hiddenA.download = MigekApiService.CONFIRMATION_FILENAME;
+                document.body.appendChild(hiddenA);
+                hiddenA.click();
+                hiddenA.remove();
+                URL.revokeObjectURL(fileURL);
+              }
             }
           } else {
             throw new Error('API connection failure');
@@ -184,6 +194,18 @@ class MigekApiService {
       xhr.setRequestHeader('Accept', 'application/pdf');
       xhr.send();
     }
+  }
+
+  /**
+   * Method attempts to read out the client iOS version.
+   * Returns the version tripel on success and undefined otherwise (i.e. not an IOS client).
+   */
+  private detectIOsVersion(): [number, number, number] | undefined {
+    if (/iP(hone|od|ad)/.test(navigator.platform)) {
+      const v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+      return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || '0', 10)];
+    }
+    return undefined;
   }
 
   public logoutReset(): void {
