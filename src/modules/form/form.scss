@@ -52,6 +52,18 @@ $gapSize: pxToRem($sizeRegular);
         padding-bottom: 0;
       }
     }
+
+    .form__row {
+      position: relative;
+
+      &:last-of-type {
+        flex-direction: row;
+
+        .form__cell {
+          margin-bottom: 0;
+        }
+      }
+    }
   }
 
   &__cell {
@@ -125,9 +137,36 @@ $gapSize: pxToRem($sizeRegular);
     }
   }
 
-  &__duplicator,
+  &__duplicator {
+    margin-top: $gapSize;
+
+    .form__group--has-duplicated & {
+      display: none;
+    }
+  }
+
+  .form__group--duplicatable {
+    .form__duplicated:last-of-type() {
+      .form__duplicator {
+        display: flex;
+      }
+    }
+  }
+
   &__remover {
     padding: 0 $gapSize/2;
+
+    position: absolute;
+    right: 0;
+    transform: translateX(100%) translateY(-50%);
+    top: 50%;
+
+    @include mq($to: medium) {
+      position: relative;
+      right: auto;
+      top: auto;
+      transform: none;
+    }
 
     use {
       fill: $colorBlack60;
