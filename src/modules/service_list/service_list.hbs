@@ -3,10 +3,10 @@
     <h2 class="atm-heading atm-heading--bordered"{{#if serviceListHeading.anchorNavReference}} id="{{serviceListHeading.anchorNavReference}}"{{/if}}>{{serviceListHeading.title}}</h2>
   {{/if}}
   {{#each items}}
-    {{#if external}}<a href="{{href}}" class="mdl-service_list__item" target="_blank">{{/if}}
-    {{#unless external}}<button class="mdl-service_list__item" data-url="{{serviceLink}}" aria-controls="{{modalData.modalId}}" aria-haspopup="true">{{/unless}}
+    <a href="{{href}}" class="mdl-service_list__item" {{#if external}}target="_blank"{{/if}}
+      {{#unless external}}data-url="{{serviceLink}}" aria-controls="{{modalData.modalId}}" role="button"{{/unless}}>
       <div class="mdl-service_list__item-container">
-        <p class="atm-heading mdl-service_list__item-title">{{title}}</p>
+        <h4 class="atm-heading mdl-service_list__item-title">{{title}}</h4>
         {{#if text}}
           <p class="atm-paragraph mdl-service_list__item-text" data-lineclamp="true">{{text}}</p>
         {{/if}}
@@ -16,10 +16,10 @@
         {{buttonTitle}}
       </span>
     </span>
-    {{#if external}}</a>{{/if}}
-    {{#unless external}}</button>
-    <div id="{{modalData.modalId}}" class="mdl-modal {{#unless staticHeader}}mdl-modal--dynamicheader{{/unless}}" data-init="modal">
-    </div>
+    </a>
+    {{#unless external}}
+      <div id="{{modalData.modalId}}" class="mdl-modal {{#unless staticHeader}}mdl-modal--dynamicheader{{/unless}}" data-init="modal">
+      </div>
     {{/unless}}
   {{/each}}
 </div>
