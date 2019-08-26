@@ -161,7 +161,6 @@ class MigekApiService {
               const hiddenA = document.createElement('a');
               hiddenA.style.display = 'none';
               hiddenA.href = fileURL;
-              hiddenA.target = '_self';
               hiddenA.download = MigekApiService.CONFIRMATION_FILENAME;
               document.body.appendChild(hiddenA);
               hiddenA.click();
