@@ -45,6 +45,12 @@ $selectHeightWithFilterExtended: 424px;
   &__apply {
     bottom: pxToRem(-$sizeGiant);
     transition: 200ms bottom ease-out 300ms;
+
+    button {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
   }
 
   &__filter,
