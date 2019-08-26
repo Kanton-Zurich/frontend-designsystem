@@ -12,7 +12,7 @@
   </figure>
   {{/if}}
   {{#if cite}}
-  <cite class="mdl-social-media-post__cite">
+  <blockquote class="mdl-social-media-post__cite">
     {{#if cite.text}}
     <p class="mdl-social-media-post__text atm-paragraph">
       {{{cite.text}}}
@@ -30,7 +30,7 @@
         <span>{{cite.author.name}}</span><span>{{cite.datetime}}</span>
       </a>
     </div>
-  </cite>
+  </blockquote>
   {{/if}}
 
   <div class="mdl-social-media-post__footer">
@@ -49,7 +49,7 @@
         <svg class="icon">
           <use xlink:href="#like"></use>
         </svg>
-        <span class="visuallyhidden">Likes </span><span>{{likes}}</span>
+        <span>{{likes}}</span><span class="visuallyhidden"> Likes</span>
       </li>
 {{/if}}
 {{#if comments}}
@@ -57,7 +57,7 @@
         <svg class="icon">
           <use xlink:href="#comments"></use>
         </svg>
-        <span class="visuallyhidden">Kommentare </span><span>{{comments}}</span>
+        <span>{{comments}}</span><span class="visuallyhidden"> Kommentare</span>
       </li>
 {{/if}}
 {{#if forwards}}
@@ -65,7 +65,7 @@
         <svg class="icon">
           <use xlink:href="#repost"></use>
         </svg>
-         <span class="visuallyhidden">Weiterleitungen </span><span>{{forwards}}</span>
+         <span>{{forwards}}</span><span class="visuallyhidden"> Weiterleitungen</span>
       </li>
 {{/if}}
       </ul>

@@ -69,6 +69,7 @@
     border-left: 3px solid $colorBlack10;
     display: block;
     font-style: unset;
+    margin: 0;
 
     .atm-paragraph {
       @include polyFluidSizing('font-size', map-get($socialMediaSizeCurves, citeFontSize));
