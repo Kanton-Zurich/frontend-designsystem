@@ -1,12 +1,56 @@
-<section class="form__section">
+<section class="form__section" aria-live="polite">
   <h3 class="atm-heading form__section-title" tabindex="0">{{ sectionTitle }}</h3>
-  {{#each rows}}
-    <div class="form__row">
-      {{#each this}}
-        <div class="form__cell {{#if isSmall}}form__cell--small{{/if}}">
-          {{{cellContent}}}
+  {{#each groups}}
+    <div class="form__group {{#if isDuplicatable}}form__group--duplicatable{{/if}}" {{#if isDuplicatable}}data-form="duplicatable"{{/if}}>
+      {{#each rows}}
+        <div class="form__row">
+          {{#each fields}}
+            <div class="form__cell {{#if isSmall}}form__cell--small{{/if}}">
+              {{{cellContent}}}
+            </div>
+          {{/each}}
+
+          {{#if ../isDuplicatable}}
+            {{#if @last}}
+              <button type="button" class="form__duplicator" data-duplicate="duplicator">
+                <svg class="icon">
+                  <use xlink:href="#plus"></use>
+                </svg>
+              </button>
+            {{/if}}
+          {{/if}}
         </div>
       {{/each}}
+      {{#if isDuplicatable}}
+        <script type="text/x-handlebars-template">
+          <div class="form__duplicated">
+            {{#each rows}}
+              <div class="form__row">
+                {{#each fields}}
+                  <div class="form__cell {{#if isSmall}}form__cell--small{{/if}}">
+                    {{{cellContent}}}
+                  </div>
+                {{/each}}
+
+                {{#if ../isDuplicatable}}
+                  {{#if @last}}
+                    <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
+                      <svg class="icon">
+                        <use xlink:href="#minus"></use>
+                      </svg>
+                    </button>
+                    <button type="button" class="form__duplicator" data-duplicate="duplicator">
+                      <svg class="icon">
+                        <use xlink:href="#plus"></use>
+                      </svg>
+                    </button>
+                  {{/if}}
+                {{/if}}
+              </div>
+            {{/each}}
+          </div>
+        </script>
+      {{/if}}
     </div>
   {{/each}}
 </section>
