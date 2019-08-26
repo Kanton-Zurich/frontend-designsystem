@@ -180,6 +180,16 @@ $slidePaddingCurve: (
       max-width: none;
       transform: none;
     }
+
+    .mdl-image-figure__download {
+      display: none;
+    }
+
+    .mdl-carousel__slide--active {
+      .mdl-image-figure__download {
+        display: inherit;
+      }
+    }
   }
 
   &:not(.mdl-carousel--fullscreen) {
