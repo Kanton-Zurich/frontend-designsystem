@@ -1,34 +1,37 @@
-<ol class="mdl-breadcrumb {{#if backOnly}}mdl-breadcrumb--back-only{{/if}}" data-init="breadcrumb">
-  {{#each path}}
-    <li class="mdl-breadcrumb__item
-      {{#if @first}}mdl-breadcrumb__item--main{{/if}}
-      {{#if @last}}mdl-breadcrumb__item--active{{/if}}
-    "
-      data-index="{{@index}}"
-      data-breadcrumb="item"
-    >
-      {{#unless @first}}
-        <svg class="icon" tabindex="-1">
-          <use xlink:href="#angle_right"></use>
+<nav>
+  <h2 class="visuallyhidden">Breadcrumb-Navigation: </h2>
+  <ol class="mdl-breadcrumb {{#if backOnly}}mdl-breadcrumb--back-only{{/if}}" data-init="breadcrumb">
+    {{#each path}}
+      <li class="mdl-breadcrumb__item
+        {{#if @first}}mdl-breadcrumb__item--main{{/if}}
+        {{#if @last}}mdl-breadcrumb__item--active{{/if}}
+      "
+        data-index="{{@index}}"
+        data-breadcrumb="item"
+      >
+        {{#unless @first}}
+          <svg class="icon" tabindex="-1">
+            <use xlink:href="#angle_right"></use>
+          </svg>
+        {{/unless}}
+        <svg class="icon mdl-breadcrumb__arrow-left" tabindex="-1">
+          <use xlink:href="#arrow-left"></use>
         </svg>
-      {{/unless}}
-      <svg class="icon mdl-breadcrumb__arrow-left" tabindex="-1">
-        <use xlink:href="#arrow-left"></use>
+        {{#if href}}
+          <a class="mdl-breadcrumb__link" href="{{{href}}}">{{title}}</a>
+        {{else}}
+          <span class="mdl-breadcrumb__link">{{title}}</span>
+        {{/if}}
+      </li>
+    {{/each}}
+    <li class="mdl-breadcrumb__item mdl-breadcrumb__hidden-items" data-breadcrumb="ellipsis">
+      <svg class="icon" tabindex="-1">
+        <use xlink:href="#angle_right"></use>
       </svg>
-      {{#if href}}
-        <a class="mdl-breadcrumb__link" href="{{{href}}}">{{title}}</a>
-      {{else}}
-        <span class="mdl-breadcrumb__link">{{title}}</span>
-      {{/if}}
+      <button class="mdl-breadcrumb__show-context" data-breadcrumb="showContext">
+        <span class="visuallyhidden">Ausgeblendete Navigationsebenen</span> ...
+      </button>
+      {{> "modules/context_menu/context_menu" contextMenu}}
     </li>
-  {{/each}}
-  <li class="mdl-breadcrumb__item mdl-breadcrumb__hidden-items" data-breadcrumb="ellipsis">
-    <svg class="icon" tabindex="-1">
-      <use xlink:href="#angle_right"></use>
-    </svg>
-    <button class="mdl-breadcrumb__show-context" data-breadcrumb="showContext">
-      <span class="visuallyhidden">Ausgeblendete Navigationsebenen</span> ...
-    </button>
-    {{> "modules/context_menu/context_menu" contextMenu}}
-  </li>
-</ol>
+  </ol>
+</nav>
