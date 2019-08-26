@@ -13,20 +13,20 @@ const moduleSettings = {
   calendarLinkProperties: {
     title: 'Kanton Zürich - Erfassung biometrischer Daten',
     location: 'Migrationsamt des Kantons Zürich',
-    description: 'Migrationsamt des Kantons Zürichs \\nBerninastrasse 45 \\n8057 Zürich \\n \\n'
+    description: 'Migrationsamt des Kantons Zürich \\nBerninastrasse 45 \\n8057 Zürich \\n \\n'
       + '*Schalter G-S* (bitte Ticket beim *Eingang rechts* ziehen) \\n \\n'
-      + 'Montag - Freitag 08:00-12:00Uhr und 13:00-16:30Uhr \\n'
+      + 'Montag - Freitag 08:00-12:00 Uhr und 13:00-16:30Uhr \\n'
       + ' \\n \\n \\n'
       + 'Bringen Sie bitte folgende Unterlagen mit \\n'
       + ' - Terminbestätigung \\n'
-      + ' - Original Ausländerausweis (außer bei erstmaligem Gesuch) \\n'
+      + ' - Original Ausländerausweis (ausser bei erstmaligem Gesuch) \\n'
       + ' - Original heimatlicher Reisepass \\n'
       + ' - Geburtsschein (bei Neugeborenen) \\n \\n \\n',
-    htmlDescription: ' <h3>Ort</h3> <p>Migrationsamt des Kantons Zürichs<br>Berninastrasse 45<br>80'
-      + '57 Zürich</p> <p><strong>Schalter G-R</strong> (bitte Ticket beim <strong>Eingang rechts</'
-      + 'strong> ziehen)</p><p>Montag - Freitag 08:00-12:00Uhr'
-      + ' und 13:00-16:30Uhr</p> <h3>Bringen Sie bitte folgende Unterlagen mit</h3> <ul> <li>Termin'
-      + 'bestätigung</li> <li>Original Ausländerausweis (außer bei erstmaligem Gesuch)</li> <li>Ori'
+    htmlDescription: '<h3>Ort</h3> <p>Migrationsamt des Kantons Zürich<br>Berninastrasse 45<br>80'
+      + '57 Zürich</p> <p><strong>Schalter G-S</strong> (bitte Ticket beim <strong>Eingang rechts</'
+      + 'strong> ziehen)</p><p>Montag - Freitag 08:00-12:00 Uhr'
+      + ' und 13:00-16:30 Uhr</p> <h3>Bringen Sie bitte folgende Unterlagen mit</h3> <ul> <li>Termin'
+      + 'bestätigung</li> <li>Original Ausländerausweis (ausser bei erstmaligem Gesuch)</li> <li>Ori'
       + 'ginal heimatlicher Reisepass</li> <li>Geburtsschein (bei Neugeborenen)</li> </ul>',
   },
 };

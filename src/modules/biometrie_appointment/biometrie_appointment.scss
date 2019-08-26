@@ -15,11 +15,33 @@ $biometrieViewTransitionDuration: 300ms;
     margin-bottom: initial;
   }
 
+  &__reschedule__allopen__wrapper {
+    ul {
+      padding-left: 0;
+      margin: 0;
+      line-height: 1;
+
+      @include sizeCurve('margin-right', regular);
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+
+      li {
+        margin-left: 0;
+        padding-left: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+
   &__details__checklist {
-    li {
-      @include sizeCurve('margin-left', mini);
-      @include sizeCurve('padding-left', medium);
-      margin-bottom: unset;
+    ul {
+      margin: 0;
+      padding-left: 0;
+
+      li {
+        @include sizeCurve('margin-left', mini);
+        @include sizeCurve('padding-left', medium);
+        margin-bottom: unset;
+      }
     }
   }
 
@@ -46,14 +68,18 @@ $biometrieViewTransitionDuration: 300ms;
     display: none;
     text-align: right;
 
-    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
 
     .icon {
       @include sizeCurve('height', smallerRegular);
-      margin-bottom: -3px;
+      margin-bottom: -5px;
       fill: none;
       stroke: $colorBlack60;
       stroke-width: 2;
+    }
+
+    .atm-text_link:hover .icon {
+      fill: none;
     }
 
     &.show {
@@ -62,11 +88,11 @@ $biometrieViewTransitionDuration: 300ms;
   }
 
   &__backlink {
-    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
     display: none;
 
     .icon {
-      margin-bottom: -4px;
+      margin-bottom: -5px;
     }
 
     &.show {
@@ -353,8 +379,6 @@ $biometrieViewTransitionDuration: 300ms;
     &__checklist {
       @extend .info-box;
 
-      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-
       strong.boxhead {
         @include sizeCurve('margin-bottom', tiny);
       }
@@ -368,6 +392,7 @@ $biometrieViewTransitionDuration: 300ms;
         li {
           position: relative;
 
+          @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
           @include sizeCurve('margin-left', mini);
           @include sizeCurve('padding-left', medium);
 
@@ -722,7 +747,7 @@ $biometrieViewTransitionDuration: 300ms;
 
       &__wrapper {
         float: left;
-        max-width: 65%;
+        max-width: 64%;
 
         @include mq($to: small) {
           max-width: 100%;
