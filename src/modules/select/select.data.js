@@ -9,7 +9,7 @@ const inputDemoData = require('../../atoms/form_input/form_input.data');
 const template = dataHelper.getFileContent('select.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Select',
+    title: 'Auswahlfeld',
     className: 'Select',
     jira: 'CZHDEV-*',
     documentation: dataHelper.getDocumentation('select.md'),
@@ -22,8 +22,8 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+      title: 'Einzelauswahl(Default)',
+      desc: 'Default implementation einer Einzelauswahl',
     },
     props: {
       listData: _.merge({}, listDemoData.variants.defaultSingle.props, { setHiddenIndex: true }),
@@ -34,11 +34,41 @@ const variants = _.mapValues({
   selectPhone: {
     meta: {
       title: 'Phone',
-      desc: 'Default implementation',
+      desc: 'Einzelauswahl mit Filter',
     },
     props: {
       hasFilter: true,
       listData: _.merge({}, listDemoData.variants.defaultSingle.props, { setHiddenIndex: true }),
+      selectInputData: inputDemoData.variants.triggerPhone.props,
+      filterInputDtat: inputDemoData.variants.smallWithIcon.props,
+    },
+  },
+  defaultMultiPreSelect: {
+    meta: {
+      title: 'Mehrfachauswahl(Default)',
+      desc: 'Default implementation einer Mehrfachauswahl (mit Vorauswahl)',
+    },
+    props: {
+      isMultiSelect: true,
+      listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
+        setHiddenIndex: true,
+        isMultiSelect: true,
+        isSingleSelect: false,
+        selectOptions: [
+          { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
+          { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
+          { value: 'sich', label: 'Sicherheit & Justiz', id: _.uniqueId('option-item') },
+          {
+            value: 'so', label: 'Soziales', id: _.uniqueId('option-item'),
+          },
+          {
+            value: 'st', label: 'Steuern', id: _.uniqueId('option-item'),
+          },
+          { value: 'umte', label: 'Umwelt & Tier', id: _.uniqueId('option-item') },
+          { value: 'ge', label: 'Gemeinschaften', id: _.uniqueId('option-item') },
+          { value: 'scer', label: 'Schulen & Erziehung', id: _.uniqueId('option-item'), preSelected: true, },
+        ],
+      }),
       selectInputData: inputDemoData.variants.triggerDefault.props,
       filterInputDtat: inputDemoData.variants.smallWithIcon.props,
     },
@@ -49,9 +79,14 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
+      isMultiSelect: true,
       hasFilter: true,
       hasFilterAndButton: true,
-      listData: _.merge({}, listDemoData.variants.iconLeft.props, { setHiddenIndex: true }),
+      listData: _.merge({}, listDemoData.variants.iconLeft.props, {
+        setHiddenIndex: true,
+        isMultiSelect: true,
+        isSingleSelect: false,
+      }),
       selectInputData: inputDemoData.variants.triggerDefault.props,
       filterInputDtat: inputDemoData.variants.smallWithIcon.props,
     },

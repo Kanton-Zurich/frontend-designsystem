@@ -40,6 +40,7 @@
       color: $colorBlack;
     }
 
+    &.hover,
     &:hover:not(.selected) {
       background: rgba(0, 0, 0, 0.05);
       color: $colorBlack;

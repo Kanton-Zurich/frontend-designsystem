@@ -79,6 +79,12 @@ $selectHeightWithFilterExtended: 424px;
   &--open {
     .atm-form_input {
 
+      &__input--trigger {
+
+        padding-top: pxToRem(35px);
+        padding-bottom: pxToRem(15px);
+      }
+
       &__trigger-label {
         pointer-events: none;
         padding: 0;
