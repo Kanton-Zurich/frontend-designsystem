@@ -49,7 +49,7 @@
         <svg class="icon">
           <use xlink:href="#like"></use>
         </svg>
-        <span aria-label="Likes">{{likes}}</span>
+        <span class="visuallyhidden">Likes </span><span>{{likes}}</span>
       </li>
 {{/if}}
 {{#if comments}}
@@ -57,7 +57,7 @@
         <svg class="icon">
           <use xlink:href="#comments"></use>
         </svg>
-        <span aria-label="Kommentare">{{comments}}</span>
+        <span class="visuallyhidden">Kommentare </span><span>{{comments}}</span>
       </li>
 {{/if}}
 {{#if forwards}}
@@ -65,7 +65,7 @@
         <svg class="icon">
           <use xlink:href="#repost"></use>
         </svg>
-        <span aria-label="Weiterleitungen">{{forwards}}</span>
+         <span class="visuallyhidden">Weiterleitungen </span><span>{{forwards}}</span>
       </li>
 {{/if}}
       </ul>
