@@ -11,7 +11,7 @@ class Appointment {
   private dateFormatOptions = {
     day: '2-digit',
     month: '2-digit',
-    weekday: 'long',
+    weekday: 'short',
     year: 'numeric',
   };
 
