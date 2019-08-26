@@ -16,6 +16,7 @@ $gapSize: pxToRem($sizeRegular);
 
   &__row {
     display: flex;
+    align-items: flex-start;
 
     margin-left: -($gapSize/2);
     margin-right: -($gapSize/2);
@@ -159,13 +160,15 @@ $gapSize: pxToRem($sizeRegular);
     position: absolute;
     right: 0;
     transform: translateX(100%) translateY(-50%);
-    top: 50%;
+    top: pxToRem($sizeBig + $sizeMini);
 
     @include mq($to: medium) {
       position: relative;
       right: auto;
       top: auto;
       transform: none;
+
+      margin-top: pxToRem($sizeSmallLarge);
     }
 
     use {
