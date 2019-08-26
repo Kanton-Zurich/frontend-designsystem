@@ -31,6 +31,7 @@ class Select extends Module {
     element: any,
     trigger: any,
     triggerValue: any,
+    triggerLabel: any,
     dropdown: any,
     filter: any,
     list: any,
@@ -43,6 +44,7 @@ class Select extends Module {
     domSelectors: {
       trigger: string,
       triggerValue: string,
+      triggerLabel: string,
       dropdown: string,
       filter: string,
       list: string,
@@ -68,6 +70,7 @@ class Select extends Module {
       domSelectors: {
         trigger: '.atm-form_input--trigger button',
         triggerValue: '.atm-form_input__trigger-value',
+        triggerLabel: '.atm-form_input__trigger-label',
         dropdown: '.mdl-select__options',
         filter: '.mdl-select__filter input',
         list: '.atm-list',
@@ -626,6 +629,9 @@ class Select extends Module {
       this.selectItemByIndex(this.selectionIndex);
     }
 
+    this.ui.trigger.setAttribute('aria-expanded', 'true');
+    this.ui.dropdown.setAttribute('aria-hidden', 'false');
+
     this.focusDropdown();
   }
 
@@ -637,6 +643,8 @@ class Select extends Module {
     const dropDown = this.ui.element;
     dropDown.classList.remove(openClass);
     this.isOpen = false;
+    this.ui.trigger.setAttribute('aria-expanded', 'false');
+    this.ui.dropdown.setAttribute('aria-hidden', 'true');
 
     this.blurDropdown();
   }
