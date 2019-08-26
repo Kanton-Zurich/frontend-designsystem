@@ -12,7 +12,7 @@
   </figure>
   {{/if}}
   {{#if cite}}
-  <div class="mdl-social-media-post__cite">
+  <cite class="mdl-social-media-post__cite">
     {{#if cite.text}}
     <p class="mdl-social-media-post__text atm-paragraph">
       {{{cite.text}}}
@@ -30,44 +30,44 @@
         <span>{{cite.author.name}}</span><span>{{cite.datetime}}</span>
       </a>
     </div>
-  </div>
+  </cite>
   {{/if}}
 
   <div class="mdl-social-media-post__footer">
     <a href="{{author.link}}" class="mdl-social-media-post__authorinfo" target="_blank">
-      <button class="atm-button atm-button--icon-only atm-button--secondary">
+      <span class="atm-button atm-button--icon-only atm-button--secondary">
             <span class="atm-button__text visuallyhidden">
               Button
             </span>
         <img class="icon" src="{{icon}}" alt="Icon">
-      </button>
+      </span>
       <span>{{author.name}}</span><span>{{datetime}}</span>
     </a>
-    <div class="mdl-social-media-post__interaction">
+      <ul class="mdl-social-media-post__interaction">
 {{#if likes}}
-      <button>
+      <li class="mdl-social-media-post__interaction-button">
         <svg class="icon">
           <use xlink:href="#like"></use>
         </svg>
-        <span>{{likes}}</span>
-      </button>
+        <span aria-label="Likes">{{likes}}</span>
+      </li>
 {{/if}}
 {{#if comments}}
-      <button>
+      <li class="mdl-social-media-post__interaction-button">
         <svg class="icon">
           <use xlink:href="#comments"></use>
         </svg>
-        <span>{{comments}}</span>
-      </button>
+        <span aria-label="Kommentare">{{comments}}</span>
+      </li>
 {{/if}}
 {{#if forwards}}
-       <button>
+       <li class="mdl-social-media-post__interaction-button">
         <svg class="icon">
           <use xlink:href="#repost"></use>
         </svg>
-        <span>{{forwards}}</span>
-      </button>
+        <span aria-label="Weiterleitungen">{{forwards}}</span>
+      </li>
 {{/if}}
-    </div>
+      </ul>
   </div>
 </div>

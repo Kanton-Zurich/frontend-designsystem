@@ -57,9 +57,12 @@ class Modal extends Module {
     this.closeOnEscapeFunction = this.closeOnEscape.bind(this);
     this.initContent();
     this.eventDelegate.on('Modal.open', () => {
+      (<any>window).estatico.helpers.wrapAccessibility(this.ui.element);
       window.addEventListener('keydown', this.closeOnEscapeFunction);
       this.parentScrollPosition = document.documentElement.scrollTop;
-      this.ui.element.classList.add(this.options.stateClasses.show);
+      this.ui.element.removeAttribute('style');
+      (<any>window).estatico.helpers.setHiddenTabIndex(this.ui.element);
+      setTimeout(() => { this.ui.element.classList.add(this.options.stateClasses.show); }, 1);
       this.ui.element.focus();
       this.ui.element.scrollTo(0, 0);
       if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
@@ -94,6 +97,7 @@ class Modal extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.close, this.closeModal.bind(this));
     // move to the end of the DOM
     (<any>window).estatico.helpers.bodyElement.appendChild(this.ui.element);
+    this.ui.element.style.display = 'none';
   }
 
   initContent() {
@@ -154,9 +158,15 @@ class Modal extends Module {
     setTimeout(() => {
       this.ui.element.classList.remove(this.options.stateClasses.show);
       this.ui.element.classList.remove(this.options.stateClasses.transHide);
+      this.ui.element.style.display = 'none';
+      (<any>window).estatico.helpers.unwrapAccessibility(this.ui.element);
+      (<any>window).estatico.helpers.resetHiddenTabIndex();
+      const focusOrigin = document.querySelector(`button[aria-controls="${this.ui.element.getAttribute('id')}"]`);
+      if (focusOrigin) {
+        (<any> focusOrigin).focus();
+      }
     }, this.options.transitionTime);
   }
-
   /**
    * Unbind events, remove data, custom teardown
    */

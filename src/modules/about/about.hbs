@@ -9,7 +9,7 @@
         {{{pText1}}}
       </p>
     </div>
-    {{> "modules/linklist/linklist" linklist.list1}}
+    {{> "atoms/linklist_item/linklist_item" link}}
   </div>
   <div class="mdl-about__block">
     <h3 class="atm-heading">{{{sTitle2}}}</h3>
@@ -29,11 +29,11 @@
     {{> "modules/person_card/person_card" personCardData}}
   </div>
   <div class="mdl-about__block">
-    <div class="mdl-about__smallcaption">{{{smallTitle1}}}</div>
+    <h3 class="mdl-about__smallcaption">{{{smallTitle1}}}</h3>
     {{> "modules/content_nav/content_nav" topicsData}}
   </div>
   <div class="mdl-about__block">
-    <div class="mdl-about__smallcaption">{{{smallTitle2}}}</div>
-    {{> "modules/download_list/download_list" downloadListData}}
+    <h3 class="mdl-about__smallcaption">{{{smallTitle2}}}</h3>
+    {{> "modules/download_list/download_list" downloadListData }}
   </div>
 </div>
