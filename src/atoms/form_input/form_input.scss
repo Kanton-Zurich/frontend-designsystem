@@ -192,7 +192,6 @@ $unitLeftSpace: 62px;
       top: 50%;
       right: 2px;
       width: calc(100% - 86px);
-      height: calc(100% - #{$sizeMini});
       transform: translateY(-50%);
       border: none;
       appearance: textfield;
@@ -405,7 +404,7 @@ $unitLeftSpace: 62px;
     height: pxToRem($heightSmall);
 
     input {
-      padding: 0 pxToRem($unitLeftSpace) 0 pxToRem($sizeRegular);
+      padding: pxToRem($sizeSmallRegular) pxToRem($unitLeftSpace) pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
     }
   }
 }

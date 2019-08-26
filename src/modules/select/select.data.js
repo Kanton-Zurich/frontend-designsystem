@@ -11,7 +11,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Auswahlfeld',
     className: 'Select',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-846, CZHDEV-848, CZHDEV-852, CZHDEV-992',
     documentation: dataHelper.getDocumentation('select.md'),
   },
   props: {
@@ -33,12 +33,34 @@ const variants = _.mapValues({
   },
   selectPhone: {
     meta: {
-      title: 'Phone',
+      title: 'Einzelauswahl(Telefon)',
       desc: 'Einzelauswahl mit Filter',
     },
     props: {
       hasFilter: true,
-      listData: _.merge({}, listDemoData.variants.defaultSingle.props, { setHiddenIndex: true }),
+      listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
+        setHiddenIndex: true,
+        selectOptions: [
+          { value: '+61', label: '+61 Australia (Australien)', id: _.uniqueId('option-item') },
+          { value: '+43', label: '+43 Austria (Österreich)', id: _.uniqueId('option-item') },
+          { value: '+32', label: '+32 Belgium (Belgien)', id: _.uniqueId('option-item') },
+          { value: '+01', label: '+01 Canada (Kanada)', id: _.uniqueId('option-item') },
+          { value: '+385', label: '+385 Croatia (Kroatien)', id: _.uniqueId('option-item') },
+          { value: '+45', label: '+86 Denmark (Dänemark)', id: _.uniqueId('option-item') },
+          { value: '+33', label: '+33 French (Frankreich)', id: _.uniqueId('option-item') },
+          { value: '+49', label: '+49 Germany (Deutschland)', id: _.uniqueId('option-item') },
+          { value: '+39', label: '+39 Italy (Italien)', id: _.uniqueId('option-item') },
+          { value: '+352', label: '+352 Luxembourg (Luxemburg)', id: _.uniqueId('option-item') },
+          { value: '+31', label: '+31 Netherlands (Niederlande)', id: _.uniqueId('option-item') },
+          { value: '+86', label: '+86 Peoples Republic of China`(China)', id: _.uniqueId('option-item') },
+          { value: '+46', label: '+46 Sweden (Schweden)', id: _.uniqueId('option-item') },
+          { value: '+41', label: '+41 Switzerland (Schweiz)', id: _.uniqueId('option-item') },
+          { value: '+34', label: '+34 Spain (Spanien)', id: _.uniqueId('option-item') },
+          { value: '+963', label: '+963 Syria (‫سوريا‬‎)', id: _.uniqueId('option-item') },
+          { value: '+886', label: '+886 Taiwan (台灣))', id: _.uniqueId('option-item') },
+          { value: '+66', label: '+66 Thailand (ไทย)‎)', id: _.uniqueId('option-item') },
+        ],
+      }),
       selectInputData: inputDemoData.variants.triggerPhone.props,
       filterInputDtat: inputDemoData.variants.smallWithIcon.props,
     },
@@ -66,7 +88,9 @@ const variants = _.mapValues({
           },
           { value: 'umte', label: 'Umwelt & Tier', id: _.uniqueId('option-item') },
           { value: 'ge', label: 'Gemeinschaften', id: _.uniqueId('option-item') },
-          { value: 'scer', label: 'Schulen & Erziehung', id: _.uniqueId('option-item'), preSelected: true, },
+          {
+            value: 'scer', label: 'Schulen & Erziehung', id: _.uniqueId('option-item'), preSelected: true,
+          },
         ],
       }),
       selectInputData: inputDemoData.variants.triggerDefault.props,
@@ -75,7 +99,7 @@ const variants = _.mapValues({
   },
   multiSelect: {
     meta: {
-      title: 'multiSelect',
+      title: 'Mehrfachauswahl(Filter)',
       desc: 'Default implementation',
     },
     props: {
