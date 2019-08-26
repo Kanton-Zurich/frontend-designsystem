@@ -134,11 +134,15 @@ class Header extends Module {
     this.ui.element.classList.add(this.options.colorClasses.monochrome);
     this.data.activeItem.classList.add(this.options.stateClasses.activeItem);
     document.documentElement.classList.add(this.options.stateClasses.fixedHeader);
+
+    this.data.activeItem.setAttribute('aria-expanded', 'true');
   }
 
   hideFlyout(unsetClasses) {
     if (this.data.activeModal) {
       this.data.activeModal.dispatchEvent(new CustomEvent('Modal.close'));
+
+      this.data.activeItem.setAttribute('aria-expanded', 'false');
 
       if (unsetClasses) {
         setTimeout(this.unsetClasses.bind(this), this.options.transitionDelays.small);
