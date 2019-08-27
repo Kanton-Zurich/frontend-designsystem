@@ -13,6 +13,7 @@ class NewsFilterMobile extends Module {
     sublevelItems: HTMLDivElement[],
     listItems: HTMLAnchorElement[],
     footer: HTMLDivElement,
+    footerButton: HTMLButtonElement,
     topicFilterInput: HTMLInputElement,
     organisationFilterInput: HTMLInputElement,
   };
@@ -21,7 +22,6 @@ class NewsFilterMobile extends Module {
     inputDelay: number,
     visibilityDelay: number,
     keys: any,
-    direction: any,
     domSelectors: {},
     stateClasses: {};
   };
@@ -33,14 +33,6 @@ class NewsFilterMobile extends Module {
     const defaultOptions = {
       inputDelay: 250,
       visibilityDelay: 50,
-      keys: {
-        up: 38,
-        down: 40,
-      },
-      direction: {
-        38: -1,
-        40: 1,
-      },
       domSelectors: {
         sublevelItems: '.mdl-news-filter-mobile__sublevel > div',
         listItems: '.atm-linklist_item',
@@ -131,30 +123,50 @@ class NewsFilterMobile extends Module {
     const listElement = document.querySelector(`#${element.getAttribute('aria-controls')}`);
     const listItems = listElement.querySelectorAll('li');
     listItems.forEach((li) => {
-      li.querySelector('input').addEventListener('keyup', (evt) => {
-        listItems.forEach((item) => {
-          item.classList.remove('focused');
-        });
-        const pressed = evt.keyCode;
-        if (pressed === this.options.keys.up || pressed === this.options.keys.down) {
-          let nextFocusable = pressed === this.options.keys.up
-            ? li.previousElementSibling
-            : li.nextElementSibling;
-          while (nextFocusable) {
-            if (!nextFocusable.classList.contains('hidden')) {
-              nextFocusable.querySelector('input').focus();
-              nextFocusable.classList.add('focused');
-              break;
+      li.querySelector('input').addEventListener('keydown', (evt) => {
+        const pressed = evt.key;
+        let newTarget = <any>evt.target;
+        if (pressed === 'ArrowUp' || pressed === 'ArrowDown' || pressed === 'Home' || pressed === 'End') {
+          listItems.forEach((item) => {
+            item.classList.remove('focused');
+          });
+          if (pressed === 'ArrowUp' || pressed === 'ArrowDown') {
+            let nextFocusable = pressed === 'ArrowUp'
+              ? li.previousElementSibling
+              : li.nextElementSibling;
+            while (nextFocusable) {
+              if (!nextFocusable.classList.contains('hidden')) {
+                newTarget = nextFocusable.querySelector('input');
+                break;
+              }
+              nextFocusable = pressed === this.options.keys.up
+                ? nextFocusable.previousElementSibling
+                : nextFocusable.nextElementSibling;
             }
-            nextFocusable = pressed === this.options.keys.up
-              ? nextFocusable.previousElementSibling
-              : nextFocusable.nextElementSibling;
           }
+          if (pressed === 'Home' || pressed === 'End') {
+            const visibleElements = listElement.querySelectorAll('li:not(.hidden)');
+            newTarget = (pressed === 'Home' ? visibleElements[0] : visibleElements[visibleElements.length - 1])
+              .querySelector('input');
+          }
+          newTarget.focus();
+          newTarget.parentElement.classList.add('focused');
+          evt.stopPropagation();
+          evt.preventDefault();
+        }
+        if (pressed === 'Tab') {
+          if (evt.shiftKey) {
+            element.focus();
+          } else {
+            li.parentElement.parentElement.nextElementSibling.querySelector('button').focus();
+          }
+          evt.stopPropagation();
+          evt.preventDefault();
         }
       });
-      li.querySelector('input').addEventListener('keydown', (evt) => {
-        const pressed = evt.keyCode;
-        if (pressed === this.options.keys.up || pressed === this.options.keys.down) {
+      li.querySelector('input').addEventListener('keyup', (evt) => {
+        const pressed = evt.key;
+        if (pressed === 'ArrowUp' || pressed === 'ArrowDown' || pressed === 'Tab') {
           evt.stopPropagation();
           evt.preventDefault();
         }
