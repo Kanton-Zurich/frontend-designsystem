@@ -76,7 +76,8 @@ class Modal extends Module {
       // delayed opacity animation
       setTimeout(() => { this.ui.element.classList.add(this.options.stateClasses.show); }, 1);
       this.ui.element.focus();
-      this.ui.element.scrollTo(0, 0);
+      this.ui.element.scrollTop = 0;
+
       if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
         this.updateOnScroll(0);
       }
@@ -161,7 +162,9 @@ class Modal extends Module {
   closeModal() {
     document.documentElement.style.overflowY = 'initial';
     this.ui.element.classList.add(this.options.stateClasses.transHide);
-    document.documentElement.scrollTo(0, this.parentScrollPosition);
+    if (document.documentElement.scrollTo) {
+      document.documentElement.scrollTo(0, this.parentScrollPosition);
+    }
     window.removeEventListener('keydown', this.closeOnEscapeFunction);
     this.isolatedElements.forEach((element) => {
       element.removeAttribute('aria-hidden');
