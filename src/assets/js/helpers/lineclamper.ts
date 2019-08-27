@@ -44,7 +44,6 @@ class LineClamper {
       this.elements = [].slice.call(this.elements);
       this.elements.forEach((element) => {
         if (!element.hasAttribute('data-line-clamped')) {
-          element.setAttribute('title', element.innerText.trim());
           element.setAttribute('data-content-before', element.innerHTML.trim());
           element.setAttribute('data-line-clamped', 'true');
         } else {
