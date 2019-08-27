@@ -175,7 +175,7 @@ class Modal extends Module {
       this.ui.element.style.display = 'none';
       (<any>window).estatico.helpers.unwrapAccessibility(this.ui.element);
       (<any>window).estatico.helpers.resetHiddenTabIndex();
-      const focusOrigin = document.querySelector(`button[aria-controls="${this.ui.element.getAttribute('id')}"]`);
+      const focusOrigin = document.querySelector(`a[aria-controls="${this.ui.element.getAttribute('id')}"]`);
       if (focusOrigin) {
         (<any> focusOrigin).focus();
       }
