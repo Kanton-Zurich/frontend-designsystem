@@ -185,10 +185,14 @@ const variants = _.mapValues({
     props: {
       isNavigation: true,
       topiclistInput: _.merge({}, inputFormData, {
-        label: 'Themen nach Stichwort filtern',
-        isSmall: true,
+        label: 'Filtern nach Themen',
         dataSelector: 'data-topiclist="input"',
-        hasClearButton: true,
+        isSmall: true,
+        additionalFunctionality: {
+          icon: 'clear',
+          buttontype: 'clear',
+          ariaText: 'Lösche Eingabe',
+        },
       }),
       topiclistHeading: false,
       topiclistLead: false,
@@ -219,10 +223,14 @@ const variants = _.mapValues({
     props: {
       isNavigation: true,
       topiclistInput: _.merge({}, inputFormData, {
-        label: 'Filtern nach Amt, Fachstelle, Direktion',
-        isSmall: true,
+        label: 'Filtern nach Amt, Direktion',
         dataSelector: 'data-topiclist="input"',
-        hasClearButton: true,
+        isSmall: true,
+        additionalFunctionality: {
+          icon: 'clear',
+          buttontype: 'clear',
+          ariaText: 'Lösche Eingabe',
+        },
       }),
       topiclistHeading: false,
       topiclistLead: false,
