@@ -2,6 +2,47 @@
 * Flatpickr Style Overwrites
 */
 .flatpickr-calendar {
+  background: $colorWhite;
+  border-radius: 1px;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
+
+  min-width: 296px;
+  max-width: 396px;
+  margin: 0 auto;
+
+  // Remove little up arrow
+  &:before,
+  &:after {
+    display: none;
+  }
+
+  // If we use it inline we cast the box-shadow from the wrapper
+  &.noBorderShadow {
+    box-shadow: none;
+    border-radius: 0;
+    width: 100%;
+  }
+
+  // Remove default top space
+  &.inline {
+    top: auto;
+  }
+
+  &.rangeMode {
+
+    &.hasTime {
+
+    }
+  }
+
+
+  &.flatpickr-monthDropdown-months {
+    direction: rtl;
+  }
+}
+
+/*
+.flatpickr-calendar {
   padding: pxToRem($sizeTiny) pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
   border-radius: 1px;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
@@ -51,9 +92,9 @@
   max-width: 100%;
 }
 
-/*
+!*
 * HOURS/MINUTES & CONTROL ARROWS(UP/DOWN)
-*/
+*!
 .flatpickr-time {
   display: block;
   height: pxToRem($sizeSmallHuge);
@@ -113,9 +154,9 @@
   height: 100%;
 }
 
-/*
+!*
 * MONTH/YEAR & CONTROL ARROWS(LEFT/RIGHT)
-*/
+*!
 .flatpickr-months {
   height: pxToRem($sizeSmallHuge);
   position: relative;
@@ -190,9 +231,9 @@
   }
 }
 
-/*
+!*
 * DAYS CELLS
-*/
+*!
 .flatpickr-day {
   border-radius: 1px;
   font-size: pxToRem($sizeFontRegular);
@@ -241,3 +282,4 @@
     color: $colorBlack;
   }
 }
+*/

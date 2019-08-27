@@ -5,9 +5,34 @@
     .icon {
       fill: $colorBlack;
     }
+    .mdl-datepicker__container {
+      height: 414px;
+    }
+  }
+
+  &__container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 2px;
+    background: $colorWhite;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
+    border-radius: 1px;
+    min-width: 296px;
+    max-width: 396px;
+    height: 0;
+    /*overflow: hidden;*/
+    transition: 300ms height ease-in-out;
   }
 
   .atm-form_input__input{
+    appearance: none;
+    height: 72px;
+
+    &::-webkit-datetime-edit {
+      display: none;
+    }
+
     &.active {
       border-color: $colorCyan;
     }

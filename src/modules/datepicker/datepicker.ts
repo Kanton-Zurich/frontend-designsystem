@@ -16,7 +16,7 @@ class Datepicker extends Module {
   public globalConfig: {
     nextArrow: string,
     prevArrow: string,
-    disableMobile: boolean,
+    onReady: any,
     onChange: any,
     onClose: any,
     onOpen: any,
@@ -38,11 +38,21 @@ class Datepicker extends Module {
       mode: string,
       minDate: string,
       separator: string,
+      appendTo: any,
+      disableMobile: boolean,
+      static: boolean,
+      inline: boolean,
+      wrap: boolean,
     },
     dataTime: {
       dateFormat: string,
       position: string,
+      appendTo: any,
       noCalendar: boolean,
+      disableMobile: boolean,
+      static: boolean,
+      inline: boolean,
+      wrap: boolean,
     }
   };
 
@@ -50,6 +60,7 @@ class Datepicker extends Module {
     element: any,
     trigger: any,
     container: any,
+    mobileDebug: any,
   };
 
   public options: {
@@ -69,6 +80,7 @@ class Datepicker extends Module {
       domSelectors: {
         trigger: '.atm-form_input input',
         container: '.mdl-datepicker__container',
+        mobileDebug: '#debug',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -99,11 +111,21 @@ class Datepicker extends Module {
         mode: 'range',
         minDate: 'today',
         separator: ' - ',
+        disableMobile: true,
+        static: false,
+        inline: true,
+        wrap: false,
+        appendTo: this.ui.container,
       },
       dataTime: {
         dateFormat: 'd.m.Y H:i',
         position: 'below',
         noCalendar: false,
+        disableMobile: true,
+        static: false,
+        inline: false,
+        wrap: false,
+        appendTo: this.ui.container,
       },
     };
 
@@ -116,22 +138,16 @@ class Datepicker extends Module {
       prevArrow: '<svg class="icon">\n'
       + '<use xlink:href="#angle_left"></use>\n'
       + '</svg>',
-      disableMobile: true,
-      onChange: () => {
-        if (!this.ui.trigger.classList.contains('dirty')) {
-          this.ui.trigger.classList.add('dirty');
-        }
-      },
-      onOpen: () => {
-        this.ui.element.classList.add('open');
-      },
-      onClose: () => {
-        this.ui.element.classList.remove('open');
-      },
+      onReady: this.onReady.bind(this),
+      onChange: this.onValueChange.bind(this),
+      onOpen: this.onPickerOpen.bind(this),
+      onClose: this.onPickerClose.bind(this),
     };
 
     this.constructConfig();
     this.initFlatpickr();
+    console.log('AFTER INIT');
+    this.flatpickr.close();
   }
 
   static get events() {
@@ -144,6 +160,8 @@ class Datepicker extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
+    this.eventDelegate
+      .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this));
   }
 
   /**
@@ -183,18 +201,57 @@ class Datepicker extends Module {
    * Initialize the Flatpickr plugin
    */
   initFlatpickr() {
+    console.log('INIT - ',this.pickerMode);
     this.flatpickr = flatpickr(this.ui.trigger, this.usedConfig);
+
 
     // Replace default range seperator
     if (this.pickerMode === 'date-range') {
       this.flatpickr.l10n.rangeSeparator = ' - ';
     }
 
-    // Force month select options to be right aligned
-    if (this.pickerMode === 'date-range' || this.pickerMode === 'date-time' || this.pickerMode === 'date') {
+    if (this.pickerMode === 'date-range' || this.pickerMode === 'date-time') {
+      this.flatpickr.calendarContainer.classList.add('noBorderShadow');
+
+      // Force month select options to be right aligned
+      /*
       const flatpickrSelect = this.flatpickr.calendarContainer.querySelector('.flatpickr-monthDropdown-months');
       flatpickrSelect.setAttribute('dir', 'rtl');
+      */
     }
+  }
+
+  onValueChange() {
+    console.log('onValueChange');
+    if (!this.ui.trigger.classList.contains('dirty')) {
+      this.ui.element.querySelector('input.flatpickr-mobile').classList.add('dirty');
+      this.ui.trigger.classList.add('dirty');
+    }
+  }
+
+  onPickerOpen() {
+    console.log('OPEN');
+    this.ui.element.classList.add('open');
+    const style = document.createAttribute('style')
+    this.flatpickr.calendarContainer.removeAttributeNode('style');
+  }
+
+  onPickerClose() {
+    console.log('CLOSE');
+    this.ui.element.classList.remove('open');
+  }
+
+  onReady() {
+    console.log('READY');
+    console.log('--flat--');
+    console.log(this.flatpickr);
+    console.log(this.ui.container.querySelector('.flatpickr-calendar '));
+  }
+
+  onTriggerClick() {
+    console.log('click');
+    console.log(this.flatpickr);
+    this.flatpickr.toggle; // toggle()
   }
 
   /**
