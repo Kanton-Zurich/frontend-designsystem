@@ -148,6 +148,7 @@ class Select extends Module {
       .on('input', this.options.domSelectors.filter, this.onFilterInput.bind(this))
       .on('keydown', this.options.domSelectors.filter, this.onFilterKeypress.bind(this))
       .on('keydown', this.options.domSelectors.list, this.onListKeypress.bind(this))
+      .on('keydown', this.options.domSelectors.applyButton, this.onButtonKeydown.bind(this))
       .on('click', this.options.domSelectors.applyButton, this.onButtonClick.bind(this))
       .on('click', this.options.domSelectors.items, this.onItemsClick.bind(this))
       .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this));
@@ -194,6 +195,13 @@ class Select extends Module {
    */
   onButtonClick() {
     this.closeDropdown();
+  }
+
+  onButtonKeydown(event) {
+    const { key } = event;
+    if (key === 'Escape' || key === 'Esc') {
+      this.closeDropdown();
+    }
   }
 
   /**
@@ -629,6 +637,9 @@ class Select extends Module {
       this.selectItemByIndex(this.selectionIndex);
     }
 
+    console.log('open');
+    console.log(this.ui.list);
+    this.ui.list.setAttribute('tabindex', '0');
     this.ui.trigger.setAttribute('aria-expanded', 'true');
     this.ui.dropdown.setAttribute('aria-hidden', 'false');
 
@@ -643,6 +654,7 @@ class Select extends Module {
     const dropDown = this.ui.element;
     dropDown.classList.remove(openClass);
     this.isOpen = false;
+    this.ui.list.setAttribute('tabindex', '-1');
     this.ui.trigger.setAttribute('aria-expanded', 'false');
     this.ui.dropdown.setAttribute('aria-hidden', 'true');
 
