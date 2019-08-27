@@ -34,6 +34,7 @@
     align-items: center;
     position: relative;
     margin-bottom: $sizeTiny;
+    width: 100%;
 
     @include sizeCurve(padding, itemPadding, $serviceListCurves);
     @include mq($from: tiny, $to: xsmall) {
@@ -44,6 +45,16 @@
       .mdl-service_list__item-title,
       .mdl-service_list__item-text {
         color: $colorBlack;
+      }
+    }
+
+    &-title {
+      line-height: $sizeLineHeightMedium;
+      margin-bottom: 0;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include mq($to: xsmall) {
+        line-height: $sizeLineHeightBase;
       }
     }
   }

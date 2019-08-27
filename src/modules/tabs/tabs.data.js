@@ -22,15 +22,15 @@ const data = _.merge({}, defaultData, {
       },
       {
         title: 'Online',
-        data: handlebars.compile(dataHelper.getFileContent('../download_list/download_list.hbs'))(defDownloadListData.variants.default.props),
+        data: handlebars.compile(dataHelper.getFileContent('../download_list/download_list.hbs'))(_.merge({}, defDownloadListData.variants.default.props, { title: null })),
       },
       {
         title: 'Per Post',
-        data: handlebars.compile(dataHelper.getFileContent('../richtext/richtext.hbs'))(defRichtextData.variants.default.props),
+        data: handlebars.compile(dataHelper.getFileContent('../richtext/richtext.hbs'))(defRichtextData.variants.embedded.props),
       },
       {
         title: 'Test Gallerie',
-        data: handlebars.compile(dataHelper.getFileContent('../carousel/carousel.hbs'))(defCarouselData.variants.default.props),
+        data: handlebars.compile(dataHelper.getFileContent('../carousel/carousel.hbs'))(_.merge({}, defCarouselData.variants.default.props, { title: null })),
       },
     ],
   },

@@ -13,6 +13,7 @@ class Modal extends Module {
   private hasCloseBtn: boolean;
   private headerHeight: number;
   public scrollThreshold: number;
+  private isolatedElements: HTMLElement[];
 
   public options: {
     domSelectors: any,
@@ -57,9 +58,23 @@ class Modal extends Module {
     this.closeOnEscapeFunction = this.closeOnEscape.bind(this);
     this.initContent();
     this.eventDelegate.on('Modal.open', () => {
+      // isolate modal
+      this.isolatedElements = [];
+      (<any>window).estatico.helpers.bodyElement.childNodes.forEach((child) => {
+        if (child.nodeType === 1) {
+          if (!(<HTMLElement>child).getAttribute('aria-hidden')) {
+            (<HTMLElement>child).setAttribute('aria-hidden', 'true');
+            this.isolatedElements.push(child);
+          }
+        }
+      });
+      (<any>window).estatico.helpers.wrapAccessibility(this.ui.element);
       window.addEventListener('keydown', this.closeOnEscapeFunction);
       this.parentScrollPosition = document.documentElement.scrollTop;
-      this.ui.element.classList.add(this.options.stateClasses.show);
+      this.ui.element.removeAttribute('style');
+      (<any>window).estatico.helpers.setHiddenTabIndex(this.ui.element);
+      // delayed opacity animation
+      setTimeout(() => { this.ui.element.classList.add(this.options.stateClasses.show); }, 1);
       this.ui.element.focus();
       this.ui.element.scrollTo(0, 0);
       if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
@@ -94,6 +109,7 @@ class Modal extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.close, this.closeModal.bind(this));
     // move to the end of the DOM
     (<any>window).estatico.helpers.bodyElement.appendChild(this.ui.element);
+    this.ui.element.style.display = 'none';
   }
 
   initContent() {
@@ -146,7 +162,9 @@ class Modal extends Module {
     this.ui.element.classList.add(this.options.stateClasses.transHide);
     document.documentElement.scrollTo(0, this.parentScrollPosition);
     window.removeEventListener('keydown', this.closeOnEscapeFunction);
-
+    this.isolatedElements.forEach((element) => {
+      element.removeAttribute('aria-hidden');
+    });
     this.ui.element.setAttribute('aria-hidden', 'true');
 
     window.dispatchEvent(new CustomEvent('Modal.closed'));
@@ -154,9 +172,15 @@ class Modal extends Module {
     setTimeout(() => {
       this.ui.element.classList.remove(this.options.stateClasses.show);
       this.ui.element.classList.remove(this.options.stateClasses.transHide);
+      this.ui.element.style.display = 'none';
+      (<any>window).estatico.helpers.unwrapAccessibility(this.ui.element);
+      (<any>window).estatico.helpers.resetHiddenTabIndex();
+      const focusOrigin = document.querySelector(`a[aria-controls="${this.ui.element.getAttribute('id')}"]`);
+      if (focusOrigin) {
+        (<any> focusOrigin).focus();
+      }
     }, this.options.transitionTime);
   }
-
   /**
    * Unbind events, remove data, custom teardown
    */
