@@ -2,7 +2,7 @@
   class="mdl-select{{#if hasFilter}} mdl-select--filter{{/if}}{{#if hasFilterAndButton}} mdl-select--filter-ext{{/if}}"
   data-init="select"{{#if isMultiSelect}} data-multiple="true" data-multiselectpostfix="gewählt"{{/if}}>
 
-  {{> "atoms/form_input/form_input" selectInputData }}
+  {{> "atoms/form_input/form_input" triggerInputData }}
 
   <div class="mdl-select__options">
     {{#if hasFilter}}

@@ -14,7 +14,9 @@ class Select extends Module {
   public focusOnFilter: boolean;
   public focusOnList: boolean;
   public focusOnButton: boolean;
+  public focusOnClearButton: boolean;
   public isFirefox: boolean;
+  public isKeyControlled: boolean;
 
   public buttonPostfix: string;
 
@@ -37,6 +39,7 @@ class Select extends Module {
     list: any,
     items: any,
     applyButton: any,
+    clearButton: any,
     phoneInput: any,
   };
 
@@ -50,6 +53,7 @@ class Select extends Module {
       list: string,
       items: string,
       applyButton: string,
+      clearButton: string,
       phoneInput: string,
     },
     stateClasses: {
@@ -73,10 +77,11 @@ class Select extends Module {
         triggerLabel: '.atm-form_input__trigger-label',
         dropdown: '.mdl-select__options',
         filter: '.mdl-select__filter input',
+        phoneInput: '.atm-form_input--trigger-phone input',
         list: '.atm-list',
         items: '.atm-list__item',
+        clearButton: '.atm-form_input__functionality',
         applyButton: '.mdl-select__apply button',
-        phoneInput: '.atm-form_input--trigger-phone input',
       },
       stateClasses: {
         open: 'mdl-select--open',
@@ -94,9 +99,11 @@ class Select extends Module {
 
     this.isOpen = false;
     this.isMultiSelect = false;
+    this.isKeyControlled = false;
     this.focusOnFilter = false;
     this.focusOnList = false;
     this.focusOnButton = false;
+    this.focusOnClearButton = false;
     this.isFirefox = navigator.userAgent.search('Firefox') > -1;
     this.hasFilter = typeof this.ui.filter !== 'undefined';
     this.hasFilterAndButton = typeof this.ui.applyButton !== 'undefined' && this.hasFilter;
@@ -141,17 +148,29 @@ class Select extends Module {
     this.eventDelegate
       .on('focus', this.options.domSelectors.list, this.onListFocus.bind(this))
       .on('focus', this.options.domSelectors.applyButton, this.onApplyButtonFocus.bind(this))
+      .on('focus', this.options.domSelectors.clearButton, this.onClearButtonFocus.bind(this))
       .on('focus', this.options.domSelectors.filter, this.onFilterFocus.bind(this))
       .on('blur', this.options.domSelectors.list, this.onListBlur.bind(this))
       .on('blur', this.options.domSelectors.applyButton, this.onApplyButtonBlur.bind(this))
+      .on('blur', this.options.domSelectors.clearButton, this.onClearButtonBlur.bind(this))
       .on('blur', this.options.domSelectors.filter, this.onFilterBlur.bind(this))
       .on('input', this.options.domSelectors.filter, this.onFilterInput.bind(this))
       .on('keydown', this.options.domSelectors.filter, this.onFilterKeypress.bind(this))
       .on('keydown', this.options.domSelectors.list, this.onListKeypress.bind(this))
       .on('keydown', this.options.domSelectors.applyButton, this.onButtonKeydown.bind(this))
+      .on('keydown', this.options.domSelectors.trigger, this.onTriggerKeydown.bind(this))
       .on('click', this.options.domSelectors.applyButton, this.onButtonClick.bind(this))
       .on('click', this.options.domSelectors.items, this.onItemsClick.bind(this))
+      .on('click', this.options.domSelectors.clearButton, this.onClearButtonClick.bind(this))
       .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this));
+  }
+
+  /**
+   * Trigger action starte by any key set the key controlled flag
+   * (for the inital focus on list or filter)
+   */
+  onTriggerKeydown() {
+    this.isKeyControlled = true;
   }
 
   /**
@@ -163,6 +182,15 @@ class Select extends Module {
     } else {
       this.openDropdown();
     }
+  }
+
+  /**
+   * Click on clear filter button callback. Deletes the input value and apply filter
+   */
+  onClearButtonClick() {
+    this.ui.filter.focus();
+    this.ui.filter.value = '';
+    this.applyFilter();
   }
 
   /**
@@ -197,6 +225,10 @@ class Select extends Module {
     this.closeDropdown();
   }
 
+  /**
+   * Apply button keydown callback. Just catch the escape key on the apply button
+   * @param event
+   */
   onButtonKeydown(event) {
     const { key } = event;
     if (key === 'Escape' || key === 'Esc') {
@@ -282,6 +314,11 @@ class Select extends Module {
    */
   applyFilter() {
     const stringPattern = this.ui.filter.value;
+    if (stringPattern.length > 0) {
+      this.ui.filter.classList.add('dirty');
+    } else {
+      this.ui.filter.classList.remove('dirty');
+    }
     const regex = new RegExp(stringPattern, 'i');
     const optionLength = this.ui.items.length;
 
@@ -303,7 +340,7 @@ class Select extends Module {
    */
   onFilterKeypress(event) {
     const { key } = event;
-    if (key === 'ArrowDown' || key === 'Down' || key === 'Tab' || key === 'End') {
+    if (key === 'ArrowDown' || key === 'Down' || key === 'End') {
       event.preventDefault();
       this.ui.list.focus();
     } else if (key === 'Escape' || key === 'Esc') {
@@ -637,13 +674,13 @@ class Select extends Module {
       this.selectItemByIndex(this.selectionIndex);
     }
 
-    console.log('open');
-    console.log(this.ui.list);
     this.ui.list.setAttribute('tabindex', '0');
     this.ui.trigger.setAttribute('aria-expanded', 'true');
     this.ui.dropdown.setAttribute('aria-hidden', 'false');
 
-    this.focusDropdown();
+    if (this.isKeyControlled) {
+      this.focusDropdown();
+    }
   }
 
   /**
@@ -654,6 +691,7 @@ class Select extends Module {
     const dropDown = this.ui.element;
     dropDown.classList.remove(openClass);
     this.isOpen = false;
+
     this.ui.list.setAttribute('tabindex', '-1');
     this.ui.trigger.setAttribute('aria-expanded', 'false');
     this.ui.dropdown.setAttribute('aria-hidden', 'true');
@@ -696,6 +734,7 @@ class Select extends Module {
     } else {
       this.ui.trigger.focus();
     }
+    this.isKeyControlled = false;
   }
 
   /**
@@ -710,6 +749,7 @@ class Select extends Module {
    */
   onFilterBlur() {
     this.focusOnFilter = false;
+    this.timeOutClose();
   }
 
   /**
@@ -725,11 +765,7 @@ class Select extends Module {
    */
   onListBlur() {
     this.focusOnList = false;
-    setTimeout((() => {
-      if (!this.focusOnButton && !this.focusOnFilter && !this.focusOnList) {
-        this.closeDropdown();
-      }
-    }), this.listBlurDelay);
+    this.timeOutClose();
   }
 
   /**
@@ -744,7 +780,35 @@ class Select extends Module {
    */
   onApplyButtonBlur() {
     this.focusOnButton = false;
+    this.timeOutClose();
   }
+
+  /**
+   * On clear button focus callback. Sets the corresping boolean flag.
+   */
+  onClearButtonFocus() {
+    this.focusOnClearButton = true;
+  }
+
+  /**
+   * On clear button blur callback. Sets the corresping boolean flag.
+   */
+  onClearButtonBlur() {
+    this.focusOnClearButton = false;
+  }
+
+  /**
+   * Close the dropdown after the delay if no relevant element is focused.
+   */
+  timeOutClose() {
+    setTimeout((() => {
+      if (!this.focusOnButton && !this.focusOnFilter
+        && !this.focusOnList && !this.focusOnClearButton) {
+        this.closeDropdown();
+      }
+    }), this.listBlurDelay);
+  }
+
 
   /**
    * Unbind events, remove data, custom teardown

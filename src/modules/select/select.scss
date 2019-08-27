@@ -25,6 +25,13 @@ $selectHeightWithFilterExtended: 424px;
     }
   }
 
+  .atm-form_input--trigger-phone {
+    input {
+      // Remove light blueish background after auto-fill / focus
+      -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+    }
+  }
+
   &.invalid {
     .atm-form_input--trigger {
       button {
@@ -97,7 +104,7 @@ $selectHeightWithFilterExtended: 424px;
       }
 
       .icon {
-        transform: translate(-50%, -50%) rotate(180deg);
+        transform: translateY(-50%) rotate(180deg);
       }
     }
 
@@ -123,6 +130,15 @@ $selectHeightWithFilterExtended: 424px;
           height: calc(100% - 160px);
         }
       }
+    }
+  }
+
+  &--selected {
+    .atm-form_input__trigger-value {
+      color: $colorBlack;
+    }
+    .atm-form_input__input--trigger svg {
+      fill: $colorBlack;
     }
   }
 

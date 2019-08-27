@@ -27,8 +27,7 @@ const variants = _.mapValues({
     },
     props: {
       listData: _.merge({}, listDemoData.variants.defaultSingle.props, { setHiddenIndex: true }),
-      selectInputData: inputDemoData.variants.triggerDefault.props,
-      filterInputDtat: inputDemoData.variants.smallWithIcon.props,
+      triggerInputData: inputDemoData.variants.triggerDefault.props,
     },
   },
   selectPhone: {
@@ -61,8 +60,8 @@ const variants = _.mapValues({
           { value: '+66', label: '+66 Thailand (ไทย)‎)', id: _.uniqueId('option-item') },
         ],
       }),
-      selectInputData: inputDemoData.variants.triggerPhone.props,
-      filterInputDtat: inputDemoData.variants.smallWithIcon.props,
+      triggerInputData: inputDemoData.variants.triggerPhone.props,
+      filterInputDtat: inputDemoData.variants.clearButtonSmallWithIcon.props,
     },
   },
   defaultMultiPreSelect: {
@@ -93,8 +92,7 @@ const variants = _.mapValues({
           },
         ],
       }),
-      selectInputData: inputDemoData.variants.triggerDefault.props,
-      filterInputDtat: inputDemoData.variants.smallWithIcon.props,
+      triggerInputData: inputDemoData.variants.triggerDefault.props,
     },
   },
   multiSelect: {
@@ -111,8 +109,8 @@ const variants = _.mapValues({
         isMultiSelect: true,
         isSingleSelect: false,
       }),
-      selectInputData: inputDemoData.variants.triggerDefault.props,
-      filterInputDtat: inputDemoData.variants.smallWithIcon.props,
+      triggerInputData: inputDemoData.variants.triggerDefault.props,
+      filterInputDtat: inputDemoData.variants.clearButtonSmallWithIcon.props,
     },
   },
 }, (variant) => {
