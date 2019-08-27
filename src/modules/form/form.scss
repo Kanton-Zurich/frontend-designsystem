@@ -16,6 +16,7 @@ $gapSize: pxToRem($sizeRegular);
 
   &__row {
     display: flex;
+    align-items: flex-start;
 
     margin-left: -($gapSize/2);
     margin-right: -($gapSize/2);
@@ -50,6 +51,18 @@ $gapSize: pxToRem($sizeRegular);
     &:last-child() {
       .form__row:last-of-type() {
         padding-bottom: 0;
+      }
+    }
+
+    .form__row {
+      position: relative;
+
+      &:last-of-type {
+        flex-direction: row;
+
+        .form__cell {
+          margin-bottom: 0;
+        }
       }
     }
   }
@@ -125,9 +138,38 @@ $gapSize: pxToRem($sizeRegular);
     }
   }
 
-  &__duplicator,
+  &__duplicator {
+    margin-top: $gapSize;
+
+    .form__group--has-duplicated & {
+      display: none;
+    }
+  }
+
+  .form__group--duplicatable {
+    .form__duplicated:last-of-type() {
+      .form__duplicator {
+        display: flex;
+      }
+    }
+  }
+
   &__remover {
     padding: 0 $gapSize/2;
+
+    position: absolute;
+    right: 0;
+    transform: translateX(100%) translateY(-50%);
+    top: pxToRem($sizeBig + $sizeMini);
+
+    @include mq($to: medium) {
+      position: relative;
+      right: auto;
+      top: auto;
+      transform: none;
+
+      margin-top: pxToRem($sizeSmallLarge);
+    }
 
     use {
       fill: $colorBlack60;
