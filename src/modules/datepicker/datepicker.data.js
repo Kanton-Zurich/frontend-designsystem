@@ -26,7 +26,7 @@ const variants = _.mapValues({
     },
     props: {
       datetimeformat: 'time',
-      formInputData: defaultFormInputData,
+      formInputData: _.merge({}, defaultFormInputData),
     },
   },
   defaultDate: {
@@ -39,6 +39,7 @@ const variants = _.mapValues({
       formInputData: _.merge({}, defaultFormInputData, {
         label: 'Datum',
         iconOnly: { icon: 'calendar' },
+        uuid: _.uniqueId('date-'),
       }),
     },
   },
@@ -52,6 +53,7 @@ const variants = _.mapValues({
       formInputData: _.merge({}, defaultFormInputData, {
         label: 'Zeitraum von/bis',
         iconOnly: { icon: 'calendar' },
+        uuid: _.uniqueId('date-range-'),
       }),
     },
   },
@@ -65,6 +67,7 @@ const variants = _.mapValues({
       formInputData: _.merge({}, defaultFormInputData, {
         label: 'Datum/Uhrzeit',
         iconOnly: { icon: 'calendar' },
+        uuid: _.uniqueId('date-hour-'),
       }),
     },
   },

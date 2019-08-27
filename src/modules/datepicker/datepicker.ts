@@ -16,6 +16,7 @@ class Datepicker extends Module {
   public globalConfig: {
     nextArrow: string,
     prevArrow: string,
+    disableMobile: boolean,
     onChange: any,
     onClose: any,
     onOpen: any,
@@ -25,7 +26,7 @@ class Datepicker extends Module {
     time: {
       enableTime: boolean,
       noCalendar: boolean,
-      time_24hr: boolean,
+      time_24hr: boolean,//stylelint-disable-line
       dateFormat: string,
       position: string,
     },
@@ -86,7 +87,7 @@ class Datepicker extends Module {
       time: {
         enableTime: true,
         noCalendar: true,
-        time_24hr: true,
+        time_24hr: true,//stylelint-disable-line
         dateFormat: 'H:i',
         position: 'below',
       },
@@ -115,6 +116,7 @@ class Datepicker extends Module {
       prevArrow: '<svg class="icon">\n'
       + '<use xlink:href="#angle_left"></use>\n'
       + '</svg>',
+      disableMobile: true,
       onChange: () => {
         if (!this.ui.trigger.classList.contains('dirty')) {
           this.ui.trigger.classList.add('dirty');

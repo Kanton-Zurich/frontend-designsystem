@@ -7,7 +7,13 @@
     }
   }
 
-  .atm-form_input__input.active {
-    border-color: $colorCyan;
+  .atm-form_input__input{
+    &.active {
+      border-color: $colorCyan;
+    }
+
+    & + label {
+      cursor: pointer;
+    }
   }
 }
