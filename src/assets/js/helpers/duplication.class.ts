@@ -1,5 +1,6 @@
 import { uniqueId } from 'lodash';
 import { Delegate } from 'dom-delegate';
+import { watch } from 'wrist';
 
 class DuplicationElement {
   public ui: {
@@ -10,6 +11,11 @@ class DuplicationElement {
 
   public options: {
     eventSelectors: any,
+    stateClasses: any,
+  }
+
+  public data: {
+    duplications: number,
   }
 
   private eventDelegate: any;
@@ -26,11 +32,19 @@ class DuplicationElement {
         duplicator: '[data-duplicate="duplicator"]',
         remover: '[data-duplicate="remover"]',
       },
+      stateClasses: {
+        hasDuplicated: 'form__group--has-duplicated',
+      },
+    };
+
+    this.data = {
+      duplications: 0,
     };
 
     this.eventDelegate = new Delegate(element);
 
     this.initEventListeners();
+    this.initWatcher();
   }
 
   static get events() {
@@ -42,6 +56,18 @@ class DuplicationElement {
   initEventListeners() {
     this.eventDelegate.on('click', this.options.eventSelectors.duplicator, this.duplicateItself.bind(this));
     this.eventDelegate.on('click', this.options.eventSelectors.remover, this.removeDuplication.bind(this));
+  }
+
+  initWatcher() {
+    watch(this.data, 'duplications', this.toggleDuplicationClasses.bind(this));
+  }
+
+  toggleDuplicationClasses(propName, oldVal, newVal) {
+    if (newVal === 0) {
+      this.ui.element.classList.remove(this.options.stateClasses.hasDuplicated);
+    } else {
+      this.ui.element.classList.add(this.options.stateClasses.hasDuplicated);
+    }
   }
 
   duplicateItself() {
@@ -71,6 +97,8 @@ class DuplicationElement {
     this.ui.element.dispatchEvent(new CustomEvent(DuplicationElement.events.domReParsed, {
       detail: parsedHTML,
     }));
+
+    this.data.duplications += 1;
   }
 
   removeDuplication(event, delegate) {
@@ -78,6 +106,8 @@ class DuplicationElement {
     const duplication = this.ui.element.querySelector(`[data-uid="${button.getAttribute('data-remove-uid')}"]`);
 
     duplication.parentNode.removeChild(duplication);
+
+    this.data.duplications -= 1;
   }
 }
 

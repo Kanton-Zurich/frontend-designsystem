@@ -113,7 +113,6 @@ $unitLeftSpace: 62px;
   label {
     top: pxToRem($topSpace_without_border + 2px);
     transition: top 200ms, font-size 400ms, color 400ms ease-in-out;
-    display: none;
   }
 
   &__validate-icon {
@@ -162,6 +161,12 @@ $unitLeftSpace: 62px;
 
   &__functionality {
     display: none;
+  }
+
+  &:not(.atm-form_input--floated) {
+    label {
+      @extend .visuallyhidden;
+    }
   }
 
   /**

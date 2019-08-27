@@ -26,11 +26,11 @@ const data = _.merge({}, defaultData, {
       },
       {
         title: 'Per Post',
-        data: handlebars.compile(dataHelper.getFileContent('../richtext/richtext.hbs'))(defRichtextData.variants.default.props),
+        data: handlebars.compile(dataHelper.getFileContent('../richtext/richtext.hbs'))(defRichtextData.variants.embedded.props),
       },
       {
         title: 'Test Gallerie',
-        data: handlebars.compile(dataHelper.getFileContent('../carousel/carousel.hbs'))(defCarouselData.variants.default.props),
+        data: handlebars.compile(dataHelper.getFileContent('../carousel/carousel.hbs'))(_.merge({}, defCarouselData.variants.default.props, { title: null })),
       },
     ],
   },
