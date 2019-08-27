@@ -14,9 +14,9 @@ const data = _.merge({}, defaultData, {
       head: 'Login',
       inputLabel: 'Token',
       hint: 'Den 16-stelligen Token finden Sie auf der Terminbestätigung',
-      loginErrMsg1: 'Invalider oder unvollständiger Token. Der Token ist 16 stellig und besteht ausschließlich aus Buchstaben (ohne Umlaute) und Ziffern.',
-      loginErrMsg2: 'Der Token ist Falsch. Bitte überprüfen sie ihre Angaben.',
-      loginErrMsg3: 'Der Token ist Falsch. Bitte überprüfen sie ihre Angaben. Wenn sie sich nicht anmelden können, rufen sie uns von Montag – Freitag von 09:00 – 11:00 Uhr auf die Telefonnr. 043 259 88 40 an.',
+      loginErrMsg1: 'Invalider oder unvollständiger Token. Der Token ist 16-stellig und besteht ausschließlich aus Buchstaben (ohne Umlaute) und Ziffern.',
+      loginErrMsg2: 'Der Token ist Falsch. Bitte überprüfen Sie Ihre Angaben.',
+      loginErrMsg3: 'Der Token ist Falsch. Bitte überprüfen Sie Ihre Angaben. Wenn Sie sich nicht anmelden können, rufen Sie uns von Montag – Freitag von 09:00 – 11:00 Uhr auf die Telefonnr. 043 259 88 40 an.',
     },
     loginSubmitBtn: _.merge({}, defaultButtonData, {
       text: 'Anmelden',

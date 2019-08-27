@@ -27,7 +27,7 @@ const data = _.merge({}, defaultData, {
           },
           {
             label: 'Telefon',
-            content: '+ 41 43 259 88 40<br>Montag - Freitag 08:00 - 12:00 und 13:00 - 16:30Uhr',
+            content: '+ 41 43 259 88 00<br>Montag - Freitag 08:00 - 12:00 und 13:00 - 16:30Uhr',
           },
         ],
       },
