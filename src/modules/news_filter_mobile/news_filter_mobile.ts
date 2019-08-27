@@ -22,18 +22,21 @@ class NewsFilterMobile extends Module {
   public options: {
     inputDelay: number,
     visibilityDelay: number,
+    focusDelay: number,
     keys: any,
     domSelectors: {},
     stateClasses: {};
   };
 
   public filterLists: any[];
+  private visibleSublevelItem: HTMLDivElement;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
     const defaultOptions = {
       inputDelay: 250,
       visibilityDelay: 50,
+      focusDelay: 300,
       domSelectors: {
         sublevelItems: '.mdl-news-filter-mobile__sublevel > div',
         listItems: '.atm-linklist_item',
@@ -64,11 +67,30 @@ class NewsFilterMobile extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
+    // ----------------
+    // initialize focus handling
+    this.ui.listItems.forEach((linkListItem) => {
+      linkListItem.addEventListener('keydown', (evt) => {
+        if (evt.key === 'ArrowDown') {
+          const next = <HTMLElement>(<HTMLElement>evt.target).nextElementSibling;
+          if (next) {
+            next.focus();
+          }
+        }
+        if (evt.key === 'ArrowUp') {
+          const next = <HTMLElement>(<HTMLElement>evt.target).previousElementSibling;
+          if (next) {
+            next.focus();
+          }
+        }
+      });
+    });
+    // -----------------------
     // initialize multiselects
     for (let i = 1; i < this.ui.listItems.length; i += 1) {
       const idx = i - 1;
       this.ui.listItems[i].addEventListener('click', (event) => {
-        this.openSublevelItem(this.ui.sublevelItems[idx]);
+        this.openSublevelItem(this.ui.sublevelItems[idx], this.ui.listItems[i]);
 
         this.ui.sublevelItems[idx].querySelector('input').value = '';
         this.ui.sublevelItems[idx].querySelectorAll('li').forEach((li) => {
@@ -106,34 +128,50 @@ class NewsFilterMobile extends Module {
     }
   }
 
+  /**
+   * Open drilldown overlay
+   * @param element
+   * @param sender
+   */
+  openSublevelItem(element, sender) {
+    this.visibleSublevelItem = sender;
+    this.ui.container.classList.add('hidden');
+    element.parentElement.classList.add('visible');
+    setTimeout(() => {
+      element.classList.add('visible');
+      setTimeout(() => element.querySelector('a').focus(), this.options.focusDelay);
+    }, this.options.visibilityDelay);
+  }
+
+  /**
+   * Close a drill down overlay
+   * @param element
+   */
   closeSublevelItem(element) {
     this.ui.container.classList.remove('hidden');
     element.classList.remove('visible');
+    this.visibleSublevelItem.focus();
     setTimeout(() => {
       element.parentElement.classList.remove('visible');
     }, this.options.visibilityDelay);
   }
 
-  openSublevelItem(element) {
-    this.ui.container.classList.add('hidden');
-    element.parentElement.classList.add('visible');
-    element.querySelector('a').focus();
-    setTimeout(() => {
-      element.classList.add('visible');
-    }, this.options.visibilityDelay);
-  }
-
+  /**
+   * Initialize multiselect filters
+   * @param element
+   */
   initFilterSelect(element) {
     const listElement = document.querySelector(`#${element.getAttribute('aria-controls')}`);
     const listItems = listElement.querySelectorAll('li');
     listItems.forEach((li) => {
+      // ----------------
+      // Handle key down events
       li.querySelector('input').addEventListener('keydown', (evt) => {
         const pressed = evt.key;
         let newTarget = <any>evt.target;
-        if (pressed === 'ArrowUp' || pressed === 'ArrowDown' || pressed === 'Home' || pressed === 'End') {
-          listItems.forEach((item) => {
-            item.classList.remove('focused');
-          });
+        if (pressed === 'ArrowUp' || pressed === 'ArrowDown'
+          || pressed === 'Home' || pressed === 'End'
+          || pressed === 'Tab') {
           if (pressed === 'ArrowUp' || pressed === 'ArrowDown') {
             let nextFocusable = pressed === 'ArrowUp'
               ? li.previousElementSibling
@@ -147,38 +185,37 @@ class NewsFilterMobile extends Module {
                 ? nextFocusable.previousElementSibling
                 : nextFocusable.nextElementSibling;
             }
+            newTarget.focus();
           }
           if (pressed === 'Home' || pressed === 'End') {
             const visibleElements = listElement.querySelectorAll('li:not(.hidden)');
             newTarget = (pressed === 'Home' ? visibleElements[0] : visibleElements[visibleElements.length - 1])
               .querySelector('input');
+            newTarget.focus();
           }
-          newTarget.focus();
-          newTarget.parentElement.classList.add('focused');
-          evt.stopPropagation();
-          evt.preventDefault();
-        }
-        if (pressed === 'Tab') {
-          if (evt.shiftKey) {
-            element.focus();
-          } else {
-            li.parentElement.parentElement.nextElementSibling.querySelector('button').focus();
+          if (pressed === 'Tab') {
+            if (evt.shiftKey) {
+              element.focus();
+            } else {
+              li.parentElement.parentElement.nextElementSibling.querySelector('button').focus();
+            }
           }
           evt.stopPropagation();
           evt.preventDefault();
         }
       });
-      li.querySelector('input').addEventListener('keydown', (evt) => {
-        const pressed = evt.key;
-        if (pressed === 'ArrowUp' || pressed === 'ArrowDown' || pressed === 'Tab') {
-          evt.stopPropagation();
-          evt.preventDefault();
-        }
-      });
+      // ----------------
+      // Click event
       li.addEventListener('click', () => {
         li.classList.toggle('selected');
       });
+      // -----------------------
+      // Handle multiselect items focus style
+      li.addEventListener('focusout', () => { li.classList.remove('focused'); });
+      li.addEventListener('focusin', () => { li.classList.add('focused'); });
     });
+    // -------------------------------
+    // Observe inputs and update values
     this.watch(element, 'value', debounce((key, before, after) => { // eslint-disable-line
       listItems.forEach((li) => {
         const regex = new RegExp(after, 'i');

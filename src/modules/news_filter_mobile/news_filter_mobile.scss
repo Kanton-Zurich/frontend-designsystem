@@ -103,12 +103,9 @@
         }
 
         &.focused {
-          &.selected {
-            background: $colorBlue;
-          }
+          background: rgba(0, 0, 0, 0.05);
 
           &:not(.selected) {
-            background: rgba(0, 0, 0, 0.05);
             color: $colorBlack;
           }
         }
