@@ -1,4 +1,5 @@
 <div class="mdl-richtext">
+  {{#unless embedded}}
   <h1 class="atm-heading">
     {{h1Text}}
   </h1>
@@ -63,4 +64,20 @@
   <p class="atm-paragraph">
     Bei Fragen wenden Sie sich in elektronischer Form an <a href="mailto:info@zh.ch" class="atm-text_link">info@zh.ch</a>
   </p>
+{{/unless}}
+  {{#if embedded}}
+    <h4 class="atm-heading">
+      {{h4Text}}
+    </h4>
+    <p class="atm-paragraph">
+      {{{pText}}}
+    </p>
+    {{> "modules/quote/quote"}}
+    <ul class="mdl-richtext__benefits">
+      <li><span class="visuallyhidden">Vorteil:</span> {{benefitItem}}</li>
+      <li><span class="visuallyhidden">Vorteil:</span> {{benefitItem}}</li>
+      <li><span class="visuallyhidden">Vorteil:</span> {{benefitItem}}</li>
+    </ul>
+  {{/if}}
 </div>
+

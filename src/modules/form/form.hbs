@@ -9,17 +9,18 @@
               {{{cellContent}}}
             </div>
           {{/each}}
-
-          {{#if ../isDuplicatable}}
-            {{#if @last}}
-              <button type="button" class="form__duplicator" data-duplicate="duplicator">
-                <svg class="icon">
-                  <use xlink:href="#plus"></use>
-                </svg>
-              </button>
-            {{/if}}
-          {{/if}}
         </div>
+
+        {{#if ../isDuplicatable}}
+          {{#if @last}}
+            <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
+              <svg class="icon icon--iframe-add">
+                <use xlink:href="#add-new"></use>
+              </svg>
+              {{ ../duplicateLabels.add }}
+            </button>
+          {{/if}}
+        {{/if}}
       {{/each}}
       {{#if isDuplicatable}}
         <script type="text/x-handlebars-template">
@@ -33,20 +34,21 @@
                 {{/each}}
 
                 {{#if ../isDuplicatable}}
-                  {{#if @last}}
-                    <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
-                      <svg class="icon">
-                        <use xlink:href="#minus"></use>
-                      </svg>
-                    </button>
-                    <button type="button" class="form__duplicator" data-duplicate="duplicator">
-                      <svg class="icon">
-                        <use xlink:href="#plus"></use>
-                      </svg>
-                    </button>
-                  {{/if}}
+                  <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
+                    <svg class="icon">
+                      <use xlink:href="#delete"></use>
+                    </svg>
+                  </button>
                 {{/if}}
               </div>
+              {{#if ../isDuplicatable}}
+                <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
+                  <svg class="icon icon--iframe-add">
+                    <use xlink:href="#add-new"></use>
+                  </svg>
+                  {{ ../duplicateLabels.add }}
+                </button>
+              {{/if}}
             {{/each}}
           </div>
         </script>

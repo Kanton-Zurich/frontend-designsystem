@@ -34,9 +34,10 @@
     align-items: center;
     position: relative;
     margin-bottom: $sizeTiny;
+    width: 100%;
 
     @include sizeCurve(padding, itemPadding, $serviceListCurves);
-    @include mq($from: tiny, $to: xsmall) {
+    @include mq($from: tiny, $to: small) {
       display: block;
     }
 
@@ -44,6 +45,16 @@
       .mdl-service_list__item-title,
       .mdl-service_list__item-text {
         color: $colorBlack;
+      }
+    }
+
+    &-title {
+      line-height: $sizeLineHeightMedium;
+      margin-bottom: 0;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include mq($to: xsmall) {
+        line-height: $sizeLineHeightBase;
       }
     }
   }
@@ -54,7 +65,7 @@
     margin-right: $sizeTiny;
 
     @include polyFluidSizing(max-height, $textHeightCurve);
-    @include mq($from: tiny, $to: xsmall) {
+    @include mq($from: tiny, $to: small) {
       margin-right: 0;
       margin-bottom: $sizeRegular;
     }
@@ -63,8 +74,9 @@
   &__item-button {
     display: inline-flex;
     min-width: unset;
+    flex-shrink: 0;
 
-    @include mq($from: tiny, $to: xsmall) {
+    @include mq($from: tiny, $to: small) {
       margin-top: $sizeTiny;
     }
   }

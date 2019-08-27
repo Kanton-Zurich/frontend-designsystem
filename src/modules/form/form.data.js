@@ -18,6 +18,10 @@ const radioData = require('../../atoms/radiobutton/radiobutton.data');
 
 const duplicateGroup = {
   isDuplicatable: true,
+  duplicateLabels: {
+    add: 'Weitere Staatsangehörigkeit hinzufügen',
+    remove: 'Staatangehörigkeit wieder entfernen',
+  },
   rows: [{
     fields: [{
       cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
