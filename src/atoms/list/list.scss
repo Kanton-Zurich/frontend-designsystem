@@ -66,10 +66,10 @@
 
     &--check-icon,
     &--icon-left {
-      padding-left: pxToRem(44px);
+      padding-left: pxToRem($sizeHuge);
 
       .icon {
-        left: pxToRem(12px);
+        left: pxToRem($sizeSmallRegular + $sizeRegular);
       }
     }
 
@@ -85,14 +85,14 @@
     }
 
     &--icon-right {
-      padding-right: pxToRem(44px);
+      padding-right: pxToRem($sizeHuge);
 
       .icon {
         display: block;
         color: $colorBlack60;
 
         &:last-of-type {
-          right: pxToRem(12px);
+          right: pxToRem($sizeSmallRegular + $sizeRegular);
           left: auto;
         }
       }
