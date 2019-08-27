@@ -136,7 +136,6 @@ $unitLeftSpace: 62px;
   label {
     top: pxToRem($topSpace_without_border + 2px);
     transition: top 200ms, font-size 400ms, color 400ms ease-in-out;
-    display: none;
   }
 
   &__validate-icon {
@@ -168,6 +167,97 @@ $unitLeftSpace: 62px;
 
   &__functionality {
     display: none;
+  }
+
+  &:not(.atm-form_input--floated) {
+    label {
+      @extend .visuallyhidden;
+    }
+  }
+
+  /**
+  * DROPDOWN/SELECT with number input
+  */
+  &--trigger-phone {
+    .atm-form_input__input--trigger {
+      .icon {
+        right: auto;
+        left: 69px;
+      }
+
+      &:focus {
+        .atm-form_input__trigger-value {
+          color: $colorBlack;
+        }
+      }
+    }
+
+    .atm-form_input__input--trigger + input {
+      position: absolute;
+      top: 50%;
+      right: 2px;
+      width: calc(100% - 86px);
+      height: calc(100% - #{$sizeMini});
+      transform: translateY(-50%);
+      border: none;
+      appearance: textfield;
+
+      // Hide number spinner
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none; //stylelint-disable-line
+        appearance: none;
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+      }
+
+      &[ type='number' ] {
+        -moz-appearance: textfield;  /* Firefox */ //stylelint-disable-line
+      }
+
+      // Hide IE 11 default clear cross & show hide password
+      &::-ms-clear,
+      &::-ms-reveal {
+        display: none;
+      }
+    }
+
+    .atm-form_input__trigger-label {
+      display: none;
+    }
+
+    .atm-form_input__trigger-value {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 100%;
+      display: inline-flex;
+      width: pxToRem($sizeBiggerBig);
+      margin-right: pxToRem($sizeBig);
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+
+  &__trigger-value,
+  &__trigger-label {
+    color: $colorBlack60;
+  }
+
+  &--trigger,
+  &--icon {
+    button:focus .icon,
+    input:focus ~ .icon {
+      fill: $colorBlack;
+    }
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      right: pxToRem($sizeSmallRegular);
+      transform: translate(-50%, -50%);
+      fill: $colorBlack40;
+    }
   }
 
   /**
