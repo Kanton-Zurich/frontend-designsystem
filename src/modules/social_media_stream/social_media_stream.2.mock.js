@@ -2,6 +2,7 @@
 const data = {
   posts: [
     {
+      channel: 'Instagram',
       datetime: '16. Juli',
       text: 'Hopp Schwiiz 🇨🇭',
       image: '../../assets/media/image/content_768_x15.jpeg',
@@ -16,6 +17,7 @@ const data = {
       forwards: 2,
     },
     {
+      channel: 'Twitter',
       datetime: '26. Juni',
       text: 'Willkommen! Wir freuen uns sehr auf dich <a class="atm-textlink" href="#" target="_blank">@Han_Nussbaumer</a> und sind froh um die Verstärkung ‼️',
       link: 'http://www.twitter.com/tweet',
@@ -28,6 +30,7 @@ const data = {
       comments: 1,
       forwards: 1,
       cite: {
+        channel: 'Twitter',
         datetime: '24. Juni',
         text: 'In eigener Sache: Nach 20 erfüllten Jahren bei @tagesanzeiger nehme ich eine neue Herausforderung an und freue mich sehr darauf. Ab Herbst gehöre ich zum Kommunikationsstab ...<a class="atm-textlink" href="#" target="_blank"> Mehr anzeigen</a>',
         icon: '../../assets/media/image/twitter.svg',
