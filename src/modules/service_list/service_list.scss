@@ -37,7 +37,7 @@
     width: 100%;
 
     @include sizeCurve(padding, itemPadding, $serviceListCurves);
-    @include mq($from: tiny, $to: xsmall) {
+    @include mq($from: tiny, $to: small) {
       display: block;
     }
 
@@ -65,7 +65,7 @@
     margin-right: $sizeTiny;
 
     @include polyFluidSizing(max-height, $textHeightCurve);
-    @include mq($from: tiny, $to: xsmall) {
+    @include mq($from: tiny, $to: small) {
       margin-right: 0;
       margin-bottom: $sizeRegular;
     }
@@ -74,8 +74,9 @@
   &__item-button {
     display: inline-flex;
     min-width: unset;
+    flex-shrink: 0;
 
-    @include mq($from: tiny, $to: xsmall) {
+    @include mq($from: tiny, $to: small) {
       margin-top: $sizeTiny;
     }
   }
