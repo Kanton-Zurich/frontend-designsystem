@@ -1,7 +1,8 @@
 {{#if preview}}
   <!-- helper markup, can be ignored -->
   <button class="atm-button atm-button--big"
-          onclick="document.querySelector('#{{modalId}}').dispatchEvent(new CustomEvent('Modal.open'))">Filter
+          onclick="document.querySelector('#{{modalId}}').dispatchEvent(new CustomEvent('Modal.open'))"
+          aria-controls="{{modalId}}">Filter
     einblenden
   </button>
 {{/if}}
@@ -46,9 +47,9 @@
             <div class="mdl-news-filter-mobile__sublevel-container">
               <h1 class="atm-heading mdl-news-filter-mobile__title">
                 <a href="#" class="mdl-news-filter-mobile__sublevel-backbutton">
-                <svg class="icon mdl-news-filter-mobile__sublevel-icon">
-                  <use xlink:href="#arrow-left"></use>
-                </svg>
+                  <svg class="icon mdl-news-filter-mobile__sublevel-icon">
+                    <use xlink:href="#arrow-left"></use>
+                  </svg>
                 </a>
                 Organisation
               </h1>
@@ -75,11 +76,13 @@
               </div>
             </div>
           </div>
-          <h1 class="atm-heading mdl-news-filter-mobile__title">Filter</h1>
+          <div class="mdl-news-filter-mobile__container">
+            <h1 class="atm-heading mdl-news-filter-mobile__title">Filter</h1>
 
-          {{> "atoms/linklist_item/linklist_item" dateDropDown}}
-          {{> "atoms/linklist_item/linklist_item" topicFilter}}
-          {{> "atoms/linklist_item/linklist_item" organisationFilter}}
+            {{> "atoms/linklist_item/linklist_item" dateDropDown}}
+            {{> "atoms/linklist_item/linklist_item" topicFilter}}
+            {{> "atoms/linklist_item/linklist_item" organisationFilter}}
+          </div>
         </div>
       </div>
     </div>

@@ -35,6 +35,12 @@
     @include sizeCurve(padding-top, topPadding, $filterSizes);
   }
 
+  &__container {
+    .hidden {
+      display: none;
+    }
+  }
+
   &__footer {
     min-height: $footerHeight;
     background-color: $colorBlack5;

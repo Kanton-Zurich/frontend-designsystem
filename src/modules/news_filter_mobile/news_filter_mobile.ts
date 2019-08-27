@@ -14,6 +14,7 @@ class NewsFilterMobile extends Module {
     listItems: HTMLAnchorElement[],
     footer: HTMLDivElement,
     footerButton: HTMLButtonElement,
+    container: HTMLDivElement,
     topicFilterInput: HTMLInputElement,
     organisationFilterInput: HTMLInputElement,
   };
@@ -41,6 +42,7 @@ class NewsFilterMobile extends Module {
         topicList: '[data-topilist="list"]',
         organisationFilterInput: '[data-organisationlist="input"]',
         footerButton: '.mdl-news-filter-mobile__footer',
+        container: '.mdl-news-filter-mobile__container',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -92,7 +94,7 @@ class NewsFilterMobile extends Module {
           : this.ui.listItems[i]
             .getAttribute('data-subtitle-pattern').replace('%', this.filterLists[idx].length);
       });
-      this.ui.sublevelItems[idx].addEventListener('keyup', (event) => {
+      this.ui.sublevelItems[idx].addEventListener('keydown', (event) => {
         if (event.key === 'Escape' || event.key === 'Esc') {
           event.stopPropagation();
           this.closeSublevelItem(this.ui.sublevelItems[idx]);
@@ -105,6 +107,7 @@ class NewsFilterMobile extends Module {
   }
 
   closeSublevelItem(element) {
+    this.ui.container.classList.remove('hidden');
     element.classList.remove('visible');
     setTimeout(() => {
       element.parentElement.classList.remove('visible');
@@ -112,6 +115,7 @@ class NewsFilterMobile extends Module {
   }
 
   openSublevelItem(element) {
+    this.ui.container.classList.add('hidden');
     element.parentElement.classList.add('visible');
     element.querySelector('a').focus();
     setTimeout(() => {
@@ -139,7 +143,7 @@ class NewsFilterMobile extends Module {
                 newTarget = nextFocusable.querySelector('input');
                 break;
               }
-              nextFocusable = pressed === this.options.keys.up
+              nextFocusable = pressed === 'ArrowUp'
                 ? nextFocusable.previousElementSibling
                 : nextFocusable.nextElementSibling;
             }
@@ -164,7 +168,7 @@ class NewsFilterMobile extends Module {
           evt.preventDefault();
         }
       });
-      li.querySelector('input').addEventListener('keyup', (evt) => {
+      li.querySelector('input').addEventListener('keydown', (evt) => {
         const pressed = evt.key;
         if (pressed === 'ArrowUp' || pressed === 'ArrowDown' || pressed === 'Tab') {
           evt.stopPropagation();

@@ -20,6 +20,7 @@ const data = _.merge({}, defaultData, {
       subtitle: '20.08.2019 - 30.08.2019',
       noColor: true,
       chevron: true,
+      modalFocus: true,
     },
     topicFilter: {
       linkListItemTitle: 'Themen',
