@@ -88,6 +88,7 @@ $modalCurves: (
   }
 
   .mdl-page-header {
+    transform: translateX(0); // stylelint-disable-line
     transform: initial;
     margin: 0;
     position: fixed;

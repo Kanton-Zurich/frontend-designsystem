@@ -1,0 +1,26 @@
+<div
+  class="mdl-select{{#if hasFilter}} mdl-select--filter{{/if}}{{#if hasFilterAndButton}} mdl-select--filter-ext{{/if}}"
+  data-init="select"{{#if isMultiSelect}} data-multiple="true" data-multiselectpostfix="gewählt"{{/if}}>
+
+  {{> "atoms/form_input/form_input" triggerInputData }}
+
+  <div class="mdl-select__options">
+    {{#if hasFilter}}
+      <div class="mdl-select__filter">
+        {{> "atoms/form_input/form_input" filterInputDtat }}
+      </div>
+    {{/if}}
+
+    {{> "atoms/list/list" listData }}
+
+    {{#if hasFilterAndButton}}
+      <div class="mdl-select__apply">
+        <button class="atm-button">Anwenden</button>
+      </div>
+    {{/if}}
+  </div>
+
+  <p class="mdl-select__error-msg">
+    This is an error
+  </p>
+</div>
