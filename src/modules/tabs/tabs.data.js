@@ -3,7 +3,7 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defRichtextData = require('../richtext/richtext.data.js');
-const defDownloadListData = require('../download_list/download_list.data');
+const defStepperFormData = require('../stepper/stepper.data');
 const defCarouselData = require('../carousel/carousel.data');
 
 const template = dataHelper.getFileContent('tabs.hbs');
@@ -22,7 +22,7 @@ const data = _.merge({}, defaultData, {
       },
       {
         title: 'Online',
-        data: handlebars.compile(dataHelper.getFileContent('../download_list/download_list.hbs'))(_.merge({}, defDownloadListData.variants.default.props, { title: null })),
+        data: handlebars.compile(dataHelper.getFileContent('../stepper/stepper.hbs'))(defStepperFormData.variants.serviceForm.props),
       },
       {
         title: 'Per Post',
