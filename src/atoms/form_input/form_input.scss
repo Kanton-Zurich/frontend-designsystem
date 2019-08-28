@@ -137,7 +137,6 @@ $unitLeftSpace: 62px;
   label {
     top: pxToRem($topSpace_without_border + 2px);
     transition: top 200ms, font-size 400ms, color 400ms ease-in-out;
-    display: none;
   }
 
   &__validate-icon {
@@ -169,6 +168,17 @@ $unitLeftSpace: 62px;
 
   &__functionality {
     display: none;
+
+    position: absolute;
+    top: pxToRem($sizeLarge);
+    right: pxToRem($sizeSmallRegular);
+    height: pxToRem($sizeLarge);
+  }
+
+  &:not(.atm-form_input--floated) {
+    label {
+      @extend .visuallyhidden;
+    }
   }
 
   /**
@@ -252,7 +262,8 @@ $unitLeftSpace: 62px;
       position: absolute;
       top: 50%;
       right: pxToRem($sizeSmallRegular);
-      transform: translate(-50%, -50%);
+      transform: translateY(-50%) rotate(0deg);
+      transition: 400ms transform ease-out;
       fill: $colorBlack40;
     }
   }
@@ -264,6 +275,74 @@ $unitLeftSpace: 62px;
     width: 100%;
     height: 100%;
     z-index: -1;
+  }
+
+  /**
+  * DROPDOWN/SELECT with number input
+  */
+  &--trigger-phone {
+    .atm-form_input__input--trigger {
+      .icon {
+        right: auto;
+        left: pxToRem(57px);
+      }
+
+      &:focus {
+        .atm-form_input__trigger-value {
+          color: $colorBlack;
+        }
+      }
+    }
+
+    .atm-form_input__input--trigger + input {
+      position: absolute;
+      top: 50%;
+      right: 2px;
+      width: calc(100% - 86px);
+      transform: translateY(-50%);
+      border: none;
+      appearance: textfield;
+
+      // Hide number spinner
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none; //stylelint-disable-line
+        appearance: none;
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+      }
+
+      &[ type='number' ] {
+        -moz-appearance: textfield;  /* Firefox */ //stylelint-disable-line
+      }
+
+      // Hide IE 11 default clear cross & show hide password
+      &::-ms-clear,
+      &::-ms-reveal {
+        display: none;
+      }
+    }
+
+    .atm-form_input__trigger-label {
+      display: none;
+    }
+
+    .atm-form_input__trigger-value {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 100%;
+      display: inline-flex;
+      width: pxToRem($sizeBiggerBig);
+      margin-right: pxToRem($sizeBig);
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+
+  &__trigger-value,
+  &__trigger-label {
+    color: $colorBlack60;
   }
 
   /**
@@ -335,6 +414,7 @@ $unitLeftSpace: 62px;
       &.dirty {
         .atm-form_input__functionality {
           display: block;
+
         }
       }
 
@@ -415,7 +495,22 @@ $unitLeftSpace: 62px;
     height: pxToRem($heightSmall);
 
     input {
-      padding: 0 pxToRem($unitLeftSpace) 0 pxToRem($sizeRegular);
+      padding: pxToRem($sizeSmallRegular) pxToRem($unitLeftSpace) pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
+    }
+
+    .atm-form_input__input.dirty ~ .atm-form_input__functionality ~ .icon{
+        display: none;
+    }
+
+    .atm-form_input__functionality {
+      top: pxToRem($sizeSmallRegular);
+
+      .icon {
+        transform: scale(0.59);
+        position: relative;
+        top: auto;
+        right: auto;
+      }
     }
   }
 }

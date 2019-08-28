@@ -31,6 +31,7 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
+      remark: false,
       steps: [
         formVariants.default.props,
         formVariants.careerInfo.props,
@@ -44,8 +45,23 @@ const variants = _.mapValues({
     },
     props: {
       navigation: false,
+      remark: 'Ihre Daten werden ausschliesslich für den hier ersichtlichen Zweck verwendet. Siehe <a class="atm-text_link" href="#">Datenschutzerklärung</a> und <a class="atm-text_link" href="#">Nutzungsbedingungen</a>.',
       steps: [
         formVariants.defaultDuplicate.props,
+      ],
+    },
+  },
+  serviceForm: {
+    meta: {
+      title: 'Service Form (CZHDEV-775)',
+      desc: '',
+    },
+    props: {
+      title: null,
+      navigation: false,
+      overlayId: 'serviceOverlay1',
+      steps: [
+        _.merge({}, formVariants.defaultDuplicate.props, { sectionTitle: null }),
       ],
     },
   },

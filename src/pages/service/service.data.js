@@ -2,7 +2,8 @@ const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 const defBreadcrumbData = require('../../modules/breadcrumb/breadcrumb.data.js').props;
-const defServiceBoxData = require('../../modules/service_box/service_box.data.js').props;
+const defServiceWrapper = require('../../modules/service_wrapper/service_wrapper.data.js').props;
+const contactData = require('../../modules/contact/contact.data').variants.fullWidth.props;
 const headerData = require('../../modules/header/header.data').props;
 
 
@@ -31,7 +32,8 @@ const data = _.merge({}, defaultData, {
         hasBreadcrumb: true,
         noButton: true,
       },
-      serviceBoxData: defServiceBoxData,
+      serviceWrapper: defServiceWrapper,
+      contact: contactData,
     },
   },
 });

@@ -248,7 +248,7 @@ class ContextMenu extends Module {
       .on('toggle', this.toggle.bind(this));
 
     if (!this.options.customTrigger) {
-      this.options.trigger.addEventListener('click', this.show.bind(this));
+      this.options.trigger.addEventListener('click', this.toggle.bind(this));
     }
 
     (<any>WindowEventListener).addDebouncedResizeListener(() => {

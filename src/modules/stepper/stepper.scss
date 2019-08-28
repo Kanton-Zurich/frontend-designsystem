@@ -8,8 +8,6 @@
   }
 
   &__wrapper {
-    overflow-x: hidden;
-
     position: relative;
   }
 
@@ -49,6 +47,13 @@
 
   .atm-notification {
     margin-top: pxToRem($sizeLarge);
+  }
+
+  &__remark {
+    font-size: pxToRem($sizeFontSmall);
+    line-height: $sizeLineHeightBigger;
+
+    color: $colorBlack60;
   }
 }
 

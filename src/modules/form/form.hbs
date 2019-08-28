@@ -1,12 +1,58 @@
-<section class="form__section">
-  <h3 class="atm-heading form__section-title" tabindex="0">{{ sectionTitle }}</h3>
-  {{#each rows}}
-    <div class="form__row">
-      {{#each this}}
-        <div class="form__cell {{#if isSmall}}form__cell--small{{/if}}">
-          {{{cellContent}}}
+<section class="form__section" aria-live="polite">
+  {{#if sectionTitle }}<h3 class="atm-heading form__section-title" tabindex="0">{{ sectionTitle }}</h3>{{/if}}
+  {{#each groups}}
+    <div class="form__group {{#if isDuplicatable}}form__group--duplicatable{{/if}}" {{#if isDuplicatable}}data-form="duplicatable"{{/if}}>
+      {{#each rows}}
+        <div class="form__row">
+          {{#each fields}}
+            <div class="form__cell {{#if isSmall}}form__cell--small{{/if}}">
+              {{{cellContent}}}
+            </div>
+          {{/each}}
         </div>
+
+        {{#if ../isDuplicatable}}
+          {{#if @last}}
+            <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
+              <svg class="icon icon--iframe-add">
+                <use xlink:href="#add-new"></use>
+              </svg>
+              {{ ../duplicateLabels.add }}
+            </button>
+          {{/if}}
+        {{/if}}
       {{/each}}
+      {{#if isDuplicatable}}
+        <script type="text/x-handlebars-template">
+          <div class="form__duplicated">
+            {{#each rows}}
+              <div class="form__row">
+                {{#each fields}}
+                  <div class="form__cell {{#if isSmall}}form__cell--small{{/if}}">
+                    {{{cellContent}}}
+                  </div>
+                {{/each}}
+
+                {{#if ../isDuplicatable}}
+                  <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
+                    <svg class="icon">
+                      <use xlink:href="#delete"></use>
+                    </svg>
+                  </button>
+                {{/if}}
+              </div>
+              {{#if ../isDuplicatable}}
+                <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
+                  <svg class="icon icon--iframe-add">
+                    <use xlink:href="#add-new"></use>
+                  </svg>
+                  {{ ../duplicateLabels.add }}
+                </button>
+              {{/if}}
+            {{/each}}
+          </div>
+        </script>
+      {{/if}}
     </div>
   {{/each}}
 </section>

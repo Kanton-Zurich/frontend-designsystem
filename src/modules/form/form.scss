@@ -10,19 +10,60 @@ $gapSize: pxToRem($sizeRegular);
     }
   }
 
+  &__group + &__group {
+    margin-top: $gapSize;
+  }
+
   &__row {
     display: flex;
+    align-items: flex-start;
 
     margin-left: -($gapSize/2);
     margin-right: -($gapSize/2);
     padding-bottom: $gapSize;
 
-    &:last-child {
+    &:last-of-type {
       padding-bottom: 0;
+    }
+
+    &:not(:last-of-type) {
+      button {
+        display: none;
+      }
     }
 
     @include mq($to: small) {
       flex-direction: column;
+    }
+
+    &--duplicatable {
+      .form__cell {
+        flex-grow: 1;
+      }
+    }
+  }
+
+  &__duplicated {
+    .form__row:last-of-type() {
+      padding-bottom: $gapSize;
+    }
+
+    &:last-child() {
+      .form__row:last-of-type() {
+        padding-bottom: 0;
+      }
+    }
+
+    .form__row {
+      position: relative;
+
+      &:last-of-type {
+        flex-direction: row;
+
+        .form__cell {
+          margin-bottom: 0;
+        }
+      }
     }
   }
 
@@ -30,12 +71,16 @@ $gapSize: pxToRem($sizeRegular);
     flex-basis: 50%;
     padding: 0 $gapSize/2;
 
+    flex-grow: 1;
+
     &:first-child:last-child {
       flex-basis: 100%;
     }
 
     &--small {
       flex-basis: 25%;
+
+      flex-grow: 0;
     }
 
     @include mq($to: small) {
@@ -90,6 +135,50 @@ $gapSize: pxToRem($sizeRegular);
     &--vertical {
       display: flex;
       flex-direction: column;
+    }
+  }
+
+  &__duplicator {
+    margin-top: $gapSize;
+
+    .form__group--has-duplicated & {
+      display: none;
+    }
+  }
+
+  .form__group--duplicatable {
+    .form__duplicated:last-of-type() {
+      .form__duplicator {
+        display: flex;
+      }
+    }
+  }
+
+  &__remover {
+    padding: 0 $gapSize/2;
+
+    position: absolute;
+    right: 0;
+    transform: translateX(100%) translateY(-50%);
+    top: pxToRem($sizeBig + $sizeMini);
+
+    @include mq($to: medium) {
+      position: relative;
+      right: auto;
+      top: auto;
+      transform: none;
+
+      margin-top: pxToRem($sizeSmallLarge);
+    }
+
+    use {
+      fill: $colorBlack60;
+    }
+
+    &:hover {
+      use {
+        fill: $colorBlack;
+      }
     }
   }
 }
