@@ -15,6 +15,9 @@ const data = _.merge({}, defaultData, {
     iconRight: 'arrow-right',
     iconLeft: 'check',
     groupPostfix: 'default',
+    validation: {
+      isRequired: true,
+    },
     selectOptions: [
       { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
       { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },

@@ -225,6 +225,9 @@ const variants = _.mapValues({
       isInput: false,
       label: 'Select Float Label',
       uuid: _.uniqueId('float_button-'),
+      validation: {
+        isRequired: true,
+      },
     },
   },
   triggerPhone: {
@@ -240,6 +243,9 @@ const variants = _.mapValues({
       label: 'Select Float Label',
       demoTel: true,
       uuid: _.uniqueId('float_button-'),
+      validation: {
+        isRequired: true,
+      },
     },
   },
 }, (variant) => {
