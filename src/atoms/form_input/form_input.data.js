@@ -107,31 +107,6 @@ const variants = _.mapValues({
       },
     },
   },
-  clearButtonSmallWithIcon: {
-    meta: {
-      title: 'Kleines Textfeld mit löschen (und zusätzlichem Icon)',
-      desc: 'Input mit floating Label, validierung und zurücksetzen funktionalität und zusätzlichem Icon.',
-    },
-    props: {
-      type: 'text',
-      label: 'Validation',
-      isSmall: true,
-      iconOnly: {
-        icon: 'search',
-      },
-      uuid: _.uniqueId('float_input_clear'),
-      validation: {
-        pattern: '^([a-zA-Z]){3,6}$',
-        errorMsg: 'Hier mindestens 3 und maximal 6 Buchstaben eingeben!',
-        isRequired: true,
-      },
-      additionalFunctionality: {
-        icon: 'exit',
-        buttontype: 'clear',
-        ariaText: 'Lösche Eingabe',
-      },
-    },
-  },
   showPasswordButton: {
     meta: {
       title: 'Passwort zeigen/verstecken',
