@@ -168,7 +168,6 @@ $unitLeftSpace: 62px;
   &__functionality {
     display: none;
 
-    // CHECK WITH MARCEL IF THIS IS OK FOR HIM
     position: absolute;
     top: pxToRem($sizeLarge);
     right: pxToRem($sizeSmallRegular);
@@ -488,7 +487,6 @@ $unitLeftSpace: 62px;
       padding: pxToRem($sizeSmallRegular) pxToRem($unitLeftSpace) pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
     }
 
-    // CHECK WITH MARCEL IF THIS IS OK FOR HIM
     .atm-form_input__input.dirty ~ .atm-form_input__functionality ~ .icon{
         display: none;
     }
