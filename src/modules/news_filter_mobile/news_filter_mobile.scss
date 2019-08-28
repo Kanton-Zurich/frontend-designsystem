@@ -36,17 +36,24 @@
   }
 
   &__container {
-    .hidden {
+    &.hidden {
       display: none;
     }
   }
 
-  &__footer {
+  &__footer,
+  &__sublevel-footer {
     min-height: $footerHeight;
     background-color: $colorBlack5;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &.hidden {
+      button {
+        display: none;
+      }
+    }
   }
 
   &__sublevel {

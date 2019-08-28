@@ -13,7 +13,6 @@ class NewsFilterMobile extends Module {
     sublevelItems: HTMLDivElement[],
     listItems: HTMLAnchorElement[],
     footer: HTMLDivElement,
-    footerButton: HTMLButtonElement,
     container: HTMLDivElement,
     topicFilterInput: HTMLInputElement,
     organisationFilterInput: HTMLInputElement,
@@ -41,10 +40,11 @@ class NewsFilterMobile extends Module {
         sublevelItems: '.mdl-news-filter-mobile__sublevel > div',
         listItems: '.atm-linklist_item',
         footer: '.mdl-news-filter-mobile__footer',
+        footerButton: '.mdl-news-filter-mobile__footer button',
+        sublevelFooterButton: '.mdl-news-filter-mobile__sublevel-footer button',
         topicFilterInput: '[data-topiclist="input"]',
         topicList: '[data-topilist="list"]',
         organisationFilterInput: '[data-organisationlist="input"]',
-        footerButton: '.mdl-news-filter-mobile__footer',
         container: '.mdl-news-filter-mobile__container',
       },
       stateClasses: {
@@ -103,7 +103,7 @@ class NewsFilterMobile extends Module {
         event.preventDefault();
       });
       this.initFilterSelect(this.ui.sublevelItems[idx].querySelector('input'));
-      this.ui.sublevelItems[i - 1].querySelector((<any> this.options.domSelectors).footerButton).addEventListener('click', () => {
+      this.ui.sublevelItems[i - 1].querySelector((<any> this.options.domSelectors).sublevelFooterButton).addEventListener('click', () => {
         this.filterLists[idx] = [];
         this.ui.sublevelItems[idx].querySelectorAll('li').forEach((li) => {
           if (li.classList.contains('selected')) {
@@ -134,9 +134,14 @@ class NewsFilterMobile extends Module {
    * @param sender
    */
   openSublevelItem(element, sender) {
+    console.log(element);
     this.visibleSublevelItem = sender;
     this.ui.container.classList.add('hidden');
+    this.ui.container.setAttribute('aria-hidden', 'true');
+    this.ui.footer.classList.add('hidden');
+    this.ui.footer.setAttribute('aria-hidden', 'true');
     element.parentElement.classList.add('visible');
+    element.setAttribute('aria-hidden', false);
     setTimeout(() => {
       element.classList.add('visible');
       setTimeout(() => element.querySelector('a').focus(), this.options.focusDelay);
@@ -149,7 +154,11 @@ class NewsFilterMobile extends Module {
    */
   closeSublevelItem(element) {
     this.ui.container.classList.remove('hidden');
+    this.ui.container.removeAttribute('aria-hidden');
+    this.ui.footer.classList.remove('hidden');
+    this.ui.footer.removeAttribute('aria-hidden');
     element.classList.remove('visible');
+    element.setAttribute('aria-hidden', true);
     this.visibleSublevelItem.focus();
     setTimeout(() => {
       element.parentElement.classList.remove('visible');
