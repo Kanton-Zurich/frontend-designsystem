@@ -271,7 +271,16 @@ class Stepper extends Module {
           if (response.status === validationErrorStatus || (<any>responseData).validationErrors) {
             this.showValidationErrors((<any>responseData).validationErrors);
           } else {
+            // successful submission
             this.data.active += 1;
+            // show service overlay if defined
+            const overlayId = this.ui.wrapper.getAttribute('data-overlay-id');
+            if (overlayId) {
+              const overlay = document.querySelector(`#${overlayId}`);
+              if (overlay) {
+                overlay.dispatchEvent(new CustomEvent('ServiceWrapper.showOverlay'));
+              }
+            }
           }
         })
         .catch((err) => {
