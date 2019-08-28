@@ -1,3 +1,4 @@
+jest.setTimeout(30000);
 describe('PageHeader', () => {
   let page: any;
 
