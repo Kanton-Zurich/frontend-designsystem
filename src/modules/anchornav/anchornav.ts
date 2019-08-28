@@ -267,7 +267,6 @@ class Anchornav extends Module {
     let foundExceed = false;
     let exceedCounter = 0;
     let exceedIndex = 0;
-    let lastFittingindex = 0;
     let lastFittingTriggerPosition = 0;
     let evenDistances = 0;
 
@@ -279,7 +278,6 @@ class Anchornav extends Module {
       if ((currentTriggerPosition + window.innerHeight) > scrollMax && !foundExceed) {
         exceedCounter = this.scrollReferences.length - i;
         exceedIndex = i;
-        lastFittingindex = i - 1 > 0 ? i - 1 : i;
         foundExceed = true;
 
         lastFittingTriggerPosition = this.scrollReferences[exceedIndex].triggerYPosition;
@@ -298,8 +296,8 @@ class Anchornav extends Module {
 
       // Later or last item exceed scrolling possibility,
       // so spread evenly from the bottom with even distances
-      for (let i = (this.scrollReferences.length - 1); i >= exceedIndex ; i -= 1) {
-        if (i === this.scrollReferences.length - 1 ) {
+      for (let i = (this.scrollReferences.length - 1); i >= exceedIndex; i -= 1) {
+        if (i === this.scrollReferences.length - 1) {
           lastFittingTriggerPosition = scrollMax;
           this.scrollReferences[i].triggerYPosition = lastFittingTriggerPosition;
         } else {
@@ -365,13 +363,12 @@ class Anchornav extends Module {
         const triggerY = (<any> currentItem).triggerYPosition;
 
         let nextItemLowerPos;
-        let nextIndex = i + 1;
+        const nextIndex = i + 1;
 
         if (nextIndex < this.scrollReferences.length) {
           nextItemLowerPos = this.scrollReferences[nextIndex].triggerYPosition;
         } else {
           nextItemLowerPos = scrollMax;
-          // nextIndex = i;
         }
 
         // Normal downwards toggling
