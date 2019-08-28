@@ -113,7 +113,7 @@ class Datepicker extends Module {
         separator: ' - ',
         disableMobile: true,
         static: false,
-        inline: true,
+        inline: false,
         wrap: false,
         appendTo: this.ui.container,
       },

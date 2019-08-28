@@ -1,7 +1,7 @@
 /*
 * Flatpickr Style Overwrites
 */
-.flatpickr-calendar {
+/*.flatpickr-calendar {
   background: $colorWhite;
   border-radius: 1px;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
@@ -39,9 +39,9 @@
   &.flatpickr-monthDropdown-months {
     direction: rtl;
   }
-}
+}*/
 
-/*
+
 .flatpickr-calendar {
   padding: pxToRem($sizeTiny) pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
   border-radius: 1px;
@@ -92,9 +92,9 @@
   max-width: 100%;
 }
 
-!*
+/*
 * HOURS/MINUTES & CONTROL ARROWS(UP/DOWN)
-*!
+*/
 .flatpickr-time {
   display: block;
   height: pxToRem($sizeSmallHuge);
@@ -154,9 +154,9 @@
   height: 100%;
 }
 
-!*
+/*
 * MONTH/YEAR & CONTROL ARROWS(LEFT/RIGHT)
-*!
+*/
 .flatpickr-months {
   height: pxToRem($sizeSmallHuge);
   position: relative;
@@ -231,9 +231,9 @@
   }
 }
 
-!*
+/*
 * DAYS CELLS
-*!
+*/
 .flatpickr-day {
   border-radius: 1px;
   font-size: pxToRem($sizeFontRegular);
@@ -282,4 +282,3 @@
     color: $colorBlack;
   }
 }
-*/
