@@ -106,7 +106,8 @@ $headerCurves: (
 }
 
 // Monochrome version
-.cv-monochrome {
+.cv-monochrome,
+.cv-monochrome-forced {
   .mdl-header {
     background: $colorWhite;
 
@@ -120,7 +121,8 @@ $headerCurves: (
   }
 }
 
-.cv-monochrome.mdl-header {
+.cv-monochrome.mdl-header,
+.cv-monochrome-forced.mdl-header {
   background: $colorWhite;
 }
 
