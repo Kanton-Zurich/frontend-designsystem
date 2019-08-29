@@ -186,7 +186,7 @@ $unitLeftSpace: 62px;
     .atm-form_input__input--trigger {
       .icon {
         right: auto;
-        left: 69px;
+        left: pxToRem(57px);
       }
 
       &:focus {

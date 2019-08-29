@@ -110,7 +110,7 @@ const variants = _.mapValues({
         isSingleSelect: false,
       }),
       triggerInputData: inputDemoData.variants.triggerDefault.props,
-      filterInputDtat: inputDemoData.variants.clearButtonSmallWithIcon.props,
+      filterInputData: inputDemoData.variants.clearButtonSmallWithIcon.props,
     },
   },
 }, (variant) => {
