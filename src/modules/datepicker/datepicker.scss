@@ -5,16 +5,22 @@
     .icon {
       fill: $colorBlack;
     }
-    .mdl-datepicker__container {
+    /*.mdl-datepicker__container {
+      height: auto;
+    }*/
+    /*.mdl-datepicker__container {
       height: 414px;
-    }
+    }*/
   }
 
   &__container {
+
     position: absolute;
-    margin-top: 74px;
-    top: 0;
+    top: calc(100% + 2px);
     left: 0;
+
+
+    //margin-top: 74px;
     // margin-top: 2px;
     background: $colorWhite;
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);

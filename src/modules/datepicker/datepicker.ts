@@ -9,6 +9,7 @@ import { merge } from 'lodash';
 import Module from '../../assets/js/helpers/module';
 
 class Datepicker extends Module {
+  public debug: any;
   public pickerMode: string;
   public usedConfig: any;
   public flatpickr: any;
@@ -33,6 +34,8 @@ class Datepicker extends Module {
     date: {
       dateFormat: string,
       position: string,
+      appendTo: any,
+      inline: boolean,
     },
     dateRange: {
       mode: string,
@@ -101,11 +104,13 @@ class Datepicker extends Module {
         noCalendar: true,
         time_24hr: true,//stylelint-disable-line
         dateFormat: 'H:i',
-        position: 'below',
+        position: 'auto',
       },
       date: {
         dateFormat: 'd.m.Y',
-        position: 'below',
+        position: 'auto',
+        appendTo: this.ui.container,
+        inline: true,
       },
       dateRange: {
         mode: 'range',
@@ -113,7 +118,7 @@ class Datepicker extends Module {
         separator: ' - ',
         disableMobile: true,
         static: false,
-        inline: false,
+        inline: true,
         wrap: false,
         appendTo: this.ui.container,
       },
@@ -123,7 +128,7 @@ class Datepicker extends Module {
         noCalendar: false,
         disableMobile: true,
         static: false,
-        inline: false,
+        inline: true,
         wrap: false,
         appendTo: this.ui.container,
       },
@@ -144,9 +149,12 @@ class Datepicker extends Module {
       onClose: this.onPickerClose.bind(this),
     };
 
+    this.debug = this.ui.element.querySelector('#debug');
     this.constructConfig();
     this.initFlatpickr();
     console.log('AFTER INIT');
+
+    this.debug.innerText = 'init: ' + this.pickerMode;
     this.flatpickr.close();
   }
 
@@ -223,26 +231,31 @@ class Datepicker extends Module {
 
   onValueChange() {
     console.log('onValueChange');
+    this.debug.innerText = 'onValueChange: ';
     if (!this.ui.trigger.classList.contains('dirty')) {
-      this.ui.element.querySelector('input.flatpickr-mobile').classList.add('dirty');
+      // TODO CHECK FOR MOBILE
+      // this.ui.element.querySelector('input.flatpickr-mobile').classList.add('dirty');
       this.ui.trigger.classList.add('dirty');
     }
   }
 
   onPickerOpen() {
     console.log('OPEN');
+    this.debug.innerText = 'OPEN: ';
     this.ui.element.classList.add('open');
     const style = document.createAttribute('style')
-    this.flatpickr.calendarContainer.removeAttributeNode('style');
+    //this.flatpickr.calendarContainer.removeAttributeNode('style');
   }
 
   onPickerClose() {
     console.log('CLOSE');
+    this.debug.innerText = 'CLOSE: ';
     this.ui.element.classList.remove('open');
   }
 
   onReady() {
     console.log('READY');
+    this.debug.innerText = 'READY: ';
     console.log('--flat--');
     console.log(this.flatpickr);
     console.log(this.ui.container.querySelector('.flatpickr-calendar '));
@@ -250,8 +263,15 @@ class Datepicker extends Module {
 
   onTriggerClick() {
     console.log('click');
+    this.debug.innerText = 'click: ';
     console.log(this.flatpickr);
-    this.flatpickr.toggle; // toggle()
+   // this.flatpickr.close(); // toggle()
+
+    if (this.ui.element.classList.contains('open')) {
+      this.ui.element.classList.remove('open');
+    } else {
+      this.ui.element.classList.add('open');
+    }
   }
 
   /**

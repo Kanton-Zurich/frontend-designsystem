@@ -1,7 +1,20 @@
 /*
 * Flatpickr Style Overwrites
 */
-/*.flatpickr-calendar {
+
+/*#debug {
+  position: absolute;
+  top: -100px;
+  left: 0;
+
+  width: 375px;
+  height: 80px;
+
+  background-color: #949494;
+  color: $colorWhite;
+}*/
+
+.flatpickr-calendar {
   background: $colorWhite;
   border-radius: 1px;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
@@ -16,13 +29,6 @@
     display: none;
   }
 
-  // If we use it inline we cast the box-shadow from the wrapper
-  &.noBorderShadow {
-    box-shadow: none;
-    border-radius: 0;
-    width: 100%;
-  }
-
   // Remove default top space
   &.inline {
     top: auto;
@@ -35,12 +41,32 @@
     }
   }
 
-
+  // Month select
   &.flatpickr-monthDropdown-months {
     direction: rtl;
   }
-}*/
 
+
+  // Weekdays labels
+  .flatpickr-weekday {
+    color: $colorBlack60;
+    width: pxToRem($sizeSmallHuge);
+    height: pxToRem($sizeSmallLarge);
+    font-size: pxToRem($sizeFontSmall);
+    line-height: $sizeLineHeightBigger;
+    font-weight: $fontWeightDefault;
+    max-width: pxToRem($sizeSmallHuge);
+    margin: 0 2px;
+  }
+
+  // Hour / minute input
+  .flatpickr-time {
+    display: block;
+    height: pxToRem($sizeSmallHuge);
+  }
+}
+
+/*
 
 .flatpickr-calendar {
   padding: pxToRem($sizeTiny) pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
@@ -92,9 +118,9 @@
   max-width: 100%;
 }
 
-/*
+!*
 * HOURS/MINUTES & CONTROL ARROWS(UP/DOWN)
-*/
+*!
 .flatpickr-time {
   display: block;
   height: pxToRem($sizeSmallHuge);
@@ -154,9 +180,9 @@
   height: 100%;
 }
 
-/*
+!*
 * MONTH/YEAR & CONTROL ARROWS(LEFT/RIGHT)
-*/
+*!
 .flatpickr-months {
   height: pxToRem($sizeSmallHuge);
   position: relative;
@@ -231,9 +257,9 @@
   }
 }
 
-/*
+!*
 * DAYS CELLS
-*/
+*!
 .flatpickr-day {
   border-radius: 1px;
   font-size: pxToRem($sizeFontRegular);
@@ -282,3 +308,4 @@
     color: $colorBlack;
   }
 }
+*/
