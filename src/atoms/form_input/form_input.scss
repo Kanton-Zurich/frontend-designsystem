@@ -417,8 +417,8 @@ $unitLeftSpace: 62px;
       padding: pxToRem($sizeSmallRegular) pxToRem($unitLeftSpace) pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
     }
 
-    .atm-form_input__input.dirty ~ .atm-form_input__functionality ~ .icon{
-        display: none;
+    .atm-form_input__input.dirty ~ .atm-form_input__functionality ~ .icon {
+      display: none;
     }
 
     .atm-form_input__functionality {
