@@ -24,6 +24,7 @@ class Select extends Module {
   public lastHoverIndex: number;
   public firefoxDelay: number;
   public listBlurDelay: number;
+  public dropdownDelay: number;
 
   public initialItems: any;
   public preSelections: Array<any>;
@@ -116,6 +117,7 @@ class Select extends Module {
     this.ui.list.scrollTop = 0;
     this.firefoxDelay = 180;
     this.listBlurDelay = 300;
+    this.dropdownDelay = 400;
 
     if (this.isMultiSelect) {
       this.buttonPostfix = this.ui.element.dataset[this.options.dataSelectors.selectPostfix];
@@ -679,7 +681,7 @@ class Select extends Module {
     this.ui.dropdown.setAttribute('aria-hidden', 'false');
 
     if (this.isKeyControlled) {
-      this.focusDropdown();
+      setTimeout(()=> {this.focusDropdown();}, this.dropdownDelay);
     }
   }
 
