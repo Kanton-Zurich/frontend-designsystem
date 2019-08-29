@@ -28,7 +28,7 @@ $selectHeightWithFilterExtended: 424px;
   .atm-form_input--trigger-phone {
     input {
       // Remove light blueish background after auto-fill / focus
-      -webkit-box-shadow: 0 0 0px 1000px $colorWhite inset !important; // stylelint-disable-line
+      -webkit-box-shadow: 0 0 0 1000px $colorWhite inset !important; //stylelint-disable-line
     }
   }
 
@@ -108,6 +108,7 @@ $selectHeightWithFilterExtended: 424px;
 
     .mdl-select__options {
       height: pxToRem($selectHeight);
+      z-index: $zIndexDropDowns;
     }
 
     &.mdl-select--filter {

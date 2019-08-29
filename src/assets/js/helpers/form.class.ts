@@ -18,6 +18,8 @@ class Form {
     messageClasses: any,
     messageSelector: string,
     duplicateSelector: string,
+    selectOptionSelector: string,
+    inputSelector: string,
   }
 
   private eventDelegate: any;
@@ -41,6 +43,8 @@ class Form {
         invalid: 'invalid',
       },
       messageSelector: '[data-message]',
+      selectOptionSelector: 'data-select-option',
+      inputSelector: '[data-input]',
       messageClasses: {
         show: 'show',
       },
@@ -69,7 +73,7 @@ class Form {
     });
     this.eventDelegate.on('validateSection', this.validateSection.bind(this));
     this.eventDelegate.on('showFieldInvalid', (event) => {
-      this.showFieldInvalid(event.detail.field);
+      this.setValidClasses(event.detail.field, ['add', 'remove']);
     });
   }
 
@@ -122,17 +126,18 @@ class Form {
   validateField(field) {
     const validation = window[namespace].form.validateField(field);
 
-    field.parentElement.querySelectorAll(this.options.messageSelector).forEach((message) => {
-      message.classList.remove(this.options.messageClasses.show);
-    });
+    field.closest(this.options.inputSelector).querySelectorAll(this.options.messageSelector)
+      .forEach((message) => {
+        message.classList.remove(this.options.messageClasses.show);
+      });
 
     if (validation.validationResult) {
-      this.showFieldValid(field);
+      this.setValidClasses(field);
     } else {
-      this.showFieldInvalid(field);
+      this.setValidClasses(field, ['add', 'remove']);
 
       validation.messages.forEach((messageID) => {
-        const message = field.parentElement.querySelector(`[data-message="${messageID}"]`);
+        const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
 
         if (message) {
           message.classList.add('show');
@@ -143,38 +148,27 @@ class Form {
     }
   }
 
-  showFieldInvalid(field) {
-    const fieldType = field.getAttribute('type');
+  setValidClasses(field, functionArray: Array<string> = ['remove', 'add']) {
+    let fieldType = field.getAttribute('type');
+    const errorField = field.closest(this.options.inputSelector);
 
-    switch (fieldType) {
-      case 'radio':
-      case 'checkbox':
-        field.parentElement.parentElement.parentElement
-          .classList.add(this.options.inputClasses.invalid);
-        field.parentElement.parentElement.parentElement
-          .classList.remove(this.options.inputClasses.valid);
-        break;
-      default:
-        field.classList.add(this.options.inputClasses.invalid);
-        field.classList.remove(this.options.inputClasses.valid);
-        break;
+    if (field.hasAttribute(this.options.selectOptionSelector)) {
+      fieldType = 'selectOption';
     }
-  }
-
-  showFieldValid(field) {
-    const fieldType = field.getAttribute('type');
 
     switch (fieldType) {
       case 'radio':
       case 'checkbox':
-        field.parentElement.parentElement.parentElement
-          .classList.remove(this.options.inputClasses.invalid);
-        field.parentElement.parentElement.parentElement
-          .classList.add(this.options.inputClasses.valid);
+        errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
+        errorField.classList[functionArray[1]](this.options.inputClasses.valid);
+        break;
+      case 'selectOption':
+        errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
+        errorField.classList[functionArray[1]](this.options.inputClasses.valid);
         break;
       default:
-        field.classList.remove(this.options.inputClasses.invalid);
-        field.classList.add(this.options.inputClasses.valid);
+        errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
+        errorField.classList[functionArray[1]](this.options.inputClasses.valid);
     }
   }
 
