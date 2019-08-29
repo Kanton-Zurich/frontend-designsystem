@@ -74,10 +74,10 @@ class Modal extends Module {
       this.ui.element.removeAttribute('style');
       (<any>window).estatico.helpers.setHiddenTabIndex(this.ui.element);
       // delayed opacity animation
-      setTimeout(() => { this.ui.element.classList.add(this.options.stateClasses.show); }, 1);
+      setTimeout(() => { this.ui.element.classList.add(this.options.stateClasses.show); }, 0);
       const focusable = this.ui.element.querySelector('[data-modal-focus]');
       if (focusable) {
-        focusable.focus();
+        setTimeout(() => { focusable.focus(); }, 0);
       } else {
         this.ui.element.focus();
       }
