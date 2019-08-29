@@ -1,7 +1,0 @@
-### Beschreibung
-
-
-
-### Integration
-
-HTML kopieren.
