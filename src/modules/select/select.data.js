@@ -61,7 +61,7 @@ const variants = _.mapValues({
         ],
       }),
       triggerInputData: inputDemoData.variants.triggerPhone.props,
-      filterInputDtat: inputDemoData.variants.clearButtonSmallWithIcon.props,
+      filterInputData: inputDemoData.variants.clearButtonSmallWithIcon.props,
     },
   },
   defaultMultiPreSelect: {
