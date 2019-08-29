@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const gulpUtil = require('gulp-util');
+const gulpRename = require('gulp-rename');
 const strReplace = require('gulp-string-replace');
 const through = require('through2');
 
@@ -28,5 +29,6 @@ gulp.task(task.name, () => {
     .pipe(strReplace(regxPrintMin, () => `assets/css/print${gulpUtil.env.revision}.min.css`))
     .pipe(strReplace(regxMainJSMin, () => `assets/js/main${gulpUtil.env.revision}.min.js`))
     .pipe(strReplace(regxHeadJSMin, () => `assets/js/head${gulpUtil.env.revision}.min.js`))
+    .pipe(gulpRename('index.html'))
     .pipe(gulp.dest(destination));
 });
