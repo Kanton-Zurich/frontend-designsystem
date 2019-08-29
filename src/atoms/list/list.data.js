@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const template = dataHelper.getFileContent('list.hbs');
@@ -66,8 +66,18 @@ const variants = _.mapValues({
         { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
         { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
         { value: 'sich', label: 'Sicherheit & Justiz', id: _.uniqueId('option-item') },
-        { value: 'so', label: 'Soziales', id: _.uniqueId('option-item'), preSelected: true },
-        { value: 'st', label: 'Steuern', id: _.uniqueId('option-item'), preSelected: true },
+        {
+          value: 'so',
+          label: 'Soziales',
+          id: _.uniqueId('option-item'),
+          preSelected: true,
+        },
+        {
+          value: 'st',
+          label: 'Steuern',
+          id: _.uniqueId('option-item'),
+          preSelected: true,
+        },
         { value: 'umte', label: 'Umwelt & Tier', id: _.uniqueId('option-item') },
         { value: 'ge', label: 'Gemeinschaften', id: _.uniqueId('option-item') },
         { value: 'scer', label: 'Schulen & Erziehung', id: _.uniqueId('option-item') },

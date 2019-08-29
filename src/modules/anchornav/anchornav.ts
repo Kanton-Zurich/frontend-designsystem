@@ -18,7 +18,9 @@ class Anchornav extends Module {
   public placeholder: HTMLElement;
   public mediumBreakpoint: number;
   public navigationPositionY: number;
+  public headerHeight: number;
   public navigationIsFixed: boolean;
+  public elementMissing: boolean;
   public navigationHeight: number;
   public scrollReferences: Array<any>;
   public impetusInstance: any;
@@ -94,6 +96,8 @@ class Anchornav extends Module {
     super($element, defaultData, defaultOptions, data, options);
 
     this.navigationIsFixed = false;
+    this.elementMissing = false;
+    this.headerHeight = 0;
     this.mediumBreakpoint = 840;
     this.lastYScrollPositon = this.getDocumnetScrollPosition();
     this.jumpPossible = true;
@@ -101,11 +105,16 @@ class Anchornav extends Module {
 
     this.initUi();
     this.cacheNavigationPosition();
-    this.cacheAnchorReferences();
-    this.updateVerticalScrollInfo();
-    this.updateNavigationState();
 
-    if (this.scrollReferences.length > 0) {
+    const hasMoreThanOneItem = this.ui.navItems.length !== undefined;
+
+    if (hasMoreThanOneItem) {
+      this.cacheAnchorReferences();
+      this.updateVerticalScrollInfo();
+      this.updateNavigationState();
+    }
+
+    if (!this.elementMissing && hasMoreThanOneItem) {
       this.initEventListeners();
       this.updateActiveAnchorState();
       this.initializeImpetus();
@@ -176,7 +185,6 @@ class Anchornav extends Module {
     this.updateVerticalScrollInfo();
     this.updateNavigationState();
     this.updateActiveAnchorState();
-
     // If there is scrollspace sync scroll positon
     if (this.getScrollWidth() > 1 && !this.isClickEvent) {
       this.syncHorizontalPositon();
@@ -230,6 +238,9 @@ class Anchornav extends Module {
     for (let i = 0; i < this.ui.navItems.length; i += 1) {
       const selectorString = `[id="${this.ui.navItems[i].dataset.href}"]`;
       const element = document.querySelector(selectorString);
+      if (element === null) {
+        this.elementMissing = true;
+      }
       const itemLeft = Math.abs(this.ui.navItems[i].getBoundingClientRect().left);
       const hTriggerPos = itemLeft - this.ui.scrollContent.getBoundingClientRect().left;
       if (element !== null) {
@@ -241,7 +252,7 @@ class Anchornav extends Module {
       }
     }
 
-    if (this.scrollReferences.length > 0) {
+    if (!this.elementMissing) {
       // Needs to be calculated seperate in case of exceeding posible scroll distance
       this.calculateTriggerPositions();
     }
@@ -263,33 +274,36 @@ class Anchornav extends Module {
       const currentItem = this.scrollReferences[i];
       const currentTriggerPosition = this.getPageYPositionFor(currentItem.triggerElement);
       this.scrollReferences[i].triggerYPosition = currentTriggerPosition - this.navigationHeight;
-      if (currentTriggerPosition > scrollMax && !foundExceed) {
+
+      if ((currentTriggerPosition + window.innerHeight) > scrollMax && !foundExceed) {
         exceedCounter = this.scrollReferences.length - i;
         exceedIndex = i;
         foundExceed = true;
-        exceedIndex = exceedIndex - 1 > 0 ? exceedIndex - 1 : exceedIndex;
+
         lastFittingTriggerPosition = this.scrollReferences[exceedIndex].triggerYPosition;
-        evenDistances = (scrollMax - lastFittingTriggerPosition) / exceedCounter;
+        evenDistances = lastFittingTriggerPosition / exceedCounter;
       }
     }
 
     // Handling exceed
-    if (foundExceed && exceedIndex > 0) {
-      // Later or last item exceed scrolling possibility,
-      // so spread evenly from last fitting position with even distances
-      for (let i = exceedIndex; i < this.scrollReferences.length; i += 1) {
-        const currentItem = this.scrollReferences[i];
-        const sum = lastFittingTriggerPosition + evenDistances;
-        (<any> currentItem).triggerYPosition = Math.round(sum);
-        lastFittingTriggerPosition += evenDistances;
-      }
-    } else {
+    if (foundExceed) {
       // First item exceed already the scrolling possibility,
       // so spread evenly from zero downwards
-      for (let i = exceedIndex; i < this.scrollReferences.length; i += 1) {
-        const currentItem = this.scrollReferences[i];
-        const sum = scrollMax / this.scrollReferences.length * i;
-        (<any> currentItem).triggerYPosition = Math.round(sum);
+      if (exceedIndex === 0) {
+        evenDistances = scrollMax / exceedCounter;
+        lastFittingTriggerPosition = 0;
+      }
+
+      // Later or last item exceed scrolling possibility,
+      // so spread evenly from the bottom with even distances
+      for (let i = (this.scrollReferences.length - 1); i >= exceedIndex; i -= 1) {
+        if (i === this.scrollReferences.length - 1) {
+          lastFittingTriggerPosition = scrollMax;
+          this.scrollReferences[i].triggerYPosition = lastFittingTriggerPosition;
+        } else {
+          lastFittingTriggerPosition -= evenDistances;
+          this.scrollReferences[i].triggerYPosition = lastFittingTriggerPosition;
+        }
       }
     }
   }
@@ -311,7 +325,8 @@ class Anchornav extends Module {
    * Handles pin/unpin of the navigation
    */
   updateNavigationState() {
-    const currentScrollPosition = this.getDocumnetScrollPosition();
+    // + this.headerHeight
+    const currentScrollPosition = this.getDocumnetScrollPosition() + this.headerHeight;
     const scrollSpace = this.getScrollWidth();
 
     const pinPos = this.navigationPositionY;
@@ -338,6 +353,7 @@ class Anchornav extends Module {
    * Handles the active state of the anchornav items base on the scroll Y position
    */
   updateActiveAnchorState() {
+    const scrollMax = document.body.offsetHeight - window.innerHeight;
     const currentScrollPosition = this.getDocumnetScrollPosition();
     let navItem;
 
@@ -346,17 +362,17 @@ class Anchornav extends Module {
         const currentItem = this.scrollReferences[i];
         const triggerY = (<any> currentItem).triggerYPosition;
 
-        let nextItemUpperMargin;
-        let nextIndex = i + 1;
+        let nextItemLowerPos;
+        const nextIndex = i + 1;
 
         if (nextIndex < this.scrollReferences.length) {
-          nextItemUpperMargin = this.scrollReferences[nextIndex].triggerYPosition;
+          nextItemLowerPos = this.scrollReferences[nextIndex].triggerYPosition;
         } else {
-          nextItemUpperMargin = triggerY;
-          nextIndex = 1;
+          nextItemLowerPos = scrollMax;
         }
+
         // Normal downwards toggling
-        if (currentScrollPosition >= triggerY && currentScrollPosition <= nextItemUpperMargin) {
+        if (currentScrollPosition >= triggerY && currentScrollPosition <= nextItemLowerPos) {
           navItem = (<any> currentItem).correspondingAnchor;
         }
       }
@@ -369,10 +385,10 @@ class Anchornav extends Module {
         let nextItemUpperMargin;
         let previousIndex = i - 1;
 
-        if (previousIndex >= 0) {
+        if (previousIndex > 0) {
           nextItemUpperMargin = this.scrollReferences[previousIndex].triggerYPosition;
         } else {
-          nextItemUpperMargin = triggerY;
+          nextItemUpperMargin = triggerY - this.headerHeight;
           previousIndex = i;
         }
         // Normal upwards toggling
@@ -387,12 +403,11 @@ class Anchornav extends Module {
     if (currentScrollPosition < (<any> this.scrollReferences[1]).triggerYPosition) {
       navItem = this.scrollReferences[0].correspondingAnchor;
     }
-    // This case needs to be catched beauce of reinitialization
+    // This case needs to be catched because of reinitialization
     const maxIndex = this.scrollReferences.length - 1;
     if (currentScrollPosition >= this.scrollReferences[maxIndex].triggerYPosition) {
       navItem = this.scrollReferences[maxIndex].correspondingAnchor;
     }
-
     this.toggleActiveNavigationItemClass(navItem);
   }
 
@@ -452,7 +467,7 @@ class Anchornav extends Module {
     });
 
     if (window.innerWidth < this.mediumBreakpoint) {
-      // If init in mobile/table width
+      // If init in mobile/table pause impetus
       this.impetusInstance.pause();
     } else {
       this.impetusInstance.resume();
@@ -566,9 +581,13 @@ class Anchornav extends Module {
   getPageYPositionFor(element): number {
     const elementTop = element.getBoundingClientRect().top;
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const headerHeight = document.querySelector('.mdl-header').getBoundingClientRect().height;
 
-    return elementTop + scrollTop - headerHeight;
+
+    const headerElement = document.querySelector('.mdl-header');
+    if (headerElement !== null) {
+      this.headerHeight = headerElement.getBoundingClientRect().height;
+    }
+    return elementTop + scrollTop + this.headerHeight;
   }
 
   /**
