@@ -27,7 +27,6 @@ import SocialMediaStream from '../../../modules/social_media_stream/social_media
 import Stepper from '../../../modules/stepper/stepper';
 import ServiceButton from '../../../modules/service_button/service_button';
 import Application from '../../../modules/application/application';
-import Select from '../../../modules/select/select';
 import Datepicker from '../../../modules/datepicker/datepicker';
 import Select from '../../../modules/select/select';
 import ServiceWrapper from '../../../modules/service_wrapper/service_wrapper';
