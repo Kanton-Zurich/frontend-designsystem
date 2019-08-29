@@ -109,6 +109,8 @@ class Header extends Module {
 
   toggleFlyout(event, delegate) {
     if (this.data.activeModal) {
+      this.data.activeItem.setAttribute('aria-expanded', 'false');
+
       const unsetHeaderClasses = this.data.activeItem.getAttribute('data-modal') === delegate.getAttribute('data-modal');
 
       this.hideFlyout(unsetHeaderClasses);
@@ -142,8 +144,6 @@ class Header extends Module {
   hideFlyout(unsetClasses) {
     if (this.data.activeModal) {
       this.data.activeModal.dispatchEvent(new CustomEvent('Modal.close'));
-
-      this.data.activeItem.setAttribute('aria-expanded', 'false');
 
       if (unsetClasses) {
         setTimeout(this.unsetClasses.bind(this), this.options.transitionDelays.small);
