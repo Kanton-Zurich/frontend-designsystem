@@ -681,7 +681,7 @@ class Select extends Module {
     this.ui.dropdown.setAttribute('aria-hidden', 'false');
 
     if (this.isKeyControlled) {
-      setTimeout(()=> {this.focusDropdown();}, this.dropdownDelay);
+      setTimeout(() => { this.focusDropdown(); }, this.dropdownDelay);
     }
   }
 
