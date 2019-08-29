@@ -4,9 +4,9 @@
   isTriggerWithInput}} atm-form_input--trigger-phone{{/if}}">
 
   {{# if isSelectTrigger}}
-    <button id="{{uuid}}" class="atm-form_input__input atm-form_input__input--trigger">
-      <span class="atm-form_input__trigger-label">{{label}}</span>
-      <span class="atm-form_input__trigger-value">{{#if demoTel}}+41{{/if}}</span>
+    <button aria-expanded="false" aria-labelledby="aria-labledBy-{{uuid}} {{uuid}}" id="{{uuid}}" class="atm-form_input__input atm-form_input__input--trigger">
+      <span id="aria-labledBy-{{uuid}}" class="atm-form_input__trigger-label">{{label}}</span>
+      <span class="atm-form_input__trigger-value"></span>
       <svg class="icon" focusable="false">
         <use xlink:href="#{{icon}}"></use>
       </svg>
@@ -52,7 +52,7 @@
         <span class="atm-form_input__validate-icon">
           <span>
             <span class="visuallyhidden">{{validation.ariaTextValid}}</span>
-            <svg class="icon">
+            <svg class="icon" focusable="false">
               <use xlink:href="#confirm"></use>
             </svg>
           </span>

@@ -1,5 +1,4 @@
-<ul class="atm-list">
-
+<ul class="atm-list"{{#if setHiddenIndex}} tabindex="-1"{{/if}} data-inputtype="{{#if isMultiSelect}}checkbox{{/if}}{{#if isSingleSelect}}radio{{/if}}">
   {{#each selectOptions}}
     <li id="{{this.id}}" class="atm-list__item{{#if ../hasCheckIcon}} atm-list__item--check-icon{{/if}}{{#if ../hasIconLeft}} atm-list__item--icon-left{{/if}}{{#if ../hasIconRight}} atm-list__item--icon-right{{/if}}{{#if this.preSelected}} selected{{/if}}">
       {{#if_compare ../hasIconLeft "||" ../hasCheckIcon }}
@@ -7,7 +6,7 @@
           <use xlink:href="#{{{../iconLeft}}}"></use>
         </svg>
       {{/if_compare}}
-      <input name="group-{{{../groupPostfix}}}"
+      <input tabindex="-1" name="group-{{{../groupPostfix}}}"
              id="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-{{this.id}}"
              type="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}"
              value="{{{ this.value }}}" placeholder="{{{ this.label }}}"{{#if
