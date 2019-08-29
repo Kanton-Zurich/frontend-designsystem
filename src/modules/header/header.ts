@@ -8,6 +8,7 @@ import Module from '../../assets/js/helpers/module';
 import Anchornav from '../anchornav/anchornav';
 
 class Header extends Module {
+  public placeholder: HTMLElement;
   public options: {
     transitionDelays: {
       big: number,
@@ -165,6 +166,16 @@ class Header extends Module {
   handleScroll() {
     const newScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
 
+    if (this.placeholder === undefined) {
+      this.createPlaceholder();
+    }
+
+    if (newScrollPosition > this.ui.element.getBoundingClientRect().height) {
+      this.placeholder.style.display = 'block';
+    } else {
+      this.placeholder.style.display = 'none';
+    }
+
     if (this.data.scrollPosition > newScrollPosition && !this.data.headerIsFixed) {
       this.data.headerIsFixed = true;
     } else if (this.data.scrollPosition < newScrollPosition && this.data.headerIsFixed) {
@@ -172,6 +183,18 @@ class Header extends Module {
     }
 
     this.data.scrollPosition = newScrollPosition;
+  }
+
+  /**
+   * Create and insert the placeholder div with the same height as the whole anchorNav
+   */
+  createPlaceholder() {
+    this.placeholder = document.createElement('div');
+
+    this.placeholder.style.height = `${this.ui.element.getBoundingClientRect().height}px`;
+    this.placeholder.style.display = 'none';
+
+    this.ui.element.parentNode.insertBefore(this.placeholder, this.ui.element);
   }
 
   toggleFixedHeader(propName, valueBefore, valueAfter) {

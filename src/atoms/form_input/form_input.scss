@@ -167,6 +167,10 @@ $unitLeftSpace: 62px;
 
   &__functionality {
     display: none;
+    position: absolute;
+    top: pxToRem($sizeLarge);
+    right: pxToRem($sizeSmallRegular);
+    height: pxToRem($sizeLarge);
   }
 
   &:not(.atm-form_input--floated) {
@@ -182,7 +186,7 @@ $unitLeftSpace: 62px;
     .atm-form_input__input--trigger {
       .icon {
         right: auto;
-        left: 69px;
+        left: pxToRem(57px);
       }
 
       &:focus {
@@ -255,7 +259,8 @@ $unitLeftSpace: 62px;
       position: absolute;
       top: 50%;
       right: pxToRem($sizeSmallRegular);
-      transform: translate(-50%, -50%);
+      transform: translateY(-50%) rotate(0deg);
+      transition: 400ms transform ease-out;
       fill: $colorBlack40;
     }
   }
@@ -409,7 +414,22 @@ $unitLeftSpace: 62px;
     height: pxToRem($heightSmall);
 
     input {
-      padding: 0 pxToRem($unitLeftSpace) 0 pxToRem($sizeRegular);
+      padding: pxToRem($sizeSmallRegular) pxToRem($unitLeftSpace) pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
+    }
+
+    .atm-form_input__input.dirty ~ .atm-form_input__functionality ~ .icon {
+      display: none;
+    }
+
+    .atm-form_input__functionality {
+      top: pxToRem($sizeSmallRegular);
+
+      .icon {
+        transform: scale(0.59);
+        position: relative;
+        top: auto;
+        right: auto;
+      }
     }
   }
 }

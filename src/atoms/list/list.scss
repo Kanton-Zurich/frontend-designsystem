@@ -40,12 +40,14 @@
       color: $colorBlack;
     }
 
+    &.hover,
     &:hover:not(.selected) {
       background: rgba(0, 0, 0, 0.05);
       color: $colorBlack;
     }
 
     input {
+      visibility: hidden;
       opacity: 0;
       position: absolute;
       top: 0;
@@ -58,16 +60,16 @@
     .icon {
       pointer-events: none;
       position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      margin: pxToRem($sizeSmallRegular);
     }
 
     &--check-icon,
     &--icon-left {
-      padding-left: pxToRem(44px);
+      padding-left: pxToRem($sizeHuge);
 
       .icon {
-        left: pxToRem(22px);
+        left: 0;
       }
     }
 
@@ -83,14 +85,14 @@
     }
 
     &--icon-right {
-      padding-right: pxToRem(44px);
+      padding-right: pxToRem($sizeHuge);
 
       .icon {
         display: block;
         color: $colorBlack60;
 
         &:last-of-type {
-          right: pxToRem(22px);
+          right: 0;
           left: auto;
         }
       }
