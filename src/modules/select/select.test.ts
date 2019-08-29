@@ -1,10 +1,9 @@
-jest.setTimeout(30000); // eslint-disable-line no-magic-numbers
-describe('PageHeader', () => {
+describe('Select', () => {
   let page: any;
 
   beforeAll(async () => {
     // eslint-disable-next-line no-underscore-dangle
-    const url = `http://localhost:${(<any>global).__STATIC_PORT__}/modules/page_header/page_header.html`;
+    const url = `http://localhost:${(<any>global).__STATIC_PORT__}/modules/select/select.html`;
 
     // eslint-disable-next-line no-underscore-dangle
     page = await (<any>global).__BROWSER__.newPage();
