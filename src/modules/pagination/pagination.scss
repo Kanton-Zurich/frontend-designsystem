@@ -1,0 +1,21 @@
+.mdl-pagination {
+  display: flex;
+  justify-content: flex-end;
+
+  &__input {
+    width: pxToRem($sizeSmallHuge);
+
+    input {
+      padding: pxToRem($sizeSmallRegular) 0;
+      text-align: center;
+    }
+  }
+
+  &__button-prev {
+    margin-right: 2px;
+  }
+
+  &__current-page {
+    padding: pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
+  }
+}

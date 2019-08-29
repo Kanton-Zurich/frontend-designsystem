@@ -30,6 +30,7 @@ import Application from '../../../modules/application/application';
 import FileUpload from '../../../modules/file_upload/file_upload';
 import Select from '../../../modules/select/select';
 import ServiceWrapper from '../../../modules/service_wrapper/service_wrapper';
+import Pagination from '../../../modules/pagination/pagination';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -69,6 +70,7 @@ class App {
     this.modules.fileUpload = FileUpload;
     this.modules.select = Select;
     this.modules.serviceWrapper = ServiceWrapper;
+    this.modules.pagination = Pagination;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
