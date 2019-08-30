@@ -444,3 +444,93 @@ $unitLeftSpace: 62px;
     }
   }
 }
+
+/** STYLES FOR VALIDATION CLASSES */
+
+[  data-input ] {
+
+  &:not(.dirty) {
+    textarea#{&} {
+      & ~ label {
+        top: 2px;
+        padding-top: pxToRem(18px);
+      }
+    }
+  }
+
+  /**
+  * DIRTY / FOCUS
+  */
+  &.dirty .atm-form_input__input,
+  .atm-form_input__input:focus {
+    color: $colorBlack;
+    padding-top: pxToRem(35px);
+    padding-bottom: pxToRem(15px);
+
+    .atm-form_input__trigger-label,
+    & ~ label {
+      pointer-events: none;
+      padding: 0;
+      top: pxToRem($sizeFontSmall);
+      font-weight: $fontWeightBlack;
+      font-size: pxToRem($sizeFontTiny);
+      line-height: $sizeLineHeightBase;
+      color: $colorBlack;
+    }
+    // for some reason the @at-root selector stuff dont work here so the modifier class above
+  }
+
+  &.dirty {
+    .atm-form_input__functionality {
+      display: block;
+    }
+  }
+
+  &.dirty .atm-form_input__input--txtarea,
+  .atm-form_input__input--txtarea &:focus {
+    & ~ label {
+      top: 2px;
+      padding-top: pxToRem(18px);
+    }
+  }
+
+  /**
+  * VALID
+  */
+  &.valid .atm-form_input__input {
+    & ~ .atm-form_input__validate-icon {
+      span:first-of-type {
+        display: block;
+
+        svg {
+          fill: $colorGreen;
+        }
+      }
+    }
+  }
+
+  /**
+  * INVALID
+  */
+  &.invalid .atm-form_input__input {
+    border-color: $colorRed;
+
+    & ~ .atm-form_input__validate-icon {
+      span:last-of-type {
+        display: block;
+
+        svg {
+          fill: $colorRed;
+        }
+      }
+    }
+
+    & ~ p.show {
+      padding-top: pxToRem(7px);
+      padding-bottom: pxToRem(5px);
+      height: auto;
+      opacity: 1;
+      transform: translateY(0) scaleY(1);
+    }
+  }
+}
