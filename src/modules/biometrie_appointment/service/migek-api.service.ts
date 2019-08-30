@@ -153,6 +153,13 @@ class MigekApiService {
   public triggerConfirmationDownload(): void {
     if (this.confirmationPath && this.bearerStr) {
       const xhr = new XMLHttpRequest();
+
+      const iosVersion = this.detectIOsVersion();
+      let ios12Window: Window;
+      // eslint-disable-next-line no-magic-numbers
+      if (iosVersion && iosVersion[0] >= 12) {
+        ios12Window = window.open();
+      }
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status >= HttpStatusCodes.OK && xhr.status < HttpStatusCodes.MULTIPLE) {
@@ -162,10 +169,13 @@ class MigekApiService {
               window.navigator.msSaveOrOpenBlob(file, MigekApiService.CONFIRMATION_FILENAME);
             } else {
               const fileURL = URL.createObjectURL(file);
-              const iosVersion = this.detectIOsVersion();
-              // eslint-disable-next-line no-magic-numbers
-              if (iosVersion && iosVersion[0] >= 12) {
-                window.open(fileURL, '_blank');
+
+              if (ios12Window) {
+                ios12Window.location.href = fileURL;
+                setTimeout(() => {
+                  ios12Window.close();
+                // eslint-disable-next-line no-magic-numbers
+                }, 500);
               } else {
                 const hiddenA = document.createElement('a');
                 hiddenA.style.display = 'none';
