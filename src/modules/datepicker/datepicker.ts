@@ -9,53 +9,44 @@ import { merge } from 'lodash';
 import Module from '../../assets/js/helpers/module';
 
 class Datepicker extends Module {
-  public debug: any;
+  public isOpen: boolean;
   public pickerMode: string;
   public usedConfig: any;
   public flatpickr: any;
+  public dayLabels: Array<any>;
 
   public globalConfig: {
     nextArrow: string,
     prevArrow: string,
-    onReady: any,
     onChange: any,
-    onClose: any,
-    onOpen: any,
-  }
+    onReady: any,
+  };
 
   public customConfigs: {
     time: {
       enableTime: boolean,
       noCalendar: boolean,
-      time_24hr: boolean,//stylelint-disable-line
+      time_24hr: boolean, // stylelint-disable-line
       dateFormat: string,
       position: string,
     },
     date: {
       dateFormat: string,
       position: string,
-      appendTo: any,
-      inline: boolean,
     },
     dateRange: {
       mode: string,
       minDate: string,
       separator: string,
-      appendTo: any,
       disableMobile: boolean,
       static: boolean,
-      inline: boolean,
-      wrap: boolean,
     },
     dataTime: {
       dateFormat: string,
       position: string,
-      appendTo: any,
       noCalendar: boolean,
       disableMobile: boolean,
       static: boolean,
-      inline: boolean,
-      wrap: boolean,
     }
   };
 
@@ -98,39 +89,33 @@ class Datepicker extends Module {
     this.initUi();
     this.initEventListeners();
 
+    this.isOpen = false;
+
     this.customConfigs = {
       time: {
         enableTime: true,
         noCalendar: true,
-        time_24hr: true,//stylelint-disable-line
+        time_24hr: true,
         dateFormat: 'H:i',
-        position: 'auto',
+        position: 'below',
       },
       date: {
         dateFormat: 'd.m.Y',
-        position: 'auto',
-        appendTo: this.ui.container,
-        inline: true,
+        position: 'below',
       },
       dateRange: {
         mode: 'range',
         minDate: 'today',
         separator: ' - ',
         disableMobile: true,
-        static: false,
-        inline: true,
-        wrap: false,
-        appendTo: this.ui.container,
+        static: true,
       },
       dataTime: {
         dateFormat: 'd.m.Y H:i',
         position: 'below',
         noCalendar: false,
         disableMobile: true,
-        static: false,
-        inline: true,
-        wrap: false,
-        appendTo: this.ui.container,
+        static: true,
       },
     };
 
@@ -143,19 +128,12 @@ class Datepicker extends Module {
       prevArrow: '<svg class="icon">\n'
       + '<use xlink:href="#angle_left"></use>\n'
       + '</svg>',
-      onReady: this.onReady.bind(this),
       onChange: this.onValueChange.bind(this),
-      onOpen: this.onPickerOpen.bind(this),
-      onClose: this.onPickerClose.bind(this),
+      onReady: this.onReady.bind(this),
     };
 
-    this.debug = this.ui.element.querySelector('#debug');
+    this.dayLabels = this.ui.element.dataset.daylabels.split(' ');
     this.constructConfig();
-    this.initFlatpickr();
-    console.log('AFTER INIT');
-
-    this.debug.innerText = 'init: ' + this.pickerMode;
-    this.flatpickr.close();
   }
 
   static get events() {
@@ -203,72 +181,62 @@ class Datepicker extends Module {
         this.globalConfig,
       );
     }
+    this.initFlatpickr();
   }
 
   /**
    * Initialize the Flatpickr plugin
    */
   initFlatpickr() {
-    console.log('INIT - ',this.pickerMode);
     this.flatpickr = flatpickr(this.ui.trigger, this.usedConfig);
-
-
     // Replace default range seperator
     if (this.pickerMode === 'date-range') {
       this.flatpickr.l10n.rangeSeparator = ' - ';
     }
-
-    if (this.pickerMode === 'date-range' || this.pickerMode === 'date-time') {
-      this.flatpickr.calendarContainer.classList.add('noBorderShadow');
-
-      // Force month select options to be right aligned
-      /*
-      const flatpickrSelect = this.flatpickr.calendarContainer.querySelector('.flatpickr-monthDropdown-months');
-      flatpickrSelect.setAttribute('dir', 'rtl');
-      */
-    }
   }
 
+  /**
+   * On change callback. Adds the dirty class to the container element
+   */
   onValueChange() {
-    console.log('onValueChange');
-    this.debug.innerText = 'onValueChange: ';
-    if (!this.ui.trigger.classList.contains('dirty')) {
-      // TODO CHECK FOR MOBILE
-      // this.ui.element.querySelector('input.flatpickr-mobile').classList.add('dirty');
-      this.ui.trigger.classList.add('dirty');
+    if (!this.ui.element.classList.contains('dirty')) {
+      this.ui.element.classList.add('dirty');
     }
   }
 
-  onPickerOpen() {
-    console.log('OPEN');
-    this.debug.innerText = 'OPEN: ';
-    this.ui.element.classList.add('open');
-    const style = document.createAttribute('style')
-    //this.flatpickr.calendarContainer.removeAttributeNode('style');
-  }
-
-  onPickerClose() {
-    console.log('CLOSE');
-    this.debug.innerText = 'CLOSE: ';
-    this.ui.element.classList.remove('open');
-  }
-
+  /**
+   * On ready callback from flatpickr. If its not a time picker replace the daylabels
+   */
   onReady() {
-    console.log('READY');
-    this.debug.innerText = 'READY: ';
-    console.log('--flat--');
-    console.log(this.flatpickr);
-    console.log(this.ui.container.querySelector('.flatpickr-calendar '));
+    const weekdays = 7;
+    if (this.pickerMode !== 'time' && this.dayLabels.length === weekdays) {
+      setTimeout(() => {
+        const weekdayElements = this.flatpickr.calendarContainer.querySelectorAll('.flatpickr-weekday');
+        this.setWeekDayLabels(weekdayElements);
+      }, 0);
+    }
   }
 
-  onTriggerClick() {
-    console.log('click');
-    this.debug.innerText = 'click: ';
-    console.log(this.flatpickr);
-   // this.flatpickr.close(); // toggle()
+  /**
+   * Take an array of nodes to replace the innerText with the content from
+   * stored dayLabels
+   * @param {Array<any>} elements
+   */
+  setWeekDayLabels(elements: Array<any>) {
+    elements.forEach((item, index) => {
+      item.innerText = this.dayLabels[index];
+    });
+  }
 
-    if (this.ui.element.classList.contains('open')) {
+  /**
+   * On trigger click. Close the dropdown if its open
+   * @param event
+   */
+  onTriggerClick(event) {
+    this.isOpen = this.ui.element.classList.contains('open');
+    if (event.target === this.flatpickr.input && this.isOpen) {
       this.ui.element.classList.remove('open');
+      this.flatpickr.close();
     } else {
       this.ui.element.classList.add('open');
     }

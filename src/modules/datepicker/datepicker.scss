@@ -5,36 +5,49 @@
     .icon {
       fill: $colorBlack;
     }
-    /*.mdl-datepicker__container {
-      height: auto;
-    }*/
-    /*.mdl-datepicker__container {
-      height: 414px;
-    }*/
   }
 
-  &__container {
+  &.dirty {
 
-    position: absolute;
-    top: calc(100% + 2px);
-    left: 0;
+    .atm-form_input--floated {
+      .atm-form_input__input {
+        color: $colorBlack;
+        padding-top: pxToRem(35px);
+        padding-bottom: pxToRem(15px);
+        z-index: 1;
+      }
 
-
-    //margin-top: 74px;
-    // margin-top: 2px;
-    background: $colorWhite;
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
-    border-radius: 1px;
-    min-width: 296px;
-    max-width: 396px;
-    height: 0;
-    /*overflow: hidden;*/
-    transition: 300ms height ease-in-out;
+      label {
+        pointer-events: none;
+        padding: 0;
+        top: pxToRem($sizeFontSmall);
+        font-weight: $fontWeightBlack;
+        font-size: pxToRem($sizeFontTiny);
+        line-height: $sizeLineHeightBase;
+        color: $colorBlack;
+      }
+    }
   }
 
-  .atm-form_input__input{
+  .flatpickr-wrapper {
+    display: block;
+  }
+
+  .flatpickr-wrapper,
+  .atm-form_input--floated .atm-form_input__input {
+    z-index: 1;
+    position: relative;
+    background-color: transparent;
+  }
+
+  .atm-form_input--floated {
+    .icon {
+      z-index: 0;
+    }
+  }
+
+  .atm-form_input__input {
     appearance: none;
-    height: 72px;
 
     &::-webkit-datetime-edit {
       display: none;
