@@ -46,6 +46,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
   private loginToken: string;
   private loginReqAttempts: number;
 
+  private currentFocusEl: HTMLElement;
 
   constructor(_data: any, _selectors: LoginViewSelectors) {
     super(_selectors, _data as LoginViewData);
@@ -59,6 +60,9 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
 
     eventDelegate.on('click', this.selectors.submitBtn, () => {
       this.doAttemptLogin();
+      if (this.currentFocusEl) {
+        this.currentFocusEl.blur();
+      }
     });
   }
 
@@ -355,7 +359,6 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
     this.log('Login: Set focus and caret: ', focusEl, caretPos);
     if (focusEl) {
       focusEl.focus();
-
       if (document.createRange) {
         const range = document.createRange();
         range.selectNodeContents(focusEl);
@@ -368,6 +371,8 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
         selection.removeAllRanges();
         selection.addRange(range);
       }
+      // store to blur on login.
+      this.currentFocusEl = focusEl;
     }
   }
 
