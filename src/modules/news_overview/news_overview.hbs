@@ -2,9 +2,24 @@
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="cell">
-        <div class="mdl-news-overview__filter">
-
-        </div>
+        <form novalidate>
+          <div class="mdl-news-overview__filter">
+            <div class="atm-form_input atm-form_input--icon atm-form_input--floated" data-input>
+              <input class="atm-form_input__input" placeholder="Suche nach Stichwort" value="" type="text"
+                     data-hasbutton="true" data-floating>
+              <label>Suche nach Stichwort</label>
+              <button class="atm-form_input__functionality" type="button" data-buttontype="clear">
+                <span class="visuallyhidden">Lösche Eingabe</span>
+                <svg class="icon">
+                  <use xlink:href="#clear"></use>
+                </svg>
+              </button>
+              <svg class="icon">
+                <use xlink:href="#search"></use>
+              </svg>
+            </div>
+          </div>
+        </form>
         <div class="mdl-news-teaser">
           <div class="mdl-news-teaser__content">
             <script data-teaser-template type="text/x-handlebars-template">
