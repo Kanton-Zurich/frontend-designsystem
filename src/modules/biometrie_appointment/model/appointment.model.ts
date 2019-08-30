@@ -37,7 +37,7 @@ class Appointment {
 
   get appointmentDateString(): string {
     const date = this.getAppointmentStartDate();
-    return date.toLocaleDateString(this.locale, this.dateFormatOptions);
+    return date.toLocaleDateString(this.locale, this.dateFormatOptions).replace('.', '');
   }
 
   get fromTimeString(): string {

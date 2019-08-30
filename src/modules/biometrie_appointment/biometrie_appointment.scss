@@ -390,14 +390,18 @@ $biometrieViewTransitionDuration: 300ms;
         padding-bottom: $sizeSmallRegular;
 
         li {
-          position: relative;
-
-          @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
           @include sizeCurve('margin-left', mini);
           @include sizeCurve('padding-left', medium);
 
+          position: relative;
+          font-size: $sizeSmallLarge;
+
+          @include mq($to: small) {
+            font-size: $sizeRegular;
+          }
+
           + li {
-            @include sizeCurve('margin-top', smallerRegular);
+            margin-top: $sizeSmallRegular;
           }
 
           &:before {
@@ -1085,5 +1089,9 @@ $biometrieViewTransitionDuration: 300ms;
 
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
     @include sizeCurve('margin-bottom', tiny);
+  }
+
+  .atm-paragraph a:hover {
+    text-decoration: none;
   }
 }
