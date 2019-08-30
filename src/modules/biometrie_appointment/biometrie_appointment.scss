@@ -1086,4 +1086,8 @@ $biometrieViewTransitionDuration: 300ms;
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
     @include sizeCurve('margin-bottom', tiny);
   }
+
+  .atm-paragraph a:hover {
+    text-decoration: none;
+  }
 }
