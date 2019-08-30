@@ -54,7 +54,7 @@ $biometrieViewTransitionDuration: 300ms;
 /* stylelint-enable */
 
 .mdl-biometrie_appointment {
-  margin-bottom: $sizeHuge;
+  margin-bottom: $sizeRegular;
 
   &__heading {
     hyphens: initial;
@@ -106,6 +106,7 @@ $biometrieViewTransitionDuration: 300ms;
     transition: opacity $biometrieViewTransitionDuration;
     max-height: 0;
     pointer-events: none;
+    overflow: hidden;
 
     &.show {
       opacity: 1;
@@ -672,17 +673,24 @@ $biometrieViewTransitionDuration: 300ms;
             transition: right 0.8s ease-in-out;
 
             .weekday-column {
-              width: 100%;
-              margin-left: 0;
+              width: 20%;
+
+              & + .weekday-column {
+                margin-left: 0;
+              }
 
               .weekday-slotscontainer {
                 text-align: left;
-                margin-left: -2%;
 
                 .weekday-slot {
                   display: inline-block;
-                  width: 30%;
+                  width: 32%;
                   margin-left: 2%;
+                  padding: 0 2px;
+
+                  &:nth-child(3n+1) {
+                    margin-left: 0;
+                  }
                 }
               }
 
@@ -695,12 +703,23 @@ $biometrieViewTransitionDuration: 300ms;
         @include mq($to: xsmall) {
           .slotselect-slotsrow {
             .weekday-column {
-              .weekday-slotscontainer {
-                margin-left: -2%;
+              & + .weekday-column {
+                margin-left: 0;
+              }
 
+              .weekday-slotscontainer {
                 .weekday-slot {
-                  width: 47%;
-                  margin-left: 2%;
+                  width: 49.5%;
+                  margin-left: 1%;
+                  padding: 0 6px;
+
+                  &:nth-child(3n+1) {
+                    margin-left: 1%;
+                  }
+
+                  &:nth-child(2n+1) {
+                    margin-left: 0;
+                  }
                 }
               }
             }

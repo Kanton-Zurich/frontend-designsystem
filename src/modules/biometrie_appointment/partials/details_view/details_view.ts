@@ -59,7 +59,6 @@ class BiometrieDetailsView extends ViewController<DetailsViewSelectors, DetailsV
         .querySelector<HTMLElement>(this.selectors.rescheduleSuccesssBox);
       successBox.classList.add('show');
       successBox.querySelector('.alert').classList.add('show');
-      window.scrollTo(0, 0);
     }
     const { appointment } = this.data;
 
