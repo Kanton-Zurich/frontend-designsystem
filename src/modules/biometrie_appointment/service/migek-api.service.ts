@@ -172,10 +172,6 @@ class MigekApiService {
 
               if (ios12Window) {
                 ios12Window.location.href = fileURL;
-                setTimeout(() => {
-                  ios12Window.close();
-                // eslint-disable-next-line no-magic-numbers
-                }, 500);
               } else {
                 const hiddenA = document.createElement('a');
                 hiddenA.style.display = 'none';
