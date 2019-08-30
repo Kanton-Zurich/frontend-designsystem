@@ -1,0 +1,9 @@
+.mdl-news-overview {
+  .mdl-news-teaser {
+    background-color: $colorWhite;
+  }
+
+  &__pagination {
+    margin-top: $sizeRegular + $sizeTiny;
+  }
+}

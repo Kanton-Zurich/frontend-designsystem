@@ -12,7 +12,7 @@ class Pagination extends Module {
     input: HTMLInputElement,
     prev: HTMLButtonElement,
     next: HTMLButtonElement,
-    currentPage: HTMLDivElement,
+    pageCount: HTMLDivElement,
   };
 
   private lastValue: number;
@@ -24,7 +24,7 @@ class Pagination extends Module {
         input: '.mdl-pagination__input > input',
         prev: '.mdl-pagination__button-prev',
         next: '.mdl-pagination__button-next',
-        currentPage: '.mdl-pagination__current-page',
+        pageCount: '.mdl-pagination__page-count',
       },
       stateClasses: {},
     };
