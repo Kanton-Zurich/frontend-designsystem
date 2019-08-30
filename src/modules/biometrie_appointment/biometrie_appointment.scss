@@ -54,7 +54,7 @@ $biometrieViewTransitionDuration: 300ms;
 /* stylelint-enable */
 
 .mdl-biometrie_appointment {
-  margin-bottom: $sizeHuge;
+  margin-bottom: $sizeRegular;
 
   &__heading {
     hyphens: initial;
@@ -106,6 +106,7 @@ $biometrieViewTransitionDuration: 300ms;
     transition: opacity $biometrieViewTransitionDuration;
     max-height: 0;
     pointer-events: none;
+    overflow: hidden;
 
     &.show {
       opacity: 1;

@@ -234,21 +234,23 @@ class BiometrieAppointment extends Module {
 
   private toggleLogoutLink(setVisible: boolean): void {
     const logoutLink = document
-      .querySelector<HTMLInputElement>(this.options.domSelectors.logoutLink).classList;
+      .querySelector<HTMLAnchorElement>(this.options.domSelectors.logoutLink);
     if (setVisible) {
-      logoutLink.add('show');
+      logoutLink.classList.add('show');
+      logoutLink.scrollIntoView({ behavior: 'smooth' });
     } else {
-      logoutLink.remove('show');
+      logoutLink.classList.remove('show');
     }
   }
 
   private toggleBackLink(setVisible: boolean): void {
-    const logoutLink = document
-      .querySelector<HTMLInputElement>(this.options.domSelectors.backLink).classList;
+    const backLink = document
+      .querySelector<HTMLAnchorElement>(this.options.domSelectors.backLink);
     if (setVisible) {
-      logoutLink.add('show');
+      backLink.classList.add('show');
+      backLink.scrollIntoView({ behavior: 'smooth' });
     } else {
-      logoutLink.remove('show');
+      backLink.classList.remove('show');
     }
   }
 
