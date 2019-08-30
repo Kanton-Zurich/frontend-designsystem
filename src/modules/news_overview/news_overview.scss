@@ -1,9 +1,18 @@
 .mdl-news-overview {
-  .mdl-news-teaser {
-    background-color: $colorWhite;
+  @include gridBleed($fullwidth: true);
+
+  &__filter {
+
   }
 
   &__pagination {
     margin-top: $sizeRegular + $sizeTiny;
+  }
+
+  .mdl-news-teaser {
+    background-color: $colorWhite;
+    width: 100%;
+    transform: translate(0);
+    margin-left: 0;
   }
 }
