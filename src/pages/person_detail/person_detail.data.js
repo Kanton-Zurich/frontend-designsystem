@@ -24,7 +24,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Willkommen',
-        anchorlinkAdress: '#welcome',
+        anchorlinkAdress: 'welcome',
         anchorlinkIsActive: true,
         anchorlinkAsButton: true,
       },
@@ -32,7 +32,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Standpunkte & Reden',
-        anchorlinkAdress: '#speech',
+        anchorlinkAdress: 'speech',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -40,7 +40,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Geplante Auftritte',
-        anchorlinkAdress: '#events',
+        anchorlinkAdress: 'events',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -48,7 +48,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Bilder',
-        anchorlinkAdress: '#pictures',
+        anchorlinkAdress: 'pictures',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -56,7 +56,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Biografie',
-        anchorlinkAdress: '#bio',
+        anchorlinkAdress: 'bio',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -64,7 +64,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Weiterführende Informationen',
-        anchorlinkAdress: '#info',
+        anchorlinkAdress: 'info',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -72,7 +72,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Kontakt',
-        anchorlinkAdress: '#contact',
+        anchorlinkAdress: 'contact',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -80,7 +80,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Scoial Media',
-        anchorlinkAdress: '#responsibilities',
+        anchorlinkAdress: 'socialmedia',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -221,7 +221,7 @@ const data = _.merge({}, defaultData, {
         }),
       personCardData: defPersonCardData.variants.default.props,
       contactData: _.merge({}, defcontactData.variants.fullWidthLessData.props, { anchorNavReference: 'contact' }),
-      socialLinksData: _.omit(defSocialLinksData.variants.default.props, ['linkedIn'], ['youtube']),
+      socialLinksData: _.merge({}, _.omit(defSocialLinksData.variants.default.props, ['linkedIn'], ['youtube']), {anchorReference: 'socialmedia' }),
     },
   },
 });
