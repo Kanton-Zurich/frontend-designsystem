@@ -26,6 +26,22 @@ const variants = _.mapValues({
         title: 'Folgen Sie uns auf',
         level: 4,
       },
+      facebook: {
+        url: '#',
+        imgSrc: '../../assets/media/image/facebook.svg',
+      },
+      twitter: {
+        url: '#',
+        imgSrc: '../../assets/media/image/twitter.svg',
+      },
+      linkedIn: {
+        url: '#',
+        imgSrc: '../../assets/media/image/linkedIn.svg',
+      },
+      youtube: {
+        url: '#',
+        imgSrc: '../../assets/media/image/youtube.svg',
+      },
     },
   },
 }, (variant) => {

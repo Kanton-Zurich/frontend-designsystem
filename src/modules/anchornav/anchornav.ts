@@ -276,12 +276,14 @@ class Anchornav extends Module {
       this.scrollReferences[i].triggerYPosition = currentTriggerPosition - this.navigationHeight;
 
       if ((currentTriggerPosition + window.innerHeight) > scrollMax && !foundExceed) {
-        exceedCounter = this.scrollReferences.length - i;
-        exceedIndex = i;
+        // Get the count for the exceeding anchors but include the last fitting anchor
+        // to spread even the space after his last Y position
+        exceedCounter = this.scrollReferences.length - i + 1;
+        exceedIndex = i - 1;
         foundExceed = true;
 
         lastFittingTriggerPosition = this.scrollReferences[exceedIndex].triggerYPosition;
-        evenDistances = lastFittingTriggerPosition / exceedCounter;
+        evenDistances = (scrollMax - lastFittingTriggerPosition) / exceedCounter;
       }
     }
 

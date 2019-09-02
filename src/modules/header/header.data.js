@@ -41,6 +41,15 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
+  inverted: {
+    meta: {
+      title: 'Invertiert',
+      desc: 'Head Module ignoriert Farbschema und wird einfach plain schwarz/weiss dargestellt',
+    },
+    props: {
+      inverted: true,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
