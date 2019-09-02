@@ -114,17 +114,12 @@ const variants = _.mapValues({
     },
     props: {
       type: 'text',
-      label: 'Validation',
+      label: 'Filter',
       isSmall: true,
       iconOnly: {
         icon: 'search',
       },
       uuid: _.uniqueId('float_input_clear'),
-      validation: {
-        pattern: '^([a-zA-Z]){3,6}$',
-        errorMsg: 'Hier mindestens 3 und maximal 6 Buchstaben eingeben!',
-        isRequired: true,
-      },
       additionalFunctionality: {
         icon: 'exit',
         buttontype: 'clear',
@@ -225,6 +220,9 @@ const variants = _.mapValues({
       isInput: false,
       label: 'Select Float Label',
       uuid: _.uniqueId('float_button-'),
+      validation: {
+        isRequired: true,
+      },
     },
   },
   triggerPhone: {
@@ -240,6 +238,9 @@ const variants = _.mapValues({
       label: 'Select Float Label',
       demoTel: true,
       uuid: _.uniqueId('float_button-'),
+      validation: {
+        isRequired: true,
+      },
     },
   },
 }, (variant) => {

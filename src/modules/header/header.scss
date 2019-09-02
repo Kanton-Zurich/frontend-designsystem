@@ -101,6 +101,18 @@ $headerCurves: (
   .#{$key} {
     .mdl-header {
       background: $val;
+
+      &--inverted {
+        background: transparent;
+
+        .mdl-header__nav-item {
+          color: $colorBlack100;
+        }
+
+        .mdl-header__wrapper:after {
+          background: $colorBlack;
+        }
+      }
     }
   }
 }

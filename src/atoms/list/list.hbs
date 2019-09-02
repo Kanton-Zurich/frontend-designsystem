@@ -9,8 +9,11 @@
       <input tabindex="-1" name="group-{{{../groupPostfix}}}"
              id="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-{{this.id}}"
              type="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}"
-             value="{{{ this.value }}}" placeholder="{{{ this.label }}}"{{#if
-        preSelected}} checked{{/if}}>
+             value="{{{ this.value }}}" placeholder="{{{ this.label }}}"
+             data-select-option
+             {{#if preSelected}} checked{{/if}}
+             {{#if ../validation}}data-validation{{/if}}
+             {{#if ../validation.isRequired}}required{{/if}}>
 
       {{#if ../hasIconRight}}
         <svg class="icon">

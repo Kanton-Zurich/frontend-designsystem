@@ -41,13 +41,13 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
-  forced: {
+  inverted: {
     meta: {
-      title: 'Monochrome Forciert',
-      desc: 'Default implementation',
+      title: 'Invertiert',
+      desc: 'Head Module ignoriert Farbschema und wird einfach plain schwarz/weiss dargestellt',
     },
     props: {
-      monochromeForced: true,
+      inverted: true,
     },
   },
 }, (variant) => {

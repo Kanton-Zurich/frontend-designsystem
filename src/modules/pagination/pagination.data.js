@@ -3,16 +3,16 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const template = dataHelper.getFileContent('social_media_links.hbs');
+const template = dataHelper.getFileContent('pagination.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Social Media Links',
-    className: 'SocialMediaLinks',
-    jira: 'CZHDEV-438',
-    documentation: dataHelper.getDocumentation('social_media_links.md'),
+    title: 'Seiten Navigation',
+    className: 'Pagination',
+    jira: 'CZHDEV-990',
+    documentation: dataHelper.getDocumentation('pagination.md'),
   },
   props: {
-
+    pageCount: 30,
   },
 });
 const variants = _.mapValues({
@@ -20,28 +20,6 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
-    },
-    props: {
-      socialMediaLinksHeading: {
-        title: 'Folgen Sie uns auf',
-        level: 4,
-      },
-      facebook: {
-        url: '#',
-        imgSrc: '../../assets/media/image/facebook.svg',
-      },
-      twitter: {
-        url: '#',
-        imgSrc: '../../assets/media/image/twitter.svg',
-      },
-      linkedIn: {
-        url: '#',
-        imgSrc: '../../assets/media/image/linkedIn.svg',
-      },
-      youtube: {
-        url: '#',
-        imgSrc: '../../assets/media/image/youtube.svg',
-      },
     },
   },
 }, (variant) => {

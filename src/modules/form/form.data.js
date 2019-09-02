@@ -16,6 +16,9 @@ const checkboxData = require('../../atoms/checkbox/checkbox.data');
 const radioHBS = dataHelper.getFileContent('../../atoms/radiobutton/radiobutton.hbs');
 const radioData = require('../../atoms/radiobutton/radiobutton.data');
 
+const selectHBS = dataHelper.getFileContent('../select/select.hbs');
+const selectData = require('../select/select.data');
+
 const duplicateGroup = {
   isDuplicatable: true,
   duplicateLabels: {
@@ -51,7 +54,6 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     sectionTitle: 'Persönliche Angaben',
-
   },
 });
 const variants = _.mapValues({
@@ -158,6 +160,20 @@ const variants = _.mapValues({
                     },
                   })),
               }],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.variants.default.props,
+                    {})),
+                },
+                {
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.variants.multiSelect.props,
+                    {})),
+                },
+              ],
             },
           ],
         },
