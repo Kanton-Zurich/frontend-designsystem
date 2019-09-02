@@ -66,7 +66,7 @@ class Accordion extends Module {
 
     // (<any>window).estatico.lineClamper.initLineClamping();
 
-    this.initUi(true);
+    this.initUi(['items', 'triggers', 'panelContent']);
     this.initEventListeners();
 
     this.initTabindex();

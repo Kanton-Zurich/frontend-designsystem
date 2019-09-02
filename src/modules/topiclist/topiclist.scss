@@ -5,9 +5,13 @@ $leadFontCurve: (
 );
 
 .mdl-topiclist {
+
+  @include sizeCurve('margin-top', big);
+  @include sizeCurve('margin-bottom', big);
+
   // Hide items only on default topiclist
   .mdl-content_nav {
-    &__item:nth-child(1n+12) {
+    &__item:nth-child(1n+13) {
       display: none;
     }
   }
@@ -26,8 +30,8 @@ $leadFontCurve: (
   &--home,
   &--office {
     .mdl-content_nav:not(.mdl-topiclist__autosuggest) {
-      &__item:nth-child(1n+12),
-      &__item:nth-child(1n+9) {
+      &__item:nth-child(1n+13),
+      &__item:nth-child(1n+10) {
         display: flex;
       }
     }
@@ -41,11 +45,20 @@ $leadFontCurve: (
     }
   }
 
+  &--nav {
+    @include sizeCurve(margin-top, large);
+    @include sizeCurve(margin-bottom, large);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
   &__fullwidth-wrapper {
     @include gridBleed($fullwidth: true);
     text-align: center;
 
-    .atm-button {
+    .mdl-topiclist__show-all {
       display: inline-flex;
     }
   }
@@ -76,7 +89,7 @@ $leadFontCurve: (
     }
   }
 
-  .atm-button {
+  .mdl-topiclist__show-all {
     margin: $sizeLarge 0;
 
     svg {
@@ -84,9 +97,6 @@ $leadFontCurve: (
       transform: scale(0.625);
     }
   }
-
-  @include polyFluidSizing('margin-top', map-get($sizeCurves, big));
-  @include polyFluidSizing('margin-bottom', map-get($sizeCurves, big));
 
   .atm-heading {
     padding-top: $sizeSmallRegular;
@@ -112,21 +122,36 @@ $leadFontCurve: (
    * SPECIAL STYLES FOR TOPICLIST HOME
   */
   &--home {
-    .atm-button {
+    .mdl-topiclist__show-all {
       display: none;
     }
   }
 
   /** SPECIAL STYLES WHEN LIST IS FILTERED */
   &--filtered {
-    .mdl-content_nav {
-      &:first-of-type {
-        display: none;
-      }
+    .mdl-content_nav:not(.mdl-topiclist__autosuggest) {
+      display: none;
+    }
+
+    .mdl-topiclist__navigation {
+      display: none;
     }
 
     .mdl-topiclist__autosuggest {
       display: inherit;
     }
+  }
+
+  /** Default styles for further layers */
+  [ data-layer ] {
+    display: none;
+
+    &.mdl-topiclist--visible {
+      display: inherit;
+    }
+  }
+
+  &--hidden {
+    display: none;
   }
 }

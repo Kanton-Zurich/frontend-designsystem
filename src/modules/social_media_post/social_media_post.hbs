@@ -1,0 +1,74 @@
+<div class="mdl-social-media-post">
+  {{#if text}}
+  <p class="mdl-social-media-post__text atm-paragraph">
+    {{{text}}}
+  </p>
+  {{/if}}
+  {{#if image}}
+  <figure class="mdl-image-figure">
+    <div class="mdl-image-figure__img-wrapper">
+      <img class="mdl-image-figure__img" src="{{image}}" alt="Das ist ein Beispielbild"/>
+    </div>
+  </figure>
+  {{/if}}
+  {{#if cite}}
+  <blockquote class="mdl-social-media-post__cite">
+    {{#if cite.text}}
+    <p class="mdl-social-media-post__text atm-paragraph">
+      {{{cite.text}}}
+    </p>
+    {{/if}}
+    {{#if cite.image}}
+    <figure class="mdl-image-figure">
+      <div class="mdl-image-figure__img-wrapper">
+        <img class="mdl-image-figure__img" src="{{cite.image}}" alt="Das ist ein Beispielbild"/>
+      </div>
+    </figure>
+    {{/if}}
+    <div>
+      <a href="{{cite.author.link}}" class="mdl-social-media-post__authorinfo" target="_blank">
+        <span>{{cite.author.name}}</span><span>{{cite.datetime}}</span>
+      </a>
+    </div>
+  </blockquote>
+  {{/if}}
+
+  <div class="mdl-social-media-post__footer">
+    <a href="{{author.link}}" class="mdl-social-media-post__authorinfo" target="_blank">
+      <span class="atm-button atm-button--icon-only atm-button--secondary">
+            <span class="atm-button__text visuallyhidden">
+              Button
+            </span>
+        <span class="visuallyhidden">{{channel}}</span>
+        <img class="icon" src="{{icon}}" alt="">
+      </span>
+      <span>{{author.name}}</span><span>{{datetime}}</span>
+    </a>
+      <ul class="mdl-social-media-post__interaction">
+{{#if likes}}
+      <li class="mdl-social-media-post__interaction-button">
+        <svg class="icon">
+          <use xlink:href="#like"></use>
+        </svg>
+        <span>{{likes}}</span><span class="visuallyhidden"> Likes</span>
+      </li>
+{{/if}}
+{{#if comments}}
+      <li class="mdl-social-media-post__interaction-button">
+        <svg class="icon">
+          <use xlink:href="#comments"></use>
+        </svg>
+        <span>{{comments}}</span><span class="visuallyhidden"> Kommentare</span>
+      </li>
+{{/if}}
+{{#if forwards}}
+       <li class="mdl-social-media-post__interaction-button">
+        <svg class="icon">
+          <use xlink:href="#repost"></use>
+        </svg>
+         <span>{{forwards}}</span><span class="visuallyhidden"> Weiterleitungen</span>
+      </li>
+{{/if}}
+      </ul>
+  </div>
+</div>

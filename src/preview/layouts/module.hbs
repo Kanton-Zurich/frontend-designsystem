@@ -19,7 +19,7 @@
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
   data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'>
-	<div class="sg_wrapper sg_module {{props.defaultColorVariation}}" id="module_main">
+	<div class="sg_wrapper sg_module {{props.defaultColorVariation}}" id="module_main" data-body-element>
 		<h1 class="sg_title">
 			<a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
 		</h1>

@@ -80,6 +80,7 @@
     .atm-heading {
       padding-top: 0;
 
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
       @include sizeCurve(margin-bottom, headingMarginBottom, $personCardCurves);
     }
   }

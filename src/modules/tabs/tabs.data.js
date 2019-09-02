@@ -2,6 +2,9 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const defRichtextData = require('../richtext/richtext.data.js');
+const defStepperFormData = require('../stepper/stepper.data');
+const defCarouselData = require('../carousel/carousel.data');
 
 const template = dataHelper.getFileContent('tabs.hbs');
 const data = _.merge({}, defaultData, {
@@ -19,11 +22,15 @@ const data = _.merge({}, defaultData, {
       },
       {
         title: 'Online',
-        data: '<p class="atm-paragraph">Klären Sie ab, ob Sie für Ihr Reiseziel einen internationalen Führerschein benötigen. Ihr Reisebüro oder das Konsulat Ihres Reiseziels können Ihnen dabei helfen. </p>',
+        data: handlebars.compile(dataHelper.getFileContent('../stepper/stepper.hbs'))(defStepperFormData.variants.serviceForm.props),
       },
       {
         title: 'Per Post',
-        data: '<p class="atm-paragraph">Holen Sie den internationalen Führerschein direkt am Schalter einer unserer Strassenverkehrsämter ab.</p>',
+        data: handlebars.compile(dataHelper.getFileContent('../richtext/richtext.hbs'))(defRichtextData.variants.embedded.props),
+      },
+      {
+        title: 'Test Gallerie',
+        data: handlebars.compile(dataHelper.getFileContent('../carousel/carousel.hbs'))(_.merge({}, defCarouselData.variants.default.props, { title: null })),
       },
     ],
   },

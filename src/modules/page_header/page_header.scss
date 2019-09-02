@@ -100,6 +100,10 @@ $pageHeaderCurves: (
   @include sizeCurve('padding-top', pageHeaderTop, $pageHeaderCurves);
   @include sizeCurve(padding-bottom, pageHeaderBottom, $pageHeaderCurves);
 
+  z-index: $zIndexInner;
+  overflow: visible;
+  position: relative;
+
   &__logo-container {
     height: 0;
 
@@ -185,6 +189,10 @@ $pageHeaderCurves: (
     .mdl-page-header__title {
       @include sizeCurve(line-height, pageTitleMinimalLineHeight, $pageHeaderCurves);
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include mq($from: xlarge) {
+        position: fixed;
+        left: $sizeBig;
+      }
 
       margin-bottom: 0;
     }
@@ -202,6 +210,12 @@ $pageHeaderCurves: (
     }
 
     .lyt-wrapper:first-child {
+      .grid-x:nth-child(1) {
+        @include mq($from: xlarge) {
+          min-height: $sizeLarge;
+        }
+      }
+
       .grid-x:nth-child(2) {
         display: none;
       }

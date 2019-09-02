@@ -16,7 +16,7 @@ class Breadcrumb extends Module {
     ellipsis: any,
     showContext: any,
     contextMenu: any,
-    contextMenuItem: Array<HTMLElement>,
+    contextMenuItem: Array<any>,
   }
 
   public data: {
@@ -67,6 +67,12 @@ class Breadcrumb extends Module {
 
     this.initUi();
     this.initEventListeners();
+
+    if (this.ui.contextMenuItem) {
+      if (typeof this.ui.contextMenuItem[0] === typeof undefined) {
+        this.ui.contextMenuItem = [ this.ui.contextMenuItem ];
+      }
+    }
 
     if (this.ui.item.length) {
       this.data.windowWidth = document.documentElement.clientWidth;

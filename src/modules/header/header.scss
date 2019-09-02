@@ -3,24 +3,61 @@ $headerCurves: (
     tiny: 48px,
     xsmall: 56px,
     medium: 72px
-  )
+  ),
+  heightWithBorder: (
+    tiny: 53px,
+    xsmall: 61px,
+    medium: 77px
+  ),
+  borderHeight: (
+    tiny: 2px,
+    medium: 5px,
+  ),
 );
 
 .mdl-header {
   @include gridBleed($fullwidth: true);
+  @include sizeCurve(padding-bottom, borderHeight, $headerCurves);
 
-  padding-bottom: pxToRem(5px);
   position: relative;
+
+  @include transition(background);
+
+
+  &--open {
+    position: fixed;
+    top: 0;
+
+    margin-left: 0;
+    transform: none;
+    left: 0;
+
+    z-index: $zIndexFlyouts;
+  }
+
+  &--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    transition: none;
+
+    z-index: $zIndexFlyouts;
+    transform: translateX(0);
+    margin-left: 0;
+  }
 
   &__wrapper {
     &:after {
-      height: 5px;
+      @include sizeCurve(height, borderHeight, $headerCurves);
       background: $colorWhite;
 
       width: 100vw;
       position: absolute;
       display: block;
       content: ' ';
+
+      @include transition(background);
     }
   }
 
@@ -37,11 +74,19 @@ $headerCurves: (
   &__nav-item {
     @include sizeCurve(line-height, nav, $lineHeightCurves, $pxToRem: false);
     @include sizeCurve(height, height, $headerCurves);
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    @include blankButton();
 
     display: flex;
     align-items: center;
 
     color: $colorWhite;
+
+    @include transition(color);
+
+    &--active {
+      font-weight: $fontWeightBlack;
+    }
   }
 
   /** Special design for header */
@@ -75,7 +120,7 @@ $headerCurves: (
 // Monochrome version
 .cv-monochrome {
   .mdl-header {
-    background: transparent;
+    background: $colorWhite;
 
     &__nav-item {
       color: $colorBlack100;
@@ -85,4 +130,13 @@ $headerCurves: (
       background: $colorBlack;
     }
   }
+}
+
+.cv-monochrome.mdl-header {
+  background: $colorWhite;
+}
+
+/** SPECIAL STYLE FOR HTML-TAG TO ADD PADDING TO COMPENSATE FIXED HEADER */
+html.fixed-header {
+  @include sizeCurve(padding-top, heightWithBorder, $headerCurves);
 }

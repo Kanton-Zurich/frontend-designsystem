@@ -125,7 +125,7 @@ class Table extends Module {
     this.data.clonedTable.classList.add(this.options.stateClasses.cloned);
     this.data.clonedTable.removeAttribute('data-table');
     this.data.clonedTable.setAttribute('aria-hidden', 'true');
-    this.ui.scrollArea.append(this.data.clonedTable);
+    this.ui.scrollArea.appendChild(this.data.clonedTable);
   }
 
   /**

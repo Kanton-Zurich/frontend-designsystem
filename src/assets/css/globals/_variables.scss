@@ -278,6 +278,7 @@ $fontWeightDefault: 400;
 $colorBlack: $colorBlack100;
 $colorText: $colorBlack100;
 $colorBg: $colorBlack5;
+$colorBorderFrameHover: #e4e4e4;
 
 /**
  * Color variations
@@ -290,6 +291,7 @@ $tl-color-variations: (
   cv-bordeaux: $colorBordeaux,
   cv-magenta: $colorMagenta,
   cv-violet: $colorViolet,
+  cv-anthracite: $colorAnthracite,
   cv-monochrome: $colorBlack,
 );
 
@@ -316,10 +318,12 @@ $transitionEasingDecelerate: cubic-bezier(0.01, 0.13, 0.63, 0.99);
 /**
  * Z-Indexes
  */
+$zIndexInvisible: -1;
 $zIndexInner: 1;
 $zIndexDropDowns: 10;
 $zIndexScaffolds: 100; // for fixed header/ footer
 $zIndexOverlays: 1000;
+$zIndexFlyouts: 1100;
 $zIndexSkiplinks: 2000;
 $zIndexFlyingFocus: 9999;
 

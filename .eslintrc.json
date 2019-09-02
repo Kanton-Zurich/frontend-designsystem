@@ -33,7 +33,8 @@
     "navigator": true,
     "Image": true,
     "fetch": true,
-    "DOMParser": true
+    "DOMParser": true,
+    "FormData": true
   },
   "settings": {
     "import/resolver": {

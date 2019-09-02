@@ -8,6 +8,7 @@ const videoDemoData = require('../video/video.data');
 const imageFigureDemoData = require('../image_figure/image_figure.data');
 const carouselDemoData = require('../carousel/carousel.data');
 const texthighlightDemoData = require('../texthighlight/texthighlight.data');
+const defTabsData = require('../tabs/tabs.data');
 
 
 const template = dataHelper.getFileContent('instructions.hbs');
@@ -44,6 +45,27 @@ const variants = _.mapValues({
       isUnordered: true,
       videoId: 'xk0DEe_syF4',
       texthighlightId: _.uniqueId('texthighlight'),
+    },
+  },
+  serviceDemo: {
+    meta: {
+      title: 'Service',
+      desc: '',
+    },
+    props: {
+      isUnordered: false,
+      service: true,
+      tabs: defTabsData.props.tabs,
+      instructions_title: 'Service Beschreibung',
+      linklist: {
+        list1: {
+          links: [
+            {
+              linkListItemTitle: 'Stellungsnahme des Direktors', linkListItemHref: '/',
+            },
+          ],
+        },
+      },
     },
   },
 }, (variant) => {

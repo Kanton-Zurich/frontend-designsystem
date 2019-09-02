@@ -7,6 +7,7 @@ const contentNavDataDef = require('../content_nav/content_nav.data').variants.de
 const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
 const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data');
 const inputFormData = require('../../atoms/form_input/form_input.data').props;
+const subnavigationTemplate = require('../subnavigation/subnavigation.data').variants.default.meta.code.template;
 
 const template = dataHelper.getFileContent('topiclist.hbs');
 const data = _.merge({}, defaultData, {
@@ -17,6 +18,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('topiclist.md'),
   },
   props: {
+    isNavigation: false,
     topiclistHeading: {
       level: 2,
       title: 'Unsere Themen',
@@ -72,18 +74,6 @@ const data = _.merge({}, defaultData, {
         _.merge({}, contentTeaserDataWithoutBuzzwords, {
           shortTitle: 'Fahren im Alter1',
         }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Fahren im Alter2',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Fahren im Alter3',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Fahren im Alter4',
-        }),
-        _.merge({}, contentTeaserDataWithoutBuzzwords, {
-          shortTitle: 'Fahren im Alter5',
-        }),
       ],
     }),
   },
@@ -104,9 +94,13 @@ const variants = _.mapValues({
     props: {
       topiclistInput: _.merge({}, inputFormData, {
         label: 'Themen nach Stichwort filtern',
+        dataSelector: 'data-topiclist="input"',
         isSmall: true,
-        selector: 'data-topiclist="input"',
-        hasClearButton: true,
+        additionalFunctionality: {
+          icon: 'clear',
+          buttontype: 'clear',
+          ariaText: 'Lösche Eingabe',
+        },
       }),
       topiclistHeading: false,
       topiclistLead: false,
@@ -175,9 +169,93 @@ const variants = _.mapValues({
       autosuggestTopicList: {
         items: [],
         selector: 'data-topiclist="autosuggest"',
-        additionalClasses: 'mdl-topiclist__autosuggest',
+        additionalClasses: 'mdl-topiclist__autosuggest mdl-content_nav--single-column',
       },
       contentTeaserTemplate: contentTeaserDefaultData.variants.default.meta.code.template,
+      options: JSON.stringify({
+        url: '/mocks/modules/topiclist/topiclist.json',
+      }),
+    },
+  },
+  topicsNav: {
+    meta: {
+      title: 'Themenliste Hauptnavigation',
+      desc: 'Themenliste für die Hauptnavigation',
+    },
+    props: {
+      isNavigation: true,
+      topiclistInput: _.merge({}, inputFormData, {
+        label: 'Filtern nach Themen',
+        dataSelector: 'data-topiclist="input"',
+        isSmall: true,
+        additionalFunctionality: {
+          icon: 'clear',
+          buttontype: 'clear',
+          ariaText: 'Lösche Eingabe',
+        },
+      }),
+      topiclistHeading: false,
+      topiclistLead: false,
+      isTopiclistHome: true,
+      topiclistButtonLabel: 'Alle anzeigen',
+      topiclistcontentNavData: {
+        items: [],
+        selector: 'data-topiclist="navigation"',
+        additionalClasses: 'mdl-topiclist__navigation',
+      },
+      autosuggestTopicList: {
+        items: [],
+        selector: 'data-topiclist="autosuggest"',
+        additionalClasses: 'mdl-topiclist__autosuggest mdl-content_nav--single-column',
+      },
+      contentTeaserTemplate: contentTeaserDefaultData.variants.default.meta.code.template,
+      options: JSON.stringify({
+        url: '/mocks/modules/topiclist/topiclist.json',
+      }),
+      subnavigationTemplate,
+    },
+  },
+  organisationNav: {
+    meta: {
+      title: 'Organisation Hauptnavigation',
+      desc: 'Organisationen für die Hauptnavigation',
+    },
+    props: {
+      isNavigation: true,
+      topiclistInput: _.merge({}, inputFormData, {
+        label: 'Filtern nach Amt, Direktion',
+        dataSelector: 'data-topiclist="input"',
+        isSmall: true,
+        additionalFunctionality: {
+          icon: 'clear',
+          buttontype: 'clear',
+          ariaText: 'Lösche Eingabe',
+        },
+      }),
+      topiclistHeading: false,
+      topiclistLead: false,
+      isTopiclistHome: true,
+      topiclistButtonLabel: 'Alle anzeigen',
+      topiclistcontentNavData: {
+        items: [],
+        selector: 'data-topiclist="navigation"',
+        additionalClasses: 'mdl-topiclist__navigation',
+      },
+      autosuggestTopicList: {
+        items: [],
+        selector: 'data-topiclist="autosuggest"',
+        additionalClasses: 'mdl-topiclist__autosuggest mdl-content_nav--single-column',
+      },
+      contentTeaserTemplate: contentTeaserDefaultData.variants.default.meta.code.template,
+      options: JSON.stringify({
+        url: '/mocks/modules/topiclist/topiclist.organisations.json',
+      }),
+      subnavigationTemplate,
+      organisationTeaser: {
+        orgTitle: 'Regierungsrat',
+        orgLead: 'Der Regierungsrat ist die oberste leitende und vollziehende Behörde des Kantons. Er wahrt die Verfassung und setzt die Gesetze, Verordnungen und die Beschlüsse des Kantonsrates um.',
+        url: '#',
+      },
     },
   },
 }, (variant) => {
@@ -187,8 +265,9 @@ const variants = _.mapValues({
       return variantValue;
     }
   }).props;
+
   const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
+  const variantData = _.mergeWith({}, data, variant, {
     meta: {
       demo: compiledVariant,
 
@@ -198,6 +277,11 @@ const variants = _.mapValues({
         data: dataHelper.getFormattedJson(variantProps),
       },
     },
+    // eslint-disable-next-line consistent-return
+  }, (dataValue, variantValue, key) => {
+    if (key === 'items') {
+      return variantValue;
+    }
   });
 
   return variantData;

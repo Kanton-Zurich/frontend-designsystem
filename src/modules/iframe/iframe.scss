@@ -4,18 +4,35 @@
   margin-top: pxToRem($sizeHuge);
   margin-bottom: pxToRem($sizeHuge);
 
+  @include mq($from: xlarge) {
+    margin-top: pxToRem($sizeGiant);
+    margin-bottom: pxToRem($sizeGiant);
+  }
+
   iframe {
     width: 100%;
     border: 2px solid $colorBlack10;
     margin-bottom: $sizeTiny;
   }
 
-  a {
-    color: inherit;
+  &--fullWidth {
+    height: 100%;
+    position: fixed;
+    transform: initial;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    left: 0;
+
+    iframe {
+      height: 100%;
+      position: relative;
+      border: 0;
+      margin-bottom: 0;
+    }
   }
 
-  @include mq($from: xlarge) {
-    margin-top: pxToRem($sizeGiant);
-    margin-bottom: pxToRem($sizeGiant);
+  a {
+    color: inherit;
   }
 }

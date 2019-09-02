@@ -1,0 +1,29 @@
+.mdl-application {
+  &__wrapper {
+    @include gridBleed($fullwidth: true);
+
+    &--fullWidth {
+      height: 100%;
+      position: fixed;
+      transform: initial;
+      margin: 0;
+      left: 0;
+
+      .mdl-application {
+        height: 100%;
+        position: relative;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  color: $colorBlack60;
+  margin-top: pxToRem($sizeHuge);
+  margin-bottom: pxToRem($sizeHuge);
+
+  @include mq($from: xlarge) {
+    margin-top: pxToRem($sizeGiant);
+    margin-bottom: pxToRem($sizeGiant);
+  }
+}

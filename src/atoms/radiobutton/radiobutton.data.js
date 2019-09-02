@@ -1,28 +1,21 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const defTabsData = require('../tabs/tabs.data');
 
-const template = dataHelper.getFileContent('service_box.hbs');
+const template = dataHelper.getFileContent('radiobutton.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Service Box',
-    className: 'ServiceBox',
-    jira: 'CZHDEV-473',
-    documentation: dataHelper.getDocumentation('service_box.md'),
+    title: 'Radiobutton',
+    className: 'Radiobutton',
+    jira: 'CZHDEV-847',
+    documentation: dataHelper.getDocumentation('radiobutton.md'),
   },
   props: {
-    tabs: defTabsData.props.tabs,
-    linklist: {
-      list1: {
-        links: [
-          {
-            linkListItemTitle: 'Stellungsnahme des Direktors', linkListItemHref: '/',
-          },
-        ],
-      },
-    },
+    label: 'Radio button label',
+    groupName: 'Radiogroup',
+    id: 1,
+    value: 'value',
   },
 });
 const variants = _.mapValues({
@@ -30,6 +23,24 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+  },
+  checked: {
+    meta: {
+      title: 'Vorausgewählt',
+      desc: 'Initial Ausgewählt/aktiv.',
+    },
+    props: {
+      isChecked: true,
+    },
+  },
+  disabled: {
+    meta: {
+      title: 'Deaktiviert',
+      desc: 'Initial deaktiviert, nicht click- bzw auswählbar.',
+    },
+    props: {
+      isDisabled: true,
     },
   },
 }, (variant) => {
@@ -41,8 +52,8 @@ const variants = _.mapValues({
 
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
         data: dataHelper.getFormattedJson(variantProps),
+        html: dataHelper.getFormattedHtml(compiledVariant()),
       },
     },
   });

@@ -19,7 +19,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Themen',
-        anchorlinkAdress: '#ourtopics',
+        anchorlinkAdress: 'ourtopics',
         anchorlinkIsActive: true,
         anchorlinkAsButton: true,
       },
@@ -27,7 +27,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Services',
-        anchorlinkAdress: '#services',
+        anchorlinkAdress: 'services',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -35,7 +35,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Kontakt',
-        anchorlinkAdress: '#contact',
+        anchorlinkAdress: 'contact',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -43,7 +43,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'News',
-        anchorlinkAdress: '#news_teaser',
+        anchorlinkAdress: 'news_teaser',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -51,7 +51,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Ähnliche Inhalte',
-        anchorlinkAdress: '#related_content',
+        anchorlinkAdress: 'related_content',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -59,7 +59,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Zuständigkeiten',
-        anchorlinkAdress: '#responsibilities',
+        anchorlinkAdress: 'responsibilities',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -130,7 +130,7 @@ const data = _.merge({}, defaultData, {
       anchorNav: defAnchorNavData,
       serviceListData: {
         serviceListHeading: {
-          title: 'Service',
+          title: 'Service123',
           anchorNavReference: 'services',
         },
         items: [

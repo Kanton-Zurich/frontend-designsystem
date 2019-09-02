@@ -1,0 +1,73 @@
+.atm-notification {
+  display: flex;
+  align-items: center;
+
+  border-radius: 3px;
+  background: $colorRed;
+  padding: pxToRem($sizeRegular);
+
+  .icon use {
+    fill: $colorWhite;
+  }
+
+  &__title {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  &__message {
+    flex-grow: 1;
+    margin-left: pxToRem($sizeRegular);
+
+    color: $colorWhite;
+
+    button {
+      color: $colorWhite;
+      position: relative;
+
+      &:after {
+        content: ' ';
+        width: 100%;
+        position: absolute;
+
+        bottom: 1px;
+        left: 0;
+        height: 1px;
+        background: $colorWhite;
+      }
+    }
+
+    ul {
+      @include resetList;
+
+      display: inline;
+      list-style-type: none;
+
+      li {
+        display: inline;
+
+        &:after {
+          content: ', ';
+        }
+
+        &:last-child:after {
+          content: '';
+        }
+      }
+    }
+  }
+
+  /** Green variation for form confirmation */
+  &--green {
+    background: $colorGreen;
+  }
+
+  &--big {
+    .icon {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}

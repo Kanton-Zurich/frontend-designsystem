@@ -1,0 +1,159 @@
+$stepperNavigationCurves: (
+  ordinalFontSize: (
+    tiny: $sizeFontSmallBig,
+    large: $sizeFontBiggerBig,
+  ),
+);
+
+.mdl-stepper_navigation {
+  list-style-type: none;
+
+  @include resetList;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  @include mq($to: medium) {
+    padding-bottom: pxToRem($sizeRegular * $sizeLineHeightBase);
+  }
+
+  &:after {
+    position: absolute;
+    content: ' ';
+    display: block;
+
+    height: 1px;
+    width: 100%;
+
+    left: 0;
+    background: $colorBlack20;
+
+    top: 33%;
+
+    @include mq($to: small) {
+      top: 25%;
+    }
+  }
+
+  &__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    color: $colorBlack60;
+
+    @include transition(color);
+
+    z-index: $zIndexInner;
+
+    &[ disabled ] {
+      pointer-events: none;
+    }
+
+    &-ordinal {
+      @include polyFluidSizing(font-size, map-get($stepperNavigationCurves, ordinalFontSize));
+
+      line-height: $sizeLineHeightNarrow;
+      margin-bottom: pxToRem($sizeMini);
+      font-weight: $fontWeightBlack;
+
+      background: $colorWhite;
+
+      @include sizeCurve(padding-left padding-right, tiny);
+    }
+
+    &-title {
+      font-weight: $sizeLineHeightBigger;
+
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+      @include mq($to: medium) {
+        display: none;
+
+        .mdl-stepper_navigation__step--active & {
+          display: block;
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          left: 0;
+        }
+      }
+    }
+
+
+    &-checkmark {
+      width: 4rem;
+      height: 2.625rem;
+
+      display: none;
+
+      background: $colorWhite;
+
+      use {
+        fill: $colorBlue;
+      }
+
+      @include mq($to: small) {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+
+    // INTERACTION STYLES */
+    &:hover {
+      color: $colorBlack;
+
+      use {
+        fill: $colorBlack;
+      }
+    }
+
+    &--visited {
+      .mdl-stepper_navigation__step-ordinal {
+        display: none;
+      }
+
+      .mdl-stepper_navigation__step-checkmark {
+        display: block;
+      }
+    }
+
+    &--active {
+      color: $colorBlue;
+
+      .mdl-stepper_navigation__step-title {
+        color: $colorBlack;
+        font-weight: $fontWeightBlack;
+      }
+
+      .mdl-stepper_navigation__step-ordinal {
+        display: block;
+      }
+
+      .mdl-stepper_navigation__step-checkmark {
+        display: none;
+      }
+    }
+  }
+
+  li:first-child .mdl-stepper_navigation__step {
+    align-items: flex-start;
+
+    .mdl-stepper_navigation__step-ordinal {
+      padding-left: 0;
+    }
+  }
+
+  li:last-child .mdl-stepper_navigation__step {
+    align-items: flex-end;
+
+    .mdl-stepper_navigation__step-ordinal {
+      padding-right: 0;
+    }
+  }
+
+  > li {
+    display: flex;
+    align-items: stretch;
+  }
+}

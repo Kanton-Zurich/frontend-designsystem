@@ -1,3 +1,15 @@
+$modalCurves: (
+  closeTop: (
+    xsmall: $sizeRegular,
+    medium: $sizeBig,
+    xlarge: $sizeLarge
+  ),
+  closeRight: (
+    tiny: $sizeRegular,
+    medium: $sizeSmallBig,
+  )
+);
+
 .mdl-modal {
   $scrollHeightMax: 400px;
   $scrollHeightMedium: 150px;
@@ -8,22 +20,76 @@
   overflow-y: scroll;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  z-index: 100;
+  z-index: $zIndexInvisible;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  display: none;
+  max-height: 0;
   opacity: 0;
-  animation: modalfade 0.5s linear forwards;
   background-color: $colorWhite;
+
+  @include transition(opacity, $transitionTimeMorph, $transitionEasingAccelerate);
 
   &--show {
     display: block;
+    opacity: 1;
+    z-index: $zIndexOverlays;
+    max-height: 100%;
+
+    &.mdl-modal--transition-hide {
+      @include transition(opacity, $transitionTimeMorph, $transitionEasingDecelerate);
+
+      opacity: 0;
+    }
+  }
+
+  &--flyout {
+    transform: translateY(-20%);
+
+    @include transition(opacity transform, $transitionTimeMorph, $transitionEasingAccelerate);
+
+    &.mdl-modal--show {
+      transform: translateY(0);
+
+      @include sizeCurve(padding-top, height, $headerCurves);
+
+      &.mdl-modal--transition-hide {
+        transform: translateY(-20%);
+
+        @include transition(opacity transform, $transitionTimeMorph, $transitionEasingDecelerate);
+      }
+    }
+  }
+
+  &__close {
+    position: absolute;
+    right: 0;
+
+    display: flex;
+    align-items: center;
+    z-index: $zIndexOverlays;
+
+    @include sizeCurve(margin-top, closeTop, $modalCurves);
+    @include sizeCurve(margin-right, closeRight, $modalCurves);
+    @include textButton;
+  }
+
+  &__close-label {
+    @include mq($to: large) {
+      @include visuallyhidden;
+    }
+  }
+
+  &__exit {
+    height: 0.62 * $sizeLarge;
+    width: 0.62 * $sizeLarge;
+    margin-left: $sizeSmallRegular;
   }
 
   .mdl-page-header {
-    transform: initial;
+    transform: translateX(0); // stylelint-disable-line
+    transform: initial; // stylelint-disable-line
     margin: 0;
     position: fixed;
     top: 0;
@@ -38,9 +104,10 @@
     }
   }
 
-  @keyframes modalfade {
-    100% {
-      opacity: 1;
-    }
+  .mdl-application__wrapper--fullWidth,
+  .mdl-iframe--fullWidth {
+    transform: initial;
+    position: initial;
+    margin-left: 0;
   }
 }

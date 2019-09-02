@@ -3,6 +3,8 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
+const modalData = require('../modal/modal.data');
+
 const template = dataHelper.getFileContent('header.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -15,12 +17,20 @@ const data = _.merge({}, defaultData, {
     navItem: [
       {
         title: 'Themen',
-        function: 'topics',
+        modal: 'flyout-topics',
       },
       {
         title: 'Organisation',
-        function: 'organisation',
+        modal: 'flyout-organisation',
       },
+    ],
+    modals: [
+      _.merge({}, modalData.variants.topicFlyout.props, {
+        preview: false,
+      }),
+      _.merge({}, modalData.variants.organisationFlyout.props, {
+        preview: false,
+      }),
     ],
   },
 });

@@ -74,11 +74,11 @@ class FlyingFocus {
       return;
     }
 
-    this.hideFlyingFocus();
+    // this.hideFlyingFocus();
     event.target.classList.add(this.options.targetClass);
     this.ringElement.classList.add(this.options.visibleClass);
     this.prevFocused = event.target;
-    this.movingId = setTimeout(this.hideFlyingFocus, this.options.duration);
+    // this.movingId = setTimeout(this.hideFlyingFocus, this.options.duration);
   }
 
   /**
@@ -90,6 +90,7 @@ class FlyingFocus {
     if (!this.movingId) {
       return;
     }
+
     clearTimeout(this.movingId);
     this.movingId = 0;
     this.ringElement.classList.remove(this.options.visibleClass);
