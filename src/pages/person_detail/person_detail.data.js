@@ -64,7 +64,7 @@ const defAnchorNavData = {
     {
       anchorlink: {
         anchorlinkText: 'Weiterführende Informationen',
-        anchorlinkAdress: 'info',
+        anchorlinkAdress: 'furtherinfo',
         anchorlinkIsActive: false,
         anchorlinkAsButton: true,
       },
@@ -153,7 +153,6 @@ const data = _.merge({}, defaultData, {
       tableData1: _.merge({},
         defTableData.variants.default.props,
         {
-          anchorReference: 'events',
           tableTitle: 'Juni 2019',
         },
         defClearTableData),
@@ -206,7 +205,7 @@ const data = _.merge({}, defaultData, {
       linklistData: _.merge({},
         _.omit(defLinklistData.variants.default.props, ['links']),
         {
-          anchorReference: 'info',
+          anchorReference: 'furtherinfo',
           linkListTitle: 'Weiterführende Information',
           links: [
             {
