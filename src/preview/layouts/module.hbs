@@ -53,7 +53,9 @@
                       </div>
                     {{else}}
                       <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+                        {{#if meta.wrapInForm}}<form novalidate>{{/if}}
                         {{{meta.demo}}}
+                        {{#if meta.wrapInForm}}</form>{{/if}}
                       </div>
                     {{/if}}
 

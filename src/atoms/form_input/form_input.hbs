@@ -4,18 +4,22 @@
   isTriggerWithInput}} atm-form_input--trigger-phone{{/if}}"{{#unless isSelectTrigger}} data-input{{/unless}}>
 
   {{# if isSelectTrigger}}
-    <button aria-expanded="false" aria-labelledby="aria-labledBy-{{uuid}} {{uuid}}" id="{{uuid}}" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+    <button aria-expanded="false" aria-labelledby="aria-labledBy-{{uuid}} {{uuid}}" id="{{uuid}}"
+            class="atm-form_input__input atm-form_input__input--trigger" type="button">
       <span id="aria-labledBy-{{uuid}}" class="atm-form_input__trigger-label">{{label}}</span>
       <span class="atm-form_input__trigger-value"></span>
       <svg class="icon" focusable="false">
         <use xlink:href="#{{icon}}"></use>
       </svg>
     </button>
-    {{#if isTriggerWithInput}}<input id="select_phone_input" name="phone_input" type="number" placeholder="Telefonnummer"><label class="visuallyhidden" for="select_phone_input">Bitte hier ihre Telefonnummer eingeben</label>{{/if}}
+    {{#if isTriggerWithInput}}
+      <input id="select_phone_input" name="phone_input" type="number" placeholder="Telefonnummer"><label
+      class="visuallyhidden" for="select_phone_input">Bitte hier ihre Telefonnummer eingeben</label>{{/if}}
   {{/if}}
 
   {{# if isTextarea}}
-    <textarea class="atm-form_input__input atm-form_input__input--txtarea" id="{{uuid}}" placeholder="{{label}}"{{#if name }}
+    <textarea class="atm-form_input__input atm-form_input__input--txtarea" id="{{uuid}}" placeholder="{{label}}"{{#if
+      name }}
               name="{{name}}"{{/if}}{{#if cols }}
               cols="{{cols}}"{{/if}}{{#if rows }} rows="{{rows}}"{{/if}}{{#if validation.max }}
               maxlength="{{validation.max}}"{{/if}}{{#if validation.isRequired}} required{{/if}}{{#if isReadOnly}}
@@ -38,7 +42,7 @@
       {{#if dataSelector}} {{{dataSelector}}}{{/if}}
       {{#if validation.isRequired}} required{{/if}}
       {{#if isReadOnly}} readonly{{/if}}
-      {{#if autocompleteOff}} [autocomplete="off"]{{/if}}
+      {{#if autocompleteOff}} [autocomplete="off" ]{{/if}}
       {{#if disabled}} disabled{{/if}}
       {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
       {{#if validation}} data-validation{{/if}}
@@ -49,7 +53,8 @@
     <label for="{{uuid}}">{{label}}</label>
     {{# unless additionalFunctionality}}
       {{#if validation }}
-        <span class="atm-form_input__validate-icon">
+        {{#unless usedCustomIcon}}
+          <span class="atm-form_input__validate-icon">
           <span>
             <span class="visuallyhidden">{{validation.ariaTextValid}}</span>
             <svg class="icon" focusable="false">
@@ -63,11 +68,13 @@
               </svg>
           </span>
         </span>
+        {{/unless}}
       {{/if}}
     {{/unless}}
 
     {{#if additionalFunctionality}}
-      <button class="atm-form_input__functionality" type="button" data-buttontype="{{additionalFunctionality.buttontype}}">
+      <button class="atm-form_input__functionality" type="button"
+              data-buttontype="{{additionalFunctionality.buttontype}}">
         <span class="visuallyhidden">{{additionalFunctionality.ariaText}}</span>
         <svg class="icon">
           <use xlink:href="#{{additionalFunctionality.icon }}"></use>

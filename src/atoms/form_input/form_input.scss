@@ -259,11 +259,17 @@ $unitLeftSpace: 62px;
 
     .icon {
       position: absolute;
-      top: 50%;
+      top: pxToRem($sizeLarge);
       right: pxToRem($sizeSmallRegular);
-      transform: translateY(-50%) rotate(0deg);
+      transform: rotate(0deg);
       transition: 400ms transform ease-out;
       fill: $colorBlack40;
+    }
+  }
+
+  &--small {
+    .icon {
+      top: pxToRem($sizeSmallRegular);
     }
   }
 

@@ -23,6 +23,9 @@ class FormGlobalHelper {
     }
 
     if (field.hasAttribute('data-pattern') && requiredResult) {
+      console.log('if in fomr.ts');
+      console.log(field);
+
       const pattern = new RegExp(field.getAttribute('data-pattern'), 'i');
 
       patternResult = pattern.test(field.value);
