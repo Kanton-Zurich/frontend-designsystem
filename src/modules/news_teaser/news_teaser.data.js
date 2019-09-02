@@ -21,7 +21,7 @@ const demoImageFigureData = {
       imageWidth: 1025,
     },
   ],
-  alt: 'Das ist ein Beispielbild',
+  alt: '',
   isSmall: false,
   isWide: false,
   hasDownload: false,

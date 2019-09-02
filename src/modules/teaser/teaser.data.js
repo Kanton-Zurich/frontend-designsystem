@@ -31,7 +31,10 @@ const data = _.merge({}, defaultData, {
     teaserDisplayDate: '14.12.2018',
     teaserMachineReadableDate: '2018-12-14',
     teaserButtonLabel: 'Mehr erfahren',
-  }, imageFigureDemoData.props, { noTitle: true }, {
+  }, imageFigureDemoData.props, {
+    noTitle: true,
+    alt: '',
+  }, {
     srcsets: [{
       image: '/assets/media/image/teaserimage_4_3_584_15.jpeg',
       imageWidth: 1024,
@@ -41,7 +44,7 @@ const data = _.merge({}, defaultData, {
     }, {
       image: '/assets/media/image/teaserimage_16_9_530_15.jpeg',
       imageWidth: 320,
-    } ],
+    }],
   }),
 });
 
