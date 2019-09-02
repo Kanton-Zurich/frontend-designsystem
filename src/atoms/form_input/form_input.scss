@@ -468,7 +468,7 @@ $unitLeftSpace: 62px;
   * DIRTY / FOCUS
   */
   &.dirty .atm-form_input__input,
-  .atm-form_input__input:focus {
+  &.atm-form_input--floated .atm-form_input__input:focus {
     color: $colorBlack;
     padding-top: pxToRem(35px);
     padding-bottom: pxToRem(15px);
