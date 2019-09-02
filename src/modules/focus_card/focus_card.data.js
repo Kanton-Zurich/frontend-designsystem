@@ -25,7 +25,7 @@ const variants = _.mapValues({
   default: {
     meta: {
       title: 'Standard',
-      desc: 'Standatd-Implementation',
+      desc: 'Standard-Implementation',
     },
   },
 }, (variant) => {

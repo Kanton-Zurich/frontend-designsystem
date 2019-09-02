@@ -29,6 +29,10 @@ const demoImageFigureData = {
   noTitle: true,
 };
 
+const promoTeaserData = _.merge({}, demoTeaserData, {
+  teaserHeadingLevel: 3,
+});
+
 const demoLinkListData = {
   linkListTitle: 'Weitere aktuelle Meldungen',
   links: [
@@ -178,7 +182,7 @@ const variants = _.mapValues({
         allArticleHref: '#',
         allArticleLabel: 'Alle Beiträge',
       },
-      prominentTeaser: demoTeaserData,
+      prominentTeaser: promoTeaserData,
     },
   },
   withTwoItems: {
