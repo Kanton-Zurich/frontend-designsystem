@@ -15,6 +15,7 @@ const data = _.merge({}, defaultData, {
   props: {
     type: 'text',
     label: 'Placeholder',
+    isInput: true,
     uuid: _.uniqueId('input'),
     name: 'input_name',
   },
@@ -33,6 +34,7 @@ const variants = _.mapValues({
     },
     props: {
       isTextarea: true,
+      isInput: false,
       isFloatingLabel: true,
       label: 'Placeholder',
       uuid: _.uniqueId('textarea'),
@@ -80,7 +82,7 @@ const variants = _.mapValues({
       uuid: _.uniqueId('float_input_valid'),
       isFloatingLabel: true,
       isRequired: true,
-      
+
     },
   },
   clearButton: {
@@ -100,6 +102,26 @@ const variants = _.mapValues({
       isFloatingLabel: true,
       additionalFunctionality: {
         icon: 'clear',
+        buttontype: 'clear',
+        ariaText: 'Lösche Eingabe',
+      },
+    },
+  },
+  clearButtonSmallWithIcon: {
+    meta: {
+      title: 'Kleines Textfeld mit löschen (und zusätzlichem Icon)',
+      desc: 'Input mit floating Label, validierung und zurücksetzen funktionalität und zusätzlichem Icon.',
+    },
+    props: {
+      type: 'text',
+      label: 'Filter',
+      isSmall: true,
+      iconOnly: {
+        icon: 'search',
+      },
+      uuid: _.uniqueId('float_input_clear'),
+      additionalFunctionality: {
+        icon: 'exit',
         buttontype: 'clear',
         ariaText: 'Lösche Eingabe',
       },
@@ -170,6 +192,54 @@ const variants = _.mapValues({
         icon: 'clear',
         buttontype: 'clear',
         ariaText: 'Lösche Eingabe',
+      },
+    },
+  },
+  smallWithIcon: {
+    meta: {
+      title: 'Input-Klein-Icon (Select mit Filter)',
+      desc: 'Eine kleine Variante des Inputs mit Icon rechts',
+    },
+    props: {
+      isSmall: true,
+      uuid: _.uniqueId('float_input_smallTopic'),
+      iconOnly: {
+        icon: 'search',
+      },
+    },
+  },
+  triggerDefault: {
+    meta: {
+      title: 'Select Trigger(default)',
+      desc: 'Input mit floating Label',
+    },
+    props: {
+      type: 'text',
+      isSelectTrigger: true,
+      isFloatingLabel: true,
+      isInput: false,
+      label: 'Select Float Label',
+      uuid: _.uniqueId('float_button-'),
+      validation: {
+        isRequired: true,
+      },
+    },
+  },
+  triggerPhone: {
+    meta: {
+      title: 'Select Trigger(phone)',
+      desc: 'Input mit floating Label',
+    },
+    props: {
+      type: 'text',
+      isSelectTrigger: true,
+      isTriggerWithInput: true,
+      isInput: false,
+      label: 'Select Float Label',
+      demoTel: true,
+      uuid: _.uniqueId('float_button-'),
+      validation: {
+        isRequired: true,
       },
     },
   },

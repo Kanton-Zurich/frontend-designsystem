@@ -1,0 +1,167 @@
+$selectHeight: 208px;
+$selectHeightWithFilter: 360px;
+$selectHeightWithFilterExtended: 424px;
+
+.mdl-select {
+  position: relative;
+
+  &__options {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    width: 100%;
+    height: 0;
+    transition: 400ms height ease-out;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
+    background-color: $colorWhite;
+    overflow: hidden;
+    border-radius: 1px;
+
+    ul {
+      // Overwrite list atom styles
+      box-shadow: none;
+      border-radius: 0;
+      height: 100%;
+    }
+  }
+
+  .atm-form_input--trigger-phone {
+    input {
+      // Remove light blueish background after auto-fill / focus
+      -webkit-box-shadow: 0 0 0 1000px $colorWhite inset !important; //stylelint-disable-line
+    }
+  }
+
+  &.invalid {
+    .atm-form_input--trigger {
+      button {
+        border-color: $colorRed;
+      }
+    }
+
+    .mdl-select__error-msg {
+      display: block;
+    }
+  }
+
+  &__filter {
+    top: pxToRem(-$sizeGiant);
+  }
+
+  &__apply {
+    bottom: pxToRem(-$sizeGiant);
+
+    button {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+  }
+
+  &__filter,
+  &__apply {
+    position: relative;
+    left: 0;
+    cursor: pointer;
+    height: pxToRem($sizeGiant);
+    padding: pxToRem($sizeRegular);
+    visibility: hidden;
+  }
+
+  &__error-msg {
+    display: none;
+    height: pxToRem($sizeSmallBig);
+    font-size: pxToRem($sizeFontTiny);
+    line-height: $sizeLineHeightBase;
+    color: $colorWhite;
+    background-color: $colorRed;
+    border: 2px solid $colorRed;
+    border-radius: 1px;
+    margin: 0;
+    padding: 0 pxToRem($sizeRegular);
+  }
+
+  &--open {
+    .mdl-select__filter,
+    .mdl-select__apply {
+      visibility: visible;
+    }
+
+    .mdl-select__filter {
+      top: 0;
+    }
+
+    .mdl-select__apply {
+      bottom: 0;
+    }
+
+    .atm-form_input--trigger {
+      button {
+        border-color: $colorCyan;
+        outline: 0;
+      }
+
+      .icon {
+        transform: translateY(-50%) rotate(180deg);
+      }
+    }
+
+    .mdl-select__options {
+      height: pxToRem($selectHeight);
+      z-index: $zIndexDropDowns;
+    }
+
+    &.mdl-select--filter {
+      .mdl-select__options {
+        height: pxToRem($selectHeightWithFilter);
+
+        ul {
+          height: calc(100% - 80px);
+        }
+      }
+    }
+
+    &.mdl-select--filter-ext {
+      .mdl-select__options {
+        height: pxToRem($selectHeightWithFilterExtended);
+
+        ul {
+          height: calc(100% - 160px);
+        }
+      }
+    }
+  }
+
+  &--selected {
+    .atm-form_input__trigger-value {
+      color: $colorBlack;
+    }
+
+    .atm-form_input__input--trigger svg {
+      fill: $colorBlack;
+    }
+  }
+
+  &--selected,
+  &--open {
+    .atm-form_input {
+
+      &__input--trigger {
+
+        padding-top: pxToRem(35px);
+        padding-bottom: pxToRem(15px);
+      }
+
+      &__trigger-label {
+        pointer-events: none;
+        padding: 0;
+        top: pxToRem($sizeFontSmall);
+        font-weight: $fontWeightBlack;
+        font-size: pxToRem($sizeFontTiny);
+        line-height: $sizeLineHeightBase;
+        color: $colorBlack;
+        transform: none;
+      }
+    }
+  }
+}

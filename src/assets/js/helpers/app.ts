@@ -27,6 +27,10 @@ import SocialMediaStream from '../../../modules/social_media_stream/social_media
 import Stepper from '../../../modules/stepper/stepper';
 import ServiceButton from '../../../modules/service_button/service_button';
 import Application from '../../../modules/application/application';
+import FileUpload from '../../../modules/file_upload/file_upload';
+import Select from '../../../modules/select/select';
+import ServiceWrapper from '../../../modules/service_wrapper/service_wrapper';
+import Pagination from '../../../modules/pagination/pagination';
 import NewsFilterMobile from '../../../modules/news_filter_mobile/news_filter_mobile';
 /* autoinsertmodulereference */ // eslint-disable-line
 
@@ -64,6 +68,10 @@ class App {
     this.modules.stepper = Stepper;
     this.modules.serviceButton = ServiceButton;
     this.modules.application = Application;
+    this.modules.fileUpload = FileUpload;
+    this.modules.select = Select;
+    this.modules.serviceWrapper = ServiceWrapper;
+    this.modules.pagination = Pagination;
     this.modules.newsFilterMobile = NewsFilterMobile;
     /* autoinsertmodule */ // eslint-disable-line
 
@@ -194,7 +202,10 @@ class App {
     const forms = document.querySelectorAll('form[novalidate]');
 
     forms.forEach((form) => {
-      new Form(form);
+      if (!form.getAttribute('initialized')) {
+        new Form(form);
+        form.setAttribute('initialized', 'true');
+      }
     });
   }
 }

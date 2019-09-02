@@ -109,6 +109,7 @@ class Modal extends Module {
         .bind((<any>window).estatico.helpers.app)(this.ui.element);
       (<any>window).estatico.helpers.initModulesInElement
         .bind((<any>window).estatico.helpers.app)(this.ui.element);
+      (<any>window).estatico.helpers.app.registerForms();
     });
     this.eventDelegate.on('Modal.close', this.closeModal.bind(this));
     this.eventDelegate.on('click', this.options.domSelectors.close, this.closeModal.bind(this));
@@ -165,7 +166,9 @@ class Modal extends Module {
   closeModal() {
     document.documentElement.style.overflowY = 'initial';
     this.ui.element.classList.add(this.options.stateClasses.transHide);
-    document.documentElement.scrollTo(0, this.parentScrollPosition);
+    if (document.documentElement.scrollTo) {
+      document.documentElement.scrollTo(0, this.parentScrollPosition);
+    }
     window.removeEventListener('keydown', this.closeOnEscapeFunction);
     this.isolatedElements.forEach((element) => {
       element.removeAttribute('aria-hidden');

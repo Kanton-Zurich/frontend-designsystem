@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const template = dataHelper.getFileContent('list.hbs');
@@ -15,6 +15,9 @@ const data = _.merge({}, defaultData, {
     iconRight: 'arrow-right',
     iconLeft: 'check',
     groupPostfix: 'default',
+    validation: {
+      isRequired: true,
+    },
     selectOptions: [
       { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
       { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
@@ -48,6 +51,39 @@ const variants = _.mapValues({
       isMultiSelect: true,
     },
   },
+  iconLeftPreselected: {
+    meta: {
+      title: 'Mehrfachauswahl mit Vorauswahl und Icon links',
+      desc: 'Liste mit Icon links nur bei Auswahl',
+    },
+    props: {
+      groupPostfix: 'iconLeftMulti',
+      isMultiSelect: true,
+      hasFilterAndButton: true,
+      hasOptionIcon: true,
+      hasCheckIcon: true,
+      selectOptions: [
+        { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
+        { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
+        { value: 'sich', label: 'Sicherheit & Justiz', id: _.uniqueId('option-item') },
+        {
+          value: 'so',
+          label: 'Soziales',
+          id: _.uniqueId('option-item'),
+          preSelected: true,
+        },
+        {
+          value: 'st',
+          label: 'Steuern',
+          id: _.uniqueId('option-item'),
+          preSelected: true,
+        },
+        { value: 'umte', label: 'Umwelt & Tier', id: _.uniqueId('option-item') },
+        { value: 'ge', label: 'Gemeinschaften', id: _.uniqueId('option-item') },
+        { value: 'scer', label: 'Schulen & Erziehung', id: _.uniqueId('option-item') },
+      ],
+    },
+  },
   iconLeft: {
     meta: {
       title: 'Mehrfachauswahl mit Icon links',
@@ -63,8 +99,8 @@ const variants = _.mapValues({
         { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
         { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
         { value: 'sich', label: 'Sicherheit & Justiz', id: _.uniqueId('option-item') },
-        { value: 'so', label: 'Soziales', id: _.uniqueId('option-item'), preSelected: true },
-        { value: 'st', label: 'Steuern', id: _.uniqueId('option-item'), preSelected: true },
+        { value: 'so', label: 'Soziales', id: _.uniqueId('option-item') },
+        { value: 'st', label: 'Steuern', id: _.uniqueId('option-item') },
         { value: 'umte', label: 'Umwelt & Tier', id: _.uniqueId('option-item') },
         { value: 'ge', label: 'Gemeinschaften', id: _.uniqueId('option-item') },
         { value: 'scer', label: 'Schulen & Erziehung', id: _.uniqueId('option-item') },
