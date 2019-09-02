@@ -60,6 +60,28 @@ const variants = _.mapValues({
       isButton: false,
     },
   },
+  filterMenu: {
+    meta: {
+      title: 'Filter Menu Item (CZHDEV-990)',
+      desc: '',
+    },
+    props: {
+      subtitle: '2 gewählt',
+      subTitlePattern: '% gewählt',
+      noColor: true,
+    },
+  },
+  filterDropdown: {
+    meta: {
+      title: 'Filter Dropdown (CZHDEV-990)',
+      desc: '',
+    },
+    props: {
+      subtitle: '26.08.2019 - 10.10.2020',
+      noColor: true,
+      chevron: true,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

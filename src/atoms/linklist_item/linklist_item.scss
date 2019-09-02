@@ -94,6 +94,14 @@
     > span {
       display: block;
     }
+
+    &-subtitle {
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+
+      text-align: right;
+      color: rgba($colorText, 0.6);
+      font-weight: $fontWeightDefault;
+    }
   }
 
   &__label {
@@ -109,7 +117,7 @@
 
 @each $key, $val in $tl-color-variations {
   .#{$key} {
-    .atm-linklist_item:not(.atm-linklist_item--download) {
+    .atm-linklist_item:not(.atm-linklist_item--download):not(.atm-linklist_item--nocolor) {
       color: rgba($val, 1);
 
       &:hover {

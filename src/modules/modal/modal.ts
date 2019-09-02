@@ -74,10 +74,14 @@ class Modal extends Module {
       this.ui.element.removeAttribute('style');
       (<any>window).estatico.helpers.setHiddenTabIndex(this.ui.element);
       // delayed opacity animation
-      setTimeout(() => { this.ui.element.classList.add(this.options.stateClasses.show); }, 1);
-      this.ui.element.focus();
-      this.ui.element.scrollTop = 0;
-
+      setTimeout(() => { this.ui.element.classList.add(this.options.stateClasses.show); }, 0);
+      const focusable = this.ui.element.querySelector('[data-modal-focus]');
+      if (focusable) {
+        setTimeout(() => { focusable.focus(); }, 0);
+      } else {
+        this.ui.element.focus();
+      }
+      this.ui.element.scrollTo(0, 0);
       if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
         this.updateOnScroll(0);
       }
@@ -179,7 +183,7 @@ class Modal extends Module {
       this.ui.element.style.display = 'none';
       (<any>window).estatico.helpers.unwrapAccessibility(this.ui.element);
       (<any>window).estatico.helpers.resetHiddenTabIndex();
-      const focusOrigin = document.querySelector(`a[aria-controls="${this.ui.element.getAttribute('id')}"]`);
+      const focusOrigin = document.querySelector(`[aria-controls="${this.ui.element.getAttribute('id')}"]`);
       if (focusOrigin) {
         (<any> focusOrigin).focus();
       }

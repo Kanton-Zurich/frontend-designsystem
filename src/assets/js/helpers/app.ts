@@ -31,6 +31,7 @@ import FileUpload from '../../../modules/file_upload/file_upload';
 import Select from '../../../modules/select/select';
 import ServiceWrapper from '../../../modules/service_wrapper/service_wrapper';
 import Pagination from '../../../modules/pagination/pagination';
+import NewsFilterMobile from '../../../modules/news_filter_mobile/news_filter_mobile';
 import NewsOverview from '../../../modules/news_overview/news_overview';
 /* autoinsertmodulereference */ // eslint-disable-line
 
@@ -72,6 +73,7 @@ class App {
     this.modules.select = Select;
     this.modules.serviceWrapper = ServiceWrapper;
     this.modules.pagination = Pagination;
+    this.modules.newsFilterMobile = NewsFilterMobile;
     this.modules.newsOverview = NewsOverview;
     /* autoinsertmodule */ // eslint-disable-line
 
