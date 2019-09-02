@@ -109,6 +109,13 @@ $selectHeightWithFilterExtended: 424px;
     .mdl-select__options {
       height: pxToRem($selectHeight);
       z-index: $zIndexDropDowns;
+
+      .atm-list__item {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
 
     &.mdl-select--filter {

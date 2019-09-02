@@ -30,6 +30,7 @@
     position: relative;
     color: $colorBlack60;
     height: pxToRem($sizeSmallHuge);
+    line-height: pxToRem($sizeSmallHuge);
     padding-left: pxToRem($sizeSmallRegular);
     align-items: center;
     display: flex;

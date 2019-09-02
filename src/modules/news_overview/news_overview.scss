@@ -2,7 +2,24 @@
   @include gridBleed($fullwidth: true);
 
   &__filter {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: - $sizeRegular;
 
+    & > div {
+      margin-left: $sizeRegular;
+      width: 100%;
+      flex-basis: 200px;
+      min-width: 200px;
+      flex-grow: 1;
+      margin-bottom: $sizeRegular;
+
+      + .mdl-select--filter {
+        .mdl-select__options {
+          min-width: 200px;
+        }
+      }
+    }
   }
 
   &__pagination {

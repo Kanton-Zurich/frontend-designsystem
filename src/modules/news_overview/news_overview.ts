@@ -13,6 +13,7 @@ class NewsOverview extends Module {
     teaserTemplate: any,
     pagination: HTMLDivElement,
     paginationInput: HTMLInputElement,
+    topNews: HTMLDivElement,
     list: any,
   };
   private dataUrl: string;
@@ -26,7 +27,8 @@ class NewsOverview extends Module {
         teaserTemplate: '[data-teaser-template]',
         pagination: '.mdl-pagination',
         paginationInput: '.mdl-pagination input',
-        list: '.mdl-news-teaser__content > ul',
+        topNews: '.mdl-news-overview__topnews',
+        list: '.mdl-news-overview__newsgrid .mdl-news-teaser__content > ul',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -107,6 +109,7 @@ class NewsOverview extends Module {
    * @param jsonData
    */
   private populateNewsTeasers(jsonData) {
+    // Todo: Check if filters are active and hide top this.ui.topNews
     this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
     this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
     (<HTMLInputElement> this.ui.pagination.querySelector('.atm-form_input__input')).value = '1';
