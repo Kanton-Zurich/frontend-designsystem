@@ -14,7 +14,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     title: 'Generische Fehlerseite',
-    header: headerData.variants.forced.props,
+    header: headerData.variants.inverted.props,
     modules: {
       pageHeader: defPageHeaderData.variants.error403Ext.props,
       contact: defContactData.variants.fullWidthLessData.props,

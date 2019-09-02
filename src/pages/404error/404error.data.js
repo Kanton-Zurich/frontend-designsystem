@@ -14,7 +14,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     title: '404 Fehlerseite',
-    header: headerData.variants.forced.props,
+    header: headerData.variants.inverted.props,
     modules: {
       pageHeader: defPageHeaderData.variants.error404.props,
       contact: defContactData.variants.fullWidthLessData.props,
