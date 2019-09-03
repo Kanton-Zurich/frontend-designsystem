@@ -127,6 +127,7 @@
     .flatpickr-prev-month {
       height: 100%;
       width: pxToRem($sizeSmallHuge);
+      padding: pxToRem($sizeSmallRegular);
       display: inline-flex;
       align-items: center;
 

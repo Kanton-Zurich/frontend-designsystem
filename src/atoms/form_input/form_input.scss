@@ -259,9 +259,9 @@ $unitLeftSpace: 62px;
 
     .icon {
       position: absolute;
-      top: 50%;
+      top: pxToRem($sizeLarge);
       right: pxToRem($sizeSmallRegular);
-      transform: translateY(-50%) rotate(0deg);
+      transform: rotate(0deg);
       transition: 400ms transform ease-out;
       fill: $colorBlack40;
     }
@@ -428,6 +428,10 @@ $unitLeftSpace: 62px;
       padding: pxToRem($sizeSmallRegular) pxToRem($unitLeftSpace) pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
     }
 
+    .icon {
+      top: pxToRem($sizeSmallRegular);
+    }
+
     .atm-form_input__input.dirty ~ .atm-form_input__functionality ~ .icon {
       display: none;
     }
@@ -512,10 +516,13 @@ $unitLeftSpace: 62px;
   /**
   * INVALID
   */
-  &.invalid .atm-form_input__input {
-    border-color: $colorRed;
+  &.invalid {
 
-    & ~ .atm-form_input__validate-icon {
+    .atm-form_input__input {
+      border-color: $colorRed;
+    }
+
+    .atm-form_input__validate-icon {
       span:last-of-type {
         display: block;
 
@@ -525,7 +532,7 @@ $unitLeftSpace: 62px;
       }
     }
 
-    & ~ p.show {
+    p.show {
       padding-top: pxToRem(7px);
       padding-bottom: pxToRem(5px);
       height: auto;
