@@ -6,18 +6,17 @@ Datepicker
 
 The datepicker module has a few relevant aspects in terms of configurations via the data attributes:
 
-- data-datetimeformat
-
-Possible valid string values: 
+- data-datetimeformat 
 1. "time" -  plain timepicker variant
 2. "date" -  plain datepicker variant
 3. "date-range" -  datepicker for selecting a range(from/to)
 4. "date-time" -  datepicker for selecting a plain date combined with a time
 
-- data-daylabels
-
-Normaly the labels are in english. If you want to customize the labels put them there. But 
-*allways starting with sunday* and seperate each day via space like: "So Mo Di Mi Do Fr Sa"
+- data-localization
+1. unset = default = english
+2. "de" for german
+3. "fr" for french
+4. "it" for italian
 
 - data-mindate
 
