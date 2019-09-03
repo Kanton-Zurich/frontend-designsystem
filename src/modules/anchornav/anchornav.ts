@@ -241,6 +241,7 @@ class Anchornav extends Module {
       if (element === null) {
         this.elementMissing = true;
       }
+      element.setAttribute('tabindex', '-1');
       const itemLeft = Math.abs(this.ui.navItems[i].getBoundingClientRect().left);
       const hTriggerPos = itemLeft - this.ui.scrollContent.getBoundingClientRect().left;
       if (element !== null) {
