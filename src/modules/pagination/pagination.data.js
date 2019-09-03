@@ -3,35 +3,16 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const modalData = require('../modal/modal.data');
-
-const template = dataHelper.getFileContent('header.hbs');
+const template = dataHelper.getFileContent('pagination.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Header',
-    className: 'Header',
-    jira: 'CZHDEV-496',
-    documentation: dataHelper.getDocumentation('header.md'),
+    title: 'Seiten Navigation',
+    className: 'Pagination',
+    jira: 'CZHDEV-990',
+    documentation: dataHelper.getDocumentation('pagination.md'),
   },
   props: {
-    navItem: [
-      {
-        title: 'Themen',
-        modal: 'flyout-topics',
-      },
-      {
-        title: 'Organisation',
-        modal: 'flyout-organisation',
-      },
-    ],
-    modals: [
-      _.merge({}, modalData.variants.topicFlyout.props, {
-        preview: false,
-      }),
-      _.merge({}, modalData.variants.organisationFlyout.props, {
-        preview: false,
-      }),
-    ],
+    pageCount: 30,
   },
 });
 const variants = _.mapValues({
@@ -39,15 +20,6 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
-    },
-  },
-  inverted: {
-    meta: {
-      title: 'Invertiert',
-      desc: 'Head Module ignoriert Farbschema und wird einfach plain schwarz/weiss dargestellt',
-    },
-    props: {
-      inverted: true,
     },
   },
 }, (variant) => {
