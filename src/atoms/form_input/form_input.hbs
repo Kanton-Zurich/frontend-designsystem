@@ -1,13 +1,14 @@
 <div class="atm-form_input{{#if isFloatingLabel}} atm-form_input--floated{{/if}}{{#if
-  isSmall}} atm-form_input--small{{/if}}{{#if unitLeft}} atm-form_input--unitLeft{{/if}}{{#if iconOnly}} atm-form_input--icon{{/if}}{{#if isSelectTrigger}} atm-form_input--trigger{{/if}}{{#if isTriggerWithInput}} atm-form_input--trigger-phone{{/if}}
-  " {{#unless isSelectTrigger}}data-input{{/unless}}>
+  isSmall}} atm-form_input--small{{/if}}{{#if unitLeft}} atm-form_input--unitLeft{{/if}}{{#if
+  iconOnly}} atm-form_input--icon{{/if}}{{#if isSelectTrigger}} atm-form_input--trigger{{/if}}{{#if
+  isTriggerWithInput}} atm-form_input--trigger-phone{{/if}}"{{#unless isSelectTrigger}} data-input{{/unless}}>
 
   {{# if isSelectTrigger}}
     <button aria-expanded="false" aria-labelledby="aria-labledBy-{{uuid}} {{uuid}}" id="{{uuid}}" class="atm-form_input__input atm-form_input__input--trigger" type="button">
       <span id="aria-labledBy-{{uuid}}" class="atm-form_input__trigger-label">{{label}}</span>
       <span class="atm-form_input__trigger-value"></span>
       <svg class="icon" focusable="false">
-        <use xlink:href="#angle_drop_down"></use>
+        <use xlink:href="#{{icon}}"></use>
       </svg>
     </button>
     {{#if isTriggerWithInput}}<input id="select_phone_input" name="phone_input" type="number" placeholder="Telefonnummer"><label class="visuallyhidden" for="select_phone_input">Bitte hier ihre Telefonnummer eingeben</label>{{/if}}
