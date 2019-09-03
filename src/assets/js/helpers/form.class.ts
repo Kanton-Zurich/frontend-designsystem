@@ -53,8 +53,6 @@ class Form {
 
     this.eventDelegate = new Delegate(el);
 
-    console.log('FORM CLASS');
-    console.log(this.ui.element);
     // Buttons are listened to
     this.addEventListeners();
 
