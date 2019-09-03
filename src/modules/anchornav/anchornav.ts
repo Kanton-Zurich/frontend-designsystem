@@ -706,7 +706,7 @@ class Anchornav extends Module {
    * Toggles the jump.js plugin flag
    */
   toggleJumpFlag() {
-    this.scrollReferences.forEach((item, index) => {
+    this.scrollReferences.forEach((item) => {
       if (item.correspondingAnchor === this.ui.navItemActive) {
         item.triggerElement.focus();
       }
