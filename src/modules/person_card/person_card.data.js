@@ -12,7 +12,8 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('person_card.md'),
   },
   props: {
-    detailPageLink: '#'
+    detailPageLink: '#',
+    headingLevel: 4,
   },
 });
 const variants = _.mapValues({
@@ -22,7 +23,6 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
-      headingLevel: 4,
       name: 'Carla Mom',
       role: 'Leitende Berufs-, Studien- und Laufbahnberaterin',
       contactInfo: '<a href="mailto:carla.mom@ajb.zh.ch" class="atm-text_link">carla.mom@ajb.zh.ch</a>',
