@@ -50,7 +50,7 @@ const variants = _.mapValues({
         uuid: _.uniqueId('date-'),
         usedCustomIcon: true,
         validation: {
-          pattern: '^\\d{2}\\.\\d{2}\\.(20)\\d{2}$',
+          pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',
           isRequired: true,
           errorMsg: 'Bitte geben Sie eine korrektes Datum an.',
         },
@@ -70,7 +70,7 @@ const variants = _.mapValues({
         uuid: _.uniqueId('date-range-'),
         usedCustomIcon: true,
         validation: {
-          pattern: '^\\d{2}.\\d{2}.\\(20)d{2}\\s-\\s\\d{2}.\\d{2}.\\(20)d{2}$',
+          pattern: '^\\d{2}.\\d{2}.\\d{4}\\s-\\s\\d{2}.\\d{2}.\\(20)d{2}$',
           isRequired: true,
           errorMsg: 'Bitte geben Sie eine korrekte Zeitspanne an.',
         },
@@ -90,7 +90,7 @@ const variants = _.mapValues({
         uuid: _.uniqueId('date-hour-'),
         usedCustomIcon: true,
         validation: {
-          pattern: '^\\d{2}.\\d{2}.\\(20)d{2}\\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$',
+          pattern: '^\\d{2}.\\d{2}.\\d{4}\\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$',
           isRequired: true,
           errorMsg: 'Bitte geben Sie ein korrektes Datum an.',
         },
