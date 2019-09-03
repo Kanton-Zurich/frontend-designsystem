@@ -9,7 +9,7 @@ const git = require('git-rev-sync');
 const nodeSass = require('node-sass');
 const gulpUtil = require('gulp-util');
 require('./gulp/deploy-aem');
-require('./gulp/critical-css');
+require('./gulp/deploy-offlinepage');
 
 gulpUtil.env.aemTargetBase = '../czhdev-backend/sources/zhweb-core/zhweb-core-content/src/main/resources/jcr_root/apps/zhweb/core/';
 gulpUtil.env.aemTargetBaseResources = `${gulpUtil.env.aemTargetBase}clientlibs/publish/resources/`;
@@ -845,6 +845,43 @@ gulp.task('clean:aem', (callback) => {
   return del(gulpUtil.env.aemTargetBaseResources, { force: true }, callback);
 });
 
+gulp.task('copy:offlineassets', () => {
+  const task = require('@unic/estatico-copy');
+  const offlineAssets = task({
+    src: [
+      '!./dist/assets/js/*',
+      '!./dist/assets/css/*',
+      './dist/assets/js/*.min.*',
+      './dist/assets/css/*.min.*',
+      './dist/assets/media/svgsprite/*',
+    ],
+    srcBase: './dist',
+    dest: './dist/ci/offline/',
+    plugins: {
+      changed: null,
+      rename: (filePath) => {
+        let returnPath = filePath;
+        if (filePath.match(/\.min\.js/)) {
+          returnPath = returnPath.replace(/\.min\.js/, `.${git.short()}.min.js`);
+        } else if (filePath.match(/\.js/)) {
+          returnPath = returnPath.replace(/\.js/, `.${git.short()}.js`);
+        }
+        if (filePath.match(/\.min\.css/)) {
+          returnPath = returnPath.replace(/\.min\.css/, `.${git.short()}.min.css`);
+        } else if (filePath.match(/\.css/)) {
+          returnPath = returnPath.replace(/\.css/, `.${git.short()}.css`);
+        }
+        if (filePath.match(/\.svg/)) {
+          returnPath = returnPath.replace(/\.svg/, `.${git.short()}.svg`);
+        }
+        return returnPath;
+      },
+    },
+  }, env);
+
+  return offlineAssets();
+});
+
 /**
  * Create dev and prod build directories
  * Copies specific files into `dist/ci/dev` and `dist/ci/prod`, respectively
@@ -895,6 +932,7 @@ gulp.task('copy:ci', () => {
     },
   }, env);
 
+
   // perserve .content.xml file in resource folder
   const contentXML = task({
     src: [
@@ -923,10 +961,20 @@ gulp.task('clean', () => {
  * Zip deployment package
  */
 gulp.task('zip', () => {
-  return gulp.src('dist/ci/prod/**/*')
+  return gulp.src(['dist/offline.zip', 'dist/ci/prod/**/*'])
     .pipe(zip('deploy.zip'))
     .pipe(gulp.dest('dist/ci'));
 });
+
+/**
+ * Zip offline package
+ */
+gulp.task('zip:offline', () => {
+  return gulp.src('dist/ci/offline/**/*')
+    .pipe(zip('offline.zip'))
+    .pipe(gulp.dest('dist'));
+});
+
 
 /**
  * Test & lint / validate
@@ -959,6 +1007,9 @@ gulp.task('build', (done) => {
   if (!env.skipBuild) {
     task = gulp.series('clean', 'clean:aem', task);
   }
+
+  // create offline page
+  task = gulp.series(task, 'copy:offlineassets', 'deploy:offlinepage', 'zip:offline');
 
   // Create CI build structure
   if (env.ci) {
