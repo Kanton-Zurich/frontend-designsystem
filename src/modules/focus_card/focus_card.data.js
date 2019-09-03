@@ -16,15 +16,16 @@ const data = _.merge({}, defaultData, {
       image: '/assets/media/image/focuscard_268_x15.png',
     }],
     title: 'Teaser Titel',
-    description: 'Unsere Aufgabe ist es für Alle die optimale Rahmenbedingungen zu schaffen.',
+    description: 'Unsere Aufgabe ist es für alle die optimale Rahmenbedingungen zu schaffen.',
     arrowLink: 'Mehr erfahren',
+    alt: '',
   },
 });
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+      title: 'Standard',
+      desc: 'Standard-Implementation',
     },
   },
 }, (variant) => {

@@ -27,6 +27,20 @@ $maxTextLinesDesktop: 4;
     }
   }
 
+  &__title.atm-heading {
+    line-height: $sizeLineHeightNarrow;
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+    @include sizeCurve('padding-top', regular);
+    @include sizeCurve('margin-bottom', regular);
+    @include mq($to: small) {
+      line-height: $sizeLineHeightMedium;
+    }
+    @include mq($from: xlarge) {
+      line-height: $sizeLineHeightNarrower;
+    }
+  }
+
   &__content {
     padding: $sizeBig;
     display: flex;
