@@ -1,8 +1,8 @@
 import flatpickr from 'flatpickr';
-import { German } from 'flatpickr/dist/l10n/de.js'
-import { French } from 'flatpickr/dist/l10n/fr.js'
-import { Italian } from 'flatpickr/dist/l10n/it.js'
-import { english } from 'flatpickr/dist/l10n/default.js'
+import { German } from 'flatpickr/dist/l10n/de';
+import { French } from 'flatpickr/dist/l10n/fr';
+import { Italian } from 'flatpickr/dist/l10n/it';
+import { english } from 'flatpickr/dist/l10n/default';
 
 import { merge } from 'lodash';
 /*!
