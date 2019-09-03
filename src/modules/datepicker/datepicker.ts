@@ -198,7 +198,7 @@ class Datepicker extends Module {
     if (this.ui.element.dataset.localization) {
       let localization;
       switch (this.ui.element.dataset.localization) {
-        case "de":
+        case 'de':
           localization = German;
           break;
         case 'fr':
