@@ -5,7 +5,9 @@
         <div class="cell small-12 medium-12 large-12 xlarge-12">
           <h{{{iframeScreenReaderHeading.level}}}
             class="atm-heading visuallyhidden">{{{iframeScreenReaderHeading.title}}}</h{{{iframeScreenReaderHeading.level}}}>
-          <iframe src="{{{iframeSrc}}}" height="{{{iframeHeight}}}"></iframe>
+          <div class="mdl-iframe__wrapper">
+            <iframe src="{{{iframeSrc}}}"></iframe>
+          </div>
           {{> "atoms/text_link/text_link" iframeTextLink}}
         </div>
       </div>
