@@ -117,25 +117,6 @@ $headerCurves: (
   }
 }
 
-// Monochrome version
-.cv-monochrome {
-  .mdl-header {
-    background: $colorWhite;
-
-    &__nav-item {
-      color: $colorBlack100;
-    }
-
-    &__wrapper:after {
-      background: $colorBlack;
-    }
-  }
-}
-
-.cv-monochrome.mdl-header {
-  background: $colorWhite;
-}
-
 /** SPECIAL STYLE FOR HTML-TAG TO ADD PADDING TO COMPENSATE FIXED HEADER */
 html.fixed-header {
   @include sizeCurve(padding-top, heightWithBorder, $headerCurves);

@@ -233,14 +233,13 @@ $pageHeaderCurves: (
     }
   }
 
-
   .atm-lead {
     margin-top: 0;
     margin-left: 0;
   }
 
   .atm-button {
-    @include sizeCurve('margin-bottom', regular);
+    @include sizeCurve(margin-bottom, regular);
   }
 
   .mdl-person_card {
@@ -250,6 +249,10 @@ $pageHeaderCurves: (
   }
 
   .mdl-tag-group {
+    @include mq($from: tiny, $to: xsmall) {
+      @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
+    }
+
     max-width: $sizeWidthTextContent;
 
     .atm-heading {
@@ -290,6 +293,46 @@ $pageHeaderCurves: (
       }
     }
   }
+
+  &--error {
+
+    @include sizeCurve(padding-bottom, big);
+
+    &__block {
+      .atm-lead,
+      .atm-paragraph {
+        margin-bottom: $sizeTiny;
+      }
+
+      &-button {
+
+        @include sizeCurve(margin-bottom, regular);
+
+        .atm-button {
+          margin-bottom: 0;
+        }
+      }
+
+      .mdl-image-figure,
+      .mdl-video {
+        margin-bottom: 0;
+
+        @include sizeCurve(margin-top, large);
+      }
+
+
+      @include sizeCurve(margin-bottom, medium);
+
+      .mdl-tag-group {
+        @include sizeCurve(margin-top, medium);
+      }
+
+      p:last-of-type {
+        @include sizeCurve(margin-bottom, medium);
+      }
+    }
+  }
+
 
   &--headerimage {
     padding-bottom: 0;
@@ -345,6 +388,7 @@ $pageHeaderCurves: (
 
         .atm-heading,
         .atm-lead,
+        .atm-paragraph,
         .mdl-page-header__breadcrumb,
         .mdl-breadcrumb__show-context,
         .mdl-page-header__closebutton {
@@ -371,6 +415,7 @@ $pageHeaderCurves: (
 
           .atm-heading,
           .atm-lead,
+          .atm-paragraph,
           .mdl-page-header__breadcrumb {
             color: $colorBlack;
           }

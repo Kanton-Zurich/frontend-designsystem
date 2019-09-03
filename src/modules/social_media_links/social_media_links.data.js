@@ -18,28 +18,32 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+      title: 'Standard',
+      desc: 'Standard-Implementation',
     },
     props: {
       socialMediaLinksHeading: {
         title: 'Folgen Sie uns auf',
-        level: 4,
+        level: 2,
       },
       facebook: {
         url: '#',
+        linkText: 'Facebook',
         imgSrc: '../../assets/media/image/facebook.svg',
       },
       twitter: {
         url: '#',
+        linkText: 'Twitter',
         imgSrc: '../../assets/media/image/twitter.svg',
       },
       linkedIn: {
         url: '#',
+        linkText: 'LinkedIn',
         imgSrc: '../../assets/media/image/linkedIn.svg',
       },
       youtube: {
         url: '#',
+        linkText: 'YouTube',
         imgSrc: '../../assets/media/image/youtube.svg',
       },
     },

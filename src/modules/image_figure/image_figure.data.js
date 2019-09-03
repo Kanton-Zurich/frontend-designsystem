@@ -42,6 +42,15 @@ const variants = _.mapValues({
       desc: 'Ein Standard Inhaltsbild ist so breit wie der Content, bzw. das Parent-Element',
     },
   },
+  noTitle: {
+    meta: {
+      title: 'Inhaltsbild ohne Untertitel',
+      desc: 'Ein Standard Inhaltsbild ist so breit wie der Content, bzw. das Parent-Element',
+    },
+    props: {
+      noTitle: true,
+    },
+  },
   full169: {
     meta: {
       title: 'Inhaltsbild, volle Breite 16:9',
