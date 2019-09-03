@@ -1,4 +1,9 @@
 import flatpickr from 'flatpickr';
+import { German } from 'flatpickr/dist/l10n/de.js'
+import { French } from 'flatpickr/dist/l10n/fr.js'
+import { Italian } from 'flatpickr/dist/l10n/it.js'
+import { english } from 'flatpickr/dist/l10n/default.js'
+
 import { merge } from 'lodash';
 /*!
  * Datepicker
@@ -19,7 +24,7 @@ class Datepicker extends Module {
     nextArrow: string,
     prevArrow: string,
     onChange: any,
-    onReady: any,
+    onClose: any,
   };
 
   public customConfigs: {
@@ -129,10 +134,10 @@ class Datepicker extends Module {
       + '<use xlink:href="#angle_left"></use>\n'
       + '</svg>',
       onChange: this.onValueChange.bind(this),
-      onReady: this.onReady.bind(this),
+      onClose: this.onClose.bind(this),
     };
 
-    this.dayLabels = this.ui.element.dataset.daylabels.split(' ');
+    // this.dayLabels = this.ui.element.dataset.daylabels.split(' ');
     this.constructConfig();
   }
 
@@ -154,33 +159,63 @@ class Datepicker extends Module {
   * Merge the configs correspondingly to the pickerMode data attribute
   */
   constructConfig() {
+    // Setup type specific config
     if (this.pickerMode === 'time') {
-      this.usedConfig = merge(
-        {},
-        this.customConfigs.time,
-        this.globalConfig,
-      );
+      this.usedConfig = this.customConfigs.time;
     } else if (this.pickerMode === 'date') {
-      this.usedConfig = merge(
-        {},
-        this.customConfigs.date,
-        this.globalConfig,
-      );
+      this.usedConfig = this.customConfigs.date;
     } else if (this.pickerMode === 'date-range') {
       this.usedConfig = merge(
         {},
         this.customConfigs.date,
         this.customConfigs.dateRange,
-        this.globalConfig,
       );
     } else if (this.pickerMode === 'date-time') {
       this.usedConfig = merge(
         {},
         this.customConfigs.time,
         this.customConfigs.dataTime,
-        this.globalConfig,
       );
     }
+
+    // Merge with global config
+    this.usedConfig = merge({}, this.usedConfig, this.globalConfig);
+
+    // Merge conditions for data attributes
+    // minDate
+    if (this.ui.element.dataset.mindate) {
+      this.usedConfig = merge({}, this.usedConfig, {
+        minDate: this.ui.element.dataset.mindate,
+      });
+    }
+    // maxDate
+    if (this.ui.element.dataset.maxdate) {
+      this.usedConfig = merge({}, this.usedConfig, {
+        maxDate: this.ui.element.dataset.maxdate,
+      });
+    }
+    // localization
+    if (this.ui.element.dataset.localization) {
+      let localization;
+      switch (this.ui.element.dataset.localization) {
+        case "de":
+          localization = German;
+          break;
+        case 'fr':
+          localization = French;
+          break;
+        case 'it':
+          localization = Italian;
+          break;
+        default:
+          localization = english;
+          break;
+      }
+      this.usedConfig = merge({}, this.usedConfig, {
+        locale: localization,
+      });
+    }
+
     this.initFlatpickr();
   }
 
@@ -205,27 +240,10 @@ class Datepicker extends Module {
   }
 
   /**
-   * On ready callback from flatpickr. If its not a time picker replace the daylabels
+   * On close callback from faltpickr. Removes the open class on the main element.
    */
-  onReady() {
-    const weekdays = 7;
-    if (this.pickerMode !== 'time' && this.dayLabels.length === weekdays) {
-      setTimeout(() => {
-        const weekdayElements = this.flatpickr.calendarContainer.querySelectorAll('.flatpickr-weekday');
-        this.setWeekDayLabels(weekdayElements);
-      }, 0);
-    }
-  }
-
-  /**
-   * Take an array of nodes to replace the innerText with the content from
-   * stored dayLabels
-   * @param {Array<any>} elements
-   */
-  setWeekDayLabels(elements: Array<any>) {
-    elements.forEach((item, index) => {
-      item.innerText = this.dayLabels[index];
-    });
+  onClose() {
+    this.ui.element.classList.remove('open');
   }
 
   /**
@@ -235,7 +253,6 @@ class Datepicker extends Module {
   onTriggerClick(event) {
     this.isOpen = this.ui.element.classList.contains('open');
     if (event.target === this.flatpickr.input && this.isOpen) {
-      this.ui.element.classList.remove('open');
       this.flatpickr.close();
     } else {
       this.ui.element.classList.add('open');

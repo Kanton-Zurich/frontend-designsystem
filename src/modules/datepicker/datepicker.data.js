@@ -22,8 +22,8 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default(Time)',
-      desc: 'Default implementation',
+      title: 'Standart(Uhrzeit)',
+      desc: 'Standart implementation für Uhrzeitauswahl',
     },
     props: {
       datetimeformat: 'time',
@@ -39,8 +39,8 @@ const variants = _.mapValues({
   },
   defaultDate: {
     meta: {
-      title: 'Default(Date)',
-      desc: 'Default implementation',
+      title: 'Standart(Datum)',
+      desc: 'Standart implementation für eine einzelne Datumsauswahl',
     },
     props: {
       datetimeformat: 'date',
@@ -59,8 +59,8 @@ const variants = _.mapValues({
   },
   dateRange: {
     meta: {
-      title: 'Date (Range)',
-      desc: 'Default implementation',
+      title: 'Datumsauswahl (Zeitspanne)',
+      desc: 'Implementation einer Datumsauswahl für eine  Zeitspanne',
     },
     props: {
       datetimeformat: 'date-range',
@@ -79,8 +79,8 @@ const variants = _.mapValues({
   },
   dateAndTime: {
     meta: {
-      title: 'Date and Time',
-      desc: 'Default implementation',
+      title: 'Datums- und Zeitauswahl',
+      desc: 'Implementation einer einzel Datumsauswahl komibniert mit einer Zeitangabe',
     },
     props: {
       datetimeformat: 'date-time',

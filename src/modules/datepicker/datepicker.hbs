@@ -1,3 +1,4 @@
-<div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="{{datetimeformat}}" data-daylabels="So Mo Di Mi Do Fr Sa">
+<div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="{{datetimeformat}}" data-localization="de" {{#if
+  minDate}} data-mindate="{{{minDate}}}"{{/if}}{{#if maxDate}} data-maxdate="{{{maxDate}}}"{{/if}}>
   {{> "atoms/form_input/form_input" formInputData}}
 </div>

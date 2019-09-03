@@ -5,7 +5,7 @@ const defaultData = require('../../data/default.data.js');
 const defImageFigureData = require('../image_figure/image_figure.data');
 const defVideoData = require('../video/video.data');
 const defServiceButtonData = require('../service_button/service_button.data').props;
-const defBreadcrumbData = require('../breadcrumb/breadcrumb.data').props;
+const defBreadcrumbData = require('../breadcrumb/breadcrumb.data');
 const backOnlyBreadcrumbData = require('../breadcrumb/breadcrumb.data').variants.singlePathItem.props;
 const defPersonCardData = require('../person_card/person_card.data.js').variants.promo.props;
 
@@ -23,7 +23,6 @@ const data = _.merge({}, defaultData, {
     homelink: '#',
     pageTitle: 'H1: Pagetitle Black Strassenverkehrsamt',
     leadText: 'Lead: ExtraBold Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
-    breadcrumb: defBreadcrumbData,
     backlink: backOnlyBreadcrumbData,
     personCardData: defPersonCardData,
     expandNav: 'Navigation anzeigen',
@@ -40,8 +39,11 @@ const variants = _.mapValues({
       defaultColorVariation: 'cv-blue',
     },
     props: {
-      hasBreadcrumb: true,
-      buttonData: _.merge(defServiceButtonData, {buttonTitle: 'Formular beantragen', modalData: { modalId: 'service-modal0' }}),
+      breadcrumb: defBreadcrumbData.props,
+      buttonData: _.merge(defServiceButtonData, {
+        buttonTitle: 'Formular beantragen',
+        modalData: {modalId: 'service-modal0'}
+      }),
     },
   },
   defaultImage: {
@@ -55,7 +57,6 @@ const variants = _.mapValues({
       imageData: defImageFigureData.variants.header.props,
       hasImage: true,
       hasBacklink: true,
-      noButton: true,
     },
   },
   colored: {
@@ -68,8 +69,8 @@ const variants = _.mapValues({
     props: {
 
       inverted: true,
-      buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: { modalId: 'service-modal1' }}),
-      hasBreadcrumb: true,
+      buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: {modalId: 'service-modal1'}}),
+      breadcrumb: defBreadcrumbData.props,
     },
   },
   coloredAnchors: {
@@ -82,9 +83,8 @@ const variants = _.mapValues({
     props: {
 
       inverted: true,
-      buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: { modalId: 'service-modal2' }}),
-      hasBreadcrumb: true,
-      hasAnchors: true,
+      buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: {modalId: 'service-modal2'}}),
+      breadcrumb: defBreadcrumbData.props,
       anchorLinks: [
         {
           anchorlink: {
@@ -144,8 +144,7 @@ const variants = _.mapValues({
       imageData: defImageFigureData.variants.headerNoTitle.props,
       inverted: true,
       hasImage: true,
-      hasBreadcrumb: true,
-      noButton: true,
+      breadcrumb: defBreadcrumbData.props,
     },
   },
   coloredImageTitle: {
@@ -156,7 +155,6 @@ const variants = _.mapValues({
       defaultColorVariation: 'cv-blue',
     },
     props: {
-      noButton: true,
       imageData: defImageFigureData.variants.header.props,
       inverted: true,
       hasImageTitle: true,
@@ -172,7 +170,6 @@ const variants = _.mapValues({
       defaultColorVariation: 'cv-blue',
     },
     props: {
-
       videoData: defVideoData.variants.header.props,
       inverted: true,
       hasImageTitle: true,
@@ -192,8 +189,7 @@ const variants = _.mapValues({
     props: {
       imageData: defImageFigureData.variants.headerNoTitle.props,
       inverted: true,
-      hasBreadcrumb: true,
-      noButton: true,
+      breadcrumb: defBreadcrumbData.props,
       hasImage: false,
       hasPersonCard: true,
     },
@@ -212,8 +208,6 @@ const variants = _.mapValues({
       hasVideo: false,
       hasImage: false,
       hasBacklink: false,
-      hasBreadcrumb: false,
-      noButton: true,
       noText: true,
       hasCloseButton: true,
     },
@@ -232,8 +226,7 @@ const variants = _.mapValues({
       hasVideo: false,
       hasImage: false,
       hasBacklink: false,
-      hasBreadcrumb: true,
-      noButton: true,
+      breadcrumb: defBreadcrumbData.props,
     },
   },
   servicePageSmall: {
@@ -250,8 +243,6 @@ const variants = _.mapValues({
       hasVideo: false,
       hasImage: false,
       hasBacklink: false,
-      hasBreadcrumb: false,
-      noButton: true,
       noText: true,
       minimal: true,
       hasCloseButton: true,
@@ -268,10 +259,8 @@ const variants = _.mapValues({
       pageTitle: 'Applikation',
       applicationHeader: true,
       inverted: true,
-      noButton: true,
       noText: true,
-      buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: { modalId: 'service-modal4' }}),
-      hasBreadcrumb: true,
+      breadcrumb: defBreadcrumbData.props,
     },
   },
   applicationStandalone: {
@@ -284,10 +273,8 @@ const variants = _.mapValues({
     props: {
       pageTitle: 'Applikation',
       inverted: true,
-      noButton: true,
       noText: true,
-      buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: { modalId: 'service-modal5' }}),
-      hasBreadcrumb: true,
+      breadcrumb: defBreadcrumbData.props,
     },
   },
   applicationModal: {
@@ -304,8 +291,6 @@ const variants = _.mapValues({
       hasVideo: false,
       hasImage: false,
       hasBacklink: false,
-      hasBreadcrumb: false,
-      noButton: true,
       noText: true,
       hasCloseButton: true,
     },
@@ -324,14 +309,220 @@ const variants = _.mapValues({
       hasVideo: false,
       hasImage: false,
       hasBacklink: false,
-      hasBreadcrumb: false,
-      noButton: true,
       noText: true,
       minimal: true,
       hasCloseButton: true,
     },
   },
-}, (variant) => {
+  error404: {
+    meta: {
+      title: 'Error404 (CZHDEV-528)',
+      desc: 'Default implementation',
+      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
+      defaultColorVariation: 'cv-blue',
+    },
+    props: {
+      noText: true,
+      breadcrumb: {
+        contextMenu: false,
+        path: [
+          {
+            title: 'Kanton Zürich',
+            href: '#',
+          },
+        ],
+      },
+      pageTitle: 'Seite nicht gefunden',
+      homeCTA: {title: 'Zur Startseite', href: '#'},
+      errorBlock: {
+        code: 'Fehlercode:404',
+        text: 'Bitte wählen Sie über die Hauptnavigation andere Inhalte, versuchen Sie es über die Eingabe eines Suchbegriffs oder wechseln Sie zur Startseite.',
+      },
+    },
+  },
+  error404Ext: {
+    meta: {
+      title: 'Error404 Erweitert (CZHDEV-528)',
+      desc: 'Default implementation',
+      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
+      defaultColorVariation: 'cv-blue',
+    },
+    props: {
+      anchorLinks: [
+        {
+          anchorlink: {
+            anchorlinkText: 'Schulferien 2019',
+            anchorlinkAdress: '#',
+            anchorlinkIsActive: false,
+            anchorlinkIsTagAnchor: true,
+            anchorlinkIsInverted: false,
+            anchorlinkIsTopitem: true,
+            anchorlinkIsTopitemSmall: false,
+          },
+        },
+        {
+          anchorlink: {
+            anchorlinkText: 'Kurs für Hundehalter',
+            anchorlinkAdress: '#',
+            anchorlinkIsActive: false,
+            anchorlinkIsTagAnchor: true,
+            anchorlinkIsInverted: false,
+            anchorlinkIsTopitem: true,
+            anchorlinkIsTopitemSmall: false,
+          },
+        },
+        {
+          anchorlink: {
+            anchorlinkText: 'Quellensteuer',
+            anchorlinkAdress: '#',
+            anchorlinkIsActive: false,
+            anchorlinkIsTagAnchor: true,
+            anchorlinkIsInverted: false,
+            anchorlinkIsTopitem: true,
+            anchorlinkIsTopitemSmall: false,
+          },
+        },
+        {
+          anchorlink: {
+            anchorlinkText: 'Handelsregistereintrag',
+            anchorlinkAdress: '#',
+            anchorlinkIsActive: false,
+            anchorlinkIsTagAnchor: true,
+            anchorlinkIsInverted: false,
+            anchorlinkIsTopitem: true,
+            anchorlinkIsTopitemSmall: false,
+          },
+        },
+      ],
+      noText: true,
+      breadcrumb: {
+        contextMenu: false,
+        path: [
+          {
+            title: 'Kanton Zürich',
+            href: '#',
+          },
+          {
+            title: '404',
+            href: '#',
+          },
+        ],
+      },
+      pageTitle: 'Seite nicht gefunden',
+      errorBlock: {
+        text: 'Bitte wählen Sie über die Hauptnavigation andere Inhalte, versuchen Sie es über die Eingabe eines Suchbegriffs oder wechseln Sie zur Startseite.',
+      },
+    },
+  },
+  error403: {
+    meta: {
+      title: 'Error403 (CZHDEV-525)',
+      desc: 'Default implementation',
+      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
+      defaultColorVariation: 'cv-blue',
+    },
+    props: {
+      noText: true,
+      breadcrumb: {
+        contextMenu: false,
+        path: [
+          {
+            title: 'Kanton Zürich',
+            href: '#',
+          },
+        ],
+      },
+      pageTitle: 'Oops!',
+      homeCTA: { title: 'Zur Startseite', href: '#' },
+      errorBlock: {
+        code: 'Fehlercode: 403',
+        text: 'Entschuldigung, es ist ein Fehler aufgetreten.',
+      },
+    },
+  },
+  error403Ext: {
+    meta: {
+      title: 'Error403 Erweitert (CZHDEV-525)',
+      desc: 'Default implementation',
+      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
+      defaultColorVariation: 'cv-blue',
+    },
+    props: {
+      noText: true,
+      breadcrumb: {
+        contextMenu: false,
+        path: [
+          {
+            title: 'Kanton Zürich',
+            href: '#',
+          },
+          {
+            title: '403',
+            href: '#',
+          },
+        ],
+      },
+      pageTitle: 'Oops!',
+      homeCTA: { title: 'Zur Startseite', href: '#' },
+      errorBlock: {
+        text: 'Entschuldigung, es ist ein Fehler aufgetreten.',
+      },
+    },
+  },
+  error404Image: {
+    meta: {
+      title: 'Error404 mit Bild (CZHDEV-528)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
+      defaultColorVariation: 'cv-blue',
+    },
+    props: {
+      noText: true,
+      breadcrumb: {
+        contextMenu: false,
+        path: [
+          {
+            title: 'Kanton Zürich',
+            href: '#',
+          },
+        ],
+      },
+      pageTitle: 'Seite nicht gefunden',
+      homeCTA: { title: 'Zur Startseite', href: '#' },
+      errorBlock: {
+        code: 'Fehlercode: 404',
+        text: 'Bitte wählen Sie über die Hauptnavigation andere Inhalte, versuchen Sie es über die Eingabe eines Suchbegriffs oder wechseln Sie zur Startseite.',
+        imageData: defImageFigureData.variants.noTitle.props,
+      },
+    },
+  },
+  unavailable: {
+    meta: {
+      title: 'Error: Nicht erreichbar (CZHDEV-529)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
+      defaultColorVariation: 'cv-blue',
+    },
+    props: {
+      noText: true,
+      breadcrumb: {
+        contextMenu: false,
+        path: [
+          {
+            title: 'Kanton Zürich',
+            href: '#',
+          },
+        ],
+      },
+      pageTitle: 'Seite nicht erreichbar',
+      errorBlock: {
+        text: 'Wir arbeiten gerade an unserer Website. Schauen Sie doch in der Zwischenzeit unseren Imagefilm und versuchen es später nochmals.',
+        videoData: defVideoData.variants.default.props,
+      },
+    },
+  },
+},
+(variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
   const variantData = _.merge({}, data, variant, {
