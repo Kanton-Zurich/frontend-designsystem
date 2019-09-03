@@ -508,9 +508,11 @@ class Anchornav extends Module {
    * @param target
    */
   toggleActiveNavigationItemClass(target) {
+    this.ui.navItemActive.removeAttribute('aria-selected');
     this.ui.navItemActive.classList.remove(this.options.stateClasses.activeItemClass);
     target.classList.add(this.options.stateClasses.activeItemClass);
     this.ui.navItemActive = target;
+    this.ui.navItemActive.setAttribute('aria-selected', 'true');
   }
 
   /**
@@ -703,6 +705,11 @@ class Anchornav extends Module {
    * Toggles the jump.js plugin flag
    */
   toggleJumpFlag() {
+    this.scrollReferences.forEach((item, index) => {
+      if (item.correspondingAnchor === this.ui.navItemActive) {
+        item.triggerElement.focus();
+      }
+    });
     this.jumpPossible = !this.jumpPossible;
     this.isClickEvent = false;
   }
