@@ -20,6 +20,7 @@ class Datepicker extends Module {
     prevArrow: string,
     onChange: any,
     onReady: any,
+    onClose: any,
   };
 
   public customConfigs: {
@@ -130,6 +131,7 @@ class Datepicker extends Module {
       + '</svg>',
       onChange: this.onValueChange.bind(this),
       onReady: this.onReady.bind(this),
+      onClose: this.onClose.bind(this),
     };
 
     this.dayLabels = this.ui.element.dataset.daylabels.split(' ');
@@ -154,33 +156,40 @@ class Datepicker extends Module {
   * Merge the configs correspondingly to the pickerMode data attribute
   */
   constructConfig() {
+    // Setup type specific config
     if (this.pickerMode === 'time') {
-      this.usedConfig = merge(
-        {},
-        this.customConfigs.time,
-        this.globalConfig,
-      );
+      this.usedConfig = this.customConfigs.time;
     } else if (this.pickerMode === 'date') {
-      this.usedConfig = merge(
-        {},
-        this.customConfigs.date,
-        this.globalConfig,
-      );
+      this.usedConfig = this.customConfigs.date;
     } else if (this.pickerMode === 'date-range') {
       this.usedConfig = merge(
         {},
         this.customConfigs.date,
         this.customConfigs.dateRange,
-        this.globalConfig,
       );
     } else if (this.pickerMode === 'date-time') {
       this.usedConfig = merge(
         {},
         this.customConfigs.time,
         this.customConfigs.dataTime,
-        this.globalConfig,
       );
     }
+
+    // Merge with global config
+    this.usedConfig = merge({}, this.usedConfig, this.globalConfig);
+
+    // Merge with data config
+    if (this.ui.element.dataset.mindate) {
+      this.usedConfig = merge({}, this.usedConfig, {
+        minDate: this.ui.element.dataset.mindate,
+      });
+    }
+    if (this.ui.element.dataset.maxdate) {
+      this.usedConfig = merge({}, this.usedConfig, {
+        maxDate: this.ui.element.dataset.maxdate,
+      });
+    }
+
     this.initFlatpickr();
   }
 
@@ -218,6 +227,13 @@ class Datepicker extends Module {
   }
 
   /**
+   * On close callback from faltpickr. Removes the open class on the main element.
+   */
+  onClose() {
+    this.ui.element.classList.remove('open');
+  }
+
+  /**
    * Take an array of nodes to replace the innerText with the content from
    * stored dayLabels
    * @param {Array<any>} elements
@@ -235,7 +251,6 @@ class Datepicker extends Module {
   onTriggerClick(event) {
     this.isOpen = this.ui.element.classList.contains('open');
     if (event.target === this.flatpickr.input && this.isOpen) {
-      this.ui.element.classList.remove('open');
       this.flatpickr.close();
     } else {
       this.ui.element.classList.add('open');
