@@ -9,10 +9,27 @@
     margin-bottom: pxToRem($sizeGiant);
   }
 
-  iframe {
+  &__wrapper {
+    position: relative;
+    height: 803px;
     width: 100%;
-    border: 2px solid $colorBlack10;
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
     margin-bottom: $sizeTiny;
+    border: 2px solid $colorBlack10;
+
+    // Hide scrollbar on wrapper in firefox
+    scrollbar-width: none;
+  }
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    border: none;
   }
 
   &--fullWidth {

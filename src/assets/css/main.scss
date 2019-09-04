@@ -10,7 +10,9 @@
 
 // Importing of XY-Grid
 @import '../../../node_modules/foundation-sites/scss/foundation';
+@import '../../../node_modules/flatpickr/dist/flatpickr';
 @import 'globals/grid';
+@import 'globals/flatpickr';
 
 // Icons (as font or dataurl), PNG sprites
 // @import '../.tmp/iconfont';
@@ -103,6 +105,7 @@
 @import '../../modules/file_upload/file_upload';
 @import '../../modules/select/select';
 @import '../../modules/service_wrapper/service_wrapper';
+@import '../../modules/datepicker/datepicker';
 @import '../../modules/pagination/pagination';
 @import '../../modules/news_filter_mobile/news_filter_mobile';
 @import '../../modules/news_overview/news_overview';

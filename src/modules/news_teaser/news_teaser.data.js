@@ -21,13 +21,17 @@ const demoImageFigureData = {
       imageWidth: 1025,
     },
   ],
-  alt: 'Das ist ein Beispielbild',
+  alt: '',
   isSmall: false,
   isWide: false,
   hasDownload: false,
   useInCarousel: false,
   noTitle: true,
 };
+
+const promoTeaserData = _.merge({}, demoTeaserData, {
+  teaserHeadingLevel: 3,
+});
 
 const demoLinkListData = {
   linkListTitle: 'Weitere aktuelle Meldungen',
@@ -175,7 +179,7 @@ const variants = _.mapValues({
         allArticleHref: '#',
         allArticleLabel: 'Alle Beiträge',
       },
-      prominentTeaser: demoTeaserData,
+      prominentTeaser: promoTeaserData,
     },
   },
   withTwoItems: {

@@ -16,22 +16,17 @@ const data = _.merge({}, defaultData, {
     anchorNavReference: '',
     teaserLink: '#',
     inverted: false,
-    teaserTitle_listItem1: 'Flughafenbericht 2018 - das ist ein neuer Flughafenbericht des Flughafens Zürich (ZRH). Flughafenbericht 2018 - das ist ein neuer Flughafenbericht des Flughafens Zürich (ZRH). Flughafenbericht 2018 - das ist ein neuer Flughafenbericht des Flughafens Zürich (ZRH). ',
-    teaserTitle_listItem2: 'Hochschulgebiet Zürich Zentrum',
     teaserTitle: 'Kanton Zürich Newsletter',
-    teaserTitle_headingOnly: 'Dietikon: Ueberlandstrasse wird ausgebaut und leistungsfähiger',
-    teaserTitle_maxTextOverlow: '150 Mütter und Väter erhalten am Kantonalen Elternbildungstag Anregungen für den Erziehungsantrag beim Kantonalen Amt.',
-    teaserDescription_listItem1: 'Der Regierungsrat hat den Flughafenbericht verabschiedet. Die vorgegeben Ziele wurden erreicht, der Fluglärm-Index stieg hingegen wiederum an. Die Projekte von Herzog & de Meuron und Christ & Gantebein werten das Hochschulgebiet Zürich Zentrum (HGZZ) auf.\',\n'
-    + '    teaserDescription_listItem2: \'Der Regierungsrat hat den Flughafenbericht verabschiedet. Die vorgegeben Ziele wurden erreicht, der Fluglärm-Index stieg hingegen wiederum an.Die Projekte von Herzog & de Meuron und Christ & Gantebein werten das Hochschulgebiet Zürich Zentrum (HGZZ) auf.\',\n'
-    + '    teaserDescription_listItem2: \'Der Regierungsrat hat den Flughafenbericht verabschiedet. Die vorgegeben Ziele wurden erreicht, der Fluglärm-Index stieg hingegen wiederum an.Die Projekte von Herzog & de Meuron und Christ & Gantebein werten das Hochschulgebiet Zürich Zentrum (HGZZ) auf.\',\n'
-    + '    teaserDescription_listItem2: \'Der Regierungsrat hat den Flughafenbericht verabschiedet. Die vorgegeben Ziele wurden erreicht, der Fluglärm-Index stieg hingegen wiederum an.',
-    teaserDescription_listItem2: 'Die Projekte von Herzog & de Meuron und Christ & Gantebein werten das Hochschulgebiet Zürich Zentrum (HGZZ) auf.',
     teaserDescription: 'Der Newsletter des Kantons informiert Sie rasch über verabschiedete Geschäfte des Regierungsrates und hält Sie per E-Mail über Neuigkeiten aus der kantonalen Verwaltung auf dem Laufenden. ',
-    teaserDescription_maxTextOverlow: 'Der Elternbildungstag am Samstag, 28 März 2015, rund um das Thema Kind und Familie bot interessierten Vätern und Müttern Anregung für den Erziehungsalltag. Müttern Anregungen für den Erziehungsaltag. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
     teaserDisplayDate: '14.12.2018',
     teaserMachineReadableDate: '2018-12-14',
     teaserButtonLabel: 'Mehr erfahren',
-  }, imageFigureDemoData.props, { noTitle: true }, {
+    teaserHeadingLevel: 2,
+  }, imageFigureDemoData.props, {
+    noTitle: true,
+    hasImage: true,
+    alt: '',
+  }, {
     srcsets: [{
       image: '/assets/media/image/teaserimage_4_3_584_15.jpeg',
       imageWidth: 1024,
@@ -41,33 +36,36 @@ const data = _.merge({}, defaultData, {
     }, {
       image: '/assets/media/image/teaserimage_16_9_530_15.jpeg',
       imageWidth: 320,
-    } ],
+    }],
   }),
 });
 
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation - keine Hintergrundfarbe aber mit Datum und Kurztext, Bild-Kachel rechts',
+      title: 'Standard rechts',
+      desc: 'Keine Hintergrundfarbe aber mit Datum und Kurztext, Bild-Kachel rechts',
     },
     props: {
-      default: true,
+      teaserTitle: '150 Mütter und Väter erhalten am Kantonalen Elternbildungstag Anregungen für den Erziehungsantrag beim Kantonalen Amt',
+      teaserDescription: 'Der Elternbildungstag am Samstag, 28 März 2015, rund um das Thema Kind und Familie bot interessierten Vätern und Müttern Anregung für den Erziehungsalltag. Müttern Anregungen für den Erziehungsaltag. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
     },
   },
   defaultLeft: {
     meta: {
-      title: 'Default Links',
-      desc: 'Default implementation - keine Hintergrundfarbe aber mit Datum und Kurztext, Bild-Kachel links',
+      title: 'Standard links',
+      desc: 'Keine Hintergrundfarbe aber mit Datum und Kurztext, Bild-Kachel links',
     },
     props: {
       defaultLeft: true,
+      teaserTitle: 'Hochschulgebiet Zürich Zentrum',
+      teaserDescription: 'Die Projekte von Herzog & de Meuron und Christ & Gantebein werten das Hochschulgebiet Zürich Zentrum (HGZZ) auf.',
     },
   },
   inverted: {
     meta: {
       title: 'Invertiert',
-      desc: 'Default implementation - invertierte Hintergrundfarbe aber mit Datum und Kurztext, Bild-Kachel rechts',
+      desc: 'Invertierte Hintergrundfarbe aber mit Datum und Kurztext, Bild-Kachel rechts',
     },
     props: {
       inverted: true,
@@ -76,18 +74,22 @@ const variants = _.mapValues({
   noImage: {
     meta: {
       title: 'Ohne Bild',
-      desc: 'Default implementation - keine Hintergrundfarbe aber mit Datum und Kurztext, Bild-Kachel rechts',
+      desc: 'Keine Hintergrundfarbe aber mit Datum und Kurztext, Bild-Kachel rechts',
     },
     props: {
-      noImage: true,
+      hasImage: false,
+      inverted: true,
+      teaserTitle: 'Dietikon: Ueberlandstrasse wird ausgebaut und leistungsfähiger',
+      teaserDescription: 'Die Projekte von Herzog & de Meuron und Christ & Gantebein werten das Hochschulgebiet Zürich Zentrum (HGZZ) auf.',
     },
   },
-  multible: {
+  multiple: {
     meta: {
       title: 'Teaser Liste',
       desc: 'Mehrere Teaser',
     },
     props: {
+      defaultLeft: true,
       multiple: true,
     },
   },
