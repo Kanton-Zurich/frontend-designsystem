@@ -26,7 +26,20 @@ const variants = _.mapValues({
       desc: 'Default implementation einer Einzelauswahl',
     },
     props: {
-      listData: _.merge({}, listDemoData.variants.defaultSingle.props, { setHiddenIndex: true }),
+      listData: {
+        selectOptions: [
+          { value: '', label: '' },
+          { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
+          { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
+          { value: 'sich', label: 'Sicherheit & Justiz', id: _.uniqueId('option-item') },
+          { value: 'so', label: 'Soziales', id: _.uniqueId('option-item') },
+          { value: 'st', label: 'Steuern', id: _.uniqueId('option-item') },
+          { value: 'umte', label: 'Umwelt & Tier', id: _.uniqueId('option-item') },
+          { value: 'ge', label: 'Gemeinschaften', id: _.uniqueId('option-item') },
+          { value: 'scer', label: 'Schulen & Erziehung', id: _.uniqueId('option-item') },
+        ],
+        setHiddenIndex: true,
+      },
       triggerInputData: inputDemoData.variants.triggerDefault.props,
     },
   },
@@ -88,7 +101,7 @@ const variants = _.mapValues({
           { value: 'umte', label: 'Umwelt & Tier', id: _.uniqueId('option-item') },
           { value: 'ge', label: 'Gemeinschaften', id: _.uniqueId('option-item') },
           {
-            value: 'scer', label: 'Schulen & Erziehung', id: _.uniqueId('option-item'), preSelected: true,
+            value: 'scer', label: 'Schulen & Erziehung', id: _.uniqueId('option-item'),
           },
         ],
       }),

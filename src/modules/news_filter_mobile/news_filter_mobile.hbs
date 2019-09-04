@@ -27,13 +27,13 @@
               <div class="mdl-news-filter-mobile__sublevel-list">
                 <ul id="{{topicFilter.topicFilterInput.additionalFunctionality.ariaControls}}" class="atm-list">
                   {{#each topicFilter.topics}}
-                    <li id="{{id}}" class="atm-list__item atm-list__item--check-icon">
+                    <li {{#if id}}id="{{id}}"{{/if}} class="atm-list__item atm-list__item--check-icon">
                       <svg class="icon">
                         <use xlink:href="#check"></use>
                       </svg>
-                      <input name="group-iconLeftMulti" id="checkbox-{{id}}" type="checkbox" value="{{value}}"
-                             placeholder="{{title}}">
-                      {{title}}
+                      <input name="group-iconLeftMulti" {{#if id}}id="checkbox-{{id}}"{{/if}} type="checkbox" value="{{value}}"
+                             placeholder="{{label}}">
+                      {{label}}
                     </li>
                   {{/each}}
                 </ul>
@@ -60,13 +60,13 @@
                 <ul id="{{organisationFilter.organisationFilterInput.additionalFunctionality.ariaControls}}"
                     class="atm-list">
                   {{#each organisationFilter.organisations}}
-                    <li id="{{id}}" class="atm-list__item atm-list__item--check-icon">
+                    <li {{#if id}}id="{{id}}"{{/if}} class="atm-list__item atm-list__item--check-icon">
                       <svg class="icon">
                         <use xlink:href="#check"></use>
                       </svg>
-                      <input name="group-iconLeftMulti" id="checkbox-{{id}}" type="checkbox" value="{{value}}"
-                             placeholder="{{title}}">
-                      {{title}}
+                      <input name="group-iconLeftMulti" {{#if id}}id="checkbox-{{id}}"{{/if}} type="checkbox" value="{{value}}"
+                             placeholder="{{label}}">
+                      {{label}}
                     </li>
                   {{/each}}
                 </ul>

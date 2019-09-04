@@ -128,7 +128,7 @@ class Select extends Module {
     this.selections = [];
 
     // Handle pre-selections
-    this.preSelections = this.ui.list.querySelectorAll('input:checked');
+    this.preSelections = this.ui.list.querySelectorAll('input[checked]');
     if (this.preSelections.length > 0) {
       this.handlePreselection();
     }
@@ -680,9 +680,7 @@ class Select extends Module {
     this.ui.trigger.setAttribute('aria-expanded', 'true');
     this.ui.dropdown.setAttribute('aria-hidden', 'false');
 
-    if (this.isKeyControlled) {
-      setTimeout(() => { this.focusDropdown(); }, this.dropdownDelay);
-    }
+    setTimeout(() => { this.focusDropdown(); }, this.dropdownDelay);
   }
 
   /**

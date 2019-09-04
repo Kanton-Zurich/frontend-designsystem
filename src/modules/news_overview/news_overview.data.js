@@ -37,25 +37,39 @@ const data = _.merge({}, defaultData, {
         hasOptionIcon: true,
         hasCheckIcon: true,
         selectOptions: [
-          { value: 'mit', label: 'Mitteilung', id: _.uniqueId('option-item') },
-          { value: 'serv', label: 'Services', id: _.uniqueId('option-item') },
-          { value: 'stat', label: 'Statistik', id: _.uniqueId('option-item') },
-          { value: 'vid', label: 'Video', id: _.uniqueId('option-item') },
-          { value: 'wahl', label: 'Wahlen', id: _.uniqueId('option-item') },
+          { value: 'mit', label: 'Mitteilung' },
+          { value: 'serv', label: 'Services' },
+          { value: 'stat', label: 'Statistik' },
+          { value: 'vid', label: 'Video' },
+          { value: 'wahl', label: 'Wahlen' },
         ],
       },
     }),
-    topicSelect: _.merge({}, selectData.variants.multiSelect.props, {
-      listData: {
-        validation: {
-          isRequired: false,
-        },
-      },
+    topicSelect: _.assign(_.merge({}, selectData.variants.multiSelect.props, {
       triggerInputData: {
         validation: {
           isRequired: false,
         },
         label: 'Themen',
+      },
+    }), {
+      listData: {
+        groupPostfix: 'iconLeftMulti',
+        iconLeft: 'check',
+        isMultiSelect: true,
+        hasFilterAndButton: true,
+        hasOptionIcon: true,
+        hasCheckIcon: true,
+        selectOptions: [
+          { value: 'mig', label: 'Migration & Integration' },
+          { value: 'mo', label: 'Mobilität' },
+          { value: 'sich', label: 'Sicherheit & Justiz' },
+          { value: 'so', label: 'Soziales' },
+          { value: 'st', label: 'Steuern' },
+          { value: 'umte', label: 'Umwelt & Tier' },
+          { value: 'ge', label: 'Gemeinschaften' },
+          { value: 'scer', label: 'Schulen & Erziehung' },
+        ],
       },
     }),
     organisationSelect: _.assign(_.merge({}, selectData.variants.multiSelect.props, {
@@ -74,12 +88,12 @@ const data = _.merge({}, defaultData, {
         hasOptionIcon: true,
         hasCheckIcon: true,
         selectOptions: [
-          { value: 'ainf', label: 'Amt für Informatik', id: _.uniqueId('option-item') },
-          { value: 'ajug', label: 'Amt für Jugend & Beruf', id: _.uniqueId('option-item') },
-          { value: 'ajus', label: 'Amt für Justizvollzug', id: _.uniqueId('option-item') },
-          { value: 'amil', label: 'Amt für Militär und Zivilschutz', id: _.uniqueId('option-item') },
-          { value: 'aumw', label: 'Amt für Umwelt', id: _.uniqueId('option-item') },
-          { value: 'aver', label: 'Amt für Verkehr', id: _.uniqueId('option-item') },
+          { value: 'ainf', label: 'Amt für Informatik' },
+          { value: 'ajug', label: 'Amt für Jugend & Beruf' },
+          { value: 'ajus', label: 'Amt für Justizvollzug' },
+          { value: 'amil', label: 'Amt für Militär und Zivilschutz' },
+          { value: 'aumw', label: 'Amt für Umwelt' },
+          { value: 'aver', label: 'Amt für Verkehr' },
         ],
       },
     }),

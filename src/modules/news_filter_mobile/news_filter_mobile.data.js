@@ -41,59 +41,48 @@ const data = _.merge({}, defaultData, {
       }),
       topics: [
         {
-          id: _.uniqueId('topic-'),
           value: 'vehicle',
-          title: 'Fahrzeug',
+          label: 'Fahrzeug',
         },
         {
-          id: _.uniqueId('topic-'),
           value: 'plate',
-          title: 'Autonummern',
+          label: 'Autonummern',
         },
         {
-          id: _.uniqueId('topic-'),
           value: 'permit',
-          title: 'Führerausweis',
+          label: 'Führerausweis',
         },
         {
-          id: _.uniqueId('topic-'),
           value: 'bike',
-          title: 'Velo',
+          label: 'Velo',
         },
         {
-          id: _.uniqueId('topic-'),
           value: 'ausweis_schild',
-          title: 'Ausweis oder Schild verloren',
+          label: 'Ausweis oder Schild verloren',
         },
         {
-          id: _.uniqueId('topic-'),
           value: 'verwarnung',
-          title: 'Ausweisentzug & Verwarnung',
+          label: 'Ausweisentzug & Verwarnung',
         },
         {
-          id: _.uniqueId('topic-'),
           value: 'schiffahrt',
-          title: 'Schiffahrt',
+          label: 'Schiffahrt',
         },
         {
-          id: _.uniqueId('topic-'),
           value: 'spez',
-          title: 'Spezielle Bewilligungen',
+          label: 'Spezielle Bewilligungen',
         },
         {
-          id: _.uniqueId('topic-'),
           value: 'thema1',
-          title: 'Thema 1',
+          label: 'Thema 1',
         },
         {
-          id: _.uniqueId('topic-'),
           value: 'thema2',
-          title: 'Thema 2',
+          label: 'Thema 2',
         },
         {
-          id: _.uniqueId('topic-'),
           value: 'thema3',
-          title: 'Thema 3',
+          label: 'Thema 3',
         },
       ],
     },
@@ -116,19 +105,16 @@ const data = _.merge({}, defaultData, {
       }),
       organisations: [
         {
-          id: _.uniqueId('organisation-'),
           value: 'org1',
-          title: 'Organisation 1',
+          label: 'Organisation 1',
         },
         {
-          id: _.uniqueId('organisation-'),
           value: 'org2',
-          title: 'Organisation 2',
+          label: 'Organisation 2',
         },
         {
-          id: _.uniqueId('organisation-'),
           value: 'org3',
-          title: 'Organisation 3',
+          label: 'Organisation 3',
         },
       ],
     },
