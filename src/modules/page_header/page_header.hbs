@@ -143,6 +143,12 @@
           <div
             class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
             {{#unless noText}}
+              {{#if publicationDate}}
+                <p class="mdl-page-header__dateline">
+                  {{#if newsCategory}}<span class="mdl-page-header__news-category">{{newsCategory}}</span>{{/if}}
+                  {{publicationDate}}
+                </p>
+              {{/if}}
               {{> "atoms/lead/lead"}}
             {{/unless}}
             {{#if buttonData}}
