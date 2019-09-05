@@ -32,6 +32,7 @@ class Anchornav extends Module {
   public mousePositonDown: number;
   public jumpPossible: boolean;
   public isClickEvent: boolean;
+  public isKeyEvent: boolean;
 
   public ui: {
     element: any,
@@ -102,6 +103,7 @@ class Anchornav extends Module {
     this.lastYScrollPositon = this.getDocumnetScrollPosition();
     this.jumpPossible = true;
     this.isClickEvent = false;
+    this.isKeyEvent = false;
 
     this.initUi();
     this.cacheNavigationPosition();
@@ -137,6 +139,7 @@ class Anchornav extends Module {
       .on('mousedown', this.options.domSelectors.navItems, this.onMouseDown.bind(this))
       .on('mouseup', this.options.domSelectors.navItems, this.onMouseUp.bind(this))
       .on('click', this.options.domSelectors.navItems, this.onMouseClick.bind(this))
+      .on('keypress', this.options.domSelectors.navItems, this.onKeypress.bind(this))
       .on('scroll', this.options.domSelectors.scrollContent, this.onHorizontalScroll.bind(this))
       .on('click', this.options.domSelectors.btnRight, this.onControlBtnClick.bind(this, 'right'))
       .on('click', this.options.domSelectors.btnLeft, this.onControlBtnClick.bind(this, 'left'));
@@ -601,21 +604,40 @@ class Anchornav extends Module {
    * @param event
    */
   onMouseDown(event) {
-    console.log('down');
     this.mousePositonDown = event.screenX;
+  }
+
+  onKeypress(event) {
+    this.isKeyEvent = true;
+    const { target } = event;
+
+    const jumpToPosition = this.getYDistanceTo(target);
+
+    if (this.jumpPossible) {
+      this.jumpPossible = false;
+      this.moveToAnchor(jumpToPosition);
+    }
+  }
+
+  getYDistanceTo(element: any): number {
+    let distance = 0;
+    // Get the trigger coordinates for a standart click jump
+    for (let i = 0; i < this.scrollReferences.length; i += 1) {
+      if ((<any> this.scrollReferences)[i].correspondingAnchor === element) {
+        distance = this.scrollReferences[i].triggerYPosition - this.lastYScrollPositon;
+        if (i !== this.scrollReferences.length) {
+          distance += this.options.tolerances.jumpToMargin;
+        }
+      }
+    }
+    return distance;
   }
 
   /**
    * Click-Callback on navigation anchors.
    * Only nessesary to prevent standart behavior
    */
-  onMouseClick(event) {
-    console.log('click');
-    /*
-    this.mousePositonDown = event.screenX;
-    event.preventDefault();
-    this.onMouseUp(event);
-    */
+  onMouseClick() {
     return false;
   }
 
@@ -626,7 +648,6 @@ class Anchornav extends Module {
    * @param event
    */
   onMouseUp(event) {
-    console.log('up');
     const { target } = event;
 
     // Stop event if the delta is to big
@@ -639,16 +660,7 @@ class Anchornav extends Module {
       return false;
     }
 
-    let jumpToPosition;
-    // Get the trigger coordinates for a standart click jump
-    for (let i = 0; i < this.scrollReferences.length; i += 1) {
-      if ((<any> this.scrollReferences)[i].correspondingAnchor === target) {
-        jumpToPosition = this.scrollReferences[i].triggerYPosition - this.lastYScrollPositon;
-        if (i !== this.scrollReferences.length) {
-          jumpToPosition += this.options.tolerances.jumpToMargin;
-        }
-      }
-    }
+    const jumpToPosition = this.getYDistanceTo(target);
 
     if (this.jumpPossible && this.isClickEvent) {
       this.jumpPossible = false;
@@ -715,8 +727,10 @@ class Anchornav extends Module {
    */
   toggleJumpFlag() {
     this.scrollReferences.forEach((item) => {
-      if (item.correspondingAnchor === this.ui.navItemActive) {
+      if (item.correspondingAnchor === this.ui.navItemActive
+        && this.isKeyEvent) {
         item.triggerElement.focus();
+        this.isKeyEvent = false;
       }
     });
     this.jumpPossible = !this.jumpPossible;
