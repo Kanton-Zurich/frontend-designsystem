@@ -609,9 +609,10 @@ class Anchornav extends Module {
    * Only nessesary to prevent standart behavior
    */
   onMouseClick(event) {
+    this.mousePositonDown = event.screenX;
     event.preventDefault();
     this.onMouseUp(event);
-    // return false;
+    return false;
   }
 
   /**
