@@ -1,0 +1,25 @@
+{{#extend "layouts/layout"}}
+  {{#content "header"}}
+	<header>
+      <h1 class="visuallyhidden">Navigation</h1>
+      {{> "modules/skiplinks/skiplinks" props.modules.skiplinks.props}}
+      {{> "modules/page_header/page_header" props.modules.pageHeaderData.variants.defaultImage.props}}
+    </header>
+  {{/content}}
+
+  {{#content "content"}}
+    {{> "modules/image_figure/image_figure" props.modules.imageFigureData.variants.default.props}}
+	{{> "modules/linklist/linklist" props.modules.linklistData }}
+	{{> "modules/person_card/person_card" props.modules.personCardData}}
+	{{> "modules/image_gallery/image_gallery" props.modules.imageGalleryData }}
+	{{> "modules/download_list/download_list" props.modules.downloadListData }}
+    {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
+	{{> "modules/tag_group/tag_group" props.modules.tagGroupData }}
+  {{/content}}
+
+  {{#content "footer"}}
+    <footer id="contentinfo" style="height: 293px">
+      <h1>Fussbereich  </h1>
+    </footer>
+  {{/content}}
+{{/extend}}
