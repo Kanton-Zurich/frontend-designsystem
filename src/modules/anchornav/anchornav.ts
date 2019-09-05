@@ -601,6 +601,7 @@ class Anchornav extends Module {
    * @param event
    */
   onMouseDown(event) {
+    console.log('down');
     this.mousePositonDown = event.screenX;
   }
 
@@ -609,9 +610,12 @@ class Anchornav extends Module {
    * Only nessesary to prevent standart behavior
    */
   onMouseClick(event) {
+    console.log('click');
+    /*
     this.mousePositonDown = event.screenX;
     event.preventDefault();
     this.onMouseUp(event);
+    */
     return false;
   }
 
@@ -622,6 +626,7 @@ class Anchornav extends Module {
    * @param event
    */
   onMouseUp(event) {
+    console.log('up');
     const { target } = event;
 
     // Stop event if the delta is to big
