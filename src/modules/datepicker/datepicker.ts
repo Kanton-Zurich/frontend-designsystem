@@ -31,7 +31,7 @@ class Datepicker extends Module {
     time: {
       enableTime: boolean,
       noCalendar: boolean,
-      time_24hr: boolean, // stylelint-disable-line
+      time_24hr: boolean, // eslint-disable-line
       dateFormat: string,
       position: string,
     },
