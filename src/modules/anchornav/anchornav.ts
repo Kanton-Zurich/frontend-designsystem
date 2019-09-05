@@ -608,8 +608,10 @@ class Anchornav extends Module {
    * Click-Callback on navigation anchors.
    * Only nessesary to prevent standart behavior
    */
-  onMouseClick() {
-    return false;
+  onMouseClick(event) {
+    event.preventDefault();
+    this.onMouseUp(event);
+    // return false;
   }
 
   /**
