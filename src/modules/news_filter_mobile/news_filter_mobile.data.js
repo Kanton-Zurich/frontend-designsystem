@@ -1,8 +1,9 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defFilterInputData = require('../../atoms/form_input/form_input.data');
+const defDatePickerData = require('../datepicker/datepicker.data.js');
 
 const template = dataHelper.getFileContent('news_filter_mobile.hbs');
 const data = _.merge({}, defaultData, {
@@ -14,6 +15,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     modalId: 'testFilter',
+    dateInputData: defDatePickerData.variants.dateRange.props,
     dateDropDown: {
       linkListItemTitle: 'Zeitraum',
       isButton: true,
@@ -22,102 +24,139 @@ const data = _.merge({}, defaultData, {
       chevron: true,
       modalFocus: true,
     },
-    topicFilter: {
-      linkListItemTitle: 'Themen',
-      isButton: true,
-      subtitle: ' ',
-      subTitlePattern: '% gewählt',
-      noColor: true,
-      topicFilterInput: _.merge({}, defFilterInputData.props, {
-        label: 'Themen nach Stichwort filtern',
-        dataSelector: 'data-topiclist="input"',
-        isSmall: true,
-        additionalFunctionality: {
-          icon: 'clear',
-          buttontype: 'clear',
-          ariaText: 'Lösche Eingabe',
-          ariaControls: 'topicSelect',
+    filters: [
+      {
+        title: 'Themen',
+        filterSelect: {
+          linkListItemTitle: 'Themen',
+          isButton: true,
+          subtitle: ' ',
+          subTitlePattern: '% gewählt',
+          noColor: true,
         },
-      }),
-      topics: [
-        {
-          value: 'vehicle',
-          label: 'Fahrzeug',
+        filterInput: _.merge({}, defFilterInputData.props, {
+          label: 'Themen nach Stichwort filtern',
+          dataSelector: 'data-topiclist="input"',
+          isSmall: true,
+          additionalFunctionality: {
+            icon: 'clear',
+            buttontype: 'clear',
+            ariaText: 'Lösche Eingabe',
+            ariaControls: 'topicSelect',
+          },
+        }),
+        filterItems: [
+          {
+            value: 'vehicle',
+            label: 'Fahrzeug',
+          },
+          {
+            value: 'plate',
+            label: 'Autonummern',
+          },
+          {
+            value: 'permit',
+            label: 'Führerausweis',
+          },
+          {
+            value: 'bike',
+            label: 'Velo',
+          },
+          {
+            value: 'ausweis_schild',
+            label: 'Ausweis oder Schild verloren',
+          },
+          {
+            value: 'verwarnung',
+            label: 'Ausweisentzug & Verwarnung',
+          },
+          {
+            value: 'schiffahrt',
+            label: 'Schiffahrt',
+          },
+          {
+            value: 'spez',
+            label: 'Spezielle Bewilligungen',
+          },
+          {
+            value: 'thema1',
+            label: 'Thema 1',
+          },
+          {
+            value: 'thema2',
+            label: 'Thema 2',
+          },
+          {
+            value: 'thema3',
+            label: 'Thema 3',
+          },
+        ],
+      },
+      {
+        title: 'Organisation',
+        filterSelect: {
+          linkListItemTitle: 'Organisation',
+          isButton: true,
+          subtitle: ' ',
+          subTitlePattern: '% gewählt',
+          noColor: true,
         },
-        {
-          value: 'plate',
-          label: 'Autonummern',
+        filterInput: _.merge({}, defFilterInputData.props, {
+          label: 'Organisation nach Stichwort filtern',
+          dataSelector: 'data-organisationlist="input"',
+          isSmall: true,
+          additionalFunctionality: {
+            icon: 'clear',
+            buttontype: 'clear',
+            ariaText: 'Lösche Eingabe',
+            ariaControls: 'organisationSelect',
+          },
+        }),
+        filterItems: [
+          {
+            value: 'org1',
+            label: 'Organisation 1',
+          },
+          {
+            value: 'org2',
+            label: 'Organisation 2',
+          },
+          {
+            value: 'org3',
+            label: 'Organisation 3',
+          },
+        ],
+      },
+      {
+        title: 'News-Typ',
+        identifier: 'type',
+        filterSelect: {
+          linkListItemTitle: 'News-Typ',
+          isButton: true,
+          subtitle: ' ',
+          subTitlePattern: '% gewählt',
+          noColor: true,
         },
-        {
-          value: 'permit',
-          label: 'Führerausweis',
-        },
-        {
-          value: 'bike',
-          label: 'Velo',
-        },
-        {
-          value: 'ausweis_schild',
-          label: 'Ausweis oder Schild verloren',
-        },
-        {
-          value: 'verwarnung',
-          label: 'Ausweisentzug & Verwarnung',
-        },
-        {
-          value: 'schiffahrt',
-          label: 'Schiffahrt',
-        },
-        {
-          value: 'spez',
-          label: 'Spezielle Bewilligungen',
-        },
-        {
-          value: 'thema1',
-          label: 'Thema 1',
-        },
-        {
-          value: 'thema2',
-          label: 'Thema 2',
-        },
-        {
-          value: 'thema3',
-          label: 'Thema 3',
-        },
-      ],
-    },
-    organisationFilter: {
-      linkListItemTitle: 'Organisation',
-      isButton: true,
-      subtitle: ' ',
-      subTitlePattern: '% gewählt',
-      noColor: true,
-      organisationFilterInput: _.merge({}, defFilterInputData.props, {
-        label: 'Organisation nach Stichwort filtern',
-        dataSelector: 'data-organisationlist="input"',
-        isSmall: true,
-        additionalFunctionality: {
-          icon: 'clear',
-          buttontype: 'clear',
-          ariaText: 'Lösche Eingabe',
-          ariaControls: 'organisationSelect',
-        },
-      }),
-      organisations: [
-        {
-          value: 'org1',
-          label: 'Organisation 1',
-        },
-        {
-          value: 'org2',
-          label: 'Organisation 2',
-        },
-        {
-          value: 'org3',
-          label: 'Organisation 3',
-        },
-      ],
-    },
+        filterInput: _.merge({}, defFilterInputData.props, {
+          label: 'News-Typ nach Stichwort filtern',
+          dataSelector: 'data-newstype="input"',
+          isSmall: true,
+          additionalFunctionality: {
+            icon: 'clear',
+            buttontype: 'clear',
+            ariaText: 'Lösche Eingabe',
+            ariaControls: 'newsTypeSelect',
+          },
+        }),
+        filterItems: [
+          { value: 'mit', label: 'Mitteilung' },
+          { value: 'serv', label: 'Services' },
+          { value: 'stat', label: 'Statistik' },
+          { value: 'vid', label: 'Video' },
+          { value: 'wahl', label: 'Wahlen' },
+        ],
+      },
+    ],
   },
 });
 const variants = _.mapValues({

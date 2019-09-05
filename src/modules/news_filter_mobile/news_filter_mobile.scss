@@ -63,6 +63,10 @@
       box-shadow: none;
 
       @include sizeCurve(padding-top, topListPadding, $filterSizes);
+
+      .atm-list__item input {
+        visibility: visible;
+      }
     }
 
     &-backbutton {

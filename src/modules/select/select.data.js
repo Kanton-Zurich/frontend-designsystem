@@ -28,7 +28,6 @@ const variants = _.mapValues({
     props: {
       listData: {
         selectOptions: [
-          { value: '', label: '' },
           { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
           { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
           { value: 'sich', label: 'Sicherheit & Justiz', id: _.uniqueId('option-item') },

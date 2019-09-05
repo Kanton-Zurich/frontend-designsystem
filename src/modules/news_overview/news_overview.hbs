@@ -5,10 +5,12 @@
         <form novalidate>
           <div class="mdl-news-overview__filter">
             {{>"atoms/form_input/form_input" searchInputData }}
-            {{>"atoms/form_input/form_input" dateInputData }}
+            {{>"modules/datepicker/datepicker" dateInputData }}
             {{>"modules/select/select" topicSelect }}
             {{>"modules/select/select" organisationSelect }}
             {{>"modules/select/select" typeSelect }}
+            {{>"atoms/button/button" buttonData }}
+            {{>"modules/news_filter_mobile/news_filter_mobile" newsFilterMobileData}}
           </div>
         </form>
         <div class="mdl-news-teaser mdl-news-overview__topnews">

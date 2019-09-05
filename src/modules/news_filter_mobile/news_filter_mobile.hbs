@@ -11,77 +11,46 @@
     <div class="lyt-wrapper">
       <div class="grid-x grid-margin-x">
         <div class="cell small-offset-1 medium-offset-1 large-offset-2 xlarge-offset-2 small-10 medium-10 large-8">
-          <div class="mdl-news-filter-mobile__sublevel">
-            <div class="mdl-news-filter-mobile__sublevel-container">
-              <h1 class="atm-heading mdl-news-filter-mobile__title">
-                <a href="#" class="mdl-news-filter-mobile__sublevel-backbutton">
-                  <svg class="icon mdl-news-filter-mobile__sublevel-icon">
-                    <use xlink:href="#arrow-left"></use>
-                  </svg>
-                </a>
-                Themen
-              </h1>
-              <form novalidate>
-                {{> "atoms/form_input/form_input" topicFilter.topicFilterInput}}
-              </form>
-              <div class="mdl-news-filter-mobile__sublevel-list">
-                <ul id="{{topicFilter.topicFilterInput.additionalFunctionality.ariaControls}}" class="atm-list">
-                  {{#each topicFilter.topics}}
-                    <li {{#if id}}id="{{id}}"{{/if}} class="atm-list__item atm-list__item--check-icon">
-                      <svg class="icon">
-                        <use xlink:href="#check"></use>
-                      </svg>
-                      <input name="group-iconLeftMulti" {{#if id}}id="checkbox-{{id}}"{{/if}} type="checkbox" value="{{value}}"
-                             placeholder="{{label}}">
-                      {{label}}
-                    </li>
-                  {{/each}}
-                </ul>
-              </div>
-              <div class="mdl-news-filter-mobile__sublevel-footer">
-                <button class="atm-button">Anwenden</button>
-              </div>
-            </div>
-          </div>
-          <div class="mdl-news-filter-mobile__sublevel">
-            <div class="mdl-news-filter-mobile__sublevel-container" aria-hidden="true">
-              <h1 class="atm-heading mdl-news-filter-mobile__title">
-                <a href="#" class="mdl-news-filter-mobile__sublevel-backbutton">
-                  <svg class="icon mdl-news-filter-mobile__sublevel-icon">
-                    <use xlink:href="#arrow-left"></use>
-                  </svg>
-                </a>
-                Organisation
-              </h1>
-              <form novalidate>
-                {{> "atoms/form_input/form_input" organisationFilter.organisationFilterInput}}
-              </form>
-              <div class="mdl-news-filter-mobile__sublevel-list">
-                <ul id="{{organisationFilter.organisationFilterInput.additionalFunctionality.ariaControls}}"
-                    class="atm-list">
-                  {{#each organisationFilter.organisations}}
-                    <li {{#if id}}id="{{id}}"{{/if}} class="atm-list__item atm-list__item--check-icon">
-                      <svg class="icon">
-                        <use xlink:href="#check"></use>
-                      </svg>
-                      <input name="group-iconLeftMulti" {{#if id}}id="checkbox-{{id}}"{{/if}} type="checkbox" value="{{value}}"
-                             placeholder="{{label}}">
-                      {{label}}
-                    </li>
-                  {{/each}}
-                </ul>
-              </div>
-              <div class="mdl-news-filter-mobile__sublevel-footer">
-                <button class="atm-button">Anwenden</button>
+          {{#each filters}}
+            <div class="mdl-news-filter-mobile__sublevel">
+              <div class="mdl-news-filter-mobile__sublevel-container">
+                <h1 class="atm-heading mdl-news-filter-mobile__title">
+                  <a href="#" class="mdl-news-filter-mobile__sublevel-backbutton">
+                    <svg class="icon mdl-news-filter-mobile__sublevel-icon">
+                      <use xlink:href="#arrow-left"></use>
+                    </svg>
+                  </a>
+                  {{title}}
+                </h1>
+                <form novalidate>
+                  {{> "atoms/form_input/form_input" filterInput}}
+                </form>
+                <div class="mdl-news-filter-mobile__sublevel-list">
+                  <ul id="{{filterInput.additionalFunctionality.ariaControls}}" class="atm-list">
+                    {{#each filterItems}}
+                      <li {{#if id}}id="{{id}}"{{/if}} class="atm-list__item atm-list__item--check-icon">
+                        <svg class="icon">
+                          <use xlink:href="#check"></use>
+                        </svg>
+                        <input name="group-iconLeftMulti" {{#if id}}id="checkbox-{{id}}"{{/if}} type="checkbox" value="{{value}}"
+                               placeholder="{{label}}">
+                        {{label}}
+                      </li>
+                    {{/each}}
+                  </ul>
+                </div>
+                <div class="mdl-news-filter-mobile__sublevel-footer">
+                  <button class="atm-button">Anwenden</button>
+                </div>
               </div>
             </div>
-          </div>
+          {{/each}}
           <div class="mdl-news-filter-mobile__container">
             <h1 class="atm-heading mdl-news-filter-mobile__title">Filter</h1>
-
             {{> "atoms/linklist_item/linklist_item" dateDropDown}}
-            {{> "atoms/linklist_item/linklist_item" topicFilter}}
-            {{> "atoms/linklist_item/linklist_item" organisationFilter}}
+            {{#each filters}}
+            {{> "atoms/linklist_item/linklist_item" filterSelect}}
+            {{/each}}
           </div>
         </div>
       </div>

@@ -4,8 +4,38 @@ const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const selectData = require('../select/select.data.js');
 const demoTeaserData = require('../teaser/teaser.data').variants.inverted.props;
+const defDatePickerData = require('../datepicker/datepicker.data.js');
+const defNewsFilterMobileData = require('../news_filter_mobile/news_filter_mobile.data.js');
 
 const templateConverter = require('../../../gulp/helpers/templateConverter');
+
+const dataTopics = [
+  { value: 'mig', label: 'Migration & Integration' },
+  { value: 'mo', label: 'Mobilität' },
+  { value: 'sich', label: 'Sicherheit & Justiz' },
+  { value: 'so', label: 'Soziales' },
+  { value: 'st', label: 'Steuern' },
+  { value: 'umte', label: 'Umwelt & Tier' },
+  { value: 'ge', label: 'Gemeinschaften' },
+  { value: 'scer', label: 'Schulen & Erziehung' },
+];
+
+const dataOrganisations = [
+  { value: 'ainf', label: 'Amt für Informatik' },
+  { value: 'ajug', label: 'Amt für Jugend & Beruf' },
+  { value: 'ajus', label: 'Amt für Justizvollzug' },
+  { value: 'amil', label: 'Amt für Militär und Zivilschutz' },
+  { value: 'aumw', label: 'Amt für Umwelt' },
+  { value: 'aver', label: 'Amt für Verkehr' },
+];
+
+const dataNewsTypes = [
+  { value: 'mit', label: 'Mitteilung' },
+  { value: 'serv', label: 'Services' },
+  { value: 'stat', label: 'Statistik' },
+  { value: 'vid', label: 'Video' },
+  { value: 'wahl', label: 'Wahlen' },
+];
 
 const template = dataHelper.getFileContent('news_overview.hbs');
 const data = _.merge({}, defaultData, {
@@ -36,13 +66,7 @@ const data = _.merge({}, defaultData, {
         hasFilterAndButton: true,
         hasOptionIcon: true,
         hasCheckIcon: true,
-        selectOptions: [
-          { value: 'mit', label: 'Mitteilung' },
-          { value: 'serv', label: 'Services' },
-          { value: 'stat', label: 'Statistik' },
-          { value: 'vid', label: 'Video' },
-          { value: 'wahl', label: 'Wahlen' },
-        ],
+        selectOptions: dataNewsTypes,
       },
     }),
     topicSelect: _.assign(_.merge({}, selectData.variants.multiSelect.props, {
@@ -60,16 +84,7 @@ const data = _.merge({}, defaultData, {
         hasFilterAndButton: true,
         hasOptionIcon: true,
         hasCheckIcon: true,
-        selectOptions: [
-          { value: 'mig', label: 'Migration & Integration' },
-          { value: 'mo', label: 'Mobilität' },
-          { value: 'sich', label: 'Sicherheit & Justiz' },
-          { value: 'so', label: 'Soziales' },
-          { value: 'st', label: 'Steuern' },
-          { value: 'umte', label: 'Umwelt & Tier' },
-          { value: 'ge', label: 'Gemeinschaften' },
-          { value: 'scer', label: 'Schulen & Erziehung' },
-        ],
+        selectOptions: dataTopics,
       },
     }),
     organisationSelect: _.assign(_.merge({}, selectData.variants.multiSelect.props, {
@@ -87,25 +102,14 @@ const data = _.merge({}, defaultData, {
         hasFilterAndButton: true,
         hasOptionIcon: true,
         hasCheckIcon: true,
-        selectOptions: [
-          { value: 'ainf', label: 'Amt für Informatik' },
-          { value: 'ajug', label: 'Amt für Jugend & Beruf' },
-          { value: 'ajus', label: 'Amt für Justizvollzug' },
-          { value: 'amil', label: 'Amt für Militär und Zivilschutz' },
-          { value: 'aumw', label: 'Amt für Umwelt' },
-          { value: 'aver', label: 'Amt für Verkehr' },
-        ],
+        selectOptions: dataOrganisations,
       },
     }),
-    dateInputData: {
-      type: 'text',
-      label: 'Zeitraum von/bis',
-      isInput: true,
-      isFloatingLabel: true,
-      iconOnly: {
-        icon: 'time',
+    dateInputData: _.merge({}, defDatePickerData.variants.dateRange.props, {
+      formInputData: {
+        validation: false,
       },
-    },
+    }),
     searchInputData: {
       type: 'text',
       label: 'Filter',
@@ -120,6 +124,14 @@ const data = _.merge({}, defaultData, {
         ariaText: 'Lösche Eingabe',
       },
     },
+    buttonData: {
+      text: 'Filtern',
+      isTextVisible: true,
+      additionalAttribute: 'type="button" data-news-filter-mobile',
+    },
+    newsFilterMobileData:_.merge({}, defNewsFilterMobileData.props, {
+      modalId: 'news-filter-mobile',
+    }),
     prominentTeaser: demoTeaserData,
     newsTeaserTemplate: templateConverter(dataHelper.getFileContent('../news_teaser/_news_teaser_item.hbs'), false),
     topNewsTeaserItems: [
@@ -147,6 +159,8 @@ const data = _.merge({}, defaultData, {
     ],
   },
 });
+data.props.newsFilterMobileData.filters[0].filterItems = dataTopics;
+data.props.newsFilterMobileData.filters[1].filterItems = dataOrganisations;
 
 const variants = _.mapValues({
   default: {

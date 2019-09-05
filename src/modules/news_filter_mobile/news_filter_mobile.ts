@@ -16,6 +16,7 @@ class NewsFilterMobile extends Module {
     container: HTMLDivElement,
     topicFilterInput: HTMLInputElement,
     organisationFilterInput: HTMLInputElement,
+    typeFilterInput: HTMLInputElement,
   };
 
   public options: {
@@ -45,6 +46,7 @@ class NewsFilterMobile extends Module {
         topicFilterInput: '[data-topiclist="input"]',
         topicList: '[data-topilist="list"]',
         organisationFilterInput: '[data-organisationlist="input"]',
+        typeFilterInput: '[data-typelist="input"]',
         container: '.mdl-news-filter-mobile__container',
       },
       stateClasses: {
@@ -53,7 +55,7 @@ class NewsFilterMobile extends Module {
 
     };
     super($element, defaultData, defaultOptions, data, options);
-    this.filterLists = [[], []];
+    this.filterLists = [[], [], []];
     this.initUi();
     this.initEventListeners();
   }
@@ -134,7 +136,6 @@ class NewsFilterMobile extends Module {
    * @param sender
    */
   openSublevelItem(element, sender) {
-    console.log(element);
     this.visibleSublevelItem = sender;
     this.ui.container.classList.add('hidden');
     this.ui.container.setAttribute('aria-hidden', 'true');
@@ -172,6 +173,7 @@ class NewsFilterMobile extends Module {
   initFilterSelect(element) {
     const listElement = document.querySelector(`#${element.getAttribute('aria-controls')}`);
     const listItems = listElement.querySelectorAll('li');
+    console.log(element);
     listItems.forEach((li) => {
       // ----------------
       // Handle key down events
@@ -215,7 +217,7 @@ class NewsFilterMobile extends Module {
       });
       // ----------------
       // Click event
-      li.addEventListener('click', () => {
+      li.addEventListener('click', (event) => {
         li.classList.toggle('selected');
       });
       // -----------------------

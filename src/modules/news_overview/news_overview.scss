@@ -6,7 +6,7 @@
     flex-wrap: wrap;
     margin-left: - $sizeRegular;
 
-    & > div {
+    & > div, & > button {
       margin-left: $sizeRegular;
       width: 100%;
       flex-basis: 200px;
@@ -18,6 +18,26 @@
         .mdl-select__options {
           min-width: 280px;
         }
+      }
+    }
+
+    > div {
+      &:first-child {
+        display: block;
+      }
+    }
+
+    > button {
+      display: none;
+    }
+
+    @include mq($from: tiny, $to: large) {
+      > div {
+        display: none;
+      }
+      > button {
+        display: block;
+        height: auto;
       }
     }
   }

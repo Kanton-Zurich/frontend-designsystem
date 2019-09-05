@@ -12,10 +12,14 @@ class NewsOverview extends Module {
     element: any,
     teaserTemplate: any,
     pagination: HTMLDivElement,
+    filter: HTMLDivElement,
     paginationInput: HTMLInputElement,
     topNews: HTMLDivElement,
+    filterMobileButton: HTMLButtonElement,
     list: any,
   };
+  public filterUi: any;
+  public filterMobileDomSelectors: any;
   private dataUrl: string;
   private dataIdle: boolean;
 
@@ -26,6 +30,8 @@ class NewsOverview extends Module {
       domSelectors: {
         teaserTemplate: '[data-teaser-template]',
         pagination: '.mdl-pagination',
+        filter: '.mdl-news-overview__filter',
+        filterMobileButton: '.mdl-news-overview__filter [data-news-filter-mobile]',
         paginationInput: '.mdl-pagination input',
         topNews: '.mdl-news-overview__topnews',
         list: '.mdl-news-overview__newsgrid .mdl-news-teaser__content > ul',
@@ -37,7 +43,19 @@ class NewsOverview extends Module {
 
     super($element, defaultData, defaultOptions, data, options);
 
+    this.filterMobileDomSelectors = {
+      sublevelItems: '.mdl-news-filter-mobile__sublevel > div',
+      listItems: '.atm-linklist_item',
+      footer: '.mdl-news-filter-mobile__footer',
+      footerButton: '.mdl-news-filter-mobile__footer button',
+      sublevelFooterButton: '.mdl-news-filter-mobile__sublevel-footer button',
+      topicFilterInput: '[data-topiclist="input"]',
+      topicList: '[data-topilist="list"]',
+      organisationFilterInput: '[data-organisationlist="input"]',
+      container: '.mdl-news-filter-mobile__container',
+    };
     this.initUi();
+    this.initFilterUi();
     this.dataUrl = this.ui.element.getAttribute('data-source');
     this.dataIdle = true;
     this.initEventListeners();
@@ -50,9 +68,29 @@ class NewsOverview extends Module {
   }
 
   /**
+   * Initialize foreign module selectors
+   */
+  initFilterUi() {
+    this.filterUi = {
+      element: document.querySelector('#news-filter-mobile'),
+    };
+    const domSelectorKeys = Object.keys(this.filterMobileDomSelectors);
+
+    domSelectorKeys.forEach((selectorKey) => {
+      const queryElements = this.filterUi.element
+        .querySelectorAll(this.filterMobileDomSelectors[selectorKey]);
+      this.filterUi[selectorKey] = queryElements.length > 1
+        ? queryElements : queryElements[0];
+    });
+  }
+
+  /**
    * Event listeners initialisation
    */
   initEventListeners() {
+    this.ui.filterMobileButton.addEventListener('click', () => {
+      this.filterUi.element.dispatchEvent(new CustomEvent('Modal.open'));
+    });
     this.watch(this.ui.paginationInput, 'value', () => {
       setTimeout(() => {
 
