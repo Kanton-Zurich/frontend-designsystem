@@ -88,6 +88,10 @@
       border: 0;
       padding-left: 0;
       text-align: right;
+      color: rgba($colorText, 0.6);
+      font-weight: $fontWeightDefault;
+
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
       @include sizeCurve(padding-bottom padding-top, small);
     }
   }

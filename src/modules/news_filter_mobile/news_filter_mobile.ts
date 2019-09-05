@@ -14,9 +14,6 @@ class NewsFilterMobile extends Module {
     listItems: HTMLAnchorElement[],
     footer: HTMLDivElement,
     container: HTMLDivElement,
-    topicFilterInput: HTMLInputElement,
-    organisationFilterInput: HTMLInputElement,
-    typeFilterInput: HTMLInputElement,
   };
 
   public options: {
@@ -43,10 +40,6 @@ class NewsFilterMobile extends Module {
         footer: '.mdl-news-filter-mobile__footer',
         footerButton: '.mdl-news-filter-mobile__footer button',
         sublevelFooterButton: '.mdl-news-filter-mobile__sublevel-footer button',
-        topicFilterInput: '[data-topiclist="input"]',
-        topicList: '[data-topilist="list"]',
-        organisationFilterInput: '[data-organisationlist="input"]',
-        typeFilterInput: '[data-typelist="input"]',
         container: '.mdl-news-filter-mobile__container',
       },
       stateClasses: {
@@ -173,7 +166,6 @@ class NewsFilterMobile extends Module {
   initFilterSelect(element) {
     const listElement = document.querySelector(`#${element.getAttribute('aria-controls')}`);
     const listItems = listElement.querySelectorAll('li');
-    console.log(element);
     listItems.forEach((li) => {
       // ----------------
       // Handle key down events
@@ -217,13 +209,9 @@ class NewsFilterMobile extends Module {
       });
       // ----------------
       // Click event
-      li.addEventListener('click', (event) => {
+      li.addEventListener('click', () => {
         li.classList.toggle('selected');
       });
-      // -----------------------
-      // Handle multiselect items focus style
-      li.addEventListener('focusout', () => { li.classList.remove('focused'); });
-      li.addEventListener('focusin', () => { li.classList.add('focused'); });
     });
     // -------------------------------
     // Observe inputs and update values
