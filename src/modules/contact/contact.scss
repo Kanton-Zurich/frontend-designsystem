@@ -33,6 +33,7 @@
   &__subtitle {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
     line-height: $sizeLineHeightMedium;
+    font-weight: $fontWeightBlack;
     margin-bottom: $sizeRegular;
     margin-top: 0;
 
@@ -93,6 +94,7 @@
   }
 
   &__cell-content {
+    word-break: break-all;
     padding-left: calc(#{$sizeSmallRegular} + #{$sizeBiggerBig});
 
     > *:last-of-type {
