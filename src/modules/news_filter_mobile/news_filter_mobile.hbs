@@ -7,7 +7,7 @@
   </button>
 {{/if}}
 <div id="{{modalId}}" class="mdl-modal" aria-hidden="true" data-init="modal">
-  <div class="mdl-news-filter-mobile" data-init="newsFilterMobile">
+  <div class="mdl-news-filter-mobile" data-init="newsFilterMobile" data-filters>
     <div class="lyt-wrapper">
       <div class="grid-x grid-margin-x">
         <div class="cell small-offset-1 medium-offset-1 large-offset-2 xlarge-offset-2 small-10 medium-10 large-8">
@@ -26,7 +26,7 @@
                   {{> "atoms/form_input/form_input" filterInput}}
                 </form>
                 <div class="mdl-news-filter-mobile__sublevel-list">
-                  <ul id="{{filterInput.additionalFunctionality.ariaControls}}" class="atm-list">
+                  <ul id="{{filterSelect.filterId}}" class="atm-list">
                     {{#each filterItems}}
                       <li {{#if id}}id="{{id}}"{{/if}} class="atm-list__item atm-list__item--check-icon">
                         <svg class="icon">

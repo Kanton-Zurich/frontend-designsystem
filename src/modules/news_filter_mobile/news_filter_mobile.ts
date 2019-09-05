@@ -36,7 +36,7 @@ class NewsFilterMobile extends Module {
       focusDelay: 300,
       domSelectors: {
         sublevelItems: '.mdl-news-filter-mobile__sublevel > div',
-        listItems: '.atm-linklist_item',
+        listItems: '.atm-linklist_item[data-multiselect]',
         footer: '.mdl-news-filter-mobile__footer',
         footerButton: '.mdl-news-filter-mobile__footer button',
         sublevelFooterButton: '.mdl-news-filter-mobile__sublevel-footer button',
@@ -48,13 +48,15 @@ class NewsFilterMobile extends Module {
 
     };
     super($element, defaultData, defaultOptions, data, options);
-    this.filterLists = [[], [], []];
+    this.filterLists = [];
     this.initUi();
     this.initEventListeners();
   }
 
   static get events() {
     return {
+      onSetSelectedFilterItems: 'NewsFilterMobile.setSelectedItems',
+      onSetDate: 'NewsFilterMobile.setDate',
     };
   }
 
@@ -62,6 +64,13 @@ class NewsFilterMobile extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
+    // ----------------
+    // Select data events
+    this.eventDelegate.on(NewsFilterMobile
+      .events.onSetSelectedFilterItems, this.onSetSelectedFilterItems.bind(this));
+    this.eventDelegate.on(NewsFilterMobile
+      .events.onSetDate, this.onSetDate.bind(this));
+
     // ----------------
     // initialize focus handling
     this.ui.listItems.forEach((linkListItem) => {
@@ -80,45 +89,58 @@ class NewsFilterMobile extends Module {
         }
       });
     });
+
     // -----------------------
     // initialize multiselects
-    for (let i = 1; i < this.ui.listItems.length; i += 1) {
-      const idx = i - 1;
+    for (let i = 0; i < this.ui.listItems.length; i += 1) {
+      this.filterLists.push([]);
       this.ui.listItems[i].addEventListener('click', (event) => {
-        this.openSublevelItem(this.ui.sublevelItems[idx], this.ui.listItems[i]);
-
-        this.ui.sublevelItems[idx].querySelector('input').value = '';
-        this.ui.sublevelItems[idx].querySelectorAll('li').forEach((li) => {
-          if (this.filterLists[idx].indexOf(li.querySelector('input').value) < 0) {
-            li.classList.remove('selected');
-          } else {
-            li.classList.add('selected');
-          }
+        this.openSublevelItem(this.ui.sublevelItems[i], this.ui.listItems[i]);
+        this.ui.sublevelItems[i].querySelector('input').value = '';
+        this.ui.sublevelItems[i].querySelectorAll('li ').forEach((li) => {
+          li.querySelector('input').checked = this.filterLists[i]
+            .indexOf(li.querySelector('input').value) >= 0;
         });
         event.preventDefault();
       });
-      this.initFilterSelect(this.ui.sublevelItems[idx].querySelector('input'));
-      this.ui.sublevelItems[i - 1].querySelector((<any> this.options.domSelectors).sublevelFooterButton).addEventListener('click', () => {
-        this.filterLists[idx] = [];
-        this.ui.sublevelItems[idx].querySelectorAll('li').forEach((li) => {
-          if (li.classList.contains('selected')) {
-            this.filterLists[idx].push(li.querySelector('input').value);
-          }
+
+      this.initFilterSelect(this.ui.sublevelItems[i].querySelector('input'));
+
+      this.ui.sublevelItems[i]
+        .querySelector((<any> this.options.domSelectors).sublevelFooterButton)
+        .addEventListener('click', () => {
+          this.filterLists[i] = [];
+          this.ui.sublevelItems[i].querySelectorAll('li').forEach((li) => {
+            if (li.classList.contains('selected')) {
+              this.filterLists[i].push(li.querySelector('input').value);
+            }
+          });
+          this.emitSetSelectedFilterItems();
+          this.closeSublevelItem(this.ui.sublevelItems[i]);
         });
-        this.closeSublevelItem(this.ui.sublevelItems[idx]);
-        this.ui.listItems[i].querySelector('.atm-linklist_item__text-subtitle').innerHTML = this.filterLists[idx].length < 1
-          ? ''
-          : this.ui.listItems[i]
-            .getAttribute('data-subtitle-pattern').replace('%', this.filterLists[idx].length);
-      });
-      this.ui.sublevelItems[idx].addEventListener('keydown', (event) => {
+
+      this.ui.sublevelItems[i].addEventListener('keydown', (event) => {
         if (event.key === 'Escape' || event.key === 'Esc') {
           event.stopPropagation();
-          this.closeSublevelItem(this.ui.sublevelItems[idx]);
+          this.closeSublevelItem(this.ui.sublevelItems[i]);
         }
       });
-      this.ui.sublevelItems[idx].querySelector('.mdl-news-filter-mobile__sublevel-backbutton').addEventListener('click', () => {
-        this.closeSublevelItem(this.ui.sublevelItems[idx]);
+
+      this.ui.sublevelItems[i]
+        .querySelector('.mdl-news-filter-mobile__sublevel-backbutton')
+        .addEventListener('click', () => {
+          this.closeSublevelItem(this.ui.sublevelItems[i]);
+        });
+
+      // Watch checkboxes and change style
+      this.ui.sublevelItems[i].querySelectorAll('li').forEach((li) => {
+        this.watch(li.querySelector('input'), 'checked', (key, before, after) => {
+          if (after) {
+            li.classList.add('selected');
+          } else {
+            li.classList.remove('selected');
+          }
+        });
       });
     }
   }
@@ -207,12 +229,8 @@ class NewsFilterMobile extends Module {
           evt.preventDefault();
         }
       });
-      // ----------------
-      // Click event
-      li.addEventListener('click', () => {
-        li.classList.toggle('selected');
-      });
     });
+
     // -------------------------------
     // Observe inputs and update values
     this.watch(element, 'value', debounce((key, before, after) => { // eslint-disable-line
@@ -225,6 +243,48 @@ class NewsFilterMobile extends Module {
         }
       });
     }, this.options.inputDelay));
+  }
+
+  /**
+   * Emit list change event
+   */
+  emitSetSelectedFilterItems() {
+    this.ui.element.dispatchEvent(new CustomEvent(NewsFilterMobile.events.onSetSelectedFilterItems,
+      {
+        detail: {
+          filterLists: this.filterLists,
+        },
+      }));
+  }
+
+  /**
+   * Emitted when items change
+   * @param event
+   */
+  onSetSelectedFilterItems(event) {
+    this.filterLists = event.detail.filterLists;
+
+    // Update value text
+    for (let i = 0; i < this.ui.listItems.length; i += 1) {
+      this.ui.listItems[i].querySelector('.atm-linklist_item__text-subtitle')
+        .innerHTML = this.filterLists[i].length < 1
+          ? ''
+          : this.ui.listItems[i]
+            .getAttribute('data-subtitle-pattern')
+            .replace('%', this.filterLists[i].length);
+      this.ui.sublevelItems[i].querySelectorAll('li input')
+        .forEach((checkbox: HTMLInputElement) => {
+          checkbox.checked = this.filterLists[i].indexOf(checkbox.value) >= 0;
+        });
+    }
+  }
+
+  /**
+   * On date change event
+   * @param event
+   */
+  onSetDate(event) {
+    const payload = event.detail;
   }
 
   /**

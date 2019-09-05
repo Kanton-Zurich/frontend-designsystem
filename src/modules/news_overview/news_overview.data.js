@@ -6,6 +6,7 @@ const selectData = require('../select/select.data.js');
 const demoTeaserData = require('../teaser/teaser.data').variants.inverted.props;
 const defDatePickerData = require('../datepicker/datepicker.data.js');
 const defNewsFilterMobileData = require('../news_filter_mobile/news_filter_mobile.data.js');
+const defFilterPillsData = require('../filter_pills/filter_pills.data.js');
 
 const templateConverter = require('../../../gulp/helpers/templateConverter');
 
@@ -110,6 +111,7 @@ const data = _.merge({}, defaultData, {
         validation: false,
       },
     }),
+    filterPillsData: defFilterPillsData.props,
     searchInputData: {
       type: 'text',
       label: 'Filter',

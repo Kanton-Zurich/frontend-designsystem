@@ -20,11 +20,13 @@ const data = _.merge({}, defaultData, {
       {
         title: 'Themen',
         filterSelect: {
+          filterId: 'topicSelect',
           linkListItemTitle: 'Themen',
           isButton: true,
           subtitle: ' ',
           subTitlePattern: '% gewählt',
           noColor: true,
+          additionalAttributes: 'data-multiselect',
         },
         filterInput: _.merge({}, defFilterInputData.props, {
           label: 'Themen nach Stichwort filtern',
@@ -87,11 +89,13 @@ const data = _.merge({}, defaultData, {
       {
         title: 'Organisation',
         filterSelect: {
+          filterId: 'organisationSelect',
           linkListItemTitle: 'Organisation',
           isButton: true,
           subtitle: ' ',
           subTitlePattern: '% gewählt',
           noColor: true,
+          additionalAttributes: 'data-multiselect',
         },
         filterInput: _.merge({}, defFilterInputData.props, {
           label: 'Organisation nach Stichwort filtern',
@@ -121,13 +125,14 @@ const data = _.merge({}, defaultData, {
       },
       {
         title: 'News-Typ',
-        identifier: 'type',
         filterSelect: {
+          filterId: 'newsTypeSelect',
           linkListItemTitle: 'News-Typ',
           isButton: true,
           subtitle: ' ',
           subTitlePattern: '% gewählt',
           noColor: true,
+          additionalAttributes: 'data-multiselect',
         },
         filterInput: _.merge({}, defFilterInputData.props, {
           label: 'News-Typ nach Stichwort filtern',

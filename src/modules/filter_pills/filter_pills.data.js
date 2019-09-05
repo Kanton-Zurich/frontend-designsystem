@@ -13,7 +13,6 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('filter_pills.md'),
   },
   props: {
-    preview: true,
     buttonData: _.merge({}, defButtonData.variants.tagEdit.props, {
       text: 'Zurücksetzen',
       icon: 'undo',
@@ -27,6 +26,9 @@ const variants = _.mapValues({
       title: 'Default',
       desc: 'Default implementation',
     },
+    props: {
+      preview: true,
+    }
   },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;

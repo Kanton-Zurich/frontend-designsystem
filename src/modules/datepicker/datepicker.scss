@@ -68,6 +68,7 @@
 
     &__text {
       position: absolute;
+
       @include sizeCurve(padding-bottom padding-top, small);
     }
 
@@ -79,7 +80,7 @@
       width: 100%;
     }
 
-    input:focus{
+    input:focus {
       outline: none;
     }
 

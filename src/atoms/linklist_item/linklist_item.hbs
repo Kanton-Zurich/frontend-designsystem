@@ -2,10 +2,10 @@
   class="atm-linklist_item {{#if linkListItemIsDownload}}atm-linklist_item--download{{/if}} {{#if isLegalFoundation}}atm-linklist_item--legalfoundation{{/if}} {{#if noColor}}atm-linklist_item--nocolor{{/if}}"
   {{#if linkListItemHref}}href="{{linkListItemHref}}"{{/if}}{{#if target}} target="_{{target}}"{{/if}}
   {{#if linkListItemIsDownload}}{{#unless isButton}}download{{/unless}}{{/if}}
-  {{#if domSelector}}{{{domSelector}}}{{/if}}
   {{#if subTitlePattern}} data-subtitle-pattern="{{subTitlePattern}}"{{/if}}
   {{#if modalFocus}} data-modal-focus{{/if}}
   {{#if isButton}}aria-expanded="false"{{/if}}
+  {{#if additionalAttributes}} {{{additionalAttributes}}}{{/if}}
 >
   {{#if linkListItemIsDownload}}{{#unless isLegalFoundation}}
     <svg class="icon atm-linklist_item__download">
