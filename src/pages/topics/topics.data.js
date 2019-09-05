@@ -64,30 +64,6 @@ const defAnchorNavData = {
         anchorlinkAsButton: true,
       },
     },
-    {
-      anchorlink: {
-        anchorlinkText: 'Testheading 1',
-        anchorlinkAdress: 'test1',
-        anchorlinkIsActive: false,
-        anchorlinkAsButton: true,
-      },
-    },
-    {
-      anchorlink: {
-        anchorlinkText: 'Testheading 2',
-        anchorlinkAdress: 'test2',
-        anchorlinkIsActive: false,
-        anchorlinkAsButton: true,
-      },
-    },
-    {
-      anchorlink: {
-        anchorlinkText: 'Testheading 3',
-        anchorlinkAdress: 'test3',
-        anchorlinkIsActive: false,
-        anchorlinkAsButton: true,
-      },
-    },
   ],
 };
 
