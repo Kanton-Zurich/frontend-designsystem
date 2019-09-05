@@ -617,9 +617,6 @@ class Anchornav extends Module {
     for (let i = 0; i < this.scrollReferences.length; i += 1) {
       if ((<any> this.scrollReferences)[i].correspondingAnchor === element) {
         distance = this.scrollReferences[i].triggerYPosition - this.lastYScrollPositon;
-        if (i !== this.scrollReferences.length) {
-          distance += this.options.tolerances.jumpToMargin;
-        }
       }
     }
     return distance;
