@@ -19,20 +19,6 @@ const data = _.merge({}, defaultData, {
       icon: 'undo',
       additionalAttribute: 'data-clear',
     }),
-    filterItems: [
-      {
-        text: 'Mobilität',
-      },
-      {
-        text: 'Soziales',
-      },
-      {
-        text: '10.04.2019 - 20.11.2018',
-      },
-      {
-        text: 'Amt für Energie',
-      },
-    ],
   },
 });
 const variants = _.mapValues({
