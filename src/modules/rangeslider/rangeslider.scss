@@ -1,11 +1,49 @@
 .mdl-rangeslider {
+
+  &__wrapper {
+    position: relative;
+    height: pxToRem($sizeBig);
+  }
+
+  &__track {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 100%;
+    background-color: $colorCyan;
+    border-radius: 4px;
+  }
+
   input {
-    -webkit-appearance: none;
+    // Reset styles
+    position: relative;
+    appearance: none;
     width: 100%;
     background: transparent;
 
     &::-webkit-slider-thumb {
-      -webkit-appearance: none;
+      appearance: none;
+      background: $colorWhite;
+      border: 2px solid $colorBlack40;
+      border-radius: 50%;
+      height: pxToRem($sizeBig);
+      width: pxToRem($sizeBig);
+
+      &:after {
+        content: '';
+        display: block;
+        background-color: red;
+        height: 4px;
+        width: 100%;
+        border-radius: 4px;
+      }
+    }
+
+    &::-webkit-slider-runnable-track {
+
     }
 
     &:focus {
@@ -16,10 +54,11 @@
       width: 100%;
       cursor: pointer;
 
-      /* Hides the slider so custom styles can be added */
+      // Hides the slider so custom styles can be added
       background: transparent;
       border-color: transparent;
       color: transparent;
     }
   }
+
 }
