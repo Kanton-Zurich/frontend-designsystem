@@ -61,4 +61,34 @@
       cursor: pointer;
     }
   }
+
+  .atm-linklist_item {
+    padding-bottom: 0;
+    padding-top: 0;
+
+    &__text {
+      position: absolute;
+      @include sizeCurve(padding-bottom padding-top, small);
+    }
+
+    .icon {
+      @include sizeCurve(top, small);
+    }
+
+    .flatpickr-wrapper {
+      width: 100%;
+    }
+
+    input:focus{
+      outline: none;
+    }
+
+    .atm-form_input__input {
+      background: none;
+      border: 0;
+      padding-left: 0;
+      text-align: right;
+      @include sizeCurve(padding-bottom padding-top, small);
+    }
+  }
 }

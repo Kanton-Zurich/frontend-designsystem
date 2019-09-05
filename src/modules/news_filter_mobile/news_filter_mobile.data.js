@@ -15,15 +15,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     modalId: 'testFilter',
-    dateInputData: defDatePickerData.variants.dateRange.props,
-    dateDropDown: {
-      linkListItemTitle: 'Zeitraum',
-      isButton: true,
-      subtitle: '20.08.2019 - 30.08.2019',
-      noColor: true,
-      chevron: true,
-      modalFocus: true,
-    },
+    dateDropDown: defDatePickerData.variants.dateRangeLinkListItem.props,
     filters: [
       {
         title: 'Themen',
@@ -167,7 +159,7 @@ const variants = _.mapValues({
     },
     props: {
       preview: true,
-    }
+    },
   },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
