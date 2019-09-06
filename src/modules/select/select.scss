@@ -115,6 +115,10 @@ $selectHeightWithFilterExtended: 424px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+
+        &.hidden {
+          display: none;
+        }
       }
     }
 
@@ -154,7 +158,6 @@ $selectHeightWithFilterExtended: 424px;
     .atm-form_input {
 
       &__input--trigger {
-
         padding-top: pxToRem(35px);
         padding-bottom: pxToRem(15px);
       }

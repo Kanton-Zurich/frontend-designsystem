@@ -5,6 +5,7 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import { debounce } from 'lodash';
 
 class Select extends Module {
   public isOpen: boolean;
@@ -16,7 +17,6 @@ class Select extends Module {
   public focusOnButton: boolean;
   public focusOnClearButton: boolean;
   public isFirefox: boolean;
-  public isKeyControlled: boolean;
 
   public buttonPostfix: string;
 
@@ -38,40 +38,24 @@ class Select extends Module {
     dropdown: any,
     filter: any,
     list: any,
-    items: any,
+    items: HTMLUListElement[],
+    inputItems: HTMLInputElement[],
     applyButton: any,
     clearButton: any,
     phoneInput: any,
   };
 
   public options: {
-    domSelectors: {
-      trigger: string,
-      triggerValue: string,
-      triggerLabel: string,
-      dropdown: string,
-      filter: string,
-      list: string,
-      items: string,
-      applyButton: string,
-      clearButton: string,
-      phoneInput: string,
-    },
-    stateClasses: {
-      open: string,
-      selected: string,
-      touched: string,
-    },
-    dataSelectors: {
-      itemType: string,
-      isMultiSelect: string,
-      selectPostfix: string,
-    }
+    inputDelay: number,
+    domSelectors: any,
+    stateClasses: any,
+    dataSelectors: any,
   };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
     const defaultOptions = {
+      inputDelay: 250,
       domSelectors: {
         trigger: '.atm-form_input--trigger button',
         triggerValue: '.atm-form_input__trigger-value',
@@ -81,13 +65,13 @@ class Select extends Module {
         phoneInput: '.atm-form_input--trigger-phone input',
         list: '.atm-list',
         items: '.atm-list__item',
+        inputItems: '.atm-list__item input',
         clearButton: '.atm-form_input__functionality',
         applyButton: '.mdl-select__apply button',
       },
       stateClasses: {
         open: 'mdl-select--open',
-        selected: 'selected',
-        touched: 'mdl-select--selected',
+        selected: 'mdl-select--selected',
       },
       dataSelectors: {
         itemType: 'inputtype',
@@ -100,7 +84,6 @@ class Select extends Module {
 
     this.isOpen = false;
     this.isMultiSelect = false;
-    this.isKeyControlled = false;
     this.focusOnFilter = false;
     this.focusOnList = false;
     this.focusOnButton = false;
@@ -128,10 +111,10 @@ class Select extends Module {
     this.selections = [];
 
     // Handle pre-selections
-    this.preSelections = this.ui.list.querySelectorAll('input[checked]');
-    if (this.preSelections.length > 0) {
-      this.handlePreselection();
-    }
+    /* this.preSelections = this.ui.list.querySelectorAll('input[checked]');
+		 if (this.preSelections.length > 0) {
+			 this.handlePreselection();
+		 }*/
 
     this.initUi();
     this.initEventListeners();
@@ -139,7 +122,7 @@ class Select extends Module {
 
   static get events() {
     return {
-      // eventname: `eventname.${ Select.name }.${  }`
+      valueChanged: 'Select.valueChanged',
     };
   }
 
@@ -148,173 +131,367 @@ class Select extends Module {
    */
   initEventListeners() {
     this.eventDelegate
-      .on('focus', this.options.domSelectors.list, this.onListFocus.bind(this))
-      .on('focus', this.options.domSelectors.applyButton, this.onApplyButtonFocus.bind(this))
-      .on('focus', this.options.domSelectors.clearButton, this.onClearButtonFocus.bind(this))
-      .on('focus', this.options.domSelectors.filter, this.onFilterFocus.bind(this))
-      .on('blur', this.options.domSelectors.list, this.onListBlur.bind(this))
-      .on('blur', this.options.domSelectors.applyButton, this.onApplyButtonBlur.bind(this))
-      .on('blur', this.options.domSelectors.clearButton, this.onClearButtonBlur.bind(this))
-      .on('blur', this.options.domSelectors.filter, this.onFilterBlur.bind(this))
-      .on('input', this.options.domSelectors.filter, this.onFilterInput.bind(this))
-      .on('keydown', this.options.domSelectors.filter, this.onFilterKeypress.bind(this))
-      .on('keydown', this.options.domSelectors.list, this.onListKeypress.bind(this))
-      .on('keydown', this.options.domSelectors.applyButton, this.onButtonKeydown.bind(this))
-      .on('keydown', this.options.domSelectors.trigger, this.onTriggerKeydown.bind(this))
-      .on('click', this.options.domSelectors.applyButton, this.onButtonClick.bind(this))
-      .on('click', this.options.domSelectors.items, this.onItemsClick.bind(this))
-      .on('click', this.options.domSelectors.clearButton, this.onClearButtonClick.bind(this))
-      .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this));
+    //.on('focus', this.options.domSelectors.list, this.onListFocus.bind(this))
+    // .on('focus', this.options.domSelectors.applyButton, this.onApplyButtonFocus.bind(this))
+    // .on('focus', this.options.domSelectors.clearButton, this.onClearButtonFocus.bind(this))
+    // .on('focus', this.options.domSelectors.filter, this.onFilterFocus.bind(this))
+    // .on('blur', this.options.domSelectors.list, this.onListBlur.bind(this))
+    // .on('blur', this.options.domSelectors.applyButton, this.onApplyButtonBlur.bind(this))
+    // .on('blur', this.options.domSelectors.clearButton, this.onClearButtonBlur.bind(this))
+    // .on('blur', this.options.domSelectors.filter, this.onFilterBlur.bind(this))
+    // .on('input', this.options.domSelectors.filter, this.onFilterInput.bind(this))
+    // .on('keydown', this.options.domSelectors.filter, this.onFilterKeypress.bind(this))
+    // .on('keydown', this.options.domSelectors.list, this.onListKeypress.bind(this))
+    // .on('keydown', this.options.domSelectors.applyButton, this.onButtonKeydown.bind(this))
+    // .on('keydown', this.options.domSelectors.trigger, this.onTriggerKeydown.bind(this))
+    // .on('click', this.options.domSelectors.applyButton, this.onButtonClick.bind(this))
+    // ------------------------------
+    // On click filter input
+      .on('mouseup', this.options.domSelectors.filter, (event) => {
+        event.stopPropagation();
+      })
+      // On Click dropdown item
+      .on('mouseup', this.options.domSelectors.inputItems, (event) => {
+        const {target} = event;
+        if (!this.isMultiSelect) {
+          if (this.isFirefox) {
+            setTimeout((() => {
+              this.closeDropdown();
+            }), this.firefoxDelay);
+          } else {
+            this.closeDropdown();
+          }
+        }
+      })
+      // ------------------------------
+      // On Key press dropdown item
+      .on('keydown', this.options.domSelectors.inputItems, (event) => {
+        if (event.key === 'Tab') {
+          if (!event.shiftKey) {
+            this.closeDropdown(true);
+          }
+        }
+      })
+      // ------------------------------
+      // On Key press Dropdown dropdown content element
+      .on('keydown', this.options.domSelectors.dropdown, (event) => {
+        if (event.key === 'Esc' || event.key === 'Escape' ||
+          event.key === 'Enter' || event.key === ' '
+        ) {
+          this.closeDropdown();
+        }
+      })
+      // ------------------------------
+      // On Key press Dropdown main element
+      .on('keydown', this.options.domSelectors.trigger, (event) => {
+        if (event.key === 'Tab') {
+          if (event.shiftKey) {
+            this.closeDropdown(true);
+          }
+        }
+      })
+      // ------------------------------
+      // On Click Dropdown main element
+      .on('mouseup', this.options.domSelectors.trigger, (event) => {
+        if (this.isOpen) {
+          this.closeDropdown();
+        } else {
+          this.openDropdown();
+        }
+        event.stopPropagation();
+      })
+      // ------------------------------
+      // On value of select changed
+      .on(Select.events.valueChanged, this.onValueChanged.bind(this));
+
+    if (!this.isMultiSelect) {
+      this.ui.inputItems.forEach((item, index) => {
+        item.addEventListener('change', (evt) => {
+          this.ui.items.forEach((li) => {
+            li.classList.remove('selected');
+          });
+          this.ui.items[index].classList.add('selected');
+          this.emitValueChanged((<HTMLInputElement>evt.target).value);
+        });
+      });
+    }
+
+    // -------------------------------
+    // Observe inputs and update values
+    if (this.ui.filter) {
+      this.watch(this.ui.filter, 'value', debounce((key, before, after) => { // eslint-disable-line
+        console.log(after);
+        this.ui.items.forEach((li) => {
+          const regex = new RegExp(after, 'i');
+          if (regex.test(li.querySelector('input').placeholder)) {
+            li.classList.remove('hidden');
+          } else {
+            console.log(li);
+            li.classList.add('hidden');
+          }
+        });
+      }, this.options.inputDelay));
+    }
+  }
+
+  /**
+   * Emit that value has changed
+   * @param value
+   */
+  emitValueChanged(value) {
+    this.ui.element.dispatchEvent(new CustomEvent(Select.events.valueChanged, {detail: value}));
+  }
+
+  /**
+   * Handle event on value changed
+   * @param event
+   */
+  onValueChanged(event) {
+    const value = event.detail;
+    let triggerLabelText = '';
+    if (this.isMultiSelect) {
+      triggerLabelText = `${value.length} ${this.buttonPostfix}`;
+    } else {
+      if (this.ui.phoneInput) {
+        triggerLabelText = value;
+      } else {
+        triggerLabelText = this.ui.list.querySelector(`[value="${value}"`).placeholder;
+      }
+    }
+    this.ui.triggerValue.innerText = triggerLabelText;
+    this.ui.element.classList.remove(this.options.stateClasses.selected);
+    if (triggerLabelText !== '') {
+      this.ui.element.classList.add(this.options.stateClasses.selected);
+    }
+  }
+
+  /**
+   * Open dropdown/select
+   */
+  openDropdown() {
+    const openClass = this.options.stateClasses.open;
+    const dropDown = this.ui.element;
+    dropDown.classList.add(openClass);
+    this.isOpen = true;
+
+    if (!this.isMultiSelect) {
+      //  this.selectItemByIndex(this.selectionIndex);
+    }
+
+    this.ui.trigger.setAttribute('aria-expanded', 'true');
+    this.ui.dropdown.setAttribute('aria-hidden', 'false');
+
+    if (this.ui.filter) {
+      this.ui.filter.focus();
+    } else {
+      this.ui.element.querySelector(`${this.options.domSelectors.inputItems}:checked`).focus();
+    }
+
+    // click out of element loose focus and close
+    this.onFocusOut = this.onFocusOut.bind(this);
+    window.addEventListener('mouseup', this.onFocusOut);
+    // setTimeout(() => { this.focusDropdown(); }, this.dropdownDelay);
+  }
+
+
+  /**
+   * Close dropdown/select
+   */
+  closeDropdown(focusLost = false) {
+    window.removeEventListener('mouseup', this.onFocusOut);
+    const openClass = this.options.stateClasses.open;
+    const dropDown = this.ui.element;
+    dropDown.classList.remove(openClass);
+    this.isOpen = false;
+    this.ui.trigger.setAttribute('aria-expanded', 'false');
+    this.ui.dropdown.setAttribute('aria-hidden', 'true');
+    if (!focusLost) {
+      setTimeout(() => {
+        this.ui.trigger.focus();
+      }, this.dropdownDelay);
+    }
+  }
+
+  onFocusOut() {
+    this.closeDropdown(true);
+  }
+
+  /**
+   * Handles the rest of the aria attributes on the list(aria-activedescendant)
+   * and items(aria-selected)
+   */
+
+  /*updateAriaAttributes() {
+    // Reset aria-selected by applying false to all option
+    for (let i = 0; i < this.ui.items.length; i += 1) {
+      this.setAriaSelectedOnOption(this.ui.items[i], 'false');
+    }
+    // Set aria-selected
+    this.selections.forEach((item) => {
+      this.setAriaSelectedOnOption(item.element, 'true');
+    });
+    this.updateAriaActiveDescendats();
+  }*/
+
+
+  /**
+   * Set the button/trigger lable correspondingly to single- or multiselect
+   */
+  setButtonLabel(value) {
+    //this.updateModuleState();
+
+    /*let triggerLabelText = '';
+
+    if (this.selections.length > 0) {
+      if (this.isMultiSelect) {
+        triggerLabelText = `${this.selections.length} ${this.buttonPostfix}`;
+      } else {
+        const selectedInput = this.selections[0].element.querySelector('input');
+        if (this.hasFilter) {
+          triggerLabelText = selectedInput.value;
+        } else {
+          triggerLabelText = selectedInput.placeholder;
+        }
+      }
+    }*/
+    //this.ui.triggerValue.innerText = value;
+    //this.updateAriaAttributes();
   }
 
   /**
    * Trigger action starte by any key set the key controlled flag
    * (for the inital focus on list or filter)
    */
-  onTriggerKeydown() {
-    this.isKeyControlled = true;
-  }
 
-  /**
-   * On Trigger click callback. Responsible for opening/closing the dropdown.
-   */
-  onTriggerClick() {
-    if (this.isOpen) {
-      this.closeDropdown();
-    } else {
-      this.openDropdown();
-    }
-  }
+  /*onTriggerKeydown() {
+    this.isKeyControlled = true;
+  }*/
+
+
 
   /**
    * Click on clear filter button callback. Deletes the input value and apply filter
    */
-  onClearButtonClick() {
+
+  /*onClearButtonClick() {
     this.ui.filter.focus();
     this.ui.filter.value = '';
     this.applyFilter();
-  }
+  }*/
 
-  /**
-   * Click on list item callback. Responsible for de-/selecting items
-   * and close dropdown on single selection
-   *
-   * @param event
-   */
-  onItemsClick(event) {
-    const { target } = event;
 
-    if (target.classList.contains('selected') && this.isMultiSelect) {
-      this.deselectItem(target);
-    } else if (!target.classList.contains('selected')) {
-      this.selectItem(target);
-      if (!this.isMultiSelect) {
-        if (this.isFirefox) {
-          setTimeout((() => {
-            this.closeDropdown();
-          }), this.firefoxDelay);
-        } else {
-          this.closeDropdown();
-        }
-      }
-    }
-  }
+  /*
+			if (target.classList.contains('selected') && this.isMultiSelect) {
+		//    this.deselectItem(target);
+			} else if (!target.classList.contains('selected')) {
+				this.selectItem(target);
+				if (!this.isMultiSelect) {
+					if (this.isFirefox) {
+						setTimeout((() => {
+							this.closeDropdown();
+						}), this.firefoxDelay);
+					} else {
+						this.closeDropdown();
+					}
+				}
+			}*/
+
 
   /**
    * Apply button click callback. Simply closes the dropdown.
    */
-  onButtonClick() {
-    this.closeDropdown();
-  }
+  /* onButtonClick() {
+		 this.closeDropdown();
+	 }*/
 
   /**
    * Apply button keydown callback. Just catch the escape key on the apply button
    * @param event
    */
-  onButtonKeydown(event) {
-    const { key } = event;
-    if (key === 'Escape' || key === 'Esc') {
-      this.closeDropdown();
-    }
-  }
+  /* onButtonKeydown(event) {
+		 const { key } = event;
+		 if (key === 'Escape' || key === 'Esc') {
+			 this.closeDropdown();
+		 }
+	 }*/
 
   /**
    * On list keypressed callback. Responsible to execute correspingly to the key.
    * @param event
    */
-  onListKeypress(event) {
-    const { key } = event;
+  /* onListKeypress(event) {
+		 const { key } = event;
 
-    if (key === 'ArrowUp' || key === 'Up') {
-      event.preventDefault();
+		 if (key === 'ArrowUp' || key === 'Up') {
+			 event.preventDefault();
 
-      if (!this.isMultiSelect) {
-        this.selectPreviousItem();
-      }
-      if (this.isMultiSelect) {
-        this.focusPreviousItem();
-      }
-      this.scrollToOption();
-    } else if (key === 'ArrowDown' || key === 'Down') {
-      event.preventDefault();
-      if (!this.isMultiSelect) {
-        this.selectNextItem();
-      } else {
-        this.focusNextItem();
-      }
-      this.scrollToOption();
-    } else if (key === 'Spacebar' || key === ' ' || key === 'Enter') {
-      event.preventDefault();
-      if (this.isMultiSelect) {
-        const currentItem = this.ui.items[this.selectionIndex];
-        if (currentItem.classList.contains('selected')) {
-          this.deselectItem(currentItem);
-        } else {
-          this.selectItem(currentItem);
-        }
-      } else if (this.isFirefox) {
-        setTimeout((() => {
-          this.closeDropdown();
-        }), this.firefoxDelay);
-      } else {
-        this.closeDropdown();
-      }
-    } else if (key === 'Escape' || key === 'Esc') {
-      this.closeDropdown();
-    } else if (key === 'End') {
-      event.preventDefault();
-      this.getLastVisibleItemIndex();
-      if (!this.isMultiSelect) {
-        // Handle Home or End key pressed on filtered list
-        this.selectItemByIndex(this.getLastVisibleItemIndex());
-      } else {
-        this.focusItemByIndex(this.getLastVisibleItemIndex());
-      }
-      this.scrollToOption();
-    } else if (key === 'Home') {
-      event.preventDefault();
+			 if (!this.isMultiSelect) {
+				 this.selectPreviousItem();
+			 }
+			 if (this.isMultiSelect) {
+				 this.focusPreviousItem();
+			 }
+			 this.scrollToOption();
+		 } else if (key === 'ArrowDown' || key === 'Down') {
+			 event.preventDefault();
+			 if (!this.isMultiSelect) {
+				 this.selectNextItem();
+			 } else {
+				 this.focusNextItem();
+			 }
+			 this.scrollToOption();
+		 } else if (key === 'Spacebar' || key === ' ' || key === 'Enter') {
+			 event.preventDefault();
+			 if (this.isMultiSelect) {
+				 const currentItem = this.ui.items[this.selectionIndex];
+				 if (currentItem.classList.contains('selected')) {
+					 this.deselectItem(currentItem);
+				 } else {
+					 this.selectItem(currentItem);
+				 }
+			 } else if (this.isFirefox) {
+				 setTimeout((() => {
+					 this.closeDropdown();
+				 }), this.firefoxDelay);
+			 } else {
+				 this.closeDropdown();
+			 }
+		 } else if (key === 'Escape' || key === 'Esc') {
+			 this.closeDropdown();
+		 } else if (key === 'End') {
+			 event.preventDefault();
+			 this.getLastVisibleItemIndex();
+			 if (!this.isMultiSelect) {
+				 // Handle Home or End key pressed on filtered list
+				 this.selectItemByIndex(this.getLastVisibleItemIndex());
+			 } else {
+				 this.focusItemByIndex(this.getLastVisibleItemIndex());
+			 }
+			 this.scrollToOption();
+		 } else if (key === 'Home') {
+			 event.preventDefault();
 
-      if (!this.isMultiSelect) {
-        // Handle Home or End key pressed on filtered list
-        this.selectItemByIndex(this.getFirstVisibleItemIndex());
-      } else {
-        this.focusItemByIndex(this.getFirstVisibleItemIndex());
-      }
-      this.scrollToOption();
-    }
-  }
+			 if (!this.isMultiSelect) {
+				 // Handle Home or End key pressed on filtered list
+				 this.selectItemByIndex(this.getFirstVisibleItemIndex());
+			 } else {
+				 this.focusItemByIndex(this.getFirstVisibleItemIndex());
+			 }
+			 this.scrollToOption();
+		 }
+	 }*/
 
   /**
    * On filter input callback.
    */
-  onFilterInput() {
-    this.applyFilter();
-  }
+  /* onFilterInput() {
+		 this.applyFilter();
+	 }*/
 
   /**
    * Applies the string value from the filter input as regex on all items
    */
-  applyFilter() {
+  /*applyFilter() {
     const stringPattern = this.ui.filter.value;
     if (stringPattern.length > 0) {
       this.ui.filter.classList.add('dirty');
@@ -334,13 +511,13 @@ class Select extends Module {
         this.ui.items[i].setAttribute('tabindex', '-1');
       }
     }
-  }
+  }*/
 
   /**
    * On filter keypressed callback. Listen only the relevant navigation keys.
    * @param event
    */
-  onFilterKeypress(event) {
+  /*onFilterKeypress(event) {
     const { key } = event;
     if (key === 'ArrowDown' || key === 'Down' || key === 'End') {
       event.preventDefault();
@@ -355,13 +532,13 @@ class Select extends Module {
         this.ui.list.focus();
       }
     }
-  }
+  }*/
 
   /**
    * Iterate over the item array and search for the first item without an tabindex
    * @return {number}
    */
-  getFirstVisibleItemIndex(): number {
+  /*getFirstVisibleItemIndex(): number {
     const listLength = this.ui.items.length - 1;
     const returnIndex = -1;
     for (let i = 0; i < listLength; i += 1) {
@@ -370,13 +547,13 @@ class Select extends Module {
       }
     }
     return returnIndex;
-  }
+  }*/
 
   /**
    * Iterate over the item array and search for the last item without an tabindex
    * @return {number}
    */
-  getLastVisibleItemIndex(): number {
+  /*getLastVisibleItemIndex(): number {
     const listLength = this.ui.items.length - 1;
     const returnIndex = -1;
     for (let i = listLength; i > 0; i -= 1) {
@@ -385,13 +562,13 @@ class Select extends Module {
       }
     }
     return returnIndex;
-  }
+  }*/
 
   /**
    * Select an item based on the given index or the current selectionIndex
    * @param {number} index
    */
-  selectItemByIndex(index: number = this.selectionIndex) {
+  /*selectItemByIndex(index: number = this.selectionIndex) {
     let item: any;
     if (index <= this.initialItems.length && index >= 0) {
       item = this.ui.items[index];
@@ -404,12 +581,12 @@ class Select extends Module {
 
     this.selectItem(item);
   }
-
+*/
   /**
    * Selects the next item based on the current selectionIndex
    * @return {any}
    */
-  selectNextItem(): any {
+  /*selectNextItem(): any {
     this.selectionIndex = this.getNextIndex();
     const item = this.ui.items[this.selectionIndex];
     // Handle filtered list
@@ -417,13 +594,13 @@ class Select extends Module {
       return this.selectNextItem();
     }
     return this.selectItem(item);
-  }
+  }*/
 
   /**
    * Selects the previous item based on the current selectionIndex
    * @return {any}
    */
-  selectPreviousItem() {
+  /*selectPreviousItem() {
     this.selectionIndex = this.getPreviousIndex();
     const item = this.ui.items[this.selectionIndex];
     // Handle filtered list
@@ -431,13 +608,13 @@ class Select extends Module {
       return this.selectPreviousItem();
     }
     return this.selectItem(item);
-  }
+  }*/
 
   /**
    * Select the given item
    * @param item
    */
-  selectItem(item: any) {
+  /*selectItem(item: any) {
     if (this.selections.length > 0 && !this.isMultiSelect) {
       this.deselectItem(this.selections[0].element);
     }
@@ -445,34 +622,34 @@ class Select extends Module {
     item.classList.add('selected');
     itemInput.checked = true;
     this.addSelection(item);
-  }
+  }*/
 
   /**
    * Deselect the given item
    * @param item
    */
-  deselectItem(item: any) {
+  /*deselectItem(item: any) {
     const itemInput = item.querySelector('input');
     item.classList.remove('selected');
     itemInput.checked = false;
     this.removeSelection(item);
-  }
+  }*/
 
   /**
    * Set the focus on the item with the given index;
    * @param {number} index
    */
-  focusItemByIndex(index: number = this.selectionIndex) {
+  /*focusItemByIndex(index: number = this.selectionIndex) {
     const item = this.ui.items[index];
     this.selectionIndex = index;
     this.focusItem(item);
-  }
+  }*/
 
   /**
    * Focus the next item based on the current selectionIndex
    * @return {any}
    */
-  focusNextItem() {
+  /*focusNextItem() {
     this.selectionIndex = this.getNextIndex();
     const item = this.ui.items[this.selectionIndex];
     // Handle filtered list
@@ -480,13 +657,13 @@ class Select extends Module {
       return this.focusNextItem();
     }
     return this.focusItem(item);
-  }
+  }*/
 
   /**
    * Focus the previous item based on the current selectionIndex
    * @return {any}
    */
-  focusPreviousItem() {
+  /*focusPreviousItem() {
     this.selectionIndex = this.getPreviousIndex();
     const item = this.ui.items[this.selectionIndex];
     // Handle filtered list
@@ -494,23 +671,23 @@ class Select extends Module {
       return this.focusPreviousItem();
     }
     return this.focusItem(item);
-  }
+  }*/
 
   /**
    * Focus the given item
    * @param item
    */
-  focusItem(item: any) {
+  /*focusItem(item: any) {
     this.ui.items[this.lastHoverIndex].classList.remove('hover');
     item.classList.add('hover');
     this.lastHoverIndex = this.selectionIndex;
-  }
+  }*/
 
   /**
    * Adds the given item to the selections array
    * @param item
    */
-  addSelection(item: any) {
+  /*addSelection(item: any) {
     const index = this.getIndexForItem(item);
     this.selectionIndex = index;
     this.selections.push({
@@ -518,13 +695,13 @@ class Select extends Module {
       element: item,
     });
     this.setButtonLabel();
-  }
+  }*/
 
   /**
    * Removes the given item from the selections array
    * @param selectedItem
    */
-  removeSelection(selectedItem: any) {
+  /*removeSelection(selectedItem: any) {
     const selectionIndex = this.getIndexForItem(selectedItem);
     let indexToRemove: number;
 
@@ -536,38 +713,38 @@ class Select extends Module {
 
     this.selections.splice(indexToRemove, 1);
     this.setButtonLabel();
-  }
+  }*/
 
   /**
    * Calculate and returns the previous index position from the current selectionIndex
    * @return {number}
    */
-  getPreviousIndex(): number {
+  /*getPreviousIndex(): number {
     let selectIndex = this.selectionIndex - 1;
     if (selectIndex < 0) {
       selectIndex = this.ui.items.length - 1;
     }
     return selectIndex;
-  }
+  }*/
 
   /**
    * Calculate and returns the next index position from the current selectionIndex
    * @return {number}
    */
-  getNextIndex(): number {
+  /*getNextIndex(): number {
     let selectIndex = this.selectionIndex + 1;
     if (selectIndex > this.ui.items.length - 1) {
       selectIndex = 0;
     }
     return selectIndex;
-  }
+  }*/
 
   /**
    * Get the index of the given item. Returns index if its found else -1.
    * @param item
    * @return {number}
    */
-  getIndexForItem(item: any): number {
+  /*getIndexForItem(item: any): number {
     let index = -1;
     for (let i = 0; i < this.ui.items.length; i += 1) {
       if (this.ui.items[i] === item) {
@@ -575,20 +752,20 @@ class Select extends Module {
       }
     }
     return index;
-  }
+  }*/
 
   /**
    * Scroll to the option of the current focusIndex
    */
-  scrollToOption() {
+  /*scrollToOption() {
     const itemHeight = this.ui.items[this.selectionIndex].getBoundingClientRect().height;
     this.ui.list.scrollTop = itemHeight * this.selectionIndex;
   }
-
+*/
   /**
    * Updates the module state class for dirty/touched
    */
-  updateModuleState() {
+  /*updateModuleState() {
     const module = this.ui.element;
     const stateClass = this.options.stateClasses.touched;
     if (!module.classList.contains(stateClass)) {
@@ -596,12 +773,12 @@ class Select extends Module {
     } else if (this.selections.length === 0 && module.classList.contains(stateClass)) {
       module.classList.remove(stateClass);
     }
-  }
+  }*/
 
   /**
    * Set the button/trigger lable correspondingly to single- or multiselect
    */
-  setButtonLabel() {
+  /*setButtonLabel() {
     this.updateModuleState();
 
     let triggerLabelText = '';
@@ -620,13 +797,13 @@ class Select extends Module {
     }
     this.ui.triggerValue.innerText = triggerLabelText;
     this.updateAriaAttributes();
-  }
+  }*/
 
   /**
    * Handles the rest of the aria attributes on the list(aria-activedescendant)
    * and items(aria-selected)
    */
-  updateAriaAttributes() {
+  /*updateAriaAttributes() {
     // Reset aria-selected by applying false to all option
     for (let i = 0; i < this.ui.items.length; i += 1) {
       this.setAriaSelectedOnOption(this.ui.items[i], 'false');
@@ -636,21 +813,21 @@ class Select extends Module {
       this.setAriaSelectedOnOption(item.element, 'true');
     });
     this.updateAriaActiveDescendats();
-  }
+  }*/
 
   /**
    * Set explicit the aria-selected on the given element to the given value
    * @param element
    * @param {string} value
    */
-  setAriaSelectedOnOption(element: any, value: string) {
+  /*setAriaSelectedOnOption(element: any, value: string) {
     element.setAttribute('aria-selected', value);
-  }
+  }*/
 
   /**
    * Sets explicit the aria-activedescendants based on the selectedElements
    */
-  updateAriaActiveDescendats() {
+  /*updateAriaActiveDescendats() {
     this.ui.list.setAttribute('aria-activedescendant', '');
     let idStrings = '';
 
@@ -660,60 +837,23 @@ class Select extends Module {
       }
     }
     this.ui.list.setAttribute('aria-activedescendant', idStrings);
-  }
-
-
-  /**
-   * Open dropdown/select
-   */
-  openDropdown() {
-    const openClass = this.options.stateClasses.open;
-    const dropDown = this.ui.element;
-    dropDown.classList.add(openClass);
-    this.isOpen = true;
-
-    if (!this.isMultiSelect) {
-      this.selectItemByIndex(this.selectionIndex);
-    }
-
-    this.ui.list.setAttribute('tabindex', '0');
-    this.ui.trigger.setAttribute('aria-expanded', 'true');
-    this.ui.dropdown.setAttribute('aria-hidden', 'false');
-
-    setTimeout(() => { this.focusDropdown(); }, this.dropdownDelay);
-  }
-
-  /**
-   * Close dropdown/select
-   */
-  closeDropdown() {
-    const openClass = this.options.stateClasses.open;
-    const dropDown = this.ui.element;
-    dropDown.classList.remove(openClass);
-    this.isOpen = false;
-
-    this.ui.list.setAttribute('tabindex', '-1');
-    this.ui.trigger.setAttribute('aria-expanded', 'false');
-    this.ui.dropdown.setAttribute('aria-hidden', 'true');
-
-    this.blurDropdown();
-  }
+  }*/
 
   /**
    * Focus the list or the filter button depending on the mode
    */
-  focusDropdown() {
+  /*focusDropdown() {
     if (this.hasFilter) {
       this.ui.filter.focus();
     } else {
       this.ui.list.focus();
     }
-  }
+  }*/
 
   /**
    * Handle preselection
    */
-  handlePreselection() {
+  /*handlePreselection() {
     this.preSelections.forEach((item) => {
       this.addSelection(item.parentElement);
     });
@@ -722,12 +862,12 @@ class Select extends Module {
     }
     this.selectionIndex = this.selections[0].initialIndex;
     this.scrollToOption();
-  }
+  }*/
 
   /**
    * Handle the correct focus after closing the dropdown
    */
-  blurDropdown() {
+  /*blurDropdown() {
     this.ui.items[this.selectionIndex].classList.remove('hover');
     if (this.ui.phoneInput) {
       this.ui.phoneInput.focus();
@@ -735,79 +875,80 @@ class Select extends Module {
       this.ui.trigger.focus();
     }
     this.isKeyControlled = false;
-  }
+  }*/
 
   /**
    * On filter focus callback. Sets the corresping boolean flag.
    */
-  onFilterFocus() {
+  /*onFilterFocus() {
     this.focusOnFilter = true;
-  }
+  }*/
 
   /**
    * On filter blur callback. Sets the corresping boolean flag.
    */
-  onFilterBlur() {
+  /*onFilterBlur() {
     this.focusOnFilter = false;
     this.timeOutClose();
-  }
+  }*/
 
   /**
    * On list focus callback. Sets the corresping boolean flag.
    */
-  onListFocus() {
+  /*onListFocus() {
     this.focusOnList = true;
-  }
+  }*/
 
   /**
    * On list blur callback. Sets the corresping boolean flag
    * and closes he dropdown if nothing relevat is focused.
    */
-  onListBlur() {
+  /*onListBlur() {
     this.focusOnList = false;
     this.timeOutClose();
-  }
+  }*/
 
   /**
    * On apply button focus callback. Sets the corresping boolean flag.
    */
-  onApplyButtonFocus() {
+  /*onApplyButtonFocus() {
     this.focusOnButton = true;
-  }
+  }*/
 
   /**
    * On apply button blur callback. Sets the corresping boolean flag.
    */
-  onApplyButtonBlur() {
+  /*onApplyButtonBlur() {
     this.focusOnButton = false;
     this.timeOutClose();
-  }
+  }*/
 
   /**
    * On clear button focus callback. Sets the corresping boolean flag.
    */
-  onClearButtonFocus() {
+  /*onClearButtonFocus() {
     this.focusOnClearButton = true;
-  }
+  }*/
 
   /**
    * On clear button blur callback. Sets the corresping boolean flag.
    */
-  onClearButtonBlur() {
+  /*onClearButtonBlur() {
     this.focusOnClearButton = false;
-  }
+  }*/
 
   /**
    * Close the dropdown after the delay if no relevant element is focused.
    */
-  timeOutClose() {
+
+  /*timeOutClose() {
     setTimeout((() => {
       if (!this.focusOnButton && !this.focusOnFilter
         && !this.focusOnList && !this.focusOnClearButton) {
         this.closeDropdown();
       }
     }), this.listBlurDelay);
-  }
+  }*/
 
 
   /**

@@ -26,19 +26,21 @@ const variants = _.mapValues({
       desc: 'Default implementation einer Einzelauswahl',
     },
     props: {
-      listData: {
+      listData: _.merge({}, listDemoData.variants.defaultSingle.props,{
         selectOptions: [
-          { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
-          { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
-          { value: 'sich', label: 'Sicherheit & Justiz', id: _.uniqueId('option-item') },
-          { value: 'so', label: 'Soziales', id: _.uniqueId('option-item') },
-          { value: 'st', label: 'Steuern', id: _.uniqueId('option-item') },
-          { value: 'umte', label: 'Umwelt & Tier', id: _.uniqueId('option-item') },
-          { value: 'ge', label: 'Gemeinschaften', id: _.uniqueId('option-item') },
-          { value: 'scer', label: 'Schulen & Erziehung', id: _.uniqueId('option-item') },
+          { value: '', label: '' },
+          { value: 'mig', label: 'Migration & Integration' },
+          { value: 'mo', label: 'Mobilität' },
+          { value: 'sich', label: 'Sicherheit & Justiz' },
+          { value: 'so', label: 'Soziales' },
+          { value: 'st', label: 'Steuern' },
+          { value: 'umte', label: 'Umwelt & Tier' },
+          { value: 'ge', label: 'Gemeinschaften' },
+          { value: 'scer', label: 'Schulen & Erziehung' },
         ],
+        groupId: 'singleSelect',
         setHiddenIndex: true,
-      },
+      }),
       triggerInputData: inputDemoData.variants.triggerDefault.props,
     },
   },
@@ -51,6 +53,7 @@ const variants = _.mapValues({
       hasFilter: true,
       listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
         setHiddenIndex: true,
+        groupId: 'phoneSingleSelect',
         selectOptions: [
           { value: '+61', label: '+61 Australia (Australien)', id: _.uniqueId('option-item') },
           { value: '+43', label: '+43 Austria (Österreich)', id: _.uniqueId('option-item') },
@@ -72,6 +75,7 @@ const variants = _.mapValues({
           { value: '+66', label: '+66 Thailand (ไทย)‎)', id: _.uniqueId('option-item') },
         ],
       }),
+
       triggerInputData: inputDemoData.variants.triggerPhone.props,
       filterInputData: inputDemoData.variants.clearButtonSmallWithIcon.props,
     },
@@ -87,6 +91,7 @@ const variants = _.mapValues({
         setHiddenIndex: true,
         isMultiSelect: true,
         isSingleSelect: false,
+        groupId: 'multiSelect',
         selectOptions: [
           { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
           { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
@@ -116,6 +121,7 @@ const variants = _.mapValues({
       isMultiSelect: true,
       hasFilter: true,
       hasFilterAndButton: true,
+      groupId: 'multiFilterSelect',
       listData: _.merge({}, listDemoData.variants.iconLeft.props, {
         setHiddenIndex: true,
         isMultiSelect: true,

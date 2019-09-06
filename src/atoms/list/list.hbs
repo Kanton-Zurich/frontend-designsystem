@@ -6,7 +6,7 @@
           <use xlink:href="#{{{../iconLeft}}}"></use>
         </svg>
       {{/if_compare}}
-      <input tabindex="-1" name="group-{{{../groupPostfix}}}"
+      <input {{#if noInteraction}}tabindex="-1"{{/if}} name="{{../groupId}}"
              {{#if id}}id="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-{{this.id}}"{{/if}}
              type="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}"
              value="{{{ this.value }}}" placeholder="{{{ this.label }}}"
