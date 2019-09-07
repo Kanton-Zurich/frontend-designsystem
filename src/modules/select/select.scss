@@ -23,6 +23,10 @@ $selectHeightWithFilterExtended: 424px;
       border-radius: 0;
       height: 100%;
     }
+
+    .atm-list__item input {
+      display: none;
+    }
   }
 
   .atm-form_input--trigger-phone {
@@ -115,6 +119,10 @@ $selectHeightWithFilterExtended: 424px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+
+        input {
+          display: inline;
+        }
 
         &.hidden {
           display: none;
