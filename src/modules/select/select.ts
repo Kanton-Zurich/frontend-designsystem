@@ -18,7 +18,6 @@ class Select extends Module {
   public lastHoverIndex: number;
   public firefoxDelay: number;
   public dropdownDelay: number;
-  public preSelections: Array<any>;
   public selections: Array<any>;
 
   public ui: {
@@ -95,14 +94,24 @@ class Select extends Module {
     // Array of selection indicies
     this.selections = [];
 
-    // Handle pre-selections
-    /* this.preSelections = this.ui.list.querySelectorAll('input[checked]');
-		 if (this.preSelections.length > 0) {
-			 this.handlePreselection();
-		 }*/
-
     this.initUi();
     this.initEventListeners();
+
+    // preselection
+    const selectedItems = [];
+    this.ui.inputItems.forEach((item) => {
+      if (item.checked) {
+        selectedItems.push(item.value);
+      }
+    });
+
+    if (selectedItems.length > 0) {
+      if (this.isMultiSelect) {
+        this.emitValueChanged(selectedItems);
+      } else if (selectedItems[0].length > 0) {
+        this.emitValueChanged(selectedItems[0]);
+      }
+    }
   }
 
   static get events() {
@@ -140,19 +149,28 @@ class Select extends Module {
       .on('keydown', this.options.domSelectors.inputItems, (event) => {
         if (event.key === 'Tab') {
           if (!event.shiftKey) {
-            this.closeDropdown(true);
+            if (!this.ui.applyButton) {
+              this.closeDropdown(true);
+            } else {
+              this.ui.applyButton.focus();
+              event.preventDefault();
+            }
+          } else if (this.ui.filter) {
+            this.ui.filter.focus();
+            event.preventDefault();
           }
         }
       })
       // ------------------------------
       // On Key press Dropdown dropdown content element
       .on('keydown', this.options.domSelectors.dropdown, (event) => {
-        if (event.key === 'Esc' || event.key === 'Escape' ||
-          event.key === 'Enter' || event.key === ' '
-        ) {
+        if (event.key === 'Enter' || event.key === ' ') {
           if (!this.isMultiSelect) {
             this.closeDropdown();
           }
+        }
+        if (event.key === 'Esc' || event.key === 'Escape') {
+          this.closeDropdown();
         }
       })
       // ------------------------------
@@ -166,7 +184,9 @@ class Select extends Module {
       })
       // On Mouseup dropdown main element -- prevent focus lost
       .on('mouseup', this.options.domSelectors.trigger, (event) => {
-        event.stopPropagation();
+        if (this.isOpen) {
+          event.stopPropagation();
+        }
       })
       // ------------------------------
       // On Click Dropdown main element
@@ -184,31 +204,56 @@ class Select extends Module {
     // ----------------------------
     // watch select items for status change
     this.ui.inputItems.forEach((item, index) => {
-
-        item.addEventListener('change', (evt) => {
-          if (!this.isMultiSelect) {
-            this.ui.items.forEach((li) => {
-              li.classList.remove('selected');
-            });
+      item.addEventListener('change', (evt) => {
+        if (!this.isMultiSelect) {
+          this.ui.items.forEach((li) => {
+            li.classList.remove('selected');
+          });
+          this.ui.items[index].classList.add('selected');
+          this.emitValueChanged((<HTMLInputElement>evt.target).value);
+        } else {
+          if (item.checked) {
             this.ui.items[index].classList.add('selected');
-            this.emitValueChanged((<HTMLInputElement>evt.target).value);
           } else {
-            if (item.checked) {
-              this.ui.items[index].classList.add('selected');
-            } else {
-              this.ui.items[index].classList.remove('selected');
+            this.ui.items[index].classList.remove('selected');
+          }
+          const values = [];
+          this.ui.inputItems.forEach((inputItem) => {
+            if (inputItem.checked) {
+              values.push(inputItem.value);
             }
-            const values = [];
-            this.ui.inputItems.forEach((inputItem) => {
-              if (inputItem.checked) {
-                values.push(inputItem.value);
+          });
+          this.emitValueChanged(values);
+        }
+      });
+    });
+    // -------------------------------
+    // key navigation for multiselect
+    if (this.isMultiSelect) {
+      this.ui.items.forEach((li) => {
+        li.querySelector('input').addEventListener('keydown', (evt) => {
+          const pressed = evt.key;
+          let newTarget = <any>evt.target;
+          if (pressed === 'ArrowUp' || pressed === 'ArrowDown') {
+            let nextFocusable = pressed === 'ArrowUp'
+              ? li.previousElementSibling
+              : li.nextElementSibling;
+            while (nextFocusable) {
+              if (!nextFocusable.classList.contains('hidden')) {
+                newTarget = nextFocusable.querySelector('input');
+                break;
               }
-            });
-            this.emitValueChanged(values);
+              nextFocusable = pressed === 'ArrowUp'
+                ? nextFocusable.previousElementSibling
+                : nextFocusable.nextElementSibling;
+            }
+            newTarget.focus();
+            evt.stopPropagation();
+            evt.preventDefault();
           }
         });
-    });
-
+      });
+    }
     // -------------------------------
     // Observe inputs and update values
     if (this.ui.filter) {
@@ -230,7 +275,7 @@ class Select extends Module {
    * @param value
    */
   emitValueChanged(value) {
-    this.ui.element.dispatchEvent(new CustomEvent(Select.events.valueChanged, {detail: value}));
+    this.ui.element.dispatchEvent(new CustomEvent(Select.events.valueChanged, { detail: value }));
   }
 
   /**
@@ -241,13 +286,11 @@ class Select extends Module {
     const value = event.detail;
     let triggerLabelText = '';
     if (this.isMultiSelect) {
-      triggerLabelText = `${value.length} ${this.buttonPostfix}`;
+      triggerLabelText = value.length > 0 ? `${value.length} ${this.buttonPostfix}` : '';
+    } else if (this.ui.phoneInput) {
+      triggerLabelText = value;
     } else {
-      if (this.ui.phoneInput) {
-        triggerLabelText = value;
-      } else {
-        triggerLabelText = this.ui.list.querySelector(`[value="${value}"`).placeholder;
-      }
+      triggerLabelText = this.ui.list.querySelector(`[value="${value}"`).placeholder;
     }
     this.ui.triggerValue.innerText = triggerLabelText;
     this.ui.element.classList.remove(this.options.stateClasses.selected);
@@ -265,17 +308,15 @@ class Select extends Module {
     dropDown.classList.add(openClass);
     this.isOpen = true;
 
-    if (!this.isMultiSelect) {
-      //  this.selectItemByIndex(this.selectionIndex);
-    }
-
     this.ui.trigger.setAttribute('aria-expanded', 'true');
     this.ui.dropdown.setAttribute('aria-hidden', 'false');
 
     if (this.ui.filter) {
       this.ui.filter.focus();
-    } else {
+    } else if (!this.isMultiSelect) {
       this.ui.element.querySelector(`${this.options.domSelectors.inputItems}:checked`).focus();
+    } else {
+      this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
     }
     // click out of element loose focus and close
     this.onFocusOut = this.onFocusOut.bind(this);

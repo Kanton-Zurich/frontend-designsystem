@@ -2,7 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-
+const defFilterInputData = require('../../atoms/form_input/form_input.data');
 const listDemoData = require('../../atoms/list/list.data');
 const inputDemoData = require('../../atoms/form_input/form_input.data');
 
@@ -15,7 +15,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('select.md'),
   },
   props: {
-
+    preview: true,
   },
 });
 
@@ -75,9 +75,16 @@ const variants = _.mapValues({
           { value: '+66', label: '+66 Thailand (ไทย)‎)', id: _.uniqueId('option-item') },
         ],
       }),
-
+      filterInputData: _.merge({}, defFilterInputData.props, {
+        label: 'Nach Stichwort filtern',
+        isSmall: true,
+        additionalFunctionality: {
+          icon: 'clear',
+          buttontype: 'clear',
+          ariaText: 'Lösche Eingabe',
+        },
+      }),
       triggerInputData: inputDemoData.variants.triggerPhone.props,
-      filterInputData: inputDemoData.variants.clearButtonSmallWithIcon.props,
     },
   },
   defaultMultiPreSelect: {
@@ -127,8 +134,16 @@ const variants = _.mapValues({
         isMultiSelect: true,
         isSingleSelect: false,
       }),
+      filterInputData: _.merge({}, defFilterInputData.props, {
+        label: 'Nach Stichwort filtern',
+        isSmall: true,
+        additionalFunctionality: {
+          icon: 'clear',
+          buttontype: 'clear',
+          ariaText: 'Lösche Eingabe',
+        },
+      }),
       triggerInputData: inputDemoData.variants.triggerDefault.props,
-      filterInputData: inputDemoData.variants.clearButtonSmallWithIcon.props,
     },
   },
 }, (variant) => {
