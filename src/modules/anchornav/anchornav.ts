@@ -19,6 +19,7 @@ class Anchornav extends Module {
   public mediumBreakpoint: number;
   public navigationPositionY: number;
   public headerHeight: number;
+  public activeIndex: number;
   public navigationIsFixed: boolean;
   public elementMissing: boolean;
   public navigationHeight: number;
@@ -97,6 +98,7 @@ class Anchornav extends Module {
     this.navigationIsFixed = false;
     this.elementMissing = false;
     this.headerHeight = 0;
+    this.activeIndex = 0;
     this.mediumBreakpoint = 840;
     this.lastYScrollPositon = this.getDocumnetScrollPosition();
     this.jumpPossible = true;
@@ -112,7 +114,27 @@ class Anchornav extends Module {
       this.updateVerticalScrollInfo();
       this.updateNavigationState();
       if (this.scrollReferences.length > 0) {
-        this.updateActiveAnchorState();
+        const currentScrollPosition = this.getDocumnetScrollPosition();
+        let navItem;
+
+        for (let i = 0; i < this.scrollReferences.length; i += 1) {
+          const currentItem = this.scrollReferences[i];
+          const triggerY = currentItem.triggerYPosition;
+
+          if (this.scrollDirection === 'down') {
+            if (currentScrollPosition >= triggerY) {
+              navItem = (<any> currentItem).correspondingAnchor;
+            }
+          } else if (this.scrollDirection === 'up') {
+            if (currentScrollPosition <= triggerY) {
+              navItem = (<any> currentItem).correspondingAnchor;
+              i = this.scrollReferences.length; // Stop for loop
+            }
+          }
+        }
+        if (this.ui.navItemActive !== navItem && navItem !== undefined) {
+          this.toggleActiveNavigationItemClass(navItem);
+        }
       }
       this.initializeImpetus();
       this.syncHorizontalPositon();
@@ -144,7 +166,7 @@ class Anchornav extends Module {
     (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
     // Necessary for jump.js plugin.
     // Is triggered before the debounced callback.
-    (<any>WindowEventListener).addEventListener('scroll', this.onVerticalScroll.bind(this));
+    (<any>WindowEventListener).addEventListener('scroll', this.onPageScroll.bind(this));
 
     window.addEventListener(Header.events.showHeader, (event) => {
       if (this.navigationIsFixed) {
@@ -164,6 +186,8 @@ class Anchornav extends Module {
     this.scrollPositonX = this.ui.scrollContent.scrollLeft;
     this.updateShadows();
     this.updateVerticalScrollInfo();
+    this.updateActiveAnchorState();
+
     this.impetusInstance.setBoundX([-this.getScrollWidth(), 0]);
 
     if (window.innerWidth < this.mediumBreakpoint) {
@@ -176,7 +200,7 @@ class Anchornav extends Module {
   /**
    * On page scroll. Responsible for the pin-/unpining the anchornav
    */
-  onVerticalScroll() {
+  onPageScroll() {
     this.updateVerticalScrollInfo();
     this.updateNavigationState();
     this.updateActiveAnchorState();
@@ -249,6 +273,7 @@ class Anchornav extends Module {
         });
       }
     }
+
     this.calculateTriggerPositions();
   }
 
@@ -348,9 +373,7 @@ class Anchornav extends Module {
    * Handles the active state of the anchornav items base on the scroll Y position
    */
   updateActiveAnchorState() {
-    const scrollMax = document.body.offsetHeight - window.innerHeight;
     const currentScrollPosition = this.getDocumnetScrollPosition();
-    const maxIndex = this.scrollReferences.length - 1;
     let navItem;
 
     for (let i = 0; i < this.scrollReferences.length; i += 1) {
@@ -358,48 +381,16 @@ class Anchornav extends Module {
       const triggerY = currentItem.triggerYPosition;
 
       if (this.scrollDirection === 'down') {
-        let nextItemLowerPos;
-        const nextIndex = i + 1;
-
-        if (nextIndex < this.scrollReferences.length) {
-          // + this.headerHeight
-          nextItemLowerPos = this.scrollReferences[nextIndex].triggerYPosition + this.headerHeight;
-        } else {
-          nextItemLowerPos = scrollMax;
-        }
-
-        // Normal downwards toggling
-        if (currentScrollPosition >= triggerY && currentScrollPosition <= nextItemLowerPos) {
+        if (currentScrollPosition >= triggerY && i > this.activeIndex) {
           navItem = (<any> currentItem).correspondingAnchor;
         }
       } else if (this.scrollDirection === 'up') {
-        let nextItemUpperMargin;
-        let previousIndex = i - 1;
-
-        if (previousIndex > 0) {
-          nextItemUpperMargin = this.scrollReferences[previousIndex].triggerYPosition;
-        } else {
-          nextItemUpperMargin = triggerY - this.headerHeight;
-          previousIndex = i;
-        }
-        // Normal upwards toggling
-        if (currentScrollPosition <= triggerY
-          && currentScrollPosition >= nextItemUpperMargin) {
-          navItem = this.scrollReferences[previousIndex].correspondingAnchor;
+        if (currentScrollPosition <= triggerY && i < this.activeIndex) {
+          navItem = (<any> currentItem).correspondingAnchor;
+          i = this.scrollReferences.length - 1; // Stop the loop on the first match
         }
       }
     }
-
-    // Capture the case if fast scrolling to the very top
-    if (currentScrollPosition <= (<any> this.scrollReferences[0]).triggerYPosition
-      && currentScrollPosition >= 0) {
-      navItem = this.scrollReferences[0].correspondingAnchor;
-    } else if (currentScrollPosition >= this.scrollReferences[maxIndex].triggerYPosition
-      // This case needs to be catched because of reinitialization
-      || currentScrollPosition === scrollMax) {
-      navItem = this.scrollReferences[maxIndex].correspondingAnchor;
-    }
-
     if (this.ui.navItemActive !== navItem && navItem !== undefined) {
       this.toggleActiveNavigationItemClass(navItem);
     }
@@ -505,6 +496,12 @@ class Anchornav extends Module {
     target.classList.add(this.options.stateClasses.activeItemClass);
     this.ui.navItemActive = target;
     this.ui.navItemActive.setAttribute('aria-selected', 'true');
+
+    this.scrollReferences.forEach((item, index) => {
+      if (item.correspondingAnchor === target) {
+        this.activeIndex = index;
+      }
+    });
   }
 
   /**
@@ -595,18 +592,22 @@ class Anchornav extends Module {
     this.mousePositonDown = event.screenX;
   }
 
+  /**
+   *
+   * @param event
+   */
   onKeypress(event) {
     this.isKeyEvent = true;
     const { target } = event;
 
-    const jumpToPosition = this.getYDistanceTo(target);
-
-    if (this.jumpPossible) {
-      this.jumpPossible = false;
-      this.moveToAnchor(jumpToPosition);
-    }
+    this.moveToAnchor(target);
   }
 
+  /**
+   *
+   * @param element
+   * @return {number}
+   */
   getYDistanceTo(element: any): number {
     let distance = 0;
     // Get the trigger coordinates for a standart click jump
@@ -615,9 +616,14 @@ class Anchornav extends Module {
         distance = Math.round(this.scrollReferences[i].triggerYPosition
           - this.lastYScrollPositon);
 
-        if (distance < 0 && i !== 0) {
-          // jump upwards needs a little bit of adjustments
-          distance -= (this.headerHeight - this.navigationHeight);
+        if (distance < 0) {
+          // Jump upwards
+          this.scrollDirection = 'up';
+          distance -= (this.headerHeight);
+        } else {
+          // Jump downwards
+          this.scrollDirection = 'down';
+          distance += (this.headerHeight);
         }
       }
     }
@@ -646,18 +652,8 @@ class Anchornav extends Module {
     const swipeTolerance = this.options.tolerances.swipe;
 
     if (mouseEventDelta < swipeTolerance && mouseEventDelta > -(swipeTolerance)) {
-      this.isClickEvent = true;
-    } else {
-      return false;
+      this.moveToAnchor(target);
     }
-
-    const jumpToPosition = this.getYDistanceTo(target);
-
-    if (this.jumpPossible && this.isClickEvent) {
-      this.jumpPossible = false;
-      this.moveToAnchor(jumpToPosition);
-    }
-    return true;
   }
 
   /**
@@ -705,12 +701,17 @@ class Anchornav extends Module {
   /**
    * Launches the jump.js plugin to move to the given position on the page
    *
-   * @param position<number>
+   * @param target<any>
    */
-  moveToAnchor(position) {
-    jump((position), {
-      callback: this.toggleJumpFlag.bind(this),
-    });
+  moveToAnchor(target) {
+    const jumpToPosition = this.getYDistanceTo(target);
+
+    if (this.jumpPossible) {
+      this.jumpPossible = false;
+      jump((jumpToPosition), {
+        callback: this.toggleJumpFlag.bind(this),
+      });
+    }
   }
 
   /**
