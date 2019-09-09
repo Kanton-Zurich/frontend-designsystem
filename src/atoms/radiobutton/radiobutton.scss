@@ -11,7 +11,6 @@
     left: 0;
     width: pxToRem($sizeLarge);
     height: pxToRem($sizeLarge);
-    visibility: hidden;
 
     &:checked + label:after {
       border-color: $colorCyan;
@@ -19,6 +18,10 @@
 
     &:checked + label:before {
       transform: scale(1);
+    }
+
+    &:focus {
+      outline: none;
     }
 
     // No cursor when disabled
