@@ -111,7 +111,9 @@ class Anchornav extends Module {
       this.cacheAnchorReferences();
       this.updateVerticalScrollInfo();
       this.updateNavigationState();
-      this.updateActiveAnchorState();
+      if (this.scrollReferences.length > 0) {
+        this.updateActiveAnchorState();
+      }
       this.initializeImpetus();
       this.syncHorizontalPositon();
     }
@@ -236,10 +238,10 @@ class Anchornav extends Module {
         this.elementMissing = true;
         this.ui.navItems[i].style.display = 'none';
       }
-      element.setAttribute('tabindex', '-1');
       const itemLeft = Math.abs(this.ui.navItems[i].getBoundingClientRect().left);
       const hTriggerPos = itemLeft - this.ui.scrollContent.getBoundingClientRect().left;
       if (element !== null) {
+        element.setAttribute('tabindex', '-1');
         this.scrollReferences.push({
           correspondingAnchor: this.ui.navItems[i],
           triggerElement: element,
@@ -351,11 +353,11 @@ class Anchornav extends Module {
     const maxIndex = this.scrollReferences.length - 1;
     let navItem;
 
-    if (this.scrollDirection === 'down') {
-      for (let i = 0; i < this.scrollReferences.length; i += 1) {
-        const currentItem = this.scrollReferences[i];
-        const triggerY = (<any> currentItem).triggerYPosition;
+    for (let i = 0; i < this.scrollReferences.length; i += 1) {
+      const currentItem = this.scrollReferences[i];
+      const triggerY = currentItem.triggerYPosition;
 
+      if (this.scrollDirection === 'down') {
         let nextItemLowerPos;
         const nextIndex = i + 1;
 
@@ -370,12 +372,7 @@ class Anchornav extends Module {
         if (currentScrollPosition >= triggerY && currentScrollPosition <= nextItemLowerPos) {
           navItem = (<any> currentItem).correspondingAnchor;
         }
-      }
-    } else if (this.scrollDirection === 'up') {
-      for (let i = maxIndex; i >= 0; i -= 1) {
-        const currentItem = this.scrollReferences[i];
-        const triggerY = (<any> currentItem).triggerYPosition;
-
+      } else if (this.scrollDirection === 'up') {
         let nextItemUpperMargin;
         let previousIndex = i - 1;
 
@@ -397,9 +394,8 @@ class Anchornav extends Module {
     if (currentScrollPosition <= (<any> this.scrollReferences[0]).triggerYPosition
       && currentScrollPosition >= 0) {
       navItem = this.scrollReferences[0].correspondingAnchor;
-    }
-    // This case needs to be catched because of reinitialization
-    if (currentScrollPosition >= this.scrollReferences[maxIndex].triggerYPosition
+    } else if (currentScrollPosition >= this.scrollReferences[maxIndex].triggerYPosition
+      // This case needs to be catched because of reinitialization
       || currentScrollPosition === scrollMax) {
       navItem = this.scrollReferences[maxIndex].correspondingAnchor;
     }
