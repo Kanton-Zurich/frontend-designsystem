@@ -19,6 +19,9 @@ const radioData = require('../../atoms/radiobutton/radiobutton.data');
 const selectHBS = dataHelper.getFileContent('../select/select.hbs');
 const selectData = require('../select/select.data');
 
+const fileUploadHBS = dataHelper.getFileContent('../file_upload/file_upload.hbs');
+const fileUploadData = require('../file_upload/file_upload.data');
+
 const duplicateGroup = {
   isDuplicatable: true,
   duplicateLabels: {
@@ -172,6 +175,21 @@ const variants = _.mapValues({
                   cellContent: () => handlebars.compile(selectHBS)(_.merge({},
                     selectData.variants.multiSelect.props,
                     {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(fileUploadHBS)(_.merge({},
+                    fileUploadData.variants.default.props,
+                    {
+                      validation: {
+                        maxSize: 26214400,
+                        fileTypes: 'text/csv, image/gif, text/html, image/jpeg, application/pdf, image/png, image/tiff, application/rtf, image/svg+xml, text/plain, application/xml',
+                        isRequired: true,
+                      },
+                    })),
                 },
               ],
             },
