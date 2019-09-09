@@ -19,7 +19,6 @@
     left: 0;
     width: pxToRem($sizeLarge);
     height: pxToRem($sizeLarge);
-    visibility: hidden;
 
     &:checked + label span {
       border-color: $colorCyan;
@@ -32,6 +31,10 @@
         display: block;
         fill: $colorWhite;
       }
+    }
+
+    &:focus {
+      outline: none;
     }
 
     &:disabled + label {

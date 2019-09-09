@@ -222,6 +222,16 @@ $pageHeaderCurves: (
     }
   }
 
+  &__dateline {
+    margin-bottom: $sizeMini;
+    color: $colorBlack60;
+    font-size: $sizeFontTiny;
+  }
+
+  &__news-category {
+    font-weight: $fontWeightBlack;
+  }
+
   &__expander {
     position: fixed;
     right: 0;
