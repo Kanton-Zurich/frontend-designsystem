@@ -616,7 +616,13 @@ class Anchornav extends Module {
     // Get the trigger coordinates for a standart click jump
     for (let i = 0; i < this.scrollReferences.length; i += 1) {
       if ((<any> this.scrollReferences)[i].correspondingAnchor === element) {
-        distance = this.scrollReferences[i].triggerYPosition - this.lastYScrollPositon;
+        distance = Math.round(this.scrollReferences[i].triggerYPosition
+          - this.lastYScrollPositon);
+
+        if (distance < 0 && i !== 0) {
+          // jump upwards needs a little bit of adjustments
+          distance -= (this.headerHeight - this.navigationHeight);
+        }
       }
     }
     return distance;
