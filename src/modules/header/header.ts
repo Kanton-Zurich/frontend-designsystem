@@ -11,8 +11,7 @@ class Header extends Module {
   public placeholder: HTMLElement;
   public options: {
     transitionDelays: {
-      big: number,
-      small: number,
+      default: number,
     },
     domSelectors: {
       openModal: string,
@@ -50,8 +49,7 @@ class Header extends Module {
     };
     const defaultOptions = {
       transitionDelays: {
-        big: 500,
-        small: 300,
+        default: 250,
       },
       domSelectors: {
         openModal: '[data-header="openModal"]',
@@ -146,7 +144,7 @@ class Header extends Module {
       this.data.activeModal.dispatchEvent(new CustomEvent('Modal.close'));
 
       if (unsetClasses) {
-        setTimeout(this.unsetClasses.bind(this), this.options.transitionDelays.small);
+        setTimeout(this.unsetClasses.bind(this), this.options.transitionDelays.default);
       }
     }
   }

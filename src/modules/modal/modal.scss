@@ -25,41 +25,22 @@ $modalCurves: (
   top: 0;
   width: 100%;
   height: 100%;
-  max-height: 0;
   opacity: 0;
   background-color: $colorWhite;
+  display: none;
+  transform: translateY(-50vh);
 
-  @include transition(opacity, $transitionTimeMorph, $transitionEasingAccelerate);
+  @include transition(transform opacity, $transitionTimeDefault, $transitionEasingAccelerate);
 
-  &--show {
+  &--before-show {
     display: block;
-    opacity: 1;
-    z-index: $zIndexOverlays;
-    max-height: 100%;
-
-    &.mdl-modal--transition-hide {
-      @include transition(opacity, $transitionTimeMorph, $transitionEasingDecelerate);
-
-      opacity: 0;
-    }
   }
 
-  &--flyout {
-    transform: translateY(-20%);
+  &--show {
+    opacity: 1;
+    z-index: $zIndexOverlays;
 
-    @include transition(opacity transform, $transitionTimeMorph, $transitionEasingAccelerate);
-
-    &.mdl-modal--show {
-      transform: translateY(0);
-
-      @include sizeCurve(padding-top, height, $headerCurves);
-
-      &.mdl-modal--transition-hide {
-        transform: translateY(-20%);
-
-        @include transition(opacity transform, $transitionTimeMorph, $transitionEasingDecelerate);
-      }
-    }
+    transform: translateY(0);
   }
 
   &__close {
