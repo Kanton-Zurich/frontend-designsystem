@@ -94,6 +94,7 @@ const variants = _.mapValues({
     },
     props: {
       isMultiSelect: true,
+      hasButton: true,
       listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
         setHiddenIndex: true,
         isMultiSelect: true,
@@ -127,7 +128,7 @@ const variants = _.mapValues({
     props: {
       isMultiSelect: true,
       hasFilter: true,
-      hasFilterAndButton: true,
+      hasButton: true,
       groupId: 'multiFilterSelect',
       listData: _.merge({}, listDemoData.variants.iconLeft.props, {
         setHiddenIndex: true,

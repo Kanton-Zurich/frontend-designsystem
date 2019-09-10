@@ -1,4 +1,5 @@
 $selectHeight: 208px;
+$selectHeightWithButton: 274px;
 $selectHeightWithFilter: 360px;
 $selectHeightWithFilterExtended: 424px;
 
@@ -130,22 +131,29 @@ $selectHeightWithFilterExtended: 424px;
       }
     }
 
-    &.mdl-select--filter {
+    &.mdl-select--button
+    {
       .mdl-select__options {
-        height: pxToRem($selectHeightWithFilter);
-
+        height: pxToRem($selectHeightWithButton);
         ul {
           height: calc(100% - 80px);
         }
       }
     }
 
-    &.mdl-select--filter-ext {
+    &.mdl-select--filter {
       .mdl-select__options {
-        height: pxToRem($selectHeightWithFilterExtended);
-
+        height: pxToRem($selectHeightWithFilter);
         ul {
-          height: calc(100% - 160px);
+          height: calc(100% - 80px);
+        }
+      }
+      &.mdl-select--button {
+        .mdl-select__options {
+          height: pxToRem($selectHeightWithFilterExtended);
+          ul {
+            height: calc(100% - 160px);
+          }
         }
       }
     }

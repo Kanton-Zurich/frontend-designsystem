@@ -1,5 +1,5 @@
 <div
-  class="mdl-select{{#if hasFilter}} mdl-select--filter{{/if}}{{#if hasFilterAndButton}} mdl-select--filter-ext{{/if}}"
+  class="mdl-select{{#if hasFilter}} mdl-select--filter {{/if}}{{#if hasButton}} mdl-select--button{{/if}}"
   data-init="select"{{#if isMultiSelect}} data-multiple="true" data-multiselectpostfix="gewählt"{{/if}}
   data-input>
   {{> "atoms/form_input/form_input" triggerInputData }}
@@ -14,7 +14,7 @@
 
     {{> "atoms/list/list" listData }}
 
-    {{#if hasFilterAndButton}}
+    {{#if hasButton}}
       <div class="mdl-select__apply">
         <button class="atm-button" type="button">Anwenden</button>
       </div>
