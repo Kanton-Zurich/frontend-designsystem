@@ -14,10 +14,6 @@ class Select extends Module {
   public hasFilterAndButton: boolean;
   public isFirefox: boolean;
   public buttonPostfix: string;
-  public selectionIndex: number;
-  public lastHoverIndex: number;
-  public firefoxDelay: number;
-  public dropdownDelay: number;
   public selections: Array<any>;
 
   public ui: {
@@ -37,6 +33,8 @@ class Select extends Module {
 
   public options: {
     inputDelay: number,
+    firefoxDelay: number,
+    dropdownDelay: number,
     domSelectors: any,
     stateClasses: any,
     dataSelectors: any,
@@ -46,6 +44,8 @@ class Select extends Module {
     const defaultData = {};
     const defaultOptions = {
       inputDelay: 250,
+      firefoxDelay: 180,
+      dropdownDelay: 400,
       domSelectors: {
         trigger: '.atm-form_input--trigger button',
         triggerValue: '.atm-form_input__trigger-value',
@@ -81,11 +81,8 @@ class Select extends Module {
       this.isMultiSelect = true;
     }
 
-    this.selectionIndex = 0;
-    this.lastHoverIndex = 0;
     this.ui.list.scrollTop = 0;
-    this.firefoxDelay = 180;
-    this.dropdownDelay = 400;
+
 
     if (this.isMultiSelect) {
       this.buttonPostfix = this.ui.element.dataset[this.options.dataSelectors.selectPostfix];
@@ -125,26 +122,26 @@ class Select extends Module {
    */
   initEventListeners() {
     this.eventDelegate
-    // ------------------------------
+    // ------------------------------------------------------------
     // On click filter input
       .on('mouseup', this.options.domSelectors.filter, (event) => {
         event.stopPropagation();
       })
-      // ----------------------------
+      // ------------------------------------------------------------
       // On Click dropdown item
       .on('mouseup', this.options.domSelectors.inputItems, (event) => {
         if (!this.isMultiSelect) {
           if (this.isFirefox) {
             setTimeout((() => {
               this.closeDropdown();
-            }), this.firefoxDelay);
+            }), this.options.firefoxDelay);
           } else {
             this.closeDropdown();
           }
         }
         event.stopPropagation();
       })
-      // ------------------------------
+      // ------------------------------------------------------------
       // On Key press dropdown item
       .on('keydown', this.options.domSelectors.inputItems, (event) => {
         if (event.key === 'Tab') {
@@ -161,7 +158,7 @@ class Select extends Module {
           }
         }
       })
-      // ------------------------------
+      // ------------------------------------------------------------
       // On Key press Dropdown dropdown content element
       .on('keydown', this.options.domSelectors.dropdown, (event) => {
         if (event.key === 'Enter' || event.key === ' ') {
@@ -173,8 +170,8 @@ class Select extends Module {
           this.closeDropdown();
         }
       })
-      // ------------------------------
-      // On Key press Dropdown main element
+      // ------------------------------------------------------------
+      // On Key press Dropdown main element - close dropdown and leave element
       .on('keydown', this.options.domSelectors.trigger, (event) => {
         if (event.key === 'Tab') {
           if (event.shiftKey) {
@@ -182,14 +179,14 @@ class Select extends Module {
           }
         }
       })
-      // On Mouseup dropdown main element -- prevent focus lost
+      // On Mouseup dropdown main element - prevent losing focus
       .on('mouseup', this.options.domSelectors.trigger, (event) => {
         if (this.isOpen) {
           event.stopPropagation();
         }
       })
-      // ------------------------------
-      // On Click Dropdown main element
+      // ------------------------------------------------------------
+      // On Click Dropdown main element - open/close and stop propagation to prevent losing focus
       .on('click', this.options.domSelectors.trigger, (event) => {
         if (this.isOpen) {
           this.closeDropdown();
@@ -198,11 +195,16 @@ class Select extends Module {
         }
         event.stopPropagation();
       })
-      // ------------------------------
+      // filter clear button prevent propagation to prevent losing focus
+      .on('mouseup', this.options.domSelectors.clearButton, (event) => {
+        event.stopPropagation();
+      })
+      // ------------------------------------------------------------
       // On value of select changed
       .on(Select.events.valueChanged, this.onValueChanged.bind(this));
-    // ----------------------------
-    // watch select items for status change
+
+    // ------------------------------------------------------------
+    // watch select items for status change and update style
     this.ui.inputItems.forEach((item, index) => {
       item.addEventListener('change', (evt) => {
         if (!this.isMultiSelect) {
@@ -228,7 +230,7 @@ class Select extends Module {
       });
     });
     // -------------------------------
-    // key navigation for multiselect
+    // arrow key navigation for multi select
     if (this.isMultiSelect) {
       this.ui.items.forEach((li) => {
         li.querySelector('input').addEventListener('keydown', (evt) => {
@@ -255,7 +257,7 @@ class Select extends Module {
       });
     }
     // -------------------------------
-    // Observe inputs and update values
+    // Observe inputs and update values -
     if (this.ui.filter) {
       this.watch(this.ui.filter, 'value', debounce((key, before, after) => { // eslint-disable-line
         this.ui.items.forEach((li) => {
@@ -271,7 +273,7 @@ class Select extends Module {
   }
 
   /**
-   * Emit that value has changed
+   * Emit that value has changed - this triggers valueChanged
    * @param value
    */
   emitValueChanged(value) {
@@ -297,6 +299,13 @@ class Select extends Module {
     if (triggerLabelText !== '') {
       this.ui.element.classList.add(this.options.stateClasses.selected);
     }
+  }
+
+  /**
+   * When user clicks outside element
+   */
+  onFocusOut() {
+    this.closeDropdown(true);
   }
 
   /**
@@ -337,12 +346,8 @@ class Select extends Module {
     if (!focusLost) {
       setTimeout(() => {
         this.ui.trigger.focus();
-      }, this.dropdownDelay);
+      }, this.options.dropdownDelay);
     }
-  }
-
-  onFocusOut() {
-    this.closeDropdown(true);
   }
 
   /**
