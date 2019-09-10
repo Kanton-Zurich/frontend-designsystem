@@ -11,7 +11,6 @@ class Select extends Module {
   public isOpen: boolean;
   public isMultiSelect: boolean;
   public hasFilter: boolean;
-  public hasFilterAndButton: boolean;
   public isFirefox: boolean;
   public buttonPostfix: string;
   public selections: Array<any>;
@@ -76,7 +75,6 @@ class Select extends Module {
     this.isMultiSelect = false;
     this.isFirefox = navigator.userAgent.search('Firefox') > -1;
     this.hasFilter = typeof this.ui.filter !== 'undefined';
-    this.hasFilterAndButton = typeof this.ui.applyButton !== 'undefined' && this.hasFilter;
     if (this.ui.element.dataset[this.options.dataSelectors.isMultiSelect]) {
       this.isMultiSelect = true;
     }
