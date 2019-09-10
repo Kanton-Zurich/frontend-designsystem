@@ -44,26 +44,23 @@ $gapSize: pxToRem($sizeRegular);
   }
 
   &__duplicated {
-    .form__row:last-of-type() {
+    .form__row:last-of-type {
       padding-bottom: $gapSize;
+      flex-direction: row;
+
+      .form__cell {
+        margin-bottom: 0;
+      }
     }
 
-    &:last-child() {
-      .form__row:last-of-type() {
+    &:last-child {
+      .form__row:last-of-type {
         padding-bottom: 0;
       }
     }
 
     .form__row {
       position: relative;
-
-      &:last-of-type {
-        flex-direction: row;
-
-        .form__cell {
-          margin-bottom: 0;
-        }
-      }
     }
   }
 
@@ -147,7 +144,7 @@ $gapSize: pxToRem($sizeRegular);
   }
 
   .form__group--duplicatable {
-    .form__duplicated:last-of-type() {
+    .form__duplicated:last-of-type {
       .form__duplicator {
         display: flex;
       }
