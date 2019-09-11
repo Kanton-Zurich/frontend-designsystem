@@ -1,10 +1,10 @@
 {{#if preview}}
-  <button class="atm-button" onclick="document.querySelector('.mdl-filter-pills').dispatchEvent(new CustomEvent('FilterPills.addTag', { detail: { text: 'Bla' }}))">Filter Hinzufügen</button>
+  <button class="atm-button" onclick="document.querySelector('.mdl-filter-pills').dispatchEvent(new CustomEvent('FilterPills.addTag', { detail: { text: 'bla', value: 'blub' }}))">Filter Hinzufügen</button>
   <br />
 {{/if}}
 <div class="mdl-filter-pills" data-init="filterPills">
   <script data-template type="text/x-handlebars-template">
-  <span data-pill class="atm-button atm-button--small atm-button--tag atm-button--tag-filter">
+  <span data-pill="<%=value%>" class="atm-button atm-button--small atm-button--tag atm-button--tag-filter">
     <span class="atm-button__text ">
       <%=text%>
     </span>

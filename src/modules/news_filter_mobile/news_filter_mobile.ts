@@ -89,7 +89,6 @@ class NewsFilterMobile extends Module {
         }
       });
     });
-
     // -----------------------
     // initialize multiselects
     for (let i = 0; i < this.ui.listItems.length; i += 1) {
@@ -126,7 +125,6 @@ class NewsFilterMobile extends Module {
           this.updateFilterList(i);
           this.closeSublevelItem(this.ui.sublevelItems[i]);
         });
-
       // Watch checkboxes and change style
       this.ui.sublevelItems[i].querySelectorAll('li').forEach((li) => {
         this.watch(li.querySelector('input'), 'checked', (key, before, after) => {

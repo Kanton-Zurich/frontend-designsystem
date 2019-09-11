@@ -256,7 +256,7 @@ class Select extends Module {
   }
 
   /**
-   * Handle value change and trigger event
+   * Handle value change and trigger event for each item individually
    * @param event
    * @param item
    * @param index
@@ -298,14 +298,14 @@ class Select extends Module {
   }
 
   /**
-   * Open event
+   * Emit open event
    */
   emitOpen() {
     this.ui.element.dispatchEvent(new CustomEvent(Select.events.open));
   }
 
   /**
-   * Open event
+   * Emit close event
    */
   emitClose() {
     this.ui.element.dispatchEvent(new CustomEvent(Select.events.close));
@@ -333,7 +333,7 @@ class Select extends Module {
   }
 
   /**
-   * Set Value from outside
+   * Handle Set Value from outside
    * @param event
    */
   onSetValue(event) {
@@ -354,7 +354,7 @@ class Select extends Module {
   }
 
   /**
-   * When user clicks outside element
+   * Handle event when user clicks outside element
    */
   onFocusOut() {
     this.closeDropdown(true);
