@@ -192,6 +192,7 @@ class Range extends Module {
         min: this.minValue,
         max: this.maxValue,
       },
+      ariaFormat: wNumb(this.tooltip),
     };
 
     if (this.hasTickmarks) {
