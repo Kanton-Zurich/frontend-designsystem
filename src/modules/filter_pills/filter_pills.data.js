@@ -17,6 +17,7 @@ const data = _.merge({}, defaultData, {
       text: 'Zurücksetzen',
       icon: 'undo',
       additionalAttribute: 'data-clear',
+      additionalClasses: 'mdl-filter-pills__hidden-control',
     }),
   },
 });

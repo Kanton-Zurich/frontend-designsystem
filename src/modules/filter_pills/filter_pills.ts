@@ -21,6 +21,8 @@ class FilterPills extends Module {
       domSelectors: {
         clearButton: '[data-clear]',
         template: '[data-template]',
+        pills: '[data-pill]',
+        hiddenControl: 'mdl-filter-pills__hidden-control',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -65,6 +67,7 @@ class FilterPills extends Module {
       this.emitRemove(pill);
     });
     this.ui.element.insertBefore(pill, this.ui.element.firstChild);
+    this.ui.clearButton.classList.remove(this.options.domSelectors.hiddenControl);
   }
 
   /**
@@ -73,6 +76,9 @@ class FilterPills extends Module {
    */
   removeTag(event) {
     this.ui.element.removeChild(event.detail.target);
+    if (this.ui.element.querySelectorAll(this.options.domSelectors.pills).length < 1) {
+      this.ui.clearButton.classList.add(this.options.domSelectors.hiddenControl);
+    }
   }
 
   /**
@@ -82,6 +88,7 @@ class FilterPills extends Module {
     this.ui.element.querySelectorAll('[data-pill]').forEach((element) => {
       this.ui.element.removeChild(element);
     });
+    this.ui.clearButton.classList.add(this.options.domSelectors.hiddenControl);
   }
 
   /**
