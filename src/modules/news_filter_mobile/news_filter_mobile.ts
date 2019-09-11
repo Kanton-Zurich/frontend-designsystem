@@ -55,8 +55,8 @@ class NewsFilterMobile extends Module {
 
   static get events() {
     return {
-      onSetSelectedFilterItems: 'NewsFilterMobile.setSelectedItems',
-      onSetDate: 'NewsFilterMobile.setDate',
+      setSelectedFilterItems: 'NewsFilterMobile.setSelectedItems',
+      setDate: 'NewsFilterMobile.setDate',
     };
   }
 
@@ -67,9 +67,9 @@ class NewsFilterMobile extends Module {
     // ----------------
     // Select data events
     this.eventDelegate.on(NewsFilterMobile
-      .events.onSetSelectedFilterItems, this.onSetSelectedFilterItems.bind(this));
+      .events.setSelectedFilterItems, this.onSetSelectedFilterItems.bind(this));
     this.eventDelegate.on(NewsFilterMobile
-      .events.onSetDate, this.onSetDate.bind(this));
+      .events.setDate, this.onSetDate.bind(this));
 
     // ----------------
     // initialize focus handling
@@ -109,13 +109,7 @@ class NewsFilterMobile extends Module {
       this.ui.sublevelItems[i]
         .querySelector((<any> this.options.domSelectors).sublevelFooterButton)
         .addEventListener('click', () => {
-          this.filterLists[i] = [];
-          this.ui.sublevelItems[i].querySelectorAll('li').forEach((li) => {
-            if (li.classList.contains('selected')) {
-              this.filterLists[i].push(li.querySelector('input').value);
-            }
-          });
-          this.emitSetSelectedFilterItems();
+          this.updateFilterList(i);
           this.closeSublevelItem(this.ui.sublevelItems[i]);
         });
 
@@ -129,6 +123,7 @@ class NewsFilterMobile extends Module {
       this.ui.sublevelItems[i]
         .querySelector('.mdl-news-filter-mobile__sublevel-backbutton')
         .addEventListener('click', () => {
+          this.updateFilterList(i);
           this.closeSublevelItem(this.ui.sublevelItems[i]);
         });
 
@@ -246,10 +241,24 @@ class NewsFilterMobile extends Module {
   }
 
   /**
+   * Update a filter item
+   * @param index
+   */
+  updateFilterList(index) {
+    this.filterLists[index] = [];
+    this.ui.sublevelItems[index].querySelectorAll('li').forEach((li) => {
+      if (li.classList.contains('selected')) {
+        this.filterLists[index].push(li.querySelector('input').value);
+      }
+    });
+    this.emitSetSelectedFilterItems();
+  }
+
+  /**
    * Emit list change event
    */
   emitSetSelectedFilterItems() {
-    this.ui.element.dispatchEvent(new CustomEvent(NewsFilterMobile.events.onSetSelectedFilterItems,
+    this.ui.element.dispatchEvent(new CustomEvent(NewsFilterMobile.events.setSelectedFilterItems,
       {
         detail: {
           filterLists: this.filterLists,

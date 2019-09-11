@@ -7,6 +7,7 @@
 import Module from '../../assets/js/helpers/module';
 import { template } from 'lodash';
 import NewsFilterMobile from '../news_filter_mobile/news_filter_mobile';
+import Select from '../select/select';
 
 class NewsOverview extends Module {
   public ui: {
@@ -16,6 +17,7 @@ class NewsOverview extends Module {
     filter: HTMLDivElement,
     paginationInput: HTMLInputElement,
     topNews: HTMLDivElement,
+    filterSelects: HTMLDivElement[],
     filterMobileButton: HTMLButtonElement,
     filterMobileModal: HTMLDivElement,
     filterMobile: HTMLDivElement,
@@ -32,10 +34,10 @@ class NewsOverview extends Module {
       domSelectors: {
         teaserTemplate: '[data-teaser-template]',
         pagination: '.mdl-pagination',
-        filter: '.mdl-news-overview__filter',
+        filterSelects: '.mdl-news-overview__filter .mdl-select',
         filterMobileButton: '.mdl-news-overview__filter [data-news-filter-mobile]',
         filterMobileModal: '#news-filter-mobile',
-        filterMobile: '#news-filter-mobile [data-filters]',
+        filterMobile: '#news-filter-mobile  .mdl-news-filter-mobile',
         paginationInput: '.mdl-pagination input',
         topNews: '.mdl-news-overview__topnews',
         list: '.mdl-news-overview__newsgrid .mdl-news-teaser__content > ul',
@@ -46,7 +48,7 @@ class NewsOverview extends Module {
     };
 
     super($element, defaultData, defaultOptions, data, options);
-    this.filterLists = [];
+    this.filterLists = [[], [], []]; // topics - organisations - type
     this.initUi();
     this.dataUrl = this.ui.element.getAttribute('data-source');
     this.dataIdle = true;
@@ -63,17 +65,32 @@ class NewsOverview extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
+    // open modal and set selected filters
     this.ui.filterMobileButton.addEventListener('click', () => {
       this.ui.filterMobileModal.dispatchEvent(new CustomEvent('Modal.open'));
+      this.ui.filterMobile.dispatchEvent(new CustomEvent(NewsFilterMobile.events.setSelectedFilterItems, {
+        detail: {
+          filterLists: this.filterLists,
+        },
+      }));
     });
     this.watch(this.ui.paginationInput, 'value', () => {
       setTimeout(() => {
 
       }, 0);
     });
-
+    // ------------------------
+    // Filter select events -- topics, organisations, types
+    this.ui.filterSelects.forEach( (filterSelect, index) => {
+      filterSelect.addEventListener(Select.events.valueChanged, (event: any) => {
+        this.filterLists[index] = event.detail;
+      });
+      filterSelect.addEventListener(Select.events.close, (event) => {
+        this.loadNewsTeasers();
+      })
+    });
     this.ui.filterMobile
-      .addEventListener(NewsFilterMobile.events.onSetSelectedFilterItems,
+      .addEventListener(NewsFilterMobile.events.setSelectedFilterItems,
         this.onSetSelectedFilterItems.bind(this));
   }
 
@@ -83,6 +100,9 @@ class NewsOverview extends Module {
    */
   onSetSelectedFilterItems(event) {
     this.filterLists = event.detail.filterLists;
+    this.ui.filterSelects.forEach((filterSelect, index) => {
+      filterSelect.dispatchEvent(new CustomEvent(Select.events.setValue, { detail: this.filterLists[index] }));
+    });
   }
 
   /**
@@ -134,6 +154,7 @@ class NewsOverview extends Module {
    * @param jsonData
    */
   private populateNewsTeasers(jsonData) {
+    this.ui.list.innerHTML = '';
     // Todo: Check if filters are active and hide top this.ui.topNews
     this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
     this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;

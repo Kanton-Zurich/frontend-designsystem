@@ -112,6 +112,9 @@ class Select extends Module {
   static get events() {
     return {
       valueChanged: 'Select.valueChanged',
+      setValue: 'Select.setValue',
+      open: 'Select.open',
+      close: 'Select.close',
     };
   }
 
@@ -199,32 +202,14 @@ class Select extends Module {
       })
       // ------------------------------------------------------------
       // On value of select changed
-      .on(Select.events.valueChanged, this.onValueChanged.bind(this));
+      .on(Select.events.valueChanged, this.onValueChanged.bind(this))
+      .on(Select.events.setValue, this.onSetValue.bind(this));
 
     // ------------------------------------------------------------
     // watch select items for status change and update style
     this.ui.inputItems.forEach((item, index) => {
       item.addEventListener('change', (evt) => {
-        if (!this.isMultiSelect) {
-          this.ui.items.forEach((li) => {
-            li.classList.remove('selected');
-          });
-          this.ui.items[index].classList.add('selected');
-          this.emitValueChanged((<HTMLInputElement>evt.target).value);
-        } else {
-          if (item.checked) {
-            this.ui.items[index].classList.add('selected');
-          } else {
-            this.ui.items[index].classList.remove('selected');
-          }
-          const values = [];
-          this.ui.inputItems.forEach((inputItem) => {
-            if (inputItem.checked) {
-              values.push(inputItem.value);
-            }
-          });
-          this.emitValueChanged(values);
-        }
+        this.changeUpdateItemEvent(evt, item, index);
       });
     });
     // -------------------------------
@@ -271,11 +256,59 @@ class Select extends Module {
   }
 
   /**
+   * Handle value change and trigger event
+   * @param event
+   * @param item
+   * @param index
+   * @param emit
+   */
+  changeUpdateItemEvent(event, item, index, emit = true) {
+    if (!this.isMultiSelect) {
+      this.ui.items.forEach((li) => {
+        li.classList.remove('selected');
+      });
+      this.ui.items[index].classList.add('selected');
+      if (emit) {
+        this.emitValueChanged((<HTMLInputElement>event.target).value);
+      }
+    } else {
+      if (item.checked) {
+        this.ui.items[index].classList.add('selected');
+      } else {
+        this.ui.items[index].classList.remove('selected');
+      }
+      if (emit) {
+        const values = [];
+        this.ui.inputItems.forEach((inputItem) => {
+          if (inputItem.checked) {
+            values.push(inputItem.value);
+          }
+        });
+        this.emitValueChanged(values);
+      }
+    }
+  }
+
+  /**
    * Emit that value has changed - this triggers valueChanged
    * @param value
    */
   emitValueChanged(value) {
     this.ui.element.dispatchEvent(new CustomEvent(Select.events.valueChanged, { detail: value }));
+  }
+
+  /**
+   * Open event
+   */
+  emitOpen() {
+    this.ui.element.dispatchEvent(new CustomEvent(Select.events.open));
+  }
+
+  /**
+   * Open event
+   */
+  emitClose() {
+    this.ui.element.dispatchEvent(new CustomEvent(Select.events.close));
   }
 
   /**
@@ -297,6 +330,27 @@ class Select extends Module {
     if (triggerLabelText !== '') {
       this.ui.element.classList.add(this.options.stateClasses.selected);
     }
+  }
+
+  /**
+   * Set Value from outside
+   * @param event
+   */
+  onSetValue(event) {
+    this.ui.items.forEach((li, index) => {
+      const input = li.querySelector('input');
+      if (this.isMultiSelect) {
+        input.checked = event.detail.indexOf(input.value) >= 0;
+        this.changeUpdateItemEvent(event, input, index, false);
+        this.onValueChanged(event);
+      } else {
+        if (input.value === event.detail) {
+          input.checked = true;
+          this.changeUpdateItemEvent(event, input, index, false);
+          this.onValueChanged(event);
+        }
+      }
+    });
   }
 
   /**
@@ -328,6 +382,7 @@ class Select extends Module {
     // click out of element loose focus and close
     this.onFocusOut = this.onFocusOut.bind(this);
     window.addEventListener('mouseup', this.onFocusOut);
+    this.emitOpen();
   }
 
   /**
@@ -346,6 +401,7 @@ class Select extends Module {
         this.ui.trigger.focus();
       }, this.options.dropdownDelay);
     }
+    this.emitClose();
   }
 
   /**
