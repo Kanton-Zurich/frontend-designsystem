@@ -143,7 +143,9 @@ class Datepicker extends Module {
 
   static get events() {
     return {
-      // eventname: `eventname.${ Datepicker.name }.${  }`
+      close: 'Datepicker.close',
+      dateSet: 'Datepicker.dateSet',
+      clear: 'Datepicker.clear',
     };
   }
 
@@ -152,7 +154,8 @@ class Datepicker extends Module {
    */
   initEventListeners() {
     this.eventDelegate
-      .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this));
+      .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this))
+      .on(Datepicker.events.clear, this.onClear.bind(this));
   }
 
   /**
@@ -244,6 +247,14 @@ class Datepicker extends Module {
    */
   onClose() {
     this.ui.element.classList.remove('open');
+    this.emitDateSet();
+  }
+
+  /**
+   * Handle clear event
+   */
+  onClear() {
+    this.flatpickr.clear();
   }
 
   /**
@@ -257,6 +268,19 @@ class Datepicker extends Module {
     } else {
       this.ui.element.classList.add('open');
     }
+  }
+
+  /**
+   * Emits event if date has been set
+   */
+  emitDateSet() {
+    const eventData = {
+      detail: {
+        dateString: this.ui.trigger.value,
+        dates: this.flatpickr.selectedDates,
+      },
+    };
+    this.ui.element.dispatchEvent(new CustomEvent(Datepicker.events.dateSet, eventData));
   }
 
   /**

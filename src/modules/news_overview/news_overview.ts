@@ -9,6 +9,7 @@ import { template } from 'lodash';
 import NewsFilterMobile from '../news_filter_mobile/news_filter_mobile';
 import Select from '../select/select';
 import FilterPills from '../filter_pills/filter_pills';
+import Datepicker from '../datepicker/datepicker';
 
 class NewsOverview extends Module {
   public ui: {
@@ -24,11 +25,16 @@ class NewsOverview extends Module {
     filterMobile: HTMLDivElement,
     list: any,
     pills: HTMLDivElement,
+    datePicker: HTMLDivElement,
   };
   private dataUrl: string;
   private dataIdle: boolean;
   private filterLists: any[];
+  private searchWord: string;
+  private dateRange: any[];
+  private dateString: string;
   private filterHash: number;
+  private dateHash: number;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
@@ -44,6 +50,7 @@ class NewsOverview extends Module {
         topNews: '.mdl-news-overview__topnews',
         list: '.mdl-news-overview__newsgrid .mdl-news-teaser__content > ul',
         pills: '.mdl-filter-pills',
+        datePicker: '.mdl-news-overview__filter .mdl-datepicker',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -52,10 +59,14 @@ class NewsOverview extends Module {
 
     super($element, defaultData, defaultOptions, data, options);
     this.filterLists = [[], [], []]; // topics - organisations - type
+    this.searchWord = '';
+    this.dateRange = [];
+    this.dateString = '';
     this.initUi();
     this.dataUrl = this.ui.element.getAttribute('data-source');
     this.dataIdle = true;
     this.filterHash = this.createObjectHash(this.filterLists);
+    this.dateHash = this.createObjectHash(this.dateRange);
     this.initEventListeners();
     this.loadNewsTeasers();
   }
@@ -110,12 +121,27 @@ class NewsOverview extends Module {
       if (value.indexOf('filter:') === 0) {
         const filterValues = value.split(':');
         this.filterLists[filterValues[1]] = this.filterLists[filterValues[1]].filter(e => e !== filterValues[2]);
-         this.setFilterSelects();
+      } else if (value === 'date-range') {
+        this.dateRange = [];
+        this.ui.datePicker.dispatchEvent(new CustomEvent(Datepicker.events.clear));
       }
+      this.filterView(false);
     });
     this.ui.pills.addEventListener(FilterPills.events.clearTags, () => {
       this.filterLists = [[], [], []];
-      this.setFilterSelects();
+      this.dateRange = [];
+      this.dateString = '';
+      this.filterView();
+    });
+    // --------------------------
+    // Listen to date changed
+    this.ui.datePicker.addEventListener(Datepicker.events.dateSet, (event: any) => {
+      if (event.detail.dates.length < 2) {
+        return;
+      }
+      this.dateRange = event.detail.dates;
+      this.dateString = event.detail.dateString;
+      this.filterView();
     });
   }
 
@@ -125,14 +151,24 @@ class NewsOverview extends Module {
    */
   onSetSelectedFilterItems(event) {
     this.filterLists = event.detail.filterLists;
-    this.setFilterSelects();
     this.filterView();
   }
 
   /**
-   * Update the filter selects
+   * Update view in case filters changed
    */
-  setFilterSelects() {
+  filterView(updateFilterPills = true) {
+    const filterHash = this.createObjectHash(this.filterLists);
+    const dateHash = this.createObjectHash(this.dateRange);
+
+    if (this.filterHash !== filterHash || this.dateHash !== dateHash) {
+      if (updateFilterPills) {
+        this.updatePills();
+      }
+      this.loadNewsTeasers();
+      this.filterHash = filterHash;
+      this.dateHash = dateHash;
+    }
     this.ui.filterSelects.forEach((filterSelect, index) => {
       const eventData = {
         detail: this.filterLists[index],
@@ -151,18 +187,6 @@ class NewsOverview extends Module {
   }
 
   /**
-   * Update view in case filters changed
-   */
-  filterView() {
-    const hash = this.createObjectHash(this.filterLists);
-    if (this.filterHash !== hash) {
-      this.filterHash = hash;
-      this.updatePills();
-      this.loadNewsTeasers();
-    }
-  }
-
-  /**
    * Update pills to correspond with filter settings
    */
   updatePills() {
@@ -177,6 +201,9 @@ class NewsOverview extends Module {
         tags.push(tag);
       });
     });
+    if (this.dateRange.length === 2) {
+      tags.push({ text: this.dateString, value: 'date-range'});
+    }
     const eventData = {
       detail: tags,
     };
