@@ -154,6 +154,7 @@ class Topiclist extends Module {
     const entriesToShowButton = 8;
 
     this.data.query = valueAfter;
+    this.data.filteredPages = [];
 
     if (Object.keys(this.data.json).length === 0) {
       await this.fetchData();

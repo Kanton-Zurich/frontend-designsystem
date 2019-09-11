@@ -87,7 +87,7 @@ $slidePaddingCurve: (
 
     .mdl-button_group {
       .touch & {
-        display: none;
+        visibility: hidden;
       }
     }
   }

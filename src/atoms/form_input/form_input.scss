@@ -2,7 +2,7 @@ $heightRegular: 72px;
 $heightSmall: $sizeSmallHuge;
 $heightTextarea: 112px;
 
-$topSpace_with_half_border: 25px;
+$topSpace_with_half_border: 22px;
 $topSpace_without_border: 22px;
 $rightSpace: 44px;
 $unitLeftSpace: 62px;
@@ -12,12 +12,15 @@ $unitLeftSpace: 62px;
 
   &__input {
     background: $colorWhite;
-    padding: pxToRem($topSpace_with_half_border) pxToRem($rightSpace) pxToRem($topSpace_with_half_border) pxToRem($sizeRegular);
+    line-height: $heightRegular;
+
+    padding: 0 pxToRem($rightSpace) 0 pxToRem($sizeRegular);
 
     border: 2px solid $colorBlack40;
     border-radius: 2px;
     width: 100%;
     height: 100%;
+    min-height: pxToRem($heightRegular);
 
     &:disabled {
       border: 2px solid $colorBlack20;
@@ -110,7 +113,7 @@ $unitLeftSpace: 62px;
   label {
     color: $colorBlack60;
     font-size: pxToRem($sizeFontRegular);
-    line-height: $sizeLineHeightBase;
+    line-height: $heightRegular;
   }
 
   &__unit--left,
@@ -123,7 +126,8 @@ $unitLeftSpace: 62px;
   }
 
   &__unit {
-    top: pxToRem($topSpace_with_half_border);
+    top: 2px;
+    bottom: 2px;
   }
 
   .atm-form_input__trigger-label,
@@ -425,7 +429,16 @@ $unitLeftSpace: 62px;
     height: pxToRem($heightSmall);
 
     input {
-      padding: pxToRem($sizeSmallRegular) pxToRem($unitLeftSpace) pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
+      line-height: $heightSmall;
+      min-height: pxToRem($heightSmall);
+
+      padding: 0 pxToRem($unitLeftSpace) 0 pxToRem($sizeRegular);
+    }
+
+    .atm-form_input__input::placeholder,
+    .atm-form_input__unit,
+    .atm-form_input__label {
+      line-height: $heightSmall;
     }
 
     .icon {

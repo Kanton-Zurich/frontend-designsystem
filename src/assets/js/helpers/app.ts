@@ -33,6 +33,7 @@ import Select from '../../../modules/select/select';
 import ServiceWrapper from '../../../modules/service_wrapper/service_wrapper';
 import Pagination from '../../../modules/pagination/pagination';
 import Range from '../../../modules/range/range';
+import FilterPills from '../../../modules/filter_pills/filter_pills';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -75,6 +76,7 @@ class App {
     this.modules.serviceWrapper = ServiceWrapper;
     this.modules.pagination = Pagination;
     this.modules.range = Range;
+    this.modules.filterPills = FilterPills;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
