@@ -30,8 +30,18 @@ $modalCurves: (
   display: none;
   transform: translateY(-50vh);
 
-  @include transition(transform opacity, $transitionTimeDefault, $transitionEasingAccelerate);
+  @include transition(transform opacity, $transitionTimeDefault, $transitionEasingDefault);
 
+  > .lyt-wrapper:nth-child(2) {
+    transform: translateY(50vh) translateX(0);
+    opacity: 0;
+
+    @include transition(transform opacity, $transitionTimeDefault, $transitionEasingDefault);
+  }
+
+  /**
+   * ALL THE SPECIAL ANIMATION CLASSES
+   */
   &--before-show {
     display: block;
   }
@@ -41,6 +51,59 @@ $modalCurves: (
     z-index: $zIndexOverlays;
 
     transform: translateY(0);
+
+    > .lyt-wrapper:nth-child(2) {
+      transform: translateY(0) translateX(0);
+      opacity: 1;
+    }
+  }
+
+  &--no-transition-show {
+    transition: none;
+
+    > .lyt-wrapper:nth-child(2) {
+      transition: none;
+    }
+  }
+
+  &--before-hide {
+    > .lyt-wrapper:nth-child(2) {
+      opacity: 0;
+
+      @include transition(opacity, $transitionTimeDefault, $transitionEasingDefault);
+    }
+  }
+
+  &--before-switch-right {
+    > .lyt-wrapper:nth-child(2) {
+      opacity: 0;
+      transform: translateY(0) translateX(10vh);
+    }
+  }
+
+  &--hide {
+    transform: translateY(-50vh);
+    opacity: 0;
+  }
+
+  &--switch-left {
+    > .lyt-wrapper:nth-child(2) {
+      transform: translateY(0) translateX(-10vh);
+      opacity: 0;
+    }
+  }
+
+  &--switch-right {
+    > .lyt-wrapper:nth-child(2) {
+      transform: translateY(0) translateX(0);
+      opacity: 1;
+    }
+  }
+
+  /** END OF THE ANIMATION STUFF */
+
+  &--flyout {
+    @include sizeCurve(padding-top, height, $headerCurves);
   }
 
   &__close {

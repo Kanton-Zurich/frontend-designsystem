@@ -102,8 +102,9 @@ $headerCurves: (
     .mdl-header {
       background: $val;
 
-      &--inverted {
-        background: transparent;
+      &--inverted,
+      &.cv-monochrome {
+        background: $colorWhite;
 
         .mdl-header__nav-item {
           color: $colorBlack100;

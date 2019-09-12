@@ -40,6 +40,12 @@ class Modal extends Module {
         show: 'mdl-modal--show',
         transHide: 'mdl-modal--transition-hide',
         dynamicHeader: 'mdl-modal--dynamicheader',
+        beforeHide: 'mdl-modal--before-hide',
+        hide: 'mdl-modal--hide',
+        switchLeft: 'mdl-modal--switch-left',
+        noTransitionShow: 'mdl-modal--no-transition-show',
+        beforeSwitchRight: 'mdl-modal--before-switch-right',
+        switchRight: 'mdl-modal--switch-right',
       },
       childSelectors: {
         nav: '.mdl-topiclist--nav',
@@ -96,6 +102,8 @@ class Modal extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.close, this.closeModal.bind(this));
     // move to the end of the DOM
     (<any>window).estatico.helpers.bodyElement.appendChild(this.ui.element);
+    this.eventDelegate.on('Modal.switchLeft', this.switchLeft.bind(this));
+    this.eventDelegate.on('Modal.switchRight', this.switchRight.bind(this));
   }
 
   initContent() {
@@ -184,8 +192,6 @@ class Modal extends Module {
 
     (<any>WindowEventListener).addDebouncedResizeListener(this.updateSizing.bind(this));
 
-    this.ui.element.setAttribute('aria-hidden', 'false');
-
     // If there is the navigation topic list a child, then load the navigation
     if (this.options.isNav) {
       this.ui.element.querySelector(this.options.childSelectors.nav).dispatchEvent(new CustomEvent('loadNavigation'));
@@ -199,16 +205,85 @@ class Modal extends Module {
 
   /** Closes the modal */
   closeModal() {
+    const multiplier = 2;
+
     // Accessibility integrate the isolated
     this.isolatedElements.forEach((element) => {
       element.removeAttribute('aria-hidden');
     });
 
-    this.ui.element.setAttribute('aria-hidden', 'true');
+    this.ui.element.classList.add(this.options.stateClasses.beforeHide);
+
+    document.documentElement.style.overflowY = 'auto';
+
 
     // Modal.closed, should only fire after the timeout
-    window.dispatchEvent(new CustomEvent('Modal.closed'));
+
+    // After the animation we can set the modal to display: none
+    setTimeout(() => {
+      this.ui.element.classList.add(this.options.stateClasses.hide);
+    }, this.options.transitionTime);
+    setTimeout(() => {
+      this.ui.element.classList.remove(this.options.stateClasses.beforeShow);
+      this.ui.element.classList.remove(this.options.stateClasses.beforeHide);
+      this.ui.element.classList.remove(this.options.stateClasses.hide);
+      this.ui.element.classList.remove(this.options.stateClasses.show);
+      window.dispatchEvent(new CustomEvent('Modal.closed'));
+    }, this.options.transitionTime * multiplier);
   }
+
+  switchLeft() {
+    // Accessibility integrate the isolated
+    this.isolatedElements.forEach((element) => {
+      element.removeAttribute('aria-hidden');
+    });
+
+    this.ui.element.classList.add(this.options.stateClasses.switchLeft);
+
+    setTimeout(() => {
+      this.ui.element.classList.remove(this.options.stateClasses.beforeShow);
+      this.ui.element.classList.remove(this.options.stateClasses.beforeHide);
+      this.ui.element.classList.remove(this.options.stateClasses.hide);
+      this.ui.element.classList.remove(this.options.stateClasses.show);
+
+      this.ui.element.classList.remove(this.options.stateClasses.switchLeft);
+    }, this.options.transitionTime);
+  }
+
+  switchRight() {
+    this.isolatedElements = [];
+    (<any>window).estatico.helpers.bodyElement.childNodes.forEach((child) => {
+      if (child.nodeType === 1) {
+        if (!(<HTMLElement>child).getAttribute('aria-hidden')) {
+          (<HTMLElement>child).setAttribute('aria-hidden', 'true');
+          this.isolatedElements.push(child);
+        }
+      }
+    });
+
+    if (this.options.isNav) {
+      this.ui.element.querySelector(this.options.childSelectors.nav).dispatchEvent(new CustomEvent('loadNavigation'));
+    }
+
+    setTimeout(() => {
+      this.ui.element.classList.add(this.options.stateClasses.noTransitionShow);
+
+      setTimeout(() => {
+        this.ui.element.classList.add(this.options.stateClasses.beforeSwitchRight);
+        this.ui.element.classList.add(this.options.stateClasses.show);
+        this.ui.element.classList.add(this.options.stateClasses.beforeShow);
+        this.ui.element.classList.remove(this.options.stateClasses.noTransitionShow);
+      }, 1);
+
+      this.ui.element.classList.add(this.options.stateClasses.switchRight);
+
+      setTimeout(() => {
+        this.ui.element.classList.remove(this.options.stateClasses.beforeSwitchRight);
+        this.ui.element.classList.remove(this.options.stateClasses.switchRight);
+      }, this.options.transitionTime);
+    }, this.options.transitionTime);
+  }
+
   /**
    * Unbind events, remove data, custom teardown
    */
