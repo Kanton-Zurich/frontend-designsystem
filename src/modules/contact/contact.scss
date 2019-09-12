@@ -108,7 +108,7 @@
 
   &__text {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
-    margin-top: pxToRem($sizeTiny);
+    margin-top: pxToRem($sizeMini);
     hyphens: auto;
 
     ul {
