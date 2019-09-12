@@ -29,9 +29,9 @@ $leadFontCurve: (
   &--expanded,
   &--home,
   &--office {
-    .mdl-content_nav:not(.mdl-topiclist__autosuggest) {
-      &__item:nth-child(1n+13),
-      &__item:nth-child(1n+10) {
+    &:not(.mdl-topiclist__autosuggest) {
+      .mdl-content_nav__item:nth-child(1n+13),
+      .mdl-content_nav__item:nth-child(1n+10) {
         display: flex;
       }
     }
