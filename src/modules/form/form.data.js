@@ -21,6 +21,8 @@ const selectData = require('../select/select.data');
 
 const fileUploadHBS = dataHelper.getFileContent('../file_upload/file_upload.hbs');
 const fileUploadData = require('../file_upload/file_upload.data');
+const datepickerHBS = dataHelper.getFileContent('../datepicker/datepicker.hbs');
+const datepickerData = require('../datepicker/datepicker.data');
 
 const duplicateGroup = {
   isDuplicatable: true,
@@ -167,8 +169,8 @@ const variants = _.mapValues({
             {
               fields: [
                 {
-                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
-                    selectData.variants.default.props,
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.defaultDate.props,
                     {})),
                 },
                 {
