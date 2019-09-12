@@ -1,5 +1,5 @@
-import noUiSlider from 'noUiSlider';
-import wNumb from 'wNumb';
+import noUiSlider from 'nouislider';
+import wNumb from 'wnumb';
 import { merge } from 'lodash';
 /*!
  * Slider
@@ -25,7 +25,8 @@ class Range extends Module {
   public hasTickmarks: boolean;
   public usedConfig: any;
 
-  public handles: Array<number>;
+  public handles: Array<any>;
+  public handlePositions: Array<number>;
   public tickmarkValues: Array<number>;
   public rangeConnects: Array<boolean>;
   public tooltips: Array<any>;
@@ -97,6 +98,8 @@ class Range extends Module {
     this.hasTickmarks = this.ui.element.classList.contains(this.options.stateClasses.tickmarks)
       || this.ui.element.classList.contains(this.options.stateClasses.tickmarksLabels);
 
+    this.handles = [];
+
     this.initUi();
     this.initEventListeners();
     this.cacheDataAttributes();
@@ -161,14 +164,14 @@ class Range extends Module {
    * Construct the config for the noUiSlider plugin
    */
   setupConfig() {
-    this.handles = [];
-    this.handles.push(this.handleOne);
+    this.handlePositions = [];
+    this.handlePositions.push(this.handleOne);
 
     if (Number.isNaN(this.handleTwo)) {
       this.rangeConnects = [true, false];
     } else {
       // Two handles
-      this.handles.push(this.handleTwo);
+      this.handlePositions.push(this.handleTwo);
       this.rangeConnects = [false, true, false];
     }
 
@@ -179,12 +182,12 @@ class Range extends Module {
     };
 
     this.tooltips = [];
-    this.handles.forEach(() => {
+    this.handlePositions.forEach(() => {
       this.tooltips.push(wNumb(this.tooltip));
     });
 
     const config = {
-      start: this.handles,
+      start: this.handlePositions,
       connect: this.rangeConnects,
       tooltips: this.tooltips,
       step: this.rangeSteps,
@@ -212,12 +215,27 @@ class Range extends Module {
   }
 
   /**
-   * Launches the noUiSlider plugin
+   * Launches the noUiSlider plugin and add the set listener
+   * to synchronize the values with the hidden input
    */
   initSliderPlugin() {
     noUiSlider.create(this.ui.slider, this.usedConfig);
 
-    this.ui.slider.noUiSlider.on('set', () => {
+    const firstHandle = this.ui.slider.querySelector('.noUi-handle-lower');
+    const secondHandle = this.ui.slider.querySelector('.noUi-handle-upper');
+
+    if (firstHandle) {
+      this.handles.push(firstHandle);
+    }
+
+    if (secondHandle) {
+      this.handles.push(secondHandle);
+    }
+
+    this.ui.slider.noUiSlider.on('set', (values, handle) => {
+      // Update the flyingFocus
+      (<any>window).estatico.flyingFocus.doFocusOnTarget(this.handles[handle]);
+      // Set hidden input value
       this.ui.input.value = this.ui.slider.noUiSlider.get();
     });
   }
