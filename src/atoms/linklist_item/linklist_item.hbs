@@ -1,5 +1,5 @@
 <{{#if isButton}}button{{else}}a{{/if}}
-  class="atm-linklist_item {{#if linkListItemIsDownload}}atm-linklist_item--download{{/if}} {{#if isLegalFoundation}}atm-linklist_item--legalfoundation{{/if}}"
+  class="atm-linklist_item {{#if linkListItemIsDownload}}atm-linklist_item--download{{/if}} {{#if isLegalFoundation}}atm-linklist_item--legalfoundation{{/if}} {{#if linkListItemIsLocation}}atm-linklist_item--location{{/if}}"
   {{#if linkListItemHref}}href="{{linkListItemHref}}"{{/if}}{{#if target}} target="_{{target}}"{{/if}}
   {{#if linkListItemIsDownload}}{{#unless isButton}}download{{/unless}}{{/if}}
   {{#if domSelector}}{{{domSelector}}}{{/if}}
@@ -16,9 +16,22 @@
     {{#if linkListItemLabel}}<span class="atm-linklist_item__label">{{linkListItemLabel}}</span>{{/if}}
   </span>
   {{#unless linkListItemIsDownload}}
-    <svg class="icon atm-linklist_item__arrow">
-      <use xlink:href="#arrow-right"></use>
-    </svg>
+    {{#if linkListItemIsLocation}}
+      {{#if linkListItemDistance}}
+        <div class="atm-linklist_item__distancearrow">
+          <div class="atm-linklist_item__distance">
+              {{ linkListItemDistance }}
+          </div>
+          <svg class="icon atm-linklist_item__arrow">
+              <use xlink:href="#arrow-right"></use>
+          </svg>
+        </div>
+      {{/if}}
+    {{else}}
+      <svg class="icon atm-linklist_item__arrow">
+        <use xlink:href="#arrow-right"></use>
+      </svg>
+    {{/if}}
   {{/unless}}
   {{#if isLegalFoundation}}
     <span class="atm-linklist_item__download-button">

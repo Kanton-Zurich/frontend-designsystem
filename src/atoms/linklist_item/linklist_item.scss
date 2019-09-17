@@ -80,6 +80,30 @@
     }
   }
 
+  &--location {
+    font-size: pxToRem($sizeFontRegular);
+
+    &:not(:hover) {
+      .atm-linklist_item__label:not(:hover) {
+        color: rgba($colorText, 0.6);
+      }
+    }
+
+    .atm-linklist_item__distancearrow {
+      height: 100%;
+    }
+
+    .atm-linklist_item__distance {
+      font-size: pxToRem($sizeFontTiny);
+      font-weight: $fontWeightDefault;
+      white-space: pre;
+
+      &:not(:hover) {
+        color: rgba($colorText, 0.6);
+      }
+    }
+  }
+
   &__arrow {
     @include sizeCurve(margin-left, tiny);
   }
@@ -114,12 +138,6 @@
 
       &:hover {
         color: rgba($colorText, 1);
-      }
-
-      &:not(:hover) {
-        .atm-linklist_item__label:not(:hover) {
-          color: rgba($colorText, 0.6);
-        }
       }
     }
   }
