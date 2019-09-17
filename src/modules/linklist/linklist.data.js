@@ -69,6 +69,42 @@ const variants = _.mapValues({
       hasTitle: false,
     },
   },
+  locations: {
+    meta: {
+      title: 'With locations',
+      desc: 'Linklist as used in locations module',
+    },
+    props: {
+      hasTitle: false,
+      links: [
+        {
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
+          linkListItemLabel: 'Uetlibergstrasse 301, 8036 Zürich',
+          linkListItemHref: '/',
+        }, {
+          linkListItemTitle: 'Strassenverkehrsamt Bassersdorf',
+          linkListItemLabel: 'Grindelstrasse 22, 8303 Bassersdorf',
+          linkListItemHref: '/',
+        }, {
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Regensdorf',
+          linkListItemLabel: 'Riedthofstrasse 192, 8105 Regensdorf',
+          linkListItemHref: '/',
+        }, {
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
+          linkListItemLabel: 'Taggenbergstrasse 1, 8408 Winterthur',
+          linkListItemHref: '/',
+        }, {
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Bülach',
+          linkListItemLabel: 'Schützenmatt Straße 120, 8180 Bülach',
+          linkListItemHref: '/',
+        }, {
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Schifffahrtskontrolle',
+          linkListItemLabel: 'Seestrasse 87, 8942 Oberrieden',
+          linkListItemHref: '/',
+        },
+      ],
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
