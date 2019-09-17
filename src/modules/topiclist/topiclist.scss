@@ -19,8 +19,8 @@ $leadFontCurve: (
   .mdl-topiclist__autosuggest {
     display: none;
 
-    .mdl-content_nav {
-      &__item:nth-child(1n+9) {
+    &.mdl-content_nav {
+      .mdl-content_nav__item:nth-child(1n+9) {
         display: none;
       }
     }
