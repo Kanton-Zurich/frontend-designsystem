@@ -48,9 +48,11 @@
           </address>
 
           <div class="mdl-contact__text">
-            <p>
-              {{contactAddress.additionalInfo}}
-            </p>
+            {{#if contactAddress.additionalInfo}}
+              <p>
+                {{contactAddress.additionalInfo}}
+              </p>
+            {{/if}}
 
             {{#each contactAddress.openingTimes}}
               {{#if this.timeTitle}}
@@ -81,12 +83,16 @@
             <a class="mdl-contact__phone" href="tel:{{this.phoneNumer}}">{{this.anchorLabel}}</a>
 
             <div class="mdl-contact__text">
-              <p>
-                {{this.additionalInfo}}
-              </p>
-              <p>
-                {{this.additionalInfoSpaced}}
-              </p>
+              {{#if this.additionalInfo}}
+                <p>
+                  {{this.additionalInfo}}
+                </p>
+              {{/if}}
+              {{#if this.additionalInfoSpaced}}
+                <p>
+                  {{this.additionalInfoSpaced}}
+                </p>
+              {{/if}}
               {{#if this.openingTimes}}
                 {{#each this.openingTimes}}
                   {{#if this.timeTitle}}
