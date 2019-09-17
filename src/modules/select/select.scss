@@ -131,10 +131,10 @@ $selectHeightWithFilterExtended: 424px;
       }
     }
 
-    &.mdl-select--button
-    {
+    &.mdl-select--button {
       .mdl-select__options {
         height: pxToRem($selectHeightWithButton);
+
         ul {
           height: calc(100% - 80px);
         }
@@ -144,13 +144,16 @@ $selectHeightWithFilterExtended: 424px;
     &.mdl-select--filter {
       .mdl-select__options {
         height: pxToRem($selectHeightWithFilter);
+
         ul {
           height: calc(100% - 80px);
         }
       }
+
       &.mdl-select--button {
         .mdl-select__options {
           height: pxToRem($selectHeightWithFilterExtended);
+
           ul {
             height: calc(100% - 160px);
           }

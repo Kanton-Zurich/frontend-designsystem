@@ -57,10 +57,11 @@
     }
   }
 
-  h2 {
+  .atm-heading {
     font-size: $sizeFontTiny;
     padding-top: 0;
     line-height: $sizeLineHeightBase;
+    color: $colorWhite;
 
     @include sizeCurve('margin-bottom', headingBottomMargin, $tagGroupSizeMaps);
   }
