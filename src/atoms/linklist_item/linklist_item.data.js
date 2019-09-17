@@ -23,6 +23,17 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
+  withSubtitle: {
+    meta: {
+      title: 'Link mit zusätzlicher Zeile',
+      desc: 'Bietet zusätzliche Zeile z.B. für Adresseinträge',
+    },
+    props: {
+      linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
+      linkListItemLabel: 'Uetlibergstrasse 301, 8036 Zürich',
+      linkListItemHref: '/',
+    },
+  },
   download: {
     meta: {
       title: 'Downloadlink',
