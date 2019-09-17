@@ -123,11 +123,6 @@ class Select extends Module {
    */
   initEventListeners() {
     this.eventDelegate
-    // ------------------------------------------------------------
-    // On click filter input
-      .on('mouseup', this.options.domSelectors.filter, (event) => {
-        event.stopPropagation();
-      })
       // ------------------------------------------------------------
       // On Click dropdown item
       .on('mouseup', this.options.domSelectors.inputItems, (event) => {
@@ -140,7 +135,6 @@ class Select extends Module {
             this.closeDropdown();
           }
         }
-        event.stopPropagation();
       })
       // ------------------------------------------------------------
       // On Key press dropdown item
@@ -155,6 +149,9 @@ class Select extends Module {
             }
           } else if (this.ui.filter) {
             this.ui.filter.focus();
+            event.preventDefault();
+          } else {
+            this.ui.trigger.focus();
             event.preventDefault();
           }
         }
@@ -196,9 +193,19 @@ class Select extends Module {
         }
         event.stopPropagation();
       })
-      // filter clear button prevent propagation to prevent losing focus
-      .on('mouseup', this.options.domSelectors.clearButton, (event) => {
+      // apply button prevent propagation to prevent losing focus
+      .on('mouseup', this.options.domSelectors.dropdown, (event) => {
         event.stopPropagation();
+      })
+      // apply button focus after close
+      .on('click', this.options.domSelectors.applyButton, () => {
+        this.closeDropdown();
+      })
+      // tab out and lose focus
+      .on('keydown', this.options.domSelectors.applyButton, (event) => {
+        if (event.key === 'Tab' && !event.shiftKey) {
+          this.closeDropdown(true);
+        }
       })
       // ------------------------------------------------------------
       // On value of select changed
@@ -389,19 +396,21 @@ class Select extends Module {
    * Close dropdown/select
    */
   closeDropdown(focusLost = false) {
-    window.removeEventListener('mouseup', this.onFocusOut);
-    const openClass = this.options.stateClasses.open;
-    const dropDown = this.ui.element;
-    dropDown.classList.remove(openClass);
-    this.isOpen = false;
-    this.ui.trigger.setAttribute('aria-expanded', 'false');
-    this.ui.dropdown.setAttribute('aria-hidden', 'true');
-    if (!focusLost) {
-      setTimeout(() => {
-        this.ui.trigger.focus();
-      }, this.options.dropdownDelay);
+    if (this.isOpen) {
+      window.removeEventListener('mouseup', this.onFocusOut);
+      const openClass = this.options.stateClasses.open;
+      const dropDown = this.ui.element;
+      dropDown.classList.remove(openClass);
+      this.isOpen = false;
+      this.ui.trigger.setAttribute('aria-expanded', 'false');
+      this.ui.dropdown.setAttribute('aria-hidden', 'true');
+      if (!focusLost) {
+        setTimeout(() => {
+          this.ui.trigger.focus();
+        }, this.options.dropdownDelay);
+      }
+      this.emitClose();
     }
-    this.emitClose();
   }
 
   /**
