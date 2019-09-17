@@ -198,7 +198,11 @@ class Header extends Module {
   }
 
   toggleFixedHeader(propName, valueBefore, valueAfter) {
-    const anchornavIsSticky = document.querySelector('.mdl-anchornav').classList.contains('.mdl-anchornav--sticky');
+    let anchornavIsSticky = false;
+
+    if (document.querySelector('.mdl-anchornav')) {
+      anchornavIsSticky = document.querySelector('.mdl-anchornav').classList.contains('.mdl-anchornav--sticky');
+    }
 
     if (valueAfter) {
       if (anchornavIsSticky) {
