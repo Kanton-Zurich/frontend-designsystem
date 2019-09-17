@@ -138,6 +138,46 @@ class Module {
 
     delete window[namespace].modules[this.name].instances[this.uuid];
   }
+
+  /**
+   * Create checksum from object
+   * @param obj
+   */
+  createObjectHash(obj: any) {
+    const s = JSON.stringify(obj);
+    let hash = 0;
+    const strlen = s.length;
+    if (strlen === 0) {
+      return hash;
+    }
+    for (let i = 0; i < strlen; i += 1) {
+      const c = s.charCodeAt(i);
+      hash = ((hash << 5) - hash) + c; // eslint-disable-line
+      hash = hash & hash; // eslint-disable-line
+    }
+    return hash;
+  }
+
+
+  /**
+   * Extract url parameters
+   * @param param
+   * @param singleValue
+   */
+  getURLParam(param, singleValue = false) {
+    let result = null;
+    const url = window.location.href;
+    const paramList = url.split('?').length > 1 ? url.split('?')[1].split('&') : null;
+    if (paramList) {
+      result = paramList.filter( paramString => paramString.substr(0, param.length) === param
+      ).map(item =>
+        item.split('=')[1]);
+      if (result.length > 0 && singleValue) {
+        result = result[0];
+      }
+    }
+    return result && result.length > 0 ? result : null;
+  }
 }
 
 export default Module;

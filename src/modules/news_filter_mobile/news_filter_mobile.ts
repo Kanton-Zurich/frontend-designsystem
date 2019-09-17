@@ -291,6 +291,7 @@ class NewsFilterMobile extends Module {
    * @param event
    */
   onSetDate(event) {
+    console.log(event);
     const payload = event.detail;
   }
 

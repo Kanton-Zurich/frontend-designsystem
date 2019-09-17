@@ -7,6 +7,7 @@ const demoTeaserData = require('../teaser/teaser.data').variants.inverted.props;
 const defDatePickerData = require('../datepicker/datepicker.data.js');
 const defNewsFilterMobileData = require('../news_filter_mobile/news_filter_mobile.data.js');
 const defFilterPillsData = require('../filter_pills/filter_pills.data.js');
+const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 
 const templateConverter = require('../../../gulp/helpers/templateConverter');
 
@@ -112,6 +113,16 @@ const data = _.merge({}, defaultData, {
       },
     }),
     filterPillsData: defFilterPillsData.props,
+    sortContextMenu: {
+      lists: [
+        {
+          items: [
+            _.merge({}, contextMenuItemDef, { text: 'Neueste', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort="new"', isButton: true }),
+            _.merge({}, contextMenuItemDef, { text: 'Älteste', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort="old"', isButton: true }),
+          ],
+        },
+      ],
+    },
     searchInputData: {
       type: 'text',
       label: 'Filter',
@@ -161,6 +172,7 @@ const data = _.merge({}, defaultData, {
     ],
   },
 });
+
 data.props.newsFilterMobileData.filters[0].filterItems = dataTopics;
 data.props.newsFilterMobileData.filters[1].filterItems = dataOrganisations;
 

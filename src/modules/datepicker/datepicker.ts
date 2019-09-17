@@ -146,6 +146,7 @@ class Datepicker extends Module {
       close: 'Datepicker.close',
       dateSet: 'Datepicker.dateSet',
       clear: 'Datepicker.clear',
+      injectDate: 'Datepicker.injectDate',
     };
   }
 
@@ -155,6 +156,7 @@ class Datepicker extends Module {
   initEventListeners() {
     this.eventDelegate
       .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this))
+      .on(Datepicker.events.injectDate, this.onInjectDate.bind(this))
       .on(Datepicker.events.clear, this.onClear.bind(this));
   }
 
@@ -234,6 +236,15 @@ class Datepicker extends Module {
   }
 
   /**
+   * Inject date from external
+   * @param event
+   */
+  onInjectDate(event) {
+    const { format, date } = event.detail;
+    this.flatpickr.setDate(date, true, format);
+  }
+
+  /**
    * On change callback. Adds the dirty class to the container element
    */
   onValueChange() {
@@ -255,6 +266,7 @@ class Datepicker extends Module {
    */
   onClear() {
     this.flatpickr.clear();
+    this.ui.element.classList.remove('dirty');
   }
 
   /**
