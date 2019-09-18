@@ -46,7 +46,12 @@
       {{#if disabled}} disabled{{/if}}
       {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
       {{#if validation}} data-validation{{/if}}
-      {{#if isFloatingLabel}} data-floating{{/if}}>
+      {{#if isFloatingLabel}} data-floating{{/if}}
+      {{#if zipCity}}
+        data-fills-city="{{zipCity.fills}}"
+        data-zip="{{zipCity.data}}"
+      {{/if}}
+      >
   {{/if}}
 
   {{# unless isSelectTrigger}}

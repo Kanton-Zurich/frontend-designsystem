@@ -148,6 +148,17 @@ const variants = _.mapValues({
                       pattern: '^[0-9]{4,4}$',
                       errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
                     },
+                    zipCity: {
+                      fills: 'city',
+                      data: JSON.stringify({
+                        8000: 'Zürich',
+                        8001: 'Zürich',
+                        8004: 'Zürich',
+                        8310: 'Winterthur',
+                        8700: 'Küsnacht ZH',
+                        8620: 'Wetzikon',
+                      }),
+                    },
                   })),
               },
               {
