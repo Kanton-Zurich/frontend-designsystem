@@ -26,11 +26,13 @@ class NewsOverview extends Module {
     list: any,
     pills: HTMLDivElement,
     datePicker: HTMLDivElement,
+    datePickerInput: HTMLInputElement,
     sortButton: HTMLButtonElement,
     sortDropdown: HTMLDivElement,
     searchWordInput: HTMLInputElement,
     searchWordInputClear: HTMLButtonElement,
   };
+
   private dataUrl: string;
   private dataIdle: boolean;
   private filterLists: any[];
@@ -60,6 +62,7 @@ class NewsOverview extends Module {
         list: '.mdl-news-overview__newsgrid .mdl-news-teaser__content > ul',
         pills: '.mdl-filter-pills',
         datePicker: '.mdl-news-overview__filter .mdl-datepicker',
+        datePickerInput: '.mdl-news-overview__filter .mdl-datepicker .atm-form_input__input',
         sortButton: '.mdl-news-overview__sort-dropdown',
         sortDropdown: '.mdl-news-overview__sort .mdl-context_menu',
         searchWordInput: '.mdl-news-overview__filter > .atm-form_input input',
@@ -113,7 +116,7 @@ class NewsOverview extends Module {
       );
     });
     // -----------------------------------------------
-    // Listen to pagignation change event
+    // Listen to pagination change event
     this.watch(this.ui.paginationInput, 'value', () => {
       setTimeout(() => {
       }, 0);
@@ -129,7 +132,14 @@ class NewsOverview extends Module {
       });
     });
     // -----------------------------------------------
-    // Listen to filter changed from mobile view
+    // Listen to date changed
+    this.ui.datePicker.addEventListener(Datepicker.events.dateSet, this.onDateSet.bind(this));
+    // -----------------------------------------------
+    // Listen to date changed from mobile view
+    this.ui.filterMobile.addEventListener(NewsFilterMobile.events.dateSet,
+      this.onMobileDateSet.bind(this));
+    // -----------------------------------------------
+    // Listen to filter changed from mobile view -- topics, organisations, types
     this.ui.filterMobile
       .addEventListener(NewsFilterMobile.events.setSelectedFilterItems,
         (event: any) => {
@@ -147,6 +157,7 @@ class NewsOverview extends Module {
       } else if (value === 'date-range') {
         this.dateRange = [];
         this.ui.datePicker.dispatchEvent(new CustomEvent(Datepicker.events.clear));
+        this.ui.filterMobile.dispatchEvent(new CustomEvent(NewsFilterMobile.events.clearDate));
       }
       this.filterView(false);
     });
@@ -158,17 +169,8 @@ class NewsOverview extends Module {
       this.dateString = '';
       this.searchWord = '';
       this.ui.datePicker.dispatchEvent(new CustomEvent(Datepicker.events.clear));
+      this.ui.filterMobile.dispatchEvent(new CustomEvent(NewsFilterMobile.events.clearDate));
       this.ui.searchWordInput.value = '';
-      this.filterView();
-    });
-    // -----------------------------------------------
-    // Listen to date changed
-    this.ui.datePicker.addEventListener(Datepicker.events.dateSet, (event: any) => {
-      if (event.detail.dates.length < 2) { // eslint-disable-line
-        return;
-      }
-      this.dateRange = event.detail.dates;
-      this.dateString = event.detail.dateString;
       this.filterView();
     });
     // -----------------------------------------------
@@ -205,7 +207,7 @@ class NewsOverview extends Module {
     const filterHash = this.createObjectHash(this.filterLists);
     const dateHash = this.createObjectHash(this.dateRange);
     const searchWordHash = this.createObjectHash(this.searchWord);
-
+    // only reload view if there is a change or it is the initial load
     if (initialLoad || this.filterHash !== filterHash
       || this.dateHash !== dateHash
       || this.searchWordHash !== searchWordHash) {
@@ -217,13 +219,13 @@ class NewsOverview extends Module {
       this.dateHash = dateHash;
       this.searchWordHash = searchWordHash;
     }
+    // update filter dropdown modules
     this.ui.filterSelects.forEach((filterSelect, index) => {
       const eventData = {
         detail: this.filterLists[index],
       };
       filterSelect.dispatchEvent(new CustomEvent(Select.events.setValue, eventData));
     });
-
     // hide top news if any filter is active
     if (this.dateHash !== this.dateHashZero
       || this.filterHash !== this.filterHashZero
@@ -239,8 +241,38 @@ class NewsOverview extends Module {
    */
   destroy() {
     super.destroy();
-
     // Custom destroy actions go here
+  }
+
+  /**
+   * On Update date input set
+   * @param event
+   */
+  onDateSet(event: any) {
+    if (event.detail.dates.length < 2) { // eslint-disable-line
+      return;
+    }
+    this.updateDate(event.detail);
+    this.ui.filterMobile.dispatchEvent(new CustomEvent(NewsFilterMobile.events.setDate, event));
+  }
+
+  /**
+   * On mobile date input set
+   * @param event
+   */
+  onMobileDateSet(event: any) {
+    this.ui.datePickerInput.value = event.detail.dateString;
+    this.updateDate(event.detail);
+  }
+
+  /**
+   * Update date
+   * @param dates
+   */
+  updateDate(dates) {
+    this.dateRange = dates.dates;
+    this.dateString = dates.dateString;
+    this.filterView();
   }
 
   /**
@@ -274,6 +306,7 @@ class NewsOverview extends Module {
     const eventData = {
       detail: tags,
     };
+    // update pills module
     this.ui.pills.dispatchEvent(new CustomEvent(FilterPills.events.setTags, eventData));
   }
 
@@ -298,7 +331,7 @@ class NewsOverview extends Module {
       organisations !== null ? organisations : [],
       types !== null ? types : [],
     ];
-    // ui update controls
+    // update control modules with the gathered parameters
     if (dateToStr && dateFromStr) {
       const dateTo = new Date(dateToStr);
       const dateFrom = new Date(dateFromStr);

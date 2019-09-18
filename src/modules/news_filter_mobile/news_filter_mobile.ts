@@ -6,6 +6,7 @@
  */
 import Module from '../../assets/js/helpers/module';
 import { debounce } from 'lodash';
+import Datepicker from '../datepicker/datepicker';
 
 class NewsFilterMobile extends Module {
   public ui: {
@@ -14,6 +15,7 @@ class NewsFilterMobile extends Module {
     listItems: HTMLAnchorElement[],
     footer: HTMLDivElement,
     container: HTMLDivElement,
+    datePicker: HTMLDivElement,
   };
 
   public options: {
@@ -21,7 +23,7 @@ class NewsFilterMobile extends Module {
     visibilityDelay: number,
     focusDelay: number,
     keys: any,
-    domSelectors: {},
+    domSelectors: any,
     stateClasses: {};
   };
 
@@ -41,6 +43,7 @@ class NewsFilterMobile extends Module {
         footerButton: '.mdl-news-filter-mobile__footer button',
         sublevelFooterButton: '.mdl-news-filter-mobile__sublevel-footer button',
         container: '.mdl-news-filter-mobile__container',
+        datePicker: '.mdl-datepicker',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -56,7 +59,9 @@ class NewsFilterMobile extends Module {
   static get events() {
     return {
       setSelectedFilterItems: 'NewsFilterMobile.setSelectedItems',
-      setDate: 'NewsFilterMobile.setDate',
+      setDate: 'NewsFilterMobiel.setDate', // external change
+      dateSet: 'NewsFilterMobile.dateSet', // internal change
+      clearDate: 'NewsFilterMobiel.clearDate',
     };
   }
 
@@ -66,11 +71,14 @@ class NewsFilterMobile extends Module {
   initEventListeners() {
     // ----------------
     // Select data events
-    this.eventDelegate.on(NewsFilterMobile
-      .events.setSelectedFilterItems, this.onSetSelectedFilterItems.bind(this));
-    this.eventDelegate.on(NewsFilterMobile
-      .events.setDate, this.onSetDate.bind(this));
-
+    this.eventDelegate
+      .on(NewsFilterMobile.events.setSelectedFilterItems, this.onSetSelectedFilterItems.bind(this))
+      .on(NewsFilterMobile.events.setDate, this.onSetDate.bind(this))
+      .on(NewsFilterMobile.events.clearDate, () => {
+        this.ui.datePicker.dispatchEvent(new CustomEvent(Datepicker.events.clear));
+      });
+    // catch events from nested modules
+    this.ui.datePicker.addEventListener(Datepicker.events.dateSet, this.emitDateSet.bind(this));
     // ----------------
     // initialize focus handling
     this.ui.listItems.forEach((linkListItem) => {
@@ -102,9 +110,7 @@ class NewsFilterMobile extends Module {
         });
         event.preventDefault();
       });
-
       this.initFilterSelect(this.ui.sublevelItems[i].querySelector('input'));
-
       this.ui.sublevelItems[i]
         .querySelector((<any> this.options.domSelectors).sublevelFooterButton)
         .addEventListener('click', () => {
@@ -118,7 +124,6 @@ class NewsFilterMobile extends Module {
           this.closeSublevelItem(this.ui.sublevelItems[i]);
         }
       });
-
       this.ui.sublevelItems[i]
         .querySelector('.mdl-news-filter-mobile__sublevel-backbutton')
         .addEventListener('click', () => {
@@ -265,6 +270,14 @@ class NewsFilterMobile extends Module {
   }
 
   /**
+   * Emit date change event
+   */
+  emitDateSet(event) {
+    this.ui.element.dispatchEvent(new CustomEvent(NewsFilterMobile.events.dateSet,
+      event));
+  }
+
+  /**
    * Emitted when items change
    * @param event
    */
@@ -287,12 +300,12 @@ class NewsFilterMobile extends Module {
   }
 
   /**
-   * On date change event
+   * On date change event from outside
    * @param event
    */
   onSetDate(event) {
-    console.log(event);
-    const payload = event.detail;
+    (<HTMLInputElement> this.ui.datePicker
+      .querySelector('.atm-form_input__input')).value = event.detail.dateString;
   }
 
   /**

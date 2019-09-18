@@ -68,21 +68,29 @@
     padding-top: 0;
 
     &__text {
-      position: absolute;
+      position: relative;
+      width: 0;
 
       @include sizeCurve(padding-bottom padding-top, small);
     }
 
     .icon {
       @include sizeCurve(top, small);
+      right: 0;
     }
 
     .flatpickr-wrapper {
       width: 100%;
     }
 
-    input:focus {
-      outline: none;
+    input {
+      &::placeholder {
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+      }
+
+      &:focus {
+        outline: none;
+      }
     }
 
     .atm-form_input__input {
