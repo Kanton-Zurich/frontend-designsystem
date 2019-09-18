@@ -316,7 +316,11 @@ class Topiclist extends Module {
 
     parsedHTML.setAttribute('disabled', 'disabled');
     parsedHTML.setAttribute('data-topiclist', 'noResult');
-    parsedHTML.querySelector('[data-lineclamp]').removeAttribute('data-lineclamp');
+
+    if (parsedHTML.querySelector('[data-lineclamp]')) {
+      parsedHTML.querySelector('[data-lineclamp]').removeAttribute('data-lineclamp');
+    }
+
     parsedHTML.removeAttribute('href');
 
     this.ui.autosuggest.appendChild(parsedHTML);

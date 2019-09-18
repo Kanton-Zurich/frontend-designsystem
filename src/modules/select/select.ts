@@ -127,6 +127,7 @@ class Select extends Module {
       // On Click dropdown item
       .on('mouseup', this.options.domSelectors.inputItems, (event) => {
         if (!this.isMultiSelect) {
+
           if (this.isFirefox) {
             setTimeout((() => {
               this.closeDropdown();
