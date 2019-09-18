@@ -14,6 +14,7 @@ class NewsFilterMobile extends Module {
     sublevelItems: HTMLDivElement[],
     listItems: HTMLAnchorElement[],
     footer: HTMLDivElement,
+    footerButton: HTMLButtonElement,
     container: HTMLDivElement,
     datePicker: HTMLDivElement,
   };
@@ -59,9 +60,10 @@ class NewsFilterMobile extends Module {
   static get events() {
     return {
       setSelectedFilterItems: 'NewsFilterMobile.setSelectedItems',
-      setDate: 'NewsFilterMobiel.setDate', // external change
+      setDate: 'NewsFilterMobile.setDate', // external change
       dateSet: 'NewsFilterMobile.dateSet', // internal change
-      clearDate: 'NewsFilterMobiel.clearDate',
+      clearDate: 'NewsFilterMobile.clearDate',
+      confirm: 'NewsFilterMobile.confirm',
     };
   }
 
@@ -79,6 +81,9 @@ class NewsFilterMobile extends Module {
       });
     // catch events from nested modules
     this.ui.datePicker.addEventListener(Datepicker.events.dateSet, this.emitDateSet.bind(this));
+    this.ui.footerButton.addEventListener('click', () => {
+      this.ui.element.dispatchEvent(new CustomEvent(NewsFilterMobile.events.confirm));
+    });
     // ----------------
     // initialize focus handling
     this.ui.listItems.forEach((linkListItem) => {

@@ -171,9 +171,9 @@ class Module {
     if (paramList) {
       result = paramList.filter( paramString => paramString.substr(0, param.length) === param
       ).map(item =>
-        item.split('=')[1]);
+        item.split('=')[1].replace('#', ''));
       if (result.length > 0 && singleValue) {
-        result = result[0];
+        result = result[0].replace('#', '');
       }
     }
     return result && result.length > 0 ? result : null;

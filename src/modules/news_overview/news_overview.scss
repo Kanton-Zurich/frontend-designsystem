@@ -8,6 +8,7 @@
   );
   $dropdownWidth: 120px;
   $sortMinWidth: 280px;
+  $inputElementHeight: 72px;
 
   @include gridBleed($fullwidth: true);
 
@@ -19,8 +20,8 @@
 
     @include sizeCurve(margin-bottom, marginBottom, $newsOverviewCurves);
 
-    & > div,
-    & > button {
+    > div,
+    > button {
       margin-left: $sizeRegular;
       flex-grow: 1;
       flex-basis: 0;
@@ -46,10 +47,16 @@
 
     > button {
       display: none;
+      padding: 0;
+
+      span {
+        margin-left: $sizeLarge;
+      }
     }
 
     @include mq($from: tiny, $to: medium) {
-      > div {
+      > .mdl-datepicker,
+      > .mdl-select {
         display: none;
       }
 
@@ -58,10 +65,26 @@
         height: auto;
       }
     }
+
+    @include mq($from: tiny, $to: small) {
+      display: block;
+      margin-left: 0;
+
+      > button,
+      > div {
+        width: 100%;
+        margin-left: 0;
+        min-height: $inputElementHeight;
+      }
+    }
   }
 
   &__controls {
     display: flex;
+
+    @include mq($from: tiny, $to: small) {
+      display: block;
+    }
 
     .mdl-news-overview__selection {
       flex-grow: 1;
@@ -75,9 +98,11 @@
         font-size: $sizeFontSmall;
         color: $colorBlack40;
       }
+
       &-dropdown {
         font-size: $sizeFontRegular;
         padding-left: $sizeRegular;
+
         .icon {
           position: relative;
           top: $sizeMini;
@@ -90,7 +115,7 @@
         width: $dropdownWidth;
 
         > div {
-          width: 100%
+          width: 100%;
         }
 
         button {
@@ -111,6 +136,7 @@
 
   &__topnews {
     display: none;
+
     &.visible {
       display: block;
     }

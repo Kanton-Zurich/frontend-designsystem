@@ -10,6 +10,8 @@ import NewsFilterMobile from '../news_filter_mobile/news_filter_mobile';
 import Select from '../select/select';
 import FilterPills from '../filter_pills/filter_pills';
 import Datepicker from '../datepicker/datepicker';
+import Pagination from '../pagination/pagination';
+import Modal from '../modal/modal';
 
 class NewsOverview extends Module {
   public ui: {
@@ -45,7 +47,7 @@ class NewsOverview extends Module {
   private dateHashZero: number;
   private searchWordHash: number;
   private searchWordHashZero: number;
-  private sortDirection: string;
+  private orderBy: string;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
@@ -78,7 +80,7 @@ class NewsOverview extends Module {
     this.searchWord = '';
     this.dateRange = [];
     this.dateString = '';
-    this.sortDirection = 'new';
+    this.orderBy = this.ui.element.getAttribute('data-order-by');
     this.initUi();
     this.dataUrl = this.ui.element.getAttribute('data-source');
     this.dataIdle = true;
@@ -117,9 +119,8 @@ class NewsOverview extends Module {
     });
     // -----------------------------------------------
     // Listen to pagination change event
-    this.watch(this.ui.paginationInput, 'value', () => {
-      setTimeout(() => {
-      }, 0);
+    this.ui.pagination.addEventListener(Pagination.events.change, () => {
+      this.filterView(false, true, false);
     });
     // -----------------------------------------------
     // Filter select events -- topics, organisations, types
@@ -146,6 +147,12 @@ class NewsOverview extends Module {
           this.filterLists = event.detail.filterLists;
           this.filterView();
         });
+    // -----------------------------------------------
+    // Listen to date changed from mobile view
+    this.ui.filterMobile.addEventListener(NewsFilterMobile.events.confirm,
+      () => {
+        this.ui.filterMobileModal.dispatchEvent(new CustomEvent(Modal.events.closeModal));
+      });
     // -----------------------------------------------
     // Listen to remove event from filter pills
     this.ui.pills.addEventListener(FilterPills.events.removeTag, (event: any) => {
@@ -180,10 +187,10 @@ class NewsOverview extends Module {
     });
     this.ui.sortDropdown.querySelectorAll('button').forEach((button) => {
       button.addEventListener('click', (event: any) => {
-        this.sortDirection = event.target.getAttribute('data-sort');
+        this.orderBy = button.getAttribute('data-sort');
         this.ui.sortButton.querySelector('span').innerHTML = event.target.innerHTML;
         this.ui.sortDropdown.classList.remove('visible');
-        this.filterView();
+        this.filterView(false, true);
       });
     });
     // -----------------------------------------------
@@ -198,21 +205,28 @@ class NewsOverview extends Module {
       this.searchWord = '';
       this.filterView();
     });
+    this.ui.searchWordInput.addEventListener('focusout', (event: any) => {
+      this.searchWord = event.target.value;
+      this.filterView();
+    });
   }
 
   /**
    * Update view in case filters changed
    */
-  filterView(updateFilterPills = true, initialLoad = false) {
+  filterView(updateFilterPills = true, forced = false, resetPaging = true) {
     const filterHash = this.createObjectHash(this.filterLists);
     const dateHash = this.createObjectHash(this.dateRange);
     const searchWordHash = this.createObjectHash(this.searchWord);
-    // only reload view if there is a change or it is the initial load
-    if (initialLoad || this.filterHash !== filterHash
+    // only reload view if there is a change or forced load
+    if (forced || this.filterHash !== filterHash
       || this.dateHash !== dateHash
       || this.searchWordHash !== searchWordHash) {
       if (updateFilterPills) {
         this.updatePills();
+      }
+      if (resetPaging) {
+        this.ui.paginationInput.value = '1';
       }
       this.loadNewsTeasers();
       this.filterHash = filterHash;
@@ -261,7 +275,11 @@ class NewsOverview extends Module {
    * @param event
    */
   onMobileDateSet(event: any) {
+    if (event.detail.dates.length < 2) { // eslint-disable-line
+      return;
+    }
     this.ui.datePickerInput.value = event.detail.dateString;
+    this.ui.datePicker.classList.add('dirty');
     this.updateDate(event.detail);
   }
 
@@ -321,7 +339,7 @@ class NewsOverview extends Module {
     const dateToStr = this.getURLParam('dateTo', true);
     const searchWord = this.getURLParam('fullText', true);
     const page = this.getURLParam('page', true);
-    // const orderBy = this.getURLParam('orderBy', true);
+    const orderBy = this.getURLParam('orderBy', true);
     if (page) {
       this.ui.paginationInput.setAttribute('value', page);
     }
@@ -344,6 +362,11 @@ class NewsOverview extends Module {
       this.ui.searchWordInput.value = this.searchWord;
       this.ui.searchWordInput.classList.add('dirty');
     }
+    if (orderBy && orderBy.length > 0) {
+      this.ui.sortButton.querySelector('span').innerHTML = this.ui.sortDropdown
+        .querySelector(`li > button[data-sort="${orderBy}"] span`).innerHTML;
+      this.orderBy = orderBy;
+    }
   }
 
   /**
@@ -354,7 +377,8 @@ class NewsOverview extends Module {
     if (!window.fetch) {
       await import('whatwg-fetch');
     }
-    return fetch(this.dataUrl) // TODO: add filters
+
+    return fetch(this.constructUrl())
       .then(response => response.json())
       .then((response) => {
         if (response) {
@@ -372,8 +396,6 @@ class NewsOverview extends Module {
   private loadNewsTeasers() {
     if (this.dataIdle) {
       this.dataIdle = false;
-      // attach filters
-
       this.fetchData((jsonData) => {
         this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
         this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
@@ -408,6 +430,30 @@ class NewsOverview extends Module {
       self: props,
     };
     return compiled(data);
+  }
+
+  /**
+   * Assemble URL from base url and filters
+   */
+  private constructUrl() {
+    let resultUrl = this.dataUrl;
+    const append = (key, value) => {
+      if (value.length > 0) {
+        resultUrl += resultUrl === this.dataUrl ? '?' : '&';
+        resultUrl += `${key}=${value}`;
+      }
+    };
+    this.filterLists[0].forEach((topic) => { append('topic', topic); });
+    this.filterLists[1].forEach((organisation) => { append('topic', organisation); });
+    this.filterLists[2].forEach((type) => { append('type', type); });
+    if (this.dateRange.length > 1) {
+      append('dateFrom', this.dateRange[0]);
+      append('dateTo', this.dateRange[1]);
+    }
+    append('fullText', this.searchWord);
+    append('page', this.ui.paginationInput.value);
+    append('orderBy', this.orderBy);
+    return resultUrl;
   }
 }
 
