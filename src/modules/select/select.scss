@@ -86,6 +86,13 @@ $selectHeightWithFilterExtended: 424px;
     padding: 0 pxToRem($sizeRegular);
   }
 
+  &--list-upwards {
+    .mdl-select__options {
+      top: auto;
+      bottom: calc(100% + 2px);
+    }
+  }
+
   &--open {
     .mdl-select__filter,
     .mdl-select__apply {

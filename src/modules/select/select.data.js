@@ -147,6 +147,30 @@ const variants = _.mapValues({
       triggerInputData: inputDemoData.variants.triggerDefault.props,
     },
   },
+  defaultUpwards: {
+    meta: {
+      title: 'Einzelauswahl(List oberhalb)',
+      desc: 'Default implementation einer Einzelauswahl mit List oberhalb angeordnet',
+    },
+    props: {
+      orientationUpwards: true,
+      listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
+        selectOptions: [
+          { value: '', label: '' },
+          { value: 'de', label: 'Deutsch' },
+          { value: 'prt', label: 'Português' },
+          { value: 'ru', label: 'Pусский' },
+          { value: 'tur', label: 'Türkçe' },
+          { value: 'en', label: 'English' },
+          { value: 'fr', label: 'Français' },
+          { value: 'it', label: 'Italiano' },
+        ],
+        groupId: 'singleSelect',
+        setHiddenIndex: true,
+      }),
+      triggerInputData: inputDemoData.variants.triggerDefault.props,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
