@@ -8,8 +8,14 @@ import Module from '../../assets/js/helpers/module';
 
 class Locations extends Module {
   private listItems: NodeListOf<HTMLLIElement>;
-  private details: NodeListOf<HTMLDivElement>;
-  private sidebar: HTMLDivElement;
+  private detailNodes: NodeListOf<HTMLDivElement>;
+
+  public ui: {
+    element: HTMLDivElement,
+    filterInput: HTMLInputElement,
+    sidebar: HTMLDivElement,
+    backBtn: HTMLButtonElement
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -33,8 +39,7 @@ class Locations extends Module {
     this.initEventListeners();
 
     this.listItems = document.querySelectorAll(this.options.domSelectors.locationsList);
-    this.details = document.querySelectorAll(this.options.domSelectors.details);
-    this.sidebar = document.querySelector<HTMLDivElement>(this.options.domSelectors.sidebar);
+    this.detailNodes = document.querySelectorAll(this.options.domSelectors.details);
   }
 
   static get events() {
@@ -61,21 +66,17 @@ class Locations extends Module {
             parentClasses.add('hide');
           }
         });
-      });
-
-    this.eventDelegate
+      })
       .on('click', this.options.domSelectors.locationsList, (event, target) => {
         this.log('ListItem Click', event, target);
         const clickedItemIndex = target.parentElement.getAttribute('data-linklist-itemindex');
         this.log('Clicked item index: ', clickedItemIndex);
         this.showLocationDetailsForIndex(clickedItemIndex);
-        this.sidebar.classList.add('show-details');
-      });
-
-    this.eventDelegate
+        this.ui.sidebar.classList.add('show-details');
+      })
       .on('click', this.options.domSelectors.backBtn, (event, target) => {
         this.log('BackBtn Click', event, target);
-        this.sidebar.classList.remove('show-details');
+        this.ui.sidebar.classList.remove('show-details');
       });
   }
 
@@ -84,7 +85,7 @@ class Locations extends Module {
     if (indexString) {
       indexToShow = Number.parseInt(indexString, 10);
     }
-    this.details.forEach((detailsContainer, i) => {
+    this.detailNodes.forEach((detailsContainer, i) => {
       if (i === indexToShow) {
         detailsContainer.classList.add('show');
       } else {

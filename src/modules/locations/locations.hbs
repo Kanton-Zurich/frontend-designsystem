@@ -22,6 +22,15 @@
             {{#each detailedLocations}}
               <div class="mdl-locations__details_location" data-locations="locationDetails">
                 <h3>{{ heading }}</h3>
+
+              {{#if href}}
+                <a class="atm-text_link atm-text_link--icon" href="{{ href }}">
+                    Seite anzeigen
+                    <svg class="icon icon--iframe-arrow">
+                        <use xlink:href="#arrow-right"></use>
+                    </svg>
+                </a>
+              {{/if}}
               </div>
             {{/each}}
           </div>

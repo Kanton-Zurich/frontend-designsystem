@@ -72,14 +72,17 @@ const data = _.merge({}, defaultData, {
     },
     backBtn: _.merge({}, buttonDefaultData, {
       isSecondary: true,
+      isSmall: true,
       additionalAttribute: 'data-locations="back"',
       text: 'Zurück',
     }),
     detailedLocations: [
       {
         heading: 'Strassenverkehrsamt Kanton Zürich',
+        href: 'https://stva.zh.ch/internet/sicherheitsdirektion/stva/de/home.html',
       }, {
         heading: 'Strassenverkehrsamt Bassersdorf',
+        href: 'https://stva.zh.ch/internet/sicherheitsdirektion/stva/de/ueber_uns/organisation/StVA_Gt.html',
       }, {
         heading: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Regensdorf',
       }, {
