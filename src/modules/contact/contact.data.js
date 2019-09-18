@@ -83,6 +83,41 @@ const demoPhoneDataFullWidth = [
   },
 ];
 
+const locationDemoData = {
+  adress: {
+    street: 'Riedthofstrasse 192',
+    zip: '8105',
+    city: 'Regensdorf 1',
+    routeLinkHref: '#',
+    routeLinkLabel: 'Route anzeigen',
+    additionalInfo: 'Wir befinden uns im 2.Obergeschoss',
+    openingTimes: [{
+      timeTitle: 'Öffnungszeiten',
+      times: [
+        { text: 'Montag / Dienstag 07:15 - 17:00' },
+        { text: 'Mittwoch - Freitag 07:15 - 16.00' },
+      ],
+    }],
+  },
+  phone: [
+    {
+      anchorLabel: '058 811 50 00',
+      phoneNumer: '+41588113000',
+      additionalInfo: 'Telefon',
+      openingTimes: [{
+        times: [
+          { text: 'Von 12.00 bis 13.00 Uhr können über die Telefonzentrale keine Anrufe entgegen genommen werden.' },
+        ],
+      }],
+    },
+    {
+      anchorLabel: '058 811 50 01',
+      phoneNumer: '+41588113020',
+      additionalInfo: 'Fax',
+    },
+  ],
+};
+
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Kontakt',
@@ -218,6 +253,26 @@ const variants = _.mapValues({
       ],
       contactMail: {
         address: 'heilmittelkontrolle@khz.zh.ch',
+      },
+    },
+  },
+  location: {
+    meta: {
+      title: 'Standort -Kontakt',
+      desc: 'Darstellung wie verwendet in Standorte (module locations)',
+    },
+    props: {
+      inLocation: true,
+      contactSubtitle: 'Strassenverkehrsamt Regensdorf',
+      contactAddress: locationDemoData.adress,
+      contactPhone: locationDemoData.phone,
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Seite anzeigen',
+      },
+      contactMail: {
+        address: 'info@stva.zh.ch',
+        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
       },
     },
   },
