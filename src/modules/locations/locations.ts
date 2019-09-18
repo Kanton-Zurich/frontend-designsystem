@@ -14,8 +14,11 @@ class Locations extends Module {
     element: HTMLDivElement,
     filterInput: HTMLInputElement,
     sidebar: HTMLDivElement,
-    backBtn: HTMLButtonElement
+    backBtn: HTMLButtonElement,
+    map: HTMLDivElement
   };
+
+  private keepMapHighlight: boolean;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -27,6 +30,7 @@ class Locations extends Module {
         sidebar: '[data-locations="sidebar"]',
         backBtn: '[data-locations="back"]',
         details: '[data-locations="locationDetails"]',
+        map: '[data-locations="map"]',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -73,10 +77,22 @@ class Locations extends Module {
         this.log('Clicked item index: ', clickedItemIndex);
         this.showLocationDetailsForIndex(clickedItemIndex);
         this.ui.sidebar.classList.add('show-details');
+        this.highlightInMap(clickedItemIndex, true);
+      })
+      .on('mouseover', this.options.domSelectors.locationsList, (event, target) => {
+        this.log('ListItem MouseOver', event, target);
+        const itemIndex = target.parentElement.getAttribute('data-linklist-itemindex');
+        this.log('Hover over item index: ', itemIndex);
+        this.highlightInMap(itemIndex);
+      })
+      .on('mouseout', this.options.domSelectors.locationsList, (event, target) => {
+        this.log('ListItem MouseOut', event, target);
+        this.highlightInMap();
       })
       .on('click', this.options.domSelectors.backBtn, (event, target) => {
         this.log('BackBtn Click', event, target);
         this.ui.sidebar.classList.remove('show-details');
+        this.highlightInMap('', true);
       });
   }
 
@@ -92,6 +108,25 @@ class Locations extends Module {
         detailsContainer.classList.remove('show');
       }
     });
+  }
+
+  private highlightInMap(indexString?: string, force?: boolean): void {
+    if (!this.keepMapHighlight || force) {
+      let highlightIndex = -1;
+      if (indexString) {
+        highlightIndex = Number.parseInt(indexString, 10);
+      }
+      const mapDevOut = this.ui.map.getElementsByTagName('span')[0];
+      if (highlightIndex > -1) {
+        mapDevOut.innerText = `Highlight on ${highlightIndex}. location!`;
+      } else {
+        mapDevOut.innerText = '';
+      }
+
+      if (force) {
+        this.keepMapHighlight = highlightIndex > -1;
+      }
+    }
   }
 
   /**

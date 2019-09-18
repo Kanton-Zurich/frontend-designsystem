@@ -3,12 +3,12 @@
         <h{{{title.level}}} class="atm-heading atm-heading--bordered">{{ title.text }}</h{{{title.level}}}>
     </div> {{/if}}
     <div class="mdl-locations__wrapper">
-      <div class="mdl-locations__map">
+      <div class="mdl-locations__map" data-locations="map">
           <div style="position: absolute; top: 0; left: 0;">&lceil;</div>
           <div style="position: absolute; top: 0; right: 0;">&rceil;</div>
           <div style="position: absolute; bottom: 0; right: 0;">&rfloor;</div>
           <div style="position: absolute; bottom: 0; left: 0;">&lfloor;</div>
-
+          <span style="position: absolute; left: 25%; top: 25%; ">  </span>
       </div>
       <div class="mdl-locations__sidebar-wrapper">
         <div class="mdl-locations__sidebar" data-locations="sidebar">
@@ -19,22 +19,12 @@
           <div class="mdl-locations__details">
               {{> "atoms/button/button" backBtn }}
 
-            {{#each detailedLocations}}
+            {{#each locationContacts}}
               <div class="mdl-locations__details_location" data-locations="locationDetails">
-                <h3>{{ heading }}</h3>
-
-              {{#if href}}
-                <a class="atm-text_link atm-text_link--icon" href="{{ href }}">
-                    Seite anzeigen
-                    <svg class="icon icon--iframe-arrow">
-                        <use xlink:href="#arrow-right"></use>
-                    </svg>
-                </a>
-              {{/if}}
+                {{> "modules/contact/contact" this}}
               </div>
             {{/each}}
           </div>
-
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const buttonDefaultData = require('../../atoms/button/button.data').variants.default.props;
 const inputClearButtonSmallWithIconData = require('../../atoms/form_input/form_input.data').variants.clearButtonSmallWithIcon.props;
+const locationContactDefault = require('../../modules/contact/contact.data').variants.location.props;
 
 const template = dataHelper.getFileContent('locations.hbs');
 const data = _.merge({}, defaultData, {
@@ -76,22 +77,56 @@ const data = _.merge({}, defaultData, {
       additionalAttribute: 'data-locations="back"',
       text: 'Zurück',
     }),
-    detailedLocations: [
-      {
-        heading: 'Strassenverkehrsamt Kanton Zürich',
-        href: 'https://stva.zh.ch/internet/sicherheitsdirektion/stva/de/home.html',
-      }, {
-        heading: 'Strassenverkehrsamt Bassersdorf',
-        href: 'https://stva.zh.ch/internet/sicherheitsdirektion/stva/de/ueber_uns/organisation/StVA_Gt.html',
-      }, {
-        heading: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Regensdorf',
-      }, {
-        heading: 'Strassenverkehrsamt Kanton Zürich',
-      }, {
-        heading: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Bülach',
-      }, {
-        heading: 'Strassenverkehrsamt Kanton Zürich - Schifffahrtskontrolle',
-      },
+    locationContacts: [
+      _.merge({}, locationContactDefault, {
+        contactSubtitle: 'Strassenverkehrsamt Kanton Zürich',
+        contactAddress: {
+          street: 'Uetlibergstrasse 301',
+          zip: '8036',
+          city: 'Zürich',
+        },
+      }),
+      _.merge({}, locationContactDefault, {
+        contactSubtitle: 'Strassenverkehrsamt Bassersdorf',
+        contactAddress: {
+          street: 'Grindelstrasse 22',
+          zip: '8303',
+          city: 'Bassersdorf',
+        },
+      }),
+      _.merge({}, locationContactDefault, {
+        contactSubtitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Regensdorf',
+        contactAddress: {
+          street: 'Riedthofstrasse 192',
+          name: 'Postfach 420',
+          zip: '8105',
+          city: 'Regensdorf',
+        },
+      }),
+      _.merge({}, locationContactDefault, {
+        contactSubtitle: 'Strassenverkehrsamt Kanton Zürich',
+        contactAddress: {
+          street: 'Taggenbergstrasse 1',
+          zip: '8408',
+          city: 'Winterthur',
+        },
+      }),
+      _.merge({}, locationContactDefault, {
+        contactSubtitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Bülach',
+        contactAddress: {
+          street: 'Schützenmatt Straße 120',
+          zip: '8180',
+          city: 'Bülach',
+        },
+      }),
+      _.merge({}, locationContactDefault, {
+        contactSubtitle: 'Strassenverkehrsamt Kanton Zürich - Schifffahrtskontrolle',
+        contactAddress: {
+          street: 'Seestrasse 87',
+          zip: '8942',
+          city: 'Oberrieden',
+        },
+      }),
     ],
   },
 });
