@@ -10,6 +10,10 @@ $unitLeftSpace: 62px;
 .atm-form_input {
   position: relative;
 
+  .atm-form_input__input.dirty ~ .atm-form_input__functionality ~ .icon {
+    display: none;
+  }
+
   &__input {
     background: $colorWhite;
     padding: pxToRem($topSpace_with_half_border) pxToRem($rightSpace) pxToRem($topSpace_with_half_border) pxToRem($sizeRegular);

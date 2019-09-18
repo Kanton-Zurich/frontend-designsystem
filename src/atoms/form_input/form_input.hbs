@@ -46,7 +46,8 @@
       {{#if disabled}} disabled{{/if}}
       {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
       {{#if validation}} data-validation{{/if}}
-      {{#if isFloatingLabel}} data-floating{{/if}}>
+      {{#if isFloatingLabel}} data-floating{{/if}}
+      {{#if additionalFunctionality.ariaControls}}aria-controls="{{additionalFunctionality.ariaControls}}" {{/if}}>
   {{/if}}
 
   {{# unless isSelectTrigger}}
