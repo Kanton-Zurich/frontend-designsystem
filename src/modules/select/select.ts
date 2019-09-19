@@ -11,6 +11,7 @@ class Select extends Module {
   public isOpen: boolean;
   public isMultiSelect: boolean;
   public hasFilter: boolean;
+  public usedAnchors: boolean;
   public isFirefox: boolean;
   public buttonPostfix: string;
   public selections: Array<any>;
@@ -23,7 +24,7 @@ class Select extends Module {
     dropdown: any,
     filter: any,
     list: any,
-    items: HTMLUListElement[],
+    items: HTMLLIElement[],
     inputItems: HTMLInputElement[],
     applyButton: any,
     clearButton: any,
@@ -73,10 +74,15 @@ class Select extends Module {
 
     this.isOpen = false;
     this.isMultiSelect = false;
+    this.usedAnchors = false;
     this.isFirefox = navigator.userAgent.search('Firefox') > -1;
     this.hasFilter = typeof this.ui.filter !== 'undefined';
     if (this.ui.element.dataset[this.options.dataSelectors.isMultiSelect]) {
       this.isMultiSelect = true;
+    }
+
+    if (this.ui.list.querySelector('a')) {
+      this.usedAnchors = true;
     }
 
     this.ui.list.scrollTop = 0;
@@ -135,6 +141,10 @@ class Select extends Module {
           } else {
             this.closeDropdown();
           }
+
+          if (this.usedAnchors) {
+            event.target.parentElement.click();
+          }
         }
       })
       // ------------------------------------------------------------
@@ -155,6 +165,8 @@ class Select extends Module {
             this.ui.trigger.focus();
             event.preventDefault();
           }
+        } else if (this.usedAnchors) {
+          event.target.parentElement.click();
         }
       })
       // ------------------------------------------------------------
@@ -212,6 +224,9 @@ class Select extends Module {
       // On value of select changed
       .on(Select.events.valueChanged, this.onValueChanged.bind(this))
       .on(Select.events.setValue, this.onSetValue.bind(this));
+
+    if (this.usedAnchors) {
+    }
 
     // ------------------------------------------------------------
     // watch select items for status change and update style
@@ -285,6 +300,7 @@ class Select extends Module {
       } else {
         this.ui.items[index].classList.remove('selected');
       }
+
       if (emit) {
         const values = [];
         this.ui.inputItems.forEach((inputItem) => {
