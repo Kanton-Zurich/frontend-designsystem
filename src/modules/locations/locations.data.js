@@ -3,6 +3,7 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const buttonDefaultData = require('../../atoms/button/button.data').variants.default.props;
+const textLinkDefaultData = require('../../atoms/text_link/text_link.data').variants.default.props;
 const inputClearButtonSmallWithIconData = require('../../atoms/form_input/form_input.data').variants.clearButtonSmallWithIcon.props;
 const locationContactDefault = require('../../modules/contact/contact.data').variants.location.props;
 
@@ -76,6 +77,21 @@ const data = _.merge({}, defaultData, {
       isSmall: true,
       additionalAttribute: 'data-locations="back"',
       text: 'Zurück',
+    }),
+    textLinkNoResult: _.merge({}, textLinkDefaultData, {
+      icon: 'search',
+      text: 'Gesamte Webseite nach «{searchTerm}» durchsuchen',
+      additionalAttribute: 'data-locations="emptyNote"',
+      isInverted: false,
+      hasLeadingIcon: true,
+      hasTrailingIcon: false,
+    }),
+    toggleListBtn: _.merge({}, buttonDefaultData, {
+      isTextVisible: false,
+      isInverted: true,
+      icon: 'menu-list',
+      text: 'anzeigen',
+      additionalAttribute: 'data-locations="toggleList"',
     }),
     locationContacts: [
       _.merge({}, locationContactDefault, {

@@ -12,7 +12,6 @@ $sidebarMaxWidth: 386px;
 
   &__wrapper {
     padding-top: calc((100vw - #{$sizeGiant}) / 1.777); // stylelint-disable-line -- preserve aspect 16:9 ratio
-    padding-left: pxToRem($sizeGiant);
     margin-top: pxToRem($sizeGiant);
 
     @media ( min-width: $sizeGlobalMaxWidth ) {
@@ -28,7 +27,7 @@ $sidebarMaxWidth: 386px;
     right: 0;
     height: 100%;
     background: rgba($colorRed, 0.5);
-    width: calc(100% - #{$sidebarMaxWidth} - #{$sizeGiant});
+    width: calc(91.6667% - #{$sidebarMaxWidth});
   }
 
   &__sidebar-wrapper {
@@ -39,6 +38,8 @@ $sidebarMaxWidth: 386px;
     box-shadow: 0 4px 32px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.16);
     border-radius: 1px;
     overflow: hidden;
+    background: $colorWhite;
+    z-index: 1;
   }
 
   &__sidebar {
@@ -48,23 +49,28 @@ $sidebarMaxWidth: 386px;
     left: 0;
     transition: left 400ms ease-in-out;
 
-    &_head {
-      position: absolute;
-      padding: pxToRem($sizeRegular) 0 pxToRem($sizeTiny);
-      width: calc(50% - #{$sizeBig});
-      background: $colorWhite;
-      z-index: 10;
-    }
-
     &.show-details {
       left: -100%;
     }
+
+    &.empty {
+      .mdl-locations__filter_empty {
+        display: block;
+      }
+    }
   }
-  $sideBarHeadHeight: $sizeRegular + $sizeTiny + $sizeSmallHuge;
+
+  .sidebarhead {
+    position: absolute;
+    padding: pxToRem($sizeRegular) 0;
+    width: calc(50% - #{$sizeBig});
+    background: $colorWhite;
+    z-index: 10;
+  }
+  $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
 
   .sideBarScrollContainer {
     height: calc(100% - #{$sideBarHeadHeight});
-    margin-top: pxToRem($sideBarHeadHeight);
     overflow: scroll;
   }
 
@@ -73,6 +79,15 @@ $sidebarMaxWidth: 386px;
     width: 50%;
     height: 100%;
     float: left;
+
+    &_head {
+      @extend .sidebarhead;
+      padding-bottom: pxToRem($sizeTiny);
+
+      .atm-button {
+        display: none;
+      }
+    }
 
     .mdl-linklist {
       @extend .sideBarScrollContainer;
@@ -88,6 +103,23 @@ $sidebarMaxWidth: 386px;
         }
       }
     }
+
+    &_empty {
+      display: none;
+
+      strong {
+        display: block;
+        font-size: pxToRem($sizeFontRegular);
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid $colorBlack15;
+        width: 100%;
+      }
+
+      .atm-text_link {
+        margin: pxToRem($sizeBig) 0;
+      }
+    }
   }
 
   &__details {
@@ -97,17 +129,21 @@ $sidebarMaxWidth: 386px;
     float: right;
     overflow: scroll;
 
-    .mdl-locations__sidebar_head {
+    &_head {
+      @extend .sidebarhead;
       padding-left: pxToRem($sizeRegular);
     }
 
     &_location {
       @extend .sideBarScrollContainer;
       padding: 0 pxToRem($sizeRegular);
-      display: none;
+      margin-top: 0;
+      max-height: 0;
+      transition: max-height, margin-top 600ms, 150ms ease-out;
 
       &.show {
-        display: block;
+        margin-top: pxToRem($sideBarHeadHeight);
+        max-height: 100%;
       }
 
       .mdl-contact {
@@ -117,17 +153,69 @@ $sidebarMaxWidth: 386px;
   }
 
   @include mq($from: small, $to: medium) {
-    &__wrapper {
-      padding-top: calc(100vw - #{$sizeSmallLarge});
-    }
+    .mdl-locations {
+      &__wrapper {
+        padding-top: calc(100vw - #{$sizeSmallLarge});
+      }
 
-    &__map {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      height: 100%;
-      background: rgba($colorRed, 0.5);
-      width: calc(100% - #{$sizeSmallLarge});
+      &__map {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 100%;
+        background: rgba($colorRed, 0.5);
+        width: calc(100% - #{$sizeBig});
+      }
+
+      &__sidebar-wrapper {
+        width: auto;
+        max-width: initial;
+        right: pxToRem($sizeBig);
+        left: 16.6667%;
+        margin-left: pxToRem($sizeTiny);
+        bottom: inherit;
+      }
+
+      &__sidebar {
+        .mdl-linklist {
+          height: auto;
+          max-height: 0;
+          padding: 0 pxToRem($sizeRegular);
+          transition: max-height, margin-top 400ms, 150ms ease-out;
+          margin-top: pxToRem($sideBarHeadHeight - $sizeRegular);
+        }
+
+        .mdl-locations__details_location.show {
+          display: none;
+        }
+
+        &.opened {
+          .mdl-linklist {
+            max-height: calc(100vw - #{$sizeSmallLarge});
+            margin-top: pxToRem($sideBarHeadHeight);
+          }
+
+          .mdl-locations__details_location.show {
+            display: block;
+          }
+        }
+      }
+
+      &__filter_head {
+        padding-right: pxToRem($sizeGiant);
+
+        .atm-button {
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 50%;
+          margin-top: pxToRem(-$sizeLarge);
+
+          svg use {
+            fill: $colorBlack60;
+          }
+        }
+      }
     }
   }
 }

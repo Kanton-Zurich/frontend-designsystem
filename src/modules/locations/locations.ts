@@ -15,6 +15,9 @@ class Locations extends Module {
     listItems: HTMLLIElement[],
     detailNodes: HTMLDivElement[],
     map: HTMLDivElement,
+    toggleListBtn: HTMLButtonElement,
+    emptyListHint: HTMLDivElement,
+    notFoundTextTemplate: HTMLTemplateElement,
   };
 
   private keepMapHighlight: boolean;
@@ -30,6 +33,9 @@ class Locations extends Module {
         backBtn: '[data-locations="back"]',
         detailNodes: '[data-locations="locationDetails"]',
         map: '[data-locations="map"]',
+        toggleListBtn: '[data-locations="toggleList"]',
+        emptyListHint: '[data-locations="emptyNote"]',
+        notFoundTextTemplate: '[data-locations="emptyNoteTextTemplate"]',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -55,17 +61,11 @@ class Locations extends Module {
     this.eventDelegate
       .on('keyup', this.options.domSelectors.filterInput, (event, target) => {
         this.log('Filter KeyUp Event', event);
-        const filterText = target.value;
-        const pattern = new RegExp(filterText, 'i');
-
-        this.ui.listItems.forEach((listNode) => {
-          const parentClasses = listNode.parentElement.classList;
-          if (pattern.test(listNode.innerText)) {
-            parentClasses.remove('hide');
-          } else {
-            parentClasses.add('hide');
-          }
-        });
+        const sidebarClasses = this.ui.sidebar.classList;
+        if (!sidebarClasses.contains('opened')) {
+          sidebarClasses.add('opened');
+        }
+        this.filterListItemsByText(target.value);
       })
       .on('click', this.options.domSelectors.listItems, (event, target) => {
         this.log('ListItem Click Event', event, target);
@@ -86,10 +86,49 @@ class Locations extends Module {
         this.highlightInMap();
       })
       .on('click', this.options.domSelectors.backBtn, (event, target) => {
-        this.log('BackBtn Click Event', event, target);
+        this.log('BackBtn Click: ', event, target);
+        this.showLocationDetailsForIndex();
         this.ui.sidebar.classList.remove('show-details');
         this.highlightInMap('', true);
+      })
+      .on('click', this.options.domSelectors.toggleListBtn, (event, target) => {
+        this.log('ToggleListBtn Click: ', event, target);
+        const sidebarClasses = this.ui.sidebar.classList;
+        if (sidebarClasses.contains('opened')) {
+          sidebarClasses.remove('opened');
+        } else {
+          sidebarClasses.add('opened');
+        }
       });
+  }
+
+  private filterListItemsByText(filterText: string): void {
+    if (filterText) {
+      const pattern = new RegExp(filterText, 'i');
+
+      let countHidden = 0;
+      this.ui.listItems.forEach((listNode) => {
+        const parentClasses = listNode.parentElement.classList;
+        if (pattern.test(listNode.innerText)) {
+          parentClasses.remove('hide');
+        } else {
+          parentClasses.add('hide');
+          countHidden += 1;
+        }
+      });
+
+      if (countHidden === this.ui.listItems.length) {
+        this.ui.emptyListHint.childNodes.forEach((childNode) => {
+          if (!childNode.hasChildNodes() && childNode.textContent
+            && childNode.textContent.trim().length > 0) {
+            childNode.textContent = this.ui.notFoundTextTemplate.content.textContent.replace('{searchTerm}', filterText);
+          }
+        });
+        this.ui.sidebar.classList.add('empty');
+      } else {
+        this.ui.sidebar.classList.remove('empty');
+      }
+    }
   }
 
   private showLocationDetailsForIndex(indexString?: string): void {
