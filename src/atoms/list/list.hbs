@@ -21,7 +21,7 @@
         </svg>
       {{/if}}
 
-      {{{ this.label }}}
+      <label for="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-{{this.id}}">{{{ this.label }}}</label>
     </li>
   {{/each}}
 </ul>

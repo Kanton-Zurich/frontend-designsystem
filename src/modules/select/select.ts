@@ -125,9 +125,8 @@ class Select extends Module {
     this.eventDelegate
       // ------------------------------------------------------------
       // On Click dropdown item
-      .on('mouseup', this.options.domSelectors.inputItems, (event) => {
+      .on('mouseup', this.options.domSelectors.inputItems, () => {
         if (!this.isMultiSelect) {
-
           if (this.isFirefox) {
             setTimeout((() => {
               this.closeDropdown();
@@ -252,7 +251,8 @@ class Select extends Module {
     if (this.ui.filter) {
       this.watch(this.ui.filter, 'value', debounce((key, before, after) => { // eslint-disable-line
         this.ui.items.forEach((li) => {
-          const regex = new RegExp(after, 'i');
+          const searchString = after.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+          const regex = new RegExp(searchString, 'i');
           if (regex.test(li.querySelector('input').placeholder)) {
             li.classList.remove('hidden');
           } else {
@@ -407,7 +407,11 @@ class Select extends Module {
       this.ui.dropdown.setAttribute('aria-hidden', 'true');
       if (!focusLost) {
         setTimeout(() => {
-          this.ui.trigger.focus();
+          if(this.ui.phoneInput) {
+            this.ui.phoneInput.focus();
+          } else {
+            this.ui.trigger.focus();
+          }
         }, this.options.dropdownDelay);
       }
       this.emitClose();
