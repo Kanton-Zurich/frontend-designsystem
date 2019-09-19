@@ -58,27 +58,33 @@ class FlyingFocus {
       return;
     }
 
+    this.doFocusOnTarget(event.target);
+  }
+
+  /**
+   * Do the focus on the given target
+   * @param target
+   */
+  doFocusOnTarget(target: any) {
     let isFirstFocus: boolean = false;
     if (!this.ringElement) {
       isFirstFocus = true;
       this.initFlyingFocus();
     }
 
-    const offset = this.offsetOf(event.target);
+    const offset = this.offsetOf(target);
     this.ringElement.style.left = `${offset.left}px`;
     this.ringElement.style.top = `${offset.top}px`;
-    this.ringElement.style.width = `${event.target.offsetWidth}px`;
-    this.ringElement.style.height = `${event.target.offsetHeight}px`;
+    this.ringElement.style.width = `${target.offsetWidth}px`;
+    this.ringElement.style.height = `${target.offsetHeight}px`;
 
     if (isFirstFocus || !this.isJustPressed()) {
       return;
     }
 
-    // this.hideFlyingFocus();
-    event.target.classList.add(this.options.targetClass);
+    target.classList.add(this.options.targetClass);
     this.ringElement.classList.add(this.options.visibleClass);
-    this.prevFocused = event.target;
-    // this.movingId = setTimeout(this.hideFlyingFocus, this.options.duration);
+    this.prevFocused = target;
   }
 
   /**

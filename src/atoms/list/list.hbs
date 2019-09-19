@@ -9,8 +9,6 @@
           <use xlink:href="#{{{../iconLeft}}}"></use>
         </svg>
       {{/if_compare}}
-
-
       <input {{#if noInteraction}}tabindex="-1"{{/if}} name="{{../groupId}}"
              {{#if id}}id="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-{{this.id}}"{{/if}}
              type="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}"
@@ -26,7 +24,7 @@
         </svg>
       {{/if}}
 
-      {{{ this.label }}}
+      <label for="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-{{this.id}}">{{{ this.label }}}</label>
       {{#if ../useAnchors}}
         </a>
       {{/if}}
