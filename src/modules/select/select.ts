@@ -256,7 +256,7 @@ class Select extends Module {
     if (this.ui.filter) {
       this.ui.filter.addEventListener('keydown', (event) => {
         this.updateFlyingFocus();
-        if(event.key === 'Enter') {
+        if (event.key === 'Enter') {
           event.preventDefault();
         }
       });
