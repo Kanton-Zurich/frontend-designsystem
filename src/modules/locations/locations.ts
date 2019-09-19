@@ -7,15 +7,14 @@
 import Module from '../../assets/js/helpers/module';
 
 class Locations extends Module {
-  private listItems: NodeListOf<HTMLLIElement>;
-  private detailNodes: NodeListOf<HTMLDivElement>;
-
   public ui: {
     element: HTMLDivElement,
     filterInput: HTMLInputElement,
     sidebar: HTMLDivElement,
     backBtn: HTMLButtonElement,
-    map: HTMLDivElement
+    listItems: HTMLLIElement[],
+    detailNodes: HTMLDivElement[],
+    map: HTMLDivElement,
   };
 
   private keepMapHighlight: boolean;
@@ -25,11 +24,11 @@ class Locations extends Module {
     };
     const defaultOptions = {
       domSelectors: {
-        locationsList: '[data-locations="listItem"]',
+        listItems: '[data-locations="listItem"]',
         filterInput: '[data-locations="input"]',
         sidebar: '[data-locations="sidebar"]',
         backBtn: '[data-locations="back"]',
-        details: '[data-locations="locationDetails"]',
+        detailNodes: '[data-locations="locationDetails"]',
         map: '[data-locations="map"]',
       },
       stateClasses: {
@@ -41,9 +40,6 @@ class Locations extends Module {
 
     this.initUi();
     this.initEventListeners();
-
-    this.listItems = document.querySelectorAll(this.options.domSelectors.locationsList);
-    this.detailNodes = document.querySelectorAll(this.options.domSelectors.details);
   }
 
   static get events() {
@@ -62,7 +58,7 @@ class Locations extends Module {
         const filterText = target.value;
         const pattern = new RegExp(filterText, 'i');
 
-        this.listItems.forEach((listNode) => {
+        this.ui.listItems.forEach((listNode) => {
           const parentClasses = listNode.parentElement.classList;
           if (pattern.test(listNode.innerText)) {
             parentClasses.remove('hide');
@@ -71,26 +67,26 @@ class Locations extends Module {
           }
         });
       })
-      .on('click', this.options.domSelectors.locationsList, (event, target) => {
-        this.log('ListItem Click', event, target);
+      .on('click', this.options.domSelectors.listItems, (event, target) => {
+        this.log('ListItem Click Event', event, target);
         const clickedItemIndex = target.parentElement.getAttribute('data-linklist-itemindex');
         this.log('Clicked item index: ', clickedItemIndex);
         this.showLocationDetailsForIndex(clickedItemIndex);
         this.ui.sidebar.classList.add('show-details');
         this.highlightInMap(clickedItemIndex, true);
       })
-      .on('mouseover', this.options.domSelectors.locationsList, (event, target) => {
-        this.log('ListItem MouseOver', event, target);
+      .on('mouseover', this.options.domSelectors.listItems, (event, target) => {
+        this.log('ListItem MouseOver Event', event, target);
         const itemIndex = target.parentElement.getAttribute('data-linklist-itemindex');
         this.log('Hover over item index: ', itemIndex);
         this.highlightInMap(itemIndex);
       })
-      .on('mouseout', this.options.domSelectors.locationsList, (event, target) => {
-        this.log('ListItem MouseOut', event, target);
+      .on('mouseout', this.options.domSelectors.listItems, (event, target) => {
+        this.log('ListItem MouseOut Event', event, target);
         this.highlightInMap();
       })
       .on('click', this.options.domSelectors.backBtn, (event, target) => {
-        this.log('BackBtn Click', event, target);
+        this.log('BackBtn Click Event', event, target);
         this.ui.sidebar.classList.remove('show-details');
         this.highlightInMap('', true);
       });
@@ -101,7 +97,8 @@ class Locations extends Module {
     if (indexString) {
       indexToShow = Number.parseInt(indexString, 10);
     }
-    this.detailNodes.forEach((detailsContainer, i) => {
+    this.ui.detailNodes.forEach((detailsContainer, i) => {
+      this.log('ForEach Detail: ', i);
       if (i === indexToShow) {
         detailsContainer.classList.add('show');
       } else {
