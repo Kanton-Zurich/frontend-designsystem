@@ -66,7 +66,7 @@
     left: 0;
     transform: none;
     margin-left: 0;
-    z-index: 1;
+    z-index: $zIndexScaffolds;
   }
 
   @include mq($from: medium) {
@@ -97,6 +97,7 @@
       height: pxToRem($sizeBig);
       margin-left: auto;
       display: inline-flex;
+      align-items: center;
       position: absolute;
       top: 50%;
       right: 0;
