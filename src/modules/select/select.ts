@@ -205,6 +205,8 @@ class Select extends Module {
       .on('keydown', this.options.domSelectors.applyButton, (event) => {
         if (event.key === 'Tab' && !event.shiftKey) {
           this.closeDropdown(true);
+        } else {
+          this.updateFlyingFocus();
         }
       })
       // ------------------------------------------------------------
@@ -240,6 +242,7 @@ class Select extends Module {
                 : nextFocusable.nextElementSibling;
             }
             newTarget.focus();
+            this.updateFlyingFocus();
             evt.stopPropagation();
             evt.preventDefault();
           }
@@ -351,12 +354,10 @@ class Select extends Module {
         input.checked = event.detail.indexOf(input.value) >= 0;
         this.changeUpdateItemEvent(event, input, index, false);
         this.onValueChanged(event);
-      } else {
-        if (input.value === event.detail) {
-          input.checked = true;
-          this.changeUpdateItemEvent(event, input, index, false);
-          this.onValueChanged(event);
-        }
+      } else if (input.value === event.detail) {
+        input.checked = true;
+        this.changeUpdateItemEvent(event, input, index, false);
+        this.onValueChanged(event);
       }
     });
   }
@@ -407,7 +408,7 @@ class Select extends Module {
       this.ui.dropdown.setAttribute('aria-hidden', 'true');
       if (!focusLost) {
         setTimeout(() => {
-          if(this.ui.phoneInput) {
+          if (this.ui.phoneInput) {
             this.ui.phoneInput.focus();
           } else {
             this.ui.trigger.focus();
@@ -416,6 +417,15 @@ class Select extends Module {
       }
       this.emitClose();
     }
+  }
+
+  /**
+   * Update flying focus with a delay
+   */
+  updateFlyingFocus() {
+    setTimeout(() => {
+      (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
+    }, this.options.inputDelay);
   }
 
   /**
