@@ -1,0 +1,13 @@
+<ol class="mdl-stepper_navigation" data-init="stepperNavigation">
+  {{#each steps}}
+	  <li>
+      <button class="mdl-stepper_navigation__step" data-stepper_navigation="step" data-step="{{@index}}" disabled>
+        <svg class="icon mdl-stepper_navigation__step-checkmark">
+          <use xlink:href="#check"></use>
+        </svg>
+        <span class="mdl-stepper_navigation__step-ordinal">{{increment @index}}</span>
+        <span class="mdl-stepper_navigation__step-title">{{this}}</span>
+      </button>
+    </li>
+  {{/each}}
+</ol>

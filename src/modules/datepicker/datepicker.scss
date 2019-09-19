@@ -1,0 +1,64 @@
+.mdl-datepicker {
+  position: relative;
+
+  &.open {
+    .icon {
+      fill: $colorBlack;
+    }
+  }
+
+  &.dirty {
+
+    .atm-form_input--floated {
+      .atm-form_input__input {
+        color: $colorBlack;
+        padding-top: pxToRem(35px);
+        padding-bottom: pxToRem(15px);
+        z-index: 1;
+      }
+
+      label {
+        pointer-events: none;
+        padding: 0;
+        top: pxToRem($sizeFontSmall);
+        font-weight: $fontWeightBlack;
+        font-size: pxToRem($sizeFontTiny);
+        line-height: $sizeLineHeightBase;
+        color: $colorBlack;
+      }
+    }
+  }
+
+  .flatpickr-wrapper {
+    display: block;
+  }
+
+  .flatpickr-wrapper,
+  .atm-form_input--floated .atm-form_input__input {
+    z-index: 1;
+    position: relative;
+    background-color: transparent;
+  }
+
+  .atm-form_input--floated {
+    .icon {
+      z-index: 0;
+    }
+  }
+
+  .atm-form_input__input {
+    appearance: none;
+
+    &::-webkit-datetime-edit {
+      display: none;
+    }
+
+    &.active {
+      border-color: $colorCyan;
+    }
+
+    & + label {
+      cursor: pointer;
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { Delegate } from 'dom-delegate';
 import wrist from 'wrist';
 import { debounce } from 'lodash';
+import DuplicationElement from './duplication.class';
 
 import namespace from './namespace';
 
@@ -16,6 +17,9 @@ class Form {
     validateDelay: number,
     messageClasses: any,
     messageSelector: string,
+    duplicateSelector: string,
+    selectOptionSelector: string,
+    inputSelector: string,
   }
 
   private eventDelegate: any;
@@ -39,9 +43,12 @@ class Form {
         invalid: 'invalid',
       },
       messageSelector: '[data-message]',
+      selectOptionSelector: 'data-select-option',
+      inputSelector: '[data-input]',
       messageClasses: {
         show: 'show',
       },
+      duplicateSelector: '[data-form="duplicatable"]',
     };
 
     this.eventDelegate = new Delegate(el);
@@ -51,21 +58,44 @@ class Form {
 
     // Inputs will be watched
     this.addWatchers();
+
+    // Initialize duplication elements
+    this.initDuplicationElements();
   }
 
   addEventListeners() {
     this.eventDelegate.on('click', this.options.eventEmitters.clearButton, this.clearField.bind(this));
-    this.eventDelegate.on('keyup', this.options.watchEmitters.input, debounce(this.validateField.bind(this), this.options.validateDelay));
-    this.eventDelegate.on('blur', this.options.watchEmitters.input, this.validateField.bind(this));
+    this.eventDelegate.on('keyup', this.options.watchEmitters.input, debounce((event, field) => {
+      this.validateField(field);
+    }, this.options.validateDelay));
+    this.eventDelegate.on('blur', this.options.watchEmitters.input, (event, field) => {
+      this.validateField(field);
+    });
+    this.eventDelegate.on('validateSection', this.validateSection.bind(this));
+    this.eventDelegate.on('showFieldInvalid', (event) => {
+      this.setValidClasses(event.detail.field, ['add', 'remove']);
+    });
   }
 
-  addWatchers() {
-    const watchableInputs = this.ui.element.querySelectorAll(this.options.watchEmitters.input);
+  addWatchers(targetElement = this.ui.element) {
+    const watchableInputs = targetElement.querySelectorAll(this.options.watchEmitters.input);
 
     watchableInputs.forEach((input) => {
-      wrist.watch(input, 'value', (propName, oldValue, newValue) => {
-        this.onInputValueChange(input, oldValue, newValue);
-      });
+      const inputType = input.getAttribute('type');
+
+      switch (inputType) {
+        case 'radio':
+        case 'checkbox':
+          wrist.watch(input, 'checked', () => {
+            this.validateField(input);
+          });
+          break;
+        default:
+          wrist.watch(input, 'value', (propName, oldValue, newValue) => {
+            this.onInputValueChange(input, oldValue, newValue);
+          });
+          break;
+      }
     });
   }
 
@@ -93,24 +123,80 @@ class Form {
     inputElement.value = '';
   }
 
-  validateField(event, delegate) {
-    const validation = window[namespace].form.validateField(delegate);
+  validateField(field) {
+    const validation = window[namespace].form.validateField(field);
 
-    delegate.parentElement.querySelectorAll(this.options.messageSelector).forEach((message) => {
-      message.classList.remove(this.options.messageClasses.show);
-    });
+    field.closest(this.options.inputSelector).querySelectorAll(this.options.messageSelector)
+      .forEach((message) => {
+        message.classList.remove(this.options.messageClasses.show);
+      });
 
     if (validation.validationResult) {
-      delegate.classList.add(this.options.inputClasses.valid);
-      delegate.classList.remove(this.options.inputClasses.invalid);
+      this.setValidClasses(field);
     } else {
-      delegate.classList.add(this.options.inputClasses.invalid);
-      delegate.classList.remove(this.options.inputClasses.valid);
+      this.setValidClasses(field, ['add', 'remove']);
 
       validation.messages.forEach((messageID) => {
-        delegate.parentElement.querySelector(`[data-message="${messageID}"]`).classList.add('show');
+        const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
+
+        if (message) {
+          message.classList.add('show');
+        }
       });
+
+      this.ui.element.setAttribute('form-has-errors', 'true');
     }
+  }
+
+  setValidClasses(field, functionArray: Array<string> = ['remove', 'add']) {
+    let fieldType = field.getAttribute('type');
+    const errorField = field.closest(this.options.inputSelector);
+
+    if (field.hasAttribute(this.options.selectOptionSelector)) {
+      fieldType = 'selectOption';
+    }
+
+    switch (fieldType) {
+      case 'radio':
+      case 'checkbox':
+        errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
+        errorField.classList[functionArray[1]](this.options.inputClasses.valid);
+        break;
+      case 'selectOption':
+        errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
+        errorField.classList[functionArray[1]](this.options.inputClasses.valid);
+        break;
+      default:
+        errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
+        errorField.classList[functionArray[1]](this.options.inputClasses.valid);
+    }
+  }
+
+  validateSection(event) {
+    const formSection = event.detail.section;
+    const fieldsInSection = formSection.querySelectorAll(this.options.watchEmitters.input);
+
+    fieldsInSection.forEach(this.validateField.bind(this));
+
+    const errorsInFields = formSection.querySelectorAll(`.${this.options.inputClasses.invalid}`).length > 0;
+
+    if (errorsInFields) {
+      this.ui.element.setAttribute('form-has-errors', 'true');
+    } else {
+      this.ui.element.removeAttribute('form-has-errors');
+    }
+  }
+
+  initDuplicationElements() {
+    const duplicationElements = this.ui.element.querySelectorAll(this.options.duplicateSelector);
+
+    duplicationElements.forEach((duplicatableElement) => {
+      new DuplicationElement(duplicatableElement);
+
+      duplicatableElement.addEventListener(DuplicationElement.events.domReParsed, (event) => {
+        this.addWatchers((<any>event).detail);
+      });
+    });
   }
 }
 

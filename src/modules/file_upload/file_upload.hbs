@@ -1,0 +1,24 @@
+<div class="mdl-file_upload" data-init="fileUpload">
+  {{#if title}}<h4 class="atm-heading">{{title}}</h4>{{/if}}
+  <label for="{{input.id}}">{{subtitle}}</label>
+  <input class="visuallyhidden" type="file" name="{{input.name}}" id="{{input.id}}" data-file_upload="input" {{#if isMultiple}}multiple{{/if}}/>
+  <div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
+    <p>{{dropzoneHint}}</p>
+    <label class="mdl-file_upload__button atm-button atm-button--secondary" for="{{input.id}}">{{buttonLabel}}</label>
+  </div>
+  {{#if isMultiple}}
+    <ul class="mdl-file_upload__list" data-file_upload="list">
+
+    </ul>
+  {{else}}
+    <div class="mdl-file_upload__list" data-file_upload="list">
+
+    </div>
+  {{/if}}
+  <script type="text/x-handlebars-template" data-file_upload="item-template">
+    <div class="mdl-file_upload__file">
+      <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+      <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+    </div>
+  </script>
+</div>

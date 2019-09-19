@@ -44,7 +44,6 @@ class LineClamper {
       this.elements = [].slice.call(this.elements);
       this.elements.forEach((element) => {
         if (!element.hasAttribute('data-line-clamped')) {
-          element.setAttribute('title', element.innerText.trim());
           element.setAttribute('data-content-before', element.innerHTML.trim());
           element.setAttribute('data-line-clamped', 'true');
         } else {
@@ -54,8 +53,7 @@ class LineClamper {
         let i = 0;
         const cHeight = element.clientHeight;
         let difference = element.scrollHeight - cHeight;
-        const heightTolerance = 5;
-
+        const heightTolerance = parseInt((<any>window).getComputedStyle(element, null).getPropertyValue('font-size'))/2; // eslint-disable-line
         while (i <= this.options.maxIterations && difference > heightTolerance) {
           element.innerHTML = element.innerHTML.replace(/\W*\s(\S)*$/, '...');
           difference = element.scrollHeight - cHeight;

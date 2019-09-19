@@ -10,7 +10,9 @@
 
 // Importing of XY-Grid
 @import '../../../node_modules/foundation-sites/scss/foundation';
+@import '../../../node_modules/flatpickr/dist/flatpickr';
 @import 'globals/grid';
+@import 'globals/flatpickr';
 
 // Icons (as font or dataurl), PNG sprites
 // @import '../.tmp/iconfont';
@@ -39,6 +41,8 @@
 @import '../../atoms/form_input/form_input';
 @import '../../atoms/radiobutton/radiobutton';
 @import '../../atoms/checkbox/checkbox';
+@import '../../atoms/notification/notification';
+@import '../../atoms/list/list';
 //*autoinsertatom*
 
 // Modules
@@ -76,11 +80,11 @@
 @import '../../modules/related_content/related_content';
 @import '../../modules/focus_card/focus_card';
 @import '../../modules/focus_teaser/focus_teaser';
+@import '../../modules/header/header';
 @import '../../modules/anchornav/anchornav';
 @import '../../modules/tabs/tabs';
 @import '../../modules/service_list/service_list';
 @import '../../modules/about/about';
-@import '../../modules/header/header';
 @import '../../modules/search/search';
 @import '../../modules/modal/modal';
 @import '../../modules/person_card/person_card';
@@ -93,8 +97,18 @@
 @import '../../modules/subnavigation/subnavigation';
 @import '../../modules/organisation_teaser/organisation_teaser';
 @import '../../modules/organisation_navigation/organisation_navigation';
+@import '../../modules/stepper/stepper';
+@import '../../modules/form/form';
+@import '../../modules/stepper_navigation/stepper_navigation';
 @import '../../modules/service_button/service_button';
 @import '../../modules/application/application';
+@import '../../modules/file_upload/file_upload';
+@import '../../modules/select/select';
+@import '../../modules/service_wrapper/service_wrapper';
+@import '../../modules/datepicker/datepicker';
+@import '../../modules/pagination/pagination';
+@import '../../modules/filter_pills/filter_pills';
+@import '../../modules/live_stream/live_stream';
 //*autoinsertmodule*
 
 @media print {

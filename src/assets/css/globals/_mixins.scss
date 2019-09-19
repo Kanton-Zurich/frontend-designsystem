@@ -14,6 +14,10 @@
   padding: 0 !important;
   position: absolute;
   width: 1px;
+
+  @at-root br#{&} {
+    content: '';
+  }
 }
 
 // stylelint-enable
@@ -211,7 +215,7 @@
     $b: abs($b);
   }
   @if ($margin > 0) {
-    @return calc(#{$m*100}vw#{$sign}#{$b} + #{$margin}px); //stylelint-disable-line
+    @return calc(#{$m*100}vw #{$sign} #{$b} + #{$margin}px); //stylelint-disable-line
   } @else {
     @return calc(#{$m*100}vw #{$sign} #{$b}); //stylelint-disable-line
   }

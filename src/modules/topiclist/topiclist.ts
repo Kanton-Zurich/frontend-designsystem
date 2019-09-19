@@ -154,6 +154,7 @@ class Topiclist extends Module {
     const entriesToShowButton = 8;
 
     this.data.query = valueAfter;
+    this.data.filteredPages = [];
 
     if (Object.keys(this.data.json).length === 0) {
       await this.fetchData();
@@ -297,7 +298,7 @@ class Topiclist extends Module {
       parsedHTML.querySelector('a').setAttribute('data-topic', JSON.stringify(topic));
     }
 
-    appendTo.querySelector('ul').append(parsedHTML);
+    appendTo.querySelector('ul').appendChild(parsedHTML);
   }
 
   /**
@@ -315,10 +316,14 @@ class Topiclist extends Module {
 
     parsedHTML.setAttribute('disabled', 'disabled');
     parsedHTML.setAttribute('data-topiclist', 'noResult');
-    parsedHTML.querySelector('[data-lineclamp]').removeAttribute('data-lineclamp');
+
+    if (parsedHTML.querySelector('[data-lineclamp]')) {
+      parsedHTML.querySelector('[data-lineclamp]').removeAttribute('data-lineclamp');
+    }
+
     parsedHTML.removeAttribute('href');
 
-    this.ui.autosuggest.append(parsedHTML);
+    this.ui.autosuggest.appendChild(parsedHTML);
 
     // Render the link to the search
     const compiled2 = template(this.ui.searchLink.innerHTML);
@@ -331,7 +336,7 @@ class Topiclist extends Module {
     parsedLink.setAttribute('data-topiclist', 'noResult');
 
 
-    this.ui.autosuggest.append(parsedLink);
+    this.ui.autosuggest.appendChild(parsedLink);
   }
 
   /**
@@ -358,7 +363,7 @@ class Topiclist extends Module {
 
     parsedHTML.querySelector(this.options.domSelectors.subnavLayerUp).addEventListener('click', () => { this.data.currentLayer -= 1; });
 
-    this.ui.furtherLayers.append(parsedHTML);
+    this.ui.furtherLayers.appendChild(parsedHTML);
 
     this.setContentNavOfSubnav(topic, parsedHTML);
 

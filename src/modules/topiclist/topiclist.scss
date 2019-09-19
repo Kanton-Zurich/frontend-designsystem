@@ -19,8 +19,8 @@ $leadFontCurve: (
   .mdl-topiclist__autosuggest {
     display: none;
 
-    .mdl-content_nav {
-      &__item:nth-child(1n+10) {
+    &.mdl-content_nav {
+      .mdl-content_nav__item:nth-child(1n+9) {
         display: none;
       }
     }
@@ -29,9 +29,9 @@ $leadFontCurve: (
   &--expanded,
   &--home,
   &--office {
-    .mdl-content_nav:not(.mdl-topiclist__autosuggest) {
-      &__item:nth-child(1n+13),
-      &__item:nth-child(1n+10) {
+    &:not(.mdl-topiclist__autosuggest) {
+      .mdl-content_nav__item:nth-child(1n+13),
+      .mdl-content_nav__item:nth-child(1n+10) {
         display: flex;
       }
     }
@@ -129,10 +129,12 @@ $leadFontCurve: (
 
   /** SPECIAL STYLES WHEN LIST IS FILTERED */
   &--filtered {
-    .mdl-content_nav {
-      &:first-of-type {
-        display: none;
-      }
+    .mdl-content_nav:not(.mdl-topiclist__autosuggest) {
+      display: none;
+    }
+
+    .mdl-topiclist__navigation {
+      display: none;
     }
 
     .mdl-topiclist__autosuggest {

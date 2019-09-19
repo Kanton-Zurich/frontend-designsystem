@@ -87,7 +87,7 @@ $slidePaddingCurve: (
 
     .mdl-button_group {
       .touch & {
-        display: none;
+        visibility: hidden;
       }
     }
   }
@@ -179,6 +179,16 @@ $slidePaddingCurve: (
       margin: 0 pxToRem(2px) pxToRem(2px) 0;
       max-width: none;
       transform: none;
+    }
+
+    .mdl-image-figure__download {
+      display: none;
+    }
+
+    .mdl-carousel__slide--active {
+      .mdl-image-figure__download {
+        display: inherit;
+      }
     }
   }
 

@@ -12,12 +12,16 @@ import WindowEventListener from '../../assets/js/helpers/events';
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import Header from '../header/header';
 
 class Anchornav extends Module {
   public placeholder: HTMLElement;
   public mediumBreakpoint: number;
   public navigationPositionY: number;
+  public headerHeight: number;
+  public activeIndex: number;
   public navigationIsFixed: boolean;
+  public elementMissing: boolean;
   public navigationHeight: number;
   public scrollReferences: Array<any>;
   public impetusInstance: any;
@@ -29,6 +33,7 @@ class Anchornav extends Module {
   public mousePositonDown: number;
   public jumpPossible: boolean;
   public isClickEvent: boolean;
+  public isKeyEvent: boolean;
 
   public ui: {
     element: any,
@@ -57,7 +62,6 @@ class Anchornav extends Module {
       showButton: string,
     },
     tolerances: {
-      jumpToMargin: number,
       showButton: number,
       swipe: number,
       scrollDistance: number,
@@ -83,7 +87,6 @@ class Anchornav extends Module {
         showButton: 'visible',
       },
       tolerances: {
-        jumpToMargin: 5,
         showButton: 10,
         swipe: 10,
         scrollDistance: 100,
@@ -93,28 +96,57 @@ class Anchornav extends Module {
     super($element, defaultData, defaultOptions, data, options);
 
     this.navigationIsFixed = false;
+    this.elementMissing = false;
+    this.headerHeight = 0;
+    this.activeIndex = 0;
     this.mediumBreakpoint = 840;
     this.lastYScrollPositon = this.getDocumnetScrollPosition();
     this.jumpPossible = true;
     this.isClickEvent = false;
+    this.isKeyEvent = false;
 
     this.initUi();
     this.cacheNavigationPosition();
-    this.cacheAnchorReferences();
-    this.updateVerticalScrollInfo();
-    this.updateNavigationState();
 
-    if (this.scrollReferences.length > 0) {
-      this.initEventListeners();
-      this.updateActiveAnchorState();
+    const hasMoreThanOneItem = this.ui.navItems.length > 1;
+    if (hasMoreThanOneItem) {
+      this.cacheAnchorReferences();
+      this.updateVerticalScrollInfo();
+      this.updateNavigationState();
+      if (this.scrollReferences.length > 0) {
+        const currentScrollPosition = this.getDocumnetScrollPosition();
+        let navItem;
+
+        for (let i = 0; i < this.scrollReferences.length; i += 1) {
+          const currentItem = this.scrollReferences[i];
+          const triggerY = currentItem.triggerYPosition;
+
+          if (this.scrollDirection === 'down') {
+            if (currentScrollPosition >= triggerY) {
+              navItem = (<any> currentItem).correspondingAnchor;
+            }
+          } else if (this.scrollDirection === 'up') {
+            if (currentScrollPosition <= triggerY) {
+              navItem = (<any> currentItem).correspondingAnchor;
+              i = this.scrollReferences.length; // Stop for loop
+            }
+          }
+        }
+        if (this.ui.navItemActive !== navItem && navItem !== undefined) {
+          this.toggleActiveNavigationItemClass(navItem);
+        }
+      }
       this.initializeImpetus();
       this.syncHorizontalPositon();
     }
+
+    this.initEventListeners();
   }
 
   static get events() {
     return {
-      // eventname: `eventname.${ Anchornav.name }.${  }`
+      isSticky: 'isSticky.anchornav',
+      isNotSticky: 'isNotSticky.anchornav',
     };
   }
 
@@ -126,15 +158,23 @@ class Anchornav extends Module {
       .on('mousedown', this.options.domSelectors.navItems, this.onMouseDown.bind(this))
       .on('mouseup', this.options.domSelectors.navItems, this.onMouseUp.bind(this))
       .on('click', this.options.domSelectors.navItems, this.onMouseClick.bind(this))
+      .on('keypress', this.options.domSelectors.navItems, this.onKeypress.bind(this))
       .on('scroll', this.options.domSelectors.scrollContent, this.onHorizontalScroll.bind(this))
       .on('click', this.options.domSelectors.btnRight, this.onControlBtnClick.bind(this, 'right'))
       .on('click', this.options.domSelectors.btnLeft, this.onControlBtnClick.bind(this, 'left'));
 
     (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
-    (<any>WindowEventListener).addDebouncedScrollListener(this.onPageDebounceScrolled.bind(this));
     // Necessary for jump.js plugin.
     // Is triggered before the debounced callback.
-    (<any>WindowEventListener).addEventListener('scroll', this.onVerticalScroll.bind(this));
+    (<any>WindowEventListener).addEventListener('scroll', this.onPageScroll.bind(this));
+
+    window.addEventListener(Header.events.showHeader, (event) => {
+      if (this.navigationIsFixed) {
+        this.addHeaderToPlaceHolderHeight((<any>event).detail);
+      }
+    });
+
+    window.addEventListener(Header.events.hideHeader, this.calcHeight.bind(this));
   }
 
   /**
@@ -146,6 +186,8 @@ class Anchornav extends Module {
     this.scrollPositonX = this.ui.scrollContent.scrollLeft;
     this.updateShadows();
     this.updateVerticalScrollInfo();
+    this.updateActiveAnchorState();
+
     this.impetusInstance.setBoundX([-this.getScrollWidth(), 0]);
 
     if (window.innerWidth < this.mediumBreakpoint) {
@@ -155,14 +197,10 @@ class Anchornav extends Module {
     }
   }
 
-  onPageDebounceScrolled() {
-    /* this.updateActiveAnchorState(); */
-  }
-
   /**
    * On page scroll. Responsible for the pin-/unpining the anchornav
    */
-  onVerticalScroll() {
+  onPageScroll() {
     this.updateVerticalScrollInfo();
     this.updateNavigationState();
     this.updateActiveAnchorState();
@@ -207,7 +245,7 @@ class Anchornav extends Module {
       navElement = this.ui.scrollMask;
     }
     this.navigationHeight = this.ui.element.getBoundingClientRect().height;
-    this.navigationPositionY = this.getPageYPositionFor(navElement);
+    this.navigationPositionY = this.getPageYPositionFor(navElement) - this.headerHeight;
   }
 
   /**
@@ -220,9 +258,14 @@ class Anchornav extends Module {
     for (let i = 0; i < this.ui.navItems.length; i += 1) {
       const selectorString = `[id="${this.ui.navItems[i].dataset.href}"]`;
       const element = document.querySelector(selectorString);
+      if (element === null) {
+        this.elementMissing = true;
+        this.ui.navItems[i].style.display = 'none';
+      }
       const itemLeft = Math.abs(this.ui.navItems[i].getBoundingClientRect().left);
       const hTriggerPos = itemLeft - this.ui.scrollContent.getBoundingClientRect().left;
       if (element !== null) {
+        element.setAttribute('tabindex', '-1');
         this.scrollReferences.push({
           correspondingAnchor: this.ui.navItems[i],
           triggerElement: element,
@@ -231,10 +274,7 @@ class Anchornav extends Module {
       }
     }
 
-    if (this.scrollReferences.length > 0) {
-      // Needs to be calculated seperate in case of exceeding posible scroll distance
-      this.calculateTriggerPositions();
-    }
+    this.calculateTriggerPositions();
   }
 
   /**
@@ -242,7 +282,7 @@ class Anchornav extends Module {
    * if the position exceeds the scrollable space
    */
   calculateTriggerPositions() {
-    const scrollMax = document.body.offsetHeight - window.innerHeight - this.navigationHeight;
+    const scrollMax = document.body.offsetHeight - window.innerHeight + this.headerHeight;
     let foundExceed = false;
     let exceedCounter = 0;
     let exceedIndex = 0;
@@ -251,23 +291,41 @@ class Anchornav extends Module {
 
     for (let i = 0; i < this.scrollReferences.length; i += 1) {
       const currentItem = this.scrollReferences[i];
-      const currentTriggerPosition = this.getPageYPositionFor(currentItem.triggerElement);
-      this.scrollReferences[i].triggerYPosition = currentTriggerPosition - this.navigationHeight;
+      let currentTriggerPosition = this.getPageYPositionFor(currentItem.triggerElement);
+      currentTriggerPosition -= this.navigationHeight;
+      this.scrollReferences[i].triggerYPosition = currentTriggerPosition;
 
-      if (currentTriggerPosition > scrollMax && !foundExceed) {
+      if ((currentTriggerPosition + window.innerHeight) > scrollMax && !foundExceed) {
+        // Get the count for the exceeding anchors but include the last fitting anchor
+        // to spread even the space after his last Y position
         exceedCounter = this.scrollReferences.length - i;
         exceedIndex = i;
         foundExceed = true;
-        lastFittingTriggerPosition = this.scrollReferences[exceedIndex - 1].triggerYPosition;
-        evenDistances = (scrollMax - lastFittingTriggerPosition) / exceedCounter;
+        const overflow = (currentTriggerPosition + window.innerHeight) - scrollMax;
+        lastFittingTriggerPosition = this.scrollReferences[i].triggerYPosition - overflow;
+        evenDistances = Math.round((scrollMax - lastFittingTriggerPosition) / exceedCounter);
       }
     }
+
+    // Handling exceed
     if (foundExceed) {
-      for (let i = exceedIndex; i < this.scrollReferences.length; i += 1) {
-        const currentItem = this.scrollReferences[i];
-        const sum = lastFittingTriggerPosition + evenDistances;
-        (<any> currentItem).triggerYPosition = Math.round(sum);
-        lastFittingTriggerPosition += evenDistances;
+      // First item exceed already the scrolling possibility,
+      // so spread evenly from zero downwards
+      if (exceedIndex === 0) {
+        evenDistances = scrollMax / exceedCounter;
+        lastFittingTriggerPosition = 0;
+      }
+
+      // Later or last item exceed scrolling possibility,
+      // so spread evenly from the bottom with even distances
+      const maxIndex = this.scrollReferences.length - 1;
+      for (let i = maxIndex; i >= exceedIndex; i -= 1) {
+        if (i === maxIndex) {
+          lastFittingTriggerPosition = scrollMax;
+        } else {
+          lastFittingTriggerPosition -= evenDistances;
+        }
+        this.scrollReferences[i].triggerYPosition = lastFittingTriggerPosition;
       }
     }
   }
@@ -277,7 +335,6 @@ class Anchornav extends Module {
    */
   updateVerticalScrollInfo() {
     const currentScrollPosition = this.getDocumnetScrollPosition();
-
     if (currentScrollPosition > this.lastYScrollPositon) {
       this.scrollDirection = 'down';
     } else {
@@ -292,7 +349,6 @@ class Anchornav extends Module {
   updateNavigationState() {
     const currentScrollPosition = this.getDocumnetScrollPosition();
     const scrollSpace = this.getScrollWidth();
-
     const pinPos = this.navigationPositionY;
 
     if (this.placeholder === undefined) {
@@ -320,59 +376,24 @@ class Anchornav extends Module {
     const currentScrollPosition = this.getDocumnetScrollPosition();
     let navItem;
 
-    if (this.scrollDirection === 'down') {
-      for (let i = 0; i < this.scrollReferences.length; i += 1) {
-        const currentItem = this.scrollReferences[i];
-        const triggerY = (<any> currentItem).triggerYPosition;
+    for (let i = 0; i < this.scrollReferences.length; i += 1) {
+      const currentItem = this.scrollReferences[i];
+      const triggerY = currentItem.triggerYPosition;
 
-        let nextItemUpperMargin;
-        let nextIndex = i + 1;
-
-        if (nextIndex < this.scrollReferences.length) {
-          nextItemUpperMargin = this.scrollReferences[nextIndex].triggerYPosition;
-        } else {
-          nextItemUpperMargin = triggerY;
-          nextIndex = 1;
-        }
-        // Normal downwards toggling
-        if (currentScrollPosition >= triggerY && currentScrollPosition <= nextItemUpperMargin) {
+      if (this.scrollDirection === 'down') {
+        if (currentScrollPosition >= triggerY && i > this.activeIndex) {
           navItem = (<any> currentItem).correspondingAnchor;
         }
-      }
-    } else if (this.scrollDirection === 'up') {
-      for (let i = this.scrollReferences.length - 1; i >= 0; i -= 1) {
-        const currentItem = this.scrollReferences[i];
-        const triggerY = (<any> currentItem).triggerYPosition;
-
-
-        let nextItemUpperMargin;
-        let previousIndex = i - 1;
-
-        if (previousIndex >= 0) {
-          nextItemUpperMargin = this.scrollReferences[previousIndex].triggerYPosition;
-        } else {
-          nextItemUpperMargin = triggerY;
-          previousIndex = i;
-        }
-        // Normal upwards toggling
-        if (currentScrollPosition <= triggerY
-          && currentScrollPosition >= nextItemUpperMargin) {
-          navItem = this.scrollReferences[previousIndex].correspondingAnchor;
+      } else if (this.scrollDirection === 'up') {
+        if (currentScrollPosition <= triggerY && i < this.activeIndex) {
+          navItem = (<any> currentItem).correspondingAnchor;
+          i = this.scrollReferences.length - 1; // Stop the loop on the first match
         }
       }
     }
-
-    // Capture the case if fast scrolling to the very top
-    if (currentScrollPosition < (<any> this.scrollReferences[1]).triggerYPosition) {
-      navItem = this.scrollReferences[0].correspondingAnchor;
+    if (this.ui.navItemActive !== navItem && navItem !== undefined) {
+      this.toggleActiveNavigationItemClass(navItem);
     }
-    // This case needs to be catched beauce of reinitialization
-    const maxIndex = this.scrollReferences.length - 1;
-    if (currentScrollPosition >= this.scrollReferences[maxIndex].triggerYPosition) {
-      navItem = this.scrollReferences[maxIndex].correspondingAnchor;
-    }
-
-    this.toggleActiveNavigationItemClass(navItem);
   }
 
   /**
@@ -431,7 +452,7 @@ class Anchornav extends Module {
     });
 
     if (window.innerWidth < this.mediumBreakpoint) {
-      // If init in mobile/table width
+      // If init in mobile/table pause impetus
       this.impetusInstance.pause();
     } else {
       this.impetusInstance.resume();
@@ -470,9 +491,17 @@ class Anchornav extends Module {
    * @param target
    */
   toggleActiveNavigationItemClass(target) {
+    this.ui.navItemActive.removeAttribute('aria-selected');
     this.ui.navItemActive.classList.remove(this.options.stateClasses.activeItemClass);
     target.classList.add(this.options.stateClasses.activeItemClass);
     this.ui.navItemActive = target;
+    this.ui.navItemActive.setAttribute('aria-selected', 'true');
+
+    this.scrollReferences.forEach((item, index) => {
+      if (item.correspondingAnchor === target) {
+        this.activeIndex = index;
+      }
+    });
   }
 
   /**
@@ -490,6 +519,12 @@ class Anchornav extends Module {
   createPlaceholder() {
     this.placeholder = document.createElement('div');
 
+    this.calcHeight();
+
+    this.ui.element.parentNode.insertBefore(this.placeholder, this.ui.element);
+  }
+
+  calcHeight() {
     // Style definition from figma layout
     const smallMargin = 40;
     const bigMargin = 56;
@@ -502,8 +537,12 @@ class Anchornav extends Module {
     }
     this.placeholder.style.height = `${(this.ui.element.getBoundingClientRect().height + marginBottom)}px`;
     this.placeholder.style.display = 'none';
+  }
 
-    this.ui.element.parentNode.insertBefore(this.placeholder, this.ui.element);
+  addHeaderToPlaceHolderHeight(headerHeight) {
+    const currentHeight = this.placeholder.getBoundingClientRect().height;
+
+    this.placeholder.style.height = `${currentHeight + headerHeight}px`;
   }
 
   /**
@@ -512,6 +551,8 @@ class Anchornav extends Module {
   pinNavigation() {
     this.ui.element.classList.add(this.options.stateClasses.stickyMode);
     this.placeholder.style.display = 'block';
+
+    window.dispatchEvent(new CustomEvent(Anchornav.events.isSticky));
   }
 
   /**
@@ -520,6 +561,8 @@ class Anchornav extends Module {
   unpinNavigation() {
     this.ui.element.classList.remove(this.options.stateClasses.stickyMode);
     this.placeholder.style.display = 'none';
+
+    window.dispatchEvent(new CustomEvent(Anchornav.events.isNotSticky));
   }
 
   /**
@@ -531,7 +574,13 @@ class Anchornav extends Module {
   getPageYPositionFor(element): number {
     const elementTop = element.getBoundingClientRect().top;
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    return elementTop + scrollTop;
+
+
+    const headerElement = document.querySelector('.mdl-header');
+    if (headerElement !== null) {
+      this.headerHeight = headerElement.getBoundingClientRect().height;
+    }
+    return elementTop + scrollTop + this.headerHeight;
   }
 
   /**
@@ -541,6 +590,44 @@ class Anchornav extends Module {
    */
   onMouseDown(event) {
     this.mousePositonDown = event.screenX;
+  }
+
+  /**
+   *
+   * @param event
+   */
+  onKeypress(event) {
+    this.isKeyEvent = true;
+    const { target } = event;
+
+    this.moveToAnchor(target);
+  }
+
+  /**
+   *
+   * @param element
+   * @return {number}
+   */
+  getYDistanceTo(element: any): number {
+    let distance = 0;
+    // Get the trigger coordinates for a standart click jump
+    for (let i = 0; i < this.scrollReferences.length; i += 1) {
+      if ((<any> this.scrollReferences)[i].correspondingAnchor === element) {
+        distance = Math.round(this.scrollReferences[i].triggerYPosition
+          - this.lastYScrollPositon);
+
+        if (distance < 0) {
+          // Jump upwards
+          this.scrollDirection = 'up';
+          distance -= (this.headerHeight);
+        } else {
+          // Jump downwards
+          this.scrollDirection = 'down';
+          distance += (this.headerHeight);
+        }
+      }
+    }
+    return distance;
   }
 
   /**
@@ -565,27 +652,8 @@ class Anchornav extends Module {
     const swipeTolerance = this.options.tolerances.swipe;
 
     if (mouseEventDelta < swipeTolerance && mouseEventDelta > -(swipeTolerance)) {
-      this.isClickEvent = true;
-    } else {
-      return false;
+      this.moveToAnchor(target);
     }
-
-    let jumpToPosition;
-    // Get the trigger coordinates for a standart click jump
-    for (let i = 0; i < this.scrollReferences.length; i += 1) {
-      if ((<any> this.scrollReferences)[i].correspondingAnchor === target) {
-        jumpToPosition = this.scrollReferences[i].triggerYPosition - this.lastYScrollPositon;
-        if (i !== this.scrollReferences.length) {
-          jumpToPosition += this.options.tolerances.jumpToMargin;
-        }
-      }
-    }
-
-    if (this.jumpPossible && this.isClickEvent) {
-      this.jumpPossible = false;
-      this.moveToAnchor(jumpToPosition);
-    }
-    return true;
   }
 
   /**
@@ -633,18 +701,30 @@ class Anchornav extends Module {
   /**
    * Launches the jump.js plugin to move to the given position on the page
    *
-   * @param position<number>
+   * @param target<any>
    */
-  moveToAnchor(position) {
-    jump((position), {
-      callback: this.toggleJumpFlag.bind(this),
-    });
+  moveToAnchor(target) {
+    const jumpToPosition = this.getYDistanceTo(target);
+
+    if (this.jumpPossible) {
+      this.jumpPossible = false;
+      jump((jumpToPosition), {
+        callback: this.toggleJumpFlag.bind(this),
+      });
+    }
   }
 
   /**
    * Toggles the jump.js plugin flag
    */
   toggleJumpFlag() {
+    this.scrollReferences.forEach((item) => {
+      if (item.correspondingAnchor === this.ui.navItemActive
+        && this.isKeyEvent) {
+        item.triggerElement.focus();
+        this.isKeyEvent = false;
+      }
+    });
     this.jumpPossible = !this.jumpPossible;
     this.isClickEvent = false;
   }

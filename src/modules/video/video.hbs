@@ -1,4 +1,4 @@
-<figure class="mdl-video {{#if isFullwidth}}mdl-video--fullwidth{{/if}} {{#if isHeader}}mdl-video--header{{/if}}" data-init="video">
+<figure{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-video {{#if isFullwidth}}mdl-video--fullwidth{{/if}} {{#if isHeader}}mdl-video--header{{/if}}" data-init="video">
   {{#if title}}<h{{headingLevel}} class="atm-heading">{{video_title}}</h{{headingLevel}}>{{/if}}
   <div class="mdl-video__wrapper">
   <iframe

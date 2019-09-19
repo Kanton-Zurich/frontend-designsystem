@@ -186,6 +186,36 @@ class Helper {
       }
     });
   }
+
+  /**
+   * Wraps around the html elements for accessibility reasons
+   */
+  public wrapAccessibility(uiElement) {
+    const dialogWrapper = document.createElement('div');
+    const documentWrapper = document.createElement('div');
+
+    dialogWrapper.setAttribute('role', 'dialog');
+    documentWrapper.setAttribute('role', 'document');
+
+    uiElement.parentNode.insertBefore(documentWrapper, uiElement);
+
+    documentWrapper.appendChild(uiElement);
+
+    documentWrapper.parentNode.insertBefore(dialogWrapper, documentWrapper);
+
+    dialogWrapper.appendChild(documentWrapper);
+  }
+
+  /**
+   * Removes the two accessibility wrappers
+   */
+  public unwrapAccessibility(uiElement) {
+    const dialogWrapper = uiElement.parentNode.parentNode;
+
+    dialogWrapper.parentNode.appendChild(uiElement);
+
+    dialogWrapper.remove();
+  }
 }
 
 export default Helper;

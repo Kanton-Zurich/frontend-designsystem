@@ -1,7 +1,8 @@
 <div class="mdl-page-header {{#if hasImage}}mdl-page-header--headerimage{{/if}} {{#if
   hasPersonCard}}mdl-page-header--headerimage{{/if}} {{#if
   inverted}}mdl-page-header--inverted{{/if}} {{#if minimal}}mdl-page-header--minimal{{/if}} {{#if
-  hasImageTitle}}mdl-page-header--image-title{{/if}}" data-init="pageHeader">
+  hasImageTitle}}mdl-page-header--image-title{{/if}} {{#if
+  errorBlock}}mdl-page-header--error{{/if}}" data-init="pageHeader">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="mdl-page-header__logo-container cell {{#if minimal}}tiny-0{{/if}}{{#unless
@@ -28,7 +29,7 @@
             <div class="mdl-page-header__breadcrumb">
               {{> "modules/breadcrumb/breadcrumb" backlink}}</div>
           {{/if}}
-          {{#if hasBreadcrumb}}
+          {{#if breadcrumb}}
             <div class="mdl-page-header__breadcrumb">
               {{> "modules/breadcrumb/breadcrumb" breadcrumb}}</div>
           {{/if}}
@@ -48,36 +49,70 @@
         {{/if}}
         {{#unless minimal}}
           <h1 class="atm-heading mdl-page-header__title">{{pageTitle}}</h1>
-          {{#if hasAnchors}}
-            <div class="mdl-tag-group">
-              <h2 class="atm-heading">Meist gesucht</h2>
-              <ul class="mdl-tag-group__tags">
-                {{#each anchorLinks}}
-                  <li>
-                    {{> "atoms/anchorlink/anchorlink" this}}
-                  </li>
-                {{/each}}
-              </ul>
-            </div>
-          {{/if}}
         {{/unless}}
       </div>
     </div>
     <div class="grid-x grid-margin-x">
       <div
         class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
-        {{#unless hasImage}}
-          {{#unless noText}}
-            {{> "atoms/lead/lead"}}
-          {{/unless}}
-          {{#unless hasAnchors }}
-            {{#unless noButton}}
-              {{> "modules/service_button/service_button" buttonData}}
+        {{#unless errorBlock}}
+          {{#unless hasImage}}
+            {{#if anchorLinks}}
+              <div class="mdl-tag-group">
+                <h2 class="atm-heading">Meist gesucht</h2>
+                <ul class="mdl-tag-group__tags">
+                  {{#each anchorLinks}}
+                    <li>
+                      {{> "atoms/anchorlink/anchorlink" this}}
+                    </li>
+                  {{/each}}
+                </ul>
+              </div>
+            {{/if}}
+            {{#unless noText}}
+              {{> "atoms/lead/lead"}}
+            {{/unless}}
+            {{#unless anchorLinks }}
+              {{#if buttonData}}
+                {{> "modules/service_button/service_button" buttonData}}
+              {{/if}}
+              {{#if homeCTA}}
+                <a class="atm-button" href="{{homeCTA.href}}">{{homeCTA.title}}</a>
+              {{/if}}
             {{/unless}}
           {{/unless}}
+          {{#if hasImage}}{{#unless hasVideo}}{{> "modules/image_figure/image_figure" imageData}}{{/unless}}{{/if}}
+          {{#if hasVideo}}{{> "modules/video/video" videoData}}{{/if}}
         {{/unless}}
-        {{#if hasImage}}{{#unless hasVideo}}{{> "modules/image_figure/image_figure" imageData}}{{/unless}}{{/if}}
-        {{#if hasVideo}}{{> "modules/video/video" videoData}}{{/if}}
+        {{#if errorBlock}}
+          <div class="mdl-page-header--error__block">
+            {{#if errorBlock.text}}<p class="atm-lead">{{errorBlock.text}}</p>{{/if}}
+            {{#if errorBlock.code}}<p class="atm-paragraph">{{errorBlock.code}}</p>{{/if}}
+            {{#if anchorLinks}}
+              <div class="mdl-tag-group">
+                <h2 class="atm-heading">Meist gesucht</h2>
+                <ul class="mdl-tag-group__tags">
+                  {{#each anchorLinks}}
+                    <li>
+                      {{> "atoms/anchorlink/anchorlink" this}}
+                    </li>
+                  {{/each}}
+                </ul>
+              </div>
+            {{/if}}
+            {{#if homeCTA}}
+              <div class="mdl-page-header--error__block-button">
+                <a class="atm-button" href="{{homeCTA.href}}">{{homeCTA.title}}</a>
+              </div>
+            {{/if}}
+            {{#if errorBlock.imageData}}
+              {{> "modules/image_figure/image_figure" errorBlock.imageData}}
+            {{/if}}
+            {{#if errorBlock.videoData}}
+              {{> "modules/video/video" errorBlock.videoData}}
+            {{/if}}
+          </div>
+        {{/if}}
       </div>
     </div>
     {{#if hasPersonCard}}
@@ -108,11 +143,17 @@
           <div
             class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
             {{#unless noText}}
+              {{#if publicationDate}}
+                <p class="mdl-page-header__dateline">
+                  {{#if newsCategory}}<span class="mdl-page-header__news-category">{{newsCategory}}</span>{{/if}}
+                  {{publicationDate}}
+                </p>
+              {{/if}}
               {{> "atoms/lead/lead"}}
             {{/unless}}
-            {{#unless noButton}}
-              {{> "atoms/button/button" buttonData}}
-            {{/unless}}
+            {{#if buttonData}}
+              {{> "modules/service_button/service_button" buttonData}}
+            {{/if}}
           </div>
         </div>
       </div>

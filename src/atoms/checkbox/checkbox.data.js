@@ -12,7 +12,10 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('checkbox.md'),
   },
   props: {
-
+    label: 'Checkbox label',
+    id: 1,
+    groupName: 'checkbox',
+    value: 'value',
   },
 });
 const variants = _.mapValues({
@@ -38,6 +41,17 @@ const variants = _.mapValues({
     },
     props: {
       isDisabled: true,
+    },
+  },
+  required: {
+    meta: {
+      title: 'Erforderlich',
+      desc: 'Die Checkbox ist erforderlich',
+    },
+    props: {
+      validation: {
+        isRequired: true,
+      },
     },
   },
 }, (variant) => {

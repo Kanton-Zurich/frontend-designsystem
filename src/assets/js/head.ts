@@ -1,3 +1,5 @@
+import loadPolyfills from './helpers/polyfills';
+
 import loadSvgSprites from '@unic/estatico-svgsprite/lib/loader';
 import WindowEventListener from './helpers/events';
 import './helpers/modernizrrc';
@@ -7,6 +9,8 @@ import namespace from './helpers/namespace';
 import LineClamper from './helpers/lineclamper';
 import FlyingFocus from './helpers/flyingfocus';
 import AssetLoader from './helpers/assetloader';
+
+loadPolyfills();
 
 window[namespace] = {
   data: {}, // Content data

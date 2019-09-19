@@ -4,11 +4,7 @@
  * @license APLv2
  */
 import namespace from './namespace';
-import loadPolyfills from './polyfills';
 
-/** Demo modules * */
-// import SkipLinks from '../../../demo/modules/skiplinks/skiplinks';
-// import SlideShow from '../../../demo/modules/slideshow/slideshow';
 import Table from '../../../modules/table/table';
 import Carousel from '../../../modules/carousel/carousel';
 import ImageGallery from '../../../modules/image_gallery/image_gallery';
@@ -28,8 +24,15 @@ import Subnavigation from '../../../modules/subnavigation/subnavigation';
 import OrganisationNavigation from '../../../modules/organisation_navigation/organisation_navigation';
 import PageHeader from '../../../modules/page_header/page_header';
 import SocialMediaStream from '../../../modules/social_media_stream/social_media_stream';
+import Stepper from '../../../modules/stepper/stepper';
 import ServiceButton from '../../../modules/service_button/service_button';
 import Application from '../../../modules/application/application';
+import Datepicker from '../../../modules/datepicker/datepicker';
+import FileUpload from '../../../modules/file_upload/file_upload';
+import Select from '../../../modules/select/select';
+import ServiceWrapper from '../../../modules/service_wrapper/service_wrapper';
+import Pagination from '../../../modules/pagination/pagination';
+import FilterPills from '../../../modules/filter_pills/filter_pills';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -44,8 +47,6 @@ class App {
     window[namespace].modules = {};
     // Module registry - mapping module name (used in data-init) to module Class
     this.modules = {};
-    // this.modules.slideshow = SlideShow;
-    // this.modules.skiplinks = SkipLinks;
     this.modules.table = Table;
     this.modules.imageGallery = ImageGallery;
     this.modules.carousel = Carousel;
@@ -65,8 +66,15 @@ class App {
     this.modules.organisationNavigation = OrganisationNavigation;
     this.modules.pageHeader = PageHeader;
     this.modules.socialMediaStream = SocialMediaStream;
+    this.modules.stepper = Stepper;
     this.modules.serviceButton = ServiceButton;
     this.modules.application = Application;
+    this.modules.select = Select;
+    this.modules.fileUpload = FileUpload;
+    this.modules.datepicker = Datepicker;
+    this.modules.serviceWrapper = ServiceWrapper;
+    this.modules.pagination = Pagination;
+    this.modules.filterPills = FilterPills;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
@@ -96,8 +104,6 @@ class App {
   }
 
   async start() {
-    await loadPolyfills();
-
     this.registerModules();
     this.initModuleInitialiser();
     this.registerForms();
@@ -198,7 +204,10 @@ class App {
     const forms = document.querySelectorAll('form[novalidate]');
 
     forms.forEach((form) => {
-      new Form(form);
+      if (!form.getAttribute('initialized')) {
+        new Form(form);
+        form.setAttribute('initialized', 'true');
+      }
     });
   }
 }

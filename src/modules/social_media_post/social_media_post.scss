@@ -67,6 +67,9 @@
 
   &__cite {
     border-left: 3px solid $colorBlack10;
+    display: block;
+    font-style: unset;
+    margin: 0;
 
     .atm-paragraph {
       @include polyFluidSizing('font-size', map-get($socialMediaSizeCurves, citeFontSize));
@@ -117,6 +120,10 @@
 
     span {
       padding-left: pxToRem($sizeTiny);
+
+      &:first-child {
+        padding-left: 0;
+      }
     }
 
     span:first-of-type {
@@ -152,7 +159,7 @@
     align-items: center;
     font-size: $sizeFontSmall;
 
-    button {
+    &-button {
       text-decoration: none;
       color: rgba($colorBlack, 0.6);
       display: inline-flex;

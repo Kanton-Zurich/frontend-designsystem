@@ -2,7 +2,11 @@
   position: relative;
   display: flex;
   padding-left: pxToRem($sizeLarge);
-  margin-bottom: 16px;
+  margin-bottom: pxToRem($sizeRegular);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   &:hover span {
     border-color: $colorCyan;
@@ -15,7 +19,6 @@
     left: 0;
     width: pxToRem($sizeLarge);
     height: pxToRem($sizeLarge);
-    visibility: hidden;
 
     &:checked + label span {
       border-color: $colorCyan;
@@ -28,6 +31,10 @@
         display: block;
         fill: $colorWhite;
       }
+    }
+
+    &:focus {
+      outline: none;
     }
 
     &:disabled + label {

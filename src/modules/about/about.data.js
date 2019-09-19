@@ -62,16 +62,10 @@ const data = _.merge({}, defaultData, {
         },
       ],
     },
-    carouselData: _.merge({}, defCarouselData.props, { title: false }),
-    linklist: {
-      list1: {
-        links: [
-          {
-            linkListItemTitle: 'Stellungsnahme des Direktors',
-            linkListItemHref: '/',
-          },
-        ],
-      },
+    carouselData: _.merge({}, defCarouselData.props, {title: false}),
+    link: {
+      linkListItemTitle: 'Stellungsnahme des Direktors',
+      linkListItemHref: '/',
     },
   },
 });
