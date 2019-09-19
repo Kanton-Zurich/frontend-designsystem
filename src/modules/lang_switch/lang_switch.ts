@@ -7,6 +7,8 @@
 import Module from '../../assets/js/helpers/module';
 
 class LangSwitch extends Module {
+  public placeholder: HTMLElement;
+
   public ui: {
     element: any,
     activeAnchor: any,

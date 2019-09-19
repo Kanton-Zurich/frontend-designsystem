@@ -60,6 +60,15 @@
     }
   }
 
+  &--fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    margin-left: 0;
+    z-index: 1;
+  }
+
   @include mq($from: medium) {
 
     &__content {
@@ -110,11 +119,13 @@
    */
 @each $key, $val in $tl-color-variations {
   .#{$key} {
-    .atm-anchorlink--active {
-      color: #{$val};
+    .mdl-lang-switch {
+      .atm-anchorlink--active {
+        color: #{$val};
 
-      &:after {
-        background-color: #{$val};
+        &:after {
+          background-color: #{$val};
+        }
       }
     }
   }

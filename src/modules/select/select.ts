@@ -131,7 +131,7 @@ class Select extends Module {
     this.eventDelegate
       // ------------------------------------------------------------
       // On Click dropdown item
-      .on('mouseup', this.options.domSelectors.inputItems, () => {
+      .on('mouseup', this.options.domSelectors.inputItems, (event) => {
         if (!this.isMultiSelect) {
           if (this.isFirefox) {
             setTimeout((() => {
@@ -225,10 +225,6 @@ class Select extends Module {
       // On value of select changed
       .on(Select.events.valueChanged, this.onValueChanged.bind(this))
       .on(Select.events.setValue, this.onSetValue.bind(this));
-
-    if (this.usedAnchors) {
-    }
-
     // ------------------------------------------------------------
     // watch select items for status change and update style
     this.ui.inputItems.forEach((item, index) => {
