@@ -13,18 +13,19 @@
       <div class="mdl-locations__sidebar-wrapper cell medium-offset-1">
         <div class="mdl-locations__sidebar" data-locations="sidebar">
           <div class="mdl-locations__filter">
-              <div class="mdl-locations__filter_head">
-                {{> "atoms/form_input/form_input" locationsFormInput }}
-                {{> "atoms/button/button" toggleListBtn }}
-              </div>
+            <div class="mdl-locations__filter_head">
+              {{> "atoms/form_input/form_input" locationsFormInput }}
+              {{> "atoms/button/button" toggleListBtn }}
+            </div>
+
+            <div class="mdl-locations__filter_empty">
+                <strong>Keine PLZ / Ort gefunden</strong>
+                {{> "atoms/text_link/text_link" textLinkNoResult }}
+                <template data-locations="emptyNoteTextTemplate">
+                    {{textLinkNoResult.text}}
+                </template>
+            </div>
             {{> "modules/linklist/linklist" locationsList}}
-              <div class="mdl-locations__filter_empty">
-                  <strong>Keine PLZ / Ort gefunden</strong>
-                  {{> "atoms/text_link/text_link" textLinkNoResult }}
-                  <template data-locations="emptyNoteTextTemplate">
-                      {{textLinkNoResult.text}}
-                  </template>
-              </div>
           </div>
           <div class="mdl-locations__details">
               <div class="mdl-locations__details_head">
