@@ -174,6 +174,8 @@ class Select extends Module {
         if (event.key === 'Tab') {
           if (event.shiftKey) {
             this.closeDropdown(true);
+          } else {
+            this.updateFlyingFocus();
           }
         }
       })
@@ -252,6 +254,12 @@ class Select extends Module {
     // -------------------------------
     // Observe inputs and update values -
     if (this.ui.filter) {
+      this.ui.filter.addEventListener('keydown', (event) => {
+        this.updateFlyingFocus();
+        if(event.key === 'Enter') {
+          event.preventDefault();
+        }
+      });
       this.watch(this.ui.filter, 'value', debounce((key, before, after) => { // eslint-disable-line
         this.ui.items.forEach((li) => {
           const searchString = after.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
@@ -414,6 +422,8 @@ class Select extends Module {
             this.ui.trigger.focus();
           }
         }, this.options.dropdownDelay);
+      } else {
+        this.updateFlyingFocus();
       }
       this.emitClose();
     }
