@@ -1,0 +1,60 @@
+.noUi-target {
+
+  .noUi-handle {
+    border: 2px solid $colorBlack40;
+    width: pxToRem($sizeBig);
+    height: pxToRem($sizeBig);
+    top: -$sizeRegular;
+    border-radius: 50%;
+    outline: 0;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
+
+  .noUi-pips {
+    height: auto;
+  }
+
+  .noUi-tooltip {
+    font-weight: $fontWeightBlack;
+    font-size: pxToRem($sizeFontTiny);
+    line-height: $sizeLineHeightBase;
+    padding: 0;
+    border: none;
+  }
+
+  .noUi-connects {
+    border-radius: pxToRem($sizeSmallRegular);
+  }
+
+  .noUi-connect {
+    background: $colorCyan;
+  }
+
+  .noUi-pips-horizontal {
+    padding: 0;
+  }
+
+  .noUi-connects,
+  .noUi-marker {
+    background-color: $colorBlack10;
+  }
+
+  .noUi-marker {
+    height: pxToRem($sizeTiny);
+    border-radius: 50%;
+  }
+
+  .noUi-value {
+    font-size: $sizeFontTiny;
+    line-height: $sizeLineHeightBase;
+    color: $colorBlack60;
+  }
+}

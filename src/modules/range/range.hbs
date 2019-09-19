@@ -1,0 +1,18 @@
+<div class="mdl-range{{#if withTickmarks}} mdl-range--tickmarks{{/if}}{{#if withLabels}} mdl-range--only-labels{{/if}}" data-init="range">
+  <label class="mdl-range__label">
+      {{rangelabel}}
+    <div class="mdl-range__slider"{{#if rangeMinValue}} data-minvalue="{{rangeMinValue}}"{{/if}}{{#if rangeMaxValue}}
+         data-maxvalue="{{rangeMaxValue}}"{{/if}}{{#if rangeHandlePosOne}}
+         data-handleoneposition="{{rangeHandlePosOne}}"{{/if}}{{#if rangeHandlePosTwo}}
+         data-handletwoposition="{{rangeHandlePosTwo}}"{{/if}}{{#if rangeSteps}}
+         data-rangesteps="{{rangeSteps}}"{{/if}}{{#if rangeTooltip.suffix}}
+         data-tooltipsuffix="{{rangeTooltip.suffix}}"{{/if}}
+      {{#if rangeTooltip.decimals}} data-tooltipdecimals="{{rangeTooltip.decimals}}"{{/if}}{{#if rangeTooltip.thousand}}
+         data-tooltipthousand="{{rangeTooltip.thousand}}"{{/if}}{{#if rangeTickmark.mode}}
+         data-tickmarkmode="{{rangeTickmark.mode}}"{{/if}}{{#if rangeTickmark.values}}
+         data-tickmarkvalues="{{rangeTickmark.values}}"{{/if}}{{#if rangeTickmark.density}}
+         data-tickmarkdensity="{{rangeTickmark.density}}"{{/if}}>
+    </div>
+    <input type="hidden" class="mdl-range__input visuallyhidden">
+  </label>
+</div>
