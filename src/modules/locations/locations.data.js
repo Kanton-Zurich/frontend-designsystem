@@ -7,6 +7,103 @@ const textLinkDefaultData = require('../../atoms/text_link/text_link.data').vari
 const inputClearButtonSmallWithIconData = require('../../atoms/form_input/form_input.data').variants.clearButtonSmallWithIcon.props;
 const locationContactDefault = require('../../modules/contact/contact.data').variants.location.props;
 
+const locationsAsListItemLinks = [
+  {
+    linkListItemIsLocation: true,
+    linkListItemDistance: '2,0 km',
+    linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
+    linkListItemLabel: 'Uetlibergstrasse 301, 8036 Zürich',
+    domSelector: 'data-locations="listItem"',
+    linkListItemHref: false,
+  }, {
+    linkListItemIsLocation: true,
+    linkListItemDistance: '6,4 km',
+    linkListItemTitle: 'Strassenverkehrsamt Bassersdorf',
+    linkListItemLabel: 'Grindelstrasse 22, 8303 Bassersdorf',
+    domSelector: 'data-locations="listItem"',
+    linkListItemHref: false,
+  }, {
+    linkListItemIsLocation: true,
+    linkListItemDistance: '6,7 km',
+    linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Regensdorf',
+    linkListItemLabel: 'Riedthofstrasse 192, 8105 Regensdorf',
+    domSelector: 'data-locations="listItem"',
+    linkListItemHref: false,
+  }, {
+    linkListItemIsLocation: true,
+    linkListItemDistance: '7,5 km',
+    linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
+    linkListItemLabel: 'Taggenbergstrasse 1, 8408 Winterthur',
+    domSelector: 'data-locations="listItem"',
+    linkListItemHref: false,
+  }, {
+    linkListItemIsLocation: true,
+    linkListItemDistance: '17,4 km',
+    linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Bülach',
+    linkListItemLabel: 'Schützenmatt Straße 120, 8180 Bülach',
+    domSelector: 'data-locations="listItem"',
+    linkListItemHref: false,
+  }, {
+    linkListItemIsLocation: true,
+    linkListItemDistance: '21,9 km',
+    linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Schifffahrtskontrolle',
+    linkListItemLabel: 'Seestrasse 87, 8942 Oberrieden',
+    domSelector: 'data-locations="listItem"',
+    linkListItemHref: false,
+  },
+];
+const locationsAsContacts = [
+  _.merge({}, locationContactDefault, {
+    contactSubtitle: 'Strassenverkehrsamt Kanton Zürich',
+    contactAddress: {
+      street: 'Uetlibergstrasse 301',
+      zip: '8036',
+      city: 'Zürich',
+    },
+  }),
+  _.merge({}, locationContactDefault, {
+    contactSubtitle: 'Strassenverkehrsamt Bassersdorf',
+    contactAddress: {
+      street: 'Grindelstrasse 22',
+      zip: '8303',
+      city: 'Bassersdorf',
+    },
+  }),
+  _.merge({}, locationContactDefault, {
+    contactSubtitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Regensdorf',
+    contactAddress: {
+      street: 'Riedthofstrasse 192',
+      name: 'Postfach 420',
+      zip: '8105',
+      city: 'Regensdorf',
+    },
+  }),
+  _.merge({}, locationContactDefault, {
+    contactSubtitle: 'Strassenverkehrsamt Kanton Zürich',
+    contactAddress: {
+      street: 'Taggenbergstrasse 1',
+      zip: '8408',
+      city: 'Winterthur',
+    },
+  }),
+  _.merge({}, locationContactDefault, {
+    contactSubtitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Bülach',
+    contactAddress: {
+      street: 'Schützenmatt Straße 120',
+      zip: '8180',
+      city: 'Bülach',
+    },
+  }),
+  _.merge({}, locationContactDefault, {
+    contactSubtitle: 'Strassenverkehrsamt Kanton Zürich - Schifffahrtskontrolle',
+    contactAddress: {
+      street: 'Seestrasse 87',
+      zip: '8942',
+      city: 'Oberrieden',
+    },
+  }),
+];
+
 const template = dataHelper.getFileContent('locations.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -26,51 +123,7 @@ const data = _.merge({}, defaultData, {
     }),
     locationsList: {
       hasTitle: false,
-      links: [
-        {
-          linkListItemIsLocation: true,
-          linkListItemDistance: '2,0 km',
-          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
-          linkListItemLabel: 'Uetlibergstrasse 301, 8036 Zürich',
-          domSelector: 'data-locations="listItem"',
-          linkListItemHref: false,
-        }, {
-          linkListItemIsLocation: true,
-          linkListItemDistance: '6,4 km',
-          linkListItemTitle: 'Strassenverkehrsamt Bassersdorf',
-          linkListItemLabel: 'Grindelstrasse 22, 8303 Bassersdorf',
-          domSelector: 'data-locations="listItem"',
-          linkListItemHref: false,
-        }, {
-          linkListItemIsLocation: true,
-          linkListItemDistance: '6,7 km',
-          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Regensdorf',
-          linkListItemLabel: 'Riedthofstrasse 192, 8105 Regensdorf',
-          domSelector: 'data-locations="listItem"',
-          linkListItemHref: false,
-        }, {
-          linkListItemIsLocation: true,
-          linkListItemDistance: '7,5 km',
-          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
-          linkListItemLabel: 'Taggenbergstrasse 1, 8408 Winterthur',
-          domSelector: 'data-locations="listItem"',
-          linkListItemHref: false,
-        }, {
-          linkListItemIsLocation: true,
-          linkListItemDistance: '17,4 km',
-          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Bülach',
-          linkListItemLabel: 'Schützenmatt Straße 120, 8180 Bülach',
-          domSelector: 'data-locations="listItem"',
-          linkListItemHref: false,
-        }, {
-          linkListItemIsLocation: true,
-          linkListItemDistance: '21,9 km',
-          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Schifffahrtskontrolle',
-          linkListItemLabel: 'Seestrasse 87, 8942 Oberrieden',
-          domSelector: 'data-locations="listItem"',
-          linkListItemHref: false,
-        },
-      ],
+      links: [],
     },
     backBtn: _.merge({}, buttonDefaultData, {
       isSecondary: true,
@@ -93,57 +146,7 @@ const data = _.merge({}, defaultData, {
       text: 'anzeigen',
       additionalAttribute: 'data-locations="toggleList"',
     }),
-    locationContacts: [
-      _.merge({}, locationContactDefault, {
-        contactSubtitle: 'Strassenverkehrsamt Kanton Zürich',
-        contactAddress: {
-          street: 'Uetlibergstrasse 301',
-          zip: '8036',
-          city: 'Zürich',
-        },
-      }),
-      _.merge({}, locationContactDefault, {
-        contactSubtitle: 'Strassenverkehrsamt Bassersdorf',
-        contactAddress: {
-          street: 'Grindelstrasse 22',
-          zip: '8303',
-          city: 'Bassersdorf',
-        },
-      }),
-      _.merge({}, locationContactDefault, {
-        contactSubtitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Regensdorf',
-        contactAddress: {
-          street: 'Riedthofstrasse 192',
-          name: 'Postfach 420',
-          zip: '8105',
-          city: 'Regensdorf',
-        },
-      }),
-      _.merge({}, locationContactDefault, {
-        contactSubtitle: 'Strassenverkehrsamt Kanton Zürich',
-        contactAddress: {
-          street: 'Taggenbergstrasse 1',
-          zip: '8408',
-          city: 'Winterthur',
-        },
-      }),
-      _.merge({}, locationContactDefault, {
-        contactSubtitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Bülach',
-        contactAddress: {
-          street: 'Schützenmatt Straße 120',
-          zip: '8180',
-          city: 'Bülach',
-        },
-      }),
-      _.merge({}, locationContactDefault, {
-        contactSubtitle: 'Strassenverkehrsamt Kanton Zürich - Schifffahrtskontrolle',
-        contactAddress: {
-          street: 'Seestrasse 87',
-          zip: '8942',
-          city: 'Oberrieden',
-        },
-      }),
-    ],
+    locationContacts: [],
   },
 });
 const variants = _.mapValues({
@@ -151,6 +154,24 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+    props: {
+      locationsList: {
+        links: locationsAsListItemLinks,
+      },
+      locationContacts: locationsAsContacts,
+    },
+  },
+  singleLocation: {
+    meta: {
+      title: 'Only one',
+      desc: 'Shows module with only one single location entry.',
+    },
+    props: {
+      locationsList: {
+        links: [locationsAsListItemLinks[0]],
+      },
+      locationContacts: [locationsAsContacts[0]],
     },
   },
 }, (variant) => {

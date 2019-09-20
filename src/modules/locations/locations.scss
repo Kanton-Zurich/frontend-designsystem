@@ -155,6 +155,26 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
     }
   }
 
+  &__sidebar--single-location {
+    left: -100%;
+
+    .mdl-locations__details {
+      &_head {
+        display: none;
+      }
+
+      &_location {
+        margin-top: pxToRem($sizeRegular);
+        max-height: 100%;
+        height: auto;
+
+        &.show {
+          max-height: 100%;
+        }
+      }
+    }
+  }
+
   @include mq($to: medium) {
     .mdl-locations {
       &__wrapper {
@@ -170,8 +190,8 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
         max-width: initial;
         right: pxToRem($sizeBig);
         left: 16.6667%;
+        bottom: unset;
         margin-left: pxToRem($sizeTiny);
-        bottom: inherit;
       }
 
       &__sidebar {
@@ -221,6 +241,49 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
           padding: 0;
         }
       }
+
+      &__sidebar--single-location {
+        left: 0;
+
+        &.show-details {
+          left: -100%;
+        }
+
+        .mdl-locations__details {
+          &_head {
+            display: block;
+          }
+
+          &_location {
+            margin-top: pxToRem($sideBarHeadHeight - $sizeRegular);
+            max-height: 0;
+
+            &.show {
+              display: block;
+              max-height: 100%;
+            }
+          }
+        }
+
+        .mdl-locations__filter {
+          &_head {
+            display: none;
+          }
+
+          .mdl-linklist {
+            margin-top: pxToRem($sizeRegular);
+            max-height: 100%;
+
+            .atm-linklist_item {
+              border: none;
+
+              &:after {
+                display: none;
+              }
+            }
+          }
+        }
+      }
     }
   }
   @include mq($to: small) {
@@ -262,10 +325,11 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
         padding: pxToRem($sizeSmallRegular);
 
         &_head {
-          padding-left: pxToRem($sizeSmallRegular);
+          padding-left: 0;
         }
 
         &_location {
+          padding: 0;
 
           &.show {
             margin-top: pxToRem(2 * $sizeSmallRegular + $sizeSmallHuge);

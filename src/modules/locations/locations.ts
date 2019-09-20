@@ -13,7 +13,7 @@ class Locations extends Module {
     sidebar: HTMLDivElement,
     backBtn: HTMLButtonElement,
     listItems: HTMLLIElement[],
-    detailNodes: HTMLDivElement[],
+    detailNodes: HTMLDivElement | HTMLDivElement[],
     map: HTMLDivElement,
     toggleListBtn: HTMLButtonElement,
     emptyListHint: HTMLDivElement,
@@ -136,14 +136,23 @@ class Locations extends Module {
     if (indexString) {
       indexToShow = Number.parseInt(indexString, 10);
     }
-    this.ui.detailNodes.forEach((detailsContainer, i) => {
-      this.log('ForEach Detail: ', i);
-      if (i === indexToShow) {
+    if (this.ui.detailNodes[0]) {
+      (<HTMLDivElement[]> this.ui.detailNodes).forEach((detailsContainer, i) => {
+        this.log('ForEach Detail: ', i);
+        if (i === indexToShow) {
+          detailsContainer.classList.add('show');
+        } else {
+          detailsContainer.classList.remove('show');
+        }
+      });
+    } else {
+      const detailsContainer = <HTMLDivElement> this.ui.detailNodes;
+      if (indexToShow === 0) {
         detailsContainer.classList.add('show');
       } else {
         detailsContainer.classList.remove('show');
       }
-    });
+    }
   }
 
   private highlightInMap(indexString?: string, force?: boolean): void {
