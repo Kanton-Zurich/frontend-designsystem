@@ -45,6 +45,7 @@ class Locations extends Module {
     super($element, defaultData, defaultOptions, data, options);
 
     this.initUi();
+    this.initWatchers();
     this.initEventListeners();
   }
 
@@ -55,18 +56,19 @@ class Locations extends Module {
   }
 
   /**
+   *Initializing the watchers
+   *
+   * @memberof Carousel
+   */
+  initWatchers() {
+    this.watch(this.ui.filterInput, 'value', this.onFilterValueChange.bind(this));
+  }
+
+  /**
    * Event listeners initialisation
    */
   initEventListeners() {
     this.eventDelegate
-      .on('keyup', this.options.domSelectors.filterInput, (event, target) => {
-        this.log('Filter KeyUp Event', event);
-        const sidebarClasses = this.ui.sidebar.classList;
-        if (!sidebarClasses.contains('opened')) {
-          sidebarClasses.add('opened');
-        }
-        this.filterListItemsByText(target.value);
-      })
       .on('click', this.options.domSelectors.listItems, (event, target) => {
         this.log('ListItem Click Event', event, target);
         this.toggleLocationDetails(target);
@@ -132,6 +134,15 @@ class Locations extends Module {
 
     this.showLocationDetailsForIndex(clickedItemIndex);
     this.highlightInMap(clickedItemIndex, true);
+  }
+
+  private onFilterValueChange(propName, valueBefore, valueAfter) {
+    this.log('Filter Value changed', valueAfter);
+    const sidebarClasses = this.ui.sidebar.classList;
+    if (!sidebarClasses.contains('opened')) {
+      sidebarClasses.add('opened');
+    }
+    this.filterListItemsByText(valueAfter);
   }
 
   private filterListItemsByText(filterText: string): void {
