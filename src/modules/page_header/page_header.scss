@@ -156,6 +156,12 @@ $pageHeaderCurves: (
         position: relative;
       }
     }
+
+    .mdl-breadcrumb--back-only {
+      @include mq($to: small) {
+        margin-left: pxToRem(-1 * $sizeLarge);
+      }
+    }
   }
 
   &__breadcrumb-angle,
