@@ -169,9 +169,8 @@ class Module {
     const url = window.location.href;
     const paramList = url.split('?').length > 1 ? url.split('?')[1].split('&') : null;
     if (paramList) {
-      result = paramList.filter( paramString => paramString.substr(0, param.length) === param
-      ).map(item =>
-        item.split('=')[1].replace('#', ''));
+      result = paramList.filter(paramString => paramString.substr(0, param.length) === param)
+        .map(item => item.split('=')[1].replace('#', ''));
       if (result.length > 0 && singleValue) {
         result = result[0].replace('#', '');
       }
