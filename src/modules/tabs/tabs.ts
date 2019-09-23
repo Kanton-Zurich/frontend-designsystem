@@ -5,18 +5,26 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import Impetus from 'impetus';
 
 class Tabs extends Module {
+  public ui: {
+    element: HTMLDivElement,
+    controls: HTMLDivElement,
+    controlButtons: HTMLUListElement,
+  };
   private tabs: HTMLElement[];
   private panels: HTMLElement[];
   private keys: any;
   private direction: any;
+  private impetus: any;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
     const defaultOptions = {
       domSelectors: {
-        // item: '[data-${{{className}}.name}="item"]'
+        controls: '.mdl-tabs__controls',
+        controlButtons: '.mdl-tabs__controls .mdl-button_group',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -52,6 +60,32 @@ class Tabs extends Module {
         this.keyupEventListener(event);
       });
     });
+    // swipe
+    this.updateSwipeFunction(0);
+    this.impetus = new Impetus({
+      source: this.ui.controls,
+      boundX: [-this.ui.controls.getBoundingClientRect().width, 0],
+      bounce: false,
+      multiplier: 2,
+      friction: 0,
+      update: this.updateSwipeFunction.bind(this),
+    });
+  }
+
+  private updateSwipeFunction(x) {
+    this.ui.controls.scrollLeft = Math.abs(x);
+    const clientWidth = this.ui.controlButtons.getBoundingClientRect().width;
+    const { width } = this.ui.controls.getBoundingClientRect();
+    this.ui.controls.classList.remove('mdl-tabs__controls-scroll-right', 'mdl-tabs__controls-scroll-left');
+    if (clientWidth > width) {
+      const scrollValue = this.ui.controls.scrollLeft / (clientWidth - width);
+      if (scrollValue > 0.05) { // eslint-disable-line
+        this.ui.controls.classList.add('mdl-tabs__controls-scroll-right');
+      }
+      if (scrollValue < 0.95) { // eslint-disable-line
+        this.ui.controls.classList.add('mdl-tabs__controls-scroll-left');
+      }
+    }
   }
 
   private clickEventListener(event) {
