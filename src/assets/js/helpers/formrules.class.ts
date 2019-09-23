@@ -1,3 +1,4 @@
+import { watch } from 'wrist';
 
 class FormRules {
   private ui: {
@@ -86,9 +87,15 @@ class FormRules {
         const fields = this.ui.form.querySelectorAll(querySelector);
 
         fields.forEach((field) => {
-          field.addEventListener('change', () => {
-            this.checkRule(ruleIdx);
-          });
+          if (field.hasAttribute('data-select-option')) {
+            watch(field, 'checked', () => {
+              this.checkRule(ruleIdx);
+            });
+          } else {
+            field.addEventListener('change', () => {
+              this.checkRule(ruleIdx);
+            });
+          }
         });
       });
     });
