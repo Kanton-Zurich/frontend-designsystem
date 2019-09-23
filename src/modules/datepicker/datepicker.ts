@@ -59,7 +59,6 @@ class Datepicker extends Module {
     element: any,
     trigger: any,
     container: any,
-    mobileDebug: any,
   };
 
   public options: {
@@ -79,7 +78,6 @@ class Datepicker extends Module {
       domSelectors: {
         trigger: '.atm-form_input input',
         container: '.mdl-datepicker__container',
-        mobileDebug: '#debug',
       },
       stateClasses: {
         // activated: 'is-activated'

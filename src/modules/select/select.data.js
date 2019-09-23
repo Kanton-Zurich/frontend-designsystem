@@ -78,6 +78,7 @@ const variants = _.mapValues({
       filterInputData: _.merge({}, defFilterInputData.props, {
         label: 'Nach Stichwort filtern',
         isSmall: true,
+        autocompleteOff: true,
         additionalFunctionality: {
           icon: 'clear',
           buttontype: 'clear',
@@ -138,6 +139,7 @@ const variants = _.mapValues({
       filterInputData: _.merge({}, defFilterInputData.props, {
         label: 'Nach Stichwort filtern',
         isSmall: true,
+        autocompleteOff: true,
         additionalFunctionality: {
           icon: 'clear',
           buttontype: 'clear',

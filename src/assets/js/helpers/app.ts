@@ -32,6 +32,7 @@ import FileUpload from '../../../modules/file_upload/file_upload';
 import Select from '../../../modules/select/select';
 import ServiceWrapper from '../../../modules/service_wrapper/service_wrapper';
 import Pagination from '../../../modules/pagination/pagination';
+import Range from '../../../modules/range/range';
 import FilterPills from '../../../modules/filter_pills/filter_pills';
 import NewsFilterMobile from '../../../modules/news_filter_mobile/news_filter_mobile';
 import NewsOverview from '../../../modules/news_overview/news_overview';
@@ -76,6 +77,7 @@ class App {
     this.modules.datepicker = Datepicker;
     this.modules.serviceWrapper = ServiceWrapper;
     this.modules.pagination = Pagination;
+    this.modules.range = Range;
     this.modules.filterPills = FilterPills;
     this.modules.newsFilterMobile = NewsFilterMobile;
     this.modules.newsOverview = NewsOverview;
