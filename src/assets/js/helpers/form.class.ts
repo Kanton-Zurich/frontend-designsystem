@@ -123,6 +123,7 @@ class Form {
   clearField(event, delegate) {
     const inputElement = delegate.parentElement.firstElementChild;
     inputElement.value = '';
+    inputElement.focus();
   }
 
   validateField(field) {
