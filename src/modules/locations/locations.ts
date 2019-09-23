@@ -69,11 +69,14 @@ class Locations extends Module {
       })
       .on('click', this.options.domSelectors.listItems, (event, target) => {
         this.log('ListItem Click Event', event, target);
-        const clickedItemIndex = target.parentElement.getAttribute('data-linklist-itemindex');
-        this.log('Clicked item index: ', clickedItemIndex);
-        this.showLocationDetailsForIndex(clickedItemIndex);
-        this.ui.sidebar.classList.add('show-details');
-        this.highlightInMap(clickedItemIndex, true);
+        this.toggleLocationDetails(target);
+      })
+      .on('keyup', this.options.domSelectors.listItems, (event, target) => {
+        const keyEvent = event as KeyboardEvent;
+        if (keyEvent.key === 'Enter') {
+          this.log('ListItem Keypress "Enter"', event, target);
+          this.toggleLocationDetails(target);
+        }
       })
       .on('mouseover', this.options.domSelectors.listItems, (event, target) => {
         this.log('ListItem MouseOver Event', event, target);
@@ -91,6 +94,20 @@ class Locations extends Module {
         this.ui.sidebar.classList.remove('show-details');
         this.highlightInMap('', true);
       })
+      .on('keyup', this.options.domSelectors.backBtn, (event, target) => {
+        const keyEvent = event as KeyboardEvent;
+        if (keyEvent.key === 'Escape') {
+          this.log('BackBtn Keypress "Escape"', event, target);
+          this.toggleLocationDetails();
+        }
+      })
+      .on('keyup', this.options.domSelectors.detailNodes, (event, target) => {
+        const keyEvent = event as KeyboardEvent;
+        if (keyEvent.key === 'Escape') {
+          this.log('DetaiNodes Keypress "Escape"', event, target);
+          this.toggleLocationDetails();
+        }
+      })
       .on('click', this.options.domSelectors.toggleListBtn, (event, target) => {
         this.log('ToggleListBtn Click: ', event, target);
         const sidebarClasses = this.ui.sidebar.classList;
@@ -100,6 +117,21 @@ class Locations extends Module {
           sidebarClasses.add('opened');
         }
       });
+  }
+
+  private toggleLocationDetails(selectEventTarget?: HTMLElement): void {
+    let clickedItemIndex: string;
+    if (selectEventTarget) {
+      clickedItemIndex = selectEventTarget.parentElement.getAttribute('data-linklist-itemindex');
+      this.log('Clicked item index: ', clickedItemIndex);
+      this.ui.sidebar.classList.add('show-details');
+    } else {
+      this.log('Unselect location');
+      this.ui.sidebar.classList.remove('show-details');
+    }
+
+    this.showLocationDetailsForIndex(clickedItemIndex);
+    this.highlightInMap(clickedItemIndex, true);
   }
 
   private filterListItemsByText(filterText: string): void {
@@ -152,6 +184,14 @@ class Locations extends Module {
       } else {
         detailsContainer.classList.remove('show');
       }
+    }
+
+    if (indexToShow > -1) {
+      setTimeout(() => {
+        this.ui.backBtn.focus();
+      }, 0);
+    } else {
+      this.ui.filterInput.focus();
     }
   }
 

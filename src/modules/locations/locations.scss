@@ -60,11 +60,15 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
     position: relative;
     width: 200%;
     height: 100%;
-    left: 0;
-    transition: left 400ms ease-in-out;
+    margin-left: 0;
+    transition: margin-left 400ms ease-in-out;
 
     &.show-details {
-      left: -100%;
+      margin-left: -100%;
+
+      .mdl-locations__details {
+        display: block;
+      }
     }
 
     &.empty {
@@ -131,6 +135,7 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
     height: 100%;
     float: right;
     overflow: scroll;
+    display: none;
 
     &_head {
       @extend .sidebarhead;
@@ -142,9 +147,11 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
       padding: 0 pxToRem($sizeRegular);
       margin-top: 0;
       max-height: 0;
+      display: none;
       transition: max-height, margin-top 600ms, 150ms ease-out;
 
       &.show {
+        display: block;
         margin-top: pxToRem($sideBarHeadHeight);
         max-height: 100%;
       }
@@ -159,6 +166,8 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
     left: -100%;
 
     .mdl-locations__details {
+      display: block;
+
       &_head {
         display: none;
       }
@@ -166,6 +175,7 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
       &_location {
         margin-top: pxToRem($sizeRegular);
         max-height: 100%;
+        display: block;
         height: auto;
 
         &.show {
