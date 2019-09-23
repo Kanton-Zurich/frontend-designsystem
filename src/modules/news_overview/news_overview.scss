@@ -65,7 +65,6 @@
         height: auto;
       }
     }
-
     @include mq($from: tiny, $to: small) {
       display: block;
       margin-left: 0;
