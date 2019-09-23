@@ -107,6 +107,26 @@ const variants = _.mapValues({
       },
     },
   },
+  clearButtonWithIcon: {
+    meta: {
+      title: 'Textfeld mit löschen (und zusätzlichem Icon)',
+      desc: 'Input mit floating Label, validierung und zurücksetzen funktionalität und zusätzlichem Icon.',
+    },
+    props: {
+      type: 'text',
+      label: 'Filter',
+      isFloatingLabel: true,
+      iconOnly: {
+        icon: 'search',
+      },
+      uuid: _.uniqueId('float_input_clear'),
+      additionalFunctionality: {
+        icon: 'exit',
+        buttontype: 'clear',
+        ariaText: 'Lösche Eingabe',
+      },
+    },
+  },
   clearButtonSmallWithIcon: {
     meta: {
       title: 'Kleines Textfeld mit löschen (und zusätzlichem Icon)',
