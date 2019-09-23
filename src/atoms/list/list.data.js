@@ -18,16 +18,6 @@ const data = _.merge({}, defaultData, {
     validation: {
       isRequired: true,
     },
-    selectOptions: [
-      { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
-      { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
-      { value: 'sich', label: 'Sicherheit & Justiz', id: _.uniqueId('option-item') },
-      { value: 'so', label: 'Soziales', id: _.uniqueId('option-item') },
-      { value: 'st', label: 'Steuern', id: _.uniqueId('option-item') },
-      { value: 'umte', label: 'Umwelt & Tier', id: _.uniqueId('option-item') },
-      { value: 'ge', label: 'Gemeinschaften', id: _.uniqueId('option-item') },
-      { value: 'scer', label: 'Schulen & Erziehung', id: _.uniqueId('option-item') },
-    ],
   },
 });
 const variants = _.mapValues({
@@ -39,6 +29,16 @@ const variants = _.mapValues({
     props: {
       groupPostfix: 'defaultSingle',
       isSingleSelect: true,
+      selectOptions: [
+        { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
+        { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
+        { value: 'sich', label: 'Sicherheit & Justiz', id: _.uniqueId('option-item') },
+        { value: 'so', label: 'Soziales', id: _.uniqueId('option-item') },
+        { value: 'st', label: 'Steuern', id: _.uniqueId('option-item') },
+        { value: 'umte', label: 'Umwelt & Tier', id: _.uniqueId('option-item') },
+        { value: 'ge', label: 'Gemeinschaften', id: _.uniqueId('option-item') },
+        { value: 'scer', label: 'Schulen & Erziehung', id: _.uniqueId('option-item') },
+      ],
     },
   },
   defaultMulti: {

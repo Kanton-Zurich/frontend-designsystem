@@ -27,13 +27,14 @@ $gapSize: pxToRem($sizeRegular);
     }
 
     &:not(:last-of-type) {
-      button {
+      .form__duplicator {
         display: none;
       }
     }
 
     @include mq($to: small) {
       flex-direction: column;
+      align-items: stretch;
     }
 
     &--duplicatable {
@@ -72,6 +73,7 @@ $gapSize: pxToRem($sizeRegular);
 
     &:first-child:last-child {
       flex-basis: 100%;
+      min-width: 100%;
     }
 
     &--small {

@@ -22,6 +22,8 @@ const selectData = require('../select/select.data');
 const datepickerHBS = dataHelper.getFileContent('../datepicker/datepicker.hbs');
 const datepickerData = require('../datepicker/datepicker.data');
 
+const listDemoData = require('../../atoms/list/list.data');
+
 const duplicateGroup = {
   isDuplicatable: true,
   duplicateLabels: {
@@ -373,6 +375,66 @@ const variants = _.mapValues({
           },
         ],
       }],
+    },
+  },
+  withRules: {
+    meta: {
+      title: 'Formular mit Logik (CZHDEV-1180)',
+      desc: 'Formular in dem Felder in gewissen Abhängigkeiten zu einander stehen',
+    },
+    props: {
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.props,
+                    {
+                      listData: _.merge({}, listDemoData.props, {
+                        isSingleSelect: true,
+                        selectOptions: [
+                          { value: 'CH', label: 'Schweiz', id: _.uniqueId('nationality') },
+                          { value: 'DE', label: 'Deutschland', id: _.uniqueId('nationality') },
+                        ],
+                      }),
+                    })),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Bürgerort',
+                      name: 'place_of_citizenship',
+                      uuid: 'place_of_citizenship',
+                      validation: {
+                        isRequired: true,
+                      },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'step_field',
+                              equals: true,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                      ]),
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
   },
 }, (variant) => {
