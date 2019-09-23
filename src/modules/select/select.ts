@@ -259,7 +259,6 @@ class Select extends Module {
     // Observe inputs and update values -
     if (this.ui.filter) {
       this.ui.filter.addEventListener('keydown', (event) => {
-        setTimeout(() => {console.log(document.activeElement);}, 500);
         this.updateFlyingFocus();
         if (event.key === 'Enter') {
           event.preventDefault();
