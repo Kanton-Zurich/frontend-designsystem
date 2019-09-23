@@ -115,8 +115,6 @@ class FormRules {
       }
     });
 
-    console.log(conditionsMet);
-
     this.doAction(rule.action, conditionsMet);
   }
 }

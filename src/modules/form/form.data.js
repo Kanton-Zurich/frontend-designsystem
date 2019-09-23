@@ -491,6 +491,55 @@ const variants = _.mapValues({
                 },
               ],
             },
+            {
+              fields: [
+                {
+                  isSmall: true,
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Nationalität',
+                    options: [
+                      () => handlebars.compile(checkboxHBS)(_.merge({},
+                        checkboxData.variants.default.props,
+                        {
+                          label: 'Sind sie Ausländer/in?',
+                          groupName: 'nationality-3',
+                          id: 200,
+                          value: 'CH',
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Bürgerort',
+                      name: 'place_of_citizenship',
+                      uuid: 'place_of_citizenship',
+                      validation: {
+                        isRequired: true,
+                      },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-3',
+                              equals: true,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'hide',
+                        },
+                      ]),
+                    })),
+                },
+              ],
+            },
           ],
         },
       ],
