@@ -8,6 +8,9 @@
 // Reset / normalize styles
 @import '../../../node_modules/normalize.css/normalize';
 
+// Leaflet
+@import '../../../node_modules/leaflet/dist/leaflet';
+
 // Importing of XY-Grid
 @import '../../../node_modules/foundation-sites/scss/foundation';
 @import '../../../node_modules/flatpickr/dist/flatpickr';
@@ -112,6 +115,7 @@
 @import '../../modules/filter_pills/filter_pills';
 @import '../../modules/range/range';
 @import '../../modules/live_stream/live_stream';
+@import '../../modules/map_view/map_view';
 //*autoinsertmodule*
 
 @media print {

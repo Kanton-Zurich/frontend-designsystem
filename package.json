@@ -64,6 +64,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.3",
+    "@types/leaflet": "^1.5.1",
     "body-scroll-lock": "^2.6.1",
     "bows": "^1.7.0",
     "dom-delegate": "^2.2.0",
@@ -80,6 +81,7 @@
     "impetus": "^0.8.8",
     "jest": "^23.6.0",
     "jump.js": "^1.0.2",
+    "leaflet": "^1.5.1",
     "lodash": "^4.17.10",
     "mdn-polyfills": "^5.12.0",
     "merge-stream": "^1.0.1",

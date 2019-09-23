@@ -1,0 +1,14 @@
+.mdl-map_view {
+  border: 1px solid;
+  height: 800px;
+  width: 800px;
+  position: relative;
+
+  .mdl-map_view__container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
