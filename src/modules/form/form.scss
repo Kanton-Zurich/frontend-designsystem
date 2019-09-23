@@ -180,4 +180,10 @@ $gapSize: pxToRem($sizeRegular);
       }
     }
   }
+
+  &__element {
+    &--hidden-by-rule {
+      display: none;
+    }
+  }
 }

@@ -55,7 +55,8 @@ const data = _.merge({}, defaultData, {
     className: 'FormSection',
     jira: 'CZHDEV-850',
     documentation: dataHelper.getDocumentation('form.md'),
-    hideFromListing: true,
+    hideFromListing: false,
+    wrapInForm: true,
   },
   props: {
     sectionTitle: 'Persönliche Angaben',
@@ -393,6 +394,7 @@ const variants = _.mapValues({
                     selectData.props,
                     {
                       listData: _.merge({}, listDemoData.props, {
+                        groupPostfix: 'nationality',
                         isSingleSelect: true,
                         selectOptions: [
                           { value: 'CH', label: 'Schweiz', id: _.uniqueId('nationality') },
@@ -420,12 +422,69 @@ const variants = _.mapValues({
                         {
                           conditions: [
                             {
-                              field: 'step_field',
+                              field: 'group-nationality',
                               equals: true,
                               value: 'CH',
                             },
                           ],
                           action: 'show',
+                        },
+                      ]),
+                    })),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  isSmall: true,
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Nationalität',
+                    options: [
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Schweiz',
+                          groupName: 'nationality-2',
+                          id: 100,
+                          value: 'CH',
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Nicht Schweiz',
+                          groupName: 'nationality-2',
+                          id: 102,
+                          value: 'none',
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Bürgerort',
+                      name: 'place_of_citizenship',
+                      uuid: 'place_of_citizenship',
+                      validation: {
+                        isRequired: true,
+                      },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-2',
+                              equals: false,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'hide',
                         },
                       ]),
                     })),
