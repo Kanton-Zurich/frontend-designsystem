@@ -205,30 +205,31 @@ class Modal extends Module {
   }
 
   closeModal() {
-    document.documentElement.style.overflowY = 'initial';
-    this.ui.element.classList.add(this.options.stateClasses.transHide);
-    if (document.documentElement.scrollTo) {
-      document.documentElement.scrollTo(0, this.parentScrollPosition);
-    }
-    window.removeEventListener('keydown', this.closeOnEscapeFunction);
+    const multiplier = 2;
+
+    // Accessibility integrate the isolated
     this.isolatedElements.forEach((element) => {
       element.removeAttribute('aria-hidden');
     });
-    this.ui.element.setAttribute('aria-hidden', 'true');
 
-    window.dispatchEvent(new CustomEvent('Modal.closed'));
+    this.ui.element.classList.add(this.options.stateClasses.beforeHide);
 
+    document.documentElement.style.overflowY = 'auto';
+
+
+    // Modal.closed, should only fire after the timeout
+
+    // After the animation we can set the modal to display: none
     setTimeout(() => {
-      this.ui.element.classList.remove(this.options.stateClasses.show);
-      this.ui.element.classList.remove(this.options.stateClasses.transHide);
-      this.ui.element.style.display = 'none';
-      (<any>window).estatico.helpers.unwrapAccessibility(this.ui.element);
-      (<any>window).estatico.helpers.resetHiddenTabIndex();
-      const focusOrigin = document.querySelector(`[aria-controls="${this.ui.element.getAttribute('id')}"]`);
-      if (focusOrigin) {
-        (<any> focusOrigin).focus();
-      }
+      this.ui.element.classList.add(this.options.stateClasses.hide);
     }, this.options.transitionTime);
+    setTimeout(() => {
+      this.ui.element.classList.remove(this.options.stateClasses.beforeShow);
+      this.ui.element.classList.remove(this.options.stateClasses.beforeHide);
+      this.ui.element.classList.remove(this.options.stateClasses.hide);
+      this.ui.element.classList.remove(this.options.stateClasses.show);
+      window.dispatchEvent(new CustomEvent('Modal.closed'));
+    }, this.options.transitionTime * multiplier);
   }
 
   switchLeft() {
