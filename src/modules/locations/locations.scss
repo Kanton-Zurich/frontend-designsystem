@@ -46,7 +46,6 @@ $mapRatioSmall: 0.8;
   }
 }
 
-
 .mdl-locations {
   @include sizeCurve(margin-top margin-bottom, default, $locationsPaddingCurve);
 
@@ -213,6 +212,9 @@ $mapRatioSmall: 0.8;
   }
 
   @include mq($to: medium) {
+    .sidebarhead {
+      width: calc(50% - #{$sizeLarge});
+    }
 
     .mdl-locations {
       &__wrapper {
@@ -264,10 +266,10 @@ $mapRatioSmall: 0.8;
           .atm-button {
             display: block;
             position: absolute;
-            text-align: right;
+            text-align: center;
             right: pxToRem($sizeRegular);
             top: 50%;
-            margin-top: pxToRem(-$sizeLarge);
+            margin-top: pxToRem(-$sizeSmallHuge / 2 + $sizeMini);
 
             svg use {
               fill: $colorBlack60;
@@ -358,6 +360,8 @@ $mapRatioSmall: 0.8;
         padding: 0 pxToRem($sizeSmallRegular);
 
         &_head {
+          padding-right: pxToRem($sizeHuge);
+
           .atm-button {
             right: 0;
           }
