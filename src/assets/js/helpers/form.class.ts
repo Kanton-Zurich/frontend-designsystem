@@ -2,6 +2,7 @@ import { Delegate } from 'dom-delegate';
 import wrist from 'wrist';
 import { debounce } from 'lodash';
 import DuplicationElement from './duplication.class';
+import FormRules from './formrules.class';
 
 import namespace from './namespace';
 
@@ -20,6 +21,7 @@ class Form {
     duplicateSelector: string,
     selectOptionSelector: string,
     inputSelector: string,
+    rulesSelector: string,
   }
 
   private eventDelegate: any;
@@ -45,6 +47,7 @@ class Form {
       messageSelector: '[data-message]',
       selectOptionSelector: 'data-select-option',
       inputSelector: '[data-input]',
+      rulesSelector: '[data-rules]',
       messageClasses: {
         show: 'show',
       },
@@ -61,6 +64,9 @@ class Form {
 
     // Initialize duplication elements
     this.initDuplicationElements();
+
+    // Initialize rules
+    this.initRules();
   }
 
   addEventListeners() {
@@ -197,6 +203,14 @@ class Form {
       duplicatableElement.addEventListener(DuplicationElement.events.domReParsed, (event) => {
         this.addWatchers((<any>event).detail);
       });
+    });
+  }
+
+  initRules() {
+    const rulesElements = this.ui.element.querySelectorAll(this.options.rulesSelector);
+
+    rulesElements.forEach(($elementWithARule) => {
+      new FormRules($elementWithARule);
     });
   }
 }

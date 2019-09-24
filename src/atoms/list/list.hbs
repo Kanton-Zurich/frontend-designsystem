@@ -10,6 +10,7 @@
              {{#if id}}id="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-{{this.id}}"{{/if}}
              type="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}"
              value="{{{ this.value }}}" placeholder="{{{ this.label }}}"
+             class="visuallyhidden"
              data-select-option
              {{#if preSelected}} checked{{/if}}
              {{#if ../validation}}data-validation{{/if}}

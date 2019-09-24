@@ -15,8 +15,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('select.md'),
   },
   props: {
-    preview: true,
-    triggerInpuData: inputDemoData.variants.triggerDefault.props,
+    triggerInputData: inputDemoData.variants.triggerDefault.props,
   },
 });
 

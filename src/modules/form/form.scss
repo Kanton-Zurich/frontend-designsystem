@@ -73,6 +73,7 @@ $gapSize: pxToRem($sizeRegular);
 
     &:first-child:last-child {
       flex-basis: 100%;
+      min-width: 100%;
     }
 
     &--small {
@@ -177,6 +178,12 @@ $gapSize: pxToRem($sizeRegular);
       use {
         fill: $colorBlack;
       }
+    }
+  }
+
+  &__element {
+    &--hidden-by-rule {
+      display: none;
     }
   }
 }

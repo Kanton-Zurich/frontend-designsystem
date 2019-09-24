@@ -55,7 +55,6 @@ const data = _.merge({}, defaultData, {
     className: 'FormSection',
     jira: 'CZHDEV-850',
     documentation: dataHelper.getDocumentation('form.md'),
-    hideFromListing: true,
     wrapInForm: true,
   },
   props: {
@@ -376,6 +375,178 @@ const variants = _.mapValues({
           },
         ],
       }],
+    },
+  },
+  withRules: {
+    meta: {
+      title: 'Formular mit Logik (CZHDEV-1180)',
+      desc: 'Formular in dem Felder in gewissen Abhängigkeiten zu einander stehen',
+    },
+    props: {
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.props,
+                    {
+                      listData: _.merge({}, listDemoData.props, {
+                        groupPostfix: 'nationality',
+                        isSingleSelect: true,
+                        selectOptions: [
+                          { value: 'DE', label: 'Deutschland', id: _.uniqueId('nationality') },
+                          { value: 'FR', label: 'Frankreich', id: _.uniqueId('nationality') },
+                          { value: 'UK', label: 'Vereinigtes Königreich', id: _.uniqueId('nationality') },
+                          { value: 'LU', label: 'Luxemburg', id: _.uniqueId('nationality') },
+                          { value: 'BE', label: 'Belgien', id: _.uniqueId('nationality') },
+                          { value: 'NL', label: 'Niederlande', id: _.uniqueId('nationality') },
+                          { value: 'CH', label: 'Schweiz', id: _.uniqueId('nationality') },
+                        ],
+                      }),
+                    })),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Bürgerort',
+                      name: 'place_of_citizenship',
+                      uuid: 'place_of_citizenship',
+                      validation: {
+                        isRequired: true,
+                      },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'group-nationality',
+                              equals: true,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                      ]),
+                    })),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  isSmall: true,
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Nationalität',
+                    options: [
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Schweiz',
+                          groupName: 'nationality-2',
+                          id: 100,
+                          value: 'CH',
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Nicht Schweiz',
+                          groupName: 'nationality-2',
+                          id: 102,
+                          value: 'none',
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Bürgerort',
+                      name: 'place_of_citizenship',
+                      uuid: 'place_of_citizenship',
+                      validation: {
+                        isRequired: true,
+                      },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-2',
+                              equals: false,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'hide',
+                        },
+                      ]),
+                    })),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  isSmall: true,
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Nationalität',
+                    options: [
+                      () => handlebars.compile(checkboxHBS)(_.merge({},
+                        checkboxData.variants.default.props,
+                        {
+                          label: 'Sind sie Ausländer/in?',
+                          groupName: 'nationality-3',
+                          id: 200,
+                          value: 'CH',
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Bürgerort',
+                      name: 'place_of_citizenship',
+                      uuid: 'place_of_citizenship',
+                      validation: {
+                        isRequired: true,
+                      },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-3',
+                              equals: true,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'hide',
+                        },
+                      ]),
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
   },
   checkboxesNationality: {
