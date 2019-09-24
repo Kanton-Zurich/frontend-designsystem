@@ -123,8 +123,9 @@ class Modal extends Module {
 
   updateOnScroll(scrollTop) {
     const pageHeader = this.ui.element.querySelector(this.options.domSelectors.pageHeader);
+
     if (pageHeader) {
-      if (scrollTop > this.scrollThreshold) {
+      if (scrollTop > this.options.scrollThreshold) {
         pageHeader.dispatchEvent(new CustomEvent('PageHeader.collapse'));
       } else {
         pageHeader.dispatchEvent(new CustomEvent('PageHeader.expand'));
@@ -204,6 +205,7 @@ class Modal extends Module {
     }
   }
 
+  /** Closes the modal */
   closeModal() {
     const multiplier = 2;
 
@@ -240,6 +242,7 @@ class Modal extends Module {
 
     this.ui.element.classList.add(this.options.stateClasses.switchLeft);
 
+    // After the animation we can set the modal to display: none
     setTimeout(() => {
       this.ui.element.classList.remove(this.options.stateClasses.beforeShow);
       this.ui.element.classList.remove(this.options.stateClasses.beforeHide);
@@ -283,6 +286,7 @@ class Modal extends Module {
       }, this.options.transitionTime);
     }, this.options.transitionTime);
   }
+
   /**
    * Unbind events, remove data, custom teardown
    */
