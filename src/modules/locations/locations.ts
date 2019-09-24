@@ -12,7 +12,7 @@ class Locations extends Module {
     filterInput: HTMLInputElement,
     sidebar: HTMLDivElement,
     backBtn: HTMLButtonElement,
-    listItems: HTMLLIElement[],
+    listItems: HTMLAnchorElement | HTMLAnchorElement[],
     detailNodes: HTMLDivElement | HTMLDivElement[],
     map: HTMLDivElement,
     toggleListBtn: HTMLButtonElement,
@@ -47,6 +47,9 @@ class Locations extends Module {
     this.initUi();
     this.initWatchers();
     this.initEventListeners();
+
+    // init sideBar state (i.e. Tabindices)
+    this.toggleSidebarTabIndices();
   }
 
   static get events() {
@@ -92,9 +95,7 @@ class Locations extends Module {
       })
       .on('click', this.options.domSelectors.backBtn, (event, target) => {
         this.log('BackBtn Click: ', event, target);
-        this.showLocationDetailsForIndex();
-        this.ui.sidebar.classList.remove('show-details');
-        this.highlightInMap('', true);
+        this.toggleLocationDetails();
       })
       .on('keyup', this.options.domSelectors.backBtn, (event, target) => {
         const keyEvent = event as KeyboardEvent;
@@ -123,17 +124,40 @@ class Locations extends Module {
 
   private toggleLocationDetails(selectEventTarget?: HTMLElement): void {
     let clickedItemIndex: string;
+
     if (selectEventTarget) {
       clickedItemIndex = selectEventTarget.parentElement.getAttribute('data-linklist-itemindex');
       this.log('Clicked item index: ', clickedItemIndex);
       this.ui.sidebar.classList.add('show-details');
+      this.toggleSidebarTabIndices(true);
     } else {
       this.log('Unselect location');
       this.ui.sidebar.classList.remove('show-details');
+      this.toggleSidebarTabIndices();
     }
 
     this.showLocationDetailsForIndex(clickedItemIndex);
     this.highlightInMap(clickedItemIndex, true);
+  }
+
+  private toggleSidebarTabIndices(onDetails: boolean = false): void {
+    if (this.ui.listItems[0]) {
+      (<HTMLAnchorElement[]> this.ui.listItems).forEach((listItem) => {
+        this.setTabable(listItem, !onDetails);
+      });
+    } else {
+      this.setTabable((<HTMLAnchorElement> this.ui.listItems), !onDetails);
+    }
+    this.setTabable(this.ui.filterInput, !onDetails);
+    this.setTabable(this.ui.backBtn, onDetails);
+
+    if (!onDetails) {
+      this.showLocationDetailsForIndex();
+    }
+  }
+
+  private setTabable(el: HTMLElement, tabable: boolean) {
+    el.setAttribute('tabindex', tabable ? '0' : '-1');
   }
 
   private onFilterValueChange(propName, valueBefore, valueAfter) {
@@ -149,8 +173,9 @@ class Locations extends Module {
     if (filterText) {
       const pattern = new RegExp(filterText, 'i');
 
+      const listItems = this.ui.listItems as HTMLAnchorElement[];
       let countHidden = 0;
-      this.ui.listItems.forEach((listNode) => {
+      listItems.forEach((listNode) => {
         const parentClasses = listNode.parentElement.classList;
         if (pattern.test(listNode.innerText)) {
           parentClasses.remove('hide');
@@ -160,7 +185,7 @@ class Locations extends Module {
         }
       });
 
-      if (countHidden === this.ui.listItems.length) {
+      if (countHidden === listItems.length) {
         this.ui.emptyListHint.childNodes.forEach((childNode) => {
           if (!childNode.hasChildNodes() && childNode.textContent
             && childNode.textContent.trim().length > 0) {
@@ -187,6 +212,9 @@ class Locations extends Module {
         } else {
           detailsContainer.classList.remove('show');
         }
+        detailsContainer.querySelectorAll('a').forEach((anchorEl) => {
+          this.setTabable(anchorEl, indexToShow === i);
+        });
       });
     } else {
       const detailsContainer = <HTMLDivElement> this.ui.detailNodes;
@@ -195,6 +223,9 @@ class Locations extends Module {
       } else {
         detailsContainer.classList.remove('show');
       }
+      detailsContainer.querySelectorAll('a').forEach((anchorEl) => {
+        this.setTabable(anchorEl, indexToShow === 0);
+      });
     }
 
     if (indexToShow > -1) {

@@ -160,7 +160,6 @@ $mapRatioSmall: 0.8;
     width: 50%;
     height: 100%;
     float: right;
-    display: none;
 
     &_head {
       @extend .sidebarhead;
@@ -172,7 +171,6 @@ $mapRatioSmall: 0.8;
       padding: 0 pxToRem($sizeRegular);
       margin-top: 0;
       max-height: 0;
-      display: none;
       transition: max-height, margin-top 600ms, 150ms ease-out;
 
       &.show {
@@ -295,8 +293,8 @@ $mapRatioSmall: 0.8;
             max-height: 0;
 
             &.show {
-              display: block;
               max-height: 100%;
+              display: block;
             }
           }
         }
