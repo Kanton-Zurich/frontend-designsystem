@@ -8,6 +8,10 @@ $locationsPaddingCurve: (
 $sidebarMaxWidth: 386px;
 $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
 
+$mapRatioLarge: 1.777;
+$mapRatioMedium: 1;
+$mapRatioSmall: 0.8;
+
 .sidebarhead {
   position: absolute;
   padding: pxToRem($sizeRegular) 0;
@@ -18,14 +22,14 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
 
 .sideBarScrollContainer {
   height: calc(100% - #{$sideBarHeadHeight});
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .mdl-locations {
-  @include sizeCurve(padding-top padding-bottom, default, $locationsPaddingCurve);
+  @include sizeCurve(margin-top margin-bottom, default, $locationsPaddingCurve);
 
   &__wrapper {
-    padding-top: calc((100vw - #{$sizeGiant}) / 1.777); // stylelint-disable-line -- preserve aspect 16:9 ratio
+    padding-top: calc((100vw - #{$sizeGiant}) / #{$mapRatioLarge}); // stylelint-disable-line -- preserve aspect 16:9 ratio
     margin-top: pxToRem($sizeGiant);
 
     @media ( min-width: $sizeGlobalMaxWidth ) {
@@ -134,7 +138,7 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
     width: 50%;
     height: 100%;
     float: right;
-    overflow: scroll;
+    overflow: auto;
     display: none;
 
     &_head {
@@ -163,7 +167,9 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
   }
 
   &__sidebar--single-location {
-    left: -100%;
+    .mdl-locations__filter {
+      display: none;
+    }
 
     .mdl-locations__details {
       display: block;
@@ -186,9 +192,10 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
   }
 
   @include mq($to: medium) {
+
     .mdl-locations {
       &__wrapper {
-        padding-top: calc(100vw - #{$sizeSmallLarge});
+        padding-top: calc((100vw - #{$sizeSmallLarge}) / #{$mapRatioMedium});
       }
 
       &__map {
@@ -209,7 +216,7 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
           height: auto;
           max-height: 0;
           padding: 0 pxToRem($sizeRegular);
-          transition: max-height, margin-top 400ms, 150ms ease-out;
+          transition: max-height, margin-top 400ms, 200ms ease-out;
           margin-top: pxToRem($sideBarHeadHeight - $sizeRegular);
         }
 
@@ -219,7 +226,7 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
 
         &.opened {
           .mdl-linklist {
-            max-height: calc(100vw - #{$sizeSmallLarge});
+            max-height: pxToRem($sizeBreakpointMedium / $mapRatioMedium);
             margin-top: pxToRem($sideBarHeadHeight);
           }
 
@@ -253,11 +260,6 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
       }
 
       &__sidebar--single-location {
-        left: 0;
-
-        &.show-details {
-          left: -100%;
-        }
 
         .mdl-locations__details {
           &_head {
@@ -276,6 +278,8 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
         }
 
         .mdl-locations__filter {
+          display: block;
+
           &_head {
             display: none;
           }
@@ -297,9 +301,10 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
     }
   }
   @include mq($to: small) {
+
     .mdl-locations {
       &__wrapper {
-        padding-top: 125vw;
+        padding-top: calc(125vw / #{$mapRatioSmall});
         margin-top: pxToRem($sizeGiant + $sizeLarge);
       }
 
@@ -318,6 +323,12 @@ $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
       &__sidebar {
         .mdl-linklist {
           padding: 0;
+        }
+
+        &.opened {
+          .mdl-linklist {
+            max-height: pxToRem($sizeBreakpointSmall / $mapRatioSmall);
+          }
         }
       }
 
