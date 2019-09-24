@@ -16,6 +16,9 @@
 
   }
 
+  /*
+  * Arrow Left/Right
+  */
   &--arrow-left,
   &--arrow-right {
     &:before {
@@ -38,6 +41,9 @@
     }
   }
 
+  /*
+  * Arrow Up/Down
+  */
   &--arrow-top,
   &--arrow-bottom {
     &:before {
