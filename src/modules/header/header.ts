@@ -88,7 +88,6 @@ class Header extends Module {
   initEventListeners() {
     this.eventDelegate.on('click', this.options.domSelectors.openModal, this.toggleFlyout.bind(this));
 
-    window.addEventListener('keydown', this.closeOnEscape.bind(this));
     window.addEventListener('Modal.closed', this.hideFlyout.bind(this));
     window.addEventListener('scroll', this.handleScroll.bind(this));
 
@@ -124,11 +123,6 @@ class Header extends Module {
     }
   }
 
-  closeOnEscape(event) {
-    if (event.key === 'Escape' || event.key === 'Esc') {
-      this.data.activeModal.dispatchEvent(new CustomEvent('Modal.close'));
-    }
-  }
 
   showFlyout(delegate) {
     this.data.activeModal = document.querySelector(`#${delegate.getAttribute('data-modal')}`);
