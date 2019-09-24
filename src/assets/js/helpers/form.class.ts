@@ -2,6 +2,7 @@ import { Delegate } from 'dom-delegate';
 import wrist from 'wrist';
 import { debounce } from 'lodash';
 import DuplicationElement from './duplication.class';
+import ZipCity from './zipCity';
 
 import namespace from './namespace';
 
@@ -61,6 +62,7 @@ class Form {
 
     // Initialize duplication elements
     this.initDuplicationElements();
+    this.initZipCity();
   }
 
   addEventListeners() {
@@ -113,6 +115,8 @@ class Form {
   onInputValueChange(domElement, oldValue, newValue) {
     if (newValue.length !== 0) {
       domElement.classList.add(this.options.inputClasses.dirty);
+
+      this.validateField(domElement);
     } else {
       domElement.classList.remove(this.options.inputClasses.dirty);
     }
@@ -215,6 +219,17 @@ class Form {
       duplicatableElement.addEventListener(DuplicationElement.events.domReParsed, (event) => {
         this.addWatchers((<any>event).detail);
       });
+    });
+  }
+
+  initZipCity() {
+    const zipFields = this.ui.element.querySelectorAll('[data-fills-city]');
+
+    zipFields.forEach(($zipField) => {
+      const fillName = $zipField.getAttribute('data-fills-city');
+      const $cityField = this.ui.element.querySelector(`[name="${fillName}"]`);
+
+      new ZipCity($zipField, $cityField);
     });
   }
 }
