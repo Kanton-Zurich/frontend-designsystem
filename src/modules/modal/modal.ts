@@ -17,29 +17,50 @@ class Modal extends Module {
 
   public options: {
     domSelectors: any,
-    stateClasses: any;
+    stateClasses: any,
     transitionTime: number,
+    hasDynamicHeader: boolean,
+    isSPA: false,
+    isNav: false,
+    childSelectors: any,
+    scrollThreshold: number,
   };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
     const defaultOptions = {
-      transitionTime: 500,
+      transitionTime: 250,
       domSelectors: {
         pageHeader: '.mdl-page-header',
         closeButton: '.mdl-page-header__closebutton',
         close: '[data-modal="close"]',
-        singlePageApp: '[data-init="application"]',
       },
       stateClasses: {
+        beforeShow: 'mdl-modal--before-show',
         show: 'mdl-modal--show',
         transHide: 'mdl-modal--transition-hide',
         dynamicHeader: 'mdl-modal--dynamicheader',
+        beforeHide: 'mdl-modal--before-hide',
+        hide: 'mdl-modal--hide',
+        switchLeft: 'mdl-modal--switch-left',
+        noTransitionShow: 'mdl-modal--no-transition-show',
+        beforeSwitchRight: 'mdl-modal--before-switch-right',
+        switchRight: 'mdl-modal--switch-right',
       },
+      childSelectors: {
+        nav: '.mdl-topiclist--nav',
+        spa: '[data-init="application"]',
+      },
+      hasDynamicHeader: false,
+      isSPA: false,
+      isNav: false,
+      scrollThreshold: 75,
     };
     super($element, defaultData, defaultOptions, data, options);
-    this.scrollThreshold = 75;
+
     this.initUi();
+    this.initContent();
+    this.initVariations();
     this.initEventListeners();
   }
 
@@ -52,55 +73,21 @@ class Modal extends Module {
   }
 
   /**
+   * Set the properties if the modal is in a different variation
+   */
+  initVariations() {
+    this.options.hasDynamicHeader = this.ui.element.classList
+      .contains(this.options.stateClasses.dynamicHeader);
+
+    this.options.isSPA = this.ui.element.querySelector(this.options.childSelectors.spa);
+    this.options.isNav = this.ui.element.querySelector(this.options.childSelectors.nav);
+  }
+
+  /**
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.closeOnEscapeFunction = this.closeOnEscape.bind(this);
-    this.initContent();
-    this.eventDelegate.on('Modal.open', () => {
-      // isolate modal
-      this.isolatedElements = [];
-      (<any>window).estatico.helpers.bodyElement.childNodes.forEach((child) => {
-        if (child.nodeType === 1) {
-          if (!(<HTMLElement>child).getAttribute('aria-hidden')) {
-            (<HTMLElement>child).setAttribute('aria-hidden', 'true');
-            this.isolatedElements.push(child);
-          }
-        }
-      });
-      (<any>window).estatico.helpers.wrapAccessibility(this.ui.element);
-      window.addEventListener('keydown', this.closeOnEscapeFunction);
-      this.parentScrollPosition = document.documentElement.scrollTop;
-      this.ui.element.removeAttribute('style');
-      (<any>window).estatico.helpers.setHiddenTabIndex(this.ui.element);
-      // delayed opacity animation
-      setTimeout(() => { this.ui.element.classList.add(this.options.stateClasses.show); }, 0);
-      const focusable = this.ui.element.querySelector('[data-modal-focus]');
-      if (focusable) {
-        setTimeout(() => { focusable.focus(); }, 0);
-      } else {
-        this.ui.element.focus();
-      }
-      this.ui.element.scrollTo(0, 0);
-      if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
-        this.updateOnScroll(0);
-      }
-      this.updateSizing();
-      (<any>WindowEventListener).addDebouncedResizeListener(this.updateSizing.bind(this));
-      document.documentElement.style.overflowY = 'hidden';
-
-      this.ui.element.setAttribute('aria-hidden', 'false');
-
-      // If there is the navigation topic list a child, then load the navigation
-      if (this.ui.element.querySelector('.mdl-topiclist--nav')) {
-        this.ui.element.querySelector('.mdl-topiclist--nav').dispatchEvent(new CustomEvent('loadNavigation'));
-      }
-      // reload Single page Applications scripts in case of asynchronous loading
-      const spa = this.ui.element.querySelector(this.options.domSelectors.singlePageApp);
-      if (spa) {
-        spa.dispatchEvent(new CustomEvent('Application.initScripts'));
-      }
-    });
+    this.eventDelegate.on('Modal.open', this.openModal.bind(this));
     this.eventDelegate.on('Modal.initContent', () => {
       if (!this.hasCloseBtn) {
         this.initContent();
@@ -115,7 +102,10 @@ class Modal extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.close, this.closeModal.bind(this));
     // move to the end of the DOM
     (<any>window).estatico.helpers.bodyElement.appendChild(this.ui.element);
-    this.ui.element.style.display = 'none';
+    this.eventDelegate.on('Modal.switchLeft', this.switchLeft.bind(this));
+    this.eventDelegate.on('Modal.switchRight', this.switchRight.bind(this));
+
+    window.addEventListener('keydown', this.closeOnEscape.bind(this));
   }
 
   initContent() {
@@ -163,6 +153,57 @@ class Modal extends Module {
     }
   }
 
+  /**
+   * opens the modal
+   */
+  openModal() {
+    // isolate modal
+    this.isolatedElements = [];
+    (<any>window).estatico.helpers.bodyElement.childNodes.forEach((child) => {
+      if (child.nodeType === 1) {
+        if (!(<HTMLElement>child).getAttribute('aria-hidden')) {
+          (<HTMLElement>child).setAttribute('aria-hidden', 'true');
+          this.isolatedElements.push(child);
+        }
+      }
+    });
+
+    // Set show class
+    this.ui.element.classList.add(this.options.stateClasses.beforeShow);
+    setTimeout(() => { this.ui.element.classList.add(this.options.stateClasses.show); }, 1);
+    document.documentElement.style.overflowY = 'hidden';
+
+    // Accessibility features
+    (<any>window).estatico.helpers.wrapAccessibility(this.ui.element);
+    (<any>window).estatico.helpers.setHiddenTabIndex(this.ui.element);
+
+    // Set parent scrollPosition
+    this.parentScrollPosition = document.documentElement.scrollTop;
+
+    // delayed opacity animation
+    this.ui.element.focus();
+    this.ui.element.scrollTop = 0;
+
+
+    if (this.options.hasDynamicHeader) {
+      this.updateOnScroll(0);
+    }
+
+    this.updateSizing();
+
+    (<any>WindowEventListener).addDebouncedResizeListener(this.updateSizing.bind(this));
+
+    // If there is the navigation topic list a child, then load the navigation
+    if (this.options.isNav) {
+      this.ui.element.querySelector(this.options.childSelectors.nav).dispatchEvent(new CustomEvent('loadNavigation'));
+    }
+
+    // reload Single page Applications scripts in case of asynchronous loading
+    if (this.options.isSPA) {
+      this.ui.element.querySelector(this.options.childSelectors.spa).dispatchEvent(new CustomEvent('Application.initScripts'));
+    }
+  }
+
   closeModal() {
     document.documentElement.style.overflowY = 'initial';
     this.ui.element.classList.add(this.options.stateClasses.transHide);
@@ -187,6 +228,58 @@ class Modal extends Module {
       if (focusOrigin) {
         (<any> focusOrigin).focus();
       }
+    }, this.options.transitionTime);
+  }
+
+  switchLeft() {
+    // Accessibility integrate the isolated
+    this.isolatedElements.forEach((element) => {
+      element.removeAttribute('aria-hidden');
+    });
+
+    this.ui.element.classList.add(this.options.stateClasses.switchLeft);
+
+    setTimeout(() => {
+      this.ui.element.classList.remove(this.options.stateClasses.beforeShow);
+      this.ui.element.classList.remove(this.options.stateClasses.beforeHide);
+      this.ui.element.classList.remove(this.options.stateClasses.hide);
+      this.ui.element.classList.remove(this.options.stateClasses.show);
+
+      this.ui.element.classList.remove(this.options.stateClasses.switchLeft);
+    }, this.options.transitionTime);
+  }
+
+  switchRight() {
+    this.isolatedElements = [];
+    (<any>window).estatico.helpers.bodyElement.childNodes.forEach((child) => {
+      if (child.nodeType === 1) {
+        if (!(<HTMLElement>child).getAttribute('aria-hidden')) {
+          (<HTMLElement>child).setAttribute('aria-hidden', 'true');
+          this.isolatedElements.push(child);
+        }
+      }
+    });
+
+    if (this.options.isNav) {
+      this.ui.element.querySelector(this.options.childSelectors.nav).dispatchEvent(new CustomEvent('loadNavigation'));
+    }
+
+    setTimeout(() => {
+      this.ui.element.classList.add(this.options.stateClasses.noTransitionShow);
+
+      setTimeout(() => {
+        this.ui.element.classList.add(this.options.stateClasses.beforeSwitchRight);
+        this.ui.element.classList.add(this.options.stateClasses.show);
+        this.ui.element.classList.add(this.options.stateClasses.beforeShow);
+        this.ui.element.classList.remove(this.options.stateClasses.noTransitionShow);
+      }, 1);
+
+      this.ui.element.classList.add(this.options.stateClasses.switchRight);
+
+      setTimeout(() => {
+        this.ui.element.classList.remove(this.options.stateClasses.beforeSwitchRight);
+        this.ui.element.classList.remove(this.options.stateClasses.switchRight);
+      }, this.options.transitionTime);
     }, this.options.transitionTime);
   }
   /**
