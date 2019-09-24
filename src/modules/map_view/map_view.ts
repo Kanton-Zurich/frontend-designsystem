@@ -6,6 +6,7 @@
  */
 import Module from '../../assets/js/helpers/module';
 import * as L from 'leaflet';
+import * as wms from 'leaflet.wms';
 
 /* eslint-disable no-magic-numbers */
 const mapOptions = {
@@ -19,6 +20,7 @@ const mapOptions = {
   zoomAnimation: false,
 };
 /* eslint-enable no-magic-numbers */
+const kzhIcon = L.divIcon({ className: 'mdl-map__marker', iconSize: [0, 0] });
 
 class MapView extends Module {
   constructor($element: any, data: Object, options: Object) {
@@ -65,13 +67,14 @@ class MapView extends Module {
       layers: 'ZHBase',
     }).addTo(map);
 
-    // L.WMS.overlay(url, {
-    //   version: '1.3.0',
-    //   format: 'image/png; mode=8bit',
-    //   transparent: true,
-    //   layers: 'ZHLabels',
-    // }).addTo(map);
+    wms.overlay(url, {
+      version: '1.3.0',
+      format: 'image/png; mode=8bit',
+      transparent: true,
+      layers: 'ZHLabels',
+    }).addTo(map);
 
+    L.marker([47.3776662,8.5365413], { icon: kzhIcon }).addTo(map);
 
     // Zur Überprüfung, ob alle aktuellen Layer angezeigt werden
     // L.WMS.layer(url, 'ZHWEB', {
