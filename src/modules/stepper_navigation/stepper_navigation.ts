@@ -13,7 +13,7 @@ class StepperNavigation extends Module {
 
   public ui: {
     element: HTMLOListElement,
-    step: HTMLButtonElement,
+    step: NodeListOf<HTMLButtonElement>,
   }
 
   public options: {
@@ -28,6 +28,7 @@ class StepperNavigation extends Module {
     const defaultOptions = {
       domSelectors: {
         step: '[data-stepper_navigation="step"]',
+        number: '[data-stepper_navigation="number"]',
       },
       stateClasses: {
         activeStep: 'mdl-stepper_navigation__step--active',
@@ -38,6 +39,7 @@ class StepperNavigation extends Module {
     super($element, defaultData, defaultOptions, data, options);
 
     this.initUi(['step']);
+    this.setStepNumbers();
     this.initEventListeners();
 
     this.setActiveItem(null, this.data.active);
@@ -82,6 +84,14 @@ class StepperNavigation extends Module {
     this.ui.step[after].removeAttribute('disabled');
 
     this.data.active = after;
+  }
+
+  setStepNumbers() {
+    this.ui.step.forEach((step, index) => {
+      const number = step.querySelector(this.options.domSelectors.number);
+
+      number.innerHTML = index + 1;
+    });
   }
 
   /**
