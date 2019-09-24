@@ -1,0 +1,62 @@
+.mdl-form-info {
+  position: relative;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
+  background: $colorWhite;
+  padding: pxToRem($sizeLarge);
+  border-radius: 1px;
+  max-width: 260px;
+
+  &:before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    position: absolute;
+
+  }
+
+  &--arrow-left,
+  &--arrow-right {
+    &:before {
+      top: 50%;
+      transform: translateY(-50%) rotate(45deg);
+    }
+  }
+
+  &--arrow-left {
+    &:before {
+      left: -8px;
+      box-shadow: -4px 4px 8px -8px rgba(0, 0, 0, 0.16), -1px 1px 2px -1px rgba(0, 0, 0, 0.32);
+    }
+  }
+
+  &--arrow-right {
+    &:before {
+      right: -8px;
+      box-shadow: 4px -4px 8px -8px rgba(0, 0, 0, 0.16), 1px -1px 2px -1px rgba(0, 0, 0, 0.32);
+    }
+  }
+
+  &--arrow-top,
+  &--arrow-bottom {
+    &:before {
+      left: 50%;
+      transform: translateX(-50%) rotate( 45deg );
+    }
+  }
+
+  &--arrow-top {
+    &:before {
+      top: -8px;
+      box-shadow: -4px -4px 8px -8px rgba(0, 0, 0, 0.16), -1px -1px 2px -1px rgba(0, 0, 0, 0.32);
+    }
+  }
+
+  &--arrow-bottom {
+    &:before {
+      bottom: -8px;
+      box-shadow: 4px 4px 8px -8px rgba(0, 0, 0, 0.16), 1px 1px 2px -1px rgba(0, 0, 0, 0.32);
+    }
+  }
+}
