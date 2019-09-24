@@ -26,6 +26,7 @@ const variants = _.mapValues({
         title: 'This is the homepage of the Inside Solutions GmbH',
         level: 3,
       },
+      iframeHeight: 600,
       iframeSrc: 'https://inside-reality.com/',
       iframeTextLink: {
         icon: 'arrow-right',
