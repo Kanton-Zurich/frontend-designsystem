@@ -3,6 +3,7 @@
   display: inline-flex;
   padding-left: pxToRem($sizeLarge);
   padding-right: pxToRem($sizeRegular);
+  margin-bottom: pxToRem($sizeRegular);
 
   input {
     appearance: none;
