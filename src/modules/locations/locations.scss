@@ -22,8 +22,30 @@ $mapRatioSmall: 0.8;
 
 .sideBarScrollContainer {
   height: calc(100% - #{$sideBarHeadHeight});
-  overflow-y: auto;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+
+  scrollbar-color: rgba(0, 0, 0, 0.4) rgba(255, 255, 255, 0);
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+  }
 }
+
 
 .mdl-locations {
   @include sizeCurve(margin-top margin-bottom, default, $locationsPaddingCurve);
@@ -138,7 +160,6 @@ $mapRatioSmall: 0.8;
     width: 50%;
     height: 100%;
     float: right;
-    overflow: auto;
     display: none;
 
     &_head {
@@ -167,6 +188,8 @@ $mapRatioSmall: 0.8;
   }
 
   &__sidebar--single-location {
+    left: -100%;
+
     .mdl-locations__filter {
       display: none;
     }
@@ -260,6 +283,7 @@ $mapRatioSmall: 0.8;
       }
 
       &__sidebar--single-location {
+        left: 0;
 
         .mdl-locations__details {
           &_head {
