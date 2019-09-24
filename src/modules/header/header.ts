@@ -157,6 +157,7 @@ class Header extends Module {
   unsetClasses() {
     if (this.data.activeModal) {
       this.data.activeItem.classList.remove(this.options.stateClasses.activeItem);
+      document.documentElement.classList.remove(this.options.stateClasses.fixedHeader);
 
       this.data.activeModal = null;
       this.data.activeItem = null;
