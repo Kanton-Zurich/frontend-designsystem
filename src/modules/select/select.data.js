@@ -16,6 +16,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     preview: true,
+    triggerInpuData: inputDemoData.variants.triggerDefault.props,
   },
 });
 
@@ -26,7 +27,7 @@ const variants = _.mapValues({
       desc: 'Default implementation einer Einzelauswahl',
     },
     props: {
-      listData: _.merge({}, listDemoData.variants.defaultSingle.props,{
+      listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
         selectOptions: [
           { value: '', label: '' },
           { value: 'mig', label: 'Migration & Integration' },
