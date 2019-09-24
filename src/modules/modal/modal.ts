@@ -56,7 +56,10 @@ class Modal extends Module {
       isNav: false,
       scrollThreshold: 75,
     };
+
     super($element, defaultData, defaultOptions, data, options);
+
+    this.isolatedElements = [];
 
     this.initUi();
     this.initContent();
@@ -149,7 +152,7 @@ class Modal extends Module {
   }
 
   closeOnEscape(event) {
-    if (event.key === 'Escape' || event.key === 'Esc') {
+    if ((event.key === 'Escape' || event.key === 'Esc') && this.isolatedElements.length > 0) {
       this.closeModal();
     }
   }
