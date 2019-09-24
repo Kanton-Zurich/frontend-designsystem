@@ -110,6 +110,8 @@ class Form {
   onInputValueChange(domElement, oldValue, newValue) {
     if (newValue.length !== 0) {
       domElement.classList.add(this.options.inputClasses.dirty);
+
+      this.validateField(domElement);
     } else {
       domElement.classList.remove(this.options.inputClasses.dirty);
     }
