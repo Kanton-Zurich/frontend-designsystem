@@ -10,6 +10,7 @@ class FormRules {
   private options: {
     domSelectors: any,
     stateClasses: any,
+    isStep: boolean,
   }
 
   private rules: any;
@@ -22,6 +23,7 @@ class FormRules {
       stateClasses: {
         hiddenByRule: 'form__element--hidden-by-rule',
       },
+      isStep: $ruleOwner.hasAttribute('data-step-index'),
     };
 
     this.ui = {
@@ -52,6 +54,10 @@ class FormRules {
     switch (action) {
       case 'show':
         this.ui.parent.classList.add(this.options.stateClasses.hiddenByRule);
+
+        break;
+      case 'enable':
+        this.ui.owner.setAttribute('data-pending', 'true');
 
         break;
       default:

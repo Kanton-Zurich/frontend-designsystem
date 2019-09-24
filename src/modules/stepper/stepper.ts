@@ -27,6 +27,7 @@ class Stepper extends Module {
     navigation: HTMLOListElement,
     notificationTemplate: HTMLScriptElement,
     messageWrapper: HTMLDivElement,
+    rules: NodeListOf<HTMLDivElement>
   }
 
   public options: {
@@ -52,6 +53,7 @@ class Stepper extends Module {
         navigation: '[data-init="stepperNavigation"]',
         notificationTemplate: '[data-stepper="notificationTemplate"]',
         messageWrapper: '[data-stepper="messageWrapper"]',
+        rules: '[data-rules]',
       },
       stateClasses: {
         hiddenStep: 'mdl-stepper__step--hidden',
