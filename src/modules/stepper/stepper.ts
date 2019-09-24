@@ -77,7 +77,8 @@ class Stepper extends Module {
     this.setButtonVisibility();
 
     if (this.ui.navigation) {
-      new StepperNavigation(this.ui.navigation, { active: this.data.active }, {});
+      new StepperNavigation(this.ui.navigation,
+        { active: this.data.active, steps: this.ui.steps }, {});
     }
 
     this.ui.element.classList.add(this.options.stateClasses.initialised);

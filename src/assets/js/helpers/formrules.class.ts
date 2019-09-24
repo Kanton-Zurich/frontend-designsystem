@@ -38,6 +38,12 @@ class FormRules {
     this.addWatchers();
   }
 
+  static get events() {
+    return {
+      stateChange: 'formrules.stateChange',
+    };
+  }
+
   getRules() {
     this.rules = JSON.parse(this.ui.owner.getAttribute('data-rules'));
   }
@@ -58,6 +64,12 @@ class FormRules {
         break;
       case 'enable':
         this.ui.owner.setAttribute('data-pending', 'true');
+        this.ui.owner.dispatchEvent(new CustomEvent(FormRules.events.stateChange, {
+          detail: {
+            state: 'pending',
+            index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
+          },
+        }));
 
         break;
       default:
