@@ -128,11 +128,8 @@ const data = _.merge({}, defaultData, {
       label: 'Filter',
       isInput: true,
       isFloatingLabel: true,
-      iconOnly: {
-        icon: 'search',
-      },
       additionalFunctionality: {
-        icon: 'exit',
+        icon: 'clear',
         buttontype: 'clear',
         ariaText: 'Lösche Eingabe',
       },

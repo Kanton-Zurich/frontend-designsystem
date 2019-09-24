@@ -11,6 +11,7 @@
   $inputElementHeight: 72px;
 
   @include gridBleed($fullwidth: true);
+  @include sizeCurve(margin-top, large);
 
   &__filter {
     display: flex;
@@ -135,6 +136,7 @@
 
   &__topnews {
     display: none;
+    padding-top: 0;
 
     &.visible {
       display: block;

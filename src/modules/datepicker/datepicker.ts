@@ -41,7 +41,6 @@ class Datepicker extends Module {
     },
     dateRange: {
       mode: string,
-      minDate: string,
       separator: string,
       disableMobile: boolean,
       static: boolean,
@@ -108,7 +107,6 @@ class Datepicker extends Module {
       },
       dateRange: {
         mode: 'range',
-        minDate: 'today',
         separator: ' - ',
         disableMobile: true,
         static: true,
