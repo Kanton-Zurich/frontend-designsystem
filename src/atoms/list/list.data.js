@@ -18,7 +18,9 @@ const data = _.merge({}, defaultData, {
       isRequired: true,
     },
     selectOptions: [
-      { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item'), preSelected: true },
+      {
+        value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item'), preSelected: true,
+      },
       { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
       { value: 'sich', label: 'Sicherheit & Justiz', id: _.uniqueId('option-item') },
       { value: 'so', label: 'Soziales', id: _.uniqueId('option-item') },
@@ -130,6 +132,17 @@ const variants = _.mapValues({
       hasIconLeft: true,
       hasIconRight: true,
       iconLeft: 'location',
+    },
+  },
+  useAnchor: {
+    meta: {
+      title: 'Liste mit Links',
+      desc: 'Einzelauswahl mit Links statt selectierbaren Items',
+    },
+    props: {
+      useAnchors: true,
+      groupId: 'iconBothSingle',
+      isSingleSelect: true,
     },
   },
 }, (variant) => {

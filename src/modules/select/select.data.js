@@ -26,7 +26,7 @@ const variants = _.mapValues({
       desc: 'Default implementation einer Einzelauswahl',
     },
     props: {
-      listData: _.merge({}, listDemoData.variants.defaultSingle.props,{
+      listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
         selectOptions: [
           { value: '', label: '' },
           { value: 'mig', label: 'Migration & Integration' },
@@ -146,6 +146,28 @@ const variants = _.mapValues({
           ariaText: 'Lösche Eingabe',
         },
       }),
+      triggerInputData: inputDemoData.variants.triggerDefault.props,
+    },
+  },
+  defaultUpwards: {
+    meta: {
+      title: 'Einzelauswahl mit Links(List oberhalb)',
+      desc: 'Einzelauswahl mit der List oberhalb angeordnet und Links/Anchors als Auswahlitems',
+    },
+    props: {
+      orientationUpwards: true,
+      listData: _.merge({}, listDemoData.variants.useAnchor.props,
+        listDemoData.variants.useAnchor.props.selectOptions = [], {
+          selectOptions: [
+            { value: '', label: '' },
+            { value: 'de', label: 'Deutsch', preSelected: true },
+            { value: 'prt', label: 'Português' },
+            { value: 'ru', label: 'Pусский' },
+            { value: 'tur', label: 'Türkçe' },
+          ],
+          groupId: 'singleSelectUpwards',
+          setHiddenIndex: true,
+        }),
       triggerInputData: inputDemoData.variants.triggerDefault.props,
     },
   },
