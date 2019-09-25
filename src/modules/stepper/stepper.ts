@@ -258,6 +258,19 @@ class Stepper extends Module {
         method: 'post',
         body: formData,
       })
+        .then((response) => {
+          if (!response.ok) {
+            const notifications = this.ui.messageWrapper.querySelectorAll('.atm-notification');
+
+            notifications.forEach((notification) => {
+              notification.remove();
+            });
+
+            this.showNetworkError();
+          }
+
+          return response;
+        })
         .then(async (response) => {
           const validationErrorStatus = 400;
           const responseData = await response.json();
@@ -317,6 +330,21 @@ class Stepper extends Module {
 
     this.ui.messageWrapper.appendChild(parsedNotification);
     this.addNotificationEventListeners(parsedNotification);
+  }
+
+  showNetworkError() {
+    const convertedTemplate = template(this.ui.notificationTemplate.innerHTML);
+    const context = {
+      title: false,
+      message: this.ui.messageWrapper.getAttribute('data-error-text'),
+      isGreen: false,
+      isBig: false,
+      icon: '#caution',
+    };
+    const errorHTML = convertedTemplate(context);
+    const parsedError = new DOMParser().parseFromString(errorHTML, 'text/html').querySelector('.atm-notification');
+
+    this.ui.messageWrapper.appendChild(parsedError);
   }
 
   generateList(validationErrors) {
