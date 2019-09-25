@@ -158,8 +158,8 @@ class Locations extends Module {
     this.setTabable(this.ui.filterInput, !onDetails);
     this.setTabable(this.ui.backBtn, onDetails);
 
-    if (!onDetails && !initialLoad) {
-      this.showLocationDetailsForIndex();
+    if (!onDetails) {
+      this.showLocationDetailsForIndex('', !initialLoad);
     }
   }
 
@@ -206,7 +206,7 @@ class Locations extends Module {
     }
   }
 
-  private showLocationDetailsForIndex(indexString?: string): void {
+  private showLocationDetailsForIndex(indexString?: string, setHeadFocus: boolean = true): void {
     let indexToShow = -1;
     if (indexString) {
       indexToShow = Number.parseInt(indexString, 10);
@@ -235,14 +235,16 @@ class Locations extends Module {
       });
     }
 
-    if (indexToShow > -1) {
-      setTimeout(() => {
-        this.ui.backBtn.focus();
-      }, this.options.focusDelay);
-    } else {
-      setTimeout(() => {
-        this.ui.filterInput.focus();
-      }, this.options.focusDelay);
+    if (setHeadFocus) {
+      if (indexToShow > -1) {
+        setTimeout(() => {
+          this.ui.backBtn.focus();
+        }, this.options.focusDelay);
+      } else {
+        setTimeout(() => {
+          this.ui.filterInput.focus();
+        }, this.options.focusDelay);
+      }
     }
   }
 

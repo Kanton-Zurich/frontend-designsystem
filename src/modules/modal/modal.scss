@@ -48,7 +48,7 @@ $modalCurves: (
 
   &--show {
     opacity: 1;
-    z-index: $zIndexOverlays;
+    z-index: $zIndexSkiplinks;
 
     transform: translateY(0);
 

@@ -34,6 +34,8 @@ import ServiceWrapper from '../../../modules/service_wrapper/service_wrapper';
 import Pagination from '../../../modules/pagination/pagination';
 import Range from '../../../modules/range/range';
 import FilterPills from '../../../modules/filter_pills/filter_pills';
+import NewsFilterMobile from '../../../modules/news_filter_mobile/news_filter_mobile';
+import NewsOverview from '../../../modules/news_overview/news_overview';
 import Locations from '../../../modules/locations/locations';
 /* autoinsertmodulereference */ // eslint-disable-line
 
@@ -78,6 +80,8 @@ class App {
     this.modules.pagination = Pagination;
     this.modules.range = Range;
     this.modules.filterPills = FilterPills;
+    this.modules.newsFilterMobile = NewsFilterMobile;
+    this.modules.newsOverview = NewsOverview;
     this.modules.locations = Locations;
     /* autoinsertmodule */ // eslint-disable-line
 

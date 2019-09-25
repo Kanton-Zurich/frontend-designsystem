@@ -1,10 +1,12 @@
 <{{#if isButton}}button{{else}}a{{/if}}
-  class="atm-linklist_item {{#if linkListItemIsDownload}}atm-linklist_item--download{{/if}} {{#if isLegalFoundation}}atm-linklist_item--legalfoundation{{/if}} {{#if linkListItemIsLocation}}atm-linklist_item--location{{/if}}"
+  class="atm-linklist_item {{#if linkListItemIsDownload}}atm-linklist_item--download{{/if}} {{#if isLegalFoundation}}atm-linklist_item--legalfoundation{{/if}}{{#if linkListItemIsLocation}} atm-linklist_item--location{{/if}}{{#if noColor}} atm-linklist_item--nocolor{{/if}}"
   {{#if linkListItemHref}}href="{{linkListItemHref}}"{{/if}}{{#if target}} target="_{{target}}"{{/if}}
   {{#if linkListItemIsLocation}}tabindex="0"{{/if}}
   {{#if linkListItemIsDownload}}{{#unless isButton}}download{{/unless}}{{/if}}
-  {{#if domSelector}}{{{domSelector}}}{{/if}}
+  {{#if subTitlePattern}} data-subtitle-pattern="{{subTitlePattern}}"{{/if}}
+  {{#if modalFocus}} data-modal-focus{{/if}}
   {{#if isButton}}aria-expanded="false"{{/if}}
+  {{#if additionalAttributes}} {{{additionalAttributes}}}{{/if}}
 >
   {{#if linkListItemIsDownload}}{{#unless isLegalFoundation}}
     <svg class="icon atm-linklist_item__download">
@@ -16,6 +18,7 @@
     <span>{{linkListItemTitle}}</span>
     {{#if linkListItemLabel}}<span class="atm-linklist_item__label">{{linkListItemLabel}}</span>{{/if}}
   </span>
+  {{#if subtitle}}<span class="atm-linklist_item__text-subtitle">{{subtitle}}</span>{{/if}}
   {{#unless linkListItemIsDownload}}
     {{#if linkListItemIsLocation}}
       {{#if linkListItemDistance}}
@@ -30,7 +33,7 @@
       {{/if}}
     {{else}}
       <svg class="icon atm-linklist_item__arrow">
-        <use xlink:href="#arrow-right"></use>
+        <use xlink:href="{{#unless chevron}}#arrow-right{{/unless}}{{#if chevron}}#angle_drop_down{{/if}}"></use>
       </svg>
     {{/if}}
   {{/unless}}

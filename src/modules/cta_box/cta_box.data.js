@@ -2,34 +2,37 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const defButtonData = require('../../atoms/button/button.data.js');
+const defaultButtonData = require('../../atoms/button/button.data').variants.default.props;
 
-const template = dataHelper.getFileContent('filter_pills.hbs');
+const template = dataHelper.getFileContent('cta_box.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Filter Tags',
-    className: 'FilterPills',
-    jira: 'CZHDEV-1138',
-    documentation: dataHelper.getDocumentation('filter_pills.md'),
+    title: 'CTA Box',
+    className: 'CTABox',
+    jira: 'CZHDEV-550',
+    documentation: dataHelper.getDocumentation('cta_box.md'),
   },
   props: {
-    buttonData: _.merge({}, defButtonData.variants.tagEdit.props, {
-      text: 'Zurücksetzen',
-      icon: 'undo',
-      additionalAttribute: 'data-clear',
-      additionalClasses: 'mdl-filter-pills__hidden-control',
-    }),
+
   },
 });
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
+      title: 'Default (Newsletter)',
       desc: 'Default implementation',
     },
     props: {
-      preview: true,
-    }
+      title: 'Kanton Zürich Newsletter',
+      text: 'Der Newsletter des Kantons informiert Sie rasch über verabschiedete Geschäfte des Regierungsrates und hält Sie per E-Mail über Neuigkeiten aus der kantonalen Verwaltung auf dem Laufenden.',
+      buttonData: _.merge({}, defaultButtonData, {
+        text: 'Jetzt abbonieren',
+        anchorLink: 'newsletter.html',
+        isAnchor: true,
+        isSmall: true,
+        isInverted: true,
+      }),
+    },
   },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
