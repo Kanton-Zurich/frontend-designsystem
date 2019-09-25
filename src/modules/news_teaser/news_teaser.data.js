@@ -53,52 +53,49 @@ const demoLinkListData = {
 
 const demoDefaultItems = [
   {
-    href: '#',
-    dateLabel: 'Medienmitteilung',
+    link: '#',
+    type: 'Medienmitteilung',
     date: '14.12.2018',
-    dateMachineReadable: '2018-12-14',
     title: 'Winterthur: Unbekannter Mann raubt Tankstellen-Shop aus',
   },
   {
-    href: '#',
+    link: '#',
     date: '14.12.2018',
-    dateMachineReadable: '2018-12-14',
     title: 'Zürich-Flughafen: Drogenkurier verhaftet und Kokain sichergestellt',
   },
   {
-    href: '#',
-    dateLabel: 'Medienmitteilung',
+    link: '#',
+    type: 'Medienmitteilung',
     date: '14.12.2018',
-    dateMachineReadable: '2018-12-14',
     title: 'Weiningen: Vermisstmeldung - Willi Müller',
   },
 ];
 
 const demoImageItems = _.merge({}, demoDefaultItems, [
   {
-    imageData: demoImageFigureData,
+    teaserImage: '../../assets/media/image/news_teaser_316x178_x15.jpeg',
   },
   {
-    imageData: demoImageFigureData,
+    teaserImage: '../../assets/media/image/news_teaser_316x178_x15.jpeg',
   },
   {
-    imageData: demoImageFigureData,
+    teaserImage: '../../assets/media/image/news_teaser_316x178_x15.jpeg',
   },
 ]);
 
 const demoTextItems = _.merge({}, demoDefaultItems, [
   {
     title: 'Zufahrt Strassenverkehrsamt Hinwil erschwert',
-    text: 'Strassenbau Winterthur- / Überlandstrassen: Bitte planen Sie für Ihre Fahrt zum '
+    teaserText: 'Strassenbau Winterthur- / Überlandstrassen: Bitte planen Sie für Ihre Fahrt zum '
     + 'Strassenverkehrsamt Hinwil genügend Zeit ein',
   },
   {
     title: 'Vekehrsabgaben 2019',
-    text: 'Alle Infos zu Verkehrsabgabenrechener, Fristen, Ratenzahlung etc',
+    teaserText: 'Alle Infos zu Verkehrsabgabenrechener, Fristen, Ratenzahlung etc',
   },
   {
     title: 'Öffnungszeiten Ferientage',
-    text: 'Vom 22. bis 26 Dezember und vom 29. Dezember bis 2. Januar bleiben wir geschlossen. Am 27. und 28. Dezember sind wir für Sie da.',
+    teaserText: 'Vom 22. bis 26 Dezember und vom 29. Dezember bis 2. Januar bleiben wir geschlossen. Am 27. und 28. Dezember sind wir für Sie da.',
   },
 ]);
 

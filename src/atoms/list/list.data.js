@@ -14,12 +14,11 @@ const data = _.merge({}, defaultData, {
   props: {
     iconRight: 'arrow-right',
     iconLeft: 'check',
-    groupPostfix: 'default',
     validation: {
       isRequired: true,
     },
     selectOptions: [
-      { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
+      { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item'), preSelected: true },
       { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
       { value: 'sich', label: 'Sicherheit & Justiz', id: _.uniqueId('option-item') },
       { value: 'so', label: 'Soziales', id: _.uniqueId('option-item') },
@@ -37,7 +36,7 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
-      groupPostfix: 'defaultSingle',
+      groupId: 'defaultSingle',
       isSingleSelect: true,
     },
   },
@@ -47,7 +46,7 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
-      groupPostfix: 'defaultMulti',
+      groupId: 'defaultMulti',
       isMultiSelect: true,
     },
   },
@@ -57,7 +56,7 @@ const variants = _.mapValues({
       desc: 'Liste mit Icon links nur bei Auswahl',
     },
     props: {
-      groupPostfix: 'iconLeftMulti',
+      groupId: 'iconLeftMulti',
       isMultiSelect: true,
       hasFilterAndButton: true,
       hasOptionIcon: true,
@@ -90,7 +89,7 @@ const variants = _.mapValues({
       desc: 'Liste mit Icon links nur bei Auswahl',
     },
     props: {
-      groupPostfix: 'iconLeftMulti',
+      groupId: 'iconLeftMulti',
       isMultiSelect: true,
       hasFilterAndButton: true,
       hasOptionIcon: true,
@@ -113,7 +112,7 @@ const variants = _.mapValues({
       desc: 'Liste mit Icon rechts',
     },
     props: {
-      groupPostfix: 'iconRightSingle',
+      groupId: 'iconRightSingle',
       isSingleSelect: true,
       hasOptionIcon: true,
       hasIconRight: true,
@@ -125,7 +124,7 @@ const variants = _.mapValues({
       desc: 'Liste mit Icon rechts und links',
     },
     props: {
-      groupPostfix: 'iconBothSingle',
+      groupId: 'iconBothSingle',
       isSingleSelect: true,
       hasOptionIcon: true,
       hasIconLeft: true,
