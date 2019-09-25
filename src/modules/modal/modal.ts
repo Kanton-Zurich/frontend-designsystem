@@ -30,7 +30,6 @@ class Modal extends Module {
         closeButton: '.mdl-page-header__closebutton',
         close: '[data-modal="close"]',
         singlePageApp: '[data-init="application"]',
-        focusable: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
       },
       stateClasses: {
         show: 'mdl-modal--show',
@@ -58,7 +57,46 @@ class Modal extends Module {
   initEventListeners() {
     this.closeOnEscapeFunction = this.closeOnEscape.bind(this);
     this.initContent();
-    this.eventDelegate.on('Modal.open', this.openModal.bind(this));
+    this.eventDelegate.on('Modal.open', () => {
+      // isolate modal
+      this.isolatedElements = [];
+      (<any>window).estatico.helpers.bodyElement.childNodes.forEach((child) => {
+        if (child.nodeType === 1) {
+          if (!(<HTMLElement>child).getAttribute('aria-hidden')) {
+            (<HTMLElement>child).setAttribute('aria-hidden', 'true');
+            this.isolatedElements.push(child);
+          }
+        }
+      });
+      (<any>window).estatico.helpers.wrapAccessibility(this.ui.element);
+      window.addEventListener('keydown', this.closeOnEscapeFunction);
+      this.parentScrollPosition = document.documentElement.scrollTop;
+      this.ui.element.removeAttribute('style');
+      (<any>window).estatico.helpers.setHiddenTabIndex(this.ui.element);
+      // delayed opacity animation
+      setTimeout(() => { this.ui.element.classList.add(this.options.stateClasses.show); }, 1);
+      this.ui.element.focus();
+      this.ui.element.scrollTop = 0;
+
+      if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
+        this.updateOnScroll(0);
+      }
+      this.updateSizing();
+      (<any>WindowEventListener).addDebouncedResizeListener(this.updateSizing.bind(this));
+      document.documentElement.style.overflowY = 'hidden';
+
+      this.ui.element.setAttribute('aria-hidden', 'false');
+
+      // If there is the navigation topic list a child, then load the navigation
+      if (this.ui.element.querySelector('.mdl-topiclist--nav')) {
+        this.ui.element.querySelector('.mdl-topiclist--nav').dispatchEvent(new CustomEvent('loadNavigation'));
+      }
+      // reload Single page Applications scripts in case of asynchronous loading
+      const spa = this.ui.element.querySelector(this.options.domSelectors.singlePageApp);
+      if (spa) {
+        spa.dispatchEvent(new CustomEvent('Application.initScripts'));
+      }
+    });
     this.eventDelegate.on('Modal.initContent', () => {
       if (!this.hasCloseBtn) {
         this.initContent();
@@ -76,9 +114,6 @@ class Modal extends Module {
     this.ui.element.style.display = 'none';
   }
 
-  /**
-   * Initialize sub modules to make them functional
-   */
   initContent() {
     const closeButton = this.ui.element.querySelector(this.options.domSelectors.closeButton);
     if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
@@ -92,10 +127,6 @@ class Modal extends Module {
     }
   }
 
-  /**
-   * Update on scroll event
-   * @param scrollTop
-   */
   updateOnScroll(scrollTop) {
     const pageHeader = this.ui.element.querySelector(this.options.domSelectors.pageHeader);
     if (pageHeader) {
@@ -107,9 +138,6 @@ class Modal extends Module {
     }
   }
 
-  /**
-   * Update sizing of the header and content
-   */
   updateSizing() {
     const pageHeader = this.ui.element.querySelector(this.options.domSelectors.pageHeader);
     if (pageHeader) {
@@ -125,67 +153,12 @@ class Modal extends Module {
     }
   }
 
-  /**
-   * Open the modal and isolate content
-   */
-  openModal() {
-    // isolate modal
-    this.isolatedElements = [];
-    (<any>window).estatico.helpers.bodyElement.childNodes.forEach((child) => {
-      if (child.nodeType === 1) {
-        if (!(<HTMLElement>child).getAttribute('aria-hidden')) {
-          (<HTMLElement>child).setAttribute('aria-hidden', 'true');
-          this.isolatedElements.push(child);
-        }
-      }
-    });
-    (<any>window).estatico.helpers.wrapAccessibility(this.ui.element);
-    window.addEventListener('keydown', this.closeOnEscapeFunction);
-    this.parentScrollPosition = document.documentElement.scrollTop;
-    this.ui.element.removeAttribute('style');
-    (<any>window).estatico.helpers.setHiddenTabIndex(this.ui.element);
-    // delayed opacity animation and focus handling
-    setTimeout(() => {
-      this.ui.element.classList.add(this.options.stateClasses.show);
-      const focusable = this.ui.element.querySelectorAll(this.options.domSelectors.focusable);
-      if (focusable.length > 0) {
-        focusable[0].focus();
-      }
-    }, 1);
-    this.ui.element.focus();
-    this.ui.element.scrollTop = 0;
-    // scroll to content top
-    if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
-      this.updateOnScroll(0);
-    }
-    this.updateSizing();
-    (<any>WindowEventListener).addDebouncedResizeListener(this.updateSizing.bind(this));
-    document.documentElement.style.overflowY = 'hidden';
-    this.ui.element.setAttribute('aria-hidden', 'false');
-    // If there is the navigation topic list a child, then load the navigation
-    if (this.ui.element.querySelector('.mdl-topiclist--nav')) {
-      this.ui.element.querySelector('.mdl-topiclist--nav').dispatchEvent(new CustomEvent('loadNavigation'));
-    }
-    // reload Single page Applications scripts in case of asynchronous loading
-    const spa = this.ui.element.querySelector(this.options.domSelectors.singlePageApp);
-    if (spa) {
-      spa.dispatchEvent(new CustomEvent('Application.initScripts'));
-    }
-  }
-
-  /**
-   * Close modal in escape event
-   * @param event
-   */
   closeOnEscape(event) {
     if (event.key === 'Escape' || event.key === 'Esc') {
       this.closeModal();
     }
   }
 
-  /**
-   * Close the modal
-   */
   closeModal() {
     document.documentElement.style.overflowY = 'initial';
     this.ui.element.classList.add(this.options.stateClasses.transHide);
