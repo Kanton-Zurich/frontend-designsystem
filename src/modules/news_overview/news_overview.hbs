@@ -1,0 +1,60 @@
+<div class="mdl-news-overview" data-init="newsOverview" data-source="/mocks/modules/news_overview/news_overview.json" data-order-by="new">
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+      <div class="cell">
+        <form novalidate>
+          <div class="mdl-news-overview__filter">
+            {{>"atoms/form_input/form_input" searchInputData }}
+            {{>"modules/datepicker/datepicker" dateInputData }}
+            {{>"modules/select/select" topicSelect }}
+            {{>"modules/select/select" organisationSelect }}
+            {{>"modules/select/select" typeSelect }}
+            {{>"atoms/button/button" buttonData }}
+          </div>
+        </form>
+        {{>"modules/news_filter_mobile/news_filter_mobile" newsFilterMobileData}}
+        <div class="mdl-news-teaser mdl-news-overview__topnews">
+          <div class="mdl-news-teaser__content">
+        {{> "modules/teaser/teaser" prominentTeaser}}
+          </div>
+          <div class="mdl-news-teaser__content">
+            <ul>
+              {{#each topNewsTeaserItems}}
+                <li class="mdl-news-teaser__item">
+                  {{> "modules/news_teaser/_news_teaser_item" this }}
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+        <div class="mdl-news-overview__controls">
+          <div class="mdl-news-overview__selection">
+            {{>"modules/filter_pills/filter_pills" filterPillsData}}
+          </div>
+          <div class="mdl-news-overview__sort">
+            <span>Sortieren nach: </span>
+            <button class="mdl-news-overview__sort-dropdown">
+              <span>Neueste</span>
+              <svg class="icon">
+                <use xlink:href="#angle_drop_down"></use>
+              </svg>
+            </button>
+            {{> "modules/context_menu/context_menu" sortContextMenu}}
+          </div>
+        </div>
+        <div class="mdl-news-teaser mdl-news-overview__newsgrid">
+          <div class="mdl-news-teaser__content">
+            <script data-teaser-template type="text/x-handlebars-template">
+              {{{ newsTeaserTemplate }}}
+            </script>
+            <ul>
+            </ul>
+          </div>
+          <div class="mdl-news-overview__pagination">
+            {{> "modules/pagination/pagination" }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

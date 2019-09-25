@@ -20,14 +20,8 @@ $customParagraphCurve: (
     ul {
       @include resetList();
       display: flex;
-      flex-direction: column;
-      border-width: pxToRem($sizeTiny) 0 0 pxToRem($sizeTiny);
-    }
-
-    ul,
-    ul > li {
-      border-style: solid;
-      border-color: $colorBlack10;
+      flex-flow: row wrap;
+      padding-right: pxToRem($sizeTiny);
     }
   }
 
@@ -51,77 +45,47 @@ $customParagraphCurve: (
 
   &__item {
     position: relative;
-    padding: pxToRem($sizeBig); // 32px;
-    border-width: 0 pxToRem($sizeTiny) pxToRem($sizeTiny) 0;
-    flex-grow: 1;
+    border-left: pxToRem($sizeTiny) solid $colorBlack10;
+    border-top: pxToRem($sizeTiny) solid $colorBlack10;
     background-color: $white;
-
-    // HOVER OVER ITEMS
-    &:hover {
-      .atm-heading,
-      time,
-      p {
-        color: $colorBlack;
-      }
-
-      &:before,
-      &:after,
-      > a:before,
-      > a:after {
-        content: '';
-        position: absolute;
-        display: block;
-        background-color: $colorBorderFrameHover;
-      }
-
-      &:before,
-      > a:before {
-        left: 0;
-
-        width: calc(100%);
-        height: pxToRem($sizeTiny);
-      }
-
-      &:before {
-        top: -8px;
-      }
-
-      > a:before {
-        bottom: -8px;
-      }
-
-      &:after,
-      > a:after {
-        top: -8px;
-
-        width: pxToRem($sizeTiny);
-        height: calc(100% + 16px);
-      }
-
-      &:after {
-        right: -8px;
-      }
-
-      > a:after {
-        left: -8px;
-      }
-    }
+    flex-grow: 1;
+    width: 100%;
 
     a {
+      border-right: pxToRem($sizeTiny) solid $colorBlack10;
+      border-bottom: pxToRem($sizeTiny) solid $colorBlack10;
+      position: relative;
+      margin-top: - pxToRem($sizeTiny);
+      margin-left: - pxToRem($sizeTiny);
+      width: calc(100% + #{2*$sizeTiny});
+      height: calc(100% + #{2*$sizeTiny});
+      padding: pxToRem($sizeBig); // 32px;
+      padding-top: pxToRem($sizeBig + $sizeTiny);
       display: flex;
-      height: 100%;
       flex-direction: column;
       justify-content: flex-start;
       text-decoration: none;
     }
 
+    // HOVER OVER ITEMS
+    &:hover {
+      z-index: 1;
+      border-color: $colorBorderFrameHover;
+
+      a {
+        border-color: $colorBorderFrameHover;
+      }
+
+      .atm-heading,
+      time,
+      p {
+        color: $colorBlack;
+      }
+    }
+
     time,
     p {
       color: $colorBlack60;
-    }
-
-    img {
-      min-height: pxToRem(117px);
     }
 
     // Overwrite item heading atom
@@ -198,20 +162,9 @@ $customParagraphCurve: (
       }
     }
 
-    &__content {
-      ul {
-        max-width: 100%;
-        flex-flow: row wrap;
-      }
-    }
-
     &__item {
       flex-basis: 50%;
       max-width: 50%;
-
-      img {
-        min-height: pxToRem(135px);
-      }
     }
     // Single item style
     .medium-6 ul {
@@ -256,10 +209,6 @@ $customParagraphCurve: (
     &__item {
       flex-basis: 33.33%;
       max-width: 33.33%;
-
-      img {
-        min-height: pxToRem(178px);
-      }
     }
 
     .mdl-linklist {

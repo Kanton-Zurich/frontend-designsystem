@@ -58,7 +58,10 @@ class Modal extends Module {
       isNav: false,
       scrollThreshold: 75,
     };
+
     super($element, defaultData, defaultOptions, data, options);
+
+    this.isolatedElements = [];
 
     this.initUi();
     this.initContent();
@@ -133,6 +136,7 @@ class Modal extends Module {
    */
   updateOnScroll(scrollTop) {
     const pageHeader = this.ui.element.querySelector(this.options.domSelectors.pageHeader);
+
     if (pageHeader) {
       if (scrollTop > this.options.scrollThreshold) {
         pageHeader.dispatchEvent(new CustomEvent('PageHeader.collapse'));
@@ -157,6 +161,12 @@ class Modal extends Module {
         }
       }
       this.ui.element.style.paddingTop = `${this.headerHeight}px`;
+    }
+  }
+
+  closeOnEscape(event) {
+    if (event.key === 'Escape' || event.key === 'Esc') {
+      this.closeModal();
     }
   }
 
@@ -208,6 +218,7 @@ class Modal extends Module {
     if (this.options.isNav) {
       this.ui.element.querySelector(this.options.childSelectors.nav).dispatchEvent(new CustomEvent('loadNavigation'));
     }
+
     // reload Single page Applications scripts in case of asynchronous loading
     if (this.options.isSPA) {
       this.ui.element.querySelector(this.options.childSelectors.spa).dispatchEvent(new CustomEvent('Application.initScripts'));
@@ -219,7 +230,7 @@ class Modal extends Module {
    * @param event
    */
   closeOnEscape(event) {
-    if (event.key === 'Escape' || event.key === 'Esc') {
+    if (event.key === 'Escape' || event.key === 'Esc' && this.isolatedElements.length > 0) {
       this.closeModal();
     }
   }
@@ -271,6 +282,7 @@ class Modal extends Module {
 
     this.ui.element.classList.add(this.options.stateClasses.switchLeft);
 
+    // After the animation we can set the modal to display: none
     setTimeout(() => {
       this.ui.element.classList.remove(this.options.stateClasses.beforeShow);
       this.ui.element.classList.remove(this.options.stateClasses.beforeHide);
