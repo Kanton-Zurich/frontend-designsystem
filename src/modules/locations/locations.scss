@@ -6,11 +6,12 @@ $locationsPaddingCurve: (
 );
 
 $sidebarMaxWidth: 386px;
+$sideBarHeightSmall: 568px;
 $sideBarHeadHeight: 2 * $sizeRegular + $sizeSmallHuge;
 
 $mapRatioLarge: 1.777;
 $mapRatioMedium: 1;
-$mapRatioSmall: 0.8;
+$mapRatioSmall: 0.75;
 
 .sidebarhead {
   position: absolute;
@@ -218,7 +219,7 @@ $mapRatioSmall: 0.8;
 
     .mdl-locations {
       &__wrapper {
-        padding-top: calc((100vw - #{$sizeSmallLarge}) / #{$mapRatioMedium});
+        padding-top: calc((100vw - #{$sizeBig}) / #{$mapRatioMedium});
       }
 
       &__map {
@@ -249,7 +250,7 @@ $mapRatioSmall: 0.8;
 
         &.opened {
           .mdl-linklist {
-            max-height: pxToRem($sizeBreakpointMedium / $mapRatioMedium);
+            max-height: calc(100vw - #{$sizeBiggerBig + 3 * $sizeRegular});
             margin-top: pxToRem($sideBarHeadHeight);
           }
 
@@ -328,7 +329,7 @@ $mapRatioSmall: 0.8;
 
     .mdl-locations {
       &__wrapper {
-        padding-top: calc(125vw / #{$mapRatioSmall});
+        padding-top: calc(100vw / #{$mapRatioSmall});
         margin-top: pxToRem($sizeGiant + $sizeLarge);
       }
 
@@ -351,7 +352,7 @@ $mapRatioSmall: 0.8;
 
         &.opened {
           .mdl-linklist {
-            max-height: pxToRem($sizeBreakpointSmall / $mapRatioSmall);
+            max-height: pxToRem($sideBarHeightSmall -  $sideBarHeadHeight - $sizeRegular);
           }
         }
       }
@@ -379,6 +380,7 @@ $mapRatioSmall: 0.8;
           padding: 0;
 
           &.show {
+            max-height: pxToRem($sideBarHeightSmall -  $sideBarHeadHeight - $sizeRegular);
             margin-top: pxToRem(2 * $sizeSmallRegular + $sizeSmallHuge);
           }
         }
