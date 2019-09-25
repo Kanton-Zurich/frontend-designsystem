@@ -1,0 +1,130 @@
+.mdl-news-filter-mobile {
+  $filterSizes: (
+    backIconHeight: (
+      tiny: $sizeLarge,
+      xsmall: $sizeLarge,
+      small: $sizeSmallBig,
+      medium: $sizeBig,
+      large: $sizeBiggerBig,
+    ),
+    backIconWidth: (
+      tiny: $sizeLarge,
+      small: $sizeSmallBig,
+      medium: $sizeBig,
+    ),
+    topPadding: (
+      tiny: $sizeLarge,
+      small: $sizeHuge,
+    ),
+    topListPadding: (
+      tiny: $sizeLarge,
+      small: $sizeBig,
+    )
+  );
+  $footerHeight: 72px;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .lyt-wrapper {
+    flex: 1 1 auto;
+  }
+
+  &__title.atm-heading {
+    @include sizeCurve(padding-top, topPadding, $filterSizes);
+  }
+
+  &__container {
+    &.hidden {
+      display: none;
+    }
+  }
+
+  &__footer,
+  &__sublevel-footer {
+    min-height: $footerHeight;
+    background-color: $colorBlack5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.hidden {
+      button {
+        display: none;
+      }
+    }
+  }
+
+  &__sublevel {
+    display: none;
+
+    ul {
+      box-shadow: none;
+
+      @include sizeCurve(padding-top, topListPadding, $filterSizes);
+
+      .atm-list__item input {
+        visibility: visible;
+      }
+    }
+
+    &-backbutton {
+      text-decoration: none;
+    }
+
+    &-icon {
+      @include polyFluidSizing(height, map-get($filterSizes, backIconHeight));
+      @include sizeCurve(width, backIconWidth, $filterSizes);
+
+      use {
+        fill: rgba($colorText, 0.6);
+      }
+    }
+
+    position: relative;
+
+    &-container {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      height: 100vh;
+      background-color: $colorWhite;
+      width: 100%;
+      transform: translate(50%, 0);
+      transition: 0.3s ease-in-out;
+      opacity: 0;
+      z-index: $zIndexOverlays;
+      cursor: pointer;
+
+      &.visible {
+        transform: unset;
+        opacity: 1;
+      }
+    }
+
+    &-list {
+      flex: 1 1 auto;
+      overflow-y: scroll;
+      overflow-x: hidden;
+
+      li {
+        &.hidden {
+          display: none;
+        }
+
+        &.focused {
+          background: rgba(0, 0, 0, 0.05);
+
+          &:not(.selected) {
+            color: $colorBlack;
+          }
+        }
+      }
+    }
+
+    &.visible {
+      display: block;
+    }
+  }
+}
