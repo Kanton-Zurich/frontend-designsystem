@@ -20,12 +20,19 @@ class Locations extends Module {
     notFoundTextTemplate: HTMLTemplateElement,
   };
 
+  public options: {
+    focusDelay: number,
+    domSelectors: any,
+    stateClasses: any,
+  };
+
   private keepMapHighlight: boolean;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
     };
     const defaultOptions = {
+      focusDelay: 500,
       domSelectors: {
         listItems: '[data-locations="listItem"]',
         filterInput: '[data-locations="input"]',
@@ -49,7 +56,7 @@ class Locations extends Module {
     this.initEventListeners();
 
     // init sideBar state (i.e. Tabindices)
-    this.toggleSidebarTabIndices();
+    this.toggleSidebarTabIndices(false, true);
   }
 
   static get events() {
@@ -140,7 +147,7 @@ class Locations extends Module {
     this.highlightInMap(clickedItemIndex, true);
   }
 
-  private toggleSidebarTabIndices(onDetails: boolean = false): void {
+  private toggleSidebarTabIndices(onDetails: boolean = false, initialLoad: boolean = false): void {
     if (this.ui.listItems[0]) {
       (<HTMLAnchorElement[]> this.ui.listItems).forEach((listItem) => {
         this.setTabable(listItem, !onDetails);
@@ -151,7 +158,7 @@ class Locations extends Module {
     this.setTabable(this.ui.filterInput, !onDetails);
     this.setTabable(this.ui.backBtn, onDetails);
 
-    if (!onDetails) {
+    if (!onDetails && !initialLoad) {
       this.showLocationDetailsForIndex();
     }
   }
@@ -231,9 +238,11 @@ class Locations extends Module {
     if (indexToShow > -1) {
       setTimeout(() => {
         this.ui.backBtn.focus();
-      }, 0);
+      }, this.options.focusDelay);
     } else {
-      this.ui.filterInput.focus();
+      setTimeout(() => {
+        this.ui.filterInput.focus();
+      }, this.options.focusDelay);
     }
   }
 
