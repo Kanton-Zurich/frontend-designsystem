@@ -1,4 +1,18 @@
 <div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="{{datetimeformat}}" data-localization="de" {{#if
   minDate}} data-mindate="{{{minDate}}}"{{/if}}{{#if maxDate}} data-maxdate="{{{maxDate}}}"{{/if}}>
-  {{> "atoms/form_input/form_input" formInputData}}
+  {{#unless isLinkListItem}}
+    {{> "atoms/form_input/form_input" formInputData}}
+  {{/unless}}
+  {{#if isLinkListItem}}
+    <div class="atm-form_input atm-form_input--icon atm-linklist_item atm-linklist_item--nocolor" data-input>
+       <span class="atm-linklist_item__text">
+         Text
+       </span>
+      <input class="atm-form_input__input " id="{{formInputData.uuid}}" placeholder="{{formInputData.label}}" name="input_name" value="" type="text">
+      <label for="datepicker-16">{{formInputData.label}}</label>
+      <svg class="icon">
+        <use xlink:href="#angle_drop_down"></use>
+      </svg>
+    </div>
+  {{/if}}
 </div>

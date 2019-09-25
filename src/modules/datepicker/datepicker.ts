@@ -41,7 +41,6 @@ class Datepicker extends Module {
     },
     dateRange: {
       mode: string,
-      minDate: string,
       separator: string,
       disableMobile: boolean,
       static: boolean,
@@ -108,7 +107,6 @@ class Datepicker extends Module {
       },
       dateRange: {
         mode: 'range',
-        minDate: 'today',
         separator: ' - ',
         disableMobile: true,
         static: true,
@@ -141,7 +139,10 @@ class Datepicker extends Module {
 
   static get events() {
     return {
-      // eventname: `eventname.${ Datepicker.name }.${  }`
+      close: 'Datepicker.close',
+      dateSet: 'Datepicker.dateSet',
+      clear: 'Datepicker.clear',
+      injectDate: 'Datepicker.injectDate',
     };
   }
 
@@ -150,7 +151,9 @@ class Datepicker extends Module {
    */
   initEventListeners() {
     this.eventDelegate
-      .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this));
+      .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this))
+      .on(Datepicker.events.injectDate, this.onInjectDate.bind(this))
+      .on(Datepicker.events.clear, this.onClear.bind(this));
   }
 
   /**
@@ -229,6 +232,15 @@ class Datepicker extends Module {
   }
 
   /**
+   * Inject date from external
+   * @param event
+   */
+  onInjectDate(event) {
+    const { format, date } = event.detail;
+    this.flatpickr.setDate(date, true, format);
+  }
+
+  /**
    * On change callback. Adds the dirty class to the container element
    */
   onValueChange() {
@@ -242,6 +254,15 @@ class Datepicker extends Module {
    */
   onClose() {
     this.ui.element.classList.remove('open');
+    this.emitDateSet();
+  }
+
+  /**
+   * Handle clear event
+   */
+  onClear() {
+    this.flatpickr.clear();
+    this.ui.element.classList.remove('dirty');
   }
 
   /**
@@ -255,6 +276,19 @@ class Datepicker extends Module {
     } else {
       this.ui.element.classList.add('open');
     }
+  }
+
+  /**
+   * Emits event if date has been set
+   */
+  emitDateSet() {
+    const eventData = {
+      detail: {
+        dateString: this.ui.trigger.value,
+        dates: this.flatpickr.selectedDates,
+      },
+    };
+    this.ui.element.dispatchEvent(new CustomEvent(Datepicker.events.dateSet, eventData));
   }
 
   /**
