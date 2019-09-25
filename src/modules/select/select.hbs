@@ -1,22 +1,24 @@
 <div
-  class="mdl-select{{#if hasFilter}} mdl-select--filter{{/if}}{{#if hasFilterAndButton}} mdl-select--filter-ext{{/if}}"
+  class="mdl-select{{#if hasFilter}} mdl-select--filter {{/if}}{{#if hasButton}} mdl-select--button{{/if}}"
   data-init="select"{{#if isMultiSelect}} data-multiple="true" data-multiselectpostfix="gewählt"{{/if}}
-  data-input>
-
+  data-input
+  {{#if additionalAttributes}}{{{additionalAttributes}}}{{/if}}
+  >
   {{> "atoms/form_input/form_input" triggerInputData }}
-
   <div class="mdl-select__options">
     {{#if hasFilter}}
       <div class="mdl-select__filter">
+      {{#if preview}}<form novalidate>{{/if}}
         {{> "atoms/form_input/form_input" filterInputData }}
+      {{#if preview}}</form>{{/if}}
       </div>
     {{/if}}
 
     {{> "atoms/list/list" listData }}
 
-    {{#if hasFilterAndButton}}
+    {{#if hasButton}}
       <div class="mdl-select__apply">
-        <button type="button" class="atm-button">Anwenden</button>
+        <button class="atm-button" type="button">Anwenden</button>
       </div>
     {{/if}}
   </div>

@@ -11,8 +11,7 @@ class Header extends Module {
   public placeholder: HTMLElement;
   public options: {
     transitionDelays: {
-      big: number,
-      small: number,
+      default: number,
     },
     domSelectors: {
       openModal: string,
@@ -50,8 +49,7 @@ class Header extends Module {
     };
     const defaultOptions = {
       transitionDelays: {
-        big: 500,
-        small: 300,
+        default: 250,
       },
       domSelectors: {
         openModal: '[data-header="openModal"]',
@@ -91,7 +89,7 @@ class Header extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.openModal, this.toggleFlyout.bind(this));
 
     window.addEventListener('keydown', this.closeOnEscape.bind(this));
-    window.addEventListener('Modal.closed', this.unsetClasses.bind(this));
+    window.addEventListener('Modal.closed', this.hideFlyout.bind(this));
     window.addEventListener('scroll', this.handleScroll.bind(this));
 
     window.addEventListener(Anchornav.events.isSticky, () => {
@@ -108,22 +106,27 @@ class Header extends Module {
   }
 
   toggleFlyout(event, delegate) {
-    if (this.data.activeModal) {
+    if (this.data.activeItem === delegate) {
       this.data.activeItem.setAttribute('aria-expanded', 'false');
 
-      const unsetHeaderClasses = this.data.activeItem.getAttribute('data-modal') === delegate.getAttribute('data-modal');
+      this.data.activeModal.dispatchEvent(new CustomEvent('Modal.close'));
+    } else if (this.data.activeItem !== delegate && this.data.activeModal) {
+      this.data.activeItem.setAttribute('aria-expanded', 'false');
 
-      this.hideFlyout(unsetHeaderClasses);
+      this.data.activeModal.dispatchEvent(new CustomEvent('Modal.switchLeft'));
+      document.querySelector(`#${delegate.getAttribute('data-modal')}`).dispatchEvent(new CustomEvent('Modal.switchRight'));
+
+      this.switchFlyout(delegate);
+    } else {
+      this.showFlyout(delegate);
+
+      (<HTMLElement>document.querySelector(this.options.domSelectors.close)).focus();
     }
-
-    this.showFlyout(delegate);
-
-    (<HTMLElement>document.querySelector(this.options.domSelectors.close)).focus();
   }
 
   closeOnEscape(event) {
     if (event.key === 'Escape' || event.key === 'Esc') {
-      this.hideFlyout(true);
+      this.data.activeModal.dispatchEvent(new CustomEvent('Modal.close'));
     }
   }
 
@@ -141,20 +144,24 @@ class Header extends Module {
     this.data.activeItem.setAttribute('aria-expanded', 'true');
   }
 
-  hideFlyout(unsetClasses) {
-    if (this.data.activeModal) {
-      this.data.activeModal.dispatchEvent(new CustomEvent('Modal.close'));
+  switchFlyout(delegate) {
+    this.unsetClasses();
 
-      if (unsetClasses) {
-        setTimeout(this.unsetClasses.bind(this), this.options.transitionDelays.small);
-      }
-    }
+    this.data.activeItem = delegate;
+    this.data.activeModal = document.querySelector(`#${delegate.getAttribute('data-modal')}`);
+
+    this.data.activeItem.classList.add(this.options.stateClasses.activeItem);
+  }
+
+  hideFlyout() {
+    this.unsetClasses();
+
+    this.ui.element.classList.remove(this.options.stateClasses.open);
+    this.ui.element.classList.remove(this.options.colorClasses.monochrome);
   }
 
   unsetClasses() {
     if (this.data.activeModal) {
-      this.ui.element.classList.remove(this.options.stateClasses.open);
-      this.ui.element.classList.remove(this.options.colorClasses.monochrome);
       this.data.activeItem.classList.remove(this.options.stateClasses.activeItem);
       document.documentElement.classList.remove(this.options.stateClasses.fixedHeader);
 
@@ -198,7 +205,11 @@ class Header extends Module {
   }
 
   toggleFixedHeader(propName, valueBefore, valueAfter) {
-    const anchornavIsSticky = document.querySelector('.mdl-anchornav').classList.contains('.mdl-anchornav--sticky');
+    let anchornavIsSticky = false;
+
+    if (document.querySelector('.mdl-anchornav')) {
+      anchornavIsSticky = document.querySelector('.mdl-anchornav').classList.contains('.mdl-anchornav--sticky');
+    }
 
     if (valueAfter) {
       if (anchornavIsSticky) {

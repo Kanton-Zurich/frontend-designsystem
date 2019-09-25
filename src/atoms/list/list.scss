@@ -30,6 +30,7 @@
     position: relative;
     color: $colorBlack60;
     height: pxToRem($sizeSmallHuge);
+    line-height: pxToRem($sizeSmallHuge);
     padding-left: pxToRem($sizeSmallRegular);
     align-items: center;
     display: flex;
@@ -47,7 +48,6 @@
     }
 
     input {
-      visibility: hidden;
       opacity: 0;
       position: absolute;
       top: 0;
