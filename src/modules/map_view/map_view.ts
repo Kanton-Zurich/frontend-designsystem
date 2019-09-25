@@ -31,6 +31,9 @@ class MapView extends Module {
       zoomInBtn: string,
       zoomOutBtn: string,
       centerBtn: string,
+      markerProps: string,
+      markerPropsLat: string,
+      markerPropsLng: string,
     }
     stateClasses: {
 
@@ -45,7 +48,7 @@ class MapView extends Module {
   };
 
   private map: L.Map;
-
+  private marker: L.Marker[];
   private userPosMarker: L.Marker;
 
   constructor($element: any, data: Object, options: Object) {
@@ -53,9 +56,12 @@ class MapView extends Module {
     };
     const defaultOptions = {
       domSelectors: {
-        zoomInBtn: '[date-map-view=zoomInBtn]',
-        zoomOutBtn: '[date-map-view=zoomOutBtn]',
-        centerBtn: '[date-map-view=centerBtn]',
+        zoomInBtn: '[data-map-view=zoomInBtn]',
+        zoomOutBtn: '[data-map-view=zoomOutBtn]',
+        centerBtn: '[data-map-view=centerBtn]',
+        markerProps: '[data-map-view=markerProps]',
+        markerPropsLat: '[data-map-view=marker_lat]',
+        markerPropsLng: '[data-map-view=marker_lng]',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -89,40 +95,34 @@ class MapView extends Module {
         this.map.zoomOut();
       })
       .on('click', this.options.domSelectors.centerBtn, () => {
-        this.map.locate();
+        this.map.locate(
+          // { setView: true } // TODO
+        );
       });
   }
 
   private initMap(): void {
     const url = 'https://wms.zh.ch/ZHWEB?';
-    const map = new L.Map('map', mapOptions);
+    this.map = new L.Map('map', mapOptions);
 
-    // L.control.zoom({ position: 'bottomright' }).addTo(map);
-    // L.control.locate().addTo(map);
-    // map.locate()
     L.tileLayer.wms(url, {
       version: '1.3.0',
       format: 'image/png; mode=8bit',
       transparent: false,
       layers: 'ZHBase',
-    }).addTo(map);
+    }).addTo(this.map);
 
     wms.overlay(url, {
       version: '1.3.0',
       format: 'image/png; mode=8bit',
       transparent: true,
       layers: 'ZHLabels',
-    }).addTo(map);
-
-    L.marker(
-      [47.3776662, 8.5365413],
-      { icon: kzhIcon },
-    ).addTo(map);
+    }).addTo(this.map);
 
     if (this.ui.centerBtn) {
       this.log('User locate enabled. Requesting user location.');
-      map.locate();
-      map.on('locationfound', (ev: L.LocationEvent) => {
+      this.map.locate();
+      this.map.on('locationfound', (ev: L.LocationEvent) => {
         this.log('Locationfound event: ', ev);
         const userLatLng = ev.latlng;
         if (userLatLng) {
@@ -130,27 +130,52 @@ class MapView extends Module {
             this.userPosMarker = L.marker(
               [47.4341, 8.46874], // userLatLng, TODO: For dev only
               { icon: userPosIcon },
-            ).addTo(map);
+            ).addTo(this.map);
           } else {
             this.userPosMarker.setLatLng(userLatLng);
+            this.map.fitBounds(ev.bounds);
           }
         }
       });
-      map.on('locationerror', (errorEv: L.ErrorEvent) => {
+      this.map.on('locationerror', (errorEv: L.ErrorEvent) => {
         this.log('Failed to locate user.');
         this.log('Locationerror event: ', errorEv);
       });
     }
+    this.setMarker();
+  }
 
-    // Zur Überprüfung, ob alle aktuellen Layer angezeigt werden
-    wms.layer(url, 'ZHWEB', {
-      version: '1.3.0',
-      format: 'image/png; mode=8bit',
-      transparent: true,
-      layers: 'ZHWEB',
-    }).addTo(map);
+  private setMarker(): void {
+    this.marker = [];
+    this.ui.element.querySelectorAll<HTMLLIElement>(this.options.domSelectors.markerProps)
+      .forEach((propertyNode) => {
+        const latEl = propertyNode
+          .querySelector<HTMLElement>(this.options.domSelectors.markerPropsLat);
+        const lngEl = propertyNode
+          .querySelector<HTMLElement>(this.options.domSelectors.markerPropsLng);
 
-    this.map = map;
+        if (latEl && lngEl) {
+          const lat = Number.parseFloat(latEl.innerText);
+          const lng = Number.parseFloat(lngEl.innerText);
+          if (lat && lng) {
+            this.marker.push(L.marker(
+              [lat, lng],
+              { icon: kzhIcon },
+            ));
+          }
+        }
+      });
+
+
+    if (this.marker.length > 0) {
+      // set map bounds
+      const markerGroup = L.featureGroup(this.marker);
+      this.map.fitBounds(markerGroup.getBounds());
+
+      this.marker.forEach((m) => {
+        m.addTo(this.map);
+      });
+    }
   }
 
   /**

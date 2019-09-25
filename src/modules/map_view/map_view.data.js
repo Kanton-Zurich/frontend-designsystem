@@ -18,20 +18,26 @@ const data = _.merge({}, defaultData, {
       isTextVisible: false,
       icon: 'locate',
       isInverted: true,
-      additionalAttribute: 'date-map-view="centerBtn"',
+      additionalAttribute: 'data-map-view="centerBtn"',
     }),
     zoomInBtn: _.merge({}, defButtonData, {
       isTextVisible: false,
       icon: 'plus',
       isInverted: true,
-      additionalAttribute: 'date-map-view="zoomInBtn"',
+      additionalAttribute: 'data-map-view="zoomInBtn"',
     }),
     zoomOutBtn: _.merge({}, defButtonData, {
       isTextVisible: false,
       icon: 'minus',
       isInverted: true,
-      additionalAttribute: 'date-map-view="zoomOutBtn"',
+      additionalAttribute: 'data-map-view="zoomOutBtn"',
     }),
+    mapMarker: [
+      { lat: 47.3776662, lng: 8.5365413 },
+      { lat: 47.39542, lng: 8.54123 },
+      { lat: 47.5676662, lng: 8.43513 },
+      { lat: 47.41662, lng: 8.4865413 },
+    ],
   },
 });
 const variants = _.mapValues({
