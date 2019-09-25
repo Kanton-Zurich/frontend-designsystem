@@ -19,6 +19,8 @@ const radioData = require('../../atoms/radiobutton/radiobutton.data');
 const selectHBS = dataHelper.getFileContent('../select/select.hbs');
 const selectData = require('../select/select.data');
 
+const fileUploadHBS = dataHelper.getFileContent('../file_upload/file_upload.hbs');
+const fileUploadData = require('../file_upload/file_upload.data');
 const datepickerHBS = dataHelper.getFileContent('../datepicker/datepicker.hbs');
 const datepickerData = require('../datepicker/datepicker.data');
 
@@ -148,6 +150,17 @@ const variants = _.mapValues({
                       pattern: '^[0-9]{4,4}$',
                       errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
                     },
+                    zipCity: {
+                      fills: 'city',
+                      data: JSON.stringify({
+                        8000: 'Zürich',
+                        8001: 'Zürich',
+                        8004: 'Zürich',
+                        8310: 'Winterthur',
+                        8700: 'Küsnacht ZH',
+                        8620: 'Wetzikon',
+                      }),
+                    },
                   })),
               },
               {
@@ -175,6 +188,21 @@ const variants = _.mapValues({
                   cellContent: () => handlebars.compile(selectHBS)(_.merge({},
                     selectData.variants.multiSelect.props,
                     {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(fileUploadHBS)(_.merge({},
+                    fileUploadData.variants.default.props,
+                    {
+                      validation: {
+                        maxSize: 26214400,
+                        fileTypes: 'text/csv, image/gif, text/html, image/jpeg, application/pdf, image/png, image/tiff, application/rtf, image/svg+xml, text/plain, application/xml',
+                        isRequired: true,
+                      },
+                    })),
                 },
               ],
             },

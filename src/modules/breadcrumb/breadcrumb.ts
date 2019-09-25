@@ -24,6 +24,7 @@ class Breadcrumb extends Module {
     hiddenItems: Array<Number>,
     hideableItems: Number,
     windowWidth: Number,
+    mobileBreakpoint: Number,
     isBackOnly: Boolean,
   }
 
@@ -45,6 +46,7 @@ class Breadcrumb extends Module {
     const defaultData = {
       itemsWiderThanElement: false,
       hiddenItems: [],
+      mobileBreakpoint: 400,
     };
     const defaultOptions = {
       customTrigger: false,
@@ -104,8 +106,9 @@ class Breadcrumb extends Module {
 
       hideItem += 1;
     }
+    const windowWidth = window.innerWidth;
 
-    if (this.isElementNotEnoughWide()) {
+    if (this.isElementNotEnoughWide() || windowWidth < this.data.mobileBreakpoint) {
       this.setBackOnly();
     }
   }

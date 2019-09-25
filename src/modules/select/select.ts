@@ -27,7 +27,7 @@ class Select extends Module {
     items: HTMLLIElement[],
     inputItems: HTMLInputElement[],
     applyButton: any,
-    clearButton: any,
+    filterClearButton: any,
     phoneInput: any,
   };
 
@@ -52,11 +52,12 @@ class Select extends Module {
         triggerLabel: '.atm-form_input__trigger-label',
         dropdown: '.mdl-select__options',
         filter: '.mdl-select__filter input',
+        filterClearButton: '.mdl-select__filter .atm-form_input__functionality',
         phoneInput: '.atm-form_input--trigger-phone input',
         list: '.atm-list',
         items: '.atm-list__item',
         inputItems: '.atm-list__item input',
-        clearButton: '.atm-form_input__functionality',
+        visibleInputItems: '.atm-list__item:not(.hidden) input',
         applyButton: '.mdl-select__apply button',
       },
       stateClasses: {
@@ -186,6 +187,8 @@ class Select extends Module {
         if (event.key === 'Tab') {
           if (event.shiftKey) {
             this.closeDropdown(true);
+          } else {
+            this.updateFlyingFocus();
           }
         }
       })
@@ -233,14 +236,14 @@ class Select extends Module {
       });
     });
     // -------------------------------
-    // arrow key navigation for multi select
-    if (this.isMultiSelect) {
-      this.ui.items.forEach((li) => {
-        li.querySelector('input').addEventListener('keydown', (evt) => {
-          const pressed = evt.key;
-          let newTarget = <any>evt.target;
-          if (pressed === 'ArrowUp' || pressed === 'ArrowDown') {
-            let nextFocusable = pressed === 'ArrowUp'
+    // arrow key navigation for select
+    this.ui.items.forEach((li) => {
+      li.querySelector('input').addEventListener('keydown', (evt) => {
+        const pressed = evt.key;
+        let newTarget = <any>evt.target;
+        if (['ArrowUp', 'ArrowDown', 'Up', 'Down'].indexOf(pressed) >= 0) {
+          if (this.isMultiSelect) {
+            let nextFocusable = ['ArrowUp', 'Up'].indexOf(pressed) >= 0
               ? li.previousElementSibling
               : li.nextElementSibling;
             while (nextFocusable) {
@@ -248,21 +251,40 @@ class Select extends Module {
                 newTarget = nextFocusable.querySelector('input');
                 break;
               }
-              nextFocusable = pressed === 'ArrowUp'
+              nextFocusable = ['ArrowUp', 'Up'].indexOf(pressed) >= 0
                 ? nextFocusable.previousElementSibling
                 : nextFocusable.nextElementSibling;
             }
             newTarget.focus();
-            this.updateFlyingFocus();
             evt.stopPropagation();
             evt.preventDefault();
           }
-        });
+          this.updateFlyingFocus();
+        }
+        if (!this.isMultiSelect && ['Enter', ' ', 'Spacebar'].indexOf(pressed) >= 0) {
+          this.ui.trigger.click();
+        }
       });
-    }
+    });
     // -------------------------------
     // Observe inputs and update values -
     if (this.ui.filter) {
+      this.ui.filter.addEventListener('keydown', (event) => {
+        this.updateFlyingFocus();
+        if (event.key === 'Enter') {
+          event.preventDefault();
+        }
+      });
+      this.ui.filterClearButton.addEventListener('keydown', (event) => {
+        if (event.key === 'Tab' && !event.shiftKey) {
+          const visibleItems = this.ui.element
+            .querySelectorAll(this.options.domSelectors.visibleInputItems);
+          if (visibleItems.length > 0) {
+            visibleItems[0].focus();
+            event.preventDefault();
+          }
+        }
+      });
       this.watch(this.ui.filter, 'value', debounce((key, before, after) => { // eslint-disable-line
         this.ui.items.forEach((li) => {
           const searchString = after.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
@@ -396,7 +418,11 @@ class Select extends Module {
     if (this.ui.filter) {
       this.ui.filter.focus();
     } else if (!this.isMultiSelect) {
-      this.ui.element.querySelector(`${this.options.domSelectors.inputItems}:checked`).focus();
+      if (this.ui.element.querySelector(`${this.options.domSelectors.inputItems}:checked`)) {
+        this.ui.element.querySelector(`${this.options.domSelectors.inputItems}:checked`).focus();
+      } else {
+        this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
+      }
     } else {
       this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
     }
@@ -426,6 +452,8 @@ class Select extends Module {
             this.ui.trigger.focus();
           }
         }, this.options.dropdownDelay);
+      } else {
+        this.updateFlyingFocus();
       }
       this.emitClose();
     }
