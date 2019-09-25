@@ -5,10 +5,12 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import FormRules from '../../assets/js/helpers/formrules.class';
 
 class StepperNavigation extends Module {
   public data: {
     active: number,
+    steps: NodeListOf<HTMLDivElement>
   }
 
   public ui: {
@@ -24,6 +26,7 @@ class StepperNavigation extends Module {
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
       active: 0,
+      steps: null,
     };
     const defaultOptions = {
       domSelectors: {
@@ -33,6 +36,8 @@ class StepperNavigation extends Module {
       stateClasses: {
         activeStep: 'mdl-stepper_navigation__step--active',
         visitedStep: 'mdl-stepper_navigation__step--visited',
+        pendingStep: 'mdl-stepper_navigation__step--pending',
+        hiddenStep: 'mdl-stepper_navigation__step--hidden',
       },
     };
 
@@ -66,6 +71,10 @@ class StepperNavigation extends Module {
         },
       }));
     });
+
+    this.data.steps.forEach((step) => {
+      step.addEventListener(FormRules.events.stateChange, this.onStepStateChange.bind(this));
+    });
   }
 
   setVisited(pageIndex) {
@@ -87,11 +96,52 @@ class StepperNavigation extends Module {
   }
 
   setStepNumbers() {
+    let counter = 1;
     this.ui.step.forEach((step, index) => {
       const number = step.querySelector(this.options.domSelectors.number);
+      const stepInStepper = this.data.steps[index];
 
-      number.innerHTML = index + 1;
+      if (!stepInStepper.hasAttribute('data-enabled') || stepInStepper.getAttribute('data-enabled') === 'true') {
+        number.innerHTML = counter;
+
+        counter += 1;
+      }
     });
+  }
+
+  onStepStateChange(event) {
+    const navigationItem = this.ui.step[event.detail.index];
+
+    switch (event.detail.state) {
+      case 'pending':
+        navigationItem.classList.add(this.options.stateClasses.pendingStep);
+        navigationItem.parentElement.classList.add(this.options.stateClasses.pendingStep);
+
+        navigationItem.classList.remove(this.options.stateClasses.hiddenStep);
+        navigationItem.parentElement.classList.remove(this.options.stateClasses.hiddenStep);
+
+        break;
+      case 'enabled':
+        navigationItem.classList.remove(this.options.stateClasses.pendingStep);
+        navigationItem.parentElement.classList.remove(this.options.stateClasses.pendingStep);
+
+        navigationItem.classList.remove(this.options.stateClasses.hiddenStep);
+        navigationItem.parentElement.classList.remove(this.options.stateClasses.hiddenStep);
+
+        break;
+      case 'disabled':
+        navigationItem.classList.remove(this.options.stateClasses.pendingStep);
+        navigationItem.parentElement.classList.remove(this.options.stateClasses.pendingStep);
+
+        navigationItem.classList.add(this.options.stateClasses.hiddenStep);
+        navigationItem.parentElement.classList.add(this.options.stateClasses.hiddenStep);
+
+        break;
+      default:
+        break;
+    }
+
+    this.setStepNumbers();
   }
 
   /**

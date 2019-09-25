@@ -38,6 +38,12 @@ class FormRules {
     this.addWatchers();
   }
 
+  static get events() {
+    return {
+      stateChange: 'formrules.stateChange',
+    };
+  }
+
   getRules() {
     this.rules = JSON.parse(this.ui.owner.getAttribute('data-rules'));
   }
@@ -58,6 +64,13 @@ class FormRules {
         break;
       case 'enable':
         this.ui.owner.setAttribute('data-pending', 'true');
+        this.ui.owner.removeAttribute('data-enabled');
+        this.ui.owner.dispatchEvent(new CustomEvent(FormRules.events.stateChange, {
+          detail: {
+            state: 'pending',
+            index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
+          },
+        }));
 
         break;
       default:
@@ -80,6 +93,53 @@ class FormRules {
         } else {
           this.ui.parent.classList.remove(this.options.stateClasses.hiddenByRule);
         }
+        break;
+      case 'enable':
+        if (conditionsMet) {
+          this.ui.owner.setAttribute('data-enabled', 'true');
+          this.ui.owner.removeAttribute('data-pending');
+
+          this.ui.owner.dispatchEvent(new CustomEvent(FormRules.events.stateChange, {
+            detail: {
+              state: 'enabled',
+              index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
+            },
+          }));
+        } else {
+          this.ui.owner.setAttribute('data-enabled', 'false');
+          this.ui.owner.removeAttribute('data-pending');
+
+          this.ui.owner.dispatchEvent(new CustomEvent(FormRules.events.stateChange, {
+            detail: {
+              state: 'disabled',
+              index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
+            },
+          }));
+        }
+        break;
+      case 'disable':
+        if (conditionsMet) {
+          this.ui.owner.setAttribute('data-enabled', 'false');
+          this.ui.owner.removeAttribute('data-pending');
+
+          this.ui.owner.dispatchEvent(new CustomEvent(FormRules.events.stateChange, {
+            detail: {
+              state: 'disabled',
+              index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
+            },
+          }));
+        } else {
+          this.ui.owner.setAttribute('data-enabled', 'true');
+          this.ui.owner.removeAttribute('data-pending');
+
+          this.ui.owner.dispatchEvent(new CustomEvent(FormRules.events.stateChange, {
+            detail: {
+              state: 'enabled',
+              index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
+            },
+          }));
+        }
+
         break;
       default:
         break;

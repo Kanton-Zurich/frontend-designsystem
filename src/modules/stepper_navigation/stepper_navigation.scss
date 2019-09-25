@@ -134,6 +134,32 @@ $stepperNavigationCurves: (
         display: none;
       }
     }
+
+    &--pending {
+      .mdl-stepper_navigation__step-ordinal {
+        &:before {
+          display: inline;
+          content: '...';
+          line-height: 0.7;
+
+          @include polyFluidSizing(font-size, map-get($stepperNavigationCurves, ordinalFontSize));
+        }
+
+        font-size: 0;
+      }
+
+      .mdl-stepper_navigation__step-title {
+        display: none;
+      }
+
+      ~ li {
+        display: none !important; //stylelint-disable-line
+      }
+    }
+
+    &--hidden {
+      display: none;
+    }
   }
 
   li:first-child .mdl-stepper_navigation__step {

@@ -119,7 +119,7 @@ class FileUpload extends Module {
     this.ui.list.innerHTML = '';
 
     for (let i = 0; i < fileListLength; i += 1) {
-      const fileItem = this.sanitizeFile(this.ui.input.files.item(i));
+      const fileItem = this.sanitizeFile(this.ui.input.files.item(i), i);
       let html = compiled(fileItem);
 
       if (this.options.isMultiple) {
@@ -132,7 +132,7 @@ class FileUpload extends Module {
     }
   }
 
-  sanitizeFile(file) {
+  sanitizeFile(file, index) {
     const lastIndexOfPoint = file.name.lastIndexOf('.');
     const fileTitle = file.name.substr(0, lastIndexOfPoint);
     const fileType = file.name.substr(lastIndexOfPoint + 1).toUpperCase();
@@ -142,6 +142,7 @@ class FileUpload extends Module {
       fileTitle,
       fileType,
       fileSize,
+      fileID: index,
     };
   }
 

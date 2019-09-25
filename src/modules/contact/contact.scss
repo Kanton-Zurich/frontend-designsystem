@@ -5,13 +5,11 @@
 
   @include sizeCurve(margin-bottom, big);
 
-  &:last-child {
-    margin-bottom: 0;
-  }
-
   &--fullwidth {
     @include gridBleed($fullwidth: true);
+
     padding: $sizeHuge 0;
+    margin-bottom: 0;
   }
 
   .atm-heading {
