@@ -52,12 +52,6 @@ $gapSize: pxToRem($sizeRegular);
       }
     }
 
-    &:last-child {
-      .form__row:last-of-type {
-        padding-bottom: 0;
-      }
-    }
-
     .form__row {
       position: relative;
     }
