@@ -156,6 +156,10 @@ $stepperNavigationCurves: (
         display: none !important; //stylelint-disable-line
       }
     }
+
+    &--hidden {
+      display: none;
+    }
   }
 
   li:first-child .mdl-stepper_navigation__step {
