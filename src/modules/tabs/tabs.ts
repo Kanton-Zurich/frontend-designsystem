@@ -64,21 +64,28 @@ class Tabs extends Module {
     this.updateSwipeFunction(0);
     this.impetus = new Impetus({
       source: this.ui.controls,
-      boundX: [-this.ui.controls.getBoundingClientRect().width, 0],
+      boundX: [-(Math.abs(this.ui.controlButtons.getBoundingClientRect().width
+        - this.ui.controls.getBoundingClientRect().width)), 0],
       bounce: false,
-      multiplier: 2,
+      multiplier: 1,
       friction: 0,
       update: this.updateSwipeFunction.bind(this),
     });
   }
 
   private updateSwipeFunction(x) {
-    this.ui.controls.scrollLeft = Math.abs(x);
+    console.log('blaa');
+    let translateX = x;
     const clientWidth = this.ui.controlButtons.getBoundingClientRect().width;
     const { width } = this.ui.controls.getBoundingClientRect();
+    if (width >= clientWidth) {
+      translateX = 0;
+    }
+    this.ui.controlButtons.style.transform = `translate(${translateX}px, 0px)`;
+
     this.ui.controls.classList.remove('mdl-tabs__controls-scroll-right', 'mdl-tabs__controls-scroll-left');
     if (clientWidth > width) {
-      const scrollValue = this.ui.controls.scrollLeft / (clientWidth - width);
+      const scrollValue = Math.abs(translateX) / (clientWidth - width);
       if (scrollValue > 0.05) { // eslint-disable-line
         this.ui.controls.classList.add('mdl-tabs__controls-scroll-right');
       }
