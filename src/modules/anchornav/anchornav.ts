@@ -66,6 +66,11 @@ class Anchornav extends Module {
       swipe: number,
       scrollDistance: number,
     }
+    btnScroll: {
+      steps: number,
+      distance: number,
+      speed: number,
+    },
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -90,6 +95,11 @@ class Anchornav extends Module {
         showButton: 10,
         swipe: 10,
         scrollDistance: 100,
+      },
+      btnScroll: {
+        steps: 10,
+        distance: 100,
+        speed: 10,
       },
     };
 
@@ -661,21 +671,25 @@ class Anchornav extends Module {
    * @param data<string> ("left" / "right")
    */
   onControlBtnClick(data) {
-    this.scrollHorizontal(this.ui.scrollContent, data, 10, 100, 10);
+    this.scrollHorizontal(this.ui.scrollContent,
+      data,
+      this.options.btnScroll.steps,
+      this.options.btnScroll.distance,
+      this.options.btnScroll.speed);
   }
 
-  scrollHorizontal(element,direction,step ,distance, speed){
+  scrollHorizontal(element, direction, step, distance, speed) {
     let scrollAmount = 0;
 
-    let scrollIntervalID = setInterval(() => {
-      if(direction == 'left'){
+    const scrollIntervalID = setInterval(() => {
+      if (direction === 'left') {
         element.scrollLeft -= step;
       } else {
         element.scrollLeft += step;
       }
       scrollAmount += step;
 
-      if(scrollAmount >= distance){
+      if (scrollAmount >= distance) {
         clearInterval(scrollIntervalID);
       }
     }, speed);
