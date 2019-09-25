@@ -97,6 +97,22 @@ const variants = _.mapValues({
       }),
     },
   },
+  dateRangeLinkListItem: {
+    meta: {
+      title: 'Datumsauswahl (Zeitspanne LinkListItem)',
+      desc: 'Implementation einer Datumsauswahl für eine  Zeitspanne',
+    },
+    props: {
+      isLinkListItem: true,
+      datetimeformat: 'date-range',
+      formInputData: _.merge({}, defaultFormInputData, {
+        label: 'Zeitraum von/bis',
+        iconOnly: { icon: 'calendar' },
+        uuid: _.uniqueId('date-range-'),
+        usedCustomIcon: true,
+      }),
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

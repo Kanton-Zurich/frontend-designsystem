@@ -30,24 +30,8 @@
         {{#if_compare newsTeaserItems.length ">=" 3 }}small-12 medium-12 large-12 xlarge-12{{/if_compare}}">
         <ul>
           {{#each newsTeaserItems}}
-          <li class="mdl-news-teaser__item">
-            <a href="{{this.href}}">
-              <h3 class="atm-heading">
-                {{{this.title}}}
-              </h3>
-              <p class="mdl-news-teaser__item-label">
-                {{#if this.dateLabel}}{{this.dateLabel}}{{/if}}
-                <time datetime="{{this.dateMachineReadable}}">{{this.date}}</time>
-              </p>
-              {{#if this.imageData}}
-                <div class="mdl-news-teaser__item-image">
-                  {{> "modules/image_figure/image_figure" this.imageData}}
-                </div>
-              {{/if}}
-              {{#if this.text}}
-                <p class="atm-paragraph">{{this.text}}</p>
-              {{/if}}
-            </a>
+            <li class="mdl-news-teaser__item">
+            {{> "modules/news_teaser/_news_teaser_item" this }}
           </li>
           {{/each}}
         </ul>

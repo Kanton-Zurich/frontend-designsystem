@@ -2,6 +2,7 @@ import { Delegate } from 'dom-delegate';
 import wrist from 'wrist';
 import { debounce } from 'lodash';
 import DuplicationElement from './duplication.class';
+import ZipCity from './zipCity';
 
 import namespace from './namespace';
 
@@ -61,6 +62,7 @@ class Form {
 
     // Initialize duplication elements
     this.initDuplicationElements();
+    this.initZipCity();
   }
 
   addEventListeners() {
@@ -69,7 +71,7 @@ class Form {
       this.validateField(field);
     }, this.options.validateDelay));
     this.eventDelegate.on('blur', this.options.watchEmitters.input, (event, field) => {
-      this.validateField(field);
+      if (field.type !== 'file') this.validateField(field);
     });
     this.eventDelegate.on('validateSection', this.validateSection.bind(this));
     this.eventDelegate.on('showFieldInvalid', (event) => {
@@ -87,6 +89,11 @@ class Form {
         case 'radio':
         case 'checkbox':
           wrist.watch(input, 'checked', () => {
+            this.validateField(input);
+          });
+          break;
+        case 'file':
+          wrist.watch(input, 'files', () => {
             this.validateField(input);
           });
           break;
@@ -108,6 +115,8 @@ class Form {
   onInputValueChange(domElement, oldValue, newValue) {
     if (newValue.length !== 0) {
       domElement.classList.add(this.options.inputClasses.dirty);
+
+      this.validateField(domElement);
     } else {
       domElement.classList.remove(this.options.inputClasses.dirty);
     }
@@ -126,6 +135,7 @@ class Form {
 
   validateField(field) {
     const validation = window[namespace].form.validateField(field);
+    const fileTimeout = 5;
 
     field.closest(this.options.inputSelector).querySelectorAll(this.options.messageSelector)
       .forEach((message) => {
@@ -144,6 +154,18 @@ class Form {
           message.classList.add('show');
         }
       });
+
+      if (validation.files) {
+        setTimeout(() => {
+          validation.files.forEach((validationResult) => {
+            const fileContainer = field.closest(this.options.inputSelector).querySelector(`[data-file-id="${validationResult.id}"]`);
+
+            validationResult.errors.forEach((error) => {
+              fileContainer.querySelector(`[data-message="${error}"]`).classList.add('show');
+            });
+          });
+        }, fileTimeout);
+      }
 
       this.ui.element.setAttribute('form-has-errors', 'true');
     }
@@ -197,6 +219,17 @@ class Form {
       duplicatableElement.addEventListener(DuplicationElement.events.domReParsed, (event) => {
         this.addWatchers((<any>event).detail);
       });
+    });
+  }
+
+  initZipCity() {
+    const zipFields = this.ui.element.querySelectorAll('[data-fills-city]');
+
+    zipFields.forEach(($zipField) => {
+      const fillName = $zipField.getAttribute('data-fills-city');
+      const $cityField = this.ui.element.querySelector(`[name="${fillName}"]`);
+
+      new ZipCity($zipField, $cityField);
     });
   }
 }
