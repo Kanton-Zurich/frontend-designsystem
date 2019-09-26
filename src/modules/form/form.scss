@@ -11,8 +11,8 @@ $gapSize: pxToRem($sizeRegular);
   }
 
   &__group {
-    margin-left: -(pxToRem($gapSize/2));
-    margin-right: -(pxToRem($gapSize/2));
+    margin-left: -($gapSize/2);
+    margin-right: -($gapSize/2);
   }
 
   &__group + &__group {
