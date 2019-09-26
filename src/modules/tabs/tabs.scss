@@ -1,6 +1,42 @@
 .mdl-tabs {
-  .mdl-button_group {
-    @include sizeCurve(margin-bottom, medium);
+  &__controls {
+    overflow-x: hidden;
+
+    &-wrapper {
+      display: inline-block;
+    }
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: pxToRem($sizeTiny);
+      height: pxToRem($sizeSmallHuge);
+    }
+
+    &-scroll-right {
+      &:before {
+        left: 0;
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+      }
+    }
+
+    &-scroll-left {
+      &:after {
+        right: 0;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.1) 100%);
+      }
+    }
+
+    .mdl-button_group {
+
+      @include sizeCurve(margin-bottom, medium);
+
+      button {
+        white-space: nowrap;
+      }
+    }
   }
 
   &__tab {
