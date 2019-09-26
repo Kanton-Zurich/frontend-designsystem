@@ -2,7 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-
+const defFilterInputData = require('../../atoms/form_input/form_input.data');
 const listDemoData = require('../../atoms/list/list.data');
 const inputDemoData = require('../../atoms/form_input/form_input.data');
 
@@ -15,7 +15,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('select.md'),
   },
   props: {
-
+    preview: true,
   },
 });
 
@@ -26,7 +26,21 @@ const variants = _.mapValues({
       desc: 'Default implementation einer Einzelauswahl',
     },
     props: {
-      listData: _.merge({}, listDemoData.variants.defaultSingle.props, { setHiddenIndex: true }),
+      listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
+        selectOptions: [
+          { value: '', label: '' },
+          { value: 'mig', label: 'Migration & Integration' },
+          { value: 'mo', label: 'Mobilität' },
+          { value: 'sich', label: 'Sicherheit & Justiz' },
+          { value: 'so', label: 'Soziales' },
+          { value: 'st', label: 'Steuern' },
+          { value: 'umte', label: 'Umwelt & Tier' },
+          { value: 'ge', label: 'Gemeinschaften' },
+          { value: 'scer', label: 'Schulen & Erziehung' },
+        ],
+        groupId: 'singleSelect',
+        setHiddenIndex: true,
+      }),
       triggerInputData: inputDemoData.variants.triggerDefault.props,
     },
   },
@@ -39,6 +53,7 @@ const variants = _.mapValues({
       hasFilter: true,
       listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
         setHiddenIndex: true,
+        groupId: 'phoneSingleSelect',
         selectOptions: [
           { value: '+61', label: '+61 Australia (Australien)', id: _.uniqueId('option-item') },
           { value: '+43', label: '+43 Austria (Österreich)', id: _.uniqueId('option-item') },
@@ -60,8 +75,17 @@ const variants = _.mapValues({
           { value: '+66', label: '+66 Thailand (ไทย)‎)', id: _.uniqueId('option-item') },
         ],
       }),
+      filterInputData: _.merge({}, defFilterInputData.props, {
+        label: 'Nach Stichwort filtern',
+        isSmall: true,
+        autocompleteOff: true,
+        additionalFunctionality: {
+          icon: 'clear',
+          buttontype: 'clear',
+          ariaText: 'Lösche Eingabe',
+        },
+      }),
       triggerInputData: inputDemoData.variants.triggerPhone.props,
-      filterInputData: inputDemoData.variants.clearButtonSmallWithIcon.props,
     },
   },
   defaultMultiPreSelect: {
@@ -71,10 +95,12 @@ const variants = _.mapValues({
     },
     props: {
       isMultiSelect: true,
+      hasButton: true,
       listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
         setHiddenIndex: true,
         isMultiSelect: true,
         isSingleSelect: false,
+        groupId: 'multiSelect',
         selectOptions: [
           { value: 'mig', label: 'Migration & Integration', id: _.uniqueId('option-item') },
           { value: 'mo', label: 'Mobilität', id: _.uniqueId('option-item') },
@@ -88,7 +114,7 @@ const variants = _.mapValues({
           { value: 'umte', label: 'Umwelt & Tier', id: _.uniqueId('option-item') },
           { value: 'ge', label: 'Gemeinschaften', id: _.uniqueId('option-item') },
           {
-            value: 'scer', label: 'Schulen & Erziehung', id: _.uniqueId('option-item'), preSelected: true,
+            value: 'scer', label: 'Schulen & Erziehung', id: _.uniqueId('option-item'),
           },
         ],
       }),
@@ -103,14 +129,46 @@ const variants = _.mapValues({
     props: {
       isMultiSelect: true,
       hasFilter: true,
-      hasFilterAndButton: true,
+      hasButton: true,
+      groupId: 'multiFilterSelect',
       listData: _.merge({}, listDemoData.variants.iconLeft.props, {
         setHiddenIndex: true,
         isMultiSelect: true,
         isSingleSelect: false,
       }),
+      filterInputData: _.merge({}, defFilterInputData.props, {
+        label: 'Nach Stichwort filtern',
+        isSmall: true,
+        autocompleteOff: true,
+        additionalFunctionality: {
+          icon: 'clear',
+          buttontype: 'clear',
+          ariaText: 'Lösche Eingabe',
+        },
+      }),
       triggerInputData: inputDemoData.variants.triggerDefault.props,
-      filterInputData: inputDemoData.variants.clearButtonSmallWithIcon.props,
+    },
+  },
+  defaultUpwards: {
+    meta: {
+      title: 'Einzelauswahl mit Links(List oberhalb)',
+      desc: 'Einzelauswahl mit der List oberhalb angeordnet und Links/Anchors als Auswahlitems',
+    },
+    props: {
+      orientationUpwards: true,
+      listData: _.merge({}, listDemoData.variants.useAnchor.props,
+        listDemoData.variants.useAnchor.props.selectOptions = [], {
+          selectOptions: [
+            { value: '', label: '' },
+            { value: 'de', label: 'Deutsch', preSelected: true },
+            { value: 'prt', label: 'Português' },
+            { value: 'ru', label: 'Pусский' },
+            { value: 'tur', label: 'Türkçe' },
+          ],
+          groupId: 'singleSelectUpwards',
+          setHiddenIndex: true,
+        }),
+      triggerInputData: inputDemoData.variants.triggerDefault.props,
     },
   },
 }, (variant) => {

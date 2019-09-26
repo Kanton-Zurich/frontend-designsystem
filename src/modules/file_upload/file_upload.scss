@@ -48,6 +48,26 @@
     @include resetList;
   }
 
+  &__error {
+    transform: translateY(-50%) scaleY(0);
+    transition: transform 400ms, opacity 400ms, height 400ms ease-in-out;
+
+    display: block;
+    width: 100%;
+    font-size: pxToRem($sizeFontTiny);
+    line-height: $sizeLineHeightBase;
+    margin: 0;
+    padding-left: pxToRem($sizeRegular + 2px);
+    color: $colorWhite;
+    background-color: $colorRed;
+
+    margin-top: pxToRem($sizeTiny);
+
+    &.show {
+      transform: translateY(0) scaleY(1);
+    }
+  }
+
   /** STYLING FOR THE FILE */
   &__file {
     flex-grow: 1;

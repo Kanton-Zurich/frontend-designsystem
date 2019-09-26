@@ -1,4 +1,5 @@
 $selectHeight: 208px;
+$selectHeightWithButton: 274px;
 $selectHeightWithFilter: 360px;
 $selectHeightWithFilterExtended: 424px;
 
@@ -11,7 +12,7 @@ $selectHeightWithFilterExtended: 424px;
     left: 0;
     width: 100%;
     height: 0;
-    transition: 400ms height ease-out;
+    // transition: 400ms height ease-out;
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
     background-color: $colorWhite;
     overflow: hidden;
@@ -22,6 +23,10 @@ $selectHeightWithFilterExtended: 424px;
       box-shadow: none;
       border-radius: 0;
       height: 100%;
+    }
+
+    .atm-list__item input {
+      display: none;
     }
   }
 
@@ -81,6 +86,13 @@ $selectHeightWithFilterExtended: 424px;
     padding: 0 pxToRem($sizeRegular);
   }
 
+  &--list-upwards {
+    .mdl-select__options {
+      top: auto;
+      bottom: calc(100% + 2px);
+    }
+  }
+
   &--open {
     .mdl-select__filter,
     .mdl-select__apply {
@@ -102,13 +114,38 @@ $selectHeightWithFilterExtended: 424px;
       }
 
       .icon {
-        transform: translateY(-50%) rotate(180deg);
+        transform: translateY(-17%) rotate(180deg);
       }
     }
 
     .mdl-select__options {
       height: pxToRem($selectHeight);
       z-index: $zIndexDropDowns;
+
+      .atm-list__item {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        input {
+          display: inline;
+        }
+
+        &.hidden {
+          display: none;
+        }
+      }
+    }
+
+    &.mdl-select--button {
+      .mdl-select__options {
+        height: pxToRem($selectHeightWithButton);
+
+        ul {
+          height: calc(100% - 80px);
+        }
+      }
     }
 
     &.mdl-select--filter {
@@ -119,14 +156,14 @@ $selectHeightWithFilterExtended: 424px;
           height: calc(100% - 80px);
         }
       }
-    }
 
-    &.mdl-select--filter-ext {
-      .mdl-select__options {
-        height: pxToRem($selectHeightWithFilterExtended);
+      &.mdl-select--button {
+        .mdl-select__options {
+          height: pxToRem($selectHeightWithFilterExtended);
 
-        ul {
-          height: calc(100% - 160px);
+          ul {
+            height: calc(100% - 160px);
+          }
         }
       }
     }
@@ -147,7 +184,6 @@ $selectHeightWithFilterExtended: 424px;
     .atm-form_input {
 
       &__input--trigger {
-
         padding-top: pxToRem(35px);
         padding-bottom: pxToRem(15px);
       }

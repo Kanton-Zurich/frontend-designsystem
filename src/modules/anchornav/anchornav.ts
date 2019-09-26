@@ -66,6 +66,11 @@ class Anchornav extends Module {
       swipe: number,
       scrollDistance: number,
     }
+    btnScroll: {
+      steps: number,
+      distance: number,
+      speed: number,
+    },
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -90,6 +95,11 @@ class Anchornav extends Module {
         showButton: 10,
         swipe: 10,
         scrollDistance: 100,
+      },
+      btnScroll: {
+        steps: 10,
+        distance: 100,
+        speed: 10,
       },
     };
 
@@ -661,41 +671,28 @@ class Anchornav extends Module {
    * @param data<string> ("left" / "right")
    */
   onControlBtnClick(data) {
-    if (data === 'right') {
-      (<any> this.ui).scrollContent.scrollLeft += 10;
-      this.animatedButtonScroll(this.ui.scrollContent,
-        (this.ui.scrollContent.scrollLeft + 100),
-        data, 100);
-    } else {
-      this.animatedButtonScroll(this.ui.scrollContent,
-        (this.ui.scrollContent.scrollLeft - 100),
-        data, 100);
-    }
+    this.scrollHorizontal(this.ui.scrollContent,
+      data,
+      this.options.btnScroll.steps,
+      this.options.btnScroll.distance,
+      this.options.btnScroll.speed);
   }
 
-  /**
-   * Recursive animation loop for softer button scrolling
-   *
-   * @param element
-   * @param to
-   * @param dir
-   * @param duration
-   */
-  animatedButtonScroll(element, to, dir, duration) {
-    if (duration <= 0) return;
-    setTimeout(this.animationTimeout.bind(this, element, to, dir, duration), 1);
-  }
+  scrollHorizontal(element, direction, step, distance, speed) {
+    let scrollAmount = 0;
 
-  animationTimeout(element, to, dir, duration) {
-    const durationReduce = 20;
+    const scrollIntervalID = setInterval(() => {
+      if (direction === 'left') {
+        element.scrollLeft -= step;
+      } else {
+        element.scrollLeft += step;
+      }
+      scrollAmount += step;
 
-    if (dir === 'right') {
-      element.scrollLeft += this.options.tolerances.scrollDistance;
-    } else {
-      element.scrollLeft -= this.options.tolerances.scrollDistance;
-    }
-
-    this.animatedButtonScroll(element, to, dir, duration - durationReduce);
+      if (scrollAmount >= distance) {
+        clearInterval(scrollIntervalID);
+      }
+    }, speed);
   }
 
   /**

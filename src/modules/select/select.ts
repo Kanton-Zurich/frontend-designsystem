@@ -5,29 +5,15 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import { debounce } from 'lodash';
 
 class Select extends Module {
   public isOpen: boolean;
   public isMultiSelect: boolean;
   public hasFilter: boolean;
-  public hasFilterAndButton: boolean;
-  public focusOnFilter: boolean;
-  public focusOnList: boolean;
-  public focusOnButton: boolean;
-  public focusOnClearButton: boolean;
+  public usedAnchors: boolean;
   public isFirefox: boolean;
-  public isKeyControlled: boolean;
-
   public buttonPostfix: string;
-
-  public selectionIndex: number;
-  public lastHoverIndex: number;
-  public firefoxDelay: number;
-  public listBlurDelay: number;
-  public dropdownDelay: number;
-
-  public initialItems: any;
-  public preSelections: Array<any>;
   public selections: Array<any>;
 
   public ui: {
@@ -38,56 +24,45 @@ class Select extends Module {
     dropdown: any,
     filter: any,
     list: any,
-    items: any,
+    items: HTMLLIElement[],
+    inputItems: HTMLInputElement[],
     applyButton: any,
-    clearButton: any,
+    filterClearButton: any,
     phoneInput: any,
   };
 
   public options: {
-    domSelectors: {
-      trigger: string,
-      triggerValue: string,
-      triggerLabel: string,
-      dropdown: string,
-      filter: string,
-      list: string,
-      items: string,
-      applyButton: string,
-      clearButton: string,
-      phoneInput: string,
-    },
-    stateClasses: {
-      open: string,
-      selected: string,
-      touched: string,
-    },
-    dataSelectors: {
-      itemType: string,
-      isMultiSelect: string,
-      selectPostfix: string,
-    }
+    inputDelay: number,
+    firefoxDelay: number,
+    dropdownDelay: number,
+    domSelectors: any,
+    stateClasses: any,
+    dataSelectors: any,
   };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
     const defaultOptions = {
+      inputDelay: 250,
+      firefoxDelay: 180,
+      dropdownDelay: 400,
       domSelectors: {
         trigger: '.atm-form_input--trigger button',
         triggerValue: '.atm-form_input__trigger-value',
         triggerLabel: '.atm-form_input__trigger-label',
         dropdown: '.mdl-select__options',
         filter: '.mdl-select__filter input',
+        filterClearButton: '.mdl-select__filter .atm-form_input__functionality',
         phoneInput: '.atm-form_input--trigger-phone input',
         list: '.atm-list',
         items: '.atm-list__item',
-        clearButton: '.atm-form_input__functionality',
+        inputItems: '.atm-list__item input',
+        visibleInputItems: '.atm-list__item:not(.hidden) input',
         applyButton: '.mdl-select__apply button',
       },
       stateClasses: {
         open: 'mdl-select--open',
-        selected: 'selected',
-        touched: 'mdl-select--selected',
+        selected: 'mdl-select--selected',
       },
       dataSelectors: {
         itemType: 'inputtype',
@@ -100,46 +75,53 @@ class Select extends Module {
 
     this.isOpen = false;
     this.isMultiSelect = false;
-    this.isKeyControlled = false;
-    this.focusOnFilter = false;
-    this.focusOnList = false;
-    this.focusOnButton = false;
-    this.focusOnClearButton = false;
+    this.usedAnchors = false;
     this.isFirefox = navigator.userAgent.search('Firefox') > -1;
     this.hasFilter = typeof this.ui.filter !== 'undefined';
-    this.hasFilterAndButton = typeof this.ui.applyButton !== 'undefined' && this.hasFilter;
     if (this.ui.element.dataset[this.options.dataSelectors.isMultiSelect]) {
       this.isMultiSelect = true;
     }
 
-    this.selectionIndex = 0;
-    this.lastHoverIndex = 0;
+    if (this.ui.list.querySelector('a')) {
+      this.usedAnchors = true;
+    }
+
     this.ui.list.scrollTop = 0;
-    this.firefoxDelay = 180;
-    this.listBlurDelay = 300;
-    this.dropdownDelay = 400;
+
 
     if (this.isMultiSelect) {
       this.buttonPostfix = this.ui.element.dataset[this.options.dataSelectors.selectPostfix];
     }
 
-    this.initialItems = this.ui.items;
     // Array of selection indicies
     this.selections = [];
 
-    // Handle pre-selections
-    this.preSelections = this.ui.list.querySelectorAll('input:checked');
-    if (this.preSelections.length > 0) {
-      this.handlePreselection();
-    }
-
     this.initUi();
     this.initEventListeners();
+
+    // preselection
+    const selectedItems = [];
+    this.ui.inputItems.forEach((item) => {
+      if (item.checked) {
+        selectedItems.push(item.value);
+      }
+    });
+
+    if (selectedItems.length > 0) {
+      if (this.isMultiSelect) {
+        this.emitValueChanged(selectedItems);
+      } else if (selectedItems[0].length > 0) {
+        this.emitValueChanged(selectedItems[0]);
+      }
+    }
   }
 
   static get events() {
     return {
-      // eventname: `eventname.${ Select.name }.${  }`
+      valueChanged: 'Select.valueChanged',
+      setValue: 'Select.setValue',
+      open: 'Select.open',
+      close: 'Select.close',
     };
   }
 
@@ -148,520 +130,278 @@ class Select extends Module {
    */
   initEventListeners() {
     this.eventDelegate
-      .on('focus', this.options.domSelectors.list, this.onListFocus.bind(this))
-      .on('focus', this.options.domSelectors.applyButton, this.onApplyButtonFocus.bind(this))
-      .on('focus', this.options.domSelectors.clearButton, this.onClearButtonFocus.bind(this))
-      .on('focus', this.options.domSelectors.filter, this.onFilterFocus.bind(this))
-      .on('blur', this.options.domSelectors.list, this.onListBlur.bind(this))
-      .on('blur', this.options.domSelectors.applyButton, this.onApplyButtonBlur.bind(this))
-      .on('blur', this.options.domSelectors.clearButton, this.onClearButtonBlur.bind(this))
-      .on('blur', this.options.domSelectors.filter, this.onFilterBlur.bind(this))
-      .on('input', this.options.domSelectors.filter, this.onFilterInput.bind(this))
-      .on('keydown', this.options.domSelectors.filter, this.onFilterKeypress.bind(this))
-      .on('keydown', this.options.domSelectors.list, this.onListKeypress.bind(this))
-      .on('keydown', this.options.domSelectors.applyButton, this.onButtonKeydown.bind(this))
-      .on('keydown', this.options.domSelectors.trigger, this.onTriggerKeydown.bind(this))
-      .on('click', this.options.domSelectors.applyButton, this.onButtonClick.bind(this))
-      .on('click', this.options.domSelectors.items, this.onItemsClick.bind(this))
-      .on('click', this.options.domSelectors.clearButton, this.onClearButtonClick.bind(this))
-      .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this));
-  }
-
-  /**
-   * Trigger action starte by any key set the key controlled flag
-   * (for the inital focus on list or filter)
-   */
-  onTriggerKeydown() {
-    this.isKeyControlled = true;
-  }
-
-  /**
-   * On Trigger click callback. Responsible for opening/closing the dropdown.
-   */
-  onTriggerClick() {
-    if (this.isOpen) {
-      this.closeDropdown();
-    } else {
-      this.openDropdown();
-    }
-  }
-
-  /**
-   * Click on clear filter button callback. Deletes the input value and apply filter
-   */
-  onClearButtonClick() {
-    this.ui.filter.focus();
-    this.ui.filter.value = '';
-    this.applyFilter();
-  }
-
-  /**
-   * Click on list item callback. Responsible for de-/selecting items
-   * and close dropdown on single selection
-   *
-   * @param event
-   */
-  onItemsClick(event) {
-    const { target } = event;
-
-    if (target.classList.contains('selected') && this.isMultiSelect) {
-      this.deselectItem(target);
-    } else if (!target.classList.contains('selected')) {
-      this.selectItem(target);
-      if (!this.isMultiSelect) {
-        if (this.isFirefox) {
-          setTimeout((() => {
+      // ------------------------------------------------------------
+      // On Click dropdown item
+      .on('mouseup', this.options.domSelectors.inputItems, (event) => {
+        if (!this.isMultiSelect) {
+          if (this.isFirefox) {
+            setTimeout((() => {
+              this.closeDropdown();
+            }), this.options.firefoxDelay);
+          } else {
             this.closeDropdown();
-          }), this.firefoxDelay);
-        } else {
+          }
+
+          if (this.usedAnchors) {
+            event.target.parentElement.click();
+          }
+        }
+      })
+      // ------------------------------------------------------------
+      // On Key press dropdown item
+      .on('keydown', this.options.domSelectors.inputItems, (event) => {
+        if (event.key === 'Tab') {
+          if (!event.shiftKey) {
+            if (!this.ui.applyButton) {
+              this.closeDropdown(true);
+            } else {
+              this.ui.applyButton.focus();
+              event.preventDefault();
+            }
+          } else if (this.ui.filter) {
+            this.ui.filter.focus();
+            event.preventDefault();
+          } else {
+            this.ui.trigger.focus();
+            event.preventDefault();
+          }
+        } else if (this.usedAnchors) {
+          event.target.parentElement.click();
+        }
+      })
+      // ------------------------------------------------------------
+      // On Key press Dropdown dropdown content element
+      .on('keydown', this.options.domSelectors.dropdown, (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          if (!this.isMultiSelect) {
+            this.closeDropdown();
+          }
+        }
+        if (event.key === 'Esc' || event.key === 'Escape') {
           this.closeDropdown();
         }
-      }
-    }
-  }
-
-  /**
-   * Apply button click callback. Simply closes the dropdown.
-   */
-  onButtonClick() {
-    this.closeDropdown();
-  }
-
-  /**
-   * Apply button keydown callback. Just catch the escape key on the apply button
-   * @param event
-   */
-  onButtonKeydown(event) {
-    const { key } = event;
-    if (key === 'Escape' || key === 'Esc') {
-      this.closeDropdown();
-    }
-  }
-
-  /**
-   * On list keypressed callback. Responsible to execute correspingly to the key.
-   * @param event
-   */
-  onListKeypress(event) {
-    const { key } = event;
-
-    if (key === 'ArrowUp' || key === 'Up') {
-      event.preventDefault();
-
-      if (!this.isMultiSelect) {
-        this.selectPreviousItem();
-      }
-      if (this.isMultiSelect) {
-        this.focusPreviousItem();
-      }
-      this.scrollToOption();
-    } else if (key === 'ArrowDown' || key === 'Down') {
-      event.preventDefault();
-      if (!this.isMultiSelect) {
-        this.selectNextItem();
-      } else {
-        this.focusNextItem();
-      }
-      this.scrollToOption();
-    } else if (key === 'Spacebar' || key === ' ' || key === 'Enter') {
-      event.preventDefault();
-      if (this.isMultiSelect) {
-        const currentItem = this.ui.items[this.selectionIndex];
-        if (currentItem.classList.contains('selected')) {
-          this.deselectItem(currentItem);
-        } else {
-          this.selectItem(currentItem);
+      })
+      // ------------------------------------------------------------
+      // On Key press Dropdown main element - close dropdown and leave element
+      .on('keydown', this.options.domSelectors.trigger, (event) => {
+        if (event.key === 'Tab') {
+          if (event.shiftKey) {
+            this.closeDropdown(true);
+          } else {
+            this.updateFlyingFocus();
+          }
         }
-      } else if (this.isFirefox) {
-        setTimeout((() => {
+      })
+      // On Mouseup dropdown main element - prevent losing focus
+      .on('mouseup', this.options.domSelectors.trigger, (event) => {
+        if (this.isOpen) {
+          event.stopPropagation();
+        }
+      })
+      // ------------------------------------------------------------
+      // On Click Dropdown main element - open/close and stop propagation to prevent losing focus
+      .on('click', this.options.domSelectors.trigger, (event) => {
+        if (this.isOpen) {
           this.closeDropdown();
-        }), this.firefoxDelay);
-      } else {
+        } else {
+          this.openDropdown();
+        }
+        event.stopPropagation();
+      })
+      // apply button prevent propagation to prevent losing focus
+      .on('mouseup', this.options.domSelectors.dropdown, (event) => {
+        event.stopPropagation();
+      })
+      // apply button focus after close
+      .on('click', this.options.domSelectors.applyButton, () => {
         this.closeDropdown();
-      }
-    } else if (key === 'Escape' || key === 'Esc') {
-      this.closeDropdown();
-    } else if (key === 'End') {
-      event.preventDefault();
-      this.getLastVisibleItemIndex();
-      if (!this.isMultiSelect) {
-        // Handle Home or End key pressed on filtered list
-        this.selectItemByIndex(this.getLastVisibleItemIndex());
-      } else {
-        this.focusItemByIndex(this.getLastVisibleItemIndex());
-      }
-      this.scrollToOption();
-    } else if (key === 'Home') {
-      event.preventDefault();
-
-      if (!this.isMultiSelect) {
-        // Handle Home or End key pressed on filtered list
-        this.selectItemByIndex(this.getFirstVisibleItemIndex());
-      } else {
-        this.focusItemByIndex(this.getFirstVisibleItemIndex());
-      }
-      this.scrollToOption();
+      })
+      // tab out and lose focus
+      .on('keydown', this.options.domSelectors.applyButton, (event) => {
+        if (event.key === 'Tab' && !event.shiftKey) {
+          this.closeDropdown(true);
+        } else {
+          this.updateFlyingFocus();
+        }
+      })
+      // ------------------------------------------------------------
+      // On value of select changed
+      .on(Select.events.valueChanged, this.onValueChanged.bind(this))
+      .on(Select.events.setValue, this.onSetValue.bind(this));
+    // ------------------------------------------------------------
+    // watch select items for status change and update style
+    this.ui.inputItems.forEach((item, index) => {
+      item.addEventListener('change', (evt) => {
+        this.changeUpdateItemEvent(evt, item, index);
+      });
+    });
+    // -------------------------------
+    // arrow key navigation for select
+    this.ui.items.forEach((li) => {
+      li.querySelector('input').addEventListener('keydown', (evt) => {
+        const pressed = evt.key;
+        let newTarget = <any>evt.target;
+        if (['ArrowUp', 'ArrowDown', 'Up', 'Down'].indexOf(pressed) >= 0) {
+          if (this.isMultiSelect) {
+            let nextFocusable = ['ArrowUp', 'Up'].indexOf(pressed) >= 0
+              ? li.previousElementSibling
+              : li.nextElementSibling;
+            while (nextFocusable) {
+              if (!nextFocusable.classList.contains('hidden')) {
+                newTarget = nextFocusable.querySelector('input');
+                break;
+              }
+              nextFocusable = ['ArrowUp', 'Up'].indexOf(pressed) >= 0
+                ? nextFocusable.previousElementSibling
+                : nextFocusable.nextElementSibling;
+            }
+            newTarget.focus();
+            evt.stopPropagation();
+            evt.preventDefault();
+          }
+          this.updateFlyingFocus();
+        }
+        if (!this.isMultiSelect && ['Enter', ' ', 'Spacebar'].indexOf(pressed) >= 0) {
+          this.ui.trigger.click();
+        }
+      });
+    });
+    // -------------------------------
+    // Observe inputs and update values -
+    if (this.ui.filter) {
+      this.ui.filter.addEventListener('keydown', (event) => {
+        this.updateFlyingFocus();
+        if (event.key === 'Enter') {
+          event.preventDefault();
+        }
+      });
+      this.ui.filterClearButton.addEventListener('keydown', (event) => {
+        if (event.key === 'Tab' && !event.shiftKey) {
+          const visibleItems = this.ui.element
+            .querySelectorAll(this.options.domSelectors.visibleInputItems);
+          if (visibleItems.length > 0) {
+            visibleItems[0].focus();
+            event.preventDefault();
+          }
+        }
+      });
+      this.watch(this.ui.filter, 'value', debounce((key, before, after) => { // eslint-disable-line
+        this.ui.items.forEach((li) => {
+          const searchString = after.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+          const regex = new RegExp(searchString, 'i');
+          if (regex.test(li.querySelector('input').placeholder)) {
+            li.classList.remove('hidden');
+          } else {
+            li.classList.add('hidden');
+          }
+        });
+      }, this.options.inputDelay));
     }
   }
 
   /**
-   * On filter input callback.
+   * Handle value change and trigger event for each item individually
+   * @param event
+   * @param item
+   * @param index
+   * @param emit
    */
-  onFilterInput() {
-    this.applyFilter();
-  }
-
-  /**
-   * Applies the string value from the filter input as regex on all items
-   */
-  applyFilter() {
-    const stringPattern = this.ui.filter.value;
-    if (stringPattern.length > 0) {
-      this.ui.filter.classList.add('dirty');
+  changeUpdateItemEvent(event, item, index, emit = true) {
+    if (!this.isMultiSelect) {
+      this.ui.items.forEach((li) => {
+        li.classList.remove('selected');
+      });
+      this.ui.items[index].classList.add('selected');
+      if (emit) {
+        this.emitValueChanged((<HTMLInputElement>event.target).value);
+      }
     } else {
-      this.ui.filter.classList.remove('dirty');
-    }
-    const regex = new RegExp(stringPattern, 'i');
-    const optionLength = this.ui.items.length;
-
-    for (let i = 0; i < optionLength; i += 1) {
-      const itemInput = this.ui.items[i].querySelector('input');
-      if (regex.test(itemInput.placeholder)) {
-        this.ui.items[i].style.display = 'flex';
-        this.ui.items[i].removeAttribute('tabindex');
+      if (item.checked) {
+        this.ui.items[index].classList.add('selected');
       } else {
-        this.ui.items[i].style.display = 'none';
-        this.ui.items[i].setAttribute('tabindex', '-1');
+        this.ui.items[index].classList.remove('selected');
+      }
+
+      if (emit) {
+        const values = [];
+        this.ui.inputItems.forEach((inputItem) => {
+          if (inputItem.checked) {
+            values.push(inputItem.value);
+          }
+        });
+        this.emitValueChanged(values);
       }
     }
   }
 
   /**
-   * On filter keypressed callback. Listen only the relevant navigation keys.
+   * Emit that value has changed - this triggers valueChanged
+   * @param value
+   */
+  emitValueChanged(value) {
+    this.ui.element.dispatchEvent(new CustomEvent(Select.events.valueChanged, { detail: value }));
+  }
+
+  /**
+   * Emit open event
+   */
+  emitOpen() {
+    this.ui.element.dispatchEvent(new CustomEvent(Select.events.open));
+  }
+
+  /**
+   * Emit close event
+   */
+  emitClose() {
+    this.ui.element.dispatchEvent(new CustomEvent(Select.events.close));
+  }
+
+  /**
+   * Handle event on value changed
    * @param event
    */
-  onFilterKeypress(event) {
-    const { key } = event;
-    if (key === 'ArrowDown' || key === 'Down' || key === 'End') {
-      event.preventDefault();
-      this.ui.list.focus();
-    } else if (key === 'Escape' || key === 'Esc') {
-      this.closeDropdown();
-    } else if (key === 'Home') {
-      event.preventDefault();
-      if (this.hasFilterAndButton) {
-        this.ui.applyButton.focus();
-      } else {
-        this.ui.list.focus();
-      }
-    }
-  }
-
-  /**
-   * Iterate over the item array and search for the first item without an tabindex
-   * @return {number}
-   */
-  getFirstVisibleItemIndex(): number {
-    const listLength = this.ui.items.length - 1;
-    const returnIndex = -1;
-    for (let i = 0; i < listLength; i += 1) {
-      if (!this.ui.items[i].getAttribute('tabindex')) {
-        return i;
-      }
-    }
-    return returnIndex;
-  }
-
-  /**
-   * Iterate over the item array and search for the last item without an tabindex
-   * @return {number}
-   */
-  getLastVisibleItemIndex(): number {
-    const listLength = this.ui.items.length - 1;
-    const returnIndex = -1;
-    for (let i = listLength; i > 0; i -= 1) {
-      if (!this.ui.items[i].getAttribute('tabindex')) {
-        return i;
-      }
-    }
-    return returnIndex;
-  }
-
-  /**
-   * Select an item based on the given index or the current selectionIndex
-   * @param {number} index
-   */
-  selectItemByIndex(index: number = this.selectionIndex) {
-    let item: any;
-    if (index <= this.initialItems.length && index >= 0) {
-      item = this.ui.items[index];
-    } else {
-      // Return error?
-      return;
-    }
-
-    this.selectionIndex = index;
-
-    this.selectItem(item);
-  }
-
-  /**
-   * Selects the next item based on the current selectionIndex
-   * @return {any}
-   */
-  selectNextItem(): any {
-    this.selectionIndex = this.getNextIndex();
-    const item = this.ui.items[this.selectionIndex];
-    // Handle filtered list
-    if (item.getAttribute('tabindex')) {
-      return this.selectNextItem();
-    }
-    return this.selectItem(item);
-  }
-
-  /**
-   * Selects the previous item based on the current selectionIndex
-   * @return {any}
-   */
-  selectPreviousItem() {
-    this.selectionIndex = this.getPreviousIndex();
-    const item = this.ui.items[this.selectionIndex];
-    // Handle filtered list
-    if (item.getAttribute('tabindex')) {
-      return this.selectPreviousItem();
-    }
-    return this.selectItem(item);
-  }
-
-  /**
-   * Select the given item
-   * @param item
-   */
-  selectItem(item: any) {
-    if (this.selections.length > 0 && !this.isMultiSelect) {
-      this.deselectItem(this.selections[0].element);
-    }
-    const itemInput = item.querySelector('input');
-    item.classList.add('selected');
-    itemInput.checked = true;
-    this.addSelection(item);
-  }
-
-  /**
-   * Deselect the given item
-   * @param item
-   */
-  deselectItem(item: any) {
-    const itemInput = item.querySelector('input');
-    item.classList.remove('selected');
-    itemInput.checked = false;
-    this.removeSelection(item);
-  }
-
-  /**
-   * Set the focus on the item with the given index;
-   * @param {number} index
-   */
-  focusItemByIndex(index: number = this.selectionIndex) {
-    const item = this.ui.items[index];
-    this.selectionIndex = index;
-    this.focusItem(item);
-  }
-
-  /**
-   * Focus the next item based on the current selectionIndex
-   * @return {any}
-   */
-  focusNextItem() {
-    this.selectionIndex = this.getNextIndex();
-    const item = this.ui.items[this.selectionIndex];
-    // Handle filtered list
-    if (item.getAttribute('tabindex')) {
-      return this.focusNextItem();
-    }
-    return this.focusItem(item);
-  }
-
-  /**
-   * Focus the previous item based on the current selectionIndex
-   * @return {any}
-   */
-  focusPreviousItem() {
-    this.selectionIndex = this.getPreviousIndex();
-    const item = this.ui.items[this.selectionIndex];
-    // Handle filtered list
-    if (item.getAttribute('tabindex')) {
-      return this.focusPreviousItem();
-    }
-    return this.focusItem(item);
-  }
-
-  /**
-   * Focus the given item
-   * @param item
-   */
-  focusItem(item: any) {
-    this.ui.items[this.lastHoverIndex].classList.remove('hover');
-    item.classList.add('hover');
-    this.lastHoverIndex = this.selectionIndex;
-  }
-
-  /**
-   * Adds the given item to the selections array
-   * @param item
-   */
-  addSelection(item: any) {
-    const index = this.getIndexForItem(item);
-    this.selectionIndex = index;
-    this.selections.push({
-      initialIndex: index,
-      element: item,
-    });
-    this.setButtonLabel();
-  }
-
-  /**
-   * Removes the given item from the selections array
-   * @param selectedItem
-   */
-  removeSelection(selectedItem: any) {
-    const selectionIndex = this.getIndexForItem(selectedItem);
-    let indexToRemove: number;
-
-    this.selections.forEach((item, index) => {
-      if (item.initialIndex === selectionIndex) {
-        indexToRemove = index;
-      }
-    });
-
-    this.selections.splice(indexToRemove, 1);
-    this.setButtonLabel();
-  }
-
-  /**
-   * Calculate and returns the previous index position from the current selectionIndex
-   * @return {number}
-   */
-  getPreviousIndex(): number {
-    let selectIndex = this.selectionIndex - 1;
-    if (selectIndex < 0) {
-      selectIndex = this.ui.items.length - 1;
-    }
-    return selectIndex;
-  }
-
-  /**
-   * Calculate and returns the next index position from the current selectionIndex
-   * @return {number}
-   */
-  getNextIndex(): number {
-    let selectIndex = this.selectionIndex + 1;
-    if (selectIndex > this.ui.items.length - 1) {
-      selectIndex = 0;
-    }
-    return selectIndex;
-  }
-
-  /**
-   * Get the index of the given item. Returns index if its found else -1.
-   * @param item
-   * @return {number}
-   */
-  getIndexForItem(item: any): number {
-    let index = -1;
-    for (let i = 0; i < this.ui.items.length; i += 1) {
-      if (this.ui.items[i] === item) {
-        index = i;
-      }
-    }
-    return index;
-  }
-
-  /**
-   * Scroll to the option of the current focusIndex
-   */
-  scrollToOption() {
-    const itemHeight = this.ui.items[this.selectionIndex].getBoundingClientRect().height;
-    this.ui.list.scrollTop = itemHeight * this.selectionIndex;
-  }
-
-  /**
-   * Updates the module state class for dirty/touched
-   */
-  updateModuleState() {
-    const module = this.ui.element;
-    const stateClass = this.options.stateClasses.touched;
-    if (!module.classList.contains(stateClass)) {
-      module.classList.add(stateClass);
-    } else if (this.selections.length === 0 && module.classList.contains(stateClass)) {
-      module.classList.remove(stateClass);
-    }
-  }
-
-  /**
-   * Set the button/trigger lable correspondingly to single- or multiselect
-   */
-  setButtonLabel() {
-    this.updateModuleState();
-
+  onValueChanged(event) {
+    const value = event.detail;
     let triggerLabelText = '';
-
-    if (this.selections.length > 0) {
-      if (this.isMultiSelect) {
-        triggerLabelText = `${this.selections.length} ${this.buttonPostfix}`;
-      } else {
-        const selectedInput = this.selections[0].element.querySelector('input');
-        if (this.hasFilter) {
-          triggerLabelText = selectedInput.value;
-        } else {
-          triggerLabelText = selectedInput.placeholder;
-        }
-      }
+    if (this.isMultiSelect) {
+      triggerLabelText = value.length > 0 ? `${value.length} ${this.buttonPostfix}` : '';
+    } else if (this.ui.phoneInput) {
+      triggerLabelText = value;
+    } else {
+      triggerLabelText = this.ui.list.querySelector(`[value="${value}"`).placeholder;
     }
     this.ui.triggerValue.innerText = triggerLabelText;
-    this.updateAriaAttributes();
-  }
-
-  /**
-   * Handles the rest of the aria attributes on the list(aria-activedescendant)
-   * and items(aria-selected)
-   */
-  updateAriaAttributes() {
-    // Reset aria-selected by applying false to all option
-    for (let i = 0; i < this.ui.items.length; i += 1) {
-      this.setAriaSelectedOnOption(this.ui.items[i], 'false');
+    this.ui.element.classList.remove(this.options.stateClasses.selected);
+    if (triggerLabelText !== '') {
+      this.ui.element.classList.add(this.options.stateClasses.selected);
     }
-    // Set aria-selected
-    this.selections.forEach((item) => {
-      this.setAriaSelectedOnOption(item.element, 'true');
-    });
-    this.updateAriaActiveDescendats();
   }
 
   /**
-   * Set explicit the aria-selected on the given element to the given value
-   * @param element
-   * @param {string} value
+   * Handle Set Value from outside
+   * @param event
    */
-  setAriaSelectedOnOption(element: any, value: string) {
-    element.setAttribute('aria-selected', value);
-  }
-
-  /**
-   * Sets explicit the aria-activedescendants based on the selectedElements
-   */
-  updateAriaActiveDescendats() {
-    this.ui.list.setAttribute('aria-activedescendant', '');
-    let idStrings = '';
-
-    if (this.selections.length > 0) {
-      for (let i = 0; i < this.selections.length; i += 1) {
-        idStrings += `${this.selections[i].element.id} `;
+  onSetValue(event) {
+    this.ui.items.forEach((li, index) => {
+      const input = li.querySelector('input');
+      if (this.isMultiSelect) {
+        input.checked = event.detail.indexOf(input.value) >= 0;
+        this.changeUpdateItemEvent(event, input, index, false);
+        this.onValueChanged(event);
+      } else if (input.value === event.detail) {
+        input.checked = true;
+        this.changeUpdateItemEvent(event, input, index, false);
+        this.onValueChanged(event);
       }
-    }
-    this.ui.list.setAttribute('aria-activedescendant', idStrings);
+    });
   }
 
+  /**
+   * Handle event when user clicks outside element
+   */
+  onFocusOut() {
+    this.closeDropdown(true);
+  }
 
   /**
    * Open dropdown/select
@@ -672,145 +412,61 @@ class Select extends Module {
     dropDown.classList.add(openClass);
     this.isOpen = true;
 
-    if (!this.isMultiSelect) {
-      this.selectItemByIndex(this.selectionIndex);
-    }
-
-    this.ui.list.setAttribute('tabindex', '0');
     this.ui.trigger.setAttribute('aria-expanded', 'true');
     this.ui.dropdown.setAttribute('aria-hidden', 'false');
 
-    if (this.isKeyControlled) {
-      setTimeout(() => { this.focusDropdown(); }, this.dropdownDelay);
+    if (this.ui.filter) {
+      this.ui.filter.focus();
+    } else if (!this.isMultiSelect) {
+      if (this.ui.element.querySelector(`${this.options.domSelectors.inputItems}:checked`)) {
+        this.ui.element.querySelector(`${this.options.domSelectors.inputItems}:checked`).focus();
+      } else {
+        this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
+      }
+    } else {
+      this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
     }
+    // click out of element loose focus and close
+    this.onFocusOut = this.onFocusOut.bind(this);
+    window.addEventListener('mouseup', this.onFocusOut);
+    this.emitOpen();
   }
 
   /**
    * Close dropdown/select
    */
-  closeDropdown() {
-    const openClass = this.options.stateClasses.open;
-    const dropDown = this.ui.element;
-    dropDown.classList.remove(openClass);
-    this.isOpen = false;
-
-    this.ui.list.setAttribute('tabindex', '-1');
-    this.ui.trigger.setAttribute('aria-expanded', 'false');
-    this.ui.dropdown.setAttribute('aria-hidden', 'true');
-
-    this.blurDropdown();
-  }
-
-  /**
-   * Focus the list or the filter button depending on the mode
-   */
-  focusDropdown() {
-    if (this.hasFilter) {
-      this.ui.filter.focus();
-    } else {
-      this.ui.list.focus();
-    }
-  }
-
-  /**
-   * Handle preselection
-   */
-  handlePreselection() {
-    this.preSelections.forEach((item) => {
-      this.addSelection(item.parentElement);
-    });
-    if (!this.isMultiSelect) {
-      // Check if needed
-    }
-    this.selectionIndex = this.selections[0].initialIndex;
-    this.scrollToOption();
-  }
-
-  /**
-   * Handle the correct focus after closing the dropdown
-   */
-  blurDropdown() {
-    this.ui.items[this.selectionIndex].classList.remove('hover');
-    if (this.ui.phoneInput) {
-      this.ui.phoneInput.focus();
-    } else {
-      this.ui.trigger.focus();
-    }
-    this.isKeyControlled = false;
-  }
-
-  /**
-   * On filter focus callback. Sets the corresping boolean flag.
-   */
-  onFilterFocus() {
-    this.focusOnFilter = true;
-  }
-
-  /**
-   * On filter blur callback. Sets the corresping boolean flag.
-   */
-  onFilterBlur() {
-    this.focusOnFilter = false;
-    this.timeOutClose();
-  }
-
-  /**
-   * On list focus callback. Sets the corresping boolean flag.
-   */
-  onListFocus() {
-    this.focusOnList = true;
-  }
-
-  /**
-   * On list blur callback. Sets the corresping boolean flag
-   * and closes he dropdown if nothing relevat is focused.
-   */
-  onListBlur() {
-    this.focusOnList = false;
-    this.timeOutClose();
-  }
-
-  /**
-   * On apply button focus callback. Sets the corresping boolean flag.
-   */
-  onApplyButtonFocus() {
-    this.focusOnButton = true;
-  }
-
-  /**
-   * On apply button blur callback. Sets the corresping boolean flag.
-   */
-  onApplyButtonBlur() {
-    this.focusOnButton = false;
-    this.timeOutClose();
-  }
-
-  /**
-   * On clear button focus callback. Sets the corresping boolean flag.
-   */
-  onClearButtonFocus() {
-    this.focusOnClearButton = true;
-  }
-
-  /**
-   * On clear button blur callback. Sets the corresping boolean flag.
-   */
-  onClearButtonBlur() {
-    this.focusOnClearButton = false;
-  }
-
-  /**
-   * Close the dropdown after the delay if no relevant element is focused.
-   */
-  timeOutClose() {
-    setTimeout((() => {
-      if (!this.focusOnButton && !this.focusOnFilter
-        && !this.focusOnList && !this.focusOnClearButton) {
-        this.closeDropdown();
+  closeDropdown(focusLost = false) {
+    if (this.isOpen) {
+      window.removeEventListener('mouseup', this.onFocusOut);
+      const openClass = this.options.stateClasses.open;
+      const dropDown = this.ui.element;
+      dropDown.classList.remove(openClass);
+      this.isOpen = false;
+      this.ui.trigger.setAttribute('aria-expanded', 'false');
+      this.ui.dropdown.setAttribute('aria-hidden', 'true');
+      if (!focusLost) {
+        setTimeout(() => {
+          if (this.ui.phoneInput) {
+            this.ui.phoneInput.focus();
+          } else {
+            this.ui.trigger.focus();
+          }
+        }, this.options.dropdownDelay);
+      } else {
+        this.updateFlyingFocus();
       }
-    }), this.listBlurDelay);
+      this.emitClose();
+    }
   }
 
+  /**
+   * Update flying focus with a delay
+   */
+  updateFlyingFocus() {
+    setTimeout(() => {
+      (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
+    }, this.options.inputDelay);
+  }
 
   /**
    * Unbind events, remove data, custom teardown

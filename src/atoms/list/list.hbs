@@ -1,13 +1,16 @@
-<ul class="atm-list"{{#if setHiddenIndex}} tabindex="-1"{{/if}} data-inputtype="{{#if isMultiSelect}}checkbox{{/if}}{{#if isSingleSelect}}radio{{/if}}">
+<ul class="atm-list"{{#if setHiddenIndex}} tabindex="-1"{{/if}} data-inputtype="{{#if isMultiSelect}}checkbox{{/if}}{{#if isSingleSelect}}radio{{/if}}" {{#unless outerFocus}}tabindex="-1"{{/unless}}>
   {{#each selectOptions}}
-    <li id="{{this.id}}" class="atm-list__item{{#if ../hasCheckIcon}} atm-list__item--check-icon{{/if}}{{#if ../hasIconLeft}} atm-list__item--icon-left{{/if}}{{#if ../hasIconRight}} atm-list__item--icon-right{{/if}}{{#if this.preSelected}} selected{{/if}}">
+    <li {{#if id}}id="{{this.id}}"{{/if}} class="atm-list__item{{#if ../hasCheckIcon}} atm-list__item--check-icon{{/if}}{{#if ../hasIconLeft}} atm-list__item--icon-left{{/if}}{{#if ../hasIconRight}} atm-list__item--icon-right{{/if}}{{#if this.preSelected}} selected{{/if}}">
+      {{#if ../useAnchors}}
+      <a href="#">
+      {{/if}}
       {{#if_compare ../hasIconLeft "||" ../hasCheckIcon }}
         <svg class="icon">
           <use xlink:href="#{{{../iconLeft}}}"></use>
         </svg>
       {{/if_compare}}
-      <input tabindex="-1" name="group-{{{../groupPostfix}}}"
-             id="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-{{this.id}}"
+      <input {{#if noInteraction}}tabindex="-1"{{/if}} name="{{../groupId}}"
+             {{#if id}}id="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-{{this.id}}"{{/if}}
              type="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}"
              value="{{{ this.value }}}" placeholder="{{{ this.label }}}"
              data-select-option
@@ -21,7 +24,10 @@
         </svg>
       {{/if}}
 
-      {{{ this.label }}}
+      <label for="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-{{this.id}}">{{{ this.label }}}</label>
+      {{#if ../useAnchors}}
+        </a>
+      {{/if}}
     </li>
   {{/each}}
 </ul>

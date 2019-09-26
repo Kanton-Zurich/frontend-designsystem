@@ -1,0 +1,85 @@
+.mdl-range {
+  height: pxToRem(86px);
+  margin-bottom: pxToRem($sizeLarge);
+  display: flex;
+  flex-direction: column;
+
+  &__label {
+    font-size: pxToRem($sizeFontRegular);
+    line-height: $sizeLineHeightBase;
+    font-weight: $fontWeightDefault;
+    margin: 0;
+  }
+
+  &__slider {
+    margin-top: pxToRem($sizeBiggerBig + $sizeMini);
+    height: pxToRem($sizeMini);
+    border: none;
+  }
+
+  &--only-labels,
+  &--tickmarks {
+    margin-bottom: pxToRem(42px);
+  }
+
+  &--only-labels {
+    .noUi-marker {
+      display: none;
+    }
+
+    .noUi-pips {
+      .noUi-value {
+        transform: translate(0, $sizeSmallLarge);
+
+        &:last-of-type {
+          transform: translate(-100%, $sizeSmallLarge);
+        }
+      }
+    }
+  }
+
+  &--tickmarks {
+    .mdl-range__slider {
+      width: calc(100% - #{$sizeSmallRegular});
+      margin: pxToRem($sizeBiggerBig + $sizeMini) auto 0 auto;
+
+      .noUi-connects {
+        border-radius: 0;
+      }
+
+      .noUi-pips {
+        .noUi-value {
+          transform: translate(-6px, $sizeSmallLarge);
+
+          &:last-of-type {
+            transform: translate(calc(-100% + 6px), $sizeSmallLarge);
+          }
+        }
+      }
+
+      &:before,
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        width: pxToRem(6px);
+        height: pxToRem($sizeMini);
+      }
+
+      &:before {
+        background-color: $colorCyan;
+        left: -6px;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+      }
+
+      &:after {
+        background-color: $colorBlack10;
+        right: -6px;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+      }
+    }
+  }
+}
