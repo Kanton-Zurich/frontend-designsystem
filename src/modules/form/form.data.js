@@ -421,9 +421,10 @@ const variants = _.mapValues({
                     selectData.props,
                     {
                       listData: _.merge({}, listDemoData.props, {
-                        groupPostfix: 'nationality',
+                        groupId: 'group-nationality',
                         isSingleSelect: true,
                         selectOptions: [
+                          { value: '', label: '' },
                           { value: 'DE', label: 'Deutschland', id: _.uniqueId('nationality') },
                           { value: 'FR', label: 'Frankreich', id: _.uniqueId('nationality') },
                           { value: 'UK', label: 'Vereinigtes Königreich', id: _.uniqueId('nationality') },

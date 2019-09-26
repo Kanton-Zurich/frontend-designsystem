@@ -236,8 +236,8 @@ class Form {
       const $cityField = this.ui.element.querySelector(`[name="${fillName}"]`);
 
       new ZipCity($zipField, $cityField);
-	});
-  }	
+    });
+  }
 
 
   initRules() {

@@ -297,7 +297,14 @@ class Stepper extends Module {
             this.showValidationErrors((<any>responseData).validationErrors);
           } else {
             // successful submission
-            this.data.active += 1;
+            let newPageIndex = this.data.active + 1;
+
+            while (this.ui.steps[newPageIndex].getAttribute('data-enabled') === 'false') {
+              newPageIndex += 1;
+            }
+
+            this.data.active = newPageIndex;
+
             // show service overlay if defined
             const overlayId = this.ui.wrapper.getAttribute('data-overlay-id');
             if (overlayId) {
