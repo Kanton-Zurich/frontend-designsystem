@@ -130,7 +130,6 @@ $gapSize: pxToRem($sizeRegular);
   }
 
   &__duplicator {
-    margin-top: $gapSize;
     margin-left: $gapSize/2;
 
     .form__group--has-duplicated & {
