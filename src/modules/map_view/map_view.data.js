@@ -47,6 +47,15 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
+  dev: {
+    meta: {
+      title: 'Develop',
+      desc: 'Develop with sized container and event trigger.',
+    },
+    props: {
+      devMode: true,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
