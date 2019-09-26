@@ -5,8 +5,12 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import * as L from 'leaflet';
 import * as wms from 'leaflet.wms';
+import 'leaflet';
+import 'leaflet.markercluster';
+
+// @ts-ignore
+const { L } = window;
 
 /* eslint-disable no-magic-numbers */
 const mapOptions: L.MapOptions = {
@@ -42,9 +46,12 @@ class MapView extends Module {
 
   public ui: {
     element: Element,
+    mapContainer: HTMLDivElement,
     zoomInBtn: HTMLElement,
     zoomOutBtn: HTMLElement,
     centerBtn: HTMLElement,
+    inputHighlightIdx: HTMLInputElement,
+    inputSelectIdx: HTMLInputElement,
   };
 
   private map: L.Map;
@@ -56,12 +63,15 @@ class MapView extends Module {
     };
     const defaultOptions = {
       domSelectors: {
+        mapContainer: '[data-map-view=map]',
         zoomInBtn: '[data-map-view=zoomInBtn]',
         zoomOutBtn: '[data-map-view=zoomOutBtn]',
         centerBtn: '[data-map-view=centerBtn]',
         markerProps: '[data-map-view=markerProps]',
         markerPropsLat: '[data-map-view=marker_lat]',
         markerPropsLng: '[data-map-view=marker_lng]',
+        inputHighlightIdx: '[data-map-view=highlightIndex]',
+        inputSelectIdx: '[data-map-view=selectIndex]',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -101,9 +111,17 @@ class MapView extends Module {
       });
   }
 
+  private onHighlightValueChange(propName: string, valueBefore: string, valueAfter: string): void {
+    this.log('Marker highlight: ', valueAfter);
+  }
+
+  private onMarkerSelectValueChange(propName, valueBefore, valueAfter): void {
+    this.log('Marker selected: ', valueAfter);
+  }
+
   private initMap(): void {
     const url = 'https://wms.zh.ch/ZHWEB?';
-    this.map = new L.Map('map', mapOptions);
+    this.map = new L.Map(this.ui.mapContainer, mapOptions);
 
     L.tileLayer.wms(url, {
       version: '1.3.0',
@@ -128,7 +146,9 @@ class MapView extends Module {
         if (userLatLng) {
           if (!this.userPosMarker) {
             this.userPosMarker = L.marker(
-              [47.4341, 8.46874], // userLatLng, TODO: For dev only
+              // eslint-disable-next-line no-magic-numbers
+              [47.4341, 8.46874], // TODO: For dev only
+              // userLatLng,
               { icon: userPosIcon },
             ).addTo(this.map);
           } else {
@@ -168,13 +188,21 @@ class MapView extends Module {
 
 
     if (this.marker.length > 0) {
+      const clusterGroup = L.markerClusterGroup({
+
+        iconCreateFunction: cluster => L.divIcon({
+          iconSize: [0, 0],
+          html: `<div class="mdl-map_view__clustericon">${cluster.getChildCount()}</div>`,
+        }),
+      });
       // set map bounds
       const markerGroup = L.featureGroup(this.marker);
       this.map.fitBounds(markerGroup.getBounds());
 
       this.marker.forEach((m) => {
-        m.addTo(this.map);
+        clusterGroup.addLayer(m);
       });
+      this.map.addLayer(clusterGroup);
     }
   }
 

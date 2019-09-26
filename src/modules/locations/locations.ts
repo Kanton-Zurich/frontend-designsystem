@@ -65,11 +65,6 @@ class Locations extends Module {
     };
   }
 
-  /**
-   *Initializing the watchers
-   *
-   * @memberof Carousel
-   */
   initWatchers() {
     this.watch(this.ui.filterInput, 'value', this.onFilterValueChange.bind(this));
   }
