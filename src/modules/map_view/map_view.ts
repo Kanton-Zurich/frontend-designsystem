@@ -20,18 +20,31 @@ const mapOptions: L.MapOptions = {
   center: L.latLng(47.3776662, 8.5365413),
   zoom: 12,
   maxZoom: 18,
-  minZoom: 11,
+  minZoom: 9,
   zoomAnimation: false,
   zoomControl: false,
   attributionControl: false,
 };
 /* eslint-enable no-magic-numbers */
-const kzhIcon = L.divIcon({ className: 'mdl-map_view__marker', iconSize: [0, 0] });
+const markerIcon = L.divIcon({ className: 'mdl-map_view__marker', iconSize: [0, 0] });
+const markerIconHighlight = L.divIcon({ className: 'mdl-map_view__marker_highlight', iconSize: [0, 0] });
 const userPosIcon = L.divIcon({ className: 'mdl-map_view__userposition', iconSize: [0, 0] });
+
+interface MarkerEvent extends CustomEvent<{ idx: number}>{}
+
+// class MarkerWithIndex extends L.Marker<any> {
+//   public idx: number;
+//
+//   constructor(idx: number, latlng: L.LatLngExpression, options?: L.MarkerOptions) {
+//     super(latlng, options);
+//     this.idx = idx;
+//   }
+// }
 
 class MapView extends Module {
   public options: {
     domSelectors: {
+      mapContainer: string,
       zoomInBtn: string,
       zoomOutBtn: string,
       centerBtn: string,
@@ -55,7 +68,7 @@ class MapView extends Module {
   };
 
   private map: L.Map;
-  private marker: L.Marker[];
+  private markers: L.Marker[];
   private userPosMarker: L.Marker;
 
   constructor($element: any, data: Object, options: Object) {
@@ -88,7 +101,9 @@ class MapView extends Module {
 
   static get events() {
     return {
-      // eventname: `eventname.${ MapView.name }.${  }`
+      highlightMarker: `eventname.${MapView.name}.ext_marker_highlight`,
+      markerMouseOver: `eventname.${MapView.name}.marker_mouseover`,
+      fixMarker: `eventname.${MapView.name}.fix_marker`,
     };
   }
 
@@ -98,6 +113,7 @@ class MapView extends Module {
   initEventListeners() {
     // Event listeners
     this.eventDelegate
+      .on(MapView.events.fixMarker, this.onMarkerSelect.bind(this))
       .on('click', this.options.domSelectors.zoomInBtn, () => {
         this.map.zoomIn();
       })
@@ -109,14 +125,23 @@ class MapView extends Module {
           // { setView: true } // TODO
         );
       });
+
+    this.ui.mapContainer
+      .addEventListener(MapView.events.highlightMarker, this.onExtMarkerHighlight.bind(this));
   }
 
-  private onHighlightValueChange(propName: string, valueBefore: string, valueAfter: string): void {
-    this.log('Marker highlight: ', valueAfter);
+  private onExtMarkerHighlight(ev: MarkerEvent): void {
+    this.log('External marker highlight on marker idx = ', ev.detail.idx);
+    const targetMarkerIdx = ev.detail.idx;
+    if (targetMarkerIdx === -1) {
+      this.markers.forEach(m => m.fire('mouseout'));
+    } else if (targetMarkerIdx >= 0 && targetMarkerIdx < this.markers.length) {
+      this.markers[targetMarkerIdx].fireEvent('mouseover');
+    }
   }
 
-  private onMarkerSelectValueChange(propName, valueBefore, valueAfter): void {
-    this.log('Marker selected: ', valueAfter);
+  private onMarkerSelect(ev): void {
+    this.log('Marker selected: ', ev);
   }
 
   private initMap(): void {
@@ -166,7 +191,7 @@ class MapView extends Module {
   }
 
   private setMarker(): void {
-    this.marker = [];
+    this.markers = [];
     this.ui.element.querySelectorAll<HTMLLIElement>(this.options.domSelectors.markerProps)
       .forEach((propertyNode) => {
         const latEl = propertyNode
@@ -178,16 +203,15 @@ class MapView extends Module {
           const lat = Number.parseFloat(latEl.innerText);
           const lng = Number.parseFloat(lngEl.innerText);
           if (lat && lng) {
-            this.marker.push(L.marker(
-              [lat, lng],
-              { icon: kzhIcon },
-            ));
+            this.markers.push(L.marker([lat, lng], {
+              icon: markerIcon,
+            }));
           }
         }
       });
 
 
-    if (this.marker.length > 0) {
+    if (this.markers.length > 0) {
       const clusterGroup = L.markerClusterGroup({
 
         iconCreateFunction: cluster => L.divIcon({
@@ -196,10 +220,19 @@ class MapView extends Module {
         }),
       });
       // set map bounds
-      const markerGroup = L.featureGroup(this.marker);
+      const markerGroup = L.featureGroup(this.markers);
       this.map.fitBounds(markerGroup.getBounds());
 
-      this.marker.forEach((m) => {
+      this.markers.forEach((m, idx) => {
+        m.on('mouseover', (ev) => {
+          this.log('Marker mouseover', ev);
+          ev.target.setIcon(markerIconHighlight);
+          this.ui.mapContainer.dispatchEvent(MapView.markerMouseOverEvent(idx));
+        }).on('mouseout', (ev) => {
+          this.log('Marker mouseout', ev);
+          ev.target.setIcon(markerIcon);
+          this.ui.mapContainer.dispatchEvent(MapView.markerMouseOverEvent());
+        });
         clusterGroup.addLayer(m);
       });
       this.map.addLayer(clusterGroup);
@@ -213,6 +246,16 @@ class MapView extends Module {
     super.destroy();
 
     // Custom destroy actions go here
+  }
+
+  static extMarkerHighlightEvent(highlightIndex: number) {
+    return new CustomEvent(MapView.events.highlightMarker, { detail: { idx: highlightIndex } });
+  }
+  static markerMouseOverEvent(highlightIndex?: number) {
+    return new CustomEvent(
+      MapView.events.markerMouseOver,
+      { detail: { idx: highlightIndex === undefined ? -1 : highlightIndex } },
+    );
   }
 }
 

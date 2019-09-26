@@ -5,7 +5,17 @@ const defaultData = require('../../data/default.data.js');
 const buttonDefaultData = require('../../atoms/button/button.data').variants.default.props;
 const textLinkDefaultData = require('../../atoms/text_link/text_link.data').variants.default.props;
 const inputClearButtonSmallWithIconData = require('../../atoms/form_input/form_input.data').variants.clearButtonSmallWithIcon.props;
+const mapViewDefaultData = require('../../modules/map_view/map_view.data').variants.default.props;
 const locationContactDefault = require('../../modules/contact/contact.data').variants.location.props;
+
+const locationsLatLng = [
+  { lat: 47.353611, lng: 8.512877 },
+  { lat: 47.444240, lng: 8.613319 },
+  { lat: 47.441567, lng: 8.461398 },
+  { lat: 47.515148, lng: 8.693981 },
+  { lat: 47.532225, lng: 8.527852 },
+  { lat: 47.271530, lng: 8.585463 },
+];
 
 const locationsAsListItemLinks = [
   {
@@ -41,7 +51,7 @@ const locationsAsListItemLinks = [
     linkListItemDistance: '17,4 km',
     linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Bülach',
     linkListItemLabel: 'Schützenmatt Straße 120, 8180 Bülach',
-    domSelector: 'data-locations="listItem"',
+    additionalAttributes: 'data-locations="listItem"',
     linkListItemHref: false,
   }, {
     linkListItemIsLocation: true,
@@ -147,6 +157,11 @@ const data = _.merge({}, defaultData, {
       additionalAttribute: 'data-locations="toggleList"',
     }),
     locationContacts: [],
+    mapData: _.merge({}, mapViewDefaultData, {
+      mapId: 'locations-map',
+      withUserLocate: true,
+      mapMarker: [],
+    }),
   },
 });
 const variants = _.mapValues({
@@ -160,6 +175,9 @@ const variants = _.mapValues({
         links: locationsAsListItemLinks,
       },
       locationContacts: locationsAsContacts,
+      mapData: {
+        mapMarker: locationsLatLng,
+      },
     },
   },
   singleLocation: {
@@ -172,6 +190,9 @@ const variants = _.mapValues({
         links: [locationsAsListItemLinks[0]],
       },
       locationContacts: [locationsAsContacts[0]],
+      mapData: {
+        mapMarker: [locationsLatLng[0]],
+      },
     },
   },
 }, (variant) => {

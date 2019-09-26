@@ -13,6 +13,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('map_view.md'),
   },
   props: {
+    mapId: 'map',
     withUserLocate: true,
     centerBtn: _.merge({}, defButtonData, {
       isTextVisible: false,
@@ -33,20 +34,16 @@ const data = _.merge({}, defaultData, {
       additionalAttribute: 'data-map-view="zoomOutBtn"',
     }),
     mapMarker: [
-      { lat: 47.3776662, lng: 8.5365413 },
-      { lat: 47.39542, lng: 8.54123 },
-      { lat: 47.5676662, lng: 8.43513 },
-      { lat: 47.41662, lng: 8.4865413 },
+      { lat: 47.353611, lng: 8.512877 },
+      { lat: 47.444240, lng: 8.613319 },
+      { lat: 47.441567, lng: 8.461398 },
+      { lat: 47.515148, lng: 8.693981 },
+      { lat: 47.532225, lng: 8.527852 },
+      { lat: 47.271530, lng: 8.585463 },
     ],
   },
 });
 const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-    },
-  },
   dev: {
     meta: {
       title: 'Develop',
@@ -54,6 +51,12 @@ const variants = _.mapValues({
     },
     props: {
       devMode: true,
+    },
+  },
+  default: {
+    meta: {
+      title: 'Default',
+      desc: 'Default implementation',
     },
   },
 }, (variant) => {

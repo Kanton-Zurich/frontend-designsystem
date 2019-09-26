@@ -23,11 +23,21 @@ $mapViewMarkerHeight: 38px;
       background-position: center;
       background-repeat: no-repeat;
     }
+  }
 
-    &:hover {
-      &:after {
-        background-image: url(svg-mapmarker($colorBlack));  // stylelint-disable-line
-      }
+  &__marker_highlight {
+
+    &:after {
+      content: '';
+      position: absolute;
+      height: pxToRem($mapViewMarkerHeight);
+      width: pxToRem($mapViewMarkerWidth);
+      left: pxToRem(-$mapViewMarkerWidth / 2);
+      bottom: 0;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-image: url(svg-mapmarker($colorBlack));  // stylelint-disable-line
     }
   }
 
@@ -44,6 +54,11 @@ $mapViewMarkerHeight: 38px;
     line-height: pxToRem($sizeBiggerBig - 5);
     font-weight: $fontWeightBlack;
     font-size: pxToRem($sizeFontMedium);
+
+    &:hover {
+      color: $colorBlack;
+      border-color: $colorBlack;
+    }
   }
 
   $userPosMarkerOuterW: $sizeBig;
@@ -94,7 +109,7 @@ $mapViewMarkerHeight: 38px;
       background-image: url(svg-mapmarker($val));  // stylelint-disable-line
     }
 
-    .mdl-map_view__clustericon {
+    .mdl-map_view__clustericon:not(:hover) {
       color: $val;
       border-color: $val;
     }

@@ -5,8 +5,17 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import MapView from '../map_view/map_view';
 
 class Locations extends Module {
+  private static classNames = {
+    SIDEBAR_OPENED: 'opened',
+    SIDEBAR_NOT_FOUND: 'empty',
+    SIDEBAR_ON_DETAILS: 'show-details',
+    DETAIL_SHOW: 'show',
+    MAP_MARKER_IS_HOVERED: 'marker-hovered',
+  };
+
   public ui: {
     element: HTMLDivElement,
     filterInput: HTMLInputElement,
@@ -34,12 +43,12 @@ class Locations extends Module {
     const defaultOptions = {
       focusDelay: 500,
       domSelectors: {
+        map: '#locations-map',
         listItems: '[data-locations="listItem"]',
         filterInput: '[data-locations="input"]',
         sidebar: '[data-locations="sidebar"]',
         backBtn: '[data-locations="back"]',
         detailNodes: '[data-locations="locationDetails"]',
-        map: '[data-locations="map"]',
         toggleListBtn: '[data-locations="toggleList"]',
         emptyListHint: '[data-locations="emptyNote"]',
         notFoundTextTemplate: '[data-locations="emptyNoteTextTemplate"]',
@@ -116,10 +125,33 @@ class Locations extends Module {
       .on('click', this.options.domSelectors.toggleListBtn, (event, target) => {
         this.log('ToggleListBtn Click: ', event, target);
         const sidebarClasses = this.ui.sidebar.classList;
-        if (sidebarClasses.contains('opened')) {
-          sidebarClasses.remove('opened');
+        if (sidebarClasses.contains(Locations.classNames.SIDEBAR_OPENED)) {
+          sidebarClasses.remove(Locations.classNames.SIDEBAR_OPENED);
         } else {
-          sidebarClasses.add('opened');
+          sidebarClasses.add(Locations.classNames.SIDEBAR_OPENED);
+        }
+      });
+
+    this.ui.map
+      .addEventListener(MapView.events.markerMouseOver, (ev: CustomEvent) => {
+        const markerMouseOverIdx = ev.detail.idx;
+        this.log('Mouseover from map on marker', markerMouseOverIdx);
+
+        if (this.ui.listItems[0]) {
+          (this.ui.listItems as HTMLAnchorElement[]).forEach((listItem, i) => {
+            if (markerMouseOverIdx === i) {
+              listItem.classList.add(Locations.classNames.MAP_MARKER_IS_HOVERED);
+            } else {
+              listItem.classList.remove(Locations.classNames.MAP_MARKER_IS_HOVERED);
+            }
+          });
+        } else {
+          const singleItemsClasses = (this.ui.listItems as HTMLAnchorElement).classList;
+          if (markerMouseOverIdx === 0) {
+            singleItemsClasses.add(Locations.classNames.MAP_MARKER_IS_HOVERED);
+          } else {
+            singleItemsClasses.remove(Locations.classNames.MAP_MARKER_IS_HOVERED);
+          }
         }
       });
   }
@@ -130,11 +162,11 @@ class Locations extends Module {
     if (selectEventTarget) {
       clickedItemIndex = selectEventTarget.parentElement.getAttribute('data-linklist-itemindex');
       this.log('Clicked item index: ', clickedItemIndex);
-      this.ui.sidebar.classList.add('show-details');
+      this.ui.sidebar.classList.add(Locations.classNames.SIDEBAR_ON_DETAILS);
       this.toggleSidebarTabIndices(true);
     } else {
       this.log('Unselect location');
-      this.ui.sidebar.classList.remove('show-details');
+      this.ui.sidebar.classList.remove(Locations.classNames.SIDEBAR_ON_DETAILS);
       this.toggleSidebarTabIndices();
     }
 
@@ -165,8 +197,8 @@ class Locations extends Module {
   private onFilterValueChange(propName, valueBefore, valueAfter) {
     this.log('Filter Value changed', valueAfter);
     const sidebarClasses = this.ui.sidebar.classList;
-    if (!sidebarClasses.contains('opened')) {
-      sidebarClasses.add('opened');
+    if (!sidebarClasses.contains(Locations.classNames.SIDEBAR_OPENED)) {
+      sidebarClasses.add(Locations.classNames.SIDEBAR_OPENED);
     }
     this.filterListItemsByText(valueAfter);
   }
@@ -194,9 +226,9 @@ class Locations extends Module {
             childNode.textContent = this.ui.notFoundTextTemplate.content.textContent.replace('{searchTerm}', filterText);
           }
         });
-        this.ui.sidebar.classList.add('empty');
+        this.ui.sidebar.classList.add(Locations.classNames.SIDEBAR_NOT_FOUND);
       } else {
-        this.ui.sidebar.classList.remove('empty');
+        this.ui.sidebar.classList.remove(Locations.classNames.SIDEBAR_NOT_FOUND);
       }
     }
   }
@@ -208,11 +240,10 @@ class Locations extends Module {
     }
     if (this.ui.detailNodes[0]) {
       (<HTMLDivElement[]> this.ui.detailNodes).forEach((detailsContainer, i) => {
-        this.log('ForEach Detail: ', i);
         if (i === indexToShow) {
-          detailsContainer.classList.add('show');
+          detailsContainer.classList.add(Locations.classNames.DETAIL_SHOW);
         } else {
-          detailsContainer.classList.remove('show');
+          detailsContainer.classList.remove(Locations.classNames.DETAIL_SHOW);
         }
         detailsContainer.querySelectorAll('a').forEach((anchorEl) => {
           this.setTabable(anchorEl, indexToShow === i);
@@ -221,9 +252,9 @@ class Locations extends Module {
     } else {
       const detailsContainer = <HTMLDivElement> this.ui.detailNodes;
       if (indexToShow === 0) {
-        detailsContainer.classList.add('show');
+        detailsContainer.classList.add(Locations.classNames.DETAIL_SHOW);
       } else {
-        detailsContainer.classList.remove('show');
+        detailsContainer.classList.remove(Locations.classNames.DETAIL_SHOW);
       }
       detailsContainer.querySelectorAll('a').forEach((anchorEl) => {
         this.setTabable(anchorEl, indexToShow === 0);
@@ -249,12 +280,9 @@ class Locations extends Module {
       if (indexString) {
         highlightIndex = Number.parseInt(indexString, 10);
       }
-      const mapDevOut = this.ui.map.getElementsByTagName('span')[0];
-      if (highlightIndex > -1) {
-        mapDevOut.innerText = `Highlight on ${highlightIndex}. location!`;
-      } else {
-        mapDevOut.innerText = '';
-      }
+
+      this.log('Dispatch Marker highlight');
+      this.ui.map.dispatchEvent(MapView.extMarkerHighlightEvent(highlightIndex));
 
       if (force) {
         this.keepMapHighlight = highlightIndex > -1;
