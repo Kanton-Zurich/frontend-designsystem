@@ -137,6 +137,36 @@ const variants = _.mapValues({
             },
             {
               fields: [{
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'E-Mail',
+                    name: 'emailaddr',
+                    uuid: 'emailaddr',
+                    type: 'email',
+                    validation: {
+                      errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+                    },
+                  })),
+              },
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'URL',
+                    name: 'url_input',
+                    uuid: 'url_input',
+                    type: 'url',
+                    validation: {
+                      errorMsg: 'Bitte geben Sie eine gültige URL an.',
+                    },
+                  })),
+              }],
+            },
+            {
+              fields: [{
                 isSmall: true,
                 cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
                   formInputData.variants.default.props,
