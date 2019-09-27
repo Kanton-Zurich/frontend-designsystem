@@ -12,7 +12,6 @@ import 'leaflet.markercluster';
 // @ts-ignore
 const { L } = window;
 
-/* eslint-disable no-magic-numbers */
 const mapOptions: L.MapOptions = {
   crs: L.CRS.EPSG3857,
   maxZoom: 18,
@@ -21,7 +20,21 @@ const mapOptions: L.MapOptions = {
   zoomControl: false,
   attributionControl: false,
 };
-/* eslint-enable no-magic-numbers */
+
+const zhWmsUrl = 'https://wms.zh.ch/ZHWEB?';
+const getMapBaseLayer = () => L.tileLayer.wms(zhWmsUrl, {
+  version: '1.3.0',
+  format: 'image/png; mode=8bit',
+  transparent: false,
+  layers: 'ZHBase',
+});
+const getLabelLayer = () => wms.overlay(zhWmsUrl, {
+  version: '1.3.0',
+  format: 'image/png; mode=8bit',
+  transparent: true,
+  layers: 'ZHLabels',
+});
+
 const markerIconDefault = L.divIcon({ className: 'mdl-map_view__marker', iconSize: [0, 0] });
 const markerIconHighlight = L.divIcon({ className: 'mdl-map_view__marker_highlight', iconSize: [0, 0] });
 const markerIconSelected = L.divIcon({ className: 'mdl-map_view__marker_selected', iconSize: [0, 0] });
@@ -44,6 +57,7 @@ class MapView extends Module {
     }
     stateClasses: {
       singleItem: string,
+      directionsBtnVisible: string,
     },
   };
 
@@ -60,6 +74,8 @@ class MapView extends Module {
   private map: L.Map;
   private markers: L.Marker[];
   private userPosMarker: L.Marker;
+
+  private markerSelected: boolean;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -93,7 +109,8 @@ class MapView extends Module {
     return {
       highlightMarker: `eventname.${MapView.name}.ext_marker_highlight`,
       markerMouseOver: `eventname.${MapView.name}.marker_mouseover`,
-      fixMarker: `eventname.${MapView.name}.fix_marker`,
+      markerClicked: `eventname.${MapView.name}.marker_clicked`,
+      fixMarker: `eventname.${MapView.name}.ext_marker_fix`,
     };
   }
 
@@ -103,7 +120,6 @@ class MapView extends Module {
   initEventListeners() {
     // Event listeners
     this.eventDelegate
-      .on(MapView.events.fixMarker, this.onMarkerSelect.bind(this))
       .on('click', this.options.domSelectors.zoomInBtn, () => {
         this.map.zoomIn();
       })
@@ -117,68 +133,58 @@ class MapView extends Module {
       });
 
     this.ui.mapContainer
+      .addEventListener(MapView.events.fixMarker, this.onExternalSelect.bind(this));
+    this.ui.mapContainer
       .addEventListener(MapView.events.highlightMarker, this.onExtMarkerHighlight.bind(this));
   }
 
   private onExtMarkerHighlight(ev: MarkerEvent): void {
     this.log('External marker highlight on marker idx = ', ev.detail.idx);
     const targetMarkerIdx = ev.detail.idx;
-    if (targetMarkerIdx === -1) {
-      this.markers.forEach(m => m.fire('mouseout'));
-    } else if (targetMarkerIdx >= 0 && targetMarkerIdx < this.markers.length) {
+    if (targetMarkerIdx >= 0 && targetMarkerIdx < this.markers.length) {
       this.markers[targetMarkerIdx].fireEvent('mouseover');
+    } else {
+      this.markers.forEach(m => m.fire('mouseout'));
     }
   }
 
-  private onMarkerSelect(ev): void {
-    this.log('Marker selected: ', ev);
+  private onExternalSelect(ev: MarkerEvent): void {
+    this.log('External select: ', ev);
+    this.doSelectMarker(ev.detail.idx);
   }
 
-  private doSelectMarker(markerIdx: number): void {
+  private doSelectMarker(markerIdx?: number): void {
     this.log('Selected marker: ', markerIdx);
-    if (markerIdx >= 0 && markerIdx < this.markers.length) {
-      const selectedMarker = this.markers[markerIdx];
-      selectedMarker.setIcon(markerIconSelected);
+    this.markers.forEach((m, i) => {
+      if (i === markerIdx) {
+        m.setIcon(markerIconSelected);
+      } else {
+        m.setIcon(markerIconDefault);
+      }
+    });
+    this.markerSelected = markerIdx >= 0 && markerIdx < this.markers.length;
 
-      if (this.ui.directionsBtn && this.ui.directionsUrlTemplateInput) {
-        const { directionsBtn } = this.ui;
+    if (this.ui.directionsBtn && this.ui.directionsUrlTemplateInput) {
+      const { directionsBtn } = this.ui;
+
+      if (this.markerSelected) {
         const urlTemplate = this.ui.directionsUrlTemplateInput.value;
-        const latLng = selectedMarker.getLatLng();
+        const latLng = this.markers[markerIdx].getLatLng();
         directionsBtn.href = urlTemplate
           .replace('{lat}', latLng.lat.toString())
           .replace('{lng}', latLng.lng.toString());
-        directionsBtn.classList.add('visible');
-      }
-    } else {
-      // unselect
-      this.markers.forEach((m) => {
-        m.setIcon(markerIconDefault);
-      });
-
-      if (this.ui.directionsBtn) {
-        const { directionsBtn } = this.ui;
-        directionsBtn.classList.remove('visible');
+        directionsBtn.parentElement.classList.add(this.options.stateClasses.directionsBtnVisible);
+      } else {
+        directionsBtn.parentElement.classList
+          .remove(this.options.stateClasses.directionsBtnVisible);
       }
     }
   }
 
   private initMap(): void {
-    const url = 'https://wms.zh.ch/ZHWEB?';
     this.map = new L.Map(this.ui.mapContainer, mapOptions);
-
-    L.tileLayer.wms(url, {
-      version: '1.3.0',
-      format: 'image/png; mode=8bit',
-      transparent: false,
-      layers: 'ZHBase',
-    }).addTo(this.map);
-
-    wms.overlay(url, {
-      version: '1.3.0',
-      format: 'image/png; mode=8bit',
-      transparent: true,
-      layers: 'ZHLabels',
-    }).addTo(this.map);
+    getMapBaseLayer().addTo(this.map);
+    getLabelLayer().addTo(this.map);
 
     if (this.ui.centerBtn) {
       this.log('User locate enabled. Requesting user location.');
@@ -189,9 +195,7 @@ class MapView extends Module {
         if (userLatLng) {
           if (!this.userPosMarker) {
             this.userPosMarker = L.marker(
-              // eslint-disable-next-line no-magic-numbers
-              [47.4341, 8.46874], // TODO: For dev only
-              // userLatLng,
+              userLatLng,
               { icon: userPosIcon },
             ).addTo(this.map);
           } else {
@@ -205,6 +209,10 @@ class MapView extends Module {
         this.log('Locationerror event: ', errorEv);
       });
     }
+    this.map.on('click', () => {
+      this.doSelectMarker();
+      this.ui.mapContainer.dispatchEvent(MapView.markerMouseClickedEvent());
+    });
     this.setMarker();
   }
 
@@ -240,6 +248,7 @@ class MapView extends Module {
           iconSize: [0, 0],
           html: `<div class="mdl-map_view__clustericon">${cluster.getChildCount()}</div>`,
         }),
+        showCoverageOnHover: false,
       });
       // set map bounds
       const markerGroup = L.featureGroup(this.markers);
@@ -248,12 +257,21 @@ class MapView extends Module {
       this.markers.forEach((m, idx) => {
         m.on('mouseover', (ev) => {
           this.log('Marker mouseover', ev);
-          ev.target.setIcon(markerIconHighlight);
-          this.ui.mapContainer.dispatchEvent(MapView.markerMouseOverEvent(idx));
+          if (!this.markerSelected) {
+            ev.target.setIcon(markerIconHighlight);
+            this.ui.mapContainer.dispatchEvent(MapView.markerMouseOverEvent(idx));
+          }
         }).on('mouseout', (ev) => {
           this.log('Marker mouseout', ev);
-          ev.target.setIcon(markerIconDefault);
-          this.ui.mapContainer.dispatchEvent(MapView.markerMouseOverEvent());
+          if (!this.markerSelected) {
+            ev.target.setIcon(markerIconDefault);
+            this.ui.mapContainer.dispatchEvent(MapView.markerMouseOverEvent());
+          }
+        }).on('click', (ev) => {
+          this.log('Marker click', ev);
+          this.doSelectMarker(idx);
+          this.ui.mapContainer.dispatchEvent(MapView.markerMouseClickedEvent(idx));
+          L.DomEvent.stopPropagation(ev);
         });
         clusterGroup.addLayer(m);
       });
@@ -273,10 +291,19 @@ class MapView extends Module {
   static extMarkerHighlightEvent(highlightIndex: number) {
     return new CustomEvent(MapView.events.highlightMarker, { detail: { idx: highlightIndex } });
   }
+  static extMarkerSelectEvent(selectIndex: number) {
+    return new CustomEvent(MapView.events.fixMarker, { detail: { idx: selectIndex } });
+  }
   static markerMouseOverEvent(highlightIndex?: number) {
     return new CustomEvent(
       MapView.events.markerMouseOver,
       { detail: { idx: highlightIndex === undefined ? -1 : highlightIndex } },
+    );
+  }
+  static markerMouseClickedEvent(clickedIndex?: number) {
+    return new CustomEvent(
+      MapView.events.markerClicked,
+      { detail: { idx: clickedIndex === undefined ? -1 : clickedIndex } },
     );
   }
 }

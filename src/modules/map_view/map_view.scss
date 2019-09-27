@@ -115,7 +115,14 @@ $mapViewSelectedMarkerHeight: 59px;
     position: absolute;
     left: 0;
     bottom: 0;
-    z-index: 10000;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 800ms ease-out;
+
+    &.visible {
+      z-index: 10000;
+      opacity: 1;
+    }
 
     .atm-button {
       padding: 1px pxToRem(18) 0;
