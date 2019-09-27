@@ -15,10 +15,6 @@ const { L } = window;
 /* eslint-disable no-magic-numbers */
 const mapOptions: L.MapOptions = {
   crs: L.CRS.EPSG3857,
-  maxBounds: L.latLngBounds(L.latLng(48, 5.8), L.latLng(45.6, 10.9)),
-  maxBoundsViscosity: 0.5,
-  center: L.latLng(47.3776662, 8.5365413),
-  zoom: 12,
   maxZoom: 18,
   minZoom: 9,
   zoomAnimation: false,
@@ -26,8 +22,9 @@ const mapOptions: L.MapOptions = {
   attributionControl: false,
 };
 /* eslint-enable no-magic-numbers */
-const markerIcon = L.divIcon({ className: 'mdl-map_view__marker', iconSize: [0, 0] });
+const markerIconDefault = L.divIcon({ className: 'mdl-map_view__marker', iconSize: [0, 0] });
 const markerIconHighlight = L.divIcon({ className: 'mdl-map_view__marker_highlight', iconSize: [0, 0] });
+const markerIconSelected = L.divIcon({ className: 'mdl-map_view__marker_selected', iconSize: [0, 0] });
 const userPosIcon = L.divIcon({ className: 'mdl-map_view__userposition', iconSize: [0, 0] });
 
 interface MarkerEvent extends CustomEvent<{ idx: number}>{}
@@ -39,13 +36,15 @@ class MapView extends Module {
       zoomInBtn: string,
       zoomOutBtn: string,
       centerBtn: string,
+      directionsBtn: string,
+      directionsUrlTemplateInput: string,
       markerProps: string,
       markerPropsLat: string,
       markerPropsLng: string,
     }
     stateClasses: {
-
-    }
+      singleItem: string,
+    },
   };
 
   public ui: {
@@ -54,8 +53,8 @@ class MapView extends Module {
     zoomInBtn: HTMLElement,
     zoomOutBtn: HTMLElement,
     centerBtn: HTMLElement,
-    inputHighlightIdx: HTMLInputElement,
-    inputSelectIdx: HTMLInputElement,
+    directionsBtn: HTMLAnchorElement,
+    directionsUrlTemplateInput: HTMLInputElement,
   };
 
   private map: L.Map;
@@ -71,14 +70,14 @@ class MapView extends Module {
         zoomInBtn: '[data-map-view=zoomInBtn]',
         zoomOutBtn: '[data-map-view=zoomOutBtn]',
         centerBtn: '[data-map-view=centerBtn]',
+        directionsUrlTemplateInput: '[data-map-view=urlTemplateDirections]',
+        directionsBtn: '[data-map-view=directionsBtn]',
         markerProps: '[data-map-view=markerProps]',
         markerPropsLat: '[data-map-view=marker_lat]',
         markerPropsLng: '[data-map-view=marker_lng]',
-        inputHighlightIdx: '[data-map-view=highlightIndex]',
-        inputSelectIdx: '[data-map-view=selectIndex]',
       },
       stateClasses: {
-        // activated: 'is-activated'
+        singleItem: 'mdl-map_view--single-item',
       },
     };
 
@@ -133,6 +132,34 @@ class MapView extends Module {
 
   private onMarkerSelect(ev): void {
     this.log('Marker selected: ', ev);
+  }
+
+  private doSelectMarker(markerIdx: number): void {
+    this.log('Selected marker: ', markerIdx);
+    if (markerIdx >= 0 && markerIdx < this.markers.length) {
+      const selectedMarker = this.markers[markerIdx];
+      selectedMarker.setIcon(markerIconSelected);
+
+      if (this.ui.directionsBtn && this.ui.directionsUrlTemplateInput) {
+        const { directionsBtn } = this.ui;
+        const urlTemplate = this.ui.directionsUrlTemplateInput.value;
+        const latLng = selectedMarker.getLatLng();
+        directionsBtn.href = urlTemplate
+          .replace('{lat}', latLng.lat.toString())
+          .replace('{lng}', latLng.lng.toString());
+        directionsBtn.classList.add('visible');
+      }
+    } else {
+      // unselect
+      this.markers.forEach((m) => {
+        m.setIcon(markerIconDefault);
+      });
+
+      if (this.ui.directionsBtn) {
+        const { directionsBtn } = this.ui;
+        directionsBtn.classList.remove('visible');
+      }
+    }
   }
 
   private initMap(): void {
@@ -195,7 +222,7 @@ class MapView extends Module {
           const lng = Number.parseFloat(lngEl.innerText);
           if (lat && lng) {
             this.markers.push(L.marker([lat, lng], {
-              icon: markerIcon,
+              icon: markerIconDefault,
             }));
           }
         }
@@ -203,6 +230,10 @@ class MapView extends Module {
 
 
     if (this.markers.length > 0) {
+      if (this.markers.length === 1) {
+        this.ui.element.classList.add(this.options.stateClasses.singleItem);
+        this.doSelectMarker(0);
+      }
       const clusterGroup = L.markerClusterGroup({
 
         iconCreateFunction: cluster => L.divIcon({
@@ -212,7 +243,7 @@ class MapView extends Module {
       });
       // set map bounds
       const markerGroup = L.featureGroup(this.markers);
-      this.map.fitBounds(markerGroup.getBounds(), { maxZoom: 14 });
+      this.map.fitBounds(markerGroup.getBounds(), { maxZoom: 12 });
 
       this.markers.forEach((m, idx) => {
         m.on('mouseover', (ev) => {
@@ -221,7 +252,7 @@ class MapView extends Module {
           this.ui.mapContainer.dispatchEvent(MapView.markerMouseOverEvent(idx));
         }).on('mouseout', (ev) => {
           this.log('Marker mouseout', ev);
-          ev.target.setIcon(markerIcon);
+          ev.target.setIcon(markerIconDefault);
           this.ui.mapContainer.dispatchEvent(MapView.markerMouseOverEvent());
         });
         clusterGroup.addLayer(m);

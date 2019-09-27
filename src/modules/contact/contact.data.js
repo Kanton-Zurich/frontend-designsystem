@@ -136,7 +136,7 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   fullWidthLessData2: {
     meta: {
-      title: 'Kontakt volle Breite (Nur Titel mit Karte(TODO))',
+      title: 'Kontakt volle Breite (mit Karte)',
       desc: 'Kontakt unter Verwendung des gesamten Platzes - reduzierte Informationen',
     },
     props: {
@@ -174,6 +174,9 @@ const variants = _.mapValues({
         mapMarker: [
           { lat: 47.380467, lng: 8.548396 },
         ],
+        directions: {
+          enabled: true,
+        },
       }),
     },
   },

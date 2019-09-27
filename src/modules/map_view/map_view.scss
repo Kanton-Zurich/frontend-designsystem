@@ -1,5 +1,16 @@
 $mapViewMarkerWidth: 30px;
 $mapViewMarkerHeight: 38px;
+$mapViewSelectedMarkerWidth: 48px;
+$mapViewSelectedMarkerHeight: 59px;
+
+.mdl-map_view_markericon {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
 .mdl-map_view {
   height: 100%;
@@ -13,30 +24,29 @@ $mapViewMarkerHeight: 38px;
 
   &__marker {
     &:after {
-      content: '';
-      position: absolute;
+      @extend .mdl-map_view_markericon;
       height: pxToRem($mapViewMarkerHeight);
       width: pxToRem($mapViewMarkerWidth);
       left: pxToRem(-$mapViewMarkerWidth / 2);
-      bottom: 0;
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
     }
   }
 
   &__marker_highlight {
-
     &:after {
-      content: '';
-      position: absolute;
+      @extend .mdl-map_view_markericon;
       height: pxToRem($mapViewMarkerHeight);
       width: pxToRem($mapViewMarkerWidth);
       left: pxToRem(-$mapViewMarkerWidth / 2);
-      bottom: 0;
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
+      background-image: url(svg-mapmarker($colorBlack));  // stylelint-disable-line
+    }
+  }
+
+  &__marker_selected {
+    &:after {
+      @extend .mdl-map_view_markericon;
+      left: pxToRem(-$mapViewSelectedMarkerWidth / 2);
+      height: pxToRem($mapViewSelectedMarkerHeight);
+      width: pxToRem($mapViewSelectedMarkerWidth);
       background-image: url(svg-mapmarker($colorBlack));  // stylelint-disable-line
     }
   }
@@ -100,6 +110,26 @@ $mapViewMarkerHeight: 38px;
       margin-top: pxToRem($sizeMini / 2);
     }
   }
+
+  &__directions-link {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 10000;
+
+    .atm-button {
+      padding: 1px pxToRem(18) 0;
+
+      &__text {
+        font-weight: $fontWeightDefault;
+      }
+    }
+
+    .icon {
+      width: pxToRem(18);
+      height: pxToRem(18);
+    }
+  }
 }
 
 
@@ -112,6 +142,14 @@ $mapViewMarkerHeight: 38px;
     .mdl-map_view__clustericon:not(:hover) {
       color: $val;
       border-color: $val;
+    }
+
+    .mdl-map_view--single-item {
+      .mdl-map_view__marker_selected {
+        &:after {
+          background-image: url(svg-mapmarker($val));  // stylelint-disable-line
+        }
+      }
     }
   }
 }
