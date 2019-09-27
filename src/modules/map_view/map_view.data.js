@@ -33,14 +33,7 @@ const data = _.merge({}, defaultData, {
       isInverted: true,
       additionalAttribute: 'data-map-view="zoomOutBtn"',
     }),
-    mapMarker: [
-      { lat: 47.353611, lng: 8.512877 },
-      { lat: 47.444240, lng: 8.613319 },
-      { lat: 47.441567, lng: 8.461398 },
-      { lat: 47.515148, lng: 8.693981 },
-      { lat: 47.532225, lng: 8.527852 },
-      { lat: 47.271530, lng: 8.585463 },
-    ],
+    mapMarker: [],
   },
 });
 const variants = _.mapValues({
@@ -51,6 +44,14 @@ const variants = _.mapValues({
     },
     props: {
       devMode: true,
+      mapMarker: [
+        { lat: 47.353611, lng: 8.512877 },
+        { lat: 47.444240, lng: 8.613319 },
+        { lat: 47.441567, lng: 8.461398 },
+        { lat: 47.515148, lng: 8.693981 },
+        { lat: 47.532225, lng: 8.527852 },
+        { lat: 47.271530, lng: 8.585463 },
+      ],
     },
   },
   default: {

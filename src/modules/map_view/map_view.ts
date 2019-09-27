@@ -32,15 +32,6 @@ const userPosIcon = L.divIcon({ className: 'mdl-map_view__userposition', iconSiz
 
 interface MarkerEvent extends CustomEvent<{ idx: number}>{}
 
-// class MarkerWithIndex extends L.Marker<any> {
-//   public idx: number;
-//
-//   constructor(idx: number, latlng: L.LatLngExpression, options?: L.MarkerOptions) {
-//     super(latlng, options);
-//     this.idx = idx;
-//   }
-// }
-
 class MapView extends Module {
   public options: {
     domSelectors: {
@@ -221,7 +212,7 @@ class MapView extends Module {
       });
       // set map bounds
       const markerGroup = L.featureGroup(this.markers);
-      this.map.fitBounds(markerGroup.getBounds());
+      this.map.fitBounds(markerGroup.getBounds(), { maxZoom: 14 });
 
       this.markers.forEach((m, idx) => {
         m.on('mouseover', (ev) => {
