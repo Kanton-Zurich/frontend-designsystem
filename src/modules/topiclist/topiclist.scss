@@ -23,6 +23,10 @@ $leadFontCurve: (
       .mdl-content_nav__item:nth-child(1n+9) {
         display: none;
       }
+
+      .mdl-content_nav__item {
+        border-width: 0;
+      }
     }
   }
 
