@@ -10,6 +10,11 @@ $gapSize: pxToRem($sizeRegular);
     }
   }
 
+  &__group {
+    margin-left: -($gapSize/2);
+    margin-right: -($gapSize/2);
+  }
+
   &__group + &__group {
     margin-top: $gapSize;
   }
@@ -18,13 +23,7 @@ $gapSize: pxToRem($sizeRegular);
     display: flex;
     align-items: flex-start;
 
-    margin-left: -($gapSize/2);
-    margin-right: -($gapSize/2);
     padding-bottom: $gapSize;
-
-    &:last-of-type {
-      padding-bottom: 0;
-    }
 
     &:not(:last-of-type) {
       .form__duplicator {
@@ -51,12 +50,6 @@ $gapSize: pxToRem($sizeRegular);
 
       .form__cell {
         margin-bottom: 0;
-      }
-    }
-
-    &:last-child {
-      .form__row:last-of-type {
-        padding-bottom: 0;
       }
     }
 
@@ -138,7 +131,7 @@ $gapSize: pxToRem($sizeRegular);
   }
 
   &__duplicator {
-    margin-top: $gapSize;
+    margin-left: $gapSize/2;
 
     .form__group--has-duplicated & {
       display: none;
@@ -186,4 +179,10 @@ $gapSize: pxToRem($sizeRegular);
       display: none;
     }
   }
+}
+
+/** ADJUSTMENTS FOR AEM INTEGRATION */
+
+.form__row > div:not(.form__cell) {
+  width: 100%;
 }

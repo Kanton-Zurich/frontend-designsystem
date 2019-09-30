@@ -56,7 +56,10 @@ class Modal extends Module {
       isNav: false,
       scrollThreshold: 75,
     };
+
     super($element, defaultData, defaultOptions, data, options);
+
+    this.isolatedElements = [];
 
     this.initUi();
     this.initContent();
@@ -104,6 +107,8 @@ class Modal extends Module {
     (<any>window).estatico.helpers.bodyElement.appendChild(this.ui.element);
     this.eventDelegate.on('Modal.switchLeft', this.switchLeft.bind(this));
     this.eventDelegate.on('Modal.switchRight', this.switchRight.bind(this));
+
+    window.addEventListener('keydown', this.closeOnEscape.bind(this));
   }
 
   initContent() {
@@ -147,7 +152,7 @@ class Modal extends Module {
   }
 
   closeOnEscape(event) {
-    if (event.key === 'Escape' || event.key === 'Esc') {
+    if ((event.key === 'Escape' || event.key === 'Esc') && this.isolatedElements.length > 0) {
       this.closeModal();
     }
   }
@@ -240,6 +245,7 @@ class Modal extends Module {
 
     this.ui.element.classList.add(this.options.stateClasses.switchLeft);
 
+    // After the animation we can set the modal to display: none
     setTimeout(() => {
       this.ui.element.classList.remove(this.options.stateClasses.beforeShow);
       this.ui.element.classList.remove(this.options.stateClasses.beforeHide);

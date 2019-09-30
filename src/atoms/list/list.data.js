@@ -132,6 +132,17 @@ const variants = _.mapValues({
       iconLeft: 'location',
     },
   },
+  useAnchor: {
+    meta: {
+      title: 'Liste mit Links',
+      desc: 'Einzelauswahl mit Links statt selectierbaren Items',
+    },
+    props: {
+      useAnchors: true,
+      groupId: 'iconBothSingle',
+      isSingleSelect: true,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

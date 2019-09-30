@@ -9,4 +9,8 @@
       margin-right: pxToRem($sizeMini);
     }
   }
+
+  &__hidden-control {
+    display: none;
+  }
 }

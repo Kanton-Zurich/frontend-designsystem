@@ -1,0 +1,23 @@
+.mdl-cta-box {
+  @include sizeCurve(padding, large);
+
+  .atm-heading {
+    padding-top: 0;
+  }
+
+  .atm-heading,
+  .atm-paragraph {
+    color: $colorWhite;
+  }
+}
+
+/*
+* COLOR-VARIATIONS
+*/
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-cta-box {
+      background-color: #{$val};
+    }
+  }
+}
