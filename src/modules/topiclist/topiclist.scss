@@ -88,6 +88,8 @@ $leadFontCurve: (
 
     .icon {
       margin-right: $sizeTiny;
+      min-width: pxToRem(24);
+      min-height: pxToRem(24);
 
       use {
         fill: $colorBlack60;
