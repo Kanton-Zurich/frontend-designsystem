@@ -61,6 +61,13 @@ $leadFontCurve: (
     .mdl-topiclist__show-all {
       display: inline-flex;
     }
+
+    .mdl-topiclist--filtered & {
+      width: auto;
+      transform: none;
+      margin-left: 0;
+      text-align: left;
+    }
   }
 
   &__search {
