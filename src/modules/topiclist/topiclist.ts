@@ -7,6 +7,7 @@
 import { debounce, template } from 'lodash';
 
 import Module from '../../assets/js/helpers/module';
+import Form from '../../assets/js/helpers/form.class';
 
 class Topiclist extends Module {
   public options: {
@@ -101,6 +102,8 @@ class Topiclist extends Module {
 
     if (this.options.hasFilter) {
       this.initWatchers();
+
+      new Form(this.ui.element);
     }
   }
 
@@ -166,7 +169,6 @@ class Topiclist extends Module {
 
       this.ui.element.classList.add(this.options.stateClasses.filtered);
       this.removeNoResult();
-
 
       if (this.data.filteredPages.length > 0) {
         this.renderAutoSuggest();
