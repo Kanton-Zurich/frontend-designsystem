@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Live Steam Video',
     className: 'LiveStream',
     jira: 'CZHDEV-176',
+    label: 'Eingebettet',
     documentation: dataHelper.getDocumentation('live_stream.md'),
   },
   props: {

@@ -10,6 +10,7 @@ const data = _.merge({}, defaultData, {
     title: 'Service Wrapper',
     className: 'ServiceWrapper',
     jira: 'CZHDEV-775',
+    label: 'Container',
     documentation: dataHelper.getDocumentation('service_wrapper.md'),
   },
   props: {

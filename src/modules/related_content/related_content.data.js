@@ -12,6 +12,7 @@ const data = _.merge({}, defaultData, {
     title: 'Verwandte Inhalte',
     className: 'RelatedContent',
     jira: 'CZHDEV-397',
+    label: 'Navigation',
     documentation: dataHelper.getDocumentation('related_content.md'),
   },
   props: {},

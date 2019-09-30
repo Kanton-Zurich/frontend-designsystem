@@ -110,6 +110,7 @@ const data = _.merge({}, defaultData, {
     title: 'Standorte',
     className: 'Locations',
     jira: 'CZHDEV-476',
+    label: 'Komplex',
     documentation: dataHelper.getDocumentation('locations.md'),
   },
   props: {

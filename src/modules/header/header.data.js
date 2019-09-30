@@ -11,6 +11,7 @@ const data = _.merge({}, defaultData, {
     title: 'Header',
     className: 'Header',
     jira: 'CZHDEV-496',
+    label: 'Layout',
     documentation: dataHelper.getDocumentation('header.md'),
   },
   props: {

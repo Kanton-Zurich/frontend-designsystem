@@ -17,6 +17,7 @@ const data = _.merge({}, defaultData, {
     title: 'Anleitung',
     className: 'Instructions',
     jira: 'CZHDEV-223',
+    label: 'Container',
     documentation: dataHelper.getDocumentation('instructions.md'),
   },
   props: _.merge({ instructions_title: 'Anleitung (H2)' },
