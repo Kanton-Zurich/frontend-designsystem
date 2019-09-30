@@ -39,8 +39,11 @@ $leadFontCurve: (
 
   &--expanded {
     .mdl-topiclist__autosuggest {
-      .mdl-content_nav__item:nth-child(1n+9) {
-        display: flex;
+
+      &.mdl-content_nav {
+        .mdl-content_nav__item:nth-child(1n+9) {
+          display: flex;
+        }
       }
     }
   }
