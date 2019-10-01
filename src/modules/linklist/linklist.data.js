@@ -76,6 +76,7 @@ const variants = _.mapValues({
     },
     props: {
       hasTitle: false,
+      hasIndex: true,
       links: [
         {
           linkListItemIsLocation: true,

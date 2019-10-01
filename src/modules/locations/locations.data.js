@@ -132,6 +132,7 @@ const data = _.merge({}, defaultData, {
       dataSelector: 'data-locations="input"',
     }),
     locationsList: {
+      hasIndex: true,
       hasTitle: false,
       links: [],
     },
@@ -172,6 +173,7 @@ const variants = _.mapValues({
     },
     props: {
       locationsList: {
+        hasIndex: true,
         links: locationsAsListItemLinks,
       },
       locationContacts: locationsAsContacts,
@@ -187,6 +189,7 @@ const variants = _.mapValues({
     },
     props: {
       locationsList: {
+        hasIndex: true,
         links: [locationsAsListItemLinks[0]],
       },
       locationContacts: [locationsAsContacts[0]],
@@ -201,7 +204,6 @@ const variants = _.mapValues({
   const variantData = _.merge({}, data, variant, {
     meta: {
       demo: compiledVariant,
-
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
         html: dataHelper.getFormattedHtml(compiledVariant()),

@@ -1,5 +1,14 @@
 .mdl-service-wrapper {
   &__overlay {
     display: none;
+
+    @include sizeCurve(margin-top, medium);
+
+    .atm-heading {
+      .icon {
+        @include sizeCurve(width height, medium);
+        @include sizeCurve(margin-left, regular);
+      }
+    }
   }
 }
