@@ -129,6 +129,12 @@ class DuplicationElement {
 
     this.data.duplications -= 1;
 
+    const duplicators = this.ui.element.querySelectorAll(this.options.eventSelectors.duplicator);
+
+    setTimeout(() => {
+      duplicators[duplicators.length - 1].focus();
+    }, 1);
+
     if (this.data.duplications < this.data.maxDuplications) {
       this.ui.element.classList.remove(this.options.stateClasses.maxDuplicationsReached);
     }
