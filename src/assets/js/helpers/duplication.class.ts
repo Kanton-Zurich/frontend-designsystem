@@ -2,6 +2,8 @@ import { uniqueId } from 'lodash';
 import { Delegate } from 'dom-delegate';
 import { watch } from 'wrist';
 
+import { INTERACTION_ELEMENTS_QUERY } from './constants';
+
 class DuplicationElement {
   public ui: {
     element: HTMLDivElement,
@@ -97,6 +99,11 @@ class DuplicationElement {
     this.ui.element.dispatchEvent(new CustomEvent(DuplicationElement.events.domReParsed, {
       detail: parsedHTML,
     }));
+
+    // Focus the first focusable element in the duplicated group
+    setTimeout(() => {
+      (<HTMLElement>parsedHTML.querySelector(INTERACTION_ELEMENTS_QUERY)).focus();
+    }, 1);
 
     this.data.duplications += 1;
   }
