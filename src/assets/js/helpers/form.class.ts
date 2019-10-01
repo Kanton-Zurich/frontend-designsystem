@@ -190,8 +190,10 @@ class Form {
         errorField.classList[functionArray[1]](this.options.inputClasses.valid);
         break;
       default:
-        errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
-        errorField.classList[functionArray[1]](this.options.inputClasses.valid);
+        if (field.value.length > 0) {
+          errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
+          errorField.classList[functionArray[1]](this.options.inputClasses.valid);
+        }
     }
   }
 
