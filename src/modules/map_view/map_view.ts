@@ -18,7 +18,7 @@ const mapOptions: L.MapOptions = {
   crs: L.CRS.EPSG3857,
   maxZoom: 18,
   minZoom: 9,
-  zoomAnimation: false,
+  zoomAnimation: true,
   zoomControl: false,
   attributionControl: false,
 };
