@@ -199,9 +199,11 @@ class Locations extends Module {
   private toggleLocationDetails(selectedItemIdx?: number): void {
     if (selectedItemIdx >= 0) {
       this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.onDetails);
+      this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.opened);
       this.toggleSidebarTabIndices(true);
     } else {
       this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.onDetails);
+      this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.opened);
       this.toggleSidebarTabIndices();
     }
 
