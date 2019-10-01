@@ -38,6 +38,7 @@ import LangSwitch from '../../../modules/lang_switch/lang_switch';
 import NewsFilterMobile from '../../../modules/news_filter_mobile/news_filter_mobile';
 import NewsOverview from '../../../modules/news_overview/news_overview';
 import Locations from '../../../modules/locations/locations';
+import Back2top from '../../../modules/back2top/back2top';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -85,6 +86,7 @@ class App {
     this.modules.newsFilterMobile = NewsFilterMobile;
     this.modules.newsOverview = NewsOverview;
     this.modules.locations = Locations;
+    this.modules.back2top = Back2top;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

@@ -1,0 +1,21 @@
+$back2TopDiameter: $sizeSmallHuge;
+$back2TopIconsSize: $sizeLarge;
+
+.mdl-back2top {
+  position: fixed;
+  right: pxToRem($sizeBiggerBig);
+  bottom: pxToRem($sizeBiggerBig);
+  background-color: $colorBlack;
+  width: pxToRem($back2TopDiameter);
+  height: pxToRem($back2TopDiameter);
+  border-radius: 50%;
+  text-align: center;
+  padding: pxToRem(($back2TopDiameter - $back2TopIconsSize) / 2);
+
+  &__icon {
+    .icon {
+      width: pxToRem($back2TopIconsSize);
+      height: pxToRem($back2TopIconsSize);
+    }
+  }
+}
