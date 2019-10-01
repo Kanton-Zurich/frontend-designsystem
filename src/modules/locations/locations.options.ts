@@ -1,4 +1,4 @@
-export interface ModuleDomSelectors {
+interface ModuleDomSelectors {
   map: string,
   listItems: string,
   filterInput: string,
@@ -9,7 +9,7 @@ export interface ModuleDomSelectors {
   emptyListHint: string,
   notFoundTextTemplate: string,
 }
-export interface ModuleStateClasses {
+interface ModuleStateClasses {
   sidebar: {
     opened: string,
     notFound: string,

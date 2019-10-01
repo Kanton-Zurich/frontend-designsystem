@@ -1,3 +1,6 @@
+// eslint-disable-next-line no-unused-vars
+import { MapViewDefaultOptions, MapViewModuleOptions } from './map_view.options';
+
 describe('MapView', () => {
   let page: any;
 
@@ -24,4 +27,67 @@ describe('MapView', () => {
   });
 
   it('should load without error', async () => true);
+
+  it('sets the correct number of markers', async () => {
+    const result = await page
+      .evaluate((options: MapViewModuleOptions) => {
+        const defaultVariant = document.querySelector<HTMLDivElement>('.mdl-map_view');
+        const markerDivNodes = defaultVariant.querySelectorAll(`.${options.stateClasses.markerClasses.default}`);
+
+        return {
+          markerCount: markerDivNodes.length,
+        };
+      }, MapViewDefaultOptions);
+
+    expect(result).toEqual({
+      markerCount: 6,
+    });
+  });
+
+  it('highligths a marker on hover', async () => {
+    const result = await page
+      .evaluate((options: MapViewModuleOptions) => {
+        const defaultVariant = document.querySelector<HTMLDivElement>('.mdl-map_view');
+        const mapContainer = defaultVariant
+          .querySelector<HTMLDivElement>(options.domSelectors.mapContainer);
+        const highlightEvent = new CustomEvent('eventname.MapView.ext_marker_highlight', { detail: { idx: 2 } });
+        mapContainer.dispatchEvent(highlightEvent);
+
+        const defaultMarkerNodes = defaultVariant.querySelectorAll(`.${options.stateClasses.markerClasses.default}`);
+        const highlightMarkerNodes = defaultVariant.querySelectorAll(`.${options.stateClasses.markerClasses.highlight}`);
+
+        return {
+          defaultMarkerCount: defaultMarkerNodes.length,
+          highlightMarkerCount: highlightMarkerNodes.length,
+        };
+      }, MapViewDefaultOptions);
+
+    expect(result).toEqual({
+      defaultMarkerCount: 5,
+      highlightMarkerCount: 1,
+    });
+  });
+
+  it('allows to select a marker', async () => {
+    const result = await page
+      .evaluate((options: MapViewModuleOptions) => {
+        const defaultVariant = document.querySelector<HTMLDivElement>('.mdl-map_view');
+        const firstMarker = defaultVariant.querySelector<HTMLDivElement>(`.${options.stateClasses.markerClasses.default}`);
+
+        firstMarker.click();
+
+        const defaultMarkerNodes = defaultVariant.querySelectorAll(`.${options.stateClasses.markerClasses.default}`);
+        const selectedMarkerNodes = defaultVariant.querySelectorAll(`.${options.stateClasses.markerClasses.selected}`);
+
+        return {
+          defaultMarkerCount: defaultMarkerNodes.length,
+          highlightMarkerCount: selectedMarkerNodes.length,
+        };
+      }, MapViewDefaultOptions);
+
+    expect(result).toEqual({
+      defaultMarkerCount: 5,
+      highlightMarkerCount: 1,
+    });
+  });
 });

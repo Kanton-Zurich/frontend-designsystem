@@ -5,10 +5,12 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+// eslint-disable-next-line no-unused-vars
+import { MapViewDefaultOptions, MapViewModuleOptions } from './map_view.options';
+
 import * as wms from 'leaflet.wms';
 import 'leaflet';
 import 'leaflet.markercluster';
-
 // @ts-ignore
 const { L } = window;
 
@@ -35,31 +37,16 @@ const getLabelLayer = () => wms.overlay(zhWmsUrl, {
   layers: 'ZHLabels',
 });
 
-const markerIconDefault = L.divIcon({ className: 'mdl-map_view__marker', iconSize: [0, 0] });
-const markerIconHighlight = L.divIcon({ className: 'mdl-map_view__marker_highlight', iconSize: [0, 0] });
-const markerIconSelected = L.divIcon({ className: 'mdl-map_view__marker_selected', iconSize: [0, 0] });
-const userPosIcon = L.divIcon({ className: 'mdl-map_view__userposition', iconSize: [0, 0] });
+const { markerClasses } = MapViewDefaultOptions.stateClasses;
+const markerIconDefault = L.divIcon({ className: markerClasses.default, iconSize: [0, 0] });
+const markerIconHighlight = L.divIcon({ className: markerClasses.highlight, iconSize: [0, 0] });
+const markerIconSelected = L.divIcon({ className: markerClasses.selected, iconSize: [0, 0] });
+const userPosIcon = L.divIcon({ className: markerClasses.userPos, iconSize: [0, 0] });
 
 interface MarkerEvent extends CustomEvent<{ idx: number}>{}
 
 class MapView extends Module {
-  public options: {
-    domSelectors: {
-      mapContainer: string,
-      zoomInBtn: string,
-      zoomOutBtn: string,
-      centerBtn: string,
-      directionsBtn: string,
-      directionsUrlTemplateInput: string,
-      markerProps: string,
-      markerPropsLat: string,
-      markerPropsLng: string,
-    }
-    stateClasses: {
-      singleItem: string,
-      directionsBtnVisible: string,
-    },
-  };
+  public options: MapViewModuleOptions;
 
   public ui: {
     element: Element,
@@ -80,25 +67,8 @@ class MapView extends Module {
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
     };
-    const defaultOptions = {
-      domSelectors: {
-        mapContainer: '[data-map-view=map]',
-        zoomInBtn: '[data-map-view=zoomInBtn]',
-        zoomOutBtn: '[data-map-view=zoomOutBtn]',
-        centerBtn: '[data-map-view=centerBtn]',
-        directionsUrlTemplateInput: '[data-map-view=urlTemplateDirections]',
-        directionsBtn: '[data-map-view=directionsBtn]',
-        markerProps: '[data-map-view=markerProps]',
-        markerPropsLat: '[data-map-view=marker_lat]',
-        markerPropsLng: '[data-map-view=marker_lng]',
-      },
-      stateClasses: {
-        singleItem: 'mdl-map_view--single-item',
-        directionsBtnVisible: 'visible',
-      },
-    };
 
-    super($element, defaultData, defaultOptions, data, options);
+    super($element, defaultData, MapViewDefaultOptions, data, options);
 
     this.initUi();
     this.initEventListeners();
@@ -129,7 +99,7 @@ class MapView extends Module {
       })
       .on('click', this.options.domSelectors.centerBtn, () => {
         this.map.locate(
-          // { setView: true } // TODO
+          { setView: true },
         );
       });
 
@@ -150,7 +120,6 @@ class MapView extends Module {
   }
 
   private onExternalSelect(ev: MarkerEvent): void {
-    this.log('External select: ', ev);
     this.doSelectMarker(ev.detail.idx);
   }
 
@@ -257,7 +226,7 @@ class MapView extends Module {
 
       this.markers.forEach((m, idx) => {
         m.on('mouseover', (ev) => {
-          this.log('Marker mouseover', ev);
+          this.log('Marker mouseover', ev.target);
           if (!this.markerSelected) {
             ev.target.setIcon(markerIconHighlight);
             this.ui.mapContainer.dispatchEvent(MapView.markerMouseOverEvent(idx));

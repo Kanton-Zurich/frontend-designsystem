@@ -8,7 +8,6 @@ import Module from '../../assets/js/helpers/module';
 import MapView from '../map_view/map_view';
 // eslint-disable-next-line no-unused-vars
 import { DefaultOptions, LocationsModuleOptions } from './locations.options';
-import { MapViewEvents } from '../map_view/map_view.events';
 
 class Locations extends Module {
   public ui: {
@@ -31,9 +30,8 @@ class Locations extends Module {
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
     };
-    const defaultOptions: LocationsModuleOptions = DefaultOptions;
 
-    super($element, defaultData, defaultOptions, data, options);
+    super($element, defaultData, DefaultOptions, data, options);
 
     this.initUi();
     this.initWatchers();
@@ -70,7 +68,6 @@ class Locations extends Module {
         }
       })
       .on('mouseover', this.options.domSelectors.listItems, (event, target) => {
-        this.log('ListItem MouseOver Event', event, target);
         const itemIndex = target.parentElement.getAttribute('data-linklist-itemindex');
         this.log('Hover over item index: ', itemIndex);
         this.highlightInMap(itemIndex);

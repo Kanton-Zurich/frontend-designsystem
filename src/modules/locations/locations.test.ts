@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { DefaultOptions, LocationsModuleOptions } from './locations.options';
 
 describe('Locations', () => {
