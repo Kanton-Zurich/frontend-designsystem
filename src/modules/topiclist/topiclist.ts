@@ -4,9 +4,10 @@
  * @author
  * @copyright
  */
-import { debounce, template } from 'lodash';
+import { debounce, template, sortBy } from 'lodash';
 
 import Module from '../../assets/js/helpers/module';
+import Form from '../../assets/js/helpers/form.class';
 
 class Topiclist extends Module {
   public options: {
@@ -101,6 +102,8 @@ class Topiclist extends Module {
 
     if (this.options.hasFilter) {
       this.initWatchers();
+
+      new Form(this.ui.element);
     }
   }
 
@@ -166,7 +169,6 @@ class Topiclist extends Module {
 
       this.ui.element.classList.add(this.options.stateClasses.filtered);
       this.removeNoResult();
-
 
       if (this.data.filteredPages.length > 0) {
         this.renderAutoSuggest();
@@ -246,7 +248,9 @@ class Topiclist extends Module {
    * The found items will be rendered as autosuggest
    */
   renderAutoSuggest() {
-    this.data.filteredPages.forEach((topic) => {
+    const filteredPagesSorted = sortBy(this.data.filteredPages, ['title']);
+
+    filteredPagesSorted.forEach((topic) => {
       this.renderContentTeaser(this.ui.autosuggest, {
         shortTitle: topic.title,
         buzzwords: '',

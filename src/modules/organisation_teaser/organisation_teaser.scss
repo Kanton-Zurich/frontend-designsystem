@@ -10,4 +10,12 @@
       margin-bottom: 0;
     }
   }
+
+  .atm-heading {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
+  }
+
+  .atm-paragraph {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
+  }
 }
