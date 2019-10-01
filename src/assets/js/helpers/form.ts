@@ -25,24 +25,26 @@ class FormGlobalHelper {
       if (!requiredResult) messages.push('required');
     }
 
-    if ((field.hasAttribute('data-pattern') || fieldType === 'email' || fieldType === 'url') && requiredResult) {
-      let pattern = null;
+    if (field.value.length > 0) {
+      if ((field.hasAttribute('data-pattern') || fieldType === 'email' || fieldType === 'url') && requiredResult) {
+        let pattern = null;
 
-      switch (fieldType) {
-        case 'email':
-          pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-          break;
-        case 'url':
-          pattern = new RegExp('(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)', 'g'); //eslint-disable-line
-          break;
-        default:
-          pattern = new RegExp(field.getAttribute('data-pattern'), 'i');
-          break;
+        switch (fieldType) {
+          case 'email':
+            pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+            break;
+          case 'url':
+            pattern = new RegExp('^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$'); //eslint-disable-line
+            break;
+          default:
+            pattern = new RegExp(field.getAttribute('data-pattern'), 'i');
+            break;
+        }
+
+        patternResult = pattern.test(field.value);
+
+        if (!patternResult) messages.push('pattern');
       }
-
-      patternResult = pattern.test(field.value);
-
-      if (!patternResult) messages.push('pattern');
     }
 
 

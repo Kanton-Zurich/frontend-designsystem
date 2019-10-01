@@ -61,20 +61,21 @@ class Tabs extends Module {
       });
     });
     // swipe
-    this.updateSwipeFunction(0);
-    this.impetus = new Impetus({
-      source: this.ui.controls,
-      boundX: [-(Math.abs(this.ui.controlButtons.getBoundingClientRect().width
-        - this.ui.controls.getBoundingClientRect().width)), 0],
-      bounce: false,
-      multiplier: 1,
-      friction: 0,
-      update: this.updateSwipeFunction.bind(this),
-    });
+    if (this.ui.controls && this.ui.controlButtons) {
+      this.updateSwipeFunction(0);
+      this.impetus = new Impetus({
+        source: this.ui.controls,
+        boundX: [-(Math.abs(this.ui.controlButtons.getBoundingClientRect().width
+          - this.ui.controls.getBoundingClientRect().width)), 0],
+        bounce: false,
+        multiplier: 1,
+        friction: 0,
+        update: this.updateSwipeFunction.bind(this),
+      });
+    }
   }
 
   private updateSwipeFunction(x) {
-    console.log('blaa');
     let translateX = x;
     const clientWidth = this.ui.controlButtons.getBoundingClientRect().width;
     const { width } = this.ui.controls.getBoundingClientRect();

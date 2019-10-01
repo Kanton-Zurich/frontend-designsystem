@@ -3,6 +3,7 @@ import wrist from 'wrist';
 import { debounce } from 'lodash';
 import DuplicationElement from './duplication.class';
 import ZipCity from './zipCity';
+import FormRules from './formrules.class';
 
 import namespace from './namespace';
 
@@ -21,6 +22,7 @@ class Form {
     duplicateSelector: string,
     selectOptionSelector: string,
     inputSelector: string,
+    rulesSelector: string,
   }
 
   private eventDelegate: any;
@@ -46,6 +48,7 @@ class Form {
       messageSelector: '[data-message]',
       selectOptionSelector: 'data-select-option',
       inputSelector: '[data-input]',
+      rulesSelector: '[data-rules]',
       messageClasses: {
         show: 'show',
       },
@@ -63,6 +66,9 @@ class Form {
     // Initialize duplication elements
     this.initDuplicationElements();
     this.initZipCity();
+
+    // Initialize rules
+    this.initRules();
   }
 
   addEventListeners() {
@@ -190,8 +196,10 @@ class Form {
         errorField.classList[functionArray[1]](this.options.inputClasses.valid);
         break;
       default:
-        errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
-        errorField.classList[functionArray[1]](this.options.inputClasses.valid);
+        if (field.value.length > 0) {
+          errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
+          errorField.classList[functionArray[1]](this.options.inputClasses.valid);
+        }
     }
   }
 
@@ -230,6 +238,15 @@ class Form {
       const $cityField = this.ui.element.querySelector(`[name="${fillName}"]`);
 
       new ZipCity($zipField, $cityField);
+    });
+  }
+
+
+  initRules() {
+    const rulesElements = this.ui.element.querySelectorAll(this.options.rulesSelector);
+
+    rulesElements.forEach(($elementWithARule) => {
+      new FormRules($elementWithARule);
     });
   }
 }

@@ -104,6 +104,10 @@ $modalCurves: (
 
   &--flyout {
     @include sizeCurve(padding-top, height, $headerCurves);
+
+    &.mdl-modal--show {
+      z-index: $zIndexOverlays;
+    }
   }
 
   &__close {
