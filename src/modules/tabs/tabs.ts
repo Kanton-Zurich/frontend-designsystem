@@ -74,7 +74,6 @@ class Tabs extends Module {
   }
 
   private updateSwipeFunction(x) {
-    console.log('blaa');
     let translateX = x;
     const clientWidth = this.ui.controlButtons.getBoundingClientRect().width;
     const { width } = this.ui.controls.getBoundingClientRect();
