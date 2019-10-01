@@ -22,7 +22,7 @@ const variants = _.mapValues({
   default: {
     meta: {
       title: 'Standard',
-      desc: 'Standard Implementierung ohne ',
+      desc: 'Standard Implementierung ohne Vorauswahl',
     },
   },
 }, (variant) => {

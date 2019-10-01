@@ -4,6 +4,7 @@ $toggleDimension: 32px;
 
 .atm-toggle {
   display: block;
+  margin: pxToRem($sizeRegular) 0;
 
   &__label {
     padding-left: pxToRem($toggleWidth + $sizeSmallRegular);

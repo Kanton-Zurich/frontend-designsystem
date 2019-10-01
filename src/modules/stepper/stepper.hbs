@@ -17,9 +17,15 @@
     </div>
   </form>
 
-  {{#if remark}}<p class="mdl-stepper__remark">
-    {{{remark}}}
-  </p>{{/if}}
+  <div data-stepper="lastPageInfo">
+    {{#if toggle}}
+      {{> "atoms/toggle/toggle" toggle}}
+    {{/if}}
+    {{#if remark}}<p class="mdl-stepper__remark">
+      {{{remark}}}
+    </p>{{/if}}
+  </div>
+
 
   <div class="mdl-stepper__message"
     data-stepper="messageWrapper"

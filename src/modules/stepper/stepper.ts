@@ -52,6 +52,7 @@ class Stepper extends Module {
         navigation: '[data-init="stepperNavigation"]',
         notificationTemplate: '[data-stepper="notificationTemplate"]',
         messageWrapper: '[data-stepper="messageWrapper"]',
+        lastPageInfo: '[data-stepper="lastPageInfo"]',
       },
       stateClasses: {
         hiddenStep: 'mdl-stepper__step--hidden',
