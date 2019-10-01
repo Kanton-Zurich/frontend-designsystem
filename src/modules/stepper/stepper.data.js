@@ -68,6 +68,61 @@ const variants = _.mapValues({
       ],
     },
   },
+  withSomeLogic: {
+    meta: {
+      title: 'Mit Formularlogik (CZHDEV-1181)',
+      desc: 'Es gibt eine Formularlogik',
+    },
+    props: {
+      steps: [
+        formVariants.checkboxesNationality.props,
+        _.merge({}, formVariants.placeOfCitizenshipPage.props, {
+          rules: JSON.stringify([
+            {
+              conditions: [
+                {
+                  field: 'singleSelect',
+                  equals: true,
+                  value: 'CH',
+                },
+              ],
+              action: 'enable',
+            },
+          ]),
+        }),
+        _.merge({}, formVariants.placeOfCitizenshipPage.props, {
+          rules: JSON.stringify([
+            {
+              conditions: [
+                {
+                  field: 'nationality-5',
+                  equals: true,
+                  value: 'CH',
+                },
+              ],
+              action: 'enable',
+            },
+          ]),
+        }),
+        _.merge({}, formVariants.placeOfCitizenshipPage.props, {
+          rules: JSON.stringify([
+            {
+              conditions: [
+                {
+                  field: 'nationality-33',
+                  equals: true,
+                },
+              ],
+              action: 'disable',
+            },
+          ]),
+        }),
+      ],
+      navigation: {
+        steps: ['Staatsangehörigkeit', 'Bürgerort 1', 'Bürgerort 2', 'Bürgerort 3', 'Bestätigung'],
+      },
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

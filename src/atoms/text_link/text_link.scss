@@ -31,32 +31,4 @@
       fill: $colorBlack;
     }
   }
-
-  /* Inverted */
-  &--cv-inverted,
-  [ class*='--cv-inverted' ] & {
-    color: $colorWhite;
-    border-bottom-color: $colorWhite;
-
-    .icon {
-      fill: $colorWhite;
-    }
-
-    &:hover {
-      color: rgba($colorWhite, 0.6);
-      border-color: rgba($colorWhite, 0.6);
-
-      .icon {
-        fill: rgba($colorWhite, 0.6);
-      }
-    }
-  }
-
-  /* Color Variations */
-  @each $key, $val in $tl-color-variations {
-    &--#{$key},
-    [ class*='#{$key}' ] & {
-      border-color: #{$val};
-    }
-  }
 }

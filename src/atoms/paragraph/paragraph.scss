@@ -19,16 +19,3 @@
   @include sizeCurve('margin-bottom', regular);
 }
 
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .atm-paragraph {
-      a {
-        border-color: #{$val};
-
-        &:hover {
-          border-color: $colorBlack;
-        }
-      }
-    }
-  }
-}
