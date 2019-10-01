@@ -6,6 +6,9 @@
  */
 import Module from '../../assets/js/helpers/module';
 import MapView from '../map_view/map_view';
+// eslint-disable-next-line no-unused-vars
+import { DefaultOptions, LocationsModuleOptions } from './locations.options';
+import { MapViewEvents } from '../map_view/map_view.events';
 
 class Locations extends Module {
   public ui: {
@@ -21,58 +24,14 @@ class Locations extends Module {
     notFoundTextTemplate: HTMLTemplateElement,
   };
 
-  public options: {
-    focusDelay: number,
-    domSelectors: {
-      map: string,
-      listItems: string,
-      filterInput: string,
-      sidebar: string,
-      backBtn: string,
-      detailNodes: string,
-      toggleListBtn: string,
-      emptyListHint: string,
-      notFoundTextTemplate: string,
-    }
-    stateClasses: {
-      sidebar: {
-        opened: string,
-        notFound: string,
-        onDetails: string,
-      },
-      detailShow: string,
-      mapMarkerIsHovered: string,
-    },
-  };
+  public options: LocationsModuleOptions;
 
   private keepMapHighlight: boolean;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
     };
-    const defaultOptions = {
-      focusDelay: 500,
-      domSelectors: {
-        map: '#locations-map',
-        listItems: '[data-locations="listItem"]',
-        filterInput: '[data-locations="input"]',
-        sidebar: '[data-locations="sidebar"]',
-        backBtn: '[data-locations="back"]',
-        detailNodes: '[data-locations="locationDetails"]',
-        toggleListBtn: '[data-locations="toggleList"]',
-        emptyListHint: '[data-locations="emptyNote"]',
-        notFoundTextTemplate: '[data-locations="emptyNoteTextTemplate"]',
-      },
-      stateClasses: {
-        sidebar: {
-          opened: 'opened',
-          notFound: 'empty',
-          onDetails: 'show-details',
-        },
-        detailShow: 'show',
-        mapMarkerIsHovered: 'marker-hovered',
-      },
-    };
+    const defaultOptions: LocationsModuleOptions = DefaultOptions;
 
     super($element, defaultData, defaultOptions, data, options);
 
