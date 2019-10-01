@@ -29,13 +29,11 @@ class Modal extends Module {
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
     const defaultOptions = {
-      transitionTime: 500,
+      transitionTime: 250,
       domSelectors: {
         pageHeader: '.mdl-page-header',
         closeButton: '.mdl-page-header__closebutton',
         close: '[data-modal="close"]',
-        singlePageApp: '[data-init="application"]',
-        focusable: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
       },
       stateClasses: {
         beforeShow: 'mdl-modal--before-show',
@@ -92,8 +90,6 @@ class Modal extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.closeOnEscapeFunction = this.closeOnEscape.bind(this);
-    this.initContent();
     this.eventDelegate.on('Modal.open', this.openModal.bind(this));
     this.eventDelegate.on('Modal.initContent', () => {
       if (!this.hasCloseBtn) {
@@ -109,14 +105,12 @@ class Modal extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.close, this.closeModal.bind(this));
     // move to the end of the DOM
     (<any>window).estatico.helpers.bodyElement.appendChild(this.ui.element);
-    this.ui.element.style.display = 'none';
     this.eventDelegate.on('Modal.switchLeft', this.switchLeft.bind(this));
     this.eventDelegate.on('Modal.switchRight', this.switchRight.bind(this));
+
+    window.addEventListener('keydown', this.closeOnEscape.bind(this));
   }
 
-  /**
-   * Initialize sub modules to make them functional
-   */
   initContent() {
     const closeButton = this.ui.element.querySelector(this.options.domSelectors.closeButton);
     if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
@@ -130,10 +124,6 @@ class Modal extends Module {
     }
   }
 
-  /**
-   * Update on scroll event
-   * @param scrollTop
-   */
   updateOnScroll(scrollTop) {
     const pageHeader = this.ui.element.querySelector(this.options.domSelectors.pageHeader);
 
@@ -146,9 +136,6 @@ class Modal extends Module {
     }
   }
 
-  /**
-   * Update sizing of the header and content
-   */
   updateSizing() {
     const pageHeader = this.ui.element.querySelector(this.options.domSelectors.pageHeader);
     if (pageHeader) {
@@ -165,13 +152,13 @@ class Modal extends Module {
   }
 
   closeOnEscape(event) {
-    if (event.key === 'Escape' || event.key === 'Esc') {
+    if ((event.key === 'Escape' || event.key === 'Esc') && this.isolatedElements.length > 0) {
       this.closeModal();
     }
   }
 
   /**
-   * Open the modal and isolate content
+   * opens the modal
    */
   openModal() {
     // isolate modal
@@ -192,28 +179,24 @@ class Modal extends Module {
 
     // Accessibility features
     (<any>window).estatico.helpers.wrapAccessibility(this.ui.element);
-    window.addEventListener('keydown', this.closeOnEscapeFunction);
-    this.parentScrollPosition = document.documentElement.scrollTop;
-    this.ui.element.removeAttribute('style');
     (<any>window).estatico.helpers.setHiddenTabIndex(this.ui.element);
-    // delayed opacity animation and focus handling
-    setTimeout(() => {
-      this.ui.element.classList.add(this.options.stateClasses.show);
-      const focusable = this.ui.element.querySelectorAll(this.options.domSelectors.focusable);
-      if (focusable.length > 0) {
-        focusable[0].focus();
-      }
-    }, 1);
+
+    // Set parent scrollPosition
+    this.parentScrollPosition = document.documentElement.scrollTop;
+
+    // delayed opacity animation
     this.ui.element.focus();
     this.ui.element.scrollTop = 0;
-    // scroll to content top
-    if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
+
+
+    if (this.options.hasDynamicHeader) {
       this.updateOnScroll(0);
     }
+
     this.updateSizing();
+
     (<any>WindowEventListener).addDebouncedResizeListener(this.updateSizing.bind(this));
-    document.documentElement.style.overflowY = 'hidden';
-    this.ui.element.setAttribute('aria-hidden', 'false');
+
     // If there is the navigation topic list a child, then load the navigation
     if (this.options.isNav) {
       this.ui.element.querySelector(this.options.childSelectors.nav).dispatchEvent(new CustomEvent('loadNavigation'));
@@ -225,46 +208,26 @@ class Modal extends Module {
     }
   }
 
-  /**
-   * Close modal in escape event
-   * @param event
-   */
-  closeOnEscape(event) {
-    if (event.key === 'Escape' || event.key === 'Esc' && this.isolatedElements.length > 0) {
-      this.closeModal();
-    }
-  }
-
-  /**
-   * Close the modal
-   */
+  /** Closes the modal */
   closeModal() {
     const multiplier = 2;
-    document.documentElement.style.overflowY = 'auto';
-    this.ui.element.classList.add(this.options.stateClasses.transHide);
-    if (document.documentElement.scrollTo) {
-      document.documentElement.scrollTo(0, this.parentScrollPosition);
-    }
-    window.removeEventListener('keydown', this.closeOnEscapeFunction);
+
+    // Accessibility integrate the isolated
     this.isolatedElements.forEach((element) => {
       element.removeAttribute('aria-hidden');
     });
-    this.ui.element.setAttribute('aria-hidden', 'true');
 
-    window.dispatchEvent(new CustomEvent('Modal.closed'));
+    this.ui.element.classList.add(this.options.stateClasses.beforeHide);
 
+    document.documentElement.style.overflowY = 'auto';
+
+
+    // Modal.closed, should only fire after the timeout
+
+    // After the animation we can set the modal to display: none
     setTimeout(() => {
-      this.ui.element.classList.remove(this.options.stateClasses.show);
-      this.ui.element.classList.remove(this.options.stateClasses.transHide);
-      this.ui.element.style.display = 'none';
-      (<any>window).estatico.helpers.unwrapAccessibility(this.ui.element);
-      (<any>window).estatico.helpers.resetHiddenTabIndex();
-      const focusOrigin = document.querySelector(`a[aria-controls="${this.ui.element.getAttribute('id')}"]`);
-      if (focusOrigin) {
-        (<any> focusOrigin).focus();
-      }
+      this.ui.element.classList.add(this.options.stateClasses.hide);
     }, this.options.transitionTime);
-
     setTimeout(() => {
       this.ui.element.classList.remove(this.options.stateClasses.beforeShow);
       this.ui.element.classList.remove(this.options.stateClasses.beforeHide);
