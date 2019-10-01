@@ -6,8 +6,13 @@
   background: $colorRed;
   padding: pxToRem($sizeRegular);
 
-  .icon use {
-    fill: $colorWhite;
+  .icon {
+    min-width: pxToRem(24);
+    min-height: pxToRem(24);
+
+    use {
+      fill: $colorWhite;
+    }
   }
 
   &__title {
