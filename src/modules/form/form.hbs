@@ -29,22 +29,18 @@
                     </div>
                   {{/each}}
 
-                  {{#if isDuplicatable}}
-                    <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
-                      <svg class="icon">
-                        <use xlink:href="#delete"></use>
-                      </svg>
-                    </button>
-                  {{/if}}
-                </div>
-                {{#if isDuplicatable}}
-                  <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
-                    <svg class="icon icon--iframe-add">
-                      <use xlink:href="#add-new"></use>
+                  <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
+                    <svg class="icon">
+                      <use xlink:href="#delete"></use>
                     </svg>
-                    {{ duplicateLabels.add }}
                   </button>
-                {{/if}}
+                </div>
+                <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
+                  <svg class="icon icon--iframe-add">
+                    <use xlink:href="#add-new"></use>
+                  </svg>
+                  {{ duplicateLabels.add }}
+                </button>
               </div>
             </script>
           </div>
