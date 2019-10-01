@@ -21,11 +21,13 @@ const selectData = require('../select/select.data');
 
 const fileUploadHBS = dataHelper.getFileContent('../file_upload/file_upload.hbs');
 const fileUploadData = require('../file_upload/file_upload.data');
+
 const datepickerHBS = dataHelper.getFileContent('../datepicker/datepicker.hbs');
 const datepickerData = require('../datepicker/datepicker.data');
 
 const duplicateGroup = {
   isDuplicatable: true,
+  maxDuplications: 2,
   duplicateLabels: {
     add: 'Weitere Staatsangehörigkeit hinzufügen',
     remove: 'Staatangehörigkeit wieder entfernen',

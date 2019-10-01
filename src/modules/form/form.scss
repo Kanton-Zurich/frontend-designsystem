@@ -137,7 +137,7 @@ $gapSize: pxToRem($sizeRegular);
     }
   }
 
-  .form__group--duplicatable {
+  .form__group--duplicatable:not(.form__group--limited) {
     .form__duplicated:last-of-type {
       .form__duplicator {
         display: flex;
