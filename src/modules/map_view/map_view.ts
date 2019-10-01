@@ -94,6 +94,7 @@ class MapView extends Module {
       },
       stateClasses: {
         singleItem: 'mdl-map_view--single-item',
+        directionsBtnVisible: 'visible',
       },
     };
 
