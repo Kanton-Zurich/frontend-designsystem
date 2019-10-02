@@ -6,24 +6,30 @@
  */
 import Module from '../../assets/js/helpers/module';
 import WindowEventListener from '../../assets/js/helpers/events';
+import { Back2TopDefaultOptions, Back2TopModuleOptions } from './back2top.options';
 
 class Back2top extends Module {
+  private neccessaryCond: boolean;
+  private sufficientCond: boolean;
+
+  public options: Back2TopModuleOptions;
+
+  public ui: {
+    element: HTMLElement,
+  };
+  
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
     };
-    const defaultOptions = {
-      domSelectors: {
-        // item: '[data-${{{className}}.name}="item"]'
-      },
-      stateClasses: {
-        // activated: 'is-activated'
-      },
-    };
+    const defaultOptions = Back2TopDefaultOptions;
 
     super($element, defaultData, defaultOptions, data, options);
 
     this.initUi();
     this.initEventListeners();
+
+    this.neccessaryCond = false;
+    this.sufficientCond = false;
   }
 
   static get events() {
@@ -41,6 +47,8 @@ class Back2top extends Module {
       this.log('ScrollEvent?', ev);
 
       this.log('Offset', window.scrollY);
+      if (window.scrollY > )
+
     });
   }
 
