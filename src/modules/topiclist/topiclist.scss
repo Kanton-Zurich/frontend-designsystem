@@ -23,6 +23,10 @@ $leadFontCurve: (
       .mdl-content_nav__item:nth-child(1n+9) {
         display: none;
       }
+
+      .mdl-content_nav__item {
+        border-width: 0;
+      }
     }
   }
 
@@ -39,8 +43,11 @@ $leadFontCurve: (
 
   &--expanded {
     .mdl-topiclist__autosuggest {
-      .mdl-content_nav__item:nth-child(1n+9) {
-        display: flex;
+
+      &.mdl-content_nav {
+        .mdl-content_nav__item:nth-child(1n+9) {
+          display: flex;
+        }
       }
     }
   }
@@ -61,6 +68,13 @@ $leadFontCurve: (
     .mdl-topiclist__show-all {
       display: inline-flex;
     }
+
+    .mdl-topiclist--filtered & {
+      width: auto;
+      transform: none;
+      margin-left: 0;
+      text-align: left;
+    }
   }
 
   &__search {
@@ -74,6 +88,8 @@ $leadFontCurve: (
 
     .icon {
       margin-right: $sizeTiny;
+      min-width: pxToRem(24);
+      min-height: pxToRem(24);
 
       use {
         fill: $colorBlack60;

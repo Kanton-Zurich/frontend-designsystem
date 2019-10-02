@@ -12,10 +12,11 @@ const data = _.merge({}, defaultData, {
     title: 'Auswahlfeld',
     className: 'Select',
     jira: 'CZHDEV-846, CZHDEV-848, CZHDEV-852, CZHDEV-992',
+    label: 'Formular',
     documentation: dataHelper.getDocumentation('select.md'),
   },
   props: {
-    preview: true,
+    triggerInputData: inputDemoData.variants.triggerDefault.props,
   },
 });
 

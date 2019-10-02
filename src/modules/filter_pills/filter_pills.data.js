@@ -10,6 +10,7 @@ const data = _.merge({}, defaultData, {
     title: 'Filter Tags',
     className: 'FilterPills',
     jira: 'CZHDEV-1138',
+    label: 'UI Element',
     documentation: dataHelper.getDocumentation('filter_pills.md'),
   },
   props: {

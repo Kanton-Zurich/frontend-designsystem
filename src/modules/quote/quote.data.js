@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Zitat',
     className: 'Quote',
     jira: 'CZHDEV-171',
+    label: 'Inhalt',
     documentation: dataHelper.getDocumentation('quote.md'),
   },
   props: {

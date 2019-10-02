@@ -186,13 +186,13 @@ class Datepicker extends Module {
     // minDate
     if (this.ui.element.dataset.mindate) {
       this.usedConfig = merge({}, this.usedConfig, {
-        minDate: this.ui.element.dataset.mindate,
+        minDate: Date.now(),
       });
     }
     // maxDate
     if (this.ui.element.dataset.maxdate) {
       this.usedConfig = merge({}, this.usedConfig, {
-        maxDate: this.ui.element.dataset.maxdate,
+        maxDate: Date.now(),
       });
     }
     // localization

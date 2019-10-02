@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'iFrame',
     className: 'IFrame',
     jira: 'CZHDEV-481',
+    label: 'Eingebettet',
     documentation: dataHelper.getDocumentation('iframe.md'),
   },
   props: {

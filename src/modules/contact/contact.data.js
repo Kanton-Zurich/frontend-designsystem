@@ -123,6 +123,7 @@ const data = _.merge({}, defaultData, {
     title: 'Kontakt',
     className: 'Contact',
     jira: 'CZHDEV-257',
+    label: 'Komplex',
     documentation: dataHelper.getDocumentation('contact.md'),
   },
   props: {

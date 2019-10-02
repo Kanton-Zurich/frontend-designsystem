@@ -1,0 +1,51 @@
+<div class="mdl-footer{{#if maintenance}} mdl-footer--maintenance{{/if}}" data-init="footer">
+  <div class="lyt-wrapper">
+    <div class="grid-margin-x grid-x">
+      <div class="cell tiny-12 xsmall-12 small-10 medium-10 large-10 xlarge-10 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2">
+        <div class="mdl-footer__content">
+          <h2 class="mdl-footer__title atm-heading">Kanton Zürich</h2>
+          {{#unless maintenance}}
+          <ul class="mdl-footer__menu">
+            <li>
+              <a href="#">Kontakt</a>
+            </li>
+            <li>
+              <a href="#">Medien</a>
+            </li>
+            <li>
+              <a href="#">Aktuell</a>
+            </li>
+            <li>
+              <a href="#">Jobs</a>
+            </li>
+            <li>
+              <a href="#">Veranstaltungen</a>
+            </li>
+          </ul>
+          {{/unless}}
+
+          <ul class="mdl-footer__submenu">
+            <li>
+              <p>©2019 Kanton Zürich</p>
+            </li>
+            {{#unless maintenance}}
+            <li>
+              <a href="#">Datenschutz</a>
+            </li>
+            <li>
+              <a href="#">Impressum</a>
+            </li>
+            <li>
+              <a href="#">Rechtliche Hinweise</a>
+            </li>
+            {{/unless}}
+          </ul>
+
+          <div class="mdl-footer__social-media">
+            {{> "modules/social_media_links/social_media_links" modules.socialLinks}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
