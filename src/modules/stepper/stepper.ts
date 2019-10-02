@@ -147,7 +147,6 @@ class Stepper extends Module {
     this.ui.steps[newValue].classList.remove(this.options.stateClasses.hiddenStep);
 
     this.setButtonVisibility();
-    this.setOnPageChangeFocus();
     this.deactiveSteps(newValue);
 
     if (this.ui.navigation) {
@@ -157,6 +156,10 @@ class Stepper extends Module {
         },
       }));
     }
+
+    setTimeout(() => {
+      this.setOnPageChangeFocus();
+    }, 1);
   }
 
   /**
