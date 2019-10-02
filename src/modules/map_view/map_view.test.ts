@@ -1,6 +1,6 @@
-// eslint-disable-next-line no-unused-vars
-import { MapViewDefaultOptions, MapViewModuleOptions } from './map_view.options';
+import { MapViewDefaultOptions, MapViewModuleOptions } from './map_view.options'; // eslint-disable-line no-unused-vars
 
+jest.setTimeout(30000); // eslint-disable-line no-magic-numbers
 describe('MapView', () => {
   let page: any;
 
@@ -15,6 +15,7 @@ describe('MapView', () => {
 
     await page.goto(url, {
       waitUntil: ['networkidle2'],
+      timeout: 10000,
     });
   });
 

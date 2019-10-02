@@ -1,6 +1,6 @@
-// eslint-disable-next-line no-unused-vars
-import { DefaultOptions, LocationsModuleOptions } from './locations.options';
+import { DefaultOptions, LocationsModuleOptions } from './locations.options'; // eslint-disable-line no-unused-vars
 
+jest.setTimeout(30000); // eslint-disable-line no-magic-numbers
 describe('Locations', () => {
   let page: any;
 
@@ -12,7 +12,6 @@ describe('Locations', () => {
     page = await (<any>global).__BROWSER__.newPage();
     // eslint-disable-next-line
     page.on('pageerror', console.log);
-
 
     await page.goto(url, {
       waitUntil: ['networkidle2'],
