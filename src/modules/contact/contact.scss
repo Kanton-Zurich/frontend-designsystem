@@ -266,7 +266,7 @@ $contactMapHeightCurve: (
     @include sizeCurve(height , default, $contactMapHeightCurve);
     @include sizeCurve(margin-bottom , default, $contactMapHeightCurve, true);
     margin-top: pxToRem($sizeBiggerBig);
-    background-color: rgba($colorRed, 0.5);
+    background: $colorBlack15;
   }
 
   /*
