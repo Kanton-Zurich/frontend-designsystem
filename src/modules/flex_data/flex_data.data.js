@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Flexdaten (Gesetzesbeschlüsse, Steuerbuch)',
     className: 'FlexData',
     jira: 'CZHDEV-1234',
+    label: 'Applikation',
     documentation: dataHelper.getDocumentation('flex_data.md'),
   },
   props: {

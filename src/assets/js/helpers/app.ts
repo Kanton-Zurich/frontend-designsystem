@@ -39,6 +39,7 @@ import NewsFilterMobile from '../../../modules/news_filter_mobile/news_filter_mo
 import NewsOverview from '../../../modules/news_overview/news_overview';
 import Locations from '../../../modules/locations/locations';
 import FlexData from '../../../modules/flex_data/flex_data';
+import DrilldownSelect from '../../../modules/drilldown_select/drilldown_select';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -87,6 +88,7 @@ class App {
     this.modules.newsOverview = NewsOverview;
     this.modules.locations = Locations;
     this.modules.flexData = FlexData;
+    this.modules.drilldownSelect = DrilldownSelect;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
