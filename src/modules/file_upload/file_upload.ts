@@ -39,10 +39,12 @@ class FileUpload extends Module {
         itemTemplate: '[data-file_upload="item-template"]',
         list: '[data-file_upload="list"]',
         dropzone: '[data-file_upload="dropzone"]',
+        delete: '[data-file_upload="delete"]',
       },
       stateClasses: {
         activeDropzone: 'mdl-file_upload--active-dropzone',
         dropzoneDragOver: 'mdl-file_upload__dropzone--dragover',
+        noDropzone: 'mdl-file_upload--no-dropzone',
       },
     };
 
@@ -102,6 +104,12 @@ class FileUpload extends Module {
 
   onChange() {
     this.initFileList();
+
+    if (this.ui.input.files.length > 0) {
+      this.ui.element.classList.add(this.options.stateClasses.noDropzone);
+    } else {
+      this.ui.element.classList.remove(this.options.stateClasses.noDropzone);
+    }
   }
 
   addDropzoneClass() {
@@ -126,9 +134,11 @@ class FileUpload extends Module {
         html = `<li>${html}</li>`;
       }
 
-      const parsedHTML = new DOMParser().parseFromString(html, 'text/html').querySelector(this.options.isMultiple ? 'li' : 'div');
+      const parsedHTML = new DOMParser().parseFromString(html, 'text/html').querySelector('div');
 
       this.ui.list.appendChild(parsedHTML);
+
+      parsedHTML.querySelector(this.options.domSelectors.delete).addEventListener('click', this.deleteFile.bind(this));
     }
   }
 
@@ -156,6 +166,15 @@ class FileUpload extends Module {
     const i = Math.floor(Math.log(fileSize) / Math.log(k));
 
     return `${parseFloat((fileSize / (k ** i)).toFixed(dm))} ${sizes[i]}`;
+  }
+
+  deleteFile() {
+    this.ui.input.value = '';
+
+    this.ui.input.type = '';
+    this.ui.input.type = 'file';
+
+    this.onChange();
   }
 
   /**

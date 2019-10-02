@@ -6,9 +6,9 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('file_upload.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'FileUpload',
+    title: 'Datei-Upload',
     className: 'FileUpload',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-1280',
     documentation: dataHelper.getDocumentation('file_upload.md'),
   },
   props: {
