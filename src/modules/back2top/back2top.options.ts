@@ -2,7 +2,8 @@ interface ModuleDomSelectors {
   toTopBtn: string,
 }
 interface ModuleStateClasses {
-  btnUnlocked: string,
+  unlocked: string,
+  scrolledOn: string;
 }
 export interface Back2TopModuleOptions {
   neccessaryScrollY: number;
@@ -15,7 +16,8 @@ const domSelectors: ModuleDomSelectors = {
   toTopBtn: '[data-back2top=toTopBtn]',
 };
 const stateClasses: ModuleStateClasses = {
-  btnUnlocked: 'mdl-back2top--unlocked',
+  unlocked: 'mdl-back2top--unlocked',
+  scrolledOn: 'mdl-back2top--scrolled-on',
 };
 
 export const Back2TopDefaultOptions: Back2TopModuleOptions = {

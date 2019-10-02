@@ -2,6 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const buttonDefaultData = require('../../atoms/button/button.data').variants.default.props;
 
 const template = dataHelper.getFileContent('back2top.hbs');
 const data = _.merge({}, defaultData, {
@@ -12,7 +13,10 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('back2top.md'),
   },
   props: {
-
+    toTopBtn: _.merge({}, buttonDefaultData, {
+      isTextVisible: false,
+      icon: 'arrow-up',
+    }),
   },
 });
 const variants = _.mapValues({

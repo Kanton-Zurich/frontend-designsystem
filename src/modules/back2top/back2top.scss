@@ -5,17 +5,32 @@ $back2TopIconsSize: $sizeLarge;
   position: fixed;
   right: pxToRem($sizeBiggerBig);
   bottom: pxToRem($sizeBiggerBig);
-  background-color: $colorBlack;
-  width: pxToRem($back2TopDiameter);
-  height: pxToRem($back2TopDiameter);
-  border-radius: 50%;
-  text-align: center;
-  padding: pxToRem(($back2TopDiameter - $back2TopIconsSize) / 2);
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
 
   &__icon {
-    .icon {
-      width: pxToRem($back2TopIconsSize);
-      height: pxToRem($back2TopIconsSize);
+    border-radius: 50%;
+    overflow: hidden;
+    transition: all 800ms ease;
+    margin-bottom: pxToRem(-$back2TopDiameter);
+    margin-top: 0;
+  }
+
+  &--unlocked {
+    pointer-events: none;
+    height: auto;
+
+    .mdl-back2top__icon {
+      margin-bottom: 0;
+    }
+
+    &.mdl-back2top--scrolled-on {
+      height: pxToRem($back2TopDiameter);
+
+      .mdl-back2top__icon {
+        margin-top: pxToRem(-$back2TopDiameter);
+      }
     }
   }
 }
