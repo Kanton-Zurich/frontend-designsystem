@@ -196,7 +196,7 @@ class Form {
         errorField.classList[functionArray[1]](this.options.inputClasses.valid);
         break;
       default:
-        if (field.value.length > 0) {
+        if (field.value.length > 0 || field.hasAttribute('required')) {
           errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
           errorField.classList[functionArray[1]](this.options.inputClasses.valid);
         }
