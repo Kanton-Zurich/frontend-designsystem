@@ -13,6 +13,7 @@ const data = _.merge({}, defaultData, {
     className: 'ContextMenu',
     jira: 'CZHDEV-*',
     documentation: dataHelper.getDocumentation('context_menu.md'),
+    label: 'Navigation',
   },
   props: {
     lists: [

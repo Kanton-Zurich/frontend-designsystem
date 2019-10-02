@@ -10,6 +10,7 @@ const data = _.merge({}, defaultData, {
     title: 'Social Media Post',
     className: 'SocialMediaPost',
     jira: 'CZHDEV-474',
+    label: 'Social media',
     documentation: dataHelper.getDocumentation('social_media_post.md'),
     code: {
       template: templateConverter(template.replace(/modules\/social_media_post\//gm, ''), false),

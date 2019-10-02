@@ -12,6 +12,7 @@ const data = _.merge({}, defaultData, {
     title: 'Formularschritte',
     className: 'Stepper',
     jira: 'CZHDEV-850',
+    label: 'Formular',
     documentation: dataHelper.getDocumentation('stepper.md'),
   },
   props: {

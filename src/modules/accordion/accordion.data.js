@@ -19,6 +19,7 @@ const data = _.merge({}, defaultData, {
     title: 'Accordion',
     className: 'Accordion',
     jira: 'CZHDEV-109',
+    label: 'Container',
     documentation: dataHelper.getDocumentation('accordion.md'),
   },
   props: {

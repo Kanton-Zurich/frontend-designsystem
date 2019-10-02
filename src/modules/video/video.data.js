@@ -11,6 +11,7 @@ const data = _.merge({}, defaultData, {
     title: 'Video',
     className: 'Video',
     jira: 'CZHDEV-123',
+    label: 'Eingebettet',
     documentation: dataHelper.getDocumentation('video.md'),
   },
   props: {

@@ -11,6 +11,7 @@ const data = _.merge({}, defaultData, {
     title: 'Über uns',
     className: 'MdlAbout',
     jira: 'CZHDEV-478',
+    label: 'Container',
     documentation: dataHelper.getDocumentation('about.md'),
   },
   props: {

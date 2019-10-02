@@ -11,6 +11,7 @@ const data = _.merge({}, defaultData, {
     title: 'Bild',
     className: 'ImageFigure',
     jira: 'CZHDEV-192',
+    label: 'Inhalt',
     documentation: dataHelper.getDocumentation('image_figure.md'),
   },
   props: {

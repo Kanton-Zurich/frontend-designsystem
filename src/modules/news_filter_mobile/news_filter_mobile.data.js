@@ -11,6 +11,7 @@ const data = _.merge({}, defaultData, {
     title: 'News Filter Mobile',
     className: 'NewsFilterMobile',
     jira: 'CZHDEV-990',
+    label: 'News',
     documentation: dataHelper.getDocumentation('news_filter_mobile.md'),
   },
   props: {

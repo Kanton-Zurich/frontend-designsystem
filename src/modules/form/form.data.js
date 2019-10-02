@@ -58,6 +58,7 @@ const data = _.merge({}, defaultData, {
     title: 'FormSection',
     className: 'FormSection',
     jira: 'CZHDEV-850',
+    label: 'Formular',
     documentation: dataHelper.getDocumentation('form.md'),
     wrapInForm: true,
   },
