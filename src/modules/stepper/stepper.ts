@@ -159,7 +159,7 @@ class Stepper extends Module {
 
     setTimeout(() => {
       this.setOnPageChangeFocus();
-    }, 1);
+    }, 0);
   }
 
   /**
