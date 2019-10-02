@@ -5,6 +5,9 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import MapView from '../map_view/map_view';
+// eslint-disable-next-line no-unused-vars
+import { DefaultOptions, LocationsModuleOptions } from './locations.options';
 
 class Locations extends Module {
   public ui: {
@@ -20,36 +23,15 @@ class Locations extends Module {
     notFoundTextTemplate: HTMLTemplateElement,
   };
 
-  public options: {
-    focusDelay: number,
-    domSelectors: any,
-    stateClasses: any,
-  };
+  public options: LocationsModuleOptions;
 
   private keepMapHighlight: boolean;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
     };
-    const defaultOptions = {
-      focusDelay: 500,
-      domSelectors: {
-        listItems: '[data-locations="listItem"]',
-        filterInput: '[data-locations="input"]',
-        sidebar: '[data-locations="sidebar"]',
-        backBtn: '[data-locations="back"]',
-        detailNodes: '[data-locations="locationDetails"]',
-        map: '[data-locations="map"]',
-        toggleListBtn: '[data-locations="toggleList"]',
-        emptyListHint: '[data-locations="emptyNote"]',
-        notFoundTextTemplate: '[data-locations="emptyNoteTextTemplate"]',
-      },
-      stateClasses: {
-        // activated: 'is-activated'
-      },
-    };
 
-    super($element, defaultData, defaultOptions, data, options);
+    super($element, defaultData, DefaultOptions, data, options);
 
     this.initUi();
     this.initWatchers();
@@ -65,11 +47,6 @@ class Locations extends Module {
     };
   }
 
-  /**
-   *Initializing the watchers
-   *
-   * @memberof Carousel
-   */
   initWatchers() {
     this.watch(this.ui.filterInput, 'value', this.onFilterValueChange.bind(this));
   }
@@ -81,17 +58,16 @@ class Locations extends Module {
     this.eventDelegate
       .on('click', this.options.domSelectors.listItems, (event, target) => {
         this.log('ListItem Click Event', event, target);
-        this.toggleLocationDetails(target);
+        this.onListItemsSelect(target);
       })
       .on('keyup', this.options.domSelectors.listItems, (event, target) => {
         const keyEvent = event as KeyboardEvent;
         if (keyEvent.key === 'Enter') {
           this.log('ListItem Keypress "Enter"', event, target);
-          this.toggleLocationDetails(target);
+          this.onListItemsSelect(target);
         }
       })
       .on('mouseover', this.options.domSelectors.listItems, (event, target) => {
-        this.log('ListItem MouseOver Event', event, target);
         const itemIndex = target.parentElement.getAttribute('data-linklist-itemindex');
         this.log('Hover over item index: ', itemIndex);
         this.highlightInMap(itemIndex);
@@ -102,49 +78,93 @@ class Locations extends Module {
       })
       .on('click', this.options.domSelectors.backBtn, (event, target) => {
         this.log('BackBtn Click: ', event, target);
-        this.toggleLocationDetails();
+        this.onListItemsSelect();
       })
       .on('keyup', this.options.domSelectors.backBtn, (event, target) => {
         const keyEvent = event as KeyboardEvent;
         if (keyEvent.key === 'Escape') {
           this.log('BackBtn Keypress "Escape"', event, target);
-          this.toggleLocationDetails();
+          this.onListItemsSelect();
         }
       })
       .on('keyup', this.options.domSelectors.detailNodes, (event, target) => {
         const keyEvent = event as KeyboardEvent;
         if (keyEvent.key === 'Escape') {
           this.log('DetaiNodes Keypress "Escape"', event, target);
-          this.toggleLocationDetails();
+          this.onListItemsSelect();
         }
       })
       .on('click', this.options.domSelectors.toggleListBtn, (event, target) => {
         this.log('ToggleListBtn Click: ', event, target);
         const sidebarClasses = this.ui.sidebar.classList;
-        if (sidebarClasses.contains('opened')) {
-          sidebarClasses.remove('opened');
+        if (sidebarClasses.contains(this.options.stateClasses.sidebar.opened)) {
+          sidebarClasses.remove(this.options.stateClasses.sidebar.opened);
         } else {
-          sidebarClasses.add('opened');
+          sidebarClasses.add(this.options.stateClasses.sidebar.opened);
         }
+      });
+
+    this.ui.map
+      .addEventListener(MapView.events.markerMouseOver, (ev: CustomEvent) => {
+        const markerMouseOverIdx = ev.detail.idx;
+        this.log('Mouseover from map on marker', markerMouseOverIdx);
+
+        if (this.ui.listItems[0]) {
+          (this.ui.listItems as HTMLAnchorElement[]).forEach((listItem, i) => {
+            if (markerMouseOverIdx === i) {
+              listItem.classList.add(this.options.stateClasses.mapMarkerIsHovered);
+            } else {
+              listItem.classList.remove(this.options.stateClasses.mapMarkerIsHovered);
+            }
+          });
+        } else {
+          const singleItemsClasses = (this.ui.listItems as HTMLAnchorElement).classList;
+          if (markerMouseOverIdx === 0) {
+            singleItemsClasses.add(this.options.stateClasses.mapMarkerIsHovered);
+          } else {
+            singleItemsClasses.remove(this.options.stateClasses.mapMarkerIsHovered);
+          }
+        }
+      });
+
+    this.ui.map
+      .addEventListener(MapView.events.markerClicked, (ev: CustomEvent) => {
+        const clickedIdx = ev.detail.idx;
+        this.log('Marker clicked in map', clickedIdx);
+        this.toggleLocationDetails(clickedIdx);
       });
   }
 
-  private toggleLocationDetails(selectEventTarget?: HTMLElement): void {
-    let clickedItemIndex: string;
+  private onListItemsSelect(selectEventTarget?: HTMLElement): void {
+    let selectedItemIndex: number = -1;
 
-    if (selectEventTarget) {
-      clickedItemIndex = selectEventTarget.parentElement.getAttribute('data-linklist-itemindex');
-      this.log('Clicked item index: ', clickedItemIndex);
-      this.ui.sidebar.classList.add('show-details');
+    if (selectEventTarget && selectEventTarget.parentElement) {
+      const targetItemIndexStr = selectEventTarget.parentElement.getAttribute('data-linklist-itemindex');
+      try {
+        selectedItemIndex = Number.parseInt(targetItemIndexStr, 10);
+      } catch (e) {
+        this.log('Failed to parse itemindex attribute. ', e);
+      }
+    }
+    this.log('Dispatch marker fix');
+    this.ui.map.dispatchEvent(MapView.extMarkerSelectEvent(selectedItemIndex));
+
+    this.toggleLocationDetails(selectedItemIndex);
+  }
+
+  private toggleLocationDetails(selectedItemIdx?: number): void {
+    if (selectedItemIdx >= 0) {
+      this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.onDetails);
+      this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.opened);
       this.toggleSidebarTabIndices(true);
     } else {
-      this.log('Unselect location');
-      this.ui.sidebar.classList.remove('show-details');
+      this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.onDetails);
+      this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.opened);
       this.toggleSidebarTabIndices();
     }
 
-    this.showLocationDetailsForIndex(clickedItemIndex);
-    this.highlightInMap(clickedItemIndex, true);
+    this.showLocationDetailsForIndex(selectedItemIdx);
+    this.highlightInMap(selectedItemIdx, true);
   }
 
   private toggleSidebarTabIndices(onDetails: boolean = false, initialLoad: boolean = false): void {
@@ -159,7 +179,7 @@ class Locations extends Module {
     this.setTabable(this.ui.backBtn, onDetails);
 
     if (!onDetails) {
-      this.showLocationDetailsForIndex('', !initialLoad);
+      this.showLocationDetailsForIndex(-1, !initialLoad);
     }
   }
 
@@ -170,8 +190,8 @@ class Locations extends Module {
   private onFilterValueChange(propName, valueBefore, valueAfter) {
     this.log('Filter Value changed', valueAfter);
     const sidebarClasses = this.ui.sidebar.classList;
-    if (!sidebarClasses.contains('opened')) {
-      sidebarClasses.add('opened');
+    if (!sidebarClasses.contains(this.options.stateClasses.sidebar.opened)) {
+      sidebarClasses.add(this.options.stateClasses.sidebar.opened);
     }
     this.filterListItemsByText(valueAfter);
   }
@@ -199,25 +219,20 @@ class Locations extends Module {
             childNode.textContent = this.ui.notFoundTextTemplate.content.textContent.replace('{searchTerm}', filterText);
           }
         });
-        this.ui.sidebar.classList.add('empty');
+        this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.notFound);
       } else {
-        this.ui.sidebar.classList.remove('empty');
+        this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.notFound);
       }
     }
   }
 
-  private showLocationDetailsForIndex(indexString?: string, setHeadFocus: boolean = true): void {
-    let indexToShow = -1;
-    if (indexString) {
-      indexToShow = Number.parseInt(indexString, 10);
-    }
+  private showLocationDetailsForIndex(indexToShow: number, setHeadFocus: boolean = true): void {
     if (this.ui.detailNodes[0]) {
       (<HTMLDivElement[]> this.ui.detailNodes).forEach((detailsContainer, i) => {
-        this.log('ForEach Detail: ', i);
         if (i === indexToShow) {
-          detailsContainer.classList.add('show');
+          detailsContainer.classList.add(this.options.stateClasses.detailShow);
         } else {
-          detailsContainer.classList.remove('show');
+          detailsContainer.classList.remove(this.options.stateClasses.detailShow);
         }
         detailsContainer.querySelectorAll('a').forEach((anchorEl) => {
           this.setTabable(anchorEl, indexToShow === i);
@@ -226,9 +241,9 @@ class Locations extends Module {
     } else {
       const detailsContainer = <HTMLDivElement> this.ui.detailNodes;
       if (indexToShow === 0) {
-        detailsContainer.classList.add('show');
+        detailsContainer.classList.add(this.options.stateClasses.detailShow);
       } else {
-        detailsContainer.classList.remove('show');
+        detailsContainer.classList.remove(this.options.stateClasses.detailShow);
       }
       detailsContainer.querySelectorAll('a').forEach((anchorEl) => {
         this.setTabable(anchorEl, indexToShow === 0);
@@ -248,18 +263,10 @@ class Locations extends Module {
     }
   }
 
-  private highlightInMap(indexString?: string, force?: boolean): void {
+  private highlightInMap(highlightIndex?: number, force?: boolean): void {
     if (!this.keepMapHighlight || force) {
-      let highlightIndex = -1;
-      if (indexString) {
-        highlightIndex = Number.parseInt(indexString, 10);
-      }
-      const mapDevOut = this.ui.map.getElementsByTagName('span')[0];
-      if (highlightIndex > -1) {
-        mapDevOut.innerText = `Highlight on ${highlightIndex}. location!`;
-      } else {
-        mapDevOut.innerText = '';
-      }
+      this.log('Dispatch Marker highlight');
+      this.ui.map.dispatchEvent(MapView.extMarkerHighlightEvent(highlightIndex));
 
       if (force) {
         this.keepMapHighlight = highlightIndex > -1;
