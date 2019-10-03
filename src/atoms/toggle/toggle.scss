@@ -1,0 +1,57 @@
+$toggleWidth: 56px;
+$toggleBackgroundHeight: 24px;
+$toggleDimension: 32px;
+
+.atm-toggle {
+  display: block;
+  margin: pxToRem($sizeRegular) 0;
+
+  &__label {
+    padding-left: pxToRem($toggleWidth + $sizeSmallRegular);
+    position: relative;
+    cursor: pointer;
+
+    &:before,
+    &:after {
+      display: block;
+      content: '';
+      position: absolute;
+    }
+
+    &:before {
+      width: pxToRem($toggleWidth);
+      height: pxToRem($toggleBackgroundHeight);
+      border-radius: pxToRem($toggleBackgroundHeight / 2);
+
+      background: $colorBlack20;
+      left: 0;
+
+      @include transition(background);
+    }
+
+    &:after {
+      width: pxToRem($toggleDimension);
+      height: pxToRem($toggleDimension);
+
+      border: 2px solid $colorBlack20;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background: $colorWhite;
+      border-radius: 100%;
+
+      @include transition(border-color left);
+    }
+  }
+
+  input:checked + &__label {
+    &:before {
+      background: $colorCyan;
+    }
+
+    &:after {
+      left: pxToRem($toggleWidth - $toggleDimension);
+      border-color: $colorCyan;
+    }
+  }
+}
