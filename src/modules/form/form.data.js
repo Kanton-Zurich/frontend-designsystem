@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const formInputHBS = dataHelper.getFileContent('../../atoms/form_input/form_input.hbs');
@@ -144,19 +144,19 @@ const variants = _.mapValues({
                     },
                   })),
               },
-                {
-                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                    formInputData.variants.default.props,
-                    {
-                      isFloatingLabel: true,
-                      label: 'Nachname',
-                      name: 'surname',
-                      uuid: 'surname',
-                      validation: {
-                        isRequired: true,
-                      },
-                    })),
-                }],
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Nachname',
+                    name: 'surname',
+                    uuid: 'surname',
+                    validation: {
+                      isRequired: true,
+                    },
+                  })),
+              }],
             },
             {
               fields: [{
@@ -173,20 +173,20 @@ const variants = _.mapValues({
                     },
                   })),
               },
-                {
-                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                    formInputData.variants.default.props,
-                    {
-                      isFloatingLabel: true,
-                      label: 'URL',
-                      name: 'url_input',
-                      uuid: 'url_input',
-                      type: 'url',
-                      validation: {
-                        errorMsg: 'Bitte geben Sie eine gültige URL an.',
-                      },
-                    })),
-                }],
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'URL',
+                    name: 'url_input',
+                    uuid: 'url_input',
+                    type: 'url',
+                    validation: {
+                      errorMsg: 'Bitte geben Sie eine gültige URL an.',
+                    },
+                  })),
+              }],
             },
             {
               fields: [{
@@ -216,19 +216,19 @@ const variants = _.mapValues({
                     },
                   })),
               },
-                {
-                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                    formInputData.variants.default.props,
-                    {
-                      isFloatingLabel: true,
-                      label: 'Ort',
-                      name: 'city',
-                      uuid: 'city',
-                      validation: {
-                        isRequired: true,
-                      },
-                    })),
-                }],
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Ort',
+                    name: 'city',
+                    uuid: 'city',
+                    validation: {
+                      isRequired: true,
+                    },
+                  })),
+              }],
             },
             {
               fields: [
@@ -463,19 +463,19 @@ const variants = _.mapValues({
                   },
                 })),
             },
-              {
-                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                  formInputData.variants.default.props,
-                  {
-                    isFloatingLabel: true,
-                    label: 'Nachname',
-                    name: 'surname',
-                    uuid: 'surname2',
-                    validation: {
-                      isRequired: true,
-                    },
-                  })),
-              }],
+            {
+              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                formInputData.variants.default.props,
+                {
+                  isFloatingLabel: true,
+                  label: 'Nachname',
+                  name: 'surname',
+                  uuid: 'surname2',
+                  validation: {
+                    isRequired: true,
+                  },
+                })),
+            }],
           },
           {
             fields: [{
@@ -494,19 +494,19 @@ const variants = _.mapValues({
                   },
                 })),
             },
-              {
-                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                  formInputData.variants.default.props,
-                  {
-                    isFloatingLabel: true,
-                    label: 'Ort',
-                    name: 'city',
-                    uuid: 'city2',
-                    validation: {
-                      isRequired: true,
-                    },
-                  })),
-              }],
+            {
+              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                formInputData.variants.default.props,
+                {
+                  isFloatingLabel: true,
+                  label: 'Ort',
+                  name: 'city',
+                  uuid: 'city2',
+                  validation: {
+                    isRequired: true,
+                  },
+                })),
+            }],
           },
         ],
       }],
@@ -531,14 +531,14 @@ const variants = _.mapValues({
                         groupId: 'group-nationality',
                         isSingleSelect: true,
                         selectOptions: [
-                          {value: '', label: ''},
-                          {value: 'DE', label: 'Deutschland', id: _.uniqueId('nationality')},
-                          {value: 'FR', label: 'Frankreich', id: _.uniqueId('nationality')},
-                          {value: 'UK', label: 'Vereinigtes Königreich', id: _.uniqueId('nationality')},
-                          {value: 'LU', label: 'Luxemburg', id: _.uniqueId('nationality')},
-                          {value: 'BE', label: 'Belgien', id: _.uniqueId('nationality')},
-                          {value: 'NL', label: 'Niederlande', id: _.uniqueId('nationality')},
-                          {value: 'CH', label: 'Schweiz', id: _.uniqueId('nationality')},
+                          { value: '', label: '' },
+                          { value: 'DE', label: 'Deutschland', id: _.uniqueId('nationality') },
+                          { value: 'FR', label: 'Frankreich', id: _.uniqueId('nationality') },
+                          { value: 'UK', label: 'Vereinigtes Königreich', id: _.uniqueId('nationality') },
+                          { value: 'LU', label: 'Luxemburg', id: _.uniqueId('nationality') },
+                          { value: 'BE', label: 'Belgien', id: _.uniqueId('nationality') },
+                          { value: 'NL', label: 'Niederlande', id: _.uniqueId('nationality') },
+                          { value: 'CH', label: 'Schweiz', id: _.uniqueId('nationality') },
                         ],
                       }),
                     })),
@@ -705,16 +705,16 @@ const variants = _.mapValues({
                         groupPostfix: 'nationality-x2',
                         isSingleSelect: true,
                         selectOptions: [
-                          {value: '', label: ''},
-                          {value: 'BE', label: 'Belgien', id: _.uniqueId('nationalityx')},
-                          {value: 'DE', label: 'Deutschland', id: _.uniqueId('nationalityx')},
-                          {value: 'FR', label: 'Frankreich', id: _.uniqueId('nationalityx')},
-                          {value: 'LU', label: 'Luxemburg', id: _.uniqueId('nationalityx')},
-                          {value: 'NL', label: 'Niederlande', id: _.uniqueId('nationalityx')},
-                          {value: 'SWE', label: 'Schweden', id: _.uniqueId('nationalityx')},
-                          {value: 'CH', label: 'Schweiz', id: _.uniqueId('nationalityx')},
-                          {value: 'UK', label: 'Vereinigtes Königreich', id: _.uniqueId('nationalityx')},
-                          {value: 'US', label: 'Vereinigte Staaten', id: _.uniqueId('nationalityx')},
+                          { value: '', label: '' },
+                          { value: 'BE', label: 'Belgien', id: _.uniqueId('nationalityx') },
+                          { value: 'DE', label: 'Deutschland', id: _.uniqueId('nationalityx') },
+                          { value: 'FR', label: 'Frankreich', id: _.uniqueId('nationalityx') },
+                          { value: 'LU', label: 'Luxemburg', id: _.uniqueId('nationalityx') },
+                          { value: 'NL', label: 'Niederlande', id: _.uniqueId('nationalityx') },
+                          { value: 'SWE', label: 'Schweden', id: _.uniqueId('nationalityx') },
+                          { value: 'CH', label: 'Schweiz', id: _.uniqueId('nationalityx') },
+                          { value: 'UK', label: 'Vereinigtes Königreich', id: _.uniqueId('nationalityx') },
+                          { value: 'US', label: 'Vereinigte Staaten', id: _.uniqueId('nationalityx') },
                         ],
                       }),
                     })),
