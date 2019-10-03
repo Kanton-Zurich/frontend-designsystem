@@ -13,7 +13,9 @@
       </svg>
     </button>
     {{#if isTriggerWithInput}}
-      <input id="select_phone_input" name="phone_input" type="number" placeholder="Telefonnummer"><label
+      <input id="select_phone_input" name="phone_input" type="number" placeholder="Telefonnummer"
+        {{#if validation.isRequired}} required{{/if}}
+        {{#if validation}} data-validation{{/if}}><label
       class="visuallyhidden" for="select_phone_input">Bitte hier ihre Telefonnummer eingeben</label>{{/if}}
   {{/if}}
 
