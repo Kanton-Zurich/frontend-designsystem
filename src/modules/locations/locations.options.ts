@@ -19,7 +19,7 @@ interface ModuleStateClasses {
   mapMarkerIsHovered: string,
   listItemHide: string,
 }
-export interface LocationsModuleOptions {
+export interface LocationsModuleOptions { // eslint-disable-line
   focusDelay: number,
   domSelectors: ModuleDomSelectors
   stateClasses: ModuleStateClasses
@@ -48,7 +48,7 @@ const stateClasses: ModuleStateClasses = {
   listItemHide: 'hide',
 };
 
-export const DefaultOptions: LocationsModuleOptions = {
+export const DefaultOptions: LocationsModuleOptions = { // eslint-disable-line
   focusDelay,
   domSelectors,
   stateClasses,
