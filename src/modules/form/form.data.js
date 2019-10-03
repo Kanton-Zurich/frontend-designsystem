@@ -234,13 +234,59 @@ const variants = _.mapValues({
               fields: [
                 {
                   cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
-                    datepickerData.variants.defaultDate.props,
+                    datepickerData.variants.dateRange.props,
                     {})),
                 },
                 {
                   cellContent: () => handlebars.compile(selectHBS)(_.merge({},
                     selectData.variants.multiSelect.props,
                     {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.dateAndTime.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.dateAndTime.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.dateRange.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.variants.default.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Alternative E-Mail',
+                      name: 'altemailaddr',
+                      uuid: 'altemailaddr',
+                      type: 'email',
+                      validation: {
+                        isRequired: true,
+                        errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+                      },
+                    })),
                 },
               ],
             },
