@@ -35,7 +35,8 @@ const duplicateGroup = {
     remove: 'Staatangehörigkeit wieder entfernen',
   },
   rows: [{
-    fields: [{
+    fields: [
+     /* {
       cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
         formInputData.variants.default.props,
         {
@@ -47,7 +48,13 @@ const duplicateGroup = {
             isRequired: true,
           },
         })),
-    }],
+    }*/
+      {
+        cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+          datepickerData.variants.dateRange.props,
+          {})),
+      },
+    ],
   }],
   duplicateButton: 'Weitere Staatsangehörigkeit hinzufügen',
 };
