@@ -12,26 +12,38 @@ const data = _.merge({}, defaultData, {
     jira: 'CZHDEV-1234',
     label: 'Formular',
     documentation: dataHelper.getDocumentation('drilldown_select.md'),
+    wrapInForm: true,
   },
   props: {
     primarySelectData: _.merge({}, defSelectData.variants.default.props, { additionalAttributes: 'data-filter-attribute="data-filter-id"' }),
-    secondarySelectData: _.merge({}, defSelectData.variants.default.props, { additionalAttributes: 'data-filter-attribute="data-filter-id" disabled' }),
+    secondarySelectData: _.merge({}, defSelectData.variants.default.props, { additionalAttributes: 'data-filter-attribute="data-filter-id"' }),
     preview: true,
   },
 });
 
-
 data.props.primarySelectData.listData.selectOptions = [
-  { value: '', label: '', filterId: 'bla' },
-  { value: 'mig', label: 'Mogration & Integration', filterId: 'bla' },
-  { value: 'mo', label: 'Mobilität', filterId: 'bla' },
-  { value: 'sich', label: 'Sicherheit & Justiz', filterId: 'bla' },
-  { value: 'so', label: 'Soziales', filterId: 'bla' },
-  { value: 'st', label: 'Steuern', filterId: 'bla' },
-  { value: 'umte', label: 'Umwelt & Tier', filterId: 'blub' },
-  { value: 'ge', label: 'Gemeinschaften', filterId: 'blub' },
-  { value: 'scer', label: 'Schulen & Erziehung', filterId: 'blub' },
+  { value: 'allg', label: 'Allgemeines' },
+  { value: 'nat', label: 'Natürliche Personen' },
+  { value: 'jur', label: 'Juristische Personen' },
+  { value: 'quel', label: 'Quellensteuer' },
+  { value: 'verf', label: 'Verfahrensrecht' },
 ];
+data.props.primarySelectData.triggerInputData.label = 'Thema';
+
+data.props.secondarySelectData.listData.selectOptions = [
+  { value: 'allg_erl', label: 'Erlasse &amp; Merkblätter', filterId: 'allg' },
+  { value: 'quel_erl', label: 'Erlasse &amp; Merkblätter', filterId: 'quel' },
+  { value: 'verf_erl', label: 'Erlasse &amp; Merkblätter', filterId: 'verf' },
+  { value: 'strpf_nat', label: 'Steuerpflicht', filterId: 'nat' },
+  { value: 'ausgl_nat', label: 'Ausgleich kalte Progression', filterId: 'nat' },
+  { value: 'einkstr_nat', label: 'Einkommenssteuer', filterId: 'nat' },
+  { value: 'zeitbl_nat', label: 'Zeitliche Bemessung', filterId: 'nat' },
+  { value: 'verm_nat', label: 'Vermögenssteuer', filterId: 'nat' },
+  { value: 'strpf_jur', label: 'Steuerpflicht', filterId: 'jur' },
+  { value: 'zeitbl_jur', label: 'Zeitliche Bemessung', filterId: 'jur' },
+  { value: 'gew_jur', label: 'Gewinnsteuer', filterId: 'jur' },
+];
+data.props.secondarySelectData.triggerInputData.label = 'Unterthema';
 
 const variants = _.mapValues({
   default: {

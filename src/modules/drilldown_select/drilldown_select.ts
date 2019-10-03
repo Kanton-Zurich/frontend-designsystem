@@ -33,7 +33,7 @@ class DrilldownSelect extends Module {
 
   static get events() {
     return {
-      // eventname: `eventname.${ DrilldownSelect.name }.${  }`
+
     };
   }
 
@@ -41,9 +41,17 @@ class DrilldownSelect extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    setTimeout(() => {
-      this.setSecondarySelectFilter('blu');
-    }, 0);
+    // Listen to primary select change
+    this.ui.selects[0].addEventListener(Select.events.valueChanged, (event) => {
+      if (event.detail !== '') {
+        this.setSecondarySelectFilter(event.detail);
+      } else {
+        this.ui.selects[1]
+          .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: true } }));
+      }
+      this.ui.selects[1]
+        .dispatchEvent(new CustomEvent(Select.events.clear));
+    });
   }
 
   /**
@@ -51,7 +59,9 @@ class DrilldownSelect extends Module {
    * @param value
    */
   setSecondarySelectFilter(value) {
-    this.ui.selects[0]
+    this.ui.selects[1]
+      .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: false } }));
+    this.ui.selects[1]
       .dispatchEvent(new CustomEvent(Select.events.setFilter, { detail: { filterValue: value } }));
   }
 

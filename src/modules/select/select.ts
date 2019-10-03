@@ -124,6 +124,7 @@ class Select extends Module {
       close: 'Select.close',
       disable: 'Select.disable',
       setFilter: 'Select.setFilter',
+      clear: 'Select.clear',
     };
   }
 
@@ -233,6 +234,7 @@ class Select extends Module {
       .on(Select.events.valueChanged, this.onValueChanged.bind(this))
       .on(Select.events.setValue, this.onSetValue.bind(this))
       .on(Select.events.setFilter, this.onSetFilter.bind(this))
+      .on(Select.events.clear, this.onClear.bind(this))
       .on(Select.events.disable, this.onSetDisabled.bind(this));
     // ------------------------------------------------------------
     // watch select items for status change and update style
@@ -466,6 +468,19 @@ class Select extends Module {
     if (disabled) {
       this.closeDropdown(true);
     }
+  }
+
+  /**
+   * Handle on clear event
+   */
+  onClear() {
+    this.ui.items.forEach((li) => {
+      const input = li.querySelector('input');
+      input.checked = false;
+      li.classList.remove('selected');
+      this.ui.triggerValue.innerText = '';
+    });
+    this.ui.element.classList.remove(this.options.stateClasses.selected);
   }
 
   /**
