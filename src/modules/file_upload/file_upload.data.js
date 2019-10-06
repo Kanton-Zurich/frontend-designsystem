@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'FileUpload',
     className: 'FileUpload',
     jira: 'CZHDEV-*',
+    label: 'Formular',
     documentation: dataHelper.getDocumentation('file_upload.md'),
   },
   props: {

@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Sprunglinks',
     className: 'Skiplinks',
     jira: 'CZHDEV-292',
+    label: 'Navigation',
     documentation: dataHelper.getDocumentation('skiplinks.md'),
   },
   props: {

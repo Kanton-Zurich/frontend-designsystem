@@ -27,7 +27,9 @@
       disabled}} disabled{{/if}}
       {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
       {{#if validation}} data-validation{{/if}}
-      {{#if isFloatingLabel}} data-floating{{/if}}></textarea>
+      {{#if isFloatingLabel}} data-floating{{/if}}
+      {{#if rules}} data-rules="{{rules}}"{{/if}}
+      ></textarea>
   {{/if}}
 
   {{# if isInput}}
@@ -47,6 +49,7 @@
       {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
       {{#if validation}} data-validation{{/if}}
       {{#if isFloatingLabel}} data-floating{{/if}}
+      {{#if rules}} data-rules="{{rules}}"{{/if}}
       {{#if zipCity}}
         data-fills-city="{{zipCity.fills}}"
         data-zip="{{zipCity.data}}"

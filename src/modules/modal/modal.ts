@@ -9,10 +9,8 @@ import WindowEventListener from '../../assets/js/helpers/events';
 
 class Modal extends Module {
   private parentScrollPosition: number;
-  private closeOnEscapeFunction: any;
   private hasCloseBtn: boolean;
   private headerHeight: number;
-  public scrollThreshold: number;
   private isolatedElements: HTMLElement[];
 
   public options: {
@@ -34,6 +32,7 @@ class Modal extends Module {
         pageHeader: '.mdl-page-header',
         closeButton: '.mdl-page-header__closebutton',
         close: '[data-modal="close"]',
+        focusable: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
       },
       stateClasses: {
         beforeShow: 'mdl-modal--before-show',
@@ -107,10 +106,12 @@ class Modal extends Module {
     (<any>window).estatico.helpers.bodyElement.appendChild(this.ui.element);
     this.eventDelegate.on('Modal.switchLeft', this.switchLeft.bind(this));
     this.eventDelegate.on('Modal.switchRight', this.switchRight.bind(this));
-
-    window.addEventListener('keydown', this.closeOnEscape.bind(this));
+    this.ui.element.addEventListener('keydown', this.closeOnEscape.bind(this));
   }
 
+  /**
+   * Initialize sub modules to make them functional
+   */
   initContent() {
     const closeButton = this.ui.element.querySelector(this.options.domSelectors.closeButton);
     if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
@@ -124,6 +125,10 @@ class Modal extends Module {
     }
   }
 
+  /**
+   * Update on scroll event
+   * @param scrollTop
+   */
   updateOnScroll(scrollTop) {
     const pageHeader = this.ui.element.querySelector(this.options.domSelectors.pageHeader);
 
@@ -136,6 +141,9 @@ class Modal extends Module {
     }
   }
 
+  /**
+   * Update sizing of the header and content
+   */
   updateSizing() {
     const pageHeader = this.ui.element.querySelector(this.options.domSelectors.pageHeader);
     if (pageHeader) {
@@ -158,7 +166,7 @@ class Modal extends Module {
   }
 
   /**
-   * opens the modal
+   * Open the modal and isolate content
    */
   openModal() {
     // isolate modal
@@ -178,13 +186,15 @@ class Modal extends Module {
     document.documentElement.style.overflowY = 'hidden';
 
     // Accessibility features
-    (<any>window).estatico.helpers.wrapAccessibility(this.ui.element);
     (<any>window).estatico.helpers.setHiddenTabIndex(this.ui.element);
-
-    // Set parent scrollPosition
     this.parentScrollPosition = document.documentElement.scrollTop;
-
-    // delayed opacity animation
+    // delayed opacity animation and focus handling
+    setTimeout(() => {
+      const focusable = this.ui.element.querySelectorAll(this.options.domSelectors.focusable);
+      if (focusable.length > 0) {
+        focusable[0].focus();
+      }
+    }, 1);
     this.ui.element.focus();
     this.ui.element.scrollTop = 0;
 
@@ -192,11 +202,8 @@ class Modal extends Module {
     if (this.options.hasDynamicHeader) {
       this.updateOnScroll(0);
     }
-
     this.updateSizing();
-
     (<any>WindowEventListener).addDebouncedResizeListener(this.updateSizing.bind(this));
-
     // If there is the navigation topic list a child, then load the navigation
     if (this.options.isNav) {
       this.ui.element.querySelector(this.options.childSelectors.nav).dispatchEvent(new CustomEvent('loadNavigation'));
@@ -211,22 +218,21 @@ class Modal extends Module {
   /** Closes the modal */
   closeModal() {
     const multiplier = 2;
-
-    // Accessibility integrate the isolated
     this.isolatedElements.forEach((element) => {
       element.removeAttribute('aria-hidden');
     });
-
     this.ui.element.classList.add(this.options.stateClasses.beforeHide);
-
     document.documentElement.style.overflowY = 'auto';
+    this.ui.element.setAttribute('aria-hidden', 'true');
+    window.dispatchEvent(new CustomEvent('Modal.closed'));
 
-
-    // Modal.closed, should only fire after the timeout
-
-    // After the animation we can set the modal to display: none
     setTimeout(() => {
       this.ui.element.classList.add(this.options.stateClasses.hide);
+      (<any>window).estatico.helpers.resetHiddenTabIndex();
+      const focusOrigin = document.querySelector(`[aria-controls="${this.ui.element.getAttribute('id')}"]`);
+      if (focusOrigin) {
+        (<any> focusOrigin).focus();
+      }
     }, this.options.transitionTime);
     setTimeout(() => {
       this.ui.element.classList.remove(this.options.stateClasses.beforeShow);

@@ -15,6 +15,7 @@ const data = _.merge({}, defaultData, {
     title: 'Themenliste',
     className: 'Topiclist',
     jira: 'CZHDEV-505',
+    label: 'Navigation',
     documentation: dataHelper.getDocumentation('topiclist.md'),
   },
   props: {

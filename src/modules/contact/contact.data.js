@@ -2,6 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const mapViewDefaultData = require('../../modules/map_view/map_view.data').variants.default.props;
 
 const template = dataHelper.getFileContent('contact.hbs');
 
@@ -123,6 +124,7 @@ const data = _.merge({}, defaultData, {
     title: 'Kontakt',
     className: 'Contact',
     jira: 'CZHDEV-257',
+    label: 'Komplex',
     documentation: dataHelper.getDocumentation('contact.md'),
   },
   props: {
@@ -133,6 +135,52 @@ const data = _.merge({}, defaultData, {
 });
 
 const variants = _.mapValues({
+  fullWidthLessData2: {
+    meta: {
+      title: 'Kontakt volle Breite (mit Karte)',
+      desc: 'Kontakt unter Verwendung des gesamten Platzes - reduzierte Informationen',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+      },
+      contactAddress: {
+        name: 'Regionale Fachstelle der Ost- und Zentralschweiz ',
+        street: 'Haldenbachstrasse 12',
+        zip: 'CH-8006',
+        city: 'Zürich',
+      },
+      contactPhone: [
+        {
+          anchorLabel: '058 811 30 00',
+          phoneNumer: '+41588113000',
+          additionalInfo: 'Allgemeine Fragen',
+        },
+        {
+          anchorLabel: '058 811 30 20',
+          phoneNumer: '+41588113020',
+          additionalInfo: 'Notfall-Nummer',
+        },
+      ],
+      contactMail: {
+        address: 'heilmittelkontrolle@khz.zh.ch',
+      },
+      mapData: _.merge({}, mapViewDefaultData, {
+        mapId: 'contact-map',
+        withUserLocate: false,
+        mapMarker: [
+          { lat: 47.380467, lng: 8.548396 },
+        ],
+        directions: {
+          enabled: true,
+        },
+      }),
+    },
+  },
   default: {
     meta: {
       title: 'Kontakt klein (nur Adresse)',
@@ -217,42 +265,6 @@ const variants = _.mapValues({
       ],
       contactMail: {
         address: 'velo@vd.zh.ch',
-      },
-    },
-  },
-  fullWidthLessData2: {
-    meta: {
-      title: 'Kontakt volle Breite (Nur Titel mit Karte(TODO))',
-      desc: 'Kontakt unter Verwendung des gesamten Platzes - reduzierte Informationen',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-      },
-      contactAddress: {
-        name: 'Regionale Fachstelle der Ost- und Zentralschweiz ',
-        street: 'Haldenbachstrasse 12',
-        zip: 'CH-8006',
-        city: 'Zürich',
-      },
-      contactPhone: [
-        {
-          anchorLabel: '058 811 30 00',
-          phoneNumer: '+41588113000',
-          additionalInfo: 'Allgemeine Fragen',
-        },
-        {
-          anchorLabel: '058 811 30 20',
-          phoneNumer: '+41588113020',
-          additionalInfo: 'Notfall-Nummer',
-        },
-      ],
-      contactMail: {
-        address: 'heilmittelkontrolle@khz.zh.ch',
       },
     },
   },

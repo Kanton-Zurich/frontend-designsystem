@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Search',
     className: 'Search',
     jira: 'CZHDEV-496',
+    label: 'Formular',
     documentation: dataHelper.getDocumentation('search.md'),
   },
   props: {

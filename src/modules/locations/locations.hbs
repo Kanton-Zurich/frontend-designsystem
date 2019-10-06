@@ -4,11 +4,7 @@
     </div> {{/if}}
     <div class="mdl-locations__wrapper">
       <div class="mdl-locations__map" data-locations="map">
-          <div style="position: absolute; top: 0; left: 0;">&lceil;</div>
-          <div style="position: absolute; top: 0; right: 0;">&rceil;</div>
-          <div style="position: absolute; bottom: 0; right: 0;">&rfloor;</div>
-          <div style="position: absolute; bottom: 0; left: 0;">&lfloor;</div>
-          <span style="position: absolute; left: 25%; top: 25%; ">  </span>
+        {{> "modules/map_view/map_view" mapData}}
       </div>
       <div class="mdl-locations__sidebar-wrapper cell medium-offset-1">
         <div class="mdl-locations__sidebar{{#if_compare locationsList.links.length '===' 1}} mdl-locations__sidebar--single-location{{/if_compare}}"

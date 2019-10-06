@@ -6,12 +6,15 @@ const defaultData = require('../../data/default.data.js');
 const formVariants = require('../form/form.data').variants;
 const notification = require('../../atoms/notification/notification.data').variants;
 
+const toggle = require('../../atoms/toggle/toggle.data').variants.default.props;
+
 const template = dataHelper.getFileContent('stepper.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Formularschritte',
     className: 'Stepper',
     jira: 'CZHDEV-850',
+    label: 'Formular',
     documentation: dataHelper.getDocumentation('stepper.md'),
   },
   props: {
@@ -21,6 +24,7 @@ const data = _.merge({}, defaultData, {
     navigation: {
       steps: ['Persönliche Angaben', 'Berufliche Informationen', 'Bestätigung'],
     },
+    toggle,
     notificationTemplate: notification.default.meta.code.template,
   },
 });
@@ -63,6 +67,61 @@ const variants = _.mapValues({
       steps: [
         _.merge({}, formVariants.defaultDuplicate.props, { sectionTitle: null }),
       ],
+    },
+  },
+  withSomeLogic: {
+    meta: {
+      title: 'Mit Formularlogik (CZHDEV-1181)',
+      desc: 'Es gibt eine Formularlogik',
+    },
+    props: {
+      steps: [
+        formVariants.checkboxesNationality.props,
+        _.merge({}, formVariants.placeOfCitizenshipPage.props, {
+          rules: JSON.stringify([
+            {
+              conditions: [
+                {
+                  field: 'singleSelect',
+                  equals: true,
+                  value: 'CH',
+                },
+              ],
+              action: 'enable',
+            },
+          ]),
+        }),
+        _.merge({}, formVariants.placeOfCitizenshipPage.props, {
+          rules: JSON.stringify([
+            {
+              conditions: [
+                {
+                  field: 'nationality-5',
+                  equals: true,
+                  value: 'CH',
+                },
+              ],
+              action: 'enable',
+            },
+          ]),
+        }),
+        _.merge({}, formVariants.placeOfCitizenshipPage.props, {
+          rules: JSON.stringify([
+            {
+              conditions: [
+                {
+                  field: 'nationality-33',
+                  equals: true,
+                },
+              ],
+              action: 'disable',
+            },
+          ]),
+        }),
+      ],
+      navigation: {
+        steps: ['Staatsangehörigkeit', 'Bürgerort 1', 'Bürgerort 2', 'Bürgerort 3', 'Bestätigung'],
+      },
     },
   },
 }, (variant) => {

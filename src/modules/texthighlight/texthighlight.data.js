@@ -12,6 +12,7 @@ const data = _.merge({}, defaultData, {
     title: 'Infobox',
     className: 'TextHighlight',
     jira: 'CZHDEV-117',
+    label: 'Inhalt',
     documentation: dataHelper.getDocumentation('texthighlight.md'),
   },
   props: {

@@ -13,6 +13,14 @@ $gapSize: pxToRem($sizeRegular);
   &__group {
     margin-left: -($gapSize/2);
     margin-right: -($gapSize/2);
+
+    .form__group--duplicatable {
+      margin: 0;
+
+      .form__duplicator {
+        margin-bottom: $gapSize;
+      }
+    }
   }
 
   &__group + &__group {
@@ -66,6 +74,7 @@ $gapSize: pxToRem($sizeRegular);
 
     &:first-child:last-child {
       flex-basis: 100%;
+      min-width: 100%;
     }
 
     &--small {
@@ -137,7 +146,7 @@ $gapSize: pxToRem($sizeRegular);
     }
   }
 
-  .form__group--duplicatable {
+  .form__group--duplicatable:not(.form__group--limited) {
     .form__duplicated:last-of-type {
       .form__duplicator {
         display: flex;
@@ -170,6 +179,12 @@ $gapSize: pxToRem($sizeRegular);
       use {
         fill: $colorBlack;
       }
+    }
+  }
+
+  &__element {
+    &--hidden-by-rule {
+      display: none;
     }
   }
 }

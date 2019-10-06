@@ -1,6 +1,7 @@
 .mdl-tabs {
   &__controls {
     overflow-x: hidden;
+    position: relative;
 
     &-wrapper {
       display: inline-block;

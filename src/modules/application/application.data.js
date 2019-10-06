@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Single Page Applikation',
     className: 'Application',
     jira: 'CZHDEV-792',
+    label: 'Eingebettet',
     documentation: dataHelper.getDocumentation('application.md'),
   },
   props: {
