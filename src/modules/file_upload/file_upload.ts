@@ -137,6 +137,12 @@ class FileUpload extends Module {
 
       this.eventDelegate.on(FileUpload.events.mainMoved, (event) => {
         if (event.detail) this.ui.input.setAttribute('required', 'true');
+
+        this.log(this.options.isDuplicated, this.ui.input.files.length);
+
+        if (this.options.isDuplicated && this.ui.input.files.length === 0) {
+          this.ui.element.remove();
+        }
       });
     }
   }
@@ -213,8 +219,9 @@ class FileUpload extends Module {
 
   deleteFile() {
     const parent = this.ui.element.parentElement;
-    const fileUploads = parent.querySelectorAll(this.options.fileuploadSelector);
     const isRequired = this.ui.input.hasAttribute('required');
+    const isFirst = this.ui.element.previousElementSibling === null;
+    let fileUploads = parent.querySelectorAll(this.options.fileuploadSelector);
 
     if (!this.options.isDuplicated) {
       this.ui.input.value = '';
@@ -226,6 +233,7 @@ class FileUpload extends Module {
 
       if (fileUploads.length > 1) {
         parent.appendChild(this.ui.element);
+        fileUploads = parent.querySelectorAll(this.options.fileuploadSelector);
 
         this.ui.input.removeAttribute('required');
       }
@@ -233,10 +241,11 @@ class FileUpload extends Module {
       this.ui.element.remove();
     }
 
-    if (isRequired) {
+
+    if (isFirst) {
       fileUploads.forEach((uploadElement, counter) => {
         uploadElement.dispatchEvent(new CustomEvent(FileUpload.events.mainMoved, {
-          detail: counter === 0,
+          detail: counter === 0 && isRequired,
         }));
       });
     }
