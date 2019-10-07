@@ -7,8 +7,8 @@
   padding: pxToRem($sizeRegular);
 
   .icon {
-    min-width: pxToRem(24);
-    min-height: pxToRem(24);
+    min-width: pxToRem($sizeLarge);
+    min-height: pxToRem($sizeLarge);
 
     use {
       fill: $colorWhite;
