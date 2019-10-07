@@ -234,13 +234,68 @@ const variants = _.mapValues({
               fields: [
                 {
                   cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
-                    datepickerData.variants.defaultDate.props,
+                    datepickerData.variants.dateRange.props,
                     {})),
                 },
                 {
                   cellContent: () => handlebars.compile(selectHBS)(_.merge({},
                     selectData.variants.multiSelect.props,
                     {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.variants.selectPhone.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.dateAndTime.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.dateAndTime.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.dateRange.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.variants.default.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Alternative E-Mail',
+                      name: 'altemailaddr',
+                      uuid: 'altemailaddr',
+                      type: 'email',
+                      validation: {
+                        isRequired: true,
+                        errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+                      },
+                    })),
                 },
               ],
             },
@@ -753,7 +808,9 @@ const variants = _.mapValues({
 }, (variant) => {
   // eslint-disable
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
-    if (key === 'rows' || Array.isArray(variantValue)) { return variantValue; }
+    if (key === 'rows' || Array.isArray(variantValue)) {
+      return variantValue;
+    }
   }).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
   const variantData = _.mergeWith({}, data, variant, {
@@ -767,7 +824,9 @@ const variants = _.mapValues({
       },
     },
   }, (dataValue, variantValue, key) => {
-    if (key === 'rows' || Array.isArray(variantValue)) { return variantValue; }
+    if (key === 'rows' || Array.isArray(variantValue)) {
+      return variantValue;
+    }
   });
 
   return variantData;

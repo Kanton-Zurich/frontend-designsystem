@@ -35,8 +35,6 @@
 
   .flatpickr-wrapper,
   .atm-form_input--floated .atm-form_input__input {
-    z-index: 1;
-    position: relative;
     background-color: transparent;
     text-overflow: ellipsis;
   }
