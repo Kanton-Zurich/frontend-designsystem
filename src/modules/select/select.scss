@@ -38,6 +38,13 @@ $selectHeightWithFilterExtended: 424px;
   }
 
   &.invalid {
+    .atm-form_input--trigger-phone {
+      .atm-form_input__input--trigger + input {
+        top: 34%;
+        height: 66px
+      }
+    }
+
     .atm-form_input--trigger {
       button {
         border-color: $colorRed;
