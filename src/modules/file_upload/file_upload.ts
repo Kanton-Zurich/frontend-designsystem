@@ -24,6 +24,7 @@ class FileUpload extends Module {
     list: HTMLDivElement | HTMLUListElement,
     dropzone: HTMLDivElement,
     form: HTMLFormElement,
+    onlyOneFile: HTMLParagraphElement,
   }
 
   public data: {
@@ -47,12 +48,14 @@ class FileUpload extends Module {
         list: '[data-file_upload="list"]',
         dropzone: '[data-file_upload="dropzone"]',
         delete: '[data-file_upload="delete"]',
+        onlyOneFile: '[data-message="onlyonefile"]',
       },
       stateClasses: {
         activeDropzone: 'mdl-file_upload--active-dropzone',
         dropzoneDragOver: 'mdl-file_upload__dropzone--dragover',
         noDropzone: 'mdl-file_upload--no-dropzone',
         duplicated: 'mdl-file_upload--duplicated',
+
       },
       fileuploadSelector: '[data-init="fileUpload"]',
     };
@@ -135,6 +138,8 @@ class FileUpload extends Module {
           this.ui.input.files = e.dataTransfer.files;
 
           this.onChange();
+        } else {
+          this.ui.onlyOneFile.classList.add('show');
         }
       });
 
@@ -152,6 +157,7 @@ class FileUpload extends Module {
 
   onChange() {
     this.initFileList();
+    this.ui.onlyOneFile.classList.remove('show');
 
     if (this.ui.input.files.length > 0) {
       this.ui.element.classList.add(this.options.stateClasses.noDropzone);
