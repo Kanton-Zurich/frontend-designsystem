@@ -77,12 +77,14 @@
                 {{/if}}
               </div>
               {{#if ../isDuplicatable}}
-                <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
-                  <svg class="icon icon--iframe-add">
-                    <use xlink:href="#add-new"></use>
-                  </svg>
-                  {{ ../duplicateLabels.add }}
-                </button>
+                {{#if @last}}
+                  <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
+                    <svg class="icon icon--iframe-add">
+                      <use xlink:href="#add-new"></use>
+                    </svg>
+                    {{ ../duplicateLabels.add }}
+                  </button>
+                {{/if}}
               {{/if}}
             {{/each}}
           </div>

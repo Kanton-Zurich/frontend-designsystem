@@ -48,6 +48,21 @@ const duplicateGroup = {
           },
         })),
     }],
+  },
+  {
+    fields: [{
+      cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+        formInputData.variants.default.props,
+        {
+          isFloatingLabel: true,
+          label: 'Geburtsort',
+          name: 'place_of_birth',
+          uuid: 'place_of_birth',
+          validation: {
+            isRequired: true,
+          },
+        })),
+    }],
   }],
   duplicateButton: 'Weitere Staatsangehörigkeit hinzufügen',
 };
