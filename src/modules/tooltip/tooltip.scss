@@ -1,0 +1,152 @@
+$tooltip-info-icon-size: 22px;
+$tooltip-bubble-max-width: 260px;
+$tooltip-bubble-close-icon-size: 14px;
+.mdl-tooltip {
+  position: relative;
+
+  &__text {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: pxToRem($tooltip-info-icon-size);
+
+    p {
+      font-size: $sizeFontSmall;
+      line-height: $sizeLineHeightNarrow;
+      margin: 0;
+      padding-right: pxToRem($sizeTiny);
+    }
+
+    button {
+      position: relative;
+      height: pxToRem($tooltip-info-icon-size);
+
+      &:after {
+        content: '';
+        position: absolute;
+        z-index: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 80%;
+        height: 80%;
+        background-color: $colorBlack60;
+        border-radius: 50%;
+      }
+    }
+
+    .icon {
+      position: relative;
+      z-index: $zIndexInner;
+      width: pxToRem($tooltip-info-icon-size);
+      height: pxToRem($tooltip-info-icon-size);
+
+      use {
+        fill: $colorBlack10;
+      }
+    }
+  }
+
+  p {
+    color: $colorBlack60;
+  }
+
+  &__bubble {
+    position: absolute;
+    box-shadow: 0 0 pxToRem($sizeRegular) rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
+    background: $colorWhite;
+    padding: pxToRem($sizeSmallLarge) pxToRem($sizeLarge);
+    border-radius: 1px;
+    max-width: pxToRem($tooltip-bubble-max-width);
+
+    &:before {
+      content: '';
+      display: block;
+      width: pxToRem($sizeRegular);
+      height: pxToRem($sizeRegular);
+      background-color: $colorWhite;
+      position: absolute;
+    }
+
+    button {
+      position: absolute;
+      display: inline-flex;
+      top: pxToRem($sizeTiny);
+      right: pxToRem($sizeTiny);
+
+      .icon {
+        width: pxToRem($tooltip-bubble-close-icon-size);
+        height: pxToRem($tooltip-bubble-close-icon-size);
+      }
+    }
+
+    &--arrow-left,
+    &--arrow-right {
+      &:before {
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+      }
+    }
+
+    &--arrow-left {
+      &:before {
+        left: pxToRem(-$sizeTiny);
+        box-shadow: pxToRem(-$sizeMini) pxToRem(-$sizeMini) pxToRem($sizeTiny) pxToRem(-$sizeTiny) rgba(0, 0, 0, 0.16), -1px 1px 2px -1px rgba(0, 0, 0, 0.32);
+      }
+    }
+
+    &--arrow-right {
+      &:before {
+        right: pxToRem(-$sizeTiny);
+        box-shadow: pxToRem($sizeMini) pxToRem(-$sizeMini) pxToRem($sizeTiny) pxToRem(-$sizeTiny) rgba(0, 0, 0, 0.16), 1px -1px 2px -1px rgba(0, 0, 0, 0.32);
+      }
+    }
+
+    &--arrow-top,
+    &--arrow-bottom {
+      &:before {
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+      }
+    }
+
+    &--arrow-top {
+      top: calc(100% + #{$sizeSmallRegular});
+
+      &:before {
+        top: pxToRem(-$sizeTiny);
+        box-shadow: pxToRem(-$sizeMini) pxToRem(-$sizeMini) pxToRem($sizeTiny) pxToRem(-$sizeTiny) rgba(0, 0, 0, 0.16), -1px -1px 2px -1px rgba(0, 0, 0, 0.32);
+      }
+    }
+
+    &--arrow-bottom {
+      bottom: calc(100% + #{$sizeSmallRegular});
+
+      &:before {
+        bottom: pxToRem(-$sizeTiny);
+        box-shadow: pxToRem($sizeMini) pxToRem($sizeMini) pxToRem($sizeTiny) pxToRem(-$sizeTiny) rgba(0, 0, 0, 0.16), 1px 1px 2px -1px rgba(0, 0, 0, 0.32);
+      }
+    }
+
+    h3,
+    p {
+      font-size: $sizeFontRegular;
+      line-height: $sizeLineHeightBase;
+      margin: 0;
+    }
+
+    h3 {
+      font-weight: $fontWeightBlack;
+    }
+  }
+
+  .mdl-image-figure {
+    margin-top: $sizeRegular;
+  }
+
+  .mdl-image-figure,
+  .mdl-image-figure__img-wrapper {
+    margin-bottom: 0;
+  }
+}
