@@ -1,12 +1,19 @@
 $tooltip-info-icon-size: 22px;
 $tooltip-bubble-max-width: 260px;
 $tooltip-bubble-close-icon-size: 14px;
+
 .mdl-tooltip {
   position: relative;
 
+  &.open {
+    .mdl-tooltip__bubble {
+      display: block;
+    }
+  }
+
   &__text {
     position: relative;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     height: pxToRem($tooltip-info-icon-size);
 
@@ -16,24 +23,24 @@ $tooltip-bubble-close-icon-size: 14px;
       margin: 0;
       padding-right: pxToRem($sizeTiny);
     }
+  }
 
-    button {
-      position: relative;
-      height: pxToRem($tooltip-info-icon-size);
+  &__trigger {
+    position: relative;
+    height: pxToRem($tooltip-info-icon-size);
 
-      &:after {
-        content: '';
-        position: absolute;
-        z-index: 0;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    &:after {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
 
-        width: 80%;
-        height: 80%;
-        background-color: $colorBlack60;
-        border-radius: 50%;
-      }
+      width: 80%;
+      height: 80%;
+      background-color: $colorBlack60;
+      border-radius: 50%;
     }
 
     .icon {
@@ -53,12 +60,13 @@ $tooltip-bubble-close-icon-size: 14px;
   }
 
   &__bubble {
+    display: none;
     position: absolute;
     box-shadow: 0 0 pxToRem($sizeRegular) rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
     background: $colorWhite;
     padding: pxToRem($sizeSmallLarge) pxToRem($sizeLarge);
     border-radius: 1px;
-    max-width: pxToRem($tooltip-bubble-max-width);
+    width: pxToRem($tooltip-bubble-max-width);
 
     &:before {
       content: '';
@@ -83,6 +91,9 @@ $tooltip-bubble-close-icon-size: 14px;
 
     &--arrow-left,
     &--arrow-right {
+      top: 50%;
+      transform: translateY(-50%);
+
       &:before {
         top: 50%;
         transform: translateY(-50%) rotate(45deg);
@@ -90,6 +101,8 @@ $tooltip-bubble-close-icon-size: 14px;
     }
 
     &--arrow-left {
+      left: calc(100% + #{$sizeSmallRegular});
+
       &:before {
         left: pxToRem(-$sizeTiny);
         box-shadow: pxToRem(-$sizeMini) pxToRem(-$sizeMini) pxToRem($sizeTiny) pxToRem(-$sizeTiny) rgba(0, 0, 0, 0.16), -1px 1px 2px -1px rgba(0, 0, 0, 0.32);
@@ -97,6 +110,8 @@ $tooltip-bubble-close-icon-size: 14px;
     }
 
     &--arrow-right {
+      right: calc(100% + #{$sizeSmallRegular});
+
       &:before {
         right: pxToRem(-$sizeTiny);
         box-shadow: pxToRem($sizeMini) pxToRem(-$sizeMini) pxToRem($sizeTiny) pxToRem(-$sizeTiny) rgba(0, 0, 0, 0.16), 1px -1px 2px -1px rgba(0, 0, 0, 0.32);
@@ -105,6 +120,9 @@ $tooltip-bubble-close-icon-size: 14px;
 
     &--arrow-top,
     &--arrow-bottom {
+      left: 50%;
+      transform: translateX(-50%);
+
       &:before {
         left: 50%;
         transform: translateX(-50%) rotate(45deg);

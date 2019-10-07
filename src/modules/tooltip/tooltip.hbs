@@ -1,7 +1,7 @@
 <div class="mdl-tooltip" data-init="tooltip">
   <div class="mdl-tooltip__text">
     {{#if helptext}}<p>{{helptext}}</p>{{/if}}
-    <button data-tooltip-id="todo-unique-id" aria-describedby="todo-unique-id">
+    <button class="mdl-tooltip__trigger" data-tooltip-id="todo-unique-id" aria-describedby="todo-unique-id">
       <span class="visuallyhidden">
         Erweiterter Hilfetext anzeigen
       </span>
@@ -9,30 +9,29 @@
         <use xlink:href="#get-information"></use>
       </svg>
     </button>
-  </div>
-
-  <div class="mdl-tooltip__bubble mdl-tooltip__bubble--arrow-bottom" id="todo-unique-id" aria-hidden="false">
-    <button>
+    <div class="mdl-tooltip__bubble mdl-tooltip__bubble--arrow-bottom" id="todo-unique-id" aria-hidden="false">
+      <button>
       <span class="visuallyhidden">
         Hilfetextfenster schliessen
       </span>
-      <svg class="icon">
-        <use xlink:href="#exit"></use>
-      </svg>
-    </button>
+        <svg class="icon">
+          <use xlink:href="#exit"></use>
+        </svg>
+      </button>
 
-    {{#if bubble.heading}}
-      <h3>
-        {{bubble.heading}}
-      </h3>
-    {{/if}}
-    {{#if bubble.text}}
-    <p>
-      {{{bubble.text}}}
-    </p>
-    {{/if}}
-    {{#if bubble.image}}
-      {{> "modules/image_figure/image_figure" bubble.image}}
-    {{/if}}
+      {{#if bubble.heading}}
+        <h3>
+          {{bubble.heading}}
+        </h3>
+      {{/if}}
+      {{#if bubble.text}}
+        <p>
+          {{{bubble.text}}}
+        </p>
+      {{/if}}
+      {{#if bubble.image}}
+        {{> "modules/image_figure/image_figure" bubble.image}}
+      {{/if}}
+    </div>
   </div>
 </div>
