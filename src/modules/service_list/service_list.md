@@ -25,7 +25,7 @@ ACHTUNG!: Es muss darauf geachtet werden, dass die id Attribute bei den Modals i
     <div class="grid-x grid-margin-x">
       <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
         <!-- modal content -->
-        {{> "modules/service_wrapper/service_wrapper" serviceWrapper }}
+        {{> "modules/instructions/instructions" instructions }}
       </div>
     </div>
   </div>
