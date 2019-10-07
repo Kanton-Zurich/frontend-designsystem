@@ -4,16 +4,18 @@
  * @author
  * @copyright
  */
-import { debounce, template, sortBy } from 'lodash';
+import { template } from 'lodash';
 
 import Module from '../../assets/js/helpers/module';
 import Form from '../../assets/js/helpers/form.class';
+import Autosuggest from '../../assets/js/helpers/autosuggest';
 
 class Topiclist extends Module {
   public options: {
     url: string,
     hasFilter: Boolean,
     inputDelay: number,
+    maxEntries: number,
     domSelectors: {
       showAllButton: string,
       contentNavItems: string,
@@ -65,10 +67,11 @@ class Topiclist extends Module {
       filteredPages: [],
       isNav: false,
       currentLayer: 0,
+      url: null,
     };
     const defaultOptions = {
       hasFilter: false,
-      inputDelay: 250,
+      maxEntries: 8,
       domSelectors: {
         showAllButton: '[data-topiclist="showAllTrigger"]',
         contentNavItems: '[data-init="topiclist"] .mdl-content_nav > ul > li',
@@ -97,12 +100,14 @@ class Topiclist extends Module {
 
     this.data.isNav = this.ui.element.classList.contains(this.options.stateClasses.nav);
 
+    if (this.options.url) {
+      this.fetchData();
+    }
+
     this.initUi();
     this.initEventListeners();
 
     if (this.options.hasFilter) {
-      this.initWatchers();
-
       new Form(this.ui.element);
     }
   }
@@ -112,14 +117,15 @@ class Topiclist extends Module {
    */
   initEventListeners() {
     this.eventDelegate
-      .on('click', this.options.domSelectors.showAllButton, this.showAll.bind(this));
+      .on('click', this.options.domSelectors.showAllButton, this.showAll.bind(this))
+      .on(Autosuggest.events.filtered, this.onAutosuggestDisplay.bind(this))
+      .on(Autosuggest.events.reset, this.onAutosuggestReset.bind(this))
+      .on(Autosuggest.events.noResult, this.renderNoResult.bind(this));
 
     if (this.data.isNav) {
       this.eventDelegate
         .on('loadNavigation', async () => {
           if (Object.keys(this.data.json).length === 0) {
-            await this.fetchData();
-
             this.renderNavigation();
           }
 
@@ -131,7 +137,6 @@ class Topiclist extends Module {
   }
 
   initWatchers() {
-    this.watch(this.ui.input, 'value', debounce(this.onValueChange.bind(this), this.options.inputDelay));
     this.watch(this.data, 'currentLayer', this.onLayerChange.bind(this));
   }
 
@@ -145,49 +150,29 @@ class Topiclist extends Module {
   }
 
   /**
-   * Async function which is fired when the filter value is changed
-   * @param propName the name of the property (not used)
-   * @param valueBefore the value before the change
-   * @param valueAfter the value after the change (the current value)
+   * When Autosuggest has done something
+   *
+   * @param {*} event
+   * @memberof Topiclist
    */
-  async onValueChange(propName, valueBefore, valueAfter) {
-    if (valueBefore === valueAfter) {
-      return false;
-    }
-    const entriesToShowButton = 8;
+  onAutosuggestDisplay(event) {
+    this.removeNoResult();
 
-    this.data.query = valueAfter;
-    this.data.filteredPages = [];
+    this.ui.element.classList.add(this.options.stateClasses.filtered);
+    this.ui.element.classList.remove(this.options.stateClasses.expanded);
 
-    if (Object.keys(this.data.json).length === 0) {
-      await this.fetchData();
-    }
-
-    if (this.data.query.length > 1) {
-      this.filterPages(this.data.query);
-      this.ui.autosuggest.querySelector('ul').innerHTML = '';
-
-      this.ui.element.classList.add(this.options.stateClasses.filtered);
-      this.removeNoResult();
-
-      if (this.data.filteredPages.length > 0) {
-        this.renderAutoSuggest();
-
-        this.ui.element.classList.remove(this.options.stateClasses.expanded);
-
-        if (this.data.filteredPages.length >= entriesToShowButton) {
-          this.ui.showAllButton.style.display = 'inline-flex';
-        } else {
-          this.ui.showAllButton.style.display = 'none';
-        }
-      } else {
-        this.renderNoResult();
-      }
+    if (event.detail >= this.options.maxEntries) {
+      this.ui.showAllButton.style.display = 'inline-flex';
     } else {
-      this.ui.element.classList.remove(this.options.stateClasses.filtered);
       this.ui.showAllButton.style.display = 'none';
     }
-    return true;
+  }
+
+  onAutosuggestReset() {
+    this.removeNoResult();
+
+    this.ui.element.classList.remove(this.options.stateClasses.filtered);
+    this.ui.showAllButton.style.display = 'none';
   }
 
   /**
@@ -203,6 +188,14 @@ class Topiclist extends Module {
       .then((response) => {
         if (response) {
           this.data.json = response;
+
+          new Autosuggest({
+            url: this.options.url,
+            input: this.ui.input,
+            target: this.ui.autosuggest,
+            parent: this.ui.element,
+            template: this.ui.contentTeaserTemplate.innerHTML,
+          }, this.data.json.pages.middleSection);
         }
       })
       .catch((err) => {
@@ -210,56 +203,6 @@ class Topiclist extends Module {
       });
   }
 
-  /**
-   * Filtering the topics
-   * @param query The input of the filter field
-   */
-  filterPages(query) {
-    const queryRegEx = new RegExp(query, 'gi');
-
-    this.data.json.pages.middleSection.forEach((item) => {
-      this.getMatchingItems(item, queryRegEx);
-    });
-  }
-
-  /**
-   * Returns all matching items with the query
-   * @param item a contentnav item delivered by the json
-   * @param query The regex for the query
-   */
-  getMatchingItems(item, query) {
-    const titleMatch = query.test(item.title);
-    let synonymMatch = false;
-
-    if (item.synonyms) {
-      synonymMatch = item.synonyms.filter(synonym => query.test(synonym)).length > 0;
-    }
-
-    if (titleMatch || synonymMatch) this.data.filteredPages.push(item);
-
-    if (item.subpages) {
-      item.subpages.forEach((subpage) => {
-        this.getMatchingItems(subpage, query);
-      });
-    }
-  }
-
-  /**
-   * The found items will be rendered as autosuggest
-   */
-  renderAutoSuggest() {
-    const filteredPagesSorted = sortBy(this.data.filteredPages, ['title']);
-
-    filteredPagesSorted.forEach((topic) => {
-      this.renderContentTeaser(this.ui.autosuggest, {
-        shortTitle: topic.title,
-        buzzwords: '',
-        target: topic.path,
-      }, false, topic);
-    });
-
-    window.dispatchEvent(new CustomEvent('reloadLineClamper'));
-  }
 
   /**
    * This renders the initial navigation
@@ -308,7 +251,9 @@ class Topiclist extends Module {
   /**
    * Renders the no result display for the filter
    */
-  renderNoResult() {
+  renderNoResult(event) {
+    this.onAutosuggestDisplay(event);
+
     const compiled = template(this.ui.contentTeaserTemplate.innerHTML);
     const html = compiled({
       shortTitle: this.data.json.filterField.noResultsLabel,
@@ -332,8 +277,8 @@ class Topiclist extends Module {
     // Render the link to the search
     const compiled2 = template(this.ui.searchLink.innerHTML);
     const html2 = compiled2({
-      title: this.data.json.filterField.searchInSiteSearchLabel.replace(/\${query}/g, this.data.query),
-      path: this.data.json.filterField.searchPage.replace(/\${query}/g, this.data.query),
+      title: this.data.json.filterField.searchInSiteSearchLabel.replace(/\${query}/g, event.detail.query),
+      path: this.data.json.filterField.searchPage.replace(/\${query}/g, event.detail.query),
     });
 
     const parsedLink = new DOMParser().parseFromString(html2, 'text/html').querySelector('a');

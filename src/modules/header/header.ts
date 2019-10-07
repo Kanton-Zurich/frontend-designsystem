@@ -130,10 +130,12 @@ class Header extends Module {
 
     this.data.activeModal.dispatchEvent(new CustomEvent('Modal.open'));
 
-    this.ui.element.classList.add(this.options.stateClasses.open);
-    this.ui.element.classList.add(this.options.colorClasses.monochrome);
-    this.data.activeItem.classList.add(this.options.stateClasses.activeItem);
-    document.documentElement.classList.add(this.options.stateClasses.fixedHeader);
+    if (!this.data.activeItem.hasAttribute('data-search')) {
+      this.ui.element.classList.add(this.options.stateClasses.open);
+      this.ui.element.classList.add(this.options.colorClasses.monochrome);
+      this.data.activeItem.classList.add(this.options.stateClasses.activeItem);
+      document.documentElement.classList.add(this.options.stateClasses.fixedHeader);
+    }
 
     this.data.activeItem.setAttribute('aria-expanded', 'true');
   }
