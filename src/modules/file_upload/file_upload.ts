@@ -130,9 +130,12 @@ class FileUpload extends Module {
 
       this.eventDelegate.on('drop', this.options.domSelectors.dropzone, (e) => {
         this.removeDropzoneClass();
-        this.ui.input.files = e.dataTransfer.files;
 
-        this.onChange();
+        if (e.dataTransfer.files.length === 1) {
+          this.ui.input.files = e.dataTransfer.files;
+
+          this.onChange();
+        }
       });
 
       this.eventDelegate.on(FileUpload.events.mainMoved, (event) => {
