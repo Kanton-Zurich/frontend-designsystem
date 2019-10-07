@@ -1,4 +1,5 @@
 $toggleWidth: 56px;
+$toggleFrameWidth: 60px;
 $toggleBackgroundHeight: 24px;
 $toggleDimension: 32px;
 
@@ -42,6 +43,14 @@ $toggleDimension: 32px;
 
       @include transition(border-color left);
     }
+  }
+
+  input {
+    opacity: 0;
+    position: absolute;
+    height: pxToRem($sizeBiggerBig);
+    width: pxToRem($toggleFrameWidth);
+    margin-top: - pxToRem($sizeTiny);
   }
 
   input:checked + &__label {
