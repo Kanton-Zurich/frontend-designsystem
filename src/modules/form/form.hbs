@@ -69,11 +69,13 @@
                 {{/each}}
 
                 {{#if ../isDuplicatable}}
-                  <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
-                    <svg class="icon">
-                      <use xlink:href="#delete"></use>
-                    </svg>
-                  </button>
+                  {{#if @last}}
+                    <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
+                      <svg class="icon">
+                        <use xlink:href="#delete"></use>
+                      </svg>
+                    </button>
+                  {{/if}}
                 {{/if}}
               </div>
               {{#if ../isDuplicatable}}

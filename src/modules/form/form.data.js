@@ -47,10 +47,8 @@ const duplicateGroup = {
             isRequired: true,
           },
         })),
-    }],
-  },
-  {
-    fields: [{
+    },
+    {
       cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
         formInputData.variants.default.props,
         {
@@ -63,6 +61,49 @@ const duplicateGroup = {
           },
         })),
     }],
+  },
+  {
+    fields: [{
+      isSmall: true,
+      cellContent: () => handlebars.compile(formFieldsetHBS)({
+        fieldsetTitle: 'Checkboxen',
+        options: [
+          () => handlebars.compile(radioHBS)(_.merge({},
+            radioData.variants.default.props,
+            {
+              label: 'Test 1',
+              groupName: 'checkbox_in_duplication',
+              id: 'checkbox_1',
+              value: 'mrs',
+            })),
+          () => handlebars.compile(radioHBS)(_.merge({},
+            radioData.variants.default.props,
+            {
+              label: 'Test 2',
+              groupName: 'checkbox_in_duplication',
+              id: 'checkbox_2',
+              value: 'mr',
+            })),
+          () => handlebars.compile(radioHBS)(_.merge({},
+            radioData.variants.default.props,
+            {
+              label: 'Test 3',
+              groupName: 'checkbox_in_duplication',
+              id: 'checkbox_3',
+              value: 'no',
+            })),
+        ],
+      }),
+    }],
+  },
+  {
+    fields: [
+      {
+        cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+          datepickerData.variants.defaultDate.props,
+          {})),
+      },
+    ],
   }],
   duplicateButton: 'Weitere Staatsangehörigkeit hinzufügen',
 };
