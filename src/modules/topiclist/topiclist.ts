@@ -21,6 +21,7 @@ class Topiclist extends Module {
       contentNavItems: string,
       hiddenContentNavItems: any,
       subnavLayerUp: string,
+      input: string,
     },
     stateClasses: {
       expanded: string,
@@ -100,10 +101,6 @@ class Topiclist extends Module {
 
     this.data.isNav = this.ui.element.classList.contains(this.options.stateClasses.nav);
 
-    if (this.options.url) {
-      this.fetchData();
-    }
-
     this.initUi();
     this.initEventListeners();
 
@@ -120,11 +117,18 @@ class Topiclist extends Module {
       .on('click', this.options.domSelectors.showAllButton, this.showAll.bind(this))
       .on(Autosuggest.events.filtered, this.onAutosuggestDisplay.bind(this))
       .on(Autosuggest.events.reset, this.onAutosuggestReset.bind(this))
-      .on(Autosuggest.events.noResult, this.renderNoResult.bind(this));
+      .on(Autosuggest.events.noResult, this.renderNoResult.bind(this))
+      .on('focus', this.options.domSelectors.input, () => {
+        if (Object.keys(this.data.json).length === 0) {
+          this.fetchData();
+        }
+      });
 
     if (this.data.isNav) {
       this.eventDelegate
         .on('loadNavigation', async () => {
+          await this.fetchData();
+
           if (Object.keys(this.data.json).length === 0) {
             this.renderNavigation();
           }
@@ -189,6 +193,7 @@ class Topiclist extends Module {
         if (response) {
           this.data.json = response;
 
+          // Initialize the autosuggest, which we have data for now
           new Autosuggest({
             url: this.options.url,
             input: this.ui.input,
