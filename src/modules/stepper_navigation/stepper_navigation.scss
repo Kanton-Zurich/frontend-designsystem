@@ -17,6 +17,10 @@ $stepperNavigationCurves: (
     padding-bottom: pxToRem($sizeRegular * $sizeLineHeightBase);
   }
 
+  .mdl-stepper--success & {
+    display: none;
+  }
+
   &:after {
     position: absolute;
     content: ' ';
