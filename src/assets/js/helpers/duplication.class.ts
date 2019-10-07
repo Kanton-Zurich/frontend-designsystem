@@ -2,6 +2,8 @@ import { uniqueId } from 'lodash';
 import { Delegate } from 'dom-delegate';
 import { watch } from 'wrist';
 
+import { INTERACTION_ELEMENTS_QUERY } from './constants';
+
 class DuplicationElement {
   public ui: {
     element: HTMLDivElement,
@@ -106,6 +108,11 @@ class DuplicationElement {
         detail: parsedHTML,
       }));
 
+      // Focus the first focusable element in the duplicated group
+      setTimeout(() => {
+        (<HTMLElement>parsedHTML.querySelector(INTERACTION_ELEMENTS_QUERY)).focus();
+      }, 1);
+
       this.data.duplications += 1;
 
       if (this.data.duplications >= this.data.maxDuplications) {
@@ -121,6 +128,12 @@ class DuplicationElement {
     duplication.parentNode.removeChild(duplication);
 
     this.data.duplications -= 1;
+
+    const duplicators = this.ui.element.querySelectorAll(this.options.eventSelectors.duplicator);
+
+    setTimeout(() => {
+      duplicators[duplicators.length - 1].focus();
+    }, 1);
 
     if (this.data.duplications < this.data.maxDuplications) {
       this.ui.element.classList.remove(this.options.stateClasses.maxDuplicationsReached);

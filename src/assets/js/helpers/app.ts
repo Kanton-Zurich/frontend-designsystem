@@ -38,6 +38,7 @@ import LangSwitch from '../../../modules/lang_switch/lang_switch';
 import NewsFilterMobile from '../../../modules/news_filter_mobile/news_filter_mobile';
 import NewsOverview from '../../../modules/news_overview/news_overview';
 import Locations from '../../../modules/locations/locations';
+import MapView from '../../../modules/map_view/map_view';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -85,6 +86,7 @@ class App {
     this.modules.newsFilterMobile = NewsFilterMobile;
     this.modules.newsOverview = NewsOverview;
     this.modules.locations = Locations;
+    this.modules.mapView = MapView;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

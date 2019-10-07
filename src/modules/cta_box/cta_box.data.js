@@ -10,6 +10,7 @@ const data = _.merge({}, defaultData, {
     title: 'CTA Box',
     className: 'CTABox',
     jira: 'CZHDEV-550',
+    label: 'Inhalt',
     documentation: dataHelper.getDocumentation('cta_box.md'),
   },
   props: {

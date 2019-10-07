@@ -61,6 +61,7 @@ class Stepper extends Module {
         transitionRight: 'mdl-stepper__step--transition-right',
         transitionOut: 'mdl-stepper__step--transition-out',
         initialised: 'mdl-stepper--initialised',
+        onLastPage: 'mdl-stepper--last-page',
       },
     };
 
@@ -147,7 +148,6 @@ class Stepper extends Module {
     this.ui.steps[newValue].classList.remove(this.options.stateClasses.hiddenStep);
 
     this.setButtonVisibility();
-    this.setOnPageChangeFocus();
     this.deactiveSteps(newValue);
 
     if (this.ui.navigation) {
@@ -157,6 +157,10 @@ class Stepper extends Module {
         },
       }));
     }
+
+    setTimeout(() => {
+      this.setOnPageChangeFocus();
+    }, 0);
   }
 
   /**
@@ -195,9 +199,13 @@ class Stepper extends Module {
         if (this.nextStepIsLast()) {
           this.ui.next.style.display = 'none';
           this.ui.send.style.display = 'block';
+
+          this.ui.element.classList.add(this.options.stateClasses.onLastPage);
         } else {
           this.ui.next.style.display = 'block';
           this.ui.send.style.display = 'none';
+
+          this.ui.element.classList.remove(this.options.stateClasses.onLastPage);
         }
       }
     }

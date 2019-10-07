@@ -11,6 +11,7 @@ const data = _.merge({}, defaultData, {
     title: 'Datepicker',
     className: 'Datepicker',
     jira: 'CZHDEV-849',
+    label: 'Formular',
     documentation: dataHelper.getDocumentation('datepicker.md'),
     wrapInForm: true,
   },

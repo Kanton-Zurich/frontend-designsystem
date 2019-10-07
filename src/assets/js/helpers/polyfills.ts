@@ -53,7 +53,6 @@ export default function loadPolyfills() {
 
     const addAttrFocusable = (bool) => {
       const svgs = document.getElementsByTagName('svg');
-      console.log(svgs);
       let i = svgs.length;
       while (i--) { // eslint-disable-line
         svgs[i].setAttribute('focusable', bool);

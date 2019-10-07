@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Schwerpunkt Teaser',
     className: 'FocusTeaser',
     jira: 'CZHDEV-445',
+    label: 'Teaser',
     documentation: dataHelper.getDocumentation('focus_teaser.md'),
   },
   props: {

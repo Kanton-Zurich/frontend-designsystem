@@ -32,8 +32,10 @@
 
 					<ul class="sg_index_list">
 						{{#each modules}}
+              {{#each this}}
 							{{#unless meta.hideFromListing}}
 								<li>
+                  {{#if meta.label}} <span class="sg_group-label" style="border-color:  {{meta.labelBackground}}; background-color:  {{meta.labelBackground}}; color: {{meta.labelColor}}">{{meta.label}}</span>{{/if}}
 									<a class="atm-text_link"  href="{{meta.previewUrl}}">
 										{{meta.title}}
 									</a>
@@ -45,6 +47,7 @@
 									{{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
 								</li>
 							{{/unless}}
+              {{/each}}
 						{{/each}}
 					</ul>
 				</div>

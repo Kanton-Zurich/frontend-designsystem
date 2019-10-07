@@ -52,12 +52,31 @@ const duplicateGroup = {
   duplicateButton: 'Weitere Staatsangehörigkeit hinzufügen',
 };
 
+const duplicateRow = {
+  isDuplicatable: true,
+  duplicateLabels: {
+    add: 'Kind hinzufügen',
+    remove: 'Kind wieder entfernen',
+  },
+  fields: [{
+    cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+      formInputData.variants.default.props,
+      {
+        isFloatingLabel: true,
+        label: 'Vorname Kind',
+        name: _.uniqueId('vornameKind'),
+        uuid: _.uniqueId('vornameKind'),
+      })),
+  }],
+};
+
 const template = dataHelper.getFileContent('form.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'FormSection',
     className: 'FormSection',
     jira: 'CZHDEV-850',
+    label: 'Formular',
     documentation: dataHelper.getDocumentation('form.md'),
     wrapInForm: true,
   },
@@ -225,6 +244,7 @@ const variants = _.mapValues({
                 },
               ],
             },
+            duplicateRow,
             {
               fields: [
                 {

@@ -15,6 +15,7 @@ const data = _.merge({}, defaultData, {
     title: 'Sprachwechsel',
     className: 'LangSwitch',
     jira: 'CZHDEV-802',
+    label: 'Navigation',
     documentation: dataHelper.getDocumentation('lang_switch.md'),
   },
   props: {

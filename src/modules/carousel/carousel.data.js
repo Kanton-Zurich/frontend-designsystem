@@ -13,6 +13,7 @@ const data = _.merge({}, defaultData, {
     title: 'Slider / Carousel (Bildergalerie)',
     className: 'Carousel',
     jira: 'CZHDEV-113',
+    label: 'Komplex',
     documentation: dataHelper.getDocumentation('carousel.md'),
   },
   props: {
