@@ -64,6 +64,7 @@ class Stepper extends Module {
         transitionOut: 'mdl-stepper__step--transition-out',
         initialised: 'mdl-stepper--initialised',
         onLastPage: 'mdl-stepper--last-page',
+        success: 'mdl-stepper--success',
       },
     };
 
@@ -187,6 +188,9 @@ class Stepper extends Module {
     // If the last page show no buttons
     if (this.data.active === this.ui.steps.length - 1) {
       this.ui.control.style.display = 'none';
+
+      this.ui.element.classList.add(this.options.stateClasses.success);
+      this.ui.element.classList.remove(this.options.stateClasses.onLastPage);
     } else {
       if (this.ui.back) {
         if (this.data.active === 0) {
