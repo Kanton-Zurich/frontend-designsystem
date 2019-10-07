@@ -1,4 +1,4 @@
-<div{{#if anchorNavReference}} id="{{anchorNavReference}}"{{/if}} class="mdl-contact{{#if fullWidth}} mdl-contact--fullwidth{{/if}}" data-init="contact">
+<div{{#if anchorNavReference}} id="{{anchorNavReference}}"{{/if}} class="mdl-contact{{#if fullWidth}} mdl-contact--fullwidth{{/if}}{{#if inLocation}} mdl-contact--location{{/if}}{{#if mapData}} mdl-contact--with-map{{/if}}" data-init="contact">
   {{#if fullWidth}}
   <div class="lyt-wrapper">
   <div class="grid-x grid-margin-x">
@@ -42,7 +42,7 @@
             {{#if contactAddress.routeLinkHref}}
               <a target="_blank"
                  href="{{contactAddress.routeLinkHref}}"
-                 class="mdl-contact__show-route">{{contactAddress.routeLinkLabel}}
+                 class="mdl-contact__show-route{{#if inLocation}} atm-text_link{{/if}}">{{contactAddress.routeLinkLabel}}
               </a>
             {{/if}}
           </address>
@@ -121,7 +121,7 @@
           </svg>
         </div>
         <div class="mdl-contact__cell-content">
-          <a class="mdl-contact__mail" href="mailto:{{contactMail.address}}">{{contactMail.address}}</a><br>
+          <a class="mdl-contact__mail{{#if inLocation}} atm-text_link{{/if}}" href="mailto:{{contactMail.address}}">{{contactMail.address}}</a><br>
           <div class="mdl-contact__text">
             <p>
               {{contactMail.additionalInfo}}
@@ -136,6 +136,12 @@
   {{#if fullWidth}}
   </div>
   </div>
+    {{#if mapData}}
+      <div class="mdl-contact__map_container">
+        {{> "modules/map_view/map_view" mapData}}
+      </div>
+    {{/if}}
   </div>
   {{/if}}
+
 </div>

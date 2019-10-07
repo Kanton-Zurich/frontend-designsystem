@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Link-Liste',
     className: 'Linklist',
     jira: 'CZHDEV-187',
+    label: 'List',
     documentation: dataHelper.getDocumentation('linklist.md'),
   },
   props: {
@@ -67,6 +68,55 @@ const variants = _.mapValues({
     },
     props: {
       hasTitle: false,
+    },
+  },
+  locations: {
+    meta: {
+      title: 'With locations',
+      desc: 'Linklist as used in locations module',
+    },
+    props: {
+      hasTitle: false,
+      hasIndex: true,
+      links: [
+        {
+          linkListItemIsLocation: true,
+          linkListItemDistance: '2,0 km',
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
+          linkListItemLabel: 'Uetlibergstrasse 301, 8036 Zürich',
+          linkListItemHref: '/',
+        }, {
+          linkListItemIsLocation: true,
+          linkListItemDistance: '6,4 km',
+          linkListItemTitle: 'Strassenverkehrsamt Bassersdorf',
+          linkListItemLabel: 'Grindelstrasse 22, 8303 Bassersdorf',
+          linkListItemHref: '/',
+        }, {
+          linkListItemIsLocation: true,
+          linkListItemDistance: '6,7 km',
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Regensdorf',
+          linkListItemLabel: 'Riedthofstrasse 192, 8105 Regensdorf',
+          linkListItemHref: '/',
+        }, {
+          linkListItemIsLocation: true,
+          linkListItemDistance: '7,5 km',
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
+          linkListItemLabel: 'Taggenbergstrasse 1, 8408 Winterthur',
+          linkListItemHref: '/',
+        }, {
+          linkListItemIsLocation: true,
+          linkListItemDistance: '17,4 km',
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Bülach',
+          linkListItemLabel: 'Schützenmatt Straße 120, 8180 Bülach',
+          linkListItemHref: '/',
+        }, {
+          linkListItemIsLocation: true,
+          linkListItemDistance: '21,9 km',
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Schifffahrtskontrolle',
+          linkListItemLabel: 'Seestrasse 87, 8942 Oberrieden',
+          linkListItemHref: '/',
+        },
+      ],
     },
   },
 }, (variant) => {

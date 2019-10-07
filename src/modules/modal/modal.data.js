@@ -14,6 +14,7 @@ const data = _.merge({}, defaultData, {
     title: 'Modal',
     className: 'Modal',
     jira: 'CZHDEV-517',
+    label: 'Container',
     documentation: dataHelper.getDocumentation('modal.md'),
   },
   props: {

@@ -1,0 +1,40 @@
+<div class="mdl-locations" data-init="locations">
+    {{#if title}} <div class="mdl-locations__title">
+        <h{{{title.level}}} class="atm-heading atm-heading--bordered">{{ title.text }}</h{{{title.level}}}>
+    </div> {{/if}}
+    <div class="mdl-locations__wrapper">
+      <div class="mdl-locations__map" data-locations="map">
+        {{> "modules/map_view/map_view" mapData}}
+      </div>
+      <div class="mdl-locations__sidebar-wrapper cell medium-offset-1">
+        <div class="mdl-locations__sidebar{{#if_compare locationsList.links.length '===' 1}} mdl-locations__sidebar--single-location{{/if_compare}}"
+             data-locations="sidebar">
+          <div class="mdl-locations__filter">
+            <div class="mdl-locations__filter_head">
+              {{> "atoms/form_input/form_input" locationsFormInput }}
+              {{> "atoms/button/button" toggleListBtn }}
+            </div>
+
+            <div class="mdl-locations__filter_empty">
+                <strong>Keine PLZ / Ort gefunden</strong>
+                {{> "atoms/text_link/text_link" textLinkNoResult }}
+                <template data-locations="emptyNoteTextTemplate">
+                    {{textLinkNoResult.text}}
+                </template>
+            </div>
+            {{> "modules/linklist/linklist" locationsList}}
+          </div>
+          <div class="mdl-locations__details">
+            <div class="mdl-locations__details_head">
+              {{> "atoms/button/button" backBtn }}
+            </div>
+            {{#each locationContacts}}
+              <div class="mdl-locations__details_location" data-locations="locationDetails">
+                {{> "modules/contact/contact" this}}
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

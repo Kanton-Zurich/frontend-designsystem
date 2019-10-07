@@ -4,7 +4,7 @@
   {{/if}}
   <ul class="mdl-linklist__list">
     {{#each links}}
-      <li class="mdl-linklist__item">
+      <li class="mdl-linklist__item" {{#if ../hasIndex}}data-linklist-itemindex="{{@index}}"{{/if}}>
         {{> "atoms/linklist_item/linklist_item" this}}
       </li>
     {{/each}}

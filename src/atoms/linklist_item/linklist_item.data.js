@@ -23,6 +23,19 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
+  location: {
+    meta: {
+      title: 'Link zu einem Standort',
+      desc: 'Bietet zusätzliche Zeile für Adresseinträge und eine Entfernungsangabe über dem Arrow',
+    },
+    props: {
+      linkListItemIsLocation: true,
+      linkListItemDistance: '2,0 km',
+      linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
+      linkListItemLabel: 'Uetlibergstrasse 301, 8036 Zürich',
+      linkListItemHref: '/',
+    },
+  },
   download: {
     meta: {
       title: 'Downloadlink',
@@ -58,6 +71,28 @@ const variants = _.mapValues({
       isLegalFoundation: true,
       linkListItemIsDownload: true,
       isButton: false,
+    },
+  },
+  filterMenu: {
+    meta: {
+      title: 'Filter Menu Item (CZHDEV-990)',
+      desc: '',
+    },
+    props: {
+      subtitle: '2 gewählt',
+      subTitlePattern: '% gewählt',
+      noColor: true,
+    },
+  },
+  filterDropdown: {
+    meta: {
+      title: 'Filter Dropdown (CZHDEV-990)',
+      desc: '',
+    },
+    props: {
+      subtitle: '26.08.2019 - 10.10.2020',
+      noColor: true,
+      chevron: true,
     },
   },
 }, (variant) => {

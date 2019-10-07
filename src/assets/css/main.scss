@@ -8,6 +8,9 @@
 // Reset / normalize styles
 @import '../../../node_modules/normalize.css/normalize';
 
+// Leaflet
+@import '../../../node_modules/leaflet/dist/leaflet';
+
 // Importing of XY-Grid
 @import '../../../node_modules/foundation-sites/scss/foundation';
 @import '../../../node_modules/flatpickr/dist/flatpickr';
@@ -45,6 +48,7 @@
 @import '../../atoms/checkbox/checkbox';
 @import '../../atoms/notification/notification';
 @import '../../atoms/list/list';
+@import '../../atoms/toggle/toggle';
 //*autoinsertatom*
 
 // Modules
@@ -110,8 +114,15 @@
 @import '../../modules/datepicker/datepicker';
 @import '../../modules/pagination/pagination';
 @import '../../modules/filter_pills/filter_pills';
+@import '../../modules/news_filter_mobile/news_filter_mobile';
+@import '../../modules/news_overview/news_overview';
 @import '../../modules/range/range';
 @import '../../modules/live_stream/live_stream';
+@import '../../modules/lang_switch/lang_switch';
+@import '../../modules/cta_box/cta_box';
+@import '../../modules/locations/locations';
+@import '../../modules/footer/footer';
+@import '../../modules/map_view/map_view';
 @import '../../modules/tooltip/tooltip';
 //*autoinsertmodule*
 

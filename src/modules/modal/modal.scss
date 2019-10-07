@@ -48,7 +48,7 @@ $modalCurves: (
 
   &--show {
     opacity: 1;
-    z-index: $zIndexOverlays;
+    z-index: $zIndexSkiplinks;
 
     transform: translateY(0);
 
@@ -104,6 +104,10 @@ $modalCurves: (
 
   &--flyout {
     @include sizeCurve(padding-top, height, $headerCurves);
+
+    &.mdl-modal--show {
+      z-index: $zIndexOverlays;
+    }
   }
 
   &__close {

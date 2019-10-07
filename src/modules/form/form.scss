@@ -10,6 +10,19 @@ $gapSize: pxToRem($sizeRegular);
     }
   }
 
+  &__group {
+    margin-left: -($gapSize/2);
+    margin-right: -($gapSize/2);
+
+    .form__group--duplicatable {
+      margin: 0;
+
+      .form__duplicator {
+        margin-bottom: $gapSize;
+      }
+    }
+  }
+
   &__group + &__group {
     margin-top: $gapSize;
   }
@@ -18,16 +31,10 @@ $gapSize: pxToRem($sizeRegular);
     display: flex;
     align-items: flex-start;
 
-    margin-left: -($gapSize/2);
-    margin-right: -($gapSize/2);
     padding-bottom: $gapSize;
 
-    &:last-of-type {
-      padding-bottom: 0;
-    }
-
     &:not(:last-of-type) {
-      button {
+      .form__duplicator {
         display: none;
       }
     }
@@ -54,12 +61,6 @@ $gapSize: pxToRem($sizeRegular);
       }
     }
 
-    &:last-child {
-      .form__row:last-of-type {
-        padding-bottom: 0;
-      }
-    }
-
     .form__row {
       position: relative;
     }
@@ -73,6 +74,7 @@ $gapSize: pxToRem($sizeRegular);
 
     &:first-child:last-child {
       flex-basis: 100%;
+      min-width: 100%;
     }
 
     &--small {
@@ -137,14 +139,14 @@ $gapSize: pxToRem($sizeRegular);
   }
 
   &__duplicator {
-    margin-top: $gapSize;
+    margin-left: $gapSize/2;
 
     .form__group--has-duplicated & {
       display: none;
     }
   }
 
-  .form__group--duplicatable {
+  .form__group--duplicatable:not(.form__group--limited) {
     .form__duplicated:last-of-type {
       .form__duplicator {
         display: flex;
@@ -179,4 +181,16 @@ $gapSize: pxToRem($sizeRegular);
       }
     }
   }
+
+  &__element {
+    &--hidden-by-rule {
+      display: none;
+    }
+  }
+}
+
+/** ADJUSTMENTS FOR AEM INTEGRATION */
+
+.form__row > div:not(.form__cell) {
+  width: 100%;
 }

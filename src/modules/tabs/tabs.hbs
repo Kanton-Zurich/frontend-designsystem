@@ -1,13 +1,17 @@
 <div class="mdl-tabs" data-init="tabs">
-  <ul class="mdl-button_group" data-init="buttonGroup">
-    {{#each tabs}}
-    <li class="mdl-button_group__item">
-      <button class="atm-button atm-button--secondary" data-tab-index="{{@index}}" role="tab" aria-selected="false">
-					{{{title}}}
-      </button>
-    </li>
-    {{/each}}
-  </ul>
+  <div class="mdl-tabs__controls">
+    <div class="mdl-tabs__controls-wrapper">
+      <ul class="mdl-button_group" data-init="buttonGroup">
+        {{#each tabs}}
+        <li class="mdl-button_group__item">
+          <button class="atm-button atm-button--secondary" data-tab-index="{{@index}}" role="tab" aria-selected="false">
+              {{{title}}}
+          </button>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
   {{#each tabs}}
     <div class="mdl-tabs__tab" role="tabpanel">{{{data}}}</div>
   {{/each}}

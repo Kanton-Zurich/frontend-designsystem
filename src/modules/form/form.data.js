@@ -19,11 +19,17 @@ const radioData = require('../../atoms/radiobutton/radiobutton.data');
 const selectHBS = dataHelper.getFileContent('../select/select.hbs');
 const selectData = require('../select/select.data');
 
+const fileUploadHBS = dataHelper.getFileContent('../file_upload/file_upload.hbs');
+const fileUploadData = require('../file_upload/file_upload.data');
+
 const datepickerHBS = dataHelper.getFileContent('../datepicker/datepicker.hbs');
 const datepickerData = require('../datepicker/datepicker.data');
 
+const listDemoData = require('../../atoms/list/list.data');
+
 const duplicateGroup = {
   isDuplicatable: true,
+  maxDuplications: 2,
   duplicateLabels: {
     add: 'Weitere Staatsangehörigkeit hinzufügen',
     remove: 'Staatangehörigkeit wieder entfernen',
@@ -46,14 +52,33 @@ const duplicateGroup = {
   duplicateButton: 'Weitere Staatsangehörigkeit hinzufügen',
 };
 
+const duplicateRow = {
+  isDuplicatable: true,
+  duplicateLabels: {
+    add: 'Kind hinzufügen',
+    remove: 'Kind wieder entfernen',
+  },
+  fields: [{
+    cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+      formInputData.variants.default.props,
+      {
+        isFloatingLabel: true,
+        label: 'Vorname Kind',
+        name: _.uniqueId('vornameKind'),
+        uuid: _.uniqueId('vornameKind'),
+      })),
+  }],
+};
+
 const template = dataHelper.getFileContent('form.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'FormSection',
     className: 'FormSection',
     jira: 'CZHDEV-850',
+    label: 'Formular',
     documentation: dataHelper.getDocumentation('form.md'),
-    hideFromListing: true,
+    wrapInForm: true,
   },
   props: {
     sectionTitle: 'Persönliche Angaben',
@@ -135,6 +160,36 @@ const variants = _.mapValues({
             },
             {
               fields: [{
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'E-Mail',
+                    name: 'emailaddr',
+                    uuid: 'emailaddr',
+                    type: 'email',
+                    validation: {
+                      errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+                    },
+                  })),
+              },
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'URL',
+                    name: 'url_input',
+                    uuid: 'url_input',
+                    type: 'url',
+                    validation: {
+                      errorMsg: 'Bitte geben Sie eine gültige URL an.',
+                    },
+                  })),
+              }],
+            },
+            {
+              fields: [{
                 isSmall: true,
                 cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
                   formInputData.variants.default.props,
@@ -147,6 +202,17 @@ const variants = _.mapValues({
                       isRequired: true,
                       pattern: '^[0-9]{4,4}$',
                       errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
+                    },
+                    zipCity: {
+                      fills: 'city',
+                      data: JSON.stringify({
+                        8000: 'Zürich',
+                        8001: 'Zürich',
+                        8004: 'Zürich',
+                        8310: 'Winterthur',
+                        8700: 'Küsnacht ZH',
+                        8620: 'Wetzikon',
+                      }),
                     },
                   })),
               },
@@ -175,6 +241,22 @@ const variants = _.mapValues({
                   cellContent: () => handlebars.compile(selectHBS)(_.merge({},
                     selectData.variants.multiSelect.props,
                     {})),
+                },
+              ],
+            },
+            duplicateRow,
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(fileUploadHBS)(_.merge({},
+                    fileUploadData.variants.default.props,
+                    {
+                      validation: {
+                        maxSize: 26214400,
+                        fileTypes: 'text/csv, image/gif, text/html, image/jpeg, application/pdf, image/png, image/tiff, application/rtf, image/svg+xml, text/plain, application/xml',
+                        isRequired: true,
+                      },
+                    })),
                 },
               ],
             },
@@ -373,6 +455,299 @@ const variants = _.mapValues({
           },
         ],
       }],
+    },
+  },
+  withRules: {
+    meta: {
+      title: 'Formular mit Logik (CZHDEV-1180)',
+      desc: 'Formular in dem Felder in gewissen Abhängigkeiten zu einander stehen',
+    },
+    props: {
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.props,
+                    {
+                      listData: _.merge({}, listDemoData.props, {
+                        groupId: 'group-nationality',
+                        isSingleSelect: true,
+                        selectOptions: [
+                          { value: '', label: '' },
+                          { value: 'DE', label: 'Deutschland', id: _.uniqueId('nationality') },
+                          { value: 'FR', label: 'Frankreich', id: _.uniqueId('nationality') },
+                          { value: 'UK', label: 'Vereinigtes Königreich', id: _.uniqueId('nationality') },
+                          { value: 'LU', label: 'Luxemburg', id: _.uniqueId('nationality') },
+                          { value: 'BE', label: 'Belgien', id: _.uniqueId('nationality') },
+                          { value: 'NL', label: 'Niederlande', id: _.uniqueId('nationality') },
+                          { value: 'CH', label: 'Schweiz', id: _.uniqueId('nationality') },
+                        ],
+                      }),
+                    })),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Bürgerort',
+                      name: 'place_of_citizenship',
+                      uuid: 'place_of_citizenship',
+                      validation: {
+                        isRequired: true,
+                      },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'group-nationality',
+                              equals: true,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                      ]),
+                    })),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  isSmall: true,
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Nationalität',
+                    options: [
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Schweiz',
+                          groupName: 'nationality-2',
+                          id: 100,
+                          value: 'CH',
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Nicht Schweiz',
+                          groupName: 'nationality-2',
+                          id: 102,
+                          value: 'none',
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Bürgerort',
+                      name: 'place_of_citizenship',
+                      uuid: 'place_of_citizenship',
+                      validation: {
+                        isRequired: true,
+                      },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-2',
+                              equals: false,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'hide',
+                        },
+                      ]),
+                    })),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  isSmall: true,
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Nationalität',
+                    options: [
+                      () => handlebars.compile(checkboxHBS)(_.merge({},
+                        checkboxData.variants.default.props,
+                        {
+                          label: 'Sind sie Ausländer/in?',
+                          groupName: 'nationality-3',
+                          id: 200,
+                          value: 'CH',
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Bürgerort',
+                      name: 'place_of_citizenship',
+                      uuid: 'place_of_citizenship',
+                      validation: {
+                        isRequired: true,
+                      },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-3',
+                              equals: true,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'hide',
+                        },
+                      ]),
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  checkboxesNationality: {
+    meta: {
+      title: 'Checkboxes für Stepper mit Logik',
+      desc: '',
+    },
+    props: {
+      sectionTitle: 'Staatsangehörigkeit',
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.variants.default.props,
+                    {
+                      listData: _.merge({}, listDemoData.props, {
+                        groupPostfix: 'nationality-x2',
+                        isSingleSelect: true,
+                        selectOptions: [
+                          { value: '', label: '' },
+                          { value: 'BE', label: 'Belgien', id: _.uniqueId('nationalityx') },
+                          { value: 'DE', label: 'Deutschland', id: _.uniqueId('nationalityx') },
+                          { value: 'FR', label: 'Frankreich', id: _.uniqueId('nationalityx') },
+                          { value: 'LU', label: 'Luxemburg', id: _.uniqueId('nationalityx') },
+                          { value: 'NL', label: 'Niederlande', id: _.uniqueId('nationalityx') },
+                          { value: 'SWE', label: 'Schweden', id: _.uniqueId('nationalityx') },
+                          { value: 'CH', label: 'Schweiz', id: _.uniqueId('nationalityx') },
+                          { value: 'UK', label: 'Vereinigtes Königreich', id: _.uniqueId('nationalityx') },
+                          { value: 'US', label: 'Vereinigte Staaten', id: _.uniqueId('nationalityx') },
+                        ],
+                      }),
+                    })),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Nationalität',
+                    options: [
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Schweiz',
+                          groupName: 'nationality-5',
+                          id: 333,
+                          value: 'CH',
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Nicht Schweiz',
+                          groupName: 'nationality-5',
+                          id: 334,
+                          value: 'none',
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  isSmall: true,
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Nationalität',
+                    options: [
+                      () => handlebars.compile(checkboxHBS)(_.merge({},
+                        checkboxData.variants.default.props,
+                        {
+                          label: 'Sind sie Ausländer/in?',
+                          groupName: 'nationality-33',
+                          id: 808,
+                          value: 'CH',
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  placeOfCitizenshipPage: {
+    meta: {
+      title: 'Einzelnes Feld für Stepper mit Logik',
+      desc: '',
+    },
+    props: {
+      sectionTitle: 'Bürgerort',
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Bürgerort',
+                      name: 'place_of_citizenship2',
+                      uuid: _.uniqueId('place_of_citizenship'),
+                      validation: {
+                        isRequired: true,
+                      },
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
     },
   },
 }, (variant) => {

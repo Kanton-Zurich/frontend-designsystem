@@ -55,5 +55,13 @@
 
     color: $colorBlack60;
   }
+
+  &__last-page-info {
+    display: none;
+
+    .mdl-stepper--last-page & {
+      display: block;
+    }
+  }
 }
 

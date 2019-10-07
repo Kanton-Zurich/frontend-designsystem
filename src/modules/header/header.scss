@@ -32,7 +32,7 @@ $headerCurves: (
     transform: none;
     left: 0;
 
-    z-index: $zIndexFlyouts;
+    z-index: $zIndexSkiplinks + 1;
   }
 
   &--fixed {
@@ -42,7 +42,7 @@ $headerCurves: (
 
     transition: none;
 
-    z-index: $zIndexFlyouts;
+    z-index: $zIndexSkiplinks + 1;
     transform: translateX(0);
     margin-left: 0;
   }

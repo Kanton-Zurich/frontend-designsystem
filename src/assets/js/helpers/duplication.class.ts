@@ -2,6 +2,8 @@ import { uniqueId } from 'lodash';
 import { Delegate } from 'dom-delegate';
 import { watch } from 'wrist';
 
+import { INTERACTION_ELEMENTS_QUERY } from './constants';
+
 class DuplicationElement {
   public ui: {
     element: HTMLDivElement,
@@ -16,6 +18,7 @@ class DuplicationElement {
 
   public data: {
     duplications: number,
+    maxDuplications: number,
   }
 
   private eventDelegate: any;
@@ -34,14 +37,20 @@ class DuplicationElement {
       },
       stateClasses: {
         hasDuplicated: 'form__group--has-duplicated',
+        maxDuplicationsReached: 'form__group--limited',
       },
     };
 
     this.data = {
       duplications: 0,
+      maxDuplications: Infinity,
     };
 
     this.eventDelegate = new Delegate(element);
+
+    if (this.ui.element.hasAttribute('data-max-duplications')) {
+      this.data.maxDuplications = parseInt(this.ui.element.getAttribute('data-max-duplications'), 10);
+    }
 
     this.initEventListeners();
     this.initWatcher();
@@ -71,34 +80,45 @@ class DuplicationElement {
   }
 
   duplicateItself() {
-    const parsedHTML = new DOMParser().parseFromString(this.ui.template.innerHTML, 'text/html').querySelector('div');
-    const uid = uniqueId();
-    const fields = parsedHTML.querySelectorAll('[for], [name], [id], [data-remove-uid]');
+    if (this.data.duplications < this.data.maxDuplications) {
+      const parsedHTML = new DOMParser().parseFromString(this.ui.template.innerHTML, 'text/html').querySelector('div');
+      const uid = uniqueId();
+      const fields = parsedHTML.querySelectorAll('[for], [name], [id], [data-remove-uid]');
 
-    parsedHTML.setAttribute('data-uid', uid);
+      parsedHTML.setAttribute('data-uid', uid);
 
-    fields.forEach((element) => {
-      if (element.hasAttribute('name')) {
-        element.setAttribute('name', `${element.getAttribute('name')}_${uid}`);
+      fields.forEach((element) => {
+        if (element.hasAttribute('name')) {
+          element.setAttribute('name', `${element.getAttribute('name')}_${uid}`);
+        }
+        if (element.hasAttribute('id')) {
+          element.setAttribute('id', `${element.getAttribute('id')}_${uid}`);
+        }
+        if (element.hasAttribute('for')) {
+          element.setAttribute('for', `${element.getAttribute('for')}_${uid}`);
+        }
+        if (element.hasAttribute('data-remove-uid')) {
+          element.setAttribute('data-remove-uid', uid);
+        }
+      });
+
+      this.ui.element.appendChild(parsedHTML);
+
+      this.ui.element.dispatchEvent(new CustomEvent(DuplicationElement.events.domReParsed, {
+        detail: parsedHTML,
+      }));
+
+      // Focus the first focusable element in the duplicated group
+      setTimeout(() => {
+        (<HTMLElement>parsedHTML.querySelector(INTERACTION_ELEMENTS_QUERY)).focus();
+      }, 1);
+
+      this.data.duplications += 1;
+
+      if (this.data.duplications >= this.data.maxDuplications) {
+        this.ui.element.classList.add(this.options.stateClasses.maxDuplicationsReached);
       }
-      if (element.hasAttribute('id')) {
-        element.setAttribute('id', `${element.getAttribute('id')}_${uid}`);
-      }
-      if (element.hasAttribute('for')) {
-        element.setAttribute('for', `${element.getAttribute('for')}_${uid}`);
-      }
-      if (element.hasAttribute('data-remove-uid')) {
-        element.setAttribute('data-remove-uid', uid);
-      }
-    });
-
-    this.ui.element.appendChild(parsedHTML);
-
-    this.ui.element.dispatchEvent(new CustomEvent(DuplicationElement.events.domReParsed, {
-      detail: parsedHTML,
-    }));
-
-    this.data.duplications += 1;
+    }
   }
 
   removeDuplication(event, delegate) {
@@ -108,6 +128,16 @@ class DuplicationElement {
     duplication.parentNode.removeChild(duplication);
 
     this.data.duplications -= 1;
+
+    const duplicators = this.ui.element.querySelectorAll(this.options.eventSelectors.duplicator);
+
+    setTimeout(() => {
+      duplicators[duplicators.length - 1].focus();
+    }, 1);
+
+    if (this.data.duplications < this.data.maxDuplications) {
+      this.ui.element.classList.remove(this.options.stateClasses.maxDuplicationsReached);
+    }
   }
 }
 

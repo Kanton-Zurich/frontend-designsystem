@@ -11,6 +11,7 @@ const data = _.merge({}, defaultData, {
     title: 'Datepicker',
     className: 'Datepicker',
     jira: 'CZHDEV-849',
+    label: 'Formular',
     documentation: dataHelper.getDocumentation('datepicker.md'),
     wrapInForm: true,
   },
@@ -94,6 +95,22 @@ const variants = _.mapValues({
           isRequired: true,
           errorMsg: 'Bitte geben Sie ein korrektes Datum an.',
         },
+      }),
+    },
+  },
+  dateRangeLinkListItem: {
+    meta: {
+      title: 'Datumsauswahl (Zeitspanne LinkListItem)',
+      desc: 'Implementation einer Datumsauswahl für eine  Zeitspanne',
+    },
+    props: {
+      isLinkListItem: true,
+      datetimeformat: 'date-range',
+      formInputData: _.merge({}, defaultFormInputData, {
+        label: 'Zeitraum von/bis',
+        iconOnly: { icon: 'calendar' },
+        uuid: _.uniqueId('date-range-'),
+        usedCustomIcon: true,
       }),
     },
   },

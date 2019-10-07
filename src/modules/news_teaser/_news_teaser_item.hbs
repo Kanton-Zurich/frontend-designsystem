@@ -1,0 +1,25 @@
+<a href="{{this.link}}">
+  <h3 class="atm-heading">
+    {{{this.title}}}
+  </h3>
+  <p class="mdl-news-teaser__item-label">
+    {{#if this.type}}{{this.type}}{{/if}}
+    <time datetime="">{{this.date}}</time>
+  </p>
+  {{#if this.teaserImage}}
+    <div class="mdl-news-teaser__item-image">
+      <figure class="mdl-image-figure">
+        <div class="mdl-image-figure__img-wrapper">
+          <figure class="mdl-image-figure">
+            <div class="mdl-image-figure__img-wrapper">
+              <img class="mdl-image-figure__img" src="{{this.teaserImage}}" alt="News Teaser bild" />
+            </div>
+          </figure>
+        </div>
+      </figure>
+    </div>
+  {{/if}}
+  {{#if this.teaserText}}
+    <p class="atm-paragraph">{{this.teaserText}}</p>
+  {{/if}}
+</a>
