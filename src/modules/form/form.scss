@@ -13,6 +13,14 @@ $gapSize: pxToRem($sizeRegular);
   &__group {
     margin-left: -($gapSize/2);
     margin-right: -($gapSize/2);
+
+    .form__group--duplicatable {
+      margin: 0;
+
+      .form__duplicator {
+        margin-bottom: $gapSize;
+      }
+    }
   }
 
   &__group + &__group {

@@ -249,7 +249,7 @@ const variants = _.mapValues({
   triggerPhone: {
     meta: {
       title: 'Select Trigger(phone)',
-      desc: 'Input mit floating Label',
+      desc: '',
     },
     props: {
       type: 'text',

@@ -1,4 +1,4 @@
-<div{{#if anchorNavReference}} id="{{anchorNavReference}}"{{/if}} class="mdl-contact{{#if fullWidth}} mdl-contact--fullwidth{{/if}}{{#if inLocation}} mdl-contact--location{{/if}}" data-init="contact">
+<div{{#if anchorNavReference}} id="{{anchorNavReference}}"{{/if}} class="mdl-contact{{#if fullWidth}} mdl-contact--fullwidth{{/if}}{{#if inLocation}} mdl-contact--location{{/if}}{{#if mapData}} mdl-contact--with-map{{/if}}" data-init="contact">
   {{#if fullWidth}}
   <div class="lyt-wrapper">
   <div class="grid-x grid-margin-x">
@@ -136,6 +136,12 @@
   {{#if fullWidth}}
   </div>
   </div>
+    {{#if mapData}}
+      <div class="mdl-contact__map_container">
+        {{> "modules/map_view/map_view" mapData}}
+      </div>
+    {{/if}}
   </div>
   {{/if}}
+
 </div>

@@ -47,9 +47,83 @@ const duplicateGroup = {
             isRequired: true,
           },
         })),
+    },
+    {
+      cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+        formInputData.variants.default.props,
+        {
+          isFloatingLabel: true,
+          label: 'Geburtsort',
+          name: 'place_of_birth',
+          uuid: 'place_of_birth',
+          validation: {
+            isRequired: true,
+          },
+        })),
     }],
+  },
+  {
+    fields: [{
+      isSmall: true,
+      cellContent: () => handlebars.compile(formFieldsetHBS)({
+        fieldsetTitle: 'Checkboxen',
+        options: [
+          () => handlebars.compile(radioHBS)(_.merge({},
+            radioData.variants.default.props,
+            {
+              label: 'Test 1',
+              groupName: 'checkbox_in_duplication',
+              id: 'checkbox_1',
+              value: 'mrs',
+            })),
+          () => handlebars.compile(radioHBS)(_.merge({},
+            radioData.variants.default.props,
+            {
+              label: 'Test 2',
+              groupName: 'checkbox_in_duplication',
+              id: 'checkbox_2',
+              value: 'mr',
+            })),
+          () => handlebars.compile(radioHBS)(_.merge({},
+            radioData.variants.default.props,
+            {
+              label: 'Test 3',
+              groupName: 'checkbox_in_duplication',
+              id: 'checkbox_3',
+              value: 'no',
+            })),
+        ],
+      }),
+    }],
+  },
+  {
+    fields: [
+      {
+        cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+          datepickerData.variants.defaultDate.props,
+          {})),
+      },
+    ],
   }],
   duplicateButton: 'Weitere Staatsangehörigkeit hinzufügen',
+};
+
+const duplicateRow = {
+  isDuplicatable: true,
+  duplicateLabels: {
+    add: 'Kind hinzufügen',
+    remove: 'Kind wieder entfernen',
+  },
+  fields: [{
+    cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+      formInputData.variants.default.props,
+      {
+        isFloatingLabel: true,
+        label: 'Vorname Kind',
+        name: _.uniqueId('vornameKind'),
+        uuid: _.uniqueId('vornameKind'),
+      })),
+  }],
 };
 
 const template = dataHelper.getFileContent('form.hbs');
@@ -216,7 +290,7 @@ const variants = _.mapValues({
               fields: [
                 {
                   cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
-                    datepickerData.variants.defaultDate.props,
+                    datepickerData.variants.dateRange.props,
                     {})),
                 },
                 {
@@ -226,6 +300,62 @@ const variants = _.mapValues({
                 },
               ],
             },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.variants.selectPhone.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.dateAndTime.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.dateAndTime.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.dateRange.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.variants.default.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Alternative E-Mail',
+                      name: 'altemailaddr',
+                      uuid: 'altemailaddr',
+                      type: 'email',
+                      validation: {
+                        isRequired: true,
+                        errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+                      },
+                    })),
+                },
+              ],
+            },
+            duplicateRow,
             {
               fields: [
                 {
@@ -734,7 +864,9 @@ const variants = _.mapValues({
 }, (variant) => {
   // eslint-disable
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
-    if (key === 'rows' || Array.isArray(variantValue)) { return variantValue; }
+    if (key === 'rows' || Array.isArray(variantValue)) {
+      return variantValue;
+    }
   }).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
   const variantData = _.mergeWith({}, data, variant, {
@@ -748,7 +880,9 @@ const variants = _.mapValues({
       },
     },
   }, (dataValue, variantValue, key) => {
-    if (key === 'rows' || Array.isArray(variantValue)) { return variantValue; }
+    if (key === 'rows' || Array.isArray(variantValue)) {
+      return variantValue;
+    }
   });
 
   return variantData;

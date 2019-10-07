@@ -1,3 +1,23 @@
+$contactMapHeightSmall: 395px;
+$contactMapHeightMedium: 302px;
+$contactMapHeightLarge: 500px;
+$contactMapHeightCurve: (
+  default: (
+    tiny: $contactMapHeightSmall,
+    small: $contactMapHeightMedium,
+    medium: $contactMapHeightMedium,
+    large: $contactMapHeightMedium,
+    xlarge: $contactMapHeightLarge,
+  ),
+  makespace: (
+    tiny: $contactMapHeightSmall - $sizeHuge + $sizeSmallRegular,
+    small: $contactMapHeightMedium - $sizeHuge + $sizeBig,
+    medium: $contactMapHeightMedium - $sizeHuge + $sizeBig,
+    large: $contactMapHeightMedium - $sizeHuge + $sizeBig,
+    xlarge: $contactMapHeightLarge,
+  )
+);
+
 .mdl-contact {
   background-color: $colorViolet;
   color: $colorWhite;
@@ -10,6 +30,10 @@
 
     padding: $sizeHuge 0;
     margin-bottom: 0;
+  }
+
+  &--with-map {
+    @include sizeCurve(margin-bottom, makespace, $contactMapHeightCurve);
   }
 
   .atm-heading {
@@ -238,11 +262,18 @@
     }
   }
 
+  &__map_container {
+    @include sizeCurve(height , default, $contactMapHeightCurve);
+    @include sizeCurve(margin-bottom , default, $contactMapHeightCurve, true);
+    margin-top: pxToRem($sizeBiggerBig);
+    background: $colorBlack15;
+  }
+
   /*
   * Media Queries SMALL
   */
   @include mq($from: small) {
-    &:not(.mdl-contact--location) {
+    &:not(.mdl-contact--location):not(.mdl-contact--fullwidth):not(.mdl-contact--with-map) {
       padding: pxToRem($sizeLarge) 0;
     }
 
@@ -308,7 +339,7 @@
   * Media Queries XLARGE
   */
   @include mq($from: xlarge) {
-    &:not(.mdl-contact--location) {
+    &:not(.mdl-contact--location):not(.mdl-contact--fullwidth):not(.mdl-contact--with-map) {
       padding: pxToRem($sizeBiggerBig) 0;
     }
 
@@ -322,6 +353,10 @@
       .mdl-contact__cell-icon {
         margin-top: 0;
       }
+    }
+
+    &--with-map {
+      padding: pxToRem($sizeHuge) 0;
     }
 
     .atm-heading {
@@ -364,6 +399,10 @@
     &__phone,
     &__mail {
       line-height: $sizeLineHeightMedium;
+    }
+
+    &__map_container {
+      margin-top: pxToRem($sizeHuge);
     }
   }
 }

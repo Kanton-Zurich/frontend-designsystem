@@ -21,7 +21,8 @@ class Stepper extends Module {
     steps: any,
     back: HTMLButtonElement,
     next: HTMLButtonElement,
-    wrapper: HTMLFormElement,
+    wrapper: HTMLDivElement,
+    form: HTMLFormElement,
     send: HTMLButtonElement,
     control: HTMLDivElement,
     navigation: HTMLOListElement,
@@ -54,6 +55,7 @@ class Stepper extends Module {
         notificationTemplate: '[data-stepper="notificationTemplate"]',
         messageWrapper: '[data-stepper="messageWrapper"]',
         rules: '[data-rules]',
+        form: '[data-stepper="form"]',
       },
       stateClasses: {
         hiddenStep: 'mdl-stepper__step--hidden',
@@ -61,6 +63,8 @@ class Stepper extends Module {
         transitionRight: 'mdl-stepper__step--transition-right',
         transitionOut: 'mdl-stepper__step--transition-out',
         initialised: 'mdl-stepper--initialised',
+        onLastPage: 'mdl-stepper--last-page',
+        success: 'mdl-stepper--success',
       },
     };
 
@@ -147,7 +151,6 @@ class Stepper extends Module {
     this.ui.steps[newValue].classList.remove(this.options.stateClasses.hiddenStep);
 
     this.setButtonVisibility();
-    this.setOnPageChangeFocus();
     this.deactiveSteps(newValue);
 
     if (this.ui.navigation) {
@@ -157,6 +160,10 @@ class Stepper extends Module {
         },
       }));
     }
+
+    setTimeout(() => {
+      this.setOnPageChangeFocus();
+    }, 0);
   }
 
   /**
@@ -181,6 +188,9 @@ class Stepper extends Module {
     // If the last page show no buttons
     if (this.data.active === this.ui.steps.length - 1) {
       this.ui.control.style.display = 'none';
+
+      this.ui.element.classList.add(this.options.stateClasses.success);
+      this.ui.element.classList.remove(this.options.stateClasses.onLastPage);
     } else {
       if (this.ui.back) {
         if (this.data.active === 0) {
@@ -195,9 +205,13 @@ class Stepper extends Module {
         if (this.nextStepIsLast()) {
           this.ui.next.style.display = 'none';
           this.ui.send.style.display = 'block';
+
+          this.ui.element.classList.add(this.options.stateClasses.onLastPage);
         } else {
           this.ui.next.style.display = 'block';
           this.ui.send.style.display = 'none';
+
+          this.ui.element.classList.remove(this.options.stateClasses.onLastPage);
         }
       }
     }
@@ -237,7 +251,7 @@ class Stepper extends Module {
   validateSection() {
     const section = this.ui.steps[this.data.active].querySelector('section');
 
-    this.ui.wrapper.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
+    this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
       detail: {
         section,
       },
@@ -248,7 +262,7 @@ class Stepper extends Module {
     if (newIndex > this.data.active) {
       this.validateSection();
 
-      if (this.ui.wrapper.hasAttribute('form-has-errors')) {
+      if (this.ui.form.hasAttribute('form-has-errors')) {
         return false;
       }
 
@@ -267,14 +281,14 @@ class Stepper extends Module {
   }
 
   async sendForm() {
-    const form = this.ui.wrapper;
+    const { form } = this.ui;
     const action = form.getAttribute('action');
-    const formData = new FormData(this.ui.wrapper);
+    const formData = new FormData(this.ui.form);
 
     this.validateSection();
 
     // Only of no errors are present in the form, it will be sent via ajax
-    if (!this.ui.wrapper.hasAttribute('form-has-errors')) {
+    if (!this.ui.form.hasAttribute('form-has-errors')) {
       if (!window.fetch) {
         await import('whatwg-fetch');
       }
