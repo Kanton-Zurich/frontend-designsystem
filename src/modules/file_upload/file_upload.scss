@@ -50,6 +50,20 @@
     }
   }
 
+  &--duplicated:not(:first-child) {
+    .atm-heading,
+    label:not(.atm-button) {
+      @include visuallyhidden;
+    }
+  }
+
+  &:not(:first-child) {
+    .atm-heading,
+    label:not(.atm-button) {
+      @include visuallyhidden;
+    }
+  }
+
   &__list {
     @include resetList;
   }

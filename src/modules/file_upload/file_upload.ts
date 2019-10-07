@@ -13,6 +13,8 @@ class FileUpload extends Module {
     domSelectors: any,
     stateClasses: any,
     isMultiple: boolean,
+    isDuplicated: boolean,
+    fileuploadSelector: string,
   }
 
   public ui: {
@@ -21,19 +23,24 @@ class FileUpload extends Module {
     itemTemplate: HTMLScriptElement,
     list: HTMLDivElement | HTMLUListElement,
     dropzone: HTMLDivElement,
+    form: HTMLFormElement,
   }
 
   public data: {
     hasDropzone: boolean,
     files: FileList,
+    counter: number,
+    htmlAttributes: any,
   }
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
       hasDropzone: true,
+      counter: 0,
     };
     const defaultOptions = {
       isMultiple: false,
+      isDuplicated: false,
       domSelectors: {
         input: '[data-file_upload="input"]',
         itemTemplate: '[data-file_upload="item-template"]',
@@ -45,14 +52,16 @@ class FileUpload extends Module {
         activeDropzone: 'mdl-file_upload--active-dropzone',
         dropzoneDragOver: 'mdl-file_upload__dropzone--dragover',
         noDropzone: 'mdl-file_upload--no-dropzone',
+        duplicated: 'mdl-file_upload--duplicated',
       },
+      fileuploadSelector: '[data-init="fileUpload"]',
     };
 
     super($element, defaultData, defaultOptions, data, options);
 
     this.initUi();
 
-    this.options.isMultiple = this.ui.input.hasAttribute('multiple');
+    this.options.isMultiple = this.ui.input.hasAttribute('data-multiple');
 
     // Test if i can set the files attribute, this allows drag'n'drop behaviour
     try {
@@ -62,13 +71,39 @@ class FileUpload extends Module {
       this.data.hasDropzone = false;
     }
 
+    this.ui.form = this.ui.element.closest('form');
+
+    if (this.options.isDuplicated) {
+      this.onChange();
+      this.initDuplicatedUpload();
+    } else {
+      this.data.htmlAttributes = {
+        id: this.ui.input.getAttribute('id'),
+        name: this.ui.input.getAttribute('name'),
+      };
+    }
+
     this.initEventListeners();
   }
 
   static get events() {
     return {
-      // eventname: `eventname.${ FileUpload.name }.${  }`
+      duplicated: 'duplicated.FileUpload',
+      mainMoved: 'mainMoved.FileUpload',
     };
+  }
+
+  initDuplicatedUpload() {
+    this.ui.element.classList.add(this.options.stateClasses.duplicated);
+
+    this.ui.input.setAttribute('id', `${this.data.htmlAttributes.id}_${this.data.counter}`);
+    this.ui.input.setAttribute('name', `${this.data.htmlAttributes.name}_${this.data.counter}`);
+
+    const allForElements = this.ui.element.querySelectorAll('[for]');
+
+    allForElements.forEach((elementWithFor) => {
+      elementWithFor.setAttribute('for', `${this.data.htmlAttributes.id}_${this.data.counter}`);
+    });
   }
 
   /**
@@ -99,6 +134,10 @@ class FileUpload extends Module {
 
         this.onChange();
       });
+
+      this.eventDelegate.on(FileUpload.events.mainMoved, (event) => {
+        if (event.detail) this.ui.input.setAttribute('required', 'true');
+      });
     }
   }
 
@@ -107,6 +146,10 @@ class FileUpload extends Module {
 
     if (this.ui.input.files.length > 0) {
       this.ui.element.classList.add(this.options.stateClasses.noDropzone);
+
+      if (this.options.isMultiple) {
+        this.duplicateItself();
+      }
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.noDropzone);
     }
@@ -169,12 +212,57 @@ class FileUpload extends Module {
   }
 
   deleteFile() {
-    this.ui.input.value = '';
+    const parent = this.ui.element.parentElement;
+    const fileUploads = parent.querySelectorAll(this.options.fileuploadSelector);
+    const isRequired = this.ui.input.hasAttribute('required');
 
-    this.ui.input.type = '';
-    this.ui.input.type = 'file';
+    if (!this.options.isDuplicated) {
+      this.ui.input.value = '';
 
-    this.onChange();
+      this.ui.input.type = '';
+      this.ui.input.type = 'file';
+
+      this.onChange();
+
+      if (fileUploads.length > 1) {
+        parent.appendChild(this.ui.element);
+
+        this.ui.input.removeAttribute('required');
+      }
+    } else {
+      this.ui.element.remove();
+    }
+
+    if (isRequired) {
+      fileUploads.forEach((uploadElement, counter) => {
+        uploadElement.dispatchEvent(new CustomEvent(FileUpload.events.mainMoved, {
+          detail: counter === 0,
+        }));
+      });
+    }
+  }
+
+  duplicateItself() {
+    const clone = this.ui.element.cloneNode(true);
+    const cloneInput = (<HTMLElement>clone).querySelector('input');
+
+    cloneInput.value = '';
+    cloneInput.type = '';
+    cloneInput.type = 'file';
+    cloneInput.removeAttribute('required');
+
+    this.ui.element.parentElement.appendChild(clone);
+
+    new FileUpload(clone, {
+      counter: this.data.counter + 1,
+      htmlAttributes: this.data.htmlAttributes,
+    }, {
+      isDuplicated: true,
+    });
+
+    this.ui.form.dispatchEvent(new CustomEvent(FileUpload.events.duplicated, {
+      detail: clone,
+    }));
   }
 
   /**
