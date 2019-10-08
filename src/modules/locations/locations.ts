@@ -5,9 +5,13 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import MapView from '../map_view/map_view';
-// eslint-disable-next-line no-unused-vars
-import { DefaultOptions, LocationsModuleOptions } from './locations.options';
+import MapView,
+{ MarkerEvent, UserLocateEvent } // eslint-disable-line no-unused-vars
+  from '../map_view/map_view';
+import {
+  DefaultOptions,
+  LocationsModuleOptions, // eslint-disable-line no-unused-vars
+} from './locations.options';
 
 class Locations extends Module {
   public ui: {
@@ -105,7 +109,7 @@ class Locations extends Module {
       });
 
     this.ui.map
-      .addEventListener(MapView.events.markerMouseOver, (ev: CustomEvent) => {
+      .addEventListener(MapView.events.markerMouseOver, (ev: MarkerEvent) => {
         const markerMouseOverIdx = ev.detail.idx;
         this.log('Mouseover from map on marker', markerMouseOverIdx);
 
@@ -128,11 +132,36 @@ class Locations extends Module {
       });
 
     this.ui.map
-      .addEventListener(MapView.events.markerClicked, (ev: CustomEvent) => {
+      .addEventListener(MapView.events.markerClicked, (ev: MarkerEvent) => {
         const clickedIdx = ev.detail.idx;
         this.log('Marker clicked in map', clickedIdx);
         this.toggleLocationDetails(clickedIdx);
       });
+
+
+    this.ui.map
+      .addEventListener(MapView.events.userLocated, (ev: UserLocateEvent) => {
+        this.log('User located event: ', ev.detail);
+        if (ev.detail.markerDistances) {
+          const distances = ev.detail.markerDistances;
+          if (distances.length > 1) {
+            const listItems = this.ui.listItems as HTMLElement[];
+            listItems.forEach((item, i) => {
+              this.addDistanceToListItem(item, distances[i]);
+            });
+          } else if (distances.length === 1) {
+            this.addDistanceToListItem(this.ui.listItems as HTMLElement, distances[0]);
+          }
+        }
+      });
+  }
+
+  private addDistanceToListItem(item: HTMLElement, d: number) {
+    const distanceNote = item.querySelector(this.options.domSelectors.distanceAnnotation);
+    if (distanceNote) {
+      const fomatedDistanceString = d.toLocaleString('de', { maximumFractionDigits: 1 });
+      distanceNote.innerHTML = `${fomatedDistanceString}&nbsp;km`;
+    }
   }
 
   private onListItemsSelect(selectEventTarget?: HTMLElement): void {

@@ -1,6 +1,7 @@
 interface ModuleDomSelectors {
   map: string,
   listItems: string,
+  distanceAnnotation: string
   filterInput: string,
   sidebar: string,
   backBtn: string,
@@ -29,6 +30,7 @@ const focusDelay = 500;
 const domSelectors: ModuleDomSelectors = {
   map: '#locations-map',
   listItems: '[data-locations="listItem"]',
+  distanceAnnotation: '.atm-linklist_item__distance',
   filterInput: '[data-locations="input"]',
   sidebar: '[data-locations="sidebar"]',
   backBtn: '[data-locations="back"]',
