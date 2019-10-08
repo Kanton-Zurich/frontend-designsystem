@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Link-Liste',
     className: 'Linklist',
     jira: 'CZHDEV-187',
-    label: 'List',
+    label: 'Liste',
     documentation: dataHelper.getDocumentation('linklist.md'),
   },
   props: {

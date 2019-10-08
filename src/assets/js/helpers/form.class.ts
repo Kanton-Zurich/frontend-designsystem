@@ -77,7 +77,13 @@ class Form {
       this.validateField(field);
     }, this.options.validateDelay));
     this.eventDelegate.on('blur', this.options.watchEmitters.input, (event, field) => {
-      if (field.type !== 'file') this.validateField(field);
+      if (field.type !== 'file' && field.type !== 'radio') this.validateField(field);
+    });
+    this.ui.element.querySelectorAll(this.options.watchEmitters.input).forEach((input) => {
+      input.addEventListener('validateDeferred', (event) => {
+        console.log('validate');
+        this.validateField(event.detail.field);
+      });
     });
     this.eventDelegate.on('validateSection', this.validateSection.bind(this));
     this.eventDelegate.on('showFieldInvalid', (event) => {

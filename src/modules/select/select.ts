@@ -122,6 +122,9 @@ class Select extends Module {
       setValue: 'Select.setValue',
       open: 'Select.open',
       close: 'Select.close',
+      disable: 'Select.disable',
+      setFilter: 'Select.setFilter',
+      clear: 'Select.clear',
     };
   }
 
@@ -130,8 +133,8 @@ class Select extends Module {
    */
   initEventListeners() {
     this.eventDelegate
-      // ------------------------------------------------------------
-      // On Click dropdown item
+    // ------------------------------------------------------------
+    // On Click dropdown item
       .on('mouseup', this.options.domSelectors.inputItems, (event) => {
         if (!this.isMultiSelect) {
           if (this.isFirefox) {
@@ -201,10 +204,12 @@ class Select extends Module {
       // ------------------------------------------------------------
       // On Click Dropdown main element - open/close and stop propagation to prevent losing focus
       .on('click', this.options.domSelectors.trigger, (event) => {
-        if (this.isOpen) {
-          this.closeDropdown();
-        } else {
-          this.openDropdown();
+        if (!this.isDisabled()) {
+          if (this.isOpen) {
+            this.closeDropdown();
+          } else {
+            this.openDropdown();
+          }
         }
         event.stopPropagation();
       })
@@ -227,7 +232,10 @@ class Select extends Module {
       // ------------------------------------------------------------
       // On value of select changed
       .on(Select.events.valueChanged, this.onValueChanged.bind(this))
-      .on(Select.events.setValue, this.onSetValue.bind(this));
+      .on(Select.events.setValue, this.onSetValue.bind(this))
+      .on(Select.events.setFilter, this.onSetFilter.bind(this))
+      .on(Select.events.clear, this.onClear.bind(this))
+      .on(Select.events.disable, this.onSetDisabled.bind(this));
     // ------------------------------------------------------------
     // watch select items for status change and update style
     this.ui.inputItems.forEach((item, index) => {
@@ -286,18 +294,37 @@ class Select extends Module {
         }
       });
       this.watch(this.ui.filter, 'value', debounce((key, before, after) => { // eslint-disable-line
-        this.ui.items.forEach((li) => {
-          const searchString = after.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-          const regex = new RegExp(searchString, 'i');
-          if (regex.test(li.querySelector('input').placeholder)) {
-            li.classList.remove('hidden');
-          } else {
-            li.classList.add('hidden');
-          }
-        });
+        this.setFilter(after);
       }, this.options.inputDelay));
     }
+    // ------------------------------
+    // Set disabled if initially set
+    if (this.isDisabled()) {
+      this.setDisabled(true);
+    }
   }
+
+  /**
+   * Set filter value
+   */
+  setFilter(filterValue) {
+    let filterAttribute;
+    if (this.ui.element.hasAttribute('data-filter-attribute')) {
+      filterAttribute = this.ui.element.getAttribute('data-filter-attribute');
+    }
+    this.ui.items.forEach((li) => {
+      const searchString = filterValue.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+      const regex = new RegExp(searchString, 'i');
+      const testValue = filterAttribute ? li.querySelector('input').getAttribute(filterAttribute)
+        : li.querySelector('input').placeholder;
+      if (regex.test(testValue)) {
+        li.classList.remove('hidden');
+      } else {
+        li.classList.add('hidden');
+      }
+    });
+  }
+
 
   /**
    * Handle value change and trigger event for each item individually
@@ -332,6 +359,26 @@ class Select extends Module {
         this.emitValueChanged(values);
       }
     }
+  }
+
+  /**
+   * Check if element is disabled
+   */
+  isDisabled() {
+    return this.ui.element.hasAttribute('disabled');
+  }
+
+  /**
+   * Set disabled or enabled
+   */
+  setDisabled(disabled) {
+    if (disabled) {
+      this.ui.element.setAttribute('disabled', '');
+      this.ui.trigger.setAttribute('disabled', '');
+      return;
+    }
+    this.ui.trigger.removeAttribute('disabled');
+    this.ui.element.removeAttribute('disabled');
   }
 
   /**
@@ -397,10 +444,43 @@ class Select extends Module {
   }
 
   /**
+   * Handle set filter event
+   * @param event
+   */
+  onSetFilter(event) {
+    this.setFilter(event.detail.filterValue);
+  }
+
+  /**
    * Handle event when user clicks outside element
    */
   onFocusOut() {
     this.closeDropdown(true);
+  }
+
+  /**
+   * Handle on disable event
+   * @param event
+   */
+  onSetDisabled(event) {
+    const { disabled } = event.detail;
+    this.setDisabled(disabled);
+    if (disabled) {
+      this.closeDropdown(true);
+    }
+  }
+
+  /**
+   * Handle on clear event
+   */
+  onClear() {
+    this.ui.items.forEach((li) => {
+      const input = li.querySelector('input');
+      input.checked = false;
+      li.classList.remove('selected');
+      this.ui.triggerValue.innerText = '';
+    });
+    this.ui.element.classList.remove(this.options.stateClasses.selected);
   }
 
   /**
@@ -424,8 +504,10 @@ class Select extends Module {
         this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
       }
       // adjust height if single select
-      if (this.ui.items.length > 0) {
-        const itemsVerticalSize = this.ui.items.length * this.ui.items[0].clientHeight;
+      const visibleItems = this.ui.element
+        .querySelectorAll(this.options.domSelectors.visibleInputItems);
+      if (visibleItems.length > 0) {
+        const itemsVerticalSize = visibleItems.length * visibleItems[0].clientHeight;
         if (this.ui.dropdown.clientHeight > itemsVerticalSize) {
           this.ui.dropdown.style.height = `${itemsVerticalSize}px`;
         }
@@ -461,6 +543,11 @@ class Select extends Module {
           }
         }, this.options.dropdownDelay);
       } else {
+        console.log('close validate');
+        this.ui.element.querySelector(this.options.domSelectors.visibleInputItems)
+          .dispatchEvent(new CustomEvent('validateDeferred', {
+          detail: { field: this.ui.inputItems[0] },
+        }));
         this.updateFlyingFocus();
       }
       this.emitClose();
