@@ -14,10 +14,14 @@ import 'leaflet.markercluster';
 // @ts-ignore
 const { L } = window;
 
+// Approx. earth radius for Zurich ground level (km)
+const EARTH_RADIUS_ZH = 6366.977;
+
 const mapOptions: L.MapOptions = {
   crs: L.CRS.EPSG3857,
   maxZoom: 18,
   minZoom: 9,
+  scrollWheelZoom: false,
   zoomAnimation: true,
   zoomControl: false,
   attributionControl: false,
@@ -42,8 +46,6 @@ const markerIconDefault = L.divIcon({ className: markerClasses.default, iconSize
 const markerIconHighlight = L.divIcon({ className: markerClasses.highlight, iconSize: [0, 0] });
 const markerIconSelected = L.divIcon({ className: markerClasses.selected, iconSize: [0, 0] });
 const userPosIcon = L.divIcon({ className: markerClasses.userPos, iconSize: [0, 0] });
-
-interface MarkerEvent extends CustomEvent<{ idx: number}>{}
 
 class MapView extends Module {
   public options: MapViewModuleOptions;
@@ -82,6 +84,7 @@ class MapView extends Module {
       markerMouseOver: `eventname.${MapView.name}.marker_mouseover`,
       markerClicked: `eventname.${MapView.name}.marker_clicked`,
       fixMarker: `eventname.${MapView.name}.ext_marker_fix`,
+      userLocated: `eventname.${MapView.name}.user_located`,
     };
   }
 
@@ -98,9 +101,7 @@ class MapView extends Module {
         this.map.zoomOut();
       })
       .on('click', this.options.domSelectors.centerBtn, () => {
-        this.map.locate(
-          { setView: true },
-        );
+        this.map.locate();
       });
 
     this.ui.mapContainer
@@ -157,11 +158,10 @@ class MapView extends Module {
     getLabelLayer().addTo(this.map);
 
     if (this.ui.centerBtn) {
-      this.log('User locate enabled. Requesting user location.');
-      this.map.locate();
+      this.log('User locate enabled.');
       this.map.on('locationfound', (ev: L.LocationEvent) => {
         this.log('Locationfound event: ', ev);
-        const userLatLng = ev.latlng;
+        const userLatLng = L.latLng(47.468456, 8.671998); // TODO: DEV   ev.latlng;
         if (userLatLng) {
           if (!this.userPosMarker) {
             this.userPosMarker = L.marker(
@@ -170,8 +170,11 @@ class MapView extends Module {
             ).addTo(this.map);
           } else {
             this.userPosMarker.setLatLng(userLatLng);
-            this.map.fitBounds(ev.bounds);
           }
+          this.map.panTo(userLatLng);
+
+          const distances = this.getDistancesToMarkerLocations(userLatLng);
+          this.ui.mapContainer.dispatchEvent(MapView.userLocatedEvent(userLatLng, distances));
         }
       });
       this.map.on('locationerror', (errorEv: L.ErrorEvent) => {
@@ -249,6 +252,47 @@ class MapView extends Module {
     }
   }
 
+  private getDistancesToMarkerLocations(userLatLng: L.LatLng) {
+    const distances: number[] = [];
+    this.markers.forEach((m) => {
+      const markerLatLng = m.getLatLng();
+      const normD = this.haversine(markerLatLng, userLatLng);
+      distances.push(normD * EARTH_RADIUS_ZH);
+    });
+
+    return distances;
+  }
+
+  /**
+   * Method applies Haversine formula on 2 LatLng Expressions.
+   * (see https://en.wikipedia.org/wiki/Haversine_formula)
+   * Result is the distance of the two locations given by the LatLng values assuming
+   * a perfect sphere of radius = 1.
+   *
+   * @param latLng1
+   * @param latLng2
+   *
+   * @returns the distance of both oints on a perfect sphere.
+   */
+  private haversine(latLng1: L.LatLng, latLng2: L.LatLng) {
+    const dLat = this.deg2rad(latLng1.lat - latLng2.lat);
+    const dLng = this.deg2rad(latLng1.lng - latLng2.lng);
+    const h = Math.sin(dLat / 2) * Math.sin(dLat / 2) // eslint-disable-line no-magic-numbers
+      + Math.cos(this.deg2rad(latLng1.lat)) * Math.cos(this.deg2rad(latLng2.lat))
+      * Math.sin(dLng / 2) * Math.sin(dLng / 2); // eslint-disable-line no-magic-numbers
+    return 2 * Math.asin(Math.sqrt(h)); // eslint-disable-line no-magic-numbers
+  }
+
+  /**
+   * Converts angles measured in degree to radian values.
+   *
+   * @param deg angle measured in degree
+   * @returns angle measured in radian
+   */
+  private deg2rad(deg: number) {
+    return deg * (Math.PI / 180); // eslint-disable-line no-magic-numbers
+  }
+
   /**
    * Unbind events, remove data, custom teardown
    */
@@ -258,24 +302,32 @@ class MapView extends Module {
     // Custom destroy actions go here
   }
 
-  static extMarkerHighlightEvent(highlightIndex: number) {
+  static extMarkerHighlightEvent(highlightIndex: number): MarkerEvent {
     return new CustomEvent(MapView.events.highlightMarker, { detail: { idx: highlightIndex } });
   }
-  static extMarkerSelectEvent(selectIndex: number) {
+  static extMarkerSelectEvent(selectIndex: number): MarkerEvent {
     return new CustomEvent(MapView.events.fixMarker, { detail: { idx: selectIndex } });
   }
-  static markerMouseOverEvent(highlightIndex?: number) {
+  static markerMouseOverEvent(highlightIndex?: number): MarkerEvent {
     return new CustomEvent(
       MapView.events.markerMouseOver,
       { detail: { idx: highlightIndex === undefined ? -1 : highlightIndex } },
     );
   }
-  static markerMouseClickedEvent(clickedIndex?: number) {
+  static markerMouseClickedEvent(clickedIndex?: number): MarkerEvent {
     return new CustomEvent(
       MapView.events.markerClicked,
       { detail: { idx: clickedIndex === undefined ? -1 : clickedIndex } },
     );
   }
+  static userLocatedEvent(locateLatLng: L.LatLng, distances: number[]): UserLocateEvent {
+    return new CustomEvent(
+      MapView.events.userLocated,
+      { detail: { locateLatLng, markerDistances: distances } },
+    );
+  }
 }
-
+export interface MarkerEvent extends CustomEvent<{ idx: number}>{}
+export interface UserLocateEvent
+  extends CustomEvent<{ locateLatLng: L.LatLng, markerDistances: number[] }>{}
 export default MapView;
