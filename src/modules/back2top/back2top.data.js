@@ -25,6 +25,9 @@ const variants = _.mapValues({
       title: 'Default',
       desc: 'Default implementation',
     },
+    props: {
+      develop: true,
+    },
   },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;

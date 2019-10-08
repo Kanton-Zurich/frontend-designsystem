@@ -10,11 +10,7 @@ import {
   Back2TopDefaultOptions,
   Back2TopModuleOptions, // eslint-disable-line no-unused-vars
 } from './back2top.options';
-
-const CUSTOM_SMOOTH_SCROLL_CONFIG = {
-  stepDuration: 10,
-  refinement: 8,
-};
+import LangSwitch from '../lang_switch/lang_switch';
 
 class Back2top extends Module {
   public options: Back2TopModuleOptions;
@@ -25,15 +21,17 @@ class Back2top extends Module {
 
   public data: {
     unlockCond: {
-      neccessary: boolean,
+      necessary: boolean,
       sufficient: boolean,
     }
   };
 
+  private defaultBottomPos: number;
+
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
       unlockCond: {
-        neccessary: false,
+        necessary: false,
         sufficient: false,
       },
     };
@@ -43,6 +41,18 @@ class Back2top extends Module {
     this.initUi();
     this.initEventListeners();
     this.initWatchers();
+
+    this.log('Determine default bottom position value.');
+    if (this.ui.element.classList.contains(this.options.stateClasses.preserveLangSwitch)) {
+      this.log('Set to default.');
+      this.ui.element.classList.remove(this.options.stateClasses.preserveLangSwitch);
+      this.defaultBottomPos = window.innerHeight - this.ui.element.offsetTop;
+      this.log('Reset to initial state.');
+      this.ui.element.classList.add(this.options.stateClasses.preserveLangSwitch);
+    } else {
+      this.defaultBottomPos = window.innerHeight - this.ui.element.offsetTop;
+    }
+    this.log('Default bottom position: ', this.defaultBottomPos);
   }
 
   static get events() {
@@ -57,22 +67,28 @@ class Back2top extends Module {
   initEventListeners() {
     this.eventDelegate.on('click', () => {
       this.ui.element.classList.remove(this.options.stateClasses.unlocked);
-      if (this.scrolBehaviourEnabled()) {
+      if (this.scrollBehaviourEnabled()) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         this.smoothScrollTop();
-        // do smooth scroll by Hand
       }
     });
 
     this.initScrollEventListener();
   }
 
-  private scrolBehaviourEnabled(): boolean {
+  private scrollBehaviourEnabled(): boolean {
     return 'scrollBehavior' in document.documentElement.style;
   }
 
-  private smoothScrollTop(options = CUSTOM_SMOOTH_SCROLL_CONFIG): void {
+  /**
+   * Smooth scroll method for browser not supporting scroll behaviour option.
+   *
+   * @param options Configuration object with property 'stepDuration' = time in ms for each scroll
+   * step and a 'refinement' factor, which is an integer > 0 controlling the scroll amount
+   * for each step.
+   */
+  private smoothScrollTop(options = this.options.customSmoothScrollConfig): void {
     const initialScrollY = window.scrollY;
 
     let stepScrollY = initialScrollY;
@@ -80,15 +96,14 @@ class Back2top extends Module {
     const scrollSteps = [...new Array(options.refinement)].map((x, idx) => idx * idx);
     const int = setInterval(() => {
       const d = initialScrollY - stepScrollY;
-      scrollSteps.every((stepWidth, i) => {
-        const bound = stepWidth * options.stepDuration;
+      scrollSteps.every((stepSize, i) => {
+        const bound = stepSize * options.stepDuration;
         if (stepScrollY < bound || d < bound || i === scrollSteps.length - 1) {
-          stepScrollY -= stepWidth;
+          stepScrollY -= stepSize;
           return false;
         }
         return true;
       });
-      this.log('ScrollToY:', stepScrollY);
       window.scroll(0, stepScrollY);
       if (stepScrollY <= 0) {
         clearInterval(int);
@@ -99,25 +114,57 @@ class Back2top extends Module {
   private initScrollEventListener() {
     let previousScrollY = 0;
     let scrollUpStart: number = -1;
+    let prevScrollUp: number = -1;
+
+    const footerElement = document.querySelector<HTMLElement>(this.options.footerSelector);
+
     WindowEventListener.addEventListener('scroll', () => {
       const { scrollY } = window;
-      this.data.unlockCond.neccessary = scrollY > this.options.neccessaryScrollY;
+      this.data.unlockCond.necessary = scrollY > this.options.necessaryScrollY;
 
       if (previousScrollY > scrollY) {
         // scrolling up
         if (scrollUpStart > 0) {
           const d = scrollUpStart - scrollY;
           this.data.unlockCond.sufficient = d > this.options.sufficientScrollUp;
+          prevScrollUp = scrollY;
         } else {
           scrollUpStart = scrollY;
         }
-      } else {
+      } else if (scrollUpStart > 0 && scrollY - prevScrollUp > this.options.stateSlip) {
         // scrolling down
         scrollUpStart = -1;
         this.data.unlockCond.sufficient = false;
       }
 
-      previousScrollY = window.scrollY;
+      if (footerElement) {
+        this.log('Found Footer element.');
+        let footerOT = 0;
+        let el = footerElement;
+        while (el != null && (el.tagName || '').toLowerCase() !== 'html') {
+          footerOT += el.offsetTop || 0;
+          el = el.parentElement;
+        }
+        this.log('Footer element offsetTop: ', footerOT);
+        if (footerOT) {
+          const screenBottom = scrollY + window.innerHeight;
+
+          const pxInView = screenBottom - footerOT;
+          this.log(`Footer in view by ${pxInView} px`);
+          if (pxInView > 0) {
+            this.ui.element.style.transition = 'inherit';
+            this.log(`Setting element bottom value to  ${this.defaultBottomPos + pxInView} px`);
+            this.ui.element.style.bottom = `${this.defaultBottomPos + pxInView}px`;
+            setTimeout(() => {
+              this.ui.element.style.transition = null;
+            }, 0);
+          } else {
+            this.ui.element.style.bottom = null;
+          }
+        }
+      }
+
+      previousScrollY = scrollY;
     });
   }
 
@@ -125,23 +172,30 @@ class Back2top extends Module {
    * Initializing the watchers
    */
   initWatchers() {
-    this.watch(this.data.unlockCond, 'neccessary', this.onLockStateChange.bind(this));
+    this.watch(this.data.unlockCond, 'necessary', this.onLockStateChange.bind(this));
     this.watch(this.data.unlockCond, 'sufficient', this.onLockStateChange.bind(this));
+
+    // Handle case when langswitch is closed.
+    if (this.ui.element.classList.contains(this.options.stateClasses.preserveLangSwitch)) {
+      document.addEventListener(LangSwitch.events.hide, () => {
+        this.ui.element.classList.remove(this.options.stateClasses.preserveLangSwitch);
+      }, { once: true });
+    }
   }
 
   private onLockStateChange(propName, oldVal, newVal) {
     this.log('LockCondition change: ', propName, oldVal, newVal);
 
-    if (this.data.unlockCond.neccessary && this.data.unlockCond.sufficient) {
+    if (this.data.unlockCond.necessary && this.data.unlockCond.sufficient) {
       this.ui.element.classList.remove(this.options.stateClasses.scrolledOn);
       this.ui.element.classList.add(this.options.stateClasses.unlocked);
-    } else if (this.data.unlockCond.neccessary) {
-      if (propName === 'sufficient' && !newVal) {
-        this.ui.element.classList.add(this.options.stateClasses.scrolledOn);
-        setTimeout(() => {
-          this.ui.element.classList.remove(this.options.stateClasses.unlocked);
-        }, 1000);
-      }
+    } else if (!newVal) {
+      this.log('Scrolled on downwards.');
+      this.ui.element.classList.add(this.options.stateClasses.scrolledOn);
+      setTimeout(() => { // Remove classes after animations completed.
+        this.ui.element.classList.remove(this.options.stateClasses.scrolledOn);
+        this.ui.element.classList.remove(this.options.stateClasses.unlocked);
+      }, this.options.transitionDelay);
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.unlocked);
     }

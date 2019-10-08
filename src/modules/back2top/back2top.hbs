@@ -1,7 +1,11 @@
-<div style="height: 2000px; position: relative;">
-  <div class="mdl-back2top" data-init="back2top">
-      <div class="mdl-back2top__icon">
-          {{> "atoms/button/button" toTopBtn}}
-      </div>
-  </div>
+{{#if develop}}
+  <div style="height: 1500px">
+{{/if}}
+<div class="mdl-back2top{{#if preserveLangSwitch}} mdl-back2top--preserveLangSwitch{{/if}}" data-init="back2top">
+    <div class="mdl-back2top__icon">
+        {{> "atoms/button/button" toTopBtn}}
+    </div>
 </div>
+{{#if develop}}
+    </div>
+{{/if}}
