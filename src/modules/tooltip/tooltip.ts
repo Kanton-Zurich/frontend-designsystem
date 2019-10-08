@@ -25,6 +25,7 @@ class Tooltip extends Module {
     infoButton: HTMLButtonElement,
     tooltip: HTMLDivElement,
     infoContainer: HTMLDivElement,
+    wrapper: HTMLDivElement,
     closeButton: HTMLButtonElement,
   };
 
@@ -33,6 +34,7 @@ class Tooltip extends Module {
       infoButton: string,
       tooltip: string,
       infoContainer: string,
+      wrapper: string,
       closeButton: string,
     },
     stateClasses: {
@@ -52,6 +54,7 @@ class Tooltip extends Module {
         infoButton: '.mdl-tooltip__trigger',
         tooltip: '.mdl-tooltip__bubble',
         infoContainer: '.mdl-tooltip__text',
+        wrapper: '.mdl-tooltip__wrapper',
         closeButton: '.mdl-tooltip__bubble button',
       },
       stateClasses: {
@@ -85,12 +88,8 @@ class Tooltip extends Module {
   initEventListeners() {
     this.eventDelegate
       .on('click', this.options.domSelectors.infoButton, (event) => {
+        event.stopPropagation();
         this.toggleTooltip();
-
-        // Prevent bubbling to the document listener
-        if (event.target.closest('.mdl-tooltip__trigger')) {
-          event.stopPropagation();
-        }
       }).on('click', this.options.domSelectors.closeButton, () => {
         this.hideTooltip();
         this.isOpen = false;
@@ -171,7 +170,8 @@ class Tooltip extends Module {
   updateSpaces() {
     const windowHeight = window.innerHeight;
     const docRect = document.body.getBoundingClientRect();
-    const infoRect = this.ui.infoContainer.getBoundingClientRect();
+    //const infoRect = this.ui.infoContainer.getBoundingClientRect();
+    const infoRect = this.ui.wrapper.getBoundingClientRect();
     const rightCorner = infoRect.left + infoRect.width;
 
     this.spaceTop = infoRect.top;
@@ -185,23 +185,26 @@ class Tooltip extends Module {
    */
   setOptimalPosition() {
     const half = 2;
+    const heightOffset = 40;
     if (this.lastStateClass !== undefined) {
       this.ui.tooltip.classList.remove(this.lastStateClass);
     }
     // Position priority: Top -> Right -> Bottom -> Left
-    if (this.spaceTop > this.tooltipHeight) {
+    if (this.spaceTop > this.tooltipHeight + heightOffset
+      && this.spaceLeft > (this.tooltipMaxWidth/ half)) {
       // Position above
       this.lastStateClass = this.options.stateClasses.arrowBottom;
     } else if (this.spaceRight > this.tooltipMaxWidth
       && this.spaceTop > (this.tooltipHeight / half)) {
       // Position right
       this.lastStateClass = this.options.stateClasses.arrowLeft;
-    } else if (this.spaceBottom > this.tooltipHeight) {
-      // Position below
-      this.lastStateClass = this.options.stateClasses.arrowTop;
-    } else if (this.spaceLeft > this.tooltipMaxWidth) {
+    } else if (this.spaceLeft > this.tooltipMaxWidth
+      && this.spaceTop > (this.tooltipHeight / half)) {
       // Position left
       this.lastStateClass = this.options.stateClasses.arrowRight;
+    } else if (this.spaceBottom > this.tooltipHeight  + heightOffset) {
+      // Position below
+      this.lastStateClass = this.options.stateClasses.arrowTop;
     }
     this.ui.tooltip.classList.add(this.lastStateClass);
     this.ui.tooltip.style.display = 'block';

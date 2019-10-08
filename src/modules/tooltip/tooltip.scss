@@ -25,6 +25,8 @@ $tooltip-bubble-close-icon-size: 14px;
     }
   }
 
+
+
   &__trigger {
     position: relative;
     height: pxToRem($tooltip-info-icon-size);
@@ -121,6 +123,8 @@ $tooltip-bubble-close-icon-size: 14px;
 
     &--arrow-top,
     &--arrow-bottom {
+      left: 50%;
+      transform: translateX(-50%);
 
       &:before {
         left: 50%;
@@ -165,6 +169,11 @@ $tooltip-bubble-close-icon-size: 14px;
   .mdl-image-figure,
   .mdl-image-figure__img-wrapper {
     margin-bottom: 0;
+  }
+
+  &__wrapper {
+    position: relative;
+    display: inline-flex;
   }
 
   @include mq($from: small) {
