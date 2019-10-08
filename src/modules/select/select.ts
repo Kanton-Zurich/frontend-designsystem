@@ -373,8 +373,8 @@ class Select extends Module {
    */
   setDisabled(disabled) {
     if (disabled) {
-      this.ui.element.setAttribute('disabled', null);
-      this.ui.trigger.setAttribute('disabled', null);
+      this.ui.element.setAttribute('disabled', '');
+      this.ui.trigger.setAttribute('disabled', '');
       return;
     }
     this.ui.trigger.removeAttribute('disabled');
@@ -504,8 +504,10 @@ class Select extends Module {
         this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
       }
       // adjust height if single select
-      if (this.ui.items.length > 0) {
-        const itemsVerticalSize = this.ui.items.length * this.ui.items[0].clientHeight;
+      const visibleItems = this.ui.element
+        .querySelectorAll(this.options.domSelectors.visibleInputItems);
+      if (visibleItems.length > 0) {
+        const itemsVerticalSize = visibleItems.length * visibleItems[0].clientHeight;
         if (this.ui.dropdown.clientHeight > itemsVerticalSize) {
           this.ui.dropdown.style.height = `${itemsVerticalSize}px`;
         }
@@ -541,6 +543,11 @@ class Select extends Module {
           }
         }, this.options.dropdownDelay);
       } else {
+        console.log('close validate');
+        this.ui.element.querySelector(this.options.domSelectors.visibleInputItems)
+          .dispatchEvent(new CustomEvent('validateDeferred', {
+          detail: { field: this.ui.inputItems[0] },
+        }));
         this.updateFlyingFocus();
       }
       this.emitClose();

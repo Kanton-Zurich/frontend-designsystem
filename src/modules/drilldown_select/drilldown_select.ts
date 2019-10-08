@@ -52,6 +52,10 @@ class DrilldownSelect extends Module {
       this.ui.selects[1]
         .dispatchEvent(new CustomEvent(Select.events.clear));
     });
+    setTimeout(() => {
+      this.ui.selects[1]
+        .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: true } }));
+    }, 0);
   }
 
   /**
