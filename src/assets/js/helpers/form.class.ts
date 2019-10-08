@@ -81,7 +81,6 @@ class Form {
     });
     this.ui.element.querySelectorAll(this.options.watchEmitters.input).forEach((input) => {
       input.addEventListener('validateDeferred', (event) => {
-        console.log('validate');
         this.validateField(event.detail.field);
       });
     });

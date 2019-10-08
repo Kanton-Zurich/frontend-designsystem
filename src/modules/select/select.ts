@@ -543,7 +543,6 @@ class Select extends Module {
           }
         }, this.options.dropdownDelay);
       } else {
-        console.log('close validate');
         this.ui.element.querySelector(this.options.domSelectors.visibleInputItems)
           .dispatchEvent(new CustomEvent('validateDeferred', {
           detail: { field: this.ui.inputItems[0] },

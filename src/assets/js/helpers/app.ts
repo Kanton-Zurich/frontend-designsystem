@@ -86,6 +86,7 @@ class App {
     this.modules.newsOverview = NewsOverview;
     this.modules.locations = Locations;
     this.modules.mapView = MapView;
+    this.modules.drilldownSelect = DrilldownSelect;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
