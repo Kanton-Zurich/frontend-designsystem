@@ -204,8 +204,14 @@ $contactMapHeightCurve: (
         font-size: pxToRem($sizeFontRegular);
       }
 
+      &__mail,
+      &__show-route {
+        border-color: $colorCyan;
+      }
+
       &__text {
         font-size: pxToRem($sizeFontSmall);
+        color: $colorBlack60;
       }
 
       &__subtitle {
