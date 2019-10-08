@@ -1,5 +1,4 @@
 import WindowEventListener from '../../assets/js/helpers/events';
-
 /*!
  * FormInfo
  *
@@ -7,7 +6,6 @@ import WindowEventListener from '../../assets/js/helpers/events';
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import namespace from '../../assets/js/helpers/namespace';
 
 class Tooltip extends Module {
   isOpen: boolean;
@@ -47,8 +45,7 @@ class Tooltip extends Module {
   };
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       domSelectors: {
         infoButton: '.mdl-tooltip__trigger',
@@ -94,9 +91,10 @@ class Tooltip extends Module {
         this.hideTooltip();
         this.isOpen = false;
         this.ui.closeButton.blur();
-      }).on('click', this.options.domSelectors.tooltip, (event) => {
+      })
+      .on('click', this.options.domSelectors.tooltip, (event) => {
         event.stopPropagation();
-    });
+      });
 
     (<any>WindowEventListener).addDebouncedResizeListener(() => {
       if (this.isOpen) {
@@ -170,7 +168,6 @@ class Tooltip extends Module {
   updateSpaces() {
     const windowHeight = window.innerHeight;
     const docRect = document.body.getBoundingClientRect();
-    //const infoRect = this.ui.infoContainer.getBoundingClientRect();
     const infoRect = this.ui.wrapper.getBoundingClientRect();
     const rightCorner = infoRect.left + infoRect.width;
 
@@ -185,13 +182,16 @@ class Tooltip extends Module {
    */
   setOptimalPosition() {
     const half = 2;
-    const heightOffset = 40;
+    const heightOffset = 20;
+
     if (this.lastStateClass !== undefined) {
       this.ui.tooltip.classList.remove(this.lastStateClass);
     }
-    // Position priority: Top -> Right -> Bottom -> Left
+
+    // Position priority: Top -> Right -> Left -> Bottom
     if (this.spaceTop > this.tooltipHeight + heightOffset
-      && this.spaceLeft > (this.tooltipMaxWidth/ half)) {
+      &&this.spaceLeft > (this.tooltipMaxWidth / half)
+      && this.spaceRight > (this.tooltipMaxWidth / half)) {
       // Position above
       this.lastStateClass = this.options.stateClasses.arrowBottom;
     } else if (this.spaceRight > this.tooltipMaxWidth
@@ -202,10 +202,13 @@ class Tooltip extends Module {
       && this.spaceTop > (this.tooltipHeight / half)) {
       // Position left
       this.lastStateClass = this.options.stateClasses.arrowRight;
-    } else if (this.spaceBottom > this.tooltipHeight  + heightOffset) {
+    } else if (this.spaceBottom > this.tooltipHeight  + heightOffset
+      &&this.spaceLeft > (this.tooltipMaxWidth / half)
+      && this.spaceRight > (this.tooltipMaxWidth / half)) {
       // Position below
       this.lastStateClass = this.options.stateClasses.arrowTop;
     }
+
     this.ui.tooltip.classList.add(this.lastStateClass);
     this.ui.tooltip.style.display = 'block';
   }

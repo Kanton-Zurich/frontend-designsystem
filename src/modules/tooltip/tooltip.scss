@@ -13,20 +13,18 @@ $tooltip-bubble-close-icon-size: 14px;
 
   &__text {
     position: relative;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    height: pxToRem($tooltip-info-icon-size);
 
     p {
       font-size: $sizeFontSmall;
       line-height: $sizeLineHeightNarrow;
       margin: 0;
       padding-right: pxToRem($sizeTiny);
+      flex-grow: 1;
     }
   }
-
-
-
+  
   &__trigger {
     position: relative;
     height: pxToRem($tooltip-info-icon-size);
@@ -177,11 +175,9 @@ $tooltip-bubble-close-icon-size: 14px;
   }
 
   @include mq($from: small) {
-    &__bubble {
-      &--arrow-top,
-      &--arrow-bottom {
-        left: 50%;
-        transform: translateX(-50%);
+    &__text {
+      p {
+        flex-grow: 0;
       }
     }
   }
