@@ -2,7 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const defServiceWrapperData = require('../service_wrapper/service_wrapper.data.js');
+const defInstructionsData = require('../instructions/instructions.data.js');
 const defApplicationData = require('../application/application.data.js');
 const defIFrameData = require('../iframe/iframe.data.js');
 const topiclist = require('../topiclist/topiclist.data');
@@ -22,7 +22,7 @@ const data = _.merge({}, defaultData, {
     mainNavigation: false,
     modules: {
       contentModules: [
-        () => handlebars.compile(dataHelper.getFileContent('../service_wrapper/service_wrapper.hbs'))(defServiceWrapperData.variants.default.props),
+        () => handlebars.compile(dataHelper.getFileContent('../instructions/instructions.hbs'))(defInstructionsData.variants.serviceDemo.props),
       ],
     },
   },

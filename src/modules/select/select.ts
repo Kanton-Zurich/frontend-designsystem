@@ -423,6 +423,13 @@ class Select extends Module {
       } else {
         this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
       }
+      // adjust height if single select
+      if (this.ui.items.length > 0) {
+        const itemsVerticalSize = this.ui.items.length * this.ui.items[0].clientHeight;
+        if (this.ui.dropdown.clientHeight > itemsVerticalSize) {
+          this.ui.dropdown.style.height = `${itemsVerticalSize}px`;
+        }
+      }
     } else {
       this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
     }
@@ -438,6 +445,7 @@ class Select extends Module {
   closeDropdown(focusLost = false) {
     if (this.isOpen) {
       window.removeEventListener('mouseup', this.onFocusOut);
+      this.ui.dropdown.removeAttribute('style');
       const openClass = this.options.stateClasses.open;
       const dropDown = this.ui.element;
       dropDown.classList.remove(openClass);
