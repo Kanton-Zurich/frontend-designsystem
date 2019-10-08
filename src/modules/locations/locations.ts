@@ -152,6 +152,8 @@ class Locations extends Module {
           } else if (distances.length === 1) {
             this.addDistanceToListItem(this.ui.listItems as HTMLElement, distances[0]);
           }
+
+          this.sortListItemsByDistance();
         }
       });
   }
@@ -162,13 +164,35 @@ class Locations extends Module {
       const fomatedDistanceString = d.toLocaleString('de', { maximumFractionDigits: 1 });
       distanceNote.innerHTML = `${fomatedDistanceString}&nbsp;km`;
     }
+    item.parentElement.setAttribute(this.options.attrNames.locDistance, d.toString());
+  }
+
+  private sortListItemsByDistance() {
+    if (this.ui.listItems[0]) {
+      const lis: HTMLElement[] = [];
+      (this.ui.listItems as HTMLElement[]).forEach((item) => {
+        lis.push(item.parentElement);
+      });
+
+      lis.sort((a, b) => {
+        const distA = a.getAttribute(this.options.attrNames.locDistance);
+        const distB = b.getAttribute(this.options.attrNames.locDistance);
+        return parseInt(distA, 10) - parseInt(distB, 10);
+      });
+
+      const ul = lis[0].parentNode;
+      lis.forEach((sortItem) => {
+        ul.appendChild(sortItem);
+      });
+    }
   }
 
   private onListItemsSelect(selectEventTarget?: HTMLElement): void {
     let selectedItemIndex: number = -1;
 
     if (selectEventTarget && selectEventTarget.parentElement) {
-      const targetItemIndexStr = selectEventTarget.parentElement.getAttribute('data-linklist-itemindex');
+      const targetItemIndexStr = selectEventTarget.parentElement
+        .getAttribute(this.options.attrNames.itemIndex);
       try {
         selectedItemIndex = Number.parseInt(targetItemIndexStr, 10);
       } catch (e) {
@@ -245,7 +269,8 @@ class Locations extends Module {
         this.ui.emptyListHint.childNodes.forEach((childNode) => {
           if (!childNode.hasChildNodes() && childNode.textContent
             && childNode.textContent.trim().length > 0) {
-            childNode.textContent = this.ui.notFoundTextTemplate.content.textContent.replace('{searchTerm}', filterText);
+            childNode.textContent = this.ui.notFoundTextTemplate.content
+              .textContent.replace('{searchTerm}', filterText);
           }
         });
         this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.notFound);

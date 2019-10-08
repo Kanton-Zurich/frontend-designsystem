@@ -174,7 +174,7 @@ class MapView extends Module {
       this.log('User locate enabled.');
       this.map.on('locationfound', (ev: L.LocationEvent) => {
         this.log('Locationfound event: ', ev);
-        const userLatLng = L.latLng(47.468456, 8.671998); // TODO: DEV   ev.latlng;
+        const userLatLng = ev.latlng;
         if (userLatLng) {
           if (!this.userPosMarker) {
             this.userPosMarker = L.marker(
