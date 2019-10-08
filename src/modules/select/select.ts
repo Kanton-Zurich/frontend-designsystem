@@ -545,8 +545,8 @@ class Select extends Module {
       } else {
         this.ui.element.querySelector(this.options.domSelectors.visibleInputItems)
           .dispatchEvent(new CustomEvent('validateDeferred', {
-          detail: { field: this.ui.inputItems[0] },
-        }));
+            detail: { field: this.ui.inputItems[0] },
+          }));
         this.updateFlyingFocus();
       }
       this.emitClose();
