@@ -1,4 +1,4 @@
-<div class="mdl-file_upload" data-init="fileUpload" data-input>
+<div class="mdl-file_upload" data-init="fileUpload" data-input {{#if rules}}data-rules="{{rules}}"{{/if}}>
   {{#if title}}<h4 class="atm-heading">{{title}}</h4>{{/if}}
   <label for="{{input.id}}">{{subtitle}}</label>
   <input class="visuallyhidden" type="file" name="{{input.name}}" id="{{input.id}}" data-file_upload="input" {{#if isMultiple}}multiple{{/if}}
