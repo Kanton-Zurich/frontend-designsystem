@@ -60,7 +60,8 @@ $tooltip-bubble-close-icon-size: 14px;
   }
 
   &__bubble {
-    display: none;
+    opacity: 0; // display: none; will be set via JS
+    z-index: -1;
     position: absolute;
     box-shadow: 0 0 pxToRem($sizeRegular) rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
     background: $colorWhite;
@@ -120,8 +121,6 @@ $tooltip-bubble-close-icon-size: 14px;
 
     &--arrow-top,
     &--arrow-bottom {
-      left: 50%;
-      transform: translateX(-50%);
 
       &:before {
         left: 50%;
@@ -166,5 +165,15 @@ $tooltip-bubble-close-icon-size: 14px;
   .mdl-image-figure,
   .mdl-image-figure__img-wrapper {
     margin-bottom: 0;
+  }
+
+  @include mq($from: small) {
+    &__bubble {
+      &--arrow-top,
+      &--arrow-bottom {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
   }
 }

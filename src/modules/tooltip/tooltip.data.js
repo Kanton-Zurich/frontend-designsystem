@@ -20,7 +20,7 @@ const template = dataHelper.getFileContent('tooltip.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Tooltip',
-    className: 'FormInfo',
+    className: 'Tooltip',
     jira: 'CZHDEV-1203',
     documentation: dataHelper.getDocumentation('tooltip.md'),
   },
@@ -39,43 +39,47 @@ const variants = _.mapValues({
       bubble: {
         heading: 'Tooltip Ipsum',
         text: 'Ländernamen auf deutsch eingeben',
+        id: _.uniqueId('aria-default'),
       },
     },
   },
-  noHelpText: {
+  noLongText: {
     meta: {
-      title: 'Kein Hilfetext und sehr langer Tooltiptext',
-      desc: 'Default implementation, mit Überschrift und einem Text',
+      title: 'Langer Tooltiptext',
+      desc: 'Tooltip mit Überschrift und einem sehr langen Text',
     },
     props: {
       bubble: {
         heading: 'Tooltip Ipsum',
         text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+        id: _.uniqueId('aria-longtxt'),
       },
     },
   },
   withLinks: {
     meta: {
       title: 'Tooltip mit Links',
-      desc: 'Default implementation, mit Überschrift und einem Text',
+      desc: 'Tooltip mit einem Text der Links enthält',
     },
     props: {
       helptext: 'Datenschutz Richtlinien',
       bubble: {
         text: 'Ihre Daten werden ausschliesslich für den hier ersichtlichen Zweck verwendet. Siehe <a href="#" class="atm-text_link">Datenschutzerklärung</a> und <a href="#" class="atm-text_link">Nutzungsregelung</a>',
+        id: _.uniqueId('aria-anchors'),
       },
     },
   },
   withImage: {
     meta: {
       title: 'Tooltip mit Bild',
-      desc: 'Default implementation, mit Überschrift und einem Text',
+      desc: 'Tooltip mit einem Text und Bild',
     },
     props: {
       helptext: 'Datenschutz Richtlinien',
       bubble: {
         text: 'Ihre AHV-Nr. finden Sie unter anderem auf Ihrer Krankenversicherungskarte:',
         image: demoImageFigureData,
+        id: _.uniqueId('aria-image'),
       },
     },
   },
