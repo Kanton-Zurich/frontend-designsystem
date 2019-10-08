@@ -96,12 +96,25 @@ class MapView extends Module {
     this.eventDelegate
       .on('click', this.options.domSelectors.zoomInBtn, () => {
         this.map.zoomIn();
+        this.ui.zoomOutBtn.classList.remove(this.options.stateClasses.controlDisabled);
+        if (this.map.getZoom() === this.map.getMaxZoom()) {
+          this.ui.zoomInBtn.classList.add(this.options.stateClasses.controlDisabled);
+        } else {
+          this.ui.zoomInBtn.classList.remove(this.options.stateClasses.controlDisabled);
+        }
       })
       .on('click', this.options.domSelectors.zoomOutBtn, () => {
         this.map.zoomOut();
+        this.ui.zoomInBtn.classList.remove(this.options.stateClasses.controlDisabled);
+        if (this.map.getZoom() === this.map.getMinZoom()) {
+          this.ui.zoomOutBtn.classList.add(this.options.stateClasses.controlDisabled);
+        } else {
+          this.ui.zoomOutBtn.classList.remove(this.options.stateClasses.controlDisabled);
+        }
       })
       .on('click', this.options.domSelectors.centerBtn, () => {
         this.map.locate();
+        this.ui.centerBtn.classList.add(this.options.stateClasses.controlDisabled);
       });
 
     this.ui.mapContainer
@@ -175,6 +188,7 @@ class MapView extends Module {
 
           const distances = this.getDistancesToMarkerLocations(userLatLng);
           this.ui.mapContainer.dispatchEvent(MapView.userLocatedEvent(userLatLng, distances));
+          this.ui.centerBtn.classList.remove(this.options.stateClasses.controlDisabled);
         }
       });
       this.map.on('locationerror', (errorEv: L.ErrorEvent) => {
