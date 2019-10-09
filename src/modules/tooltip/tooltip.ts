@@ -130,7 +130,7 @@ class Tooltip extends Module {
       this.tooltipHeight = this.ui.tooltip.getBoundingClientRect().height;
       this.ui.tooltip.style.display = 'none';
       this.ui.tooltip.style.opacity = '1';
-      this.ui.tooltip.style.zIndex = '1';
+      this.ui.tooltip.style.zIndex = '1000';
       this.heightCached = true;
     }
 
