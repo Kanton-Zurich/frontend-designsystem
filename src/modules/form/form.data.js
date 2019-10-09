@@ -370,7 +370,7 @@ const variants = _.mapValues({
               fields: [
                 {
                   cellContent: () => handlebars.compile(fileUploadHBS)(_.merge({},
-                    fileUploadData.variants.default.props,
+                    fileUploadData.variants.multiple.props,
                     {
                       validation: {
                         maxSize: 26214400,
