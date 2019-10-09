@@ -373,12 +373,10 @@ class Select extends Module {
    */
   setDisabled(disabled) {
     if (disabled) {
-      this.ui.element.setAttribute('disabled', '');
       this.ui.trigger.setAttribute('disabled', '');
       return;
     }
     this.ui.trigger.removeAttribute('disabled');
-    this.ui.element.removeAttribute('disabled');
   }
 
   /**
