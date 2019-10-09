@@ -38,7 +38,7 @@ class Search extends Module {
         autosuggest: '[data-search="autosuggest"]',
       },
       stateClasses: {
-        // activated: 'is-activated'
+        noTags: 'mdl-search--hide-tags',
       },
     };
 
@@ -66,6 +66,16 @@ class Search extends Module {
         target: this.ui.autosuggest,
         url: this.options.url,
       }, {});
+    });
+
+    // When the Autosuggest is used hide the tags
+    this.ui.element.addEventListener(Autosuggest.events.filtered, () => {
+      this.ui.element.classList.add(this.options.stateClasses.noTags);
+    });
+
+    // When the Autosuggest is reset show the tags again
+    this.ui.element.addEventListener(Autosuggest.events.reset, () => {
+      this.ui.element.classList.remove(this.options.stateClasses.noTags);
     });
   }
 

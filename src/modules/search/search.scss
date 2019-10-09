@@ -57,4 +57,10 @@ $searchCurves: (
       color: $colorBlack60;
     }
   }
+
+  &__tag-group {
+    .mdl-search--hide-tags & {
+      display: none;
+    }
+  }
 }
