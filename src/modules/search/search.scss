@@ -75,4 +75,10 @@ $searchCurves: (
       opacity: 1;
     }
   }
+
+  &__autosuggest {
+    .atm-content_teaser__title {
+      font-weight: $fontWeightDefault;
+    }
+  }
 }

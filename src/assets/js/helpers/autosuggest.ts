@@ -26,6 +26,8 @@ class Autosuggest {
     parent: any,
   }
 
+  private stateClasses: any;
+
   private data: any
 
   private query: string
@@ -46,6 +48,7 @@ class Autosuggest {
     this.template = template(this.options.template);
 
     this.addWatcher();
+    this.addEvents();
   }
 
   static get events() {
@@ -59,6 +62,23 @@ class Autosuggest {
   /** Adding the watcher to see changes in the filter field */
   addWatcher() {
     watch(this.options.input, 'value', debounce(this.onQueryChange.bind(this), this.options.delay));
+  }
+
+  /**
+   * Adding the events
+   *
+   * @memberof Autosuggest
+   */
+  addEvents() {
+    this.options.input.addEventListener('keydown', (event) => {
+      if (event.code === 'ArrowDown' && this.options.list.childElementCount > 0) {
+        this.focusFirstItem();
+
+        return false;
+      }
+
+      return true;
+    });
   }
 
   /**
@@ -104,7 +124,7 @@ class Autosuggest {
         this.dispatchStatusEvent(Autosuggest.events.noResult);
       }
     } else {
-      this.options.list.innerHTML = '';
+      this.emptyAutosuggest();
 
       this.dispatchStatusEvent(Autosuggest.events.reset);
     }
@@ -135,7 +155,7 @@ class Autosuggest {
    * @memberof Autosuggest
    */
   filterData() {
-    const queryRegEx = new RegExp(this.query, 'gi');
+    const queryRegEx = new RegExp(`(${this.query})`, 'gi');
 
     if (this.results.length > 0) this.results = [];
 
@@ -143,7 +163,7 @@ class Autosuggest {
       if (Object.prototype.hasOwnProperty.call(item, 'title')) {
         this.matchComplexItem(item, queryRegEx);
       } else {
-        this.results.push(item);
+        this.results.push(item.replace(queryRegEx, '<span class="bold">$1</span>'));
       }
     });
   }
@@ -187,6 +207,8 @@ class Autosuggest {
         target: Object.prototype.hasOwnProperty.call(result, 'path') ? result.path : '',
       });
     });
+
+    this.addRenderedEvents();
   }
 
   /**
@@ -202,6 +224,12 @@ class Autosuggest {
     this.options.list.appendChild(parsed);
   }
 
+  /**
+   * Fetching the data, for autosuggest in search, topiclists will be loaded beforehand
+   *
+   * @returns Promise
+   * @memberof Autosuggest
+   */
   async fetchData() {
     if (!window.fetch) {
       await import('whatwg-fetch');
@@ -214,6 +242,57 @@ class Autosuggest {
           this.data = response.suggestions;
         }
       });
+  }
+
+  /**
+   * Adds the arrow up/down event listeners, which only works when there actually list item
+   *
+   * @memberof Autosuggest
+   */
+  addRenderedEvents() {
+    const listItems = this.options.list.querySelectorAll('a, button');
+
+    listItems.forEach((listItem) => {
+      listItem.addEventListener('keydown', (event) => {
+        switch ((<KeyboardEvent>event).code) {
+          case 'ArrowUp':
+            this.focusPrevItem(event.target);
+            break;
+          case 'ArrowDown':
+            this.focusNextItem(event.target);
+            break;
+          default:
+            break;
+        }
+      });
+    });
+  }
+
+  /**
+   * Focus the first item in the last
+   *
+   * @memberof Autosuggest
+   */
+  focusFirstItem() {
+    (<HTMLElement> this.options.list.querySelector('a, button')).focus();
+  }
+
+  focusPrevItem(currentFocus) {
+    const { parentElement } = currentFocus;
+
+    if (parentElement.previousSibling) {
+      parentElement.previousSibling.querySelector('a, button').focus();
+    } else {
+      this.options.input.focus();
+    }
+  }
+
+  focusNextItem(currentFocus) {
+    const { parentElement } = currentFocus;
+
+    if (parentElement.nextSibling) {
+      parentElement.nextSibling.querySelector('a, button').focus();
+    }
   }
 }
 
