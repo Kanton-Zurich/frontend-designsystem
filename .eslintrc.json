@@ -3,6 +3,7 @@
     "airbnb"
   ],
   "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": true,
@@ -16,7 +17,9 @@
     "no-param-reassign": ["error", { "props": false}],
     "no-console": ["warn", { "allow": ["error"] }],
     "array-bracket-spacing": 0,
-    "no-magic-numbers": ["error", { "ignore": [-1, 0, 1, 10, 100], "ignoreArrayIndexes": true }]
+    "no-magic-numbers": ["error", { "ignore": [-1, 0, 1, 10, 100], "ignoreArrayIndexes": true }],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error"
   },
   "env": {
     "jest": true

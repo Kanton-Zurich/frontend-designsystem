@@ -48,7 +48,7 @@ const stateClasses: ModuleStateClasses = {
   },
 };
 
-export const MapViewDefaultOptions: MapViewModuleOptions = { // eslint-disable-line
+export const MapViewDefaultOptions: MapViewModuleOptions = {
   domSelectors,
   stateClasses,
 };
