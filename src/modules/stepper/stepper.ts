@@ -28,7 +28,8 @@ class Stepper extends Module {
     navigation: HTMLOListElement,
     notificationTemplate: HTMLScriptElement,
     messageWrapper: HTMLDivElement,
-    rules: NodeListOf<HTMLDivElement>
+    rules: NodeListOf<HTMLDivElement>,
+    lastpage: HTMLDivElement,
   }
 
   public options: {
@@ -56,6 +57,7 @@ class Stepper extends Module {
         messageWrapper: '[data-stepper="messageWrapper"]',
         rules: '[data-rules]',
         form: '[data-stepper="form"]',
+        lastpage: '[data-stepper="lastpage"]',
       },
       stateClasses: {
         hiddenStep: 'mdl-stepper__step--hidden',
@@ -256,6 +258,14 @@ class Stepper extends Module {
         section,
       },
     }));
+
+    if (this.nextStepIsLast()) {
+      this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
+        detail: {
+          section: this.ui.lastpage,
+        },
+      }));
+    }
   }
 
   changePage(newIndex) {
