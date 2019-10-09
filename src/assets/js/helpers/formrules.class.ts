@@ -3,7 +3,6 @@ import { watch } from 'wrist';
 class FormRules {
   private ui: {
     owner: HTMLElement,
-    parent: HTMLElement,
     form: HTMLFormElement,
   }
 
@@ -28,7 +27,6 @@ class FormRules {
 
     this.ui = {
       owner: $ruleOwner,
-      parent: $ruleOwner.closest(this.options.domSelectors.inputSelector),
       form: $ruleOwner.closest('form'),
     };
 
@@ -59,7 +57,7 @@ class FormRules {
 
     switch (action) {
       case 'show':
-        this.ui.parent.classList.add(this.options.stateClasses.hiddenByRule);
+        this.ui.owner.classList.add(this.options.stateClasses.hiddenByRule);
 
         break;
       case 'enable':
@@ -82,16 +80,16 @@ class FormRules {
     switch (action) {
       case 'show':
         if (conditionsMet) {
-          this.ui.parent.classList.remove(this.options.stateClasses.hiddenByRule);
+          this.ui.owner.classList.remove(this.options.stateClasses.hiddenByRule);
         } else {
-          this.ui.parent.classList.add(this.options.stateClasses.hiddenByRule);
+          this.ui.owner.classList.add(this.options.stateClasses.hiddenByRule);
         }
         break;
       case 'hide':
         if (conditionsMet) {
-          this.ui.parent.classList.add(this.options.stateClasses.hiddenByRule);
+          this.ui.owner.classList.add(this.options.stateClasses.hiddenByRule);
         } else {
-          this.ui.parent.classList.remove(this.options.stateClasses.hiddenByRule);
+          this.ui.owner.classList.remove(this.options.stateClasses.hiddenByRule);
         }
         break;
       case 'enable':
