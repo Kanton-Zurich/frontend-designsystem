@@ -51,6 +51,7 @@ $toggleDimension: 32px;
     height: pxToRem($sizeBiggerBig);
     width: pxToRem($toggleFrameWidth);
     margin-top: - pxToRem($sizeTiny);
+    z-index: 1;
   }
 
   input:checked + &__label {
