@@ -3,10 +3,20 @@ $back2TopIconsSize: $sizeLarge;
 
 $langSwitchOffsetHeight: 90px;
 
+$back2topMarginCurve: (
+  default: (
+    tiny: $sizeLarge,
+    small: $sizeBig,
+    medium: $sizeBig,
+    large: $sizeBiggerBig,
+    xlarge: $sizeSmallHuge,
+  )
+);
+
 .mdl-back2top {
+  @include sizeCurve(right bottom, default, $back2topMarginCurve);
+
   position: fixed;
-  right: pxToRem($sizeBiggerBig);
-  bottom: pxToRem($sizeBiggerBig);
   height: 0;
   overflow: hidden;
   pointer-events: none;

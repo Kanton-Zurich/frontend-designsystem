@@ -26,6 +26,15 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
+      develop: false,
+    },
+  },
+  develop: {
+    meta: {
+      title: 'Dev',
+      desc: 'Develop implementation (additional spacing, link to topics page)',
+    },
+    props: {
       develop: true,
     },
   },
