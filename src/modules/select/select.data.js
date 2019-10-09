@@ -16,7 +16,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('select.md'),
   },
   props: {
-    triggerInputData: inputDemoData.variants.triggerDefault.props,
+
   },
 });
 
@@ -69,7 +69,7 @@ const variants = _.mapValues({
           { value: '+31', label: '+31 Netherlands (Niederlande)', id: _.uniqueId('option-item') },
           { value: '+86', label: '+86 Peoples Republic of China`(China)', id: _.uniqueId('option-item') },
           { value: '+46', label: '+46 Sweden (Schweden)', id: _.uniqueId('option-item') },
-          { value: '+41', label: '+41 Switzerland (Schweiz)', id: _.uniqueId('option-item') },
+          { value: '+41', label: '+41 Switzerland (Schweiz)', id: _.uniqueId('option-item'), preSelected: true },
           { value: '+34', label: '+34 Spain (Spanien)', id: _.uniqueId('option-item') },
           { value: '+963', label: '+963 Syria (‫سوريا‬‎)', id: _.uniqueId('option-item') },
           { value: '+886', label: '+886 Taiwan (台灣))', id: _.uniqueId('option-item') },

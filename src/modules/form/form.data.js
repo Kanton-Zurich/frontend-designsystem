@@ -47,7 +47,63 @@ const duplicateGroup = {
             isRequired: true,
           },
         })),
+    },
+    {
+      cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+        formInputData.variants.default.props,
+        {
+          isFloatingLabel: true,
+          label: 'Geburtsort',
+          name: 'place_of_birth',
+          uuid: 'place_of_birth',
+          validation: {
+            isRequired: true,
+          },
+        })),
     }],
+  },
+  {
+    fields: [{
+      isSmall: true,
+      cellContent: () => handlebars.compile(formFieldsetHBS)({
+        fieldsetTitle: 'Checkboxen',
+        options: [
+          () => handlebars.compile(radioHBS)(_.merge({},
+            radioData.variants.default.props,
+            {
+              label: 'Test 1',
+              groupName: 'checkbox_in_duplication',
+              id: 'checkbox_1',
+              value: 'mrs',
+            })),
+          () => handlebars.compile(radioHBS)(_.merge({},
+            radioData.variants.default.props,
+            {
+              label: 'Test 2',
+              groupName: 'checkbox_in_duplication',
+              id: 'checkbox_2',
+              value: 'mr',
+            })),
+          () => handlebars.compile(radioHBS)(_.merge({},
+            radioData.variants.default.props,
+            {
+              label: 'Test 3',
+              groupName: 'checkbox_in_duplication',
+              id: 'checkbox_3',
+              value: 'no',
+            })),
+        ],
+      }),
+    }],
+  },
+  {
+    fields: [
+      {
+        cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+          datepickerData.variants.defaultDate.props,
+          {})),
+      },
+    ],
   }],
   duplicateButton: 'Weitere Staatsangehörigkeit hinzufügen',
 };
@@ -100,6 +156,7 @@ const variants = _.mapValues({
                   isSmall: true,
                   cellContent: () => handlebars.compile(formFieldsetHBS)({
                     fieldsetTitle: 'Anrede',
+                    requiredMessage: 'Bitte geben Sie eine Anrede an.',
                     options: [
                       () => handlebars.compile(radioHBS)(_.merge({},
                         radioData.variants.default.props,
@@ -108,6 +165,9 @@ const variants = _.mapValues({
                           groupName: 'salutation',
                           id: 1,
                           value: 'mrs',
+                          validation: {
+                            isRequired: true,
+                          },
                         })),
                       () => handlebars.compile(radioHBS)(_.merge({},
                         radioData.variants.default.props,
@@ -116,6 +176,9 @@ const variants = _.mapValues({
                           groupName: 'salutation',
                           id: 2,
                           value: 'mr',
+                          validation: {
+                            isRequired: true,
+                          },
                         })),
                       () => handlebars.compile(radioHBS)(_.merge({},
                         radioData.variants.default.props,
@@ -124,6 +187,9 @@ const variants = _.mapValues({
                           groupName: 'salutation',
                           id: 3,
                           value: 'no',
+                          validation: {
+                            isRequired: true,
+                          },
                         })),
                     ],
                   }),
@@ -234,13 +300,68 @@ const variants = _.mapValues({
               fields: [
                 {
                   cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
-                    datepickerData.variants.defaultDate.props,
+                    datepickerData.variants.dateRange.props,
                     {})),
                 },
                 {
                   cellContent: () => handlebars.compile(selectHBS)(_.merge({},
                     selectData.variants.multiSelect.props,
                     {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.variants.selectPhone.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.dateAndTime.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.dateAndTime.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.dateRange.props,
+                    {})),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.variants.default.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Alternative E-Mail',
+                      name: 'altemailaddr',
+                      uuid: 'altemailaddr',
+                      type: 'email',
+                      validation: {
+                        isRequired: true,
+                        errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+                      },
+                    })),
                 },
               ],
             },
@@ -282,6 +403,7 @@ const variants = _.mapValues({
                 cellContent: () => handlebars.compile(formFieldsetHBS)({
                   fieldsetTitle: 'Auswahl',
                   isVertical: true,
+                  requiredMessage: 'Bitte wählen Sie eine Option aus.',
                   options: [
                     () => handlebars.compile(checkboxHBS)(_.merge({},
                       checkboxData.variants.default.props,
@@ -290,6 +412,9 @@ const variants = _.mapValues({
                         groupName: 'checkboxgroup',
                         id: 11,
                         value: '1',
+                        validation: {
+                          isRequired: true,
+                        },
                       })),
                     () => handlebars.compile(checkboxHBS)(_.merge({},
                       checkboxData.variants.default.props,
@@ -298,6 +423,9 @@ const variants = _.mapValues({
                         groupName: 'checkboxgroup',
                         id: 12,
                         value: '2',
+                        validation: {
+                          isRequired: true,
+                        },
                       })),
                     () => handlebars.compile(checkboxHBS)(_.merge({},
                       checkboxData.variants.default.props,
@@ -306,6 +434,9 @@ const variants = _.mapValues({
                         groupName: 'checkboxgroup',
                         id: 313,
                         value: '3',
+                        validation: {
+                          isRequired: true,
+                        },
                       })),
                   ],
                 }),
@@ -469,59 +600,6 @@ const variants = _.mapValues({
             {
               fields: [
                 {
-                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
-                    selectData.props,
-                    {
-                      listData: _.merge({}, listDemoData.props, {
-                        groupId: 'group-nationality',
-                        isSingleSelect: true,
-                        selectOptions: [
-                          { value: '', label: '' },
-                          { value: 'DE', label: 'Deutschland', id: _.uniqueId('nationality') },
-                          { value: 'FR', label: 'Frankreich', id: _.uniqueId('nationality') },
-                          { value: 'UK', label: 'Vereinigtes Königreich', id: _.uniqueId('nationality') },
-                          { value: 'LU', label: 'Luxemburg', id: _.uniqueId('nationality') },
-                          { value: 'BE', label: 'Belgien', id: _.uniqueId('nationality') },
-                          { value: 'NL', label: 'Niederlande', id: _.uniqueId('nationality') },
-                          { value: 'CH', label: 'Schweiz', id: _.uniqueId('nationality') },
-                        ],
-                      }),
-                    })),
-                },
-              ],
-            },
-            {
-              fields: [
-                {
-                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                    formInputData.props,
-                    {
-                      isFloatingLabel: true,
-                      label: 'Bürgerort',
-                      name: 'place_of_citizenship',
-                      uuid: 'place_of_citizenship',
-                      validation: {
-                        isRequired: true,
-                      },
-                      rules: JSON.stringify([
-                        {
-                          conditions: [
-                            {
-                              field: 'group-nationality',
-                              equals: true,
-                              value: 'CH',
-                            },
-                          ],
-                          action: 'show',
-                        },
-                      ]),
-                    })),
-                },
-              ],
-            },
-            {
-              fields: [
-                {
                   isSmall: true,
                   cellContent: () => handlebars.compile(formFieldsetHBS)({
                     fieldsetTitle: 'Nationalität',
@@ -550,14 +628,16 @@ const variants = _.mapValues({
             {
               fields: [
                 {
-                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                    formInputData.props,
+                  cellContent: () => handlebars.compile(fileUploadHBS)(_.merge({},
+                    fileUploadData.variants.default.props,
                     {
-                      isFloatingLabel: true,
-                      label: 'Bürgerort',
-                      name: 'place_of_citizenship',
-                      uuid: 'place_of_citizenship',
+                      input: {
+                        name: 'fileupload_XX',
+                        id: 'fileupload_XX',
+                      },
                       validation: {
+                        maxSize: 26214400,
+                        fileTypes: 'text/csv, image/gif, text/html, image/jpeg, application/pdf, image/png, image/tiff, application/rtf, image/svg+xml, text/plain, application/xml',
                         isRequired: true,
                       },
                       rules: JSON.stringify([
@@ -565,11 +645,11 @@ const variants = _.mapValues({
                           conditions: [
                             {
                               field: 'nationality-2',
-                              equals: false,
+                              equals: true,
                               value: 'CH',
                             },
                           ],
-                          action: 'hide',
+                          action: 'show',
                         },
                       ]),
                     })),
@@ -753,7 +833,9 @@ const variants = _.mapValues({
 }, (variant) => {
   // eslint-disable
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
-    if (key === 'rows' || Array.isArray(variantValue)) { return variantValue; }
+    if (key === 'rows' || Array.isArray(variantValue)) {
+      return variantValue;
+    }
   }).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
   const variantData = _.mergeWith({}, data, variant, {
@@ -767,7 +849,9 @@ const variants = _.mapValues({
       },
     },
   }, (dataValue, variantValue, key) => {
-    if (key === 'rows' || Array.isArray(variantValue)) { return variantValue; }
+    if (key === 'rows' || Array.isArray(variantValue)) {
+      return variantValue;
+    }
   });
 
   return variantData;
