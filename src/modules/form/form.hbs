@@ -10,41 +10,6 @@
           {{#each fields}}
             <div class="form__cell {{#if isSmall}}form__cell--small{{/if}}">
               {{{cellContent}}}
-              <div class="mdl-tooltip" data-init="tooltip">
-                <div class="mdl-tooltip__text">
-                  <div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--left">
-                    <button type="button" class="mdl-tooltip__trigger" aria-describedby="aria-default115">
-				<span class="visuallyhidden">
-					Erweiterter Hilfetext anzeigen
-				</span>
-                      <svg class="icon">
-                        <use xlink:href="#get-information"></use>
-                      </svg>
-                    </button>
-                    <div class="mdl-tooltip__bubble" id="aria-default115" aria-hidden="true">
-                      <button type="button" tabindex="-1">
-					<span class="visuallyhidden">
-						Hilfetextfenster schliessen
-					</span>
-                        <svg class="icon">
-                          <use xlink:href="#exit"></use>
-                        </svg>
-                      </button>
-
-                      <h3>
-                        Tooltip Ipsum
-                      </h3>
-                      <p>
-                        Ländernamen auf deutsch eingeben
-                      </p>
-                    </div>
-                  </div>
-
-                  <p>Lorem Ipsum Lorem Ipsum</p>
-
-                </div>
-              </div>
-            </div>
           {{/each}}
         </div>
         {{#if isDuplicatable}}
