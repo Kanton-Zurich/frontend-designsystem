@@ -42,7 +42,7 @@ const data = _.merge({}, defaultData, {
         {
           conditions: [
             {
-              field: 'allowmailnotification589',
+              field: 'allowmailnotification',
               equals: true,
               value: 'true',
             },
