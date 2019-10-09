@@ -148,6 +148,7 @@ class Tooltip extends Module {
   hideTooltip() {
     this.ui.element.classList.remove('open');
     this.ui.tooltip.setAttribute('aria-hidden', 'true');
+    this.ui.closeButton.setAttribute('tabindex', '-1');
     this.ui.tooltip.style.display = 'none';
   }
 
@@ -159,6 +160,7 @@ class Tooltip extends Module {
     this.setOptimalPosition();
     this.ui.element.classList.add('open');
     this.ui.tooltip.setAttribute('aria-hidden', 'false');
+    this.ui.closeButton.setAttribute('tabindex', '0');
   }
 
   /**
