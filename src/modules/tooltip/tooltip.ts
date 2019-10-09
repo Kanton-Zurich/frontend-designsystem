@@ -13,10 +13,6 @@ class Tooltip extends Module {
   lastStateClass: string;
   tooltipMaxWidth: number;
   tooltipHeight: number;
-  spaceTop: number;
-  spaceLeft: number;
-  spaceRight: number;
-  spaceBottom: number;
 
   public ui: {
     element: HTMLDivElement,
@@ -67,8 +63,6 @@ class Tooltip extends Module {
     this.isOpen = false;
     this.heightCached = false;
     this.tooltipMaxWidth = 260;
-
-    // this.updateSpaces();
     this.initUi();
     this.initEventListeners();
   }
@@ -88,12 +82,15 @@ class Tooltip extends Module {
         event.stopPropagation();
         this.toggleTooltip();
       }).on('click', this.options.domSelectors.closeButton, () => {
-        this.hideTooltip();
-        this.isOpen = false;
-        this.ui.closeButton.blur();
+        this.closeTooltip();
       })
       .on('click', this.options.domSelectors.tooltip, (event) => {
         event.stopPropagation();
+      })
+      .on('keyup', this.options.domSelectors.tooltip, (event) => {
+        if (event.key === 'Escape') {
+          this.closeTooltip();
+        }
       });
 
     (<any>WindowEventListener).addDebouncedResizeListener(() => {
@@ -112,6 +109,15 @@ class Tooltip extends Module {
         this.isOpen = false;
       }
     });
+  }
+
+  /**
+   * Close the tooltip
+   */
+  closeTooltip() {
+    this.hideTooltip();
+    this.isOpen = false;
+    this.ui.closeButton.blur();
   }
 
   /**
@@ -150,6 +156,7 @@ class Tooltip extends Module {
    */
   showTooltip() {
     this.placeTooltip();
+    this.setOptimalPosition();
     this.ui.element.classList.add('open');
     this.ui.tooltip.setAttribute('aria-hidden', 'false');
   }
@@ -158,55 +165,75 @@ class Tooltip extends Module {
    * Groups methods for placeing the tooltip
    */
   placeTooltip() {
-    this.updateSpaces();
     this.setOptimalPosition();
-  }
-
-  /**
-   * Calaculate the posibible spaces around the trigger area
-   */
-  updateSpaces() {
-    const windowHeight = window.innerHeight;
-    const docRect = document.body.getBoundingClientRect();
-    const infoRect = this.ui.wrapper.getBoundingClientRect();
-    const rightCorner = infoRect.left + infoRect.width;
-
-    this.spaceTop = infoRect.top;
-    this.spaceLeft = infoRect.left;
-    this.spaceRight = docRect.width - rightCorner;
-    this.spaceBottom = windowHeight - (infoRect.top + infoRect.height);
   }
 
   /**
    * Deside which position should be optimal for the tooltip
    */
   setOptimalPosition() {
-    const half = 2;
-    const heightOffset = 20;
+    const borderOffset = 20;
+    const arrowOffset = 11;
 
     if (this.lastStateClass !== undefined) {
       this.ui.tooltip.classList.remove(this.lastStateClass);
     }
 
-    // Position priority: Top -> Right -> Left -> Bottom
-    if (this.spaceTop > this.tooltipHeight + heightOffset
-      &&this.spaceLeft > (this.tooltipMaxWidth / half)
-      && this.spaceRight > (this.tooltipMaxWidth / half)) {
-      // Position above
-      this.lastStateClass = this.options.stateClasses.arrowBottom;
-    } else if (this.spaceRight > this.tooltipMaxWidth
-      && this.spaceTop > (this.tooltipHeight / half)) {
-      // Position right
-      this.lastStateClass = this.options.stateClasses.arrowLeft;
-    } else if (this.spaceLeft > this.tooltipMaxWidth
-      && this.spaceTop > (this.tooltipHeight / half)) {
-      // Position left
-      this.lastStateClass = this.options.stateClasses.arrowRight;
-    } else if (this.spaceBottom > this.tooltipHeight  + heightOffset
-      &&this.spaceLeft > (this.tooltipMaxWidth / half)
-      && this.spaceRight > (this.tooltipMaxWidth / half)) {
-      // Position below
-      this.lastStateClass = this.options.stateClasses.arrowTop;
+    const toolTipRect = this.ui.tooltip.getBoundingClientRect();
+    const bulletRect = this.ui.wrapper.getBoundingClientRect();
+
+    const topMargin = bulletRect.top - toolTipRect.height - borderOffset;
+    const bottomMargin = window.outerHeight
+      - (bulletRect.top + toolTipRect.height + bulletRect.height + arrowOffset) - borderOffset;
+
+    const leftMargin = bulletRect.left - (toolTipRect.width / 2)  - borderOffset; // eslint-disable-line
+    const rightMargin = window.outerWidth - bulletRect.left - (toolTipRect.width / 2)  - borderOffset; // eslint-disable-line
+
+    const quadrant = toolTipRect.top < (window.outerHeight / 2) && toolTipRect.left < (window.innerWidth / 2) ? 'topLeft' : // eslint-disable-line
+      toolTipRect.top < (window.outerHeight / 2) && toolTipRect.left >= (window.innerWidth / 2) ? 'topRight' : // eslint-disable-line
+        toolTipRect.top >= (window.outerHeight / 2) && toolTipRect.left < (window.innerWidth / 2) ? 'bottomLeft' : 'bottomRight'; // eslint-disable-line
+
+    switch (quadrant) { // eslint-disable-line
+      case 'topLeft':
+        if (leftMargin < 0) {
+          this.lastStateClass = this.options.stateClasses.arrowLeft;
+        } else {
+          this.lastStateClass = this.options.stateClasses.arrowTop;
+          if (bottomMargin < 0) {
+            this.lastStateClass = this.options.stateClasses.arrowLeft;
+          }
+        }
+        break;
+      case 'topRight':
+        if (rightMargin < 0) {
+          this.lastStateClass = this.options.stateClasses.arrowRight;
+        } else {
+          this.lastStateClass = this.options.stateClasses.arrowTop;
+          if (bottomMargin < 0) {
+            this.lastStateClass = this.options.stateClasses.arrowRight;
+          }
+        }
+        break;
+      case 'bottomLeft':
+        if (leftMargin < 0) {
+          this.lastStateClass = this.options.stateClasses.arrowLeft;
+        } else {
+          this.lastStateClass = this.options.stateClasses.arrowBottom;
+          if (topMargin < 0) {
+            this.lastStateClass = this.options.stateClasses.arrowLeft;
+          }
+        }
+        break;
+      case 'bottomRight':
+        if (rightMargin < 0) {
+          this.lastStateClass = this.options.stateClasses.arrowRight;
+        } else {
+          this.lastStateClass = this.options.stateClasses.arrowBottom;
+          if (topMargin < 0) {
+            this.lastStateClass = this.options.stateClasses.arrowRight;
+          }
+        }
+        break;
     }
 
     this.ui.tooltip.classList.add(this.lastStateClass);
