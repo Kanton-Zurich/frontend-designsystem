@@ -1,0 +1,79 @@
+<div class="mdl-tooltip" data-init="tooltip">
+  <div class="mdl-tooltip__text">
+    {{#if buttonLeft}}
+      <div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--left">
+        <button type="button" class="mdl-tooltip__trigger" aria-describedby="{{bubble.id}}">
+        <span class="visuallyhidden">
+          Erweiterter Hilfetext anzeigen
+        </span>
+          <svg class="icon">
+            <use xlink:href="#get-information"></use>
+          </svg>
+        </button>
+        <div class="mdl-tooltip__bubble" id="{{bubble.id}}" aria-hidden="true">
+          <button type="button" tabindex="-1">
+        <span class="visuallyhidden">
+          Hilfetextfenster schliessen
+        </span>
+            <svg class="icon">
+              <use xlink:href="#exit"></use>
+            </svg>
+          </button>
+
+          {{#if bubble.heading}}
+            <h3>
+              {{bubble.heading}}
+            </h3>
+          {{/if}}
+          {{#if bubble.text}}
+            <p>
+              {{{bubble.text}}}
+            </p>
+          {{/if}}
+          {{#if bubble.image}}
+            {{> "modules/image_figure/image_figure" bubble.image}}
+          {{/if}}
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if helptext}}<p>{{helptext}}</p>{{/if}}
+
+    {{#if buttonRight}}
+      <div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--right">
+        <button type="button" class="mdl-tooltip__trigger" aria-describedby="{{bubble.id}}">
+        <span class="visuallyhidden">
+          Erweiterter Hilfetext anzeigen
+        </span>
+          <svg class="icon">
+            <use xlink:href="#get-information"></use>
+          </svg>
+        </button>
+        <div class="mdl-tooltip__bubble" id="{{bubble.id}}" aria-hidden="true">
+          <button type="button" tabindex="-1">
+        <span class="visuallyhidden">
+          Hilfetextfenster schliessen
+        </span>
+            <svg class="icon">
+              <use xlink:href="#exit"></use>
+            </svg>
+          </button>
+
+          {{#if bubble.heading}}
+            <h3>
+              {{bubble.heading}}
+            </h3>
+          {{/if}}
+          {{#if bubble.text}}
+            <p>
+              {{{bubble.text}}}
+            </p>
+          {{/if}}
+          {{#if bubble.image}}
+            {{> "modules/image_figure/image_figure" bubble.image}}
+          {{/if}}
+        </div>
+      </div>
+    {{/if}}
+  </div>
+</div>
