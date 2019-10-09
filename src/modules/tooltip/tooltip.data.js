@@ -35,7 +35,8 @@ const variants = _.mapValues({
       desc: 'Default implementation, mit Überschrift und einem Text',
     },
     props: {
-      helptext: 'Lorem Ipsum',
+      helptext: 'Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum',
+      buttonLeft: true,
       bubble: {
         heading: 'Tooltip Ipsum',
         text: 'Ländernamen auf deutsch eingeben',
@@ -49,6 +50,7 @@ const variants = _.mapValues({
       desc: 'Tooltip mit Überschrift und einem sehr langen Text',
     },
     props: {
+      buttonRight: true,
       bubble: {
         heading: 'Tooltip Ipsum',
         text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
@@ -63,6 +65,7 @@ const variants = _.mapValues({
     },
     props: {
       helptext: 'Datenschutz Richtlinien',
+      buttonRight: true,
       bubble: {
         text: 'Ihre Daten werden ausschliesslich für den hier ersichtlichen Zweck verwendet. Siehe <a href="#" class="atm-text_link">Datenschutzerklärung</a> und <a href="#" class="atm-text_link">Nutzungsregelung</a>',
         id: _.uniqueId('aria-anchors'),
@@ -76,6 +79,7 @@ const variants = _.mapValues({
     },
     props: {
       helptext: 'Datenschutz Richtlinien',
+      buttonRight: true,
       bubble: {
         text: 'Ihre AHV-Nr. finden Sie unter anderem auf Ihrer Krankenversicherungskarte:',
         image: demoImageFigureData,
