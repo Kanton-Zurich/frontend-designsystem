@@ -228,8 +228,6 @@ class Carousel extends Module {
 
     this.ui.slides[0].style.marginLeft = `${transform}%`;
 
-    this.log(transform);
-
     // Taking the nodelist into an array, due to IE incompability to handle foreach on NodeList
     Array.prototype.slice.call(this.ui.slides).forEach((slide, index) => {
       const classListMethod = index === (active - 1) ? 'add' : 'remove';
