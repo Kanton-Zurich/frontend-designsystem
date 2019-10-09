@@ -228,6 +228,8 @@ class Carousel extends Module {
 
     this.ui.slides[0].style.marginLeft = `${transform}%`;
 
+    this.log(transform);
+
     // Taking the nodelist into an array, due to IE incompability to handle foreach on NodeList
     Array.prototype.slice.call(this.ui.slides).forEach((slide, index) => {
       const classListMethod = index === (active - 1) ? 'add' : 'remove';
@@ -303,7 +305,6 @@ class Carousel extends Module {
       this.ui.element.classList.add(this.options.stateClasses.fullscreen);
       this.ui.element.classList.add(this.options.stateClasses.inverted);
 
-      this.ui.close.focus();
       this.setTransformValue();
 
       // Polyfill for IE11
@@ -318,6 +319,7 @@ class Carousel extends Module {
       [].slice.call(this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen)).forEach(e => e.setAttribute('aria-hidden', 'true'));
 
       (<any>window).estatico.helpers.wrapAccessibility(this.ui.element);
+      setTimeout(() => { this.ui.close.focus(); }, 0);
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
       this.ui.element.classList.remove(this.options.stateClasses.inverted);
