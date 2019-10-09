@@ -1,6 +1,7 @@
 interface ModuleDomSelectors {
   map: string,
   listItems: string,
+  distanceAnnotation: string
   filterInput: string,
   sidebar: string,
   backBtn: string,
@@ -21,14 +22,23 @@ interface ModuleStateClasses {
 }
 export interface LocationsModuleOptions { // eslint-disable-line
   focusDelay: number,
+  attrNames: {
+    itemIndex: string;
+    locDistance: string;
+  }
   domSelectors: ModuleDomSelectors
   stateClasses: ModuleStateClasses
 }
 
 const focusDelay = 500;
+const attrNames = {
+  itemIndex: 'data-linklist-itemindex',
+  locDistance: 'data-location-distance',
+};
 const domSelectors: ModuleDomSelectors = {
   map: '#locations-map',
   listItems: '[data-locations="listItem"]',
+  distanceAnnotation: '.atm-linklist_item__distance',
   filterInput: '[data-locations="input"]',
   sidebar: '[data-locations="sidebar"]',
   backBtn: '[data-locations="back"]',
@@ -50,6 +60,7 @@ const stateClasses: ModuleStateClasses = {
 
 export const DefaultOptions: LocationsModuleOptions = { // eslint-disable-line
   focusDelay,
+  attrNames,
   domSelectors,
   stateClasses,
 };

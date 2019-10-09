@@ -58,7 +58,7 @@ const demoLinkListItemDataMultiLanguage = {
   isButton: true,
   linkListItemHref: false,
   linkListItemLabel: 'PDF | 2 Seiten | DE, FR, IT | 117kB',
-  domSelector: 'data-download_list="openContext"',
+  additionalAttributes: 'data-download_list="openContext"',
 };
 
 const template = dataHelper.getFileContent('publication_teaser.hbs');
