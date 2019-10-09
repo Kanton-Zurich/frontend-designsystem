@@ -13,8 +13,8 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     label: 'E-Mail Benachrichtigungen erlauben',
-    name: _.uniqueId('allowmailnotification'),
-    id: _.uniqueId('allowmailnotification'),
+    name: 'allowmailnotification',
+    id: 'allowmailnotification',
     checked: false,
   },
 });
