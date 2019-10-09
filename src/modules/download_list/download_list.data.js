@@ -44,7 +44,7 @@ const data = _.merge({}, defaultData, {
       },
       {
         link: _.merge({}, downloadButtonItem, {
-          domSelector: 'data-download_list="openContext"',
+          additionalAttributes: 'data-download_list="openContext"',
         }),
         contextMenu: _.merge({}, contextMenuDownload, {
           domSelector: 'data-download_list="contextMenu"',
@@ -52,7 +52,7 @@ const data = _.merge({}, defaultData, {
       },
       {
         link: _.merge({}, downloadButtonItem, {
-          domSelector: 'data-download_list="openContext"',
+          additionalAttributes: 'data-download_list="openContext"',
         }),
         contextMenu: _.merge({}, contextMenuDownload, {
           domSelector: 'data-download_list="contextMenu"',

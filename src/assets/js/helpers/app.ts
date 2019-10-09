@@ -39,6 +39,8 @@ import NewsOverview from '../../../modules/news_overview/news_overview';
 import Locations from '../../../modules/locations/locations';
 import MapView from '../../../modules/map_view/map_view';
 import DrilldownSelect from '../../../modules/drilldown_select/drilldown_select';
+import Back2top from '../../../modules/back2top/back2top';
+import Tooltip from '../../../modules/tooltip/tooltip';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -87,6 +89,8 @@ class App {
     this.modules.locations = Locations;
     this.modules.mapView = MapView;
     this.modules.drilldownSelect = DrilldownSelect;
+    this.modules.back2top = Back2top;
+    this.modules.tooltip = Tooltip;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

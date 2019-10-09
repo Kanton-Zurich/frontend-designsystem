@@ -4,6 +4,7 @@ import { debounce } from 'lodash';
 import DuplicationElement from './duplication.class';
 import ZipCity from './zipCity';
 import FormRules from './formrules.class';
+import FileUpload from '../../../modules/file_upload/file_upload';
 
 import namespace from './namespace';
 
@@ -87,6 +88,9 @@ class Form {
     this.eventDelegate.on('validateSection', this.validateSection.bind(this));
     this.eventDelegate.on('showFieldInvalid', (event) => {
       this.setValidClasses(event.detail.field, ['add', 'remove']);
+    });
+    this.eventDelegate.on(FileUpload.events.duplicated, (event) => {
+      this.addWatchers(event.detail);
     });
   }
 

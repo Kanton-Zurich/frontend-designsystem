@@ -3,6 +3,7 @@
   color: rgba($colorText, 0.6);
   font-weight: $fontWeightBlack;
   position: relative;
+  cursor: pointer;
 
   .icon {
     min-width: pxToRem(24);
@@ -91,12 +92,13 @@
 
     .atm-linklist_item__distancearrow {
       height: 100%;
+      min-width: pxToRem($sizeSmallHuge);
+      text-align: right;
     }
 
     .atm-linklist_item__distance {
       font-size: pxToRem($sizeFontTiny);
       font-weight: $fontWeightDefault;
-      white-space: pre;
 
       &:not(:hover) {
         color: rgba($colorText, 0.6);
