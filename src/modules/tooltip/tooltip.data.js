@@ -35,7 +35,7 @@ const variants = _.mapValues({
       desc: 'Default implementation, mit Überschrift und einem Text',
     },
     props: {
-      helptext: 'Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum',
+      helptext: 'Lorem Ipsum Lorem Ipsum',
       buttonLeft: true,
       bubble: {
         heading: 'Tooltip Ipsum',

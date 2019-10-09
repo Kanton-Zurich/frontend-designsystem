@@ -2,7 +2,7 @@
   <div class="mdl-tooltip__text">
     {{#if buttonLeft}}
       <div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--left">
-        <button class="mdl-tooltip__trigger" aria-describedby="{{bubble.id}}">
+        <button type="button" class="mdl-tooltip__trigger" aria-describedby="{{bubble.id}}">
         <span class="visuallyhidden">
           Erweiterter Hilfetext anzeigen
         </span>
@@ -11,7 +11,7 @@
           </svg>
         </button>
         <div class="mdl-tooltip__bubble" id="{{bubble.id}}" aria-hidden="true">
-          <button>
+          <button type="button">
         <span class="visuallyhidden">
           Hilfetextfenster schliessen
         </span>
@@ -41,7 +41,7 @@
 
     {{#if buttonRight}}
       <div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--right">
-        <button class="mdl-tooltip__trigger" aria-describedby="{{bubble.id}}">
+        <button type="button" class="mdl-tooltip__trigger" aria-describedby="{{bubble.id}}">
         <span class="visuallyhidden">
           Erweiterter Hilfetext anzeigen
         </span>
@@ -50,7 +50,7 @@
           </svg>
         </button>
         <div class="mdl-tooltip__bubble" id="{{bubble.id}}" aria-hidden="true">
-          <button>
+          <button type="button">
         <span class="visuallyhidden">
           Hilfetextfenster schliessen
         </span>
