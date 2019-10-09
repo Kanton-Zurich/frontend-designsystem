@@ -392,8 +392,8 @@ $biometrieViewTransitionDuration: 300ms;
 
         li {
           @include sizeCurve('margin-left', mini);
-          @include sizeCurve('padding-left', medium);
 
+          padding-left: 1.5rem;
           position: relative;
           font-size: $sizeSmallLarge;
 
@@ -753,8 +753,13 @@ $biometrieViewTransitionDuration: 300ms;
       .atm-button {
         float: right;
         height: 2.5rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
 
-        @include sizeCurve(padding-left padding-right, biggerRegular);
+        @include mq($to: medium) {
+          padding-left: 0.55rem;
+          padding-right: 0.55rem;
+        }
       }
 
       @include mq($to: small) {
