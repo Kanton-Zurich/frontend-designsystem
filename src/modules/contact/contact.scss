@@ -167,7 +167,7 @@ $contactMapHeightCurve: (
   }
 
   &:not(.mdl-contact--location) {
-    .mdl-contact{
+    .mdl-contact {
       &__show-route {
         display: inline-block;
         margin-top: calc((#{$sizeFontRegular} * #{$sizeLineHeightBase}) / 2);
