@@ -14,9 +14,8 @@
     {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
   {{/content}}
   {{#content "footer"}}
-    <footer id="contentinfo" style="height: 200px;">
-      <h1 class="visuallyhidden">Fussbereich</h1>
-    </footer>
+    {{> "modules/footer/footer" props.modules.footerData }}
+    {{> "modules/back2top/back2top" props.modules.back2topData}}
     {{> "modules/lang_switch/lang_switch" props.modules.langSwitchData}}
   {{/content}}
 {{/extend}}
