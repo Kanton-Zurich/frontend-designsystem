@@ -108,6 +108,10 @@ $modalCurves: (
     &.mdl-modal--show {
       z-index: $zIndexOverlays;
     }
+
+    &.mdl-modal--search {
+      padding-top: 0;
+    }
   }
 
   &__close {

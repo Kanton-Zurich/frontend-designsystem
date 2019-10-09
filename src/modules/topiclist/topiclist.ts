@@ -9,6 +9,7 @@ import { template } from 'lodash';
 import Module from '../../assets/js/helpers/module';
 import Form from '../../assets/js/helpers/form.class';
 import Autosuggest from '../../assets/js/helpers/autosuggest';
+import Modal from '../modal/modal';
 
 class Topiclist extends Module {
   public options: {
@@ -126,10 +127,9 @@ class Topiclist extends Module {
 
     if (this.data.isNav) {
       this.eventDelegate
-        .on('loadNavigation', async () => {
+        .on(Modal.events.display, async () => {
           await this.fetchData();
-
-          if (Object.keys(this.data.json).length === 0) {
+          if (Object.keys(this.data.json).length > 0) {
             this.renderNavigation();
           }
 
@@ -195,7 +195,6 @@ class Topiclist extends Module {
 
           // Initialize the autosuggest, which we have data for now
           new Autosuggest({
-            url: this.options.url,
             input: this.ui.input,
             target: this.ui.autosuggest,
             parent: this.ui.element,

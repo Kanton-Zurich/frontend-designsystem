@@ -24,6 +24,11 @@ class Modal extends Module {
     scrollThreshold: number,
   };
 
+  public ui: {
+    element: HTMLDivElement,
+    initiable: NodeListOf<HTMLElement>,
+  }
+
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
     const defaultOptions = {
@@ -33,6 +38,7 @@ class Modal extends Module {
         closeButton: '.mdl-page-header__closebutton',
         close: '[data-modal="close"]',
         focusable: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        initiable: '[data-init]',
       },
       stateClasses: {
         beforeShow: 'mdl-modal--before-show',
@@ -60,7 +66,7 @@ class Modal extends Module {
 
     this.isolatedElements = [];
 
-    this.initUi();
+    this.initUi(['initiable']);
     this.initContent();
     this.initVariations();
     this.initEventListeners();
@@ -71,6 +77,7 @@ class Modal extends Module {
       openModal: 'Modal.open',
       initContent: 'Modal.initContent',
       closeModal: 'Modal.close',
+      display: 'Modal.display',
     };
   }
 
@@ -205,8 +212,10 @@ class Modal extends Module {
     this.updateSizing();
     (<any>WindowEventListener).addDebouncedResizeListener(this.updateSizing.bind(this));
     // If there is the navigation topic list a child, then load the navigation
-    if (this.options.isNav) {
-      this.ui.element.querySelector(this.options.childSelectors.nav).dispatchEvent(new CustomEvent('loadNavigation'));
+    if (this.ui.initiable.length > 0) {
+      this.ui.initiable.forEach((target) => {
+        target.dispatchEvent(new CustomEvent(Modal.events.display));
+      });
     }
 
     // reload Single page Applications scripts in case of asynchronous loading

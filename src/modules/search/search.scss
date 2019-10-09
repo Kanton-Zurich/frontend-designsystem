@@ -1,7 +1,60 @@
-$searchInputCurves: (
+$searchCurves: (
   height: (
     tiny: 48px,
     xsmall: 56px,
     medium: 72px
+  ),
+  headMarginBottom: (
+    tiny: $sizeBiggerBig,
+    medium: $sizeSmallLarge + $sizeBig,
+    xlarge: $sizeLarge + $sizeBiggerBig,
   )
 );
+
+.mdl-search {
+  &__head {
+    position: relative;
+
+    @include sizeCurve(margin-bottom, headMarginBottom, $searchCurves);
+
+    &:before {
+      position: absolute;
+      width: 100vw;
+      content: '';
+
+      top: 100%;
+      left: 0;
+
+      @include sizeCurve(height, borderHeight, $headerCurves);
+
+      background: $colorBlack;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    left: pxToRem(-$sizeRegular);
+    top: 50%;
+    transform: translateX(-100%) translateY(-50%);
+  }
+
+  &__input {
+    width: 100%;
+    display: block;
+    border: none;
+
+    font-weight: $fontWeightBlack;
+
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
+    @include sizeCurve(height, height, $searchCurves);
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder,
+    &::-ms-placeholder {
+      color: $colorBlack60;
+    }
+  }
+}

@@ -3,17 +3,65 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
+const anchorlinkData = require('../../atoms/anchorlink/anchorlink.data').variants.tagTopTags.props;
+const contentTeaser = require('../../atoms/content_teaser/content_teaser.data');
+
 const template = dataHelper.getFileContent('search.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Search',
     className: 'Search',
-    jira: 'CZHDEV-496',
-    label: 'Formular',
+    jira: 'CZHDEV-805',
+    label: 'Suche',
     documentation: dataHelper.getDocumentation('search.md'),
   },
   props: {
-
+    anchorlinks: [
+      _.merge({}, anchorlinkData, {
+        anchorlink: {
+          anchorlinkText: 'Schulferien 2019',
+        },
+      }),
+      _.merge({}, anchorlinkData, {
+        anchorlink: {
+          anchorlinkText: 'Kurse für Hundehalter',
+        },
+      }),
+      _.merge({}, anchorlinkData, {
+        anchorlink: {
+          anchorlinkText: 'Quellensteuer',
+        },
+      }),
+      _.merge({}, anchorlinkData, {
+        anchorlink: {
+          anchorlinkText: 'Handelsregistereintrag',
+        },
+      }),
+      _.merge({}, anchorlinkData, {
+        anchorlink: {
+          anchorlinkText: 'Velo',
+        },
+      }),
+      _.merge({}, anchorlinkData, {
+        anchorlink: {
+          anchorlinkText: 'eAutoindex',
+        },
+      }),
+      _.merge({}, anchorlinkData, {
+        anchorlink: {
+          anchorlinkText: 'Schulferien 2019',
+        },
+      }),
+    ],
+    options: JSON.stringify({
+      url: '/mocks/modules/search/search.json',
+    }),
+    autosuggestTemplate: contentTeaser.variants.default.meta.code.template,
+    contentNav: {
+      items: [],
+      selector: 'data-search="autosuggest"',
+      additionalClasses: 'mdl-search__autosuggest mdl-content_nav--single-column',
+    },
   },
 });
 const variants = _.mapValues({

@@ -64,6 +64,10 @@
     color: $colorWhite;
 
     @include sizeCurve('margin-bottom', headingBottomMargin, $tagGroupSizeMaps);
+
+    .cv-monochrome & {
+      color: $colorBlack;
+    }
   }
 
   &__tags {
@@ -103,6 +107,12 @@
   .#{$key} {
     .mdl-tag-group--wrapped {
       background-color: #{$val};
+    }
+  }
+
+  .cv-monochrome {
+    .mdl-tag-group--wrapped {
+      background-color: $colorWhite;
     }
   }
 }

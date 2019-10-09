@@ -36,7 +36,7 @@ class Autosuggest {
 
   constructor(options, data) {
     this.options = merge({}, {
-      delay: 250,
+      delay: 500,
       list: options.target.querySelector('ul'),
     }, options);
 
@@ -85,13 +85,19 @@ class Autosuggest {
   async onQueryChange(propName, queryBefore, queryAfter) {
     this.query = queryAfter;
 
+    if (this.options.url) {
+      await this.fetchData();
+    }
+
     if (this.query.length > 1) {
       this.emptyAutosuggest();
       this.filterData();
 
       if (this.results.length > 0) {
         this.dispatchStatusEvent(Autosuggest.events.filtered, this.results.length);
+
         this.renderResults();
+
 
         window.dispatchEvent(new CustomEvent('reloadLineClamper'));
       } else {
@@ -135,10 +141,7 @@ class Autosuggest {
       if (Object.prototype.hasOwnProperty.call(item, 'title')) {
         this.matchComplexItem(item, queryRegEx);
       } else {
-        // eslint-disable-next-line
-        if (queryRegEx.test(item)) {
-          this.results.push(item);
-        }
+        this.results.push(item);
       }
     });
   }
@@ -195,6 +198,20 @@ class Autosuggest {
     const parsed = new DOMParser().parseFromString(html, 'text/html').querySelector('li');
 
     this.options.list.appendChild(parsed);
+  }
+
+  async fetchData() {
+    if (!window.fetch) {
+      await import('whatwg-fetch');
+    }
+
+    return fetch(this.options.url)
+      .then(response => response.json())
+      .then((response) => {
+        if (Object.prototype.hasOwnProperty.call(response, 'suggestions')) {
+          this.data = response.suggestions;
+        }
+      });
   }
 }
 

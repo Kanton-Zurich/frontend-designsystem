@@ -5,14 +5,37 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import Autosuggest from '../../assets/js/helpers/autosuggest';
+
+import Modal from '../modal/modal';
 
 class Search extends Module {
+  public options: {
+    url: string,
+    domSelectors: any,
+    stateClasses: any,
+  }
+
+  public data: {
+    suggestions: Array<string>,
+  }
+
+  public ui: {
+    element: HTMLDivElement,
+    input: HTMLInputElement,
+    template: HTMLScriptElement,
+    autosuggest: HTMLDivElement,
+  }
+
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
+      suggestions: [],
     };
     const defaultOptions = {
       domSelectors: {
-        // item: '[data-${{{className}}.name}="item"]'
+        input: '[data-search="input"]',
+        template: '[data-search="autosuggestTemplate"]',
+        autosuggest: '[data-search="autosuggest"]',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -35,7 +58,15 @@ class Search extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    // Event listeners
+    this.ui.element.addEventListener(Modal.events.display, async () => {
+      new Autosuggest({
+        input: this.ui.input,
+        parent: this.ui.element,
+        template: this.ui.template.innerHTML,
+        target: this.ui.autosuggest,
+        url: this.options.url,
+      }, {});
+    });
   }
 
   /**
