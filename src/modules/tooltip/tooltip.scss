@@ -3,6 +3,7 @@ $tooltip-bubble-max-width: 260px;
 $tooltip-bubble-close-icon-size: 14px;
 
 .mdl-tooltip {
+  margin-top: pxToRem($sizeMini);
   position: relative;
 
   &.open {
