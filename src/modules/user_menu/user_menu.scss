@@ -1,0 +1,88 @@
+.mdl-user-menu {
+  @include sizeCurve(height, height, $headerCurves); // Used variable from header module
+  display: inline-flex;
+  background-color: rgba(255, 255, 255, 0.4);
+  margin-right: 2px;
+
+  &__trigger {
+    @include blankButton;
+    padding: 0 pxToRem($sizeSmallRegular);
+    // padding: 0 pxToRem($sizeRegular) 0 pxToRem($sizeSmallRegular);
+    display: inline-flex;
+    align-items: center;
+    color: $colorBlack80;
+
+    .icon use {
+      fill:$colorBlack80;
+    }
+  }
+
+  &__user,
+  &__user-short {
+    display: none;
+    color: inherit;
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular)); // Used variable from header module
+    @include sizeCurve(line-height, nav, $lineHeightCurves, $pxToRem: false); // Used variable from header module
+  }
+
+  &__user {
+    padding: 0 pxToRem($sizeTiny) 0 pxToRem($sizeSmallRegular);
+  }
+
+  &__user-short {
+    padding: 0 pxToRem($sizeTiny);
+
+    & + .icon {
+      display: none;
+    }
+  }
+
+  @include mq($from: xsmall) {
+    &__trigger {
+      padding: 0 pxToRem($sizeRegular);
+    }
+  }
+
+  @include mq($from: medium) {
+    background-color: transparent;
+
+    &__user-short,
+    &__user-short + .icon {
+      display: block;
+    }
+  }
+}
+
+
+
+
+
+
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .demobg {
+      background-color: #{$val};
+    }
+  }
+}
+
+.cv-monochrome {
+  .demobg {
+    background-color: $white;
+  }
+  .mdl-user-menu {
+    background: $colorBlack10;
+
+    &__trigger {
+      color: $colorBlack60;
+
+      .icon use {
+        fill: $colorBlack60;
+      }
+    }
+    @include mq($from: medium) {
+      background-color: transparent;
+    }
+  }
+}
