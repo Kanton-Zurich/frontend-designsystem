@@ -63,4 +63,16 @@ $searchCurves: (
       display: none;
     }
   }
+
+  &__tag-group,
+  &__input,
+  &__icon {
+    opacity: 0;
+
+    @include transition(opacity);
+
+    .mdl-modal--opened & {
+      opacity: 1;
+    }
+  }
 }

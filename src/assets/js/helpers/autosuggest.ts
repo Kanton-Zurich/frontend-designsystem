@@ -104,6 +104,8 @@ class Autosuggest {
         this.dispatchStatusEvent(Autosuggest.events.noResult);
       }
     } else {
+      this.options.list.innerHTML = '';
+
       this.dispatchStatusEvent(Autosuggest.events.reset);
     }
   }

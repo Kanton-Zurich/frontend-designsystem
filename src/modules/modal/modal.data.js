@@ -195,6 +195,9 @@ const variants = _.mapValues({
           () => handlebars.compile(dataHelper.getFileContent('../search/search.hbs'))(search.variants.default.props),
         ],
       },
+      options: JSON.stringify({
+        transitionTime: 500,
+      }),
     },
   },
 }, (variant) => {

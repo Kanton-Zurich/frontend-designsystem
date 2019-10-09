@@ -32,7 +32,7 @@ const data = _.merge({}, defaultData, {
       _.merge({}, modalData.variants.organisationFlyout.props, {
         preview: false,
       }),
-      _.merge({}, modalData.variants.topicFlyout.props, {
+      _.merge({}, modalData.variants.searchFlyout.props, {
         preview: false,
       }),
     ],
