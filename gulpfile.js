@@ -646,6 +646,7 @@ gulp.task('scaffold', () => {
           const isRemove = (answers.action === 'Remove');
           const hasJs = answers.files ? answers.files.find(file => file.match(/{{fileName}}\.ts/)) : true;
           const hasCss = answers.files ? answers.files.find(file => file.match(/{{fileName}}\.scss/)) : true;
+          const hasPrintCss = answers.files ? answers.files.find(file => file.match(/{{fileName}}\.print.scss/)) : true;
 
           switch (answers.action) {
             case 'Add':
@@ -673,6 +674,14 @@ gulp.task('scaffold', () => {
                   template: `$1@import '../../modules/${fileName}/${fileName}';$1$2`,
                   abortOnFail: true,
                 },
+              ] : []).concat(hasPrintCss ? [
+                {
+                  type: 'modify',
+                  path: './src/assets/css/print.scss',
+                  pattern: /(\s+)(\/\/\*autoinsertmodule\*)/m,
+                  template: `$1@import '../../modules/${fileName}/${fileName}.print';$1$2`,
+                  abortOnFail: true,
+                },
               ] : []);
             case 'Rename':
             case 'Remove':
@@ -695,8 +704,16 @@ gulp.task('scaffold', () => {
                 {
                   type: 'modify',
                   path: './src/assets/css/main.scss',
-                  pattern: new RegExp(`(\\s+)?@import "../../modules/${answers.fileName}/${answers.fileName}";`, 'm'),
-                  template: isRemove ? '' : `$1@import "../../modules/${fileName}/${fileName}";`,
+                  pattern: new RegExp(`(\\s+)?@import '../../modules/${answers.fileName}/${answers.fileName}';`, 'm'),
+                  template: isRemove ? '' : `$1@import '../../modules/${fileName}/${fileName}';`,
+                  abortOnFail: true,
+                },
+              ] : []).concat(hasPrintCss ? [
+                {
+                  type: 'modify',
+                  path: './src/assets/css/print.scss',
+                  pattern: new RegExp(`(\\s+)?@import '../../modules/${answers.fileName}/${answers.fileName}.print';`, 'm'),
+                  template: isRemove ? '' : `$1@import '../../modules/${fileName}/${fileName}.print';`,
                   abortOnFail: true,
                 },
               ] : []);
@@ -727,6 +744,7 @@ gulp.task('scaffold', () => {
           const fileName = answers.newFileName || answers.fileName;
 
           const isRemove = (answers.action === 'Remove');
+          const hasPrintCss = answers.files ? answers.files.find(file => file.match(/{{fileName}}\.print.scss/)) : true;
 
           switch (answers.action) {
             case 'Add':
@@ -737,16 +755,32 @@ gulp.task('scaffold', () => {
                 pattern: /(\s+)(\/\/\*autoinsertatom\*)/m,
                 template: `$1@import '../../atoms/${fileName}/${fileName}';$1$2`,
                 abortOnFail: true,
-              }];
+              }].concat(hasPrintCss ? [
+                {
+                  type: 'modify',
+                  path: './src/assets/css/print.scss',
+                  pattern: /(\s+)(\/\/\*autoinsertatom\*)/m,
+                  template: `$1@import '../../atoms/${fileName}/${fileName}.print';$1$2`,
+                  abortOnFail: true,
+                },
+              ] : []);
             case 'Rename':
             case 'Remove':
               return [{
                 type: 'modify',
                 path: './src/assets/css/main.scss',
-                pattern: new RegExp(`(\\s+)?@import "../../atoms/${answers.fileName}/${answers.fileName}";`, 'm'),
-                template: isRemove ? '' : `$1@import "../../atoms/${fileName}/${fileName}";`,
+                pattern: new RegExp(`(\\s+)?@import '../../atoms/${answers.fileName}/${answers.fileName}';`, 'm'),
+                template: isRemove ? '' : `$1@import '../../atoms/${fileName}/${fileName}';`,
                 abortOnFail: true,
-              }];
+              }].concat(hasPrintCss ? [
+                {
+                  type: 'modify',
+                  path: './src/assets/css/print.scss',
+                  pattern: new RegExp(`(\\s+)?@import '../../atoms/${answers.fileName}/${answers.fileName}.print';`, 'm'),
+                  template: isRemove ? '' : `$1@import '../../atoms/${fileName}/${fileName}.print';`,
+                  abortOnFail: true,
+                },
+              ] : []);
             default:
               return [];
           }
