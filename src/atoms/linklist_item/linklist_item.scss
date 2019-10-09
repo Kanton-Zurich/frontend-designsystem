@@ -3,6 +3,7 @@
   color: rgba($colorText, 0.6);
   font-weight: $fontWeightBlack;
   position: relative;
+  cursor: pointer;
 
   .icon {
     min-width: pxToRem(24);
