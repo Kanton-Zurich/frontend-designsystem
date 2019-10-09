@@ -5,9 +5,13 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import MapView from '../map_view/map_view';
-// eslint-disable-next-line no-unused-vars
-import { DefaultOptions, LocationsModuleOptions } from './locations.options';
+import MapView,
+{ MarkerEvent, UserLocateEvent } // eslint-disable-line no-unused-vars
+  from '../map_view/map_view';
+import {
+  DefaultOptions,
+  LocationsModuleOptions, // eslint-disable-line no-unused-vars
+} from './locations.options';
 
 class Locations extends Module {
   public ui: {
@@ -105,7 +109,7 @@ class Locations extends Module {
       });
 
     this.ui.map
-      .addEventListener(MapView.events.markerMouseOver, (ev: CustomEvent) => {
+      .addEventListener(MapView.events.markerMouseOver, (ev: MarkerEvent) => {
         const markerMouseOverIdx = ev.detail.idx;
         this.log('Mouseover from map on marker', markerMouseOverIdx);
 
@@ -128,18 +132,67 @@ class Locations extends Module {
       });
 
     this.ui.map
-      .addEventListener(MapView.events.markerClicked, (ev: CustomEvent) => {
+      .addEventListener(MapView.events.markerClicked, (ev: MarkerEvent) => {
         const clickedIdx = ev.detail.idx;
         this.log('Marker clicked in map', clickedIdx);
         this.toggleLocationDetails(clickedIdx);
       });
+
+
+    this.ui.map
+      .addEventListener(MapView.events.userLocated, (ev: UserLocateEvent) => {
+        this.log('User located event: ', ev.detail);
+        if (ev.detail.markerDistances) {
+          const distances = ev.detail.markerDistances;
+          if (distances.length > 1) {
+            const listItems = this.ui.listItems as HTMLElement[];
+            listItems.forEach((item, i) => {
+              this.addDistanceToListItem(item, distances[i]);
+            });
+          } else if (distances.length === 1) {
+            this.addDistanceToListItem(this.ui.listItems as HTMLElement, distances[0]);
+          }
+
+          this.sortListItemsByDistance();
+        }
+      });
+  }
+
+  private addDistanceToListItem(item: HTMLElement, d: number) {
+    const distanceNote = item.querySelector(this.options.domSelectors.distanceAnnotation);
+    if (distanceNote) {
+      const fomatedDistanceString = d.toLocaleString('de', { maximumFractionDigits: 1 });
+      distanceNote.innerHTML = `${fomatedDistanceString}&nbsp;km`;
+    }
+    item.parentElement.setAttribute(this.options.attrNames.locDistance, d.toString());
+  }
+
+  private sortListItemsByDistance() {
+    if (this.ui.listItems[0]) {
+      const lis: HTMLElement[] = [];
+      (this.ui.listItems as HTMLElement[]).forEach((item) => {
+        lis.push(item.parentElement);
+      });
+
+      lis.sort((a, b) => {
+        const distA = a.getAttribute(this.options.attrNames.locDistance);
+        const distB = b.getAttribute(this.options.attrNames.locDistance);
+        return parseInt(distA, 10) - parseInt(distB, 10);
+      });
+
+      const ul = lis[0].parentNode;
+      lis.forEach((sortItem) => {
+        ul.appendChild(sortItem);
+      });
+    }
   }
 
   private onListItemsSelect(selectEventTarget?: HTMLElement): void {
     let selectedItemIndex: number = -1;
 
     if (selectEventTarget && selectEventTarget.parentElement) {
-      const targetItemIndexStr = selectEventTarget.parentElement.getAttribute('data-linklist-itemindex');
+      const targetItemIndexStr = selectEventTarget.parentElement
+        .getAttribute(this.options.attrNames.itemIndex);
       try {
         selectedItemIndex = Number.parseInt(targetItemIndexStr, 10);
       } catch (e) {
@@ -216,7 +269,8 @@ class Locations extends Module {
         this.ui.emptyListHint.childNodes.forEach((childNode) => {
           if (!childNode.hasChildNodes() && childNode.textContent
             && childNode.textContent.trim().length > 0) {
-            childNode.textContent = this.ui.notFoundTextTemplate.content.textContent.replace('{searchTerm}', filterText);
+            childNode.textContent = this.ui.notFoundTextTemplate.content
+              .textContent.replace('{searchTerm}', filterText);
           }
         });
         this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.notFound);

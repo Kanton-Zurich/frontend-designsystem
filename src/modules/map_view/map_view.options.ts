@@ -12,6 +12,7 @@ interface ModuleDomSelectors {
 interface ModuleStateClasses {
   singleItem: string,
   directionsBtnVisible: string,
+  controlDisabled: string,
   markerClasses: {
     default: string,
     highlight: string,
@@ -38,6 +39,7 @@ const domSelectors: ModuleDomSelectors = {
 const stateClasses: ModuleStateClasses = {
   singleItem: 'mdl-map_view--single-item',
   directionsBtnVisible: 'visible',
+  controlDisabled: 'disabled',
   markerClasses: {
     default: 'mdl-map_view__marker',
     highlight: 'mdl-map_view__marker_highlight',
