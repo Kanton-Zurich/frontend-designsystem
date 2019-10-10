@@ -50,6 +50,15 @@ const duplicateGroup = {
             isRequired: true,
           },
         })),
+      tooltip: {
+        helptext: 'Info',
+        buttonRight: true,
+        bubble: {
+          heading: 'Tooltip Ipsum',
+          text: 'Ländernamen auf Deutsch eingeben',
+          id: _.uniqueId('form-test'),
+        },
+      },
     },
     {
       cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
@@ -63,6 +72,14 @@ const duplicateGroup = {
             isRequired: true,
           },
         })),
+      tooltip: {
+        buttonLeft: true,
+        bubble: {
+          heading: 'Tooltip Ipsum',
+          text: 'Ländernamen auf Deutsch eingeben',
+          id: _.uniqueId('form-test'),
+        },
+      },
     }],
   },
   {

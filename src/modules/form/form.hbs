@@ -11,6 +11,9 @@
           {{#each fields}}
             <div class="form__cell {{#if isSmall}}form__cell--small{{/if}}">
               {{{cellContent}}}
+              {{#if tooltip}}
+                {{> "modules/tooltip/tooltip" tooltip}}
+              {{/if}}
             </div>
           {{/each}}
         </div>
