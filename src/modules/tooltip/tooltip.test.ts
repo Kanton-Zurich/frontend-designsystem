@@ -1,10 +1,9 @@
-jest.setTimeout(30000); // eslint-disable-line no-magic-numbers
-describe('Modal', () => {
+describe('FormInfo', () => {
   let page: any;
 
   beforeAll(async () => {
     // eslint-disable-next-line no-underscore-dangle
-    const url = `http://localhost:${(<any>global).__STATIC_PORT__}/modules/modal/modal.html`;
+    const url = `http://localhost:${(<any>global).__STATIC_PORT__}/modules/form_info/form_info.html`;
 
     // eslint-disable-next-line no-underscore-dangle
     page = await (<any>global).__BROWSER__.newPage();

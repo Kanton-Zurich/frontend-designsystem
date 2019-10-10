@@ -44,6 +44,26 @@
     }
   }
 
+  &--no-dropzone {
+    .mdl-file_upload__dropzone {
+      display: none;
+    }
+  }
+
+  &--duplicated:not(:first-child) {
+    .atm-heading,
+    label:not(.atm-button) {
+      @include visuallyhidden;
+    }
+  }
+
+  &:not(:first-child) {
+    .atm-heading,
+    label:not(.atm-button) {
+      @include visuallyhidden;
+    }
+  }
+
   &__list {
     @include resetList;
   }
@@ -52,7 +72,6 @@
     transform: translateY(-50%) scaleY(0);
     transition: transform 400ms, opacity 400ms, height 400ms ease-in-out;
 
-    display: block;
     width: 100%;
     font-size: pxToRem($sizeFontTiny);
     line-height: $sizeLineHeightBase;
@@ -62,8 +81,10 @@
     background-color: $colorRed;
 
     margin-top: pxToRem($sizeTiny);
+    display: none;
 
     &.show {
+      display: block;
       transform: translateY(0) scaleY(1);
     }
   }
@@ -72,11 +93,17 @@
   &__file {
     flex-grow: 1;
     display: flex;
-    flex-direction: column;
+    align-items: center;
 
     border-bottom: 1px solid $colorBlack20;
 
     @include sizeCurve(padding-top padding-bottom, tiny);
+
+    &-meta {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
 
     &-title {
       font-size: pxToRem($sizeFontRegular);
@@ -91,6 +118,13 @@
     }
 
     &-delete {
+      line-height: 0;
+
+      svg {
+        min-width: pxToRem(24);
+        min-height: pxToRem(24);
+      }
+
       use {
         fill: $colorBlack60;
       }

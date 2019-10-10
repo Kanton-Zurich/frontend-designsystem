@@ -269,6 +269,7 @@ $mapRatioSmall: 0.75;
 
           .mdl-locations__details_location.show {
             display: block;
+            max-height: calc(100vw - #{$sideBarHeadHeight + $sizeLarge});
           }
         }
       }
@@ -367,6 +368,15 @@ $mapRatioSmall: 0.75;
           .mdl-linklist {
             max-height: pxToRem($sideBarHeightSmall -  $sideBarHeadHeight - $sizeRegular);
           }
+
+          .mdl-locations__details_location {
+            padding: 0;
+
+            &.show {
+              max-height: pxToRem($sideBarHeightSmall -  $sideBarHeadHeight - $sizeRegular);
+              margin-top: pxToRem(2 * $sizeSmallRegular + $sizeSmallHuge);
+            }
+          }
         }
       }
 
@@ -387,15 +397,6 @@ $mapRatioSmall: 0.75;
 
         &_head {
           padding-left: 0;
-        }
-
-        &_location {
-          padding: 0;
-
-          &.show {
-            max-height: pxToRem($sideBarHeightSmall -  $sideBarHeadHeight - $sizeRegular);
-            margin-top: pxToRem(2 * $sizeSmallRegular + $sizeSmallHuge);
-          }
         }
       }
     }

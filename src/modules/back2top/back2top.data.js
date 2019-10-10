@@ -2,27 +2,40 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const buttonDefaultData = require('../../atoms/button/button.data').variants.default.props;
 
-const template = dataHelper.getFileContent('toggle.hbs');
+const template = dataHelper.getFileContent('back2top.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Toggle',
-    className: 'Toggle',
-    jira: 'CZHDEV-1144',
-    documentation: dataHelper.getDocumentation('toggle.md'),
+    title: 'Back2Top',
+    className: 'Back2top',
+    jira: 'CZHDEV-499',
+    documentation: dataHelper.getDocumentation('back2top.md'),
   },
   props: {
-    label: 'E-Mail Benachrichtigungen erlauben',
-    name: 'allowmailnotification',
-    id: 'allowmailnotification',
-    checked: false,
+    toTopBtn: _.merge({}, buttonDefaultData, {
+      isTextVisible: false,
+      icon: 'arrow-up',
+    }),
   },
 });
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Standard',
-      desc: 'Standard Implementierung ohne Vorauswahl',
+      title: 'Default',
+      desc: 'Default implementation',
+    },
+    props: {
+      develop: false,
+    },
+  },
+  develop: {
+    meta: {
+      title: 'Dev',
+      desc: 'Develop implementation (additional spacing, link to topics page)',
+    },
+    props: {
+      develop: true,
     },
   },
 }, (variant) => {
@@ -34,8 +47,8 @@ const variants = _.mapValues({
 
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
-        data: dataHelper.getFormattedJson(variantProps),
         html: dataHelper.getFormattedHtml(compiledVariant()),
+        data: dataHelper.getFormattedJson(variantProps),
       },
     },
   });

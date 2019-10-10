@@ -38,6 +38,8 @@ import NewsFilterMobile from '../../../modules/news_filter_mobile/news_filter_mo
 import NewsOverview from '../../../modules/news_overview/news_overview';
 import Locations from '../../../modules/locations/locations';
 import MapView from '../../../modules/map_view/map_view';
+import Back2top from '../../../modules/back2top/back2top';
+import Tooltip from '../../../modules/tooltip/tooltip';
 import FlexData from '../../../modules/flex_data/flex_data';
 import DrilldownSelect from '../../../modules/drilldown_select/drilldown_select';
 /* autoinsertmodulereference */ // eslint-disable-line
@@ -89,6 +91,8 @@ class App {
     this.modules.mapView = MapView;
     this.modules.flexData = FlexData;
     this.modules.drilldownSelect = DrilldownSelect;
+    this.modules.back2top = Back2top;
+    this.modules.tooltip = Tooltip;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
