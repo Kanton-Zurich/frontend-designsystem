@@ -89,7 +89,14 @@
 
   .mdl-context_menu__list {
     li:first-of-type {
-      height: pxToRem(70px);
+      height: pxToRem(46px);
+      
+      @include mq($from: xsmall) {
+        height: pxToRem(54px);
+      }
+      @include mq($from: medium) {
+        height: pxToRem(70px);
+      }
     }
 
     li:last-of-type {
@@ -151,7 +158,7 @@
         fill: $colorBlack60;
       }
     }
-    
+
     @include mq($from: medium) {
       background-color: transparent;
     }
