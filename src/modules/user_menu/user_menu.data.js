@@ -3,6 +3,8 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
+const contextMenuDownload = require('../context_menu/context_menu.data').variants.download.props;
+
 const template = dataHelper.getFileContent('user_menu.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -12,7 +14,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('user_menu.md'),
   },
   props: {
-
+    contextMenu: _.merge({}, contextMenuDownload, {}),
   },
 });
 const variants = _.mapValues({

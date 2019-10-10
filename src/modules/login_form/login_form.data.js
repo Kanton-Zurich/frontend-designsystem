@@ -3,6 +3,8 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
+const formInputData = require('../../atoms/form_input/form_input.data');
+
 const template = dataHelper.getFileContent('login_form.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -12,7 +14,8 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('login_form.md'),
   },
   props: {
-
+    userNameInput: formInputData.variants.floatValidate.props,
+    passwordInput: formInputData.variants.showPasswordButton.props,
   },
 });
 const variants = _.mapValues({

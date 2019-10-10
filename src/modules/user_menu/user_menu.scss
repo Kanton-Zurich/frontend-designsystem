@@ -1,5 +1,6 @@
 .mdl-user-menu {
   @include sizeCurve(height, height, $headerCurves); // Used variable from header module
+  position: relative;
   display: inline-flex;
   background-color: rgba(255, 255, 255, 0.4);
   margin-right: 2px;
@@ -7,13 +8,12 @@
   &__trigger {
     @include blankButton;
     padding: 0 pxToRem($sizeSmallRegular);
-    // padding: 0 pxToRem($sizeRegular) 0 pxToRem($sizeSmallRegular);
     display: inline-flex;
     align-items: center;
     color: $colorBlack80;
 
     .icon use {
-      fill:$colorBlack80;
+      fill: $colorBlack80;
     }
   }
 
@@ -34,9 +34,39 @@
 
     & + .icon {
       display: none;
+      transition: transform 200ms ease-out;
+      transform: rotate(0deg);
     }
   }
 
+  &.open {
+    .mdl-user-menu__user-short + .icon {
+      transform: rotate(180deg);
+    }
+
+    .mdl-context_menu {
+      display: block;
+    }
+  }
+
+  /**
+  * Module overwrites
+  */
+  .atm-context_menu_item,
+  .mdl-context_menu {
+    width: 100%;
+  }
+
+  .mdl-context_menu {
+    top: 100%;
+    left: 0;
+    box-shadow: none;
+    display: none;
+  }
+
+  /**
+  * Media queries
+  */
   @include mq($from: xsmall) {
     &__trigger {
       padding: 0 pxToRem($sizeRegular);
@@ -49,6 +79,51 @@
     &__user-short,
     &__user-short + .icon {
       display: block;
+    }
+
+    &__trigger {
+      color: $colorWhite;
+
+      .icon use {
+        fill: $colorWhite;
+      }
+    }
+  }
+
+  @include mq($from: xlarge) {
+    &__user {
+      display: block;
+    }
+
+    &__user-short {
+      display: none;
+    }
+
+    &.open {
+      box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.16), 0px 0px 2px rgba(0, 0, 0, 0.32);
+
+      .mdl-user-menu__trigger {
+        margin-top: 2px;
+        padding-bottom: 2px;
+        background-color: $colorWhite;
+        border-radius: 1px;
+        color: $colorBlack;
+
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: 2px;
+          left: 0;
+
+          width: 100%;
+          height: 1px;
+          background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .icon use {
+          fill: $colorBlack;
+        }
+      }
     }
   }
 }

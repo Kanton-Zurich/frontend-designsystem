@@ -5,15 +5,31 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import ContextMenu from '../context_menu/context_menu';
 import namespace from '../../assets/js/helpers/namespace';
 
 class UserMenu extends Module {
+  public options: {
+    domSelectors: {
+      trigger: string,
+      contextMenu: string,
+    },
+    stateClasses: Object,
+  };
+
+  public ui: {
+    element: any,
+    trigger: HTMLButtonElement,
+    contextMenu: HTMLDivElement,
+  };
+
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
     };
     const defaultOptions = {
       domSelectors: {
-        // item: '[data-${{{className}}.name}="item"]'
+        trigger: '.mdl-user-menu__trigger',
+        contextMenu: '.mdl-context_menu',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -24,6 +40,7 @@ class UserMenu extends Module {
 
     this.initUi();
     this.initEventListeners();
+    this.initContextMenus();
   }
 
   static get events() {
@@ -37,6 +54,18 @@ class UserMenu extends Module {
    */
   initEventListeners() {
     // Event listeners
+  }
+
+  /**
+   * Initializing the context menus
+   *
+   * @memberof DownloadList
+   */
+  initContextMenus() {
+    new ContextMenu(this.ui.contextMenu, {}, {
+      attachTo: this.ui.element,
+      trigger: this.ui.trigger,
+    });
   }
 
   /**

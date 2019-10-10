@@ -1,3 +1,77 @@
-<div class="mdl-login_form" data-init="loginForm">
-	Login Form
+<div class="mdl-login-form" data-init="loginForm">
+  <div class="mdl-richtext">
+    <h2 class="atm-heading">
+      Login ZHservices
+    </h2>
+    <p>
+      Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichte - den ersten in
+      der Schweiz.
+    </p>
+  </div>
+
+  <form novalidate initialized="true">
+    <section>
+      <div class="form__group">
+
+        <div class="form__row">
+          <div class="form__cell">
+            {{> "atoms/form_input/form_input" userNameInput}}
+          </div>
+        </div>
+
+        <div class="form__row">
+          <div class="form__cell">
+            {{> "atoms/form_input/form_input" passwordInput}}
+          </div>
+        </div>
+
+        <div class="form__row">
+          <div class="form__cell">
+            <div class="mdl-login-form__line"></div>
+          </div>
+        </div>
+
+        <div class="form__row">
+          <div class="form__cell">
+            <div class="mdl-tooltip" data-init="tooltip">
+              <div class="mdl-tooltip__text">
+                <div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--left">
+                  <button type="button" class="mdl-tooltip__trigger" aria-describedby="aria-default108">
+                    <span class="visuallyhidden">
+                      Erweiterter Hilfetext anzeigen
+                    </span>
+                    <svg class="icon">
+                      <use xlink:href="#get-information"></use>
+                    </svg>
+                  </button>
+                  <div class="mdl-tooltip__bubble" id="aria-default108" aria-hidden="true">
+                    <button type="button" tabindex="-1">
+                      <span class="visuallyhidden">
+                        Hilfetextfenster schliessen
+                      </span>
+                      <svg class="icon">
+                        <use xlink:href="#exit"></use>
+                      </svg>
+                    </button>
+                    <p>
+                      Bitte kontaktieren Sie diese <a href="mailto:test@test.com" class="atm-text_link">Emailaddresse</a> wenn Sie ein neues Passwort benötigen.
+                    </p>
+                  </div>
+                </div>
+
+                <p>Passwort vergessen?</p>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="form__cell">
+            <button class="atm-button mdl-login-form__submit">Anmelden</button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+  </form>
 </div>

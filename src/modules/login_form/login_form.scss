@@ -1,3 +1,13 @@
-.mdl-login_form {
+.mdl-login-form {
 
+  &__line {
+    margin-top: pxToRem($sizeTiny);
+    height: pxToRem(3px);
+    width: 100%;
+    background-color: $colorBlack;
+  }
+
+  &__submit {
+    margin-left: auto;
+  }
 }
