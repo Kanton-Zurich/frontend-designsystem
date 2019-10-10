@@ -1,3 +1,19 @@
 .mdl-flex-data {
+  &__form {
 
+  }
+
+  &__form-controls {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: pxToRem($sizeLarge);
+    padding-top: pxToRem($sizeRegular);
+
+    border-top: 3px solid $colorBlack;
+
+    .atm-button {
+      margin-left: pxToRem($sizeTiny);
+    }
+  }
 }

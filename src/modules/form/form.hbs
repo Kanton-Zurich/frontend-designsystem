@@ -6,6 +6,7 @@
         {{#if isDuplicatable}}
           <div class="form__group form__group--duplicatable" data-form="duplicatable" {{#if maxDuplications}}data-max-duplications="{{maxDuplications}}"{{/if}}>
         {{/if}}
+        {{#unless unwrapped}}
         <div class="form__row">
           {{#each fields}}
             <div class="form__cell {{#if isSmall}}form__cell--small{{/if}}">
@@ -13,6 +14,12 @@
             </div>
           {{/each}}
         </div>
+        {{/unless}}
+        {{#if unwrapped}}
+          {{#each fields}}
+          {{{cellContent}}}
+          {{/each}}
+        {{/if}}
         {{#if isDuplicatable}}
             <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
               <svg class="icon icon--iframe-add">

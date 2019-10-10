@@ -2,6 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const defFormData = require('../form/form.data');
 
 const template = dataHelper.getFileContent('flex_data.hbs');
 const data = _.merge({}, defaultData, {
@@ -19,8 +20,11 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
+      title: 'Steuerbuch',
       desc: 'Default implementation',
+    },
+    props: {
+      flexFormData: _.merge({}, defFormData.variants.steuerBuch.props),
     },
   },
 }, (variant) => {

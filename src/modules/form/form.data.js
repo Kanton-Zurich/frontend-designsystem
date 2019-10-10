@@ -19,6 +19,9 @@ const radioData = require('../../atoms/radiobutton/radiobutton.data');
 const selectHBS = dataHelper.getFileContent('../select/select.hbs');
 const selectData = require('../select/select.data');
 
+const drillDownSelectHBS = dataHelper.getFileContent('../drilldown_select/drilldown_select.hbs');
+const drillDownSelectData = require('../drilldown_select/drilldown_select.data');
+
 const fileUploadHBS = dataHelper.getFileContent('../file_upload/file_upload.hbs');
 const fileUploadData = require('../file_upload/file_upload.data');
 
@@ -830,6 +833,66 @@ const variants = _.mapValues({
       ],
     },
   },
+  steuerBuch: {
+    meta: {
+      title: 'Steuerbuch (Flex data CZHDEV-1234)',
+      desc: 'Flex Data Steuerbuch',
+    },
+    props: {
+      sectionTitle: 'Suche im Zürcher Steuerbuch',
+      groups: [{
+        rows: [
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Aktuelle Berufsebezichnung',
+                    name: 'current_job',
+                    uuid: 'current_job',
+                    validation: {
+                      isRequired: true,
+                    },
+                  })),
+              },
+            ],
+          },
+          {
+            fields: [{
+              cellContent: () => handlebars.compile(drillDownSelectHBS)(_.merge({},
+                drillDownSelectData.props, {
+                  // primary secondary
+                  primarySelectData: {
+                    triggerInputData: {
+                      label: 'Thema',
+                      name: 'primaryTopic',
+                      uuid: 'primaryTopic',
+                      validation: {
+                        isRequired: true,
+                      },
+                    },
+                  },
+                  secondarySelectData: {
+                    triggerInputData: {
+                      label: 'Unterthema',
+                      name: 'secondaryTopic',
+                      uuid: 'secondaryTopic',
+                      validation: {
+                        isRequired: true,
+                      },
+                    },
+                  },
+                })),
+            },],
+            unwrapped: true,
+          },
+        ],
+      },
+      ],
+    },
+  },
 }, (variant) => {
   // eslint-disable
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
@@ -859,5 +922,6 @@ const variants = _.mapValues({
 
 
 data.variants = variants;
+console.log(JSON.stringify(data.variants.steuerBuch.props));
 
 module.exports = data;
