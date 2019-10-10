@@ -14,6 +14,7 @@ const defLinklistData = require('../../modules/linklist/linklist.data');
 const defcontactData = require('../../modules/contact/contact.data');
 const defPersonCardData = require('../../modules/person_card/person_card.data.js');
 const defSocialLinksData = require('../../modules/social_media_links/social_media_links.data.js');
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 
 const defAnchorNavData = {
   anchornavTitle: {
@@ -221,6 +222,7 @@ const data = _.merge({}, defaultData, {
       personCardData: defPersonCardData.variants.default.props,
       contactData: _.merge({}, defcontactData.variants.fullWidthLessData.props, { anchorNavReference: 'contact' }),
       socialLinksData: _.merge({}, _.omit(defSocialLinksData.variants.default.props, ['linkedIn'], ['youtube']), {anchorReference: 'socialmedia' }),
+      footerData: defFooterData,
     },
   },
 });

@@ -4,6 +4,7 @@ const dataHelper = require('@unic/estatico-data');
 const headerData = require('../../modules/header/header.data');
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
 const defContactData = require('../../modules/contact/contact.data.js');
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -18,6 +19,7 @@ const data = _.merge({}, defaultData, {
     modules: {
       pageHeader: defPageHeaderData.variants.error403Ext.props,
       contact: defContactData.variants.fullWidthLessData.props,
+      footerData: defFooterData,
     },
   },
 });
