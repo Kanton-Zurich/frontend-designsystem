@@ -1,7 +1,8 @@
 <div class="atm-form_input{{#if isFloatingLabel}} atm-form_input--floated{{/if}}{{#if
   isSmall}} atm-form_input--small{{/if}}{{#if unitLeft}} atm-form_input--unitLeft{{/if}}{{#if
   iconOnly}} atm-form_input--icon{{/if}}{{#if isSelectTrigger}} atm-form_input--trigger{{/if}}{{#if
-  isTriggerWithInput}} atm-form_input--trigger-phone{{/if}}"{{#unless isSelectTrigger}} data-input{{/unless}}>
+  isTriggerWithInput}} atm-form_input--trigger-phone{{/if}}"{{#unless isSelectTrigger}} data-input{{/unless}}
+  {{#if rules}} data-rules="{{rules}}"{{/if}}>
 
   {{# if isSelectTrigger}}
     <button aria-expanded="false" aria-labelledby="aria-labledBy-{{uuid}} {{uuid}}" id="{{uuid}}"
@@ -30,7 +31,6 @@
       {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
       {{#if validation}} data-validation{{/if}}
       {{#if isFloatingLabel}} data-floating{{/if}}
-      {{#if rules}} data-rules="{{rules}}"{{/if}}
       ></textarea>
   {{/if}}
 
@@ -51,7 +51,6 @@
       {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
       {{#if validation}} data-validation{{/if}}
       {{#if isFloatingLabel}} data-floating{{/if}}
-      {{#if rules}} data-rules="{{rules}}"{{/if}}
       {{#if zipCity}}
         data-fills-city="{{zipCity.fills}}"
         data-zip="{{zipCity.data}}"
