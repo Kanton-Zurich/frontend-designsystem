@@ -11,14 +11,13 @@
           <a href="{{homelink}}">
             <span class="visuallyhidden">Logo des Kantons Zürich</span>
             {{#if inverted}}
-              <svg viewBox="0 0 100 100" class="mdl-page-header__logo">
+              <svg viewBox="0 0 100 100" class="mdl-page-header__logo print-hidden">
                 <use xlink:href="#ktzh_inverted"></use>
               </svg>
-            {{else}}
-              <svg viewBox="0 0 100 100" class="mdl-page-header__logo">
-                <use xlink:href="#ktzh"></use>
-              </svg>
             {{/if}}
+            <svg viewBox="0 0 100 100" class="mdl-page-header__logo{{#if inverted}} screen-hidden{{/if}}">
+              <use xlink:href="#ktzh"></use>
+            </svg>
           </a>
         {{/unless}}
       </div>

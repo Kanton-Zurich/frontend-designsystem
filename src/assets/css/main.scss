@@ -125,3 +125,7 @@
 @import '../../modules/back2top/back2top';
 @import '../../modules/tooltip/tooltip';
 //*autoinsertmodule*
+
+@media screen {
+  @import 'screen';
+}

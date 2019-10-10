@@ -6,4 +6,45 @@
 //*autoinsertatom*
 
 @import '../../modules/accordion/accordion.print';
+@import '../../modules/anchornav/anchornav.print';
+@import '../../modules/back2top/back2top.print';
+@import '../../modules/contact/contact.print';
+@import '../../modules/content_nav/content_nav.print';
+@import '../../modules/footer/footer.print';
+@import '../../modules/header/header.print';
+@import '../../modules/lang_switch/lang_switch.print';
+@import '../../modules/news_teaser/news_teaser.print';
+@import '../../modules/page_header/page_header.print';
+@import '../../modules/related_content/related_content.print';
+@import '../../modules/social_media_links/social_media_links.print';
+@import '../../modules/social_media_stream/social_media_stream.print';
+@import '../../modules/tag_group/tag_group.print';
 //*autoinsertmodule*
+
+
+html,
+body {
+  height: auto;
+
+  .lyt-wrapper {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .print-hidden {
+    display: none !important;  //stylelint-disable-line
+  }
+
+  .screen-hidden {
+    display: block !important;  //stylelint-disable-line
+  }
+
+  *:focus {
+    outline: none;
+  }
+}
+
+html.fixed-header {
+  padding-top: 0;
+}
+

@@ -1,0 +1,27 @@
+.mdl-page-header {
+  .mdl-service_button,
+  .mdl-tag-group {
+    display: none;
+  }
+}
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-page-header {
+      &--inverted,
+      [ class*='--inverted' ] & {
+        background-color: initial;
+      }
+
+
+      .atm-heading,
+      .atm-lead,
+      .atm-paragraph,
+      .mdl-page-header__breadcrumb,
+      .mdl-breadcrumb__show-context,
+      .mdl-page-header__closebutton {
+        color: $colorText;
+      }
+    }
+  }
+}
