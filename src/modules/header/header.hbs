@@ -14,7 +14,12 @@
       </div>
     </div>
   </div>
-  {{> "modules/search/search"}}
+  <div class="mdl-header__functions">
+    {{#if hasUserMenu}}
+      {{> "modules/user_menu/user_menu"}}
+    {{/if}}
+    {{> "modules/search/search"}}
+  </div>
 </header>
 
 {{#each modals}}

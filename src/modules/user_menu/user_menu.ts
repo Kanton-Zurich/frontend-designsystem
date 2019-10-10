@@ -13,14 +13,18 @@ class UserMenu extends Module {
     domSelectors: {
       trigger: string,
       contextMenu: string,
+      hook: string,
     },
-    stateClasses: Object,
+    stateClasses: {
+      open: string,
+    },
   };
 
   public ui: {
     element: any,
     trigger: HTMLButtonElement,
     contextMenu: HTMLDivElement,
+    hook: HTMLSpanElement,
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -30,9 +34,10 @@ class UserMenu extends Module {
       domSelectors: {
         trigger: '.mdl-user-menu__trigger',
         contextMenu: '.mdl-context_menu',
+        hook: '.menuhook',
       },
       stateClasses: {
-        // activated: 'is-activated'
+        open: 'open',
       },
     };
 
@@ -40,7 +45,7 @@ class UserMenu extends Module {
 
     this.initUi();
     this.initEventListeners();
-    this.initContextMenus();
+    // this.initContextMenus();
   }
 
   static get events() {
@@ -53,7 +58,16 @@ class UserMenu extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    // Event listeners
+    this.eventDelegate
+      .on('click', this.options.domSelectors.trigger, this.toggleUserMenu.bind(this));
+  }
+
+  toggleUserMenu() {
+    if (this.ui.element.classList.contains(this.options.stateClasses.open)) {
+      this.ui.element.classList.remove(this.options.stateClasses.open);
+    } else {
+      this.ui.element.classList.add(this.options.stateClasses.open);
+    }
   }
 
   /**
@@ -63,7 +77,7 @@ class UserMenu extends Module {
    */
   initContextMenus() {
     new ContextMenu(this.ui.contextMenu, {}, {
-      attachTo: this.ui.element,
+      attachTo: this.ui.hook,
       trigger: this.ui.trigger,
     });
   }

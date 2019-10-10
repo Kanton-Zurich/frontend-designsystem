@@ -90,10 +90,11 @@ $headerCurves: (
   }
 
   /** Special design for header */
-  .mdl-search {
+  &__functions {
     position: absolute;
     right: 0;
     top: 0;
+    display: inline-flex;
   }
 }
 
