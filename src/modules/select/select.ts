@@ -373,12 +373,10 @@ class Select extends Module {
    */
   setDisabled(disabled) {
     if (disabled) {
-      this.ui.element.setAttribute('disabled', '');
       this.ui.trigger.setAttribute('disabled', '');
       return;
     }
     this.ui.trigger.removeAttribute('disabled');
-    this.ui.element.removeAttribute('disabled');
   }
 
   /**
@@ -543,11 +541,10 @@ class Select extends Module {
           }
         }, this.options.dropdownDelay);
       } else {
-        console.log('close validate');
         this.ui.element.querySelector(this.options.domSelectors.visibleInputItems)
           .dispatchEvent(new CustomEvent('validateDeferred', {
-          detail: { field: this.ui.inputItems[0] },
-        }));
+            detail: { field: this.ui.inputItems[0] },
+          }));
         this.updateFlyingFocus();
       }
       this.emitClose();
