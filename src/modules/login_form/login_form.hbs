@@ -1,16 +1,14 @@
 <div class="mdl-login-form" data-init="loginForm">
-  <div class="mdl-richtext">
-    <h2 class="atm-heading">
-      Login ZHservices
-    </h2>
-    <p>
-      Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichte - den ersten in
-      der Schweiz.
-    </p>
-  </div>
+  <h2 class="atm-heading">
+    Login ZHservices
+  </h2>
+  <p class="atm-paragraph">
+    Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichte - den ersten in
+    der Schweiz.
+  </p>
 
-  <form novalidate initialized="true">
-    <section>
+  <form novalidate>
+    <section class="form__section" aria-live="polite">
       <div class="form__group">
 
         <div class="form__row">
@@ -33,36 +31,7 @@
 
         <div class="form__row">
           <div class="form__cell">
-            <div class="mdl-tooltip" data-init="tooltip">
-              <div class="mdl-tooltip__text">
-                <div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--left">
-                  <button type="button" class="mdl-tooltip__trigger" aria-describedby="aria-default108">
-                    <span class="visuallyhidden">
-                      Erweiterter Hilfetext anzeigen
-                    </span>
-                    <svg class="icon">
-                      <use xlink:href="#get-information"></use>
-                    </svg>
-                  </button>
-                  <div class="mdl-tooltip__bubble" id="aria-default108" aria-hidden="true">
-                    <button type="button" tabindex="-1">
-                      <span class="visuallyhidden">
-                        Hilfetextfenster schliessen
-                      </span>
-                      <svg class="icon">
-                        <use xlink:href="#exit"></use>
-                      </svg>
-                    </button>
-                    <p>
-                      Bitte kontaktieren Sie diese <a href="mailto:test@test.com" class="atm-text_link">Emailaddresse</a> wenn Sie ein neues Passwort benötigen.
-                    </p>
-                  </div>
-                </div>
-
-                <p>Passwort vergessen?</p>
-
-              </div>
-            </div>
+            {{> "modules/tooltip/tooltip" tooltip}}
           </div>
 
           <div class="form__cell">

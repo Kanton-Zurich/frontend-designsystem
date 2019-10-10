@@ -5,6 +5,15 @@ const defaultData = require('../../data/default.data.js');
 
 const formInputData = require('../../atoms/form_input/form_input.data');
 
+const tooltipData = {
+  helptext: 'Passwort vergessen?',
+  buttonLeft: true,
+  bubble: {
+    text: 'Bitte kontaktieren Sie diese <a href="mailto:test@test.com" class="atm-text_link">Emailaddresse</a> wenn Sie ein neues Passwort benötigen.',
+    id: _.uniqueId('aria-anchors'),
+  },
+}
+
 const template = dataHelper.getFileContent('login_form.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -16,6 +25,7 @@ const data = _.merge({}, defaultData, {
   props: {
     userNameInput: formInputData.variants.floatValidate.props,
     passwordInput: formInputData.variants.showPasswordButton.props,
+    tooltip: tooltipData,
   },
 });
 const variants = _.mapValues({
