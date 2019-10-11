@@ -276,6 +276,9 @@ gulp.task('css', () => {
                   // .css extension
                   path.extname(candidatePath) ? candidatePath : `${candidatePath}.css`,
                 ];
+                if (path.extname(candidatePath) === '.print') {
+                  candidatePaths.push(`${candidatePath}.scss`);
+                }
 
                 // Remove duplicates
                 return [...new Set(candidatePaths)];
@@ -337,6 +340,7 @@ gulp.task('css:lint', () => {
       './src/**/*.scss',
       '!./src/assets/css/templates/*.scss',
       '!./src/preview/assets/css/main.scss',
+      '!./src/preview/assets/css/print.scss',
     ],
     srcBase: './src/',
     dest: './dist',
