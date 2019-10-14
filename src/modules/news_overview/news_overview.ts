@@ -453,7 +453,7 @@ class NewsOverview extends Module {
   }
 
   /**
-   * get canonical URL
+   * get base URL
    */
   private getBaselUrl() {
     return `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
