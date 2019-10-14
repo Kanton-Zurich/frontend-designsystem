@@ -28,7 +28,7 @@ data.props.primarySelectData.listData.selectOptions = [
   { value: 'quel', label: 'Quellensteuer', id: _.uniqueId('option-item') },
   { value: 'verf', label: 'Verfahrensrecht', id: _.uniqueId('option-item') },
 ];
-data.props.primarySelectData.listData.groupId = 'primarySelect';
+data.props.primarySelectData.listData.groupId = 'thema';
 data.props.primarySelectData.triggerInputData.label = 'Thema';
 
 data.props.secondarySelectData.listData.selectOptions = [
@@ -44,7 +44,7 @@ data.props.secondarySelectData.listData.selectOptions = [
   { value: 'zeitbl_jur', label: 'Zeitliche Bemessung', filterId: 'jur', id: _.uniqueId('option-item') },
   { value: 'gew_jur', label: 'Gewinnsteuer', filterId: 'jur', id: _.uniqueId('option-item') },
 ];
-data.props.secondarySelectData.listData.groupId = 'secondarySelect';
+data.props.secondarySelectData.listData.groupId = 'unterthema';
 data.props.secondarySelectData.triggerInputData.label = 'Unterthema';
 
 const variants = _.mapValues({

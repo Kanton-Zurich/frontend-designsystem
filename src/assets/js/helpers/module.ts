@@ -177,6 +177,24 @@ class Module {
     }
     return result && result.length > 0 ? result : null;
   }
+
+  /**
+   * Get all URL params as object
+   */
+  getAllURLParams() {
+    const url = window.location.href;
+    const stringParams = url.split('?').length > 1 ? url.split('?')[1].split('&') : null;
+    let params = {};
+    if (stringParams) {
+      params = stringParams.reduce((total, amount) => {
+        const keyValue = amount.split('=');
+        total[keyValue[0]] = total[keyValue[0]] ? total[keyValue[0]] : [];
+        total[keyValue[0]].push(keyValue[1] ? keyValue[1] : null);
+        return total;
+      }, {});
+    }
+    return params;
+  }
 }
 
 export default Module;

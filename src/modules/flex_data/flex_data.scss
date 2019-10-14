@@ -16,4 +16,17 @@
       margin-left: pxToRem($sizeTiny);
     }
   }
+
+  .mdl-table {
+    .mdl-table__row {
+      td.mdl-table__cell {
+        padding: 12px;
+
+        .atm-text_link {
+          display: inline;
+          padding-bottom: 3px;
+        }
+      }
+    }
+  }
 }

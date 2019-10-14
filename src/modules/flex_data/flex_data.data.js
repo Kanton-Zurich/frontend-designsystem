@@ -3,6 +3,9 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defFormData = require('../form/form.data');
+const defPaginationData = require('../pagination/pagination.data');
+
+const templateConverter = require('../../../gulp/helpers/templateConverter');
 
 const template = dataHelper.getFileContent('flex_data.hbs');
 const data = _.merge({}, defaultData, {
@@ -24,7 +27,38 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
+      pagination: defPaginationData.variants.fullWidth.props,
+      resultCountTitle: '%1 Treffer zu ihrer Abfrage',
       flexFormData: _.merge({}, defFormData.variants.steuerBuch.props),
+      resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
+      tableData: {
+        tableTitle: '',
+        hasTitle: true,
+        tableHeadingLevel: 3,
+        hasColumnHeader: true,
+        isWide: true,
+        isStatic: true,
+        preSortedColumn: 'zstb-nummer',
+        preSortedDirection: 'asc',
+        headers: [
+          {
+            title: 'ZStB-Nr.',
+            dataColumnName: 'zstb-nummer',
+            isSortable: 'enum',
+          },
+          {
+            title: 'Kurztitel',
+            dataColumnName: 'titel',
+            isSortable: 'alpha',
+          },
+          {
+            title: 'Themenbereich',
+            dataColumnName: 'themenbereich',
+            isSortable: 'alpha',
+          },
+        ],
+        bodyrows: [],
+      },
     },
   },
 }, (variant) => {

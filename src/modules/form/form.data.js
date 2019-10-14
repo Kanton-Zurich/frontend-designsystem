@@ -867,8 +867,8 @@ const variants = _.mapValues({
                   {
                     isFloatingLabel: true,
                     label: 'Aktuelle Berufsebezichnung',
-                    name: 'current_job',
-                    uuid: 'current_job',
+                    name: 'aktueller_beruf',
+                    uuid: 'aktueller_beruf',
                     validation: {
                       isRequired: true,
                     },
@@ -882,20 +882,26 @@ const variants = _.mapValues({
                 drillDownSelectData.props, {
                   // primary secondary
                   primarySelectData: {
+                    listData: {
+                      groupId: 'thema',
+                    },
                     triggerInputData: {
                       label: 'Thema',
-                      name: 'primaryTopic',
-                      uuid: 'primaryTopic',
+                      name: 'thema',
+                      uuid: 'thema',
                       validation: {
                         isRequired: true,
                       },
                     },
                   },
                   secondarySelectData: {
+                    listData: {
+                      groupId: 'unterthema',
+                    },
                     triggerInputData: {
                       label: 'Unterthema',
-                      name: 'secondaryTopic',
-                      uuid: 'secondaryTopic',
+                      name: 'unterthema',
+                      uuid: 'unterthema',
                       validation: {
                         isRequired: true,
                       },

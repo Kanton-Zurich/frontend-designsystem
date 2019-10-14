@@ -1,4 +1,4 @@
-<div class="mdl-flex-data" data-init="flexData">
+<div class="mdl-flex-data" data-init="flexData" data-source="/mocks/modules/flex_data/flex_data.json">
   <div class="mdl-flex-data__form">
     <form novalidate>
       {{> "modules/form/form" flexFormData }}
@@ -7,12 +7,14 @@
         <button class="atm-button ">Suchen</button>
       </div>
     </form>
-
   </div>
-  <div class="mdl-flex-data__results">
-    <div class="mdl-flex-data__results-count">
-
+  <div class="mdl-flex-data__results" data-result-count-title="{{resultCountTitle}}">
+    <script data-flex-template type="text/x-handlebars-template">
+      {{{resultsTemplate}}}
+    </script>
+    {{> "modules/table/table" tableData }}
+    <div class="mdl-flex-data__pagination">
+      {{> "modules/pagination/pagination" pagination }}
     </div>
-    <!-- table -->
   </div>
 </div>
