@@ -48,8 +48,8 @@ class ServiceButton extends Module {
           elem.innerHTML = data;
           modal.innerHTML = elem.querySelector('#lightbox-content').innerHTML;
           modal.setAttribute('data-loaded', 'true');
-          modal.dispatchEvent(new CustomEvent('Modal.initContent'));
           openModal();
+          modal.dispatchEvent(new CustomEvent('Modal.initContent'));
         });
       }
       event.preventDefault();
