@@ -177,6 +177,24 @@ class Module {
     }
     return result && result.length > 0 ? result : null;
   }
+
+  /**
+   * Fetch json data
+   *
+   * @param url endpoint URL to fetch data from
+   */
+  async fetchJsonData(url: string): Promise<any> {
+    if (!window.fetch) {
+      await import('whatwg-fetch');
+    }
+
+    return fetch(url)
+      .then(response => response.json())
+      .catch((err) => {
+        this.log('error', err);
+        throw new Error(`Failed to fetch data from "${url}"!`);
+      });
+  }
 }
 
 export default Module;
