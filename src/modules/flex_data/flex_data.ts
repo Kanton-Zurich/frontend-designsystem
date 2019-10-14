@@ -24,6 +24,7 @@ class FlexData extends Module {
     pagination: HTMLDivElement,
     paginationInput: HTMLInputElement,
   };
+  public options: any;
   public dataUrl: string;
   private dataIdle: boolean;
 
@@ -31,6 +32,7 @@ class FlexData extends Module {
     const defaultData = {
     };
     const defaultOptions = {
+      initDelay: 300,
       domSelectors: {
         results: '.mdl-flex-data__results',
         resultsTable: '.mdl-table',
@@ -79,8 +81,8 @@ class FlexData extends Module {
    * Handle sort event on table
    * @param event
    */
-  onSortResults(event) {
-    const { detail } = event;
+  onSortResults() {
+
   }
 
   /**
@@ -161,39 +163,42 @@ class FlexData extends Module {
    */
   updateViewFromURLParams() {
     const params = this.getAllURLParams();
-    Object.keys(params).forEach((key) => {
-      switch (key) {
-        case 'page':
-          break;
-        default:
-          const selectedElements = this.ui.form.querySelectorAll(`input[name=${key}]`);
-          const values = params[key];
-          if (selectedElements.length > 0) {
-            const item = <HTMLInputElement>selectedElements[0];
-            // -----------
-            // dropdown
-            if (item.hasAttribute('data-select-option')) {
-              const payload = item.getAttribute("type") === 'radio' ? values[0] : values;
-              setTimeout(() => {
+    setTimeout(() => {
+      Object.keys(params).forEach((key) => {
+        switch (key) {
+          case 'page':
+            break;
+          default:
+            const selectedElements = this.ui.form.querySelectorAll(`input[name=${key}]`); // eslint-disable-line
+            const values = params[key]; // eslint-disable-line
+            if (selectedElements.length > 0) {
+              const item = <HTMLInputElement>selectedElements[0];
+              // -----------
+              // dropdown
+              if (item.hasAttribute('data-select-option')) {
+                const payload = {
+                  data: item.getAttribute('type') === 'radio' ? values[0] : values,
+                  emit: true,
+                };
                 item.parentElement.parentElement.parentElement.parentElement
-                  .dispatchEvent(new CustomEvent(Select.events.setValue, {detail: payload}));
-              },0);
+                  .dispatchEvent(new CustomEvent(Select.events.setValue, { detail: payload }));
+              } else
+              // -----------
+              // datepicker
+              // else if (item.classList.contains('flatpickr-input')) {
+              //   item.parentElement.parentElement.parentElement.dispatchEvent()
+              // }
+              // -----------
+              // textfield
+              {
+                item.value = values[0];
+                item.classList.add('dirty');
+              }
             }
-            // -----------
-            // datepicker
-            // else if (item.classList.contains('flatpickr-input')) {
-            //   item.parentElement.parentElement.parentElement.dispatchEvent()
-            // }
-            // -----------
-            // textfield
-            else {
-              item.value = values[0];
-              item.classList.add('dirty');
-            }
-          }
-          break;
-      }
-    });
+            break;
+        }
+      });
+    }, this.options.initDelay);
   }
 
   /**

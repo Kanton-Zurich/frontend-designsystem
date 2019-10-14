@@ -237,7 +237,10 @@ class NewsOverview extends Module {
     // update filter dropdown modules
     this.ui.filterSelects.forEach((filterSelect, index) => {
       const eventData = {
-        detail: this.filterLists[index],
+        detail: {
+          data: this.filterLists[index],
+          emit: false,
+        }
       };
       filterSelect.dispatchEvent(new CustomEvent(Select.events.setValue, eventData));
     });
