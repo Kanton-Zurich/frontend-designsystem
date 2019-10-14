@@ -490,7 +490,7 @@ class NewsOverview extends Module {
       }
     };
     this.filterLists[0].forEach((topic) => { append('topic', topic); });
-    this.filterLists[1].forEach((organisation) => { append('topic', organisation); });
+    this.filterLists[1].forEach((organisation) => { append('organisation', organisation); });
     this.filterLists[2].forEach((type) => { append('type', type); });
     if (this.dateRange.length > 1) {
       append('dateFrom', this.dateRange[0]);
