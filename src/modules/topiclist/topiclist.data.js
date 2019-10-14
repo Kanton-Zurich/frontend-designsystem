@@ -96,6 +96,7 @@ const variants = _.mapValues({
       topiclistInput: _.merge({}, inputFormData, {
         label: 'Themen nach Stichwort filtern',
         dataSelector: 'data-topiclist="input"',
+        disableAutocomplete: true,
         isSmall: true,
         additionalFunctionality: {
           icon: 'clear',
@@ -188,6 +189,7 @@ const variants = _.mapValues({
       topiclistInput: _.merge({}, inputFormData, {
         label: 'Filtern nach Themen',
         dataSelector: 'data-topiclist="input"',
+        disableAutocomplete: true,
         isSmall: true,
         additionalFunctionality: {
           icon: 'clear',

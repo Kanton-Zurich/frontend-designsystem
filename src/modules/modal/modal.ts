@@ -82,6 +82,7 @@ class Modal extends Module {
       initContent: 'Modal.initContent',
       closeModal: 'Modal.close',
       display: 'Modal.display',
+      closed: 'Modal.closed',
     };
   }
 
@@ -244,7 +245,6 @@ class Modal extends Module {
     this.ui.element.classList.add(this.options.stateClasses.beforeHide);
     document.documentElement.style.overflowY = 'auto';
     this.ui.element.setAttribute('aria-hidden', 'true');
-    window.dispatchEvent(new CustomEvent('Modal.closed'));
 
     setTimeout(() => {
       this.ui.element.classList.add(this.options.stateClasses.hide);
@@ -261,7 +261,7 @@ class Modal extends Module {
       this.ui.element.classList.remove(this.options.stateClasses.beforeHide);
       this.ui.element.classList.remove(this.options.stateClasses.hide);
       this.ui.element.classList.remove(this.options.stateClasses.show);
-      window.dispatchEvent(new CustomEvent('Modal.closed'));
+      window.dispatchEvent(new CustomEvent(Modal.events.closed));
     }, this.options.transitionTime * multiplier);
   }
 
