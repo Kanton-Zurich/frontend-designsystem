@@ -6,6 +6,7 @@ const defNewsOverviewData = require('../../modules/news_overview/news_overview.d
 const defCTABoxData = require('../../modules/cta_box/cta_box.data');
 const defRelatedContentData = require('../../modules/related_content/related_content.data');
 const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -39,6 +40,7 @@ const data = _.merge({}, defaultData, {
           ],
         },
       }),
+      footerData: defFooterData,
     },
   },
 });

@@ -1,0 +1,78 @@
+const _ = require('lodash');
+const dataHelper = require('@unic/estatico-data');
+const { handlebars } = require('@unic/estatico-handlebars');
+const defaultData = require('../../data/default.data.js');
+const defSelectData = require('../select/select.data.js');
+
+const template = dataHelper.getFileContent('drilldown_select.hbs');
+const data = _.merge({}, defaultData, {
+  meta: {
+    title: 'Abhängige Auswahlfelder',
+    className: 'DrilldownSelect',
+    jira: 'CZHDEV-1234',
+    label: 'Formular',
+    documentation: dataHelper.getDocumentation('drilldown_select.md'),
+    wrapInForm: true,
+  },
+  props: {
+    primarySelectData: _.merge({}, defSelectData.variants.default.props, { additionalAttributes: 'data-filter-attribute="data-filter-id"' }),
+    secondarySelectData: _.merge({}, defSelectData.variants.default.props, { additionalAttributes: 'data-filter-attribute="data-filter-id"' }),
+    preview: true,
+  },
+});
+
+data.props.primarySelectData.listData.selectOptions = [
+  { value: 'allg', label: 'Allgemeines', id: _.uniqueId('option-item') },
+  { value: 'nat', label: 'Natürliche Personen', id: _.uniqueId('option-item') },
+  { value: 'jur', label: 'Juristische Personen', id: _.uniqueId('option-item') },
+  { value: 'quel', label: 'Quellensteuer', id: _.uniqueId('option-item') },
+  { value: 'verf', label: 'Verfahrensrecht', id: _.uniqueId('option-item') },
+];
+data.props.primarySelectData.listData.groupId = 'primarySelect';
+data.props.primarySelectData.triggerInputData.label = 'Thema';
+
+data.props.secondarySelectData.listData.selectOptions = [
+  { value: 'allg_erl', label: 'Erlasse &amp; Merkblätter', filterId: 'allg', id: _.uniqueId('option-item') },
+  { value: 'quel_erl', label: 'Erlasse &amp; Merkblätter', filterId: 'quel', id: _.uniqueId('option-item') },
+  { value: 'verf_erl', label: 'Erlasse &amp; Merkblätter', filterId: 'verf', id: _.uniqueId('option-item') },
+  { value: 'strpf_nat', label: 'Steuerpflicht', filterId: 'nat', id: _.uniqueId('option-item') },
+  { value: 'ausgl_nat', label: 'Ausgleich kalte Progression', filterId: 'nat', id: _.uniqueId('option-item') },
+  { value: 'einkstr_nat', label: 'Einkommenssteuer', filterId: 'nat', id: _.uniqueId('option-item') },
+  { value: 'zeitbl_nat', label: 'Zeitliche Bemessung', filterId: 'nat', id: _.uniqueId('option-item') },
+  { value: 'verm_nat', label: 'Vermögenssteuer', filterId: 'nat', id: _.uniqueId('option-item') },
+  { value: 'strpf_jur', label: 'Steuerpflicht', filterId: 'jur', id: _.uniqueId('option-item') },
+  { value: 'zeitbl_jur', label: 'Zeitliche Bemessung', filterId: 'jur', id: _.uniqueId('option-item') },
+  { value: 'gew_jur', label: 'Gewinnsteuer', filterId: 'jur', id: _.uniqueId('option-item') },
+];
+data.props.secondarySelectData.listData.groupId = 'secondarySelect';
+data.props.secondarySelectData.triggerInputData.label = 'Unterthema';
+
+const variants = _.mapValues({
+  default: {
+    meta: {
+      title: 'Default',
+      desc: 'Default implementation',
+    },
+
+  },
+}, (variant) => {
+  const variantProps = _.merge({}, data, variant).props;
+  const compiledVariant = () => handlebars.compile(template)(variantProps);
+  const variantData = _.merge({}, data, variant, {
+    meta: {
+      demo: compiledVariant,
+
+      code: {
+        handlebars: dataHelper.getFormattedHandlebars(template),
+        html: dataHelper.getFormattedHtml(compiledVariant()),
+        data: dataHelper.getFormattedJson(variantProps),
+      },
+    },
+  });
+
+  return variantData;
+});
+
+data.variants = variants;
+
+module.exports = data;

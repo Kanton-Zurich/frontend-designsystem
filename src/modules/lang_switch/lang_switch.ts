@@ -48,7 +48,7 @@ class LangSwitch extends Module {
 
   static get events() {
     return {
-      // eventname: `eventname.${ LangSwitch.name }.${  }`
+      hide: `eventname.${LangSwitch.name}.hide`,
     };
   }
 
@@ -59,6 +59,7 @@ class LangSwitch extends Module {
     this.eventDelegate
       .on('click', this.options.domSelectors.closeButton, () => {
         this.ui.element.style.display = 'none';
+        document.dispatchEvent(new CustomEvent(LangSwitch.events.hide));
       }).on('click', this.options.domSelectors.anchors, (event) => {
         if (event.target !== this.ui.activeAnchor) {
           this.ui.activeAnchor.classList.remove(this.options.stateClasses.active);

@@ -10,8 +10,6 @@
   {{/content}}
 
   {{#content "footer"}}
-    <footer id="contentinfo">
-      <h1 class="visuallyhidden">Fussbereich</h1>
-    </footer>
+    {{> "modules/footer/footer" props.modules.footerData}}
   {{/content}}
 {{/extend}}

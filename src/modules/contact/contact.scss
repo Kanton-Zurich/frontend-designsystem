@@ -166,20 +166,31 @@ $contactMapHeightCurve: (
     line-height: $sizeLineHeightBase;
   }
 
-  &__show-route {
-    display: inline-block;
-    margin-top: calc((#{$sizeFontRegular} * #{$sizeLineHeightBase}) / 2);
-    color: inherit;
-    text-decoration: none;
-    border-bottom: 1px solid $colorWhite;
+  &:not(.mdl-contact--location) {
+    .mdl-contact {
+      &__show-route {
+        display: inline-block;
+        margin-top: calc((#{$sizeFontRegular} * #{$sizeLineHeightBase}) / 2);
+        color: inherit;
+        text-decoration: none;
+        border-bottom: 1px solid $colorWhite;
+      }
+
+      &__mail {
+        margin: 0;
+        display: inline-block;
+        color: inherit;
+        text-decoration: none;
+        border-bottom: 1px solid $colorWhite;
+      }
+    }
   }
 
   &__phone:not(:first-of-type) {
     margin-top: pxToRem($sizeTiny);
   }
 
-  &__phone,
-  &__mail {
+  &__phone {
     margin: 0;
     display: inline-block;
     color: inherit;
@@ -206,6 +217,7 @@ $contactMapHeightCurve: (
 
       &__text {
         font-size: pxToRem($sizeFontSmall);
+        color: $colorBlack60;
       }
 
       &__subtitle {
@@ -259,6 +271,10 @@ $contactMapHeightCurve: (
     .atm-text_link {
       color: $colorBlack60;
       margin-bottom: $sizeTiny;
+
+      &:hover {
+        color: $colorText;
+      }
     }
   }
 
