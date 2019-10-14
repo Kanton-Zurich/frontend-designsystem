@@ -939,6 +939,5 @@ const variants = _.mapValues({
 
 
 data.variants = variants;
-console.log(JSON.stringify(data.variants.steuerBuch.props));
 
 module.exports = data;
