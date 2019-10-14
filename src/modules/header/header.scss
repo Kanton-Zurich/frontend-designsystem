@@ -26,6 +26,17 @@ $headerCurves: (
 
   @include transition(background);
 
+  &--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    transition: none;
+
+    z-index: $zIndexFlyouts;
+    transform: translateX(0);
+    margin-left: 0;
+  }
 
   &--open {
     position: fixed;
@@ -35,20 +46,9 @@ $headerCurves: (
     transform: none;
     left: 0;
 
-    z-index: $zIndexSkiplinks + 1;
+    z-index: $zIndexFlyouts + 1;
   }
 
-  &--fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    transition: none;
-
-    z-index: $zIndexSkiplinks + 1;
-    transform: translateX(0);
-    margin-left: 0;
-  }
 
   &__wrapper {
     &:after {
