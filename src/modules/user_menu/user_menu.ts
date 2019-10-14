@@ -6,22 +6,20 @@
  */
 import Module from '../../assets/js/helpers/module';
 import ContextMenu from '../context_menu/context_menu';
-import namespace from '../../assets/js/helpers/namespace';
+import { UserMenuDefaultOptions, UserMenuModuleOptions } from './user_menu.options';
+
+interface LoginStatusResponse {
+  isLoggedIn: boolean;
+  name?: string;
+  logoutUrl?: string;
+}
 
 class UserMenu extends Module {
-  public options: {
-    domSelectors: {
-      trigger: string,
-      contextMenu: string,
-      hook: string,
-    },
-    stateClasses: {
-      open: string,
-    },
-  };
+  public options: UserMenuModuleOptions;
 
   public ui: {
-    element: any,
+    element: HTMLElement,
+    configuredStatusEndpoint: HTMLInputElement,
     trigger: HTMLButtonElement,
     contextMenu: HTMLDivElement,
     hook: HTMLSpanElement,
@@ -30,22 +28,14 @@ class UserMenu extends Module {
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
     };
-    const defaultOptions = {
-      domSelectors: {
-        trigger: '.mdl-user-menu__trigger',
-        contextMenu: '.mdl-context_menu',
-        hook: '.menuhook',
-      },
-      stateClasses: {
-        open: 'open',
-      },
-    };
 
-    super($element, defaultData, defaultOptions, data, options);
+    super($element, defaultData, UserMenuDefaultOptions, data, options);
 
     this.initUi();
     this.initEventListeners();
     // this.initContextMenus();
+
+    this.initLoginState();
   }
 
   static get events() {
@@ -54,6 +44,16 @@ class UserMenu extends Module {
     };
   }
 
+  private initLoginState() {
+    const apiEndpoint = this.ui.configuredStatusEndpoint.value;
+    this.fetchJsonData(apiEndpoint).then((resp) => {
+      const loginStatusResponse = resp as LoginStatusResponse;
+      if (loginStatusResponse.isLoggedIn) {
+        this.log(`Loggedin User: "${loginStatusResponse.name}"`);
+        this.ui.element.classList.add(this.options.stateClasses.initialised);
+      }
+    });
+  }
   /**
    * Event listeners initialisation
    */

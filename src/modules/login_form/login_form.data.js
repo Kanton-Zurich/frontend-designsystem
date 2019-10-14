@@ -12,7 +12,7 @@ const tooltipData = {
     text: 'Bitte kontaktieren Sie diese <a href="mailto:test@test.com" class="atm-text_link">Emailaddresse</a> wenn Sie ein neues Passwort benötigen.',
     id: _.uniqueId('aria-anchors'),
   },
-}
+};
 
 const template = dataHelper.getFileContent('login_form.hbs');
 const data = _.merge({}, defaultData, {

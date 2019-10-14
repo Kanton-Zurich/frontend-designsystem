@@ -3,6 +3,11 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
+const mockAssets = {
+  loggedIn: 'http://localhost:9000/assets/mocks/cug/status_logged_in.json',
+  notLoggedIn: 'http://localhost:9000/assets/mocks/cug/status_not_logged_in.json',
+};
+
 const contextMenuDownload = require('../context_menu/context_menu.data').variants.download.props;
 
 const template = dataHelper.getFileContent('user_menu.hbs');
@@ -22,6 +27,31 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+    props: {
+      userName: 'Andrea Mustermann',
+      userInitials: 'AM',
+      endpointLoginStatus: mockAssets.notLoggedIn,
+    },
+  },
+  noMock: {
+    meta: {
+      title: 'Develop (No Data)',
+      desc: 'Prefilled with Name, no call for login status.',
+    },
+    props: {
+      userName: 'Andrea Mustermann',
+      userInitials: 'AM',
+      endpointLoginStatus: '',
+    },
+  },
+  loggedIn: {
+    meta: {
+      title: 'LoggedIn',
+      desc: 'Mocked loginstatus is loggedin=true ',
+    },
+    props: {
+      endpointLoginStatus: mockAssets.loggedIn,
     },
   },
 }, (variant) => {

@@ -1,0 +1,16 @@
+{{#extend "layouts/layout"}}
+  {{#content "header"}}
+      <header>
+        {{> "modules/page_header/page_header" props.modules.pageHeader}}
+      </header>
+  {{/content}}
+
+  {{#content "content"}}
+    {{> "modules/login_form/login_form" props.modules.loginFormData}}
+    {{> "modules/related_content/related_content" props.modules.releatedContentData}}
+    {{> "modules/contact/contact" props.modules.contact }}
+  {{/content}}
+  {{#content "footer"}}
+    {{> "modules/footer/footer" props.modules.footerData }}
+  {{/content}}
+{{/extend}}

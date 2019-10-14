@@ -8,12 +8,20 @@
   &__trigger {
     @include blankButton;
     padding: 0 pxToRem($sizeSmallRegular);
-    display: inline-flex;
+    display: none;
     align-items: center;
     color: $colorBlack80;
 
     .icon use {
       fill: $colorBlack80;
+    }
+  }
+
+  &--initialised {
+    .mdl-user-menu {
+      &__trigger {
+        display: inline-flex;
+      }
     }
   }
 
@@ -90,7 +98,7 @@
   .mdl-context_menu__list {
     li:first-of-type {
       height: pxToRem(46px);
-      
+
       @include mq($from: xsmall) {
         height: pxToRem(54px);
       }

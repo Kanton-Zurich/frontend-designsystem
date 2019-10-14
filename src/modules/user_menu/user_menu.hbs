@@ -1,15 +1,16 @@
 <div class="mdl-user-menu" data-init="userMenu" aria-describedby="aria-user-menu">
+  <input type="hidden" data-user-menu="loginStatusEndpoint" value="{{ endpointLoginStatus }}" />
   <span class="menuhook"></span>
   <button class="mdl-user-menu__trigger">
     <svg class="icon">
       <use xlink:href="#user"></use>
     </svg>
     <span class="mdl-user-menu__user">
-      Andrea Mustermann
+      {{ userName }}
     </span>
     <span class="mdl-user-menu__user-short">
-        AM
-      </span>
+      {{ userInitials }}
+    </span>
     <svg class="icon">
       <use xlink:href="#angle_drop_down"></use>
     </svg>
