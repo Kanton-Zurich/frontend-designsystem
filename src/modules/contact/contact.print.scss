@@ -7,6 +7,10 @@
       background: $colorText;
     }
   }
+
+  .mdl-contact__map_container {
+    background: none;
+  }
 }
 
 @each $key, $val in $tl-color-variations {

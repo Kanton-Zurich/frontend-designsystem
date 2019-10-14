@@ -225,7 +225,7 @@ $mapRatioSmall: 0.75;
     }
   }
 
-  @include mq($to: medium) {
+  @include mq($to: medium, $media: 'screen') {
     .sidebarhead {
       width: calc(50% - #{$sizeLarge});
     }

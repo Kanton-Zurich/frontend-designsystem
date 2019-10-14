@@ -13,6 +13,8 @@
 @import '../../modules/footer/footer.print';
 @import '../../modules/header/header.print';
 @import '../../modules/lang_switch/lang_switch.print';
+@import '../../modules/locations/locations.print';
+@import '../../modules/map_view/map_view.print';
 @import '../../modules/news_teaser/news_teaser.print';
 @import '../../modules/page_header/page_header.print';
 @import '../../modules/related_content/related_content.print';
@@ -20,7 +22,6 @@
 @import '../../modules/social_media_stream/social_media_stream.print';
 @import '../../modules/tag_group/tag_group.print';
 //*autoinsertmodule*
-
 
 html,
 body {
@@ -43,6 +44,7 @@ body {
     outline: none;
   }
 }
+
 
 html.fixed-header {
   padding-top: 0;
