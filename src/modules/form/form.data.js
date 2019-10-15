@@ -19,6 +19,9 @@ const radioData = require('../../atoms/radiobutton/radiobutton.data');
 const selectHBS = dataHelper.getFileContent('../select/select.hbs');
 const selectData = require('../select/select.data');
 
+const drillDownSelectHBS = dataHelper.getFileContent('../drilldown_select/drilldown_select.hbs');
+const drillDownSelectData = require('../drilldown_select/drilldown_select.data');
+
 const fileUploadHBS = dataHelper.getFileContent('../file_upload/file_upload.hbs');
 const fileUploadData = require('../file_upload/file_upload.data');
 
@@ -844,6 +847,63 @@ const variants = _.mapValues({
             },
           ],
         },
+      ],
+    },
+  },
+  steuerBuch: {
+    meta: {
+      title: 'Steuerbuch (Flex data CZHDEV-1234)',
+      desc: 'Flex Data Steuerbuch',
+    },
+    props: {
+      sectionTitle: 'Suche im Zürcher Steuerbuch',
+      groups: [{
+        rows: [
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Aktuelle Berufsebezichnung',
+                    name: 'aktueller_beruf',
+                    uuid: 'aktueller_beruf',
+                  })),
+              },
+            ],
+          },
+          {
+            fields: [{
+              cellContent: () => handlebars.compile(drillDownSelectHBS)(_.merge({},
+                drillDownSelectData.variants.default.props, {
+                  // primary secondary
+                  primarySelectData: {
+                    listData: {
+                      groupId: 'thema',
+                    },
+                    triggerInputData: {
+                      label: 'Thema',
+                      name: 'thema',
+                      uuid: 'thema',
+                    },
+                  },
+                  secondarySelectData: {
+                    listData: {
+                      groupId: 'unterthema',
+                    },
+                    triggerInputData: {
+                      label: 'Unterthema',
+                      name: 'unterthema',
+                      uuid: 'unterthema',
+                    },
+                  },
+                })),
+            },],
+            unwrapped: true,
+          },
+        ],
+      },
       ],
     },
   },

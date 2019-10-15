@@ -3,17 +3,17 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const template = dataHelper.getFileContent('pagination.hbs');
+const template = dataHelper.getFileContent('smallcaption.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Seiten Navigation',
-    className: 'Pagination',
-    jira: 'CZHDEV-990',
-    label: 'Navigation',
-    documentation: dataHelper.getDocumentation('pagination.md'),
+    title: 'Zwischentitel',
+    className: 'Smallcaption',
+    jira: 'CZHDEV-1234',
+    documentation: dataHelper.getDocumentation('smallcaption.md'),
   },
   props: {
-    pageCount: 30,
+    headingLevel: 3,
+    text: 'Dies ist ein neuer Abschnitt',
   },
 });
 const variants = _.mapValues({
@@ -21,15 +21,6 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
-    },
-  },
-  fullWidth: {
-    meta: {
-      title: 'Volle Breite',
-      desc: '',
-    },
-    props: {
-      fullWidth: true,
     },
   },
 }, (variant) => {
@@ -41,8 +32,8 @@ const variants = _.mapValues({
 
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
         data: dataHelper.getFormattedJson(variantProps),
+        html: dataHelper.getFormattedHtml(compiledVariant()),
       },
     },
   });

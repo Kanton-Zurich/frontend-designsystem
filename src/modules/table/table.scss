@@ -307,7 +307,7 @@
     @include sizeCurve(margin-bottom margin-top, big);
 
     .mdl-table__figure {
-      @include gridBleed;
+      @include gridBleed($fullwidth: true);
     }
   }
 }

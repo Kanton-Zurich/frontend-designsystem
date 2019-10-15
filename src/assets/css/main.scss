@@ -49,6 +49,7 @@
 @import '../../atoms/notification/notification';
 @import '../../atoms/list/list';
 @import '../../atoms/toggle/toggle';
+@import '../../atoms/smallcaption/smallcaption';
 //*autoinsertatom*
 
 // Modules
@@ -124,6 +125,8 @@
 @import '../../modules/map_view/map_view';
 @import '../../modules/back2top/back2top';
 @import '../../modules/tooltip/tooltip';
+@import '../../modules/flex_data/flex_data';
+@import '../../modules/metablock/metablock';
 //*autoinsertmodule*
 
 @media print {

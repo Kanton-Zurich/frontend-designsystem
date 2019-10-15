@@ -237,7 +237,10 @@ class NewsOverview extends Module {
     // update filter dropdown modules
     this.ui.filterSelects.forEach((filterSelect, index) => {
       const eventData = {
-        detail: this.filterLists[index],
+        detail: {
+          data: this.filterLists[index],
+          emit: false,
+        },
       };
       filterSelect.dispatchEvent(new CustomEvent(Select.events.setValue, eventData));
     });
@@ -410,7 +413,7 @@ class NewsOverview extends Module {
           prevUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`)}`;
         }
         let nextUrl = '';
-        if (parseInt(this.ui.paginationInput.value, 10) < (jsonData.numberOfResultPages - 1)) {
+        if (parseInt(this.ui.paginationInput.value, 10) < jsonData.numberOfResultPages) {
           nextUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`)}`;
         }
         this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setCanonicalUrls,
@@ -450,32 +453,6 @@ class NewsOverview extends Module {
       self: props,
     };
     return compiled(data);
-  }
-
-  /**
-   * get base URL
-   */
-  private getBaselUrl() {
-    return `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
-  }
-
-  /**
-   * Update or insert rel link for canonical references
-   * @param rel
-   * @param href
-   */
-  private upsertLinkRel(rel, href) {
-    const relLink = document.querySelector(`link[rel="${rel}"]`);
-    if (relLink) {
-      document.head.removeChild(relLink);
-    }
-    if (!href) {
-      return;
-    }
-    const element = document.createElement('link');
-    element.setAttribute('rel', rel);
-    element.setAttribute('href', href);
-    document.head.appendChild(element);
   }
 
   /**
