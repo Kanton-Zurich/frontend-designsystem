@@ -6,6 +6,7 @@
  */
 import Module from '../../assets/js/helpers/module';
 import Anchornav from '../anchornav/anchornav';
+import Modal from '../modal/modal';
 
 class Header extends Module {
   public placeholder: HTMLElement;
@@ -91,7 +92,7 @@ class Header extends Module {
   initEventListeners() {
     this.eventDelegate.on('click', this.options.domSelectors.openModal, this.toggleFlyout.bind(this));
 
-    window.addEventListener('Modal.closed', this.hideFlyout.bind(this));
+    window.addEventListener(Modal.events.closed, this.hideFlyout.bind(this));
     window.addEventListener('scroll', this.handleScroll.bind(this));
 
     window.addEventListener(Anchornav.events.isSticky, () => {
@@ -133,10 +134,11 @@ class Header extends Module {
 
     this.data.activeModal.dispatchEvent(new CustomEvent('Modal.open'));
 
-    this.ui.element.classList.add(this.options.stateClasses.open);
-    this.ui.element.classList.add(this.options.colorClasses.monochrome);
-    this.data.activeItem.classList.add(this.options.stateClasses.activeItem);
-    document.documentElement.classList.add(this.options.stateClasses.fixedHeader);
+    if (!this.data.activeItem.hasAttribute('data-search')) {
+      this.ui.element.classList.add(this.options.stateClasses.open);
+      this.ui.element.classList.add(this.options.colorClasses.monochrome);
+      this.data.activeItem.classList.add(this.options.stateClasses.activeItem);
+    }
 
     this.data.activeItem.setAttribute('aria-expanded', 'true');
   }
@@ -151,16 +153,24 @@ class Header extends Module {
   }
 
   hideFlyout() {
+    let anchornavIsSticky = false;
+
+    if (document.querySelector('.mdl-anchornav')) {
+      anchornavIsSticky = document.querySelector('.mdl-anchornav').classList.contains('mdl-anchornav--sticky');
+    }
+
     this.unsetClasses();
 
     this.ui.element.classList.remove(this.options.stateClasses.open);
-    this.ui.element.classList.remove(this.options.colorClasses.monochrome);
+
+    if (!anchornavIsSticky) {
+      this.ui.element.classList.remove(this.options.colorClasses.monochrome);
+    }
   }
 
   unsetClasses() {
     if (this.data.activeModal) {
       this.data.activeItem.classList.remove(this.options.stateClasses.activeItem);
-      document.documentElement.classList.remove(this.options.stateClasses.fixedHeader);
 
       this.data.activeModal = null;
       this.data.activeItem = null;
@@ -169,16 +179,6 @@ class Header extends Module {
 
   handleScroll() {
     const newScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (this.placeholder === undefined) {
-      this.createPlaceholder();
-    }
-
-    if (newScrollPosition > this.ui.element.getBoundingClientRect().height) {
-      this.placeholder.style.display = 'block';
-    } else {
-      this.placeholder.style.display = 'none';
-    }
 
     if (this.data.scrollPosition > newScrollPosition && !this.data.headerIsFixed) {
       setTimeout(() => {
@@ -191,22 +191,18 @@ class Header extends Module {
   }
 
   /**
-   * Create and insert the placeholder div with the same height as the whole anchorNav
+   * Toggling the fixed header
+   *
+   * @param {*} propName
+   * @param {*} valueBefore
+   * @param {*} valueAfter The Value after its change
+   * @memberof Header
    */
-  createPlaceholder() {
-    this.placeholder = document.createElement('div');
-
-    this.placeholder.style.height = `${this.ui.element.getBoundingClientRect().height}px`;
-    this.placeholder.style.display = 'none';
-
-    this.ui.element.parentNode.insertBefore(this.placeholder, this.ui.element);
-  }
-
   toggleFixedHeader(propName, valueBefore, valueAfter) {
     let anchornavIsSticky = false;
 
     if (document.querySelector('.mdl-anchornav')) {
-      anchornavIsSticky = document.querySelector('.mdl-anchornav').classList.contains('.mdl-anchornav--sticky');
+      anchornavIsSticky = document.querySelector('.mdl-anchornav').classList.contains('mdl-anchornav--sticky');
     }
 
     if (valueAfter) {

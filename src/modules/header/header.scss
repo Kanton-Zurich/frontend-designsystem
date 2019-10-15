@@ -1,3 +1,6 @@
+$borderHeightSmall: 2px;
+$borderHeightNormal: 5px;
+
 $headerCurves: (
   height: (
     tiny: 48px,
@@ -10,8 +13,8 @@ $headerCurves: (
     medium: 77px
   ),
   borderHeight: (
-    tiny: 2px,
-    medium: 5px,
+    tiny: $borderHeightSmall,
+    medium: $borderHeightNormal,
   ),
 );
 
@@ -23,6 +26,17 @@ $headerCurves: (
 
   @include transition(background);
 
+  &--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    transition: none;
+
+    z-index: $zIndexFlyouts;
+    transform: translateX(0);
+    margin-left: 0;
+  }
 
   &--open {
     position: fixed;
@@ -32,20 +46,9 @@ $headerCurves: (
     transform: none;
     left: 0;
 
-    z-index: $zIndexSkiplinks + 1;
+    z-index: $zIndexFlyouts + 1;
   }
 
-  &--fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    transition: none;
-
-    z-index: $zIndexSkiplinks + 1;
-    transform: translateX(0);
-    margin-left: 0;
-  }
 
   &__wrapper {
     &:after {
@@ -89,11 +92,31 @@ $headerCurves: (
     }
   }
 
-  /** Special design for header */
-  .mdl-search {
+  &__search {
     position: absolute;
     right: 0;
+    bottom: 0;
     top: 0;
+
+    color: $colorBlack80;
+    font-weight: $fontWeightDefault;
+    font-size: $sizeFontMedium;
+
+    height: calc(100% - #{$borderHeightSmall});
+
+    background: rgba($colorWhite, 0.4);
+
+    svg use {
+      fill: $colorBlack80;
+    }
+
+    @include mq($from: medium) {
+      height: calc(100% - #{$borderHeightNormal});
+    }
+
+    &:hover {
+      background: rgba($colorWhite, 0.8);
+    }
   }
 }
 

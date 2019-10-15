@@ -7,6 +7,7 @@ const defApplicationData = require('../application/application.data.js');
 const defIFrameData = require('../iframe/iframe.data.js');
 const topiclist = require('../topiclist/topiclist.data');
 const organisationNavigation = require('../organisation_navigation/organisation_navigation.data');
+const search = require('../search/search.data');
 
 const template = dataHelper.getFileContent('modal.hbs');
 const data = _.merge({}, defaultData, {
@@ -178,6 +179,25 @@ const variants = _.mapValues({
           () => handlebars.compile(dataHelper.getFileContent('../organisation_navigation/organisation_navigation.hbs'))(organisationNavigation.variants.default.props),
         ],
       },
+    },
+  },
+  searchFlyout: {
+    meta: {
+      title: 'Onsite Search',
+      desc: 'Das Modal mit der Suche',
+    },
+    props: {
+      modalId: 'flyout-search',
+      mainNavigation: true,
+      isSearch: true,
+      modules: {
+        contentModules: [
+          () => handlebars.compile(dataHelper.getFileContent('../search/search.hbs'))(search.variants.default.props),
+        ],
+      },
+      options: JSON.stringify({
+        transitionTime: 500,
+      }),
     },
   },
 }, (variant) => {
