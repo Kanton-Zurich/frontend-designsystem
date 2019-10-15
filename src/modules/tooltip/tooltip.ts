@@ -12,7 +12,6 @@ class Tooltip extends Module {
   heightCached: boolean;
   lastStateClass: string;
   tooltipMaxWidth: number;
-  tooltipHeight: number;
 
   public ui: {
     element: HTMLDivElement,
@@ -80,6 +79,7 @@ class Tooltip extends Module {
     this.eventDelegate
       .on('click', this.options.domSelectors.infoButton, (event) => {
         event.stopPropagation();
+        this.log('Toggle click');
         this.toggleTooltip();
       }).on('click', this.options.domSelectors.closeButton, () => {
         this.closeTooltip();
@@ -127,7 +127,6 @@ class Tooltip extends Module {
   toggleTooltip() {
     // Cache height only on first time opening
     if (!this.heightCached) {
-      this.tooltipHeight = this.ui.tooltip.getBoundingClientRect().height;
       this.ui.tooltip.style.display = 'none';
       this.ui.tooltip.style.opacity = '1';
       this.ui.tooltip.style.zIndex = '1000';
@@ -148,7 +147,9 @@ class Tooltip extends Module {
   hideTooltip() {
     this.ui.element.classList.remove('open');
     this.ui.tooltip.setAttribute('aria-hidden', 'true');
-    this.ui.closeButton.setAttribute('tabindex', '-1');
+    if (this.ui.closeButton) {
+      this.ui.closeButton.setAttribute('tabindex', '-1');
+    }
     this.ui.tooltip.style.display = 'none';
   }
 
@@ -160,7 +161,9 @@ class Tooltip extends Module {
     this.setOptimalPosition();
     this.ui.element.classList.add('open');
     this.ui.tooltip.setAttribute('aria-hidden', 'false');
-    this.ui.closeButton.setAttribute('tabindex', '0');
+    if (this.ui.closeButton) {
+      this.ui.closeButton.setAttribute('tabindex', '0');
+    }
   }
 
   /**

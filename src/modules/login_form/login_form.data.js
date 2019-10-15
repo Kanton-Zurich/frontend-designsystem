@@ -7,9 +7,9 @@ const formInputData = require('../../atoms/form_input/form_input.data');
 
 const tooltipData = {
   helptext: 'Passwort vergessen?',
-  buttonLeft: true,
+  asTextLink: true,
   bubble: {
-    text: 'Bitte kontaktieren Sie diese <a href="mailto:test@test.com" class="atm-text_link">Emailaddresse</a> wenn Sie ein neues Passwort benötigen.',
+    text: 'Bitte kontaktieren Sie diese <a href="mailto:test@test.com" >Emailaddresse</a> wenn Sie ein neues Passwort benötigen.',
     id: _.uniqueId('aria-anchors'),
   },
 };
@@ -19,12 +19,15 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Login Form',
     className: 'LoginForm',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-538',
     documentation: dataHelper.getDocumentation('login_form.md'),
   },
   props: {
+    heading: 'Login ZHservices',
+    introText: 'Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichte - den ersten in der Schweiz.',
     userNameInput: formInputData.variants.floatValidate.props,
     passwordInput: formInputData.variants.showPasswordButton.props,
+    labelLoginBtn: 'Anmelden',
     tooltip: tooltipData,
   },
 });

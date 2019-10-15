@@ -1,4 +1,5 @@
 .mdl-login-form {
+  margin-top: pxToRem($sizeGiant);
 
   &__line {
     margin-top: pxToRem($sizeTiny);
