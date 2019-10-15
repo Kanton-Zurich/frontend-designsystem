@@ -122,7 +122,7 @@ class Table extends Module {
     // handle pre sort
     this.cleanSortableColumns();
     if (this.ui.element.hasAttribute('data-sort-column')) {
-      let orderDirection = 'asc';
+      let orderDirection = 'ascending';
       if (this.ui.element.hasAttribute('data-sort-direction')) {
         orderDirection = this.ui.element.getAttribute('data-sort-direction');
       }
@@ -319,13 +319,13 @@ class Table extends Module {
         tmp.innerHTML = o[columnIndex];
 
         return parseFloat(tmp.textContent.replace(',', '.'));
-      }, [order])
+      }, [order === 'ascending' ? 'asc' : 'desc'])
       : orderBy(this.data.tableData, (o) => {
         const tmp = document.createElement('DIV');
         tmp.innerHTML = o[columnIndex];
 
         return tmp.textContent;
-      }, [order]);
+      }, [order === 'ascending' ? 'asc' : 'desc']);
   }
 
   /**
