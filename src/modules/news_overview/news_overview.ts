@@ -48,6 +48,7 @@ class NewsOverview extends Module {
   private searchWordHash: number;
   private searchWordHashZero: number;
   private orderBy: string;
+  private currentUrl: string;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
@@ -93,7 +94,7 @@ class NewsOverview extends Module {
     this.initEventListeners();
     // deferred filtering from URL params
     this.filterFromUrlParams();
-    setTimeout(() => { this.filterView(true, true); }, 0);
+    setTimeout(() => { this.filterView(true, true, false); }, 0);
   }
 
   static get events() {
@@ -243,7 +244,8 @@ class NewsOverview extends Module {
     // hide top news if any filter is active
     if (this.dateHash !== this.dateHashZero
       || this.filterHash !== this.filterHashZero
-      || this.searchWordHash !== this.searchWordHashZero) {
+      || this.searchWordHash !== this.searchWordHashZero
+      || parseInt(this.ui.paginationInput.value, 10) > 1) {
       this.ui.topNews.classList.remove('visible');
     } else {
       this.ui.topNews.classList.add('visible');
@@ -341,7 +343,7 @@ class NewsOverview extends Module {
     const page = this.getURLParam('page', true);
     const orderBy = this.getURLParam('orderBy', true);
     if (page) {
-      this.ui.paginationInput.setAttribute('value', page);
+      this.ui.paginationInput.value = `${page}`;
     }
     this.searchWord = searchWord !== null ? searchWord : '';
     this.filterLists = [
@@ -377,11 +379,13 @@ class NewsOverview extends Module {
     if (!window.fetch) {
       await import('whatwg-fetch');
     }
-
-    return fetch(this.constructUrl())
+    this.currentUrl = this.constructUrl();
+    return fetch(this.currentUrl)
       .then(response => response.json())
       .then((response) => {
         if (response) {
+          const canonical = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1]}`;
+          history.pushState({url: canonical, }, null, canonical); // eslint-disable-line
           callback(response);
         }
       })
@@ -397,8 +401,24 @@ class NewsOverview extends Module {
     if (this.dataIdle) {
       this.dataIdle = false;
       this.fetchData((jsonData) => {
+        // update canonical href
         this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
         this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
+        const canonicalUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1]}`;
+        let prevUrl = '';
+        if (parseInt(this.ui.paginationInput.value, 10) > 1) {
+          prevUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`)}`;
+        }
+        let nextUrl = '';
+        if (parseInt(this.ui.paginationInput.value, 10) < (jsonData.numberOfResultPages - 1)) {
+          nextUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`)}`;
+        }
+        this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setCanonicalUrls,
+          { detail: { prev: prevUrl, next: nextUrl } }));
+        // update canonical links
+        this.upsertLinkRel('prev', prevUrl);
+        this.upsertLinkRel('next', nextUrl);
+        this.upsertLinkRel('canonical', canonicalUrl);
         this.populateNewsTeasers(jsonData);
         this.dataIdle = true;
       });
@@ -433,6 +453,32 @@ class NewsOverview extends Module {
   }
 
   /**
+   * get base URL
+   */
+  private getBaselUrl() {
+    return `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+  }
+
+  /**
+   * Update or insert rel link for canonical references
+   * @param rel
+   * @param href
+   */
+  private upsertLinkRel(rel, href) {
+    const relLink = document.querySelector(`link[rel="${rel}"]`);
+    if (relLink) {
+      document.head.removeChild(relLink);
+    }
+    if (!href) {
+      return;
+    }
+    const element = document.createElement('link');
+    element.setAttribute('rel', rel);
+    element.setAttribute('href', href);
+    document.head.appendChild(element);
+  }
+
+  /**
    * Assemble URL from base url and filters
    */
   private constructUrl() {
@@ -444,7 +490,7 @@ class NewsOverview extends Module {
       }
     };
     this.filterLists[0].forEach((topic) => { append('topic', topic); });
-    this.filterLists[1].forEach((organisation) => { append('topic', organisation); });
+    this.filterLists[1].forEach((organisation) => { append('organisation', organisation); });
     this.filterLists[2].forEach((type) => { append('type', type); });
     if (this.dateRange.length > 1) {
       append('dateFrom', this.dateRange[0]);
@@ -453,6 +499,7 @@ class NewsOverview extends Module {
     append('fullText', this.searchWord);
     append('page', this.ui.paginationInput.value);
     append('orderBy', this.orderBy);
+
     return resultUrl;
   }
 }

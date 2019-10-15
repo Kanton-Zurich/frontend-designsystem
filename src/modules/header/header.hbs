@@ -18,7 +18,22 @@
     {{#if hasUserMenu}}
       {{> "modules/user_menu/user_menu" userMenu}}
     {{/if}}
-    {{> "modules/search/search"}}
+    <button
+      type="button"
+      class="mdl-header__search atm-button"
+      data-header="openModal"
+      aria-expanded="false"
+      aria-haspopup="true"
+      aria-controls="flyout-search"
+      data-search
+    >
+      <span class="atm-button__text">
+        Suchen
+      </span>
+      <svg class="icon atm-button__icon">
+        <use xlink:href="#search"></use>
+      </svg>
+    </button>
   </div>
 </header>
 

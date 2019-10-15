@@ -33,6 +33,9 @@ const data = _.merge({}, defaultData, {
       _.merge({}, modalData.variants.organisationFlyout.props, {
         preview: false,
       }),
+      _.merge({}, modalData.variants.searchFlyout.props, {
+        preview: false,
+      }),
     ],
   },
 });
@@ -50,6 +53,8 @@ const variants = _.mapValues({
     },
     props: {
       inverted: true,
+      hasUserMenu: true,
+      userMenu: devUserMenuData,
     },
   },
   userMenu: {

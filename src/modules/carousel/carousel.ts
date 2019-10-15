@@ -303,7 +303,6 @@ class Carousel extends Module {
       this.ui.element.classList.add(this.options.stateClasses.fullscreen);
       this.ui.element.classList.add(this.options.stateClasses.inverted);
 
-      this.ui.close.focus();
       this.setTransformValue();
 
       // Polyfill for IE11
@@ -318,6 +317,7 @@ class Carousel extends Module {
       [].slice.call(this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen)).forEach(e => e.setAttribute('aria-hidden', 'true'));
 
       (<any>window).estatico.helpers.wrapAccessibility(this.ui.element);
+      setTimeout(() => { this.ui.close.focus(); }, 0);
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
       this.ui.element.classList.remove(this.options.stateClasses.inverted);

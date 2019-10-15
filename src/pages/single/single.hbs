@@ -22,8 +22,6 @@
   {{/content}}
 
   {{#content "footer"}}
-    <footer id="contentinfo">
-      <h1>(--FOOTER PLACEHOLDER--)</h1>
-    </footer>
+    {{> "modules/footer/footer" props.modules.footerData}}
   {{/content}}
 {{/extend}}

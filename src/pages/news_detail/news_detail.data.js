@@ -12,6 +12,7 @@ const defLinklistData = require('../../modules/linklist/linklist.data');
 const defPersonCardData = require('../../modules/person_card/person_card.data.js');
 const defDownloadListData = require('../../modules/download_list/download_list.data');
 const defTagGroupData = require('../../modules/tag_group/tag_group.data');
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -55,6 +56,7 @@ const data = _.merge({}, defaultData, {
       downloadListData: defDownloadListData.props,
       personCardData: defPersonCardData.variants.noImageAlt.props,
       tagGroupData: defTagGroupData.props,
+      footerData: defFooterData,
     },
   },
 });
