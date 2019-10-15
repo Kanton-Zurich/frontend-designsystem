@@ -9,7 +9,7 @@ const contentTeaser = require('../../atoms/content_teaser/content_teaser.data');
 const template = dataHelper.getFileContent('search.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Search',
+    title: 'OnSite-Suche',
     className: 'Search',
     jira: 'CZHDEV-805',
     label: 'Suche',

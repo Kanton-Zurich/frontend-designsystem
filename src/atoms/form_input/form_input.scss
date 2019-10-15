@@ -7,6 +7,8 @@ $topSpace_without_border: 22px;
 $rightSpace: 44px;
 $unitLeftSpace: 62px;
 
+$topSpaceSearchInput: 15.5px;
+
 .atm-form_input {
   position: relative;
 
@@ -35,6 +37,14 @@ $unitLeftSpace: 62px;
       .atm-form_input__trigger-value {
         color: rgba(0, 0, 0, 0.2);
       }
+    }
+
+    .atm-form_input--search & {
+      font-size: pxToRem($sizeFontBig);
+      font-weight: $fontWeightBlack;
+
+      padding-top: $topSpaceSearchInput;
+      padding-bottom: $topSpaceSearchInput;
     }
 
     @at-root {
@@ -124,6 +134,10 @@ $unitLeftSpace: 62px;
     color: $colorBlack60;
     font-size: pxToRem($sizeFontRegular);
     line-height: $sizeLineHeightBase;
+
+    .atm-form_input--search & {
+      font-size: pxToRem($sizeFontBig);
+    }
   }
 
   &__unit--left,

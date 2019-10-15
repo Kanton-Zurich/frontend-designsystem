@@ -281,6 +281,23 @@ const variants = _.mapValues({
       uuid: _.uniqueId('datepicker-'),
     },
   },
+  search: {
+    meta: {
+      title: 'Suchfeld',
+      desc: 'Suchfeld mit grosser Schrift',
+    },
+    props: {
+      label: 'Suche',
+      isSearch: true,
+      name: 'input_search',
+      uuid: 'input_search',
+      additionalFunctionality: {
+        icon: 'clear',
+        buttontype: 'clear',
+        ariaText: 'Lösche Eingabe',
+      },
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

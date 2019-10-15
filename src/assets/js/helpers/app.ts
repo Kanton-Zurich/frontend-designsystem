@@ -41,6 +41,7 @@ import MapView from '../../../modules/map_view/map_view';
 import DrilldownSelect from '../../../modules/drilldown_select/drilldown_select';
 import Back2top from '../../../modules/back2top/back2top';
 import Tooltip from '../../../modules/tooltip/tooltip';
+import SearchPage from '../../../modules/search_page/search_page';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -91,6 +92,7 @@ class App {
     this.modules.drilldownSelect = DrilldownSelect;
     this.modules.back2top = Back2top;
     this.modules.tooltip = Tooltip;
+    this.modules.searchPage = SearchPage;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
