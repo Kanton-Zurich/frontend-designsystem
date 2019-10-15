@@ -15,8 +15,8 @@ const data = _.merge({}, defaultData, {
     wrapInForm: true,
   },
   props: {
-    primarySelectData: _.merge({}, defSelectData.variants.default.props, { additionalAttributes: 'data-filter-attribute="data-filter-id"' }),
-    secondarySelectData: _.merge({}, defSelectData.variants.default.props, { additionalAttributes: 'data-filter-attribute="data-filter-id"' }),
+    primarySelectData: _.merge({}, defSelectData.variants.default.props, { additionalAttributes: 'data-filter-attribute="data-filter-id" data-drilldown-primary' }),
+    secondarySelectData: _.merge({}, defSelectData.variants.default.props, { additionalAttributes: 'data-filter-attribute="data-filter-id" data-drilldown-secondary' }),
     preview: true,
   },
 });

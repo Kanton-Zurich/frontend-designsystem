@@ -339,7 +339,6 @@ class Select extends Module {
       });
       this.ui.items[index].classList.add('selected');
       if (emit) {
-
         this.emitValueChanged(item.value);
       }
     } else {

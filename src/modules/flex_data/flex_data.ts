@@ -23,10 +23,13 @@ class FlexData extends Module {
     form: HTMLFormElement,
     pagination: HTMLDivElement,
     paginationInput: HTMLInputElement,
+    submitButton: HTMLButtonElement,
+    clearButton: HTMLButtonElement,
   };
   public options: any;
   public dataUrl: string;
   private dataIdle: boolean;
+  private currentUrl: string;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -41,6 +44,8 @@ class FlexData extends Module {
         resultsTemplate: '[data-flex-template]',
         resultsColumns: '.mdl-table [data-column-name]',
         form: 'form',
+        submitButton: 'form [data-search-flex]',
+        clearButton: 'form [data-clear-flex]',
         pagination: '.mdl-pagination',
         paginationInput: '.mdl-pagination input',
       },
@@ -66,14 +71,39 @@ class FlexData extends Module {
    */
   initEventListeners() {
     this.ui.resultsTable.addEventListener(Table.events.sort, this.onSortResults.bind(this));
+    this.ui.submitButton.addEventListener('click', this.onSearchResults.bind(this));
+    this.ui.clearButton.addEventListener('click', this.onClearResults.bind(this));
+    this.ui.form.addEventListener('keypress', (event: any) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        return false;
+      }
+    });
+    this.updateViewFromURLParams();
     // -----------------------------------------------
     // Listen to pagination change event
     this.ui.pagination.addEventListener(Pagination.events.change, () => {
       this.loadResults();
     });
 
-    this.updateViewFromURLParams();
+    this.loadResults();
+  }
 
+  /**
+   * Search for data
+   */
+  onSearchResults() {
+    this.loadResults();
+  }
+
+  /**
+   * Clear search entries
+   */
+  onClearResults() {
+    this.ui.form.reset();
+    this.ui.form.querySelectorAll('.mdl-select').forEach((select: HTMLElement) => {
+      select.dispatchEvent(new CustomEvent(Select.events.clear));
+    });
     this.loadResults();
   }
 
@@ -81,8 +111,18 @@ class FlexData extends Module {
    * Handle sort event on table
    * @param event
    */
-  onSortResults() {
-
+  onSortResults(event) {
+    const { column, direction } = event.detail;
+    const newDirection = direction === 'ascending' ? 'descending' : 'ascending';
+    const eventDetail = {
+      detail: {
+        column: column, // eslint-disable-line
+        direction: newDirection,
+      },
+    };
+    this.ui.resultsTable.dispatchEvent(new CustomEvent(Table.events.sortColumn, eventDetail));
+    this.ui.paginationInput.value = '1';
+    this.loadResults();
   }
 
   /**
@@ -94,6 +134,21 @@ class FlexData extends Module {
       this.fetchData((jsonData) => {
         this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
         this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
+        const canonicalUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1]}`;
+        let prevUrl = '';
+        if (parseInt(this.ui.paginationInput.value, 10) > 1) {
+          prevUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`)}`;
+        }
+        let nextUrl = '';
+        if (parseInt(this.ui.paginationInput.value, 10) < (jsonData.numberOfResultPages - 1)) {
+          nextUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`)}`;
+        }
+        this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setCanonicalUrls,
+          { detail: { prev: prevUrl, next: nextUrl } }));
+        // update canonical links
+        this.upsertLinkRel('prev', prevUrl);
+        this.upsertLinkRel('next', nextUrl);
+        this.upsertLinkRel('canonical', canonicalUrl);
         this.populateResultList(jsonData);
         this.dataIdle = true;
       });
@@ -108,6 +163,8 @@ class FlexData extends Module {
     this.ui.resultsBody.innerHTML = '';
     this.ui.resultsTitle.innerText = this.ui.results.getAttribute('data-result-count-title')
       .replace('%1', jsonData.numberOfResults);
+    this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
+    this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
     jsonData.data.forEach((item) => {
       const tr = document.createElement('tr');
       tr.classList.add('mdl-table__row');
@@ -155,6 +212,8 @@ class FlexData extends Module {
       append(key, formData[key]);
     });
     append('page', this.ui.paginationInput.value);
+    append('order', this.ui.resultsTable.getAttribute('data-sort-direction') === 'descending' ? 'desc' : 'asc');
+    append('orderBy', this.ui.resultsTable.getAttribute('data-sort-column'));
     return resultUrl;
   }
 
@@ -163,42 +222,59 @@ class FlexData extends Module {
    */
   updateViewFromURLParams() {
     const params = this.getAllURLParams();
-    setTimeout(() => {
-      Object.keys(params).forEach((key) => {
-        switch (key) {
-          case 'page':
-            break;
-          default:
+    Object.keys(params).forEach((key) => {
+      switch (key) {
+        case 'page':
+          this.ui.paginationInput.value = params[key];
+          break;
+        case 'order':
+          this.ui.resultsTable.setAttribute('data-sort-direction',
+            params[key] === 'desc' ? 'descending' : 'ascending');
+          break;
+        case 'orderBy':
+          this.ui.resultsTable.setAttribute('data-sort-column', params[key]);
+          break;
+        default:
+          setTimeout(() => {
             const selectedElements = this.ui.form.querySelectorAll(`input[name=${key}]`); // eslint-disable-line
             const values = params[key]; // eslint-disable-line
             if (selectedElements.length > 0) {
               const item = <HTMLInputElement>selectedElements[0];
-              // -----------
-              // dropdown
+
               if (item.hasAttribute('data-select-option')) {
+                // -----------
+                // dropdown
                 const payload = {
                   data: item.getAttribute('type') === 'radio' ? values[0] : values,
                   emit: true,
                 };
-                item.parentElement.parentElement.parentElement.parentElement
-                  .dispatchEvent(new CustomEvent(Select.events.setValue, { detail: payload }));
-              } else
-              // -----------
-              // datepicker
-              // else if (item.classList.contains('flatpickr-input')) {
-              //   item.parentElement.parentElement.parentElement.dispatchEvent()
-              // }
-              // -----------
-              // textfield
-              {
-                item.value = values[0];
+                const module = item.parentElement.parentElement.parentElement.parentElement;
+                if (module.hasAttribute('data-drilldown-secondary')) {
+                  setTimeout(() => {
+                    module
+                      .dispatchEvent(new CustomEvent(Select.events.setValue, { detail: payload }));
+                  }, 0);
+                } else {
+                  module
+                    .dispatchEvent(new CustomEvent(Select.events.setValue, { detail: payload }));
+                }
+              } else if (item.classList.contains('flatpickr-input')) {
+                // -----------
+                // datepicker
+                item.value = values[0]; // eslint-disable-line
+                item.classList.add('dirty');
+                item.parentElement.parentElement.parentElement.classList.add('dirty');
+              } else {
+                // -----------
+                // textfield
+                item.value = values[0]; // eslint-disable-line
                 item.classList.add('dirty');
               }
             }
-            break;
-        }
-      });
-    }, this.options.initDelay);
+          }, this.options.initDelay);
+          break;
+      }
+    });
   }
 
   /**
@@ -209,11 +285,13 @@ class FlexData extends Module {
     if (!window.fetch) {
       await import('whatwg-fetch');
     }
-
-    return fetch(this.constructUrl())
+    this.currentUrl = this.constructUrl();
+    return fetch(this.currentUrl)
       .then(response => response.json())
       .then((response) => {
         if (response) {
+          const canonical = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1]}`;
+          history.pushState({url: canonical, }, null, canonical); // eslint-disable-line
           callback(response);
         }
       })

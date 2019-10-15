@@ -456,32 +456,6 @@ class NewsOverview extends Module {
   }
 
   /**
-   * get base URL
-   */
-  private getBaselUrl() {
-    return `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
-  }
-
-  /**
-   * Update or insert rel link for canonical references
-   * @param rel
-   * @param href
-   */
-  private upsertLinkRel(rel, href) {
-    const relLink = document.querySelector(`link[rel="${rel}"]`);
-    if (relLink) {
-      document.head.removeChild(relLink);
-    }
-    if (!href) {
-      return;
-    }
-    const element = document.createElement('link');
-    element.setAttribute('rel', rel);
-    element.setAttribute('href', href);
-    document.head.appendChild(element);
-  }
-
-  /**
    * Assemble URL from base url and filters
    */
   private constructUrl() {

@@ -281,17 +281,17 @@ class Table extends Module {
 
       switch (orderDirection) {
         // The current sortOrder is ascending, so the new one has to be descending
-        case 'asc':
-          order = 'desc';
+        case 'ascending':
+          order = 'descending';
           this.setColumnHeader(order, columnHeader);
           break;
         // The current sortOrder is descending, next stage is no sort at all (default)
-        case 'desc':
+        case 'descending':
           this.setColumnHeader(null, columnHeader);
           break;
         // There is no active sortOrder next stage is ascending
         default:
-          order = 'asc';
+          order = 'ascending';
           this.setColumnHeader(order, columnHeader);
           break;
       }
@@ -334,6 +334,8 @@ class Table extends Module {
    */
   onSortColumn(event) {
     const { column, direction } = event.detail;
+    this.ui.element.setAttribute('data-sort-column', column);
+    this.ui.element.setAttribute('data-sort-direction', direction);
     const columnHeader = this.ui.element.querySelector(`[data-column-name="${column}"]`);
     if (columnHeader) {
       const isNumeric = columnHeader.getAttribute('data-order') === 'enum';
@@ -354,14 +356,14 @@ class Table extends Module {
   setColumnHeader(orderDirection, columnHeader) {
     const th = columnHeader.parentNode;
     switch (orderDirection) { // eslint-disable-line
-      case 'desc':
+      case 'descending':
         columnHeader.classList.add(this.options.stateClasses.columnDescending);
         th.setAttribute('aria-sort', 'descending');
         columnHeader.querySelector(`.${this.options.stateClasses.sortLabelNone}`).setAttribute('aria-hidden', 'true');
         columnHeader.querySelector(`.${this.options.stateClasses.sortLabelAscending}`).setAttribute('aria-hidden', 'true');
         columnHeader.querySelector(`.${this.options.stateClasses.sortLabelDescending}`).setAttribute('aria-hidden', 'false');
         break;
-      case 'asc':
+      case 'ascending':
         columnHeader.classList.add(this.options.stateClasses.columnAscending);
         th.setAttribute('aria-sort', 'ascending');
         columnHeader.querySelector(`.${this.options.stateClasses.sortLabelNone}`).setAttribute('aria-hidden', 'true');
