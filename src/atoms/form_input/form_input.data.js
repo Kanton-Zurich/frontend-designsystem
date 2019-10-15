@@ -291,6 +291,8 @@ const variants = _.mapValues({
       isSearch: true,
       name: 'input_search',
       uuid: 'input_search',
+      disableAutocomplete: true,
+      dataSelector: 'data-search_page="input"',
       additionalFunctionality: {
         icon: 'clear',
         buttontype: 'clear',

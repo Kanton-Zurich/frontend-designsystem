@@ -4,6 +4,7 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const formInputData = require('../../atoms/form_input/form_input.data');
+const paginationData = require('../pagination/pagination.data');
 
 const template = dataHelper.getFileContent('search_page.hbs');
 const data = _.merge({}, defaultData, {
@@ -16,6 +17,10 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     input: formInputData.variants.search.props,
+    options: JSON.stringify({
+      url: '/mocks/modules/search_page/search_page.json',
+    }),
+    pagination: paginationData.props,
   },
 });
 const variants = _.mapValues({

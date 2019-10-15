@@ -1,3 +1,18 @@
 .mdl-search_page {
-  display: inherit;
+  &__form {
+    @include sizeCurve(padding-bottom, regular);
+  }
+
+  &__results-wrapper {
+    @include sizeCurve(margin-top, medium);
+  }
+
+  &__counter {
+    font-size: pxToRem($sizeFontTiny);
+    font-weight: $fontWeightBlack;
+
+    display: block;
+
+    @include sizeCurve(margin-bottom, small);
+  }
 }

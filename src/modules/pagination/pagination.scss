@@ -18,4 +18,12 @@
   &__page-count {
     padding: pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
   }
+
+  .mdl-search_page & {
+    display: none;
+  }
+
+  .mdl-search_page--show-results & {
+    display: flex;
+  }
 }

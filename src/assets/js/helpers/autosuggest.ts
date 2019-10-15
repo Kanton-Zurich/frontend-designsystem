@@ -235,7 +235,7 @@ class Autosuggest {
       await import('whatwg-fetch');
     }
 
-    return fetch(this.options.url)
+    return fetch(`${this.options.url}?q=${encodeURIComponent(this.query)}`)
       .then(response => response.json())
       .then((response) => {
         if (Object.prototype.hasOwnProperty.call(response, 'suggestions')) {
