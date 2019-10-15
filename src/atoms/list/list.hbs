@@ -1,5 +1,5 @@
 <{{#if isTable}}table{{else}}ul{{/if}}
-  class="atm-list"
+  class="atm-list{{#if isTable}} atm-list--table{{/if}}"
   {{#if setHiddenIndex}}tabindex="-1"{{/if}}
   data-inputtype="{{#if isMultiSelect}}checkbox{{/if}}{{#if isSingleSelect}}radio{{/if}}"
   {{#unless outerFocus}}tabindex="-1"{{/unless}}

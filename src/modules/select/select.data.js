@@ -179,27 +179,7 @@ const variants = _.mapValues({
     },
     props: {
       isTable: true,
-      listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
-        setHiddenIndex: true,
-        groupId: 'tableSingleSelect',
-        selectTableHeaders: ['Nr.', 'Ordnungsnummer', 'Thema'],
-        selectOptions: [
-          { value: '1', label: '1', selectTableCells: ['101 - 176', 'Verfassung - Kantonsgebiet - Gemeinden - Bürgerrecht - Politische Rechte - Behörden'], id: _.uniqueId('option-item') },
-          { value: '2', label: '2', selectTableCells: ['177 - 184', 'Staatspersonal - Kirchen - Religionsgemeinschaften'], id: _.uniqueId('option-item') },
-          { value: '3', label: '3', selectTableCells: ['211 - 255', 'Gerichtsorganisation - Zivilrecht - Notariat - Grundbuch'], id: _.uniqueId('option-item') },
-          { value: '4', label: '4', selectTableCells: ['281 - 351', 'Schuldbetreibung und Konkurs - Strafrecht - Strafvollzug - Opferhilfe - Gewaltschutz'], id: _.uniqueId('option-item') },
-          { value: '5', label: '5', selectTableCells: ['410 - 412', 'Bildung - Volksschule'], id: _.uniqueId('option-item') },
-          { value: '6', label: '6', selectTableCells: ['413', 'Mittelschulen - Berufsbildung'], id: _.uniqueId('option-item') },
-          { value: '7', label: '7', selectTableCells: ['414', 'Fachhochschulen'], id: _.uniqueId('option-item') },
-          { value: '8', label: '8', selectTableCells: ['415 - 440', 'Universität - Dokumentation - Kultur'], id: _.uniqueId('option-item') },
-          { value: '9', label: '9', selectTableCells: ['511 - 554', 'Militär - Bevölkerungsschutz - Polizei'], id: _.uniqueId('option-item') },
-          { value: '10', label: '10', selectTableCells: ['611 - 691', 'Finanzhaushalt - Steuern - Gebühren'], id: _.uniqueId('option-item') },
-          { value: '11', label: '11', selectTableCells: ['700 - 715', 'Raumplanung - Baurecht - Umweltschutz'], id: _.uniqueId('option-item') },
-          { value: '12', label: '12', selectTableCells: ['720 - 782', 'Beschaffungswesen - Strassen - Wasserwirtschaft - Energie - Verkehr - Enteignung'], id: _.uniqueId('option-item') },
-          { value: '13', label: '13', selectTableCells: ['810 - 857', 'Gesundheit - Arbeit - Sozialversicherung - Fürsorge'], id: _.uniqueId('option-item') },
-          { value: '14', label: '14', selectTableCells: ['861 - 954', 'Feuerpolizei - Landwirtschaft - Wald und Jagd - Industrie und Gewerbe - Handel - Banken'], id: _.uniqueId('option-item') },
-        ],
-      }),
+      listData: listDemoData.variants.table.props,
       triggerInputData: _.merge({}, inputDemoData.variants.triggerDefault.props, {
         label: 'Ordner',
       }),
