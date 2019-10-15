@@ -2,6 +2,13 @@ const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 const headerData = require('../../modules/header/header.data').props;
+const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
+const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
+const defMetablockData = require('../../modules/metablock/metablock.data');
+const defReleatedContentData = require('../../modules/related_content/related_content.data.js').variants.default.props;
+const defContactData = require('../../modules/contact/contact.data.js').variants.fullWidth.props;
+const defTagGroupData = require('../../modules/tag_group/tag_group.data.js').variants.default.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -11,11 +18,33 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('flex_detail.md'),
   },
   props: {
-    title: 'Title',
-    text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+    title: 'Steuerbuch Artikel',
     header: headerData,
     modules: {
-      // xy: require('../../modules/xy/xy.data.js').props
+      pageHeaderData: defPageHeaderData.variants.steuerBuch.props,
+      metablockData: defMetablockData.props,
+      smallcaptionData: {
+        headingLevel: 3,
+        text: 'Dokumente',
+      },
+      downloadListData: {
+        title: false,
+        links: [
+          {
+            link: {
+              linkListItemTitle: 'Merkblatt des kantonalen Steueramtes über das Verfahren bei Bestreitung der Steuerhoheit ab Steuerperiode 1999 nach dem neuen Steuergesetz vom 8. Juni 1997 ',
+              linkListItemIsDownload: true,
+              linkListItemLabel: 'PDF | 6 Seiten | 100KB',
+              linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+            },
+          },
+        ],
+      },
+      releatedContentData: _.merge({}, defReleatedContentData, { relatedContentHeading: { anchorNavReference: 'related_content' } }),
+      contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
+      tagGroupData: _.merge({}, defTagGroupData, { tagGroupdHeading: { anchorNavReference: 'responsibilities' } }),
+      footerData: defFooterData,
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
     },
   },
 });

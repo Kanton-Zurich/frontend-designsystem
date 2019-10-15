@@ -1,7 +1,43 @@
 {{#extend "layouts/layout"}}
-	{{#content "content"}}
-		<h2>{{props.title}}</h2>
-
-		<p>{{props.text}}</p>
-	{{/content}}
+  {{#content "header"}}
+    <header>
+      {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
+    </header>
+  {{/content}}
+  {{#content "content"}}
+    <h2 class="atm-heading">{{props.title}}</h2>
+    {{>"modules/metablock/metablock" props.modules.metablockData}}
+    {{>"atoms/smallcaption/smallcaption" props.modules.smallcaptionData }}
+    {{>"modules/download_list/download_list" props.modules.downloadListData }}
+    <div class="mdl-richtext">
+      <h2 class="atm-heading">A. Gesetzliche Grundlage</h2>
+      <p class="atm-paragraph">1 Die subjektive Steuerpflicht ist für natürliche Personen in §§ 3 - 10 des Steuerge¬setzes vom 8. Juni 1997 (StG) und für juristische Personen in §§ 54 - 59 StG geregelt. Nach § 189 StG gelten die Bestimmungen über die Steuerpflicht für die Staatssteuern unter Vorbehalt der Bestimmungen von §§ 190 und 191 StG auch für die Gemeindesteuern.
+        2 Ein spezielles Verfahren zur Beanspruchung der Steuerhoheit für die Staatssteuer ist im Steuergesetz nicht vorgesehen. § 192 StG enthält lediglich eine besondere Regelung für das Verfahren bei streitiger kommunaler Steuerhoheit.</p>
+      <h2 class="atm-heading">B. Art des Verfahrens</h2>
+      <p class="atm-paragraph">3 Die Art des Verfahrens, in dem die Steuerhoheit beansprucht wird, hängt zum einen davon ab, welche Steuerhoheit bestritten wird, und richtet sich zum andern nach dem Zeitpunkt der Inanspruchnahme der Steuerhoheit.</p>
+      <h3 class="atm-heading">I. Im interkantonalen und internationalen Verhältnis</h3>
+      <p class="atm-paragraph">4 Da für die Beanspruchung der kantonalen Steuerhoheit kein besonderes Verfahren vorgesehen ist, finden die Bestimmungen zum Einschätzungsverfahren Anwendung.<br />
+        1. Ordentliches Verfahren (Einschätzungsverfahren)<br />
+        5 Nach § 130 Abs. 1 StG verjährt das Recht, eine Steuer zu veranlagen, fünf Jahre nach Ablauf der Steuerperiode. Vorbehalten bleibt die Erhebung von Nachsteuern und Bussen.<br />
+        6 Vor Ablauf dieser fünfjährigen Veranlagungsverjährungsfrist kann die Steuerhoheit stets im ordentlichen Verfahren beansprucht werden. Ab Steuerperiode 1999 wird nicht mehr vorausgesetzt, dass die Steuerhoheit gegenüber dem Steuerpflichtigen im laufenden Steuerjahr in irgend einer Form geltend gemacht wurde (zur Verwirkung des Besteuerungsrechts im interkantonalen Verhältnis vgl. hinten Ziff. 18 f.).<br />
+        7 Ist die Veranlagungsverjährungsfrist fünf Jahre nach Ablauf der Steuerperiode aufgrund besonderer Umstände im Sinne von § 130 Abs. 2 StG noch am Laufen, wird die Steuerhoheit weiterhin im ordentlichen Verfahren in Anspruch genommen. Eine zeitliche Schranke setzt jedoch die absolute Verjährungsfrist gemäss § 130 Abs. 4 StG.<br />
+        2. Nachsteuerverfahren<br />
+        8 Nach Ablauf der Veranlagungsverjährungsfrist von § 130 StG kann die Steuerhoheit nur noch im Rahmen eines Nachsteuerverfahrens beansprucht werden.<br />
+        9 Voraussetzung für die Erhebung einer Nachsteuer und damit auch für die Inanspruchnahme der Steuerhoheit bildet nach § 160 Abs. 1 StG insbesondere, dass eine Einschätzung aufgrund von Tatsachen oder Beweismitteln, die der Steuerbehörde nicht bekannt waren, unterblieben oder eine unterbliebene Einschätzung auf ein Verbrechen oder Vergehen gegen die Steuerbehörde zurückzuführen ist.<br />
+        10 Zeitliche Schranken für die Beanspruchung der Steuerhoheit im Nachsteuerverfahren setzt § 161 StG. Danach erlischt das Recht, ein Nachsteuerverfahren einzuleiten, zehn Jahre nach Ablauf der Steuerperiode, für die eine Einschätzung zu Unrecht unterblieben oder eine rechtskräftige Einschätzung unvollständig ist. Das Recht, die Nachsteuer festzusetzen, erlischt 15 Jahre nach Ablauf der Steuerperiode, auf die sie sich bezieht.</p>
+      <h2 class="atm-heading"></h2>
+      <p class="atm-paragraph"></p>
+      <h2 class="atm-heading"></h2>
+      <p class="atm-paragraph"></p>
+      <h2 class="atm-heading"></h2>
+      <p class="atm-paragraph"></p>
+    </div>
+    {{> "modules/contact/contact" props.modules.contactData}}
+    {{> "modules/related_content/related_content" props.modules.releatedContentData}}
+    {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
+  {{/content}}
+  {{#content "footer"}}
+    {{> "modules/footer/footer" props.modules.footerData }}
+    {{> "modules/back2top/back2top" props.modules.back2topData}}
+  {{/content}}
 {{/extend}}
