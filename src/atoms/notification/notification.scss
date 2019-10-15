@@ -81,7 +81,7 @@
     box-shadow: 0 0 $sizeTiny rgba(0, 0, 0, 0.2);
     border-radius: 3px;
     padding: pxToRem($sizeLarge) pxToRem($sizeBig) pxToRem($sizeLarge) pxToRem($sizeLarge);
-    color: $colorBlack;
+    color: $colorRed;
 
     &:before {
       content: '';

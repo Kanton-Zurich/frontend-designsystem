@@ -8,9 +8,9 @@
       {{{message}}}
     </div>
   </span>
-  {{#if isLogin}}
-    <button class="atm-button">
-      Abmelden
+  {{#if loginBtn}}
+    <button class="atm-button" {{{loginBtn.additionalAttributes}}} >
+      {{ loginBtn.label }}
     </button>
   {{/if}}
 </div>

@@ -50,6 +50,10 @@ const variants = _.mapValues({
       title: 'Ihr Login ist für diesen Bereich nicht gültig',
       icon: '#caution',
       isLogin: true,
+      loginBtn: {
+        label: 'Abmelden',
+        additionalAttributes: 'data-attr_selector="loginBtn"',
+      },
     },
   },
 }, (variant) => {

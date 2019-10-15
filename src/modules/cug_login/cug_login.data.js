@@ -14,21 +14,34 @@ const tooltipData = {
   },
 };
 
-const template = dataHelper.getFileContent('login_form.hbs');
+const unauthNotificationData = {
+  message: 'Melden Sie sich ab und verwenden Sie die für diesen Bereich gültigen Login-Angaben.',
+  title: 'Ihr Login ist für diesen Bereich nicht gültig.',
+  icon: '#caution',
+  isLogin: true,
+  loginBtn: {
+    label: 'Abmelden',
+    additionalAttributes: 'data-cug_login="doLogout"',
+  },
+};
+
+const template = dataHelper.getFileContent('cug_login.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Login Form',
-    className: 'LoginForm',
+    title: 'CUG Login',
+    className: 'CugLogin',
     jira: 'CZHDEV-538',
-    documentation: dataHelper.getDocumentation('login_form.md'),
+    documentation: dataHelper.getDocumentation('cug_login.md'),
   },
   props: {
+    successRedirectUrl: 'http://localhost:9000/pages/focus/focus.html',
     heading: 'Login ZHservices',
     introText: 'Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichte - den ersten in der Schweiz.',
     userNameInput: formInputData.variants.floatValidate.props,
     passwordInput: formInputData.variants.showPasswordButton.props,
     labelLoginBtn: 'Anmelden',
     tooltip: tooltipData,
+    unauthNotificationData,
   },
 });
 const variants = _.mapValues({
@@ -36,6 +49,15 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+  },
+  unauth: {
+    meta: {
+      title: 'Unauth',
+      desc: 'View for unauthorized users',
+    },
+    props: {
+      unauthorized: true,
     },
   },
 }, (variant) => {

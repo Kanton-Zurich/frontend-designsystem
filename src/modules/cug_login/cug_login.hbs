@@ -1,0 +1,52 @@
+<div class="mdl-cug_login {{#if unauthorized}}mdl-cug_login--unauthorized{{/if}}" data-init="cugLogin">
+    <input type="hidden" data-cug_login="doLoginEndpoint" value="{{ endpointDoLogin }}"/>
+    <input type="hidden" data-cug_login="successRedirectUrl" value="{{ successRedirectUrl }}"/>
+
+    {{#if heading }}<h2 class="atm-heading">
+      {{ heading }}
+    </h2>{{/if}}
+    {{#if introText}}<p class="atm-paragraph">{{ introText }}</p>{{/if}}
+
+    <div class="mdl-cug_login__form">
+        <form novalidate>
+            <section class="form__section" aria-live="polite">
+                <div class="form__group">
+
+                    <div class="form__row">
+                        <div class="form__cell">
+                          {{> "atoms/form_input/form_input" userNameInput}}
+                        </div>
+                    </div>
+
+                    <div class="form__row">
+                        <div class="form__cell">
+                          {{> "atoms/form_input/form_input" passwordInput}}
+                        </div>
+                    </div>
+
+                    <div class="form__row">
+                        <div class="form__cell">
+                            <div class="mdl-cug_login__line"></div>
+                        </div>
+                    </div>
+
+                    <div class="form__row">
+                        <div class="form__cell">
+                          {{> "modules/tooltip/tooltip" tooltip}}
+                        </div>
+
+                        <div class="form__cell">
+                            <button class="atm-button mdl-cug_login__submit">{{ labelLoginBtn }}</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+        </form>
+    </div>
+
+    <div class="mdl-cug_login__alert-unauth">
+        {{> "atoms/notification/notification" unauthNotificationData }}
+    </div>
+</div>

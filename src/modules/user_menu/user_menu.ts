@@ -43,7 +43,7 @@ class UserMenu extends Module {
 
   static get events() {
     return {
-      // eventname: `eventname.${ UserMenu.name }.${  }`
+      doLogout: `eventname.${UserMenu.name}.dologout`,
     };
   }
 
@@ -130,6 +130,8 @@ class UserMenu extends Module {
     this.eventDelegate
       .on('click', this.options.domSelectors.trigger, this.toggleUserMenu.bind(this))
       .on('click', this.options.domSelectors.logout, this.doLogoutUser.bind(this));
+
+    document.addEventListener(UserMenu.events.doLogout, this.doLogoutUser.bind(this));
   }
 
   toggleUserMenu() {
