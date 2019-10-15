@@ -4,27 +4,29 @@
   {{#if navigation}}
     {{> "modules/stepper_navigation/stepper_navigation" navigation}}
   {{/if}}
+  <form class="form" data-stepper="form" novalidate action="{{action}}">
+    <div class="mdl-stepper__wrapper form" data-stepper="wrapper" {{#if overlayId}}data-overlay-id="{{overlayId}}"{{/if}}>
+      {{#each steps}}
+        <div class="mdl-stepper__step" data-stepper="step" data-step-index="{{@index}}" {{#if rules}}data-rules="{{rules}}"{{/if}}>
+          {{> "modules/form/form" this}}
+        </div>
+      {{/each}}
 
-  <form class="mdl-stepper__wrapper form" data-stepper="wrapper" novalidate action="{{action}}" {{#if overlayId}}data-overlay-id="{{overlayId}}"{{/if}}>
-    {{#each steps}}
-      <div class="mdl-stepper__step" data-stepper="step" data-step-index="{{@index}}" {{#if rules}}data-rules="{{rules}}"{{/if}}>
-        {{> "modules/form/form" this}}
+      <div class="mdl-stepper__step" data-stepper="step">
+      {{> "atoms/notification/notification" confirmation}}
       </div>
-    {{/each}}
+    </div>
 
-    <div class="mdl-stepper__step" data-stepper="step">
-     {{> "atoms/notification/notification" confirmation}}
+    <div class="mdl-stepper__last-page-info" data-stepper="lastpage">
+      {{#if toggle}}
+        {{> "atoms/toggle/toggle" toggle}}
+        {{> "atoms/form_input/form_input" replyTo}}
+      {{/if}}
+      {{#if remark}}<p class="mdl-stepper__remark">
+        {{{remark}}}
+      </p>{{/if}}
     </div>
   </form>
-
-  <div class="mdl-stepper__last-page-info">
-    {{#if toggle}}
-      {{> "atoms/toggle/toggle" toggle}}
-    {{/if}}
-    {{#if remark}}<p class="mdl-stepper__remark">
-      {{{remark}}}
-    </p>{{/if}}
-  </div>
 
 
   <div class="mdl-stepper__message"

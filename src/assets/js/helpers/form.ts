@@ -2,6 +2,13 @@ class FormGlobalHelper {
   validateField(field) {
     const fieldType = field.getAttribute('type');
 
+    if (field.closest('.form__element--hidden-by-rule') !== null) {
+      return {
+        validationResult: true,
+        messages: [],
+      };
+    }
+
     switch (fieldType) {
       case 'checkbox':
       case 'radio':

@@ -54,6 +54,7 @@ $smallImageWidths: (
   &__download {
     padding-top: 2px;
     padding-bottom: 2px;
+    margin-left: pxToRem($sizeTiny);
 
     &:hover .mdl-image-figure__download-icon use {
       fill: $colorBlack100;

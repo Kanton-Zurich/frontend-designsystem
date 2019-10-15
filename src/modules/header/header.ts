@@ -10,6 +10,8 @@ import Modal from '../modal/modal';
 
 class Header extends Module {
   public placeholder: HTMLElement;
+  public delayHeaderIsFixed: number;
+
   public options: {
     transitionDelays: {
       default: number,
@@ -70,6 +72,7 @@ class Header extends Module {
     super($element, defaultData, defaultOptions, data, options);
 
     this.data.scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    this.delayHeaderIsFixed = 300;
 
     this.initUi();
     this.initEventListeners();
@@ -178,11 +181,12 @@ class Header extends Module {
     const newScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
 
     if (this.data.scrollPosition > newScrollPosition && !this.data.headerIsFixed) {
-      this.data.headerIsFixed = true;
+      setTimeout(() => {
+        this.data.headerIsFixed = true;
+      }, this.delayHeaderIsFixed);
     } else if (this.data.scrollPosition < newScrollPosition && this.data.headerIsFixed) {
       this.data.headerIsFixed = false;
     }
-
     this.data.scrollPosition = newScrollPosition;
   }
 
@@ -205,7 +209,6 @@ class Header extends Module {
       if (anchornavIsSticky) {
         this.ui.element.classList.add(this.options.colorClasses.monochrome);
       }
-
       this.ui.element.classList.add(this.options.stateClasses.fixed);
       document.documentElement.classList.add(this.options.stateClasses.fixedHeader);
     } else {

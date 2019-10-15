@@ -38,6 +38,7 @@ class Pagination extends Module {
   static get events() {
     return {
       change: 'Pagination.change',
+      setCanonicalUrls: 'Pagination.setCanonicalUrls',
     };
   }
 
@@ -45,11 +46,13 @@ class Pagination extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.ui.next.addEventListener('click', () => {
+    this.ui.next.addEventListener('click', (event) => {
       this.ui.input.value = (parseInt(this.ui.input.value, 10) + 1).toString();
+      event.preventDefault();
     });
-    this.ui.prev.addEventListener('click', () => {
+    this.ui.prev.addEventListener('click', (event) => {
       this.ui.input.value = (parseInt(this.ui.input.value, 10) - 1).toString();
+      event.preventDefault();
     });
     this.watch(this.ui.input, 'value', this.onInputChange.bind(this));
     this.ui.input.addEventListener('focusout', (event) => {
@@ -59,6 +62,11 @@ class Pagination extends Module {
       if (event.key === 'Enter' || event.key === 'Space') {
         this.onInputInteraction(event);
       }
+    });
+    this.eventDelegate.on(Pagination.events.setCanonicalUrls, (event) => {
+      const { prev, next } = event.detail;
+      this.ui.prev.setAttribute('href', prev);
+      this.ui.next.setAttribute('href', next);
     });
   }
 

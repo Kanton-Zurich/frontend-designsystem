@@ -8,6 +8,8 @@ const notification = require('../../atoms/notification/notification.data').varia
 
 const toggle = require('../../atoms/toggle/toggle.data').variants.default.props;
 
+const formInput = require('../../atoms/form_input/form_input.data').variants.default.props;
+
 const template = dataHelper.getFileContent('stepper.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -26,6 +28,29 @@ const data = _.merge({}, defaultData, {
     },
     toggle,
     notificationTemplate: notification.default.meta.code.template,
+    replyTo: _.merge({}, formInput, {
+      type: 'email',
+      label: 'Ihre E-Mail-Adresse',
+      uuid: _.uniqueId('reply-to'),
+      name: _.uniqueId('reply-to'),
+      validation: {
+        isRequired: true,
+        errorMsg: 'Bitte geben Sie eine gültige Mail an.',
+      },
+      isFloatingLabel: true,
+      rules: JSON.stringify([
+        {
+          conditions: [
+            {
+              field: 'allowmailnotification',
+              equals: true,
+              value: 'true',
+            },
+          ],
+          action: 'show',
+        },
+      ]),
+    }),
   },
 });
 const variants = _.mapValues({

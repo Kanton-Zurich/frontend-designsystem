@@ -30,6 +30,11 @@ $unitLeftSpace: 62px;
     &:disabled {
       border: 2px solid $colorBlack20;
       color: rgba(0, 0, 0, 0.2);
+
+      .atm-form_input__trigger-label,
+      .atm-form_input__trigger-value {
+        color: rgba(0, 0, 0, 0.2);
+      }
     }
 
     @at-root {
@@ -180,6 +185,14 @@ $unitLeftSpace: 62px;
     top: pxToRem($sizeLarge);
     right: pxToRem($sizeSmallRegular);
     height: pxToRem($sizeLarge);
+
+    svg use {
+      fill: $colorBlack60;
+    }
+
+    &:hover svg use {
+      fill: $colorBlack;
+    }
   }
 
   &:not(.atm-form_input--floated) {
@@ -448,7 +461,6 @@ $unitLeftSpace: 62px;
       top: pxToRem($sizeSmallRegular);
 
       .icon {
-        transform: scale(0.59);
         position: relative;
         top: auto;
         right: auto;

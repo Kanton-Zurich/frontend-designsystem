@@ -6,13 +6,11 @@
   {{/content}}
 
   {{#content "content"}}
-      {{> "modules/service_wrapper/service_wrapper" props.modules.serviceWrapper}}
+      {{> "modules/instructions/instructions" props.modules.instructions}}
       {{> "modules/contact/contact" props.modules.contact }}
   {{/content}}
 
   {{#content "footer"}}
-    <footer id="contentinfo">
-      <h1 class="visuallyhidden">Fussbereich</h1>
-    </footer>
+    {{> "modules/footer/footer" props.modules.footerData}}
   {{/content}}
 {{/extend}}

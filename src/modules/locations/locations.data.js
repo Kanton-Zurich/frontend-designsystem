@@ -20,42 +20,36 @@ const locationsLatLng = [
 const locationsAsListItemLinks = [
   {
     linkListItemIsLocation: true,
-    linkListItemDistance: '2,0 km',
     linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
     linkListItemLabel: 'Uetlibergstrasse 301, 8036 Zürich',
     additionalAttributes: 'data-locations="listItem"',
     linkListItemHref: false,
   }, {
     linkListItemIsLocation: true,
-    linkListItemDistance: '6,4 km',
     linkListItemTitle: 'Strassenverkehrsamt Bassersdorf',
     linkListItemLabel: 'Grindelstrasse 22, 8303 Bassersdorf',
     additionalAttributes: 'data-locations="listItem"',
     linkListItemHref: false,
   }, {
     linkListItemIsLocation: true,
-    linkListItemDistance: '6,7 km',
     linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Regensdorf',
     linkListItemLabel: 'Riedthofstrasse 192, 8105 Regensdorf',
     additionalAttributes: 'data-locations="listItem"',
     linkListItemHref: false,
   }, {
     linkListItemIsLocation: true,
-    linkListItemDistance: '7,5 km',
     linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
     linkListItemLabel: 'Taggenbergstrasse 1, 8408 Winterthur',
     additionalAttributes: 'data-locations="listItem"',
     linkListItemHref: false,
   }, {
     linkListItemIsLocation: true,
-    linkListItemDistance: '17,4 km',
     linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Bülach',
     linkListItemLabel: 'Schützenmatt Straße 120, 8180 Bülach',
     additionalAttributes: 'data-locations="listItem"',
     linkListItemHref: false,
   }, {
     linkListItemIsLocation: true,
-    linkListItemDistance: '21,9 km',
     linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Schifffahrtskontrolle',
     linkListItemLabel: 'Seestrasse 87, 8942 Oberrieden',
     additionalAttributes: 'data-locations="listItem"',

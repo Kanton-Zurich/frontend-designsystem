@@ -103,6 +103,10 @@ class DuplicationElement {
       });
 
       this.ui.element.appendChild(parsedHTML);
+      [].slice.call(parsedHTML.querySelectorAll('[data-init]')).forEach((subElement) => {
+        (<any>window).estatico.helpers.initModule
+          .bind((<any>window).estatico.helpers.app)(subElement.getAttribute('data-init'), subElement);
+      });
 
       this.ui.element.dispatchEvent(new CustomEvent(DuplicationElement.events.domReParsed, {
         detail: parsedHTML,

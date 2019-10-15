@@ -21,13 +21,15 @@ class Stepper extends Module {
     steps: any,
     back: HTMLButtonElement,
     next: HTMLButtonElement,
-    wrapper: HTMLFormElement,
+    wrapper: HTMLDivElement,
+    form: HTMLFormElement,
     send: HTMLButtonElement,
     control: HTMLDivElement,
     navigation: HTMLOListElement,
     notificationTemplate: HTMLScriptElement,
     messageWrapper: HTMLDivElement,
-    rules: NodeListOf<HTMLDivElement>
+    rules: NodeListOf<HTMLDivElement>,
+    lastpage: HTMLDivElement,
   }
 
   public options: {
@@ -54,6 +56,8 @@ class Stepper extends Module {
         notificationTemplate: '[data-stepper="notificationTemplate"]',
         messageWrapper: '[data-stepper="messageWrapper"]',
         rules: '[data-rules]',
+        form: '[data-stepper="form"]',
+        lastpage: '[data-stepper="lastpage"]',
       },
       stateClasses: {
         hiddenStep: 'mdl-stepper__step--hidden',
@@ -62,6 +66,7 @@ class Stepper extends Module {
         transitionOut: 'mdl-stepper__step--transition-out',
         initialised: 'mdl-stepper--initialised',
         onLastPage: 'mdl-stepper--last-page',
+        success: 'mdl-stepper--success',
       },
     };
 
@@ -185,6 +190,9 @@ class Stepper extends Module {
     // If the last page show no buttons
     if (this.data.active === this.ui.steps.length - 1) {
       this.ui.control.style.display = 'none';
+
+      this.ui.element.classList.add(this.options.stateClasses.success);
+      this.ui.element.classList.remove(this.options.stateClasses.onLastPage);
     } else {
       if (this.ui.back) {
         if (this.data.active === 0) {
@@ -245,18 +253,26 @@ class Stepper extends Module {
   validateSection() {
     const section = this.ui.steps[this.data.active].querySelector('section');
 
-    this.ui.wrapper.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
+    this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
       detail: {
         section,
       },
     }));
+
+    if (this.nextStepIsLast()) {
+      this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
+        detail: {
+          section: this.ui.lastpage,
+        },
+      }));
+    }
   }
 
   changePage(newIndex) {
     if (newIndex > this.data.active) {
       this.validateSection();
 
-      if (this.ui.wrapper.hasAttribute('form-has-errors')) {
+      if (this.ui.form.hasAttribute('form-has-errors')) {
         return false;
       }
 
@@ -275,14 +291,14 @@ class Stepper extends Module {
   }
 
   async sendForm() {
-    const form = this.ui.wrapper;
+    const { form } = this.ui;
     const action = form.getAttribute('action');
-    const formData = new FormData(this.ui.wrapper);
+    const formData = new FormData(this.ui.form);
 
     this.validateSection();
 
     // Only of no errors are present in the form, it will be sent via ajax
-    if (!this.ui.wrapper.hasAttribute('form-has-errors')) {
+    if (!this.ui.form.hasAttribute('form-has-errors')) {
       if (!window.fetch) {
         await import('whatwg-fetch');
       }

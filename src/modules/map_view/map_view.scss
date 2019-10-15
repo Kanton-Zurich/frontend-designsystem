@@ -109,6 +109,16 @@ $mapViewSelectedMarkerHeight: 59px;
     button + button {
       margin-top: pxToRem($sizeMini / 2);
     }
+
+    button.disabled {
+      pointer-events: none;
+      cursor: not-allowed;
+      background: $colorBlack5;
+
+      .atm-button__icon use {
+        fill: $colorBlack20;
+      }
+    }
   }
 
   &__directions-link {
