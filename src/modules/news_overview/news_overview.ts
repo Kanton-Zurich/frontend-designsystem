@@ -240,7 +240,7 @@ class NewsOverview extends Module {
         detail: {
           data: this.filterLists[index],
           emit: false,
-        }
+        },
       };
       filterSelect.dispatchEvent(new CustomEvent(Select.events.setValue, eventData));
     });
@@ -413,7 +413,7 @@ class NewsOverview extends Module {
           prevUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`)}`;
         }
         let nextUrl = '';
-        if (parseInt(this.ui.paginationInput.value, 10) < (jsonData.numberOfResultPages - 1)) {
+        if (parseInt(this.ui.paginationInput.value, 10) < jsonData.numberOfResultPages) {
           nextUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`)}`;
         }
         this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setCanonicalUrls,

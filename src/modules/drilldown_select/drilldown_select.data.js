@@ -53,7 +53,28 @@ const variants = _.mapValues({
       title: 'Default',
       desc: 'Default implementation',
     },
-
+    props: {
+      primarySelectData: {
+        listData: {
+          validation: {
+            isRequired: false,
+          },
+        },
+      },
+      secondarySelectData: {
+        listData: {
+          validation: {
+            isRequired: false,
+          },
+        },
+      },
+    },
+  },
+  required: {
+    meta: {
+      title: 'Required',
+      desc: '',
+    },
   },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;

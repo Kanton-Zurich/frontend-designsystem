@@ -869,9 +869,6 @@ const variants = _.mapValues({
                     label: 'Aktuelle Berufsebezichnung',
                     name: 'aktueller_beruf',
                     uuid: 'aktueller_beruf',
-                    validation: {
-                      isRequired: true,
-                    },
                   })),
               },
             ],
@@ -879,7 +876,7 @@ const variants = _.mapValues({
           {
             fields: [{
               cellContent: () => handlebars.compile(drillDownSelectHBS)(_.merge({},
-                drillDownSelectData.props, {
+                drillDownSelectData.variants.default.props, {
                   // primary secondary
                   primarySelectData: {
                     listData: {
@@ -889,9 +886,6 @@ const variants = _.mapValues({
                       label: 'Thema',
                       name: 'thema',
                       uuid: 'thema',
-                      validation: {
-                        isRequired: true,
-                      },
                     },
                   },
                   secondarySelectData: {
@@ -902,9 +896,6 @@ const variants = _.mapValues({
                       label: 'Unterthema',
                       name: 'unterthema',
                       uuid: 'unterthema',
-                      validation: {
-                        isRequired: true,
-                      },
                     },
                   },
                 })),

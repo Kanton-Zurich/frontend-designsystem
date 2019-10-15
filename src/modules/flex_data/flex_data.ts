@@ -76,8 +76,10 @@ class FlexData extends Module {
     this.ui.form.addEventListener('keypress', (event: any) => {
       if (event.key === 'Enter') {
         event.preventDefault();
+        this.ui.submitButton.click();
         return false;
       }
+      return true;
     });
     this.updateViewFromURLParams();
     // -----------------------------------------------
@@ -140,7 +142,7 @@ class FlexData extends Module {
           prevUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`)}`;
         }
         let nextUrl = '';
-        if (parseInt(this.ui.paginationInput.value, 10) < (jsonData.numberOfResultPages - 1)) {
+        if (parseInt(this.ui.paginationInput.value, 10) < jsonData.numberOfResultPages) {
           nextUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`)}`;
         }
         this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setCanonicalUrls,
@@ -225,14 +227,14 @@ class FlexData extends Module {
     Object.keys(params).forEach((key) => {
       switch (key) {
         case 'page':
-          this.ui.paginationInput.value = params[key];
+          [this.ui.paginationInput.value] = params[key];
           break;
         case 'order':
           this.ui.resultsTable.setAttribute('data-sort-direction',
-            params[key] === 'desc' ? 'descending' : 'ascending');
+            params[key][0] === 'desc' ? 'descending' : 'ascending');
           break;
         case 'orderBy':
-          this.ui.resultsTable.setAttribute('data-sort-column', params[key]);
+          this.ui.resultsTable.setAttribute('data-sort-column', params[key][0]);
           break;
         default:
           setTimeout(() => {
