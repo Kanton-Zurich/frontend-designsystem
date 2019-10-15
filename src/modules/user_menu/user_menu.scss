@@ -90,34 +90,15 @@
   /**
   * Module overwrites
   */
-  .atm-context_menu_item,
-  .mdl-context_menu {
+  .atm-context_menu_item {
     width: 100%;
   }
 
-  .mdl-context_menu__list {
-    li:first-of-type {
-      height: pxToRem(46px);
-
-      @include mq($from: xsmall) {
-        height: pxToRem(54px);
-      }
-      @include mq($from: medium) {
-        height: pxToRem(70px);
-      }
-    }
-
-    li:last-of-type {
-      .icon {
-        transform: rotate(90deg);
-      }
-    }
-  }
-
   .mdl-context_menu {
-    top: 2px;
+    @include sizeCurve(top, height, $headerCurves);
     left: 0;
     display: none;
+    width: 100%;
   }
 
   /**

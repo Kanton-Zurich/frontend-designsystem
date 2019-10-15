@@ -1,14 +1,13 @@
 <div class="mdl-user-menu" data-init="userMenu" aria-describedby="aria-user-menu">
   <input type="hidden" data-user-menu="loginStatusEndpoint" value="{{ endpointLoginStatus }}" />
-  <span class="menuhook"></span>
   <button class="mdl-user-menu__trigger">
     <svg class="icon">
       <use xlink:href="#user"></use>
     </svg>
-    <span class="mdl-user-menu__user">
+    <span class="mdl-user-menu__user" data-user-menu="userNameField">
       {{ userName }}
     </span>
-    <span class="mdl-user-menu__user-short">
+    <span class="mdl-user-menu__user-short"  data-user-menu="userShortField">
       {{ userInitials }}
     </span>
     <svg class="icon">
@@ -20,16 +19,11 @@
     <div>
       <ul class="mdl-context_menu__list">
         <li>
-        </li>
-        <li>
-          <button class="atm-context_menu_item" data-context-menu="item">
-            <span class="atm-context_menu_item__label">Abmelden</span>
-            <svg class="icon atm-context_menu_item__icon">
-              <use xlink:href="#logout"></use>
-            </svg>
-          </button>
+          {{> "atoms/context_menu_item/context_menu_item" logoutItem}}
         </li>
       </ul>
     </div>
   </div>
 </div>
+
+

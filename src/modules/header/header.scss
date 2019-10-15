@@ -18,11 +18,10 @@ $headerCurves: (
 .mdl-header {
   @include gridBleed($fullwidth: true);
   @include sizeCurve(padding-bottom, borderHeight, $headerCurves);
-
-  position: relative;
-
   @include transition(background);
 
+  position: relative;
+  z-index: $zIndexSkiplinks + 1;
 
   &--open {
     position: fixed;
@@ -31,8 +30,6 @@ $headerCurves: (
     margin-left: 0;
     transform: none;
     left: 0;
-
-    z-index: $zIndexSkiplinks + 1;
   }
 
   &--fixed {
@@ -42,7 +39,6 @@ $headerCurves: (
 
     transition: none;
 
-    z-index: $zIndexSkiplinks + 1;
     transform: translateX(0);
     margin-left: 0;
   }

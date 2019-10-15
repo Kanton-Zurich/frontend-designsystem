@@ -8,18 +8,22 @@ const mockAssets = {
   notLoggedIn: 'http://localhost:9000/assets/mocks/cug/status_not_logged_in.json',
 };
 
-const contextMenuDownload = require('../context_menu/context_menu.data').variants.download.props;
-
 const template = dataHelper.getFileContent('user_menu.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'User Menu',
     className: 'UserMenu',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-538',
     documentation: dataHelper.getDocumentation('user_menu.md'),
   },
   props: {
-    contextMenu: _.merge({}, contextMenuDownload, {}),
+    logoutItem: {
+      isButton: true,
+      href: false,
+      text: 'Abmelden',
+      iconAfter: 'logout-user',
+      additionalAttributes: 'data-user-menu="logout"',
+    },
   },
 });
 const variants = _.mapValues({
