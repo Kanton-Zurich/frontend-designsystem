@@ -129,6 +129,10 @@ $selectHeightWithFilterExtended: 424px;
       height: pxToRem($selectHeight);
       z-index: $zIndexDropDowns;
 
+      &--table {
+        height: auto;
+      }
+
       .atm-list__item {
         display: block;
         overflow: hidden;
@@ -193,6 +197,9 @@ $selectHeightWithFilterExtended: 424px;
       &__input--trigger {
         padding-top: pxToRem(35px);
         padding-bottom: pxToRem(15px);
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
 
       &__trigger-label {

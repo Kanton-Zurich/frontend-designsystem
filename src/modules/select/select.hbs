@@ -5,7 +5,7 @@
   {{#if additionalAttributes}}{{{additionalAttributes}}}{{/if}}
   >
   {{> "atoms/form_input/form_input" triggerInputData }}
-  <div class="mdl-select__options">
+  <div class="mdl-select__options{{#if isTable}} mdl-select__options--table{{/if}}">
     {{#if hasFilter}}
       <div class="mdl-select__filter">
       {{#if preview}}<form novalidate>{{/if}}

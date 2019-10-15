@@ -1,8 +1,29 @@
-<ul class="atm-list"{{#if setHiddenIndex}} tabindex="-1"{{/if}} data-inputtype="{{#if isMultiSelect}}checkbox{{/if}}{{#if isSingleSelect}}radio{{/if}}" {{#unless outerFocus}}tabindex="-1"{{/unless}}>
+<{{#if isTable}}table{{else}}ul{{/if}}
+  class="atm-list"
+  {{#if setHiddenIndex}}tabindex="-1"{{/if}}
+  data-inputtype="{{#if isMultiSelect}}checkbox{{/if}}{{#if isSingleSelect}}radio{{/if}}"
+  {{#unless outerFocus}}tabindex="-1"{{/unless}}
+  >
+  {{#if isTable}}
+    <thead>
+      <tr>
+        {{#each selectTableHeaders}}
+          <th scope="col">{{this}}</th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+  {{/if}}
   {{#each selectOptions}}
-    <li {{#if id}}id="{{this.id}}"{{/if}} class="atm-list__item{{#if ../hasCheckIcon}} atm-list__item--check-icon{{/if}}{{#if ../hasIconLeft}} atm-list__item--icon-left{{/if}}{{#if ../hasIconRight}} atm-list__item--icon-right{{/if}}{{#if this.preSelected}} selected{{/if}}">
+    <{{#if ../isTable}}tr{{else}}li{{/if}}
+      {{#if id}}id="{{this.id}}"{{/if}}
+      class="atm-list__item{{#if ../hasCheckIcon}} atm-list__item--check-icon{{/if}}{{#if ../hasIconLeft}} atm-list__item--icon-left{{/if}}{{#if ../hasIconRight}} atm-list__item--icon-right{{/if}}{{#if this.preSelected}} selected{{/if}}"
+      >
+      {{#if ../isTable}}
+        <th scope="row">
+      {{/if}}
       {{#if ../useAnchors}}
-      <a href="#">
+        <a href="#">
       {{/if}}
       {{#if_compare ../hasIconLeft "||" ../hasCheckIcon }}
         <svg class="icon">
@@ -29,6 +50,13 @@
       {{#if ../useAnchors}}
         </a>
       {{/if}}
-    </li>
+      {{#if ../isTable}}
+        </th>
+        {{#each selectTableCells}}
+          <td>{{this}}</td>
+        {{/each}}
+      {{/if}}
+    </{{#if ../isTable}}tr{{else}}li{{/if}}>
   {{/each}}
-</ul>
+  {{#if isTable}}</tbody>{{/if}}
+</{{#if isTable}}table{{else}}ul{{/if}}>
