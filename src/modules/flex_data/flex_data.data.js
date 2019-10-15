@@ -34,7 +34,7 @@ const variants = _.mapValues({
       tableData: {
         tableTitle: '',
         hasTitle: true,
-        tableHeadingLevel: 3,
+        tableHeadingLevel: 4,
         hasColumnHeader: true,
         isWide: true,
         isStatic: true,
