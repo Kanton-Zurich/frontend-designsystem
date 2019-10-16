@@ -30,35 +30,42 @@
     border-spacing: 0;
 
     thead th {
-      font-weight: $fontWeightBlack;
       font-size: $sizeFontTiny;
       color: $colorBlack;
+      text-align: left;
+      font-weight: $fontWeightBlack;
+      padding: ($sizeSmallRegular/ 2) $sizeSmallRegular;
 
       @include mq($to: small) {
         @include visuallyhidden();
       }
     }
 
-    th,
-    td {
+    tbody th,
+    tbody td {
       text-align: left;
       font-weight: $fontWeightDefault;
       padding: ($sizeSmallRegular/ 2) $sizeSmallRegular;
-
-      input {
-        height: 2rem !important;
-        top: auto;
-        left: auto;
-      }
     }
 
     .atm-list__item {
-      display: table-row;
       line-height: $sizeLineHeightBase;
       vertical-align: top;
       height: auto;
+      padding-left: 0;
     }
 
+    @include mq($from: small) {
+      tbody th,
+      tbody td {
+        position: relative;
+        cursor: pointer;
+      }
+
+      input {
+        z-index: 1;
+      }
+    }
     @include mq($to: small) {
       .atm-list__item {
         display: flex;

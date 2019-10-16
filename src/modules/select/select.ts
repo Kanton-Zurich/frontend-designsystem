@@ -63,6 +63,7 @@ class Select extends Module {
       stateClasses: {
         open: 'mdl-select--open',
         selected: 'mdl-select--selected',
+        tableList: 'atm-list--table',
       },
       dataSelectors: {
         itemType: 'inputtype',
@@ -492,6 +493,14 @@ class Select extends Module {
 
     this.ui.trigger.setAttribute('aria-expanded', 'true');
     this.ui.dropdown.setAttribute('aria-hidden', 'false');
+
+    // adjust width of input items in table lists
+    if (this.ui.list.classList.contains(this.options.stateClasses.tableList)) {
+      const dropDownWidth = this.ui.dropdown.clientWidth;
+      this.ui.inputItems.forEach((input) => {
+        input.style.width = `${dropDownWidth}px`;
+      });
+    }
 
     if (this.ui.filter) {
       this.ui.filter.focus();
