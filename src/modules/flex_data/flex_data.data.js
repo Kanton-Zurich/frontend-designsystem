@@ -61,6 +61,46 @@ const variants = _.mapValues({
       },
     },
   },
+  zhlex: {
+    meta: {
+      title: 'ZH-Lex',
+      desc: 'Zürcher Gesetzessammlung',
+    },
+    props: {
+      pagination: defPaginationData.variants.fullWidth.props,
+      resultCountTitle: '%1 Treffer zu ihrer Abfrage',
+      flexFormData: _.merge({}, defFormData.variants.zhlex.props),
+      resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
+      tableData: {
+        tableTitle: '',
+        hasTitle: true,
+        tableHeadingLevel: 4,
+        hasColumnHeader: true,
+        isWide: true,
+        isStatic: true,
+        preSortedColumn: 'ordnungsnummer',
+        preSortedDirection: 'asc',
+        headers: [
+          {
+            title: 'Ordnungsnummer',
+            dataColumnName: 'ordnungsnummer',
+            isSortable: 'alpha',
+          },
+          {
+            title: 'Erlasstitel',
+            dataColumnName: 'erlasstitel',
+            isSortable: 'alpha',
+          },
+          {
+            title: 'Erlassdatum',
+            dataColumnName: 'erlassdatum',
+            isSortable: 'date',
+          },
+        ],
+        bodyrows: [],
+      },
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

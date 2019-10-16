@@ -852,7 +852,7 @@ const variants = _.mapValues({
   },
   steuerBuch: {
     meta: {
-      title: 'Steuerbuch (Flex data CZHDEV-1234)',
+      title: 'Steuerbuch (Flex Data CZHDEV-1234)',
       desc: 'Flex Data Steuerbuch',
     },
     props: {
@@ -866,9 +866,9 @@ const variants = _.mapValues({
                   formInputData.variants.default.props,
                   {
                     isFloatingLabel: true,
-                    label: 'Aktuelle Berufsebezichnung',
-                    name: 'aktueller_beruf',
-                    uuid: 'aktueller_beruf',
+                    label: 'Stichwort oder ZStB-Nr.',
+                    name: 'query_string',
+                    uuid: 'query_string',
                   })),
               },
             ],
@@ -905,6 +905,135 @@ const variants = _.mapValues({
         ],
       },
       ],
+    },
+  },
+  zhlex: {
+    meta: {
+      title: 'ZH-Lex (Flex Data CZHDEV-1240)',
+      desc: 'Flex Data ZH-Lex',
+    },
+    props: {
+      sectionTitle: 'Suche',
+      groups: [{
+        rows: [{
+          fields: [{
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Erlasstitel',
+                name: 'erlasstitel',
+                uuid: 'erlasstitel',
+              })),
+          }],
+        }, {
+          fields: [{
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Ordnungsnummer',
+                name: 'ordnungsnummer',
+                uuid: 'ordnungsnummer',
+              })),
+          }, {
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Stichwort',
+                name: 'stichwort',
+                uuid: 'stichwort',
+              })),
+          }],
+        }],
+      }, {
+        rows: [{
+          fields: [{
+            cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+              selectData.variants.table.props,
+              {})),
+          }],
+        }, {
+          fields: [{
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Nachtrags-Nummer (LS)',
+                name: 'nachtragsnummer',
+                uuid: 'nachtragsnummer',
+              })),
+          }, {
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Publikationsnummer',
+                name: 'publikationsnummer',
+                uuid: 'publikationsnummer',
+              })),
+          }],
+        }],
+      }, {
+        rows: [{
+          fields: [{
+            cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+              datepickerData.variants.dateRange.props,
+              {
+                label: 'Erlass',
+                name: 'erlassdatum',
+                uuid: 'erlassdatum',
+                validation: {
+                  pattern: '^\\d{2}.\\d{2}.\\d{4}\\s-\\s\\d{2}.\\d{2}.\\d{4}$',
+                  isRequired: false,
+                  errorMsg: 'Bitte geben Sie eine korrekte Zeitspanne an.',
+                },
+              })),
+          }, {
+            cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+              datepickerData.variants.dateRange.props,
+              {
+                label: 'Inkraftsetzung',
+                name: 'inkraftsetzungsdatum',
+                uuid: 'inkraftsetzungsdatum',
+                validation: {
+                  pattern: '^\\d{2}.\\d{2}.\\d{4}\\s-\\s\\d{2}.\\d{2}.\\d{4}$',
+                  isRequired: false,
+                  errorMsg: 'Bitte geben Sie eine korrekte Zeitspanne an.',
+                },
+              })),
+          }],
+        }, {
+          fields: [{
+            cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+              datepickerData.variants.dateRange.props,
+              {
+                label: 'Publikation',
+                name: 'publikationsdatum',
+                uuid: 'publikationsdatum',
+                validation: {
+                  pattern: '^\\d{2}.\\d{2}.\\d{4}\\s-\\s\\d{2}.\\d{2}.\\d{4}$',
+                  isRequired: false,
+                  errorMsg: 'Bitte geben Sie eine korrekte Zeitspanne an.',
+                },
+              })),
+          }, {
+            cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+              datepickerData.variants.dateRange.props,
+              {
+                label: 'Aufhebung',
+                name: 'aufhebungsdatum',
+                uuid: 'aufhebungsdatum',
+                validation: {
+                  pattern: '^\\d{2}.\\d{2}.\\d{4}\\s-\\s\\d{2}.\\d{2}.\\d{4}$',
+                  isRequired: false,
+                  errorMsg: 'Bitte geben Sie eine korrekte Zeitspanne an.',
+                },
+              })),
+          }],
+        }],
+      }],
     },
   },
 }, (variant) => {
