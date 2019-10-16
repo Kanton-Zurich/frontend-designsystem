@@ -5,6 +5,7 @@ interface ModuleDomSelectors {
   logoutBtn: string;
   usernameInput: string;
   passwordInput: string;
+  showPasswordBtn: string;
   loginForm: string;
 }
 interface ModuleStateClasses {
@@ -25,6 +26,7 @@ const domSelectors: ModuleDomSelectors = {
   logoutBtn: '[data-cug_login=doLogout]',
   usernameInput: '[data-cug_login=cellUsername] input',
   passwordInput: '[data-cug_login=cellPassword] input',
+  showPasswordBtn: '[data-cug_login=cellPassword] .atm-form_input__functionality',
   loginForm: '[data-cug_login=loginForm]',
 };
 const stateClasses: ModuleStateClasses = {

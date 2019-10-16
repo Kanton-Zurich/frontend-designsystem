@@ -27,6 +27,7 @@ class CugLogin extends Module {
     loginBtn: HTMLElement,
     usernameInput: HTMLInputElement,
     passwordInput: HTMLInputElement,
+    showPasswordBtn: HTMLElement,
     loginForm: HTMLFormElement,
   };
 
@@ -56,7 +57,8 @@ class CugLogin extends Module {
         this.log('Emitting doLogout event.');
         document.dispatchEvent(new CustomEvent(UserMenu.events.doLogout));
       })
-      .on('click', this.options.domSelectors.loginBtn, this.doLogin.bind(this));
+      .on('click', this.options.domSelectors.loginBtn, this.doLogin.bind(this))
+      .on('click', this.options.domSelectors.showPasswordBtn, this.togglePwVisibility.bind(this));
   }
 
   initWatchers() {
@@ -71,6 +73,16 @@ class CugLogin extends Module {
 
     if (this.ui.loginBtn.classList.contains(this.options.stateClasses.loginBtnDisable)) {
       this.ui.loginBtn.classList.remove(this.options.stateClasses.loginBtnDisable);
+    }
+  }
+
+  private togglePwVisibility() {
+    this.log('Toggle Password visibility.');
+    const { passwordInput } = this.ui;
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+    } else {
+      passwordInput.type = 'password';
     }
   }
 
