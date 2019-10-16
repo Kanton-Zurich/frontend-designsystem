@@ -44,6 +44,12 @@
       text-align: left;
       font-weight: $fontWeightDefault;
       padding: ($sizeSmallRegular/ 2) $sizeSmallRegular;
+
+      input {
+        height: 2rem !important;
+        top: auto;
+        left: auto;
+      }
     }
 
     .atm-list__item {
