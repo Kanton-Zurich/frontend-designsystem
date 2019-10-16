@@ -1,7 +1,7 @@
 const data = {
   data: [
     {
-      link: 'pages/flex_detail/flex_detail.html',
+      link: '../flex_detail/flex_detail.html',
       themenbereich: 'Natürliche Personen',
       titel: 'Weisung der Finanzdirektion betreffend Gewährung eines Einschlages auf dem Eigenmietwert in Härtefällen',
       erlassdatum: '21. Juni 1999',
