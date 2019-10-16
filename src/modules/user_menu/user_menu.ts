@@ -44,17 +44,20 @@ class UserMenu extends Module {
   static get events() {
     return {
       doLogout: `eventname.${UserMenu.name}.dologout`,
+      updateState: `eventname.${UserMenu.name}.updateState`,
     };
   }
 
-  private initLoginState() {
-    this.fetchLoginStatus().then((loginStatusResponse) => {
+  private initLoginState(forceRefetch = false) {
+    this.fetchLoginStatus(forceRefetch).then((loginStatusResponse) => {
       if (loginStatusResponse.isLoggedIn) {
         this.log(`Loggedin User: "${loginStatusResponse.name}"`);
         this.ui.element.classList.add(this.options.stateClasses.initialised);
 
         this.ui.userNameField.innerText = loginStatusResponse.name;
         this.ui.userShortField.innerText = this.getInitials(loginStatusResponse.name);
+      } else {
+        this.ui.element.classList.remove(this.options.stateClasses.initialised);
       }
     });
   }
@@ -76,7 +79,7 @@ class UserMenu extends Module {
     }
   }
 
-  private fetchLoginStatus(): Promise<LoginStatusResponse> {
+  private fetchLoginStatus(forceApiRefetch: boolean = false): Promise<LoginStatusResponse> {
     return new Promise<LoginStatusResponse>((resolve, reject) => {
       let storageTs = 0;
       const { keys, maxAgeMs } = this.options.statusStorage;
@@ -86,7 +89,7 @@ class UserMenu extends Module {
         storageTs = Number.parseInt(store.getItem(keys.timestamp), 10);
       }
 
-      if (new Date().getTime() - storageTs < maxAgeMs) {
+      if (new Date().getTime() - storageTs < maxAgeMs && !forceApiRefetch) {
         this.log('Getting stored loginstatus.');
         const loggedIn = store.getItem(keys.isLogedIn) === 'true';
 
@@ -132,6 +135,11 @@ class UserMenu extends Module {
       .on('click', this.options.domSelectors.logout, this.doLogoutUser.bind(this));
 
     document.addEventListener(UserMenu.events.doLogout, this.doLogoutUser.bind(this));
+    document.addEventListener(UserMenu.events.updateState, this.updateState.bind(this));
+  }
+
+  private updateState(): void {
+    this.initLoginState(true);
   }
 
   toggleUserMenu() {

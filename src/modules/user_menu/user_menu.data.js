@@ -58,6 +58,15 @@ const variants = _.mapValues({
       endpointLoginStatus: mockAssets.loggedIn,
     },
   },
+  notloggedIn: {
+    meta: {
+      title: 'LoggedIn',
+      desc: 'Mocked loginstatus is loggedin=false',
+    },
+    props: {
+      endpointLoginStatus: mockAssets.notLoggedIn,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

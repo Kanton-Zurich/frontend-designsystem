@@ -1,5 +1,6 @@
 .mdl-cug_login {
   margin-top: pxToRem($sizeGiant);
+  margin-bottom: pxToRem($sizeGiant);
 
   &__line {
     margin-top: pxToRem($sizeTiny);
@@ -26,6 +27,35 @@
         display: block;
       }
     }
+  }
 
+  &__failnotification {
+    max-height: 0;
+    transition: max-height 400ms ease-in-out;
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+
+  &--credentials-failed {
+    .mdl-cug_login__failnotification {
+      max-height: pxToRem($sizeBreakpointTiny);
+      padding-bottom: pxToRem($sizeRegular);
+    }
+  }
+
+  &__alert-connection-fail {
+    display: none;
+  }
+
+  &--connection-fail {
+    .mdl-cug_login {
+      &__form {
+        display: none;
+      }
+
+      &__alert-connection-fail {
+        display: block;
+      }
+    }
   }
 }

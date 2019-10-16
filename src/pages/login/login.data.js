@@ -8,13 +8,24 @@ const contactData = require('../../modules/contact/contact.data').variants.fullW
 const headerData = require('../../modules/header/header.data').variants.userMenu.props;
 
 const loggedInUserMenu = require('../../modules/user_menu/user_menu.data').variants.loggedIn.props;
+const notLoggedInUserMenu = require('../../modules/user_menu/user_menu.data').variants.notloggedIn.props;
 
-const scenario1 = {
+const failCugLoginData = require('../../modules/cug_login/cug_login.data').variants.failed.props;
+
+// Already loggedIn but unauthorized
+const scenario1 = { // eslint-disable-line no-unused-vars
   userMenu: loggedInUserMenu,
-  unauthorized: true,
+  cugLoginData: {
+    unauthorized: true,
+  },
+};
+// Not logged in yet and login fails for credentials.
+const scenario2 = {
+  userMenu: notLoggedInUserMenu,
+  cugLoginData: failCugLoginData,
 };
 
-const scenario = scenario1;
+const scenario = scenario2;
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Loginseite',
@@ -43,9 +54,7 @@ const data = _.merge({}, defaultData, {
         hasBreadcrumb: true,
         noButton: true,
       },
-      cugLoginData: _.merge({}, defLoginData, {
-        unauthorized: scenario.unauthorized,
-      }),
+      cugLoginData: _.merge({}, defLoginData, scenario.cugLoginData),
       releatedContentData: _.merge({}, defReleatedContentData, { relatedContentHeading: { anchorNavReference: 'related_content' } }),
       contact: _.merge({}, contactData, {
         contactSubtitle: 'Kanton Zürich',
