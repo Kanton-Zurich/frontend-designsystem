@@ -119,6 +119,20 @@ $headerCurves: (
       background: rgba($colorWhite, 0.8);
     }
   }
+
+  @include mq($to: medium) {
+    .mdl-header__search {
+      padding: 0 pxToRem($sizeRegular);
+
+      .atm-button__text {
+        display: none;
+      }
+
+      .atm-button__text + .atm-button__icon {
+        margin-left: 0;
+      }
+    }
+  }
 }
 
 .mdl-header--inverted {
@@ -141,6 +155,24 @@ $headerCurves: (
 
     .mdl-header__search {
       background-color: $colorBlack10;
+    }
+  }
+
+  @include mq($to: medium) {
+    .mdl-user-menu {
+      background: $colorBlack10;
+    }
+  }
+  @include mq($from: medium) {
+    .mdl-user-menu {
+
+      &__trigger {
+        color: $colorBlack60;
+
+        .icon use {
+          fill: $colorBlack60;
+        }
+      }
     }
   }
 }

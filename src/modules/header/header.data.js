@@ -67,6 +67,17 @@ const variants = _.mapValues({
       userMenu: devUserMenuData,
     },
   },
+  userMenuInv: {
+    meta: {
+      title: 'Mit User Menu (invertiert)',
+      desc: 'Invertiertes HeadModule mit User-Menu',
+    },
+    props: {
+      inverted: true,
+      hasUserMenu: true,
+      userMenu: devUserMenuData,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
