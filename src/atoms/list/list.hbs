@@ -33,7 +33,8 @@
       <input {{#if noInteraction}}tabindex="-1"{{/if}} name="{{../groupId}}"
              {{#if id}}id="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-{{this.id}}"{{/if}}
              type="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}"
-             value="{{{ this.value }}}" placeholder="{{{ this.label }}}"
+             value="{{{ this.value }}}"
+             placeholder="{{{ this.label }}}{{#if ../isTable}}{{#each selectTableCells}}, {{this}}{{/each}}{{/if}}"
              data-select-option
              {{#if preSelected}} checked{{/if}}
              {{#if filterId }}data-filter-id="{{filterId}}"{{/if}}

@@ -42,6 +42,7 @@ import Back2top from '../../../modules/back2top/back2top';
 import Tooltip from '../../../modules/tooltip/tooltip';
 import FlexData from '../../../modules/flex_data/flex_data';
 import DrilldownSelect from '../../../modules/drilldown_select/drilldown_select';
+import ZhLex from '../../../modules/zh_lex/zh_lex';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -93,6 +94,7 @@ class App {
     this.modules.drilldownSelect = DrilldownSelect;
     this.modules.back2top = Back2top;
     this.modules.tooltip = Tooltip;
+    this.modules.zhLex = ZhLex;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

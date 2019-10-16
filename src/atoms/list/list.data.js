@@ -169,6 +169,7 @@ const variants = _.mapValues({
         { value: '13', label: '13', selectTableCells: ['810 - 857', 'Gesundheit - Arbeit - Sozialversicherung - Fürsorge'], id: _.uniqueId('option-item') },
         { value: '14', label: '14', selectTableCells: ['861 - 954', 'Feuerpolizei - Landwirtschaft - Wald und Jagd - Industrie und Gewerbe - Handel - Banken'], id: _.uniqueId('option-item') },
       ],
+      validation: null,
     },
   },
 }, (variant) => {

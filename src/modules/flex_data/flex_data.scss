@@ -1,4 +1,6 @@
 .mdl-flex-data {
+  @include sizeCurve(margin-top margin-bottom, big);
+
   &__form-controls {
     display: flex;
     justify-content: flex-end;

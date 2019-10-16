@@ -33,6 +33,10 @@
       font-weight: $fontWeightBlack;
       font-size: $sizeFontTiny;
       color: $colorBlack;
+
+      @include mq($to: small) {
+        @include visuallyhidden();
+      }
     }
 
     th,
@@ -53,6 +57,27 @@
       line-height: $sizeLineHeightBase;
       vertical-align: top;
       height: auto;
+    }
+
+    @include mq($to: small) {
+      .atm-list__item {
+        display: flex;
+        flex-wrap: wrap;
+        padding: $sizeMini 0;
+
+        th,
+        td {
+          padding: $sizeMini $sizeSmallRegular 0;
+          font-size: $sizeFontTiny;
+          line-height: $sizeLineHeightMedium;
+        }
+
+        td:last-child {
+          font-size: $sizeFontRegular;
+          padding-bottom: $sizeMini;
+          width: 100%;
+        }
+      }
     }
   }
 

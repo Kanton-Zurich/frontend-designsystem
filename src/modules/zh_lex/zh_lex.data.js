@@ -2,22 +2,17 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const buttonDefaultData = require('../../atoms/button/button.data').variants.default.props;
 
-const template = dataHelper.getFileContent('back2top.hbs');
+const template = dataHelper.getFileContent('zh_lex.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Back2Top',
-    className: 'Back2top',
-    jira: 'CZHDEV-499',
-    label: 'Navigation',
-    documentation: dataHelper.getDocumentation('back2top.md'),
+    title: 'zh-lex',
+    className: 'ZhLex',
+    jira: 'CZHDEV-*',
+    documentation: dataHelper.getDocumentation('zh_lex.md'),
   },
   props: {
-    toTopBtn: _.merge({}, buttonDefaultData, {
-      isTextVisible: false,
-      icon: 'arrow-up',
-    }),
+
   },
 });
 const variants = _.mapValues({
@@ -25,18 +20,6 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
-    },
-    props: {
-      develop: false,
-    },
-  },
-  develop: {
-    meta: {
-      title: 'Dev',
-      desc: 'Develop implementation (additional spacing, link to topics page)',
-    },
-    props: {
-      develop: true,
     },
   },
 }, (variant) => {

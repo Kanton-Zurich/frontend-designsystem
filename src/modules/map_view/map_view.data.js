@@ -11,6 +11,7 @@ const data = _.merge({}, defaultData, {
     className: 'MapView',
     jira: 'CZHDEV-441',
     documentation: dataHelper.getDocumentation('map_view.md'),
+    label: 'Komplex',
   },
   props: {
     mapId: 'map',
