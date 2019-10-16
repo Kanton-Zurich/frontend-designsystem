@@ -20,36 +20,43 @@ const data = _.merge({}, defaultData, {
       _.merge({}, anchorlinkData, {
         anchorlink: {
           anchorlinkText: 'Schulferien 2019',
+          anchorlinkAdress: '/pages/pages/search.html?q=Schulferien 2019',
         },
       }),
       _.merge({}, anchorlinkData, {
         anchorlink: {
           anchorlinkText: 'Kurse für Hundehalter',
+          anchorlinkAdress: '/pages/pages/search.html?q=Kurse für Hundehalter',
         },
       }),
       _.merge({}, anchorlinkData, {
         anchorlink: {
           anchorlinkText: 'Quellensteuer',
+          anchorlinkAdress: '/pages/pages/search.html?q=Quellensteuer',
         },
       }),
       _.merge({}, anchorlinkData, {
         anchorlink: {
           anchorlinkText: 'Handelsregistereintrag',
+          anchorlinkAdress: '/pages/pages/search.html?q=Handelsregistereintrag',
         },
       }),
       _.merge({}, anchorlinkData, {
         anchorlink: {
           anchorlinkText: 'Velo',
+          anchorlinkAdress: '/pages/pages/search.html?q=Velo',
         },
       }),
       _.merge({}, anchorlinkData, {
         anchorlink: {
           anchorlinkText: 'eAutoindex',
+          anchorlinkAdress: '/pages/pages/search.html?q=eAutoindex',
         },
       }),
       _.merge({}, anchorlinkData, {
         anchorlink: {
           anchorlinkText: 'Schulferien 2019',
+          anchorlinkAdress: '/pages/pages/search.html?q=Schulferien 2019',
         },
       }),
     ],
@@ -57,6 +64,7 @@ const data = _.merge({}, defaultData, {
       url: '/mocks/modules/search/search.json',
       searchPageUrl: '/pages/search/search.html',
     }),
+    searchPageUrl: '/pages/search/search.html',
     autosuggestTemplate: contentTeaser.variants.default.meta.code.template,
     contentNav: {
       items: [],
