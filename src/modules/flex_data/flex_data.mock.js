@@ -10,7 +10,7 @@ const data = {
       'nummer-alt': '15/720',
     },
     {
-      link: 'pages/flex_detail/flex_detail.html',
+      link: '../flex_detail/flex_detail.html',
       themenbereich: 'Natürliche Personen',
       titel: 'Merkblatt des kantonalen Steueramtes zur Steuerbarkeit von Renten und Kapitalleistungen',
       erlassdatum: '9. Dezember 2009',
@@ -19,7 +19,7 @@ const data = {
       'nummer-alt': '16/013',
     },
     {
-      link: 'pages/flex_detail/flex_detail.html',
+      link: '../flex_detail/flex_detail.html',
       themenbereich: 'Natürliche Personen',
       titel: 'Vermögenssteuer bei rückkaufsfähigen Rentenversicherungen während der Rentenlaufzeit (Praxishinweis)',
       erlassdatum: '23. August 2012',
@@ -28,7 +28,7 @@ const data = {
       'nummer-alt': '',
     },
     {
-      link: 'pages/flex_detail/flex_detail.html',
+      link: '../flex_detail/flex_detail.html',
       themenbereich: 'Verfahrensrecht',
       titel: 'Weisung der Finanzdirektion über die Mitwirkung der Gemeindesteuerämter bei der Vorbereitung der Steuereinschätzung ab 2011 natürlicher Personen (ab Steuererklärung 2011)',
       erlassdatum: '21. Juni 1999',
@@ -37,7 +37,7 @@ const data = {
       'nummer-alt': '15/720',
     },
     {
-      link: 'pages/flex_detail/flex_detail.html',
+      link: '../flex_detail/flex_detail.html',
       themenbereich: 'Verfahrensrecht',
       titel: 'Weisung der Finanzdirektion über die Einschätzung der Staats- und Gemeindesteuern und der direkten Bundessteuer natürlicher Personen ab Kalenderjahr 2011 durch die Gemeindesteuerämter',
       erlassdatum: '9. Dezember 2003',
@@ -46,7 +46,7 @@ const data = {
       'nummer-alt': '16/013',
     },
     {
-      link: 'pages/flex_detail/flex_detail.html',
+      link: '../flex_detail/flex_detail.html',
       themenbereich: 'Verfahrensrecht',
       titel: 'Weisung der Finanzdirektion über die elektronische Erfassung und Aufbewahrung von Steuerakten sowie die Vernichtung von Papierakten (ab Steuerperiode 2007)',
       erlassdatum: '23. August 2015',
