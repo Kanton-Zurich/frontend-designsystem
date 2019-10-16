@@ -148,6 +148,18 @@ $selectHeightWithFilterExtended: 424px;
 
         .atm-list__item {
           white-space: normal;
+          position: relative;
+
+          th,
+          td {
+
+            input {
+              top: auto;
+              left: auto;
+              height: 100%;
+              width: 100%;
+            }
+          }
         }
       }
     }
