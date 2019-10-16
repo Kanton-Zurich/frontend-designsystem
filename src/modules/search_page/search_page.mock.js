@@ -1,5 +1,5 @@
 const data = {
-  news: [{
+  results: [{
     type: 'contentpage',
     title: 'Internationaler Führerausweis',
     teaserText: 'In nicht englischsprachigen Ländern ausserhalb der EU empfehlen wir Ihnen, einen internationalen Führerschein ausstellen zu lassen.',
@@ -26,7 +26,7 @@ const data = {
     link: 'http://search.zh.ch/xyu',
     typeLabel: 'Dokument',
   }],
-  results: {
+  resultsData: {
     numberOfResultPages: 123,
     numberOfResults: 1000,
     resultsByType: [{
@@ -46,7 +46,7 @@ const data = {
       typeLabel: 'News',
     }, {
       type: 'document',
-      numberOfResultPages: 0,
+      numberOfResultPages: 1,
       numberOfResults: 8,
       typeLabel: 'Dokumente',
     }],

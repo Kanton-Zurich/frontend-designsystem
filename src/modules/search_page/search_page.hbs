@@ -2,21 +2,21 @@
   <form novalidate class="mdl-search_page__form" data-search_page="form">
     {{> "atoms/form_input/form_input" input}}
   </form>
-  <div class="mdl-search_page__results-wrapper">
+  <div class="mdl-search_page__results-wrapper" data-search_page="wrapper">
     <div class="mdl-search_page__results-head" data-search_page="resultsHead">
 
     </div>
-    <div class="mdl-search_page__results">
-
+    <div class="mdl-search_page__results" data-search_page="results">
+      {{> "atoms/loading_circle/loading_circle"}}
     </div>
-  </div>
 
-  {{> "modules/pagination/pagination"}}
+    {{> "modules/pagination/pagination"}}
+  </div>
 
   <script type="text/x-handlebars-template" data-search_page="resultsHeadTemplate">
     <div>
       <span class="mdl-search_page__counter"><%- numberOfResults %> Ergebnisse</span>
-      <ul class="mdl-search_page--tag-group mdl-tag-group__tags">
+      <ul class="mdl-search_page__tag-group mdl-tag-group__tags">
         <li>
           <div class="atm-radiobutton atm-radiobutton--tag">
             <input id="search_filter_all" type="radio" value="all" name="search_filter" checked>
@@ -28,7 +28,7 @@
         <% _.forEach(resultsByType, function(type, index) { %>
           <li>
             <div class="atm-radiobutton atm-radiobutton--tag">
-              <input id="search_filter_<%- index %>" type="radio" value="<% type.type %>" name="search_filter">
+              <input id="search_filter_<%- index %>" type="radio" value="<%- type.type %>" name="search_filter">
               <label class="atm-button atm-button--secondary atm-button--small atm-button--tag" for="search_filter_<%- index %>">
                 <%- type.typeLabel %> (<%- type.numberOfResults %>)
               </label>
@@ -37,5 +37,60 @@
         <% }); %>
       </ul>
     </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-search_page="resultsTemplate">
+    <ul class="mdl-search_page__list">
+      <% _.forEach(results, function(item) { %>
+        <li class="mdl-search_page__item">
+          <span class="mdl-search_page__item-meta">
+            <span class="mdl-search_page__item-type">
+              <%- item.typeLabel %>
+            </span>
+            <% if (item.breadcrumb) { %>
+              <span>
+                <%- item.breadcrumb %>
+              </span>
+            <% } %>
+            <% if (item.date) { %>
+              <span>
+                <%- item.date %>
+              </span>
+            <% } %>
+          </span>
+          <% if (item.type === 'service') { %>
+            <a href="<%- item.link %>" class="mdl-service_list__item">
+              <div class="mdl-service_list__item-container">
+                <p class="atm-heading mdl-service_list__item-title"><%- item.title %></p>
+                <p class="atm-paragraph mdl-service_list__item-text" data-lineclamp="true"><%- item.teaserText %></p>
+              </div>
+              <span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
+                <span class="atm-button__text">
+                  Start
+                </span>
+              </span>
+            </a>
+          <% } else if (item.type === 'document') { %>
+            <a class="atm-linklist_item atm-linklist_item--download atm-linklist_item--legalfoundation" href="<%- item.link %>" download>
+              <span class="atm-linklist_item__text">
+                <span><%- item.title %></span>
+                <span class="atm-linklist_item__label"><%- item.teaserText %></span>
+              </span>
+              <span class="atm-linklist_item__download-button">
+                <svg class="icon">
+                  <use xlink:href="#download"></use>
+                </svg>
+                <span>Download</span>
+              </span>
+            </a>
+          <% } else { %>
+            <a class="mdl-search_page__item-content" href="<%- item.link %>">
+              <h4 class="atm-heading"><%- item.title %></h4>
+              <p><%- item.teaserText %></p>
+            </a>
+          <% } %>
+        </li>
+      <% }); %>
+    </ul>
   </script>
 </div>

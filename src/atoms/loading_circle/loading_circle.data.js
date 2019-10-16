@@ -3,33 +3,24 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const formInputData = require('../../atoms/form_input/form_input.data');
-const paginationData = require('../pagination/pagination.data');
-
-const template = dataHelper.getFileContent('search_page.hbs');
+const template = dataHelper.getFileContent('loading_circle.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Suchseite (Modul)',
-    className: 'SearchPage',
+    title: 'LoadingCircle',
+    className: 'LoadingCircle',
     jira: 'CZHDEV-807',
-    documentation: dataHelper.getDocumentation('search_page.md'),
-    label: 'Suche',
+    documentation: dataHelper.getDocumentation('loading_circle.md'),
+    hideFromListing: true,
   },
   props: {
-    input: formInputData.variants.search.props,
-    options: JSON.stringify({
-      url: '/mocks/modules/search_page/search_page.json',
-    }),
-    pagination: paginationData.props,
-    templates: {
-    },
+
   },
 });
 const variants = _.mapValues({
   default: {
     meta: {
       title: 'Default',
-      desc: '',
+      desc: 'Default implementation',
     },
   },
 }, (variant) => {
@@ -41,8 +32,8 @@ const variants = _.mapValues({
 
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
         data: dataHelper.getFormattedJson(variantProps),
+        html: dataHelper.getFormattedHtml(compiledVariant()),
       },
     },
   });

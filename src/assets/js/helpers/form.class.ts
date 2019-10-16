@@ -70,6 +70,9 @@ class Form {
 
     // Initialize rules
     this.initRules();
+
+    // set dirty from start
+    this.setDirtyFromStart();
   }
 
   addEventListeners() {
@@ -117,6 +120,21 @@ class Form {
             this.onInputValueChange(input, oldValue, newValue);
           });
           break;
+      }
+    });
+  }
+
+  /**
+   * Checks if input field already has value and sets the classes accordingly
+   *
+   * @memberof Form
+   */
+  setDirtyFromStart() {
+    const inputs = this.ui.element.querySelectorAll('input');
+
+    inputs.forEach((input) => {
+      if (input.value.length > 0) {
+        input.classList.add(this.options.inputClasses.dirty);
       }
     });
   }
