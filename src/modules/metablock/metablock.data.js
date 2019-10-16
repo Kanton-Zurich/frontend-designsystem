@@ -13,6 +13,7 @@ const data = _.merge({}, defaultData, {
     label: 'Liste',
   },
   props: {
+    headingLevel: 2,
     items: [
       {
         label: 'Text',
@@ -51,6 +52,16 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+  },
+  withTitle: {
+    meta: {
+      title: 'Mit Titel',
+      desc: '',
+    },
+    props: {
+      title: 'Steuerbuch Artikel',
+      hasTopTitle: true,
     },
   },
 }, (variant) => {

@@ -18,12 +18,11 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('flex_detail.md'),
   },
   props: {
-    title: 'Steuerbuch Artikel',
     header: headerData,
     defaultColorVariation: 'cv-darkblue',
     modules: {
       pageHeaderData: defPageHeaderData.variants.steuerBuch.props,
-      metablockData: defMetablockData.props,
+      metablockData: defMetablockData.variants.withTitle.props,
       smallcaptionData: {
         headingLevel: 3,
         text: 'Dokumente',

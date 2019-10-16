@@ -1,3 +1,7 @@
 .mdl-metablock {
   @include sizeCurve(margin-bottom, medium);
+
+  .atm-heading {
+    @include sizeCurve(margin-top, big);
+  }
 }

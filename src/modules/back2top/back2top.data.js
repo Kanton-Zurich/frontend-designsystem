@@ -10,6 +10,7 @@ const data = _.merge({}, defaultData, {
     title: 'Back2Top',
     className: 'Back2top',
     jira: 'CZHDEV-499',
+    label: 'Navigation',
     documentation: dataHelper.getDocumentation('back2top.md'),
   },
   props: {
