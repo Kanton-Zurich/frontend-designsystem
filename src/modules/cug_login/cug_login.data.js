@@ -80,6 +80,18 @@ const variants = _.mapValues({
       endpointDoLogin: mockAssets.loginOk,
     },
   },
+  embedded: {
+    meta: {
+      title: 'Eingebettet',
+      desc: 'Kleinere im Seitenfluss eingebettete Login -Variante',
+    },
+    props: {
+      heading: 'Login',
+      introText: 'Um die Informationen dieser Seite zu sehen, müssen Sie sich einloggen. Sollten Sie kein Login besitzen oder Probleme beim Login haben, melden Sie sich bitte beim Strassenverkehrsamt unter folgender Telefonnummer: 012 345 78 96',
+      endpointDoLogin: mockAssets.unauthenticatedLogin,
+      embedded: true,
+    },
+  },
   unauth: {
     meta: {
       title: 'Unauth',

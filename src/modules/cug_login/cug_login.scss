@@ -58,4 +58,34 @@
       }
     }
   }
+
+  &--embedded {
+    padding: pxToRem($sizeLarge);
+
+    .atm-heading {
+      padding-top: 0;
+    }
+
+    .form__row:last-child {
+      padding-bottom: 0;
+    }
+  }
+}
+
+
+/*
+* COLOR-VARIATIONS
+*/
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-cug_login--embedded {
+      background-color: rgba($val, 0.07);
+
+      .atm-heading,
+      .atm-paragraph,
+      .mdl-tooltip {
+        color: #{$val};
+      }
+    }
+  }
 }

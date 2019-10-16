@@ -1,10 +1,19 @@
-<div class="mdl-cug_login{{#if unauthorized}} mdl-cug_login--unauthorized{{/if}}{{#if credentialsFailed}} mdl-cug_login--credentials-failed{{/if}}{{#if apiFailed}} mdl-cug_login--connection-fail{{/if}}" data-init="cugLogin">
+<div class="mdl-cug_login{{#if unauthorized}} mdl-cug_login--unauthorized{{/if}}{{#if credentialsFailed}} mdl-cug_login--credentials-failed{{/if}}{{#if apiFailed}} mdl-cug_login--connection-fail{{/if}}{{#if embedded}} mdl-cug_login--embedded{{/if}}" data-init="cugLogin">
     <input type="hidden" data-cug_login="doLoginEndpoint" value="{{ endpointDoLogin }}"/>
     <input type="hidden" data-cug_login="successRedirectUrl" value="{{ successRedirectUrl }}"/>
 
-    {{#if heading }}<h2 class="atm-heading">
-      {{ heading }}
-    </h2>{{/if}}
+    {{#if heading }}
+      {{#unless embedded}}
+        <h2 class="atm-heading">
+          {{ heading }}
+        </h2>
+      {{/unless}}
+      {{#if embedded}}
+          <h3 class="atm-heading">
+            {{ heading }}
+          </h3>
+      {{/if}}
+    {{/if}}
     {{#if introText}}<p class="atm-paragraph">{{ introText }}</p>{{/if}}
 
     <div class="mdl-cug_login__form">
