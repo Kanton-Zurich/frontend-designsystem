@@ -81,14 +81,13 @@ class FlexData extends Module {
       }
       return true;
     });
-    this.updateViewFromURLParams();
     // -----------------------------------------------
     // Listen to pagination change event
     this.ui.pagination.addEventListener(Pagination.events.change, () => {
       this.loadResults();
     });
-
-    this.loadResults();
+    this.updateViewFromURLParams();
+    setTimeout(() => { this.loadResults(); }, this.options.initDelay);
   }
 
   /**
@@ -205,7 +204,7 @@ class FlexData extends Module {
     const append = (key, value) => {
       if (value.length > 0) {
         resultUrl += resultUrl === this.dataUrl ? '?' : '&';
-        resultUrl += `${key}=${value}`;
+        resultUrl += `${key}=${encodeURIComponent(value)}`;
       }
     };
     const formData = window[namespace].form.formToJSON(this.ui.form.elements);
@@ -263,13 +262,13 @@ class FlexData extends Module {
               } else if (item.classList.contains('flatpickr-input')) {
                 // -----------
                 // datepicker
-                item.value = values[0]; // eslint-disable-line
+                item.value = decodeURIComponent(values[0]); // eslint-disable-line
                 item.classList.add('dirty');
                 item.parentElement.parentElement.parentElement.classList.add('dirty');
               } else {
                 // -----------
                 // textfield
-                item.value = values[0]; // eslint-disable-line
+                item.value = decodeURIComponent(values[0]); // eslint-disable-line
                 item.classList.add('dirty');
               }
             }

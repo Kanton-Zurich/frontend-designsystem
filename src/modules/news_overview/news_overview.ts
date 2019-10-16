@@ -463,7 +463,7 @@ class NewsOverview extends Module {
     const append = (key, value) => {
       if (value.length > 0) {
         resultUrl += resultUrl === this.dataUrl ? '?' : '&';
-        resultUrl += `${key}=${value}`;
+        resultUrl += `${key}=${encodeURIComponent(value)}`;
       }
     };
     this.filterLists[0].forEach((topic) => { append('topic', topic); });
