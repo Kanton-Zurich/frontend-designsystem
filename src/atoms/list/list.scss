@@ -57,18 +57,19 @@
       .atm-list__item {
         display: flex;
         flex-wrap: wrap;
-        padding: $sizeMini 0;
+        padding: 0;
 
         th,
         td {
-          padding: $sizeMini $sizeSmallRegular 0;
+          padding: $sizeSmallRegular $sizeSmallRegular 0;
           font-size: $sizeFontTiny;
-          line-height: $sizeLineHeightMedium;
+          font-weight: $fontWeightBlack;
         }
 
         td:last-child {
           font-size: $sizeFontRegular;
-          padding-bottom: $sizeMini;
+          font-weight: $fontWeightDefault;
+          padding: 0 $sizeSmallRegular $sizeSmallRegular;
           width: 100%;
         }
       }
@@ -82,8 +83,6 @@
     line-height: pxToRem($sizeSmallHuge);
     padding-left: pxToRem($sizeSmallRegular);
     align-items: center;
-    // display: flex;
-    // cursor: pointer;
 
     &.selected {
       background-color: $colorCyan;
