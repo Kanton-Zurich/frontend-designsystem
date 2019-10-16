@@ -185,6 +185,7 @@ $unitLeftSpace: 62px;
     transition: transform 400ms, opacity 400ms, height 400ms ease-in-out;
     height: 0;
     opacity: 0;
+    word-break: break-word;
   }
 
   &__functionality {
