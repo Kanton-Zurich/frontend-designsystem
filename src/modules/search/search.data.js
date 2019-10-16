@@ -55,6 +55,7 @@ const data = _.merge({}, defaultData, {
     ],
     options: JSON.stringify({
       url: '/mocks/modules/search/search.json',
+      searchPageUrl: '/pages/search/search.html',
     }),
     autosuggestTemplate: contentTeaser.variants.default.meta.code.template,
     contentNav: {

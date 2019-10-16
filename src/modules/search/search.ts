@@ -14,6 +14,7 @@ class Search extends Module {
     url: string,
     domSelectors: any,
     stateClasses: any,
+    searchPageUrl: string,
   }
 
   public data: {
@@ -65,6 +66,7 @@ class Search extends Module {
         template: this.ui.template.innerHTML,
         target: this.ui.autosuggest,
         url: this.options.url,
+        searchPageUrl: this.options.searchPageUrl,
       }, {});
     });
 

@@ -20,6 +20,7 @@ class Autosuggest {
     list: HTMLUListElement,
     template: string,
     renderAsButton: boolean,
+    searchPageUrl: string,
   };
 
   private classes: {
@@ -204,7 +205,7 @@ class Autosuggest {
       this.renderItem({
         shortTitle: Object.prototype.hasOwnProperty.call(result, 'title') ? result.title : result,
         buzzwords: '',
-        target: Object.prototype.hasOwnProperty.call(result, 'path') ? result.path : '',
+        target: Object.prototype.hasOwnProperty.call(result, 'path') ? result.path : `${this.options.searchPageUrl}?q=${encodeURIComponent(result)}`,
       });
     });
 
