@@ -6,7 +6,6 @@ interface ModuleDomSelectors {
   usernameInput: string;
   passwordInput: string;
   showPasswordBtn: string;
-  loginForm: string;
 }
 interface ModuleStateClasses {
   unauthorised: string;
@@ -15,8 +14,15 @@ interface ModuleStateClasses {
   loginBtnDisable: string;
 }
 export interface CugLoginModuleOptions {
-  domSelectors: ModuleDomSelectors
-  stateClasses: ModuleStateClasses
+  devModeAttr: string;
+  mockAssets: {
+    emptyResponse: string;
+    unauthenticatedLogin: string;
+    unauthorizedLogin: string;
+    loginOk: string;
+  },
+  domSelectors: ModuleDomSelectors;
+  stateClasses: ModuleStateClasses;
 }
 
 const domSelectors: ModuleDomSelectors = {
@@ -27,7 +33,6 @@ const domSelectors: ModuleDomSelectors = {
   usernameInput: '[data-cug_login=cellUsername] input',
   passwordInput: '[data-cug_login=cellPassword] input',
   showPasswordBtn: '[data-cug_login=cellPassword] .atm-form_input__functionality',
-  loginForm: '[data-cug_login=loginForm]',
 };
 const stateClasses: ModuleStateClasses = {
   unauthorised: 'mdl-cug_login--unauthorized',
@@ -36,6 +41,13 @@ const stateClasses: ModuleStateClasses = {
   loginBtnDisable: 'atm-button--disabled',
 };
 export const CugLoginDefaultOptions: CugLoginModuleOptions = { // eslint-disable-line
+  devModeAttr: 'data-cug_login-devmode',
+  mockAssets: {
+    emptyResponse: '/assets/mocks/cug/login_empty.json',
+    unauthenticatedLogin: '/assets/mocks/cug/login_unauthenticated.json',
+    unauthorizedLogin: '/assets/mocks/cug/login_unauthorized.json',
+    loginOk: '/assets/mocks/cug/login_ok.json',
+  },
   domSelectors,
   stateClasses,
 };

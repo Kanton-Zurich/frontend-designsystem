@@ -59,9 +59,23 @@ const data = _.merge({}, defaultData, {
     introText: 'Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichte - den ersten in der Schweiz.',
     userNameInput: _.merge({}, formInputData.variants.floatValidate.props, {
       uuid: 'kzh-username',
+      validation: {
+        pattern: '^([a-zA-Z0-9]){4,15}$',
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Der Nutzername besteht aus mindestens 4 und maximal 15 Zeichen eingeben!',
+        isRequired: true,
+      },
     }),
     passwordInput: _.merge({}, formInputData.variants.showPasswordButton.props, {
       uuid: 'kzh-password',
+      validation: {
+        pattern: '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$',
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Das Passwort besteht aus mindestens 6 Zeichen. Und enthält sowohl Groß- als auch Kleinbuchstaben und Zahlen.',
+        isRequired: true,
+      },
     }),
     labelLoginBtn: 'Anmelden',
     tooltip: tooltipData,
@@ -71,13 +85,19 @@ const data = _.merge({}, defaultData, {
   },
 });
 const variants = _.mapValues({
+  develop: {
+    meta: {
+      title: 'Develop Mode',
+      desc: 'Nutzt Mocks. Benutzername: "user" => unauthorized, "hansi" => Connection Failure, "admin" => Login OK , alle anderen unauthenticated.',
+    },
+    props: {
+      devMode: true,
+    },
+  },
   default: {
     meta: {
       title: 'Default',
       desc: 'Default implementation',
-    },
-    props: {
-      endpointDoLogin: mockAssets.loginOk,
     },
   },
   embedded: {
@@ -88,35 +108,8 @@ const variants = _.mapValues({
     props: {
       heading: 'Login',
       introText: 'Um die Informationen dieser Seite zu sehen, müssen Sie sich einloggen. Sollten Sie kein Login besitzen oder Probleme beim Login haben, melden Sie sich bitte beim Strassenverkehrsamt unter folgender Telefonnummer: 012 345 78 96',
-      endpointDoLogin: mockAssets.unauthenticatedLogin,
+      devMode: true,
       embedded: true,
-    },
-  },
-  unauth: {
-    meta: {
-      title: 'Unauth',
-      desc: 'View for unauthorized users',
-    },
-    props: {
-      endpointDoLogin: mockAssets.unauthorizedLogin,
-    },
-  },
-  failed: {
-    meta: {
-      title: 'Failed',
-      desc: 'Any Login attempt will fail and show an alert to check username and password.',
-    },
-    props: {
-      endpointDoLogin: mockAssets.unauthenticatedLogin,
-    },
-  },
-  apiFailed: {
-    meta: {
-      title: 'Connection Fail',
-      desc: 'Click Login submit to see the reaction to a failing API or connection errors.',
-    },
-    props: {
-      endpointDoLogin: mockAssets.emptyResponse,
     },
   },
 }, (variant) => {

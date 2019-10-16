@@ -1,4 +1,5 @@
-<div class="mdl-cug_login{{#if unauthorized}} mdl-cug_login--unauthorized{{/if}}{{#if credentialsFailed}} mdl-cug_login--credentials-failed{{/if}}{{#if apiFailed}} mdl-cug_login--connection-fail{{/if}}{{#if embedded}} mdl-cug_login--embedded{{/if}}" data-init="cugLogin">
+<div class="mdl-cug_login{{#if unauthorized}} mdl-cug_login--unauthorized{{/if}}{{#if credentialsFailed}} mdl-cug_login--credentials-failed{{/if}}{{#if apiFailed}} mdl-cug_login--connection-fail{{/if}}{{#if embedded}} mdl-cug_login--embedded{{/if}}"
+     data-init="cugLogin"{{#if devMode}} data-cug_login-devmode="true"{{/if}}>
     <input type="hidden" data-cug_login="doLoginEndpoint" value="{{ endpointDoLogin }}"/>
     <input type="hidden" data-cug_login="successRedirectUrl" value="{{ successRedirectUrl }}"/>
 

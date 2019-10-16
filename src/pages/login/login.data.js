@@ -2,30 +2,13 @@ const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 const breadcrumbData = require('../../modules/breadcrumb/breadcrumb.data.js').variants.singlePathItem.props;
-const defLoginData = require('../../modules/cug_login/cug_login.data.js').variants.default.props;
+const defLoginData = require('../../modules/cug_login/cug_login.data.js').props;
 const defReleatedContentData = require('../../modules/related_content/related_content.data.js').variants.default.props;
 const contactData = require('../../modules/contact/contact.data').variants.fullWidthLessData.props;
 const headerData = require('../../modules/header/header.data').variants.userMenu.props;
 
-const loggedInUserMenu = require('../../modules/user_menu/user_menu.data').variants.loggedIn.props;
 const notLoggedInUserMenu = require('../../modules/user_menu/user_menu.data').variants.notloggedIn.props;
 
-const failCugLoginData = require('../../modules/cug_login/cug_login.data').variants.failed.props;
-
-// Already loggedIn but unauthorized
-const scenario1 = { // eslint-disable-line no-unused-vars
-  userMenu: loggedInUserMenu,
-  cugLoginData: {
-    unauthorized: true,
-  },
-};
-// Not logged in yet and login fails for credentials.
-const scenario2 = {
-  userMenu: notLoggedInUserMenu,
-  cugLoginData: failCugLoginData,
-};
-
-const scenario = scenario2;
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Loginseite',
@@ -36,7 +19,7 @@ const data = _.merge({}, defaultData, {
   props: {
     header: _.merge({}, headerData, {
       hasUserMenu: true,
-      userMenu: scenario.userMenu,
+      userMenu: notLoggedInUserMenu,
     }),
     title: 'ZHservices',
     text: 'Mit diesem Benutzerkonto haben Sie Zugang zu allen Angeboten von ZHservices.',
@@ -54,7 +37,9 @@ const data = _.merge({}, defaultData, {
         hasBreadcrumb: true,
         noButton: true,
       },
-      cugLoginData: _.merge({}, defLoginData, scenario.cugLoginData),
+      cugLoginData: _.merge({}, defLoginData, {
+        devMode: true,
+      }),
       releatedContentData: _.merge({}, defReleatedContentData, { relatedContentHeading: { anchorNavReference: 'related_content' } }),
       contact: _.merge({}, contactData, {
         contactSubtitle: 'Kanton Zürich',

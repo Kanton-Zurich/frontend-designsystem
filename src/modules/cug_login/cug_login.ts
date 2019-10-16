@@ -28,8 +28,9 @@ class CugLogin extends Module {
     usernameInput: HTMLInputElement,
     passwordInput: HTMLInputElement,
     showPasswordBtn: HTMLElement,
-    loginForm: HTMLFormElement,
   };
+
+  private devMode: boolean;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -40,6 +41,8 @@ class CugLogin extends Module {
     this.initUi();
     this.initEventListeners();
     this.initWatchers();
+
+    this.devMode = this.ui.element.hasAttribute(this.options.devModeAttr);
   }
 
   static get events() {
@@ -71,9 +74,13 @@ class CugLogin extends Module {
       this.ui.element.classList.remove(this.options.stateClasses.credentialsFailed);
     }
 
-    if (this.ui.loginBtn.classList.contains(this.options.stateClasses.loginBtnDisable)) {
-      this.ui.loginBtn.classList.remove(this.options.stateClasses.loginBtnDisable);
-    }
+    setTimeout(() => {
+      if (this.loginFormHasErrors()) {
+        this.ui.loginBtn.classList.add(this.options.stateClasses.loginBtnDisable);
+      } else {
+        this.ui.loginBtn.classList.remove(this.options.stateClasses.loginBtnDisable);
+      }
+    }, 0);
   }
 
   private togglePwVisibility() {
@@ -86,16 +93,33 @@ class CugLogin extends Module {
     }
   }
 
+  private loginFormHasErrors(): boolean {
+    const invalidUsername = this.ui.usernameInput.parentElement.classList.contains('invalid');
+    const invalidPassword = this.ui.passwordInput.parentElement.classList.contains('invalid');
+    return invalidUsername || invalidPassword;
+  }
+
   private doLogin(ev: Event) {
     this.log('Login submit triggered.');
 
-    const formHasErrors = this.ui.loginForm.hasAttribute('form-has-errors');
-    if (!formHasErrors) {
+    if (!this.loginFormHasErrors()) {
       const username = this.ui.usernameInput.value;
       const password = this.ui.passwordInput.value;
       this.log(`Attempt login with ${username} - ${password}`);
 
-      const endpoint = this.ui.configuredLoginEndpoint.value;
+      let endpoint = this.ui.configuredLoginEndpoint.value;
+      if (this.devMode) {
+        if (username === 'admin') {
+          endpoint = this.options.mockAssets.loginOk;
+        } else if (username === 'user') {
+          endpoint = this.options.mockAssets.unauthorizedLogin;
+        } else if (username === 'hansi') {
+          endpoint = this.options.mockAssets.emptyResponse;
+        } else {
+          endpoint = this.options.mockAssets.unauthenticatedLogin;
+        }
+      }
+
       this.postJsonData(endpoint, { username, password })
         .then((resp) => {
           if (!resp
