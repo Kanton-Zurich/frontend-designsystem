@@ -14,6 +14,7 @@ const data = _.merge({}, defaultData, {
     title: 'User Menu',
     className: 'UserMenu',
     jira: 'CZHDEV-538',
+    label: 'Navigation',
     documentation: dataHelper.getDocumentation('user_menu.md'),
   },
   props: {

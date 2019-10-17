@@ -17,6 +17,16 @@
   position: relative;
   margin: 0;
 
+  &--2col {
+    column-count: 2;
+    column-gap: $sizeBig;
+
+    @include mq($from: tiny, $to: medium) {
+      column-count: 1;
+      column-gap: 0;
+    }
+  }
+
   dt {
     font-weight: $fontWeightBlack;
     padding-top: $sizeSmallRegular;

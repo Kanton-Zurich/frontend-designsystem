@@ -7,4 +7,7 @@ Der Button sollte weder den Footer noch den Language Switch verdecken.
 
 ### Integration
 
+### !!! WICHTIG !!!
+ Back2Top Links auf den Seiten: Wenn es keinen LanguageSwitcher gibt, dann sollte die Property 'preserveLangSwitch: false ' gesetzt werden. Sonst rutscht der Pfeil nach oben
+
 HTML kopieren.

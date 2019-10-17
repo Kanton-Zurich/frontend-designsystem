@@ -179,6 +179,50 @@ class Module {
   }
 
   /**
+   * Get all URL params as object
+   */
+  getAllURLParams() {
+    const url = window.location.href;
+    const stringParams = url.split('?').length > 1 ? url.split('?')[1].split('&') : null;
+    let params = {};
+    if (stringParams) {
+      params = stringParams.reduce((total, amount) => {
+        const keyValue = amount.split('=');
+        total[keyValue[0]] = total[keyValue[0]] ? total[keyValue[0]] : [];
+        total[keyValue[0]].push(keyValue[1] ? keyValue[1] : null);
+        return total;
+      }, {});
+    }
+    return params;
+  }
+
+  /**
+   * get base URL
+   */
+  getBaselUrl() {
+    return `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+  }
+
+  /**
+   * Update or insert rel link for canonical references
+   * @param rel
+   * @param href
+   */
+  upsertLinkRel(rel, href) {
+    const relLink = document.querySelector(`link[rel="${rel}"]`);
+    if (relLink) {
+      document.head.removeChild(relLink);
+    }
+    if (!href) {
+      return;
+    }
+    const element = document.createElement('link');
+    element.setAttribute('rel', rel);
+    element.setAttribute('href', href);
+    document.head.appendChild(element);
+  }
+
+  /**
    * Fetch json data
    *
    * @param url endpoint URL to fetch data from

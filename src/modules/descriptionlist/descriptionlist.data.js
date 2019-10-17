@@ -42,6 +42,41 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
+  twoColumns: {
+    meta: {
+      title: 'Zwei Spalten',
+      desc: '',
+    },
+    props: {
+      twoColumns: true,
+      descriptionListItems: [
+        {
+          item: {
+            term: 'Label 1',
+            description: 'Value 1',
+          },
+        },
+        {
+          item: {
+            term: 'Label 2',
+            description: 'Value 2',
+          },
+        },
+        {
+          item: {
+            term: 'Label 3',
+            description: 'Value 3',
+          },
+        },
+        {
+          item: {
+            term: 'Label 4',
+            description: 'Value 4',
+          },
+        },
+      ],
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

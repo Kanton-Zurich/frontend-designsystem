@@ -1,0 +1,30 @@
+.mdl-flex-data {
+  @include sizeCurve(margin-top margin-bottom, big);
+
+  &__form-controls {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: pxToRem($sizeLarge);
+    padding-top: pxToRem($sizeRegular);
+
+    border-top: 3px solid $colorBlack;
+
+    .atm-button {
+      margin-left: pxToRem($sizeTiny);
+    }
+  }
+
+  .mdl-table {
+    .mdl-table__row {
+      td.mdl-table__cell {
+        padding: 12px;
+
+        .atm-text_link {
+          display: inline;
+          padding-bottom: 3px;
+        }
+      }
+    }
+  }
+}
