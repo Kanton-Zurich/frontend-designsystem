@@ -402,6 +402,12 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   }
 }
 
+.sg_filter-frame {
+  border: 1px solid #BBB;
+  padding: 5px;
+  border-radius: 5px;
+}
+
 .sg_group-label {
   background: #dfe1e6;
   border: 1px solid #dfe1e6;

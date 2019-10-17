@@ -221,6 +221,54 @@ class Module {
     element.setAttribute('href', href);
     document.head.appendChild(element);
   }
+
+  /**
+   * Fetch json data
+   *
+   * @param url endpoint URL to fetch data from
+   */
+  async fetchJsonData(url: string): Promise<any> {
+    if (!window.fetch) {
+      await import('whatwg-fetch');
+    }
+
+    return fetch(url)
+      .then(response => response.json())
+      .catch((err) => {
+        this.log('error', err);
+        throw new Error(`Failed to fetch data from "${url}"!`);
+      });
+  }
+
+  /**
+   * Post object as JSON to given URL.
+   * Expects a JSON response body to which the Promise will resolve to.
+   *
+   * @param url endpoint URL to fetch data from
+   * @param payload the request body object (will be stringified)
+   */
+  postJsonData(url: string, payload: object): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status >= 200 && xhr.status < 300) { // eslint-disable-line no-magic-numbers
+            try {
+              resolve(JSON.parse(xhr.responseText));
+            } catch (e) {
+              reject(new Error('Response unparseable!'));
+            }
+          } else {
+            reject(new Error(`Post failed with status ${xhr.status}`));
+          }
+        }
+      };
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+
+      xhr.send(JSON.stringify(payload));
+    });
+  }
 }
 
 export default Module;

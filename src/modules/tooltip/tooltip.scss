@@ -25,7 +25,7 @@ $tooltip-bubble-close-icon-size: 14px;
     }
   }
 
-  &__trigger {
+  &__trigger:not(.mdl-tooltip__trigger--textual) {
     position: relative;
     height: pxToRem($tooltip-info-icon-size);
 
@@ -53,6 +53,11 @@ $tooltip-bubble-close-icon-size: 14px;
         fill: $colorBlack10;
       }
     }
+  }
+
+  &__trigger--textual {
+    border-bottom: 1px solid;
+    cursor: pointer;
   }
 
   p {
@@ -153,6 +158,10 @@ $tooltip-bubble-close-icon-size: 14px;
       font-size: $sizeFontRegular;
       line-height: $sizeLineHeightBase;
       margin: 0;
+
+      a {
+        color: $colorText;
+      }
     }
 
     h3 {

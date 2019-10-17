@@ -4,6 +4,7 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const modalData = require('../modal/modal.data');
+const devUserMenuData = require('../user_menu/user_menu.data').variants.loggedIn.props;
 
 const template = dataHelper.getFileContent('header.hbs');
 const data = _.merge({}, defaultData, {
@@ -52,6 +53,29 @@ const variants = _.mapValues({
     },
     props: {
       inverted: true,
+      hasUserMenu: true,
+      userMenu: devUserMenuData,
+    },
+  },
+  userMenu: {
+    meta: {
+      title: 'Mit User Menu',
+      desc: 'Head Module mit User-Menu',
+    },
+    props: {
+      hasUserMenu: true,
+      userMenu: devUserMenuData,
+    },
+  },
+  userMenuInv: {
+    meta: {
+      title: 'Mit User Menu (invertiert)',
+      desc: 'Invertiertes HeadModule mit User-Menu',
+    },
+    props: {
+      inverted: true,
+      hasUserMenu: true,
+      userMenu: devUserMenuData,
     },
   },
 }, (variant) => {

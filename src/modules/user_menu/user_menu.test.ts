@@ -1,9 +1,9 @@
-describe('ZhLex', () => {
+describe('UserMenu', () => {
   let page: any;
 
   beforeAll(async () => {
     // eslint-disable-next-line no-underscore-dangle
-    const url = `http://localhost:${(<any>global).__STATIC_PORT__}/modules/zh_lex/zh_lex.html`;
+    const url = `http://localhost:${(<any>global).__STATIC_PORT__}/modules/user_menu/user_menu.html`;
 
     // eslint-disable-next-line no-underscore-dangle
     page = await (<any>global).__BROWSER__.newPage();

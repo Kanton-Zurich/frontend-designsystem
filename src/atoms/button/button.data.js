@@ -47,6 +47,16 @@ const variants = _.mapValues({
       icon: 'edit',
     },
   },
+  defaultDisabled: {
+    meta: {
+      title: 'Primary disabled',
+      desc: 'Primary Button disabled.',
+    },
+    props: {
+      icon: 'edit',
+      disabled: true,
+    },
+  },
   defaultWithoutText: {
     meta: {
       title: 'Primary nur Icon',

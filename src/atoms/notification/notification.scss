@@ -1,7 +1,7 @@
 .atm-notification {
   display: flex;
   align-items: center;
-
+  color: $colorWhite;
   border-radius: 3px;
   background: $colorRed;
   padding: pxToRem($sizeRegular);
@@ -25,8 +25,7 @@
   &__message {
     flex-grow: 1;
     margin-left: pxToRem($sizeRegular);
-
-    color: $colorWhite;
+    color: inherit;
 
     button {
       color: $colorWhite;
@@ -73,6 +72,39 @@
     .icon {
       width: 2rem;
       height: 2rem;
+    }
+  }
+
+  &--login {
+    position: relative;
+    background-color: $colorWhite;
+    box-shadow: 0 0 $sizeTiny rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    padding: pxToRem($sizeLarge) pxToRem($sizeBig) pxToRem($sizeLarge) pxToRem($sizeLarge);
+    color: $colorRed;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: pxToRem(3px);
+      height: 100%;
+      background-color: $colorRed;
+    }
+
+    .icon {
+      width: pxToRem($sizeSmallHuge);
+      height: pxToRem($sizeSmallHuge);
+
+      use {
+        fill: $colorRed;
+      }
+    }
+
+    button {
+      min-width: auto;
     }
   }
 }
