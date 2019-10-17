@@ -43,10 +43,10 @@ const stateClasses: ModuleStateClasses = {
 export const CugLoginDefaultOptions: CugLoginModuleOptions = { // eslint-disable-line
   devModeAttr: 'data-cug_login-devmode',
   mockAssets: {
-    emptyResponse: '/assets/mocks/cug/login_empty.json',
-    unauthenticatedLogin: '/assets/mocks/cug/login_unauthenticated.json',
-    unauthorizedLogin: '/assets/mocks/cug/login_unauthorized.json',
-    loginOk: '/assets/mocks/cug/login_ok.json',
+    emptyResponse: '/mocks/cug_login/login_empty.json',
+    unauthenticatedLogin: '/mocks/cug_login/login_unauthenticated.json',
+    unauthorizedLogin: '/mocks/cug_login/login_unauthorized.json',
+    loginOk: '/mocks/cug_login/login_ok.json',
   },
   domSelectors,
   stateClasses,

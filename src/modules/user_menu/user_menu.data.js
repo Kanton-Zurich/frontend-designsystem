@@ -4,8 +4,8 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const mockAssets = {
-  loggedIn: 'http://localhost:9000/assets/mocks/cug/status_logged_in.json',
-  notLoggedIn: 'http://localhost:9000/assets/mocks/cug/status_not_logged_in.json',
+  loggedIn: 'http://localhost:9000/mocks/modules/cug_login/status_logged_in.json',
+  notLoggedIn: 'http://localhost:9000/mocks/modules/cug_login/status_not_logged_in.json',
 };
 
 const template = dataHelper.getFileContent('user_menu.hbs');
