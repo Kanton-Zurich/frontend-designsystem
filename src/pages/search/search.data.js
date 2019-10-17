@@ -23,6 +23,7 @@ const data = _.merge({}, defaultData, {
         homelink: '#',
         pageTitle: 'Suche',
         breadcrumb: _.merge({}, defBreadcrumbData, {
+          contextMenu: false,
           path: [
             {
               title: 'Kanton Zürich',
