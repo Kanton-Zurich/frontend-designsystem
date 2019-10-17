@@ -41,7 +41,7 @@
 
   <script type="text/x-handlebars-template" data-search_page="resultsTemplate">
     <ul class="mdl-search_page__list">
-      <% _.forEach(results, function(item) { %>
+      <% _.forEach(results, function(item, index) { %>
         <li class="mdl-search_page__item">
           <span class="mdl-search_page__item-meta">
             <span class="mdl-search_page__item-type">
@@ -59,7 +59,9 @@
             <% } %>
           </span>
           <% if (item.type === 'service') { %>
-            <a href="<%- item.link %>" class="mdl-service_list__item">
+            <a href="<%- item.link %>" class="mdl-service_list__item"
+              data-url="<%- item.link %>" aria-controls="modal_search-result_<%- index %>" role="button"
+            >
               <div class="mdl-service_list__item-container">
                 <p class="atm-heading mdl-service_list__item-title"><%- item.title %></p>
                 <p class="atm-paragraph mdl-service_list__item-text" data-lineclamp="true"><%- item.teaserText %></p>
@@ -70,6 +72,7 @@
                 </span>
               </span>
             </a>
+            <div id="modal_search-result_<%- index %>" class="mdl-modal" data-init="modal"></div>
           <% } else if (item.type === 'document') { %>
             <a class="atm-linklist_item atm-linklist_item--download atm-linklist_item--legalfoundation" href="<%- item.link %>" download>
               <span class="atm-linklist_item__text">

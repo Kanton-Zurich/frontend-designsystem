@@ -17,7 +17,7 @@ const data = {
     type: 'service',
     title: 'Internationalen Führerschein beantragen',
     teaserText: 'In nicht englischsprachigen Ländern ausserhalb der EU empfehlen wir Ihnen, einen internationalen Führerschein ausstellen zu lassen.',
-    link: 'http://search.zh.ch/xyi',
+    link: '/pages/service/service.html',
     typeLabel: 'Service',
   }, {
     type: 'document',

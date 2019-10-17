@@ -10,10 +10,10 @@ const data = _.merge({}, defaultData, {
     className: 'LoadingCircle',
     jira: 'CZHDEV-807',
     documentation: dataHelper.getDocumentation('loading_circle.md'),
-    hideFromListing: true,
+    hideFromListing: false,
+    setLoadingClass: true,
   },
   props: {
-
   },
 });
 const variants = _.mapValues({
