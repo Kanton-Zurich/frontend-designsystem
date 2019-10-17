@@ -6,10 +6,10 @@ const defaultData = require('../../data/default.data.js');
 const formInputData = require('../../atoms/form_input/form_input.data');
 
 const mockAssets = {
-  emptyResponse: '/assets/mocks/cug/login_empty.json',
-  unauthenticatedLogin: '/assets/mocks/cug/login_unauthenticated.json',
-  unauthorizedLogin: '/assets/mocks/cug/login_unauthorized.json',
-  loginOk: '/assets/mocks/cug/login_ok.json',
+  emptyResponse: '/mocks/modules/cug_login/login_empty.json',
+  unauthenticatedLogin: '/mocks/modules/cug_login/login_unauthenticated.json',
+  unauthorizedLogin: '/mocks/modules/cug_login/login_unauthorized.json',
+  loginOk: '/mocks/modules/cug_login/login_ok.json',
 };
 
 const tooltipData = {
