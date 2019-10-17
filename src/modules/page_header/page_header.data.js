@@ -319,6 +319,20 @@ const variants = _.mapValues({
       hasCloseButton: true,
     },
   },
+  steuerBuch: {
+    meta: {
+      title: 'Flex Data (Steuerbuch) (CZHDEV-1234)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+      defaultColorVariation: 'cv-darkblue',
+    },
+    props: {
+      pageTitle: 'ZStB-Nr. 3.1',
+      inverted: true,
+      hasBacklink: true,
+      leadText: 'Steuerliche Zugehörigkeit',
+    },
+  },
   error404: {
     meta: {
       title: 'Error404 (CZHDEV-528)',

@@ -772,12 +772,13 @@ gulp.task('copy', () => {
     src: [
       './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
       './src/assets/media/image/*.svg',
+      './src/assets/mocks/**/*.json',
     ],
     srcBase: './src',
     dest: './dist',
     watch: {
       src: [
-        './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
+        './src/**/*.{png,gif,jpg,woff,ttf,jpeg,json}',
       ],
       name: 'copy',
     },

@@ -239,8 +239,8 @@ class Select extends Module {
     // ------------------------------------------------------------
     // watch select items for status change and update style
     this.ui.inputItems.forEach((item, index) => {
-      item.addEventListener('change', (evt) => {
-        this.changeUpdateItemEvent(evt, item, index);
+      item.addEventListener('change', () => {
+        this.changeUpdateItemEvent(item, index);
       });
     });
     // -------------------------------
@@ -328,19 +328,18 @@ class Select extends Module {
 
   /**
    * Handle value change and trigger event for each item individually
-   * @param event
    * @param item
    * @param index
    * @param emit
    */
-  changeUpdateItemEvent(event, item, index, emit = true) {
+  changeUpdateItemEvent(item, index, emit = true) {
     if (!this.isMultiSelect) {
       this.ui.items.forEach((li) => {
         li.classList.remove('selected');
       });
       this.ui.items[index].classList.add('selected');
       if (emit) {
-        this.emitValueChanged((<HTMLInputElement>event.target).value);
+        this.emitValueChanged(item.value);
       }
     } else {
       if (item.checked) {
@@ -427,16 +426,17 @@ class Select extends Module {
    * @param event
    */
   onSetValue(event) {
+    const { data, emit } = event.detail;
     this.ui.items.forEach((li, index) => {
       const input = li.querySelector('input');
       if (this.isMultiSelect) {
-        input.checked = event.detail.indexOf(input.value) >= 0;
-        this.changeUpdateItemEvent(event, input, index, false);
-        this.onValueChanged(event);
-      } else if (input.value === event.detail) {
+        input.checked = data.indexOf(input.value) >= 0;
+        this.changeUpdateItemEvent(input, index, emit);
+        this.onValueChanged({ detail: data });
+      } else if (input.value === data) {
         input.checked = true;
-        this.changeUpdateItemEvent(event, input, index, false);
-        this.onValueChanged(event);
+        this.changeUpdateItemEvent(input, index, emit);
+        this.onValueChanged({ detail: data });
       }
     });
   }

@@ -1,4 +1,7 @@
-<div class="mdl-pagination" data-init="pagination" data-pagecount="{{pageCount}}">
+<div class="mdl-pagination {{#if fullWidth}}mdl-pagination--fullwidth{{/if}}" data-init="pagination" data-pagecount="{{pageCount}}">
+  {{#if fullWidth}}
+    <div class="lyt-wrapper">
+  {{/if}}
   <div class="mdl-pagination__input atm-form_input atm-form_input--small">
     <input class="atm-form_input__input" value="1" type="number">
   </div>
@@ -21,4 +24,7 @@
       <use xlink:href="#angle_right"></use>
     </svg>
   </a>
+  {{#if fullWidth}}
+    </div>
+  {{/if}}
 </div>

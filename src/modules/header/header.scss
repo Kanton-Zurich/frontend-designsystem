@@ -21,19 +21,17 @@ $headerCurves: (
 .mdl-header {
   @include gridBleed($fullwidth: true);
   @include sizeCurve(padding-bottom, borderHeight, $headerCurves);
+  @include transition(background);
 
   position: relative;
-
-  @include transition(background);
+  z-index: $zIndexFlyouts;
 
   &--fixed {
     position: fixed;
     top: 0;
     left: 0;
-
     transition: none;
 
-    z-index: $zIndexFlyouts;
     transform: translateX(0);
     margin-left: 0;
   }
@@ -92,12 +90,15 @@ $headerCurves: (
     }
   }
 
-  &__search {
+  &__functions {
     position: absolute;
     right: 0;
     bottom: 0;
     top: 0;
+    display: inline-flex;
+  }
 
+  &__search {
     color: $colorBlack80;
     font-weight: $fontWeightDefault;
     font-size: $sizeFontMedium;
@@ -116,6 +117,62 @@ $headerCurves: (
 
     &:hover {
       background: rgba($colorWhite, 0.8);
+    }
+  }
+
+  @include mq($to: medium) {
+    .mdl-header__search {
+      padding: 0 pxToRem($sizeRegular);
+
+      .atm-button__text {
+        display: none;
+      }
+
+      .atm-button__text + .atm-button__icon {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.mdl-header--inverted {
+  background: $colorWhite;
+
+  .mdl-header__nav-item {
+    color: $colorBlack100;
+  }
+
+  .mdl-header__wrapper:after {
+    background: $colorBlack;
+  }
+
+  .mdl-header__functions {
+    color: $colorBlack60;
+
+    .icon {
+      fill: $colorBlack60;
+    }
+
+    .mdl-header__search {
+      background-color: $colorBlack10;
+    }
+  }
+
+  @include mq($to: medium) {
+    .mdl-user-menu {
+      background: $colorBlack10;
+    }
+  }
+  @include mq($from: medium) {
+    .mdl-user-menu {
+
+      &__trigger {
+        color: $colorBlack60;
+
+        .icon use {
+          fill: $colorBlack60;
+        }
+      }
     }
   }
 }
@@ -137,9 +194,17 @@ $headerCurves: (
           background: $colorBlack;
         }
 
-        .mdl-header__search {
-          background: $colorBlack10;
+        .mdl-header__functions {
           color: $colorBlack60;
+
+          .icon {
+            fill: $colorBlack60;
+          }
+
+          .mdl-header__search {
+            background: $colorBlack10;
+          	color: $colorBlack60;
+          }
         }
       }
     }

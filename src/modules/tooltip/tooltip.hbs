@@ -37,7 +37,29 @@
       </div>
     {{/if}}
 
-    {{#if helptext}}<p>{{helptext}}</p>{{/if}}
+    {{#unless asTextLink }}
+      {{#if helptext}}<p>{{helptext}}</p>{{/if}}
+    {{/unless}}
+    {{#if asTextLink }}
+    <div class="mdl-tooltip__wrapper">
+      <a class="mdl-tooltip__trigger mdl-tooltip__trigger--textual">{{helptext}}</a>
+      <div class="mdl-tooltip__bubble" id="{{bubble.id}}" aria-hidden="true">
+          {{#if bubble.heading}}
+              <h3>
+                {{bubble.heading}}
+              </h3>
+          {{/if}}
+          {{#if bubble.text}}
+              <p>
+                {{{bubble.text}}}
+              </p>
+          {{/if}}
+          {{#if bubble.image}}
+            {{> "modules/image_figure/image_figure" bubble.image}}
+          {{/if}}
+        </div>
+    </div>
+    {{/if}}
 
     {{#if buttonRight}}
       <div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--right">

@@ -87,6 +87,14 @@ $topSpaceSearchInput: 15.5px;
       margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
     }
 
+    // Hide browser styles for autofilled inputs
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      box-shadow: 0 0 0 1000px $colorWhite inset;
+    }
+
     &[ type='number' ] {
       -moz-appearance: textfield; /* Firefox */ //stylelint-disable-line
     }
@@ -191,6 +199,7 @@ $topSpaceSearchInput: 15.5px;
     transition: transform 400ms, opacity 400ms, height 400ms ease-in-out;
     height: 0;
     opacity: 0;
+    word-break: break-word;
   }
 
   &__functionality {
@@ -359,6 +368,7 @@ $topSpaceSearchInput: 15.5px;
       * DIRTY / FOCUS
       */
       &.dirty,
+      &:-webkit-autofill,
       &:focus {
         color: $colorBlack;
         padding-top: pxToRem(35px);

@@ -23,6 +23,15 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
+  fullWidth: {
+    meta: {
+      title: 'Volle Breite',
+      desc: '',
+    },
+    props: {
+      fullWidth: true,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

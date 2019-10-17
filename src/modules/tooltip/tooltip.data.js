@@ -23,6 +23,7 @@ const data = _.merge({}, defaultData, {
     className: 'Tooltip',
     jira: 'CZHDEV-1203',
     documentation: dataHelper.getDocumentation('tooltip.md'),
+    label: 'Formular',
   },
   props: {
 
@@ -84,6 +85,20 @@ const variants = _.mapValues({
         text: 'Ihre AHV-Nr. finden Sie unter anderem auf Ihrer Krankenversicherungskarte:',
         image: demoImageFigureData,
         id: _.uniqueId('aria-image'),
+      },
+    },
+  },
+  asTextLink: {
+    meta: {
+      title: 'Style Textlink',
+      desc: 'Kein Icon, text underlined',
+    },
+    props: {
+      helptext: 'Passwort vergessen?',
+      asTextLink: true,
+      bubble: {
+        text: 'Bitte kontaktieren Sie diese <a href="mailto:info@sk.zh.ch" target="_blank">Emailadresse</a> wenn Sie ein neues Passwort benötigen.',
+        id: _.uniqueId('aria-default'),
       },
     },
   },

@@ -82,6 +82,15 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
     }
   }
 
+  &--disabled {
+    background-color: $colorBlack15;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: $colorBlack15;
+    }
+  }
+
   /**
    * Type variations
    */

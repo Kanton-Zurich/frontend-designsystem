@@ -50,6 +50,7 @@
 @import '../../atoms/list/list';
 @import '../../atoms/toggle/toggle';
 @import '../../atoms/loading_circle/loading_circle';
+@import '../../atoms/smallcaption/smallcaption';
 //*autoinsertatom*
 
 // Modules
@@ -126,6 +127,10 @@
 @import '../../modules/back2top/back2top';
 @import '../../modules/tooltip/tooltip';
 @import '../../modules/search_page/search_page';
+@import '../../modules/flex_data/flex_data';
+@import '../../modules/metablock/metablock';
+@import '../../modules/user_menu/user_menu';
+@import '../../modules/cug_login/cug_login';
 //*autoinsertmodule*
 
 @media print {

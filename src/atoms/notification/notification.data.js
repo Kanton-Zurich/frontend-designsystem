@@ -38,8 +38,24 @@ const variants = _.mapValues({
       icon: '#confirm',
       isGreen: true,
       isBig: true,
-    }
-  }
+    },
+  },
+  closeUserGroup: {
+    meta: {
+      title: 'Hinweis für geschütze Bereiche',
+      desc: 'Der Hinweis wird angezeigt falls der User auf einer Seite landet die ein Login erfordert',
+    },
+    props: {
+      message: 'Melden Sie sich ab und verwenden Sie die für diesen Bereich gültigen.',
+      title: 'Ihr Login ist für diesen Bereich nicht gültig',
+      icon: '#caution',
+      isLogin: true,
+      loginBtn: {
+        label: 'Abmelden',
+        additionalAttributes: 'data-attr_selector="loginBtn"',
+      },
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
