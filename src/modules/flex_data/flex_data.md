@@ -23,6 +23,6 @@ Tabelle a priori Sortierung "data-sort-column" "data-sort-direction"
 Data source "data-source"
 ```<div class="mdl-flex-data" data-init="flexData" data-source="../../mocks/modules/flex_data/flex_data.json">```
 
-Page count in paginatio data-pagecount="30"
+Page count in pagination data-pagecount="30"
 
 HTML kopieren.
