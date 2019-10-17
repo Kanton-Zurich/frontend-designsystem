@@ -6,6 +6,7 @@ const defTeaserData = require('../../modules/teaser/teaser.data.js').variants.in
 const defSPAData = require('../../modules/application/application.data.js').variants.default.props;
 const defiframeData = require('../../modules/iframe/iframe.data.js').variants.default.props;
 const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const dataHelper = require('@unic/estatico-data');
 const headerData = require('../../modules/header/header.data').props;
 
@@ -154,6 +155,7 @@ const data = _.merge({}, defaultData, {
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData, defPageHeaderCustomData),
       anchorNav: defAnchorNavData,
+      footerData: defFooterData,
       topicListData: _.merge({}, _.omit(defTopicListData, ['contentNavData']), defTopicListCustomData, { topiclistHeading: { anchorNavReference: 'ourtopics' } }),
       contactData: defContactCustomData,
       teaserData: _.merge({}, defTeaserData, defTeaserCustomData),

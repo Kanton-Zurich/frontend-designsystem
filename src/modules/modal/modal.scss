@@ -48,7 +48,7 @@ $modalCurves: (
 
   &--show {
     opacity: 1;
-    z-index: $zIndexSkiplinks;
+    z-index: $zIndexFlyouts;
 
     transform: translateY(0);
 
@@ -106,7 +106,11 @@ $modalCurves: (
     @include sizeCurve(padding-top, height, $headerCurves);
 
     &.mdl-modal--show {
-      z-index: $zIndexOverlays;
+      z-index: $zIndexFlyouts;
+    }
+
+    &.mdl-modal--search {
+      padding-top: 0;
     }
   }
 
@@ -157,5 +161,46 @@ $modalCurves: (
     transform: initial;
     position: initial;
     margin-left: 0;
+  }
+
+  /**
+   * SPECIAL STYLES FOR THE SEARCH
+   */
+
+  &--search {
+    max-width: pxToRem(100);
+
+    @include sizeCurve(max-height, height, $headerCurves);
+    @include transition(max-width max-height opacity, $transitionTimeMorph);
+
+    overflow: hidden;
+
+    transform: translateY(0);
+
+    right: 0;
+    left: auto;
+
+    &.mdl-modal--show {
+      max-width: 100vw;
+      max-height: 100vh;
+    }
+
+    &.mdl-modal--before-hide {
+      max-width: pxToRem(100);
+
+      @include sizeCurve(max-height, height, $headerCurves);
+
+      opacity: 0;
+    }
+
+    > .lyt-wrapper:nth-child(2) {
+      opacity: 1;
+    }
+
+    > .lyt-wrapper {
+      position: absolute;
+      right: 50vw;
+      transform: translateX(50%) !important; //stylelint-disable-line
+    }
   }
 }

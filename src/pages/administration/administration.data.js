@@ -7,6 +7,7 @@ const defContactData = require('../../modules/contact/contact.data.js').variants
 const defFocusTeaserData = require('../../modules/focus_teaser/focus_teaser.data.js').props;
 const defAboutData = require('../../modules/about/about.data').props;
 const headerData = require('../../modules/header/header.data').props;
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withoutLinklist.props;
 
 
@@ -85,6 +86,7 @@ const data = _.merge({}, defaultData, {
       relatedContentData: _.merge({}, defRelatedContentData.variants.amtNavigation.props, { relatedContentHeading: { anchorNavReference: 'ourtopics' } }),
       contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
       newsTeaserData: defNewsTeaserData,
+      footerData: defFooterData,
       focusTeaserData: _.merge({}, defFocusTeaserData, {
         focusTeaserHeader: {
           title: 'Schwerpunkte',

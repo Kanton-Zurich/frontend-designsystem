@@ -1,11 +1,25 @@
-<div class="mdl-search" data-init="search">
-  <label class="mdl-search__label" for="mdl-search__search">
-    <span>
-      <span class="mdl-search__label-text">Suche</span>
-      <svg class="icon mdl-search__icon">
-        <use xlink:href="#search"></use>
-      </svg>
-    </span>
-    <input type="search" id="mdl-search__search" name="mdl-search__search" class="mdl-search__search">
-  </label>
+<div class="mdl-search cv-monochrome" data-search-options="{{options}}" data-init="search">
+  <div class="mdl-search__head">
+    <svg class="icon mdl-search__icon">
+      <use xlink:href="#search"></use>
+    </svg>
+    <label class="visuallyhidden" for="query">Suchbegriff</label>
+    <input class="mdl-search__input atm-form_input" type="text" data-search="input" name="query" id="query" placeholder="Suchbegriff" autocomplete="new-password"/>
+  </div>
+  <div class="mdl-tag-group mdl-search__tag-group">
+    <h2 class="atm-heading">Meist gesucht</h2>
+    <ul class="mdl-tag-group__tags">
+      {{#each anchorlinks}}
+        <li>
+          {{> "atoms/anchorlink/anchorlink" this}}
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+
+  {{> "modules/content_nav/content_nav" contentNav}}
+
+  <script data-search="autosuggestTemplate" type="text/x-handlebars-template">
+      {{{ autosuggestTemplate }}}
+  </script>
 </div>

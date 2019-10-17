@@ -45,7 +45,7 @@ $contentNavGrid: (
 
       @each $bp, $gutterSize in $grid-margin-gutters {
         @include mq($from: $bp) {
-          border-width: 0 pxToRem($gutterSize) pxToRem($gutterSize) 0;
+          border-width: 0 pxToRem($gutterSize / 2) pxToRem($gutterSize / 2) 0;
         }
       }
     }

@@ -77,6 +77,14 @@ $unitLeftSpace: 62px;
       margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
     }
 
+    // Hide browser styles for autofilled inputs
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      box-shadow: 0 0 0 1000px $colorWhite inset;
+    }
+
     &[ type='number' ] {
       -moz-appearance: textfield; /* Firefox */ //stylelint-disable-line
     }
@@ -177,6 +185,7 @@ $unitLeftSpace: 62px;
     transition: transform 400ms, opacity 400ms, height 400ms ease-in-out;
     height: 0;
     opacity: 0;
+    word-break: break-word;
   }
 
   &__functionality {
@@ -185,6 +194,14 @@ $unitLeftSpace: 62px;
     top: pxToRem($sizeLarge);
     right: pxToRem($sizeSmallRegular);
     height: pxToRem($sizeLarge);
+
+    svg use {
+      fill: $colorBlack60;
+    }
+
+    &:hover svg use {
+      fill: $colorBlack;
+    }
   }
 
   &:not(.atm-form_input--floated) {
@@ -337,6 +354,7 @@ $unitLeftSpace: 62px;
       * DIRTY / FOCUS
       */
       &.dirty,
+      &:-webkit-autofill,
       &:focus {
         color: $colorBlack;
         padding-top: pxToRem(35px);
@@ -453,7 +471,6 @@ $unitLeftSpace: 62px;
       top: pxToRem($sizeSmallRegular);
 
       .icon {
-        transform: scale(0.59);
         position: relative;
         top: auto;
         right: auto;

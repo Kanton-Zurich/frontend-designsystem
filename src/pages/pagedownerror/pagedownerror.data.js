@@ -2,6 +2,7 @@ const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -36,6 +37,7 @@ const data = _.merge({}, defaultData, {
           address: 'info@zh.ch',
         },
       },
+      footerData: defFooterData,
     },
   },
 });

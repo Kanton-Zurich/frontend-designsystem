@@ -1,3 +1,6 @@
+$borderHeightSmall: 2px;
+$borderHeightNormal: 5px;
+
 $headerCurves: (
   height: (
     tiny: 48px,
@@ -10,19 +13,28 @@ $headerCurves: (
     medium: 77px
   ),
   borderHeight: (
-    tiny: 2px,
-    medium: 5px,
+    tiny: $borderHeightSmall,
+    medium: $borderHeightNormal,
   ),
 );
 
 .mdl-header {
   @include gridBleed($fullwidth: true);
   @include sizeCurve(padding-bottom, borderHeight, $headerCurves);
-
-  position: relative;
-
   @include transition(background);
 
+  position: relative;
+  z-index: $zIndexFlyouts;
+
+  &--fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: none;
+
+    transform: translateX(0);
+    margin-left: 0;
+  }
 
   &--open {
     position: fixed;
@@ -32,20 +44,9 @@ $headerCurves: (
     transform: none;
     left: 0;
 
-    z-index: $zIndexSkiplinks + 1;
+    z-index: $zIndexFlyouts + 1;
   }
 
-  &--fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    transition: none;
-
-    z-index: $zIndexSkiplinks + 1;
-    transform: translateX(0);
-    margin-left: 0;
-  }
 
   &__wrapper {
     &:after {
@@ -89,11 +90,90 @@ $headerCurves: (
     }
   }
 
-  /** Special design for header */
-  .mdl-search {
+  &__functions {
     position: absolute;
     right: 0;
+    bottom: 0;
     top: 0;
+    display: inline-flex;
+  }
+
+  &__search {
+    color: $colorBlack80;
+    font-weight: $fontWeightDefault;
+    font-size: $sizeFontMedium;
+
+    height: calc(100% - #{$borderHeightSmall});
+
+    background: rgba($colorWhite, 0.4);
+
+    svg use {
+      fill: $colorBlack80;
+    }
+
+    @include mq($from: medium) {
+      height: calc(100% - #{$borderHeightNormal});
+    }
+
+    &:hover {
+      background: rgba($colorWhite, 0.8);
+    }
+  }
+
+  @include mq($to: medium) {
+    .mdl-header__search {
+      padding: 0 pxToRem($sizeRegular);
+
+      .atm-button__text {
+        display: none;
+      }
+
+      .atm-button__text + .atm-button__icon {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.mdl-header--inverted {
+  background: $colorWhite;
+
+  .mdl-header__nav-item {
+    color: $colorBlack100;
+  }
+
+  .mdl-header__wrapper:after {
+    background: $colorBlack;
+  }
+
+  .mdl-header__functions {
+    color: $colorBlack60;
+
+    .icon {
+      fill: $colorBlack60;
+    }
+
+    .mdl-header__search {
+      background-color: $colorBlack10;
+    }
+  }
+
+  @include mq($to: medium) {
+    .mdl-user-menu {
+      background: $colorBlack10;
+    }
+  }
+  @include mq($from: medium) {
+    .mdl-user-menu {
+
+      &__trigger {
+        color: $colorBlack60;
+
+        .icon use {
+          fill: $colorBlack60;
+        }
+      }
+    }
   }
 }
 
@@ -112,6 +192,18 @@ $headerCurves: (
 
         .mdl-header__wrapper:after {
           background: $colorBlack;
+        }
+
+        .mdl-header__functions {
+          color: $colorBlack60;
+
+          .icon {
+            fill: $colorBlack60;
+          }
+
+          .mdl-header__search {
+            background-color: $colorBlack10;
+          }
         }
       }
     }

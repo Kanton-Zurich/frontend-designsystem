@@ -1,91 +1,84 @@
-$searchInputCurves: (
+$searchCurves: (
   height: (
     tiny: 48px,
     xsmall: 56px,
     medium: 72px
+  ),
+  headMarginBottom: (
+    tiny: $sizeBiggerBig,
+    medium: $sizeSmallLarge + $sizeBig,
+    xlarge: $sizeLarge + $sizeBiggerBig,
   )
 );
 
 .mdl-search {
-  position: relative;
-  display: flex;
-  float: left;
+  &__head {
+    position: relative;
 
-  align-items: center;
+    @include sizeCurve(margin-bottom, headMarginBottom, $searchCurves);
 
-  background: rgba($colorWhite, 0.4);
+    &:before {
+      position: absolute;
+      width: 100vw;
+      content: '';
 
-  @include transition(background);
-  @include sizeCurve(height, height, $searchInputCurves);
+      top: 100%;
+      left: 0;
 
-  &__label {
-    @include sizeCurve(line-height, nav, $lineHeightCurves, $pxToRem: false);
-    @include sizeCurve(padding-left padding-right, regular);
+      @include sizeCurve(height, borderHeight, $headerCurves);
 
-    display: block;
-    color: $colorBlack80;
-
-    @include transition(color);
-
-    > span {
-      position: relative;
-      z-index: 1;
-
-      display: flex;
-    }
-  }
-
-  &__label-text {
-    transform: translateY(1px);
-
-    @include mq($to: medium) {
-      @include visuallyhidden();
+      background: $colorBlack;
     }
   }
 
   &__icon {
-    margin-left: pxToRem($sizeFontSmall);
-
-    @include mq($to: medium) {
-      margin-left: 0;
-    }
-
-    use {
-      fill: $colorBlack80;
-    }
+    position: absolute;
+    left: pxToRem(-$sizeRegular);
+    top: 50%;
+    transform: translateX(-100%) translateY(-50%);
   }
 
-  &__search {
-    border: none;
-    padding: 0;
-    position: absolute;
-
+  &__input {
     width: 100%;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 0;
-    background: transparent;
-    color: $colorBlack80;
+    display: block;
+    border: none;
+
+    font-weight: $fontWeightBlack;
+
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
+    @include sizeCurve(height, height, $searchCurves);
 
     &:focus {
       outline: none;
     }
-  }
-}
 
-.cv-monochrome {
-  .mdl-search {
-    background: $colorBlack10;
-
-    &__label {
+    &::placeholder,
+    &::-ms-placeholder {
       color: $colorBlack60;
     }
+  }
 
-    &__icon {
-      use {
-        fill: $colorBlack60;
-      }
+  &__tag-group {
+    .mdl-search--hide-tags & {
+      display: none;
+    }
+  }
+
+  &__tag-group,
+  &__input,
+  &__icon {
+    opacity: 0;
+
+    @include transition(opacity);
+
+    .mdl-modal--opened & {
+      opacity: 1;
+    }
+  }
+
+  &__autosuggest {
+    .atm-content_teaser__title {
+      font-weight: $fontWeightDefault;
     }
   }
 }

@@ -40,7 +40,16 @@ class Inspector extends Helper {
             Inspector.triggerColorChangeOnElement(node);
           });
         });
-        Inspector.triggerVariantChangeOnElement(variantsInput[0]);
+
+        const moduleFilters = [].slice.call(document.querySelectorAll('.sg_filter-frame input'));
+        moduleFilters.forEach((input) => {
+          input.addEventListener('change', (event) => {
+            Inspector.triggerFilterChangeOnElement(<any>event.target);
+          });
+        });
+        if (variantsInput.length > 0) {
+          Inspector.triggerVariantChangeOnElement(variantsInput[0]);
+        }
       });
   }
 
@@ -90,6 +99,23 @@ class Inspector extends Helper {
     }
     // Sending event to all children who have to be redrawn
     (<any>window).estatico.helpers.sendRedrawEvent(panel);
+  }
+
+  public static triggerFilterChangeOnElement(node) {
+    const allModules = [].slice.call(document.querySelectorAll('li[data-label-index]'));
+    if (node.value === 'nofilter') {
+      allModules.forEach((li) => {
+        li.style.display = 'block';
+      });
+      return;
+    }
+    allModules.forEach((li) => {
+      li.style.display = 'none';
+    });
+    const selectedModules = [].slice.call(document.querySelectorAll(`li[data-label-index="${node.value}"]`));
+    selectedModules.forEach((li) => {
+      li.style.display = 'block';
+    });
   }
 
   /**
