@@ -88,6 +88,20 @@ const variants = _.mapValues({
       },
     },
   },
+  asTextLink: {
+    meta: {
+      title: 'Style Textlink',
+      desc: 'Kein Icon, text underlined',
+    },
+    props: {
+      helptext: 'Passwort vergessen?',
+      asTextLink: true,
+      bubble: {
+        text: 'Bitte kontaktieren Sie diese <a href="mailto:info@sk.zh.ch" target="_blank">Emailadresse</a> wenn Sie ein neues Passwort benötigen.',
+        id: _.uniqueId('aria-default'),
+      },
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

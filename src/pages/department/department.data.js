@@ -6,7 +6,7 @@ const topicListData = require('../../modules/topiclist/topiclist.data').props;
 const contactData = require('../../modules/contact/contact.data').variants.fullWidth.props;
 const teaserData = require('../../modules/teaser/teaser.data').variants.inverted.props;
 const defAboutData = require('../../modules/about/about.data').props;
-const headerData = require('../../modules/header/header.data').props;
+const headerData = require('../../modules/header/header.data').variants.userMenu.props;
 const newsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withProminentTeaser.props;
 
 const defAnchorNavData = {

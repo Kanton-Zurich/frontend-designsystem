@@ -42,6 +42,8 @@ import Back2top from '../../../modules/back2top/back2top';
 import Tooltip from '../../../modules/tooltip/tooltip';
 import FlexData from '../../../modules/flex_data/flex_data';
 import DrilldownSelect from '../../../modules/drilldown_select/drilldown_select';
+import UserMenu from '../../../modules/user_menu/user_menu';
+import CugLogin from '../../../modules/cug_login/cug_login';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -93,6 +95,8 @@ class App {
     this.modules.drilldownSelect = DrilldownSelect;
     this.modules.back2top = Back2top;
     this.modules.tooltip = Tooltip;
+    this.modules.userMenu = UserMenu;
+    this.modules.cugLogin = CugLogin;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

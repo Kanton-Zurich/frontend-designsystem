@@ -1,0 +1,157 @@
+.mdl-user-menu {
+  @include sizeCurve(height, height, $headerCurves); // Used variable from header module
+  position: relative;
+  display: inline-flex;
+  background-color: rgba(255, 255, 255, 0.4);
+  margin-right: $sizeMini;
+
+  &__trigger {
+    @include blankButton;
+    padding: 0 pxToRem($sizeSmallRegular);
+    display: none;
+    align-items: center;
+    color: $colorBlack80;
+
+    .icon use {
+      fill: $colorBlack80;
+    }
+  }
+
+  &--initialised {
+    .mdl-user-menu {
+      &__trigger {
+        display: inline-flex;
+      }
+    }
+  }
+
+  &__user,
+  &__user-short {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular)); // Used variable from header module
+    @include sizeCurve(line-height, nav, $lineHeightCurves, $pxToRem: false); // Used variable from header module
+    display: none;
+    color: inherit;
+  }
+
+  &__user {
+    padding: 0 pxToRem($sizeTiny) 0 pxToRem($sizeSmallRegular);
+  }
+
+  &__user-short {
+    padding: 0 pxToRem($sizeTiny);
+
+    & + .icon {
+      display: none;
+      transition: transform 200ms ease-out;
+      transform: rotate(0deg);
+    }
+  }
+
+  &.open {
+    border-radius: 2px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
+
+    .mdl-user-menu__user-short + .icon {
+      transform: rotate(180deg);
+      display: block;
+    }
+
+    .mdl-context_menu,
+    .mdl-user-menu__user {
+      display: block;
+    }
+
+    .mdl-user-menu__user-short {
+      display: none;
+    }
+
+    .mdl-user-menu__trigger {
+      z-index: 1001;
+      padding-bottom: 2px;
+      background-color: $colorWhite;
+      border-radius: 1px;
+      color: $colorBlack;
+
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: 2px;
+        left: 0;
+
+        width: 100%;
+        height: 1px;
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+
+      .icon use {
+        fill: $colorBlack;
+      }
+    }
+  }
+
+  /**
+  * Module overwrites
+  */
+  .atm-context_menu_item {
+    width: 100%;
+  }
+
+  .mdl-context_menu {
+    @include sizeCurve(top, height, $headerCurves);
+    left: 0;
+    display: none;
+    width: 100%;
+  }
+
+  /**
+  * Media queries
+  */
+  @include mq($from: xsmall) {
+    &__trigger {
+      padding: 0 pxToRem($sizeRegular);
+    }
+  }
+  @include mq($from: medium) {
+    background-color: transparent;
+
+    &__user-short,
+    &__user-short + .icon {
+      display: block;
+    }
+
+    &__trigger {
+      color: $colorWhite;
+
+      .icon use {
+        fill: $colorWhite;
+      }
+    }
+  }
+  @include mq($from: xlarge) {
+    &__user {
+      display: block;
+    }
+
+    &__user-short {
+      display: none;
+    }
+  }
+}
+
+.cv-monochrome {
+  .mdl-user-menu {
+    background: $colorBlack10;
+
+    &__trigger {
+      color: $colorBlack60;
+
+      .icon use {
+        fill: $colorBlack60;
+      }
+    }
+
+    @include mq($from: medium) {
+      background-color: transparent;
+    }
+  }
+}
