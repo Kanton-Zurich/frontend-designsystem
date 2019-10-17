@@ -50,6 +50,7 @@ const data = _.merge({}, defaultData, {
     title: 'CUG Login',
     className: 'CugLogin',
     jira: 'CZHDEV-538',
+    label: 'Formulare',
     documentation: dataHelper.getDocumentation('cug_login.md'),
   },
   props: {
