@@ -4,6 +4,7 @@ const dataHelper = require('@unic/estatico-data');
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.colored.props;
 const headerData = require('../../modules/header/header.data').props;
 const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withProminentTeaser.props;
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 
 const defPageHeaderCustomData = {
   pageTitle: 'Kanton Zürich',
@@ -121,6 +122,7 @@ const data = _.merge({}, defaultData, {
       contentNavData: defContentNavCustomData,
       contactData: defContactCustomData,
       newsTeaserData: defNewsTeaserData,
+      footerData: defFooterData,
     },
   },
 });

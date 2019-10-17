@@ -10,6 +10,7 @@ const data = _.merge({}, defaultData, {
     title: 'Subnavigation',
     className: 'Subnavigation',
     jira: 'CZHDEV-*',
+    label: 'Navigation',
     documentation: dataHelper.getDocumentation('subnavigation.md'),
   },
   props: {

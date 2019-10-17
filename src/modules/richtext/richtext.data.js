@@ -10,6 +10,7 @@ const data = _.merge({}, defaultData, {
     title: 'Text',
     className: 'Richtext',
     jira: 'CZHDEV-111',
+    label: 'Inhalt',
     documentation: dataHelper.getDocumentation('richtext.md'),
   },
   props: _.merge({

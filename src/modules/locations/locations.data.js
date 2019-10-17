@@ -5,47 +5,51 @@ const defaultData = require('../../data/default.data.js');
 const buttonDefaultData = require('../../atoms/button/button.data').variants.default.props;
 const textLinkDefaultData = require('../../atoms/text_link/text_link.data').variants.default.props;
 const inputClearButtonSmallWithIconData = require('../../atoms/form_input/form_input.data').variants.clearButtonSmallWithIcon.props;
+const mapViewDefaultData = require('../../modules/map_view/map_view.data').variants.default.props;
 const locationContactDefault = require('../../modules/contact/contact.data').variants.location.props;
+
+const locationsLatLng = [
+  { lat: 47.353611, lng: 8.512877 },
+  { lat: 47.444240, lng: 8.613319 },
+  { lat: 47.441567, lng: 8.461398 },
+  { lat: 47.515148, lng: 8.693981 },
+  { lat: 47.532225, lng: 8.527852 },
+  { lat: 47.271530, lng: 8.585463 },
+];
 
 const locationsAsListItemLinks = [
   {
     linkListItemIsLocation: true,
-    linkListItemDistance: '2,0 km',
     linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
     linkListItemLabel: 'Uetlibergstrasse 301, 8036 Zürich',
     additionalAttributes: 'data-locations="listItem"',
     linkListItemHref: false,
   }, {
     linkListItemIsLocation: true,
-    linkListItemDistance: '6,4 km',
     linkListItemTitle: 'Strassenverkehrsamt Bassersdorf',
     linkListItemLabel: 'Grindelstrasse 22, 8303 Bassersdorf',
     additionalAttributes: 'data-locations="listItem"',
     linkListItemHref: false,
   }, {
     linkListItemIsLocation: true,
-    linkListItemDistance: '6,7 km',
     linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Regensdorf',
     linkListItemLabel: 'Riedthofstrasse 192, 8105 Regensdorf',
     additionalAttributes: 'data-locations="listItem"',
     linkListItemHref: false,
   }, {
     linkListItemIsLocation: true,
-    linkListItemDistance: '7,5 km',
     linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
     linkListItemLabel: 'Taggenbergstrasse 1, 8408 Winterthur',
     additionalAttributes: 'data-locations="listItem"',
     linkListItemHref: false,
   }, {
     linkListItemIsLocation: true,
-    linkListItemDistance: '17,4 km',
     linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Bülach',
     linkListItemLabel: 'Schützenmatt Straße 120, 8180 Bülach',
-    domSelector: 'data-locations="listItem"',
+    additionalAttributes: 'data-locations="listItem"',
     linkListItemHref: false,
   }, {
     linkListItemIsLocation: true,
-    linkListItemDistance: '21,9 km',
     linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Schifffahrtskontrolle',
     linkListItemLabel: 'Seestrasse 87, 8942 Oberrieden',
     additionalAttributes: 'data-locations="listItem"',
@@ -110,6 +114,7 @@ const data = _.merge({}, defaultData, {
     title: 'Standorte',
     className: 'Locations',
     jira: 'CZHDEV-476',
+    label: 'Komplex',
     documentation: dataHelper.getDocumentation('locations.md'),
   },
   props: {
@@ -122,6 +127,7 @@ const data = _.merge({}, defaultData, {
       dataSelector: 'data-locations="input"',
     }),
     locationsList: {
+      hasIndex: true,
       hasTitle: false,
       links: [],
     },
@@ -147,6 +153,11 @@ const data = _.merge({}, defaultData, {
       additionalAttribute: 'data-locations="toggleList"',
     }),
     locationContacts: [],
+    mapData: _.merge({}, mapViewDefaultData, {
+      mapId: 'locations-map',
+      withUserLocate: true,
+      mapMarker: [],
+    }),
   },
 });
 const variants = _.mapValues({
@@ -157,9 +168,13 @@ const variants = _.mapValues({
     },
     props: {
       locationsList: {
+        hasIndex: true,
         links: locationsAsListItemLinks,
       },
       locationContacts: locationsAsContacts,
+      mapData: {
+        mapMarker: locationsLatLng,
+      },
     },
   },
   singleLocation: {
@@ -169,9 +184,13 @@ const variants = _.mapValues({
     },
     props: {
       locationsList: {
+        hasIndex: true,
         links: [locationsAsListItemLinks[0]],
       },
       locationContacts: [locationsAsContacts[0]],
+      mapData: {
+        mapMarker: [locationsLatLng[0]],
+      },
     },
   },
 }, (variant) => {
@@ -180,7 +199,6 @@ const variants = _.mapValues({
   const variantData = _.merge({}, data, variant, {
     meta: {
       demo: compiledVariant,
-
       code: {
         handlebars: dataHelper.getFormattedHandlebars(template),
         html: dataHelper.getFormattedHtml(compiledVariant()),

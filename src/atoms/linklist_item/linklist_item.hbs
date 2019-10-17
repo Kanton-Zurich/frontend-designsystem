@@ -21,16 +21,14 @@
   {{#if subtitle}}<span class="atm-linklist_item__text-subtitle">{{subtitle}}</span>{{/if}}
   {{#unless linkListItemIsDownload}}
     {{#if linkListItemIsLocation}}
-      {{#if linkListItemDistance}}
         <div class="atm-linklist_item__distancearrow">
           <div class="atm-linklist_item__distance">
-              {{ linkListItemDistance }}
+            {{#if linkListItemDistance}} {{ linkListItemDistance }}{{/if}}
           </div>
           <svg class="icon atm-linklist_item__arrow">
               <use xlink:href="#arrow-right"></use>
           </svg>
         </div>
-      {{/if}}
     {{else}}
       <svg class="icon atm-linklist_item__arrow">
         <use xlink:href="{{#unless chevron}}#arrow-right{{/unless}}{{#if chevron}}#angle_drop_down{{/if}}"></use>

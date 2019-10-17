@@ -16,6 +16,7 @@ const data = _.merge({}, defaultData, {
     title: 'Seitenkopf',
     className: 'PageHeader',
     jira: 'CZHDEV-395',
+    label: 'Layout',
     documentation: dataHelper.getDocumentation('page_header.md'),
   },
   props: {
@@ -316,6 +317,20 @@ const variants = _.mapValues({
       noText: true,
       minimal: true,
       hasCloseButton: true,
+    },
+  },
+  steuerBuch: {
+    meta: {
+      title: 'Flex Data (Steuerbuch) (CZHDEV-1234)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+      defaultColorVariation: 'cv-darkblue',
+    },
+    props: {
+      pageTitle: 'ZStB-Nr. 3.1',
+      inverted: true,
+      hasBacklink: true,
+      leadText: 'Steuerliche Zugehörigkeit',
     },
   },
   error404: {

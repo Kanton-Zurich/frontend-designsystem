@@ -15,6 +15,7 @@
              value="{{{ this.value }}}" placeholder="{{{ this.label }}}"
              data-select-option
              {{#if preSelected}} checked{{/if}}
+             {{#if filterId }}data-filter-id="{{filterId}}"{{/if}}
              {{#if ../validation}}data-validation{{/if}}
              {{#if ../validation.isRequired}}required{{/if}}>
 

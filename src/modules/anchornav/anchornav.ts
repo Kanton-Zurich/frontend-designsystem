@@ -361,6 +361,8 @@ class Anchornav extends Module {
     const scrollSpace = this.getScrollWidth();
     const pinPos = this.navigationPositionY;
 
+    this.log(pinPos);
+
     if (this.placeholder === undefined) {
       this.createPlaceholder();
     }
@@ -535,17 +537,7 @@ class Anchornav extends Module {
   }
 
   calcHeight() {
-    // Style definition from figma layout
-    const smallMargin = 40;
-    const bigMargin = 56;
-    let marginBottom;
-
-    if (window.innerWidth > this.mediumBreakpoint) {
-      marginBottom = bigMargin;
-    } else {
-      marginBottom = smallMargin;
-    }
-    this.placeholder.style.height = `${(this.ui.element.getBoundingClientRect().height + marginBottom)}px`;
+    this.placeholder.style.height = `${(this.ui.element.getBoundingClientRect().height)}px`;
     this.placeholder.style.display = 'none';
   }
 

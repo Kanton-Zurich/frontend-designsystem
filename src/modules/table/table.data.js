@@ -11,6 +11,7 @@ const data = _.merge({}, defaultData, {
     title: 'Tabelle',
     className: 'Table',
     jira: 'CZHDEV-121',
+    label: 'Inhalt',
     documentation: dataHelper.getDocumentation('table.md'),
   },
   props: {
@@ -569,6 +570,62 @@ const variants = _.mapValues({
         },
         {
           data: ['4', 'Ice Age 2', 'USA', '187757'],
+        },
+      ],
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Quelle: Pro Cinema',
+      }),
+    },
+  },
+  flexData: {
+    meta: {
+      title: 'Volle Breite statisch (Flexdata CZHDEV-1234)',
+      desc: '',
+    },
+    props: {
+      tableTitle: 'Steuerbuch',
+      isWide: true,
+      isStatic: true,
+      preSortedColumn: 'zstb_nr',
+      preSortedDirection: 'asc',
+      headers: [
+        {
+          title: 'ZStB-Nr.',
+          dataColumnName: 'zstb_nr',
+          isSortable: 'enum',
+        },
+        {
+          title: 'Kurztitel',
+          dataColumnName: 'short',
+          isSortable: 'alpha',
+        },
+        {
+          title: 'Themenbereich',
+          dataColumnName: 'topic',
+          isSortable: 'alpha',
+        },
+        {
+          isSortable: false,
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['3.1', 'Steuerliche Zugehörigkeit', 'Natürliche Personen', '<a class="atm-text_link" href="#">Details</a>'],
+        },
+        {
+          data: ['800.1', 'Internationale Steuerausscheidung Betriebe/Vermögen', 'Natürliche Personen', '<a class="atm-text_link" href="#">Details</a>'],
+        },
+        {
+          data: ['106.3', 'Einleitung des Nachsteuer- und Bussenverfahrens durch die DAIE', 'Verfahrensrecht', '<a class="atm-text_link" href="#">Details</a>'],
+        },
+        {
+          data: ['109a.1', 'Ablieferung Steuererklärungen/Wertschriftenverzeichnisse', 'Verfahrensrecht', '<a class="atm-text_link" href="#">Details</a>'],
+        },
+        {
+          data: ['51.2', 'Änderung der Besteuerungsgrundlagen während der Steuerperiode im interkantonalen Verhältnis', 'Natürliche Personen', '<a class="atm-text_link" href="#">Details</a>'],
+        },
+        {
+          data: ['234.1', 'Verletzung von Verfahrenspflichten', 'Verfahrensrecht', '<a class="atm-text_link" href="#">Details</a>'],
         },
       ],
       caption: _.merge({}, defFigcaptionData, {

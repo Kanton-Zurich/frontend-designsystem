@@ -3,6 +3,8 @@ import wrist from 'wrist';
 import { debounce } from 'lodash';
 import DuplicationElement from './duplication.class';
 import ZipCity from './zipCity';
+import FormRules from './formrules.class';
+import FileUpload from '../../../modules/file_upload/file_upload';
 
 import namespace from './namespace';
 
@@ -21,6 +23,7 @@ class Form {
     duplicateSelector: string,
     selectOptionSelector: string,
     inputSelector: string,
+    rulesSelector: string,
   }
 
   private eventDelegate: any;
@@ -46,6 +49,7 @@ class Form {
       messageSelector: '[data-message]',
       selectOptionSelector: 'data-select-option',
       inputSelector: '[data-input]',
+      rulesSelector: '[data-rules]',
       messageClasses: {
         show: 'show',
       },
@@ -63,6 +67,9 @@ class Form {
     // Initialize duplication elements
     this.initDuplicationElements();
     this.initZipCity();
+
+    // Initialize rules
+    this.initRules();
   }
 
   addEventListeners() {
@@ -71,11 +78,19 @@ class Form {
       this.validateField(field);
     }, this.options.validateDelay));
     this.eventDelegate.on('blur', this.options.watchEmitters.input, (event, field) => {
-      if (field.type !== 'file') this.validateField(field);
+      if (field.type !== 'file' && field.type !== 'radio') this.validateField(field);
+    });
+    this.ui.element.querySelectorAll(this.options.watchEmitters.input).forEach((input) => {
+      input.addEventListener('validateDeferred', (event) => {
+        this.validateField(event.detail.field);
+      });
     });
     this.eventDelegate.on('validateSection', this.validateSection.bind(this));
     this.eventDelegate.on('showFieldInvalid', (event) => {
       this.setValidClasses(event.detail.field, ['add', 'remove']);
+    });
+    this.eventDelegate.on(FileUpload.events.duplicated, (event) => {
+      this.addWatchers(event.detail);
     });
   }
 
@@ -190,8 +205,10 @@ class Form {
         errorField.classList[functionArray[1]](this.options.inputClasses.valid);
         break;
       default:
-        errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
-        errorField.classList[functionArray[1]](this.options.inputClasses.valid);
+        if (field.value.length > 0 || field.hasAttribute('required')) {
+          errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
+          errorField.classList[functionArray[1]](this.options.inputClasses.valid);
+        }
     }
   }
 
@@ -230,6 +247,15 @@ class Form {
       const $cityField = this.ui.element.querySelector(`[name="${fillName}"]`);
 
       new ZipCity($zipField, $cityField);
+    });
+  }
+
+
+  initRules() {
+    const rulesElements = this.ui.element.querySelectorAll(this.options.rulesSelector);
+
+    rulesElements.forEach(($elementWithARule) => {
+      new FormRules($elementWithARule);
     });
   }
 }

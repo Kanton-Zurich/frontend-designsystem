@@ -11,6 +11,10 @@
   color: $colorBlack60;
   text-decoration: none;
 
+  .bold {
+    font-weight: $fontWeightBlack;
+  }
+
   &:after {
     content: '';
     display: block;
@@ -27,7 +31,8 @@
     transform: scaleY(1);
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: $colorBlack100;
 
     &:after {

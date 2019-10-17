@@ -1,0 +1,172 @@
+$mapViewMarkerWidth: 30px;
+$mapViewMarkerHeight: 38px;
+$mapViewSelectedMarkerWidth: 48px;
+$mapViewSelectedMarkerHeight: 59px;
+
+.mdl-map_view_markericon {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.mdl-map_view {
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  &__container {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__marker {
+    &:after {
+      @extend .mdl-map_view_markericon;
+      height: pxToRem($mapViewMarkerHeight);
+      width: pxToRem($mapViewMarkerWidth);
+      left: pxToRem(-$mapViewMarkerWidth / 2);
+    }
+  }
+
+  &__marker_highlight {
+    &:after {
+      @extend .mdl-map_view_markericon;
+      height: pxToRem($mapViewMarkerHeight);
+      width: pxToRem($mapViewMarkerWidth);
+      left: pxToRem(-$mapViewMarkerWidth / 2);
+      background-image: url(svg-mapmarker($colorBlack));  // stylelint-disable-line
+    }
+  }
+
+  &__marker_selected {
+    &:after {
+      @extend .mdl-map_view_markericon;
+      left: pxToRem(-$mapViewSelectedMarkerWidth / 2);
+      height: pxToRem($mapViewSelectedMarkerHeight);
+      width: pxToRem($mapViewSelectedMarkerWidth);
+      background-image: url(svg-mapmarker($colorBlack));  // stylelint-disable-line
+    }
+  }
+
+  &__clustericon {
+    position: absolute;
+    left: pxToRem(-$sizeBiggerBig / 2);
+    top: pxToRem(-$sizeBiggerBig / 2);
+    width: pxToRem($sizeBiggerBig);
+    height: pxToRem($sizeBiggerBig);
+    background-color: $colorWhite;
+    border: pxToRem(2) solid;
+    border-radius: 50%;
+    text-align: center;
+    line-height: pxToRem($sizeBiggerBig - 5);
+    font-weight: $fontWeightBlack;
+    font-size: pxToRem($sizeFontMedium);
+
+    &:hover {
+      color: $colorBlack;
+      border-color: $colorBlack;
+    }
+  }
+
+  $userPosMarkerOuterW: $sizeBig;
+  $userPosMarkerInnerW: $sizeRegular;
+  $userPosMarkerInnerRing: 1px;
+
+  &__userposition {
+    &:before {
+      content: '';
+      position: absolute;
+      height: pxToRem($userPosMarkerOuterW);
+      width: pxToRem($userPosMarkerOuterW);
+      left: pxToRem(-$userPosMarkerOuterW / 2);
+      top: pxToRem(-$userPosMarkerOuterW / 2);
+      background-color: rgba($colorCyan, 0.25);
+      border-radius: 50%;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      height: pxToRem($userPosMarkerInnerW - $userPosMarkerInnerRing);
+      width: pxToRem($userPosMarkerInnerW - $userPosMarkerInnerRing);
+      left: pxToRem(-($userPosMarkerInnerW + $userPosMarkerInnerRing)/ 2);
+      top: pxToRem(-($userPosMarkerInnerW + $userPosMarkerInnerRing)/ 2);
+      background-color: rgba($colorCyan, 0.99);
+      border: $userPosMarkerInnerRing solid $colorWhite;
+      border-radius: 50%;
+    }
+  }
+
+  &__controls {
+    position: absolute;
+    bottom: pxToRem($sizeTiny);
+    right: pxToRem($sizeTiny);
+    z-index: 10000;
+
+    button + button {
+      margin-top: pxToRem($sizeMini / 2);
+    }
+
+    button.disabled {
+      pointer-events: none;
+      cursor: not-allowed;
+      background: $colorBlack5;
+
+      .atm-button__icon use {
+        fill: $colorBlack20;
+      }
+    }
+  }
+
+  &__directions-link {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 800ms ease-out;
+
+    &.visible {
+      z-index: 10000;
+      opacity: 1;
+    }
+
+    .atm-button {
+      padding: 1px pxToRem(18) 0;
+
+      &__text {
+        font-weight: $fontWeightDefault;
+      }
+    }
+
+    .icon {
+      width: pxToRem(18);
+      height: pxToRem(18);
+    }
+  }
+}
+
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-map_view__marker:after {
+      background-image: url(svg-mapmarker($val));  // stylelint-disable-line
+    }
+
+    .mdl-map_view__clustericon:not(:hover) {
+      color: $val;
+      border-color: $val;
+    }
+
+    .mdl-map_view--single-item {
+      .mdl-map_view__marker_selected {
+        &:after {
+          background-image: url(svg-mapmarker($val));  // stylelint-disable-line
+        }
+      }
+    }
+  }
+}

@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Link-Liste',
     className: 'Linklist',
     jira: 'CZHDEV-187',
+    label: 'Liste',
     documentation: dataHelper.getDocumentation('linklist.md'),
   },
   props: {
@@ -76,6 +77,7 @@ const variants = _.mapValues({
     },
     props: {
       hasTitle: false,
+      hasIndex: true,
       links: [
         {
           linkListItemIsLocation: true,

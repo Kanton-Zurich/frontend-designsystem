@@ -1,0 +1,178 @@
+.mdl-footer {
+  $footerCurves: (
+    headingBottomMargin: (
+      tiny: $sizeFontLarge,
+      medium: $sizeBig,
+    ),
+    menuBottomMargin: (
+      tiny: $sizeFontLarge,
+      medium: $sizeSmallRegular,
+    ),
+    submenuBottomMargin: (
+      tiny: $sizeRegular,
+      medium: $sizeSmallLarge,
+      large: 0,
+    ),
+    headingMaintenanceBottomMargin: (
+      tiny: $sizeTiny,
+      medium: $sizeSmallRegular,
+    ),
+    submenuMaintenanceBottomMargin: (
+      tiny: $sizeLarge,
+      medium: 0,
+    ),
+  );
+
+  @include gridBleed($fullwidth: true);
+  background-color: $colorBlack80;
+
+  &__content {
+    position: relative;
+    padding: pxToRem($sizeHuge) 0;
+  }
+
+  &__title.atm-heading {
+    @include sizeCurve('margin-bottom', headingBottomMargin, $footerCurves);
+  }
+
+  &__title.atm-heading,
+  &__social-media .atm-heading {
+    padding-top: 0;
+  }
+
+  &__menu,
+  &__submenu {
+    @include resetList;
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+      margin-right: pxToRem($sizeSmallRegular);
+    }
+  }
+
+  &__title,
+  &__menu .atm-anchorlink {
+    color: $colorWhite;
+  }
+
+  &__menu {
+    @include sizeCurve('margin-bottom', menuBottomMargin, $footerCurves);
+
+    a {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      font-weight: $fontWeightBlack;
+      color: $colorWhite;
+
+      &:hover {
+        color: $colorWhite;
+        opacity: 0.7;
+      }
+    }
+  }
+
+  &__menu a,
+  &__submenu p,
+  &__submenu a {
+    white-space: nowrap;
+  }
+
+  &__menu a,
+  &__submenu a {
+    text-decoration: none;
+  }
+
+  &__submenu {
+    @include sizeCurve('margin-bottom', submenuBottomMargin, $footerCurves);
+    color: $colorBlack40;
+
+    p {
+      font-weight: $fontWeightQuote;
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+      font-weight: $fontWeightDefault;
+
+
+      &:hover {
+        color: $colorWhite;
+      }
+    }
+
+    p,
+    a {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+      display: inline-flex;
+    }
+  }
+
+  &__social-media {
+    .mdl-social-media-links {
+      padding: 0;
+    }
+
+    .mdl-social-media-links__item:last-of-type {
+      margin-right: 0;
+    }
+
+    .atm-heading {
+      padding-top: 0;
+      color: $colorBlack40;
+    }
+
+    .atm-button {
+      background: $colorBlack40;
+
+      &:hover {
+        background: $colorWhite;
+      }
+    }
+  }
+
+  &--maintenance {
+    .mdl-footer__content {
+      padding: pxToRem($sizeHuge) 0;
+    }
+
+    .mdl-footer__title.atm-heading {
+      @include sizeCurve('margin-bottom', headingMaintenanceBottomMargin, $footerCurves);
+    }
+
+    .mdl-footer__submenu {
+      @include sizeCurve('margin-bottom', submenuMaintenanceBottomMargin, $footerCurves);
+    }
+  }
+
+  @include mq($from: small) {
+    &__menu,
+    &__submenu {
+      li {
+        margin-right: pxToRem($sizeSmallLarge);
+      }
+    }
+  }
+  @include mq($from: medium) {
+    &--maintenance {
+      .mdl-footer__social-media {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        bottom: auto;
+        transform: translateY(-50%);
+      }
+    }
+  }
+  @include mq($from: large) {
+    &__content {
+      padding: pxToRem($sizeHuge) 0 pxToRem($sizeGiant);
+    }
+
+    &__social-media {
+      position: absolute;
+      bottom: pxToRem($sizeHuge);
+      right: 0;
+    }
+  }
+}

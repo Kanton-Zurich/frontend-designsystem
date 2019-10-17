@@ -2,6 +2,16 @@
   display: flex;
   justify-content: flex-end;
 
+  &--fullwidth {
+    @include gridBleed($fullwidth: true);
+    display: block;
+
+    .lyt-wrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
   &__input {
     width: pxToRem($sizeSmallHuge);
 

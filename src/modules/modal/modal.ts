@@ -9,10 +9,8 @@ import WindowEventListener from '../../assets/js/helpers/events';
 
 class Modal extends Module {
   private parentScrollPosition: number;
-  private closeOnEscapeFunction: any;
   private hasCloseBtn: boolean;
   private headerHeight: number;
-  public scrollThreshold: number;
   private isolatedElements: HTMLElement[];
 
   public options: {
@@ -20,11 +18,17 @@ class Modal extends Module {
     stateClasses: any,
     transitionTime: number,
     hasDynamicHeader: boolean,
-    isSPA: false,
-    isNav: false,
+    isSPA: boolean,
+    isNav: boolean,
+    isSearch: boolean,
     childSelectors: any,
     scrollThreshold: number,
   };
+
+  public ui: {
+    element: HTMLDivElement,
+    initiable: NodeListOf<HTMLElement>,
+  }
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
@@ -34,6 +38,8 @@ class Modal extends Module {
         pageHeader: '.mdl-page-header',
         closeButton: '.mdl-page-header__closebutton',
         close: '[data-modal="close"]',
+        focusable: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        initiable: '[data-init]',
       },
       stateClasses: {
         beforeShow: 'mdl-modal--before-show',
@@ -46,6 +52,8 @@ class Modal extends Module {
         noTransitionShow: 'mdl-modal--no-transition-show',
         beforeSwitchRight: 'mdl-modal--before-switch-right',
         switchRight: 'mdl-modal--switch-right',
+        search: 'mdl-modal--search',
+        opened: 'mdl-modal--opened',
       },
       childSelectors: {
         nav: '.mdl-topiclist--nav',
@@ -54,6 +62,7 @@ class Modal extends Module {
       hasDynamicHeader: false,
       isSPA: false,
       isNav: false,
+      isSearch: false,
       scrollThreshold: 75,
     };
 
@@ -61,7 +70,7 @@ class Modal extends Module {
 
     this.isolatedElements = [];
 
-    this.initUi();
+    this.initUi(['initiable']);
     this.initContent();
     this.initVariations();
     this.initEventListeners();
@@ -72,6 +81,8 @@ class Modal extends Module {
       openModal: 'Modal.open',
       initContent: 'Modal.initContent',
       closeModal: 'Modal.close',
+      display: 'Modal.display',
+      closed: 'Modal.closed',
     };
   }
 
@@ -84,6 +95,7 @@ class Modal extends Module {
 
     this.options.isSPA = this.ui.element.querySelector(this.options.childSelectors.spa);
     this.options.isNav = this.ui.element.querySelector(this.options.childSelectors.nav);
+    this.options.isSearch = this.ui.element.classList.contains(this.options.stateClasses.search);
   }
 
   /**
@@ -107,15 +119,17 @@ class Modal extends Module {
     (<any>window).estatico.helpers.bodyElement.appendChild(this.ui.element);
     this.eventDelegate.on('Modal.switchLeft', this.switchLeft.bind(this));
     this.eventDelegate.on('Modal.switchRight', this.switchRight.bind(this));
-
-    window.addEventListener('keydown', this.closeOnEscape.bind(this));
+    this.ui.element.addEventListener('keydown', this.closeOnEscape.bind(this));
   }
 
+  /**
+   * Initialize sub modules to make them functional
+   */
   initContent() {
     const closeButton = this.ui.element.querySelector(this.options.domSelectors.closeButton);
     if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
       this.ui.element.addEventListener('scroll', (event) => {
-        this.updateOnScroll(event.target.scrollTop);
+        this.updateOnScroll((<HTMLElement>event.target).scrollTop);
       });
     }
     if (closeButton) {
@@ -124,6 +138,10 @@ class Modal extends Module {
     }
   }
 
+  /**
+   * Update on scroll event
+   * @param scrollTop
+   */
   updateOnScroll(scrollTop) {
     const pageHeader = this.ui.element.querySelector(this.options.domSelectors.pageHeader);
 
@@ -136,6 +154,9 @@ class Modal extends Module {
     }
   }
 
+  /**
+   * Update sizing of the header and content
+   */
   updateSizing() {
     const pageHeader = this.ui.element.querySelector(this.options.domSelectors.pageHeader);
     if (pageHeader) {
@@ -158,7 +179,7 @@ class Modal extends Module {
   }
 
   /**
-   * opens the modal
+   * Open the modal and isolate content
    */
   openModal() {
     // isolate modal
@@ -178,13 +199,15 @@ class Modal extends Module {
     document.documentElement.style.overflowY = 'hidden';
 
     // Accessibility features
-    (<any>window).estatico.helpers.wrapAccessibility(this.ui.element);
     (<any>window).estatico.helpers.setHiddenTabIndex(this.ui.element);
-
-    // Set parent scrollPosition
     this.parentScrollPosition = document.documentElement.scrollTop;
-
-    // delayed opacity animation
+    // delayed opacity animation and focus handling
+    setTimeout(() => {
+      const focusable = this.ui.element.querySelectorAll(this.options.domSelectors.focusable);
+      if (focusable.length > 0) {
+        focusable[0].focus();
+      }
+    }, 1);
     this.ui.element.focus();
     this.ui.element.scrollTop = 0;
 
@@ -192,48 +215,53 @@ class Modal extends Module {
     if (this.options.hasDynamicHeader) {
       this.updateOnScroll(0);
     }
-
     this.updateSizing();
-
     (<any>WindowEventListener).addDebouncedResizeListener(this.updateSizing.bind(this));
-
     // If there is the navigation topic list a child, then load the navigation
-    if (this.options.isNav) {
-      this.ui.element.querySelector(this.options.childSelectors.nav).dispatchEvent(new CustomEvent('loadNavigation'));
+    if (this.ui.initiable.length > 0) {
+      this.ui.initiable.forEach((target) => {
+        target.dispatchEvent(new CustomEvent(Modal.events.display));
+      });
     }
 
     // reload Single page Applications scripts in case of asynchronous loading
     if (this.options.isSPA) {
       this.ui.element.querySelector(this.options.childSelectors.spa).dispatchEvent(new CustomEvent('Application.initScripts'));
     }
+
+    this.log(this.options.transitionTime);
+
+    setTimeout(() => {
+      this.ui.element.classList.add(this.options.stateClasses.opened);
+    }, this.options.transitionTime);
   }
 
   /** Closes the modal */
   closeModal() {
     const multiplier = 2;
-
-    // Accessibility integrate the isolated
     this.isolatedElements.forEach((element) => {
       element.removeAttribute('aria-hidden');
     });
-
     this.ui.element.classList.add(this.options.stateClasses.beforeHide);
-
     document.documentElement.style.overflowY = 'auto';
+    this.ui.element.setAttribute('aria-hidden', 'true');
 
-
-    // Modal.closed, should only fire after the timeout
-
-    // After the animation we can set the modal to display: none
     setTimeout(() => {
       this.ui.element.classList.add(this.options.stateClasses.hide);
+      (<any>window).estatico.helpers.resetHiddenTabIndex();
+      const focusOrigin = document.querySelector(`[aria-controls="${this.ui.element.getAttribute('id')}"]`);
+      if (focusOrigin) {
+        (<any> focusOrigin).focus();
+      }
+
+      this.ui.element.classList.remove(this.options.stateClasses.opened);
     }, this.options.transitionTime);
     setTimeout(() => {
       this.ui.element.classList.remove(this.options.stateClasses.beforeShow);
       this.ui.element.classList.remove(this.options.stateClasses.beforeHide);
       this.ui.element.classList.remove(this.options.stateClasses.hide);
       this.ui.element.classList.remove(this.options.stateClasses.show);
-      window.dispatchEvent(new CustomEvent('Modal.closed'));
+      window.dispatchEvent(new CustomEvent(Modal.events.closed));
     }, this.options.transitionTime * multiplier);
   }
 

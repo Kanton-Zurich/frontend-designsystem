@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Gelabelte Liste',
     className: 'Descriptionlist',
     jira: 'CZHDEV-*',
+    label: 'Liste',
     documentation: dataHelper.getDocumentation('descriptionlist.md'),
   },
   props: {
@@ -39,6 +40,41 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+  },
+  twoColumns: {
+    meta: {
+      title: 'Zwei Spalten',
+      desc: '',
+    },
+    props: {
+      twoColumns: true,
+      descriptionListItems: [
+        {
+          item: {
+            term: 'Label 1',
+            description: 'Value 1',
+          },
+        },
+        {
+          item: {
+            term: 'Label 2',
+            description: 'Value 2',
+          },
+        },
+        {
+          item: {
+            term: 'Label 3',
+            description: 'Value 3',
+          },
+        },
+        {
+          item: {
+            term: 'Label 4',
+            description: 'Value 4',
+          },
+        },
+      ],
     },
   },
 }, (variant) => {

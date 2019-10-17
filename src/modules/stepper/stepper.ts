@@ -21,12 +21,15 @@ class Stepper extends Module {
     steps: any,
     back: HTMLButtonElement,
     next: HTMLButtonElement,
-    wrapper: HTMLFormElement,
+    wrapper: HTMLDivElement,
+    form: HTMLFormElement,
     send: HTMLButtonElement,
     control: HTMLDivElement,
     navigation: HTMLOListElement,
     notificationTemplate: HTMLScriptElement,
     messageWrapper: HTMLDivElement,
+    rules: NodeListOf<HTMLDivElement>,
+    lastpage: HTMLDivElement,
   }
 
   public options: {
@@ -52,6 +55,9 @@ class Stepper extends Module {
         navigation: '[data-init="stepperNavigation"]',
         notificationTemplate: '[data-stepper="notificationTemplate"]',
         messageWrapper: '[data-stepper="messageWrapper"]',
+        rules: '[data-rules]',
+        form: '[data-stepper="form"]',
+        lastpage: '[data-stepper="lastpage"]',
       },
       stateClasses: {
         hiddenStep: 'mdl-stepper__step--hidden',
@@ -59,6 +65,8 @@ class Stepper extends Module {
         transitionRight: 'mdl-stepper__step--transition-right',
         transitionOut: 'mdl-stepper__step--transition-out',
         initialised: 'mdl-stepper--initialised',
+        onLastPage: 'mdl-stepper--last-page',
+        success: 'mdl-stepper--success',
       },
     };
 
@@ -75,7 +83,8 @@ class Stepper extends Module {
     this.setButtonVisibility();
 
     if (this.ui.navigation) {
-      new StepperNavigation(this.ui.navigation, { active: this.data.active }, {});
+      new StepperNavigation(this.ui.navigation,
+        { active: this.data.active, steps: this.ui.steps }, {});
     }
 
     this.ui.element.classList.add(this.options.stateClasses.initialised);
@@ -94,9 +103,21 @@ class Stepper extends Module {
    */
   initEventListeners() {
     this.eventDelegate.on('click', this.options.domSelectors.next, () => {
-      this.changePage(this.data.active + 1);
+      let newPageIndex = this.data.active + 1;
+
+      while (this.ui.steps[newPageIndex].getAttribute('data-enabled') === 'false') {
+        newPageIndex += 1;
+      }
+
+      this.changePage(newPageIndex);
     });
     this.eventDelegate.on('click', this.options.domSelectors.back, () => {
+      let newPageIndex = this.data.active - 1;
+
+      while (this.ui.steps[newPageIndex].getAttribute('data-enabled') === 'false') {
+        newPageIndex -= 1;
+      }
+
       this.changePage(this.data.active - 1);
     });
     this.eventDelegate.on('click', this.options.domSelectors.send, this.sendForm.bind(this));
@@ -132,8 +153,7 @@ class Stepper extends Module {
     this.ui.steps[newValue].classList.remove(this.options.stateClasses.hiddenStep);
 
     this.setButtonVisibility();
-    this.setOnPageChangeFocus();
-    this.deactiveSteps();
+    this.deactiveSteps(newValue);
 
     if (this.ui.navigation) {
       this.ui.navigation.dispatchEvent(new CustomEvent(Stepper.events.stepChange, {
@@ -142,6 +162,10 @@ class Stepper extends Module {
         },
       }));
     }
+
+    setTimeout(() => {
+      this.setOnPageChangeFocus();
+    }, 0);
   }
 
   /**
@@ -149,9 +173,9 @@ class Stepper extends Module {
    *
    * @memberof Stepper
    */
-  deactiveSteps() {
+  deactiveSteps(newStepIndex: number = 0) {
     this.ui.steps.forEach((step, index) => {
-      if (index !== this.data.active) {
+      if (index !== newStepIndex) {
         step.classList.add(this.options.stateClasses.hiddenStep);
       }
     });
@@ -163,29 +187,46 @@ class Stepper extends Module {
    * @memberof Stepper
    */
   setButtonVisibility() {
-    if (this.ui.back) {
-      if (this.data.active === 0) {
-        this.ui.back.removeAttribute('style');
-      } else {
-        this.ui.back.style.display = 'block';
-      }
-    }
-
-    if (this.ui.next && this.ui.send) {
-      // If the second to last page
-      if (this.data.active + 1 === this.ui.steps.length - 1) {
-        this.ui.next.style.display = 'none';
-        this.ui.send.style.display = 'block';
-      } else {
-        this.ui.next.style.display = 'block';
-        this.ui.send.style.display = 'none';
-      }
-    }
-
     // If the last page show no buttons
     if (this.data.active === this.ui.steps.length - 1) {
       this.ui.control.style.display = 'none';
+
+      this.ui.element.classList.add(this.options.stateClasses.success);
+      this.ui.element.classList.remove(this.options.stateClasses.onLastPage);
+    } else {
+      if (this.ui.back) {
+        if (this.data.active === 0) {
+          this.ui.back.removeAttribute('style');
+        } else {
+          this.ui.back.style.display = 'block';
+        }
+      }
+
+      if (this.ui.next && this.ui.send) {
+        // If the next page which is not disabled, the last page
+        if (this.nextStepIsLast()) {
+          this.ui.next.style.display = 'none';
+          this.ui.send.style.display = 'block';
+
+          this.ui.element.classList.add(this.options.stateClasses.onLastPage);
+        } else {
+          this.ui.next.style.display = 'block';
+          this.ui.send.style.display = 'none';
+
+          this.ui.element.classList.remove(this.options.stateClasses.onLastPage);
+        }
+      }
     }
+  }
+
+  nextStepIsLast() {
+    let nextStep = this.data.active + 1;
+
+    while (this.ui.steps[nextStep].getAttribute('data-enabled') === 'false') {
+      nextStep += 1;
+    }
+
+    return nextStep === this.ui.steps.length - 1;
   }
 
   /**
@@ -212,18 +253,26 @@ class Stepper extends Module {
   validateSection() {
     const section = this.ui.steps[this.data.active].querySelector('section');
 
-    this.ui.wrapper.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
+    this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
       detail: {
         section,
       },
     }));
+
+    if (this.nextStepIsLast()) {
+      this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
+        detail: {
+          section: this.ui.lastpage,
+        },
+      }));
+    }
   }
 
   changePage(newIndex) {
     if (newIndex > this.data.active) {
       this.validateSection();
 
-      if (this.ui.wrapper.hasAttribute('form-has-errors')) {
+      if (this.ui.form.hasAttribute('form-has-errors')) {
         return false;
       }
 
@@ -242,14 +291,14 @@ class Stepper extends Module {
   }
 
   async sendForm() {
-    const form = this.ui.wrapper;
+    const { form } = this.ui;
     const action = form.getAttribute('action');
-    const formData = new FormData(this.ui.wrapper);
+    const formData = new FormData(this.ui.form);
 
     this.validateSection();
 
     // Only of no errors are present in the form, it will be sent via ajax
-    if (!this.ui.wrapper.hasAttribute('form-has-errors')) {
+    if (!this.ui.form.hasAttribute('form-has-errors')) {
       if (!window.fetch) {
         await import('whatwg-fetch');
       }
@@ -258,6 +307,19 @@ class Stepper extends Module {
         method: 'post',
         body: formData,
       })
+        .then((response) => {
+          if (!response.ok) {
+            const notifications = this.ui.messageWrapper.querySelectorAll('.atm-notification');
+
+            notifications.forEach((notification) => {
+              notification.remove();
+            });
+
+            this.showNetworkError();
+          }
+
+          return response;
+        })
         .then(async (response) => {
           const validationErrorStatus = 400;
           const responseData = await response.json();
@@ -272,7 +334,14 @@ class Stepper extends Module {
             this.showValidationErrors((<any>responseData).validationErrors);
           } else {
             // successful submission
-            this.data.active += 1;
+            let newPageIndex = this.data.active + 1;
+
+            while (this.ui.steps[newPageIndex].getAttribute('data-enabled') === 'false') {
+              newPageIndex += 1;
+            }
+
+            this.data.active = newPageIndex;
+
             // show service overlay if defined
             const overlayId = this.ui.wrapper.getAttribute('data-overlay-id');
             if (overlayId) {
@@ -317,6 +386,21 @@ class Stepper extends Module {
 
     this.ui.messageWrapper.appendChild(parsedNotification);
     this.addNotificationEventListeners(parsedNotification);
+  }
+
+  showNetworkError() {
+    const convertedTemplate = template(this.ui.notificationTemplate.innerHTML);
+    const context = {
+      title: false,
+      message: this.ui.messageWrapper.getAttribute('data-error-text'),
+      isGreen: false,
+      isBig: false,
+      icon: '#caution',
+    };
+    const errorHTML = convertedTemplate(context);
+    const parsedError = new DOMParser().parseFromString(errorHTML, 'text/html').querySelector('.atm-notification');
+
+    this.ui.messageWrapper.appendChild(parsedError);
   }
 
   generateList(validationErrors) {

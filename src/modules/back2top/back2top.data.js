@@ -2,22 +2,22 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const defInstructionData = require('../instructions/instructions.data');
+const buttonDefaultData = require('../../atoms/button/button.data').variants.default.props;
 
-const template = dataHelper.getFileContent('service_wrapper.hbs');
+const template = dataHelper.getFileContent('back2top.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Service Wrapper',
-    className: 'ServiceWrapper',
-    jira: 'CZHDEV-775',
-    documentation: dataHelper.getDocumentation('service_wrapper.md'),
+    title: 'Back2Top',
+    className: 'Back2top',
+    jira: 'CZHDEV-499',
+    label: 'Navigation',
+    documentation: dataHelper.getDocumentation('back2top.md'),
   },
   props: {
-    serviceWrapperId: 'serviceOverlay1',
-    instructions: defInstructionData.variants.serviceDemo.props,
-    listItem1: 'Unterschreiben Sie den Führerausweis',
-    listItem2: 'Führen Sie immer Ihren normalen Führerausweis zusätzlich mit sich. Der internaltionale Führerausweis ist alleine nicht gültig.',
-    listItem3: 'At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+    toTopBtn: _.merge({}, buttonDefaultData, {
+      isTextVisible: false,
+      icon: 'arrow-up',
+    }),
   },
 });
 const variants = _.mapValues({
@@ -27,6 +27,16 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
+      develop: false,
+    },
+  },
+  develop: {
+    meta: {
+      title: 'Dev',
+      desc: 'Develop implementation (additional spacing, link to topics page)',
+    },
+    props: {
+      develop: true,
     },
   },
 }, (variant) => {

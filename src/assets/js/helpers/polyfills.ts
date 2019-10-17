@@ -15,7 +15,7 @@ import '@babel/polyfill';
 import 'mdn-polyfills/NodeList.prototype.forEach';
 import 'mdn-polyfills/Node.prototype.remove';
 import 'mdn-polyfills/CustomEvent';
-import 'element-closest';
+import 'mdn-polyfills/Element.prototype.closest';
 
 /**
  * loadPolyfills
@@ -53,7 +53,6 @@ export default function loadPolyfills() {
 
     const addAttrFocusable = (bool) => {
       const svgs = document.getElementsByTagName('svg');
-      console.log(svgs);
       let i = svgs.length;
       while (i--) { // eslint-disable-line
         svgs[i].setAttribute('focusable', bool);

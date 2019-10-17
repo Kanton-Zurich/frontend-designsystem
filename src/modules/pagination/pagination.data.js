@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Seiten Navigation',
     className: 'Pagination',
     jira: 'CZHDEV-990',
+    label: 'Navigation',
     documentation: dataHelper.getDocumentation('pagination.md'),
   },
   props: {
@@ -20,6 +21,15 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+  },
+  fullWidth: {
+    meta: {
+      title: 'Volle Breite',
+      desc: '',
+    },
+    props: {
+      fullWidth: true,
     },
   },
 }, (variant) => {

@@ -63,6 +63,15 @@
           color: rgba($val, 1);
         }
       }
+
+      .atm-text_link {
+        color: #{$val};
+        border-color: #{$val};
+
+        &:hover {
+          color: $colorBlack;
+        }
+      }
     }
   }
 }

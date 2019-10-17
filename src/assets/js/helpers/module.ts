@@ -177,6 +177,98 @@ class Module {
     }
     return result && result.length > 0 ? result : null;
   }
+
+  /**
+   * Get all URL params as object
+   */
+  getAllURLParams() {
+    const url = window.location.href;
+    const stringParams = url.split('?').length > 1 ? url.split('?')[1].split('&') : null;
+    let params = {};
+    if (stringParams) {
+      params = stringParams.reduce((total, amount) => {
+        const keyValue = amount.split('=');
+        total[keyValue[0]] = total[keyValue[0]] ? total[keyValue[0]] : [];
+        total[keyValue[0]].push(keyValue[1] ? keyValue[1] : null);
+        return total;
+      }, {});
+    }
+    return params;
+  }
+
+  /**
+   * get base URL
+   */
+  getBaselUrl() {
+    return `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+  }
+
+  /**
+   * Update or insert rel link for canonical references
+   * @param rel
+   * @param href
+   */
+  upsertLinkRel(rel, href) {
+    const relLink = document.querySelector(`link[rel="${rel}"]`);
+    if (relLink) {
+      document.head.removeChild(relLink);
+    }
+    if (!href) {
+      return;
+    }
+    const element = document.createElement('link');
+    element.setAttribute('rel', rel);
+    element.setAttribute('href', href);
+    document.head.appendChild(element);
+  }
+
+  /**
+   * Fetch json data
+   *
+   * @param url endpoint URL to fetch data from
+   */
+  async fetchJsonData(url: string): Promise<any> {
+    if (!window.fetch) {
+      await import('whatwg-fetch');
+    }
+
+    return fetch(url)
+      .then(response => response.json())
+      .catch((err) => {
+        this.log('error', err);
+        throw new Error(`Failed to fetch data from "${url}"!`);
+      });
+  }
+
+  /**
+   * Post object as JSON to given URL.
+   * Expects a JSON response body to which the Promise will resolve to.
+   *
+   * @param url endpoint URL to fetch data from
+   * @param payload the request body object (will be stringified)
+   */
+  postJsonData(url: string, payload: object): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status >= 200 && xhr.status < 300) { // eslint-disable-line no-magic-numbers
+            try {
+              resolve(JSON.parse(xhr.responseText));
+            } catch (e) {
+              reject(new Error('Response unparseable!'));
+            }
+          } else {
+            reject(new Error(`Post failed with status ${xhr.status}`));
+          }
+        }
+      };
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+
+      xhr.send(JSON.stringify(payload));
+    });
+  }
 }
 
 export default Module;
