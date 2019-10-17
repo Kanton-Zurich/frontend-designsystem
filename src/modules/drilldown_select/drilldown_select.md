@@ -3,12 +3,6 @@
 
 ### Integration
 
-
-Abhäniges Attribut das auf den Items vom Sekundärdropdown select gesetzt werden müssen für die Filterung auf dem "value" auf dem Primärdropdown:
-```
-data-filter-id="nat"
-```
-
-
+Abhängige Attribute die gesetzt werden müssen auf dem Sekundärdropdown li-Elementen (ex: 'data-filter-id')
 
 HTML kopieren.

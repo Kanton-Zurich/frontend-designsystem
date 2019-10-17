@@ -23,6 +23,7 @@ const data = _.merge({}, defaultData, {
     className: 'Tooltip',
     jira: 'CZHDEV-1203',
     documentation: dataHelper.getDocumentation('tooltip.md'),
+    label: 'Formular',
   },
   props: {
 
