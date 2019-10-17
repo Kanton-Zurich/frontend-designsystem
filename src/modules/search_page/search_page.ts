@@ -130,9 +130,12 @@ class SearchPage extends Module {
 
     if (newValue === this.query || newValue.length < this.options.minInputLength) {
       this.ui.element.classList.remove(this.options.stateClasses.showResults);
-      this.query = '';
-      this.data.type = 'all';
-      this.data.page = 1;
+
+      if (this.query.length === 0) {
+        this.query = '';
+        this.data.type = 'all';
+        this.data.page = 1;
+      }
 
       this.setFilterInUrl();
 
