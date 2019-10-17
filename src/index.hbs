@@ -29,12 +29,13 @@
 			{{#if modules}}
 				<div class="sg_inner_wrapper">
 					<h2 class="sg_h2">Module</h2>
-
+          <p class="sg_filter-frame">Filter:  <label class="sg_group-label" style="border-color:  #666; background-color:  #FFF; color: #666"><input type="radio" name="moduleFilter" value="nofilter" checked/> Kein Filter</label>
+            {{#each modules}}{{#with this.0.meta}}{{#if label}} <label class="sg_group-label" style="border-color:  {{labelBackground}}; background-color:  {{labelBackground}}; color: {{labelColor}}"><input type="radio" name="moduleFilter" value="{{label}}"/> {{label}}</label> {{/if}}{{/with}}{{/each}}</p>
 					<ul class="sg_index_list">
 						{{#each modules}}
               {{#each this}}
 							{{#unless meta.hideFromListing}}
-								<li>
+								<li data-label-index="{{meta.label}}">
                   {{#if meta.label}} <span class="sg_group-label" style="border-color:  {{meta.labelBackground}}; background-color:  {{meta.labelBackground}}; color: {{meta.labelColor}}">{{meta.label}}</span>{{/if}}
 									<a class="atm-text_link"  href="{{meta.previewUrl}}">
 										{{meta.title}}
