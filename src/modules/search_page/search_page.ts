@@ -256,6 +256,8 @@ class SearchPage extends Module {
     this.ui.results.appendChild(parsedHTML);
 
     window.dispatchEvent(new CustomEvent('reloadLineClamper'));
+    (<any>window).estatico.helpers.app.registerModulesInElement(this.ui.results.querySelector('ul'));
+    (<any>window).estatico.helpers.app.initModulesInElement(this.ui.results.querySelector('ul'));
   }
 
   empty() {

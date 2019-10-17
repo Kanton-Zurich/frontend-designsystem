@@ -17,7 +17,7 @@ const data = {
     type: 'service',
     title: 'Internationalen Führerschein beantragen',
     teaserText: 'In nicht englischsprachigen Ländern ausserhalb der EU empfehlen wir Ihnen, einen internationalen Führerschein ausstellen zu lassen.',
-    link: '/pages/service/service.html',
+    link: '/modules/service_list/service_page.mock.html',
     typeLabel: 'Service',
   }, {
     type: 'document',
