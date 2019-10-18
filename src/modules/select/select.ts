@@ -532,6 +532,11 @@ class Select extends Module {
       this.isOpen = false;
       this.ui.trigger.setAttribute('aria-expanded', 'false');
       this.ui.dropdown.setAttribute('aria-hidden', 'true');
+
+      if (this.hasFilter) {
+        this.ui.filter.value = '';
+      }
+
       if (!focusLost) {
         setTimeout(() => {
           if (this.ui.phoneInput) {
