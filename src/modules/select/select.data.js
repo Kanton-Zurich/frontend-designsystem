@@ -172,6 +172,22 @@ const variants = _.mapValues({
       triggerInputData: inputDemoData.variants.triggerDefault.props,
     },
   },
+  singleItem: {
+    meta: {
+      title: 'Einzelauswahl(Default) (Nur 1 Item)',
+      desc: 'Default implementation einer Einzelauswahl, welches über ein einzelnes Item verfügt.',
+    },
+    props: {
+      listData: _.merge({}, listDemoData.props, {
+        selectOptions: [
+          { value: 'mig', label: 'Auswahlfeld' },
+        ],
+        groupId: 'singleSelectOnlyOneItem',
+        setHiddenIndex: true,
+      }),
+      triggerInputData: inputDemoData.variants.triggerDefault.props,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

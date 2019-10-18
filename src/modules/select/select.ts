@@ -97,7 +97,7 @@ class Select extends Module {
     this.selections = [];
 
     // Input Items should always be a Node List
-    this.initUi(['inputItems']);
+    this.initUi(['inputItems', 'items']);
     this.initEventListeners();
 
     // preselection
