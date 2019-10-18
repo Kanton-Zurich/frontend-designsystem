@@ -529,7 +529,7 @@ const variants = _.mapValues({
         path: [
           {
             title: 'Kanton Zürich',
-            href: '#',
+            href: false,
           },
         ],
       },
