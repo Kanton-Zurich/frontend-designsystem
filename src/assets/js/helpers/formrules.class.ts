@@ -1,5 +1,3 @@
-import { watch } from 'wrist';
-
 class FormRules {
   private ui: {
     owner: HTMLElement,
