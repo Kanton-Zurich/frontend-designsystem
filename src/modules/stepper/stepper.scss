@@ -1,6 +1,8 @@
 .mdl-stepper {
   opacity: 0;
 
+  @include sizeCurve(padding-bottom, medium);
+
   &--initialised {
     opacity: 1;
 
