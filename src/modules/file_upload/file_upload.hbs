@@ -1,4 +1,4 @@
-<div>
+<div {{#if rules}}data-rules="{{rules}}"{{/if}}>
   <div class="mdl-file_upload" data-init="fileUpload" data-input>
   {{#if title}}<h4 class="atm-heading">{{title}}</h4>{{/if}}
   <label for="{{input.id}}">{{subtitle}}</label>
