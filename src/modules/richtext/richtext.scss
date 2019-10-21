@@ -162,7 +162,7 @@
 
       &:before {
         position: absolute;
-        content: '0' counter(ol-counter);
+        content: counter(ol-counter, decimal-leading-zero);
         font-weight: $fontWeightBlack;
         color: $colorBlack;
 
