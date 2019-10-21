@@ -44,6 +44,7 @@ import FlexData from '../../../modules/flex_data/flex_data';
 import DrilldownSelect from '../../../modules/drilldown_select/drilldown_select';
 import UserMenu from '../../../modules/user_menu/user_menu';
 import CugLogin from '../../../modules/cug_login/cug_login';
+import TaxCalc from '../../../modules/tax_calc/tax_calc';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -97,6 +98,7 @@ class App {
     this.modules.tooltip = Tooltip;
     this.modules.userMenu = UserMenu;
     this.modules.cugLogin = CugLogin;
+    this.modules.taxCalc = TaxCalc;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
