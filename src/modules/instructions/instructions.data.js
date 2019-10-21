@@ -8,7 +8,7 @@ const videoDemoData = require('../video/video.data');
 const imageFigureDemoData = require('../image_figure/image_figure.data');
 const carouselDemoData = require('../carousel/carousel.data');
 const texthighlightDemoData = require('../texthighlight/texthighlight.data');
-const defTabsData = require('../tabs/tabs.data');
+const defTabsData = require('../tabs/tabs.data').props;
 
 
 const template = dataHelper.getFileContent('instructions.hbs');
@@ -26,6 +26,56 @@ const data = _.merge({}, defaultData, {
     texthighlightDemoData.props),
 });
 
+function getItems(ordered) {
+  const headingsPre = ordered ? 'Anleitungsschritt-Titel' : 'Checklistenpunkt-Titel';
+  return [{
+    heading: `${headingsPre} (mit Linklisten Module)`,
+    contentModules: [
+      {
+        moduleName: 'linklist',
+        data: _.merge({}, linklistDemoData.props, { headingLevel: 4 }),
+      },
+    ],
+  }, {
+    heading: `${headingsPre} (mit Video Module)`,
+    contentModules: [
+      {
+        moduleName: 'video',
+        data: _.merge({}, videoDemoData.props, { title: true, headingLevel: 4 }),
+      },
+    ],
+  }, {
+    heading: `${headingsPre} (mit Bilder Module)`,
+    contentModules: [
+      {
+        moduleName: 'image_figure',
+        data: imageFigureDemoData.props,
+      },
+    ],
+  }, {
+    heading: `${headingsPre} (mit Bildgallerie/Carousel Module)`,
+    contentModules: [
+      {
+        moduleName: 'carousel',
+        data: _.merge({}, carouselDemoData.props, { title: { level: 4 } }),
+      },
+    ],
+  }, {
+    heading: `${headingsPre} (mit Infobox Module)`,
+    contentModules: [
+      {
+        moduleName: 'texthighlight',
+        data: _.merge({}, texthighlightDemoData.props, linklistDemoData.props,
+          imageFigureDemoData.props, {
+            headingLevel: 4,
+            texthighlightId: _.uniqueId('texthighlight'),
+          }),
+      },
+    ],
+  },
+  ];
+}
+
 const variants = _.mapValues({
   default: {
     meta: {
@@ -33,8 +83,7 @@ const variants = _.mapValues({
       desc: 'Standard-Implementation mit einer nummerierten Liste',
     },
     props: {
-      videoId: 'QHCHVcU3_w4',
-      texthighlightId: _.uniqueId('texthighlight'),
+      instructionslistItems: getItems(true),
     },
   },
   unordered: {
@@ -44,8 +93,7 @@ const variants = _.mapValues({
     },
     props: {
       isUnordered: true,
-      videoId: 'xk0DEe_syF4',
-      texthighlightId: _.uniqueId('texthighlight'),
+      instructionslistItems: getItems(),
     },
   },
   serviceDemo: {
@@ -56,17 +104,63 @@ const variants = _.mapValues({
     props: {
       isUnordered: false,
       service: true,
-      tabs: defTabsData.props.tabs,
-      instructions_title: 'Service Beschreibung',
-      linklist: {
-        list1: {
-          links: [
-            {
-              linkListItemTitle: 'Stellungsnahme des Direktors', linkListItemHref: '/',
+      instructionslistItems: [{
+        heading: 'Bevor Sie starten',
+        contentModules: [
+          {
+            moduleName: 'richtext',
+            data: {
+              embedded: true,
+              contentItems: [
+                { pText: 'Klären Sie ab, ob Sie für Ihr Reiseziel einen internationalen Führerschein benötigen. Ihr Reisebüro oder das Konsulat Ihres Reiseziels können Ihnen dabei helfen.' },
+              ],
             },
-          ],
-        },
+          },
+          {
+            moduleName: 'linklist',
+            data: {
+              links: [
+                {
+                  linkListItemTitle: 'Stellungsnahme des Direktors', linkListItemHref: '/',
+                },
+              ],
+            },
+          },
+        ],
+      }, {
+        heading: 'Dokumente vorbereiten',
+        contentModules: [
+          {
+            moduleName: 'richtext',
+            data: {
+              embedded: true,
+              contentItems: [
+                { pText: 'Führerausweis Kopie.' },
+                { pText: 'Wenn Ihr Ausweis vor dem 01.01.2013 ausgestellt wurde, müssen Sie ein neues Passfoto machen.' },
+                { pText: '<a href="#" class="atm-text_link">Diese Anforderungen muss Ihr Passfoto erfüllen</a>' },
+              ],
+            },
+          },
+        ],
+      }, {
+        heading: 'Beantragen',
+        contentModules: [
+          {
+            moduleName: 'richtext',
+            data: {
+              embedded: true,
+              contentItems: [
+                { pText: 'Wenn Ihr Ausweis vor dem 01.01.2013 ausgestellt wurde, müssen Sie ein neues Passfoto machen.  Ihr Reisebüro oder das Konsulat Ihres Reiseziels können Ihnen dabei helfen.' },
+              ],
+            },
+          },
+          {
+            moduleName: 'tabs',
+            data: defTabsData,
+          },
+        ],
       },
+      ],
     },
   },
 }, (variant) => {
