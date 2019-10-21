@@ -12,6 +12,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('tax_calc.md'),
   },
   props: {
+    beforeHeading: 'Bevor Sie starten',
     beforeBenefitItems: [
       'Die berechneten Werte sind nicht rechtsverbindlich.',
       'In einzelnen Gemeinden können allenfalls abweichende Steuerfüsse zur Anwendung kommen. Für die Steuerzahlung ist einzig der Betrag auf der Steuerrechnung massgebend.',
