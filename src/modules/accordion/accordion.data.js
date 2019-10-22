@@ -5,6 +5,7 @@ const defaultData = require('../../data/default.data.js');
 
 const defaultImageData = require('../image_figure/image_figure.data');
 const defaultRichtextData = require('../richtext/richtext.data');
+const defaultFormData = require('../form/form.data');
 const defaultVideoData = require('../video/video.data');
 
 // Module für Weiterführende Informationen
@@ -12,6 +13,11 @@ const downloadListData = require('../download_list/download_list.data');
 const linklistData = require('../linklist/linklist.data');
 const tableData = require('../table/table.data');
 const publicationTeaserData = require('../publication_teaser/publication_teaser.data');
+const radioData = require('../../atoms/radiobutton/radiobutton.data');
+
+const radioHBS = dataHelper.getFileContent('../../atoms/radiobutton/radiobutton.hbs');
+const formHBS = dataHelper.getFileContent('../form/form.hbs');
+const formFieldsetHBS = dataHelper.getFileContent('../form/_form.fieldset.hbs');
 
 const template = dataHelper.getFileContent('accordion.hbs');
 const data = _.merge({}, defaultData, {
@@ -28,47 +34,7 @@ const data = _.merge({}, defaultData, {
       level: 2,
       title: 'Accordion',
     },
-    items: [
-      {
-        title: 'Kurzer Accordiontitel',
-        techName: 'acc_item_1',
-        children: [
-          {
-            text: 'Wird ein Lernfahrgesuch erstmals eingereicht, muss der/die Gesuchsteller/in persönlich bei der Gemeindeverwaltung/Einwohnerkontrolle oder beim Strassenverkehrsamt vorsprechen und einen gültigen Identifikationsnachweis mit Foto (CH-Bürger: Identitätskarte/Pass, Ausländer: Originalausländerausweis) vorlegen. Für die erstmalige Identifikation wird beim Strassenverkehrsamt eine Gebühr von Fr. 20.-- erhoben. Sie haben bereits einmal ein Gesuch eingereicht oder sind bereits im Besitz eines Führerausweises im Kredikartenformat können Sie das Gesuch per Post oder am Schalter direkt einreichen (ohne Identifikationsbestätigung).',
-          },
-        ],
-      },
-      {
-        title: 'Kurzer Accordiontitel',
-        techName: 'acc_item_2',
-        children: [
-          {
-            text: 'Wird ein Lernfahrgesuch erstmals eingereicht, muss der/die Gesuchsteller/in persönlich bei der Gemeindeverwaltung/Einwohnerkontrolle oder beim Strassenverkehrsamt vorsprechen und einen gültigen Identifikationsnachweis mit Foto (CH-Bürger: Identitätskarte/Pass, Ausländer: Originalausländerausweis) vorlegen. Für die erstmalige Identifikation wird beim Strassenverkehrsamt eine Gebühr von Fr. 20.-- erhoben. Sie haben bereits einmal ein Gesuch eingereicht oder sind bereits im Besitz eines Führerausweises im Kredikartenformat können Sie das Gesuch per Post oder am Schalter direkt einreichen (ohne Identifikationsbestätigung).',
-          },
-          {
-            partial: defaultImageData.variants.default.meta.demo,
-          },
-        ],
-      },
-      {
-        title: 'Ein Accordion mit viel Inhalt und einem langen Titel für Testzwecke',
-        techName: 'acc_item_3',
-        children: [
-          {
-            partial: defaultRichtextData.variants.default.meta.demo,
-          },
-        ],
-      },
-      {
-        title: 'Ein Accordion mit Video',
-        techName: 'acc_item_4',
-        children: [
-          {
-            partial: defaultVideoData.variants.withoutTitle.meta.demo,
-          },
-        ],
-      },
-    ],
+    items: [],
   },
 });
 const variants = _.mapValues({
@@ -76,6 +42,49 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+    props: {
+      items: [
+        {
+          title: 'Kurzer Accordiontitel',
+          techName: 'acc_item_1',
+          children: [
+            {
+              text: 'Wird ein Lernfahrgesuch erstmals eingereicht, muss der/die Gesuchsteller/in persönlich bei der Gemeindeverwaltung/Einwohnerkontrolle oder beim Strassenverkehrsamt vorsprechen und einen gültigen Identifikationsnachweis mit Foto (CH-Bürger: Identitätskarte/Pass, Ausländer: Originalausländerausweis) vorlegen. Für die erstmalige Identifikation wird beim Strassenverkehrsamt eine Gebühr von Fr. 20.-- erhoben. Sie haben bereits einmal ein Gesuch eingereicht oder sind bereits im Besitz eines Führerausweises im Kredikartenformat können Sie das Gesuch per Post oder am Schalter direkt einreichen (ohne Identifikationsbestätigung).',
+            },
+          ],
+        },
+        {
+          title: 'Kurzer Accordiontitel',
+          techName: 'acc_item_2',
+          children: [
+            {
+              text: 'Wird ein Lernfahrgesuch erstmals eingereicht, muss der/die Gesuchsteller/in persönlich bei der Gemeindeverwaltung/Einwohnerkontrolle oder beim Strassenverkehrsamt vorsprechen und einen gültigen Identifikationsnachweis mit Foto (CH-Bürger: Identitätskarte/Pass, Ausländer: Originalausländerausweis) vorlegen. Für die erstmalige Identifikation wird beim Strassenverkehrsamt eine Gebühr von Fr. 20.-- erhoben. Sie haben bereits einmal ein Gesuch eingereicht oder sind bereits im Besitz eines Führerausweises im Kredikartenformat können Sie das Gesuch per Post oder am Schalter direkt einreichen (ohne Identifikationsbestätigung).',
+            },
+            {
+              partial: defaultImageData.variants.default.meta.demo,
+            },
+          ],
+        },
+        {
+          title: 'Ein Accordion mit viel Inhalt und einem langen Titel für Testzwecke',
+          techName: 'acc_item_3',
+          children: [
+            {
+              partial: defaultRichtextData.variants.default.meta.demo,
+            },
+          ],
+        },
+        {
+          title: 'Ein Accordion mit Video',
+          techName: 'acc_item_4',
+          children: [
+            {
+              partial: defaultVideoData.variants.withoutTitle.meta.demo,
+            },
+          ],
+        },
+      ],
     },
   },
   furtherInformation: {
@@ -147,6 +156,117 @@ const variants = _.mapValues({
       accordionHeading: {
         level: 4,
       },
+    },
+  },
+  taxForms: {
+    meta: {
+      title: 'TaxCalc Initforms (CZHDEV-1238)',
+      desc: 'Accordion mit Formular Feldern zur Ermittlung des Steuerrechners',
+    },
+    props: {
+      accordionHeading: {
+        title: false,
+      },
+      items: [{
+        title: 'Für wen möchten Sie den Steuerbetrag berechnen?',
+        children: [
+          {
+            partial: () => handlebars.compile(formHBS)(defaultFormData.variants.taxEntity.props),
+          },
+        ],
+      }, {
+        title: 'Was möchten Sie berechnen?',
+        children: [
+          {
+            partial: () => handlebars.compile(formHBS)({
+              sectionTitle: false,
+              groups: [{
+                rows: [
+                  {
+                    fields: [
+                      {
+                        isSmall: true,
+                        cellContent: () => handlebars.compile(formFieldsetHBS)({
+                          fieldsetTitle: false,
+                          isVertical: true,
+                          requiredMessage: 'Bitte wählen Sie eine Option aus.',
+                          options: [
+                            () => handlebars.compile(radioHBS)(_.merge({},
+                              radioData.variants.default.props,
+                              {
+                                id: 'income_assets',
+                                groupName: 'taxType',
+                                label: 'Staats- & Gemeindesteuern',
+                                descr: 'Berechnung Staats- und Gemeindesteuern, auch Sonderfälle.',
+                                additionalAttribute: 'data-tax_calc="inputTaxTypeIndividual"',
+                              })),
+                            () => handlebars.compile(radioHBS)(_.merge({},
+                              radioData.variants.default.props,
+                              {
+                                id: 'federal',
+                                groupName: 'taxType',
+                                label: 'Direkte Bundessteuer',
+                                descr: 'Berechnung Direkte Bundessteuer, auch Sonderfälle.',
+                                additionalAttribute: 'data-tax_calc="inputTaxTypeIndividual"',
+                              })),
+                            () => handlebars.compile(radioHBS)(_.merge({},
+                              radioData.variants.default.props,
+                              {
+                                id: 'benefit_payments',
+                                groupName: 'taxType',
+                                label: 'Staats- & Gemeindesteuern auf Kapitalleistungen',
+                                descr: 'Berechnung der Staats- und Gemeindesteuern auf Kapitalleistungen aus Vorsorge.',
+                                additionalAttribute: 'data-tax_calc="inputTaxTypeIndividual"',
+                              })),
+                            () => handlebars.compile(radioHBS)(_.merge({},
+                              radioData.variants.default.props,
+                              {
+                                id: 'benefit_payments_federal',
+                                groupName: 'taxType',
+                                label: 'Direkte Bundessteuer auf Kapitalleistungen',
+                                descr: 'Berechnung der Direkten Bundessteuer auf Kapitalleistungen aus Vorsorge.',
+                                additionalAttribute: 'data-tax_calc="inputTaxTypeIndividual"',
+                              })),
+                            () => handlebars.compile(radioHBS)(_.merge({},
+                              radioData.variants.default.props,
+                              {
+                                id: 'inheritance',
+                                groupName: 'taxType',
+                                label: 'Erbschafts- & Schenkungssteuern',
+                                descr: 'Berechnung Erbschafts- und Schenkungssteuern für natürliche Personen.',
+                                additionalAttribute: 'data-tax_calc="inputTaxTypeIndividual"',
+                              })),
+                            () => handlebars.compile(radioHBS)(_.merge({},
+                              radioData.variants.default.props,
+                              {
+                                id: 'legal_simple',
+                                groupName: 'taxType',
+                                label: 'Steuerbetrag juristische Personen',
+                                descr: 'Berechnen der Steuern, ausgehend vom steuerbaren Reingewinn und vom Kapital.',
+                                additionalAttribute: 'data-tax_calc="inputTaxTypeInc"',
+                              })),
+                            () => handlebars.compile(radioHBS)(_.merge({},
+                              radioData.variants.default.props,
+                              {
+                                id: 'legal_iterative',
+                                groupName: 'taxType',
+                                label: 'Steuerrückstellung juristische Personen',
+                                descr: 'Berechnen der Steuern, ausgehend von Gewinn und Kapital vor Steuern, mit dem Zweck der Vornahme der Steuerrückstellung.',
+                                additionalAttribute: 'data-tax_calc="inputTaxTypeInc"',
+                              })),
+                          ],
+                        }),
+                      },
+                    ],
+                  },
+                ],
+              },
+              ],
+            }),
+          },
+        ],
+      },
+      ],
     },
   },
 }, (variant) => {

@@ -5,15 +5,17 @@
     <div class="grid-x grid-margin-x">
       <div class="cell small-offset-2 medium-offset-2 large-offset-2 small-10 medium-9 large-8">
 {{/if}}
-  <h{{accordionHeading.level}} class="atm-heading atm-heading--bordered">
-    {{accordionHeading.title}}
-  </h{{accordionHeading.level}}>
+  {{#if accordionHeading.title}}
+    <h{{accordionHeading.level}} class="atm-heading atm-heading--bordered">
+      {{accordionHeading.title}}
+    </h{{accordionHeading.level}}>
+  {{/if}}
   <p class="visuallyhidden">
    Verwenden Sie die Akkordeon-Bedienelemente, um die Sichtbarkeit der jeweiligen Panels (unterhalb der Bedienelemente) umzuschalten.
   </p>
   <div>
     {{#each items}}
-      <div class="mdl-accordion__item" data-accordion="item">
+      <div class="mdl-accordion__item{{#if additionalClass}} {{additionalClass}}{{/if}}"{{#if additionalAttribute}} {{additionalAttribute}}{{/if}} data-accordion="item">
         <h{{increment ../accordionHeading.level}} class="mdl-accordion__header">
           <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger">
             <span class="mdl-accordion__control">
