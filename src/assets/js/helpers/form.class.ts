@@ -213,12 +213,15 @@ class Form {
   }
 
   validateSection(event) {
-    const formSection = event.detail.section;
-    const fieldsInSection = formSection.querySelectorAll(this.options.watchEmitters.input);
+    const formSections = event.detail.sections;
 
-    fieldsInSection.forEach(this.validateField.bind(this));
+    formSections.forEach((section) => {
+      const fieldsInSection = section.querySelectorAll(this.options.watchEmitters.input);
 
-    const errorsInFields = formSection.querySelectorAll(`.${this.options.inputClasses.invalid}`).length > 0;
+      fieldsInSection.forEach(this.validateField.bind(this));
+    });
+
+    const errorsInFields = this.ui.element.querySelectorAll(`.${this.options.inputClasses.invalid}`).length > 0;
 
     if (errorsInFields) {
       this.ui.element.setAttribute('form-has-errors', 'true');
