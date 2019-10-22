@@ -39,13 +39,20 @@ $topSpaceSearchInput: 15.5px;
       }
     }
 
-    .atm-form_input--search & {
+    &:focus {
+      outline: none;
+
+      border: 2px solid $colorCyan;
+    }
+
+ 	.atm-form_input--search & {
       font-size: pxToRem($sizeFontBig);
       font-weight: $fontWeightBlack;
 
       padding-top: $topSpaceSearchInput;
       padding-bottom: $topSpaceSearchInput;
     }
+
 
     @at-root {
       textarea#{&} {
