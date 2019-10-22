@@ -413,7 +413,7 @@ class Select extends Module {
     } else if (this.ui.phoneInput) {
       triggerLabelText = value;
     } else {
-      triggerLabelText = this.ui.list.querySelector(`[value="${value}"`).placeholder;
+      triggerLabelText = this.ui.list.querySelector(`[value="${value}"]`).placeholder;
     }
     this.ui.triggerValue.innerText = triggerLabelText;
     this.ui.element.classList.remove(this.options.stateClasses.selected);
