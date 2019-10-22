@@ -524,6 +524,7 @@ const variants = _.mapValues({
     },
     props: {
       noText: true,
+      homelink: false,
       breadcrumb: {
         contextMenu: false,
         path: [
