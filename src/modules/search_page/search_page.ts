@@ -382,7 +382,7 @@ class SearchPage extends Module {
       url = this.generateURL(url, urlParams);
     }
 
-    window.history.replaceState({}, document.title, url);
+    window.history.pushState({}, document.title, url);
   }
 
   /**
