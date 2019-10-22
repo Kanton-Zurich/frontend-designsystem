@@ -23,10 +23,12 @@ class Select extends Module {
     triggerLabel: any,
     dropdown: any,
     filter: any,
+    filterContainer: HTMLDivElement,
     list: any,
     items: HTMLLIElement[],
     inputItems: HTMLInputElement[],
     applyButton: any,
+    applyButtonContainer: HTMLDivElement,
     filterClearButton: any,
     phoneInput: any,
   };
@@ -35,6 +37,8 @@ class Select extends Module {
     inputDelay: number,
     firefoxDelay: number,
     dropdownDelay: number,
+    smallDropdownMaxItems: number,
+    largeDropdownMaxItems: number,
     domSelectors: any,
     stateClasses: any,
     dataSelectors: any,
@@ -46,11 +50,14 @@ class Select extends Module {
       inputDelay: 250,
       firefoxDelay: 180,
       dropdownDelay: 400,
+      smallDropdownMaxItems: 4,
+      largeDropdownMaxItems: 6,
       domSelectors: {
         trigger: '.atm-form_input--trigger button',
         triggerValue: '.atm-form_input__trigger-value',
         triggerLabel: '.atm-form_input__trigger-label',
         dropdown: '.mdl-select__options',
+        filterContainer: '.mdl-select__filter',
         filter: '.mdl-select__filter input',
         filterClearButton: '.mdl-select__filter .atm-form_input__functionality',
         phoneInput: '.atm-form_input--trigger-phone input',
@@ -58,6 +65,7 @@ class Select extends Module {
         items: '.atm-list__item',
         inputItems: '.atm-list__item input',
         visibleInputItems: '.atm-list__item:not(.hidden) input',
+        applyButtonContainer: '.mdl-select__apply',
         applyButton: '.mdl-select__apply button',
       },
       stateClasses: {
@@ -324,6 +332,7 @@ class Select extends Module {
         li.classList.add('hidden');
       }
     });
+    this.adjustContainerHeight();
   }
 
 
@@ -502,18 +511,10 @@ class Select extends Module {
       } else {
         this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
       }
-      // adjust height if single select
-      const visibleItems = this.ui.element
-        .querySelectorAll(this.options.domSelectors.visibleInputItems);
-      if (visibleItems.length > 0) {
-        const itemsVerticalSize = visibleItems.length * visibleItems[0].clientHeight;
-        if (this.ui.dropdown.clientHeight > itemsVerticalSize) {
-          this.ui.dropdown.style.height = `${itemsVerticalSize}px`;
-        }
-      }
     } else {
       this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
     }
+    this.adjustContainerHeight();
     // click out of element loose focus and close
     this.onFocusOut = this.onFocusOut.bind(this);
     window.addEventListener('mouseup', this.onFocusOut);
@@ -554,6 +555,24 @@ class Select extends Module {
         this.updateFlyingFocus();
       }
       this.emitClose();
+    }
+  }
+
+  adjustContainerHeight() {
+    if (this.isOpen) {
+      const dropdownMaxItems = this.ui.filterContainer
+        ? this.options.largeDropdownMaxItems
+        : this.options.smallDropdownMaxItems;
+      // adjust height if single select
+      const visibleItems = this.ui.element
+        .querySelectorAll(this.options.domSelectors.visibleInputItems);
+      const itemHeight = visibleItems[0] ? visibleItems[0].clientHeight : 0;
+      const maxHeight = itemHeight * dropdownMaxItems;
+      const itemsVerticalSize = (visibleItems.length * itemHeight);
+      const containerSize = Math.min(itemsVerticalSize, maxHeight)
+        + (this.ui.filterContainer ? this.ui.filterContainer.clientHeight : 0)
+        + (this.ui.applyButtonContainer ? this.ui.applyButtonContainer.clientHeight : 0);
+      this.ui.dropdown.style.height = `${containerSize}px`;
     }
   }
 
