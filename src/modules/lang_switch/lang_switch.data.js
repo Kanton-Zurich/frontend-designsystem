@@ -2,12 +2,9 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-
 const selectDemoData = require('../select/select.data');
 
 selectDemoData.variants.defaultUpwards.props.triggerInputData.label = 'Weitere Sprachen';
-selectDemoData.variants.defaultUpwards.props.listData.selectOptions[0].preSelected = false;
-selectDemoData.variants.defaultUpwards.props.listData.selectOptions[1].preSelected = true;
 
 const template = dataHelper.getFileContent('lang_switch.hbs');
 const data = _.merge({}, defaultData, {

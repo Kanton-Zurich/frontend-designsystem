@@ -241,6 +241,7 @@ class Select extends Module {
     // watch select items for status change and update style
     this.ui.inputItems.forEach((item, index) => {
       item.addEventListener('change', () => {
+        console.log('change');
         this.changeUpdateItemEvent(item, index);
       });
     });
