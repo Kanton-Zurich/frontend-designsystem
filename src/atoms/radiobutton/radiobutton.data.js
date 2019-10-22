@@ -43,6 +43,19 @@ const variants = _.mapValues({
       isDisabled: true,
     },
   },
+  withDescription: {
+    meta: {
+      title: 'With Description',
+      desc: 'Mit Label und Beschreibung.',
+    },
+    props: {
+      id: 'privatperson',
+      groupName: 'taxEntity',
+      label: 'Privatperson',
+      descr: 'Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer (Natürliche Personen)',
+      isChecked: false,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

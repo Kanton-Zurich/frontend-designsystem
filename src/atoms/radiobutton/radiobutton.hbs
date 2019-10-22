@@ -1,4 +1,4 @@
-<div class="atm-radiobutton">
+<div class="atm-radiobutton"{{#if additionalAttribute}} {{{additionalAttribute}}}{{/if}}>
   <input
     id="radio{{id}}{{#if isDisabled}}disabled{{/if}}{{#if isChecked}}checked{{/if}}"
     type="radio" value="{{value}}"
@@ -10,5 +10,6 @@
   >
   <label for="radio{{id}}{{#if isDisabled}}disabled{{/if}}{{#if isChecked}}checked{{/if}}">
     {{label}}{{#if isDisabled}}(disabled){{/if}}{{#if isChecked}}(checked){{/if}}
+    {{#if descr}}<span class="atm-radiobutton__descr">{{ descr }}</span>{{/if}}
   </label>
 </div>

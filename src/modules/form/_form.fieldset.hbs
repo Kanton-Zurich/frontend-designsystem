@@ -1,5 +1,5 @@
 <fieldset class="form__fieldset" data-input>
-  <legend class="form__legend">{{fieldsetTitle}}</legend>
+  {{#if fieldsetTitle}}<legend class="form__legend">{{fieldsetTitle}}</legend>{{/if}}
   <div class="form__fieldset-list {{#if isVertical}}form__fieldset-list--vertical{{/if}}">
     {{#each options}}
       {{{this}}}

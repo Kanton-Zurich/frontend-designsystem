@@ -407,6 +407,53 @@ const variants = _.mapValues({
       ],
     },
   },
+  taxEntity: {
+    meta: {
+      title: 'Tax Entity (CZHDEV-1238)',
+      desc: 'Radiobutton Auswahl für Steuerrechner (modules/tax_calc).',
+    },
+    props: {
+      sectionTitle: false,
+      groups: [{
+        rows: [
+          {
+            fields: [
+              {
+                isSmall: true,
+                cellContent: () => handlebars.compile(formFieldsetHBS)({
+                  fieldsetTitle: false,
+                  isVertical: true,
+                  requiredMessage: 'Bitte wählen Sie eine Option aus.',
+                  options: [
+                    () => handlebars.compile(radioHBS)(_.merge({},
+                      radioData.variants.default.props,
+                      {
+                        id: 'privatperson',
+                        groupName: 'taxEntity',
+                        label: 'Privatperson',
+                        descr: 'Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer (Natürliche Personen)',
+                        isChecked: false,
+                        additionalAttribute: 'data-tax_calc="inputEntity"',
+                      })),
+                    () => handlebars.compile(radioHBS)(_.merge({},
+                      radioData.variants.default.props,
+                      {
+                        id: 'legal_iterative',
+                        groupName: 'taxEntity',
+                        label: 'Steuerrückstellung juristische Personen',
+                        descr: 'Berechnen der Steuern, ausgehend von Gewinn und Kapital vor Steuern, mit dem Zweck der Vornahme der Steuerrückstellung.',
+                        additionalAttribute: 'data-tax_calc="inputTaxTypeInc"',
+                      })),
+                  ],
+                }),
+              },
+            ],
+          },
+        ],
+      },
+      ],
+    },
+  },
   careerInfo: {
     meta: {
       title: 'Berufliche Informationen',
