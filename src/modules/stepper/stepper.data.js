@@ -28,6 +28,11 @@ const data = _.merge({}, defaultData, {
     },
     toggle,
     notificationTemplate: notification.default.meta.code.template,
+    ruleNotification: _.merge({}, notification.closeUserGroup.props, {
+      title: 'Wichtig',
+      message: 'Die von Ihnen gemachte Änderung hat gegebenfalls Einfluss auf die danach folgenden Felder. Bitte überprüfen Sie Ihre Angaben erneut.',
+      button: null,
+    }),
     replyTo: _.merge({}, formInput, {
       type: 'email',
       label: 'Ihre E-Mail-Adresse',
@@ -146,6 +151,22 @@ const variants = _.mapValues({
       ],
       navigation: {
         steps: ['Staatsangehörigkeit', 'Bürgerort 1', 'Bürgerort 2', 'Bürgerort 3', 'Bestätigung'],
+      },
+    },
+  },
+  logicForNotification: {
+    meta: {
+      title: 'Mit Formularlogik und Notification (CZHDEV-1427)',
+      desc: 'Es gibt eine Formularlogik',
+    },
+    props: {
+      steps: [
+        formVariants.checkboxesNationality2.props,
+        _.merge({}, formVariants.placeOfCitizenshipPage2.props, {
+        }),
+      ],
+      navigation: {
+        steps: ['Staatsangehörigkeit', 'Bürgerort 1', 'Bestätigung'],
       },
     },
   },

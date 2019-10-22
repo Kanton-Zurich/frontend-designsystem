@@ -817,6 +817,48 @@ const variants = _.mapValues({
       ],
     },
   },
+  checkboxesNationality2: {
+    meta: {
+      title: 'Checkboxes für Stepper mit Logik (Für CZHDEV-1427)',
+      desc: '',
+    },
+    props: {
+      sectionTitle: 'Staatsangehörigkeit',
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Nationalität',
+                    options: [
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Schweiz',
+                          groupName: 'nationality-50',
+                          id: 444,
+                          value: 'CH',
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Nicht Schweiz',
+                          groupName: 'nationality-50',
+                          id: 445,
+                          value: 'none',
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
   placeOfCitizenshipPage: {
     meta: {
       title: 'Einzelnes Feld für Stepper mit Logik',
@@ -840,6 +882,50 @@ const variants = _.mapValues({
                       validation: {
                         isRequired: true,
                       },
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  placeOfCitizenshipPage2: {
+    meta: {
+      title: 'Einzelnes Feld für Stepper mit Logik',
+      desc: '',
+    },
+    props: {
+      sectionTitle: 'Bürgerort',
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Bürgerort',
+                      name: 'place_of_citizenship10',
+                      uuid: _.uniqueId('place_of_citizenship'),
+                      validation: {
+                        isRequired: true,
+                      },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-50',
+                              equals: true,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                      ]),
                     })),
                 },
               ],
