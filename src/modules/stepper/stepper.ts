@@ -118,7 +118,7 @@ class Stepper extends Module {
         newPageIndex -= 1;
       }
 
-      this.changePage(this.data.active - 1);
+      this.changePage(newPageIndex);
     });
     this.eventDelegate.on('click', this.options.domSelectors.send, this.sendForm.bind(this));
     this.eventDelegate.on('submit', this.options.domSelectors.wrapper, () => {
