@@ -163,7 +163,7 @@
       &:before {
         position: absolute;
         content: '0' counter(ol-counter);
-        font-weight: $fontWeightBlack;
+        font-family: $fontFamilyBlack;
         color: $colorBlack;
 
         @include sizeCurve('margin-left', benefits, $indentCurve, true);

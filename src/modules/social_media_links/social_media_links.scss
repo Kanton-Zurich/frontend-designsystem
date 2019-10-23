@@ -5,7 +5,7 @@
   .atm-heading {
     font-size: pxToRem($sizeFontTiny);
     line-height: $sizeLineHeightBase;
-    font-weight: $fontWeightDefault;
+    font-family: $fontFamilyBase;
     color: $colorBlack60;
     margin-bottom: 0;
   }

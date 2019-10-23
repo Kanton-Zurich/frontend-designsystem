@@ -21,7 +21,7 @@
     }
 
     .mdl-breadcrumb__item--main & {
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
     }
   }
 
@@ -81,7 +81,7 @@
     .mdl-breadcrumb__item--main,
     .mdl-breadcrumb__item--active {
       .mdl-breadcrumb__link {
-        font-weight: $fontWeightDefault;
+        font-family: $fontFamilyBase;
         color: $colorBlack60;
 
         &:hover {

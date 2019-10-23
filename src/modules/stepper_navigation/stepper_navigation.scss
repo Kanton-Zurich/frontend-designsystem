@@ -60,7 +60,7 @@ $stepperNavigationCurves: (
 
       line-height: $sizeLineHeightNarrow;
       margin-bottom: pxToRem($sizeMini);
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
 
       background: $colorWhite;
 
@@ -127,7 +127,7 @@ $stepperNavigationCurves: (
 
       .mdl-stepper_navigation__step-title {
         color: $colorBlack;
-        font-weight: $fontWeightBlack;
+        font-family: $fontFamilyBlack;
       }
 
       .mdl-stepper_navigation__step-ordinal {

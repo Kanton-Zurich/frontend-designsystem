@@ -235,11 +235,10 @@ $unitLeftSpace: 62px;
 
     .atm-form_input__input--trigger + input {
       position: absolute;
-      top: 50%;
+      top: 3px;
       right: 2px;
       width: calc(100% - 86px);
-      height: calc(100% - #{$sizeMini});
-      transform: translateY(-50%);
+      height: ($heightRegular - 6px);
       border: none;
       appearance: textfield;
 
@@ -371,7 +370,7 @@ $unitLeftSpace: 62px;
           pointer-events: none;
           padding: 0;
           top: pxToRem($sizeFontSmall);
-          font-weight: $fontWeightBlack;
+          font-family: $fontFamilyBlack;
           font-size: pxToRem($sizeFontTiny);
           line-height: $sizeLineHeightBase;
           color: $colorBlack;
@@ -512,7 +511,7 @@ $unitLeftSpace: 62px;
       pointer-events: none;
       padding: 0;
       top: pxToRem($sizeFontSmall);
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
       font-size: pxToRem($sizeFontTiny);
       line-height: $sizeLineHeightBase;
       color: $colorBlack;

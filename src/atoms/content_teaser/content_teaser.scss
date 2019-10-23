@@ -12,7 +12,7 @@
   text-decoration: none;
 
   .bold {
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
   }
 
   &:after {
@@ -42,7 +42,7 @@
   }
 
   &__title {
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
   }
 
   &__content {
