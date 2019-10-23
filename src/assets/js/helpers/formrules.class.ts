@@ -1,5 +1,3 @@
-import { watch } from 'wrist';
-
 class FormRules {
   private ui: {
     owner: HTMLElement,
@@ -152,7 +150,7 @@ class FormRules {
 
         fields.forEach((field) => {
           if (field.hasAttribute('data-select-option')) {
-            watch(field, 'checked', () => {
+            field.addEventListener('click', () => {
               this.checkRule(ruleIdx);
             });
           } else {

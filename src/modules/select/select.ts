@@ -96,7 +96,8 @@ class Select extends Module {
     // Array of selection indicies
     this.selections = [];
 
-    this.initUi();
+    // Input Items should always be a Node List
+    this.initUi(['inputItems', 'items']);
     this.initEventListeners();
 
     // preselection
@@ -412,7 +413,7 @@ class Select extends Module {
     } else if (this.ui.phoneInput) {
       triggerLabelText = value;
     } else {
-      triggerLabelText = this.ui.list.querySelector(`[value="${value}"`).placeholder;
+      triggerLabelText = this.ui.list.querySelector(`[value="${value}"]`).placeholder;
     }
     this.ui.triggerValue.innerText = triggerLabelText;
     this.ui.element.classList.remove(this.options.stateClasses.selected);
@@ -532,6 +533,11 @@ class Select extends Module {
       this.isOpen = false;
       this.ui.trigger.setAttribute('aria-expanded', 'false');
       this.ui.dropdown.setAttribute('aria-hidden', 'true');
+
+      if (this.hasFilter) {
+        this.ui.filter.value = '';
+      }
+
       if (!focusLost) {
         setTimeout(() => {
           if (this.ui.phoneInput) {

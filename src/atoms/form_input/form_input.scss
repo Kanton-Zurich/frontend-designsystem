@@ -37,6 +37,12 @@ $unitLeftSpace: 62px;
       }
     }
 
+    &:focus {
+      outline: none;
+
+      border: 2px solid $colorCyan;
+    }
+
     @at-root {
       textarea#{&} {
         padding-top: pxToRem($sizeLarge);

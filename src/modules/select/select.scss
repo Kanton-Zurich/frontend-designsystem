@@ -42,6 +42,10 @@ $selectHeightWithFilterExtended: 424px;
       .atm-form_input__input--trigger + input {
         top: 34%;
         height: 66px;
+
+        &:focus {
+          outline: none;
+        }
       }
     }
 

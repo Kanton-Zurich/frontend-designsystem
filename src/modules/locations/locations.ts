@@ -250,33 +250,31 @@ class Locations extends Module {
   }
 
   private filterListItemsByText(filterText: string): void {
-    if (filterText) {
-      const pattern = new RegExp(filterText, 'i');
+    const pattern = new RegExp(filterText, 'i');
 
-      const listItems = this.ui.listItems as HTMLAnchorElement[];
-      let countHidden = 0;
-      listItems.forEach((listNode) => {
-        const parentClasses = listNode.parentElement.classList;
-        if (pattern.test(listNode.innerText)) {
-          parentClasses.remove('hide');
-        } else {
-          parentClasses.add('hide');
-          countHidden += 1;
+    const listItems = this.ui.listItems as HTMLAnchorElement[];
+    let countHidden = 0;
+    listItems.forEach((listNode) => {
+      const parentClasses = listNode.parentElement.classList;
+      if (pattern.test(listNode.innerText)) {
+        parentClasses.remove('hide');
+      } else {
+        parentClasses.add('hide');
+        countHidden += 1;
+      }
+    });
+
+    if (countHidden === listItems.length) {
+      this.ui.emptyListHint.childNodes.forEach((childNode) => {
+        if (!childNode.hasChildNodes() && childNode.textContent
+          && childNode.textContent.trim().length > 0) {
+          childNode.textContent = this.ui.notFoundTextTemplate.content
+            .textContent.replace('{searchTerm}', filterText);
         }
       });
-
-      if (countHidden === listItems.length) {
-        this.ui.emptyListHint.childNodes.forEach((childNode) => {
-          if (!childNode.hasChildNodes() && childNode.textContent
-            && childNode.textContent.trim().length > 0) {
-            childNode.textContent = this.ui.notFoundTextTemplate.content
-              .textContent.replace('{searchTerm}', filterText);
-          }
-        });
-        this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.notFound);
-      } else {
-        this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.notFound);
-      }
+      this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.notFound);
+    } else {
+      this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.notFound);
     }
   }
 
