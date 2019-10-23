@@ -2,6 +2,11 @@
   margin-top: pxToRem($sizeGiant);
   margin-bottom: pxToRem($sizeGiant);
 
+  &--loading {
+    position: relative;
+    overflow: hidden;
+  }
+
   &__line {
     margin-top: pxToRem($sizeTiny);
     height: pxToRem(3px);

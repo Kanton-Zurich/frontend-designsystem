@@ -6,12 +6,14 @@ interface ModuleDomSelectors {
   usernameInput: string;
   passwordInput: string;
   showPasswordBtn: string;
+  loginForm: string;
 }
 interface ModuleStateClasses {
   unauthorised: string;
   credentialsFailed: string;
   connectionFail: string;
   loginBtnDisable: string;
+  loading: string;
 }
 export interface CugLoginModuleOptions {
   devModeAttr: string;
@@ -33,12 +35,14 @@ const domSelectors: ModuleDomSelectors = {
   usernameInput: '[data-cug_login=cellUsername] input',
   passwordInput: '[data-cug_login=cellPassword] input',
   showPasswordBtn: '[data-cug_login=cellPassword] .atm-form_input__functionality',
+  loginForm: '[data-cug_login="loginForm"]',
 };
 const stateClasses: ModuleStateClasses = {
   unauthorised: 'mdl-cug_login--unauthorized',
   credentialsFailed: 'mdl-cug_login--credentials-failed',
   connectionFail: 'mdl-cug_login--connection-fail',
   loginBtnDisable: 'atm-button--disabled',
+  loading: 'mdl-cug_login--loading',
 };
 export const CugLoginDefaultOptions: CugLoginModuleOptions = { // eslint-disable-line
   devModeAttr: 'data-cug_login-devmode',
