@@ -12,6 +12,8 @@
 
   background: $colorWhite;
 
+  z-index: $zIndexInner;
+
   display: none;
 
   &__svg circle {

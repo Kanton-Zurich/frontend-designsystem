@@ -111,6 +111,8 @@ class Autosuggest {
     this.query = queryAfter;
 
     if (this.options.url) {
+      this.setLoading();
+
       await this.fetchData();
     }
 
@@ -133,6 +135,8 @@ class Autosuggest {
 
       this.dispatchStatusEvent(Autosuggest.events.reset);
     }
+
+    this.unsetLoading();
   }
 
   /**
