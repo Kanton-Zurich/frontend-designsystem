@@ -169,6 +169,7 @@ const variants = _.mapValues({
       },
       items: [{
         title: 'Für wen möchten Sie den Steuerbetrag berechnen?',
+        subHead: 'Unternehmen, Vereine und Stiftungen',
         children: [
           {
             partial: () => handlebars.compile(formHBS)(defaultFormData.variants.taxEntity.props),
@@ -176,6 +177,7 @@ const variants = _.mapValues({
         ],
       }, {
         title: 'Was möchten Sie berechnen?',
+        subHead: 'Steuerrückstellung',
         children: [
           {
             partial: () => handlebars.compile(formHBS)({
