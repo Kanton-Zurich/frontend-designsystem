@@ -14,6 +14,7 @@ class Search extends Module {
     url: string,
     domSelectors: any,
     stateClasses: any,
+    searchPageUrl: string,
   }
 
   public data: {
@@ -25,6 +26,7 @@ class Search extends Module {
     input: HTMLInputElement,
     template: HTMLScriptElement,
     autosuggest: HTMLDivElement,
+    form: HTMLFormElement,
   }
 
   constructor($element: any, data: Object, options: Object) {
@@ -36,6 +38,7 @@ class Search extends Module {
         input: '[data-search="input"]',
         template: '[data-search="autosuggestTemplate"]',
         autosuggest: '[data-search="autosuggest"]',
+        form: '[data-search="form"]',
       },
       stateClasses: {
         noTags: 'mdl-search--hide-tags',
@@ -65,6 +68,7 @@ class Search extends Module {
         template: this.ui.template.innerHTML,
         target: this.ui.autosuggest,
         url: this.options.url,
+        searchPageUrl: this.options.searchPageUrl,
       }, {});
     });
 

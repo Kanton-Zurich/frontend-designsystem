@@ -3,19 +3,16 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const template = dataHelper.getFileContent('radiobutton.hbs');
+const template = dataHelper.getFileContent('search_result_item.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Radiobutton',
-    className: 'Radiobutton',
-    jira: 'CZHDEV-847',
-    documentation: dataHelper.getDocumentation('radiobutton.md'),
+    title: 'SearchResultItem',
+    className: 'SearchResultItem',
+    jira: 'CZHDEV-*',
+    documentation: dataHelper.getDocumentation('search_result_item.md'),
   },
   props: {
-    label: 'Radio button label',
-    groupName: 'Radiogroup',
-    id: 1,
-    value: 'value',
+
   },
 });
 const variants = _.mapValues({
@@ -23,34 +20,6 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
-    },
-  },
-  checked: {
-    meta: {
-      title: 'Vorausgewählt',
-      desc: 'Initial Ausgewählt/aktiv.',
-    },
-    props: {
-      isChecked: true,
-    },
-  },
-  disabled: {
-    meta: {
-      title: 'Deaktiviert',
-      desc: 'Initial deaktiviert, nicht click- bzw auswählbar.',
-    },
-    props: {
-      isDisabled: true,
-    },
-  },
-  tag: {
-    meta: {
-      title: 'Tag als Radiobutton',
-      desc: 'Verwendung in der Suche',
-    },
-    props: {
-      id: 'astag',
-      asTag: true,
     },
   },
 }, (variant) => {

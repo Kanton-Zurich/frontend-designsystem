@@ -20,6 +20,7 @@ class Autosuggest {
     list: HTMLUListElement,
     template: string,
     renderAsButton: boolean,
+    searchPageUrl: string,
   };
 
   private classes: {
@@ -208,7 +209,7 @@ class Autosuggest {
       this.renderItem({
         shortTitle: Object.prototype.hasOwnProperty.call(result, 'title') ? result.title : result,
         buzzwords: '',
-        target: Object.prototype.hasOwnProperty.call(result, 'path') ? result.path : '',
+        target: Object.prototype.hasOwnProperty.call(result, 'path') ? result.path : `${this.options.searchPageUrl}?q=${encodeURIComponent(result)}`,
       });
     });
 
@@ -239,7 +240,7 @@ class Autosuggest {
       await import('whatwg-fetch');
     }
 
-    return fetch(this.options.url)
+    return fetch(`${this.options.url}?q=${encodeURIComponent(this.query)}`)
       .then(response => response.json())
       .then((response) => {
         if (Object.prototype.hasOwnProperty.call(response, 'suggestions')) {

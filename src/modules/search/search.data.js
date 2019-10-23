@@ -9,7 +9,7 @@ const contentTeaser = require('../../atoms/content_teaser/content_teaser.data');
 const template = dataHelper.getFileContent('search.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Search',
+    title: 'OnSite-Suche',
     className: 'Search',
     jira: 'CZHDEV-805',
     label: 'Suche',
@@ -20,42 +20,51 @@ const data = _.merge({}, defaultData, {
       _.merge({}, anchorlinkData, {
         anchorlink: {
           anchorlinkText: 'Schulferien 2019',
+          anchorlinkAdress: '/pages/search/search.html?q=Schulferien 2019',
         },
       }),
       _.merge({}, anchorlinkData, {
         anchorlink: {
           anchorlinkText: 'Kurse für Hundehalter',
+          anchorlinkAdress: '/pages/search/search.html?q=Kurse für Hundehalter',
         },
       }),
       _.merge({}, anchorlinkData, {
         anchorlink: {
           anchorlinkText: 'Quellensteuer',
+          anchorlinkAdress: '/pages/search/search.html?q=Quellensteuer',
         },
       }),
       _.merge({}, anchorlinkData, {
         anchorlink: {
           anchorlinkText: 'Handelsregistereintrag',
+          anchorlinkAdress: '/pages/search/search.html?q=Handelsregistereintrag',
         },
       }),
       _.merge({}, anchorlinkData, {
         anchorlink: {
           anchorlinkText: 'Velo',
+          anchorlinkAdress: '/pages/search/search.html?q=Velo',
         },
       }),
       _.merge({}, anchorlinkData, {
         anchorlink: {
           anchorlinkText: 'eAutoindex',
+          anchorlinkAdress: '/pages/search/search.html?q=eAutoindex',
         },
       }),
       _.merge({}, anchorlinkData, {
         anchorlink: {
           anchorlinkText: 'Schulferien 2019',
+          anchorlinkAdress: '/pages/search/search.html?q=Schulferien 2019',
         },
       }),
     ],
     options: JSON.stringify({
       url: '/mocks/modules/search/search.json',
+      searchPageUrl: '/pages/search/search.html',
     }),
+    searchPageUrl: '/pages/search/search.html',
     autosuggestTemplate: contentTeaser.variants.default.meta.code.template,
     contentNav: {
       items: [],

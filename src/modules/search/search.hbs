@@ -3,8 +3,10 @@
     <svg class="icon mdl-search__icon">
       <use xlink:href="#search"></use>
     </svg>
-    <label class="visuallyhidden" for="query">Suchbegriff</label>
-    <input class="mdl-search__input atm-form_input" type="text" data-search="input" name="query" id="query" placeholder="Suchbegriff" autocomplete="new-password"/>
+    <form novalidate data-search="form" method="GET" action="{{searchPageUrl}}">
+      <label class="visuallyhidden" for="query">Suchbegriff</label>
+      <input class="mdl-search__input atm-form_input" type="text" data-search="input" name="q" id="q" placeholder="Suchbegriff" autocomplete="new-password"/>
+    </form>
   </div>
   <div class="mdl-tag-group mdl-search__tag-group">
     <h2 class="atm-heading">Meist gesucht</h2>
