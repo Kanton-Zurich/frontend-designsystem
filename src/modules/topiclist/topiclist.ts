@@ -94,6 +94,7 @@ class Topiclist extends Module {
         nav: 'mdl-topiclist--nav',
         hidden: 'mdl-topiclist--hidden',
         visible: 'mdl-topiclist--visible',
+        loading: 'mdl-topiclist--loading',
       },
     };
     super($element, defaultData, defaultOptions, data, options);

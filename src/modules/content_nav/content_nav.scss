@@ -6,7 +6,7 @@ $contentNavGrid: (
 
 .mdl-content_nav {
   &--loading {
-    min-height: pxToRem(200px);
+    min-height: $loadingMinHeight;
     position: relative;
   }
 
