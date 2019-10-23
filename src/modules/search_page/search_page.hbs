@@ -42,9 +42,9 @@
   <script type="text/x-handlebars-template" data-search_page="resultsTemplate">
     <ul class="mdl-search_page__list">
       <% _.forEach(results, function(item, index) { %>
-        <li class="mdl-search_page__item" <% if(item.type === 'service') { %>data-init="servicelist"<% } %>>
-          <span class="mdl-search_page__item-meta">
-            <span class="mdl-search_page__item-type">
+        <li class="atm-search_result_item" <% if(item.type === 'service') { %>data-init="servicelist"<% } %>>
+          <span class="atm-search_result_item__meta">
+            <span class="atm_search_result_item__type">
               <%- item.typeLabel %>
             </span>
             <% if (item.breadcrumb) { %>
@@ -87,7 +87,7 @@
               </span>
             </a>
           <% } else { %>
-            <a class="mdl-search_page__item-content" href="<%- item.link %>">
+            <a class="atm-search_result_item__content" href="<%- item.link %>">
               <h4 class="atm-heading"><%- item.title %></h4>
               <p><%- item.teaserText %></p>
             </a>

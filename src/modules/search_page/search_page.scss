@@ -42,49 +42,4 @@
   /**
    * SPECIAL STYLES FOR THE RESULTS ITEMS
    */
-  &__item {
-    @include sizeCurve(padding-top padding-bottom, regular);
-    border-bottom: 1px solid $colorBlack20;
-
-    &-content {
-      text-decoration: none;
-
-      h4 {
-        color: $colorBlack;
-        margin-bottom: pxToRem($sizeMini);
-      }
-
-      p {
-        color: $colorBlack60;
-        margin: 0;
-      }
-    }
-
-    &-meta {
-      font-size: pxToRem($sizeFontTiny);
-      color: $colorBlack60;
-    }
-
-    &-type {
-      font-weight: $fontWeightBlack;
-    }
-
-    .atm-linklist_item {
-      padding: 0;
-      border: none;
-
-      &:after {
-        display: none;
-      }
-    }
-
-    .atm-linklist_item__text,
-    .atm-heading {
-      color: $colorBlack;
-    }
-
-    .atm-linklist_item__label {
-      color: $colorBlack60;
-    }
-  }
 }
