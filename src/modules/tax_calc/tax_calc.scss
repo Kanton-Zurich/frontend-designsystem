@@ -1,3 +1,94 @@
-//.mdl-tax_calc {
-//
-//}
+.mdl-tax_calc {
+  $root: #{&};
+  margin-bottom: pxToRem($sizeHuge);
+
+  &__form-block {
+    .mdl-tax_calc__form-block_item {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 800ms ease;
+
+      &--enabled {
+        max-height: 500px;
+      }
+
+      .form__section {
+        margin-bottom: 0;
+
+        .atm-radiobutton.hidden {
+          display: none;
+        }
+
+        .form__fieldset-error-message {
+          display: block;
+          width: 100%;
+          font-size: pxToRem($sizeFontTiny);
+          line-height: $sizeLineHeightBase;
+          margin: 0;
+          padding-left: pxToRem($sizeRegular + 2px);
+          color: $colorWhite;
+          background-color: $colorRed;
+          transform: translateY(-50%) scaleY(0);
+          transition: transform 400ms, opacity 400ms, height 400ms ease-in-out;
+          height: 0;
+          opacity: 0;
+          margin-top: $sizeTiny;
+        }
+
+        .invalid .form__fieldset-error-message {
+          padding-top: pxToRem(7px);
+          padding-bottom: pxToRem(5px);
+          height: auto;
+          opacity: 1;
+          transform: translateY(0) scaleY(1);
+        }
+      }
+
+      .mdl-accordion__button {
+        margin-bottom: pxToRem($sizeTiny);
+
+        .icon {
+          opacity: 1;
+          transition: opacity 400ms ease-in-out;
+        }
+      }
+
+      &--fixed {
+        .mdl-accordion__button {
+          pointer-events: none;
+          cursor: default;
+
+          .icon {
+            opacity: 0;
+          }
+        }
+
+        &:after {
+          height: 3px;
+          background: $colorBlack;
+          transition-delay: 400ms;
+        }
+      }
+    }
+
+    #{$root}__next-btn_container {
+      @include sizeCurve(margin-top, big, $isNegative: true);
+      @include sizeCurve(padding-bottom, big);
+
+      .atm-button {
+        margin-top: pxToRem($sizeRegular);
+        float: right;
+        transition: opacity 400ms ease;
+        opacity: 0;
+
+        &.show {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &__result-block {
+    display: none;
+  }
+}
