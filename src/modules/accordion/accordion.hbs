@@ -17,7 +17,7 @@
     {{#each items}}
       <div class="mdl-accordion__item{{#if additionalClass}} {{additionalClass}}{{/if}}"{{#if additionalAttribute}} {{additionalAttribute}}{{/if}} data-accordion="item">
         <h{{increment ../accordionHeading.level}} class="mdl-accordion__header">
-          <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger">
+          <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger" type="button">
             <span class="mdl-accordion__control">
               {{title}}
             </span>
@@ -26,6 +26,7 @@
               <use xlink:href="#plus-horizontal"></use>
             </svg>
           </button>
+          {{#if subHead}}<span class="mdl-accordion__subhead">{{subHead}}</span>{{/if}}
         </h{{increment ../accordionHeading.level}}>
         <div class="mdl-accordion__panel" data-accordion="panel" aria-hidden="true">
           <div class="mdl-accordion__panel-content" data-accordion="panel-content">

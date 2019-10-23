@@ -68,6 +68,11 @@ $accordionMap: (
       .mdl-accordion__plus use {
         fill: $colorBlack100;
       }
+
+      .mdl-accordion__subhead {
+        opacity: 0;
+        transition: none;
+      }
     }
 
     &--transition-end {
@@ -94,6 +99,18 @@ $accordionMap: (
 
   &__header {
     margin: 0;
+  }
+
+  &__subhead {
+    font-size: pxToRem($sizeRegular);
+    bottom: pxToRem($sizeMini);
+    margin-top: pxToRem(- $sizeRegular);
+    line-height: pxToRem($sizeLarge);
+    color: $colorBlack60;
+    font-weight: $fontWeightDefault;
+    opacity: 1;
+    display: block;
+    transition: opacity 800ms;
   }
 
   &__control {
