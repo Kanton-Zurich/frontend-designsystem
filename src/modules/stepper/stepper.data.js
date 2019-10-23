@@ -74,7 +74,7 @@ const variants = _.mapValues({
     },
     props: {
       navigation: false,
-      remark: 'Ihre Daten werden ausschliesslich für den hier ersichtlichen Zweck verwendet. Siehe <a class="atm-text_link" href="#">Datenschutzerklärung</a> und <a class="atm-text_link" href="#">Nutzungsbedingungen</a>.',
+      remark: '<p>Ihre Daten werden ausschliesslich für den hier ersichtlichen Zweck verwendet.</p><p>Siehe <a class="atm-text_link" href="https://czhdev.dev.one-inside.com/czhdev/develop/modules/stepper/stepper.html#">Datenschutzerklärung</a> und <a class="atm-text_link" href="https://czhdev.dev.one-inside.com/czhdev/develop/modules/stepper/stepper.html#">Nutzungsbedingungen</a>.</p>',
       steps: [
         formVariants.defaultDuplicate.props,
       ],
