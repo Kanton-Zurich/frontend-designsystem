@@ -44,6 +44,10 @@ class Autosuggest {
 
     this.data = data;
 
+    this.stateClasses = {
+      loading: 'mdl-content_nav--loading',
+    };
+
     // Setting the lodash template
     this.template = template(this.options.template);
 
@@ -293,6 +297,14 @@ class Autosuggest {
     if (parentElement.nextSibling) {
       parentElement.nextSibling.querySelector('a, button').focus();
     }
+  }
+
+  setLoading() {
+    this.options.target.classList.add(this.stateClasses.loading);
+  }
+
+  unsetLoading() {
+    this.options.target.classList.remove(this.stateClasses.loading);
   }
 }
 

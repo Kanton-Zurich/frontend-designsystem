@@ -5,6 +5,10 @@ $contentNavGrid: (
 );
 
 .mdl-content_nav {
+  &--loading {
+    min-height: pxToRem(200px);
+  }
+
   &__list {
     display: grid;
 
