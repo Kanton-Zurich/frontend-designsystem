@@ -50,7 +50,7 @@ class FlexData extends Module {
         paginationInput: '.mdl-pagination input',
       },
       stateClasses: {
-        // activated: 'is-activated'
+        loading: 'mdl-flex-data--loading',
       },
     };
     super($element, defaultData, defaultOptions, data, options);
@@ -283,6 +283,8 @@ class FlexData extends Module {
    * @param callback
    */
   async fetchData(callback: Function) {
+    this.ui.results.classList.add(this.options.stateClasses.loading);
+
     if (!window.fetch) {
       await import('whatwg-fetch');
     }
@@ -295,6 +297,8 @@ class FlexData extends Module {
           history.pushState({url: canonical, }, null, canonical); // eslint-disable-line
           callback(response);
         }
+
+        this.ui.results.classList.remove(this.options.stateClasses.loading);
       })
       .catch((err) => {
         this.log('error', err);
