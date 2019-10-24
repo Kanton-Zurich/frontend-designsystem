@@ -1,0 +1,45 @@
+.mdl-search_page {
+  @include sizeCurve(padding-bottom, big);
+
+  &--loading {
+    position: relative;
+
+    height: 100px;
+    max-height: 100px;
+
+    overflow: hidden;
+  }
+
+  &__form {
+    @include sizeCurve(padding-bottom, regular);
+  }
+
+  &__results-wrapper {
+    @include sizeCurve(margin-top, medium);
+  }
+
+  &__counter {
+    font-size: pxToRem($sizeFontTiny);
+    font-weight: $fontWeightBlack;
+
+    display: block;
+
+    @include sizeCurve(margin-bottom, small);
+  }
+
+  &__results {
+    @include sizeCurve(padding-bottom, small);
+  }
+
+  &__list {
+    @include resetList;
+  }
+
+  &__tag-group {
+    @include sizeCurve(margin-bottom, medium);
+  }
+
+  /**
+   * SPECIAL STYLES FOR THE RESULTS ITEMS
+   */
+}

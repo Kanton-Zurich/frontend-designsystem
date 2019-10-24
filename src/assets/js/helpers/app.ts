@@ -40,6 +40,7 @@ import Locations from '../../../modules/locations/locations';
 import MapView from '../../../modules/map_view/map_view';
 import Back2top from '../../../modules/back2top/back2top';
 import Tooltip from '../../../modules/tooltip/tooltip';
+import SearchPage from '../../../modules/search_page/search_page';
 import FlexData from '../../../modules/flex_data/flex_data';
 import DrilldownSelect from '../../../modules/drilldown_select/drilldown_select';
 import UserMenu from '../../../modules/user_menu/user_menu';
@@ -96,6 +97,7 @@ class App {
     this.modules.drilldownSelect = DrilldownSelect;
     this.modules.back2top = Back2top;
     this.modules.tooltip = Tooltip;
+    this.modules.searchPage = SearchPage;
     this.modules.userMenu = UserMenu;
     this.modules.cugLogin = CugLogin;
     this.modules.taxCalc = TaxCalc;
@@ -113,11 +115,6 @@ class App {
     } else {
       window[namespace].helpers.bodyElement = document.body;
     }
-
-    // Check for touch support
-    const hasTouchSupport = 'ontouchstart' in window || navigator.msMaxTouchPoints;
-
-    if (hasTouchSupport) document.documentElement.classList.add('touch');
 
     const sAgent = window.navigator.userAgent;
     const isIE = sAgent.indexOf('MSIE');

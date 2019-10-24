@@ -198,5 +198,9 @@ $stepperNavigationCurves: (
     flex-grow: 1;
 
     justify-content: center;
+
+    &.mdl-stepper_navigation__step--pending {
+      justify-content: flex-end;
+    }
   }
 }

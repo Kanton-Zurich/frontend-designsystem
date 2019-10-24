@@ -34,7 +34,8 @@
     "Image": true,
     "fetch": true,
     "DOMParser": true,
-    "FormData": true
+    "FormData": true,
+    "history": true
   },
   "settings": {
     "import/resolver": {

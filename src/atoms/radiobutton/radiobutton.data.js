@@ -43,6 +43,16 @@ const variants = _.mapValues({
       isDisabled: true,
     },
   },
+  tag: {
+    meta: {
+      title: 'Tag als Radiobutton',
+      desc: 'Verwendung in der Suche',
+    },
+    props: {
+      id: 'astag',
+      asTag: true,
+    },
+  },
   withDescription: {
     meta: {
       title: 'With Description',

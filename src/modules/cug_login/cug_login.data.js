@@ -30,8 +30,8 @@ const unauthNotificationData = {
   message: 'Melden Sie sich ab und verwenden Sie die für diesen Bereich gültigen Login-Angaben.',
   title: 'Ihr Login ist für diesen Bereich nicht gültig.',
   icon: '#caution',
-  isLogin: true,
-  loginBtn: {
+  isDialog: true,
+  button: {
     label: 'Abmelden',
     additionalAttributes: 'data-cug_login="doLogout"',
   },
@@ -41,7 +41,7 @@ const serviceFailNotificationData = {
   message: 'Grund dafür ist ein technisches Problem. Bitte versuchen Sie es später noch einmal.',
   title: 'Entschuldigung, der Service ist nicht verfügbar.',
   icon: '#caution',
-  isLogin: true,
+  isDialog: true,
 };
 
 const template = dataHelper.getFileContent('cug_login.hbs');
