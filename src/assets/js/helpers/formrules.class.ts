@@ -151,7 +151,7 @@ class FormRules {
   }
 
   addWatchers() {
-    this.rules.forEach((rule, ruleIdx) => {
+    this.rules.forEach((rule) => {
       rule.conditions.forEach((condition) => {
         const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
         const fields = this.ui.form.querySelectorAll(querySelector);
