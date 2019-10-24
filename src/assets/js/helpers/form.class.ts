@@ -134,6 +134,8 @@ class Form {
       this.validateField(domElement);
     } else {
       domElement.classList.remove(this.options.inputClasses.dirty);
+      domElement.closest(this.options.inputSelector)
+        .classList.remove(this.options.inputClasses.valid);
     }
   }
 
