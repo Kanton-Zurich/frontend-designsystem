@@ -159,11 +159,11 @@ class FormRules {
         fields.forEach((field) => {
           if (field.hasAttribute('data-select-option')) {
             field.addEventListener('click', () => {
-              this.checkRule(ruleIdx);
+              this.checkRules();
             });
           } else {
             field.addEventListener('change', () => {
-              this.checkRule(ruleIdx);
+              this.checkRules();
             });
           }
         });
@@ -171,28 +171,35 @@ class FormRules {
     });
   }
 
-  checkRule(ruleIdx) {
-    const rule = this.rules[ruleIdx];
-    let conditionsMet = true;
+  checkRules() {
+    // Fill an array with all the results from the rules
+    const rulesResult = [];
+    const { action } = this.rules[0];
 
-    rule.conditions.forEach((condition) => {
-      const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
-      const fields = Array.prototype.slice.call(this.ui.form.querySelectorAll(querySelector));
-      let correctField = null;
+    this.rules.forEach((rule) => {
+      let conditionsMet = true;
 
-      if (fields.length === 1) {
-        correctField = fields[0]; //eslint-disable-line
-      } else {
-        correctField = fields.filter(field => field.value === condition.value)[0]; //eslint-disable-line
-      }
+      rule.conditions.forEach((condition) => {
+        const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+        const fields = Array.prototype.slice.call(this.ui.form.querySelectorAll(querySelector));
+        let correctField = null;
 
-      if ((condition.equals && !correctField.checked)
-        || (!condition.equals && correctField.checked)) {
-        conditionsMet = false;
-      }
+        if (fields.length === 1) {
+          correctField = fields[0]; //eslint-disable-line
+        } else {
+          correctField = fields.filter(field => field.value === condition.value)[0]; //eslint-disable-line
+        }
+
+        if ((condition.equals && !correctField.checked)
+          || (!condition.equals && correctField.checked)) {
+          conditionsMet = false;
+        }
+      });
+
+      rulesResult.push(conditionsMet);
     });
 
-    this.doAction(rule.action, conditionsMet);
+    this.doAction(action, rulesResult.filter(result => result === true).length > 0);
   }
 
   // Checks if the parent step was visited once and is currently hidden
