@@ -43,6 +43,16 @@ const variants = _.mapValues({
       isDisabled: true,
     },
   },
+  tag: {
+    meta: {
+      title: 'Tag als Radiobutton',
+      desc: 'Verwendung in der Suche',
+    },
+    props: {
+      id: 'astag',
+      asTag: true,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

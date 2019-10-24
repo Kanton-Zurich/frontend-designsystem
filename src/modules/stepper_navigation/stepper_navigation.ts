@@ -11,6 +11,7 @@ class StepperNavigation extends Module {
   public data: {
     active: number,
     steps: NodeListOf<HTMLDivElement>
+    stepper: HTMLDivElement,
   }
 
   public ui: {
@@ -21,6 +22,7 @@ class StepperNavigation extends Module {
   public options: {
     domSelectors: any,
     stateClasses: any,
+    hasRules: boolean,
   }
 
   constructor($element: any, data: Object, options: Object) {
@@ -39,6 +41,7 @@ class StepperNavigation extends Module {
         pendingStep: 'mdl-stepper_navigation__step--pending',
         hiddenStep: 'mdl-stepper_navigation__step--hidden',
       },
+      hasRules: false,
     };
 
     super($element, defaultData, defaultOptions, data, options);
@@ -83,7 +86,16 @@ class StepperNavigation extends Module {
   }
 
   setActiveItem(before, after) {
-    if (before !== null) {
+    if (this.options.hasRules && after < before) {
+      for (let c = after + 1; c < this.data.steps.length; c += 1) {
+        this.ui.step[c].classList.remove(this.options.stateClasses.activeStep);
+        this.ui.step[c].classList.remove(this.options.stateClasses.visitedStep);
+
+        this.data.steps[after].removeAttribute('data-visited');
+
+        this.ui.step[c].setAttribute('disabled', 'disabled');
+      }
+    } else if (before !== null) {
       this.ui.step[before].classList.remove(this.options.stateClasses.activeStep);
     }
 
@@ -91,6 +103,8 @@ class StepperNavigation extends Module {
     this.ui.step[after].classList.remove(this.options.stateClasses.visitedStep);
 
     this.ui.step[after].removeAttribute('disabled');
+
+    this.data.steps[after].setAttribute('data-visited', 'true');
 
     this.data.active = after;
   }

@@ -11,6 +11,7 @@ class Select extends Module {
   public isOpen: boolean;
   public isMultiSelect: boolean;
   public hasFilter: boolean;
+  public hasTableList: boolean;
   public usedAnchors: boolean;
   public isFirefox: boolean;
   public buttonPostfix: string;
@@ -23,10 +24,12 @@ class Select extends Module {
     triggerLabel: any,
     dropdown: any,
     filter: any,
+    filterContainer: HTMLDivElement,
     list: any,
     items: HTMLLIElement[],
     inputItems: HTMLInputElement[],
     applyButton: any,
+    applyButtonContainer: HTMLDivElement,
     filterClearButton: any,
     phoneInput: any,
   };
@@ -35,6 +38,8 @@ class Select extends Module {
     inputDelay: number,
     firefoxDelay: number,
     dropdownDelay: number,
+    smallDropdownMaxItems: number,
+    largeDropdownMaxItems: number,
     domSelectors: any,
     stateClasses: any,
     dataSelectors: any,
@@ -46,11 +51,14 @@ class Select extends Module {
       inputDelay: 250,
       firefoxDelay: 180,
       dropdownDelay: 400,
+      smallDropdownMaxItems: 4,
+      largeDropdownMaxItems: 6,
       domSelectors: {
         trigger: '.atm-form_input--trigger button',
         triggerValue: '.atm-form_input__trigger-value',
         triggerLabel: '.atm-form_input__trigger-label',
         dropdown: '.mdl-select__options',
+        filterContainer: '.mdl-select__filter',
         filter: '.mdl-select__filter input',
         filterClearButton: '.mdl-select__filter .atm-form_input__functionality',
         phoneInput: '.atm-form_input--trigger-phone input',
@@ -58,6 +66,7 @@ class Select extends Module {
         items: '.atm-list__item',
         inputItems: '.atm-list__item input',
         visibleInputItems: '.atm-list__item:not(.hidden) input',
+        applyButtonContainer: '.mdl-select__apply',
         applyButton: '.mdl-select__apply button',
       },
       stateClasses: {
@@ -79,6 +88,7 @@ class Select extends Module {
     this.usedAnchors = false;
     this.isFirefox = navigator.userAgent.search('Firefox') > -1;
     this.hasFilter = typeof this.ui.filter !== 'undefined';
+    this.hasTableList = this.ui.list.classList.contains(this.options.stateClasses.tableList);
     if (this.ui.element.dataset[this.options.dataSelectors.isMultiSelect]) {
       this.isMultiSelect = true;
     }
@@ -89,7 +99,6 @@ class Select extends Module {
 
     this.ui.list.scrollTop = 0;
 
-
     if (this.isMultiSelect) {
       this.buttonPostfix = this.ui.element.dataset[this.options.dataSelectors.selectPostfix];
     }
@@ -97,7 +106,8 @@ class Select extends Module {
     // Array of selection indicies
     this.selections = [];
 
-    this.initUi();
+    // Input Items should always be a Node List
+    this.initUi(['inputItems', 'items']);
     this.initEventListeners();
 
     // preselection
@@ -324,6 +334,7 @@ class Select extends Module {
         li.classList.add('hidden');
       }
     });
+    this.adjustContainerHeight();
   }
 
 
@@ -413,7 +424,7 @@ class Select extends Module {
     } else if (this.ui.phoneInput) {
       triggerLabelText = value;
     } else {
-      triggerLabelText = this.ui.list.querySelector(`[value="${value}"`).placeholder;
+      triggerLabelText = this.ui.list.querySelector(`[value="${value}"]`).placeholder;
     }
     this.ui.triggerValue.innerText = triggerLabelText;
     this.ui.element.classList.remove(this.options.stateClasses.selected);
@@ -495,7 +506,7 @@ class Select extends Module {
     this.ui.dropdown.setAttribute('aria-hidden', 'false');
 
     // adjust width of input items in table lists
-    if (this.ui.list.classList.contains(this.options.stateClasses.tableList)) {
+    if (this.hasTableList) {
       const dropDownWidth = this.ui.dropdown.clientWidth;
       this.ui.inputItems.forEach((input) => {
         input.style.width = `${dropDownWidth}px`;
@@ -510,18 +521,10 @@ class Select extends Module {
       } else {
         this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
       }
-      // adjust height if single select
-      const visibleItems = this.ui.element
-        .querySelectorAll(this.options.domSelectors.visibleInputItems);
-      if (visibleItems.length > 0) {
-        const itemsVerticalSize = visibleItems.length * visibleItems[0].clientHeight;
-        if (this.ui.dropdown.clientHeight > itemsVerticalSize) {
-          this.ui.dropdown.style.height = `${itemsVerticalSize}px`;
-        }
-      }
     } else {
       this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
     }
+    this.adjustContainerHeight();
     // click out of element loose focus and close
     this.onFocusOut = this.onFocusOut.bind(this);
     window.addEventListener('mouseup', this.onFocusOut);
@@ -541,6 +544,11 @@ class Select extends Module {
       this.isOpen = false;
       this.ui.trigger.setAttribute('aria-expanded', 'false');
       this.ui.dropdown.setAttribute('aria-hidden', 'true');
+
+      if (this.hasFilter) {
+        this.ui.filter.value = '';
+      }
+
       if (!focusLost) {
         setTimeout(() => {
           if (this.ui.phoneInput) {
@@ -557,6 +565,24 @@ class Select extends Module {
         this.updateFlyingFocus();
       }
       this.emitClose();
+    }
+  }
+
+  adjustContainerHeight() {
+    if (this.isOpen && !this.hasTableList) {
+      const dropdownMaxItems = this.ui.filterContainer
+        ? this.options.largeDropdownMaxItems
+        : this.options.smallDropdownMaxItems;
+      // adjust height if single select
+      const visibleItems = this.ui.element
+        .querySelectorAll(this.options.domSelectors.visibleInputItems);
+      const itemHeight = visibleItems[0] ? visibleItems[0].clientHeight : 0;
+      const maxHeight = itemHeight * dropdownMaxItems;
+      const itemsVerticalSize = (visibleItems.length * itemHeight);
+      const containerSize = Math.min(itemsVerticalSize, maxHeight)
+        + (this.ui.filterContainer ? this.ui.filterContainer.clientHeight : 0)
+        + (this.ui.applyButtonContainer ? this.ui.applyButtonContainer.clientHeight : 0);
+      this.ui.dropdown.style.height = `${containerSize}px`;
     }
   }
 

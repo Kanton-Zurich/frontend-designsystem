@@ -58,6 +58,10 @@ $modalCurves: (
     }
   }
 
+  &--dynamicheader {
+    transform: none;
+  }
+
   &--no-transition-show {
     transition: none;
 

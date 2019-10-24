@@ -1,13 +1,14 @@
 module.exports = (handlebarsTemplate, purgeConditionals = true) => {
   let output = handlebarsTemplate;
   if (purgeConditionals) {
-    output = output.replace(/{{#if (.*?)\/if}}/gm, '');
+    output = output.replace(/{{#unless (.*?)\/unless}}/gms, '');
+    output = output.replace(/{{#if (.*?)\/if}}/gms, '');
   } else {
-    output = output.replace(/{{#if (.*?)}}/gm, (m) => {
-      const attr = m.replace(' ', '').replace(/{{#if/gm, '').replace('}}', '');
+    output = output.replace(/{{#if (.*?)}}/gms, (m) => {
+      const attr = m.replace(' ', '').replace(/{{#if/gms, '').replace('}}', '');
       return `<% if (typeof(${attr}) !== "undefined" && ${attr} !== false) { %>`;
-    }).replace(/{{\/if}}/gm, '<% } %>');
+    }).replace(/{{\/if}}/gms, '<% } %>');
   }
-  return output.replace(/{{{/gm, '<%=').replace(/}}}/gm, '%>')
-    .replace(/{{/gm, '<%=').replace(/}}/gm, '%>');
+  return output.replace(/{{{/gms, '<%=').replace(/}}}/gms, '%>')
+    .replace(/{{/gms, '<%=').replace(/}}/gms, '%>');
 };

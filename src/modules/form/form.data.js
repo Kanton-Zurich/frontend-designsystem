@@ -621,27 +621,26 @@ const variants = _.mapValues({
               fields: [
                 {
                   isSmall: true,
-                  cellContent: () => handlebars.compile(formFieldsetHBS)({
-                    fieldsetTitle: 'Nationalität',
-                    options: [
-                      () => handlebars.compile(radioHBS)(_.merge({},
-                        radioData.variants.default.props,
-                        {
-                          label: 'Schweiz',
-                          groupName: 'nationality-2',
-                          id: 100,
-                          value: 'CH',
-                        })),
-                      () => handlebars.compile(radioHBS)(_.merge({},
-                        radioData.variants.default.props,
-                        {
-                          label: 'Nicht Schweiz',
-                          groupName: 'nationality-2',
-                          id: 102,
-                          value: 'none',
-                        })),
-                    ],
-                  }),
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.variants.default.props,
+                    {
+                      listData: _.merge({}, listDemoData.props, {
+                        groupId: 'nationality-f2',
+                        isSingleSelect: true,
+                        selectOptions: [
+                          { value: '', label: '' },
+                          { value: 'BE', label: 'Belgien', id: _.uniqueId('nationalityx') },
+                          { value: 'DE', label: 'Deutschland', id: _.uniqueId('nationalityx') },
+                          { value: 'FR', label: 'Frankreich', id: _.uniqueId('nationalityx') },
+                          { value: 'LU', label: 'Luxemburg', id: _.uniqueId('nationalityx') },
+                          { value: 'NL', label: 'Niederlande', id: _.uniqueId('nationalityx') },
+                          { value: 'SWE', label: 'Schweden', id: _.uniqueId('nationalityx') },
+                          { value: 'CH', label: 'Schweiz', id: _.uniqueId('nationalityx') },
+                          { value: 'UK', label: 'Vereinigtes Königreich', id: _.uniqueId('nationalityx') },
+                          { value: 'US', label: 'Vereinigte Staaten', id: _.uniqueId('nationalityx') },
+                        ],
+                      }),
+                    })),
                 },
               ],
             },
@@ -664,9 +663,19 @@ const variants = _.mapValues({
                         {
                           conditions: [
                             {
-                              field: 'nationality-2',
+                              field: 'nationality-f2',
                               equals: true,
                               value: 'CH',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-f2',
+                              equals: true,
+                              value: 'DE',
                             },
                           ],
                           action: 'show',
@@ -818,6 +827,48 @@ const variants = _.mapValues({
       ],
     },
   },
+  checkboxesNationality2: {
+    meta: {
+      title: 'Checkboxes für Stepper mit Logik (Für CZHDEV-1427)',
+      desc: '',
+    },
+    props: {
+      sectionTitle: 'Staatsangehörigkeit',
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Nationalität',
+                    options: [
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Schweiz',
+                          groupName: 'nationality-50',
+                          id: 444,
+                          value: 'CH',
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Nicht Schweiz',
+                          groupName: 'nationality-50',
+                          id: 445,
+                          value: 'none',
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
   placeOfCitizenshipPage: {
     meta: {
       title: 'Einzelnes Feld für Stepper mit Logik',
@@ -841,6 +892,50 @@ const variants = _.mapValues({
                       validation: {
                         isRequired: true,
                       },
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  placeOfCitizenshipPage2: {
+    meta: {
+      title: 'Einzelnes Feld für Stepper mit Logik',
+      desc: '',
+    },
+    props: {
+      sectionTitle: 'Bürgerort',
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Bürgerort',
+                      name: 'place_of_citizenship10',
+                      uuid: _.uniqueId('place_of_citizenship'),
+                      validation: {
+                        isRequired: true,
+                      },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-50',
+                              equals: true,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                      ]),
                     })),
                 },
               ],
