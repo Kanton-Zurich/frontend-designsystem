@@ -103,8 +103,6 @@ class CugLogin extends Module {
   private doLogin(ev: Event) {
     this.log('Login submit triggered.');
 
-    this.ui.loginForm.classList.add(this.options.stateClasses.loading);
-
     if (!this.loginFormHasErrors()) {
       const username = this.ui.usernameInput.value;
       const password = this.ui.passwordInput.value;
@@ -144,8 +142,6 @@ class CugLogin extends Module {
           } else {
             this.ui.element.classList.add(this.options.stateClasses.credentialsFailed);
           }
-
-          this.ui.loginForm.classList.remove(this.options.stateClasses.loading);
         }).catch((reason) => {
           this.log('Failed to connect api for user login.', reason);
           this.ui.element.classList.add(this.options.stateClasses.connectionFail);
