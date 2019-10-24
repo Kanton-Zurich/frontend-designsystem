@@ -112,11 +112,6 @@ class App {
       window[namespace].helpers.bodyElement = document.body;
     }
 
-    // Check for touch support
-    const hasTouchSupport = 'ontouchstart' in window || navigator.msMaxTouchPoints;
-
-    if (hasTouchSupport) document.documentElement.classList.add('touch');
-
     const sAgent = window.navigator.userAgent;
     const isIE = sAgent.indexOf('MSIE');
 
