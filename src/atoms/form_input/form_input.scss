@@ -45,14 +45,13 @@ $topSpaceSearchInput: 15.5px;
       border: 2px solid $colorCyan;
     }
 
- 	.atm-form_input--search & {
+    .atm-form_input--search & {
       font-size: pxToRem($sizeFontBig);
       font-weight: $fontWeightBlack;
 
       padding-top: $topSpaceSearchInput;
       padding-bottom: $topSpaceSearchInput;
     }
-
 
     @at-root {
       textarea#{&} {
@@ -64,7 +63,6 @@ $topSpaceSearchInput: 15.5px;
         text-indent: 0;
         resize: vertical;
         overflow: auto;
-
 
         & + label {
           top: 2px;
