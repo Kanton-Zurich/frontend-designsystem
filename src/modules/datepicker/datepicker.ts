@@ -260,6 +260,7 @@ class Datepicker extends Module {
   onClose() {
     this.ui.element.classList.remove('open');
     this.emitDateSet();
+    this.emitClose();
   }
 
   /**
@@ -294,6 +295,15 @@ class Datepicker extends Module {
       },
     };
     this.ui.element.dispatchEvent(new CustomEvent(Datepicker.events.dateSet, eventData));
+  }
+
+  /**
+   * CLose event
+   */
+  emitClose() {
+    this.ui.element.dispatchEvent(new CustomEvent(Datepicker.events.close));
+    // additionally emit this event on input for validation handling
+    this.ui.trigger.dispatchEvent(new CustomEvent(Datepicker.events.close));
   }
 
   /**
