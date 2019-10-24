@@ -1,0 +1,55 @@
+.atm-loading_circle {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: $colorWhite;
+
+  display: none;
+
+  &__svg circle {
+    box-sizing: border-box;
+    stroke: $colorCyan;
+    stroke-width: 3px;
+    transform-origin: 50%;
+    animation: line 2s cubic-bezier(0.4, 0, 0.2, 1) infinite, rotate 2s linear infinite;
+  }
+
+  [ class*='--loading' ] & {
+    display: flex;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(450deg);
+  }
+}
+@keyframes line {
+  0% {
+    stroke-dasharray: 2, 85.964;
+    transform: rotate(0);
+  }
+
+  50% {
+    stroke-dasharray: 65.973, 21.9911;
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dasharray: 2, 85.964;
+    stroke-dashoffset: -65.973;
+    transform: rotate(90deg);
+  }
+}

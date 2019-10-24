@@ -41,6 +41,8 @@ class ServiceList extends Module {
         const openModal = () => {
           modal.dispatchEvent(new CustomEvent('Modal.open'));
         };
+
+        this.log(modal);
         if (modal.getAttribute('data-loaded')) {
           openModal();
         } else {
