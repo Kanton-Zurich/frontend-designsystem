@@ -22,6 +22,7 @@ class TaxCalc extends Module {
     nextBtn: HTMLButtonElement,
   };
 
+  private readonly apiBase: string;
   private currentFormSection: number;
 
   constructor($element: any, data: Object, options: Object) {
@@ -33,6 +34,7 @@ class TaxCalc extends Module {
     this.initUi();
     this.initEventListeners();
 
+    this.apiBase = this.ui.element.getAttribute(this.options.attributeNames.apiBase);
     this.initCalculator();
   }
 
@@ -48,7 +50,7 @@ class TaxCalc extends Module {
       this.ui.taxTypeInputs.forEach((inputCon) => {
         const actInput = inputCon.getElementsByTagName('input')[0];
         if (actInput.value === calculatorId) {
-          const split = inputCon.getAttribute('data-tax_calc').split('-');
+          const split = inputCon.getAttribute(this.options.attributeNames.module).split('-');
           if (split && split.length > 1) {
             const taxEntity = split[1];
             this.ui.taxEntityInputs.forEach((el) => {
@@ -57,6 +59,8 @@ class TaxCalc extends Module {
             });
             this.enableCalculatorOptionsForEntity(taxEntity);
             this.activateFormSection(1);
+
+            this.requestCalculatorFormConfig(calculatorId);
             initialized = true;
           }
           actInput.checked = true;
@@ -191,7 +195,7 @@ class TaxCalc extends Module {
         }, 0);
       })
       .on('change', this.options.domSelectors.taxEntityInputs, (ev) => {
-        const taxEntity: 'individual' | 'incorp' = ev.target.value;
+        const taxEntity: string = ev.target.value;
         this.log('Changed value for Entity: ', taxEntity);
         this.enableCalculatorOptionsForEntity(taxEntity);
         if (this.formHasErrors()) {
@@ -203,17 +207,30 @@ class TaxCalc extends Module {
         this.log('CalculatorId: ', calculatorId);
         this.setCalculatorInURL(calculatorId);
 
-
-        // window.location.href = `${this.getBaselUrl()}?calculatorId=${calculatorId}`;
+        this.requestCalculatorFormConfig(calculatorId);
         // TODO: Request Form from API
         // TODO: Prpeare folloup sections.
       });
   }
 
+  private requestCalculatorFormConfig(calculatorId: string): void {
+    if (this.options.availableCalculator.indexOf(calculatorId) > -1) {
+      const path = calculatorId.toUpperCase();
+      const url = `${this.apiBase}${path}`;
+
+      this.fetchJsonData(url).then(
+        (resp) => {
+          this.log('Api Response: ', resp);
+        },
+        reason => this.log('FormConfig fetch failed: ', reason),
+      );
+    }
+  }
+
   private enableCalculatorOptionsForEntity(taxEntity: string) {
-    if (taxEntity) {
+    if (this.options.availableEntities.indexOf(taxEntity) > -1) {
       this.ui.taxTypeInputs.forEach((el) => {
-        const taxTypeAttr = el.getAttribute('data-tax_calc');
+        const taxTypeAttr = el.getAttribute(this.options.attributeNames.module);
         const split = taxTypeAttr.split('-');
         if (split[1] === taxEntity) {
           el.classList.remove('hidden');

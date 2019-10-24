@@ -18,6 +18,12 @@ interface ModuleStateClasses {
 export interface TaxCalcModuleOptions { // eslint-disable-line
   paramKeyCalculator: string;
   apiBase: string;
+  availableEntities: string[];
+  availableCalculator: string[];
+  attributeNames: {
+    module: string;
+    apiBase: string;
+  };
   domSelectors: ModuleDomSelectors;
   stateClasses: ModuleStateClasses;
 }
@@ -39,10 +45,17 @@ const stateClasses: ModuleStateClasses = {
   },
   hasResult: 'mdl-tax_calc--result',
 };
+const attributeNames = {
+  module: 'data-tax_calc',
+  apiBase: 'data-tax_calc-apibase',
+};
 
 export const TaxCalcDefaultOptions: TaxCalcModuleOptions = { // eslint-disable-line
   paramKeyCalculator: 'calculatorId',
   apiBase: 'https://www.steueramt.zh.ch/ZH-Web-Calculators/calculators/',
+  availableEntities: ['individual', 'incorp'],
+  availableCalculator: ['income_assets', 'federal', 'benefit_payments', 'benefit_payments_federal', 'inheritance', 'legal_simple', 'legal_iterative'],
+  attributeNames,
   domSelectors,
   stateClasses,
 };

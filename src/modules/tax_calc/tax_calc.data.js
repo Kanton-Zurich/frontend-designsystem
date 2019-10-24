@@ -19,6 +19,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('tax_calc.md'),
   },
   props: {
+    apiBase: 'https://www.steueramt.zh.ch/ZH-Web-Calculators/calculators/',
     beforeBlock: {
       heading: 'Bevor Sie starten',
       benefitItems: [
