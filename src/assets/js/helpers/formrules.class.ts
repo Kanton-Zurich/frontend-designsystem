@@ -1,3 +1,5 @@
+import Stepper from '../../../modules/stepper/stepper';
+
 class FormRules {
   private ui: {
     owner: HTMLElement,
@@ -82,6 +84,9 @@ class FormRules {
         } else {
           this.ui.owner.classList.add(this.options.stateClasses.hiddenByRule);
         }
+
+        this.checkForWarning();
+
         break;
       case 'hide':
         if (conditionsMet) {
@@ -89,6 +94,9 @@ class FormRules {
         } else {
           this.ui.owner.classList.remove(this.options.stateClasses.hiddenByRule);
         }
+
+        this.checkForWarning();
+
         break;
       case 'enable':
         if (conditionsMet) {
@@ -185,6 +193,23 @@ class FormRules {
     });
 
     this.doAction(rule.action, conditionsMet);
+  }
+
+  // Checks if the parent step was visited once and is currently hidden
+  checkForWarning() {
+    const step = this.ui.owner.closest('.mdl-stepper__step');
+    const stepper = this.ui.owner.closest('.mdl-stepper');
+
+    if (step && stepper) {
+      const isStepVisited = step.hasAttribute('data-visited');
+      const isHidden = step.classList.contains('mdl-stepper__step--hidden');
+
+      if (isStepVisited && isHidden) {
+        stepper.dispatchEvent(new CustomEvent(Stepper.events.showRuleNotification, {
+          detail: parseInt(step.getAttribute('data-step-index'), 10),
+        }));
+      }
+    }
   }
 }
 
