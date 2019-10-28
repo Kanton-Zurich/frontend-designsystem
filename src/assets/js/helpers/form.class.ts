@@ -51,7 +51,7 @@ class Form {
         valid: 'valid',
         invalid: 'invalid',
       },
-      domSelectors:  {
+      domSelectors: {
         floating: '[data-floating]',
       },
       messageSelector: '[data-message]',
