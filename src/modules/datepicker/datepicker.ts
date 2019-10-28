@@ -243,7 +243,12 @@ class Datepicker extends Module {
   /**
    * On change callback. Adds the dirty class to the container element
    */
-  onValueChange() {
+  onValueChange(val) {
+    if (this.pickerMode === 'date-range') {
+      if (val.length === 1) {
+        this.ui.trigger.value = `${this.ui.trigger.value} - ...`;
+      }
+    }
     if (!this.ui.element.classList.contains('dirty')) {
       this.ui.element.classList.add('dirty');
     }
@@ -255,6 +260,7 @@ class Datepicker extends Module {
   onClose() {
     this.ui.element.classList.remove('open');
     this.emitDateSet();
+    this.emitClose();
   }
 
   /**
@@ -289,6 +295,15 @@ class Datepicker extends Module {
       },
     };
     this.ui.element.dispatchEvent(new CustomEvent(Datepicker.events.dateSet, eventData));
+  }
+
+  /**
+   * CLose event
+   */
+  emitClose() {
+    this.ui.element.dispatchEvent(new CustomEvent(Datepicker.events.close));
+    // additionally emit this event on input for validation handling
+    this.ui.trigger.dispatchEvent(new CustomEvent(Datepicker.events.close));
   }
 
   /**

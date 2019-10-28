@@ -798,6 +798,16 @@ const variants = _.mapValues({
                           ],
                           action: 'show',
                         },
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-f2',
+                              equals: true,
+                              value: 'DE',
+                            },
+                          ],
+                          action: 'show',
+                        },
                       ]),
                     })),
                 },
