@@ -18,33 +18,46 @@
                     </div>
                   </div>
               </div>
+          </li>
+            <li class="mdl-instructions__item mdl-tax_calc__form-block">
+                <div>
+                    <h3 class="mdl-instructions__item-title atm-heading">
+                      {{formBlock.heading}}
+                    </h3>
+                    <div class="mdl-instructions__item-content">
+                      <form  data-tax_calc="formBase" novalidate>
+                        {{> "modules/accordion/accordion" formBlock.accordionData}}
+                      </form>
+                      <div class="mdl-tax_calc__next-btn_container" data-tax_calc="btnContainer">
+                        {{> "atoms/button/button" formBlock.nextBtnData}}
+                        {{> "atoms/button/button" formBlock.calculateBtnData}}
+                      </div>
+                    </div>
+                </div>
             </li>
-              <li class="mdl-instructions__item mdl-tax_calc__form-block">
-                  <div>
-                      <h3 class="mdl-instructions__item-title atm-heading">
-                        {{formBlock.heading}}
-                      </h3>
-                      <div class="mdl-instructions__item-content">
-                        <form  data-tax_calc="formBase" novalidate>
-                          {{> "modules/accordion/accordion" formBlock.accordionData}}
-                        </form>
-                        <div class="mdl-tax_calc__next-btn_container">
-                          {{> "atoms/button/button" formBlock.nextBtnData}}
-                        </div>
-                      </div>
-                  </div>
-              </li>
-              <li class="mdl-instructions__item mdl-tax_calc__result-block">
-                  <div>
-                      <h3 class="mdl-instructions__item-title atm-heading">
-                        {{resultBlock.heading}}
-                      </h3>
-                      <div class="mdl-instructions__item-content">
+            <li class="mdl-instructions__item mdl-tax_calc__result-block">
+                <div>
+                    <h3 class="mdl-instructions__item-title atm-heading">
+                      {{resultBlock.heading}}
+                    </h3>
+                    <div class="mdl-instructions__item-content">
 
-                      </div>
-                  </div>
-              </li>
+                    </div>
+                </div>
+            </li>
         </ol>
-
     </div>
+
+    <script type="text/x-handlebars-template" data-tax_calc-template="formItem">
+        {{> "modules/tax_calc/form-templates/_form-section-item" }}
+    </script>
+
+    <script type="text/x-handlebars-template" data-tax_calc-template="list">
+        {{> "modules/tax_calc/form-templates/_select-list" }}
+    </script>
+
+    <script type="text/x-handlebars-template" data-tax_calc-template="number">
+        {{> "modules/tax_calc/form-templates/_number-input" }}
+    </script>
+
 </div>

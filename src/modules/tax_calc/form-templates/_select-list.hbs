@@ -1,0 +1,35 @@
+<div class="mdl-select" data-input data-init="select">
+    <div class="atm-form_input atm-form_input--floated atm-form_input--trigger">
+
+        <button aria-expanded="false" aria-labelledby="aria-labledBy- " id="" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+            <span id="aria-labledBy-" class="atm-form_input__trigger-label"><%=label%></span>
+            <span class="atm-form_input__trigger-value"></span>
+            <svg class="icon" focusable="false">
+                <use xlink:href="#angle_drop_down"></use>
+            </svg>
+        </button>
+
+        <% if (mandatory) { %>
+          <p class="form__fieldset-error-message" data-message="required">{{requiredMessages.list}}</p>
+        <% } %>
+    </div>
+
+    <div class="mdl-select__options">
+        <ul class="atm-list" data-inputtype="radio" tabindex="-1">
+          <% _.forEach(selectOptions, function(option, index) { %>
+              <li class="atm-list__item atm-list__item--icon-right">
+
+                  <input name="<%=fieldId%>"
+                         id="<%=`radio-${fieldId}-${index}`%>"
+                         type="radio"
+                         value="<%=option.value%>" placeholder="<%=option.label%>"
+                         data-select-option data-validation required >
+
+
+                  <label for="<%=`radio-${fieldId}-${index}`%>"><%=option.label%></label>
+              </li>
+
+            <% }); %>
+        </ul>
+    </div>
+</div>

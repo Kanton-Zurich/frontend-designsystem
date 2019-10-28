@@ -1,0 +1,31 @@
+  <h4 class="mdl-accordion__header">
+    <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger" type="button">
+          <span class="mdl-accordion__control">
+            <%=title%>
+        </span>
+          <svg class="icon mdl-accordion__plus">
+              <use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
+              <use xlink:href="#plus-horizontal"></use>
+          </svg>
+      </button>
+    <span class="mdl-accordion__subhead"></span>
+  </h4>
+  <div class="mdl-accordion__panel" data-accordion="panel" aria-hidden="true">
+      <div class="mdl-accordion__panel-content" data-accordion="panel-content">
+
+          <section class="form__section" aria-live="polite">
+                <div class="form__group">
+                    <% _.forEach(rows, function(row, index) { %>
+                      <div class="form__row">
+                          <% _.forEach(row.fields, function(field, index) { %>
+                            <div class="form__cell">
+                                <%=field%>
+                            </div>
+                          <% }); %>
+                      </div>
+                    <% }); %>
+                </div>
+          </section>
+
+      </div>
+  </div>

@@ -5,6 +5,9 @@ const defaultData = require('../../data/default.data.js');
 const btnDefaultData = require('../../atoms/button/button.data');
 const radioData = require('../../atoms/radiobutton/radiobutton.data');
 
+const templateConverter = require('../../../gulp/helpers/templateConverter');
+
+
 const radioHBS = dataHelper.getFileContent('../../atoms/radiobutton/radiobutton.hbs');
 const formHBS = dataHelper.getFileContent('../form/form.hbs');
 const formFieldsetHBS = dataHelper.getFileContent('../form/_form.fieldset.hbs');
@@ -216,18 +219,22 @@ const data = _.merge({}, defaultData, {
           ],
         },
         ],
-        // items: _.merge([], accordionData.variants.taxForms.props.items, [
-        //   { additionalClass: 'mdl-tax_calc__form-block_item' },
-        //   { additionalClass: 'mdl-tax_calc__form-block_item' },
-        // ]),
       },
       nextBtnData: _.merge({}, btnDefaultData.props, {
         text: 'Weiter',
         additionalAttribute: 'data-tax_calc="nextBtn"',
       }),
+      calculateBtnData: _.merge({}, btnDefaultData.props, {
+        text: 'Berechnen',
+        additionalAttribute: 'data-tax_calc="doCalculate"',
+      }),
     },
     resultBlock: {
       heading: 'Ihr Ergebnis - Provisorische Berechnung 2019',
+    },
+    requiredMessages: {
+      number: 'Für die Berechnung ist hier eine Eingabe erforderlich.',
+      list: 'Bitte wählen Sie eine Option.',
     },
   },
 });

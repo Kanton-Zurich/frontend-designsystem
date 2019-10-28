@@ -1,0 +1,23 @@
+<div class="atm-form_input atm-form_input--floated" data-input>
+    <input class="atm-form_input__input"  data-validation data-floating max="<%=max%>" step="1" id="<%=fieldId%>" placeholder="<%=label%>"
+           name="<%=fieldId%>_name" value="" type="number" <% if (mandatory) { %>required<% } %>>
+
+    <label for="<%=fieldId%>_name"><%=label%></label>
+    <span class="atm-form_input__validate-icon">
+		<span>
+			<span class="visuallyhidden"></span>
+			<svg class="icon" focusable="false">
+				<use xlink:href="#confirm"></use>
+			</svg>
+		</span>
+		<span>
+			<span class="visuallyhidden"></span>
+			<svg class="icon">
+				<use xlink:href="#caution"></use>
+			</svg>
+		</span>
+	</span>
+  <% if (mandatory) { %>
+    <p class="form__fieldset-error-message" data-message="required">{{requiredMessages.number}}</p>
+  <% } %>
+</div>
