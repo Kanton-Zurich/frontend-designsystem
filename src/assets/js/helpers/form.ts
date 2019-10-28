@@ -15,6 +15,8 @@ class FormGlobalHelper {
         return this.validateOptionField(field);
       case 'file':
         return this.validateFileField(field);
+      case 'number':
+        return this.validateNumberField(field);
       default:
         return this.validateTextField(field);
     }
@@ -57,6 +59,39 @@ class FormGlobalHelper {
 
     return {
       validationResult: requiredResult && patternResult,
+      messages,
+    };
+  }
+
+  validateNumberField(field: HTMLInputElement) {
+    let requiredResult = true;
+    let inBounds = true;
+    const messages = [];
+
+    if (field.hasAttribute('required')) {
+      requiredResult = field.value.length > 0;
+
+      if (!requiredResult) messages.push('required');
+    }
+
+    if (field.value.length > 0) {
+      const val = field.valueAsNumber;
+      const min = Number.parseFloat(field.min);
+      const max = Number.parseFloat(field.max);
+      if (!Number.isNaN(min)) {
+        inBounds = inBounds && (val >= min);
+      }
+
+      if (!Number.isNaN(max)) {
+        inBounds = inBounds && (val <= max);
+      }
+
+      if (!inBounds) messages.push('outofbounds');
+    }
+
+
+    return {
+      validationResult: requiredResult && inBounds,
       messages,
     };
   }
