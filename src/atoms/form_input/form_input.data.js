@@ -21,6 +21,24 @@ const data = _.merge({}, defaultData, {
   },
 });
 const variants = _.mapValues({
+  numberValidation: {
+    meta: {
+      title: 'Nummereingabe mit Validierung',
+      desc: 'Input mit floating Label, validierung.',
+    },
+    props: {
+      uuid: _.uniqueId('float_input_numbervalid'),
+      type: 'number',
+      label: 'Reingewinn',
+      step: 1,
+      isFloatingLabel: true,
+      validation: {
+        min: 0,
+        max: 10000000,
+        isRequired: true,
+      },
+    },
+  },
   default: {
     meta: {
       title: 'Standard Input',
