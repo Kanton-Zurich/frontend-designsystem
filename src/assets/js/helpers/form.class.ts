@@ -19,6 +19,9 @@ class Form {
     inputClasses: any,
     validateDelay: number,
     messageClasses: any,
+    domSelectors: {
+      floating: string;
+    };
     messageSelector: string,
     duplicateSelector: string,
     selectOptionSelector: string,
@@ -45,6 +48,9 @@ class Form {
         dirty: 'dirty',
         valid: 'valid',
         invalid: 'invalid',
+      },
+      domSelectors:  {
+        floating: '[data-floating]',
       },
       messageSelector: '[data-message]',
       selectOptionSelector: 'data-select-option',
@@ -95,11 +101,21 @@ class Form {
     this.eventDelegate.on(FileUpload.events.duplicated, (event) => {
       this.addWatchers(event.detail);
     });
+    this.eventDelegate.on('blur', this.options.domSelectors.floating, (event, field: HTMLInputElement) => {
+      const dirtyClass = this.options.inputClasses.dirty;
+      const { classList } = field;
+      if (field.value && field.value.length > 0) {
+        if (!classList.contains(dirtyClass)) {
+          classList.add(dirtyClass);
+        }
+      } else {
+        classList.remove(dirtyClass);
+      }
+    });
   }
 
   addWatchers(targetElement = this.ui.element) {
     const watchableInputs = targetElement.querySelectorAll(this.options.watchEmitters.input);
-
     watchableInputs.forEach((input) => {
       const inputType = input.getAttribute('type');
 
