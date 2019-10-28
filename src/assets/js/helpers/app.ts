@@ -122,6 +122,8 @@ class App {
     if (isIE > 0 || !!navigator.userAgent.match(/Trident\/7\./)) {
       document.documentElement.classList.add('is-ie');
     }
+
+    this.getLanguage();
   }
 
   async start() {
@@ -230,6 +232,10 @@ class App {
         form.setAttribute('initialized', 'true');
       }
     });
+  }
+
+  getLanguage() {
+    window[namespace].lang = document.documentElement.lang;
   }
 }
 
