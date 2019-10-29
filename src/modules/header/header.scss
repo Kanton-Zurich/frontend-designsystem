@@ -202,7 +202,8 @@ $headerCurves: (
           }
 
           .mdl-header__search {
-            background-color: $colorBlack10;
+            background: $colorBlack10;
+            color: $colorBlack60;
           }
         }
       }

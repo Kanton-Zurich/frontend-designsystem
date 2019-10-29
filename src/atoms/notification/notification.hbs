@@ -1,4 +1,7 @@
-<div class="atm-notification {{#if isGreen}}atm-notification--green{{/if}} {{#if isBig}}atm-notification--big{{/if}}{{#if isLogin}}atm-notification--login{{/if}}" tabindex="0" >
+<div class="atm-notification
+  {{#if isGreen}}atm-notification--green{{/if}}
+  {{#if isBig}}atm-notification--big{{/if}}
+  {{#if isDialog}}atm-notification--dialog{{/if}}" tabindex="0" >
   <svg class="icon">
     <use xlink:href="{{icon}}"></use>
   </svg>
@@ -8,9 +11,9 @@
       {{{message}}}
     </div>
   </span>
-  {{#if loginBtn}}
-    <button class="atm-button" {{{loginBtn.additionalAttributes}}} >
-      {{ loginBtn.label }}
+  {{#if button}}
+    <button class="atm-button" {{{button.additionalAttributes}}} >
+      {{ button.label }}
     </button>
   {{/if}}
 </div>

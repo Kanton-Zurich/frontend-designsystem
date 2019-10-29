@@ -198,6 +198,7 @@ $pageHeaderCurves: (
       @include mq($from: xlarge) {
         position: fixed;
         left: $sizeBig;
+        top: $sizeSmallBig;
       }
 
       margin-bottom: 0;

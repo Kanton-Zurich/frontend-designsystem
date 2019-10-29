@@ -18,38 +18,7 @@ const data = _.merge({}, defaultData, {
     defaultColorVariation: 'cv-blue',
   },
   props: {
-    path: [
-      {
-        title: 'Kanton Zürich',
-        href: '#',
-      },
-      {
-        title: 'Urgrosselternseite',
-        href: '#',
-      },
-      {
-        title: 'Grosselternseite',
-        href: '#',
-      },
-      {
-        title: 'Elternseite',
-        href: '#',
-      },
-      {
-        title: 'aktuelle Seite',
-      },
-    ],
-    contextMenu: _.merge({}, contextMenuProps, {
-      lists: [
-        {
-          items: [
-            _.merge({}, contextMenuItemDef, { text: 'Urgrosselternseite', iconAfter: false, iconBefore: false }),
-            _.merge({}, contextMenuItemDef, { text: 'Grosselternseite', iconAfter: false, iconBefore: false }),
-            _.merge({}, contextMenuItemDef, { text: 'Elternseite', iconAfter: false, iconBefore: false }),
-          ],
-        },
-      ],
-    }),
+
   },
 });
 const variants = _.mapValues({
@@ -57,6 +26,40 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Standardmässige Implementierung',
+    },
+    props: {
+      path: [
+        {
+          title: 'Kanton Zürich',
+          href: '#',
+        },
+        {
+          title: 'Urgrosselternseite',
+          href: '#',
+        },
+        {
+          title: 'Grosselternseite',
+          href: '#',
+        },
+        {
+          title: 'Elternseite',
+          href: '#',
+        },
+        {
+          title: 'aktuelle Seite',
+        },
+      ],
+      contextMenu: _.merge({}, contextMenuProps, {
+        lists: [
+          {
+            items: [
+              _.merge({}, contextMenuItemDef, { text: 'Urgrosselternseite', iconAfter: false, iconBefore: false }),
+              _.merge({}, contextMenuItemDef, { text: 'Grosselternseite', iconAfter: false, iconBefore: false }),
+              _.merge({}, contextMenuItemDef, { text: 'Elternseite', iconAfter: false, iconBefore: false }),
+            ],
+          },
+        ],
+      }),
     },
   },
   singlePathItem: {
