@@ -1,12 +1,12 @@
 <div class="mdl-service_list" data-init="servicelist">
   {{#if serviceListHeading}}
-    <h2 class="atm-heading atm-heading--bordered"{{#if serviceListHeading.anchorNavReference}} id="{{serviceListHeading.anchorNavReference}}"{{/if}}>{{serviceListHeading.title}}</h2>
+    <h2 class="atm-heading atm-heading--bordered" {{#if serviceListHeading.anchorNavReference}} id="{{serviceListHeading.anchorNavReference}}"{{/if}}>{{serviceListHeading.title}}</h2>
   {{/if}}
   {{#each items}}
     <a href="{{href}}" class="mdl-service_list__item" {{#if external}}target="_blank"{{/if}}
       {{#unless external}}data-url="{{serviceLink}}" aria-controls="{{modalData.modalId}}" role="button"{{/unless}}>
       <div class="mdl-service_list__item-container">
-        <p class="atm-heading mdl-service_list__item-title">{{title}}</p>
+        <p class="atm-heading mdl-service_list__item-title" data-lineclamp="true">{{title}}</p>
         {{#if text}}
           <p class="atm-paragraph mdl-service_list__item-text" data-lineclamp="true">{{text}}</p>
         {{/if}}

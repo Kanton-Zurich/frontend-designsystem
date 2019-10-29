@@ -17,7 +17,7 @@ const data = _.merge({}, defaultData, {
     title: 'Generische Fehlerseite',
     header: headerData.variants.inverted.props,
     modules: {
-      pageHeader: defPageHeaderData.variants.error403Ext.props,
+      pageHeader: defPageHeaderData.variants.error403.props,
       contact: defContactData.variants.fullWidthLessData.props,
       footerData: defFooterData,
     },

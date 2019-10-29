@@ -1,0 +1,45 @@
+.atm-search_result_item {
+  @include sizeCurve(padding-top padding-bottom, regular);
+  border-bottom: 1px solid $colorBlack20;
+
+  &__content {
+    text-decoration: none;
+
+    h4 {
+      color: $colorBlack;
+      margin-bottom: pxToRem($sizeMini);
+    }
+
+    p {
+      color: $colorBlack60;
+      margin: 0;
+    }
+  }
+
+  &__meta {
+    font-size: pxToRem($sizeFontTiny);
+    color: $colorBlack60;
+  }
+
+  &__type {
+    font-family: $fontFamilyBlack;
+  }
+
+  .atm-linklist_item {
+    padding: 0;
+    border: none;
+
+    &:after {
+      display: none;
+    }
+  }
+
+  .atm-linklist_item__text,
+  .atm-heading {
+    color: $colorBlack;
+  }
+
+  .atm-linklist_item__label {
+    color: $colorBlack60;
+  }
+}
