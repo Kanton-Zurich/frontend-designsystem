@@ -1,3 +1,9 @@
 .mdl-news-teaser {
   display: none;
+
+  .mdl-news-teaser__item a {
+    page-break-before: auto;
+    page-break-after: auto;
+    page-break-inside: avoid;
+  }
 }
