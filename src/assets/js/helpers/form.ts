@@ -166,9 +166,10 @@ class FormGlobalHelper {
   /**
    * Retrieves input data from a form and returns it as a JSON object.
    * @param  {HTMLFormControlsCollection} elements  the form elements
+   * @param  { boolean } checkboxesAsSingleValue  flag indicating how to interpret checkbox values.
    * @return {Object}                               form data as an object literal
    */
-  formToJSON(elements) {
+  formToJSON(elements, checkboxesAsSingleValue = false) {
     /**
      * Checks that an element has a non-empty `name` and `value` property.
      * @param  {Element} element  the element to check
@@ -213,7 +214,11 @@ class FormGlobalHelper {
        * is one of those fields and, if so, store the values as an array.
        */
         if (isCheckbox(element)) {
-          data[element.name] = (data[element.name] || []).concat(element.value);
+          if (checkboxesAsSingleValue) {
+            data[element.name] = element.value;
+          } else {
+            data[element.name] = (data[element.name] || []).concat(element.value);
+          }
         } else if (isMultiSelect(element)) {
           data[element.name] = getSelectValues(element);
         } else {
