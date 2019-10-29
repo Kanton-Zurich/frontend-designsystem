@@ -2,10 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const btnDefaultData = require('../../atoms/button/button.data');
 const radioData = require('../../atoms/radiobutton/radiobutton.data');
-
-const templateConverter = require('../../../gulp/helpers/templateConverter');
 
 
 const radioHBS = dataHelper.getFileContent('../../atoms/radiobutton/radiobutton.hbs');
@@ -15,7 +12,7 @@ const formFieldsetHBS = dataHelper.getFileContent('../form/_form.fieldset.hbs');
 const template = dataHelper.getFileContent('tax_calc.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'tax_calc',
+    title: 'Steuerrechner',
     className: 'TaxCalc',
     jira: 'CZHDEV-1238',
     label: 'Komplex',
@@ -220,14 +217,11 @@ const data = _.merge({}, defaultData, {
         },
         ],
       },
-      nextBtnData: _.merge({}, btnDefaultData.props, {
-        text: 'Weiter',
+      nextBtn: {
+        nextText: 'Weiter',
+        calculateText: 'Berechnen',
         additionalAttribute: 'data-tax_calc="nextBtn"',
-      }),
-      calculateBtnData: _.merge({}, btnDefaultData.props, {
-        text: 'Berechnen',
-        additionalAttribute: 'data-tax_calc="doCalculate"',
-      }),
+      },
     },
     resultBlock: {
       heading: 'Ihr Ergebnis - Provisorische Berechnung 2019',
@@ -235,6 +229,7 @@ const data = _.merge({}, defaultData, {
     requiredMessages: {
       number: 'Für die Berechnung ist hier eine Eingabe erforderlich.',
       list: 'Bitte wählen Sie eine Option.',
+      boolean: 'Bitte auswählen.',
     },
   },
 });

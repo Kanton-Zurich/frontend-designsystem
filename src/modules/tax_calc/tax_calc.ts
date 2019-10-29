@@ -4,12 +4,13 @@
  * @author
  * @copyright
  */
-import { template } from 'lodash';
+import { template, cloneDeep } from 'lodash';
 import Module from '../../assets/js/helpers/module';
 import {
   TaxCalcDefaultOptions,
   TaxCalcModuleOptions //eslint-disable-line
 } from './tax_calc.options';
+import namespace from '../../assets/js/helpers/namespace';
 
 interface CalculatorFormItemData {
   title: string;
@@ -21,13 +22,16 @@ interface CalculatorFormItemData {
 interface ApiFieldDefinition {
   type: string;
   mandatory: boolean;
+  reinvokeTrigger: boolean;
   label: string;
   options?: {
     selected: boolean;
     value: string;
     code: string;
   }[];
-  maxSize: number;
+  maxSize?: number;
+  value?: number;
+  hint: string;
 }
 
 class TaxCalc extends Module {
@@ -35,20 +39,23 @@ class TaxCalc extends Module {
 
   public ui: {
     element: Element,
-    formBase: HTMLElement,
+    formBase: HTMLFormElement,
     formItems: HTMLElement[],
     taxEntityInputs: HTMLInputElement[],
     taxTypeInputs: HTMLInputElement[],
-    btnContainer: HTMLElement,
     nextBtn: HTMLButtonElement,
-    calculateBtn: HTMLButtonElement,
     formItemTemplate: HTMLScriptElement,
     fieldTemplates: HTMLElement[],
+    formLayoutConfig: HTMLScriptElement,
   };
 
   private readonly apiBase: string;
+  private calculatorUrl: string;
+
   private currentFormSection: number;
   private lastSectionIdx: number;
+
+  private formConfig: any;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -61,6 +68,13 @@ class TaxCalc extends Module {
 
     this.apiBase = this.ui.element.getAttribute(this.options.attributeNames.apiBase);
     this.initCalculator();
+
+    try {
+      this.formConfig = JSON.parse(this.ui.formLayoutConfig.innerText);
+    } catch (e) {
+      this.log('Failed to parse donfig JSON: ', this.ui.formLayoutConfig.innerText);
+      this.log(e, this.ui.formLayoutConfig.innerText);
+    }
   }
 
   /**
@@ -156,7 +170,7 @@ class TaxCalc extends Module {
         }
         formSectionItem.classList.add(this.options.stateClasses.formItem.enabled);
       } else if (i === sectionIdx) {
-        this.ui.btnContainer.classList.remove(this.options.stateClasses.showsNextBtn);
+        this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.showing);
         formSectionItem.classList.add(this.options.stateClasses.formItem.enabled);
         setTimeout(() => {
           toggleBtn.click();
@@ -166,15 +180,17 @@ class TaxCalc extends Module {
         }, 0);
 
         if (sectionIdx === this.lastSectionIdx) {
-          this.ui.calculateBtn.style.display = 'block';
-          this.ui.nextBtn.style.display = 'none';
+          this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.calculate);
+          this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.next);
         } else {
-          this.ui.calculateBtn.style.display = 'none';
-          this.ui.nextBtn.style.display = 'block';
+          this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.calculate);
+          this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.next);
         }
         this.currentFormSection = sectionIdx;
       } else {
-        formSectionItem.remove();
+        formSectionItem.classList.remove(this.options.stateClasses.formItem.fixed);
+        formSectionItem.classList.remove(this.options.stateClasses.formItem.open);
+        formSectionItem.classList.remove(this.options.stateClasses.formItem.enabled);
       }
     });
   }
@@ -186,31 +202,32 @@ class TaxCalc extends Module {
     const sectionInputs = sectionBlock.querySelectorAll<HTMLInputElement>('input');
     sectionInputs.forEach((inEl) => {
       inEl.addEventListener('change', this.onActiveSectionChange.bind(this));
+
+      if (inEl.getAttribute(this.options.attributeNames.reinvoke)) {
+        inEl.addEventListener('change', this.onReinvokeTriggerChange.bind(this));
+      }
     });
   }
 
   private onActiveSectionChange() {
-    const conClasses = this.ui.btnContainer.classList;
-    if (!conClasses.contains(this.options.stateClasses.showsNextBtn)) {
-      conClasses.add(this.options.stateClasses.showsNextBtn);
+    const conClasses = this.ui.nextBtn.classList;
+    if (!conClasses.contains(this.options.stateClasses.nextBtn.showing)) {
+      conClasses.add(this.options.stateClasses.nextBtn.showing);
     }
   }
 
-  private checkOpenPanelHeights(): void {
-    const openPanelContents = document.querySelectorAll<HTMLDivElement>('[aria-hidden="false"] [data-accordion="panel-content"]');
-    openPanelContents.forEach((panelContent) => {
-      const panelContentChildren = Array.prototype.slice.call(panelContent.children);
-      let completeHeight = 0;
-
-      panelContentChildren.forEach((child) => {
-        if (typeof child.offsetHeight !== 'undefined') {
-          const styles = window.getComputedStyle(child);
-          const margin = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
-          completeHeight += Math.ceil(child.offsetHeight + margin);
-        }
+  private async onReinvokeTriggerChange() {
+    this.log('Reinvoke triggered!');
+    this.postCalculatorFormData(this.calculatorUrl).then((reinvokeResp) => {
+      this.log('ReinvokeResponse:', reinvokeResp);
+      const formItems = this.buildFormItemsFromResp(reinvokeResp, true);
+      this.log('formItems: ', formItems);
+      this.setFormItems(formItems, true);
+      this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
+      setTimeout(() => {
+        this.activateFormSection(this.currentFormSection);
+        this.onActiveSectionChange();
       });
-
-      panelContent.parentElement.style.maxHeight = `${completeHeight}px`;
     });
   }
 
@@ -225,8 +242,8 @@ class TaxCalc extends Module {
    */
   initEventListeners() {
     this.eventDelegate
-      .on('click', `${this.options.domSelectors.btnContainer} button, a`, () => {
-        this.log('Next Section clicked.');
+      .on('click', this.options.domSelectors.nextBtn, () => {
+        this.log('Next clicked.');
         this.validateSections()
           .then(() => {
             if (this.currentFormSection === this.lastSectionIdx) {
@@ -242,7 +259,7 @@ class TaxCalc extends Module {
         const taxEntity: string = ev.target.value;
         this.enableCalculatorOptionsForEntity(taxEntity);
         if (this.formHasErrors()) {
-          this.ui.nextBtn.classList.remove(this.options.stateClasses.showsNextBtn);
+          this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.showing);
         }
         if (this.currentFormSection > 1) {
           this.activateFormSection(1);
@@ -256,122 +273,51 @@ class TaxCalc extends Module {
       });
   }
 
-  /**
-   * Triggers from section validation and return a promise, which will rejected if validation fails.
-   */
-  private async validateSections() {
-    document.querySelectorAll<HTMLElement>(this.options.domSelectors.formItems)
-      .forEach((sectionCon, index) => {
-        if (sectionCon.classList.contains(this.options.stateClasses.formItem.enabled)) {
-          const section = sectionCon.querySelector('section');
-          if (section) {
-            this.log('Dispatch validate for section. ', section, index, this.currentFormSection);
-            this.ui.formBase.dispatchEvent(new CustomEvent('validateSection', {
-              detail: {
-                sections: [section],
-              },
-            }));
-          }
-        }
-      });
-
-    return new Promise((resolve, reject) => setTimeout(() => {
-      this.checkOpenPanelHeights();
-      if (!this.ui.formBase.hasAttribute('form-has-errors')) {
-        resolve();
-      } else {
-        reject();
-      }
-    }, 0));
-  }
-
   private async prepareCalculatorForm(calculatorId: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       if (this.options.availableCalculator.indexOf(calculatorId) > -1) {
         const path = calculatorId.toUpperCase();
-        const url = `${this.apiBase}${path}`;
+        this.calculatorUrl = `${this.apiBase}${path}`;
 
-        this.fetchJsonData(url).then(
+        this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.loading);
+        this.fetchJsonData(this.calculatorUrl).then(
           (resp) => {
-            const formItems = this.extractCalculatorFormData(resp);
-            this.appendCalculatorSpecificFormItems(formItems);
+            const formItems = this.buildFormItemsFromResp(resp);
+            this.setFormItems(formItems);
+            this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
             resolve();
           },
           (fetchFailReason) => {
             this.log('FormConfig fetch failed: ', fetchFailReason);
+            this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
             reject(fetchFailReason);
           },
         );
       } else {
+        this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
         reject(new Error('Unknown CalculatorId.'));
       }
     });
   }
 
-  private extractCalculatorFormData(apiResp: any): CalculatorFormItemData[] {
-    const formItemData: CalculatorFormItemData[] = [];
+  private buildFormItemsFromResp(apiResp: any, setValuesFromResp = false)
+    : CalculatorFormItemData[] {
     const calcIdFromResp = apiResp.taxCalculatorId;
-
-    if (calcIdFromResp === 'LEGAL_SIMPLE' || calcIdFromResp === 'LEGAL_ITERATIVE') {
-      const rows = [
-        {
-          fields: [
-            this.getFieldPartialByDefinition(apiResp, 'municipality'),
-            this.getFieldPartialByDefinition(apiResp, 'taxYear'),
-          ],
-        },
-        {
-          fields: [
-            this.getFieldPartialByDefinition(apiResp, 'earnings'),
-            this.getFieldPartialByDefinition(apiResp, 'capital'),
-          ],
-        },
-      ];
-      formItemData.push({
-        title: 'Ihre Angaben',
-        rows,
+    const formItems = this.getCalculatorFormLayout(calcIdFromResp);
+    this.log('FormItems in Build', formItems);
+    formItems.forEach((formItem) => {
+      formItem.rows.forEach((row) => {
+        row.fields = row.fields
+        // fillin field partials
+          .map(fieldName => this
+            .getFieldPartialByDefinition(apiResp, fieldName, setValuesFromResp));
       });
-    } else if (calcIdFromResp === 'BENEFIT_PAYMENTS_FEDERAL') {
-      const rows = [
-        {
-          fields: [
-            this.getFieldPartialByDefinition(apiResp, 'taxYear'),
-            this.getFieldPartialByDefinition(apiResp, 'taxScale'),
-          ],
-        },
-        {
-          fields: [
-            this.getFieldPartialByDefinition(apiResp, 'benefitPayments'),
-          ],
-        },
-      ];
-      formItemData.push({
-        title: 'Ihre Angaben',
-        rows,
-      });
-    } else if (calcIdFromResp === 'INHERITANCE') {
-      const rows = [
-        {
-          fields: [
-            this.getFieldPartialByDefinition(apiResp, 'inheritanceAmount'),
-          ],
-        },
-        {
-          fields: [
-            this.getFieldPartialByDefinition(apiResp, 'taxFreeAmount'),
-            this.getFieldPartialByDefinition(apiResp, 'kinshipDegree'),
-          ],
-        },
-      ];
-      formItemData.push({
-        title: 'Ihre Angaben',
-        rows,
-      });
-    }
-    return formItemData;
+    });
+    return formItems;
   }
 
-  private getFieldPartialByDefinition(apiResp: any, fieldName: string): string {
+  private getFieldPartialByDefinition(apiResp: any, fieldName: string, setValuesFromApiResp = false)
+    : string {
     const apiFieldDef: ApiFieldDefinition = apiResp[fieldName];
     if (apiFieldDef && apiFieldDef.type) {
       this.log(this.ui.fieldTemplates);
@@ -383,38 +329,46 @@ class TaxCalc extends Module {
         }
       });
       if (tmplHtml) {
-        const propsDataFromDef = this.getPropsDataFromDef(apiFieldDef, fieldName);
+        const propsDataFromDef = this
+          .getPropsDataFromDef(apiFieldDef, fieldName, setValuesFromApiResp);
         return template(tmplHtml)(propsDataFromDef);
       }
     }
     return '';
   }
 
-  private doSubmitForm() {
-    this.log('Submit!!');
-    this.toNextFormSection();
-  }
-
-  private getPropsDataFromDef(defByApi: ApiFieldDefinition, fieldId: string): any {
+  private getPropsDataFromDef(defByApi: ApiFieldDefinition, fieldName: string, setFromDef = false) {
     const propData: any = {
       label: defByApi.label,
-      fieldId,
+      fieldName,
       mandatory: defByApi.mandatory,
+      reinvokeTrigger: defByApi.reinvokeTrigger,
+      hint: defByApi.hint,
     };
     if (defByApi.type === 'List') {
       propData.selectOptions = defByApi.options.filter(
         opt => !(opt.code === 'PLEASE_SELECT' || opt.code === '0'), // Filters required hints like 'Bitte wählen', since this should be done by FE
       ).map(opt => ({
+        selected: setFromDef ? opt.selected : false,
         value: opt.code,
         label: opt.value,
       }));
     } else if (defByApi.type === 'Number') {
       propData.max = defByApi.maxSize;
+      if (setFromDef && defByApi.value !== undefined && defByApi.value !== null) {
+        propData.value = defByApi.value.toString(10);
+      } else {
+        propData.value = '';
+      }
+    } else if (defByApi.type === 'Boolean') {
+      propData.value = setFromDef ? defByApi.value : false;
+    } else if (defByApi.type === 'Date') {
+      propData.value = setFromDef ? defByApi.value : '';
     }
     return propData;
   }
 
-  private appendCalculatorSpecificFormItems(formItemsData: CalculatorFormItemData[]): void {
+  private setFormItems(formItemsData: CalculatorFormItemData[], preserveSection?: boolean): void {
     const itemsParentNode = this.ui.formItems[0].parentNode;
     // Clear if already has form.
     itemsParentNode.querySelectorAll(this.options.domSelectors.formItems)
@@ -424,7 +378,9 @@ class TaxCalc extends Module {
           formSection.remove();
         }
       });
-    this.currentFormSection = 1;
+    if (!preserveSection) {
+      this.currentFormSection = 1;
+    }
 
     formItemsData.forEach((itemData) => {
       const newItem = document.createElement('div');
@@ -435,9 +391,21 @@ class TaxCalc extends Module {
       (<any>window).estatico.helpers.app.registerModulesInElement(newItem);
       (<any>window).estatico.helpers.app.initModulesInElement(newItem);
     });
-    this.ui.calculateBtn.style.display = 'none';
-    this.ui.nextBtn.style.display = 'block';
+    this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.next);
+    this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.calculate);
     this.lastSectionIdx = formItemsData.length + 1;
+  }
+
+  private getCalculatorFormLayout(calcIdFromResp: string)
+    : { title: string,
+        rows: { fields: string[]}[]
+      }[] {
+    let formLayout;
+    this.log('FormConfig currently is', this.formConfig);
+    if (this.formConfig && this.formConfig[calcIdFromResp]) {
+      formLayout = cloneDeep(this.formConfig[calcIdFromResp]);
+    }
+    return formLayout;
   }
 
   private enableCalculatorOptionsForEntity(taxEntity: string) {
@@ -479,8 +447,84 @@ class TaxCalc extends Module {
     window.history.replaceState(null, null, `?${newSearchStr}`);
   }
 
+  private doSubmitForm() {
+    this.log('Submit!!');
+    const url = `${this.calculatorUrl}/calculate`;
+    this.postCalculatorFormData(url).then((resp) => {
+      this.log('Calculate Response:', resp);
+    });
+    this.toNextFormSection();
+  }
+
+  private async postCalculatorFormData(endpoint: string) {
+    const formData = window[namespace].form.formToJSON(this.ui.formBase.elements, true);
+    delete formData.taxEntity;
+    delete formData.taxType;
+
+    this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.loading);
+    return new Promise<any>((resolve, reject) => {
+      this.log('Post formdata to endpoint.', formData);
+      if (formData) {
+        this.postJsonData(endpoint, formData).then((resp) => {
+          this.log('Api Response:', resp);
+          this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
+          resolve(resp);
+        }, reject);
+      } else {
+        reject(new Error('Invalid form data!'));
+      }
+    });
+  }
+
+  /**
+   * Triggers from section validation and return a promise, which will rejected if validation fails.
+   */
+  private async validateSections() {
+    document.querySelectorAll<HTMLElement>(this.options.domSelectors.formItems)
+      .forEach((sectionCon, index) => {
+        if (sectionCon.classList.contains(this.options.stateClasses.formItem.enabled)) {
+          const section = sectionCon.querySelector('section');
+          if (section) {
+            this.log('Dispatch validate for section. ', section, index, this.currentFormSection);
+            this.ui.formBase.dispatchEvent(new CustomEvent('validateSection', {
+              detail: {
+                sections: [section],
+              },
+            }));
+          }
+        }
+      });
+
+    return new Promise((resolve, reject) => setTimeout(() => {
+      this.checkOpenPanelHeights();
+      if (!this.ui.formBase.hasAttribute('form-has-errors')) {
+        resolve();
+      } else {
+        reject();
+      }
+    }, 0));
+  }
+
   private formHasErrors() {
     return !!this.ui.formBase.getAttribute('form-has-errors');
+  }
+
+  private checkOpenPanelHeights(): void {
+    const openPanelContents = document.querySelectorAll<HTMLDivElement>('[aria-hidden="false"] [data-accordion="panel-content"]');
+    openPanelContents.forEach((panelContent) => {
+      const panelContentChildren = Array.prototype.slice.call(panelContent.children);
+      let completeHeight = 0;
+
+      panelContentChildren.forEach((child) => {
+        if (typeof child.offsetHeight !== 'undefined') {
+          const styles = window.getComputedStyle(child);
+          const margin = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
+          completeHeight += Math.ceil(child.offsetHeight + margin);
+        }
+      });
+
+      panelContent.parentElement.style.maxHeight = `${completeHeight}px`;
+    });
   }
 
   /**

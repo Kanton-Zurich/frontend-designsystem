@@ -3,18 +3,24 @@ interface ModuleDomSelectors {
   formItems: string;
   taxEntityInputs: string;
   taxTypeInputs: string;
-  btnContainer: string;
   nextBtn: string;
-  calculateBtn: string;
   formItemTemplate: string;
   fieldTemplates: string;
+  reinvokeTrigger: string;
+  formLayoutConfig: string;
 }
 interface ModuleStateClasses {
   formItem: {
     enabled: string;
     fixed: string;
+    open: string;
   };
-  showsNextBtn: string
+  nextBtn: {
+    showing: string;
+    next: string;
+    calculate: string;
+    loading: string;
+  }
   hasResult: string;
 }
 export interface TaxCalcModuleOptions { // eslint-disable-line
@@ -25,6 +31,7 @@ export interface TaxCalcModuleOptions { // eslint-disable-line
   attributeNames: {
     module: string;
     apiBase: string;
+    reinvoke: string;
   };
   domSelectors: ModuleDomSelectors;
   stateClasses: ModuleStateClasses;
@@ -35,23 +42,30 @@ const domSelectors: ModuleDomSelectors = {
   formItems: '.mdl-tax_calc__form-block .mdl-accordion__item',
   taxEntityInputs: '[data-tax_calc="inputEntity"]',
   taxTypeInputs: '[data-tax_calc^="inputTaxType"]',
-  btnContainer: '[data-tax_calc="btnContainer"]',
   nextBtn: '[data-tax_calc="nextBtn"]',
-  calculateBtn: '[data-tax_calc="doCalculate"]',
   formItemTemplate: '[data-tax_calc-template="formItem"]',
   fieldTemplates: '[data-tax_calc-template]',
+  reinvokeTrigger: '[data-tax_calc-reinvoke]',
+  formLayoutConfig: '[data-tax_calc-formconfig]',
 };
 const stateClasses: ModuleStateClasses = {
   formItem: {
     enabled: 'mdl-tax_calc__form-block_item--enabled',
     fixed: 'mdl-tax_calc__form-block_item--fixed',
+    open: 'mdl-accordion__item--open',
   },
-  showsNextBtn: 'show',
+  nextBtn: {
+    showing: 'show',
+    next: 'mdl-tax_calc__next-btn--next',
+    calculate: 'mdl-tax_calc__next-btn--calculate',
+    loading: 'mdl-tax_calc__next-btn--loading',
+  },
   hasResult: 'mdl-tax_calc--result',
 };
 const attributeNames = {
   module: 'data-tax_calc',
   apiBase: 'data-tax_calc-apibase',
+  reinvoke: 'data-tax_calc-reinvoke',
 };
 
 export const TaxCalcDefaultOptions: TaxCalcModuleOptions = { // eslint-disable-line

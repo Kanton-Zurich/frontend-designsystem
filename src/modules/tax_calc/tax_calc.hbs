@@ -29,8 +29,15 @@
                         {{> "modules/accordion/accordion" formBlock.accordionData}}
                       </form>
                       <div class="mdl-tax_calc__next-btn_container" data-tax_calc="btnContainer">
-                        {{> "atoms/button/button" formBlock.nextBtnData}}
-                        {{> "atoms/button/button" formBlock.calculateBtnData}}
+                          <button class="atm-button mdl-tax_calc__next-btn" data-tax_calc="nextBtn">
+                            <span class="atm-button__text atm-button__text--next">
+                              {{ formBlock.nextBtn.nextText }}
+                            </span>
+                            <span class="atm-button__text atm-button__text--calculate">
+                              {{ formBlock.nextBtn.calculateText }}
+                            </span>
+                            {{> "atoms/loading_circle/loading_circle" }}
+                          </button>
                       </div>
                     </div>
                 </div>
@@ -57,7 +64,122 @@
     </script>
 
     <script type="text/x-handlebars-template" data-tax_calc-template="number">
-        {{> "modules/tax_calc/form-templates/_number-input" }}
+      {{> "modules/tax_calc/form-templates/_number-input" }}
+    </script>
+
+    <script type="text/x-handlebars-template" data-tax_calc-template="boolean">
+      {{> "modules/tax_calc/form-templates/_checkbox-field" }}
+    </script>
+
+    <script type="text/x-handlebars-template" data-tax_calc-template="date">
+      {{> "modules/tax_calc/form-templates/_date-input" }}
+    </script>
+
+    <script type="application/json" data-tax_calc-formconfig>
+        {
+          "INCOME_ASSETS": [{
+            "title": "Genauer",
+            "rows": [
+              { "fields": [ "isLiabilityLessThanAYear"] },
+              { "fields": [ "hasTaxSeparation"] },
+              { "fields": [ "hasQualifiedInvestments"] }
+            ]
+          }, {
+            "title": "Für welchen Zeitraum möchten Sie den Steuerbetrag berechnen?",
+            "rows": [
+              { "fields": ["taxYear"] },
+              { "fields": ["liabilityBegin", "liabilityEnd"] }
+            ]
+          }, {
+            "title": "Persönliche Daten",
+            "rows": [
+              { "fields": ["maritalStatus", "taxScale"] },
+              { "fields": ["religionP1", "religionP2"] },
+              { "fields": ["municipality"] }
+            ]
+          }, {
+            "title": "Einkommen und Vermögen",
+            "rows": [
+              { "fields": [ "taxableIncome", "ascertainedTaxableIncome"] },
+              { "fields": [ "qualifiedInvestmentsIncome"] },
+              { "fields": [ "taxableAssets", "ascertainedTaxableAssets"] },
+              { "fields": [ "withholdingTax"] }
+            ]
+          }],
+          "FEDERAL": [{
+            "title": "Für welchen Zeitraum möchten Sie den Steuerbetrag berechnen?",
+            "rows": [
+              { "fields": ["taxYear"] }
+            ]
+          }, {
+            "title": "Ihr Tarif",
+            "rows": [
+              { "fields": [ "isLiabilityLessThanAYearOrHasTaxSeparation"] },
+              { "fields": [ "taxScale", "childrenNo"] }
+            ]
+          }, {
+            "title": "Einkommen",
+            "rows": [
+              { "fields": [ "taxableIncome", "ascertainedTaxableIncome"] }
+            ]
+          }],
+          "BENEFIT_PAYMENTS": [{
+              "title": "Für welchen Zeitraum möchten Sie den Steuerbetrag berechnen?",
+              "rows": [
+                { "fields": ["taxYear"] }
+              ]
+            }, {
+              "title": "Persönliche Daten",
+              "rows": [
+                { "fields": [ "taxScale", "municipality"] },
+                { "fields": [ "religionP1", "religionP2"] }
+              ]
+            }, {
+            "title": "Einkommen und Vermögen",
+            "rows": [
+              { "fields": [ "benefitPayments", "ascertainedBenefitPayments"] }
+            ]
+          }],
+          "BENEFIT_PAYMENTS_FEDERAL": [{
+              "title": "Ihre Angaben",
+              "rows": [
+                { "fields": ["taxYear", "taxScale"] },
+                { "fields": ["benefitPayments"] }
+              ]
+            }, {
+              "title": "Persönliche Daten",
+              "rows": [
+                { "fields": [ "taxScale", "municipality"] },
+                { "fields": [ "religionP1", "religionP2"] }
+              ]
+            }, {
+            "title": "Einkommen und Vermögen",
+            "rows": [
+              { "fields": [ "benefitPayments", "ascertainedBenefitPayments"] }
+            ]
+          }],
+          "INHERITANCE": [{
+            "title": "Ihre Angaben",
+            "rows": [
+              { "fields": ["inheritanceAmount"] },
+              { "fields": [ "taxFreeAmount", "kinshipDegree"] }
+            ]
+          }],
+          "LEGAL_SIMPLE": [{
+            "title": "Ihre Angaben",
+            "rows": [
+              { "fields": ["municipality", "taxYear"] },
+              { "fields": [ "earnings", "capital"] }
+            ]
+          }],
+          "LEGAL_ITERATIVE": [{
+            "title": "Ihre Angaben",
+            "rows": [
+              { "fields": ["municipality", "taxYear"] },
+              { "fields": [ "earnings", "capital"] }
+            ]
+          }]
+        }
     </script>
 
 </div>
