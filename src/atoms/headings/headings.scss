@@ -12,7 +12,7 @@ $headingCurves: (
 .atm-heading {
   line-height: $sizeLineHeightNarrow;
   font-family: $fontFamilyBlack;
-  font-weight: normal;
+  font-weight: $fontWeightDefault;
   margin-top: 0;
   hyphens: auto;
 
