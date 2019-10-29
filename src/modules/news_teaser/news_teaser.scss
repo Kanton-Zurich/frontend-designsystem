@@ -109,12 +109,12 @@ $customParagraphCurve: (
   &__item-label {
     font-size: $sizeFontTiny;
     line-height: $sizeLineHeightBase;
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
     margin: 0;
     order: 1;
 
     time {
-      font-weight: $fontWeightDefault;
+      font-family: $fontFamilyBase;
     }
   }
 

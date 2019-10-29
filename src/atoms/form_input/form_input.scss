@@ -46,9 +46,8 @@ $topSpaceSearchInput: 15.5px;
     }
 
     .atm-form_input--search & {
+      font-family: $fontFamilyBlack;
       font-size: pxToRem($sizeFontBig);
-      font-weight: $fontWeightBlack;
-
       padding-top: $topSpaceSearchInput;
       padding-bottom: $topSpaceSearchInput;
     }
@@ -248,11 +247,10 @@ $topSpaceSearchInput: 15.5px;
 
     .atm-form_input__input--trigger + input {
       position: absolute;
-      top: 50%;
+      top: 3px;
       right: 2px;
       width: calc(100% - 86px);
-      height: calc(100% - #{$sizeMini});
-      transform: translateY(-50%);
+      height: ($heightRegular - 6px);
       border: none;
       appearance: textfield;
 
@@ -384,7 +382,7 @@ $topSpaceSearchInput: 15.5px;
           pointer-events: none;
           padding: 0;
           top: pxToRem($sizeFontSmall);
-          font-weight: $fontWeightBlack;
+          font-family: $fontFamilyBlack;
           font-size: pxToRem($sizeFontTiny);
           line-height: $sizeLineHeightBase;
           color: $colorBlack;
@@ -532,7 +530,7 @@ $topSpaceSearchInput: 15.5px;
       pointer-events: none;
       padding: 0;
       top: pxToRem($sizeFontSmall);
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
       font-size: pxToRem($sizeFontTiny);
       line-height: $sizeLineHeightBase;
       color: $colorBlack;

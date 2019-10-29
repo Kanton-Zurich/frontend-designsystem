@@ -127,7 +127,7 @@ $gapSize: pxToRem($sizeRegular);
     font-size: pxToRem($sizeFontTiny);
     line-height: $sizeLineHeightBase;
 
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
     margin-bottom: pxToRem($sizeTiny);
   }
 
