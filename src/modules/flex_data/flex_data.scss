@@ -37,6 +37,19 @@
         td {
           background-color: $colorBlack10;
           cursor: pointer;
+
+          &.mdl-table__cell {
+            color: $colorBlack;
+
+            .atm-text_link {
+              color: $colorBlack;
+              border-color: $colorBlack;
+
+              .icon {
+                fill: $colorBlack;
+              }
+            }
+          }
         }
       }
     }
