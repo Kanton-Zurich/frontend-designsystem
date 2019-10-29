@@ -21,7 +21,7 @@
   &:not(.atm-anchorlink--tag) {
     height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
     margin: 0 calc(#{$sizeRegular} / 2);
-    font-weight: $fontWeightDefault;
+    font-family: $fontFamilyBase;
     color: $colorBlack;
     font-size: $sizeFontSmall;
     line-height: $sizeLineHeightBase;
@@ -42,7 +42,7 @@
     }
 
     &.atm-anchorlink--active {
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
 
       &:after {
         transform: translateX(-50%) scaleX(1);
@@ -124,7 +124,7 @@
     * Style Topitem Variante
     */
     &-top {
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
       font-size: $sizeFontBig;
       line-height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
       overflow: hidden;

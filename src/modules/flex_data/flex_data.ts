@@ -169,17 +169,16 @@ class FlexData extends Module {
     jsonData.data.forEach((item) => {
       const tr = document.createElement('tr');
       tr.classList.add('mdl-table__row');
-      this.ui.resultsColumns.forEach((col) => {
+      const props = {
+        link: item.link,
+      };
+      this.ui.resultsColumns.forEach((col, index) => {
         const colName = col.getAttribute('data-column-name');
-        const td = document.createElement('td');
-        td.classList.add('mdl-table__cell');
-        td.setAttribute('data-table', 'cell');
-        const props = {
-          text: item[colName],
-          link: item.link,
-        };
-        td.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, props);
-        tr.appendChild(td);
+        props[`text${index}`] = item[colName];
+      });
+      tr.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, props);
+      tr.addEventListener('click', () => {
+        tr.querySelector('a').click();
       });
       this.ui.resultsBody.appendChild(tr);
     });

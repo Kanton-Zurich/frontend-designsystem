@@ -40,7 +40,6 @@ $selectHeightWithFilterExtended: 424px;
   &.invalid {
     .atm-form_input--trigger-phone {
       .atm-form_input__input--trigger + input {
-        top: 34%;
         height: 66px;
 
         &:focus {
@@ -213,7 +212,7 @@ $selectHeightWithFilterExtended: 424px;
         pointer-events: none;
         padding: 0;
         top: pxToRem($sizeFontSmall);
-        font-weight: $fontWeightBlack;
+        font-family: $fontFamilyBlack;
         font-size: pxToRem($sizeFontTiny);
         line-height: $sizeLineHeightBase;
         color: $colorBlack;
