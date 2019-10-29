@@ -114,6 +114,7 @@
     {{/if}}
   {{/unless}}
 
+  {{#if hint}}<div class="atm-form_input__hint">{{hint}}</div>{{/if}}
   {{#if validation.errorMsg}}<p data-message="pattern">{{validation.errorMsg}}</p>{{/if}}
   {{#if validation.isRequired}}<p data-message="required">Dies ist ein Pflichtfeld</p>{{/if}}
 </div>
