@@ -46,9 +46,8 @@ $topSpaceSearchInput: 15.5px;
     }
 
     .atm-form_input--search & {
+      font-family: $fontFamilyBlack;
       font-size: pxToRem($sizeFontBig);
-      font-weight: $fontWeightBlack;
-
       padding-top: $topSpaceSearchInput;
       padding-bottom: $topSpaceSearchInput;
     }
