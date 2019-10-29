@@ -55,7 +55,7 @@ $contactMapHeightCurve: (
   &__subtitle {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
     line-height: $sizeLineHeightMedium;
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
     margin-bottom: $sizeRegular;
     margin-top: 0;
 
@@ -64,7 +64,7 @@ $contactMapHeightCurve: (
       position: relative;
       color: inherit;
       font-size: $sizeFontRegular;
-      font-weight: $fontWeightDefault;
+      font-family: $fontFamilyBase;
       line-height: $sizeLineHeightBase;
       padding-right: pxToRem(27px);
       margin-bottom: pxToRem($sizeTiny);
@@ -162,7 +162,7 @@ $contactMapHeightCurve: (
   &__phone,
   &__mail {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
     line-height: $sizeLineHeightBase;
   }
 

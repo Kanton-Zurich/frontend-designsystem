@@ -104,7 +104,7 @@
   &__cell.mdl-table__column-header {
     color: rgba($colorBlack, 1);
     font-size: $sizeFontTiny;
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
     vertical-align: bottom;
     hyphens: manual;
 
@@ -129,7 +129,7 @@
         @include blankButton();
 
         display: flex;
-        font-weight: $fontWeightBlack;
+        font-family: $fontFamilyBlack;
         align-items: flex-end;
         width: 100%;
 
@@ -175,12 +175,12 @@
   &__cell.mdl-table__row-header,
   &__cell--highlighted.mdl-table__cell {
     color: rgba($colorBlack, 1);
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
   }
 
   &__cell {
     padding: $sizeRegular $sizeRegular $sizeTiny;
-    font-weight: $fontWeightDefault;
+    font-family: $fontFamilyBase;
     vertical-align: top;
     hyphens: auto;
   }
@@ -260,7 +260,7 @@
 
       &:before {
         content: '0' counter(ol-counter);
-        font-weight: $fontWeightBlack;
+        font-family: $fontFamilyBlack;
         color: $colorBlack;
         margin-left: -$sizeBig;
       }

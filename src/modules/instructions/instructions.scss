@@ -65,8 +65,8 @@
   }
 
   &__bullet {
-    font-weight: 900;
     word-break: break-all; // break all on overflowing counters
+    font-family: $fontFamilyBlack;
 
     @include polyFluidSizing('font-size', map-get($customSizing, counterFontSize));
     @include sizeCurve('line-height', counterLineHeight, $customSizing);
