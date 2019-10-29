@@ -99,7 +99,7 @@ $topSpaceSearchInput: 15.5px;
       box-shadow: 0 0 0 1000px $colorWhite inset;
     }
 
-    // Hide safari autofilled icon on inputs
+    // Hide safari autofill icon on inputs
     &::-webkit-contacts-auto-fill-button { //stylelint-disable-line
       visibility: hidden;
       display: none;
