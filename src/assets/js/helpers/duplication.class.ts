@@ -52,6 +52,10 @@ class DuplicationElement {
       this.data.maxDuplications = parseInt(this.ui.element.getAttribute('data-max-duplications'), 10);
     }
 
+    if (this.data.maxDuplications === 0) {
+      this.ui.element.classList.add(this.options.stateClasses.maxDuplicationsReached);
+    }
+
     this.initEventListeners();
     this.initWatcher();
   }

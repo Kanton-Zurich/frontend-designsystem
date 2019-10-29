@@ -127,7 +127,7 @@ $gapSize: pxToRem($sizeRegular);
     font-size: pxToRem($sizeFontTiny);
     line-height: $sizeLineHeightBase;
 
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
     margin-bottom: pxToRem($sizeTiny);
   }
 
@@ -146,11 +146,17 @@ $gapSize: pxToRem($sizeRegular);
     }
   }
 
-  .form__group--duplicatable:not(.form__group--limited) {
+  &__group--duplicatable:not(.form__group--limited) {
     .form__duplicated:last-of-type {
       .form__duplicator {
         display: flex;
       }
+    }
+  }
+
+  &__group--duplicatable.form__group--limited {
+    .form__duplicator {
+      display: none;
     }
   }
 

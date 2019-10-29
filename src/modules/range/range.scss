@@ -7,7 +7,7 @@
   &__label {
     font-size: pxToRem($sizeFontRegular);
     line-height: $sizeLineHeightBase;
-    font-weight: $fontWeightDefault;
+    font-family: $fontFamilyBase;
     margin: 0;
   }
 

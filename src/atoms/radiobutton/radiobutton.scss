@@ -75,4 +75,21 @@
       background-color: $colorCyan;
     }
   }
+
+  &--tag {
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 0;
+
+    label:after,
+    label:before {
+      display: none;
+    }
+
+    input:checked + label,
+    input:checked + label:hover {
+      color: $colorWhite;
+      background: $colorBlack;
+    }
+  }
 }

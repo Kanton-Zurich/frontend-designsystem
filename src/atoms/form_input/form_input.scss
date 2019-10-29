@@ -7,6 +7,8 @@ $topSpace_without_border: 22px;
 $rightSpace: 44px;
 $unitLeftSpace: 62px;
 
+$topSpaceSearchInput: 15.5px;
+
 .atm-form_input {
   position: relative;
 
@@ -37,6 +39,19 @@ $unitLeftSpace: 62px;
       }
     }
 
+    &:focus {
+      outline: none;
+
+      border: 2px solid $colorCyan;
+    }
+
+    .atm-form_input--search & {
+      font-family: $fontFamilyBlack;
+      font-size: pxToRem($sizeFontBig);
+      padding-top: $topSpaceSearchInput;
+      padding-bottom: $topSpaceSearchInput;
+    }
+
     @at-root {
       textarea#{&} {
         padding-top: pxToRem($sizeLarge);
@@ -47,7 +62,6 @@ $unitLeftSpace: 62px;
         text-indent: 0;
         resize: vertical;
         overflow: auto;
-
 
         & + label {
           top: 2px;
@@ -132,6 +146,10 @@ $unitLeftSpace: 62px;
     color: $colorBlack60;
     font-size: pxToRem($sizeFontRegular);
     line-height: $sizeLineHeightBase;
+
+    .atm-form_input--search & {
+      font-size: pxToRem($sizeFontBig);
+    }
   }
 
   &__unit--left,
@@ -229,11 +247,10 @@ $unitLeftSpace: 62px;
 
     .atm-form_input__input--trigger + input {
       position: absolute;
-      top: 50%;
+      top: 3px;
       right: 2px;
       width: calc(100% - 86px);
-      height: calc(100% - #{$sizeMini});
-      transform: translateY(-50%);
+      height: ($heightRegular - 6px);
       border: none;
       appearance: textfield;
 
@@ -365,7 +382,7 @@ $unitLeftSpace: 62px;
           pointer-events: none;
           padding: 0;
           top: pxToRem($sizeFontSmall);
-          font-weight: $fontWeightBlack;
+          font-family: $fontFamilyBlack;
           font-size: pxToRem($sizeFontTiny);
           line-height: $sizeLineHeightBase;
           color: $colorBlack;
@@ -506,7 +523,7 @@ $unitLeftSpace: 62px;
       pointer-events: none;
       padding: 0;
       top: pxToRem($sizeFontSmall);
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
       font-size: pxToRem($sizeFontTiny);
       line-height: $sizeLineHeightBase;
       color: $colorBlack;

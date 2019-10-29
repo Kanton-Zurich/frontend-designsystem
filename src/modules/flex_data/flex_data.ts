@@ -135,14 +135,14 @@ class FlexData extends Module {
       this.fetchData((jsonData) => {
         this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
         this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
-        const canonicalUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1]}`;
+        const canonicalUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
         let prevUrl = '';
         if (parseInt(this.ui.paginationInput.value, 10) > 1) {
-          prevUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`)}`;
+          prevUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`)}`;
         }
         let nextUrl = '';
         if (parseInt(this.ui.paginationInput.value, 10) < jsonData.numberOfResultPages) {
-          nextUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`)}`;
+          nextUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`)}`;
         }
         this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setCanonicalUrls,
           { detail: { prev: prevUrl, next: nextUrl } }));
@@ -169,17 +169,16 @@ class FlexData extends Module {
     jsonData.data.forEach((item) => {
       const tr = document.createElement('tr');
       tr.classList.add('mdl-table__row');
-      this.ui.resultsColumns.forEach((col) => {
+      const props = {
+        link: item.link,
+      };
+      this.ui.resultsColumns.forEach((col, index) => {
         const colName = col.getAttribute('data-column-name');
-        const td = document.createElement('td');
-        td.classList.add('mdl-table__cell');
-        td.setAttribute('data-table', 'cell');
-        const props = {
-          text: item[colName],
-          link: item.link,
-        };
-        td.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, props);
-        tr.appendChild(td);
+        props[`text${index}`] = item[colName];
+      });
+      tr.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, props);
+      tr.addEventListener('click', () => {
+        tr.querySelector('a').click();
       });
       this.ui.resultsBody.appendChild(tr);
     });
@@ -291,7 +290,7 @@ class FlexData extends Module {
       .then(response => response.json())
       .then((response) => {
         if (response) {
-          const canonical = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1]}`;
+          const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
           history.pushState({url: canonical, }, null, canonical); // eslint-disable-line
           callback(response);
         }

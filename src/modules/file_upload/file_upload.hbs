@@ -1,4 +1,4 @@
-<div>
+<div {{#if rules}}data-rules="{{rules}}"{{/if}}>
   <div class="mdl-file_upload" data-init="fileUpload" data-input>
   {{#if title}}<h4 class="atm-heading">{{title}}</h4>{{/if}}
   <label for="{{input.id}}">{{subtitle}}</label>
@@ -33,7 +33,7 @@
         <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
         <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
         <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
-        <p class="mdl-file_upload__error" data-message="type">Die Datei hat ein nicht erlaubtes Dateiformat.</p>
+        <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB)</p>
       </div>
       <button class="mdl-file_upload__file-delete" data-file_upload="delete">
         <span class="visuallyhidden">Datei wieder entfernen</span>
