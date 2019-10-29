@@ -1,3 +1,4 @@
+
 /**
  * Init registered modules on specified events
  *
@@ -45,6 +46,7 @@ import FlexData from '../../../modules/flex_data/flex_data';
 import DrilldownSelect from '../../../modules/drilldown_select/drilldown_select';
 import UserMenu from '../../../modules/user_menu/user_menu';
 import CugLogin from '../../../modules/cug_login/cug_login';
+import Video from '../../../modules/video/video';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -99,6 +101,7 @@ class App {
     this.modules.searchPage = SearchPage;
     this.modules.userMenu = UserMenu;
     this.modules.cugLogin = CugLogin;
+    this.modules.video = Video;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

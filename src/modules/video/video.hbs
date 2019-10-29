@@ -1,14 +1,46 @@
 <figure{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-video {{#if isFullwidth}}mdl-video--fullwidth{{/if}} {{#if isHeader}}mdl-video--header{{/if}}" data-init="video">
   {{#if title}}<h{{headingLevel}} class="atm-heading">{{video_title}}</h{{headingLevel}}>{{/if}}
   <div class="mdl-video__wrapper">
-  <iframe
-    class="mdl-video__frame"
-    src="https://www.youtube.com/embed/{{videoId}}?modestbranding=1&rel=0&showInfo=0"
-    height="768"
-    width="432"
-    allowfullscreen
-    aria-describedby="mdl-video__{{videoId}}__alt-text"
-  ></iframe>
+    <div class="mdl-video__preview">
+      {{> "modules/image_figure/image_figure" placeholderImage}}
+      <button class="atm-button">
+        <svg class="icon atm-button__icon">
+          <use xlink:href="#play"></use>
+        </svg>
+        <span class="atm-button__text">Video</span>
+      </button>
+    </div>
+    <div class="mdl-video__cookie-dialog" aria-hidden="true">
+      <button type="button">
+        <span class="visuallyhidden">
+          Cookie Dialog schliessen
+        </span>
+        <svg class="icon">
+          <use xlink:href="#exit"></use>
+        </svg>
+      </button>
+        <div>
+          <p>
+            <strong>Dieses Video kommt von YouTube</strong>
+            Mit dem Abspielen kann YouTube ihr Surf-Verhalten mitverfolgen.
+          </p>
+          <a href="#">Datenschutzerklärung</a>
+          <button class="atm-button">
+            <span class="atm-button__text">Video abspielen</span>
+            <svg class="icon atm-button__icon">
+              <use xlink:href="#youtube"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+    <iframe
+      class="mdl-video__frame"
+      data-youtubesrc="https://www.youtube.com/embed/{{videoId}}?modestbranding=1&rel=0&showInfo=0"
+      height="768"
+      width="432"
+      allowfullscreen
+      aria-describedby="mdl-video__{{videoId}}__alt-text"
+    ></iframe>
   </div>
   <figcaption class="mdl-video__caption">
     {{> "atoms/figcaption/figcaption" caption}}
