@@ -86,7 +86,7 @@ $headerCurves: (
     @include transition(color);
 
     &--active {
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
     }
   }
 
@@ -100,7 +100,7 @@ $headerCurves: (
 
   &__search {
     color: $colorBlack80;
-    font-weight: $fontWeightDefault;
+    font-family: $fontFamilyBase;
     font-size: $sizeFontMedium;
 
     height: calc(100% - #{$borderHeightSmall});

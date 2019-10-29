@@ -12,6 +12,7 @@ import { merge } from 'lodash';
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import WindowEventListener from '../../assets/js/helpers/events';
 
 class Datepicker extends Module {
   public isOpen: boolean;
@@ -58,6 +59,7 @@ class Datepicker extends Module {
     element: any,
     trigger: any,
     container: any,
+    calendar: any,
   };
 
   public options: {
@@ -154,6 +156,8 @@ class Datepicker extends Module {
       .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this))
       .on(Datepicker.events.injectDate, this.onInjectDate.bind(this))
       .on(Datepicker.events.clear, this.onClear.bind(this));
+
+    (<any>WindowEventListener).addDebouncedResizeListener(this.positionCorrection.bind(this));
   }
 
   /**
@@ -232,6 +236,25 @@ class Datepicker extends Module {
   }
 
   /**
+   * Move picker if horizontally out of window
+    */
+  positionCorrection() {
+    const borderMargin = 20;
+    if (this.ui.element.classList.contains('open')) {
+      const element = this.ui.element.querySelector('.flatpickr-calendar');
+      const calendarRect = element.getBoundingClientRect();
+      if (calendarRect.width < window.innerWidth) {
+        const rightEnd = calendarRect.left + calendarRect.width;
+        if ((rightEnd + borderMargin) > window.innerWidth) {
+          element.style.marginLeft = `-${rightEnd - window.innerWidth + borderMargin}px`;
+        } else {
+          element.removeAttribute('style');
+        }
+      }
+    }
+  }
+
+  /**
    * Inject date from external
    * @param event
    */
@@ -281,6 +304,7 @@ class Datepicker extends Module {
       this.flatpickr.close();
     } else {
       this.ui.element.classList.add('open');
+      this.positionCorrection();
     }
   }
 

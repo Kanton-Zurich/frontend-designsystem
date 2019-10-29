@@ -319,13 +319,13 @@ const variants = _.mapValues({
             {
               fields: [
                 {
-                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
-                    datepickerData.variants.dateRange.props,
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.variants.multiSelect.props,
                     {})),
                 },
                 {
-                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
-                    selectData.variants.multiSelect.props,
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.dateRange.props,
                     {})),
                 },
               ],

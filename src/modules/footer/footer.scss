@@ -61,7 +61,7 @@
 
     a {
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
       color: $colorWhite;
 
       &:hover {
@@ -87,13 +87,13 @@
     color: $colorBlack40;
 
     p {
-      font-weight: $fontWeightQuote;
+      font-family: $fontFamilyBlack;
       margin: 0;
     }
 
     a {
       color: inherit;
-      font-weight: $fontWeightDefault;
+      font-family: $fontFamilyBase;
 
 
       &:hover {

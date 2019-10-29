@@ -8,12 +8,12 @@ $pageHeaderCurves: (
     xlarge: 4px,
   ),
   ktzhLogoTop: (
-    tiny: 25px,
-    xsmall: 22px,
-    small: 16px,
-    medium: 0,
-    large: -9px,
-    xlarge: -15px,
+    tiny: 33px,
+    xsmall: 26px,
+    small: 21px,
+    medium: 5px,
+    large: -4px,
+    xlarge: -10px,
   ),
   ktzhLogoTopFF: (
     tiny: 24px,
@@ -236,7 +236,7 @@ $pageHeaderCurves: (
   }
 
   &__news-category {
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
   }
 
   &__expander {
