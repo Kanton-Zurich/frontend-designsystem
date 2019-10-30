@@ -33,6 +33,7 @@ class NewsOverview extends Module {
     sortDropdown: HTMLDivElement,
     searchWordInput: HTMLInputElement,
     searchWordInputClear: HTMLButtonElement,
+    wrapper: HTMLDivElement,
   };
 
   private dataUrl: string;
@@ -70,9 +71,10 @@ class NewsOverview extends Module {
         sortDropdown: '.mdl-news-overview__sort .mdl-context_menu',
         searchWordInput: '.mdl-news-overview__filter > .atm-form_input input',
         searchWordInputClear: '.mdl-news-overview__filter > .atm-form_input > button',
+        wrapper: '[data-news_overview="wrapper"]',
       },
       stateClasses: {
-        // activated: 'is-activated'
+        loading: 'mdl-news-overview--loading',
       },
     };
 
@@ -379,6 +381,9 @@ class NewsOverview extends Module {
    * @param callback
    */
   async fetchData(callback: Function) {
+    // add Loading class
+    this.ui.wrapper.classList.add(this.options.stateClasses.loading);
+
     if (!window.fetch) {
       await import('whatwg-fetch');
     }
@@ -391,6 +396,9 @@ class NewsOverview extends Module {
           history.pushState({url: canonical, }, null, canonical); // eslint-disable-line
           callback(response);
         }
+
+        // Remove loading class
+        this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
       })
       .catch((err) => {
         this.log('error', err);
