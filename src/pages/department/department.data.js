@@ -1,13 +1,16 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
-const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.colored.props;
+const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
 const topicListData = require('../../modules/topiclist/topiclist.data').props;
 const contactData = require('../../modules/contact/contact.data').variants.fullWidth.props;
 const teaserData = require('../../modules/teaser/teaser.data').variants.inverted.props;
 const defAboutData = require('../../modules/about/about.data').props;
 const headerData = require('../../modules/header/header.data').variants.userMenu.props;
 const newsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withProminentTeaser.props;
+
+const pageHeaderWithoutBtn = _.omit(defPageHeaderData.variants.colored.props, ['buttonData']);
+defPageHeaderData.variants.colored.props = pageHeaderWithoutBtn;
 
 const defAnchorNavData = {
   anchornavTitle: {
@@ -63,7 +66,31 @@ const data = _.merge({}, defaultData, {
     text: '',
     modules: {
       pageHeader: _.merge({}, defPageHeaderData, {
-        noButton: true,
+        variants: {
+          colored: {
+            props: {
+              pageTitle: 'Strassenverkehrsamt',
+              leadTitle: 'Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
+              breadcrumb: {
+                contextMenu: false,
+                path: [
+                  {
+                    title: 'Kanton Zürich',
+                    href: '#',
+                  },
+                  {
+                    title: 'Sicherheitsdirektion',
+                    href: '#',
+                  },
+                  {
+                    title: 'Strassenverkehrsamt',
+                    href: '#',
+                  },
+                ],
+              },
+            },
+          },
+        },
       }),
       anchorNav: defAnchorNavData,
       newsTeaser: newsTeaserData,

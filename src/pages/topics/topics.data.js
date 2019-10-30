@@ -88,7 +88,23 @@ const data = _.merge({}, defaultData, {
             props: {
               pageTitle: 'Führerausweis & Fahren lernen',
               leadTitle: 'Alles rund um den Fahrausweis: Sie wollen Auto oder Motorrad fahren lernen? Haben Sie ein «Grünes L?» Müssen Sie ausländischen Führerschein in einen Schweizer Führerausweis umtauschen? Ab wann müssen Sie in die Alterskontrolle? Brauchen Sie für Ihre Ferien einen Internationalen Führerschein? Wie lernen Sie Motorrad fahren? Ausweis verloren?',
-              noButton: true,
+              breadcrumb: {
+                contextMenu: false,
+                path: [
+                  {
+                    title: 'Kanton Zürich',
+                    href: '#',
+                  },
+                  {
+                    title: 'Mobilität',
+                    href: '#',
+                  },
+                  {
+                    title: 'Führerausweis',
+                    href: '#',
+                  },
+                ],
+              },
             },
           },
         },
