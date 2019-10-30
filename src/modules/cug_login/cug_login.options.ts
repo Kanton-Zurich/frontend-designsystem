@@ -14,6 +14,7 @@ interface ModuleStateClasses {
   connectionFail: string;
   loginBtnDisable: string;
   loading: string;
+  loginBtnLoading: string;
 }
 export interface CugLoginModuleOptions {
   devModeAttr: string;
@@ -43,6 +44,7 @@ const stateClasses: ModuleStateClasses = {
   connectionFail: 'mdl-cug_login--connection-fail',
   loginBtnDisable: 'atm-button--disabled',
   loading: 'mdl-cug_login--loading',
+  loginBtnLoading: 'atm-button--loading',
 };
 export const CugLoginDefaultOptions: CugLoginModuleOptions = { // eslint-disable-line
   devModeAttr: 'data-cug_login-devmode',

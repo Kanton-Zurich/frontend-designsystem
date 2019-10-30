@@ -104,6 +104,8 @@ class CugLogin extends Module {
     this.log('Login submit triggered.');
 
     if (!this.loginFormHasErrors()) {
+      this.ui.loginBtn.classList.add(this.options.stateClasses.loginBtnLoading);
+
       const username = this.ui.usernameInput.value;
       const password = this.ui.passwordInput.value;
       this.log(`Attempt login with ${username} - ${password}`);
@@ -128,6 +130,8 @@ class CugLogin extends Module {
             || resp.isAuthorized === undefined) {
             throw new Error(`Unparseable repsonse to login request! '${resp}'`);
           }
+          this.ui.loginBtn.classList.remove(this.options.stateClasses.loginBtnLoading);
+
           return resp as LoginResponse;
         })
         .then((loginResp) => {

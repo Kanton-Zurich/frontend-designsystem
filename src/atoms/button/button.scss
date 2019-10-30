@@ -279,6 +279,9 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
   }
 
   &--loading {
+    // THE BUTTON SHOULD NOT BE CLICKABLE WHILE LOADING
+    pointer-events: none;
+
     .atm-button__spinner {
       display: block;
     }
