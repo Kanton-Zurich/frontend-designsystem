@@ -1,6 +1,12 @@
 .mdl-flex-data {
   @include sizeCurve(margin-top margin-bottom, big);
 
+  &--loading {
+    position: relative;
+    overflow: hidden;
+    height: $loadingMinHeight;
+  }
+
   &__form-controls {
     display: flex;
     justify-content: flex-end;

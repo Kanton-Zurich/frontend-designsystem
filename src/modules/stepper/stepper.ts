@@ -71,6 +71,7 @@ class Stepper extends Module {
         initialised: 'mdl-stepper--initialised',
         onLastPage: 'mdl-stepper--last-page',
         success: 'mdl-stepper--success',
+        buttonLoading: 'atm-button--loading',
       },
       hasRules: false,
     };
@@ -321,6 +322,8 @@ class Stepper extends Module {
         await import('whatwg-fetch');
       }
 
+      this.ui.send.classList.add(this.options.stateClasses.buttonLoading);
+
       fetch(action, {
         method: 'post',
         body: formData,
@@ -335,6 +338,8 @@ class Stepper extends Module {
 
             this.showNetworkError();
           }
+
+          this.ui.send.classList.add(this.options.stateClasses.buttonLoading);
 
           return response;
         })
