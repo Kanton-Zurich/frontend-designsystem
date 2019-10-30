@@ -259,7 +259,7 @@
       position: relative;
 
       &:before {
-        content: '0' counter(ol-counter);
+        content: counter(ol-counter, decimal-leading-zero);
         font-family: $fontFamilyBlack;
         color: $colorBlack;
         margin-left: -$sizeBig;
