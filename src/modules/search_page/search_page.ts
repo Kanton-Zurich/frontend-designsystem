@@ -355,14 +355,8 @@ class SearchPage extends Module {
     }
   }
 
-  getURLParam(paramName) {
-    const regex = new RegExp(`[\\?&]${paramName}=([^&#]*)`);
-    const results = regex.exec(window.location.search);
-    return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
-  }
-
   setFilterInUrl() {
-    let url = `${window.location.origin}${window.location.pathname}`;
+    let url = this.getBaseUrl();
     const urlParams : any = {
       q: this.query,
     };

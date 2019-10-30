@@ -10,7 +10,12 @@
   </div>
   <div class="mdl-flex-data__results" data-result-count-title="{{resultCountTitle}}">
     <script data-flex-template type="text/x-handlebars-template">
-      {{{resultsTemplate}}}
+      {{#each tableData.headers}}
+        <td class="mdl-table__cell" data-table="cell"><%=text{{@index}}%></td>
+        {{#if @last}}
+        <td class="mdl-table__cell" data-table="cell"><a href="<%=link%>" class="atm-text_link">Details</a></td>
+        {{/if}}
+      {{/each}}
     </script>
     {{> "modules/table/table" tableData }}
     <div class="mdl-flex-data__pagination">

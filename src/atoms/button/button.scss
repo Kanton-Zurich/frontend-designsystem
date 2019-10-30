@@ -10,7 +10,7 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
   height: pxToRem($normalButtonSize);
   font-size: 1rem;
   color: $colorWhite;
-  font-weight: $fontWeightBlack;
+  font-family: $fontFamilyBlack;
   min-width: pxToRem($normalButtonSize);
   padding: 1px $sizeLarge 0;
 
@@ -178,7 +178,7 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
     }
 
     &:not(.atm-button--tag-top) {
-      font-weight: $fontWeightDefault;
+      font-family: $fontFamilyBase;
     }
 
     &-filter {

@@ -61,7 +61,7 @@ $maxTextLinesDesktop: 4;
 
   &__date {
     order: 1;
-    font-weight: 900;
+    font-family: $fontFamilyBlack;
     font-size: $sizeFontTiny;
     color: rgba($colorBlack, 0.6);
   }

@@ -23,12 +23,39 @@
 
   .mdl-table {
     .mdl-table__row {
-      td.mdl-table__cell {
-        padding: 12px;
+      td {
+        &.mdl-table__cell {
+          padding: 12px;
 
-        .atm-text_link {
-          display: inline;
-          padding-bottom: 3px;
+          .atm-text_link {
+            display: inline;
+            padding-bottom: 3px;
+          }
+        }
+
+        &:last-of-type {
+          white-space: nowrap;
+          word-break: keep-all;
+        }
+      }
+
+      &:hover {
+        td {
+          background-color: $colorBlack10;
+          cursor: pointer;
+
+          &.mdl-table__cell {
+            color: $colorBlack;
+
+            .atm-text_link {
+              color: $colorBlack;
+              border-color: $colorBlack;
+
+              .icon {
+                fill: $colorBlack;
+              }
+            }
+          }
         }
       }
     }

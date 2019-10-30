@@ -8,6 +8,7 @@
     <div class="mdl-stepper__wrapper form" data-stepper="wrapper" {{#if overlayId}}data-overlay-id="{{overlayId}}"{{/if}}>
       {{#each steps}}
         <div class="mdl-stepper__step" data-stepper="step" data-step-index="{{@index}}" {{#if rules}}data-rules="{{rules}}"{{/if}}>
+          <div data-stepper="ruleNotificationWrapper"></div>
           {{> "modules/form/form" this}}
         </div>
       {{/each}}
@@ -22,9 +23,9 @@
         {{> "atoms/toggle/toggle" toggle}}
         {{> "atoms/form_input/form_input" replyTo}}
       {{/if}}
-      {{#if remark}}<p class="mdl-stepper__remark">
+      {{#if remark}}<div class="mdl-stepper__remark">
         {{{remark}}}
-      </p>{{/if}}
+      </div>{{/if}}
     </div>
   </form>
 
@@ -40,6 +41,10 @@
     </script>
 
   </div>
+
+  <script type="text/x-handlebars-template" data-stepper="ruleNotification">
+    {{> "atoms/notification/notification" ruleNotification}}
+  </script>
 
   <div class="mdl-stepper__control" data-stepper="control">
     <button class="atm-button atm-button--secondary mdl-stepper__back" data-stepper="back">Zurück</button>

@@ -392,7 +392,7 @@ class NewsOverview extends Module {
       .then(response => response.json())
       .then((response) => {
         if (response) {
-          const canonical = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1]}`;
+          const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
           history.pushState({url: canonical, }, null, canonical); // eslint-disable-line
           callback(response);
         }
@@ -415,14 +415,14 @@ class NewsOverview extends Module {
         // update canonical href
         this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
         this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
-        const canonicalUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1]}`;
+        const canonicalUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
         let prevUrl = '';
         if (parseInt(this.ui.paginationInput.value, 10) > 1) {
-          prevUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`)}`;
+          prevUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`)}`;
         }
         let nextUrl = '';
         if (parseInt(this.ui.paginationInput.value, 10) < jsonData.numberOfResultPages) {
-          nextUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`)}`;
+          nextUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`)}`;
         }
         this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setCanonicalUrls,
           { detail: { prev: prevUrl, next: nextUrl } }));

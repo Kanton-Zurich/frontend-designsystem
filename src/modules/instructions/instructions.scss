@@ -2,7 +2,7 @@
 
   $customSizing: (
     itemTop: (
-      tiny: $sizeLarge,
+      tiny: $sizeFontBiggerBig + $sizeFontBiggerRegular,
       xlarge: $sizeBiggerBig
     ),
     counterFontSize: (
@@ -32,19 +32,61 @@
     padding: 0;
     margin: 0;
 
-    // Accessibility counter
-    &--ordered {
-      counter-reset: item-counter;
+    > li:before {
+      @include sizeCurve(padding-top, headingPaddingTop, $customSizing);
 
-      > li {
-        counter-increment: item-counter;
+      right: 100%;
+      position: absolute;
+      padding-right: pxToRem($sizeBig);
+
+      @include mq($to: small) {
+        right: initial;
+      }
+    }
+  }
+
+  ol.mdl-instructions__list {
+    counter-reset: item-counter;
+
+    .mdl-instructions__item {
+      @include sizeCurve('margin-top', itemTop, $customSizing);
+      counter-increment: item-counter;
+
+      &:before {
+        @include polyFluidSizing('font-size', map-get($customSizing, counterFontSize));
+        @include sizeCurve('line-height', counterLineHeight, $customSizing);
+
+        font-family: $fontFamilyBlack;
+        content: counter(item-counter, decimal-leading-zero);
+
+        @include mq($to: small) {
+          @include sizeCurve('top', counterLineHeight, $customSizing, $isNegative: true);
+        }
+      }
+    }
+  }
+
+  ul.mdl-instructions__list {
+    .mdl-instructions__item {
+      margin-top: pxToRem($sizeBiggerBig);
+
+      @include mq($to: small) {
+        margin-top: pxToRem($sizeLarge);
+
+        .mdl-instructions__item-title {
+          padding-left: 10px;
+          margin-left: 19.38px;
+        }
       }
 
-      > li:before {
-        @include visuallyhidden;
-        content: counter(item-counter) '.';
-        top: 0;
-        left: -1rem;
+      &:before {
+        @include sizeCurve('width' 'height' 'background-size', checkerIconSize, $customSizing);
+
+        content: '';
+        padding-right: pxToRem($sizeBig);
+        background-image: url(svg-checkmark($colorBlack));  // stylelint-disable-line
+        background-position: bottom left;
+        background-repeat: no-repeat;
       }
     }
   }
@@ -56,65 +98,6 @@
       padding: 0;
 
       @include sizeCurve(padding-top, headingPaddingTop, $customSizing);
-    }
-
-    @include sizeCurve('margin-top', itemTop, $customSizing);
-    @include mq($from: small) {
-      display: flex;
-    }
-  }
-
-  &__bullet {
-    font-weight: 900;
-    word-break: break-all; // break all on overflowing counters
-
-    @include polyFluidSizing('font-size', map-get($customSizing, counterFontSize));
-    @include sizeCurve('line-height', counterLineHeight, $customSizing);
-    @include sizeCurve(padding-top, headingPaddingTop, $customSizing);
-
-    &--checklist {
-      position: absolute;
-      top: 3px;
-      left: 0;
-      line-height: 1;
-      font-size: 0;
-
-      .icon {
-        @include sizeCurve('width' 'height', checkerIconSize, $customSizing);
-      }
-
-      @include mq($from: small) {
-        position: relative;
-        top: auto;
-        left: auto;
-        line-height: 0;
-      }
-    }
-
-    @include mq($from: small) {
-      text-align: right;
-
-      @include gridNestedOffset('margin-left', 2, $gridOffsetColumns, $isNegative: true);
-      @include gridNestedOffset('width' 'min-width', 2, $gridOffsetColumns, $trailingGutter: false);
-    }
-  }
-
-  &__bullet + div {
-    width: 100%;
-
-    @include mq($from: small) {
-      @include sizeCurve('margin-left', quoteParagraph, $indentCurve);
-      flex-grow: 1;
-    }
-  }
-
-  &__bullet--checklist + div > .atm-heading {
-    padding-left: 10px;
-    margin-left: 19.38px;
-
-    @include mq($from: small) {
-      padding-left: 0;
-      margin-left: 0;
     }
   }
 
@@ -131,7 +114,6 @@
       margin-bottom: 0;
     }
   }
-
 
   /*
   *  MODULE OVERWRITES
@@ -174,12 +156,12 @@
 */
 @each $key, $val in $tl-color-variations {
   .#{$key} {
-    .mdl-instructions__bullet {
+    ol.mdl-instructions__list .mdl-instructions__item:before {
       color: #{$val};
+    }
 
-      svg use {
-        fill: #{$val};
-      }
+    ul.mdl-instructions__list .mdl-instructions__item:before {
+      background-image: url(svg-checkmark($val));  // stylelint-disable-line
     }
   }
 }
