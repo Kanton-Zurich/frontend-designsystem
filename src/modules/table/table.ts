@@ -238,6 +238,7 @@ class Table extends Module {
    */
   onOrderTable(event) {
     let columnHeader = event.target;
+    this.log(columnHeader);
 
     if (columnHeader.tagName !== 'BUTTON') {
       columnHeader = columnHeader.parentNode;
@@ -337,6 +338,7 @@ class Table extends Module {
     this.ui.element.setAttribute('data-sort-column', column);
     this.ui.element.setAttribute('data-sort-direction', direction);
     const columnHeader = this.ui.element.querySelector(`[data-column-name="${column}"]`);
+    this.log(columnHeader);
     if (columnHeader) {
       const isNumeric = columnHeader.getAttribute('data-order') === 'enum';
       this.cleanSortableColumns();

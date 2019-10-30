@@ -27,6 +27,7 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
+      flexDataSource: '/mocks/modules/flex_data/flex_data.json',
       pagination: defPaginationData.variants.fullWidth.props,
       resultCountTitle: '%1 Treffer zu ihrer Abfrage',
       flexFormData: _.merge({}, defFormData.variants.steuerBuch.props),
@@ -67,6 +68,7 @@ const variants = _.mapValues({
       desc: 'Zürcher Gesetzessammlung',
     },
     props: {
+      flexDataSource: '/mocks/modules/flex_data/flex_data.zhLex.json',
       pagination: defPaginationData.variants.fullWidth.props,
       resultCountTitle: '%1 Treffer zu ihrer Abfrage',
       flexFormData: _.merge({}, defFormData.variants.zhlex.props),
@@ -82,7 +84,7 @@ const variants = _.mapValues({
         preSortedDirection: 'asc',
         headers: [
           {
-            title: 'Ordnungsnummer',
+            title: 'Ordnungs-Nr.',
             dataColumnName: 'ordnungsnummer',
             isSortable: 'alpha',
           },
