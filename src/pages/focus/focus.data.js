@@ -10,8 +10,9 @@ const headerData = require('../../modules/header/header.data').props;
 
 
 const defRelatedContentProps = _.merge({}, defRelatedContent);
+const magicNumber = 3;
 defRelatedContentProps.variants.default.props.contentNavData.items = defRelatedContentProps
-  .variants.default.props.contentNavData.items.slice(0, 3);
+  .variants.default.props.contentNavData.items.slice(0, magicNumber);
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -30,7 +31,8 @@ const data = _.merge({}, defaultData, {
           coloredImage: {
             props: {
               pageTitle: 'Sicherheit',
-              leadText: 'Sicherheit zu schaffen gehört zu den zentralen und klassischen Aufgaben des Staates. Zwar sind den finanziellen Möglichkeiten unseres Kantons auch dann Schranken gesetzt, wenn es um mehr Sicherheit geht. Aber wir wollen das Beste machen.'
+              leadText: 'Sicherheit zu schaffen gehört zu den zentralen und klassischen Aufgaben des Staates. Zwar sind den finanziellen Möglichkeiten unseres Kantons auch dann Schranken gesetzt, wenn es um mehr Sicherheit geht. Aber wir wollen das Beste machen.',
+              breadcrumb: false,
             },
           },
         },
