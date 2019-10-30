@@ -1,0 +1,44 @@
+<div class="mdl-table mdl-table--align-right mdl-table--first-column-fixed" data-init="table" data-redraw="true">
+    <h4 class="atm-heading mdl-table__title"><%=blockHead%></h4>
+    <figure class="mdl-table__figure">
+        <div class="mdl-table__scroll-area" data-table="scroll-area">
+            <div class="mdl-table__wrapper" data-table="scroll-area-wrapper">
+                <table class="mdl-table__table" data-table="table">
+                    <thead>
+                        <tr class="mdl-table__row">
+                        <% _.forEach(headRow, function(entry, index) { %>
+                            <th scope="col" class="mdl-table__cell mdl-table__column-header ">
+                                <span><%=entry%></span>
+                            </th>
+                        <% }); %>
+                        </tr>
+                    </thead>
+                    <tbody class="mdl-table__body">
+                    <% _.forEach(bodyRows, function(row, index) { %>
+                        <tr class="mdl-table__row mdl-table__row">
+                        <% _.forEach(row.entries, function(entry, index) { %>
+                            <% if(index === 0) { %>
+                            <th scope="row" class="mdl-table__cell<% if(row.isHighlighted) { %> mdl-table__cell--highlighted<% } %>" data-table="cell">
+                                <%=entry%>
+                            </th>
+                            <% } else { %>
+                            <td class="mdl-table__cell<% if(row.isHighlighted) { %> mdl-table__cell--highlighted<% } %>" data-table="cell">
+                                <%=entry%>
+                            </td>
+                            <% }%>
+                        <% }); %>
+                        </tr>
+                    <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <% if(caption) { %>
+        <figcaption class="mdl-table__figcaption">
+          <span class="atm-figcaption" data-figcaption="caption">
+            <%=caption %>
+          </span>
+        </figcaption>
+        <% }%>
+    </figure>
+</div>

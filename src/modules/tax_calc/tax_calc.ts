@@ -34,6 +34,17 @@ interface ApiFieldDefinition {
   hint: string;
 }
 
+interface TableRow {
+  entries: string[];
+  isHighlighted: boolean;
+}
+interface TableBlockProperties {
+  blockHead: string;
+  headRow: string[];
+  bodyRows: TableRow[];
+  caption?: string;
+}
+
 class TaxCalc extends Module {
   public options: TaxCalcModuleOptions;
 
@@ -44,9 +55,13 @@ class TaxCalc extends Module {
     taxEntityInputs: HTMLInputElement[],
     taxTypeInputs: HTMLInputElement[],
     nextBtn: HTMLButtonElement,
+    resultBlock: HTMLElement,
+    resultContainer: HTMLElement,
     formItemTemplate: HTMLScriptElement,
     fieldTemplates: HTMLElement[],
+    tableBlockTemplate: HTMLScriptElement,
     formLayoutConfig: HTMLScriptElement,
+    resultTableConfig: HTMLScriptElement,
   };
 
   private readonly apiBase: string;
@@ -56,6 +71,7 @@ class TaxCalc extends Module {
   private lastSectionIdx: number;
 
   private formConfig: any;
+  private resultTableConfig: any;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -72,8 +88,12 @@ class TaxCalc extends Module {
     try {
       this.formConfig = JSON.parse(this.ui.formLayoutConfig.innerText);
     } catch (e) {
-      this.log('Failed to parse donfig JSON: ', this.ui.formLayoutConfig.innerText);
-      this.log(e, this.ui.formLayoutConfig.innerText);
+      this.log('Failed to parse form config JSON: ', e, this.ui.formLayoutConfig.innerText);
+    }
+    try {
+      this.resultTableConfig = JSON.parse(this.ui.resultTableConfig.innerText);
+    } catch (e) {
+      this.log('Failed to parse form config JSON: ', e, this.ui.formLayoutConfig.innerText);
     }
   }
 
@@ -158,7 +178,7 @@ class TaxCalc extends Module {
             const numVal = inEl.valueAsNumber;
             let numValStr = '0';
             if (!Number.isNaN(numVal)) {
-              numValStr = numVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '’');
+              numValStr = this.currencyNumberValueToString(numVal);
             }
             const valStr = `${inEl.placeholder}: ${numValStr}`;
             sectionVals.push(valStr);
@@ -193,6 +213,10 @@ class TaxCalc extends Module {
         formSectionItem.classList.remove(this.options.stateClasses.formItem.enabled);
       }
     });
+  }
+
+  private currencyNumberValueToString(numVal: number): string {
+    return numVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '’');
   }
 
   private watchFormSection(sectionBlock: HTMLElement) {
@@ -323,7 +347,8 @@ class TaxCalc extends Module {
       this.log(this.ui.fieldTemplates);
       let tmplHtml;
       this.ui.fieldTemplates.forEach((templateNode) => {
-        const tempFieldType = templateNode.getAttribute('data-tax_calc-template');
+        const tempFieldType = templateNode
+          .getAttribute(this.options.attributeNames.fieldTemplateType);
         if (tempFieldType === apiFieldDef.type.toLowerCase()) {
           tmplHtml = templateNode.innerHTML;
         }
@@ -384,8 +409,8 @@ class TaxCalc extends Module {
 
     formItemsData.forEach((itemData) => {
       const newItem = document.createElement('div');
-      newItem.className = 'mdl-accordion__item mdl-tax_calc__form-block_item';
-      newItem.setAttribute('data-accordion', 'item');
+      newItem.className = 'mdl-accordion__item mdl-tax_calc__form-block_item'; // TODO
+      newItem.setAttribute('data-accordion', 'item'); // TODO
       newItem.innerHTML = template(this.ui.formItemTemplate.innerHTML)(itemData);
       itemsParentNode.appendChild(newItem);
       (<any>window).estatico.helpers.app.registerModulesInElement(newItem);
@@ -394,6 +419,72 @@ class TaxCalc extends Module {
     this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.next);
     this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.calculate);
     this.lastSectionIdx = formItemsData.length + 1;
+  }
+
+  private setResultTableBlocks(blocksProps: TableBlockProperties[]): void {
+    this.ui.resultContainer.innerHTML = '';
+
+    blocksProps.forEach((props) => {
+      const newItem = document.createElement('div');
+      // newItem.className = 'mdl-tax_calc__result-block_table';
+      newItem.innerHTML = template(this.ui.tableBlockTemplate.innerHTML)(props);
+      this.ui.resultContainer.appendChild(newItem);
+      (<any>window).estatico.helpers.app.registerModulesInElement(newItem);
+      (<any>window).estatico.helpers.app.initModulesInElement(newItem);
+    });
+  }
+
+  private getTablePropertiesFromResponse(resp: any): TableBlockProperties[] {
+    const calcId = resp.taxCalculatorId;
+    this.log('Generating result tables for calculator: ', calcId);
+    const tables: TableBlockProperties[] = [];
+
+    const resultTableConfigs = this.resultTableConfig[calcId];
+    if (resultTableConfigs && resultTableConfigs.length > 0) {
+      resultTableConfigs.forEach((conf) => {
+        const confClone = cloneDeep(conf);
+        const bodyRows = confClone.fieldRows.map(rowConf => ({
+          entries: rowConf.entries.map(path => this.getResponseValByPath(resp, path))
+            .map(e => (e === undefined ? '' : e)),
+          isHighlighted: rowConf.isHighlighted === true,
+        }));
+        tables.push({
+          blockHead: confClone.heading,
+          headRow: confClone.thead,
+          bodyRows,
+          caption: confClone.caption,
+        });
+      });
+    }
+
+    this.log('Result table properties from response: ', tables);
+    return tables;
+  }
+
+  private getResponseValByPath(respObj: any, path: string) {
+    let tmp = respObj;
+    if (path.indexOf('.') >= 0) {
+      const pathSplit = path.split('.');
+      pathSplit.forEach((key) => {
+        if (tmp !== undefined) {
+          tmp = tmp[key];
+        }
+      });
+    } else {
+      tmp = respObj[path];
+    }
+
+    if (typeof tmp === 'object') {
+      const { value, currency, symbol } = tmp;
+      if (currency) {
+        return this.currencyNumberValueToString(value);
+      }
+      if (symbol) {
+        return `${value}${tmp.symbol}`;
+      }
+      return value;
+    }
+    return tmp;
   }
 
   private getCalculatorFormLayout(calcIdFromResp: string)
@@ -448,13 +539,24 @@ class TaxCalc extends Module {
   }
 
   private doSubmitForm() {
-    this.log('Submit!!');
     const url = `${this.calculatorUrl}/calculate`;
     this.postCalculatorFormData(url).then((resp) => {
-      this.log('Calculate Response:', resp);
+      if (!resp.errors) {
+        this.log('Calculate Response:', resp);
+        const tableProps = this.getTablePropertiesFromResponse(resp);
+        this.setResultTableBlocks(tableProps);
+        this.ui.element.classList.add(this.options.stateClasses.hasResult);
+      } else {
+        this.log('Response contained "errors" object. ', resp.errors);
+        // TODO Error handling
+      }
+    }, (postFailReason) => {
+      this.log('FormSubmit failed! ', postFailReason);
+      // TODO Exception handling
     });
     this.toNextFormSection();
   }
+
 
   private async postCalculatorFormData(endpoint: string) {
     const formData = window[namespace].form.formToJSON(this.ui.formBase.elements, true);

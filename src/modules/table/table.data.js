@@ -73,6 +73,52 @@ const variants = _.mapValues({
       desc: 'Standard-Tabelle',
     },
   },
+  taxCalcResult: {
+    meta: {
+      title: 'Steuerechner (CZHDEV-1238)',
+      desc: 'Ergebnis Tabelle wie im Steuerrechner verwendet.',
+    },
+    props: {
+      tableTitle: 'Steuerbarer Reingewinn',
+      headers: [
+        {
+          title: '<span class="visuallyhidden">Beschreibung</span>',
+          isSortable: false,
+        }, {
+          title: 'CHF',
+          isSortable: false,
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['Gewinn vor Steuern', "1'000'000.00"],
+        }, {
+          data: ['Steuern  (auf Gewinn vor Steuern)', "216'222.00"],
+        }, {
+          data: ['mutmasslicher steuerbarer Reingewinn (ungerundet)', "783'778.00"],
+        }, {
+          data: [{
+            cellContent: 'Steuerbarer Reingewinn (gerundet)',
+            isHighlighted: true,
+          }, {
+            cellContent: "783'700.00",
+            isHighlighted: true,
+          }],
+        },
+      ],
+      hasTitle: true,
+      tableHeadingLevel: 4,
+      hasColumnHeader: true,
+      hasRowHeader: false,
+      alignRight: true,
+      colorVariation: true,
+      isFirstColumnFixed: true,
+      hasCaption: true,
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Für die Steuerzahlung ist einzig der Betrag auf der Steuerrechnung massgebend.',
+      }),
+    },
+  },
   alignRight: {
     meta: {
       title: 'Rechtsbündig, mit Tabellenunterschrift und Fussnoten',

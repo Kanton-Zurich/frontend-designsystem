@@ -47,7 +47,7 @@
                     <h3 class="mdl-instructions__item-title atm-heading">
                       {{resultBlock.heading}}
                     </h3>
-                    <div class="mdl-instructions__item-content">
+                    <div class="mdl-instructions__item-content" data-tax_calc="resultCon">
 
                     </div>
                 </div>
@@ -55,25 +55,34 @@
         </ol>
     </div>
 
-    <script type="text/x-handlebars-template" data-tax_calc-template="formItem">
-        {{> "modules/tax_calc/form-templates/_form-section-item" }}
+
+    <script type="text/x-handlebars-template" data-tax_calc="formItemTemplate">
+        {{> "modules/tax_calc/templates/_form-section-item" }}
     </script>
 
-    <script type="text/x-handlebars-template" data-tax_calc-template="list">
-        {{> "modules/tax_calc/form-templates/_select-list" }}
+
+    <script type="text/x-handlebars-template" data-tax_calc-fieldtemplate="list">
+        {{> "modules/tax_calc/templates/_select-list" }}
     </script>
 
-    <script type="text/x-handlebars-template" data-tax_calc-template="number">
-      {{> "modules/tax_calc/form-templates/_number-input" }}
+    <script type="text/x-handlebars-template" data-tax_calc-fieldtemplate="number">
+      {{> "modules/tax_calc/templates/_number-input" }}
     </script>
 
-    <script type="text/x-handlebars-template" data-tax_calc-template="boolean">
-      {{> "modules/tax_calc/form-templates/_checkbox-field" }}
+    <script type="text/x-handlebars-template" data-tax_calc-fieldtemplate="boolean">
+      {{> "modules/tax_calc/templates/_checkbox-field" }}
     </script>
 
-    <script type="text/x-handlebars-template" data-tax_calc-template="date">
-      {{> "modules/tax_calc/form-templates/_date-input" }}
+    <script type="text/x-handlebars-template" data-tax_calc-fieldtemplate="date">
+      {{> "modules/tax_calc/templates/_date-input" }}
     </script>
+
+
+    <script type="text/x-handlebars-template" data-tax_calc="tableBlockTemplate">
+      {{> "modules/tax_calc/templates/_table-block" }}
+    </script>
+
+
 
     <script type="application/json" data-tax_calc-formconfig>
         {
@@ -180,6 +189,75 @@
             ]
           }]
         }
+    </script>
+
+    <script type="application/json" data-tax_calc-resultconfig>
+      {
+        "INCOME_ASSETS": [],
+        "FEDERAL": [],
+        "BENEFIT_PAYMENTS": [],
+        "BENEFIT_PAYMENTS_FEDERAL": [],
+        "INHERITANCE": [],
+        "LEGAL_SIMPLE": [],
+        "LEGAL_ITERATIVE": [{
+          "heading": "Steuerbarer Reingewinn",
+          "thead": ["<span class=\"visuallyhidden\">Beschreibung</span>", "CHF"],
+          "fieldRows": [
+            { "entries": [ "earnings.label", "earnings" ] },
+            { "entries": [ "taxProvisions1.label", "taxProvisions1" ] },
+            { "entries": [ "resultingEarnings.label", "resultingEarnings" ] },
+            {
+              "entries": [ "taxableEarnings.label", "taxableEarnings" ],
+              "isHighlighted": true
+            }
+          ]
+        }, {
+          "heading": "Steuerbares Kapital",
+          "thead": ["<span class=\"visuallyhidden\">Beschreibung</span>", "CHF"],
+          "fieldRows": [
+            { "entries": [ "capital.label", "capital" ] },
+            { "entries": [ "taxProvisions2.label", "taxProvisions2" ] },
+            { "entries": [ "resultingCapital.label", "resultingCapital" ] },
+            {
+              "entries": [ "taxableCapital.label", "taxableCapital" ],
+              "isHighlighted": true
+            }
+          ]
+        }, {
+          "heading": "Besteuerung Staat",
+          "thead": ["<span class=\"visuallyhidden\">Beschreibung</span>", "CHF", "Steuersatz", "Einfache Staatssteuer 100%, CHF"],
+          "fieldRows": [
+            { "entries": [ "taxableEarnings.label", "taxableEarnings", "earningsCantonalTaxRate", "earningsTax"] },
+            { "entries": [ "taxableCapital.label", "taxableCapital", "capitalTaxRate", "capitalTax" ] },
+            {
+              "entries": [ "simpleTax.label", "", "", "simpleTax" ],
+              "isHighlighted": true
+            }
+          ]
+        }, {
+          "heading": "Besteuerung Bund",
+          "thead": ["<span class=\"visuallyhidden\">Beschreibung</span>", "CHF", "Steuersatz", "Einfache Staatssteuer 100%, CHF"],
+          "fieldRows": [
+            {
+              "entries": [ "taxableEarnings.label", "taxableEarnings", "earningsFederalTaxRate", "totalFederalTax" ],
+              "isHighlighted": true
+            }
+          ]
+        }, {
+          "heading": "Steuerberechnung",
+          "thead": ["<span class=\"visuallyhidden\">Beschreibung</span>", "CHF"],
+          "fieldRows": [
+            { "entries": [ "taxProvisions2.label", "taxProvisions2" ] },
+            { "entries": [ "resultingCapital.label", "resultingCapital" ] },
+            {
+              "entries": [ "taxProvisions.label", "taxProvisions" ],
+              "isHighlighted": true
+            }
+          ],
+          "caption": "Für die Steuerzahlung ist einzig der Betrag auf der Steuerrechnung massgebend."
+        }]
+      }
+
     </script>
 
 </div>

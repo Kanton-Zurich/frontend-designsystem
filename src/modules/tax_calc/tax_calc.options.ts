@@ -4,10 +4,14 @@ interface ModuleDomSelectors {
   taxEntityInputs: string;
   taxTypeInputs: string;
   nextBtn: string;
+  resultBlock: string;
+  resultContainer: string;
   formItemTemplate: string;
+  tableBlockTemplate: string;
   fieldTemplates: string;
   reinvokeTrigger: string;
   formLayoutConfig: string;
+  resultTableConfig: string;
 }
 interface ModuleStateClasses {
   formItem: {
@@ -32,6 +36,7 @@ export interface TaxCalcModuleOptions { // eslint-disable-line
     module: string;
     apiBase: string;
     reinvoke: string;
+    fieldTemplateType: string;
   };
   domSelectors: ModuleDomSelectors;
   stateClasses: ModuleStateClasses;
@@ -43,10 +48,14 @@ const domSelectors: ModuleDomSelectors = {
   taxEntityInputs: '[data-tax_calc="inputEntity"]',
   taxTypeInputs: '[data-tax_calc^="inputTaxType"]',
   nextBtn: '[data-tax_calc="nextBtn"]',
-  formItemTemplate: '[data-tax_calc-template="formItem"]',
-  fieldTemplates: '[data-tax_calc-template]',
+  resultBlock: '.mdl-tax_calc__result-block',
+  resultContainer: '[data-tax_calc="resultCon"]',
+  formItemTemplate: '[data-tax_calc="formItemTemplate"]',
+  tableBlockTemplate: '[data-tax_calc="tableBlockTemplate"]',
+  fieldTemplates: '[data-tax_calc-fieldtemplate]',
   reinvokeTrigger: '[data-tax_calc-reinvoke]',
   formLayoutConfig: '[data-tax_calc-formconfig]',
+  resultTableConfig: '[data-tax_calc-resultconfig]',
 };
 const stateClasses: ModuleStateClasses = {
   formItem: {
@@ -66,6 +75,7 @@ const attributeNames = {
   module: 'data-tax_calc',
   apiBase: 'data-tax_calc-apibase',
   reinvoke: 'data-tax_calc-reinvoke',
+  fieldTemplateType: 'data-tax_calc-fieldtemplate',
 };
 
 export const TaxCalcDefaultOptions: TaxCalcModuleOptions = { // eslint-disable-line
