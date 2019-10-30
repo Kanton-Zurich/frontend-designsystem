@@ -14,7 +14,7 @@ const data = _.merge({}, defaultData, {
     className: 'OpenData',
     jira: 'CZHDEV-486',
     documentation: dataHelper.getDocumentation('open_data.md'),
-    category: 'Liste',
+    label: 'Liste',
   },
   props: {
     template: templateBracketCleaner(linklistItem.variants.openDataDownload.meta.demo()),
