@@ -327,6 +327,14 @@ $zIndexFlyouts: 1100;
 $zIndexSkiplinks: 2000;
 $zIndexFlyingFocus: 9999;
 
+// Loading Circle
+$loadingMinHeight: pxToRem(200px);
+
+$spinnerSize: $sizeFontLarge;
+$spinnerColor: $colorCyan;
+$spinnerBorderSize: 2px;
+
+
 :root {
 
   --scrollbar-wd: 17px;
