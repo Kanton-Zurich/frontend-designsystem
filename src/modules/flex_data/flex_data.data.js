@@ -4,6 +4,7 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defFormData = require('../form/form.data');
 const defPaginationData = require('../pagination/pagination.data');
+const defAccordionData = require('../accordion/accordion.data');
 
 const templateConverter = require('../../../gulp/helpers/templateConverter');
 
@@ -72,6 +73,7 @@ const variants = _.mapValues({
       pagination: defPaginationData.variants.fullWidth.props,
       resultCountTitle: '%1 Treffer zu ihrer Abfrage',
       flexFormData: _.merge({}, defFormData.variants.zhlex.props),
+      extendedFlexFormData: _.merge({}, defAccordionData.variants.zhLexExtendedSearch.props),
       resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
       tableData: {
         tableTitle: '',

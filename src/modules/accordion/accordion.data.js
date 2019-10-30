@@ -267,8 +267,25 @@ const variants = _.mapValues({
             }),
           },
         ],
+      }],
+    },
+  },
+  zhLexExtendedSearch: {
+    meta: {
+      title: 'ZH-Lex Erweiterte Suche (CZHDEV-1238)',
+      desc: 'Accordion mit Formularfeldern für die erweiterte Suche bei ZH-Lex',
+    },
+    props: {
+      accordionHeading: {
+        title: false,
       },
-      ],
+      items: [{
+        title: 'Erweiterte Suche',
+        subHead: 'Vorschau der Input-Felder',
+        children: [{
+          partial: () => handlebars.compile(formHBS)(defaultFormData.variants.zhlexExtended.props),
+        }],
+      }],
     },
   },
 }, (variant) => {

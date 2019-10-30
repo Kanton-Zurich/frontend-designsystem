@@ -1051,7 +1051,7 @@ const variants = _.mapValues({
   },
   zhlex: {
     meta: {
-      title: 'ZH-Lex (Flex Data CZHDEV-1240)',
+      title: 'ZH-Lex (CZHDEV-1240)',
       desc: 'Flex Data ZH-Lex',
     },
     props: {
@@ -1089,7 +1089,17 @@ const variants = _.mapValues({
               })),
           }],
         }],
-      }, {
+      }],
+    },
+  },
+  zhlexExtended: {
+    meta: {
+      title: 'ZH-Lex Loseblattsammlung (CZHDEV-1240)',
+      desc: 'Flex Data ZH-Lex Erweiterte Suche Loseblattsammlung',
+    },
+    props: {
+      sectionTitle: null,
+      groups: [{
         rows: [{
           fields: [{
             cellContent: () => handlebars.compile(selectHBS)(_.merge({},
