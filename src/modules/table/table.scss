@@ -260,7 +260,7 @@
 
       &:before {
         content: counter(ol-counter, decimal-leading-zero);
-        font-weight: $fontFamilyBlack;
+        font-family: $fontFamilyBlack;
         color: $colorBlack;
         margin-left: -$sizeBig;
       }
