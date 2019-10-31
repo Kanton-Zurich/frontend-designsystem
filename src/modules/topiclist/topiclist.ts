@@ -106,6 +106,7 @@ class Topiclist extends Module {
 
     this.initUi();
     this.initEventListeners();
+    this.initWatchers();
 
     if (this.options.hasFilter) {
       new Form(this.ui.element);
@@ -379,8 +380,6 @@ class Topiclist extends Module {
       const buttonData = JSON.parse(delegate.getAttribute('data-topic'));
 
       this.setSubnav(buttonData);
-
-      return false;
     });
   }
 
