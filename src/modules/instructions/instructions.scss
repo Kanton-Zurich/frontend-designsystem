@@ -32,7 +32,7 @@
     padding: 0;
     margin: 0;
 
-    > li:before {
+    .mdl-instructions__item:before {
       @include sizeCurve(padding-top, headingPaddingTop, $customSizing);
 
       right: 100%;
