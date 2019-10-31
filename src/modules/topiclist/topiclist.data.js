@@ -172,6 +172,7 @@ const variants = _.mapValues({
         items: [],
         selector: 'data-topiclist="autosuggest"',
         additionalClasses: 'mdl-topiclist__autosuggest mdl-content_nav--single-column',
+        hasSpinner: true,
       },
       contentTeaserTemplate: contentTeaserDefaultData.variants.default.meta.code.template,
       options: JSON.stringify({
@@ -210,6 +211,7 @@ const variants = _.mapValues({
         items: [],
         selector: 'data-topiclist="autosuggest"',
         additionalClasses: 'mdl-topiclist__autosuggest mdl-content_nav--single-column',
+        hasSpinner: true,
       },
       contentTeaserTemplate: contentTeaserDefaultData.variants.default.meta.code.template,
       options: JSON.stringify({
@@ -248,6 +250,7 @@ const variants = _.mapValues({
         items: [],
         selector: 'data-topiclist="autosuggest"',
         additionalClasses: 'mdl-topiclist__autosuggest mdl-content_nav--single-column',
+        hasSpinner: true,
       },
       contentTeaserTemplate: contentTeaserDefaultData.variants.default.meta.code.template,
       options: JSON.stringify({

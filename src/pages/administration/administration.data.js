@@ -74,11 +74,24 @@ const data = _.merge({}, defaultData, {
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData, {
         variants: {
-          colored: {
+          colorPeopleTeaser: {
             props: {
               pageTitle: 'Sicherheitsdirektion',
               leadText: 'Sicher, sozial, sportlich. Wir sorgen für die öffentliche Sicherheit. Wir verfolgen eine Sozial- und Ausländerpolitik, die für alle Beteiligten fair ist. Und nicht zuletzt setzen wir uns dafür ein, dass sich möglichst viele Zürcherinnen und Zürcher sportlich aktiv betätigen.',
               noButton: true,
+              breadcrumb: {
+                contextMenu: false,
+                path: [
+                  {
+                    title: 'Kanton Zürich',
+                    href: '#',
+                  },
+                  {
+                    title: 'Sicherheitsdirektion',
+                    href: '#',
+                  },
+                ],
+              },
             },
           },
         },

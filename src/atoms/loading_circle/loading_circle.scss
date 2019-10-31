@@ -1,3 +1,5 @@
+
+
 .atm-loading_circle {
   justify-content: center;
   align-items: center;
@@ -12,14 +14,34 @@
 
   background: $colorWhite;
 
+  z-index: $zIndexInner;
+
   display: none;
 
-  &__svg circle {
+  &__spinner,
+  &__spinner:after {
+    position: relative;
     box-sizing: border-box;
-    stroke: $colorCyan;
-    stroke-width: 3px;
-    transform-origin: 50%;
-    animation: line 2s cubic-bezier(0.4, 0, 0.2, 1) infinite, rotate 2s linear infinite;
+  }
+
+  &__spinner {
+    width: $spinnerSize;
+    height: $spinnerSize;
+    display: block;
+    color: $spinnerColor;
+
+    &:after {
+      content: '';
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+      border: $spinnerBorderSize solid currentColor;
+      border-bottom-color: transparent;
+      border-radius: 100%;
+      background: transparent;
+
+      animation: ball-clip-rotate 0.75s linear infinite;
+    }
   }
 
   [ class*='--loading' ] & {
@@ -27,29 +49,12 @@
   }
 }
 
-@keyframes rotate {
-  from {
-    transform: rotate(0);
-  }
-
-  to {
-    transform: rotate(450deg);
-  }
-}
-@keyframes line {
+@keyframes ball-clip-rotate {
   0% {
-    stroke-dasharray: 2, 85.964;
-    transform: rotate(0);
-  }
-
-  50% {
-    stroke-dasharray: 65.973, 21.9911;
-    stroke-dashoffset: 0;
+    transform: rotate(0deg);
   }
 
   100% {
-    stroke-dasharray: 2, 85.964;
-    stroke-dashoffset: -65.973;
-    transform: rotate(90deg);
+    transform: rotate(360deg);
   }
 }

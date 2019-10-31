@@ -5,6 +5,11 @@ $contentNavGrid: (
 );
 
 .mdl-content_nav {
+  &--loading {
+    min-height: $loadingMinHeight;
+    position: relative;
+  }
+
   &__list {
     display: grid;
 

@@ -19,13 +19,13 @@ class Datepicker extends Module {
   public pickerMode: string;
   public usedConfig: any;
   public flatpickr: any;
-  public dayLabels: Array<any>;
 
   public globalConfig: {
     nextArrow: string,
     prevArrow: string,
     onChange: any,
     onClose: any,
+    static: boolean,
   };
 
   public customConfigs: {
@@ -44,14 +44,12 @@ class Datepicker extends Module {
       mode: string,
       separator: string,
       disableMobile: boolean,
-      static: boolean,
     },
     dataTime: {
       dateFormat: string,
       position: string,
       noCalendar: boolean,
       disableMobile: boolean,
-      static: boolean,
     }
   };
 
@@ -111,14 +109,12 @@ class Datepicker extends Module {
         mode: 'range',
         separator: ' - ',
         disableMobile: true,
-        static: true,
       },
       dataTime: {
         dateFormat: 'd.m.Y H:i',
         position: 'below',
         noCalendar: false,
         disableMobile: true,
-        static: true,
       },
     };
 
@@ -133,9 +129,9 @@ class Datepicker extends Module {
       + '</svg>',
       onChange: this.onValueChange.bind(this),
       onClose: this.onClose.bind(this),
+      static: true,
     };
 
-    // this.dayLabels = this.ui.element.dataset.daylabels.split(' ');
     this.constructConfig();
   }
 

@@ -16,7 +16,18 @@
   {{/unless}}{{/if}}
   <span class="atm-linklist_item__text">
     <span>{{linkListItemTitle}}</span>
-    {{#if linkListItemLabel}}<span class="atm-linklist_item__label">{{linkListItemLabel}}</span>{{/if}}
+    {{#if linkListItemLabel}}<span class="atm-linklist_item__label">{{linkListItemLabel}}
+      {{#if copyRightImages}}
+       | <span role="link" data-open_data="license_link" data-href="#" class="mdl-open_data__cc">
+          <% if(resource.license === "1") { %>
+            <img src="https://mirrors.creativecommons.org/presskit/buttons/80x15/png/cc-zero.png" alt="Publicdomain"/>
+          <% } else { %>
+            <img src="https://mirrors.creativecommons.org/presskit/buttons/80x15/png/by.png" alt="Creative commons, reference required"/>
+          <% } %>
+        </span>
+       {{/if}}
+       </span>
+      {{/if}}
   </span>
   {{#if subtitle}}<span class="atm-linklist_item__text-subtitle">{{subtitle}}</span>{{/if}}
   {{#unless linkListItemIsDownload}}

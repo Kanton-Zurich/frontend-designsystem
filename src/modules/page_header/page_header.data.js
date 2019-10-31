@@ -42,7 +42,7 @@ const variants = _.mapValues({
       defaultColorVariation: 'cv-blue',
     },
     props: {
-      breadcrumb: defBreadcrumbData.props,
+      breadcrumb: defBreadcrumbData.variants.default.props,
       buttonData: _.merge(defServiceButtonData, {
         buttonTitle: 'Formular beantragen',
         modalData: {modalId: 'service-modal0'}
@@ -75,7 +75,7 @@ const variants = _.mapValues({
 
       inverted: true,
       buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: {modalId: 'service-modal1'}}),
-      breadcrumb: defBreadcrumbData.props,
+      breadcrumb: defBreadcrumbData.variants.default.props,
     },
   },
   coloredAnchors: {
@@ -89,7 +89,7 @@ const variants = _.mapValues({
 
       inverted: true,
       buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: {modalId: 'service-modal2'}}),
-      breadcrumb: defBreadcrumbData.props,
+      breadcrumb: defBreadcrumbData.variants.default.props,
       anchorLinks: [
         {
           anchorlink: {
@@ -149,7 +149,7 @@ const variants = _.mapValues({
       imageData: defImageFigureData.variants.headerNoTitle.props,
       inverted: true,
       hasImage: true,
-      breadcrumb: defBreadcrumbData.props,
+      breadcrumb: defBreadcrumbData.variants.default.props,
     },
   },
   coloredImageTitle: {
@@ -194,7 +194,7 @@ const variants = _.mapValues({
     props: {
       imageData: defImageFigureData.variants.headerNoTitle.props,
       inverted: true,
-      breadcrumb: defBreadcrumbData.props,
+      breadcrumb: defBreadcrumbData.variants.default.props,
       hasImage: false,
       hasPersonCard: true,
     },
@@ -231,7 +231,7 @@ const variants = _.mapValues({
       hasVideo: false,
       hasImage: false,
       hasBacklink: false,
-      breadcrumb: defBreadcrumbData.props,
+      breadcrumb: defBreadcrumbData.variants.default.props,
     },
   },
   servicePageSmall: {
@@ -265,7 +265,7 @@ const variants = _.mapValues({
       applicationHeader: true,
       inverted: true,
       noText: true,
-      breadcrumb: defBreadcrumbData.props,
+      breadcrumb: defBreadcrumbData.variants.default.props,
     },
   },
   applicationStandalone: {
@@ -279,7 +279,7 @@ const variants = _.mapValues({
       pageTitle: 'Applikation',
       inverted: true,
       noText: true,
-      breadcrumb: defBreadcrumbData.props,
+      breadcrumb: defBreadcrumbData.variants.default.props,
     },
   },
   applicationModal: {

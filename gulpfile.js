@@ -37,7 +37,7 @@ try {
 gulp.task('html', () => {
   const task = require('@unic/estatico-handlebars');
   const estaticoWatch = require('@unic/estatico-watch');
-  const {readFileSyncCached} = require('@unic/estatico-utils');
+  const { readFileSyncCached } = require('@unic/estatico-utils');
 
   const instance = task({
     src: [

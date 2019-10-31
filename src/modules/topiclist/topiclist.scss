@@ -9,6 +9,11 @@ $leadFontCurve: (
   @include sizeCurve('margin-top', big);
   @include sizeCurve('margin-bottom', big);
 
+  &--loading {
+    position: relative;
+    min-height: $loadingMinHeight;
+  }
+
   // Hide items only on default topiclist
   .mdl-content_nav {
     &__item:nth-child(1n+13) {
