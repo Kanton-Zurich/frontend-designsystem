@@ -6,4 +6,44 @@
     page-break-after: auto;
     page-break-inside: avoid;
   }
+
+  padding-top: pxToRem($sizeBiggerBig);
+  padding-bottom: pxToRem($sizeBiggerBig);
+
+  &__header {
+    // Overwrite heading atom style
+    .atm-heading {
+      margin-bottom: pxToRem($sizeBiggerBig);
+    }
+  }
+
+  &--more-info {
+    padding-top: 0;
+    padding-bottom: pxToRem($sizeGiant);
+
+    .mdl-news-teaser__header {
+      .atm-heading {
+        margin-top: pxToRem($sizeGiant);
+      }
+    }
+  }
+
+  // Single item style
+  .medium-6 ul {
+    max-width: 50%;
+  }
+  // Two item style
+  .large-8 .mdl-news-teaser__item {
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+
+  &__item {
+    flex-basis: 33.33%;
+    max-width: 33.33%;
+  }
+
+  .mdl-linklist {
+    margin: calc(#{$sizeBiggerBig} + #{$sizeRegular}) 0 0;
+  }
 }

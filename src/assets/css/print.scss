@@ -1,10 +1,10 @@
 @import 'data/colors.json';
 @import 'globals/variables';
 @import 'globals/functions';
+@import 'globals/mixins';
+@import 'globals/mediaqueries';
 @import 'globals/icons';
-
 //*autoinsertatom*
-
 @import '../../modules/accordion/accordion.print';
 @import '../../modules/anchornav/anchornav.print';
 @import '../../modules/back2top/back2top.print';
@@ -26,6 +26,8 @@
 @import '../../modules/tag_group/tag_group.print';
 @import '../../modules/pagination/pagination.print';
 @import '../../modules/cta_box/cta_box.print';
+@import '../../modules/focus_card/focus_card.print';
+@import '../../modules/person_card/person_card.print';
 //*autoinsertmodule*
 
 html,
@@ -35,14 +37,19 @@ body {
   .lyt-wrapper {
     width: 100%;
     max-width: 100%;
+
+    .cell:not(.subgrid) {
+      margin-left: 40px;
+      width: 90%;
+    }
   }
 
   .print-hidden {
-    display: none !important;  //stylelint-disable-line
+    display: none !important; //stylelint-disable-line
   }
 
   .screen-hidden {
-    display: block !important;  //stylelint-disable-line
+    display: block !important; //stylelint-disable-line
   }
 
   *:focus {
