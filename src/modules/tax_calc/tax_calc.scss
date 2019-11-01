@@ -121,6 +121,15 @@
         }
       }
     }
+
+    #{$root}__error {
+      @include transition(max-height);
+      @include sizeCurve(margin-top, medium, $isNegative: true);
+      @include sizeCurve(margin-bottom, medium);
+
+      max-height: 0;
+      overflow: hidden;
+    }
   }
 
   &__result-block {

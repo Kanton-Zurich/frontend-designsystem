@@ -224,7 +224,7 @@ const data = _.merge({}, defaultData, {
       },
     },
     resultBlock: {
-      heading: 'Ihr Ergebnis - Provisorische Berechnung 2019',
+      heading: 'Ihr Ergebnis - Provisorische Berechnung',
     },
     requiredMessages: {
       number: 'Für die Berechnung ist hier eine Eingabe erforderlich.',

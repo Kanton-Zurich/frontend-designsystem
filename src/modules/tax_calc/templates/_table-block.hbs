@@ -22,9 +22,15 @@
                                 <%=entry%>
                             </th>
                             <% } else { %>
-                            <td class="mdl-table__cell<% if(row.isHighlighted) { %> mdl-table__cell--highlighted<% } %>" data-table="cell">
-                                <%=entry%>
-                            </td>
+                              <% if(row.isHighlighted) { %>
+                              <th class="mdl-table__cell  mdl-table__cell--highlighted" data-table="cell">
+                                  <%=entry%>
+                              </th>
+                              <% } else { %>
+                              <td class="mdl-table__cell" data-table="cell">
+                                  <%=entry%>
+                              </td>
+                              <% }%>
                             <% }%>
                         <% }); %>
                         </tr>

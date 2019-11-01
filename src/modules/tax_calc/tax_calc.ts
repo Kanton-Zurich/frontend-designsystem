@@ -54,8 +54,10 @@ class TaxCalc extends Module {
     formItems: HTMLElement[],
     taxEntityInputs: HTMLInputElement[],
     taxTypeInputs: HTMLInputElement[],
+    apiErrorNotification: HTMLElement,
     nextBtn: HTMLButtonElement,
     resultBlock: HTMLElement,
+    resultTaxYear: HTMLElement,
     resultContainer: HTMLElement,
     formItemTemplate: HTMLScriptElement,
     fieldTemplates: HTMLElement[],
@@ -95,6 +97,10 @@ class TaxCalc extends Module {
     } catch (e) {
       this.log('Failed to parse form config JSON: ', e, this.ui.formLayoutConfig.innerText);
     }
+
+    this.watch(this.ui.formBase, 'attributes', (p, e, r) => {
+      this.log('Form Attribute change:', p, e, r);
+    });
   }
 
   /**
@@ -132,7 +138,7 @@ class TaxCalc extends Module {
           }
           actInput.checked = true;
           setTimeout(() => {
-            this.onActiveSectionChange();
+            this.onFormChange();
           }, 0);
         }
       });
@@ -215,8 +221,12 @@ class TaxCalc extends Module {
     });
   }
 
-  private currencyNumberValueToString(numVal: number): string {
-    return numVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '’');
+  private currencyNumberValueToString(numVal: number, forceFloat?: boolean): string {
+    let str = numVal.toString();
+    if (forceFloat) {
+      str = numVal.toFixed(2); // eslint-disable-line no-magic-numbers
+    }
+    return str.replace(/\B(?=(\d{3})+(?!\d))/g, '’');
   }
 
   private watchFormSection(sectionBlock: HTMLElement) {
@@ -225,7 +235,7 @@ class TaxCalc extends Module {
 
     const sectionInputs = sectionBlock.querySelectorAll<HTMLInputElement>('input');
     sectionInputs.forEach((inEl) => {
-      inEl.addEventListener('change', this.onActiveSectionChange.bind(this));
+      inEl.addEventListener('change', this.onFormChange.bind(this));
 
       if (inEl.getAttribute(this.options.attributeNames.reinvoke)) {
         inEl.addEventListener('change', this.onReinvokeTriggerChange.bind(this));
@@ -233,11 +243,13 @@ class TaxCalc extends Module {
     });
   }
 
-  private onActiveSectionChange() {
+  private onFormChange() {
     const conClasses = this.ui.nextBtn.classList;
     if (!conClasses.contains(this.options.stateClasses.nextBtn.showing)) {
       conClasses.add(this.options.stateClasses.nextBtn.showing);
     }
+
+    this.ui.apiErrorNotification.style.maxHeight = '0';
   }
 
   private async onReinvokeTriggerChange() {
@@ -250,7 +262,7 @@ class TaxCalc extends Module {
       this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
       setTimeout(() => {
         this.activateFormSection(this.currentFormSection);
-        this.onActiveSectionChange();
+        this.onFormChange();
       });
     });
   }
@@ -445,9 +457,9 @@ class TaxCalc extends Module {
         const confClone = cloneDeep(conf);
         const bodyRows = confClone.fieldRows.map(rowConf => ({
           entries: rowConf.entries.map(path => this.getResponseValByPath(resp, path))
-            .map(e => (e === undefined ? '' : e)),
+            .map(e => (e === undefined || e === null ? '' : e)),
           isHighlighted: rowConf.isHighlighted === true,
-        }));
+        })).filter(row => row.entries.reduce((acc, cur) => cur.length + acc, 0) > 0);
         tables.push({
           blockHead: confClone.heading,
           headRow: confClone.thead,
@@ -466,7 +478,7 @@ class TaxCalc extends Module {
     if (path.indexOf('.') >= 0) {
       const pathSplit = path.split('.');
       pathSplit.forEach((key) => {
-        if (tmp !== undefined) {
+        if (tmp !== undefined && tmp !== null) {
           tmp = tmp[key];
         }
       });
@@ -474,13 +486,13 @@ class TaxCalc extends Module {
       tmp = respObj[path];
     }
 
-    if (typeof tmp === 'object') {
+    if (typeof tmp === 'object' && tmp !== null) {
       const { value, currency, symbol } = tmp;
       if (currency) {
-        return this.currencyNumberValueToString(value);
+        return this.currencyNumberValueToString(value, true);
       }
       if (symbol) {
-        return `${value}${tmp.symbol}`;
+        return `${value} ${tmp.symbol}`;
       }
       return value;
     }
@@ -538,17 +550,39 @@ class TaxCalc extends Module {
     window.history.replaceState(null, null, `?${newSearchStr}`);
   }
 
+  private onApiError(errorsResponseObject: { error: {text: string}[]}) {
+    this.log('Response contained "errors" object. ', errorsResponseObject);
+
+    this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.showing);
+    const errorHtml = errorsResponseObject.error.map(e => e.text).join('<br>');
+
+    this.ui.apiErrorNotification.querySelector<HTMLSpanElement>('span')
+      .innerHTML = errorHtml;
+    const height = this.getContentHeight(this.ui.apiErrorNotification);
+    this.ui.apiErrorNotification.style.maxHeight = `${height}px`;
+  }
+
+  private toggleApiErrorNotification():void {
+    const curMaxHeight = this.ui.apiErrorNotification.style.maxHeight;
+    if (curMaxHeight !== '0') {
+      this.ui.apiErrorNotification.style.maxHeight = '0';
+    } else {
+      const height = this.getContentHeight(this.ui.apiErrorNotification);
+      this.ui.apiErrorNotification.style.maxHeight = `${height}px`;
+    }
+  }
+
   private doSubmitForm() {
     const url = `${this.calculatorUrl}/calculate`;
     this.postCalculatorFormData(url).then((resp) => {
-      if (!resp.errors) {
+      if (resp.errors) {
+        this.onApiError(resp.errors);
+      } else {
         this.log('Calculate Response:', resp);
         const tableProps = this.getTablePropertiesFromResponse(resp);
         this.setResultTableBlocks(tableProps);
         this.ui.element.classList.add(this.options.stateClasses.hasResult);
-      } else {
-        this.log('Response contained "errors" object. ', resp.errors);
-        // TODO Error handling
+        this.ui.resultTaxYear.innerText = resp.taxYear ? resp.taxYear.value : '';
       }
     }, (postFailReason) => {
       this.log('FormSubmit failed! ', postFailReason);
@@ -627,6 +661,19 @@ class TaxCalc extends Module {
 
       panelContent.parentElement.style.maxHeight = `${completeHeight}px`;
     });
+  }
+
+  private getContentHeight(el: HTMLElement): number {
+    let completeHeight = 0;
+    const children = Array.prototype.slice.call(el.children);
+    children.forEach((child) => {
+      if (typeof child.offsetHeight !== 'undefined') {
+        const styles = window.getComputedStyle(child);
+        const margin = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
+        completeHeight += Math.ceil(child.offsetHeight + margin);
+      }
+    });
+    return completeHeight;
   }
 
   /**

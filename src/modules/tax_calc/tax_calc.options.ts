@@ -4,7 +4,9 @@ interface ModuleDomSelectors {
   taxEntityInputs: string;
   taxTypeInputs: string;
   nextBtn: string;
+  apiErrorNotification: string;
   resultBlock: string;
+  resultTaxYear: string;
   resultContainer: string;
   formItemTemplate: string;
   tableBlockTemplate: string;
@@ -48,7 +50,9 @@ const domSelectors: ModuleDomSelectors = {
   taxEntityInputs: '[data-tax_calc="inputEntity"]',
   taxTypeInputs: '[data-tax_calc^="inputTaxType"]',
   nextBtn: '[data-tax_calc="nextBtn"]',
+  apiErrorNotification: '[data-tax_calc="apiErrorsNotification"]',
   resultBlock: '.mdl-tax_calc__result-block',
+  resultTaxYear: '[data-tax_calc-taxyear]',
   resultContainer: '[data-tax_calc="resultCon"]',
   formItemTemplate: '[data-tax_calc="formItemTemplate"]',
   tableBlockTemplate: '[data-tax_calc="tableBlockTemplate"]',
