@@ -58,6 +58,7 @@
   }
 
   &__text {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
     word-break: break-word;
 
     &:hover {
@@ -80,14 +81,11 @@
       @include sizeCurve(margin-bottom, citeContentMargins, $socialMediaSizeCurves);
     }
 
-    .mdl-social_media_stream__item-authorinfo {
+    .mdl-social-media-post__authorinfo {
       font-size: $sizeFontTiny;
+      margin-bottom: 0;
 
       span {
-        &:first-of-type {
-          padding-left: 0;
-        }
-
         &:last-of-type {
           @include mq($from: tiny, $to: medium) {
             display: none;
@@ -120,14 +118,16 @@
 
     span {
       padding-left: pxToRem($sizeTiny);
+      font-family: $fontFamilyBlack;
+      white-space: nowrap;
+
+      &:last-of-type {
+        font-family: $fontFamilyBase;
+      }
 
       &:first-child {
         padding-left: 0;
       }
-    }
-
-    span:first-of-type {
-      font-family: $fontFamilyBlack;
     }
 
     .atm-button {
@@ -159,6 +159,11 @@
     align-items: center;
     font-size: $sizeFontSmall;
 
+    @include mq($from: tiny, $to: medium) {
+      display: flex;
+      padding-left: 0;
+    }
+
     &-button {
       text-decoration: none;
       color: rgba($colorBlack, 0.6);
@@ -181,14 +186,6 @@
 
         use {
           fill: $colorBlack60;
-        }
-      }
-
-      &:hover {
-        color: $colorBlack;
-
-        .icon use {
-          fill: $colorBlack;
         }
       }
     }

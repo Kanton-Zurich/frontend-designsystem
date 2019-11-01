@@ -7,6 +7,7 @@
 import { template } from 'lodash';
 
 import Module from '../../assets/js/helpers/module';
+import { sanitizeFileSize } from '../../assets/js/helpers/common';
 
 class FileUpload extends Module {
   public options: {
@@ -204,7 +205,7 @@ class FileUpload extends Module {
     const lastIndexOfPoint = file.name.lastIndexOf('.');
     const fileTitle = file.name.substr(0, lastIndexOfPoint);
     const fileType = file.name.substr(lastIndexOfPoint + 1).toUpperCase();
-    const fileSize = this.sanitizeFileSize(file.size);
+    const fileSize = sanitizeFileSize(file.size);
 
     return {
       fileTitle,
@@ -212,18 +213,6 @@ class FileUpload extends Module {
       fileSize,
       fileID: index,
     };
-  }
-
-  sanitizeFileSize(fileSize) {
-    if (fileSize === 0) return '0 Bytes';
-
-    const k = 1024;
-    const dm = 1;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-
-    const i = Math.floor(Math.log(fileSize) / Math.log(k));
-
-    return `${parseFloat((fileSize / (k ** i)).toFixed(dm))} ${sizes[i]}`;
   }
 
   deleteFile() {

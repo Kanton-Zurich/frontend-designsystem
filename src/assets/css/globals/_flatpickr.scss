@@ -19,7 +19,7 @@
   }
 
   // Height for date plus time
-  &.static:not(.rangeMode) {
+  &.hasTime:not(.showTimeInput) {
     height: 478px;
   }
 
@@ -181,8 +181,6 @@
     color: $colorBlack60;
 
     border-width: 2px;
-    border-top-color: $colorWhite;
-    border-bottom-color: $colorWhite;
 
     &.today {
       border-color: $colorBlack5;

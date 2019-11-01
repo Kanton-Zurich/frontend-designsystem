@@ -30,6 +30,7 @@ class Topiclist extends Module {
       nav: string,
       hidden: string,
       visible: string,
+      loading: string,
     };
   }
 
@@ -94,6 +95,7 @@ class Topiclist extends Module {
         nav: 'mdl-topiclist--nav',
         hidden: 'mdl-topiclist--hidden',
         visible: 'mdl-topiclist--visible',
+        loading: 'mdl-topiclist--loading',
       },
     };
     super($element, defaultData, defaultOptions, data, options);
@@ -104,6 +106,7 @@ class Topiclist extends Module {
 
     this.initUi();
     this.initEventListeners();
+    this.initWatchers();
 
     if (this.options.hasFilter) {
       new Form(this.ui.element);
@@ -183,6 +186,8 @@ class Topiclist extends Module {
    * Fetching the data from the json, is only fired once
    */
   async fetchData() {
+    this.ui.element.classList.add(this.options.stateClasses.loading);
+
     if (!window.fetch) {
       await import('whatwg-fetch');
     }
@@ -201,6 +206,8 @@ class Topiclist extends Module {
             template: this.ui.contentTeaserTemplate.innerHTML,
           }, this.data.json.pages.middleSection);
         }
+
+        this.ui.element.classList.remove(this.options.stateClasses.loading);
       })
       .catch((err) => {
         this.log('error', err);
@@ -373,8 +380,6 @@ class Topiclist extends Module {
       const buttonData = JSON.parse(delegate.getAttribute('data-topic'));
 
       this.setSubnav(buttonData);
-
-      return false;
     });
   }
 

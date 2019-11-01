@@ -45,6 +45,7 @@ import FlexData from '../../../modules/flex_data/flex_data';
 import DrilldownSelect from '../../../modules/drilldown_select/drilldown_select';
 import UserMenu from '../../../modules/user_menu/user_menu';
 import CugLogin from '../../../modules/cug_login/cug_login';
+import OpenData from '../../../modules/open_data/open_data';
 import TaxCalc from '../../../modules/tax_calc/tax_calc';
 /* autoinsertmodulereference */ // eslint-disable-line
 
@@ -100,6 +101,7 @@ class App {
     this.modules.searchPage = SearchPage;
     this.modules.userMenu = UserMenu;
     this.modules.cugLogin = CugLogin;
+    this.modules.openData = OpenData;
     this.modules.taxCalc = TaxCalc;
     /* autoinsertmodule */ // eslint-disable-line
 
@@ -122,6 +124,8 @@ class App {
     if (isIE > 0 || !!navigator.userAgent.match(/Trident\/7\./)) {
       document.documentElement.classList.add('is-ie');
     }
+
+    this.getLanguage();
   }
 
   async start() {
@@ -230,6 +234,10 @@ class App {
         form.setAttribute('initialized', 'true');
       }
     });
+  }
+
+  getLanguage() {
+    window[namespace].lang = document.documentElement.lang;
   }
 }
 
