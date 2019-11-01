@@ -10,18 +10,43 @@
   </div>
   <div class="mdl-flex-data__results" data-result-count-title="{{resultCountTitle}}">
     <script data-flex-template type="text/x-handlebars-template">
+      {{#unless noTable}}
       {{#each tableData.headers}}
         <td class="mdl-table__cell" data-table="cell"><%=text{{@index}}%></td>
         {{#if @last}}
         <td class="mdl-table__cell" data-table="cell"><a href="<%=link%>" class="atm-text_link">Details</a></td>
         {{/if}}
       {{/each}}
+      {{/unless}}
+      {{#if noTable}}
+        <ul class="mdl-search_page__list">
+          <% _.forEach(results, function(item, index) { %>
+          <li class="atm-search_result_item">
+            <span class="atm-search_result_item__meta">
+              <span class="atm_search_result_item__type">
+                <%- item.typeLabel %>
+              </span>
+            </span>
+            <a class="atm-search_result_item__content" href="<%- item.link %>">
+              <h4 class="atm-heading">RRB Nr. <%- item.decisionNumber%>/<%- item.year %> <%- item.title %></h4>
+              <p><%- item.text %></p>
+            </a>
+            <% } %>
+          </li>
+          <% }); %>
+        </ul>
+      {{/if}}
     </script>
+    {{#unless noTable}}
     {{> "modules/table/table" tableData }}
+    {{/unless}}
+    {{#if noTable}}
+    <h4 class="atm-heading mdl-flex-data__results-title"></h4>
+    <div class="mdl-flex-data__results-generic"></div>
+    {{/if}}
     <div class="mdl-flex-data__pagination">
       {{> "modules/pagination/pagination" pagination }}
     </div>
-
     {{> "atoms/loading_circle/loading_circle"}}
   </div>
 </div>

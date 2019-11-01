@@ -15,11 +15,13 @@ class FlexData extends Module {
   public ui: {
     element: HTMLDivElement,
     results: HTMLDivElement,
-    resultsTable: HTMLTableElement,
-    resultsTitle: HTMLHeadingElement,
-    resultsBody: HTMLElement,
     resultsTemplate: HTMLScriptElement,
-    resultsColumns: HTMLElement[],
+    resultsGeneric: HTMLDivElement,
+    resultsGenericTitle: HTMLHeadingElement,
+    resultsTable: HTMLTableElement,
+    resultsTableBody: HTMLElement,
+    resultsTableTitle: HTMLHeadingElement,
+    resultsTableColumns: HTMLElement[],
     form: HTMLFormElement,
     pagination: HTMLDivElement,
     paginationInput: HTMLInputElement,
@@ -38,11 +40,13 @@ class FlexData extends Module {
       initDelay: 300,
       domSelectors: {
         results: '.mdl-flex-data__results',
+        resultsGeneric: '.mdl-flex-data__results .mdl-flex-data__results-generic',
+        resultsGenericTitle: '.mdl-flex-data__results .mdl-flex-data__results-title',
         resultsTable: '.mdl-table',
-        resultsTitle: '.mdl-table .mdl-table__title',
-        resultsBody: '.mdl-table .mdl-table__body',
+        resultsTableBody: '.mdl-table .mdl-table__body',
+        resultsTableColumns: '.mdl-table [data-column-name]',
+        resultsTableTitle: '.mdl-table .mdl-table__title',
         resultsTemplate: '[data-flex-template]',
-        resultsColumns: '.mdl-table [data-column-name]',
         form: 'form',
         submitButton: 'form [data-search-flex]',
         clearButton: 'form [data-clear-flex]',
@@ -161,27 +165,36 @@ class FlexData extends Module {
    * @param jsonData
    */
   populateResultList(jsonData) {
-    this.ui.resultsBody.innerHTML = '';
-    this.ui.resultsTitle.innerText = this.ui.results.getAttribute('data-result-count-title')
-      .replace('%1', jsonData.numberOfResults);
     this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
     this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
-    jsonData.data.forEach((item) => {
-      const tr = document.createElement('tr');
-      tr.classList.add('mdl-table__row');
-      const props = {
-        link: item.link,
-      };
-      this.ui.resultsColumns.forEach((col, index) => {
-        const colName = col.getAttribute('data-column-name');
-        props[`text${index}`] = item[colName];
+    const resultsTitle = this.ui.results.getAttribute('data-result-count-title')
+      .replace('%1', jsonData.numberOfResults);
+    // fill table date if present
+    if (this.ui.resultsTable) {
+      this.ui.resultsTableBody.innerHTML = '';
+      this.ui.resultsTableTitle.innerText = resultsTitle;
+      jsonData.data.forEach((item) => {
+        const tr = document.createElement('tr');
+        tr.classList.add('mdl-table__row');
+        const props = {
+          link: item.link,
+        };
+        this.ui.resultsTableColumns.forEach((col, index) => {
+          const colName = col.getAttribute('data-column-name');
+          props[`text${index}`] = item[colName];
+        });
+        tr.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, props);
+        tr.addEventListener('click', () => {
+          tr.querySelector('a').click();
+        });
+        this.ui.resultsTableBody.appendChild(tr);
       });
-      tr.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, props);
-      tr.addEventListener('click', () => {
-        tr.querySelector('a').click();
-      });
-      this.ui.resultsBody.appendChild(tr);
-    });
+    }
+    // fill generic results
+    if (this.ui.resultsGeneric) {
+      this.ui.resultsGenericTitle.innerText = resultsTitle;
+      this.ui.resultsGeneric.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, jsonData.data);
+    }
   }
 
   /**
