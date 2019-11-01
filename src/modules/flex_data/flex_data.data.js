@@ -29,7 +29,7 @@ const variants = _.mapValues({
     props: {
       pagination: defPaginationData.variants.fullWidth.props,
       resultCountTitle: '%1 Treffer zu ihrer Abfrage',
-      flexFormData: _.merge({}, defFormData.variants.steuerBuch.props),
+      flexTableFormData: _.merge({}, defFormData.variants.steuerBuch.props),
       resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
       tableData: {
         tableTitle: '',
@@ -59,6 +59,17 @@ const variants = _.mapValues({
         ],
         bodyrows: [],
       },
+    },
+  },
+  rrb: {
+    meta: {
+      title: 'Entscheide des Regierungsrats',
+      desc: '',
+    },
+    props: {
+      pagination: defPaginationData.variants.fullWidth.props,
+      flexGenericFormData: _.merge({}, defFormData.variants.rrb.props),
+      resultCountTitle: '%1 Treffer zu ihrer Abfrage',
     },
   },
 }, (variant) => {
