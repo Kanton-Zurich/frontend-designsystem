@@ -3,6 +3,10 @@ $stepperNavigationCurves: (
     tiny: $sizeFontSmallBig,
     large: $sizeFontBiggerBig,
   ),
+  greyline: (
+    tiny: $sizeFontSmallBig / 2,
+    large: $sizeFontBiggerBig / 2,
+  ),
 );
 
 .mdl-stepper_navigation {
@@ -32,8 +36,7 @@ $stepperNavigationCurves: (
     left: 0;
     background: $colorBlack20;
 
-    top: 33%;
-
+    @include polyFluidSizing(top, map-get($stepperNavigationCurves, greyline));
     @include mq($to: small) {
       top: 25%;
     }
@@ -43,7 +46,7 @@ $stepperNavigationCurves: (
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
 
     color: $colorBlack60;
 
