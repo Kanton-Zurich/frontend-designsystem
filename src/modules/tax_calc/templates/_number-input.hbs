@@ -1,5 +1,7 @@
 <div class="atm-form_input atm-form_input--floated" data-input>
-    <input class="atm-form_input__input<% if (value) { %> dirty<% } %>"  data-validation data-floating max="<%=max%>" step="1" id="input-<%=fieldName%>" placeholder="<%=label%>"
+    <input class="atm-form_input__input<% if (value) { %> dirty<% } %>"
+           tabindex="-1"
+           data-validation data-floating max="<%=max%>" step="1" id="input-<%=fieldName%>" placeholder="<%=label%>"
           <% if (reinvokeTrigger) { %> data-tax_calc-reinvoke="true"<% } %>
            name="<%=fieldName%>" value="<%=value %>" type="number"<% if (mandatory) { %> required<% } %>>
 
@@ -20,7 +22,7 @@
 	</span>
 
   <% if (hint) { %>
-    <div class="atm-form_input__hint">Bitte im Format TT.MM. eingeben</div>
+    <div class="atm-form_input__hint"><%=hint %></div>
   <% } %>
 
   <% if (mandatory) { %>

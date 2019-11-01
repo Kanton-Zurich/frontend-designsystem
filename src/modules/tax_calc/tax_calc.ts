@@ -173,6 +173,12 @@ class TaxCalc extends Module {
       const toggleBtn = formSectionItem.querySelector<HTMLButtonElement>('.mdl-accordion__button');
       toggleBtn.setAttribute('type', 'button'); // Do this for each to prevent unintended form submit.
 
+      if (i <= sectionIdx) {
+        const sectioInputs = formSectionItem.querySelectorAll<HTMLElement>('.atm-form_input button, input');
+        sectioInputs.forEach((el) => {
+          el.removeAttribute('tabindex');
+        });
+      }
       if (i < sectionIdx) {
         const sectioInputs = formSectionItem.querySelectorAll<HTMLInputElement>('input');
         const sectionVals: string[] = [];
@@ -203,7 +209,13 @@ class TaxCalc extends Module {
           formSectionItem.classList.add(this.options.stateClasses.formItem.fixed);
 
           this.watchFormSection(formSectionItem);
-        }, 0);
+
+          setTimeout(() => {
+            const firstSectionInput = formSectionItem.querySelector<HTMLElement>('.atm-form_input button, input');
+            this.log('Focus on', firstSectionInput);
+            firstSectionInput.focus();
+          });
+        });
 
         if (sectionIdx === this.lastSectionIdx) {
           this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.calculate);
@@ -230,9 +242,6 @@ class TaxCalc extends Module {
   }
 
   private watchFormSection(sectionBlock: HTMLElement) {
-    // TODO unwatch others
-    // this.ui.formItems.
-
     const sectionInputs = sectionBlock.querySelectorAll<HTMLInputElement>('input');
     sectionInputs.forEach((inEl) => {
       inEl.addEventListener('change', this.onFormChange.bind(this));
@@ -246,9 +255,28 @@ class TaxCalc extends Module {
   private onFormChange() {
     const conClasses = this.ui.nextBtn.classList;
     if (!conClasses.contains(this.options.stateClasses.nextBtn.showing)) {
-      conClasses.add(this.options.stateClasses.nextBtn.showing);
-    }
+      setTimeout(() => {
+        const requiredBeforeNext = document.querySelectorAll<HTMLInputElement>('.mdl-tax_calc__form-block_item--fixed input[required]');
+        let allFilled = true;
+        requiredBeforeNext.forEach((requiredInEl) => {
+          if (requiredInEl.type === 'number') {
+            allFilled = allFilled && requiredInEl.classList.contains('dirty');
+          } else if (requiredInEl.type === 'radio') {
+            const selectUl = requiredInEl.parentElement.parentElement;
+            if (selectUl.querySelector('input:checked') == null) {
+              allFilled = false;
+            }
+          }
+        });
 
+        if (allFilled) {
+          conClasses.add(this.options.stateClasses.nextBtn.showing);
+        }
+      });
+      setTimeout(() => {
+        this.checkOpenPanelHeights();
+      });
+    }
     this.ui.apiErrorNotification.style.maxHeight = '0';
   }
 
@@ -257,7 +285,6 @@ class TaxCalc extends Module {
     this.postCalculatorFormData(this.calculatorUrl).then((reinvokeResp) => {
       this.log('ReinvokeResponse:', reinvokeResp);
       const formItems = this.buildFormItemsFromResp(reinvokeResp, true);
-      this.log('formItems: ', formItems);
       this.setFormItems(formItems, true);
       this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
       setTimeout(() => {
@@ -290,6 +317,12 @@ class TaxCalc extends Module {
           }).catch((reason) => {
             this.log('Form validation failed!', reason);
           });
+      })
+      .on('blur', this.options.domSelectors.openSectionsValidationInputs, () => {
+        // Form validation on field will be triggered by blur, so check Panel heights.
+        setTimeout(() => {
+          this.checkOpenPanelHeights();
+        });
       })
       .on('change', this.options.domSelectors.taxEntityInputs, (ev) => {
         const taxEntity: string = ev.target.value;

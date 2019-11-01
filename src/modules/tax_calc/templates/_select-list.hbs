@@ -1,7 +1,7 @@
 <div class="mdl-select" data-input data-init="select">
     <div class="atm-form_input atm-form_input--floated atm-form_input--trigger">
 
-        <button aria-expanded="false" aria-labelledby="aria-labledBy- " id="" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+        <button aria-expanded="false" aria-labelledby="aria-labledBy- " class="atm-form_input__input atm-form_input__input--trigger" type="button" tabindex="-1">
             <span id="aria-labledBy-" class="atm-form_input__trigger-label"><%=label%></span>
             <span class="atm-form_input__trigger-value"></span>
             <svg class="icon" focusable="false">
@@ -24,6 +24,7 @@
                          type="radio"
                          value="<%=option.value%>" placeholder="<%=option.label%>"
                          data-select-option data-validation
+                         tabindex="-1"
                   <% if (option.selected) { %> checked<% } %>
                   <% if (mandatory) { %> required<% } %>
                   <% if (reinvokeTrigger) { %> data-tax_calc-reinvoke="true"<% } %>

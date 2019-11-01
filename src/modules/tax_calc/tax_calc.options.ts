@@ -3,6 +3,7 @@ interface ModuleDomSelectors {
   formItems: string;
   taxEntityInputs: string;
   taxTypeInputs: string;
+  openSectionsValidationInputs: string;
   nextBtn: string;
   apiErrorNotification: string;
   resultBlock: string;
@@ -49,6 +50,7 @@ const domSelectors: ModuleDomSelectors = {
   formItems: '.mdl-tax_calc__form-block .mdl-accordion__item',
   taxEntityInputs: '[data-tax_calc="inputEntity"]',
   taxTypeInputs: '[data-tax_calc^="inputTaxType"]',
+  openSectionsValidationInputs: '.mdl-accordion__item--open input[data-validation]',
   nextBtn: '[data-tax_calc="nextBtn"]',
   apiErrorNotification: '[data-tax_calc="apiErrorsNotification"]',
   resultBlock: '.mdl-tax_calc__result-block',
