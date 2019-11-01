@@ -86,7 +86,7 @@ class Form {
   addEventListeners() {
     this.eventDelegate.on('click', this.options.eventEmitters.clearButton, this.clearField.bind(this));
     this.eventDelegate.on('keyup', this.options.watchEmitters.input, debounce((event, field) => {
-      this.validateField(field);
+      if (field.type !== 'radio') this.validateField(field);
     }, this.options.validateDelay));
     this.eventDelegate.on('blur', this.options.watchEmitters.input, (event, field) => {
       if (field.type !== 'file' && field.type !== 'radio' && !field.classList.contains('flatpickr-input')) this.validateField(field);
