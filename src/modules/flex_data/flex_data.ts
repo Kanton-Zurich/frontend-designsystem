@@ -17,6 +17,8 @@ class FlexData extends Module {
     results: HTMLDivElement,
     resultsTemplate: HTMLScriptElement,
     resultsGeneric: HTMLDivElement,
+    genericSortDropdown: HTMLDivElement,
+    genericSortButton: HTMLButtonElement,
     resultsGenericTitle: HTMLHeadingElement,
     resultsTable: HTMLTableElement,
     resultsTableBody: HTMLElement,
@@ -42,6 +44,8 @@ class FlexData extends Module {
         results: '.mdl-flex-data__results',
         resultsGeneric: '.mdl-flex-data__results .mdl-flex-data__results-generic',
         resultsGenericTitle: '.mdl-flex-data__results .mdl-flex-data__results-title',
+        genericSortDropdown: '.mdl-flex-data__generic-sort .mdl-context_menu',
+        genericSortButton: '.mdl-flex-data__generic-sort-dropdown',
         resultsTable: '.mdl-table',
         resultsTableBody: '.mdl-table .mdl-table__body',
         resultsTableColumns: '.mdl-table [data-column-name]',
@@ -52,6 +56,7 @@ class FlexData extends Module {
         clearButton: 'form [data-clear-flex]',
         pagination: '.mdl-pagination',
         paginationInput: '.mdl-pagination input',
+
       },
       stateClasses: {
         loading: 'mdl-flex-data--loading',
@@ -74,7 +79,9 @@ class FlexData extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.ui.resultsTable.addEventListener(Table.events.sort, this.onSortResults.bind(this));
+    if (this.ui.resultsTable) {
+      this.ui.resultsTable.addEventListener(Table.events.sort, this.onSortResults.bind(this));
+    }
     this.ui.submitButton.addEventListener('click', this.onSearchResults.bind(this));
     this.ui.clearButton.addEventListener('click', this.onClearResults.bind(this));
     this.ui.form.addEventListener('keypress', (event: any) => {
@@ -90,6 +97,21 @@ class FlexData extends Module {
     this.ui.pagination.addEventListener(Pagination.events.change, () => {
       this.loadResults();
     });
+    // -----------------------------------------------
+    // Listen to sort-dropdown events
+    if (this.ui.genericSortButton) {
+      this.ui.genericSortButton.addEventListener('click', () => {
+        this.ui.genericSortDropdown.classList.toggle('visible');
+      });
+      this.ui.genericSortDropdown.querySelectorAll('button').forEach((button) => {
+        /* button.addEventListener('click', (event: any) => {
+					this.orderBy = button.getAttribute('data-sort');
+					this.ui.sortButton.querySelector('span').innerHTML = event.target.innerHTML;
+					this.ui.sortDropdown.classList.remove('visible');
+					this.filterView(false, true);
+				});*/
+      });
+    }
     this.updateViewFromURLParams();
     setTimeout(() => { this.loadResults(); }, this.options.initDelay);
   }
@@ -171,6 +193,7 @@ class FlexData extends Module {
       .replace('%1', jsonData.numberOfResults);
     // fill table date if present
     if (this.ui.resultsTable) {
+
       this.ui.resultsTableBody.innerHTML = '';
       this.ui.resultsTableTitle.innerText = resultsTitle;
       jsonData.data.forEach((item) => {
@@ -193,7 +216,7 @@ class FlexData extends Module {
     // fill generic results
     if (this.ui.resultsGeneric) {
       this.ui.resultsGenericTitle.innerText = resultsTitle;
-      this.ui.resultsGeneric.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, jsonData.data);
+      this.ui.resultsGeneric.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, jsonData);
     }
   }
 
@@ -225,8 +248,10 @@ class FlexData extends Module {
       append(key, formData[key]);
     });
     append('page', this.ui.paginationInput.value);
-    append('order', this.ui.resultsTable.getAttribute('data-sort-direction') === 'descending' ? 'desc' : 'asc');
-    append('orderBy', this.ui.resultsTable.getAttribute('data-sort-column'));
+    if (this.ui.resultsTable) {
+      append('order', this.ui.resultsTable.getAttribute('data-sort-direction') === 'descending' ? 'desc' : 'asc');
+      append('orderBy', this.ui.resultsTable.getAttribute('data-sort-column'));
+    }
     return resultUrl;
   }
 
@@ -241,11 +266,15 @@ class FlexData extends Module {
           [this.ui.paginationInput.value] = params[key];
           break;
         case 'order':
+          if (this.ui.resultsTable) {
           this.ui.resultsTable.setAttribute('data-sort-direction',
             params[key][0] === 'desc' ? 'descending' : 'ascending');
+          }
           break;
         case 'orderBy':
-          this.ui.resultsTable.setAttribute('data-sort-column', params[key][0]);
+          if (this.ui.resultsTable) {
+            this.ui.resultsTable.setAttribute('data-sort-column', params[key][0]);
+          }
           break;
         default:
           setTimeout(() => {

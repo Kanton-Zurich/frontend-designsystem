@@ -1,4 +1,4 @@
-<div class="mdl-flex-data" data-init="flexData" data-source="/mocks/modules/flex_data/flex_data.json">
+<div class="mdl-flex-data" data-init="flexData" data-source="{{ flexDataSource }}">
   <div class="mdl-flex-data__form">
     <form novalidate>
       {{#if flexTableFormData}}
@@ -24,29 +24,24 @@
       {{/each}}
       {{/if}}
       {{#unless tableData}}
-        <ul class="mdl-search_page__list">
-          <% _.forEach(results, function(item, index) { %>
-          <li class="atm-search_result_item">
-            <span class="atm-search_result_item__meta">
-              <span class="atm_search_result_item__type">
-                <%- item.typeLabel %>
-              </span>
-            </span>
-            <a class="atm-search_result_item__content" href="<%- item.link %>">
-              <h4 class="atm-heading">RRB Nr. <%- item.decisionNumber%>/<%- item.year %> <%- item.title %></h4>
-              <p><%- item.text %></p>
-            </a>
-            <% } %>
-          </li>
-          <% }); %>
-        </ul>
+        {{{genericTemplate}}}
       {{/unless}}
     </script>
     {{#if tableData}}
     {{> "modules/table/table" tableData }}
     {{/if}}
     {{#unless tableData}}
-    <h4 class="atm-heading mdl-flex-data__results-title"></h4>
+      <h4 class="atm-heading mdl-flex-data__results-title"></h4>
+    <div class="mdl-flex-data__generic-sort">
+      <span>Sortieren nach: </span>
+      <button class="mdl-flex-data__generic-sort-dropdown">
+        <span>Neueste</span>
+        <svg class="icon">
+          <use xlink:href="#angle_drop_down"></use>
+        </svg>
+      </button>
+      {{> "modules/context_menu/context_menu" sortContextMenu}}
+    </div>
     <div class="mdl-flex-data__results-generic"></div>
     {{/unless}}
     <div class="mdl-flex-data__pagination">

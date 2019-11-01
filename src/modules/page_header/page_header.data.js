@@ -328,7 +328,7 @@ const variants = _.mapValues({
     },
     props: {
       pageTitle: 'ZStB-Nr. 3.1',
-      inverted: true,
+      inverted: false,
       hasBacklink: true,
       leadText: 'Steuerliche Zugehörigkeit',
     },

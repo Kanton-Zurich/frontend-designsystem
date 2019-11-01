@@ -4,8 +4,7 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defFormData = require('../form/form.data');
 const defPaginationData = require('../pagination/pagination.data');
-
-const templateConverter = require('../../../gulp/helpers/templateConverter');
+const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 
 const template = dataHelper.getFileContent('flex_data.hbs');
 const data = _.merge({}, defaultData, {
@@ -28,9 +27,9 @@ const variants = _.mapValues({
     },
     props: {
       pagination: defPaginationData.variants.fullWidth.props,
+      flexDataSource: '/mocks/modules/flex_data/flex_data_table.json',
       resultCountTitle: '%1 Treffer zu ihrer Abfrage',
       flexTableFormData: _.merge({}, defFormData.variants.steuerBuch.props),
-      resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
       tableData: {
         tableTitle: '',
         hasTitle: true,
@@ -68,8 +67,35 @@ const variants = _.mapValues({
     },
     props: {
       pagination: defPaginationData.variants.fullWidth.props,
+      flexDataSource: '/mocks/modules/flex_data/flex_data_generic.json',
       flexGenericFormData: _.merge({}, defFormData.variants.rrb.props),
       resultCountTitle: '%1 Treffer zu ihrer Abfrage',
+      sortContextMenu: {
+        lists: [
+          {
+            items: [
+              _.merge({}, contextMenuItemDef, { text: 'Neueste', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort="new"', isButton: true }),
+              _.merge({}, contextMenuItemDef, { text: 'Älteste', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort="old"', isButton: true }),
+            ],
+          },
+        ],
+      },
+      genericTemplate: `<ul class="mdl-search_page__list">
+          <% _.forEach(data, function(item, index) { %>
+          <li class="atm-search_result_item">
+            <span class="atm-search_result_item__meta">
+              <span class="atm_search_result_item__type">
+                <%- item.sessionDate %>
+              </span>
+            </span>
+            <a class="atm-search_result_item__content" href="<%- item.link %>">
+              <h4 class="atm-heading">RRB Nr. <%- item.decisionNumber%>/<%- item.year %> <%- item.title %></h4>
+              <p><%= item.text %></p>
+            </a>
+          </li>
+          <% }); %>
+        </ul>
+      `,
     },
   },
 }, (variant) => {
