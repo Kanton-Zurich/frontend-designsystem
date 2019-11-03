@@ -62,6 +62,7 @@ class TaxCalc extends Module {
     formItemTemplate: HTMLScriptElement,
     fieldTemplates: HTMLElement[],
     tableBlockTemplate: HTMLScriptElement,
+    remarkBlockTemplate: HTMLScriptElement,
     formLayoutConfig: HTMLScriptElement,
     resultTableConfig: HTMLScriptElement,
   };
@@ -97,10 +98,6 @@ class TaxCalc extends Module {
     } catch (e) {
       this.log('Failed to parse form config JSON: ', e, this.ui.formLayoutConfig.innerText);
     }
-
-    this.watch(this.ui.formBase, 'attributes', (p, e, r) => {
-      this.log('Form Attribute change:', p, e, r);
-    });
   }
 
   /**
@@ -466,7 +463,7 @@ class TaxCalc extends Module {
     this.lastSectionIdx = formItemsData.length + 1;
   }
 
-  private setResultTableBlocks(blocksProps: TableBlockProperties[]): void {
+  private setResultBlocks(blocksProps: TableBlockProperties[], remarks: string[]): void {
     this.ui.resultContainer.innerHTML = '';
 
     blocksProps.forEach((props) => {
@@ -477,6 +474,27 @@ class TaxCalc extends Module {
       (<any>window).estatico.helpers.app.registerModulesInElement(newItem);
       (<any>window).estatico.helpers.app.initModulesInElement(newItem);
     });
+
+    if (remarks && remarks.length > 0) {
+      const remarkItem = document.createElement('div');
+      remarkItem.innerHTML = template(this.ui.remarkBlockTemplate.innerHTML)({ remarks });
+      this.ui.resultContainer.appendChild(remarkItem);
+    }
+  }
+
+  private getRemarksFromResponse(resp: any): string[] {
+    const calcId = resp.taxCalculatorId;
+    const remarks: string[] = [];
+
+    const resultRemarkConfigs = this.resultTableConfig[calcId].remarks;
+    resultRemarkConfigs.forEach((key) => {
+      const remarkObj = resp[key];
+      if (remarkObj) {
+        remarks.push(remarkObj.value);
+      }
+    });
+
+    return remarks;
   }
 
   private getTablePropertiesFromResponse(resp: any): TableBlockProperties[] {
@@ -484,7 +502,7 @@ class TaxCalc extends Module {
     this.log('Generating result tables for calculator: ', calcId);
     const tables: TableBlockProperties[] = [];
 
-    const resultTableConfigs = this.resultTableConfig[calcId];
+    const resultTableConfigs = this.resultTableConfig[calcId].tables;
     if (resultTableConfigs && resultTableConfigs.length > 0) {
       resultTableConfigs.forEach((conf) => {
         const confClone = cloneDeep(conf);
@@ -613,7 +631,8 @@ class TaxCalc extends Module {
       } else {
         this.log('Calculate Response:', resp);
         const tableProps = this.getTablePropertiesFromResponse(resp);
-        this.setResultTableBlocks(tableProps);
+        const remarks = this.getRemarksFromResponse(resp);
+        this.setResultBlocks(tableProps, remarks);
         this.ui.element.classList.add(this.options.stateClasses.hasResult);
         this.ui.resultTaxYear.innerText = resp.taxYear ? resp.taxYear.value : '';
       }

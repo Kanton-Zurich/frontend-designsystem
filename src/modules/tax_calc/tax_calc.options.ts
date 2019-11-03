@@ -11,6 +11,7 @@ interface ModuleDomSelectors {
   resultContainer: string;
   formItemTemplate: string;
   tableBlockTemplate: string;
+  remarkBlockTemplate: string;
   fieldTemplates: string;
   reinvokeTrigger: string;
   formLayoutConfig: string;
@@ -58,6 +59,7 @@ const domSelectors: ModuleDomSelectors = {
   resultContainer: '[data-tax_calc="resultCon"]',
   formItemTemplate: '[data-tax_calc="formItemTemplate"]',
   tableBlockTemplate: '[data-tax_calc="tableBlockTemplate"]',
+  remarkBlockTemplate: '[data-tax_calc="remarksTemplate"]',
   fieldTemplates: '[data-tax_calc-fieldtemplate]',
   reinvokeTrigger: '[data-tax_calc-reinvoke]',
   formLayoutConfig: '[data-tax_calc-formconfig]',
