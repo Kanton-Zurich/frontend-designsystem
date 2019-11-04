@@ -1,5 +1,6 @@
 
-<div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-accordion {{#if isInverted}}mdl-accordion--cv-inverted cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10{{/if}}" data-init="accordion">
+<div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-accordion {{#if isInverted}}mdl-accordion--cv-inverted cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10{{/if}}{{#if toggleAll}} mdl-accordion--toggleall{{/if}}"
+                                                            data-init="accordion">
 {{#if isInverted}}
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">

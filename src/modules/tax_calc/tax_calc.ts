@@ -151,7 +151,6 @@ class TaxCalc extends Module {
     if (this.currentFormSection !== undefined) {
       const prevBlock = this.getFormSectionItems().item(this.currentFormSection);
       prevBlock.classList.remove(this.options.stateClasses.formItem.fixed);
-      prevBlock.querySelector<HTMLButtonElement>('.mdl-accordion__button').click();
     }
 
     const nextSectIdx = (this.currentFormSection === undefined)
@@ -198,12 +197,14 @@ class TaxCalc extends Module {
           subHead.innerText = sectionVals.join(', ');
         }
         formSectionItem.classList.add(this.options.stateClasses.formItem.enabled);
+        toggleBtn.setAttribute('aria-disabled', 'false');
       } else if (i === sectionIdx) {
         this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.showing);
         formSectionItem.classList.add(this.options.stateClasses.formItem.enabled);
         setTimeout(() => {
           toggleBtn.click();
           formSectionItem.classList.add(this.options.stateClasses.formItem.fixed);
+          toggleBtn.setAttribute('aria-disabled', 'true');
 
           this.watchFormSection(formSectionItem);
 
@@ -211,7 +212,7 @@ class TaxCalc extends Module {
             const firstSectionInput = formSectionItem.querySelector<HTMLElement>('.atm-form_input button, input');
             this.log('Focus on', firstSectionInput);
             firstSectionInput.focus();
-          });
+          }, this.options.transitionTimeout);
         });
 
         if (sectionIdx === this.lastSectionIdx) {
@@ -626,7 +627,7 @@ class TaxCalc extends Module {
 
   private doSubmitForm() {
     const url = `${this.calculatorUrl}/calculate`;
-    this.postCalculatorFormData(url).then((resp) => {
+    this.postCalculatorFormData(url, true).then((resp) => {
       if (resp.errors) {
         this.onApiError(resp.errors);
       } else {
@@ -643,8 +644,8 @@ class TaxCalc extends Module {
     this.toNextFormSection();
   }
 
-  private async postCalculatorFormData(endpoint: string) {
-    const formData = window[namespace].form.formToJSON(this.ui.formBase.elements, true);
+  private async postCalculatorFormData(endpoint: string, transformEmptyNumberToZero = false) {
+    const formData = window[namespace].form.formToJSON(this.ui.formBase.elements, true, transformEmptyNumberToZero);
     delete formData.taxEntity;
     delete formData.taxType;
 

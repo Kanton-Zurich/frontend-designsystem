@@ -37,6 +37,7 @@ const data = _.merge({}, defaultData, {
           title: false,
           level: 3,
         },
+        toggleAll: true,
         items: [{
           title: 'Für wen möchten Sie den Steuerbetrag berechnen?',
           subHead: '{value-reserve}',

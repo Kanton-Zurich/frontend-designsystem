@@ -24,21 +24,25 @@ class Accordion extends Module {
     stateClasses: {
       open: string,
       transitionEnd: string,
+      togglesAll: string,
     }
     transitionTime: number,
-  }
+  };
 
   public ui: {
-    element: any,
+    element: HTMLElement,
     items: any,
     triggers: any,
     panelContent: any,
-  }
+  };
 
   public data: {
     hasOpenItem: Boolean,
     openItems: Array<Number>,
-  }
+  };
+
+  // Flag controlling toggling behaviour. If true only one item is open, as others are closed on toggle.
+  private togglesAll: boolean;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -58,6 +62,7 @@ class Accordion extends Module {
       stateClasses: {
         open: 'mdl-accordion__item--open',
         transitionEnd: 'mdl-accordion__item--transition-end',
+        togglesAll: 'mdl-accordion--toggleall',
       },
       transitionTime: 100,
     };
@@ -70,6 +75,8 @@ class Accordion extends Module {
     this.initEventListeners();
 
     this.initTabindex();
+
+    this.togglesAll = this.ui.element.classList.contains(this.options.stateClasses.togglesAll);
   }
 
   toggleItem(event, eventDelegate) {
@@ -79,16 +86,7 @@ class Accordion extends Module {
     const verticalIcon = document.documentElement.classList.contains('is-ie') ? item.querySelector(this.options.domSelectors.verticalIcon) : null;
 
     if (ariaExpanded) {
-      panel.style.maxHeight = '0px';
-
-      panel.setAttribute('aria-hidden', 'true');
-
-      this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), '-1');
-
-      if (verticalIcon) verticalIcon.removeAttribute('transform');
-
-      item.classList.remove(this.options.stateClasses.open);
-      item.classList.remove(this.options.stateClasses.transitionEnd);
+      this.closeItem(item);
     } else {
       panel.style.maxHeight = `${this.calcHeight(panel)}px`;
 
@@ -105,9 +103,45 @@ class Accordion extends Module {
       setTimeout(() => {
         item.classList.add(this.options.stateClasses.transitionEnd);
       }, this.options.transitionTime);
-    }
 
-    eventDelegate.setAttribute('aria-expanded', !ariaExpanded);
+      // Close others
+      if (this.togglesAll) {
+        const parent = item.parentElement;
+        if (parent) {
+          parent.childNodes.forEach((el) => {
+            if (el !== item) {
+              this.closeItem(el);
+            }
+          });
+        }
+      }
+      eventDelegate.setAttribute('aria-expanded', true);
+    }
+  }
+
+  closeItem(item: HTMLElement) {
+    if (item.querySelector) {
+      const panel = item.querySelector<HTMLElement>(this.options.domSelectors.panel);
+      const triggerEl = item.querySelector<HTMLElement>(this.options.domSelectors.trigger);
+      if (panel && triggerEl) {
+        if (triggerEl.getAttribute('aria-disabled') !== 'true') {
+          const verticalIcon = document.documentElement.classList.contains('is-ie') ? item.querySelector(this.options.domSelectors.verticalIcon) : null;
+
+          panel.style.maxHeight = '0px';
+
+          panel.setAttribute('aria-hidden', 'true');
+
+          this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), '-1');
+
+          if (verticalIcon) verticalIcon.removeAttribute('transform');
+
+          item.classList.remove(this.options.stateClasses.open);
+          item.classList.remove(this.options.stateClasses.transitionEnd);
+
+          triggerEl.setAttribute('aria-expanded', 'false');
+        }
+      }
+    }
   }
 
   /**
