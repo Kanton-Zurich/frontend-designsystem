@@ -3,6 +3,7 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const radioData = require('../../atoms/radiobutton/radiobutton.data');
+const notificationApiFailProps = require('../../atoms/notification/notification.data').variants.apiConnectionFailure.props;
 
 
 const radioHBS = dataHelper.getFileContent('../../atoms/radiobutton/radiobutton.hbs');
@@ -15,7 +16,7 @@ const data = _.merge({}, defaultData, {
     title: 'Steuerrechner',
     className: 'TaxCalc',
     jira: 'CZHDEV-1238',
-    label: 'Komplex',
+    label: 'Applikation',
     documentation: dataHelper.getDocumentation('tax_calc.md'),
   },
   props: {
@@ -231,6 +232,7 @@ const data = _.merge({}, defaultData, {
       list: 'Bitte wählen Sie eine Option.',
       boolean: 'Bitte auswählen.',
     },
+    serviceFailNotificationData: notificationApiFailProps,
   },
 });
 const variants = _.mapValues({

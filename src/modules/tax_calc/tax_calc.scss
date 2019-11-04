@@ -147,4 +147,18 @@
       @include sizeCurve(margin-bottom, large);
     }
   }
+
+  &__alert-connection-fail {
+    display: none;
+  }
+
+  &--connection-fail {
+    #{$root}__alert-connection-fail {
+      display: block;
+    }
+
+    .mdl-instructions {
+      display: none;
+    }
+  }
 }

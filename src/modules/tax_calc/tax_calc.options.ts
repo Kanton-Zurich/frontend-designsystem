@@ -22,6 +22,7 @@ interface ModuleStateClasses {
     enabled: string;
     fixed: string;
     open: string;
+    newClasses: string;
   };
   nextBtn: {
     showing: string;
@@ -30,10 +31,10 @@ interface ModuleStateClasses {
     loading: string;
   }
   hasResult: string;
+  connectionFail: string;
 }
 export interface TaxCalcModuleOptions { // eslint-disable-line
   paramKeyCalculator: string;
-  apiBase: string;
   availableEntities: string[];
   availableCalculator: string[];
   attributeNames: {
@@ -70,6 +71,7 @@ const stateClasses: ModuleStateClasses = {
     enabled: 'mdl-tax_calc__form-block_item--enabled',
     fixed: 'mdl-tax_calc__form-block_item--fixed',
     open: 'mdl-accordion__item--open',
+    newClasses: 'mdl-accordion__item mdl-tax_calc__form-block_item',
   },
   nextBtn: {
     showing: 'show',
@@ -78,6 +80,7 @@ const stateClasses: ModuleStateClasses = {
     loading: 'mdl-tax_calc__next-btn--loading',
   },
   hasResult: 'mdl-tax_calc--result',
+  connectionFail: 'mdl-tax_calc--connection-fail',
 };
 const attributeNames = {
   module: 'data-tax_calc',
@@ -88,7 +91,6 @@ const attributeNames = {
 
 export const TaxCalcDefaultOptions: TaxCalcModuleOptions = { // eslint-disable-line
   paramKeyCalculator: 'calculatorId',
-  apiBase: 'https://www.steueramt.zh.ch/ZH-Web-Calculators/calculators/',
   availableEntities: ['individual', 'incorp'],
   availableCalculator: ['income_assets', 'federal', 'benefit_payments', 'benefit_payments_federal', 'inheritance', 'legal_simple', 'legal_iterative'],
   attributeNames,

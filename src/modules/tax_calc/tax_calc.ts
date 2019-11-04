@@ -73,8 +73,8 @@ class TaxCalc extends Module {
   private currentFormSection: number;
   private lastSectionIdx: number;
 
-  private formConfig: any;
-  private resultTableConfig: any;
+  private readonly formConfig: any;
+  private readonly resultTableConfig: any;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -253,7 +253,7 @@ class TaxCalc extends Module {
     const conClasses = this.ui.nextBtn.classList;
     if (!conClasses.contains(this.options.stateClasses.nextBtn.showing)) {
       setTimeout(() => {
-        const requiredBeforeNext = document.querySelectorAll<HTMLInputElement>('.mdl-tax_calc__form-block_item--fixed input[required]');
+        const requiredBeforeNext = document.querySelectorAll<HTMLInputElement>(`.${this.options.stateClasses.formItem.fixed} input[required]`);
         let allFilled = true;
         requiredBeforeNext.forEach((requiredInEl) => {
           if (requiredInEl.type === 'number') {
@@ -335,7 +335,9 @@ class TaxCalc extends Module {
         const calculatorId = ev.target.value;
         this.log('CalculatorId: ', calculatorId);
         this.setCalculatorInURL(calculatorId);
-        this.prepareCalculatorForm(calculatorId);
+        this.prepareCalculatorForm(calculatorId).catch(() => {
+          this.onFormException(`Invalid calculatorId: ${calculatorId}`);
+        });
       });
   }
 
@@ -361,6 +363,7 @@ class TaxCalc extends Module {
         );
       } else {
         this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
+        this.log('Unknown Calculator Id: ', calculatorId);
         reject(new Error('Unknown CalculatorId.'));
       }
     });
@@ -451,8 +454,8 @@ class TaxCalc extends Module {
 
     formItemsData.forEach((itemData) => {
       const newItem = document.createElement('div');
-      newItem.className = 'mdl-accordion__item mdl-tax_calc__form-block_item'; // TODO
-      newItem.setAttribute('data-accordion', 'item'); // TODO
+      newItem.className = this.options.stateClasses.formItem.newClasses;
+      newItem.setAttribute('data-accordion', 'item');
       newItem.innerHTML = template(this.ui.formItemTemplate.innerHTML)(itemData);
       itemsParentNode.appendChild(newItem);
       (<any>window).estatico.helpers.app.registerModulesInElement(newItem);
@@ -468,7 +471,6 @@ class TaxCalc extends Module {
 
     blocksProps.forEach((props) => {
       const newItem = document.createElement('div');
-      // newItem.className = 'mdl-tax_calc__result-block_table';
       newItem.innerHTML = template(this.ui.tableBlockTemplate.innerHTML)(props);
       this.ui.resultContainer.appendChild(newItem);
       (<any>window).estatico.helpers.app.registerModulesInElement(newItem);
@@ -603,24 +605,17 @@ class TaxCalc extends Module {
 
   private onApiError(errorsResponseObject: { error: {text: string}[]}) {
     this.log('Response contained "errors" object. ', errorsResponseObject);
-
-    this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.showing);
-    const errorHtml = errorsResponseObject.error.map(e => e.text).join('<br>');
-
-    this.ui.apiErrorNotification.querySelector<HTMLSpanElement>('span')
-      .innerHTML = errorHtml;
-    const height = this.getContentHeight(this.ui.apiErrorNotification);
-    this.ui.apiErrorNotification.style.maxHeight = `${height}px`;
+    this.onFormException(errorsResponseObject.error.map(e => e.text).join('<br>'));
   }
 
-  private toggleApiErrorNotification():void {
-    const curMaxHeight = this.ui.apiErrorNotification.style.maxHeight;
-    if (curMaxHeight !== '0') {
-      this.ui.apiErrorNotification.style.maxHeight = '0';
-    } else {
-      const height = this.getContentHeight(this.ui.apiErrorNotification);
-      this.ui.apiErrorNotification.style.maxHeight = `${height}px`;
-    }
+  private onFormException(exceptionStr: string) {
+    this.log('Form Exception: ', exceptionStr);
+    this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.showing);
+
+    this.ui.apiErrorNotification.querySelector<HTMLSpanElement>('span')
+      .innerHTML = exceptionStr;
+    const height = this.getContentHeight(this.ui.apiErrorNotification);
+    this.ui.apiErrorNotification.style.maxHeight = `${height}px`;
   }
 
   private doSubmitForm() {
@@ -638,11 +633,9 @@ class TaxCalc extends Module {
       }
     }, (postFailReason) => {
       this.log('FormSubmit failed! ', postFailReason);
-      // TODO Exception handling
     });
     this.toNextFormSection();
   }
-
 
   private async postCalculatorFormData(endpoint: string) {
     const formData = window[namespace].form.formToJSON(this.ui.formBase.elements, true);
@@ -657,9 +650,14 @@ class TaxCalc extends Module {
           this.log('Api Response:', resp);
           this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
           resolve(resp);
-        }, reject);
+        }, (postFailReason) => {
+          this.log(`POST request to endpoint ${endpoint} failed with reason ${postFailReason}!`);
+          this.ui.element.classList.add(this.options.stateClasses.connectionFail);
+          reject(postFailReason);
+        });
       } else {
         reject(new Error('Invalid form data!'));
+        this.onFormException('Invalid form data exception.');
       }
     });
   }
@@ -700,18 +698,8 @@ class TaxCalc extends Module {
   private checkOpenPanelHeights(): void {
     const openPanelContents = document.querySelectorAll<HTMLDivElement>('[aria-hidden="false"] [data-accordion="panel-content"]');
     openPanelContents.forEach((panelContent) => {
-      const panelContentChildren = Array.prototype.slice.call(panelContent.children);
-      let completeHeight = 0;
-
-      panelContentChildren.forEach((child) => {
-        if (typeof child.offsetHeight !== 'undefined') {
-          const styles = window.getComputedStyle(child);
-          const margin = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
-          completeHeight += Math.ceil(child.offsetHeight + margin);
-        }
-      });
-
-      panelContent.parentElement.style.maxHeight = `${completeHeight}px`;
+      const panelContentHeight = this.getContentHeight(panelContent);
+      panelContent.parentElement.style.maxHeight = `${panelContentHeight}px`;
     });
   }
 
