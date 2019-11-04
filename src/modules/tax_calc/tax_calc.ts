@@ -241,7 +241,11 @@ class TaxCalc extends Module {
   private watchFormSection(sectionBlock: HTMLElement) {
     const sectionInputs = sectionBlock.querySelectorAll<HTMLInputElement>('input');
     sectionInputs.forEach((inEl) => {
-      inEl.addEventListener('change', this.onFormChange.bind(this));
+      if (inEl.type === 'number' || inEl.type === 'text') {
+        inEl.addEventListener('keyup', this.onFormChange.bind(this));
+      } else {
+        inEl.addEventListener('change', this.onFormChange.bind(this));
+      }
 
       if (inEl.getAttribute(this.options.attributeNames.reinvoke)) {
         inEl.addEventListener('change', this.onReinvokeTriggerChange.bind(this));
@@ -251,29 +255,31 @@ class TaxCalc extends Module {
 
   private onFormChange() {
     const conClasses = this.ui.nextBtn.classList;
-    if (!conClasses.contains(this.options.stateClasses.nextBtn.showing)) {
-      setTimeout(() => {
-        const requiredBeforeNext = document.querySelectorAll<HTMLInputElement>(`.${this.options.stateClasses.formItem.fixed} input[required]`);
-        let allFilled = true;
-        requiredBeforeNext.forEach((requiredInEl) => {
-          if (requiredInEl.type === 'number') {
-            allFilled = allFilled && requiredInEl.classList.contains('dirty');
-          } else if (requiredInEl.type === 'radio') {
-            const selectUl = requiredInEl.parentElement.parentElement;
-            if (selectUl.querySelector('input:checked') == null) {
-              allFilled = false;
-            }
+    // if (!conClasses.contains(this.options.stateClasses.nextBtn.showing)) {
+    setTimeout(() => {
+      const requiredBeforeNext = document.querySelectorAll<HTMLInputElement>(`.${this.options.stateClasses.formItem.fixed} input[required]`);
+      let allFilled = true;
+      requiredBeforeNext.forEach((requiredInEl) => {
+        if (requiredInEl.type === 'number' || requiredInEl.type === 'text') {
+          allFilled = allFilled && requiredInEl.classList.contains('dirty');
+        } else if (requiredInEl.type === 'radio') {
+          const selectUl = requiredInEl.parentElement.parentElement;
+          if (selectUl.querySelector('input:checked') == null) {
+            allFilled = false;
           }
-        });
-
-        if (allFilled) {
-          conClasses.add(this.options.stateClasses.nextBtn.showing);
         }
       });
-      setTimeout(() => {
-        this.checkOpenPanelHeights();
-      });
-    }
+
+      if (allFilled) {
+        conClasses.add(this.options.stateClasses.nextBtn.showing);
+      } else {
+        conClasses.remove(this.options.stateClasses.nextBtn.showing);
+      }
+    }, this.options.transitionTimeout);
+    // }
+    setTimeout(() => {
+      this.checkOpenPanelHeights();
+    }, this.options.transitionTimeout);
     this.ui.apiErrorNotification.style.maxHeight = '0';
   }
 

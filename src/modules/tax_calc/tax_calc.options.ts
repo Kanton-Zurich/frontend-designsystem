@@ -34,6 +34,7 @@ interface ModuleStateClasses {
   connectionFail: string;
 }
 export interface TaxCalcModuleOptions { // eslint-disable-line
+  transitionTimeout: number;
   paramKeyCalculator: string;
   availableEntities: string[];
   availableCalculator: string[];
@@ -90,6 +91,7 @@ const attributeNames = {
 };
 
 export const TaxCalcDefaultOptions: TaxCalcModuleOptions = { // eslint-disable-line
+  transitionTimeout: 600,
   paramKeyCalculator: 'calculatorId',
   availableEntities: ['individual', 'incorp'],
   availableCalculator: ['income_assets', 'federal', 'benefit_payments', 'benefit_payments_federal', 'inheritance', 'legal_simple', 'legal_iterative'],

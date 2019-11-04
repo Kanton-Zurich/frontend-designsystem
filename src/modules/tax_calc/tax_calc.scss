@@ -47,7 +47,7 @@
         &__item {
           overflow: hidden;
 
-          &--open {
+          &--open.mdl-accordion__item--transition-end {
             overflow: visible;
           }
         }
