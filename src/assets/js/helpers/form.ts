@@ -169,7 +169,7 @@ class FormGlobalHelper {
    * @param  { boolean } checkboxesAsSingleValue  flag indicating how to interpret checkbox values.
    * @return {Object}                               form data as an object literal
    */
-  formToJSON(elements, checkboxesAsSingleValue = false) {
+  formToJSON(elements, checkboxesAsSingleValue = false, numberDefaultToZero = false) {
     /**
      * Checks that an element has a non-empty `name` and `value` property.
      * @param  {Element} element  the element to check
@@ -224,6 +224,8 @@ class FormGlobalHelper {
         } else {
           data[element.name] = element.value;
         }
+      } else if (element.type === 'number' && numberDefaultToZero) {
+        data[element.name] = 0;
       }
       return data;
     }, {});
