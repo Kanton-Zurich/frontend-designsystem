@@ -7,7 +7,6 @@ const defFooterData = require('../../modules/footer/footer.data').variants.defau
 const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 const defReleatedContentData = require('../../modules/related_content/related_content.data.js').variants.default.props;
 const defContactData = require('../../modules/contact/contact.data.js').variants.fullWidthLessData.props;
-const defTagGroupData = require('../../modules/tag_group/tag_group.data.js').variants.default.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -19,7 +18,7 @@ const data = _.merge({}, defaultData, {
   props: {
     header: headerData,
     modules: {
-      pageHeaderData: defPageHeaderData.variants.steuerBuch.props,
+      pageHeaderData: defPageHeaderData.variants.rrbDetail.props,
       metablockData: {
         title: 'Details',
         hasTopTitle: true,
@@ -27,32 +26,24 @@ const data = _.merge({}, defaultData, {
         items: [
           {
             label: 'Text',
-            text: 'Merkblatt des kantonalen Steueramtes über das Verfahren bei Bestreitung der Steuerhoheit ab Steuerperiode 1999 nach dem neuen Steuergesetz vom 8. Juni 1997',
+            text: 'Anfrage Barbara Günthard Fitze, Winterthur, Daniel Sommer, Affoltern  a. Albis, und Beat Monhart, Gossau, betreffend Abfallreduktion,  Beantwortung',
             wide: true,
           },
           {
-            label: 'ZStB-Nummer',
-            text: '3.1 ',
+            label: 'RRB Nr.',
+            text: '3.1',
           },
           {
-            label: 'Erlassdatum',
-            text: '24. November 1999',
+            label: 'Direktion',
+            text: 'Baudirektion (BD)',
           },
           {
-            label: 'Themenbereic',
-            text: 'Natürliche Personen',
+            label: 'Sitzungsdatum',
+            text: '22.08.2018',
           },
           {
-            label: 'Nummer alt',
-            text: '11/050',
-          },
-          {
-            label: 'Gültig ab',
-            text: '1. Januar 1999',
-          },
-          {
-            label: 'Stichworte',
-            text: 'Steuerpflicht, Steuerhoheit',
+            label: 'Publikationsdatum',
+            text: '30.09.2018',
           },
         ],
       },
@@ -62,6 +53,7 @@ const data = _.merge({}, defaultData, {
       },
       downloadListData: {
         title: false,
+        marginBottom: true,
         links: [
           {
             link: {
@@ -75,18 +67,6 @@ const data = _.merge({}, defaultData, {
       },
       releatedContentData: _.merge({}, defReleatedContentData, { relatedContentHeading: { anchorNavReference: 'related_content' } }),
       contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
-      tagGroupData: _.assign(_.merge({}, defTagGroupData, { tagGroupdHeading: { anchorNavReference: 'responsibilities' } }),
-        {
-          anchorLinks: [ { anchorlink:
-              { anchorlinkText: 'Steueramt',
-                anchorlinkAdress: '#',
-                anchorlinkIsActive: false,
-                anchorlinkIsTagAnchor: true,
-                anchorlinkIsInverted: true,
-                anchorlinkIsTopitem: true,
-                anchorlinkIsTopitemSmall: true } },
-          ],
-        }),
       footerData: defFooterData,
       back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
     },

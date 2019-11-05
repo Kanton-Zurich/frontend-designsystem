@@ -1008,7 +1008,7 @@ const variants = _.mapValues({
       desc: 'Flex Data Regierungsratsbeschlüsse',
     },
     props: {
-      sectionTitle: 'Beschlüsse des Regierungsrats',
+      sectionTitle: null,
       groups: [{
         rows: [
           {

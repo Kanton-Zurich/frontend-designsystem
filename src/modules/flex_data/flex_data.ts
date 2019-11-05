@@ -283,8 +283,8 @@ class FlexData extends Module {
         case 'orderBy':
           if (this.ui.resultsTable) {
             this.ui.resultsTable.setAttribute('data-sort-column', params[key][0]);
-            this.orderBy = params[key][0]; // eslint-disable-line
           }
+          this.orderBy = params[key][0]; // eslint-disable-line
           break;
         default:
           setTimeout(() => {
@@ -325,6 +325,12 @@ class FlexData extends Module {
             }
           }, this.options.initDelay);
           break;
+      }
+      // Set the sort element if present
+      const sortSetting = this.ui.genericSortDropdown.querySelector(`[data-sort-column="${this.orderBy}"][data-sort-direction="${this.order}"]`);
+      console.log(this.orderBy);
+      if (sortSetting) {
+        this.ui.genericSortButton.querySelector('span').innerText = sortSetting.querySelector('span').innerText;
       }
     });
   }

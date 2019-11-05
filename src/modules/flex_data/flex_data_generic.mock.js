@@ -1,7 +1,7 @@
 const data = {
   data: [
     {
-      link: '/regierungsratsbeschluesse/2018/regierungsratsbeschluss-2018-749.html',
+      link: '../rrb_detail/rrb_detail.html',
       year: 2018,
       decisionNumber: 749,
       sessionDate: '22.08.2018',
@@ -9,7 +9,7 @@ const data = {
       text: 'Gemäss neusten Erhebungen produziert jede Person in der Schweiz jährlich 700 kg <span class="highlight">Abfall</span>. Wir gehören damit weltweit zu den Spitzenreitern und ... die Tendenz ist steigend. Als <span class="highlight">Kanton</span> mit den m...',
     },
     {
-      link: '/regierungsratsbeschluesse/2018/regierungsratsbeschluss-2018-412.html',
+      link: '../rrb_detail/rrb_detail.html',
       year: 2018,
       decisionNumber: 412,
       sessionDate: '16.05.2018',
@@ -17,7 +17,7 @@ const data = {
       text: ' Gemeinden betrieben, Die KEZO ist an der ZAR Stiftung (Zentrum für nachhaltige Abfall- und Ressourcennutzung) und der ZAV Recycling AG beteiligt. ... KEZO 186 184 Tonnen <span class="highlight">Abfall</span> (Siedlungs...',
     },
     {
-      link: '/regierungsratsbeschluesse/2012/regierungsratsbeschluss-2012-848.html',
+      link: '../rrb_detail/rrb_detail.html',
       year: 2012,
       decisionNumber: 848,
       sessionDate: '22.08.2012',

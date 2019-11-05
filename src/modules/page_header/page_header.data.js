@@ -333,6 +333,19 @@ const variants = _.mapValues({
       leadText: 'Steuerliche Zugehörigkeit',
     },
   },
+  rrbDetail: {
+    meta: {
+      title: 'Flex Data (RRB) (CZHDEV-1233)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+    },
+    props: {
+      pageTitle: 'Regierungsratsbeschluss  Nr. 749/2018',
+      inverted: false,
+      hasBacklink: true,
+      noText: true,
+    },
+  },
   error404: {
     meta: {
       title: 'Error404 (CZHDEV-528)',
