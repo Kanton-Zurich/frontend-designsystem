@@ -167,7 +167,8 @@ class TaxCalc extends Module {
   }
 
   private activateFormSection(sectionIdx: number) {
-    this.getFormSectionItems().forEach((formSectionItem, i) => {
+    const formSectionItems = this.getFormSectionItems();
+    formSectionItems.forEach((formSectionItem, i) => {
       const toggleBtn = formSectionItem.querySelector<HTMLButtonElement>('.mdl-accordion__button');
       toggleBtn.setAttribute('type', 'button'); // Do this for each to prevent unintended form submit.
 
@@ -202,6 +203,12 @@ class TaxCalc extends Module {
         }
         formSectionItem.classList.add(this.options.stateClasses.formItem.enabled);
         toggleBtn.setAttribute('aria-disabled', 'false');
+
+        if (i === formSectionItems.length - 1) {
+          setTimeout(() => {
+            toggleBtn.click();
+          }, this.options.transitionTimeout);
+        }
       } else if (i === sectionIdx) {
         this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.showing);
         formSectionItem.classList.add(this.options.stateClasses.formItem.enabled);
@@ -333,6 +340,8 @@ class TaxCalc extends Module {
         });
       })
       .on('change', this.options.domSelectors.taxEntityInputs, (ev) => {
+        this.ui.element.classList.remove(this.options.stateClasses.hasResult);
+
         const taxEntity: string = ev.target.value;
         this.enableCalculatorOptionsForEntity(taxEntity);
         if (this.formHasErrors()) {
@@ -343,6 +352,8 @@ class TaxCalc extends Module {
         }
       })
       .on('change', this.options.domSelectors.taxTypeInputs, (ev) => {
+        this.ui.element.classList.remove(this.options.stateClasses.hasResult);
+
         const calculatorId = ev.target.value;
         this.log('CalculatorId: ', calculatorId);
         this.setCalculatorInURL(calculatorId);
