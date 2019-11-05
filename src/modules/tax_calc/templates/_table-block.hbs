@@ -18,7 +18,7 @@
                         <tr class="mdl-table__row mdl-table__row">
                         <% _.forEach(row.entries, function(entry, index) { %>
                             <% if(index === 0) { %>
-                            <th scope="row" class="mdl-table__cell<% if(row.isHighlighted) { %> mdl-table__cell--highlighted<% } %>" data-table="cell">
+                            <th scope="row" class="mdl-table__cell mdl-table__row-header<% if(row.isHighlighted) { %> mdl-table__cell--highlighted<% } %>" data-table="cell">
                                 <%=entry%>
                             </th>
                             <% } else { %>

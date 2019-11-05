@@ -141,6 +141,10 @@
 
     .mdl-table {
       @include sizeCurve(margin-bottom, large);
+
+      &__row-header:not(.mdl-table__cell--highlighted) {
+        font-family: $fontFamilyBase;
+      }
     }
 
     #{$root}__toformbtn {
@@ -150,6 +154,7 @@
       right: pxToRem($sizeRegular);
       bottom: pxToRem($sizeLarge);
       text-align: center;
+      z-index: 1000;
     }
   }
 

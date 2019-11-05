@@ -207,6 +207,9 @@ class TaxCalc extends Module {
         if (i === formSectionItems.length - 1) {
           setTimeout(() => {
             toggleBtn.click();
+            setTimeout(() => {
+              this.ui.nextBtn.focus();
+            }, this.options.transitionTimeout);
           }, this.options.transitionTimeout);
         }
       } else if (i === sectionIdx) {
