@@ -6,8 +6,8 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('banner.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'HeaderBanner',
-    className: 'HeaderBanner',
+    title: 'Header Banner',
+    className: 'Banner',
     jira: 'CZHDEV-493',
     documentation: dataHelper.getDocumentation('banner.md'),
   },
@@ -29,6 +29,7 @@ const variants = _.mapValues({
     },
     props: {
       bannerUID: _.uniqueId('banner'),
+      fetchURL: '/modules/banner/banner.default.mock.html',
     },
   },
   withSubtitle: {
@@ -39,6 +40,7 @@ const variants = _.mapValues({
     props: {
       subtitle: 'Zürcher Spitalplanung 2022',
       bannerUID: _.uniqueId('banner'),
+      fetchURL: '/modules/banner/banner.subtitle.mock.html',
     },
   },
   referendum: {
@@ -50,6 +52,7 @@ const variants = _.mapValues({
       icon: '#vote',
       isReferendum: true,
       bannerUID: _.uniqueId('banner'),
+      fetchURL: '/modules/banner/banner.vote.mock.html',
     },
   },
   liveStream: {
@@ -64,6 +67,7 @@ const variants = _.mapValues({
         label: 'Zur Live-Übertragung',
       },
       bannerUID: _.uniqueId('banner'),
+      fetchURL: '/modules/banner/banner.conference1.mock.html',
     },
   },
   liveStreamWithPicture: {
@@ -82,6 +86,7 @@ const variants = _.mapValues({
         alt: 'Alt-text',
       },
       bannerUID: _.uniqueId('banner'),
+      fetchURL: '/modules/banner/banner.conference2.mock.html',
     },
   },
   warning: {
@@ -89,8 +94,10 @@ const variants = _.mapValues({
       title: 'Warnung',
     },
     props: {
+      bannerUID: _.uniqueId('banner'),
       isWarning: true,
       icon: '#caution',
+      fetchURL: '/modules/banner/banner.warning.mock.html',
     },
   },
 }, (variant) => {

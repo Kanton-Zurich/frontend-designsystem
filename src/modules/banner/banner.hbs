@@ -1,4 +1,4 @@
-<div class="mdl-banner {{#if isReferendum}}mdl-banner--vote{{/if}} {{#if isWarning}}mdl-banner--warning{{/if}}" data-init="headerBanner" data-uid="{{bannerUID}}">
+<div class="mdl-banner {{#if isReferendum}}mdl-banner--vote{{/if}} {{#if isWarning}}mdl-banner--warning{{/if}}" data-init="banner" data-uid="{{bannerUID}}" data-fetch-url="{{fetchURL}}">
   <div class="lyt-wrapper">
     <div class="grid-margin-x grid-x">
       <div class="mdl-banner__figure cell tiny-2 {{#if image}}tiny-4 small-2{{/if}}">
@@ -40,7 +40,7 @@
       </div>
     </div>
   </div>
-  <button class="mdl-banner__close">
+  <button class="mdl-banner__close" data-banner="close">
     <span class="visuallyhidden">Schliessen</span>
     <svg class="icon">
       <use xlink:href="#exit"></use>

@@ -1,14 +1,23 @@
 .mdl-banner {
-  @include sizeCurve(padding-top padding-bottom, medium);
   @include gridBleed($fullwidth: true);
 
   position: relative;
+  box-sizing: border-box;
+
+  max-height: 0;
+  overflow: hidden;
+
+  @include transition(max-height, $time: $transitionTimeAreaMedium);
 
   h2.mdl-banner__title {
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, medium));
 
     margin-bottom: pxToRem($sizeTiny);
     padding-top: 0;
+  }
+
+  > .lyt-wrapper {
+    @include sizeCurve(padding-top padding-bottom, medium);
   }
 
   &__desc {
@@ -71,6 +80,14 @@
       width: pxToRem($sizeFontSmall);
       height: pxToRem($sizeFontSmall);
     }
+  }
+
+  /**
+   * ANIMATIONS
+   */
+  &--closing {
+    overflow: hidden;
+    padding: 0;
   }
 
   /**
