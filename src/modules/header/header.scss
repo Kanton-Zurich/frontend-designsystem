@@ -7,11 +7,6 @@ $headerCurves: (
     xsmall: 56px,
     medium: 72px
   ),
-  heightWithBorder: (
-    tiny: 53px,
-    xsmall: 61px,
-    medium: 77px
-  ),
   borderHeight: (
     tiny: $borderHeightSmall,
     medium: $borderHeightNormal,
@@ -211,7 +206,3 @@ $headerCurves: (
   }
 }
 
-/** SPECIAL STYLE FOR HTML-TAG TO ADD PADDING TO COMPENSATE FIXED HEADER */
-html.fixed-header {
-  @include sizeCurve(padding-top, heightWithBorder, $headerCurves);
-}

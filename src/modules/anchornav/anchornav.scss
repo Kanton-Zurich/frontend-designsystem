@@ -1,3 +1,13 @@
+html.fixed-header .mdl-anchornav--sticky {
+  top: 50px;
+  @include mq($from: xsmall) {
+    top: 58px;
+  }
+  @include mq($from: medium) {
+    top: 77px;
+  }
+}
+
 .mdl-anchornav {
   @include gridBleed($fullwidth: true);
   padding-top: pxToRem($sizeRegular);
