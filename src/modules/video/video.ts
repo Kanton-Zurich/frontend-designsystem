@@ -51,7 +51,7 @@ class Video extends Module {
 
     super($element, defaultData, defaultOptions, data, options);
     this.youTubeSrc = this.ui.iFrame.dataset.youtubesrc;
-    this.daysToExpire = 60;
+    this.daysToExpire = parseInt(this.ui.iFrame.dataset.expirydays);
     this.cookieName = 'acceptYouTube';
 
     const match = document.cookie.match(new RegExp(`(^| )${this.cookieName}=([^;]+)`));
