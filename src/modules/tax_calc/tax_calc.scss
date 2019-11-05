@@ -50,12 +50,14 @@
           &--open.mdl-accordion__item--transition-end {
             overflow: visible;
           }
+
+          .form__section {
+            padding: pxToRem($sizeRegular) 0;
+          }
         }
       }
 
       .mdl-accordion__button {
-        margin-bottom: pxToRem($sizeTiny);
-
         .icon {
           opacity: 1;
           transition: opacity 400ms ease-in-out;
