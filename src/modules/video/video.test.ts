@@ -1,6 +1,9 @@
 describe('Video', () => {
   let page: any;
 
+  const iframeDelay = 30000;
+  jest.setTimeout(iframeDelay);
+
   beforeAll(async () => {
     // eslint-disable-next-line no-underscore-dangle
     const url = `http://localhost:${(<any>global).__STATIC_PORT__}/modules/video/video.html`;
@@ -28,17 +31,17 @@ describe('Video', () => {
   it('inital there should be no cookie "acceptYouTube" set and the preview should be displayed', async () => {
     const result = await page.evaluate(() => {
       const preview = (<any>document.querySelector('.mdl-video__preview'));
-      const previewIsVisible = window.getComputedStyle(preview).display === 'flex' ? true : false;
+      const isVisible = window.getComputedStyle(preview).display === 'flex';
       const cookieName = 'acceptYouTube';
       const match = document.cookie.match(new RegExp(`(^| )${cookieName}=([^;]+)`));
-      let cookieNameFound = false;
+      let hasCookie = false;
       if (match && match[2] === 'true') {
-        cookieNameFound = true;
+        hasCookie = true;
       }
 
       return {
-        previewIsVisible: previewIsVisible,
-        cookieNameFound: cookieNameFound,
+        previewIsVisible: isVisible,
+        cookieNameFound: hasCookie,
       };
     });
 
@@ -51,17 +54,17 @@ describe('Video', () => {
   it('inital the iframe src should be null/empty if no cookie is set', async () => {
     const result = await page.evaluate(() => {
       const iframeSrc = (<any>document.querySelector('.mdl-video__frame'));
-      const hasSrcAttribute = iframeSrc.hasAttribute('src');
+      const srcAttribute = iframeSrc.hasAttribute('src');
       const cookieName = 'acceptYouTube';
       const match = document.cookie.match(new RegExp(`(^| )${cookieName}=([^;]+)`));
-      let cookieNameFound = false;
+      let hasCookie = false;
       if (match && match[2] === 'true') {
-        cookieNameFound = true;
+        hasCookie = true;
       }
 
       return {
-        hasSrcAttribute: hasSrcAttribute,
-        cookieNameFound: cookieNameFound,
+        hasSrcAttribute: srcAttribute,
+        cookieNameFound: hasCookie,
       };
     });
 
@@ -78,12 +81,12 @@ describe('Video', () => {
       const previewBtn = (<any>document.querySelector('.mdl-video__preview button'));
       previewBtn.click();
 
-      const previewIsHidde = window.getComputedStyle(preview).display === 'none' ? true : false;
-      const dialogIsVisible = window.getComputedStyle(dialog).display === 'flex' ? true : false;
+      const previewDisplay = window.getComputedStyle(preview).display === 'none';
+      const dialogDisplay = window.getComputedStyle(dialog).display === 'flex';
 
       return {
-        previewIsHidde: previewIsHidde,
-        dialogIsVisible: dialogIsVisible,
+        previewIsHidde: previewDisplay,
+        dialogIsVisible: dialogDisplay,
       };
     });
 
@@ -100,21 +103,21 @@ describe('Video', () => {
       dialogPlayBtn.click();
 
       const iframeSrc = (<any>document.querySelector('.mdl-video__frame'));
-      const hasSrcAttribute = iframeSrc.hasAttribute('src');
+      const srcAttribute = iframeSrc.hasAttribute('src');
 
-      const dialogIsHidden = window.getComputedStyle(dialog).display === 'none' ? true : false;
+      const dialogDisplay = window.getComputedStyle(dialog).display === 'none';
 
       const cookieName = 'acceptYouTube';
       const match = document.cookie.match(new RegExp(`(^| )${cookieName}=([^;]+)`));
-      let cookieNameFound = false;
+      let hasCookie = false;
       if (match && match[2] === 'true') {
-        cookieNameFound = true;
+        hasCookie = true;
       }
 
       return {
-        cookieNameFound: cookieNameFound,
-        hasSrcAttribute: hasSrcAttribute,
-        dialogIsHidden: dialogIsHidden,
+        cookieNameFound: hasCookie,
+        hasSrcAttribute: srcAttribute,
+        dialogIsHidden: dialogDisplay,
       };
     });
 
@@ -124,5 +127,4 @@ describe('Video', () => {
       dialogIsHidden: true,
     });
   });
-
 });

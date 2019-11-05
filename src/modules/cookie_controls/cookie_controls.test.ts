@@ -29,16 +29,16 @@ describe('CookieControls', () => {
     const result = await page.evaluate(() => {
       const cookieName = 'acceptYouTube';
       const match = document.cookie.match(new RegExp(`(^| )${cookieName}=([^;]+)`));
-      let cookieNameFound = false;
+      let hasCookie = false;
       if (match && match[2] === 'true') {
-        cookieNameFound = true;
+        hasCookie = true;
       }
 
       const checkbox = (<any>document.querySelector('#cookieCheckboxYoutube')).checked;
 
       return {
         checkboxState: checkbox,
-        cookieNameFound: cookieNameFound,
+        cookieNameFound: hasCookie,
       };
     });
 
@@ -48,28 +48,28 @@ describe('CookieControls', () => {
     });
   });
 
-  it('after checking the checkbox there should be a cookie with the name "acceptYouTube" set ' +
-    'and the checkbox state should be true', async () => {
+  it('after checking the checkbox there should be a cookie with the name "acceptYouTube" set '
+    + 'and the checkbox state should be true', async () => {
     const result = await page.evaluate(() => {
-      let checkbox = (<any>document.querySelector('#cookieCheckboxYoutube'));
+      const checkbox = (<any>document.querySelector('#cookieCheckboxYoutube'));
       checkbox.click();
 
       const cookieName = 'acceptYouTube';
       const match = document.cookie.match(new RegExp(`(^| )${cookieName}=([^;]+)`));
-      let cookieNameFound = false;
+      let hasCookie = false;
       if (match && match[2] === 'true') {
-        cookieNameFound = true;
+        hasCookie = true;
       }
       const checkboxState = checkbox.checked;
 
       return {
-        checkboxState: checkboxState,
-        cookieNameFound: cookieNameFound,
+        checkboxisChecked: checkboxState,
+        cookieNameFound: hasCookie,
       };
     });
 
     expect(result).toEqual({
-      checkboxState: true,
+      checkboxisChecked: true,
       cookieNameFound: true,
     });
   });
