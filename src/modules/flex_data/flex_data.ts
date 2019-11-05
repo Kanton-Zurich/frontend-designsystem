@@ -328,7 +328,6 @@ class FlexData extends Module {
       }
       // Set the sort element if present
       const sortSetting = this.ui.genericSortDropdown.querySelector(`[data-sort-column="${this.orderBy}"][data-sort-direction="${this.order}"]`);
-      console.log(this.orderBy);
       if (sortSetting) {
         this.ui.genericSortButton.querySelector('span').innerText = sortSetting.querySelector('span').innerText;
       }
