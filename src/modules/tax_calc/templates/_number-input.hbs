@@ -21,11 +21,11 @@
 		</span>
 	</span>
 
-  <% if (hint) { %>
-    <div class="atm-form_input__hint"><%=hint %></div>
-  <% } %>
-
   <% if (mandatory) { %>
     <p class="form__fieldset-error-message" data-message="required">{{requiredMessages.number}}</p>
+  <% } %>
+
+  <% if (hint) { %>
+    <div class="atm-form_input__hint"><%=hint %></div>
   <% } %>
 </div>

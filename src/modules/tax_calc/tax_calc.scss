@@ -8,7 +8,7 @@
       transition: max-height 800ms ease;
 
       &--enabled {
-        max-height: 500px; // TODO;
+        max-height: 500px;
       }
 
       .form__section {
@@ -19,19 +19,8 @@
         }
 
         .form__fieldset-error-message {
-          display: block;
-          width: 100%;
           font-size: pxToRem($sizeFontTiny);
-          line-height: $sizeLineHeightBase;
-          margin: 0;
-          padding-left: pxToRem($sizeRegular + 2px);
           color: $colorWhite;
-          background-color: $colorRed;
-          transform: translateY(-50%) scaleY(0);
-          transition: transform 400ms, opacity 400ms, height 400ms ease-in-out;
-          height: 0;
-          opacity: 0;
-          margin-top: $sizeTiny;
         }
 
         .invalid .form__fieldset-error-message {
@@ -147,7 +136,7 @@
 
   &--result {
     #{$root}__result-block {
-      max-height: 2000px; // TODO
+      max-height: 2000px;
     }
 
     .mdl-table {

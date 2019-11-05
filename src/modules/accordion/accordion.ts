@@ -41,7 +41,8 @@ class Accordion extends Module {
     openItems: Array<Number>,
   };
 
-  // Flag controlling toggling behaviour. If true only one item is open, as others are closed on toggle.
+  // Flag controlling toggling behaviour.
+  // If true only one item is open, as others are closed on toggle.
   private togglesAll: boolean;
 
   constructor($element: any, data: Object, options: Object) {
