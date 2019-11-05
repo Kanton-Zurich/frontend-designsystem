@@ -1,6 +1,8 @@
 .mdl-tax_calc {
   $root: #{&};
-  margin-bottom: pxToRem($sizeHuge);
+
+  @include sizeCurve(margin-bottom, big);
+  @include sizeCurve(margin-top, medium);
 
   &__form-block {
     .mdl-tax_calc__form-block_item {
@@ -165,6 +167,7 @@
   &--connection-fail {
     #{$root}__alert-connection-fail {
       display: block;
+      margin-top: pxToRem($sizeGiant);
     }
 
     .mdl-instructions {
