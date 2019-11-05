@@ -89,11 +89,15 @@ const variants = _.mapValues({
       contextMenu: false,
       path: [
         {
-          title: 'Kanton'
-        }
-      ]
-    }
-  }
+          title: 'Kanton Zürich',
+          href: '#',
+        },
+        {
+          title: 'Aktuelle Seite',
+        },
+      ],
+    },
+  },
 }, (variant) => {
   // eslint-disable-next-line
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
