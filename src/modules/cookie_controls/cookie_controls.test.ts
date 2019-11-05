@@ -24,4 +24,53 @@ describe('CookieControls', () => {
   });
 
   it('should load without error', async () => true);
+
+  it('should be unchecked if no or an falsy cookie "acceptYouTube" is found', async () => {
+    const result = await page.evaluate(() => {
+      const cookieName = 'acceptYouTube';
+      const match = document.cookie.match(new RegExp(`(^| )${cookieName}=([^;]+)`));
+      let cookieNameFound = false;
+      if (match && match[2] === 'true') {
+        cookieNameFound = true;
+      }
+
+      const checkbox = (<any>document.querySelector('#cookieCheckboxYoutube')).checked;
+
+      return {
+        checkboxState: checkbox,
+        cookieNameFound: cookieNameFound,
+      };
+    });
+
+    expect(result).toEqual({
+      checkboxState: false,
+      cookieNameFound: false,
+    });
+  });
+
+  it('after checking the checkbox there should be a cookie with the name "acceptYouTube" set ' +
+    'and the checkbox state should be true', async () => {
+    const result = await page.evaluate(() => {
+      let checkbox = (<any>document.querySelector('#cookieCheckboxYoutube'));
+      checkbox.click();
+
+      const cookieName = 'acceptYouTube';
+      const match = document.cookie.match(new RegExp(`(^| )${cookieName}=([^;]+)`));
+      let cookieNameFound = false;
+      if (match && match[2] === 'true') {
+        cookieNameFound = true;
+      }
+      const checkboxState = checkbox.checked;
+
+      return {
+        checkboxState: checkboxState,
+        cookieNameFound: cookieNameFound,
+      };
+    });
+
+    expect(result).toEqual({
+      checkboxState: true,
+      cookieNameFound: true,
+    });
+  });
 });
