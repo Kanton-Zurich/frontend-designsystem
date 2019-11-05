@@ -23,4 +23,8 @@
       </li>
     {{/if}}
   </ul>
+
+  {{#if hasSpinner}}
+    {{> "atoms/loading_circle/loading_circle"}}
+  {{/if}}
 </div>

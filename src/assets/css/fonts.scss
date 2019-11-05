@@ -3,3 +3,8 @@
  */
 
 @import '../.tmp/fonts';
+
+/* Override font weights */
+* {
+  font-weight: normal !important; // stylelint-disable-line
+}

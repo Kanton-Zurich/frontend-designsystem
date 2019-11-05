@@ -11,7 +11,8 @@
 // Lesson learned, OrT: browsers decided to reduce font size from 16px to 13px when the font applied is the fallbacked monospace.
 // Solution: declare monospace and then give it another fallback.
 // http://meyerweb.com/eric/thoughts/2010/02/12/fixed-monospace-sizing/
-$sg_font: Helvetica, serif;
+$sg_font: "HelveticaNowText", Helvetica, serif;
+$sg_font_black: "HelveticaNowBlack", Helvetica, serif;
 
 $sg_breakpoint: 1480px;
 $sg_marginsBoxed: 20px;
@@ -85,13 +86,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   .sg_h2,
   .sg_h3,
   .sg_h4 {
-    font-weight: 600;
-  }
-
-  .sg_h2,
-  .sg_h3,
-  .sg_h4 {
-    font-family: $sg_font;
+    font-family: $sg_font_black;
   }
 
   .sg_h2 {
@@ -131,6 +126,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
     h4 {
       margin-top: 0;
+      font-family: $sg_font_black;
     }
   }
 }
@@ -189,7 +185,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
     .tab_trigger:nth-child(#{$i}):checked ~ .labels > label:nth-child(#{$i}) {
       background-color: $bgcolorActive;
-      font-weight: bold; //stylelint-disable-line
+      font-family: $sg_font_black;
     }
 
     /* .tab_trigger:nth-child(#{$i}):focus ~ .labels > label:nth-child(#{$i}) {
@@ -252,7 +248,8 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
     &:checked + label {
       background-color: $bgcolorActive;
-      font-weight: bold; //stylelint-disable-line
+      font-family: $sg_font_black;
+      line-height: 15px;
     }
 
     @each $key, $val in $tl-color-variations {
@@ -392,8 +389,8 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     border-radius: 3px;
     display: inline-block;
     font-size: 11px;
-    font-weight: bold;
-    line-height: 99%;
+    font-family: $sg_font_black;
+    line-height: 15px;
     margin: 0;
     padding: 2px 5px;
     text-align: center;
@@ -414,8 +411,8 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   border-radius: 3px;
   display: inline-block;
   font-size: 11px;
-  font-weight: bold;
-  line-height: 99%;
+  font-family: $sg_font_black;
+  line-height: 15px;
   margin: 0;
   padding: 2px 5px;
   text-align: center;
@@ -546,7 +543,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
           div {
             box-sizing: border-box;
-            font-weight: 900;
+            font-family: $sg_font_black;
             float: right;
             width: 48px;
             height: 70px;

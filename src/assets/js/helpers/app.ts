@@ -1,4 +1,3 @@
-
 /**
  * Init registered modules on specified events
  *
@@ -47,6 +46,7 @@ import DrilldownSelect from '../../../modules/drilldown_select/drilldown_select'
 import UserMenu from '../../../modules/user_menu/user_menu';
 import CugLogin from '../../../modules/cug_login/cug_login';
 import Video from '../../../modules/video/video';
+import OpenData from '../../../modules/open_data/open_data';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -101,6 +101,7 @@ class App {
     this.modules.searchPage = SearchPage;
     this.modules.userMenu = UserMenu;
     this.modules.cugLogin = CugLogin;
+    this.modules.openData = OpenData;
     this.modules.video = Video;
     /* autoinsertmodule */ // eslint-disable-line
 
@@ -123,6 +124,8 @@ class App {
     if (isIE > 0 || !!navigator.userAgent.match(/Trident\/7\./)) {
       document.documentElement.classList.add('is-ie');
     }
+
+    this.getLanguage();
   }
 
   async start() {
@@ -231,6 +234,10 @@ class App {
         form.setAttribute('initialized', 'true');
       }
     });
+  }
+
+  getLanguage() {
+    window[namespace].lang = document.documentElement.lang;
   }
 }
 

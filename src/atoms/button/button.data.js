@@ -457,6 +457,15 @@ const variants = _.mapValues({
       anchorLink: '#',
     },
   },
+  primaryLoading: {
+    meta: {
+      title: 'Primary',
+      desc: 'Primary Button mit Loading.',
+    },
+    props: {
+      isLoading: true,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

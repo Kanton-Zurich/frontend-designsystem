@@ -32,7 +32,7 @@ const listDemoData = require('../../atoms/list/list.data');
 
 const duplicateGroup = {
   isDuplicatable: true,
-  maxDuplications: 2,
+  maxDuplications: '1',
   duplicateLabels: {
     add: 'Weitere Staatsangehörigkeit hinzufügen',
     remove: 'Staatangehörigkeit wieder entfernen',

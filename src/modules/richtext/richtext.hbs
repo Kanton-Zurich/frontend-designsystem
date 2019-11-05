@@ -65,19 +65,33 @@
     Bei Fragen wenden Sie sich in elektronischer Form an <a href="mailto:info@zh.ch" class="atm-text_link">info@zh.ch</a>
   </p>
 {{/unless}}
+
   {{#if embedded}}
-    <h4 class="atm-heading">
-      {{h4Text}}
-    </h4>
-    <p class="atm-paragraph">
-      {{{pText}}}
-    </p>
-    {{> "modules/quote/quote"}}
-    <ul class="mdl-richtext__benefits">
-      <li><span class="visuallyhidden">Vorteil:</span> {{benefitItem}}</li>
-      <li><span class="visuallyhidden">Vorteil:</span> {{benefitItem}}</li>
-      <li><span class="visuallyhidden">Vorteil:</span> {{benefitItem}}</li>
-    </ul>
+    {{#each contentItems }}
+      {{#if this.h4Text}}
+          <h4 class="atm-heading">
+            {{this.h4Text}}
+          </h4>
+      {{/if}}
+      {{#if this.pText}}
+          <p class="atm-paragraph">
+            {{{pText}}}
+          </p>
+      {{/if}}
+      {{#if this.quoteDemo}}
+        {{> "modules/quote/quote" ..}}
+      {{/if}}
+      {{#if this.benefitDemo}}
+          <ul class="mdl-richtext__benefits">
+              <li><span class="visuallyhidden">Vorteil:</span> {{../benefitItem}}</li>
+              <li><span class="visuallyhidden">Vorteil:</span> {{../benefitItem}}</li>
+              <li><span class="visuallyhidden">Vorteil:</span> {{../benefitItem}}</li>
+          </ul>
+      {{/if}}
+      {{#if this.plainHtml}}
+          {{{ this.plainHtml }}}
+      {{/if}}
+    {{/each}}
   {{/if}}
 </div>
 

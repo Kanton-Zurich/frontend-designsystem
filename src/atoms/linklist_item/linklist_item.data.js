@@ -95,6 +95,19 @@ const variants = _.mapValues({
       chevron: true,
     },
   },
+  openDataDownload: {
+    meta: {
+      title: 'Downloadlink für Open-Data',
+      desc: 'Link für die Downloadliste mit Open-Data mit Platzhaltern für die FE-Templating-Engine.',
+    },
+    props: {
+      linkListItemIsDownload: true,
+      linkListItemLabel: 'zuletzt aktualisiert: <%- resource.label %>',
+      linkListItemHref: '<%- resource.url %>',
+      linkListItemTitle: '<%- resource.title %>',
+      copyRightImages: true,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
