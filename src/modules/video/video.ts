@@ -85,7 +85,7 @@ class Video extends Module {
       }).on('click', this.options.domSelectors.dialogPlayBtn, () => {
         this.hideElement(this.ui.dialog);
 
-        document.cookie = `acceptYouTube=true; max-age=${this.getExpireDate()}`;
+        document.cookie = `acceptYouTube=true; max-age=${this.getExpireDate()}; path=/`;
         this.ui.iFrame.setAttribute('src', `${this.youTubeSrc}&autoplay=1&mute=1`);
       });
   }

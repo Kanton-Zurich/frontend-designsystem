@@ -63,7 +63,7 @@ class CookieControls extends Module {
   initEventListeners() {
     this.eventDelegate.on('click', this.options.domSelectors.checkbox, () => {
       console.log('click on checkbox');
-      document.cookie = `acceptYouTube=true; max-age=${this.getExpireDate()}`;
+      document.cookie = `acceptYouTube=true; max-age=${this.getExpireDate()}; path=/`;
     });
   }
 
