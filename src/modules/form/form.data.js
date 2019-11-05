@@ -1023,6 +1023,19 @@ const variants = _.mapValues({
                     uuid: 'fullText',
                   })),
               },
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'RRB-Nr.',
+                    name: 'decisionNumber',
+                    uuid: 'decisionNumber',
+                  })),
+                tooltip: {
+                  helptext: 'z.B. 749/2018',
+                },
+              },
             ],
           },
           {
@@ -1031,9 +1044,9 @@ const variants = _.mapValues({
                 formInputData.variants.default.props,
                 {
                   isFloatingLabel: true,
-                  label: 'RRB-Nr.',
-                  name: 'decisionNumber',
-                  uuid: 'decisionNumber',
+                  label: 'Jahr',
+                  name: 'year',
+                  uuid: 'year',
                 })),
             },
             {

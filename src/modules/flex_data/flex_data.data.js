@@ -38,7 +38,7 @@ const variants = _.mapValues({
         isWide: true,
         isStatic: true,
         preSortedColumn: 'zstb-nummer',
-        preSortedDirection: 'asc',
+        preSortedDirection: 'ascending',
         headers: [
           {
             title: 'ZStB-Nr.',
@@ -74,8 +74,11 @@ const variants = _.mapValues({
         lists: [
           {
             items: [
-              _.merge({}, contextMenuItemDef, { text: 'Neueste', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort="new"', isButton: true }),
-              _.merge({}, contextMenuItemDef, { text: 'Älteste', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort="old"', isButton: true }),
+              _.merge({}, contextMenuItemDef, { text: 'Relevanz', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="relevance" data-sort-direction="desc"', isButton: true }),
+              _.merge({}, contextMenuItemDef, { text: 'Sitzungsdatum aufsteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="sessionDate" data-sort-direction="asc"', isButton: true }),
+              _.merge({}, contextMenuItemDef, { text: 'Sitzungsdaatum absteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="sessionDate" data-sort-direction="desc"', isButton: true }),
+              _.merge({}, contextMenuItemDef, { text: 'Publikationsdatum aufsteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="publicationDate" data-sort-direction="asc"', isButton: true }),
+              _.merge({}, contextMenuItemDef, { text: 'Publikationsdatum aufsteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="publicationDate" data-sort-direction="desc"', isButton: true }),
             ],
           },
         ],

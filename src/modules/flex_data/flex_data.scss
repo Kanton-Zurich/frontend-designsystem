@@ -1,6 +1,6 @@
 .mdl-flex-data {
-  $dropdownWidth: 120px;
   $sortMinWidth: 280px;
+
   @include sizeCurve(margin-top margin-bottom, big);
 
   &--loading {
@@ -22,6 +22,7 @@
       margin-left: pxToRem($sizeTiny);
     }
   }
+
   &__results {
     @include sizeCurve(margin-bottom margin-top, big);
 
@@ -35,6 +36,7 @@
       min-width: $sortMinWidth;
       text-align: right;
       right: 0;
+
       @include mq($from: tiny, $to: medium) {
         position: relative;
       }
@@ -61,7 +63,7 @@
       .mdl-context_menu {
         right: 0;
         display: none;
-        width: $dropdownWidth;
+        width: auto;
 
         > div {
           width: 100%;

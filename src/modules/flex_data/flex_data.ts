@@ -34,6 +34,8 @@ class FlexData extends Module {
   public dataUrl: string;
   private dataIdle: boolean;
   private currentUrl: string;
+  private order: string;
+  private orderBy: string;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -65,6 +67,8 @@ class FlexData extends Module {
     super($element, defaultData, defaultOptions, data, options);
     this.dataUrl = this.ui.element.getAttribute('data-source');
     this.dataIdle = true;
+    this.order = '';
+    this.orderBy = '';
     this.initUi();
     this.initEventListeners();
   }
@@ -104,14 +108,18 @@ class FlexData extends Module {
         this.ui.genericSortDropdown.classList.toggle('visible');
       });
       this.ui.genericSortDropdown.querySelectorAll('button').forEach((button) => {
-        /* button.addEventListener('click', (event: any) => {
-					this.orderBy = button.getAttribute('data-sort');
-					this.ui.sortButton.querySelector('span').innerHTML = event.target.innerHTML;
-					this.ui.sortDropdown.classList.remove('visible');
-					this.filterView(false, true);
-				});*/
+        button.addEventListener('click', () => {
+          this.order = button.getAttribute('data-sort-direction');
+          this.orderBy = button.getAttribute('data-sort-column');
+          this.ui.genericSortDropdown.classList.remove('visible');
+          this.ui.genericSortButton.querySelector('span').innerText = button.querySelector('span').innerText;
+          this.loadResults();
+        });
       });
     }
+    const sortParamElemet = this.ui.resultsTable ? this.ui.resultsTable : this.ui.resultsGeneric;
+    this.order = sortParamElemet.getAttribute('data-sort-direction');
+    this.orderBy = sortParamElemet.getAttribute('data-sort-column');
     this.updateViewFromURLParams();
     setTimeout(() => { this.loadResults(); }, this.options.initDelay);
   }
@@ -147,6 +155,8 @@ class FlexData extends Module {
         direction: newDirection,
       },
     };
+    this.orderBy = column;
+    this.order = newDirection;
     this.ui.resultsTable.dispatchEvent(new CustomEvent(Table.events.sortColumn, eventDetail));
     this.ui.paginationInput.value = '1';
     this.loadResults();
@@ -193,7 +203,6 @@ class FlexData extends Module {
       .replace('%1', jsonData.numberOfResults);
     // fill table date if present
     if (this.ui.resultsTable) {
-
       this.ui.resultsTableBody.innerHTML = '';
       this.ui.resultsTableTitle.innerText = resultsTitle;
       jsonData.data.forEach((item) => {
@@ -216,7 +225,8 @@ class FlexData extends Module {
     // fill generic results
     if (this.ui.resultsGeneric) {
       this.ui.resultsGenericTitle.innerText = resultsTitle;
-      this.ui.resultsGeneric.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, jsonData);
+      this.ui.resultsGeneric.innerHTML = this
+        .markupFromTemplate(this.ui.resultsTemplate.innerHTML, jsonData);
     }
   }
 
@@ -248,10 +258,8 @@ class FlexData extends Module {
       append(key, formData[key]);
     });
     append('page', this.ui.paginationInput.value);
-    if (this.ui.resultsTable) {
-      append('order', this.ui.resultsTable.getAttribute('data-sort-direction') === 'descending' ? 'desc' : 'asc');
-      append('orderBy', this.ui.resultsTable.getAttribute('data-sort-column'));
-    }
+    append('order', this.order);
+    append('orderBy', this.orderBy);
     return resultUrl;
   }
 
@@ -267,13 +275,15 @@ class FlexData extends Module {
           break;
         case 'order':
           if (this.ui.resultsTable) {
-          this.ui.resultsTable.setAttribute('data-sort-direction',
-            params[key][0] === 'desc' ? 'descending' : 'ascending');
+            this.ui.resultsTable.setAttribute('data-sort-direction',
+              params[key][0] === 'desc' ? 'descending' : 'ascending');
           }
+          this.order = params[key][0]; // eslint-disable-line
           break;
         case 'orderBy':
           if (this.ui.resultsTable) {
             this.ui.resultsTable.setAttribute('data-sort-column', params[key][0]);
+            this.orderBy = params[key][0]; // eslint-disable-line
           }
           break;
         default:
