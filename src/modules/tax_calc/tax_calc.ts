@@ -11,6 +11,8 @@ import {
   TaxCalcModuleOptions //eslint-disable-line
 } from './tax_calc.options';
 import namespace from '../../assets/js/helpers/namespace';
+import WindowEventListener from '../../assets/js/helpers/events';
+import jump from 'jump.js';
 
 interface CalculatorFormItemData {
   title: string;
@@ -345,7 +347,25 @@ class TaxCalc extends Module {
         this.prepareCalculatorForm(calculatorId).catch(() => {
           this.onFormException(`Invalid calculatorId: ${calculatorId}`);
         });
+      })
+      .on('click', this.options.domSelectors.editBtn, () => {
+        jump(this.options.domSelectors.formBase);
       });
+  }
+
+  private initStickyEditBtn(): void {
+    const toFormBtn = document.querySelector<HTMLElement>('.mdl-tax_calc__toformbtn');
+    const toFormBtnAnker = document.querySelector<HTMLElement>('.mdl-tax_calc__toformbtn_anker');
+
+    WindowEventListener.addEventListener('scroll', () => {
+      const rectheight = toFormBtn.getBoundingClientRect().height;
+      const ankerBt = toFormBtnAnker.getBoundingClientRect().bottom;
+      if (ankerBt > window.innerHeight) {
+        toFormBtn.style.top = `${ankerBt - rectheight}px`;
+      } else {
+        toFormBtn.style.top = null;
+      }
+    });
   }
 
   private async prepareCalculatorForm(calculatorId: string): Promise<void> {
@@ -637,6 +657,8 @@ class TaxCalc extends Module {
         this.setResultBlocks(tableProps, remarks);
         this.ui.element.classList.add(this.options.stateClasses.hasResult);
         this.ui.resultTaxYear.innerText = resp.taxYear ? resp.taxYear.value : '';
+
+        this.initStickyEditBtn();
       }
     }, (postFailReason) => {
       this.log('FormSubmit failed! ', postFailReason);
@@ -645,7 +667,8 @@ class TaxCalc extends Module {
   }
 
   private async postCalculatorFormData(endpoint: string, transformEmptyNumberToZero = false) {
-    const formData = window[namespace].form.formToJSON(this.ui.formBase.elements, true, transformEmptyNumberToZero);
+    const formData = window[namespace].form
+      .formToJSON(this.ui.formBase.elements, true, transformEmptyNumberToZero);
     delete formData.taxEntity;
     delete formData.taxType;
 

@@ -108,15 +108,15 @@
 
         &--loading {
           .atm-button__text {
-            color: $colorBlack;
+            opacity: 0;
           }
 
           .atm-loading_circle {
             background: none;
           }
 
-          .atm-loading_circle__svg circle {
-            stroke: $colorWhite;
+          .atm-loading_circle__spinner {
+            color: $colorWhite;
           }
         }
       }
@@ -138,6 +138,10 @@
     overflow: hidden;
   }
 
+  &__toformbtn {
+    display: none;
+  }
+
   &--result {
     #{$root}__result-block {
       max-height: 5000px; // TODO
@@ -145,6 +149,15 @@
 
     .mdl-table {
       @include sizeCurve(margin-bottom, large);
+    }
+
+    #{$root}__toformbtn {
+      display: block;
+      position: fixed;
+      border-radius: 50%;
+      right: pxToRem($sizeRegular);
+      bottom: pxToRem($sizeLarge);
+      text-align: center;
     }
   }
 
@@ -159,6 +172,15 @@
 
     .mdl-instructions {
       display: none;
+    }
+  }
+}
+
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-tax_calc__toformbtn {
+      background: #{$val};
     }
   }
 }
