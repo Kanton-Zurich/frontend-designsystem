@@ -6,9 +6,9 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('cookie_controls.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'CookieControls',
+    title: 'Cookie Controls',
     className: 'CookieControls',
-    jira: 'CZHDEV-*',
+    jira: 'CZHDEV-466',
     documentation: dataHelper.getDocumentation('cookie_controls.md'),
   },
   props: {
