@@ -52,7 +52,7 @@ class FormRules {
     const copiedRules = this.rules;
 
     this.rules.forEach((rule, ruleIdx) => {
-      rule.conditions.forEach((condition, conditionIdx) => {
+      rule.conditions.forEach((condition) => {
         const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
         const field = this.ui.form.querySelector(querySelector);
 
