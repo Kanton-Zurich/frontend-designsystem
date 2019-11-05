@@ -61,6 +61,7 @@ class FormRules {
 
         break;
       case 'enable':
+      case 'disable':
         this.ui.owner.setAttribute('data-pending', 'true');
         this.ui.owner.removeAttribute('data-enabled');
         this.ui.owner.dispatchEvent(new CustomEvent(FormRules.events.stateChange, {
