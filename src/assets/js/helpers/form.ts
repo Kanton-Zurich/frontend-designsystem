@@ -215,7 +215,7 @@ class FormGlobalHelper {
        */
         if (isCheckbox(element)) {
           if (checkboxesAsSingleValue) {
-            data[element.name] = element.value;
+            data[element.name] = element.checked;
           } else {
             data[element.name] = (data[element.name] || []).concat(element.value);
           }

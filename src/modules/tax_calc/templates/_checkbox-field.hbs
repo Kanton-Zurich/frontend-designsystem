@@ -1,7 +1,7 @@
 <fieldset class="form__fieldset" data-input>
     <div class="form__fieldset-list form__fieldset-list--vertical">
         <div class="atm-checkbox">
-            <input type="checkbox" id="checkbox-<%=fieldName%>" name="<%=fieldName%>" data-validation value="true"
+            <input type="checkbox" id="checkbox-<%=fieldName%>" name="<%=fieldName%>" data-validation value="<%=label%>"
             <% if (reinvokeTrigger) { %> data-tax_calc-reinvoke="true"<% } %>
             <% if (mandatory) { %> required<% } %><% if (value) { %> checked<% } %>>
             <label for="checkbox-<%=fieldName%>">
@@ -12,7 +12,7 @@
                   </svg>
                 </span>
                 <% if (hint) { %>
-                <div class="atm-checkbox__hint"> <%=hint%></div>
+                <div class="atm-checkbox__hint"><%=hint%></div>
                 <% } %>
             </label>
         </div>

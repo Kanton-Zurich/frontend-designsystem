@@ -184,6 +184,8 @@ class TaxCalc extends Module {
           if (inEl.type === 'radio' && inEl.checked) {
             const labelEl = formSectionItem.querySelector<HTMLLabelElement>(`label[for=${inEl.id}]`);
             sectionVals.push(labelEl.childNodes[0].nodeValue);
+          } else if (inEl.type === 'checkbox' && inEl.checked) {
+            sectionVals.push(inEl.value);
           } else if (inEl.type === 'number') {
             const numVal = inEl.valueAsNumber;
             let numValStr = '0';
