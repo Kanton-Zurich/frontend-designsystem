@@ -62,15 +62,18 @@ class FormRules {
           const parentRules = JSON.parse(closestParent.dataset.rules);
 
           parentRules.forEach((parentRule, c) => {
-            if (c === 0) {
-              copiedRules[ruleIdx].conditions = [...copiedRules[ruleIdx].conditions,
-                ...parentRule.conditions];
-            } else {
-              copiedRules.push({
-                action: rule.action,
-                conditions: [...copiedRules[ruleIdx].conditions,
-                  ...parentRule.conditions],
-              });
+            // Don't take the rules over when it is a step
+            if (parentRule.action !== 'enable' && parentRule.action !== 'disable') {
+              if (c === 0) {
+                copiedRules[ruleIdx].conditions = [...copiedRules[ruleIdx].conditions,
+                  ...parentRule.conditions];
+              } else {
+                copiedRules.push({
+                  action: rule.action,
+                  conditions: [...copiedRules[ruleIdx].conditions,
+                    ...parentRule.conditions],
+                });
+              }
             }
           });
         }
