@@ -8,6 +8,7 @@ const teaserData = require('../../modules/teaser/teaser.data').variants.inverted
 const defAboutData = require('../../modules/about/about.data').props;
 const headerData = require('../../modules/header/header.data').variants.userMenu.props;
 const newsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withProminentTeaser.props;
+const breadcrumb = require('../../modules/breadcrumb/breadcrumb.data').variants.default.props;
 
 const pageHeaderWithoutBtn = _.omit(defPageHeaderData.variants.colored.props, ['buttonData']);
 defPageHeaderData.variants.colored.props = pageHeaderWithoutBtn;
@@ -71,23 +72,7 @@ const data = _.merge({}, defaultData, {
             props: {
               pageTitle: 'Strassenverkehrsamt',
               leadTitle: 'Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
-              breadcrumb: {
-                contextMenu: false,
-                path: [
-                  {
-                    title: 'Kanton Zürich',
-                    href: '#',
-                  },
-                  {
-                    title: 'Sicherheitsdirektion',
-                    href: '#',
-                  },
-                  {
-                    title: 'Strassenverkehrsamt',
-                    href: '#',
-                  },
-                ],
-              },
+              breadcrumb,
             },
           },
         },
