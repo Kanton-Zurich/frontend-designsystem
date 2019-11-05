@@ -647,25 +647,33 @@ class TaxCalc extends Module {
     this.ui.apiErrorNotification.style.maxHeight = `${height}px`;
   }
 
-  private doSubmitForm() {
-    const url = `${this.calculatorUrl}/calculate`;
-    this.postCalculatorFormData(url, true).then((resp) => {
-      if (resp.errors) {
-        this.onApiError(resp.errors);
-      } else {
-        this.log('Calculate Response:', resp);
-        const tableProps = this.getTablePropertiesFromResponse(resp);
-        const remarks = this.getRemarksFromResponse(resp);
-        this.setResultBlocks(tableProps, remarks);
-        this.ui.element.classList.add(this.options.stateClasses.hasResult);
-        this.ui.resultTaxYear.innerText = resp.taxYear ? resp.taxYear.value : '';
+  private async doSubmitForm() {
+    let to = 0;
+    if (this.ui.element.classList.contains(this.options.stateClasses.hasResult)) {
+      this.ui.element.classList.remove(this.options.stateClasses.hasResult);
+      to = this.options.transitionTimeout;
+    }
 
-        this.initStickyEditBtn();
-      }
-    }, (postFailReason) => {
-      this.log('FormSubmit failed! ', postFailReason);
-    });
-    this.toNextFormSection();
+    setTimeout(() => {
+      const url = `${this.calculatorUrl}/calculate`;
+      this.postCalculatorFormData(url, true).then((resp) => {
+        if (resp.errors) {
+          this.onApiError(resp.errors);
+        } else {
+          this.log('Calculate Response:', resp);
+          const tableProps = this.getTablePropertiesFromResponse(resp);
+          const remarks = this.getRemarksFromResponse(resp);
+          this.setResultBlocks(tableProps, remarks);
+          this.ui.element.classList.add(this.options.stateClasses.hasResult);
+          this.ui.resultTaxYear.innerText = resp.taxYear ? resp.taxYear.value : '';
+
+          this.initStickyEditBtn();
+        }
+      }, (postFailReason) => {
+        this.log('FormSubmit failed! ', postFailReason);
+      });
+      this.toNextFormSection();
+    }, to);
   }
 
   private async postCalculatorFormData(endpoint: string, transformEmptyNumberToZero = false) {

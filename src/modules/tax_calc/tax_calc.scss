@@ -125,7 +125,7 @@
     }
 
     #{$root}__error {
-      @include transition(max-height);
+      @include transition(max-height, $time: 500);
       @include sizeCurve(margin-top, medium, $isNegative: true);
       @include sizeCurve(margin-bottom, medium);
 
@@ -135,8 +135,9 @@
   }
 
   &__result-block {
+    @include transition(max-height);
+
     max-height: 0;
-    transition: max-height 1s ease-in;
     overflow: hidden;
   }
 
@@ -146,7 +147,7 @@
 
   &--result {
     #{$root}__result-block {
-      max-height: 5000px; // TODO
+      max-height: 2000px; // TODO
     }
 
     .mdl-table {
