@@ -107,7 +107,7 @@
     .mdl-breadcrumb__item {
       display: none;
 
-      &:nth-last-child(2) {
+      &.mdl-breadcrumb__item--parent {
         display: flex;
       }
     }
