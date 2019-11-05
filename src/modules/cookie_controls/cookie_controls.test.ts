@@ -25,7 +25,7 @@ describe('CookieControls', () => {
 
   it('should load without error', async () => true);
 
-  it('should be unchecked if no or an falsy cookie "acceptYouTube" is found', async () => {
+  it('inital there should be no or an falsy cookie "acceptYouTube" set and the checkbox should be unchecked', async () => {
     const result = await page.evaluate(() => {
       const cookieName = 'acceptYouTube';
       const match = document.cookie.match(new RegExp(`(^| )${cookieName}=([^;]+)`));
