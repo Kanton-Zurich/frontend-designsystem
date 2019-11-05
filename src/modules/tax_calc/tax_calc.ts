@@ -377,7 +377,7 @@ class TaxCalc extends Module {
         this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.loading);
         this.fetchJsonData(this.calculatorUrl).then(
           (resp) => {
-            const formItems = this.buildFormItemsFromResp(resp);
+            const formItems = this.buildFormItemsFromResp(resp, true);
             this.setFormItems(formItems);
             this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
             resolve();
