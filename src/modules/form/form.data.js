@@ -1144,6 +1144,10 @@ const variants = _.mapValues({
                     uuid: 'fullText',
                   })),
               },
+            ],
+          },
+          {
+            fields: [
               {
                 cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
                   formInputData.variants.default.props,
@@ -1154,20 +1158,37 @@ const variants = _.mapValues({
                     uuid: 'decisionNumber',
                   })),
               },
+              {
+                cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                  selectData.variants.default.props,
+                  {
+                    listData: _.merge({}, listDemoData.props, {
+                      groupId: 'year',
+                      isSingleSelect: true,
+                      selectOptions: [
+                        { value: '', label: '' },
+                        { value: '2019', label: '2019'},
+                        { value: '2018', label: '2018'},
+                        { value: '2017', label: '2017'},
+                        { value: '2016', label: '2016'},
+                        { value: '2015', label: '2015'},
+                        { value: '2014', label: '2014'},
+                        { value: '2013', label: '2013'},
+                        { value: '2012', label: '2012'},
+                      ],
+                    }),
+                    triggerInputData: {
+                      label: 'Jahr',
+                      validation: {
+                        isRequired: false,
+                      },
+                    },
+                  })),
+              },
             ],
           },
           {
             fields: [{
-              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                formInputData.variants.default.props,
-                {
-                  isFloatingLabel: true,
-                  label: 'Jahr',
-                  name: 'year',
-                  uuid: 'year',
-                })),
-            },
-            {
               cellContent: () => handlebars.compile(selectHBS)(_.merge({},
                 selectData.variants.default.props,
                 {
