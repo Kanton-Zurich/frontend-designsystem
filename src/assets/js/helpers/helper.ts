@@ -86,7 +86,7 @@ class Helper {
    * @memberof Helper
    */
   public sendRedrawEvent(container) {
-    const childNodes = [].slice.call(container.querySelectorAll('[data-redraw]'));
+    const childNodes = [].slice.call(container.querySelectorAll('[data-redraw], [data-init]'));
 
     childNodes.forEach((child) => {
       child.dispatchEvent(new CustomEvent('redraw'));

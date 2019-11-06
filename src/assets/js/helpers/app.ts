@@ -48,6 +48,7 @@ import CugLogin from '../../../modules/cug_login/cug_login';
 import Video from '../../../modules/video/video';
 import OpenData from '../../../modules/open_data/open_data';
 import CookieControls from '../../../modules/cookie_controls/cookie_controls';
+import Banner from '../../../modules/banner/banner';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -105,6 +106,7 @@ class App {
     this.modules.openData = OpenData;
     this.modules.video = Video;
     this.modules.cookieControls = CookieControls;
+    this.modules.banner = Banner;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

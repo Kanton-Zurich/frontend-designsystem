@@ -12,7 +12,6 @@ import WindowEventListener from '../../assets/js/helpers/events';
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import Header from '../header/header';
 
 class Anchornav extends Module {
   public placeholder: HTMLElement;
@@ -20,6 +19,8 @@ class Anchornav extends Module {
   public navigationPositionY: number;
   public headerHeight: number;
   public activeIndex: number;
+  public marginBottom: number;
+  public decimalRadix: number;
   public navigationIsFixed: boolean;
   public elementMissing: boolean;
   public navigationHeight: number;
@@ -34,6 +35,8 @@ class Anchornav extends Module {
   public jumpPossible: boolean;
   public isClickEvent: boolean;
   public isKeyEvent: boolean;
+
+  public headerElement: HTMLElement;
 
   public ui: {
     element: any,
@@ -65,6 +68,7 @@ class Anchornav extends Module {
       showButton: number,
       swipe: number,
       scrollDistance: number,
+      jumpToMargin: number,
     }
     btnScroll: {
       steps: number,
@@ -93,8 +97,9 @@ class Anchornav extends Module {
       },
       tolerances: {
         showButton: 10,
-        swipe: 10,
+        swipe: 18,
         scrollDistance: 100,
+        jumpToMargin: 2,
       },
       btnScroll: {
         steps: 10,
@@ -110,13 +115,31 @@ class Anchornav extends Module {
     this.headerHeight = 0;
     this.activeIndex = 0;
     this.mediumBreakpoint = 840;
-    this.lastYScrollPositon = this.getDocumnetScrollPosition();
+    this.decimalRadix = 10;
+    this.lastYScrollPositon = 0;
     this.jumpPossible = true;
     this.isClickEvent = false;
     this.isKeyEvent = false;
 
+    const elementStyle = this.ui.element.currentStyle || window.getComputedStyle(this.ui.element);
+    // Because Internet Explorer 11 checks causes log error
+    // "!!window.MSInputMethodContext && !!document.documentMode"
+    if (elementStyle.marginBottom.split('rem').length > 1) {
+      const rem = parseFloat(elementStyle.marginBottom.split('rem')[0]);
+      // eslint-disable-next-line no-undef
+      this.marginBottom = rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+    } else {
+      this.marginBottom = parseInt(elementStyle.marginBottom.split('px')[0], this.decimalRadix);
+    }
+
+    this.headerElement = document.querySelector('.mdl-header');
+    if (this.headerElement !== null) {
+      this.headerHeight = this.headerElement.getBoundingClientRect().height;
+    }
+
     this.initUi();
     this.cacheNavigationPosition();
+
 
     const hasMoreThanOneItem = this.ui.navItems.length > 1;
     if (hasMoreThanOneItem) {
@@ -124,27 +147,7 @@ class Anchornav extends Module {
       this.updateVerticalScrollInfo();
       this.updateNavigationState();
       if (this.scrollReferences.length > 0) {
-        const currentScrollPosition = this.getDocumnetScrollPosition();
-        let navItem;
-
-        for (let i = 0; i < this.scrollReferences.length; i += 1) {
-          const currentItem = this.scrollReferences[i];
-          const triggerY = currentItem.triggerYPosition;
-
-          if (this.scrollDirection === 'down') {
-            if (currentScrollPosition >= triggerY) {
-              navItem = (<any> currentItem).correspondingAnchor;
-            }
-          } else if (this.scrollDirection === 'up') {
-            if (currentScrollPosition <= triggerY) {
-              navItem = (<any> currentItem).correspondingAnchor;
-              i = this.scrollReferences.length; // Stop for loop
-            }
-          }
-        }
-        if (this.ui.navItemActive !== navItem && navItem !== undefined) {
-          this.toggleActiveNavigationItemClass(navItem);
-        }
+        this.updateActiveAnchorState();
       }
       this.initializeImpetus();
       this.syncHorizontalPositon();
@@ -177,34 +180,34 @@ class Anchornav extends Module {
     // Necessary for jump.js plugin.
     // Is triggered before the debounced callback.
     (<any>WindowEventListener).addEventListener('scroll', this.onPageScroll.bind(this));
-
-    window.addEventListener(Header.events.showHeader, (event) => {
-      if (this.navigationIsFixed) {
-        this.addHeaderToPlaceHolderHeight((<any>event).detail);
-      }
-    });
-
-    window.addEventListener(Header.events.hideHeader, this.calcHeight.bind(this));
   }
 
   /**
    * Page resize callback, responsible for updating all relevant data/positions.
    */
   onResize() {
+    if (this.headerElement !== null) {
+      this.headerHeight = this.headerElement.getBoundingClientRect().height;
+    }
+
+    if (window.innerWidth < this.mediumBreakpoint) {
+      this.impetusInstance.pause();
+      this.marginBottom = 40;
+    } else {
+      this.impetusInstance.resume();
+      this.marginBottom = 56;
+    }
+
     this.cacheNavigationPosition();
     this.cacheAnchorReferences();
     this.scrollPositonX = this.ui.scrollContent.scrollLeft;
     this.updateShadows();
     this.updateVerticalScrollInfo();
+    this.updateNavigationState();
     this.updateActiveAnchorState();
 
     this.impetusInstance.setBoundX([-this.getScrollWidth(), 0]);
-
-    if (window.innerWidth < this.mediumBreakpoint) {
-      this.impetusInstance.pause();
-    } else {
-      this.impetusInstance.resume();
-    }
+    this.placeholder.style.marginBottom = `${this.marginBottom}px`;
   }
 
   /**
@@ -255,7 +258,7 @@ class Anchornav extends Module {
       navElement = this.ui.scrollMask;
     }
     this.navigationHeight = this.ui.element.getBoundingClientRect().height;
-    this.navigationPositionY = this.getPageYPositionFor(navElement) - this.headerHeight;
+    this.navigationPositionY = this.getPageYPositionFor(navElement);
   }
 
   /**
@@ -292,7 +295,7 @@ class Anchornav extends Module {
    * if the position exceeds the scrollable space
    */
   calculateTriggerPositions() {
-    const scrollMax = document.body.offsetHeight - window.innerHeight + this.headerHeight;
+    const scrollMax = (document.body.offsetHeight - window.innerHeight - this.marginBottom);
     let foundExceed = false;
     let exceedCounter = 0;
     let exceedIndex = 0;
@@ -305,15 +308,15 @@ class Anchornav extends Module {
       currentTriggerPosition -= this.navigationHeight;
       this.scrollReferences[i].triggerYPosition = currentTriggerPosition;
 
-      if ((currentTriggerPosition + window.innerHeight) > scrollMax && !foundExceed) {
+      if ((currentTriggerPosition) > scrollMax && !foundExceed) {
         // Get the count for the exceeding anchors but include the last fitting anchor
         // to spread even the space after his last Y position
         exceedCounter = this.scrollReferences.length - i;
         exceedIndex = i;
+        const previousIndex = i - 1 >= 0 ? i - 1 : 0;
+        const space = scrollMax - this.scrollReferences[previousIndex].triggerYPosition;
         foundExceed = true;
-        const overflow = (currentTriggerPosition + window.innerHeight) - scrollMax;
-        lastFittingTriggerPosition = this.scrollReferences[i].triggerYPosition - overflow;
-        evenDistances = Math.round((scrollMax - lastFittingTriggerPosition) / exceedCounter);
+        evenDistances = Math.round(space / (exceedCounter + 1));
       }
     }
 
@@ -323,7 +326,7 @@ class Anchornav extends Module {
       // so spread evenly from zero downwards
       if (exceedIndex === 0) {
         evenDistances = scrollMax / exceedCounter;
-        lastFittingTriggerPosition = 0;
+        lastFittingTriggerPosition = scrollMax;
       }
 
       // Later or last item exceed scrolling possibility,
@@ -345,11 +348,13 @@ class Anchornav extends Module {
    */
   updateVerticalScrollInfo() {
     const currentScrollPosition = this.getDocumnetScrollPosition();
+
     if (currentScrollPosition > this.lastYScrollPositon) {
       this.scrollDirection = 'down';
-    } else {
+    } else if (currentScrollPosition < this.lastYScrollPositon) {
       this.scrollDirection = 'up';
     }
+
     this.lastYScrollPositon = currentScrollPosition;
   }
 
@@ -361,17 +366,15 @@ class Anchornav extends Module {
     const scrollSpace = this.getScrollWidth();
     const pinPos = this.navigationPositionY;
 
-    this.log(pinPos);
-
     if (this.placeholder === undefined) {
       this.createPlaceholder();
     }
 
     // Handle sticky nav
-    if (currentScrollPosition >= pinPos && !this.navigationIsFixed) {
+    if (currentScrollPosition >= (pinPos) && !this.navigationIsFixed) {
       this.pinNavigation();
       this.navigationIsFixed = true;
-    } else if (currentScrollPosition <= pinPos && this.navigationIsFixed) {
+    } else if (currentScrollPosition <= (pinPos - this.headerHeight) && this.navigationIsFixed) {
       this.unpinNavigation();
       this.navigationIsFixed = false;
     }
@@ -388,23 +391,35 @@ class Anchornav extends Module {
     const currentScrollPosition = this.getDocumnetScrollPosition();
     let navItem;
 
-    for (let i = 0; i < this.scrollReferences.length; i += 1) {
-      const currentItem = this.scrollReferences[i];
-      const triggerY = currentItem.triggerYPosition;
-
-      if (this.scrollDirection === 'down') {
-        if (currentScrollPosition >= triggerY && i > this.activeIndex) {
+    if (this.scrollDirection === 'down') {
+      for (let i = 0; i < this.scrollReferences.length; i += 1) {
+        const currentItem = this.scrollReferences[i];
+        const triggerY = currentItem.triggerYPosition;
+        if (currentScrollPosition >= (triggerY)) {
           navItem = (<any> currentItem).correspondingAnchor;
         }
-      } else if (this.scrollDirection === 'up') {
-        if (currentScrollPosition <= triggerY && i < this.activeIndex) {
-          navItem = (<any> currentItem).correspondingAnchor;
-          i = this.scrollReferences.length - 1; // Stop the loop on the first match
+      }
+    } else {
+      let preIndex = this.scrollReferences.length - 1;
+      let scrollUpMatch = false;
+      for (let i = this.scrollReferences.length - 1; i > 0; i -= 1) {
+        const currentItem = this.scrollReferences[i];
+        const triggerY = currentItem.triggerYPosition;
+
+        if (currentScrollPosition <= (triggerY - (this.headerHeight + this.navigationHeight))) {
+          preIndex = i - 1 >= 0 ? i - 1 : 0;
+          scrollUpMatch = true;
+        }
+
+        if (scrollUpMatch) {
+          navItem = this.scrollReferences[preIndex].correspondingAnchor;
         }
       }
     }
+
     if (this.ui.navItemActive !== navItem && navItem !== undefined) {
       this.toggleActiveNavigationItemClass(navItem);
+      // this.syncHorizontalPositon();
     }
   }
 
@@ -530,21 +545,11 @@ class Anchornav extends Module {
    */
   createPlaceholder() {
     this.placeholder = document.createElement('div');
-
-    this.calcHeight();
-
-    this.ui.element.parentNode.insertBefore(this.placeholder, this.ui.element);
-  }
-
-  calcHeight() {
+    this.placeholder.style.marginBottom = `${this.marginBottom}px`;
     this.placeholder.style.height = `${(this.ui.element.getBoundingClientRect().height)}px`;
     this.placeholder.style.display = 'none';
-  }
 
-  addHeaderToPlaceHolderHeight(headerHeight) {
-    const currentHeight = this.placeholder.getBoundingClientRect().height;
-
-    this.placeholder.style.height = `${currentHeight + headerHeight}px`;
+    this.ui.element.parentNode.insertBefore(this.placeholder, this.ui.element);
   }
 
   /**
@@ -577,12 +582,12 @@ class Anchornav extends Module {
     const elementTop = element.getBoundingClientRect().top;
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-
     const headerElement = document.querySelector('.mdl-header');
     if (headerElement !== null) {
       this.headerHeight = headerElement.getBoundingClientRect().height;
     }
-    return elementTop + scrollTop + this.headerHeight;
+
+    return elementTop + scrollTop;
   }
 
   /**
@@ -621,11 +626,11 @@ class Anchornav extends Module {
         if (distance < 0) {
           // Jump upwards
           this.scrollDirection = 'up';
-          distance -= (this.headerHeight);
+          distance -= (this.navigationHeight) - this.options.tolerances.jumpToMargin;
         } else {
           // Jump downwards
           this.scrollDirection = 'down';
-          distance += (this.headerHeight);
+          distance += this.options.tolerances.jumpToMargin;
         }
       }
     }

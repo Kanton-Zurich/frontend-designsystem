@@ -74,9 +74,6 @@ const variants = _.mapValues({
           title: 'Kanton Zürich',
           href: '#',
         },
-        {
-          title: 'Urgrosselternseite',
-        },
       ],
     },
   },
@@ -94,6 +91,22 @@ const variants = _.mapValues({
         },
         {
           title: 'Aktuelle Seite',
+        },
+      ],
+    },
+  },
+  singleItemErrorPage: {
+    meta: {
+      title: 'einzelnes Item',
+      desc: 'Für 404-Seiten z.B.',
+    },
+    props: {
+      backOnly: false,
+      disableJS: true,
+      path: [
+        {
+          title: 'Kanton Zürich',
+          href: '#',
         },
       ],
     },
