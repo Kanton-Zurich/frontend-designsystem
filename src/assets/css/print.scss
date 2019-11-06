@@ -28,6 +28,13 @@
 @import '../../modules/cta_box/cta_box.print';
 @import '../../modules/focus_card/focus_card.print';
 @import '../../modules/person_card/person_card.print';
+@import '../../modules/texthighlight/texthighlight.print';
+@import '../../modules/topiclist/topiclist.print';
+@import '../../modules/teaser/teaser.print';
+@import '../../modules/breadcrumb/breadcrumb.print';
+@import '../../modules/cug_login/cug_login.print';
+@import '../../modules/tabs/tabs.print';
+@import '../../modules/instructions/instructions.print';
 //*autoinsertmodule*
 
 html,
@@ -42,6 +49,16 @@ body {
       margin-left: 40px;
       width: 90%;
     }
+
+    .icon use {
+      fill: $colorBlack !important; //stylelint-disable-line
+    }
+
+    .atm-button,
+    .atm-anchorlink {
+      background-color: $colorWhite !important; //stylelint-disable-line
+      border: 1px solid $colorBlack !important; //stylelint-disable-line
+    }
   }
 
   .print-hidden {
@@ -54,6 +71,10 @@ body {
 
   *:focus {
     outline: none;
+  }
+
+  * {
+    color: $colorBlack !important; //stylelint-disable-line
   }
 }
 

@@ -1,4 +1,10 @@
 .mdl-page-header {
+  padding: 0;
+
+  .mdl-page-header__logo-container {
+    display: none;
+  }
+
   .mdl-service_button,
   .mdl-tag-group {
     display: none;
