@@ -221,6 +221,8 @@ class Topiclist extends Module {
   renderNavigation() {
     const { middleSection } = this.data.json.pages;
 
+    this.ui.navigation.querySelector('ul').innerHTML = '';
+
     middleSection.forEach((topic) => {
       this.renderContentTeaser(this.ui.navigation, {
         shortTitle: topic.title,
