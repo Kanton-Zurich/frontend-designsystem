@@ -37,11 +37,11 @@
       text-align: right;
       right: 0;
 
-      @include mq($from: tiny, $to: medium) {
+      @include mq($from: tiny, $to: large) {
         position: relative;
       }
-      @include mq($from: medium) {
-        top: 0;
+      @include mq($from: large) {
+        top: pxToRem(-$sizeTiny);
         position: absolute;
       }
 
