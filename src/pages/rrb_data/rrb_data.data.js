@@ -19,7 +19,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('rrb_data.md'),
   },
   props: {
-    defaultColorVariation: 'cv-magenta',
+    defaultColorVariation: 'cv-bordeaux',
     header: headerData,
     modules: {
       pageHeaderData: {
