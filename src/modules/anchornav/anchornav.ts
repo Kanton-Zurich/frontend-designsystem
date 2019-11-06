@@ -126,7 +126,8 @@ class Anchornav extends Module {
     // "!!window.MSInputMethodContext && !!document.documentMode"
     if (elementStyle.marginBottom.split('rem').length > 1) {
       const rem = parseFloat(elementStyle.marginBottom.split('rem')[0]);
-      this.marginBottom = rem * parseFloat(getComputedStyle(document.documentElement).fontSize); // eslint-disable-line no-undef
+      // eslint-disable-next-line no-undef
+      this.marginBottom = rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
     } else {
       this.marginBottom = parseInt(elementStyle.marginBottom.split('px')[0], this.decimalRadix);
     }

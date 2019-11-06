@@ -1,5 +1,6 @@
 html.fixed-header .mdl-anchornav--sticky {
   top: 50px;
+
   @include mq($from: xsmall) {
     top: 58px;
   }
