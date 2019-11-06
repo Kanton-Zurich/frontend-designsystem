@@ -35,7 +35,8 @@ class CookieControls extends Module {
     };
 
     super($element, defaultData, defaultOptions, data, options);
-    this.daysToExpire = parseInt(this.ui.element.dataset.expirydays);
+    const radix = 10;
+    this.daysToExpire = parseInt(this.ui.element.dataset.expirydays, radix);
     this.cookieName = 'acceptYouTube';
 
     const match = document.cookie.match(new RegExp(`(^| )${this.cookieName}=([^;]+)`));
@@ -61,8 +62,11 @@ class CookieControls extends Module {
    */
   initEventListeners() {
     this.eventDelegate.on('click', this.options.domSelectors.checkbox, () => {
-      console.log('click on checkbox');
-      document.cookie = `acceptYouTube=true; max-age=${this.getExpireDate()}; path=/`;
+      if (this.ui.checkbox.checked) {
+        document.cookie = `acceptYouTube=true; max-age=${this.getExpireDate()}; path=/`;
+      } else {
+        document.cookie = `acceptYouTube=true; max-age=${new Date()}; path=/`;
+      }
     });
   }
 
@@ -80,7 +84,7 @@ class CookieControls extends Module {
     date.setTime(date.getTime()
       + this.daysToExpire * hoursADay * minsPerHour * secsPerMin * milliSecs);
 
-    this.log(`Set cookie expirationtime to ${ date.toUTCString()}`);
+    this.log(`Set cookie expirationtime to ${date.toUTCString()}`);
     return date.toUTCString();
   }
 
