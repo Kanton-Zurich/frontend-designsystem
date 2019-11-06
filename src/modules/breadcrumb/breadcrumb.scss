@@ -97,10 +97,6 @@
     .mdl-breadcrumb__hidden-items {
       display: none;
     }
-
-    @include mq($to: small) {
-      margin-left: pxToRem($sizeLarge);
-    }
   }
 
   &--parent-only {
