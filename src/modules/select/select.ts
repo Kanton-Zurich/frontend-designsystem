@@ -292,7 +292,11 @@ class Select extends Module {
           event.preventDefault();
         }
       });
-      this.ui.filterClearButton.addEventListener('keydown', (event) => {
+      this.ui.filterClearButton.addEventListener('click', (event) => {
+        this.ui.filter.value = '';
+        if (this.ui.filter.classList.contains('dirty')) {
+          this.ui.filter.classList.remove('dirty');
+        }
         if (event.key === 'Tab' && !event.shiftKey) {
           const visibleItems = this.ui.element
             .querySelectorAll(this.options.domSelectors.visibleInputItems);
@@ -303,6 +307,11 @@ class Select extends Module {
         }
       });
       this.watch(this.ui.filter, 'value', debounce((key, before, after) => { // eslint-disable-line
+        if (after.length > 0 && !this.ui.filter.classList.contains('dirty')) {
+          this.ui.filter.classList.add('dirty');
+        } else if (after.length === 0 && this.ui.filter.classList.contains('dirty')) {
+          this.ui.filter.classList.remove('dirty');
+        }
         this.setFilter(after);
       }, this.options.inputDelay));
     }

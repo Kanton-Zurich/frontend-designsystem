@@ -314,11 +314,24 @@ $topSpaceSearchInput: 15.5px;
 
     .icon {
       position: absolute;
-      top: pxToRem($sizeLarge);
+      top: 0;
       right: pxToRem($sizeSmallRegular);
       transform: rotate(0deg);
       transition: 400ms transform ease-out;
       fill: $colorBlack40;
+    }
+  }
+
+  &--datepicker,
+  &--trigger {
+    .icon {
+      top: pxToRem($sizeLarge);
+    }
+  }
+
+  &--icon {
+    >.icon {
+      top: pxToRem($sizeLarge);
     }
   }
 
@@ -506,7 +519,7 @@ $topSpaceSearchInput: 15.5px;
 
 /** STYLES FOR VALIDATION CLASSES */
 
-[  data-input ] {
+[ data-input ] {
 
   &:not(.dirty) {
     textarea#{&} {
