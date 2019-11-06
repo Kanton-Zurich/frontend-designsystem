@@ -24,7 +24,7 @@ const data = _.merge({}, defaultData, {
     action: '/mocks/modules/form/form.json',
     confirmation: notification.formConfirmation.props,
     navigation: {
-      steps: ['Persönliche Angaben', 'Berufliche Informationen', 'Bestätigung'],
+      steps: ['Persönliche Angaben', 'Berufliche Informationen, mit einem sehr langen Text, Hallo, Hallo, Hallo Hallo', 'Bestätigung'],
     },
     toggle,
     notificationTemplate: notification.default.meta.code.template,

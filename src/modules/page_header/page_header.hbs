@@ -25,10 +25,6 @@
       <div class="cell {{#if minimal}}tiny-6 xsmall-6 small-7{{/if}} {{#unless
         minimal}}tiny-10 xsmall-10 small-10{{/unless}} medium-10 large-10 xlarge-10">
         {{#unless minimal}}
-          {{#if hasBacklink}}
-            <div class="mdl-page-header__breadcrumb">
-              {{> "modules/breadcrumb/breadcrumb" backlink}}</div>
-          {{/if}}
           {{#if breadcrumb}}
             <div class="mdl-page-header__breadcrumb">
               {{> "modules/breadcrumb/breadcrumb" breadcrumb}}</div>
