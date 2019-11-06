@@ -1,6 +1,6 @@
 <nav>
   <h2 class="visuallyhidden">Sie sind hier: </h2>
-  <ol class="mdl-breadcrumb {{#if backOnly}}mdl-breadcrumb--back-only{{/if}}" data-init="breadcrumb">
+  <ol class="mdl-breadcrumb {{#if backOnly}}mdl-breadcrumb--back-only{{/if}}" data-init="breadcrumb" {{#if disableJS}}data-disable-js="true"{{/if}}>
     {{#each path}}
       <li class="mdl-breadcrumb__item
         {{#if @first}}mdl-breadcrumb__item--main{{/if}}

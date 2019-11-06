@@ -98,6 +98,22 @@ const variants = _.mapValues({
       ],
     },
   },
+  singleItemErrorPage: {
+    meta: {
+      title: 'einzelnes Item',
+      desc: 'Für 404-Seiten z.B.',
+    },
+    props: {
+      backOnly: false,
+      disableJS: true,
+      path: [
+        {
+          title: 'Kanton Zürich',
+          href: '#',
+        },
+      ],
+    },
+  },
 }, (variant) => {
   // eslint-disable-next-line
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {

@@ -30,6 +30,7 @@ class Breadcrumb extends Module {
 
   public options: {
     hasContextMenu: Boolean,
+    disableJS: Boolean,
     domSelectors: {
       item: string,
       ellipsis: string,
@@ -52,6 +53,7 @@ class Breadcrumb extends Module {
     };
     const defaultOptions = {
       customTrigger: false,
+      disableJS: $element.dataset.disableJs,
       domSelectors: {
         item: '[data-breadcrumb="item"]',
         ellipsis: '[data-breadcrumb="ellipsis"]',
@@ -70,20 +72,22 @@ class Breadcrumb extends Module {
 
     super($element, defaultData, defaultOptions, data, options);
 
-    this.initUi(['contextMenuItem', 'item']);
-    this.initEventListeners();
+    if (!this.options.disableJS) {
+      this.initUi(['contextMenuItem', 'item']);
+      this.initEventListeners();
 
-    this.options.hasContextMenu = this.ui.contextMenuItem.length > 0;
-    this.setParentItem();
+      this.options.hasContextMenu = this.ui.item.length > 1;
+      this.setParentItem();
 
-    if (this.ui.item.length) {
-      this.data.windowWidth = document.documentElement.clientWidth;
+      if (this.ui.item.length) {
+        this.data.windowWidth = document.documentElement.clientWidth;
 
-      // eslint-disable-next-line no-magic-numbers
-      this.data.hideableItems = this.ui.item.length - 2;
-      this.checkSpace();
-      this.moveEllipsis();
-      this.initContextMenu();
+        // eslint-disable-next-line no-magic-numbers
+        this.data.hideableItems = this.ui.item.length - 2;
+        this.checkSpace();
+        this.moveEllipsis();
+        this.initContextMenu();
+      }
     }
   }
 
