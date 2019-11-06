@@ -68,7 +68,7 @@ const variants = _.mapValues({
     props: {
       title: 'Suche',
       headingLevel: 2,
-      pagination: defPaginationData.variants.fullWidth.props,
+      pagination: defPaginationData.variants.default.props,
       flexDataSource: '/mocks/modules/flex_data/flex_data_generic.json',
       flexGenericFormData: _.merge({}, defFormData.variants.rrb.props),
       resultCountTitle: '%1 Treffer zu ihrer Abfrage',
