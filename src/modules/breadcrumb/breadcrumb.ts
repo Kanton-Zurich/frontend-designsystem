@@ -258,6 +258,8 @@ class Breadcrumb extends Module {
 
     if (this.ui.item[parentIndex]) {
       this.ui.item[parentIndex].classList.add(this.options.stateClasses.parentItem);
+    } else {
+      this.ui.item[0].classList.add(this.options.stateClasses.parentItem);
     }
   }
 

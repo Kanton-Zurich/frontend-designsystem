@@ -74,9 +74,6 @@ const variants = _.mapValues({
           title: 'Kanton Zürich',
           href: '#',
         },
-        {
-          title: 'Urgrosselternseite',
-        },
       ],
     },
   },
