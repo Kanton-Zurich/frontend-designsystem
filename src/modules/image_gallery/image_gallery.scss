@@ -60,5 +60,7 @@ $imageGalleryPaddingCurve: (
    */
   &--fullscreen {
     transform: none;
+
+    z-index: $zIndexFlyouts;
   }
 }
