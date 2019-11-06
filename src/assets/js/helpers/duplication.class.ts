@@ -2,6 +2,7 @@ import { uniqueId } from 'lodash';
 import { Delegate } from 'dom-delegate';
 import { watch } from 'wrist';
 
+import FormRules from './formrules.class';
 import { INTERACTION_ELEMENTS_QUERY } from './constants';
 
 class DuplicationElement {
@@ -14,6 +15,7 @@ class DuplicationElement {
   public options: {
     eventSelectors: any,
     stateClasses: any,
+    rulesSelector: string,
   }
 
   public data: {
@@ -39,6 +41,7 @@ class DuplicationElement {
         hasDuplicated: 'form__group--has-duplicated',
         maxDuplicationsReached: 'form__group--limited',
       },
+      rulesSelector: '[data-rules]',
     };
 
     this.data = {
@@ -123,6 +126,8 @@ class DuplicationElement {
 
       this.data.duplications += 1;
 
+      this.initRules(parsedHTML);
+
       if (this.data.duplications >= this.data.maxDuplications) {
         this.ui.element.classList.add(this.options.stateClasses.maxDuplicationsReached);
       }
@@ -146,6 +151,14 @@ class DuplicationElement {
     if (this.data.duplications < this.data.maxDuplications) {
       this.ui.element.classList.remove(this.options.stateClasses.maxDuplicationsReached);
     }
+  }
+
+  initRules(duplicatedGroup) {
+    const rulesElements = duplicatedGroup.querySelectorAll(this.options.rulesSelector);
+
+    rulesElements.forEach(($elementWithARule) => {
+      new FormRules($elementWithARule);
+    });
   }
 }
 

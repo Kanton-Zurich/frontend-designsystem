@@ -10,6 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="format-detection" content="telephone=no">
 
+  <link rel="stylesheet" href="/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css">
   <link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
   <script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 
@@ -19,7 +20,6 @@
   {{/if}}
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
-                               data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'
                                data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
 <div class="lyt-wrapper">
   <div class="grid-x grid-margin-x">
