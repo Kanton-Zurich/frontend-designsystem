@@ -6,7 +6,7 @@ $InputHeightRegular: 72px;
   .atm-form_input--icon {
     .flatpickr-calendar {
       .icon {
-        top: auto;
+        top: pxToRem($sizeSmallRegular);
       }
     }
   }

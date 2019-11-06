@@ -29,6 +29,7 @@ class Breadcrumb extends Module {
   }
 
   public options: {
+    hasContextMenu: Boolean,
     domSelectors: {
       item: string,
       ellipsis: string,
@@ -39,6 +40,7 @@ class Breadcrumb extends Module {
       hidden: string,
       backOnly: string,
       parentOnly: string,
+      parentItem: string,
     }
   }
 
@@ -62,13 +64,17 @@ class Breadcrumb extends Module {
         hidden: 'mdl-breadcrumb__item--hidden',
         backOnly: 'mdl-breadcrumb--back-only',
         parentOnly: 'mdl-breadcrumb--parent-only',
+        parentItem: 'mdl-breadcrumb__item--parent',
       },
     };
 
     super($element, defaultData, defaultOptions, data, options);
 
-    this.initUi(['contextMenuItem']);
+    this.initUi(['contextMenuItem', 'item']);
     this.initEventListeners();
+
+    this.options.hasContextMenu = this.ui.contextMenuItem.length > 0;
+    this.setParentItem();
 
     if (this.ui.item.length) {
       this.data.windowWidth = document.documentElement.clientWidth;
@@ -94,15 +100,19 @@ class Breadcrumb extends Module {
   checkSpace() {
     let hideItem = this.data.hiddenItems.length + 1;
 
-    while (this.isElementNotEnoughWide()
-    && hideItem <= this.data.hideableItems) {
-      this.hideItem(hideItem);
+    if (this.options.hasContextMenu) {
+      while (this.isElementNotEnoughWide()
+      && hideItem <= this.data.hideableItems) {
+        this.hideItem(hideItem);
 
-      hideItem += 1;
-    }
-    const windowWidth = window.innerWidth;
+        hideItem += 1;
+      }
+      const windowWidth = window.innerWidth;
 
-    if (this.isElementNotEnoughWide() || windowWidth < this.data.mobileBreakpoint) {
+      if (this.isElementNotEnoughWide() || windowWidth < this.data.mobileBreakpoint) {
+        this.setBackOnly();
+      }
+    } else {
       this.setBackOnly();
     }
   }
@@ -236,6 +246,15 @@ class Breadcrumb extends Module {
 
       this.data.windowWidth = windowWidth;
     });
+  }
+
+  setParentItem() {
+    const secondLast = 2;
+    const parentIndex = this.ui.item.length - secondLast;
+
+    if (this.ui.item[parentIndex]) {
+      this.ui.item[parentIndex].classList.add(this.options.stateClasses.parentItem);
+    }
   }
 
   /**
