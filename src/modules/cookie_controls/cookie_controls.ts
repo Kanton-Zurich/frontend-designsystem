@@ -5,7 +5,6 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import namespace from '../../assets/js/helpers/namespace';
 
 class CookieControls extends Module {
   private daysToExpire: number;

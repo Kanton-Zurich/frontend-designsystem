@@ -80,7 +80,6 @@ class Video extends Module {
       }).on('click', this.options.domSelectors.dialogCloseBtn, () => {
         this.hideElement(this.ui.dialog);
         this.showElement(this.ui.preview);
-        document.cookie = 'acceptYouTube=false';
         this.ui.preview.focus();
       }).on('click', this.options.domSelectors.dialogPlayBtn, () => {
         this.hideElement(this.ui.dialog);
