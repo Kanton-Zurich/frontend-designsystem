@@ -32,7 +32,7 @@ const listDemoData = require('../../atoms/list/list.data');
 
 const duplicateGroup = {
   isDuplicatable: true,
-  maxDuplications: 2,
+  maxDuplications: '1',
   duplicateLabels: {
     add: 'Weitere Staatsangehörigkeit hinzufügen',
     remove: 'Staatangehörigkeit wieder entfernen',
@@ -1041,7 +1041,7 @@ const variants = _.mapValues({
                     },
                   },
                 })),
-            },],
+            }],
             unwrapped: true,
           },
         ],
@@ -1186,6 +1186,225 @@ const variants = _.mapValues({
           }],
         }],
       }],
+    },
+  },
+  hierarchicalRules: {
+    meta: {
+      title: 'Hierarchische Regeln',
+      desc: '',
+    },
+    props: {
+      sectionTitle: 'Test',
+      groups: [{
+        rows: [
+          {
+            fields: [
+              {
+                isSmall: true,
+                cellContent: () => handlebars.compile(formFieldsetHBS)({
+                  fieldsetTitle: 'Feld 1',
+                  requiredMessage: 'Option auswählen.',
+                  options: [
+                    () => handlebars.compile(radioHBS)(_.merge({},
+                      radioData.variants.default.props,
+                      {
+                        label: 'Ja',
+                        groupName: 'hr1',
+                        id: 'hr1_1',
+                        value: 'yes',
+                        validation: {
+                          isRequired: true,
+                        },
+                      })),
+                    () => handlebars.compile(radioHBS)(_.merge({},
+                      radioData.variants.default.props,
+                      {
+                        label: 'No',
+                        groupName: 'hr1',
+                        id: 'hr1_2',
+                        value: 'no',
+                        validation: {
+                          isRequired: true,
+                        },
+                      })),
+                  ],
+                }),
+              },
+            ],
+          },
+          {
+            fields: [
+              {
+                isSmall: true,
+                cellContent: () => handlebars.compile(formFieldsetHBS)({
+                  fieldsetTitle: 'Feld 2',
+                  requiredMessage: 'Option auswählen.',
+                  rules: JSON.stringify([
+                    {
+                      conditions: [
+                        {
+                          field: 'hr1',
+                          equals: true,
+                          value: 'yes',
+                        },
+                      ],
+                      action: 'show',
+                    },
+                  ]),
+                  options: [
+                    () => handlebars.compile(radioHBS)(_.merge({},
+                      radioData.variants.default.props,
+                      {
+                        label: 'Ja',
+                        groupName: 'hr2',
+                        id: 'hr2_1',
+                        value: 'yes',
+                        validation: {
+                          isRequired: true,
+                        },
+                      })),
+                    () => handlebars.compile(radioHBS)(_.merge({},
+                      radioData.variants.default.props,
+                      {
+                        label: 'No',
+                        groupName: 'hr2',
+                        id: 'hr2_2',
+                        value: 'no',
+                        validation: {
+                          isRequired: true,
+                        },
+                      })),
+                  ],
+                }),
+              },
+            ],
+          },
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'InputFeld',
+                    name: 'inputfeld',
+                    uuid: 'inputfeld',
+                    rules: JSON.stringify([
+                      {
+                        conditions: [
+                          {
+                            field: 'hr2',
+                            equals: true,
+                            value: 'yes',
+                          },
+                        ],
+                        action: 'show',
+                      },
+                    ]),
+                  })),
+              },
+            ],
+          },
+        ],
+      }],
+    },
+  },
+  rrb: {
+    meta: {
+      title: 'RRB (Flex data CZHDEV-1236)',
+      desc: 'Flex Data Regierungsratsbeschlüsse',
+    },
+    props: {
+      sectionTitle: null,
+      groups: [{
+        rows: [
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Stichwort',
+                    name: 'fullText',
+                    uuid: 'fullText',
+                  })),
+              },
+            ],
+          },
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'RRB-Nr.',
+                    name: 'decisionNumber',
+                    uuid: 'decisionNumber',
+                  })),
+              },
+              {
+                cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                  selectData.variants.default.props,
+                  {
+                    listData: _.merge({}, listDemoData.props, {
+                      groupId: 'year',
+                      isSingleSelect: true,
+                      selectOptions: [
+                        { value: '', label: '' },
+                        { value: '2019', label: '2019'},
+                        { value: '2018', label: '2018'},
+                        { value: '2017', label: '2017'},
+                        { value: '2016', label: '2016'},
+                        { value: '2015', label: '2015'},
+                        { value: '2014', label: '2014'},
+                        { value: '2013', label: '2013'},
+                        { value: '2012', label: '2012'},
+                      ],
+                    }),
+                    triggerInputData: {
+                      label: 'Jahr',
+                      validation: {
+                        isRequired: false,
+                      },
+                    },
+                  })),
+              },
+            ],
+          },
+          {
+            fields: [{
+              cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                selectData.variants.default.props,
+                {
+                  listData: _.merge({}, listDemoData.props, {
+                    groupId: 'department',
+                    isSingleSelect: true,
+                    selectOptions: [
+                      { value: '', label: '' },
+                      { value: 'mig', label: 'Migration & Integration' },
+                      { value: 'mo', label: 'Mobilität' },
+                      { value: 'sich', label: 'Sicherheit & Justiz' },
+                      { value: 'so', label: 'Soziales' },
+                      { value: 'st', label: 'Steuern' },
+                      { value: 'umte', label: 'Umwelt & Tier' },
+                      { value: 'ge', label: 'Gemeinschaften' },
+                      { value: 'scer', label: 'Schulen & Erziehung' },
+                    ],
+                  }),
+                  triggerInputData: {
+                    label: 'Direktion',
+                    validation: {
+                      isRequired: false,
+                    },
+                  },
+                })),
+            }],
+          },
+        ],
+      },
+      ],
     },
   },
 }, (variant) => {

@@ -10,6 +10,11 @@ const headerData = require('../../modules/header/header.data').props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withoutLinklist.props;
 
+const pageHeaderWithoutBreadcrumb = _.omit(defPageHeaderData.variants.colorPeopleTeaser.props, ['breadcrumb']);
+defPageHeaderData.variants.colorPeopleTeaser.props = pageHeaderWithoutBreadcrumb;
+const contextMenuProps = require('../../modules/context_menu/context_menu.data').props;
+const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
+
 
 const defAnchorNavData = {
   anchornavTitle: {
@@ -80,7 +85,15 @@ const data = _.merge({}, defaultData, {
               leadText: 'Sicher, sozial, sportlich. Wir sorgen für die öffentliche Sicherheit. Wir verfolgen eine Sozial- und Ausländerpolitik, die für alle Beteiligten fair ist. Und nicht zuletzt setzen wir uns dafür ein, dass sich möglichst viele Zürcherinnen und Zürcher sportlich aktiv betätigen.',
               noButton: true,
               breadcrumb: {
-                contextMenu: false,
+                contextMenu: _.merge({}, contextMenuProps, {
+                  lists: [
+                    {
+                      items: [
+                        _.merge({}, contextMenuItemDef, { text: 'Kanton Zürich', iconAfter: false, iconBefore: false }),
+                      ],
+                    },
+                  ],
+                }),
                 path: [
                   {
                     title: 'Kanton Zürich',

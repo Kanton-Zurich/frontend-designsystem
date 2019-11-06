@@ -26,7 +26,6 @@ const data = _.merge({}, defaultData, {
     leadText: 'Lead: ExtraBold Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
     newsCategory: '',
     publicationDate: '',
-    backlink: backOnlyBreadcrumbData,
     personCardData: defPersonCardData,
     expandNav: 'Navigation anzeigen',
     collapseNav: 'Navigation ausblenden',
@@ -57,9 +56,9 @@ const variants = _.mapValues({
       defaultColorVariation: 'cv-blue',
     },
     props: {
+      breadcrumb: backOnlyBreadcrumbData,
       imageData: defImageFigureData.variants.header.props,
       hasImage: true,
-      hasBacklink: true,
       newsCategory: 'Medienmitteilung',
       publicationDate: '08.01.2019',
     },
@@ -72,7 +71,6 @@ const variants = _.mapValues({
       defaultColorVariation: 'cv-blue',
     },
     props: {
-
       inverted: true,
       buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: {modalId: 'service-modal1'}}),
       breadcrumb: defBreadcrumbData.variants.default.props,
@@ -86,7 +84,6 @@ const variants = _.mapValues({
       defaultColorVariation: 'cv-blue',
     },
     props: {
-
       inverted: true,
       buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: {modalId: 'service-modal2'}}),
       breadcrumb: defBreadcrumbData.variants.default.props,
@@ -164,7 +161,7 @@ const variants = _.mapValues({
       inverted: true,
       hasImageTitle: true,
       hasImage: true,
-      hasBacklink: true,
+      breadcrumb: defBreadcrumbData.variants.default.props,
     },
   },
   coloredVideoTitle: {
@@ -181,7 +178,7 @@ const variants = _.mapValues({
       hasVideo: true,
       hasImage: true,
       buttonData: _.merge({}, defServiceButtonData),
-      hasBacklink: true,
+      breadcrumb: defBreadcrumbData.variants.default.props,
     },
   },
   colorPeopleTeaser: {
@@ -212,7 +209,6 @@ const variants = _.mapValues({
       hasImageTitle: false,
       hasVideo: false,
       hasImage: false,
-      hasBacklink: false,
       noText: true,
       hasCloseButton: true,
     },
@@ -230,7 +226,6 @@ const variants = _.mapValues({
       hasImageTitle: false,
       hasVideo: false,
       hasImage: false,
-      hasBacklink: false,
       breadcrumb: defBreadcrumbData.variants.default.props,
     },
   },
@@ -247,7 +242,6 @@ const variants = _.mapValues({
       hasImageTitle: false,
       hasVideo: false,
       hasImage: false,
-      hasBacklink: false,
       noText: true,
       minimal: true,
       hasCloseButton: true,
@@ -295,7 +289,6 @@ const variants = _.mapValues({
       hasImageTitle: false,
       hasVideo: false,
       hasImage: false,
-      hasBacklink: false,
       noText: true,
       hasCloseButton: true,
     },
@@ -313,7 +306,6 @@ const variants = _.mapValues({
       hasImageTitle: false,
       hasVideo: false,
       hasImage: false,
-      hasBacklink: false,
       noText: true,
       minimal: true,
       hasCloseButton: true,
@@ -329,8 +321,22 @@ const variants = _.mapValues({
     props: {
       pageTitle: 'ZStB-Nr. 3.1',
       inverted: true,
-      hasBacklink: true,
       leadText: 'Steuerliche Zugehörigkeit',
+      breadcrumb: backOnlyBreadcrumbData,
+    },
+  },
+  rrbDetail: {
+    meta: {
+      title: 'Flex Data (RRB) (CZHDEV-1233)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+    },
+    props: {
+      pageTitle: 'Regierungsratsbeschluss  Nr. 749/2018',
+      inverted: false,
+      hasBacklink: true,
+      noText: true,
+      breadcrumb: backOnlyBreadcrumbData,
     },
   },
   error404: {
@@ -421,10 +427,6 @@ const variants = _.mapValues({
             title: 'Kanton Zürich',
             href: '#',
           },
-          {
-            title: '404',
-            href: '#',
-          },
         ],
       },
       pageTitle: 'Seite nicht gefunden',
@@ -473,10 +475,6 @@ const variants = _.mapValues({
         path: [
           {
             title: 'Kanton Zürich',
-            href: '#',
-          },
-          {
-            title: '403',
             href: '#',
           },
         ],

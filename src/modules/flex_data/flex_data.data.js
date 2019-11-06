@@ -5,6 +5,7 @@ const defaultData = require('../../data/default.data.js');
 const defFormData = require('../form/form.data');
 const defPaginationData = require('../pagination/pagination.data');
 const defAccordionData = require('../accordion/accordion.data');
+const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 
 const templateConverter = require('../../../gulp/helpers/templateConverter');
 
@@ -28,11 +29,10 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
-      flexDataSource: '/mocks/modules/flex_data/flex_data.json',
+      flexDataSource: '/mocks/modules/flex_data/flex_data_table.json',
       pagination: defPaginationData.variants.fullWidth.props,
       resultCountTitle: '%1 Treffer zu ihrer Abfrage',
-      flexFormData: _.merge({}, defFormData.variants.steuerBuch.props),
-      resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
+      flexTableFormData: _.merge({}, defFormData.variants.steuerBuch.props),
       tableData: {
         tableTitle: '',
         hasTitle: true,
@@ -41,7 +41,7 @@ const variants = _.mapValues({
         isWide: true,
         isStatic: true,
         preSortedColumn: 'zstb-nummer',
-        preSortedDirection: 'asc',
+        preSortedDirection: 'ascending',
         headers: [
           {
             title: 'ZStB-Nr.',
@@ -72,7 +72,7 @@ const variants = _.mapValues({
       flexDataSource: '/mocks/modules/flex_data/flex_data.zhLex.json',
       pagination: defPaginationData.variants.fullWidth.props,
       resultCountTitle: '%1 Treffer zu ihrer Abfrage',
-      flexFormData: _.merge({}, defFormData.variants.zhlex.props),
+      flexTableFormData: _.merge({}, defFormData.variants.zhlex.props),
       extendedFlexFormData: _.merge({}, defAccordionData.variants.zhLexExtendedSearch.props),
       resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
       tableData: {
@@ -103,6 +103,49 @@ const variants = _.mapValues({
         ],
         bodyrows: [],
       },
+    },
+  },
+  rrb: {
+    meta: {
+      title: 'Entscheide des Regierungsrats',
+      desc: '',
+    },
+    props: {
+      title: 'Suche',
+      headingLevel: 2,
+      pagination: defPaginationData.variants.default.props,
+      flexDataSource: '/mocks/modules/flex_data/flex_data_generic.json',
+      flexGenericFormData: _.merge({}, defFormData.variants.rrb.props),
+      resultCountTitle: '%1 Treffer zu ihrer Abfrage',
+      sortContextMenu: {
+        lists: [
+          {
+            items: [
+              _.merge({}, contextMenuItemDef, { text: 'Relevanz', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="relevance" data-sort-direction="descending"', isButton: true }),
+              _.merge({}, contextMenuItemDef, { text: 'Sitzungsdatum aufsteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="sessionDate" data-sort-direction="ascending"', isButton: true }),
+              _.merge({}, contextMenuItemDef, { text: 'Sitzungsdaatum absteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="sessionDate" data-sort-direction="desc"', isButton: true }),
+              _.merge({}, contextMenuItemDef, { text: 'Publikationsdatum aufsteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="publicationDate" data-sort-direction="ascending"', isButton: true }),
+              _.merge({}, contextMenuItemDef, { text: 'Publikationsdatum absteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="publicationDate" data-sort-direction="descending"', isButton: true }),
+            ],
+          },
+        ],
+      },
+      genericTemplate: `<ul class="mdl-search_page__list">
+          <% _.forEach(data, function(item, index) { %>
+          <li class="atm-search_result_item">
+            <span class="atm-search_result_item__meta">
+              <span class="atm_search_result_item__type">
+                <%- item.sessionDate %>
+              </span>
+            </span>
+            <a class="atm-search_result_item__content" href="<%- item.link %>">
+              <h4 class="atm-heading">RRB Nr. <%- item.decisionNumber%>/<%- item.year %> <%- item.title %></h4>
+              <p><%= item.text %></p>
+            </a>
+          </li>
+          <% }); %>
+        </ul>
+      `,
     },
   },
 }, (variant) => {

@@ -69,7 +69,7 @@
   }
 
   /** Variants */
-  &--back-only {
+  &--backlink {
     .mdl-breadcrumb__arrow-left {
       display: block;
     }
@@ -99,7 +99,7 @@
     }
 
     @include mq($to: small) {
-      margin-left: pxToRem($sizeLarge);
+      margin-left: pxToRem(-$sizeLarge);
     }
   }
 
@@ -107,7 +107,7 @@
     .mdl-breadcrumb__item {
       display: none;
 
-      &:nth-last-child(2) {
+      &.mdl-breadcrumb__item--parent {
         display: flex;
       }
     }
@@ -116,8 +116,8 @@
   /** Styles for inverted use */
   [ class*='--inverted' ] & {
     &__link,
-    &--back-only .mdl-breadcrumb__item--main .mdl-breadcrumb__link,
-    &--back-only .mdl-breadcrumb__item--active .mdl-breadcrumb__link {
+    &--backlink .mdl-breadcrumb__item--main .mdl-breadcrumb__link,
+    &--backlink .mdl-breadcrumb__item--active .mdl-breadcrumb__link {
       color: $colorWhite;
     }
   }
