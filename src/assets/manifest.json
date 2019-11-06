@@ -3,7 +3,7 @@
   "short_name": "KTZH",
   "description": "Die Webseite des Kantons Zürich",
   "lang": "de-CH",
-  "start_url": "www.zh.ch",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#0076BD",
   "background_color": "#fff",
