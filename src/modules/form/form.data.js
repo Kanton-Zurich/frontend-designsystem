@@ -1032,9 +1032,6 @@ const variants = _.mapValues({
                     name: 'decisionNumber',
                     uuid: 'decisionNumber',
                   })),
-                tooltip: {
-                  helptext: 'z.B. 749/2018',
-                },
               },
             ],
           },
