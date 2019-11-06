@@ -773,6 +773,7 @@ gulp.task('copy', () => {
       './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
       './src/assets/media/image/*.svg',
       './src/assets/mocks/**/*.json',
+      './src/assets/manifest.json',
     ],
     srcBase: './src',
     dest: './dist',
