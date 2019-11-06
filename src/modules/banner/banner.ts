@@ -5,6 +5,8 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import WindowEventListener from '../../assets/js/helpers/events';
+
 
 class Banner extends Module {
   public data: {
@@ -59,6 +61,8 @@ class Banner extends Module {
   initEventListeners() {
     this.eventDelegate.on('click', this.options.domSelectors.close, this.close.bind(this));
     this.eventDelegate.on('redraw', this.initBanner.bind(this));
+
+    (<any>WindowEventListener).addDebouncedResizeListener(this.initBanner.bind(this));
   }
 
   async loadBanner() {
