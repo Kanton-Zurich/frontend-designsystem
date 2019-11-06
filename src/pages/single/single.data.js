@@ -9,12 +9,26 @@ const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/co
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const dataHelper = require('@unic/estatico-data');
 const headerData = require('../../modules/header/header.data').props;
+const contextMenuProps = require('../../modules/context_menu/context_menu.data').props;
+const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 
 const defPageHeaderCustomData = {
   pageTitle: 'biz Kloten',
   leadText: 'Gerne unterstützen wir Sie bei der Berufs- und Studienwahl sowie bei der Gestaltung Ihrer beruflichen Laufbahn',
   noButton: true,
   breadcrumb: {
+    contextMenu: _.merge({}, contextMenuProps, {
+      lists: [
+        {
+          items: [
+            _.merge({}, contextMenuItemDef, { text: 'Kanton Zürich', iconAfter: false, iconBefore: false }),
+            _.merge({}, contextMenuItemDef, { text: '...', iconAfter: false, iconBefore: false }),
+            _.merge({}, contextMenuItemDef, { text: 'Amt für Jugend und Berufsberatung', iconAfter: false, iconBefore: false }),
+            _.merge({}, contextMenuItemDef, { text: 'Standorte', iconAfter: false, iconBefore: false }),
+          ],
+        },
+      ],
+    }),
     path: [
       {
         title: 'Kanton Zürich',
