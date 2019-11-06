@@ -1,6 +1,15 @@
 .mdl-banner {
   @include gridBleed($fullwidth: true);
 
+  > .mdl-banner {
+    // There are 2 banners inside due to loading via ajax
+    // stylelint-disable declaration-no-important
+    transform: none;
+    margin-left: 0;
+    max-width: none;
+    width: 100%;
+  }
+
   position: relative;
   box-sizing: border-box;
 
@@ -27,6 +36,7 @@
   &__figure {
     display: flex;
     justify-content: flex-end;
+    align-items: flex-start;
 
     @include mq($to: small) {
       margin-bottom: pxToRem($sizeFontBiggerRegular);
@@ -68,7 +78,8 @@
   }
 
   &__image {
-    max-width: 100%;
+    width: 100%;
+    height: auto;
   }
 
   &__close {
