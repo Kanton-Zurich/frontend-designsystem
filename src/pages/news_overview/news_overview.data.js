@@ -2,6 +2,7 @@ const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 const headerData = require('../../modules/header/header.data');
+const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.default.props;
 const defNewsOverviewData = require('../../modules/news_overview/news_overview.data');
 const defCTABoxData = require('../../modules/cta_box/cta_box.data');
 const defRelatedContentData = require('../../modules/related_content/related_content.data');
@@ -18,10 +19,12 @@ const data = _.merge({}, defaultData, {
   props: {
     header: headerData.variants.inverted.props,
     modules: {
-      pageHeader: {
+      pageHeader: _.merge({}, defPageHeaderData, {
         homelink: '#',
         pageTitle: 'News Übersicht',
-      },
+        noText: true,
+        buttonData: false,
+      }),
       newsOverview: defNewsOverviewData.props,
       ctaBox: defCTABoxData.variants.default.props,
       relatedContent: _.assign(_.merge({}, defRelatedContentData.variants.default.props), {

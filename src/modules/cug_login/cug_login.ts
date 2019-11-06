@@ -139,7 +139,7 @@ class CugLogin extends Module {
           if (loginResp.isAuthenticated) {
             if (loginResp.isAuthorized) {
               document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
-              window.location.href = this.ui.configuredRedirectUrl.value;
+              this.redirect(this.ui.configuredRedirectUrl.value);
             } else {
               this.ui.element.classList.add(this.options.stateClasses.unauthorised);
             }
