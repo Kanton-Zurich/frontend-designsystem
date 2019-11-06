@@ -1,6 +1,10 @@
 /*
 * Flatpickr Style Overwrites
 */
+[data-datetimeformat="date-time"] .flatpickr-calendar {
+  height: 478px;
+}
+
 .flatpickr-calendar {
   padding: pxToRem($sizeTiny) pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
   background: $colorWhite;
@@ -18,10 +22,6 @@
     display: none;
   }
 
-  // Height for date plus time
-  &.hasTime:not(.showTimeInput) {
-    height: 478px;
-  }
 
   // Remove little up arrow
   &:before,
