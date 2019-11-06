@@ -99,7 +99,7 @@
     }
 
     @include mq($to: small) {
-      margin-left: pxToRem($sizeLarge);
+      margin-left: pxToRem(-$sizeLarge);
     }
   }
 
