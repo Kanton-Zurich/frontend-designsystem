@@ -40,10 +40,13 @@ import Locations from '../../../modules/locations/locations';
 import MapView from '../../../modules/map_view/map_view';
 import Back2top from '../../../modules/back2top/back2top';
 import Tooltip from '../../../modules/tooltip/tooltip';
+import SearchPage from '../../../modules/search_page/search_page';
 import FlexData from '../../../modules/flex_data/flex_data';
 import DrilldownSelect from '../../../modules/drilldown_select/drilldown_select';
 import UserMenu from '../../../modules/user_menu/user_menu';
 import CugLogin from '../../../modules/cug_login/cug_login';
+import OpenData from '../../../modules/open_data/open_data';
+import Banner from '../../../modules/banner/banner';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -95,8 +98,11 @@ class App {
     this.modules.drilldownSelect = DrilldownSelect;
     this.modules.back2top = Back2top;
     this.modules.tooltip = Tooltip;
+    this.modules.searchPage = SearchPage;
     this.modules.userMenu = UserMenu;
     this.modules.cugLogin = CugLogin;
+    this.modules.openData = OpenData;
+    this.modules.banner = Banner;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
@@ -112,17 +118,14 @@ class App {
       window[namespace].helpers.bodyElement = document.body;
     }
 
-    // Check for touch support
-    const hasTouchSupport = 'ontouchstart' in window || navigator.msMaxTouchPoints;
-
-    if (hasTouchSupport) document.documentElement.classList.add('touch');
-
     const sAgent = window.navigator.userAgent;
     const isIE = sAgent.indexOf('MSIE');
 
     if (isIE > 0 || !!navigator.userAgent.match(/Trident\/7\./)) {
       document.documentElement.classList.add('is-ie');
     }
+
+    this.getLanguage();
   }
 
   async start() {
@@ -231,6 +234,10 @@ class App {
         form.setAttribute('initialized', 'true');
       }
     });
+  }
+
+  getLanguage() {
+    window[namespace].lang = document.documentElement.lang;
   }
 }
 

@@ -1,7 +1,7 @@
 .atm-linklist_item {
   text-decoration: none;
   color: rgba($colorText, 0.6);
-  font-weight: $fontWeightBlack;
+  font-family: $fontFamilyBlack;
   position: relative;
   cursor: pointer;
 
@@ -72,8 +72,12 @@
       margin-top: pxToRem($sizeTiny);
       display: flex;
       align-items: center;
-      font-weight: $fontWeightDefault;
+      font-family: $fontFamilyBlack;
       font-size: pxToRem($sizeFontSmall);
+
+      span {
+        font-family: $fontFamilyBase;
+      }
 
       .icon {
         margin-right: pxToRem($sizeSmallRegular);
@@ -98,7 +102,7 @@
 
     .atm-linklist_item__distance {
       font-size: pxToRem($sizeFontTiny);
-      font-weight: $fontWeightDefault;
+      font-family: $fontFamilyBase;
 
       &:not(:hover) {
         color: rgba($colorText, 0.6);
@@ -126,13 +130,13 @@
 
       text-align: right;
       color: rgba($colorText, 0.6);
-      font-weight: $fontWeightDefault;
+      font-family: $fontFamilyBase;
     }
   }
 
   &__label {
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
-    font-weight: $fontWeightDefault;
+    font-family: $fontFamilyBase;
   }
 
   .icon use {

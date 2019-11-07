@@ -1,4 +1,4 @@
-import { watch } from 'wrist';
+import Stepper from '../../../modules/stepper/stepper';
 
 class FormRules {
   private ui: {
@@ -31,6 +31,7 @@ class FormRules {
     };
 
     this.getRules();
+    this.getHierarchicalRules();
 
     this.setInitialState();
     this.addWatchers();
@@ -39,11 +40,45 @@ class FormRules {
   static get events() {
     return {
       stateChange: 'formrules.stateChange',
+      hidden: 'formrules.hidden',
     };
   }
 
   getRules() {
     this.rules = JSON.parse(this.ui.owner.getAttribute('data-rules'));
+  }
+
+  getHierarchicalRules() {
+    const copiedRules = this.rules;
+
+    this.rules.forEach((rule, ruleIdx) => {
+      rule.conditions.forEach((condition) => {
+        const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+        const field = this.ui.form.querySelector(querySelector);
+
+        const closestParent = field ? field.closest('[data-rules]') : null;
+
+        if (closestParent) {
+          const parentRules = JSON.parse(closestParent.dataset.rules);
+
+          parentRules.forEach((parentRule, c) => {
+            // Don't take the rules over when it is a step
+            if (parentRule.action !== 'enable' && parentRule.action !== 'disable') {
+              if (c === 0) {
+                copiedRules[ruleIdx].conditions = [...copiedRules[ruleIdx].conditions,
+                  ...parentRule.conditions];
+              } else {
+                copiedRules.push({
+                  action: rule.action,
+                  conditions: [...copiedRules[ruleIdx].conditions,
+                    ...parentRule.conditions],
+                });
+              }
+            }
+          });
+        }
+      });
+    });
   }
 
   setInitialState() {
@@ -61,6 +96,7 @@ class FormRules {
 
         break;
       case 'enable':
+      case 'disable':
         this.ui.owner.setAttribute('data-pending', 'true');
         this.ui.owner.removeAttribute('data-enabled');
         this.ui.owner.dispatchEvent(new CustomEvent(FormRules.events.stateChange, {
@@ -84,6 +120,9 @@ class FormRules {
         } else {
           this.ui.owner.classList.add(this.options.stateClasses.hiddenByRule);
         }
+
+        this.checkForWarning();
+
         break;
       case 'hide':
         if (conditionsMet) {
@@ -91,6 +130,9 @@ class FormRules {
         } else {
           this.ui.owner.classList.remove(this.options.stateClasses.hiddenByRule);
         }
+
+        this.checkForWarning();
+
         break;
       case 'enable':
         if (conditionsMet) {
@@ -145,19 +187,19 @@ class FormRules {
   }
 
   addWatchers() {
-    this.rules.forEach((rule, ruleIdx) => {
+    this.rules.forEach((rule) => {
       rule.conditions.forEach((condition) => {
         const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
         const fields = this.ui.form.querySelectorAll(querySelector);
 
         fields.forEach((field) => {
           if (field.hasAttribute('data-select-option')) {
-            watch(field, 'checked', () => {
-              this.checkRule(ruleIdx);
+            field.addEventListener('click', () => {
+              this.checkRules();
             });
           } else {
             field.addEventListener('change', () => {
-              this.checkRule(ruleIdx);
+              this.checkRules();
             });
           }
         });
@@ -165,28 +207,52 @@ class FormRules {
     });
   }
 
-  checkRule(ruleIdx) {
-    const rule = this.rules[ruleIdx];
-    let conditionsMet = true;
+  checkRules() {
+    // Fill an array with all the results from the rules
+    const rulesResult = [];
+    const { action } = this.rules[0];
 
-    rule.conditions.forEach((condition) => {
-      const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
-      const fields = Array.prototype.slice.call(this.ui.form.querySelectorAll(querySelector));
-      let correctField = null;
+    this.rules.forEach((rule) => {
+      let conditionsMet = true;
 
-      if (fields.length === 1) {
-        correctField = fields[0]; //eslint-disable-line
-      } else {
-        correctField = fields.filter(field => field.value === condition.value)[0]; //eslint-disable-line
-      }
+      rule.conditions.forEach((condition) => {
+        const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+        const fields = Array.prototype.slice.call(this.ui.form.querySelectorAll(querySelector));
+        let correctField = null;
 
-      if ((condition.equals && !correctField.checked)
-        || (!condition.equals && correctField.checked)) {
-        conditionsMet = false;
-      }
+        if (fields.length === 1) {
+          correctField = fields[0]; //eslint-disable-line
+        } else {
+          correctField = fields.filter(field => field.value === condition.value)[0]; //eslint-disable-line
+        }
+
+        if ((condition.equals && !correctField.checked)
+          || (!condition.equals && correctField.checked)) {
+          conditionsMet = false;
+        }
+      });
+
+      rulesResult.push(conditionsMet);
     });
 
-    this.doAction(rule.action, conditionsMet);
+    this.doAction(action, rulesResult.filter(result => result === true).length > 0);
+  }
+
+  // Checks if the parent step was visited once and is currently hidden
+  checkForWarning() {
+    const step = this.ui.owner.closest('.mdl-stepper__step');
+    const stepper = this.ui.owner.closest('.mdl-stepper');
+
+    if (step && stepper) {
+      const isStepVisited = step.hasAttribute('data-visited');
+      const isHidden = step.classList.contains('mdl-stepper__step--hidden');
+
+      if (isStepVisited && isHidden) {
+        stepper.dispatchEvent(new CustomEvent(Stepper.events.showRuleNotification, {
+          detail: parseInt(step.getAttribute('data-step-index'), 10),
+        }));
+      }
+    }
   }
 }
 

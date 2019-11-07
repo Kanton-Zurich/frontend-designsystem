@@ -30,12 +30,14 @@ class Stepper extends Module {
     messageWrapper: HTMLDivElement,
     rules: NodeListOf<HTMLDivElement>,
     lastpage: HTMLDivElement,
+    ruleNotification: HTMLScriptElement,
   }
 
   public options: {
     transitionTime: number,
     domSelectors: any,
     stateClasses: any,
+    hasRules: Boolean,
   }
 
   constructor($element: any, data: Object, options: Object) {
@@ -58,6 +60,8 @@ class Stepper extends Module {
         rules: '[data-rules]',
         form: '[data-stepper="form"]',
         lastpage: '[data-stepper="lastpage"]',
+        ruleNotification: '[data-stepper="ruleNotification"]',
+        ruleNotificationWrapper: '[data-stepper="ruleNotificationWrapper"]',
       },
       stateClasses: {
         hiddenStep: 'mdl-stepper__step--hidden',
@@ -67,7 +71,9 @@ class Stepper extends Module {
         initialised: 'mdl-stepper--initialised',
         onLastPage: 'mdl-stepper--last-page',
         success: 'mdl-stepper--success',
+        buttonLoading: 'atm-button--loading',
       },
+      hasRules: false,
     };
 
     super($element, defaultData, defaultOptions, data, options);
@@ -82,9 +88,13 @@ class Stepper extends Module {
 
     this.setButtonVisibility();
 
+    this.options.hasRules = this.ui.element.querySelectorAll('[data-rules]').length > 0;
+
     if (this.ui.navigation) {
       new StepperNavigation(this.ui.navigation,
-        { active: this.data.active, steps: this.ui.steps }, {});
+        { active: this.data.active, steps: this.ui.steps }, {
+          hasRules: this.options.hasRules,
+        });
     }
 
     this.ui.element.classList.add(this.options.stateClasses.initialised);
@@ -95,6 +105,8 @@ class Stepper extends Module {
       validateSection: 'validateSection',
       stepChange: 'stepChange',
       showFieldInvalid: 'showFieldInvalid',
+      showRuleNotification: 'Stepper.showRuleNotification',
+      hideRuleNotification: 'Stepper.hideRuleNotification',
     };
   }
 
@@ -118,13 +130,15 @@ class Stepper extends Module {
         newPageIndex -= 1;
       }
 
-      this.changePage(this.data.active - 1);
+      this.changePage(newPageIndex);
     });
     this.eventDelegate.on('click', this.options.domSelectors.send, this.sendForm.bind(this));
     this.eventDelegate.on('submit', this.options.domSelectors.wrapper, () => {
       this.sendForm();
       return false;
     });
+    this.eventDelegate.on(Stepper.events.showRuleNotification,
+      this.showRuleNotification.bind(this));
 
     if (this.ui.navigation) {
       this.ui.navigation.addEventListener(StepperNavigation.events.navigationChange,
@@ -161,6 +175,11 @@ class Stepper extends Module {
           newStep: newValue,
         },
       }));
+    }
+
+    // Remove any rule Notifications
+    if (newValue > oldValue) {
+      this.hideRuleNotification(oldValue);
     }
 
     setTimeout(() => {
@@ -251,18 +270,18 @@ class Stepper extends Module {
   }
 
   validateSection() {
-    const section = this.ui.steps[this.data.active].querySelector('section');
+    const sections = this.ui.steps[this.data.active].querySelectorAll('section');
 
     this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
       detail: {
-        section,
+        sections,
       },
     }));
 
     if (this.nextStepIsLast()) {
       this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
         detail: {
-          section: this.ui.lastpage,
+          sections: [this.ui.lastpage],
         },
       }));
     }
@@ -303,6 +322,8 @@ class Stepper extends Module {
         await import('whatwg-fetch');
       }
 
+      this.ui.send.classList.add(this.options.stateClasses.buttonLoading);
+
       fetch(action, {
         method: 'post',
         body: formData,
@@ -317,6 +338,8 @@ class Stepper extends Module {
 
             this.showNetworkError();
           }
+
+          this.ui.send.classList.add(this.options.stateClasses.buttonLoading);
 
           return response;
         })
@@ -445,6 +468,24 @@ class Stepper extends Module {
         this.data.active = parseInt(traverse.getAttribute('data-step-index'), 10);
       });
     });
+  }
+
+  showRuleNotification(event) {
+    const stepIndex = event.detail;
+    const step = this.ui.steps[stepIndex];
+    const notificationWrapper = step
+      .querySelector(this.options.domSelectors.ruleNotificationWrapper);
+    const ruleNotification = this.ui.ruleNotification.innerHTML;
+
+    notificationWrapper.innerHTML = ruleNotification;
+  }
+
+  hideRuleNotification(stepIndex) {
+    const step = this.ui.steps[stepIndex];
+    const notificationWrapper = step
+      .querySelector(this.options.domSelectors.ruleNotificationWrapper);
+
+    notificationWrapper.innerHTML = '';
   }
 
 

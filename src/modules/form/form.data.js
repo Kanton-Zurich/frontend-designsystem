@@ -32,7 +32,7 @@ const listDemoData = require('../../atoms/list/list.data');
 
 const duplicateGroup = {
   isDuplicatable: true,
-  maxDuplications: 2,
+  maxDuplications: '1',
   duplicateLabels: {
     add: 'Weitere Staatsangehörigkeit hinzufügen',
     remove: 'Staatangehörigkeit wieder entfernen',
@@ -319,13 +319,13 @@ const variants = _.mapValues({
             {
               fields: [
                 {
-                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
-                    datepickerData.variants.dateRange.props,
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.variants.multiSelect.props,
                     {})),
                 },
                 {
-                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
-                    selectData.variants.multiSelect.props,
+                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                    datepickerData.variants.dateRange.props,
                     {})),
                 },
               ],
@@ -621,27 +621,26 @@ const variants = _.mapValues({
               fields: [
                 {
                   isSmall: true,
-                  cellContent: () => handlebars.compile(formFieldsetHBS)({
-                    fieldsetTitle: 'Nationalität',
-                    options: [
-                      () => handlebars.compile(radioHBS)(_.merge({},
-                        radioData.variants.default.props,
-                        {
-                          label: 'Schweiz',
-                          groupName: 'nationality-2',
-                          id: 100,
-                          value: 'CH',
-                        })),
-                      () => handlebars.compile(radioHBS)(_.merge({},
-                        radioData.variants.default.props,
-                        {
-                          label: 'Nicht Schweiz',
-                          groupName: 'nationality-2',
-                          id: 102,
-                          value: 'none',
-                        })),
-                    ],
-                  }),
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.variants.default.props,
+                    {
+                      listData: _.merge({}, listDemoData.props, {
+                        groupId: 'nationality-f2',
+                        isSingleSelect: true,
+                        selectOptions: [
+                          { value: '', label: '' },
+                          { value: 'BE', label: 'Belgien', id: _.uniqueId('nationalityx') },
+                          { value: 'DE', label: 'Deutschland', id: _.uniqueId('nationalityx') },
+                          { value: 'FR', label: 'Frankreich', id: _.uniqueId('nationalityx') },
+                          { value: 'LU', label: 'Luxemburg', id: _.uniqueId('nationalityx') },
+                          { value: 'NL', label: 'Niederlande', id: _.uniqueId('nationalityx') },
+                          { value: 'SWE', label: 'Schweden', id: _.uniqueId('nationalityx') },
+                          { value: 'CH', label: 'Schweiz', id: _.uniqueId('nationalityx') },
+                          { value: 'UK', label: 'Vereinigtes Königreich', id: _.uniqueId('nationalityx') },
+                          { value: 'US', label: 'Vereinigte Staaten', id: _.uniqueId('nationalityx') },
+                        ],
+                      }),
+                    })),
                 },
               ],
             },
@@ -664,9 +663,19 @@ const variants = _.mapValues({
                         {
                           conditions: [
                             {
-                              field: 'nationality-2',
+                              field: 'nationality-f2',
                               equals: true,
                               value: 'CH',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-f2',
+                              equals: true,
+                              value: 'DE',
                             },
                           ],
                           action: 'show',
@@ -818,6 +827,48 @@ const variants = _.mapValues({
       ],
     },
   },
+  checkboxesNationality2: {
+    meta: {
+      title: 'Checkboxes für Stepper mit Logik (Für CZHDEV-1427)',
+      desc: '',
+    },
+    props: {
+      sectionTitle: 'Staatsangehörigkeit',
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Nationalität',
+                    options: [
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Schweiz',
+                          groupName: 'nationality-50',
+                          id: 444,
+                          value: 'CH',
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Nicht Schweiz',
+                          groupName: 'nationality-50',
+                          id: 445,
+                          value: 'none',
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
   placeOfCitizenshipPage: {
     meta: {
       title: 'Einzelnes Feld für Stepper mit Logik',
@@ -841,6 +892,50 @@ const variants = _.mapValues({
                       validation: {
                         isRequired: true,
                       },
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  placeOfCitizenshipPage2: {
+    meta: {
+      title: 'Einzelnes Feld für Stepper mit Logik',
+      desc: '',
+    },
+    props: {
+      sectionTitle: 'Bürgerort',
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Bürgerort',
+                      name: 'place_of_citizenship10',
+                      uuid: _.uniqueId('place_of_citizenship'),
+                      validation: {
+                        isRequired: true,
+                      },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-50',
+                              equals: true,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                      ]),
                     })),
                 },
               ],
@@ -899,8 +994,227 @@ const variants = _.mapValues({
                     },
                   },
                 })),
-            },],
+            }],
             unwrapped: true,
+          },
+        ],
+      },
+      ],
+    },
+  },
+  hierarchicalRules: {
+    meta: {
+      title: 'Hierarchische Regeln',
+      desc: '',
+    },
+    props: {
+      sectionTitle: 'Test',
+      groups: [{
+        rows: [
+          {
+            fields: [
+              {
+                isSmall: true,
+                cellContent: () => handlebars.compile(formFieldsetHBS)({
+                  fieldsetTitle: 'Feld 1',
+                  requiredMessage: 'Option auswählen.',
+                  options: [
+                    () => handlebars.compile(radioHBS)(_.merge({},
+                      radioData.variants.default.props,
+                      {
+                        label: 'Ja',
+                        groupName: 'hr1',
+                        id: 'hr1_1',
+                        value: 'yes',
+                        validation: {
+                          isRequired: true,
+                        },
+                      })),
+                    () => handlebars.compile(radioHBS)(_.merge({},
+                      radioData.variants.default.props,
+                      {
+                        label: 'No',
+                        groupName: 'hr1',
+                        id: 'hr1_2',
+                        value: 'no',
+                        validation: {
+                          isRequired: true,
+                        },
+                      })),
+                  ],
+                }),
+              },
+            ],
+          },
+          {
+            fields: [
+              {
+                isSmall: true,
+                cellContent: () => handlebars.compile(formFieldsetHBS)({
+                  fieldsetTitle: 'Feld 2',
+                  requiredMessage: 'Option auswählen.',
+                  rules: JSON.stringify([
+                    {
+                      conditions: [
+                        {
+                          field: 'hr1',
+                          equals: true,
+                          value: 'yes',
+                        },
+                      ],
+                      action: 'show',
+                    },
+                  ]),
+                  options: [
+                    () => handlebars.compile(radioHBS)(_.merge({},
+                      radioData.variants.default.props,
+                      {
+                        label: 'Ja',
+                        groupName: 'hr2',
+                        id: 'hr2_1',
+                        value: 'yes',
+                        validation: {
+                          isRequired: true,
+                        },
+                      })),
+                    () => handlebars.compile(radioHBS)(_.merge({},
+                      radioData.variants.default.props,
+                      {
+                        label: 'No',
+                        groupName: 'hr2',
+                        id: 'hr2_2',
+                        value: 'no',
+                        validation: {
+                          isRequired: true,
+                        },
+                      })),
+                  ],
+                }),
+              },
+            ],
+          },
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'InputFeld',
+                    name: 'inputfeld',
+                    uuid: 'inputfeld',
+                    rules: JSON.stringify([
+                      {
+                        conditions: [
+                          {
+                            field: 'hr2',
+                            equals: true,
+                            value: 'yes',
+                          },
+                        ],
+                        action: 'show',
+                      },
+                    ]),
+                  })),
+              },
+            ],
+          },
+        ],
+      }],
+    },
+  },
+  rrb: {
+    meta: {
+      title: 'RRB (Flex data CZHDEV-1236)',
+      desc: 'Flex Data Regierungsratsbeschlüsse',
+    },
+    props: {
+      sectionTitle: null,
+      groups: [{
+        rows: [
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Stichwort',
+                    name: 'fullText',
+                    uuid: 'fullText',
+                  })),
+              },
+            ],
+          },
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'RRB-Nr.',
+                    name: 'decisionNumber',
+                    uuid: 'decisionNumber',
+                  })),
+              },
+              {
+                cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                  selectData.variants.default.props,
+                  {
+                    listData: _.merge({}, listDemoData.props, {
+                      groupId: 'year',
+                      isSingleSelect: true,
+                      selectOptions: [
+                        { value: '', label: '' },
+                        { value: '2019', label: '2019'},
+                        { value: '2018', label: '2018'},
+                        { value: '2017', label: '2017'},
+                        { value: '2016', label: '2016'},
+                        { value: '2015', label: '2015'},
+                        { value: '2014', label: '2014'},
+                        { value: '2013', label: '2013'},
+                        { value: '2012', label: '2012'},
+                      ],
+                    }),
+                    triggerInputData: {
+                      label: 'Jahr',
+                      validation: {
+                        isRequired: false,
+                      },
+                    },
+                  })),
+              },
+            ],
+          },
+          {
+            fields: [{
+              cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                selectData.variants.default.props,
+                {
+                  listData: _.merge({}, listDemoData.props, {
+                    groupId: 'department',
+                    isSingleSelect: true,
+                    selectOptions: [
+                      { value: '', label: '' },
+                      { value: 'mig', label: 'Migration & Integration' },
+                      { value: 'mo', label: 'Mobilität' },
+                      { value: 'sich', label: 'Sicherheit & Justiz' },
+                      { value: 'so', label: 'Soziales' },
+                      { value: 'st', label: 'Steuern' },
+                      { value: 'umte', label: 'Umwelt & Tier' },
+                      { value: 'ge', label: 'Gemeinschaften' },
+                      { value: 'scer', label: 'Schulen & Erziehung' },
+                    ],
+                  }),
+                  triggerInputData: {
+                    label: 'Direktion',
+                    validation: {
+                      isRequired: false,
+                    },
+                  },
+                })),
+            }],
           },
         ],
       },

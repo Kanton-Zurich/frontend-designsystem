@@ -1,6 +1,10 @@
 /*
 * Flatpickr Style Overwrites
 */
+[ data-datetimeformat='date-time' ] .flatpickr-calendar {
+  height: 478px;
+}
+
 .flatpickr-calendar {
   padding: pxToRem($sizeTiny) pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
   background: $colorWhite;
@@ -14,10 +18,10 @@
   // Height for plain date and date-range
   height: 414px;
 
-  // Height for date plus time
-  &.static:not(.rangeMode) {
-    height: 478px;
+  select::-ms-expand {
+    display: none;
   }
+
 
   // Remove little up arrow
   &:before,
@@ -84,7 +88,7 @@
       margin: 0;
       padding: 0;
 
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
       font-size: $sizeFontRegular;
       line-height: $sizeLineHeightBase;
 
@@ -109,14 +113,14 @@
     .numInputWrapper {
       width: 50%;
       height: 100%;
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
       font-size: $sizeFontRegular;
       line-height: $sizeLineHeightBase;
     }
 
     .flatpickr-monthDropdown-months,
     .numInput.cur-year {
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
     }
 
     .numInput.cur-year {
@@ -140,11 +144,11 @@
     }
 
     .flatpickr-next-month.flatpickr-next-month {
-      right: pxToRem(-52px);
+      right: pxToRem(-$sizeBig);
     }
 
     .flatpickr-prev-month.flatpickr-prev-month {
-      left: pxToRem(-52px);
+      left: pxToRem(-$sizeBig);
     }
   }
 
@@ -156,11 +160,11 @@
   // Weekdays labels
   .flatpickr-weekday {
     color: $colorBlack60;
-    width: pxToRem($sizeSmallHuge);
+    width: pxToRem($sizeLarge);
     height: pxToRem($sizeSmallLarge);
     font-size: pxToRem($sizeFontSmall);
     line-height: $sizeLineHeightBigger;
-    font-weight: $fontWeightDefault;
+    font-family: $fontFamilyBase;
     max-width: pxToRem($sizeSmallHuge);
     margin: 0 2px;
   }
@@ -177,8 +181,6 @@
     color: $colorBlack60;
 
     border-width: 2px;
-    border-top-color: $colorWhite;
-    border-bottom-color: $colorWhite;
 
     &.today {
       border-color: $colorBlack5;
@@ -228,6 +230,7 @@
   .dayContainer {
     width: 100%;
     max-width: 100%;
+    min-width: 270px;
   }
 
   // Number inputs general
@@ -247,7 +250,7 @@
       font-size: pxToRem($sizeFontRegular);
       line-height: $sizeLineHeightBase;
       background-color: $colorWhite;
-      font-weight: $fontWeightDefault;
+      font-family: $fontFamilyBase;
       height: 100%;
 
       &:hover,

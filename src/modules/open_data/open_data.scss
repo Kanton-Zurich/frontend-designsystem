@@ -1,0 +1,15 @@
+.mdl-open_data {
+  display: inherit;
+
+  &__cc {
+    img {
+      max-height: 1em;
+      transform: translateY(1px);
+      opacity: 0.6;
+    }
+
+    &:hover img {
+      opacity: 1;
+    }
+  }
+}

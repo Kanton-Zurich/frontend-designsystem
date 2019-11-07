@@ -4,7 +4,7 @@ const dataHelper = require('@unic/estatico-data');
 const headerData = require('../../modules/header/header.data').props;
 
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js');
-const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
+const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.defaultImage.props;
 const defImageFigureData = require('../../modules/image_figure/image_figure.data.js');
 const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data');
 const defImageGalleryData = require('../../modules/image_gallery/image_gallery.data');
@@ -22,21 +22,14 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('news_detail.md'),
   },
   props: {
-    header: headerData,
+    header: _.merge({}, headerData,{ inverted: true}),
     modules: {
       skiplinks: skiplinksData,
       pageHeaderData: _.merge({}, defPageHeaderData, {
-        variants: {
-          defaultImage: {
-            props: {
-              pageTitle: 'Hochschulgebiet Zürich Zentrum',
-              leadText: 'Das Ziel des Generationenprojekts HGZZ ist es, die Lehre, Forschung und medizinische Versorgung im Hochschulgebiet zu sichern, weiter zu stärken, miteinander die städtebauliche Qualität zu erhöhen und ein lebendiges Hochschulquartier zu schaffen. Die Projektverantwortlichen von Kanton und Stadt Zürich sowie UniversitätsSpital Zürich (USZ), Universität Zürich (UZH) und ETH Zürich haben gemeinsam einen konkreten Einblick auf das künftige Hochschulgebiet gegeben.',
-              imageData: defImageFigureData.variants.header.props,
-              hasImage: true,
-              hasBacklink: true,
-            },
-          },
-        },
+        pageTitle: 'Hochschulgebiet Zürich Zentrum',
+        leadText: 'Das Ziel des Generationenprojekts HGZZ ist es, die Lehre, Forschung und medizinische Versorgung im Hochschulgebiet zu sichern, weiter zu stärken, miteinander die städtebauliche Qualität zu erhöhen und ein lebendiges Hochschulquartier zu schaffen. Die Projektverantwortlichen von Kanton und Stadt Zürich sowie UniversitätsSpital Zürich (USZ), Universität Zürich (UZH) und ETH Zürich haben gemeinsam einen konkreten Einblick auf das künftige Hochschulgebiet gegeben.',
+        imageData: defImageFigureData.variants.header.props,
+        hasImage: true,
       }),
       imageFigureData: defImageFigureData,
       newsTeaserData: defNewsTeaserData.variants.withoutLinklist.props,

@@ -38,13 +38,12 @@
                       {{{cellContent}}}
                     </div>
                   {{/each}}
-
-                  <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
-                    <svg class="icon">
-                      <use xlink:href="#delete"></use>
-                    </svg>
-                  </button>
                 </div>
+                <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
+                  <svg class="icon">
+                    <use xlink:href="#delete"></use>
+                  </svg>
+                </button>
                 <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
                   <svg class="icon icon--iframe-add">
                     <use xlink:href="#add-new"></use>
@@ -77,19 +76,14 @@
                     {{{cellContent}}}
                   </div>
                 {{/each}}
-
-                {{#if ../isDuplicatable}}
-                  {{#if @last}}
-                    <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
-                      <svg class="icon">
-                        <use xlink:href="#delete"></use>
-                      </svg>
-                    </button>
-                  {{/if}}
-                {{/if}}
               </div>
               {{#if ../isDuplicatable}}
                 {{#if @last}}
+                  <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
+                    <svg class="icon">
+                      <use xlink:href="#delete"></use>
+                    </svg>
+                  </button>
                   <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
                     <svg class="icon icon--iframe-add">
                       <use xlink:href="#add-new"></use>

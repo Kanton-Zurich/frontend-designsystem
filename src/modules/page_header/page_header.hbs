@@ -8,7 +8,7 @@
       <div class="mdl-page-header__logo-container cell {{#if minimal}}tiny-0{{/if}}{{#unless
         minimal}}tiny-2{{/unless}} xsmall-2 small-2 medium-2 large-2 xlarge-2">
         {{#unless minimal}}
-          <a href="{{homelink}}">
+          <{{#if homelink}}a href="{{homelink}}"{{else}}span{{/if}}>
             <span class="visuallyhidden">Logo des Kantons Zürich</span>
             {{#if inverted}}
               <svg viewBox="0 0 100 100" class="mdl-page-header__logo">
@@ -19,16 +19,12 @@
                 <use xlink:href="#ktzh"></use>
               </svg>
             {{/if}}
-          </a>
+          <{{#if homelink}}/a{{else}}span{{/if}}>
         {{/unless}}
       </div>
       <div class="cell {{#if minimal}}tiny-6 xsmall-6 small-7{{/if}} {{#unless
         minimal}}tiny-10 xsmall-10 small-10{{/unless}} medium-10 large-10 xlarge-10">
         {{#unless minimal}}
-          {{#if hasBacklink}}
-            <div class="mdl-page-header__breadcrumb">
-              {{> "modules/breadcrumb/breadcrumb" backlink}}</div>
-          {{/if}}
           {{#if breadcrumb}}
             <div class="mdl-page-header__breadcrumb">
               {{> "modules/breadcrumb/breadcrumb" breadcrumb}}</div>

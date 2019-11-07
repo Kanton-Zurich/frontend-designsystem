@@ -8,20 +8,12 @@ $pageHeaderCurves: (
     xlarge: 4px,
   ),
   ktzhLogoTop: (
-    tiny: 25px,
-    xsmall: 22px,
-    small: 16px,
+    tiny: 29px,
+    xsmall: 24px,
+    small: 17px,
     medium: 0,
-    large: -9px,
+    large: -10px,
     xlarge: -15px,
-  ),
-  ktzhLogoTopFF: (
-    tiny: 24px,
-    xsmall: 21px,
-    small: 15px,
-    medium: -3px,
-    large: -13px,
-    xlarge: -18px,
   ),
   ktzhLogoMarginLeft: (
     tiny: -6px,
@@ -198,6 +190,7 @@ $pageHeaderCurves: (
       @include mq($from: xlarge) {
         position: fixed;
         left: $sizeBig;
+        top: $sizeSmallBig;
       }
 
       margin-bottom: 0;
@@ -235,7 +228,7 @@ $pageHeaderCurves: (
   }
 
   &__news-category {
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
   }
 
   &__expander {
@@ -380,15 +373,6 @@ $pageHeaderCurves: (
     }
   }
 }
-
-@-moz-document url-prefix('') {
-  .mdl-page-header {
-    &__logo {
-      @include polyFluidSizing('top', map-get($pageHeaderCurves, ktzhLogoTopFF));
-    }
-  }
-}
-
 
 @each $key, $val in $tl-color-variations {
   .#{$key} {

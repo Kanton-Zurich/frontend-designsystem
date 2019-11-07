@@ -39,6 +39,8 @@ class Pagination extends Module {
     return {
       change: 'Pagination.change',
       setCanonicalUrls: 'Pagination.setCanonicalUrls',
+      setPageCount: 'Pagination.setPageCount',
+      setPage: 'Pagination.setPage',
     };
   }
 
@@ -67,6 +69,15 @@ class Pagination extends Module {
       const { prev, next } = event.detail;
       this.ui.prev.setAttribute('href', prev);
       this.ui.next.setAttribute('href', next);
+    });
+
+    this.eventDelegate.on(Pagination.events.setPageCount, (event) => {
+      this.ui.pageCount.querySelector('span').innerHTML = event.detail;
+      this.ui.element.setAttribute('data-pagecount', event.detail);
+    });
+
+    this.eventDelegate.on(Pagination.events.setPage, (event) => {
+      this.ui.input.value = event.detail;
     });
   }
 

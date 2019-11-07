@@ -1,7 +1,13 @@
-<div class="mdl-flex-data" data-init="flexData" data-source="/mocks/modules/flex_data/flex_data.json">
+<div class="mdl-flex-data" data-init="flexData" data-source="{{ flexDataSource }}">
+  {{#if title}}<h{{headingLevel}} class="atm-heading">{{title}}</h{{headingLevel}}>{{/if}}
   <div class="mdl-flex-data__form">
     <form novalidate>
-      {{> "modules/form/form" flexFormData }}
+      {{#if flexTableFormData}}
+      {{> "modules/form/form" flexTableFormData }}
+      {{/if}}
+      {{#if flexGenericFormData}}
+      {{> "modules/form/form" flexGenericFormData }}
+      {{/if}}
       <div class="mdl-flex-data__form-controls">
         <button data-clear-flex type="button" class="atm-button atm-button--secondary">Zurücksetzen</button>
         <button data-search-flex type="button" class="atm-button ">Suchen</button>
@@ -10,11 +16,38 @@
   </div>
   <div class="mdl-flex-data__results" data-result-count-title="{{resultCountTitle}}">
     <script data-flex-template type="text/x-handlebars-template">
-      {{{resultsTemplate}}}
+      {{#if tableData}}
+      {{#each tableData.headers}}
+        <td class="mdl-table__cell" data-table="cell"><%=text{{@index}}%></td>
+        {{#if @last}}
+        <td class="mdl-table__cell" data-table="cell"><a href="<%=link%>" class="atm-text_link">Details</a></td>
+        {{/if}}
+      {{/each}}
+      {{/if}}
+      {{#unless tableData}}
+        {{{genericTemplate}}}
+      {{/unless}}
     </script>
+    {{#if tableData}}
     {{> "modules/table/table" tableData }}
+    {{/if}}
+    {{#unless tableData}}
+      <h4 class="atm-heading mdl-flex-data__results-title"></h4>
+    <div class="mdl-flex-data__generic-sort">
+      <span>Sortieren nach: </span>
+      <button class="mdl-flex-data__generic-sort-dropdown">
+        <span>Relevanz</span>
+        <svg class="icon">
+          <use xlink:href="#angle_drop_down"></use>
+        </svg>
+      </button>
+      {{> "modules/context_menu/context_menu" sortContextMenu}}
+    </div>
+    <div class="mdl-flex-data__results-generic" data-sort-direction="descending" data-sort-column="relevance"></div>
+    {{/unless}}
     <div class="mdl-flex-data__pagination">
       {{> "modules/pagination/pagination" pagination }}
     </div>
+    {{> "atoms/loading_circle/loading_circle"}}
   </div>
 </div>

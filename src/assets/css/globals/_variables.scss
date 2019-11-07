@@ -79,8 +79,8 @@ $fontSizeCurves: (
 );
 
 $sizeFontBase: $sizeFontRegular;
-$fontFamilyBase: Helvetica, sans-serif;
-
+$fontFamilyBase: 'HelveticaNowText', Helvetica, sans-serif;
+$fontFamilyBlack: 'HelveticaNowBlack', Helvetica, sans-serif;
 /**
  * Line heights
  */
@@ -326,6 +326,14 @@ $zIndexOverlays: 1000;
 $zIndexFlyouts: 1100;
 $zIndexSkiplinks: 2000;
 $zIndexFlyingFocus: 9999;
+
+// Loading Circle
+$loadingMinHeight: pxToRem(200px);
+
+$spinnerSize: $sizeFontLarge;
+$spinnerColor: $colorCyan;
+$spinnerBorderSize: 2px;
+
 
 :root {
 

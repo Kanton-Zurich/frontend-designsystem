@@ -199,7 +199,7 @@ class Module {
   /**
    * get base URL
    */
-  getBaselUrl() {
+  getBaseUrl() {
     return `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
   }
 
@@ -268,6 +268,21 @@ class Module {
 
       xhr.send(JSON.stringify(payload));
     });
+  }
+
+  /**
+   * Redirect via script
+   * @param url
+   */
+  redirect(url: string) {
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
+      const referLink = document.createElement('a');
+      referLink.href = url;
+      document.body.appendChild(referLink);
+      referLink.click();
+    } else {
+      window.location.href = url;
+    }
   }
 }
 

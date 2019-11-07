@@ -49,8 +49,8 @@ const variants = _.mapValues({
       message: 'Melden Sie sich ab und verwenden Sie die für diesen Bereich gültigen.',
       title: 'Ihr Login ist für diesen Bereich nicht gültig',
       icon: '#caution',
-      isLogin: true,
-      loginBtn: {
+      isDialog: true,
+      button: {
         label: 'Abmelden',
         additionalAttributes: 'data-attr_selector="loginBtn"',
       },

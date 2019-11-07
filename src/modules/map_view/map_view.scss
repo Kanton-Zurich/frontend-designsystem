@@ -7,7 +7,7 @@ $mapViewSelectedMarkerHeight: 59px;
   content: '';
   position: absolute;
   bottom: 0;
-  background-size: contain;
+  background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -62,7 +62,7 @@ $mapViewSelectedMarkerHeight: 59px;
     border-radius: 50%;
     text-align: center;
     line-height: pxToRem($sizeBiggerBig - 5);
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
     font-size: pxToRem($sizeFontMedium);
 
     &:hover {
@@ -138,7 +138,7 @@ $mapViewSelectedMarkerHeight: 59px;
       padding: 1px pxToRem(18) 0;
 
       &__text {
-        font-weight: $fontWeightDefault;
+        font-family: $fontFamilyBase;
       }
     }
 

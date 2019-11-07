@@ -36,6 +36,8 @@
 
       p {
         display: inherit;
+        text-align: center;
+        margin-top: 0;
 
         @include mq($to: medium) {
           display: none;
@@ -107,7 +109,7 @@
 
     &-title {
       font-size: pxToRem($sizeFontRegular);
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
 
       color: $colorBlack60;
     }

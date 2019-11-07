@@ -12,19 +12,20 @@ import { merge } from 'lodash';
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import WindowEventListener from '../../assets/js/helpers/events';
 
 class Datepicker extends Module {
   public isOpen: boolean;
   public pickerMode: string;
   public usedConfig: any;
   public flatpickr: any;
-  public dayLabels: Array<any>;
 
   public globalConfig: {
     nextArrow: string,
     prevArrow: string,
     onChange: any,
     onClose: any,
+    static: boolean,
   };
 
   public customConfigs: {
@@ -43,14 +44,12 @@ class Datepicker extends Module {
       mode: string,
       separator: string,
       disableMobile: boolean,
-      static: boolean,
     },
     dataTime: {
       dateFormat: string,
       position: string,
       noCalendar: boolean,
       disableMobile: boolean,
-      static: boolean,
     }
   };
 
@@ -58,6 +57,7 @@ class Datepicker extends Module {
     element: any,
     trigger: any,
     container: any,
+    calendar: any,
   };
 
   public options: {
@@ -109,14 +109,12 @@ class Datepicker extends Module {
         mode: 'range',
         separator: ' - ',
         disableMobile: true,
-        static: true,
       },
       dataTime: {
         dateFormat: 'd.m.Y H:i',
         position: 'below',
         noCalendar: false,
         disableMobile: true,
-        static: true,
       },
     };
 
@@ -131,9 +129,9 @@ class Datepicker extends Module {
       + '</svg>',
       onChange: this.onValueChange.bind(this),
       onClose: this.onClose.bind(this),
+      static: true,
     };
 
-    // this.dayLabels = this.ui.element.dataset.daylabels.split(' ');
     this.constructConfig();
   }
 
@@ -154,6 +152,8 @@ class Datepicker extends Module {
       .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this))
       .on(Datepicker.events.injectDate, this.onInjectDate.bind(this))
       .on(Datepicker.events.clear, this.onClear.bind(this));
+
+    (<any>WindowEventListener).addDebouncedResizeListener(this.positionCorrection.bind(this));
   }
 
   /**
@@ -232,6 +232,25 @@ class Datepicker extends Module {
   }
 
   /**
+   * Move picker if horizontally out of window
+    */
+  positionCorrection() {
+    const borderMargin = 20;
+    if (this.ui.element.classList.contains('open')) {
+      const element = this.ui.element.querySelector('.flatpickr-calendar');
+      const calendarRect = element.getBoundingClientRect();
+      if (calendarRect.width < window.innerWidth) {
+        const rightEnd = calendarRect.left + calendarRect.width;
+        if ((rightEnd + borderMargin) > window.innerWidth) {
+          element.style.marginLeft = `-${rightEnd - window.innerWidth + borderMargin}px`;
+        } else {
+          element.removeAttribute('style');
+        }
+      }
+    }
+  }
+
+  /**
    * Inject date from external
    * @param event
    */
@@ -243,7 +262,12 @@ class Datepicker extends Module {
   /**
    * On change callback. Adds the dirty class to the container element
    */
-  onValueChange() {
+  onValueChange(val) {
+    if (this.pickerMode === 'date-range') {
+      if (val.length === 1) {
+        this.ui.trigger.value = `${this.ui.trigger.value} - ...`;
+      }
+    }
     if (!this.ui.element.classList.contains('dirty')) {
       this.ui.element.classList.add('dirty');
     }
@@ -255,6 +279,7 @@ class Datepicker extends Module {
   onClose() {
     this.ui.element.classList.remove('open');
     this.emitDateSet();
+    this.emitClose();
   }
 
   /**
@@ -275,6 +300,7 @@ class Datepicker extends Module {
       this.flatpickr.close();
     } else {
       this.ui.element.classList.add('open');
+      this.positionCorrection();
     }
   }
 
@@ -289,6 +315,15 @@ class Datepicker extends Module {
       },
     };
     this.ui.element.dispatchEvent(new CustomEvent(Datepicker.events.dateSet, eventData));
+  }
+
+  /**
+   * CLose event
+   */
+  emitClose() {
+    this.ui.element.dispatchEvent(new CustomEvent(Datepicker.events.close));
+    // additionally emit this event on input for validation handling
+    this.ui.trigger.dispatchEvent(new CustomEvent(Datepicker.events.close));
   }
 
   /**

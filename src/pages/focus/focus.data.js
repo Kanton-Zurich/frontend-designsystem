@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
-const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
+const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.coloredImage.props;
 const defRelatedContent = require('../../modules/related_content/related_content.data.js');
 const defContactData = require('../../modules/contact/contact.data.js');
 const defFocusTeaserData = require('../../modules/focus_teaser/focus_teaser.data.js');
@@ -10,8 +10,9 @@ const headerData = require('../../modules/header/header.data').props;
 
 
 const defRelatedContentProps = _.merge({}, defRelatedContent);
+const magicNumber = 3;
 defRelatedContentProps.variants.default.props.contentNavData.items = defRelatedContentProps
-  .variants.default.props.contentNavData.items.slice(0, 3);
+  .variants.default.props.contentNavData.items.slice(0, magicNumber);
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -26,14 +27,8 @@ const data = _.merge({}, defaultData, {
     text: '',
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData, {
-        variants: {
-          coloredImage: {
-            props: {
-              pageTitle: 'Sicherheit',
-              leadText: 'Sicherheit zu schaffen gehört zu den zentralen und klassischen Aufgaben des Staates. Zwar sind den finanziellen Möglichkeiten unseres Kantons auch dann Schranken gesetzt, wenn es um mehr Sicherheit geht. Aber wir wollen das Beste machen.'
-            },
-          },
-        },
+        pageTitle: 'Sicherheit',
+        leadText: 'Sicherheit zu schaffen gehört zu den zentralen und klassischen Aufgaben des Staates. Zwar sind den finanziellen Möglichkeiten unseres Kantons auch dann Schranken gesetzt, wenn es um mehr Sicherheit geht. Aber wir wollen das Beste machen.',
       }),
       relatedContentData: defRelatedContentProps.variants.default.props,
       contactData: defContactData,

@@ -20,6 +20,7 @@ class Autosuggest {
     list: HTMLUListElement,
     template: string,
     renderAsButton: boolean,
+    searchPageUrl: string,
   };
 
   private classes: {
@@ -43,6 +44,10 @@ class Autosuggest {
     }, options);
 
     this.data = data;
+
+    this.stateClasses = {
+      loading: 'mdl-content_nav--loading',
+    };
 
     // Setting the lodash template
     this.template = template(this.options.template);
@@ -106,6 +111,8 @@ class Autosuggest {
     this.query = queryAfter;
 
     if (this.options.url) {
+      this.setLoading();
+
       await this.fetchData();
     }
 
@@ -128,6 +135,8 @@ class Autosuggest {
 
       this.dispatchStatusEvent(Autosuggest.events.reset);
     }
+
+    this.unsetLoading();
   }
 
   /**
@@ -204,7 +213,7 @@ class Autosuggest {
       this.renderItem({
         shortTitle: Object.prototype.hasOwnProperty.call(result, 'title') ? result.title : result,
         buzzwords: '',
-        target: Object.prototype.hasOwnProperty.call(result, 'path') ? result.path : '',
+        target: Object.prototype.hasOwnProperty.call(result, 'path') ? result.path : `${this.options.searchPageUrl}?q=${encodeURIComponent(result)}`,
       });
     });
 
@@ -235,7 +244,7 @@ class Autosuggest {
       await import('whatwg-fetch');
     }
 
-    return fetch(this.options.url)
+    return fetch(`${this.options.url}?q=${encodeURIComponent(this.query)}`)
       .then(response => response.json())
       .then((response) => {
         if (Object.prototype.hasOwnProperty.call(response, 'suggestions')) {
@@ -293,6 +302,14 @@ class Autosuggest {
     if (parentElement.nextSibling) {
       parentElement.nextSibling.querySelector('a, button').focus();
     }
+  }
+
+  setLoading() {
+    this.options.target.classList.add(this.stateClasses.loading);
+  }
+
+  unsetLoading() {
+    this.options.target.classList.remove(this.stateClasses.loading);
   }
 }
 

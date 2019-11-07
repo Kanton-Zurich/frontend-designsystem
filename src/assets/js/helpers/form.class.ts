@@ -7,6 +7,7 @@ import FormRules from './formrules.class';
 import FileUpload from '../../../modules/file_upload/file_upload';
 
 import namespace from './namespace';
+import Datepicker from '../../../modules/datepicker/datepicker';
 
 class Form {
   private ui: {
@@ -40,6 +41,7 @@ class Form {
       },
       watchEmitters: {
         input: '[data-validation], [data-hasbutton="true"], [data-floating]',
+        datePickerInput: '.flatpickr_input, [data-validation], [data-hasbutton="true"], [data-floating]',
       },
       inputClasses: {
         dirty: 'dirty',
@@ -70,6 +72,9 @@ class Form {
 
     // Initialize rules
     this.initRules();
+
+    // set dirty from start
+    this.setDirtyFromStart();
   }
 
   addEventListeners() {
@@ -78,8 +83,14 @@ class Form {
       this.validateField(field);
     }, this.options.validateDelay));
     this.eventDelegate.on('blur', this.options.watchEmitters.input, (event, field) => {
-      if (field.type !== 'file' && field.type !== 'radio') this.validateField(field);
+      if (field.type !== 'file' && field.type !== 'radio' && !field.classList.contains('flatpickr-input')) this.validateField(field);
     });
+    this.ui.element.querySelectorAll(this.options.watchEmitters.datePickerInput)
+      .forEach((input) => {
+        input.addEventListener(Datepicker.events.close, (event) => {
+          this.validateField(event.target);
+        });
+      });
     this.ui.element.querySelectorAll(this.options.watchEmitters.input).forEach((input) => {
       input.addEventListener('validateDeferred', (event) => {
         this.validateField(event.detail.field);
@@ -114,9 +125,27 @@ class Form {
           break;
         default:
           wrist.watch(input, 'value', (propName, oldValue, newValue) => {
-            this.onInputValueChange(input, oldValue, newValue);
+            // prevent datepicker for being validated as its being validated on a close event
+            if (!input.classList.contains('flatpickr-input')) {
+              this.onInputValueChange(input, oldValue, newValue);
+            }
           });
           break;
+      }
+    });
+  }
+
+  /**
+   * Checks if input field already has value and sets the classes accordingly
+   *
+   * @memberof Form
+   */
+  setDirtyFromStart() {
+    const inputs = this.ui.element.querySelectorAll('input');
+
+    inputs.forEach((input) => {
+      if (input.value.length > 0) {
+        input.classList.add(this.options.inputClasses.dirty);
       }
     });
   }
@@ -134,6 +163,8 @@ class Form {
       this.validateField(domElement);
     } else {
       domElement.classList.remove(this.options.inputClasses.dirty);
+      domElement.closest(this.options.inputSelector)
+        .classList.remove(this.options.inputClasses.valid);
     }
   }
 
@@ -213,12 +244,15 @@ class Form {
   }
 
   validateSection(event) {
-    const formSection = event.detail.section;
-    const fieldsInSection = formSection.querySelectorAll(this.options.watchEmitters.input);
+    const formSections = event.detail.sections;
 
-    fieldsInSection.forEach(this.validateField.bind(this));
+    formSections.forEach((section) => {
+      const fieldsInSection = section.querySelectorAll(this.options.watchEmitters.input);
 
-    const errorsInFields = formSection.querySelectorAll(`.${this.options.inputClasses.invalid}`).length > 0;
+      fieldsInSection.forEach(this.validateField.bind(this));
+    });
+
+    const errorsInFields = this.ui.element.querySelectorAll(`.${this.options.inputClasses.invalid}`).length > 0;
 
     if (errorsInFields) {
       this.ui.element.setAttribute('form-has-errors', 'true');

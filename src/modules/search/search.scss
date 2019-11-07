@@ -43,7 +43,7 @@ $searchCurves: (
     display: block;
     border: none;
 
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
 
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
     @include sizeCurve(height, height, $searchCurves);
@@ -78,7 +78,7 @@ $searchCurves: (
 
   &__autosuggest {
     .atm-content_teaser__title {
-      font-weight: $fontWeightDefault;
+      font-family: $fontFamilyBase;
     }
   }
 }

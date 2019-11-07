@@ -3,6 +3,10 @@ $stepperNavigationCurves: (
     tiny: $sizeFontSmallBig,
     large: $sizeFontBiggerBig,
   ),
+  greyline: (
+    tiny: $sizeFontSmallBig / 2,
+    large: $sizeFontBiggerBig / 2,
+  ),
 );
 
 .mdl-stepper_navigation {
@@ -32,8 +36,7 @@ $stepperNavigationCurves: (
     left: 0;
     background: $colorBlack20;
 
-    top: 33%;
-
+    @include polyFluidSizing(top, map-get($stepperNavigationCurves, greyline));
     @include mq($to: small) {
       top: 25%;
     }
@@ -43,7 +46,7 @@ $stepperNavigationCurves: (
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
 
     color: $colorBlack60;
 
@@ -60,7 +63,7 @@ $stepperNavigationCurves: (
 
       line-height: $sizeLineHeightNarrow;
       margin-bottom: pxToRem($sizeMini);
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
 
       background: $colorWhite;
 
@@ -68,7 +71,7 @@ $stepperNavigationCurves: (
     }
 
     &-title {
-      font-weight: $sizeLineHeightBigger;
+      font-family: $fontFamilyBlack;
 
       @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
       @include mq($to: medium) {
@@ -127,7 +130,7 @@ $stepperNavigationCurves: (
 
       .mdl-stepper_navigation__step-title {
         color: $colorBlack;
-        font-weight: $fontWeightBlack;
+        font-family: $fontFamilyBlack;
       }
 
       .mdl-stepper_navigation__step-ordinal {
@@ -166,24 +169,41 @@ $stepperNavigationCurves: (
     }
   }
 
-  li:first-child .mdl-stepper_navigation__step {
-    align-items: flex-start;
+  li:first-child {
+    justify-content: flex-start;
 
-    .mdl-stepper_navigation__step-ordinal {
-      padding-left: 0;
+    .mdl-stepper_navigation__step {
+      align-items: flex-start;
+
+      .mdl-stepper_navigation__step-ordinal {
+        padding-left: 0;
+      }
     }
   }
 
-  li:last-child .mdl-stepper_navigation__step {
-    align-items: flex-end;
+  li:last-child {
+    justify-content: flex-end;
 
-    .mdl-stepper_navigation__step-ordinal {
-      padding-right: 0;
+    .mdl-stepper_navigation__step {
+      align-items: flex-end;
+
+      .mdl-stepper_navigation__step-ordinal {
+        padding-right: 0;
+      }
     }
   }
 
   > li {
     display: flex;
     align-items: stretch;
+
+    flex-basis: 100%;
+    flex-grow: 1;
+
+    justify-content: center;
+
+    &.mdl-stepper_navigation__step--pending {
+      justify-content: flex-end;
+    }
   }
 }

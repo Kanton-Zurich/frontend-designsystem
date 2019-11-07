@@ -33,6 +33,7 @@ class NewsOverview extends Module {
     sortDropdown: HTMLDivElement,
     searchWordInput: HTMLInputElement,
     searchWordInputClear: HTMLButtonElement,
+    wrapper: HTMLDivElement,
   };
 
   private dataUrl: string;
@@ -70,9 +71,10 @@ class NewsOverview extends Module {
         sortDropdown: '.mdl-news-overview__sort .mdl-context_menu',
         searchWordInput: '.mdl-news-overview__filter > .atm-form_input input',
         searchWordInputClear: '.mdl-news-overview__filter > .atm-form_input > button',
+        wrapper: '[data-news_overview="wrapper"]',
       },
       stateClasses: {
-        // activated: 'is-activated'
+        loading: 'mdl-news-overview--loading',
       },
     };
 
@@ -379,6 +381,9 @@ class NewsOverview extends Module {
    * @param callback
    */
   async fetchData(callback: Function) {
+    // add Loading class
+    this.ui.wrapper.classList.add(this.options.stateClasses.loading);
+
     if (!window.fetch) {
       await import('whatwg-fetch');
     }
@@ -387,10 +392,13 @@ class NewsOverview extends Module {
       .then(response => response.json())
       .then((response) => {
         if (response) {
-          const canonical = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1]}`;
+          const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
           history.pushState({url: canonical, }, null, canonical); // eslint-disable-line
           callback(response);
         }
+
+        // Remove loading class
+        this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
       })
       .catch((err) => {
         this.log('error', err);
@@ -407,14 +415,14 @@ class NewsOverview extends Module {
         // update canonical href
         this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
         this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
-        const canonicalUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1]}`;
+        const canonicalUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
         let prevUrl = '';
         if (parseInt(this.ui.paginationInput.value, 10) > 1) {
-          prevUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`)}`;
+          prevUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`)}`;
         }
         let nextUrl = '';
         if (parseInt(this.ui.paginationInput.value, 10) < jsonData.numberOfResultPages) {
-          nextUrl = `${this.getBaselUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`)}`;
+          nextUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`)}`;
         }
         this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setCanonicalUrls,
           { detail: { prev: prevUrl, next: nextUrl } }));

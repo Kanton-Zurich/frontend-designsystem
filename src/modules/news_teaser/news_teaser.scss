@@ -98,23 +98,22 @@ $customParagraphCurve: (
     // Overwrite item paragraph atom
     .atm-paragraph {
       order: 3;
-      margin: 0;
+      margin: 0 0 pxToRem($sizeRegular) 0;
+      line-height: $sizeLineHeightBase;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
-
-      line-height: $sizeLineHeightBase;
     }
   }
 
   &__item-label {
     font-size: $sizeFontTiny;
     line-height: $sizeLineHeightBase;
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
     margin: 0;
     order: 1;
 
     time {
-      font-weight: $fontWeightDefault;
+      font-family: $fontFamilyBase;
     }
   }
 

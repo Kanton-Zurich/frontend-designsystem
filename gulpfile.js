@@ -37,7 +37,7 @@ try {
 gulp.task('html', () => {
   const task = require('@unic/estatico-handlebars');
   const estaticoWatch = require('@unic/estatico-watch');
-  const {readFileSyncCached} = require('@unic/estatico-utils');
+  const { readFileSyncCached } = require('@unic/estatico-utils');
 
   const instance = task({
     src: [
@@ -773,6 +773,7 @@ gulp.task('copy', () => {
       './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
       './src/assets/media/image/*.svg',
       './src/assets/mocks/**/*.json',
+      './src/modules/**/*.mock.html',
     ],
     srcBase: './src',
     dest: './dist',

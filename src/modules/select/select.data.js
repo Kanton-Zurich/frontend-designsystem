@@ -160,7 +160,6 @@ const variants = _.mapValues({
       listData: _.merge({}, listDemoData.variants.useAnchor.props,
         listDemoData.variants.useAnchor.props.selectOptions = [], {
           selectOptions: [
-            { value: '', label: '' },
             { value: 'de', label: 'Deutsch', preSelected: true },
             { value: 'prt', label: 'Português' },
             { value: 'ru', label: 'Pусский' },
@@ -169,6 +168,23 @@ const variants = _.mapValues({
           groupId: 'singleSelectUpwards',
           setHiddenIndex: true,
         }),
+      triggerInputData: inputDemoData.variants.triggerDefault.props,
+    },
+  },
+  singleItem: {
+    meta: {
+      title: 'Einzelauswahl(Default) (Nur 1 Item)',
+      desc: 'Default implementation einer Einzelauswahl, welches über ein einzelnes Item verfügt.',
+    },
+    props: {
+      listData: _.assign(_.merge({}, listDemoData.variants.defaultSingle.props, {
+        groupId: 'singleSelectOnlyOneItem',
+        setHiddenIndex: true,
+      }), {
+        selectOptions: [
+          { value: 'mig', label: 'Auswahlfeld' },
+        ],
+      }),
       triggerInputData: inputDemoData.variants.triggerDefault.props,
     },
   },

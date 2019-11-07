@@ -8,8 +8,9 @@ const defFooterData = require('../../modules/footer/footer.data').variants.defau
 
 const defPageHeaderCustomData = {
   pageTitle: 'Kanton Zürich',
+  breadcrumb: false,
   leadText: 'Lead: ExtraBold Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
-  buttonData: { buttonTitle: 'Formular beantragen', serviceLink: '../../modules/service_list/service_page.mock.html', modalData: { modalId: 'service-modal0'},},
+  buttonData: { buttonTitle: 'Formular beantragen', serviceLink: '../../modules/service_list/service_page.mock.html', modalData: { modalId: 'service-modal0' } },
 };
 
 const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants.default.props;
