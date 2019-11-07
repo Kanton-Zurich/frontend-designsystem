@@ -963,7 +963,7 @@ gulp.task('clean', () => {
  * Zip deployment package
  */
 gulp.task('zip', () => {
-  return gulp.src(['dist/offline.zip', 'dist/ci/prod/**/*'])
+  return gulp.src(['dist/ci/prod/**/*'])
     .pipe(zip('deploy.zip'))
     .pipe(gulp.dest('dist/ci'));
 });
