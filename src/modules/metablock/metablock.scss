@@ -1,7 +1,11 @@
 .mdl-metablock {
   @include sizeCurve(margin-bottom, medium);
 
-  .atm-heading {
+  &--margin-bottom {
+    @include sizeCurve(margin-bottom, big);
+  }
+
+  &--margin-top {
     @include sizeCurve(margin-top, big);
   }
 }
