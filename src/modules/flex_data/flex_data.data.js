@@ -16,7 +16,8 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('flex_data.md'),
   },
   props: {
-
+    resultCountTitle: '%1 Treffer zu ihrer Abfrage',
+    noResultsTitle: 'Es wurden keine Ergebnisse gefunden.  Bitte passen Sie Ihre Suche an.',
   },
 });
 const variants = _.mapValues({
@@ -28,7 +29,6 @@ const variants = _.mapValues({
     props: {
       pagination: defPaginationData.variants.fullWidth.props,
       flexDataSource: '/mocks/modules/flex_data/flex_data_table.json',
-      resultCountTitle: '%1 Treffer zu ihrer Abfrage',
       flexTableFormData: _.merge({}, defFormData.variants.steuerBuch.props),
       tableData: {
         tableTitle: '',
@@ -71,7 +71,6 @@ const variants = _.mapValues({
       pagination: defPaginationData.variants.default.props,
       flexDataSource: '/mocks/modules/flex_data/flex_data_generic.json',
       flexGenericFormData: _.merge({}, defFormData.variants.rrb.props),
-      resultCountTitle: '%1 Treffer zu ihrer Abfrage',
       sortContextMenu: {
         lists: [
           {

@@ -17,6 +17,7 @@ class FlexData extends Module {
     results: HTMLDivElement,
     resultsTemplate: HTMLScriptElement,
     resultsGeneric: HTMLDivElement,
+    genericSort: HTMLDivElement,
     genericSortDropdown: HTMLDivElement,
     genericSortButton: HTMLButtonElement,
     resultsGenericTitle: HTMLHeadingElement,
@@ -46,6 +47,7 @@ class FlexData extends Module {
         results: '.mdl-flex-data__results',
         resultsGeneric: '.mdl-flex-data__results .mdl-flex-data__results-generic',
         resultsGenericTitle: '.mdl-flex-data__results .mdl-flex-data__results-title',
+        genericSort: '.mdl-flex-data__generic-sort',
         genericSortDropdown: '.mdl-flex-data__generic-sort .mdl-context_menu',
         genericSortButton: '.mdl-flex-data__generic-sort-dropdown',
         resultsTable: '.mdl-table',
@@ -197,10 +199,14 @@ class FlexData extends Module {
    * @param jsonData
    */
   populateResultList(jsonData) {
+    console.log(jsonData);
     this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
     this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
-    const resultsTitle = this.ui.results.getAttribute('data-result-count-title')
+    let resultsTitle = this.ui.results.getAttribute('data-result-count-title')
       .replace('%1', jsonData.numberOfResults);
+    if (jsonData.numberOfResults <=  0) {
+      resultsTitle = this.ui.results.getAttribute('data-no-results-title');
+    }
     // fill table date if present
     if (this.ui.resultsTable) {
       this.ui.resultsTableBody.innerHTML = '';
@@ -225,6 +231,12 @@ class FlexData extends Module {
     // fill generic results
     if (this.ui.resultsGeneric) {
       this.ui.resultsGenericTitle.innerText = resultsTitle;
+      if (jsonData.numberOfResults <= 0) {
+        this.ui.genericSort.classList.add('hidden');
+      } else {
+        this.ui.genericSort.classList.remove('hidden');
+      }
+      this.ui.resultsGeneric.innerHTML = '';
       this.ui.resultsGeneric.innerHTML = this
         .markupFromTemplate(this.ui.resultsTemplate.innerHTML, jsonData);
     }
