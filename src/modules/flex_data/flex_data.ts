@@ -199,12 +199,11 @@ class FlexData extends Module {
    * @param jsonData
    */
   populateResultList(jsonData) {
-    console.log(jsonData);
     this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
     this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
     let resultsTitle = this.ui.results.getAttribute('data-result-count-title')
       .replace('%1', jsonData.numberOfResults);
-    if (jsonData.numberOfResults <=  0) {
+    if (jsonData.numberOfResults <= 0) {
       resultsTitle = this.ui.results.getAttribute('data-no-results-title');
     }
     // fill table date if present
@@ -345,7 +344,6 @@ class FlexData extends Module {
       }
     });
   }
-
   /**
    * Fetch teaser data
    * @param callback
