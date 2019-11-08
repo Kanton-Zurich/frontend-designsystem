@@ -93,7 +93,7 @@ class FormRules {
 
     switch (action) {
       case 'show':
-        this.ui.owner.classList.add(this.options.stateClasses.hiddenByRule);
+        this.checkRules();
 
         break;
       case 'enable':
