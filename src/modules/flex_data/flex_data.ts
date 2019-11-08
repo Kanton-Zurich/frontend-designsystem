@@ -339,8 +339,8 @@ class FlexData extends Module {
           break;
       }
       // Set the sort element if present
-      const sortSetting = this.ui.genericSortDropdown.querySelector(`[data-sort-column="${this.orderBy}"][data-sort-direction="${this.order}"]`);
-      if (sortSetting) {
+      if (this.ui.genericSortDropdown) {
+        const sortSetting = this.ui.genericSortDropdown.querySelector(`[data-sort-column="${this.orderBy}"][data-sort-direction="${this.order}"]`);
         this.ui.genericSortButton.querySelector('span').innerText = sortSetting.querySelector('span').innerText;
       }
     });
