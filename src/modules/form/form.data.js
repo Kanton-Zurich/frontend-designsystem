@@ -121,7 +121,20 @@ const duplicateGroup = {
       {
         cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
           datepickerData.variants.defaultDate.props,
-          {})),
+          {
+            rules: JSON.stringify([
+              {
+                conditions: [
+                  {
+                    field: 'checkbox_in_duplication',
+                    equals: true,
+                    value: 'mr',
+                  },
+                ],
+                action: 'show',
+              },
+            ]),
+          })),
       },
     ],
   }],

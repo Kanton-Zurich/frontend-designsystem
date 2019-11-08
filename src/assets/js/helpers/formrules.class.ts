@@ -31,6 +31,7 @@ class FormRules {
     };
 
     this.getRules();
+
     this.getHierarchicalRules();
 
     this.setInitialState();
