@@ -1221,6 +1221,111 @@ const variants = _.mapValues({
       ],
     },
   },
+  decisions: {
+    meta: {
+      title: 'Entscheide (Flex data CZHDEV-1234)',
+      desc: 'Flex Data Entscheide',
+    },
+    props: {
+      sectionTitle: null,
+      groups: [{
+        rows: [
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                  selectData.variants.default.props,
+                  {
+                    listData: _.merge({}, listDemoData.props, {
+                      groupId: 'entscheidungsintanz',
+                      isSingleSelect: true,
+                      selectOptions: [
+                        { value: '', label: '' },
+                        { value: 'sicherheitsdirektion', label: 'Sicherheitsdirektion'},
+                        { value: 'instanz2', label: 'Instanz2'},
+                        { value: 'instanz3', label: 'Instanz3'},
+                      ],
+                    }),
+                    triggerInputData: {
+                      label: 'Entscheidungsinstanz',
+                      validation: {
+                        isRequired: false,
+                      },
+                    },
+                  })),
+              },
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Geschäftsnummer',
+                    name: 'geschaeftsnummer',
+                    uuid: 'geschaeftsnummer',
+                  })),
+                tooltip: {
+                  helptext: 'Beispiel: 2017.2523',
+                },
+              },
+            ],
+          },
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                  datepickerData.variants.dateRange.props,
+                  {
+                    formInputData: {
+                      label: 'Entscheidungsdatum von/bis',
+                      name: 'entscheidungsdatum',
+                      uuid: 'entscheidungsdatum',
+                      validation: false,
+                    },
+                  })),
+              },
+              {
+                cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                  selectData.variants.default.props,
+                  {
+                    listData: _.merge({}, listDemoData.props, {
+                      groupId: 'rechtsgebiet',
+                      isSingleSelect: true,
+                      selectOptions: [
+                        { value: '', label: '' },
+                        { value: 'admin_strassn', label: 'Administrativmassnahmen im Strassenverkehr'},
+                        { value: 'sozialhilfe', label: 'Sozialhilfe'},
+                        { value: 'auslaender_recht', label: 'Ausländerrecht'},
+                      ],
+                    }),
+                    triggerInputData: {
+                      label: 'Rechtsgebiet',
+                      validation: {
+                        isRequired: false,
+                      },
+                    },
+                  })),
+              },
+            ],
+          },
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Stichwort',
+                    name: 'stichwort',
+                    uuid: 'stichwort',
+                  })),
+              },
+            ],
+          },
+        ],
+      },
+      ],
+    },
+  },
 }, (variant) => {
   // eslint-disable
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {

@@ -23,27 +23,38 @@ const data = _.merge({}, defaultData, {
         title: 'Details',
         hasTopTitle: true,
         headingLevel: 3,
-        items: [
+        rows: [
           {
-            label: 'Text',
-            text: 'Anfrage Barbara Günthard Fitze, Winterthur, Daniel Sommer, Affoltern  a. Albis, und Beat Monhart, Gossau, betreffend Abfallreduktion,  Beantwortung',
-            wide: true,
+            columns: [
+              {
+                label: 'Text',
+                text: 'Anfrage Barbara Günthard Fitze, Winterthur, Daniel Sommer, Affoltern  a. Albis, und Beat Monhart, Gossau, betreffend Abfallreduktion,  Beantwortung',
+              },
+            ],
           },
           {
-            label: 'RRB Nr.',
-            text: '3.1',
+            columns: [
+              {
+                label: 'RRB Nr.',
+                text: '3.1',
+              },
+              {
+                label: 'Direktion',
+                text: 'Baudirektion (BD)',
+              },
+            ],
           },
           {
-            label: 'Direktion',
-            text: 'Baudirektion (BD)',
-          },
-          {
-            label: 'Sitzungsdatum',
-            text: '22.08.2018',
-          },
-          {
-            label: 'Publikationsdatum',
-            text: '30.09.2018',
+            columns: [
+              {
+                label: 'Sitzungsdatum',
+                text: '22.08.2018',
+              },
+              {
+                label: 'Publikationsdatum',
+                text: '30.09.2018',
+              },
+            ],
           },
         ],
       },
