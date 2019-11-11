@@ -17,6 +17,7 @@ class FlyingFocus {
   private ringElement: any = null;
   private movingId: any = 0;
   private prevFocused: any = null;
+  private currentFocused: any = null;
   private keyDownTime: number = 0;
 
   private docElement: any = null;
@@ -54,10 +55,11 @@ class FlyingFocus {
    * @param event: Event
    */
   public showFlyingFocus(event) {
+    this.ringElement.style.display = `block`;
     if (event.target.id === this.options.ringId) {
       return;
     }
-
+    this.currentFocused = event.target;
     this.doFocusOnTarget(event.target);
   }
 
@@ -93,6 +95,7 @@ class FlyingFocus {
    * @memberof FlyingFocus
    */
   public hideFlyingFocus() {
+    this.ringElement.style.display = `none`;
     if (!this.movingId) {
       return;
     }
@@ -149,6 +152,10 @@ class FlyingFocus {
       // Show animation only upon Tab or Arrow keys press.
       if (code === 9 || (code > 36 && code < 41)) { // eslint-disable-line no-magic-numbers
         this.keyDownTime = Date.now();
+      }
+
+      if (event.key === 'Esc' || event.key === 'Escape') {
+        this.currentFocused.blur();
       }
     }, true);
 
