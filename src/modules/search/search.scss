@@ -29,6 +29,10 @@ $searchCurves: (
 
       background: $colorBlack;
     }
+
+    .mdl-search--hide-tags & {
+      margin-bottom: 0;
+    }
   }
 
   &__icon {
@@ -55,6 +59,10 @@ $searchCurves: (
     &::placeholder,
     &::-ms-placeholder {
       color: $colorBlack60;
+    }
+
+    &::-ms-clear {
+      display: none;
     }
   }
 
