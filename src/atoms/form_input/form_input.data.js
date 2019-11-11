@@ -314,7 +314,7 @@ const variants = _.mapValues({
       uuid: _.uniqueId('float_button-'),
       validation: {
         isRequired: true,
-        pattern: '^[+]?[0-9]+$',
+        pattern: '^[()\\- \\d]+$',
         errorMsg: 'Die Eingabe entspricht nicht den Vorgaben für eine Telefonnummer.',
       },
     },
