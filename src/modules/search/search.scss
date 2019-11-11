@@ -29,6 +29,10 @@ $searchCurves: (
 
       background: $colorBlack;
     }
+
+    @include mq($to: small) {
+      margin-left: pxToRem($sizeBiggerBig + $sizeTiny);
+    }
   }
 
   &__icon {
