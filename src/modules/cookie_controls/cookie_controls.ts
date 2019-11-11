@@ -65,7 +65,8 @@ class CookieControls extends Module {
       if (this.ui.checkbox.checked) {
         document.cookie = `acceptYouTube=true; max-age=${this.getExpireDate()}; path=/`;
       } else {
-        document.cookie = `acceptYouTube=true; max-age=${new Date()}; path=/`;
+        // Not accepted
+        document.cookie = `acceptYouTube=false; max-age=${new Date()}; path=/`;
       }
     });
   }
