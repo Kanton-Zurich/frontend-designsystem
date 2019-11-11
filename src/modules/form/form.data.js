@@ -351,24 +351,6 @@ const variants = _.mapValues({
             {
               fields: [
                 {
-                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
-                    datepickerData.variants.dateAndTime.props,
-                    {})),
-                },
-              ],
-            },
-            {
-              fields: [
-                {
-                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
-                    datepickerData.variants.dateRange.props,
-                    {})),
-                },
-              ],
-            },
-            {
-              fields: [
-                {
                   cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
                     formInputData.variants.default.props,
                     {
@@ -994,7 +976,7 @@ const variants = _.mapValues({
                     },
                   },
                 })),
-            },],
+            }],
             unwrapped: true,
           },
         ],
