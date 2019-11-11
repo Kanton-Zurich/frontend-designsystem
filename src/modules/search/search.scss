@@ -83,6 +83,6 @@ $searchCurves: (
   }
 
   .atm-anchorlink--tag-top {
-    @include polyFluidSizing(font-size, map-get($fontSizeCurves, big));
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
   }
 }
