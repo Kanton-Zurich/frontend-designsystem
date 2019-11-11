@@ -257,6 +257,9 @@ class Header extends Module {
     this.placeholder = document.createElement('div');
     this.placeholder.style.display = 'none';
     this.placeholder.style.height = `${this.height}px`;
+
+    this.placeholder.classList.add('mdl-header__placeholder');
+
     this.ui.element.parentNode.insertBefore(this.placeholder, this.ui.element);
   }
 
