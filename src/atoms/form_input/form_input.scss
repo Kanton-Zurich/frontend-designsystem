@@ -162,7 +162,6 @@ $unitLeftSpace: 62px;
 
     .atm-form_input--search & {
       @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
-      line-height: 1;
     }
   }
 
