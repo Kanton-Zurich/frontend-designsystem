@@ -14,7 +14,6 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     detailPageLink: '#',
-    headingLevel: 4,
   },
 });
 const variants = _.mapValues({

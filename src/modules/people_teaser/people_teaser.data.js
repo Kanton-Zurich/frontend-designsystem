@@ -26,6 +26,21 @@ const variants = _.mapValues({
       title: 'Default',
       desc: 'Default implementation',
     },
+    props: {
+      headingLevelMain: 2,
+      headingLevelSub: 3,
+      headingBorder: true,
+    },
+  },
+  alternativeHeadings: {
+    meta: {
+      title: 'H3 / H4 Variante',
+      desc: '',
+    },
+    props: {
+      headingLevelMain: 3,
+      headingLevelSub: 4,
+    }
   },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
