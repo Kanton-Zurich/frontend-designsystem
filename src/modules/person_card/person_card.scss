@@ -28,6 +28,7 @@
   }
 
   &__name {
+    margin-top: 0;
     line-height: $sizeLineHeightMedium;
     font-family: $fontFamilyBlack;
     margin-bottom: pxToRem($sizeMini);

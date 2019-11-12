@@ -29,6 +29,10 @@ const variants = _.mapValues({
     props: {
       headingLevel: 2,
       headingBordered: true,
+      personCardData0: { headingLevel: 4 },
+      personCardData1: { headingLevel: 4 },
+      personCardData2: { headingLevel: 4 },
+      personCardData3: { headingLevel: 4 },
     },
   },
   alternativeHeadings: {
@@ -38,6 +42,10 @@ const variants = _.mapValues({
     },
     props: {
       headingLevel: 3,
+      personCardData0: { headingLevel: 5 },
+      personCardData1: { headingLevel: 5 },
+      personCardData2: { headingLevel: 5 },
+      personCardData3: { headingLevel: 5 },
     },
   },
 }, (variant) => {
