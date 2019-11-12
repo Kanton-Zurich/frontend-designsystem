@@ -39,6 +39,10 @@
     @include sizeCurve(margin-bottom, medium);
   }
 
+  .atm-button--tag {
+    font-size: $sizeFontSmall;
+  }
+
   /**
    * SPECIAL STYLES FOR THE RESULTS ITEMS
    */
