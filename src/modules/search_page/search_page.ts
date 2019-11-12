@@ -8,6 +8,7 @@ import { debounce, template } from 'lodash';
 
 import Module from '../../assets/js/helpers/module';
 import Pagination from '../pagination/pagination';
+import Autosuggest from '../../assets/js/helpers/autosuggest';
 
 class SearchPage extends Module {
   public ui: {
@@ -19,6 +20,8 @@ class SearchPage extends Module {
     results: HTMLDivElement,
     resultsTemplate: HTMLScriptElement,
     wrapper: HTMLDivElement,
+    autosuggest: HTMLDivElement,
+    autosuggestTemplate: HTMLScriptElement,
   }
 
   public options: {
@@ -27,6 +30,7 @@ class SearchPage extends Module {
     delay: number,
     url: string,
     minInputLength: number,
+    autosuggestURL: string,
   }
 
   public data: {
@@ -55,6 +59,8 @@ class SearchPage extends Module {
         results: '[data-search_page="results"]',
         resultsTemplate: '[data-search_page="resultsTemplate"]',
         wrapper: '[data-search_page="wrapper"]',
+        autosuggest: '[data-search_page="autosuggest"]',
+        autosuggestTemplate: '[data-search_page="autosuggestTemplate"]',
       },
       stateClasses: {
         showResults: 'mdl-search_page--show-results',
@@ -73,6 +79,15 @@ class SearchPage extends Module {
 
     this.initWatchers();
     this.initEventListeners();
+
+    new Autosuggest({
+      input: this.ui.input,
+      parent: this.ui.element,
+      template: this.ui.autosuggestTemplate.innerHTML,
+      target: this.ui.autosuggest,
+      url: this.options.autosuggestURL,
+      renderAsButton: true,
+    }, {});
   }
 
   static get events() {
@@ -92,6 +107,13 @@ class SearchPage extends Module {
     });
 
     this.ui.pagination.addEventListener(Pagination.events.change, this.onPageChange.bind(this));
+
+    this.ui.element.addEventListener(Autosuggest.events.termSelected, (event) => {
+      const term = (<CustomEvent>event).detail;
+      this.ui.input.value = term;
+
+      this.onQueryChange(null, null, term);
+    });
   }
 
   /**
@@ -100,7 +122,6 @@ class SearchPage extends Module {
    * @memberof SearchPage
    */
   initWatchers() {
-    this.watch(this.ui.input, 'value', debounce(this.onQueryChange.bind(this), this.options.delay));
     this.watch(this.data, 'page', (propName, oldValue, newValue) => {
       this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setPage, {
         detail: newValue,
@@ -125,6 +146,7 @@ class SearchPage extends Module {
    * @memberof SearchPage
    */
   async onQueryChange(propName, oldValue, newValue) {
+    this.ui.autosuggest.dispatchEvent(new CustomEvent(Autosuggest.events.empty));
     this.empty();
     this.data.page = 1;
 
