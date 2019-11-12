@@ -37,10 +37,16 @@
 
   &__tag-group {
     @include sizeCurve(margin-bottom, medium);
+
+    margin-top: -$sizeMini;
   }
 
   .atm-button--tag {
     font-size: $sizeFontSmall;
+  }
+
+  .atm-radiobutton {
+    margin-top: $sizeMini;
   }
 
   /**
