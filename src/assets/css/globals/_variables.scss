@@ -75,6 +75,17 @@ $fontSizeCurves: (
   tiny: (
     xsmall: $sizeFontTiny,
     small: $sizeFontSmall
+  ),
+  xsmall: (
+    tiny: $sizeFontTiny,
+    small: $sizeFontSmall,
+    medium: $sizeFontRegular,
+    large: $sizeFontBiggerRegular,
+  ),
+  supersmall: (
+    tiny: $sizeFontTiny,
+    small: $sizeFontSmall,
+    large: $sizeFontRegular,
   )
 );
 
