@@ -244,7 +244,7 @@ class Header extends Module {
     }
 
     if (this.isToggleable) {
-      this.data.scrollPosition = newScrollPosition;
+      this.data.scrollPosition = newScrollPosition >= 0 ? newScrollPosition : 0;
       this.isToggleable = false;
     }
 
