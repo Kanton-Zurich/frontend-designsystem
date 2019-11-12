@@ -86,6 +86,10 @@
 
     .mdl-pagination {
       margin-top: $sizeLarge;
+
+      &.hidden {
+        display: none;
+      }
     }
 
     .mdl-table {

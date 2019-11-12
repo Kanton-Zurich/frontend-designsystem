@@ -30,6 +30,11 @@ $selectHeightWithFilterExtended: 424px;
     }
   }
 
+  .atm-form_input__input--trigger {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .atm-form_input--trigger-phone {
     input {
       // Remove light blueish background after auto-fill / focus
@@ -182,6 +187,7 @@ $selectHeightWithFilterExtended: 424px;
   &--selected {
     .atm-form_input__trigger-value {
       color: $colorBlack;
+      white-space: nowrap;
     }
 
     .atm-form_input__input--trigger svg {
