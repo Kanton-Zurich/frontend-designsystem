@@ -14,35 +14,50 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     headingLevel: 2,
-    items: [
+    rows: [
       {
-        label: 'Text',
-        text: 'Merkblatt des kantonalen Steueramtes über das Verfahren bei Bestreitung der Steuerhoheit ab Steuerperiode 1999 nach dem neuen Steuergesetz vom 8. Juni 1997',
-        wide: true,
+        columns: [
+          {
+            label: 'Text',
+            text: 'Merkblatt des kantonalen Steueramtes über das Verfahren bei Bestreitung der Steuerhoheit ab Steuerperiode 1999 nach dem neuen Steuergesetz vom 8. Juni 1997',
+          },
+        ],
       },
       {
-        label: 'ZStB-Nummer',
-        text: '3.1 ',
+        columns: [
+          {
+            label: 'ZStB-Nummer',
+            text: '3.1 ',
+          },
+          {
+            label: 'Erlassdatum',
+            text: '24. November 1999',
+          },
+        ],
       },
       {
-        label: 'Erlassdatum',
-        text: '24. November 1999',
+        columns: [
+          {
+            label: 'Themenbereic',
+            text: 'Natürliche Personen',
+          },
+          {
+            label: 'Nummer alt',
+            text: '11/050',
+          },
+        ],
       },
       {
-        label: 'Themenbereic',
-        text: 'Natürliche Personen',
-      },
-      {
-        label: 'Nummer alt',
-        text: '11/050',
-      },
-      {
-        label: 'Gültig ab',
-        text: '1. Januar 1999',
-      },
-      {
-        label: 'Stichworte',
-        text: 'Steuerpflicht, Steuerhoheit',
+        columns: [
+          {
+            label: 'Gültig ab',
+            text: '1. Januar 1999',
+          },
+          {
+            label: 'Stichworte',
+            text: 'Steuerpflicht, Steuerhoheit',
+          },
+        ],
       },
     ],
   },
