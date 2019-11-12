@@ -6,7 +6,15 @@
         <h{{teaserHeadingLevel}} {{#if anchorNavReference}}id="{{{anchorNavReference}}}"{{/if}} class="mdl-teaser__title atm-heading" data-lineclamp="true">
           {{teaserTitle}}
         </h{{teaserHeadingLevel}}>
-        <time class="mdl-teaser__date" datetime="{{teaserMachineReadableDate}}">{{teaserDisplayDate}}</time>
+          {{#if teaserLabel}}
+            <p class="mdl-teaser__label">
+              {{teaserLabel}}
+              <time datetime="{{teaserMachineReadableDate}}">{{teaserDisplayDate}}</time>
+            </p>
+          {{/if}}
+          {{#unless teaserLabel}}
+            <time class="mdl-teaser__date" datetime="{{teaserMachineReadableDate}}">{{teaserDisplayDate}}</time>
+          {{/unless}}
         <p data-teaser="teaserDescription" data-lineclamp="true" class="mdl-teaser__description">
           {{teaserDescription}}
         </p>
