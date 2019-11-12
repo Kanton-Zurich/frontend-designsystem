@@ -1,3 +1,5 @@
+$socialSpace: 220px;
+
 .mdl-footer {
   $footerCurves: (
     headingBottomMargin: (
@@ -84,7 +86,7 @@
 
   &__submenu {
     @include sizeCurve('margin-bottom', submenuBottomMargin, $footerCurves);
-    color: $colorBlack40;
+    color: $colorBlack20;
 
     p {
       font-family: $fontFamilyBlack;
@@ -154,6 +156,10 @@
     }
   }
   @include mq($from: medium) {
+    .mdl-footer__submenu {
+      padding-right: $socialSpace;
+    }
+
     &--maintenance {
       .mdl-footer__social-media {
         position: absolute;
@@ -173,6 +179,10 @@
       position: absolute;
       bottom: pxToRem($sizeHuge);
       right: 0;
+
+      .atm-heading {
+        text-align: right;
+      }
     }
   }
 }
