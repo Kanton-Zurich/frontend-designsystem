@@ -7,8 +7,6 @@ $topSpace_without_border: 22px;
 $rightSpace: 44px;
 $unitLeftSpace: 62px;
 
-$topSpaceSearchInput: 15.5px;
-
 .atm-form_input {
   position: relative;
 
@@ -46,9 +44,16 @@ $topSpaceSearchInput: 15.5px;
 
     .atm-form_input--search & {
       font-family: $fontFamilyBlack;
-      font-size: pxToRem($sizeFontBig);
-      padding-top: $topSpaceSearchInput;
-      padding-bottom: $topSpaceSearchInput;
+
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
+
+      height: pxToRem($heightRegular);
+      padding-top: 0;
+      padding-bottom: 0;
+
+      @include mq($to: small) {
+        height: pxToRem($heightSmall);
+      }
     }
 
     @at-root {
@@ -156,7 +161,8 @@ $topSpaceSearchInput: 15.5px;
     line-height: $sizeLineHeightBase;
 
     .atm-form_input--search & {
-      font-size: pxToRem($sizeFontBig);
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
+      line-height: 1;
     }
   }
 
@@ -217,9 +223,11 @@ $topSpaceSearchInput: 15.5px;
   &__functionality {
     display: none;
     position: absolute;
-    top: pxToRem($sizeLarge);
+    top: 50%;
     right: pxToRem($sizeSmallRegular);
     height: pxToRem($sizeLarge);
+
+    transform: translateY(-50%);
 
     svg use {
       fill: $colorBlack60;
