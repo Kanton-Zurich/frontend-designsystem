@@ -16,13 +16,13 @@
     }
   }
 
+  &__type {
+    font-family: $fontFamilyBlack;
+  }
+
   &__meta {
     font-size: pxToRem($sizeFontTiny);
     color: $colorBlack60;
-  }
-
-  &__type {
-    font-family: $fontFamilyBlack;
   }
 
   .atm-linklist_item {

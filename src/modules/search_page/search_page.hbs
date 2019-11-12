@@ -44,7 +44,7 @@
       <% _.forEach(results, function(item, index) { %>
         <li class="atm-search_result_item" <% if(item.type === 'service') { %>data-init="servicelist"<% } %>>
           <span class="atm-search_result_item__meta">
-            <span class="atm_search_result_item__type">
+            <span class="atm-search_result_item__type">
               <%- item.typeLabel %>
             </span>
             <% if (item.breadcrumb) { %>
