@@ -23,6 +23,7 @@ $selectHeightWithFilterExtended: 424px;
       box-shadow: none;
       border-radius: 0;
       height: 100%;
+      outline: none;
     }
 
     .atm-list__item input {
@@ -70,6 +71,7 @@ $selectHeightWithFilterExtended: 424px;
 
   &__apply {
     bottom: pxToRem(-$sizeGiant);
+    background-color: $colorBlack5;
 
     button {
       width: 100%;
