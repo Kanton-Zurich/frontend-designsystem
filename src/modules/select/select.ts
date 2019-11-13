@@ -540,12 +540,10 @@ class Select extends Module {
       }
 
       if (!focusLost) {
+        this.resetFocusOnTrigger();
+        // for certain browsers a time delay is necessary
         setTimeout(() => {
-          if (this.ui.phoneInput) {
-            this.ui.phoneInput.focus();
-          } else {
-            this.ui.trigger.focus();
-          }
+          this.resetFocusOnTrigger();
         }, this.options.dropdownDelay);
       } else {
         this.ui.element.querySelector(this.options.domSelectors.visibleInputItems)
@@ -555,6 +553,14 @@ class Select extends Module {
         this.updateFlyingFocus();
       }
       this.emitClose();
+    }
+  }
+
+  resetFocusOnTrigger() {
+    if (this.ui.phoneInput) {
+      this.ui.phoneInput.focus();
+    } else {
+      this.ui.trigger.focus();
     }
   }
 

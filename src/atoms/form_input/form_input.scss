@@ -305,14 +305,29 @@ $topSpaceSearchInput: 15.5px;
   }
 
   &--datepicker,
-  &--trigger,
-  &--icon {
+  &--trigger {
     button:focus .icon,
     input:focus ~ .icon {
       fill: $colorBlack;
     }
 
     .icon {
+      position: absolute;
+      top: pxToRem($sizeLarge);
+      right: pxToRem($sizeSmallRegular);
+      transform: rotate(0deg);
+      transition: 400ms transform ease-out;
+      fill: $colorBlack40;
+    }
+  }
+
+  &--icon {
+    button:focus .icon,
+    input:focus ~ .icon {
+      fill: $colorBlack;
+    }
+
+    > .icon {
       position: absolute;
       top: pxToRem($sizeLarge);
       right: pxToRem($sizeSmallRegular);
