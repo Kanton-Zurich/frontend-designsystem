@@ -16,7 +16,6 @@ $headerCurves: (
 .mdl-header {
   @include gridBleed($fullwidth: true);
   @include sizeCurve(padding-bottom, borderHeight, $headerCurves);
-  @include transition(background);
 
   position: relative;
   z-index: $zIndexFlyouts;
@@ -40,6 +39,11 @@ $headerCurves: (
     left: 0;
 
     z-index: $zIndexFlyouts + 1;
+  }
+
+  &__placeholder {
+    width: 200vw;
+    margin-left: -100vw;
   }
 
 
@@ -88,7 +92,9 @@ $headerCurves: (
   &__functions {
     position: absolute;
     right: 0;
-    bottom: 0;
+
+    @include sizeCurve(bottom, borderHeight, $headerCurves);
+
     top: 0;
     display: inline-flex;
   }
@@ -98,16 +104,12 @@ $headerCurves: (
     font-family: $fontFamilyBase;
     font-size: $sizeFontMedium;
 
-    height: calc(100% - #{$borderHeightSmall});
+    height: 100%;
 
     background: rgba($colorWhite, 0.4);
 
     svg use {
       fill: $colorBlack80;
-    }
-
-    @include mq($from: medium) {
-      height: calc(100% - #{$borderHeightNormal});
     }
 
     &:hover {
@@ -174,8 +176,21 @@ $headerCurves: (
 
 @each $key, $val in $tl-color-variations {
   .#{$key} {
+    .mdl-header__placeholder {
+      background: $val;
+    }
+
     .mdl-header {
       background: $val;
+
+      &--fixed {
+        background: transparent;
+      }
+
+      &__wrapper,
+      &__functions {
+        background: $val;
+      }
 
       &--inverted,
       &.cv-monochrome {
@@ -187,6 +202,11 @@ $headerCurves: (
 
         .mdl-header__wrapper:after {
           background: $colorBlack;
+        }
+
+        .mdl-header__wrapper,
+        .mdl-header__functions {
+          background: transparent;
         }
 
         .mdl-header__functions {
