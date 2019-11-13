@@ -81,6 +81,10 @@
     padding-right: 0;
     margin-bottom: 0;
 
+    input {
+      @include visuallyhidden;
+    }
+
     label:after,
     label:before {
       display: none;

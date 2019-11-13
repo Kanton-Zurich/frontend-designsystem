@@ -175,7 +175,7 @@ class Module {
         result = result[0].replace('#', '');
       }
     }
-    return result && result.length > 0 ? result : null;
+    return result && result.length > 0 ? decodeURIComponent(result) : null;
   }
 
   /**
