@@ -36,15 +36,13 @@ $contactMapHeightCurve: (
     @include sizeCurve(margin-bottom, makespace, $contactMapHeightCurve);
   }
 
-  .atm-heading {
+  .atm-heading--bordered {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
     line-height: $sizeLineHeightMedium;
     margin-bottom: pxToRem($sizeLarge);
 
-    &--bordered {
-      &:before {
-        background: $colorWhite;
-      }
+    &:before {
+      background: $colorWhite;
     }
   }
 
@@ -96,6 +94,31 @@ $contactMapHeightCurve: (
       margin-top: pxToRem($sizeRegular);
     }
   }
+
+  &__section-cell--media {
+    margin-top: calc(#{$sizeBiggerBig} + #{$sizeLarge});
+
+    .mdl-contact__subtitle a svg {
+      transform: translateY(-50%) scale(0.65625) rotate(0deg);
+    }
+
+    &.closed {
+      height: 38px;
+
+      .mdl-contact__cell-content {
+        transform: scaleY(0);
+      }
+    }
+
+    &.open {
+      height: auto;
+
+      .mdl-contact__cell-content {
+        transform: scaleY(1);
+      }
+    }
+  }
+
 
   &__cell-icon {
     display: inline-flex;

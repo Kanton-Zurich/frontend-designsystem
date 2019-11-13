@@ -288,6 +288,38 @@ const variants = _.mapValues({
       },
     },
   },
+  mediaContractWidthMap: {
+    meta: {
+      title: 'Medienkontakt mit Karte',
+      desc: 'Darstellung eines Kontakts mit Medienkontakt und Karte',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactAddress: {
+        name: 'Kantonspolizei',
+        street: 'Kasernenstrasse 29',
+        zip: '8021',
+        city: 'Zürich',
+      },
+      contactPhone: [
+        {
+          anchorLabel: '+41 44 247 22 11',
+          phoneNumer: '+41442472211',
+          additionalInfo: 'Telefon',
+        },
+      ],
+      mediaContact: {
+        title: 'Medienkontakt',
+        lead: 'Mediendienst',
+        email: 'info@kapo.zh.ch',
+        phoneLabel: '058 811 30 00',
+        phoneNumer: '+41588113000',
+        address: 'Kasernenstrasse 29, Postfach, 8021 Zürich',
+        additionals: 'Bürozeiten Mo bis Fr 08.00 bis 11.00 Uhr und 13.30 bis 16 Uhr'
+      },
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
