@@ -58,7 +58,7 @@ $customParagraphCurve: (
       position: absolute;
       top: pxToRem(-$sizeTiny);
       left: pxToRem(-$sizeTiny);
-      width: calc(100%  + #{$sizeRegular});
+      width: calc(100% + #{$sizeRegular});
       height: calc(100% + #{$sizeRegular});
       background-color: $colorBorderFrameHover;
     }
@@ -76,6 +76,7 @@ $customParagraphCurve: (
     // HOVER OVER ITEMS
     &:hover {
       z-index: 1;
+      
       &:before {
         display: block;
       }
