@@ -396,6 +396,9 @@ $pageHeaderCurves: (
         }
 
         .mdl-person_card {
+          .atm-paragraph {
+            color: $colorText;
+          }
           .atm-heading {
             color: $colorBlack;
           }
