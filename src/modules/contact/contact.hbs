@@ -1,5 +1,4 @@
-<div{{#if anchorNavReference}}id="{{anchorNavReference}}"{{/if}}
-                              class="mdl-contact{{#if fullWidth}} mdl-contact--fullwidth{{/if}}{{#if
+<div{{#if anchorNavReference}} id="{{anchorNavReference}}"{{/if}} class="mdl-contact{{#if fullWidth}} mdl-contact--fullwidth{{/if}}{{#if
                                 inLocation}} mdl-contact--location{{/if}}{{#if mapData}} mdl-contact--with-map{{/if}}"
                               data-init="contact">
   {{#if fullWidth}}
@@ -139,27 +138,20 @@
 
   </div>
   {{#if mediaContact}}
-    <div class="mdl-contact__section-cell mdl-contact__section-cell--media closed">
+    <div class="mdl-contact__section-cell mdl-contact__section-cell--media">
 
       <h3 class="mdl-contact__subtitle">Medienkontakt<br>
-        <a href="#"> anzeigen
+        <span id="mdl-contact__aria-desc" class="visuallyhidden">Medienkontakt ein oder ausblenden</span>
+        <a role="button" href="#" class="mdl-contact__media-trigger" id="mdl-contact__aria-ref" aria-labelledby="mdl-contact__aria-desc mdl-contact__aria-ref">
+          <span>anzeigen</span>
+          <span>schliessen</span>
           <svg class="icon">
             <use xlink:href="#layer1"></use>
           </svg>
         </a>
       </h3>
 
-    <!--  <h3 class="atm-heading">Medienkontakt
-        <button class="mdl-contact__media-trigger">
-          <h3 class="visuallyhidden">Medienkontakt</h3>
-          <span>anzeigen</span>
-          <span>schliessen</span>
-          <svg class="icon mdl-contact__icon-email" aria-hidden="true">
-            <use xlink:href="#layer1"></use>
-          </svg>
-        </button>
-      </h3>-->
-      <div class="mdl-contact__cell-content">
+      <div class="mdl-contact__cell-content" aria-hidden="true">
         {{#if mediaContact.lead}}
           <address class="mdl-contact__address">
             {{mediaContact.lead}}

@@ -97,24 +97,45 @@ $contactMapHeightCurve: (
 
   &__section-cell--media {
     margin-top: calc(#{$sizeBiggerBig} + #{$sizeLarge});
+    height: 38px;
 
-    .mdl-contact__subtitle a svg {
-      transform: translateY(-50%) scale(0.65625) rotate(0deg);
-    }
+    .mdl-contact__media-trigger {
+      span:last-of-type {
+        display: none;
+      }
 
-    &.closed {
-      height: 38px;
-
-      .mdl-contact__cell-content {
-        transform: scaleY(0);
+      svg {
+        transition: transform 200ms ease-out 50ms;
+        transform: translateY(-50%) scale(0.6563) rotate(0deg);
       }
     }
 
+    .mdl-contact__cell-content {
+      transition: transform 200ms ease-out 100ms;
+      transform: scaleY(0);
+      visibility: hidden;
+    }
+
     &.open {
-      height: auto;
+      height: 100%;
+
+      .mdl-contact__media-trigger {
+        span:first-of-type {
+          display: none;
+        }
+
+        span:last-of-type {
+          display: inline;
+        }
+
+        svg {
+          transform: translateY(-50%) scale(0.6563) rotate(45deg);
+        }
+      }
 
       .mdl-contact__cell-content {
         transform: scaleY(1);
+        visibility: visible;
       }
     }
   }
@@ -340,7 +361,7 @@ $contactMapHeightCurve: (
       }
     }
 
-    .mdl-contact__section-cell {
+    .mdl-contact__section-cell:not(.mdl-contact__section-cell--media) {
       margin-top: 0;
     }
 

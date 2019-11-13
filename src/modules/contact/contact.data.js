@@ -316,8 +316,18 @@ const variants = _.mapValues({
         phoneLabel: '058 811 30 00',
         phoneNumer: '+41588113000',
         address: 'Kasernenstrasse 29, Postfach, 8021 Zürich',
-        additionals: 'Bürozeiten Mo bis Fr 08.00 bis 11.00 Uhr und 13.30 bis 16 Uhr'
+        additionals: 'Bürozeiten Mo bis Fr 08.00 bis 11.00 Uhr und 13.30 bis 16 Uhr',
       },
+      mapData: _.merge({}, mapViewDefaultData, {
+        mapId: 'contact-map-media',
+        withUserLocate: false,
+        mapMarker: [
+          { lat: 47.380467, lng: 8.448396 },
+        ],
+        directions: {
+          enabled: true,
+        },
+      }),
     },
   },
 }, (variant) => {

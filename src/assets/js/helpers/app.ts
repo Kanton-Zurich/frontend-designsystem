@@ -47,6 +47,7 @@ import UserMenu from '../../../modules/user_menu/user_menu';
 import CugLogin from '../../../modules/cug_login/cug_login';
 import OpenData from '../../../modules/open_data/open_data';
 import Banner from '../../../modules/banner/banner';
+import Contact from '../../../modules/contact/contact';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -103,6 +104,7 @@ class App {
     this.modules.cugLogin = CugLogin;
     this.modules.openData = OpenData;
     this.modules.banner = Banner;
+    this.modules.contact = Contact;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
