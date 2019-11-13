@@ -4,18 +4,14 @@
  * @author
  * @copyright
  */
-import { uniqueId } from 'lodash';
-
 import Module from '../../assets/js/helpers/module';
-import WindowEventListener from '../../assets/js/helpers/events';
-
-import { INTERACTION_ELEMENTS_QUERY } from '../../assets/js/helpers/constants';
 
 class Contact extends Module {
   public ui: {
     element: any,
     mediaSection: HTMLDivElement,
     trigger: HTMLAnchorElement,
+    triggerSpans: HTMLSpanElement[],
     mediaContact: HTMLDivElement,
   };
 
@@ -23,6 +19,7 @@ class Contact extends Module {
     domSelectors: {
       mediaSection: string,
       trigger: string,
+      triggerSpans: string,
       mediaContact: string,
     },
     stateClasses: {
@@ -36,7 +33,8 @@ class Contact extends Module {
       domSelectors: {
         mediaSection: '.mdl-contact__section-cell--media',
         mediaContact: '.mdl-contact__section-cell--media .mdl-contact__cell-content',
-        trigger: '.mdl-contact__section-cell--media .mdl-contact__subtitle a'
+        trigger: '.mdl-contact__media-trigger',
+        triggerSpans: '.mdl-contact__media-trigger span',
       },
       stateClasses: {
         open: 'open',
@@ -44,10 +42,8 @@ class Contact extends Module {
     };
 
     super($element, defaultData, defaultOptions, data, options);
-
     this.initUi();
     this.initEventListeners();
-
   }
 
   /**
@@ -57,8 +53,6 @@ class Contact extends Module {
     this.eventDelegate
       .on('click', this.options.domSelectors.trigger, (event) => {
         event.preventDefault();
-        /*event.stopPropagation();*/
-        this.log('Trigger click');
         this.toggleContact();
       });
   }
@@ -70,17 +64,14 @@ class Contact extends Module {
     if (this.ui.mediaSection.classList.contains(openClass)) {
       this.ui.mediaSection.classList.remove(openClass);
       this.ui.mediaContact.setAttribute('aria-hidden', 'true');
+      this.ui.triggerSpans[0].setAttribute('aria-hidden', 'false');
+      this.ui.triggerSpans[1].setAttribute('aria-hidden', 'true');
     } else {
       this.ui.mediaSection.classList.add(openClass);
       this.ui.mediaContact.setAttribute('aria-hidden', 'false');
+      this.ui.triggerSpans[0].setAttribute('aria-hidden', 'true');
+      this.ui.triggerSpans[1].setAttribute('aria-hidden', 'false');
     }
-  }
-
-  initARIA() {
-   /* this.data.uniqueId = uniqueId('contextmenu');
-
-    this.options.trigger.setAttribute('aria-controls', this.data.uniqueId);
-    this.ui.element.setAttribute('id', this.data.uniqueId);*/
   }
 
   /**

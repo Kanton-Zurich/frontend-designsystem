@@ -105,7 +105,7 @@ $contactMapHeightCurve: (
       }
 
       svg {
-        transition: transform 200ms ease-out 50ms;
+        transition: transform 200ms ease-out 100ms;
         transform: translateY(-50%) scale(0.6563) rotate(0deg);
       }
     }
@@ -116,8 +116,21 @@ $contactMapHeightCurve: (
       visibility: hidden;
     }
 
+    .mdl-contact__text {
+      margin-top: pxToRem($sizeSmallRegular);
+
+      a:not(.atm-button) {
+        text-decoration: none;
+        border-bottom: 1px solid $colorWhite;
+      }
+
+      .atm-button {
+        margin-top: pxToRem($sizeLarge);
+      }
+    }
+
     &.open {
-      height: 100%;
+      height: auto;
 
       .mdl-contact__media-trigger {
         span:first-of-type {

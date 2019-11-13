@@ -1,6 +1,6 @@
 <div{{#if anchorNavReference}} id="{{anchorNavReference}}"{{/if}} class="mdl-contact{{#if fullWidth}} mdl-contact--fullwidth{{/if}}{{#if
                                 inLocation}} mdl-contact--location{{/if}}{{#if mapData}} mdl-contact--with-map{{/if}}"
-                              data-init="contact">
+{{#if mediaContact}}data-init="contact"{{/if}}>
   {{#if fullWidth}}
   <div class="lyt-wrapper">
   <div class="grid-x grid-margin-x">
@@ -143,8 +143,8 @@
       <h3 class="mdl-contact__subtitle">Medienkontakt<br>
         <span id="mdl-contact__aria-desc" class="visuallyhidden">Medienkontakt ein oder ausblenden</span>
         <a role="button" href="#" class="mdl-contact__media-trigger" id="mdl-contact__aria-ref" aria-labelledby="mdl-contact__aria-desc mdl-contact__aria-ref">
-          <span>anzeigen</span>
-          <span>schliessen</span>
+          <span aria-hidden="false">anzeigen</span>
+          <span aria-hidden="true">schliessen</span>
           <svg class="icon">
             <use xlink:href="#layer1"></use>
           </svg>
@@ -175,6 +175,7 @@
             {{mediaContact.additionals}}
           {{/if}}
         </p>
+          <a href="#" class="atm-button atm-button--secondary atm-button--cv-inverted">Kontaktformular</a>
         </div>
       </div>
     </div>
