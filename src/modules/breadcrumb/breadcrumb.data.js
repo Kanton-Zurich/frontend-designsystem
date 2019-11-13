@@ -18,7 +18,6 @@ const data = _.merge({}, defaultData, {
     defaultColorVariation: 'cv-blue',
   },
   props: {
-
   },
 });
 const variants = _.mapValues({
@@ -72,7 +71,41 @@ const variants = _.mapValues({
       contextMenu: false,
       path: [
         {
-          title: 'Zurück zur Übersicht',
+          title: 'Kanton Zürich',
+          href: '#',
+        },
+      ],
+    },
+  },
+  twoItems: {
+    meta: {
+      title: 'Zwei Elemente',
+      desc: 'Spezialfall wenn 2 Elemente angezeigt werden müssen',
+    },
+    props: {
+      contextMenu: false,
+      path: [
+        {
+          title: 'Kanton Zürich',
+          href: '#',
+        },
+        {
+          title: 'Aktuelle Seite',
+        },
+      ],
+    },
+  },
+  singleItemErrorPage: {
+    meta: {
+      title: 'einzelnes Item',
+      desc: 'Für 404-Seiten z.B.',
+    },
+    props: {
+      backOnly: false,
+      disableJS: true,
+      path: [
+        {
+          title: 'Kanton Zürich',
           href: '#',
         },
       ],

@@ -161,7 +161,7 @@ const variants = _.mapValues({
       },
       uuid: _.uniqueId('float_input_clear'),
       additionalFunctionality: {
-        icon: 'exit',
+        icon: 'clear',
         buttontype: 'clear',
         ariaText: 'Lösche Eingabe',
       },
@@ -181,7 +181,7 @@ const variants = _.mapValues({
       },
       uuid: _.uniqueId('float_input_clear'),
       additionalFunctionality: {
-        icon: 'exit',
+        icon: 'clear',
         buttontype: 'clear',
         ariaText: 'Lösche Eingabe',
       },

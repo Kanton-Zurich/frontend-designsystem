@@ -239,7 +239,8 @@ class MapView extends Module {
       });
       // set map bounds
       const markerGroup = L.featureGroup(this.markers);
-      this.map.fitBounds(markerGroup.getBounds(), { maxZoom: 12 });
+      this.map.fitBounds(markerGroup.getBounds(),
+        { maxZoom: 12, padding: [15, 38] }); // eslint-disable-line no-magic-numbers
 
       this.markers.forEach((m, idx) => {
         m.on('mouseover', (ev) => {

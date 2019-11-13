@@ -1,33 +1,15 @@
-<div class="mdl-metablock">
+<div class="mdl-metablock {{#if marginTop}}mdl-metablock--margin-top{{/if}} {{#if marginBottom}}mdl-metablock--margin-bottom{{/if}}">
   {{#if hasTopTitle}}
   <h{{headingLevel}} class="atm-heading">{{title}}</h{{headingLevel}}>
   {{/if}}
-{{#each items}}
-  {{#if @first}}
-  <dl class="mdl-descriptionlist {{#unless wide}}mdl-descriptionlist--2col{{/unless}}">
+{{#each rows}}
+  <div class="mdl-metablock__row">
+  {{#each columns}}
+  <dl class="mdl-descriptionlist">
     <dt>{{label}}</dt>
-    <dd>{{text}}</dd>
-  {{/if}}
-  {{#unless @first}}
-    {{#unless wide}}
-      {{#with (getBefore ../items @index)}}
-        {{#if wide}}
-        </dl>
-        <dl class="mdl-descriptionlist mdl-descriptionlist--2col">
-        {{/if}}
-      {{/with}}
-    {{/unless}}
-    {{#if wide}}
-      {{#with (getBefore ../items @index)}}
-        {{#unless wide}}
-        </dl>
-        <dl class="mdl-descriptionlist">
-        {{/unless}}
-      {{/with}}
-    {{/if}}
-    <dt>{{label}}</dt>
-    <dd>{{text}}</dd>
-  {{/unless}}
-  {{#if @last}}</dl>{{/if}}
+    <dd>{{{text}}}</dd>
+  </dl>
+  {{/each}}
+  </div>
 {{/each}}
 </div>

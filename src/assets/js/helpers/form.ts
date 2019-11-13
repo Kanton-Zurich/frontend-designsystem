@@ -164,6 +164,62 @@ class FormGlobalHelper {
   }
 
   /**
+   * Transform a date to an URL Param
+   * @param date
+   */
+  dateToUrlParam(date) {
+    const dateValue = date.replace(' ', '').split('.');
+    if (dateValue.length === 3) { // eslint-disable-line
+      return `${dateValue[2]}-${dateValue[1]}-${dateValue[0]}`; // eslint-disable-line
+    }
+    return '';
+  }
+
+  /**
+   * Transform a date range to URL Param
+   * @param dateRange
+   */
+  dateRangeToUrlParam(dateRange) {
+    const dateValues = dateRange.replace(' ', '').split('-');
+    if (dateValues.length === 2) { // eslint-disable-line
+      const from = this.dateToUrlParam(dateValues[0]);
+      const to = this.dateToUrlParam(dateValues[1]);
+      if (from.length > 0 && to.length > 0) {
+        return `${from}_${to}`;
+      }
+    }
+    return '';
+  }
+
+  /**
+   * Transform a date from URL Param
+   * @param date
+   */
+  dateFromUrlParam(date) {
+    const dateValue = decodeURIComponent(date).split('-');
+    if (dateValue.length === 3) { // eslint-disable-line
+      return `${dateValue[2]}.${dateValue[1]}.${dateValue[0]}`; // eslint-disable-line
+    }
+    return '';
+  }
+
+  /**
+   * Transform a date range from URL Param
+   * @param dateRange
+   */
+  dateRangeFromUrlParam(dateRange) {
+    const dateValues = decodeURIComponent(dateRange).split('_');
+    if (dateValues.length === 2) { // eslint-disable-line
+      const from = this.dateFromUrlParam(dateValues[0]);
+      const to = this.dateFromUrlParam(dateValues[1]);
+      if (from.length > 0 && to.length > 0) {
+        return `${from} - ${to}`;
+      }
+    }
+    return '';
+  }
+
+  /**
    * Retrieves input data from a form and returns it as a JSON object.
    * @param  {HTMLFormControlsCollection} elements  the form elements
    * @param  { boolean } checkboxesAsSingleValue  flag indicating how to interpret checkbox values.
@@ -221,6 +277,9 @@ class FormGlobalHelper {
           }
         } else if (isMultiSelect(element)) {
           data[element.name] = getSelectValues(element);
+        } else if (element.classList.contains('flatpickr-input')) {
+          const dateRange = this.dateRangeToUrlParam(element.value);
+          data[element.name] = dateRange !== '' ? dateRange : this.dateToUrlParam(element.value);
         } else {
           data[element.name] = element.value;
         }

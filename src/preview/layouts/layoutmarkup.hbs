@@ -4,8 +4,38 @@
   <!--------------------------->
   <!-- Page header goes here -->
   <!--------------------------->
+  <link rel="stylesheet" href="{{meta.aemPath}}/css/fonts.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.css">
   <link rel="stylesheet" href="{{meta.aemPath}}/css/main.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.css">
   <script src="{{meta.aemPath}}/js/head.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.js"></script>
+
+  <link rel="manifest" href="/assets/manifest.json">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Kanton Zürich">
+  <meta name="apple-mobile-web-app-title" content="Kanton Zürich">
+  <meta name="theme-color" content="#0076BD">
+  <meta name="msapplication-navbutton-color" content="#0076BD">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-starturl" content="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="shortcut icon" sizes="144x144" type="image/png" href="/assets/media/icons/Favicon_144.png"/>
+  <link rel="shortcut icon" sizes="96x96" type="image/png" href="/assets/media/icons/Favicon_96.png"/>
+  <link rel="shortcut icon" sizes="48x48" type="image/png" href="/assets/media/icons/Favicon_48.png"/>
+  <link rel="shortcut icon" sizes="16x16" type="image/png" href="/assets/media/icons/Favicon_16.png"/>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/icons/apple-touch-icon-180x180.png"/>
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/media/icons/apple-touch-icon-76x76@2x.png"/>
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/media/icons/apple-touch-icon-72x72@2x.png"/>
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/media/icons/apple-touch-icon-60x60@2x.png"/>
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/media/icons/apple-touch-icon-57x57@2x.png"/>
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/media/icons/apple-touch-icon-76x76.png"/>
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/media/icons/apple-touch-icon-60x60.png"/>
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/media/icons/apple-touch-icon-57x57.png"/>
+
+  <link rel="icon" sizes="192x192" href="/assets/media/icons/icons-192.png">
+  <link rel="icon" sizes="512x512" href="/assets/media/icons/icons-512.png">
 </head>
 <!-- color variations
   cv-blue
@@ -18,7 +48,6 @@
   cv-monochrome
 -->
 <body class="cv-blue" {{#if props.svgSprites}} data-svgsprites-options='[&quot;{{meta.aemPath}}/media/svgsprite/base.svg&quot;]'{{/if}}
-                               data-fonts='{{meta.aemPath}}/css/fonts.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.css'
                                data-script-main='{{meta.aemPath}}/js/main.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.js'>
 <div class="lyt-wrapper" id="header">
   <div class="grid-x grid-margin-x">

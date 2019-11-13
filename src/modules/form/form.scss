@@ -66,6 +66,7 @@ $gapSize: pxToRem($sizeRegular);
 
   &__cell {
     flex-basis: 50%;
+    max-width: 50%;
     padding: 0 $gapSize/2;
 
     flex-grow: 1;
@@ -83,6 +84,7 @@ $gapSize: pxToRem($sizeRegular);
 
     @include mq($to: small) {
       flex-basis: 100%;
+      max-width: 100%;
       margin-bottom: $gapSize;
 
       &:last-child {
