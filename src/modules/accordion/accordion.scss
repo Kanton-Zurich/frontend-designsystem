@@ -150,11 +150,11 @@ $accordionMap: (
     }
 
     > :last-child {
-      @include sizeCurve(margin-bottom, medium);
+      @include sizeCurve(padding-bottom, medium);
     }
 
     > p:last-child {
-      @include sizeCurve(margin-bottom, regular);
+      @include sizeCurve(padding-bottom, regular);
     }
   }
 
