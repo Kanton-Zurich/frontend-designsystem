@@ -131,13 +131,15 @@ class Locations extends Module {
         }
       });
 
-    this.ui.map
-      .addEventListener(MapView.events.markerClicked, (ev: MarkerEvent) => {
-        const clickedIdx = ev.detail.idx;
-        this.log('Marker clicked in map', clickedIdx);
-        this.toggleLocationDetails(clickedIdx);
-      });
-
+    const listItems = [].slice.call(this.ui.listItems);
+    if (listItems.length > 1) {
+      this.ui.map
+        .addEventListener(MapView.events.markerClicked, (ev: MarkerEvent) => {
+          const clickedIdx = ev.detail.idx;
+          this.log('Marker clicked in map', clickedIdx);
+          this.toggleLocationDetails(clickedIdx);
+        });
+    }
 
     this.ui.map
       .addEventListener(MapView.events.userLocated, (ev: UserLocateEvent) => {
