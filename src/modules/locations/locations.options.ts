@@ -36,7 +36,7 @@ const attrNames = {
   locDistance: 'data-location-distance',
 };
 const domSelectors: ModuleDomSelectors = {
-  map: '#locations-map',
+  map: '[data-map-view=map]',
   listItems: '[data-locations="listItem"]',
   distanceAnnotation: '.atm-linklist_item__distance',
   filterInput: '[data-locations="input"]',

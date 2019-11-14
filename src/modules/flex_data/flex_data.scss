@@ -1,4 +1,6 @@
 .mdl-flex-data {
+  $sortMinWidth: 280px;
+
   @include sizeCurve(margin-top margin-bottom, big);
 
   &--loading {
@@ -21,38 +23,113 @@
     }
   }
 
-  .mdl-table {
-    .mdl-table__row {
-      td {
-        &.mdl-table__cell {
-          padding: 12px;
+  &__results {
+    @include sizeCurve(margin-bottom margin-top, big);
 
-          .atm-text_link {
-            display: inline;
-            padding-bottom: 3px;
-          }
-        }
+    position: relative;
 
-        &:last-of-type {
-          white-space: nowrap;
-          word-break: keep-all;
+    .mdl-flex-data__results-generic {
+      padding-bottom: $sizeLarge;
+    }
+
+    .mdl-flex-data__generic-sort {
+      min-width: $sortMinWidth;
+      text-align: right;
+      right: 0;
+
+      @include mq($from: tiny, $to: large) {
+        position: relative;
+      }
+      @include mq($from: large) {
+        top: pxToRem(-$sizeTiny);
+        position: absolute;
+      }
+
+      > span {
+        font-size: $sizeFontSmall;
+        color: $colorBlack40;
+      }
+
+      &-dropdown {
+        font-size: $sizeFontRegular;
+        padding-left: $sizeRegular;
+
+        .icon {
+          position: relative;
+          top: $sizeMini;
         }
       }
 
-      &:hover {
-        td {
-          background-color: $colorBlack10;
-          cursor: pointer;
+      &.hidden {
+        display: none;
+      }
 
+      .mdl-context_menu {
+        right: 0;
+        display: none;
+        width: auto;
+
+        > div {
+          width: 100%;
+        }
+
+        button {
+          width: 100%;
+        }
+
+        &.visible {
+          display: flex;
+          z-index: 1;
+        }
+      }
+    }
+
+    .mdl-pagination {
+      margin-top: $sizeLarge;
+
+      &.hidden {
+        display: none;
+      }
+    }
+
+    .mdl-table {
+      &--fullwidth {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      .mdl-table__row {
+        td {
           &.mdl-table__cell {
-            color: $colorBlack;
+            padding: 12px;
 
             .atm-text_link {
-              color: $colorBlack;
-              border-color: $colorBlack;
+              display: inline;
+              padding-bottom: 3px;
+            }
+          }
 
-              .icon {
-                fill: $colorBlack;
+          &:last-of-type {
+            white-space: nowrap;
+            word-break: keep-all;
+          }
+        }
+
+        &:hover {
+          td {
+            background-color: $colorBlack10;
+            cursor: pointer;
+
+            &.mdl-table__cell {
+              color: $colorBlack;
+
+              .atm-text_link {
+                color: $colorBlack;
+                border-color: $colorBlack;
+
+                .icon {
+                  fill: $colorBlack;
+                }
               }
             }
           }

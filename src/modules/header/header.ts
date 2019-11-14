@@ -1,3 +1,4 @@
+
 /*!
  * Header
  *
@@ -7,10 +8,22 @@
 import Module from '../../assets/js/helpers/module';
 import Anchornav from '../anchornav/anchornav';
 import Modal from '../modal/modal';
+import WindowEventListener from '../../assets/js/helpers/events';
 
 class Header extends Module {
   public placeholder: HTMLElement;
   public delayHeaderIsFixed: number;
+  public isToggleable: boolean;
+
+  private pinPos: number;
+  public height: number;
+  private headerHeights: {
+    tiny: number,
+    xsmall: number,
+    medium: number,
+  };
+  private bpXsmall: number;
+  private bpMedium: number;
 
   public options: {
     transitionDelays: {
@@ -25,23 +38,24 @@ class Header extends Module {
       open: string,
       fixedHeader: string,
       fixed: string,
+      navItem: string,
     },
     colorClasses: {
       monochrome: string,
     }
-  }
+  };
 
   public ui: {
     element: any,
     close: any,
-  }
+  };
 
   public data: {
     activeModal: HTMLElement,
     activeItem: HTMLElement,
     scrollPosition: number,
     headerIsFixed: boolean,
-  }
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -63,6 +77,7 @@ class Header extends Module {
         open: 'mdl-header--open',
         fixedHeader: 'fixed-header',
         fixed: 'mdl-header--fixed',
+        navItem: 'mdl-header__nav-item',
       },
       colorClasses: {
         monochrome: 'cv-monochrome',
@@ -72,8 +87,18 @@ class Header extends Module {
     super($element, defaultData, defaultOptions, data, options);
 
     this.data.scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-    this.delayHeaderIsFixed = 300;
+    this.delayHeaderIsFixed = 0;
+    this.isToggleable = true;
+    this.headerHeights = {
+      tiny: 50,
+      xsmall: 58,
+      medium: 77,
+    };
+    this.bpXsmall = 400;
+    this.bpMedium = 840;
 
+    this.onResize();
+    this.createPlaceholder();
     this.initUi();
     this.initEventListeners();
     this.initWatchers();
@@ -93,7 +118,9 @@ class Header extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.openModal, this.toggleFlyout.bind(this));
 
     window.addEventListener(Modal.events.closed, this.hideFlyout.bind(this));
-    window.addEventListener('scroll', this.handleScroll.bind(this));
+
+    (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
+    (<any>WindowEventListener).addDebouncedScrollListener(this.handleScroll.bind(this));
 
     window.addEventListener(Anchornav.events.isSticky, () => {
       this.ui.element.classList.add(this.options.colorClasses.monochrome);
@@ -121,14 +148,14 @@ class Header extends Module {
 
       this.switchFlyout(delegate);
     } else {
-      this.showFlyout(delegate);
+      this.showFlyout(delegate, delegate.classList.contains(this.options.stateClasses.navItem));
 
       (<HTMLElement>document.querySelector(this.options.domSelectors.close)).focus();
     }
   }
 
 
-  showFlyout(delegate) {
+  showFlyout(delegate, mainNav = false) {
     this.data.activeModal = document.querySelector(`#${delegate.getAttribute('aria-controls')}`);
     this.data.activeItem = delegate;
 
@@ -141,6 +168,14 @@ class Header extends Module {
     }
 
     this.data.activeItem.setAttribute('aria-expanded', 'true');
+
+    // if pageheader is present correct padding
+    const pageHeader = <HTMLDivElement>document.querySelector('.mdl-page-header');
+    if (pageHeader && mainNav) {
+      const offsetTop = this.ui.element.clientHeight
+        + parseInt(window.getComputedStyle(pageHeader).paddingTop, 10);
+      pageHeader.style.paddingTop = `${offsetTop}px`;
+    }
   }
 
   switchFlyout(delegate) {
@@ -166,6 +201,12 @@ class Header extends Module {
     if (!anchornavIsSticky) {
       this.ui.element.classList.remove(this.options.colorClasses.monochrome);
     }
+
+    // if pageheader is present correct padding
+    const pageHeader = <HTMLDivElement>document.querySelector('.mdl-page-header');
+    if (pageHeader) {
+      pageHeader.removeAttribute('style');
+    }
   }
 
   unsetClasses() {
@@ -177,17 +218,65 @@ class Header extends Module {
     }
   }
 
+  private onResize() {
+    if (window.innerWidth >= this.bpMedium) {
+      this.height = this.headerHeights.medium;
+    } else if (window.innerWidth >= this.bpXsmall) {
+      this.height = this.headerHeights.xsmall;
+    } else if (this.height !== this.headerHeights.tiny) {
+      this.height = this.headerHeights.tiny;
+    }
+
+    if (this.placeholder) {
+      this.placeholder.style.height = `${this.height}px`;
+    }
+
+    if (document.querySelector('.mdl-anchornav')) {
+      this.pinPos = document.querySelector('.mdl-anchornav').getBoundingClientRect().top;
+    }
+  }
+
   handleScroll() {
     const newScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
 
-    if (this.data.scrollPosition > newScrollPosition && !this.data.headerIsFixed) {
-      setTimeout(() => {
-        this.data.headerIsFixed = true;
-      }, this.delayHeaderIsFixed);
-    } else if (this.data.scrollPosition < newScrollPosition && this.data.headerIsFixed) {
-      this.data.headerIsFixed = false;
+    if (newScrollPosition >= this.height) {
+      this.placeholder.style.display = 'block';
+      this.ui.element.classList.add(this.options.stateClasses.fixed);
+    } else if (newScrollPosition === 0) {
+      this.placeholder.style.display = 'none';
+      this.ui.element.classList.remove(this.options.stateClasses.fixed);
+      document.documentElement.classList.remove(this.options.stateClasses.fixedHeader);
     }
-    this.data.scrollPosition = newScrollPosition;
+
+    // Scroll down
+    if (this.data.scrollPosition < newScrollPosition && this.isToggleable) {
+      this.ui.element.style.display = 'none';
+      document.documentElement.classList.remove(this.options.stateClasses.fixedHeader);
+      this.ui.element.classList.remove(this.options.stateClasses.fixed);
+    } else if (this.data.scrollPosition > newScrollPosition && this.isToggleable) {
+      // Scroll up
+      this.ui.element.style.display = 'block';
+      document.documentElement.classList.add(this.options.stateClasses.fixedHeader);
+    }
+
+    if (this.isToggleable) {
+      this.data.scrollPosition = newScrollPosition >= 0 ? newScrollPosition : 0;
+      this.isToggleable = false;
+    }
+
+    setTimeout(() => {
+      this.isToggleable = true;
+    }, this.delayHeaderIsFixed);
+  }
+
+  private createPlaceholder() {
+    this.placeholder = document.createElement('div');
+    this.placeholder.style.display = 'none';
+    this.placeholder.style.height = `${this.height}px`;
+
+    this.placeholder.classList.add('mdl-header__placeholder');
+
+    this.ui.element.parentNode.insertBefore(this.placeholder, this.ui.element);
   }
 
   /**
@@ -209,12 +298,6 @@ class Header extends Module {
       if (anchornavIsSticky) {
         this.ui.element.classList.add(this.options.colorClasses.monochrome);
       }
-      this.ui.element.classList.add(this.options.stateClasses.fixed);
-      document.documentElement.classList.add(this.options.stateClasses.fixedHeader);
-    } else {
-      this.ui.element.classList.remove(this.options.colorClasses.monochrome);
-      this.ui.element.classList.remove(this.options.stateClasses.fixed);
-      document.documentElement.classList.remove(this.options.stateClasses.fixedHeader);
     }
   }
 

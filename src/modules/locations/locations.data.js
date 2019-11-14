@@ -122,9 +122,16 @@ const data = _.merge({}, defaultData, {
       level: 2,
       text: 'Standorte des Strassenverkehrsamtes',
     },
+    noPlzFound: 'Keine PLZ / Ort gefunden',
     locationsFormInput: _.merge({}, inputClearButtonSmallWithIconData, {
-      label: 'Ort/PLZ eingeben',
+      label: 'Standorte filter',
       dataSelector: 'data-locations="input"',
+      type: 'text',
+      additionalFunctionality: {
+        icon: 'clear',
+        buttontype: 'clear',
+        ariaText: 'Lösche Eingabe',
+      },
     }),
     locationsList: {
       hasIndex: true,
@@ -154,7 +161,6 @@ const data = _.merge({}, defaultData, {
     }),
     locationContacts: [],
     mapData: _.merge({}, mapViewDefaultData, {
-      mapId: 'locations-map',
       withUserLocate: true,
       mapMarker: [],
     }),
@@ -173,6 +179,7 @@ const variants = _.mapValues({
       },
       locationContacts: locationsAsContacts,
       mapData: {
+        mapId: _.uniqueId('locations_map'),
         mapMarker: locationsLatLng,
       },
     },
@@ -189,6 +196,7 @@ const variants = _.mapValues({
       },
       locationContacts: [locationsAsContacts[0]],
       mapData: {
+        mapId: _.uniqueId('locations_map'),
         mapMarker: [locationsLatLng[0]],
       },
     },

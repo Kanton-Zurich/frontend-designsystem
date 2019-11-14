@@ -46,6 +46,7 @@ import DrilldownSelect from '../../../modules/drilldown_select/drilldown_select'
 import UserMenu from '../../../modules/user_menu/user_menu';
 import CugLogin from '../../../modules/cug_login/cug_login';
 import OpenData from '../../../modules/open_data/open_data';
+import Banner from '../../../modules/banner/banner';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -101,6 +102,7 @@ class App {
     this.modules.userMenu = UserMenu;
     this.modules.cugLogin = CugLogin;
     this.modules.openData = OpenData;
+    this.modules.banner = Banner;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

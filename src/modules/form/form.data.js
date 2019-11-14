@@ -121,7 +121,20 @@ const duplicateGroup = {
       {
         cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
           datepickerData.variants.defaultDate.props,
-          {})),
+          {
+            rules: JSON.stringify([
+              {
+                conditions: [
+                  {
+                    field: 'checkbox_in_duplication',
+                    equals: true,
+                    value: 'mr',
+                  },
+                ],
+                action: 'show',
+              },
+            ]),
+          })),
       },
     ],
   }],
@@ -1121,6 +1134,209 @@ const variants = _.mapValues({
           },
         ],
       }],
+    },
+  },
+  rrb: {
+    meta: {
+      title: 'RRB (Flex data CZHDEV-1236)',
+      desc: 'Flex Data Regierungsratsbeschlüsse',
+    },
+    props: {
+      sectionTitle: null,
+      groups: [{
+        rows: [
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Stichwort',
+                    name: 'fullText',
+                    uuid: 'fullText',
+                  })),
+              },
+            ],
+          },
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'RRB-Nr.',
+                    name: 'decisionNumber',
+                    uuid: 'decisionNumber',
+                  })),
+              },
+              {
+                cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                  selectData.variants.default.props,
+                  {
+                    listData: _.merge({}, listDemoData.props, {
+                      groupId: 'year',
+                      isSingleSelect: true,
+                      selectOptions: [
+                        { value: '', label: '' },
+                        { value: '2019', label: '2019'},
+                        { value: '2018', label: '2018'},
+                        { value: '2017', label: '2017'},
+                        { value: '2016', label: '2016'},
+                        { value: '2015', label: '2015'},
+                        { value: '2014', label: '2014'},
+                        { value: '2013', label: '2013'},
+                        { value: '2012', label: '2012'},
+                      ],
+                    }),
+                    triggerInputData: {
+                      label: 'Jahr',
+                      validation: {
+                        isRequired: false,
+                      },
+                    },
+                  })),
+              },
+            ],
+          },
+          {
+            fields: [{
+              cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                selectData.variants.default.props,
+                {
+                  listData: _.merge({}, listDemoData.props, {
+                    groupId: 'department',
+                    isSingleSelect: true,
+                    selectOptions: [
+                      { value: '', label: '' },
+                      { value: 'mig', label: 'Migration & Integration' },
+                      { value: 'mo', label: 'Mobilität' },
+                      { value: 'sich', label: 'Sicherheit & Justiz' },
+                      { value: 'so', label: 'Soziales' },
+                      { value: 'st', label: 'Steuern' },
+                      { value: 'umte', label: 'Umwelt & Tier' },
+                      { value: 'ge', label: 'Gemeinschaften' },
+                      { value: 'scer', label: 'Schulen & Erziehung' },
+                    ],
+                  }),
+                  triggerInputData: {
+                    label: 'Direktion',
+                    validation: {
+                      isRequired: false,
+                    },
+                  },
+                })),
+            }],
+          },
+        ],
+      },
+      ],
+    },
+  },
+  decisions: {
+    meta: {
+      title: 'Entscheide (Flex data CZHDEV-1234)',
+      desc: 'Flex Data Entscheide',
+    },
+    props: {
+      sectionTitle: null,
+      groups: [{
+        rows: [
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                  selectData.variants.default.props,
+                  {
+                    listData: _.merge({}, listDemoData.props, {
+                      groupId: 'entscheidungsintanz',
+                      isSingleSelect: true,
+                      selectOptions: [
+                        { value: '', label: '' },
+                        { value: 'sicherheitsdirektion', label: 'Sicherheitsdirektion'},
+                        { value: 'instanz2', label: 'Instanz2'},
+                        { value: 'instanz3', label: 'Instanz3'},
+                      ],
+                    }),
+                    triggerInputData: {
+                      label: 'Entscheidungsinstanz',
+                      validation: {
+                        isRequired: false,
+                      },
+                    },
+                  })),
+              },
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Geschäftsnummer',
+                    name: 'geschaeftsnummer',
+                    uuid: 'geschaeftsnummer',
+                  })),
+                tooltip: {
+                  helptext: 'Beispiel: 2017.2523',
+                },
+              },
+            ],
+          },
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                  datepickerData.variants.dateRange.props,
+                  {
+                    formInputData: {
+                      label: 'Entscheidungsdatum von/bis',
+                      name: 'entscheidungsdatum',
+                      uuid: 'entscheidungsdatum',
+                      validation: false,
+                    },
+                  })),
+              },
+              {
+                cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                  selectData.variants.default.props,
+                  {
+                    listData: _.merge({}, listDemoData.props, {
+                      groupId: 'rechtsgebiet',
+                      isSingleSelect: true,
+                      selectOptions: [
+                        { value: '', label: '' },
+                        { value: 'admin_strassn', label: 'Administrativmassnahmen im Strassenverkehr'},
+                        { value: 'sozialhilfe', label: 'Sozialhilfe'},
+                        { value: 'auslaender_recht', label: 'Ausländerrecht'},
+                      ],
+                    }),
+                    triggerInputData: {
+                      label: 'Rechtsgebiet',
+                      validation: {
+                        isRequired: false,
+                      },
+                    },
+                  })),
+              },
+            ],
+          },
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Stichwort',
+                    name: 'stichwort',
+                    uuid: 'stichwort',
+                  })),
+              },
+            ],
+          },
+        ],
+      },
+      ],
     },
   },
 }, (variant) => {

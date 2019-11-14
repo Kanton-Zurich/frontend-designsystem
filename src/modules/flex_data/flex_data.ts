@@ -15,11 +15,16 @@ class FlexData extends Module {
   public ui: {
     element: HTMLDivElement,
     results: HTMLDivElement,
-    resultsTable: HTMLTableElement,
-    resultsTitle: HTMLHeadingElement,
-    resultsBody: HTMLElement,
     resultsTemplate: HTMLScriptElement,
-    resultsColumns: HTMLElement[],
+    resultsGeneric: HTMLDivElement,
+    genericSort: HTMLDivElement,
+    genericSortDropdown: HTMLDivElement,
+    genericSortButton: HTMLButtonElement,
+    resultsGenericTitle: HTMLHeadingElement,
+    resultsTable: HTMLTableElement,
+    resultsTableBody: HTMLElement,
+    resultsTableTitle: HTMLHeadingElement,
+    resultsTableColumns: HTMLElement[],
     form: HTMLFormElement,
     pagination: HTMLDivElement,
     paginationInput: HTMLInputElement,
@@ -30,6 +35,8 @@ class FlexData extends Module {
   public dataUrl: string;
   private dataIdle: boolean;
   private currentUrl: string;
+  private order: string;
+  private orderBy: string;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -38,16 +45,22 @@ class FlexData extends Module {
       initDelay: 300,
       domSelectors: {
         results: '.mdl-flex-data__results',
+        resultsGeneric: '.mdl-flex-data__results .mdl-flex-data__results-generic',
+        resultsGenericTitle: '.mdl-flex-data__results .mdl-flex-data__results-title',
+        genericSort: '.mdl-flex-data__generic-sort',
+        genericSortDropdown: '.mdl-flex-data__generic-sort .mdl-context_menu',
+        genericSortButton: '.mdl-flex-data__generic-sort-dropdown',
         resultsTable: '.mdl-table',
-        resultsTitle: '.mdl-table .mdl-table__title',
-        resultsBody: '.mdl-table .mdl-table__body',
+        resultsTableBody: '.mdl-table .mdl-table__body',
+        resultsTableColumns: '.mdl-table [data-column-name]',
+        resultsTableTitle: '.mdl-table .mdl-table__title',
         resultsTemplate: '[data-flex-template]',
-        resultsColumns: '.mdl-table [data-column-name]',
         form: 'form',
         submitButton: 'form [data-search-flex]',
         clearButton: 'form [data-clear-flex]',
         pagination: '.mdl-pagination',
         paginationInput: '.mdl-pagination input',
+
       },
       stateClasses: {
         loading: 'mdl-flex-data--loading',
@@ -56,6 +69,8 @@ class FlexData extends Module {
     super($element, defaultData, defaultOptions, data, options);
     this.dataUrl = this.ui.element.getAttribute('data-source');
     this.dataIdle = true;
+    this.order = '';
+    this.orderBy = '';
     this.initUi();
     this.initEventListeners();
   }
@@ -70,7 +85,9 @@ class FlexData extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.ui.resultsTable.addEventListener(Table.events.sort, this.onSortResults.bind(this));
+    if (this.ui.resultsTable) {
+      this.ui.resultsTable.addEventListener(Table.events.sort, this.onSortResults.bind(this));
+    }
     this.ui.submitButton.addEventListener('click', this.onSearchResults.bind(this));
     this.ui.clearButton.addEventListener('click', this.onClearResults.bind(this));
     this.ui.form.addEventListener('keypress', (event: any) => {
@@ -86,6 +103,25 @@ class FlexData extends Module {
     this.ui.pagination.addEventListener(Pagination.events.change, () => {
       this.loadResults();
     });
+    // -----------------------------------------------
+    // Listen to sort-dropdown events
+    if (this.ui.genericSortButton) {
+      this.ui.genericSortButton.addEventListener('click', () => {
+        this.ui.genericSortDropdown.classList.toggle('visible');
+      });
+      this.ui.genericSortDropdown.querySelectorAll('button').forEach((button) => {
+        button.addEventListener('click', () => {
+          this.order = button.getAttribute('data-sort-direction');
+          this.orderBy = button.getAttribute('data-sort-column');
+          this.ui.genericSortDropdown.classList.remove('visible');
+          this.ui.genericSortButton.querySelector('span').innerText = button.querySelector('span').innerText;
+          this.loadResults();
+        });
+      });
+    }
+    const sortParamElemet = this.ui.resultsTable ? this.ui.resultsTable : this.ui.resultsGeneric;
+    this.order = sortParamElemet.getAttribute('data-sort-direction');
+    this.orderBy = sortParamElemet.getAttribute('data-sort-column');
     this.updateViewFromURLParams();
     setTimeout(() => { this.loadResults(); }, this.options.initDelay);
   }
@@ -121,6 +157,8 @@ class FlexData extends Module {
         direction: newDirection,
       },
     };
+    this.orderBy = column;
+    this.order = newDirection;
     this.ui.resultsTable.dispatchEvent(new CustomEvent(Table.events.sortColumn, eventDetail));
     this.ui.paginationInput.value = '1';
     this.loadResults();
@@ -161,27 +199,51 @@ class FlexData extends Module {
    * @param jsonData
    */
   populateResultList(jsonData) {
-    this.ui.resultsBody.innerHTML = '';
-    this.ui.resultsTitle.innerText = this.ui.results.getAttribute('data-result-count-title')
-      .replace('%1', jsonData.numberOfResults);
     this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
     this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
-    jsonData.data.forEach((item) => {
-      const tr = document.createElement('tr');
-      tr.classList.add('mdl-table__row');
-      const props = {
-        link: item.link,
-      };
-      this.ui.resultsColumns.forEach((col, index) => {
-        const colName = col.getAttribute('data-column-name');
-        props[`text${index}`] = item[colName];
+    if (jsonData.numberOfResultPages > 1) {
+      this.ui.pagination.classList.remove('hidden');
+    } else {
+      this.ui.pagination.classList.add('hidden');
+    }
+    let resultsTitle = this.ui.results.getAttribute('data-result-count-title')
+      .replace('%1', jsonData.numberOfResults);
+    if (jsonData.numberOfResults <= 0) {
+      resultsTitle = this.ui.results.getAttribute('data-no-results-title');
+    }
+    // fill table date if present
+    if (this.ui.resultsTable) {
+      this.ui.resultsTableBody.innerHTML = '';
+      this.ui.resultsTableTitle.innerText = resultsTitle;
+      jsonData.data.forEach((item) => {
+        const tr = document.createElement('tr');
+        tr.classList.add('mdl-table__row');
+        const props = {
+          link: item.link,
+        };
+        this.ui.resultsTableColumns.forEach((col, index) => {
+          const colName = col.getAttribute('data-column-name');
+          props[`text${index}`] = item[colName];
+        });
+        tr.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, props);
+        tr.addEventListener('click', () => {
+          tr.querySelector('a').click();
+        });
+        this.ui.resultsTableBody.appendChild(tr);
       });
-      tr.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, props);
-      tr.addEventListener('click', () => {
-        tr.querySelector('a').click();
-      });
-      this.ui.resultsBody.appendChild(tr);
-    });
+    }
+    // fill generic results
+    if (this.ui.resultsGeneric) {
+      this.ui.resultsGenericTitle.innerText = resultsTitle;
+      if (jsonData.numberOfResults <= 0) {
+        this.ui.genericSort.classList.add('hidden');
+      } else {
+        this.ui.genericSort.classList.remove('hidden');
+      }
+      this.ui.resultsGeneric.innerHTML = '';
+      this.ui.resultsGeneric.innerHTML = this
+        .markupFromTemplate(this.ui.resultsTemplate.innerHTML, jsonData);
+    }
   }
 
   /**
@@ -212,8 +274,8 @@ class FlexData extends Module {
       append(key, formData[key]);
     });
     append('page', this.ui.paginationInput.value);
-    append('order', this.ui.resultsTable.getAttribute('data-sort-direction') === 'descending' ? 'desc' : 'asc');
-    append('orderBy', this.ui.resultsTable.getAttribute('data-sort-column'));
+    append('order', this.order);
+    append('orderBy', this.orderBy);
     return resultUrl;
   }
 
@@ -228,11 +290,17 @@ class FlexData extends Module {
           [this.ui.paginationInput.value] = params[key];
           break;
         case 'order':
-          this.ui.resultsTable.setAttribute('data-sort-direction',
-            params[key][0] === 'desc' ? 'descending' : 'ascending');
+          if (this.ui.resultsTable) {
+            this.ui.resultsTable.setAttribute('data-sort-direction',
+              params[key][0] === 'desc' ? 'descending' : 'ascending');
+          }
+          this.order = params[key][0]; // eslint-disable-line
           break;
         case 'orderBy':
-          this.ui.resultsTable.setAttribute('data-sort-column', params[key][0]);
+          if (this.ui.resultsTable) {
+            this.ui.resultsTable.setAttribute('data-sort-column', params[key][0]);
+          }
+          this.orderBy = params[key][0]; // eslint-disable-line
           break;
         default:
           setTimeout(() => {
@@ -261,7 +329,7 @@ class FlexData extends Module {
               } else if (item.classList.contains('flatpickr-input')) {
                 // -----------
                 // datepicker
-                item.value = decodeURIComponent(values[0]); // eslint-disable-line
+                item.value = window[namespace].form.dateRangeFromUrlParam(values[0]); // eslint-disable-line
                 item.classList.add('dirty');
                 item.parentElement.parentElement.parentElement.classList.add('dirty');
               } else {
@@ -274,9 +342,13 @@ class FlexData extends Module {
           }, this.options.initDelay);
           break;
       }
+      // Set the sort element if present
+      if (this.ui.genericSortDropdown) {
+        const sortSetting = this.ui.genericSortDropdown.querySelector(`[data-sort-column="${this.orderBy}"][data-sort-direction="${this.order}"]`);
+        this.ui.genericSortButton.querySelector('span').innerText = sortSetting.querySelector('span').innerText;
+      }
     });
   }
-
   /**
    * Fetch teaser data
    * @param callback

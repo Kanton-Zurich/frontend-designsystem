@@ -12,6 +12,8 @@ const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 const defLangSwitchData = require('../../modules/lang_switch/lang_switch.data').variants.default.props;
+const contextMenuProps = require('../../modules/context_menu/context_menu.data').props;
+const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 
 const defAnchorNavData = {
   anchornavTitle: {
@@ -89,7 +91,17 @@ const data = _.merge({}, defaultData, {
               pageTitle: 'Führerausweis & Fahren lernen',
               leadTitle: 'Alles rund um den Fahrausweis: Sie wollen Auto oder Motorrad fahren lernen? Haben Sie ein «Grünes L?» Müssen Sie ausländischen Führerschein in einen Schweizer Führerausweis umtauschen? Ab wann müssen Sie in die Alterskontrolle? Brauchen Sie für Ihre Ferien einen Internationalen Führerschein? Wie lernen Sie Motorrad fahren? Ausweis verloren?',
               breadcrumb: {
-                contextMenu: false,
+                contextMenu: _.merge({}, contextMenuProps, {
+                  lists: [
+                    {
+                      items: [
+                        _.merge({}, contextMenuItemDef, { text: 'Kanton Zürich', iconAfter: false, iconBefore: false }),
+                        _.merge({}, contextMenuItemDef, { text: 'Mobilität', iconAfter: false, iconBefore: false }),
+                        _.merge({}, contextMenuItemDef, { text: 'Führerausweis', iconAfter: false, iconBefore: false }),
+                      ],
+                    },
+                  ],
+                }),
                 path: [
                   {
                     title: 'Kanton Zürich',

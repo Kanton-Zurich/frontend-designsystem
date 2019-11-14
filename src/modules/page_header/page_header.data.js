@@ -161,6 +161,7 @@ const variants = _.mapValues({
       inverted: true,
       hasImageTitle: true,
       hasImage: true,
+      breadcrumb: defBreadcrumbData.variants.default.props,
     },
   },
   coloredVideoTitle: {
@@ -177,6 +178,7 @@ const variants = _.mapValues({
       hasVideo: true,
       hasImage: true,
       buttonData: _.merge({}, defServiceButtonData),
+      breadcrumb: defBreadcrumbData.variants.default.props,
     },
   },
   colorPeopleTeaser: {
@@ -318,8 +320,22 @@ const variants = _.mapValues({
     },
     props: {
       pageTitle: 'ZStB-Nr. 3.1',
-      inverted: true,
+      inverted: false,
       leadText: 'Steuerliche Zugehörigkeit',
+      breadcrumb: backOnlyBreadcrumbData,
+    },
+  },
+  rrbDetail: {
+    meta: {
+      title: 'Flex Data (RRB) (CZHDEV-1233)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+    },
+    props: {
+      pageTitle: 'Regierungsratsbeschluss  Nr. 749/2018',
+      inverted: false,
+      hasBacklink: true,
+      noText: true,
       breadcrumb: backOnlyBreadcrumbData,
     },
   },
@@ -411,10 +427,6 @@ const variants = _.mapValues({
             title: 'Kanton Zürich',
             href: '#',
           },
-          {
-            title: '404',
-            href: '#',
-          },
         ],
       },
       pageTitle: 'Seite nicht gefunden',
@@ -463,10 +475,6 @@ const variants = _.mapValues({
         path: [
           {
             title: 'Kanton Zürich',
-            href: '#',
-          },
-          {
-            title: '403',
             href: '#',
           },
         ],

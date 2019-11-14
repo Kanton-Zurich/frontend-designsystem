@@ -1,5 +1,5 @@
 <div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="{{datetimeformat}}" data-localization="de" {{#if
-  minDate}} data-mindate="{{{minDate}}}"{{/if}}{{#if maxDate}} data-maxdate="{{{maxDate}}}"{{/if}}>
+  minDate}} data-mindate="{{{minDate}}}"{{/if}}{{#if maxDate}} data-maxdate="{{{maxDate}}}"{{/if}} {{#if rules}}data-rules="{{rules}}"{{/if}}>
   {{#unless isLinkListItem}}
     {{> "atoms/form_input/form_input" formInputData}}
   {{/unless}}

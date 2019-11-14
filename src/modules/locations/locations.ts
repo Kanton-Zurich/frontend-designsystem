@@ -131,13 +131,15 @@ class Locations extends Module {
         }
       });
 
-    this.ui.map
-      .addEventListener(MapView.events.markerClicked, (ev: MarkerEvent) => {
-        const clickedIdx = ev.detail.idx;
-        this.log('Marker clicked in map', clickedIdx);
-        this.toggleLocationDetails(clickedIdx);
-      });
-
+    const listItems = [].slice.call(this.ui.listItems);
+    if (listItems.length > 1) {
+      this.ui.map
+        .addEventListener(MapView.events.markerClicked, (ev: MarkerEvent) => {
+          const clickedIdx = ev.detail.idx;
+          this.log('Marker clicked in map', clickedIdx);
+          this.toggleLocationDetails(clickedIdx);
+        });
+    }
 
     this.ui.map
       .addEventListener(MapView.events.userLocated, (ev: UserLocateEvent) => {
@@ -145,8 +147,7 @@ class Locations extends Module {
         if (ev.detail.markerDistances) {
           const distances = ev.detail.markerDistances;
           if (distances.length > 1) {
-            const listItems = this.ui.listItems as HTMLElement[];
-            listItems.forEach((item, i) => {
+            (<HTMLElement[]> this.ui.listItems).forEach((item, i) => {
               this.addDistanceToListItem(item, distances[i]);
             });
           } else if (distances.length === 1) {

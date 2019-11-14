@@ -37,6 +37,8 @@ class Autosuggest {
 
   private template: any;
 
+  private selectedTerm: any;
+
   constructor(options, data) {
     this.options = merge({}, {
       delay: 500,
@@ -52,6 +54,8 @@ class Autosuggest {
     // Setting the lodash template
     this.template = template(this.options.template);
 
+    this.selectedTerm = '';
+
     this.addWatcher();
     this.addEvents();
   }
@@ -61,6 +65,8 @@ class Autosuggest {
       filtered: 'Autosuggest.filtered',
       noResult: 'Autosuggest.noResult',
       reset: 'Autosuggest.reset',
+      termSelected: 'Autosuggest.termSelected',
+      empty: 'Autosuggest.empty',
     };
   }
 
@@ -84,6 +90,9 @@ class Autosuggest {
 
       return true;
     });
+
+    this.options.target
+      .addEventListener(Autosuggest.events.empty, this.emptyAutosuggest.bind(this));
   }
 
   /**
@@ -110,33 +119,37 @@ class Autosuggest {
   async onQueryChange(propName, queryBefore, queryAfter) {
     this.query = queryAfter;
 
-    if (this.options.url) {
-      this.setLoading();
+    if (this.selectedTerm !== this.query) {
+      this.selectedTerm = this.query;
 
-      await this.fetchData();
-    }
+      if (this.options.url) {
+        this.setLoading();
 
-    if (this.query.length > 1) {
-      this.emptyAutosuggest();
-      this.filterData();
-
-      if (this.results.length > 0) {
-        this.dispatchStatusEvent(Autosuggest.events.filtered, this.results.length);
-
-        this.renderResults();
-
-
-        window.dispatchEvent(new CustomEvent('reloadLineClamper'));
-      } else {
-        this.dispatchStatusEvent(Autosuggest.events.noResult);
+        await this.fetchData();
       }
-    } else {
-      this.emptyAutosuggest();
 
-      this.dispatchStatusEvent(Autosuggest.events.reset);
+      if (this.query.length > 1) {
+        this.emptyAutosuggest();
+        this.filterData();
+
+        if (this.results.length > 0) {
+          this.dispatchStatusEvent(Autosuggest.events.filtered, this.results.length);
+
+          this.renderResults();
+
+
+          window.dispatchEvent(new CustomEvent('reloadLineClamper'));
+        } else {
+          this.dispatchStatusEvent(Autosuggest.events.noResult);
+        }
+      } else {
+        this.emptyAutosuggest();
+
+        this.dispatchStatusEvent(Autosuggest.events.reset);
+      }
+
+      this.unsetLoading();
     }
-
-    this.unsetLoading();
   }
 
   /**
@@ -230,6 +243,15 @@ class Autosuggest {
     const html = `<li class="mdl-content_nav__item">${this.template(context)}</li>`;
     const parsed = new DOMParser().parseFromString(html, 'text/html').querySelector('li');
 
+    if (this.options.renderAsButton) {
+      const aTag = parsed.querySelector('a');
+      aTag.setAttribute('role', 'button');
+      aTag.removeAttribute('href');
+      aTag.setAttribute('data-term', context.shortTitle);
+
+      aTag.addEventListener('click', this.dispatchTerm.bind(this, aTag));
+    }
+
     this.options.list.appendChild(parsed);
   }
 
@@ -310,6 +332,14 @@ class Autosuggest {
 
   unsetLoading() {
     this.options.target.classList.remove(this.stateClasses.loading);
+  }
+
+  dispatchTerm(aTag) {
+    this.selectedTerm = aTag.dataset.term;
+
+    this.options.parent.dispatchEvent(new CustomEvent(Autosuggest.events.termSelected, {
+      detail: aTag.dataset.term,
+    }));
   }
 }
 
