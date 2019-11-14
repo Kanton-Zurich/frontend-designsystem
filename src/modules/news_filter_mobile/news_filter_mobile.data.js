@@ -33,6 +33,9 @@ const data = _.merge({}, defaultData, {
           label: 'Themen nach Stichwort filtern',
           dataSelector: 'data-topiclist="input"',
           isSmall: true,
+          iconOnly: {
+            icon: 'search',
+          },
           additionalFunctionality: {
             icon: 'clear',
             buttontype: 'clear',
@@ -102,6 +105,9 @@ const data = _.merge({}, defaultData, {
           label: 'Organisation nach Stichwort filtern',
           dataSelector: 'data-organisationlist="input"',
           isSmall: true,
+          iconOnly: {
+            icon: 'search',
+          },
           additionalFunctionality: {
             icon: 'clear',
             buttontype: 'clear',
@@ -139,6 +145,9 @@ const data = _.merge({}, defaultData, {
           label: 'News-Typ nach Stichwort filtern',
           dataSelector: 'data-newstype="input"',
           isSmall: true,
+          iconOnly: {
+            icon: 'search',
+          },
           additionalFunctionality: {
             icon: 'clear',
             buttontype: 'clear',

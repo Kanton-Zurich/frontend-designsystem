@@ -201,6 +201,11 @@ class FlexData extends Module {
   populateResultList(jsonData) {
     this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
     this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
+    if (jsonData.numberOfResultPages > 1) {
+      this.ui.pagination.classList.remove('hidden');
+    } else {
+      this.ui.pagination.classList.add('hidden');
+    }
     let resultsTitle = this.ui.results.getAttribute('data-result-count-title')
       .replace('%1', jsonData.numberOfResults);
     if (jsonData.numberOfResults <= 0) {
@@ -324,7 +329,7 @@ class FlexData extends Module {
               } else if (item.classList.contains('flatpickr-input')) {
                 // -----------
                 // datepicker
-                item.value = decodeURIComponent(values[0]); // eslint-disable-line
+                item.value = window[namespace].form.dateRangeFromUrlParam(values[0]); // eslint-disable-line
                 item.classList.add('dirty');
                 item.parentElement.parentElement.parentElement.classList.add('dirty');
               } else {

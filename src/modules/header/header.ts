@@ -244,7 +244,7 @@ class Header extends Module {
     }
 
     if (this.isToggleable) {
-      this.data.scrollPosition = newScrollPosition;
+      this.data.scrollPosition = newScrollPosition >= 0 ? newScrollPosition : 0;
       this.isToggleable = false;
     }
 
@@ -257,6 +257,9 @@ class Header extends Module {
     this.placeholder = document.createElement('div');
     this.placeholder.style.display = 'none';
     this.placeholder.style.height = `${this.height}px`;
+
+    this.placeholder.classList.add('mdl-header__placeholder');
+
     this.ui.element.parentNode.insertBefore(this.placeholder, this.ui.element);
   }
 

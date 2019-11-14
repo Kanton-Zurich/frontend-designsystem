@@ -121,7 +121,7 @@ const variants = _.mapValues({
       },
       uuid: _.uniqueId('float_input_clear'),
       additionalFunctionality: {
-        icon: 'exit',
+        icon: 'clear',
         buttontype: 'clear',
         ariaText: 'Lösche Eingabe',
       },
@@ -141,7 +141,7 @@ const variants = _.mapValues({
       },
       uuid: _.uniqueId('float_input_clear'),
       additionalFunctionality: {
-        icon: 'exit',
+        icon: 'clear',
         buttontype: 'clear',
         ariaText: 'Lösche Eingabe',
       },
@@ -292,6 +292,7 @@ const variants = _.mapValues({
       name: 'input_search',
       uuid: 'input_search',
       disableAutocomplete: true,
+      autocompleteOff: true,
       dataSelector: 'data-search_page="input"',
       additionalFunctionality: {
         icon: 'clear',
