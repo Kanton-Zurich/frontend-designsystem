@@ -27,6 +27,18 @@
     display: flex;
   }
 
+  &__name {
+    margin-top: 0;
+    line-height: $sizeLineHeightMedium;
+    font-family: $fontFamilyBlack;
+    margin-bottom: pxToRem($sizeMini);
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+    @include mq($to: xsmall) {
+      line-height: $sizeLineHeightBase;
+    }
+  }
+
   &__imagecontainer {
     @include polyFluidSizing(min-width, map-get($personCardCurves,imageContainerWidth));
     @include polyFluidSizing(min-height, map-get($personCardCurves,imageContainerWidth));
