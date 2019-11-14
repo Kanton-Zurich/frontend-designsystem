@@ -4,7 +4,7 @@
  * @author
  * @copyright
  */
-import { debounce, template } from 'lodash';
+import { template } from 'lodash';
 
 import Module from '../../assets/js/helpers/module';
 import Pagination from '../pagination/pagination';
