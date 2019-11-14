@@ -8,20 +8,12 @@ $pageHeaderCurves: (
     xlarge: 4px,
   ),
   ktzhLogoTop: (
-    tiny: 33px,
-    xsmall: 26px,
-    small: 21px,
-    medium: 5px,
-    large: -4px,
-    xlarge: -10px,
-  ),
-  ktzhLogoTopFF: (
-    tiny: 24px,
-    xsmall: 21px,
-    small: 15px,
-    medium: -3px,
-    large: -13px,
-    xlarge: -18px,
+    tiny: 29px,
+    xsmall: 24px,
+    small: 17px,
+    medium: 0,
+    large: -10px,
+    xlarge: -15px,
   ),
   ktzhLogoMarginLeft: (
     tiny: -6px,
@@ -381,15 +373,6 @@ $pageHeaderCurves: (
     }
   }
 }
-
-@-moz-document url-prefix('') {
-  .mdl-page-header {
-    &__logo {
-      @include polyFluidSizing('top', map-get($pageHeaderCurves, ktzhLogoTopFF));
-    }
-  }
-}
-
 
 @each $key, $val in $tl-color-variations {
   .#{$key} {

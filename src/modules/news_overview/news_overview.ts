@@ -19,6 +19,7 @@ class NewsOverview extends Module {
     teaserTemplate: any,
     pagination: HTMLDivElement,
     filter: HTMLDivElement,
+    paginationWrapper: HTMLDivElement,
     paginationInput: HTMLInputElement,
     topNews: HTMLDivElement,
     filterSelects: HTMLDivElement[],
@@ -29,11 +30,19 @@ class NewsOverview extends Module {
     pills: HTMLDivElement,
     datePicker: HTMLDivElement,
     datePickerInput: HTMLInputElement,
+    pillsClearButton: HTMLButtonElement,
     sortButton: HTMLButtonElement,
     sortDropdown: HTMLDivElement,
     searchWordInput: HTMLInputElement,
     searchWordInputClear: HTMLButtonElement,
     wrapper: HTMLDivElement,
+  };
+
+  public options: {
+    domSelectors: any,
+    stateClasses: any,
+    dataSelectors: any,
+    filterPillsThreshold: number,
   };
 
   private dataUrl: string;
@@ -56,6 +65,7 @@ class NewsOverview extends Module {
     const defaultOptions = {
       domSelectors: {
         teaserTemplate: '[data-teaser-template]',
+        paginationWrapper: '.mdl-news-overview__pagination',
         pagination: '.mdl-pagination',
         filterSelects: '.mdl-news-overview__filter .mdl-select',
         filterMobileButton: '.mdl-news-overview__filter [data-news-filter-mobile]',
@@ -65,6 +75,7 @@ class NewsOverview extends Module {
         topNews: '.mdl-news-overview__topnews',
         list: '.mdl-news-overview__newsgrid .mdl-news-teaser__content > ul',
         pills: '.mdl-filter-pills',
+        pillsClearButton: '.mdl-filter-pills button[data-clear]',
         datePicker: '.mdl-news-overview__filter .mdl-datepicker',
         datePickerInput: '.mdl-news-overview__filter .mdl-datepicker .atm-form_input__input',
         sortButton: '.mdl-news-overview__sort-dropdown',
@@ -76,6 +87,7 @@ class NewsOverview extends Module {
       stateClasses: {
         loading: 'mdl-news-overview--loading',
       },
+      filterPillsThreshold: 5,
     };
 
     super($element, defaultData, defaultOptions, data, options);
@@ -331,6 +343,11 @@ class NewsOverview extends Module {
     const eventData = {
       detail: tags,
     };
+    if (tags.length >= this.options.filterPillsThreshold) {
+      this.ui.pillsClearButton.classList.remove('hidden');
+    } else {
+      this.ui.pillsClearButton.classList.add('hidden');
+    }
     // update pills module
     this.ui.pills.dispatchEvent(new CustomEvent(FilterPills.events.setTags, eventData));
   }
@@ -412,6 +429,11 @@ class NewsOverview extends Module {
     if (this.dataIdle) {
       this.dataIdle = false;
       this.fetchData((jsonData) => {
+        if (jsonData.numberOfResultPages > 1) {
+          this.ui.paginationWrapper.classList.remove('hidden');
+        } else {
+          this.ui.paginationWrapper.classList.add('hidden');
+        }
         // update canonical href
         this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
         this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;

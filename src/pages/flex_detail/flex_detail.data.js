@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
-const headerData = require('../../modules/header/header.data').props;
+const headerData = require('../../modules/header/header.data').variants.inverted.props;
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
@@ -19,7 +19,6 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     header: headerData,
-    defaultColorVariation: 'cv-darkblue',
     modules: {
       pageHeaderData: defPageHeaderData.variants.steuerBuch.props,
       metablockData: defMetablockData.variants.withTitle.props,

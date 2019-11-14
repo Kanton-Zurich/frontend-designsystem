@@ -29,6 +29,10 @@ $searchCurves: (
 
       background: $colorBlack;
     }
+
+    .mdl-search--hide-tags & {
+      margin-bottom: 0;
+    }
   }
 
   &__icon {
@@ -56,6 +60,10 @@ $searchCurves: (
     &::-ms-placeholder {
       color: $colorBlack60;
     }
+
+    &::-ms-clear {
+      display: none;
+    }
   }
 
   &__tag-group {
@@ -80,5 +88,9 @@ $searchCurves: (
     .atm-content_teaser__title {
       font-family: $fontFamilyBase;
     }
+  }
+
+  .atm-anchorlink--tag-top {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
   }
 }

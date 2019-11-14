@@ -17,20 +17,20 @@ class Breadcrumb extends Module {
     showContext: any,
     contextMenu: any,
     contextMenuItem: Array<any>,
-  }
+  };
 
   public data: {
-    itemsWiderThanElement: Boolean,
-    hiddenItems: Array<Number>,
-    hideableItems: Number,
-    windowWidth: Number,
-    mobileBreakpoint: Number,
-    isBackOnly: Boolean,
-  }
+    itemsWiderThanElement: boolean,
+    hiddenItems: Array<number>,
+    hideableItems: number,
+    windowWidth: number,
+    mobileBreakpoint: number,
+    isBackOnly: boolean,
+  };
 
   public options: {
-    hasContextMenu: Boolean,
-    disableJS: Boolean,
+    hasContextMenu: boolean,
+    internalReferrerLink: string,
     domSelectors: {
       item: string,
       ellipsis: string,
@@ -43,7 +43,7 @@ class Breadcrumb extends Module {
       parentOnly: string,
       parentItem: string,
     }
-  }
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -53,7 +53,7 @@ class Breadcrumb extends Module {
     };
     const defaultOptions = {
       customTrigger: false,
-      disableJS: $element.dataset.disableJs,
+      internalReferrerLink: $element.dataset.internalReferrerLink,
       domSelectors: {
         item: '[data-breadcrumb="item"]',
         ellipsis: '[data-breadcrumb="ellipsis"]',
@@ -64,15 +64,14 @@ class Breadcrumb extends Module {
       stateClasses: {
         visible: 'mdl-breadcrumb__item--visible',
         hidden: 'mdl-breadcrumb__item--hidden',
-        backOnly: 'mdl-breadcrumb--back-only',
+        backOnly: 'mdl-breadcrumb--backlink',
         parentOnly: 'mdl-breadcrumb--parent-only',
         parentItem: 'mdl-breadcrumb__item--parent',
       },
     };
 
     super($element, defaultData, defaultOptions, data, options);
-
-    if (!this.options.disableJS) {
+    if (!this.ui.element.classList.contains('mdl-breadcrumb--backlink')) {
       this.initUi(['contextMenuItem', 'item']);
       this.initEventListeners();
 
@@ -88,6 +87,17 @@ class Breadcrumb extends Module {
         this.moveEllipsis();
         this.initContextMenu();
       }
+    } else {
+      const internalReferrer = this.ui.item.querySelector('a');
+      const referrer = document.createElement('a');
+      referrer.href = document.referrer;
+      this.ui.item.addEventListener('click', (event) => {
+        if (internalReferrer.hostname === referrer.hostname) { // eslint-disable-line
+          window.history.back();
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      });
     }
   }
 
@@ -104,19 +114,15 @@ class Breadcrumb extends Module {
   checkSpace() {
     let hideItem = this.data.hiddenItems.length + 1;
 
-    if (this.options.hasContextMenu) {
-      while (this.isElementNotEnoughWide()
-      && hideItem <= this.data.hideableItems) {
-        this.hideItem(hideItem);
+    while (this.isElementNotEnoughWide()
+    && hideItem <= this.data.hideableItems) {
+      this.hideItem(hideItem);
 
-        hideItem += 1;
-      }
-      const windowWidth = window.innerWidth;
+      hideItem += 1;
+    }
+    const windowWidth = window.innerWidth;
 
-      if (this.isElementNotEnoughWide() || windowWidth < this.data.mobileBreakpoint) {
-        this.setBackOnly();
-      }
-    } else {
+    if (this.isElementNotEnoughWide() || windowWidth < this.data.mobileBreakpoint) {
       this.setBackOnly();
     }
   }

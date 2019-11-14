@@ -2,8 +2,8 @@ const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 const headerData = require('../../modules/header/header.data').variants.inverted.props;
-
-const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
+const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.default.props;
+const defBreadcrumbData = require('../../modules/breadcrumb/breadcrumb.data').variants.singlePathItem.props;
 const defImageFigureData = require('../../modules/image_figure/image_figure.data.js');
 const defVideoData = require('../../modules/video/video.data.js');
 const defAccordionData = require('../../modules/accordion/accordion.data.js');
@@ -117,17 +117,11 @@ const data = _.merge({}, defaultData, {
     header: headerData,
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData, {
-        variants: {
-          colored: {
-            props: {
-              pageTitle: 'Regierungsrätin Jacqueline Fehr',
-              leadText: 'Vorsteherin, Direktion der Justiz und des Innern',
-              noButton: true,
-              inverted: false,
-              breadcrumb: false,
-            },
-          },
-        },
+        pageTitle: 'Regierungsrätin Jacqueline Fehr',
+        leadText: 'Vorsteherin, Direktion der Justiz und des Innern',
+        buttonData: false,
+        inverted: false,
+        breadcrumb: null,
       }),
       anchorNav: defAnchorNavData,
       imageFigureData: defImageFigureData,
@@ -227,5 +221,16 @@ const data = _.merge({}, defaultData, {
     },
   },
 });
+
+data.props.modules.pageHeaderData.breadcrumb = {
+  contextMenu: false,
+  backOnly: true,
+  path: [
+    {
+      title: 'Zurück',
+      href: '#',
+    },
+  ],
+};
 
 module.exports = data;

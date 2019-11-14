@@ -81,8 +81,12 @@ const variants = _.mapValues({
       }),
       filterInputData: _.merge({}, defFilterInputData.props, {
         label: 'Nach Stichwort filtern',
+        type: 'text',
         isSmall: true,
         autocompleteOff: true,
+        iconOnly: {
+          icon: 'search',
+        },
         additionalFunctionality: {
           icon: 'clear',
           buttontype: 'clear',
@@ -142,8 +146,12 @@ const variants = _.mapValues({
       }),
       filterInputData: _.merge({}, defFilterInputData.props, {
         label: 'Nach Stichwort filtern',
+        type: 'text',
         isSmall: true,
         autocompleteOff: true,
+        iconOnly: {
+          icon: 'search',
+        },
         additionalFunctionality: {
           icon: 'clear',
           buttontype: 'clear',

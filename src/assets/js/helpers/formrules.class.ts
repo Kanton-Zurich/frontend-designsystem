@@ -32,6 +32,8 @@ class FormRules {
 
     this.getRules();
 
+    this.getHierarchicalRules();
+
     this.setInitialState();
     this.addWatchers();
   }
@@ -39,11 +41,45 @@ class FormRules {
   static get events() {
     return {
       stateChange: 'formrules.stateChange',
+      hidden: 'formrules.hidden',
     };
   }
 
   getRules() {
     this.rules = JSON.parse(this.ui.owner.getAttribute('data-rules'));
+  }
+
+  getHierarchicalRules() {
+    const copiedRules = this.rules;
+
+    this.rules.forEach((rule, ruleIdx) => {
+      rule.conditions.forEach((condition) => {
+        const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+        const field = this.ui.form.querySelector(querySelector);
+
+        const closestParent = field ? field.closest('[data-rules]') : null;
+
+        if (closestParent) {
+          const parentRules = JSON.parse(closestParent.dataset.rules);
+
+          parentRules.forEach((parentRule, c) => {
+            // Don't take the rules over when it is a step
+            if (parentRule.action !== 'enable' && parentRule.action !== 'disable') {
+              if (c === 0) {
+                copiedRules[ruleIdx].conditions = [...copiedRules[ruleIdx].conditions,
+                  ...parentRule.conditions];
+              } else {
+                copiedRules.push({
+                  action: rule.action,
+                  conditions: [...copiedRules[ruleIdx].conditions,
+                    ...parentRule.conditions],
+                });
+              }
+            }
+          });
+        }
+      });
+    });
   }
 
   setInitialState() {
@@ -57,7 +93,7 @@ class FormRules {
 
     switch (action) {
       case 'show':
-        this.ui.owner.classList.add(this.options.stateClasses.hiddenByRule);
+        this.checkRules();
 
         break;
       case 'enable':

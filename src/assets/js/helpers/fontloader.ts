@@ -15,6 +15,9 @@ class FontLoader extends Helper {
     });
     document.addEventListener('DOMContentLoaded', () => {
       this.cssHref = document.body.getAttribute('data-fonts');
+      if (!this.cssHref) {
+        return;
+      }
       if (this.fileIsCached()) {
         this.logger('just use the cached version');
         this.injectFontsStylesheet();
