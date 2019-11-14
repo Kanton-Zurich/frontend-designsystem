@@ -30,6 +30,10 @@ $searchCurves: (
       background: $colorBlack;
     }
 
+    @include mq($to: small) {
+      margin-left: pxToRem($sizeBiggerBig + $sizeTiny);
+    }
+
     .mdl-search--hide-tags & {
       margin-bottom: 0;
     }
