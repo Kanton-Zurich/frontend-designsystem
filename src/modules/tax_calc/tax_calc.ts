@@ -209,11 +209,12 @@ class TaxCalc extends Module {
             toggleBtn.click();
             setTimeout(() => {
               this.ui.nextBtn.focus();
+              this.updateFlyingFocus();
             }, this.options.transitionTimeout);
           }, this.options.transitionTimeout);
         }
       } else if (i === sectionIdx) {
-        this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.showing);
+        this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.disabled);
         formSectionItem.classList.add(this.options.stateClasses.formItem.enabled);
         setTimeout(() => {
           toggleBtn.click();
@@ -226,6 +227,7 @@ class TaxCalc extends Module {
             const firstSectionInput = formSectionItem.querySelector<HTMLElement>('.atm-form_input button, input');
             this.log('Focus on', firstSectionInput);
             firstSectionInput.focus();
+            this.updateFlyingFocus();
           }, this.options.transitionTimeout);
         });
 
@@ -270,7 +272,7 @@ class TaxCalc extends Module {
 
   private onFormChange() {
     const conClasses = this.ui.nextBtn.classList;
-    // if (!conClasses.contains(this.options.stateClasses.nextBtn.showing)) {
+
     setTimeout(() => {
       const requiredBeforeNext = document.querySelectorAll<HTMLInputElement>(`.${this.options.stateClasses.formItem.fixed} input[required]`);
       let allFilled = true;
@@ -286,14 +288,15 @@ class TaxCalc extends Module {
       });
 
       if (allFilled) {
-        conClasses.add(this.options.stateClasses.nextBtn.showing);
+        conClasses.remove(this.options.stateClasses.nextBtn.disabled);
       } else {
-        conClasses.remove(this.options.stateClasses.nextBtn.showing);
+        conClasses.add(this.options.stateClasses.nextBtn.disabled);
       }
     }, this.options.transitionTimeout);
     // }
     setTimeout(() => {
       this.checkOpenPanelHeights();
+      this.updateFlyingFocus();
     }, this.options.transitionTimeout);
     this.ui.apiErrorNotification.style.maxHeight = '0';
   }
@@ -349,7 +352,7 @@ class TaxCalc extends Module {
         const taxEntity: string = ev.target.value;
         this.enableCalculatorOptionsForEntity(taxEntity);
         if (this.formHasErrors()) {
-          this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.showing);
+          this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.disabled);
         }
         if (this.currentFormSection > 1) {
           this.activateFormSection(1);
@@ -654,7 +657,7 @@ class TaxCalc extends Module {
 
   private onFormException(exceptionStr: string) {
     this.log('Form Exception: ', exceptionStr);
-    this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.showing);
+    this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.disabled);
 
     this.ui.apiErrorNotification.querySelector<HTMLSpanElement>('span')
       .innerHTML = exceptionStr;
@@ -769,6 +772,10 @@ class TaxCalc extends Module {
       }
     });
     return completeHeight;
+  }
+
+  updateFlyingFocus() {
+    (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
   }
 
   /**

@@ -27,6 +27,7 @@ interface ModuleStateClasses {
   };
   nextBtn: {
     showing: string;
+    disabled: string;
     next: string;
     calculate: string;
     loading: string;
@@ -78,6 +79,7 @@ const stateClasses: ModuleStateClasses = {
   },
   nextBtn: {
     showing: 'show',
+    disabled: 'atm-button--disabled',
     next: 'mdl-tax_calc__next-btn--next',
     calculate: 'mdl-tax_calc__next-btn--calculate',
     loading: 'mdl-tax_calc__next-btn--loading',
