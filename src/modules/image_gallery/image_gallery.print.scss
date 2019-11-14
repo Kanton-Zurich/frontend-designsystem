@@ -20,4 +20,12 @@
       display: none;
     }
   }
+
+  .mdl-image-figure__caption .atm-figcaption {
+    max-height: 100%;
+  }
+
+  .mdl-image-figure__download {
+    display: none;
+  }
 }

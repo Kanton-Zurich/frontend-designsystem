@@ -1,3 +1,6 @@
 .mdl-header {
-  display: none;
+  display: none !important;
+  &__placeholder {
+    display: none !important;
+  }
 }
