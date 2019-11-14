@@ -332,6 +332,7 @@ class TaxCalc extends Module {
             } else {
               this.toNextFormSection();
             }
+            this.onFormChange();
           }).catch((reason) => {
             this.log('Form validation failed!', reason);
           });
