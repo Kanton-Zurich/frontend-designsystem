@@ -1,5 +1,9 @@
 .mdl-iframe {
-  @include gridBleed($fullwidth: true);
+
+  &:not(.mdl-iframe--small) {
+    @include gridBleed($fullwidth: true);
+  }
+
   color: $colorBlack60;
   margin-top: pxToRem($sizeHuge);
   margin-bottom: pxToRem($sizeHuge);
