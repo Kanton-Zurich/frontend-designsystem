@@ -300,7 +300,7 @@ class Modal extends Module {
     });
 
     if (this.options.isNav) {
-      this.ui.element.querySelector(this.options.childSelectors.nav).dispatchEvent(new CustomEvent('loadNavigation'));
+      this.ui.element.querySelector(this.options.childSelectors.nav).dispatchEvent(new CustomEvent(Modal.events.display));
     }
 
     setTimeout(() => {
