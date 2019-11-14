@@ -103,6 +103,7 @@ class Accordion extends Module {
       // Adding extra class to set overflow to visible, so dropdowns are seen completely
       setTimeout(() => {
         item.classList.add(this.options.stateClasses.transitionEnd);
+        this.updateFlyingFocus();
       }, this.options.transitionTime);
 
       // Close others
@@ -237,6 +238,10 @@ class Accordion extends Module {
         focusable.removeAttribute('tabindex');
       }
     });
+  }
+
+  updateFlyingFocus() {
+    (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
   }
 
   /**
