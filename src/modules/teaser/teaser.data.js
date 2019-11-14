@@ -52,17 +52,6 @@ const variants = _.mapValues({
       teaserDescription: 'Der Elternbildungstag am Samstag, 28 März 2015, rund um das Thema Kind und Familie bot interessierten Vätern und Müttern Anregung für den Erziehungsalltag. Müttern Anregungen für den Erziehungsaltag. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
     },
   },
-  defaultLabeled: {
-    meta: {
-      title: 'Standard rechts mit Label',
-      desc: 'Keine Hintergrundfarbe aber mit Beschriftung, Datum und Kurztext, Bild-Kachel rechts',
-    },
-    props: {
-      teaserLabel: 'Medienmitteilung',
-      teaserTitle: '150 Mütter und Väter erhalten am Kantonalen Elternbildungstag Anregungen für den Erziehungsantrag beim Kantonalen Amt',
-      teaserDescription: 'Der Elternbildungstag am Samstag, 28 März 2015, rund um das Thema Kind und Familie bot interessierten Vätern und Müttern Anregung für den Erziehungsalltag. Müttern Anregungen für den Erziehungsaltag. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
-    },
-  },
   defaultLeft: {
     meta: {
       title: 'Standard links',
@@ -81,16 +70,6 @@ const variants = _.mapValues({
     },
     props: {
       inverted: true,
-    },
-  },
-  invertedLabeled: {
-    meta: {
-      title: 'Invertiert mit Label',
-      desc: 'Invertierte Hintergrundfarbe aber mit Beschriftung, Datum und Kurztext, Bild-Kachel rechts',
-    },
-    props: {
-      inverted: true,
-      teaserLabel: 'Medienmitteilung',
     },
   },
   noImage: {

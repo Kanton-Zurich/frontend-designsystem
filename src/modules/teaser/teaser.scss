@@ -59,18 +59,11 @@ $maxTextLinesDesktop: 4;
     min-width: 100%;
   }
 
-  &__date,
-  &__label {
+  &__date {
     order: 1;
     font-family: $fontFamilyBlack;
     font-size: $sizeFontTiny;
     color: rgba($colorBlack, 0.6);
-    margin: 0;
-    word-break: break-all;
-
-    time {
-      font-family: $fontFamilyBase;
-    }
   }
 
   .atm-heading {
@@ -131,7 +124,7 @@ $maxTextLinesDesktop: 4;
       background-color: $colorBlack100;
     }
 
-    .mdl-teaser__label,
+    time,
     .mdl-teaser__title,
     .mdl-teaser__description {
       color: $colorWhite;

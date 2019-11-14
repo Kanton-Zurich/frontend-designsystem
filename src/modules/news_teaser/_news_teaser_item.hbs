@@ -2,20 +2,19 @@
   <h3 class="atm-heading">
     {{{this.title}}}
   </h3>
-  {{#if this.type}}
-    <p class="mdl-news-teaser__item-label">
-      {{this.type}}
-      <time datetime="">{{this.date}}</time>
-    </p>
-  {{/if}}
-  {{#unless this.type}}
-    <time class="mdl-news-teaser__date" datetime="">{{this.date}}</time>
-  {{/unless}}
+  <p class="mdl-news-teaser__item-label">
+    {{#if this.type}}{{this.type}}{{/if}}
+    <time datetime="">{{this.date}}</time>
+  </p>
   {{#if this.teaserImage}}
     <div class="mdl-news-teaser__item-image">
       <figure class="mdl-image-figure">
         <div class="mdl-image-figure__img-wrapper">
-          <img class="mdl-image-figure__img" src="{{this.teaserImage}}" alt="News Teaser bild" />
+          <figure class="mdl-image-figure">
+            <div class="mdl-image-figure__img-wrapper">
+              <img class="mdl-image-figure__img" src="{{this.teaserImage}}" alt="News Teaser bild" />
+            </div>
+          </figure>
         </div>
       </figure>
     </div>
