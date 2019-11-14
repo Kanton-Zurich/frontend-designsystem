@@ -2,7 +2,18 @@
   padding: 0;
 
   .mdl-page-header__logo-container {
-    display: none;
+    .mdl-page-header__logo {
+      position: absolute;
+      top: auto;
+
+      @include polyFluidSizing('margin-top', map-get($sizeCurves, biggerRegular));
+      @include polyFluidSizing('width', map-get($sizeCurves, large));
+      @include polyFluidSizing('height', map-get($sizeCurves, large));
+    }
+  }
+
+  .mdl-page-header__title {
+    @include polyFluidSizing('margin-left', map-get($sizeCurves, big));
   }
 
   .mdl-service_button,

@@ -15,10 +15,13 @@
                 <use xlink:href="#ktzh_inverted"></use>
               </svg>
             {{else}}
-              <svg viewBox="0 0 100 100" class="mdl-page-header__logo{{#if inverted}} screen-hidden{{/if}}"">
+              <svg viewBox="0 0 100 100" class="mdl-page-header__logo{{#if inverted}} screen-hidden{{/if}} print-hidden">
                 <use xlink:href="#ktzh"></use>
               </svg>
             {{/if}}
+            <svg viewBox="0 0 100 100" class="mdl-page-header__logo screen-hidden">
+              <use xlink:href="#ktzh"></use>
+            </svg>
           <{{#if homelink}}/a{{else}}span{{/if}}>
         {{/unless}}
       </div>
