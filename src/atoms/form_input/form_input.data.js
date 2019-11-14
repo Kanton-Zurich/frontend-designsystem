@@ -248,6 +248,8 @@ const variants = _.mapValues({
         pattern: '^\\d+$',
         errorMsg: 'Hier muss eine Ganzzahl eingegeben werden!',
         isRequired: true,
+        ariaTextValid: 'Eingabe korrekt',
+        ariaTextInvalid: 'Eingabe inkorrekt',
       },
       step: 1,
     },

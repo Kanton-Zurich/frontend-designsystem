@@ -166,7 +166,7 @@ $topSpaceSearchInput: 15.5px;
   }
 
   &__unit--right {
-    right: 17px;
+    right: pxToRem(41px);
   }
 
   &__unit {
@@ -330,7 +330,7 @@ $topSpaceSearchInput: 15.5px;
   }
 
   &--icon {
-    >.icon {
+    > .icon {
       top: pxToRem($sizeLarge);
     }
   }
