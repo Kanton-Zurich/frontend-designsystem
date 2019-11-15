@@ -180,6 +180,11 @@ class NewsOverview extends Module {
         this.dateRange = [];
         this.ui.datePicker.dispatchEvent(new CustomEvent(Datepicker.events.clear));
         this.ui.filterMobile.dispatchEvent(new CustomEvent(NewsFilterMobile.events.clearDate));
+      } else if (value.indexOf('fullText:') === 0) {
+        this.searchWord = '';
+        this.ui.searchWordInput.value = '';
+        (<HTMLButtonElement> this.ui.sortDropdown
+          .querySelector(`button[data-sort="${this.ui.element.getAttribute('data-order-by')}"]`)).click();
       }
       this.filterView(false);
     });
@@ -233,6 +238,10 @@ class NewsOverview extends Module {
     const filterHash = this.createObjectHash(this.filterLists);
     const dateHash = this.createObjectHash(this.dateRange);
     const searchWordHash = this.createObjectHash(this.searchWord);
+    if (this.searchWord !== '' && this.searchWordHash !== searchWordHash) {
+      (<HTMLButtonElement> this.ui.sortDropdown
+        .querySelector('button[data-sort="relevance"]')).click();
+    }
     // only reload view if there is a change or forced load
     if (forced || this.filterHash !== filterHash
       || this.dateHash !== dateHash
