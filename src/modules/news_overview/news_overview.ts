@@ -500,8 +500,8 @@ class NewsOverview extends Module {
     this.filterLists[1].forEach((organisation) => { append('organisation', organisation); });
     this.filterLists[2].forEach((type) => { append('type', type); });
     if (this.dateRange.length > 1) {
-      append('dateFrom', this.dateRange[0]);
-      append('dateTo', this.dateRange[1]);
+      append('dateFrom', `${this.dateRange[0].getFullYear()}-${('0' + (this.dateRange[0].getMonth() + 1)).slice(-2)}-${('0' + this.dateRange[0].getDate()).slice(-2)}`); // eslint-disable-line
+      append('dateTo', `${this.dateRange[1].getFullYear()}-${('0' + (this.dateRange[1].getMonth() + 1)).slice(-2)}-${('0' + this.dateRange[1].getDate()).slice(-2)}`); // eslint-disable-line
     }
     append('fullText', this.searchWord);
     append('page', this.ui.paginationInput.value);
