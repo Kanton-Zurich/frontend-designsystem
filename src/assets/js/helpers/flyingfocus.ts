@@ -49,7 +49,7 @@ class FlyingFocus {
    * @param event: Event
    */
   public showFlyingFocus(event) {
-    this.ringElement.style.display = `block`;
+    this.ringElement.style.display = 'block';
     if (event.target.id === this.options.ringId) {
       return;
     }
@@ -84,7 +84,7 @@ class FlyingFocus {
    * @memberof FlyingFocus
    */
   public hideFlyingFocus() {
-    this.ringElement.style.display = `none`;
+    this.ringElement.style.display = 'none';
     if (!this.movingId) {
       return;
     }
