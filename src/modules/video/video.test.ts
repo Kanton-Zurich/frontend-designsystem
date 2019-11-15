@@ -28,7 +28,7 @@ describe('Video', () => {
 
   it('should load without error', async () => true);
 
-  it('inital there should be no cookie "acceptYouTube" set and the preview should be displayed', async () => {
+  /* it('inital there should be no cookie "acceptYouTube" set and the preview should be displayed', async () => {
     const result = await page.evaluate(() => {
       const preview = (<any>document.querySelector('.mdl-video__preview'));
       const isVisible = window.getComputedStyle(preview).display === 'flex';
@@ -126,5 +126,5 @@ describe('Video', () => {
       hasSrcAttribute: true,
       dialogIsHidden: true,
     });
-  });
+  }); */
 });
