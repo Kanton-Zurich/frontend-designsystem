@@ -5,6 +5,22 @@ const defaultData = require('../../data/default.data.js');
 
 const defFigcaptionData = require('../../atoms/figcaption/figcaption.data').variants.default.props;
 
+const defImageFigureData = {
+  srcsets: [{
+    image: '/assets/media/image/youtube_placeholder_16_9_600x338_x15.jpg',
+    imageWidth: 600,
+  }, {
+    image: '/assets/media/image/youtube_placeholder_16_9_1280x720_x15.jpg',
+    imageWidth: 1280,
+  }],
+  isSmall: false,
+  isWide: false,
+  hasDownload: false,
+  useInCarousel: false,
+  useInGallery: false,
+  noTitle: true,
+};
+
 const template = dataHelper.getFileContent('video.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -22,6 +38,7 @@ const data = _.merge({}, defaultData, {
     }),
     video_title: 'Video über die KaPo Zürich',
     alt: 'Das ist ein Alternativ-Text',
+    placeholderImage: defImageFigureData,
   },
 });
 
