@@ -405,8 +405,11 @@ class NewsOverview extends Module {
       await import('whatwg-fetch');
     }
     this.currentUrl = this.constructUrl();
+
     return fetch(this.currentUrl)
-      .then(response => response.json())
+      .then(response => {
+        return response.json()
+      })
       .then((response) => {
         if (response) {
           const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
@@ -478,7 +481,10 @@ class NewsOverview extends Module {
    * @param props
    */
   private teaserItemFromTemplate(teaserTemplate, props) {
-    const compiled = template(teaserTemplate.replace(/this\./gm, 'self.')); // eslint-disable-line
+    let tmp = teaserTemplate.replace(/this\./gm, 'self.');
+    tmp = tmp.replace(/=else/gm, ' } else { ');
+
+    const compiled = template(tmp); // eslint-disable-line
     const data = {
       self: props,
     };
