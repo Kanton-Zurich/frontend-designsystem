@@ -484,6 +484,7 @@ class NewsOverview extends Module {
       element.innerHTML = this.teaserItemFromTemplate(this.ui.teaserTemplate.innerHTML, item);
       this.ui.list.appendChild(element);
     });
+    (<any>window).estatico.lineClamper.updateLineClamping();
     this.updateFlyingFocus(this.options.loadDelay);
   }
 
