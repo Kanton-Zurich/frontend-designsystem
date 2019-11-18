@@ -240,14 +240,14 @@ class NewsOverview extends Module {
     const filterHash = this.createObjectHash(this.filterLists);
     const dateHash = this.createObjectHash(this.dateRange);
     const searchWordHash = this.createObjectHash(this.searchWord);
-    if (this.searchWord !== '' && this.searchWordHash !== searchWordHash) {
-      (<HTMLButtonElement> this.ui.sortDropdown
-        .querySelector('button[data-sort="relevance"]')).click();
-    }
     // only reload view if there is a change or forced load
     if (forced || this.filterHash !== filterHash
       || this.dateHash !== dateHash
       || this.searchWordHash !== searchWordHash) {
+      if (this.searchWord !== '') {
+        (<HTMLButtonElement> this.ui.sortDropdown
+          .querySelector('button[data-sort="relevance"]')).click();
+      }
       if (updateFilterPills) {
         this.updatePills();
       }
