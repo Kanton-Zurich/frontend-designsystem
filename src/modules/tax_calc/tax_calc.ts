@@ -122,7 +122,7 @@ class TaxCalc extends Module {
               inputEl.checked = (taxEntity === inputEl.value);
             });
             this.enableCalculatorOptionsForEntity(taxEntity);
-            this.activateFormSection(1);
+            this.activateFormSection(1, true);
 
             this.prepareCalculatorForm(calculatorId).then(
               () => {
@@ -166,11 +166,12 @@ class TaxCalc extends Module {
     return document.querySelectorAll<HTMLDivElement>(this.options.domSelectors.formItems);
   }
 
-  private activateFormSection(sectionIdx: number) {
+  private activateFormSection(sectionIdx: number, init:boolean = false) {
     const formSectionItems = this.getFormSectionItems();
     formSectionItems.forEach((formSectionItem, i) => {
       const toggleBtn = formSectionItem.querySelector<HTMLButtonElement>('.mdl-accordion__button');
       toggleBtn.setAttribute('type', 'button'); // Do this for each to prevent unintended form submit.
+      toggleBtn.setAttribute('tabindex', '-1');
 
       if (i <= sectionIdx) {
         const sectioInputs = formSectionItem.querySelectorAll<HTMLElement>('.atm-form_input button, input');
@@ -203,6 +204,7 @@ class TaxCalc extends Module {
         }
         formSectionItem.classList.add(this.options.stateClasses.formItem.enabled);
         toggleBtn.setAttribute('aria-disabled', 'false');
+        toggleBtn.removeAttribute('tabindex');
 
         if (i === formSectionItems.length - 1) {
           setTimeout(() => {
@@ -222,13 +224,14 @@ class TaxCalc extends Module {
           toggleBtn.setAttribute('aria-disabled', 'true');
 
           this.watchFormSection(formSectionItem);
-
-          setTimeout(() => {
-            const firstSectionInput = formSectionItem.querySelector<HTMLElement>('.atm-form_input button, input');
-            this.log('Focus on', firstSectionInput);
-            firstSectionInput.focus();
-            this.updateFlyingFocus();
-          }, this.options.transitionTimeout);
+          if (!init) {
+            setTimeout(() => {
+              const firstSectionInput = formSectionItem.querySelector<HTMLElement>('.atm-form_input button, input');
+              this.log('Focus on', firstSectionInput);
+              firstSectionInput.focus();
+              this.updateFlyingFocus();
+            }, this.options.transitionTimeout);
+          }
         });
 
         if (sectionIdx === this.lastSectionIdx) {
