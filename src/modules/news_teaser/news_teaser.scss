@@ -54,13 +54,13 @@ $customParagraphCurve: (
 
     &:before {
       content: '';
-      display: none;
       position: absolute;
+      display: block;
       top: pxToRem(-$sizeTiny);
       left: pxToRem(-$sizeTiny);
       width: calc(100% + #{$sizeRegular});
       height: calc(100% + #{$sizeRegular});
-      background-color: $colorBorderFrameHover;
+      background-color: $colorBlack10;
     }
 
     a {
@@ -78,7 +78,7 @@ $customParagraphCurve: (
       z-index: 1;
 
       &:before {
-        display: block;
+        background-color: $colorBorderFrameHover;
       }
 
       .atm-heading,
