@@ -170,12 +170,12 @@ class Module {
     const paramList = url.split('?').length > 1 ? url.split('?')[1].split('&') : null;
     if (paramList) {
       result = paramList.filter(paramString => paramString.substr(0, param.length) === param)
-        .map(item => item.split('=')[1].replace('#', ''));
+        .map(item => decodeURIComponent(item.split('=')[1].replace('#', '')));
       if (result.length > 0 && singleValue) {
         result = result[0].replace('#', '');
       }
     }
-    return result && result.length > 0 ? decodeURIComponent(result) : null;
+    return result && result.length > 0 ? result : null;
   }
 
   /**
@@ -221,6 +221,16 @@ class Module {
     element.setAttribute('href', href);
     document.head.appendChild(element);
   }
+
+  /**
+   * Update flying focus with a delay
+   */
+  updateFlyingFocus(delay = 0) {
+    setTimeout(() => {
+      (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
+    }, delay);
+  }
+
 
   /**
    * Fetch json data
