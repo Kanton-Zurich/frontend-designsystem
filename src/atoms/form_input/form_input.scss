@@ -171,7 +171,7 @@ $unitLeftSpace: 62px;
   }
 
   &__unit--right {
-    right: 17px;
+    right: pxToRem(41px);
   }
 
   &__unit {
@@ -312,7 +312,8 @@ $unitLeftSpace: 62px;
   }
 
   &--datepicker,
-  &--trigger {
+  &--trigger,
+  &--icon {
     button:focus .icon,
     input:focus ~ .icon {
       fill: $colorBlack;
@@ -320,7 +321,7 @@ $unitLeftSpace: 62px;
 
     .icon {
       position: absolute;
-      top: pxToRem($sizeLarge);
+      top: 0;
       right: pxToRem($sizeSmallRegular);
       transform: rotate(0deg);
       transition: 400ms transform ease-out;
@@ -328,19 +329,16 @@ $unitLeftSpace: 62px;
     }
   }
 
-  &--icon {
-    button:focus .icon,
-    input:focus ~ .icon {
-      fill: $colorBlack;
-    }
-
-    > .icon {
-      position: absolute;
+  &--datepicker,
+  &--trigger {
+    .icon {
       top: pxToRem($sizeLarge);
-      right: pxToRem($sizeSmallRegular);
-      transform: rotate(0deg);
-      transition: 400ms transform ease-out;
-      fill: $colorBlack40;
+    }
+  }
+
+  &--icon {
+    > .icon {
+      top: pxToRem($sizeLarge);
     }
   }
 
@@ -528,7 +526,7 @@ $unitLeftSpace: 62px;
 
 /** STYLES FOR VALIDATION CLASSES */
 
-[  data-input ] {
+[ data-input ] {
 
   &:not(.dirty) {
     textarea#{&} {
