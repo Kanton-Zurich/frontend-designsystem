@@ -1,5 +1,5 @@
 <a href="{{this.link}}">
-  <h3 class="atm-heading">
+  <h3 class="atm-heading" data-lineclamp="true">
     {{{this.title}}}
   </h3>
   {{#if this.type}}
@@ -21,6 +21,6 @@
     </div>
   {{/if}}
   {{#if this.teaserText}}
-    <p class="atm-paragraph">{{this.teaserText}}</p>
+    <p data-lineclamp="true" class="atm-paragraph">{{this.teaserText}}</p>
   {{/if}}
 </a>

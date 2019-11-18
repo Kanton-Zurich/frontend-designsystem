@@ -6,6 +6,9 @@ $customParagraphCurve: (
   large: $sizeFontBiggerRegular,
 );
 
+$maxTextLines: 6;
+$maxTextLinesDesktop: 4;
+
 .mdl-news-teaser {
   @include gridBleed($fullwidth: true);
   padding-top: pxToRem($sizeBig);
@@ -99,6 +102,15 @@ $customParagraphCurve: (
       padding-bottom: pxToRem($sizeTiny);
       margin-bottom: 0;
       order: 2;
+
+      // LineClamper Config
+      $headingHeightCurve: (
+        tiny: $sizeLarge * $sizeLineHeightMedium * $maxTextLines,
+        small: $sizeLarge * $sizeLineHeightMedium * $maxTextLinesDesktop,
+        medium: $sizeBig * $sizeLineHeightMedium * $maxTextLinesDesktop,
+        xlarge: $sizeBiggerBig * $sizeLineHeightNarrower * $maxTextLinesDesktop,
+      );
+      @include polyFluidSizing(max-height, $headingHeightCurve);
     }
 
     // Overwrite item paragraph atom
@@ -108,6 +120,14 @@ $customParagraphCurve: (
       line-height: $sizeLineHeightBase;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+
+      // LineClamper Config
+      $paragraphHeightCurve: (
+        tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLines,
+        small: $sizeFontRegular * $sizeLineHeightBase * $maxTextLinesDesktop,
+        large: $sizeFontBiggerRegular * $sizeLineHeightBase * $maxTextLinesDesktop,
+      );
+      @include polyFluidSizing(max-height, $paragraphHeightCurve);
     }
   }
 
