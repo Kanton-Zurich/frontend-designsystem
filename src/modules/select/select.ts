@@ -200,7 +200,7 @@ class Select extends Module {
           if (event.shiftKey) {
             this.closeDropdown(true);
           } else {
-            this.updateFlyingFocus();
+            this.updateFlyingFocus(this.options.inputDelay);
           }
         }
       })
@@ -235,7 +235,7 @@ class Select extends Module {
         if (event.key === 'Tab' && !event.shiftKey) {
           this.closeDropdown(true);
         } else {
-          this.updateFlyingFocus();
+          this.updateFlyingFocus(this.options.inputDelay);
         }
       })
       // ------------------------------------------------------------
@@ -276,7 +276,7 @@ class Select extends Module {
             evt.stopPropagation();
             evt.preventDefault();
           }
-          this.updateFlyingFocus();
+          this.updateFlyingFocus(this.options.inputDelay);
         }
         if (!this.isMultiSelect && ['Enter', ' ', 'Spacebar'].indexOf(pressed) >= 0) {
           this.ui.trigger.click();
@@ -287,7 +287,7 @@ class Select extends Module {
     // Observe inputs and update values -
     if (this.ui.filter) {
       this.ui.filter.addEventListener('keydown', (event) => {
-        this.updateFlyingFocus();
+        this.updateFlyingFocus(this.options.inputDelay);
         if (event.key === 'Enter') {
           event.preventDefault();
         }
@@ -550,7 +550,7 @@ class Select extends Module {
           .dispatchEvent(new CustomEvent('validateDeferred', {
             detail: { field: this.ui.inputItems[0] },
           }));
-        this.updateFlyingFocus();
+        this.updateFlyingFocus(this.options.inputDelay);
       }
       this.emitClose();
     }
@@ -580,15 +580,6 @@ class Select extends Module {
         + (this.ui.applyButtonContainer ? this.ui.applyButtonContainer.clientHeight : 0);
       this.ui.dropdown.style.height = `${containerSize}px`;
     }
-  }
-
-  /**
-   * Update flying focus with a delay
-   */
-  updateFlyingFocus() {
-    setTimeout(() => {
-      (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
-    }, this.options.inputDelay);
   }
 
   /**

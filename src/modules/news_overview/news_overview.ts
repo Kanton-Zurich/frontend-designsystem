@@ -43,6 +43,7 @@ class NewsOverview extends Module {
     stateClasses: any,
     dataSelectors: any,
     filterPillsThreshold: number,
+    loadDelay: number,
   };
 
   private dataUrl: string;
@@ -88,6 +89,7 @@ class NewsOverview extends Module {
         loading: 'mdl-news-overview--loading',
       },
       filterPillsThreshold: 5,
+      loadDelay: 50,
     };
 
     super($element, defaultData, defaultOptions, data, options);
@@ -180,6 +182,11 @@ class NewsOverview extends Module {
         this.dateRange = [];
         this.ui.datePicker.dispatchEvent(new CustomEvent(Datepicker.events.clear));
         this.ui.filterMobile.dispatchEvent(new CustomEvent(NewsFilterMobile.events.clearDate));
+      } else if (value.indexOf('fullText:') === 0) {
+        this.searchWord = '';
+        this.ui.searchWordInput.value = '';
+        (<HTMLButtonElement> this.ui.sortDropdown
+          .querySelector(`button[data-sort="${this.ui.element.getAttribute('data-order-by')}"]`)).click();
       }
       this.filterView(false);
     });
@@ -233,6 +240,10 @@ class NewsOverview extends Module {
     const filterHash = this.createObjectHash(this.filterLists);
     const dateHash = this.createObjectHash(this.dateRange);
     const searchWordHash = this.createObjectHash(this.searchWord);
+    if (this.searchWord !== '' && this.searchWordHash !== searchWordHash) {
+      (<HTMLButtonElement> this.ui.sortDropdown
+        .querySelector('button[data-sort="relevance"]')).click();
+    }
     // only reload view if there is a change or forced load
     if (forced || this.filterHash !== filterHash
       || this.dateHash !== dateHash
@@ -470,6 +481,7 @@ class NewsOverview extends Module {
       element.innerHTML = this.teaserItemFromTemplate(this.ui.teaserTemplate.innerHTML, item);
       this.ui.list.appendChild(element);
     });
+    this.updateFlyingFocus(this.options.loadDelay);
   }
 
   /**
@@ -500,8 +512,8 @@ class NewsOverview extends Module {
     this.filterLists[1].forEach((organisation) => { append('organisation', organisation); });
     this.filterLists[2].forEach((type) => { append('type', type); });
     if (this.dateRange.length > 1) {
-      append('dateFrom', this.dateRange[0]);
-      append('dateTo', this.dateRange[1]);
+      append('dateFrom', `${this.dateRange[0].getFullYear()}-${('0' + (this.dateRange[0].getMonth() + 1)).slice(-2)}-${('0' + this.dateRange[0].getDate()).slice(-2)}`); // eslint-disable-line
+      append('dateTo', `${this.dateRange[1].getFullYear()}-${('0' + (this.dateRange[1].getMonth() + 1)).slice(-2)}-${('0' + this.dateRange[1].getDate()).slice(-2)}`); // eslint-disable-line
     }
     append('fullText', this.searchWord);
     append('page', this.ui.paginationInput.value);
