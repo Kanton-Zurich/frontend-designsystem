@@ -24,7 +24,7 @@ class Anchornav extends Module {
   public navigationIsFixed: boolean;
   public elementMissing: boolean;
   public navigationHeight: number;
-  public scrollReferences: Array<any>;
+  public navReferences: Array<any>;
   public impetusInstance: any;
 
   public scrollDirection: string;
@@ -146,7 +146,7 @@ class Anchornav extends Module {
       this.cacheAnchorReferences();
       this.updateVerticalScrollInfo();
       this.updateNavigationState();
-      if (this.scrollReferences.length > 0) {
+      if (this.navReferences.length > 0) {
         this.updateActiveAnchorState();
       }
       this.initializeImpetus();
@@ -154,6 +154,7 @@ class Anchornav extends Module {
     }
 
     this.initEventListeners();
+    this.checkURL();
   }
 
   static get events() {
@@ -180,6 +181,18 @@ class Anchornav extends Module {
     // Necessary for jump.js plugin.
     // Is triggered before the debounced callback.
     (<any>WindowEventListener).addEventListener('scroll', this.onPageScroll.bind(this));
+  }
+
+  checkURL() {
+    const urlParameter = window.location.href.split('#')[1];
+
+    if (urlParameter) {
+      for (let i = 0; i < this.navReferences.length; i += 1) {
+        if (this.navReferences[i].element.id === urlParameter) {
+          this.moveToPageElementFor(this.navReferences[i].navTrigger);
+        }
+      }
+    }
   }
 
   /**
@@ -238,10 +251,10 @@ class Anchornav extends Module {
   syncHorizontalPositon() {
     const tolerance = this.options.tolerances.swipe;
     let triggerPosition;
-    for (let i = 0; i < this.scrollReferences.length; i += 1) {
-      const currentItem = this.scrollReferences[i].correspondingAnchor;
+    for (let i = 0; i < this.navReferences.length; i += 1) {
+      const currentItem = this.navReferences[i].navTrigger;
       if (currentItem.classList.contains(this.options.stateClasses.activeItemClass)) {
-        triggerPosition = this.scrollReferences[i].triggerXPosition - tolerance;
+        triggerPosition = this.navReferences[i].triggerXPosition - tolerance;
         this.ui.scrollContent.scrollLeft = triggerPosition;
       }
     }
@@ -266,7 +279,7 @@ class Anchornav extends Module {
    * with the corresponding anchorNav-item
    */
   cacheAnchorReferences() {
-    this.scrollReferences = [];
+    this.navReferences = [];
 
     for (let i = 0; i < this.ui.navItems.length; i += 1) {
       const selectorString = `[id="${this.ui.navItems[i].dataset.href}"]`;
@@ -279,9 +292,9 @@ class Anchornav extends Module {
       const hTriggerPos = itemLeft - this.ui.scrollContent.getBoundingClientRect().left;
       if (element !== null) {
         element.setAttribute('tabindex', '-1');
-        this.scrollReferences.push({
-          correspondingAnchor: this.ui.navItems[i],
-          triggerElement: element,
+        this.navReferences.push({
+          navTrigger: this.ui.navItems[i],
+          element: element,
           triggerXPosition: hTriggerPos,
         });
       }
@@ -302,19 +315,19 @@ class Anchornav extends Module {
     let lastFittingTriggerPosition = 0;
     let evenDistances = 0;
 
-    for (let i = 0; i < this.scrollReferences.length; i += 1) {
-      const currentItem = this.scrollReferences[i];
-      let currentTriggerPosition = this.getPageYPositionFor(currentItem.triggerElement);
+    for (let i = 0; i < this.navReferences.length; i += 1) {
+      const currentItem = this.navReferences[i];
+      let currentTriggerPosition = this.getPageYPositionFor(currentItem.element);
       currentTriggerPosition -= this.navigationHeight;
-      this.scrollReferences[i].triggerYPosition = currentTriggerPosition;
+      this.navReferences[i].triggerYPosition = currentTriggerPosition;
 
       if ((currentTriggerPosition) > scrollMax && !foundExceed) {
         // Get the count for the exceeding anchors but include the last fitting anchor
         // to spread even the space after his last Y position
-        exceedCounter = this.scrollReferences.length - i;
+        exceedCounter = this.navReferences.length - i;
         exceedIndex = i;
         const previousIndex = i - 1 >= 0 ? i - 1 : 0;
-        const space = scrollMax - this.scrollReferences[previousIndex].triggerYPosition;
+        const space = scrollMax - this.navReferences[previousIndex].triggerYPosition;
         foundExceed = true;
         evenDistances = Math.round(space / (exceedCounter + 1));
       }
@@ -331,14 +344,14 @@ class Anchornav extends Module {
 
       // Later or last item exceed scrolling possibility,
       // so spread evenly from the bottom with even distances
-      const maxIndex = this.scrollReferences.length - 1;
+      const maxIndex = this.navReferences.length - 1;
       for (let i = maxIndex; i >= exceedIndex; i -= 1) {
         if (i === maxIndex) {
           lastFittingTriggerPosition = scrollMax;
         } else {
           lastFittingTriggerPosition -= evenDistances;
         }
-        this.scrollReferences[i].triggerYPosition = lastFittingTriggerPosition;
+        this.navReferences[i].triggerYPosition = lastFittingTriggerPosition;
       }
     }
   }
@@ -392,18 +405,18 @@ class Anchornav extends Module {
     let navItem;
 
     if (this.scrollDirection === 'down') {
-      for (let i = 0; i < this.scrollReferences.length; i += 1) {
-        const currentItem = this.scrollReferences[i];
+      for (let i = 0; i < this.navReferences.length; i += 1) {
+        const currentItem = this.navReferences[i];
         const triggerY = currentItem.triggerYPosition;
         if (currentScrollPosition >= (triggerY)) {
-          navItem = (<any> currentItem).correspondingAnchor;
+          navItem = (<any> currentItem).navTrigger;
         }
       }
     } else {
-      let preIndex = this.scrollReferences.length - 1;
+      let preIndex = this.navReferences.length - 1;
       let scrollUpMatch = false;
-      for (let i = this.scrollReferences.length - 1; i > 0; i -= 1) {
-        const currentItem = this.scrollReferences[i];
+      for (let i = this.navReferences.length - 1; i > 0; i -= 1) {
+        const currentItem = this.navReferences[i];
         const triggerY = currentItem.triggerYPosition;
 
         if (currentScrollPosition <= (triggerY - (this.headerHeight + this.navigationHeight))) {
@@ -412,7 +425,7 @@ class Anchornav extends Module {
         }
 
         if (scrollUpMatch) {
-          navItem = this.scrollReferences[preIndex].correspondingAnchor;
+          navItem = this.navReferences[preIndex].navTrigger;
         }
       }
     }
@@ -524,8 +537,8 @@ class Anchornav extends Module {
     this.ui.navItemActive = target;
     this.ui.navItemActive.setAttribute('aria-selected', 'true');
 
-    this.scrollReferences.forEach((item, index) => {
-      if (item.correspondingAnchor === target) {
+    this.navReferences.forEach((item, index) => {
+      if (item.navTrigger === target) {
         this.activeIndex = index;
       }
     });
@@ -607,7 +620,7 @@ class Anchornav extends Module {
     this.isKeyEvent = true;
     const { target } = event;
 
-    this.moveToAnchor(target);
+    this.moveToPageElementFor(target);
   }
 
   /**
@@ -618,9 +631,9 @@ class Anchornav extends Module {
   getYDistanceTo(element: any): number {
     let distance = 0;
     // Get the trigger coordinates for a standart click jump
-    for (let i = 0; i < this.scrollReferences.length; i += 1) {
-      if ((<any> this.scrollReferences)[i].correspondingAnchor === element) {
-        distance = Math.round(this.scrollReferences[i].triggerYPosition
+    for (let i = 0; i < this.navReferences.length; i += 1) {
+      if ((<any> this.navReferences)[i].navTrigger === element) {
+        distance = Math.round(this.navReferences[i].triggerYPosition
           - this.lastYScrollPositon);
 
         if (distance < 0) {
@@ -653,13 +666,17 @@ class Anchornav extends Module {
    */
   onMouseUp(event) {
     const { target } = event;
+    const hash = target.dataset.href;
 
     // Stop event if the delta is to big
     const mouseEventDelta = event.screenX - this.mousePositonDown;
     const swipeTolerance = this.options.tolerances.swipe;
 
     if (mouseEventDelta < swipeTolerance && mouseEventDelta > -(swipeTolerance)) {
-      this.moveToAnchor(target);
+      const stateObj = { anchorNavZH: hash };
+      window.history.pushState(stateObj, '', '#' + hash);
+
+      this.moveToPageElementFor(target);
     }
   }
 
@@ -697,7 +714,7 @@ class Anchornav extends Module {
    *
    * @param target<any>
    */
-  moveToAnchor(target) {
+  moveToPageElementFor(target) {
     const jumpToPosition = this.getYDistanceTo(target);
 
     if (this.jumpPossible) {
@@ -712,10 +729,10 @@ class Anchornav extends Module {
    * Toggles the jump.js plugin flag
    */
   toggleJumpFlag() {
-    this.scrollReferences.forEach((item) => {
-      if (item.correspondingAnchor === this.ui.navItemActive
+    this.navReferences.forEach((item) => {
+      if (item.navTrigger === this.ui.navItemActive
         && this.isKeyEvent) {
-        item.triggerElement.focus();
+        item.element.focus();
         this.isKeyEvent = false;
       }
     });
