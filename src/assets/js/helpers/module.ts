@@ -223,6 +223,16 @@ class Module {
   }
 
   /**
+   * Update flying focus with a delay
+   */
+  updateFlyingFocus(delay = 0) {
+    setTimeout(() => {
+      (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
+    }, delay);
+  }
+
+
+  /**
    * Fetch json data
    *
    * @param url endpoint URL to fetch data from

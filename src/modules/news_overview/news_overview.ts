@@ -43,6 +43,7 @@ class NewsOverview extends Module {
     stateClasses: any,
     dataSelectors: any,
     filterPillsThreshold: number,
+    loadDelay: number,
   };
 
   private dataUrl: string;
@@ -88,6 +89,7 @@ class NewsOverview extends Module {
         loading: 'mdl-news-overview--loading',
       },
       filterPillsThreshold: 5,
+      loadDelay: 50,
     };
 
     super($element, defaultData, defaultOptions, data, options);
@@ -479,6 +481,7 @@ class NewsOverview extends Module {
       element.innerHTML = this.teaserItemFromTemplate(this.ui.teaserTemplate.innerHTML, item);
       this.ui.list.appendChild(element);
     });
+    this.updateFlyingFocus(this.options.loadDelay);
   }
 
   /**
