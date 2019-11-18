@@ -183,6 +183,9 @@ class Anchornav extends Module {
     (<any>WindowEventListener).addEventListener('scroll', this.onPageScroll.bind(this));
   }
 
+  /**
+   * Checks on initialization if the URL contains a navigatable hash and if so jump to it
+   */
   checkURL() {
     const urlParameter = window.location.href.split('#')[1];
 
@@ -619,7 +622,10 @@ class Anchornav extends Module {
   onKeypress(event) {
     this.isKeyEvent = true;
     const { target } = event;
+    const hash = target.dataset.href;
 
+    const stateObj = { anchorNavZH: hash };
+    window.history.pushState(stateObj, '', '#' + hash);
     this.moveToPageElementFor(target);
   }
 
