@@ -86,7 +86,7 @@ $contactMapHeightCurve: (
     font-size: $sizeFontRegular;
     font-family: $fontFamilyBase;
     line-height: $sizeLineHeightBase;
-    padding-right: pxToRem(27px);
+    padding-right: pxToRem(27px); //stylelint-disable-line
     text-decoration: none;
 
     svg {
