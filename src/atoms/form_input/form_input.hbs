@@ -16,7 +16,8 @@
       </svg>
     </button>
     {{#if isTriggerWithInput}}
-      <input id="select_phone_input" name="phone_input" type="number" placeholder="Telefonnummer"
+      <input id="select_phone_input" name="phone_input" type="tel" placeholder="{{#if label}}{{label}}{{/if}}"
+        {{#if validation.pattern }} data-pattern="{{validation.pattern}}"{{/if}}
         {{#if validation.isRequired}} required{{/if}}
         {{#if validation}} data-validation{{/if}}><label
       class="visuallyhidden" for="select_phone_input">Bitte hier ihre Telefonnummer eingeben</label>{{/if}}
@@ -39,12 +40,8 @@
   {{# if isInput}}
     <input class="atm-form_input__input"
       {{#if validation.pattern }} data-pattern="{{validation.pattern}}"{{/if}}
-      {{#if validation.minlength }} minlength="{{validation.minlength}}"{{/if}}
-      {{#if validation.maxlength}} maxlength="{{validation.maxlength}}"{{/if}}
-      {{#if validation.min }} min="{{validation.min}}"{{/if}}
-      {{#if validation.max }} max="{{validation.max}}"{{/if}}
       {{#if step}} step="{{step}}"{{/if}}
-           id="{{uuid}}" placeholder="{{label}}" name="{{name}}" value="{{inputContent}}" type="{{type}}"
+       id="{{uuid}}" placeholder="{{label}}" name="{{name}}" value="{{inputContent}}" type="{{type}}"
       {{#if dataSelector}} {{{dataSelector}}}{{/if}}
       {{#if validation.isRequired}} required{{/if}}
       {{#if isReadOnly}} readonly{{/if}}
