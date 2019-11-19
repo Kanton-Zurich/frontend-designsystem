@@ -31,7 +31,7 @@ $searchSizeCurve: (
     font-size: pxToRem($sizeFontRegular);
     line-height: $sizeLineHeightBase;
 
-    padding: $paddingInput pxToRem($sizeRegular);
+    padding: $paddingInput (pxToRem($sizeRegular) + pxToRem(24) + pxToRem($sizeTiny))  $paddingInput pxToRem($sizeRegular);
 
     display: block;
     width: 100%;
@@ -209,11 +209,6 @@ $searchSizeCurve: (
     }
   }
 
-  // When the input gets validation the unit right needs more spacing
-  &__input[ data-validation ] ~ &__unit--right {
-    right: pxToRem($sizeRegular * 1.5) + $borderWidthRem + pxToRem(24);
-  }
-
   &--unitLeft {
     .atm-form_input__unit {
       left: pxToRem($sizeRegular);
@@ -298,6 +293,13 @@ $searchSizeCurve: (
     }
   }
 
+  &.valid,
+  &.invalid {
+    .atm-form_input__unit--right {
+      right: pxToRem($sizeRegular * 1.5) + $borderWidthRem + pxToRem(24);
+    }
+  }
+
   /* ----------------
   ----- SUCHE -------
   ----------------- */
@@ -308,6 +310,37 @@ $searchSizeCurve: (
 
       @include sizeCurve(font-size, font, $searchSizeCurve);
       @include sizeCurve(padding-top padding-bottom, padding, $searchSizeCurve);
+    }
+  }
+
+  /* --------------------
+  --- SELECT TRIGGER ----
+  --------------------- */
+
+  &__input--trigger {
+    min-height: (pxToRem($sizeRegular) * $sizeLineHeightBase) + $paddingInput * 2 + $borderWidthRem * 2;
+
+    .icon {
+      position: absolute;
+      right: $sizeRegular + $borderWidth;
+      top: $paddingInput + $borderWidthRem;
+    }
+  }
+
+  &__trigger-label {
+    position: absolute;
+    top: $paddingInput + $borderWidthRem;
+
+    @include transition(top);
+  }
+
+  &__input--trigger:focus {
+    .atm-form_input__trigger-label {
+      font-family: $fontFamilyBlack;
+      font-size: $sizeFontTiny;
+
+      position: absolute;
+      top: pxToRem(14px);
     }
   }
 }
