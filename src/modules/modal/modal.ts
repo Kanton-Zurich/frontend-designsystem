@@ -238,7 +238,6 @@ class Modal extends Module {
 
   /** Closes the modal */
   closeModal() {
-    const multiplier = 2;
     this.isolatedElements.forEach((element) => {
       element.removeAttribute('aria-hidden');
     });
@@ -262,7 +261,7 @@ class Modal extends Module {
       this.ui.element.classList.remove(this.options.stateClasses.hide);
       this.ui.element.classList.remove(this.options.stateClasses.show);
       window.dispatchEvent(new CustomEvent(Modal.events.closed));
-    }, this.options.transitionTime * multiplier);
+    }, this.options.transitionTime);
   }
 
   switchLeft() {

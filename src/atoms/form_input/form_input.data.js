@@ -23,14 +23,14 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Standard Input',
+      title: 'Standard Eingabefeld',
       desc: 'Standard Implementierung ohne Floating Label (nur Placeholder)',
     },
   },
   textarea: {
     meta: {
       title: 'Standard Textfeld',
-      desc: 'Standard Implementierung ohne Floating Label (nur Placeholder)',
+      desc: 'Standard Implementierung eines mehrzeiligen Textfelds mit nach oben gleitenden Beschriftung (floating Label)',
     },
     props: {
       isTextarea: true,
@@ -43,8 +43,8 @@ const variants = _.mapValues({
   },
   disabled: {
     meta: {
-      title: 'Input(disabled)',
-      desc: 'Standard Implementierung disabled (nicht editierbar).',
+      title: 'Eingabefeld deaktiviert',
+      desc: 'Standard Implementierung eines gesperrten Eingabefeldes (nicht editierbar).',
     },
     props: {
       disabled: true,
@@ -52,47 +52,89 @@ const variants = _.mapValues({
       inputContent: 'Dieser Text kann nicht bearbeitet werden und wird nicht übertragen.',
     },
   },
-  float: {
+  floatValidateNumber: {
     meta: {
-      title: 'Float Input',
-      desc: 'Input mit floating Label',
+      title: 'Eingabefeld für Zahlen',
+      desc: 'Eingabefeld mit einer nach oben gleitenden Beschriftung (floating Label) bei Eingabe und Validierung für Zahlen',
     },
     props: {
       type: 'text',
-      label: 'Floating Label',
+      label: 'Validation(Zahlen)',
       uuid: _.uniqueId('float_input_float'),
       isFloatingLabel: true,
+      validation: {
+        pattern: '^([0-9]){1,2}$',
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Dieses Eingabefeld erlaubt nur Zahlen. Es benötigt mindestens 1 und maximal 2 Zahlen im Eingabefeld!',
+        isRequired: true,
+      },
+    },
+  },
+  floatValidateUrl: {
+    meta: {
+      title: 'Eingabefeld für URLs',
+      desc: 'Eingabefeld mit einer nach oben gleitenden Beschriftung (floating Label) bei Eingabe und Validierung für URLs',
+    },
+    props: {
+      type: 'url',
+      label: 'Validation(URL)',
+      uuid: _.uniqueId('float_input_float'),
+      isFloatingLabel: true,
+      validation: {
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Die Eingabe entspricht nicht den Vorgaben für die URL.',
+        isRequired: true,
+      },
+    },
+  },
+  floatValidateEmail: {
+    meta: {
+      title: 'Eingabefeld für Emails',
+      desc: 'Eingabefeld mit einer nach oben gleitenden Beschriftung (floating Label) bei Eingabe und Validierung für Emails',
+    },
+    props: {
+      type: 'email',
+      label: 'Validation(Email)',
+      uuid: _.uniqueId('float_input_float'),
+      isFloatingLabel: true,
+      validation: {
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Die Eingabe entspricht nicht den Vorgaben für eine Email.',
+        isRequired: true,
+      },
     },
   },
   floatValidate: {
     meta: {
-      title: 'Text Float Input Validation',
-      desc: 'Input mit floating Label und validierung',
+      title: 'Eingabefeld für Buchstaben',
+      desc: 'Eingabefeld mit einer nach oben gleitenden Beschriftung (floating Label) bei Eingabe und Validierung für Buchstaben bzw ein Wort mit mindestens 3 und maximal 6 Buchstaben.',
     },
     props: {
       type: 'text',
-      label: 'Validation',
+      label: 'Validation(Buchstaben/Wort)',
+      uuid: _.uniqueId('float_input_valid'),
+      isFloatingLabel: true,
+      isRequired: true,
       validation: {
         pattern: '^([a-zA-Z]){3,6}$',
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
-        errorMsg: 'Hier mindestens 3 und maximal 6 Buchstaben eingeben!',
+        errorMsg: 'Dieses Eingabefeld erlaubt nur Buchstaben. Es benötigt mindestens 3 und maximal 6 Buchstaben!',
         isRequired: true,
       },
-      uuid: _.uniqueId('float_input_valid'),
-      isFloatingLabel: true,
-      isRequired: true,
-
     },
   },
   clearButton: {
     meta: {
-      title: 'Text löschen',
-      desc: 'Input mit floating Label, validierung und zurücksetzen funktionalität.',
+      title: 'Eingabefeld mit löschen-Funktion',
+      desc: 'Eingabefeld mit einer nach oben gleitenden Beschriftung (floating Label) bei Eingabe, Validierung für Buchstaben bzw ein Wort mit mindestens 3 und maximal 6 Buchstaben und einem Knopf zum zurücksetzen bzw löschen der Eingabe.',
     },
     props: {
       type: 'text',
-      label: 'Validation',
+      label: 'Label',
       uuid: _.uniqueId('float_input_clear'),
       validation: {
         pattern: '^([a-zA-Z]){3,6}$',
@@ -109,8 +151,8 @@ const variants = _.mapValues({
   },
   clearButtonWithIcon: {
     meta: {
-      title: 'Textfeld mit löschen (und zusätzlichem Icon)',
-      desc: 'Input mit floating Label, validierung und zurücksetzen funktionalität und zusätzlichem Icon.',
+      title: 'Eingabefeld mit löschen Function (und zusätzlichem Icon)',
+      desc: 'Eingabefeld mit einer nach oben gleitenden Beschriftung (floating Label) bei Eingabe, einem Knopf zum zurücksetzen bzw löschen der Eingabe und zusätzlichem Icon.',
     },
     props: {
       type: 'text',
@@ -129,8 +171,8 @@ const variants = _.mapValues({
   },
   clearButtonSmallWithIcon: {
     meta: {
-      title: 'Kleines Textfeld mit löschen (und zusätzlichem Icon)',
-      desc: 'Input mit floating Label, validierung und zurücksetzen funktionalität und zusätzlichem Icon.',
+      title: 'Kleines Eingabefeld mit löschen Function (und zusätzlichem Icon)',
+      desc: 'Kleines Eingabefeld mit einer nach oben gleitenden Beschriftung (floating Label) bei Eingabe, einem Knopf zum zurücksetzen bzw löschen der Eingabe und zusätzlichem Icon.',
     },
     props: {
       type: 'text',
@@ -149,8 +191,8 @@ const variants = _.mapValues({
   },
   showPasswordButton: {
     meta: {
-      title: 'Passwort zeigen/verstecken',
-      desc: 'Input mit floating Label, validierung und mit zeige/verstecke Passwort funktionalität.',
+      title: 'Passwort-Eingabefeld mit zeigen/verstecken Function',
+      desc: 'Eingabefeld mit einer nach oben gleitenden Beschriftung (floating Label) bei Eingabe, validierung und einem Knopf zum zeigen bzw verstecken der Eingabe.',
     },
     props: {
       type: 'password',
@@ -172,8 +214,8 @@ const variants = _.mapValues({
   },
   unitLeft: {
     meta: {
-      title: 'Nummereingabe mit Einheitsangabe (links)',
-      desc: 'Input mit floating Label, validierung und mit zeige/verstecke Passwort funktionalität.',
+      title: 'Nummereingabefeld mit Einheitsangabe (links)',
+      desc: 'Nummereingabefeld mit validierung und Einheitsangabe (links).',
     },
     props: {
       uuid: _.uniqueId('float_input_unitLeft'),
@@ -182,13 +224,18 @@ const variants = _.mapValues({
       type: 'number',
       inputContent: '0.00',
       label: '0.00',
+      validation: {
+        pattern: '^[+-]?((\\.\\d+)|(\\d+(\\.\\d+)?))$',
+        errorMsg: 'Hier muss eine Ganzzahl oder eine Gleitkommazahl eingegeben werden!',
+        isRequired: true,
+      },
       step: 0.01,
     },
   },
   unitRight: {
     meta: {
       title: 'Nummereingabe mit Einheitsangabe (rechts)',
-      desc: 'Input mit floating Label, validierung und mit zeige/verstecke Passwort funktionalität.',
+      desc: 'Nummereingabefeld mit validierung und Einheitsangabe (rechts).',
     },
     props: {
       uuid: _.uniqueId('float_input_unitRight'),
@@ -197,6 +244,13 @@ const variants = _.mapValues({
       unitRight: true,
       inputContent: '100',
       label: '100',
+      validation: {
+        pattern: '^\\d+$',
+        errorMsg: 'Hier muss eine Ganzzahl eingegeben werden!',
+        isRequired: true,
+        ariaTextValid: 'Eingabe korrekt',
+        ariaTextInvalid: 'Eingabe inkorrekt',
+      },
       step: 1,
     },
   },
@@ -248,7 +302,7 @@ const variants = _.mapValues({
   },
   triggerPhone: {
     meta: {
-      title: 'Select Trigger(phone)',
+      title: 'Select Trigger(Telefon)',
       desc: '',
     },
     props: {
@@ -256,12 +310,14 @@ const variants = _.mapValues({
       isSelectTrigger: true,
       isTriggerWithInput: true,
       isInput: false,
-      label: 'Select Float Label',
+      label: 'Telefonnummer',
       icon: 'angle_drop_down',
       demoTel: true,
       uuid: _.uniqueId('float_button-'),
       validation: {
         isRequired: true,
+        pattern: '^[()\\- \\d]+$',
+        errorMsg: 'Die Eingabe entspricht nicht den Vorgaben für eine Telefonnummer.',
       },
     },
   },

@@ -30,7 +30,7 @@ const variants = _.mapValues({
     },
     props: {
       bannerUID: _.uniqueId('banner'),
-      fetchURL: '/modules/banner/banner.default.mock.html',
+      fetchURL: '/modules/banner/banner.mock.html',
     },
   },
   withSubtitle: {

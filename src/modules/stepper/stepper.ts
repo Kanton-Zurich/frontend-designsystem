@@ -16,6 +16,8 @@ class Stepper extends Module {
     hasNavigation: boolean,
   }
 
+  public navigation: any;
+
   public ui: {
     element: HTMLDivElement,
     steps: any,
@@ -91,7 +93,7 @@ class Stepper extends Module {
     this.options.hasRules = this.ui.element.querySelectorAll('[data-rules]').length > 0;
 
     if (this.ui.navigation) {
-      new StepperNavigation(this.ui.navigation,
+      this.navigation = new StepperNavigation(this.ui.navigation,
         { active: this.data.active, steps: this.ui.steps }, {
           hasRules: this.options.hasRules,
         });

@@ -271,6 +271,12 @@ $mapRatioSmall: 0.75;
             display: block;
             max-height: calc(100vw - #{$sideBarHeadHeight + $sizeLarge});
           }
+
+          &.empty {
+            .mdl-linklist {
+              margin-top: 0;
+            }
+          }
         }
       }
 
