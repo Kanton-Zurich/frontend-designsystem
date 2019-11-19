@@ -24,6 +24,10 @@ gulp.task(task.name, () => {
 
   const destinationPagesAEM = `${gulpUtil.env.aemTargetBase}pages/`;
 
+  gulp.src(`${gulpUtil.env.aemTargetBase}clientlibs/publish/resources/manifest.json`, { base: `${gulpUtil.env.aemTargetBase}clientlibs/` })
+    .pipe(strReplace('/assets/', gulpUtil.env.aemAssetsProxy))
+    .pipe(gulp.dest(`${gulpUtil.env.aemTargetBase}clientlibs/`));
+
   return gulp.src(`${destinationPagesAEM}**/*.html`, { base: destinationPagesAEM })
     .pipe(through.obj((chunk, enc, cb) => {
       console.log('Changed paths in file: ', chunk.path);
