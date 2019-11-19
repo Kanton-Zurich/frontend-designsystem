@@ -19,6 +19,7 @@ class NewsOverview extends Module {
     teaserTemplate: any,
     pagination: HTMLDivElement,
     filter: HTMLDivElement,
+    paginationWrapper: HTMLDivElement,
     paginationInput: HTMLInputElement,
     topNews: HTMLDivElement,
     filterSelects: HTMLDivElement[],
@@ -29,11 +30,20 @@ class NewsOverview extends Module {
     pills: HTMLDivElement,
     datePicker: HTMLDivElement,
     datePickerInput: HTMLInputElement,
+    pillsClearButton: HTMLButtonElement,
     sortButton: HTMLButtonElement,
     sortDropdown: HTMLDivElement,
     searchWordInput: HTMLInputElement,
     searchWordInputClear: HTMLButtonElement,
     wrapper: HTMLDivElement,
+  };
+
+  public options: {
+    domSelectors: any,
+    stateClasses: any,
+    dataSelectors: any,
+    filterPillsThreshold: number,
+    loadDelay: number,
   };
 
   private dataUrl: string;
@@ -56,6 +66,7 @@ class NewsOverview extends Module {
     const defaultOptions = {
       domSelectors: {
         teaserTemplate: '[data-teaser-template]',
+        paginationWrapper: '.mdl-news-overview__pagination',
         pagination: '.mdl-pagination',
         filterSelects: '.mdl-news-overview__filter .mdl-select',
         filterMobileButton: '.mdl-news-overview__filter [data-news-filter-mobile]',
@@ -65,6 +76,7 @@ class NewsOverview extends Module {
         topNews: '.mdl-news-overview__topnews',
         list: '.mdl-news-overview__newsgrid .mdl-news-teaser__content > ul',
         pills: '.mdl-filter-pills',
+        pillsClearButton: '.mdl-filter-pills button[data-clear]',
         datePicker: '.mdl-news-overview__filter .mdl-datepicker',
         datePickerInput: '.mdl-news-overview__filter .mdl-datepicker .atm-form_input__input',
         sortButton: '.mdl-news-overview__sort-dropdown',
@@ -76,6 +88,8 @@ class NewsOverview extends Module {
       stateClasses: {
         loading: 'mdl-news-overview--loading',
       },
+      filterPillsThreshold: 5,
+      loadDelay: 50,
     };
 
     super($element, defaultData, defaultOptions, data, options);
@@ -168,6 +182,11 @@ class NewsOverview extends Module {
         this.dateRange = [];
         this.ui.datePicker.dispatchEvent(new CustomEvent(Datepicker.events.clear));
         this.ui.filterMobile.dispatchEvent(new CustomEvent(NewsFilterMobile.events.clearDate));
+      } else if (value.indexOf('fullText:') === 0) {
+        this.searchWord = '';
+        this.ui.searchWordInput.value = '';
+        (<HTMLButtonElement> this.ui.sortDropdown
+          .querySelector(`button[data-sort="${this.ui.element.getAttribute('data-order-by')}"]`)).click();
       }
       this.filterView(false);
     });
@@ -221,6 +240,10 @@ class NewsOverview extends Module {
     const filterHash = this.createObjectHash(this.filterLists);
     const dateHash = this.createObjectHash(this.dateRange);
     const searchWordHash = this.createObjectHash(this.searchWord);
+    if (this.searchWord !== '' && this.searchWordHash !== searchWordHash) {
+      (<HTMLButtonElement> this.ui.sortDropdown
+        .querySelector('button[data-sort="relevance"]')).click();
+    }
     // only reload view if there is a change or forced load
     if (forced || this.filterHash !== filterHash
       || this.dateHash !== dateHash
@@ -331,6 +354,11 @@ class NewsOverview extends Module {
     const eventData = {
       detail: tags,
     };
+    if (tags.length >= this.options.filterPillsThreshold) {
+      this.ui.pillsClearButton.classList.remove('hidden');
+    } else {
+      this.ui.pillsClearButton.classList.add('hidden');
+    }
     // update pills module
     this.ui.pills.dispatchEvent(new CustomEvent(FilterPills.events.setTags, eventData));
   }
@@ -412,6 +440,11 @@ class NewsOverview extends Module {
     if (this.dataIdle) {
       this.dataIdle = false;
       this.fetchData((jsonData) => {
+        if (jsonData.numberOfResultPages > 1) {
+          this.ui.paginationWrapper.classList.remove('hidden');
+        } else {
+          this.ui.paginationWrapper.classList.add('hidden');
+        }
         // update canonical href
         this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
         this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
@@ -448,6 +481,7 @@ class NewsOverview extends Module {
       element.innerHTML = this.teaserItemFromTemplate(this.ui.teaserTemplate.innerHTML, item);
       this.ui.list.appendChild(element);
     });
+    this.updateFlyingFocus(this.options.loadDelay);
   }
 
   /**
@@ -478,8 +512,8 @@ class NewsOverview extends Module {
     this.filterLists[1].forEach((organisation) => { append('organisation', organisation); });
     this.filterLists[2].forEach((type) => { append('type', type); });
     if (this.dateRange.length > 1) {
-      append('dateFrom', this.dateRange[0]);
-      append('dateTo', this.dateRange[1]);
+      append('dateFrom', `${this.dateRange[0].getFullYear()}-${('0' + (this.dateRange[0].getMonth() + 1)).slice(-2)}-${('0' + this.dateRange[0].getDate()).slice(-2)}`); // eslint-disable-line
+      append('dateTo', `${this.dateRange[1].getFullYear()}-${('0' + (this.dateRange[1].getMonth() + 1)).slice(-2)}-${('0' + this.dateRange[1].getDate()).slice(-2)}`); // eslint-disable-line
     }
     append('fullText', this.searchWord);
     append('page', this.ui.paginationInput.value);

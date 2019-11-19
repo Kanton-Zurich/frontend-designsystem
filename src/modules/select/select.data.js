@@ -55,6 +55,7 @@ const variants = _.mapValues({
       listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
         setHiddenIndex: true,
         groupId: 'phoneSingleSelect',
+        validation: false,
         selectOptions: [
           { value: '+61', label: '+61 Australia (Australien)', id: _.uniqueId('option-item') },
           { value: '+43', label: '+43 Austria (Österreich)', id: _.uniqueId('option-item') },
@@ -69,7 +70,9 @@ const variants = _.mapValues({
           { value: '+31', label: '+31 Netherlands (Niederlande)', id: _.uniqueId('option-item') },
           { value: '+86', label: '+86 Peoples Republic of China`(China)', id: _.uniqueId('option-item') },
           { value: '+46', label: '+46 Sweden (Schweden)', id: _.uniqueId('option-item') },
-          { value: '+41', label: '+41 Switzerland (Schweiz)', id: _.uniqueId('option-item'), preSelected: true },
+          {
+            value: '+41', label: '+41 Switzerland (Schweiz)', id: _.uniqueId('option-item'), preSelected: true,
+          },
           { value: '+34', label: '+34 Spain (Spanien)', id: _.uniqueId('option-item') },
           { value: '+963', label: '+963 Syria (‫سوريا‬‎)', id: _.uniqueId('option-item') },
           { value: '+886', label: '+886 Taiwan (台灣))', id: _.uniqueId('option-item') },
@@ -78,8 +81,12 @@ const variants = _.mapValues({
       }),
       filterInputData: _.merge({}, defFilterInputData.props, {
         label: 'Nach Stichwort filtern',
+        type: 'text',
         isSmall: true,
         autocompleteOff: true,
+        iconOnly: {
+          icon: 'search',
+        },
         additionalFunctionality: {
           icon: 'clear',
           buttontype: 'clear',
@@ -139,8 +146,12 @@ const variants = _.mapValues({
       }),
       filterInputData: _.merge({}, defFilterInputData.props, {
         label: 'Nach Stichwort filtern',
+        type: 'text',
         isSmall: true,
         autocompleteOff: true,
+        iconOnly: {
+          icon: 'search',
+        },
         additionalFunctionality: {
           icon: 'clear',
           buttontype: 'clear',

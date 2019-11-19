@@ -774,6 +774,7 @@ gulp.task('copy', () => {
       './src/assets/media/image/*.svg',
       './src/assets/mocks/**/*.json',
       './src/modules/**/*.mock.html',
+      './src/assets/manifest.json',
     ],
     srcBase: './src',
     dest: './dist',
@@ -805,7 +806,8 @@ gulp.task('copy:aem', () => {
 
   const instance = task({
     src: [
-      './dist/assets/**/*.{css,js,svg}',
+      './dist/assets/**/*.{css,js,svg,json}',
+      './dist/assets/media/icons/*',
     ],
     srcBase: './dist/assets',
     dest: gulpUtil.env.aemTargetBaseResources,
@@ -813,6 +815,10 @@ gulp.task('copy:aem', () => {
       changed: null,
       rename: (filePath) => {
         let returnPath = filePath;
+
+        if (filePath.match(/manifest\.json/)) {
+          return returnPath;
+        }
 
         if (filePath.match(/\.min\.js/)) {
           returnPath = returnPath.replace(/\.min\.js/, `.${git.short()}.min.js`);
@@ -963,7 +969,7 @@ gulp.task('clean', () => {
  * Zip deployment package
  */
 gulp.task('zip', () => {
-  return gulp.src(['dist/offline.zip', 'dist/ci/prod/**/*'])
+  return gulp.src(['dist/ci/prod/**/*'])
     .pipe(zip('deploy.zip'))
     .pipe(gulp.dest('dist/ci'));
 });

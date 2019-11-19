@@ -126,7 +126,7 @@ class DuplicationElement {
 
       this.data.duplications += 1;
 
-      this.initRules(parsedHTML);
+      this.initRules(parsedHTML, uid);
 
       if (this.data.duplications >= this.data.maxDuplications) {
         this.ui.element.classList.add(this.options.stateClasses.maxDuplicationsReached);
@@ -153,10 +153,25 @@ class DuplicationElement {
     }
   }
 
-  initRules(duplicatedGroup) {
+  initRules(duplicatedGroup, uid) {
     const rulesElements = duplicatedGroup.querySelectorAll(this.options.rulesSelector);
 
     rulesElements.forEach(($elementWithARule) => {
+      const rules = JSON.parse($elementWithARule.dataset.rules);
+
+      rules.forEach((rule) => {
+        rule.conditions.forEach((condition) => {
+          const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+          const field = this.ui.element.querySelector(querySelector);
+
+          if (field) {
+            condition.field = `${condition.field}_${uid}`;
+          }
+        });
+      });
+
+      $elementWithARule.setAttribute('data-rules', JSON.stringify(rules));
+
       new FormRules($elementWithARule);
     });
   }

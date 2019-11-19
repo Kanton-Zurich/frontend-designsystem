@@ -13,16 +13,18 @@
     p {
       color: $colorBlack60;
       margin: 0;
+
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, xsmall));
     }
+  }
+
+  &__type {
+    font-family: $fontFamilyBlack;
   }
 
   &__meta {
     font-size: pxToRem($sizeFontTiny);
     color: $colorBlack60;
-  }
-
-  &__type {
-    font-family: $fontFamilyBlack;
   }
 
   .atm-linklist_item {
@@ -41,5 +43,14 @@
 
   .atm-linklist_item__label {
     color: $colorBlack60;
+  }
+
+  /** SPECIAL STYLES TO SANITIZE FONT SIZE */
+  .mdl-service_list__item-text {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, xsmall));
+  }
+
+  .atm-linklist_item--download .atm-linklist_item__label {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, supersmall));
   }
 }

@@ -23,11 +23,17 @@ $selectHeightWithFilterExtended: 424px;
       box-shadow: none;
       border-radius: 0;
       height: 100%;
+      outline: none;
     }
 
     .atm-list__item input {
       display: none;
     }
+  }
+
+  .atm-form_input__input--trigger {
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .atm-form_input--trigger-phone {
@@ -65,6 +71,7 @@ $selectHeightWithFilterExtended: 424px;
 
   &__apply {
     bottom: pxToRem(-$sizeGiant);
+    background-color: $colorBlack5;
 
     button {
       width: 100%;
@@ -189,6 +196,7 @@ $selectHeightWithFilterExtended: 424px;
   &--selected {
     .atm-form_input__trigger-value {
       color: $colorBlack;
+      white-space: nowrap;
     }
 
     .atm-form_input__input--trigger svg {

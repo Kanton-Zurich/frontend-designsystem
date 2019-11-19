@@ -120,6 +120,7 @@ const data = _.merge({}, defaultData, {
           items: [
             _.merge({}, contextMenuItemDef, { text: 'Neueste', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort="new"', isButton: true }),
             _.merge({}, contextMenuItemDef, { text: 'Älteste', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort="old"', isButton: true }),
+            _.merge({}, contextMenuItemDef, { text: 'Relevanz', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort="relevance"', isButton: true }),
           ],
         },
       ],
@@ -129,6 +130,9 @@ const data = _.merge({}, defaultData, {
       label: 'Filter',
       isInput: true,
       isFloatingLabel: true,
+      iconOnly: {
+        icon: 'search',
+      },
       additionalFunctionality: {
         icon: 'clear',
         buttontype: 'clear',
