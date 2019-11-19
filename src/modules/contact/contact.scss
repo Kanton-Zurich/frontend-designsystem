@@ -173,7 +173,7 @@ $contactMapHeightCurve: (
   }
 
   &__cell-content {
-    word-break: break-all;
+    hyphens: auto;
     padding-left: calc(#{$sizeSmallRegular} + #{$sizeBiggerBig});
 
     > *:last-of-type {

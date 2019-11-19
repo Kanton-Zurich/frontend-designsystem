@@ -38,23 +38,24 @@ class Header extends Module {
       open: string,
       fixedHeader: string,
       fixed: string,
+      navItem: string,
     },
     colorClasses: {
       monochrome: string,
     }
-  }
+  };
 
   public ui: {
     element: any,
     close: any,
-  }
+  };
 
   public data: {
     activeModal: HTMLElement,
     activeItem: HTMLElement,
     scrollPosition: number,
     headerIsFixed: boolean,
-  }
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -76,6 +77,7 @@ class Header extends Module {
         open: 'mdl-header--open',
         fixedHeader: 'fixed-header',
         fixed: 'mdl-header--fixed',
+        navItem: 'mdl-header__nav-item',
       },
       colorClasses: {
         monochrome: 'cv-monochrome',
@@ -146,14 +148,14 @@ class Header extends Module {
 
       this.switchFlyout(delegate);
     } else {
-      this.showFlyout(delegate);
+      this.showFlyout(delegate, delegate.classList.contains(this.options.stateClasses.navItem));
 
       (<HTMLElement>document.querySelector(this.options.domSelectors.close)).focus();
     }
   }
 
 
-  showFlyout(delegate) {
+  showFlyout(delegate, mainNav = false) {
     this.data.activeModal = document.querySelector(`#${delegate.getAttribute('aria-controls')}`);
     this.data.activeItem = delegate;
 
@@ -166,6 +168,14 @@ class Header extends Module {
     }
 
     this.data.activeItem.setAttribute('aria-expanded', 'true');
+
+    // if pageheader is present correct padding
+    const pageHeader = <HTMLDivElement>document.querySelector('.mdl-page-header');
+    if (pageHeader && mainNav) {
+      const offsetTop = this.ui.element.clientHeight
+        + parseInt(window.getComputedStyle(pageHeader).paddingTop, 10);
+      pageHeader.style.paddingTop = `${offsetTop}px`;
+    }
   }
 
   switchFlyout(delegate) {
@@ -190,6 +200,12 @@ class Header extends Module {
 
     if (!anchornavIsSticky) {
       this.ui.element.classList.remove(this.options.colorClasses.monochrome);
+    }
+
+    // if pageheader is present correct padding
+    const pageHeader = <HTMLDivElement>document.querySelector('.mdl-page-header');
+    if (pageHeader) {
+      pageHeader.removeAttribute('style');
     }
   }
 
@@ -244,7 +260,7 @@ class Header extends Module {
     }
 
     if (this.isToggleable) {
-      this.data.scrollPosition = newScrollPosition;
+      this.data.scrollPosition = newScrollPosition >= 0 ? newScrollPosition : 0;
       this.isToggleable = false;
     }
 

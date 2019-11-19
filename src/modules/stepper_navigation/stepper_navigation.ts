@@ -40,6 +40,7 @@ class StepperNavigation extends Module {
         visitedStep: 'mdl-stepper_navigation__step--visited',
         pendingStep: 'mdl-stepper_navigation__step--pending',
         hiddenStep: 'mdl-stepper_navigation__step--hidden',
+        tight: 'mdl-stepper_navigation--tight',
       },
       hasRules: false,
     };
@@ -51,6 +52,7 @@ class StepperNavigation extends Module {
     this.initEventListeners();
 
     this.setActiveItem(null, this.data.active);
+    this.checkWidth();
   }
 
   static get events() {
@@ -156,6 +158,20 @@ class StepperNavigation extends Module {
     }
 
     this.setStepNumbers();
+  }
+
+  checkWidth() {
+    const buttonsWider = Array.prototype.slice.call(this.ui.step).filter((navigationStep) => {
+      const liElement = navigationStep.parentNode;
+
+      return navigationStep.getBoundingClientRect().width > liElement.getBoundingClientRect().width;
+    });
+
+    if (buttonsWider.length > 0) {
+      this.ui.element.classList.add(this.options.stateClasses.tight);
+    } else {
+      this.ui.element.classList.remove(this.options.stateClasses.tight);
+    }
   }
 
   /**

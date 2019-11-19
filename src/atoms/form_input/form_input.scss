@@ -7,8 +7,6 @@ $topSpace_without_border: 22px;
 $rightSpace: 44px;
 $unitLeftSpace: 62px;
 
-$topSpaceSearchInput: 15.5px;
-
 .atm-form_input {
   position: relative;
 
@@ -17,7 +15,9 @@ $topSpaceSearchInput: 15.5px;
   }
 
   &__input {
-    background: $colorWhite;
+    position: relative;
+    z-index: $zIndexInner;
+    background-color: transparent;
     padding: pxToRem($topSpace_with_half_border) pxToRem($rightSpace) pxToRem($topSpace_with_half_border) pxToRem($sizeRegular);
 
     border: 2px solid $colorBlack40;
@@ -46,9 +46,16 @@ $topSpaceSearchInput: 15.5px;
 
     .atm-form_input--search & {
       font-family: $fontFamilyBlack;
-      font-size: pxToRem($sizeFontBig);
-      padding-top: $topSpaceSearchInput;
-      padding-bottom: $topSpaceSearchInput;
+
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
+
+      height: pxToRem($heightRegular);
+      padding-top: 0;
+      padding-bottom: 0;
+
+      @include mq($to: small) {
+        height: pxToRem($heightSmall);
+      }
     }
 
     @at-root {
@@ -75,7 +82,7 @@ $topSpaceSearchInput: 15.5px;
             top: 0;
             left: 0;
 
-            z-index: 1;
+            z-index: $zIndexInner;
           }
         }
       }
@@ -156,7 +163,7 @@ $topSpaceSearchInput: 15.5px;
     line-height: $sizeLineHeightBase;
 
     .atm-form_input--search & {
-      font-size: pxToRem($sizeFontBig);
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
     }
   }
 
@@ -166,7 +173,7 @@ $topSpaceSearchInput: 15.5px;
   }
 
   &__unit--right {
-    right: 17px;
+    right: pxToRem(41px);
   }
 
   &__unit {
@@ -217,9 +224,12 @@ $topSpaceSearchInput: 15.5px;
   &__functionality {
     display: none;
     position: absolute;
-    top: pxToRem($sizeLarge);
+    z-index: $zIndexInner;
+    top: 50%;
     right: pxToRem($sizeSmallRegular);
     height: pxToRem($sizeLarge);
+
+    transform: translateY(-50%);
 
     svg use {
       fill: $colorBlack60;
@@ -305,7 +315,8 @@ $topSpaceSearchInput: 15.5px;
   }
 
   &--datepicker,
-  &--trigger {
+  &--trigger,
+  &--icon {
     button:focus .icon,
     input:focus ~ .icon {
       fill: $colorBlack;
@@ -313,7 +324,7 @@ $topSpaceSearchInput: 15.5px;
 
     .icon {
       position: absolute;
-      top: pxToRem($sizeLarge);
+      top: 0;
       right: pxToRem($sizeSmallRegular);
       transform: rotate(0deg);
       transition: 400ms transform ease-out;
@@ -321,19 +332,16 @@ $topSpaceSearchInput: 15.5px;
     }
   }
 
-  &--icon {
-    button:focus .icon,
-    input:focus ~ .icon {
-      fill: $colorBlack;
-    }
-
-    > .icon {
-      position: absolute;
+  &--datepicker,
+  &--trigger {
+    .icon {
       top: pxToRem($sizeLarge);
-      right: pxToRem($sizeSmallRegular);
-      transform: rotate(0deg);
-      transition: 400ms transform ease-out;
-      fill: $colorBlack40;
+    }
+  }
+
+  &--icon {
+    > .icon {
+      top: pxToRem($sizeLarge);
     }
   }
 
@@ -521,7 +529,7 @@ $topSpaceSearchInput: 15.5px;
 
 /** STYLES FOR VALIDATION CLASSES */
 
-[  data-input ] {
+[ data-input ] {
 
   &:not(.dirty) {
     textarea#{&} {
