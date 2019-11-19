@@ -15,7 +15,7 @@
     {{#each items}}
       <div class="mdl-accordion__item" data-accordion="item">
         <h{{increment ../accordionHeading.level}} class="mdl-accordion__header">
-          <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger">
+          <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger"{{#if accordionPanelID}} id="{{accordionPanelID}}"{{/if}}>
             <span class="mdl-accordion__control">
               {{title}}
             </span>

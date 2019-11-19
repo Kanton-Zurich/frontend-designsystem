@@ -609,6 +609,7 @@ class Anchornav extends Module {
   /**
    * Mousedown-Callback on navigation anchors.
    * Store initial click position to differentiate click and swipe in mouseup event
+   *
    * @param event
    */
   onMouseDown(event) {
@@ -616,20 +617,29 @@ class Anchornav extends Module {
   }
 
   /**
+   * Keypress-Callback on navigation anchors.
+   * Updates the URL and let the page scroll to the selected ID
    *
    * @param event
    */
   onKeypress(event) {
     this.isKeyEvent = true;
     const { target } = event;
-    const hash = target.dataset.href;
-
-    const stateObj = { anchorNavZH: hash };
-    window.history.pushState(stateObj, '', '#' + hash);
+    this.updateWindowHistory(target.dataset.href);
     this.moveToPageElementFor(target);
   }
 
   /**
+   * Adds the active hash/Id to the URL
+   *
+   * @param {string} hashID
+   */
+  updateWindowHistory(hashID: string) {
+    window.history.pushState({ anchorNavZH: hashID }, '', '#' + hashID);
+  }
+
+  /**
+   * Calacualtes the distance from the current position to the desired element (for jump.js).
    *
    * @param element
    * @return {number}
@@ -672,22 +682,19 @@ class Anchornav extends Module {
    */
   onMouseUp(event) {
     const { target } = event;
-    const hash = target.dataset.href;
-
     // Stop event if the delta is to big
     const mouseEventDelta = event.screenX - this.mousePositonDown;
     const swipeTolerance = this.options.tolerances.swipe;
 
     if (mouseEventDelta < swipeTolerance && mouseEventDelta > -(swipeTolerance)) {
-      const stateObj = { anchorNavZH: hash };
-      window.history.pushState(stateObj, '', '#' + hash);
-
+      this.updateWindowHistory(target.dataset.href);
       this.moveToPageElementFor(target);
     }
   }
 
   /**
    * Handle control button click events
+   *
    * @param data<string> ("left" / "right")
    */
   onControlBtnClick(data) {
@@ -698,6 +705,15 @@ class Anchornav extends Module {
       this.options.btnScroll.speed);
   }
 
+  /**
+   * Function to animate the horizontal scroll behavoir on control button (arrow left/right) pressed
+   *
+   * @param element
+   * @param direction
+   * @param step
+   * @param distance
+   * @param speed
+   */
   scrollHorizontal(element, direction, step, distance, speed) {
     let scrollAmount = 0;
 

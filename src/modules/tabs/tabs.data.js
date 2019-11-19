@@ -27,6 +27,7 @@ const data = _.merge({}, defaultData, {
       },
       {
         title: 'Per Post',
+        id: 'tabTestId',
         data: handlebars.compile(dataHelper.getFileContent('../richtext/richtext.hbs'))(defRichtextData.variants.embedded.props),
       },
       {
