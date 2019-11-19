@@ -25,6 +25,8 @@ class Form {
     selectOptionSelector: string,
     inputSelector: string,
     rulesSelector: string,
+    padding: number,
+    prefixSelector: string,
   }
 
   private eventDelegate: any;
@@ -36,6 +38,7 @@ class Form {
 
     this.options = {
       validateDelay: 400,
+      padding: 16,
       eventEmitters: {
         clearButton: '[data-buttontype="clear"]',
       },
@@ -52,6 +55,7 @@ class Form {
       selectOptionSelector: 'data-select-option',
       inputSelector: '[data-input]',
       rulesSelector: '[data-rules]',
+      prefixSelector: '.atm-form_input--unitLeft',
       messageClasses: {
         show: 'show',
       },
@@ -72,6 +76,9 @@ class Form {
 
     // Initialize rules
     this.initRules();
+
+    // Init fields with prefix
+    this.initPrefix();
 
     // set dirty from start
     this.setDirtyFromStart();
@@ -183,6 +190,7 @@ class Form {
     const validation = window[namespace].form.validateField(field);
     const fileTimeout = 5;
 
+    
     field.closest(this.options.inputSelector).querySelectorAll(this.options.messageSelector)
       .forEach((message) => {
         message.classList.remove(this.options.messageClasses.show);
@@ -290,6 +298,19 @@ class Form {
 
     rulesElements.forEach(($elementWithARule) => {
       new FormRules($elementWithARule);
+    });
+  }
+
+  initPrefix() {
+    const inputWithPrefix = this.ui.element.querySelectorAll(this.options.prefixSelector);
+    const paddingMultiplier = 1.5;
+
+    inputWithPrefix.forEach((prefixedInput) => {
+      const unit = prefixedInput.querySelector('.atm-form_input__unit');
+      const unitWidth = unit.getBoundingClientRect().width;
+      const input = prefixedInput.querySelector('input');
+
+      input.style.paddingLeft = `${unitWidth + this.options.padding * paddingMultiplier}px`;
     });
   }
 }

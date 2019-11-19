@@ -24,7 +24,16 @@ const variants = _.mapValues({
   default: {
     meta: {
       title: 'Standard Eingabefeld',
-      desc: 'Standard Implementierung ohne Floating Label (nur Placeholder)',
+      desc: 'Standard Implementierung ohne Floating Label (Verwendung in Themenliste als Filterfeld)',
+    },
+  },
+  defaultForForms: {
+    meta: {
+      title: 'Standard Eingabefeld für Formulare',
+      desc: 'Standard Implementierung mit Floating Label (Verwendung in Formularen)',
+    },
+    props: {
+      isFloatingLabel: true,
     },
   },
   textarea: {
