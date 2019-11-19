@@ -6,7 +6,8 @@ describe('CookieControls', () => {
     const url = `http://localhost:${(<any>global).__STATIC_PORT__}/modules/cookie_controls/cookie_controls.html`;
 
     // eslint-disable-next-line no-underscore-dangle
-    page = await (<any>global).__BROWSER__.newPage();
+    const context = await (<any>global).__BROWSER__.createIncognitoBrowserContext();
+    page = await context.newPage();
     // eslint-disable-next-line
     page.on('pageerror', console.log);
 
