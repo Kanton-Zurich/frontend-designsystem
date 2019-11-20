@@ -133,16 +133,19 @@ const data = _.merge({}, defaultData, {
         items: [
           {
             title: '2019',
+            accordionPanelID: _.uniqueId('accordionPersonDetailDemoId-'),
           },
           {
             title: '2018',
-            accordionPanelID: 'panelTestId',
+            accordionPanelID: _.uniqueId('accordionPersonDetailDemoId-'),
           },
           {
             title: '2017',
+            accordionPanelID: _.uniqueId('accordionPersonDetailDemoId-'),
           },
           {
             title: '2016',
+            accordionPanelID: _.uniqueId('accordionPersonDetailDemoId-'),
           },
         ],
       }),
