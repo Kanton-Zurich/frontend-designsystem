@@ -20,6 +20,9 @@ class Form {
     inputClasses: any,
     validateDelay: number,
     messageClasses: any,
+    domSelectors: {
+      floating: string;
+    };
     messageSelector: string,
     duplicateSelector: string,
     selectOptionSelector: string,
@@ -47,6 +50,9 @@ class Form {
         dirty: 'dirty',
         valid: 'valid',
         invalid: 'invalid',
+      },
+      domSelectors: {
+        floating: '[data-floating]',
       },
       messageSelector: '[data-message]',
       selectOptionSelector: 'data-select-option',
@@ -80,7 +86,10 @@ class Form {
   addEventListeners() {
     this.eventDelegate.on('click', this.options.eventEmitters.clearButton, this.clearField.bind(this));
     this.eventDelegate.on('keyup', this.options.watchEmitters.input, debounce((event, field) => {
-      this.validateField(field);
+      if (field.type !== 'radio') this.validateField(field);
+      if (field.type === 'number' || field.type === 'text') {
+        this.checkIfFieldDirty(field);
+      }
     }, this.options.validateDelay));
     this.eventDelegate.on('blur', this.options.watchEmitters.input, (event, field) => {
       if (field.type !== 'file' && field.type !== 'radio' && !field.classList.contains('flatpickr-input')) this.validateField(field);
@@ -103,11 +112,25 @@ class Form {
     this.eventDelegate.on(FileUpload.events.duplicated, (event) => {
       this.addWatchers(event.detail);
     });
+    this.eventDelegate.on('blur', this.options.domSelectors.floating, (event, field: HTMLInputElement) => {
+      this.checkIfFieldDirty(field);
+    });
+  }
+
+  private checkIfFieldDirty(field: HTMLInputElement): void {
+    const dirtyClass = this.options.inputClasses.dirty;
+    const { classList } = field;
+    if (field.value && field.value.length > 0) {
+      if (!classList.contains(dirtyClass)) {
+        classList.add(dirtyClass);
+      }
+    } else {
+      classList.remove(dirtyClass);
+    }
   }
 
   addWatchers(targetElement = this.ui.element) {
     const watchableInputs = targetElement.querySelectorAll(this.options.watchEmitters.input);
-
     watchableInputs.forEach((input) => {
       const inputType = input.getAttribute('type');
 
