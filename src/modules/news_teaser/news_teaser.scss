@@ -110,6 +110,7 @@ $maxTextLinesDesktop: 4;
         medium: $sizeBig * $sizeLineHeightMedium * $maxTextLinesDesktop,
         xlarge: $sizeBiggerBig * $sizeLineHeightNarrower * $maxTextLinesDesktop,
       );
+
       @include polyFluidSizing(max-height, $headingHeightCurve);
     }
 
@@ -127,6 +128,7 @@ $maxTextLinesDesktop: 4;
         small: $sizeFontRegular * $sizeLineHeightBase * $maxTextLinesDesktop,
         large: $sizeFontBiggerRegular * $sizeLineHeightBase * $maxTextLinesDesktop,
       );
+
       @include polyFluidSizing(max-height, $paragraphHeightCurve);
     }
   }

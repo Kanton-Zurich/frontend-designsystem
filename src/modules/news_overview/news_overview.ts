@@ -418,9 +418,7 @@ class NewsOverview extends Module {
     this.currentUrl = this.constructUrl();
 
     return fetch(this.currentUrl)
-      .then(response => {
-        return response.json()
-      })
+      .then(response => response.json())
       .then((response) => {
         if (response) {
           const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
