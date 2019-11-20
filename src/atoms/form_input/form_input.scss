@@ -144,12 +144,6 @@ $triggerWidth: pxToRem(86px);
       font-family: $fontFamilyBlack;
       color: $colorBlack;
     }
-
-    /* ---- DEC. ICON ON FOCUS/DIRTY ----- */
-    .atm-form_input__input:focus ~ svg.icon,
-    .atm-form_input__input.dirty ~ svg.icon {
-      top: $paddingInput + $paddingDifferenceOnFocus + $borderWidthRem;
-    }
   }
 
   /* ------------------------------
@@ -185,22 +179,20 @@ $triggerWidth: pxToRem(86px);
 
   /* --- DECORATIVE ICON --- */
   &--icon {
-    .atm-form_input__input {
-      padding-left: (pxToRem($sizeRegular) * 1.5) + pxToRem(24);
-    }
-
-    label {
-      left: (pxToRem($sizeRegular) * 1.5) + pxToRem(24);
-    }
-
     > .icon {
       position: absolute;
-      left: pxToRem($sizeRegular);
+      right: pxToRem($sizeRegular);
 
       top: $paddingInput + $borderWidthRem;
+      pointer-events: none;
 
       @include transition(top);
     }
+  }
+
+  /* ---- DEC. ICON ON FOCUS/DIRTY ----- */
+  &__input.dirty ~ svg.icon {
+    display: none;
   }
 
   /* ------------------
