@@ -11,12 +11,12 @@
              data-locations="sidebar">
           <div class="mdl-locations__filter">
             <div class="mdl-locations__filter_head">
-              {{> "atoms/form_input/form_input" locationsFormInput }}
+              <form novalidate>{{> "atoms/form_input/form_input" locationsFormInput }}</form>
               {{> "atoms/button/button" toggleListBtn }}
             </div>
 
             <div class="mdl-locations__filter_empty">
-                <strong>Keine PLZ / Ort gefunden</strong>
+                <strong>{{noPlzFound}}</strong>
                 {{> "atoms/text_link/text_link" textLinkNoResult }}
                 <template data-locations="emptyNoteTextTemplate">
                     {{textLinkNoResult.text}}

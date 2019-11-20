@@ -1,7 +1,7 @@
 <div class="mdl-people_teaser" data-init="peopleTeaser">
-  <h2 class="atm-heading atm-heading--bordered ">Unser Team mit Zwischentiteln</h2>
+  <h{{headingLevel}} class="atm-heading {{#if headingBordered}}atm-heading--bordered{{/if}}">Unser Team mit Zwischentiteln</h{{headingLevel}}>
   <div class="mdl-people_teaser__block">
-    <h3 class="atm-heading">Leitung biz Oerlikon</h3>
+    <h{{increment headingLevel}} class="atm-heading">Leitung biz Oerlikon</h{{increment headingLevel}}>
     <div class="mdl-people_teaser__cardlist">
       {{> "modules/person_card/person_card" personCardData0 }}
     </div>
@@ -10,7 +10,7 @@
     </p>
   </div>
   <div class="mdl-people_teaser__block">
-    <h3 class="atm-heading">Berater</h3>
+    <h{{increment headingLevel}} class="atm-heading">Berater</h{{increment headingLevel}}>
     <div class="mdl-people_teaser__cardlist">
       {{> "modules/person_card/person_card" personCardData0 }}
       {{> "modules/person_card/person_card" personCardData1 }}

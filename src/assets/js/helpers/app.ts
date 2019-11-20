@@ -45,8 +45,11 @@ import FlexData from '../../../modules/flex_data/flex_data';
 import DrilldownSelect from '../../../modules/drilldown_select/drilldown_select';
 import UserMenu from '../../../modules/user_menu/user_menu';
 import CugLogin from '../../../modules/cug_login/cug_login';
+import Video from '../../../modules/video/video';
 import OpenData from '../../../modules/open_data/open_data';
+import CookieControls from '../../../modules/cookie_controls/cookie_controls';
 import Banner from '../../../modules/banner/banner';
+import TaxCalc from '../../../modules/tax_calc/tax_calc';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -102,7 +105,10 @@ class App {
     this.modules.userMenu = UserMenu;
     this.modules.cugLogin = CugLogin;
     this.modules.openData = OpenData;
+    this.modules.video = Video;
+    this.modules.cookieControls = CookieControls;
     this.modules.banner = Banner;
+    this.modules.taxCalc = TaxCalc;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
