@@ -4,6 +4,8 @@ const dataHelper = require('@unic/estatico-data');
 const headerData = require('../../modules/header/header.data').props;
 const taxCalcData = require('../../modules/tax_calc/tax_calc.data').props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
+const contextMenuProps = require('../../modules/context_menu/context_menu.data').props;
+const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -25,8 +27,28 @@ const data = _.merge({}, defaultData, {
         hasVideo: false,
         hasImage: false,
         hasBacklink: false,
-        hasBreadcrumb: false,
         noButton: true,
+        breadcrumb: {
+          contextMenu: _.merge({}, contextMenuProps, {
+            lists: [
+              {
+                items: [
+                  _.merge({}, contextMenuItemDef, { text: 'Kanton Zürich', iconAfter: false, iconBefore: false }),
+                ],
+              },
+            ],
+          }),
+          path: [
+            {
+              title: 'Kanton Zürich',
+              href: '#',
+            },
+            {
+              title: 'Steuerrechner',
+              href: '#',
+            },
+          ],
+        },
       },
       tax_calc: taxCalcData,
       footerData: defFooterData,
