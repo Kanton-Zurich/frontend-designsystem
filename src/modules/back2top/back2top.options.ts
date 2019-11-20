@@ -29,7 +29,7 @@ const stateClasses: ModuleStateClasses = {
   preserveLangSwitch: 'mdl-back2top--preserveLangSwitch',
 };
 
-export const Back2TopDefaultOptions: Back2TopModuleOptions = {
+export const Back2TopDefaultOptions: Back2TopModuleOptions = { // eslint-disable-line
   necessaryScrollY: 700,
   sufficientScrollUp: 300,
   stateSlip: 50,
