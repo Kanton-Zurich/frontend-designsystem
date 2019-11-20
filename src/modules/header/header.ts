@@ -172,7 +172,8 @@ class Header extends Module {
     // if pageheader is present correct padding
     const pageHeader = <HTMLDivElement>document.querySelector('.mdl-page-header');
     if (pageHeader && mainNav) {
-      const offsetTop = this.ui.element.clientHeight + parseInt(window.getComputedStyle(pageHeader).paddingTop, 10);
+      const offsetTop = this.ui.element.clientHeight
+        + parseInt(window.getComputedStyle(pageHeader).paddingTop, 10);
       pageHeader.style.paddingTop = `${offsetTop}px`;
     }
   }

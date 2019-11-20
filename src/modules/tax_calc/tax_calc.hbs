@@ -1,0 +1,909 @@
+<div class="mdl-tax_calc"
+     data-tax_calc-apibase="{{apiBase}}"
+     data-init="taxCalc">
+    <div class="mdl-instructions" data-init="instructions">
+        <ol class="mdl-instructions__list mdl-instructions__list--ordered">
+            <li class="mdl-instructions__item mdl-tax_calc__before-block">
+              <div>
+                  <h3 class="mdl-instructions__item-title atm-heading">
+                      {{beforeBlock.heading}}
+                  </h3>
+                  <div class="mdl-instructions__item-content">
+                    <div class="mdl-richtext">
+                      <ul class="mdl-richtext__benefits">
+                          {{#each beforeBlock.benefitItems}}
+                            <li>{{this}}</li>
+                          {{/each}}
+                      </ul>
+                    </div>
+                  </div>
+              </div>
+          </li>
+            <li class="mdl-instructions__item mdl-tax_calc__form-block">
+                <div>
+                    <h3 class="mdl-instructions__item-title atm-heading">
+                      {{formBlock.heading}}
+                    </h3>
+
+                    <div class="mdl-instructions__item-content">
+                      <form  data-tax_calc="formBase" novalidate>
+                        {{> "modules/accordion/accordion" formBlock.accordionData}}
+
+                        <div class="mdl-tax_calc__error" data-tax_calc="apiErrorsNotification">
+                          <div class="atm-notification">
+                            <svg class="icon">
+                                <use xlink:href="#caution"></use>
+                            </svg>
+                            <span class="atm-notification__message">Dummy for Dev</span>
+                          </div>
+                        </div>
+                      </form>
+                      <div class="mdl-tax_calc__next-btn_container" data-tax_calc="btnContainer">
+                          <button class="atm-button mdl-tax_calc__next-btn" data-tax_calc="nextBtn">
+                            <span class="atm-button__text atm-button__text--next">
+                              {{ formBlock.nextBtn.nextText }}
+                            </span>
+                            <span class="atm-button__text atm-button__text--calculate">
+                              {{ formBlock.nextBtn.calculateText }}
+                            </span>
+                            {{> "atoms/loading_circle/loading_circle" }}
+                          </button>
+                      </div>
+                    </div>
+                </div>
+            </li>
+            <li class="mdl-instructions__item mdl-tax_calc__result-block">
+                <div>
+                    <h3 class="mdl-instructions__item-title atm-heading">
+                      {{resultBlock.heading}}&nbsp;<span data-tax_calc-taxyear></span>
+                    </h3>
+
+                    <div class=" mdl-tax_calc__toformbtn_anker">
+                    </div>
+                    <button class="atm-button atm-button--icon-only mdl-tax_calc__toformbtn" data-tax_calc="editBtn" tabindex="-1">
+                      <span class="atm-button__text visuallyhidden">
+                        Bearbeiten
+                      </span>
+                        <svg class="icon atm-button__icon">
+                            <use xlink:href="#edit"></use>
+                        </svg>
+                    </button>
+
+                    <div class="mdl-instructions__item-content" data-tax_calc="resultCon">
+
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </div>
+
+
+
+    <div class="mdl-tax_calc__alert-connection-fail">
+      {{> "atoms/notification/notification" serviceFailNotificationData }}
+    </div>
+
+
+    <script type="text/x-handlebars-template" data-tax_calc="formItemTemplate">
+        {{> "modules/tax_calc/templates/_form-section-item" }}
+    </script>
+
+
+    <script type="text/x-handlebars-template" data-tax_calc-fieldtemplate="list">
+        {{> "modules/tax_calc/templates/_select-list" }}
+    </script>
+
+    <script type="text/x-handlebars-template" data-tax_calc-fieldtemplate="number">
+      {{> "modules/tax_calc/templates/_number-input" }}
+    </script>
+
+    <script type="text/x-handlebars-template" data-tax_calc-fieldtemplate="boolean">
+      {{> "modules/tax_calc/templates/_checkbox-field" }}
+    </script>
+
+    <script type="text/x-handlebars-template" data-tax_calc-fieldtemplate="date">
+      {{> "modules/tax_calc/templates/_date-input" }}
+    </script>
+
+
+    <script type="text/x-handlebars-template" data-tax_calc="tableBlockTemplate">
+      {{> "modules/tax_calc/templates/_table-block" }}
+    </script>
+
+    <script type="text/x-handlebars-template" data-tax_calc="remarksTemplate">
+      {{> "modules/tax_calc/templates/_remark-block" }}
+    </script>
+
+
+    <script type="application/json" data-tax_calc-formconfig>
+        {
+          "INCOME_ASSETS": [{
+            "title": "Genauer",
+            "rows": [
+              { "fields": [ "isLiabilityLessThanAYear"] },
+              { "fields": [ "hasTaxSeparation"] },
+              { "fields": [ "hasQualifiedInvestments"] }
+            ]
+          }, {
+            "title": "Für welchen Zeitraum möchten Sie den Steuerbetrag berechnen?",
+            "rows": [
+              { "fields": ["taxYear"] },
+              { "fields": ["liabilityBegin", "liabilityEnd"] }
+            ]
+          }, {
+            "title": "Persönliche Daten",
+            "rows": [
+              { "fields": ["maritalStatus", "taxScale"] },
+              { "fields": ["religionP1", "religionP2"] },
+              { "fields": ["municipality"] }
+            ]
+          }, {
+            "title": "Einkommen und Vermögen",
+            "rows": [
+              { "fields": [ "taxableIncome", "ascertainedTaxableIncome"] },
+              { "fields": [ "qualifiedInvestmentsIncome"] },
+              { "fields": [ "taxableAssets", "ascertainedTaxableAssets"] },
+              { "fields": [ "withholdingTax"] }
+            ]
+          }],
+          "FEDERAL": [{
+            "title": "Für welchen Zeitraum möchten Sie den Steuerbetrag berechnen?",
+            "rows": [
+              { "fields": ["taxYear"] }
+            ]
+          }, {
+            "title": "Ihr Tarif",
+            "rows": [
+              { "fields": [ "isLiabilityLessThanAYearOrHasTaxSeparation"] },
+              { "fields": [ "taxScale", "childrenNo"] }
+            ]
+          }, {
+            "title": "Einkommen",
+            "rows": [
+              { "fields": [ "taxableIncome", "ascertainedTaxableIncome"] }
+            ]
+          }],
+          "BENEFIT_PAYMENTS": [{
+              "title": "Für welchen Zeitraum möchten Sie den Steuerbetrag berechnen?",
+              "rows": [
+                { "fields": ["taxYear"] }
+              ]
+            }, {
+              "title": "Persönliche Daten",
+              "rows": [
+                { "fields": [ "taxScale", "municipality"] },
+                { "fields": [ "religionP1", "religionP2"] }
+              ]
+            }, {
+            "title": "Einkommen und Vermögen",
+            "rows": [
+              { "fields": [ "benefitPayments", "ascertainedBenefitPayments"] }
+            ]
+          }],
+          "BENEFIT_PAYMENTS_FEDERAL": [{
+              "title": "Für welchen Zeitraum möchten Sie den Steuerbetrag berechnen?",
+              "rows": [
+                { "fields": ["taxYear"] }
+              ]
+            }, {
+              "title": "Persönliche Daten",
+              "rows": [
+                { "fields": [ "taxScale", "municipality"] },
+                { "fields": [ "religionP1", "religionP2"] }
+              ]
+            }, {
+            "title": "Einkommen und Vermögen",
+            "rows": [
+              { "fields": [ "benefitPayments", "ascertainedBenefitPayments"] }
+            ]
+          }],
+          "INHERITANCE": [{
+            "title": "Ihre Angaben",
+            "rows": [
+              { "fields": ["inheritanceAmount"] },
+              { "fields": [ "taxFreeAmount"] },
+              { "fields": [ "kinshipDegree"] }
+            ]
+          }],
+          "LEGAL_SIMPLE": [{
+            "title": "Ihre Angaben",
+            "rows": [
+              { "fields": ["municipality", "taxYear"] },
+              { "fields": [ "earnings", "capital"] }
+            ]
+          }],
+          "LEGAL_ITERATIVE": [{
+            "title": "Ihre Angaben",
+            "rows": [
+              { "fields": ["municipality", "taxYear"] },
+              { "fields": [ "earnings", "capital"] }
+            ]
+          }]
+        }
+    </script>
+
+    <script type="application/json" data-tax_calc-resultconfig>
+      {
+        "INCOME_ASSETS": {
+          "tables": [
+            {
+              "heading": "Einfache Staatssteuer Einkommen",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "CHF",
+                "Steuersatz",
+                "Einfache Staatssteuer<br>100%, CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "ascertainedTaxableIncome.label",
+                    "ascertainedTaxableIncome",
+                    "incomeTaxRate",
+                    ""
+                  ]
+                },
+                {
+                  "entries": [
+                    "taxableIncome.label",
+                    "taxableIncome",
+                    "incomeTaxRate",
+                    "incomeTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "qualifiedInvestmentsIncome.label",
+                    "qualifiedInvestmentsIncome",
+                    "qualifiedInvestmentsTaxRate",
+                    "qualifiedInvestmentsTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "ascertainedTaxableAssets.label",
+                    "ascertainedTaxableAssets",
+                    "assetsTaxRate",
+                    ""
+                  ]
+                },
+                {
+                  "entries": [
+                    "taxableAssets.label",
+                    "taxableAssets",
+                    "assetsTaxRate",
+                    "assetsTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "cantonalSimpleTax.label",
+                    "",
+                    "",
+                    "cantonalSimpleTax"
+                  ],
+                  "isHighlighted": true
+                }
+              ]
+            },
+            {
+              "heading": "Steuerberechnung",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "",
+                "Steuerfuss",
+                "CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "cantonalBaseTax.label",
+                    "",
+                    "cantonalBaseTaxRate",
+                    "benefitPaymentsTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "municipalityTax.label",
+                    "",
+                    "municipalityTaxRate",
+                    "municipalityTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "religionTaxP1.label",
+                    "religionP1",
+                    "religionTaxRateP1",
+                    "religionTaxP1"
+                  ]
+                },
+                {
+                  "entries": [
+                    "religionTaxP2.label",
+                    "religionP2",
+                    "religionTaxRateP2",
+                    "religionTaxP2"
+                  ]
+                },
+                {
+                  "entries": [
+                    "personalTax.label",
+                    "",
+                    "personalTaxRate",
+                    "personalTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "totalCantonalTax.label",
+                    "",
+                    "",
+                    "totalCantonalTax"
+                  ],
+                  "isHighlighted": true
+                },
+                {
+                  "entries": [
+                    "withholdingTax.label",
+                    "",
+                    "",
+                    "withholdingTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "difference.label",
+                    "",
+                    "",
+                    "difference"
+                  ]
+                }
+              ],
+              "caption": "Für die Steuerzahlung ist einzig der Betrag auf der Steuerrechnung massgebend."
+            }
+          ],
+          "remarks": ["financialEqualizationRemark", "provisionallyRemark"]
+        },
+        "FEDERAL": {
+          "tables": [
+            {
+              "heading": "Einkommen",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "CHF",
+                "Steuersatz"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "taxableAscertainedFederalIncome.label",
+                    "taxableAscertainedFederalIncome",
+                    ""
+                  ]
+                },
+                {
+                  "entries": [
+                    "taxableFederalIncome.label",
+                    "taxableFederalIncome",
+                    "federalTaxRate"
+                  ],
+                  "isHighlighted": true
+                }
+              ]
+            },
+            {
+              "heading": "Steuerberechnung",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "totalFederalTax.label",
+                    "totalFederalTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "childrenDeduction.label",
+                    "childrenDeduction"
+                  ]
+                },
+                {
+                  "entries": [
+                    "totalAfterChildrenDeduction.label",
+                    "totalAfterChildrenDeduction"
+                  ],
+                  "isHighlighted": true
+                }
+              ],
+              "caption": "Für die Steuerzahlung ist einzig der Betrag auf der Steuerrechnung massgebend."
+            }
+          ],
+          "remarks": ["minimumTaxableAmountRemark"]
+        },
+        "BENEFIT_PAYMENTS": {
+          "tables": [
+            {
+              "heading": "Kapitalleistungen",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "CHF",
+                "Steuersatz",
+                "Einfache Staatssteuer<br>100%, CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "benefitPayments.label",
+                    "benefitPayments",
+                    "",
+                    ""
+                  ]
+                },
+                {
+                  "entries": [
+                    "taxablePortion.label",
+                    "taxablePortion",
+                    "",
+                    ""
+                  ]
+                },
+                {
+                  "entries": [
+                    "benefitPaymentsTaxable.label",
+                    "benefitPaymentsTaxable",
+                    "benefitPaymentsTaxRate",
+                    "benefitPaymentsTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "ascertainedBenefitPayments.label",
+                    "ascertainedBenefitPayments",
+                    "",
+                    ""
+                  ]
+                },
+                {
+                  "entries": [
+                    "pensions.label",
+                    "pensions",
+                    "benefitPaymentsTaxRate",
+                    ""
+                  ]
+                },
+                {
+                  "entries": [
+                    "benefitPaymentsTax.label",
+                    "",
+                    "",
+                    "benefitPaymentsTax"
+                  ],
+                  "isHighlighted": true
+                }
+              ]
+            },
+            {
+              "heading": "Steuerberechnung",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "",
+                "Steuerfuss",
+                "CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "cantonalBaseTax.label",
+                    "",
+                    "cantonalBaseTaxRate",
+                    "benefitPaymentsTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "municipalityTax.label",
+                    "",
+                    "municipalityTaxRate",
+                    "municipalityTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "religionTaxP1.label",
+                    "religionP1",
+                    "religionTaxRateP1",
+                    "religionTaxP1"
+                  ]
+                },
+                {
+                  "entries": [
+                    "religionTaxP2.label",
+                    "religionP2",
+                    "religionTaxRateP2",
+                    "religionTaxP2"
+                  ]
+                },
+                {
+                  "entries": [
+                    "totalCantonalTax.label",
+                    "",
+                    "",
+                    "totalCantonalTax"
+                  ],
+                  "isHighlighted": true
+                }
+              ],
+              "caption": "Für die Steuerzahlung ist einzig der Betrag auf der Steuerrechnung massgebend."
+            }
+          ],
+          "remarks": ["financialEqualizationRemark", "provisionallyRemark"]
+        },
+        "BENEFIT_PAYMENTS_FEDERAL": {
+          "tables": [
+            {
+              "heading": "Kapitalleistungen",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "CHF",
+                "Steuersatz",
+                "CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "benefitPayments.label",
+                    "benefitPayments",
+                    "",
+                    ""
+                  ]
+                },
+                {
+                  "entries": [
+                    "taxablePortion.label",
+                    "taxablePortion",
+                    "",
+                    ""
+                  ]
+                },
+                {
+                  "entries": [
+                    "benefitPaymentsTaxable.label",
+                    "benefitPaymentsTaxable",
+                    "benefitPaymentsTaxRate",
+                    "benefitPaymentsTax"
+                  ],
+                  "isHighlighted": true
+                }
+              ]
+            },
+            {
+              "heading": "Steuerberechnung",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "totalFederalTax.label",
+                    "totalFederalTax"
+                  ],
+                  "isHighlighted": true
+                }
+              ],
+              "caption": "Für die Steuerzahlung ist einzig der Betrag auf der Steuerrechnung massgebend."
+            }
+          ],
+          "remarks": ["minimumTaxableAmountRemark"]
+        },
+        "INHERITANCE": {
+          "tables": [
+            {
+              "heading": "Erbschafts- & Schenkungssteuern",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "inheritanceAmount.label",
+                    "inheritanceAmount"
+                  ]
+                },
+                {
+                  "entries": [
+                    "taxFreeAmount.label",
+                    "taxFreeAmount"
+                  ]
+                },
+                {
+                  "entries": [
+                    "taxableAmount.label",
+                    "taxableAmount"
+                  ]
+                },
+                {
+                  "entries": [
+                    "simpleTax.label",
+                    "simpleTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "kinshipDegree.label",
+                    "kinshipDegree"
+                  ]
+                },
+                {
+                  "entries": [
+                    "totalTax.label",
+                    "totalTax"
+                  ],
+                  "isHighlighted": true
+                }
+              ],
+              "caption": "Für die Steuerzahlung ist einzig der Betrag auf der Steuerrechnung massgebend."
+            }
+          ],
+          "remarks": ["minimumTaxableAmountRemark", "minimumTotalTaxRemark"]
+        },
+        "LEGAL_SIMPLE": {
+          "tables": [
+            {
+              "heading": "Einfache Steuer",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "CHF",
+                "Steuersatz",
+                "Einfache Staatssteuer<br>100%, CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "earnings.label",
+                    "earnings",
+                    "earningsCantonalTaxRate",
+                    "earningsTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "capital.label",
+                    "capital",
+                    "capitalTaxRate",
+                    "capitalTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "simpleTax.label",
+                    "",
+                    "",
+                    "simpleTax"
+                  ],
+                  "isHighlighted": true
+                }
+              ]
+            },
+            {
+              "heading": "Staats- und Gemeindesteuern",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "Steuersatz",
+                "CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "cantonalTaxRate.label",
+                    "cantonalTaxRate",
+                    ""
+                  ]
+                },
+                {
+                  "entries": [
+                    "resultingMunicipalityTaxRate.label",
+                    "resultingMunicipalityTaxRate",
+                    ""
+                  ]
+                },
+                {
+                  "entries": [
+                    "totalCantonalTax.label",
+                    "resultingCantonalTaxRate",
+                    "totalCantonalTax"
+                  ],
+                  "isHighlighted": true
+                }
+              ]
+            },
+            {
+              "heading": "Direkte Bundessteuer",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "Steuersatz",
+                "CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "totalFederalTax.label",
+                    "earningsFederalTaxRate",
+                    "totalFederalTax"
+                  ],
+                  "isHighlighted": true
+                }
+              ],
+              "caption": "Für die Steuerzahlung ist einzig der Betrag auf der Steuerrechnung massgebend."
+            }
+          ],
+          "remarks": ["iterativeThresholdExeeded", "provisionallyRemark"]
+        },
+        "LEGAL_ITERATIVE": {
+          "tables": [
+            {
+              "heading": "Steuerbarer Reingewinn",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "earnings.label",
+                    "earnings"
+                  ]
+                },
+                {
+                  "entries": [
+                    "taxProvisions1.label",
+                    "taxProvisions1"
+                  ]
+                },
+                {
+                  "entries": [
+                    "resultingEarnings.label",
+                    "resultingEarnings"
+                  ]
+                },
+                {
+                  "entries": [
+                    "taxableEarnings.label",
+                    "taxableEarnings"
+                  ],
+                  "isHighlighted": true
+                }
+              ]
+            },
+            {
+              "heading": "Steuerbares Kapital",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "capital.label",
+                    "capital"
+                  ]
+                },
+                {
+                  "entries": [
+                    "taxProvisions2.label",
+                    "taxProvisions2"
+                  ]
+                },
+                {
+                  "entries": [
+                    "resultingCapital.label",
+                    "resultingCapital"
+                  ]
+                },
+                {
+                  "entries": [
+                    "taxableCapital.label",
+                    "taxableCapital"
+                  ],
+                  "isHighlighted": true
+                }
+              ]
+            },
+            {
+              "heading": "Besteuerung Staat",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "CHF",
+                "Steuersatz",
+                "Einfache Staatssteuer<br>100%, CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "taxableEarnings.label",
+                    "taxableEarnings",
+                    "earningsCantonalTaxRate",
+                    "earningsTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "taxableCapital.label",
+                    "taxableCapital",
+                    "capitalTaxRate",
+                    "capitalTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "simpleTax.label",
+                    "",
+                    "",
+                    "simpleTax"
+                  ],
+                  "isHighlighted": true
+                }
+              ]
+            },
+            {
+              "heading": "Besteuerung Bund",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "CHF",
+                "Steuersatz",
+                "Einfache Staatssteuer<br>100%, CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "taxableEarnings.label",
+                    "taxableEarnings",
+                    "earningsFederalTaxRate",
+                    "totalFederalTax"
+                  ],
+                  "isHighlighted": true
+                }
+              ]
+            },
+            {
+              "heading": "Steuerberechnung",
+              "thead": [
+                "<span class=\"visuallyhidden\">Zeilenname</span>",
+                "CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "totalCantonalTax.label",
+                    "totalCantonalTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "totalFederalTax.label",
+                    "totalFederalTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "taxProvisions.label",
+                    "taxProvisions"
+                  ],
+                  "isHighlighted": true
+                }
+              ],
+              "caption": "Für die Steuerzahlung ist einzig der Betrag auf der Steuerrechnung massgebend."
+            }
+          ],
+          "remarks": ["iterativeThresholdExeeded", "provisionallyRemark"]
+        }
+      }
+    </script>
+
+</div>

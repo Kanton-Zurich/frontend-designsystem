@@ -1,5 +1,4 @@
 // import WindowEventListener from './events';
-
 /**
  * FlyingFocus adds transition to the focus outline when you tab around inputs, buttons, links.
  * Based on https://github.com/NV/flying-focus/
@@ -13,15 +12,13 @@ class FlyingFocus {
     visibleClass: string,
     targetClass: string,
   };
-
   private ringElement: any = null;
   private movingId: any = 0;
   private prevFocused: any = null;
+  private currentFocused: any = null;
   private keyDownTime: number = 0;
-
   private docElement: any = null;
   private body: any = null;
-
   constructor() {
     this.options = {
       duration: 150, // eslint-disable-line no-magic-numbers
@@ -30,7 +27,6 @@ class FlyingFocus {
       targetClass: 'flying-focus__target',
     };
   }
-
   /**
    * Initializing the flying focus and setting up for the first time
    *
@@ -46,7 +42,6 @@ class FlyingFocus {
     this.body.appendChild(this.ringElement);
     this.initEventListeners();
   }
-
   /**
    * Show flying focus
    *
@@ -54,13 +49,13 @@ class FlyingFocus {
    * @param event: Event
    */
   public showFlyingFocus(event) {
+    this.ringElement.style.display = 'block';
     if (event.target.id === this.options.ringId) {
       return;
     }
-
+    this.currentFocused = event.target;
     this.doFocusOnTarget(event.target);
   }
-
   /**
    * Do the focus on the given target
    * @param target
@@ -71,39 +66,34 @@ class FlyingFocus {
       isFirstFocus = true;
       this.initFlyingFocus();
     }
-
     const offset = this.offsetOf(target);
     this.ringElement.style.left = `${offset.left}px`;
     this.ringElement.style.top = `${offset.top}px`;
     this.ringElement.style.width = `${target.offsetWidth}px`;
     this.ringElement.style.height = `${target.offsetHeight}px`;
-
     if (isFirstFocus || !this.isJustPressed()) {
       return;
     }
-
     target.classList.add(this.options.targetClass);
     this.ringElement.classList.add(this.options.visibleClass);
     this.prevFocused = target;
   }
-
   /**
    * Hide flying focus
    *
    * @memberof FlyingFocus
    */
   public hideFlyingFocus() {
+    this.ringElement.style.display = 'none';
     if (!this.movingId) {
       return;
     }
-
     clearTimeout(this.movingId);
     this.movingId = 0;
     this.ringElement.classList.remove(this.options.visibleClass);
     this.prevFocused.classList.remove(this.options.targetClass);
     this.prevFocused = null;
   }
-
   /**
    * Get whether element was just pressed
    *
@@ -114,7 +104,6 @@ class FlyingFocus {
   private isJustPressed() {
     return Date.now() - this.keyDownTime < 42; // eslint-disable-line no-magic-numbers
   }
-
   /**
    * Get offset of element
    *
@@ -136,7 +125,6 @@ class FlyingFocus {
       left: left || 0,
     };
   }
-
   /**
    * Initializing the event listeners
    *
@@ -150,16 +138,16 @@ class FlyingFocus {
       if (code === 9 || (code > 36 && code < 41)) { // eslint-disable-line no-magic-numbers
         this.keyDownTime = Date.now();
       }
+      if (event.key === 'Esc' || event.key === 'Escape') {
+        this.currentFocused.blur();
+      }
     }, true);
-
     this.docElement.addEventListener('focus', (event) => {
       this.showFlyingFocus(event);
     }, true);
-
     this.docElement.addEventListener('blur', () => {
       this.hideFlyingFocus();
     }, true);
   }
 }
-
 export default FlyingFocus;
