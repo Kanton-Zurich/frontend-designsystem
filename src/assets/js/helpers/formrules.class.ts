@@ -80,6 +80,8 @@ class FormRules {
         }
       });
     });
+
+    this.ui.owner.setAttribute('data-rules', JSON.stringify(this.rules));
   }
 
   setInitialState() {

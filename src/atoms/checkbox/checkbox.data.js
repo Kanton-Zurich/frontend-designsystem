@@ -25,6 +25,17 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
+  withHint: {
+    meta: {
+      title: 'Mit Hinweis (CZHDEV-1238)',
+      desc: 'Checkbox mit Hinweis Feld.',
+    },
+    props: {
+      label: 'Qualifizierte Beteiligungen',
+      hint: 'von wenigstens 10% an Aktien-, Grund- oder Stammkapital',
+      id: 'wihthint',
+    },
+  },
   checked: {
     meta: {
       title: 'Vorausgewählt',
