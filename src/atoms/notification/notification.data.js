@@ -56,6 +56,18 @@ const variants = _.mapValues({
       },
     },
   },
+  apiConnectionFailure: {
+    meta: {
+      title: 'Hinweis bei Connection Fail',
+      desc: 'Der Hinweis wird angezeigt falls benötigte API endpoints nicht erreicht werden können',
+    },
+    props: {
+      message: 'Grund dafür ist ein technisches Problem. Bitte versuchen Sie es später noch einmal.',
+      title: 'Entschuldigung, der Service ist nicht verfügbar.',
+      icon: '#caution',
+      isDialog: true,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

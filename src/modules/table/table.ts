@@ -186,8 +186,9 @@ class Table extends Module {
    */
   setLeftOffset() {
     const firstThRow = this.ui.table.querySelector('th[scope="row"]');
-
-    this.data.shades.left.style.left = `${firstThRow.getBoundingClientRect().width}px`;
+    if (firstThRow) {
+      this.data.shades.left.style.left = `${firstThRow.getBoundingClientRect().width}px`;
+    }
   }
 
   /**

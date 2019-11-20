@@ -364,24 +364,6 @@ const variants = _.mapValues({
             {
               fields: [
                 {
-                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
-                    datepickerData.variants.dateAndTime.props,
-                    {})),
-                },
-              ],
-            },
-            {
-              fields: [
-                {
-                  cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
-                    datepickerData.variants.dateRange.props,
-                    {})),
-                },
-              ],
-            },
-            {
-              fields: [
-                {
                   cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
                     formInputData.variants.default.props,
                     {
@@ -417,6 +399,134 @@ const variants = _.mapValues({
           ],
         },
         duplicateGroup,
+      ],
+    },
+  },
+  taxLegal: {
+    meta: {
+      title: 'Tax Legal (CZHDEV-1238)',
+      desc: 'Selectfelder für Steuerrechner (modules/tax_calc).',
+    },
+    props: {
+      sectionTitle: false,
+      groups: [{
+        rows: [
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(selectHBS)({
+                  listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
+                    selectOptions: [
+                      { value: '0', label: 'Bitte wählen' },
+                      { value: '21', label: 'Adlikon' },
+                      { value: '131', label: 'Adliswil' },
+                      { value: '241', label: 'Aesch' },
+                      { value: '1', label: 'Aeugust am Albis' },
+                      { value: '2', label: 'Affoltern am Albis' },
+                      { value: '211', label: 'Altikon' },
+                      { value: '30', label: 'Andelfingen' },
+                      { value: '51', label: 'Bachenbülach' },
+                    ],
+                    setHiddenIndex: true,
+                  }),
+                  triggerInputData: {
+                    type: 'text',
+                    isSelectTrigger: true,
+                    isFloatingLabel: true,
+                    isInput: false,
+                    icon: 'angle_drop_down',
+                    label: 'Gemeinde',
+                    validation: {
+                      isRequired: true,
+                    },
+                  },
+                }),
+              },
+              {
+                cellContent: () => handlebars.compile(selectHBS)({
+                  listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
+                    selectOptions: [
+                      { value: '2019', label: '2019' },
+                      { value: '2018', label: '2018' },
+                      { value: '2017', label: '2017' },
+                      { value: '2016', label: '2016' },
+                      { value: '2015', label: '2015' },
+                      { value: '2014', label: '2014' },
+                    ],
+                    setHiddenIndex: true,
+                  }),
+                  triggerInputData: {
+                    type: 'text',
+                    isSelectTrigger: true,
+                    isFloatingLabel: true,
+                    isInput: false,
+                    icon: 'angle_drop_down',
+                    label: 'Select Float Label',
+                    validation: {
+                      isRequired: true,
+                    },
+                  },
+                }),
+              },
+            ],
+          },
+        ],
+      },
+      ],
+    },
+  },
+  taxEntity: {
+    meta: {
+      title: 'Tax Entity (CZHDEV-1238)',
+      desc: 'Radiobutton Auswahl für Steuerrechner (modules/tax_calc).',
+    },
+    props: {
+      sectionTitle: false,
+      groups: [{
+        rows: [
+          {
+            fields: [
+              {
+                isSmall: true,
+                cellContent: () => handlebars.compile(formFieldsetHBS)({
+                  fieldsetTitle: false,
+                  isVertical: true,
+                  requiredMessage: 'Bitte wählen Sie eine Option aus.',
+                  options: [
+                    () => handlebars.compile(radioHBS)(_.merge({},
+                      radioData.variants.default.props,
+                      {
+                        id: 'privatperson',
+                        groupName: 'taxEntity',
+                        label: 'Privatperson',
+                        descr: 'Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer (Natürliche Personen)',
+                        isChecked: false,
+                        additionalAttribute: 'data-tax_calc="inputEntity"',
+                        validation: {
+                          isRequired: true,
+                        },
+                        value: 'individual',
+                      })),
+                    () => handlebars.compile(radioHBS)(_.merge({},
+                      radioData.variants.default.props,
+                      {
+                        id: 'incorp',
+                        groupName: 'taxEntity',
+                        label: 'Unternehmen, Vereine und Stiftungen',
+                        descr: 'Berechnen des Steuerbetrag und/ oder der Steuerrückstellung für ordentlich besteuerte Gesellschaften und Genossenschaften (Juristische Personen)',
+                        additionalAttribute: 'data-tax_calc="inputEntity""',
+                        validation: {
+                          isRequired: true,
+                        },
+                        value: 'incorp',
+                      })),
+                  ],
+                }),
+              },
+            ],
+          },
+        ],
+      },
       ],
     },
   },

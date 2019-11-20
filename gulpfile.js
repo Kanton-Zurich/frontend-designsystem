@@ -844,7 +844,8 @@ gulp.task('copy:aem', () => {
 
   const instance = task({
     src: [
-      './dist/assets/**/*.{css,js,svg}',
+      './dist/assets/**/*.{css,js,svg,json}',
+      './dist/assets/media/icons/*',
     ],
     srcBase: './dist/assets',
     dest: gulpUtil.env.aemTargetBaseResources,
@@ -852,6 +853,10 @@ gulp.task('copy:aem', () => {
       changed: null,
       rename: (filePath) => {
         let returnPath = filePath;
+
+        if (filePath.match(/manifest\.json/)) {
+          return returnPath;
+        }
 
         if (filePath.match(/\.min\.js/)) {
           returnPath = returnPath.replace(/\.min\.js/, `.${git.short()}.min.js`);
