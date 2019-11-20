@@ -72,11 +72,11 @@ class Accordion extends Module {
     this.initEventListeners();
 
     // Check for ids in case an url parameter matches
-    this.ui.triggers.forEach( (item)=> {
-      if (typeof item.id !== undefined && item.id.length > 0) {
+    this.ui.triggers.forEach((trigger) => {
+      if (typeof trigger.id !== 'undefined' && trigger.id.length > 0) {
         this.data.idTriggers.push({
-          item: item,
-          id: item.id
+          item: trigger,
+          id: trigger.id,
         });
       }
     });
@@ -92,7 +92,7 @@ class Accordion extends Module {
   checkURL() {
     const urlParameter = window.location.href.split('#')[1];
 
-    this.data.idTriggers.forEach( (trigger)=> {
+    this.data.idTriggers.forEach((trigger) => {
       if (urlParameter === trigger.id && trigger.item.getAttribute('aria-expanded') === 'false') {
         trigger.item.click();
       }
@@ -113,14 +113,12 @@ class Accordion extends Module {
       this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), '-1');
 
       if (verticalIcon) verticalIcon.removeAttribute('transform');
-
       item.classList.remove(this.options.stateClasses.open);
       item.classList.remove(this.options.stateClasses.transitionEnd);
     } else {
-
       // URL reflection
-      if (eventDelegate.id && eventDelegate.id.length > 0 ) {
-        window.history.pushState({ accordionZH: eventDelegate.id }, '', '#' + eventDelegate.id);
+      if (eventDelegate.id && eventDelegate.id.length > 0) {
+        window.history.pushState({ accordionZH: eventDelegate.id }, '', `#${eventDelegate.id}`);
       }
 
       panel.style.maxHeight = `${this.calcHeight(panel)}px`;

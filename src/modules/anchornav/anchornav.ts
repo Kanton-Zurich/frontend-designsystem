@@ -297,7 +297,7 @@ class Anchornav extends Module {
         element.setAttribute('tabindex', '-1');
         this.navReferences.push({
           navTrigger: this.ui.navItems[i],
-          element: element,
+          element,
           triggerXPosition: hTriggerPos,
         });
       }
@@ -635,7 +635,7 @@ class Anchornav extends Module {
    * @param {string} hashID
    */
   updateWindowHistory(hashID: string) {
-    window.history.pushState({ anchorNavZH: hashID }, '', '#' + hashID);
+    window.history.pushState({ anchorNavZH: hashID }, '', `#${hashID}`);
   }
 
   /**

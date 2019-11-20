@@ -55,7 +55,7 @@ class Tabs extends Module {
   checkURL() {
     const urlParameter = window.location.href.split('#')[1];
 
-    this.tabs.forEach( (tab)=> {
+    this.tabs.forEach((tab) => {
       if (urlParameter === tab.id && tab.getAttribute('aria-selected') === 'false') {
         tab.click();
       }
@@ -151,7 +151,6 @@ class Tabs extends Module {
     const setFocus = focus || true;
     // Deactivate all other tabs
     this.deactivateTabs();
-    console.log('activateTab(tab, focus): ', tab);
 
     // Remove tabindex attribute
     tab.removeAttribute('tabindex');
@@ -162,8 +161,8 @@ class Tabs extends Module {
     tab.classList.remove('atm-button--secondary');
 
     // URL reflection
-    if (tab.id && tab.id.length > 0 ) {
-      window.history.pushState({ tabZH: tab.id }, '', '#' + tab.id);
+    if (tab.id && tab.id.length > 0) {
+      window.history.pushState({ tabZH: tab.id }, '', `#${tab.id}`);
     }
 
     // Get the value of aria-controls (which is an ID)
