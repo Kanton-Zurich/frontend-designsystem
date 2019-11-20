@@ -202,8 +202,8 @@ $selectHeightWithFilterExtended: 424px;
     .atm-form_input {
 
       &__input--trigger {
-        padding-top: pxToRem(35px);
-        padding-bottom: pxToRem(15px);
+        padding-top: $paddingInput + $paddingDifferenceOnFocus;
+        padding-bottom: $paddingInput - $paddingDifferenceOnFocus;
       }
 
       &__trigger-label {
@@ -215,6 +215,11 @@ $selectHeightWithFilterExtended: 424px;
         line-height: $sizeLineHeightBase;
         color: $colorBlack;
         transform: none;
+      }
+
+      &--trigger-phone .atm-form_input__input--trigger {
+        padding-top: $paddingInput;
+        padding-bottom: $paddingInput;
       }
     }
   }

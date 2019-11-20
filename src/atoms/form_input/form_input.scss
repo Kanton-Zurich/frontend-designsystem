@@ -22,6 +22,9 @@ $searchSizeCurve: (
   )
 );
 
+// VARIABLES FOR INTERNATIONAL PHONE INPUT
+$triggerWidth: pxToRem(86px);
+
 .atm-form_input {
   position: relative;
   display: flex;
@@ -264,9 +267,13 @@ $searchSizeCurve: (
 
     @include transition(transform);
 
+    display: none;
+
     &.show {
       transform: scaleY(1) translateY(0);
       order: 2;
+
+      display: block;
     }
   }
 
@@ -351,6 +358,42 @@ $searchSizeCurve: (
 
       position: absolute;
       top: pxToRem(14px);
+    }
+  }
+
+  /* ---------------------
+  - PHONE SELECT TRIGGER -
+  --------------------- */
+  &--trigger-phone {
+    > input {
+      position: absolute;
+      top: 2px;
+
+      right: 2px;
+      height: pxToRem($targetInputHeight);
+
+      background: none;
+
+      left: $triggerWidth;
+      width: calc(100% - #{$triggerWidth} - $borderWidthRem);
+
+      border: none;
+
+      padding-left: pxToRem($sizeRegular);
+
+      z-index: $zIndexInner;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .atm-form_input__trigger-label {
+      @include visuallyhidden;
+    }
+
+    .atm-form_input__input--trigger > .icon {
+      left: $triggerWidth - pxToRem(24);
     }
   }
 }
