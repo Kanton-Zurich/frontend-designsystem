@@ -1,28 +1,34 @@
 
-<div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-accordion {{#if isInverted}}mdl-accordion--cv-inverted cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10{{/if}}" data-init="accordion">
+<div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-accordion {{#if isInverted}}mdl-accordion--cv-inverted cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10{{/if}}{{#if toggleAll}} mdl-accordion--toggleall{{/if}}"
+                                                            data-init="accordion">
 {{#if isInverted}}
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="cell small-offset-2 medium-offset-2 large-offset-2 small-10 medium-9 large-8">
 {{/if}}
-  <h{{accordionHeading.level}} class="atm-heading atm-heading--bordered">
-    {{accordionHeading.title}}
-  </h{{accordionHeading.level}}>
+  {{#if accordionHeading.title}}
+    <h{{accordionHeading.level}} class="atm-heading atm-heading--bordered">
+      {{accordionHeading.title}}
+    </h{{accordionHeading.level}}>
+  {{/if}}
   <p class="visuallyhidden">
    Verwenden Sie die Akkordeon-Bedienelemente, um die Sichtbarkeit der jeweiligen Panels (unterhalb der Bedienelemente) umzuschalten.
   </p>
   <div>
     {{#each items}}
-      <div class="mdl-accordion__item" data-accordion="item">
+      <div class="mdl-accordion__item{{#if additionalClass}} {{additionalClass}}{{/if}}"{{#if additionalAttribute}} {{additionalAttribute}}{{/if}} data-accordion="item">
         <h{{increment ../accordionHeading.level}} class="mdl-accordion__header">
-          <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger">
-            <span class="mdl-accordion__control">
-              {{title}}
-            </span>
-            <svg class="icon mdl-accordion__plus">
-              <use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
-              <use xlink:href="#plus-horizontal"></use>
-            </svg>
+          <button class="mdl-accordion__button{{#if subHead}} mdl-accordion__button--subhead{{/if}}" aria-expanded="false" data-accordion="trigger" type="button">
+            {{#if subHead}}<div class="mdl-accordion__button--subhead__flexbox">{{/if}}
+              <span class="mdl-accordion__control">
+                {{title}}
+              </span>
+              <svg class="icon mdl-accordion__plus">
+                <use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
+                <use xlink:href="#plus-horizontal"></use>
+              </svg>
+            {{#if subHead}}</div>
+              <span class="mdl-accordion__subhead">{{subHead}}</span>{{/if}}
           </button>
         </h{{increment ../accordionHeading.level}}>
         <div class="mdl-accordion__panel" data-accordion="panel" aria-hidden="true">

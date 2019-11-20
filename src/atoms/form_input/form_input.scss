@@ -525,6 +525,13 @@ $unitLeftSpace: 62px;
       }
     }
   }
+
+  &__hint {
+    display: block;
+    color: $colorBlack60;
+    font-size: pxToRem($sizeFontSmall);
+    padding: pxToRem($sizeMini) 0;
+  }
 }
 
 /** STYLES FOR VALIDATION CLASSES */
