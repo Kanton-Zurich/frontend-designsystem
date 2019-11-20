@@ -53,6 +53,12 @@ $searchSizeCurve: (
       color: $colorBlack60;
     }
 
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      appearance: none;
+      margin: 0;
+    }
+
     /* --- DISABLED --- */
     &:disabled,
     &[ disabled ] {
@@ -206,6 +212,10 @@ $searchSizeCurve: (
 
     &--right {
       right: pxToRem($sizeRegular) + $borderWidthRem;
+    }
+
+    .atm-form_input--floated & {
+      top: $paddingInput + $borderWidthRem + $paddingDifferenceOnFocus;
     }
   }
 

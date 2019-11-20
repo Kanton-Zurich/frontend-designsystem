@@ -241,6 +241,27 @@ const variants = _.mapValues({
       step: 0.01,
     },
   },
+  unitLeftWithFloating: {
+    meta: {
+      title: 'Nummereingabefeld mit Einheitsangabe (links) und Floating Label',
+      desc: 'Nummereingabefeld mit validierung und Einheitsangabe (links).',
+    },
+    props: {
+      uuid: _.uniqueId('float_input_unitLeftFloating'),
+      unitLeft: true,
+      unitLeftLabel: 'CHF',
+      type: 'number',
+      inputContent: '0.00',
+      label: 'Ihr Wunschgehalt',
+      isFloatingLabel: true,
+      validation: {
+        pattern: '^[+-]?((\\.\\d+)|(\\d+(\\.\\d+)?))$',
+        errorMsg: 'Hier muss eine Ganzzahl oder eine Gleitkommazahl eingegeben werden!',
+        isRequired: true,
+      },
+      step: 0.01,
+    },
+  },
   unitRight: {
     meta: {
       title: 'Nummereingabe mit Einheitsangabe (rechts)',
