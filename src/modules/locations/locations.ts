@@ -6,11 +6,11 @@
  */
 import Module from '../../assets/js/helpers/module';
 import MapView,
-{ MarkerEvent, UserLocateEvent }
+{ MarkerEvent, UserLocateEvent } // eslint-disable-line no-unused-vars
   from '../map_view/map_view';
 import {
   DefaultOptions,
-  LocationsModuleOptions,
+  LocationsModuleOptions, // eslint-disable-line no-unused-vars
 } from './locations.options';
 
 class Locations extends Module {

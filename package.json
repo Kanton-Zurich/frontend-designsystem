@@ -16,8 +16,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.9",
     "@types/lodash": "^4.14.121",
-    "@typescript-eslint/eslint-plugin": "^2.3.3",
-    "@typescript-eslint/parser": "^2.3.3",
+    "@typescript-eslint/parser": "^1.4.2",
     "@unic/estatico-browsersync": "0.0.11",
     "@unic/estatico-copy": "0.0.11",
     "@unic/estatico-data": "0.0.8",
