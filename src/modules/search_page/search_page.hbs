@@ -2,6 +2,9 @@
   <form novalidate class="mdl-search_page__form" data-search_page="form">
     {{> "atoms/form_input/form_input" input}}
   </form>
+
+  {{> "modules/content_nav/content_nav" contentNav}}
+
   <div class="mdl-search_page__results-wrapper" data-search_page="wrapper">
     <div class="mdl-search_page__results-head" data-search_page="resultsHead">
 
@@ -44,7 +47,7 @@
       <% _.forEach(results, function(item, index) { %>
         <li class="atm-search_result_item" <% if(item.type === 'service') { %>data-init="servicelist"<% } %>>
           <span class="atm-search_result_item__meta">
-            <span class="atm_search_result_item__type">
+            <span class="atm-search_result_item__type">
               <%- item.typeLabel %>
             </span>
             <% if (item.breadcrumb) { %>
@@ -95,5 +98,9 @@
         </li>
       <% }); %>
     </ul>
+  </script>
+
+  <script data-search_page="autosuggestTemplate" type="text/x-handlebars-template">
+    {{{ autosuggestTemplate }}}
   </script>
 </div>

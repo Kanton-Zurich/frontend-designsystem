@@ -17,6 +17,7 @@ class FlexData extends Module {
     results: HTMLDivElement,
     resultsTemplate: HTMLScriptElement,
     resultsGeneric: HTMLDivElement,
+    genericSort: HTMLDivElement,
     genericSortDropdown: HTMLDivElement,
     genericSortButton: HTMLButtonElement,
     resultsGenericTitle: HTMLHeadingElement,
@@ -46,6 +47,7 @@ class FlexData extends Module {
         results: '.mdl-flex-data__results',
         resultsGeneric: '.mdl-flex-data__results .mdl-flex-data__results-generic',
         resultsGenericTitle: '.mdl-flex-data__results .mdl-flex-data__results-title',
+        genericSort: '.mdl-flex-data__generic-sort',
         genericSortDropdown: '.mdl-flex-data__generic-sort .mdl-context_menu',
         genericSortButton: '.mdl-flex-data__generic-sort-dropdown',
         resultsTable: '.mdl-table',
@@ -199,8 +201,16 @@ class FlexData extends Module {
   populateResultList(jsonData) {
     this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
     this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
-    const resultsTitle = this.ui.results.getAttribute('data-result-count-title')
+    if (jsonData.numberOfResultPages > 1) {
+      this.ui.pagination.classList.remove('hidden');
+    } else {
+      this.ui.pagination.classList.add('hidden');
+    }
+    let resultsTitle = this.ui.results.getAttribute('data-result-count-title')
       .replace('%1', jsonData.numberOfResults);
+    if (jsonData.numberOfResults <= 0) {
+      resultsTitle = this.ui.results.getAttribute('data-no-results-title');
+    }
     // fill table date if present
     if (this.ui.resultsTable) {
       this.ui.resultsTableBody.innerHTML = '';
@@ -225,6 +235,12 @@ class FlexData extends Module {
     // fill generic results
     if (this.ui.resultsGeneric) {
       this.ui.resultsGenericTitle.innerText = resultsTitle;
+      if (jsonData.numberOfResults <= 0) {
+        this.ui.genericSort.classList.add('hidden');
+      } else {
+        this.ui.genericSort.classList.remove('hidden');
+      }
+      this.ui.resultsGeneric.innerHTML = '';
       this.ui.resultsGeneric.innerHTML = this
         .markupFromTemplate(this.ui.resultsTemplate.innerHTML, jsonData);
     }
@@ -313,7 +329,7 @@ class FlexData extends Module {
               } else if (item.classList.contains('flatpickr-input')) {
                 // -----------
                 // datepicker
-                item.value = decodeURIComponent(values[0]); // eslint-disable-line
+                item.value = window[namespace].form.dateRangeFromUrlParam(values[0]); // eslint-disable-line
                 item.classList.add('dirty');
                 item.parentElement.parentElement.parentElement.classList.add('dirty');
               } else {
@@ -327,13 +343,12 @@ class FlexData extends Module {
           break;
       }
       // Set the sort element if present
-      const sortSetting = this.ui.genericSortDropdown.querySelector(`[data-sort-column="${this.orderBy}"][data-sort-direction="${this.order}"]`);
-      if (sortSetting) {
+      if (this.ui.genericSortDropdown) {
+        const sortSetting = this.ui.genericSortDropdown.querySelector(`[data-sort-column="${this.orderBy}"][data-sort-direction="${this.order}"]`);
         this.ui.genericSortButton.querySelector('span').innerText = sortSetting.querySelector('span').innerText;
       }
     });
   }
-
   /**
    * Fetch teaser data
    * @param callback

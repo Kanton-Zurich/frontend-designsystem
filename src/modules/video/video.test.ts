@@ -1,9 +1,12 @@
-describe('Banner', () => {
+describe('Video', () => {
   let page: any;
+
+  const iframeDelay = 30000;
+  jest.setTimeout(iframeDelay);
 
   beforeAll(async () => {
     // eslint-disable-next-line no-underscore-dangle
-    const url = `http://localhost:${(<any>global).__STATIC_PORT__}/modules/banner/banner.html`;
+    const url = `http://localhost:${(<any>global).__STATIC_PORT__}/modules/video/video.html`;
 
     // eslint-disable-next-line no-underscore-dangle
     page = await (<any>global).__BROWSER__.newPage();

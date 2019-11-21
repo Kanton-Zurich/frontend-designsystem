@@ -1,4 +1,4 @@
-<div class="atm-radiobutton {{#if asTag}}atm-radiobutton--tag{{/if}}">
+<div class="atm-radiobutton {{#if asTag}}atm-radiobutton--tag{{/if}}"{{#if additionalAttribute}} {{{additionalAttribute}}}{{/if}}>
   <input
     id="radio{{id}}{{#if isDisabled}}disabled{{/if}}{{#if isChecked}}checked{{/if}}"
     type="radio" value="{{value}}"
@@ -8,7 +8,8 @@
     {{#if validation}}data-validation{{/if}}
     {{#if validation.isRequired}}required{{/if}}
   >
-  <label {{#if asTag}}class="atm-button atm-button--secondary atm-button--small atm-button--tag"{{/if}} for="radio{{id}}{{#if isDisabled}}disabled{{/if}}{{#if isChecked}}checked{{/if}}">
-    {{label}}
+  <label  {{#if asTag}}class="atm-button atm-button--secondary atm-button--small atm-button--tag" {{/if}}for="radio{{id}}{{#if isDisabled}}disabled{{/if}}{{#if isChecked}}checked{{/if}}">
+    {{label}}{{#if isDisabled}}(disabled){{/if}}{{#if isChecked}}(checked){{/if}}
+    {{#if descr}}<span class="atm-radiobutton__descr">{{ descr }}</span>{{/if}}
   </label>
 </div>

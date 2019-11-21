@@ -31,6 +31,7 @@ class FormRules {
     };
 
     this.getRules();
+
     this.getHierarchicalRules();
 
     this.setInitialState();
@@ -79,6 +80,8 @@ class FormRules {
         }
       });
     });
+
+    this.ui.owner.setAttribute('data-rules', JSON.stringify(this.rules));
   }
 
   setInitialState() {
@@ -92,7 +95,7 @@ class FormRules {
 
     switch (action) {
       case 'show':
-        this.ui.owner.classList.add(this.options.stateClasses.hiddenByRule);
+        this.checkRules();
 
         break;
       case 'enable':

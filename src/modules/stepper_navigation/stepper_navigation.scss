@@ -9,6 +9,20 @@ $stepperNavigationCurves: (
   ),
 );
 
+@mixin mobileOrdinalStyles {
+  .mdl-stepper_navigation__step-title {
+    display: none;
+  }
+
+  .mdl-stepper_navigation__step--active .mdl-stepper_navigation__step-title {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+  }
+}
+
 .mdl-stepper_navigation {
   list-style-type: none;
 
@@ -19,6 +33,14 @@ $stepperNavigationCurves: (
 
   @include mq($to: medium) {
     padding-bottom: pxToRem($sizeRegular * $sizeLineHeightBase);
+
+    @include mobileOrdinalStyles();
+  }
+
+  &--tight {
+    padding-bottom: pxToRem($sizeRegular * $sizeLineHeightBase);
+
+    @include mobileOrdinalStyles();
   }
 
   .mdl-stepper--success & {
@@ -74,17 +96,6 @@ $stepperNavigationCurves: (
       font-family: $fontFamilyBlack;
 
       @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
-      @include mq($to: medium) {
-        display: none;
-
-        .mdl-stepper_navigation__step--active & {
-          display: block;
-          position: absolute;
-          bottom: 0;
-          width: 100%;
-          left: 0;
-        }
-      }
     }
 
 
@@ -197,13 +208,17 @@ $stepperNavigationCurves: (
     display: flex;
     align-items: stretch;
 
-    flex-basis: 100%;
-    flex-grow: 1;
+    flex: 1 1 100%;
+    width: 0;
 
     justify-content: center;
 
     &.mdl-stepper_navigation__step--pending {
       justify-content: flex-end;
+    }
+
+    &.mdl-stepper_navigation__step--hidden {
+      display: none;
     }
   }
 }

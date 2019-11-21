@@ -76,10 +76,21 @@
     }
   }
 
+  &__descr {
+    display: block;
+    color: $colorBlack60;
+    font-size: pxToRem($sizeFontSmall);
+    padding-top: pxToRem($sizeMini);
+  }
+
   &--tag {
     padding-left: 0;
     padding-right: 0;
     margin-bottom: 0;
+
+    input {
+      @include visuallyhidden;
+    }
 
     label:after,
     label:before {

@@ -200,7 +200,7 @@ class Select extends Module {
           if (event.shiftKey) {
             this.closeDropdown(true);
           } else {
-            this.updateFlyingFocus();
+            this.updateFlyingFocus(this.options.inputDelay);
           }
         }
       })
@@ -235,7 +235,7 @@ class Select extends Module {
         if (event.key === 'Tab' && !event.shiftKey) {
           this.closeDropdown(true);
         } else {
-          this.updateFlyingFocus();
+          this.updateFlyingFocus(this.options.inputDelay);
         }
       })
       // ------------------------------------------------------------
@@ -276,7 +276,7 @@ class Select extends Module {
             evt.stopPropagation();
             evt.preventDefault();
           }
-          this.updateFlyingFocus();
+          this.updateFlyingFocus(this.options.inputDelay);
         }
         if (!this.isMultiSelect && ['Enter', ' ', 'Spacebar'].indexOf(pressed) >= 0) {
           this.ui.trigger.click();
@@ -287,12 +287,16 @@ class Select extends Module {
     // Observe inputs and update values -
     if (this.ui.filter) {
       this.ui.filter.addEventListener('keydown', (event) => {
-        this.updateFlyingFocus();
+        this.updateFlyingFocus(this.options.inputDelay);
         if (event.key === 'Enter') {
           event.preventDefault();
         }
       });
-      this.ui.filterClearButton.addEventListener('keydown', (event) => {
+      this.ui.filterClearButton.addEventListener('click', (event) => {
+        this.ui.filter.value = '';
+        if (this.ui.filter.classList.contains('dirty')) {
+          this.ui.filter.classList.remove('dirty');
+        }
         if (event.key === 'Tab' && !event.shiftKey) {
           const visibleItems = this.ui.element
             .querySelectorAll(this.options.domSelectors.visibleInputItems);
@@ -303,6 +307,11 @@ class Select extends Module {
         }
       });
       this.watch(this.ui.filter, 'value', debounce((key, before, after) => { // eslint-disable-line
+        if (after.length > 0 && !this.ui.filter.classList.contains('dirty')) {
+          this.ui.filter.classList.add('dirty');
+        } else if (after.length === 0 && this.ui.filter.classList.contains('dirty')) {
+          this.ui.filter.classList.remove('dirty');
+        }
         this.setFilter(after);
       }, this.options.inputDelay));
     }
@@ -540,21 +549,27 @@ class Select extends Module {
       }
 
       if (!focusLost) {
+        this.resetFocusOnTrigger();
+        // for certain browsers a time delay is necessary
         setTimeout(() => {
-          if (this.ui.phoneInput) {
-            this.ui.phoneInput.focus();
-          } else {
-            this.ui.trigger.focus();
-          }
+          this.resetFocusOnTrigger();
         }, this.options.dropdownDelay);
       } else {
         this.ui.element.querySelector(this.options.domSelectors.visibleInputItems)
           .dispatchEvent(new CustomEvent('validateDeferred', {
             detail: { field: this.ui.inputItems[0] },
           }));
-        this.updateFlyingFocus();
+        this.updateFlyingFocus(this.options.inputDelay);
       }
       this.emitClose();
+    }
+  }
+
+  resetFocusOnTrigger() {
+    if (this.ui.phoneInput) {
+      this.ui.phoneInput.focus();
+    } else {
+      this.ui.trigger.focus();
     }
   }
 
@@ -574,15 +589,6 @@ class Select extends Module {
         + (this.ui.applyButtonContainer ? this.ui.applyButtonContainer.clientHeight : 0);
       this.ui.dropdown.style.height = `${containerSize}px`;
     }
-  }
-
-  /**
-   * Update flying focus with a delay
-   */
-  updateFlyingFocus() {
-    setTimeout(() => {
-      (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
-    }, this.options.inputDelay);
   }
 
   /**

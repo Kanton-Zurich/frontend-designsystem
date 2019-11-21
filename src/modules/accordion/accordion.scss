@@ -68,6 +68,12 @@ $accordionMap: (
       .mdl-accordion__plus use {
         fill: $colorBlack100;
       }
+
+      .mdl-accordion__subhead {
+        opacity: 0;
+        padding: 0;
+        transition: none;
+      }
     }
 
     &--transition-end {
@@ -85,15 +91,39 @@ $accordionMap: (
   }
 
   &__button {
-    display: flex;
     width: 100%;
 
-    justify-content: space-between;
-    align-items: center;
+    &:not(.mdl-accordion__button--subhead) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &--subhead {
+      &__flexbox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
   }
 
   &__header {
     margin: 0;
+  }
+
+  &__subhead {
+    font-size: pxToRem($sizeRegular);
+    bottom: pxToRem($sizeMini);
+    margin-top: pxToRem(- $sizeRegular);
+    line-height: pxToRem($sizeLarge);
+    padding-bottom: pxToRem($sizeSmallLarge);
+    color: $colorBlack60;
+    font-weight: $fontWeightDefault;
+    opacity: 1;
+    display: block;
+
+    @include transition(opacity padding);
   }
 
   &__control {
@@ -150,11 +180,11 @@ $accordionMap: (
     }
 
     > :last-child {
-      @include sizeCurve(margin-bottom, medium);
+      @include sizeCurve(padding-bottom, medium);
     }
 
     > p:last-child {
-      @include sizeCurve(margin-bottom, regular);
+      @include sizeCurve(padding-bottom, regular);
     }
   }
 

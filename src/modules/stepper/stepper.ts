@@ -16,6 +16,8 @@ class Stepper extends Module {
     hasNavigation: boolean,
   }
 
+  public navigation: any;
+
   public ui: {
     element: HTMLDivElement,
     steps: any,
@@ -91,7 +93,7 @@ class Stepper extends Module {
     this.options.hasRules = this.ui.element.querySelectorAll('[data-rules]').length > 0;
 
     if (this.ui.navigation) {
-      new StepperNavigation(this.ui.navigation,
+      this.navigation = new StepperNavigation(this.ui.navigation,
         { active: this.data.active, steps: this.ui.steps }, {
           hasRules: this.options.hasRules,
         });
@@ -438,8 +440,24 @@ class Stepper extends Module {
 
   generateFieldButton(validationError: string) {
     const field = this.ui.element.querySelector(`[name="${validationError}"]`);
-    const fieldElement = field.parentElement;
-    const fieldLabel = fieldElement.querySelector('label').textContent.trim();
+    let fieldLabel = '';
+
+    if (field.classList.contains('flatpickr-input')) {
+      fieldLabel = field.getAttribute('placeholder');
+    } else if (field.hasAttribute('data-select-option')) {
+      const select = field.closest('.mdl-select');
+      const label = select.querySelector('.atm-form_input__trigger-label');
+
+      fieldLabel = label.textContent.trim();
+    } else if (field.getAttribute('type') === 'radio' || field.getAttribute('type') === 'checkbox') {
+      const fieldset = field.closest('fieldset');
+      const legend = fieldset.querySelector('legend');
+
+      fieldLabel = legend.textContent.trim();
+    } else {
+      const fieldElement = field.parentElement;
+      fieldLabel = fieldElement.querySelector('label').textContent.trim();
+    }
 
     this.ui.wrapper.dispatchEvent(new CustomEvent(Stepper.events.showFieldInvalid, {
       detail: {

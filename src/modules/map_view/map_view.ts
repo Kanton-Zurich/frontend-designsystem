@@ -146,7 +146,13 @@ class MapView extends Module {
         m.setIcon(markerIconDefault);
       }
     });
+
     this.markerSelected = markerIdx >= 0 && markerIdx < this.markers.length;
+
+
+    if (this.markers[markerIdx]) {
+      this.map.panTo(this.markers[markerIdx].getLatLng());
+    }
 
     if (this.ui.directionsBtn && this.ui.directionsUrlTemplateInput) {
       const { directionsBtn } = this.ui;
@@ -225,10 +231,6 @@ class MapView extends Module {
 
 
     if (this.markers.length > 0) {
-      if (this.markers.length === 1) {
-        this.ui.element.classList.add(this.options.stateClasses.singleItem);
-        this.doSelectMarker(0);
-      }
       const clusterGroup = L.markerClusterGroup({
 
         iconCreateFunction: cluster => L.divIcon({
@@ -264,6 +266,11 @@ class MapView extends Module {
         clusterGroup.addLayer(m);
       });
       this.map.addLayer(clusterGroup);
+
+      if (this.markers.length === 1) {
+        this.ui.element.classList.add(this.options.stateClasses.singleItem);
+        this.doSelectMarker(0);
+      }
     }
   }
 
