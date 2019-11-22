@@ -1,0 +1,29 @@
+.mdl-jurisdiction_finder {
+  &__form {
+    display: flex;
+
+    &-input,
+    &-button {
+      width: 100%;
+
+      &:first-child {
+        margin-right: $sizeMini;
+      }
+
+      &:last-child {
+        margin-left: $sizeMini;
+      }
+
+      .atm-button,
+      .atm-form_input {
+        width: 100%;
+      }
+
+      .atm-button {
+        span {
+          margin: auto;
+        }
+      }
+    }
+  }
+}

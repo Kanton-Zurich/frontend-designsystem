@@ -11,8 +11,15 @@
              data-locations="sidebar">
           <div class="mdl-locations__filter">
             <div class="mdl-locations__filter_head">
+              {{#if hasFilter}}
               <form novalidate>{{> "atoms/form_input/form_input" locationsFormInput }}</form>
               {{> "atoms/button/button" toggleListBtn }}
+              {{/if}}
+              {{#if subTitle}}
+                <h3 class="atm-heading mdl-locations__subtitle">
+                  {{subTitle}}
+                </h3>
+              {{/if}}
             </div>
 
             <div class="mdl-locations__filter_empty">

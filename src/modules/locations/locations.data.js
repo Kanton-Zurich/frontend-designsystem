@@ -177,7 +177,26 @@ const variants = _.mapValues({
         hasIndex: true,
         links: locationsAsListItemLinks,
       },
+      hasFilter: true,
       locationContacts: locationsAsContacts,
+      mapData: {
+        mapId: _.uniqueId('locations_map'),
+        mapMarker: locationsLatLng,
+      },
+    },
+  },
+  noFilter: {
+    meta: {
+      title: 'No Filter',
+      desc: 'Default implementation',
+    },
+    props: {
+      locationsList: {
+        hasIndex: true,
+        links: locationsAsListItemLinks,
+      },
+      locationContacts: locationsAsContacts,
+      subTitle: 'Beratungsangebote für 8302 Kloten',
       mapData: {
         mapId: _.uniqueId('locations_map'),
         mapMarker: locationsLatLng,
