@@ -79,7 +79,6 @@ class Datepicker extends Module {
         container: '.mdl-datepicker__container',
       },
       stateClasses: {
-        // activated: 'is-activated'
       },
       dataSelectors: {
         pickerMode: 'datetimeformat',
@@ -133,6 +132,8 @@ class Datepicker extends Module {
     };
 
     this.constructConfig();
+
+    this.ui.element.dataset.initialised = 'true';
   }
 
   static get events() {
@@ -314,6 +315,7 @@ class Datepicker extends Module {
         dates: this.flatpickr.selectedDates,
       },
     };
+
     this.ui.element.dispatchEvent(new CustomEvent(Datepicker.events.dateSet, eventData));
   }
 

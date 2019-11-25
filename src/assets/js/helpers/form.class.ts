@@ -22,6 +22,7 @@ class Form {
     messageClasses: any,
     domSelectors: {
       floating: string;
+      datepicker: string;
     };
     messageSelector: string,
     duplicateSelector: string,
@@ -53,6 +54,7 @@ class Form {
       },
       domSelectors: {
         floating: '[data-floating]',
+        datepicker: '[data-init="datepicker"]',
       },
       messageSelector: '[data-message]',
       selectOptionSelector: 'data-select-option',
@@ -78,6 +80,9 @@ class Form {
 
     // Initialize rules
     this.initRules();
+
+    // Initialize Datepickers when not happened yet
+    this.initDatepickers();
 
     // set dirty from start
     this.setDirtyFromStart();
@@ -313,6 +318,19 @@ class Form {
 
     rulesElements.forEach(($elementWithARule) => {
       new FormRules($elementWithARule);
+    });
+  }
+
+  initDatepickers() {
+    const datepickers = this.ui.element.querySelectorAll(this.options.domSelectors.datepicker);
+
+    datepickers.forEach((picker) => {
+      if (!(<HTMLElement>picker).dataset.initialised) {
+        const { parentNode } = picker;
+
+        (<any>window).estatico.helpers.app.registerModulesInElement(parentNode);
+        (<any>window).estatico.helpers.app.initModulesInElement(parentNode);
+      }
     });
   }
 }

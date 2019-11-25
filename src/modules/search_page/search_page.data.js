@@ -8,6 +8,8 @@ const paginationData = require('../pagination/pagination.data');
 
 const contentTeaser = require('../../atoms/content_teaser/content_teaser.data');
 
+const datepicker = require('../datepicker/datepicker.data');
+
 const template = dataHelper.getFileContent('search_page.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -32,6 +34,7 @@ const data = _.merge({}, defaultData, {
       selector: 'data-search_page="autosuggest"',
       additionalClasses: 'mdl-search__autosuggest mdl-content_nav--single-column',
     },
+    datepicker: datepicker.variants.dateRangenRequired.props,
   },
 });
 const variants = _.mapValues({

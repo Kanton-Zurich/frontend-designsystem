@@ -175,6 +175,7 @@ class Module {
         result = result[0].replace('#', '');
       }
     }
+
     return result && result.length > 0 ? result : null;
   }
 
@@ -293,6 +294,23 @@ class Module {
     } else {
       window.location.href = url;
     }
+  }
+
+  /**
+   * Return a yyyy-mm-dd string for the api
+   *
+   * @param {Date} date
+   * @returns string
+   * @memberof Module
+   */
+  getAPIDateString(date: Date) {
+    const singleDigitMonth = 9;
+    const singleDigitDays = 10;
+
+    const month = date.getMonth() < singleDigitMonth ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+    const day = date.getDate() < singleDigitDays ? `0${date.getDate()}` : date.getDate();
+
+    return `${date.getFullYear()}-${month}-${day}`;
   }
 }
 

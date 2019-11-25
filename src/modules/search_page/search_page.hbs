@@ -5,7 +5,7 @@
 
   {{> "modules/content_nav/content_nav" contentNav}}
 
-  <div class="mdl-search_page__results-wrapper" data-search_page="wrapper">
+  <div class="mdl-search_page__results-wrapper" data-search_page="wrapper" aria-live="polite">
     <div class="mdl-search_page__results-head" data-search_page="resultsHead">
 
     </div>
@@ -39,6 +39,9 @@
           </li>
         <% }); %>
       </ul>
+      <form novalidate="true" data-search_page="dateFilter" class="mdl-search_page__date-filter">
+        {{> "modules/datepicker/datepicker" datepicker}}
+      </form>
     </div>
   </script>
 

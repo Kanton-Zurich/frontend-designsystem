@@ -10,6 +10,8 @@ import Module from '../../assets/js/helpers/module';
 import Pagination from '../pagination/pagination';
 import Autosuggest from '../../assets/js/helpers/autosuggest';
 
+import Datepicker from '../datepicker/datepicker';
+
 class SearchPage extends Module {
   public ui: {
     input: HTMLInputElement,
@@ -22,6 +24,8 @@ class SearchPage extends Module {
     wrapper: HTMLDivElement,
     autosuggest: HTMLDivElement,
     autosuggestTemplate: HTMLScriptElement,
+    dateFilter: HTMLFormElement,
+    datePicker: HTMLDivElement,
   }
 
   public options: {
@@ -36,6 +40,8 @@ class SearchPage extends Module {
   public data: {
     type: string,
     page: number,
+    dateTo: Date,
+    dateFrom: Date,
   }
 
   public result: any;
@@ -46,6 +52,8 @@ class SearchPage extends Module {
     const defaultData = {
       type: 'all',
       page: 1,
+      dateTo: '',
+      dateFrom: '',
     };
     const defaultOptions = {
       delay: 450,
@@ -61,10 +69,13 @@ class SearchPage extends Module {
         wrapper: '[data-search_page="wrapper"]',
         autosuggest: '[data-search_page="autosuggest"]',
         autosuggestTemplate: '[data-search_page="autosuggestTemplate"]',
+        dateFilter: '[data-search_page="dateFilter"]',
+        datePicker: '[data-init="datepicker"]',
       },
       stateClasses: {
         showResults: 'mdl-search_page--show-results',
         loading: 'mdl-search_page--loading',
+        dateFilterVisible: 'mdl-search_page__date-filter--visible',
       },
     };
 
@@ -169,40 +180,82 @@ class SearchPage extends Module {
     this.query = newValue;
     this.setFilterInUrl();
 
-    return this.getData({
-      q: this.query,
-    }, (response) => {
-      this.result = response;
+    return this.getData(this.generateParams(true),
+      (response) => {
+        this.result = response;
 
-      this.dispatchPageCount();
-      this.renderResults();
+        this.dispatchPageCount();
+        this.renderResults();
 
-      this.ui.element.classList.add(this.options.stateClasses.showResults);
-      this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
-    });
+        this.ui.element.classList.add(this.options.stateClasses.showResults);
+        this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
+      });
+  }
+
+  /**
+   * Generating the params
+   *
+   * @param {false} query
+   * @param {false} type
+   * @param {false} page
+   * @param {false} dates
+   * @returns
+   * @memberof SearchPage
+   */
+  generateParams(
+    query: boolean = false,
+    type: boolean = false,
+    page: boolean = false,
+    dates: boolean = false,
+  ) {
+    const paramObj: any = {};
+
+    if (query && this.query && this.query !== '') {
+      paramObj.q = this.query;
+    }
+
+    if (type && this.data.type !== 'all') {
+      paramObj.type = this.data.type;
+    }
+
+    if (page && this.data.page !== 1) {
+      paramObj.page = this.data.page;
+    }
+
+    if (dates
+      && (typeof this.data.dateFrom !== 'undefined'
+      && typeof this.data.dateTo !== 'undefined')
+      && this.data.type === 'news') {
+      paramObj.dateTo = this.getAPIDateString(this.data.dateTo);
+      paramObj.dateFrom = this.getAPIDateString(this.data.dateFrom);
+    }
+
+    return paramObj;
   }
 
   onFilterChange(event) {
     this.emptyList();
     this.data.page = 1;
 
-    if (event.target.value === this.data.type) {
-      return false;
+    if (event) {
+      if (event.target.value === this.data.type) {
+        return false;
+      }
+
+      this.data.type = event.target.value;
     }
 
     this.ui.results.classList.add(this.options.stateClasses.loading);
 
-    this.data.type = event.target.value;
     this.setFilterInUrl();
 
-    return this.getData({
-      q: this.query,
-      type: this.data.type,
-    }, (response) => {
+    return this.getData(this.generateParams(true, true, false, true), (response) => {
       this.result = response;
 
       this.dispatchPageCount();
       this.renderList();
+
+      this.checkIfPickerVisible();
 
       this.ui.results.classList.remove(this.options.stateClasses.loading);
     });
@@ -219,11 +272,7 @@ class SearchPage extends Module {
     this.data.page = event.detail.after;
     this.setFilterInUrl();
 
-    return this.getData({
-      q: this.query,
-      type: this.data.type,
-      page: this.data.page,
-    }, (response) => {
+    return this.getData(this.generateParams(true, true, true, true), (response) => {
       this.result = response;
 
       this.dispatchPageCount();
@@ -250,6 +299,10 @@ class SearchPage extends Module {
   renderResults() {
     this.renderHead();
     this.renderList();
+
+    this.checkIfPickerVisible();
+
+    (<any>window).estatico.helpers.app.registerForms();
   }
 
   renderHead() {
@@ -258,6 +311,8 @@ class SearchPage extends Module {
     const parsedHTML = new DOMParser().parseFromString(generatedHTML, 'text/html').querySelector('div');
 
     this.ui.resultsHead.appendChild(parsedHTML);
+    this.initUi();
+
 
     if (this.data.type !== 'all') {
       const radios = parsedHTML.querySelectorAll('[type="radio"]');
@@ -268,6 +323,14 @@ class SearchPage extends Module {
     }
 
     this.initFilterEventListeners(parsedHTML);
+
+    this.ui.datePicker.addEventListener(Datepicker.events.dateSet, (event) => {
+      const { detail } = <CustomEvent>event;
+
+      [this.data.dateFrom, this.data.dateTo] = detail.dates;
+
+      this.onFilterChange(false);
+    });
   }
 
   renderList() {
@@ -325,7 +388,13 @@ class SearchPage extends Module {
 
     if (this.data.type !== 'all') {
       const typeResultInfo = this.result.resultsData.resultsByType
-        .find(resultByType => resultByType.type === this.data.type);
+        .find((resultByType) => {
+          this.log(resultByType.type, this.data.type, this.data.type === resultByType.type);
+
+          return resultByType.type === this.data.type;
+        });
+
+      this.log(this.result.resultsData, typeResultInfo);
 
       pageCount = typeResultInfo.numberOfResultPages;
     }
@@ -336,31 +405,31 @@ class SearchPage extends Module {
   }
 
   getParamsInUrl() {
-    const query = this.getURLParam('q');
-    const type = this.getURLParam('type');
-    const page = this.getURLParam('page');
-    const urlParams : any = {};
+    const query = this.getURLParam('q', true);
+    const type = this.getURLParam('type', true);
+    const page = this.getURLParam('page', true);
+    const dateTo = this.getURLParam('dateTo', true);
+    const dateFrom = this.getURLParam('dateFrom', true);
 
     if (query) {
       this.ui.input.value = query;
-
-      urlParams.q = query;
     }
     if (type) {
       this.data.type = type;
-
-      urlParams.type = type;
     }
     if (page) {
       this.data.page = parseInt(page, 10);
+    }
 
-      urlParams.page = page;
+    if (dateTo && dateFrom) {
+      this.data.dateTo = new Date(dateTo);
+      this.data.dateFrom = new Date(dateFrom);
     }
 
     if (query || type || page) {
       this.ui.wrapper.classList.add(this.options.stateClasses.loading);
 
-      this.getData(urlParams, (response) => {
+      this.getData(this.generateParams(true, true, true, true), (response) => {
         this.result = response;
 
         this.dispatchPageCount();
@@ -371,6 +440,10 @@ class SearchPage extends Module {
         this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setPage, {
           detail: this.data.page,
         }));
+
+        if (dateTo && dateFrom) {
+          this.setDatepickerInput();
+        }
 
         this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
       });
@@ -394,11 +467,32 @@ class SearchPage extends Module {
       urlParams.type = this.data.type;
     }
 
+    if (typeof this.data.dateFrom !== 'undefined' && typeof this.data.dateTo !== 'undefined' && this.data.type === 'news') {
+      urlParams.dateFrom = this.getAPIDateString(this.data.dateFrom);
+      urlParams.dateTo = this.getAPIDateString(this.data.dateTo);
+    }
+
     if (Object.keys(urlParams).length > 0) {
       url = this.generateURL(url, urlParams);
     }
 
     window.history.pushState({}, document.title, url);
+  }
+
+  checkIfPickerVisible() {
+    if (this.data.type === 'news') {
+      this.ui.dateFilter.classList.add(this.options.stateClasses.dateFilterVisible);
+    } else {
+      this.ui.dateFilter.classList.remove(this.options.stateClasses.dateFilterVisible);
+    }
+  }
+
+  setDatepickerInput() {
+    this.ui.datePicker.dispatchEvent(new CustomEvent(Datepicker.events.injectDate, {
+      detail: {
+        date: [this.data.dateFrom, this.data.dateTo],
+      },
+    }));
   }
 
   /**
