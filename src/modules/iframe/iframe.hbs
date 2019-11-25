@@ -1,17 +1,21 @@
 {{#unless iframeFullSize}}
-  <div class="mdl-iframe">
+  <div class="mdl-iframe {{#if iframeSmall}}mdl-iframe--small{{/if}}">
+  {{#unless iframeSmall}}
     <div class="lyt-wrapper">
       <div class="grid-x grid-margin-x">
         <div class="cell small-12 medium-12 large-12 xlarge-12">
+          {{/unless}}
           <h{{{iframeScreenReaderHeading.level}}}
             class="atm-heading visuallyhidden">{{{iframeScreenReaderHeading.title}}}</h{{{iframeScreenReaderHeading.level}}}>
           <div class="mdl-iframe__wrapper" style="height: {{{iframeHeight}}}px">
             <iframe src="{{{iframeSrc}}}"></iframe>
           </div>
           {{> "atoms/text_link/text_link" iframeTextLink}}
+          {{#unless iframeSmall}}
         </div>
       </div>
     </div>
+    {{/unless}}
   </div>
 {{/unless}}
 {{#if iframeFullSize}}
