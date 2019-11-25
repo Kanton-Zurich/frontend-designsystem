@@ -388,13 +388,7 @@ class SearchPage extends Module {
 
     if (this.data.type !== 'all') {
       const typeResultInfo = this.result.resultsData.resultsByType
-        .find((resultByType) => {
-          this.log(resultByType.type, this.data.type, this.data.type === resultByType.type);
-
-          return resultByType.type === this.data.type;
-        });
-
-      this.log(this.result.resultsData, typeResultInfo);
+        .find(resultByType => resultByType.type === this.data.type);
 
       pageCount = typeResultInfo.numberOfResultPages;
     }
