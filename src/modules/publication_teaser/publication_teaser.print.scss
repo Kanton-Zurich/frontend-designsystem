@@ -1,0 +1,7 @@
+.mdl-publication_teaser {
+  &__image,
+  &__content {
+    width: calc(50% - 2rem) !important; //stylelint-disable-line
+    margin-left: 0 !important; //stylelint-disable-line
+  }
+}
