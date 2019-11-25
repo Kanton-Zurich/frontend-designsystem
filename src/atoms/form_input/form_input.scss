@@ -62,6 +62,10 @@ $triggerWidth: pxToRem(86px);
       margin: 0;
     }
 
+    &::-ms-clear {
+      display: none;
+    }
+
     /* --- DISABLED --- */
     &:disabled,
     &[ disabled ] {
@@ -245,7 +249,7 @@ $triggerWidth: pxToRem(86px);
   ------------------ */
   p {
     transform: scaleY(0) translateY(-100%);
-    margin: 0;
+    margin: -1px 0 0;
     padding: pxToRem($sizeMini) pxToRem($sizeRegular);
     font-size: $sizeFontTiny;
     line-height: 1.5;
@@ -387,5 +391,18 @@ $triggerWidth: pxToRem(86px);
     .atm-form_input__input--trigger > .icon {
       left: $triggerWidth - pxToRem(24);
     }
+  }
+
+  /* -------------
+  ------ HINT ----
+  ------------- */
+
+  &__hint {
+    order: 5;
+
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+
+    color: $colorBlack60;
+    padding-top: $sizeMini;
   }
 }
