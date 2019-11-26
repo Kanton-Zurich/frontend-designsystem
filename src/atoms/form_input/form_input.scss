@@ -1,235 +1,173 @@
-$heightRegular: 72px;
-$heightSmall: $sizeSmallHuge;
-$heightTextarea: 112px;
+$borderWidth: 2px;
+$borderWidthRem: pxToRem($borderWidth);
+$targetInputHeight: 72px  - $borderWidth * 2;
+$paddingInput: (pxToRem($targetInputHeight) - (pxToRem($sizeFontRegular) * $sizeLineHeightBase)) / 2;
 
-$topSpace_with_half_border: 25px;
-$topSpace_without_border: 22px;
-$rightSpace: 44px;
-$unitLeftSpace: 62px;
+// VARIABLES FOR SMALL
+$targetSmallInputHeight: 48px - $borderWidth * 2;
+$paddingSmallInput: (pxToRem($targetSmallInputHeight) - (pxToRem($sizeFontRegular) * $sizeLineHeightBase)) / 2;
+
+// VARIABLES FOR FLOATED
+$paddingDifferenceOnFocus: pxToRem(10px);
+
+// VARIABLES FOR SEARCH
+$searchSizeCurve: (
+  font: (
+    tiny: $sizeFontBiggerRegular,
+    large: $sizeFontBig,
+  ),
+  padding: (
+    tiny: ($targetSmallInputHeight - ($sizeFontBiggerRegular * $sizeLineHeightBase)) / 2,
+    large: ($targetInputHeight - ($sizeFontBig * $sizeLineHeightBase)) / 2,
+  )
+);
+
+// VARIABLES FOR INTERNATIONAL PHONE INPUT
+$triggerWidth: pxToRem(86px);
 
 .atm-form_input {
   position: relative;
-
-  .atm-form_input__input.dirty ~ .atm-form_input__functionality ~ .icon {
-    display: none;
-  }
+  display: flex;
+  flex-direction: column;
 
   &__input {
-    position: relative;
-    z-index: $zIndexInner;
-    background-color: transparent;
-    padding: pxToRem($topSpace_with_half_border) pxToRem($rightSpace) pxToRem($topSpace_with_half_border) pxToRem($sizeRegular);
-
-    border: 2px solid $colorBlack40;
-    border-radius: 2px;
-    width: 100%;
-    height: 100%;
-
-    @media all and ( -ms-high-contrast: none ) {
-      border-radius: 0;
-    }
-
-    &:disabled {
-      border: 2px solid $colorBlack20;
-      color: rgba(0, 0, 0, 0.2);
-
-      .atm-form_input__trigger-label,
-      .atm-form_input__trigger-value {
-        color: rgba(0, 0, 0, 0.2);
-      }
-    }
-
-    &:focus {
-      outline: none;
-      border: 2px solid $colorCyan;
-    }
-
-    .atm-form_input--search & {
-      font-family: $fontFamilyBlack;
-
-      @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
-
-      height: pxToRem($heightRegular);
-      padding-top: 0;
-      padding-bottom: 0;
-
-      @include mq($to: small) {
-        height: pxToRem($heightSmall);
-      }
-    }
-
-    @at-root {
-      textarea#{&} {
-        padding-top: pxToRem($sizeLarge);
-        padding-bottom: pxToRem($sizeLarge);
-        min-width: 100%;
-        min-height: pxToRem($heightTextarea);
-        height: 100%;
-        text-indent: 0;
-        resize: vertical;
-        overflow: auto;
-
-        & + label {
-          top: 2px;
-          padding-top: pxToRem(18px);
-          width: calc(100% - #{$sizeRegular} - 44px);
-          background-color: $colorWhite;
-
-          &:after {
-            content: '';
-            position: absolute;
-            display: block;
-            top: 0;
-            left: 0;
-
-            z-index: $zIndexInner;
-          }
-        }
-      }
-    }
-
-    // Hide number spinner
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      /* display: none; <- Crashes Chrome on hover */
-      -webkit-appearance: none; //stylelint-disable-line
-      appearance: none;
-      margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-    }
-
-    // Hide browser styles for autofilled inputs
-    &:-webkit-autofill,
-    &:-webkit-autofill:hover,
-    &:-webkit-autofill:focus,
-    &:-webkit-autofill:active {
-      box-shadow: 0 0 0 1000px $colorWhite inset;
-    }
-
-    // Hide safari autofill icon on inputs
-    &::-webkit-contacts-auto-fill-button { //stylelint-disable-line
-      visibility: hidden;
-      display: none;
-      pointer-events: none;
-      position: absolute;
-      right: 0;
-    }
-
-    &[ type='number' ] {
-      -moz-appearance: textfield; /* Firefox */ //stylelint-disable-line
-    }
-
-    // Hide IE 11 default clear cross & show hide password
-    &::-ms-clear,
-    &::-ms-reveal {
-      display: none;
-    }
-
-    &.dirty {
-      ~ .atm-form_input__functionality {
-        display: block;
-      }
-    }
-
-    button {
-      @include blankButton;
-      position: absolute;
-      right: pxToRem($sizeSmallRegular);
-      top: 50%;
-      transform: translateY(-50%);
-      line-height: 0;
-
-      svg use {
-        fill: $colorBlack60;
-      }
-
-      &:hover svg use {
-        fill: $colorBlack;
-      }
-    }
-
-    &--datepicker,
-    &--trigger {
-      position: relative;
-      height: $heightRegular;
-    }
-  }
-
-  // Hide palceholder
-  &__input::placeholder,
-  &__unit,
-  label {
-    color: $colorBlack60;
     font-size: pxToRem($sizeFontRegular);
     line-height: $sizeLineHeightBase;
 
-    .atm-form_input--search & {
-      @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
-    }
-  }
+    padding: $paddingInput (pxToRem($sizeRegular) + pxToRem(24) + pxToRem($sizeTiny))  $paddingInput pxToRem($sizeRegular);
 
-  &__unit--left,
-  label {
-    left: pxToRem($sizeRegular + 2px);
-  }
-
-  &__unit--right {
-    right: pxToRem(41px);
-  }
-
-  &__unit {
-    top: pxToRem($topSpace_with_half_border);
-  }
-
-  .atm-form_input__trigger-label,
-  &__unit,
-  label,
-  &__validate-icon {
-    position: absolute;
-  }
-
-  .atm-form_input__trigger-label,
-  label {
-    top: pxToRem($topSpace_without_border + 2px);
-    transition: top 200ms, font-size 400ms, color 400ms ease-in-out;
-  }
-
-  &__validate-icon {
-    top: pxToRem($topSpace_with_half_border);
-    right: 13px;
-    border-radius: 50%;
-    width: pxToRem($topSpace_with_half_border);
-    height: pxToRem($topSpace_with_half_border);
-
-    span {
-      display: none;
-    }
-  }
-
-  p {
     display: block;
     width: 100%;
-    font-size: pxToRem($sizeFontTiny);
-    line-height: $sizeLineHeightBase;
-    margin: 0;
-    padding-left: pxToRem($sizeRegular + 2px);
-    color: $colorWhite;
-    background-color: $colorRed;
-    transform: translateY(-50%) scaleY(0);
-    transition: transform 400ms, opacity 400ms, height 400ms ease-in-out;
-    height: 0;
-    opacity: 0;
-    word-break: break-word;
+
+    border: $borderWidth solid $colorBlack40;
+    border-radius: 2px;
+    order: 1;
+
+    &:focus {
+      outline: none;
+      border-color: $colorCyan;
+    }
+
+    &:-ms-input-placeholder {
+      color: $colorBlack60;
+    }
+
+    &::placeholder {
+      color: $colorBlack60;
+    }
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      appearance: none;
+      margin: 0;
+    }
+
+    &::-ms-clear {
+      display: none;
+    }
+
+    /* --- DISABLED --- */
+    &:disabled,
+    &[ disabled ] {
+      background: $colorWhite;
+      border-color: $colorBlack20;
+      color: $colorBlack20;
+
+      &:-ms-input-placeholder {
+        color: $colorBlack20;
+      }
+
+      &::placeholder {
+        color: $colorBlack20;
+      }
+    }
+  }
+
+  label {
+    color: $colorBlack60;
+  }
+
+  /* --------------------
+  ------ TEXTAREA -------
+  --------------------- */
+  .atm-form_input__input--txtarea {
+    min-height: pxToRem(112px);
+  }
+
+  /* --------------------
+  ---- W/O FLOATING -----
+  --------------------- */
+
+  &:not(.atm-form_input--floated) {
+    label {
+      @include visuallyhidden;
+    }
+  }
+
+  /* --------------------
+  ----- W FLOATING ------
+  --------------------- */
+
+  &--floated {
+    .atm-form_input__input {
+      &:-ms-input-placeholder {
+        color: transparent;
+      }
+
+      &::placeholder {
+        color: transparent;
+      }
+    }
+
+    label {
+      position: absolute;
+      top: $paddingInput + $borderWidthRem;
+      left: pxToRem($sizeRegular) + $borderWidthRem;
+
+      right: $borderWidth;
+      background: $colorWhite;
+
+      @include transition(top);
+    }
+
+    /* ----- INPUT ON FOCUS/DIRTY ----- */
+    .atm-form_input__input:focus,
+    .atm-form_input__input.dirty {
+      padding-top: $paddingInput + $paddingDifferenceOnFocus;
+      padding-bottom: $paddingInput - $paddingDifferenceOnFocus;
+    }
+
+    /* ----- LABEL ON FOCUS/DIRTY ------ */
+    .atm-form_input__input:focus ~ label,
+    .atm-form_input__input.dirty ~ label {
+      top: pxToRem(14px);
+      transform: translateY(0);
+
+      font-size: $sizeFontTiny;
+
+      font-family: $fontFamilyBlack;
+      color: $colorBlack;
+    }
+  }
+
+  /* ------------------------------
+  ----- ICON AND FUNCTIONALITY ----
+  ------------------------------- */
+  &__validate-icon,
+  &__functionality {
+    position: absolute;
+    top: $paddingInput + $borderWidthRem;
+    right: pxToRem($sizeRegular);
+
+    span {
+      line-height: 0;
+      display: none;
+    }
   }
 
   &__functionality {
     display: none;
-    position: absolute;
-    z-index: $zIndexInner;
-    top: 50%;
-    right: pxToRem($sizeSmallRegular);
-    height: pxToRem($sizeLarge);
-
-    transform: translateY(-50%);
+    line-height: 0;
 
     svg use {
       fill: $colorBlack60;
@@ -240,388 +178,232 @@ $unitLeftSpace: 62px;
     }
   }
 
-  &:not(.atm-form_input--floated) {
-    label {
-      @extend .visuallyhidden;
+  &__input.dirty ~ &__functionality {
+    display: block;
+  }
+
+  /* --- DECORATIVE ICON --- */
+  &--icon {
+    > .icon {
+      position: absolute;
+      right: pxToRem($sizeRegular);
+
+      top: $paddingInput + $borderWidthRem;
+      pointer-events: none;
+
+      @include transition(top);
     }
   }
 
-  /**
-  * DROPDOWN/SELECT with additional number input
-  */
-  &--trigger-phone {
-    .atm-form_input__input--trigger {
-      .icon {
-        right: auto;
-        left: pxToRem(57px);
-      }
+  /* ---- DEC. ICON ON FOCUS/DIRTY ----- */
+  &__input.dirty ~ svg.icon {
+    display: none;
+  }
 
-      &:focus {
-        .atm-form_input__trigger-value {
-          color: $colorBlack;
-        }
-      }
+  /* ------------------
+  -------- UNIT -------
+  ------------------ */
+
+  &__unit {
+    position: absolute;
+    color: $colorBlack60;
+
+    top: $paddingInput + $borderWidthRem;
+
+    &--right {
+      right: pxToRem($sizeRegular) + $borderWidthRem;
     }
 
-    .atm-form_input__input--trigger + input {
+    .atm-form_input--floated & {
+      top: $paddingInput + $borderWidthRem + $paddingDifferenceOnFocus;
+    }
+  }
+
+  &--unitLeft {
+    .atm-form_input__unit {
+      left: pxToRem($sizeRegular);
+    }
+  }
+
+  /* ------------------
+  ------ SMALL --------
+  ------------------ */
+
+  &--small {
+    .atm-form_input__input {
+      padding-top: $paddingSmallInput;
+      padding-bottom: $paddingSmallInput;
+    }
+
+    .atm-form_input__validate-icon,
+    .atm-form_input__functionality {
+      top: $paddingSmallInput + $borderWidthRem;
+    }
+
+    > .icon {
+      top: $paddingSmallInput + $borderWidthRem;
+    }
+  }
+
+  /* ------------------
+  -- VALIDATION MSG ---
+  ------------------ */
+  p {
+    transform: scaleY(0) translateY(-100%);
+    margin: -1px 0 0;
+    padding: pxToRem($sizeMini) pxToRem($sizeRegular);
+    font-size: $sizeFontTiny;
+    line-height: 1.5;
+    background: $colorRed;
+    color: $colorWhite;
+
+    order: 3;
+
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+
+    @include transition(transform);
+
+    display: none;
+
+    &.show {
+      transform: scaleY(1) translateY(0);
+      order: 2;
+
+      display: block;
+    }
+  }
+
+  /* ------------------
+  ----- VALIDATION ----
+  ------------------ */
+  &.invalid {
+    .atm-form_input__input {
+      border-color: $colorRed;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .atm-form_input__validate-icon {
+      span:last-child {
+        display: block;
+      }
+
+      svg use {
+        fill: $colorRed;
+      }
+    }
+  }
+
+  &.valid {
+    .atm-form_input__validate-icon {
+      span:first-child {
+        display: block;
+      }
+
+      svg use {
+        fill: $colorGreen;
+      }
+    }
+  }
+
+  &.valid,
+  &.invalid {
+    .atm-form_input__unit--right {
+      right: pxToRem($sizeRegular * 1.5) + $borderWidthRem + pxToRem(24);
+    }
+  }
+
+  /* ----------------
+  ----- SUCHE -------
+  ----------------- */
+
+  &--search {
+    .atm-form_input__input {
+      font-family: $fontFamilyBlack;
+
+      @include sizeCurve(font-size, font, $searchSizeCurve);
+      @include sizeCurve(padding-top padding-bottom, padding, $searchSizeCurve);
+    }
+  }
+
+  /* --------------------
+  --- SELECT TRIGGER ----
+  --------------------- */
+
+  &__input--trigger {
+    min-height: (pxToRem($sizeRegular) * $sizeLineHeightBase) + $paddingInput * 2 + $borderWidthRem * 2;
+
+    .icon {
       position: absolute;
-      top: 3px;
+      right: $sizeRegular + $borderWidth;
+      top: $paddingInput + $borderWidthRem;
+    }
+  }
+
+  &__trigger-label {
+    position: absolute;
+    top: $paddingInput + $borderWidthRem;
+
+    @include transition(top);
+  }
+
+  &__input--trigger:focus {
+    .atm-form_input__trigger-label {
+      font-family: $fontFamilyBlack;
+      font-size: $sizeFontTiny;
+
+      position: absolute;
+      top: pxToRem(14px);
+    }
+  }
+
+  /* ---------------------
+  - PHONE SELECT TRIGGER -
+  --------------------- */
+  &--trigger-phone {
+    > input {
+      position: absolute;
+      top: 2px;
+
       right: 2px;
-      width: calc(100% - 86px);
-      height: ($heightRegular - 6px);
+      height: pxToRem($targetInputHeight);
+
+      background: none;
+
+      left: $triggerWidth;
+      width: calc(100% - #{$triggerWidth} - $borderWidthRem);
+
       border: none;
-      appearance: textfield;
 
-      // Hide number spinner
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        /* display: none; <- Crashes Chrome on hover */
-        -webkit-appearance: none; //stylelint-disable-line
-        appearance: none;
-        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-      }
+      padding-left: pxToRem($sizeRegular);
 
-      &[ type='number' ] {
-        -moz-appearance: textfield;  /* Firefox */ //stylelint-disable-line
-      }
+      z-index: $zIndexInner;
 
-      // Hide IE 11 default clear cross & show hide password
-      &::-ms-clear,
-      &::-ms-reveal {
-        display: none;
+      &:focus {
+        outline: none;
       }
     }
 
     .atm-form_input__trigger-label {
-      display: none;
+      @include visuallyhidden;
     }
 
-    .atm-form_input__trigger-value {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      height: 100%;
-      display: inline-flex;
-      width: pxToRem($sizeBiggerBig);
-      margin-right: pxToRem($sizeBig);
-      align-items: center;
-      justify-content: flex-end;
+    .atm-form_input__input--trigger > .icon {
+      left: $triggerWidth - pxToRem(24);
     }
   }
 
-  &__trigger-value,
-  &__trigger-label {
-    color: $colorBlack60;
-  }
-
-  &--datepicker,
-  &--trigger,
-  &--icon {
-    button:focus .icon,
-    input:focus ~ .icon {
-      fill: $colorBlack;
-    }
-
-    .icon {
-      position: absolute;
-      top: 0;
-      right: pxToRem($sizeSmallRegular);
-      transform: rotate(0deg);
-      transition: 400ms transform ease-out;
-      fill: $colorBlack40;
-    }
-  }
-
-  &--datepicker,
-  &--trigger {
-    .icon {
-      top: pxToRem($sizeLarge);
-    }
-  }
-
-  &--icon {
-    > .icon {
-      top: pxToRem($sizeLarge);
-    }
-  }
-
-  &__date-value {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-
-  /**
-   * FLOATED STYLES
-   */
-  &--floated {
-    .atm-form_input__trigger-label,
-    label {
-      display: block;
-    }
-
-    .atm-form_input__input {
-      &::placeholder {
-        color: transparent;
-      }
-
-      &:not(.dirty) {
-        @at-root {
-          textarea#{&} {
-            & ~ label {
-              top: 2px;
-              padding-top: pxToRem(18px);
-            }
-          }
-        }
-      }
-
-      /**
-      * PRISTINE
-      */
-      &.pristine {
-        .atm-form_input__trigger-label,
-        & + label {
-          top: pxToRem($sizeLarge);
-        }
-
-        @at-root {
-          textarea#{&} {
-            & + label {
-              top: 2px;
-              padding-top: pxToRem(18px);
-            }
-          }
-        }
-      }
-
-      /**
-      * DIRTY / FOCUS
-      */
-      &.dirty,
-      &:-webkit-autofill,
-      &:focus {
-        color: $colorBlack;
-        padding-top: pxToRem(35px);
-        padding-bottom: pxToRem(15px);
-
-        .atm-form_input__trigger-label,
-        & ~ label {
-          pointer-events: none;
-          padding: 0;
-          top: pxToRem($sizeFontSmall);
-          font-family: $fontFamilyBlack;
-          font-size: pxToRem($sizeFontTiny);
-          line-height: $sizeLineHeightBase;
-          color: $colorBlack;
-        }
-        // for some reason the @at-root selector stuff dont work here so the modifier class above
-      }
-
-      &.dirty {
-        .atm-form_input__functionality {
-          display: block;
-        }
-      }
-
-      &--txtarea {
-        &.dirty,
-        &:focus {
-          & ~ label {
-            top: 2px;
-            padding-top: pxToRem(18px);
-          }
-        }
-      }
-
-      /**
-      * VALID
-      */
-      &.valid {
-        & ~ .atm-form_input__validate-icon {
-          span:first-of-type {
-            display: block;
-
-            svg {
-              fill: $colorGreen;
-            }
-          }
-        }
-      }
-
-      /**
-      * INVALID
-      */
-      &.invalid {
-        border-color: $colorRed;
-
-        & ~ .atm-form_input__validate-icon {
-          span:last-of-type {
-            display: block;
-
-            svg {
-              fill: $colorRed;
-            }
-          }
-        }
-
-        & ~ p.show {
-          padding-top: pxToRem(7px);
-          padding-bottom: pxToRem(5px);
-          height: auto;
-          opacity: 1;
-          transform: translateY(0) scaleY(1);
-        }
-      }
-    }
-  }
-
-  /**
-   * UNIT LEFT
-   */
-  &--unitLeft {
-    input {
-      padding-left: pxToRem($unitLeftSpace);
-      padding-right: pxToRem($sizeRegular);
-    }
-  }
-
-  /**
-   * UNIT RIGHT
-   */
-  &--unitRight {
-    input {
-      padding-right: pxToRem($unitLeftSpace);
-      padding-left: pxToRem($sizeRegular);
-    }
-  }
-
-  // Special styles
-  &--small {
-    height: pxToRem($heightSmall);
-
-    input {
-      padding: pxToRem($sizeSmallRegular) pxToRem($unitLeftSpace) pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
-    }
-
-    .icon {
-      top: pxToRem($sizeSmallRegular);
-    }
-
-    .atm-form_input__input.dirty ~ .atm-form_input__functionality ~ .icon {
-      display: none;
-    }
-
-    .atm-form_input__functionality {
-      top: pxToRem($sizeSmallRegular);
-
-      .icon {
-        position: relative;
-        right: auto;
-      }
-    }
-  }
+  /* -------------
+  ------ HINT ----
+  ------------- */
 
   &__hint {
-    display: block;
+    order: 5;
+
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+
     color: $colorBlack60;
-    font-size: pxToRem($sizeFontSmall);
-    padding: pxToRem($sizeMini) 0;
-  }
-}
-
-/** STYLES FOR VALIDATION CLASSES */
-
-[ data-input ] {
-
-  &:not(.dirty) {
-    textarea#{&} {
-      & ~ label {
-        top: 2px;
-        padding-top: pxToRem(18px);
-      }
-    }
-  }
-
-  /**
-  * DIRTY / FOCUS
-  */
-  &.dirty .atm-form_input__input,
-  &.atm-form_input--floated .atm-form_input__input:focus {
-    color: $colorBlack;
-    padding-top: pxToRem(35px);
-    padding-bottom: pxToRem(15px);
-
-    .atm-form_input__trigger-label,
-    & ~ label {
-      pointer-events: none;
-      padding: 0;
-      top: pxToRem($sizeFontSmall);
-      font-family: $fontFamilyBlack;
-      font-size: pxToRem($sizeFontTiny);
-      line-height: $sizeLineHeightBase;
-      color: $colorBlack;
-    }
-    // for some reason the @at-root selector stuff dont work here so the modifier class above
-  }
-
-  &.dirty {
-    .atm-form_input__functionality {
-      display: block;
-    }
-  }
-
-  &.dirty .atm-form_input__input--txtarea,
-  .atm-form_input__input--txtarea &:focus {
-    & ~ label {
-      top: 2px;
-      padding-top: pxToRem(18px);
-    }
-  }
-
-  /**
-  * VALID
-  */
-  &.valid .atm-form_input__input {
-    & ~ .atm-form_input__validate-icon {
-      span:first-of-type {
-        display: block;
-
-        svg {
-          fill: $colorGreen;
-        }
-      }
-    }
-  }
-
-  /**
-  * INVALID
-  */
-  &.invalid {
-
-    .atm-form_input__input {
-      border-color: $colorRed;
-    }
-
-    .atm-form_input__validate-icon {
-      span:last-of-type {
-        display: block;
-
-        svg {
-          fill: $colorRed;
-        }
-      }
-    }
-
-    p.show {
-      padding-top: pxToRem(7px);
-      padding-bottom: pxToRem(5px);
-      height: auto;
-      opacity: 1;
-      transform: translateY(0) scaleY(1);
-    }
+    padding-top: $sizeMini;
   }
 }
