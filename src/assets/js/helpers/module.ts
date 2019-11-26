@@ -307,10 +307,14 @@ class Module {
     const singleDigitMonth = 9;
     const singleDigitDays = 10;
 
-    const month = date.getMonth() < singleDigitMonth ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
-    const day = date.getDate() < singleDigitDays ? `0${date.getDate()}` : date.getDate();
+    if (date.getMonth && date.getDate && date.getFullYear) {
+      const month = date.getMonth() < singleDigitMonth ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+      const day = date.getDate() < singleDigitDays ? `0${date.getDate()}` : date.getDate();
 
-    return `${date.getFullYear()}-${month}-${day}`;
+      return `${date.getFullYear()}-${month}-${day}`;
+    }
+
+    return '';
   }
 }
 
