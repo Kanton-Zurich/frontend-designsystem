@@ -116,6 +116,7 @@ $mapRatioSmall: 0.75;
       .mdl-locations__subtitle {
         &.atm-heading {
           margin-left: $sizeRegular;
+
           @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
         }
       }
@@ -230,10 +231,6 @@ $mapRatioSmall: 0.75;
   }
 
   @include mq($to: medium) {
-   /* .sidebarhead {
-      width: calc(50% - #{$sizeLarge});
-    } */
-
     .mdl-locations {
       &__wrapper {
         padding-top: calc((100vw - #{$sizeBig}) / #{$mapRatioMedium});

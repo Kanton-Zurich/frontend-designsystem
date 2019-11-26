@@ -343,12 +343,10 @@ class Locations extends Module {
         setTimeout(() => {
           this.ui.backBtn.focus();
         }, this.options.focusDelay);
-      } else {
-        if (this.ui.filterInput) {
-          setTimeout(() => {
-            this.ui.filterInput.focus();
-          }, this.options.focusDelay);
-        }
+      } else if (this.ui.filterInput) {
+        setTimeout(() => {
+          this.ui.filterInput.focus();
+        }, this.options.focusDelay);
       }
     }
   }

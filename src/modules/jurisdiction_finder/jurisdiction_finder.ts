@@ -9,7 +9,6 @@ import Locations from '../locations/locations';
 import MapView from '../map_view/map_view';
 
 class JurisdictionFinder extends Module {
-
   public ui: {
     element: HTMLDivElement,
     searchButton: HTMLButtonElement,
@@ -61,15 +60,15 @@ class JurisdictionFinder extends Module {
    */
   initEventListeners() {
     // Event listeners
-    this.ui.searchButton.addEventListener('click', () =>
-      this.searchLocations(this.ui.searchInput.value ? this.ui.searchInput.value : ''));
+    this.ui.searchButton.addEventListener('click',
+      () => this.searchLocations(this.ui.searchInput.value ? this.ui.searchInput.value : ''));
     this.ui.searchInput.addEventListener('keypress', (event: any) => {
       if (event.key === 'Enter') {
         this.searchLocations(this.ui.searchInput.value ? this.ui.searchInput.value : '');
         event.preventDefault();
       }
     });
-    this.ui.searchInputClear.addEventListener('click', () => {  this.searchLocations(''); });
+    this.ui.searchInputClear.addEventListener('click', () => { this.searchLocations(''); });
   }
 
   /**
@@ -83,7 +82,8 @@ class JurisdictionFinder extends Module {
 
   searchLocations(text) {
     this.ui.subtitle.innerText = this.ui.element.getAttribute('data-heading-pattern').replace('%s', text);
-    this.ui.locations.dispatchEvent(new CustomEvent(Locations.events.filterLocations, { detail: { text: text }}));
+    this.ui.locations.dispatchEvent(new CustomEvent(Locations.events.filterLocations,
+      { detail: { text } }));
     if (!this.ui.locations.classList.contains('visible')) {
       setTimeout(() => {
         this.ui.locations.classList.add('visible');

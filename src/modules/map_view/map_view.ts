@@ -173,10 +173,8 @@ class MapView extends Module {
     this.markers.forEach((m, i) => {
       if (i === markerIdx) {
         m.setIcon(markerIconSelected);
-      } else {
-        if (m.getIcon().options.className !== 'mdl-map_view__marker_hidden') {
-          m.setIcon(markerIconDefault);
-        }
+      } else if (m.getIcon().options.className !== 'mdl-map_view__marker_hidden') {
+        m.setIcon(markerIconDefault);
       }
     });
 
@@ -309,7 +307,7 @@ class MapView extends Module {
       // set map bounds
       const markerGroup = L.featureGroup(this.markers);
       this.map.fitBounds(markerGroup.getBounds(),
-        {maxZoom: 12, padding: [15, 38]}); // eslint-disable-line no-magic-numbers
+        { maxZoom: 12, padding: [15, 38] }); // eslint-disable-line no-magic-numbers
     } else {
       // get bounds if available
       const rawBounds = this.ui.element.getAttribute('bounds');
@@ -377,7 +375,8 @@ class MapView extends Module {
     return new CustomEvent(MapView.events.highlightMarker, { detail: { idx: highlightIndex } });
   }
   static extMarkerShowHide(highlightIndex: number, visible: boolean): MarkerEvent {
-    return new CustomEvent(MapView.events.showHideMarker, { detail: { idx: highlightIndex, visible: visible } });
+    return new CustomEvent(MapView.events.showHideMarker,
+      { detail: { idx: highlightIndex, visible } });
   }
   static extMarkerSelectEvent(selectIndex: number): MarkerEvent {
     return new CustomEvent(MapView.events.fixMarker, { detail: { idx: selectIndex } });
