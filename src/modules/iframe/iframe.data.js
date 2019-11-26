@@ -50,6 +50,18 @@ const variants = _.mapValues({
       iframeFullSize: true,
     },
   },
+  small: {
+    meta: {
+      title: 'Schmal / Klein',
+      desc: '',
+    },
+    props: {
+      iframeSrc: 'https://www.one-inside.com/de/',
+      iframeFullSize: false,
+      iframeSmall: true,
+      iframeHeight: 600,
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

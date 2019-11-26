@@ -85,4 +85,11 @@
       z-index: 1;
     }
   }
+
+  &__hint {
+    display: block;
+    color: $colorBlack60;
+    font-size: pxToRem($sizeFontSmall);
+    padding-top: pxToRem($sizeMini / 2);
+  }
 }

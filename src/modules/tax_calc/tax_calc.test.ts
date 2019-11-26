@@ -1,9 +1,9 @@
-describe('Banner', () => {
+describe('TaxCalc', () => {
   let page: any;
 
   beforeAll(async () => {
     // eslint-disable-next-line no-underscore-dangle
-    const url = `http://localhost:${(<any>global).__STATIC_PORT__}/modules/banner/banner.html`;
+    const url = `http://localhost:${(<any>global).__STATIC_PORT__}/modules/tax_calc/tax_calc.html`;
 
     // eslint-disable-next-line no-underscore-dangle
     page = await (<any>global).__BROWSER__.newPage();

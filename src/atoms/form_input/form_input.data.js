@@ -21,10 +21,59 @@ const data = _.merge({}, defaultData, {
   },
 });
 const variants = _.mapValues({
+  numberValidation: {
+    meta: {
+      title: 'Nummereingabe mit Validierung',
+      desc: 'Input mit floating Label, validierung.',
+    },
+    props: {
+      uuid: _.uniqueId('float_input_numbervalid'),
+      type: 'number',
+      label: 'Reingewinn',
+      step: 1,
+      isFloatingLabel: true,
+      validation: {
+        min: 0,
+        max: 10000000,
+        isRequired: true,
+      },
+    },
+  },
+  floatValidateHint: {
+    meta: {
+      title: 'Hinweis (CZHDEV-1238)',
+      desc: 'Input mit floating Label und validierung und Hinweis',
+    },
+    props: {
+      type: 'text',
+      label: 'pflichtig von',
+      validation: {
+        pattern: '^\\d{2}\\.\\d{2}\\.$',
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Datum bitte im Format TT.MM. eingeben!',
+        isRequired: true,
+      },
+      hint: 'Bitte im Format TT.MM. eingeben',
+      uuid: _.uniqueId('float_input_valid'),
+      isFloatingLabel: true,
+      isRequired: true,
+
+    },
+  },
   default: {
     meta: {
       title: 'Standard Eingabefeld',
-      desc: 'Standard Implementierung ohne Floating Label (nur Placeholder)',
+      desc: 'Standard Implementierung ohne Floating Label (Verwendung in Themenliste als Filterfeld)',
+    },
+  },
+  defaultForForms: {
+    meta: {
+      title: 'Standard Eingabefeld für Formulare',
+      desc: 'Standard Implementierung mit Floating Label (Verwendung in Formularen)',
+    },
+    props: {
+      isFloatingLabel: true,
     },
   },
   textarea: {
@@ -224,6 +273,27 @@ const variants = _.mapValues({
       type: 'number',
       inputContent: '0.00',
       label: '0.00',
+      validation: {
+        pattern: '^[+-]?((\\.\\d+)|(\\d+(\\.\\d+)?))$',
+        errorMsg: 'Hier muss eine Ganzzahl oder eine Gleitkommazahl eingegeben werden!',
+        isRequired: true,
+      },
+      step: 0.01,
+    },
+  },
+  unitLeftWithFloating: {
+    meta: {
+      title: 'Nummereingabefeld mit Einheitsangabe (links) und Floating Label',
+      desc: 'Nummereingabefeld mit validierung und Einheitsangabe (links).',
+    },
+    props: {
+      uuid: _.uniqueId('float_input_unitLeftFloating'),
+      unitLeft: true,
+      unitLeftLabel: 'CHF',
+      type: 'number',
+      inputContent: '0.00',
+      label: 'Ihr Wunschgehalt',
+      isFloatingLabel: true,
       validation: {
         pattern: '^[+-]?((\\.\\d+)|(\\d+(\\.\\d+)?))$',
         errorMsg: 'Hier muss eine Ganzzahl oder eine Gleitkommazahl eingegeben werden!',
