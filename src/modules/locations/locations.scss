@@ -378,7 +378,6 @@ $mapRatioSmall: 0.75;
 
             &.show {
               max-height: pxToRem($sideBarHeightSmall -  $sideBarHeadHeight - $sizeRegular);
-              margin-top: pxToRem(2 * $sizeSmallRegular + $sizeSmallHuge);
             }
           }
         }

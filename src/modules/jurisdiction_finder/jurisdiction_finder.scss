@@ -6,6 +6,7 @@
     &-input,
     &-button {
       width: 100%;
+      overflow: hidden;
 
       &:first-child {
         margin-right: $sizeMini;
@@ -23,6 +24,27 @@
       .atm-button {
         span {
           margin: auto;
+        }
+      }
+    }
+
+    &-input {
+      min-width: 50%;
+    }
+
+
+    @include mq($from: tiny, $to: small) {
+      display: block;
+
+      &-input,
+      &-button {
+        &:first-child {
+          margin-right: 0;
+          margin-bottom: $sizeTiny;
+        }
+
+        &:last-child {
+          margin-left: 0;
         }
       }
     }
