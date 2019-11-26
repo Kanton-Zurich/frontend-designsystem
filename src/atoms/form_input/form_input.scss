@@ -167,6 +167,7 @@ $triggerWidth: pxToRem(86px);
 
   &__functionality {
     display: none;
+    line-height: 0;
 
     svg use {
       fill: $colorBlack60;
