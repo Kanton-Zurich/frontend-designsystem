@@ -11,6 +11,7 @@ const data = _.merge({}, defaultData, {
     title: 'Zuständigkeits-Finder',
     className: 'JurisdictionFinder',
     jira: 'CZHDEV-1131',
+    label: 'Applikation',
     documentation: dataHelper.getDocumentation('jurisdiction_finder.md'),
   },
   props: {
