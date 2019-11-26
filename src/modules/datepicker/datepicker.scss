@@ -22,8 +22,6 @@ $InputHeightRegular: 72px;
     .atm-form_input--floated {
       .atm-form_input__input {
         color: $colorBlack;
-        padding-top: pxToRem(35px);
-        padding-bottom: pxToRem(15px);
         z-index: 1;
       }
 

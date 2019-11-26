@@ -49,6 +49,7 @@ import Video from '../../../modules/video/video';
 import OpenData from '../../../modules/open_data/open_data';
 import CookieControls from '../../../modules/cookie_controls/cookie_controls';
 import Banner from '../../../modules/banner/banner';
+import TaxCalc from '../../../modules/tax_calc/tax_calc';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -107,6 +108,7 @@ class App {
     this.modules.video = Video;
     this.modules.cookieControls = CookieControls;
     this.modules.banner = Banner;
+    this.modules.taxCalc = TaxCalc;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

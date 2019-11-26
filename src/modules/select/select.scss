@@ -34,6 +34,12 @@ $selectHeightWithFilterExtended: 424px;
   .atm-form_input__input--trigger {
     overflow: hidden;
     text-overflow: ellipsis;
+
+    > .icon {
+      transform: rotate(0deg);
+
+      @include transition(transform, $time: $transitionTimeDefault);
+    }
   }
 
   .atm-form_input--trigger-phone {
@@ -131,7 +137,7 @@ $selectHeightWithFilterExtended: 424px;
       }
 
       .icon {
-        transform: translateY(-17%) rotate(180deg);
+        transform: rotate(180deg);
       }
     }
 
@@ -209,8 +215,8 @@ $selectHeightWithFilterExtended: 424px;
     .atm-form_input {
 
       &__input--trigger {
-        padding-top: pxToRem(35px);
-        padding-bottom: pxToRem(15px);
+        padding-top: $paddingInput + $paddingDifferenceOnFocus;
+        padding-bottom: $paddingInput - $paddingDifferenceOnFocus;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -225,6 +231,11 @@ $selectHeightWithFilterExtended: 424px;
         line-height: $sizeLineHeightBase;
         color: $colorBlack;
         transform: none;
+      }
+
+      &--trigger-phone .atm-form_input__input--trigger {
+        padding-top: $paddingInput;
+        padding-bottom: $paddingInput;
       }
     }
   }

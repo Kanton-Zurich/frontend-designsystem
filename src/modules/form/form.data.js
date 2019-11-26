@@ -402,6 +402,79 @@ const variants = _.mapValues({
       ],
     },
   },
+  taxLegal: {
+    meta: {
+      title: 'Tax Legal (CZHDEV-1238)',
+      desc: 'Selectfelder für Steuerrechner (modules/tax_calc).',
+    },
+    props: {
+      sectionTitle: false,
+      groups: [{
+        rows: [
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(selectHBS)({
+                  listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
+                    selectOptions: [
+                      { value: '0', label: 'Bitte wählen' },
+                      { value: '21', label: 'Adlikon' },
+                      { value: '131', label: 'Adliswil' },
+                      { value: '241', label: 'Aesch' },
+                      { value: '1', label: 'Aeugust am Albis' },
+                      { value: '2', label: 'Affoltern am Albis' },
+                      { value: '211', label: 'Altikon' },
+                      { value: '30', label: 'Andelfingen' },
+                      { value: '51', label: 'Bachenbülach' },
+                    ],
+                    setHiddenIndex: true,
+                  }),
+                  triggerInputData: {
+                    type: 'text',
+                    isSelectTrigger: true,
+                    isFloatingLabel: true,
+                    isInput: false,
+                    icon: 'angle_drop_down',
+                    label: 'Gemeinde',
+                    validation: {
+                      isRequired: true,
+                    },
+                  },
+                }),
+              },
+              {
+                cellContent: () => handlebars.compile(selectHBS)({
+                  listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
+                    selectOptions: [
+                      { value: '2019', label: '2019' },
+                      { value: '2018', label: '2018' },
+                      { value: '2017', label: '2017' },
+                      { value: '2016', label: '2016' },
+                      { value: '2015', label: '2015' },
+                      { value: '2014', label: '2014' },
+                    ],
+                    setHiddenIndex: true,
+                  }),
+                  triggerInputData: {
+                    type: 'text',
+                    isSelectTrigger: true,
+                    isFloatingLabel: true,
+                    isInput: false,
+                    icon: 'angle_drop_down',
+                    label: 'Select Float Label',
+                    validation: {
+                      isRequired: true,
+                    },
+                  },
+                }),
+              },
+            ],
+          },
+        ],
+      },
+      ],
+    },
+  },
   taxEntity: {
     meta: {
       title: 'Tax Entity (CZHDEV-1238)',
@@ -429,15 +502,23 @@ const variants = _.mapValues({
                         descr: 'Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer (Natürliche Personen)',
                         isChecked: false,
                         additionalAttribute: 'data-tax_calc="inputEntity"',
+                        validation: {
+                          isRequired: true,
+                        },
+                        value: 'individual',
                       })),
                     () => handlebars.compile(radioHBS)(_.merge({},
                       radioData.variants.default.props,
                       {
-                        id: 'legal_iterative',
+                        id: 'incorp',
                         groupName: 'taxEntity',
-                        label: 'Steuerrückstellung juristische Personen',
-                        descr: 'Berechnen der Steuern, ausgehend von Gewinn und Kapital vor Steuern, mit dem Zweck der Vornahme der Steuerrückstellung.',
-                        additionalAttribute: 'data-tax_calc="inputTaxTypeInc"',
+                        label: 'Unternehmen, Vereine und Stiftungen',
+                        descr: 'Berechnen des Steuerbetrag und/ oder der Steuerrückstellung für ordentlich besteuerte Gesellschaften und Genossenschaften (Juristische Personen)',
+                        additionalAttribute: 'data-tax_calc="inputEntity""',
+                        validation: {
+                          isRequired: true,
+                        },
+                        value: 'incorp',
                       })),
                   ],
                 }),

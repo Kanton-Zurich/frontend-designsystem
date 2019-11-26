@@ -20,11 +20,16 @@ class Form {
     inputClasses: any,
     validateDelay: number,
     messageClasses: any,
+    domSelectors: {
+      floating: string;
+    };
     messageSelector: string,
     duplicateSelector: string,
     selectOptionSelector: string,
     inputSelector: string,
     rulesSelector: string,
+    padding: number,
+    prefixSelector: string,
   }
 
   private eventDelegate: any;
@@ -36,6 +41,7 @@ class Form {
 
     this.options = {
       validateDelay: 400,
+      padding: 16,
       eventEmitters: {
         clearButton: '[data-buttontype="clear"]',
       },
@@ -48,10 +54,14 @@ class Form {
         valid: 'valid',
         invalid: 'invalid',
       },
+      domSelectors: {
+        floating: '[data-floating]',
+      },
       messageSelector: '[data-message]',
       selectOptionSelector: 'data-select-option',
       inputSelector: '[data-input]',
       rulesSelector: '[data-rules]',
+      prefixSelector: '.atm-form_input--unitLeft',
       messageClasses: {
         show: 'show',
       },
@@ -73,6 +83,9 @@ class Form {
     // Initialize rules
     this.initRules();
 
+    // Init fields with prefix
+    this.initPrefix();
+
     // set dirty from start
     this.setDirtyFromStart();
   }
@@ -80,7 +93,10 @@ class Form {
   addEventListeners() {
     this.eventDelegate.on('click', this.options.eventEmitters.clearButton, this.clearField.bind(this));
     this.eventDelegate.on('keyup', this.options.watchEmitters.input, debounce((event, field) => {
-      this.validateField(field);
+      if (field.type !== 'radio') this.validateField(field);
+      if (field.type === 'number' || field.type === 'text') {
+        this.checkIfFieldDirty(field);
+      }
     }, this.options.validateDelay));
     this.eventDelegate.on('blur', this.options.watchEmitters.input, (event, field) => {
       if (field.type !== 'file' && field.type !== 'radio' && !field.classList.contains('flatpickr-input')) this.validateField(field);
@@ -103,11 +119,25 @@ class Form {
     this.eventDelegate.on(FileUpload.events.duplicated, (event) => {
       this.addWatchers(event.detail);
     });
+    this.eventDelegate.on('blur', this.options.domSelectors.floating, (event, field: HTMLInputElement) => {
+      this.checkIfFieldDirty(field);
+    });
+  }
+
+  private checkIfFieldDirty(field: HTMLInputElement): void {
+    const dirtyClass = this.options.inputClasses.dirty;
+    const { classList } = field;
+    if (field.value && field.value.length > 0) {
+      if (!classList.contains(dirtyClass)) {
+        classList.add(dirtyClass);
+      }
+    } else {
+      classList.remove(dirtyClass);
+    }
   }
 
   addWatchers(targetElement = this.ui.element) {
     const watchableInputs = targetElement.querySelectorAll(this.options.watchEmitters.input);
-
     watchableInputs.forEach((input) => {
       const inputType = input.getAttribute('type');
 
@@ -183,6 +213,7 @@ class Form {
     const validation = window[namespace].form.validateField(field);
     const fileTimeout = 5;
 
+    
     field.closest(this.options.inputSelector).querySelectorAll(this.options.messageSelector)
       .forEach((message) => {
         message.classList.remove(this.options.messageClasses.show);
@@ -290,6 +321,19 @@ class Form {
 
     rulesElements.forEach(($elementWithARule) => {
       new FormRules($elementWithARule);
+    });
+  }
+
+  initPrefix() {
+    const inputWithPrefix = this.ui.element.querySelectorAll(this.options.prefixSelector);
+    const paddingMultiplier = 1.5;
+
+    inputWithPrefix.forEach((prefixedInput) => {
+      const unit = prefixedInput.querySelector('.atm-form_input__unit');
+      const unitWidth = unit.getBoundingClientRect().width;
+      const input = prefixedInput.querySelector('input');
+
+      input.style.paddingLeft = `${unitWidth + this.options.padding * paddingMultiplier}px`;
     });
   }
 }

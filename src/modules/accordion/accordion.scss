@@ -71,6 +71,7 @@ $accordionMap: (
 
       .mdl-accordion__subhead {
         opacity: 0;
+        padding: 0;
         transition: none;
       }
     }
@@ -90,11 +91,21 @@ $accordionMap: (
   }
 
   &__button {
-    display: flex;
     width: 100%;
 
-    justify-content: space-between;
-    align-items: center;
+    &:not(.mdl-accordion__button--subhead) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &--subhead {
+      &__flexbox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
   }
 
   &__header {
@@ -106,11 +117,13 @@ $accordionMap: (
     bottom: pxToRem($sizeMini);
     margin-top: pxToRem(- $sizeRegular);
     line-height: pxToRem($sizeLarge);
+    padding-bottom: pxToRem($sizeSmallLarge);
     color: $colorBlack60;
     font-weight: $fontWeightDefault;
     opacity: 1;
     display: block;
-    transition: opacity 800ms;
+
+    @include transition(opacity padding);
   }
 
   &__control {

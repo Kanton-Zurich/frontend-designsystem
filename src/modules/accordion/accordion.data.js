@@ -167,6 +167,7 @@ const variants = _.mapValues({
       accordionHeading: {
         title: false,
       },
+      toggleAll: true,
       items: [{
         title: 'Für wen möchten Sie den Steuerbetrag berechnen?',
         subHead: 'Unternehmen, Vereine und Stiftungen',

@@ -240,14 +240,14 @@ class NewsOverview extends Module {
     const filterHash = this.createObjectHash(this.filterLists);
     const dateHash = this.createObjectHash(this.dateRange);
     const searchWordHash = this.createObjectHash(this.searchWord);
-    if (this.searchWord !== '' && this.searchWordHash !== searchWordHash) {
-      (<HTMLButtonElement> this.ui.sortDropdown
-        .querySelector('button[data-sort="relevance"]')).click();
-    }
     // only reload view if there is a change or forced load
     if (forced || this.filterHash !== filterHash
       || this.dateHash !== dateHash
       || this.searchWordHash !== searchWordHash) {
+      if (this.searchWord !== '') {
+        (<HTMLButtonElement> this.ui.sortDropdown
+          .querySelector('button[data-sort="relevance"]')).click();
+      }
       if (updateFilterPills) {
         this.updatePills();
       }
@@ -416,6 +416,7 @@ class NewsOverview extends Module {
       await import('whatwg-fetch');
     }
     this.currentUrl = this.constructUrl();
+
     return fetch(this.currentUrl)
       .then(response => response.json())
       .then((response) => {
@@ -481,6 +482,7 @@ class NewsOverview extends Module {
       element.innerHTML = this.teaserItemFromTemplate(this.ui.teaserTemplate.innerHTML, item);
       this.ui.list.appendChild(element);
     });
+    (<any>window).estatico.lineClamper.updateLineClamping();
     this.updateFlyingFocus(this.options.loadDelay);
   }
 
@@ -490,7 +492,10 @@ class NewsOverview extends Module {
    * @param props
    */
   private teaserItemFromTemplate(teaserTemplate, props) {
-    const compiled = template(teaserTemplate.replace(/this\./gm, 'self.')); // eslint-disable-line
+    let tmp = teaserTemplate.replace(/this\./gm, 'self.');
+    tmp = tmp.replace(/=else/gm, ' } else { ');
+
+    const compiled = template(tmp); // eslint-disable-line
     const data = {
       self: props,
     };
