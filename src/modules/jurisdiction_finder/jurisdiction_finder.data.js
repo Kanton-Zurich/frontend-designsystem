@@ -3,6 +3,7 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defSearchInputData = require('../../atoms/form_input/form_input.data');
+const defLocationsData = require('../locations/locations.data').variants.noFilter.props;
 
 const template = dataHelper.getFileContent('jurisdiction_finder.hbs');
 const data = _.merge({}, defaultData, {
@@ -14,11 +15,13 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     text: 'Geben Sie Ihre Postleitzahl ein, um die Beratungsangebote in Ihrer Nähe zu finden.',
+    headingPattern: 'Beratungsangebote für &laquo;%s&raquo;',
     buttonData: {
       text: 'Beratungsangebote anzeigen',
       isTextVisible: true,
       additionalAttribute: 'type="button"',
     },
+    locationsData: defLocationsData,
     searchInputData: _.merge({}, defSearchInputData.props, {
       label: 'PLZ',
       type: 'text',

@@ -118,10 +118,8 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('locations.md'),
   },
   props: {
-    title: {
-      level: 2,
-      text: 'Standorte des Strassenverkehrsamtes',
-    },
+    title: 'Standorte des Strassenverkehrsamtes',
+    headingLevel: 2,
     noPlzFound: 'Keine PLZ / Ort gefunden',
     locationsFormInput: _.merge({}, inputClearButtonSmallWithIconData, {
       label: 'Standorte filter',
@@ -191,9 +189,16 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
     props: {
+      title: null,
       locationsList: {
         hasIndex: true,
         links: locationsAsListItemLinks,
+      },
+      errorMessage: {
+        message: 'Für diese Postleitzahl wurde nichts gefunden. Bitte prüfen Sie Ihre Eingabe.',
+        icon: '#caution',
+        isGreen: false,
+        isBig: false,
       },
       locationContacts: locationsAsContacts,
       subTitle: 'Beratungsangebote für 8302 Kloten',
@@ -205,7 +210,7 @@ const variants = _.mapValues({
   },
   singleLocation: {
     meta: {
-      title: 'Only one',
+      title: 'Nur ein Eintrag',
       desc: 'Shows module with only one single location entry.',
     },
     props: {
@@ -217,6 +222,23 @@ const variants = _.mapValues({
       mapData: {
         mapId: _.uniqueId('locations_map'),
         mapMarker: [locationsLatLng[0]],
+      },
+    },
+  },
+  empty: {
+    meta: {
+      title: 'Leer',
+      desc: 'Shows module with only one single location entry.',
+    },
+    props: {
+      locationsList: {
+        hasIndex: true,
+        links: [],
+      },
+      locationContacts: [],
+      mapData: {
+        mapId: _.uniqueId('locations_map'),
+        mapMarker: [],
       },
     },
   },

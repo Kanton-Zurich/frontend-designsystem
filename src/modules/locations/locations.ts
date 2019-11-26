@@ -12,6 +12,7 @@ import {
   DefaultOptions,
   LocationsModuleOptions, // eslint-disable-line no-unused-vars
 } from './locations.options';
+import WindowEventListener from '../../assets/js/helpers/events';
 
 class Locations extends Module {
   public ui: {
@@ -19,6 +20,8 @@ class Locations extends Module {
     filterInput: HTMLInputElement,
     sidebar: HTMLDivElement,
     backBtn: HTMLButtonElement,
+    filterHead: HTMLDivElement,
+    linkList: HTMLDivElement,
     listItems: HTMLAnchorElement | HTMLAnchorElement[],
     detailNodes: HTMLDivElement | HTMLDivElement[],
     map: HTMLDivElement,
@@ -47,12 +50,15 @@ class Locations extends Module {
 
   static get events() {
     return {
-      // eventname: `eventname.${ Locations.name }.${  }`
+      filterLocations: `eventname.${Locations.name}.filter_locations`,
+      triggerBackButton: `eventname.${Locations.name}.trigger_back_button`,
     };
   }
 
   initWatchers() {
-    this.watch(this.ui.filterInput, 'value', this.onFilterValueChange.bind(this));
+    if (this.ui.filterInput) {
+      this.watch(this.ui.filterInput, 'value', this.onFilterValueChange.bind(this));
+    }
   }
 
   /**
@@ -113,7 +119,8 @@ class Locations extends Module {
         const markerMouseOverIdx = ev.detail.idx;
         this.log('Mouseover from map on marker', markerMouseOverIdx);
 
-        if (this.ui.listItems[0]) {
+        if (this.ui.listItems && [].slice.call(this.ui.listItems).length > 0
+          && this.ui.listItems[0]) {
           (this.ui.listItems as HTMLAnchorElement[]).forEach((listItem, i) => {
             if (markerMouseOverIdx === i) {
               listItem.classList.add(this.options.stateClasses.mapMarkerIsHovered);
@@ -131,15 +138,14 @@ class Locations extends Module {
         }
       });
 
-    const listItems = [].slice.call(this.ui.listItems);
-    if (listItems.length > 1) {
-      this.ui.map
-        .addEventListener(MapView.events.markerClicked, (ev: MarkerEvent) => {
+    this.ui.map
+      .addEventListener(MapView.events.markerClicked, (ev: MarkerEvent) => {
+        if ([].slice.call(this.ui.listItems).length > 1) {
           const clickedIdx = ev.detail.idx;
           this.log('Marker clicked in map', clickedIdx);
           this.toggleLocationDetails(clickedIdx);
-        });
-    }
+        }
+      });
 
     this.ui.map
       .addEventListener(MapView.events.userLocated, (ev: UserLocateEvent) => {
@@ -157,35 +163,14 @@ class Locations extends Module {
           this.sortListItemsByDistance();
         }
       });
-  }
 
-  private addDistanceToListItem(item: HTMLElement, d: number) {
-    const distanceNote = item.querySelector(this.options.domSelectors.distanceAnnotation);
-    if (distanceNote) {
-      const fomatedDistanceString = d.toLocaleString('de', { maximumFractionDigits: 1 });
-      distanceNote.innerHTML = `${fomatedDistanceString}&nbsp;km`;
-    }
-    item.parentElement.setAttribute(this.options.attrNames.locDistance, d.toString());
-  }
+    this.ui.element
+      .addEventListener(Locations.events.filterLocations, this.onFilterEvent.bind(this));
+    this.ui.element
+      .addEventListener(Locations.events.triggerBackButton, this.onTriggerBackButton.bind(this));
 
-  private sortListItemsByDistance() {
-    if (this.ui.listItems[0]) {
-      const lis: HTMLElement[] = [];
-      (this.ui.listItems as HTMLElement[]).forEach((item) => {
-        lis.push(item.parentElement);
-      });
-
-      lis.sort((a, b) => {
-        const distA = a.getAttribute(this.options.attrNames.locDistance);
-        const distB = b.getAttribute(this.options.attrNames.locDistance);
-        return parseInt(distA, 10) - parseInt(distB, 10);
-      });
-
-      const ul = lis[0].parentNode;
-      lis.forEach((sortItem) => {
-        ul.appendChild(sortItem);
-      });
-    }
+    (<any>WindowEventListener).addDebouncedResizeListener(this.setSideBarScrollArea.bind(this));
+    this.setSideBarScrollArea();
   }
 
   private onListItemsSelect(selectEventTarget?: HTMLElement): void {
@@ -206,6 +191,56 @@ class Locations extends Module {
     this.toggleLocationDetails(selectedItemIndex);
   }
 
+  private onFilterValueChange(propName, valueBefore, valueAfter) {
+    this.log('Filter Value changed', valueAfter);
+    const sidebarClasses = this.ui.sidebar.classList;
+    if (!sidebarClasses.contains(this.options.stateClasses.sidebar.opened)) {
+      sidebarClasses.add(this.options.stateClasses.sidebar.opened);
+    }
+    this.filterListItemsByText(valueAfter);
+  }
+
+  private onFilterEvent(evt: any) {
+    this.filterListItemsByText(evt.detail.text);
+  }
+
+  private onTriggerBackButton() {
+    this.ui.backBtn.click();
+  }
+
+  private setSideBarScrollArea() {
+    this.ui.linkList.style.height = `calc(100% - ${this.ui.filterHead.clientHeight + 8}px)`; // eslint-disable-line
+  }
+
+  private addDistanceToListItem(item: HTMLElement, d: number) {
+    const distanceNote = item.querySelector(this.options.domSelectors.distanceAnnotation);
+    if (distanceNote) {
+      const fomatedDistanceString = d.toLocaleString('de', { maximumFractionDigits: 1 });
+      distanceNote.innerHTML = `${fomatedDistanceString}&nbsp;km`;
+    }
+    item.parentElement.setAttribute(this.options.attrNames.locDistance, d.toString());
+  }
+
+  private sortListItemsByDistance() {
+    if (this.ui.listItems && [].slice.call(this.ui.listItems).length > 0 && this.ui.listItems[0]) {
+      const lis: HTMLElement[] = [];
+      (this.ui.listItems as HTMLElement[]).forEach((item) => {
+        lis.push(item.parentElement);
+      });
+
+      lis.sort((a, b) => {
+        const distA = a.getAttribute(this.options.attrNames.locDistance);
+        const distB = b.getAttribute(this.options.attrNames.locDistance);
+        return parseInt(distA, 10) - parseInt(distB, 10);
+      });
+
+      const ul = lis[0].parentNode;
+      lis.forEach((sortItem) => {
+        ul.appendChild(sortItem);
+      });
+    }
+  }
+
   private toggleLocationDetails(selectedItemIdx?: number): void {
     if (selectedItemIdx >= 0) {
       this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.onDetails);
@@ -222,7 +257,7 @@ class Locations extends Module {
   }
 
   private toggleSidebarTabIndices(onDetails: boolean = false, initialLoad: boolean = false): void {
-    if (this.ui.listItems[0]) {
+    if (this.ui.listItems && [].slice.call(this.ui.listItems).length > 0 && this.ui.listItems[0]) {
       (<HTMLAnchorElement[]> this.ui.listItems).forEach((listItem) => {
         this.setTabable(listItem, !onDetails);
       });
@@ -238,16 +273,9 @@ class Locations extends Module {
   }
 
   private setTabable(el: HTMLElement, tabable: boolean) {
-    el.setAttribute('tabindex', tabable ? '0' : '-1');
-  }
-
-  private onFilterValueChange(propName, valueBefore, valueAfter) {
-    this.log('Filter Value changed', valueAfter);
-    const sidebarClasses = this.ui.sidebar.classList;
-    if (!sidebarClasses.contains(this.options.stateClasses.sidebar.opened)) {
-      sidebarClasses.add(this.options.stateClasses.sidebar.opened);
+    if (el) {
+      el.setAttribute('tabindex', tabable ? '0' : '-1');
     }
-    this.filterListItemsByText(valueAfter);
   }
 
   private filterListItemsByText(filterText: string): void {
@@ -255,24 +283,28 @@ class Locations extends Module {
 
     const listItems = this.ui.listItems as HTMLAnchorElement[];
     let countHidden = 0;
-    listItems.forEach((listNode) => {
+    listItems.forEach((listNode, index) => {
       const parentClasses = listNode.parentElement.classList;
       if (pattern.test(listNode.innerText)) {
+        this.ui.map.dispatchEvent(MapView.extMarkerShowHide(index, true));
         parentClasses.remove('hide');
       } else {
+        this.ui.map.dispatchEvent(MapView.extMarkerShowHide(index, false));
         parentClasses.add('hide');
         countHidden += 1;
       }
     });
 
     if (countHidden === listItems.length) {
-      this.ui.emptyListHint.childNodes.forEach((childNode) => {
-        if (!childNode.hasChildNodes() && childNode.textContent
-          && childNode.textContent.trim().length > 0) {
-          childNode.textContent = this.ui.notFoundTextTemplate.content
-            .textContent.replace('{searchTerm}', filterText);
-        }
-      });
+      if (this.ui.emptyListHint) {
+        this.ui.emptyListHint.childNodes.forEach((childNode) => {
+          if (!childNode.hasChildNodes() && childNode.textContent
+            && childNode.textContent.trim().length > 0) {
+            childNode.textContent = this.ui.notFoundTextTemplate.content
+              .textContent.replace('{searchTerm}', filterText);
+          }
+        });
+      }
       this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.notFound);
     } else {
       this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.notFound);
@@ -280,7 +312,8 @@ class Locations extends Module {
   }
 
   private showLocationDetailsForIndex(indexToShow: number, setHeadFocus: boolean = true): void {
-    if (this.ui.detailNodes[0]) {
+    if (this.ui.detailNodes && [].slice.call(this.ui.detailNodes).length > 0
+      && this.ui.detailNodes[0]) {
       (<HTMLDivElement[]> this.ui.detailNodes).forEach((detailsContainer, i) => {
         if (i === indexToShow) {
           detailsContainer.classList.add(this.options.stateClasses.detailShow);
@@ -293,14 +326,16 @@ class Locations extends Module {
       });
     } else {
       const detailsContainer = <HTMLDivElement> this.ui.detailNodes;
-      if (indexToShow === 0) {
-        detailsContainer.classList.add(this.options.stateClasses.detailShow);
-      } else {
-        detailsContainer.classList.remove(this.options.stateClasses.detailShow);
+      if (detailsContainer) {
+        if (indexToShow === 0) {
+          detailsContainer.classList.add(this.options.stateClasses.detailShow);
+        } else {
+          detailsContainer.classList.remove(this.options.stateClasses.detailShow);
+        }
+        detailsContainer.querySelectorAll('a').forEach((anchorEl) => {
+          this.setTabable(anchorEl, indexToShow === 0);
+        });
       }
-      detailsContainer.querySelectorAll('a').forEach((anchorEl) => {
-        this.setTabable(anchorEl, indexToShow === 0);
-      });
     }
 
     if (setHeadFocus) {
@@ -309,9 +344,11 @@ class Locations extends Module {
           this.ui.backBtn.focus();
         }, this.options.focusDelay);
       } else {
-        setTimeout(() => {
-          this.ui.filterInput.focus();
-        }, this.options.focusDelay);
+        if (this.ui.filterInput) {
+          setTimeout(() => {
+            this.ui.filterInput.focus();
+          }, this.options.focusDelay);
+        }
       }
     }
   }

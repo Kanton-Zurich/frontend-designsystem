@@ -14,10 +14,9 @@ $mapRatioMedium: 1;
 $mapRatioSmall: 0.75;
 
 .sidebarhead {
-  position: absolute;
+  position: relative;
   padding: pxToRem($sizeRegular) 0;
-  width: calc(50% - #{$sizeBig});
-  background: $colorWhite;
+  width: 100%;
   z-index: 10;
 }
 
@@ -114,6 +113,13 @@ $mapRatioSmall: 0.75;
       @extend .sidebarhead;
       padding-bottom: pxToRem($sizeTiny);
 
+      .mdl-locations__subtitle {
+        &.atm-heading {
+          margin-left: $sizeRegular;
+          @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+        }
+      }
+
       .atm-button {
         display: none;
       }
@@ -121,7 +127,6 @@ $mapRatioSmall: 0.75;
 
     .mdl-linklist {
       @extend .sideBarScrollContainer;
-      margin-top: pxToRem($sideBarHeadHeight);
       padding: 0 pxToRem($sizeRegular);
 
       li {
@@ -149,7 +154,6 @@ $mapRatioSmall: 0.75;
     }
 
     &_empty {
-      margin-top: pxToRem($sideBarHeadHeight);
       display: none;
       padding: 0 pxToRem($sizeRegular);
 
@@ -170,6 +174,7 @@ $mapRatioSmall: 0.75;
 
   &__details {
     padding: pxToRem($sizeRegular);
+    padding-bottom: 0;
     width: 50%;
     height: 100%;
     float: right;
@@ -188,7 +193,6 @@ $mapRatioSmall: 0.75;
 
       &.show {
         display: block;
-        margin-top: pxToRem($sideBarHeadHeight);
         max-height: 100%;
       }
 
@@ -226,9 +230,9 @@ $mapRatioSmall: 0.75;
   }
 
   @include mq($to: medium) {
-    .sidebarhead {
+   /* .sidebarhead {
       width: calc(50% - #{$sizeLarge});
-    }
+    } */
 
     .mdl-locations {
       &__wrapper {
@@ -254,7 +258,6 @@ $mapRatioSmall: 0.75;
           max-height: 0;
           padding: 0 pxToRem($sizeRegular);
           transition: max-height, margin-top 400ms, 200ms ease-out;
-          margin-top: pxToRem($sideBarHeadHeight - $sizeRegular);
         }
 
         .mdl-locations__details_location.show {
@@ -264,7 +267,6 @@ $mapRatioSmall: 0.75;
         &.opened {
           .mdl-linklist {
             max-height: calc(100vw - #{$sizeBiggerBig + 3 * $sizeRegular});
-            margin-top: pxToRem($sideBarHeadHeight);
           }
 
           .mdl-locations__details_location.show {
@@ -312,7 +314,6 @@ $mapRatioSmall: 0.75;
           }
 
           &_location {
-            margin-top: pxToRem($sideBarHeadHeight - $sizeRegular);
             max-height: 0;
 
             &.show {

@@ -1,6 +1,7 @@
 .mdl-jurisdiction_finder {
   &__form {
     display: flex;
+    padding-bottom: $sizeLarge;
 
     &-input,
     &-button {
@@ -24,6 +25,14 @@
           margin: auto;
         }
       }
+    }
+  }
+
+  .mdl-locations {
+    display: none;
+
+    &.visible {
+      display: block;
     }
   }
 }

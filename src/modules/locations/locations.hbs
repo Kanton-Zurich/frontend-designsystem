@@ -1,6 +1,6 @@
 <div class="mdl-locations" data-init="locations">
     {{#if title}} <div class="mdl-locations__title">
-        <h{{{title.level}}} class="atm-heading atm-heading--bordered">{{ title.text }}</h{{{title.level}}}>
+        <h{{{headingLevel}}} class="atm-heading atm-heading--bordered">{{ title }}</h{{{headingLevel}}}>
     </div> {{/if}}
     <div class="mdl-locations__wrapper">
       <div class="mdl-locations__map" data-locations="map">
@@ -13,21 +13,26 @@
             <div class="mdl-locations__filter_head">
               {{#if hasFilter}}
               <form novalidate>{{> "atoms/form_input/form_input" locationsFormInput }}</form>
-              {{> "atoms/button/button" toggleListBtn }}
               {{/if}}
               {{#if subTitle}}
-                <h3 class="atm-heading mdl-locations__subtitle">
+                <h{{increment headingLevel}} class="atm-heading mdl-locations__subtitle">
                   {{subTitle}}
-                </h3>
+                </h{{increment headingLevel}}>
               {{/if}}
+              {{> "atoms/button/button" toggleListBtn }}
             </div>
 
             <div class="mdl-locations__filter_empty">
-                <strong>{{noPlzFound}}</strong>
-                {{> "atoms/text_link/text_link" textLinkNoResult }}
-                <template data-locations="emptyNoteTextTemplate">
-                    {{textLinkNoResult.text}}
-                </template>
+              {{#unless errorMessage}}
+              <strong>{{noPlzFound}}</strong>
+              {{> "atoms/text_link/text_link" textLinkNoResult }}
+              <template data-locations="emptyNoteTextTemplate">
+                  {{textLinkNoResult.text}}
+              </template>
+              {{/unless}}
+              {{#if errorMessage}}
+                {{> "atoms/notification/notification" errorMessage }}
+              {{/if}}
             </div>
             {{> "modules/linklist/linklist" locationsList}}
           </div>
