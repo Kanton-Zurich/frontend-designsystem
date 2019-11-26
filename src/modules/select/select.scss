@@ -34,6 +34,12 @@ $selectHeightWithFilterExtended: 424px;
   .atm-form_input__input--trigger {
     overflow: hidden;
     text-overflow: ellipsis;
+
+    > .icon {
+      transform: rotate(0deg);
+
+      @include transition(transform, $time: $transitionTimeDefault);
+    }
   }
 
   .atm-form_input--trigger-phone {
@@ -131,7 +137,7 @@ $selectHeightWithFilterExtended: 424px;
       }
 
       .icon {
-        transform: translateY(-17%) rotate(180deg);
+        transform: rotate(180deg);
       }
     }
 
