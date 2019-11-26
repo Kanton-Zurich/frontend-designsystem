@@ -19,6 +19,14 @@
     overflow: hidden;
   }
 
+  &__no-results {
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
+
   &__filter {
     display: flex;
     flex-wrap: wrap;

@@ -45,6 +45,10 @@
           </div>
           <div class="mdl-news-teaser mdl-news-overview__newsgrid">
             <div class="mdl-news-teaser__content">
+              {{> "atoms/loading_circle/loading_circle"}}
+              <div class="mdl-news-overview__no-results mdl-texthighlight">
+                <p class="atm-paragraph">{{noResults}}</p>
+              </div>
               <script data-teaser-template type="text/x-handlebars-template">
                 {{{ newsTeaserTemplate }}}
               </script>
@@ -55,8 +59,6 @@
               {{> "modules/pagination/pagination" }}
             </div>
           </div>
-
-          {{> "atoms/loading_circle/loading_circle"}}
         </div>
       </div>
     </div>
