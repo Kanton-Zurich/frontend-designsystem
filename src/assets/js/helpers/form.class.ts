@@ -83,6 +83,12 @@ class Form {
     this.setDirtyFromStart();
   }
 
+  static get events() {
+    return {
+      clearInput: 'Input.clear',
+    };
+  }
+
   addEventListeners() {
     this.eventDelegate.on('click', this.options.eventEmitters.clearButton, this.clearField.bind(this));
     this.eventDelegate.on('keyup', this.options.watchEmitters.input, debounce((event, field) => {
@@ -200,6 +206,8 @@ class Form {
     const inputElement = delegate.parentElement.firstElementChild;
     inputElement.value = '';
     inputElement.focus();
+
+    inputElement.dispatchEvent(new CustomEvent(Form.events.clearInput));
   }
 
   validateField(field) {
