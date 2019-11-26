@@ -41,15 +41,13 @@ $contactMapHeightCurve: (
     @include sizeCurve(margin-bottom, makespace, $contactMapHeightCurve);
   }
 
-  .atm-heading {
+  .atm-heading--bordered {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
     line-height: $sizeLineHeightMedium;
     margin-bottom: pxToRem($sizeLarge);
 
-    &--bordered {
-      &:before {
-        background: $colorWhite;
-      }
+    &:before {
+      background: $colorWhite;
     }
   }
 
@@ -114,6 +112,65 @@ $contactMapHeightCurve: (
       margin-top: pxToRem($sizeRegular);
     }
   }
+
+  &__section-cell--media {
+    margin-top: calc(#{$sizeBiggerBig} + #{$sizeLarge});
+    height: 38px;
+
+    .mdl-contact__media-trigger {
+      span:last-of-type {
+        display: none;
+      }
+
+      svg {
+        transition: transform 200ms ease-out 100ms;
+        transform: translateY(-50%) scale(0.6563) rotate(0deg);
+      }
+    }
+
+    .mdl-contact__cell-content {
+      transition: transform 200ms ease-out 100ms;
+      transform: scaleY(0);
+      visibility: hidden;
+    }
+
+    .mdl-contact__text {
+      margin-top: pxToRem($sizeSmallRegular);
+
+      a:not(.atm-button) {
+        text-decoration: none;
+        border-bottom: 1px solid $colorWhite;
+      }
+
+      .atm-button {
+        margin-top: pxToRem($sizeLarge);
+      }
+    }
+
+    &.open {
+      height: auto;
+
+      .mdl-contact__media-trigger {
+        span:first-of-type {
+          display: none;
+        }
+
+        span:last-of-type {
+          display: inline;
+        }
+
+        svg {
+          transform: translateY(-50%) scale(0.6563) rotate(45deg);
+        }
+      }
+
+      .mdl-contact__cell-content {
+        transform: scaleY(1);
+        visibility: visible;
+      }
+    }
+  }
+
 
   &__cell-icon {
     display: inline-flex;
@@ -335,7 +392,7 @@ $contactMapHeightCurve: (
       }
     }
 
-    .mdl-contact__section-cell {
+    .mdl-contact__section-cell:not(.mdl-contact__section-cell--media) {
       margin-top: 0;
     }
 
