@@ -35,6 +35,7 @@ class SearchPage extends Module {
     url: string,
     minInputLength: number,
     autosuggestURL: string,
+    autocorrect: string,
   }
 
   public data: {
@@ -71,6 +72,8 @@ class SearchPage extends Module {
         autosuggestTemplate: '[data-search_page="autosuggestTemplate"]',
         dateFilter: '[data-search_page="dateFilter"]',
         datePicker: '[data-init="datepicker"]',
+        force: '[data-search_page="force"]',
+        autocorrect: '[data-search_page="autocorrect"]',
       },
       stateClasses: {
         showResults: 'mdl-search_page--show-results',
@@ -117,6 +120,10 @@ class SearchPage extends Module {
       return false;
     });
 
+    this.eventDelegate.on('click', this.options.domSelectors.force, (event, delegate) => {
+      this.onQueryChange(null, null, delegate.textContent, true);
+    });
+
     this.ui.pagination.addEventListener(Pagination.events.change, this.onPageChange.bind(this));
 
     this.ui.element.addEventListener(Autosuggest.events.termSelected, (event) => {
@@ -156,7 +163,7 @@ class SearchPage extends Module {
    * @param {string} newValue
    * @memberof SearchPage
    */
-  async onQueryChange(propName, oldValue, newValue) {
+  async onQueryChange(propName, oldValue, newValue, noAutoCorrection: boolean = false) {
     this.ui.autosuggest.dispatchEvent(new CustomEvent(Autosuggest.events.empty));
     this.empty();
     this.data.page = 1;
@@ -180,7 +187,7 @@ class SearchPage extends Module {
     this.query = newValue;
     this.setFilterInUrl();
 
-    return this.getData(this.generateParams(true),
+    return this.getData(this.generateParams(true, false, false, false, noAutoCorrection),
       (response) => {
         this.result = response;
 
@@ -207,11 +214,12 @@ class SearchPage extends Module {
     type: boolean = false,
     page: boolean = false,
     dates: boolean = false,
+    noAutoCorrection: boolean = false,
   ) {
     const paramObj: any = {};
 
     if (query && this.query && this.query !== '') {
-      paramObj.q = this.query;
+      paramObj.fullText = this.query;
     }
 
     if (type && this.data.type !== 'all') {
@@ -221,6 +229,8 @@ class SearchPage extends Module {
     if (page && this.data.page !== 1) {
       paramObj.page = this.data.page;
     }
+
+    paramObj.noAutoCorrection = noAutoCorrection.toString();
 
     if (dates
       && (typeof this.data.dateFrom !== 'undefined'
@@ -306,8 +316,13 @@ class SearchPage extends Module {
   }
 
   renderHead() {
+    const autocorrection = {
+      originalTerm: this.query,
+      autocorrectedTerm: this.result.autoCorrectedTerm ? this.result.autoCorrectedTerm : '',
+    };
+
     const compiledTemplate = template(this.ui.resultsHeadTemplate.innerHTML);
-    const generatedHTML = compiledTemplate(this.result.resultsData);
+    const generatedHTML = compiledTemplate({ ...this.result.resultsData, ...autocorrection });
     const parsedHTML = new DOMParser().parseFromString(generatedHTML, 'text/html').querySelector('div');
 
     this.ui.resultsHead.appendChild(parsedHTML);
@@ -331,6 +346,10 @@ class SearchPage extends Module {
 
       this.onFilterChange(false);
     });
+
+    if (autocorrection.autocorrectedTerm !== '') {
+      parsedHTML.querySelector(this.options.domSelectors.autocorrect).style.display = 'inline';
+    }
   }
 
   renderList() {
@@ -407,6 +426,7 @@ class SearchPage extends Module {
 
     if (query) {
       this.ui.input.value = query;
+      this.query = query;
     }
     if (type) {
       this.data.type = type;
