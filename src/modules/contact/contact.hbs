@@ -12,6 +12,23 @@
   {{#if contactSubtitle}}
     <h3 class="mdl-contact__subtitle">
       {{contactSubtitle}}
+      {{#unless contactLead}}
+          {{#if contactSubtitleMoreInfo}}
+            <br>
+            <a href="{{contactSubtitleMoreInfo.href}}">
+              {{contactSubtitleMoreInfo.label}}
+              <svg class="icon">
+                <use xlink:href="#arrow-right"></use>
+              </svg>
+            </a>
+          {{/if}}
+      {{/unless}}
+    </h3>
+  {{/if}}
+
+  {{#if contactLead}}
+    <p class="mdl-contact__lead">
+      {{contactLead}}
       {{#if contactSubtitleMoreInfo}}
         <br>
         <a href="{{contactSubtitleMoreInfo.href}}">
@@ -21,7 +38,7 @@
           </svg>
         </a>
       {{/if}}
-    </h3>
+    </p>
   {{/if}}
 
   <div class="mdl-contact__section grid-x{{#if fullWidth}} grid-margin-x{{/if}}">

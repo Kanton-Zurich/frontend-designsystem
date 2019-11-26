@@ -15,7 +15,12 @@ $contactMapHeightCurve: (
     medium: $contactMapHeightMedium - $sizeHuge + $sizeBig,
     large: $contactMapHeightMedium - $sizeHuge + $sizeBig,
     xlarge: $contactMapHeightLarge,
-  )
+  ),
+  leadBottomSpace: (
+    tiny: $sizeBig,
+    medium: $sizeLarge,
+    xlarge: $sizeBig,
+  ),
 );
 
 .mdl-contact {
@@ -60,25 +65,38 @@ $contactMapHeightCurve: (
     margin-top: 0;
 
     a {
-      display: inline-block;
-      position: relative;
-      color: inherit;
-      font-size: $sizeFontRegular;
-      font-family: $fontFamilyBase;
-      line-height: $sizeLineHeightBase;
-      padding-right: pxToRem(27px);
       margin-bottom: pxToRem($sizeTiny);
-      text-decoration: none;
+    }
+  }
 
-      svg {
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
+  &__lead {
+    @include sizeCurve(margin-bottom, leadBottomSpace, $contactMapHeightCurve);
+    margin-top: - pxToRem($sizeRegular);
 
-        use {
-          fill: $colorWhite;
-        }
+    a {
+      margin-top: pxToRem($sizeTiny);
+    }
+  }
+
+  &__subtitle a,
+  &__lead a {
+    display: inline-block;
+    position: relative;
+    color: inherit;
+    font-size: $sizeFontRegular;
+    font-family: $fontFamilyBase;
+    line-height: $sizeLineHeightBase;
+    padding-right: pxToRem(27px); //stylelint-disable-line
+    text-decoration: none;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+
+      use {
+        fill: $colorWhite;
       }
     }
   }
@@ -328,6 +346,14 @@ $contactMapHeightCurve: (
       }
     }
 
+    &__lead {
+      margin-top: 0;
+
+      a {
+        margin-top: 0;
+      }
+    }
+
     .atm-heading {
       line-height: $sizeLineHeightNarrow;
     }
@@ -390,6 +416,14 @@ $contactMapHeightCurve: (
 
       a {
         padding-left: pxToRem(18px);
+      }
+    }
+
+    &__lead {
+      margin-top: - pxToRem($sizeLarge);
+
+      a {
+        margin-top: pxToRem($sizeTiny);
       }
     }
 
