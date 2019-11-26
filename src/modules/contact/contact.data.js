@@ -288,6 +288,45 @@ const variants = _.mapValues({
       },
     },
   },
+  withLead: {
+    meta: {
+      title: 'Kontakt mit Titel, Subtitel, Lead und Karte',
+      desc: 'Darstellung eines Kontakts mit Titel, Subtitel, Lead und Karte',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Amt für Abfall, Wasser, Energie und Luft',
+      contactLead: 'Abteilung Gewässerschutz, Sektion Abwasserreinigungsanlagen',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+      },
+      contactAddress: {
+        street: 'Walcheplatz 2',
+        zip: '8090',
+        city: 'Zürich',
+      },
+      contactPhone: [{
+        anchorLabel: '+41 43 258 61 00',
+        phoneNumer: '+41432586100',
+        additionalInfo: 'Allgemeint Fragen',
+      }],
+      contactMail: {
+        address: 'awel@bd.zh.ch',
+      },
+      mapData: _.merge({}, mapViewDefaultData, {
+        mapId: 'contact-map',
+        withUserLocate: false,
+        mapMarker: [
+          { lat: 47.380467, lng: 8.548396 },
+        ],
+        directions: {
+          enabled: true,
+        },
+      }),
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

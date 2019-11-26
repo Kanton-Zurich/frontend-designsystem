@@ -1,9 +1,9 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const selectData = require('../select/select.data.js');
-const demoTeaserData = require('../teaser/teaser.data').variants.inverted.props;
+const demoTeaserData = require('../teaser/teaser.data').variants.invertedLabeled.props;
 const defDatePickerData = require('../datepicker/datepicker.data.js');
 const defNewsFilterMobileData = require('../news_filter_mobile/news_filter_mobile.data.js');
 const defFilterPillsData = require('../filter_pills/filter_pills.data.js');
@@ -144,7 +144,7 @@ const data = _.merge({}, defaultData, {
       isTextVisible: true,
       additionalAttribute: 'type="button" data-news-filter-mobile',
     },
-    newsFilterMobileData:_.merge({}, defNewsFilterMobileData.props, {
+    newsFilterMobileData: _.merge({}, defNewsFilterMobileData.props, {
       modalId: 'news-filter-mobile',
     }),
     prominentTeaser: demoTeaserData,
