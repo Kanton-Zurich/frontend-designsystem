@@ -192,7 +192,20 @@ const variants = _.mapValues({
       title: null,
       locationsList: {
         hasIndex: true,
-        links: locationsAsListItemLinks,
+        links: _.merge({}, locationsAsListItemLinks, [{
+          additionalAttributes: 'data-locations="listItem" data-filter-attr="8000,8001"',
+        }, {
+          additionalAttributes: 'data-locations="listItem" data-filter-attr="8000,8002"',
+        }, {
+          additionalAttributes: 'data-locations="listItem" data-filter-attr="8000,8001"',
+        }, {
+          additionalAttributes: 'data-locations="listItem" data-filter-attr="8000"',
+        }, {
+          additionalAttributes: 'data-locations="listItem" data-filter-attr="8000"',
+        }, {
+          additionalAttributes: 'data-locations="listItem" data-filter-attr="8000"',
+        },
+        ]),
       },
       errorMessage: {
         message: 'Für diese Postleitzahl wurde nichts gefunden. Bitte prüfen Sie Ihre Eingabe.',
