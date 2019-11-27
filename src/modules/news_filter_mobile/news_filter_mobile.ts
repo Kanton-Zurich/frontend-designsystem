@@ -129,8 +129,8 @@ class NewsFilterMobile extends Module {
           this.closeSublevelItem(this.ui.sublevelItems[i]);
         }
       });
-      this.ui.sublevelItems[i].addEventListener('resize', (event) => {
-        this.ui.sublevelItems[i].style.height = window.innerHeight + 'px';
+      this.ui.sublevelItems[i].addEventListener('resize', () => {
+        this.ui.sublevelItems[i].style.height = `${window.innerHeight}px`;
       });
       this.ui.sublevelItems[i]
         .querySelector('.mdl-news-filter-mobile__sublevel-backbutton')
@@ -164,7 +164,7 @@ class NewsFilterMobile extends Module {
     this.ui.footer.setAttribute('aria-hidden', 'true');
     element.parentElement.classList.add('visible');
     element.setAttribute('aria-hidden', false);
-    element.style.height = window.innerHeight + 'px';
+    element.style.height = `${window.innerHeight}px`;
     setTimeout(() => {
       element.classList.add('visible');
       setTimeout(() => element.querySelector('a').focus(), this.options.focusDelay);
