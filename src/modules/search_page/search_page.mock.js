@@ -49,6 +49,12 @@ const data = {
       numberOfResultPages: 1,
       numberOfResults: 8,
       typeLabel: 'Dokumente',
+    },
+    {
+      type: 'event',
+      numberOfResultPages: 2,
+      numberOfResults: 14,
+      typeLabel: 'Veranstaltungen',
     }],
   },
   autoCorrectedTerm: 'Zürich',
