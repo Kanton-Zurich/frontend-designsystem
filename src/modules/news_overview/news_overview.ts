@@ -270,13 +270,15 @@ class NewsOverview extends Module {
       filterSelect.dispatchEvent(new CustomEvent(Select.events.setValue, eventData));
     });
     // hide top news if any filter is active
-    if (this.dateHash !== this.dateHashZero
-      || this.filterHash !== this.filterHashZero
-      || this.searchWordHash !== this.searchWordHashZero
-      || parseInt(this.ui.paginationInput.value, 10) > 1) {
-      this.ui.topNews.classList.remove('visible');
-    } else {
-      this.ui.topNews.classList.add('visible');
+    if (this.ui.topNews) {
+      if (this.dateHash !== this.dateHashZero
+        || this.filterHash !== this.filterHashZero
+        || this.searchWordHash !== this.searchWordHashZero
+        || parseInt(this.ui.paginationInput.value, 10) > 1) {
+        this.ui.topNews.classList.remove('visible');
+      } else {
+        this.ui.topNews.classList.add('visible');
+      }
     }
   }
 
