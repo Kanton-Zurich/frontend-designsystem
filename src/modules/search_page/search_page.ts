@@ -10,6 +10,8 @@ import Module from '../../assets/js/helpers/module';
 import Pagination from '../pagination/pagination';
 import Autosuggest from '../../assets/js/helpers/autosuggest';
 
+import Form from '../../assets/js/helpers/form.class';
+
 class SearchPage extends Module {
   public ui: {
     input: HTMLInputElement,
@@ -113,6 +115,10 @@ class SearchPage extends Module {
       this.ui.input.value = term;
 
       this.onQueryChange(null, null, term);
+    });
+
+    this.ui.input.addEventListener(Form.events.clearInput, () => {
+      this.onQueryChange(null, null, '');
     });
   }
 

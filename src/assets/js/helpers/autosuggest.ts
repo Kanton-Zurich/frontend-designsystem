@@ -247,7 +247,7 @@ class Autosuggest {
       const aTag = parsed.querySelector('a');
       aTag.setAttribute('role', 'button');
       aTag.removeAttribute('href');
-      aTag.setAttribute('data-term', context.shortTitle);
+      aTag.setAttribute('data-term', context.shortTitle.replace(/(<([^>]+)>)/ig, ''));
 
       aTag.addEventListener('click', this.dispatchTerm.bind(this, aTag));
     }
