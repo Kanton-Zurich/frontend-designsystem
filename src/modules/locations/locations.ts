@@ -285,8 +285,8 @@ class Locations extends Module {
     let countHidden = 0;
     listItems.forEach((listNode, index) => {
       const parentClasses = listNode.parentElement.classList;
-      const searchText = listNode.hasAttribute('data-filter-attr') ?
-        listNode.getAttribute('data-filter-attr') : listNode.innerText;
+      const searchText = listNode.hasAttribute('data-filter-attr')
+        ? listNode.getAttribute('data-filter-attr') : listNode.innerText;
       if (pattern.test(searchText)) {
         this.ui.map.dispatchEvent(MapView.extMarkerShowHide(index, true));
         parentClasses.remove('hide');
