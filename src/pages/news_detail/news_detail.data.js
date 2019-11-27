@@ -35,7 +35,7 @@ const data = _.merge({}, defaultData, {
             [
               {
                 title: 'Zurück',
-                href: '../../news_overview.html',
+                href: '../news_overview/news_overview.html',
               },
             ],
         },
