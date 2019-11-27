@@ -30,6 +30,15 @@ const data = _.merge({}, defaultData, {
         leadText: 'Das Ziel des Generationenprojekts HGZZ ist es, die Lehre, Forschung und medizinische Versorgung im Hochschulgebiet zu sichern, weiter zu stärken, miteinander die städtebauliche Qualität zu erhöhen und ein lebendiges Hochschulquartier zu schaffen. Die Projektverantwortlichen von Kanton und Stadt Zürich sowie UniversitätsSpital Zürich (USZ), Universität Zürich (UZH) und ETH Zürich haben gemeinsam einen konkreten Einblick auf das künftige Hochschulgebiet gegeben.',
         imageData: defImageFigureData.variants.header.props,
         hasImage: true,
+        breadcrumb: {
+          path:
+            [
+              {
+                title: 'Zurück',
+                href: '../../news_overview.html',
+              },
+            ],
+        },
       }),
       imageFigureData: defImageFigureData,
       newsTeaserData: defNewsTeaserData.variants.withoutLinklist.props,
