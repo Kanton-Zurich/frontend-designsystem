@@ -230,7 +230,7 @@ $mapRatioSmall: 0.75;
     }
   }
 
-  @include mq($to: medium) {
+  @include mq($to: medium, $media: 'screen') {
     .mdl-locations {
       &__wrapper {
         padding-top: calc((100vw - #{$sizeBig}) / #{$mapRatioMedium});

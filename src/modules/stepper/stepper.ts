@@ -341,7 +341,7 @@ class Stepper extends Module {
             this.showNetworkError();
           }
 
-          this.ui.send.classList.add(this.options.stateClasses.buttonLoading);
+          this.ui.send.classList.remove(this.options.stateClasses.buttonLoading);
 
           return response;
         })

@@ -139,6 +139,6 @@
 @import '../../modules/jurisdiction_finder/jurisdiction_finder';
 //*autoinsertmodule*
 
-@media print {
-  @import 'print';
+@media screen {
+  @import 'screen';
 }

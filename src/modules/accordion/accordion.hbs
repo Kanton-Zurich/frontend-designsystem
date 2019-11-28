@@ -18,7 +18,7 @@
     {{#each items}}
       <div class="mdl-accordion__item{{#if additionalClass}} {{additionalClass}}{{/if}}"{{#if additionalAttribute}} {{additionalAttribute}}{{/if}} data-accordion="item">
         <h{{increment ../accordionHeading.level}} class="mdl-accordion__header">
-          <button class="mdl-accordion__button{{#if subHead}} mdl-accordion__button--subhead{{/if}}" aria-expanded="false" data-accordion="trigger" type="button">
+          <button class="mdl-accordion__button{{#if subHead}} mdl-accordion__button--subhead{{/if}}" aria-expanded="false" data-accordion="trigger" type="button"{{#if accordionPanelID}} id="{{accordionPanelID}}"{{/if}}>
             {{#if subHead}}<div class="mdl-accordion__button--subhead__flexbox">{{/if}}
               <span class="mdl-accordion__control">
                 {{title}}

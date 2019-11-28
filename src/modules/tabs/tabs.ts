@@ -45,6 +45,21 @@ class Tabs extends Module {
     this.panels = [].slice.call($element.querySelectorAll('[role="tabpanel"]'));
     this.initUi();
     this.initEventListeners();
+    this.checkURL();
+  }
+
+  /**
+   * Checks on initialization if the URL contains an tab-id as hash
+   * and if so open it via triggering a click on the tab
+   */
+  checkURL() {
+    const urlParameter = window.location.href.split('#')[1];
+
+    this.tabs.forEach((tab) => {
+      if (urlParameter === tab.id && tab.getAttribute('aria-selected') === 'false') {
+        tab.click();
+      }
+    });
   }
 
   /**
@@ -144,6 +159,11 @@ class Tabs extends Module {
     tab.setAttribute('aria-selected', 'true');
 
     tab.classList.remove('atm-button--secondary');
+
+    // URL reflection
+    if (tab.id && tab.id.length > 0) {
+      window.history.pushState({ tabZH: tab.id }, '', `#${tab.id}`);
+    }
 
     // Get the value of aria-controls (which is an ID)
     const controls = tab.getAttribute('data-tab-index');

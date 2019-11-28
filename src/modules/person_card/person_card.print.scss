@@ -1,0 +1,16 @@
+.mdl-person_card {
+  display: flex;
+
+  &__imagecontainer {
+    position: relative;
+    padding: 0;
+
+    img {
+      width: auto;
+      position: absolute;
+      height: 100%;
+      transform: translateX(-50%);
+      margin-left: 50%;
+    }
+  }
+}

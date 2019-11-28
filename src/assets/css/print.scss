@@ -1,0 +1,87 @@
+@import 'data/colors.json';
+@import 'globals/variables';
+@import 'globals/functions';
+@import 'globals/mixins';
+@import 'globals/mediaqueries';
+@import 'globals/icons';
+//*autoinsertatom*
+@import '../../modules/accordion/accordion.print';
+@import '../../modules/anchornav/anchornav.print';
+@import '../../modules/back2top/back2top.print';
+@import '../../modules/carousel/carousel.print';
+@import '../../modules/contact/contact.print';
+@import '../../modules/content_nav/content_nav.print';
+@import '../../modules/footer/footer.print';
+@import '../../modules/header/header.print';
+@import '../../modules/image_gallery/image_gallery.print';
+@import '../../modules/lang_switch/lang_switch.print';
+@import '../../modules/locations/locations.print';
+@import '../../modules/map_view/map_view.print';
+@import '../../modules/news_teaser/news_teaser.print';
+@import '../../modules/news_overview/news_overview.print';
+@import '../../modules/page_header/page_header.print';
+@import '../../modules/related_content/related_content.print';
+@import '../../modules/social_media_links/social_media_links.print';
+@import '../../modules/social_media_stream/social_media_stream.print';
+@import '../../modules/tag_group/tag_group.print';
+@import '../../modules/pagination/pagination.print';
+@import '../../modules/cta_box/cta_box.print';
+@import '../../modules/focus_card/focus_card.print';
+@import '../../modules/person_card/person_card.print';
+@import '../../modules/texthighlight/texthighlight.print';
+@import '../../modules/topiclist/topiclist.print';
+@import '../../modules/teaser/teaser.print';
+@import '../../modules/breadcrumb/breadcrumb.print';
+@import '../../modules/cug_login/cug_login.print';
+@import '../../modules/tabs/tabs.print';
+@import '../../modules/instructions/instructions.print';
+@import '../../modules/table/table.print';
+@import '../../modules/publication_teaser/publication_teaser.print';
+//*autoinsertmodule*
+
+html,
+body {
+  height: auto;
+
+  .lyt-wrapper {
+    width: 100%;
+    max-width: 100%;
+
+    .cell:not(.subgrid) {
+      margin-left: 40px;
+      width: 90%;
+    }
+
+    .icon use {
+      fill: $colorBlack !important; //stylelint-disable-line
+    }
+
+    .atm-button,
+    .atm-anchorlink {
+      background-color: $colorWhite !important; //stylelint-disable-line
+      border: 1px solid $colorBlack !important; //stylelint-disable-line
+    }
+  }
+
+  .print-hidden {
+    display: none !important; //stylelint-disable-line
+  }
+
+  .screen-hidden {
+    display: block !important; //stylelint-disable-line
+  }
+
+  *:focus {
+    outline: none;
+  }
+
+  * {
+    color: $colorBlack !important; //stylelint-disable-line
+  }
+}
+
+
+html.fixed-header {
+  padding-top: 0;
+}
+

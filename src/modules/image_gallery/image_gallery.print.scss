@@ -1,0 +1,31 @@
+.mdl-image_gallery {
+  page-break-inside: avoid;
+  background: none;
+  overflow-x: hidden;
+
+  .mdl-image_gallery__title {
+    color: $colorText;
+
+    &.atm-heading--bordered:before {
+      background: $colorText;
+    }
+  }
+
+  .mdl-image_gallery__more-images {
+    display: flex;
+  }
+
+  .mdl-image_gallery__more {
+    .atm-button {
+      display: none;
+    }
+  }
+
+  .mdl-image-figure__caption .atm-figcaption {
+    max-height: 100%;
+  }
+
+  .mdl-image-figure__download {
+    display: none;
+  }
+}
