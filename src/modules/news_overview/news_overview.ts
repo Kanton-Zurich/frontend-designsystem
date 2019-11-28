@@ -36,6 +36,7 @@ class NewsOverview extends Module {
     searchWordInput: HTMLInputElement,
     searchWordInputClear: HTMLButtonElement,
     wrapper: HTMLDivElement,
+    noResults: HTMLParagraphElement,
   };
 
   public options: {
@@ -84,6 +85,7 @@ class NewsOverview extends Module {
         searchWordInput: '.mdl-news-overview__filter > .atm-form_input input',
         searchWordInputClear: '.mdl-news-overview__filter > .atm-form_input > button',
         wrapper: '[data-news_overview="wrapper"]',
+        noResults: '.mdl-news-overview__no-results',
       },
       stateClasses: {
         loading: 'mdl-news-overview--loading',
@@ -478,6 +480,11 @@ class NewsOverview extends Module {
    */
   private populateNewsTeasers(jsonData) {
     this.ui.list.innerHTML = '';
+    if (!jsonData.news || jsonData.news.length === 0) {
+      this.ui.noResults.classList.add('visible');
+    } else {
+      this.ui.noResults.classList.remove('visible');
+    }
     jsonData.news.forEach((item) => {
       const element = document.createElement('li');
       element.classList.add('mdl-news-teaser__item');
