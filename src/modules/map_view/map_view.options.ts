@@ -17,6 +17,7 @@ interface ModuleStateClasses {
     default: string,
     highlight: string,
     selected: string,
+    hidden: string,
     userPos: string,
   }
 }
@@ -44,6 +45,7 @@ const stateClasses: ModuleStateClasses = {
     default: 'mdl-map_view__marker',
     highlight: 'mdl-map_view__marker_highlight',
     selected: 'mdl-map_view__marker_selected',
+    hidden: 'mdl-map_view__marker_hidden',
     userPos: 'mdl-map_view__userposition',
   },
 };
