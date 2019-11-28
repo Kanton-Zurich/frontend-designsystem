@@ -6,6 +6,9 @@ $customParagraphCurve: (
   large: $sizeFontBiggerRegular,
 );
 
+$maxTextLines: 6;
+$maxTextLinesDesktop: 4;
+
 .mdl-news-teaser {
   @include gridBleed($fullwidth: true);
   padding-top: pxToRem($sizeBig);
@@ -21,7 +24,9 @@ $customParagraphCurve: (
       @include resetList();
       display: flex;
       flex-flow: row wrap;
-      padding-right: pxToRem($sizeTiny);
+      padding-top: pxToRem($sizeTiny);
+      padding-left: pxToRem($sizeTiny);
+      width: 100%;
     }
   }
 
@@ -45,35 +50,38 @@ $customParagraphCurve: (
 
   &__item {
     position: relative;
-    border-left: pxToRem($sizeTiny) solid $colorBlack10;
-    border-top: pxToRem($sizeTiny) solid $colorBlack10;
-    background-color: $white;
-    flex-grow: 1;
+    background-color: $colorBlack10;
+    margin-right: pxToRem($sizeTiny);
+    margin-bottom: pxToRem($sizeTiny);
     width: 100%;
 
+    &:before {
+      content: '';
+      position: absolute;
+      display: block;
+      top: pxToRem(-$sizeTiny);
+      left: pxToRem(-$sizeTiny);
+      width: calc(100% + #{$sizeRegular});
+      height: calc(100% + #{$sizeRegular});
+      background-color: $colorBlack10;
+    }
+
     a {
-      border-right: pxToRem($sizeTiny) solid $colorBlack10;
-      border-bottom: pxToRem($sizeTiny) solid $colorBlack10;
+      background-color: $colorWhite;
+      height: 100%;
       position: relative;
-      margin-top: - pxToRem($sizeTiny);
-      margin-left: - pxToRem($sizeTiny);
-      width: calc(100% + #{2*$sizeTiny});
-      height: calc(100% + #{2*$sizeTiny});
-      padding: pxToRem($sizeBig); // 32px;
-      padding-top: pxToRem($sizeBig + $sizeTiny);
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      padding: pxToRem($sizeBig);
       text-decoration: none;
     }
 
     // HOVER OVER ITEMS
     &:hover {
       z-index: 1;
-      border-color: $colorBorderFrameHover;
 
-      a {
-        border-color: $colorBorderFrameHover;
+      &:before {
+        background-color: $colorBorderFrameHover;
       }
 
       .atm-heading,
@@ -91,8 +99,19 @@ $customParagraphCurve: (
     // Overwrite item heading atom
     .atm-heading {
       padding-top: pxToRem($sizeMini);
-      margin-bottom: pxToRem($sizeTiny);
+      padding-bottom: pxToRem($sizeTiny);
+      margin-bottom: 0;
       order: 2;
+
+      // LineClamper Config
+      $headingHeightCurve: (
+        tiny: $sizeLarge * $sizeLineHeightMedium * $maxTextLines,
+        small: $sizeLarge * $sizeLineHeightMedium * $maxTextLinesDesktop,
+        medium: $sizeBig * $sizeLineHeightMedium * $maxTextLinesDesktop,
+        xlarge: $sizeBiggerBig * $sizeLineHeightNarrower * $maxTextLinesDesktop,
+      );
+
+      @include polyFluidSizing(max-height, $headingHeightCurve);
     }
 
     // Overwrite item paragraph atom
@@ -102,9 +121,19 @@ $customParagraphCurve: (
       line-height: $sizeLineHeightBase;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+
+      // LineClamper Config
+      $paragraphHeightCurve: (
+        tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLines,
+        small: $sizeFontRegular * $sizeLineHeightBase * $maxTextLinesDesktop,
+        large: $sizeFontBiggerRegular * $sizeLineHeightBase * $maxTextLinesDesktop,
+      );
+
+      @include polyFluidSizing(max-height, $paragraphHeightCurve);
     }
   }
 
+  &__date,
   &__item-label {
     font-size: $sizeFontTiny;
     line-height: $sizeLineHeightBase;
@@ -120,6 +149,8 @@ $customParagraphCurve: (
   &__item-image {
     order: 3;
     margin-top: auto;
+    margin-bottom: 0;
+    flex-shrink: 0;
 
     // Overwrite item image-figure-module
     figure {
@@ -148,7 +179,7 @@ $customParagraphCurve: (
   /*
   * MEDIA QUERIES
   */
-  @include mq($from: small) {
+  @include mq($from: small, $media: screen) {
 
     &--more-info {
       padding-top: 0;
@@ -162,8 +193,8 @@ $customParagraphCurve: (
     }
 
     &__item {
-      flex-basis: 50%;
-      max-width: 50%;
+      flex-basis: calc(50% - #{$sizeTiny});
+      max-width: calc(50% - #{$sizeTiny});
     }
     // Single item style
     .medium-6 ul {
@@ -201,13 +232,13 @@ $customParagraphCurve: (
     }
     // Two item style
     .large-8 .mdl-news-teaser__item {
-      flex-basis: 50%;
-      max-width: 50%;
+      flex-basis: calc(50% - #{$sizeTiny});
+      max-width: calc(50% - #{$sizeTiny});
     }
 
     &__item {
-      flex-basis: 33.33%;
-      max-width: 33.33%;
+      flex-basis: calc(33.33% - #{$sizeTiny});
+      max-width: calc(33.33% - #{$sizeTiny});
     }
 
     .mdl-linklist {

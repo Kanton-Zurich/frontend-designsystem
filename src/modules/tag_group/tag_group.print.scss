@@ -1,0 +1,27 @@
+.mdl-tag-group {
+
+  &--wrapped {
+    background-color: initial;
+  }
+
+  .atm-heading {
+    color: $colorText;
+  }
+}
+
+/*
+* COLOR-VARIATIONS
+*/
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-tag-group--wrapped {
+      background-color: initial;
+    }
+
+    .mdl-tag-group__tags {
+      .atm-anchorlink--tag.atm-anchorlink--inverted:not(.atm-anchorlink--active) {
+        background-color: $val;
+      }
+    }
+  }
+}

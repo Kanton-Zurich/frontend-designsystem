@@ -1,0 +1,26 @@
+.mdl-focus_card {
+  $gridWidthColumns: (
+    tiny: 6,
+    small: 10,
+    medium: 9,
+    large: 8
+  );
+
+  $paddingSizes: (
+    gutters: $grid-margin-gutters,
+    items: (
+      tiny: $sizeRegular,
+      large: $sizeLarge
+    ),
+  );
+
+  display: flex;
+
+  &__image {
+    @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 3, $gridWidthColumns, $trailingGutter: false);
+  }
+
+  &__content {
+    @include sizeCurve(padding-left, gutters, $paddingSizes);
+  }
+}

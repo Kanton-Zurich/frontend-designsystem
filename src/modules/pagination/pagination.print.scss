@@ -1,0 +1,17 @@
+.mdl-pagination {
+  .atm-button--secondary {
+    display: none;
+  }
+
+  &__page-count {
+    padding-left: 0;
+  }
+
+  &__input {
+    width: 2.5rem;
+
+    .atm-form_input__input {
+      border: 0;
+    }
+  }
+}

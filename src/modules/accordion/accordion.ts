@@ -37,8 +37,9 @@ class Accordion extends Module {
   };
 
   public data: {
-    hasOpenItem: Boolean,
-    openItems: Array<Number>,
+    hasOpenItem: boolean,
+    openItems: Array<number>,
+    idTriggers: Array<any>,
   };
 
   // Flag controlling toggling behaviour.
@@ -49,6 +50,7 @@ class Accordion extends Module {
     const defaultData = {
       hasOpenItem: true,
       openItems: [],
+      idTriggers: [],
     };
     const defaultOptions = {
       domSelectors: {
@@ -75,9 +77,34 @@ class Accordion extends Module {
     this.initUi(['items', 'triggers', 'panelContent']);
     this.initEventListeners();
 
+    // Check for ids in case an url parameter matches
+    this.ui.triggers.forEach((trigger) => {
+      if (typeof trigger.id !== 'undefined' && trigger.id.length > 0) {
+        this.data.idTriggers.push({
+          item: trigger,
+          id: trigger.id,
+        });
+      }
+    });
+
     this.initTabindex();
+    this.checkURL();
 
     this.togglesAll = this.ui.element.classList.contains(this.options.stateClasses.togglesAll);
+  }
+
+  /**
+   * Checks on initialization if the URL contains an panel-trigger-id as hash
+   * and if so open it via triggering a click on the trigger
+   */
+  checkURL() {
+    const urlParameter = window.location.href.split('#')[1];
+
+    this.data.idTriggers.forEach((trigger) => {
+      if (urlParameter === trigger.id && trigger.item.getAttribute('aria-expanded') === 'false') {
+        trigger.item.click();
+      }
+    });
   }
 
   toggleItem(event, eventDelegate) {
@@ -89,6 +116,11 @@ class Accordion extends Module {
     if (ariaExpanded) {
       this.closeItem(item);
     } else {
+      // URL reflection
+      if (eventDelegate.id && eventDelegate.id.length > 0) {
+        window.history.pushState({ accordionZH: eventDelegate.id }, '', `#${eventDelegate.id}`);
+      }
+
       panel.style.maxHeight = `${this.calcHeight(panel)}px`;
 
       panel.setAttribute('aria-hidden', 'false');

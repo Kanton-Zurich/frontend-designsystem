@@ -15,7 +15,12 @@ $contactMapHeightCurve: (
     medium: $contactMapHeightMedium - $sizeHuge + $sizeBig,
     large: $contactMapHeightMedium - $sizeHuge + $sizeBig,
     xlarge: $contactMapHeightLarge,
-  )
+  ),
+  leadBottomSpace: (
+    tiny: $sizeBig,
+    medium: $sizeLarge,
+    xlarge: $sizeBig,
+  ),
 );
 
 .mdl-contact {
@@ -36,15 +41,13 @@ $contactMapHeightCurve: (
     @include sizeCurve(margin-bottom, makespace, $contactMapHeightCurve);
   }
 
-  .atm-heading {
+  .atm-heading--bordered {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
     line-height: $sizeLineHeightMedium;
     margin-bottom: pxToRem($sizeLarge);
 
-    &--bordered {
-      &:before {
-        background: $colorWhite;
-      }
+    &:before {
+      background: $colorWhite;
     }
   }
 
@@ -60,25 +63,38 @@ $contactMapHeightCurve: (
     margin-top: 0;
 
     a {
-      display: inline-block;
-      position: relative;
-      color: inherit;
-      font-size: $sizeFontRegular;
-      font-family: $fontFamilyBase;
-      line-height: $sizeLineHeightBase;
-      padding-right: pxToRem(27px);
       margin-bottom: pxToRem($sizeTiny);
-      text-decoration: none;
+    }
+  }
 
-      svg {
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
+  &__lead {
+    @include sizeCurve(margin-bottom, leadBottomSpace, $contactMapHeightCurve);
+    margin-top: - pxToRem($sizeRegular);
 
-        use {
-          fill: $colorWhite;
-        }
+    a {
+      margin-top: pxToRem($sizeTiny);
+    }
+  }
+
+  &__subtitle a,
+  &__lead a {
+    display: inline-block;
+    position: relative;
+    color: inherit;
+    font-size: $sizeFontRegular;
+    font-family: $fontFamilyBase;
+    line-height: $sizeLineHeightBase;
+    padding-right: pxToRem(27px); //stylelint-disable-line
+    text-decoration: none;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+
+      use {
+        fill: $colorWhite;
       }
     }
   }
@@ -96,6 +112,65 @@ $contactMapHeightCurve: (
       margin-top: pxToRem($sizeRegular);
     }
   }
+
+  &__section-cell--media {
+    margin-top: calc(#{$sizeBiggerBig} + #{$sizeLarge});
+    height: 38px;
+
+    .mdl-contact__media-trigger {
+      span:last-of-type {
+        display: none;
+      }
+
+      svg {
+        transition: transform 200ms ease-out 100ms;
+        transform: translateY(-50%) scale(0.6563) rotate(0deg);
+      }
+    }
+
+    .mdl-contact__cell-content {
+      transition: transform 200ms ease-out 100ms;
+      transform: scaleY(0);
+      visibility: hidden;
+    }
+
+    .mdl-contact__text {
+      margin-top: pxToRem($sizeSmallRegular);
+
+      a:not(.atm-button) {
+        text-decoration: none;
+        border-bottom: 1px solid $colorWhite;
+      }
+
+      .atm-button {
+        margin-top: pxToRem($sizeLarge);
+      }
+    }
+
+    &.open {
+      height: auto;
+
+      .mdl-contact__media-trigger {
+        span:first-of-type {
+          display: none;
+        }
+
+        span:last-of-type {
+          display: inline;
+        }
+
+        svg {
+          transform: translateY(-50%) scale(0.6563) rotate(45deg);
+        }
+      }
+
+      .mdl-contact__cell-content {
+        transform: scaleY(1);
+        visibility: visible;
+      }
+    }
+  }
+
 
   &__cell-icon {
     display: inline-flex;
@@ -317,7 +392,7 @@ $contactMapHeightCurve: (
       }
     }
 
-    .mdl-contact__section-cell {
+    .mdl-contact__section-cell:not(.mdl-contact__section-cell--media) {
       margin-top: 0;
     }
 
@@ -325,6 +400,14 @@ $contactMapHeightCurve: (
       > * {
         @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
         @include gridNestedOffset('margin-right', 1, $gridOffsetColumns);
+      }
+    }
+
+    &__lead {
+      margin-top: 0;
+
+      a {
+        margin-top: 0;
       }
     }
 
@@ -390,6 +473,14 @@ $contactMapHeightCurve: (
 
       a {
         padding-left: pxToRem(18px);
+      }
+    }
+
+    &__lead {
+      margin-top: - pxToRem($sizeLarge);
+
+      a {
+        margin-top: pxToRem($sizeTiny);
       }
     }
 

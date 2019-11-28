@@ -36,6 +36,7 @@ class NewsOverview extends Module {
     searchWordInput: HTMLInputElement,
     searchWordInputClear: HTMLButtonElement,
     wrapper: HTMLDivElement,
+    noResults: HTMLParagraphElement,
   };
 
   public options: {
@@ -84,6 +85,7 @@ class NewsOverview extends Module {
         searchWordInput: '.mdl-news-overview__filter > .atm-form_input input',
         searchWordInputClear: '.mdl-news-overview__filter > .atm-form_input > button',
         wrapper: '[data-news_overview="wrapper"]',
+        noResults: '.mdl-news-overview__no-results',
       },
       stateClasses: {
         loading: 'mdl-news-overview--loading',
@@ -240,14 +242,14 @@ class NewsOverview extends Module {
     const filterHash = this.createObjectHash(this.filterLists);
     const dateHash = this.createObjectHash(this.dateRange);
     const searchWordHash = this.createObjectHash(this.searchWord);
-    if (this.searchWord !== '' && this.searchWordHash !== searchWordHash) {
-      (<HTMLButtonElement> this.ui.sortDropdown
-        .querySelector('button[data-sort="relevance"]')).click();
-    }
     // only reload view if there is a change or forced load
     if (forced || this.filterHash !== filterHash
       || this.dateHash !== dateHash
       || this.searchWordHash !== searchWordHash) {
+      if (this.searchWord !== '') {
+        (<HTMLButtonElement> this.ui.sortDropdown
+          .querySelector('button[data-sort="relevance"]')).click();
+      }
       if (updateFilterPills) {
         this.updatePills();
       }
@@ -270,13 +272,15 @@ class NewsOverview extends Module {
       filterSelect.dispatchEvent(new CustomEvent(Select.events.setValue, eventData));
     });
     // hide top news if any filter is active
-    if (this.dateHash !== this.dateHashZero
-      || this.filterHash !== this.filterHashZero
-      || this.searchWordHash !== this.searchWordHashZero
-      || parseInt(this.ui.paginationInput.value, 10) > 1) {
-      this.ui.topNews.classList.remove('visible');
-    } else {
-      this.ui.topNews.classList.add('visible');
+    if (this.ui.topNews) {
+      if (this.dateHash !== this.dateHashZero
+        || this.filterHash !== this.filterHashZero
+        || this.searchWordHash !== this.searchWordHashZero
+        || parseInt(this.ui.paginationInput.value, 10) > 1) {
+        this.ui.topNews.classList.remove('visible');
+      } else {
+        this.ui.topNews.classList.add('visible');
+      }
     }
   }
 
@@ -416,6 +420,7 @@ class NewsOverview extends Module {
       await import('whatwg-fetch');
     }
     this.currentUrl = this.constructUrl();
+
     return fetch(this.currentUrl)
       .then(response => response.json())
       .then((response) => {
@@ -475,12 +480,18 @@ class NewsOverview extends Module {
    */
   private populateNewsTeasers(jsonData) {
     this.ui.list.innerHTML = '';
+    if (!jsonData.news || jsonData.news.length === 0) {
+      this.ui.noResults.classList.add('visible');
+    } else {
+      this.ui.noResults.classList.remove('visible');
+    }
     jsonData.news.forEach((item) => {
       const element = document.createElement('li');
       element.classList.add('mdl-news-teaser__item');
       element.innerHTML = this.teaserItemFromTemplate(this.ui.teaserTemplate.innerHTML, item);
       this.ui.list.appendChild(element);
     });
+    (<any>window).estatico.lineClamper.updateLineClamping();
     this.updateFlyingFocus(this.options.loadDelay);
   }
 
@@ -490,7 +501,10 @@ class NewsOverview extends Module {
    * @param props
    */
   private teaserItemFromTemplate(teaserTemplate, props) {
-    const compiled = template(teaserTemplate.replace(/this\./gm, 'self.')); // eslint-disable-line
+    let tmp = teaserTemplate.replace(/this\./gm, 'self.');
+    tmp = tmp.replace(/=else/gm, ' } else { ');
+
+    const compiled = template(tmp); // eslint-disable-line
     const data = {
       self: props,
     };

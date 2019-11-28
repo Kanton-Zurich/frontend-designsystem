@@ -102,6 +102,12 @@
       }
     }
 
+    .atm-content_teaser[ role='button' ] {
+      .atm-content_teaser__title {
+        color: $colorBlack;
+      }
+    }
+
     .atm-content_teaser--promo {
       background: $val;
 
