@@ -83,7 +83,7 @@ class JurisdictionFinder extends Module {
   searchLocations(text) {
     this.ui.subtitle.innerText = this.ui.element.getAttribute('data-heading-pattern').replace('%s', text);
     this.ui.locations.dispatchEvent(new CustomEvent(Locations.events.filterLocations,
-      { detail: { text } }));
+      { detail: { text, forced: true } }));
     if (!this.ui.locations.classList.contains('visible')) {
       setTimeout(() => {
         this.ui.locations.classList.add('visible');
