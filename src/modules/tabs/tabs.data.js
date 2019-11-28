@@ -19,18 +19,22 @@ const data = _.merge({}, defaultData, {
     tabs: [
       {
         title: 'Vor Ort',
+        id: 'tabDemoId1',
         data: '<p class="atm-paragraph">Wenn Ihr Ausweis vor dem 01.01.2013 ausgestellt wurde, müssen Sie ein neues Passfoto machen.  Ihr Reisebüro oder das Konsulat Ihres Reiseziels können Ihnen dabei helfen. </p>',
       },
       {
         title: 'Online',
+        id: 'tabDemoId2',
         data: handlebars.compile(dataHelper.getFileContent('../stepper/stepper.hbs'))(defStepperFormData.variants.serviceForm.props),
       },
       {
         title: 'Per Post',
+        id: 'tabDemoId3',
         data: handlebars.compile(dataHelper.getFileContent('../richtext/richtext.hbs'))(defRichtextData.variants.embedded.props),
       },
       {
         title: 'Test Gallerie',
+        id: 'tabDemoId4',
         data: handlebars.compile(dataHelper.getFileContent('../carousel/carousel.hbs'))(_.merge({}, defCarouselData.variants.default.props, { title: null })),
       },
     ],

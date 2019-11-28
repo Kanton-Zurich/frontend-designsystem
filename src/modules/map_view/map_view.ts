@@ -45,6 +45,7 @@ const { markerClasses } = MapViewDefaultOptions.stateClasses;
 const markerIconDefault = L.divIcon({ className: markerClasses.default, iconSize: [0, 0] });
 const markerIconHighlight = L.divIcon({ className: markerClasses.highlight, iconSize: [0, 0] });
 const markerIconSelected = L.divIcon({ className: markerClasses.selected, iconSize: [0, 0] });
+const markerIconHidden = L.divIcon({ className: markerClasses.hidden, iconSize: [0, 0] });
 const userPosIcon = L.divIcon({ className: markerClasses.userPos, iconSize: [0, 0] });
 
 class MapView extends Module {
@@ -85,6 +86,9 @@ class MapView extends Module {
       markerClicked: `eventname.${MapView.name}.marker_clicked`,
       fixMarker: `eventname.${MapView.name}.ext_marker_fix`,
       userLocated: `eventname.${MapView.name}.user_located`,
+      showHideMarker: `eventname.${MapView.name}.marker_show_hide`,
+      invalidateSize: `eventname.${MapView.name}.invalidate_size`,
+      resetBounds: `eventname.${MapView.name}.reset_bounds`,
     };
   }
 
@@ -121,6 +125,12 @@ class MapView extends Module {
       .addEventListener(MapView.events.fixMarker, this.onExternalSelect.bind(this));
     this.ui.mapContainer
       .addEventListener(MapView.events.highlightMarker, this.onExtMarkerHighlight.bind(this));
+    this.ui.mapContainer
+      .addEventListener(MapView.events.showHideMarker, this.onExtMarkerShowHide.bind(this));
+    this.ui.mapContainer
+      .addEventListener(MapView.events.invalidateSize, this.onExtInvalidateSize.bind(this));
+    this.ui.mapContainer
+      .addEventListener(MapView.events.resetBounds, this.onExtResetBounds.bind(this));
   }
 
   private onExtMarkerHighlight(ev: MarkerEvent): void {
@@ -129,8 +139,29 @@ class MapView extends Module {
     if (targetMarkerIdx >= 0 && targetMarkerIdx < this.markers.length) {
       this.markers[targetMarkerIdx].fireEvent('mouseover');
     } else {
-      this.markers.forEach(m => m.fire('mouseout'));
+      this.markers.forEach((m) => {
+        m.fire('mouseout');
+      });
     }
+  }
+
+  private onExtMarkerShowHide(ev: MarkerEvent): void {
+    this.log('External marker show hide idx = ', ev.detail.idx);
+    const targetMarkerIdx = ev.detail.idx;
+    const targetMarkerVisible = ev.detail.visible;
+    if (targetMarkerVisible) {
+      this.markers[targetMarkerIdx].setIcon(markerIconDefault);
+    } else {
+      this.markers[targetMarkerIdx].setIcon(markerIconHidden);
+    }
+  }
+
+  private onExtInvalidateSize(): void {
+    this.map.invalidateSize();
+  }
+
+  private onExtResetBounds(): void {
+    this.setBounds();
   }
 
   private onExternalSelect(ev: MarkerEvent): void {
@@ -142,7 +173,7 @@ class MapView extends Module {
     this.markers.forEach((m, i) => {
       if (i === markerIdx) {
         m.setIcon(markerIconSelected);
-      } else {
+      } else if (m.getIcon().options.className !== 'mdl-map_view__marker_hidden') {
         m.setIcon(markerIconDefault);
       }
     });
@@ -151,7 +182,9 @@ class MapView extends Module {
 
 
     if (this.markers[markerIdx]) {
-      this.map.panTo(this.markers[markerIdx].getLatLng());
+      setTimeout(() => {
+        this.map.panTo(this.markers[markerIdx].getLatLng());
+      }, 0);
     }
 
     if (this.ui.directionsBtn && this.ui.directionsUrlTemplateInput) {
@@ -239,10 +272,6 @@ class MapView extends Module {
         }),
         showCoverageOnHover: false,
       });
-      // set map bounds
-      const markerGroup = L.featureGroup(this.markers);
-      this.map.fitBounds(markerGroup.getBounds(),
-        { maxZoom: 12, padding: [15, 38] }); // eslint-disable-line no-magic-numbers
 
       this.markers.forEach((m, idx) => {
         m.on('mouseover', (ev) => {
@@ -253,7 +282,7 @@ class MapView extends Module {
           }
         }).on('mouseout', (ev) => {
           this.log('Marker mouseout', ev);
-          if (!this.markerSelected) {
+          if (!this.markerSelected && ev.target.getIcon().options.className !== 'mdl-map_view__marker_hidden') {
             ev.target.setIcon(markerIconDefault);
             this.ui.mapContainer.dispatchEvent(MapView.markerMouseOverEvent());
           }
@@ -270,6 +299,26 @@ class MapView extends Module {
       if (this.markers.length === 1) {
         this.ui.element.classList.add(this.options.stateClasses.singleItem);
         this.doSelectMarker(0);
+      }
+    }
+    this.setBounds();
+  }
+
+  private setBounds() {
+    if (this.markers.length > 0) {
+      // set map bounds
+      const markerGroup = L.featureGroup(this.markers);
+      this.map.fitBounds(markerGroup.getBounds(),
+        { maxZoom: 12, padding: [15, 38] }); // eslint-disable-line no-magic-numbers
+    } else {
+      // get bounds if available
+      const rawBounds = this.ui.element.getAttribute('bounds');
+      if (rawBounds) {
+        const bounds: [number, number][] = [[0, 0], [0, 0]];
+        rawBounds.split(',').forEach(((c, index) => {
+          bounds[index < 2 ? 0 : 1][index % 2] = parseFloat(c); // eslint-disable-line
+        }));
+        this.map.fitBounds(bounds);
       }
     }
   }
@@ -327,6 +376,10 @@ class MapView extends Module {
   static extMarkerHighlightEvent(highlightIndex: number): MarkerEvent {
     return new CustomEvent(MapView.events.highlightMarker, { detail: { idx: highlightIndex } });
   }
+  static extMarkerShowHide(highlightIndex: number, visible: boolean): MarkerEvent {
+    return new CustomEvent(MapView.events.showHideMarker,
+      { detail: { idx: highlightIndex, visible } });
+  }
   static extMarkerSelectEvent(selectIndex: number): MarkerEvent {
     return new CustomEvent(MapView.events.fixMarker, { detail: { idx: selectIndex } });
   }
@@ -349,7 +402,7 @@ class MapView extends Module {
     );
   }
 }
-export interface MarkerEvent extends CustomEvent<{ idx: number}>{}
+export interface MarkerEvent extends CustomEvent<{ idx: number, visible?: boolean }>{}
 export interface UserLocateEvent
   extends CustomEvent<{ locateLatLng: L.LatLng, markerDistances: number[] }>{}
 export default MapView;

@@ -1,0 +1,44 @@
+.mdl-page-header {
+  padding: 0 !important; // stylelint-disable-line
+
+  .mdl-page-header__logo-container {
+    .mdl-page-header__logo {
+      position: absolute;
+      top: auto;
+
+      @include polyFluidSizing('margin-top', map-get($sizeCurves, biggerRegular));
+      @include polyFluidSizing('width', map-get($sizeCurves, large));
+      @include polyFluidSizing('height', map-get($sizeCurves, large));
+    }
+  }
+
+  .mdl-page-header__title {
+    @include polyFluidSizing('margin-left', map-get($sizeCurves, big));
+  }
+
+  .mdl-service_button,
+  .mdl-tag-group {
+    display: none;
+  }
+}
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-page-header {
+      &--inverted,
+      [ class*='--inverted' ] & {
+        background-color: initial;
+      }
+
+
+      .atm-heading,
+      .atm-lead,
+      .atm-paragraph,
+      .mdl-page-header__breadcrumb,
+      .mdl-breadcrumb__show-context,
+      .mdl-page-header__closebutton {
+        color: $colorText;
+      }
+    }
+  }
+}

@@ -2,25 +2,25 @@
   <div class="lyt-wrapper" data-image-gallery="gallery">
     <div class="grid-x grid-margin-x">
       <h2 class="mdl-image_gallery__title atm-heading atm-heading--bordered cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10">{{ title }}</h2>
-      <div class="cell tiny-12 medium-6">
+      <div class="cell tiny-12 medium-6 subgrid">
         <div class="mdl-image_gallery__image mdl-image_gallery__image--highlight">
           {{> "modules/image_figure/image_figure" highlight}}
         </div>
       </div>
-      <div class="cell tiny-12 medium-6">
+      <div class="cell tiny-12 medium-6 subgrid">
         <ul class="mdl-image_gallery__images grid-x grid-margin-x">
           {{#each imagesTeasered}}
-            <li class="cell tiny-6">
+            <li class="cell tiny-6 subgrid">
               {{> "modules/image_figure/image_figure" this}}
             </li>
           {{/each}}
         </ul>
       </div>
-      <div class="cell tiny-12 mdl-image_gallery__more">
+      <div class="cell tiny-12 mdl-image_gallery__more  subgrid">
         {{> "atoms/button/button" loadMore}}
         <ul class="grid-x grid-margin-x mdl-image_gallery__images mdl-image_gallery__more-images" data-image-gallery="more">
           {{#each furtherImages}}
-            <li class="cell tiny-6 medium-3">
+            <li class="cell tiny-6 medium-3 subgrid">
               {{> "modules/image_figure/image_figure" this}}
             </li>
           {{/each}}

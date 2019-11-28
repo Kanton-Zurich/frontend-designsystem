@@ -3,7 +3,6 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 const headerData = require('../../modules/header/header.data').variants.inverted.props;
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.default.props;
-const defBreadcrumbData = require('../../modules/breadcrumb/breadcrumb.data').variants.singlePathItem.props;
 const defImageFigureData = require('../../modules/image_figure/image_figure.data.js');
 const defVideoData = require('../../modules/video/video.data.js');
 const defAccordionData = require('../../modules/accordion/accordion.data.js');
@@ -134,15 +133,19 @@ const data = _.merge({}, defaultData, {
         items: [
           {
             title: '2019',
+            accordionPanelID: _.uniqueId('accordionPersonDetailDemoId-'),
           },
           {
             title: '2018',
+            accordionPanelID: _.uniqueId('accordionPersonDetailDemoId-'),
           },
           {
             title: '2017',
+            accordionPanelID: _.uniqueId('accordionPersonDetailDemoId-'),
           },
           {
             title: '2016',
+            accordionPanelID: _.uniqueId('accordionPersonDetailDemoId-'),
           },
         ],
       }),

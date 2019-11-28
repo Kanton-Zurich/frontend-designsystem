@@ -47,6 +47,7 @@ const variants = _.mapValues({
       items: [
         {
           title: 'Kurzer Accordiontitel',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
           techName: 'acc_item_1',
           children: [
             {
@@ -56,6 +57,7 @@ const variants = _.mapValues({
         },
         {
           title: 'Kurzer Accordiontitel',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
           techName: 'acc_item_2',
           children: [
             {
@@ -68,6 +70,7 @@ const variants = _.mapValues({
         },
         {
           title: 'Ein Accordion mit viel Inhalt und einem langen Titel für Testzwecke',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
           techName: 'acc_item_3',
           children: [
             {
@@ -77,6 +80,7 @@ const variants = _.mapValues({
         },
         {
           title: 'Ein Accordion mit Video',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
           techName: 'acc_item_4',
           children: [
             {
@@ -101,6 +105,7 @@ const variants = _.mapValues({
       items: [
         {
           title: 'Merkblätter & Downloads',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
           techName: 'wi_item_1',
           children: [
             {
@@ -110,6 +115,7 @@ const variants = _.mapValues({
         },
         {
           title: 'Weiterführende Links',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
           techname: 'wi_item_2',
           children: [
             {
@@ -119,6 +125,7 @@ const variants = _.mapValues({
         },
         {
           title: 'Rechtliche Grundlagen',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
           techName: 'wi_item_3',
           children: [
             {
@@ -128,6 +135,7 @@ const variants = _.mapValues({
         },
         {
           title: 'Daten & Statistiken',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
           techName: 'wi_item_4',
           children: [
             {
@@ -170,6 +178,7 @@ const variants = _.mapValues({
       toggleAll: true,
       items: [{
         title: 'Für wen möchten Sie den Steuerbetrag berechnen?',
+        accordionPanelID: _.uniqueId('accordionDemoId-'),
         subHead: 'Unternehmen, Vereine und Stiftungen',
         children: [
           {
@@ -178,6 +187,7 @@ const variants = _.mapValues({
         ],
       }, {
         title: 'Was möchten Sie berechnen?',
+        accordionPanelID: _.uniqueId('accordionDemoId-'),
         subHead: 'Steuerrückstellung',
         children: [
           {

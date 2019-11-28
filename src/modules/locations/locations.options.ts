@@ -3,6 +3,8 @@ interface ModuleDomSelectors {
   listItems: string,
   distanceAnnotation: string
   filterInput: string,
+  linkList: string,
+  filterHead: string,
   sidebar: string,
   backBtn: string,
   detailNodes: string,
@@ -42,6 +44,8 @@ const domSelectors: ModuleDomSelectors = {
   filterInput: '[data-locations="input"]',
   sidebar: '[data-locations="sidebar"]',
   backBtn: '[data-locations="back"]',
+  linkList: '.mdl-locations__filter .mdl-linklist',
+  filterHead: '.mdl-locations .mdl-locations__filter_head',
   detailNodes: '[data-locations="locationDetails"]',
   toggleListBtn: '[data-locations="toggleList"]',
   emptyListHint: '[data-locations="emptyNote"]',

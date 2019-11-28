@@ -51,6 +51,12 @@ $mapViewSelectedMarkerHeight: 59px;
     }
   }
 
+  &__marker_hidden {
+    &:after {
+      display: none;
+    }
+  }
+
   &__clustericon {
     position: absolute;
     left: pxToRem(-$sizeBiggerBig / 2);
