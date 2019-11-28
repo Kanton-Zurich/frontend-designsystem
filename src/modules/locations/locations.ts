@@ -308,8 +308,7 @@ class Locations extends Module {
 
   private filterListItemsByText(filterText: string, forceSingleItem: boolean = false): void {
     const pattern = new RegExp(filterText, 'i');
-
-    let listItems = this.ui.listItems as HTMLAnchorElement[];
+    const listItems = this.ui.listItems as HTMLAnchorElement[];
     let countHidden = 0;
     let lastIndex = -1;
     listItems.forEach((listNode, index) => {
