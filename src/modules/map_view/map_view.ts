@@ -182,7 +182,9 @@ class MapView extends Module {
 
 
     if (this.markers[markerIdx]) {
-      this.map.panTo(this.markers[markerIdx].getLatLng());
+      setTimeout(() => {
+        this.map.panTo(this.markers[markerIdx].getLatLng());
+      }, 0);
     }
 
     if (this.ui.directionsBtn && this.ui.directionsUrlTemplateInput) {
