@@ -49,6 +49,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('news_overview.md'),
   },
   props: {
+    noResults: 'Keine Resultate für die gewählten Kriterien gefunden.',
     typeSelect: _.assign(_.merge({}, selectData.variants.defaultMultiPreSelect.props, {
       listData: {
         validation: {

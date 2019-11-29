@@ -1,0 +1,16 @@
+.mdl-table {
+  &__table--cloned {
+    display: none;
+  }
+
+  .mdl-table__sort-arrow {
+    display: none;
+  }
+
+  .mdl-table__column--asc,
+  .mdl-table__column--desc {
+    .mdl-table__sort-arrow {
+      display: block;
+    }
+  }
+}

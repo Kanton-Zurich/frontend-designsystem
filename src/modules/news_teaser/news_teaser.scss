@@ -179,7 +179,7 @@ $maxTextLinesDesktop: 4;
   /*
   * MEDIA QUERIES
   */
-  @include mq($from: small) {
+  @include mq($from: small, $media: screen) {
 
     &--more-info {
       padding-top: 0;

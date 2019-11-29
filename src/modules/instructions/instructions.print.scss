@@ -1,0 +1,9 @@
+.mdl-instructions {
+  .mdl-instructions__list {
+    .mdl-instructions__item {
+      &:before {
+        color: $colorBlack !important; // stylelint-disable-line
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+.mdl-footer {
+  background-color: initial;
+  color: $colorText;
+
+  &__content {
+    padding: $sizeLarge 0 0;
+  }
+
+  &__title,
+  &__social-media {
+    display: none;
+  }
+
+  &__menu {
+    display: none;
+  }
+
+  &__submenu {
+    li {
+      display: none;
+    }
+
+    li.mdl-footer__copyright {
+      display: block;
+    }
+  }
+}

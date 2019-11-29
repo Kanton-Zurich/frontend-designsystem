@@ -11,6 +11,7 @@ import Pagination from '../pagination/pagination';
 import Autosuggest from '../../assets/js/helpers/autosuggest';
 
 import Datepicker from '../datepicker/datepicker';
+import Form from '../../assets/js/helpers/form.class';
 
 class SearchPage extends Module {
   public ui: {
@@ -131,6 +132,10 @@ class SearchPage extends Module {
       this.ui.input.value = term;
 
       this.onQueryChange(null, null, term);
+    });
+
+    this.ui.input.addEventListener(Form.events.clearInput, () => {
+      this.onQueryChange(null, null, '');
     });
   }
 

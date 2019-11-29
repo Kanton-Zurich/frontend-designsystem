@@ -22,8 +22,6 @@ $InputHeightRegular: 72px;
     .atm-form_input--floated {
       .atm-form_input__input {
         color: $colorBlack;
-        padding-top: pxToRem(35px);
-        padding-bottom: pxToRem(15px);
         z-index: 1;
       }
 
@@ -75,6 +73,7 @@ $InputHeightRegular: 72px;
   .atm-linklist_item {
     padding-bottom: 0;
     padding-top: 0;
+    flex-direction: row;
 
     &__text {
       position: relative;
@@ -91,6 +90,7 @@ $InputHeightRegular: 72px;
     .flatpickr-wrapper {
       min-height: auto;
       width: 100%;
+      font-family: $fontFamilyBase;
     }
 
     input {

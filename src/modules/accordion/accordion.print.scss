@@ -4,8 +4,7 @@
   }
 
   &__panel {
-    @include transition(max-height);
-
+    transition: none;
     max-height: none;
   }
 

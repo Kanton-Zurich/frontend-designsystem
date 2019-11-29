@@ -1,0 +1,69 @@
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-texthighlight {
+
+      background-color: #{$colorWhite};
+
+      .atm-figcaption {
+        color: #{$colorBlack};
+      }
+
+      .atm-paragraph {
+        color: #{$colorBlack};
+      }
+
+      ul {
+        color: #{$colorBlack};
+
+        &.mdl-richtext__benefits {
+          li:before {
+            background-image: url(svg-tickmark($colorBlack)); // stylelint-disable-line
+          }
+        }
+      }
+
+      .mdl-quote {
+        cite {
+          color: #{$colorBlack};
+        }
+      }
+
+      .atm-heading {
+        color: #{$colorBlack};
+      }
+
+      ol {
+        color: #{$colorBlack};
+      }
+
+      ol li:before {
+        color: #{$colorBlack};
+      }
+
+      &__emphasis {
+        p {
+          color: #{$colorBlack};
+        }
+      }
+
+      .mdl-linklist {
+        &__title {
+          color: $colorBlack;
+        }
+
+        .atm-linklist_item {
+          color: $colorBlack;
+        }
+      }
+
+      .atm-text_link {
+        color: $colorBlack;
+        border-color: $colorBlack;
+
+        &:hover {
+          color: $colorBlack;
+        }
+      }
+    }
+  }
+}

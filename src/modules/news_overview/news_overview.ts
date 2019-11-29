@@ -36,6 +36,7 @@ class NewsOverview extends Module {
     searchWordInput: HTMLInputElement,
     searchWordInputClear: HTMLButtonElement,
     wrapper: HTMLDivElement,
+    noResults: HTMLParagraphElement,
   };
 
   public options: {
@@ -84,6 +85,7 @@ class NewsOverview extends Module {
         searchWordInput: '.mdl-news-overview__filter > .atm-form_input input',
         searchWordInputClear: '.mdl-news-overview__filter > .atm-form_input > button',
         wrapper: '[data-news_overview="wrapper"]',
+        noResults: '.mdl-news-overview__no-results',
       },
       stateClasses: {
         loading: 'mdl-news-overview--loading',
@@ -270,13 +272,15 @@ class NewsOverview extends Module {
       filterSelect.dispatchEvent(new CustomEvent(Select.events.setValue, eventData));
     });
     // hide top news if any filter is active
-    if (this.dateHash !== this.dateHashZero
-      || this.filterHash !== this.filterHashZero
-      || this.searchWordHash !== this.searchWordHashZero
-      || parseInt(this.ui.paginationInput.value, 10) > 1) {
-      this.ui.topNews.classList.remove('visible');
-    } else {
-      this.ui.topNews.classList.add('visible');
+    if (this.ui.topNews) {
+      if (this.dateHash !== this.dateHashZero
+        || this.filterHash !== this.filterHashZero
+        || this.searchWordHash !== this.searchWordHashZero
+        || parseInt(this.ui.paginationInput.value, 10) > 1) {
+        this.ui.topNews.classList.remove('visible');
+      } else {
+        this.ui.topNews.classList.add('visible');
+      }
     }
   }
 
@@ -476,6 +480,11 @@ class NewsOverview extends Module {
    */
   private populateNewsTeasers(jsonData) {
     this.ui.list.innerHTML = '';
+    if (!jsonData.news || jsonData.news.length === 0) {
+      this.ui.noResults.classList.add('visible');
+    } else {
+      this.ui.noResults.classList.remove('visible');
+    }
     jsonData.news.forEach((item) => {
       const element = document.createElement('li');
       element.classList.add('mdl-news-teaser__item');

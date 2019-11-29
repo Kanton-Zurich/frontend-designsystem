@@ -5,6 +5,8 @@ $contentNavGrid: (
 );
 
 .mdl-content_nav {
+  @include sizeCurve(margin-bottom, big);
+
   &--loading {
     min-height: $loadingMinHeight;
     position: relative;
