@@ -119,6 +119,16 @@ const variants = _.mapValues({
               ],
               action: 'enable',
             },
+            {
+              conditions: [
+                {
+                  field: 'singleSelect',
+                  equals: true,
+                  value: 'DE',
+                },
+              ],
+              action: 'enable',
+            },
           ]),
         }),
         _.merge({}, formVariants.placeOfCitizenshipPage.props, {
