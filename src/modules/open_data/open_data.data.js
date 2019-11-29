@@ -27,6 +27,10 @@ const variants = _.mapValues({
       desc: 'Eine Liste mit nur einer URL',
     },
     props: {
+      title: {
+        level: 2,
+        text: 'Datenkomponente',
+      },
       api_calls: [
         'https://opendata.swiss/api/3/action/resource_show?id=5269cdb7-54bf-4737-ac96-fb1cb8d3aab8',
       ],
