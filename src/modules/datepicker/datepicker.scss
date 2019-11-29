@@ -73,6 +73,7 @@ $InputHeightRegular: 72px;
   .atm-linklist_item {
     padding-bottom: 0;
     padding-top: 0;
+    flex-direction: row;
 
     &__text {
       position: relative;
@@ -89,6 +90,7 @@ $InputHeightRegular: 72px;
     .flatpickr-wrapper {
       min-height: auto;
       width: 100%;
+      font-family: $fontFamilyBase;
     }
 
     input {
