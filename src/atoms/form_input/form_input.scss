@@ -123,6 +123,7 @@ $triggerWidth: pxToRem(86px);
       position: absolute;
       top: $paddingInput + $borderWidthRem;
       left: pxToRem($sizeRegular) + $borderWidthRem;
+      pointer-events: none;
 
       right: $borderWidth;
       background: $colorWhite;

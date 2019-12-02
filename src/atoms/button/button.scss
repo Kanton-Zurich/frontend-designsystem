@@ -82,15 +82,6 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
     }
   }
 
-  &--disabled {
-    background-color: $colorBlack15;
-    cursor: not-allowed;
-
-    &:hover {
-      background-color: $colorBlack15;
-    }
-  }
-
   /**
    * Type variations
    */
@@ -114,6 +105,23 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
     &:active {
       background: $colorBlack100;
       color: $colorWhite;
+
+      .atm-button__icon use {
+        fill: $colorWhite;
+      }
+    }
+  }
+
+  &--disabled {
+    background-color: $colorBlack15;
+    cursor: not-allowed;
+
+    .atm-button__icon use {
+      fill: $colorWhite;
+    }
+
+    &:hover {
+      background-color: $colorBlack15;
 
       .atm-button__icon use {
         fill: $colorWhite;

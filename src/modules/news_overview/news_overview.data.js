@@ -152,20 +152,20 @@ const data = _.merge({}, defaultData, {
     newsTeaserTemplate: templateConverter(dataHelper.getFileContent('../news_teaser/_news_teaser_item.hbs'), false),
     topNewsTeaserItems: [
       {
-        href: '#',
+        href: '../news_detail/news_detail.html',
         dateLabel: 'Medienmitteilung',
         date: '14.12.2018',
         dateMachineReadable: '2018-12-14',
         title: 'Winterthur: Unbekannter Mann raubt Tankstellen-Shop aus',
       },
       {
-        href: '#',
+        href: '../news_detail/news_detail.html',
         date: '14.12.2018',
         dateMachineReadable: '2018-12-14',
         title: 'Zürich-Flughafen: Drogenkurier verhaftet und Kokain sichergestellt',
       },
       {
-        href: '#',
+        href: '../news_detail/news_detail.html',
         dateLabel: 'Medienmitteilung',
         date: '14.12.2018',
         dateMachineReadable: '2018-12-14',
