@@ -110,7 +110,12 @@ class Carousel extends Module {
       .on('swipeLeft', this.increment.bind(this))
       .on('swipeRight', this.decrement.bind(this))
       .on('keydown', (event) => {
-        switch (event.code) {
+        const key = event.which
+          ? event.which === 39
+            ? 'ArrowRight' : event.which === 37
+              ? 'ArrowLeft' : ''
+          : event.key;
+        switch (key) {
           case 'ArrowLeft':
             this.decrement();
             break;
