@@ -29,6 +29,8 @@ class Carousel extends Module {
     nextButton: any;
   };
   public options: {
+    keyArrowLeft: number,
+    keyArrowRight: number,
     domSelectors: {
       indicator: string,
       prevButton: string,
@@ -56,6 +58,8 @@ class Carousel extends Module {
       isInGallery: false,
     };
     const defaultOptions = {
+      keyArrowRight: 39,
+      keyArrowLeft: 37,
       domSelectors: {
         indicator: '[data-carousel="indicator"]',
         prevButton: '[data-carousel="prev"]',
@@ -110,11 +114,8 @@ class Carousel extends Module {
       .on('swipeLeft', this.increment.bind(this))
       .on('swipeRight', this.decrement.bind(this))
       .on('keydown', (event) => {
-        const key = event.which
-          ? event.which === 39
-            ? 'ArrowRight' : event.which === 37
-              ? 'ArrowLeft' : ''
-          : event.key;
+        const key = event.which ? event.which === this.options.keyArrowRight // eslint-disable-line
+            ? 'ArrowRight' : event.which === this.options.keyArrowLeft ? 'ArrowLeft' : '' : event.key; // eslint-disable-line
         switch (key) {
           case 'ArrowLeft':
             this.decrement();
