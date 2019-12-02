@@ -14,8 +14,6 @@ $carouselCurves: (
   ),
 );
 
-
-
 .mdl-carousel {
   @include sizeCurve(margin-bottom, medium);
 
@@ -114,8 +112,7 @@ $carouselCurves: (
       max-width: 100%;
       width: auto;
       // IE 11 only
-      @media all and (-ms-high-contrast:none)
-      {
+      @media all and ( -ms-high-contrast: none ) {
         width: 100%;
       }
     }
