@@ -346,7 +346,6 @@ class Topiclist extends Module {
         }, Object.prototype.hasOwnProperty.call(subtopic, 'subpages'), subtopic);
       });
 
-      this.addNavigationEventListeners();
       window.dispatchEvent(new CustomEvent('reloadLineClamper'));
     }
   }

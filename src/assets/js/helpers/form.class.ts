@@ -224,39 +224,42 @@ class Form {
   validateField(field) {
     const validation = window[namespace].form.validateField(field);
     const fileTimeout = 5;
+    const inputWrapper = field.closest(this.options.inputSelector);
 
+    // Only Do something about validation when there is a parent with data-input is present
+    if (inputWrapper) {
+      field.closest(this.options.inputSelector).querySelectorAll(this.options.messageSelector)
+        .forEach((message) => {
+          message.classList.remove(this.options.messageClasses.show);
+        });
 
-    field.closest(this.options.inputSelector).querySelectorAll(this.options.messageSelector)
-      .forEach((message) => {
-        message.classList.remove(this.options.messageClasses.show);
-      });
+      if (validation.validationResult) {
+        this.setValidClasses(field);
+      } else {
+        this.setValidClasses(field, ['add', 'remove']);
 
-    if (validation.validationResult) {
-      this.setValidClasses(field);
-    } else {
-      this.setValidClasses(field, ['add', 'remove']);
+        validation.messages.forEach((messageID) => {
+          const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
 
-      validation.messages.forEach((messageID) => {
-        const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
+          if (message) {
+            message.classList.add('show');
+          }
+        });
 
-        if (message) {
-          message.classList.add('show');
-        }
-      });
+        if (validation.files) {
+          setTimeout(() => {
+            validation.files.forEach((validationResult) => {
+              const fileContainer = field.closest(this.options.inputSelector).querySelector(`[data-file-id="${validationResult.id}"]`);
 
-      if (validation.files) {
-        setTimeout(() => {
-          validation.files.forEach((validationResult) => {
-            const fileContainer = field.closest(this.options.inputSelector).querySelector(`[data-file-id="${validationResult.id}"]`);
-
-            validationResult.errors.forEach((error) => {
-              fileContainer.querySelector(`[data-message="${error}"]`).classList.add('show');
+              validationResult.errors.forEach((error) => {
+                fileContainer.querySelector(`[data-message="${error}"]`).classList.add('show');
+              });
             });
-          });
-        }, fileTimeout);
-      }
+          }, fileTimeout);
+        }
 
-      this.ui.element.setAttribute('form-has-errors', 'true');
+        this.ui.element.setAttribute('form-has-errors', 'true');
+      }
     }
   }
 
