@@ -14,7 +14,6 @@ class OpenData extends Module {
     domSelectors: any,
     stateClasses: any,
     apiCalls: Array<string>,
-    proxy: string,
     licenseKeys: any,
   }
 
@@ -42,7 +41,6 @@ class OpenData extends Module {
         initialised: 'mdl-open_data--initialised',
       },
       apiCalls: JSON.parse($element.dataset.apiCalls),
-      proxy: 'https://cors-anywhere.herokuapp.com/',
       licenseKeys: {
         'NonCommercialAllowed-CommercialAllowed-ReferenceNotRequired': '1',
         'NonCommercialAllowed-CommercialAllowed-ReferenceRequired': '2',
@@ -96,8 +94,7 @@ class OpenData extends Module {
     }
 
     this.options.apiCalls.forEach((resourceURL, index) => {
-      fetch(`${this.options.proxy}${resourceURL}`, {
-      })
+      fetch(resourceURL, {})
         .then(response => response.json())
         .then((response) => {
           if (response && response.success) {

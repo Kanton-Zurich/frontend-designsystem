@@ -67,7 +67,6 @@ class OrganisationNavigation extends Module {
     });
 
     this.ui.topiclist.addEventListener('layerChange', (event) => {
-      this.log((<CustomEvent>event).detail);
       if ((<CustomEvent>event).detail === 0) {
         this.ui.element.classList.remove(this.options.stateClasses.nextLayer);
       } else {
