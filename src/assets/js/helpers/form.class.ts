@@ -225,7 +225,7 @@ class Form {
     const validation = window[namespace].form.validateField(field);
     const fileTimeout = 5;
 
-    
+
     field.closest(this.options.inputSelector).querySelectorAll(this.options.messageSelector)
       .forEach((message) => {
         message.classList.remove(this.options.messageClasses.show);
@@ -346,7 +346,7 @@ class Form {
       const input = prefixedInput.querySelector('input');
 
       input.style.paddingLeft = `${unitWidth + this.options.padding * paddingMultiplier}px`;
-  	});
+    });
   }
 
   initDatepickers() {
