@@ -11,7 +11,7 @@
 // Lesson learned, OrT: browsers decided to reduce font size from 16px to 13px when the font applied is the fallbacked monospace.
 // Solution: declare monospace and then give it another fallback.
 // http://meyerweb.com/eric/thoughts/2010/02/12/fixed-monospace-sizing/
-$sg_font: "HelveticaNowText", Helvetica, serif;
+$sg_font: "HelveticaNowRegular", Helvetica, serif;
 $sg_font_black: "HelveticaNowBlack", Helvetica, serif;
 
 $sg_breakpoint: 1480px;
