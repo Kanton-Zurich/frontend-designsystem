@@ -147,11 +147,11 @@ class Pagination extends Module {
     this.ui.prev.classList.remove(this.options.stateClasses.buttonDisabled);
     this.ui.next.classList.remove(this.options.stateClasses.buttonDisabled);
 
-    if(page <= 1) {
+    if (page <= 1) {
       this.ui.prev.classList.add(this.options.stateClasses.buttonDisabled);
     }
 
-    if(page >= maxPages) {
+    if (page >= maxPages) {
       this.ui.next.classList.add(this.options.stateClasses.buttonDisabled);
     }
   }
