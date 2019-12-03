@@ -72,6 +72,18 @@ const variants = _.mapValues({
       ],
     },
   },
+  smaller: {
+    meta: {
+      title: 'Default kleiner',
+      desc: '',
+    },
+    props: {
+      steps: [
+        formVariants.phoneOnly.props,
+        formVariants.defaultDuplicate.props,
+      ],
+    },
+  },
   withoutNavigation: {
     meta: {
       title: 'Ohne Navigation',
