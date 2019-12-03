@@ -239,6 +239,10 @@ class Header extends Module {
   handleScroll() {
     const newScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
 
+    if (window.pageYOffset < this.height && window.pageYOffset > 0) {
+      return;
+    }
+
     if (newScrollPosition >= this.height) {
       this.placeholder.style.display = 'block';
       this.ui.element.classList.add(this.options.stateClasses.fixed);
