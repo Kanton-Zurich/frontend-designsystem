@@ -54,6 +54,7 @@ $triggerWidth: pxToRem(86px);
 
     &::placeholder {
       color: $colorBlack60;
+      opacity: 1;
     }
 
     &::-webkit-inner-spin-button,
