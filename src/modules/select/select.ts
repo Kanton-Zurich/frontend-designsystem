@@ -184,7 +184,7 @@ class Select extends Module {
       // ------------------------------------------------------------
       // On Key press Dropdown dropdown content element
       .on('keydown', this.options.domSelectors.dropdown, (event) => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' || event.key === ' ') {
           if (!this.isMultiSelect) {
             this.closeDropdown();
           }
@@ -278,7 +278,7 @@ class Select extends Module {
           }
           this.updateFlyingFocus(this.options.inputDelay);
         }
-        if (!this.isMultiSelect && ['Enter'].indexOf(pressed) >= 0) {
+        if (!this.isMultiSelect && ['Enter', ' ', 'Spacebar'].indexOf(pressed) >= 0) {
           this.ui.trigger.click();
         }
       });
@@ -290,6 +290,9 @@ class Select extends Module {
         this.updateFlyingFocus(this.options.inputDelay);
         if (event.key === 'Enter') {
           event.preventDefault();
+        }
+        if (event.key === ' ' || event.key === 'Spacebar') {
+          event.stopPropagation();
         }
       });
       this.ui.filterClearButton.addEventListener('click', (event) => {
