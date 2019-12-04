@@ -14,6 +14,8 @@ class Header extends Module {
   public placeholder: HTMLElement;
   public delayHeaderIsFixed: number;
   public isToggleable: boolean;
+  public flyoutVisible: boolean;
+  public pageHeaderBounds: any;
 
   private pinPos: number;
   public height: number;
@@ -88,6 +90,7 @@ class Header extends Module {
 
     this.data.scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     this.delayHeaderIsFixed = 0;
+    this.pageHeaderBounds = null;
     this.isToggleable = true;
     this.headerHeights = {
       tiny: 50,
@@ -96,6 +99,7 @@ class Header extends Module {
     };
     this.bpXsmall = 400;
     this.bpMedium = 840;
+    this.flyoutVisible = false;
 
     this.onResize();
     this.createPlaceholder();
@@ -129,6 +133,11 @@ class Header extends Module {
     window.addEventListener(Anchornav.events.isNotSticky, () => {
       this.ui.element.classList.remove(this.options.colorClasses.monochrome);
     });
+
+    const pageHeader = document.querySelector('.mdl-page-header');
+    if (pageHeader){
+      this.pageHeaderBounds = pageHeader.getBoundingClientRect();
+    }
   }
 
   initWatchers() {
@@ -156,6 +165,7 @@ class Header extends Module {
 
 
   showFlyout(delegate, mainNav = false) {
+    this.flyoutVisible = true;
     this.data.activeModal = document.querySelector(`#${delegate.getAttribute('aria-controls')}`);
     this.data.activeItem = delegate;
 
@@ -188,6 +198,7 @@ class Header extends Module {
   }
 
   hideFlyout() {
+    this.flyoutVisible = false;
     let anchornavIsSticky = false;
 
     if (document.querySelector('.mdl-anchornav')) {
@@ -239,7 +250,7 @@ class Header extends Module {
   handleScroll() {
     const newScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
 
-    if (window.pageYOffset < this.height && window.pageYOffset > 0) {
+    if (this.flyoutVisible || (window.pageYOffset < this.height && window.pageYOffset > 0)) {
       return;
     }
 
@@ -266,6 +277,14 @@ class Header extends Module {
     if (this.isToggleable) {
       this.data.scrollPosition = newScrollPosition >= 0 ? newScrollPosition : 0;
       this.isToggleable = false;
+    }
+
+    if (this.pageHeaderBounds && !document.querySelector('.mdl-anchornav')) {
+      if (this.data.scrollPosition > this.pageHeaderBounds.bottom) {
+        this.ui.element.classList.add(this.options.colorClasses.monochrome);
+      } else {
+        this.ui.element.classList.remove(this.options.colorClasses.monochrome);
+      }
     }
 
     setTimeout(() => {
