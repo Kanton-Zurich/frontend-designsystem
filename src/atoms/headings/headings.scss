@@ -108,3 +108,43 @@ h6,
   }
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  &.atm-heading--with-lead {
+    padding-top: 0;
+    @include sizeCurve(margin-bottom, big);
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
+  }
+}
+
+p.atm-heading__lead {
+  line-height: $sizeLineHeightBase;
+  color: rgba($colorBlack, 0.6);
+  margin-bottom: 0;
+  @include sizeCurve(margin-top, big);
+
+  @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+}
+
+/*
+* COLOR-VARIATIONS
+*/
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      &.atm-heading--with-lead {
+        color: #{$val};
+      }
+    }
+  }
+}
