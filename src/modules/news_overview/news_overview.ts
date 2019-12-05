@@ -246,7 +246,7 @@ class NewsOverview extends Module {
     if (forced || this.filterHash !== filterHash
       || this.dateHash !== dateHash
       || this.searchWordHash !== searchWordHash) {
-      if (this.searchWord !== '') {
+      if (this.searchWord !== '' && this.searchWordHash !== searchWordHash) {
         (<HTMLButtonElement> this.ui.sortDropdown
           .querySelector('button[data-sort="relevance"]')).click();
       }
@@ -394,8 +394,11 @@ class NewsOverview extends Module {
       const dateFrom = new Date(dateFromStr);
       this.dateRange = [ dateFrom, dateTo ];
       this.dateString = `${('0' + dateFrom.getDate()).slice(-2)}.${('0' + (dateFrom.getMonth() + 1)).slice(-2)}.${dateFrom.getFullYear()} - ${('0' + dateTo.getDate()).slice(-2)}.${('0' + (dateTo.getMonth() + 1)).slice(-2)}.${dateTo.getFullYear()}`; // eslint-disable-line
-      (<HTMLInputElement> this.ui.datePicker.querySelector('.atm-form_input__input')).value = this.dateString;
-      this.ui.datePicker.classList.add('dirty');
+      setTimeout(() => {
+        this.ui.datePickerInput.value = this.dateString;
+        this.ui.datePicker.classList.add('dirty');
+        this.ui.datePickerInput.classList.add('dirty');
+      }, 0);
     }
     if (this.searchWord.length > 0) {
       this.ui.searchWordInput.value = this.searchWord;

@@ -6,8 +6,8 @@ $customParagraphCurve: (
   large: $sizeFontBiggerRegular,
 );
 
-$maxTextLines: 6;
-$maxTextLinesDesktop: 4;
+
+$maxTextLines: 4;
 
 .mdl-news-teaser {
   @include gridBleed($fullwidth: true);
@@ -105,10 +105,10 @@ $maxTextLinesDesktop: 4;
 
       // LineClamper Config
       $headingHeightCurve: (
-        tiny: $sizeLarge * $sizeLineHeightMedium * $maxTextLines,
-        small: $sizeLarge * $sizeLineHeightMedium * $maxTextLinesDesktop,
-        medium: $sizeBig * $sizeLineHeightMedium * $maxTextLinesDesktop,
-        xlarge: $sizeBiggerBig * $sizeLineHeightNarrower * $maxTextLinesDesktop,
+        tiny: $sizeFontBiggerRegular * $sizeLineHeightMedium * $maxTextLines,
+        xsmall: $sizeFontMedium * $sizeLineHeightMedium * $maxTextLines,
+        large: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLines,
+        xlarge: $sizeFontSmallBig * $sizeLineHeightMedium * $maxTextLines,
       );
 
       @include polyFluidSizing(max-height, $headingHeightCurve);

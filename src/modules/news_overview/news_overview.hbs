@@ -13,7 +13,7 @@
           </div>
         </form>
         {{>"modules/news_filter_mobile/news_filter_mobile" newsFilterMobileData}}
-        <div data-news_overview="wrapper">
+        <div data-news_overview="wrapper" class="mdl-news-overview--loading">
           <div class="mdl-news-teaser mdl-news-overview__topnews">
             <div class="mdl-news-teaser__content">
           {{> "modules/teaser/teaser" prominentTeaser}}
@@ -42,10 +42,10 @@
               </button>
               {{> "modules/context_menu/context_menu" sortContextMenu}}
             </div>
+            {{> "atoms/loading_circle/loading_circle"}}
           </div>
           <div class="mdl-news-teaser mdl-news-overview__newsgrid">
             <div class="mdl-news-teaser__content">
-              {{> "atoms/loading_circle/loading_circle"}}
               <div class="mdl-news-overview__no-results mdl-texthighlight">
                 <p class="atm-paragraph">{{noResults}}</p>
               </div>
