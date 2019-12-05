@@ -1,6 +1,6 @@
 <div class="mdl-open_data" data-init="openData" data-api-calls="{{stringify api_calls}}">
   {{#if title}}
-    <h{{title.level}}>{{title.text}}</h{{title.level}}>
+    <h{{title.level}} class="atm-heading">{{title.text}}</h{{title.level}}>
   {{/if}}
   {{#ifLengthBetween api_calls 1 1}}
     <div data-open_data="wrapper"></div>
