@@ -26,6 +26,7 @@ $stepperNavigationCurves: (
 .mdl-stepper_navigation {
   list-style-type: none;
 
+  @include sizeCurve(margin-bottom, medium);
   @include resetList;
   display: flex;
   justify-content: space-between;

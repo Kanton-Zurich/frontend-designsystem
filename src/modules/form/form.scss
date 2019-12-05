@@ -8,6 +8,10 @@ $gapSize: pxToRem($sizeRegular);
     &:focus {
       outline: none;
     }
+
+    &.atm-heading {
+      padding-top: 0;
+    }
   }
 
   &__group {
