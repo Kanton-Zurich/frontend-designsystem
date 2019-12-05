@@ -120,6 +120,14 @@ $triggerWidth: pxToRem(86px);
       }
     }
 
+    .atm-form_input__input--txtarea ~ label {
+      top: $borderWidthRem;
+      padding-top: $paddingInput;
+      right: pxToRem($borderWidth + $sizeLarge);
+
+      @include transition(top padding);
+    }
+
     label {
       position: absolute;
       top: $paddingInput + $borderWidthRem;
@@ -148,6 +156,13 @@ $triggerWidth: pxToRem(86px);
 
       font-family: $fontFamilyBlack;
       color: $colorBlack;
+    }
+
+    // FOR TEXTAREA
+    .atm-form_input__input--txtarea:focus ~ label,
+    .atm-form_input__input--txtarea.dirty ~ label {
+      top: 2px;
+      padding-top: pxToRem(14px);
     }
   }
 
