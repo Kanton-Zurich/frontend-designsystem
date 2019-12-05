@@ -183,10 +183,6 @@ $headerCurves: (
     .mdl-header {
       background: $val;
 
-      &--fixed {
-        background: transparent;
-      }
-
       &__wrapper,
       &__functions {
         background: $val;
