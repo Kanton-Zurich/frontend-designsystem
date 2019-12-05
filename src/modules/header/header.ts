@@ -135,7 +135,7 @@ class Header extends Module {
     });
 
     const pageHeader = document.querySelector('.mdl-page-header');
-    if (pageHeader){
+    if (pageHeader) {
       this.pageHeaderBounds = pageHeader.getBoundingClientRect();
     }
   }
