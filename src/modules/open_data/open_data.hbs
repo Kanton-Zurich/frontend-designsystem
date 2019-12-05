@@ -10,13 +10,13 @@
 
   <script data-open_data="template" type="text/x-handlebars-template">
     <% _.forEach(resources, function(resource) { %>
-      {{#ifLengthBetween api_calls 2 Infinity}}
+      <% if (resources.length > 1) { %>
         <li>
-      {{/ifLengthBetween}}
+      <% } %>
       {{{template}}}
-      {{#ifLengthBetween api_calls 2 Infinity}}
+      <% if (resources.length > 1) { %>
         </li>
-      {{/ifLengthBetween}}
+      <% } %>
     <% }); %>
   </script>
 </div>
