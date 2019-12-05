@@ -454,6 +454,11 @@ class Stepper extends Module {
       const legend = fieldset.querySelector('legend');
 
       fieldLabel = legend.textContent.trim();
+    } else if (field.getAttribute('type') === 'file') {
+      const fileUpload = field.closest('.mdl-file_upload');
+      const title = fileUpload.querySelector('.atm-heading');
+
+      fieldLabel = title.textContent.trim();
     } else {
       const fieldElement = field.parentElement;
       fieldLabel = fieldElement.querySelector('label').textContent.trim();
