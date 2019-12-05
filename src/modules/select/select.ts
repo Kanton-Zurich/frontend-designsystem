@@ -291,6 +291,9 @@ class Select extends Module {
         if (event.key === 'Enter') {
           event.preventDefault();
         }
+        if (event.key === ' ' || event.key === 'Spacebar') {
+          event.stopPropagation();
+        }
       });
       this.ui.filterClearButton.addEventListener('click', (event) => {
         this.ui.filter.value = '';
