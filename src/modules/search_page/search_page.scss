@@ -10,8 +10,20 @@
     overflow: hidden;
   }
 
+  &__results-head {
+    @include sizeCurve(margin-bottom, medium);
+  }
+
   &__form {
     @include sizeCurve(padding-bottom, regular);
+  }
+
+  &__date-filter {
+    display: none;
+
+    &--visible {
+      display: block;
+    }
   }
 
   &__results-wrapper {
@@ -36,9 +48,12 @@
   }
 
   &__tag-group {
-    @include sizeCurve(margin-bottom, medium);
 
     margin-top: -$sizeMini;
+  }
+
+  &__autocorrect {
+    display: none;
   }
 
   .atm-button--tag {
@@ -47,6 +62,12 @@
 
   .atm-radiobutton {
     margin-top: $sizeMini;
+  }
+
+  &--show-results {
+    .mdl-search__autosuggest {
+      display: none;
+    }
   }
 
   /**
