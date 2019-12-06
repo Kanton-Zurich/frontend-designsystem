@@ -1,5 +1,6 @@
 .mdl-texthighlight {
-  @include sizeCurve('padding', smallerRegular);
+  @include sizeCurve(padding, smallerRegular);
+  @include sizeCurve(margin-top margin-bottom, medium);
 
   *:last-child {
     margin-bottom: 0;
