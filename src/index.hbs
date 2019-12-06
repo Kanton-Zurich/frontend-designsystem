@@ -1,7 +1,18 @@
 {{#extend "preview/layouts/layout"}}
+  {{#content "header"}}
+    {{> "modules/page_header/page_header" props.pageHeaderData}}
+  {{/content}}
 	{{#content "content"}}
+    {{#if atomList}}
+      <div class="lyt-wrapper" id="header">
+      <div class="grid-x grid-margin-x">
+      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+    {{> "modules/topiclist/topiclist" atomList }}
+      </div>
+      </div>
+      </div>
+    {{/if}}
 		<div class="sg_index">
-
 			{{#if atoms}}
 				<div class="sg_inner_wrapper">
 					<h2 class="sg_h2">Atome</h2>

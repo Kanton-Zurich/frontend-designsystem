@@ -49,6 +49,14 @@
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
                                data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
+<div class="lyt-wrapper" id="header">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      {{#block "header"}}
+      {{/block}}
+    </div>
+  </div>
+</div>
 <div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}}">
   <div class="sg_index_header">
   <svg viewBox="0 0 100 100" class="sg_logo">

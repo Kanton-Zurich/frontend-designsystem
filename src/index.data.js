@@ -2,6 +2,7 @@ const _ = require('lodash');
 const path = require('path');
 const dataHelper = require('@unic/estatico-data');
 const defaultData = require('./data/default.data.js');
+const defTopiclistData = require('./modules/topiclist/topiclist.data').variants.home.props;
 
 const colorPalette = [
   '#71b359',
@@ -47,11 +48,41 @@ const transform = (originalData, filePath) => {
   return data;
 };
 
+const atomsGlob = dataHelper.getDataGlob('./src/atoms/**/*.data.js', transform);
+const atoms = Object.keys(atomsGlob).map((item) => {
+  return {
+    shortTitle: atomsGlob[item].meta.title,
+    buzzwords: null,
+    target: atomsGlob[item].meta.previewUrl,
+    isPromotopic: false,
+  };
+});
+
+const atomList = _.merge({}, defTopiclistData);
+atomList.topiclistcontentNavData.items = atoms;
+
 const data = _.merge({}, defaultData, {
+  atomList,
   atoms: dataHelper.getDataGlob('./src/atoms/**/*.data.js', transform),
   pages: dataHelper.getDataGlob('./src/pages/**/*.data.js', transform),
   modules: dataHelper.getDataGlob('./src/modules/**/*.data.js', transform),
   styleguide: dataHelper.getDataGlob('./src/preview/styleguide/*.data.js', transform),
+  props: {
+    pageHeaderData: {
+      title: 'Seitenkopf',
+      homelink: '',
+      pageTitle: 'Living Styleguide',
+      breadcrumb: {
+        contextMenu: false,
+        path: [
+          {
+            title: 'Kanton Zürich',
+            href: '#',
+          },
+        ],
+      },
+    },
+  },
 });
 
 
