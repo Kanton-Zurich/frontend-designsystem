@@ -281,6 +281,21 @@ const variants = _.mapValues({
       },
     },
   },
+  defaultSmallLead: {
+    meta: {
+      title: 'Kontakt klein (mit Untertitel)',
+      desc: 'Kontakt klein',
+    },
+    props: {
+      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
+      contactAddress: demoAddressData,
+      contactLead: 'Hallo ich bin ein Untertitel',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+      },
+    },
+  },
   fullWidth: {
     meta: {
       title: 'Kontakt volle Breite',
