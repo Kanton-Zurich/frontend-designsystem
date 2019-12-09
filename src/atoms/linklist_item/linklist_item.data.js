@@ -81,7 +81,6 @@ const variants = _.mapValues({
     props: {
       subtitle: '2 gewählt',
       subTitlePattern: '% gewählt',
-      noColor: true,
     },
   },
   filterDropdown: {
@@ -91,7 +90,6 @@ const variants = _.mapValues({
     },
     props: {
       subtitle: '26.08.2019 - 10.10.2020',
-      noColor: true,
       chevron: true,
     },
   },

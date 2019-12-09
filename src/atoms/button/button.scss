@@ -237,16 +237,11 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
     }
 
     &-edit {
-      align-items: center;
-      padding-left: 0;
-
-      span {
-        order: 2;
-      }
+      display: inline-flex;
+      flex-direction: row-reverse;
 
       .icon.atm-button__icon {
-        order: 1;
-        margin-left: 13px;
+        margin-left: 0;
         margin-right: 9px;
         transform: scale(0.625);
       }

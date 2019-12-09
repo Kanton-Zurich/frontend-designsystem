@@ -49,6 +49,11 @@
 
   .atm-notification {
     margin-top: pxToRem($sizeLarge);
+    margin-bottom: pxToRem($sizeLarge);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &__remark {
