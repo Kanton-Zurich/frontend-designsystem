@@ -63,6 +63,10 @@ $triggerWidth: pxToRem(86px);
       margin: 0;
     }
 
+    &[ type='number' ] {
+      -moz-appearance: textfield; // stylelint-disable-line
+    }
+
     &::-ms-clear {
       display: none;
     }
