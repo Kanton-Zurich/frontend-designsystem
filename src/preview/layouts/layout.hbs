@@ -57,9 +57,16 @@
     </div>
   </div>
 </div>
-<div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}}">
+<div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}} cv-blue">
   {{#block "content"}}
   {{/block}}
+</div>
+<div class="lyt-wrapper cv-blue" id="footer">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+{{>"modules/contact/contact" wrappingElements.contact }}
+    </div>
+  </div>
 </div>
 </body>
 </html>

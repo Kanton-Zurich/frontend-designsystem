@@ -1,26 +1,38 @@
 {{#extend "preview/layouts/layout"}}
+  {{#content "header"}}
+    {{> "modules/page_header/page_header" wrappingElements.pageHeaderData}}
+  {{/content}}
 	{{#content "content"}}
-			{{#each colors}}
-				{{#unless hideFromStyleguide}}
-          <div class="sg_palette sg_palette--rect">
-            <div class="sg_palette-color">
-              <div class="sg_palette-color__rect" style="background-color: {{color}}">
-                <div>
-                  <div style-valid="{{whiteSmall}}">Aa</div>
-                  <div style-valid="{{blackSmall}}">Aa</div>
+    <div class="lyt-wrapper cv-blue" id="footer">
+      <div class="grid-x grid-margin-x">
+        <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+          <h2 class="atm-heading atm-heading--bordered">{{meta.title}}</h2>
+          <div class="sg_palette__container">
+            {{#each colors}}
+              {{#unless hideFromStyleguide}}
+                <div class="sg_palette sg_palette--rect">
+                  <div class="sg_palette-color">
+                    <div class="sg_palette-color__rect" style="background-color: {{color}}">
+                      <div>
+                        <div style-valid="{{whiteSmall}}">Aa</div>
+                        <div style-valid="{{blackSmall}}">Aa</div>
+                      </div>
+                      <div>
+                        <div style-valid="{{whiteLarge}}">Aa</div>
+                        <div style-valid="{{blackLarge}}">Aa</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="sg_palette-color__content">
+                    <h1>{{name}}</h1>
+                    <span>{{color}}</span>
+                  </div>
                 </div>
-                <div>
-                  <div style-valid="{{whiteLarge}}">Aa</div>
-                  <div style-valid="{{blackLarge}}">Aa</div>
-                </div>
-              </div>
-            </div>
-            <div class="sg_palette-color__content">
-              <h1>{{name}}</h1>
-              <span>{{color}}</span>
-            </div>
+              {{/unless}}
+            {{/each}}
           </div>
-				{{/unless}}
-			{{/each}}
+        </div>
+      </div>
+    </div>
 	{{/content}}
 {{/extend}}

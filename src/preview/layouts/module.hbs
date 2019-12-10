@@ -188,7 +188,6 @@
 				{{/each}}
 			</section>
 		{{/if}}
-
 		{{#if meta.documentation}}
 			<section class="sg_inner_wrapper">
 				<h2 class="sg_h2">Dokumentation</h2>
@@ -198,7 +197,6 @@
 				</div>
 			</section>
 		{{/if}}
-
 		{{#if meta.mocks}}
 			<section class="sg_inner_wrapper">
 				<h2 class="sg_h2">Data mocking</h2>
@@ -216,5 +214,8 @@
       <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js" async></script>
 		{{/block}}
 	</div>
+<div class="cv-blue">
+{{>"modules/contact/contact" wrappingElements.contact }}
+</div>
 </body>
 </html>

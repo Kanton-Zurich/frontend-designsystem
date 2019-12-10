@@ -493,7 +493,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 // Preview: Colors page
 // ----------------------------------------------------------------------------------------------------
 .sg_palette {
-  float: left;
   background-color: #fff;
   box-shadow: 0 1px 1px 0 rgba(200, 200, 200, 0.3);
 
@@ -516,11 +515,17 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     }
   }
 
+  &__container {
+    display: block;
+    margin-bottom: 80px;
+  }
+
   /* Square */
   &.sg_palette--rect {
-    margin: 40px;
-    width: 300px;
+    margin-right: 1%;
+    width: 29%;
     height: 200px;
+    display: inline-block;
 
     .sg_palette-color {
       height: 140px;

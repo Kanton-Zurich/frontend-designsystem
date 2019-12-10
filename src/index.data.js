@@ -132,12 +132,33 @@ pageList.topiclistcontentNavData.items = Object.keys(pagesGlob).map((item) => {
   };
 }).filter(item => item && item.shortTitle && item.shortTitle.length > 0);
 
+// Get other pages
+const styleguide = _.merge({}, defTopiclistData, {
+  topiclistInput: null,
+});
+
+styleguide.topiclistcontentNavData.items = _.sortBy(dataHelper.getDataGlob('./src/preview/styleguide/*.data.js', transform), item => item.meta.title).map((item) => {
+  return {
+    shortTitle: item.meta.title,
+    buzzwords: ' ',
+    target: item.meta.previewUrl,
+    isPromotopic: false,
+  };
+});
+
+styleguide.topiclistcontentNavData.items.push({
+  shortTitle: 'Offline Seite Download (zip)',
+  buzzwords: '',
+  target: 'offline.zip',
+  isPromotopic: false,
+});
+
 const data = _.merge({}, defaultData, {
   atomList,
   moduleList,
   moduleLabels,
   pageList,
-  styleguide: dataHelper.getDataGlob('./src/preview/styleguide/*.data.js', transform),
+  styleguide,
 });
 
 
@@ -157,8 +178,5 @@ labelGroups.forEach((label, index) => {
   data.modules.push(modules[label]);
 });
 
-data.styleguide = _.sortBy(data.styleguide, item => item.meta.title);
-
-data.atoms = _.sortBy(data.atoms, item => item.meta.title);
 
 module.exports = data;

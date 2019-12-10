@@ -29,6 +29,11 @@ function getColorMap() {
 }
 const dateNow = new Date(Date.now());
 
+const strPad = (num) => {
+  const s = `0${num}`;
+  return s.substr(s.length - 2);
+};
+
 const env = parseArgs(process.argv.slice(2));
 const data = {
   meta: {
@@ -37,8 +42,8 @@ const data = {
       + '/src/' + git.long(),
     gitBranch: git.branch(),
     gitShort: git.short(),
-    gitDate: `${git.date().getDate()}.${git.date().getMonth()}.${git.date().getFullYear()}`,
-    buildDate: `${dateNow.getDate()}.${dateNow.getMonth()}.${dateNow.getFullYear()} ${dateNow.getHours()}:${dateNow.getMinutes()}`,
+    gitDate: `${strPad(git.date().getDate())}.${strPad(git.date().getMonth())}.${git.date().getFullYear()}`,
+    buildDate: `${strPad(dateNow.getDate())}.${strPad(dateNow.getMonth())}.${dateNow.getFullYear()} ${strPad(dateNow.getHours())}:${strPad(dateNow.getMinutes())}`,
   },
   colors: getColorMap(),
   colorVariations: _.map(dataHelper.getColors('../assets/css/data/colorVariations.json'), (color) => {
@@ -61,6 +66,39 @@ const data = {
           },
         ],
       },
+    },
+    contact: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Staatskanzlei',
+      contactAddress: {
+        street: 'Neumühlequai 10',
+        zip: '8090',
+        city: 'Zürich',
+        routeLinkHref: 'https://goo.gl/maps/aNPYTs5yN8ggd9vk9',
+        routeLinkLabel: 'Route anzeigen',
+        openingTimes: {
+          timeTitle: 'Bürozeiten',
+          times: [
+            { text: 'Mo-Fr: 8.00 - 11:30 &' },
+            { text: '13:30 - 17:00' },
+          ],
+        },
+      },
+      contactPhone: [{
+        anchorLabel: '043 259 11 11',
+        phoneNumer: '+41432591111',
+      }],
+      contactSubtitleMoreInfo: {
+        href: 'https://www.zh.ch/',
+        label: 'Mehr erfahren',
+      },
+      contactMail: {
+        address: 'info@sk.zh.ch',
+      },
+    },
+    footer: {
+
     },
   },
   props: {
