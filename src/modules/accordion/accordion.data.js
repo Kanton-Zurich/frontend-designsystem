@@ -162,6 +162,7 @@ const variants = _.mapValues({
     },
     props: {
       isInverted: true,
+      singleMode: true,
       accordionHeading: {
         level: 2,
         title: 'Weiterführende Informationen Einzeln',

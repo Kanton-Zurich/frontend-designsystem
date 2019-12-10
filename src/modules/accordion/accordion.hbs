@@ -1,6 +1,6 @@
 
 <div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-accordion {{#if isInverted}}mdl-accordion--cv-inverted cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10{{/if}}{{#if toggleAll}} mdl-accordion--toggleall{{/if}}"
-                                                            data-init="accordion">
+                                                            {{#unless singleMode}}data-init="accordion"{{/unless}}>
 {{#if isInverted}}
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
@@ -15,7 +15,7 @@
    Verwenden Sie die Akkordeon-Bedienelemente, um die Sichtbarkeit der jeweiligen Panels (unterhalb der Bedienelemente) umzuschalten.
   </p>
   <div>
-    {{#if_compare items.length '<' 2}}
+    {{#if singleMode}}
       {{#each items}}
       <h{{increment ../accordionHeading.level}} class="mdl-accordion__control">{{title}}</h{{increment ../accordionHeading.level}}>
           <div class="mdl-accordion__panel-content" data-accordion="panel-content">
@@ -28,8 +28,8 @@
             {{/each}}
           </div>
       {{/each}}
-    {{/if_compare}}
-    {{#if_compare items.length '>' 1}}
+    {{/if}}
+    {{#unless singleMode}}
       {{#each items}}
         <div class="mdl-accordion__item{{#if additionalClass}} {{additionalClass}}{{/if}}"{{#if additionalAttribute}} {{additionalAttribute}}{{/if}} data-accordion="item">
           <h{{increment ../accordionHeading.level}} class="mdl-accordion__header">
@@ -59,7 +59,7 @@
           </div>
         </div>
       {{/each}}
-    {{/if_compare}}
+    {{/unless}}
   </div>
   {{#if isInverted}}
       </div>
