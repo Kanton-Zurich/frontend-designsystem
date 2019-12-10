@@ -15,6 +15,9 @@ const data = _.merge({}, defaultData, {
   props: {
     detailPageLink: '#',
     headingLevel: 4,
+    image: {
+      alt: 'Portrait von Vorname / Nachname',
+    },
   },
 });
 const variants = _.mapValues({
@@ -30,6 +33,7 @@ const variants = _.mapValues({
       buttonText: 'Mehr erfahren',
       hasImage: true,
       hasButton: true,
+
     },
   },
   alt: {
