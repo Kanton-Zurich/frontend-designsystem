@@ -382,23 +382,27 @@ $triggerWidth: pxToRem(86px);
     > input {
       position: absolute;
       top: 2px;
-
       right: 2px;
       height: pxToRem($targetInputHeight);
-
       background: none;
-
       left: $triggerWidth;
       width: calc(100% - #{$triggerWidth} - $borderWidthRem);
-
       border: none;
-
       padding-left: pxToRem($sizeRegular);
-
       z-index: $zIndexInner;
 
       &:focus {
         outline: none;
+      }
+
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        appearance: none;
+        margin: 0;
+      }
+
+      &::-ms-clear {
+        display: none;
       }
     }
 

@@ -79,6 +79,7 @@ class Datepicker extends Module {
         container: '.mdl-datepicker__container',
       },
       stateClasses: {
+        calendarDays: '.flatpickr-day',
       },
       dataSelectors: {
         pickerMode: 'datetimeformat',

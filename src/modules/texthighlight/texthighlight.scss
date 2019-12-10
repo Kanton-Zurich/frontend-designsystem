@@ -61,6 +61,10 @@
 
         .atm-linklist_item {
           color: rgba($val, 1);
+
+          &:hover {
+            color: rgba($colorText, 1);
+          }
         }
       }
 
