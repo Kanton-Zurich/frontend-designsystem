@@ -6,7 +6,7 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('live_stream.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Live Steam Video',
+    title: 'Live Stream Video',
     className: 'LiveStream',
     jira: 'CZHDEV-176',
     label: 'Eingebettet',
