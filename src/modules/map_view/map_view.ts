@@ -16,6 +16,7 @@ const { L } = window;
 
 // Approx. earth radius for Zurich ground level (km)
 const EARTH_RADIUS_ZH = 6366.977;
+const SELECT_ZOOM = 14;
 
 const mapOptions: L.MapOptions = {
   crs: L.CRS.EPSG3857,
@@ -183,7 +184,11 @@ class MapView extends Module {
 
     if (this.markers[markerIdx]) {
       setTimeout(() => {
-        this.map.panTo(this.markers[markerIdx].getLatLng());
+        this.map.setView(this.markers[markerIdx].getLatLng(), SELECT_ZOOM);
+      }, 0);
+    } else {
+      setTimeout(() => {
+        this.setBounds();
       }, 0);
     }
 

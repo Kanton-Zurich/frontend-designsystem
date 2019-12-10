@@ -50,6 +50,10 @@ $accordionMap: (
       }
     }
 
+    .mdl-accordion__control {
+      color: $colorBlack60;
+    }
+
     &--open {
       .mdl-accordion__plus .vertical {
         transform: rotate(90deg);
@@ -132,7 +136,6 @@ $accordionMap: (
 
     letter-spacing: -0.3px;
     flex-grow: 1;
-    color: $colorBlack60;
     overflow: hidden;
     width: calc(100% - 24px);
     text-overflow: ellipsis;

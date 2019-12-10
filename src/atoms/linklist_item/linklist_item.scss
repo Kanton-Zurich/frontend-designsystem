@@ -147,7 +147,7 @@
 
 @each $key, $val in $tl-color-variations {
   .#{$key} {
-    .atm-linklist_item:not(.atm-linklist_item--download):not(.atm-linklist_item--nocolor) {
+    .atm-linklist_item--location {
       color: rgba($val, 1);
 
       &:hover {

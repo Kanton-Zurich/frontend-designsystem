@@ -220,11 +220,12 @@ $mapRatioSmall: 0.75;
       &_location {
         margin-top: pxToRem($sizeRegular);
         max-height: 100%;
-        display: block;
+        display: none;
         height: auto;
 
         &.show {
           max-height: 100%;
+          display: block;
         }
       }
     }

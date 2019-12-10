@@ -52,6 +52,7 @@ import Banner from '../../../modules/banner/banner';
 import Contact from '../../../modules/contact/contact';
 import TaxCalc from '../../../modules/tax_calc/tax_calc';
 import JurisdictionFinder from '../../../modules/jurisdiction_finder/jurisdiction_finder';
+import NewsletterForm from '../../../modules/newsletter_form/newsletter_form';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -113,6 +114,7 @@ class App {
     this.modules.taxCalc = TaxCalc;
     this.modules.jurisdictionFinder = JurisdictionFinder;
     this.modules.contact = Contact;
+    this.modules.newsletterForm = NewsletterForm;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

@@ -109,6 +109,8 @@
       flex-grow: 1;
 
       .mdl-filter-pills {
+        display: block;
+
         button[ data-clear ] {
           &.hidden {
             display: none;

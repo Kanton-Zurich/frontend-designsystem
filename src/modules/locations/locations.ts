@@ -171,6 +171,12 @@ class Locations extends Module {
         }
       });
 
+    this.ui.filterInput.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+      }
+    });
+
     this.ui.element
       .addEventListener(Locations.events.filterLocations, this.onFilterEvent.bind(this));
     this.ui.element
@@ -231,6 +237,7 @@ class Locations extends Module {
         this.ui.map.dispatchEvent(MapView.extMarkerSelectEvent(index));
       }, 0);
       this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.singleItem);
+      this.showLocationDetailsForIndex(index);
     } else {
       this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.singleItem);
     }
