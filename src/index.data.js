@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const path = require('path');
+const glob = require('glob');
 const dataHelper = require('@unic/estatico-data');
 const defaultData = require('./data/default.data.js');
 const defTopiclistData = require('./modules/topiclist/topiclist.data').variants.home.props;
@@ -48,41 +49,95 @@ const transform = (originalData, filePath) => {
   return data;
 };
 
+const getDataArray = (fileGlob, dataTransform) => {
+  const data = [];
+  const paths = glob.sync(fileGlob);
+
+  _.each(paths, (filePath) => {
+    const requirePath = path.resolve(filePath);
+    const fileName = path.basename(filePath).replace('.data.js', '');
+    let fileData = require(requirePath); // eslint-disable-line
+
+    // Optional data transformation
+    if (dataTransform) {
+      fileData = dataTransform(fileData, filePath);
+    }
+
+    data.push(fileData);
+  });
+
+  return data;
+};
+
+// Get Atoms
 const atomsGlob = dataHelper.getDataGlob('./src/atoms/**/*.data.js', transform);
-const atoms = Object.keys(atomsGlob).map((item) => {
+const atomList = _.merge({}, defTopiclistData, {
+  topiclistInput: null,
+});
+
+atomList.topiclistcontentNavData.items = Object.keys(atomsGlob).map((item) => {
   return {
     shortTitle: atomsGlob[item].meta.title,
-    buzzwords: null,
+    buzzwords: `<br/><span class="sg_jira-link" href="https://we.one-inside.com/jira/browse/${atomsGlob[item].meta.jira}">${atomsGlob[item].meta.jira}</span> `,
     target: atomsGlob[item].meta.previewUrl,
     isPromotopic: false,
   };
+}).filter(item => item && item.shortTitle && item.shortTitle.length > 0);
+
+// Get Modules
+const moduleArray = [];
+const moduleLabels = [];
+const moduleGroups = _.groupBy(_.filter(getDataArray('./src/modules/**/*.data.js', transform),item => item.meta.title), item => item.meta.label);
+Object.keys(moduleGroups).forEach((label, index) => {
+  moduleGroups[label] = _.sortBy(moduleGroups[label], item => item.meta.title);
+  const background = colorPalette[index];
+  const foreground = luminance(colorPalette[index]) > 120.0 ? '#000000' : '#FFFFFF'; // eslint-disable-line
+  moduleLabels.push({ label, foreground, background });
+  moduleGroups[label].forEach((module) => {
+    module.meta.labelBackground = background;
+    module.meta.labelColor = foreground;
+    moduleArray.push(module);
+  });
 });
 
-const atomList = _.merge({}, defTopiclistData);
-atomList.topiclistcontentNavData.items = atoms;
+const moduleList = _.merge({}, defTopiclistData, {
+  topiclistInput: null,
+});
+
+moduleList.topiclistcontentNavData.items = moduleArray.map((item) => {
+  return {
+    shortTitle: item.meta.title,
+    alt: true,
+    buzzwords: `<br/><span class="sg_jira-link" href="https://we.one-inside.com/jira/browse/${item.meta.jira}">${item.meta.jira}</span> `  +
+      `<span class="sg_group-label" style="border-color:  ${item.meta.labelBackground}; background-color:  ${item.meta.labelBackground}; color: ${item.meta.labelColor}">${item.meta.label}</span>`,
+    target: item.meta.previewUrl,
+    isPromotopic: false,
+    additionalAttributes: `data-label-index="${item.meta.label}"`,
+    label: item.meta.label,
+  };
+});
+
+// Get Pages
+const pagesGlob = dataHelper.getDataGlob('./src/pages/**/*.data.js', transform);
+const pageList = _.merge({}, defTopiclistData, {
+  topiclistInput: null,
+});
+
+pageList.topiclistcontentNavData.items = Object.keys(pagesGlob).map((item) => {
+  return {
+    shortTitle: pagesGlob[item].meta.title,
+    buzzwords: `<br/><span class="sg_jira-link" href="https://we.one-inside.com/jira/browse/${pagesGlob[item].meta.jira}">${pagesGlob[item].meta.jira}</span> `,
+    target: pagesGlob[item].meta.previewUrl,
+    isPromotopic: false,
+  };
+}).filter(item => item && item.shortTitle && item.shortTitle.length > 0);
 
 const data = _.merge({}, defaultData, {
   atomList,
-  atoms: dataHelper.getDataGlob('./src/atoms/**/*.data.js', transform),
-  pages: dataHelper.getDataGlob('./src/pages/**/*.data.js', transform),
-  modules: dataHelper.getDataGlob('./src/modules/**/*.data.js', transform),
+  moduleList,
+  moduleLabels,
+  pageList,
   styleguide: dataHelper.getDataGlob('./src/preview/styleguide/*.data.js', transform),
-  props: {
-    pageHeaderData: {
-      title: 'Seitenkopf',
-      homelink: '',
-      pageTitle: 'Living Styleguide',
-      breadcrumb: {
-        contextMenu: false,
-        path: [
-          {
-            title: 'Kanton Zürich',
-            href: '#',
-          },
-        ],
-      },
-    },
-  },
 });
 
 

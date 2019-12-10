@@ -27,6 +27,7 @@ function getColorMap() {
     };
   });
 }
+const dateNow = new Date(Date.now());
 
 const env = parseArgs(process.argv.slice(2));
 const data = {
@@ -36,8 +37,8 @@ const data = {
       + '/src/' + git.long(),
     gitBranch: git.branch(),
     gitShort: git.short(),
-    gitDate: git.date(),
-    buildDate: Date(Date.now()).toString(),
+    gitDate: `${git.date().getDate()}.${git.date().getMonth()}.${git.date().getFullYear()}`,
+    buildDate: `${dateNow.getDate()}.${dateNow.getMonth()}.${dateNow.getFullYear()} ${dateNow.getHours()}:${dateNow.getMinutes()}`,
   },
   colors: getColorMap(),
   colorVariations: _.map(dataHelper.getColors('../assets/css/data/colorVariations.json'), (color) => {
@@ -46,6 +47,22 @@ const data = {
     return color;
   }),
   env,
+  wrappingElements: {
+    pageHeaderData: {
+      title: 'Seitenkopf',
+      homelink: '',
+      pageTitle: 'Living Styleguide',
+      breadcrumb: {
+        contextMenu: false,
+        path: [
+          {
+            title: 'Kanton Zürich',
+            href: '#',
+          },
+        ],
+      },
+    },
+  },
   props: {
     svgSprites: JSON.stringify([
       '/assets/media/svgsprite/base.svg',

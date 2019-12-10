@@ -382,27 +382,33 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
       flex-basis: 30%;
     }
   }
+}
 
-  .sg_jira-link {
-    background: #dfe1e6;
-    border: 1px solid #dfe1e6;
-    border-radius: 3px;
-    display: inline-block;
-    font-size: 11px;
-    font-family: $sg_font_black;
-    line-height: 15px;
-    margin: 0;
-    padding: 2px 5px;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-  }
+.sg_jira-link {
+  background: #dfe1e6;
+  border: 1px solid #dfe1e6;
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 11px;
+  font-family: $sg_font_black;
+  line-height: 15px;
+  margin: 0;
+  padding: 2px 5px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 .sg_filter-frame {
   border: 1px solid #BBB;
   padding: 5px;
   border-radius: 5px;
+   > div {
+     label {
+       width: 19%;
+       margin: 1px;
+     }
+   }
 }
 
 .sg_group-label {

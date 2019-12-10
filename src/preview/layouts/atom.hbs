@@ -48,24 +48,67 @@
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
                                data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
-	<div class="sg_wrapper sg_module {{props.defaultColorVariation}}" id="module_main">
-		<h1 class="sg_title">
-			<a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
-		</h1>
-    <div class="sg_revisioninfo">
-      <ul>
-        <li>Revision: <a href="{{meta.gitRemoteLink}}">{{meta.gitShort}}</a></li>
-        <li>Date: {{meta.gitDate}}</li>
-        <li>Branch: {{meta.gitBranch}}</li>
-      </ul>
+<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}>
+<div class="lyt-wrapper" id="header">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      <div class="mdl-page-header      " data-init="pageHeader" data-page-header-instance="pageheader1">
+        <div class="lyt-wrapper">
+          <div class="grid-x grid-margin-x">
+            <div class="mdl-page-header__logo-container cell tiny-2 xsmall-2 small-2 medium-2 large-2 xlarge-2">
+                  <span>
+                    <span class="visuallyhidden">Logo des Kantons Zürich</span>
+                    <svg viewBox="0 0 100 100" class="mdl-page-header__logo print-hidden">
+                      <use xlink:href="#ktzh"></use>
+                    </svg>
+                    <svg viewBox="0 0 100 100" class="mdl-page-header__logo screen-hidden">
+                      <use xlink:href="#ktzh"></use>
+                    </svg>
+                    <span>
+                </span></span></div>
+            <div class="cell  tiny-10 xsmall-10 small-10 medium-10 large-10 xlarge-10">
+              <div class="mdl-page-header__breadcrumb">
+                <nav>
+                  <ol class="mdl-breadcrumb " data-init="breadcrumb" data-breadcrumb-instance="breadcrumb2">
+                    <li class="mdl-breadcrumb__item mdl-breadcrumb__item--main mdl-breadcrumb__item--active mdl-breadcrumb__item--parent" data-index="0" data-breadcrumb="item">
+                      <svg class="icon mdl-breadcrumb__arrow-left" focusable="false">
+                        <use xlink:href="#arrow-left"></use>
+                      </svg>
+                      <a class="mdl-breadcrumb__link" href="/">Living Styleguide</a>
+                    </li>
+                    <li class="mdl-breadcrumb__item mdl-breadcrumb__hidden-items" data-breadcrumb="ellipsis">
+                      <svg class="icon" focusable="false">
+                        <use xlink:href="#angle_right"></use>
+                      </svg>
+                    </li>
+                    <li class="mdl-breadcrumb__item mdl-breadcrumb__item--active">
+                      <svg class="icon" focusable="false">
+                        <use xlink:href="#angle_right"></use>
+                      </svg>
+                      <span class="mdl-breadcrumb__link">Atome</span>
+                    </li>
+                    <li class="mdl-breadcrumb__item mdl-breadcrumb__item--active">
+                      <svg class="icon" focusable="false">
+                        <use xlink:href="#angle_right"></use>
+                      </svg>
+                      <span class="mdl-breadcrumb__link">{{meta.title}}</span>
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+              <h1 class="atm-heading mdl-page-header__title">{{meta.title}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="atm-heading">Vorschau</h2>
     </div>
-
+  </div>
+</div>
+	<div class="sg_wrapper sg_module {{props.defaultColorVariation}}" id="module_main">
 		{{#if variants}}
 			<section class="sg_inner_wrapper">
-				<h2 class="sg_h2">Vorschau des Atoms</h2>
-
 				<ul class="sg_atoms">
-
           {{#each variants}}
               <li class="sg_atom">
                 <div class="sg_atom-rendition">

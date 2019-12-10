@@ -1,92 +1,26 @@
 {{#extend "preview/layouts/layout"}}
   {{#content "header"}}
-    {{> "modules/page_header/page_header" props.pageHeaderData}}
+    {{> "modules/page_header/page_header" wrappingElements.pageHeaderData}}
   {{/content}}
 	{{#content "content"}}
-    {{#if atomList}}
-      <div class="lyt-wrapper" id="header">
-      <div class="grid-x grid-margin-x">
-      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-    {{> "modules/topiclist/topiclist" atomList }}
+    <div class="lyt-wrapper" id="header">
+    <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      <p class="atm-paragraph">Revisions Nummer: <a href="{{meta.gitRemoteLink}}">{{meta.gitShort}}</a><br />Build Datum: {{meta.buildDate}}</p>
+      <h2 class="atm-heading">Atome</h2>
+      {{> "modules/topiclist/topiclist" atomList }}
+      <h2 class="atm-heading">Module</h2>
+      <div class="sg_filter-frame">Filter:
+        <div><label class="sg_group-label" style="border-color:  #666; background-color:  #FFF; color: #666"><input type="radio" name="moduleFilter" value="nofilter" checked/> Kein Filter</label>
+        {{#each moduleLabels }}{{#if label}} <label class="sg_group-label" style="border-color:  {{background}}; background-color:  {{background}}; color: {{foreground}}"><input type="radio" name="moduleFilter" value="{{label}}"/> {{label}}</label> {{/if}}{{/each}}</div>
       </div>
-      </div>
-      </div>
-    {{/if}}
+      {{> "modules/topiclist/topiclist" moduleList }}
+      <h2 class="atm-heading">Seiten</h2>
+      {{> "modules/topiclist/topiclist" pageList }}
+    </div>
+    </div>
+    </div>
 		<div class="sg_index">
-			{{#if atoms}}
-				<div class="sg_inner_wrapper">
-					<h2 class="sg_h2">Atome</h2>
-
-					<ul class="sg_index_list">
-						{{#each atoms}}
-							{{#unless meta.hideFromListing}}
-								<li>
-                  <a class="atm-text_link" href="{{meta.previewUrl}}">
-                    {{meta.title}}
-                  </a>
-                  {{#if meta.jira}}
-                    <a class="sg_jira-link" href="https://we.one-inside.com/jira/browse/{{meta.jira}}">
-                    {{meta.jira}}
-                  </a>
-                  {{/if}}
-                  {{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
-								</li>
-							{{/unless}}
-						{{/each}}
-					</ul>
-				</div>
-			{{/if}}
-
-			{{#if modules}}
-				<div class="sg_inner_wrapper">
-					<h2 class="sg_h2">Module</h2>
-          <p class="sg_filter-frame">Filter:  <label class="sg_group-label" style="border-color:  #666; background-color:  #FFF; color: #666"><input type="radio" name="moduleFilter" value="nofilter" checked/> Kein Filter</label>
-            {{#each modules}}{{#with this.0.meta}}{{#if label}} <label class="sg_group-label" style="border-color:  {{labelBackground}}; background-color:  {{labelBackground}}; color: {{labelColor}}"><input type="radio" name="moduleFilter" value="{{label}}"/> {{label}}</label> {{/if}}{{/with}}{{/each}}</p>
-					<ul class="sg_index_list">
-						{{#each modules}}
-              {{#each this}}
-							{{#unless meta.hideFromListing}}
-								<li data-label-index="{{meta.label}}">
-                  {{#if meta.label}} <span class="sg_group-label" style="border-color:  {{meta.labelBackground}}; background-color:  {{meta.labelBackground}}; color: {{meta.labelColor}}">{{meta.label}}</span>{{/if}}
-									<a class="atm-text_link"  href="{{meta.previewUrl}}">
-										{{meta.title}}
-									</a>
-									{{#if meta.jira}}
-                                       <a class="sg_jira-link" href="https://we.one-inside.com/jira/browse/{{meta.jira}}">
-											{{meta.jira}}
-										</a>
-									{{/if}}
-									{{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
-								</li>
-							{{/unless}}
-              {{/each}}
-						{{/each}}
-					</ul>
-				</div>
-			{{/if}}
-
-			{{#if pages}}
-				<div class="sg_inner_wrapper">
-					<h2 class="sg_h2">Seitentypen</h2>
-
-					<ul class="sg_index_list">
-						{{#each pages}}
-							{{#unless meta.hideFromListing}}
-								<li>
-									<a class="atm-text_link" href="{{meta.previewUrl}}">{{meta.title}}</a>
-									{{#if meta.jira}}
-                                        <a class="sg_jira-link" href="https://we.one-inside.com/jira/browse/{{meta.jira}}">
-											{{meta.jira}}
-										</a>
-									{{/if}}
-									{{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
-								</li>
-							{{/unless}}
-						{{/each}}
-					</ul>
-				</div>
-			{{/if}}
-
 			{{#if styleguide}}
 				<div class="sg_inner_wrapper">
 					<h2 class="sg_h2">Styleguide</h2>
