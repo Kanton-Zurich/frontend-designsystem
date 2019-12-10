@@ -51,7 +51,14 @@ class OpenData extends Module {
 
     this.initUi();
 
-    this.loadData();
+    this.init();
+  }
+
+  async init() {
+    await this.loadData();
+
+
+    this.renderResults();
   }
 
   static get events() {
@@ -89,23 +96,23 @@ class OpenData extends Module {
   }
 
   async loadData() {
+    const promises = [];
+
     if (!window.fetch) {
       await import('whatwg-fetch');
     }
 
-    this.options.apiCalls.forEach((resourceURL, index) => {
-      fetch(resourceURL, {})
+    this.options.apiCalls.forEach((resourceURL) => {
+      promises.push(fetch(resourceURL, {})
         .then(response => response.json())
         .then((response) => {
           if (response && response.success) {
             this.data.resources.push(response.result);
-
-            if (index === this.options.apiCalls.length - 1) {
-              this.renderResults();
-            }
           }
-        });
+        }));
     });
+
+    return Promise.all(promises);
   }
 
   sanitizeLabel(modifiedDate, byteSize, format) {
