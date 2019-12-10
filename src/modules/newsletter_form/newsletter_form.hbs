@@ -1,0 +1,23 @@
+<div class="mdl-newsletter_form" data-init="newsletterForm">
+  {{#if title}}
+  <h{{headingLevel}} class="atm-heading atm-heading--bordered">{{title}}</h{{headingLevel}}>
+  {{/if}}
+  {{#if description}}
+  <p class="atm-paragraph">{{description}}</p>
+  {{/if}}
+  {{#if wrapped}}
+  <div class="mdl-newsletter_form__wrapper">
+    <div class="lyt-wrapper">
+      <div class="grid-x grid-margin-x">
+        <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-8 medium-6 large-6">
+  {{/if}}
+          <form class="mdl-newsletter_form__form" novalidate action="{{action}}" method="{{method}}">
+            {{> "atoms/form_input/form_input" formInputData }} {{> "atoms/button/button" buttonData }}
+          </form>
+  {{#if wrapped}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/if}}
+</div>
