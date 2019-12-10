@@ -155,6 +155,31 @@ const variants = _.mapValues({
       ],
     },
   },
+  furtherInformationSingle: {
+    meta: {
+      title: 'Weiterführende Informationen Einzeln',
+      desc: 'Das Accordion in der Variante "Weiterführende Informationen"',
+    },
+    props: {
+      isInverted: true,
+      accordionHeading: {
+        level: 2,
+        title: 'Weiterführende Informationen Einzeln',
+      },
+      items: [
+        {
+          title: 'Merkblätter & Downloads',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
+          techName: 'wi_item_1',
+          children: [
+            {
+              partial: downloadListData.variants.defaultWithoutTitle.meta.demo(),
+            },
+          ],
+        },
+      ],
+    },
+  },
   h4: {
     meta: {
       title: 'Accordion mit H4-Titel',
