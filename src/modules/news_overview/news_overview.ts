@@ -429,7 +429,7 @@ class NewsOverview extends Module {
       .then((response) => {
         if (response) {
           const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
-          history.pushState({url: canonical, }, null, canonical); // eslint-disable-line
+          history.replaceState({url: canonical, }, null, canonical); // eslint-disable-line
           callback(response);
         }
 
