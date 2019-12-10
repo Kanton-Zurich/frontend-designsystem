@@ -1,6 +1,12 @@
+{{#unless leadHeading}}
 <h1{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{title}} 1 {{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h1>
 <h2{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{title}} 2 {{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h2>
 <h3{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{title}} 3 {{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h3>
 <h4{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{title}} 4 {{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h4>
 <h5{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{title}} 5 {{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h5>
 <h6{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{title}} 6 {{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h6>
+{{/unless}}
+{{#if leadHeading}}
+  <p class="atm-heading__lead">{{leadTitle}}</p>
+  <h{{headingLevel}} class="atm-heading atm-heading--with-lead">{{title}}</h{{headingLevel}}>
+{{/if}}

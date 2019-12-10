@@ -57,6 +57,19 @@ const variants = _.mapValues({
       variant: 'inverted',
     },
   },
+  leadHeading: {
+    meta: {
+      title: 'Heading mit lead',
+      desc: '',
+    },
+    props: {
+      leadHeading: true,
+      title: 'max@mustermann.com',
+      leadTitle: 'Ihre E-Mail Adresse',
+      headingLevel: 2,
+      variant: 'primary',
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

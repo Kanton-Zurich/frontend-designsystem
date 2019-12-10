@@ -1,0 +1,63 @@
+{{#extend "layouts/layout"}}
+  {{#content "header"}}
+    <header>
+      {{> "modules/page_header/page_header" props.modules.pageHeader}}
+    </header>
+  {{/content}}
+
+  {{#content "content"}}
+    <form novalidate>
+      <p class="atm-heading__lead">Ihre E-Mail Adresse</p>
+      <h2 class="atm-heading atm-heading--with-lead">max@mustermann.com</h2>
+      <section class="form__section">
+        <h3 class="atm-heading form__section-title">Ihre Themen</h3>
+        <p class="atm-paragraph">
+          Wählen Sie die Themen, zu denen Sie von uns regelmässig News erhalten möchten:
+        </p>
+        <div class="form__group ">
+          {{#each props.modules.checkRows}}
+          <div class="form__row">
+            {{#each this}}
+            <div class="form__cell form__cell">
+              {{> "atoms/checkbox/checkbox" this }}
+            </div>
+            {{/each}}
+          </div>
+          {{/each}}
+        </div>
+      </section>
+      <br />
+      <br />
+      <section class="form__section">
+        <h3 class="atm-heading form__section-title">Regelmässigkeit der Zustellung</h3>
+        <p class="atm-paragraph">
+          Wählen Sie, wie häufig Sie unseren Newsletter erhalten möchten:
+        </p>
+        <div class="form__group ">
+          {{#each props.modules.radioRows}}
+          <div class="form__row">
+            <div class="form__cell form__cell">
+              {{> "atoms/radiobutton/radiobutton" this }}
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </section>
+      <div class="mdl-stepper__control">
+        <button class="atm-button">
+        <span class="atm-button__text">
+          Änderungen speichern
+        </span>
+        </button>
+      </div>
+    </form>
+    <br />
+    <br />
+    <br />
+    <br />
+    {{> "modules/contact/contact" props.modules.contact }}
+  {{/content}}
+  {{#content "footer"}}
+    {{> "modules/footer/footer" props.modules.footerData }}
+  {{/content}}
+{{/extend}}
