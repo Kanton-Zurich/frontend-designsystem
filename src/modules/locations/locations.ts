@@ -231,6 +231,8 @@ class Locations extends Module {
         this.ui.map.dispatchEvent(MapView.extMarkerSelectEvent(index));
       }, 0);
       this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.singleItem);
+      console.log('FORCED SINGLE');
+      this.showLocationDetailsForIndex(index);
     } else {
       this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.singleItem);
     }
@@ -350,6 +352,7 @@ class Locations extends Module {
   private showLocationDetailsForIndex(indexToShow: number, setHeadFocus: boolean = true): void {
     if (this.ui.detailNodes && [].slice.call(this.ui.detailNodes).length > 0
       && this.ui.detailNodes[0]) {
+      console.log('showing ' + indexToShow);
       (<HTMLDivElement[]> this.ui.detailNodes).forEach((detailsContainer, i) => {
         if (i === indexToShow) {
           detailsContainer.classList.add(this.options.stateClasses.detailShow);
