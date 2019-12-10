@@ -171,6 +171,12 @@ class Locations extends Module {
         }
       });
 
+    this.ui.filterInput.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+      }
+    });
+
     this.ui.element
       .addEventListener(Locations.events.filterLocations, this.onFilterEvent.bind(this));
     this.ui.element
