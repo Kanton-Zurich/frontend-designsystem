@@ -1,3 +1,5 @@
+$maxBannerIconSize: 72px;
+
 .mdl-banner {
   @include gridBleed($fullwidth: true);
 
@@ -58,12 +60,12 @@
 
   &__icon {
     position: absolute;
-
     top: 0;
     right: 0;
-
     width: 100%;
     height: 100%;
+    max-height: pxToRem($maxBannerIconSize);
+    max-width: pxToRem($maxBannerIconSize);
 
     use {
       fill: $colorCyan;

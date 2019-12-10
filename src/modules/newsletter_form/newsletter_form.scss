@@ -1,0 +1,16 @@
+.mdl-newsletter_form {
+  @include sizeCurve(margin-bottom, big);
+
+  &__form {
+    display: flex;
+
+    .atm-form_input {
+      flex-grow: 1;
+      margin-right: $sizeRegular;
+    }
+  }
+
+  &__wrapper {
+    @include gridBleed($fullwidth: true);
+  }
+}

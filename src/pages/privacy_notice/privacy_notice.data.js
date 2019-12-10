@@ -3,6 +3,7 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 
 const headerData = require('../../modules/header/header.data').variants.inverted.props;
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
 const contextMenuProps = require('../../modules/context_menu/context_menu.data').props;
 const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
@@ -73,7 +74,7 @@ const data = _.merge({}, defaultData, {
           },
         ],
       },
-      footerData: '',
+      footerData: defFooterData,
     },
   },
 });
