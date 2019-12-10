@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const template = dataHelper.getFileContent('person_card.hbs');
@@ -15,6 +15,9 @@ const data = _.merge({}, defaultData, {
   props: {
     detailPageLink: '#',
     headingLevel: 4,
+    image: {
+      alt: 'Portrait von Vorname / Nachname',
+    },
   },
 });
 const variants = _.mapValues({
@@ -30,6 +33,7 @@ const variants = _.mapValues({
       buttonText: 'Mehr erfahren',
       hasImage: true,
       hasButton: true,
+
     },
   },
   alt: {
