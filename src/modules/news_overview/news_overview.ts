@@ -358,11 +358,6 @@ class NewsOverview extends Module {
     const eventData = {
       detail: tags,
     };
-    if (tags.length >= this.options.filterPillsThreshold) {
-      this.ui.pillsClearButton.classList.remove('hidden');
-    } else {
-      this.ui.pillsClearButton.classList.add('hidden');
-    }
     // update pills module
     this.ui.pills.dispatchEvent(new CustomEvent(FilterPills.events.setTags, eventData));
   }
@@ -496,6 +491,12 @@ class NewsOverview extends Module {
     });
     (<any>window).estatico.lineClamper.updateLineClamping();
     this.updateFlyingFocus(this.options.loadDelay);
+
+    if ([].slice.call(this.ui.pills.querySelectorAll('[data-pill]')).length >= this.options.filterPillsThreshold) {
+      this.ui.pillsClearButton.classList.remove('hidden');
+    } else {
+      this.ui.pillsClearButton.classList.add('hidden');
+    }
   }
 
   /**

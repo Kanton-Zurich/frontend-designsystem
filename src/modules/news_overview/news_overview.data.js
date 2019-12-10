@@ -57,7 +57,7 @@ const data = _.merge({}, defaultData, {
         },
       },
       triggerInputData: {
-        label: 'News-Typ',
+        label: 'Typ',
         validation: {
           isRequired: false,
         },
@@ -112,6 +112,7 @@ const data = _.merge({}, defaultData, {
     dateInputData: _.merge({}, defDatePickerData.variants.dateRange.props, {
       formInputData: {
         validation: false,
+        label: 'Zeitraum',
       },
     }),
     filterPillsData: defFilterPillsData.props,
@@ -128,7 +129,7 @@ const data = _.merge({}, defaultData, {
     },
     searchInputData: {
       type: 'text',
-      label: 'Filter',
+      label: 'Stichwortsuche',
       isInput: true,
       isFloatingLabel: true,
       iconOnly: {
