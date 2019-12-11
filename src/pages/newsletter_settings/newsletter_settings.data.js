@@ -58,11 +58,13 @@ const data = _.merge({}, defaultData, {
           _.merge({}, checkBoxData, {
             label: 'Bildung',
             hint: 'Schule, Lehrmittel, Berufsberatung, Berufsschule, Mittelschule',
+            strongTitle: true,
             id: _.uniqueId('check_'),
           }),
           _.merge({}, checkBoxData, {
             label: 'Wirtschaft & Unternehmen',
             hint: 'Handelsregister, Fimengründung,  Arbeitsbewilligung, Forschung',
+            strongTitle: true,
             id: _.uniqueId('check_'),
           }),
         ],
@@ -70,11 +72,13 @@ const data = _.merge({}, defaultData, {
           _.merge({}, checkBoxData, {
             label: 'Freizeit & Kultur',
             hint: 'Sportförderung, Schulsport, Jugendsport, Kulturförderung',
+            strongTitle: true,
             id: _.uniqueId('check_'),
           }),
           _.merge({}, checkBoxData, {
             label: 'Raum & Bauen',
             hint: 'Geodaten & Karten, Baulandpreise, Baubewilligungen, Raumplanung',
+            strongTitle: true,
             id: _.uniqueId('check_'),
           }),
         ],
@@ -82,11 +86,13 @@ const data = _.merge({}, defaultData, {
           _.merge({}, checkBoxData, {
             label: 'Gesundheit',
             hint: 'Krankenversicherung, Prämienverbilligung, Kliniken',
+            strongTitle: true,
             id: _.uniqueId('check_'),
           }),
           _.merge({}, checkBoxData, {
             label: 'Steuern',
             hint: 'Steuererklärung, Quellensteuer, Steuerbuch, Steuerberechnung',
+            strongTitle: true,
             id: _.uniqueId('check_'),
           }),
         ],
@@ -94,11 +100,13 @@ const data = _.merge({}, defaultData, {
           _.merge({}, checkBoxData, {
             label: 'Politik',
             hint: 'Wahlen & Abstimmungen, Wahlen 2019,  Regierungsrat, Kantonsrat',
+            strongTitle: true,
             id: _.uniqueId('check_'),
           }),
           _.merge({}, checkBoxData, {
             label: 'Ausländer & Migration',
             hint: 'Einreise, Aufenthaltsbewilligung, internationaler Führerschein, Asyl',
+            strongTitle: true,
             id: _.uniqueId('check_'),
           }),
         ],
@@ -106,11 +114,13 @@ const data = _.merge({}, defaultData, {
           _.merge({}, checkBoxData, {
             label: 'Umwelt & Tiere',
             hint: 'Betriebsökologie, Abfall, Wasser, Hunde, Tierschutz, Betriebsökologie, Energie',
+            strongTitle: true,
             id: _.uniqueId('check_'),
           }),
           _.merge({}, checkBoxData, {
             label: 'Sicherheit & Justiz',
             hint: 'Kantonspolizei, ePolice, Bussen, Gerichte, Gefängnis, Justizvollzug',
+            strongTitle: true,
             id: _.uniqueId('check_'),
           }),
         ],
@@ -118,11 +128,13 @@ const data = _.merge({}, defaultData, {
           _.merge({}, checkBoxData, {
             label: 'Verkehr',
             hint: 'Führerschein, Fahrzeug, Velo, Autonummern, Verkehrsplanung',
+            strongTitle: true,
             id: _.uniqueId('check_'),
           }),
           _.merge({}, checkBoxData, {
             label: 'Über den Kanton Zürich',
             hint: 'Fakten, Informationen für Neuzuzüger, Daten und Statistiken',
+            strongTitle: true,
             id: _.uniqueId('check_'),
           }),
         ],
@@ -130,6 +142,7 @@ const data = _.merge({}, defaultData, {
           _.merge({}, checkBoxData, {
             label: 'Familie',
             hint: 'Beratung Familie & Kinder, Kinder- und Jugendhilfezentrum kjz',
+            strongTitle: true,
             id: _.uniqueId('check_'),
           }),
         ],

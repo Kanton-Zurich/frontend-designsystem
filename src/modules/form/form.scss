@@ -34,8 +34,11 @@ $gapSize: pxToRem($sizeRegular);
   &__row {
     display: flex;
     align-items: flex-start;
-
     padding-bottom: $gapSize;
+
+    &.form__row--narrow {
+      padding-bottom: 0;
+    }
 
     &:not(:last-of-type) {
       .form__duplicator {
