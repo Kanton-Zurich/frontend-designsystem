@@ -14,18 +14,17 @@ class OpenData extends Module {
     domSelectors: any,
     stateClasses: any,
     apiCalls: Array<string>,
-    licenseKeys: any,
-  }
+  };
 
   public ui: {
     element: HTMLDivElement,
     wrapper: HTMLDivElement|HTMLUListElement,
     template: HTMLScriptElement,
-  }
+  };
 
   public data: {
     resources: Array<any>;
-  }
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -41,10 +40,6 @@ class OpenData extends Module {
         initialised: 'mdl-open_data--initialised',
       },
       apiCalls: JSON.parse($element.dataset.apiCalls),
-      licenseKeys: {
-        'NonCommercialAllowed-CommercialAllowed-ReferenceNotRequired': '1',
-        'NonCommercialAllowed-CommercialAllowed-ReferenceRequired': '2',
-      },
     };
 
     super($element, defaultData, defaultOptions, data, options);
@@ -85,7 +80,7 @@ class OpenData extends Module {
       title: resource.title[window[namespace].lang],
       url: resource.download_url,
       label: this.sanitizeLabel(resource.modified, resource.byte_size, resource.format),
-      license: this.options.licenseKeys[resource.rights],
+      license: resource.rights,
     }));
     const compiled = template(this.ui.template.innerHTML);
     const generated = compiled({ resources });
