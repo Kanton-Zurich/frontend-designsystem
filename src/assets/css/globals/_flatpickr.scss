@@ -179,8 +179,11 @@
     display: flex;
     align-items: center;
     color: $colorBlack60;
-
     border-width: 2px;
+    // IE 11 fix for sizing
+    @media all and ( -ms-high-contrast: none ) {
+      border-width: 0;
+    }
 
     &.today {
       border-color: $colorBlack5;

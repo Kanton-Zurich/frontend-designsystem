@@ -78,6 +78,26 @@ const variants = _.mapValues({
       }),
     },
   },
+  dateRangenRequired: {
+    meta: {
+      title: 'Datumsauswahl (Zeitspanne) (kein Pflichtfeld)',
+      desc: 'Implementation einer Datumsauswahl für eine  Zeitspanne',
+    },
+    props: {
+      datetimeformat: 'date-range',
+      formInputData: _.merge({}, defaultFormInputData, {
+        label: 'Zeitraum von/bis',
+        iconOnly: { icon: 'calendar' },
+        uuid: _.uniqueId('date-range-'),
+        usedCustomIcon: true,
+        validation: {
+          pattern: '^\\d{2}.\\d{2}.\\d{4}\\s-\\s\\d{2}.\\d{2}.\\d{4}$',
+          isRequired: false,
+          errorMsg: 'Bitte geben Sie eine korrekte Zeitspanne an.',
+        },
+      }),
+    },
+  },
   dateAndTime: {
     meta: {
       title: 'Datums- und Zeitauswahl',

@@ -119,7 +119,7 @@ class Modal extends Module {
     (<any>window).estatico.helpers.bodyElement.appendChild(this.ui.element);
     this.eventDelegate.on('Modal.switchLeft', this.switchLeft.bind(this));
     this.eventDelegate.on('Modal.switchRight', this.switchRight.bind(this));
-    this.ui.element.addEventListener('keydown', this.closeOnEscape.bind(this));
+    window.addEventListener('keydown', this.closeOnEscape.bind(this));
   }
 
   /**
@@ -173,8 +173,12 @@ class Modal extends Module {
   }
 
   closeOnEscape(event) {
-    if ((event.key === 'Escape' || event.key === 'Esc') && this.isolatedElements.length > 0) {
-      this.closeModal();
+    const { activeElement } = document;
+
+    if (activeElement.tagName !== 'INPUT') {
+      if ((event.key === 'Escape' || event.key === 'Esc') && this.isolatedElements.length > 0) {
+        this.closeModal();
+      }
     }
   }
 
@@ -295,7 +299,8 @@ class Modal extends Module {
     });
 
     if (this.options.isNav) {
-      this.ui.element.querySelector(this.options.childSelectors.nav).dispatchEvent(new CustomEvent('loadNavigation'));
+      this.ui.element.querySelector(this.options.childSelectors.nav)
+        .dispatchEvent(new CustomEvent(Modal.events.display));
     }
 
     setTimeout(() => {

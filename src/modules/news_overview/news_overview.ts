@@ -246,7 +246,7 @@ class NewsOverview extends Module {
     if (forced || this.filterHash !== filterHash
       || this.dateHash !== dateHash
       || this.searchWordHash !== searchWordHash) {
-      if (this.searchWord !== '') {
+      if (this.searchWord !== '' && this.searchWordHash !== searchWordHash) {
         (<HTMLButtonElement> this.ui.sortDropdown
           .querySelector('button[data-sort="relevance"]')).click();
       }
@@ -358,11 +358,6 @@ class NewsOverview extends Module {
     const eventData = {
       detail: tags,
     };
-    if (tags.length >= this.options.filterPillsThreshold) {
-      this.ui.pillsClearButton.classList.remove('hidden');
-    } else {
-      this.ui.pillsClearButton.classList.add('hidden');
-    }
     // update pills module
     this.ui.pills.dispatchEvent(new CustomEvent(FilterPills.events.setTags, eventData));
   }
@@ -394,8 +389,11 @@ class NewsOverview extends Module {
       const dateFrom = new Date(dateFromStr);
       this.dateRange = [ dateFrom, dateTo ];
       this.dateString = `${('0' + dateFrom.getDate()).slice(-2)}.${('0' + (dateFrom.getMonth() + 1)).slice(-2)}.${dateFrom.getFullYear()} - ${('0' + dateTo.getDate()).slice(-2)}.${('0' + (dateTo.getMonth() + 1)).slice(-2)}.${dateTo.getFullYear()}`; // eslint-disable-line
-      (<HTMLInputElement> this.ui.datePicker.querySelector('.atm-form_input__input')).value = this.dateString;
-      this.ui.datePicker.classList.add('dirty');
+      setTimeout(() => {
+        this.ui.datePickerInput.value = this.dateString;
+        this.ui.datePicker.classList.add('dirty');
+        this.ui.datePickerInput.classList.add('dirty');
+      }, 0);
     }
     if (this.searchWord.length > 0) {
       this.ui.searchWordInput.value = this.searchWord;
@@ -426,7 +424,7 @@ class NewsOverview extends Module {
       .then((response) => {
         if (response) {
           const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
-          history.pushState({url: canonical, }, null, canonical); // eslint-disable-line
+          history.replaceState({url: canonical, }, null, canonical); // eslint-disable-line
           callback(response);
         }
 
@@ -493,6 +491,12 @@ class NewsOverview extends Module {
     });
     (<any>window).estatico.lineClamper.updateLineClamping();
     this.updateFlyingFocus(this.options.loadDelay);
+
+    if ([].slice.call(this.ui.pills.querySelectorAll('[data-pill]')).length >= this.options.filterPillsThreshold) {
+      this.ui.pillsClearButton.classList.remove('hidden');
+    } else {
+      this.ui.pillsClearButton.classList.add('hidden');
+    }
   }
 
   /**

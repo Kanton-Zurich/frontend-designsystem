@@ -72,6 +72,18 @@ const variants = _.mapValues({
       ],
     },
   },
+  smaller: {
+    meta: {
+      title: 'Default kleiner',
+      desc: '',
+    },
+    props: {
+      steps: [
+        formVariants.phoneOnly.props,
+        formVariants.defaultDuplicate.props,
+      ],
+    },
+  },
   withoutNavigation: {
     meta: {
       title: 'Ohne Navigation',
@@ -115,6 +127,16 @@ const variants = _.mapValues({
                   field: 'singleSelect',
                   equals: true,
                   value: 'CH',
+                },
+              ],
+              action: 'enable',
+            },
+            {
+              conditions: [
+                {
+                  field: 'singleSelect',
+                  equals: true,
+                  value: 'DE',
                 },
               ],
               action: 'enable',

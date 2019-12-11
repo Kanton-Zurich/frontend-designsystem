@@ -5,9 +5,9 @@
     </header>
   {{/content}}
   {{#content "content"}}
-    {{>"modules/metablock/metablock" props.modules.metablockData}}
-    {{>"atoms/smallcaption/smallcaption" props.modules.smallcaptionData }}
-    {{>"modules/download_list/download_list" props.modules.downloadListData }}
+    {{> "atoms/smallcaption/smallcaption" props.modules.smallcaptionData }}
+    {{> "modules/download_list/download_list" props.modules.downloadListData }}
+    {{> "modules/metablock/metablock" props.modules.metablockData}}
     {{> "modules/contact/contact" props.modules.contactData}}
     {{> "modules/related_content/related_content" props.modules.releatedContentData}}
     {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}

@@ -53,18 +53,18 @@ const demoLinkListData = {
 
 const demoDefaultItems = [
   {
-    link: '#',
+    link: '../../pages/news_detail/news_detail.html',
     type: 'Medienmitteilung',
     date: '14.12.2018',
     title: 'Winterthur: Unbekannter Mann raubt Tankstellen-Shop aus',
   },
   {
-    link: '#',
+    link: '../../pages/news_detail/news_detail.html',
     date: '14.12.2018',
     title: 'Zürich-Flughafen: Drogenkurier verhaftet und Kokain sichergestellt',
   },
   {
-    link: '#',
+    link: '../../pages/news_detail/news_detail.html',
     type: 'Medienmitteilung',
     date: '14.12.2018',
     title: 'Weiningen: Vermisstmeldung - Willi Müller',

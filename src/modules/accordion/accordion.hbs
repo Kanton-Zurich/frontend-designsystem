@@ -1,6 +1,6 @@
 
 <div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-accordion {{#if isInverted}}mdl-accordion--cv-inverted cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10{{/if}}{{#if toggleAll}} mdl-accordion--toggleall{{/if}}"
-                                                            data-init="accordion">
+                                                            {{#unless singleMode}}data-init="accordion"{{/unless}}>
 {{#if isInverted}}
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
@@ -11,28 +11,11 @@
       {{accordionHeading.title}}
     </h{{accordionHeading.level}}>
   {{/if}}
-  <p class="visuallyhidden">
-   Verwenden Sie die Akkordeon-Bedienelemente, um die Sichtbarkeit der jeweiligen Panels (unterhalb der Bedienelemente) umzuschalten.
-  </p>
+  <p class="visuallyhidden">Verwenden Sie die Akkordeon-Bedienelemente, um die Sichtbarkeit der jeweiligen Panels (unterhalb der Bedienelemente) umzuschalten.</p>
   <div>
-    {{#each items}}
-      <div class="mdl-accordion__item{{#if additionalClass}} {{additionalClass}}{{/if}}"{{#if additionalAttribute}} {{additionalAttribute}}{{/if}} data-accordion="item">
-        <h{{increment ../accordionHeading.level}} class="mdl-accordion__header">
-          <button class="mdl-accordion__button{{#if subHead}} mdl-accordion__button--subhead{{/if}}" aria-expanded="false" data-accordion="trigger" type="button"{{#if accordionPanelID}} id="{{accordionPanelID}}"{{/if}}>
-            {{#if subHead}}<div class="mdl-accordion__button--subhead__flexbox">{{/if}}
-              <span class="mdl-accordion__control">
-                {{title}}
-              </span>
-              <svg class="icon mdl-accordion__plus">
-                <use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
-                <use xlink:href="#plus-horizontal"></use>
-              </svg>
-            {{#if subHead}}</div>
-              <span class="mdl-accordion__subhead">{{subHead}}</span>{{/if}}
-          </button>
-          {{#if subHead}}<span class="mdl-accordion__subhead">{{subHead}}</span>{{/if}}
-        </h{{increment ../accordionHeading.level}}>
-        <div class="mdl-accordion__panel" data-accordion="panel" aria-hidden="true">
+    {{#if singleMode}}
+      {{#each items}}
+      <h{{increment ../accordionHeading.level}} class="mdl-accordion__control">{{title}}</h{{increment ../accordionHeading.level}}>
           <div class="mdl-accordion__panel-content" data-accordion="panel-content">
             {{#each children}}
               {{#if text}}
@@ -42,9 +25,39 @@
               {{/if}}
             {{/each}}
           </div>
+      {{/each}}
+    {{/if}}
+    {{#unless singleMode}}
+      {{#each items}}
+        <div class="mdl-accordion__item{{#if additionalClass}} {{additionalClass}}{{/if}}"{{#if additionalAttribute}} {{additionalAttribute}}{{/if}} data-accordion="item">
+          <h{{increment ../accordionHeading.level}} class="mdl-accordion__header">
+            <button class="mdl-accordion__button{{#if subHead}} mdl-accordion__button--subhead{{/if}}" aria-expanded="false" data-accordion="trigger" type="button"{{#if accordionPanelID}} id="{{accordionPanelID}}"{{/if}}>
+              {{#if subHead}}<div class="mdl-accordion__button--subhead__flexbox">{{/if}}
+                <span class="mdl-accordion__control">
+                  {{title}}
+                </span>
+                <svg class="icon mdl-accordion__plus">
+                  <use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
+                  <use xlink:href="#plus-horizontal"></use>
+                </svg>
+              {{#if subHead}}</div>
+                <span class="mdl-accordion__subhead">{{subHead}}</span>{{/if}}
+            </button>
+          </h{{increment ../accordionHeading.level}}>
+          <div class="mdl-accordion__panel" data-accordion="panel" aria-hidden="true">
+            <div class="mdl-accordion__panel-content" data-accordion="panel-content">
+              {{#each children}}
+                {{#if text}}
+                  <p>{{text}}</p>
+                {{else}}
+                  {{{ partial }}}
+                {{/if}}
+              {{/each}}
+            </div>
+          </div>
         </div>
-      </div>
-    {{/each}}
+      {{/each}}
+    {{/unless}}
   </div>
   {{#if isInverted}}
       </div>

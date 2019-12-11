@@ -27,8 +27,12 @@ const variants = _.mapValues({
       desc: 'Eine Liste mit nur einer URL',
     },
     props: {
+      title: {
+        level: 2,
+        text: 'Datenkomponente',
+      },
       api_calls: [
-        'https://opendata.swiss/api/3/action/resource_show?id=5269cdb7-54bf-4737-ac96-fb1cb8d3aab8',
+        'https://opendata.swiss/api/3/action/resource_show?id=47b71c10-8fe7-4d58-804e-74d2b1e45c82',
       ],
     },
   },
@@ -39,9 +43,9 @@ const variants = _.mapValues({
     },
     props: {
       api_calls: [
-        'https://opendata.swiss/api/3/action/resource_show?id=5269cdb7-54bf-4737-ac96-fb1cb8d3aab8',
-        'https://opendata.swiss/api/3/action/resource_show?id=d9b73fbd-3a04-435a-a32a-8fd6c853a5d4',
-        'https://opendata.swiss/api/3/action/resource_show?id=7572c083-b451-4271-9ab9-ea921853a12a',
+        'https://opendata.swiss/api/3/action/resource_show?id=c6ae3b25-c6a5-4713-82e2-e8207c8fa1d0',
+        'https://opendata.swiss/api/3/action/resource_show?id=23d010f4-a5d8-4eaf-beb1-764e2bcb783e',
+        'https://opendata.swiss/api/3/action/resource_show?id=c11e04b2-7647-43f9-a7ea-97186ed2d4c9',
       ],
     },
   },

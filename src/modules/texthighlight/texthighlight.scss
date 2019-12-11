@@ -1,5 +1,6 @@
 .mdl-texthighlight {
-  @include sizeCurve('padding', smallerRegular);
+  @include sizeCurve(padding, smallerRegular);
+  @include sizeCurve(margin-top margin-bottom, medium);
 
   *:last-child {
     margin-bottom: 0;
@@ -61,6 +62,10 @@
 
         .atm-linklist_item {
           color: rgba($val, 1);
+
+          &:hover {
+            color: rgba($colorText, 1);
+          }
         }
       }
 

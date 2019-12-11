@@ -3,6 +3,10 @@ $stepperNavigationCurves: (
     tiny: $sizeFontSmallBig,
     large: $sizeFontBiggerBig,
   ),
+  checkMarkHeight: (
+    tiny: $sizeFontSmallBig * 1.2,
+    large: $sizeFontBiggerBig * 1.2,
+  ),
   greyline: (
     tiny: $sizeFontSmallBig / 2,
     large: $sizeFontBiggerBig / 2,
@@ -26,6 +30,7 @@ $stepperNavigationCurves: (
 .mdl-stepper_navigation {
   list-style-type: none;
 
+  @include sizeCurve(margin-bottom, medium);
   @include resetList;
   display: flex;
   justify-content: space-between;
@@ -101,9 +106,12 @@ $stepperNavigationCurves: (
 
     &-checkmark {
       width: 4rem;
-      height: 2.625rem;
+
+      @include polyFluidSizing(height, map-get($stepperNavigationCurves, checkMarkHeight));
 
       display: none;
+
+      margin-bottom: pxToRem($sizeMini);
 
       background: $colorWhite;
 

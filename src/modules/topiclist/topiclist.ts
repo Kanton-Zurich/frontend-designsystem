@@ -168,7 +168,7 @@ class Topiclist extends Module {
     this.ui.element.classList.add(this.options.stateClasses.filtered);
     this.ui.element.classList.remove(this.options.stateClasses.expanded);
 
-    if (event.detail.results >= this.options.maxEntries) {
+    if (event.detail.results > this.options.maxEntries) {
       this.ui.showAllButton.style.display = 'inline-flex';
     } else {
       this.ui.showAllButton.style.display = 'none';
@@ -346,7 +346,6 @@ class Topiclist extends Module {
         }, Object.prototype.hasOwnProperty.call(subtopic, 'subpages'), subtopic);
       });
 
-      this.addNavigationEventListeners();
       window.dispatchEvent(new CustomEvent('reloadLineClamper'));
     }
   }
