@@ -76,7 +76,7 @@ class Pagination extends Module {
     this.eventDelegate.on(Pagination.events.setPageCount, (event) => {
       this.ui.pageCount.querySelector('span').innerHTML = event.detail;
       this.ui.element.setAttribute('data-pagecount', event.detail);
-      this.setPageButtonStyles(event.detail);
+      this.setPageButtonStyles(1);
     });
 
     this.eventDelegate.on(Pagination.events.setPage, (event) => {
