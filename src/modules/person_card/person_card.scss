@@ -22,6 +22,7 @@
   background-color: $colorBlack5;
   display: inline-block;
   width: 100%;
+  @include sizeCurve(margin-bottom, large);
 
   @include mq($from: small) {
     display: flex;

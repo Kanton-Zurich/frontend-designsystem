@@ -55,7 +55,9 @@ const data = _.merge({}, defaultData, {
             },
           ],
         }),
-      downloadListData: defDownloadListData.props,
+      downloadListData: _.merge({}, defDownloadListData.props, {
+        marginBottom: true,
+      }),
       personCardData: defPersonCardData.variants.noImageAlt.props,
       tagGroupData: defTagGroupData.props,
       footerData: defFooterData,
