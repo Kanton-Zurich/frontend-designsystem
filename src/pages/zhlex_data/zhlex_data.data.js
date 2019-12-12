@@ -9,8 +9,56 @@ const defReleatedContentData = require('../../modules/related_content/related_co
 const defContactData = require('../../modules/contact/contact.data.js').variants.smallMailOnly.props;
 const defTagGroupData = require('../../modules/tag_group/tag_group.data.js').variants.default.props;
 const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withoutLinklist.props;
-const defFlexDataData = require('../../modules/flex_data/flex_data.data').variants.default.props;
-const defFormData = require('../../modules/form/form.data');
+const defTabsData = require('../../modules/tabs/tabs.data').variants.zhlex.props;
+
+const defAnchorNavData = {
+  anchornavTitle: {
+    level: 2,
+    title: 'Inhaltsverzeichnis',
+  },
+  anchornavItems: [
+    {
+      anchorlink: {
+        anchorlinkText: 'Suche',
+        anchorlinkAdress: 'zhlex_search',
+        anchorlinkIsActive: true,
+        anchorlinkAsButton: true,
+      },
+    },
+    {
+      anchorlink: {
+        anchorlinkText: 'Sachregister',
+        anchorlinkAdress: 'zhlex_index',
+        anchorlinkIsActive: false,
+        anchorlinkAsButton: true,
+      },
+    },
+    {
+      anchorlink: {
+        anchorlinkText: 'Information & Hilfe',
+        anchorlinkAdress: 'zhlex_info',
+        anchorlinkIsActive: false,
+        anchorlinkAsButton: true,
+      },
+    },
+    {
+      anchorlink: {
+        anchorlinkText: 'Bestellungen',
+        anchorlinkAdress: 'zhlex_order',
+        anchorlinkIsActive: false,
+        anchorlinkAsButton: true,
+      },
+    },
+    {
+      anchorlink: {
+        anchorlinkText: 'Kontakt',
+        anchorlinkAdress: 'contact',
+        anchorlinkIsActive: false,
+        anchorlinkAsButton: true,
+      },
+    },
+  ],
+};
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -21,14 +69,16 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     header: headerData,
-    defaultColorVariation: 'cv-violetturqoise',
+    defaultColorVariation: 'cv-turqoise',
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData, {
-        pageTitle: 'Entscheide',
+        pageTitle: 'Zürcher Gesetzessammlung ZH-Lex',
         inverted: true,
         buttonData: false,
-        leadText: 'Die Datenbank enthält wegleitende Entscheide des Regierungsrates, der Direktionen sowie der direktionsabhängigen und -zugeordneten Gremien ab dem 1. Juli 2001. Es handelt sich dabei um Rechtsmittelentscheide, vereinzelt um erstinstanzliche Anordnungen. Die veröffentlichten Entscheide sind in der Regel rechtskräftig.',
+        leadText: 'In der Loseblattsammlung (LS) finden Sie das aktuell geltende Zürcher Recht. Es ist in 14 Bänden nach Sachgebieten geordnet. In der Offiziellen Gesetzessammlung (OS) wird das kantonale Recht chronologisch publiziert.',
       }),
+      anchorNav: defAnchorNavData,
+      tabs: defTabsData,
       downloadList1: {
         title: false,
         links: [
@@ -67,43 +117,6 @@ const data = _.merge({}, defaultData, {
           },
         ],
       },
-      flexDataData: _.assign(_.merge({},defFlexDataData), {
-        flexDataSource: '/mocks/modules/flex_data/flex_data_table_alt.json',
-        flexTableFormData: _.merge({}, defFormData.variants.decisions.props),
-        tableData: {
-          tableTitle: '',
-          hasTitle: true,
-          tableHeadingLevel: 4,
-          hasColumnHeader: true,
-          isWide: true,
-          isStatic: true,
-          preSortedColumn: 'geschaeftsnummer',
-          preSortedDirection: 'ascending',
-          headers: [
-            {
-              title: 'Geschäftsnummer',
-              dataColumnName: 'geschaeftsnummer',
-              isSortable: 'enum',
-            },
-            {
-              title: 'Entscheidungsinstanz',
-              dataColumnName: 'entscheidungsinstanz',
-              isSortable: 'alpha',
-            },
-            {
-              title: 'Rechtsgebiet',
-              dataColumnName: 'rechtsgebiet',
-              isSortable: 'alpha',
-            },
-            {
-              title: 'Entscheidungsdatum',
-              dataColumnName: 'entscheidungsdatum',
-              isSortable: 'enum',
-            },
-          ],
-          bodyrows: [],
-        },
-      }),
       newsTeaserData: defNewsTeaserData,
       releatedContentData: _.merge({}, defReleatedContentData, { relatedContentHeading: { anchorNavReference: 'related_content' } }),
       contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
@@ -111,14 +124,15 @@ const data = _.merge({}, defaultData, {
         {
           anchorLinks: [
             { anchorlink:
-                { anchorlinkText: 'Staatskanzlei',
-                  anchorlinkAdress: '#',
-                  anchorlinkIsActive: false,
-                  anchorlinkIsTagAnchor: true,
-                  anchorlinkIsInverted: true,
-                  anchorlinkIsTopitem: true,
-                  anchorlinkIsTopitemSmall: true,
-                },
+              {
+                anchorlinkText: 'Staatskanzlei',
+                anchorlinkAdress: '#',
+                anchorlinkIsActive: false,
+                anchorlinkIsTagAnchor: true,
+                anchorlinkIsInverted: true,
+                anchorlinkIsTopitem: true,
+                anchorlinkIsTopitemSmall: true,
+              },
             },
           ],
         }),

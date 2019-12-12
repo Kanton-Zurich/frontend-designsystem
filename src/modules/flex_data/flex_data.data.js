@@ -20,7 +20,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     resultCountTitle: '%1 Treffer zu ihrer Abfrage',
-    noResultsTitle: 'Es wurden keine Ergebnisse gefunden.  Bitte passen Sie Ihre Suche an.',
+    noResultsTitle: 'Es wurden keine Ergebnisse gefunden. Bitte passen Sie Ihre Suche an.',
   },
 });
 const variants = _.mapValues({
@@ -62,13 +62,55 @@ const variants = _.mapValues({
       },
     },
   },
-  zhlex: {
+  zhlex_ls: {
     meta: {
-      title: 'ZH-Lex',
-      desc: 'Zürcher Gesetzessammlung',
+      title: 'ZH-Lex Loseblattsammlung',
+      desc: 'Loseblattsammlung der Zürcher Gesetzessammlung',
     },
     props: {
-      flexDataSource: '/mocks/modules/flex_data/flex_data.zhLex.json',
+      flexDataSource: '/mocks/modules/flex_data/flex_data_zhlex.json',
+      pagination: defPaginationData.variants.fullWidth.props,
+      resultCountTitle: '%1 Treffer zu ihrer Abfrage',
+      flexTableFormData: _.merge({}, defFormData.variants.zhlex.props),
+      extendedFlexFormData: _.merge({}, defAccordionData.variants.zhLexExtendedSearch.props),
+      resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
+      tableData: {
+        tableTitle: '',
+        hasTitle: true,
+        tableHeadingLevel: 4,
+        hasColumnHeader: true,
+        isWide: true,
+        isStatic: true,
+        preSortedColumn: 'ordnungsnummer',
+        preSortedDirection: 'asc',
+        headers: [
+          {
+            title: 'Ordnungs-Nr.',
+            dataColumnName: 'ordnungsnummer',
+            isSortable: 'alpha',
+          },
+          {
+            title: 'Erlasstitel',
+            dataColumnName: 'erlasstitel',
+            isSortable: 'alpha',
+          },
+          {
+            title: 'Erlassdatum',
+            dataColumnName: 'erlassdatum',
+            isSortable: 'date',
+          },
+        ],
+        bodyrows: [],
+      },
+    },
+  },
+  zhlex_os: {
+    meta: {
+      title: 'ZH-Lex Offizielle Gesetzessammlung',
+      desc: 'Offizielle Gesetzessammlung der Zürcher Gesetzessammlung',
+    },
+    props: {
+      flexDataSource: '/mocks/modules/flex_data/flex_data_zhlex.json',
       pagination: defPaginationData.variants.fullWidth.props,
       resultCountTitle: '%1 Treffer zu ihrer Abfrage',
       flexTableFormData: _.merge({}, defFormData.variants.zhlex.props),

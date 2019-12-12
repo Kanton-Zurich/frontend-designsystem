@@ -5,9 +5,11 @@
     </header>
   {{/content}}
   {{#content "content"}}
-    {{> "modules/flex_data/flex_data" props.modules.flexDataData }}
+    {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
+    <h2 id="zhlex_search" class="atm-heading">Suche</h2>
+    {{> "modules/tabs/tabs" props.modules.defTabsData }}
     <div class="mdl-richtext">
-      <h2 class="atm-heading">Informationen & Hilfe</h2>
+      <h2 id="zhlex_info" class="atm-heading">Informationen &amp; Hilfe</h2>
       <h3 class="atm-heading">Suchfunktion</h3>
       <p class="atm-paragraph">
         Wird die Suche ohne eine Eingabe der Suchkriterien vorgenommen, listet das System sämtliche vorhandenen Entscheide auf. Es rechtfertigt sich daher, die Auswahl einzuschränken, insbesondere auf die Entscheidinstanz und/oder das Rechtsgebiet bzw. durch Verwendung der Volltextsuche.
@@ -22,7 +24,7 @@
     </div>
       {{> "modules/download_list/download_list" props.modules.downloadList2 }}
     <div class="mdl-richtext">
-      <h2 class="atm-heading">Bestellungen</h2>
+      <h2 id="zhlex_order" class="atm-heading">Bestellungen</h2>
       <p class="atm-paragraph">
         Sie können Separatdrucke auf Papier aus der Gesetzessammlung bestellen. Diese werden Ihnen per Post zugestellt. Die Separatdrucke und der Versand sind kostenpflichtig. Ihre Bestellung wird direkt von der Kantonalen Drucksachen- und Materialzentrale KDMZ ausgeführt. Die wichtigsten Erlasse und deren Preise finden Sie auf der Hompage der KDMZ (Shop).
       </p>
