@@ -70,7 +70,6 @@ const variants = _.mapValues({
     props: {
       flexDataSource: '/mocks/modules/flex_data/flex_data_zhlex.json',
       pagination: defPaginationData.variants.fullWidth.props,
-      resultCountTitle: '%1 Treffer zu ihrer Abfrage',
       flexTableFormData: _.merge({}, defFormData.variants.zhlex.props),
       extendedFlexFormData: _.merge({}, defAccordionData.variants.zhLexExtendedSearch.props),
       resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
@@ -112,7 +111,6 @@ const variants = _.mapValues({
     props: {
       flexDataSource: '/mocks/modules/flex_data/flex_data_zhlex.json',
       pagination: defPaginationData.variants.fullWidth.props,
-      resultCountTitle: '%1 Treffer zu ihrer Abfrage',
       flexTableFormData: _.merge({}, defFormData.variants.zhlex.props),
       extendedFlexFormData: _.merge({}, defAccordionData.variants.zhLexExtendedSearch.props),
       resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
@@ -171,7 +169,7 @@ const variants = _.mapValues({
         ],
       },
       genericTemplate: `<ul class="mdl-search_page__list">
-          <% _.forEach(data, function(item, index) { %>
+        <% _.forEach(data, function(item, index) { %>
           <li class="atm-search_result_item">
             <span class="atm-search_result_item__meta">
               <span class="atm_search_result_item__type">
