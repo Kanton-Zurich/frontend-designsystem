@@ -159,7 +159,7 @@ class Form {
           });
           break;
         case 'file':
-          wrist.watch(input, 'files', () => {
+          input.addEventListener('change', () => {
             this.validateField(input);
           });
           break;
@@ -222,6 +222,7 @@ class Form {
   }
 
   validateField(field) {
+    console.log(field);
     const validation = window[namespace].form.validateField(field);
     const fileTimeout = 5;
     const inputWrapper = field.closest(this.options.inputSelector);
