@@ -1,4 +1,5 @@
 .mdl-live_stream {
+  @include sizeCurve(margin-bottom, medium);
 
   &__wrapper {
     position: relative;

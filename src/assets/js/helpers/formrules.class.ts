@@ -229,9 +229,11 @@ class FormRules {
           correctField = fields.filter(field => field.value === condition.value)[0]; //eslint-disable-line
         }
 
-        if ((condition.equals && !correctField.checked)
-          || (!condition.equals && correctField.checked)) {
-          conditionsMet = false;
+        if (typeof correctField !== typeof undefined) {
+          if ((condition.equals && !correctField.checked)
+            || (!condition.equals && correctField.checked)) {
+            conditionsMet = false;
+          }
         }
       });
 

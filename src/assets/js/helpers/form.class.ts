@@ -22,6 +22,7 @@ class Form {
     messageClasses: any,
     domSelectors: {
       floating: string;
+      datepicker: string;
     };
     messageSelector: string,
     duplicateSelector: string,
@@ -56,6 +57,7 @@ class Form {
       },
       domSelectors: {
         floating: '[data-floating]',
+        datepicker: '[data-init="datepicker"]',
       },
       messageSelector: '[data-message]',
       selectOptionSelector: 'data-select-option',
@@ -85,6 +87,8 @@ class Form {
 
     // Init fields with prefix
     this.initPrefix();
+    // Initialize Datepickers when not happened yet
+    this.initDatepickers();
 
     // set dirty from start
     this.setDirtyFromStart();
@@ -220,39 +224,42 @@ class Form {
   validateField(field) {
     const validation = window[namespace].form.validateField(field);
     const fileTimeout = 5;
+    const inputWrapper = field.closest(this.options.inputSelector);
 
-    
-    field.closest(this.options.inputSelector).querySelectorAll(this.options.messageSelector)
-      .forEach((message) => {
-        message.classList.remove(this.options.messageClasses.show);
-      });
+    // Only Do something about validation when there is a parent with data-input is present
+    if (inputWrapper) {
+      field.closest(this.options.inputSelector).querySelectorAll(this.options.messageSelector)
+        .forEach((message) => {
+          message.classList.remove(this.options.messageClasses.show);
+        });
 
-    if (validation.validationResult) {
-      this.setValidClasses(field);
-    } else {
-      this.setValidClasses(field, ['add', 'remove']);
+      if (validation.validationResult) {
+        this.setValidClasses(field);
+      } else {
+        this.setValidClasses(field, ['add', 'remove']);
 
-      validation.messages.forEach((messageID) => {
-        const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
+        validation.messages.forEach((messageID) => {
+          const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
 
-        if (message) {
-          message.classList.add('show');
-        }
-      });
+          if (message) {
+            message.classList.add('show');
+          }
+        });
 
-      if (validation.files) {
-        setTimeout(() => {
-          validation.files.forEach((validationResult) => {
-            const fileContainer = field.closest(this.options.inputSelector).querySelector(`[data-file-id="${validationResult.id}"]`);
+        if (validation.files) {
+          setTimeout(() => {
+            validation.files.forEach((validationResult) => {
+              const fileContainer = field.closest(this.options.inputSelector).querySelector(`[data-file-id="${validationResult.id}"]`);
 
-            validationResult.errors.forEach((error) => {
-              fileContainer.querySelector(`[data-message="${error}"]`).classList.add('show');
+              validationResult.errors.forEach((error) => {
+                fileContainer.querySelector(`[data-message="${error}"]`).classList.add('show');
+              });
             });
-          });
-        }, fileTimeout);
-      }
+          }, fileTimeout);
+        }
 
-      this.ui.element.setAttribute('form-has-errors', 'true');
+        this.ui.element.setAttribute('form-has-errors', 'true');
+      }
     }
   }
 
@@ -342,6 +349,19 @@ class Form {
       const input = prefixedInput.querySelector('input');
 
       input.style.paddingLeft = `${unitWidth + this.options.padding * paddingMultiplier}px`;
+    });
+  }
+
+  initDatepickers() {
+    const datepickers = this.ui.element.querySelectorAll(this.options.domSelectors.datepicker);
+
+    datepickers.forEach((picker) => {
+      if (!(<HTMLElement>picker).dataset.initialised) {
+        const { parentNode } = picker;
+
+        (<any>window).estatico.helpers.app.registerModulesInElement(parentNode);
+        (<any>window).estatico.helpers.app.initModulesInElement(parentNode);
+      }
     });
   }
 }

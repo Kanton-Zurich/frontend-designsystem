@@ -8,6 +8,10 @@ $gapSize: pxToRem($sizeRegular);
     &:focus {
       outline: none;
     }
+
+    &.atm-heading {
+      padding-top: 0;
+    }
   }
 
   &__group {
@@ -30,8 +34,11 @@ $gapSize: pxToRem($sizeRegular);
   &__row {
     display: flex;
     align-items: flex-start;
-
     padding-bottom: $gapSize;
+
+    &.form__row--narrow {
+      padding-bottom: 0;
+    }
 
     &:not(:last-of-type) {
       .form__duplicator {
@@ -67,7 +74,6 @@ $gapSize: pxToRem($sizeRegular);
   &__cell {
     padding: 0 $gapSize/2;
     flex: 1 1 0px; //stylelint-disable-line
-    width: 0;
 
     &:first-child:last-child {
       flex-basis: 100%;

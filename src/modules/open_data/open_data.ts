@@ -14,7 +14,6 @@ class OpenData extends Module {
     domSelectors: any,
     stateClasses: any,
     apiCalls: Array<string>,
-    proxy: string,
     licenseKeys: any,
   }
 
@@ -42,7 +41,6 @@ class OpenData extends Module {
         initialised: 'mdl-open_data--initialised',
       },
       apiCalls: JSON.parse($element.dataset.apiCalls),
-      proxy: 'https://cors-anywhere.herokuapp.com/',
       licenseKeys: {
         'NonCommercialAllowed-CommercialAllowed-ReferenceNotRequired': '1',
         'NonCommercialAllowed-CommercialAllowed-ReferenceRequired': '2',
@@ -53,7 +51,14 @@ class OpenData extends Module {
 
     this.initUi();
 
-    this.loadData();
+    this.init();
+  }
+
+  async init() {
+    await this.loadData();
+
+
+    this.renderResults();
   }
 
   static get events() {
@@ -91,24 +96,23 @@ class OpenData extends Module {
   }
 
   async loadData() {
+    const promises = [];
+
     if (!window.fetch) {
       await import('whatwg-fetch');
     }
 
-    this.options.apiCalls.forEach((resourceURL, index) => {
-      fetch(`${this.options.proxy}${resourceURL}`, {
-      })
+    this.options.apiCalls.forEach((resourceURL) => {
+      promises.push(fetch(resourceURL, {})
         .then(response => response.json())
         .then((response) => {
           if (response && response.success) {
             this.data.resources.push(response.result);
-
-            if (index === this.options.apiCalls.length - 1) {
-              this.renderResults();
-            }
           }
-        });
+        }));
     });
+
+    return Promise.all(promises);
   }
 
   sanitizeLabel(modifiedDate, byteSize, format) {

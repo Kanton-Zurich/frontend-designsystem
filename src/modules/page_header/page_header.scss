@@ -311,6 +311,7 @@ $pageHeaderCurves: (
       .atm-lead,
       .atm-paragraph {
         margin-bottom: $sizeTiny;
+        text-indent: 0;
       }
 
       &-button {

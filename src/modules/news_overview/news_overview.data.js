@@ -57,7 +57,7 @@ const data = _.merge({}, defaultData, {
         },
       },
       triggerInputData: {
-        label: 'News-Typ',
+        label: 'Typ',
         validation: {
           isRequired: false,
         },
@@ -112,6 +112,7 @@ const data = _.merge({}, defaultData, {
     dateInputData: _.merge({}, defDatePickerData.variants.dateRange.props, {
       formInputData: {
         validation: false,
+        label: 'Zeitraum',
       },
     }),
     filterPillsData: defFilterPillsData.props,
@@ -128,7 +129,7 @@ const data = _.merge({}, defaultData, {
     },
     searchInputData: {
       type: 'text',
-      label: 'Filter',
+      label: 'Stichwortsuche',
       isInput: true,
       isFloatingLabel: true,
       iconOnly: {
@@ -152,20 +153,20 @@ const data = _.merge({}, defaultData, {
     newsTeaserTemplate: templateConverter(dataHelper.getFileContent('../news_teaser/_news_teaser_item.hbs'), false),
     topNewsTeaserItems: [
       {
-        href: '#',
+        href: '../news_detail/news_detail.html',
         dateLabel: 'Medienmitteilung',
         date: '14.12.2018',
         dateMachineReadable: '2018-12-14',
         title: 'Winterthur: Unbekannter Mann raubt Tankstellen-Shop aus',
       },
       {
-        href: '#',
+        href: '../news_detail/news_detail.html',
         date: '14.12.2018',
         dateMachineReadable: '2018-12-14',
         title: 'Zürich-Flughafen: Drogenkurier verhaftet und Kokain sichergestellt',
       },
       {
-        href: '#',
+        href: '../news_detail/news_detail.html',
         dateLabel: 'Medienmitteilung',
         date: '14.12.2018',
         dateMachineReadable: '2018-12-14',

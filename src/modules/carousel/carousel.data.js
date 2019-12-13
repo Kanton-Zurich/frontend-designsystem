@@ -27,15 +27,15 @@ const data = _.merge({}, defaultData, {
         useInCarousel: true,
         srcsets: [
           {
-            image: '/assets/media/image/carousel_1440_x15.jpeg',
+            image: '/assets/media/image/carousel_1440_1440_x15.jpeg',
             imageWidth: 2160,
           },
           {
-            image: '/assets/media/image/carousel_1024_x15.jpeg',
+            image: '/assets/media/image/carousel_1024_1024_x15.jpeg',
             imageWidth: 1536,
           },
           {
-            image: '/assets/media/image/carousel_600_x15.jpeg',
+            image: '/assets/media/image/carousel_600_600_x15.jpeg',
             imageWidth: 900,
           },
         ],
@@ -45,15 +45,15 @@ const data = _.merge({}, defaultData, {
         useInCarousel: true,
         srcsets: [
           {
-            image: '/assets/media/image/carousel_1440_x15.jpeg',
+            image: '/assets/media/image/carousel_1440_2667_x15.jpeg',
             imageWidth: 2160,
           },
           {
-            image: '/assets/media/image/carousel_1024_x15.jpeg',
+            image: '/assets/media/image/carousel_1024_1612_x15.jpeg',
             imageWidth: 1536,
           },
           {
-            image: '/assets/media/image/carousel_600_x15.jpeg',
+            image: '/assets/media/image/carousel_600_944_x15.jpeg',
             imageWidth: 900,
           },
         ],

@@ -402,6 +402,29 @@ const variants = _.mapValues({
       ],
     },
   },
+  phoneOnly: {
+    meta: {
+      title: 'Telefon',
+      desc: 'Berufliche Informaitonen',
+    },
+    props: {
+      sectionTitle: 'Kontaktangaben',
+      groups: [{
+        rows: [
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                  selectData.variants.selectPhone.props,
+                  {})),
+              },
+            ],
+          },
+        ],
+      },
+      ],
+    },
+  },
   taxLegal: {
     meta: {
       title: 'Tax Legal (CZHDEV-1238)',

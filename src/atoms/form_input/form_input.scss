@@ -54,12 +54,17 @@ $triggerWidth: pxToRem(86px);
 
     &::placeholder {
       color: $colorBlack60;
+      opacity: 1;
     }
 
     &::-webkit-inner-spin-button,
     &::-webkit-outer-spin-button {
       appearance: none;
       margin: 0;
+    }
+
+    &[ type='number' ] {
+      -moz-appearance: textfield; // stylelint-disable-line
     }
 
     &::-ms-clear {
@@ -119,10 +124,19 @@ $triggerWidth: pxToRem(86px);
       }
     }
 
+    .atm-form_input__input--txtarea ~ label {
+      top: $borderWidthRem;
+      padding-top: $paddingInput;
+      right: pxToRem($borderWidth + $sizeLarge);
+
+      @include transition(top padding);
+    }
+
     label {
       position: absolute;
       top: $paddingInput + $borderWidthRem;
       left: pxToRem($sizeRegular) + $borderWidthRem;
+      pointer-events: none;
 
       right: $borderWidth;
       background: $colorWhite;
@@ -147,6 +161,13 @@ $triggerWidth: pxToRem(86px);
 
       font-family: $fontFamilyBlack;
       color: $colorBlack;
+    }
+
+    // FOR TEXTAREA
+    .atm-form_input__input--txtarea:focus ~ label,
+    .atm-form_input__input--txtarea.dirty ~ label {
+      top: 2px;
+      padding-top: pxToRem(14px);
     }
   }
 
@@ -365,23 +386,27 @@ $triggerWidth: pxToRem(86px);
     > input {
       position: absolute;
       top: 2px;
-
       right: 2px;
       height: pxToRem($targetInputHeight);
-
       background: none;
-
       left: $triggerWidth;
       width: calc(100% - #{$triggerWidth} - $borderWidthRem);
-
       border: none;
-
       padding-left: pxToRem($sizeRegular);
-
       z-index: $zIndexInner;
 
       &:focus {
         outline: none;
+      }
+
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        appearance: none;
+        margin: 0;
+      }
+
+      &::-ms-clear {
+        display: none;
       }
     }
 

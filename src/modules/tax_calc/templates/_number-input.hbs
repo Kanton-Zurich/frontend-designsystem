@@ -1,9 +1,9 @@
 <div class="atm-form_input atm-form_input--floated" data-input>
     <input class="atm-form_input__input<% if (value) { %> dirty<% } %>"
-           tabindex="-1"
-           data-validation data-floating max="<%=max%>" step="1" id="input-<%=fieldName%>" placeholder="<%=label%>"
+           tabindex="-1" type="text" data-validation data-floating
+           data-pattern="^([0-9]){1,<%=maxLength%>}$" id="input-<%=fieldName%>" placeholder="<%=label%>"
           <% if (reinvokeTrigger) { %> data-tax_calc-reinvoke="true"<% } %>
-           name="<%=fieldName%>" value="<%=value %>" type="number"<% if (mandatory) { %> required<% } %>>
+           name="<%=fieldName%>" value="<%=value %>" type="text"<% if (mandatory) { %> required<% } %>>
 
     <label for="input-<%=fieldName%>"><%=label%></label>
     <span class="atm-form_input__validate-icon">
@@ -22,7 +22,7 @@
 	</span>
 
   <% if (mandatory) { %>
-    <p class="form__fieldset-error-message" data-message="required">{{requiredMessages.number}}</p>
+  <p data-message="required">{{requiredMessages.number}}</p>
   <% } %>
 
   <% if (hint) { %>
