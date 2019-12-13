@@ -474,7 +474,7 @@ class TaxCalc extends Module {
         label: opt.value,
       }));
     } else if (defByApi.type === 'Number') {
-      propData.max = defByApi.maxSize;
+      propData.maxLength = Math.floor(Math.log10(defByApi.maxSize));
       if (setFromDef && defByApi.value !== undefined && defByApi.value !== null) {
         propData.value = defByApi.value.toString(10);
       } else {
