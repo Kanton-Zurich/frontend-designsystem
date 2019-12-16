@@ -69,6 +69,12 @@
               </div>
             {{/if}}
             {{#unless noText}}
+              {{#if publicationDate}}
+                <p class="mdl-page-header__dateline">
+                  {{#if newsCategory}}<span class="mdl-page-header__news-category">{{newsCategory}}</span>{{/if}}
+                  {{publicationDate}}
+                </p>
+              {{/if}}
               {{> "atoms/lead/lead"}}
             {{/unless}}
             {{#unless anchorLinks }}

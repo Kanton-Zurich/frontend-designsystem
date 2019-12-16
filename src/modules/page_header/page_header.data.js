@@ -48,6 +48,19 @@ const variants = _.mapValues({
       }),
     },
   },
+  default2: {
+    meta: {
+      title: 'Default 2',
+      desc: 'Default implementation',
+      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
+      defaultColorVariation: 'cv-blue',
+    },
+    props: {
+      breadcrumb: defBreadcrumbData.variants.default.props,
+      newsCategory: 'Medienmitteilung',
+      publicationDate: '08.01.2019',
+    },
+  },
   defaultImage: {
     meta: {
       title: 'Default mit Bild',
