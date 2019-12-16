@@ -78,12 +78,26 @@
     font-size: pxToRem($sizeFontTiny);
     line-height: $sizeLineHeightBase;
     margin: 0;
-    padding-left: pxToRem($sizeRegular + 2px);
+    padding: $sizeMini 0 $sizeMini pxToRem($sizeRegular + 2px);
     color: $colorWhite;
     background-color: $colorRed;
 
     margin-top: pxToRem($sizeTiny);
     display: none;
+
+    &:not(:first-of-type) {
+      margin-top: 0;
+    }
+
+    &:first-of-type {
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px;
+    }
+
+    &:last-of-type {
+      border-bottom-right-radius: 2px;
+      border-bottom-left-radius: 2px;
+    }
 
     &.show {
       display: block;
@@ -95,7 +109,7 @@
   &__file {
     flex-grow: 1;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 
     border-bottom: 1px solid $colorBlack20;
 
@@ -121,6 +135,8 @@
 
     &-delete {
       line-height: 0;
+
+      @include sizeCurve(margin-top, tiny);
 
       svg {
         min-width: pxToRem(24);
