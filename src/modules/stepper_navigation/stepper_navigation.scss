@@ -177,8 +177,8 @@ $stepperNavigationCurves: (
       }
     }
 
-    &--pending {
-      align-items: flex-end;
+    &--pending,
+    &--multiple {
 
       .mdl-stepper_navigation__step-dots {
         display: block;
@@ -196,6 +196,10 @@ $stepperNavigationCurves: (
       .mdl-stepper_navigation__step-title {
         visibility: hidden;
       }
+    }
+
+    &--pending {
+      align-items: flex-end;
 
       ~ li {
         display: none !important; //stylelint-disable-line

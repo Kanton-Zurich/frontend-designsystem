@@ -192,6 +192,26 @@ const variants = _.mapValues({
       },
     },
   },
+  withALotSteps: {
+    meta: {
+      title: 'Mit 7 Schritten (CZHDEV-1630)',
+      desc: 'Formular 7 Schritten (Edge-Case)',
+    },
+    props: {
+      steps: [
+        formVariants.dummyStep1.props,
+        formVariants.dummyStep2.props,
+        formVariants.dummyStep3.props,
+        formVariants.dummyStep4.props,
+        formVariants.dummyStep5.props,
+        formVariants.dummyStep6.props,
+        formVariants.dummyStep7.props,
+      ],
+      navigation: {
+        steps: ['Schritt 1', 'Schritt 2', 'Schritt 3', 'Schritt 4', 'Schritt 5', 'Schritt 6', 'Schritt 7', 'Bestätigung'],
+      },
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
