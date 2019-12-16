@@ -103,6 +103,22 @@ $stepperNavigationCurves: (
       @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
     }
 
+    &-dots {
+      display: none;
+      box-sizing: content-box;
+
+      @include polyFluidSizing(height, map-get($stepperNavigationCurves, checkMarkHeight));
+      @include sizeCurve(padding-left padding-right, tiny);
+
+      background: $colorWhite;
+      padding-bottom: $sizeMini;
+      transform: translateY(-3px);
+
+      @include mq($to: small) {
+        height: 2rem;
+      }
+    }
+
 
     &-checkmark {
       width: 4rem;
@@ -162,20 +178,23 @@ $stepperNavigationCurves: (
     }
 
     &--pending {
-      .mdl-stepper_navigation__step-ordinal {
-        &:before {
-          display: inline;
-          content: '...';
-          line-height: 0.7;
+      align-items: flex-end;
 
-          @include polyFluidSizing(font-size, map-get($stepperNavigationCurves, ordinalFontSize));
-        }
-
-        font-size: 0;
+      .mdl-stepper_navigation__step-dots {
+        display: block;
       }
 
-      .mdl-stepper_navigation__step-title {
+      .mdl-stepper_navigation__step-ordinal {
         display: none;
+      }
+
+      .mdl-stepper_navigation__step-checkmark {
+        display: none;
+      }
+
+
+      .mdl-stepper_navigation__step-title {
+        visibility: hidden;
       }
 
       ~ li {
