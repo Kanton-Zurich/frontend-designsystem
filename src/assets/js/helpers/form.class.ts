@@ -222,7 +222,6 @@ class Form {
   }
 
   validateField(field) {
-    console.log(field);
     const validation = window[namespace].form.validateField(field);
     const fileTimeout = 5;
     const inputWrapper = field.closest(this.options.inputSelector);
