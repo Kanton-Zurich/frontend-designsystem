@@ -6,8 +6,7 @@
   {{/content}}
   {{#content "content"}}
     {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
-    <h2 id="zhlex_search" class="atm-heading">Suche</h2>
-    {{> "modules/tabs/tabs" props.modules.tabs }}
+    {{> "modules/zhlex/zhlex" props.modules.zhlex }}
     <div class="mdl-richtext">
       <h2 id="zhlex_index" class="atm-heading">Sachregister</h3>
       <p class="atm-paragraph">
@@ -28,7 +27,7 @@
         Sie können Separatdrucke auf Papier aus der Gesetzessammlung bestellen. Diese werden Ihnen per Post zugestellt. Die Separatdrucke und der Versand sind kostenpflichtig. Ihre Bestellung wird direkt von der Kantonalen Drucksachen- und Materialzentrale KDMZ ausgeführt. Die wichtigsten Erlasse und deren Preise finden Sie auf der Hompage der KDMZ (Shop).
       </p>
     </div>
-    {{>"modules/service_list/service_list" props.modules.serviceList }}
+    {{> "modules/service_list/service_list" props.modules.serviceList }}
     {{> "modules/contact/contact" props.modules.contactData}}
     {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
     {{> "modules/related_content/related_content" props.modules.releatedContentData}}

@@ -53,6 +53,7 @@ import Contact from '../../../modules/contact/contact';
 import TaxCalc from '../../../modules/tax_calc/tax_calc';
 import JurisdictionFinder from '../../../modules/jurisdiction_finder/jurisdiction_finder';
 import NewsletterForm from '../../../modules/newsletter_form/newsletter_form';
+import ZhLex from '../../../modules/zhlex/zhlex';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -115,6 +116,7 @@ class App {
     this.modules.jurisdictionFinder = JurisdictionFinder;
     this.modules.contact = Contact;
     this.modules.newsletterForm = NewsletterForm;
+    this.modules.zhLex = ZhLex;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
