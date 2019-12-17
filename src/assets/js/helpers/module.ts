@@ -183,8 +183,8 @@ class Module {
    * Get all URL params as object
    */
   getAllURLParams() {
-    const url = window.location.href;
-    const stringParams = url.split('?').length > 1 ? url.split('?')[1].split('&') : null;
+    const queryString = window.location.search;
+    const stringParams = queryString.split('?').length > 1 ? queryString.split('?')[1].split('&') : null;
     let params = {};
     if (stringParams) {
       params = stringParams.reduce((total, amount) => {

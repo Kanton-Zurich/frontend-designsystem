@@ -279,6 +279,11 @@ class FlexData extends Module {
     append('page', this.ui.paginationInput.value);
     append('order', this.order);
     append('orderBy', this.orderBy);
+
+    // append has (for tabs)
+    if (window.location.hash) {
+      resultUrl += window.location.hash;
+    }
     return resultUrl;
   }
 

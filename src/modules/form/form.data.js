@@ -1154,7 +1154,7 @@ const variants = _.mapValues({
       desc: 'Flex Data ZH-Lex',
     },
     props: {
-      sectionTitle: 'Suche',
+      sectionTitle: null,
       groups: [{
         rows: [{
           fields: [{
