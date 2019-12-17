@@ -35,7 +35,7 @@ describe('CookieControls', () => {
         hasCookie = true;
       }
 
-      const checkbox = (<any>document.querySelector('#cookieCheckboxYoutube')).checked;
+      const checkbox = (<any>document.querySelector('#acceptYouTube')).checked;
 
       return {
         checkboxState: checkbox,
@@ -52,7 +52,7 @@ describe('CookieControls', () => {
   it('after checking the checkbox there should be a cookie with the name "acceptYouTube" set '
     + 'and the checkbox state should be true', async () => {
     const result = await page.evaluate(() => {
-      const checkbox = (<any>document.querySelector('#cookieCheckboxYoutube'));
+      const checkbox = (<any>document.querySelector('#acceptYouTube'));
       checkbox.click();
 
       const cookieName = 'acceptYouTube';
