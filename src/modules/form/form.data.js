@@ -596,7 +596,7 @@ const variants = _.mapValues({
                     () => handlebars.compile(checkboxHBS)(_.merge({},
                       checkboxData.variants.default.props,
                       {
-                        label: 'Option 2',
+                        label: 'Option 3',
                         groupName: 'checkboxgroup',
                         id: 313,
                         value: '3',
@@ -1191,7 +1191,7 @@ const variants = _.mapValues({
       }],
     },
   },
-  zhlexExtended: {
+  zhlexLSExtended: {
     meta: {
       title: 'ZH-Lex Loseblattsammlung (CZHDEV-1240)',
       desc: 'Flex Data ZH-Lex Erweiterte Suche Loseblattsammlung',
@@ -1205,24 +1205,104 @@ const variants = _.mapValues({
               selectData.variants.table.props,
               {})),
           }],
+        }],
+      }, {
+        rows: [{
+          fields: [{
+            cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+              datepickerData.variants.dateRange.props,
+              {
+                formInputData: {
+                  label: 'Erlass',
+                  name: 'erlassdatum',
+                  uuid: 'erlassdatum',
+                  validation: false,
+                },
+              })),
+          }],
         }, {
           fields: [{
-            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-              formInputData.variants.default.props,
+            cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+              datepickerData.variants.dateRange.props,
               {
-                isFloatingLabel: true,
-                label: 'Nachtrags-Nummer (LS)',
-                name: 'nachtragsnummer',
-                uuid: 'nachtragsnummer',
+                formInputData: {
+                  label: 'Inkraftsetzung',
+                  name: 'inkraftsetzungsdatum',
+                  uuid: 'inkraftsetzungsdatum',
+                  validation: false,
+                },
               })),
           }, {
+            cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+              datepickerData.variants.dateRange.props,
+              {
+                formInputData: {
+                  label: 'Publikation',
+                  name: 'publikationsdatum',
+                  uuid: 'publikationsdatum',
+                  validation: false,
+                },
+              })),
+          }],
+        }, {
+          fields: [{
+            cellContent: () => handlebars.compile(checkboxHBS)(_.merge({},
+              checkboxData.variants.default.props,
+              {
+                label: 'Auch aufgehobene Erlasse suchen',
+                groupName: 'include-repealed',
+                id: 410,
+                value: 'true',
+              })),
+          }],
+        }],
+      }],
+    },
+  },
+  zhlexOSExtended: {
+    meta: {
+      title: 'ZH-Lex Offizielle Gesetzessammlung (CZHDEV-1240)',
+      desc: 'Flex Data ZH-Lex Erweiterte Suche Offizielle Gesetzessammlung',
+    },
+    props: {
+      sectionTitle: null,
+      groups: [{
+        rows: [{
+          fields: [{
+            cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+              selectData.variants.default.props,
+              {
+                listData: _.merge({}, listDemoData.props, {
+                  groupPostfix: 'lex_issue',
+                  isSingleSelect: true,
+                  selectOptions: [
+                    { value: '76', label: 'Band 76', id: _.uniqueId('zhlex_issue') },
+                    { value: '75', label: 'Band 75', id: _.uniqueId('zhlex_issue') },
+                    { value: '74', label: 'Band 74', id: _.uniqueId('zhlex_issue') },
+                    { value: '73', label: 'Band 73', id: _.uniqueId('zhlex_issue') },
+                    { value: '...', label: '...', id: _.uniqueId('zhlex_issue') },
+                    { value: '54', label: 'Band 54', id: _.uniqueId('zhlex_issue') },
+                    { value: '53', label: 'Band 53', id: _.uniqueId('zhlex_issue') },
+                    { value: '52', label: 'Band 52', id: _.uniqueId('zhlex_issue') },
+                    { value: '51', label: 'Band 51', id: _.uniqueId('zhlex_issue') },
+                  ],
+                }),
+                triggerInputData: {
+                  label: 'Bandnummer',
+                  validation: {
+                    isRequired: false,
+                  },
+                },
+              })),
+          },
+          {
             cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
               formInputData.variants.default.props,
               {
                 isFloatingLabel: true,
-                label: 'Publikationsnummer',
-                name: 'publikationsnummer',
-                uuid: 'publikationsnummer',
+                label: 'Seitenzahl in OS',
+                name: 'seitenzahl',
+                uuid: 'seitenzahl',
               })),
           }],
         }],
@@ -1232,26 +1312,22 @@ const variants = _.mapValues({
             cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
               datepickerData.variants.dateRange.props,
               {
-                label: 'Erlass',
-                name: 'erlassdatum',
-                uuid: 'erlassdatum',
-                validation: {
-                  pattern: '^\\d{2}.\\d{2}.\\d{4}\\s-\\s\\d{2}.\\d{2}.\\d{4}$',
-                  isRequired: false,
-                  errorMsg: 'Bitte geben Sie eine korrekte Zeitspanne an.',
+                formInputData: {
+                  label: 'Erlass',
+                  name: 'erlassdatum',
+                  uuid: 'erlassdatum',
+                  validation: false,
                 },
               })),
           }, {
             cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
               datepickerData.variants.dateRange.props,
               {
-                label: 'Inkraftsetzung',
-                name: 'inkraftsetzungsdatum',
-                uuid: 'inkraftsetzungsdatum',
-                validation: {
-                  pattern: '^\\d{2}.\\d{2}.\\d{4}\\s-\\s\\d{2}.\\d{2}.\\d{4}$',
-                  isRequired: false,
-                  errorMsg: 'Bitte geben Sie eine korrekte Zeitspanne an.',
+                formInputData: {
+                  label: 'Inkraftsetzung',
+                  name: 'inkraftsetzungsdatum',
+                  uuid: 'inkraftsetzungsdatum',
+                  validation: false,
                 },
               })),
           }],
@@ -1260,26 +1336,22 @@ const variants = _.mapValues({
             cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
               datepickerData.variants.dateRange.props,
               {
-                label: 'Publikation',
-                name: 'publikationsdatum',
-                uuid: 'publikationsdatum',
-                validation: {
-                  pattern: '^\\d{2}.\\d{2}.\\d{4}\\s-\\s\\d{2}.\\d{2}.\\d{4}$',
-                  isRequired: false,
-                  errorMsg: 'Bitte geben Sie eine korrekte Zeitspanne an.',
+                formInputData: {
+                  label: 'Publikation',
+                  name: 'publikationsdatum',
+                  uuid: 'publikationsdatum',
+                  validation: false,
                 },
               })),
           }, {
             cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
               datepickerData.variants.dateRange.props,
               {
-                label: 'Aufhebung',
-                name: 'aufhebungsdatum',
-                uuid: 'aufhebungsdatum',
-                validation: {
-                  pattern: '^\\d{2}.\\d{2}.\\d{4}\\s-\\s\\d{2}.\\d{2}.\\d{4}$',
-                  isRequired: false,
-                  errorMsg: 'Bitte geben Sie eine korrekte Zeitspanne an.',
+                formInputData: {
+                  label: 'Aufhebung',
+                  name: 'aufhebungsdatum',
+                  uuid: 'aufhebungsdatum',
+                  validation: false,
                 },
               })),
           }],

@@ -307,10 +307,10 @@ const variants = _.mapValues({
       }],
     },
   },
-  zhLexExtendedSearch: {
+  zhLexLSExtendedSearch: {
     meta: {
-      title: 'ZH-Lex Erweiterte Suche (CZHDEV-1238)',
-      desc: 'Accordion mit Formularfeldern für die erweiterte Suche bei ZH-Lex',
+      title: 'ZH-Lex LS Erweiterte Suche (CZHDEV-1240)',
+      desc: 'Accordion mit Formularfeldern für die erweiterte Suche bei ZH-Lex Loseblattsammlung',
     },
     props: {
       accordionHeading: {
@@ -318,9 +318,27 @@ const variants = _.mapValues({
       },
       items: [{
         title: 'Erweiterte Suche',
-        subHead: 'Vorschau der Input-Felder',
+        subHead: '',
         children: [{
-          partial: () => handlebars.compile(formHBS)(defaultFormData.variants.zhlexExtended.props),
+          partial: () => handlebars.compile(formHBS)(defaultFormData.variants.zhlexLSExtended.props),
+        }],
+      }],
+    },
+  },
+  zhLexOSExtendedSearch: {
+    meta: {
+      title: 'ZH-Lex OS Erweiterte Suche (CZHDEV-1240)',
+      desc: 'Accordion mit Formularfeldern für die erweiterte Suche bei ZH-Lex Offizielle Gesetztessammlung',
+    },
+    props: {
+      accordionHeading: {
+        title: false,
+      },
+      items: [{
+        title: 'Erweiterte Suche',
+        subHead: '',
+        children: [{
+          partial: () => handlebars.compile(formHBS)(defaultFormData.variants.zhlexOSExtended.props),
         }],
       }],
     },

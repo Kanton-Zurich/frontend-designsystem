@@ -68,10 +68,10 @@ const variants = _.mapValues({
       desc: 'Loseblattsammlung der Zürcher Gesetzessammlung',
     },
     props: {
-      flexDataSource: '/mocks/modules/flex_data/flex_data_zhlex.json',
+      flexDataSource: '/mocks/modules/flex_data/flex_data_zhlex_ls.json',
       pagination: defPaginationData.variants.fullWidth.props,
       flexTableFormData: _.merge({}, defFormData.variants.zhlex.props),
-      extendedFlexFormData: _.merge({}, defAccordionData.variants.zhLexExtendedSearch.props),
+      extendedFlexFormData: _.merge({}, defAccordionData.variants.zhLexLSExtendedSearch.props),
       resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
       tableData: {
         tableTitle: '',
@@ -98,6 +98,11 @@ const variants = _.mapValues({
             dataColumnName: 'erlassdatum',
             isSortable: 'date',
           },
+          {
+            title: 'Aufhebungsdatum',
+            dataColumnName: 'aufhebungsdatum',
+            isSortable: 'date',
+          },
         ],
         bodyrows: [],
       },
@@ -109,10 +114,10 @@ const variants = _.mapValues({
       desc: 'Offizielle Gesetzessammlung der Zürcher Gesetzessammlung',
     },
     props: {
-      flexDataSource: '/mocks/modules/flex_data/flex_data_zhlex.json',
+      flexDataSource: '/mocks/modules/flex_data/flex_data_zhlex_os.json',
       pagination: defPaginationData.variants.fullWidth.props,
       flexTableFormData: _.merge({}, defFormData.variants.zhlex.props),
-      extendedFlexFormData: _.merge({}, defAccordionData.variants.zhLexExtendedSearch.props),
+      extendedFlexFormData: _.merge({}, defAccordionData.variants.zhLexOSExtendedSearch.props),
       resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
       tableData: {
         tableTitle: '',
@@ -137,6 +142,11 @@ const variants = _.mapValues({
           {
             title: 'Erlassdatum',
             dataColumnName: 'erlassdatum',
+            isSortable: 'date',
+          },
+          {
+            title: 'Inkraftsetzung',
+            dataColumnName: 'inkraftsetzungsdatum',
             isSortable: 'date',
           },
         ],
