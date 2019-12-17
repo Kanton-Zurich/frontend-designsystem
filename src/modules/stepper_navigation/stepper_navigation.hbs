@@ -1,6 +1,4 @@
 <ol class="mdl-stepper_navigation" data-init="stepperNavigation">
-  {{log steps.length}}
-  {{log contextMenu}}
   {{#each steps}}
 	  <li>
       <button class="mdl-stepper_navigation__step" data-stepper_navigation="step" data-step="{{@index}}" disabled>
@@ -22,7 +20,7 @@
             <use xlink:href="#overflow"></use>
           </svg>
       </button>
-      {{#if ../contextMenu}}{{> "modules/context_menu/context_menu" ../contextMenu}}{{/if}}
+      {{#if ../contextMenuBefore}}{{> "modules/context_menu/context_menu" ../contextMenuBefore}}{{/if}}
     </li>
     <li>
       <button class="mdl-stepper_navigation__step mdl-stepper_navigation__step--multiple" data-stepper_navigation="multipleAfter">
@@ -30,7 +28,7 @@
             <use xlink:href="#overflow"></use>
           </svg>
       </button>
-      {{#if ../contextMenu}}{{> "modules/context_menu/context_menu" ../contextMenu}}{{/if}}
+      {{#if ../contextMenuAfter}}{{> "modules/context_menu/context_menu" ../contextMenuAfter}}{{/if}}
     </li>
   {{/ifLongerThan}}
 </ol>

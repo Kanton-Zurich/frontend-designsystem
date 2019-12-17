@@ -9,9 +9,11 @@
   padding: 0 $sizeSmallRegular;
   text-decoration: none;
 
+  width: 100%;
+
   @include transition(color);
 
-  &:hover,
+  &:hover:not(:disabled),
   &:active,
   &--selected {
     color: $colorBlack;
@@ -20,6 +22,10 @@
     .atm-context_menu_item__icon use {
       fill: $colorBlack;
     }
+  }
+
+  &:disabled {
+    pointer-events: none;
   }
 
   // CZHDEV-559
@@ -66,5 +72,9 @@
     &:first-child {
       margin-right: pxToRem($sizeTiny);
     }
+  }
+
+  &--hidden {
+    display: none;
   }
 }

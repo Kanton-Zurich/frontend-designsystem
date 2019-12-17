@@ -213,18 +213,100 @@ const variants = _.mapValues({
       ],
       navigation: {
         steps: ['Schritt 1', 'Schritt 2', 'Schritt 3', 'Schritt 4', 'Schritt 5', 'Schritt 6', 'Schritt 7', 'Bestätigung'],
-        contextMenu: {
+        contextMenuBefore: {
+          domSelector: 'data-stepper_navigation="contextMenu"',
           lists: [
             {
               items: [
-                _.merge({}, contextMenuItemDef, { text: 'Schritt 1', iconAfter: false, iconBefore: false }),
-                _.merge({}, contextMenuItemDef, { text: 'Schritt 2', iconAfter: false, iconBefore: false }),
-                _.merge({}, contextMenuItemDef, { text: 'Schritt 3', iconAfter: false, iconBefore: false }),
-                _.merge({}, contextMenuItemDef, { text: 'Schritt 4', iconAfter: false, iconBefore: false }),
-                _.merge({}, contextMenuItemDef, { text: 'Schritt 5', iconAfter: false, iconBefore: false }),
-                _.merge({}, contextMenuItemDef, { text: 'Schritt 6', iconAfter: false, iconBefore: false }),
-                _.merge({}, contextMenuItemDef, { text: 'Schritt 7', iconAfter: false, iconBefore: false }),
-                _.merge({}, contextMenuItemDef, { text: 'Bestätigung', iconAfter: false, iconBefore: false }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 1', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 2', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 3', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 4', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 5', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 6', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 7', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Bestätigung', iconAfter: false, iconBefore: false,
+                }),
+              ],
+            },
+          ],
+        },
+        contextMenuAfter: {
+          domSelector: 'data-stepper_navigation="contextMenu"',
+          lists: [
+            {
+              items: [
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 1',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 2',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 3',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 4',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 5',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 6',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 7',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Bestätigung',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
               ],
             },
           ],

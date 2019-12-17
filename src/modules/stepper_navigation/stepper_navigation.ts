@@ -7,6 +7,8 @@
 import Module from '../../assets/js/helpers/module';
 import FormRules from '../../assets/js/helpers/formrules.class';
 
+import ContextMenu from '../context_menu/context_menu';
+
 class StepperNavigation extends Module {
   public data: {
     active: number,
@@ -17,6 +19,8 @@ class StepperNavigation extends Module {
   public ui: {
     element: HTMLOListElement,
     step: NodeListOf<HTMLButtonElement>,
+    multipleBefore: HTMLButtonElement,
+    multipleAfter: HTMLButtonElement,
   }
 
   public options: {
@@ -38,6 +42,7 @@ class StepperNavigation extends Module {
         number: '[data-stepper_navigation="number"]',
         multipleBefore: '[data-stepper_navigation="multipleBefore"]',
         multipleAfter: '[data-stepper_navigation="multipleAfter"]',
+        contextMenuItem: '[data-context-menu="item"]',
       },
       stateClasses: {
         activeStep: 'mdl-stepper_navigation__step--active',
@@ -45,7 +50,9 @@ class StepperNavigation extends Module {
         pendingStep: 'mdl-stepper_navigation__step--pending',
         hiddenStep: 'mdl-stepper_navigation__step--hidden',
         multipleStep: 'mdl-stepper_navgiation__step--multiple',
+        multipleStepVisible: 'mdl-stepper_navgiation__step--multiple-visible',
         tight: 'mdl-stepper_navigation--tight',
+        hiddenContextMenuItem: 'atm-context_menu_item--hidden',
       },
       hasRules: false,
       hasTooManySteps: false,
@@ -57,6 +64,12 @@ class StepperNavigation extends Module {
     this.initUi(['step']);
 
     this.options.hasTooManySteps = this.ui.step.length > this.options.maxSteps;
+
+    if (this.options.hasTooManySteps) {
+      this.moveContextMenuTrigger();
+      this.initContextMenu(this.ui.multipleBefore);
+      this.initContextMenu(this.ui.multipleAfter);
+    }
 
     this.setStepNumbers();
     this.initEventListeners();
@@ -90,6 +103,16 @@ class StepperNavigation extends Module {
 
     this.data.steps.forEach((step) => {
       step.addEventListener(FormRules.events.stateChange, this.onStepStateChange.bind(this));
+    });
+
+    this.eventDelegate.on('click', this.options.domSelectors.contextMenuItem, (event, delegate) => {
+      const dataIndex = parseInt(delegate.parentElement.dataset.itemIndex, 10);
+
+      this.ui.element.dispatchEvent(new CustomEvent(StepperNavigation.events.navigationChange, {
+        detail: {
+          clickedPage: dataIndex,
+        },
+      }));
     });
   }
 
@@ -190,10 +213,21 @@ class StepperNavigation extends Module {
   /* eslint-disable no-magic-numbers */
   hideSteps() {
     const lastStepWithoutGoBack = 3;
+    const firstStepWithoutPreview = this.ui.step.length - 3;
     let dontHideSteps = [0, this.ui.step.length - 1];
+    let showEllipsisBefore = true;
+    let showEllipsisAfter = true;
+    const dontHideStepsBefore = [];
+    const dontHideStepsAfter = [];
 
     if (this.data.active < lastStepWithoutGoBack) {
       dontHideSteps = [...dontHideSteps, 1, 2];
+
+      showEllipsisBefore = false;
+    } else if (this.data.active >= firstStepWithoutPreview) {
+      dontHideSteps = [...dontHideSteps, this.ui.step.length - 2, this.ui.step.length - 3];
+
+      showEllipsisAfter = false;
     } else {
       dontHideSteps = [...dontHideSteps, this.data.active];
     }
@@ -205,8 +239,79 @@ class StepperNavigation extends Module {
         step.parentElement.classList.remove(this.options.stateClasses.hiddenStep);
       }
     });
+
+    if (showEllipsisBefore) {
+      const contextMenuBefore = this.ui.multipleBefore.nextElementSibling;
+      const contextMenuItems = contextMenuBefore.querySelectorAll('[data-item-index]');
+
+      for (let i = 0; i < this.data.active; i += 1) {
+        if (dontHideSteps.indexOf(i) === -1) dontHideStepsBefore.push(i);
+      }
+
+      this.setContextMenuItems(contextMenuItems, dontHideStepsBefore);
+    }
+
+    if (showEllipsisAfter) {
+      const contextMenuAfter = this.ui.multipleAfter.nextElementSibling;
+      const contextMenuItems = contextMenuAfter.querySelectorAll('[data-item-index]');
+
+      for (let i = this.data.active + 1; i < this.ui.step.length; i += 1) {
+        if (dontHideSteps.indexOf(i) === -1) dontHideStepsAfter.push(i);
+      }
+
+      this.setContextMenuItems(contextMenuItems, dontHideStepsAfter);
+    }
+
+    this.setEllipsis(showEllipsisBefore, showEllipsisAfter);
   }
   /* eslint-enable no-magic-numbers */
+
+  setEllipsis(showEllipsisBefore, showEllipsisAfter) {
+    if (showEllipsisBefore) {
+      this.ui.multipleBefore.parentElement.classList.remove(this.options.stateClasses.hiddenStep);
+    } else {
+      this.ui.multipleBefore.parentElement.classList.add(this.options.stateClasses.hiddenStep);
+    }
+
+    if (showEllipsisAfter) {
+      this.ui.multipleAfter.parentElement.classList.remove(this.options.stateClasses.hiddenStep);
+    } else {
+      this.ui.multipleAfter.parentElement.classList.add(this.options.stateClasses.hiddenStep);
+    }
+  }
+
+  setContextMenuItems(contextMenuItems, dontHideSteps) {
+    contextMenuItems.forEach((menuItem) => {
+      const index = parseInt(menuItem.dataset.itemIndex, 10);
+
+      this.log(dontHideSteps.indexOf(index) === -1);
+
+      if (dontHideSteps.indexOf(index) === -1) {
+        menuItem.classList.add(this.options.stateClasses.hiddenContextMenuItem);
+      } else {
+        menuItem.classList.remove(this.options.stateClasses.hiddenContextMenuItem);
+      }
+    });
+  }
+
+  initContextMenu(contextMenuButton) {
+    const contextMenu = contextMenuButton.nextElementSibling;
+
+    new ContextMenu(contextMenu, {}, {
+      attachTo: contextMenuButton,
+      trigger: contextMenuButton,
+    });
+  }
+
+  moveContextMenuTrigger() {
+    const positionBefore = 1;
+    const positionAfter = this.ui.step.length - 1;
+
+    this.ui.element
+      .insertBefore(this.ui.multipleBefore.parentNode, this.ui.step[positionBefore].parentNode);
+    this.ui.element
+      .insertBefore(this.ui.multipleAfter.parentNode, this.ui.step[positionAfter].parentNode);
+  }
 
   /**
    * Unbind events, remove data, custom teardown

@@ -198,6 +198,14 @@ $stepperNavigationCurves: (
       }
     }
 
+    &--multiple {
+      &[ data-stepper_navigation='multipleBefore' ] {
+        svg use {
+          fill: $colorCyan;
+        }
+      }
+    }
+
     &--pending {
       align-items: flex-end;
 
@@ -207,6 +215,10 @@ $stepperNavigationCurves: (
     }
 
     &--hidden {
+      display: none;
+    }
+
+    ~ .mdl-context_menu {
       display: none;
     }
   }
@@ -223,7 +235,7 @@ $stepperNavigationCurves: (
     }
   }
 
-  li:first-child {
+  > li:first-child {
     justify-content: flex-start;
 
     .mdl-stepper_navigation__step {
