@@ -296,14 +296,6 @@ class Stepper extends Module {
       if (this.ui.form.hasAttribute('form-has-errors')) {
         return false;
       }
-
-      if (this.ui.navigation) {
-        this.ui.navigation.dispatchEvent(new CustomEvent(Stepper.events.stepChange, {
-          detail: {
-            newStep: newIndex,
-          },
-        }));
-      }
     }
 
     this.data.active = newIndex;

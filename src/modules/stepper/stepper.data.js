@@ -8,6 +8,9 @@ const notification = require('../../atoms/notification/notification.data').varia
 
 const toggle = require('../../atoms/toggle/toggle.data').variants.default.props;
 
+const contextMenuProps = require('../context_menu/context_menu.data').props;
+const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
+
 const formInput = require('../../atoms/form_input/form_input.data').variants.default.props;
 
 const template = dataHelper.getFileContent('stepper.hbs');
@@ -25,6 +28,7 @@ const data = _.merge({}, defaultData, {
     confirmation: notification.formConfirmation.props,
     navigation: {
       steps: ['Persönliche Angaben', 'Berufliche Informationen, mit einem sehr langen Text, Hallo, Hallo, Hallo Hallo', 'Bestätigung'],
+      contextMenu: null,
     },
     toggle,
     notificationTemplate: notification.default.meta.code.template,
@@ -209,6 +213,22 @@ const variants = _.mapValues({
       ],
       navigation: {
         steps: ['Schritt 1', 'Schritt 2', 'Schritt 3', 'Schritt 4', 'Schritt 5', 'Schritt 6', 'Schritt 7', 'Bestätigung'],
+        contextMenu: {
+          lists: [
+            {
+              items: [
+                _.merge({}, contextMenuItemDef, { text: 'Schritt 1', iconAfter: false, iconBefore: false }),
+                _.merge({}, contextMenuItemDef, { text: 'Schritt 2', iconAfter: false, iconBefore: false }),
+                _.merge({}, contextMenuItemDef, { text: 'Schritt 3', iconAfter: false, iconBefore: false }),
+                _.merge({}, contextMenuItemDef, { text: 'Schritt 4', iconAfter: false, iconBefore: false }),
+                _.merge({}, contextMenuItemDef, { text: 'Schritt 5', iconAfter: false, iconBefore: false }),
+                _.merge({}, contextMenuItemDef, { text: 'Schritt 6', iconAfter: false, iconBefore: false }),
+                _.merge({}, contextMenuItemDef, { text: 'Schritt 7', iconAfter: false, iconBefore: false }),
+                _.merge({}, contextMenuItemDef, { text: 'Bestätigung', iconAfter: false, iconBefore: false }),
+              ],
+            },
+          ],
+        },
       },
     },
   },
@@ -226,6 +246,10 @@ const variants = _.mapValues({
       },
     },
   });
+
+  if (variantProps.navigation) {
+    console.log(variantData.props.navigation.contextMenu);
+  }
 
   return variantData;
 });

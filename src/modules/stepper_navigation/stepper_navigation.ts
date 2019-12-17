@@ -23,6 +23,8 @@ class StepperNavigation extends Module {
     domSelectors: any,
     stateClasses: any,
     hasRules: boolean,
+    hasTooManySteps: boolean,
+    maxSteps: Number,
   }
 
   constructor($element: any, data: Object, options: Object) {
@@ -34,24 +36,33 @@ class StepperNavigation extends Module {
       domSelectors: {
         step: '[data-stepper_navigation="step"]',
         number: '[data-stepper_navigation="number"]',
+        multipleBefore: '[data-stepper_navigation="multipleBefore"]',
+        multipleAfter: '[data-stepper_navigation="multipleAfter"]',
       },
       stateClasses: {
         activeStep: 'mdl-stepper_navigation__step--active',
         visitedStep: 'mdl-stepper_navigation__step--visited',
         pendingStep: 'mdl-stepper_navigation__step--pending',
         hiddenStep: 'mdl-stepper_navigation__step--hidden',
+        multipleStep: 'mdl-stepper_navgiation__step--multiple',
         tight: 'mdl-stepper_navigation--tight',
       },
       hasRules: false,
+      hasTooManySteps: false,
+      maxSteps: 5,
     };
 
     super($element, defaultData, defaultOptions, data, options);
 
     this.initUi(['step']);
+
+    this.options.hasTooManySteps = this.ui.step.length > this.options.maxSteps;
+
     this.setStepNumbers();
     this.initEventListeners();
 
     this.setActiveItem(null, this.data.active);
+
     this.checkWidth();
   }
 
@@ -109,6 +120,8 @@ class StepperNavigation extends Module {
     this.data.steps[after].setAttribute('data-visited', 'true');
 
     this.data.active = after;
+
+    if (this.options.hasTooManySteps) this.hideSteps();
   }
 
   setStepNumbers() {
@@ -173,6 +186,27 @@ class StepperNavigation extends Module {
       this.ui.element.classList.remove(this.options.stateClasses.tight);
     }
   }
+
+  /* eslint-disable no-magic-numbers */
+  hideSteps() {
+    const lastStepWithoutGoBack = 3;
+    let dontHideSteps = [0, this.ui.step.length - 1];
+
+    if (this.data.active < lastStepWithoutGoBack) {
+      dontHideSteps = [...dontHideSteps, 1, 2];
+    } else {
+      dontHideSteps = [...dontHideSteps, this.data.active];
+    }
+
+    this.ui.step.forEach((step, index) => {
+      if (dontHideSteps.indexOf(index) === -1) {
+        step.parentElement.classList.add(this.options.stateClasses.hiddenStep);
+      } else {
+        step.parentElement.classList.remove(this.options.stateClasses.hiddenStep);
+      }
+    });
+  }
+  /* eslint-enable no-magic-numbers */
 
   /**
    * Unbind events, remove data, custom teardown
