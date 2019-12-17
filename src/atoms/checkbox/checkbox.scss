@@ -53,6 +53,16 @@
     cursor: pointer;
   }
 
+  &--strong {
+    label {
+      font-family: $fontFamilyBlack;
+
+      * {
+        font-family: $fontFamilyBase;
+      }
+    }
+  }
+
   span {
     position: absolute;
     display: block;

@@ -27,28 +27,32 @@ class SearchPage extends Module {
     autosuggestTemplate: HTMLScriptElement,
     dateFilter: HTMLFormElement,
     datePicker: HTMLDivElement,
-  }
+  };
 
   public options: {
     domSelectors: any,
     stateClasses: any,
     delay: number,
     url: string,
+    sessionIdStorageKey: string,
     minInputLength: number,
     autosuggestURL: string,
     autocorrect: string,
-  }
+  };
 
   public data: {
     type: string,
     page: number,
     dateTo: Date,
     dateFrom: Date,
-  }
+  };
 
   public result: any;
 
   public query: string;
+
+  private queryId: string;
+  private sessionId: string;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -60,6 +64,7 @@ class SearchPage extends Module {
     const defaultOptions = {
       delay: 450,
       minInputLength: 3,
+      sessionIdStorageKey: 'czhdev_session_id',
       domSelectors: {
         input: '[data-search_page="input"]',
         form: '[data-search_page="form"]',
@@ -90,8 +95,14 @@ class SearchPage extends Module {
 
     this.initUi();
 
-    this.getParamsInUrl();
+    // setup session
+    this.sessionId = (<any>window.sessionStorage).getItem(this.options.sessionIdStorageKey);
+    if (!this.sessionId) {
+      this.sessionId = `zh_${Math.random().toString(36).substr(2, 16)}`; // eslint-disable-line
+      (<any>window.sessionStorage).setItem(this.options.sessionIdStorageKey, this.sessionId);
+    }
 
+    this.getParamsInUrl();
     this.initWatchers();
     this.initEventListeners();
 
@@ -193,16 +204,15 @@ class SearchPage extends Module {
     this.query = newValue;
     this.setFilterInUrl();
 
-    return this.getData(this.generateParams(true, false, false, false, noAutoCorrection),
-      (response) => {
-        this.result = response;
-
-        this.dispatchPageCount();
-        this.renderResults();
-
-        this.ui.element.classList.add(this.options.stateClasses.showResults);
-        this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
-      });
+    return this.getData(this
+      .generateParams(true, false, false, false, true, false, noAutoCorrection),
+    (response) => {
+      this.result = response;
+      this.dispatchPageCount();
+      this.renderResults();
+      this.ui.element.classList.add(this.options.stateClasses.showResults);
+      this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
+    });
   }
 
   /**
@@ -220,6 +230,8 @@ class SearchPage extends Module {
     type: boolean = false,
     page: boolean = false,
     dates: boolean = false,
+    sessionId: boolean = false,
+    queryId: boolean = false,
     noAutoCorrection: boolean = false,
   ) {
     const paramObj: any = {};
@@ -234,6 +246,14 @@ class SearchPage extends Module {
 
     if (page && this.data.page !== 1) {
       paramObj.page = this.data.page;
+    }
+
+    if (sessionId && this.sessionId !== null) {
+      paramObj.sessionId = this.sessionId;
+    }
+
+    if (queryId && this.queryId !== null) {
+      paramObj.queryId = this.queryId;
     }
 
     paramObj.noAutoCorrection = noAutoCorrection.toString();
@@ -265,7 +285,7 @@ class SearchPage extends Module {
 
     this.setFilterInUrl();
 
-    return this.getData(this.generateParams(true, true, false, true), (response) => {
+    return this.getData(this.generateParams(true, true, false, true, true), (response) => {
       this.result = response;
 
       this.dispatchPageCount();
@@ -288,10 +308,9 @@ class SearchPage extends Module {
     this.data.page = event.detail.after;
     this.setFilterInUrl();
 
-    return this.getData(this.generateParams(true, true, true, true), (response) => {
+    return this.getData(this.generateParams(true, true, true, true, true, true), (response) => {
       this.result = response;
 
-      this.dispatchPageCount();
       this.renderList();
 
       this.ui.results.classList.remove(this.options.stateClasses.loading);
@@ -307,6 +326,9 @@ class SearchPage extends Module {
       .then(response => response.json())
       .then((response) => {
         if (response) {
+          if (response.resultsData && response.resultsData.queryId) {
+            this.queryId = response.resultsData.queryId;
+          }
           callback(response);
         }
       });
@@ -449,7 +471,7 @@ class SearchPage extends Module {
     if (query || type || page) {
       this.ui.wrapper.classList.add(this.options.stateClasses.loading);
 
-      this.getData(this.generateParams(true, true, true, true), (response) => {
+      this.getData(this.generateParams(true, true, true, true, true), (response) => {
         this.result = response;
 
         this.dispatchPageCount();

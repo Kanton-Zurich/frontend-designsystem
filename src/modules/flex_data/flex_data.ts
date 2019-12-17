@@ -211,11 +211,14 @@ class FlexData extends Module {
     if (jsonData.numberOfResults <= 0) {
       resultsTitle = this.ui.results.getAttribute('data-no-results-title');
     }
+
     // fill table date if present
     if (this.ui.resultsTable) {
       this.ui.resultsTableBody.innerHTML = '';
+      this.ui.resultsTable.classList.remove('visible');
       this.ui.resultsTableTitle.innerText = resultsTitle;
       jsonData.data.forEach((item) => {
+        this.ui.resultsTable.classList.add('visible');
         const tr = document.createElement('tr');
         tr.classList.add('mdl-table__row');
         const props = {

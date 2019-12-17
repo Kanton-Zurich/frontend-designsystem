@@ -2,6 +2,7 @@
   @include sizeCurve(margin-bottom, regular);
 
   &__title {
+    @include sizeCurve(margin-top, big);
     @include sizeCurve(margin-bottom, tiny);
   }
 
