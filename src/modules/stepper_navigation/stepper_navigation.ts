@@ -284,8 +284,6 @@ class StepperNavigation extends Module {
     contextMenuItems.forEach((menuItem) => {
       const index = parseInt(menuItem.dataset.itemIndex, 10);
 
-      this.log(dontHideSteps.indexOf(index) === -1);
-
       if (dontHideSteps.indexOf(index) === -1) {
         menuItem.classList.add(this.options.stateClasses.hiddenContextMenuItem);
       } else {
