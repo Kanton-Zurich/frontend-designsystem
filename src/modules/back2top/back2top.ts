@@ -85,7 +85,7 @@ class Back2top extends Module {
    * for each step.
    */
   private smoothScrollTop(options = this.options.customSmoothScrollConfig): void {
-    const initialScrollY = window.scrollY;
+    const initialScrollY = window.pageYOffset;
 
     let stepScrollY = initialScrollY;
 
@@ -115,19 +115,19 @@ class Back2top extends Module {
     const footerElement = document.querySelector<HTMLElement>(this.options.footerSelector);
 
     WindowEventListener.addEventListener('scroll', () => {
-      const { scrollY } = window;
-      this.data.unlockCond.necessary = scrollY > this.options.necessaryScrollY;
+      const { pageYOffset } = window;
+      this.data.unlockCond.necessary = pageYOffset > this.options.necessaryScrollY;
 
-      if (previousScrollY > scrollY) {
+      if (previousScrollY > pageYOffset) {
         // scrolling up
         if (scrollUpStart > 0) {
-          const d = scrollUpStart - scrollY;
+          const d = scrollUpStart - pageYOffset;
           this.data.unlockCond.sufficient = d > this.options.sufficientScrollUp;
-          prevScrollUp = scrollY;
+          prevScrollUp = pageYOffset;
         } else {
-          scrollUpStart = scrollY;
+          scrollUpStart = pageYOffset;
         }
-      } else if (scrollUpStart > 0 && scrollY - prevScrollUp > this.options.stateSlip) {
+      } else if (scrollUpStart > 0 && pageYOffset - prevScrollUp > this.options.stateSlip) {
         // scrolling down
         scrollUpStart = -1;
         this.data.unlockCond.sufficient = false;
@@ -141,7 +141,8 @@ class Back2top extends Module {
           el = el.parentElement;
         }
         if (footerOT) {
-          const screenBottom = scrollY + window.innerHeight;
+          const screenBottom = pageYOffset + window.innerHeight;
+
           const pxInView = screenBottom - footerOT;
 
           if (pxInView > 0) {
@@ -156,7 +157,7 @@ class Back2top extends Module {
         }
       }
 
-      previousScrollY = scrollY;
+      previousScrollY = pageYOffset;
     });
   }
 

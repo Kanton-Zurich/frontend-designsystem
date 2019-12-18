@@ -22,6 +22,26 @@ const variants = _.mapValues({
       title: 'Default',
       desc: 'Default implementation',
     },
+    props: {
+      headingLevel: 2,
+      heading: 'Datenschutz',
+      subHeading: 'Einstellungen zum Datenschutz',
+      expiryDays: 60,
+      items: [
+        {
+          cookieName: 'acceptYouTube',
+          label: 'Videos von Youtube akzeptieren',
+          defaultValue: false,
+          description: 'Wenn Sie akzeptieren, kann YouTube auf Seiten mit Videos Ihr Surf-Verhalten mitverfolgen.',
+        },
+        {
+          cookieName: 'acceptAnalytics',
+          label: 'Datenerfassung für Analytics akzeptieren',
+          defaultValue: true,
+          description: 'Wenn Sie akzeptieren, wird Ihr Surf-Verhalten auf der Seite mitverfolgt.',
+        },
+      ],
+    },
   },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
