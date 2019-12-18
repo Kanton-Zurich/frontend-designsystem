@@ -519,9 +519,8 @@ class NewsOverview extends Module {
     setTimeout(() => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const rect = this.ui.element.getBoundingClientRect();
-      const elementOffset = rect.height * 2;
       window.scroll(0, rect.top + scrollTop);
-    },0);
+    }, 0);
   }
 
   /**
@@ -531,9 +530,9 @@ class NewsOverview extends Module {
     setTimeout(() => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const rect = this.ui.pagination.getBoundingClientRect();
-      const elementOffset = rect.height * 2;
+      const elementOffset = rect.height * 2; // eslint-disable-line
       window.scroll(0, rect.top + scrollTop - window.innerHeight + elementOffset);
-    },0);
+    }, 0);
   }
 
   /**
