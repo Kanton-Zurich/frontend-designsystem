@@ -5,6 +5,8 @@
     </header>
   {{/content}}
   {{#content "content"}}
+    <h2 class="atm-heading h3">Details</h2>
+    {{> "modules/select/select" props.modules.selectData }}
     {{> "atoms/smallcaption/smallcaption" props.modules.smallcaptionData }}
     {{> "modules/download_list/download_list" props.modules.downloadListData }}
     {{> "modules/metablock/metablock" props.modules.metablockData}}
