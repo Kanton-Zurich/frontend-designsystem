@@ -5,6 +5,7 @@ const headerData = require('../../modules/header/header.data');
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.default.props;
 const defNewsOverviewData = require('../../modules/news_overview/news_overview.data');
 const defCTABoxData = require('../../modules/cta_box/cta_box.data');
+const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 const defRelatedContentData = require('../../modules/related_content/related_content.data');
 const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
@@ -43,6 +44,7 @@ const data = _.merge({}, defaultData, {
           ],
         },
       }),
+      back2topData: defBack2TopData,
       footerData: defFooterData,
     },
   },
