@@ -37,6 +37,7 @@ class FlexData extends Module {
   private currentUrl: string;
   private order: string;
   private orderBy: string;
+  private paginationInteraction: boolean;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -69,6 +70,7 @@ class FlexData extends Module {
     super($element, defaultData, defaultOptions, data, options);
     this.dataUrl = this.ui.element.getAttribute('data-source');
     this.dataIdle = true;
+    this.paginationInteraction = false;
     this.order = '';
     this.orderBy = '';
     this.initUi();
@@ -101,7 +103,10 @@ class FlexData extends Module {
     // -----------------------------------------------
     // Listen to pagination change event
     this.ui.pagination.addEventListener(Pagination.events.change, () => {
-      this.loadResults();
+      this.loadResults(this.paginationInteraction);
+    });
+    this.ui.pagination.addEventListener(Pagination.events.interaction, () => {
+      this.paginationInteraction = true;
     });
     // -----------------------------------------------
     // Listen to sort-dropdown events
@@ -115,6 +120,7 @@ class FlexData extends Module {
           this.orderBy = button.getAttribute('data-sort-column');
           this.ui.genericSortDropdown.classList.remove('visible');
           this.ui.genericSortButton.querySelector('span').innerText = button.querySelector('span').innerText;
+          this.ui.paginationInput.value = '1';
           this.loadResults();
         });
       });
@@ -130,6 +136,7 @@ class FlexData extends Module {
    * Search for data
    */
   onSearchResults() {
+    this.ui.paginationInput.value = '1';
     this.loadResults();
   }
 
@@ -167,9 +174,13 @@ class FlexData extends Module {
   /**
    * Load results
    */
-  private loadResults() {
+  private loadResults(scroll = false) {
+    this.paginationInteraction = false;
     if (this.dataIdle) {
       this.dataIdle = false;
+      if (scroll) {
+        this.scrollTop();
+      }
       this.fetchData((jsonData) => {
         this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
         this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
@@ -189,9 +200,37 @@ class FlexData extends Module {
         this.upsertLinkRel('next', nextUrl);
         this.upsertLinkRel('canonical', canonicalUrl);
         this.populateResultList(jsonData);
+        this.updateFlyingFocus(0);
+        if (scroll) {
+          this.scrollBottom();
+        }
         this.dataIdle = true;
       });
     }
+  }
+
+  /**
+   * Scroll to top
+   */
+  scrollTop() {
+    setTimeout(() => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const rect = this.ui.element.getBoundingClientRect();
+      const elementOffset = rect.height * 2;
+      window.scroll(0, rect.top + scrollTop);
+    },0);
+  }
+
+  /**
+   * Scroll to bottom
+   */
+  scrollBottom() {
+    setTimeout(() => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const rect = this.ui.pagination.getBoundingClientRect();
+      const elementOffset = rect.height * 2;
+      window.scroll(0, rect.top + scrollTop - window.innerHeight + elementOffset);
+    },0);
   }
 
   /**
@@ -347,7 +386,11 @@ class FlexData extends Module {
       }
       // Set the sort element if present
       if (this.ui.genericSortDropdown) {
-        const sortSetting = this.ui.genericSortDropdown.querySelector(`[data-sort-column="${this.orderBy}"][data-sort-direction="${this.order}"]`);
+        let sortSelector = `[data-sort-column="${this.orderBy}"]`;
+        if (this.orderBy !== 'relevance') {
+          sortSelector += `[data-sort-direction="${this.order}"]`;
+        }
+        const sortSetting = this.ui.genericSortDropdown.querySelector(sortSelector);
         this.ui.genericSortButton.querySelector('span').innerText = sortSetting.querySelector('span').innerText;
       }
     });

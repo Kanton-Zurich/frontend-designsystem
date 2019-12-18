@@ -61,6 +61,7 @@ class NewsOverview extends Module {
   private searchWordHashZero: number;
   private orderBy: string;
   private currentUrl: string;
+  private paginationInteraction: boolean;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
@@ -103,6 +104,7 @@ class NewsOverview extends Module {
     this.initUi();
     this.dataUrl = this.ui.element.getAttribute('data-source');
     this.dataIdle = true;
+    this.paginationInteraction = false;
     this.filterHash = this.createObjectHash(this.filterLists);
     this.dateHash = this.createObjectHash(this.dateRange);
     this.searchWordHash = this.createObjectHash(this.searchWord);
@@ -139,7 +141,10 @@ class NewsOverview extends Module {
     // -----------------------------------------------
     // Listen to pagination change event
     this.ui.pagination.addEventListener(Pagination.events.change, () => {
-      this.filterView(false, true, false);
+      this.filterView(false, true, false, this.paginationInteraction);
+    });
+    this.ui.pagination.addEventListener(Pagination.events.interaction, () => {
+      this.paginationInteraction = true;
     });
     // -----------------------------------------------
     // Filter select events -- topics, organisations, types
@@ -238,10 +243,11 @@ class NewsOverview extends Module {
   /**
    * Update view in case filters changed
    */
-  filterView(updateFilterPills = true, forced = false, resetPaging = true) {
+  filterView(updateFilterPills = true, forced = false, resetPaging = true, scroll = false) {
     const filterHash = this.createObjectHash(this.filterLists);
     const dateHash = this.createObjectHash(this.dateRange);
     const searchWordHash = this.createObjectHash(this.searchWord);
+    this.paginationInteraction = false;
     // only reload view if there is a change or forced load
     if (forced || this.filterHash !== filterHash
       || this.dateHash !== dateHash
@@ -256,7 +262,7 @@ class NewsOverview extends Module {
       if (resetPaging) {
         this.ui.paginationInput.value = '1';
       }
-      this.loadNewsTeasers();
+      this.loadNewsTeasers(scroll);
       this.filterHash = filterHash;
       this.dateHash = dateHash;
       this.searchWordHash = searchWordHash;
@@ -439,7 +445,10 @@ class NewsOverview extends Module {
   /**
    * Load news teasers
    */
-  private loadNewsTeasers() {
+  private loadNewsTeasers(scroll = false) {
+    if (scroll) {
+      this.scrollTop();
+    }
     if (this.dataIdle) {
       this.dataIdle = false;
       this.fetchData((jsonData) => {
@@ -467,6 +476,10 @@ class NewsOverview extends Module {
         this.upsertLinkRel('next', nextUrl);
         this.upsertLinkRel('canonical', canonicalUrl);
         this.populateNewsTeasers(jsonData);
+        this.updateFlyingFocus(0);
+        if (scroll) {
+          this.scrollBottom();
+        }
         this.dataIdle = true;
       });
     }
@@ -497,6 +510,30 @@ class NewsOverview extends Module {
     } else {
       this.ui.pillsClearButton.classList.add('hidden');
     }
+  }
+
+  /**
+   * Scroll to top
+   */
+  scrollTop() {
+    setTimeout(() => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const rect = this.ui.element.getBoundingClientRect();
+      const elementOffset = rect.height * 2;
+      window.scroll(0, rect.top + scrollTop);
+    },0);
+  }
+
+  /**
+   * Scroll to bottom
+   */
+  scrollBottom() {
+    setTimeout(() => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const rect = this.ui.pagination.getBoundingClientRect();
+      const elementOffset = rect.height * 2;
+      window.scroll(0, rect.top + scrollTop - window.innerHeight + elementOffset);
+    },0);
   }
 
   /**
