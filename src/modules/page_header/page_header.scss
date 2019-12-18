@@ -251,6 +251,12 @@ $pageHeaderCurves: (
     @include sizeCurve(margin-bottom, regular);
   }
 
+  .mdl-video__preview {
+    .atm-button {
+      margin-bottom: 0;
+    }
+  }
+
   .mdl-person_card {
     margin-bottom: 0;
 

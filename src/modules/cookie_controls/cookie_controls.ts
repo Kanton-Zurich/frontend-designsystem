@@ -8,16 +8,15 @@ import Module from '../../assets/js/helpers/module';
 
 class CookieControls extends Module {
   private daysToExpire: number;
-  private cookieName: string;
 
   public ui: {
     element: HTMLDivElement,
-    checkbox: HTMLInputElement,
+    items: HTMLInputElement[],
   };
 
   public options: {
     domSelectors: {
-      checkbox: string,
+      items: string,
     },
     stateClasses: {}
   };
@@ -27,26 +26,24 @@ class CookieControls extends Module {
     };
     const defaultOptions = {
       domSelectors: {
-        checkbox: '.atm-checkbox input',
+        items: '.atm-checkbox input',
       },
       stateClasses: {
-        // activated: 'is-activated'
       },
     };
 
     super($element, defaultData, defaultOptions, data, options);
     const radix = 10;
     this.daysToExpire = parseInt(this.ui.element.dataset.expirydays, radix);
-    this.cookieName = 'acceptYouTube';
-
-    const match = document.cookie.match(new RegExp(`(^| )${this.cookieName}=([^;]+)`));
-    if (match && match[2] === 'true') {
-      this.log('YouTube cookie is accepted.');
-      this.ui.checkbox.checked = true;
-    } else {
-      this.log('No YouTube cookie value found or its not accepted.');
-    }
-
+    this.ui.items.forEach((item) => {
+      const match = document.cookie.match(new RegExp(`(^| )${item.id}=([^;]+)`));
+      if (match && match[2] === 'true') {
+        this.log(`${item.id} cookie is accepted.`);
+        item.checked = true;
+      } else {
+        this.log(`No ${item.id} cookie value found or its not accepted.`);
+      }
+    });
     this.initUi();
     this.initEventListeners();
   }
@@ -61,13 +58,8 @@ class CookieControls extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.eventDelegate.on('click', this.options.domSelectors.checkbox, () => {
-      if (this.ui.checkbox.checked) {
-        document.cookie = `acceptYouTube=true; max-age=${this.getExpireDate()}; path=/`;
-      } else {
-        // Not accepted
-        document.cookie = `acceptYouTube=false; max-age=${new Date()}; path=/`;
-      }
+    this.eventDelegate.on('click', this.options.domSelectors.items, (event) => {
+      document.cookie = `${event.target.id}=${event.target.checked}; max-age=${this.getExpireDate()}; path=/`;
     });
   }
 
@@ -85,7 +77,6 @@ class CookieControls extends Module {
     date.setTime(date.getTime()
       + this.daysToExpire * hoursADay * minsPerHour * secsPerMin * milliSecs);
 
-    this.log(`Set cookie expirationtime to ${date.toUTCString()}`);
     return date.toUTCString();
   }
 
