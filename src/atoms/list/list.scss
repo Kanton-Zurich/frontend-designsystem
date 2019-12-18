@@ -33,7 +33,7 @@
       font-size: $sizeFontTiny;
       color: $colorBlack;
       text-align: left;
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
       padding: ($sizeSmallRegular/ 2) $sizeSmallRegular;
 
       @include mq($to: small) {
@@ -44,7 +44,7 @@
     tbody th,
     tbody td {
       text-align: left;
-      font-weight: $fontWeightDefault;
+      font-family: $fontFamilyBase;
       padding: ($sizeSmallRegular/ 2) $sizeSmallRegular;
     }
 
@@ -76,12 +76,12 @@
         td {
           padding: $sizeSmallRegular $sizeSmallRegular 0;
           font-size: $sizeFontTiny;
-          font-weight: $fontWeightBlack;
+          font-family: $fontFamilyBlack;
         }
 
         td:last-child {
           font-size: $sizeFontRegular;
-          font-weight: $fontWeightDefault;
+          font-family: $fontFamilyBase;
           padding: 0 $sizeSmallRegular $sizeSmallRegular;
           width: 100%;
         }

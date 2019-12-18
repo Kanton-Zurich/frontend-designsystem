@@ -118,6 +118,16 @@ $selectOptionsMinWidth: 268px;
     }
   }
 
+  &--float-right {
+    float: right;
+
+    + .atm-heading {
+      margin-top: -2px;
+      margin-bottom: pxToRem($sizeBig);
+      padding-top: 0;
+    }
+  }
+
   &--open {
     .mdl-select__filter,
     .mdl-select__apply {
@@ -238,6 +248,13 @@ $selectOptionsMinWidth: 268px;
       &--trigger-phone .atm-form_input__input--trigger {
         padding-top: $paddingInput;
         padding-bottom: $paddingInput;
+      }
+
+      &--reduced {
+        .atm-form_input__input--trigger {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
       }
     }
   }
