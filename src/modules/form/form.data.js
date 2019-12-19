@@ -1322,6 +1322,9 @@ const variants = _.mapValues({
                         { value: '2013', label: '2013'},
                         { value: '2012', label: '2012'},
                       ],
+                      validation: {
+                        isRequired: false,
+                      },
                     }),
                     triggerInputData: {
                       label: 'Jahr',
@@ -1352,6 +1355,9 @@ const variants = _.mapValues({
                       { value: 'ge', label: 'Gemeinschaften' },
                       { value: 'scer', label: 'Schulen & Erziehung' },
                     ],
+                    validation: {
+                      isRequired: false,
+                    },
                   }),
                   triggerInputData: {
                     label: 'Direktion',

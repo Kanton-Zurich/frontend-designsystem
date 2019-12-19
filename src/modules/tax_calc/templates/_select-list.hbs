@@ -20,7 +20,7 @@
               <li class="atm-list__item atm-list__item--icon-right">
 
                   <input name="<%=fieldName%>"
-                         id="<%=`radio-${fieldName}-${index}`%>"
+                         id="<%='radio-'+fieldName+'-'+index%>"
                          type="radio"
                          value="<%=option.value%>" placeholder="<%=option.label%>"
                          data-select-option data-validation
@@ -30,7 +30,7 @@
                   <% if (reinvokeTrigger) { %> data-tax_calc-reinvoke="true"<% } %>
                   >
 
-                  <label for="<%=`radio-${fieldName}-${index}`%>"><%=option.label%></label>
+                  <label for="<%='radio-'+fieldName+'-'+index%>"><%=option.label%></label>
               </li>
 
             <% }); %>

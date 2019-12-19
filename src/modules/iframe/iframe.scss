@@ -52,7 +52,10 @@
     }
   }
 
-  a {
+  .atm-text_link {
+    display: flex;
+    line-height: $sizeLineHeightSuper;
+    border: 0;
     color: inherit;
   }
 }

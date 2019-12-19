@@ -33,7 +33,6 @@ class Locations extends Module {
   public options: LocationsModuleOptions;
 
   private keepMapHighlight: boolean;
-  private forcedSingleItem: boolean;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -47,14 +46,12 @@ class Locations extends Module {
 
     // init sideBar state (i.e. Tabindices)
     this.toggleSidebarTabIndices(false, true);
-    this.forcedSingleItem = false;
   }
 
   static get events() {
     return {
       filterLocations: `eventname.${Locations.name}.filter_locations`,
       triggerBackButton: `eventname.${Locations.name}.trigger_back_button`,
-      forceSingleItem: `eventname.${Locations.name}.force_single_item`,
     };
   }
 
@@ -70,18 +67,14 @@ class Locations extends Module {
   initEventListeners() {
     this.eventDelegate
       .on('click', this.options.domSelectors.listItems, (event, target) => {
-        if (!this.forcedSingleItem) {
-          this.log('ListItem Click Event', event, target);
-          this.onListItemsSelect(target);
-        }
+        this.log('ListItem Click Event', event, target);
+        this.onListItemsSelect(target);
       })
       .on('keyup', this.options.domSelectors.listItems, (event, target) => {
-        if (!this.forcedSingleItem) {
-          const keyEvent = event as KeyboardEvent;
-          if (keyEvent.key === 'Enter') {
-            this.log('ListItem Keypress "Enter"', event, target);
-            this.onListItemsSelect(target);
-          }
+        const keyEvent = event as KeyboardEvent;
+        if (keyEvent.key === 'Enter') {
+          this.log('ListItem Keypress "Enter"', event, target);
+          this.onListItemsSelect(target);
         }
       })
       .on('mouseover', this.options.domSelectors.listItems, (event, target) => {
@@ -147,7 +140,7 @@ class Locations extends Module {
 
     this.ui.map
       .addEventListener(MapView.events.markerClicked, (ev: MarkerEvent) => {
-        if ([].slice.call(this.ui.listItems).length > 1 && !this.forcedSingleItem) {
+        if ([].slice.call(this.ui.listItems).length > 1) {
           const clickedIdx = ev.detail.idx;
           this.log('Marker clicked in map', clickedIdx);
           this.toggleLocationDetails(clickedIdx);
@@ -171,18 +164,18 @@ class Locations extends Module {
         }
       });
 
-    this.ui.filterInput.addEventListener('keypress', (event) => {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-      }
-    });
+    if (this.ui.filterInput) {
+      this.ui.filterInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+        }
+      });
+    }
 
     this.ui.element
       .addEventListener(Locations.events.filterLocations, this.onFilterEvent.bind(this));
     this.ui.element
       .addEventListener(Locations.events.triggerBackButton, this.onTriggerBackButton.bind(this));
-    this.ui.element
-      .addEventListener(Locations.events.forceSingleItem, this.onForceSingleItem.bind(this));
 
     (<any>WindowEventListener).addDebouncedResizeListener(this.setSideBarScrollArea.bind(this));
     this.setSideBarScrollArea();
@@ -216,31 +209,13 @@ class Locations extends Module {
   }
 
   private onFilterEvent(evt: any) {
-    const { forced, text } = evt.detail;
-    this.filterListItemsByText(text, forced);
+    const { autoOpenSingleItem, text } = evt.detail;
+    this.ui.backBtn.click();
+    this.filterListItemsByText(text, autoOpenSingleItem);
   }
 
   private onTriggerBackButton() {
     this.ui.backBtn.click();
-  }
-
-  private onForceSingleItem(evt: any) {
-    const { forced } = evt.detail;
-    this.forceSingleItem(forced);
-  }
-
-  private forceSingleItem(forced, index = -1) {
-    this.forcedSingleItem = forced;
-
-    if (forced && index >= 0 && this.ui.listItems[index]) {
-      setTimeout(() => {
-        this.ui.map.dispatchEvent(MapView.extMarkerSelectEvent(index));
-      }, 0);
-      this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.singleItem);
-      this.showLocationDetailsForIndex(index);
-    } else {
-      this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.singleItem);
-    }
   }
 
   private setSideBarScrollArea() {
@@ -313,7 +288,7 @@ class Locations extends Module {
     }
   }
 
-  private filterListItemsByText(filterText: string, forceSingleItem: boolean = false): void {
+  private filterListItemsByText(filterText: string, autoOpenSingleItem: boolean = false): void {
     const pattern = new RegExp(filterText, 'i');
     const listItems = this.ui.listItems as HTMLAnchorElement[];
     let countHidden = 0;
@@ -347,10 +322,13 @@ class Locations extends Module {
     } else {
       this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.notFound);
     }
-    if (forceSingleItem && listItems.length - countHidden === 1) {
-      this.forceSingleItem(true, lastIndex);
-    } else if (this.forcedSingleItem) {
-      this.forceSingleItem(false);
+
+    if (autoOpenSingleItem && listItems.length - countHidden === 1) {
+      setTimeout(() => {
+        this.toggleLocationDetails(lastIndex);
+        this.ui.map.dispatchEvent(new CustomEvent(MapView
+          .events.fixMarker, { detail: { idx: lastIndex } }));
+      }, 0);
     }
   }
 
@@ -395,14 +373,12 @@ class Locations extends Module {
   }
 
   private highlightInMap(highlightIndex?: number, force?: boolean): void {
-    if (!this.forcedSingleItem) {
-      if (!this.keepMapHighlight || force) {
-        this.log('Dispatch Marker highlight');
-        this.ui.map.dispatchEvent(MapView.extMarkerHighlightEvent(highlightIndex));
+    if (!this.keepMapHighlight || force) {
+      this.log('Dispatch Marker highlight');
+      this.ui.map.dispatchEvent(MapView.extMarkerHighlightEvent(highlightIndex));
 
-        if (force) {
-          this.keepMapHighlight = highlightIndex > -1;
-        }
+      if (force) {
+        this.keepMapHighlight = highlightIndex > -1;
       }
     }
   }

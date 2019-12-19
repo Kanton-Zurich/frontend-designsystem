@@ -93,6 +93,16 @@
     }
 
     .mdl-table {
+      &__table {
+        display: none;
+      }
+
+      &.visible {
+        .mdl-table__table {
+          display: block;
+        }
+      }
+
       &--fullwidth {
         margin-top: 0;
         margin-bottom: 0;

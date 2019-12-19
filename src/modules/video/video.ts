@@ -52,16 +52,18 @@ class Video extends Module {
     super($element, defaultData, defaultOptions, data, options);
     this.youTubeSrc = this.ui.iFrame.dataset.youtubesrc;
     this.daysToExpire = parseInt(this.ui.iFrame.dataset.expirydays, 10);
-    this.cookieName = 'acceptYouTube';
+    this.cookieName = this.ui.iFrame.dataset.cookiename;
 
-    const match = document.cookie.match(new RegExp(`(^| )${this.cookieName}=([^;]+)`));
-    if (match && match[2] === 'true') {
-      this.log('YouTube cookie is accepted.');
-      this.hideElement(this.ui.preview);
-      this.hideElement(this.ui.dialog);
-      this.ui.iFrame.setAttribute('src', this.youTubeSrc);
-    } else {
-      this.log('No YouTube cookie value found or its not accepted.');
+    if (this.cookieName) {
+      const match = document.cookie.match(new RegExp(`(^| )${this.cookieName}=([^;]+)`));
+      if (match && match[2] === 'true') {
+        this.log(`${this.cookieName} cookie is accepted.`);
+        this.hideElement(this.ui.preview);
+        this.hideElement(this.ui.dialog);
+        this.ui.iFrame.setAttribute('src', this.youTubeSrc);
+      } else {
+        this.log(`${this.cookieName} cookie value not found or its not accepted.`);
+      }
     }
 
     this.initUi();
@@ -83,8 +85,9 @@ class Video extends Module {
         this.ui.preview.focus();
       }).on('click', this.options.domSelectors.dialogPlayBtn, () => {
         this.hideElement(this.ui.dialog);
-
-        document.cookie = `acceptYouTube=true; max-age=${this.getExpireDate()}; path=/`;
+        if (this.cookieName) {
+          document.cookie = `${this.cookieName}=true; max-age=${this.getExpireDate()}; path=/`;
+        }
         this.ui.iFrame.setAttribute('src', `${this.youTubeSrc}&autoplay=1&mute=1`);
       });
   }
@@ -127,7 +130,6 @@ class Video extends Module {
     date.setTime(date.getTime()
       + this.daysToExpire * hoursADay * minsPerHour * secsPerMin * milliSecs);
 
-    this.log(`Set cookie expirationtime to ${date.toUTCString()}`);
     return date.toUTCString();
   }
 

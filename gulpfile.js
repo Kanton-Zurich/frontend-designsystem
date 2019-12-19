@@ -810,6 +810,7 @@ gulp.task('copy', () => {
     src: [
       './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
       './src/assets/media/image/*.svg',
+      './src/assets/media/pngsprite/*',
       './src/assets/mocks/**/*.json',
       './src/modules/**/*.mock.html',
       './src/assets/manifest.json',
@@ -846,6 +847,7 @@ gulp.task('copy:aem', () => {
     src: [
       './dist/assets/**/*.{css,js,svg,json}',
       './dist/assets/media/icons/*',
+      './dist/assets/media/pngsprite/*',
     ],
     srcBase: './dist/assets',
     dest: gulpUtil.env.aemTargetBaseResources,
