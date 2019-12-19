@@ -64,6 +64,18 @@ class StepperNavigation extends Module {
     this.initUi(['step']);
 
     this.options.hasTooManySteps = this.ui.step.length > this.options.maxSteps;
+    const pendingSteps = Array.prototype.slice.call(this.data.steps).filter(step => step.dataset.pending === 'true');
+
+    if (pendingSteps.length > 0) {
+      pendingSteps.forEach((step) => {
+        this.onStepStateChange({
+          detail: {
+            state: 'pending',
+            index: parseInt(step.dataset.stepIndex, 10),
+          },
+        });
+      });
+    }
 
     if (this.options.hasTooManySteps) {
       this.moveContextMenuTrigger();
@@ -172,6 +184,8 @@ class StepperNavigation extends Module {
         navigationItem.classList.remove(this.options.stateClasses.hiddenStep);
         navigationItem.parentElement.classList.remove(this.options.stateClasses.hiddenStep);
 
+        navigationItem.dataset.status = 'pending';
+
         break;
       case 'enabled':
         navigationItem.classList.remove(this.options.stateClasses.pendingStep);
@@ -180,6 +194,8 @@ class StepperNavigation extends Module {
         navigationItem.classList.remove(this.options.stateClasses.hiddenStep);
         navigationItem.parentElement.classList.remove(this.options.stateClasses.hiddenStep);
 
+        navigationItem.dataset.status = 'enabled';
+
         break;
       case 'disabled':
         navigationItem.classList.remove(this.options.stateClasses.pendingStep);
@@ -187,6 +203,8 @@ class StepperNavigation extends Module {
 
         navigationItem.classList.add(this.options.stateClasses.hiddenStep);
         navigationItem.parentElement.classList.add(this.options.stateClasses.hiddenStep);
+
+        navigationItem.dataset.status = 'disabled';
 
         break;
       default:
@@ -210,59 +228,104 @@ class StepperNavigation extends Module {
     }
   }
 
-  /* eslint-disable no-magic-numbers */
-  hideSteps() {
-    const lastStepWithoutGoBack = 3;
-    const firstStepWithoutPreview = this.ui.step.length - 3;
-    let dontHideSteps = [0, this.ui.step.length - 1];
-    let showEllipsisBefore = true;
-    let showEllipsisAfter = true;
-    const dontHideStepsBefore = [];
-    const dontHideStepsAfter = [];
 
-    if (this.data.active < lastStepWithoutGoBack) {
-      dontHideSteps = [...dontHideSteps, 1, 2];
+  getPositionByStepIndex(index, steps) {
+    return steps.findIndex(step => index.toString() === step.dataset.stepIndex);
+  }
 
-      showEllipsisBefore = false;
-    } else if (this.data.active >= firstStepWithoutPreview) {
-      dontHideSteps = [...dontHideSteps, this.ui.step.length - 2, this.ui.step.length - 3];
+  getActiveNavigationSteps(activeFormSteps) {
+    const navigationSteps = [];
 
-      showEllipsisAfter = false;
-    } else {
-      dontHideSteps = [...dontHideSteps, this.data.active];
-    }
-
-    this.ui.step.forEach((step, index) => {
-      if (dontHideSteps.indexOf(index) === -1) {
-        step.parentElement.classList.add(this.options.stateClasses.hiddenStep);
+    activeFormSteps.forEach((step) => {
+      if (step.dataset.stepIndex) {
+        navigationSteps.push(this.ui.step[parseInt(step.dataset.stepIndex, 10)]);
       } else {
-        step.parentElement.classList.remove(this.options.stateClasses.hiddenStep);
+        navigationSteps.push(this.ui.step[this.ui.step.length - 1]);
       }
     });
 
-    if (showEllipsisBefore) {
-      const contextMenuBefore = this.ui.multipleBefore.nextElementSibling;
-      const contextMenuItems = contextMenuBefore.querySelectorAll('[data-item-index]');
+    return navigationSteps;
+  }
 
-      for (let i = 0; i < this.data.active; i += 1) {
-        if (dontHideSteps.indexOf(i) === -1) dontHideStepsBefore.push(i);
+
+  /* eslint-disable no-magic-numbers */
+  hideSteps() {
+    const arrSteps = Array.prototype.slice.call(this.data.steps);
+    const indexOfFirstPending = arrSteps.findIndex(step => step.dataset.pending === 'true');
+    const hasPending = indexOfFirstPending !== -1;
+    const lastStepIndex = hasPending
+      ? indexOfFirstPending : arrSteps.length - 1;
+    const hideSteps = [];
+    const visibleSteps = [];
+
+    const contextMenu = {
+      before: [],
+      after: [],
+    };
+
+    arrSteps.length = lastStepIndex + 1;
+
+    const activeSteps = arrSteps.filter(step => !step.dataset.enabled || step.dataset.enabled === 'true');
+
+    const activeNavigationSteps = this.getActiveNavigationSteps(activeSteps);
+    const position = this.getPositionByStepIndex(this.data.active, activeSteps);
+
+    const positionMaxBefore = hasPending ? 3 : 2;
+    const positionMinAfter = activeSteps.length - 3;
+
+    if (position <= positionMaxBefore) {
+      for (let i = positionMaxBefore + 1; i <= lastStepIndex; i += 1) {
+        hideSteps.push(i);
       }
 
-      this.setContextMenuItems(contextMenuItems, dontHideStepsBefore);
-    }
-
-    if (showEllipsisAfter) {
-      const contextMenuAfter = this.ui.multipleAfter.nextElementSibling;
-      const contextMenuItems = contextMenuAfter.querySelectorAll('[data-item-index]');
-
-      for (let i = this.data.active + 1; i < this.ui.step.length; i += 1) {
-        if (dontHideSteps.indexOf(i) === -1) dontHideStepsAfter.push(i);
+      if (!hasPending) {
+        hideSteps.length -= 1;
+      }
+    } else if (position >= positionMinAfter) {
+      for (let i = positionMinAfter - 1; i > 0; i -= 1) {
+        hideSteps.push(i);
+      }
+    } else {
+      for (let i = 1; i <= activeSteps.length - 1; i += 1) {
+        if (hasPending) {
+          if (i !== position && i !== position + 1) {
+            hideSteps.push(i);
+          }
+        } else {
+          /* eslint-disable */
+          if (i !== position) {
+            hideSteps.push(i);
+          }
+          /* eslint-enable */
+        }
       }
 
-      this.setContextMenuItems(contextMenuItems, dontHideStepsAfter);
+      if (!hasPending) {
+        hideSteps.length -= 1;
+      }
     }
 
-    this.setEllipsis(showEllipsisBefore, showEllipsisAfter);
+    for (let i = 0; i < activeSteps.length; i += 1) {
+      if (hideSteps.indexOf(i) === -1) {
+        visibleSteps.push(i);
+      }
+    }
+
+    hideSteps.forEach((stepToHide) => {
+      const navigationElement = activeNavigationSteps[stepToHide];
+
+      navigationElement.parentElement.classList.add(this.options.stateClasses.hiddenStep);
+    });
+
+    this.log(visibleSteps, activeNavigationSteps);
+
+    visibleSteps.forEach((stepToShow) => {
+      const navigationElement = activeNavigationSteps[stepToShow];
+
+      navigationElement.parentElement.classList.remove(this.options.stateClasses.hiddenStep);
+    });
+
+    // this.setEllipsis(showEllipsis.before, showEllipsis.after);
   }
   /* eslint-enable no-magic-numbers */
 

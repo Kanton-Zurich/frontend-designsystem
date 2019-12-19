@@ -90,7 +90,7 @@ class Stepper extends Module {
 
     this.setButtonVisibility();
 
-    this.options.hasRules = this.ui.element.querySelectorAll('[data-rules]').length > 0;
+    this.options.hasRules = this.ui.element.querySelectorAll('.mdl-stepper__step[data-rules]').length > 0;
 
     if (this.ui.navigation) {
       this.navigation = new StepperNavigation(this.ui.navigation,
