@@ -41,6 +41,12 @@ class Inspector extends Helper {
           });
         });
 
+        [].forEach.call(document.querySelectorAll('.sg_code__button'), (node) => {
+          node.addEventListener('click', () => {
+            node.nextElementSibling.classList.toggle('sg_code--show');
+          });
+        });
+
         const moduleFilters = [].slice.call(document.querySelectorAll('.sg_filter-frame input'));
         moduleFilters.forEach((input) => {
           input.addEventListener('change', (event) => {

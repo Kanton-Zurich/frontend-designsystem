@@ -56,6 +56,7 @@ gulp.task('html', () => {
       src: [
         './src/**/*.hbs',
         './src/**/*.data.js',
+        './src/**/*.md',
         './gulp/helpers/*.js',
       ],
       name: 'html',

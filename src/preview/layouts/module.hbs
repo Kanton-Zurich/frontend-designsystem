@@ -114,6 +114,7 @@
 					<div class="panels tab_content_wrapper">
 						{{#each variants}}
 							<div class="tab_content" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}">
+                <div class="preview-separator">Beginn Vorschau</div>
                 <div class="lyt-wrapper">
                   <div class="sg_demo {{#if props.isInverted}}sg_demo--inverted{{/if}} grid-x grid-margin-x">
                     {{#if meta.noOffset}}
@@ -134,20 +135,23 @@
                   <input type="hidden" id="defaultColorVariation{{@index}}" value="{{meta.defaultColorVariation}}" />
                   <input type="hidden" id="disabledColorVariations{{@index}}" value="{{json meta.disabledColorVariations}}" />
                 {{/if}}
+                <div class="preview-separator">Ende Vorschau</div>
 							</div>
 						{{/each}}
 					</div>
 
 					<div class="labels" aria-hidden="true">
 						{{#each variants}}
-							<label for="variants{{@index}}" id="tabLabel{{@index}}">{{meta.title}}</label>
+							<label class="atm-button atm-button--secondary atm-button--small atm-button--tag" for="variants{{@index}}" id="tabLabel{{@index}}">
+                	<span class="atm-button__text ">{{meta.title}}</span>
+              </label>
 						{{/each}}
 					</div>
 
           <div class="cv-labels" aria-hidden="true">
             {{#each colorVariations}}
               <input type="radio" name="colorVariations" class="color_trigger {{name}}" value="{{name}}" id="colorVariations{{@index}}"{{#unless @index}} checked{{/unless}} />
-              <label for="colorVariations{{@index}}" id="cv-label{{@index}}">{{name}}</label>
+              <label for="colorVariations{{@index}}" id="cv-label{{@index}}"></label>
             <!-- <input type="button" class="sg_colorVariation_button" value="{{name}}" style="background-color: {{color}}"/>-->
             {{/each}}
           </div>
@@ -157,11 +161,23 @@
 							<div class="tab_content" id="panelDesc{{@index}}" aria-labelledby="tabLabel{{@index}}">
 								{{!-- "content" is a reserved word in Handlebars, therefore we need the "this" keyword here. --}}
 								{{#if meta}}
-									<div class="sg_variant_meta">
-										{{#if meta.desc}}
-											<p>{{meta.desc}}</p>
-										{{/if}}
-									</div>
+                <div class="lyt-wrapper" id="header">
+                  <div class="grid-x grid-margin-x">
+                    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+                      <div class="sg_variant_meta">
+                        {{#if meta.desc}}
+                          <p>{{meta.desc}}</p>
+                        {{/if}}
+                      </div>
+                      {{#if meta.documentation}}
+                          <h2 class="sg_h2">Dokumentation</h2>
+                          <div class="sg_documentation">
+                            {{{meta.documentation}}}
+                          </div>
+                      {{/if}}
+                    </div>
+                  </div>
+                </div>
 								{{/if}}
 {{! Indentation matters... }}
 {{> "preview/partials/code"}}
@@ -177,24 +193,17 @@
 				<h2 class="sg_h2">Vorschau der Komponente</h2>
 
 				{{#each variants}}
+          <div class="preview-separator">Beginn Vorschau</div>
 					<div class="sg_demo {{#if props.isInverted}}sg_demo--inverted{{/if}}">
 						{{#block "content"}}
 							{{{meta.demo}}}
 						{{/block}}
 					</div>
+          <div class="preview-separator">Ende Vorschau</div>
 
 {{! Indentation matters... }}
 {{> "preview/partials/code"}}
 				{{/each}}
-			</section>
-		{{/if}}
-		{{#if meta.documentation}}
-			<section class="sg_inner_wrapper">
-				<h2 class="sg_h2">Dokumentation</h2>
-
-				<div class="sg_documentation">
-					{{{meta.documentation}}}
-				</div>
 			</section>
 		{{/if}}
 		{{#if meta.mocks}}
