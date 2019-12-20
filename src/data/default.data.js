@@ -62,7 +62,7 @@ const data = {
         path: [
           {
             title: 'Kanton Zürich',
-            href: '#',
+            href: '',
           },
         ],
       },
@@ -98,7 +98,7 @@ const data = {
       },
     },
     footer: {
-
+      maintenance: true,
     },
   },
   props: {

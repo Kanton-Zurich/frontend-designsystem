@@ -1,0 +1,3 @@
+<h2 class="atm-heading atm-heading--bordered">CI/CD</h2>
+
+Das Design des Webauftritts orientiert sich am Corporate Design Manual des Kantons Zürich. Das Logo verwenden wir grosszügig, damit die filigranen Linien des Löwen auf Bildschirmen sichtbar sind. Das Logo wird in Kombination mit dem Seitentitel dargestellt, analog wie in Printpublikationen des Kantons Zürich. Löwe, Flagge und der jeweilige Inhalt bilden eine wiedererkennbare Einheit. Wir führen den für das CI/CD des Kantons Zürich typischen Einzug im Layout auch auf den digitalen Kanälen weiter. Auf mobilen Geräten wird der Einzug nur im oberen Teil der Seite genutzt.
