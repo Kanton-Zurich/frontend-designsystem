@@ -53,6 +53,7 @@ class StepperNavigation extends Module {
         multipleStepVisible: 'mdl-stepper_navgiation__step--multiple-visible',
         tight: 'mdl-stepper_navigation--tight',
         hiddenContextMenuItem: 'atm-context_menu_item--hidden',
+        alignRightStep: 'mdl-stepper_navigation__step--align-right',
       },
       hasRules: false,
       hasTooManySteps: false,
@@ -212,6 +213,10 @@ class StepperNavigation extends Module {
     }
 
     this.setStepNumbers();
+
+    if (this.options.hasTooManySteps) {
+      this.hideSteps();
+    }
   }
 
   checkWidth() {
@@ -258,14 +263,18 @@ class StepperNavigation extends Module {
     const hideSteps = [];
     const visibleSteps = [];
 
-    const contextMenu = {
-      before: [],
-      after: [],
-    };
+    if (hasPending) {
+      this.ui.multipleAfter.parentElement.classList.add(this.options.stateClasses.alignRightStep);
+    } else {
+      this.ui.multipleAfter.parentElement.classList.remove(this.options.stateClasses.alignRightStep);
+    }
+
+    this.moveContextMenuTrigger(indexOfFirstPending);
 
     arrSteps.length = lastStepIndex + 1;
 
-    const activeSteps = arrSteps.filter(step => !step.dataset.enabled || step.dataset.enabled === 'true');
+    const activeSteps = arrSteps.filter(step => (!step.dataset.enabled || step.dataset.enabled === 'true') && step.dataset.pending !== '');
+    const disabledSteps = arrSteps.filter(step => step.dataset.enabled === 'false' || step.dataset.pending === 'true').map(step => parseInt(step.dataset.stepIndex, 10));
 
     const activeNavigationSteps = this.getActiveNavigationSteps(activeSteps);
     const position = this.getPositionByStepIndex(this.data.active, activeSteps);
@@ -317,42 +326,74 @@ class StepperNavigation extends Module {
       navigationElement.parentElement.classList.add(this.options.stateClasses.hiddenStep);
     });
 
-    this.log(visibleSteps, activeNavigationSteps);
-
     visibleSteps.forEach((stepToShow) => {
       const navigationElement = activeNavigationSteps[stepToShow];
 
       navigationElement.parentElement.classList.remove(this.options.stateClasses.hiddenStep);
     });
 
-    // this.setEllipsis(showEllipsis.before, showEllipsis.after);
+    const contextMenus = this.defineContextMenuItems(hideSteps, disabledSteps);
+
+    this.setEllipsis(this.ui.multipleBefore, contextMenus.before.length > 0);
+    this.setEllipsis(this.ui.multipleAfter, contextMenus.after.length > 0);
   }
   /* eslint-enable no-magic-numbers */
 
-  setEllipsis(showEllipsisBefore, showEllipsisAfter) {
-    if (showEllipsisBefore) {
-      this.ui.multipleBefore.parentElement.classList.remove(this.options.stateClasses.hiddenStep);
+  setEllipsis(ellipsis, show) {
+    if (show) {
+      ellipsis.parentElement.classList.remove(this.options.stateClasses.hiddenStep);
     } else {
-      this.ui.multipleBefore.parentElement.classList.add(this.options.stateClasses.hiddenStep);
-    }
-
-    if (showEllipsisAfter) {
-      this.ui.multipleAfter.parentElement.classList.remove(this.options.stateClasses.hiddenStep);
-    } else {
-      this.ui.multipleAfter.parentElement.classList.add(this.options.stateClasses.hiddenStep);
+      ellipsis.parentElement.classList.add(this.options.stateClasses.hiddenStep);
     }
   }
 
-  setContextMenuItems(contextMenuItems, dontHideSteps) {
-    contextMenuItems.forEach((menuItem) => {
-      const index = parseInt(menuItem.dataset.itemIndex, 10);
+  defineContextMenuItems(stepsInContextMenu, disabledSteps) {
+    const contextMenus = {
+      before: [],
+      after: [],
+    };
 
-      if (dontHideSteps.indexOf(index) === -1) {
-        menuItem.classList.add(this.options.stateClasses.hiddenContextMenuItem);
-      } else {
-        menuItem.classList.remove(this.options.stateClasses.hiddenContextMenuItem);
+    stepsInContextMenu.forEach((stepInContextMenu) => {
+      if (disabledSteps.indexOf(stepInContextMenu) === -1) {
+        if (stepInContextMenu < this.data.active) {
+          contextMenus.before.push(stepInContextMenu);
+        } else {
+          contextMenus.after.push(stepInContextMenu);
+        }
       }
     });
+
+    if (contextMenus.before.length > 0) {
+      const beforeContextMenuItems = this.ui.multipleBefore.nextElementSibling
+        .querySelectorAll(this.options.domSelectors.contextMenuItem);
+
+      for (let i = 0; i < this.ui.step.length; i += 1) {
+        if (contextMenus.before.indexOf(i) !== -1) {
+          beforeContextMenuItems[i].classList
+            .remove(this.options.stateClasses.hiddenContextMenuItem);
+        } else {
+          beforeContextMenuItems[i].classList
+            .add(this.options.stateClasses.hiddenContextMenuItem);
+        }
+      }
+    }
+
+    if (contextMenus.after.length > 0) {
+      const afterContextMenuItems = this.ui.multipleAfter.nextElementSibling
+        .querySelectorAll(this.options.domSelectors.contextMenuItem);
+
+      for (let i = 0; i < this.ui.step.length; i += 1) {
+        if (contextMenus.after.indexOf(i) !== -1) {
+          afterContextMenuItems[i].classList
+            .remove(this.options.stateClasses.hiddenContextMenuItem);
+        } else {
+          afterContextMenuItems[i].classList
+            .add(this.options.stateClasses.hiddenContextMenuItem);
+        }
+      }
+    }
+
+    return contextMenus;
   }
 
   initContextMenu(contextMenuButton) {
@@ -364,9 +405,13 @@ class StepperNavigation extends Module {
     });
   }
 
-  moveContextMenuTrigger() {
+  moveContextMenuTrigger(_positionAfter: number = this.ui.step.length - 1) {
     const positionBefore = 1;
-    const positionAfter = this.ui.step.length - 1;
+    let positionAfter = _positionAfter;
+
+    if (positionAfter === -1) {
+      positionAfter = this.ui.step.length - 1;
+    }
 
     this.ui.element
       .insertBefore(this.ui.multipleBefore.parentNode, this.ui.step[positionBefore].parentNode);
