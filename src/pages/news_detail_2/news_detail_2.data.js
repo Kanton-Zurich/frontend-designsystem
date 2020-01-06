@@ -4,7 +4,7 @@ const dataHelper = require('@unic/estatico-data');
 const headerData = require('../../modules/header/header.data').props;
 
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js');
-const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.defaultImage.props;
+const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.default2.props;
 const defImageFigureData = require('../../modules/image_figure/image_figure.data.js');
 const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data');
 const defImageGalleryData = require('../../modules/image_gallery/image_gallery.data');
@@ -16,10 +16,10 @@ const defFooterData = require('../../modules/footer/footer.data').variants.defau
 
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'News-Detailseite',
+    title: 'News-Detailseite 2',
     jira: 'CZHDEV-514',
-    content: dataHelper.getFileContent('news_detail.hbs'),
-    documentation: dataHelper.getDocumentation('news_detail.md'),
+    content: dataHelper.getFileContent('news_detail_2.hbs'),
+    documentation: dataHelper.getDocumentation('news_detail_2.md'),
   },
   props: {
     header: _.merge({}, headerData,{ inverted: true}),
@@ -28,8 +28,6 @@ const data = _.merge({}, defaultData, {
       pageHeaderData: _.merge({}, defPageHeaderData, {
         pageTitle: 'Hochschulgebiet Zürich Zentrum',
         leadText: 'Das Ziel des Generationenprojekts HGZZ ist es, die Lehre, Forschung und medizinische Versorgung im Hochschulgebiet zu sichern, weiter zu stärken, miteinander die städtebauliche Qualität zu erhöhen und ein lebendiges Hochschulquartier zu schaffen. Die Projektverantwortlichen von Kanton und Stadt Zürich sowie UniversitätsSpital Zürich (USZ), Universität Zürich (UZH) und ETH Zürich haben gemeinsam einen konkreten Einblick auf das künftige Hochschulgebiet gegeben.',
-        imageData: defImageFigureData.variants.header.props,
-        hasImage: true,
         breadcrumb: {
           path:
             [

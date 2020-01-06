@@ -13,7 +13,7 @@ $pageHeaderCurves: (
     small: 17px,
     medium: 0,
     large: -10px,
-    xlarge: -15px,
+    xlarge: -17px,
   ),
   ktzhLogoMarginLeft: (
     tiny: -6px,
@@ -251,7 +251,15 @@ $pageHeaderCurves: (
     @include sizeCurve(margin-bottom, regular);
   }
 
+  .mdl-video__preview {
+    .atm-button {
+      margin-bottom: 0;
+    }
+  }
+
   .mdl-person_card {
+    margin-bottom: 0;
+
     .atm-button {
       margin-bottom: 0;
     }

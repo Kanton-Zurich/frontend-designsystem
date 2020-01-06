@@ -35,7 +35,8 @@
       </div>
     <iframe
       class="mdl-video__frame"
-      data-expirydays="60"
+      {{#if expiryDays}}data-expirydays="{{expiryDays}}"{{/if}}
+      {{#if cookieName}}data-cookieName="{{cookieName}}"{{/if}}
       data-youtubesrc="https://www.youtube.com/embed/{{videoId}}?modestbranding=1&rel=0&showInfo=0"
       height="768"
       width="432"

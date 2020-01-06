@@ -27,7 +27,6 @@ const data = _.merge({}, defaultData, {
       },
     ],
     linkListTitle: 'Linkliste',
-    hasTitle: true,
     headingLevel: 2,
   },
 });
@@ -67,7 +66,7 @@ const variants = _.mapValues({
       desc: 'Implementation without title',
     },
     props: {
-      hasTitle: false,
+      linklistTitle: null,
     },
   },
   locations: {
@@ -76,7 +75,7 @@ const variants = _.mapValues({
       desc: 'Linklist as used in locations module',
     },
     props: {
-      hasTitle: false,
+      linklistTitle: null,
       hasIndex: true,
       links: [
         {
