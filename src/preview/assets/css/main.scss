@@ -88,6 +88,19 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     }
   }
 
+  .lyt-wrapper {
+    .sg_h2,
+    .sg_h3,
+    .sg_documentation,
+    .sg_code,
+    .sg_variant_meta,
+    .sg_tests,
+    .sg_revisioninfo {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
   .sg_title {
     @include sgBoxedMargins;
 
@@ -166,11 +179,8 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
   .labels {
     @include clearfix;
-    @include sgBoxed;
 
-    margin-top: pxToRem(56px);
-    border-bottom: 1px solid $sg_colorLightGray;
-    border-top: 1px solid $sg_colorLightGray;
+    margin-top: pxToRem(24px);
 
     & > label {
       display: inline-block;
@@ -270,12 +280,10 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
   .cv-labels {
     @include clearfix;
-    @include sgBoxed;
 
     display: flex;
-    border-bottom: 1px solid $sg_colorLightGray;
-    border-top: 1px solid $sg_colorLightGray;
-    margin-bottom: pxToRem(56px);
+    margin-bottom: pxToRem(24px);
+    margin-top: pxToRem(16px);
 
     & > label {
       //border-radius: 4px 4px 0 0;
@@ -345,6 +353,10 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   max-width: none;
 }
 
+.sg_topiclist {
+  margin-top: 0;
+}
+
 .sg_documentation {
 
   h1,
@@ -358,13 +370,23 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     font-family: "HelveticaNowBlack", Helvetica, sans-serif;
   }
 
-  th {
+  h1,
+  h2,
+  h3,
+  h4 {
+    &.sg_flat_font {
+      font-family: "HelveticaNowRegular", Helvetica, sans-serif;
+    }
+  }
+
+
+  th:not(.mdl-table__cell) {
     border-bottom: 1px solid $sg_colorLightGray;
     text-align: left;
   }
 
-  th,
-  td {
+  th:not(.mdl-table__cell) ,
+  td:not(.mdl-table__cell)  {
     border-left: 1px solid $sg_colorLightGray;
     padding: 0.2em 0.5em;
 
@@ -381,8 +403,10 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   }
 
   pre {
+    overflow: scroll;
 
     code {
+      overflow: auto;
       display: block;
       padding: 0.5em;
     }
@@ -409,7 +433,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     @include sizeCurve('margin-bottom', regular);
   }
 
-  ul {
+  ul:not(.mdl-content_nav__list) {
     margin: 0;
     list-style: none;
     color: rgba(0, 0, 0, 0.6);
@@ -598,7 +622,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   .sg_h2,
   .sg_h3,
   .sg_h4 {
-    margin-top: 2em;
+    margin-top: 1em;
   }
 
   .sg_inner_wrapper {
@@ -681,9 +705,16 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   /* Square */
   &.sg_palette--rect {
     margin-right: 1%;
-    width: 29%;
     height: 200px;
+    min-width: 100%;
+    @include mq($from: xsmall, $to: large) {
+      min-width: 48%;
+    }
+    @include mq($from: large) {
+      min-width: 29%;
+    }
     display: inline-block;
+    margin-bottom: pxToRem(32px);
 
     .sg_palette-color {
       height: 140px;
@@ -712,7 +743,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
           div {
             box-sizing: border-box;
-            font-family: $sg_font_black;
+            font-family: $sg_font;
             float: right;
             width: 48px;
             height: 70px;

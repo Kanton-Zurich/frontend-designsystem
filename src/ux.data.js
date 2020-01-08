@@ -26,3 +26,4 @@ const data = _.merge({}, defaultData, {
 });
 
 module.exports = data;
+

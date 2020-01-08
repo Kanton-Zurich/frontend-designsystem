@@ -47,7 +47,7 @@
   <script src="/preview/assets/js/dev.js"></script>
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}>
-<div class="lyt-wrapper" id="header">
+<div class="lyt-wrapper">
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
       <div class="mdl-page-header      " data-init="pageHeader" data-page-header-instance="pageheader1">
@@ -139,21 +139,25 @@
 							</div>
 						{{/each}}
 					</div>
-
-					<div class="labels" aria-hidden="true">
-						{{#each variants}}
-							<label class="atm-button atm-button--secondary atm-button--small atm-button--tag" for="variants{{@index}}" id="tabLabel{{@index}}">
-                	<span class="atm-button__text ">{{meta.title}}</span>
-              </label>
-						{{/each}}
-					</div>
-
-          <div class="cv-labels" aria-hidden="true">
-            {{#each colorVariations}}
-              <input type="radio" name="colorVariations" class="color_trigger {{name}}" value="{{name}}" id="colorVariations{{@index}}"{{#unless @index}} checked{{/unless}} />
-              <label for="colorVariations{{@index}}" id="cv-label{{@index}}"></label>
-            <!-- <input type="button" class="sg_colorVariation_button" value="{{name}}" style="background-color: {{color}}"/>-->
-            {{/each}}
+          <div class="lyt-wrapper">
+            <div class="grid-x grid-margin-x">
+              <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+					      <div class="labels" aria-hidden="true">
+                {{#each variants}}
+                  <label class="atm-button atm-button--secondary atm-button--small atm-button--tag" for="variants{{@index}}" id="tabLabel{{@index}}">
+                      <span class="atm-button__text ">{{meta.title}}</span>
+                  </label>
+                {{/each}}
+                </div>
+                <div class="cv-labels" aria-hidden="true">
+                {{#each colorVariations}}
+                  <input type="radio" name="colorVariations" class="color_trigger {{name}}" value="{{name}}" id="colorVariations{{@index}}"{{#unless @index}} checked{{/unless}} />
+                  <label for="colorVariations{{@index}}" id="cv-label{{@index}}"></label>
+                <!-- <input type="button" class="sg_colorVariation_button" value="{{name}}" style="background-color: {{color}}"/>-->
+                {{/each}}
+                </div>
+              </div>
+            </div>
           </div>
 
 					<div class="panels">
@@ -161,7 +165,7 @@
 							<div class="tab_content" id="panelDesc{{@index}}" aria-labelledby="tabLabel{{@index}}">
 								{{!-- "content" is a reserved word in Handlebars, therefore we need the "this" keyword here. --}}
 								{{#if meta}}
-                <div class="lyt-wrapper" id="header">
+                <div class="lyt-wrapper">
                   <div class="grid-x grid-margin-x">
                     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
                       <div class="sg_variant_meta">

@@ -42,6 +42,7 @@ gulp.task('html', () => {
   const instance = task({
     src: [
       './src/*.hbs',
+      './src/design/*.hbs',
       './src/pages/**/*.hbs',
       // './src/demo/pages/**/*.hbs',
       // '!./src/demo/pages/handlebars/*.hbs',
@@ -809,7 +810,7 @@ gulp.task('copy', () => {
 
   const instance = task({
     src: [
-      './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
+      './src/**/*.{png,gif,jpg,woff,ttf,jpeg,zip}',
       './src/assets/media/image/*.svg',
       './src/assets/media/pngsprite/*',
       './src/assets/mocks/**/*.json',

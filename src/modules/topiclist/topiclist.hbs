@@ -1,4 +1,4 @@
-<div class="mdl-topiclist{{#if isOfficeNavigation}} mdl-topiclist--office{{/if}}{{#if isTopiclistHome}} mdl-topiclist--home{{/if}}{{#if isNavigation}} mdl-topiclist--nav{{/if}}" data-init="topiclist" {{#if options}}data-topiclist-options='{{options}}'{{/if}}>
+<div class="mdl-topiclist{{#if isOfficeNavigation}} mdl-topiclist--office{{/if}}{{#if isTopiclistHome}} mdl-topiclist--home{{/if}}{{#if isNavigation}} mdl-topiclist--nav{{/if}}{{#if additionalClasses}} {{additionalClasses}}{{/if}}" data-init="topiclist" {{#if options}}data-topiclist-options='{{options}}'{{/if}}>
   {{#if isNavigation}}<div data-topiclist="firstLayer">{{/if}}
     {{#if topiclistHeading}}
       <h{{topiclistHeading.level}}

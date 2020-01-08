@@ -7,6 +7,7 @@ const dataHelper = require('@unic/estatico-data');
 // Get other pages
 const mainMenu = _.merge({}, defTopiclistData, {
   topiclistInput: null,
+  additionalClasses: 'sg_topiclist',
 });
 
 mainMenu.topiclistcontentNavData.items = [
@@ -16,12 +17,12 @@ mainMenu.topiclistcontentNavData.items = [
     target: 'design/grundlagen.html',
     isPromotopic: false,
   },
-  {
+  /* {
     shortTitle: 'Verhalten & Animation',
     buzzwords: 'Prinzipien, Timing, Bewegen und Skalieren, Easing',
     target: 'design/verhalten.html',
     isPromotopic: false,
-  },
+  }, */
   {
     shortTitle: 'Raster & Abstände',
     buzzwords: 'Grid, Raster, Breakpoints, Abstände, Abstandskurven',
@@ -31,7 +32,7 @@ mainMenu.topiclistcontentNavData.items = [
   {
     shortTitle: 'Typografie & Ikonografie',
     buzzwords: 'Schrift, Schriftgrössen, Responsive Typografie, Ikonografie',
-    target: 'design/typographie.html',
+    target: 'design/typography.html',
     isPromotopic: false,
   },
 ];
@@ -44,7 +45,7 @@ const data = _.merge({}, defaultData, {
   publicationTeaser: {
     imageFigure: {
       srcsets: [{
-        image: '/assets/media/image/lsg/manual.png',
+        image: '/preview/assets/media/image/manual.png',
         imageWidth: 558,
       }],
       alt: 'Das ist ein Beispielbild',

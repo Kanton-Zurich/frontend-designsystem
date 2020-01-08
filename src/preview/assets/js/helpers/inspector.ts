@@ -83,6 +83,10 @@ class Inspector extends Helper {
   public static triggerVariantChangeOnElement(node) {
     const selectorIndex = node.getAttribute('id')
       .replace('variants', '');
+    [].slice.call(document.querySelectorAll('.labels label')).forEach((label) => {
+      label.classList.add('atm-button--secondary');
+    });
+    document.querySelector(`#tabLabel${selectorIndex}`).classList.remove('atm-button--secondary');
     const panel = document.querySelector(`#panel${selectorIndex}`);
     const disabledColorVariationsElement = document
       .getElementById(`disabledColorVariations${selectorIndex}`);

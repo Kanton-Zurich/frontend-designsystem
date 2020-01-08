@@ -5,6 +5,7 @@ const defTopiclistData = require('./modules/topiclist/topiclist.data').variants.
 // Get other pages
 const mainMenu = _.merge({}, defTopiclistData, {
   topiclistInput: null,
+  additionalClasses: 'sg_topiclist',
 });
 
 mainMenu.topiclistcontentNavData.items = [
