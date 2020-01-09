@@ -229,8 +229,10 @@ class Modal extends Module {
     }
 
     // reload Single page Applications scripts in case of asynchronous loading
-    if (this.options.isSPA) {
-      this.ui.element.querySelector(this.options.childSelectors.spa).dispatchEvent(new CustomEvent('Application.initScripts'));
+    if (this.ui.element.querySelector(this.options.childSelectors.spa)) {
+      setTimeout(() => {
+        this.ui.element.querySelector(this.options.childSelectors.spa).dispatchEvent(new CustomEvent('Application.initScripts'));
+      }, this.options.transitionTime);
     }
 
     this.log(this.options.transitionTime);
