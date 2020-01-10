@@ -266,7 +266,8 @@ class StepperNavigation extends Module {
     if (hasPending) {
       this.ui.multipleAfter.parentElement.classList.add(this.options.stateClasses.alignRightStep);
     } else {
-      this.ui.multipleAfter.parentElement.classList.remove(this.options.stateClasses.alignRightStep);
+      this.ui.multipleAfter.parentElement.classList
+        .remove(this.options.stateClasses.alignRightStep);
     }
 
     this.moveContextMenuTrigger(indexOfFirstPending);
