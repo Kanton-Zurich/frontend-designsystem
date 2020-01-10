@@ -199,6 +199,9 @@ $stepperNavigationCurves: (
     }
 
     &--multiple {
+      position: relative;
+      z-index: $zIndexOverlays;
+
       &[ data-stepper_navigation='multipleBefore' ] {
         svg use {
           fill: $colorCyan;
