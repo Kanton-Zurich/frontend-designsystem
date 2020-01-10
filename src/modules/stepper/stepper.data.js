@@ -316,8 +316,8 @@ const variants = _.mapValues({
   },
   withALotStepsAndRules: {
     meta: {
-      title: 'Mit 7 Schritten (CZHDEV-1630)',
-      desc: 'Formular 7 Schritten (Edge-Case)',
+      title: 'Mit 7 Schritten und Formularregeln (CZHDEV-1630)',
+      desc: 'Formular 7 Schritten und einer Formularregelweiche in Schritt 4 (Edge-Case)',
     },
     props: {
       steps: [
