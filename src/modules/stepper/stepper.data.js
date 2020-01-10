@@ -460,10 +460,6 @@ const variants = _.mapValues({
     },
   });
 
-  if (variantProps.navigation) {
-    console.log(variantData.props.navigation.contextMenu);
-  }
-
   return variantData;
 });
 
