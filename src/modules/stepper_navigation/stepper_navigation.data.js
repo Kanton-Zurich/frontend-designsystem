@@ -19,6 +19,7 @@ const data = _.merge({}, defaultData, {
       'Berufliche Informationen',
       'Bestätigung',
     ],
+    contextMenu: {},
   },
 });
 const variants = _.mapValues({

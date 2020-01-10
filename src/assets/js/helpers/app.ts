@@ -141,9 +141,10 @@ class App {
   }
 
   async start() {
+    this.registerForms();
+
     this.registerModules();
     this.initModuleInitialiser();
-    this.registerForms();
   }
 
   initModule(moduleName, element) {
