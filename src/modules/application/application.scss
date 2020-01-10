@@ -8,9 +8,9 @@
       transform: initial;
       margin: 0;
       left: 0;
+      overflow-y: scroll;
 
       .mdl-application {
-        height: 100%;
         position: relative;
         margin-top: 0;
         margin-bottom: 0;

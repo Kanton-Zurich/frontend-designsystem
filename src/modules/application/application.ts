@@ -5,21 +5,27 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import WindowEventListener from '../../assets/js/helpers/events';
+import PageHeader from '../page_header/page_header';
 
 class Application extends Module {
   private runScriptTypes;
-  private scriptsInitialized:boolean;
+  private scriptsInitialized: boolean;
+  public options: {
+    domSelectors: any,
+    stateClasses: any,
+    transitionDelay: number,
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
     const defaultOptions = {
       domSelectors: {
-        fullWidth: 'mdl-application--fullWidth',
-        pageHeader: 'mdl-page-header',
       },
       stateClasses: {
         // activated: 'is-activated'
       },
+      transitionDelay: 300,
     };
 
     super($element, defaultData, defaultOptions, data, options);
@@ -59,6 +65,29 @@ class Application extends Module {
    */
   initEventListeners() {
     this.eventDelegate.on('Application.initScripts', this.initScripts.bind(this));
+
+    (<any>WindowEventListener).addDebouncedResizeListener(() => {
+      this.verticalSizeUpdate();
+    });
+
+    const pageHeader = document.querySelector('.mdl-page-header');
+
+    if (pageHeader) {
+      pageHeader
+        .addEventListener(PageHeader.events.expandTriggered, () => {
+          this.verticalSizeUpdate();
+          window.dispatchEvent(new Event('resize'));
+        });
+      pageHeader
+        .addEventListener(PageHeader.events.collapseTriggered, () => {
+          this.verticalSizeUpdate();
+          window.dispatchEvent(new Event('resize'));
+        });
+    }
+    setTimeout(() => {
+      this.verticalSizeUpdate();
+      window.dispatchEvent(new Event('resize'));
+    }, this.options.transitionDelay);
   }
 
   /**
@@ -67,6 +96,20 @@ class Application extends Module {
   initScripts() {
     if (!this.scriptsInitialized) {
       this.runScripts(this.ui.element);
+    }
+  }
+
+  verticalSizeUpdate() {
+    const pageHeader = document.querySelector('.mdl-page-header');
+    const element = this.ui.element.closest('.mdl-application__wrapper--fullWidth');
+
+    let headerSize = 0;
+    if (pageHeader) {
+      headerSize = pageHeader.getBoundingClientRect().bottom;
+    }
+
+    if (element) {
+      element.style.height = `${window.innerHeight - headerSize}px`;
     }
   }
 

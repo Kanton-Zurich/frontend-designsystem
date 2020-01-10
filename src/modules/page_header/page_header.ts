@@ -33,6 +33,8 @@ class PageHeader extends Module {
     return {
       expand: 'PageHeader.expand',
       collapse: 'PageHeader.collapse',
+      expandTriggered: 'PageHeader.ExpandTriggered',
+      collapseTriggered: 'PageHeader.CollapseTriggered',
     };
   }
 
@@ -53,6 +55,7 @@ class PageHeader extends Module {
         text.innerHTML = text.getAttribute('data-expand');
         headerElement.classList.add('visuallyhidden');
       }
+      this.ui.element.dispatchEvent(new CustomEvent(PageHeader.events.expandTriggered));
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.headerMinimal);
       pageLogo.classList.remove('tiny-0');
@@ -64,6 +67,7 @@ class PageHeader extends Module {
         text.innerHTML = text.getAttribute('data-collapse');
         headerElement.classList.remove('visuallyhidden');
       }
+      this.ui.element.dispatchEvent(new CustomEvent(PageHeader.events.collapseTriggered));
     }
   }
 

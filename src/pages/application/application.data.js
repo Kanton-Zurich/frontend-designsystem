@@ -19,7 +19,7 @@ const data = _.merge({}, defaultData, {
     header: headerData,
     modules: {
       application: defApplicationData.variants.fullWidth.props,
-      pageHeader: _.merge({},defPageHeaderData,{
+      pageHeader: _.merge({}, defPageHeaderData, {
         pageTitle: 'Applikation',
       }),
     },
