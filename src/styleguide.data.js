@@ -165,7 +165,7 @@ const data = _.merge({}, defaultData, {
         path: [
           {
             title: 'Kanton Zürich',
-            href: '../',
+            href: 'index.html',
           },
           {
             title: 'Living Styleguide',
