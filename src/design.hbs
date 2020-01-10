@@ -9,6 +9,11 @@
           {{#if mainMenu}}
             {{> "modules/topiclist/topiclist" mainMenu }}
           {{/if}}
+          <div class="sg_documentation">
+            {{{documentation}}}
+          </div>
+          <h3 class="atm-heading">Corporate Design Manual</h3>
+          {{> "modules/publication_teaser/publication_teaser" publicationTeaser }}
         </div>
       </div>
     </div>

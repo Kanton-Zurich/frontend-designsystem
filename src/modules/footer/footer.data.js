@@ -18,6 +18,7 @@ const data = _.merge({}, defaultData, {
     modules: {
       socialLinks: _.merge({}, socialLinksDemoData, { socialMediaLinksHeading: { title: 'Folgen Sie dem Kanton auf', level: 3 } }),
     },
+    copyrightYear: new Date().getFullYear(),
   },
 });
 const variants = _.mapValues({

@@ -41,6 +41,12 @@ class Inspector extends Helper {
           });
         });
 
+        [].forEach.call(document.querySelectorAll('.sg_code__button'), (node) => {
+          node.addEventListener('click', () => {
+            node.nextElementSibling.classList.toggle('sg_code--show');
+          });
+        });
+
         const moduleFilters = [].slice.call(document.querySelectorAll('.sg_filter-frame input'));
         moduleFilters.forEach((input) => {
           input.addEventListener('change', (event) => {
@@ -77,6 +83,10 @@ class Inspector extends Helper {
   public static triggerVariantChangeOnElement(node) {
     const selectorIndex = node.getAttribute('id')
       .replace('variants', '');
+    [].slice.call(document.querySelectorAll('.labels label')).forEach((label) => {
+      label.classList.add('atm-button--secondary');
+    });
+    document.querySelector(`#tabLabel${selectorIndex}`).classList.remove('atm-button--secondary');
     const panel = document.querySelector(`#panel${selectorIndex}`);
     const disabledColorVariationsElement = document
       .getElementById(`disabledColorVariations${selectorIndex}`);
