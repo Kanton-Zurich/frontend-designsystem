@@ -275,7 +275,7 @@ class StepperNavigation extends Module {
     arrSteps.length = lastStepIndex + 1;
 
     const activeSteps = arrSteps.filter(step => (!step.dataset.enabled || step.dataset.enabled === 'true') && step.dataset.pending !== '');
-    const disabledSteps = arrSteps.filter(step => step.dataset.enabled === 'false' || step.dataset.pending === 'true').map(step => parseInt(step.dataset.stepIndex, 10));
+    const disabledSteps = arrSteps.filter(step => step.dataset.enabled === 'false' || step.dataset.pending === 'true').map(step => parseInt(step.dataset.stepIndex, 10));
 
     const activeNavigationSteps = this.getActiveNavigationSteps(activeSteps);
     const position = this.getPositionByStepIndex(this.data.active, activeSteps);
