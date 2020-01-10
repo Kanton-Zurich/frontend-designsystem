@@ -122,7 +122,13 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   }
 
   .sg_h2 {
-    font-size: pxToEm(25px);
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+    @include mq($to: small) {
+      line-height: $sizeLineHeightMedium;
+    }
+    @include mq($from: xlarge) {
+      line-height: $sizeLineHeightNarrower;
+    }
   }
 
   .sg_index_header {
@@ -380,6 +386,50 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   }
 
 
+  h1 {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, huge));
+    @include sizeCurve('margin-bottom', medium);
+    @include mq($from: medium) {
+      line-height: $sizeLineHeightNarrower;
+    }
+  }
+
+  h2 {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+    @include sizeCurve('padding-top', regular);
+    @include sizeCurve('margin-bottom', regular);
+    @include mq($to: small) {
+      line-height: $sizeLineHeightMedium;
+    }
+    @include mq($from: xlarge) {
+      line-height: $sizeLineHeightNarrower;
+    }
+}
+
+  h3 {
+    line-height: $sizeLineHeightMedium;
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
+    @include sizeCurve('padding-top', small);
+    @include sizeCurve('margin-bottom', mini);
+    @include mq($from: xlarge) {
+      line-height: $sizeLineHeightNarrow;
+    }
+  }
+
+  h4,
+  h5,
+  h6 {
+    line-height: $sizeLineHeightMedium;
+    margin-bottom: 0;
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+    @include mq($to: xsmall) {
+      line-height: $sizeLineHeightBase;
+    }
+  }
+
+
   th:not(.mdl-table__cell) {
     border-bottom: 1px solid $sg_colorLightGray;
     text-align: left;
@@ -531,8 +581,13 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   }
 
   .sg_h2 {
-    margin: 0;
-    font-size: pxToEm(25px, 14px);
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+    @include mq($to: small) {
+      line-height: $sizeLineHeightMedium;
+    }
+    @include mq($from: xlarge) {
+      line-height: $sizeLineHeightNarrower;
+    }
   }
 
   a {
@@ -749,6 +804,16 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
             height: 70px;
             line-height: 20px;
             padding: 25px 8px;
+
+            &.cv-font-bold {
+              font-family: $fontFamilyBlack;
+
+              &:after {
+                left: 8px;
+                font-family: $sg_font;
+              }
+            }
+
 
             &:first-child {
               color: #fff;

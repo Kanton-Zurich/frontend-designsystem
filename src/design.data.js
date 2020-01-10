@@ -17,12 +17,12 @@ mainMenu.topiclistcontentNavData.items = [
     target: 'design/grundlagen.html',
     isPromotopic: false,
   },
-  /* {
+  {
     shortTitle: 'Verhalten & Animation',
     buzzwords: 'Prinzipien, Timing, Bewegen und Skalieren, Easing',
     target: 'design/verhalten.html',
     isPromotopic: false,
-  }, */
+  },
   {
     shortTitle: 'Raster & Abstände',
     buzzwords: 'Grid, Raster, Breakpoints, Abstände, Abstandskurven',
@@ -48,9 +48,9 @@ const data = _.merge({}, defaultData, {
         image: '/preview/assets/media/image/manual.png',
         imageWidth: 558,
       }],
-      alt: 'Das ist ein Beispielbild',
+      alt: 'CI CD Manual image',
       caption: _.merge({}, defFigcaptionData, {
-        caption: 'Das ist ein Bild, Quelle: Fotograf Andreas Andreasen',
+        caption: 'CI/CD Manual ',
       }),
       isSmall: false,
       isWide: false,

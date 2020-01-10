@@ -7,18 +7,18 @@
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
       <p class="atm-paragraph">Revisions Nummer: <a href="{{meta.gitRemoteLink}}">{{meta.gitShort}}</a><br />Build Datum: {{meta.buildDate}}</p>
-      <h2 class="atm-heading atm-heading--bordered">Atome</h2>
+      <h2 id="lsg_atoms" class="atm-heading atm-heading--bordered">Atome</h2>
       {{> "modules/topiclist/topiclist" atomList }}
-      <h2 class="atm-heading atm-heading--bordered">Module</h2>
+      <h2 id="lsg_modules" class="atm-heading atm-heading--bordered">Module</h2>
       <div class="sg_filter-frame">Filter:
         <div><label class="sg_group-label" style="border-color:  #666; background-color:  #FFF; color: #666"><input type="radio" name="moduleFilter" value="nofilter" checked/> Kein Filter</label>
           {{#each moduleLabels }}{{#if label}} <label class="sg_group-label" style="border-color:  {{background}}; background-color:  {{background}}; color: {{foreground}}"><input type="radio" name="moduleFilter" value="{{label}}"/> {{label}}</label> {{/if}}{{/each}}</div>
       </div>
       {{> "modules/topiclist/topiclist" moduleList }}
-      <h2 class="atm-heading atm-heading--bordered">Seiten</h2>
+      <h2 id="lsg_pages" class="atm-heading atm-heading--bordered">Seiten</h2>
       {{> "modules/topiclist/topiclist" pageList }}
       {{#if styleguide}}
-      <h2 class="atm-heading atm-heading--bordered">Styleguide</h2>
+      <h2 id="lsg_styleguide" class="atm-heading atm-heading--bordered">Styleguide</h2>
       {{> "modules/topiclist/topiclist" styleguide }}
       {{/if}}
     </div>

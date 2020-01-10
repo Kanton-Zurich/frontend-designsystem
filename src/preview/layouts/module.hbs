@@ -72,18 +72,19 @@
                       <svg class="icon mdl-breadcrumb__arrow-left" focusable="false">
                         <use xlink:href="#arrow-left"></use>
                       </svg>
-                      <a class="mdl-breadcrumb__link" href="/styleguide.html">Living Styleguide</a>
+                      <a class="mdl-breadcrumb__link" href="../../">Kanton Zürich</a>
                     </li>
-                    <li class="mdl-breadcrumb__item mdl-breadcrumb__hidden-items" data-breadcrumb="ellipsis">
+                    <li class="mdl-breadcrumb__item">
                       <svg class="icon" focusable="false">
                         <use xlink:href="#angle_right"></use>
                       </svg>
+                      <a class="mdl-breadcrumb__link" href="../../styleguide.html">Living Styleguide</a>
                     </li>
-                    <li class="mdl-breadcrumb__item mdl-breadcrumb__item--active">
+                    <li class="mdl-breadcrumb__item">
                       <svg class="icon" focusable="false">
                         <use xlink:href="#angle_right"></use>
                       </svg>
-                      <span class="mdl-breadcrumb__link">Module</span>
+                      <a class="mdl-breadcrumb__link" href="../../styleguide.html#lsg_modules">Module</a>
                     </li>
                     <li class="mdl-breadcrumb__item mdl-breadcrumb__item--active">
                       <svg class="icon" focusable="false">
@@ -110,6 +111,26 @@
 					{{#each variants}}
 						<input type="radio" name="variants" class="tab_trigger" id="variants{{@index}}"{{#unless @index}} checked{{/unless}} aria-controls="panel{{@index}} panelDesc{{@index}}" />
 					{{/each}}
+
+          <div class="lyt-wrapper">
+            <div class="grid-x grid-margin-x">
+              <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+                <div class="labels" aria-hidden="true">
+                  {{#each variants}}
+                    <label class="atm-button atm-button--secondary atm-button--small atm-button--tag" for="variants{{@index}}" id="tabLabel{{@index}}">
+                      <span class="atm-button__text ">{{meta.title}}</span>
+                    </label>
+                  {{/each}}
+                </div>
+                <div class="cv-labels" aria-hidden="true">
+                  {{#each colorVariations}}
+                    <input type="radio" name="colorVariations" class="color_trigger {{name}}" value="{{name}}" id="colorVariations{{@index}}"{{#unless @index}} checked{{/unless}} />
+                    <label for="colorVariations{{@index}}" id="cv-label{{@index}}"></label>
+                  {{/each}}
+                </div>
+              </div>
+            </div>
+          </div>
 
 					<div class="panels tab_content_wrapper">
 						{{#each variants}}
@@ -139,26 +160,6 @@
 							</div>
 						{{/each}}
 					</div>
-          <div class="lyt-wrapper">
-            <div class="grid-x grid-margin-x">
-              <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-					      <div class="labels" aria-hidden="true">
-                {{#each variants}}
-                  <label class="atm-button atm-button--secondary atm-button--small atm-button--tag" for="variants{{@index}}" id="tabLabel{{@index}}">
-                      <span class="atm-button__text ">{{meta.title}}</span>
-                  </label>
-                {{/each}}
-                </div>
-                <div class="cv-labels" aria-hidden="true">
-                {{#each colorVariations}}
-                  <input type="radio" name="colorVariations" class="color_trigger {{name}}" value="{{name}}" id="colorVariations{{@index}}"{{#unless @index}} checked{{/unless}} />
-                  <label for="colorVariations{{@index}}" id="cv-label{{@index}}"></label>
-                <!-- <input type="button" class="sg_colorVariation_button" value="{{name}}" style="background-color: {{color}}"/>-->
-                {{/each}}
-                </div>
-              </div>
-            </div>
-          </div>
 
 					<div class="panels">
 						{{#each variants}}
@@ -170,7 +171,7 @@
                     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
                       <div class="sg_variant_meta">
                         {{#if meta.desc}}
-                          <p>{{meta.desc}}</p>
+                          <p class="atm-paragraph">{{meta.desc}}</p>
                         {{/if}}
                       </div>
                       {{#if meta.documentation}}
@@ -228,7 +229,8 @@
 		{{/block}}
 	</div>
 <div class="cv-blue">
-{{>"modules/contact/contact" wrappingElements.contact }}
+  {{>"modules/contact/contact" wrappingElements.contact }}
+  {{>"modules/footer/footer" wrappingElements.footer }}
 </div>
 </body>
 </html>
