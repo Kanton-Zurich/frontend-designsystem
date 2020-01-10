@@ -42,17 +42,13 @@ class Back2top extends Module {
     this.initEventListeners();
     this.initWatchers();
 
-    this.log('Determine default bottom position value.');
     if (this.ui.element.classList.contains(this.options.stateClasses.preserveLangSwitch)) {
-      this.log('Set to default.');
       this.ui.element.classList.remove(this.options.stateClasses.preserveLangSwitch);
       this.defaultBottomPos = window.innerHeight - this.ui.element.offsetTop;
-      this.log('Reset to initial state.');
       this.ui.element.classList.add(this.options.stateClasses.preserveLangSwitch);
     } else {
       this.defaultBottomPos = window.innerHeight - this.ui.element.offsetTop;
     }
-    this.log('Default bottom position: ', this.defaultBottomPos);
   }
 
   static get events() {
@@ -138,22 +134,19 @@ class Back2top extends Module {
       }
 
       if (footerElement) {
-        this.log('Found Footer element.');
         let footerOT = 0;
         let el = footerElement;
         while (el != null && (el.tagName || '').toLowerCase() !== 'html') {
           footerOT += el.offsetTop || 0;
           el = el.parentElement;
         }
-        this.log('Footer element offsetTop: ', footerOT);
         if (footerOT) {
           const screenBottom = pageYOffset + window.innerHeight;
 
           const pxInView = screenBottom - footerOT;
-          this.log(`Footer in view by ${pxInView} px`);
+
           if (pxInView > 0) {
             this.ui.element.style.transition = 'inherit';
-            this.log(`Setting element bottom value to  ${this.defaultBottomPos + pxInView} px`);
             this.ui.element.style.bottom = `${this.defaultBottomPos + pxInView}px`;
             setTimeout(() => {
               this.ui.element.style.transition = null;
@@ -184,13 +177,10 @@ class Back2top extends Module {
   }
 
   private onLockStateChange(propName, oldVal, newVal) {
-    this.log('LockCondition change: ', propName, oldVal, newVal);
-
     if (this.data.unlockCond.necessary && this.data.unlockCond.sufficient) {
       this.ui.element.classList.remove(this.options.stateClasses.scrolledOn);
       this.ui.element.classList.add(this.options.stateClasses.unlocked);
     } else if (!newVal) {
-      this.log('Scrolled on downwards.');
       this.ui.element.classList.add(this.options.stateClasses.scrolledOn);
       setTimeout(() => { // Remove classes after animations completed.
         this.ui.element.classList.remove(this.options.stateClasses.scrolledOn);

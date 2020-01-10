@@ -43,6 +43,7 @@ class Pagination extends Module {
       setCanonicalUrls: 'Pagination.setCanonicalUrls',
       setPageCount: 'Pagination.setPageCount',
       setPage: 'Pagination.setPage',
+      interaction: 'Pagination.interaction',
     };
   }
 
@@ -50,6 +51,10 @@ class Pagination extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
+    this.ui.next.addEventListener('keydown', this.emitInteract.bind(this));
+    this.ui.next.addEventListener('mousedown', this.emitInteract.bind(this));
+    this.ui.prev.addEventListener('keydown', this.emitInteract.bind(this));
+    this.ui.prev.addEventListener('mousedown', this.emitInteract.bind(this));
     this.ui.next.addEventListener('click', (event) => {
       this.ui.input.value = (parseInt(this.ui.input.value, 10) + 1).toString();
       event.preventDefault();
@@ -135,6 +140,13 @@ class Pagination extends Module {
     };
     this.ui.element.dispatchEvent(new CustomEvent(Pagination.events.change, pageChangeData));
     this.setPageButtonStyles(newValue);
+  }
+
+  /**
+   * Interaction event
+   */
+  emitInteract() {
+    this.ui.element.dispatchEvent(new CustomEvent(Pagination.events.interaction));
   }
 
   /**
