@@ -167,7 +167,7 @@ class Range extends Module {
     this.handlePositions = [];
     this.handlePositions.push(this.handleOne);
 
-    if (Number.isNaN(this.handleTwo)) {
+    if (isNaN(this.handleTwo)) { // eslint-disable-line
       this.rangeConnects = [true, false];
     } else {
       // Two handles

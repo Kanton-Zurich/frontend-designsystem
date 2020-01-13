@@ -13,12 +13,12 @@
 >
   <ul class="mdl-content_nav__list">
     {{#each items}}
-      <li class="mdl-content_nav__item">
+      <li class="mdl-content_nav__item" {{#if additionalAttributes}}{{{additionalAttributes}}}{{/if}}>
         {{> "atoms/content_teaser/content_teaser" this}}
       </li>
     {{/each}}
     {{#if promotopic}}
-      <li class="mdl-content_nav__item">
+      <li class="mdl-content_nav__item" {{#if additionalAttributes}}{{{additionalAttributes}}}{{/if}}>
         {{> "atoms/content_teaser/content_teaser" promotopic}}
       </li>
     {{/if}}

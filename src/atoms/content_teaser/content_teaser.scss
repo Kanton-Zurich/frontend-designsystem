@@ -78,6 +78,12 @@
     }
   }
 
+  &--tagged {
+    .atm-content_teaser__title {
+      display: block;
+    }
+  }
+
   &[ disabled='disabled' ] {
     cursor: default;
     pointer-events: none;

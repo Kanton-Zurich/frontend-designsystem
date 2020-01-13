@@ -49,26 +49,25 @@
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
                                data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
-<div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}}">
-  <div class="sg_index_header">
-  <svg viewBox="0 0 100 100" class="sg_logo">
-    <use xlink:href="#ktzh"></use>
-  </svg>
-  <h1 class="sg_title sg_title--top">
-    <a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
-  </h1>
+<div class="lyt-wrapper" id="header">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      {{#block "header"}}
+      {{/block}}
+    </div>
   </div>
-  <div class="sg_revisioninfo sg_revisioninfo--overview">
-    <h4>Quellcodeverwaltung</h4>
-    <ul>
-      <li>Revisions Nummer: <a href="{{meta.gitRemoteLink}}">{{meta.gitShort}}</a></li>
-      <li>Datum: {{meta.gitDate}}</li>
-      <li>Branch: {{meta.gitBranch}}</li>
-      <li>Build Datum: {{meta.buildDate}}</li>
-    </ul>
-  </div>
+</div>
+<div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}} cv-blue">
   {{#block "content"}}
   {{/block}}
+</div>
+<div class="lyt-wrapper cv-blue" id="footer">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      {{>"modules/contact/contact" wrappingElements.contact }}
+      {{>"modules/footer/footer" wrappingElements.footer }}
+    </div>
+  </div>
 </div>
 </body>
 </html>

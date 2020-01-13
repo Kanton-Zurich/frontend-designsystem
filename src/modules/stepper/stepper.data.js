@@ -8,6 +8,9 @@ const notification = require('../../atoms/notification/notification.data').varia
 
 const toggle = require('../../atoms/toggle/toggle.data').variants.default.props;
 
+const contextMenuProps = require('../context_menu/context_menu.data').props;
+const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
+
 const formInput = require('../../atoms/form_input/form_input.data').variants.default.props;
 
 const template = dataHelper.getFileContent('stepper.hbs');
@@ -25,6 +28,7 @@ const data = _.merge({}, defaultData, {
     confirmation: notification.formConfirmation.props,
     navigation: {
       steps: ['Persönliche Angaben', 'Berufliche Informationen, mit einem sehr langen Text, Hallo, Hallo, Hallo Hallo', 'Bestätigung'],
+      contextMenu: null,
     },
     toggle,
     notificationTemplate: notification.default.meta.code.template,
@@ -189,6 +193,255 @@ const variants = _.mapValues({
       ],
       navigation: {
         steps: ['Staatsangehörigkeit', 'Bürgerort 1', 'Bestätigung'],
+      },
+    },
+  },
+  withALotSteps: {
+    meta: {
+      title: 'Mit 7 Schritten (CZHDEV-1630)',
+      desc: 'Formular 7 Schritten (Edge-Case)',
+    },
+    props: {
+      steps: [
+        formVariants.dummyStep1.props,
+        formVariants.dummyStep2.props,
+        formVariants.dummyStep3.props,
+        formVariants.dummyStep4.props,
+        formVariants.dummyStep5.props,
+        formVariants.dummyStep6.props,
+        formVariants.dummyStep7.props,
+      ],
+      navigation: {
+        steps: ['Schritt 1', 'Schritt 2', 'Schritt 3', 'Schritt 4', 'Schritt 5', 'Schritt 6', 'Schritt 7', 'Bestätigung'],
+        contextMenuBefore: {
+          domSelector: 'data-stepper_navigation="contextMenu"',
+          lists: [
+            {
+              items: [
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 1', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 2', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 3', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 4', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 5', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 6', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 7', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Bestätigung', iconAfter: false, iconBefore: false,
+                }),
+              ],
+            },
+          ],
+        },
+        contextMenuAfter: {
+          domSelector: 'data-stepper_navigation="contextMenu"',
+          lists: [
+            {
+              items: [
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 1',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 2',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 3',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 4',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 5',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 6',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 7',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Bestätigung',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+              ],
+            },
+          ],
+        },
+      },
+    },
+  },
+  withALotStepsAndRules: {
+    meta: {
+      title: 'Mit 7 Schritten und Formularregeln (CZHDEV-1630)',
+      desc: 'Formular 7 Schritten und einer Formularregelweiche in Schritt 4 (Edge-Case)',
+    },
+    props: {
+      steps: [
+        formVariants.dummyStep1.props,
+        formVariants.dummyStep2.props,
+        formVariants.dummyStep3.props,
+        formVariants.checkboxesNationality3.props,
+        formVariants.dummyStep5.props,
+        _.merge({}, formVariants.dummyStep7WithRules.props, {
+          rules: JSON.stringify([
+            {
+              conditions: [
+                {
+                  field: 'nationality-100',
+                  equals: true,
+                  value: 'CH',
+                },
+              ],
+              action: 'enable',
+            },
+          ]),
+        }),
+        formVariants.dummyStep6.props,
+      ],
+      navigation: {
+        steps: ['Schritt 1', 'Schritt 2', 'Schritt 3', 'Schritt 4', 'Schritt 5', 'Schritt 6', 'Schritt 7', 'Bestätigung'],
+        contextMenuBefore: {
+          domSelector: 'data-stepper_navigation="contextMenu"',
+          lists: [
+            {
+              items: [
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 1', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 2', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 3', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 4', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 5', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 6', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Schritt 7', iconAfter: false, iconBefore: false,
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true, text: 'Bestätigung', iconAfter: false, iconBefore: false,
+                }),
+              ],
+            },
+          ],
+        },
+        contextMenuAfter: {
+          domSelector: 'data-stepper_navigation="contextMenu"',
+          lists: [
+            {
+              items: [
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 1',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 2',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 3',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 4',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 5',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 6',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Schritt 7',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+                _.merge({}, contextMenuItemDef, {
+                  isButton: true,
+                  text: 'Bestätigung',
+                  iconAfter: false,
+                  iconBefore: false,
+                  additionalAttributes: 'disabled="disabled"',
+                }),
+              ],
+            },
+          ],
+        },
       },
     },
   },

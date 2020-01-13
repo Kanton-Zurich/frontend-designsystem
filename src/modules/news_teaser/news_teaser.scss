@@ -33,12 +33,13 @@ $maxTextLines: 4;
   &__header {
     position: relative;
 
-    a {
+    .atm-text_link {
       position: absolute;
+      display: flex;
       bottom: 0;
       right: 0;
       font-size: pxToRem($sizeFontRegular);
-      line-height: $sizeLineHeightBase;
+      line-height: $sizeLineHeightSuper;
     }
 
     // Overwrite heading atom style

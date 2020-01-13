@@ -78,11 +78,11 @@ class FormGlobalHelper {
       const val = field.valueAsNumber;
       const min = Number.parseFloat(field.min);
       const max = Number.parseFloat(field.max);
-      if (!Number.isNaN(min)) {
+      if (!isNaN(min)) { // eslint-disable-line
         inBounds = inBounds && (val >= min);
       }
 
-      if (!Number.isNaN(max)) {
+      if (!isNaN(max)) { // eslint-disable-line
         inBounds = inBounds && (val <= max);
       }
 
