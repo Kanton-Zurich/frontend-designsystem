@@ -52,7 +52,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('cug_login.md'),
   },
   props: {
-    successRedirectUrl: 'http://localhost:9000/pages/focus/focus.html',
+    successRedirectUrl: '../../pages/focus/focus.html',
     endpointDoLogin: mockAssets.loginOk,
     endpointAuthorize: mockAssets.authOk,
     heading: 'Login ZHservices',
