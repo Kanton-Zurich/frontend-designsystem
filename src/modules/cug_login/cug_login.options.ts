@@ -1,5 +1,5 @@
 interface ModuleDomSelectors {
-  configuredLoginEndpoint: string;
+  configuredAuthorizeEndpoint: string;
   configuredRedirectUrl: string;
   loginBtn: string;
   logoutBtn: string;
@@ -29,7 +29,7 @@ export interface CugLoginModuleOptions {
 }
 
 const domSelectors: ModuleDomSelectors = {
-  configuredLoginEndpoint: '[data-cug_login=doLoginEndpoint]',
+  configuredAuthorizeEndpoint: '[data-cug_login=authorizeEndpoint]',
   configuredRedirectUrl: '[data-cug_login=successRedirectUrl]',
   loginBtn: '[data-cug_login=doLogin]',
   logoutBtn: '[data-cug_login=doLogout]',

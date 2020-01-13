@@ -192,6 +192,7 @@ const variants = _.mapValues({
         dataSelector: 'data-topiclist="input"',
         disableAutocomplete: true,
         isSmall: true,
+        uuid: 'topicNavFilter',
         additionalFunctionality: {
           icon: 'clear',
           buttontype: 'clear',
@@ -231,6 +232,7 @@ const variants = _.mapValues({
         label: 'Filtern nach Amt, Direktion',
         dataSelector: 'data-topiclist="input"',
         isSmall: true,
+        uuid: 'organisationFilterInput',
         additionalFunctionality: {
           icon: 'clear',
           buttontype: 'clear',
