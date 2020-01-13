@@ -2,6 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const buttonDefaultData = require('../../atoms/button/button.data').variants.default.props;
 
 const template = dataHelper.getFileContent('descriptionlist.hbs');
 const data = _.merge({}, defaultData, {
@@ -30,16 +31,25 @@ const data = _.merge({}, defaultData, {
         item: {
           term: 'Label 3',
           description: 'Value 3',
+          copyFunction: true,
         },
       },
     ],
+    copyBtn: _.merge({}, buttonDefaultData, {
+      icon: 'link',
+      isTextVisible: false,
+      isSecondary: true,
+      isSmall: true,
+      additionalAttribute: 'data-descriptionlist="copy"',
+      text: 'Link kopieren',
+    }),
   },
 });
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+      title: 'Standard',
+      desc: 'standard-Implementation',
     },
   },
 }, (variant) => {
