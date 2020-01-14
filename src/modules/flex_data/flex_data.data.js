@@ -88,7 +88,7 @@ const variants = _.mapValues({
           <% _.forEach(data, function(item, index) { %>
           <li class="atm-search_result_item">
             <span class="atm-search_result_item__meta">
-              <span class="atm_search_result_item__type">
+              <span class="atm-search_result_item__type">
                 <%- item.sessionDate %>
               </span>
             </span>
