@@ -117,7 +117,7 @@ $mapRatioSmall: 0.75;
         &.atm-heading {
           margin-left: $sizeRegular;
 
-          @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+          @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
         }
       }
 
@@ -160,6 +160,7 @@ $mapRatioSmall: 0.75;
 
       strong {
         display: block;
+        font-family: $fontFamilyBlack;
         font-size: pxToRem($sizeFontRegular);
         padding-top: 0.75rem;
         padding-bottom: 0.75rem;
@@ -169,6 +170,16 @@ $mapRatioSmall: 0.75;
 
       .atm-text_link {
         margin: pxToRem($sizeBig) 0;
+        margin-top: $sizeLarge;
+        display: inline-block;
+        padding-left: $sizeBig;
+        position: relative;
+
+        .icon--iframe-add {
+          top: calc(50% - 0.75rem);
+          position: absolute;
+          transform: translate(-$sizeBig, 0) scale(0.9167);
+        }
       }
     }
   }
@@ -183,6 +194,12 @@ $mapRatioSmall: 0.75;
     &_head {
       @extend .sidebarhead;
       padding-left: pxToRem($sizeRegular);
+
+      .atm-button {
+        &.hidden {
+          display: none;
+        }
+      }
     }
 
     &_location {
