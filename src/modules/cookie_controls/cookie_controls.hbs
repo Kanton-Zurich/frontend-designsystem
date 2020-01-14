@@ -1,4 +1,4 @@
-<div class="mdl-cookie_controls" data-init="cookieControls" data-expirydays="{{expiryDays}}">
+<div class="mdl-cookie_controls {{#if smallerHeadings}}mod-smaller-headings{{/if}}" data-init="cookieControls" data-expirydays="{{expiryDays}}">
 	<h{{headingLevel}} class="atm-heading mdl-cookie_controls__heading">{{heading}}</h{{headingLevel}}>
 	<h{{increment headingLevel}} class="atm-heading mdl-cookie_controls__subheading">{{subHeading}}</h{{increment headingLevel}}>
   {{#each items}}

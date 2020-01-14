@@ -20,8 +20,21 @@ const data = _.merge({}, defaultData, {
   props: {
     header: headerData,
     modules: {
-      pageHeaderData: defPageHeaderData.variants.steuerBuch.props,
-      metablockData: defMetablockData.variants.withTitle.props,
+      pageHeaderData: _.merge({}, defPageHeaderData.variants.steuerBuch.props,
+        {
+          breadcrumb: {
+            path:
+              [
+                {
+                  title: 'Zurück zur Übersicht',
+                  href: '../flex_data/flex_data.html',
+                },
+              ],
+          },
+        }),
+      metablockData: _.merge({}, defMetablockData.variants.withTitle.props, {
+        smallerHeadings: true,
+      }),
       smallcaptionData: {
         headingLevel: 3,
         text: 'Dokumente',

@@ -73,6 +73,10 @@
     }
   }
 
+  &--standalone {
+    @include sizeCurve(margin-top margin-bottom, big);
+  }
+
   &__container {
     width: 100%;
 

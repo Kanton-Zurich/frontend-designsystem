@@ -45,6 +45,15 @@ const variants = _.mapValues({
     },
     props: {},
   },
+  smallHeadings: {
+    meta: {
+      title: 'Kleine Titel',
+      desc: '',
+    },
+    props: {
+      smallerHeadings: true,
+    },
+  },
   blue: {
     meta: {
       title: 'mit Image Zitat',
