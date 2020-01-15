@@ -215,6 +215,7 @@ class Carousel extends Module {
 
     this.setAccessibilityAttributesForSlides();
     this.setAlternativeText();
+    this.dispatchVerticalResizeEvent();
 
     if (this.data.isFullscreen) {
       this.ui.slides[this.data.active - 1].querySelector('button').focus();

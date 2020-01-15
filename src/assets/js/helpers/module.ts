@@ -59,6 +59,12 @@ class Module {
     return ['DOMContentLoaded', 'ajaxLoaded'];
   }
 
+  static get globalEvents() {
+    return {
+      verticalResize: `eventname.global.vertical_resize`,
+    };
+  }
+
   /**
    * Watches a property on an object, default object is this.data
    *
@@ -366,6 +372,13 @@ class Module {
       }
     }
     return s.join('&').replace(/%20/g, '+');
+  }
+
+  /**
+   * When vertical content size changes due to interaction expand / collapse
+   */
+  dispatchVerticalResizeEvent() {
+    window.dispatchEvent(new CustomEvent(Module.globalEvents.verticalResize));
   }
 }
 

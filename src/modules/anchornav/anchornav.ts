@@ -181,6 +181,7 @@ class Anchornav extends Module {
     // Necessary for jump.js plugin.
     // Is triggered before the debounced callback.
     (<any>WindowEventListener).addEventListener('scroll', this.onPageScroll.bind(this));
+    (<any> window).addEventListener(Module.globalEvents.verticalResize, this.onResize.bind(this));
   }
 
   /**
