@@ -158,6 +158,10 @@ class UserMenu extends Module {
         this.log('Remove stored loginStatus.');
         this.storeLoginStatus();
         this.log('Reload page.');
+        const meta = document.createElement('meta');
+        meta.name = 'referrer';
+        meta.content = 'no-referrer';
+        document.getElementsByTagName('head')[0].appendChild(meta);
         window.location.reload(true);
       });
     }

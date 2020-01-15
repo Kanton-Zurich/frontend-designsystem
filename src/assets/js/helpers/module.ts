@@ -61,7 +61,7 @@ class Module {
 
   static get globalEvents() {
     return {
-      verticalResize: `eventname.global.vertical_resize`,
+      verticalResize: 'eventname.global.vertical_resize',
     };
   }
 
@@ -216,7 +216,7 @@ class Module {
    * @param href
    */
   upsertLinkRel(rel, href) {
-    const relLink = document.querySelector(`link[rel="${rel}"]`);
+    const relLink = document.querySelector(`link[rel="${rel}"]`); // eslint-disable-line
     if (relLink) {
       document.head.removeChild(relLink);
     }
