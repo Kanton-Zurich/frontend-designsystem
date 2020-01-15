@@ -9,6 +9,7 @@ const defReleatedContentData = require('../../modules/related_content/related_co
 const defContactData = require('../../modules/contact/contact.data.js').variants.smallMailOnly.props;
 const defTagGroupData = require('../../modules/tag_group/tag_group.data.js').variants.default.props;
 const defSelectData = require('../../modules/select/select.data.js').variants.history.props;
+const buttonDefaultData = require('../../atoms/button/button.data').variants.secondaryWithoutText.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -33,6 +34,8 @@ const data = _.merge({}, defaultData, {
       }),
       selectData: defSelectData,
       metablockData: {
+        headingLevel: 2,
+        smallerHeadings: true,
         rows: [
           {
             columns: [
@@ -100,6 +103,21 @@ const data = _.merge({}, defaultData, {
             ],
           },
         ],
+        hasCopyFunction: true,
+        copyBtn: _.merge({}, buttonDefaultData, {
+          icon: 'link',
+          additionalAttribute: 'data-metablock="copy"',
+          text: 'Link kopieren',
+        }),
+        copySuccessNotification: {
+          message: 'Der Link wurde in die Zwischenablage kopiert.',
+          icon: '#confirm',
+          isGreen: true,
+          /* button: {
+            label: 'Fertig',
+            additionalAttributes: 'data-metablock="done"',
+          }, */
+        },
       },
       smallcaptionData: {
         headingLevel: 3,

@@ -14,8 +14,11 @@ class Metablock extends Module {
   public options: {
     domSelectors: {
       buttons: string,
+      notification: string,
     },
-    stateClasses: {}
+    stateClasses: {
+      hidden: string,
+    }
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -24,8 +27,10 @@ class Metablock extends Module {
     const defaultOptions = {
       domSelectors: {
         buttons: '[data-metablock="copy"]',
+        notification: '.mdl-metablock__copy-success-notification',
       },
       stateClasses: {
+        hidden: 'mdl-metablock__copy-success-notification--hidden',
       },
     };
 
@@ -59,6 +64,8 @@ class Metablock extends Module {
    */
   private copyTextToClipboard(target: EventTarget):void {
     this.log(target);
+    this.ui.element.querySelector(this.options.domSelectors.notification)
+      .classList.remove(this.options.stateClasses.hidden);
   }
 
   /**
