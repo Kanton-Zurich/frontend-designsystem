@@ -1,15 +1,27 @@
-<div class="mdl-metablock {{#if marginTop}}mdl-metablock--margin-top{{/if}} {{#if marginBottom}}mdl-metablock--margin-bottom{{/if}}">
+<div class="mdl-metablock" data-init="metablock" {{#if marginTop}}mdl-metablock--margin-top{{/if}} {{#if marginBottom}}mdl-metablock--margin-bottom{{/if}}">
   {{#if hasTopTitle}}
-  <h{{headingLevel}} class="atm-heading">{{title}}</h{{headingLevel}}>
+    <h{{headingLevel}} class="atm-heading">{{title}}</h{{headingLevel}}>
   {{/if}}
-{{#each rows}}
-  <div class="mdl-metablock__row">
-  {{#each columns}}
-  <dl class="mdl-descriptionlist">
-    <dt>{{label}}</dt>
-    <dd>{{{text}}}</dd>
-  </dl>
+  {{#each rows}}
+    <div class="mdl-metablock__row">
+      {{#each columns}}
+        <dl class="mdl-descriptionlist">
+          <dt>{{label}}</dt>
+          <dd>
+            {{#if copyFunction}}
+              <span>{{{text}}}</span>
+              {{> "atoms/button/button" ../../copyBtn }}
+            {{else}}
+              {{{text}}}
+            {{/if}}
+          </dd>
+        </dl>
+      {{/each}}
+    </div>
   {{/each}}
-  </div>
-{{/each}}
+  {{#if hasCopyFunction}}
+    <div class="mdl-metablock__copy-success-notification">
+      {{> "atoms/notification/notification" copySuccessNotification }}
+    </div>
+  {{/if}}
 </div>

@@ -95,6 +95,7 @@ const data = _.merge({}, defaultData, {
               {
                 label: 'Link',
                 text: 'http://www.zhlex.zh.ch/Erlass.html?Open&Ordnr=112',
+                copyFunction: true,
               },
             ],
           },

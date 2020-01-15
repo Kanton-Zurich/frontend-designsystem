@@ -2,6 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const buttonDefaultData = require('../../atoms/button/button.data').variants.secondaryWithoutText.props;
 
 const template = dataHelper.getFileContent('metablock.hbs');
 const data = _.merge({}, defaultData, {
@@ -59,7 +60,31 @@ const data = _.merge({}, defaultData, {
           },
         ],
       },
+      {
+        columns: [
+          {
+            label: 'Link',
+            text: 'http://www.zhlex.zh.ch/Erlass.html?Open&Ordnr=112',
+            copyFunction: true,
+          },
+        ],
+      },
     ],
+    hasCopyFunction: true,
+    copyBtn: _.merge({}, buttonDefaultData, {
+      icon: 'link',
+      additionalAttribute: 'data-metablock="copy"',
+      text: 'Link kopieren',
+    }),
+    copySuccessNotification: {
+      message: 'Der Link wurde in die Zwischenablage kopiert.',
+      icon: '#confirm',
+      isGreen: true,
+      /* button: {
+        label: 'Fertig',
+        additionalAttributes: 'data-metablock="done"',
+      }, */
+    },
   },
 });
 const variants = _.mapValues({
