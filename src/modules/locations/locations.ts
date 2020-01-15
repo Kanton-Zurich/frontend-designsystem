@@ -251,10 +251,15 @@ class Locations extends Module {
     }
   }
 
-  private toggleLocationDetails(selectedItemIdx?: number): void {
+  private toggleLocationDetails(selectedItemIdx: number, singleItem: boolean = false): void {
     if (selectedItemIdx >= 0) {
       this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.onDetails);
       this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.opened);
+      if (singleItem) {
+        this.ui.backBtn.classList.add('hidden');
+      } else {
+        this.ui.backBtn.classList.remove('hidden');
+      }
       this.toggleSidebarTabIndices(true);
     } else {
       this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.onDetails);
@@ -325,7 +330,7 @@ class Locations extends Module {
 
     if (autoOpenSingleItem && listItems.length - countHidden === 1) {
       setTimeout(() => {
-        this.toggleLocationDetails(lastIndex);
+        this.toggleLocationDetails(lastIndex, true);
         this.ui.map.dispatchEvent(new CustomEvent(MapView
           .events.fixMarker, { detail: { idx: lastIndex } }));
       }, 0);
