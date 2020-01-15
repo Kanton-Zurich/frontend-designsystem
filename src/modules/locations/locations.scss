@@ -88,6 +88,10 @@ $mapRatioSmall: 0.75;
     margin-left: 0;
     transition: margin-left 400ms ease-in-out;
 
+    .mdl-linklist {
+      margin-bottom: 0;
+    }
+
     &.show-details {
       margin-left: -100%;
 
