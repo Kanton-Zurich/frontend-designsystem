@@ -52,22 +52,26 @@ const data = _.merge({}, defaultData, {
           },
         ],
       },
-      releatedContentData: _.merge({}, defReleatedContentData, { relatedContentHeading: { anchorNavReference: 'related_content' } }),
-      contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
-      tagGroupData: _.assign(_.merge({}, defTagGroupData, { tagGroupdHeading: { anchorNavReference: 'responsibilities' } }),
+      releatedContentData: _.merge({}, defReleatedContentData, {relatedContentHeading: {anchorNavReference: 'related_content'}}),
+      contactData: _.merge({}, defContactData, {anchorNavReference: 'contact'}),
+      tagGroupData: _.assign(_.merge({}, defTagGroupData, {tagGroupdHeading: {anchorNavReference: 'responsibilities'}}),
         {
-          anchorLinks: [ { anchorlink:
-              { anchorlinkText: 'Steueramt',
+          anchorLinks: [{
+            anchorlink:
+              {
+                anchorlinkText: 'Steueramt',
                 anchorlinkAdress: '#',
                 anchorlinkIsActive: false,
                 anchorlinkIsTagAnchor: true,
                 anchorlinkIsInverted: true,
                 anchorlinkIsTopitem: true,
-                anchorlinkIsTopitemSmall: true } },
+                anchorlinkIsTopitemSmall: true
+              }
+          },
           ],
         }),
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
+      back2topData: _.merge({}, defBack2TopData, {preserveLangSwitch: true}),
     },
   },
 });
