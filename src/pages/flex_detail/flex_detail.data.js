@@ -32,7 +32,9 @@ const data = _.merge({}, defaultData, {
               ],
           },
         }),
-      metablockData: defMetablockData.variants.withTitle.props,
+      metablockData: _.merge({}, defMetablockData.variants.withTitle.props, {
+        smallerHeadings: true,
+      }),
       smallcaptionData: {
         headingLevel: 3,
         text: 'Dokumente',
