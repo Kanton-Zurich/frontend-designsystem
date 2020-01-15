@@ -89,6 +89,7 @@ class JurisdictionFinder extends Module {
         this.ui.locations.classList.add('visible');
         this.ui.map.dispatchEvent(new CustomEvent(MapView.events.invalidateSize));
         this.ui.map.dispatchEvent(new CustomEvent(MapView.events.resetBounds));
+        this.dispatchVerticalResizeEvent();
       }, this.options.searchDelay);
     } else {
       this.ui.map.dispatchEvent(new CustomEvent(MapView.events.resetBounds));

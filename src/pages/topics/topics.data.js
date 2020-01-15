@@ -3,6 +3,7 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
 const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants.default.props;
+const accordionDefaultData = require('../../modules/accordion/accordion.data').variants.default.props;
 const defReleatedContentData = require('../../modules/related_content/related_content.data.js').variants.default.props;
 const defContactData = require('../../modules/contact/contact.data.js').variants.fullWidth.props;
 const defTeaserData = require('../../modules/teaser/teaser.data.js');
@@ -158,6 +159,7 @@ const data = _.merge({}, defaultData, {
           }),
         ],
       },
+      accordionData: accordionDefaultData,
       anchorNav: defAnchorNavData,
       serviceListData: {
         serviceListHeading: {
