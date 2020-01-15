@@ -137,7 +137,9 @@ $triggerWidth: pxToRem(86px);
       top: $paddingInput + $borderWidthRem;
       left: pxToRem($sizeRegular) + $borderWidthRem;
       pointer-events: none;
-
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       right: $borderWidth;
       background: $colorWhite;
 

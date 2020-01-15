@@ -100,6 +100,20 @@ class FlexData extends Module {
       }
       return true;
     });
+
+    this.ui.form.querySelectorAll('input').forEach((inp) => {
+      if (inp.type === 'text') {
+        inp.addEventListener('keyup', (event) => {
+          if ((<any>event.target).value.length > 0) {
+            this.ui.clearButton.classList.remove('hidden');
+          }
+        });
+      } else {
+        inp.addEventListener('change', () => {
+          this.ui.clearButton.classList.remove('hidden');
+        });
+      }
+    });
     // -----------------------------------------------
     // Listen to pagination change event
     this.ui.pagination.addEventListener(Pagination.events.change, () => {
@@ -144,6 +158,7 @@ class FlexData extends Module {
    * Clear search entries
    */
   onClearResults() {
+    this.ui.clearButton.classList.add('hidden');
     this.ui.form.reset();
     this.ui.form.querySelectorAll('.mdl-select').forEach((select: HTMLElement) => {
       select.dispatchEvent(new CustomEvent(Select.events.clear));

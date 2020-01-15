@@ -27,6 +27,7 @@ const variants = _.mapValues({
       heading: 'Datenschutz',
       subHeading: 'Einstellungen zum Datenschutz',
       expiryDays: 60,
+      smallerHeadings: true,
       items: [
         {
           cookieName: 'acceptYouTube',

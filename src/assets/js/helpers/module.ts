@@ -238,17 +238,40 @@ class Module {
    *
    * @param url endpoint URL to fetch data from
    */
-  async fetchJsonData(url: string): Promise<any> {
+  async fetchJsonData(url: string, managed: boolean = true): Promise<any> {
     if (!window.fetch) {
       await import('whatwg-fetch');
     }
 
+    if (managed) {
+      return fetch(url)
+        .then(response => response.json())
+        .catch((err) => {
+          this.log('error', err);
+          throw new Error(`Failed to fetch data from "${url}"!`);
+        });
+    }
     return fetch(url)
-      .then(response => response.json())
-      .catch((err) => {
-        this.log('error', err);
-        throw new Error(`Failed to fetch data from "${url}"!`);
-      });
+      .then(response => response);
+  }
+
+  /**
+   * Fetch form data
+   *
+   * @param url endpoint URL to fetch data from
+   */
+  postFormData(form: any): Promise<any> {
+    return new Promise<any>((resolve) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          resolve(xhr);
+        }
+      };
+      xhr.open(form.method, form.action, true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.send(this.serializeForm(form));
+    });
   }
 
   /**
@@ -276,7 +299,6 @@ class Module {
       };
       xhr.open('POST', url, true);
       xhr.setRequestHeader('Content-Type', 'application/json');
-
       xhr.send(JSON.stringify(payload));
     });
   }
@@ -315,6 +337,35 @@ class Module {
     }
 
     return '';
+  }
+
+  /**
+   * Serialize a form
+   * @param form
+   */
+  serializeForm(form) {
+    const s = [];
+    let field;
+    let l;
+    if (typeof form === 'object' && form.nodeName === 'FORM') {
+      const len = form.elements.length;
+      for (let i = 0; i < len; i += 1) {
+        field = form.elements[i];
+        if (field.name && !field.disabled && field.type !== 'file' && field.type !== 'reset' && field.type !== 'submit' && field.type !== 'button') {
+          if (field.type === 'select-multiple') {
+            l = form.elements[i].options.length;
+            for (let j = 0; j < l; j += 1) {
+              if (field.options[j].selected) {
+                s[s.length] = `${encodeURIComponent(field.name)}=${encodeURIComponent(field.options[j].value)}`;
+              }
+            }
+          } else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
+            s[s.length] = `${encodeURIComponent(field.name)}=${encodeURIComponent(field.value)}`;
+          }
+        }
+      }
+    }
+    return s.join('&').replace(/%20/g, '+');
   }
 }
 

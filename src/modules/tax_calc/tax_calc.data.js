@@ -233,6 +233,10 @@ const data = _.merge({}, defaultData, {
       list: 'Bitte wählen Sie eine Option.',
       boolean: 'Bitte auswählen.',
     },
+    errorMessages: {
+      number: 'Ungültige Zahleneingabe',
+      date: 'Ungültige Datumseingabe',
+    },
     serviceFailNotificationData: notificationApiFailProps,
   },
 });

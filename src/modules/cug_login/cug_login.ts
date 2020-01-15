@@ -21,7 +21,7 @@ class CugLogin extends Module {
 
   public ui: {
     element: HTMLElement,
-    configuredLoginEndpoint: HTMLInputElement,
+    configuredAuthorizeEndpoint: HTMLInputElement,
     configuredRedirectUrl: HTMLInputElement,
     logoutBtn: HTMLElement,
     loginBtn: HTMLElement,
@@ -102,6 +102,8 @@ class CugLogin extends Module {
 
   private doLogin(ev: Event) {
     this.log('Login submit triggered.');
+    ev.stopPropagation();
+    ev.preventDefault();
 
     if (!this.loginFormHasErrors()) {
       this.ui.loginBtn.classList.add(this.options.stateClasses.loginBtnLoading);
@@ -110,52 +112,50 @@ class CugLogin extends Module {
       const password = this.ui.passwordInput.value;
       this.log(`Attempt login with ${username} - ${password}`);
 
-      let endpoint = this.ui.configuredLoginEndpoint.value;
+      let endpointAuthorize = this.ui.configuredAuthorizeEndpoint.value;
       if (this.devMode) {
-        if (username === 'admin') {
-          endpoint = this.options.mockAssets.loginOk;
-        } else if (username === 'user') {
-          endpoint = this.options.mockAssets.unauthorizedLogin;
-        } else if (username === 'hansi') {
-          endpoint = this.options.mockAssets.emptyResponse;
-        } else {
-          endpoint = this.options.mockAssets.unauthenticatedLogin;
+        if (username === 'offline') {
+          endpointAuthorize = '404.json';
         }
       }
 
-      this.postJsonData(endpoint, { username, password })
-        .then((resp) => {
-          if (!resp
-            || resp.isAuthenticated === undefined
-            || resp.isAuthorized === undefined) {
-            throw new Error(`Unparseable repsonse to login request! '${resp}'`);
-          }
-          this.ui.loginBtn.classList.remove(this.options.stateClasses.loginBtnLoading);
-
-          return resp as LoginResponse;
-        })
+      this.postFormData(this.ui.loginForm)
         .then((loginResp) => {
           this.log('Response to login request: ', loginResp);
-          if (loginResp.isAuthenticated) {
-            if (loginResp.isAuthorized) {
-              document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
-              this.redirect(this.ui.configuredRedirectUrl.value);
+          if (loginResp.status === 200) { // eslint-disable-line
+            if (this.devMode && ['admin', 'user', 'offline'].indexOf(username) < 0) {
+              this.ui.element.classList.add(this.options.stateClasses.credentialsFailed);
             } else {
-              this.ui.element.classList.add(this.options.stateClasses.unauthorised);
+              this.fetchJsonData(endpointAuthorize, false).then((authorizeResp) => {
+                if (authorizeResp.status === 200) { // eslint-disable-line
+                  if (this.devMode && username !== 'admin') {
+                    this.ui.element.classList.add(this.options.stateClasses.unauthorised);
+                  } else {
+                    document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
+                    this.redirect(this.ui.configuredRedirectUrl.value);
+                  }
+                } else if (authorizeResp.status === 403) { // eslint-disable-line
+                  this.ui.element.classList.add(this.options.stateClasses.unauthorised);
+                } else {
+                  throw new Error(authorizeResp.status);
+                }
+              }).catch((reason) => {
+                this.log('Failed to connect api for user login.', reason);
+                this.ui.element.classList.add(this.options.stateClasses.connectionFail);
+              });
             }
-          } else {
+          } else if (loginResp.status === 403) { // eslint-disable-line
             this.ui.element.classList.add(this.options.stateClasses.credentialsFailed);
+          } else {
+            throw new Error(loginResp.status);
           }
         }).catch((reason) => {
           this.log('Failed to connect api for user login.', reason);
           this.ui.element.classList.add(this.options.stateClasses.connectionFail);
         });
-
       this.ui.loginBtn.classList.add(this.options.stateClasses.loginBtnDisable);
+      this.ui.loginBtn.classList.remove(this.options.stateClasses.loginBtnLoading);
     }
-
-    ev.stopPropagation();
-    ev.preventDefault();
   }
 
   /**

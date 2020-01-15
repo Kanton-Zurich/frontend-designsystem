@@ -35,11 +35,24 @@
 
     .atm-button {
       margin-left: pxToRem($sizeTiny);
+
+      &.hidden {
+        opacity: 0;
+      }
+    }
+  }
+
+  .form__section {
+    .form__group {
+      .form__row:last-child {
+        padding-bottom: 0;
+      }
     }
   }
 
   &__results {
-    @include sizeCurve(margin-bottom margin-top, big);
+    @include sizeCurve(margin-bottom, big);
+    @include sizeCurve(margin-top, large);
 
     position: relative;
 
