@@ -54,6 +54,14 @@ $pageHeaderCurves: (
     tiny: $sizeFontBiggerRegular,
     medium: $sizeFontLarge,
   ),
+  pageHeaderSmallTitle :(
+    tiny: 2px,
+    xsmall: 5px,
+    small: 8px,
+    medium: 6px,
+    large: 7px,
+    xlarge: 13px,
+  ),
   breadcrumpMarginBottom: (
     tiny: $sizeSmallRegular,
     xlarge: $sizeRegular
@@ -95,6 +103,16 @@ $pageHeaderCurves: (
   z-index: $zIndexInner;
   overflow: visible;
   position: relative;
+
+  &:not(.mdl-page-header--inverted) {
+    h1.atm-heading {
+      @include polyFluidSizing(padding-top, map-get($pageHeaderCurves, pageHeaderSmallTitle));
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+      @include mq($from: xlarge) {
+        padding-top: 10px; // stylelint-disable-line
+      }
+    }
+  }
 
   &__logo-container {
     height: 0;
@@ -334,8 +352,6 @@ $pageHeaderCurves: (
       .mdl-image-figure,
       .mdl-video {
         margin-bottom: 0;
-
-        @include sizeCurve(margin-top, large);
       }
 
 

@@ -148,3 +148,53 @@ p.atm-heading__lead {
     }
   }
 }
+
+.mod-smaller-headings {
+  h1,
+  .h1 {
+    &.atm-heading {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+      @include sizeCurve('padding-top', regular);
+      @include sizeCurve('margin-bottom', regular);
+      @include mq($to: small) {
+        line-height: $sizeLineHeightMedium;
+      }
+      @include mq($from: xlarge) {
+        line-height: $sizeLineHeightNarrower;
+      }
+    }
+  }
+
+  h2,
+  .h2 {
+    &.atm-heading {
+      line-height: $sizeLineHeightMedium;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
+      @include sizeCurve('padding-top', small);
+      @include sizeCurve('margin-bottom', mini);
+      @include mq($from: xlarge) {
+        line-height: $sizeLineHeightNarrow;
+      }
+    }
+  }
+
+  h3,
+  h4,
+  h5,
+  h6,
+  .h3,
+  .h4,
+  .h5,
+  .h6 {
+    &.atm-heading {
+      line-height: $sizeLineHeightMedium;
+      margin-bottom: 0;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include mq($to: xsmall) {
+        line-height: $sizeLineHeightBase;
+      }
+    }
+  }
+}
