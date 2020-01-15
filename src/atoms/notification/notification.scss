@@ -27,6 +27,8 @@
     margin-left: pxToRem($sizeRegular);
     color: inherit;
 
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+
     button {
       color: $colorWhite;
       position: relative;
@@ -73,6 +75,10 @@
       width: 2rem;
       height: 2rem;
     }
+
+    .atm-notification__message {
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
+    }
   }
 
   &--dialog {
@@ -82,6 +88,10 @@
     border-radius: 3px;
     padding: pxToRem($sizeLarge) pxToRem($sizeBig) pxToRem($sizeLarge) pxToRem($sizeLarge);
     color: $colorRed;
+
+    .atm-notification__message {
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
+    }
 
     &:before {
       content: '';
