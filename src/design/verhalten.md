@@ -4,4 +4,6 @@ Hier ist etwas text
 
 {{>"atoms/button/button" buttonData }}
 
+Hallo hier ist ein Video
+
 {{>"modules/video/video" videoData }}
