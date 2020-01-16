@@ -4,6 +4,6 @@ Test integration Module & Atome
 
 {{{partial_with_data "atoms/button/button" "default" text="TestTest"}}}
 
-{{{partial_with_data "modules/table/table" "default" }}}$
+{{{partial_with_data "modules/table/table" "default" }}}
 
 This is another test
