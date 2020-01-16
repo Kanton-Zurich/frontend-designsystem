@@ -34,7 +34,7 @@ const data = _.merge({}, defaultData, {
           path:
             [
               {
-                title: 'Zurück',
+                title: 'Zurück zur Übersicht',
                 href: '../news_overview/news_overview.html',
               },
             ],
@@ -55,7 +55,9 @@ const data = _.merge({}, defaultData, {
             },
           ],
         }),
-      downloadListData: defDownloadListData.props,
+      downloadListData: _.merge({}, defDownloadListData.props, {
+        marginBottom: true,
+      }),
       personCardData: defPersonCardData.variants.noImageAlt.props,
       tagGroupData: defTagGroupData.props,
       footerData: defFooterData,

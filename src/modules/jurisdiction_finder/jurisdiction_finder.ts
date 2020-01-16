@@ -83,15 +83,20 @@ class JurisdictionFinder extends Module {
   searchLocations(text) {
     this.ui.subtitle.innerText = this.ui.element.getAttribute('data-heading-pattern').replace('%s', text);
     this.ui.locations.dispatchEvent(new CustomEvent(Locations.events.filterLocations,
-      { detail: { text, forced: true } }));
+      { detail: { text, autoOpenSingleItem: true } }));
+    const caption = <HTMLElement> this.ui.element.querySelector('.mdl-locations__subtitle');
+    caption.style.display = 'none';
+    if (text.length > 0) {
+      caption.style.display = 'block';
+    }
     if (!this.ui.locations.classList.contains('visible')) {
       setTimeout(() => {
         this.ui.locations.classList.add('visible');
         this.ui.map.dispatchEvent(new CustomEvent(MapView.events.invalidateSize));
         this.ui.map.dispatchEvent(new CustomEvent(MapView.events.resetBounds));
+        this.dispatchVerticalResizeEvent();
       }, this.options.searchDelay);
     } else {
-      this.ui.locations.dispatchEvent(new CustomEvent(Locations.events.triggerBackButton));
       this.ui.map.dispatchEvent(new CustomEvent(MapView.events.resetBounds));
     }
   }

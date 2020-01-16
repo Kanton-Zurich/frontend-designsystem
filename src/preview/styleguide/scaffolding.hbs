@@ -1,5 +1,15 @@
 {{#extend "preview/layouts/layout"}}
+  {{#content "header"}}
+    {{> "modules/page_header/page_header" wrappingElements.pageHeaderData}}
+  {{/content}}
   {{#content "content"}}
+    <div class="lyt-wrapper cv-blue" id="footer">
+      <div class="grid-x grid-margin-x">
+        <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+          <h2 class="atm-heading atm-heading--bordered">{{meta.title}}</h2>
+        </div>
+      </div>
+    </div>
     <section class="sg_inner_wrapper">
       <h2 class="sg_h2">Code</h2>
 

@@ -7,6 +7,7 @@ const defContactData = require('../../modules/contact/contact.data.js');
 const defFocusTeaserData = require('../../modules/focus_teaser/focus_teaser.data.js');
 const defVideoData = require('../../modules/video/video.data.js');
 const headerData = require('../../modules/header/header.data').props;
+const loggedInUserMenu = require('../../modules/user_menu/user_menu.data').variants.loggedIn.props;
 
 
 const defRelatedContentProps = _.merge({}, defRelatedContent);
@@ -22,7 +23,10 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('focus.md'),
   },
   props: {
-    header: headerData,
+    header: _.merge({}, headerData, {
+      hasUserMenu: true,
+      userMenu: loggedInUserMenu,
+    }),
     title: 'Schwerpunktseite',
     text: '',
     modules: {

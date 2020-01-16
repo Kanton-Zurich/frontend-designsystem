@@ -23,8 +23,9 @@
 	</span>
 
   <% if (mandatory) { %>
-    <p class="form__fieldset-error-message" data-message="required">{{requiredMessages.number}}</p>
+  <p class="form__fieldset-error-message" data-message="required">{{requiredMessages.number}}</p>
   <% } %>
+  <p class="form__fieldset-error-message" data-message="pattern">{{errorMessages.date}}</p>
 
   <% if (hint) { %>
     <div class="atm-form_input__hint">Bitte im Format TT.MM. eingeben</div>

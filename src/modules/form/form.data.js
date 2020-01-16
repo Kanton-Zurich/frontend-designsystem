@@ -1015,6 +1015,48 @@ const variants = _.mapValues({
       ],
     },
   },
+  checkboxesNationality3: {
+    meta: {
+      title: 'Checkboxes für Stepper mit Logik (CZHDEV-1630)',
+      desc: '',
+    },
+    props: {
+      sectionTitle: 'Staatsangehörigkeit (mit Logik-Weiche)',
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Staatsangehörigkeit',
+                    options: [
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Schweiz',
+                          groupName: 'nationality-100',
+                          id: 4444,
+                          value: 'CH',
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Nicht Schweiz',
+                          groupName: 'nationality-100',
+                          id: 4455,
+                          value: 'none',
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
   placeOfCitizenshipPage: {
     meta: {
       title: 'Einzelnes Feld für Stepper mit Logik',
@@ -1313,15 +1355,18 @@ const variants = _.mapValues({
                       isSingleSelect: true,
                       selectOptions: [
                         { value: '', label: '' },
-                        { value: '2019', label: '2019'},
-                        { value: '2018', label: '2018'},
-                        { value: '2017', label: '2017'},
-                        { value: '2016', label: '2016'},
-                        { value: '2015', label: '2015'},
-                        { value: '2014', label: '2014'},
-                        { value: '2013', label: '2013'},
-                        { value: '2012', label: '2012'},
+                        { value: '2019', label: '2019' },
+                        { value: '2018', label: '2018' },
+                        { value: '2017', label: '2017' },
+                        { value: '2016', label: '2016' },
+                        { value: '2015', label: '2015' },
+                        { value: '2014', label: '2014' },
+                        { value: '2013', label: '2013' },
+                        { value: '2012', label: '2012' },
                       ],
+                      validation: {
+                        isRequired: false,
+                      },
                     }),
                     triggerInputData: {
                       label: 'Jahr',
@@ -1352,6 +1397,9 @@ const variants = _.mapValues({
                       { value: 'ge', label: 'Gemeinschaften' },
                       { value: 'scer', label: 'Schulen & Erziehung' },
                     ],
+                    validation: {
+                      isRequired: false,
+                    },
                   }),
                   triggerInputData: {
                     label: 'Direktion',
@@ -1364,6 +1412,230 @@ const variants = _.mapValues({
           },
         ],
       },
+      ],
+    },
+  },
+  dummyStep1: {
+    meta: {
+      title: 'Dummy Step 1',
+      desc: 'Dummy Schritt für mehrere Formularschritte',
+    },
+    props: {
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.variants.default.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Feld 1',
+                      name: 'dummy_1',
+                      uuid: 'dummy_1',
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  dummyStep2: {
+    meta: {
+      title: 'Dummy Step 2',
+      desc: 'Dummy Schritt für mehrere Formularschritte',
+    },
+    props: {
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.variants.default.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Feld 2',
+                      name: 'dummy_2',
+                      uuid: 'dummy_2',
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  dummyStep3: {
+    meta: {
+      title: 'Dummy Step 3',
+      desc: 'Dummy Schritt für mehrere Formularschritte',
+    },
+    props: {
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.variants.default.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Feld 3',
+                      name: 'dummy_3',
+                      uuid: 'dummy_3',
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  dummyStep4: {
+    meta: {
+      title: 'Dummy Step 4',
+      desc: 'Dummy Schritt für mehrere Formularschritte',
+    },
+    props: {
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.variants.default.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Feld 4',
+                      name: 'dummy_4',
+                      uuid: 'dummy_4',
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  dummyStep5: {
+    meta: {
+      title: 'Dummy Step 5',
+      desc: 'Dummy Schritt für mehrere Formularschritte',
+    },
+    props: {
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.variants.default.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Feld 5',
+                      name: 'dummy_5',
+                      uuid: 'dummy_5',
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  dummyStep6: {
+    meta: {
+      title: 'Dummy Step 5',
+      desc: 'Dummy Schritt für mehrere Formularschritte',
+    },
+    props: {
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.variants.default.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Feld 6',
+                      name: 'dummy_6',
+                      uuid: 'dummy_6',
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  dummyStep7: {
+    meta: {
+      title: 'Dummy Step 5',
+      desc: 'Dummy Schritt für mehrere Formularschritte',
+    },
+    props: {
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.variants.default.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Feld 7',
+                      name: 'dummy_7',
+                      uuid: 'dummy_7',
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  dummyStep7WithRules: {
+    meta: {
+      title: 'Dummy Step 7_A',
+      desc: 'Dummy Schritt für mehrere Formularschritte',
+    },
+    props: {
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.variants.default.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Feld 7_A',
+                      name: 'dummy_7_A',
+                      uuid: 'dummy_7_A',
+                    })),
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
   },
@@ -1387,9 +1659,9 @@ const variants = _.mapValues({
                       isSingleSelect: true,
                       selectOptions: [
                         { value: '', label: '' },
-                        { value: 'sicherheitsdirektion', label: 'Sicherheitsdirektion'},
-                        { value: 'instanz2', label: 'Instanz2'},
-                        { value: 'instanz3', label: 'Instanz3'},
+                        { value: 'sicherheitsdirektion', label: 'Sicherheitsdirektion' },
+                        { value: 'instanz2', label: 'Instanz2' },
+                        { value: 'instanz3', label: 'Instanz3' },
                       ],
                     }),
                     triggerInputData: {
@@ -1438,9 +1710,9 @@ const variants = _.mapValues({
                       isSingleSelect: true,
                       selectOptions: [
                         { value: '', label: '' },
-                        { value: 'admin_strassn', label: 'Administrativmassnahmen im Strassenverkehr'},
-                        { value: 'sozialhilfe', label: 'Sozialhilfe'},
-                        { value: 'auslaender_recht', label: 'Ausländerrecht'},
+                        { value: 'admin_strassn', label: 'Administrativmassnahmen im Strassenverkehr' },
+                        { value: 'sozialhilfe', label: 'Sozialhilfe' },
+                        { value: 'auslaender_recht', label: 'Ausländerrecht' },
                       ],
                     }),
                     triggerInputData: {

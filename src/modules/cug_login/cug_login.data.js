@@ -6,9 +6,7 @@ const defaultData = require('../../data/default.data.js');
 const formInputData = require('../../atoms/form_input/form_input.data');
 
 const mockAssets = {
-  emptyResponse: '/mocks/modules/cug_login/login_empty.json',
-  unauthenticatedLogin: '/mocks/modules/cug_login/login_unauthenticated.json',
-  unauthorizedLogin: '/mocks/modules/cug_login/login_unauthorized.json',
+  authOk: '/mocks/modules/cug_login/auth_ok.json',
   loginOk: '/mocks/modules/cug_login/login_ok.json',
 };
 
@@ -54,14 +52,16 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('cug_login.md'),
   },
   props: {
-    successRedirectUrl: 'http://localhost:9000/pages/focus/focus.html',
-    endpointDoLogin: mockAssets.unauthenticatedLogin,
+    successRedirectUrl: '../../pages/focus/focus.html',
+    endpointDoLogin: mockAssets.loginOk,
+    endpointAuthorize: mockAssets.authOk,
     heading: 'Login ZHservices',
     introText: 'Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichte - den ersten in der Schweiz.',
     userNameInput: _.merge({}, formInputData.variants.floatValidate.props, {
-      uuid: 'kzh-username',
+      uuid: 'j_username',
+      name: 'j_username',
       validation: {
-        pattern: '^([a-zA-Z0-9]){4,15}$',
+        pattern: '^([\.\_\-@\\a-zA-Z0-9]){4,15}$', // eslint-disable-line
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
         errorMsg: 'Der Nutzername besteht aus mindestens 4 und maximal 15 Zeichen eingeben!',
@@ -69,7 +69,8 @@ const data = _.merge({}, defaultData, {
       },
     }),
     passwordInput: _.merge({}, formInputData.variants.showPasswordButton.props, {
-      uuid: 'kzh-password',
+      uuid: 'j_password',
+      name: 'j_password',
       validation: {
         pattern: '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$',
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
@@ -89,7 +90,7 @@ const variants = _.mapValues({
   develop: {
     meta: {
       title: 'Develop Mode',
-      desc: 'Nutzt Mocks. Benutzername: "user" => unauthorized, "hansi" => Connection Failure, "admin" => Login OK , alle anderen unauthenticated.',
+      desc: 'Nutzt Mocks. Benutzername: "user" => unauthorized, "offline" => Connection Failure, "admin" => Login OK , alle anderen unauthenticated.',
     },
     props: {
       devMode: true,

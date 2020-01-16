@@ -13,7 +13,7 @@ $pageHeaderCurves: (
     small: 17px,
     medium: 0,
     large: -10px,
-    xlarge: -15px,
+    xlarge: -17px,
   ),
   ktzhLogoMarginLeft: (
     tiny: -6px,
@@ -53,6 +53,14 @@ $pageHeaderCurves: (
   pageTitleMinimalLineHeight: (
     tiny: $sizeFontBiggerRegular,
     medium: $sizeFontLarge,
+  ),
+  pageHeaderSmallTitle :(
+    tiny: 2px,
+    xsmall: 5px,
+    small: 8px,
+    medium: 6px,
+    large: 7px,
+    xlarge: 13px,
   ),
   breadcrumpMarginBottom: (
     tiny: $sizeSmallRegular,
@@ -95,6 +103,16 @@ $pageHeaderCurves: (
   z-index: $zIndexInner;
   overflow: visible;
   position: relative;
+
+  &:not(.mdl-page-header--inverted) {
+    h1.atm-heading {
+      @include polyFluidSizing(padding-top, map-get($pageHeaderCurves, pageHeaderSmallTitle));
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+      @include mq($from: xlarge) {
+        padding-top: 10px; // stylelint-disable-line
+      }
+    }
+  }
 
   &__logo-container {
     height: 0;
@@ -251,7 +269,15 @@ $pageHeaderCurves: (
     @include sizeCurve(margin-bottom, regular);
   }
 
+  .mdl-video__preview {
+    .atm-button {
+      margin-bottom: 0;
+    }
+  }
+
   .mdl-person_card {
+    margin-bottom: 0;
+
     .atm-button {
       margin-bottom: 0;
     }
@@ -326,8 +352,6 @@ $pageHeaderCurves: (
       .mdl-image-figure,
       .mdl-video {
         margin-bottom: 0;
-
-        @include sizeCurve(margin-top, large);
       }
 
 

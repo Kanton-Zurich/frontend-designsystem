@@ -7,10 +7,10 @@ const defFigcaptionData = require('../../atoms/figcaption/figcaption.data').vari
 
 const defImageFigureData = {
   srcsets: [{
-    image: '/assets/media/image/youtube_placeholder_16_9_600x338_x15.jpg',
+    image: '/assets/media/pngsprite/video_placeholder_600x338.png',
     imageWidth: 600,
   }, {
-    image: '/assets/media/image/youtube_placeholder_16_9_1280x720_x15.jpg',
+    image: '/assets/media/pngsprite/video_placeholder_1280x720.png',
     imageWidth: 1280,
   }],
   isSmall: false,
@@ -32,6 +32,8 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     headingLevel: 2,
+    expiryDays: 60,
+    cookieName: 'acceptYouTube',
     videoId: 'o2UzLWmUoiw',
     caption: _.merge({}, defFigcaptionData, {
       caption: 'Video der Kantonspolizei Zürich; Quelle: KaPo Zürich',
@@ -40,7 +42,7 @@ const data = _.merge({}, defaultData, {
     alt: 'Das ist ein Alternativ-Text',
     placeholderImage: defImageFigureData,
   },
-});
+}); 
 
 data.colorVariations = []; // no color variations available
 

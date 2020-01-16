@@ -188,10 +188,10 @@ class TaxCalc extends Module {
             sectionVals.push(labelEl.childNodes[0].nodeValue);
           } else if (inEl.type === 'checkbox' && inEl.checked) {
             sectionVals.push(inEl.value);
-          } else if (inEl.type === 'number') {
-            const numVal = inEl.valueAsNumber;
+          } else if (inEl.type === 'text') {
+            const numVal = +inEl.value;
             let numValStr = '0';
-            if (!Number.isNaN(numVal)) {
+            if (!isNaN(numVal)) { // eslint-disable-line
               numValStr = this.currencyNumberValueToString(numVal);
             }
             const valStr = `${inEl.placeholder}: ${numValStr}`;
@@ -202,6 +202,7 @@ class TaxCalc extends Module {
         if (subHead) {
           subHead.innerText = sectionVals.join(', ');
         }
+
         formSectionItem.classList.add(this.options.stateClasses.formItem.enabled);
         toggleBtn.setAttribute('aria-disabled', 'false');
         toggleBtn.removeAttribute('tabindex');
@@ -302,6 +303,7 @@ class TaxCalc extends Module {
       this.updateFlyingFocus();
     }, this.options.transitionTimeout);
     this.ui.apiErrorNotification.style.maxHeight = '0';
+    this.ui.apiErrorNotification.style.margin = '0';
   }
 
   private async onReinvokeTriggerChange() {
@@ -666,6 +668,7 @@ class TaxCalc extends Module {
       .innerHTML = exceptionStr;
     const height = this.getContentHeight(this.ui.apiErrorNotification);
     this.ui.apiErrorNotification.style.maxHeight = `${height}px`;
+    this.ui.apiErrorNotification.style.removeProperty('margin');
   }
 
   private async doSubmitForm() {

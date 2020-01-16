@@ -1,10 +1,11 @@
-<div class="mdl-cookie_controls" data-init="cookieControls" data-expirydays="60">
-	<h2 class="atm-heading">Datenschutz</h2>
-	<h3 class="atm-heading">Einstellungen zum Datenschutz</h3>
+<div class="mdl-cookie_controls {{#if smallerHeadings}}mod-smaller-headings{{/if}}" data-init="cookieControls" data-expirydays="{{expiryDays}}">
+	<h{{headingLevel}} class="atm-heading mdl-cookie_controls__heading">{{heading}}</h{{headingLevel}}>
+	<h{{increment headingLevel}} class="atm-heading mdl-cookie_controls__subheading">{{subHeading}}</h{{increment headingLevel}}>
+  {{#each items}}
   <div class="atm-checkbox">
-    <input type="checkbox" id="cookieCheckboxYoutube" name="checkbox" />
-    <label for="cookieCheckboxYoutube">
-      Videos von Youtube akzeptieren
+    <input type="checkbox" id="{{cookieName}}" {{#if defaultValue}}checked{{/if}}/>
+    <label for="{{cookieName}}">
+      {{label}}
       <span>
 			<svg class="icon icon--iframe-arrow">
 				<use xlink:href="#check"></use>
@@ -12,5 +13,8 @@
 		</span>
     </label>
   </div>
-  <p class="atm-paragraph">Wenn Sie akzeptieren, kann YouTube auf Seiten mit Videos Ihr Surf-Verhalten mitverfolgen.</p>
+  {{#if description}}
+    <p class="atm-paragraph">{{description}}</p>
+  {{/if}}
+{{/each}}
 </div>

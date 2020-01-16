@@ -65,6 +65,7 @@ class MapView extends Module {
   private map: L.Map;
   private markers: L.Marker[];
   private userPosMarker: L.Marker;
+  private clusterGroup: any;
 
   private markerSelected: boolean;
 
@@ -174,6 +175,11 @@ class MapView extends Module {
     this.markers.forEach((m, i) => {
       if (i === markerIdx) {
         m.setIcon(markerIconSelected);
+        this.markers.forEach((mm) => {
+          mm.setZIndexOffset(0);
+        });
+        const mc = m;
+        setTimeout(() => {mc.setZIndexOffset(1);}, 600); // eslint-disable-line
       } else if (m.getIcon().options.className !== 'mdl-map_view__marker_hidden') {
         m.setIcon(markerIconDefault);
       }
@@ -181,10 +187,12 @@ class MapView extends Module {
 
     this.markerSelected = markerIdx >= 0 && markerIdx < this.markers.length;
 
-
     if (this.markers[markerIdx]) {
       setTimeout(() => {
-        this.map.setView(this.markers[markerIdx].getLatLng(), SELECT_ZOOM);
+        this.clusterGroup.unspiderfy();
+        setTimeout(() => {
+          this.map.setView(this.markers[markerIdx].getLatLng(), SELECT_ZOOM);
+        }, 100);
       }, 0);
     } else {
       setTimeout(() => {
@@ -269,13 +277,14 @@ class MapView extends Module {
 
 
     if (this.markers.length > 0) {
-      const clusterGroup = L.markerClusterGroup({
+      this.clusterGroup = L.markerClusterGroup({
 
         iconCreateFunction: cluster => L.divIcon({
           iconSize: [0, 0],
           html: `<div class="mdl-map_view__clustericon">${cluster.getChildCount()}</div>`,
         }),
         showCoverageOnHover: false,
+        disableClusteringAtZoom: SELECT_ZOOM,
       });
 
       this.markers.forEach((m, idx) => {
@@ -297,9 +306,9 @@ class MapView extends Module {
           this.ui.mapContainer.dispatchEvent(MapView.markerMouseClickedEvent(idx));
           L.DomEvent.stopPropagation(ev);
         });
-        clusterGroup.addLayer(m);
+        this.clusterGroup.addLayer(m);
       });
-      this.map.addLayer(clusterGroup);
+      this.map.addLayer(this.clusterGroup);
 
       if (this.markers.length === 1) {
         this.ui.element.classList.add(this.options.stateClasses.singleItem);

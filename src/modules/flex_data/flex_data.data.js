@@ -77,7 +77,7 @@ const variants = _.mapValues({
             items: [
               _.merge({}, contextMenuItemDef, { text: 'Relevanz', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="relevance" data-sort-direction="descending"', isButton: true }),
               _.merge({}, contextMenuItemDef, { text: 'Sitzungsdatum aufsteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="sessionDate" data-sort-direction="ascending"', isButton: true }),
-              _.merge({}, contextMenuItemDef, { text: 'Sitzungsdaatum absteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="sessionDate" data-sort-direction="desc"', isButton: true }),
+              _.merge({}, contextMenuItemDef, { text: 'Sitzungsdaatum absteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="sessionDate" data-sort-direction="descending"', isButton: true }),
               _.merge({}, contextMenuItemDef, { text: 'Publikationsdatum aufsteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="publicationDate" data-sort-direction="ascending"', isButton: true }),
               _.merge({}, contextMenuItemDef, { text: 'Publikationsdatum absteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="publicationDate" data-sort-direction="descending"', isButton: true }),
             ],
@@ -88,7 +88,7 @@ const variants = _.mapValues({
           <% _.forEach(data, function(item, index) { %>
           <li class="atm-search_result_item">
             <span class="atm-search_result_item__meta">
-              <span class="atm_search_result_item__type">
+              <span class="atm-search_result_item__type">
                 <%- item.sessionDate %>
               </span>
             </span>

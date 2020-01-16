@@ -1,4 +1,6 @@
 .mdl-jurisdiction_finder {
+  @include sizeCurve(margin-top, big);
+
   &__form {
     display: flex;
     padding-bottom: $sizeLarge;

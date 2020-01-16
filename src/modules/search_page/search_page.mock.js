@@ -29,6 +29,7 @@ const data = {
   resultsData: {
     numberOfResultPages: 123,
     numberOfResults: 1000,
+    queryId: 'awef123',
     resultsByType: [{
       type: 'contentpage',
       numberOfResultPages: 9,

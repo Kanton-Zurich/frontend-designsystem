@@ -53,7 +53,6 @@ class UserMenu extends Module {
       if (loginStatusResponse.isLoggedIn) {
         this.log(`Loggedin User: "${loginStatusResponse.name}"`);
         this.ui.element.classList.add(this.options.stateClasses.initialised);
-
         this.ui.userNameField.innerText = loginStatusResponse.name;
         this.ui.userShortField.innerText = this.getInitials(loginStatusResponse.name);
       } else {
@@ -73,7 +72,6 @@ class UserMenu extends Module {
         store.removeItem(keys.name);
         store.removeItem(keys.logoutUrl);
       }
-
       store.setItem(keys.isLogedIn, `${status ? status.isLoggedIn : false}`);
       store.setItem(keys.timestamp, new Date().getTime().toString(10));
     }
@@ -92,7 +90,6 @@ class UserMenu extends Module {
       if (new Date().getTime() - storageTs < maxAgeMs && !forceApiRefetch) {
         this.log('Getting stored loginstatus.');
         const loggedIn = store.getItem(keys.isLogedIn) === 'true';
-
         const status: LoginStatusResponse = {
           isLoggedIn: loggedIn,
         };
@@ -152,10 +149,22 @@ class UserMenu extends Module {
 
   private doLogoutUser() {
     this.log('Logout triggered!');
-    this.log('Remove stored loginStatus.');
-    this.storeLoginStatus();
-    this.log('Reload page.');
-    window.location.reload(true);
+    const store = window.sessionStorage;
+    const { keys } = this.options.statusStorage;
+    const logoutUrl = store.getItem(keys.logoutUrl);
+    if (logoutUrl) {
+      this.log('Call logout endpoint');
+      this.fetchJsonData(logoutUrl, false).then(() => {
+        this.log('Remove stored loginStatus.');
+        this.storeLoginStatus();
+        this.log('Reload page.');
+        const meta = document.createElement('meta');
+        meta.name = 'referrer';
+        meta.content = 'no-referrer';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        window.location.reload(true);
+      });
+    }
   }
 
   /**

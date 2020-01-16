@@ -4,13 +4,17 @@
   @include sizeCurve(margin-bottom, big);
   @include sizeCurve(margin-top, medium);
 
+  .mdl-accordion {
+    padding-bottom: 0;
+  }
+
   &__form-block {
     .mdl-tax_calc__form-block_item {
       max-height: 0;
       transition: max-height 800ms ease;
 
       &--enabled {
-        max-height: 500px;
+        max-height: 650px;
       }
 
       .form__section {
@@ -35,6 +39,7 @@
       }
 
       &.mdl-accordion {
+
         &__item {
           overflow: hidden;
 
@@ -64,17 +69,10 @@
             opacity: 0;
           }
         }
-
-        &:after {
-          height: 3px;
-          background: $colorBlack;
-          transition-delay: 400ms;
-        }
       }
     }
 
     #{$root}__next-btn_container {
-      @include sizeCurve(margin-top, big, $isNegative: true);
       @include sizeCurve(padding-bottom, big);
 
       .mdl-tax_calc__next-btn {
@@ -108,23 +106,39 @@
           }
         }
       }
+
+      &:before {
+        height: 3px;
+        background: $colorBlack;
+        transition-delay: 400ms;
+        display: block;
+        content: ' ';
+        left: 0;
+        right: 0;
+        position: absolute;
+        margin-top: -3px;
+        transform: scaleY(1);
+      }
     }
 
     #{$root}__error {
       @include transition(max-height, $time: 500);
-      @include sizeCurve(margin-top, medium, $isNegative: true);
-      @include sizeCurve(margin-bottom, medium);
+      @include sizeCurve(margin-top, biggerRegular);
+      @include sizeCurve(margin-bottom, biggerRegular);
 
       max-height: 0;
       overflow: hidden;
     }
   }
 
-  &__result-block {
-    @include transition(max-height);
+  .mdl-instructions ol.mdl-instructions__list .mdl-instructions__item {
+    &#{$root}__result-block {
+      @include transition(max-height);
 
-    max-height: 0;
-    overflow: hidden;
+      max-height: 0;
+      margin-top: 0;
+      opacity: 0;
+    }
   }
 
   &__toformbtn {
@@ -132,8 +146,12 @@
   }
 
   &--result {
-    #{$root}__result-block {
-      max-height: 2000px;
+    .mdl-instructions ol.mdl-instructions__list .mdl-instructions__item {
+      &#{$root}__result-block {
+        max-height: 2000px;
+        margin-top: pxToRem($sizeBiggerBig);
+        opacity: 1;
+      }
     }
 
     .mdl-table {

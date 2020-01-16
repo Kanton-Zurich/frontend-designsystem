@@ -8,7 +8,7 @@ dataHelper.getFileContent('modalexample.mock.hbs');
 const data = {
   canonical: 'asdasdasd',
   modalData: {
-    fullWidthApp: handlebars.compile(dataHelper.getFileContent('../application/application.hbs'))(defApplicationData.variants.zhApp.props),
+    fullWidthApp: handlebars.compile(dataHelper.getFileContent('../application/application.hbs'))(defApplicationData.variants.fullWidth.props),
     pageHeader: {
       pageTitle: 'Applikation',
       inverted: true,

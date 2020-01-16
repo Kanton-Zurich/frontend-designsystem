@@ -1,9 +1,9 @@
 .mdl-cookie_controls {
-  h2 {
+  &__heading {
     margin-bottom: $sizeFontSmallBig;
   }
 
-  h3 {
+  &__subheading {
     padding-top: 0;
   }
 }

@@ -23,6 +23,7 @@
   display: inline-block;
   width: 100%;
 
+  @include sizeCurve(margin-bottom, large);
   @include mq($from: small) {
     display: flex;
   }
@@ -70,6 +71,10 @@
       @include polyFluidSizing(min-width, map-get($personCardCurves,imageContainerWidthPromo));
       @include polyFluidSizing(min-height, map-get($personCardCurves,imageContainerWidthPromo));
     }
+  }
+
+  &--standalone {
+    @include sizeCurve(margin-top margin-bottom, big);
   }
 
   &__container {
