@@ -10,7 +10,7 @@ Die Verwendung von Farben befolgt folgende Regeln:
 - Für Inhalte zu Organisationseinheiten wird die Farbe blau verwendet.
 - Bestimmte Inhalte wie beispielsweise Newsartikel haben keine Akzentfarbe.
 
-{{> "modules/image_figure/image_figure" colorImage }}
+{{> "modules/image_figure/image_figure" colorsImage }}
 
 <h3 class='atm-heading'>Farbe mit Funktion</h3>
 
