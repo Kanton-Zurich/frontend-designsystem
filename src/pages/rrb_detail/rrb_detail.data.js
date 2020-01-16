@@ -18,7 +18,19 @@ const data = _.merge({}, defaultData, {
   props: {
     header: headerData,
     modules: {
-      pageHeaderData: defPageHeaderData.variants.rrbDetail.props,
+      pageHeaderData: _.merge({}, defPageHeaderData.variants.rrbDetail.props,
+        {
+          breadcrumb: {
+            path:
+              [
+                {
+                  title: 'Zurück zur Übersicht',
+                  href: '../rrb_data/rrb_data.html',
+                },
+              ],
+          },
+        }
+      ),
       metablockData: {
         title: 'Details',
         hasTopTitle: true,

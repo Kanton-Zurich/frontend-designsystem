@@ -112,6 +112,18 @@ $mapViewSelectedMarkerHeight: 59px;
     right: pxToRem($sizeTiny);
     z-index: 10000;
 
+    .atm-button {
+      @include mq($from: tiny, $to: small) {
+        max-height: $sizeBig;
+        min-width: $sizeBig;
+
+        svg {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+    }
+
     button + button {
       margin-top: pxToRem($sizeMini / 2);
     }

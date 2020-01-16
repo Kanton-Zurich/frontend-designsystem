@@ -176,6 +176,7 @@ class Tabs extends Module {
     if (setFocus) {
       tab.focus();
     }
+    this.dispatchVerticalResizeEvent();
   }
 
   // Deactivate all tabs and tab panels

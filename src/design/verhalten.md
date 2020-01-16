@@ -7,3 +7,9 @@ Hier ist etwas text
 Hallo hier ist ein Video
 
 {{>"modules/video/video" videoData }}
+
+Test integration Module & Atome
+
+{{{partial_with_data "atoms/button/button" "default" text="TestTest"}}}
+
+{{{partial_with_data "modules/table/table" "default" }}}

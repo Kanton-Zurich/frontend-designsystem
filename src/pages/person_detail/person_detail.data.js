@@ -126,6 +126,7 @@ const data = _.merge({}, defaultData, {
       imageFigureData: defImageFigureData,
       videoData: defVideoData.variants.default.props,
       accordionData: _.merge({}, defAccordionData.variants.default.props, {
+        smallerHeadings: true,
         anchorReference: 'speech',
         accordionHeading: {
           title: 'Standpunkte & Reden',
@@ -217,7 +218,9 @@ const data = _.merge({}, defaultData, {
             },
           ],
         }),
-      personCardData: defPersonCardData.variants.default.props,
+      personCardData: _.merge({}, defPersonCardData.variants.default.props, {
+        isStandalone: true,
+      }),
       contactData: _.merge({}, defcontactData.variants.fullWidthLessData.props, { anchorNavReference: 'contact' }),
       socialLinksData: _.merge({}, _.omit(defSocialLinksData.variants.default.props, ['linkedIn'], ['youtube']), { anchorReference: 'socialmedia' }),
       footerData: defFooterData,
