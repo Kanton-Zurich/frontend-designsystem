@@ -49,9 +49,7 @@ class Metablock extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.log('init');
     this.eventDelegate.on('click', this.options.domSelectors.buttons, (event) => {
-      this.log(event);
       this.copyTextToClipboard(event.target);
     });
   }
@@ -59,11 +57,28 @@ class Metablock extends Module {
   /**
    * Copy text to clipboard
    *
-   * @param {EventTarget}
+   * @param {HTMLElement}
    * @return {void}
    */
-  private copyTextToClipboard(target: EventTarget):void {
-    this.log(target);
+  private copyTextToClipboard(target: HTMLElement):void {
+    const el = document.createElement('textarea');
+
+    el.value = target.closest('dd').querySelector('span').innerText;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    const selected = document.getSelection().rangeCount > 0
+      ? document.getSelection().getRangeAt(0)
+      : false;
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    if (selected) {
+      document.getSelection().removeAllRanges();
+      document.getSelection().addRange(selected);
+    }
+
     this.ui.element.querySelector(this.options.domSelectors.notification)
       .classList.remove(this.options.stateClasses.hidden);
   }

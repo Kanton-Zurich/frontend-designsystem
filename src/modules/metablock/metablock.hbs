@@ -1,4 +1,4 @@
-<div class="mdl-metablock {{#if marginTop}}mdl-metablock--margin-top{{/if}} {{#if marginBottom}}mdl-metablock--margin-bottom{{/if}} {{#if smallerHeadings}}mod-smaller-headings{{/if}}"  data-init="metablock">
+<div class="mdl-metablock {{#if marginTop}}mdl-metablock--margin-top{{/if}} {{#if marginBottom}}mdl-metablock--margin-bottom{{/if}} {{#if smallerHeadings}}mod-smaller-headings{{/if}}" data-init="metablock">
   {{#if hasTopTitle}}
     <h{{headingLevel}} class="atm-heading">{{title}}</h{{headingLevel}}>
   {{/if}}
@@ -20,7 +20,7 @@
     </div>
   {{/each}}
   {{#if hasCopyFunction}}
-    <div class="mdl-metablock__copy-success-notification hidden">
+    <div class="mdl-metablock__copy-success-notification mdl-metablock__copy-success-notification--hidden">
       {{> "atoms/notification/notification" copySuccessNotification }}
     </div>
   {{/if}}
