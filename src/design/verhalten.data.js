@@ -2,6 +2,7 @@ const _ = require('lodash');
 const defaultData = require('../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
+const videoData = require('../modules/video/video.data').variants.default.props;
 
 const markdownHbs = dataHelper.getDocumentation('verhalten.md').replace(/\{\{(.*?)\}\}/g, (m) => {
   return m.replace(/&gt;/g, '>').replace(/&quot;/g, '"');
@@ -10,7 +11,11 @@ const markdownData = {
   /* ---------------------------*/
   /* Markdown handlebar objects */
   /* ---------------------------*/
-
+  buttonData : {
+    text: 'Hallo',
+    isTextVisible: true,
+  },
+  videoData,
 };
 
 const data = _.merge({}, defaultData, {
