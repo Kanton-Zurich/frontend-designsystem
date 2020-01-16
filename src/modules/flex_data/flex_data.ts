@@ -217,7 +217,7 @@ class FlexData extends Module {
         this.populateResultList(jsonData);
         this.updateFlyingFocus(0);
         if (scroll) {
-          this.scrollBottom();
+          this.scrollTop();
         }
         this.dataIdle = true;
       });
