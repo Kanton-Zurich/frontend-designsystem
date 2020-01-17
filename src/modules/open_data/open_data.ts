@@ -97,12 +97,18 @@ class OpenData extends Module {
       await import('whatwg-fetch');
     }
 
-    this.options.apiCalls.forEach((resourceURL) => {
+    this.data.resources = new Array(this.options.apiCalls.length);
+    let reducedIndex = 0;
+
+    this.options.apiCalls.forEach((resourceURL, index) => {
       promises.push(fetch(resourceURL, {})
         .then(response => response.json())
         .then((response) => {
           if (response && response.success) {
-            this.data.resources.push(response.result);
+            this.data.resources[index - reducedIndex] = response.result;
+          } else {
+            this.data.resources.splice(index, 1);
+            reducedIndex += 1;
           }
         }));
     });
