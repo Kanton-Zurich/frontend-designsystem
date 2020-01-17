@@ -72,9 +72,7 @@ class OpenData extends Module {
   }
 
   renderResults() {
-    const filtered = this.data.resources.filter(function (el) {
-      return el !== null;
-    });
+    const filtered = this.data.resources.filter(el => el !== null);
 
     const resources = filtered.map(resource => ({
       title: resource.title[window[namespace].lang],
