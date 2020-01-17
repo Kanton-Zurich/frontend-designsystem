@@ -51,8 +51,6 @@ class OpenData extends Module {
 
   async init() {
     await this.loadData();
-
-
     this.renderResults();
   }
 
@@ -68,25 +66,26 @@ class OpenData extends Module {
   initEventListeners() {
     this.eventDelegate.on('click', this.options.domSelectors.licenseLink, (event, delegate) => {
       const url = delegate.dataset.href;
-
       window.open(url, '_blank');
-
       return false;
     });
   }
 
   renderResults() {
-    const resources = this.data.resources.map(resource => ({
+    const filtered = this.data.resources.filter(function (el) {
+      return el !== null;
+    });
+
+    const resources = filtered.map(resource => ({
       title: resource.title[window[namespace].lang],
       url: resource.download_url,
       label: this.sanitizeLabel(resource.modified, resource.byte_size, resource.format),
       license: resource.rights,
     }));
+
     const compiled = template(this.ui.template.innerHTML);
     const generated = compiled({ resources });
-
     this.ui.wrapper.innerHTML = generated;
-
     this.initEventListeners();
   }
 
@@ -98,17 +97,12 @@ class OpenData extends Module {
     }
 
     this.data.resources = new Array(this.options.apiCalls.length);
-    let reducedIndex = 0;
-
     this.options.apiCalls.forEach((resourceURL, index) => {
       promises.push(fetch(resourceURL, {})
         .then(response => response.json())
         .then((response) => {
           if (response && response.success) {
-            this.data.resources[index - reducedIndex] = response.result;
-          } else {
-            this.data.resources.splice(index, 1);
-            reducedIndex += 1;
+            this.data.resources[index] = response.result;
           }
         }));
     });
