@@ -49,7 +49,7 @@
     {{#if contactAddress}}
       <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-6 xlarge-4{{else}}{{/if}}">
         <div class="mdl-contact__cell-icon">
-          <h3 class="visuallyhidden">{{{contactAriaTitle_location}}}</h3>
+          <h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}} class="visuallyhidden">{{{contactAriaTitle_location}}}</h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}}>
           <svg class="icon mdl-contact__icon-location" aria-hidden="true">
             <use xlink:href="#location"></use>
           </svg>
