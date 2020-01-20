@@ -299,16 +299,18 @@ class Locations extends Module {
     let countHidden = 0;
     let lastIndex = -1;
     listItems.forEach((listNode, index) => {
-      const parentClasses = listNode.parentElement.classList;
+      const { parentElement } = listNode;
       const searchText = listNode.hasAttribute('data-filter-attr')
         ? listNode.getAttribute('data-filter-attr') : listNode.innerText;
       if (pattern.test(searchText)) {
         this.ui.map.dispatchEvent(MapView.extMarkerShowHide(index, true));
-        parentClasses.remove('hide');
+        parentElement.classList.remove('hide');
+        parentElement.querySelector('a').tabIndex = 0;
         lastIndex = index;
       } else {
         this.ui.map.dispatchEvent(MapView.extMarkerShowHide(index, false));
-        parentClasses.add('hide');
+        parentElement.classList.add('hide');
+        parentElement.querySelector('a').tabIndex = -1;
         countHidden += 1;
       }
     });

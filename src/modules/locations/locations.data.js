@@ -125,6 +125,7 @@ const data = _.merge({}, defaultData, {
       label: 'Standorte filter',
       dataSelector: 'data-locations="input"',
       type: 'text',
+      filterListId: 'standorteFList',
       additionalFunctionality: {
         icon: 'clear',
         buttontype: 'clear',
@@ -132,6 +133,8 @@ const data = _.merge({}, defaultData, {
       },
     }),
     locationsList: {
+      ariaLive: 'polite',
+      filterListId: 'standorteFList',
       hasIndex: true,
       hasTitle: false,
       links: [],

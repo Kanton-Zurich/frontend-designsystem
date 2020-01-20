@@ -1,8 +1,8 @@
 {{#if devMode}}
   <div style="height: 500px"> <!--TODO: Do not copy outer div, only for dev and LSG -->
 {{/if}}
-<div class="mdl-map_view" data-init="mapView" >
-    <ul hidden>
+<div class="mdl-map_view" data-init="mapView" aria-label="Nicht zugängliche Karte">
+    <ul hidden aria-hidden="true">
       {{#each mapMarker }}
         <li data-map-view="markerProps">
             <span data-map-view="marker_lat">{{this.lat}}</span>
@@ -10,8 +10,8 @@
         </li>
       {{/each}}
     </ul>
-    <div id="{{mapId}}" class="mdl-map_view__container" data-map-view="map"></div>
-    <div class="mdl-map_view__controls">
+    <div id="{{mapId}}" class="mdl-map_view__container" data-map-view="map" aria-hidden="true"></div>
+    <div class="mdl-map_view__controls" aria-hidden="true">
       {{#if withUserLocate}}
         {{>"atoms/button/button" centerBtn }}
       {{/if}}
@@ -19,9 +19,9 @@
       {{>"atoms/button/button" zoomOutBtn }}
     </div>
     {{#if directions.enabled}}
-        <input type="hidden" data-map-view="urlTemplateDirections"
+        <input type="hidden" data-map-view="urlTemplateDirections" aria-hidden="true"
                value="{{directions.urlTemplate}}" />
-        <div class="mdl-map_view__directions-link">
+        <div class="mdl-map_view__directions-link" aria-hidden="true">
           {{>"atoms/button/button" directionsBtn }}
         </div>
     {{/if}}
