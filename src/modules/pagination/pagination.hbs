@@ -3,11 +3,11 @@
     <div class="lyt-wrapper">
   {{/if}}
   <div class="mdl-pagination__input atm-form_input atm-form_input--small">
-    <input class="atm-form_input__input" value="1" type="number">
+    <input id="pagination_input_field" class="atm-form_input__input" value="1" type="number" aria-describedby="paginationCountDescr">
   </div>
-  <div class="mdl-pagination__page-count">
-    von <span>{{pageCount}}</span>
-  </div>
+  <label class="mdl-pagination__page-count" id="paginationCountDescr" aria-live="polite">
+    <em class="visuallyhidden"></em> von <span>{{pageCount}}</span>
+  </label>
   <a class="mdl-pagination__button-prev atm-button atm-button--icon-only atm-button--secondary" href="">
     <span class="atm-button__text visuallyhidden">
       Vorherige

@@ -197,8 +197,8 @@ class FlexData extends Module {
         this.scrollTop();
       }
       this.fetchData((jsonData) => {
-        this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
-        this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
+        this.ui.pagination.dispatchEvent(new CustomEvent(Pagination
+          .events.setPageCount, { detail: jsonData.numberOfResultPages }));
         const canonicalUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
         let prevUrl = '';
         if (parseInt(this.ui.paginationInput.value, 10) > 1) {
@@ -343,7 +343,10 @@ class FlexData extends Module {
     Object.keys(params).forEach((key) => {
       switch (key) {
         case 'page':
-          [this.ui.paginationInput.value] = params[key];
+          setTimeout(() => {
+            this.ui.pagination
+              .dispatchEvent(new CustomEvent(Pagination.events.setPage, { detail: params[key] }));
+          }, 0);
           break;
         case 'order':
           if (this.ui.resultsTable) {
