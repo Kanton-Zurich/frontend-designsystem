@@ -321,7 +321,14 @@ class FlexData extends Module {
     const append = (key, value) => {
       if (value.length > 0) {
         resultUrl += resultUrl === this.dataUrl ? '?' : '&';
-        resultUrl += `${key}=${encodeURIComponent(value)}`;
+        if (Array.isArray(value)) {
+          value.forEach((item, index) => {
+            resultUrl += index > 0 ? '&' : '';
+            resultUrl += `${key}=${encodeURIComponent(item)}`;
+          });
+        } else {
+          resultUrl += `${key}=${encodeURIComponent(value)}`;
+        }
       }
     };
     const formData = window[namespace].form.formToJSON(this.ui.form.elements);
