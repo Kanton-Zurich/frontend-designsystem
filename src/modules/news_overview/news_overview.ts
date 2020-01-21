@@ -478,7 +478,7 @@ class NewsOverview extends Module {
         this.populateNewsTeasers(jsonData);
         this.updateFlyingFocus(0);
         if (scroll) {
-          this.scrollBottom();
+          this.scrollTop();
         }
         this.dataIdle = true;
       });

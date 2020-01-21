@@ -1185,6 +1185,26 @@ const variants = _.mapValues({
             }],
             unwrapped: true,
           },
+          {
+            fields: [
+              {
+                cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                  selectData.variants.multiSelect.props,
+                  {
+                    listData: {
+                      validation: {
+                        isRequired: false,
+                      },
+                    },
+                    triggerInputData: {
+                      validation: {
+                        isRequired: false,
+                      },
+                    },
+                  })),
+              },
+            ],
+          },
         ],
       },
       ],

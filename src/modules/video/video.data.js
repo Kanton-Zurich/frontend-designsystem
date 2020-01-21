@@ -42,7 +42,7 @@ const data = _.merge({}, defaultData, {
     alt: 'Das ist ein Alternativ-Text',
     placeholderImage: defImageFigureData,
   },
-});
+}); 
 
 data.colorVariations = []; // no color variations available
 
