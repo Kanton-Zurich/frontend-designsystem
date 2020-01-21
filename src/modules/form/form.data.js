@@ -171,6 +171,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     sectionTitle: 'Persönliche Angaben',
+    headingLevel: 3,
   },
 });
 const variants = _.mapValues({
@@ -1140,6 +1141,7 @@ const variants = _.mapValues({
     },
     props: {
       sectionTitle: 'Suche im Zürcher Steuerbuch',
+      headingLevel: 2,
       groups: [{
         rows: [
           {
@@ -1317,7 +1319,8 @@ const variants = _.mapValues({
       desc: 'Flex Data Regierungsratsbeschlüsse',
     },
     props: {
-      sectionTitle: null,
+      sectionTitle: 'Suche',
+      headingLevel: 2,
       groups: [{
         rows: [
           {
@@ -1645,7 +1648,8 @@ const variants = _.mapValues({
       desc: 'Flex Data Entscheide',
     },
     props: {
-      sectionTitle: null,
+      sectionTitle: 'Suche',
+      headingLevel: 2,
       groups: [{
         rows: [
           {
