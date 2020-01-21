@@ -251,6 +251,11 @@ class Autosuggest {
       aTag.setAttribute('tabindex', '0');
 
       aTag.addEventListener('click', this.dispatchTerm.bind(this, aTag));
+      aTag.addEventListener('keypress', (keyEvent) => {
+        if (keyEvent.key === 'Enter' || keyEvent.key === 'Space') {
+          this.dispatchTerm(aTag);
+        }
+      });
     }
 
     this.options.list.appendChild(parsed);
