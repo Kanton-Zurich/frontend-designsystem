@@ -304,13 +304,13 @@ class Locations extends Module {
         ? listNode.getAttribute('data-filter-attr') : listNode.innerText;
       if (pattern.test(searchText)) {
         this.ui.map.dispatchEvent(MapView.extMarkerShowHide(index, true));
+        parentElement.style.removeProperty('display');
         parentElement.classList.remove('hide');
-        parentElement.querySelector('a').tabIndex = 0;
         lastIndex = index;
       } else {
         this.ui.map.dispatchEvent(MapView.extMarkerShowHide(index, false));
         parentElement.classList.add('hide');
-        parentElement.querySelector('a').tabIndex = -1;
+        parentElement.style.display = 'none';
         countHidden += 1;
       }
     });

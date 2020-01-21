@@ -17,6 +17,7 @@ const data = _.merge({}, defaultData, {
     mapId: 'map',
     withUserLocate: true,
     centerBtn: _.merge({}, defButtonData, {
+      text: 'Karte zentrieren',
       isTextVisible: false,
       icon: 'locate',
       isInverted: true,
@@ -24,12 +25,14 @@ const data = _.merge({}, defaultData, {
     }),
     zoomInBtn: _.merge({}, defButtonData, {
       isTextVisible: false,
+      text: 'Reinzoomen',
       icon: 'plus',
       isInverted: true,
       additionalAttribute: 'data-map-view="zoomInBtn"',
     }),
     zoomOutBtn: _.merge({}, defButtonData, {
       isTextVisible: false,
+      text: 'Herauszoomen',
       icon: 'minus',
       isInverted: true,
       additionalAttribute: 'data-map-view="zoomOutBtn"',

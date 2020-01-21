@@ -19,9 +19,9 @@
       {{>"atoms/button/button" zoomOutBtn }}
     </div>
     {{#if directions.enabled}}
-        <input type="hidden" data-map-view="urlTemplateDirections" aria-hidden="true"
+        <input type="hidden" data-map-view="urlTemplateDirections"
                value="{{directions.urlTemplate}}" />
-        <div class="mdl-map_view__directions-link" aria-hidden="true">
+        <div class="mdl-map_view__directions-link">
           {{>"atoms/button/button" directionsBtn }}
         </div>
     {{/if}}
