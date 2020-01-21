@@ -189,6 +189,18 @@ $accordionMap: (
     > p:last-child {
       @include sizeCurve(padding-bottom, regular);
     }
+
+    > .mdl-linklist:last-child {
+      margin-bottom: 0;
+
+      @include sizeCurve(padding-bottom, regular);
+    }
+
+    > .mdl-download_list:last-child {
+      margin-bottom: 0;
+
+      @include sizeCurve(padding-bottom, regular);
+    }
   }
 
   /** Inverted style */
