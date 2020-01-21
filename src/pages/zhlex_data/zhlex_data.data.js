@@ -79,25 +79,12 @@ const data = _.merge({}, defaultData, {
       }),
       anchorNav: defAnchorNavData,
       zhlex: defZhLexData,
-      downloadList1: {
+      downloadList: {
         title: false,
         links: [
           {
             link: {
               linkListItemTitle: 'Tipps und Hinweise zur Suchfunktion',
-              linkListItemIsDownload: true,
-              linkListItemLabel: 'PDF | 1 Seite | 2MB',
-              linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-            },
-          },
-        ],
-      },
-      downloadList2: {
-        title: false,
-        links: [
-          {
-            link: {
-              linkListItemTitle: 'Anonymisierungsrichtlinien',
               linkListItemIsDownload: true,
               linkListItemLabel: 'PDF | 1 Seite | 2MB',
               linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',

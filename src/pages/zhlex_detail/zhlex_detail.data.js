@@ -19,9 +19,9 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('zhlex_detail.md'),
   },
   props: {
-    header: headerData,
+    header: _.merge({}, headerData, { inverted: true }),
     modules: {
-      pageHeaderData: _.merge ({}, defPageHeaderData.variants.rrbDetail.props, {
+      pageHeaderData: _.merge({}, defPageHeaderData.variants.rrbDetail.props, {
         pageTitle: 'Vertrag zwischen den Ständen Zürich und Schwyz betreffend die Hafengüter bei Richterswil',
         breadcrumb: {
           path: [
@@ -141,15 +141,16 @@ const data = _.merge({}, defaultData, {
       tagGroupData: _.assign(_.merge({}, defTagGroupData, { tagGroupdHeading: { anchorNavReference: 'responsibilities' } }),
         {
           anchorLinks: [
-            { anchorlink:
-                { anchorlinkText: 'Staatskanzlei',
-                  anchorlinkAdress: '#',
-                  anchorlinkIsActive: false,
-                  anchorlinkIsTagAnchor: true,
-                  anchorlinkIsInverted: true,
-                  anchorlinkIsTopitem: true,
-                  anchorlinkIsTopitemSmall: true,
-                },
+            {
+              anchorlink: {
+                anchorlinkText: 'Staatskanzlei',
+                anchorlinkAdress: '#',
+                anchorlinkIsActive: false,
+                anchorlinkIsTagAnchor: true,
+                anchorlinkIsInverted: true,
+                anchorlinkIsTopitem: true,
+                anchorlinkIsTopitemSmall: true,
+              },
             },
           ],
         }),
