@@ -248,6 +248,7 @@ class Autosuggest {
       aTag.setAttribute('role', 'button');
       aTag.removeAttribute('href');
       aTag.setAttribute('data-term', context.shortTitle.replace(/(<([^>]+)>)/ig, ''));
+      aTag.setAttribute('tabindex', '0');
 
       aTag.addEventListener('click', this.dispatchTerm.bind(this, aTag));
     }
