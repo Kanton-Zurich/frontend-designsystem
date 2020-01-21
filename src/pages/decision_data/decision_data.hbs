@@ -1,13 +1,12 @@
 {{#extend "layouts/layout"}}
   {{#content "header"}}
-    <header>
-      {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
-    </header>
+    {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
   {{/content}}
+
   {{#content "content"}}
     {{> "modules/flex_data/flex_data" props.modules.flexDataData }}
     <div class="mdl-richtext">
-      <h2 class="atm-heading">Informationen & Hilfe</h2>
+      <h2 class="atm-heading">Informationen &amp; Hilfe</h2>
       <h3 class="atm-heading">Suchfunktion</h3>
       <p class="atm-paragraph">
         Wird die Suche ohne eine Eingabe der Suchkriterien vorgenommen, listet das System sämtliche vorhandenen Entscheide auf. Es rechtfertigt sich daher, die Auswahl einzuschränken, insbesondere auf die Entscheidinstanz und/oder das Rechtsgebiet bzw. durch Verwendung der Volltextsuche.
@@ -33,6 +32,7 @@
     {{> "modules/related_content/related_content" props.modules.releatedContentData}}
     {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
   {{/content}}
+
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData }}
     {{> "modules/back2top/back2top" props.modules.back2topData}}

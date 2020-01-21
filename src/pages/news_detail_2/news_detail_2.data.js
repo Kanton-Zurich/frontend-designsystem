@@ -3,7 +3,7 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 const headerData = require('../../modules/header/header.data').props;
 
-const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js');
+const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.default.props;
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.default2.props;
 const defImageFigureData = require('../../modules/image_figure/image_figure.data.js');
 const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data');
@@ -22,7 +22,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('news_detail_2.md'),
   },
   props: {
-    header: _.merge({}, headerData,{ inverted: true}),
+    header: _.merge({}, headerData, { inverted: true }),
     modules: {
       skiplinks: skiplinksData,
       pageHeaderData: _.merge({}, defPageHeaderData, {

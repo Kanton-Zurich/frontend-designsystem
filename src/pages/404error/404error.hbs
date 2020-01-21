@@ -1,8 +1,6 @@
 {{#extend "layouts/layout"}}
   {{#content "header"}}
-    <header>
-      {{> "modules/page_header/page_header" props.modules.pageHeader}}
-    </header>
+    {{> "modules/page_header/page_header" props.modules.pageHeader}}
   {{/content}}
 
   {{#content "content"}}
@@ -10,8 +8,6 @@
   {{/content}}
 
   {{#content "footer"}}
-    <footer id="contentinfo">
-      <h1 class="visuallyhidden">Fussbereich</h1>
-    </footer>
+    {{> "modules/footer/footer" props.modules.footer}}
   {{/content}}
 {{/extend}}

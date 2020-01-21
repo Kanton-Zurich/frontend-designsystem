@@ -1,16 +1,19 @@
-<header class="mdl-header{{#if inverted}} mdl-header--inverted{{/if}}" data-init="header" role="header">
+<div class="mdl-header{{#if inverted}} mdl-header--inverted{{/if}}" data-init="header">
   <div class="lyt-wrapper">
     <div class="grid-margin-x grid-x">
       <div class="mdl-header__wrapper cell tiny-offset-2 xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-10">
-        <ul class="mdl-header__navigation" role="navigation">
-          {{#each navItem}}
-            <li>
-              <button class="mdl-header__nav-item" data-header="openModal" aria-expanded="false" aria-haspopup="true" aria-controls="{{modal}}">
-                {{title}}
-              </button>
-            </li>
-          {{/each}}
-        </ul>
+        <h2 class="visuallyhidden">Hauptnavigation</h2>
+        <nav id="navigation">
+          <ul class="mdl-header__navigation">
+            {{#each navItem}}
+              <li>
+                <button class="mdl-header__nav-item" data-header="openModal" aria-expanded="false" aria-haspopup="true" aria-controls="{{modal}}">
+                  {{title}}
+                </button>
+              </li>
+            {{/each}}
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
@@ -19,6 +22,7 @@
       {{> "modules/user_menu/user_menu" userMenu}}
     {{/if}}
     <button
+      id="search"
       type="button"
       class="mdl-header__search atm-button"
       data-header="openModal"
@@ -35,7 +39,7 @@
       </svg>
     </button>
   </div>
-</header>
+</div>
 
 {{#each modals}}
   {{> "modules/modal/modal" this}}
