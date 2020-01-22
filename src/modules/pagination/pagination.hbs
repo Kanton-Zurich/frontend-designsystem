@@ -4,11 +4,12 @@
     <div class="lyt-wrapper">
   {{/if}}
   <div class="mdl-pagination__input atm-form_input atm-form_input--small">
+    <label class="visuallyhidden" for="pagination_input_field">Seite</label>
     <input id="pagination_input_field" class="atm-form_input__input" value="1" type="number" aria-describedby="paginationCountDescr">
   </div>
-  <label class="mdl-pagination__page-count" id="paginationCountDescr" aria-live="polite">
+  <p class="mdl-pagination__page-count" id="paginationCountDescr" aria-live="polite">
     <em class="visuallyhidden"></em> von <span>{{pageCount}}</span>
-  </label>
+  </p>
   <a class="mdl-pagination__button-prev atm-button atm-button--icon-only atm-button--secondary" href="">
     <span class="atm-button__text visuallyhidden">
       Vorherige Seite
