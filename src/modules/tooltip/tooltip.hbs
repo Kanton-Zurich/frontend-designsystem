@@ -42,7 +42,7 @@
     {{/unless}}
     {{#if asTextLink }}
     <div class="mdl-tooltip__wrapper">
-      <a class="mdl-tooltip__trigger mdl-tooltip__trigger--textual">{{helptext}}</a>
+      <a class="mdl-tooltip__trigger mdl-tooltip__trigger--textual" tabindex="0">{{helptext}}</a>
       <div class="mdl-tooltip__bubble" id="{{bubble.id}}" aria-hidden="true">
           {{#if bubble.heading}}
               <h3>

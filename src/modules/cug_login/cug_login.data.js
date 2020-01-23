@@ -61,7 +61,7 @@ const data = _.merge({}, defaultData, {
       uuid: 'j_username',
       name: 'j_username',
       validation: {
-        pattern: '^([\.\_\-@\\a-zA-Z0-9]){4,15}$', // eslint-disable-line
+        pattern: '^([\.\_\\-@\\a-zA-Z0-9]){4,15}$', // eslint-disable-line
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
         errorMsg: 'Der Nutzername besteht aus mindestens 4 und maximal 15 Zeichen eingeben!',
