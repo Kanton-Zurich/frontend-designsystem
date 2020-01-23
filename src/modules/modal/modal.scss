@@ -1,13 +1,19 @@
 $modalCurves: (
   closeTop: (
-    xsmall: $sizeRegular,
+    tiny: $sizeRegular,
     medium: $sizeBig,
     xlarge: $sizeLarge
   ),
   closeRight: (
     tiny: $sizeRegular,
     medium: $sizeSmallBig,
-  )
+  ),
+  topicHeight: (
+    tiny: 112px,
+    xsmall: 112px,
+    small: 56px,
+    medium: 72px
+  ),
 );
 
 .mdl-modal {
@@ -107,7 +113,18 @@ $modalCurves: (
   /** END OF THE ANIMATION STUFF */
 
   &--flyout {
-    @include sizeCurve(padding-top, height, $headerCurves);
+    @include sizeCurve(padding-top, topicHeight, $modalCurves);
+    @include mq($to: small) {
+      .mdl-topiclist--nav {
+        @include sizeCurve(margin-top, small);
+      }
+
+      &:not(.mdl-modal--search) {
+        .mdl-modal__close {
+          display: none;
+        }
+      }
+    }
 
     &.mdl-modal--show {
       z-index: $zIndexFlyouts;

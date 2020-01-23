@@ -34,6 +34,7 @@ class Header extends Module {
     domSelectors: {
       openModal: string,
       close: string,
+      dataMenuBurger: string,
     },
     stateClasses: {
       activeItem: string,
@@ -73,6 +74,7 @@ class Header extends Module {
       domSelectors: {
         openModal: '[data-header="openModal"]',
         close: '[data-modal="close"]',
+        dataMenuBurger: '[data-menu-burger]',
       },
       stateClasses: {
         activeItem: 'mdl-header__nav-item--active',
@@ -120,8 +122,17 @@ class Header extends Module {
    */
   initEventListeners() {
     this.eventDelegate.on('click', this.options.domSelectors.openModal, this.toggleFlyout.bind(this));
+    this.eventDelegate.on('click', this.options.domSelectors.dataMenuBurger, () => {
+      if (this.ui.element.classList.contains(this.options.stateClasses.open)) {
+        // this.hideFlyout();
+        this.data.activeModal.dispatchEvent(new CustomEvent('Modal.close'));
+      } else {
+        this.ui.element.querySelector(this.options.domSelectors.openModal).click();
+      }
+    });
 
     window.addEventListener(Modal.events.closed, this.hideFlyout.bind(this));
+    window.addEventListener(Modal.events.opened, this.onModalOpen.bind(this));
 
     (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
     (<any>WindowEventListener).addDebouncedScrollListener(this.handleScroll.bind(this));
@@ -171,14 +182,6 @@ class Header extends Module {
 
     this.data.activeModal.dispatchEvent(new CustomEvent('Modal.open'));
 
-    if (!this.data.activeItem.hasAttribute('data-search')) {
-      this.ui.element.classList.add(this.options.stateClasses.open);
-      this.ui.element.classList.add(this.options.colorClasses.monochrome);
-      this.data.activeItem.classList.add(this.options.stateClasses.activeItem);
-    }
-
-    this.data.activeItem.setAttribute('aria-expanded', 'true');
-
     // if pageheader is present correct padding
     const pageHeader = <HTMLDivElement>document.querySelector('.mdl-page-header');
     if (pageHeader && mainNav) {
@@ -217,6 +220,18 @@ class Header extends Module {
     const pageHeader = <HTMLDivElement>document.querySelector('.mdl-page-header');
     if (pageHeader) {
       pageHeader.removeAttribute('style');
+    }
+  }
+
+  onModalOpen() {
+    if (this.flyoutVisible) {
+      if (!this.data.activeItem.hasAttribute('data-search')) {
+        this.ui.element.classList.add(this.options.stateClasses.open);
+        this.ui.element.classList.add(this.options.colorClasses.monochrome);
+        this.data.activeItem.classList.add(this.options.stateClasses.activeItem);
+      }
+
+      this.data.activeItem.setAttribute('aria-expanded', 'true');
     }
   }
 

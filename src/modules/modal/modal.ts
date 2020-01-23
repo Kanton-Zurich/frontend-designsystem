@@ -83,6 +83,7 @@ class Modal extends Module {
       closeModal: 'Modal.close',
       display: 'Modal.display',
       closed: 'Modal.closed',
+      opened: 'Modal.opened',
     };
   }
 
@@ -239,6 +240,7 @@ class Modal extends Module {
 
     setTimeout(() => {
       this.ui.element.classList.add(this.options.stateClasses.opened);
+      window.dispatchEvent(new CustomEvent(Modal.events.opened, { detail: { sender: this } }));
     }, this.options.transitionTime);
   }
 
@@ -266,8 +268,8 @@ class Modal extends Module {
       this.ui.element.classList.remove(this.options.stateClasses.beforeHide);
       this.ui.element.classList.remove(this.options.stateClasses.hide);
       this.ui.element.classList.remove(this.options.stateClasses.show);
-      window.dispatchEvent(new CustomEvent(Modal.events.closed));
     }, this.options.transitionTime);
+    window.dispatchEvent(new CustomEvent(Modal.events.closed, { detail: { sender: this } }));
   }
 
   switchLeft() {

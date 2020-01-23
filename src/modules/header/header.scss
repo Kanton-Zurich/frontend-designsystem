@@ -11,6 +11,14 @@ $headerCurves: (
     tiny: $borderHeightSmall,
     medium: $borderHeightNormal,
   ),
+  burgerHeight: (
+    tiny: $sizeSmallHuge,
+    xsmall: $sizeHuge,
+  ),
+  searchPadding: (
+    tiny: $sizeSmallRegular,
+    xsmall: $sizeRegular,
+  ),
 );
 
 .mdl-header {
@@ -39,6 +47,26 @@ $headerCurves: (
     left: 0;
 
     z-index: $zIndexFlyouts + 1;
+
+    .mdl-header__navigation {
+      @include mq($to: small) {
+        display: flex;
+      }
+    }
+
+    .mdl-header__nav-burger {
+      svg {
+        &.close {
+          display: flex;
+          width: $sizeRegular;
+          height: $sizeRegular;
+        }
+
+        &.burger {
+          display: none;
+        }
+      }
+    }
   }
 
   &__placeholder {
@@ -61,6 +89,35 @@ $headerCurves: (
     }
   }
 
+  &__nav-burger {
+    @include blankButton;
+    @include sizeCurve(height, burgerHeight, $headerCurves);
+
+    display: inline-flex;
+    padding: 0 pxToRem($sizeSmallRegular);
+    align-items: center;
+
+    svg.close {
+      display: none;
+    }
+
+    &-text {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+
+      font-family: $fontFamilyBlack;
+      color: $colorWhite;
+      margin-left: $sizeSmallRegular;
+    }
+
+    svg {
+      fill: $colorWhite;
+    }
+
+    @include mq($from: small) {
+      display: none;
+    }
+  }
+
   &__navigation {
     display: flex;
 
@@ -68,6 +125,14 @@ $headerCurves: (
 
     li {
       margin-right: pxToRem($sizeFontLarge);
+    }
+
+    @include mq($to: small) {
+      display: none;
+      border-bottom: 1px solid $colorBlack40;
+      position: absolute;
+      left: 0;
+      right: 0;
     }
   }
 
@@ -82,10 +147,17 @@ $headerCurves: (
 
     color: $colorWhite;
 
+    @include mq($to: small) {
+      height: $sizeSmallHuge;
+    }
     @include transition(color);
 
     &--active {
       font-family: $fontFamilyBlack;
+
+      @include mq($to: small) {
+        border-bottom: 2px solid $colorBlack;
+      }
     }
   }
 
@@ -119,7 +191,7 @@ $headerCurves: (
 
   @include mq($to: medium) {
     .mdl-header__search {
-      padding: 0 pxToRem($sizeRegular);
+      @include sizeCurve(padding-left padding-right, searchPadding, $headerCurves);
 
       .atm-button__text {
         display: none;
@@ -191,6 +263,16 @@ $headerCurves: (
       &--inverted,
       &.cv-monochrome {
         background: $colorWhite;
+
+        .mdl-header__nav-burger {
+          &-text {
+            color: $colorBlack;
+          }
+
+          svg {
+            fill: $colorBlack;
+          }
+        }
 
         .mdl-header__nav-item {
           color: $colorBlack100;

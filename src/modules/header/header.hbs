@@ -2,6 +2,15 @@
   <div class="lyt-wrapper">
     <div class="grid-margin-x grid-x">
       <div class="mdl-header__wrapper cell tiny-offset-2 xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-10">
+        <button class="mdl-header__nav-burger" data-menu-burger>
+          <svg class="icon burger">
+            <use xlink:href="#menu-1"></use>
+          </svg>
+          <svg class="icon close">
+            <use xlink:href="#exit"></use>
+          </svg>
+          <span class="mdl-header__nav-burger-text">Menu</span>
+        </button>
         <ul class="mdl-header__navigation" role="navigation">
           {{#each navItem}}
             <li>
