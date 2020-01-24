@@ -326,8 +326,8 @@ const variants = _.mapValues({
   },
   small: {
     meta: {
-      title: 'Input-Klein (ThemenList)',
-      desc: 'Eine kleine Variante des Inputs für die Themenlist(home)',
+      title: 'Input-Klein (Themenliste)',
+      desc: 'Eine kleine Variante des Inputs für die Themenliste (Home)',
     },
     props: {
       isSmall: true,
@@ -354,7 +354,7 @@ const variants = _.mapValues({
   },
   triggerDefault: {
     meta: {
-      title: 'Select Trigger(default)',
+      title: 'Select Trigger',
       desc: 'Input mit floating Label',
     },
     props: {
@@ -372,7 +372,7 @@ const variants = _.mapValues({
   },
   triggerPhone: {
     meta: {
-      title: 'Select Trigger(Telefon)',
+      title: 'Select Trigger (Telefon)',
       desc: '',
     },
     props: {
@@ -389,6 +389,22 @@ const variants = _.mapValues({
         pattern: '^[()\\- \\d]+$',
         errorMsg: 'Die Eingabe entspricht nicht den Vorgaben für eine Telefonnummer.',
       },
+    },
+  },
+  triggerHistory: {
+    meta: {
+      title: 'Select Trigger (Historie)',
+      desc: '',
+    },
+    props: {
+      type: 'text',
+      isSelectTrigger: true,
+      isFloatingLabel: false,
+      isInput: false,
+      isReduced: true,
+      label: 'Historie Nachtrags-Nr.:',
+      icon: 'angle_drop_down',
+      uuid: _.uniqueId('select-trigger-history'),
     },
   },
   datePicker: {

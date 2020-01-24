@@ -5,29 +5,29 @@
     </header>
   {{/content}}
   {{#content "content"}}
-    {{> "modules/flex_data/flex_data" props.modules.flexDataData }}
+    {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
+    {{> "modules/zhlex/zhlex" props.modules.zhlex }}
     <div class="mdl-richtext">
-      <h2 class="atm-heading">Informationen & Hilfe</h2>
+      <h2 id="zhlex_index" class="atm-heading">Sachregister</h3>
+      <p class="atm-paragraph">
+        Das Sachregister ist ... hier erklären, was das Sachregister ist und wozu es dient. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+      </p>
+    </div>
+    {{> "modules/download_list/download_list" props.modules.downloadList }}
+    <div class="mdl-richtext">
+      <h2 id="zhlex_info" class="atm-heading">Informationen &amp; Hilfe</h2>
       <h3 class="atm-heading">Suchfunktion</h3>
       <p class="atm-paragraph">
         Wird die Suche ohne eine Eingabe der Suchkriterien vorgenommen, listet das System sämtliche vorhandenen Entscheide auf. Es rechtfertigt sich daher, die Auswahl einzuschränken, insbesondere auf die Entscheidinstanz und/oder das Rechtsgebiet bzw. durch Verwendung der Volltextsuche.
       </p>
     </div>
-    {{> "modules/download_list/download_list" props.modules.downloadList1 }}
     <div class="mdl-richtext">
-      <h3 class="atm-heading">Richtlinien zur Anonymisierung</h3>
-      <p class="atm-paragraph">
-        Personenbezeichnungen und personenbezogene Angaben bzw. Elemente, die Rückschlüsseauf Parteien oder andere im Entscheid genannte (natürliche und juristische) Personen oder Institutionen ermöglichen, sind entweder durch Abkürzungen zu ersetzen, zu verfremden oder zu entfernen. Die Anonymisierung ist jedenfalls so zu gestalten, dass das Verständnis des Sachverhalts und des Entscheidzusammenhangs nicht unnötig beeinträchtigt wird.
-      </p>
-    </div>
-    {{> "modules/download_list/download_list" props.modules.downloadList2 }}
-    <div class="mdl-richtext">
-      <h2 class="atm-heading">Bestellungen</h2>
+      <h2 id="zhlex_order" class="atm-heading">Bestellungen</h2>
       <p class="atm-paragraph">
         Sie können Separatdrucke auf Papier aus der Gesetzessammlung bestellen. Diese werden Ihnen per Post zugestellt. Die Separatdrucke und der Versand sind kostenpflichtig. Ihre Bestellung wird direkt von der Kantonalen Drucksachen- und Materialzentrale KDMZ ausgeführt. Die wichtigsten Erlasse und deren Preise finden Sie auf der Hompage der KDMZ (Shop).
       </p>
     </div>
-    {{>"modules/service_list/service_list" props.modules.serviceList }}
+    {{> "modules/service_list/service_list" props.modules.serviceList }}
     {{> "modules/contact/contact" props.modules.contactData}}
     {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
     {{> "modules/related_content/related_content" props.modules.releatedContentData}}

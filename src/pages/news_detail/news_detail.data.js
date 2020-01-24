@@ -22,7 +22,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('news_detail.md'),
   },
   props: {
-    header: _.merge({}, headerData,{ inverted: true}),
+    header: _.merge({}, headerData, { inverted: true }),
     modules: {
       skiplinks: skiplinksData,
       pageHeaderData: _.merge({}, defPageHeaderData, {

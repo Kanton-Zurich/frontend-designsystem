@@ -2,37 +2,20 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const defTabsData = require('../tabs/tabs.data').variants.zhlex.props;
 
-const template = dataHelper.getFileContent('descriptionlist.hbs');
+const template = dataHelper.getFileContent('zhlex.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Gelabelte Liste',
-    className: 'Descriptionlist',
-    jira: 'CZHDEV-*',
-    label: 'Liste',
-    documentation: dataHelper.getDocumentation('descriptionlist.md'),
+    title: 'ZH-Lex',
+    className: 'ZhLex',
+    jira: 'CZHDEV-1240',
+    documentation: dataHelper.getDocumentation('zhlex.md'),
   },
   props: {
-    descriptionListItems: [
-      {
-        item: {
-          term: 'Label 1',
-          description: 'Value 1',
-        },
-      },
-      {
-        item: {
-          term: 'Label 2',
-          description: 'Value 2',
-        },
-      },
-      {
-        item: {
-          term: 'Label 3',
-          description: 'Value 3',
-        },
-      },
-    ],
+    id: 'zhlex_search',
+    title: 'Suche',
+    tabs: defTabsData,
   },
 });
 const variants = _.mapValues({
