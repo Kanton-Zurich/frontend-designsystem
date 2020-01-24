@@ -233,8 +233,6 @@ class Form {
           message.classList.remove(this.options.messageClasses.show);
         });
 
-      console.log(validation);
-
       if (validation.validationResult) {
         this.setValidClasses(field);
       } else {
