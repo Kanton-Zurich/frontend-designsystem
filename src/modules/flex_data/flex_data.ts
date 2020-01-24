@@ -142,8 +142,13 @@ class FlexData extends Module {
     const sortParamElemet = this.ui.resultsTable ? this.ui.resultsTable : this.ui.resultsGeneric;
     this.order = sortParamElemet.getAttribute('data-sort-direction');
     this.orderBy = sortParamElemet.getAttribute('data-sort-column');
-    this.updateViewFromURLParams();
-    setTimeout(() => { this.loadResults(); }, this.options.initDelay);
+    const initialLoad = this.ui.element.hasAttribute('data-initial-load');
+    if (this.getAllURLParams().page || (initialLoad && initialLoad === true)) {
+      this.updateViewFromURLParams();
+      setTimeout(() => {
+        this.loadResults();
+      }, this.options.initDelay);
+    }
   }
 
   /**
@@ -190,6 +195,7 @@ class FlexData extends Module {
    * Load results
    */
   private loadResults(scroll = false) {
+    this.ui.results.classList.remove('initially-hidden');
     this.paginationInteraction = false;
     if (this.dataIdle) {
       this.dataIdle = false;

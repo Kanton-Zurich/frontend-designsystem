@@ -160,6 +160,7 @@ const variants = _.mapValues({
       desc: '',
     },
     props: {
+      initialLoad: true,
       pagination: defPaginationData.variants.default.props,
       flexDataSource: '/mocks/modules/flex_data/flex_data_generic.json',
       flexGenericFormData: _.merge({}, defFormData.variants.rrb.props),

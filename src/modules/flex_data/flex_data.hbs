@@ -1,4 +1,4 @@
-<div class="mdl-flex-data" data-init="flexData" data-source="{{ flexDataSource }}">
+<div class="mdl-flex-data" data-init="flexData" data-source="{{ flexDataSource }}" {{#if initialLoad}}data-initial-load="true"{{/if}}>
   {{#if title}}<h{{headingLevel}} class="atm-heading">{{title}}</h{{headingLevel}}>{{/if}}
   <div class="mdl-flex-data__form">
     <form novalidate>
@@ -17,7 +17,7 @@
       </div>
     </form>
   </div>
-  <div class="mdl-flex-data__results" data-result-count-title="{{resultCountTitle}}" data-no-results-title="{{noResultsTitle}}">
+  <div class="mdl-flex-data__results initially-hidden" data-result-count-title="{{resultCountTitle}}" data-no-results-title="{{noResultsTitle}}">
     <script data-flex-template type="text/x-handlebars-template">
       {{#if tableData}}
       {{#each tableData.headers}}
