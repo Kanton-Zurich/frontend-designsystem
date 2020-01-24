@@ -52,7 +52,10 @@ class FormRules {
   getHierarchicalRules() {
     const copiedRules = this.rules;
 
-    this.rules.forEach((rule, ruleIdx) => {
+    this.rules.forEach((rule) => {
+      // Necessary to have the source, because we alter the source
+      const ruleCopy = JSON.parse(JSON.stringify(rule));
+
       rule.conditions.forEach((condition) => {
         const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
         const field = this.ui.form.querySelector(querySelector);
@@ -66,12 +69,12 @@ class FormRules {
             // Don't take the rules over when it is a step
             if (parentRule.action !== 'enable' && parentRule.action !== 'disable') {
               if (c === 0) {
-                copiedRules[ruleIdx].conditions = [...copiedRules[ruleIdx].conditions,
+                this.rules[c].conditions = [...ruleCopy.conditions,
                   ...parentRule.conditions];
               } else {
                 copiedRules.push({
                   action: rule.action,
-                  conditions: [...copiedRules[ruleIdx].conditions,
+                  conditions: [...ruleCopy.conditions,
                     ...parentRule.conditions],
                 });
               }
