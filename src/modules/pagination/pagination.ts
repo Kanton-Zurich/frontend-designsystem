@@ -16,6 +16,7 @@ class Pagination extends Module {
   };
 
   private lastValue: number;
+  private preventEmit: boolean;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
@@ -33,6 +34,7 @@ class Pagination extends Module {
 
     super($element, defaultData, defaultOptions, data, options);
     this.lastValue = 1;
+    this.preventEmit = false;
     this.initUi();
     this.initEventListeners();
   }
@@ -81,19 +83,21 @@ class Pagination extends Module {
     this.eventDelegate.on(Pagination.events.setPageCount, (event) => {
       this.ui.pageCount.querySelector('span').innerHTML = event.detail;
       this.ui.element.setAttribute('data-pagecount', event.detail);
-      this.setPageButtonStyles(1);
+      this.setPageButtonStyles(this.ui.input.value);
     });
 
     this.eventDelegate.on(Pagination.events.setPage, (event) => {
+      this.preventEmit = true;
       this.ui.input.value = event.detail;
+      this.preventEmit = false;
       this.setPageButtonStyles(event.detail);
     });
     this.setPageButtonStyles(1);
   }
 
   onInputChange(property, oldValue, newValue, watchable) {
+    const maxPages = parseInt(this.ui.element.getAttribute('data-pagecount'), 10);
     if (document.activeElement !== watchable) {
-      const maxPages = parseInt(this.ui.element.getAttribute('data-pagecount'), 10);
       if (isNaN(parseInt(newValue))) { // eslint-disable-line
         return;
       }
@@ -111,7 +115,19 @@ class Pagination extends Module {
         return;
       }
       this.lastValue = newValue;
-      this.emitChange(oldValue, newValue);
+      if (!this.preventEmit) {
+        this.emitChange(oldValue, newValue);
+      }
+    } else {
+      if (newValue > maxPages) {
+        watchable.value = maxPages;
+        this.setPageButtonStyles(maxPages);
+        return;
+      }
+      if (newValue < 1) {
+        watchable.value = 1;
+        this.setPageButtonStyles(1);
+      }
     }
   }
 
@@ -155,6 +171,7 @@ class Pagination extends Module {
    * @param maxPages
    */
   setPageButtonStyles(page) {
+    this.ui.pageCount.querySelector('em').innerHTML = this.ui.input.value;
     const maxPages = parseInt(this.ui.element.getAttribute('data-pagecount'), 10);
     this.ui.prev.classList.remove(this.options.stateClasses.buttonDisabled);
     this.ui.next.classList.remove(this.options.stateClasses.buttonDisabled);

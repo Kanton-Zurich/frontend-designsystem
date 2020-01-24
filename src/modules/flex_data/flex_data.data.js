@@ -66,8 +66,6 @@ const variants = _.mapValues({
       desc: '',
     },
     props: {
-      title: 'Suche',
-      headingLevel: 2,
       pagination: defPaginationData.variants.default.props,
       flexDataSource: '/mocks/modules/flex_data/flex_data_generic.json',
       flexGenericFormData: _.merge({}, defFormData.variants.rrb.props),
