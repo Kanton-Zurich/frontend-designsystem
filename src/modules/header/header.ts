@@ -132,7 +132,6 @@ class Header extends Module {
     });
 
     window.addEventListener(Modal.events.closed, this.hideFlyout.bind(this));
-    window.addEventListener(Modal.events.opened, this.onModalOpen.bind(this));
 
     (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
     (<any>WindowEventListener).addDebouncedScrollListener(this.handleScroll.bind(this));
@@ -182,6 +181,14 @@ class Header extends Module {
 
     this.data.activeModal.dispatchEvent(new CustomEvent('Modal.open'));
 
+    if (!this.data.activeItem.hasAttribute('data-search')) {
+      this.ui.element.classList.add(this.options.stateClasses.open);
+      this.ui.element.classList.add(this.options.colorClasses.monochrome);
+      this.data.activeItem.classList.add(this.options.stateClasses.activeItem);
+    }
+
+    this.data.activeItem.setAttribute('aria-expanded', 'true');
+
     // if pageheader is present correct padding
     const pageHeader = <HTMLDivElement>document.querySelector('.mdl-page-header');
     if (pageHeader && mainNav) {
@@ -220,18 +227,6 @@ class Header extends Module {
     const pageHeader = <HTMLDivElement>document.querySelector('.mdl-page-header');
     if (pageHeader) {
       pageHeader.removeAttribute('style');
-    }
-  }
-
-  onModalOpen() {
-    if (this.flyoutVisible) {
-      if (!this.data.activeItem.hasAttribute('data-search')) {
-        this.ui.element.classList.add(this.options.stateClasses.open);
-        this.ui.element.classList.add(this.options.colorClasses.monochrome);
-        this.data.activeItem.classList.add(this.options.stateClasses.activeItem);
-      }
-
-      this.data.activeItem.setAttribute('aria-expanded', 'true');
     }
   }
 
