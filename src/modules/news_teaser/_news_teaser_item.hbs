@@ -2,6 +2,7 @@
   <h3 class="atm-heading" data-lineclamp="true">
     {{{this.title}}}
   </h3>
+
   {{#if this.type}}
     <p class="mdl-news-teaser__item-label">
       {{#if this.type}}{{this.type}}{{/if}}
@@ -15,11 +16,12 @@
     <div class="mdl-news-teaser__item-image">
       <figure class="mdl-image-figure">
         <div class="mdl-image-figure__img-wrapper">
-          <img class="mdl-image-figure__img" src="{{this.teaserImage}}" alt="News Teaser bild" />
+          <img class="mdl-image-figure__img" src="{{this.teaserImage}}" alt="" />
         </div>
       </figure>
     </div>
   {{/if}}
+
   {{#if this.teaserText}}
     <p data-lineclamp="true" class="atm-paragraph">{{this.teaserText}}</p>
   {{/if}}

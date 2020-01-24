@@ -9,6 +9,7 @@ $selectOptionsMinWidth: 268px;
 
   &__options {
     position: absolute;
+    display: none;
     top: calc(100% + 2px);
     left: 0;
     width: 100%;
@@ -154,6 +155,7 @@ $selectOptionsMinWidth: 268px;
     }
 
     .mdl-select__options {
+      display: block;
       height: pxToRem($selectHeight);
       z-index: $zIndexDropDowns;
 

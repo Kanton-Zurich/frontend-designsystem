@@ -2,7 +2,7 @@
   {{#if linkListTitle}}
     <h{{{headingLevel}}} class="atm-heading mdl-linklist__title">{{{linkListTitle}}}</h{{{headingLevel}}}>
   {{/if}}
-  <ul class="mdl-linklist__list">
+  <ul class="mdl-linklist__list" {{#if ariaLive}}aria-live="{{ariaLive}}"{{/if}} {{#if filterListId}} id="{{filterListId}}"{{/if}}>
     {{#each links}}
       <li class="mdl-linklist__item" {{#if ../hasIndex}}data-linklist-itemindex="{{@index}}"{{/if}}>
         {{> "atoms/linklist_item/linklist_item" this}}
