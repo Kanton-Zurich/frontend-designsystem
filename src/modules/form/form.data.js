@@ -141,6 +141,66 @@ const duplicateGroup = {
   duplicateButton: 'Weitere Staatsangehörigkeit hinzufügen',
 };
 
+const duplicateGroup2 = {
+  isDuplicatable: true,
+  maxDuplications: '3',
+  duplicateLabels: {
+    add: 'Weitere Gruppe hinzufügen',
+    remove: 'Gruppe wieder entfernen',
+  },
+  rows: [{
+    fields: [{
+      cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+        formInputData.variants.default.props,
+        {
+          isFloatingLabel: true,
+          label: 'Text',
+          name: 'group2_text',
+          uuid: 'group2_text',
+          validation: {
+            isRequired: true,
+          },
+        })),
+    }],
+  }, {
+    fields: [{
+      cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+        datepickerData.variants.defaultDate.props,
+        {
+          formInputData: _.merge({}, formInputData.variants.default.props, {
+            label: 'Datum',
+            uuid: _.uniqueId('date-in-group2'),
+            validation: {
+              pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',
+              isRequired: true,
+              errorMsg: 'Bitte geben Sie eine korrektes Datum an.',
+            },
+          }),
+        })),
+    }, {
+      cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+        selectData.variants.default.props,
+        {
+          triggerInputData: _.merge({}, formInputData.variants.triggerDefault.props, {
+            uuid: _.uniqueId('dropdown-in-group2'),
+            label: 'Dropdown',
+          }),
+        })),
+    }],
+  }, {
+    fields: [{
+      cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+        selectData.variants.default.props,
+        {
+          triggerInputData: _.merge({}, formInputData.variants.triggerDefault.props, {
+            uuid: _.uniqueId('dropdown-in-group2'),
+            label: 'Dropdown 2',
+          }),
+        })),
+    }],
+  }],
+};
+
 const duplicateRow = {
   isDuplicatable: true,
   duplicateLabels: {
@@ -653,105 +713,108 @@ const variants = _.mapValues({
       desc: '',
     },
     props: {
-      groups: [{
-        rows: [
-          {
-            fields: [
-              {
-                isSmall: true,
-                cellContent: () => handlebars.compile(formFieldsetHBS)({
-                  fieldsetTitle: 'Anrede',
-                  options: [
-                    () => handlebars.compile(radioHBS)(_.merge({},
-                      radioData.variants.default.props,
-                      {
-                        label: 'Frau',
-                        groupName: 'salutation2',
-                        id: 6,
-                        value: 'mrs',
-                      })),
-                    () => handlebars.compile(radioHBS)(_.merge({},
-                      radioData.variants.default.props,
-                      {
-                        label: 'Herr',
-                        groupName: 'salutation2',
-                        id: 7,
-                        value: 'mr',
-                      })),
-                    () => handlebars.compile(radioHBS)(_.merge({},
-                      radioData.variants.default.props,
-                      {
-                        label: 'Keine Angabe',
-                        groupName: 'salutation2',
-                        id: 8,
-                        value: 'no',
-                      })),
-                  ],
-                }),
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  isSmall: true,
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Anrede',
+                    options: [
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Frau',
+                          groupName: 'salutation2',
+                          id: 6,
+                          value: 'mrs',
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Herr',
+                          groupName: 'salutation2',
+                          id: 7,
+                          value: 'mr',
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Keine Angabe',
+                          groupName: 'salutation2',
+                          id: 8,
+                          value: 'no',
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+            {
+              fields: [{
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Vorname',
+                    name: 'prename',
+                    uuid: 'prename2',
+                    validation: {
+                      isRequired: true,
+                    },
+                  })),
               },
-            ],
-          },
-          {
-            fields: [{
-              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                formInputData.variants.default.props,
-                {
-                  isFloatingLabel: true,
-                  label: 'Vorname',
-                  name: 'prename',
-                  uuid: 'prename2',
-                  validation: {
-                    isRequired: true,
-                  },
-                })),
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Nachname',
+                    name: 'surname',
+                    uuid: 'surname2',
+                    validation: {
+                      isRequired: true,
+                    },
+                  })),
+              }],
             },
             {
-              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                formInputData.variants.default.props,
-                {
-                  isFloatingLabel: true,
-                  label: 'Nachname',
-                  name: 'surname',
-                  uuid: 'surname2',
-                  validation: {
-                    isRequired: true,
-                  },
-                })),
-            }],
-          },
-          {
-            fields: [{
-              isSmall: true,
-              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                formInputData.variants.default.props,
-                {
-                  isFloatingLabel: true,
-                  label: 'PLZ',
-                  name: 'zip',
-                  uuid: 'zip2',
-                  validation: {
-                    isRequired: true,
-                    pattern: '^[0-9]{4,4}$',
-                    errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
-                  },
-                })),
+              fields: [{
+                isSmall: true,
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'PLZ',
+                    name: 'zip',
+                    uuid: 'zip2',
+                    validation: {
+                      isRequired: true,
+                      pattern: '^[0-9]{4,4}$',
+                      errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
+                    },
+                  })),
+              },
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Ort',
+                    name: 'city',
+                    uuid: 'city2',
+                    validation: {
+                      isRequired: true,
+                    },
+                  })),
+              }],
             },
-            {
-              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                formInputData.variants.default.props,
-                {
-                  isFloatingLabel: true,
-                  label: 'Ort',
-                  name: 'city',
-                  uuid: 'city2',
-                  validation: {
-                    isRequired: true,
-                  },
-                })),
-            }],
-          },
-        ],
-      }],
+          ],
+        },
+        duplicateGroup2,
+      ],
     },
   },
   withRules: {
