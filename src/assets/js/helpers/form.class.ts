@@ -233,6 +233,8 @@ class Form {
           message.classList.remove(this.options.messageClasses.show);
         });
 
+      console.log(validation);
+
       if (validation.validationResult) {
         this.setValidClasses(field);
       } else {
@@ -274,10 +276,8 @@ class Form {
     switch (fieldType) {
       case 'radio':
       case 'checkbox':
-        errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
-        errorField.classList[functionArray[1]](this.options.inputClasses.valid);
-        break;
       case 'selectOption':
+      case 'file':
         errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
         errorField.classList[functionArray[1]](this.options.inputClasses.valid);
         break;
