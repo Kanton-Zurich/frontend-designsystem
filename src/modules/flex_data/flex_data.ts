@@ -216,6 +216,7 @@ class FlexData extends Module {
         this.upsertLinkRel('canonical', canonicalUrl);
         this.populateResultList(jsonData);
         this.updateFlyingFocus(0);
+        this.dispatchVerticalResizeEvent();
         if (scroll) {
           this.scrollTop();
         }
