@@ -143,7 +143,7 @@ class FlexData extends Module {
     this.order = sortParamElemet.getAttribute('data-sort-direction');
     this.orderBy = sortParamElemet.getAttribute('data-sort-column');
     const initialLoad = this.ui.element.hasAttribute('data-initial-load');
-    if (this.getAllURLParams().page || (initialLoad && initialLoad === true)) {
+    if (this.getAllURLParams()['page'] || (initialLoad && initialLoad === true)) { // eslint-disable-line
       this.updateViewFromURLParams();
       setTimeout(() => {
         this.loadResults();
