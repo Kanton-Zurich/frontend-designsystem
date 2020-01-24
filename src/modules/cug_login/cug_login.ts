@@ -130,12 +130,14 @@ class CugLogin extends Module {
                 if (authorizeResp.status === 200) { // eslint-disable-line
                   if (this.devMode && username !== 'admin') {
                     this.ui.element.classList.add(this.options.stateClasses.unauthorised);
+                    this.ui.logoutBtn.focus();
                   } else {
                     document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
                     this.redirect(this.ui.configuredRedirectUrl.value);
                   }
                 } else if (authorizeResp.status === 404) { // eslint-disable-line
                   this.ui.element.classList.add(this.options.stateClasses.unauthorised);
+                  this.ui.logoutBtn.focus();
                 } else {
                   throw new Error(authorizeResp.status);
                 }

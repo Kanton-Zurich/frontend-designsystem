@@ -11,7 +11,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Auswahlfeld',
     className: 'Select',
-    jira: 'CZHDEV-846, CZHDEV-848, CZHDEV-852, CZHDEV-992',
+    jira: 'CZHDEV-846, CZHDEV-848, CZHDEV-852, CZHDEV-992, CZHDEV-1240',
     label: 'Formular',
     documentation: dataHelper.getDocumentation('select.md'),
   },
@@ -23,8 +23,8 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Einzelauswahl(Default)',
-      desc: 'Default implementation einer Einzelauswahl',
+      title: 'Einzelauswahl',
+      desc: 'Standard-Implementation einer Einzelauswahl',
     },
     props: {
       listData: _.merge({}, listDemoData.variants.defaultSingle.props, {
@@ -47,7 +47,7 @@ const variants = _.mapValues({
   },
   selectPhone: {
     meta: {
-      title: 'Einzelauswahl(Telefon)',
+      title: 'Einzelauswahl (Telefon)',
       desc: 'Einzelauswahl mit Filter',
     },
     props: {
@@ -98,8 +98,8 @@ const variants = _.mapValues({
   },
   defaultMultiPreSelect: {
     meta: {
-      title: 'Mehrfachauswahl(Default)',
-      desc: 'Default implementation einer Mehrfachauswahl (mit Vorauswahl)',
+      title: 'Mehrfachauswahl',
+      desc: 'Mehrfachauswahl (mit Vorauswahl)',
     },
     props: {
       isMultiSelect: true,
@@ -131,8 +131,8 @@ const variants = _.mapValues({
   },
   multiSelect: {
     meta: {
-      title: 'Mehrfachauswahl(Filter)',
-      desc: 'Default implementation',
+      title: 'Mehrfachauswahl (Filter)',
+      desc: 'Mehrfachauswahl mit Filter',
     },
     props: {
       isMultiSelect: true,
@@ -163,7 +163,7 @@ const variants = _.mapValues({
   },
   defaultUpwards: {
     meta: {
-      title: 'Einzelauswahl mit Links(List oberhalb)',
+      title: 'Einzelauswahl mit Links (List oberhalb)',
       desc: 'Einzelauswahl mit der List oberhalb angeordnet und Links/Anchors als Auswahlitems',
     },
     props: {
@@ -182,10 +182,23 @@ const variants = _.mapValues({
       triggerInputData: inputDemoData.variants.triggerDefault.props,
     },
   },
+  table: {
+    meta: {
+      title: 'Auswahltabelle (CZHDEV-1240)',
+      desc: 'Einzelauswahl mit tabellarischer Darstellung der Auswahlliste',
+    },
+    props: {
+      isTable: true,
+      listData: listDemoData.variants.table.props,
+      triggerInputData: _.merge({}, inputDemoData.variants.triggerDefault.props, {
+        label: 'Ordner',
+      }),
+    },
+  },
   singleItem: {
     meta: {
-      title: 'Einzelauswahl(Default) (Nur 1 Item)',
-      desc: 'Default implementation einer Einzelauswahl, welches über ein einzelnes Item verfügt.',
+      title: 'Einzelauswahl (nur 1 Item)',
+      desc: 'Einzelauswahl, die ein einzelnes Item enthält.',
     },
     props: {
       listData: _.assign(_.merge({}, listDemoData.variants.defaultSingle.props, {
@@ -197,6 +210,42 @@ const variants = _.mapValues({
         ],
       }),
       triggerInputData: inputDemoData.variants.triggerDefault.props,
+    },
+  },
+  history: {
+    meta: {
+      title: 'Historie-Sprunglinks (CZHDEV-1240)',
+      desc: 'Einzelauswahl mit filterbaren Links',
+    },
+    props: {
+      hasFilter: true,
+      floatRight: true,
+      listData: _.merge({}, listDemoData.variants.useAnchor.props,
+        listDemoData.variants.useAnchor.props.selectOptions = [], {
+          selectOptions: [
+            { value: '091', label: '091 (aktuell)', preSelected: true },
+            { value: '090', label: '090 (in Kraft bis 01.02.2018)' },
+            { value: '089', label: '089 (in Kraft bis 13.07.2017)' },
+            { value: '088', label: '088 (in Kraft bis 01.01.2015)' },
+          ],
+          groupId: 'singleSelectHistory',
+          setHiddenIndex: true,
+        }),
+      filterInputData: _.merge({}, defFilterInputData.props, {
+        label: 'Nachtragsnummer',
+        type: 'text',
+        isSmall: true,
+        autocompleteOff: true,
+        iconOnly: {
+          icon: 'search',
+        },
+        additionalFunctionality: {
+          icon: 'clear',
+          buttontype: 'clear',
+          ariaText: 'Lösche Eingabe',
+        },
+      }),
+      triggerInputData: inputDemoData.variants.triggerHistory.props,
     },
   },
 }, (variant) => {

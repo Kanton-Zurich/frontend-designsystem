@@ -1,7 +1,7 @@
 <div class="atm-notification
   {{#if isGreen}}atm-notification--green{{/if}}
   {{#if isBig}}atm-notification--big{{/if}}
-  {{#if isDialog}}atm-notification--dialog{{/if}}" tabindex="0" >
+  {{#if isDialog}}atm-notification--dialog{{/if}}" {{#if focussable}}tabindex="0"{{/if}}>
   <svg class="icon">
     <use xlink:href="{{icon}}"></use>
   </svg>

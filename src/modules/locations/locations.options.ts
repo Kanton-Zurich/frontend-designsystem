@@ -25,6 +25,7 @@ interface ModuleStateClasses {
 }
 export interface LocationsModuleOptions { // eslint-disable-line
   focusDelay: number,
+  transitionDelay: number,
   attrNames: {
     itemIndex: string;
     locDistance: string;
@@ -34,6 +35,7 @@ export interface LocationsModuleOptions { // eslint-disable-line
 }
 
 const focusDelay = 500;
+const transitionDelay = 400;
 const attrNames = {
   itemIndex: 'data-linklist-itemindex',
   locDistance: 'data-location-distance',
@@ -66,6 +68,7 @@ const stateClasses: ModuleStateClasses = {
 
 export const DefaultOptions: LocationsModuleOptions = { // eslint-disable-line
   focusDelay,
+  transitionDelay,
   attrNames,
   domSelectors,
   stateClasses,

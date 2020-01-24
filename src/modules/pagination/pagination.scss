@@ -28,6 +28,7 @@
   &__page-count {
     padding: pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
     font-size: $sizeFontSmall;
+    margin: 0;
   }
 
   .mdl-search_page & {

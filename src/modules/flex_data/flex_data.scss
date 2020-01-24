@@ -9,6 +9,21 @@
     height: $loadingMinHeight;
   }
 
+  &__form {
+
+    .mdl-accordion {
+      padding-bottom: 0;
+
+      &__item:after {
+        display: none;
+      }
+
+      & + .mdl-flex-data__form-controls {
+        margin-top: 0;
+      }
+    }
+  }
+
   &__form-controls {
     display: flex;
     justify-content: flex-end;
@@ -60,7 +75,7 @@
 
       > span {
         font-size: $sizeFontSmall;
-        color: $colorBlack40;
+        color: $colorBlack60;
       }
 
       &-dropdown {

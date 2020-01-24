@@ -20,6 +20,25 @@
 
         dd {
           border: 0;
+
+          .atm-button {
+            float: right;
+            height: $sizeLarge;
+            min-width: $sizeLarge;
+            background: transparent;
+
+            use {
+
+              @include transition(fill);
+            }
+
+            @include hover() {
+
+              use {
+                fill: $colorBlack100;
+              }
+            }
+          }
         }
 
         &:first-child {
@@ -34,6 +53,14 @@
           margin: 0;
         }
       }
+    }
+  }
+
+  &__copy-success-notification {
+    margin-top: $sizeMini;
+
+    &--hidden {
+      display: none;
     }
   }
 }

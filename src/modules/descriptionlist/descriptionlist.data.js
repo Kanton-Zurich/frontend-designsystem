@@ -38,8 +38,8 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+      title: 'Standard',
+      desc: 'Standard-Implementation',
     },
   },
 }, (variant) => {

@@ -109,6 +109,9 @@ class Tooltip extends Module {
         this.isOpen = false;
       }
     });
+    setTimeout(() => {
+      this.ui.tooltip.style.display = 'none';
+    }, 100);
   }
 
   /**

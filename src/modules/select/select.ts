@@ -11,6 +11,7 @@ class Select extends Module {
   public isOpen: boolean;
   public isMultiSelect: boolean;
   public hasFilter: boolean;
+  public hasTableList: boolean;
   public usedAnchors: boolean;
   public isFirefox: boolean;
   public buttonPostfix: string;
@@ -71,6 +72,7 @@ class Select extends Module {
       stateClasses: {
         open: 'mdl-select--open',
         selected: 'mdl-select--selected',
+        tableList: 'atm-list--table',
       },
       dataSelectors: {
         itemType: 'inputtype',
@@ -86,6 +88,7 @@ class Select extends Module {
     this.usedAnchors = false;
     this.isFirefox = navigator.userAgent.search('Firefox') > -1;
     this.hasFilter = typeof this.ui.filter !== 'undefined';
+    this.hasTableList = this.ui.list.classList.contains(this.options.stateClasses.tableList);
     if (this.ui.element.dataset[this.options.dataSelectors.isMultiSelect]) {
       this.isMultiSelect = true;
     }
@@ -95,7 +98,6 @@ class Select extends Module {
     }
 
     this.ui.list.scrollTop = 0;
-
 
     if (this.isMultiSelect) {
       this.buttonPostfix = this.ui.element.dataset[this.options.dataSelectors.selectPostfix];
@@ -515,6 +517,14 @@ class Select extends Module {
     this.ui.trigger.setAttribute('aria-expanded', 'true');
     this.ui.dropdown.setAttribute('aria-hidden', 'false');
 
+    // adjust width of input items in table lists
+    if (this.hasTableList) {
+      const dropDownWidth = this.ui.dropdown.clientWidth;
+      this.ui.inputItems.forEach((input) => {
+        input.style.width = `${dropDownWidth}px`;
+      });
+    }
+
     if (this.ui.filter) {
       this.ui.filter.focus();
     } else if (!this.isMultiSelect) {
@@ -577,7 +587,7 @@ class Select extends Module {
   }
 
   adjustContainerHeight() {
-    if (this.isOpen) {
+    if (this.isOpen && !this.hasTableList) {
       const dropdownMaxItems = this.ui.filterContainer
         ? this.options.largeDropdownMaxItems
         : this.options.smallDropdownMaxItems;
