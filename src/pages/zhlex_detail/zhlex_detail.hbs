@@ -1,9 +1,8 @@
 {{#extend "layouts/layout"}}
   {{#content "header"}}
-    <header>
-      {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
-    </header>
+    {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
   {{/content}}
+
   {{#content "content"}}
     {{> "modules/select/select" props.modules.selectData }}
     <h2 class="atm-heading h3">Details</h2>
@@ -14,6 +13,7 @@
     {{> "modules/related_content/related_content" props.modules.releatedContentData}}
     {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
   {{/content}}
+  
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData }}
     {{> "modules/back2top/back2top" props.modules.back2topData}}

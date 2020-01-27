@@ -1,7 +1,10 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
+
+const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.default.props;
 const headerData = require('../../modules/header/header.data').variants.inverted.props;
+
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.default.props;
 const defImageFigureData = require('../../modules/image_figure/image_figure.data.js');
 const defVideoData = require('../../modules/video/video.data.js');
@@ -14,6 +17,7 @@ const defcontactData = require('../../modules/contact/contact.data');
 const defPersonCardData = require('../../modules/person_card/person_card.data.js');
 const defSocialLinksData = require('../../modules/social_media_links/social_media_links.data.js');
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
+const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 
 const defAnchorNavData = {
   anchornavTitle: {
@@ -112,7 +116,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     title: 'Title',
-    text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+    skiplinks: skiplinksData,
     header: headerData,
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData, {
@@ -224,6 +228,7 @@ const data = _.merge({}, defaultData, {
       contactData: _.merge({}, defcontactData.variants.fullWidthLessData.props, { anchorNavReference: 'contact' }),
       socialLinksData: _.merge({}, _.omit(defSocialLinksData.variants.default.props, ['linkedIn'], ['youtube']), { anchorReference: 'socialmedia' }),
       footerData: defFooterData,
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
     },
   },
 });

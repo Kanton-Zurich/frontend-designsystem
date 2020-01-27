@@ -10,8 +10,9 @@ const defRelatedContentData = require('../../modules/related_content/related_con
 const defContactData = require('../../modules/contact/contact.data.js').variants.fullWidthLessData.props;
 const defFocusTeaserData = require('../../modules/focus_teaser/focus_teaser.data.js').props;
 const defAboutData = require('../../modules/about/about.data').props;
-const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withoutLinklist.props;
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
+const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 
 const pageHeaderWithoutBreadcrumb = _.omit(defPageHeaderData.variants.colorPeopleTeaser.props, ['breadcrumb']);
 defPageHeaderData.variants.colorPeopleTeaser.props = pageHeaderWithoutBreadcrumb;
@@ -117,6 +118,7 @@ const data = _.merge({}, defaultData, {
       contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
       newsTeaserData: defNewsTeaserData,
       footerData: defFooterData,
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
       focusTeaserData: _.merge({}, defFocusTeaserData, {
         focusTeaserHeader: {
           title: 'Schwerpunkte',

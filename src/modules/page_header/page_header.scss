@@ -119,17 +119,17 @@ $pageHeaderCurves: (
 
     a {
       display: inline-block;
+      position: relative;
+
+      @include polyFluidSizing('top', map-get($pageHeaderCurves, ktzhLogoTop));
+      @include polyFluidSizing('margin-left', map-get($pageHeaderCurves, ktzhLogoMarginLeft));
     }
   }
 
   &__logo {
-    position: relative;
-
     @include polyFluidSizing('width', map-get($pageHeaderCurves, ktzhLogoWidth));
     @include polyFluidSizing('height', map-get($pageHeaderCurves, ktzhLogoWidth));
     @include sizeCurve('padding-top', ktzhLogoPaddingTop, $pageHeaderCurves);
-    @include polyFluidSizing('top', map-get($pageHeaderCurves, ktzhLogoTop));
-    @include polyFluidSizing('margin-left', map-get($pageHeaderCurves, ktzhLogoMarginLeft));
   }
 
   &__breadcrumb {

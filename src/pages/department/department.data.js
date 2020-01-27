@@ -19,6 +19,7 @@ const contextMenuProps = require('../../modules/context_menu/context_menu.data')
 const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 const socialMediaStreamData = require('../../modules/social_media_stream/social_media_stream.data').props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
+const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 
 const defAnchorNavData = {
   anchornavTitle: {
@@ -116,7 +117,8 @@ const data = _.merge({}, defaultData, {
       teaser: _.merge({}, teaserData, { anchorNavReference: 'department_teaser' }),
       about: _.merge({}, defAboutData, { anchorNavReference: 'aboutus' }),
       socialMediaStream: socialMediaStreamData,
-      footer: defFooterData,
+      footerData: defFooterData,
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
     },
   },
 });

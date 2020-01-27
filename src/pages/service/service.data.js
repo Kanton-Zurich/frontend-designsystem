@@ -1,12 +1,15 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
+
+const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
+const headerData = require('../../modules/header/header.data').props;
+
 const defBreadcrumbData = require('../../modules/breadcrumb/breadcrumb.data.js').variants.default.props;
 const defInstructionsData = require('../../modules/instructions/instructions.data.js').variants.serviceDemo.props;
 const contactData = require('../../modules/contact/contact.data').variants.fullWidth.props;
-const headerData = require('../../modules/header/header.data').props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
-
+const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -16,6 +19,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('service.md'),
   },
   props: {
+    skiplinks: skiplinksData,
     header: headerData,
     title: 'Serviceseite',
     text: '',
@@ -36,6 +40,7 @@ const data = _.merge({}, defaultData, {
       instructions: defInstructionsData,
       contact: contactData,
       footerData: defFooterData,
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
     },
   },
 });

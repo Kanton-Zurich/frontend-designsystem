@@ -72,7 +72,7 @@ const data = _.merge({}, defaultData, {
           },
         ],
       },
-      flexDataData: _.assign(_.merge({},defFlexDataData), {
+      flexDataData: _.assign(_.merge({}, defFlexDataData), {
         flexDataSource: '/mocks/modules/flex_data/flex_data_table_alt.json',
         flexTableFormData: _.merge({}, defFormData.variants.decisions.props),
         tableData: {
@@ -114,18 +114,17 @@ const data = _.merge({}, defaultData, {
       contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
       tagGroupData: _.assign(_.merge({}, defTagGroupData, { tagGroupdHeading: { anchorNavReference: 'responsibilities' } }),
         {
-          anchorLinks: [
-            { anchorlink:
-                { anchorlinkText: 'Staatskanzlei',
-                  anchorlinkAdress: '#',
-                  anchorlinkIsActive: false,
-                  anchorlinkIsTagAnchor: true,
-                  anchorlinkIsInverted: true,
-                  anchorlinkIsTopitem: true,
-                  anchorlinkIsTopitemSmall: true,
-                },
+          anchorLinks: [{
+            anchorlink: {
+              anchorlinkText: 'Staatskanzlei',
+              anchorlinkAdress: '#',
+              anchorlinkIsActive: false,
+              anchorlinkIsTagAnchor: true,
+              anchorlinkIsInverted: true,
+              anchorlinkIsTopitem: true,
+              anchorlinkIsTopitemSmall: true,
             },
-          ],
+          }],
         }),
       footerData: defFooterData,
       back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),

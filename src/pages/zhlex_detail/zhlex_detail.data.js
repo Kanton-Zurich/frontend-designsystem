@@ -1,7 +1,10 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
+
+const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
 const headerData = require('../../modules/header/header.data').props;
+
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
@@ -19,6 +22,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('zhlex_detail.md'),
   },
   props: {
+    skiplinks: skiplinksData,
     header: _.merge({}, headerData, { inverted: true }),
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData.variants.rrbDetail.props, {
@@ -30,7 +34,7 @@ const data = _.merge({}, defaultData, {
               href: '#',
             },
           ],
-        }
+        },
       }),
       selectData: defSelectData,
       metablockData: {

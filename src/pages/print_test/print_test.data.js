@@ -1,6 +1,10 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
+
+const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.default.props;
+const headerData = require('../../modules/header/header.data').props;
+
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.defaultImage.props;
 const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants.default.props;
 const defReleatedContentData = require('../../modules/related_content/related_content.data.js').variants.default.props;
@@ -8,7 +12,6 @@ const defContactData = require('../../modules/contact/contact.data.js').variants
 const defLocationsData = require('../../modules/locations/locations.data.js').variants.default.props;
 const defTeaserData = require('../../modules/teaser/teaser.data.js');
 const defTagGroupData = require('../../modules/tag_group/tag_group.data.js').variants.default.props;
-const headerData = require('../../modules/header/header.data').props;
 const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withoutLinklist.props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
@@ -79,6 +82,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('print_test.md'),
   },
   props: {
+    skiplinks: skiplinksData,
     header: headerData,
     title: 'Testseite Druckansicht',
     text: '',

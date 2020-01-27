@@ -1,8 +1,6 @@
 {{#extend "layouts/layout"}}
   {{#content "header"}}
-    <header>
-      {{> "modules/page_header/page_header" props.modules.pageHeaderData}}
-    </header>
+    {{> "modules/page_header/page_header" props.modules.pageHeaderData}}
   {{/content}}
 
 	{{#content "content"}}
@@ -50,7 +48,9 @@
     <h3>Social Media Stream (TODO) </h3>
     {{> "modules/social_media_links/social_media_links" props.modules.socialLinksData}}
 	{{/content}}
+
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData}}
+    {{> "modules/back2top/back2top" props.modules.back2topData}}
   {{/content}}
 {{/extend}}
