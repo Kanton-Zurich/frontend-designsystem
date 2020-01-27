@@ -141,6 +141,66 @@ const duplicateGroup = {
   duplicateButton: 'Weitere Staatsangehörigkeit hinzufügen',
 };
 
+const duplicateGroup2 = {
+  isDuplicatable: true,
+  maxDuplications: '3',
+  duplicateLabels: {
+    add: 'Weitere Gruppe hinzufügen',
+    remove: 'Gruppe wieder entfernen',
+  },
+  rows: [{
+    fields: [{
+      cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+        formInputData.variants.default.props,
+        {
+          isFloatingLabel: true,
+          label: 'Text',
+          name: 'group2_text',
+          uuid: 'group2_text',
+          validation: {
+            isRequired: true,
+          },
+        })),
+    }],
+  }, {
+    fields: [{
+      cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+        datepickerData.variants.defaultDate.props,
+        {
+          formInputData: _.merge({}, formInputData.variants.default.props, {
+            label: 'Datum',
+            uuid: _.uniqueId('date-in-group2'),
+            validation: {
+              pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',
+              isRequired: true,
+              errorMsg: 'Bitte geben Sie eine korrektes Datum an.',
+            },
+          }),
+        })),
+    }, {
+      cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+        selectData.variants.default.props,
+        {
+          triggerInputData: _.merge({}, formInputData.variants.triggerDefault.props, {
+            uuid: _.uniqueId('dropdown-in-group2'),
+            label: 'Dropdown',
+          }),
+        })),
+    }],
+  }, {
+    fields: [{
+      cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+        selectData.variants.default.props,
+        {
+          triggerInputData: _.merge({}, formInputData.variants.triggerDefault.props, {
+            uuid: _.uniqueId('dropdown-in-group2'),
+            label: 'Dropdown 2',
+          }),
+        })),
+    }],
+  }],
+};
+
 const duplicateRow = {
   isDuplicatable: true,
   duplicateLabels: {
@@ -171,6 +231,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     sectionTitle: 'Persönliche Angaben',
+    headingLevel: 3,
   },
 });
 const variants = _.mapValues({
@@ -596,7 +657,7 @@ const variants = _.mapValues({
                     () => handlebars.compile(checkboxHBS)(_.merge({},
                       checkboxData.variants.default.props,
                       {
-                        label: 'Option 2',
+                        label: 'Option 3',
                         groupName: 'checkboxgroup',
                         id: 313,
                         value: '3',
@@ -653,105 +714,108 @@ const variants = _.mapValues({
       desc: '',
     },
     props: {
-      groups: [{
-        rows: [
-          {
-            fields: [
-              {
-                isSmall: true,
-                cellContent: () => handlebars.compile(formFieldsetHBS)({
-                  fieldsetTitle: 'Anrede',
-                  options: [
-                    () => handlebars.compile(radioHBS)(_.merge({},
-                      radioData.variants.default.props,
-                      {
-                        label: 'Frau',
-                        groupName: 'salutation2',
-                        id: 6,
-                        value: 'mrs',
-                      })),
-                    () => handlebars.compile(radioHBS)(_.merge({},
-                      radioData.variants.default.props,
-                      {
-                        label: 'Herr',
-                        groupName: 'salutation2',
-                        id: 7,
-                        value: 'mr',
-                      })),
-                    () => handlebars.compile(radioHBS)(_.merge({},
-                      radioData.variants.default.props,
-                      {
-                        label: 'Keine Angabe',
-                        groupName: 'salutation2',
-                        id: 8,
-                        value: 'no',
-                      })),
-                  ],
-                }),
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  isSmall: true,
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Anrede',
+                    options: [
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Frau',
+                          groupName: 'salutation2',
+                          id: 6,
+                          value: 'mrs',
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Herr',
+                          groupName: 'salutation2',
+                          id: 7,
+                          value: 'mr',
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Keine Angabe',
+                          groupName: 'salutation2',
+                          id: 8,
+                          value: 'no',
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+            {
+              fields: [{
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Vorname',
+                    name: 'prename',
+                    uuid: 'prename2',
+                    validation: {
+                      isRequired: true,
+                    },
+                  })),
               },
-            ],
-          },
-          {
-            fields: [{
-              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                formInputData.variants.default.props,
-                {
-                  isFloatingLabel: true,
-                  label: 'Vorname',
-                  name: 'prename',
-                  uuid: 'prename2',
-                  validation: {
-                    isRequired: true,
-                  },
-                })),
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Nachname',
+                    name: 'surname',
+                    uuid: 'surname2',
+                    validation: {
+                      isRequired: true,
+                    },
+                  })),
+              }],
             },
             {
-              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                formInputData.variants.default.props,
-                {
-                  isFloatingLabel: true,
-                  label: 'Nachname',
-                  name: 'surname',
-                  uuid: 'surname2',
-                  validation: {
-                    isRequired: true,
-                  },
-                })),
-            }],
-          },
-          {
-            fields: [{
-              isSmall: true,
-              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                formInputData.variants.default.props,
-                {
-                  isFloatingLabel: true,
-                  label: 'PLZ',
-                  name: 'zip',
-                  uuid: 'zip2',
-                  validation: {
-                    isRequired: true,
-                    pattern: '^[0-9]{4,4}$',
-                    errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
-                  },
-                })),
+              fields: [{
+                isSmall: true,
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'PLZ',
+                    name: 'zip',
+                    uuid: 'zip2',
+                    validation: {
+                      isRequired: true,
+                      pattern: '^[0-9]{4,4}$',
+                      errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
+                    },
+                  })),
+              },
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Ort',
+                    name: 'city',
+                    uuid: 'city2',
+                    validation: {
+                      isRequired: true,
+                    },
+                  })),
+              }],
             },
-            {
-              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                formInputData.variants.default.props,
-                {
-                  isFloatingLabel: true,
-                  label: 'Ort',
-                  name: 'city',
-                  uuid: 'city2',
-                  validation: {
-                    isRequired: true,
-                  },
-                })),
-            }],
-          },
-        ],
-      }],
+          ],
+        },
+        duplicateGroup2,
+      ],
     },
   },
   withRules: {
@@ -1135,11 +1199,12 @@ const variants = _.mapValues({
   },
   steuerBuch: {
     meta: {
-      title: 'Steuerbuch (Flex data CZHDEV-1234)',
+      title: 'Steuerbuch (Flex Data CZHDEV-1234)',
       desc: 'Flex Data Steuerbuch',
     },
     props: {
       sectionTitle: 'Suche im Zürcher Steuerbuch',
+      headingLevel: 2,
       groups: [{
         rows: [
           {
@@ -1149,9 +1214,9 @@ const variants = _.mapValues({
                   formInputData.variants.default.props,
                   {
                     isFloatingLabel: true,
-                    label: 'Aktuelle Berufsebezichnung',
-                    name: 'aktueller_beruf',
-                    uuid: 'aktueller_beruf',
+                    label: 'Stichwort oder ZStB-Nr.',
+                    name: 'query_string',
+                    uuid: 'query_string',
                   })),
               },
             ],
@@ -1208,6 +1273,217 @@ const variants = _.mapValues({
         ],
       },
       ],
+    },
+  },
+  zhlex: {
+    meta: {
+      title: 'ZH-Lex (CZHDEV-1240)',
+      desc: 'Flex Data ZH-Lex',
+    },
+    props: {
+      sectionTitle: null,
+      groups: [{
+        rows: [{
+          fields: [{
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Erlasstitel',
+                name: 'erlasstitel',
+                uuid: 'erlasstitel',
+              })),
+          }],
+        }, {
+          fields: [{
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Ordnungsnummer',
+                name: 'ordnungsnummer',
+                uuid: 'ordnungsnummer',
+              })),
+          }, {
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Stichwort',
+                name: 'stichwort',
+                uuid: 'stichwort',
+              })),
+          }],
+        }],
+      }],
+    },
+  },
+  zhlexLSExtended: {
+    meta: {
+      title: 'ZH-Lex Loseblattsammlung (CZHDEV-1240)',
+      desc: 'Flex Data ZH-Lex Erweiterte Suche Loseblattsammlung',
+    },
+    props: {
+      sectionTitle: null,
+      groups: [{
+        rows: [{
+          fields: [{
+            cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+              selectData.variants.table.props,
+              {})),
+          }],
+        }],
+      }, {
+        rows: [{
+          fields: [{
+            cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+              datepickerData.variants.dateRange.props,
+              {
+                formInputData: {
+                  label: 'Erlass',
+                  name: 'erlassdatum',
+                  uuid: 'erlassdatum',
+                  validation: false,
+                },
+              })),
+          }],
+        }, {
+          fields: [{
+            cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+              datepickerData.variants.dateRange.props,
+              {
+                formInputData: {
+                  label: 'Inkraftsetzung',
+                  name: 'inkraftsetzungsdatum',
+                  uuid: 'inkraftsetzungsdatum',
+                  validation: false,
+                },
+              })),
+          }, {
+            cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+              datepickerData.variants.dateRange.props,
+              {
+                formInputData: {
+                  label: 'Publikation',
+                  name: 'publikationsdatum',
+                  uuid: 'publikationsdatum',
+                  validation: false,
+                },
+              })),
+          }],
+        }, {
+          fields: [{
+            cellContent: () => handlebars.compile(checkboxHBS)(_.merge({},
+              checkboxData.variants.default.props,
+              {
+                label: 'Auch aufgehobene Erlasse suchen',
+                groupName: 'include-repealed',
+                id: 410,
+                value: 'true',
+              })),
+          }],
+        }],
+      }],
+    },
+  },
+  zhlexOSExtended: {
+    meta: {
+      title: 'ZH-Lex Offizielle Gesetzessammlung (CZHDEV-1240)',
+      desc: 'Flex Data ZH-Lex Erweiterte Suche Offizielle Gesetzessammlung',
+    },
+    props: {
+      sectionTitle: null,
+      groups: [{
+        rows: [{
+          fields: [{
+            cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+              selectData.variants.default.props,
+              {
+                listData: _.merge({}, listDemoData.props, {
+                  groupPostfix: 'lex_issue',
+                  isSingleSelect: true,
+                  selectOptions: [
+                    { value: '76', label: 'Band 76', id: _.uniqueId('zhlex_issue') },
+                    { value: '75', label: 'Band 75', id: _.uniqueId('zhlex_issue') },
+                    { value: '74', label: 'Band 74', id: _.uniqueId('zhlex_issue') },
+                    { value: '73', label: 'Band 73', id: _.uniqueId('zhlex_issue') },
+                    { value: '...', label: '...', id: _.uniqueId('zhlex_issue') },
+                    { value: '54', label: 'Band 54', id: _.uniqueId('zhlex_issue') },
+                    { value: '53', label: 'Band 53', id: _.uniqueId('zhlex_issue') },
+                    { value: '52', label: 'Band 52', id: _.uniqueId('zhlex_issue') },
+                    { value: '51', label: 'Band 51', id: _.uniqueId('zhlex_issue') },
+                  ],
+                }),
+                triggerInputData: {
+                  label: 'Bandnummer',
+                  validation: {
+                    isRequired: false,
+                  },
+                },
+              })),
+          },
+          {
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Seitenzahl in OS',
+                name: 'seitenzahl',
+                uuid: 'seitenzahl',
+              })),
+          }],
+        }],
+      }, {
+        rows: [{
+          fields: [{
+            cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+              datepickerData.variants.dateRange.props,
+              {
+                formInputData: {
+                  label: 'Erlass',
+                  name: 'erlassdatum',
+                  uuid: 'erlassdatum',
+                  validation: false,
+                },
+              })),
+          }, {
+            cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+              datepickerData.variants.dateRange.props,
+              {
+                formInputData: {
+                  label: 'Inkraftsetzung',
+                  name: 'inkraftsetzungsdatum',
+                  uuid: 'inkraftsetzungsdatum',
+                  validation: false,
+                },
+              })),
+          }],
+        }, {
+          fields: [{
+            cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+              datepickerData.variants.dateRange.props,
+              {
+                formInputData: {
+                  label: 'Publikation',
+                  name: 'publikationsdatum',
+                  uuid: 'publikationsdatum',
+                  validation: false,
+                },
+              })),
+          }, {
+            cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+              datepickerData.variants.dateRange.props,
+              {
+                formInputData: {
+                  label: 'Aufhebung',
+                  name: 'aufhebungsdatum',
+                  uuid: 'aufhebungsdatum',
+                  validation: false,
+                },
+              })),
+          }],
+        }],
+      }],
     },
   },
   hierarchicalRules: {
@@ -1337,7 +1613,8 @@ const variants = _.mapValues({
       desc: 'Flex Data Regierungsratsbeschlüsse',
     },
     props: {
-      sectionTitle: null,
+      sectionTitle: 'Suche',
+      headingLevel: 2,
       groups: [{
         rows: [
           {
@@ -1665,7 +1942,8 @@ const variants = _.mapValues({
       desc: 'Flex Data Entscheide',
     },
     props: {
-      sectionTitle: null,
+      sectionTitle: 'Suche',
+      headingLevel: 2,
       groups: [{
         rows: [
           {

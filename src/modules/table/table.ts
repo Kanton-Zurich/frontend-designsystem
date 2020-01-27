@@ -239,6 +239,7 @@ class Table extends Module {
    */
   onOrderTable(event) {
     let columnHeader = event.target;
+    this.log(columnHeader);
 
     if (columnHeader.tagName !== 'BUTTON') {
       columnHeader = columnHeader.parentNode;

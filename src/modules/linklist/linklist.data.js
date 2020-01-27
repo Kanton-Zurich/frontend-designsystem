@@ -26,8 +26,7 @@ const data = _.merge({}, defaultData, {
         linkListItemHref: '/index.html',
       },
     ],
-    linkListTitle: 'Linkliste',
-    headingLevel: 2,
+
   },
 });
 
@@ -39,6 +38,7 @@ const variants = _.mapValues({
       desc: 'Implementation with h2 title',
     },
     props: {
+      linkListTitle: 'Linkliste',
       headingLevel: 2,
     },
   },
@@ -48,6 +48,7 @@ const variants = _.mapValues({
       desc: 'Implementation with h3 title',
     },
     props: {
+      linkListTitle: 'Linkliste',
       headingLevel: 3,
     },
   },
@@ -57,6 +58,7 @@ const variants = _.mapValues({
       desc: 'Implementation with H4',
     },
     props: {
+      linkListTitle: 'Linkliste',
       headingLevel: 4,
     },
   },
@@ -65,8 +67,31 @@ const variants = _.mapValues({
       title: 'Without title',
       desc: 'Implementation without title',
     },
+  },
+  noTitleAlt: {
+    meta: {
+      title: 'Without title',
+      desc: 'Implementation without title',
+    },
     props: {
-      linklistTitle: null,
+      links: [
+        {
+          linkListItemTitle: 'Gesetz über das Bürgerrecht',
+          linkListItemHref: '/',
+        },
+        {
+          linkListItemTitle: 'Gesetz über die Auslagerung von Informatikdienstleistungen',
+          linkListItemHref: '/',
+        },
+        {
+          linkListItemTitle: 'Gesetz über das Schlichtungsverfahren für Streitigkeiten nach Gleichstellungsgesetz in öffentlich-rechtlichen Arbeitsverhältnissen',
+          linkListItemHref: '/',
+        },
+        {
+          linkListItemTitle: 'Gesetz über die Verselbstständigung der Versicherungskasse für das Staatspersonal',
+          linkListItemHref: '/',
+        },
+      ],
     },
   },
   locations: {
@@ -75,7 +100,6 @@ const variants = _.mapValues({
       desc: 'Linklist as used in locations module',
     },
     props: {
-      linklistTitle: null,
       hasIndex: true,
       links: [
         {

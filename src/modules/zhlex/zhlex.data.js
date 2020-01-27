@@ -2,35 +2,27 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const defTabsData = require('../tabs/tabs.data').variants.zhlex.props;
 
-const template = dataHelper.getFileContent('pagination.hbs');
+const template = dataHelper.getFileContent('zhlex.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Seiten Navigation',
-    className: 'Pagination',
-    jira: 'CZHDEV-990',
-    label: 'Navigation',
-    documentation: dataHelper.getDocumentation('pagination.md'),
+    title: 'ZH-Lex',
+    className: 'ZhLex',
+    jira: 'CZHDEV-1240',
+    documentation: dataHelper.getDocumentation('zhlex.md'),
   },
   props: {
-    headingLevel: 4,
-    pageCount: 30,
+    id: 'zhlex_search',
+    title: 'Suche',
+    tabs: defTabsData,
   },
 });
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-    },
-  },
-  fullWidth: {
-    meta: {
-      title: 'Volle Breite',
-      desc: '',
-    },
-    props: {
-      fullWidth: true,
+      title: 'Standard',
+      desc: 'Standard-Implementation',
     },
   },
 }, (variant) => {

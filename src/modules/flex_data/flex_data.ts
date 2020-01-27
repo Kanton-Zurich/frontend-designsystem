@@ -142,8 +142,13 @@ class FlexData extends Module {
     const sortParamElemet = this.ui.resultsTable ? this.ui.resultsTable : this.ui.resultsGeneric;
     this.order = sortParamElemet.getAttribute('data-sort-direction');
     this.orderBy = sortParamElemet.getAttribute('data-sort-column');
-    this.updateViewFromURLParams();
-    setTimeout(() => { this.loadResults(); }, this.options.initDelay);
+    const initialLoad = this.ui.element.hasAttribute('data-initial-load');
+    if (this.getAllURLParams()['page'] || (initialLoad && initialLoad === true)) { // eslint-disable-line
+      this.updateViewFromURLParams();
+      setTimeout(() => {
+        this.loadResults();
+      }, this.options.initDelay);
+    }
   }
 
   /**
@@ -190,6 +195,7 @@ class FlexData extends Module {
    * Load results
    */
   private loadResults(scroll = false) {
+    this.ui.results.classList.remove('initially-hidden');
     this.paginationInteraction = false;
     if (this.dataIdle) {
       this.dataIdle = false;
@@ -197,8 +203,8 @@ class FlexData extends Module {
         this.scrollTop();
       }
       this.fetchData((jsonData) => {
-        this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
-        this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
+        this.ui.pagination.dispatchEvent(new CustomEvent(Pagination
+          .events.setPageCount, { detail: jsonData.numberOfResultPages }));
         const canonicalUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
         let prevUrl = '';
         if (parseInt(this.ui.paginationInput.value, 10) > 1) {
@@ -216,6 +222,7 @@ class FlexData extends Module {
         this.upsertLinkRel('canonical', canonicalUrl);
         this.populateResultList(jsonData);
         this.updateFlyingFocus(0);
+        this.dispatchVerticalResizeEvent();
         if (scroll) {
           this.scrollTop();
         }
@@ -339,6 +346,11 @@ class FlexData extends Module {
     append('page', this.ui.paginationInput.value);
     append('order', this.order);
     append('orderBy', this.orderBy);
+
+    // append has (for tabs)
+    if (window.location.hash) {
+      resultUrl += window.location.hash;
+    }
     return resultUrl;
   }
 
@@ -350,7 +362,10 @@ class FlexData extends Module {
     Object.keys(params).forEach((key) => {
       switch (key) {
         case 'page':
-          [this.ui.paginationInput.value] = params[key];
+          setTimeout(() => {
+            this.ui.pagination
+              .dispatchEvent(new CustomEvent(Pagination.events.setPage, { detail: params[key] }));
+          }, 0);
           break;
         case 'order':
           if (this.ui.resultsTable) {

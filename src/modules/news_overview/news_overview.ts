@@ -381,7 +381,10 @@ class NewsOverview extends Module {
     const page = this.getURLParam('page', true);
     const orderBy = this.getURLParam('orderBy', true);
     if (page) {
-      this.ui.paginationInput.value = `${page}`;
+      setTimeout(() => {
+        this.ui.pagination
+          .dispatchEvent(new CustomEvent(Pagination.events.setPage, { detail: page }));
+      }, 0);
     }
     this.searchWord = searchWord !== null ? searchWord : '';
     this.filterLists = [
@@ -458,8 +461,8 @@ class NewsOverview extends Module {
           this.ui.paginationWrapper.classList.add('hidden');
         }
         // update canonical href
-        this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
-        this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
+        this.ui.pagination.dispatchEvent(new CustomEvent(Pagination
+          .events.setPageCount, { detail: jsonData.numberOfResultPages }));
         const canonicalUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
         let prevUrl = '';
         if (parseInt(this.ui.paginationInput.value, 10) > 1) {

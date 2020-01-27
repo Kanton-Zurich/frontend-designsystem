@@ -8,7 +8,6 @@ const notification = require('../../atoms/notification/notification.data').varia
 
 const toggle = require('../../atoms/toggle/toggle.data').variants.default.props;
 
-const contextMenuProps = require('../context_menu/context_menu.data').props;
 const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 
 const formInput = require('../../atoms/form_input/form_input.data').variants.default.props;

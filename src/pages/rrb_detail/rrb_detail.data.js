@@ -18,29 +18,28 @@ const data = _.merge({}, defaultData, {
   props: {
     header: headerData,
     modules: {
-      pageHeaderData: _.merge({}, defPageHeaderData.variants.rrbDetail.props,
-        {
-          breadcrumb: {
-            path:
-              [
-                {
-                  title: 'Zurück zur Übersicht',
-                  href: '../rrb_data/rrb_data.html',
-                },
-              ],
-          },
-        }
-      ),
+      pageHeaderData: _.merge({}, defPageHeaderData.variants.rrbDetail.props, {
+        breadcrumb: {
+          path:
+            [
+              {
+                title: 'Zurück zur Übersicht',
+                href: '../rrb_data/rrb_data.html',
+              },
+            ],
+        },
+      }),
       metablockData: {
         title: 'Details',
         hasTopTitle: true,
-        headingLevel: 3,
+        headingLevel: 2,
+        smallerHeadings: true,
         rows: [
           {
             columns: [
               {
                 label: 'Text',
-                text: 'Anfrage Barbara Günthard Fitze, Winterthur, Daniel Sommer, Affoltern  a. Albis, und Beat Monhart, Gossau, betreffend Abfallreduktion,  Beantwortung',
+                text: 'Anfrage Barbara Günthard Fitze, Winterthur, Daniel Sommer, Affoltern a. Albis, und Beat Monhart, Gossau, betreffend Abfallreduktion, Beantwortung',
               },
             ],
           },

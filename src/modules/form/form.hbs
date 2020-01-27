@@ -1,5 +1,5 @@
 <section class="form__section" aria-live="polite">
-  {{#if sectionTitle }}<h3 class="atm-heading form__section-title" tabindex="0">{{ sectionTitle }}</h3>{{/if}}
+  {{#if sectionTitle }}<h{{headingLevel}} class="atm-heading form__section-title" tabindex="0">{{ sectionTitle }}</h{{headingLevel}}>{{/if}}
   {{#each groups}}
     <div class="form__group {{#if isDuplicatable}}form__group--duplicatable{{/if}}" {{#if isDuplicatable}}data-form="duplicatable"{{/if}} {{#if maxDuplications}}data-max-duplications="{{maxDuplications}}"{{/if}}>
       {{#each rows}}
