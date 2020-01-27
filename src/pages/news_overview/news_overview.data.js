@@ -8,6 +8,7 @@ const defCTABoxData = require('../../modules/cta_box/cta_box.data');
 const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 const defRelatedContentData = require('../../modules/related_content/related_content.data');
 const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
+const defBreadcrumbData = require('../../modules/breadcrumb/breadcrumb.data').variants.default.props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 
 const data = _.merge({}, defaultData, {
@@ -25,6 +26,7 @@ const data = _.merge({}, defaultData, {
         pageTitle: 'News Übersicht',
         noText: true,
         buttonData: false,
+        breadcrumb: defBreadcrumbData,
       }),
       newsOverview: defNewsOverviewData.props,
       ctaBox: defCTABoxData.variants.default.props,

@@ -1,0 +1,21 @@
+{{#extend "layouts/layout"}}
+  {{#content "header"}}
+    <header>
+      {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
+    </header>
+  {{/content}}
+  {{#content "content"}}
+    {{> "modules/select/select" props.modules.selectData }}
+    <h2 class="atm-heading h3">Details</h2>
+    {{> "atoms/smallcaption/smallcaption" props.modules.smallcaptionData }}
+    {{> "modules/download_list/download_list" props.modules.downloadListData }}
+    {{> "modules/metablock/metablock" props.modules.metablockData}}
+    {{> "modules/contact/contact" props.modules.contactData}}
+    {{> "modules/related_content/related_content" props.modules.releatedContentData}}
+    {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
+  {{/content}}
+  {{#content "footer"}}
+    {{> "modules/footer/footer" props.modules.footerData }}
+    {{> "modules/back2top/back2top" props.modules.back2topData}}
+  {{/content}}
+{{/extend}}

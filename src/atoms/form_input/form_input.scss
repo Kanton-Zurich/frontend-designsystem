@@ -421,6 +421,42 @@ $triggerWidth: pxToRem(86px);
     }
   }
 
+  /* --------------------
+  ------ REDUCED --------
+  -------------------- */
+
+  &--reduced {
+    display: inline-flex;
+
+    .atm-form_input__input {
+      display: flex;
+      border: 0;
+      padding: 0 pxToRem($sizeBig) 0 0;
+      min-height: pxToRem($sizeBig);
+      align-items: center;
+
+      .atm-form_input__trigger-label {
+        display: flex;
+        position: static;
+        top: unset;
+        transition: none;
+        color: $colorBlack60;
+        font-size: $sizeFontSmall;
+        font-family: $fontFamilyBase;
+      }
+
+      .atm-form_input__trigger-value {
+        display: flex;
+        margin-left: pxToRem($sizeRegular);
+      }
+
+      > .icon {
+        right: 0;
+        top: pxToRem($sizeMini);
+      }
+    }
+  }
+
   /* -------------
   ------ HINT ----
   ------------- */
