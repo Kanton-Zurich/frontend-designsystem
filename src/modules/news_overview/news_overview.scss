@@ -30,6 +30,12 @@
     }
   }
 
+  &__notification {
+    &.hidden {
+      display: none;
+    }
+  }
+
   &__filter {
     display: flex;
     flex-wrap: wrap;

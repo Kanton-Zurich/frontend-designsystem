@@ -652,7 +652,8 @@ class TaxCalc extends Module {
     } else {
       newSearchStr = `${paramKey}=${calculatorId}`;
     }
-    window.history.replaceState(null, null, `?${newSearchStr}`);
+    const wcmmode = this.getURLParam('wcmmode');
+    window.history.replaceState(null, null, `?${newSearchStr}${wcmmode ? '&wcmmode=' + wcmmode : ''}`); // eslint-disable-line
   }
 
   private onApiError(errorsResponseObject: { error: {text: string}[]}) {

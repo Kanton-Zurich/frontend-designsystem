@@ -116,9 +116,16 @@
       }
     }
 
-    .mdl-pagination {
-      margin-top: $sizeLarge;
 
+    .mdl-pagination {
+      &.hidden {
+        display: none;
+      }
+
+      margin-top: $sizeLarge;
+    }
+
+    .mdl-flex-data__notification {
       &.hidden {
         display: none;
       }
