@@ -107,6 +107,8 @@ $headerCurves: (
       font-family: $fontFamilyBlack;
       color: $colorWhite;
       margin-left: $sizeSmallRegular;
+
+      transform: translateY(3px);
     }
 
     svg {
