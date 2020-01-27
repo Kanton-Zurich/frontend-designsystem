@@ -3,6 +3,12 @@ $leadFontCurve: (
   large: $sizeFontRegular,
   xlarge: $sizeFontMedium,
 );
+$topiclistSizeCurves: (
+  input: (
+    tiny: $sizeSmallLarge,
+    medium: $sizeHuge,
+  ),
+);
 
 .mdl-topiclist {
 
@@ -136,7 +142,7 @@ $leadFontCurve: (
   }
 
   .atm-form_input {
-    @include sizeCurve(margin-bottom, large);
+    @include sizeCurve(margin-bottom, input, $topiclistSizeCurves);
   }
 
   /**
