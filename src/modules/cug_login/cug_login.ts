@@ -133,8 +133,10 @@ class CugLogin extends Module {
                     this.ui.element.classList.add(this.options.stateClasses.unauthorised);
                     this.ui.logoutBtn.focus();
                   } else {
+                    document.addEventListener(UserMenu.events.stateFetched, () => {
+                      this.redirect(this.ui.configuredRedirectUrl.value);
+                    });
                     document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
-                    this.redirect(this.ui.configuredRedirectUrl.value);
                   }
                 } else if (authorizeResp.status === 404) { // eslint-disable-line
                   document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
