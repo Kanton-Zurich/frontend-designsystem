@@ -129,6 +129,7 @@ class CugLogin extends Module {
               this.fetchJsonData(endpointAuthorize, false).then((authorizeResp) => {
                 if (authorizeResp.status === 200) { // eslint-disable-line
                   if (this.devMode && username !== 'admin') {
+                    document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
                     this.ui.element.classList.add(this.options.stateClasses.unauthorised);
                     this.ui.logoutBtn.focus();
                   } else {
@@ -136,6 +137,7 @@ class CugLogin extends Module {
                     this.redirect(this.ui.configuredRedirectUrl.value);
                   }
                 } else if (authorizeResp.status === 404) { // eslint-disable-line
+                  document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
                   this.ui.element.classList.add(this.options.stateClasses.unauthorised);
                   this.ui.logoutBtn.focus();
                 } else {
