@@ -28,18 +28,22 @@ class Modal extends Module {
   public ui: {
     element: HTMLDivElement,
     initiable: NodeListOf<HTMLElement>,
-  }
+    pageContainer: HTMLDivElement,
+    pages: HTMLDivElement[],
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
     const defaultOptions = {
-      transitionTime: 250,
+      transitionTime: 280,
       domSelectors: {
         pageHeader: '.mdl-page-header',
         closeButton: '.mdl-page-header__closebutton',
         close: '[data-modal="close"]',
         focusable: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
         initiable: '[data-init]',
+        pageContainer: '.mdl-modal__pages',
+        pages: '.mdl-modal__pages-page',
       },
       stateClasses: {
         beforeShow: 'mdl-modal--before-show',
@@ -48,10 +52,7 @@ class Modal extends Module {
         dynamicHeader: 'mdl-modal--dynamicheader',
         beforeHide: 'mdl-modal--before-hide',
         hide: 'mdl-modal--hide',
-        switchLeft: 'mdl-modal--switch-left',
         noTransitionShow: 'mdl-modal--no-transition-show',
-        beforeSwitchRight: 'mdl-modal--before-switch-right',
-        switchRight: 'mdl-modal--switch-right',
         search: 'mdl-modal--search',
         opened: 'mdl-modal--opened',
       },
@@ -84,6 +85,7 @@ class Modal extends Module {
       display: 'Modal.display',
       closed: 'Modal.closed',
       opened: 'Modal.opened',
+      setPage: 'Modal.setPage',
     };
   }
 
@@ -103,8 +105,8 @@ class Modal extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.eventDelegate.on('Modal.open', this.openModal.bind(this));
-    this.eventDelegate.on('Modal.initContent', () => {
+    this.eventDelegate.on(Modal.events.openModal, this.openModal.bind(this));
+    this.eventDelegate.on(Modal.events.initContent, () => {
       if (!this.hasCloseBtn) {
         this.initContent();
       }
@@ -114,13 +116,12 @@ class Modal extends Module {
         .bind((<any>window).estatico.helpers.app)(this.ui.element);
       (<any>window).estatico.helpers.app.registerForms();
     });
-    this.eventDelegate.on('Modal.close', this.closeModal.bind(this));
+    this.eventDelegate.on(Modal.events.closeModal, this.closeModal.bind(this));
     this.eventDelegate.on('click', this.options.domSelectors.close, this.closeModal.bind(this));
     // move to the end of the DOM
     (<any>window).estatico.helpers.bodyElement.appendChild(this.ui.element);
-    this.eventDelegate.on('Modal.switchLeft', this.switchLeft.bind(this));
-    this.eventDelegate.on('Modal.switchRight', this.switchRight.bind(this));
     window.addEventListener('keydown', this.closeOnEscape.bind(this));
+    this.eventDelegate.on(Modal.events.setPage, this.onSetPage.bind(this));
   }
 
   /**
@@ -186,7 +187,7 @@ class Modal extends Module {
   /**
    * Open the modal and isolate content
    */
-  openModal() {
+  openModal(event) {
     // isolate modal
     this.isolatedElements = [];
     (<any>window).estatico.helpers.bodyElement.childNodes.forEach((child) => {
@@ -197,6 +198,10 @@ class Modal extends Module {
         }
       }
     });
+
+    if (event.detail && event.detail.page) {
+      this.setPage(event.detail.page);
+    }
 
     // Set show class
     this.ui.element.classList.add(this.options.stateClasses.beforeShow);
@@ -272,58 +277,14 @@ class Modal extends Module {
     window.dispatchEvent(new CustomEvent(Modal.events.closed, { detail: { sender: this } }));
   }
 
-  switchLeft() {
-    // Accessibility integrate the isolated
-    this.isolatedElements.forEach((element) => {
-      element.removeAttribute('aria-hidden');
-    });
-
-    this.ui.element.classList.add(this.options.stateClasses.switchLeft);
-
-    // After the animation we can set the modal to display: none
-    setTimeout(() => {
-      this.ui.element.classList.remove(this.options.stateClasses.beforeShow);
-      this.ui.element.classList.remove(this.options.stateClasses.beforeHide);
-      this.ui.element.classList.remove(this.options.stateClasses.hide);
-      this.ui.element.classList.remove(this.options.stateClasses.show);
-
-      this.ui.element.classList.remove(this.options.stateClasses.switchLeft);
-    }, this.options.transitionTime);
+  onSetPage(event) {
+    if (event.detail.page) {
+      this.setPage(event.detail.page);
+    }
   }
 
-  switchRight() {
-    this.isolatedElements = [];
-    (<any>window).estatico.helpers.bodyElement.childNodes.forEach((child) => {
-      if (child.nodeType === 1) {
-        if (!(<HTMLElement>child).getAttribute('aria-hidden')) {
-          (<HTMLElement>child).setAttribute('aria-hidden', 'true');
-          this.isolatedElements.push(child);
-        }
-      }
-    });
-
-    if (this.options.isNav) {
-      this.ui.element.querySelector(this.options.childSelectors.nav)
-        .dispatchEvent(new CustomEvent(Modal.events.display));
-    }
-
-    setTimeout(() => {
-      this.ui.element.classList.add(this.options.stateClasses.noTransitionShow);
-
-      setTimeout(() => {
-        this.ui.element.classList.add(this.options.stateClasses.beforeSwitchRight);
-        this.ui.element.classList.add(this.options.stateClasses.show);
-        this.ui.element.classList.add(this.options.stateClasses.beforeShow);
-        this.ui.element.classList.remove(this.options.stateClasses.noTransitionShow);
-      }, 1);
-
-      this.ui.element.classList.add(this.options.stateClasses.switchRight);
-
-      setTimeout(() => {
-        this.ui.element.classList.remove(this.options.stateClasses.beforeSwitchRight);
-        this.ui.element.classList.remove(this.options.stateClasses.switchRight);
-      }, this.options.transitionTime);
-    }, this.options.transitionTime);
+  setPage(page) {
+    this.ui.pageContainer.setAttribute('data-page', page);
   }
 
   /**

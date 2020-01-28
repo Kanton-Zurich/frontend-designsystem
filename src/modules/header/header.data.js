@@ -23,7 +23,7 @@ const data = _.merge({}, defaultData, {
       },
       {
         title: 'Organisation',
-        modal: 'flyout-organisation',
+        modal: 'flyout-topics',
       },
     ],
     modals: [

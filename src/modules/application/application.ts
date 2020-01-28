@@ -76,17 +76,17 @@ class Application extends Module {
       pageHeader
         .addEventListener(PageHeader.events.expandTriggered, () => {
           this.verticalSizeUpdate();
-          window.dispatchEvent(new Event('resize'));
+          window.dispatchEvent(new CustomEvent('resize'));
         });
       pageHeader
         .addEventListener(PageHeader.events.collapseTriggered, () => {
           this.verticalSizeUpdate();
-          window.dispatchEvent(new Event('resize'));
+          window.dispatchEvent(new CustomEvent('resize'));
         });
     }
     setTimeout(() => {
       this.verticalSizeUpdate();
-      window.dispatchEvent(new Event('resize'));
+      window.dispatchEvent(new CustomEvent('resize'));
     }, this.options.transitionDelay);
   }
 
@@ -100,14 +100,20 @@ class Application extends Module {
   }
 
   verticalSizeUpdate() {
-    const pageHeader = document.querySelector('.mdl-page-header');
+    let pageHeader = document.querySelector('.mdl-page-header');
+    let node = this.ui.element.parentNode;
+    while (node !== null) {
+      if (node.classList && node.classList.contains('mdl-modal')) {
+        pageHeader = node.querySelector('.mdl-page-header');
+        break;
+      }
+      node = node.parentNode;
+    }
     const element = this.ui.element.closest('.mdl-application__wrapper--fullWidth');
-
     let headerSize = 0;
     if (pageHeader) {
       headerSize = pageHeader.getBoundingClientRect().bottom;
     }
-
     if (element) {
       element.style.height = `${window.innerHeight - headerSize}px`;
     }
@@ -118,8 +124,6 @@ class Application extends Module {
    */
   destroy() {
     super.destroy();
-
-    // Custom destroy actions go here
   }
 
   scriptsDone() {
@@ -148,7 +152,7 @@ class Application extends Module {
       s.onerror = callback;
       s.src = $script.src;
     } else {
-      s.textContent = $script.innerText;
+      s.textContent = $script.innerHTML;
     }
 
     // re-insert the script tag so it executes.

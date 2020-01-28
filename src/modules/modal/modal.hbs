@@ -28,16 +28,20 @@
     </div>
   {{/unless}}
   {{#unless fullWidthApp}}
-  <div class="lyt-wrapper">
-    <div class="grid-x grid-margin-x">
-      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-        <!-- modal content -->
-        {{#each modules.contentModules}}
-          {{{this}}}
-        {{/each}}
+    {{#if paging}}<div class="mdl-modal__pages">{{/if}}
+    {{#each modules.contentModules}}
+      {{#if ../paging}}<div class="mdl-modal__pages-page">{{/if}}
+      <div class="lyt-wrapper">
+        <div class="grid-x grid-margin-x">
+          <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+            <!-- modal content -->
+                {{{this}}}
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+      {{#if ../paging}}</div>{{/if}}
+    {{/each}}
+    {{#if paging}}</div>{{/if}}
   {{/unless}}
   {{#if fullWidthApp}}
     {{{fullWidthApp}}}

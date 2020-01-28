@@ -1,7 +1,7 @@
 $modalCurves: (
   closeTop: (
     tiny: $sizeRegular,
-    medium: $sizeBig,
+    medium: $sizeLarge,
     xlarge: $sizeLarge
   ),
   closeRight: (
@@ -38,11 +38,15 @@ $modalCurves: (
 
   @include transition(transform opacity, $transitionTimeDefault, $transitionEasingDefault);
 
-  > .lyt-wrapper:nth-child(2) {
-    transform: translateY(50vh) translateX(0);
-    opacity: 0;
+  &--show {
+    opacity: 1;
+    z-index: $zIndexFlyouts;
 
-    @include transition(transform opacity, $transitionTimeDefault, $transitionEasingDefault);
+    transform: translateY(0);
+
+    .mdl-modal__pages {
+      display: flex;
+    }
   }
 
   /**
@@ -52,43 +56,9 @@ $modalCurves: (
     display: block;
   }
 
-  &--show {
-    opacity: 1;
-    z-index: $zIndexFlyouts;
-
-    transform: translateY(0);
-
-    > .lyt-wrapper:nth-child(2) {
-      transform: translateY(0) translateX(0);
-      opacity: 1;
-    }
-  }
-
-  &--dynamicheader {
-    transform: none;
-  }
-
-  &--no-transition-show {
-    transition: none;
-
-    > .lyt-wrapper:nth-child(2) {
-      transition: none;
-    }
-  }
-
   &--before-hide {
-    > .lyt-wrapper:nth-child(2) {
-      opacity: 0;
-
-      @include transition(opacity, $transitionTimeDefault, $transitionEasingDefault);
-    }
-  }
-
-  &--before-switch-right {
-    > .lyt-wrapper:nth-child(2) {
-      opacity: 0;
-      transform: translateY(0) translateX(10vh);
-    }
+    opacity: 0;
+    transform: translateY(-50vh);
   }
 
   &--hide {
@@ -96,17 +66,55 @@ $modalCurves: (
     opacity: 0;
   }
 
-  &--switch-left {
-    > .lyt-wrapper:nth-child(2) {
-      transform: translateY(0) translateX(-10vh);
-      opacity: 0;
-    }
+  &--dynamicheader {
+    transform: none;
   }
 
-  &--switch-right {
-    > .lyt-wrapper:nth-child(2) {
-      transform: translateY(0) translateX(0);
-      opacity: 1;
+  &__pages {
+    display: none;
+
+    @include transition(transform, $transitionTimeDefault, $transitionEasingDefault);
+
+    &-page {
+      max-width: 100%;
+      min-width: 100%;
+      display: none;
+    }
+
+    &[ data-page='1' ] {
+      transform: translateX(0);
+
+      .mdl-modal__pages-page:nth-child(1) {
+        transform: translateX(0);
+        display: block;
+      }
+    }
+
+    &[ data-page='2' ] {
+      transform: translateX(-100%);
+
+      .mdl-modal__pages-page:nth-child(2) {
+        transform: translateX(100%);
+        display: block;
+      }
+    }
+
+    &[ data-page='3' ] {
+      transform: translateX(-200%);
+
+      .mdl-modal__pages-page:nth-child(3) {
+        transform: translateX(200%);
+        display: block;
+      }
+    }
+
+    &[ data-page='4' ] {
+      transform: translateX(-300%);
+
+      .mdl-modal__pages-page:nth-child(4) {
+        transform: translateX(300%);
+        display: block;
+      }
     }
   }
 
@@ -140,7 +148,7 @@ $modalCurves: (
     right: 0;
 
     display: flex;
-    align-items: center;
+    align-items: baseline;
     z-index: $zIndexOverlays;
 
     @include sizeCurve(margin-top, closeTop, $modalCurves);
@@ -158,6 +166,7 @@ $modalCurves: (
     height: 0.62 * $sizeLarge;
     width: 0.62 * $sizeLarge;
     margin-left: $sizeSmallRegular;
+    transform: translateY(2px);
   }
 
   .mdl-page-header {

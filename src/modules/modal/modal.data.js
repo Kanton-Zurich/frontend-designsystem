@@ -159,9 +159,11 @@ const variants = _.mapValues({
     props: {
       modalId: 'flyout-topics',
       mainNavigation: true,
+      paging: true,
       modules: {
         contentModules: [
           () => handlebars.compile(dataHelper.getFileContent('../topiclist/topiclist.hbs'))(topiclist.variants.topicsNav.props),
+          () => handlebars.compile(dataHelper.getFileContent('../organisation_navigation/organisation_navigation.hbs'))(organisationNavigation.variants.default.props),
         ],
       },
     },

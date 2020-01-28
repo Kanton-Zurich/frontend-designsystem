@@ -37,6 +37,7 @@ class Topiclist extends Module {
   public data: {
     query: string,
     isNav: boolean,
+    fetched: boolean,
     json: {
       pages: any,
       filterField: {
@@ -103,6 +104,7 @@ class Topiclist extends Module {
     this.options.hasFilter = typeof this.ui.input !== typeof undefined;
 
     this.data.isNav = this.ui.element.classList.contains(this.options.stateClasses.nav);
+    this.data.fetched = false;
 
     this.initUi();
     this.initEventListeners();
@@ -131,7 +133,9 @@ class Topiclist extends Module {
     if (this.data.isNav) {
       this.eventDelegate
         .on(Modal.events.display, async () => {
-          await this.fetchData();
+          if (!this.data.fetched) {
+            await this.fetchData();
+          }
           if (Object.keys(this.data.json).length > 0) {
             this.renderNavigation();
           }
@@ -197,6 +201,7 @@ class Topiclist extends Module {
       .then((response) => {
         if (response) {
           this.data.json = response;
+          this.data.fetched = true;
 
           // Initialize the autosuggest, which we have data for now
           new Autosuggest({
