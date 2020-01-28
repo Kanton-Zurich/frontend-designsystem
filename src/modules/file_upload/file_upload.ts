@@ -147,8 +147,6 @@ class FileUpload extends Module {
       this.eventDelegate.on(FileUpload.events.mainMoved, (event) => {
         if (event.detail) this.ui.input.setAttribute('required', 'true');
 
-        this.log(this.options.isDuplicated, this.ui.input.files.length);
-
         if (this.options.isDuplicated && this.ui.input.files.length === 0) {
           this.ui.element.remove();
         }
@@ -233,8 +231,16 @@ class FileUpload extends Module {
         parent.appendChild(this.ui.element);
         fileUploads = parent.querySelectorAll(this.options.fileuploadSelector);
 
-        this.ui.input.removeAttribute('required');
+        if (this.options.isDuplicated) {
+          this.ui.input.removeAttribute('required');
+        }
       }
+
+      this.ui.input.dispatchEvent(new CustomEvent('validateDeferred', {
+        detail: {
+          field: this.ui.input,
+        },
+      }));
     } else {
       this.ui.element.remove();
     }
