@@ -27,6 +27,7 @@ class FlexData extends Module {
     resultsTableColumns: HTMLElement[],
     form: HTMLFormElement,
     pagination: HTMLDivElement,
+    notification: HTMLDivElement,
     paginationInput: HTMLInputElement,
     submitButton: HTMLButtonElement,
     clearButton: HTMLButtonElement,
@@ -61,7 +62,7 @@ class FlexData extends Module {
         clearButton: 'form [data-clear-flex]',
         pagination: '.mdl-pagination',
         paginationInput: '.mdl-pagination input',
-
+        notification: '.mdl-flex-data__notification',
       },
       stateClasses: {
         loading: 'mdl-flex-data--loading',
@@ -203,6 +204,10 @@ class FlexData extends Module {
         this.scrollTop();
       }
       this.fetchData((jsonData) => {
+        this.ui.pagination.classList.add('hidden');
+        if (jsonData.numberOfResultPages > 1) {
+          this.ui.pagination.classList.remove('hidden');
+        }
         this.ui.pagination.dispatchEvent(new CustomEvent(Pagination
           .events.setPageCount, { detail: jsonData.numberOfResultPages }));
         const canonicalUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
@@ -446,15 +451,18 @@ class FlexData extends Module {
       .then(response => response.json())
       .then((response) => {
         if (response) {
-          const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
+          const wcmmode = this.getURLParam('wcmmode');
+          const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}${wcmmode ? '&wcmmode=' + wcmmode : ''}`; // eslint-disable-line
           history.pushState({url: canonical, }, null, canonical); // eslint-disable-line
           callback(response);
+          this.ui.notification.classList.add('hidden');
         }
-
         this.ui.results.classList.remove(this.options.stateClasses.loading);
       })
       .catch((err) => {
         this.log('error', err);
+        this.ui.results.classList.remove(this.options.stateClasses.loading);
+        this.ui.notification.classList.remove('hidden');
       });
   }
 
