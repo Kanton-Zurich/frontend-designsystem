@@ -190,6 +190,7 @@ p.atm-heading__lead {
     &.atm-heading {
       line-height: $sizeLineHeightMedium;
       margin-bottom: 0;
+      padding-top: 0;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
       @include mq($to: xsmall) {
