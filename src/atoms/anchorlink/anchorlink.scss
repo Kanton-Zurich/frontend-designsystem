@@ -72,7 +72,7 @@
     border-radius: 75.5px;
     padding: 0 $sizeRegular;
     background: $colorBlack10;
-    height: calc(#{$sizeSmallLarge} + #{$sizeSmallRegular});
+    height: $sizeBiggerBig;
     max-width: 100%;
 
     &:hover {
@@ -117,7 +117,7 @@
       font-size: $sizeFontTiny;
       line-height: $sizeLineHeightBase;
       padding: 0 $sizeTiny;
-      height: calc(2 * #{$sizeSmallRegular});
+      height: $sizeLarge;
     }
 
     /*
@@ -125,8 +125,8 @@
     */
     &-top {
       font-family: $fontFamilyBlack;
-      font-size: $sizeFontBig;
-      line-height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
+      font-size: $sizeFontLarge;
+      line-height: $sizeBiggerBig;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -134,8 +134,8 @@
       @include sizeCurve(max-width, maxWidth, $anchorlinkSizeCurves);
 
       display: inline-block;
-      padding: 0 $sizeLarge;
-      height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
+      padding: 0 $sizeSmallRegular;
+      height: $sizeBiggerBig;
 
       @include mq($to: small) {
         max-width: 100%;

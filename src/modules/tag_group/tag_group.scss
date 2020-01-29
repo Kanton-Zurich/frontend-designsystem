@@ -71,8 +71,8 @@
   }
 
   &__tags {
-    margin-left: calc(-#{$sizeTiny} / 2);
-    margin-right: calc(-#{$sizeTiny} / 2);
+    margin-left: -#{$sizeMini};
+    margin-right: -#{$sizeMini};
 
     @include sizeCurve(margin-bottom, tagsBottomMargin, $tagGroupSizeMaps);
 
@@ -83,19 +83,19 @@
 
     li {
       display: inline-block;
-      margin-right: 2px;
+      margin-right: $sizeMini;
       max-width: 100%;
     }
   }
 
   a {
-    margin-bottom: calc(#{$sizeTiny} / 2);
+    margin-bottom: $sizeMini;
   }
 
   @include mq($from: small) {
     &__tags {
-      margin-left: - #{$sizeSmallRegular};
-      margin-right: - #{$sizeSmallRegular};
+      margin-left: -#{$sizeSmallRegular};
+      margin-right: -#{$sizeSmallRegular};
     }
   }
 }
