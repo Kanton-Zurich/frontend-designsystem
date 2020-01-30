@@ -196,7 +196,6 @@ class FlexData extends Module {
    * Load results
    */
   private loadResults(scroll = false) {
-    this.ui.results.classList.remove('initially-hidden');
     this.paginationInteraction = false;
     if (this.dataIdle) {
       this.dataIdle = false;
@@ -204,7 +203,17 @@ class FlexData extends Module {
         this.scrollTop();
       }
       this.fetchData((jsonData) => {
+        this.ui.results.classList.remove('initially-hidden');
         this.ui.pagination.classList.add('hidden');
+        if (jsonData.error) {
+          this.ui.notification.classList.remove('hidden');
+          this.ui.results.classList.add('initially-hidden');
+          if (this.ui.genericSort) {
+            this.ui.genericSort.classList.add('hidden');
+          }
+          this.dataIdle = true;
+          return;
+        }
         if (jsonData.numberOfResultPages > 1) {
           this.ui.pagination.classList.remove('hidden');
         }
@@ -289,7 +298,9 @@ class FlexData extends Module {
         const props = {
           link: item.link,
         };
-        this.ui.resultsTableColumns.forEach((col, index) => {
+        const resultsTableColumns = this.ui.resultsTableColumns.length
+          ? this.ui.resultsTableColumns : [this.ui.resultsTableColumns];
+        resultsTableColumns.forEach((col, index) => {
           const colName = col.getAttribute('data-column-name');
           props[`text${index}`] = item[colName];
         });
@@ -448,7 +459,12 @@ class FlexData extends Module {
     }
     this.currentUrl = this.constructUrl();
     return fetch(this.currentUrl)
-      .then(response => response.json())
+      .then((response) => {
+        if (response.status !== 200) { // eslint-disable-line
+          throw new Error('Error fetching resource!');
+        }
+        return response.json();
+      })
       .then((response) => {
         if (response) {
           const wcmmode = this.getURLParam('wcmmode');
@@ -462,7 +478,7 @@ class FlexData extends Module {
       .catch((err) => {
         this.log('error', err);
         this.ui.results.classList.remove(this.options.stateClasses.loading);
-        this.ui.notification.classList.remove('hidden');
+        callback({ error: err });
       });
   }
 
