@@ -37,6 +37,7 @@ class Topiclist extends Module {
   public data: {
     query: string,
     isNav: boolean,
+    isNavInitialised: boolean,
     json: {
       pages: any,
       filterField: {
@@ -69,6 +70,7 @@ class Topiclist extends Module {
       json: {},
       filteredPages: [],
       isNav: false,
+      isNavInitialised: false,
       currentLayer: 0,
       url: null,
     };
@@ -131,9 +133,11 @@ class Topiclist extends Module {
     if (this.data.isNav) {
       this.eventDelegate
         .on(Modal.events.display, async () => {
-          await this.fetchData();
-          if (Object.keys(this.data.json).length > 0) {
-            this.renderNavigation();
+          if (!this.data.isNavInitialised) {
+            await this.fetchData();
+            if (Object.keys(this.data.json).length) {
+              this.renderNavigation();
+            }
           }
 
           this.ui.element.dispatchEvent(new CustomEvent('loadNavigationFinished', {
@@ -235,6 +239,8 @@ class Topiclist extends Module {
     window.dispatchEvent(new CustomEvent('reloadLineClamper'));
 
     this.addNavigationEventListeners();
+
+    this.data.isNavInitialised = true;
   }
 
   /**
