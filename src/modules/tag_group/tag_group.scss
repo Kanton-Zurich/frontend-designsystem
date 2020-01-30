@@ -36,8 +36,8 @@
     }
 
     @include mq($from: xsmall) {
-      padding-left: $sizeRegular;
-      padding-right: $sizeRegular;
+      padding-left: pxToRem($sizeRegular);
+      padding-right: pxToRem($sizeRegular);
     }
     @include mq($from: small) {
       padding-left: 0;
@@ -58,7 +58,7 @@
   }
 
   .atm-heading {
-    font-size: $sizeFontTiny;
+    font-size: pxToRem($sizeFontTiny);
     padding-top: 0;
     line-height: $sizeLineHeightBase;
     color: $colorWhite;
@@ -83,13 +83,13 @@
 
     li {
       display: inline-block;
-      margin-right: $sizeMini;
+      margin-right: pxToRem($sizeMini);
       max-width: 100%;
     }
   }
 
   a {
-    margin-bottom: $sizeMini;
+    margin-bottom: pxToRem($sizeMini);
   }
 
   @include mq($from: small) {
