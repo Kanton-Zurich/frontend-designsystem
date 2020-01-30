@@ -7,13 +7,16 @@
 
   &--icon {
     border: none;
+    display: flex;
   }
 
   .icon {
     fill: $colorBlack60;
 
+    transform: translateY(-1px);
+
     &--iframe-add {
-      transform: scale(0.9167);
+      transform: scale(0.9167) translateY(-1px);
       margin-right: 9px;
     }
 
@@ -23,6 +26,14 @@
       @media all and ( -ms-high-contrast: none ) {
         height: 1.8rem;
       }
+    }
+  }
+
+  &--cv-inverted {
+    color: $colorWhite;
+
+    .icon {
+      fill: $colorWhite;
     }
   }
 

@@ -20,6 +20,9 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('flex_data.md'),
   },
   props: {
+    notificationData: _.merge({}, defNotificationData, {
+      message: 'Beim Laden der Daten ist ein Fehler aufgetreten!',
+    }),
     resultCountTitle: '%1 Treffer zu ihrer Abfrage',
     noResultsTitle: 'Es wurden keine Ergebnisse gefunden. Bitte passen Sie Ihre Suche an.',
   },
@@ -33,9 +36,6 @@ const variants = _.mapValues({
     props: {
       flexDataSource: '/mocks/modules/flex_data/flex_data_table.json',
       flexTableFormData: _.merge({}, defFormData.variants.steuerBuch.props),
-      notificationData: _.merge({}, defNotificationData, {
-        message: 'Beim Laden der Daten ist ein Fehler aufgetreten!',
-      }),
       tableData: {
         tableTitle: '',
         hasTitle: true,

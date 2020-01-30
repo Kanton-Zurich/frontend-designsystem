@@ -9,6 +9,14 @@
     height: $loadingMinHeight;
   }
 
+  .mdl-flex-data__notification {
+    @include sizeCurve(margin-top, regular);
+
+    &.hidden {
+      display: none;
+    }
+  }
+
   &__form {
 
     .mdl-accordion {
@@ -123,12 +131,6 @@
       }
 
       margin-top: $sizeLarge;
-    }
-
-    .mdl-flex-data__notification {
-      &.hidden {
-        display: none;
-      }
     }
 
     .mdl-table {

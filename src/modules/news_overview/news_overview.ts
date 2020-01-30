@@ -33,6 +33,9 @@ class NewsOverview extends Module {
     pillsClearButton: HTMLButtonElement,
     sortButton: HTMLButtonElement,
     sortDropdown: HTMLDivElement,
+    newsGrid: HTMLDivElement,
+    sort: HTMLDivElement,
+    selection: HTMLDivElement,
     searchWordInput: HTMLInputElement,
     searchWordInputClear: HTMLButtonElement,
     wrapper: HTMLDivElement,
@@ -77,12 +80,15 @@ class NewsOverview extends Module {
         filterMobile: '#news-filter-mobile  .mdl-news-filter-mobile',
         paginationInput: '.mdl-pagination input',
         topNews: '.mdl-news-overview__topnews',
+        newsGrid: '.mdl-news-overview__newsgrid',
         list: '.mdl-news-overview__newsgrid .mdl-news-teaser__content > ul',
         pills: '.mdl-filter-pills',
         pillsClearButton: '.mdl-filter-pills button[data-clear]',
         datePicker: '.mdl-news-overview__filter .mdl-datepicker',
         datePickerInput: '.mdl-news-overview__filter .mdl-datepicker .atm-form_input__input',
         sortButton: '.mdl-news-overview__sort-dropdown',
+        sort: '.mdl-news-overview__sort',
+        selection: '.mdl-news-overview__selection',
         sortDropdown: '.mdl-news-overview__sort .mdl-context_menu',
         searchWordInput: '.mdl-news-overview__filter > .atm-form_input input',
         searchWordInputClear: '.mdl-news-overview__filter > .atm-form_input > button',
@@ -431,7 +437,12 @@ class NewsOverview extends Module {
     this.currentUrl = this.constructUrl();
 
     return fetch(this.currentUrl)
-      .then(response => response.json())
+      .then((response) => {
+        if (response.status !== 200) { // eslint-disable-line
+          throw new Error('Error fetching resource!');
+        }
+        return response.json();
+      })
       .then((response) => {
         if (response) {
           const wcmmode = this.getURLParam('wcmmode');
@@ -447,6 +458,7 @@ class NewsOverview extends Module {
         this.log('error', err);
         this.ui.notification.classList.remove('hidden');
         this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
+        callback({ error: err });
       });
   }
 
@@ -460,6 +472,19 @@ class NewsOverview extends Module {
     if (this.dataIdle) {
       this.dataIdle = false;
       this.fetchData((jsonData) => {
+        this.ui.selection.classList.remove('hidden');
+        this.ui.sort.classList.remove('hidden');
+        this.ui.newsGrid.classList.remove('hidden');
+        if (jsonData.error) {
+          this.ui.notification.classList.remove('hidden');
+          this.ui.noResults.classList.remove('visible');
+          this.ui.paginationWrapper.classList.add('hidden');
+          this.ui.selection.classList.add('hidden');
+          this.ui.sort.classList.add('hidden');
+          this.ui.newsGrid.classList.add('hidden');
+          this.dataIdle = true;
+          return;
+        }
         if (jsonData.numberOfResultPages > 1) {
           this.ui.paginationWrapper.classList.remove('hidden');
         } else {

@@ -4,10 +4,19 @@
       <div class="mdl-header__wrapper cell tiny-offset-2 xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-10">
         <h2 class="visuallyhidden">Hauptnavigation</h2>
         <nav id="navigation">
-          <ul class="mdl-header__navigation">
+          <button class="mdl-header__nav-burger" data-menu-burger>
+            <svg class="icon burger">
+              <use xlink:href="#menu-1"></use>
+            </svg>
+            <svg class="icon close">
+              <use xlink:href="#exit"></use>
+            </svg>
+            <span class="mdl-header__nav-burger-text">Menu</span>
+          </button>
+          <ul class="mdl-header__navigation" role="navigation">
             {{#each navItem}}
               <li>
-                <button class="mdl-header__nav-item" data-header="openModal" aria-expanded="false" aria-haspopup="true" aria-controls="{{modal}}">
+                <button class="mdl-header__nav-item" data-header="openModal" aria-expanded="false" aria-haspopup="true" aria-controls="{{modal}}" data-nav-index="{{increment @index}}">
                   {{title}}
                 </button>
               </li>
