@@ -48,7 +48,11 @@
 -->
 <body class="cv-blue" {{#if props.svgSprites}} data-svgsprites-options='[&quot;{{meta.aemPath}}/media/svgsprite/base.svg&quot;]'{{/if}}
                                data-script-main='{{meta.aemPath}}/js/main.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.js'>
-<div class="lyt-wrapper" id="header">
+<header class="lyt-wrapper" id="header">
+  <h1 class="visuallyhidden">Navigation</h1>
+  <!---------------------->
+  <!-- Skiplinks go here -->
+  <!---------------------->
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
       <!---------------------->
@@ -56,8 +60,8 @@
       <!---------------------->
     </div>
   </div>
-</div>
-<div class="lyt-wrapper" id="main">
+</header>
+<main class="lyt-wrapper" id="main">
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
       <!-------------------------------->
@@ -65,15 +69,16 @@
       <!-------------------------------->
     </div>
   </div>
-</div>
-<div class="lyt-wrapper" id="footer">
+</main>
+<footer class="lyt-wrapper" id="footer">
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      <h1 class="visuallyhidden">Fussbereich</h1>
       <!---------------------->
       <!-- Footer goes here -->
       <!---------------------->
     </div>
   </div>
-</div>
+</footer>
 </body>
 </html>
