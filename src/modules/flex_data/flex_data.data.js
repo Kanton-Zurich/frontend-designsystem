@@ -5,6 +5,7 @@ const defaultData = require('../../data/default.data.js');
 const defFormData = require('../form/form.data');
 const defPaginationData = require('../pagination/pagination.data');
 const defAccordionData = require('../accordion/accordion.data');
+const defNotificationData = require('../../atoms/notification/notification.data').variants.default.props;
 const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 
 const templateConverter = require('../../../gulp/helpers/templateConverter');
@@ -32,6 +33,9 @@ const variants = _.mapValues({
     props: {
       flexDataSource: '/mocks/modules/flex_data/flex_data_table.json',
       flexTableFormData: _.merge({}, defFormData.variants.steuerBuch.props),
+      notificationData: _.merge({}, defNotificationData, {
+        message: 'Beim Laden der Daten ist ein Fehler aufgetreten!',
+      }),
       tableData: {
         tableTitle: '',
         hasTitle: true,
@@ -69,7 +73,9 @@ const variants = _.mapValues({
     },
     props: {
       flexDataSource: '/mocks/modules/flex_data/flex_data_zhlex_ls.json',
-      pagination: defPaginationData.variants.fullWidth.props,
+      pagination: _.merge({}, defPaginationData.variants.fullWidth.props, {
+        additionalClasses: 'hidden',
+      }),
       flexTableFormData: _.merge({}, defFormData.variants.zhlex.props),
       extendedFlexFormData: _.merge({}, defAccordionData.variants.zhLexLSExtendedSearch.props),
       resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
@@ -160,6 +166,7 @@ const variants = _.mapValues({
       desc: '',
     },
     props: {
+      initialLoad: true,
       pagination: defPaginationData.variants.default.props,
       flexDataSource: '/mocks/modules/flex_data/flex_data_generic.json',
       flexGenericFormData: _.merge({}, defFormData.variants.rrb.props),

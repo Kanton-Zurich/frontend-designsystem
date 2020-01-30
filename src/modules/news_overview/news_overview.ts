@@ -37,6 +37,7 @@ class NewsOverview extends Module {
     searchWordInputClear: HTMLButtonElement,
     wrapper: HTMLDivElement,
     noResults: HTMLParagraphElement,
+    notification: HTMLDivElement,
   };
 
   public options: {
@@ -87,6 +88,7 @@ class NewsOverview extends Module {
         searchWordInputClear: '.mdl-news-overview__filter > .atm-form_input > button',
         wrapper: '[data-news_overview="wrapper"]',
         noResults: '.mdl-news-overview__no-results',
+        notification: '.mdl-news-overview__notification',
       },
       stateClasses: {
         loading: 'mdl-news-overview--loading',
@@ -432,16 +434,19 @@ class NewsOverview extends Module {
       .then(response => response.json())
       .then((response) => {
         if (response) {
-          const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
+          const wcmmode = this.getURLParam('wcmmode');
+          const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}${wcmmode ? '&wcmmode=' + wcmmode : ''}`; // eslint-disable-line
           history.replaceState({url: canonical, }, null, canonical); // eslint-disable-line
           callback(response);
+          this.ui.notification.classList.add('hidden');
         }
-
         // Remove loading class
         this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
       })
       .catch((err) => {
         this.log('error', err);
+        this.ui.notification.classList.remove('hidden');
+        this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
       });
   }
 
