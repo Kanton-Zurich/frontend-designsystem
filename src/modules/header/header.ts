@@ -69,7 +69,7 @@ class Header extends Module {
     };
     const defaultOptions = {
       transitionDelays: {
-        default: 250,
+        default: 280,
       },
       domSelectors: {
         openModal: '[data-header="openModal"]',
@@ -124,8 +124,7 @@ class Header extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.openModal, this.toggleFlyout.bind(this));
     this.eventDelegate.on('click', this.options.domSelectors.dataMenuBurger, () => {
       if (this.ui.element.classList.contains(this.options.stateClasses.open)) {
-        // this.hideFlyout();
-        this.data.activeModal.dispatchEvent(new CustomEvent('Modal.close'));
+        this.data.activeModal.dispatchEvent(new CustomEvent(Modal.events.closeModal));
       } else {
         this.ui.element.querySelector(this.options.domSelectors.openModal).click();
       }
@@ -155,21 +154,22 @@ class Header extends Module {
   }
 
   toggleFlyout(event, delegate) {
+    const targetModal = document.querySelector(`#${delegate.getAttribute('aria-controls')}`);
     if (this.data.activeItem === delegate) {
       this.data.activeItem.setAttribute('aria-expanded', 'false');
-
-      this.data.activeModal.dispatchEvent(new CustomEvent('Modal.close'));
-    } else if (this.data.activeItem !== delegate && this.data.activeModal) {
+      this.data.activeModal.dispatchEvent(new CustomEvent(Modal.events.closeModal));
+    } else if (this.data.activeItem !== delegate && this.data.activeModal === targetModal) {
       this.data.activeItem.setAttribute('aria-expanded', 'false');
-
-      this.data.activeModal.dispatchEvent(new CustomEvent('Modal.switchLeft'));
-      document.querySelector(`#${delegate.getAttribute('aria-controls')}`).dispatchEvent(new CustomEvent('Modal.switchRight'));
-
-      this.switchFlyout(delegate);
-    } else {
+      this.switchPage(delegate);
+      this.data.activeModal.dispatchEvent(new CustomEvent(Modal.events.setPage, { detail: { page: delegate.getAttribute('data-nav-index') } }));
+    } else if (!this.flyoutVisible) {
       this.showFlyout(delegate, delegate.classList.contains(this.options.stateClasses.navItem));
-
-      (<HTMLElement>document.querySelector(this.options.domSelectors.close)).focus();
+    } else {
+      this.data.activeItem.setAttribute('aria-expanded', 'false');
+      this.data.activeModal.dispatchEvent(new CustomEvent(Modal.events.closeModal));
+      setTimeout(() => {
+        this.showFlyout(delegate, delegate.classList.contains(this.options.stateClasses.navItem));
+      }, this.options.transitionDelays.default);
     }
   }
 
@@ -179,7 +179,7 @@ class Header extends Module {
     this.data.activeModal = document.querySelector(`#${delegate.getAttribute('aria-controls')}`);
     this.data.activeItem = delegate;
 
-    this.data.activeModal.dispatchEvent(new CustomEvent('Modal.open'));
+    this.data.activeModal.dispatchEvent(new CustomEvent(Modal.events.openModal, { detail: { page: delegate.getAttribute('data-nav-index') } }));
 
     if (!this.data.activeItem.hasAttribute('data-search')) {
       this.ui.element.classList.add(this.options.stateClasses.open);
@@ -196,14 +196,14 @@ class Header extends Module {
         + parseInt(window.getComputedStyle(pageHeader).paddingTop, 10);
       pageHeader.style.paddingTop = `${offsetTop}px`;
     }
+
+    (<HTMLElement>document.querySelector(this.options.domSelectors.close)).focus();
   }
 
-  switchFlyout(delegate) {
+  switchPage(delegate) {
     this.unsetClasses();
-
     this.data.activeItem = delegate;
     this.data.activeModal = document.querySelector(`#${delegate.getAttribute('aria-controls')}`);
-
     this.data.activeItem.classList.add(this.options.stateClasses.activeItem);
   }
 
