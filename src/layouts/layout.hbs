@@ -51,30 +51,35 @@
 </head>
 <body {{#if props.defaultColorVariation}}class="{{props.defaultColorVariation}}"{{/if}} {{#unless props.defaultColorVariation}}class="cv-blue"{{/unless}} {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
   data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
-<div class="lyt-wrapper" id="header">
+<header class="lyt-wrapper" id="header">
+  <h1 class="visuallyhidden">Navigation</h1>
+  {{> "modules/skiplinks/skiplinks" props.skiplinks }}
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
       {{#if props.header}}{{> "modules/header/header" props.header }}{{/if}}
+    </div>
+  </div>
+</header>
+<main class="lyt-wrapper" id="main">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
       {{#block "header"}}
       {{/block}}
     </div>
-  </div>
-</div>
-<div class="lyt-wrapper" id="main">
-  <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
       {{#block "content"}}
       {{/block}}
     </div>
   </div>
-</div>
-<div class="lyt-wrapper" id="footer">
+</main>
+<footer class="lyt-wrapper" id="footer">
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      <h1 class="visuallyhidden">Fussbereich</h1>
       {{#block "footer"}}
       {{/block}}
     </div>
   </div>
-</div>
+</footer>
 </body>
 </html>

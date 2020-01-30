@@ -1,6 +1,10 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
+
+const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
+const headerData = require('../../modules/header/header.data');
+
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 
@@ -12,6 +16,8 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('pagedownerror.md'),
   },
   props: {
+    skiplinks: skiplinksData,
+    header: headerData,
     modules: {
       pageHeader: defPageHeaderData.variants.unavailable.props,
       contact: {

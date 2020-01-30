@@ -1,9 +1,8 @@
 {{#extend "layouts/layout"}}
   {{#content "header"}}
-    <header>
-      {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
-    </header>
+    {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
   {{/content}}
+
   {{#content "content"}}
     {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
     {{> "modules/zhlex/zhlex" props.modules.zhlex }}
@@ -33,6 +32,7 @@
     {{> "modules/related_content/related_content" props.modules.releatedContentData}}
     {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
   {{/content}}
+
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData }}
     {{> "modules/back2top/back2top" props.modules.back2topData}}

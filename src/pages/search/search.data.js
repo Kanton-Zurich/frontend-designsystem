@@ -1,11 +1,14 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
+
+const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
 const headerData = require('../../modules/header/header.data');
 
 const searchData = require('../../modules/search_page/search_page.data.js').variants.default.props;
-const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defBreadcrumbData = require('../../modules/breadcrumb/breadcrumb.data').props;
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
+const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -16,7 +19,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     title: 'Title',
-    text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+    skiplinks: skiplinksData,
     header: headerData.variants.inverted.props,
     modules: {
       pageHeader: {
@@ -37,6 +40,7 @@ const data = _.merge({}, defaultData, {
       },
       search: searchData,
       footer: defFooterData,
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
     },
   },
 });

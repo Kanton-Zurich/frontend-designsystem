@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
-const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js');
+const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.default.props;
 const richtextData = require('../../modules/richtext/richtext.data.js');
 const pageHeaderData = require('../../modules/page_header/page_header.data.js');
 const linkListData = require('../../modules/linklist/linklist.data.js');
@@ -16,12 +16,12 @@ const data = _.merge({}, defaultData, {
     content: dataHelper.getFileContent('barebone.hbs'),
   },
   props: {
-    header: headerData,
     title: 'Barebone Page',
+    skiplinks: skiplinksData,
+    header: headerData,
     text: 'This page is used for minimal CSS creation',
     modules: {
-      skiplinks: skiplinksData,
-      pageHeaderData: pageHeaderData,
+      pageHeader: pageHeaderData,
       richtext: richtextData,
       linklistData: linkListData,
       video: videoData.props,

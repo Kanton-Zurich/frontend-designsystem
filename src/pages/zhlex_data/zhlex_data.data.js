@@ -1,7 +1,10 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
+
+const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.default.props;
 const headerData = require('../../modules/header/header.data').props;
+
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 const defPageHeaderData = require('../../modules/page_header/page_header.data').variants.default.props;
@@ -68,6 +71,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('zhlex_data.md'),
   },
   props: {
+    skiplinks: skiplinksData,
     header: headerData,
     defaultColorVariation: 'cv-turqoise',
     modules: {
@@ -109,19 +113,17 @@ const data = _.merge({}, defaultData, {
       contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
       tagGroupData: _.assign(_.merge({}, defTagGroupData, { tagGroupdHeading: { anchorNavReference: 'responsibilities' } }),
         {
-          anchorLinks: [
-            { anchorlink:
-              {
-                anchorlinkText: 'Staatskanzlei',
-                anchorlinkAdress: '#',
-                anchorlinkIsActive: false,
-                anchorlinkIsTagAnchor: true,
-                anchorlinkIsInverted: true,
-                anchorlinkIsTopitem: true,
-                anchorlinkIsTopitemSmall: true,
-              },
+          anchorLinks: [{
+            anchorlink: {
+              anchorlinkText: 'Staatskanzlei',
+              anchorlinkAdress: '#',
+              anchorlinkIsActive: false,
+              anchorlinkIsTagAnchor: true,
+              anchorlinkIsInverted: true,
+              anchorlinkIsTopitem: true,
+              anchorlinkIsTopitemSmall: true,
             },
-          ],
+          }],
         }),
       footerData: defFooterData,
       back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),

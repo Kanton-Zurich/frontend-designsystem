@@ -1,14 +1,18 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
+
+const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.default.props;
+const headerData = require('../../modules/header/header.data').props;
+
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
 const defRelatedContentData = require('../../modules/related_content/related_content.data.js');
 const defContactData = require('../../modules/contact/contact.data.js').variants.fullWidthLessData.props;
 const defFocusTeaserData = require('../../modules/focus_teaser/focus_teaser.data.js').props;
 const defAboutData = require('../../modules/about/about.data').props;
-const headerData = require('../../modules/header/header.data').props;
-const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withoutLinklist.props;
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
+const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 
 const pageHeaderWithoutBreadcrumb = _.omit(defPageHeaderData.variants.colorPeopleTeaser.props, ['breadcrumb']);
 defPageHeaderData.variants.colorPeopleTeaser.props = pageHeaderWithoutBreadcrumb;
@@ -73,8 +77,9 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('administration.md'),
   },
   props: {
-    header: headerData,
     title: 'Direktionsseite',
+    skiplinks: skiplinksData,
+    header: headerData,
     text: '',
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData, {
@@ -113,6 +118,7 @@ const data = _.merge({}, defaultData, {
       contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
       newsTeaserData: defNewsTeaserData,
       footerData: defFooterData,
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
       focusTeaserData: _.merge({}, defFocusTeaserData, {
         focusTeaserHeader: {
           title: 'Schwerpunkte',
