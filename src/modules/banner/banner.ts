@@ -39,20 +39,6 @@ class Banner extends Module {
 
     this.initUi();
     this.initEventListeners();
-
-    if (localStorage.getItem('closedBanners')) {
-      this.data.closedItems = JSON.parse(localStorage.getItem('closedBanners'));
-
-      if (this.data.closedItems.indexOf(this.options.uid) >= 0) {
-        this.destroy();
-
-        this.ui.element.remove();
-      } else {
-        this.loadBanner();
-      }
-    } else {
-      this.loadBanner();
-    }
   }
 
   /**
@@ -63,6 +49,7 @@ class Banner extends Module {
     this.eventDelegate.on('redraw', this.initBanner.bind(this));
 
     (<any>WindowEventListener).addDebouncedResizeListener(this.initBanner.bind(this));
+    this.loadBanner();
   }
 
   async loadBanner() {
@@ -76,12 +63,28 @@ class Banner extends Module {
           'Content-Type': 'text/html',
         },
       })
-        .then(response => response.text())
+        .then((response) => {
+          if (response.status !== 200) { // eslint-disable-line
+            throw new Error('Server error while fetching data');
+          }
+          return response.text();
+        })
         .then((response) => {
           if (response) {
             this.ui.element.innerHTML = response;
+            if (localStorage.getItem('closedBanners')) {
+              const uid = this.ui.element.querySelector('[data-uid]').getAttribute('data-uid');
+              this.data.closedItems = JSON.parse(localStorage.getItem('closedBanners'));
+              if (this.data.closedItems.indexOf(uid) >= 0) {
+                this.destroy();
 
-            this.initBanner();
+                this.ui.element.remove();
+              } else {
+                this.initBanner();
+              }
+            } else {
+              this.initBanner();
+            }
           }
         });
     } else {
@@ -91,10 +94,7 @@ class Banner extends Module {
 
   initBanner() {
     const lytWrapper = this.ui.element.querySelector('.lyt-wrapper');
-    const secondBanner = this.ui.element.querySelector('.mdl-banner');
-
     this.ui.element.style.maxHeight = `${lytWrapper.offsetHeight}px`;
-    secondBanner.style.maxHeight = `${lytWrapper.offsetHeight}px`;
   }
 
   close() {
@@ -106,7 +106,8 @@ class Banner extends Module {
   }
 
   writeToLocalStorage() {
-    this.data.closedItems.push(this.options.uid);
+    const uid = this.ui.element.querySelector('[data-uid]').getAttribute('data-uid');
+    this.data.closedItems.push(uid);
 
     localStorage.setItem('closedBanners', JSON.stringify(this.data.closedItems));
   }

@@ -1,8 +1,14 @@
-const dataHelper = require('@unic/estatico-data');
-const bannerData = require('./banner.data');
+const _ = require('lodash');
+const defaultData = require('./banner.mock.data');
 
-dataHelper.getFileContent('banner.conference1.mock.hbs');
-
-const data = bannerData.variants.liveStream.props;
+const data = _.merge({}, defaultData, {
+  isLiveStream: true,
+  icon: '#conference',
+  link: {
+    href: '#',
+    label: 'Zur Live-Übertragung',
+  },
+  bannerUID: 'banner_conf1',
+});
 
 module.exports = data;

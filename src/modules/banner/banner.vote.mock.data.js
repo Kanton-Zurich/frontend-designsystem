@@ -1,8 +1,10 @@
-const dataHelper = require('@unic/estatico-data');
-const bannerData = require('./banner.data');
+const _ = require('lodash');
+const defaultData = require('./banner.mock.data');
 
-dataHelper.getFileContent('banner.vote.mock.hbs');
-
-const data = bannerData.variants.referendum.props;
+const data = _.merge({}, defaultData, {
+  icon: '#vote',
+  isReferendum: true,
+  bannerUID: 'banner_vote1',
+});
 
 module.exports = data;
