@@ -2,7 +2,7 @@
   {{#if isGreen}}atm-notification--green{{/if}}
   {{#if isBig}}atm-notification--big{{/if}}
   {{#if isDialog}}atm-notification--dialog{{/if}}" {{#if focussable}}tabindex="0"{{/if}}>
-  <svg class="icon">
+  <svg class="icon" focusable="false">
     <use xlink:href="{{icon}}"></use>
   </svg>
   <span class="atm-notification__message">

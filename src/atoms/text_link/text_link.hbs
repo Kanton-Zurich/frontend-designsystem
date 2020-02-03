@@ -2,13 +2,13 @@
   {{#if additionalAttribute}}{{{additionalAttribute}}}{{/if}} href="{{{textLinkSrc}}}"
   {{#if textLinkTargetBlank}}target="_blank"{{/if}}>
   {{#if hasLeadingIcon}}
-    <svg class="icon icon--iframe-add">
+    <svg class="icon icon--iframe-add" focusable="false">
       <use xlink:href="#{{{icon}}}"></use>
     </svg>
   {{/if}}
   {{text}}
   {{#if hasTrailingIcon}}
-    <svg class="icon icon--iframe-arrow">
+    <svg class="icon icon--iframe-arrow" focusable="false">
       <use xlink:href="#{{{icon}}}"></use>
     </svg>
   {{/if}}
