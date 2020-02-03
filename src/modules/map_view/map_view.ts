@@ -28,20 +28,6 @@ const mapOptions: L.MapOptions = {
   attributionControl: false,
 };
 
-const zhWmsUrl = 'https://wms.zh.ch/ZHWEB?';
-const getMapBaseLayer = () => L.tileLayer.wms(zhWmsUrl, {
-  version: '1.3.0',
-  format: 'image/png; mode=8bit',
-  transparent: false,
-  layers: 'ZHBase',
-});
-const getLabelLayer = () => wms.overlay(zhWmsUrl, {
-  version: '1.3.0',
-  format: 'image/png; mode=8bit',
-  transparent: true,
-  layers: 'ZHLabels',
-});
-
 const { markerClasses } = MapViewDefaultOptions.stateClasses;
 const markerIconDefault = L.divIcon({ className: markerClasses.default, iconSize: [0, 0] });
 const markerIconHighlight = L.divIcon({ className: markerClasses.highlight, iconSize: [0, 0] });
@@ -53,7 +39,7 @@ class MapView extends Module {
   public options: MapViewModuleOptions;
 
   public ui: {
-    element: Element,
+    element: HTMLDivElement,
     mapContainer: HTMLDivElement,
     zoomInBtn: HTMLElement,
     zoomOutBtn: HTMLElement,
@@ -66,7 +52,6 @@ class MapView extends Module {
   private markers: L.Marker[];
   private userPosMarker: L.Marker;
   private clusterGroup: any;
-
   private markerSelected: boolean;
 
   constructor($element: any, data: Object, options: Object) {
@@ -218,6 +203,19 @@ class MapView extends Module {
   }
 
   private initMap(): void {
+    const zhWmsUrl = this.ui.element.getAttribute('data-url');
+    const getMapBaseLayer = () => L.tileLayer.wms(zhWmsUrl, {
+      version: '1.3.0',
+      format: 'image/png; mode=8bit',
+      transparent: false,
+      layers: this.ui.element.getAttribute('data-base-layers'),
+    });
+    const getLabelLayer = () => wms.overlay(zhWmsUrl, {
+      version: '1.3.0',
+      format: 'image/png; mode=8bit',
+      transparent: true,
+      layers: this.ui.element.getAttribute('data-label-layers'),
+    });
     this.map = new L.Map(this.ui.mapContainer, mapOptions);
     getMapBaseLayer().addTo(this.map);
     getLabelLayer().addTo(this.map);
