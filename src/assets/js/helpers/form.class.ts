@@ -242,7 +242,10 @@ class Form {
           const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
 
           if (message) {
+            const messageElementID = `${field.id}__${messageID}-error`;
             message.classList.add('show');
+            message.setAttribute('id', messageElementID);
+            field.setAttribute('aria-describledby', messageElementID);
           }
         });
 
