@@ -3,7 +3,7 @@ $maxBannerIconSize: 72px;
 .mdl-banner {
   @include gridBleed($fullwidth: true);
 
-  > .mdl-banner {
+  &__content > .mdl-banner {
     // There are 2 banners inside due to loading via ajax
     // stylelint-disable declaration-no-important
     transform: none;
@@ -27,7 +27,7 @@ $maxBannerIconSize: 72px;
     padding-top: 0;
   }
 
-  > .lyt-wrapper {
+  &__content > .lyt-wrapper {
     @include sizeCurve(padding-top padding-bottom, medium);
   }
 

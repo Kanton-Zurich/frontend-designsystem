@@ -1,8 +1,9 @@
+{{> "modules/banner/banner" props.modules.banner }}
 {{#extend "layouts/layout"}}
   {{#content "header"}}
     {{> "modules/page_header/page_header" props.modules.pageHeaderData.variants.colored.props}}
   {{/content}}
-  
+
   {{#content "content"}}
     {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
     {{> "modules/content_nav/content_nav" props.modules.contentNavData }}

@@ -1,8 +1,9 @@
-const dataHelper = require('@unic/estatico-data');
-const bannerData = require('./banner.data');
+const _ = require('lodash');
+const defaultData = require('./banner.mock.data');
 
-dataHelper.getFileContent('banner.subtitle.mock.hbs');
-
-const data = bannerData.variants.withSubtitle.props;
+const data = _.merge({}, defaultData, {
+  subtitle: 'Zürcher Spitalplanung 2022',
+  bannerUID: 'banner_subtitle',
+});
 
 module.exports = data;

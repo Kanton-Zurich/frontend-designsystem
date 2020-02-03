@@ -193,6 +193,9 @@ const data = _.merge({}, defaultData, {
       footerData: defFooterData,
       back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
       langSwitchData: defLangSwitchData,
+      banner: {
+        fetchURL: '../../modules/banner/banner.warning.mock.html',
+      },
     },
     defaultColorVariation: 'cv-green',
   },
