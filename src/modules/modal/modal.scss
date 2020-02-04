@@ -1,3 +1,21 @@
+$modalCurves: (
+  closeTop: (
+    tiny: $sizeRegular,
+    medium: $sizeLarge,
+    xlarge: $sizeLarge
+  ),
+  closeRight: (
+    tiny: $sizeRegular,
+    medium: $sizeSmallBig,
+  ),
+  topicHeight: (
+    tiny: 112px,
+    xsmall: 112px,
+    small: 56px,
+    medium: 72px
+  ),
+);
+
 .mdl-modal {
   $scrollHeightMax: 400px;
   $scrollHeightMedium: 150px;
@@ -8,22 +26,152 @@
   overflow-y: scroll;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  z-index: 100;
+  z-index: $zIndexInvisible;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  display: none;
   opacity: 0;
-  animation: modalfade 0.5s linear forwards;
   background-color: $colorWhite;
+  display: none;
+  transform: translateY(-50vh);
+
+  @include transition(transform opacity, $transitionTimeDefault, $transitionEasingDefault);
 
   &--show {
+    opacity: 1;
+    z-index: $zIndexFlyouts;
+
+    transform: translateY(0);
+
+    .mdl-modal__pages {
+      display: flex;
+    }
+  }
+
+  /**
+   * ALL THE SPECIAL ANIMATION CLASSES
+   */
+  &--before-show {
     display: block;
   }
 
+  &--before-hide {
+    opacity: 0;
+    transform: translateY(-50vh);
+  }
+
+  &--hide {
+    transform: translateY(-50vh);
+    opacity: 0;
+  }
+
+  &--dynamicheader {
+    transform: none;
+  }
+
+  &__pages {
+    display: none;
+
+    @include transition(transform, $transitionTimeDefault, $transitionEasingDefault);
+
+    &-page {
+      max-width: 100%;
+      min-width: 100%;
+      display: none;
+    }
+
+    &[ data-page='1' ] {
+      transform: translateX(0);
+
+      .mdl-modal__pages-page:nth-child(1) {
+        transform: translateX(0);
+        display: block;
+      }
+    }
+
+    &[ data-page='2' ] {
+      transform: translateX(-100%);
+
+      .mdl-modal__pages-page:nth-child(2) {
+        transform: translateX(100%);
+        display: block;
+      }
+    }
+
+    &[ data-page='3' ] {
+      transform: translateX(-200%);
+
+      .mdl-modal__pages-page:nth-child(3) {
+        transform: translateX(200%);
+        display: block;
+      }
+    }
+
+    &[ data-page='4' ] {
+      transform: translateX(-300%);
+
+      .mdl-modal__pages-page:nth-child(4) {
+        transform: translateX(300%);
+        display: block;
+      }
+    }
+  }
+
+  /** END OF THE ANIMATION STUFF */
+
+  &--flyout {
+    @include sizeCurve(padding-top, topicHeight, $modalCurves);
+    @include mq($to: small) {
+      .mdl-topiclist--nav {
+        @include sizeCurve(margin-top, small);
+      }
+
+      &:not(.mdl-modal--search) {
+        .mdl-modal__close {
+          display: none;
+        }
+      }
+    }
+
+    &.mdl-modal--show {
+      z-index: $zIndexFlyouts;
+    }
+
+    &.mdl-modal--search {
+      padding-top: 0;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    right: 0;
+
+    display: flex;
+    align-items: baseline;
+    z-index: $zIndexOverlays;
+
+    @include sizeCurve(margin-top, closeTop, $modalCurves);
+    @include sizeCurve(margin-right, closeRight, $modalCurves);
+    @include textButton;
+  }
+
+  &__close-label {
+    @include mq($to: large) {
+      @include visuallyhidden;
+    }
+  }
+
+  &__exit {
+    height: 0.62 * $sizeLarge;
+    width: 0.62 * $sizeLarge;
+    margin-left: $sizeSmallRegular;
+    transform: translateY(2px);
+  }
+
   .mdl-page-header {
-    transform: initial;
+    transform: translateX(0); // stylelint-disable-line
+    transform: initial; // stylelint-disable-line
     margin: 0;
     position: fixed;
     top: 0;
@@ -38,9 +186,51 @@
     }
   }
 
-  @keyframes modalfade {
-    100% {
+  .mdl-application__wrapper--fullWidth,
+  .mdl-iframe--fullWidth {
+    transform: initial;
+    position: initial;
+    margin-left: 0;
+  }
+
+  /**
+   * SPECIAL STYLES FOR THE SEARCH
+   */
+
+  &--search {
+    max-width: pxToRem(100);
+
+    @include sizeCurve(max-height, height, $headerCurves);
+    @include transition(max-width max-height opacity, $transitionTimeMorph);
+
+    overflow: hidden;
+
+    transform: translateY(0);
+
+    right: 0;
+    left: auto;
+
+    &.mdl-modal--show {
+      max-width: 100vw;
+      max-height: 100vh;
+    }
+
+    &.mdl-modal--before-hide {
+      max-width: pxToRem(100);
+
+      @include sizeCurve(max-height, height, $headerCurves);
+
+      opacity: 0;
+    }
+
+    > .lyt-wrapper:nth-child(2) {
       opacity: 1;
+    }
+
+    > .lyt-wrapper {
+      position: absolute;
+      right: 50vw;
+      transform: translateX(50%) !important; //stylelint-disable-line
     }
   }
 }

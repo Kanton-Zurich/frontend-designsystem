@@ -1,21 +1,16 @@
 {{#extend "layouts/layout"}}
   {{#content "header"}}
-    <header>
-      {{> "modules/page_header/page_header" props.modules.pageHeaderData}}
-    </header>
+    {{> "modules/page_header/page_header" props.modules.pageHeaderData}}
   {{/content}}
 
 	{{#content "content"}}
     <h1>(--THEMELISTE FILTER PLACEHOLDER--)</h1>
     {{> "modules/content_nav/content_nav" props.modules.contentNavData}}
-    <h1>(--NEWS TEASER PLACEHOLDER--)</h1>
+    {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
 	{{/content}}
 
   {{#content "footer"}}
-    <footer id="contentinfo">
-      {{> "modules/contact/contact" props.modules.contactData}}
-      <h1>(--FOOTER PLACEHOLDER--)</h1>
-      <h1 class="visuallyhidden">Fussbereich</h1>
-    </footer>
+    {{> "modules/footer/footer" props.modules.footerData}}
+    {{> "modules/back2top/back2top" props.modules.back2topData}}
   {{/content}}
 {{/extend}}

@@ -1,0 +1,9 @@
+<fieldset class="form__fieldset" data-input {{#if rules}}data-rules="{{rules}}"{{/if}}>
+  {{#if fieldsetTitle}}<legend class="form__legend">{{fieldsetTitle}}</legend>{{/if}}
+  <div class="form__fieldset-list {{#if isVertical}}form__fieldset-list--vertical{{/if}}">
+    {{#each options}}
+      {{{this}}}
+    {{/each}}
+  </div>
+  <p data-message="required" class="form__fieldset-error-message">{{requiredMessage}}</p>
+</fieldset>

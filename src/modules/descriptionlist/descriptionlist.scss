@@ -18,7 +18,7 @@
   margin: 0;
 
   dt {
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
     padding-top: $sizeSmallRegular;
 
     @include polyFluidSizing('font-size', map-get($customSizing, termFontSize));
@@ -26,12 +26,16 @@
 
   dd {
     margin-left: 0;
-    font-weight: $fontWeightDefault;
+    font-family: $fontFamilyBase;
     color: rgba($colorBlack, 0.6);
     padding-bottom: 10px;
     border-bottom: 1px solid rgba($colorBlack, 0.2);
 
     @include polyFluidSizing('font-size', map-get($customSizing, definitonFontSize));
+
+    .atm-paragraph:last-child {
+      margin-bottom: 0;
+    }
   }
 
   dt,

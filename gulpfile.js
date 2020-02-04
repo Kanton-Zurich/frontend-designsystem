@@ -9,7 +9,7 @@ const git = require('git-rev-sync');
 const nodeSass = require('node-sass');
 const gulpUtil = require('gulp-util');
 require('./gulp/deploy-aem');
-require('./gulp/critical-css');
+require('./gulp/deploy-offlinepage');
 
 gulpUtil.env.aemTargetBase = '../czhdev-backend/sources/zhweb-core/zhweb-core-content/src/main/resources/jcr_root/apps/zhweb/core/';
 gulpUtil.env.aemTargetBaseResources = `${gulpUtil.env.aemTargetBase}clientlibs/publish/resources/`;
@@ -37,11 +37,12 @@ try {
 gulp.task('html', () => {
   const task = require('@unic/estatico-handlebars');
   const estaticoWatch = require('@unic/estatico-watch');
-  const {readFileSyncCached} = require('@unic/estatico-utils');
+  const { readFileSyncCached } = require('@unic/estatico-utils');
 
   const instance = task({
     src: [
       './src/*.hbs',
+      './src/design/*.hbs',
       './src/pages/**/*.hbs',
       // './src/demo/pages/**/*.hbs',
       // '!./src/demo/pages/handlebars/*.hbs',
@@ -56,6 +57,7 @@ gulp.task('html', () => {
       src: [
         './src/**/*.hbs',
         './src/**/*.data.js',
+        './src/**/*.md',
         './gulp/helpers/*.js',
       ],
       name: 'html',
@@ -276,6 +278,9 @@ gulp.task('css', () => {
                   // .css extension
                   path.extname(candidatePath) ? candidatePath : `${candidatePath}.css`,
                 ];
+                if (path.extname(candidatePath) === '.print') {
+                  candidatePaths.push(`${candidatePath}.scss`);
+                }
 
                 // Remove duplicates
                 return [...new Set(candidatePaths)];
@@ -305,7 +310,7 @@ gulp.task('css', () => {
           'encode_Base64($string)': function ($string) {
             var buffer = new Buffer($string.getValue());
             return nodeSass.types.String(buffer.toString('base64'));
-          }
+          },
         },
       },
       // Use task default (autoprefixer with .browserslistrc config)
@@ -337,6 +342,7 @@ gulp.task('css:lint', () => {
       './src/**/*.scss',
       '!./src/assets/css/templates/*.scss',
       '!./src/preview/assets/css/main.scss',
+      '!./src/preview/assets/css/print.scss',
     ],
     srcBase: './src/',
     dest: './dist',
@@ -646,6 +652,7 @@ gulp.task('scaffold', () => {
           const isRemove = (answers.action === 'Remove');
           const hasJs = answers.files ? answers.files.find(file => file.match(/{{fileName}}\.ts/)) : true;
           const hasCss = answers.files ? answers.files.find(file => file.match(/{{fileName}}\.scss/)) : true;
+          const hasPrintCss = answers.files ? answers.files.find(file => file.match(/{{fileName}}\.print.scss/)) : true;
 
           switch (answers.action) {
             case 'Add':
@@ -673,6 +680,14 @@ gulp.task('scaffold', () => {
                   template: `$1@import '../../modules/${fileName}/${fileName}';$1$2`,
                   abortOnFail: true,
                 },
+              ] : []).concat(hasPrintCss ? [
+                {
+                  type: 'modify',
+                  path: './src/assets/css/print.scss',
+                  pattern: /(\s+)(\/\/\*autoinsertmodule\*)/m,
+                  template: `$1@import '../../modules/${fileName}/${fileName}.print';$1$2`,
+                  abortOnFail: true,
+                },
               ] : []);
             case 'Rename':
             case 'Remove':
@@ -695,8 +710,16 @@ gulp.task('scaffold', () => {
                 {
                   type: 'modify',
                   path: './src/assets/css/main.scss',
-                  pattern: new RegExp(`(\\s+)?@import "../../modules/${answers.fileName}/${answers.fileName}";`, 'm'),
-                  template: isRemove ? '' : `$1@import "../../modules/${fileName}/${fileName}";`,
+                  pattern: new RegExp(`(\\s+)?@import '../../modules/${answers.fileName}/${answers.fileName}';`, 'm'),
+                  template: isRemove ? '' : `$1@import '../../modules/${fileName}/${fileName}';`,
+                  abortOnFail: true,
+                },
+              ] : []).concat(hasPrintCss ? [
+                {
+                  type: 'modify',
+                  path: './src/assets/css/print.scss',
+                  pattern: new RegExp(`(\\s+)?@import '../../modules/${answers.fileName}/${answers.fileName}.print';`, 'm'),
+                  template: isRemove ? '' : `$1@import '../../modules/${fileName}/${fileName}.print';`,
                   abortOnFail: true,
                 },
               ] : []);
@@ -727,6 +750,7 @@ gulp.task('scaffold', () => {
           const fileName = answers.newFileName || answers.fileName;
 
           const isRemove = (answers.action === 'Remove');
+          const hasPrintCss = answers.files ? answers.files.find(file => file.match(/{{fileName}}\.print.scss/)) : true;
 
           switch (answers.action) {
             case 'Add':
@@ -737,16 +761,32 @@ gulp.task('scaffold', () => {
                 pattern: /(\s+)(\/\/\*autoinsertatom\*)/m,
                 template: `$1@import '../../atoms/${fileName}/${fileName}';$1$2`,
                 abortOnFail: true,
-              }];
+              }].concat(hasPrintCss ? [
+                {
+                  type: 'modify',
+                  path: './src/assets/css/print.scss',
+                  pattern: /(\s+)(\/\/\*autoinsertatom\*)/m,
+                  template: `$1@import '../../atoms/${fileName}/${fileName}.print';$1$2`,
+                  abortOnFail: true,
+                },
+              ] : []);
             case 'Rename':
             case 'Remove':
               return [{
                 type: 'modify',
                 path: './src/assets/css/main.scss',
-                pattern: new RegExp(`(\\s+)?@import "../../atoms/${answers.fileName}/${answers.fileName}";`, 'm'),
-                template: isRemove ? '' : `$1@import "../../atoms/${fileName}/${fileName}";`,
+                pattern: new RegExp(`(\\s+)?@import '../../atoms/${answers.fileName}/${answers.fileName}';`, 'm'),
+                template: isRemove ? '' : `$1@import '../../atoms/${fileName}/${fileName}';`,
                 abortOnFail: true,
-              }];
+              }].concat(hasPrintCss ? [
+                {
+                  type: 'modify',
+                  path: './src/assets/css/print.scss',
+                  pattern: new RegExp(`(\\s+)?@import '../../atoms/${answers.fileName}/${answers.fileName}.print';`, 'm'),
+                  template: isRemove ? '' : `$1@import '../../atoms/${fileName}/${fileName}.print';`,
+                  abortOnFail: true,
+                },
+              ] : []);
             default:
               return [];
           }
@@ -770,13 +810,18 @@ gulp.task('copy', () => {
 
   const instance = task({
     src: [
-      './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
+      './src/**/*.{png,gif,jpg,woff,ttf,jpeg,zip}',
+      './src/assets/media/image/*.svg',
+      './src/assets/media/pngsprite/*',
+      './src/assets/mocks/**/*.json',
+      './src/modules/**/*.mock.html',
+      './src/assets/manifest.json',
     ],
     srcBase: './src',
     dest: './dist',
     watch: {
       src: [
-        './src/**/*.{png,gif,jpg,woff,ttf,jpeg}',
+        './src/**/*.{png,gif,jpg,woff,ttf,jpeg,json}',
       ],
       name: 'copy',
     },
@@ -802,7 +847,9 @@ gulp.task('copy:aem', () => {
 
   const instance = task({
     src: [
-      './dist/assets/**/*.{css,js,svg}',
+      './dist/assets/**/*.{css,js,svg,json}',
+      './dist/assets/media/icons/*',
+      './dist/assets/media/pngsprite/*',
     ],
     srcBase: './dist/assets',
     dest: gulpUtil.env.aemTargetBaseResources,
@@ -810,6 +857,10 @@ gulp.task('copy:aem', () => {
       changed: null,
       rename: (filePath) => {
         let returnPath = filePath;
+
+        if (filePath.match(/manifest\.json/)) {
+          return returnPath;
+        }
 
         if (filePath.match(/\.min\.js/)) {
           returnPath = returnPath.replace(/\.min\.js/, `.${git.short()}.min.js`);
@@ -841,7 +892,44 @@ gulp.task('copy:aem', () => {
 gulp.task('clean:aem', (callback) => {
   const del = require('del');
 
-  return del(gulpUtil.env.aemTargetBaseResources, {force: true}, callback);
+  return del(gulpUtil.env.aemTargetBaseResources, { force: true }, callback);
+});
+
+gulp.task('copy:offlineassets', () => {
+  const task = require('@unic/estatico-copy');
+  const offlineAssets = task({
+    src: [
+      '!./dist/assets/js/*',
+      '!./dist/assets/css/*',
+      './dist/assets/js/*.min.*',
+      './dist/assets/css/*.min.*',
+      './dist/assets/media/svgsprite/*',
+    ],
+    srcBase: './dist',
+    dest: './dist/ci/offline/',
+    plugins: {
+      changed: null,
+      rename: (filePath) => {
+        let returnPath = filePath;
+        if (filePath.match(/\.min\.js/)) {
+          returnPath = returnPath.replace(/\.min\.js/, `.${git.short()}.min.js`);
+        } else if (filePath.match(/\.js/)) {
+          returnPath = returnPath.replace(/\.js/, `.${git.short()}.js`);
+        }
+        if (filePath.match(/\.min\.css/)) {
+          returnPath = returnPath.replace(/\.min\.css/, `.${git.short()}.min.css`);
+        } else if (filePath.match(/\.css/)) {
+          returnPath = returnPath.replace(/\.css/, `.${git.short()}.css`);
+        }
+        if (filePath.match(/\.svg/)) {
+          returnPath = returnPath.replace(/\.svg/, `.${git.short()}.svg`);
+        }
+        return returnPath;
+      },
+    },
+  }, env);
+
+  return offlineAssets();
 });
 
 /**
@@ -894,6 +982,7 @@ gulp.task('copy:ci', () => {
     },
   }, env);
 
+
   // perserve .content.xml file in resource folder
   const contentXML = task({
     src: [
@@ -922,10 +1011,20 @@ gulp.task('clean', () => {
  * Zip deployment package
  */
 gulp.task('zip', () => {
-  return gulp.src('dist/ci/prod/**/*')
+  return gulp.src(['dist/ci/prod/**/*'])
     .pipe(zip('deploy.zip'))
     .pipe(gulp.dest('dist/ci'));
 });
+
+/**
+ * Zip offline package
+ */
+gulp.task('zip:offline', () => {
+  return gulp.src('dist/ci/offline/**/*')
+    .pipe(zip('offline.zip'))
+    .pipe(gulp.dest('dist'));
+});
+
 
 /**
  * Test & lint / validate
@@ -958,6 +1057,9 @@ gulp.task('build', (done) => {
   if (!env.skipBuild) {
     task = gulp.series('clean', 'clean:aem', task);
   }
+
+  // create offline page
+  task = gulp.series(task, 'copy:offlineassets', 'deploy:offlinepage', 'zip:offline');
 
   // Create CI build structure
   if (env.ci) {

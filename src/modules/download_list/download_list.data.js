@@ -26,8 +26,9 @@ const data = _.merge({}, defaultData, {
     title: 'Download-Liste',
     className: 'DownloadList',
     jira: 'CZHDEV-172',
+    label: 'Liste',
     documentation: dataHelper.getDocumentation('download_list.md'),
-    disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue' ],
+    disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
   },
   props: {
     title: {
@@ -43,7 +44,7 @@ const data = _.merge({}, defaultData, {
       },
       {
         link: _.merge({}, downloadButtonItem, {
-          domSelector: 'data-download_list="openContext"',
+          additionalAttributes: 'data-download_list="openContext"',
         }),
         contextMenu: _.merge({}, contextMenuDownload, {
           domSelector: 'data-download_list="contextMenu"',
@@ -51,7 +52,7 @@ const data = _.merge({}, defaultData, {
       },
       {
         link: _.merge({}, downloadButtonItem, {
-          domSelector: 'data-download_list="openContext"',
+          additionalAttributes: 'data-download_list="openContext"',
         }),
         contextMenu: _.merge({}, contextMenuDownload, {
           domSelector: 'data-download_list="contextMenu"',

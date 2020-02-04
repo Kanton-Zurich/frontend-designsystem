@@ -1,0 +1,16 @@
+{{#extend "layouts/layout"}}
+  {{#content "header"}}
+    {{> "modules/page_header/page_header" props.modules.pageHeader}}
+  {{/content}}
+
+  {{#content "content"}}
+    {{> "modules/news_overview/news_overview" props.modules.newsOverview }}
+    {{> "modules/cta_box/cta_box" props.modules.ctaBox }}
+    {{> "modules/related_content/related_content" props.modules.relatedContent }}
+  {{/content}}
+
+  {{#content "footer"}}
+    {{> "modules/footer/footer" props.modules.footerData}}
+    {{> "modules/back2top/back2top" props.modules.back2topData}}
+  {{/content}}
+{{/extend}}

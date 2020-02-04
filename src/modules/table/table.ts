@@ -102,7 +102,8 @@ class Table extends Module {
 
   static get events() {
     return {
-      // eventname: `eventname.${ Table.name }.${  }`
+      sort: 'Table.sort',
+      sortColumn: 'Table.sortColumn',
     };
   }
 
@@ -113,8 +114,21 @@ class Table extends Module {
     (<any>WindowEventListener).addDebouncedResizeListener(this.setShades.bind(this));
 
     this.eventDelegate
-      .on('click', this.options.domSelectors.sortable, this.orderTable.bind(this))
-      .on('redraw', this.setShades.bind(this));
+      .on('click', this.options.domSelectors.sortable, this.onOrderTable.bind(this))
+      .on('redraw', this.setShades.bind(this))
+      .on(Table.events.sortColumn, this.onSortColumn.bind(this));
+
+
+    // handle pre sort
+    this.cleanSortableColumns();
+    if (this.ui.element.hasAttribute('data-sort-column')) {
+      let orderDirection = 'ascending';
+      if (this.ui.element.hasAttribute('data-sort-direction')) {
+        orderDirection = this.ui.element.getAttribute('data-sort-direction');
+      }
+      const columnHeader = this.ui.element.querySelector(`[data-column-name="${this.ui.element.getAttribute('data-sort-column')}"]`);
+      this.setColumnHeader(orderDirection, columnHeader);
+    }
   }
 
   /**
@@ -125,7 +139,7 @@ class Table extends Module {
     this.data.clonedTable.classList.add(this.options.stateClasses.cloned);
     this.data.clonedTable.removeAttribute('data-table');
     this.data.clonedTable.setAttribute('aria-hidden', 'true');
-    this.ui.scrollArea.append(this.data.clonedTable);
+    this.ui.scrollArea.appendChild(this.data.clonedTable);
   }
 
   /**
@@ -172,8 +186,9 @@ class Table extends Module {
    */
   setLeftOffset() {
     const firstThRow = this.ui.table.querySelector('th[scope="row"]');
-
-    this.data.shades.left.style.left = `${firstThRow.getBoundingClientRect().width}px`;
+    if (firstThRow) {
+      this.data.shades.left.style.left = `${firstThRow.getBoundingClientRect().width}px`;
+    }
   }
 
   /**
@@ -222,12 +237,9 @@ class Table extends Module {
    * @param event {MouseEvent} the click event of the mouse
    * @memberof Table
    */
-  orderTable(event) {
-    if (!this.data.tableData) {
-      this.readTableData();
-    }
-
+  onOrderTable(event) {
     let columnHeader = event.target;
+    this.log(columnHeader);
 
     if (columnHeader.tagName !== 'BUTTON') {
       columnHeader = columnHeader.parentNode;
@@ -235,6 +247,22 @@ class Table extends Module {
       while (columnHeader.tagName !== 'BUTTON') {
         columnHeader = columnHeader.parentNode;
       }
+    }
+
+    const eventDetail = {
+      index: columnHeader.getAttribute('data-column-index'),
+      column: columnHeader.getAttribute('data-column-name'),
+      direction: columnHeader.parentNode.getAttribute('aria-sort'),
+    };
+    this.ui.element.dispatchEvent(new CustomEvent(Table.events.sort, { detail: eventDetail }));
+
+    // break sort process if table is in static mode
+    if (this.ui.element.hasAttribute('data-static')) {
+      return;
+    }
+
+    if (!this.data.tableData) {
+      this.readTableData();
     }
 
     const column = columnHeader.getAttribute('data-column-index');
@@ -248,59 +276,29 @@ class Table extends Module {
         || columnHeader.classList.contains(this.options.stateClasses.columnDescending);
       const orderDirection = isOrderedBy ? (columnHeader.getAttribute('data-order-by')) : false;
       const isNumeric = columnHeader.getAttribute('data-order') === 'enum';
-      const th = columnHeader.parentNode;
       let orderedByTableData = null;
-      let order = null;
-
       this.cleanSortableColumns();
+
+      let order = null;
 
       switch (orderDirection) {
         // The current sortOrder is ascending, so the new one has to be descending
-        case 'asc':
-          order = 'desc';
-
-          columnHeader.classList.add(this.options.stateClasses.columnDescending);
-          th.setAttribute('aria-sort', 'descending');
-          columnHeader.querySelector(`.${this.options.stateClasses.sortLabelNone}`).setAttribute('aria-hidden', 'true');
-          columnHeader.querySelector(`.${this.options.stateClasses.sortLabelAscending}`).setAttribute('aria-hidden', 'true');
-          columnHeader.querySelector(`.${this.options.stateClasses.sortLabelDescending}`).setAttribute('aria-hidden', 'false');
+        case 'ascending':
+          order = 'descending';
+          this.setColumnHeader(order, columnHeader);
           break;
         // The current sortOrder is descending, next stage is no sort at all (default)
-        case 'desc':
-          columnHeader.removeAttribute('data-order-by');
-          th.setAttribute('aria-sort', 'none');
-          columnHeader.querySelector(`.${this.options.stateClasses.sortLabelNone}`).setAttribute('aria-hidden', 'false');
-          columnHeader.querySelector(`.${this.options.stateClasses.sortLabelAscending}`).setAttribute('aria-hidden', 'true');
-          columnHeader.querySelector(`.${this.options.stateClasses.sortLabelDescending}`).setAttribute('aria-hidden', 'true');
-
+        case 'descending':
+          this.setColumnHeader(null, columnHeader);
           break;
         // There is no active sortOrder next stage is ascending
         default:
-          order = 'asc';
-
-          columnHeader.classList.add(this.options.stateClasses.columnAscending);
-          th.setAttribute('aria-sort', 'ascending');
-          columnHeader.querySelector(`.${this.options.stateClasses.sortLabelNone}`).setAttribute('aria-hidden', 'true');
-          columnHeader.querySelector(`.${this.options.stateClasses.sortLabelAscending}`).setAttribute('aria-hidden', 'false');
-          columnHeader.querySelector(`.${this.options.stateClasses.sortLabelDescending}`).setAttribute('aria-hidden', 'true');
-
+          order = 'ascending';
+          this.setColumnHeader(order, columnHeader);
           break;
       }
       if (order) {
-        orderedByTableData = isNumeric
-          ? orderBy(this.data.tableData, (o) => {
-            const tmp = document.createElement('DIV');
-            tmp.innerHTML = o[column];
-
-            return parseFloat(tmp.textContent.replace(',', '.'));
-          }, [order])
-          : orderBy(this.data.tableData, (o) => {
-            const tmp = document.createElement('DIV');
-            tmp.innerHTML = o[column];
-
-            return tmp.textContent;
-          }, [order]);
-
+        orderedByTableData = this.orderTableData(isNumeric, column, order);
         columnHeader.setAttribute('data-order-by', order);
       } else {
         orderedByTableData = this.data.tableData;
@@ -311,13 +309,87 @@ class Table extends Module {
   }
 
   /**
+   * Do active order
+   * @param isNumeric
+   * @param columnIndex
+   * @param order
+   */
+  orderTableData(isNumeric: boolean, columnIndex: number, order: any) {
+    return isNumeric
+      ? orderBy(this.data.tableData, (o) => {
+        const tmp = document.createElement('DIV');
+        tmp.innerHTML = o[columnIndex];
+
+        return parseFloat(tmp.textContent.replace(',', '.'));
+      }, [order === 'ascending' ? 'asc' : 'desc'])
+      : orderBy(this.data.tableData, (o) => {
+        const tmp = document.createElement('DIV');
+        tmp.innerHTML = o[columnIndex];
+
+        return tmp.textContent;
+      }, [order === 'ascending' ? 'asc' : 'desc']);
+  }
+
+  /**
+   * Trigger sort from outside
+   * @param event
+   */
+  onSortColumn(event) {
+    const { column, direction } = event.detail;
+    this.ui.element.setAttribute('data-sort-column', column);
+    this.ui.element.setAttribute('data-sort-direction', direction);
+    const columnHeader = this.ui.element.querySelector(`[data-column-name="${column}"]`);
+    if (columnHeader) {
+      const isNumeric = columnHeader.getAttribute('data-order') === 'enum';
+      this.cleanSortableColumns();
+      this.setColumnHeader(direction, columnHeader);
+      if (!this.ui.element.hasAttribute('data-static')) {
+        const columnIndex = parseInt(columnHeader.getAttribute('data-column-index'), 10);
+        this.redrawTable(this.orderTableData(isNumeric, columnIndex, direction));
+      }
+    }
+  }
+
+  /**
+   * Update the table header according to sort direction
+   * @param orderDirection
+   * @param columnHeader
+   */
+  setColumnHeader(orderDirection, columnHeader) {
+    const th = columnHeader.parentNode;
+    switch (orderDirection) { // eslint-disable-line
+      case 'descending':
+        columnHeader.classList.add(this.options.stateClasses.columnDescending);
+        th.setAttribute('aria-sort', 'descending');
+        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelNone}`).setAttribute('aria-hidden', 'true');
+        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelAscending}`).setAttribute('aria-hidden', 'true');
+        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelDescending}`).setAttribute('aria-hidden', 'false');
+        break;
+      case 'ascending':
+        columnHeader.classList.add(this.options.stateClasses.columnAscending);
+        th.setAttribute('aria-sort', 'ascending');
+        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelNone}`).setAttribute('aria-hidden', 'true');
+        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelAscending}`).setAttribute('aria-hidden', 'false');
+        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelDescending}`).setAttribute('aria-hidden', 'true');
+        break;
+      case null:
+        columnHeader.removeAttribute('data-order-by');
+        th.setAttribute('aria-sort', 'none');
+        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelNone}`).setAttribute('aria-hidden', 'false');
+        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelAscending}`).setAttribute('aria-hidden', 'true');
+        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelDescending}`).setAttribute('aria-hidden', 'true');
+        break;
+    }
+  }
+
+  /**
    * Reading the current table data (is done by the first sort interaction)
    *
    * @memberof Table
    */
   readTableData() {
     const tableRows = [];
-    const domRows = this.ui.table.querySelectorAll('tbody tr');
+    const domRows = [].slice.call(this.ui.table.querySelectorAll('tbody tr'));
 
     domRows.forEach((row) => {
       const cells = row.querySelectorAll(this.options.domSelectors.cell);
@@ -351,10 +423,10 @@ class Table extends Module {
       this.data.clonedTable.remove();
     }
 
-    const tBodyRows = this.ui.table.querySelectorAll('tbody tr');
+    const tBodyRows = [].slice.call(this.ui.table.querySelectorAll('tbody tr'));
 
     tBodyRows.forEach((row, rowIndex) => {
-      const cells = row.querySelectorAll(this.options.domSelectors.cell);
+      const cells = [].slice.call(row.querySelectorAll(this.options.domSelectors.cell));
 
       cells.forEach((cell, cellIndex) => {
         cell.innerHTML = sortedData[rowIndex][cellIndex];
@@ -378,7 +450,7 @@ class Table extends Module {
    * @memberof Table
    */
   cleanSortableColumns() {
-    const sortableButtons = this.ui.table.querySelectorAll('thead tr th button');
+    const sortableButtons = [].slice.call(this.ui.table.querySelectorAll('thead tr th button'));
 
     sortableButtons.forEach((sortableButton) => {
       sortableButton.classList.remove(this.options.stateClasses.columnAscending);

@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Link-Liste',
     className: 'Linklist',
     jira: 'CZHDEV-187',
+    label: 'Liste',
     documentation: dataHelper.getDocumentation('linklist.md'),
   },
   props: {
@@ -25,8 +26,7 @@ const data = _.merge({}, defaultData, {
         linkListItemHref: '/index.html',
       },
     ],
-    hasTitle: true,
-    headingLevel: 2,
+
   },
 });
 
@@ -38,6 +38,7 @@ const variants = _.mapValues({
       desc: 'Implementation with h2 title',
     },
     props: {
+      linkListTitle: 'Linkliste',
       headingLevel: 2,
     },
   },
@@ -47,6 +48,7 @@ const variants = _.mapValues({
       desc: 'Implementation with h3 title',
     },
     props: {
+      linkListTitle: 'Linkliste',
       headingLevel: 3,
     },
   },
@@ -56,6 +58,7 @@ const variants = _.mapValues({
       desc: 'Implementation with H4',
     },
     props: {
+      linkListTitle: 'Linkliste',
       headingLevel: 4,
     },
   },
@@ -64,8 +67,79 @@ const variants = _.mapValues({
       title: 'Without title',
       desc: 'Implementation without title',
     },
+  },
+  noTitleAlt: {
+    meta: {
+      title: 'Without title',
+      desc: 'Implementation without title',
+    },
     props: {
-      hasTitle: false,
+      links: [
+        {
+          linkListItemTitle: 'Gesetz über das Bürgerrecht',
+          linkListItemHref: '/',
+        },
+        {
+          linkListItemTitle: 'Gesetz über die Auslagerung von Informatikdienstleistungen',
+          linkListItemHref: '/',
+        },
+        {
+          linkListItemTitle: 'Gesetz über das Schlichtungsverfahren für Streitigkeiten nach Gleichstellungsgesetz in öffentlich-rechtlichen Arbeitsverhältnissen',
+          linkListItemHref: '/',
+        },
+        {
+          linkListItemTitle: 'Gesetz über die Verselbstständigung der Versicherungskasse für das Staatspersonal',
+          linkListItemHref: '/',
+        },
+      ],
+    },
+  },
+  locations: {
+    meta: {
+      title: 'With locations',
+      desc: 'Linklist as used in locations module',
+    },
+    props: {
+      hasIndex: true,
+      links: [
+        {
+          linkListItemIsLocation: true,
+          linkListItemDistance: '2,0 km',
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
+          linkListItemLabel: 'Uetlibergstrasse 301, 8036 Zürich',
+          linkListItemHref: '/',
+        }, {
+          linkListItemIsLocation: true,
+          linkListItemDistance: '6,4 km',
+          linkListItemTitle: 'Strassenverkehrsamt Bassersdorf',
+          linkListItemLabel: 'Grindelstrasse 22, 8303 Bassersdorf',
+          linkListItemHref: '/',
+        }, {
+          linkListItemIsLocation: true,
+          linkListItemDistance: '6,7 km',
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Regensdorf',
+          linkListItemLabel: 'Riedthofstrasse 192, 8105 Regensdorf',
+          linkListItemHref: '/',
+        }, {
+          linkListItemIsLocation: true,
+          linkListItemDistance: '7,5 km',
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
+          linkListItemLabel: 'Taggenbergstrasse 1, 8408 Winterthur',
+          linkListItemHref: '/',
+        }, {
+          linkListItemIsLocation: true,
+          linkListItemDistance: '17,4 km',
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Prüfstelle Bülach',
+          linkListItemLabel: 'Schützenmatt Straße 120, 8180 Bülach',
+          linkListItemHref: '/',
+        }, {
+          linkListItemIsLocation: true,
+          linkListItemDistance: '21,9 km',
+          linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Schifffahrtskontrolle',
+          linkListItemLabel: 'Seestrasse 87, 8942 Oberrieden',
+          linkListItemHref: '/',
+        },
+      ],
     },
   },
 }, (variant) => {

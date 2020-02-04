@@ -1,0 +1,63 @@
+<{{#if isTable}}table{{else}}ul{{/if}}
+  class="atm-list{{#if isTable}} atm-list--table{{/if}}"
+  {{#if setHiddenIndex}}tabindex="-1"{{/if}}
+  data-inputtype="{{#if isMultiSelect}}checkbox{{/if}}{{#if isSingleSelect}}radio{{/if}}"
+  {{#unless outerFocus}}tabindex="-1"{{/unless}}
+  >
+  {{#if isTable}}
+    <thead>
+      <tr>
+        {{#each selectTableHeaders}}
+          <th scope="col">{{this}}</th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+  {{/if}}
+  {{#each selectOptions}}
+    <{{#if ../isTable}}tr{{else}}li{{/if}}
+      {{#if id}}id="{{this.id}}"{{/if}}
+      class="atm-list__item{{#if ../hasCheckIcon}} atm-list__item--check-icon{{/if}}{{#if ../hasIconLeft}} atm-list__item--icon-left{{/if}}{{#if ../hasIconRight}} atm-list__item--icon-right{{/if}}{{#if this.preSelected}} selected{{/if}}"
+      >
+      {{#if ../isTable}}
+        <th scope="row">
+      {{/if}}
+      {{#if ../useAnchors}}
+        <a href="#">
+      {{/if}}
+      {{#if_compare ../hasIconLeft "||" ../hasCheckIcon }}
+        <svg class="icon">
+          <use xlink:href="#{{{../iconLeft}}}"></use>
+        </svg>
+      {{/if_compare}}
+      <input {{#if noInteraction}}tabindex="-1"{{/if}} name="{{../groupId}}"
+             {{#if id}}id="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-{{this.id}}"{{/if}}
+             type="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}"
+             value="{{{ this.value }}}"
+             placeholder="{{{ this.label }}}{{#if ../isTable}}{{#each selectTableCells}}, {{this}}{{/each}}{{/if}}"
+             data-select-option
+             {{#if preSelected}} checked{{/if}}
+             {{#if filterId }}data-filter-id="{{filterId}}"{{/if}}
+             {{#if ../validation}}data-validation{{/if}}
+             {{#if ../validation.isRequired}}required{{/if}}>
+
+      {{#if ../hasIconRight}}
+        <svg class="icon">
+          <use xlink:href="#{{{../iconRight}}}"></use>
+        </svg>
+      {{/if}}
+
+      <label for="{{#if ../isMultiSelect}}checkbox{{/if}}{{#if ../isSingleSelect}}radio{{/if}}-{{this.id}}">{{{ this.label }}}</label>
+      {{#if ../useAnchors}}
+        </a>
+      {{/if}}
+      {{#if ../isTable}}
+        </th>
+        {{#each selectTableCells}}
+          <td>{{this}}</td>
+        {{/each}}
+      {{/if}}
+    </{{#if ../isTable}}tr{{else}}li{{/if}}>
+  {{/each}}
+  {{#if isTable}}</tbody>{{/if}}
+</{{#if isTable}}table{{else}}ul{{/if}}>

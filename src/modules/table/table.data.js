@@ -11,6 +11,7 @@ const data = _.merge({}, defaultData, {
     title: 'Tabelle',
     className: 'Table',
     jira: 'CZHDEV-121',
+    label: 'Inhalt',
     documentation: dataHelper.getDocumentation('table.md'),
   },
   props: {
@@ -573,6 +574,108 @@ const variants = _.mapValues({
       ],
       caption: _.merge({}, defFigcaptionData, {
         caption: 'Quelle: Pro Cinema',
+      }),
+    },
+  },
+  flexData: {
+    meta: {
+      title: 'Volle Breite statisch (Flexdata CZHDEV-1234)',
+      desc: '',
+    },
+    props: {
+      tableTitle: 'Steuerbuch',
+      isWide: true,
+      isStatic: true,
+      preSortedColumn: 'zstb_nr',
+      preSortedDirection: 'asc',
+      headers: [
+        {
+          title: 'ZStB-Nr.',
+          dataColumnName: 'zstb_nr',
+          isSortable: 'enum',
+        },
+        {
+          title: 'Kurztitel',
+          dataColumnName: 'short',
+          isSortable: 'alpha',
+        },
+        {
+          title: 'Themenbereich',
+          dataColumnName: 'topic',
+          isSortable: 'alpha',
+        },
+        {
+          isSortable: false,
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['3.1', 'Steuerliche Zugehörigkeit', 'Natürliche Personen', '<a class="atm-text_link" href="#">Details</a>'],
+        },
+        {
+          data: ['800.1', 'Internationale Steuerausscheidung Betriebe/Vermögen', 'Natürliche Personen', '<a class="atm-text_link" href="#">Details</a>'],
+        },
+        {
+          data: ['106.3', 'Einleitung des Nachsteuer- und Bussenverfahrens durch die DAIE', 'Verfahrensrecht', '<a class="atm-text_link" href="#">Details</a>'],
+        },
+        {
+          data: ['109a.1', 'Ablieferung Steuererklärungen/Wertschriftenverzeichnisse', 'Verfahrensrecht', '<a class="atm-text_link" href="#">Details</a>'],
+        },
+        {
+          data: ['51.2', 'Änderung der Besteuerungsgrundlagen während der Steuerperiode im interkantonalen Verhältnis', 'Natürliche Personen', '<a class="atm-text_link" href="#">Details</a>'],
+        },
+        {
+          data: ['234.1', 'Verletzung von Verfahrenspflichten', 'Verfahrensrecht', '<a class="atm-text_link" href="#">Details</a>'],
+        },
+      ],
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Quelle: Pro Cinema',
+      }),
+    },
+  },
+  taxCalcResult: {
+    meta: {
+      title: 'Steuerechner (CZHDEV-1238)',
+      desc: 'Ergebnis Tabelle wie im Steuerrechner verwendet.',
+    },
+    props: {
+      tableTitle: 'Steuerbarer Reingewinn',
+      headers: [
+        {
+          title: '<span class="visuallyhidden">Beschreibung</span>',
+          isSortable: false,
+        }, {
+          title: 'CHF',
+          isSortable: false,
+        },
+      ],
+      bodyrows: [
+        {
+          data: ['Gewinn vor Steuern', "1'000'000.00"],
+        }, {
+          data: ['Steuern  (auf Gewinn vor Steuern)', "216'222.00"],
+        }, {
+          data: ['mutmasslicher steuerbarer Reingewinn (ungerundet)', "783'778.00"],
+        }, {
+          data: [{
+            cellContent: 'Steuerbarer Reingewinn (gerundet)',
+            isHighlighted: true,
+          }, {
+            cellContent: "783'700.00",
+            isHighlighted: true,
+          }],
+        },
+      ],
+      hasTitle: true,
+      tableHeadingLevel: 4,
+      hasColumnHeader: true,
+      hasRowHeader: false,
+      alignRight: true,
+      colorVariation: true,
+      isFirstColumnFixed: true,
+      hasCaption: true,
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Für die Steuerzahlung ist einzig der Betrag auf der Steuerrechnung massgebend.',
       }),
     },
   },

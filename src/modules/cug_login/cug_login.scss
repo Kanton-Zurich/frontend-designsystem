@@ -1,0 +1,96 @@
+.mdl-cug_login {
+  margin-top: pxToRem($sizeGiant);
+  margin-bottom: pxToRem($sizeGiant);
+
+  &--loading {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__line {
+    margin-top: pxToRem($sizeTiny);
+    height: pxToRem(3px);
+    width: 100%;
+    background-color: $colorBlack;
+  }
+
+  &__submit {
+    margin-left: auto;
+  }
+
+  &__alert-unauth {
+    display: none;
+  }
+
+  &--unauthorized {
+    .mdl-cug_login {
+      &__form {
+        display: none;
+      }
+
+      &__alert-unauth {
+        display: block;
+      }
+    }
+  }
+
+  &__failnotification {
+    max-height: 0;
+    transition: max-height 400ms ease-in-out;
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+
+  &--credentials-failed {
+    .mdl-cug_login__failnotification {
+      max-height: pxToRem($sizeBreakpointTiny);
+      padding-bottom: pxToRem($sizeRegular);
+    }
+  }
+
+  &__alert-connection-fail {
+    display: none;
+  }
+
+  &--connection-fail {
+    .mdl-cug_login {
+      &__form {
+        display: none;
+      }
+
+      &__alert-connection-fail {
+        display: block;
+      }
+    }
+  }
+
+  &--embedded {
+    padding: pxToRem($sizeLarge);
+
+    .atm-heading {
+      padding-top: 0;
+    }
+
+    .form__row:last-child {
+      padding-bottom: 0;
+    }
+  }
+}
+
+
+/*
+* COLOR-VARIATIONS
+*/
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-cug_login--embedded {
+      background-color: rgba($val, 0.07);
+
+      .atm-heading,
+      .atm-paragraph,
+      .mdl-tooltip {
+        color: #{$val};
+      }
+    }
+  }
+}

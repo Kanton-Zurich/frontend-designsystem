@@ -1,0 +1,263 @@
+$selectHeight: 208px;
+$selectHeightWithButton: 274px;
+$selectHeightWithFilter: 360px;
+$selectHeightWithFilterExtended: 424px;
+$selectOptionsMinWidth: 268px;
+
+.mdl-select {
+  position: relative;
+
+  &__options {
+    position: absolute;
+    display: none;
+    top: calc(100% + 2px);
+    left: 0;
+    width: 100%;
+    min-width: pxToRem($selectOptionsMinWidth);
+    height: 0;
+    // transition: 400ms height ease-out;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
+    background-color: $colorWhite;
+    overflow: hidden;
+    border-radius: 1px;
+
+    ul {
+      // Overwrite list atom styles
+      box-shadow: none;
+      border-radius: 0;
+      height: 100%;
+      outline: none;
+    }
+
+    .atm-list__item input {
+      display: none;
+    }
+  }
+
+  .atm-form_input__input--trigger {
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    > .icon {
+      transform: rotate(0deg);
+
+      @include transition(transform, $time: $transitionTimeDefault);
+    }
+  }
+
+  .atm-form_input--trigger-phone {
+    input {
+      // Remove light blueish background after auto-fill / focus
+      -webkit-box-shadow: 0 0 0 1000px $colorWhite inset !important; //stylelint-disable-line
+    }
+  }
+
+  &.invalid {
+    .atm-form_input--trigger-phone {
+      .atm-form_input__input--trigger + input {
+        height: 66px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .atm-form_input--trigger {
+      button {
+        border-color: $colorRed;
+      }
+    }
+
+    .mdl-select__error-msg {
+      display: block;
+    }
+  }
+
+  &__filter {
+    top: pxToRem(-$sizeGiant);
+  }
+
+  &__apply {
+    bottom: pxToRem(-$sizeGiant);
+    background-color: $colorBlack5;
+
+    button {
+      width: 100%;
+      display: block;
+      text-align: center;
+    }
+  }
+
+  &__filter,
+  &__apply {
+    position: relative;
+    left: 0;
+    cursor: pointer;
+    height: pxToRem($sizeGiant);
+    padding: pxToRem($sizeRegular);
+    visibility: hidden;
+  }
+
+  &__error-msg {
+    display: none;
+    height: pxToRem($sizeSmallBig);
+    font-size: pxToRem($sizeFontTiny);
+    line-height: $sizeLineHeightBase;
+    color: $colorWhite;
+    background-color: $colorRed;
+    border: 2px solid $colorRed;
+    border-radius: 1px;
+    margin: 0;
+    padding: 0 pxToRem($sizeRegular);
+  }
+
+  &--list-upwards {
+    .mdl-select__options {
+      top: auto;
+      bottom: calc(100% + 2px);
+    }
+  }
+
+  &--float-right {
+    float: right;
+
+    + .atm-heading {
+      margin-top: -2px;
+      margin-bottom: pxToRem($sizeBig);
+      padding-top: 0;
+    }
+  }
+
+  &--open {
+    .mdl-select__filter,
+    .mdl-select__apply {
+      visibility: visible;
+    }
+
+    .mdl-select__filter {
+      top: 0;
+    }
+
+    .mdl-select__apply {
+      bottom: 0;
+    }
+
+    .atm-form_input--trigger {
+      button {
+        border-color: $colorCyan;
+        outline: 0;
+      }
+
+      .icon {
+        transform: rotate(180deg);
+      }
+    }
+
+    .mdl-select__options {
+      display: block;
+      height: pxToRem($selectHeight);
+      z-index: $zIndexDropDowns;
+
+      .atm-list__item {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        input {
+          display: inline;
+        }
+
+        &.hidden {
+          display: none;
+        }
+      }
+
+      &--table {
+        height: auto;
+
+        .atm-list__item {
+          white-space: normal;
+        }
+      }
+    }
+
+    &.mdl-select--button {
+      .mdl-select__options {
+        height: pxToRem($selectHeightWithButton);
+
+        ul {
+          height: calc(100% - 80px);
+        }
+      }
+    }
+
+    &.mdl-select--filter {
+      .mdl-select__options {
+        height: pxToRem($selectHeightWithFilter);
+
+        ul {
+          height: calc(100% - 80px);
+        }
+      }
+
+      &.mdl-select--button {
+        .mdl-select__options {
+          height: pxToRem($selectHeightWithFilterExtended);
+
+          ul {
+            height: calc(100% - 160px);
+          }
+        }
+      }
+    }
+  }
+
+  &--selected {
+    .atm-form_input__trigger-value {
+      color: $colorBlack;
+      white-space: nowrap;
+    }
+
+    .atm-form_input__input--trigger svg {
+      fill: $colorBlack;
+    }
+  }
+
+  &--selected,
+  &--open {
+    .atm-form_input {
+
+      &__input--trigger {
+        padding-top: $paddingInput + $paddingDifferenceOnFocus;
+        padding-bottom: $paddingInput - $paddingDifferenceOnFocus;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      &__trigger-label {
+        pointer-events: none;
+        padding: 0;
+        top: pxToRem($sizeFontSmall);
+        font-family: $fontFamilyBlack;
+        font-size: pxToRem($sizeFontTiny);
+        line-height: $sizeLineHeightBase;
+        color: $colorBlack;
+        transform: none;
+      }
+
+      &--trigger-phone .atm-form_input__input--trigger {
+        padding-top: $paddingInput;
+        padding-bottom: $paddingInput;
+      }
+
+      &--reduced {
+        .atm-form_input__input--trigger {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+}

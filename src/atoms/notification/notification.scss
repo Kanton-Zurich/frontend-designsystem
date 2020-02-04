@@ -1,0 +1,120 @@
+.atm-notification {
+  display: flex;
+  align-items: center;
+  color: $colorWhite;
+  border-radius: 3px;
+  background: $colorRed;
+  padding: pxToRem($sizeRegular);
+
+  .icon {
+    min-width: pxToRem($sizeLarge);
+    min-height: pxToRem($sizeLarge);
+
+    use {
+      fill: $colorWhite;
+    }
+  }
+
+  &__title {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  &__message {
+    flex-grow: 1;
+    margin-left: pxToRem($sizeRegular);
+    color: inherit;
+
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+
+    button {
+      color: $colorWhite;
+      position: relative;
+
+      &:after {
+        content: ' ';
+        width: 100%;
+        position: absolute;
+
+        bottom: 1px;
+        left: 0;
+        height: 1px;
+        background: $colorWhite;
+      }
+    }
+
+    ul {
+      @include resetList;
+
+      display: inline;
+      list-style-type: none;
+
+      li {
+        display: inline;
+
+        &:after {
+          content: ', ';
+        }
+
+        &:last-child:after {
+          content: '';
+        }
+      }
+    }
+  }
+
+  /** Green variation for form confirmation */
+  &--green {
+    background: $colorGreen;
+  }
+
+  &--big {
+    .icon {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .atm-notification__message {
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
+    }
+  }
+
+  &--dialog {
+    position: relative;
+    background-color: $colorWhite;
+    box-shadow: 0 0 $sizeTiny rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    padding: pxToRem($sizeLarge) pxToRem($sizeBig) pxToRem($sizeLarge) pxToRem($sizeLarge);
+    color: $colorRed;
+
+    .atm-notification__message {
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: pxToRem(3px);
+      height: 100%;
+      background-color: $colorRed;
+    }
+
+    .icon {
+      width: pxToRem($sizeSmallHuge);
+      height: pxToRem($sizeSmallHuge);
+
+      use {
+        fill: $colorRed;
+      }
+    }
+
+    button {
+      min-width: auto;
+    }
+  }
+}

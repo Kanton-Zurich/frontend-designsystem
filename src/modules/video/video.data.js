@@ -5,24 +5,44 @@ const defaultData = require('../../data/default.data.js');
 
 const defFigcaptionData = require('../../atoms/figcaption/figcaption.data').variants.default.props;
 
+const defImageFigureData = {
+  srcsets: [{
+    image: '/assets/media/pngsprite/video_placeholder_600x338.png',
+    imageWidth: 600,
+  }, {
+    image: '/assets/media/pngsprite/video_placeholder_1280x720.png',
+    imageWidth: 1280,
+  }],
+  isSmall: false,
+  isWide: false,
+  hasDownload: false,
+  useInCarousel: false,
+  useInGallery: false,
+  noTitle: true,
+};
+
 const template = dataHelper.getFileContent('video.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Video',
     className: 'Video',
     jira: 'CZHDEV-123',
+    label: 'Eingebettet',
     documentation: dataHelper.getDocumentation('video.md'),
   },
   props: {
     headingLevel: 2,
+    expiryDays: 60,
+    cookieName: 'acceptYouTube',
     videoId: 'o2UzLWmUoiw',
     caption: _.merge({}, defFigcaptionData, {
       caption: 'Video der Kantonspolizei Zürich; Quelle: KaPo Zürich',
     }),
     video_title: 'Video über die KaPo Zürich',
     alt: 'Das ist ein Alternativ-Text',
+    placeholderImage: defImageFigureData,
   },
-});
+}); 
 
 data.colorVariations = []; // no color variations available
 

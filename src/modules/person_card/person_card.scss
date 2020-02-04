@@ -1,0 +1,106 @@
+.mdl-person_card {
+  $personCardCurves: (
+    headingMarginBottom: (
+      tiny: 0,
+      medium: $sizeMini,
+    ),
+    containerPadding :(
+      tiny: $sizeSmallLarge,
+      medium: $sizeBig,
+      xlarge: $sizeBiggerBig,
+    ),
+    imageContainerWidth :(
+      medium: 176px,
+      large: 236px,
+    ),
+    imageContainerWidthPromo :(
+      medium: 145px,
+      large: 168px,
+    ),
+  );
+
+  background-color: $colorBlack5;
+  display: inline-block;
+  width: 100%;
+
+  @include sizeCurve(margin-bottom, large);
+  @include mq($from: small) {
+    display: flex;
+  }
+
+  &__name {
+    margin-top: 0;
+    line-height: $sizeLineHeightMedium;
+    font-family: $fontFamilyBlack;
+    margin-bottom: pxToRem($sizeMini);
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+    @include mq($to: xsmall) {
+      line-height: $sizeLineHeightBase;
+    }
+  }
+
+  &__imagecontainer {
+    @include polyFluidSizing(min-width, map-get($personCardCurves,imageContainerWidth));
+    @include polyFluidSizing(min-height, map-get($personCardCurves,imageContainerWidth));
+
+    overflow: hidden;
+    line-height: 0;
+    padding: $sizeSmallLarge $sizeSmallLarge 0 $sizeSmallLarge;
+
+    img {
+      width: 100%;
+    }
+
+    @include mq($from: small) {
+      position: relative;
+      padding: 0;
+
+      img {
+        width: auto;
+        position: absolute;
+        height: 100%;
+        transform: translateX(-50%);
+        margin-left: 50%;
+      }
+    }
+  }
+
+  &--promo {
+    .mdl-person_card__imagecontainer {
+      @include polyFluidSizing(min-width, map-get($personCardCurves,imageContainerWidthPromo));
+      @include polyFluidSizing(min-height, map-get($personCardCurves,imageContainerWidthPromo));
+    }
+  }
+
+  &--standalone {
+    @include sizeCurve(margin-top margin-bottom, big);
+  }
+
+  &__container {
+    width: 100%;
+
+    @include sizeCurve(padding, containerPadding, $personCardCurves);
+
+    .atm-paragraph {
+      margin-bottom: $sizeRegular;
+      font-size: $sizeFontRegular;
+      line-height: $sizeLineHeightBase;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+
+    .atm-button {
+      margin-top: $sizeRegular;
+    }
+
+    .atm-heading {
+      padding-top: 0;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
+      @include sizeCurve(margin-bottom, headingMarginBottom, $personCardCurves);
+    }
+  }
+}

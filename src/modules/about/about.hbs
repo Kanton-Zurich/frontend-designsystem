@@ -1,6 +1,6 @@
 <div class="mdl-about">
   <div class="mdl-about__block">
-    <h2 class="atm-heading atm-heading--bordered">{{{title}}}</h2>
+    <h2 {{#if anchorNavReference}}id="{{anchorNavReference}}" {{/if}}class="atm-heading atm-heading--bordered">{{title}}</h2>
   </div>
   <div class="mdl-about__block">
     <h3 class="atm-heading">{{{sTitle1}}}</h3>
@@ -9,7 +9,7 @@
         {{{pText1}}}
       </p>
     </div>
-    {{> "modules/linklist/linklist" linklist.list1}}
+    {{> "atoms/linklist_item/linklist_item" link}}
   </div>
   <div class="mdl-about__block">
     <h3 class="atm-heading">{{{sTitle2}}}</h3>
@@ -26,11 +26,14 @@
     </div>
   </div>
   <div class="mdl-about__block">
-    <div class="mdl-about__smallcaption">{{{smallTitle1}}}</div>
+    {{> "modules/person_card/person_card" personCardData}}
+  </div>
+  <div class="mdl-about__block">
+    <h3 class="mdl-about__smallcaption">{{{smallTitle1}}}</h3>
     {{> "modules/content_nav/content_nav" topicsData}}
   </div>
   <div class="mdl-about__block">
-    <div class="mdl-about__smallcaption">{{{smallTitle2}}}</div>
-    {{> "modules/download_list/download_list" downloadListData}}
+    <h3 class="mdl-about__smallcaption">{{{smallTitle2}}}</h3>
+    {{> "modules/download_list/download_list" downloadListData }}
   </div>
 </div>

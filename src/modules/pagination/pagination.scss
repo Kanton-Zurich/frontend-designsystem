@@ -1,0 +1,41 @@
+.mdl-pagination {
+  display: flex;
+  justify-content: flex-end;
+
+  &--fullwidth {
+    @include gridBleed($fullwidth: true);
+    display: block;
+
+    .lyt-wrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  &__input {
+    width: pxToRem($sizeSmallHuge);
+
+    input {
+      padding: pxToRem($sizeSmallRegular) 0;
+      text-align: center;
+    }
+  }
+
+  &__button-prev {
+    margin-right: 2px;
+  }
+
+  &__page-count {
+    padding: pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
+    font-size: $sizeFontSmall;
+    margin: 0;
+  }
+
+  .mdl-search_page & {
+    display: none;
+  }
+
+  .mdl-search_page--show-results & {
+    display: flex;
+  }
+}

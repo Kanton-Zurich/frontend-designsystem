@@ -1,5 +1,5 @@
 <figure class="mdl-image-figure{{#if isSmall}} mdl-image-figure--imagesmall{{/if}}{{#if isWide}} mdl-image-figure--fullwidth{{/if}}{{#if isHeader}} mdl-image-figure--header{{/if}}">
-  <{{#if useInCarousel}}button{{else}}div{{/if}} class="mdl-image-figure__img-wrapper" {{#if useInCarousel}}data-carousel="open"{{/if}}>
+  <{{#if useInCarousel}}button{{else}}div{{/if}} class="mdl-image-figure__img-wrapper" {{#if useInCarousel}}data-carousel="open" role="presentation"{{/if}}>
     <img
         class="mdl-image-figure__img"
         src="{{srcsets.[0].image}}"

@@ -5,6 +5,13 @@ $contentNavGrid: (
 );
 
 .mdl-content_nav {
+  @include sizeCurve(margin-bottom, big);
+
+  &--loading {
+    min-height: $loadingMinHeight;
+    position: relative;
+  }
+
   &__list {
     display: grid;
 
@@ -45,7 +52,7 @@ $contentNavGrid: (
 
       @each $bp, $gutterSize in $grid-margin-gutters {
         @include mq($from: $bp) {
-          border-width: 0 pxToRem($gutterSize) pxToRem($gutterSize) 0;
+          border-width: 0 pxToRem($gutterSize / 2) 0 0;
         }
       }
     }

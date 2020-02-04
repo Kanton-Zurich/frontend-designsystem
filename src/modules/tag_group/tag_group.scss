@@ -36,8 +36,8 @@
     }
 
     @include mq($from: xsmall) {
-      padding-left: $sizeRegular;
-      padding-right: $sizeRegular;
+      padding-left: pxToRem($sizeRegular);
+      padding-right: pxToRem($sizeRegular);
     }
     @include mq($from: small) {
       padding-left: 0;
@@ -57,18 +57,22 @@
     }
   }
 
-  h2 {
-    color: $colorWhite;
-    font-size: $sizeFontTiny;
+  .atm-heading {
+    font-size: pxToRem($sizeFontTiny);
     padding-top: 0;
     line-height: $sizeLineHeightBase;
+    color: $colorWhite;
 
     @include sizeCurve('margin-bottom', headingBottomMargin, $tagGroupSizeMaps);
+
+    .cv-monochrome & {
+      color: $colorBlack;
+    }
   }
 
   &__tags {
-    margin-left: calc(-#{$sizeTiny} / 2);
-    margin-right: calc(-#{$sizeTiny} / 2);
+    margin-left: -#{$sizeMini};
+    margin-right: -#{$sizeMini};
 
     @include sizeCurve(margin-bottom, tagsBottomMargin, $tagGroupSizeMaps);
 
@@ -79,19 +83,19 @@
 
     li {
       display: inline-block;
-      margin-right: 2px;
+      margin-right: pxToRem($sizeMini);
       max-width: 100%;
     }
   }
 
   a {
-    margin-bottom: calc(#{$sizeTiny} / 2);
+    margin-bottom: pxToRem($sizeMini);
   }
 
   @include mq($from: small) {
     &__tags {
-      margin-left: - #{$sizeSmallRegular};
-      margin-right: - #{$sizeSmallRegular};
+      margin-left: -#{$sizeSmallRegular};
+      margin-right: -#{$sizeSmallRegular};
     }
   }
 }
@@ -103,6 +107,12 @@
   .#{$key} {
     .mdl-tag-group--wrapped {
       background-color: #{$val};
+    }
+  }
+
+  .cv-monochrome {
+    .mdl-tag-group--wrapped {
+      background-color: $colorWhite;
     }
   }
 }

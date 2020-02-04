@@ -87,6 +87,7 @@
 .sg_atom-rendition,
 .sg_atom-html {
   display: flex;
+  position: relative;
 }
 
 .sg_atom-label,
@@ -134,4 +135,8 @@
       position: static;
     }
   }
+}
+
+.sg_atom--loading {
+  min-height: 100px;
 }

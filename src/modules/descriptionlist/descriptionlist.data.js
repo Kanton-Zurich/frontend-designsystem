@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Gelabelte Liste',
     className: 'Descriptionlist',
     jira: 'CZHDEV-*',
+    label: 'Liste',
     documentation: dataHelper.getDocumentation('descriptionlist.md'),
   },
   props: {
@@ -37,8 +38,8 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+      title: 'Standard',
+      desc: 'Standard-Implementation',
     },
   },
 }, (variant) => {

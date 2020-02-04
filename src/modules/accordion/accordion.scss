@@ -50,6 +50,10 @@ $accordionMap: (
       }
     }
 
+    .mdl-accordion__control {
+      color: $colorBlack60;
+    }
+
     &--open {
       .mdl-accordion__plus .vertical {
         transform: rotate(90deg);
@@ -68,6 +72,18 @@ $accordionMap: (
       .mdl-accordion__plus use {
         fill: $colorBlack100;
       }
+
+      .mdl-accordion__subhead {
+        opacity: 0;
+        padding: 0;
+        transition: none;
+      }
+    }
+
+    &--transition-end {
+      .mdl-accordion__panel {
+        overflow: visible;
+      }
     }
 
     @include hover('.mdl-accordion__item--open') {
@@ -79,15 +95,38 @@ $accordionMap: (
   }
 
   &__button {
-    display: flex;
     width: 100%;
 
-    justify-content: space-between;
-    align-items: center;
+    &:not(.mdl-accordion__button--subhead) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &--subhead {
+      &__flexbox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
   }
 
   &__header {
     margin: 0;
+  }
+
+  &__subhead {
+    font-size: pxToRem($sizeRegular);
+    bottom: pxToRem($sizeMini);
+    margin-top: pxToRem(- $sizeRegular);
+    line-height: pxToRem($sizeLarge);
+    padding-bottom: pxToRem($sizeSmallLarge);
+    color: $colorBlack60;
+    opacity: 1;
+    display: block;
+
+    @include transition(opacity padding);
   }
 
   &__control {
@@ -96,12 +135,11 @@ $accordionMap: (
 
     letter-spacing: -0.3px;
     flex-grow: 1;
-    color: $colorBlack60;
     overflow: hidden;
     width: calc(100% - 24px);
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
     line-height: $sizeLineHeightMedium;
     margin: 0;
     display: block;
@@ -144,11 +182,23 @@ $accordionMap: (
     }
 
     > :last-child {
-      @include sizeCurve(margin-bottom, medium);
+      @include sizeCurve(padding-bottom, medium);
     }
 
     > p:last-child {
-      @include sizeCurve(margin-bottom, regular);
+      @include sizeCurve(padding-bottom, regular);
+    }
+
+    > .mdl-linklist:last-child {
+      margin-bottom: 0;
+
+      @include sizeCurve(padding-bottom, regular);
+    }
+
+    > .mdl-download_list:last-child {
+      margin-bottom: 0;
+
+      @include sizeCurve(padding-bottom, regular);
     }
   }
 

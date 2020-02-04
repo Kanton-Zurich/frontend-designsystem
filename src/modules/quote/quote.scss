@@ -25,10 +25,10 @@
   }
 
   .mdl-quote__text {
-    font-weight: $fontWeightQuote;
+    font-family: $fontFamilyBlack;
     line-height: 1.3em;
     color: $colorBlack;
-    margin-bottom: 0;
+    margin-top: 0;
     hyphens: auto;
 
     @include sizeCurve('margin-bottom', mini);

@@ -8,40 +8,66 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>{{#if title}}{{title}} – {{/if}}{{meta.project}}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="format-detection" content="telephone=no">
 
-
+  <link rel="stylesheet" href="/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css">
   <link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
+  <link rel="stylesheet" href="/assets/css/print{{#unless env.dev}}.min{{/unless}}.css" media="print">
   <link rel="stylesheet" href="/preview/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 
   <script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
   <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js" defer></script>
+  <script src="/preview/assets/js/dev.js"></script>
 
+  <link rel="manifest" href="/assets/manifest.json">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Kanton Zürich">
+  <meta name="apple-mobile-web-app-title" content="Kanton Zürich">
+  <meta name="theme-color" content="#0076BD">
+  <meta name="msapplication-navbutton-color" content="#0076BD">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-starturl" content="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+
+  <link rel="icon" type="image/png" href="/assets/media/icons/Favicon_48.png"/>
+
+  <link rel="shortcut icon" sizes="144x144" type="image/png" href="/assets/media/icons/Favicon_144.png"/>
+  <link rel="shortcut icon" sizes="96x96" type="image/png" href="/assets/media/icons/Favicon_96.png"/>
+  <link rel="shortcut icon" sizes="48x48" type="image/png" href="/assets/media/icons/Favicon_48.png"/>
+  <link rel="shortcut icon" sizes="16x16" type="image/png" href="/assets/media/icons/Favicon_16.png"/>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/icons/apple-touch-icon-180x180.png"/>
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/media/icons/apple-touch-icon-76x76@2x.png"/>
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/media/icons/apple-touch-icon-72x72@2x.png"/>
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/media/icons/apple-touch-icon-60x60@2x.png"/>
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/media/icons/apple-touch-icon-57x57@2x.png"/>
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/media/icons/apple-touch-icon-76x76.png"/>
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/media/icons/apple-touch-icon-60x60.png"/>
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/media/icons/apple-touch-icon-57x57.png"/>
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
-                               data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'
                                data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
-<div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}}">
-  <div class="sg_index_header">
-  <svg viewBox="0 0 100 100" class="sg_logo">
-    <use xlink:href="#ktzh"></use>
-  </svg>
-  <h1 class="sg_title sg_title--top">
-    <a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
-  </h1>
+<header class="lyt-wrapper" id="header">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      {{#block "header"}}
+      {{/block}}
+    </div>
   </div>
-  <div class="sg_revisioninfo sg_revisioninfo--overview">
-    <h4>Quellcodeverwaltung</h4>
-    <ul>
-      <li>Revisions Nummer: <a href="{{meta.gitRemoteLink}}">{{meta.gitShort}}</a></li>
-      <li>Datum: {{meta.gitDate}}</li>
-      <li>Branch: {{meta.gitBranch}}</li>
-      <li>Build Datum: {{meta.buildDate}}</li>
-    </ul>
-  </div>
+</header>
+<main class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}} cv-blue">
   {{#block "content"}}
   {{/block}}
-</div>
+</main>
+<footer class="lyt-wrapper cv-blue" id="footer">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      {{>"modules/contact/contact" wrappingElements.contact }}
+      {{>"modules/footer/footer" wrappingElements.footer }}
+    </div>
+  </div>
+</footer>
 </body>
 </html>

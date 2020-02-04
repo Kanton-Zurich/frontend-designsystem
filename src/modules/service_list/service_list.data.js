@@ -1,9 +1,7 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const defModalData0 = require('../modal/modal.data.js').variants.minimal.props;
-const defModalData1 = require('../modal/modal.data.js').variants.minimal.props;
 
 const template = dataHelper.getFileContent('service_list.hbs');
 const data = _.merge({}, defaultData, {
@@ -11,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Service Liste',
     className: 'MdlServiceList',
     jira: 'CZHDEV-174',
+    label: 'Liste',
     documentation: dataHelper.getDocumentation('service_list.md'),
   },
   props: {
@@ -38,6 +37,14 @@ const data = _.merge({}, defaultData, {
         modalData: { modalId: 'service-modal2' },
       },
       {
+        title: 'App Titel',
+        buttonTitle: 'Start',
+        serviceLink: '../application/modalexample.mock.html',
+        href: '../../pages/application/application.html',
+        staticHeader: true,
+        modalData: { modalId: 'app-modal1' },
+      },
+      {
         title: 'Internationalen Führerschein beantragen',
         text: 'In nicht englischsprachigen Ländern ausserhalb der EU empfehlen wir Ihnen, einen internationalen Führerschein ausstellen zu lassen.',
         buttonTitle: 'Start',
@@ -55,6 +62,9 @@ const variants = _.mapValues({
     },
     props: {
       hasHeading: true,
+      serviceListHeading: {
+        title: 'Service',
+      },
     },
   },
   noHeading: {

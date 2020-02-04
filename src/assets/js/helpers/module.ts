@@ -59,6 +59,12 @@ class Module {
     return ['DOMContentLoaded', 'ajaxLoaded'];
   }
 
+  static get globalEvents() {
+    return {
+      verticalResize: 'eventname.global.vertical_resize',
+    };
+  }
+
   /**
    * Watches a property on an object, default object is this.data
    *
@@ -97,14 +103,16 @@ class Module {
    * @protected
    * @memberof Module
    */
-  protected initUi(enforceNodeList: Boolean = false) {
+  protected initUi(enforceNodeList: any = []) {
     const domSelectorKeys = Object.keys(this.options.domSelectors);
 
     domSelectorKeys.forEach((selectorKey) => {
+      const wrapInArray = enforceNodeList.indexOf(selectorKey) !== -1;
+
       const queryElements = this.ui.element
         .querySelectorAll(this.options.domSelectors[selectorKey]);
 
-      this.ui[selectorKey] = queryElements.length > 1 || enforceNodeList
+      this.ui[selectorKey] = queryElements.length > 1 || wrapInArray
         ? queryElements : queryElements[0];
     });
   }
@@ -135,6 +143,242 @@ class Module {
     delete this.ui.element.dataset[`${this.name}Instance`];
 
     delete window[namespace].modules[this.name].instances[this.uuid];
+  }
+
+  /**
+   * Create checksum from object
+   * @param obj
+   */
+  createObjectHash(obj: any) {
+    const s = JSON.stringify(obj);
+    let hash = 0;
+    const strlen = s.length;
+    if (strlen === 0) {
+      return hash;
+    }
+    for (let i = 0; i < strlen; i += 1) {
+      const c = s.charCodeAt(i);
+      hash = ((hash << 5) - hash) + c; // eslint-disable-line
+      hash = hash & hash; // eslint-disable-line
+    }
+    return hash;
+  }
+
+
+  /**
+   * Extract url parameters
+   * @param param
+   * @param singleValue
+   */
+  getURLParam(param, singleValue = false) {
+    let result = null;
+    const url = window.location.href;
+    const paramList = url.split('?').length > 1 ? url.split('?')[1].split('&') : null;
+    if (paramList) {
+      result = paramList.filter(paramString => paramString.substr(0, param.length) === param)
+        .map(item => decodeURIComponent(item.split('=')[1].replace('#', '')));
+      if (result.length > 0 && singleValue) {
+        result = result[0].replace('#', '');
+      }
+    }
+
+    return result && result.length > 0 ? result : null;
+  }
+
+  /**
+   * Get all URL params as object
+   */
+  getAllURLParams() {
+    const queryString = window.location.search;
+    const stringParams = queryString.split('?').length > 1 ? queryString.split('?')[1].split('&') : null;
+    let params = {};
+    if (stringParams) {
+      params = stringParams.reduce((total, amount) => {
+        const keyValue = amount.split('=');
+        total[keyValue[0]] = total[keyValue[0]] ? total[keyValue[0]] : [];
+        total[keyValue[0]].push(keyValue[1] ? keyValue[1] : null);
+        return total;
+      }, {});
+    }
+    return params;
+  }
+
+  /**
+   * get base URL
+   */
+  getBaseUrl() {
+    return `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+  }
+
+  /**
+   * Update or insert rel link for canonical references
+   * @param rel
+   * @param href
+   */
+  upsertLinkRel(rel, href) {
+    const relLink = document.querySelector(`link[rel="${rel}"]`); // eslint-disable-line
+    if (relLink) {
+      document.head.removeChild(relLink);
+    }
+    if (!href) {
+      return;
+    }
+    const element = document.createElement('link');
+    element.setAttribute('rel', rel);
+    element.setAttribute('href', href);
+    document.head.appendChild(element);
+  }
+
+  /**
+   * Update flying focus with a delay
+   */
+  updateFlyingFocus(delay = 0) {
+    setTimeout(() => {
+      (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
+    }, delay);
+  }
+
+
+  /**
+   * Fetch json data
+   *
+   * @param url endpoint URL to fetch data from
+   */
+  async fetchJsonData(url: string, managed: boolean = true): Promise<any> {
+    if (!window.fetch) {
+      await import('whatwg-fetch');
+    }
+
+    if (managed) {
+      return fetch(url)
+        .then(response => response.json())
+        .catch((err) => {
+          this.log('error', err);
+          throw new Error(`Failed to fetch data from "${url}"!`);
+        });
+    }
+    return fetch(url)
+      .then(response => response);
+  }
+
+  /**
+   * Fetch form data
+   *
+   * @param url endpoint URL to fetch data from
+   */
+  postFormData(form: any): Promise<any> {
+    return new Promise<any>((resolve) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          resolve(xhr);
+        }
+      };
+      xhr.open(form.method, form.action, true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.send(this.serializeForm(form));
+    });
+  }
+
+  /**
+   * Post object as JSON to given URL.
+   * Expects a JSON response body to which the Promise will resolve to.
+   *
+   * @param url endpoint URL to fetch data from
+   * @param payload the request body object (will be stringified)
+   */
+  postJsonData(url: string, payload: object): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status >= 200 && xhr.status < 300) { // eslint-disable-line no-magic-numbers
+            try {
+              resolve(JSON.parse(xhr.responseText));
+            } catch (e) {
+              reject(new Error('Response unparseable!'));
+            }
+          } else {
+            reject(new Error(`Post failed with status ${xhr.status}`));
+          }
+        }
+      };
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.send(JSON.stringify(payload));
+    });
+  }
+
+  /**
+   * Redirect via script
+   * @param url
+   */
+  redirect(url: string) {
+    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
+      const referLink = document.createElement('a');
+      referLink.href = url;
+      document.body.appendChild(referLink);
+      referLink.click();
+    } else {
+      window.location.href = url;
+    }
+  }
+
+  /**
+   * Return a yyyy-mm-dd string for the api
+   *
+   * @param {Date} date
+   * @returns string
+   * @memberof Module
+   */
+  getAPIDateString(date: Date) {
+    const singleDigitMonth = 9;
+    const singleDigitDays = 10;
+
+    if (date.getMonth && date.getDate && date.getFullYear) {
+      const month = date.getMonth() < singleDigitMonth ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+      const day = date.getDate() < singleDigitDays ? `0${date.getDate()}` : date.getDate();
+
+      return `${date.getFullYear()}-${month}-${day}`;
+    }
+
+    return '';
+  }
+
+  /**
+   * Serialize a form
+   * @param form
+   */
+  serializeForm(form) {
+    const s = [];
+    let field;
+    let l;
+    if (typeof form === 'object' && form.nodeName === 'FORM') {
+      const len = form.elements.length;
+      for (let i = 0; i < len; i += 1) {
+        field = form.elements[i];
+        if (field.name && !field.disabled && field.type !== 'file' && field.type !== 'reset' && field.type !== 'submit' && field.type !== 'button') {
+          if (field.type === 'select-multiple') {
+            l = form.elements[i].options.length;
+            for (let j = 0; j < l; j += 1) {
+              if (field.options[j].selected) {
+                s[s.length] = `${encodeURIComponent(field.name)}=${encodeURIComponent(field.options[j].value)}`;
+              }
+            }
+          } else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
+            s[s.length] = `${encodeURIComponent(field.name)}=${encodeURIComponent(field.value)}`;
+          }
+        }
+      }
+    }
+    return s.join('&').replace(/%20/g, '+');
+  }
+
+  /**
+   * When vertical content size changes due to interaction expand / collapse
+   */
+  dispatchVerticalResizeEvent() {
+    window.dispatchEvent(new CustomEvent(Module.globalEvents.verticalResize));
   }
 }
 

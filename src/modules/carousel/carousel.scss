@@ -1,9 +1,17 @@
-$slidePaddingCurve: (
-  default: (
+$carouselCurves: (
+  paddingCurve: (
     tiny: $sizeSmallRegular,
     small: $sizeBig,
     large: $sizeBiggerBig,
-  )
+  ),
+  imageMaxHeight: (
+    tiny: 296px,
+    xsmall: 386px,
+    small: 444px,
+    medium: 576px,
+    large: 621px,
+    xlarge: 768px,
+  ),
 );
 
 .mdl-carousel {
@@ -65,8 +73,8 @@ $slidePaddingCurve: (
   &__slide {
     min-width: 100%;
     max-width: 100%;
-    display: block;
-
+    display: flex;
+    justify-content: center;
     overflow-anchor: none;
 
     transition: margin-left $transitionTimeAreaLarge $transitionEasingDefault;
@@ -84,12 +92,6 @@ $slidePaddingCurve: (
     display: flex;
     align-items: center;
     position: relative;
-
-    .mdl-button_group {
-      .touch & {
-        display: none;
-      }
-    }
   }
 
   &__indicator {
@@ -103,6 +105,17 @@ $slidePaddingCurve: (
    */
   .mdl-image-figure {
     @include sizeCurve(margin-bottom, small);
+    display: inline-block;
+
+    &__img {
+      @include sizeCurve(max-height, imageMaxHeight, $carouselCurves);
+      max-width: 100%;
+      width: auto;
+      // IE 11 only
+      @media all and ( -ms-high-contrast: none ) {
+        width: 100%;
+      }
+    }
   }
 
   .mdl-button_group {
@@ -131,7 +144,7 @@ $slidePaddingCurve: (
     right: 0;
     bottom: 0;
     height: 100vh;
-    z-index: $zIndexOverlays;
+    z-index: $zIndexFlyouts;
 
     background: $colorBlack80;
     margin: 0;
@@ -165,7 +178,7 @@ $slidePaddingCurve: (
     }
 
     .mdl-carousel__slide {
-      @include sizeCurve(padding-left padding-right, default, $slidePaddingCurve);
+      @include sizeCurve(padding-left padding-right, paddingCurve, $carouselCurves);
 
       max-height: 100%;
     }
@@ -179,6 +192,27 @@ $slidePaddingCurve: (
       margin: 0 pxToRem(2px) pxToRem(2px) 0;
       max-width: none;
       transform: none;
+    }
+
+    .mdl-image-figure {
+      display: flex;
+      width: 100%;
+
+      &__img {
+        max-height: 100%;
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+
+    .mdl-image-figure__download {
+      display: none;
+    }
+
+    .mdl-carousel__slide--active {
+      .mdl-image-figure__download {
+        display: inherit;
+      }
     }
   }
 

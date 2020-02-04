@@ -1,0 +1,17 @@
+.mdl-map_view {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+
+  .leaflet-container {
+    background: none;
+    outline: 0;
+  }
+
+  &__controls {
+    display: none;
+  }
+
+  &__directions-link {
+    display: none;
+  }
+}

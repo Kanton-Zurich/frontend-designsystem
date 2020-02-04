@@ -1,0 +1,155 @@
+.mdl-file_upload {
+  &__dropzone {
+    margin-top: pxToRem($sizeTiny);
+
+    @include transition(background border-color);
+
+    p {
+      display: none;
+      color: $colorBlack60;
+    }
+
+    &--dragover {
+      background: rgba($colorBlue, 0.5);
+      border-color: $colorBlue;
+    }
+  }
+
+  &__button {
+    justify-content: space-around;
+
+    @include mq($to: medium) {
+      width: 100%;
+    }
+  }
+
+  &--active-dropzone {
+    .mdl-file_upload__dropzone {
+      @include mq($from: medium) {
+        padding: pxToRem($sizeSmallHuge);
+        border: 2px dashed $colorBlack40;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      p {
+        display: inherit;
+        text-align: center;
+        margin-top: 0;
+
+        @include mq($to: medium) {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &--no-dropzone {
+    .mdl-file_upload__dropzone {
+      display: none;
+    }
+  }
+
+  &--duplicated:not(:first-child) {
+    .atm-heading,
+    label:not(.atm-button) {
+      @include visuallyhidden;
+    }
+  }
+
+  &:not(:first-child) {
+    .atm-heading,
+    label:not(.atm-button) {
+      @include visuallyhidden;
+    }
+  }
+
+  &__list {
+    @include resetList;
+  }
+
+  &__error {
+    transform: translateY(-50%) scaleY(0);
+    transition: transform 400ms, opacity 400ms, height 400ms ease-in-out;
+
+    width: 100%;
+    font-size: pxToRem($sizeFontTiny);
+    line-height: $sizeLineHeightBase;
+    margin: 0;
+    padding: $sizeMini 0 $sizeMini pxToRem($sizeRegular + 2px);
+    color: $colorWhite;
+    background-color: $colorRed;
+
+    margin-top: pxToRem($sizeTiny);
+    display: none;
+
+    &:not(:first-of-type) {
+      margin-top: 0;
+    }
+
+    &:first-of-type {
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px;
+    }
+
+    &:last-of-type {
+      border-bottom-right-radius: 2px;
+      border-bottom-left-radius: 2px;
+    }
+
+    &.show {
+      display: block;
+      transform: translateY(0) scaleY(1);
+    }
+  }
+
+  /** STYLING FOR THE FILE */
+  &__file {
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-start;
+
+    border-bottom: 1px solid $colorBlack20;
+
+    @include sizeCurve(padding-top padding-bottom, tiny);
+
+    &-meta {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    &-title {
+      font-size: pxToRem($sizeFontRegular);
+      font-family: $fontFamilyBlack;
+
+      color: $colorBlack60;
+    }
+
+    &-info {
+      font-size: pxToRem($sizeFontTiny);
+      color: $colorBlack60;
+    }
+
+    &-delete {
+      line-height: 0;
+
+      @include sizeCurve(margin-top, tiny);
+
+      svg {
+        min-width: pxToRem(24);
+        min-height: pxToRem(24);
+      }
+
+      use {
+        fill: $colorBlack60;
+      }
+
+      &:hover use {
+        fill: $colorBlack;
+      }
+    }
+  }
+}

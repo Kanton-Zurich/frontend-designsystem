@@ -9,40 +9,10 @@ const data = _.merge({}, defaultData, {
     title: 'Sprunglinks',
     className: 'Skiplinks',
     jira: 'CZHDEV-292',
+    label: 'Navigation',
     documentation: dataHelper.getDocumentation('skiplinks.md'),
   },
   props: {
-    skiplinks: [
-      {
-        href: '/',
-        accesskey: 0,
-        label: 'Startseite',
-      }, {
-        href: '#navigation',
-        accesskey: 1,
-        label: 'Navigation',
-      }, {
-        href: '#content',
-        accesskey: 2,
-        label: 'Inhalt',
-      }, {
-        href: '#contact',
-        accesskey: 3,
-        label: 'Kontakt',
-      }, {
-        href: '#toc',
-        accesskey: 4,
-        label: 'Inhaltsverzeichnis',
-      }, {
-        href: '#search',
-        accesskey: 5,
-        label: 'Suche',
-      }, {
-        href: '#contentinfo',
-        accesskey: 6,
-        label: 'Fussbereich',
-      },
-    ],
   },
 });
 
@@ -53,6 +23,101 @@ const variants = _.mapValues({
     meta: {
       title: 'Standard',
       desc: 'Keine visuelle Darstellung ausser, wenn ein Sprunglink Fokus erhält.',
+    },
+    props: {
+      skiplinks: [
+        {
+          href: '/',
+          accesskey: 0,
+          label: 'Startseite',
+        }, {
+          href: '#navigation',
+          accesskey: 1,
+          label: 'Navigation',
+        }, {
+          href: '#main',
+          accesskey: 2,
+          label: 'Inhalt',
+        }, {
+          href: '#contact',
+          accesskey: 3,
+          label: 'Kontakt',
+        }, {
+          href: '#toc',
+          accesskey: 4,
+          label: 'Inhaltsverzeichnis',
+        }, {
+          href: '#search',
+          accesskey: 5,
+          label: 'Suche',
+        }, {
+          href: '#contentinfo',
+          accesskey: 6,
+          label: 'Fussbereich',
+        },
+      ],
+    },
+  },
+  noToc: {
+    meta: {
+      title: 'Standard',
+      desc: 'Keine visuelle Darstellung ausser, wenn ein Sprunglink Fokus erhält.',
+    },
+    props: {
+      skiplinks: [
+        {
+          href: '/',
+          accesskey: 0,
+          label: 'Startseite',
+        }, {
+          href: '#navigation',
+          accesskey: 1,
+          label: 'Navigation',
+        }, {
+          href: '#main',
+          accesskey: 2,
+          label: 'Inhalt',
+        }, {
+          href: '#contact',
+          accesskey: 3,
+          label: 'Kontakt',
+        }, {
+          href: '#search',
+          accesskey: 5,
+          label: 'Suche',
+        }, {
+          href: '#contentinfo',
+          accesskey: 6,
+          label: 'Fussbereich',
+        },
+      ],
+    },
+  },
+  fullsize: {
+    meta: {
+      title: 'Für Fullsize-Layout',
+      desc: 'Reduzierte Sprunglinks, wenn kein Kontakt und Footer auf der Seite zu finden sind (Applikationen, iFrame).',
+    },
+    props: {
+      skiplinks: [
+        {
+          href: '/',
+          accesskey: 0,
+          label: 'Startseite',
+        }, {
+          href: '#navigation',
+          accesskey: 1,
+          label: 'Navigation',
+        }, {
+          href: '#main',
+          accesskey: 2,
+          label: 'Inhalt',
+        }, {
+          href: '#search',
+          accesskey: 5,
+          label: 'Suche',
+        },
+      ],
     },
   },
 }, (variant) => {

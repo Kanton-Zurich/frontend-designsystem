@@ -1,0 +1,133 @@
+$maxBannerIconSize: 72px;
+
+.mdl-banner {
+  @include gridBleed($fullwidth: true);
+
+  &__content > .mdl-banner {
+    // There are 2 banners inside due to loading via ajax
+    // stylelint-disable declaration-no-important
+    transform: none;
+    margin-left: 0;
+    max-width: none;
+    width: 100%;
+  }
+
+  position: relative;
+  box-sizing: border-box;
+
+  max-height: 0;
+  overflow: hidden;
+
+  @include transition(max-height, $time: $transitionTimeAreaMedium);
+
+  h2.mdl-banner__title {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, medium));
+
+    margin-bottom: pxToRem($sizeTiny);
+    padding-top: 0;
+  }
+
+  &__content > .lyt-wrapper {
+    @include sizeCurve(padding-top padding-bottom, medium);
+  }
+
+  &__desc {
+    color: $colorBlack60;
+  }
+
+  &__figure {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    @include mq($to: small) {
+      margin-bottom: pxToRem($sizeFontBiggerRegular);
+    }
+  }
+
+  &__icon-wrapper {
+    width: 50%;
+    padding-top: 50%;
+    height: 0;
+
+    position: relative;
+
+    @include mq($to: small) {
+      width: 100%;
+      padding-top: 100%;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    max-height: pxToRem($maxBannerIconSize);
+    max-width: pxToRem($maxBannerIconSize);
+
+    use {
+      fill: $colorCyan;
+    }
+  }
+
+  &__subtitle {
+    font-family: $fontFamilyBlack;
+    display: block;
+
+    color: $colorBlack;
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+  }
+
+  &__close {
+    @include sizeCurve(top right, regular);
+
+    position: absolute;
+
+    .icon {
+      width: pxToRem($sizeFontSmall);
+      height: pxToRem($sizeFontSmall);
+    }
+  }
+
+  /**
+   * ANIMATIONS
+   */
+  &--closing {
+    overflow: hidden;
+    padding: 0;
+  }
+
+  /**
+   * VARIATIONS
+   */
+
+  &--vote {
+    .mdl-banner__icon use {
+      fill: $colorGreen;
+    }
+  }
+
+  &--warning {
+    background: $colorRed;
+
+    .mdl-banner__title,
+    .mdl-banner__desc,
+    .atm-text_link {
+      color: $colorWhite;
+    }
+
+    .mdl-banner__icon,
+    .atm-text_link,
+    .mdl-banner__close {
+      use {
+        fill: $colorWhite;
+      }
+    }
+  }
+}

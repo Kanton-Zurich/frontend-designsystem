@@ -1,0 +1,211 @@
+$gapSize: pxToRem($sizeRegular);
+
+.form {
+
+  &__section-title {
+    margin-bottom: pxToRem($sizeSmallRegular);
+
+    &:focus {
+      outline: none;
+    }
+
+    &.atm-heading {
+      padding-top: 0;
+    }
+  }
+
+  &__group {
+    margin-left: -($gapSize/2);
+    margin-right: -($gapSize/2);
+
+    .form__group--duplicatable {
+      margin: 0;
+
+      .form__duplicator {
+        margin-bottom: $gapSize;
+      }
+    }
+  }
+
+  &__group + &__group {
+    margin-top: $gapSize;
+  }
+
+  &__row {
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: $gapSize;
+
+    &.form__row--narrow {
+      padding-bottom: 0;
+    }
+
+    &:not(:last-of-type) {
+      .form__duplicator {
+        display: none;
+      }
+    }
+
+    @include mq($to: small) {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    &--duplicatable {
+      .form__cell {
+        flex-grow: 1;
+      }
+    }
+  }
+
+  &__duplicated {
+    position: relative;
+
+    .form__row:last-of-type {
+      padding-bottom: $gapSize;
+      flex-direction: row;
+
+      .form__cell {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__cell {
+    padding: 0 $gapSize/2;
+    flex: 1 1 0px; //stylelint-disable-line
+
+    &:first-child:last-child {
+      flex-basis: 100%;
+      min-width: 100%;
+    }
+
+    &--small {
+      flex-basis: 25%;
+      max-width: 25%;
+      flex-grow: 0;
+    }
+
+    @include mq($to: small) {
+      flex-basis: 100%;
+      max-width: 100%;
+      margin-bottom: $gapSize;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__fieldset {
+    padding: 0;
+    border: none;
+  }
+
+  &__fieldset-error-message {
+    display: block;
+    width: 100%;
+    font-size: pxToRem($sizeFontTiny);
+    line-height: $sizeLineHeightBase;
+    margin: 0;
+    padding-left: pxToRem($sizeRegular + 2px);
+    color: $colorWhite;
+    background-color: $colorRed;
+    transform: translateY(-50%) scaleY(0);
+    transition: transform 400ms, opacity 400ms, height 400ms ease-in-out;
+    height: 0;
+    opacity: 0;
+
+    margin-top: $sizeTiny;
+
+    .invalid & {
+      padding-top: pxToRem(7px);
+      padding-bottom: pxToRem(5px);
+      height: auto;
+      opacity: 1;
+      transform: translateY(0) scaleY(1);
+    }
+  }
+
+  &__legend {
+    font-size: pxToRem($sizeFontTiny);
+    line-height: $sizeLineHeightBase;
+
+    font-family: $fontFamilyBlack;
+    margin-bottom: pxToRem($sizeTiny);
+  }
+
+  &__fieldset-list {
+    &--vertical {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__duplicator {
+    margin-left: $gapSize/2;
+    display: flex;
+
+    .icon {
+      transform: translateY(-1px);
+    }
+
+    .form__group--has-duplicated & {
+      display: none;
+    }
+  }
+
+  &__group--duplicatable:not(.form__group--limited) {
+    .form__duplicated:last-of-type {
+      .form__duplicator {
+        display: flex;
+      }
+    }
+  }
+
+  &__group--duplicatable.form__group--limited {
+    .form__duplicator {
+      display: none;
+    }
+  }
+
+  &__remover {
+    padding: 0 $gapSize/2;
+
+    position: absolute;
+    right: 0;
+    transform: translateX(100%) translateY(-50%);
+    top: pxToRem($sizeBig + $sizeMini);
+
+    @include mq($to: medium) {
+      position: relative;
+      right: auto;
+      top: auto;
+      transform: none;
+
+      margin-top: pxToRem($sizeSmallLarge);
+    }
+
+    use {
+      fill: $colorBlack60;
+    }
+
+    &:hover {
+      use {
+        fill: $colorBlack;
+      }
+    }
+  }
+
+  &__element {
+    &--hidden-by-rule {
+      display: none;
+    }
+  }
+}
+
+/** ADJUSTMENTS FOR AEM INTEGRATION */
+
+.form__row > div:not(.form__cell) {
+  width: 100%;
+}

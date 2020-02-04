@@ -1,0 +1,31 @@
+<div class="mdl-social-media-stream" data-init="socialMediaStream" data-source="/mocks/modules/social_media_stream/social_media_stream.{page}.json">
+  {{#if heading}}
+    <h{{heading.level}}
+      class="atm-heading atm-heading--bordered {{#if heading.isHidden}}visuallyhidden{{/if}}"
+      id="{{{heading.anchorNavReference}}}"
+    >
+      {{heading.title}}
+    </h{{heading.level}}>
+  {{/if}}
+  <ul class="mdl-social-media-stream__items">
+  </ul>
+  <script data-social-media="socialMediaPostTemplate" type="text/x-handlebars-template">
+{{{templates.template}}}
+  </script>
+  <script data-social-media="_cite_partial" type="text/x-handlebars-template">
+{{{templates._cite_partial}}}</script>
+  <script data-social-media="_text_partial" type="text/x-handlebars-template">
+{{{templates._text_partial}}}</script>
+  <script data-social-media="_image_partial" type="text/x-handlebars-template">
+{{{templates._image_partial}}}</script>
+  <div class="mdl-social-media-stream__footer">
+    <button class="atm-button mdl-social-media-stream__footer-button">
+    <span class="atm-button__text ">
+      {{showMore}}
+    </span>
+      <svg class="icon atm-button__icon">
+        <use xlink:href="#plus"></use>
+      </svg>
+    </button>
+  </div>
+</div>

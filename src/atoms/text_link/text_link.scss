@@ -2,24 +2,38 @@
   color: $colorBlack60;
   text-decoration: none;
   border-bottom: 1px solid $colorCyan;
-  display: inline-flex;
-  align-items: center;
-  height: $sizeBig;
+  height: $sizeLineHeightBase;
+  cursor: pointer;
 
   &--icon {
     border: none;
+    display: flex;
   }
 
   .icon {
     fill: $colorBlack60;
 
+    transform: translateY(-1px);
+
     &--iframe-add {
-      transform: scale(0.9167);
+      transform: scale(0.9167) translateY(-1px);
       margin-right: 9px;
     }
 
     &--iframe-arrow {
       margin-left: 7px;
+
+      @media all and ( -ms-high-contrast: none ) {
+        height: 1.8rem;
+      }
+    }
+  }
+
+  &--cv-inverted {
+    color: $colorWhite;
+
+    .icon {
+      fill: $colorWhite;
     }
   }
 
@@ -29,34 +43,6 @@
 
     .icon {
       fill: $colorBlack;
-    }
-  }
-
-  /* Inverted */
-  &--cv-inverted,
-  [ class*='--cv-inverted' ] & {
-    color: $colorWhite;
-    border-bottom-color: $colorWhite;
-
-    .icon {
-      fill: $colorWhite;
-    }
-
-    &:hover {
-      color: rgba($colorWhite, 0.6);
-      border-color: rgba($colorWhite, 0.6);
-
-      .icon {
-        fill: rgba($colorWhite, 0.6);
-      }
-    }
-  }
-
-  /* Color Variations */
-  @each $key, $val in $tl-color-variations {
-    &--#{$key},
-    [ class*='#{$key}' ] & {
-      border-color: #{$val};
     }
   }
 }

@@ -1,0 +1,105 @@
+.atm-checkbox {
+  position: relative;
+  display: flex;
+  padding-left: pxToRem($sizeLarge);
+  margin-bottom: pxToRem($sizeRegular);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover span {
+    border-color: $colorCyan;
+  }
+
+  input {
+    appearance: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: pxToRem($sizeLarge);
+    height: pxToRem($sizeLarge);
+
+    &:checked + label span {
+      border-color: $colorCyan;
+
+      &:before {
+        transform: scale(1);
+      }
+
+      svg {
+        display: block;
+        fill: $colorWhite;
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:disabled + label {
+      cursor: auto;
+
+      span {
+        border-color: $colorBlack20;
+      }
+    }
+  }
+
+  label {
+    margin-left: pxToRem($sizeTiny);
+    font-size: pxToRem($sizeFontRegular);
+    line-height: $sizeLineHeightBase;
+    cursor: pointer;
+  }
+
+  &--strong {
+    label {
+      font-family: $fontFamilyBlack;
+
+      * {
+        font-family: $fontFamilyBase;
+      }
+    }
+  }
+
+  span {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 1px;
+    border: 2px solid $colorBlack40;
+    transition: 0.2s border-color ease;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      transform: scale(0);
+      transition: 0.2s transform ease;
+      background-color: $colorCyan;
+    }
+
+    svg {
+      display: none;
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      z-index: 1;
+    }
+  }
+
+  &__hint {
+    display: block;
+    color: $colorBlack60;
+    font-size: pxToRem($sizeFontSmall);
+    padding-top: pxToRem($sizeMini / 2);
+  }
+}

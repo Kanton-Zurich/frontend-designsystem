@@ -7,9 +7,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>{{#if meta.title}}{{meta.title}} – {{/if}}{{meta.project}}</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="format-detection" content="telephone=no">
 
+  <link rel="stylesheet" href="/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css">
 	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 	<link rel="stylesheet" href="/preview/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 
@@ -17,28 +17,120 @@
 
   <link rel="stylesheet" href="/preview/assets/css/dev{{#unless env.dev}}.min{{/unless}}.css">
   <script src="/preview/assets/js/dev.js"></script>
+
+  <link rel="manifest" href="/assets/manifest.json">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Kanton Zürich">
+  <meta name="apple-mobile-web-app-title" content="Kanton Zürich">
+  <meta name="theme-color" content="#0076BD">
+  <meta name="msapplication-navbutton-color" content="#0076BD">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-starturl" content="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+
+  <link rel="icon" type="image/png" href="/assets/media/icons/Favicon_48.png"/>
+
+  <link rel="shortcut icon" sizes="144x144" type="image/png" href="/assets/media/icons/Favicon_144.png"/>
+  <link rel="shortcut icon" sizes="96x96" type="image/png" href="/assets/media/icons/Favicon_96.png"/>
+  <link rel="shortcut icon" sizes="48x48" type="image/png" href="/assets/media/icons/Favicon_48.png"/>
+  <link rel="shortcut icon" sizes="16x16" type="image/png" href="/assets/media/icons/Favicon_16.png"/>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/icons/apple-touch-icon-180x180.png"/>
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/media/icons/apple-touch-icon-76x76@2x.png"/>
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/media/icons/apple-touch-icon-72x72@2x.png"/>
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/media/icons/apple-touch-icon-60x60@2x.png"/>
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/media/icons/apple-touch-icon-57x57@2x.png"/>
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/media/icons/apple-touch-icon-76x76.png"/>
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/media/icons/apple-touch-icon-60x60.png"/>
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/media/icons/apple-touch-icon-57x57.png"/>
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
-                               data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'
                                data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
-	<div class="sg_wrapper sg_module {{props.defaultColorVariation}}" id="module_main">
-		<h1 class="sg_title">
-			<a href="/" class="sg_logo">{{meta.project}}</a>{{#if meta.title}} / {{meta.title}}{{/if}}
-		</h1>
-    <div class="sg_revisioninfo">
-      <ul>
-        <li>Revision: <a href="{{meta.gitRemoteLink}}">{{meta.gitShort}}</a></li>
-        <li>Date: {{meta.gitDate}}</li>
-        <li>Branch: {{meta.gitBranch}}</li>
-      </ul>
-    </div>
+<body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}>
+<header class="lyt-wrapper" id="header">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      <div class="mdl-page-header      " data-init="pageHeader" data-page-header-instance="pageheader1">
+        <div class="lyt-wrapper">
+          <div class="grid-x grid-margin-x">
+            <div class="mdl-page-header__logo-container cell tiny-2 xsmall-2 small-2 medium-2 large-2 xlarge-2">
+                  <span>
+                    <span class="visuallyhidden">Logo des Kantons Zürich</span>
+                    <svg viewBox="0 0 100 100" class="mdl-page-header__logo print-hidden">
+                      <use xlink:href="#ktzh"></use>
+                    </svg>
+                    <svg viewBox="0 0 100 100" class="mdl-page-header__logo screen-hidden">
+                      <use xlink:href="#ktzh"></use>
+                    </svg>
+                    <span>
+                </span></span></div>
+            <div class="cell  tiny-10 xsmall-10 small-10 medium-10 large-10 xlarge-10">
+              <div class="mdl-page-header__breadcrumb">
+                <nav>
+                  <ol class="mdl-breadcrumb " data-init="breadcrumb" data-breadcrumb-instance="breadcrumb2">
+                    <li class="mdl-breadcrumb__item mdl-breadcrumb__item--main mdl-breadcrumb__item--parent" data-index="0" data-breadcrumb="item">
+                      <svg class="icon mdl-breadcrumb__arrow-left" focusable="false">
+                        <use xlink:href="#arrow-left"></use>
+                      </svg>
+                      <a class="mdl-breadcrumb__link" href="../../">Kanton Zürich</a>
+                    </li>
+                    <li class="mdl-breadcrumb__item">
+                      <svg class="icon" focusable="false">
+                        <use xlink:href="#angle_right"></use>
+                      </svg>
+                      <a class="mdl-breadcrumb__link" href="../../styleguide.html">Living Styleguide</a>
+                    </li>
+                    <li class="mdl-breadcrumb__item">
+                      <svg class="icon" focusable="false">
+                        <use xlink:href="#angle_right"></use>
+                      </svg>
+                      <a class="mdl-breadcrumb__link" href="../../styleguide.html#lsg_atoms">Atome</a>
+                    </li>
+                    <li class="mdl-breadcrumb__item mdl-breadcrumb__item--active">
+                      <svg class="icon" focusable="false">
+                        <use xlink:href="#angle_right"></use>
+                      </svg>
+                      <span class="mdl-breadcrumb__link">{{meta.title}}</span>
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+              <h1 class="atm-heading mdl-page-header__title">{{meta.title}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{#if meta.documentation}}
+        <section class="sg_inner_wrapper">
+          <h2 class="sg_h2 atm-heading">Dokumentation</h2>
 
+          <div class="sg_documentation">
+            {{{meta.documentation}}}
+          </div>
+        </section>
+      {{/if}}
+      <h2 class="atm-heading">Vorschau</h2>
+    </div>
+  </div>
+</header>
+	<main class="sg_wrapper sg_module {{props.defaultColorVariation}}" id="module_main">
 		{{#if variants}}
 			<section class="sg_inner_wrapper">
-				<h2 class="sg_h2">Vorschau des Atoms</h2>
-
+        <div class="lyt-wrapper">
+          <div class="grid-x grid-margin-x">
+            <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+              <div class="cv-labels" aria-hidden="true">
+                {{#each colorVariations}}
+                  <input type="radio" name="colorVariations" class="color_trigger {{name}}" value="{{name}}" id="colorVariations{{@index}}"{{#unless @index}} checked{{/unless}} />
+                  <label for="colorVariations{{@index}}" id="cv-label{{@index}}"></label>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+        </div>
 				<ul class="sg_atoms">
-
           {{#each variants}}
               <li class="sg_atom">
                 <div class="sg_atom-rendition">
@@ -46,29 +138,39 @@
                     <h3 class="sg_h3">{{ meta.title }}</h3>
                     <p>{{ meta.desc }}</p>
                   </div>
-                  <div class="sg_atom-demo {{#if props.isInverted}}sg_atom-demo--inverted{{/if}}">
+                  <div class="sg_atom-demo {{#if props.isInverted}}sg_atom-demo--inverted{{/if}} {{#if meta.setLoadingClass}}sg_atom--loading{{/if}}">
+                    {{#if meta.wrapInForm}}<form novalidate>{{/if}}
                     {{{meta.demo}}}
+                    {{#if meta.wrapInForm}}</form>{{/if}}
                   </div>
                 </div>
                 <div class="sg_atom-html">
                   {{#if meta.code.html}}
                     <h4 class="sg_h4">Rendered HTML</h4>
-                    <pre class="sg_code hljs">{{{meta.code.html}}}</pre>
+                    <button class="sg_code__button atm-button atm-button--small atm-button--tag atm-button--tag-topic">
+                      <span class="atm-button__text">Zeigen/Ausblenden</span>
+                    </button>
+                    <pre class="sg_code sg_code--collapsible hljs">{{{meta.code.html}}}</pre>
                   {{/if}}
                 </div>
               </li>
           {{/each}}
         </ul>
-        <div class="cv-labels" aria-hidden="true">
-          {{#each colorVariations}}
-            <input type="radio" name="colorVariations" class="color_trigger {{name}}" value="{{name}}" id="colorVariations{{@index}}"{{#unless @index}} checked{{/unless}} />
-            <label for="colorVariations{{@index}}" id="cv-label{{@index}}">{{name}}</label>
-            <!-- <input type="button" class="sg_colorVariation_button" value="{{name}}" style="background-color: {{color}}"/>-->
-          {{/each}}
-        </div>
 			</section>
 		{{else}}
 			<section class="sg_inner_wrapper">
+        <div class="lyt-wrapper">
+          <div class="grid-x grid-margin-x">
+            <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+              <div class="cv-labels" aria-hidden="true">
+                {{#each colorVariations}}
+                  <input type="radio" name="colorVariations" class="color_trigger {{name}}" value="{{name}}" id="colorVariations{{@index}}"{{#unless @index}} checked{{/unless}} />
+                  <label for="colorVariations{{@index}}" id="cv-label{{@index}}"></label>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+        </div>
 				<h2 class="sg_h2">Vorschau des Atoms</h2>
 
 				<ul class="sg_atoms">
@@ -93,23 +195,6 @@
               </li>
           {{/each}}
         </ul>
-        <div class="cv-labels" aria-hidden="true">
-          {{#each colorVariations}}
-            <input type="radio" name="colorVariations" class="color_trigger {{name}}" value="{{name}}" id="colorVariations{{@index}}"{{#unless @index}} checked{{/unless}} />
-            <label for="colorVariations{{@index}}" id="cv-label{{@index}}">{{name}}</label>
-            <!-- <input type="button" class="sg_colorVariation_button" value="{{name}}" style="background-color: {{color}}"/>-->
-          {{/each}}
-        </div>
-			</section>
-		{{/if}}
-
-		{{#if meta.documentation}}
-			<section class="sg_inner_wrapper">
-				<h2 class="sg_h2">Dokumentation</h2>
-
-				<div class="sg_documentation">
-					{{{meta.documentation}}}
-				</div>
 			</section>
 		{{/if}}
 
@@ -128,6 +213,10 @@
 		{{/if}}
 		{{#block "scripts"}}
 		{{/block}}
-	</div>
+	</main>
+<footer class="cv-blue">
+  {{>"modules/contact/contact" wrappingElements.contact }}
+  {{>"modules/footer/footer" wrappingElements.footer }}
+</footer>
 </body>
 </html>

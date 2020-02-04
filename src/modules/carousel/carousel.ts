@@ -29,6 +29,8 @@ class Carousel extends Module {
     nextButton: any;
   };
   public options: {
+    keyArrowLeft: number,
+    keyArrowRight: number,
     domSelectors: {
       indicator: string,
       prevButton: string,
@@ -56,6 +58,8 @@ class Carousel extends Module {
       isInGallery: false,
     };
     const defaultOptions = {
+      keyArrowRight: 39,
+      keyArrowLeft: 37,
       domSelectors: {
         indicator: '[data-carousel="indicator"]',
         prevButton: '[data-carousel="prev"]',
@@ -110,7 +114,9 @@ class Carousel extends Module {
       .on('swipeLeft', this.increment.bind(this))
       .on('swipeRight', this.decrement.bind(this))
       .on('keydown', (event) => {
-        switch (event.code) {
+        const key = event.which ? event.which === this.options.keyArrowRight // eslint-disable-line
+            ? 'ArrowRight' : event.which === this.options.keyArrowLeft ? 'ArrowLeft' : '' : event.key; // eslint-disable-line
+        switch (key) {
           case 'ArrowLeft':
             this.decrement();
             break;
@@ -209,6 +215,7 @@ class Carousel extends Module {
 
     this.setAccessibilityAttributesForSlides();
     this.setAlternativeText();
+    this.dispatchVerticalResizeEvent();
 
     if (this.data.isFullscreen) {
       this.ui.slides[this.data.active - 1].querySelector('button').focus();
@@ -303,7 +310,6 @@ class Carousel extends Module {
       this.ui.element.classList.add(this.options.stateClasses.fullscreen);
       this.ui.element.classList.add(this.options.stateClasses.inverted);
 
-      this.ui.close.focus();
       this.setTransformValue();
 
       // Polyfill for IE11
@@ -315,9 +321,10 @@ class Carousel extends Module {
 
       window.addEventListener('keydown', this.closeOnEscapeFunction);
 
-      this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen).forEach(e => e.setAttribute('aria-hidden', 'true'));
+      [].slice.call(this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen)).forEach(e => e.setAttribute('aria-hidden', 'true'));
 
-      this.wrapAccessibility();
+      (<any>window).estatico.helpers.wrapAccessibility(this.ui.element);
+      setTimeout(() => { this.ui.close.focus(); }, 0);
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
       this.ui.element.classList.remove(this.options.stateClasses.inverted);
@@ -328,9 +335,9 @@ class Carousel extends Module {
       document.documentElement.classList.remove('locked');
       window.removeEventListener('keydown', this.closeOnEscapeFunction);
 
-      this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen).forEach(e => e.setAttribute('aria-hidden', 'false'));
+      [].slice.call(this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen)).forEach(e => e.setAttribute('aria-hidden', 'false'));
 
-      this.unwrapAccessibility();
+      (<any>window).estatico.helpers.unwrapAccessibility(this.ui.element);
     }
   }
 
@@ -399,7 +406,7 @@ class Carousel extends Module {
    * @memberof Carousel
    */
   removeCaptionStyles() {
-    const captions = document.querySelectorAll(this.options.domSelectors.caption);
+    const captions = [].slice.call(document.querySelectorAll(this.options.domSelectors.caption));
 
     captions.forEach((caption) => {
       caption.removeAttribute('style');
@@ -415,7 +422,7 @@ class Carousel extends Module {
     const activeIndex = this.data.active - 1;
     const slidesArray = Array.prototype.slice.call(this.ui.slides);
 
-    slidesArray[activeIndex].querySelectorAll('button, a').forEach((e) => {
+    [].slice.call(slidesArray[activeIndex].querySelectorAll('button, a')).forEach((e) => {
       e.removeAttribute('tabindex');
       e.removeAttribute('aria-hidden');
     });
@@ -424,7 +431,7 @@ class Carousel extends Module {
     slidesArray.splice(activeIndex, 1);
 
     slidesArray.forEach((slide) => {
-      slide.querySelectorAll('button, a').forEach((e) => {
+      [].slice.call(slide.querySelectorAll('button, a')).forEach((e) => {
         e.setAttribute('tabindex', '-1');
         e.setAttribute('aria-hidden', 'true');
       });
@@ -443,36 +450,6 @@ class Carousel extends Module {
     const altAttribute = activeSlideImg.getAttribute('alt');
 
     this.ui.textalternative.textContent = altAttribute;
-  }
-
-  /**
-   * Wraps around the html elements for accessibility reasons
-   */
-  wrapAccessibility() {
-    const dialogWrapper = document.createElement('div');
-    const documentWrapper = document.createElement('div');
-
-    dialogWrapper.setAttribute('role', 'dialog');
-    documentWrapper.setAttribute('role', 'document');
-
-    this.ui.element.parentNode.insertBefore(documentWrapper, this.ui.element);
-
-    documentWrapper.appendChild(this.ui.element);
-
-    documentWrapper.parentNode.insertBefore(dialogWrapper, documentWrapper);
-
-    dialogWrapper.appendChild(documentWrapper);
-  }
-
-  /**
-   * Removes the two accessibility wrappers
-   */
-  unwrapAccessibility() {
-    const dialogWrapper = this.ui.element.parentNode.parentNode;
-
-    dialogWrapper.parentNode.appendChild(this.ui.element);
-
-    dialogWrapper.remove();
   }
 
   /**

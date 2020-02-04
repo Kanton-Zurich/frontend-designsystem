@@ -10,7 +10,7 @@ const contextMenuDownload = require('../context_menu/context_menu.data').variant
 const demoImageFigureData = {
   srcsets: [{
     image: '/assets/media/image/publication-teaser_5_7_372x526_x15.jpeg',
-    imageWidth: 666,
+    imageWidth: 558,
   }],
   alt: 'Das ist ein Beispielbild',
   caption: _.merge({}, defFigcaptionData, {
@@ -58,7 +58,7 @@ const demoLinkListItemDataMultiLanguage = {
   isButton: true,
   linkListItemHref: false,
   linkListItemLabel: 'PDF | 2 Seiten | DE, FR, IT | 117kB',
-  domSelector: 'data-download_list="openContext"',
+  additionalAttributes: 'data-download_list="openContext"',
 };
 
 const template = dataHelper.getFileContent('publication_teaser.hbs');
@@ -67,6 +67,7 @@ const data = _.merge({}, defaultData, {
     title: 'Publikationsteaser',
     className: 'PublicationTeaser',
     jira: 'CZHDEV-180',
+    label: 'Teaser',
     documentation: dataHelper.getDocumentation('publication_teaser.md'),
   },
   props: {

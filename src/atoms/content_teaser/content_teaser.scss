@@ -11,6 +11,10 @@
   color: $colorBlack60;
   text-decoration: none;
 
+  .bold {
+    font-family: $fontFamilyBlack;
+  }
+
   &:after {
     content: '';
     display: block;
@@ -27,7 +31,8 @@
     transform: scaleY(1);
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: $colorBlack100;
 
     &:after {
@@ -37,7 +42,7 @@
   }
 
   &__title {
-    font-weight: $fontWeightBlack;
+    font-family: $fontFamilyBlack;
   }
 
   &__content {
@@ -72,6 +77,21 @@
       display: none;
     }
   }
+
+  &--tagged {
+    .atm-content_teaser__title {
+      display: block;
+    }
+  }
+
+  &[ disabled='disabled' ] {
+    cursor: default;
+    pointer-events: none;
+
+    .atm-content_teaser__title {
+      color: $colorBlack !important; //stylelint-disable-line
+    }
+  }
 }
 
 @each $key, $val in $tl-color-variations {
@@ -85,6 +105,12 @@
         .atm-content_teaser__title {
           color: $colorBlack100;
         }
+      }
+    }
+
+    .atm-content_teaser[ role='button' ] {
+      .atm-content_teaser__title {
+        color: $colorBlack;
       }
     }
 

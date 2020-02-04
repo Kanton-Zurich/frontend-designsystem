@@ -86,7 +86,7 @@ class Helper {
    * @memberof Helper
    */
   public sendRedrawEvent(container) {
-    const childNodes = container.querySelectorAll('[data-redraw]');
+    const childNodes = [].slice.call(container.querySelectorAll('[data-redraw], [data-init]'));
 
     childNodes.forEach((child) => {
       child.dispatchEvent(new CustomEvent('redraw'));
@@ -158,7 +158,7 @@ class Helper {
    * @memberof Helper
    */
   public setHiddenTabIndex(excludeNode) {
-    window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY).forEach((focusable) => {
+    [].slice.call(window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY)).forEach((focusable) => { // eslint-disable-line
       if (!excludeNode.contains(focusable)) {
         if (focusable.hasAttribute('tabindex')) {
           focusable.setAttribute('data-tabindex', focusable.getAttribute('tabindex'));
@@ -176,7 +176,7 @@ class Helper {
    * @memberof Helper
    */
   public resetHiddenTabIndex() {
-    window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY).forEach((focusable) => {
+    [].slice.call(window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY)).forEach((focusable) => { // eslint-disable-line
       const tabindex = focusable.hasAttribute('data-tabindex') ? focusable.getAttribute('data-tabindex') : false;
 
       if (tabindex) {
@@ -185,6 +185,36 @@ class Helper {
         focusable.removeAttribute('tabindex');
       }
     });
+  }
+
+  /**
+   * Wraps around the html elements for accessibility reasons
+   */
+  public wrapAccessibility(uiElement) {
+    const dialogWrapper = document.createElement('div');
+    const documentWrapper = document.createElement('div');
+
+    dialogWrapper.setAttribute('role', 'dialog');
+    documentWrapper.setAttribute('role', 'document');
+
+    uiElement.parentNode.insertBefore(documentWrapper, uiElement);
+
+    documentWrapper.appendChild(uiElement);
+
+    documentWrapper.parentNode.insertBefore(dialogWrapper, documentWrapper);
+
+    dialogWrapper.appendChild(documentWrapper);
+  }
+
+  /**
+   * Removes the two accessibility wrappers
+   */
+  public unwrapAccessibility(uiElement) {
+    const dialogWrapper = uiElement.parentNode.parentNode;
+
+    dialogWrapper.parentNode.appendChild(uiElement);
+
+    dialogWrapper.remove();
   }
 }
 

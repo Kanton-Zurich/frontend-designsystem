@@ -1,0 +1,49 @@
+<div class="mdl-banner__content {{#if isReferendum}}mdl-banner--vote{{/if}} {{#if isWarning}}mdl-banner--warning{{/if}}" data-uid="{{bannerUID}}">
+  <div class="lyt-wrapper">
+    <div class="grid-margin-x grid-x">
+      <div class="mdl-banner__figure cell tiny-2 {{#if image}}tiny-4 small-2{{/if}}">
+        {{#if image}}
+          <img class="mdl-banner__image" src="{{image.src}}" alt="{{image.alt}}"/>
+        {{else}}
+          <div class="mdl-banner__icon-wrapper">
+            <svg class="icon mdl-banner__icon">
+              <use xlink:href="{{icon}}"></use>
+            </svg>
+          </div>
+        {{/if}}
+      </div>
+      <div class="mdl-banner__meta cell tiny-12 small-10">
+        <h2 class="atm-heading mdl-banner__title">
+          {{title}}
+        </h2>
+        <p class="mdl-banner__desc">
+          {{#if subtitle}}<span class="mdl-banner__subtitle">
+            {{subtitle}}
+          </span>{{/if}}
+          {{desc}}
+        </p>
+        <a class="atm-text_link atm-text_link--icon" href="{{link.href}}">
+          {{#if isLiveStream}}
+            <svg class="icon icon--iframe-add">
+              <use xlink:href="#play"></use>
+            </svg>
+          {{/if}}
+
+          {{link.label}}
+
+          {{#unless isLiveStream}}
+            <svg class="icon icon--iframe-arrow">
+              <use xlink:href="#arrow-right"></use>
+            </svg>
+          {{/unless}}
+        </a>
+      </div>
+    </div>
+  </div>
+  <button class="mdl-banner__close" data-banner="close">
+    <span class="visuallyhidden">Schliessen</span>
+    <svg class="icon">
+      <use xlink:href="#exit"></use>
+    </svg>
+  </button>
+</div>

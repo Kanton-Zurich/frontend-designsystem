@@ -1,0 +1,50 @@
+<div class="mdl-social-media-links" data-init="socialMediaLinks"{{#if anchorReference}} id="{{anchorReference}}"{{/if}}>
+  {{#if socialMediaLinksHeading}}
+    <h{{socialMediaLinksHeading.level}} class="atm-heading">{{socialMediaLinksHeading.title}}</h{{socialMediaLinksHeading.level}}>
+  {{/if}}
+
+  <ul>
+    {{#if facebook}}
+      <li class="mdl-social-media-links__item">
+        <a href="{{facebook.url}}" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
+            <span class="atm-button__text visuallyhidden">
+              {{facebook.linkText}}
+            </span>
+          <img src="{{facebook.imgSrc}}" alt="">
+        </a>
+      </li>
+    {{/if}}
+    {{#if twitter}}
+      <li class="mdl-social-media-links__item">
+        <a href="{{twitter.url}}" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
+          <span class="atm-button__text visuallyhidden">
+              {{twitter.linkText}}
+            </span>
+          <img src="{{twitter.imgSrc}}" alt="">
+        </a>
+      </li>
+    {{/if}}
+    {{#if linkedIn}}
+      <li class="mdl-social-media-links__item">
+        <a href="{{linkedIn.url}}" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
+          <span class="atm-button__text visuallyhidden">
+              {{linkedIn.linkText}}
+            </span>
+          <img src="{{linkedIn.imgSrc}}" alt="">
+        </a>
+      </li>
+    {{/if}}
+    {{#if youtube}}
+      <li class="mdl-social-media-links__item">
+        <a href="{{youtube.url}}" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
+          <span class="atm-button__text visuallyhidden">
+              {{youtube.linkText}}
+            </span>
+          <img src="{{youtube.imgSrc}}" alt="">
+        </a>
+      </li>
+    {{/if}}
+  </ul>
+</div>
+
+

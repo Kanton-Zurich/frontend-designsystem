@@ -1,0 +1,101 @@
+$searchCurves: (
+  height: (
+    tiny: 48px,
+    xsmall: 56px,
+    medium: 72px
+  ),
+  headMarginBottom: (
+    tiny: $sizeBiggerBig,
+    medium: $sizeSmallLarge + $sizeBig,
+    xlarge: $sizeLarge + $sizeBiggerBig,
+  )
+);
+
+.mdl-search {
+  &__head {
+    position: relative;
+
+    @include sizeCurve(margin-bottom, headMarginBottom, $searchCurves);
+
+    &:before {
+      position: absolute;
+      width: 100vw;
+      content: '';
+
+      top: 100%;
+      left: 0;
+
+      @include sizeCurve(height, borderHeight, $headerCurves);
+
+      background: $colorBlack;
+    }
+
+    @include mq($to: small) {
+      margin-left: pxToRem($sizeBiggerBig + $sizeTiny);
+    }
+
+    .mdl-search--hide-tags & {
+      margin-bottom: 0;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    left: pxToRem(-$sizeRegular);
+    top: 50%;
+    transform: translateX(-100%) translateY(-50%);
+  }
+
+  &__input {
+    width: 100%;
+    display: block;
+    border: none;
+
+    font-family: $fontFamilyBlack;
+
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
+    @include sizeCurve(height, height, $searchCurves);
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder,
+    &::-ms-placeholder {
+      color: $colorBlack60;
+      opacity: 1;
+    }
+
+    &::-ms-clear {
+      display: none;
+    }
+  }
+
+  &__tag-group {
+    .mdl-search--hide-tags & {
+      display: none;
+    }
+  }
+
+  &__tag-group,
+  &__input,
+  &__icon {
+    opacity: 0;
+
+    @include transition(opacity);
+
+    .mdl-modal--opened & {
+      opacity: 1;
+    }
+  }
+
+  &__autosuggest {
+    .atm-content_teaser__title {
+      font-family: $fontFamilyBase;
+    }
+  }
+
+  .atm-anchorlink--tag-top {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
+  }
+}
