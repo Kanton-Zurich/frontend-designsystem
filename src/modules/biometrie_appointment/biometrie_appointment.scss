@@ -133,7 +133,7 @@ $biometrieViewTransitionDuration: 300ms;
       @include sizeCurve('margin-bottom', mini);
 
       label {
-        font-weight: $fontWeightBlack;
+        font-weight: $fontFamilyBlack;
         color: $colorBlack100;
         display: block;
 
@@ -182,7 +182,7 @@ $biometrieViewTransitionDuration: 300ms;
           text-align: center;
           border-radius: 50%;
           font-size: $sizeFontBiggerRegular;
-          font-weight: $fontWeightBlack;
+          font-weight: $fontFamilyBlack;
           line-height: 1.5rem;
           display: block;
           position: absolute;
@@ -1058,7 +1058,7 @@ $biometrieViewTransitionDuration: 300ms;
         text-align: center;
         border-radius: 50%;
         font-size: $sizeFontBiggerRegular;
-        font-weight: $fontWeightBlack;
+        font-weight: $fontFamilyBlack;
         line-height: $sizeFontLarge;
         display: block;
         position: absolute;
