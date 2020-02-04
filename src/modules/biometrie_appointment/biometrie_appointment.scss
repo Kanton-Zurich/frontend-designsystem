@@ -1,57 +1,5 @@
 $biometrieViewTransitionDuration: 300ms;
 
-/* stylelint-disable */
-// Whole block is needed to overwrite id-stylerules used in the old CMS
-#content-column .mdl-biometrie_appointment {
-  ul {
-    font-size: inherit;
-    margin: initial;
-    padding-left: initial;
-  }
-
-  li {
-    margin-left: initial;
-    padding-left: initial;
-    margin-bottom: initial;
-  }
-
-  &__reschedule__allopen__wrapper {
-    ul {
-      padding-left: 0;
-      margin: 0;
-      line-height: 1;
-
-      @include sizeCurve('margin-right', regular);
-      @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
-
-      li {
-        margin-left: 0;
-        padding-left: 0;
-        margin-bottom: 0;
-      }
-    }
-  }
-
-  &__details__checklist {
-    ul {
-      margin: 0;
-      padding-left: 0;
-
-      li {
-        @include sizeCurve('margin-left', mini);
-        @include sizeCurve('padding-left', medium);
-        margin-bottom: unset;
-      }
-    }
-  }
-
-  .block {
-    a {
-      padding-bottom: initial;
-    }
-  }
-}
-/* stylelint-enable */
 
 .mdl-biometrie_appointment {
   margin-bottom: $sizeRegular;
@@ -898,61 +846,7 @@ $biometrieViewTransitionDuration: 300ms;
   }
 
   &__unavailable-alert {
-    @include sizeCurve('padding', regular);
-    @include sizeCurve('padding-left', big);
-    position: relative;
-    box-shadow: 0 0 5px $colorBlack;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    border-left: 4px solid $colorRed;
     display: none;
-    overflow: hidden;
-
-    &__content {
-      strong.boxhead {
-        color: $colorRed;
-      }
-    }
-
-    &:before {
-      content: '!';
-      background-color: $colorRed;
-      color: $colorWhite;
-      text-align: center;
-      border-radius: 50%;
-      display: block;
-      position: absolute;
-
-      @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
-      @include sizeCurve('width', large);
-      @include sizeCurve('left', mini);
-      @include sizeCurve('height', large);
-      @include sizeCurve('line-height', large);
-    }
-
-    @include mq($from: medium) {
-      .atm-button {
-        @include sizeCurve('margin-top', medium);
-        float: right;
-      }
-
-      &__content {
-        display: inline-block;
-      }
-    }
-    @include mq($to: small) {
-      @include sizeCurve('padding-left', regular);
-      @include sizeCurve('padding-top', big);
-
-      &:before {
-        @include sizeCurve('left', regular);
-        @include sizeCurve('top', regular);
-      }
-
-      &__content {
-        @include sizeCurve('margin-top', mini);
-      }
-    }
 
     &.show {
       display: block;

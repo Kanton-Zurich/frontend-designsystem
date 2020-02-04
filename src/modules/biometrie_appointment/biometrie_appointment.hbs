@@ -44,11 +44,6 @@
     </div>
 
     <div class="mdl-biometrie_appointment__unavailable-alert" data-biometrie_appointment="unavailable-alert">
-        <div class="mdl-biometrie_appointment__unavailable-alert__content">
-            <strong class="boxhead">{{apiUnavailableHead}}</strong>
-            <p class="atm-paragraph">{{apiUnavailableMsg}}</p>
-        </div>
-        {{> "atoms/button/button" connectionRetryBtn}}
+      {{> "atoms/notification/notification" unavailableNotificationData }}
     </div>
-
 </div>

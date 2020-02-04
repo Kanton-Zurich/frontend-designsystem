@@ -30,6 +30,18 @@ const moduleSettings = {
       + 'ginal heimatlicher Reisepass</li> <li>Geburtsschein (bei Neugeborenen)</li> </ul>',
   },
 };
+const unavailableNotificationData = {
+  message: 'Grund dafür ist ein technisches Problem. Bitte versuchen Sie es später noch einmal.',
+  title: 'Entschuldigung, der Service ist nicht verfügbar.',
+  icon: '#caution',
+  isDialog: true,
+  button: {
+    label: 'Erneut versuchen',
+    isSmall: true,
+    additionalAttributes: 'data-biometrie_appointment="retryConnect"',
+  },
+};
+
 const template = dataHelper.getFileContent('biometrie_appointment.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -41,14 +53,9 @@ const data = _.merge({}, defaultData, {
   props: {
     heading: 'Termin verschieben',
     logoutLinkText: 'Logout',
-    apiUnavailableHead: 'Entschuldigung, der Service ist nicht verfügbar.',
-    apiUnavailableMsg: 'Grund dafür ist ein technisches Problem. Bitte versuchen Sie es später noch einmal.',
-    connectionRetryBtn: _.merge({}, defaultButtonData, {
-      text: 'Erneut versuchen',
-      isPrimary: true,
-      isSmall: true,
-      additionalAttribute: 'data-biometrie_appointment="retryConnect"',
-    }),
+
+    unavailableNotificationData,
+
     loginViewProps,
     detailsViewProps,
     rescheduleViewProps,
