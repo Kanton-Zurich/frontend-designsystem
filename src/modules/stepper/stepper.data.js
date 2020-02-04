@@ -4,7 +4,7 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const formVariants = require('../form/form.data').variants;
-const notification = require('../../atoms/notification/notification.data').variants;
+const notification = require('../../modules/notification/notification.data').variants;
 
 const toggle = require('../../atoms/toggle/toggle.data').variants.default.props;
 

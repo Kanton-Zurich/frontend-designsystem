@@ -10,6 +10,7 @@ const data = _.merge({}, defaultData, {
     title: 'ZH-Lex',
     className: 'ZhLex',
     jira: 'CZHDEV-1240',
+    label: 'Applikation',
     documentation: dataHelper.getDocumentation('zhlex.md'),
   },
   props: {

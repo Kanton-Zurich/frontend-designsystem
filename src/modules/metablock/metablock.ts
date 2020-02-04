@@ -14,6 +14,7 @@ class Metablock extends Module {
   public options: {
     domSelectors: {
       buttons: string,
+      done: string,
       notification: string,
     },
     stateClasses: {
@@ -27,6 +28,7 @@ class Metablock extends Module {
     const defaultOptions = {
       domSelectors: {
         buttons: '[data-metablock="copy"]',
+        done: '[data-metablock="done"]',
         notification: '.mdl-metablock__copy-success-notification',
       },
       stateClasses: {
@@ -51,6 +53,9 @@ class Metablock extends Module {
   initEventListeners() {
     this.eventDelegate.on('click', this.options.domSelectors.buttons, (event) => {
       this.copyTextToClipboard(event.target);
+    });
+    this.eventDelegate.on('click', this.options.domSelectors.done, () => {
+      this.toggleNotication();
     });
   }
 
@@ -79,8 +84,15 @@ class Metablock extends Module {
       document.getSelection().addRange(selected);
     }
 
+    this.toggleNotication();
+  }
+
+  /**
+   * Toggle notification message
+   */
+  private toggleNotication():void {
     this.ui.element.querySelector(this.options.domSelectors.notification)
-      .classList.remove(this.options.stateClasses.hidden);
+      .classList.toggle(this.options.stateClasses.hidden);
   }
 
   /**
