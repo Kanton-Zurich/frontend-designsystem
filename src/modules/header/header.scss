@@ -66,6 +66,17 @@ $headerCurves: (
           display: none;
         }
       }
+
+      &:after {
+        @include sizeCurve(top, burgerHeight, $headerCurves);
+
+        content: ' ';
+        background-color: $colorWhite;
+        width: 100%;
+        height: pxToRem($sizeHuge);
+        position: fixed;
+        left: 0;
+      }
     }
   }
 
