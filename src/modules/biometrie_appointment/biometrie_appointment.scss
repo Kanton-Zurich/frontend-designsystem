@@ -67,10 +67,6 @@ $biometrieViewTransitionDuration: 300ms;
 
   &__loginview {
 
-    &__beforehint {
-      margin-bottom: 0;
-    }
-
     &__input {
       border: 2px solid;
       border-radius: 4px;
@@ -148,6 +144,7 @@ $biometrieViewTransitionDuration: 300ms;
       .login_notification {
         display: none;
         margin-bottom: $sizeRegular;
+        margin-top: $sizeTiny;
 
         &.show {
           display: block;
