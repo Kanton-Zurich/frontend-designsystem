@@ -5,50 +5,26 @@ $biometrieViewTransitionDuration: 300ms;
   margin-top: $sizeBiggerBig;
   margin-bottom: $sizeRegular;
 
-  &__heading {
-    hyphens: initial;
+  &__toplinks {
+    overflow: hidden;
+    margin-bottom: $sizeSmallBig;
 
-    &.atm-heading {
-      @include sizeCurve('margin-bottom', medium);
+    &-left {
+      float: left;
+    }
+
+    &-right {
+      float: right;
+    }
+
+    .atm-text_link {
+      display: none;
+
+      &.show {
+        display: flex;;
+      }
     }
   }
-
-  &__logout {
-    display: none;
-    text-align: right;
-
-    @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
-
-    .icon {
-      @include sizeCurve('height', smallerRegular);
-      margin-bottom: -5px;
-      fill: none;
-      stroke: $colorBlack60;
-      stroke-width: 2;
-    }
-
-    .atm-text_link:hover .icon {
-      fill: none;
-    }
-
-    &.show {
-      display: block;
-    }
-  }
-
-  &__backlink {
-    @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
-    display: none;
-
-    .icon {
-      margin-bottom: -5px;
-    }
-
-    &.show {
-      display: block;
-    }
-  }
-
 
   .view {
     opacity: 0;
@@ -329,53 +305,6 @@ $biometrieViewTransitionDuration: 300ms;
           padding-bottom: 0;
         }
       }
-    }
-
-    &__checklist {
-      @extend .info-box;
-
-      strong.boxhead {
-        @include sizeCurve('margin-bottom', tiny);
-      }
-
-      ul {
-        list-style-type: none;
-        padding-left: 0;
-        margin: 0;
-        padding-bottom: $sizeSmallRegular;
-
-        li {
-          @include sizeCurve('margin-left', mini);
-
-          padding-left: 1.5rem;
-          position: relative;
-          font-size: $sizeSmallLarge;
-
-          @include mq($to: small) {
-            font-size: $sizeRegular;
-          }
-
-          + li {
-            margin-top: $sizeSmallRegular;
-          }
-
-          &:before {
-            content: '';
-            display: block;
-            position: absolute;
-            transform: rotate(45deg);
-            left: 0;
-            border-bottom: 3px solid $colorBlue;
-            border-right: 3px solid $colorBlue;
-
-            @include sizeCurve(width, mini);
-            @include polyFluidSizing('height', map-get($fontSizeCurves, regular));
-          }
-        }
-      }
-
-      @include sizeCurve('margin-top', medium);
-      @include sizeCurve('margin-bottom', medium);
     }
   }
 

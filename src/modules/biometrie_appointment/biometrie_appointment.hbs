@@ -43,20 +43,14 @@
                 }
             }'>
 
-            <a class="atm-text_link atm-text_link--icon mdl-biometrie_appointment__backlink"
-               data-biometrie_appointment="rescheduleBack">
-              <svg class="icon">
-                <use xlink:href="#arrow-left"></use>
-              </svg>
-              Zurück
-            </a>
-            <a class="atm-text_link atm-text_link--icon mdl-biometrie_appointment__logout"
-               data-biometrie_appointment="logout">
-              <svg class="icon">
-                <use xlink:href="#logout"></use>
-              </svg>
-              {{ logoutLinkText }}
-            </a>
+            <div class="mdl-biometrie_appointment__toplinks">
+              <div class="mdl-biometrie_appointment__toplinks-left">
+                {{> "atoms/text_link/text_link" backLink }}
+              </div>
+              <div class="mdl-biometrie_appointment__toplinks-right">
+                {{> "atoms/text_link/text_link" logoutLink }}
+              </div>
+            </div>
 
             <!--  LOGIN -->
             <div class="view" data-biometrie_appointment="view__login">

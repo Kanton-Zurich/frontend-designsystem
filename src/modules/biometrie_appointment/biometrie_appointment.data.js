@@ -43,6 +43,24 @@ const unavailableNotificationData = {
   },
 };
 
+const logoutLink = {
+  icon: 'logout-user',
+  text: 'Logout',
+  isInverted: false,
+  hasLeadingIcon: true,
+  hasTrailingIcon: false,
+  additionalAttribute: 'data-biometrie_appointment="logout"',
+};
+
+const backLink = {
+  icon: 'arrow-left',
+  text: 'Zurück',
+  isInverted: false,
+  hasLeadingIcon: true,
+  hasTrailingIcon: false,
+  additionalAttribute: 'data-biometrie_appointment="rescheduleBack"',
+};
+
 const template = dataHelper.getFileContent('biometrie_appointment.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -81,7 +99,8 @@ const data = _.merge({}, defaultData, {
         ],
       }),
     },
-    logoutLinkText: 'Logout',
+    backLink,
+    logoutLink,
 
     unavailableNotificationData,
 
