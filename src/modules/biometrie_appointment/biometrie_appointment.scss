@@ -2,6 +2,7 @@ $biometrieViewTransitionDuration: 300ms;
 
 
 .mdl-biometrie_appointment {
+  margin-top: $sizeBiggerBig;
   margin-bottom: $sizeRegular;
 
   &__heading {
@@ -66,9 +67,8 @@ $biometrieViewTransitionDuration: 300ms;
 
   &__loginview {
 
-    h3 {
-      @include sizeCurve('padding-top', medium);
-      @include sizeCurve('margin-bottom', smallerRegular);
+    &__beforehint {
+      margin-bottom: 0;
     }
 
     &__input {
@@ -144,6 +144,15 @@ $biometrieViewTransitionDuration: 300ms;
       min-height: 2rem;
       border-bottom: 2px solid $colorBlack100;
       margin-bottom: $sizeRegular;
+
+      .login_notification {
+        display: none;
+        margin-bottom: $sizeRegular;
+
+        &.show {
+          display: block;
+        }
+      }
     }
 
     &__submit {

@@ -5,7 +5,8 @@ const defaultData = require('../../data/default.data.js');
 const loginViewProps = require('./partials/login_view/login_view.data').props;
 const detailsViewProps = require('./partials/details_view/details_view.data').props;
 const rescheduleViewProps = require('./partials/reschedule_view/reschedule_view.data').props;
-const defaultButtonData = require('../../atoms/button/button.data').variants.default.props;
+const buttonGroupDefaultData = require('../../modules/button_group/button_group.data').variants.default.props;
+const buttonDefaultData = require('../../atoms/button/button.data').variants.default.props;
 
 const moduleSettings = {
   apiBase: 'https://internet-acc.zh.ch/proxy/migek/',
@@ -52,6 +53,34 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     heading: 'Termin verschieben',
+    beforeBlock: {
+      heading: 'Dokumente vorbereiten',
+      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',
+      checkpoints: [
+        'Brief mit der Terminbestätigung',
+      ],
+    },
+    mainBlock: {
+      heading: 'Termin verschieben',
+      description: 'Wie möchten sie Ihren Termin verschieben?',
+      buttonGroup: _.assign({}, buttonGroupDefaultData, {
+        buttons: [
+          _.merge({}, buttonDefaultData, {
+            isSecondary: true,
+            disabled: true,
+            text: 'Vor Ort',
+          }),
+          _.merge({}, buttonDefaultData, {
+            text: 'Online',
+          }),
+          _.merge({}, buttonDefaultData, {
+            isSecondary: true,
+            disabled: true,
+            text: 'Telefonisch',
+          }),
+        ],
+      }),
+    },
     logoutLinkText: 'Logout',
 
     unavailableNotificationData,

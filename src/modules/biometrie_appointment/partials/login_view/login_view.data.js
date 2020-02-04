@@ -5,12 +5,22 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultButtonData = require('../../../../atoms/button/button.data').variants.default.props;
 
 const template = dataHelper.getFileContent('login_view.hbs');
+const loginErrNotification1 = {
+  message: 'Invalider oder unvollständiger Token. Der Token ist 16-stellig und besteht ausschließlich aus Buchstaben (ohne Umlaute) und Ziffern.',
+  icon: '#caution',
+};
+const loginErrNotification2 = {
+  message: 'Der Token ist Falsch. Bitte überprüfen Sie Ihre Angaben.',
+  icon: '#caution',
+};
+const loginErrNotification3 = {
+  message: 'Der Token ist Falsch. Bitte überprüfen Sie Ihre Angaben. Wenn Sie sich nicht anmelden können, rufen Sie uns von Montag – Freitag von 09:00 – 11:00 Uhr auf die Telefonnr. 043 259 88 40 an.',
+  icon: '#caution',
+};
+
 const data = _.merge({}, defaultData, {
   props: {
     messages: {
-      beforeParagraphs: [
-        'Melden Sie sich an, um Ihren Termin zur Erfassung der biometrischen Daten verschieben zu können.',
-      ],
       head: 'Login',
       inputLabel: 'Token',
       hint: 'Den 16-stelligen Token finden Sie auf der Terminbestätigung',
@@ -23,6 +33,9 @@ const data = _.merge({}, defaultData, {
       isPrimary: true,
       additionalAttribute: 'data-biometrie_appointment="submit"',
     }),
+    loginErrNotification1,
+    loginErrNotification2,
+    loginErrNotification3,
   },
 });
 

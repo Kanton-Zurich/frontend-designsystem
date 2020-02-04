@@ -1,9 +1,9 @@
 <div class="mdl-biometrie_appointment__loginview">
 {{#with messages}}
-    {{#each beforeParagraphs }}
-      <p class="atm-paragraph">{{{ this }}}</p>
-    {{/each}}
-    <h3 class="atm-heading">{{head}}</h3>
+  <p class="atm-lead">
+    <strong>{{head}}</strong>
+  </p>
+
     <div class="mdl-biometrie_appointment__loginview__input {{#if demoAlert}}error{{/if}}" data-biometrie_appointment="inputfieldswrapper">
       <div class="icon icon-error">!</div>
       <label>{{inputLabel}}</label>
@@ -14,33 +14,19 @@
         <span class="input" data-biometrie_appointment="input" contenteditable="true" >___</span>
       </div>
     </div>
-    <p class="atm-paragraph">{{hint}}</p>
+    <p class="atm-paragraph mdl-biometrie_appointment__loginview__beforehint">{{hint}}</p>
     <div class="mdl-biometrie_appointment__loginview__hint" data-biometrie_appointment="loginHint">
-      <div class="alert alert-error {{#if demoAlertMsg1}}show{{/if}}" data-biometrie_appointment="loginAlertErr1">
-          {{ loginErrMsg1 }}
-          <span class="alert__close" data-biometrie_appointment="alertClose">
-              <svg class="icon">
-                  <use xlink:href="#exit"></use>
-              </svg>
-          </span>
+      <div class="login_notification {{#if demoAlertMsg1}}show{{/if}}" data-biometrie_appointment="loginAlertErr1">
+        {{> "atoms/notification/notification" loginErrNotification1 }}
       </div>
-      <div class="alert alert-error {{#if demoAlertMsg2}}show{{/if}}" data-biometrie_appointment="loginAlertErr2">
-          {{ loginErrMsg2 }}
-          <span class="alert__close" data-biometrie_appointment="alertClose">
-              <svg class="icon">
-                  <use xlink:href="#exit"></use>
-              </svg>
-          </span>
+      <div class="login_notification {{#if demoAlertMsg2}}show{{/if}}" data-biometrie_appointment="loginAlertErr2">
+        {{> "atoms/notification/notification" loginErrNotification2 }}
       </div>
-      <div class="alert alert-error {{#if demoAlertMsg3}}show{{/if}}" data-biometrie_appointment="loginAlertErr3">
-          {{ loginErrMsg3 }}
-          <span class="alert__close" data-biometrie_appointment="alertClose">
-              <svg class="icon">
-                  <use xlink:href="#exit"></use>
-              </svg>
-          </span>
+      <div class="login_notification {{#if demoAlertMsg3}}show{{/if}}" data-biometrie_appointment="loginAlertErr3">
+        {{> "atoms/notification/notification" loginErrNotification3 }}
       </div>
     </div>
+
     <div class="mdl-biometrie_appointment__loginview__submit">
       {{> "atoms/button/button" loginSubmitBtn}}
     </div>
