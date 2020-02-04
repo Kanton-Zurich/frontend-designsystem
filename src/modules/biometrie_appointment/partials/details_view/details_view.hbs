@@ -46,7 +46,9 @@
         </div>
     </div>
 
-    <h3 class="atm-heading">{{ headingAppointment }}</h3>
+    <p class="atm-lead">
+      <strong>{{headingAppointment}}</strong>
+    </p>
     <div class="mdl-biometrie_appointment__details__appointmentdata">
         <div class="grid-x grid-margin-x" >
             <div class="cell tiny-12 medium-6">
@@ -120,13 +122,15 @@
     {{/with}}
 
     {{#with checkList}}
-      <div class="mdl-biometrie_appointment__details__checklist">
-          <strong class="boxhead">{{ heading }}</strong>
-          <ul>
+      <div class="mdl-texthighlight">
+        <div class="mdl-richtext">
+          <p class="atm-heading">{{ heading }}</p>
+          <ul class="mdl-richtext__benefits">
             {{#each items }}
                 <li>{{ this }}</li>
             {{/each}}
           </ul>
+        </div>
       </div>
     {{/with}}
   </div>
