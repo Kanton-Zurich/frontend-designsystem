@@ -2,15 +2,11 @@
 
 Test Token
 ```
-1YUJ-LVK4-ZQWA-CH2U
-4SZZ-KNST-SUMT-MYZ6
-NCD9-HC37-WJ36-75XH
-QY3C-7DMN-YUGY-2LFZ
-8WHR-KMJZ-AYT2-SSUZ
-AQEN-LNR8-9AZA-3GHF
-2MR7-K9QC-FYY2-VGZ2
+Q187-1G3H-CFZN-HCKX
 ```
 
+(!) Die Test API erlaubt keinen Zugriff über localhost. Daher kann das Modul funktional nur in einem Browser getestet 
+werden in dem "cors restrictions" explizit deaktiviert wurden.
 
 ### Integration
 
