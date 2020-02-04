@@ -1,0 +1,118 @@
+<div class="atm-form_input{{#if isFloatingLabel}} atm-form_input--floated{{/if}}{{#if
+  isSmall}} atm-form_input--small{{/if}}{{#if unitLeft}} atm-form_input--unitLeft{{/if}}{{#if
+  iconOnly}} atm-form_input--icon{{/if}}{{#if isSelectTrigger}} atm-form_input--trigger{{/if}}{{#if
+  isTriggerWithInput}} atm-form_input--trigger-phone{{/if}}{{#if isReduced}} atm-form_input--reduced{{/if}}
+  {{#if isSearch}}atm-form_input--search{{/if}}"
+  {{#unless isSelectTrigger}} data-input{{/unless}}
+  {{#if rules}} data-rules="{{rules}}"{{/if}}>
+
+  {{# if isSelectTrigger}}
+    <button aria-expanded="false" id="{{uuid}}"
+            class="atm-form_input__input atm-form_input__input--trigger" type="button">
+      <span class="atm-form_input__trigger-label">{{label}}</span>
+      <span class="atm-form_input__trigger-value"></span>
+      <svg class="icon" focusable="false">
+        <use xlink:href="#{{icon}}"></use>
+      </svg>
+    </button>
+    {{#if isTriggerWithInput}}
+      <input id="select_phone_input" name="phone_input" type="tel" placeholder="{{#if label}}{{label}}{{/if}}"
+        {{#if validation.pattern }} data-pattern="{{validation.pattern}}"{{/if}}
+        {{#if validation.isRequired}} required{{/if}}
+        {{#if validation}} data-validation{{/if}}><label
+      class="visuallyhidden" for="select_phone_input">Bitte hier ihre Telefonnummer eingeben</label>{{/if}}
+  {{/if}}
+
+  {{# if isTextarea}}
+    <textarea class="atm-form_input__input atm-form_input__input--txtarea" id="{{uuid}}" placeholder="{{label}}"{{#if
+      name }}
+              name="{{name}}"{{/if}}{{#if cols }}
+              cols="{{cols}}"{{/if}}{{#if rows }} rows="{{rows}}"{{/if}}{{#if validation.max }}
+              maxlength="{{validation.max}}"{{/if}}{{#if validation.isRequired}} required{{/if}}{{#if isReadOnly}}
+              readonly{{/if}}{{#if
+      disabled}} disabled{{/if}}
+      {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
+      {{#if validation}} data-validation{{/if}}
+      {{#if isFloatingLabel}} data-floating{{/if}}
+      ></textarea>
+  {{/if}}
+
+  {{# if isInput}}
+    <input class="atm-form_input__input"
+      {{#if validation.pattern }} data-pattern="{{validation.pattern}}"{{/if}}
+      {{#if step}} step="{{step}}"{{/if}}
+       id="{{uuid}}" placeholder="{{label}}" name="{{name}}" value="{{inputContent}}" type="{{type}}"
+      {{#if dataSelector}} {{{dataSelector}}}{{/if}}
+      {{#if validation.isRequired}} required{{/if}}
+      {{#if isReadOnly}} readonly{{/if}}
+      {{#if autocompleteOff}} autocomplete="off" {{/if}}
+      {{#if disabled}} disabled{{/if}}
+      {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
+      {{#if validation}} data-validation{{/if}}
+      {{#if isFloatingLabel}} data-floating{{/if}}
+      {{#if zipCity}}
+        data-fills-city="{{zipCity.fills}}"
+        data-zip="{{zipCity.data}}"
+      {{/if}}
+      {{#if additionalFunctionality.ariaControls}}aria-controls="{{additionalFunctionality.ariaControls}}"{{/if}}
+      {{#if disableAutocomplete}}autocomplete="new-password"{{/if}}
+      {{#if filterListId}}aria-owns="{{filterListId}}" aria-autocomplete="list"{{/if}}
+    >
+  {{/if}}
+
+  {{# unless isSelectTrigger}}
+    <label for="{{uuid}}">{{label}}</label>
+    {{# unless additionalFunctionality}}
+      {{#if validation }}
+        {{#unless usedCustomIcon}}
+          <span class="atm-form_input__validate-icon">
+          <span>
+            <span class="visuallyhidden">{{validation.ariaTextValid}}</span>
+            <svg class="icon" focusable="false">
+              <use xlink:href="#confirm"></use>
+            </svg>
+          </span>
+          <span>
+             <span class="visuallyhidden">{{validation.ariaTextInvalid}}</span>
+             <svg class="icon">
+                <use xlink:href="#caution"></use>
+              </svg>
+          </span>
+        </span>
+        {{/unless}}
+      {{/if}}
+    {{/unless}}
+
+    {{#if additionalFunctionality}}
+      <button class="atm-form_input__functionality" type="button"
+              data-buttontype="{{additionalFunctionality.buttontype}}">
+        <span class="visuallyhidden">{{additionalFunctionality.ariaText}}</span>
+        <svg class="icon">
+          <use xlink:href="#{{additionalFunctionality.icon }}"></use>
+        </svg>
+      </button>
+    {{/if}}
+
+    {{#if iconOnly}}
+      <svg class="icon">
+        <use xlink:href="#{{iconOnly.icon }}"></use>
+      </svg>
+    {{/if}}
+
+    {{#if unitLeft}}
+      <span class="atm-form_input__unit atm-form_input__unit--left">
+        {{unitLeftLabel}}
+      </span>
+    {{/if}}
+
+    {{#if unitRight}}
+      <span class="atm-form_input__unit atm-form_input__unit--right">
+        {{unitLeftLabel}}
+      </span>
+    {{/if}}
+  {{/unless}}
+
+  {{#if hint}}<div class="atm-form_input__hint">{{hint}}</div>{{/if}}
+  {{#if validation.errorMsg}}<p data-message="pattern">{{validation.errorMsg}}</p>{{/if}}
+  {{#if validation.isRequired}}<p data-message="required">Dies ist ein Pflichtfeld</p>{{/if}}
+</div>

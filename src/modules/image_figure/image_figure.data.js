@@ -11,6 +11,7 @@ const data = _.merge({}, defaultData, {
     title: 'Bild',
     className: 'ImageFigure',
     jira: 'CZHDEV-192',
+    label: 'Inhalt',
     documentation: dataHelper.getDocumentation('image_figure.md'),
   },
   props: {
@@ -40,6 +41,15 @@ const variants = _.mapValues({
     meta: {
       title: 'Inhaltsbild',
       desc: 'Ein Standard Inhaltsbild ist so breit wie der Content, bzw. das Parent-Element',
+    },
+  },
+  noTitle: {
+    meta: {
+      title: 'Inhaltsbild ohne Untertitel',
+      desc: 'Ein Standard Inhaltsbild ist so breit wie der Content, bzw. das Parent-Element',
+    },
+    props: {
+      noTitle: true,
     },
   },
   full169: {

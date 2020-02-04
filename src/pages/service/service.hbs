@@ -1,17 +1,15 @@
 {{#extend "layouts/layout"}}
   {{#content "header"}}
-    <header>
-      {{> "modules/page_header/page_header" props.modules.pageHeader}}
-    </header>
+    {{> "modules/page_header/page_header" props.modules.pageHeader}}
   {{/content}}
 
   {{#content "content"}}
-      {{> "modules/service_box/service_box" props.modules.serviceBoxData}}
+      {{> "modules/instructions/instructions" props.modules.instructions}}
+      {{> "modules/contact/contact" props.modules.contact }}
   {{/content}}
 
   {{#content "footer"}}
-    <footer id="contentinfo">
-      <h1 class="visuallyhidden">Fussbereich</h1>
-    </footer>
+    {{> "modules/footer/footer" props.modules.footerData}}
+    {{> "modules/back2top/back2top" props.modules.back2topData}}
   {{/content}}
 {{/extend}}

@@ -19,29 +19,33 @@
   * Regular Anchorlink Style
   */
   &:not(.atm-anchorlink--tag) {
-    height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
-    margin: 0 calc(#{$sizeRegular} / 2);
-    font-weight: $fontWeightDefault;
+    height: pxToRem($sizeBiggerBig + $sizeTiny);
+    margin: 0 pxToRem($sizeTiny);
+    font-family: $fontFamilyBase;
     color: $colorBlack;
-    font-size: $sizeFontSmall;
+    font-size: pxToRem($sizeFontSmall);
     line-height: $sizeLineHeightBase;
 
     &:first-of-type {
-      margin-left: $sizeSmallRegular;
+      margin-left: pxToRem($sizeSmallRegular);
     }
 
-    &:active,
+    &:after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -1px;
+      transform: translateX(-50%) scaleX(0);
+      width: 100%;
+      height: 2px;
+      background-color: $colorBlack;
+    }
+
     &.atm-anchorlink--active {
-      font-weight: $fontWeightBlack;
+      font-family: $fontFamilyBlack;
 
       &:after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -1px;
-        width: 100%;
-        height: 2px;
-        background-color: $colorBlack;
+        transform: translateX(-50%) scaleX(1);
       }
     }
 
@@ -54,9 +58,9 @@
     }
 
     @include mq($from: xsmall) {
-      font-size: $sizeFontRegular;
+      font-size: pxToRem($sizeFontRegular);
       line-height: $sizeLineHeightBase;
-      height: $sizeHuge;
+      height: pxToRem($sizeHuge);
     }
   }
 
@@ -66,9 +70,9 @@
   &--tag {
     color: rgba($colorBlack, 0.6);
     border-radius: 75.5px;
-    padding: 0 $sizeRegular;
+    padding: 0 pxToRem($sizeRegular);
     background: $colorBlack10;
-    height: calc(#{$sizeSmallLarge} + #{$sizeSmallRegular});
+    height: pxToRem($sizeBiggerBig);
     max-width: 100%;
 
     &:hover {
@@ -110,19 +114,19 @@
     * Style Topic Variante
     */
     &-topic {
-      font-size: $sizeFontTiny;
+      font-size: pxToRem($sizeFontTiny);
       line-height: $sizeLineHeightBase;
-      padding: 0 $sizeTiny;
-      height: calc(2 * #{$sizeSmallRegular});
+      padding: 0 pxToRem($sizeTiny);
+      height: pxToRem($sizeLarge);
     }
 
     /*
     * Style Topitem Variante
     */
     &-top {
-      font-weight: $fontWeightBlack;
-      font-size: $sizeFontBig;
-      line-height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
+      font-family: $fontFamilyBlack;
+      font-size: pxToRem($sizeFontLarge);
+      line-height: $sizeBiggerBig;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -130,18 +134,18 @@
       @include sizeCurve(max-width, maxWidth, $anchorlinkSizeCurves);
 
       display: inline-block;
-      padding: 0 $sizeLarge;
-      height: calc(#{$sizeBiggerBig} + #{$sizeTiny});
+      padding: 0 pxToRem($sizeSmallRegular);
+      height: pxToRem($sizeBiggerBig);
 
       @include mq($to: small) {
         max-width: 100%;
       }
 
       &-small {
-        font-size: $sizeFontBiggerRegular;
+        font-size: pxToRem($sizeFontBiggerRegular);
         line-height: $sizeBiggerBig;
-        padding: 0 $sizeSmallRegular;
-        height: $sizeBiggerBig;
+        padding: 0 pxToRem($sizeSmallRegular);
+        height: pxToRem($sizeBiggerBig);
       }
     }
   }

@@ -5,13 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>{{#if title}}{{title}} – {{/if}}{{meta.project}}</title>
   <meta name="description" content="{{#if description}}{{description}}{{/if}}">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="format-detection" content="telephone=no">
 
   {{! <link rel="manifest" href="site.webmanifest"> }}
   {{! <link rel="apple-touch-icon" href="icon.png"> }}
-
+  <link rel="stylesheet" href="/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css">
   <link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
+  <link rel="stylesheet" href="/assets/css/print{{#unless env.dev}}.min{{/unless}}.css" media="print">
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
 
   {{#if env.dev}}
@@ -20,33 +20,66 @@
   {{/if}}
 
   {{! <meta name="theme-color" content="#fafafa"> }}
+
+  <link rel="manifest" href="/assets/manifest.json">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Kanton Zürich">
+  <meta name="apple-mobile-web-app-title" content="Kanton Zürich">
+  <meta name="theme-color" content="#0076BD">
+  <meta name="msapplication-navbutton-color" content="#0076BD">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-starturl" content="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+
+  <link rel="icon" type="image/png" href="/assets/media/icons/Favicon_48.png"/>
+
+  <link rel="shortcut icon" sizes="144x144" type="image/png" href="/assets/media/icons/Favicon_144.png"/>
+  <link rel="shortcut icon" sizes="96x96" type="image/png" href="/assets/media/icons/Favicon_96.png"/>
+  <link rel="shortcut icon" sizes="48x48" type="image/png" href="/assets/media/icons/Favicon_48.png"/>
+  <link rel="shortcut icon" sizes="16x16" type="image/png" href="/assets/media/icons/Favicon_16.png"/>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/icons/apple-touch-icon-180x180.png"/>
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/media/icons/apple-touch-icon-76x76@2x.png"/>
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/media/icons/apple-touch-icon-72x72@2x.png"/>
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/media/icons/apple-touch-icon-60x60@2x.png"/>
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/media/icons/apple-touch-icon-57x57@2x.png"/>
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/media/icons/apple-touch-icon-76x76.png"/>
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/media/icons/apple-touch-icon-60x60.png"/>
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/media/icons/apple-touch-icon-57x57.png"/>
 </head>
 <body {{#if props.defaultColorVariation}}class="{{props.defaultColorVariation}}"{{/if}} {{#unless props.defaultColorVariation}}class="cv-blue"{{/unless}} {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
-  data-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'
   data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
-<div class="lyt-wrapper" id="header">
+<header class="lyt-wrapper" id="header">
+  <h1 class="visuallyhidden">Navigation</h1>
+  {{> "modules/skiplinks/skiplinks" props.skiplinks }}
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      {{#if props.header}}{{> "modules/header/header" props.header }}{{/if}}
+    </div>
+  </div>
+</header>
+<main class="lyt-wrapper" id="main">
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
       {{#block "header"}}
       {{/block}}
     </div>
-  </div>
-</div>
-<div class="lyt-wrapper" id="main">
-  <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
       {{#block "content"}}
       {{/block}}
     </div>
   </div>
-</div>
-<div class="lyt-wrapper" id="footer">
+</main>
+<footer class="lyt-wrapper" id="footer">
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      <h1 class="visuallyhidden">Fussbereich</h1>
       {{#block "footer"}}
       {{/block}}
     </div>
   </div>
-</div>
+</footer>
 </body>
 </html>

@@ -1,0 +1,18 @@
+{{#extend "layouts/layout"}}
+  {{#content "header"}}
+    {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
+  {{/content}}
+
+  {{#content "content"}}
+    {{> "modules/flex_data/flex_data" props.modules.flexDataData }}
+    {{> "modules/contact/contact" props.modules.contactData}}
+    {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
+    {{> "modules/related_content/related_content" props.modules.releatedContentData}}
+    {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
+  {{/content}}
+  
+  {{#content "footer"}}
+    {{> "modules/footer/footer" props.modules.footerData }}
+    {{> "modules/back2top/back2top" props.modules.back2topData}}
+  {{/content}}
+{{/extend}}

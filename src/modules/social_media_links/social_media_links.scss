@@ -1,0 +1,45 @@
+.mdl-social-media-links {
+  padding-top: pxToRem($sizeLarge);
+  padding-bottom: pxToRem($sizeLarge);
+
+  .atm-heading {
+    font-size: pxToRem($sizeFontTiny);
+    line-height: $sizeLineHeightBase;
+    font-family: $fontFamilyBase;
+    color: $colorBlack60;
+    margin-bottom: 0;
+  }
+
+  ul {
+    @include resetList();
+    display: flex;
+    padding-top: pxToRem($sizeTiny);
+  }
+
+  &__item {
+    margin-right: pxToRem($sizeTiny);
+
+    a {
+      border-radius: 50%;
+    }
+
+    svg {
+      fill: $colorBlack60;
+    }
+  }
+
+  @include mq($from: small) {
+    .atm-heading {
+      font-size: pxToRem($sizeFontSmall);
+      line-height: $sizeLineHeightBigger;
+    }
+  }
+  @include mq($from: large) {
+    padding-top: pxToRem($sizeBig);
+    padding-bottom: pxToRem($sizeBig);
+  }
+  @include mq($from: xlarge) {
+    padding-top: pxToRem($sizeBiggerBig);
+    padding-bottom: pxToRem($sizeBiggerBig);
+  }
+}

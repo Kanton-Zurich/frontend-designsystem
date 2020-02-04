@@ -99,7 +99,7 @@ class WindowEventListener {
    * @param {String} uuid - optional
    * @private
    */
-  addEventListener(eventName, callback, uuid) {
+  addEventListener(eventName, callback, uuid = null) {
     const name = uuid ? `${eventName}.${uuid}` : eventName;
 
     // Keep track of handler

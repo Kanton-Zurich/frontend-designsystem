@@ -1,0 +1,37 @@
+.mdl-locations {
+
+  .mdl-locations__map {
+    background: none;
+  }
+
+  .mdl-locations__sidebar-wrapper {
+    bottom: initial;
+
+    .mdl-locations__sidebar {
+      height: auto;
+      left: 0;
+      right: 0;
+
+      &:not(.show-details) {
+        .mdl-linklist {
+          margin-top: $sizeRegular;
+          max-height: none;
+        }
+      }
+
+      .mdl-locations__details_location.show {
+        margin-top: $sizeRegular;
+        max-height: none;
+      }
+
+      .sidebarhead {
+        display: none;
+      }
+
+      .mdl-locations__details_head,
+      .mdl-locations__filter_head {
+        display: none;
+      }
+    }
+  }
+}

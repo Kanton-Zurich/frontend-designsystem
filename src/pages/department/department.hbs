@@ -1,23 +1,20 @@
 {{#extend "layouts/layout"}}
   {{#content "header"}}
-    <header>
-      {{> "modules/page_header/page_header" props.modules.pageHeader}}
-    </header>
+    {{> "modules/page_header/page_header" props.modules.pageHeader.variants.colored.props }}
   {{/content}}
 
   {{#content "content"}}
-      <h1>(--ANKERNAVIGATION PLACEHOLDER--)</h1>
-      {{> "modules/topiclist/topiclist" props.modules.topiclist }}
-      {{> "modules/about/about" props.modules.about }}
-      <h1>(--NEWS TEASER PLACEHOLDER--)</h1>
-      {{> "modules/contact/contact" props.modules.contact }}
-      {{> "modules/teaser/teaser" props.modules.teaser }}
-      <h1>(--SOCIAL MEDIA STREAM--)</h1>
+    {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
+    {{> "modules/topiclist/topiclist" props.modules.topiclist }}
+    {{> "modules/about/about" props.modules.about }}
+    {{> "modules/news_teaser/news_teaser" props.modules.newsTeaser }}
+    {{> "modules/contact/contact" props.modules.contact }}
+    {{> "modules/teaser/teaser" props.modules.teaser }}
+    {{> "modules/social_media_stream/social_media_stream" props.modules.socialMediaStream }}
   {{/content}}
 
   {{#content "footer"}}
-    <footer id="contentinfo">
-      <h1 class="visuallyhidden">Fussbereich</h1>
-    </footer>
+    {{> "modules/footer/footer" props.modules.footerData }}
+    {{> "modules/back2top/back2top" props.modules.back2topData }}
   {{/content}}
 {{/extend}}

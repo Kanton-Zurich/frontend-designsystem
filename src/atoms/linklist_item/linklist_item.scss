@@ -1,8 +1,9 @@
 .atm-linklist_item {
   text-decoration: none;
   color: rgba($colorText, 0.6);
-  font-weight: $fontWeightBlack;
+  font-family: $fontFamilyBlack;
   position: relative;
+  cursor: pointer;
 
   .icon {
     min-width: pxToRem(24);
@@ -71,11 +72,40 @@
       margin-top: pxToRem($sizeTiny);
       display: flex;
       align-items: center;
-      font-weight: $fontWeightDefault;
+      font-family: $fontFamilyBlack;
       font-size: pxToRem($sizeFontSmall);
+
+      span {
+        font-family: $fontFamilyBase;
+      }
 
       .icon {
         margin-right: pxToRem($sizeSmallRegular);
+      }
+    }
+  }
+
+  &--location {
+    font-size: pxToRem($sizeFontRegular);
+
+    &:not(:hover) {
+      .atm-linklist_item__label:not(:hover) {
+        color: rgba($colorText, 0.6);
+      }
+    }
+
+    .atm-linklist_item__distancearrow {
+      height: 100%;
+      min-width: pxToRem($sizeSmallHuge);
+      text-align: right;
+    }
+
+    .atm-linklist_item__distance {
+      font-size: pxToRem($sizeFontTiny);
+      font-family: $fontFamilyBase;
+
+      &:not(:hover) {
+        color: rgba($colorText, 0.6);
       }
     }
   }
@@ -94,11 +124,19 @@
     > span {
       display: block;
     }
+
+    &-subtitle {
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+
+      text-align: right;
+      color: rgba($colorText, 0.6);
+      font-family: $fontFamilyBase;
+    }
   }
 
   &__label {
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
-    font-weight: $fontWeightDefault;
+    font-family: $fontFamilyBase;
   }
 
   .icon use {
@@ -109,7 +147,7 @@
 
 @each $key, $val in $tl-color-variations {
   .#{$key} {
-    .atm-linklist_item:not(.atm-linklist_item--download) {
+    .atm-linklist_item--location {
       color: rgba($val, 1);
 
       &:hover {

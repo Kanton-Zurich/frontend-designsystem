@@ -24,4 +24,18 @@ const data = _.merge({}, defaultData, {
   },
 });
 
+data.wrappingElements.pageHeaderData.breadcrumb.path = [
+  {
+    title: 'Kanton Zürich',
+    href: '../../index.html',
+  },
+  {
+    title: 'Living Styleguide',
+    href: '../../styleguide.html',
+  },
+  {
+    title: 'Scaffolding',
+  },
+];
+
 module.exports = data;

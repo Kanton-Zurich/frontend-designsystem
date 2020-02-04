@@ -12,6 +12,7 @@ const data = _.merge({}, defaultData, {
     title: 'Verwandte Inhalte',
     className: 'RelatedContent',
     jira: 'CZHDEV-397',
+    label: 'Navigation',
     documentation: dataHelper.getDocumentation('related_content.md'),
   },
   props: {},
@@ -26,6 +27,7 @@ const variants = _.mapValues({
       relatedContentHeading: {
         title: 'Das könnte Sie auch interessieren',
         level: 2,
+        anchorNavReference: '',
       },
       contentNavData: contentNavDataDef,
     },
@@ -38,7 +40,7 @@ const variants = _.mapValues({
     props: {
       relatedContentHeading: {
         level: 2,
-        title: 'Amter und Bereiche',
+        title: 'Ämter und Bereiche',
       },
       relatedContentLead: 'Der Sicherheitsdirektion sind folgende Ämter und Fachstellen untergeordnet',
       contentNavData: {

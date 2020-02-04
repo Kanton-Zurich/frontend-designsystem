@@ -1,0 +1,62 @@
+
+
+.atm-loading_circle {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100vw;
+
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+
+  transform: translateX(-50%);
+
+  background: $colorWhite;
+
+  z-index: $zIndexInner;
+
+  display: none;
+
+  &__spinner,
+  &__spinner:after {
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  &__spinner {
+    width: $spinnerSize;
+    height: $spinnerSize;
+    display: block;
+    color: $spinnerColor;
+
+    &:after {
+      content: '';
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+      border: $spinnerBorderSize solid currentColor;
+      border-bottom-color: transparent;
+      border-radius: 100%;
+      background: transparent;
+
+      animation: ball-clip-rotate 0.75s linear infinite;
+    }
+  }
+
+  [ class*='--loading' ] & {
+    display: flex;
+  }
+}
+
+@keyframes ball-clip-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

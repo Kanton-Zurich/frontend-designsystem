@@ -1,38 +1,50 @@
 const _ = require('lodash');
-const path = require('path');
-const dataHelper = require('@unic/estatico-data');
 const defaultData = require('./data/default.data.js');
+const defTopiclistData = require('./modules/topiclist/topiclist.data').variants.home.props;
 
-const transform = (originalData, filePath) => {
-  const previewUrl = path.relative('./src/', filePath).replace('.data.js', '.html');
-
-  const data = _.merge({}, originalData, {
-    meta: {
-      previewUrl,
-    },
-  });
-
-  return data;
-};
-
-const data = _.merge({}, defaultData, {
-  atoms: dataHelper.getDataGlob('./src/atoms/**/*.data.js', transform),
-  pages: dataHelper.getDataGlob('./src/pages/**/*.data.js', transform),
-  // demoPages: dataHelper.getDataGlob('./src/demo/pages/**/*.data.js', transform),
-  modules: dataHelper.getDataGlob('./src/modules/**/*.data.js', transform),
-  // demoModules: dataHelper.getDataGlob('./src/demo/modules/**/*.data.js', transform),
-  styleguide: dataHelper.getDataGlob('./src/preview/styleguide/*.data.js', transform),
+// Get other pages
+const mainMenu = _.merge({}, defTopiclistData, {
+  topiclistInput: null,
+  additionalClasses: 'sg_topiclist',
 });
 
+mainMenu.topiclistcontentNavData.items = [
+  {
+    shortTitle: 'User Experience',
+    buzzwords: 'Nutzen, Barrierefreiheit, Inhalt, Usability, Technik, Ästhetik',
+    target: 'ux.html',
+    isPromotopic: false,
+  },
+  {
+    shortTitle: 'Design',
+    buzzwords: 'CI/CD, Farben, Typografie, Ikonografie, Bildsprache, Raster, Interaktionselemente, Verhalten',
+    target: 'design.html',
+    isPromotopic: false,
+  },
+  {
+    shortTitle: 'Living Styleguide',
+    buzzwords: '  Vorschau, Atome, Komponenten, Seitentypen, HTML Code',
+    target: 'styleguide.html',
+    isPromotopic: false,
+  },
+];
 
-data.pages = _.sortBy(data.pages, item => item.meta.title)
-  .concat(_.sortBy(data.demoPages, item => item.meta.title));
-
-data.modules = _.sortBy(data.modules, item => item.meta.title)
-  .concat(_.sortBy(data.demoModules, item => item.meta.title));
-
-data.styleguide = _.sortBy(data.styleguide, item => item.meta.title);
-
-data.atoms = _.sortBy(data.atoms, item => item.meta.title);
+const data = _.merge({}, defaultData, {
+  mainMenu,
+  wrappingElements: {
+    pageHeaderData: {
+      pageTitle: 'Richtlinien für Online-Anwendungen',
+      leadText: 'Folgende Richtlinien sind die Basis für alle Arbeiten an unseren Online-Anwendungen und orientieren sich am neuen Webauftritt des Kantons Zürich. Die exemplarischen Inhalte dienen als Orientierungshilfe für die (Weiter-)Entwicklung von anderen Online-Anwendungen.',
+      breadcrumb: {
+        path: [
+          {
+            title: 'Kanton Zürich',
+            href: '/',
+          },
+        ],
+      },
+    },
+  },
+});
 
 module.exports = data;

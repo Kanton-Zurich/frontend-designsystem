@@ -3,6 +3,7 @@ const dataHelper = require('@unic/estatico-data');
 const {handlebars} = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defCarouselData = require('../carousel/carousel.data.js');
+const defPersonCardData = require('../person_card/person_card.data.js').variants.default;
 
 const template = dataHelper.getFileContent('about.hbs');
 const data = _.merge({}, defaultData, {
@@ -10,6 +11,7 @@ const data = _.merge({}, defaultData, {
     title: 'Über uns',
     className: 'MdlAbout',
     jira: 'CZHDEV-478',
+    label: 'Container',
     documentation: dataHelper.getDocumentation('about.md'),
   },
   props: {
@@ -23,6 +25,7 @@ const data = _.merge({}, defaultData, {
     sTitle3: 'Was wir tun',
     smallTitle1: 'Mehr zu diesem Amt',
     smallTitle2: 'Dokumente',
+    personCardData: defPersonCardData.props,
     downloadListData: {
       links: [
         {
@@ -36,6 +39,7 @@ const data = _.merge({}, defaultData, {
       ],
     },
     topicsData: {
+      forceTwoColums: true,
       items: [
         {
           shortTitle: 'Abteilungen',
@@ -59,16 +63,10 @@ const data = _.merge({}, defaultData, {
         },
       ],
     },
-    carouselData: _.merge({}, defCarouselData.props, { title: false }),
-    linklist: {
-      list1: {
-        links: [
-          {
-            linkListItemTitle: 'Stellungsnahme des Direktors',
-            linkListItemHref: '/',
-          },
-        ],
-      },
+    carouselData: _.merge({}, defCarouselData.props, {title: false}),
+    link: {
+      linkListItemTitle: 'Stellungsnahme des Direktors',
+      linkListItemHref: '/',
     },
   },
 });

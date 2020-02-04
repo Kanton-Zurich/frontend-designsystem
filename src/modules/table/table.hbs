@@ -1,10 +1,13 @@
-<div class="mdl-table
+<div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-table
   {{#if alignRight}} mdl-table--align-right{{/if}}
   {{#if isInverted}} mdl-table--inverted{{/if}}
   {{#if isWide}} mdl-table--fullwidth{{/if}}
   {{#if isFirstColumnFixed}} mdl-table--first-column-fixed{{/if}}"
   data-init="table"
   data-redraw="true"
+  {{#if isStatic}}data-static{{/if}}
+  {{#if preSortedColumn}}data-sort-column="{{preSortedColumn}}"{{/if}}
+  {{#if preSortedDirection}}data-sort-direction="{{preSortedDirection}}"{{/if}}
 >
   {{#if isInverted}}
     <div class="lyt-wrapper" data-image-gallery="gallery">
@@ -15,6 +18,7 @@
 		<h{{ tableHeadingLevel }} class="atm-heading mdl-table__title">{{ tableTitle }}</h{{ tableHeadingLevel }}>
 	{{/if}}
 	<figure class="mdl-table__figure">
+    {{#if isWide}}<div class="lyt-wrapper">{{/if}}
 			<div class="mdl-table__scroll-area" data-table="scroll-area">
 				<div class="mdl-table__wrapper" data-table="scroll-area-wrapper">
           <table class="mdl-table__table" data-table="table">
@@ -33,6 +37,7 @@
                           data-table="sortable"
                           data-order="{{isSortable}}"
                           data-column-index="{{@index}}"
+                          {{#if dataColumnName}}data-column-name="{{dataColumnName}}"{{/if}}
                         >
                       {{/if}}
                         <span>{{{ this.title }}}</span>
@@ -92,6 +97,7 @@
 				{{> "atoms/figcaption/figcaption" caption}}
 			</figcaption>
 		{{/if}}
+    {{#if isWide}}</div>{{/if}}
 	</figure>
   {{#if isInverted}}
         </div>

@@ -1,0 +1,56 @@
+{{#extend "layouts/layout"}}
+  {{#content "header"}}
+    {{> "modules/page_header/page_header" props.modules.pageHeaderData}}
+  {{/content}}
+
+	{{#content "content"}}
+    {{> "modules/image_figure/image_figure" props.modules.imageFigureData.variants.default.props}}
+    {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
+    <div class="mdl-richtext mod-smaller-headings">
+      <p id="welcome" class="atm-paragraph">
+        Herzlich willkommen
+      </p>
+      <p class="atm-paragraph">
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </p>
+    </div>
+    {{> "modules/video/video" props.modules.videoData }}
+    {{> "modules/accordion/accordion" props.modules.accordionData }}
+    <div class="mdl-richtext mod-smaller-headings">
+      <h2 id="events" class="atm-heading">
+        Geplante Auftritte
+      </h2>
+      <p class="atm-paragraph">
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </p>
+    </div>
+    {{> "modules/table/table" props.modules.tableData1 }}
+    {{> "modules/table/table" props.modules.tableData2 }}
+    {{> "modules/table/table" props.modules.tableData3 }}
+    {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
+    {{> "modules/image_gallery/image_gallery" props.modules.imageGalleryData }}
+    <div class="mdl-richtext">
+      <h2 id="bio" class="atm-heading">
+        Biografie
+      </h2>
+      <p class="atm-paragraph">
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+      </p>
+    </div>
+    {{> "modules/table/table" props.modules.tableData4 }}
+    {{> "modules/table/table" props.modules.tableData5 }}
+    {{> "modules/linklist/linklist" props.modules.linklistData }}
+    {{> "modules/contact/contact" props.modules.contactData}}
+    {{> "modules/person_card/person_card" props.modules.personCardData}}
+    <h2 class="atm-heading atm-heading--bordered">
+      Folgen Sie Jacqueline Fehr
+    </h2>
+    <h3>Social Media Stream (TODO) </h3>
+    {{> "modules/social_media_links/social_media_links" props.modules.socialLinksData}}
+	{{/content}}
+
+  {{#content "footer"}}
+    {{> "modules/footer/footer" props.modules.footerData}}
+    {{> "modules/back2top/back2top" props.modules.back2topData}}
+  {{/content}}
+{{/extend}}

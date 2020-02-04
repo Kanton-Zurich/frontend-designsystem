@@ -27,6 +27,12 @@ function getColorMap() {
     };
   });
 }
+const dateNow = new Date(Date.now());
+
+const strPad = (num) => {
+  const s = `0${num}`;
+  return s.substr(s.length - 2);
+};
 
 const env = parseArgs(process.argv.slice(2));
 const data = {
@@ -36,8 +42,8 @@ const data = {
       + '/src/' + git.long(),
     gitBranch: git.branch(),
     gitShort: git.short(),
-    gitDate: git.date(),
-    buildDate: Date(Date.now()).toString(),
+    gitDate: `${strPad(git.date().getDate())}.${strPad(git.date().getMonth() + 1)}.${git.date().getFullYear()}`,
+    buildDate: `${strPad(dateNow.getDate())}.${strPad(dateNow.getMonth() + 1)}.${dateNow.getFullYear()} ${strPad(dateNow.getHours())}:${strPad(dateNow.getMinutes())}`,
   },
   colors: getColorMap(),
   colorVariations: _.map(dataHelper.getColors('../assets/css/data/colorVariations.json'), (color) => {
@@ -46,6 +52,56 @@ const data = {
     return color;
   }),
   env,
+  wrappingElements: {
+    pageHeaderData: {
+      title: 'Seitenkopf',
+      homelink: '',
+      pageTitle: 'Living Styleguide',
+      breadcrumb: {
+        contextMenu: false,
+        path: [
+          {
+            title: 'Kanton Zürich',
+            href: '',
+          },
+        ],
+      },
+    },
+    contact: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Staatskanzlei',
+      contactAddress: {
+        street: 'Neumühlequai 10',
+        zip: '8090',
+        city: 'Zürich',
+        routeLinkHref: 'https://goo.gl/maps/aNPYTs5yN8ggd9vk9',
+        routeLinkLabel: 'Route anzeigen',
+        openingTimes: {
+          timeTitle: 'Bürozeiten',
+          times: [
+            { text: 'Mo-Fr: 8.00 - 11:30 &' },
+            { text: '13:30 - 17:00' },
+          ],
+        },
+      },
+      contactPhone: [{
+        anchorLabel: '043 259 11 11',
+        phoneNumer: '+41432591111',
+      }],
+      contactSubtitleMoreInfo: {
+        href: 'https://www.zh.ch/',
+        label: 'Mehr erfahren',
+      },
+      contactMail: {
+        address: 'info@sk.zh.ch',
+      },
+    },
+    footer: {
+      maintenance: true,
+      copyrightYear: new Date().getFullYear(),
+    },
+  },
   props: {
     svgSprites: JSON.stringify([
       '/assets/media/svgsprite/base.svg',

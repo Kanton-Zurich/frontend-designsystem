@@ -1,0 +1,199 @@
+.mdl-tax_calc {
+  $root: #{&};
+
+  @include sizeCurve(margin-bottom, big);
+  @include sizeCurve(margin-top, medium);
+
+  .mdl-accordion {
+    padding-bottom: 0;
+  }
+
+  &__form-block {
+    .mdl-tax_calc__form-block_item {
+      max-height: 0;
+      transition: max-height 800ms ease;
+
+      &--enabled {
+        max-height: 650px;
+      }
+
+      .form__section {
+        margin-bottom: 0;
+
+        .atm-radiobutton.hidden {
+          display: none;
+        }
+
+        .form__fieldset-error-message {
+          font-size: pxToRem($sizeFontTiny);
+          color: $colorWhite;
+        }
+
+        .invalid .form__fieldset-error-message {
+          padding-top: pxToRem(7px);
+          padding-bottom: pxToRem(5px);
+          height: auto;
+          opacity: 1;
+          transform: translateY(0) scaleY(1);
+        }
+      }
+
+      &.mdl-accordion {
+
+        &__item {
+          overflow: hidden;
+
+          &--open.mdl-accordion__item--transition-end {
+            overflow: visible;
+          }
+
+          .form__section {
+            padding: pxToRem($sizeRegular) 0;
+          }
+        }
+      }
+
+      .mdl-accordion__button {
+        .icon {
+          opacity: 1;
+          transition: opacity 400ms ease-in-out;
+        }
+      }
+
+      &--fixed {
+        .mdl-accordion__button {
+          pointer-events: none;
+          cursor: default;
+
+          .icon {
+            opacity: 0;
+          }
+        }
+      }
+    }
+
+    #{$root}__next-btn_container {
+      @include sizeCurve(padding-bottom, big);
+
+      .mdl-tax_calc__next-btn {
+        margin-top: pxToRem($sizeRegular);
+        float: right;
+        transition: opacity 400ms ease;
+
+        .atm-button__text {
+          display: none;
+        }
+
+        &--next .atm-button__text--next {
+          display: block;
+        }
+
+        &--calculate .atm-button__text--calculate {
+          display: block;
+        }
+
+        &--loading {
+          .atm-button__text {
+            opacity: 0;
+          }
+
+          .atm-loading_circle {
+            background: none;
+          }
+
+          .atm-loading_circle__spinner {
+            color: $colorWhite;
+          }
+        }
+      }
+
+      &:before {
+        height: 3px;
+        background: $colorBlack;
+        transition-delay: 400ms;
+        display: block;
+        content: ' ';
+        left: 0;
+        right: 0;
+        position: absolute;
+        margin-top: -3px;
+        transform: scaleY(1);
+      }
+    }
+
+    #{$root}__error {
+      @include transition(max-height, $time: 500);
+      @include sizeCurve(margin-top, biggerRegular);
+      @include sizeCurve(margin-bottom, biggerRegular);
+
+      max-height: 0;
+      overflow: hidden;
+    }
+  }
+
+  .mdl-instructions ol.mdl-instructions__list .mdl-instructions__item {
+    &#{$root}__result-block {
+      @include transition(max-height);
+
+      max-height: 0;
+      margin-top: 0;
+      opacity: 0;
+    }
+  }
+
+  &__toformbtn {
+    display: none;
+  }
+
+  &--result {
+    .mdl-instructions ol.mdl-instructions__list .mdl-instructions__item {
+      &#{$root}__result-block {
+        max-height: 2000px;
+        margin-top: pxToRem($sizeBiggerBig);
+        opacity: 1;
+      }
+    }
+
+    .mdl-table {
+      @include sizeCurve(margin-bottom, large);
+
+      &__row-header:not(.mdl-table__cell--highlighted) {
+        font-family: $fontFamilyBase;
+      }
+    }
+
+    #{$root}__toformbtn {
+      display: block;
+      position: fixed;
+      border-radius: 50%;
+      right: pxToRem($sizeRegular);
+      bottom: pxToRem($sizeLarge);
+      text-align: center;
+      z-index: 1000;
+    }
+  }
+
+  &__alert-connection-fail {
+    display: none;
+  }
+
+  &--connection-fail {
+    #{$root}__alert-connection-fail {
+      display: block;
+      margin-top: pxToRem($sizeGiant);
+    }
+
+    .mdl-instructions {
+      display: none;
+    }
+  }
+}
+
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-tax_calc__toformbtn {
+      background: #{$val};
+    }
+  }
+}

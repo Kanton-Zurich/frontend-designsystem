@@ -1,8 +1,13 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const defServiceBoxData = require('../service_box/service_box.data.js');
+const defInstructionsData = require('../instructions/instructions.data.js');
+const defApplicationData = require('../application/application.data.js');
+const defIFrameData = require('../iframe/iframe.data.js');
+const topiclist = require('../topiclist/topiclist.data');
+const organisationNavigation = require('../organisation_navigation/organisation_navigation.data');
+const search = require('../search/search.data');
 
 const template = dataHelper.getFileContent('modal.hbs');
 const data = _.merge({}, defaultData, {
@@ -10,13 +15,16 @@ const data = _.merge({}, defaultData, {
     title: 'Modal',
     className: 'Modal',
     jira: 'CZHDEV-517',
+    label: 'Container',
     documentation: dataHelper.getDocumentation('modal.md'),
   },
   props: {
-    defaultColorVariation: 'cv-green',
     preview: true,
+    mainNavigation: false,
     modules: {
-      serviceBoxData: defServiceBoxData.variants.default.props,
+      contentModules: [
+        () => handlebars.compile(dataHelper.getFileContent('../instructions/instructions.hbs'))(defInstructionsData.variants.serviceDemo.props),
+      ],
     },
   },
 });
@@ -29,6 +37,30 @@ const variants = _.mapValues({
     },
     props: {
       modalId: 'service-modal-01',
+      dynamicHeader: true,
+      modules: {
+        servicePageHeaderData: {
+          pageTitle: 'Führerausweis bestellen',
+          inverted: true,
+          hasImageTitle: false,
+          hasVideo: false,
+          hasImage: false,
+          hasBacklink: false,
+          hasBreadcrumb: false,
+          noButton: true,
+          noText: true,
+          hasCloseButton: true,
+        },
+      },
+    },
+  },
+  large: {
+    meta: {
+      title: 'Header Fix',
+      desc: '',
+    },
+    props: {
+      modalId: 'service-modal-011',
       modules: {
         servicePageHeaderData: {
           pageTitle: 'Führerausweis bestellen',
@@ -67,6 +99,107 @@ const variants = _.mapValues({
           hasCloseButton: true,
         },
       },
+    },
+  },
+  spa: {
+    meta: {
+      title: 'Single Page Application (CZHDEV-792, CZHDEV-533)',
+      desc: '',
+    },
+    props: {
+      modalId: 'service-modal-03',
+      fullWidthApp: handlebars.compile(dataHelper.getFileContent('../application/application.hbs'))(defApplicationData.variants.fullWidth.props),
+      modules: {
+        servicePageHeaderData: {
+          pageTitle: 'Applikation',
+          inverted: true,
+          hasImageTitle: false,
+          hasVideo: false,
+          hasImage: false,
+          hasBacklink: false,
+          hasBreadcrumb: false,
+          noButton: true,
+          noText: true,
+          minimal: true,
+          hasCloseButton: true,
+        },
+      },
+    },
+  },
+  iframe: {
+    meta: {
+      title: 'iFrame Modal (CZHDEV-533)',
+      desc: '',
+    },
+    props: {
+      modalId: 'service-modal-04',
+      fullWidthApp: handlebars.compile(dataHelper.getFileContent('../iframe/iframe.hbs'))(defIFrameData.variants.fullSize.props),
+      modules: {
+        servicePageHeaderData: {
+          pageTitle: 'IFrame',
+          inverted: true,
+          hasImageTitle: false,
+          hasVideo: false,
+          hasImage: false,
+          hasBacklink: false,
+          hasBreadcrumb: false,
+          noButton: true,
+          noText: true,
+          minimal: true,
+          hasCloseButton: true,
+        },
+      },
+    },
+  },
+  topicFlyout: {
+    meta: {
+      title: 'Flyout Themen',
+      desc: 'Das Modal welches in der Hauptnavigation genutzt wird.',
+    },
+    props: {
+      modalId: 'flyout-topics',
+      mainNavigation: true,
+      paging: true,
+      modules: {
+        contentModules: [
+          () => handlebars.compile(dataHelper.getFileContent('../topiclist/topiclist.hbs'))(topiclist.variants.topicsNav.props),
+          () => handlebars.compile(dataHelper.getFileContent('../organisation_navigation/organisation_navigation.hbs'))(organisationNavigation.variants.default.props),
+        ],
+      },
+    },
+  },
+  organisationFlyout: {
+    meta: {
+      title: 'Flyout Organisation',
+      desc: 'Das Modal welches in der Hauptnavigation genutzt wird.',
+    },
+    props: {
+      modalId: 'flyout-organisation',
+      mainNavigation: true,
+      modules: {
+        contentModules: [
+          () => handlebars.compile(dataHelper.getFileContent('../organisation_navigation/organisation_navigation.hbs'))(organisationNavigation.variants.default.props),
+        ],
+      },
+    },
+  },
+  searchFlyout: {
+    meta: {
+      title: 'Onsite Search',
+      desc: 'Das Modal mit der Suche',
+    },
+    props: {
+      modalId: 'flyout-search',
+      mainNavigation: true,
+      isSearch: true,
+      modules: {
+        contentModules: [
+          () => handlebars.compile(dataHelper.getFileContent('../search/search.hbs'))(search.variants.default.props),
+        ],
+      },
+      options: JSON.stringify({
+        transitionTime: 500,
+      }),
     },
   },
 }, (variant) => {

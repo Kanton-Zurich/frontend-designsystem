@@ -16,11 +16,15 @@
   &__title.atm-heading {
     margin-bottom: pxToRem($sizeTiny);
 
-    @include sizeCurve(padding-top, small);
+    @include sizeCurve(margin-top, big);
   }
 
   .mdl-context_menu {
     display: none;
+  }
+
+  &--margin-bottom {
+    @include sizeCurve(margin-bottom, big);
   }
 }
 

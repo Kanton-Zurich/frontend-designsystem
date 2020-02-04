@@ -13,10 +13,20 @@
   );
   $textHeightCurve: (
     tiny: $sizeFontRegular * $sizeLineHeightBase * $lineCountMobile ,
-    small: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountMobile,
+    xsmall: $sizeFontRegular * $sizeLineHeightBase * $lineCountMobile ,
+    small: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountDesktop,
     medium: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountDesktop ,
     large: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountDesktop,
     xlarge: $sizeFontMedium * $sizeLineHeightBase * $lineCountDesktop,
+  );
+
+  $titleHeightCurve: (
+    tiny: $sizeFontRegular * $sizeLineHeightBase * $lineCountMobile,
+    xsmall: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountMobile,
+    small: $sizeFontBiggerRegular * $sizeLineHeightMedium * $lineCountDesktop,
+    medium: $sizeFontBiggerRegular * $sizeLineHeightMedium * $lineCountDesktop,
+    large: $sizeFontBiggerRegular * $sizeLineHeightMedium * $lineCountDesktop,
+    xlarge: $sizeFontMedium * $sizeLineHeightMedium * $lineCountDesktop,
   );
 
   @include sizeCurve(margin-bottom, big);
@@ -34,9 +44,10 @@
     align-items: center;
     position: relative;
     margin-bottom: $sizeTiny;
+    width: 100%;
 
     @include sizeCurve(padding, itemPadding, $serviceListCurves);
-    @include mq($from: tiny, $to: xsmall) {
+    @include mq($from: tiny, $to: small) {
       display: block;
     }
 
@@ -46,6 +57,18 @@
         color: $colorBlack;
       }
     }
+
+    &-title {
+      line-height: $sizeLineHeightMedium;
+      margin-bottom: 0;
+      margin-right: $sizeTiny;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include mq($to: xsmall) {
+        line-height: $sizeLineHeightBase;
+      }
+      @include polyFluidSizing(max-height, $titleHeightCurve);
+    }
   }
 
   &__item-text {
@@ -54,7 +77,7 @@
     margin-right: $sizeTiny;
 
     @include polyFluidSizing(max-height, $textHeightCurve);
-    @include mq($from: tiny, $to: xsmall) {
+    @include mq($from: tiny, $to: small) {
       margin-right: 0;
       margin-bottom: $sizeRegular;
     }
@@ -63,8 +86,9 @@
   &__item-button {
     display: inline-flex;
     min-width: unset;
+    flex-shrink: 0;
 
-    @include mq($from: tiny, $to: xsmall) {
+    @include mq($from: tiny, $to: small) {
       margin-top: $sizeTiny;
     }
   }

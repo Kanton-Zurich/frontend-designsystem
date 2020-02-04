@@ -1,0 +1,25 @@
+{{#extend "layouts/layout"}}
+  {{#content "header"}}
+    {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
+  {{/content}}
+
+  {{#content "content"}}
+    {{> "modules/flex_data/flex_data" props.modules.flexDataData }}
+    <div class="mdl-richtext">
+      <p class="atm-paragraph">Regierungsratsbeschlüsse sind wie alle Dokumente, die bei der staatlichen Aufgabenerfüllung angefallen sind, seit 1. Oktober 2008 grundsätzlich öffentlich zugänglich. Nur in Ausnahmefällen, wo ein überwiegendes öffentliches oder privates Interesse entgegensteht, das nicht mit milderen Massnahmen wie Anonymisierung oder Abdeckung heikler Passagen gewahrt werden kann, stehen Regierungsratsbeschlüsse (wie alle anderen Dokumente der öffentlichen Verwaltung auch) der Öffentlichkeit nicht zur Verfügung.</p>
+      <p class="atm-paragraph">In seinem Beschluss Nr. 1981 vom 9. Dezember 2009 hat der Regierungsrat die Kategorien der nicht öffentlich zugänglichen Regierungsratsbeschlüsse sowie die Begründung für deren Nichtöffentlichkeit näher konkretisiert. So sind namentlich Personalangelegenheiten und Rechtsmittelentscheide (Rekurse, Aufsichtsbeschwerden usw.) nicht öffentlich. Immerhin werden solche Entscheide, sofern sie von allgemeinem Interesse sind, anonymisiert auf der Entscheiddatenbank www.zhentscheide.zh.ch publiziert.</p>
+      <p class="atm-paragraph">Die Staatskanzlei publiziert die freigegebenen Regierungsratsbeschlüsse (RRB) seit 1. Oktober 2008 auf dieser Website. Die Liste der RRB kann nach dem Publikationsdatum oder dem Sitzungsdatum je in auf- oder absteigender Reihenfolge sortiert werden. Die Veröffentlichung erfolgt, sobald die Beschlüsse ausgefertigt und den direkt betroffenen Adressaten zugestellt sind.</p>
+      <p class="atm-paragraph">Für die vor dem 1. Oktober 2008 gefassten, aber weniger als 30 Jahre alten Regierungsratsbeschlüsse ist ein Zugangsgesuch an die Staatskanzlei zu richten.</p>
+      <p class="atm-paragraph">Die über 30 Jahre alten Regierungsratsbeschlüsse sind zur dauernden Aufbewahrung ans Staatsarchiv übergegangen und können bis zum Jahr 1803 zurück online abgefragt werden. Im Volltext, soweit keine Datenschutzfristen mehr gelten, ansonsten nach dem Titel. Das Staatsarchiv ist auch zuständig für die Prüfung von Informationszugangsgesuchen in Bezug auf archivierte Dokumente.</p>
+    </div>
+    {{> "modules/contact/contact" props.modules.contactData}}
+    {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
+    {{> "modules/related_content/related_content" props.modules.releatedContentData}}
+    {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
+  {{/content}}
+
+  {{#content "footer"}}
+    {{> "modules/footer/footer" props.modules.footerData }}
+    {{> "modules/back2top/back2top" props.modules.back2topData}}
+  {{/content}}
+{{/extend}}

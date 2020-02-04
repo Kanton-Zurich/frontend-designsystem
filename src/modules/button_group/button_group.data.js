@@ -10,6 +10,7 @@ const data = _.merge({}, defaultData, {
     title: 'Button Group',
     className: 'ButtonGroup',
     jira: 'CZHDEV-206',
+    label: 'UI Element',
     documentation: dataHelper.getDocumentation('button_group.md'),
   },
   props: {

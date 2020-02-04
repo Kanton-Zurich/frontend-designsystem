@@ -9,6 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'iFrame',
     className: 'IFrame',
     jira: 'CZHDEV-481',
+    label: 'Eingebettet',
     documentation: dataHelper.getDocumentation('iframe.md'),
   },
   props: {
@@ -26,17 +27,39 @@ const variants = _.mapValues({
         title: 'This is the homepage of the Inside Solutions GmbH',
         level: 3,
       },
-      iframeSrc: 'https://www.one-inside.com/de/',
       iframeHeight: 600,
+      iframeSrc: 'https://inside-reality.com/',
       iframeTextLink: {
         icon: 'arrow-right',
         text: 'Inhalt in seperater Seite anzeigen',
         isInverted: false,
         hasLeadingIcon: false,
         hasTrailingIcon: true,
-        textLinkSrc: 'https://www.one-inside.com/de/',
+        textLinkSrc: 'https://inside-reality.com/',
         textLinkTargetBlank: true,
       },
+    },
+  },
+  fullSize: {
+    meta: {
+      title: 'Volle Grösse',
+      desc: '',
+    },
+    props: {
+      iframeSrc: 'https://www.one-inside.com/de/',
+      iframeFullSize: true,
+    },
+  },
+  small: {
+    meta: {
+      title: 'Schmal / Klein',
+      desc: '',
+    },
+    props: {
+      iframeSrc: 'https://www.one-inside.com/de/',
+      iframeFullSize: false,
+      iframeSmall: true,
+      iframeHeight: 600,
     },
   },
 }, (variant) => {

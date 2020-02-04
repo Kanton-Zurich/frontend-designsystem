@@ -5,18 +5,26 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import Impetus from 'impetus';
 
 class Tabs extends Module {
+  public ui: {
+    element: HTMLDivElement,
+    controls: HTMLDivElement,
+    controlButtons: HTMLUListElement,
+  };
   private tabs: HTMLElement[];
   private panels: HTMLElement[];
   private keys: any;
   private direction: any;
+  private impetus: any;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
     const defaultOptions = {
       domSelectors: {
-        // item: '[data-${{{className}}.name}="item"]'
+        controls: '.mdl-tabs__controls',
+        controlButtons: '.mdl-tabs__controls .mdl-button_group',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -33,10 +41,25 @@ class Tabs extends Module {
       39: 1,
     };
 
-    this.tabs = $element.querySelectorAll('[role="tab"]');
-    this.panels = $element.querySelectorAll('[role="tabpanel"]');
+    this.tabs = [].slice.call($element.querySelectorAll('[role="tab"]'));
+    this.panels = [].slice.call($element.querySelectorAll('[role="tabpanel"]'));
     this.initUi();
     this.initEventListeners();
+    this.checkURL();
+  }
+
+  /**
+   * Checks on initialization if the URL contains an tab-id as hash
+   * and if so open it via triggering a click on the tab
+   */
+  checkURL() {
+    const urlParameter = window.location.href.split('#')[1];
+
+    this.tabs.forEach((tab) => {
+      if (urlParameter === tab.id && tab.getAttribute('aria-selected') === 'false') {
+        tab.click();
+      }
+    });
   }
 
   /**
@@ -52,6 +75,40 @@ class Tabs extends Module {
         this.keyupEventListener(event);
       });
     });
+    // swipe
+    if (this.ui.controls && this.ui.controlButtons) {
+      this.updateSwipeFunction(0);
+      this.impetus = new Impetus({
+        source: this.ui.controls,
+        boundX: [-(Math.abs(this.ui.controlButtons.getBoundingClientRect().width
+          - this.ui.controls.getBoundingClientRect().width)), 0],
+        bounce: false,
+        multiplier: 1,
+        friction: 0,
+        update: this.updateSwipeFunction.bind(this),
+      });
+    }
+  }
+
+  private updateSwipeFunction(x) {
+    let translateX = x;
+    const clientWidth = this.ui.controlButtons.getBoundingClientRect().width;
+    const { width } = this.ui.controls.getBoundingClientRect();
+    if (width >= clientWidth) {
+      translateX = 0;
+    }
+    this.ui.controlButtons.style.transform = `translate(${translateX}px, 0px)`;
+
+    this.ui.controls.classList.remove('mdl-tabs__controls-scroll-right', 'mdl-tabs__controls-scroll-left');
+    if (clientWidth > width) {
+      const scrollValue = Math.abs(translateX) / (clientWidth - width);
+      if (scrollValue > 0.05) { // eslint-disable-line
+        this.ui.controls.classList.add('mdl-tabs__controls-scroll-right');
+      }
+      if (scrollValue < 0.95) { // eslint-disable-line
+        this.ui.controls.classList.add('mdl-tabs__controls-scroll-left');
+      }
+    }
   }
 
   private clickEventListener(event) {
@@ -103,6 +160,11 @@ class Tabs extends Module {
 
     tab.classList.remove('atm-button--secondary');
 
+    // URL reflection
+    if (tab.id && tab.id.length > 0) {
+      window.history.pushState({ tabZH: tab.id }, '', `#${tab.id}`);
+    }
+
     // Get the value of aria-controls (which is an ID)
     const controls = tab.getAttribute('data-tab-index');
 
@@ -114,6 +176,7 @@ class Tabs extends Module {
     if (setFocus) {
       tab.focus();
     }
+    this.dispatchVerticalResizeEvent();
   }
 
   // Deactivate all tabs and tab panels

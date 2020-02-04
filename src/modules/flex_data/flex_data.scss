@@ -1,0 +1,191 @@
+.mdl-flex-data {
+  $sortMinWidth: 280px;
+
+  @include sizeCurve(margin-top margin-bottom, big);
+
+  &--loading {
+    position: relative;
+    overflow: hidden;
+    height: $loadingMinHeight;
+  }
+
+  .mdl-flex-data__notification {
+    @include sizeCurve(margin-top, regular);
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  &__form {
+
+    .mdl-accordion {
+      padding-bottom: 0;
+
+      &__item:after {
+        display: none;
+      }
+
+      & + .mdl-flex-data__form-controls {
+        margin-top: 0;
+      }
+    }
+  }
+
+  &__form-controls {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: pxToRem($sizeLarge);
+    padding-top: pxToRem($sizeRegular);
+
+    border-top: 3px solid $colorBlack;
+
+    .atm-button {
+      margin-left: pxToRem($sizeTiny);
+
+      &.hidden {
+        opacity: 0;
+      }
+    }
+  }
+
+  .form__section {
+    .form__group {
+      .form__row:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  &__results {
+    @include sizeCurve(margin-bottom, big);
+    @include sizeCurve(margin-top, large);
+
+    position: relative;
+
+    &.initially-hidden {
+      display: none;
+    }
+
+    .mdl-flex-data__results-generic {
+      padding-bottom: $sizeLarge;
+    }
+
+    .mdl-flex-data__generic-sort {
+      min-width: $sortMinWidth;
+      text-align: right;
+      right: 0;
+
+      @include mq($from: tiny, $to: large) {
+        position: relative;
+      }
+      @include mq($from: large) {
+        top: pxToRem(-$sizeTiny);
+        position: absolute;
+      }
+
+      > span {
+        font-size: $sizeFontSmall;
+        color: $colorBlack60;
+      }
+
+      &-dropdown {
+        font-size: $sizeFontRegular;
+        padding-left: $sizeRegular;
+
+        .icon {
+          position: relative;
+          top: $sizeMini;
+        }
+      }
+
+      &.hidden {
+        display: none;
+      }
+
+      .mdl-context_menu {
+        right: 0;
+        display: none;
+        width: auto;
+
+        > div {
+          width: 100%;
+        }
+
+        button {
+          width: 100%;
+        }
+
+        &.visible {
+          display: flex;
+          z-index: 1;
+        }
+      }
+    }
+
+
+    .mdl-pagination {
+      &.hidden {
+        display: none;
+      }
+
+      margin-top: $sizeLarge;
+    }
+
+    .mdl-table {
+      &__table {
+        display: none;
+      }
+
+      &.visible {
+        .mdl-table__table {
+          display: table;
+        }
+      }
+
+      &--fullwidth {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      .mdl-table__row {
+        td {
+          &.mdl-table__cell {
+            padding: 12px;
+
+            .atm-text_link {
+              display: inline;
+              padding-bottom: 3px;
+            }
+          }
+
+          &:last-of-type {
+            white-space: nowrap;
+            word-break: keep-all;
+          }
+        }
+
+        &:hover {
+          td {
+            background-color: $colorBlack10;
+            cursor: pointer;
+
+            &.mdl-table__cell {
+              color: $colorBlack;
+
+              .atm-text_link {
+                color: $colorBlack;
+                border-color: $colorBlack;
+
+                .icon {
+                  fill: $colorBlack;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

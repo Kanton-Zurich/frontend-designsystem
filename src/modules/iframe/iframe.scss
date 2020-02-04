@@ -1,14 +1,61 @@
 .mdl-iframe {
-  @include gridBleed($fullwidth: true);
-  color: $colorBlack60;
 
-  iframe {
-    width: 100%;
-    border: 2px solid $colorBlack10;
-    margin-bottom: $sizeTiny;
+  &:not(.mdl-iframe--small) {
+    @include gridBleed($fullwidth: true);
   }
 
-  a {
+  color: $colorBlack60;
+  margin-top: pxToRem($sizeHuge);
+  margin-bottom: pxToRem($sizeHuge);
+
+  @include mq($from: xlarge) {
+    margin-top: pxToRem($sizeGiant);
+    margin-bottom: pxToRem($sizeGiant);
+  }
+
+  &__wrapper {
+    position: relative;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
+    margin-bottom: $sizeTiny;
+    border: 2px solid $colorBlack10;
+
+    // Hide scrollbar on wrapper in firefox
+    scrollbar-width: none;
+  }
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  &--fullWidth {
+    height: 100%;
+    position: fixed;
+    transform: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    left: 0;
+
+    iframe {
+      height: 100%;
+      position: relative;
+      border: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  .atm-text_link {
+    display: flex;
+    line-height: $sizeLineHeightSuper;
+    border: 0;
     color: inherit;
   }
 }

@@ -1,34 +1,59 @@
 {{#if preview}}
 <!-- Helper markup (do not include) -->
 <button class="atm-button atm-button--big"
-        onclick="document.querySelector('#{{modalId}}').dispatchEvent(new CustomEvent('Modal.open'))">Service anzeigen
+        onclick="document.querySelector('#{{modalId}}').dispatchEvent(new CustomEvent('Modal.open'))">Modal anzeigen
 </button>
 <!--  -->
 {{/if}}
 <!-- modal page content -->
-<div id="{{modalId}}" class="mdl-modal" data-init="modal">
-  <div class="lyt-wrapper">
-    <div class="grid-x grid-margin-x">
-      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-        <!-- modal header -->
-        {{> "modules/page_header/page_header" modules.servicePageHeaderData }}
+<div id="{{modalId}}" class="mdl-modal {{#if isSearch}}mdl-modal--search{{/if}} {{#if mainNavigation}}mdl-modal--flyout cv-monochrome print-hidden{{/if}} {{#if dynamicHeader}}mdl-modal--dynamicheader{{/if}}" aria-hidden="true" data-init="modal"
+  {{#if options}}data-modal-options="{{options}}"{{/if}}
+>
+  {{#if mainNavigation}}
+    <button class="mdl-modal__close" data-modal="close">
+      <span class="mdl-modal__close-label">Schliessen</span>
+      <svg focusable="false" class="icon mdl-modal__exit">
+        <use xlink:href="#exit"></use>
+      </svg>
+    </button>
+  {{/if}}
+  {{#unless mainNavigation}}
+    <div class="lyt-wrapper">
+      <div class="grid-x grid-margin-x">
+        <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+          <!-- modal header -->
+          {{> "modules/page_header/page_header" modules.servicePageHeaderData }}
+        </div>
       </div>
     </div>
-  </div>
-  <div class="lyt-wrapper">
-    <div class="grid-x grid-margin-x">
-      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-        <!-- modal content -->
-        {{> "modules/service_box/service_box" modules.serviceBoxData }}
+  {{/unless}}
+  {{#unless fullWidthApp}}
+    {{#if paging}}<div class="mdl-modal__pages">{{/if}}
+    {{#each modules.contentModules}}
+      {{#if ../paging}}<div class="mdl-modal__pages-page">{{/if}}
+      <div class="lyt-wrapper">
+        <div class="grid-x grid-margin-x">
+          <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+            <!-- modal content -->
+                {{{this}}}
+          </div>
+        </div>
+      </div>
+      {{#if ../paging}}</div>{{/if}}
+    {{/each}}
+    {{#if paging}}</div>{{/if}}
+  {{/unless}}
+  {{#if fullWidthApp}}
+    {{{fullWidthApp}}}
+  {{/if}}
+  {{#unless mainNavigation}}
+    <div class="lyt-wrapper">
+      <div class="grid-x grid-margin-x">
+        <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+          <!-- modal footer -->
+        </div>
       </div>
     </div>
-  </div>
-  <div class="lyt-wrapper">
-    <div class="grid-x grid-margin-x">
-      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-        <!-- modal footer -->
-      </div>
-    </div>
-  </div>
+  {{/unless}}
 </div>
 

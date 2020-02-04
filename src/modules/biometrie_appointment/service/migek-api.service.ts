@@ -211,9 +211,21 @@ class MigekApiService {
       const v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
       return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || '0', 10)];
     }
+    if (this.isIpadOS()) {
+      const v = (navigator.appVersion).match(/Version\/(\d+).(\d+).?(\d+)?/);
+      return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || '0', 10)];
+    }
     return undefined;
   }
 
+  /**
+   * Method to check for new gen. IPads version (which can not be detected by "navigator.platform")
+   */
+  private isIpadOS() {
+    // eslint-disable-next-line no-magic-numbers
+    return navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform);
+  }
+  
   public logoutReset(): void {
     this.bearerStr = undefined;
     this.currentAppointment = undefined;

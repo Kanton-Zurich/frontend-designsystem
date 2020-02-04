@@ -1,0 +1,74 @@
+.mdl-stepper {
+  opacity: 0;
+
+  @include sizeCurve(padding-bottom, medium);
+
+  &--initialised {
+    opacity: 1;
+
+    @include transition(opacity, $transitionTimeFade);
+  }
+
+  &__wrapper {
+    position: relative;
+  }
+
+  &__step {
+    transition: transform $transitionTimeAreaLarge $transitionEasingDefault;
+
+    background: $colorWhite;
+
+    z-index: 2;
+    opacity: 1;
+
+    &--hidden {
+      display: none;
+      opacity: 1;
+    }
+  }
+
+  &__control {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: pxToRem($sizeLarge);
+    padding-top: pxToRem($sizeRegular);
+
+    border-top: 3px solid $colorBlack;
+
+    .mdl-stepper__next,
+    .mdl-stepper__send {
+      margin-left: pxToRem($sizeTiny);
+    }
+  }
+
+  &__back,
+  &__send {
+    display: none;
+  }
+
+  .atm-notification {
+    margin-top: pxToRem($sizeLarge);
+    margin-bottom: pxToRem($sizeLarge);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__remark {
+    font-size: pxToRem($sizeFontSmall);
+    line-height: $sizeLineHeightBigger;
+
+    color: $colorBlack60;
+  }
+
+  &__last-page-info {
+    display: none;
+
+    .mdl-stepper--last-page & {
+      display: block;
+    }
+  }
+}
+

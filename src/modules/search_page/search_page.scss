@@ -1,0 +1,79 @@
+.mdl-search_page {
+  @include sizeCurve(padding-bottom, big);
+
+  &--loading {
+    position: relative;
+
+    height: 100px;
+    max-height: 100px;
+
+    overflow: hidden;
+  }
+
+  &__results-head {
+    @include sizeCurve(margin-bottom, medium);
+  }
+
+  &__form {
+    @include sizeCurve(padding-bottom, regular);
+  }
+
+  &__date-filter {
+    display: none;
+
+    &--visible {
+      display: block;
+    }
+  }
+
+  &__results-wrapper {
+    @include sizeCurve(margin-top, medium);
+  }
+
+  &__counter {
+    font-size: pxToRem($sizeFontTiny);
+    font-family: $fontFamilyBlack;
+    display: block;
+
+    @include sizeCurve(margin-bottom, small);
+  }
+
+  &__results {
+    @include sizeCurve(padding-bottom, small);
+
+    .mdl-service_list__item-title {
+      color: $colorBlack;
+    }
+  }
+
+  &__list {
+    @include resetList;
+  }
+
+  &__tag-group {
+
+    margin-top: -$sizeMini;
+  }
+
+  &__autocorrect {
+    display: none;
+  }
+
+  .atm-button--tag {
+    font-size: $sizeFontSmall;
+  }
+
+  .atm-radiobutton {
+    margin-top: $sizeMini;
+  }
+
+  &--show-results {
+    .mdl-search__autosuggest {
+      display: none;
+    }
+  }
+
+  /**
+   * SPECIAL STYLES FOR THE RESULTS ITEMS
+   */
+}

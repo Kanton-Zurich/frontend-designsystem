@@ -1,0 +1,54 @@
+$back2TopDiameter: $sizeSmallHuge;
+$back2TopIconsSize: $sizeLarge;
+
+$langSwitchOffsetHeight: 90px;
+
+$back2topMarginCurve: (
+  default: (
+    tiny: $sizeLarge,
+    small: $sizeBig,
+    medium: $sizeBig,
+    large: $sizeBiggerBig,
+    xlarge: $sizeSmallHuge,
+  )
+);
+
+.mdl-back2top {
+  @include sizeCurve(right bottom, default, $back2topMarginCurve);
+
+  position: fixed;
+  z-index: $zIndexFlyouts;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+
+  &__icon {
+    border-radius: 50%;
+    overflow: hidden;
+    transition: all 800ms ease;
+    margin-bottom: pxToRem(-$back2TopDiameter);
+    margin-top: 0;
+  }
+
+  &--unlocked {
+    pointer-events: auto;
+    height: pxToRem($back2TopDiameter);
+    transition: height, bottom 1200ms, 800ms ease;
+
+    .mdl-back2top__icon {
+      margin-bottom: 0;
+    }
+
+    &.mdl-back2top--scrolled-on {
+      height: pxToRem($back2TopDiameter);
+
+      .mdl-back2top__icon {
+        margin-top: pxToRem(-$back2TopDiameter);
+      }
+    }
+  }
+
+  &--preserveLangSwitch {
+    bottom: pxToRem($langSwitchOffsetHeight + $sizeBiggerBig);
+  }
+}

@@ -1,0 +1,134 @@
+.mdl-lang-switch {
+  @include gridBleed($fullwidth: true);
+  background: $colorWhite;
+  box-shadow: 0 0 $sizeBig rgba(0, 0, 0, 0.16);
+
+  .atm-heading {
+    display: none;
+    font-family: $fontFamilyBlack;
+    font-size: pxToRem($sizeFontTiny);
+    line-height: $sizeLineHeightBase;
+  }
+
+  &__content {
+    display: flex;
+    width: 100%;
+    padding: pxToRem($sizeSmallRegular) 0;
+    align-items: center;
+
+    .mdl-select {
+      flex-grow: 1;
+    }
+  }
+
+  &__close {
+    margin-left: pxToRem($sizeSmallRegular);
+    position: relative;
+    width: pxToRem($sizeLarge);
+    height: pxToRem($sizeLarge);
+
+    span {
+      display: none;
+      font-size: pxToRem($sizeFontRegular);
+      line-height: $sizeLineHeightBase;
+    }
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.6253);
+    }
+
+    use {
+      fill: $colorBlack60;
+    }
+  }
+
+  &__list {
+    @include resetList;
+    display: none;
+
+    li {
+      display: inline-flex;
+
+      &:first-of-type {
+        .atm-anchorlink {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  &--fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    margin-left: 0;
+    z-index: $zIndexScaffolds;
+  }
+
+  @include mq($from: medium) {
+
+    &__content {
+      padding: 0;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .atm-heading {
+      margin-bottom: 0;
+      padding-top: pxToRem($sizeRegular);
+    }
+
+    .mdl-select {
+      display: none;
+    }
+
+    .atm-heading,
+    &__list {
+      display: block;
+    }
+
+
+    &__close {
+      width: auto;
+      height: pxToRem($sizeBig);
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+
+      span {
+        display: inline-flex;
+        margin-right: pxToRem($sizeTiny);
+      }
+
+      .icon {
+        left: 100%;
+        transform: translateY(-50%) scale(0.625);
+      }
+    }
+  }
+}
+/*
+  * COLOR VARIATIONS
+   */
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-lang-switch {
+      .atm-anchorlink--active {
+        color: #{$val};
+
+        &:after {
+          background-color: #{$val};
+        }
+      }
+    }
+  }
+}
+

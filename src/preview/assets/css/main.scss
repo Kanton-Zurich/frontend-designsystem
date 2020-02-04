@@ -11,7 +11,8 @@
 // Lesson learned, OrT: browsers decided to reduce font size from 16px to 13px when the font applied is the fallbacked monospace.
 // Solution: declare monospace and then give it another fallback.
 // http://meyerweb.com/eric/thoughts/2010/02/12/fixed-monospace-sizing/
-$sg_font: Helvetica, serif;
+$sg_font: "HelveticaNowRegular", Helvetica, serif;
+$sg_font_black: "HelveticaNowBlack", Helvetica, serif;
 
 $sg_breakpoint: 1480px;
 $sg_marginsBoxed: 20px;
@@ -68,6 +69,38 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     @include sgBoxed;
   }
 
+  .sg_code {
+
+    &--collapsible {
+      max-height: 33px;
+      overflow: hidden;
+    }
+
+    &--show {
+      max-height: 100%;
+      overflow: scroll;
+    }
+
+    &__button {
+      position: absolute;
+      right: 0;
+      margin: 5px;
+    }
+  }
+
+  .lyt-wrapper {
+    .sg_h2,
+    .sg_h3,
+    .sg_documentation,
+    .sg_code,
+    .sg_variant_meta,
+    .sg_tests,
+    .sg_revisioninfo {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
   .sg_title {
     @include sgBoxedMargins;
 
@@ -85,17 +118,17 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   .sg_h2,
   .sg_h3,
   .sg_h4 {
-    font-weight: 600;
-  }
-
-  .sg_h2,
-  .sg_h3,
-  .sg_h4 {
-    font-family: $sg_font;
+    font-family: $sg_font_black;
   }
 
   .sg_h2 {
-    font-size: pxToEm(25px);
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+    @include mq($to: small) {
+      line-height: $sizeLineHeightMedium;
+    }
+    @include mq($from: xlarge) {
+      line-height: $sizeLineHeightNarrower;
+    }
   }
 
   .sg_index_header {
@@ -131,6 +164,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
     h4 {
       margin-top: 0;
+      font-family: $sg_font_black;
     }
   }
 }
@@ -151,22 +185,41 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
   .labels {
     @include clearfix;
-    @include sgBoxed;
 
-    border-bottom: 1px solid $sg_colorLightGray;
-    border-top: 1px solid $sg_colorLightGray;
+    margin-top: pxToRem(24px);
 
     & > label {
       display: inline-block;
       padding: 8px 18px;
+      margin: 2px;
+    }
+  }
+
+  .preview-separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: $colorBlack40;
+
+    &:before,
+    &:after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px dashed $colorBlack40;
+    }
+
+    &:before {
+      margin-right: .25em;
+    }
+
+    &:after {
+      margin-left: .25em;
     }
   }
 
   /*
    * Functionality
    */
-
-
   .tab_trigger {
     @include visuallyhidden;
   }
@@ -188,8 +241,8 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     }
 
     .tab_trigger:nth-child(#{$i}):checked ~ .labels > label:nth-child(#{$i}) {
-      background-color: $bgcolorActive;
-      font-weight: bold; //stylelint-disable-line
+      background-color: #000;
+      color: #FFF;
     }
 
     /* .tab_trigger:nth-child(#{$i}):focus ~ .labels > label:nth-child(#{$i}) {
@@ -219,8 +272,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   .sg_icons &,
   .sg_module & {
     @include clearfix;
-
-    margin-bottom: pxToEm(70px);
   }
 
   .sg_colors &,
@@ -235,38 +286,48 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
   .cv-labels {
     @include clearfix;
-    @include sgBoxed;
 
-    border-bottom: 1px solid $sg_colorLightGray;
-    border-top: 1px solid $sg_colorLightGray;
+    display: flex;
+    margin-bottom: pxToRem(24px);
+    margin-top: pxToRem(16px);
 
     & > label {
       //border-radius: 4px 4px 0 0;
       display: inline-block;
       padding: 8px 18px;
+      margin: 2px;
     }
   }
 
   .color_trigger {
     @include visuallyhidden;
 
+    + label {
+      border-radius: 15px;
+      width: 30px;
+      height: 30px;
+      border: 0px solid #000;
+      padding: 0;
+    }
+
     &:checked + label {
       background-color: $bgcolorActive;
-      font-weight: bold; //stylelint-disable-line
+      font-family: $sg_font_black;
     }
 
     @each $key, $val in $tl-color-variations {
       &.#{$key} {
         + label {
-          color: $val;
+          background-color: $val
         }
 
         &:checked + label {
-          background-color: rgba($val, 0.07);
+          border-width: 3px;
         }
 
         &:disabled + label {
-          color: $sg_colorLightGray;
+          border-color: #CCC;
+          background-color: #FFF;
         }
       }
     }
@@ -298,15 +359,84 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   max-width: none;
 }
 
+.sg_topiclist {
+  margin-top: 0;
+}
+
 .sg_documentation {
 
-  th {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  th
+  {
+    font-family: "HelveticaNowBlack", Helvetica, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    &.sg_flat_font {
+      font-family: "HelveticaNowRegular", Helvetica, sans-serif;
+    }
+  }
+
+
+  h1 {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, huge));
+    @include sizeCurve('margin-bottom', medium);
+    @include mq($from: medium) {
+      line-height: $sizeLineHeightNarrower;
+    }
+  }
+
+  h2 {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+    @include sizeCurve('padding-top', regular);
+    @include sizeCurve('margin-bottom', regular);
+    @include mq($to: small) {
+      line-height: $sizeLineHeightMedium;
+    }
+    @include mq($from: xlarge) {
+      line-height: $sizeLineHeightNarrower;
+    }
+}
+
+  h3 {
+    line-height: $sizeLineHeightMedium;
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
+    @include sizeCurve('padding-top', small);
+    @include sizeCurve('margin-bottom', mini);
+    @include mq($from: xlarge) {
+      line-height: $sizeLineHeightNarrow;
+    }
+  }
+
+  h4,
+  h5,
+  h6 {
+    line-height: $sizeLineHeightMedium;
+    margin-bottom: 0;
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+    @include mq($to: xsmall) {
+      line-height: $sizeLineHeightBase;
+    }
+  }
+
+
+  th:not(.mdl-table__cell) {
     border-bottom: 1px solid $sg_colorLightGray;
     text-align: left;
   }
 
-  th,
-  td {
+  th:not(.mdl-table__cell) ,
+  td:not(.mdl-table__cell)  {
     border-left: 1px solid $sg_colorLightGray;
     padding: 0.2em 0.5em;
 
@@ -323,10 +453,109 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   }
 
   pre {
+    overflow: scroll;
 
     code {
+      overflow: auto;
       display: block;
       padding: 0.5em;
+    }
+  }
+
+  p {
+    margin-top: 0;
+    line-height: $sizeLineHeightBase;
+    color: rgba($colorBlack, 0.6);
+    hyphens: auto;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid $colorBlue;
+
+      &:hover {
+        color: $colorBlack;
+        border-color: $colorBlack;
+      }
+    }
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+    @include sizeCurve('margin-bottom', regular);
+  }
+
+  ul:not(.mdl-content_nav__list) {
+    margin: 0;
+    list-style: none;
+    color: rgba(0, 0, 0, 0.6);
+
+    @include sizeCurve('padding-left', list, $indentCurve);
+    @include sizeCurve('margin-bottom', regular);
+
+    li {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+
+      margin-bottom: 1em;
+      position: relative;
+
+      &:before {
+        position: absolute;
+        content: '\2013';
+
+        @include sizeCurve('margin-left', list, $indentCurve, $isNegative: true);
+      }
+
+      ul li:first-child {
+        padding-top: 1em;
+      }
+    }
+  }
+  ol {
+    $listSpacings: (
+      top: (
+        tiny: 0,
+        medium: 4px,
+        xlarge: 8px
+      ),
+      bottom: (
+        tiny: 12px,
+        xlarge: 16px
+      ),
+      containerBottom: (
+        tiny: 8px,
+        medium: 12px,
+        xlarge: 16px
+      )
+    );
+
+    margin: 0;
+    padding-left: $sizeBig;
+    list-style: none;
+    counter-reset: ol-counter;
+    color: rgba(0, 0, 0, 0.6);
+
+    @include sizeCurve('margin-bottom', containerBottom, $listSpacings);
+    @include sizeCurve('padding-left', benefits, $indentCurve);
+    @include mq($from: tiny, $to: medium) {
+      padding-top: 0;
+    }
+
+    li {
+      counter-increment: ol-counter;
+      position: relative;
+      margin-bottom: 0;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include sizeCurve('padding-top', top, $listSpacings);
+      @include sizeCurve('padding-bottom', bottom, $listSpacings);
+
+      &:before {
+        position: absolute;
+        content: counter(ol-counter, decimal-leading-zero);
+        font-family: $fontFamilyBlack;
+        color: $colorBlack;
+
+        @include sizeCurve('margin-left', benefits, $indentCurve, true);
+      }
     }
   }
 }
@@ -352,8 +581,13 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   }
 
   .sg_h2 {
-    margin: 0;
-    font-size: pxToEm(25px, 14px);
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+    @include mq($to: small) {
+      line-height: $sizeLineHeightMedium;
+    }
+    @include mq($from: xlarge) {
+      line-height: $sizeLineHeightNarrower;
+    }
   }
 
   a {
@@ -385,21 +619,48 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
       flex-basis: 30%;
     }
   }
+}
 
-  .sg_jira-link {
-    background: #dfe1e6;
-    border: 1px solid #dfe1e6;
-    border-radius: 3px;
-    display: inline-block;
-    font-size: 11px;
-    font-weight: bold;
-    line-height: 99%;
-    margin: 0;
-    padding: 2px 5px;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-  }
+.sg_jira-link {
+  background: #dfe1e6;
+  border: 1px solid #dfe1e6;
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 11px;
+  font-family: $sg_font_black;
+  line-height: 15px;
+  margin: 0;
+  padding: 2px 5px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.sg_filter-frame {
+  border: 1px solid #BBB;
+  padding: 5px;
+  border-radius: 5px;
+   > div {
+     label {
+       width: 19%;
+       margin: 1px;
+     }
+   }
+}
+
+.sg_group-label {
+  background: #dfe1e6;
+  border: 1px solid #dfe1e6;
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 11px;
+  font-family: $sg_font_black;
+  line-height: 15px;
+  margin: 0;
+  padding: 2px 5px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 // Lists on index page
@@ -416,7 +677,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   .sg_h2,
   .sg_h3,
   .sg_h4 {
-    margin-top: 2em;
+    margin-top: 1em;
   }
 
   .sg_inner_wrapper {
@@ -469,7 +730,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 // Preview: Colors page
 // ----------------------------------------------------------------------------------------------------
 .sg_palette {
-  float: left;
   background-color: #fff;
   box-shadow: 0 1px 1px 0 rgba(200, 200, 200, 0.3);
 
@@ -492,11 +752,24 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     }
   }
 
+  &__container {
+    display: block;
+    margin-bottom: 80px;
+  }
+
   /* Square */
   &.sg_palette--rect {
-    margin: 40px;
-    width: 300px;
+    margin-right: 1%;
     height: 200px;
+    min-width: 100%;
+    @include mq($from: xsmall, $to: large) {
+      min-width: 48%;
+    }
+    @include mq($from: large) {
+      min-width: 29%;
+    }
+    display: inline-block;
+    margin-bottom: pxToRem(32px);
 
     .sg_palette-color {
       height: 140px;
@@ -525,12 +798,22 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 
           div {
             box-sizing: border-box;
-            font-weight: 900;
+            font-family: $sg_font;
             float: right;
             width: 48px;
             height: 70px;
             line-height: 20px;
             padding: 25px 8px;
+
+            &.cv-font-bold {
+              font-family: $fontFamilyBlack;
+
+              &:after {
+                left: 8px;
+                font-family: $sg_font;
+              }
+            }
+
 
             &:first-child {
               color: #fff;

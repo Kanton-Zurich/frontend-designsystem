@@ -1,7 +1,8 @@
 .mdl-linklist {
-  @include sizeCurve(margin-bottom, regular);
+  @include sizeCurve(margin-bottom, big);
 
   &__title {
+    @include sizeCurve(margin-top, big);
     @include sizeCurve(margin-bottom, tiny);
   }
 

@@ -1,0 +1,59 @@
+<div class="mdl-stepper" data-init="stepper">
+  {{#if title}}<h2 class="atm-heading">{{title}}</h2>{{/if}}
+
+  {{#if navigation}}
+    {{> "modules/stepper_navigation/stepper_navigation" navigation}}
+  {{/if}}
+  <form class="form" data-stepper="form" novalidate action="{{action}}">
+    <div class="mdl-stepper__wrapper form" data-stepper="wrapper" {{#if overlayId}}data-overlay-id="{{overlayId}}"{{/if}}>
+      {{#each steps}}
+        <div class="mdl-stepper__step" data-stepper="step" data-step-index="{{@index}}" {{#if rules}}data-rules="{{rules}}"{{/if}}>
+          <div data-stepper="ruleNotificationWrapper"></div>
+          {{> "modules/form/form" this}}
+        </div>
+      {{/each}}
+
+      <div class="mdl-stepper__step" data-stepper="step">
+      {{> "atoms/notification/notification" confirmation}}
+      </div>
+    </div>
+
+    <div class="mdl-stepper__last-page-info" data-stepper="lastpage">
+      {{#if toggle}}
+        {{> "atoms/toggle/toggle" toggle}}
+        {{> "atoms/form_input/form_input" replyTo}}
+      {{/if}}
+      {{#if remark}}<div class="mdl-stepper__remark">
+        {{{remark}}}
+      </div>{{/if}}
+    </div>
+  </form>
+
+
+  <div class="mdl-stepper__message"
+    data-stepper="messageWrapper"
+    data-singular-text="Bitte kontrollieren Sie Ihre Angabe für das Feld <%= list %>."
+    data-plural-text="Bitte kontrollieren Sie Ihre Angaben für die folgenden Felder: <%= list %>"
+    data-error-text="Da ist leider etwas schief gegangen! Ihre Angaben konnten leider nicht übermittelt werden. Es tut uns leid. Bitte probieren Sie es erneut oder melden Sie sich bei: Tel.: [XX]"
+  >
+    <script data-stepper="notificationTemplate" type="text/x-handlebars-template">
+      {{{notificationTemplate}}}
+    </script>
+
+  </div>
+
+  <script type="text/x-handlebars-template" data-stepper="ruleNotification">
+    {{> "atoms/notification/notification" ruleNotification}}
+  </script>
+
+  <div class="mdl-stepper__control" data-stepper="control">
+    <button class="atm-button atm-button--secondary mdl-stepper__back" data-stepper="back">Zurück</button>
+    <button class="atm-button mdl-stepper__next" data-stepper="next">Weiter</button>
+    <button class="atm-button mdl-stepper__send" data-stepper="send">
+      <span class="atm-button__text ">
+        Senden
+      </span>
+      <span class="atm-button__spinner"></span>
+    </button>
+  </div>
+</div>

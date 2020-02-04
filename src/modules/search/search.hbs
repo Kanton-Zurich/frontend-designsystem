@@ -1,0 +1,27 @@
+<div class="mdl-search cv-monochrome" data-search-options="{{options}}" data-init="search">
+  <div class="mdl-search__head">
+    <svg class="icon mdl-search__icon">
+      <use xlink:href="#search"></use>
+    </svg>
+    <form novalidate data-search="form" method="GET" action="{{searchPageUrl}}">
+      <label class="visuallyhidden" for="query">Suchbegriff</label>
+      <input class="mdl-search__input atm-form_input" type="text" data-search="input" name="q" id="q" placeholder="Suchbegriff" autocomplete="new-password"/>
+    </form>
+  </div>
+  <div class="mdl-tag-group mdl-search__tag-group">
+    <h2 class="atm-heading">Meist gesucht</h2>
+    <ul class="mdl-tag-group__tags">
+      {{#each anchorlinks}}
+        <li>
+          {{> "atoms/anchorlink/anchorlink" this}}
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+
+  {{> "modules/content_nav/content_nav" contentNav}}
+
+  <script data-search="autosuggestTemplate" type="text/x-handlebars-template">
+      {{{ autosuggestTemplate }}}
+  </script>
+</div>

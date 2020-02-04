@@ -169,8 +169,22 @@ class ContextMenu extends Module {
 
     if (contextMenuRightPoint > document.documentElement.clientWidth) {
       const variableAmount = 10;
+      let pullLeft = contextMenuRightPoint
+        - document.documentElement.clientWidth
+        + variableAmount;
 
-      this.data.copiedNode.style.transform = `translateX(-${contextMenuRightPoint - document.documentElement.clientWidth + variableAmount}px)`;
+      if (this.data.copiedNode.clientWidth >= document.documentElement.clientWidth) {
+        this.data.copiedNode.style.maxWidth = '90vw';
+
+        const leftPoint = this.data.copiedNode.getBoundingClientRect().left;
+
+        if (leftPoint < 0) {
+          const pullRight = leftPoint * -1 + variableAmount;
+          pullLeft += pullRight;
+        }
+      }
+
+      this.data.copiedNode.style.transform = `translateX(-${pullLeft}px)`;
     }
   }
 
@@ -180,7 +194,7 @@ class ContextMenu extends Module {
    * @memberof ContextMenu
    */
   closeOther() {
-    const activeContextMenus = document.querySelectorAll(`.${this.options.stateClasses.active}`);
+    const activeContextMenus = [].slice.call(document.querySelectorAll(`.${this.options.stateClasses.active}`));
 
     activeContextMenus.forEach((actMenu) => {
       actMenu.dispatchEvent(new CustomEvent('hide'));
@@ -234,7 +248,7 @@ class ContextMenu extends Module {
       .on('toggle', this.toggle.bind(this));
 
     if (!this.options.customTrigger) {
-      this.options.trigger.addEventListener('click', this.show.bind(this));
+      this.options.trigger.addEventListener('click', this.toggle.bind(this));
     }
 
     (<any>WindowEventListener).addDebouncedResizeListener(() => {

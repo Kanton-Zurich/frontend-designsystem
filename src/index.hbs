@@ -1,94 +1,16 @@
 {{#extend "preview/layouts/layout"}}
+  {{#content "header"}}
+    {{> "modules/page_header/page_header" wrappingElements.pageHeaderData}}
+  {{/content}}
 	{{#content "content"}}
-		<div class="sg_index">
-
-			{{#if atoms}}
-				<div class="sg_inner_wrapper">
-					<h2 class="sg_h2">Atome</h2>
-
-					<ul class="sg_index_list">
-						{{#each atoms}}
-							{{#unless meta.hideFromListing}}
-								<li>
-                  <a class="atm-text_link" href="{{meta.previewUrl}}">
-                    {{meta.title}}
-                  </a>
-                  {{#if meta.jira}}
-                    <a class="sg_jira-link" href="https://we.one-inside.com/jira/browse/{{meta.jira}}">
-                    {{meta.jira}}
-                  </a>
-                  {{/if}}
-                  {{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
-								</li>
-							{{/unless}}
-						{{/each}}
-					</ul>
-				</div>
-			{{/if}}
-
-			{{#if modules}}
-				<div class="sg_inner_wrapper">
-					<h2 class="sg_h2">Module</h2>
-
-					<ul class="sg_index_list">
-						{{#each modules}}
-							{{#unless meta.hideFromListing}}
-								<li>
-									<a class="atm-text_link"  href="{{meta.previewUrl}}">
-										{{meta.title}}
-									</a>
-									{{#if meta.jira}}
-                                       <a class="sg_jira-link" href="https://we.one-inside.com/jira/browse/{{meta.jira}}">
-											{{meta.jira}}
-										</a>
-									{{/if}}
-									{{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
-								</li>
-							{{/unless}}
-						{{/each}}
-					</ul>
-				</div>
-			{{/if}}
-
-			{{#if pages}}
-				<div class="sg_inner_wrapper">
-					<h2 class="sg_h2">Seitentypen</h2>
-
-					<ul class="sg_index_list">
-						{{#each pages}}
-							{{#unless meta.hideFromListing}}
-								<li>
-									<a class="atm-text_link" href="{{meta.previewUrl}}">{{meta.title}}</a>
-									{{#if meta.jira}}
-                                        <a class="sg_jira-link" href="https://we.one-inside.com/jira/browse/{{meta.jira}}">
-											{{meta.jira}}
-										</a>
-									{{/if}}
-									{{#if meta.feature}} &mdash; {{meta.feature}}{{/if}}
-								</li>
-							{{/unless}}
-						{{/each}}
-					</ul>
-				</div>
-			{{/if}}
-
-			{{#if styleguide}}
-				<div class="sg_inner_wrapper">
-					<h2 class="sg_h2">Styleguide</h2>
-
-					<ul class="sg_index_list">
-						{{#each styleguide}}
-							{{#unless meta.hideFromListing}}
-								<li>
-									<a class="atm-text_link" href="{{meta.previewUrl}}">
-										{{meta.title}}
-									</a>
-								</li>
-							{{/unless}}
-						{{/each}}
-					</ul>
-				</div>
-			{{/if}}
-		</div>
+    <div class="lyt-wrapper">
+      <div class="grid-x grid-margin-x">
+        <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+          {{#if mainMenu}}
+            {{> "modules/topiclist/topiclist" mainMenu }}
+          {{/if}}
+        </div>
+      </div>
+    </div>
 	{{/content}}
 {{/extend}}
