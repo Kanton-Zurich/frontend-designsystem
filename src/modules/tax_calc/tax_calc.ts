@@ -665,7 +665,7 @@ class TaxCalc extends Module {
     this.log('Form Exception: ', exceptionStr);
     this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.disabled);
 
-    this.ui.apiErrorNotification.querySelector<HTMLSpanElement>('span')
+    this.ui.apiErrorNotification.querySelector<HTMLSpanElement>('p')
       .innerHTML = exceptionStr;
     const height = this.getContentHeight(this.ui.apiErrorNotification);
     this.ui.apiErrorNotification.style.maxHeight = `${height}px`;
