@@ -156,8 +156,8 @@ class Topiclist extends Module {
    */
   showAll() {
     this.ui.element.classList.add(this.options.stateClasses.expanded);
-
     this.ui.showAllButton.style.display = 'none';
+    window.dispatchEvent(new CustomEvent('reloadLineClamper'));
   }
 
   /**
@@ -184,6 +184,7 @@ class Topiclist extends Module {
 
     this.ui.element.classList.remove(this.options.stateClasses.filtered);
     this.ui.showAllButton.style.display = 'none';
+    window.dispatchEvent(new CustomEvent('reloadLineClamper'));
   }
 
   /**
@@ -229,7 +230,7 @@ class Topiclist extends Module {
 
     middleSection.forEach((topic) => {
       this.renderContentTeaser(this.ui.navigation, {
-        shortTitle: topic.title,
+        shortTitle: topic.shortTitle,
         buzzwords: topic.keywords,
         target: Object.prototype.hasOwnProperty.call(topic, 'subpages') ? '' : topic.path,
       }, Object.prototype.hasOwnProperty.call(topic, 'subpages'),
