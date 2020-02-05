@@ -131,7 +131,8 @@ const data = {
       },
       {
         path: '/content/zhweb/de/wirtschaft-arbeit.html',
-        title: 'Wirtschaft & Arbeit',
+        title: 'Wirtschaft & Arbeit lang',
+        shortTitle: 'Wirtschaft & Arbeit',
         keywords: 'Arbeitsmarkt, Arbeitnehmer- & Arbeitgeberverhältnis, Schwarzarbeit',
         synonyms: ['Arbeitsmarkt', 'Arbeitnehmer- & Arbeitgeberverhältnis', 'Schwarzarbeit'],
         subpages: [{
