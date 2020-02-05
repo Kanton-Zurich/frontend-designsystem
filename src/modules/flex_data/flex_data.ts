@@ -127,14 +127,23 @@ class FlexData extends Module {
     // Listen to sort-dropdown events
     if (this.ui.genericSortButton) {
       this.ui.genericSortButton.addEventListener('click', () => {
+        const newState = this.ui.genericSortButton.getAttribute('aria-expanded') === 'false' ? 'true' : 'false';
         this.ui.genericSortDropdown.classList.toggle('visible');
+        this.ui.genericSortButton.setAttribute('aria-expanded', newState);
       });
       this.ui.genericSortDropdown.querySelectorAll('button').forEach((button) => {
         button.addEventListener('click', () => {
           this.order = button.getAttribute('data-sort-direction');
           this.orderBy = button.getAttribute('data-sort-column');
           this.ui.genericSortDropdown.classList.remove('visible');
-          this.ui.genericSortButton.querySelector('span').innerText = button.querySelector('span').innerText;
+          this.ui.genericSortDropdown.querySelectorAll('button').forEach((otherButton) => {
+            otherButton.classList.remove('atm-context_menu_item--selected');
+            otherButton.setAttribute('aria-pressed', 'false');
+          });
+          button.classList.add('atm-context_menu_item--selected');
+          button.setAttribute('aria-pressed', 'true');
+          this.ui.genericSortButton.querySelector<HTMLSpanElement>('.atm-form_input__trigger-value').innerText = button.querySelector('span').innerText;
+          this.ui.genericSortButton.setAttribute('aria-expanded', 'false');
           this.ui.paginationInput.value = '1';
           this.loadResults();
         });
@@ -443,7 +452,13 @@ class FlexData extends Module {
           sortSelector += `[data-sort-direction="${this.order}"]`;
         }
         const sortSetting = this.ui.genericSortDropdown.querySelector(sortSelector);
-        this.ui.genericSortButton.querySelector('span').innerText = sortSetting.querySelector('span').innerText;
+        this.ui.genericSortDropdown.querySelectorAll('button').forEach((otherButton) => {
+          otherButton.classList.remove('atm-context_menu_item--selected');
+          otherButton.setAttribute('aria-pressed', 'false');
+        });
+        sortSetting.classList.add('atm-context_menu_item--selected');
+        sortSetting.setAttribute('aria-pressed', 'true');
+        this.ui.genericSortButton.querySelector<HTMLSpanElement>('.atm-form_input__trigger-value').innerText = sortSetting.querySelector('span').innerText;
       }
     });
   }
