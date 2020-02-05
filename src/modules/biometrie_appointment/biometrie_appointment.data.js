@@ -7,6 +7,7 @@ const detailsViewProps = require('./partials/details_view/details_view.data').pr
 const rescheduleViewProps = require('./partials/reschedule_view/reschedule_view.data').props;
 const buttonGroupDefaultData = require('../../modules/button_group/button_group.data').variants.default.props;
 const buttonDefaultData = require('../../atoms/button/button.data').variants.default.props;
+const mapViewDefaultData = require('../../modules/map_view/map_view.data').variants.default.props;
 
 const moduleSettings = {
   apiBase: 'https://internet-acc.zh.ch/proxy/migek/',
@@ -31,6 +32,41 @@ const moduleSettings = {
       + 'ginal heimatlicher Reisepass</li> <li>Geburtsschein (bei Neugeborenen)</li> </ul>',
   },
 };
+
+const contactData = {
+  fullWidth: true,
+  contactTitle: 'Ort',
+  contactSubtitle: 'Migrationsamt des Kantons Zürichs',
+  contactSubtitleMoreInfo: {
+    href: '#',
+    label: 'Mehr erfahren',
+  },
+  contactAddress: {
+    street: 'Berninastrasse 45',
+    zip: '8057',
+    city: 'Zürich',
+    additionalInfo: 'Schalter G-S (bitte beim Eingang rechts ziehen)',
+  },
+  contactPhone: [
+    {
+      anchorLabel: '+ 41 43 259 88 00',
+      phoneNumer: '+ 41432598800',
+      additionalInfo: 'Allgemeine Fragen',
+      additionalInfoSpaced: 'Montag - Freitag 08:00 - 12:00 und 13:00 - 16:30Uhr',
+    },
+  ],
+  mapData: _.merge({}, mapViewDefaultData, {
+    mapId: 'contact-map',
+    withUserLocate: false,
+    mapMarker: [
+      { lat: 47.380467, lng: 8.548396 },
+    ],
+    directions: {
+      enabled: true,
+    },
+  }),
+};
+
 const unavailableNotificationData = {
   message: 'Grund dafür ist ein technisches Problem. Bitte versuchen Sie es später noch einmal.',
   title: 'Entschuldigung, der Service ist nicht verfügbar.',
@@ -51,7 +87,6 @@ const logoutLink = {
   hasTrailingIcon: false,
   additionalAttribute: 'data-biometrie_appointment="logout"',
 };
-
 const backLink = {
   icon: 'arrow-left',
   text: 'Zurück',
@@ -103,6 +138,8 @@ const data = _.merge({}, defaultData, {
     logoutLink,
 
     unavailableNotificationData,
+
+    contactData,
 
     loginViewProps,
     detailsViewProps,

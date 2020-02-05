@@ -21,7 +21,7 @@ $biometrieViewTransitionDuration: 300ms;
       display: none;
 
       &.show {
-        display: flex;;
+        display: flex;
       }
     }
   }
@@ -138,9 +138,7 @@ $biometrieViewTransitionDuration: 300ms;
     }
   }
 
-
   &__details {
-
 
     .cell {
       border-bottom: 1px solid $colorBlack20;
@@ -157,27 +155,6 @@ $biometrieViewTransitionDuration: 300ms;
       .data {
         @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
         @include polyFluidSizing(line-height, map-get($fontSizeCurves, biggerRegular));
-      }
-    }
-
-
-    .info-box {
-      font-size: 100%;
-      padding: $sizeSmallRegular $sizeRegular $sizeLarge;
-      background-color: rgba($colorBlue, 0.07);
-      color: $colorBlue;
-
-      strong {
-        @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
-      }
-
-      p {
-        @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-        @include sizeCurve('margin-top', mini);
-      }
-
-      .atm-button {
-        @include sizeCurve('margin-top', medium);
       }
     }
 
@@ -240,69 +217,70 @@ $biometrieViewTransitionDuration: 300ms;
       @include sizeCurve('margin-bottom', large);
     }
 
-    &__rescheduleBtn {
+    &__buttons {
       margin: $sizeBig 0;
-    }
+      display: flex;
+      flex-wrap: wrap;
 
-    &__cal-linklist {
-      .cal-linklist_item {
-        display: inline-block;
-        margin-right: 2rem;
-        text-decoration: none;
-        color: $colorBlack60;
-        font-weight: 900;
-        position: relative;
-        font-size: 16px;
-        padding-top: 0.75rem;
-        padding-bottom: 0.75rem;
-        border-bottom: 2px solid transparent;
-        transition: color 100ms ease;
-        justify-content: space-between;
-        align-items: center;
-
-        @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
-
-        &__button {
-          margin-top: 0.5rem;
-          display: flex;
-          align-items: center;
-          font-weight: 400;
-          color: $colorBlack60;
-
-          @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
-
-          .icon {
-            margin-right: 0.75rem;
-
-            use {
-              fill: $colorBlack60;
-              transition: fill 100ms ease;
-            }
-          }
+      @include mq($to: small) {
+        .atm-button {
+          width: 100%;
         }
 
-        &:hover {
-          .cal-linklist_item__button {
-            color: $colorBlack100;
+        .mdl-biometrie_appointment__details__calLinks {
+          width: 100%;
+          margin-top: pxToRem($sizeRegular);
+          margin-left: 0;
 
-            .icon use {
-              fill: $colorBlack100;
-            }
+          .mdl-context_menu {
+            width: calc(100% - 1rem);
+            margin: 0.5rem;
           }
         }
       }
     }
 
-    &__addinfo {
-      .block {
-        border-bottom: 2px solid $colorBlack20;
+    &__calLinks {
+      display: flex;
+      margin-left: pxToRem($sizeRegular);
+      position: relative;
 
-        &.cell {
-          @include sizeCurve('margin-bottom', tiny);
+      > span {
+        font-size: $sizeFontSmall;
+        color: $colorBlack60;
+      }
+
+      &-dropdown {
+        font-size: $sizeFontRegular;
+        padding-left: $sizeRegular;
+
+        .icon {
+          position: relative;
+          top: $sizeMini;
+        }
+      }
+
+      &.hidden {
+        display: none;
+      }
+
+      .mdl-context_menu {
+        right: 0;
+        display: none;
+        width: 100%;
+        top: pxToRem($sizeHuge);
+
+        > div {
+          width: 100%;
         }
 
-        .label {
-          padding-bottom: 0;
+        button {
+          width: 100%;
+        }
+
+        &.visible {
+          display: flex;
+          z-index: 1;
         }
       }
     }
@@ -790,6 +768,15 @@ $biometrieViewTransitionDuration: 300ms;
 
   &__contenttemplate {
     display: none;
+  }
+
+  &__contact {
+    @include polyFluidSizing('margin-top', map-get($sizeCurves, large));
+    display: none;
+
+    &.visible {
+      display: block;
+    }
   }
 }
 

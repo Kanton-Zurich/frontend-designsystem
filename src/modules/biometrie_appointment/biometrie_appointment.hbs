@@ -1,38 +1,4 @@
-<div class="mdl-instructions" data-init="instructions">
-  <ol class="mdl-instructions__list mdl-instructions__list--ordered">
-    <li class="mdl-instructions__item mdl-biometrie_appointment__before-block">
-      <div>
-        <h3 class="mdl-instructions__item-title atm-heading">
-          {{beforeBlock.heading}}
-        </h3>
-        <div class="mdl-instructions__item-content">
-          <div class="mdl-richtext">
-            <p class="atm-paragraph">
-              {{{beforeBlock.description}}}
-            </p>
-            <ul class="mdl-richtext__benefits">
-              {{#each beforeBlock.checkpoints}}
-                <li>{{this}}</li>
-              {{/each}}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </li>
-    <li class="mdl-instructions__item mdl-biometrie_appointment__form-block">
-      <div>
-        <h3 class="mdl-instructions__item-title atm-heading">
-          {{mainBlock.heading}}
-        </h3>
-        <div class="mdl-instructions__item-content">
-          <div class="mdl-richtext">
-            <p class="atm-paragraph">
-              {{{mainBlock.description}}}
-            </p>
-          </div>
-          {{> "modules/button_group/button_group" mainBlock.buttonGroup}}
-
-          <div class="mdl-biometrie_appointment" data-init="biometrieAppointment" data-biometrie_appointment_settings='{
+<div class="mdl-biometrie_appointment__wrapper" data-init="biometrieAppointment" data-biometrie_appointment_settings='{
                 "apiBase": "{{moduleSettings.apiBase}}",
                 "attemptsBeforeTelephone": {{ moduleSettings.attemptsBeforeTelephone }},
                 "calendarLinkProperties": {
@@ -42,43 +8,83 @@
                     "htmlDescription": "{{ moduleSettings.calendarLinkProperties.htmlDescription }}"
                 }
             }'>
+  <div class="mdl-instructions" data-init="instructions">
+    <ol class="mdl-instructions__list mdl-instructions__list--ordered">
+      <li class="mdl-instructions__item mdl-biometrie_appointment__before-block">
+        <div>
+          <h3 class="mdl-instructions__item-title atm-heading">
+            {{beforeBlock.heading}}
+          </h3>
+          <div class="mdl-instructions__item-content">
+            <div class="mdl-richtext">
+              <p class="atm-paragraph">
+                {{{beforeBlock.description}}}
+              </p>
+              <ul class="mdl-richtext__benefits">
+                {{#each beforeBlock.checkpoints}}
+                  <li>{{this}}</li>
+                {{/each}}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="mdl-instructions__item mdl-biometrie_appointment__form-block">
+        <div>
+          <h3 class="mdl-instructions__item-title atm-heading">
+            {{mainBlock.heading}}
+          </h3>
+          <div class="mdl-instructions__item-content">
+            <div class="mdl-richtext">
+              <p class="atm-paragraph">
+                {{{mainBlock.description}}}
+              </p>
+            </div>
+            {{> "modules/button_group/button_group" mainBlock.buttonGroup}}
 
-            <div class="mdl-biometrie_appointment__toplinks">
-              <div class="mdl-biometrie_appointment__toplinks-left">
-                {{> "atoms/text_link/text_link" backLink }}
+            <div class="mdl-biometrie_appointment">
+
+              <div class="mdl-biometrie_appointment__toplinks">
+                <div class="mdl-biometrie_appointment__toplinks-left">
+                  {{> "atoms/text_link/text_link" backLink }}
+                </div>
+                <div class="mdl-biometrie_appointment__toplinks-right">
+                  {{> "atoms/text_link/text_link" logoutLink }}
+                </div>
               </div>
-              <div class="mdl-biometrie_appointment__toplinks-right">
-                {{> "atoms/text_link/text_link" logoutLink }}
+
+              <!--  LOGIN -->
+              <div class="view" data-biometrie_appointment="view__login">
+                {{> "modules/biometrie_appointment/partials/login_view/login_view" loginViewProps}}
+              </div>
+
+              <!--  DETAILS -->
+              <div class="view" data-biometrie_appointment="view__details">
+                {{> "modules/biometrie_appointment/partials/details_view/details_view" detailsViewProps}}
+              </div>
+
+              <!--  RESCHEDULING -->
+              <div class="view" data-biometrie_appointment="view__reschedule">
+                {{> "modules/biometrie_appointment/partials/reschedule_view/reschedule_view" rescheduleViewProps}}
+              </div>
+
+              <div class="mdl-biometrie_appointment__loading-spinner show" data-biometrie_appointment="loading-spinner">
+                <div class="atm-dual-ring"></div>
+              </div>
+
+              <div class="mdl-biometrie_appointment__unavailable-alert" data-biometrie_appointment="unavailable-alert">
+                {{> "atoms/notification/notification" unavailableNotificationData }}
               </div>
             </div>
 
-            <!--  LOGIN -->
-            <div class="view" data-biometrie_appointment="view__login">
-              {{> "modules/biometrie_appointment/partials/login_view/login_view" loginViewProps}}
-            </div>
-
-            <!--  DETAILS -->
-            <div class="view" data-biometrie_appointment="view__details">
-              {{> "modules/biometrie_appointment/partials/details_view/details_view" detailsViewProps}}
-            </div>
-
-            <!--  RESCHEDULING -->
-            <div class="view" data-biometrie_appointment="view__reschedule">
-              {{> "modules/biometrie_appointment/partials/reschedule_view/reschedule_view" rescheduleViewProps}}
-            </div>
-
-            <div class="mdl-biometrie_appointment__loading-spinner show" data-biometrie_appointment="loading-spinner">
-              <div class="atm-dual-ring"></div>
-            </div>
-
-            <div class="mdl-biometrie_appointment__unavailable-alert" data-biometrie_appointment="unavailable-alert">
-              {{> "atoms/notification/notification" unavailableNotificationData }}
-            </div>
           </div>
 
         </div>
+      </li>
+    </ol>
+  </div>
 
-      </div>
-    </li>
-  </ol>
+  <div class="mdl-biometrie_appointment__contact" data-biometrie_appointment="contact">
+    {{> "modules/contact/contact" contactData }}
+  </div>
 </div>

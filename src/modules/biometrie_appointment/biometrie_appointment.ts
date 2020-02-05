@@ -21,6 +21,13 @@ import { BiometrieViewController } from './util/view-controller.class';
 
 const SETTINGS_ATTR_NAME = 'data-biometrie_appointment_settings';
 class BiometrieAppointment extends Module {
+  public ui: {
+    element: HTMLDivElement,
+    calLinksToggle: HTMLButtonElement,
+    calLinksDropdown: HTMLElement,
+    contactBlock: HTMLDivElement,
+  };
+
   public data: {
     apiBase: string;
     appointment: Appointment;
@@ -40,6 +47,9 @@ class BiometrieAppointment extends Module {
       settings: string;
       alertDismiss: string;
       connectRetry: string;
+      calLinksToggle: string;
+      calLinksDropdown: string;
+      contactBlock: string;
     }
     stateClasses: any
   };
@@ -64,6 +74,9 @@ class BiometrieAppointment extends Module {
         settings: `[${SETTINGS_ATTR_NAME}]`,
         alertDismiss: '[data-biometrie_appointment=alertClose]',
         connectRetry: '[data-biometrie_appointment=retryConnect]',
+        calLinksToggle: '[data-biometrie_appointment=toggleCalLinks]',
+        calLinksDropdown: '.mdl-biometrie_appointment__details__calLinks .mdl-context_menu',
+        contactBlock: '[data-biometrie_appointment=contact]',
       },
       loginViewSelectors, detailViewSelectors, rescheduleViewSelectorsValues),
       stateClasses: {
@@ -194,6 +207,10 @@ class BiometrieAppointment extends Module {
     });
 
     this.addAlertDismissListeners();
+
+    this.ui.calLinksToggle.addEventListener('click', () => {
+      this.ui.calLinksDropdown.classList.toggle('visible');
+    });
   }
 
 
@@ -262,6 +279,7 @@ class BiometrieAppointment extends Module {
 
   private enterLoginView():void {
     this.enterView('login');
+    this.ui.contactBlock.classList.remove('visible');
   }
 
   private enterDetailsView(): void {
@@ -270,6 +288,7 @@ class BiometrieAppointment extends Module {
     this.toggleLogoutLink(true);
     this.detailsViewCntrl.prepareView();
     this.enterView('details');
+    this.ui.contactBlock.classList.add('visible');
   }
 
   private enterRescheduleView(): void {
@@ -278,6 +297,7 @@ class BiometrieAppointment extends Module {
     this.toggleLogoutLink(false);
     this.toggleBackLink(true);
     this.enterView('reschedule');
+    this.ui.contactBlock.classList.remove('visible');
   }
 
   private enterView(viewName?: string):void {

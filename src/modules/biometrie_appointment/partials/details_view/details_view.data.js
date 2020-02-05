@@ -3,8 +3,28 @@ const dataHelper = require('@unic/estatico-data');
 const defaultData = require('../../../../data/default.data.js');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultButtonData = require('../../../../atoms/button/button.data').variants.default.props;
+const contextMenuItemDef = require('../../../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 
 const template = dataHelper.getFileContent('details_view.hbs');
+const calIcsFileName = 'biometrie_appointment.ics';
+const calendarContextMenu = {
+  lists: [
+    {
+      items: [
+        _.merge({}, contextMenuItemDef, {
+          text: 'iCal', iconAfter: false, iconBefore: 'download', additionalAttributes: `data-biometrie_appointment="cal-link__ics" download="${calIcsFileName}"`, isButton: false,
+        }),
+        _.merge({}, contextMenuItemDef, {
+          text: 'Google', iconAfter: false, iconBefore: 'download', additionalAttributes: 'data-biometrie_appointment="cal-link__google"', isButton: false,
+        }),
+        _.merge({}, contextMenuItemDef, {
+          text: 'Outlook', iconAfter: false, iconBefore: 'download', additionalAttributes: `data-biometrie_appointment="cal-link__ics" download="${calIcsFileName}"`, isButton: false,
+        }),
+      ],
+    },
+  ],
+};
+
 const data = _.merge({}, defaultData, {
   props: {
     messages: {
@@ -15,22 +35,9 @@ const data = _.merge({}, defaultData, {
       labelDate: 'Datum',
       labelTime: 'Uhrzeit',
       fromUntilConjunction: ' bis ',
-      calLinksDescr: 'Zu meinem Kalender hinzufügen',
-      calIcsFileName: 'biometrie_appointment.ics',
-      addinfo: {
-        blocks: [
-          {
-            label: 'Ort',
-            content: 'Migrationsamt des Kantons Zürichs<br>Berninastrasse 45, 8057 Zürich<br>'
-              + '<br>Schalter G-S (bitte beim Eingang rechts ziehen)<br><br><a href="#" '
-              + 'target="_blank">Route anzeigen</a>',
-          },
-          {
-            label: 'Telefon',
-            content: '+ 41 43 259 88 00<br>Montag - Freitag 08:00 - 12:00 und 13:00 - 16:30Uhr',
-          },
-        ],
-      },
+      calLinksDescr: 'Im Kalender speichern',
+      calIcsFileName: `${calIcsFileName}`,
+
       checkList: {
         heading: 'Bringen Sie bitte folgende Unterlagen mit',
         items: [
@@ -44,6 +51,14 @@ const data = _.merge({}, defaultData, {
       confirmationHead: 'Bitte beachten',
       confirmationIntroParagraph: 'Drucken Sie die neue Terminbestätigung aus und nehmen Sie diese mit an den Termin.',
     },
+    calendarContextMenu,
+    calendarMenuToggleBtn: _.merge({}, defaultButtonData, {
+      text: 'Im Kalender speichern',
+      isSecondary: true,
+      icon: 'download',
+      additionalAttribute: 'data-biometrie_appointment="toggleCalLinks"',
+    }),
+
     rescheduleBtn: _.merge({}, defaultButtonData, {
       text: 'Termin verschieben',
       isPrimary: true,
@@ -53,6 +68,7 @@ const data = _.merge({}, defaultData, {
       icon: 'download',
       text: 'Bestätigung herunterladen',
       isPrimary: true,
+      isSmall: true,
       additionalAttribute: 'data-biometrie_appointment="printConfirmation"',
     }),
   },
