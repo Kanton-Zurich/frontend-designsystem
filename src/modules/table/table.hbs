@@ -10,15 +10,15 @@
   {{#if preSortedDirection}}data-sort-direction="{{preSortedDirection}}"{{/if}}
 >
   {{#if isInverted}}
-    <div class="lyt-wrapper" data-image-gallery="gallery">
+    <div class="lyt-wrapper">
       <div class="grid-x grid-margin-x">
         <div class=" cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10 medium-8">
   {{/if}}
 	{{#if hasTitle}}
 		<h{{ tableHeadingLevel }} class="atm-heading mdl-table__title">{{ tableTitle }}</h{{ tableHeadingLevel }}>
 	{{/if}}
-	<figure class="mdl-table__figure">
-    {{#if isWide}}<div class="lyt-wrapper">{{/if}}
+  <{{#if hasCaption}}figure{{else}}div{{/if}} class="mdl-table__figure">
+  {{#if isWide}}<div class="lyt-wrapper">{{/if}}
 			<div class="mdl-table__scroll-area" data-table="scroll-area">
 				<div class="mdl-table__wrapper" data-table="scroll-area-wrapper">
           <table class="mdl-table__table" data-table="table">
@@ -97,8 +97,8 @@
 				{{> "atoms/figcaption/figcaption" caption}}
 			</figcaption>
 		{{/if}}
-    {{#if isWide}}</div>{{/if}}
-	</figure>
+  {{#if isWide}}</div>{{/if}}
+  </{{#if hasCaption}}figure{{else}}div{{/if}}>
   {{#if isInverted}}
         </div>
       </div>
