@@ -322,7 +322,7 @@ class Topiclist extends Module {
   setSubnav(topic) {
     const compiled = template(this.ui.subnavigationTemplate.innerHTML);
     const html = compiled({
-      title: topic.title,
+      title: topic.shortTitle,
       pageUrl: topic.path,
       layer: this.data.currentLayer + 1,
       parent: this.data.currentLayer === 0 ? document.querySelector('.mdl-header__nav-item--active').textContent.trim() : this.ui.element.querySelector(`[data-layer="${this.data.currentLayer}"] h3`).textContent.trim(),
@@ -347,7 +347,7 @@ class Topiclist extends Module {
 
       subpages.forEach((subtopic) => {
         this.renderContentTeaser(subnav.querySelector('[data-subnavigation="contentNav"]'), {
-          shortTitle: subtopic.title,
+          shortTitle: subtopic.shortTitle,
           buzzwords: subtopic.keywords,
           target: Object.prototype.hasOwnProperty.call(subtopic, 'subpages') ? '' : subtopic.path,
         }, Object.prototype.hasOwnProperty.call(subtopic, 'subpages'), subtopic);
