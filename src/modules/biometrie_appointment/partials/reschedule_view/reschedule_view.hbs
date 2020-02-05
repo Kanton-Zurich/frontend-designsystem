@@ -2,7 +2,8 @@
   <div class="mdl-biometrie_appointment__reschedule">
 
     <div class="mdl-biometrie_appointment__reschedule__allopen">
-      <h3 class="atm-heading">{{ otherSlotsHeading }}</h3>
+      <p class="atm-lead">{{ otherSlotsHeading }}</p>
+
       <div class="mdl-biometrie_appointment__reschedule__allopen__wrapper">
           <div class="group-wrapper">
             <ul class="mdl-button_group" data-init="buttonGroup">
@@ -23,10 +24,10 @@
                 </li>
             </ul>
             {{#if withMockedData}}
-                <strong class="btn-line hidden-small-down">08.07.2019-12.07.2019</strong>
+                <strong class="btn-line hidden-small-down atm-heading">08.07.2019-12.07.2019</strong>
                 <strong class="btn-line lighter hidden-small-down">KW 29</strong>
             {{else}}
-                <strong class="btn-line hidden-small-down" data-biometrie_appointment="selectedWeekRange"></strong>
+                <strong class="btn-line hidden-small-down atm-heading" data-biometrie_appointment="selectedWeekRange"></strong>
                 <strong class="btn-line lighter hidden-small-down" data-biometrie_appointment="selectedWeek"></strong>
             {{/if}}
           </div>
@@ -256,14 +257,22 @@
 
         </div>
         <div data-biometrie_appointment="selection-details__wrapper" class="mdl-biometrie_appointment__reschedule__selectiondetails{{#if withMockedData}}  show{{/if}} {{#if isSlotFull}}none{{/if}}">
-            <div class="alert alert-error {{#if isSlotFull}}show{{/if}}" data-biometrie_appointment="slotFullMsg" >
-                {{ blockedSlotInfo }}
-                <span class="alert__close" data-biometrie_appointment="alertClose">
-                  <svg class="icon">
-                      <use xlink:href="#exit"></use>
-                  </svg>
-                </span>
+          <div class="selection-details__blocked {{#if isSlotFull}}show{{/if}}" data-biometrie_appointment="slotFullMsg" >
+            <div class="atm-notification">
+              <svg class="icon">
+                <use xlink:href="#caution"></use>
+              </svg>
+              <span class="atm-notification__message">{{ blockedSlotInfo }}</span>
+              <span class="atm-notification__close" data-biometrie_appointment="alertClose">
+                <svg class="icon">
+                    <use xlink:href="#exit"></use>
+                </svg>
+              </span>
             </div>
+          </div>
+
+
+
           <div class="mdl-biometrie_appointment__reschedule__selectiondetails__wrapper">
                 <div class="atm-heading selection-details__byselection">Gewählter Termin</div>
                 <div class="atm-heading selection-details__next">Nächster freier Termin</div>

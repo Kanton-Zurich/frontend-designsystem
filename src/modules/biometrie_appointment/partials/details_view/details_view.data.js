@@ -15,7 +15,7 @@ const calendarContextMenu = {
           text: 'iCal', iconAfter: false, iconBefore: 'download', additionalAttributes: `data-biometrie_appointment="cal-link__ics" download="${calIcsFileName}"`, isButton: false,
         }),
         _.merge({}, contextMenuItemDef, {
-          text: 'Google', iconAfter: false, iconBefore: 'download', additionalAttributes: 'data-biometrie_appointment="cal-link__google"', isButton: false,
+          text: 'Google', iconAfter: false, iconBefore: 'download', additionalAttributes: 'data-biometrie_appointment="cal-link__google" target="_blank"', isButton: false,
         }),
         _.merge({}, contextMenuItemDef, {
           text: 'Outlook', iconAfter: false, iconBefore: 'download', additionalAttributes: `data-biometrie_appointment="cal-link__ics" download="${calIcsFileName}"`, isButton: false,
@@ -68,7 +68,6 @@ const data = _.merge({}, defaultData, {
       icon: 'download',
       text: 'Bestätigung herunterladen',
       isPrimary: true,
-      isSmall: true,
       additionalAttribute: 'data-biometrie_appointment="printConfirmation"',
     }),
   },

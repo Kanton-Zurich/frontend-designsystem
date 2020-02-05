@@ -119,8 +119,6 @@ $biometrieViewTransitionDuration: 300ms;
 
       .login_notification {
         display: none;
-        margin-bottom: $sizeRegular;
-        margin-top: $sizeTiny;
 
         &.show {
           display: block;
@@ -146,7 +144,7 @@ $biometrieViewTransitionDuration: 300ms;
       @include sizeCurve('margin-top', mini);
 
       .label {
-        font-weight: 900;
+        font-family: $fontFamilyBlack;
 
         @include sizeCurve('padding-bottom', mini);
         @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
@@ -297,48 +295,53 @@ $biometrieViewTransitionDuration: 300ms;
           overflow: hidden;
           clear: both;
           line-height: 1;
-        }
 
-        ul {
-          display: inline-flex;
-          padding-left: 0;
-          margin: 0;
-          line-height: 1;
-
-          @include sizeCurve('margin-right', regular);
-          @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
-
-          li {
-            margin-left: 0;
+          ul.mdl-button_group {
+            width: auto;
+            margin-right: pxToRem($sizeSmallLarge);
+            display: inline-flex;
             padding-left: 0;
-            margin-bottom: 0;
-          }
+            line-height: 1;
 
+            @include sizeCurve('margin-right', regular);
+            @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
 
-          button.disabled {
-            cursor: not-allowed;
-            pointer-events: none;
-            background-color: $colorBlack5;
-
-            use {
-              fill: $colorBlack20;
+            li {
+              margin-left: 0;
+              padding-left: 0;
+              margin-bottom: 0;
             }
 
-            &.atm-button--secondary:hover {
+
+            button.disabled {
+              cursor: not-allowed;
+              pointer-events: none;
               background-color: $colorBlack5;
 
-              .atm-button__icon use {
+              use {
                 fill: $colorBlack20;
               }
+
+              &.atm-button--secondary:hover {
+                background-color: $colorBlack5;
+
+                .atm-button__icon use {
+                  fill: $colorBlack20;
+                }
+              }
             }
-          }
 
-          @include mq($to: small) {
-            width: 100%;
-
-            .details {
+            @include mq($to: small) {
               width: 100%;
-              text-align: center;
+
+              .details {
+                width: 100%;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+              }
             }
           }
         }
@@ -346,7 +349,7 @@ $biometrieViewTransitionDuration: 300ms;
         .btn-line {
           position: relative;
 
-          @include sizeCurve('margin-right', tiny);
+          @include sizeCurve('margin-right', smallerRegular);
           @include sizeCurve('bottom', mini);
         }
 
@@ -397,7 +400,7 @@ $biometrieViewTransitionDuration: 300ms;
             overflow: hidden;
             text-align: center;
             text-overflow: ellipsis;
-            font-weight: 900;
+            font-family: $fontFamilyBlack;
 
             @extend .column;
 
@@ -428,7 +431,7 @@ $biometrieViewTransitionDuration: 300ms;
           .weekday-column {
             font-size: pxToRem($sizeFontSmall);
             color: $colorBlack60;
-            font-weight: 900;
+            font-family: $fontFamilyBlack;
             text-align: center;
             height: auto;
 
@@ -452,7 +455,6 @@ $biometrieViewTransitionDuration: 300ms;
                   }
 
                   &.selected {
-                    background: $colorBlue;
                     color: $colorWhite;
                   }
 
@@ -468,7 +470,6 @@ $biometrieViewTransitionDuration: 300ms;
                     color: $colorBlack100;
 
                     &.selected {
-                      background: $colorBlue;
                       color: $colorWhite;
                     }
                   }
@@ -511,6 +512,16 @@ $biometrieViewTransitionDuration: 300ms;
               .weekday-head:nth-child(#{$idx + 1}) {
                 border-bottom: 2px solid $colorBlack100;
                 margin-bottom: -1px;
+
+                .weekday-head {
+                  &__day_short {
+                    color: $colorText;
+                  }
+
+                  &__date {
+                    color: $colorText;
+                  }
+                }
               }
             }
           }
@@ -520,6 +531,7 @@ $biometrieViewTransitionDuration: 300ms;
 
             .weekday-head {
               &__day_short {
+                color: $colorBlack60;
                 display: block;
               }
 
@@ -586,17 +598,6 @@ $biometrieViewTransitionDuration: 300ms;
             }
           }
         }
-
-        &.next {
-          .slotselect-slotsrow .weekday-column .weekday-slotscontainer .weekday-slot {
-            button.atm-button {
-              &.selected {
-                background: $colorBlack10;
-                color: $colorBlue;
-              }
-            }
-          }
-        }
       }
     }
 
@@ -643,10 +644,6 @@ $biometrieViewTransitionDuration: 300ms;
         }
 
         .selection-details {
-
-          &__date {
-            color: $colorBlue;
-          }
 
           &__counter {
             @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
@@ -706,6 +703,17 @@ $biometrieViewTransitionDuration: 300ms;
           pointer-events: none;
           background-color: $colorBlack40;
           color: $colorWhite;
+        }
+      }
+
+      .selection-details {
+
+        &__blocked {
+          display: none;
+
+          &.show {
+            display: block;
+          }
         }
       }
     }
@@ -781,21 +789,9 @@ $biometrieViewTransitionDuration: 300ms;
 }
 
 [ class^='mdl-biometrie_appointment' ] {
-  .alert-box {
-    &.success {
-      background-color: #ebf4e9;
-
-      @include sizeCurve(padding, smallerRegular);
-    }
-
-    .super-head {
-      margin-bottom: unset;
-    }
-  }
-
   .strong {
     color: $colorText;
-    font-weight: 900;
+    font-family: $fontFamilyBlack;
   }
 
   .lighter {
@@ -862,27 +858,7 @@ $biometrieViewTransitionDuration: 300ms;
 
     @include sizeCurve(padding-top padding-bottom, smallerRegular);
     @include sizeCurve(padding-left padding-right, big);
-    @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
-
-    &.alert-error {
-      background-color: $colorRed;
-
-      &:before {
-        content: '!';
-        background-color: $colorWhite;
-        color: $colorRed;
-        text-align: center;
-        border-radius: 50%;
-        font-size: $sizeFontBiggerRegular;
-        font-weight: $fontFamilyBlack;
-        line-height: $sizeFontLarge;
-        display: block;
-        position: absolute;
-        left: $sizeRegular;
-        top: calc(50% - 0.75rem);
-        width: $sizeFontLarge;
-      }
-    }
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
 
     &.alert-success {
       background-color: $colorGreen;
@@ -924,14 +900,68 @@ $biometrieViewTransitionDuration: 300ms;
     }
   }
 
-  strong.boxhead {
-    display: block;
-
-    @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
-    @include sizeCurve('margin-bottom', tiny);
-  }
-
   .atm-paragraph a:hover {
     text-decoration: none;
+  }
+
+  .atm-notification {
+    margin-bottom: $sizeRegular;
+    margin-top: $sizeTiny;
+
+    &__close {
+      display: flex;
+      right: $sizeRegular;
+      cursor: pointer;
+
+      svg {
+        min-width: pxToRem($sizeFontRegular);
+        min-height: pxToRem($sizeFontRegular);
+        width: pxToRem($sizeFontRegular);
+        height: pxToRem($sizeFontRegular);
+        fill: $colorWhite;
+      }
+    }
+  }
+
+  .atm-lead {
+    text-indent: 0;
+  }
+}
+
+/*
+* COLOR-VARIATIONS
+*/
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-biometrie_appointment__reschedule__allopen__slotselect {
+      .slotselect-slotsrow .weekday-column .weekday-slotscontainer .weekday-slot {
+        button.atm-button.selected {
+          background-color: #{$val};
+        }
+
+        &:hover {
+          button.atm-button.selected {
+            background-color: #{$val};
+          }
+        }
+      }
+
+      &.next {
+        .slotselect-slotsrow .weekday-column .weekday-slotscontainer .weekday-slot {
+          button.atm-button {
+            &.selected {
+              background: $colorBlack10;
+              color: #{$val};
+            }
+          }
+        }
+      }
+    }
+
+    .selection-details {
+      &__date {
+        color: #{$val};
+      }
+    }
   }
 }
