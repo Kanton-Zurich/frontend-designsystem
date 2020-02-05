@@ -51,6 +51,13 @@ const data = _.merge({}, defaultData, {
         href: '../../pages/service/service.html',
         external: true,
       },
+      {
+        title: 'Appointment (Biometrie)',
+        buttonTitle: 'Termin verschieben',
+        serviceLink: '../biometrie_appointment/biometrie_appointment_page.mock.html',
+        staticHeader: true,
+        modalData: { modalId: 'service-modal4' },
+      },
     ],
   },
 });
