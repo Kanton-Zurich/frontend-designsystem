@@ -59,3 +59,21 @@ nav {
     }
   }
 }
+
+.mod-margin {
+  &--bottom {
+    @include sizeCurve(margin-bottom, big);
+  }
+
+  &--bottom-small {
+    @include sizeCurve(margin-bottom, medium);
+  }
+
+  &--top {
+    @include sizeCurve(margin-top, big);
+  }
+
+  &--top-small {
+    @include sizeCurve(margin-top, medium);
+  }
+}
