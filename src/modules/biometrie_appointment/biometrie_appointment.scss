@@ -5,6 +5,10 @@ $biometrieViewTransitionDuration: 300ms;
   margin-top: $sizeBiggerBig;
   margin-bottom: $sizeRegular;
 
+  &.hide {
+    display: none;
+  }
+
   &__toplinks {
     overflow: hidden;
     margin-bottom: $sizeSmallBig;
@@ -780,10 +784,20 @@ $biometrieViewTransitionDuration: 300ms;
 
   &__contact {
     @include polyFluidSizing('margin-top', map-get($sizeCurves, large));
-    display: none;
+    position: absolute;
+    top: -100vh;
+    left: -100vw;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
 
     &.visible {
-      display: block;
+      position: relative;
+      transition: top, left 100ms, 100ms ease-in-out;
+      z-index: 0;
+      opacity: 1;
+      left: 0;
+      top: 0;
     }
   }
 }
@@ -925,6 +939,10 @@ $biometrieViewTransitionDuration: 300ms;
 
   .atm-lead {
     text-indent: 0;
+  }
+
+  .atm-button--disabled {
+    pointer-events: none;
   }
 }
 

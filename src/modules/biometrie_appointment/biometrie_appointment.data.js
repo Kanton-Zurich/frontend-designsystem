@@ -121,15 +121,16 @@ const data = _.merge({}, defaultData, {
         buttons: [
           _.merge({}, buttonDefaultData, {
             isSecondary: true,
-            disabled: true,
+            additionalAttribute: 'data-biometrie_appointment="showContactBtn"',
             text: 'Vor Ort',
           }),
           _.merge({}, buttonDefaultData, {
             text: 'Online',
+            additionalAttribute: 'data-biometrie_appointment="showOnlineBtn"',
           }),
           _.merge({}, buttonDefaultData, {
             isSecondary: true,
-            disabled: true,
+            additionalAttribute: 'data-biometrie_appointment="showContactBtn"',
             text: 'Telefonisch',
           }),
         ],
