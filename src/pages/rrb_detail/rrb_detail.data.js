@@ -94,7 +94,7 @@ const data = _.merge({}, defaultData, {
       releatedContentData: _.merge({}, defReleatedContentData, { relatedContentHeading: { anchorNavReference: 'related_content' } }),
       contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
     },
   },
 });

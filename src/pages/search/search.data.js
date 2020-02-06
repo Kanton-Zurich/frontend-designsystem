@@ -40,7 +40,7 @@ const data = _.merge({}, defaultData, {
       },
       search: searchData,
       footer: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
     },
   },
 });
