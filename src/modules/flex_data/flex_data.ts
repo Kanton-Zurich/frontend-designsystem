@@ -133,8 +133,7 @@ class FlexData extends Module {
       });
       this.ui.genericSortButton.addEventListener('keydown', (event) => {
         if (event.key === 'Esc' || event.key === 'Escape') {
-          this.ui.genericSortDropdown.classList.remove('visible');
-          this.ui.genericSortButton.setAttribute('aria-expanded', 'false');
+          this.closeSortDropdown();
         }
       });
       this.ui.genericSortDropdown.querySelectorAll('button').forEach((button) => {
@@ -155,8 +154,7 @@ class FlexData extends Module {
         });
         button.addEventListener('keydown', (event) => {
           if (event.key === 'Esc' || event.key === 'Escape') {
-            this.ui.genericSortDropdown.classList.remove('visible');
-            this.ui.genericSortButton.setAttribute('aria-expanded', 'false');
+            this.closeSortDropdown();
           }
         });
       });
@@ -211,6 +209,11 @@ class FlexData extends Module {
     this.ui.resultsTable.dispatchEvent(new CustomEvent(Table.events.sortColumn, eventDetail));
     this.ui.paginationInput.value = '1';
     this.loadResults();
+  }
+
+  private closeSortDropdown() {
+    this.ui.genericSortDropdown.classList.remove('visible');
+    this.ui.genericSortButton.setAttribute('aria-expanded', 'false');
   }
 
   /**
