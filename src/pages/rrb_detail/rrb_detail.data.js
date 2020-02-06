@@ -1,12 +1,15 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
+
+const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
 const headerData = require('../../modules/header/header.data').variants.inverted.props;
+
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
-const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
-const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 const defReleatedContentData = require('../../modules/related_content/related_content.data.js').variants.default.props;
 const defContactData = require('../../modules/contact/contact.data.js').variants.fullWidthLessData.props;
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
+const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -16,31 +19,31 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('rrb_detail.md'),
   },
   props: {
+    skiplinks: skiplinksData,
     header: headerData,
     modules: {
-      pageHeaderData: _.merge({}, defPageHeaderData.variants.rrbDetail.props,
-        {
-          breadcrumb: {
-            path:
-              [
-                {
-                  title: 'Zurück zur Übersicht',
-                  href: '../rrb_data/rrb_data.html',
-                },
-              ],
-          },
-        }
-      ),
+      pageHeaderData: _.merge({}, defPageHeaderData.variants.rrbDetail.props, {
+        breadcrumb: {
+          path:
+            [
+              {
+                title: 'Zurück zur Übersicht',
+                href: '../rrb_data/rrb_data.html',
+              },
+            ],
+        },
+      }),
       metablockData: {
         title: 'Details',
         hasTopTitle: true,
-        headingLevel: 3,
+        headingLevel: 2,
+        smallerHeadings: true,
         rows: [
           {
             columns: [
               {
                 label: 'Text',
-                text: 'Anfrage Barbara Günthard Fitze, Winterthur, Daniel Sommer, Affoltern  a. Albis, und Beat Monhart, Gossau, betreffend Abfallreduktion,  Beantwortung',
+                text: 'Anfrage Barbara Günthard Fitze, Winterthur, Daniel Sommer, Affoltern a. Albis, und Beat Monhart, Gossau, betreffend Abfallreduktion, Beantwortung',
               },
             ],
           },

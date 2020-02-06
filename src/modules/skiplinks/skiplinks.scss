@@ -1,4 +1,13 @@
+$headerCurves: (
+  height: (
+    tiny: 48px,
+    xsmall: 56px,
+    medium: 72px
+  ),
+);
+
 .mdl-skiplinks {
+  @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
 
   &__list {
     @include resetList;
@@ -8,15 +17,14 @@
     @include visuallyhiddenFocusable;
 
     &:focus {
-      @include sizeCurve(padding-top padding-bottom, mini);
-      @include sizeCurve(padding-left padding-right, small);
+      @include sizeCurve(height, height, $headerCurves);
+      display: flex;
       position: absolute;
       background: $colorWhite;
       color: $colorText;
-      margin-left: -2px;
-      margin-top: -2px;
       text-decoration: none;
       z-index: $zIndexSkiplinks;
+      align-items: center;
     }
   }
 }

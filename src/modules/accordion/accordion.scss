@@ -123,7 +123,6 @@ $accordionMap: (
     line-height: pxToRem($sizeLarge);
     padding-bottom: pxToRem($sizeSmallLarge);
     color: $colorBlack60;
-    font-weight: $fontWeightDefault;
     opacity: 1;
     display: block;
 
@@ -187,6 +186,18 @@ $accordionMap: (
     }
 
     > p:last-child {
+      @include sizeCurve(padding-bottom, regular);
+    }
+
+    > .mdl-linklist:last-child {
+      margin-bottom: 0;
+
+      @include sizeCurve(padding-bottom, regular);
+    }
+
+    > .mdl-download_list:last-child {
+      margin-bottom: 0;
+
       @include sizeCurve(padding-bottom, regular);
     }
   }

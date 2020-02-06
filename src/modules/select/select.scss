@@ -9,6 +9,7 @@ $selectOptionsMinWidth: 268px;
 
   &__options {
     position: absolute;
+    display: none;
     top: calc(100% + 2px);
     left: 0;
     width: 100%;
@@ -118,6 +119,16 @@ $selectOptionsMinWidth: 268px;
     }
   }
 
+  &--float-right {
+    float: right;
+
+    + .atm-heading {
+      margin-top: -2px;
+      margin-bottom: pxToRem($sizeBig);
+      padding-top: 0;
+    }
+  }
+
   &--open {
     .mdl-select__filter,
     .mdl-select__apply {
@@ -144,11 +155,11 @@ $selectOptionsMinWidth: 268px;
     }
 
     .mdl-select__options {
+      display: block;
       height: pxToRem($selectHeight);
       z-index: $zIndexDropDowns;
 
       .atm-list__item {
-        display: block;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -159,6 +170,14 @@ $selectOptionsMinWidth: 268px;
 
         &.hidden {
           display: none;
+        }
+      }
+
+      &--table {
+        height: auto;
+
+        .atm-list__item {
+          white-space: normal;
         }
       }
     }
@@ -212,6 +231,9 @@ $selectOptionsMinWidth: 268px;
       &__input--trigger {
         padding-top: $paddingInput + $paddingDifferenceOnFocus;
         padding-bottom: $paddingInput - $paddingDifferenceOnFocus;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
 
       &__trigger-label {
@@ -228,6 +250,13 @@ $selectOptionsMinWidth: 268px;
       &--trigger-phone .atm-form_input__input--trigger {
         padding-top: $paddingInput;
         padding-bottom: $paddingInput;
+      }
+
+      &--reduced {
+        .atm-form_input__input--trigger {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
       }
     }
   }

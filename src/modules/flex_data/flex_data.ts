@@ -27,6 +27,7 @@ class FlexData extends Module {
     resultsTableColumns: HTMLElement[],
     form: HTMLFormElement,
     pagination: HTMLDivElement,
+    notification: HTMLDivElement,
     paginationInput: HTMLInputElement,
     submitButton: HTMLButtonElement,
     clearButton: HTMLButtonElement,
@@ -61,7 +62,7 @@ class FlexData extends Module {
         clearButton: 'form [data-clear-flex]',
         pagination: '.mdl-pagination',
         paginationInput: '.mdl-pagination input',
-
+        notification: '.mdl-flex-data__notification',
       },
       stateClasses: {
         loading: 'mdl-flex-data--loading',
@@ -142,8 +143,13 @@ class FlexData extends Module {
     const sortParamElemet = this.ui.resultsTable ? this.ui.resultsTable : this.ui.resultsGeneric;
     this.order = sortParamElemet.getAttribute('data-sort-direction');
     this.orderBy = sortParamElemet.getAttribute('data-sort-column');
-    this.updateViewFromURLParams();
-    setTimeout(() => { this.loadResults(); }, this.options.initDelay);
+    const initialLoad = this.ui.element.hasAttribute('data-initial-load');
+    if (this.getAllURLParams()['page'] || (initialLoad && initialLoad === true)) { // eslint-disable-line
+      this.updateViewFromURLParams();
+      setTimeout(() => {
+        this.loadResults();
+      }, this.options.initDelay);
+    }
   }
 
   /**
@@ -197,8 +203,22 @@ class FlexData extends Module {
         this.scrollTop();
       }
       this.fetchData((jsonData) => {
-        this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
-        this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
+        this.ui.results.classList.remove('initially-hidden');
+        this.ui.pagination.classList.add('hidden');
+        if (jsonData.error) {
+          this.ui.notification.classList.remove('hidden');
+          this.ui.results.classList.add('initially-hidden');
+          if (this.ui.genericSort) {
+            this.ui.genericSort.classList.add('hidden');
+          }
+          this.dataIdle = true;
+          return;
+        }
+        if (jsonData.numberOfResultPages > 1) {
+          this.ui.pagination.classList.remove('hidden');
+        }
+        this.ui.pagination.dispatchEvent(new CustomEvent(Pagination
+          .events.setPageCount, { detail: jsonData.numberOfResultPages }));
         const canonicalUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
         let prevUrl = '';
         if (parseInt(this.ui.paginationInput.value, 10) > 1) {
@@ -216,8 +236,9 @@ class FlexData extends Module {
         this.upsertLinkRel('canonical', canonicalUrl);
         this.populateResultList(jsonData);
         this.updateFlyingFocus(0);
+        this.dispatchVerticalResizeEvent();
         if (scroll) {
-          this.scrollBottom();
+          this.scrollTop();
         }
         this.dataIdle = true;
       });
@@ -277,7 +298,9 @@ class FlexData extends Module {
         const props = {
           link: item.link,
         };
-        this.ui.resultsTableColumns.forEach((col, index) => {
+        const resultsTableColumns = this.ui.resultsTableColumns.length
+          ? this.ui.resultsTableColumns : [this.ui.resultsTableColumns];
+        resultsTableColumns.forEach((col, index) => {
           const colName = col.getAttribute('data-column-name');
           props[`text${index}`] = item[colName];
         });
@@ -321,7 +344,14 @@ class FlexData extends Module {
     const append = (key, value) => {
       if (value.length > 0) {
         resultUrl += resultUrl === this.dataUrl ? '?' : '&';
-        resultUrl += `${key}=${encodeURIComponent(value)}`;
+        if (Array.isArray(value)) {
+          value.forEach((item, index) => {
+            resultUrl += index > 0 ? '&' : '';
+            resultUrl += `${key}=${encodeURIComponent(item)}`;
+          });
+        } else {
+          resultUrl += `${key}=${encodeURIComponent(value)}`;
+        }
       }
     };
     const formData = window[namespace].form.formToJSON(this.ui.form.elements);
@@ -332,6 +362,11 @@ class FlexData extends Module {
     append('page', this.ui.paginationInput.value);
     append('order', this.order);
     append('orderBy', this.orderBy);
+
+    // append has (for tabs)
+    if (window.location.hash) {
+      resultUrl += window.location.hash;
+    }
     return resultUrl;
   }
 
@@ -343,7 +378,10 @@ class FlexData extends Module {
     Object.keys(params).forEach((key) => {
       switch (key) {
         case 'page':
-          [this.ui.paginationInput.value] = params[key];
+          setTimeout(() => {
+            this.ui.pagination
+              .dispatchEvent(new CustomEvent(Pagination.events.setPage, { detail: params[key] }));
+          }, 0);
           break;
         case 'order':
           if (this.ui.resultsTable) {
@@ -421,18 +459,26 @@ class FlexData extends Module {
     }
     this.currentUrl = this.constructUrl();
     return fetch(this.currentUrl)
-      .then(response => response.json())
+      .then((response) => {
+        if (response.status !== 200) { // eslint-disable-line
+          throw new Error('Error fetching resource!');
+        }
+        return response.json();
+      })
       .then((response) => {
         if (response) {
-          const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
+          const wcmmode = this.getURLParam('wcmmode');
+          const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}${wcmmode ? '&wcmmode=' + wcmmode : ''}`; // eslint-disable-line
           history.pushState({url: canonical, }, null, canonical); // eslint-disable-line
           callback(response);
+          this.ui.notification.classList.add('hidden');
         }
-
         this.ui.results.classList.remove(this.options.stateClasses.loading);
       })
       .catch((err) => {
         this.log('error', err);
+        this.ui.results.classList.remove(this.options.stateClasses.loading);
+        callback({ error: err });
       });
   }
 

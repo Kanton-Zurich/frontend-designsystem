@@ -1,7 +1,10 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
+
+const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
 const headerData = require('../../modules/header/header.data').props;
+
 const breadcrumbData = require('../../modules/breadcrumb/breadcrumb.data.js').variants.default.props;
 const contactData = require('../../modules/contact/contact.data').variants.fullWidthLessData.props;
 const checkBoxData = require('../../atoms/checkbox/checkbox.data').variants.withHint.props;
@@ -15,6 +18,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('newsletter_settings.md'),
   },
   props: {
+    skiplinks: skiplinksData,
     header: headerData,
     modules: {
       pageHeader: {

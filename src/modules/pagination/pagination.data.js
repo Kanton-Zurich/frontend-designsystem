@@ -13,6 +13,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('pagination.md'),
   },
   props: {
+    headingLevel: 4,
     pageCount: 30,
   },
 });

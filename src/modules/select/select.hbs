@@ -1,11 +1,11 @@
 <div
-  class="mdl-select{{#if orientationUpwards}} mdl-select--list-upwards{{/if}}{{#if hasFilter}} mdl-select--filter{{/if}}{{#if hasButton}} mdl-select--button{{/if}}"
+  class="mdl-select{{#if orientationUpwards}} mdl-select--list-upwards{{/if}}{{#if hasFilter}} mdl-select--filter{{/if}}{{#if hasButton}} mdl-select--button{{/if}}{{#if floatRight}} mdl-select--float-right{{/if}}"
   data-init="select"{{#if isMultiSelect}} data-multiple="true" data-multiselectpostfix="gewählt"{{/if}}
   data-input
   {{#if additionalAttributes}}{{{additionalAttributes}}}{{/if}}
   >
   {{> "atoms/form_input/form_input" triggerInputData }}
-  <div class="mdl-select__options">
+  <div class="mdl-select__options{{#if isTable}} mdl-select__options--table{{/if}}">
     {{#if hasFilter}}
       <div class="mdl-select__filter">
       {{#if preview}}<form novalidate>{{/if}}

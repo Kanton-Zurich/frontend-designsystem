@@ -305,7 +305,7 @@ const variants = _.mapValues({
   },
   primarySmallInverted: {
     meta: {
-      title: 'kleiner Primary (invertiert)',
+      title: 'Kleiner Primary (invertiert)',
       desc: 'kleiner Primary Button nur mit Text.',
     },
     props: {
@@ -315,7 +315,7 @@ const variants = _.mapValues({
   },
   primarySmallOnlyIconInverted: {
     meta: {
-      title: 'kleiner Primary nur Icon (invertiert)',
+      title: 'Kleiner Primary nur Icon (invertiert)',
       desc: 'kleiner Primary Button nur mit einem Icon.',
     },
     props: {
@@ -327,7 +327,7 @@ const variants = _.mapValues({
   },
   secondarySmallInverted: {
     meta: {
-      title: 'kleiner Secondary (invertiert)',
+      title: 'Kleiner Secondary (invertiert)',
       desc: 'kleiner Secondary Button nur mit Text.',
     },
     props: {

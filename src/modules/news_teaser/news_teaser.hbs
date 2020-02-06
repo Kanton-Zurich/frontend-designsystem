@@ -31,12 +31,12 @@
         <ul>
           {{#each newsTeaserItems}}
             <li class="mdl-news-teaser__item">
-            {{> "modules/news_teaser/_news_teaser_item" this }}
-          </li>
+              {{> "modules/news_teaser/_news_teaser_item" this }}
+            </li>
           {{/each}}
         </ul>
-
       </div>
+      
       <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-12 small-10 medium-10 large-10 xlarge-8">
         {{#if newsTeaserLinkListData}}
           {{> "modules/linklist/linklist" newsTeaserLinkListData}}

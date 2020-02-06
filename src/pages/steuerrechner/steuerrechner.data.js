@@ -1,7 +1,10 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
+
+const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
 const headerData = require('../../modules/header/header.data').props;
+
 const taxCalcData = require('../../modules/tax_calc/tax_calc.data').props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const contextMenuProps = require('../../modules/context_menu/context_menu.data').props;
@@ -15,6 +18,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('steuerrechner.md'),
   },
   props: {
+    skiplinks: skiplinksData,
     header: headerData,
     title: 'Steuerrechner',
     text: '',

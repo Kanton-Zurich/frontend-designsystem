@@ -30,6 +30,12 @@
     }
   }
 
+  &__notification {
+    &.hidden {
+      display: none;
+    }
+  }
+
   &__filter {
     display: flex;
     flex-wrap: wrap;
@@ -106,6 +112,10 @@
     }
 
     .mdl-news-overview__selection {
+      &.hidden {
+        display: none;
+      }
+
       flex-grow: 1;
 
       .mdl-filter-pills {
@@ -120,6 +130,10 @@
     }
 
     .mdl-news-overview__sort {
+      &.hidden {
+        display: none;
+      }
+
       min-width: $sortMinWidth;
       display: flex;
       align-items: flex-end;
@@ -129,7 +143,7 @@
 
       > span {
         font-size: $sizeFontSmall;
-        color: $colorBlack40;
+        color: $colorBlack60;
       }
 
       span,
@@ -191,5 +205,15 @@
     width: 100%;
     transform: translate(0);
     margin-left: 0;
+  }
+
+  .mdl-news-overview__newsgrid {
+    &.hidden {
+      padding-top: 0;
+
+      .mdl-news-teaser__content {
+        display: none;
+      }
+    }
   }
 }

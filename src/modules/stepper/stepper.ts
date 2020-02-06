@@ -256,18 +256,23 @@ class Stepper extends Module {
    * @memberof Stepper
    */
   setOnPageChangeFocus() {
-    if (this.data.hasNavigation) {
-      this.log('hasnavigation');
-      // @TODO: Discuss where to focus has to be set
-    } else {
-      const step = this.ui.steps[this.data.active];
-      const stepTitle = step.querySelector('.form__section-title');
+    const step = this.ui.steps[this.data.active];
+    const stepTitles = step.querySelectorAll('.form__section-title');
 
-      if (stepTitle) {
-        stepTitle.focus();
-      } else {
-        step.querySelector('.atm-notification').focus();
-      }
+    if (stepTitles.length > 0) {
+      const amountOfStepTitles = stepTitles.length;
+      let iterator = 0;
+      let elementIsVisible = false;
+
+      do {
+        elementIsVisible = stepTitles[iterator].offsetWidth && stepTitles[iterator].offsetHeight;
+
+        if (elementIsVisible) stepTitles[iterator].focus();
+
+        iterator += 1;
+      } while (iterator < amountOfStepTitles && !elementIsVisible);
+    } else {
+      step.querySelector('.atm-notification').focus();
     }
   }
 
@@ -294,6 +299,10 @@ class Stepper extends Module {
       this.validateSection();
 
       if (this.ui.form.hasAttribute('form-has-errors')) {
+        const firstInvalidField = this.ui.steps[this.data.active].querySelector('.invalid');
+
+        firstInvalidField.focus();
+
         return false;
       }
     }

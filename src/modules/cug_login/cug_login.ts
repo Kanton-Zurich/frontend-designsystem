@@ -129,13 +129,19 @@ class CugLogin extends Module {
               this.fetchJsonData(endpointAuthorize, false).then((authorizeResp) => {
                 if (authorizeResp.status === 200) { // eslint-disable-line
                   if (this.devMode && username !== 'admin') {
-                    this.ui.element.classList.add(this.options.stateClasses.unauthorised);
-                  } else {
                     document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
-                    this.redirect(this.ui.configuredRedirectUrl.value);
+                    this.ui.element.classList.add(this.options.stateClasses.unauthorised);
+                    this.ui.logoutBtn.focus();
+                  } else {
+                    document.addEventListener(UserMenu.events.stateFetched, () => {
+                      this.redirect(this.ui.configuredRedirectUrl.value);
+                    });
+                    document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
                   }
                 } else if (authorizeResp.status === 404) { // eslint-disable-line
+                  document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
                   this.ui.element.classList.add(this.options.stateClasses.unauthorised);
+                  this.ui.logoutBtn.focus();
                 } else {
                   throw new Error(authorizeResp.status);
                 }

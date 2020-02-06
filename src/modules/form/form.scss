@@ -144,6 +144,11 @@ $gapSize: pxToRem($sizeRegular);
 
   &__duplicator {
     margin-left: $gapSize/2;
+    display: flex;
+
+    .icon {
+      transform: translateY(-1px);
+    }
 
     .form__group--has-duplicated & {
       display: none;

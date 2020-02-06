@@ -33,7 +33,6 @@
   &__counter {
     font-size: pxToRem($sizeFontTiny);
     font-family: $fontFamilyBlack;
-
     display: block;
 
     @include sizeCurve(margin-bottom, small);
@@ -41,6 +40,10 @@
 
   &__results {
     @include sizeCurve(padding-bottom, small);
+
+    .mdl-service_list__item-title {
+      color: $colorBlack;
+    }
   }
 
   &__list {

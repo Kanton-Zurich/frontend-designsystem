@@ -23,14 +23,11 @@ const data = _.merge({}, defaultData, {
       },
       {
         title: 'Organisation',
-        modal: 'flyout-organisation',
+        modal: 'flyout-topics',
       },
     ],
     modals: [
       _.merge({}, modalData.variants.topicFlyout.props, {
-        preview: false,
-      }),
-      _.merge({}, modalData.variants.organisationFlyout.props, {
         preview: false,
       }),
       _.merge({}, modalData.variants.searchFlyout.props, {

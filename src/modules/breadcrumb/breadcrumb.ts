@@ -91,11 +91,14 @@ class Breadcrumb extends Module {
       const internalReferrer = this.ui.item.querySelector('a');
       const referrer = document.createElement('a');
       referrer.href = document.referrer;
-      this.ui.item.addEventListener('click', (event) => {
-        if (internalReferrer.hostname === referrer.hostname) { // eslint-disable-line
-          window.history.back();
+
+      this.ui.item.querySelector('a').addEventListener('click', (event) => {
+        if (document.referrer
+          && document.referrer.length > 0
+          && internalReferrer.hostname === referrer.hostname) { // eslint-disable-line
           event.preventDefault();
           event.stopPropagation();
+          window.history.back();
         }
       });
     }

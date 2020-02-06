@@ -43,6 +43,10 @@
   &__tab {
     display: none;
 
+    .mdl-flex-data {
+      margin-top: 0;
+    }
+
     &--active {
       display: block;
     }

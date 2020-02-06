@@ -45,6 +45,7 @@ class UserMenu extends Module {
     return {
       doLogout: `eventname.${UserMenu.name}.dologout`,
       updateState: `eventname.${UserMenu.name}.updateState`,
+      stateFetched: `eventname.${UserMenu.name}.stateFetched`,
     };
   }
 
@@ -58,6 +59,8 @@ class UserMenu extends Module {
       } else {
         this.ui.element.classList.remove(this.options.stateClasses.initialised);
       }
+      document.dispatchEvent(new CustomEvent(UserMenu
+        .events.stateFetched, { detail: loginStatusResponse }));
     });
   }
 

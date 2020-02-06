@@ -49,25 +49,25 @@
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
                                data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
-<div class="lyt-wrapper" id="header">
+<header class="lyt-wrapper" id="header">
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
       {{#block "header"}}
       {{/block}}
     </div>
   </div>
-</div>
-<div class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}} cv-blue">
+</header>
+<main class="sg_wrapper{{#if additionalLayoutClass}} {{additionalLayoutClass}}{{/if}} cv-blue">
   {{#block "content"}}
   {{/block}}
-</div>
-<div class="lyt-wrapper cv-blue" id="footer">
+</main>
+<footer class="lyt-wrapper cv-blue" id="footer">
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
       {{>"modules/contact/contact" wrappingElements.contact }}
       {{>"modules/footer/footer" wrappingElements.footer }}
     </div>
   </div>
-</div>
+</footer>
 </body>
 </html>

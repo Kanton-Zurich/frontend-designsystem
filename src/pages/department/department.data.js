@@ -1,12 +1,15 @@
 const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
+
+const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.default.props;
+const headerData = require('../../modules/header/header.data').variants.userMenu.props;
+
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
 const topicListData = require('../../modules/topiclist/topiclist.data').props;
 const contactData = require('../../modules/contact/contact.data').variants.fullWidth.props;
 const teaserData = require('../../modules/teaser/teaser.data').variants.inverted.props;
 const defAboutData = require('../../modules/about/about.data').props;
-const headerData = require('../../modules/header/header.data').variants.userMenu.props;
 const newsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withProminentTeaser.props;
 
 const pageHeaderWithoutBtn = _.omit(defPageHeaderData.variants.colored.props, ['buttonData', 'breadcrumb']);
@@ -14,7 +17,9 @@ defPageHeaderData.variants.colored.props = pageHeaderWithoutBtn;
 
 const contextMenuProps = require('../../modules/context_menu/context_menu.data').props;
 const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
-
+const socialMediaStreamData = require('../../modules/social_media_stream/social_media_stream.data').props;
+const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
+const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 
 const defAnchorNavData = {
   anchornavTitle: {
@@ -65,6 +70,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('department.md'),
   },
   props: {
+    skiplinks: skiplinksData,
     header: headerData,
     title: 'Amtsseite',
     text: '',
@@ -110,6 +116,9 @@ const data = _.merge({}, defaultData, {
       contact: _.merge({}, contactData, { anchorNavReference: 'contact' }),
       teaser: _.merge({}, teaserData, { anchorNavReference: 'department_teaser' }),
       about: _.merge({}, defAboutData, { anchorNavReference: 'aboutus' }),
+      socialMediaStream: socialMediaStreamData,
+      footerData: defFooterData,
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
     },
   },
 });
