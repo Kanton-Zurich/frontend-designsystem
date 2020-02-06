@@ -45,7 +45,7 @@
       margin-left: pxToRem($sizeTiny);
 
       &.hidden {
-        opacity: 0;
+        display: none;
       }
     }
   }

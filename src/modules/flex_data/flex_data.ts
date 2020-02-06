@@ -131,6 +131,12 @@ class FlexData extends Module {
         this.ui.genericSortDropdown.classList.toggle('visible');
         this.ui.genericSortButton.setAttribute('aria-expanded', newState);
       });
+      this.ui.genericSortButton.addEventListener('keydown', (event) => {
+        if (event.key === 'Esc' || event.key === 'Escape') {
+          this.ui.genericSortDropdown.classList.remove('visible');
+          this.ui.genericSortButton.setAttribute('aria-expanded', 'false');
+        }
+      });
       this.ui.genericSortDropdown.querySelectorAll('button').forEach((button) => {
         button.addEventListener('click', () => {
           this.order = button.getAttribute('data-sort-direction');
@@ -146,6 +152,12 @@ class FlexData extends Module {
           this.ui.genericSortButton.setAttribute('aria-expanded', 'false');
           this.ui.paginationInput.value = '1';
           this.loadResults();
+        });
+        button.addEventListener('keydown', (event) => {
+          if (event.key === 'Esc' || event.key === 'Escape') {
+            this.ui.genericSortDropdown.classList.remove('visible');
+            this.ui.genericSortButton.setAttribute('aria-expanded', 'false');
+          }
         });
       });
     }
