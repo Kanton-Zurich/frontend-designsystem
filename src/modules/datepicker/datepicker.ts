@@ -35,21 +35,25 @@ class Datepicker extends Module {
       time_24hr: boolean, // eslint-disable-line
       dateFormat: string,
       position: string,
+      allowInput: boolean,
     },
     date: {
       dateFormat: string,
       position: string,
+      allowInput: boolean,
     },
     dateRange: {
       mode: string,
       separator: string,
       disableMobile: boolean,
+      allowInput: boolean,
     },
     dataTime: {
       dateFormat: string,
       position: string,
       noCalendar: boolean,
       disableMobile: boolean,
+      allowInput: boolean,
     }
   };
 
@@ -100,21 +104,25 @@ class Datepicker extends Module {
         time_24hr: true,
         dateFormat: 'H:i',
         position: 'below',
+        allowInput: true,
       },
       date: {
         dateFormat: 'd.m.Y',
         position: 'below',
+        allowInput: true,
       },
       dateRange: {
         mode: 'range',
         separator: ' - ',
         disableMobile: true,
+        allowInput: true,
       },
       dataTime: {
         dateFormat: 'd.m.Y H:i',
         position: 'below',
         noCalendar: false,
         disableMobile: true,
+        allowInput: true,
       },
     };
 
@@ -152,6 +160,9 @@ class Datepicker extends Module {
   initEventListeners() {
     this.eventDelegate
       .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this))
+      .on('focusin', this.options.domSelectors.trigger, this.onTriggerFocusIn.bind(this))
+      .on('focusout', this.options.domSelectors.trigger, this.onTriggerFocusOut.bind(this))
+      .on('keyup', this.options.domSelectors.trigger, event => event.stopPropagation())
       .on(Datepicker.events.injectDate, this.onInjectDate.bind(this))
       .on(Datepicker.events.clear, this.onClear.bind(this));
 
@@ -270,8 +281,10 @@ class Datepicker extends Module {
         this.ui.trigger.value = `${this.ui.trigger.value} - ...`;
       }
     }
-    if (!this.ui.element.classList.contains('dirty')) {
+    if (val.length > 0) {
       this.ui.element.classList.add('dirty');
+    } else {
+      this.ui.element.classList.remove('dirty');
     }
   }
 
@@ -303,6 +316,43 @@ class Datepicker extends Module {
     } else {
       this.ui.element.classList.add('open');
       this.positionCorrection();
+    }
+  }
+
+  /**
+   * On trigger focus
+   */
+  onTriggerFocusIn() {
+    this.ui.element.classList.add('dirty');
+  }
+
+  /**
+   * On trigger lose focus
+   * @param event
+   */
+  onTriggerFocusOut(event) {
+    if (event.target.value.length === 0) {
+      this.ui.element.classList.remove('dirty');
+    } else {
+      const pattern = new RegExp(this.flatpickr.input.getAttribute('data-pattern'), 'i');
+      if (pattern) {
+        const type = this.ui.element.getAttribute('data-datetimeformat');
+        if (pattern.test(this.flatpickr.input.value) && type !== 'date-range') {
+          let format = '';
+          switch (type) {
+            case 'time':
+              format = 'H:i';
+              break;
+            case 'date-time':
+              format = 'd.m.Y H:i';
+              break;
+            default:
+              format = 'd.m.Y';
+              break;
+          }
+          this.flatpickr.setDate(this.flatpickr.input.value, false, format);
+        }
+      }
     }
   }
 
