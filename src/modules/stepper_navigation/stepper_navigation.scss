@@ -76,6 +76,7 @@ $stepperNavigationCurves: (
     justify-content: flex-start;
 
     color: $colorBlack60;
+    flex-basis: 100%;
 
     @include transition(color);
 
