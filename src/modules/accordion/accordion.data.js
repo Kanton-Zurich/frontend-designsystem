@@ -318,7 +318,7 @@ const variants = _.mapValues({
       },
       items: [{
         title: 'Erweiterte Suche',
-        subHead: '',
+        subHead: '{value-reserve}',
         children: [{
           partial: () => handlebars.compile(formHBS)(defaultFormData.variants.zhlexLSExtended.props),
         }],
@@ -336,7 +336,7 @@ const variants = _.mapValues({
       },
       items: [{
         title: 'Erweiterte Suche',
-        subHead: '',
+        subHead: '{value-reserve}',
         children: [{
           partial: () => handlebars.compile(formHBS)(defaultFormData.variants.zhlexOSExtended.props),
         }],

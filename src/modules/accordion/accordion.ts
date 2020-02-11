@@ -165,8 +165,46 @@ class Accordion extends Module {
           const verticalIcon = document.documentElement.classList.contains('is-ie') ? item.querySelector(this.options.domSelectors.verticalIcon) : null;
 
           panel.style.maxHeight = '0px';
-
           panel.setAttribute('aria-hidden', 'true');
+
+          const inputElements = panel.querySelectorAll<HTMLInputElement>('input');
+          if (inputElements.length) {
+            const sectionVals: string[] = [];
+            inputElements.forEach((inEl) => {
+              // select option
+              if (inEl.hasAttribute('data-select-option') && inEl.checked) {
+                const selectEl = inEl.closest('.mdl-select').querySelector('.atm-form_input__trigger-label');
+                const labelEl = panel.querySelector<HTMLLabelElement>(`label[for=${inEl.id}]`);
+                const valStr = `${selectEl.childNodes[0].nodeValue}: ${labelEl.childNodes[0].nodeValue}`;
+                sectionVals.push(valStr);
+
+              // datepicker
+              } else if (inEl.type === 'text' && inEl.classList.contains('flatpickr-input')) {
+                if (inEl.value) {
+                  sectionVals.push(`${inEl.placeholder}: ${inEl.value}`);
+                }
+
+              // radio button or checkbox
+              } else if ((inEl.type === 'radio' || inEl.type === 'checkbox') && inEl.checked) {
+                const labelEl = panel.querySelector<HTMLLabelElement>(`label[for=${inEl.id}]`);
+                sectionVals.push(labelEl.childNodes[0].nodeValue);
+
+              // text
+              } else if (inEl.type === 'text') {
+                const numVal = +inEl.value;
+                let numValStr = '0';
+                if (!isNaN(numVal)) { // eslint-disable-line
+                  numValStr = this.currencyNumberValueToString(numVal);
+                }
+                const valStr = `${inEl.placeholder}: ${numValStr}`;
+                sectionVals.push(valStr);
+              }
+            });
+            const subHead = triggerEl.querySelector<HTMLElement>('.mdl-accordion__subhead');
+            if (subHead) {
+              subHead.innerText = sectionVals.join(', ');
+            }
+          }
 
           this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), '-1');
 
@@ -277,6 +315,14 @@ class Accordion extends Module {
 
   updateFlyingFocus() {
     (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
+  }
+
+  private currencyNumberValueToString(numVal: number, forceFloat?: boolean): string {
+    let str = numVal.toString();
+    if (forceFloat) {
+      str = numVal.toFixed(2); // eslint-disable-line no-magic-numbers
+    }
+    return str.replace(/\B(?=(\d{3})+(?!\d))/g, '’');
   }
 
   /**
