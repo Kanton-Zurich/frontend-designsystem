@@ -5,13 +5,13 @@
   {{#if icon}}
     {{#if isTagFilter}}
       <button class="atm-button__icon">
-        <svg class="icon">
+        <svg class="icon" focusable="false">
           <use xlink:href="#{{icon}}"></use>
         </svg>
       </button>
     {{/if}}
     {{#unless isTagFilter}}
-      <svg class="icon atm-button__icon">
+      <svg class="icon atm-button__icon" focusable="false">
         <use xlink:href="#{{icon}}"></use>
       </svg>
     {{/unless}}

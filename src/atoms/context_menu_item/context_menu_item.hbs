@@ -6,19 +6,19 @@
   {{#if additionalAttributes}}{{{additionalAttributes}}}{{/if}}
 >
   {{#if iconBefore}}
-    <svg class="icon atm-context_menu_item__icon">
+    <svg class="icon atm-context_menu_item__icon" focusable="false">
       <use xlink:href="#{{iconBefore}}"></use>
     </svg>
     <span class="visuallyhidden">Download</span>
   {{/if}}
   {{#if selectable}}
-    <svg class="icon atm-context_menu_item__icon">
+    <svg class="icon atm-context_menu_item__icon" focusable="false">
       <use xlink:href="#check"></use>
     </svg>
   {{/if}}
   <span class="atm-context_menu_item__label">{{text}}</span>
   {{#if iconAfter}}
-    <svg class="icon atm-context_menu_item__icon">
+    <svg class="icon atm-context_menu_item__icon" focusable="false">
       <use xlink:href="#{{iconAfter}}"></use>
     </svg>
   {{/if}}

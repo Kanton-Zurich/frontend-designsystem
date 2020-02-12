@@ -9,7 +9,7 @@
   {{#if additionalAttributes}} {{{additionalAttributes}}}{{/if}}
 >
   {{#if linkListItemIsDownload}}{{#unless isLegalFoundation}}
-    <svg class="icon atm-linklist_item__download">
+    <svg class="icon atm-linklist_item__download" focusable="false">
       <use xlink:href="#download"></use>
     </svg>
     <span class="visuallyhidden">Download</span>
@@ -36,19 +36,19 @@
           <div class="atm-linklist_item__distance">
             {{#if linkListItemDistance}} {{ linkListItemDistance }}{{/if}}
           </div>
-          <svg class="icon atm-linklist_item__arrow">
+          <svg class="icon atm-linklist_item__arrow" focusable="false">
               <use xlink:href="#arrow-right"></use>
           </svg>
         </div>
     {{else}}
-      <svg class="icon atm-linklist_item__arrow">
+      <svg class="icon atm-linklist_item__arrow" focusable="false">
         <use xlink:href="{{#unless chevron}}#arrow-right{{/unless}}{{#if chevron}}#angle_drop_down{{/if}}"></use>
       </svg>
     {{/if}}
   {{/unless}}
   {{#if isLegalFoundation}}
     <span class="atm-linklist_item__download-button">
-      <svg class="icon">
+      <svg class="icon" focusable="false">
         <use xlink:href="#download"></use>
       </svg>
       <span>Download</span>
