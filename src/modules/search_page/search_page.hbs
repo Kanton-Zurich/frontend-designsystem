@@ -1,4 +1,4 @@
-<div class="mdl-search_page" data-init="searchPage" {{#if options}}data-search-page-options="{{options}}"{{/if}}>
+<div class="mdl-search_page" data-init="searchPage" {{#if options}}data-search-page-options="{{options}}"{{/if}} data-search-no-results="Keine Ergebnisse zu «<%- searchTerm %>» gefunden.">
   <form novalidate class="mdl-search_page__form" data-search_page="form">
     {{> "atoms/form_input/form_input" input}}
   </form>
@@ -7,11 +7,18 @@
 
   <div class="mdl-search_page__results-wrapper" data-search_page="wrapper" aria-live="polite">
     <div class="mdl-search_page__results-head" data-search_page="resultsHead">
-
+    </div>
+    <div class="mdl-search_page__notification hidden">
+      {{> "atoms/notification/notification" notificationData }}
+    </div>
+    <div class="mdl-search_page__no-results">
+      <h4 class=" atm-heading">Keine Resultate</h4>
+      {{>"atoms/button/button" resetButton }}
     </div>
     <div class="mdl-search_page__results" data-search_page="results">
       {{> "atoms/loading_circle/loading_circle"}}
     </div>
+
 
     {{> "modules/pagination/pagination"}}
   </div>
@@ -50,9 +57,11 @@
       <% _.forEach(results, function(item, index) { %>
         <li class="atm-search_result_item" <% if(item.type === 'service') { %>data-init="servicelist"<% } %>>
           <span class="atm-search_result_item__meta">
-            <span class="atm-search_result_item__type">
+            <% if (item.typeLabel) { %>
+            <span>
               <%- item.typeLabel %>
             </span>
+            <% } %>
             <% if (item.breadcrumb) { %>
               <span>
                 <%- item.breadcrumb %>
@@ -69,8 +78,8 @@
               data-url="<%- item.link %>" aria-controls="modal_search-result_<%- index %>" role="button"
             >
               <div class="mdl-service_list__item-container">
-                <p class="atm-heading mdl-service_list__item-title"><%- item.title %></p>
-                <p class="atm-paragraph mdl-service_list__item-text" data-lineclamp="true"><%- item.teaserText %></p>
+                <p class="atm-heading mdl-service_list__item-title"><%= item.title %></p>
+                <p class="atm-paragraph mdl-service_list__item-text" data-lineclamp="true"><%= item.teaserText %></p>
               </div>
               <span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
                 <span class="atm-button__text">
@@ -82,8 +91,8 @@
           <% } else if (item.type === 'document') { %>
             <a class="atm-linklist_item atm-linklist_item--download atm-linklist_item--legalfoundation" href="<%- item.link %>" download>
               <span class="atm-linklist_item__text">
-                <span><%- item.title %></span>
-                <span class="atm-linklist_item__label"><%- item.teaserText %></span>
+                <span><%= item.title %></span>
+                <span class="atm-linklist_item__label"><%= item.teaserText %></span>
               </span>
               <span class="atm-linklist_item__download-button">
                 <svg class="icon" focusable="false">
@@ -94,8 +103,8 @@
             </a>
           <% } else { %>
             <a class="atm-search_result_item__content" href="<%- item.link %>">
-              <h4 class="atm-heading"><%- item.title %></h4>
-              <p><%- item.teaserText %></p>
+              <h4 class="atm-heading"><%= item.title %></h4>
+              <p><%= item.teaserText %></p>
             </a>
           <% } %>
         </li>
