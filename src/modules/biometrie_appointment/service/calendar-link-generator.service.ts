@@ -84,7 +84,7 @@ class CalendarLinkGenerator {
     return calHref;
   }
 
-  private getAsSearchParamStr(key: string, value: string | number | boolean): string {
+  private getAsSearchParamStr(key: string, value: any): string {
     return `${key}=${encodeURIComponent(value)}`;
   }
 
