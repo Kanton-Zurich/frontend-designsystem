@@ -72,7 +72,7 @@
 
             {{#each contactAddress.openingTimes}}
               {{#if this.timeTitle}}
-                <h4>{{this.timeTitle}}</h4>
+                <h4 class="atm-heading">{{this.timeTitle}}</h4>
               {{/if}}
               <ul>
                 {{#each this.times}}
@@ -112,7 +112,7 @@
               {{#if this.openingTimes}}
                 {{#each this.openingTimes}}
                   {{#if this.timeTitle}}
-                    <h4>{{this.timeTitle}}</h4>
+                    <h4 class="atm-heading">{{this.timeTitle}}</h4>
                   {{/if}}
                   <ul>
                     {{#each this.times}}

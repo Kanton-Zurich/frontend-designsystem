@@ -144,7 +144,7 @@ class FlexData extends Module {
     this.order = sortParamElemet.getAttribute('data-sort-direction');
     this.orderBy = sortParamElemet.getAttribute('data-sort-column');
     const initialLoad = this.ui.element.hasAttribute('data-initial-load');
-    if (this.getAllURLParams()['page'] || (initialLoad && initialLoad === true)) { // eslint-disable-line
+    if (this.getAllURLParams()['page'] || initialLoad) { // eslint-disable-line
       this.updateViewFromURLParams();
       setTimeout(() => {
         this.loadResults();
@@ -169,7 +169,12 @@ class FlexData extends Module {
     this.ui.form.querySelectorAll('.mdl-select').forEach((select: HTMLElement) => {
       select.dispatchEvent(new CustomEvent(Select.events.clear));
     });
-    this.loadResults();
+    this.ui.results.classList.add('initially-hidden');
+    this.ui.pagination.classList.add('hidden');
+    const initialLoad = this.ui.element.hasAttribute('data-initial-load');
+    if (initialLoad) {
+      this.loadResults();
+    }
   }
 
   /**
@@ -376,6 +381,7 @@ class FlexData extends Module {
   updateViewFromURLParams() {
     const params = this.getAllURLParams();
     Object.keys(params).forEach((key) => {
+      this.ui.clearButton.classList.remove('hidden');
       switch (key) {
         case 'page':
           setTimeout(() => {

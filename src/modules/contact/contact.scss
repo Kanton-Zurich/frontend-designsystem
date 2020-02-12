@@ -457,7 +457,7 @@ $contactMapHeightCurve: (
       padding: pxToRem($sizeHuge) 0;
     }
 
-    .atm-heading {
+    .atm-heading--bordered {
       line-height: $sizeLineHeightNarrower;
       margin-bottom: pxToRem($sizeBiggerBig);
     }
