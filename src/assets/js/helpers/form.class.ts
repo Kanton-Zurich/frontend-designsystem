@@ -237,12 +237,20 @@ class Form {
         this.setValidClasses(field);
       } else {
         this.setValidClasses(field, ['add', 'remove']);
+        let messageElementID: string;
 
         validation.messages.forEach((messageID) => {
           const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
 
           if (message) {
+            if ((field.getAttribute('type') === 'radio') || (field.hasAttribute(this.options.selectOptionSelector))) {
+              messageElementID = `${field.getAttribute('name')}__${messageID}-error`;
+            } else {
+              messageElementID = `${field.id}__${messageID}-error`;
+            }
             message.classList.add('show');
+            message.setAttribute('id', messageElementID);
+            field.setAttribute('aria-describledby', messageElementID);
           }
         });
 
