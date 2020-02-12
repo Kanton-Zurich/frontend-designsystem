@@ -315,6 +315,7 @@ class SearchPage extends Module {
       this.result = response;
 
       this.dispatchPageCount();
+      this.renderHead();
       this.renderList();
 
       this.checkIfPickerVisible();
@@ -383,11 +384,11 @@ class SearchPage extends Module {
       originalTerm: this.query,
       autocorrectedTerm: this.result.autoCorrectedTerm ? this.result.autoCorrectedTerm : '',
     };
-
     const compiledTemplate = template(this.ui.resultsHeadTemplate.innerHTML);
     const generatedHTML = compiledTemplate({ ...this.result.resultsData, ...autocorrection });
     const parsedHTML = new DOMParser().parseFromString(generatedHTML, 'text/html').querySelector('div');
 
+    this.ui.resultsHead.innerHTML = '';
     this.ui.resultsHead.appendChild(parsedHTML);
     this.initUi();
 

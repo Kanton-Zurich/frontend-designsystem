@@ -253,10 +253,11 @@ class Autosuggest {
       if (this.options.autoHide) {
         this.options.target.style.removeProperty('display');
       }
+      const resultTerm = result.replace(/(<([^>]+)>)/ig, '');
       this.renderItem({
         shortTitle: Object.prototype.hasOwnProperty.call(result, 'title') ? result.title : result,
         buzzwords: '',
-        target: Object.prototype.hasOwnProperty.call(result, 'path') ? result.path : `${this.options.searchPageUrl}?q=${encodeURIComponent(result)}`,
+        target: Object.prototype.hasOwnProperty.call(result, 'path') ? result.path : `${this.options.searchPageUrl}?q=${encodeURIComponent(resultTerm)}`,
       });
     });
 
@@ -374,7 +375,7 @@ class Autosuggest {
     this.selectedTerm = aTag.dataset.term;
 
     this.options.parent.dispatchEvent(new CustomEvent(Autosuggest.events.termSelected, {
-      detail: aTag.dataset.term,
+      detail: this.selectedTerm,
     }));
   }
 }
