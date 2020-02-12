@@ -178,26 +178,16 @@ class Accordion extends Module {
                 const valStr = `${selectEl.childNodes[0].nodeValue}: ${labelEl.childNodes[0].nodeValue}`;
                 sectionVals.push(valStr);
 
-              // datepicker
-              } else if (inEl.type === 'text' && inEl.classList.contains('flatpickr-input')) {
-                if (inEl.value) {
-                  sectionVals.push(`${inEl.placeholder}: ${inEl.value}`);
-                }
-
               // radio button or checkbox
               } else if ((inEl.type === 'radio' || inEl.type === 'checkbox') && inEl.checked) {
                 const labelEl = panel.querySelector<HTMLLabelElement>(`label[for=${inEl.id}]`);
                 sectionVals.push(labelEl.childNodes[0].nodeValue);
 
-              // text
+              // text or datepicker
               } else if (inEl.type === 'text') {
-                const numVal = +inEl.value;
-                let numValStr = '0';
-                if (!isNaN(numVal)) { // eslint-disable-line
-                  numValStr = this.currencyNumberValueToString(numVal);
+                if (inEl.value) {
+                  sectionVals.push(`${inEl.placeholder}: ${inEl.value}`);
                 }
-                const valStr = `${inEl.placeholder}: ${numValStr}`;
-                sectionVals.push(valStr);
               }
             });
             const subHead = triggerEl.querySelector<HTMLElement>('.mdl-accordion__subhead');
@@ -315,14 +305,6 @@ class Accordion extends Module {
 
   updateFlyingFocus() {
     (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
-  }
-
-  private currencyNumberValueToString(numVal: number, forceFloat?: boolean): string {
-    let str = numVal.toString();
-    if (forceFloat) {
-      str = numVal.toFixed(2); // eslint-disable-line no-magic-numbers
-    }
-    return str.replace(/\B(?=(\d{3})+(?!\d))/g, '’');
   }
 
   /**
