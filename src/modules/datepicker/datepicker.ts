@@ -161,7 +161,7 @@ class Datepicker extends Module {
     this.eventDelegate
       .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this))
       .on('focusin', this.options.domSelectors.trigger, this.onTriggerFocusIn.bind(this))
-      .on('focusout', this.options.domSelectors.trigger, this.onTriggerFocusOut.bind(this))
+      .on('blur', this.options.domSelectors.trigger, this.onTriggerFocusOut.bind(this))
       .on('keyup', this.options.domSelectors.trigger, event => event.stopPropagation())
       .on(Datepicker.events.injectDate, this.onInjectDate.bind(this))
       .on(Datepicker.events.clear, this.onClear.bind(this));
@@ -333,27 +333,55 @@ class Datepicker extends Module {
   onTriggerFocusOut(event) {
     if (event.target.value.length === 0) {
       this.ui.element.classList.remove('dirty');
-    } else {
-      const pattern = new RegExp(this.flatpickr.input.getAttribute('data-pattern'), 'i');
-      if (pattern) {
-        const type = this.ui.element.getAttribute('data-datetimeformat');
-        if (pattern.test(this.flatpickr.input.value) && type !== 'date-range') {
-          let format = '';
-          switch (type) {
-            case 'time':
-              format = 'H:i';
-              break;
-            case 'date-time':
-              format = 'd.m.Y H:i';
-              break;
-            default:
-              format = 'd.m.Y';
-              break;
-          }
-          this.flatpickr.setDate(this.flatpickr.input.value, false, format);
+    }
+  }
+
+  formatDateRange(dateRangeString: string) {
+    const dates = dateRangeString.replace(/\s/g, '')
+      .split('-').map(part => this.formatDate(part));
+    if (dates.length >= 2) { // eslint-disable-line
+      return `${dates[0]} - ${dates[1]}`;
+    }
+    return dateRangeString;
+  }
+
+  formatDateTime(dateTimeString: string) {
+    const dateTimeParts = dateTimeString.split('-');
+    if (dateTimeParts.length >= 2) { // eslint-disable-line
+      const date = this.formatDate(dateTimeParts[0]);
+      const time = this.formatTime(dateTimeParts[1]);
+      return `${date} ${time}`;
+    }
+    return dateTimeString;
+  }
+
+  formatDate(dateString: string) {
+    const dateParts = dateString.split('.').map((part, index) => {
+      if (index < 2) { // eslint-disable-line
+        if (part.length < 2) { // eslint-disable-line
+          return `0${part}`;
         }
       }
+      return part;
+    });
+    if (dateParts.length === 3) { // eslint-disable-line
+      return `${dateParts[0]}.${dateParts[1]}.${dateParts[2]}`; // eslint-disable-line
     }
+    return dateString;
+  }
+
+
+  formatTime(timeString: string) {
+    const timeParts = timeString.split(':').map((part) => {
+      if (part.length < 2) { // eslint-disable-line
+        return `0${part}`;
+      }
+      return part;
+    });
+    if (timeParts.length === 2) { // eslint-disable-line
+      return `${timeParts[0]}:${timeParts[1]}`;
+    }
+    return timeString;
   }
 
   /**
@@ -374,6 +402,32 @@ class Datepicker extends Module {
    * CLose event
    */
   emitClose() {
+    const pattern = new RegExp(this.flatpickr.input.getAttribute('data-pattern'), 'i');
+    if (pattern) {
+      const type = this.ui.element.getAttribute('data-datetimeformat');
+      let format = '';
+      switch (type) {
+        case 'time':
+          format = 'H:i';
+          this.flatpickr.input.value = this.formatTime(this.flatpickr.input.value);
+          break;
+        case 'date-time':
+          format = 'd.m.Y H:i';
+          this.flatpickr.input.value = this.formatDateTime(this.flatpickr.input.value);
+          break;
+        case 'date-range':
+          format = 'd.m.Y - d.m.Y';
+          this.flatpickr.input.value = this.formatDateRange(this.flatpickr.input.value);
+          break;
+        default:
+          format = 'd.m.Y';
+          this.flatpickr.input.value = this.formatDate(this.flatpickr.input.value);
+          break;
+      }
+      if (pattern.test(this.flatpickr.input.value)) {
+        this.flatpickr.setDate(this.flatpickr.input.value, false, format);
+      }
+    }
     this.ui.element.dispatchEvent(new CustomEvent(Datepicker.events.close));
     // additionally emit this event on input for validation handling
     this.ui.trigger.dispatchEvent(new CustomEvent(Datepicker.events.close));
