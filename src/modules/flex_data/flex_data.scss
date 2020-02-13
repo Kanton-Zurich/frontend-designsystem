@@ -45,7 +45,7 @@
       margin-left: pxToRem($sizeTiny);
 
       &.hidden {
-        opacity: 0;
+        display: none;
       }
     }
   }
@@ -83,21 +83,6 @@
       @include mq($from: large) {
         top: pxToRem(-$sizeTiny);
         position: absolute;
-      }
-
-      > span {
-        font-size: $sizeFontSmall;
-        color: $colorBlack60;
-      }
-
-      &-dropdown {
-        font-size: $sizeFontRegular;
-        padding-left: $sizeRegular;
-
-        .icon {
-          position: relative;
-          top: $sizeMini;
-        }
       }
 
       &.hidden {

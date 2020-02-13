@@ -38,16 +38,18 @@
     {{#unless tableData}}
     <div class="mdl-flex-data__generic-sort">
       <h4 class="visuallyhidden">Sortierung</h4>
-      <span>Sortieren nach: </span>
-      <button class="mdl-flex-data__generic-sort-dropdown">
-        <span>Relevanz</span>
-        <svg class="icon" focusable="false">
-          <use xlink:href="#angle_drop_down"></use>
-        </svg>
-      </button>
+      <div class="atm-form_input atm-form_input--trigger atm-form_input--reduced">
+        <button aria-expanded="false" aria-haspopup="true" class="mdl-flex-data__generic-sort-dropdown atm-form_input__input atm-form_input__input--trigger">
+          <span class="atm-form_input__trigger-label">Sortieren nach:</span>
+          <span class="atm-form_input__trigger-value">Relevanz</span>
+          <svg class="icon" focusable="false">
+            <use xlink:href="#angle_drop_down"></use>
+          </svg>
+        </button>
+      </div>
       {{> "modules/context_menu/context_menu" sortContextMenu}}
     </div>
-      <h4 class="atm-heading mdl-flex-data__results-title"></h4>
+    <h4 class="atm-heading mdl-flex-data__results-title"></h4>
     <div class="mdl-flex-data__results-generic" data-sort-direction="descending" data-sort-column="relevance"></div>
     {{/unless}}
     <div class="mdl-flex-data__pagination">
