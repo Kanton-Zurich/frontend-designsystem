@@ -16,6 +16,11 @@
 
       @include polyFluidSizing(font-size, map-get($fontSizeCurves, xsmall));
     }
+
+    .highlight {
+      color: $colorBlack;
+      font-family: $fontFamilyBlack;
+    }
   }
 
   &__meta {
