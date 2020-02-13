@@ -20,12 +20,16 @@
   <div class="mdl-flex-data__results initially-hidden" data-result-count-title="{{resultCountTitle}}" data-no-results-title="{{noResultsTitle}}">
     <script data-flex-template type="text/x-handlebars-template">
       {{#if tableData}}
-      {{#each tableData.headers}}
-        <td class="mdl-table__cell" data-table="cell"><%=text{{@index}}%></td>
-        {{#if @last}}
-        <td class="mdl-table__cell" data-table="cell"><a href="<%=link%>" class="atm-text_link">Details</a></td>
-        {{/if}}
-      {{/each}}
+        {{#each tableData.headers}}
+          {{#if @first}}
+            <th scope="row" class="mdl-table__cell" data-table="cell"><%=text{{@index}}%></th>
+          {{else}}
+            <td class="mdl-table__cell" data-table="cell"><%=text{{@index}}%></td>
+          {{/if}}
+          {{#if @last}}
+            <td class="mdl-table__cell" data-table="cell"><a href="<%=link%>" class="atm-text_link">Details</a></td>
+          {{/if}}
+        {{/each}}
       {{/if}}
       {{#unless tableData}}
         {{{genericTemplate}}}
@@ -33,7 +37,7 @@
     </script>
     <h3 class="visuallyhidden">Resultate</h3>
     {{#if tableData}}
-    {{> "modules/table/table" tableData }}
+      {{> "modules/table/table" tableData }}
     {{/if}}
     {{#unless tableData}}
     <div class="mdl-flex-data__generic-sort">

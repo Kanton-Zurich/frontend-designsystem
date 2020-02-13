@@ -135,7 +135,7 @@
       }
 
       .mdl-table__row {
-        td {
+        [ data-table='cell' ] {
           &.mdl-table__cell {
             padding: 12px;
 
@@ -152,7 +152,7 @@
         }
 
         &:hover {
-          td {
+          [ data-table='cell' ] {
             background-color: $colorBlack10;
             cursor: pointer;
 
