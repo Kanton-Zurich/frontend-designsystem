@@ -5,7 +5,7 @@ const defaultData = require('../../data/default.data.js');
 
 const formInputData = require('../../atoms/form_input/form_input.data');
 const paginationData = require('../pagination/pagination.data');
-const defNotificationData = require('../../atoms/notification/notification.data').variants.default.props;
+const defNotificationData = require('../../modules/notification/notification.data').variants.default.props;
 const contentTeaser = require('../../atoms/content_teaser/content_teaser.data');
 const defButtonData = require('../../atoms/button/button.data.js');
 const datepicker = require('../datepicker/datepicker.data');

@@ -3,7 +3,7 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const radioData = require('../../atoms/radiobutton/radiobutton.data');
-const notificationApiFailProps = require('../../atoms/notification/notification.data').variants.apiConnectionFailure.props;
+const notificationApiFailProps = require('../../modules/notification/notification.data').variants.apiConnectionFailure.props;
 
 
 const radioHBS = dataHelper.getFileContent('../../atoms/radiobutton/radiobutton.hbs');

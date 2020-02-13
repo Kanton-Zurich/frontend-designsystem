@@ -5,7 +5,7 @@ const defaultData = require('../../data/default.data.js');
 const defFormData = require('../form/form.data');
 const defPaginationData = require('../pagination/pagination.data');
 const defAccordionData = require('../accordion/accordion.data');
-const defNotificationData = require('../../atoms/notification/notification.data').variants.default.props;
+const defNotificationData = require('../../modules/notification/notification.data').variants.default.props;
 const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 
 const templateConverter = require('../../../gulp/helpers/templateConverter');
