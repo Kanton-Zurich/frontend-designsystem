@@ -71,6 +71,9 @@ class Banner extends Module {
         })
         .then((response) => {
           if (response) {
+            if (response.length === 0) {
+              throw new Error('Empty data');
+            }
             this.ui.element.innerHTML = response;
             if (localStorage.getItem('closedBanners')) {
               const uid = this.ui.element.querySelector('[data-uid]').getAttribute('data-uid');
