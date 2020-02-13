@@ -129,7 +129,7 @@ const data = _.merge({}, defaultData, {
       contactData: defContactCustomData,
       newsTeaserData: defNewsTeaserData,
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
     },
   },
 });

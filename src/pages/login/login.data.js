@@ -50,7 +50,7 @@ const data = _.merge({}, defaultData, {
         contactSubtitle: 'Kanton Zürich',
       }),
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
     },
   },
 });

@@ -30,7 +30,7 @@ const variants = _.mapValues({
     },
     props: {
       preview: true,
-    }
+    },
   },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;

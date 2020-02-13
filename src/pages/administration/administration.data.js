@@ -118,7 +118,7 @@ const data = _.merge({}, defaultData, {
       contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
       newsTeaserData: defNewsTeaserData,
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
       focusTeaserData: _.merge({}, defFocusTeaserData, {
         focusTeaserHeader: {
           title: 'Schwerpunkte',

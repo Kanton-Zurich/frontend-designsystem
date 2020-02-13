@@ -438,7 +438,7 @@ class NewsOverview extends Module {
 
     return fetch(this.currentUrl)
       .then((response) => {
-        if (response.status !== 200) { // eslint-disable-line
+        if (response.status !== 200 && response.status !== 204 ) { // eslint-disable-line
           throw new Error('Error fetching resource!');
         }
         return response.json();
@@ -528,13 +528,14 @@ class NewsOverview extends Module {
       this.ui.noResults.classList.add('visible');
     } else {
       this.ui.noResults.classList.remove('visible');
+
+      jsonData.news.forEach((item) => {
+        const element = document.createElement('li');
+        element.classList.add('mdl-news-teaser__item');
+        element.innerHTML = this.teaserItemFromTemplate(this.ui.teaserTemplate.innerHTML, item);
+        this.ui.list.appendChild(element);
+      });
     }
-    jsonData.news.forEach((item) => {
-      const element = document.createElement('li');
-      element.classList.add('mdl-news-teaser__item');
-      element.innerHTML = this.teaserItemFromTemplate(this.ui.teaserTemplate.innerHTML, item);
-      this.ui.list.appendChild(element);
-    });
     (<any>window).estatico.lineClamper.updateLineClamping();
     this.updateFlyingFocus(this.options.loadDelay);
 
