@@ -125,6 +125,7 @@ $accordionMap: (
     color: $colorBlack60;
     opacity: 1;
     display: block;
+    min-height: pxToRem($sizeRegular);
 
     @include transition(opacity padding);
   }

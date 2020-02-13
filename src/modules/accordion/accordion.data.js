@@ -318,7 +318,7 @@ const variants = _.mapValues({
       },
       items: [{
         title: 'Erweiterte Suche',
-        subHead: '',
+        subHead: ' ',
         children: [{
           partial: () => handlebars.compile(formHBS)(defaultFormData.variants.zhlexLSExtended.props),
         }],
@@ -328,7 +328,7 @@ const variants = _.mapValues({
   zhLexOSExtendedSearch: {
     meta: {
       title: 'ZH-Lex OS Erweiterte Suche (CZHDEV-1240)',
-      desc: 'Accordion mit Formularfeldern für die erweiterte Suche bei ZH-Lex Offizielle Gesetztessammlung',
+      desc: 'Accordion mit Formularfeldern für die erweiterte Suche bei ZH-Lex Offizielle Gesetzessammlung',
     },
     props: {
       accordionHeading: {
@@ -336,7 +336,7 @@ const variants = _.mapValues({
       },
       items: [{
         title: 'Erweiterte Suche',
-        subHead: '',
+        subHead: ' ',
         children: [{
           partial: () => handlebars.compile(formHBS)(defaultFormData.variants.zhlexOSExtended.props),
         }],
