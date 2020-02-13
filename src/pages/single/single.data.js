@@ -175,7 +175,7 @@ const data = _.merge({}, defaultData, {
       pageHeaderData: _.merge({}, defPageHeaderData, defPageHeaderCustomData),
       anchorNav: defAnchorNavData,
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
       topicListData: _.merge({}, _.omit(defTopicListData, ['contentNavData']), defTopicListCustomData, { topiclistHeading: { anchorNavReference: 'ourtopics' } }),
       contactData: defContactCustomData,
       teaserData: _.merge({}, defTeaserData, defTeaserCustomData),

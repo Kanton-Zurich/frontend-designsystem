@@ -47,7 +47,7 @@
       <ul class="mdl-social-media-post__interaction">
 {{#if likes}}
       <li class="mdl-social-media-post__interaction-button">
-        <svg class="icon">
+        <svg class="icon" focusable="false">
           <use xlink:href="#like"></use>
         </svg>
         <span>{{likes}}</span><span class="visuallyhidden"> Likes</span>
@@ -55,7 +55,7 @@
 {{/if}}
 {{#if comments}}
       <li class="mdl-social-media-post__interaction-button">
-        <svg class="icon">
+        <svg class="icon" focusable="false">
           <use xlink:href="#comments"></use>
         </svg>
         <span>{{comments}}</span><span class="visuallyhidden"> Kommentare</span>
@@ -63,7 +63,7 @@
 {{/if}}
 {{#if forwards}}
        <li class="mdl-social-media-post__interaction-button">
-        <svg class="icon">
+        <svg class="icon" focusable="false">
           <use xlink:href="#repost"></use>
         </svg>
          <span>{{forwards}}</span><span class="visuallyhidden"> Weiterleitungen</span>

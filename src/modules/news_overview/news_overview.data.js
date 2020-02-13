@@ -8,7 +8,7 @@ const defDatePickerData = require('../datepicker/datepicker.data.js');
 const defNewsFilterMobileData = require('../news_filter_mobile/news_filter_mobile.data.js');
 const defFilterPillsData = require('../filter_pills/filter_pills.data.js');
 const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
-const defNotificationData = require('../../atoms/notification/notification.data').variants.default.props;
+const defNotificationData = require('../../modules/notification/notification.data').variants.default.props;
 
 const templateConverter = require('../../../gulp/helpers/templateConverter');
 
@@ -50,7 +50,8 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('news_overview.md'),
   },
   props: {
-    noResults: 'Keine Resultate für die gewählten Kriterien gefunden.',
+    noResults: 'Keine News zu Ihren Filterkriterien gefunden.',
+    noResultsSubText: 'Passen Sie Ihre Filter an oder setzen Sie diese zurück.',
     notificationData: _.merge({}, defNotificationData, {
       message: 'Beim Laden der Daten ist ein Fehler aufgetreten!',
     }),

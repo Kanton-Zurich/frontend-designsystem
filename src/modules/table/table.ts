@@ -35,9 +35,6 @@ class Table extends Module {
       shadeLeft: string,
       columnAscending: string,
       columnDescending: string,
-      sortLabelNone: string,
-      sortLabelAscending: string,
-      sortLabelDescending: string,
     },
   };
 
@@ -79,9 +76,6 @@ class Table extends Module {
         shadeLeft: 'mdl-table--shade-left',
         columnAscending: 'mdl-table__column--asc',
         columnDescending: 'mdl-table__column--desc',
-        sortLabelNone: 'mdl-table__sort-label--none',
-        sortLabelAscending: 'mdl-table__sort-label--asc',
-        sortLabelDescending: 'mdl-table__sort-label--desc',
       },
     };
     super($element, defaultData, defaultOptions, data, options);
@@ -361,23 +355,14 @@ class Table extends Module {
       case 'descending':
         columnHeader.classList.add(this.options.stateClasses.columnDescending);
         th.setAttribute('aria-sort', 'descending');
-        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelNone}`).setAttribute('aria-hidden', 'true');
-        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelAscending}`).setAttribute('aria-hidden', 'true');
-        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelDescending}`).setAttribute('aria-hidden', 'false');
         break;
       case 'ascending':
         columnHeader.classList.add(this.options.stateClasses.columnAscending);
         th.setAttribute('aria-sort', 'ascending');
-        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelNone}`).setAttribute('aria-hidden', 'true');
-        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelAscending}`).setAttribute('aria-hidden', 'false');
-        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelDescending}`).setAttribute('aria-hidden', 'true');
         break;
       case null:
         columnHeader.removeAttribute('data-order-by');
         th.setAttribute('aria-sort', 'none');
-        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelNone}`).setAttribute('aria-hidden', 'false');
-        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelAscending}`).setAttribute('aria-hidden', 'true');
-        columnHeader.querySelector(`.${this.options.stateClasses.sortLabelDescending}`).setAttribute('aria-hidden', 'true');
         break;
     }
   }
@@ -450,7 +435,12 @@ class Table extends Module {
    * @memberof Table
    */
   cleanSortableColumns() {
+    const sortableColumnHeaders = [].slice.call(this.ui.table.querySelectorAll('thead tr .mdl-table__column-header--sortable'));
     const sortableButtons = [].slice.call(this.ui.table.querySelectorAll('thead tr th button'));
+
+    sortableColumnHeaders.forEach((sortableColumnHeader) => {
+      sortableColumnHeader.setAttribute('aria-sort', 'none');
+    });
 
     sortableButtons.forEach((sortableButton) => {
       sortableButton.classList.remove(this.options.stateClasses.columnAscending);

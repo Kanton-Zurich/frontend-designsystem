@@ -1,4 +1,4 @@
-.atm-notification {
+.mdl-notification {
   display: flex;
   align-items: center;
   color: $colorWhite;
@@ -28,6 +28,10 @@
     color: inherit;
 
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+
+    p {
+      margin: 0;
+    }
 
     button {
       color: $colorWhite;
@@ -68,6 +72,12 @@
   /** Green variation for form confirmation */
   &--green {
     background: $colorGreen;
+
+    .atm-button.atm-button--icon-only {
+      background: transparent;
+      height: auto;
+      min-width: unset;
+    }
   }
 
   &--big {
@@ -76,7 +86,7 @@
       height: 2rem;
     }
 
-    .atm-notification__message {
+    .mdl-notification__message {
       @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
     }
   }
@@ -89,7 +99,7 @@
     padding: pxToRem($sizeLarge) pxToRem($sizeBig) pxToRem($sizeLarge) pxToRem($sizeLarge);
     color: $colorRed;
 
-    .atm-notification__message {
+    .mdl-notification__message {
       @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
     }
 

@@ -2,21 +2,21 @@ const data = {
   results: [{
     type: 'contentpage',
     title: 'Internationaler Führerausweis',
-    teaserText: 'In nicht englischsprachigen Ländern ausserhalb der EU empfehlen wir Ihnen, einen internationalen Führerschein ausstellen zu lassen.',
+    teaserText: 'In nicht englischsprachigen Ländern ausserhalb der EU emp<span class="highlight">fehlen</span> wir Ihnen, einen internationalen Führerschein ausstellen zu lassen.',
     breadcrumb: 'Kanton Zürich > Führereausweis > Internationaler Führerausweis',
     link: 'http://search.zh.ch/xyz',
     typeLabel: 'Inhaltsseite',
   }, {
     type: 'news',
     date: '14.12.2018',
-    title: 'Zürcher Längsschnitstudie',
-    teaserText: 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum ',
+    title: 'Zürcher Längsschnittstudie',
+    teaserText: 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum <span class="highlight">fehlen</span>',
     link: 'http://search.zh.ch/xyl',
     typeLabel: 'News',
   }, {
     type: 'service',
     title: 'Internationalen Führerschein beantragen',
-    teaserText: 'In nicht englischsprachigen Ländern ausserhalb der EU empfehlen wir Ihnen, einen internationalen Führerschein ausstellen zu lassen.',
+    teaserText: 'In nicht englischsprachigen Ländern ausserhalb der EU emp<span class="highlight">fehlen</span> wir Ihnen, einen internationalen Führerschein ausstellen zu lassen.',
     link: '/modules/service_list/service_page.mock.html',
     typeLabel: 'Service',
   }, {

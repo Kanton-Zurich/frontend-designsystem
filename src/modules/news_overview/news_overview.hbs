@@ -40,7 +40,7 @@
               <span>Sortieren nach: </span>
               <button class="mdl-news-overview__sort-dropdown">
                 <span>Neueste</span>
-                <svg class="icon">
+                <svg class="icon" focusable="false">
                   <use xlink:href="#angle_drop_down"></use>
                 </svg>
               </button>
@@ -51,8 +51,9 @@
           <h2 class="visuallyhidden">Resultate</h2>
           <div class="mdl-news-teaser mdl-news-overview__newsgrid">
             <div class="mdl-news-teaser__content">
-              <div class="mdl-news-overview__no-results mdl-texthighlight">
-                <p class="atm-paragraph">{{noResults}}</p>
+              <div class="mdl-news-overview__no-results">
+                <h4 class=" atm-heading">{{noResults}}</h4>
+                <p class="atm-paragraph">{{noResultsSubText}}</p>
               </div>
               <script data-teaser-template type="text/x-handlebars-template">
                 {{{ newsTeaserTemplate }}}
@@ -64,7 +65,7 @@
               {{> "modules/pagination/pagination" }}
             </div>
             <div class="mdl-news-overview__notification hidden">
-              {{> "atoms/notification/notification" notificationData }}
+              {{> "modules/notification/notification" notificationData }}
             </div>
           </div>
         </div>

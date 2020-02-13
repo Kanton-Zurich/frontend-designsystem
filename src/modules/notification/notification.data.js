@@ -11,6 +11,7 @@ const data = _.merge({}, defaultData, {
     title: 'Popup Nachricht',
     className: 'Notification',
     jira: 'CZHDEV-850',
+    label: 'UI Element',
     documentation: dataHelper.getDocumentation('notification.md'),
   },
   props: {
@@ -52,7 +53,7 @@ const variants = _.mapValues({
       isDialog: true,
       button: {
         label: 'Abmelden',
-        additionalAttributes: 'data-attr_selector="loginBtn"',
+        additionalAttribute: 'data-attr_selector="loginBtn"',
       },
     },
   },
@@ -66,6 +67,22 @@ const variants = _.mapValues({
       title: 'Entschuldigung, der Service ist nicht verfügbar.',
       icon: '#caution',
       isDialog: true,
+    },
+  },
+  copySuccessNotification: {
+    meta: {
+      title: 'Bestätigung der Kopieren-Funktion',
+      desc: 'Der Hinweis wird angezeigt, wenn ein Wert in die Zwischenablage kopiert wurde.',
+    },
+    props: {
+      message: 'Der Link wurde in die Zwischenablage kopiert.',
+      icon: '#confirm',
+      isGreen: true,
+      button: {
+        label: 'Fertig',
+        additionalAttribute: 'data-metablock="done"',
+        icon: 'exit',
+      },
     },
   },
 }, (variant) => {

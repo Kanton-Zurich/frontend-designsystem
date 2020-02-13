@@ -18,7 +18,7 @@
         {{#if contactSubtitleMoreInfo}}
         <a href="{{contactSubtitleMoreInfo.href}}">
           {{contactSubtitleMoreInfo.label}}
-          <svg class="icon">
+          <svg class="icon" focusable="false">
             <use xlink:href="#arrow-right"></use>
           </svg>
         </a>
@@ -31,7 +31,7 @@
     <p class="mdl-contact__lead">
       <a href="{{contactSubtitleMoreInfo.href}}">
         {{contactSubtitleMoreInfo.label}}
-        <svg class="icon">
+        <svg class="icon" focusable="false">
           <use xlink:href="#arrow-right"></use>
         </svg>
       </a>
@@ -45,7 +45,7 @@
       <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-6 xlarge-4{{else}}{{/if}}">
         <div class="mdl-contact__cell-icon">
           <h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}} class="visuallyhidden">{{{contactAriaTitle_location}}}</h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}}>
-          <svg class="icon mdl-contact__icon-location" aria-hidden="true">
+          <svg class="icon mdl-contact__icon-location" aria-hidden="true" focusable="false">
             <use xlink:href="#location"></use>
           </svg>
         </div>
@@ -72,7 +72,7 @@
 
             {{#each contactAddress.openingTimes}}
               {{#if this.timeTitle}}
-                <h4>{{this.timeTitle}}</h4>
+                <h4 class="atm-heading">{{this.timeTitle}}</h4>
               {{/if}}
               <ul>
                 {{#each this.times}}
@@ -90,7 +90,7 @@
       <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-6 xlarge-4{{/if}}">
         <div class="mdl-contact__cell-icon">
           <h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}} class="visuallyhidden">{{{contactAriaTitle_phone}}}</h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}}>
-          <svg class="icon mdl-contact__icon-phone" aria-hidden="true">
+          <svg class="icon mdl-contact__icon-phone" aria-hidden="true" focusable="false">
             <use xlink:href="#phone-call"></use>
           </svg>
         </div>
@@ -112,7 +112,7 @@
               {{#if this.openingTimes}}
                 {{#each this.openingTimes}}
                   {{#if this.timeTitle}}
-                    <h4>{{this.timeTitle}}</h4>
+                    <h4 class="atm-heading">{{this.timeTitle}}</h4>
                   {{/if}}
                   <ul>
                     {{#each this.times}}
@@ -132,7 +132,7 @@
       <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-6 xlarge-4{{/if}}">
         <div class="mdl-contact__cell-icon">
           <h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}} class="visuallyhidden">{{{contactAriaTitle_email}}}</h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}}>
-          <svg class="icon mdl-contact__icon-email" aria-hidden="true">
+          <svg class="icon mdl-contact__icon-email" aria-hidden="true" focusable="false">
             <use xlink:href="#email"></use>
           </svg>
         </div>

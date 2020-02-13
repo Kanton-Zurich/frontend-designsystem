@@ -1,8 +1,9 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
+const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const defPostData = require('../social_media_post/social_media_post.data.js');
+const defNotificationData = require('../../modules/notification/notification.data').variants.default.props;
 
 const template = dataHelper.getFileContent('social_media_stream.hbs');
 const data = _.merge({}, defaultData, {
@@ -28,6 +29,9 @@ const data = _.merge({}, defaultData, {
       defPostData.variants.twitter.props,
       defPostData.variants.instagram.props,
     ],
+    notificationData: _.merge({}, defNotificationData, {
+      message: 'Beim Laden der Daten ist ein Fehler aufgetreten!',
+    }),
   },
 });
 const variants = _.mapValues({

@@ -80,10 +80,11 @@ const data = _.merge({}, defaultData, {
       message: 'Der Link wurde in die Zwischenablage kopiert.',
       icon: '#confirm',
       isGreen: true,
-      /* button: {
+      button: {
         label: 'Fertig',
-        additionalAttributes: 'data-metablock="done"',
-      }, */
+        additionalAttribute: 'data-metablock="done"',
+        icon: 'exit',
+      },
     },
   },
 });

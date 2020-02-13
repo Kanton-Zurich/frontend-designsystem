@@ -6,7 +6,7 @@
           <img class="mdl-banner__image" src="{{image.src}}" alt="{{image.alt}}"/>
         {{else}}
           <div class="mdl-banner__icon-wrapper">
-            <svg class="icon mdl-banner__icon">
+            <svg class="icon mdl-banner__icon" focusable="false">
               <use xlink:href="{{icon}}"></use>
             </svg>
           </div>
@@ -24,7 +24,7 @@
         </p>
         <a class="atm-text_link atm-text_link--icon" href="{{link.href}}">
           {{#if isLiveStream}}
-            <svg class="icon icon--iframe-add">
+            <svg class="icon icon--iframe-add" focusable="false">
               <use xlink:href="#play"></use>
             </svg>
           {{/if}}
@@ -32,7 +32,7 @@
           {{link.label}}
 
           {{#unless isLiveStream}}
-            <svg class="icon icon--iframe-arrow">
+            <svg class="icon icon--iframe-arrow" focusable="false">
               <use xlink:href="#arrow-right"></use>
             </svg>
           {{/unless}}
@@ -42,7 +42,7 @@
   </div>
   <button class="mdl-banner__close" data-banner="close">
     <span class="visuallyhidden">Schliessen</span>
-    <svg class="icon">
+    <svg class="icon" focusable="false">
       <use xlink:href="#exit"></use>
     </svg>
   </button>
