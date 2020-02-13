@@ -16,7 +16,7 @@
               <div class="mdl-news-filter-mobile__sublevel-container">
                 <h1 class="atm-heading mdl-news-filter-mobile__title">
                   <a href="#" class="mdl-news-filter-mobile__sublevel-backbutton">
-                    <svg class="icon mdl-news-filter-mobile__sublevel-icon">
+                    <svg class="icon mdl-news-filter-mobile__sublevel-icon" focusable="false">
                       <use xlink:href="#arrow-left"></use>
                     </svg>
                   </a>
@@ -29,7 +29,7 @@
                   <ul id="{{filterSelect.filterId}}" class="atm-list">
                     {{#each filterItems}}
                       <li {{#if id}}id="{{id}}"{{/if}} class="atm-list__item atm-list__item--check-icon">
-                        <svg class="icon">
+                        <svg class="icon" focusable="false">
                           <use xlink:href="#check"></use>
                         </svg>
                         <input name="group-iconLeftMulti" {{#if id}}id="checkbox-{{id}}"{{/if}} type="checkbox" value="{{value}}"

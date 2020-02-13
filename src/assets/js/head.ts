@@ -3,7 +3,6 @@ import loadPolyfills from './helpers/polyfills';
 import loadSvgSprites from '@unic/estatico-svgsprite/lib/loader';
 import WindowEventListener from './helpers/events';
 import './helpers/modernizrrc';
-import FontLoader from './helpers/fontloader';
 import Helper from './helpers/helper';
 import namespace from './helpers/namespace';
 import LineClamper from './helpers/lineclamper';
@@ -16,7 +15,7 @@ window[namespace] = {
   data: {}, // Content data
   options: {}, // Module options
   scriptLoader: new AssetLoader('data-script-main', 'script'),
-  fontLoader: new FontLoader(),
+  fontLoader: new AssetLoader('data-style-fonts', 'style', true),
   helpers: new Helper(),
   lineClamper: new LineClamper(),
   flyingFocus: new FlyingFocus(),

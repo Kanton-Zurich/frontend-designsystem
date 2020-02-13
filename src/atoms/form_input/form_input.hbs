@@ -74,7 +74,7 @@
           </span>
           <span>
              <span class="visuallyhidden">{{validation.ariaTextInvalid}}</span>
-             <svg class="icon">
+             <svg class="icon" focusable="false">
                 <use xlink:href="#caution"></use>
               </svg>
           </span>
@@ -87,14 +87,14 @@
       <button class="atm-form_input__functionality" type="button"
               data-buttontype="{{additionalFunctionality.buttontype}}">
         <span class="visuallyhidden">{{additionalFunctionality.ariaText}}</span>
-        <svg class="icon">
+        <svg class="icon" focusable="false">
           <use xlink:href="#{{additionalFunctionality.icon }}"></use>
         </svg>
       </button>
     {{/if}}
 
     {{#if iconOnly}}
-      <svg class="icon">
+      <svg class="icon" focusable="false">
         <use xlink:href="#{{iconOnly.icon }}"></use>
       </svg>
     {{/if}}

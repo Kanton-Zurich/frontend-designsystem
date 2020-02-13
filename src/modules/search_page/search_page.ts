@@ -27,6 +27,9 @@ class SearchPage extends Module {
     autosuggestTemplate: HTMLScriptElement,
     dateFilter: HTMLFormElement,
     datePicker: HTMLDivElement,
+    notification: HTMLDivElement,
+    resetResults: any,
+    noResults: any,
   };
 
   public options: {
@@ -80,9 +83,14 @@ class SearchPage extends Module {
         datePicker: '[data-init="datepicker"]',
         force: '[data-search_page="force"]',
         autocorrect: '[data-search_page="autocorrect"]',
+        notification: '.mdl-search_page__notification',
+        noResults: '.mdl-search_page__no-results',
+        resetResults: '.mdl-search_page__no-results .atm-button',
       },
       stateClasses: {
         showResults: 'mdl-search_page--show-results',
+        showNoResults: 'mdl-search_page--no-results',
+        showError: 'mdl-search_page--error',
         loading: 'mdl-search_page--loading',
         dateFilterVisible: 'mdl-search_page__date-filter--visible',
       },
@@ -113,6 +121,7 @@ class SearchPage extends Module {
       target: this.ui.autosuggest,
       url: this.options.autosuggestURL,
       renderAsButton: true,
+      autoHide: true,
     }, {});
   }
 
@@ -133,10 +142,12 @@ class SearchPage extends Module {
     });
 
     this.eventDelegate.on('click', this.options.domSelectors.force, (event, delegate) => {
-      this.onQueryChange(null, null, delegate.textContent, true);
+      this.ui.input.value = delegate.textContent;
+      this.onQueryChange(null, null, delegate.textContent, true, true);
     });
 
     this.ui.pagination.addEventListener(Pagination.events.change, this.onPageChange.bind(this));
+    this.ui.resetResults.addEventListener('click', this.onResetResults.bind(this));
 
     this.ui.element.addEventListener(Autosuggest.events.termSelected, (event) => {
       const term = (<CustomEvent>event).detail;
@@ -179,14 +190,18 @@ class SearchPage extends Module {
    * @param {string} newValue
    * @memberof SearchPage
    */
-  async onQueryChange(propName, oldValue, newValue, noAutoCorrection: boolean = false) {
+  async onQueryChange(propName, oldValue, newValue, noAutoCorrection: boolean = false, noAutoSuggest: boolean = false) { // eslint-disable-line
     this.ui.autosuggest.dispatchEvent(new CustomEvent(Autosuggest.events.empty));
+    if (noAutoSuggest) {
+      this.ui.autosuggest.dispatchEvent(new CustomEvent(Autosuggest.events.disableNext));
+    }
     this.empty();
     this.data.page = 1;
 
     if ((newValue === this.query || newValue.length < this.options.minInputLength)
       && !noAutoCorrection) {
       this.ui.element.classList.remove(this.options.stateClasses.showResults);
+      this.query = newValue;
 
       if (this.query.length === 0) {
         this.query = '';
@@ -195,6 +210,7 @@ class SearchPage extends Module {
       }
 
       this.setFilterInUrl();
+      this.showNoResults(false);
 
       return false;
     }
@@ -208,11 +224,21 @@ class SearchPage extends Module {
       .generateParams(true, false, false, false, true, false, noAutoCorrection),
     (response) => {
       this.result = response;
-      this.dispatchPageCount();
-      this.renderResults();
-      this.ui.element.classList.add(this.options.stateClasses.showResults);
+      if (response.results) {
+        this.dispatchPageCount();
+        this.renderResults();
+        this.ui.element.classList.add(this.options.stateClasses.showResults);
+      } else {
+        this.showNoResults(true);
+      }
       this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
     });
+  }
+
+  onResetResults() {
+    this.ui.input.value = '';
+    this.onQueryChange(null, null, '');
+    this.ui.input.focus();
   }
 
   /**
@@ -289,6 +315,7 @@ class SearchPage extends Module {
       this.result = response;
 
       this.dispatchPageCount();
+      this.renderHead();
       this.renderList();
 
       this.checkIfPickerVisible();
@@ -323,14 +350,23 @@ class SearchPage extends Module {
     }
 
     return fetch(this.generateURL(this.options.url, urlParams))
-      .then(response => response.json())
+      .then((response) => {
+        if (response.status !== 200 && response.status !== 204 ) { // eslint-disable-line
+          throw new Error('Error fetching resource!');
+        }
+        return response.json();
+      })
       .then((response) => {
         if (response) {
-          if (response.resultsData && response.resultsData.queryId) {
-            this.queryId = response.resultsData.queryId;
-          }
+          this.showNoResults(false);
           callback(response);
+          this.ui.element.classList.remove(this.options.stateClasses.showError);
         }
+      })
+      .catch((err) => {
+        this.log('error', err);
+        callback({ error: err });
+        this.ui.element.classList.add(this.options.stateClasses.showError);
       });
   }
 
@@ -348,11 +384,11 @@ class SearchPage extends Module {
       originalTerm: this.query,
       autocorrectedTerm: this.result.autoCorrectedTerm ? this.result.autoCorrectedTerm : '',
     };
-
     const compiledTemplate = template(this.ui.resultsHeadTemplate.innerHTML);
     const generatedHTML = compiledTemplate({ ...this.result.resultsData, ...autocorrection });
     const parsedHTML = new DOMParser().parseFromString(generatedHTML, 'text/html').querySelector('div');
 
+    this.ui.resultsHead.innerHTML = '';
     this.ui.resultsHead.appendChild(parsedHTML);
     this.initUi();
 
@@ -425,6 +461,17 @@ class SearchPage extends Module {
     return url;
   }
 
+  showNoResults(show: boolean) {
+    if (show) {
+      const compiledTemplate = template(this.ui.element.getAttribute('data-search-no-results'));
+      const generatedHTML = compiledTemplate({ searchTerm: this.query });
+      this.ui.noResults.querySelector('.atm-heading').innerHTML = generatedHTML;
+      this.ui.element.classList.add(this.options.stateClasses.showNoResults);
+      return;
+    }
+    this.ui.element.classList.remove(this.options.stateClasses.showNoResults);
+  }
+
   /**
    * Sends an event to the pagination to tell how many pages there are
    *
@@ -472,19 +519,24 @@ class SearchPage extends Module {
       this.ui.wrapper.classList.add(this.options.stateClasses.loading);
 
       this.getData(this.generateParams(true, true, true, true, true), (response) => {
+        this.ui.element.classList.add(this.options.stateClasses.showError);
         this.result = response;
+        if (response.results) {
+          this.dispatchPageCount();
+          this.renderResults();
 
-        this.dispatchPageCount();
-        this.renderResults();
 
-        this.ui.element.classList.add(this.options.stateClasses.showResults);
+          this.ui.element.classList.add(this.options.stateClasses.showResults);
 
-        this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setPage, {
-          detail: this.data.page,
-        }));
+          this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setPage, {
+            detail: this.data.page,
+          }));
 
-        if (dateTo && dateFrom) {
-          this.setDatepickerInput();
+          if (dateTo && dateFrom) {
+            this.setDatepickerInput();
+          }
+        } else {
+          this.showNoResults(true);
         }
 
         this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
@@ -517,7 +569,6 @@ class SearchPage extends Module {
     if (Object.keys(urlParams).length > 0) {
       url = this.generateURL(url, urlParams);
     }
-
     window.history.pushState({}, document.title, url);
   }
 
