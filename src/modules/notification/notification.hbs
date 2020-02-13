@@ -1,0 +1,27 @@
+<div class="mdl-notification
+  {{#if isGreen}}mdl-notification--green{{/if}}
+  {{#if isBig}}mdl-notification--big{{/if}}
+  {{#if isDialog}}mdl-notification--dialog{{/if}}" {{#if focussable}}tabindex="0"{{/if}}>
+  <svg class="icon" focusable="false">
+    <use xlink:href="{{icon}}"></use>
+  </svg>
+  <div class="mdl-notification__message">
+    {{#if title}}<h3 class="mdl-notification__title">{{title}}</h3>{{/if}}
+    <p>{{{message}}}</p>
+  </div>
+  {{#if button}}
+    <button
+      class="atm-button{{#if button.icon}} atm-button--icon-only atm-button--small{{/if}}"
+      {{#if button.additionalAttribute}}{{{button.additionalAttribute}}}{{/if}}
+    >
+      {{#if button.icon}}
+        <svg class="icon atm-button__icon" focusable="false">
+          <use xlink:href="#{{button.icon}}"></use>
+        </svg>
+        <span class="visuallyhidden">{{ button.label }}</span>
+      {{else}}
+        {{ button.label }}
+      {{/if}}
+    </button>
+  {{/if}}
+</div>

@@ -127,16 +127,28 @@ class FlexData extends Module {
     // Listen to sort-dropdown events
     if (this.ui.genericSortButton) {
       this.ui.genericSortButton.addEventListener('click', () => {
+        const newState = this.ui.genericSortButton.getAttribute('aria-expanded') === 'false' ? 'true' : 'false';
         this.ui.genericSortDropdown.classList.toggle('visible');
+        this.ui.genericSortButton.setAttribute('aria-expanded', newState);
+      });
+      this.ui.genericSortButton.addEventListener('keydown', (event) => {
+        if (event.key === 'Esc' || event.key === 'Escape') {
+          this.closeSortDropdown();
+        }
       });
       this.ui.genericSortDropdown.querySelectorAll('button').forEach((button) => {
         button.addEventListener('click', () => {
           this.order = button.getAttribute('data-sort-direction');
           this.orderBy = button.getAttribute('data-sort-column');
-          this.ui.genericSortDropdown.classList.remove('visible');
-          this.ui.genericSortButton.querySelector('span').innerText = button.querySelector('span').innerText;
+          this.updateSortDropdown(button);
+          this.closeSortDropdown();
           this.ui.paginationInput.value = '1';
           this.loadResults();
+        });
+        button.addEventListener('keydown', (event) => {
+          if (event.key === 'Esc' || event.key === 'Escape') {
+            this.closeSortDropdown();
+          }
         });
       });
     }
@@ -144,7 +156,7 @@ class FlexData extends Module {
     this.order = sortParamElemet.getAttribute('data-sort-direction');
     this.orderBy = sortParamElemet.getAttribute('data-sort-column');
     const initialLoad = this.ui.element.hasAttribute('data-initial-load');
-    if (this.getAllURLParams()['page'] || (initialLoad && initialLoad === true)) { // eslint-disable-line
+    if (this.getAllURLParams()['page'] || initialLoad) { // eslint-disable-line
       this.updateViewFromURLParams();
       setTimeout(() => {
         this.loadResults();
@@ -169,7 +181,12 @@ class FlexData extends Module {
     this.ui.form.querySelectorAll('.mdl-select').forEach((select: HTMLElement) => {
       select.dispatchEvent(new CustomEvent(Select.events.clear));
     });
-    this.loadResults();
+    this.ui.results.classList.add('initially-hidden');
+    this.ui.pagination.classList.add('hidden');
+    const initialLoad = this.ui.element.hasAttribute('data-initial-load');
+    if (initialLoad) {
+      this.loadResults();
+    }
   }
 
   /**
@@ -193,7 +210,32 @@ class FlexData extends Module {
   }
 
   /**
+   * Close sort dropdown
+   */
+  private closeSortDropdown() {
+    this.ui.genericSortDropdown.classList.remove('visible');
+    this.ui.genericSortButton.setAttribute('aria-expanded', 'false');
+  }
+
+  /**
+   * Update sort dropdown
+   *
+   * @param sortSetting Element
+   */
+  private updateSortDropdown(sortSetting: Element) {
+    this.ui.genericSortDropdown.querySelectorAll('button').forEach((button) => {
+      button.classList.remove('atm-context_menu_item--selected');
+      button.setAttribute('aria-pressed', 'false');
+    });
+    sortSetting.classList.add('atm-context_menu_item--selected');
+    sortSetting.setAttribute('aria-pressed', 'true');
+    this.ui.genericSortButton.querySelector<HTMLSpanElement>('.atm-form_input__trigger-value').innerText = sortSetting.querySelector('span').innerText;
+  }
+
+  /**
    * Load results
+   *
+   * @param scroll boolean
    */
   private loadResults(scroll = false) {
     this.paginationInteraction = false;
@@ -378,6 +420,7 @@ class FlexData extends Module {
   updateViewFromURLParams() {
     const params = this.getAllURLParams();
     Object.keys(params).forEach((key) => {
+      this.ui.clearButton.classList.remove('hidden');
       switch (key) {
         case 'page':
           setTimeout(() => {
@@ -445,7 +488,7 @@ class FlexData extends Module {
           sortSelector += `[data-sort-direction="${this.order}"]`;
         }
         const sortSetting = this.ui.genericSortDropdown.querySelector(sortSelector);
-        this.ui.genericSortButton.querySelector('span').innerText = sortSetting.querySelector('span').innerText;
+        this.updateSortDropdown(sortSetting);
       }
     });
   }

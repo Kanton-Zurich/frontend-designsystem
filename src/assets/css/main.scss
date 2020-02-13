@@ -46,7 +46,6 @@
 @import '../../atoms/form_input/form_input';
 @import '../../atoms/radiobutton/radiobutton';
 @import '../../atoms/checkbox/checkbox';
-@import '../../atoms/notification/notification';
 @import '../../atoms/list/list';
 @import '../../atoms/toggle/toggle';
 @import '../../atoms/loading_circle/loading_circle';
@@ -138,6 +137,7 @@
 @import '../../modules/tax_calc/tax_calc';
 @import '../../modules/jurisdiction_finder/jurisdiction_finder';
 @import '../../modules/newsletter_form/newsletter_form';
+@import '../../modules/notification/notification';
 //*autoinsertmodule*
 
 @media screen {

@@ -280,6 +280,7 @@
     @include sizeCurve(padding-top padding-bottom, big);
 
     background: $colorBlack5;
+    margin-bottom: 0;
 
     .mdl-table__figure {
       background: $colorBlack5;

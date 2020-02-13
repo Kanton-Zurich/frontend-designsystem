@@ -272,7 +272,7 @@ class Stepper extends Module {
         iterator += 1;
       } while (iterator < amountOfStepTitles && !elementIsVisible);
     } else {
-      step.querySelector('.atm-notification').focus();
+      step.querySelector('.mdl-notification').focus();
     }
   }
 
@@ -333,7 +333,7 @@ class Stepper extends Module {
       })
         .then((response) => {
           if (!response.ok) {
-            const notifications = this.ui.messageWrapper.querySelectorAll('.atm-notification');
+            const notifications = this.ui.messageWrapper.querySelectorAll('.mdl-notification');
 
             notifications.forEach((notification) => {
               notification.remove();
@@ -350,7 +350,7 @@ class Stepper extends Module {
           const validationErrorStatus = 400;
           const responseData = await response.json();
 
-          const notifications = this.ui.messageWrapper.querySelectorAll('.atm-notification');
+          const notifications = this.ui.messageWrapper.querySelectorAll('.mdl-notification');
 
           notifications.forEach((notification) => {
             notification.remove();
@@ -421,7 +421,7 @@ class Stepper extends Module {
       title: false,
     });
 
-    const parsedNotification = new DOMParser().parseFromString(notificationHTML, 'text/html').querySelector('.atm-notification');
+    const parsedNotification = new DOMParser().parseFromString(notificationHTML, 'text/html').querySelector('.mdl-notification');
 
     this.ui.messageWrapper.appendChild(parsedNotification);
     this.addNotificationEventListeners(parsedNotification);
@@ -437,7 +437,7 @@ class Stepper extends Module {
       icon: '#caution',
     };
     const errorHTML = convertedTemplate(context);
-    const parsedError = new DOMParser().parseFromString(errorHTML, 'text/html').querySelector('.atm-notification');
+    const parsedError = new DOMParser().parseFromString(errorHTML, 'text/html').querySelector('.mdl-notification');
 
     this.ui.messageWrapper.appendChild(parsedError);
   }
