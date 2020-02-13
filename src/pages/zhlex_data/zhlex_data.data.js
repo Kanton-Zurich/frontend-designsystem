@@ -126,7 +126,7 @@ const data = _.merge({}, defaultData, {
           }],
         }),
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
     },
   },
 });

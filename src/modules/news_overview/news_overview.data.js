@@ -50,7 +50,8 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('news_overview.md'),
   },
   props: {
-    noResults: 'Keine Resultate für die gewählten Kriterien gefunden.',
+    noResults: 'Keine News zu Ihren Filterkriterien gefunden.',
+    noResultsSubText: 'Passen Sie Ihre Filter an oder setzen Sie diese zurück.',
     notificationData: _.merge({}, defNotificationData, {
       message: 'Beim Laden der Daten ist ein Fehler aufgetreten!',
     }),

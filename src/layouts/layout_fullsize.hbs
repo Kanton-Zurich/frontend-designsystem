@@ -50,6 +50,8 @@
 </head>
 <body {{#if props.defaultColorVariation}}class="{{props.defaultColorVariation}} locked"{{/if}} {{#unless props.defaultColorVariation}}class="cv-blue locked"{{/unless}} {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
   data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
+{{#block "banner"}}
+{{/block}}
 <header class="lyt-wrapper" id="header">
   <h1 class="visuallyhidden">Navigation</h1>
   {{> "modules/skiplinks/skiplinks" props.skiplinks }}

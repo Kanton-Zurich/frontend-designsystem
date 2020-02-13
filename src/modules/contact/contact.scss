@@ -89,7 +89,7 @@ $contactMapHeightCurve: (
 
     svg {
       position: absolute;
-      top: 50%;
+      top: 42%;
       right: 0;
       transform: translateY(-50%);
 
@@ -115,7 +115,8 @@ $contactMapHeightCurve: (
 
   &__section-cell--media {
     margin-top: calc(#{$sizeBiggerBig} + #{$sizeLarge});
-    height: 38px;
+    max-height: 38px;
+    transition: max-height 200ms ease-out 100ms;
 
     .mdl-contact__media-trigger {
       span:last-of-type {
@@ -129,9 +130,8 @@ $contactMapHeightCurve: (
     }
 
     .mdl-contact__cell-content {
-      transition: transform 200ms ease-out 100ms;
-      transform: scaleY(0);
-      visibility: hidden;
+      transition: opacity 200ms ease-out 100ms;
+      opacity: 0;
     }
 
     .mdl-contact__text {
@@ -148,7 +148,7 @@ $contactMapHeightCurve: (
     }
 
     &.open {
-      height: auto;
+      max-height: 1000px;
 
       .mdl-contact__media-trigger {
         span:first-of-type {
@@ -165,8 +165,7 @@ $contactMapHeightCurve: (
       }
 
       .mdl-contact__cell-content {
-        transform: scaleY(1);
-        visibility: visible;
+        opacity: 1;
       }
     }
   }
@@ -303,7 +302,6 @@ $contactMapHeightCurve: (
         a {
           color: $colorBlack60;
           padding-left: 0;
-          display: block;
           margin-top: pxToRem($sizeTiny);
 
           svg {

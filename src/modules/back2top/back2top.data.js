@@ -28,6 +28,7 @@ const variants = _.mapValues({
     },
     props: {
       develop: false,
+      preserveLangSwitch: false,
     },
   },
   develop: {
@@ -37,6 +38,7 @@ const variants = _.mapValues({
     },
     props: {
       develop: true,
+      preserveLangSwitch: true,
     },
   },
 }, (variant) => {
