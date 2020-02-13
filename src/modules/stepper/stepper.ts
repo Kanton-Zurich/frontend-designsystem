@@ -357,7 +357,12 @@ class Stepper extends Module {
           });
 
           if (response.status === validationErrorStatus || (<any>responseData).validationErrors) {
-            this.showValidationErrors((<any>responseData).validationErrors);
+            const cleanedValidationErrors = this
+              .cleanValidationErrors((<any>responseData).validationErrors);
+
+            if (cleanedValidationErrors.length > 0) {
+              this.showValidationErrors((<any>responseData).validationErrors);
+            }
           } else {
             // successful submission
             let newPageIndex = this.data.active + 1;
@@ -382,6 +387,14 @@ class Stepper extends Module {
           this.log('error', err);
         });
     }
+  }
+
+  cleanValidationErrors(validationErrors: Array<string>) {
+    return validationErrors.filter((fieldName) => {
+      const field = this.ui.element.querySelector(`[name="${fieldName}"]`);
+
+      return field.closest('.form__element--hidden-by-rule') === null;
+    });
   }
 
   showValidationErrors(validationErrors: Array<string>) {

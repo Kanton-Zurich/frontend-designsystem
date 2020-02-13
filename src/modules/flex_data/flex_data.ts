@@ -282,46 +282,48 @@ class FlexData extends Module {
     }
     let resultsTitle = this.ui.results.getAttribute('data-result-count-title')
       .replace('%1', jsonData.numberOfResults);
-    if (jsonData.numberOfResults <= 0) {
+    if (!jsonData.numberOfResults || jsonData.numberOfResults <= 0) {
       resultsTitle = this.ui.results.getAttribute('data-no-results-title');
     }
-
     // fill table date if present
     if (this.ui.resultsTable) {
       this.ui.resultsTableBody.innerHTML = '';
       this.ui.resultsTable.classList.remove('visible');
       this.ui.resultsTableTitle.innerText = resultsTitle;
-      jsonData.data.forEach((item) => {
-        this.ui.resultsTable.classList.add('visible');
-        const tr = document.createElement('tr');
-        tr.classList.add('mdl-table__row');
-        const props = {
-          link: item.link,
-        };
-        const resultsTableColumns = this.ui.resultsTableColumns.length
-          ? this.ui.resultsTableColumns : [this.ui.resultsTableColumns];
-        resultsTableColumns.forEach((col, index) => {
-          const colName = col.getAttribute('data-column-name');
-          props[`text${index}`] = item[colName];
+      if (jsonData.data) {
+        jsonData.data.forEach((item) => {
+          this.ui.resultsTable.classList.add('visible');
+          const tr = document.createElement('tr');
+          tr.classList.add('mdl-table__row');
+          const props = {
+            link: item.link,
+          };
+          const resultsTableColumns = this.ui.resultsTableColumns.length
+            ? this.ui.resultsTableColumns : [this.ui.resultsTableColumns];
+          resultsTableColumns.forEach((col, index) => {
+            const colName = col.getAttribute('data-column-name');
+            props[`text${index}`] = item[colName];
+          });
+          tr.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, props);
+          tr.addEventListener('click', () => {
+            tr.querySelector('a').click();
+          });
+          this.ui.resultsTableBody.appendChild(tr);
         });
-        tr.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, props);
-        tr.addEventListener('click', () => {
-          tr.querySelector('a').click();
-        });
-        this.ui.resultsTableBody.appendChild(tr);
-      });
+      }
     }
     // fill generic results
     if (this.ui.resultsGeneric) {
       this.ui.resultsGenericTitle.innerText = resultsTitle;
-      if (jsonData.numberOfResults <= 0) {
+      if (!jsonData.numberOfResults || jsonData.numberOfResults <= 0) {
         this.ui.genericSort.classList.add('hidden');
       } else {
         this.ui.genericSort.classList.remove('hidden');
+
+        this.ui.resultsGeneric.innerHTML = '';
+        this.ui.resultsGeneric.innerHTML = this
+          .markupFromTemplate(this.ui.resultsTemplate.innerHTML, jsonData);
       }
-      this.ui.resultsGeneric.innerHTML = '';
-      this.ui.resultsGeneric.innerHTML = this
-        .markupFromTemplate(this.ui.resultsTemplate.innerHTML, jsonData);
     }
   }
 
@@ -460,7 +462,7 @@ class FlexData extends Module {
     this.currentUrl = this.constructUrl();
     return fetch(this.currentUrl)
       .then((response) => {
-        if (response.status !== 200) { // eslint-disable-line
+        if (response.status !== 200 && response.status !== 204 ) { // eslint-disable-line
           throw new Error('Error fetching resource!');
         }
         return response.json();
