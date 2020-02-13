@@ -1,9 +1,10 @@
-{{> "modules/banner/banner" props.modules.banner }}
 {{#extend "layouts/layout"}}
+  {{#content "banner"}}
+    {{> "modules/banner/banner" props.modules.banner }}
+  {{/content}}
   {{#content "header"}}
     {{> "modules/page_header/page_header" props.modules.pageHeaderData.variants.colored.props}}
   {{/content}}
-
   {{#content "content"}}
     {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
     {{> "modules/content_nav/content_nav" props.modules.contentNavData }}
@@ -14,7 +15,6 @@
     {{> "modules/related_content/related_content" props.modules.releatedContentData}}
     {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
   {{/content}}
-
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData }}
     {{> "modules/back2top/back2top" props.modules.back2topData}}

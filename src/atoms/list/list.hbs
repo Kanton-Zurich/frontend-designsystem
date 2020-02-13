@@ -26,7 +26,7 @@
         <a href="#">
       {{/if}}
       {{#if_compare ../hasIconLeft "||" ../hasCheckIcon }}
-        <svg class="icon">
+        <svg class="icon" focusable="false">
           <use xlink:href="#{{{../iconLeft}}}"></use>
         </svg>
       {{/if_compare}}
@@ -42,7 +42,7 @@
              {{#if ../validation.isRequired}}required{{/if}}>
 
       {{#if ../hasIconRight}}
-        <svg class="icon">
+        <svg class="icon" focusable="false">
           <use xlink:href="#{{{../iconRight}}}"></use>
         </svg>
       {{/if}}

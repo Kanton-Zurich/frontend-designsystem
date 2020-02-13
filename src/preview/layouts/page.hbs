@@ -48,6 +48,8 @@
 </head>
 <body {{#if props.svgSprites}} data-svgsprites-options='{{props.svgSprites}}'{{/if}}
                                data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
+{{#block "banner"}}
+{{/block}}
 <header class="lyt-wrapper">
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">

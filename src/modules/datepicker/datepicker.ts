@@ -129,10 +129,10 @@ class Datepicker extends Module {
 
     this.pickerMode = this.ui.element.dataset[this.options.dataSelectors.pickerMode];
     this.globalConfig = {
-      nextArrow: '<svg class="icon">\n'
+      nextArrow: '<svg class="icon" focusable="false">\n'
       + '<use xlink:href="#angle_right"></use>\n'
       + '</svg>',
-      prevArrow: '<svg class="icon">\n'
+      prevArrow: '<svg class="icon" focusable="false">\n'
       + '<use xlink:href="#angle_left"></use>\n'
       + '</svg>',
       onChange: this.onValueChange.bind(this),

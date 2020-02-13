@@ -2,10 +2,10 @@
   {{#each steps}}
 	  <li>
       <button class="mdl-stepper_navigation__step" data-stepper_navigation="step" data-step="{{@index}}" disabled>
-        <svg class="icon mdl-stepper_navigation__step-checkmark">
+        <svg class="icon mdl-stepper_navigation__step-checkmark" focusable="false">
           <use xlink:href="#check"></use>
         </svg>
-        <svg class="icon mdl-stepper_navigation__step-dots">
+        <svg class="icon mdl-stepper_navigation__step-dots" focusable="false">
           <use xlink:href="#overflow"></use>
         </svg>
         <span class="mdl-stepper_navigation__step-ordinal" data-stepper_navigation="number"></span>
@@ -16,7 +16,7 @@
   {{#ifLongerThan steps 5}}
     <li>
       <button class="mdl-stepper_navigation__step mdl-stepper_navigation__step--multiple" data-stepper_navigation="multipleBefore">
-        <svg class="icon mdl-stepper_navigation__step-dots">
+        <svg class="icon mdl-stepper_navigation__step-dots" focusable="false">
             <use xlink:href="#overflow"></use>
           </svg>
       </button>
@@ -24,7 +24,7 @@
     </li>
     <li>
       <button class="mdl-stepper_navigation__step mdl-stepper_navigation__step--multiple" data-stepper_navigation="multipleAfter">
-        <svg class="icon mdl-stepper_navigation__step-dots">
+        <svg class="icon mdl-stepper_navigation__step-dots" focusable="false">
             <use xlink:href="#overflow"></use>
           </svg>
       </button>

@@ -14,7 +14,7 @@
   {{#unless noTitle}}<figcaption class="mdl-image-figure__caption">
     {{> "atoms/figcaption/figcaption" caption}}
     {{#if hasDownload}}<a href="{{srcsets.[0].image}}" download class="mdl-image-figure__download">
-      <svg class="icon mdl-image-figure__download-icon">
+      <svg class="icon mdl-image-figure__download-icon" focusable="false">
         <use xlink:href="#download"></use>
       </svg>
       <span class="visuallyhidden">Bild{{#if alt}} «{{alt}}»{{/if}} herunterladen</span>

@@ -61,7 +61,7 @@ const data = _.merge({}, defaultData, {
       personCardData: defPersonCardData.variants.noImageAlt.props,
       tagGroupData: defTagGroupData.props,
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
     },
   },
 });
