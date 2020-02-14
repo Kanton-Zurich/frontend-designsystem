@@ -163,52 +163,11 @@ $biometrieViewTransitionDuration: 300ms;
     &__confirmation {
       display: none;
 
+      @include sizeCurve('margin-bottom', large);
+
       &.show {
         display: block;
       }
-
-      .alert.alert-success.show {
-        @include sizeCurve('margin-bottom', medium);
-
-        .details {
-          display: inline-block;
-        }
-
-        @include mq($to: xsmall) {
-
-          @include sizeCurve(padding-left padding-right, smallerRegular);
-
-          .success-icon {
-            display: block;
-            position: relative;
-            left: 0;
-            margin-bottom: 1rem;
-          }
-
-          .alert__close {
-            @include sizeCurve(top, smallerRegular);
-          }
-        }
-      }
-
-      h3 {
-        @include sizeCurve('margin-bottom', medium);
-
-        &:after {
-          content: '';
-          display: inline-block;
-          position: relative;
-          transform: rotate(45deg);
-          top: 2px;
-          border-bottom: $sizeMini solid $colorGreen;
-          border-right: $sizeMini solid $colorGreen;
-
-          @include sizeCurve(width, small);
-          @include sizeCurve(height left, biggerRegular);
-        }
-      }
-
-      @include sizeCurve('margin-bottom', large);
     }
 
     &__persondata {
@@ -708,6 +667,14 @@ $biometrieViewTransitionDuration: 300ms;
           background-color: $colorBlack40;
           color: $colorWhite;
         }
+
+        .mdl-notification {
+          margin-bottom: pxToRem($sizeRegular);
+
+          .atm-button {
+            background: transparent;
+          }
+        }
       }
 
       .selection-details {
@@ -860,81 +827,8 @@ $biometrieViewTransitionDuration: 300ms;
     }
   }
 
-  .alert {
-    display: none;
-    color: $colorWhite;
-    border-radius: 4px;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    line-height: $sizeLineHeightNarrow;
-    position: relative;
-    font-weight: 200;
-
-    @include sizeCurve(padding-top padding-bottom, smallerRegular);
-    @include sizeCurve(padding-left padding-right, big);
-    @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
-
-    &.alert-success {
-      background-color: $colorGreen;
-
-      .success-icon {
-        display: block;
-        position: absolute;
-        background-color: $colorWhite;
-        border-radius: 50%;
-        left: $sizeRegular;
-
-        @include polyFluidSizing(width, map-get($fontSizeCurves, big));
-        @include polyFluidSizing(height, map-get($fontSizeCurves, big));
-
-        svg {
-          fill: $colorGreen;
-
-          @include polyFluidSizing(width, map-get($fontSizeCurves, big));
-          @include polyFluidSizing(height, map-get($fontSizeCurves, big));
-        }
-      }
-    }
-
-    &__close {
-      display: block;
-      position: absolute;
-      right: $sizeRegular;
-      top: calc(50% - 0.75rem);
-      cursor: pointer;
-
-      svg {
-        width: $sizeFontRegular;
-        fill: $colorWhite;
-      }
-    }
-
-    &.show {
-      display: block;
-    }
-  }
-
   .atm-paragraph a:hover {
     text-decoration: none;
-  }
-
-  .atm-notification {
-    margin-bottom: $sizeRegular;
-    margin-top: $sizeTiny;
-
-    &__close {
-      display: flex;
-      right: $sizeRegular;
-      cursor: pointer;
-
-      svg {
-        min-width: pxToRem($sizeFontRegular);
-        min-height: pxToRem($sizeFontRegular);
-        width: pxToRem($sizeFontRegular);
-        height: pxToRem($sizeFontRegular);
-        fill: $colorWhite;
-      }
-    }
   }
 
   .atm-lead {

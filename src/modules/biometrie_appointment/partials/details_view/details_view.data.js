@@ -25,6 +25,18 @@ const calendarContextMenu = {
   ],
 };
 
+const successNotification = {
+  title: 'Ihr Termin wurde verschoben',
+  message: '<span data-biometrie_appointment="reservation-details__appointmentDateString"></span>&nbsp;<span data-biometrie_appointment="reservation-details__fromTimeString"></span>&nbsp;&ndash;&nbsp;<span data-biometrie_appointment="reservation-details__untilTimeString"></span>',
+  icon: '#confirm',
+  isGreen: true,
+  isBig: true,
+  button: {
+    icon: 'exit',
+    additionalAttribute: 'data-biometrie_appointment="alertClose"',
+  },
+};
+
 const data = _.merge({}, defaultData, {
   props: {
     messages: {
@@ -51,6 +63,7 @@ const data = _.merge({}, defaultData, {
       confirmationHead: 'Bitte beachten',
       confirmationIntroParagraph: 'Drucken Sie die neue Terminbestätigung aus und nehmen Sie diese mit an den Termin.',
     },
+    successNotification,
     calendarContextMenu,
     calendarMenuToggleBtn: _.merge({}, defaultButtonData, {
       text: 'Im Kalender speichern',
@@ -98,6 +111,18 @@ const variants = _.mapValues({
     props: {
       withMockData: true,
       withConfirmation: true,
+      successNotification: {
+        title: 'Ihr Termin wurde verschoben',
+        message: '<span data-biometrie_appointment="reservation-details__appointmentDateString">Montag 05.08.2019</span>&nbsp;<span data-biometrie_appointment="reservation-details__fromTimeString">'
+          + '10:45</span>&nbsp;&ndash;&nbsp;<span data-biometrie_appointment="reservation-details__untilTimeString">11:00</span>',
+        icon: '#confirm',
+        isGreen: true,
+        isBig: true,
+        button: {
+          icon: 'exit',
+          additionalAttribute: 'data-biometrie_appointment="alertClose"',
+        },
+      },
     },
   },
 }, (variant) => {

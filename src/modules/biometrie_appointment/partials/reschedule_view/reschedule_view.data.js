@@ -4,6 +4,15 @@ const defaultData = require('../../../../data/default.data.js');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultButtonData = require('../../../../atoms/button/button.data').variants.default.props;
 
+const slotFullNotification = {
+  message: 'Diesen Termin hat soeben jemand reserviert. Er ist nicht mehr verfügbar.',
+  icon: '#caution',
+  button: {
+    icon: 'exit',
+    additionalAttribute: 'data-biometrie_appointment="alertClose"',
+  },
+};
+
 const template = dataHelper.getFileContent('reschedule_view.hbs');
 const data = _.merge({}, defaultData, {
   props: {
@@ -11,8 +20,8 @@ const data = _.merge({}, defaultData, {
       slotCapacityMsg: 'An diesem Termin gibt es noch {schalter} freie(n) Schalter.',
       otherSlotsHeading: 'Termin wählen',
       noOpenSlotsMsg: 'Keine Termine',
-      blockedSlotInfo: 'Diesen Termin hat soeben jemand reserviert. Er ist nicht mehr verfügbar.',
     },
+    slotFullNotification,
     nextWeekBtn: _.merge({}, defaultButtonData, {
       isTextVisible: false,
       isSecondary: true,

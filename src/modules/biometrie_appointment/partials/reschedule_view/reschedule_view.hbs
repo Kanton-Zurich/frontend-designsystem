@@ -258,20 +258,8 @@
         </div>
         <div data-biometrie_appointment="selection-details__wrapper" class="mdl-biometrie_appointment__reschedule__selectiondetails{{#if withMockedData}}  show{{/if}} {{#if isSlotFull}}none{{/if}}">
           <div class="selection-details__blocked {{#if isSlotFull}}show{{/if}}" data-biometrie_appointment="slotFullMsg" >
-            <div class="atm-notification">
-              <svg class="icon">
-                <use xlink:href="#caution"></use>
-              </svg>
-              <span class="atm-notification__message">{{ blockedSlotInfo }}</span>
-              <span class="atm-notification__close" data-biometrie_appointment="alertClose">
-                <svg class="icon">
-                    <use xlink:href="#exit"></use>
-                </svg>
-              </span>
-            </div>
+            {{> "modules/notification/notification" slotFullNotification }}
           </div>
-
-
 
           <div class="mdl-biometrie_appointment__reschedule__selectiondetails__wrapper">
                 <div class="atm-heading selection-details__byselection">Gewählter Termin</div>
