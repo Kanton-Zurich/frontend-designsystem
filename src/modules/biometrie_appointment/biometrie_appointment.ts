@@ -253,7 +253,7 @@ class BiometrieAppointment extends Module {
     alertDismissElements.forEach((alertDismiss) => {
       const alertClasslist = alertDismiss.parentElement.classList;
       alertDismiss.addEventListener('click', () => {
-        alertClasslist.remove('show');
+        alertClasslist.add('dismissed');
       });
     });
   }

@@ -43,6 +43,7 @@ const data = _.merge({}, defaultData, {
     scheduleSelectedBtn: _.merge({}, defaultButtonData, {
       text: 'Termin reservieren',
       isPrimary: true,
+      additionalClasses: 'selection-details__select-btn',
       additionalAttribute: 'data-biometrie_appointment="doScheduleSelected"',
     }),
     closeBlockedInfoBtn: _.merge({}, defaultButtonData, {

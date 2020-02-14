@@ -113,6 +113,8 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
 
   private handleSlotFull(timeslotId: string):void {
     this.slotFullMsg.classList.add('show');
+    this.slotFullMsg.querySelector<HTMLElement>('.mdl-notification').classList.remove('dismissed');
+
     const detailWrapper = document
       .querySelector<HTMLElement>(this.selectors.selectionDetailsWrapper);
     detailWrapper.classList.remove('next');
