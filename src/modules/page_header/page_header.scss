@@ -117,13 +117,11 @@ $pageHeaderCurves: (
   &__logo-container {
     height: 0;
 
-    a {
-      display: inline-block;
-      position: relative;
+    display: inline-block;
+    position: relative;
 
-      @include polyFluidSizing('top', map-get($pageHeaderCurves, ktzhLogoTop));
-      @include polyFluidSizing('margin-left', map-get($pageHeaderCurves, ktzhLogoMarginLeft));
-    }
+    @include polyFluidSizing('top', map-get($pageHeaderCurves, ktzhLogoTop));
+    @include polyFluidSizing('margin-left', map-get($pageHeaderCurves, ktzhLogoMarginLeft));
   }
 
   &__logo {
