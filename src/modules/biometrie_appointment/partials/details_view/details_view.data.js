@@ -37,19 +37,58 @@ const successNotification = {
   },
 };
 
+const personDataMetablock = {
+  rows: [
+    {
+      columns: [
+        {
+          label: 'Familienname',
+          text: '<span data-biometrie_appointment="reservation-details__lastName"></span>',
+        },
+        {
+          label: 'Vorname',
+          text: '<span data-biometrie_appointment="reservation-details__firstName"></span>',
+        },
+      ],
+    },
+    {
+      columns: [
+        {
+          label: 'Geburtsdatum',
+          text: '<span data-biometrie_appointment="reservation-details__dateOfBirth"></span>',
+        },
+        {
+        },
+      ],
+    },
+  ],
+};
+
+const appointmentMetablock = {
+  headingLevel: 3,
+  title: 'Termin Details',
+  hasTopTitle: true,
+  rows: [
+    {
+      columns: [
+        {
+          label: 'Datum',
+          text: '<span data-biometrie_appointment="reservation-details__appointmentDateString"></span>',
+        },
+        {
+          label: 'Uhrzeit',
+          text: '<span data-biometrie_appointment="reservation-details__fromTimeString"></span> bis <span data-biometrie_appointment="reservation-details__untilTimeString"></span>',
+        },
+      ],
+    },
+  ],
+};
+
 const data = _.merge({}, defaultData, {
   props: {
     messages: {
-      labelLastName: 'Familienname',
-      labelFirstName: 'Vorname',
-      labelDateOfBirth: 'Geburtsdatum',
-      headingAppointment: 'Termin Details',
-      labelDate: 'Datum',
-      labelTime: 'Uhrzeit',
-      fromUntilConjunction: ' bis ',
       calLinksDescr: 'Im Kalender speichern',
       calIcsFileName: `${calIcsFileName}`,
-
       checkList: {
         heading: 'Bringen Sie bitte folgende Unterlagen mit',
         items: [
@@ -59,10 +98,11 @@ const data = _.merge({}, defaultData, {
           'Geburtsschein (bei Neugeborenen)',
         ],
       },
-      rescheduleSuccessHead: 'Ihr Termin wurde verschoben',
       confirmationHead: 'Bitte beachten',
       confirmationIntroParagraph: 'Drucken Sie die neue Terminbestätigung aus und nehmen Sie diese mit an den Termin.',
     },
+    personDataMetablock,
+    appointmentMetablock,
     successNotification,
     calendarContextMenu,
     calendarMenuToggleBtn: _.merge({}, defaultButtonData, {
@@ -101,6 +141,51 @@ const variants = _.mapValues({
     props: {
       withMockData: true,
       withConfirmation: false,
+      personDataMetablock: {
+        rows: [
+          {
+            columns: [
+              {
+                label: 'Familienname',
+                text: '<span data-biometrie_appointment="reservation-details__lastName">Russo</span>',
+              },
+              {
+                label: 'Vorname',
+                text: '<span data-biometrie_appointment="reservation-details__firstName">Maria</span>',
+              },
+            ],
+          },
+          {
+            columns: [
+              {
+                label: 'Geburtsdatum',
+                text: '<span data-biometrie_appointment="reservation-details__dateOfBirth">24.04.1983</span>',
+              },
+              {
+              },
+            ],
+          },
+        ],
+      },
+      appointmentMetablock: {
+        headingLevel: 3,
+        title: 'Termin Details',
+        hasTopTitle: true,
+        rows: [
+          {
+            columns: [
+              {
+                label: 'Datum',
+                text: '<span data-biometrie_appointment="reservation-details__appointmentDateString">Montag 05.08.2019</span>',
+              },
+              {
+                label: 'Uhrzeit',
+                text: '<span data-biometrie_appointment="reservation-details__fromTimeString">10:45</span> bis <span data-biometrie_appointment="reservation-details__untilTimeString">11:00</span>',
+              },
+            ],
+          },
+        ],
+      },
     },
   },
   confirmed: {
@@ -111,6 +196,51 @@ const variants = _.mapValues({
     props: {
       withMockData: true,
       withConfirmation: true,
+      personDataMetablock: {
+        rows: [
+          {
+            columns: [
+              {
+                label: 'Familienname',
+                text: '<span data-biometrie_appointment="reservation-details__lastName">Russo</span>',
+              },
+              {
+                label: 'Vorname',
+                text: '<span data-biometrie_appointment="reservation-details__firstName">Maria</span>',
+              },
+            ],
+          },
+          {
+            columns: [
+              {
+                label: 'Geburtsdatum',
+                text: '<span data-biometrie_appointment="reservation-details__dateOfBirth">24.04.1983</span>',
+              },
+              {
+              },
+            ],
+          },
+        ],
+      },
+      appointmentMetablock: {
+        headingLevel: 3,
+        title: 'Termin Details',
+        hasTopTitle: true,
+        rows: [
+          {
+            columns: [
+              {
+                label: 'Datum',
+                text: '<span data-biometrie_appointment="reservation-details__appointmentDateString">Montag 05.08.2019</span>',
+              },
+              {
+                label: 'Uhrzeit',
+                text: '<span data-biometrie_appointment="reservation-details__fromTimeString">10:45</span> bis <span data-biometrie_appointment="reservation-details__untilTimeString">11:00</span>',
+              },
+            ],
+          },
+        ],
+      },
       successNotification: {
         title: 'Ihr Termin wurde verschoben',
         message: '<span data-biometrie_appointment="reservation-details__appointmentDateString">Montag 05.08.2019</span>&nbsp;<span data-biometrie_appointment="reservation-details__fromTimeString">'
