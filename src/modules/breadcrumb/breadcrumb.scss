@@ -12,7 +12,7 @@
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
     @include transition(color);
 
-    line-height: $sizeLineHeightBase;
+    line-height: $sizeLineHeightSubBase;
 
     .mdl-breadcrumb__item--main &,
     .mdl-breadcrumb__item--active &,
@@ -22,6 +22,7 @@
 
     .mdl-breadcrumb__item--main & {
       font-family: $fontFamilyBlack;
+      line-height: $sizeLineHeightBase;
     }
   }
 
