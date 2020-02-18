@@ -65,7 +65,7 @@ class SocialMediaStream extends Module {
         if (response.status !== 200 && response.status !== 204) { // eslint-disable-line
           throw new Error('Error fetching data');
         }
-        return response.json();
+        return response.status === 204 ? {} : response.json(); // eslint-disable-line
       })
       .then((response) => {
         this.ui.moreButton.classList.remove('atm-button--loading');

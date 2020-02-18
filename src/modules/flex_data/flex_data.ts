@@ -508,7 +508,7 @@ class FlexData extends Module {
         if (response.status !== 200 && response.status !== 204 ) { // eslint-disable-line
           throw new Error('Error fetching resource!');
         }
-        return response.json();
+        return response.status === 204 ? {} : response.json(); // eslint-disable-line
       })
       .then((response) => {
         if (response) {
