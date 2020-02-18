@@ -188,6 +188,8 @@ class SearchPage extends Module {
    * @param {string} propName
    * @param {string} oldValue
    * @param {string} newValue
+   * @param noAutoCorrection
+   * @param noAutoSuggest
    * @memberof SearchPage
    */
   async onQueryChange(propName, oldValue, newValue, noAutoCorrection: boolean = false, noAutoSuggest: boolean = false) { // eslint-disable-line
@@ -224,6 +226,7 @@ class SearchPage extends Module {
       .generateParams(true, false, false, false, true, false, noAutoCorrection),
     (response) => {
       this.result = response;
+      this.ui.autosuggest.dispatchEvent(new CustomEvent(Autosuggest.events.disableNext));
       if (response.results) {
         this.dispatchPageCount();
         this.renderResults();

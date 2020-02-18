@@ -207,7 +207,6 @@ class Autosuggest {
     const queryRegEx = new RegExp(`(${this.query})`, 'gi');
 
     if (this.results.length > 0) this.results = [];
-
     this.data.forEach((item) => {
       if (Object.prototype.hasOwnProperty.call(item, 'title')) {
         this.matchComplexItem(item, queryRegEx);
@@ -304,8 +303,12 @@ class Autosuggest {
     }
 
     return fetch(`${this.options.url}?q=${encodeURIComponent(this.query)}`)
-      .then(response => response.json())
+      .then(response => response.status === 200 ? response.json() : null) // eslint-disable-line
       .then((response) => {
+        if (this.disabled) {
+          this.disabled = false;
+          return;
+        }
         if (Object.prototype.hasOwnProperty.call(response, 'suggestions')) {
           this.data = response.suggestions;
         }
