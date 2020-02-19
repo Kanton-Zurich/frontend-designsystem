@@ -252,7 +252,11 @@ class Autosuggest {
       if (this.options.autoHide) {
         this.options.target.style.removeProperty('display');
       }
-      const resultTerm = result.replace(/(<([^>]+)>)/ig, '');
+
+      let resultTerm = result;
+      if (typeof result === 'string') {
+        resultTerm = result.replace(/(<([^>]+)>)/ig, '');
+      }
       this.renderItem({
         shortTitle: Object.prototype.hasOwnProperty.call(result, 'title') ? result.title : result,
         buzzwords: '',
