@@ -406,13 +406,20 @@ class SearchPage extends Module {
 
     this.initFilterEventListeners(parsedHTML);
 
+    (<any>window).estatico.helpers.registerModulesInElement
+      .bind((<any>window).estatico.helpers.app)(this.ui.element);
+    (<any>window).estatico.helpers.initModulesInElement
+      .bind((<any>window).estatico.helpers.app)(this.ui.element);
+
     this.ui.datePicker.addEventListener(Datepicker.events.dateSet, (event) => {
       const { detail } = <CustomEvent>event;
-
       [this.data.dateFrom, this.data.dateTo] = detail.dates;
-
       this.onFilterChange(false);
     });
+
+    if (this.data.dateFrom && this.data.dateTo) {
+      this.setDatepickerInput();
+    }
 
     if (autocorrection.autocorrectedTerm !== '') {
       parsedHTML.querySelector(this.options.domSelectors.autocorrect).style.display = 'inline';
@@ -527,17 +534,11 @@ class SearchPage extends Module {
         if (response.results) {
           this.dispatchPageCount();
           this.renderResults();
-
-
           this.ui.element.classList.add(this.options.stateClasses.showResults);
 
           this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setPage, {
             detail: this.data.page,
           }));
-
-          if (dateTo && dateFrom) {
-            this.setDatepickerInput();
-          }
         } else {
           this.showNoResults(true);
         }
