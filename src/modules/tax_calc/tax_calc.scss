@@ -164,10 +164,11 @@
 
     #{$root}__toformbtn {
       display: block;
-      position: fixed;
+      position: absolute;
       border-radius: 50%;
-      right: pxToRem($sizeRegular);
-      bottom: pxToRem($sizeLarge);
+      right: - 10%;
+      // bottom: pxToRem($sizeLarge);
+      top: 100px;
       text-align: center;
       z-index: 1000;
     }
