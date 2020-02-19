@@ -1,9 +1,13 @@
 .mdl-cookie_controls {
+  @include sizeCurve(margin-bottom, biggerRegular);
+
   &__heading {
-    margin-bottom: $sizeFontSmallBig;
+    @include sizeCurve(padding-bottom, small);
+
+    padding-top: 0 !important; // stylelint-disable-line
   }
 
-  &__subheading {
-    padding-top: 0;
+  .atm-checkbox {
+    margin-bottom: pxToRem($sizeSmallLarge);
   }
 }
