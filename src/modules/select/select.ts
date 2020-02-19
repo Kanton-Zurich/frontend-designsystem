@@ -53,7 +53,7 @@ class Select extends Module {
       inputDelay: 250,
       firefoxDelay: 180,
       dropdownDelay: 400,
-      typeAheadReset: 2000,
+      typeAheadReset: 1000,
       smallDropdownMaxItems: 4,
       largeDropdownMaxItems: 6,
       domSelectors: {
@@ -200,7 +200,9 @@ class Select extends Module {
           this.closeDropdown();
           return;
         }
-        this.triggerTimeAhead(event.key);
+        if (!event.target.classList.contains('atm-form_input__input')) {
+          this.triggerTypeAhead(event.key);
+        }
       })
       // ------------------------------------------------------------
       // On Key press Dropdown main element - close dropdown and leave element
@@ -396,7 +398,7 @@ class Select extends Module {
    * Type ahead selection
    * @param key
    */
-  triggerTimeAhead(key) {
+  triggerTypeAhead(key) {
     if (key.length > 1) {
       return;
     }
