@@ -1,5 +1,16 @@
 import App from './helpers/app';
 
-const app = new App();
+let app;
 
-app.start();
+const loadApp = () => {
+  app = new App();
+  app.start();
+};
+
+if (document.querySelector('[load-main-script-deferred]')) {
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => { loadApp(); }, 0);
+  });
+} else {
+  loadApp();
+}
