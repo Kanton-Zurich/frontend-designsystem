@@ -68,6 +68,12 @@
       display: none;
     }
 
+    &.hidden {
+      .mdl-flex-data__results-generic {
+        display: none;
+      }
+    }
+
     .mdl-flex-data__results-generic {
       padding-bottom: $sizeLarge;
     }
