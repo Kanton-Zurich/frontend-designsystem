@@ -344,6 +344,7 @@ class SearchPage extends Module {
       this.renderList();
 
       this.ui.results.classList.remove(this.options.stateClasses.loading);
+      this.scrollTop();
     });
   }
 
@@ -590,6 +591,17 @@ class SearchPage extends Module {
         date: [this.data.dateFrom, this.data.dateTo],
       },
     }));
+  }
+
+  /**
+   * Scroll to top
+   */
+  scrollTop() {
+    setTimeout(() => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const rect = this.ui.element.getBoundingClientRect();
+      window.scroll(0, rect.top + scrollTop);
+    }, 0);
   }
 
   /**
