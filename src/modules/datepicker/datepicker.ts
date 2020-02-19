@@ -269,6 +269,8 @@ class Datepicker extends Module {
    */
   onInjectDate(event) {
     const { format, date } = event.detail;
+    this.ui.element.classList.add('dirty');
+    this.ui.trigger.classList.add('dirty');
     this.flatpickr.setDate(date, true, format);
   }
 

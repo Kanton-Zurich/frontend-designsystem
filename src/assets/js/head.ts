@@ -39,3 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
   adjustScrollbarWidth();
 });
 document.addEventListener('DOMContentLoaded', () => { (<any>window).estatico.flyingFocus.initFlyingFocus(); });
+
+// reload on back or forward interaction
+window.addEventListener('popstate', () => {
+  document.location.reload();
+});
