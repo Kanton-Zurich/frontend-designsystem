@@ -115,10 +115,17 @@ $contactMapHeightCurve: (
 
   &__section-cell--media {
     margin-top: calc(#{$sizeBiggerBig} + #{$sizeLarge});
-    max-height: 38px;
+    max-height: pxToRem($sizeHuge);
     transition: max-height 200ms ease-out 100ms;
+    padding-bottom: pxToRem($sizeBig);
 
     .mdl-contact__media-trigger {
+      position: absolute;
+      left: 0;
+      bottom: - pxToRem($sizeRegular);
+      z-index: $zIndexDropDowns;
+      padding-left: 0;
+
       span:last-of-type {
         display: none;
       }
@@ -132,6 +139,7 @@ $contactMapHeightCurve: (
     .mdl-contact__cell-content {
       transition: opacity 200ms ease-out 100ms;
       opacity: 0;
+      padding-left: 0;
     }
 
     .mdl-contact__text {
