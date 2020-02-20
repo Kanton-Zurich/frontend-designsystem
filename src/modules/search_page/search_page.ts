@@ -67,7 +67,7 @@ class SearchPage extends Module {
     const defaultOptions = {
       delay: 450,
       minInputLength: 3,
-      sessionIdStorageKey: 'czhdev_session_id',
+      sessionIdStorageKey: 'kzh-session-id',
       domSelectors: {
         input: '[data-search_page="input"]',
         form: '[data-search_page="form"]',
@@ -188,6 +188,8 @@ class SearchPage extends Module {
    * @param {string} propName
    * @param {string} oldValue
    * @param {string} newValue
+   * @param noAutoCorrection
+   * @param noAutoSuggest
    * @memberof SearchPage
    */
   async onQueryChange(propName, oldValue, newValue, noAutoCorrection: boolean = false, noAutoSuggest: boolean = false) { // eslint-disable-line
@@ -224,6 +226,7 @@ class SearchPage extends Module {
       .generateParams(true, false, false, false, true, false, noAutoCorrection),
     (response) => {
       this.result = response;
+      this.ui.autosuggest.dispatchEvent(new CustomEvent(Autosuggest.events.disableNext));
       if (response.results) {
         this.dispatchPageCount();
         this.renderResults();
@@ -341,6 +344,7 @@ class SearchPage extends Module {
       this.renderList();
 
       this.ui.results.classList.remove(this.options.stateClasses.loading);
+      this.scrollTop();
     });
   }
 
@@ -354,10 +358,13 @@ class SearchPage extends Module {
         if (response.status !== 200 && response.status !== 204 ) { // eslint-disable-line
           throw new Error('Error fetching resource!');
         }
-        return response.json();
+        return response.status === 204 ? {} : response.json(); // eslint-disable-line
       })
-      .then((response) => {
+      .then((response: any) => {
         if (response) {
+          if (response.resultsData && response.resultsData.queryId) {
+            this.queryId = response.resultsData.queryId;
+          }
           this.showNoResults(false);
           callback(response);
           this.ui.element.classList.remove(this.options.stateClasses.showError);
@@ -403,13 +410,20 @@ class SearchPage extends Module {
 
     this.initFilterEventListeners(parsedHTML);
 
+    (<any>window).estatico.helpers.registerModulesInElement
+      .bind((<any>window).estatico.helpers.app)(this.ui.element);
+    (<any>window).estatico.helpers.initModulesInElement
+      .bind((<any>window).estatico.helpers.app)(this.ui.element);
+
     this.ui.datePicker.addEventListener(Datepicker.events.dateSet, (event) => {
       const { detail } = <CustomEvent>event;
-
       [this.data.dateFrom, this.data.dateTo] = detail.dates;
-
       this.onFilterChange(false);
     });
+
+    if (this.data.dateFrom && this.data.dateTo) {
+      this.setDatepickerInput();
+    }
 
     if (autocorrection.autocorrectedTerm !== '') {
       parsedHTML.querySelector(this.options.domSelectors.autocorrect).style.display = 'inline';
@@ -524,17 +538,11 @@ class SearchPage extends Module {
         if (response.results) {
           this.dispatchPageCount();
           this.renderResults();
-
-
           this.ui.element.classList.add(this.options.stateClasses.showResults);
 
           this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setPage, {
             detail: this.data.page,
           }));
-
-          if (dateTo && dateFrom) {
-            this.setDatepickerInput();
-          }
         } else {
           this.showNoResults(true);
         }
@@ -586,6 +594,17 @@ class SearchPage extends Module {
         date: [this.data.dateFrom, this.data.dateTo],
       },
     }));
+  }
+
+  /**
+   * Scroll to top
+   */
+  scrollTop() {
+    setTimeout(() => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const rect = this.ui.element.getBoundingClientRect();
+      window.scroll(0, rect.top + scrollTop);
+    }, 0);
   }
 
   /**

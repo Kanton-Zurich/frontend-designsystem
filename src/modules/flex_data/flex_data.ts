@@ -159,7 +159,7 @@ class FlexData extends Module {
     if (this.getAllURLParams()['page'] || initialLoad) { // eslint-disable-line
       this.updateViewFromURLParams();
       setTimeout(() => {
-        this.loadResults();
+        this.loadResults(false, true);
       }, this.options.initDelay);
     }
   }
@@ -237,7 +237,7 @@ class FlexData extends Module {
    *
    * @param scroll boolean
    */
-  private loadResults(scroll = false) {
+  private loadResults(scroll = false, replaceState = false) {
     this.paginationInteraction = false;
     if (this.dataIdle) {
       this.dataIdle = false;
@@ -283,7 +283,7 @@ class FlexData extends Module {
           this.scrollTop();
         }
         this.dataIdle = true;
-      });
+      }, replaceState);
     }
   }
 
@@ -326,6 +326,9 @@ class FlexData extends Module {
       .replace('%1', jsonData.numberOfResults);
     if (!jsonData.numberOfResults || jsonData.numberOfResults <= 0) {
       resultsTitle = this.ui.results.getAttribute('data-no-results-title');
+      this.ui.results.classList.add('hidden');
+    } else {
+      this.ui.results.classList.remove('hidden');
     }
     // fill table date if present
     if (this.ui.resultsTable) {
@@ -496,7 +499,7 @@ class FlexData extends Module {
    * Fetch teaser data
    * @param callback
    */
-  async fetchData(callback: Function) {
+  async fetchData(callback: Function, replaceState = false) {
     this.ui.results.classList.add(this.options.stateClasses.loading);
 
     if (!window.fetch) {
@@ -508,13 +511,17 @@ class FlexData extends Module {
         if (response.status !== 200 && response.status !== 204 ) { // eslint-disable-line
           throw new Error('Error fetching resource!');
         }
-        return response.json();
+        return response.status === 204 ? {} : response.json(); // eslint-disable-line
       })
       .then((response) => {
         if (response) {
           const wcmmode = this.getURLParam('wcmmode');
           const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}${wcmmode ? '&wcmmode=' + wcmmode : ''}`; // eslint-disable-line
-          history.pushState({url: canonical, }, null, canonical); // eslint-disable-line
+          if (replaceState) {
+            history.replaceState({url: canonical, }, null, canonical); // eslint-disable-line
+          } else {
+            history.pushState({url: canonical,}, null, canonical); // eslint-disable-line
+          }
           callback(response);
           this.ui.notification.classList.add('hidden');
         }

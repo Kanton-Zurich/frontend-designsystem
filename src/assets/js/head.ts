@@ -21,7 +21,12 @@ window[namespace] = {
   flyingFocus: new FlyingFocus(),
 };
 
-document.addEventListener('DOMContentLoaded', loadSvgSprites);
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.body.getAttribute('data-svgsprites-options')) {
+    loadSvgSprites();
+  }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   (<any>window).estatico.lineClamper.initLineClamping();
   const adjustScrollbarWidth = () => {
@@ -34,3 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
   adjustScrollbarWidth();
 });
 document.addEventListener('DOMContentLoaded', () => { (<any>window).estatico.flyingFocus.initFlyingFocus(); });
+
+// reload on back or forward interaction
+window.addEventListener('popstate', () => {
+  document.location.reload();
+});

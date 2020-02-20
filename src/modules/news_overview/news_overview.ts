@@ -122,7 +122,7 @@ class NewsOverview extends Module {
     this.initEventListeners();
     // deferred filtering from URL params
     this.filterFromUrlParams();
-    setTimeout(() => { this.filterView(true, true, false); }, 0);
+    setTimeout(() => { this.filterView(true, true, false, false, true); }, 0);
   }
 
   static get events() {
@@ -251,7 +251,7 @@ class NewsOverview extends Module {
   /**
    * Update view in case filters changed
    */
-  filterView(updateFilterPills = true, forced = false, resetPaging = true, scroll = false) {
+  filterView(updateFilterPills = true, forced = false, resetPaging = true, scroll = false, replaceState = false) { // eslint-disable-line
     const filterHash = this.createObjectHash(this.filterLists);
     const dateHash = this.createObjectHash(this.dateRange);
     const searchWordHash = this.createObjectHash(this.searchWord);
@@ -270,7 +270,7 @@ class NewsOverview extends Module {
       if (resetPaging) {
         this.ui.paginationInput.value = '1';
       }
-      this.loadNewsTeasers(scroll);
+      this.loadNewsTeasers(scroll, replaceState);
       this.filterHash = filterHash;
       this.dateHash = dateHash;
       this.searchWordHash = searchWordHash;
@@ -427,7 +427,7 @@ class NewsOverview extends Module {
    * Fetch teaser data
    * @param callback
    */
-  async fetchData(callback: Function) {
+  async fetchData(callback: Function, replaceState = false) {
     // add Loading class
     this.ui.wrapper.classList.add(this.options.stateClasses.loading);
 
@@ -441,13 +441,17 @@ class NewsOverview extends Module {
         if (response.status !== 200 && response.status !== 204 ) { // eslint-disable-line
           throw new Error('Error fetching resource!');
         }
-        return response.json();
+        return response.status === 204 ? {} : response.json(); // eslint-disable-line
       })
       .then((response) => {
         if (response) {
           const wcmmode = this.getURLParam('wcmmode');
           const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}${wcmmode ? '&wcmmode=' + wcmmode : ''}`; // eslint-disable-line
-          history.replaceState({url: canonical, }, null, canonical); // eslint-disable-line
+          if (replaceState) {
+            history.replaceState({url: canonical,}, null, canonical); // eslint-disable-line
+          } else {
+            history.pushState({url: canonical,}, null, canonical); // eslint-disable-line
+          }
           callback(response);
           this.ui.notification.classList.add('hidden');
         }
@@ -465,7 +469,7 @@ class NewsOverview extends Module {
   /**
    * Load news teasers
    */
-  private loadNewsTeasers(scroll = false) {
+  private loadNewsTeasers(scroll = false, replaceState = false) {
     if (scroll) {
       this.scrollTop();
     }
@@ -514,7 +518,7 @@ class NewsOverview extends Module {
           this.scrollTop();
         }
         this.dataIdle = true;
-      });
+      }, replaceState);
     }
   }
 

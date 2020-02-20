@@ -64,10 +64,10 @@ class Banner extends Module {
         },
       })
         .then((response) => {
-          if (response.status !== 200) { // eslint-disable-line
+          if (response.status !== 200 && response.status !== 204) { // eslint-disable-line
             throw new Error('Server error while fetching data');
           }
-          return response.text();
+          return response.status === 204 ? '' : response.text(); // eslint-disable-line
         })
         .then((response) => {
           if (response) {
@@ -97,7 +97,9 @@ class Banner extends Module {
 
   initBanner() {
     const lytWrapper = this.ui.element.querySelector('.lyt-wrapper');
-    this.ui.element.style.maxHeight = `${lytWrapper.offsetHeight}px`;
+    if (lytWrapper) {
+      this.ui.element.style.maxHeight = `${lytWrapper.offsetHeight}px`;
+    }
   }
 
   close() {

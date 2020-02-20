@@ -61,10 +61,10 @@ const data = _.merge({}, defaultData, {
       uuid: 'j_username',
       name: 'j_username',
       validation: {
-        pattern: '^([\.\_\\-@\\a-zA-Z0-9]){4,15}$', // eslint-disable-line
+        pattern: '^([\.\_\\-@\\a-zA-Z0-9]){4,}$', // eslint-disable-line
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
-        errorMsg: 'Der Nutzername besteht aus mindestens 4 und maximal 15 Zeichen eingeben!',
+        errorMsg: 'Der Nutzername besteht aus mindestens 4 eingeben!',
         isRequired: true,
       },
     }),
@@ -72,7 +72,7 @@ const data = _.merge({}, defaultData, {
       uuid: 'j_password',
       name: 'j_password',
       validation: {
-        pattern: '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$',
+        pattern: '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$',
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
         errorMsg: 'Das Passwort besteht aus mindestens 6 Zeichen. Und enthält sowohl Groß- als auch Kleinbuchstaben und Zahlen.',

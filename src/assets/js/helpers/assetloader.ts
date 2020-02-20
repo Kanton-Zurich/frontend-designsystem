@@ -21,7 +21,7 @@ class AssetLoader extends Helper {
     // the URL below is changed. Any change will invalidate the cache
     document.addEventListener('DOMContentLoaded', () => {
       this.dataHref = document.body.getAttribute(this.dataAttr);
-      if (this.dataHref !== null) {
+      if (this.dataHref) {
         const matches = this.dataHref.match(/\.[^\s/]+(\.min\.|\.)/g);
         if (matches && matches[0]) {
           const splitMatches = matches[0].split('.');
