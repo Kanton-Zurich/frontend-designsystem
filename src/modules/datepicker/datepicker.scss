@@ -34,6 +34,11 @@ $InputHeightRegular: 72px;
         line-height: $sizeLineHeightBase;
         color: $colorBlack;
       }
+
+      /* ----- LABEL ON FOCUS/DIRTY ------ */
+      .atm-form_input__backdrop {
+        display: block;
+      }
     }
   }
 
