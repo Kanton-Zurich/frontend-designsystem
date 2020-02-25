@@ -52,6 +52,7 @@ const data = {
     return color;
   }),
   env,
+  description: 'Staatskanzlei Kanton Zürich - Beschreibung',
   wrappingElements: {
     pageHeaderData: {
       title: 'Seitenkopf',

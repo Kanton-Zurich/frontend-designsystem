@@ -102,8 +102,8 @@ class Helper {
   public addSwipeSupport(element: any, eventDelegate: any) {
     const debounceDelay = 100;
 
-    element.addEventListener('touchstart', (event) => { this.onTouchStart(event); }, false);
-    element.addEventListener('touchmove', debounce((event) => { this.onTouchMove(event, element, eventDelegate); }, debounceDelay), false);
+    element.addEventListener('touchstart', (event) => { this.onTouchStart(event); }, { passive: true });
+    element.addEventListener('touchmove', debounce((event) => { this.onTouchMove(event, element, eventDelegate); }, debounceDelay), { passive: true });
   }
 
   /**
