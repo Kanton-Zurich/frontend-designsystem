@@ -316,13 +316,14 @@ class SearchPage extends Module {
 
     return this.getData(this.generateParams(true, true, false, true, true), (response) => {
       this.result = response;
-
-      this.dispatchPageCount();
-      this.renderHead();
-      this.renderList();
-
-      this.checkIfPickerVisible();
-
+      if (response.results) {
+        this.dispatchPageCount();
+        this.renderHead();
+        this.renderList();
+        this.checkIfPickerVisible();
+      } else {
+        this.showNoResults(true);
+      }
       this.ui.results.classList.remove(this.options.stateClasses.loading);
     });
   }

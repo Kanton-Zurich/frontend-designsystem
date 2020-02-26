@@ -98,33 +98,33 @@
 
     .mdl-search_page__no-results {
       display: block;
+
+      .atm-button {
+        background-color: transparent;
+        padding-left: 0;
+
+        &:hover {
+          background-color: transparent;
+        }
+
+        .icon {
+          margin: 0;
+        }
+
+        &:active {
+          color: $colorBlack;
+
+          .icon {
+            use {
+              fill: $colorBlack;
+            }
+          }
+        }
+      }
     }
 
     .mdl-pagination {
       display: none;
-    }
-
-    .atm-button {
-      background-color: transparent;
-      padding-left: 0;
-
-      &:hover {
-        background-color: transparent;
-      }
-
-      .icon {
-        margin: 0;
-      }
-
-      &:active {
-        color: $colorBlack;
-
-        .icon {
-          use {
-            fill: $colorBlack;
-          }
-        }
-      }
     }
   }
 

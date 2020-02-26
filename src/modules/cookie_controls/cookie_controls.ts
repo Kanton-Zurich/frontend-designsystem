@@ -37,11 +37,16 @@ class CookieControls extends Module {
     this.daysToExpire = parseInt(this.ui.element.dataset.expirydays, radix);
     this.ui.items.forEach((item) => {
       const match = document.cookie.match(new RegExp(`(^| )${item.id}=([^;]+)`));
-      if (match && match[2] === 'true') {
-        this.log(`${item.id} cookie is accepted.`);
-        item.checked = true;
+      if (match) {
+        if (match[2] === 'true') {
+          this.log(`${item.id} cookie is accepted.`);
+          item.checked = true;
+        } else if (match[2] === 'false') {
+          this.log(`${item.id} cookie is rejected.`);
+          item.checked = false;
+        }
       } else {
-        this.log(`No ${item.id} cookie value found or its not accepted.`);
+        this.log(`No ${item.id} cookie value found.`);
       }
     });
     this.initUi();
