@@ -277,7 +277,7 @@ const variants = _.mapValues({
       label: '0',
       inputMask: 'currency_flat',
       validation: {
-        pattern: '^[+-]?((\\.\\d+)|([\\d\']+((?<!\')\\.\\d+)?))$',
+        pattern: '^[+-]?((\\.\\d+)|([\\d\']+(\\.\\d+)?))$',
         errorMsg: 'Hier muss eine Ganzzahl oder eine Gleitkommazahl eingegeben werden!',
         isRequired: true,
       },
@@ -298,7 +298,7 @@ const variants = _.mapValues({
       isFloatingLabel: true,
       inputMask: 'currency',
       validation: {
-        pattern: '^[+-]?((\\.\\d+)|([\\d\']+((?<!\')\\.\\d+)?))$',
+        pattern: '^[+-]?((\\.\\d+)|([\\d\']+(\\.\\d+)?))$',
         errorMsg: 'Hier muss eine Ganzzahl oder eine Gleitkommazahl eingegeben werden!',
         isRequired: true,
       },
