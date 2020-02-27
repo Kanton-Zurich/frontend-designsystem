@@ -117,10 +117,11 @@ const data = _.merge({}, defaultData, {
           message: 'Der Link wurde in die Zwischenablage kopiert.',
           icon: '#confirm',
           isGreen: true,
-          /* button: {
+          button: {
             label: 'Fertig',
-            additionalAttributes: 'data-metablock="done"',
-          }, */
+            additionalAttribute: 'data-metablock="done"',
+            icon: 'exit',
+          },
         },
       },
       smallcaptionData: {
@@ -159,7 +160,7 @@ const data = _.merge({}, defaultData, {
           ],
         }),
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
+      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
     },
   },
 });

@@ -5,9 +5,9 @@ const defaultData = require('../../data/default.data.js');
 
 const formInputData = require('../../atoms/form_input/form_input.data');
 const paginationData = require('../pagination/pagination.data');
-
+const defNotificationData = require('../../modules/notification/notification.data').variants.default.props;
 const contentTeaser = require('../../atoms/content_teaser/content_teaser.data');
-
+const defButtonData = require('../../atoms/button/button.data.js');
 const datepicker = require('../datepicker/datepicker.data');
 
 const template = dataHelper.getFileContent('search_page.hbs');
@@ -35,6 +35,13 @@ const data = _.merge({}, defaultData, {
       additionalClasses: 'mdl-search__autosuggest mdl-content_nav--single-column',
     },
     datepicker: datepicker.variants.dateRangenRequired.props,
+    notificationData: _.merge({}, defNotificationData, {
+      message: 'Beim Laden der Daten ist ein Fehler aufgetreten!',
+    }),
+    resetButton: _.merge({}, defButtonData.variants.tagEdit.props, {
+      text: 'Suche Zurücksetzen',
+      icon: 'undo',
+    }),
   },
 });
 const variants = _.mapValues({

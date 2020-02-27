@@ -895,43 +895,6 @@ gulp.task('clean:aem', (callback) => {
   return del(gulpUtil.env.aemTargetBaseResources, { force: true }, callback);
 });
 
-gulp.task('copy:offlineassets', () => {
-  const task = require('@unic/estatico-copy');
-  const offlineAssets = task({
-    src: [
-      '!./dist/assets/js/*',
-      '!./dist/assets/css/*',
-      './dist/assets/js/*.min.*',
-      './dist/assets/css/*.min.*',
-      './dist/assets/media/svgsprite/*',
-    ],
-    srcBase: './dist',
-    dest: './dist/ci/offline/',
-    plugins: {
-      changed: null,
-      rename: (filePath) => {
-        let returnPath = filePath;
-        if (filePath.match(/\.min\.js/)) {
-          returnPath = returnPath.replace(/\.min\.js/, `.${git.short()}.min.js`);
-        } else if (filePath.match(/\.js/)) {
-          returnPath = returnPath.replace(/\.js/, `.${git.short()}.js`);
-        }
-        if (filePath.match(/\.min\.css/)) {
-          returnPath = returnPath.replace(/\.min\.css/, `.${git.short()}.min.css`);
-        } else if (filePath.match(/\.css/)) {
-          returnPath = returnPath.replace(/\.css/, `.${git.short()}.css`);
-        }
-        if (filePath.match(/\.svg/)) {
-          returnPath = returnPath.replace(/\.svg/, `.${git.short()}.svg`);
-        }
-        return returnPath;
-      },
-    },
-  }, env);
-
-  return offlineAssets();
-});
-
 /**
  * Create dev and prod build directories
  * Copies specific files into `dist/ci/dev` and `dist/ci/prod`, respectively
@@ -1059,7 +1022,7 @@ gulp.task('build', (done) => {
   }
 
   // create offline page
-  task = gulp.series(task, 'copy:offlineassets', 'deploy:offlinepage', 'zip:offline');
+  task = gulp.series(task, 'deploy:offlinepage', 'zip:offline');
 
   // Create CI build structure
   if (env.ci) {

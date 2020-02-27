@@ -103,6 +103,8 @@ $maxTextLines: 4;
       padding-bottom: pxToRem($sizeTiny);
       margin-bottom: 0;
       order: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       // LineClamper Config
       $headingHeightCurve: (

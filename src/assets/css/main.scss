@@ -46,7 +46,6 @@
 @import '../../atoms/form_input/form_input';
 @import '../../atoms/radiobutton/radiobutton';
 @import '../../atoms/checkbox/checkbox';
-@import '../../atoms/notification/notification';
 @import '../../atoms/list/list';
 @import '../../atoms/toggle/toggle';
 @import '../../atoms/loading_circle/loading_circle';
@@ -85,6 +84,7 @@
 @import '../../modules/page_header/page_header';
 @import '../../modules/content_nav/content_nav';
 @import '../../modules/breadcrumb/breadcrumb';
+@import '../../modules/biometrie_appointment/biometrie_appointment';
 @import '../../modules/topiclist/topiclist';
 @import '../../modules/related_content/related_content';
 @import '../../modules/focus_card/focus_card';
@@ -138,6 +138,7 @@
 @import '../../modules/tax_calc/tax_calc';
 @import '../../modules/jurisdiction_finder/jurisdiction_finder';
 @import '../../modules/newsletter_form/newsletter_form';
+@import '../../modules/notification/notification';
 //*autoinsertmodule*
 
 @media screen {

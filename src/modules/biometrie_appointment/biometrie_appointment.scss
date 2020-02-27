@@ -1,0 +1,888 @@
+$biometrieViewTransitionDuration: 300ms;
+
+
+.mdl-biometrie_appointment {
+  margin-top: $sizeBiggerBig;
+  margin-bottom: $sizeRegular;
+
+  &.hide {
+    display: none;
+  }
+
+  &__toplinks {
+    overflow: hidden;
+    margin-bottom: $sizeSmallBig;
+
+    &-left {
+      float: left;
+    }
+
+    &-right {
+      float: right;
+    }
+
+    .atm-text_link {
+      display: none;
+
+      &.show {
+        display: flex;
+      }
+    }
+  }
+
+  .view {
+    opacity: 0;
+    transition: opacity $biometrieViewTransitionDuration;
+    max-height: 0;
+    pointer-events: none;
+    overflow: hidden;
+
+    &.show {
+      opacity: 1;
+      transition-delay: $biometrieViewTransitionDuration;
+      max-height: inherit;
+      pointer-events: all;
+    }
+  }
+
+  &__loginview {
+
+    &__input {
+      border: 2px solid;
+      border-radius: 4px;
+      position: relative;
+      padding: $sizeRegular;
+      border-color: $colorBlack15;
+
+      @include sizeCurve('margin-bottom', mini);
+
+      label {
+        font-weight: $fontFamilyBlack;
+        color: $colorBlack100;
+        display: block;
+
+        @include sizeCurve('margin-bottom', mini);
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+      }
+
+      span.input {
+        border: 0;
+        outline: 0;
+        background: transparent;
+        display: inline-block;
+        min-width: 1.2em;
+        color: $colorBlack100;
+        height: $sizeRegular;
+        line-height: $sizeSmallLarge;
+        caret-color: $colorCyan;
+        font-weight: 200;
+
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, biggerRegular));
+        @include sizeCurve('margin-right', tiny);
+
+        + .input {
+          margin-left: $sizeTiny;
+        }
+
+        &.filled {
+          border: 0;
+        }
+      }
+
+      .icon-error {
+        display: none;
+      }
+
+      &.focused {
+        border-color: $colorCyan;
+      }
+
+      &.error {
+        border-color: $colorRed;
+
+        .icon-error {
+          color: $colorWhite;
+          background-color: $colorRed;
+          text-align: center;
+          border-radius: 50%;
+          font-size: $sizeFontBiggerRegular;
+          font-weight: $fontFamilyBlack;
+          line-height: 1.5rem;
+          display: block;
+          position: absolute;
+          right: $sizeRegular;
+          top: calc(50% - 0.75rem);
+        }
+      }
+    }
+
+    &__hint {
+      min-height: 2rem;
+      border-bottom: 2px solid $colorBlack100;
+      margin-bottom: pxToRem($sizeRegular);
+      padding-bottom: pxToRem($sizeRegular);
+
+      .login_notification {
+        display: none;
+
+        &.show {
+          display: block;
+        }
+      }
+    }
+
+    &__submit {
+      clear: both;
+      overflow: hidden;
+
+      > * {
+        float: right;
+      }
+    }
+  }
+
+  &__details {
+
+    .cell {
+      border-bottom: 1px solid $colorBlack20;
+
+      @include sizeCurve('margin-top', mini);
+
+      .label {
+        font-family: $fontFamilyBlack;
+
+        @include sizeCurve('padding-bottom', mini);
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+      }
+
+      .data {
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+        @include polyFluidSizing(line-height, map-get($fontSizeCurves, biggerRegular));
+      }
+    }
+
+    &__confirmation {
+      display: none;
+
+      @include sizeCurve('margin-bottom', large);
+
+      &.show {
+        display: block;
+      }
+
+      .mdl-notification.dismissed {
+        display: none;
+      }
+    }
+
+    &__persondata {
+      @include sizeCurve('margin-bottom', large);
+    }
+
+    &__appointmentdata {
+      @include sizeCurve('margin-bottom', large);
+    }
+
+    &__buttons {
+      margin: $sizeBig 0;
+      display: flex;
+      flex-wrap: wrap;
+
+      @include mq($to: small) {
+        .atm-button {
+          width: 100%;
+        }
+
+        .mdl-biometrie_appointment__details__calLinks {
+          width: 100%;
+          margin-top: pxToRem($sizeRegular);
+          margin-left: 0;
+
+          .mdl-context_menu {
+            width: calc(100% - 1rem);
+            margin: 0.5rem;
+          }
+        }
+      }
+    }
+
+    &__calLinks {
+      display: flex;
+      margin-left: pxToRem($sizeRegular);
+      position: relative;
+
+      > span {
+        font-size: $sizeFontSmall;
+        color: $colorBlack60;
+      }
+
+      &-dropdown {
+        font-size: $sizeFontRegular;
+        padding-left: $sizeRegular;
+
+        .icon {
+          position: relative;
+          top: $sizeMini;
+        }
+      }
+
+      &.hidden {
+        display: none;
+      }
+
+      .mdl-context_menu {
+        right: 0;
+        display: none;
+        width: 100%;
+        top: pxToRem($sizeHuge);
+
+        > div {
+          width: 100%;
+        }
+
+        button {
+          width: 100%;
+        }
+
+        &.visible {
+          display: flex;
+          z-index: 1;
+        }
+      }
+    }
+  }
+
+  &__reschedule {
+
+    &__allopen {
+
+      &__wrapper {
+        @include sizeCurve('margin-top', regular);
+
+        .group-wrapper {
+          overflow: hidden;
+          clear: both;
+          line-height: 1;
+
+          ul.mdl-button_group {
+            width: auto;
+            margin-right: pxToRem($sizeSmallLarge);
+            display: inline-flex;
+            padding-left: 0;
+            line-height: 1;
+
+            @include sizeCurve('margin-right', regular);
+            @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+
+            li {
+              margin-left: 0;
+              padding-left: 0;
+              margin-bottom: 0;
+            }
+
+
+            button.disabled {
+              cursor: not-allowed;
+              pointer-events: none;
+              background-color: $colorBlack5;
+
+              use {
+                fill: $colorBlack20;
+              }
+
+              &.atm-button--secondary:hover {
+                background-color: $colorBlack5;
+
+                .atm-button__icon use {
+                  fill: $colorBlack20;
+                }
+              }
+            }
+
+            @include mq($to: small) {
+              width: 100%;
+
+              .details {
+                width: 100%;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+          }
+        }
+
+        .btn-line {
+          position: relative;
+
+          @include sizeCurve('margin-right', smallerRegular);
+          @include sizeCurve('bottom', mini);
+        }
+
+        @include mq($from: small, $to: medium) {
+          ul {
+            float: left;
+          }
+
+          .btn-line {
+            @include sizeCurve('top', mini);
+
+            + .btn-line {
+              display: block;
+            }
+          }
+        }
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+      }
+
+      &__slotselect {
+        @include sizeCurve('margin-top', tiny);
+        position: relative;
+        border-bottom: 2px solid $colorBlack100;
+        overflow: hidden;
+
+        .column {
+          width: 19%;
+          vertical-align: top;
+
+          + .column {
+            margin-left: 1%;
+          }
+        }
+
+        .row {
+          display: flex;
+          position: relative;
+        }
+
+        .slotselect-headrow {
+          border-top: 2px solid $colorBlack100;
+          border-bottom: 2px solid $colorBlack100;
+
+          @extend .row;
+
+          .weekday-head {
+            color: $colorText;
+            overflow: hidden;
+            text-align: center;
+            text-overflow: ellipsis;
+            font-family: $fontFamilyBlack;
+
+            @extend .column;
+
+            @include sizeCurve('line-height', regular);
+            @include sizeCurve('padding-top', regular);
+            @include sizeCurve('padding-bottom', regular);
+            @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+
+            &__date {
+              color: $colorBlack60;
+            }
+
+            &__day_short {
+              display: none;
+            }
+          }
+        }
+
+        .slotselect-slotsrow {
+          @include sizeCurve(padding-top, mini);
+          height: 40vh;
+          max-height: 450px;
+          overflow-y: scroll;
+          overflow-x: hidden;
+
+          @extend .row;
+
+          .weekday-column {
+            font-size: pxToRem($sizeFontSmall);
+            color: $colorBlack60;
+            font-family: $fontFamilyBlack;
+            text-align: center;
+            height: auto;
+
+            @extend .column;
+
+            .weekday-slotscontainer {
+              .weekday-slot {
+                height: pxToRem($sizeBig);
+                line-height: pxToRem($sizeBig);
+                font-size: pxToRem($sizeFontSmall);
+
+                @include sizeCurve('margin-bottom', small);
+
+                button.atm-button {
+                  width: 100%;
+                  padding: 0;
+
+                  .atm-button__text {
+                    width: 100%;
+                    text-align: center;
+                  }
+
+                  &.selected {
+                    color: $colorWhite;
+                  }
+
+                  &.disabled {
+                    background: $colorBlack5;
+                    color: $colorBlack20;
+                  }
+                }
+
+                &:hover {
+                  button.atm-button {
+                    background: $colorBlack20;
+                    color: $colorBlack100;
+
+                    &.selected {
+                      color: $colorWhite;
+                    }
+                  }
+                }
+              }
+            }
+
+            .no-openslots-msg {
+              @include sizeCurve('padding', regular);
+
+              display: none;
+            }
+
+            &.no-slots-available {
+              .no-openslots-msg {
+                display: block;
+
+                @include sizeCurve('padding-top', mini);
+              }
+            }
+          }
+        }
+
+        .slot {
+          height: pxToRem($sizeBig);
+          line-height: pxToRem($sizeBig);
+          font-size: pxToRem($sizeFontSmall);
+
+          @include sizeCurve('margin-bottom', small);
+        }
+
+        @include mq($to: medium) {
+
+          @each $idx in 0, 1, 2, 3, 4 {
+            &[ data-selected-weekday='#{$idx}' ] {
+              .slotselect-slotsrow {
+                right: $idx * 100%;
+              }
+
+              .weekday-head:nth-child(#{$idx + 1}) {
+                border-bottom: 2px solid $colorBlack100;
+                margin-bottom: -1px;
+
+                .weekday-head {
+                  &__day_short {
+                    color: $colorText;
+                  }
+
+                  &__date {
+                    color: $colorText;
+                  }
+                }
+              }
+            }
+          }
+
+          .slotselect-headrow {
+            border-bottom: 1px solid $colorBlack15;
+
+            .weekday-head {
+              &__day_short {
+                color: $colorBlack60;
+                display: block;
+              }
+
+              &__day {
+                display: none;
+              }
+            }
+          }
+
+          .slotselect-slotsrow {
+            width: 500%;
+            transition: right 0.8s ease-in-out;
+
+            .weekday-column {
+              width: 20%;
+
+              & + .weekday-column {
+                margin-left: 0;
+              }
+
+              .weekday-slotscontainer {
+                text-align: left;
+
+                .weekday-slot {
+                  display: inline-block;
+                  width: 32%;
+                  margin-left: 2%;
+                  padding: 0 2px;
+
+                  &:nth-child(3n+1) {
+                    margin-left: 0;
+                  }
+                }
+              }
+
+              .no-openslots-msg {
+                padding: 0;
+              }
+            }
+          }
+        }
+        @include mq($to: xsmall) {
+          .slotselect-slotsrow {
+            .weekday-column {
+              & + .weekday-column {
+                margin-left: 0;
+              }
+
+              .weekday-slotscontainer {
+                .weekday-slot {
+                  width: 49.5%;
+                  margin-left: 1%;
+                  padding: 0 6px;
+
+                  &:nth-child(3n+1) {
+                    margin-left: 1%;
+                  }
+
+                  &:nth-child(2n+1) {
+                    margin-left: 0;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &__selectiondetails {
+      display: none;
+      overflow: hidden;
+
+      @include sizeCurve('padding-top', regular);
+      @include sizeCurve('padding-bottom', regular);
+
+      &.show {
+        display: block;
+      }
+
+      .atm-button {
+        float: right;
+        height: 2.5rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+
+        @include mq($to: medium) {
+          padding-left: 0.55rem;
+          padding-right: 0.55rem;
+        }
+      }
+
+      @include mq($to: small) {
+        .atm-button {
+          width: 100%;
+
+          .atm-button__text {
+            width: 100%;
+            text-align: center;
+          }
+        }
+      }
+
+      &__wrapper {
+        float: left;
+        max-width: 64%;
+
+        @include mq($to: small) {
+          max-width: 100%;
+        }
+
+        .selection-details {
+
+          &__counter {
+            @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+          }
+
+          &__byselection {
+            display: block;
+          }
+
+          &__next {
+            display: none;
+          }
+
+          &__none {
+            display: none;
+          }
+        }
+      }
+
+      &.next {
+        .selection-details {
+          &__byselection {
+            display: none;
+          }
+
+          &__next {
+            display: block;
+          }
+        }
+      }
+
+      &.none {
+        .selection-details {
+          &__byselection {
+            display: none;
+          }
+
+          &__date {
+            display: none;
+          }
+
+          &__counter {
+            display: none;
+          }
+
+          &__next {
+            display: none;
+          }
+
+          &__none {
+            display: block;
+          }
+        }
+
+        &__select-btn {
+          cursor: not-allowed;
+          pointer-events: none;
+          background-color: $colorBlack40;
+          color: $colorWhite;
+        }
+      }
+
+      .selection-details {
+
+        &__blocked {
+          display: none;
+
+          &.show {
+            display: block;
+          }
+
+          .mdl-notification {
+            margin-bottom: pxToRem($sizeRegular);
+
+            .atm-button {
+              background: transparent;
+            }
+
+            &.dismissed {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+
+    &__blockedslot {
+      display: none;
+
+      &.show {
+        display: block;
+      }
+    }
+  }
+
+  &__loading-spinner {
+    &.show {
+      @extend .overlay;
+
+      .atm-dual-ring {
+        position: absolute;
+        height: 64px;
+        width: 64px;
+        left: 50%;
+        margin-left: -32px;
+        top: 50%;
+        margin-top: -50px;
+        display: inline-block;
+      }
+
+      .atm-dual-ring:after {
+        content: ' ';
+        display: block;
+        width: 46px;
+        height: 46px;
+        margin: 1px;
+        border-radius: 50%;
+        border: 5px solid;
+        border-color: #fff transparent;
+        animation: atm-dual-ring 1.2s linear infinite;
+      }
+
+      @keyframes atm-dual-ring {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
+
+  &__unavailable-alert {
+    display: none;
+
+    &.show {
+      display: block;
+    }
+  }
+
+  &__contenttemplate {
+    display: none;
+  }
+
+  &__contact {
+    @include polyFluidSizing('margin-top', map-get($sizeCurves, large));
+    position: absolute;
+    top: -100vh;
+    left: -100vw;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+
+    &.visible {
+      position: relative;
+      transition: top, left 100ms, 100ms ease-in-out;
+      z-index: 0;
+      opacity: 1;
+      left: 0;
+      top: 0;
+    }
+  }
+}
+
+[ class^='mdl-biometrie_appointment' ] {
+  .strong {
+    color: $colorText;
+    font-family: $fontFamilyBlack;
+  }
+
+  .lighter {
+    color: $colorBlack60;
+  }
+
+  .hidden-small-down {
+    @include mq($to: small) {
+      display: none;
+    }
+  }
+
+  .hidden-small-up {
+    @include mq($from: small) {
+      display: none;
+    }
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 101;
+
+    .overlay-content {
+      position: absolute;
+      background-color: $colorWhite;
+      left: 50%;
+      width: 90%;
+      margin-left: -45%;
+      top: 10%;
+
+      @include mq($from: small) {
+        width: 70%;
+        margin-left: -35%;
+        top: 15%;
+      }
+      @include mq($from: medium) {
+        width: 66%;
+        margin-left: -33%;
+        top: 25%;
+      }
+      @include mq($from: large) {
+        width: 38%;
+        margin-left: -19%;
+        top: 40%;
+      }
+      @include sizeCurve('padding', biggerRegular);
+    }
+  }
+
+  .atm-paragraph a:hover {
+    text-decoration: none;
+  }
+
+  .atm-lead {
+    text-indent: 0;
+  }
+
+  .atm-button--disabled {
+    pointer-events: none;
+  }
+}
+
+/*
+* COLOR-VARIATIONS
+*/
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-biometrie_appointment__reschedule__allopen__slotselect {
+      .slotselect-slotsrow .weekday-column .weekday-slotscontainer .weekday-slot {
+        button.atm-button.selected {
+          background-color: #{$val};
+        }
+
+        &:hover {
+          button.atm-button.selected {
+            background-color: #{$val};
+          }
+        }
+      }
+
+      &.next {
+        .slotselect-slotsrow .weekday-column .weekday-slotscontainer .weekday-slot {
+          button.atm-button {
+            &.selected {
+              background: $colorBlack10;
+              color: #{$val};
+            }
+          }
+        }
+      }
+    }
+
+    .selection-details {
+      &__date {
+        color: #{$val};
+      }
+    }
+  }
+}

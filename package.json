@@ -85,7 +85,7 @@
     "leaflet": "^1.5.1",
     "leaflet.markercluster": "^1.4.1",
     "leaflet.wms": "^0.2.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.15",
     "mdn-polyfills": "^5.12.0",
     "merge-stream": "^1.0.1",
     "minimalcss": "^0.8.2",

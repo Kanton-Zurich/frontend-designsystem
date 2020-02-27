@@ -1,0 +1,61 @@
+{{#with messages}}
+  <div class="mdl-biometrie_appointment__details">
+
+    <div class="mdl-biometrie_appointment__details__confirmation {{#if withConfirmation}}show{{/if}}" data-biometrie_appointment="reschedule-success">
+
+      {{> "modules/notification/notification" successNotification }}
+
+      <div class="mdl-texthighlight">
+        <div class="mdl-richtext">
+          <span class="atm-heading">{{ confirmationHead }}</span>
+          <p class="atm-paragraph">{{{ confirmationIntroParagraph }}}</p>
+          {{> "atoms/button/button" printConfirmationBtn}}
+        </div>
+      </div>
+    </div>
+
+    {{> "modules/metablock/metablock" personDataMetablock }}
+
+    <div class="mdl-biometrie_appointment__details__appointmentdata">
+      {{> "modules/metablock/metablock" appointmentMetablock }}
+
+      <div class="mdl-biometrie_appointment__details__buttons">
+        {{> "atoms/button/button" rescheduleBtn}}
+
+        <div class="mdl-biometrie_appointment__details__calLinks">
+          {{> "atoms/button/button" calendarMenuToggleBtn }}
+          {{> "modules/context_menu/context_menu" calendarContextMenu }}
+        </div>
+
+      </div>
+
+
+    </div>
+
+    {{#with addinfo }}
+      <div class="mdl-biometrie_appointment__details__addinfo">
+          <div class="grid-x grid-margin-x" >
+                {{#each blocks }}
+                    <div class="block cell tiny-12">
+                        <div class="label">{{ this.label}}</div>
+                        <p class="atm-paragraph">{{{ this.content }}}</p>
+                    </div>
+                {{/each}}
+          </div>
+      </div>
+    {{/with}}
+
+    {{#with checkList}}
+      <div class="mdl-texthighlight">
+        <div class="mdl-richtext">
+          <p class="atm-heading">{{ heading }}</p>
+          <ul class="mdl-richtext__benefits">
+            {{#each items }}
+              <li>{{ this }}</li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    {{/with}}
+  </div>
+{{/with}}

@@ -46,7 +46,7 @@ class FormGlobalHelper {
             pattern = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g; //eslint-disable-line
             break;
           default:
-            pattern = new RegExp(field.getAttribute('data-pattern'), 'i');
+            pattern = new RegExp(field.getAttribute('data-pattern'));
             break;
         }
 

@@ -21,23 +21,26 @@ class Autosuggest {
     template: string,
     renderAsButton: boolean,
     searchPageUrl: string,
+    autoHide: boolean,
   };
 
   private classes: {
     parent: any,
-  }
+  };
 
   private stateClasses: any;
 
-  private data: any
+  private data: any;
 
-  private query: string
+  private query: string;
 
   private results: Array<any> = [];
 
   private template: any;
 
   private selectedTerm: any;
+
+  private disabled: boolean;
 
   constructor(options, data) {
     this.options = merge({}, {
@@ -51,10 +54,15 @@ class Autosuggest {
       loading: 'mdl-content_nav--loading',
     };
 
+    if (this.options.autoHide) {
+      this.options.target.style.display = 'none';
+    }
+
     // Setting the lodash template
     this.template = template(this.options.template);
 
     this.selectedTerm = '';
+    this.disabled = false;
 
     this.addWatcher();
     this.addEvents();
@@ -67,6 +75,7 @@ class Autosuggest {
       reset: 'Autosuggest.reset',
       termSelected: 'Autosuggest.termSelected',
       empty: 'Autosuggest.empty',
+      disableNext: 'Autosuggest.disableNext',
     };
   }
 
@@ -92,7 +101,9 @@ class Autosuggest {
     });
 
     this.options.target
-      .addEventListener(Autosuggest.events.empty, this.emptyAutosuggest.bind(this));
+      .addEventListener(Autosuggest.events.empty, this.onEmpty.bind(this));
+    this.options.target
+      .addEventListener(Autosuggest.events.disableNext, this.onDisableNext.bind(this));
   }
 
   /**
@@ -117,6 +128,11 @@ class Autosuggest {
    * @param queryAfter the current value of the query
    */
   async onQueryChange(propName, queryBefore, queryAfter) {
+    if (this.disabled) {
+      this.disabled = false;
+      return;
+    }
+
     this.query = queryAfter;
 
     if (this.selectedTerm !== this.query) {
@@ -124,27 +140,21 @@ class Autosuggest {
 
       if (this.options.url) {
         this.setLoading();
-
         await this.fetchData();
       }
 
       if (this.query.length > 1) {
         this.emptyAutosuggest();
         this.filterData();
-
         if (this.results.length > 0) {
           this.dispatchStatusEvent(Autosuggest.events.filtered, this.results.length);
-
           this.renderResults();
-
-
           window.dispatchEvent(new CustomEvent('reloadLineClamper'));
         } else {
           this.dispatchStatusEvent(Autosuggest.events.noResult);
         }
       } else {
         this.emptyAutosuggest();
-
         this.dispatchStatusEvent(Autosuggest.events.reset);
       }
 
@@ -152,11 +162,22 @@ class Autosuggest {
     }
   }
 
+  onEmpty() {
+    this.emptyAutosuggest();
+  }
+
+  onDisableNext() {
+    this.disabled = true;
+  }
+
   /**
    * Emptying the autosuggest
    */
   emptyAutosuggest() {
     this.options.list.innerHTML = '';
+    if (this.options.autoHide) {
+      this.options.target.style.display = 'none';
+    }
   }
 
   /**
@@ -180,7 +201,6 @@ class Autosuggest {
     const queryRegEx = new RegExp(`(${this.query})`, 'gi');
 
     if (this.results.length > 0) this.results = [];
-
     this.data.forEach((item) => {
       if (Object.prototype.hasOwnProperty.call(item, 'title')) {
         this.matchComplexItem(item, queryRegEx);
@@ -223,10 +243,18 @@ class Autosuggest {
     const sortedResults = sortBy(this.results, ['title']);
 
     sortedResults.forEach((result) => {
+      if (this.options.autoHide) {
+        this.options.target.style.removeProperty('display');
+      }
+
+      let resultTerm = result;
+      if (typeof result === 'string') {
+        resultTerm = result.replace(/(<([^>]+)>)/ig, '');
+      }
       this.renderItem({
         shortTitle: Object.prototype.hasOwnProperty.call(result, 'title') ? result.title : result,
         buzzwords: '',
-        target: Object.prototype.hasOwnProperty.call(result, 'path') ? result.path : `${this.options.searchPageUrl}?q=${encodeURIComponent(result)}`,
+        target: Object.prototype.hasOwnProperty.call(result, 'path') ? result.path : `${this.options.searchPageUrl}?q=${encodeURIComponent(resultTerm)}`,
       });
     });
 
@@ -273,9 +301,13 @@ class Autosuggest {
     }
 
     return fetch(`${this.options.url}?q=${encodeURIComponent(this.query)}`)
-      .then(response => response.json())
+      .then(response => response.status === 200 ? response.json() : null) // eslint-disable-line
       .then((response) => {
-        if (Object.prototype.hasOwnProperty.call(response, 'suggestions')) {
+        if (this.disabled) {
+          this.disabled = false;
+          return;
+        }
+        if (response && Object.prototype.hasOwnProperty.call(response, 'suggestions')) {
           this.data = response.suggestions;
         }
       });
@@ -344,7 +376,7 @@ class Autosuggest {
     this.selectedTerm = aTag.dataset.term;
 
     this.options.parent.dispatchEvent(new CustomEvent(Autosuggest.events.termSelected, {
-      detail: aTag.dataset.term,
+      detail: this.selectedTerm,
     }));
   }
 }

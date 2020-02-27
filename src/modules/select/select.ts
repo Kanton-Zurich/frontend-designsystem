@@ -16,6 +16,7 @@ class Select extends Module {
   public isFirefox: boolean;
   public buttonPostfix: string;
   public selections: Array<any>;
+  private typeAhead: string;
 
   public ui: {
     element: any,
@@ -38,6 +39,7 @@ class Select extends Module {
     inputDelay: number,
     firefoxDelay: number,
     dropdownDelay: number,
+    typeAheadReset: number,
     smallDropdownMaxItems: number,
     largeDropdownMaxItems: number,
     domSelectors: any,
@@ -51,6 +53,7 @@ class Select extends Module {
       inputDelay: 250,
       firefoxDelay: 180,
       dropdownDelay: 400,
+      typeAheadReset: 1000,
       smallDropdownMaxItems: 4,
       largeDropdownMaxItems: 6,
       domSelectors: {
@@ -84,6 +87,7 @@ class Select extends Module {
     super($element, defaultData, defaultOptions, data, options);
 
     this.isOpen = false;
+    this.typeAhead = '';
     this.isMultiSelect = false;
     this.usedAnchors = false;
     this.isFirefox = navigator.userAgent.search('Firefox') > -1;
@@ -186,13 +190,18 @@ class Select extends Module {
       // ------------------------------------------------------------
       // On Key press Dropdown dropdown content element
       .on('keydown', this.options.domSelectors.dropdown, (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
+        if (event.key === 'Enter' || event.key === 'Spacebar' || event.key === ' ') {
           if (!this.isMultiSelect) {
             this.closeDropdown();
+            return;
           }
         }
         if (event.key === 'Esc' || event.key === 'Escape') {
           this.closeDropdown();
+          return;
+        }
+        if (!event.target.classList.contains('atm-form_input__input')) {
+          this.triggerTypeAhead(event.key);
         }
       })
       // ------------------------------------------------------------
@@ -279,9 +288,10 @@ class Select extends Module {
             evt.preventDefault();
           }
           this.updateFlyingFocus(this.options.inputDelay);
+          return;
         }
-        if (!this.isMultiSelect && ['Enter', ' ', 'Spacebar'].indexOf(pressed) >= 0) {
-          this.ui.trigger.click();
+        if (evt.key === 'Enter') {
+          evt.preventDefault();
         }
       });
     });
@@ -380,6 +390,33 @@ class Select extends Module {
           }
         });
         this.emitValueChanged(values);
+      }
+    }
+  }
+
+  /**
+   * Type ahead selection
+   * @param key
+   */
+  triggerTypeAhead(key) {
+    if (key.length > 1) {
+      return;
+    }
+    if (this.isOpen) {
+      this.typeAhead += key;
+      const currentTypeAhead = this.typeAhead;
+      setTimeout(() => {
+        if (this.typeAhead === currentTypeAhead) {
+          this.typeAhead = '';
+        }
+      }, this.options.typeAheadReset);
+      const matches = this.ui.element.querySelectorAll(`input[placeholder^="${this.typeAhead}" i]`);
+      if (matches && matches.length >= 1) {
+        if (!this.isMultiSelect) {
+          matches[0].click();
+        }
+        matches[0].focus();
+        this.updateFlyingFocus(10);
       }
     }
   }

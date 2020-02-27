@@ -110,7 +110,9 @@ class Tooltip extends Module {
       }
     });
     setTimeout(() => {
-      this.ui.tooltip.style.display = 'none';
+      if (this.ui.tooltip) {
+        this.ui.tooltip.style.display = 'none';
+      }
     }, 100);
   }
 

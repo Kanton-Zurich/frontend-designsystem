@@ -91,7 +91,7 @@ $fontSizeCurves: (
 
 $sizeFontBase: $sizeFontRegular;
 $fontFamilyBase: 'HelveticaNowRegular', Helvetica, sans-serif;
-$fontFamilyBlack: 'HelveticaNowBlack', Helvetica, sans-serif;
+$fontFamilyBlack: 'HelveticaNowBlack', 'Arial Black', Helvetica, sans-serif;
 /**
  * Line heights
  */
@@ -99,6 +99,7 @@ $sizeLineHeightNarrower: 1;
 $sizeLineHeightNarrow: 1.2;
 $sizeLineHeightMedium: 1.3;
 $sizeLineHeightBigger: 1.4;
+$sizeLineHeightSubBase: 1.45;
 $sizeLineHeightBase: 1.5;
 $sizeLineHeightSuper: 1.8;
 

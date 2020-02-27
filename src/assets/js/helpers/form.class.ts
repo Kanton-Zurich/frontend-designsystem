@@ -5,14 +5,13 @@ import DuplicationElement from './duplication.class';
 import ZipCity from './zipCity';
 import FormRules from './formrules.class';
 import FileUpload from '../../../modules/file_upload/file_upload';
-
 import namespace from './namespace';
 import Datepicker from '../../../modules/datepicker/datepicker';
 
 class Form {
   private ui: {
     element: HTMLElement,
-  }
+  };
 
   private options: {
     watchEmitters: any,
@@ -23,6 +22,7 @@ class Form {
     domSelectors: {
       floating: string;
       datepicker: string;
+      backdrop: string;
     };
     messageSelector: string,
     duplicateSelector: string,
@@ -31,7 +31,7 @@ class Form {
     rulesSelector: string,
     padding: number,
     prefixSelector: string,
-  }
+  };
 
   private eventDelegate: any;
 
@@ -58,6 +58,7 @@ class Form {
       domSelectors: {
         floating: '[data-floating]',
         datepicker: '[data-init="datepicker"]',
+        backdrop: '.atm-form_input__backdrop',
       },
       messageSelector: '[data-message]',
       selectOptionSelector: 'data-select-option',
@@ -97,6 +98,7 @@ class Form {
   static get events() {
     return {
       clearInput: 'Input.clear',
+      initInput: 'Input.initialize',
     };
   }
 
@@ -123,6 +125,10 @@ class Form {
       });
     });
     this.eventDelegate.on('validateSection', this.validateSection.bind(this));
+    this.eventDelegate.on(Form.events.initInput, (event) => {
+      const { input } = event.detail;
+      this.addInputElementWatchers(input);
+    });
     this.eventDelegate.on('showFieldInvalid', (event) => {
       this.setValidClasses(event.detail.field, ['add', 'remove']);
     });
@@ -149,30 +155,31 @@ class Form {
   addWatchers(targetElement = this.ui.element) {
     const watchableInputs = targetElement.querySelectorAll(this.options.watchEmitters.input);
     watchableInputs.forEach((input) => {
-      const inputType = input.getAttribute('type');
-
-      switch (inputType) {
-        case 'radio':
-        case 'checkbox':
-          wrist.watch(input, 'checked', () => {
-            this.validateField(input);
-          });
-          break;
-        case 'file':
-          input.addEventListener('change', () => {
-            this.validateField(input);
-          });
-          break;
-        default:
-          wrist.watch(input, 'value', (propName, oldValue, newValue) => {
-            // prevent datepicker for being validated as its being validated on a close event
-            if (!input.classList.contains('flatpickr-input')) {
-              this.onInputValueChange(input, oldValue, newValue);
-            }
-          });
-          break;
-      }
+      this.addInputElementWatchers(input);
     });
+  }
+
+  addInputElementWatchers(input) {
+    const inputType = input.getAttribute('type');
+    switch (inputType) {
+      case 'radio':
+      case 'checkbox':
+        wrist.watch(input, 'checked', () => {
+          this.validateField(input);
+        });
+        break;
+      case 'file':
+        input.addEventListener('change', () => {
+          this.validateField(input);
+        });
+        break;
+      default:
+        wrist.watch(input, 'value', (propName, oldValue, newValue) => {
+          // prevent datepicker for being validated as its being validated on a close event
+          this.onInputValueChange(input, oldValue, newValue, input.classList.contains('flatpickr-input') === false);
+        });
+        break;
+    }
   }
 
   /**
@@ -196,15 +203,29 @@ class Form {
    * @param oldValue the value beforehand the change
    * @param newValue the value after the change a.k.a the current value
    */
-  onInputValueChange(domElement, oldValue, newValue) {
-    if (newValue.length !== 0) {
-      domElement.classList.add(this.options.inputClasses.dirty);
-
-      this.validateField(domElement);
-    } else {
-      domElement.classList.remove(this.options.inputClasses.dirty);
-      domElement.closest(this.options.inputSelector)
-        .classList.remove(this.options.inputClasses.valid);
+  onInputValueChange(domElement, oldValue, newValue, revalidate = true) {
+    if (revalidate) {
+      if (newValue.length !== 0) {
+        domElement.classList.add(this.options.inputClasses.dirty);
+        this.validateField(domElement);
+      } else {
+        domElement.classList.remove(this.options.inputClasses.dirty);
+        domElement.closest(this.options.inputSelector)
+          .classList.remove(this.options.inputClasses.valid);
+      }
+    }
+    /* Backdrop mask */
+    const maskPlaceholder = domElement.getAttribute('data-mask-placeholder');
+    let backdrop = domElement.parentElement.querySelector(this.options.domSelectors.backdrop);
+    if (domElement.parentElement.classList.contains('flatpickr-wrapper')) {
+      backdrop = domElement.parentElement
+        .parentElement.querySelector(this.options.domSelectors.backdrop);
+    }
+    if (maskPlaceholder && backdrop) {
+      backdrop.innerHTML = `<i>${newValue}</i>${maskPlaceholder.substring(newValue.length)}`;
+    }
+    if (domElement.hasAttribute('data-input-mask')) {
+      this.handleInputMask(domElement, oldValue, newValue);
     }
   }
 
@@ -237,12 +258,20 @@ class Form {
         this.setValidClasses(field);
       } else {
         this.setValidClasses(field, ['add', 'remove']);
+        let messageElementID: string;
 
         validation.messages.forEach((messageID) => {
           const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
 
           if (message) {
+            if ((field.getAttribute('type') === 'radio') || (field.hasAttribute(this.options.selectOptionSelector))) {
+              messageElementID = `${field.getAttribute('name')}__${messageID}-error`;
+            } else {
+              messageElementID = `${field.id}__${messageID}-error`;
+            }
             message.classList.add('show');
+            message.setAttribute('id', messageElementID);
+            field.setAttribute('aria-describledby', messageElementID);
           }
         });
 
@@ -303,6 +332,127 @@ class Form {
     } else {
       this.ui.element.removeAttribute('form-has-errors');
     }
+  }
+
+  handleInputMask(domElement, oldValue, newValue) {
+    if (domElement.hasAttribute('data-mask-locked')) {
+      domElement.removeAttribute('data-mask-locked');
+      return;
+    }
+
+    const maskType = domElement.getAttribute('data-input-mask');
+    switch (maskType) {
+      case 'currency':
+        // handle CHF formatting
+        domElement.value = this.formatCurrency(newValue, 2); // eslint-disable-line
+        break;
+      case 'currency_flat':
+        // handle CHF formatting
+        domElement.value = this.formatCurrency(newValue, 0);
+        break;
+      default:
+        // handle mask
+        const parseSub = (input, maskPartial) => {  // eslint-disable-line
+          const symbol = input[0];
+          let idx = 1;
+          let regex;
+          if (symbol === '\\') {
+            regex = new RegExp(input.substring(0, 2)); // eslint-disable-line
+            idx += 1;
+          } else {
+            regex = new RegExp(input[0]);
+          }
+          maskPartial.autoFill = regex;
+          maskPartial.autoFillValue = input.substring(idx);
+          return maskPartial;
+        };
+
+        const findNext = (input, index, symbol) => {  // eslint-disable-line
+          if (input[index] === symbol) {
+            return index;
+          }
+          if (index < input.length - 1) {
+            return findNext(input, index + 1, symbol);
+          }
+          return -1;
+        };
+
+        const parse = (input, index, maskPattern) => { // eslint-disable-line
+          const symbol = input[index];
+          let idx = index;
+          let regex;
+          if (symbol !== '[') {
+            if (symbol === '\\') {
+              regex = new RegExp(input.substring(index, index + 2)); // eslint-disable-line
+              idx += 2; // eslint-disable-line
+            } else {
+              regex = new RegExp(input[index]);
+              idx += 1;
+            }
+            maskPattern.push({ regex });
+          } else if (symbol === '[') {
+            const nextIndex = findNext(input, index, ']');
+            const subSection = input.substring(index + 1, nextIndex);
+            idx = idx + (nextIndex - index) + 1;
+            parseSub(subSection, maskPattern[maskPattern.length - 1]);
+          }
+          if (idx < input.length - 1 && index !== idx) {
+            return parse(input, idx, maskPattern);
+          }
+          return maskPattern;
+        };
+
+        const parsedMask = parse(maskType, 0, []); // eslint-disable-line
+        if (parsedMask) {
+          const maskedValue = this.maskGeneric(domElement, oldValue, newValue, parsedMask);
+          if (maskedValue !== newValue) {
+            domElement.setAttribute('data-mask-locked', null);
+            domElement.value = maskedValue;
+          }
+        }
+        break;
+    }
+  }
+
+  maskGeneric(domElement, oldValue, newValue, maskParts) {
+    if (newValue.length - oldValue.length === 1) {
+      const index = oldValue.length;
+      if (index < maskParts.length) {
+        if (newValue[index].match(maskParts[index].regex)) {
+          return newValue;
+        } else if (maskParts[index] && maskParts[index].autoFill && newValue[index].match(maskParts[index].autoFill)) { // eslint-disable-line
+          return `${oldValue}${maskParts[index].autoFillValue}${newValue[index]}`;
+        }
+      }
+      return oldValue;
+    }
+    return newValue;
+  }
+
+  formatCurrency(numberValue, decimalPoints = 2) { // eslint-disable-line
+    let value = numberValue.replace(/\D+/g, '');
+    const formatValue = (inputValue, formattedValue = '', index = -1) => {
+      const idx = index < 0 ? inputValue.length - 1 : index;
+      formattedValue += inputValue[inputValue.length - 1 - idx]; // eslint-disable-line
+      if (idx > (decimalPoints + 1) && (idx - decimalPoints) % 3 === 0) { // eslint-disable-line
+        formattedValue += '\''; // eslint-disable-line
+      }
+      if (idx > 0) {
+        return formatValue(inputValue, formattedValue, idx - 1);
+      }
+      if (decimalPoints > 0 && formattedValue.length > decimalPoints) {
+        return [formattedValue.slice(0, formattedValue.length - decimalPoints), '.', formattedValue.slice(formattedValue.length - decimalPoints)].join('');
+      }
+      return formattedValue;
+    };
+
+    while (value[0] === '0') {
+      value = value.substring(1);
+    }
+    while (value.length < (decimalPoints + 1)) {
+      value = `0${value}`;
+    }
+    return formatValue(value);
   }
 
   initDuplicationElements() {

@@ -24,8 +24,7 @@ const variants = _.mapValues({
     },
     props: {
       headingLevel: 2,
-      heading: 'Datenschutz',
-      subHeading: 'Einstellungen zum Datenschutz',
+      heading: 'Einstellungen zum Datenschutz',
       expiryDays: 60,
       smallerHeadings: true,
       items: [

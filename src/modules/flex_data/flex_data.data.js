@@ -5,7 +5,7 @@ const defaultData = require('../../data/default.data.js');
 const defFormData = require('../form/form.data');
 const defPaginationData = require('../pagination/pagination.data');
 const defAccordionData = require('../accordion/accordion.data');
-const defNotificationData = require('../../atoms/notification/notification.data').variants.default.props;
+const defNotificationData = require('../../modules/notification/notification.data').variants.default.props;
 const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 
 const templateConverter = require('../../../gulp/helpers/templateConverter');
@@ -176,7 +176,7 @@ const variants = _.mapValues({
             items: [
               _.merge({}, contextMenuItemDef, { text: 'Relevanz', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="relevance" data-sort-direction="descending"', isButton: true }),
               _.merge({}, contextMenuItemDef, { text: 'Sitzungsdatum aufsteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="sessionDate" data-sort-direction="ascending"', isButton: true }),
-              _.merge({}, contextMenuItemDef, { text: 'Sitzungsdaatum absteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="sessionDate" data-sort-direction="descending"', isButton: true }),
+              _.merge({}, contextMenuItemDef, { text: 'Sitzungsdatum absteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="sessionDate" data-sort-direction="descending"', isButton: true }),
               _.merge({}, contextMenuItemDef, { text: 'Publikationsdatum aufsteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="publicationDate" data-sort-direction="ascending"', isButton: true }),
               _.merge({}, contextMenuItemDef, { text: 'Publikationsdatum absteigend', iconAfter: false, iconBefore: false, additionalAttributes: 'data-sort-column="publicationDate" data-sort-direction="descending"', isButton: true }),
             ],

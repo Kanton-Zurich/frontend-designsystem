@@ -30,6 +30,8 @@ const variants = _.mapValues({
       datetimeformat: 'time',
       formInputData: _.merge({}, defaultFormInputData, {
         usedCustomIcon: true,
+        inputMask: '\\d\\d:[\\d:]\\d\\d',
+        maskPlaceholder: 'HH:MM',
         validation: {
           isRequired: true,
           pattern: '^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$',
@@ -47,6 +49,8 @@ const variants = _.mapValues({
       datetimeformat: 'date',
       formInputData: _.merge({}, defaultFormInputData, {
         label: 'Datum',
+        inputMask: '\\d\\d\\.[\\d.]\\d\\d\\.[\\d.]\\d\\d\\d\\d',
+        maskPlaceholder: 'TT.MM.JJJJ',
         iconOnly: { icon: 'calendar' },
         uuid: _.uniqueId('date-'),
         usedCustomIcon: true,
@@ -66,6 +70,8 @@ const variants = _.mapValues({
     props: {
       datetimeformat: 'date-range',
       formInputData: _.merge({}, defaultFormInputData, {
+        inputMask: '\\d\\d\\.[\\d.]\\d\\d\\.[\\d.]\\d\\d\\d\\d [\\d - ]\\-[\\d- ] [\\d ]\\d\\d\\.[\\d.]\\d\\d\\.[\\d.]\\d\\d\\d\\d',
+        maskPlaceholder: 'TT.MM.JJJJ - TT.MM.JJJJ',
         label: 'Zeitraum von/bis',
         iconOnly: { icon: 'calendar' },
         uuid: _.uniqueId('date-range-'),
@@ -86,6 +92,8 @@ const variants = _.mapValues({
     props: {
       datetimeformat: 'date-range',
       formInputData: _.merge({}, defaultFormInputData, {
+        inputMask: '\\d\\d\\.[\\d.]\\d\\d\\.[\\d.]\\d\\d\\d\\d [\\d - ]\\-[\\d- ] [\\d ]\\d\\d\\.[\\d.]\\d\\d\\.[\\d.]\\d\\d\\d\\d',
+        maskPlaceholder: 'TT.MM.JJJJ - TT.MM.JJJJ',
         label: 'Zeitraum von/bis',
         iconOnly: { icon: 'calendar' },
         uuid: _.uniqueId('date-range-'),
@@ -106,6 +114,8 @@ const variants = _.mapValues({
     props: {
       datetimeformat: 'date-time',
       formInputData: _.merge({}, defaultFormInputData, {
+        inputMask: '\\d\\d\\.[\\d.]\\d\\d\\.[\\d.]\\d\\d\\d\\d [\\d ]\\d\\d:[\\d:]\\d\\d',
+        maskPlaceholder: 'TT.MM.JJJJ HH:MM',
         label: 'Datum/Uhrzeit',
         iconOnly: { icon: 'calendar' },
         uuid: _.uniqueId('date-hour-'),
@@ -127,6 +137,8 @@ const variants = _.mapValues({
       isLinkListItem: true,
       datetimeformat: 'date-range',
       formInputData: _.merge({}, defaultFormInputData, {
+        inputMask: '\\d\\d\\.[\\d.]\\d\\d\\.[\\d.]\\d\\d\\d\\d [\\d - ]\\-[\\d- ] [\\d ]\\d\\d\\.[\\d.]\\d\\d\\.[\\d.]\\d\\d\\d\\d',
+        maskPlaceholder: 'TT.MM.JJJJ - TT.MM.JJJJ',
         label: 'Zeitraum von/bis',
         iconOnly: { icon: 'calendar' },
         uuid: _.uniqueId('date-range-'),

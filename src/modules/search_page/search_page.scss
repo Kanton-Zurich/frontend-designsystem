@@ -1,6 +1,8 @@
 .mdl-search_page {
   @include sizeCurve(padding-bottom, big);
 
+  position: relative;
+
   &--loading {
     position: relative;
 
@@ -10,12 +12,20 @@
     overflow: hidden;
   }
 
+  &__notification {
+    display: none;
+  }
+
+  &__no-results {
+    display: none;
+  }
+
   &__results-head {
     @include sizeCurve(margin-bottom, medium);
   }
 
   &__form {
-    @include sizeCurve(padding-bottom, regular);
+    // @include sizeCurve(padding-bottom, regular);
   }
 
   &__date-filter {
@@ -27,7 +37,7 @@
   }
 
   &__results-wrapper {
-    @include sizeCurve(margin-top, medium);
+    @include sizeCurve(margin-top, large);
   }
 
   &__counter {
@@ -67,8 +77,67 @@
     margin-top: $sizeMini;
   }
 
-  &--show-results {
+  .mdl-search__autosuggest {
+    padding: pxToRem($sizeSmallRegular);
+    margin-bottom: 0;
+    background-color: $colorWhite;
+    position: absolute;
+    width: 100%;
+    z-index: $zIndexDropDowns;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.3); // stylelint-disable-line
+
+    .atm-content_teaser {
+      padding: pxToRem($sizeTiny) 0;
+    }
+  }
+
+  &--no-results {
     .mdl-search__autosuggest {
+      margin-bottom: pxToRem($sizeRegular);
+    }
+
+    .mdl-search_page__no-results {
+      display: block;
+
+      .atm-button {
+        background-color: transparent;
+        padding-left: 0;
+
+        &:hover {
+          background-color: transparent;
+        }
+
+        .icon {
+          margin: 0;
+        }
+
+        &:active {
+          color: $colorBlack;
+
+          .icon {
+            use {
+              fill: $colorBlack;
+            }
+          }
+        }
+      }
+    }
+
+    .mdl-pagination {
+      display: none;
+    }
+  }
+
+  &--error {
+    .mdl-search__autosuggest {
+      margin-bottom: pxToRem($sizeRegular);
+    }
+
+    .mdl-search_page__notification {
+      display: block;
+    }
+
+    .mdl-search_page__no-results {
       display: none;
     }
   }

@@ -1,11 +1,14 @@
 <div class="atm-form_input atm-form_input--floated" data-input>
 
     <input class="atm-form_input__input<% if (value) { %> dirty<% } %>"  type="text" data-validation data-floating
-           data-pattern="^\d{2}\.\d{2}\.$" tabindex="-1"
+           data-pattern="^([0][1-9]|[1-2][0-9]|3[0-1])\.([0][1-9]|[1][0-2])\.$" tabindex="-1"
            id="input-<%=fieldName%>" placeholder="<%=label%>" name="<%=fieldName%>" value="<%=value %>"
+           data-input-mask="\d\d\.[\d.]\d\d\." data-mask-placeholder="TT.MM."
           <% if (reinvokeTrigger) { %> data-tax_calc-reinvoke="true"<% } %>
           <% if (mandatory) { %> required<% } %> >
-
+   <span class="atm-form_input__backdrop">
+      <i></i>TT.MM.
+    </span>
     <label for="input-<%=fieldName%>"><%=label%></label>
     <span class="atm-form_input__validate-icon">
 		<span>
@@ -16,7 +19,7 @@
 		</span>
 		<span>
 			<span class="visuallyhidden">Eingabe entspricht nicht den Vorgaben.</span>
-			<svg class="icon">
+			<svg class="icon" focusable="false">
 				<use xlink:href="#caution"></use>
 			</svg>
 		</span>

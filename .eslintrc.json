@@ -20,7 +20,8 @@
     "no-magic-numbers": ["error", { "ignore": [-1, 0, 1, 10, 100], "ignoreArrayIndexes": true }]
   },
   "env": {
-    "jest": true
+    "jest": true,
+    "browser": true
   },
   "globals": {
     "document": true,

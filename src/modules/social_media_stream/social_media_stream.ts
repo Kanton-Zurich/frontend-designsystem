@@ -14,6 +14,7 @@ class SocialMediaStream extends Module {
     list: any,
     moreButton: any,
     footer: any,
+    notification: any,
   };
   private currentPage: number;
   private dataIdle: boolean;
@@ -27,6 +28,7 @@ class SocialMediaStream extends Module {
         postTemplate: '[data-social-media="socialMediaPostTemplate"]',
         footer: '.mdl-social-media-stream__footer',
         moreButton: '.mdl-social-media-stream__footer-button',
+        notification: '.mdl-social-media-stream__notification',
       },
       stateClasses: {},
     };
@@ -56,15 +58,25 @@ class SocialMediaStream extends Module {
     if (!window.fetch) {
       await import('whatwg-fetch');
     }
-
+    this.ui.moreButton.classList.add('atm-button--loading');
+    this.ui.notification.classList.add('hidden');
     return fetch(dataSource)
-      .then(response => response.json())
       .then((response) => {
+        if (response.status !== 200 && response.status !== 204) { // eslint-disable-line
+          throw new Error('Error fetching data');
+        }
+        return response.status === 204 ? {} : response.json(); // eslint-disable-line
+      })
+      .then((response) => {
+        this.ui.moreButton.classList.remove('atm-button--loading');
         if (response) {
           callback(response);
         }
       })
       .catch((err) => {
+        this.ui.moreButton.classList.remove('atm-button--loading');
+        this.ui.notification.classList.remove('hidden');
+        this.ui.footer.style.display = 'none';
         this.log('error', err);
       });
   }

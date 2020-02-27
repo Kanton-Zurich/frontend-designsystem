@@ -5,15 +5,15 @@
         <h2 class="visuallyhidden">Hauptnavigation</h2>
         <nav id="navigation">
           <button class="mdl-header__nav-burger" data-menu-burger>
-            <svg class="icon burger">
+            <svg class="icon burger" focusable="false">
               <use xlink:href="#menu-1"></use>
             </svg>
-            <svg class="icon close">
+            <svg class="icon close" focusable="false">
               <use xlink:href="#exit"></use>
             </svg>
             <span class="mdl-header__nav-burger-text">Menu</span>
           </button>
-          <ul class="mdl-header__navigation" role="navigation">
+          <ul class="mdl-header__navigation">
             {{#each navItem}}
               <li>
                 <button class="mdl-header__nav-item" data-header="openModal" aria-expanded="false" aria-haspopup="true" aria-controls="{{modal}}" data-nav-index="{{increment @index}}">
@@ -43,7 +43,7 @@
       <span class="atm-button__text">
         Suchen
       </span>
-      <svg class="icon atm-button__icon">
+      <svg class="icon atm-button__icon" focusable="false">
         <use xlink:href="#inspect"></use>
       </svg>
     </button>

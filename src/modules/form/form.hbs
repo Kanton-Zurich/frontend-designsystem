@@ -25,7 +25,7 @@
         {{/if}}
         {{#if isDuplicatable}}
             <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
-              <svg class="icon icon--iframe-add">
+              <svg class="icon icon--iframe-add" focusable="false">
                 <use xlink:href="#add-new"></use>
               </svg>
               {{ duplicateLabels.add }}
@@ -40,12 +40,12 @@
                   {{/each}}
                 </div>
                 <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
-                  <svg class="icon">
+                  <svg class="icon" focusable="false">
                     <use xlink:href="#delete"></use>
                   </svg>
                 </button>
                 <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
-                  <svg class="icon icon--iframe-add">
+                  <svg class="icon icon--iframe-add" focusable="false">
                     <use xlink:href="#add-new"></use>
                   </svg>
                   {{ duplicateLabels.add }}
@@ -58,7 +58,7 @@
         {{#if ../isDuplicatable}}
           {{#if @last}}
             <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
-              <svg class="icon icon--iframe-add">
+              <svg class="icon icon--iframe-add" focusable="false">
                 <use xlink:href="#add-new"></use>
               </svg>
               {{ ../duplicateLabels.add }}
@@ -80,12 +80,12 @@
               {{#if ../isDuplicatable}}
                 {{#if @last}}
                   <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
-                    <svg class="icon">
+                    <svg class="icon" focusable="false">
                       <use xlink:href="#delete"></use>
                     </svg>
                   </button>
                   <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
-                    <svg class="icon icon--iframe-add">
+                    <svg class="icon icon--iframe-add" focusable="false">
                       <use xlink:href="#add-new"></use>
                     </svg>
                     {{ ../duplicateLabels.add }}

@@ -1,8 +1,8 @@
 <a class="atm-content_teaser {{#if isPromotopic}}atm-content_teaser--promo{{/if}}{{#if isTagged}} atm-content_teaser--tagged{{/if}}" href={{target}}>
   <span class="atm-content_teaser__content" data-lineclamp="true">
     <span class="atm-content_teaser__title">
-      <span class="visuallyhidden">Kategorie: </span>{{ shortTitle }}<br class="visuallyhidden">
+      {{#if buzzwords }}<span class="visuallyhidden">Kategorie: </span>{{/if}}{{ shortTitle }}{{#if buzzwords}}<br class="visuallyhidden">{{/if}}
     </span>
-    {{{ buzzwords }}}
+    {{#if buzzwords}}{{{ buzzwords }}}{{/if}}
   </span>
 </a>

@@ -13,6 +13,7 @@ import DownloadList from '../../../modules/download_list/download_list';
 import ContextMenu from '../../../modules/context_menu/context_menu';
 import PublicationTeaser from '../../../modules/publication_teaser/publication_teaser';
 import Breadcrumb from '../../../modules/breadcrumb/breadcrumb';
+import BiometrieAppointment from '../../../modules/biometrie_appointment/biometrie_appointment';
 import Topiclist from '../../../modules/topiclist/topiclist';
 import Anchornav from '../../../modules/anchornav/anchornav';
 import Header from '../../../modules/header/header';
@@ -77,6 +78,7 @@ class App {
     this.modules.contextMenu = ContextMenu;
     this.modules.publicationTeaser = PublicationTeaser;
     this.modules.breadcrumb = Breadcrumb;
+    this.modules.biometrieAppointment = BiometrieAppointment;
     this.modules.topiclist = Topiclist;
     this.modules.anchornav = Anchornav;
     this.modules.header = Header;

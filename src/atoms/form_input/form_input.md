@@ -34,3 +34,52 @@ Pattern Beispiele:
 
 
 2. Das `required`-Attribut 
+
+#### Input Masking
+
+Ausschliesslich Eingabefelder vom Type 'text' können mit einer Inputmaskierung versehen werden. Folgende Maskierungsarten werden unterstützt:
+
+- Währung mit und ohne Kommastellen
+- Generische Masken die immer die gleiche Länge haben müssen
+
+
+##### Währungen
+
+Attribute:
+
+- `data-input-mask="currency"`
+Währung mit zwei Kommastellen Beispiel: 10.00
+
+Attribute:
+- `data-input-mask="currency_flat"`
+Währung ohne Kommastellen Beispiel: 100
+
+
+##### Generische Masken
+
+Generische Masken benötigen zwei Attribute welche abgestimmt werden müssen:
+
+`data-input-mask="\d\d"`
+
+###### Input Maskennotation
+Eine Input Maske bentötigt eine notation welche das erlaubte Eingabe Zeichen und falls nötig bei Zwischenzeichen ein Autofill macht. Die Zeichen müssen in Regex-Notation gemacht werden
+
+`{regex}` oder `{regex}[{regex}{autofill}]` 
+
+Beispiel für eine Zeitangabe HH:MM
+
+`\d\d:[\d:]\d\d`  Dabei ist der ":" ein mit Autofill ausgestattest Eingabezeichen
+
+weiter benötigen generische Masken einen Platzhalter um die Maskierung interaktiv zu machen
+
+`data-mask-placeholder="HH:MM"`
+
+###### Beispiele
+
+- `data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d"`
+- `data-mask-placeholder="TT.MM.JJJJ"`
+
+- `data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d - ]\-[\d- ] [\d ]\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d"`
+- `data-mask-placeholder="TT.MM.JJJJ - TT.MM.JJJJ"`
+
+

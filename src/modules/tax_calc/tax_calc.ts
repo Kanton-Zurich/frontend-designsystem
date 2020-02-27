@@ -13,6 +13,7 @@ import {
 import namespace from '../../assets/js/helpers/namespace';
 import WindowEventListener from '../../assets/js/helpers/events';
 import jump from 'jump.js';
+import Form from '../../assets/js/helpers/form.class';
 
 interface CalculatorFormItemData {
   title: string;
@@ -380,15 +381,15 @@ class TaxCalc extends Module {
 
   private initStickyEditBtn(): void {
     const toFormBtn = document.querySelector<HTMLElement>('.mdl-tax_calc__toformbtn');
-    const toFormBtnAnker = document.querySelector<HTMLElement>('.mdl-tax_calc__toformbtn_anker');
 
     WindowEventListener.addEventListener('scroll', () => {
-      const rectheight = toFormBtn.getBoundingClientRect().height;
-      const ankerBt = toFormBtnAnker.getBoundingClientRect().bottom;
-      if (ankerBt > window.innerHeight) {
-        toFormBtn.style.top = `${ankerBt - rectheight}px`;
+      const resultBlock = this.ui.resultBlock.getBoundingClientRect();
+      const topMargin = 80;
+
+      if (resultBlock.top < topMargin && resultBlock.bottom > 0) {
+        toFormBtn.style.top = `${topMargin - resultBlock.top}px`;
       } else {
-        toFormBtn.style.top = null;
+        toFormBtn.style.removeProperty('top');
       }
     });
   }
@@ -512,6 +513,13 @@ class TaxCalc extends Module {
       itemsParentNode.appendChild(newItem);
       (<any>window).estatico.helpers.app.registerModulesInElement(newItem);
       (<any>window).estatico.helpers.app.initModulesInElement(newItem);
+      newItem.querySelectorAll('input').forEach((input) => {
+        this.ui.formBase.dispatchEvent(new CustomEvent(Form.events.initInput, {
+          detail: {
+            input,
+          },
+        }));
+      });
     });
     this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.next);
     this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.calculate);
@@ -520,6 +528,7 @@ class TaxCalc extends Module {
 
   private setResultBlocks(blocksProps: TableBlockProperties[], remarks: string[]): void {
     this.ui.resultContainer.innerHTML = '';
+    jump(this.options.domSelectors.resultBlock);
 
     blocksProps.forEach((props) => {
       const newItem = document.createElement('div');
@@ -653,7 +662,7 @@ class TaxCalc extends Module {
       newSearchStr = `${paramKey}=${calculatorId}`;
     }
     const wcmmode = this.getURLParam('wcmmode');
-    window.history.replaceState(null, null, `?${newSearchStr}${wcmmode ? '&wcmmode=' + wcmmode : ''}`); // eslint-disable-line
+    window.history.pushState(null, null, `?${newSearchStr}${wcmmode ? '&wcmmode=' + wcmmode : ''}`); // eslint-disable-line
   }
 
   private onApiError(errorsResponseObject: { error: {text: string}[]}) {
@@ -665,7 +674,7 @@ class TaxCalc extends Module {
     this.log('Form Exception: ', exceptionStr);
     this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.disabled);
 
-    this.ui.apiErrorNotification.querySelector<HTMLSpanElement>('span')
+    this.ui.apiErrorNotification.querySelector<HTMLSpanElement>('p')
       .innerHTML = exceptionStr;
     const height = this.getContentHeight(this.ui.apiErrorNotification);
     this.ui.apiErrorNotification.style.maxHeight = `${height}px`;

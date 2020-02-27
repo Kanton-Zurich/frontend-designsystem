@@ -7,9 +7,8 @@ const headerData = require('../../modules/header/header.data');
 
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.default.props;
 const defNewsOverviewData = require('../../modules/news_overview/news_overview.data');
-const defCTABoxData = require('../../modules/cta_box/cta_box.data');
-const defRelatedContentData = require('../../modules/related_content/related_content.data');
-const contentTeaserDataWithoutBuzzwords = require('../../atoms/content_teaser/content_teaser.data').variants.withoutBuzzwords.props;
+const defNewsletterFormData = require('../../modules/newsletter_form/newsletter_form.data');
+const defContactData = require('../../modules/contact/contact.data');
 const defBreadcrumbData = require('../../modules/breadcrumb/breadcrumb.data').variants.default.props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
@@ -33,23 +32,8 @@ const data = _.merge({}, defaultData, {
         breadcrumb: defBreadcrumbData,
       }),
       newsOverview: defNewsOverviewData.props,
-      ctaBox: defCTABoxData.variants.default.props,
-      relatedContent: _.assign(_.merge({}, defRelatedContentData.variants.default.props), {
-        relatedContentHeading: {
-          level: 2,
-          title: 'Informationen für Medienschaffende',
-        },
-        contentNavData: {
-          items: [
-            _.merge({}, contentTeaserDataWithoutBuzzwords, {
-              shortTitle: 'Informationen für Medien',
-            }),
-            _.merge({}, contentTeaserDataWithoutBuzzwords, {
-              shortTitle: 'Medienkontakt',
-            }),
-          ],
-        },
-      }),
+      newsletterFormData: defNewsletterFormData.variants.default.props,
+      contactData: defContactData.variants.fullWidthLessData.props,
       back2topData: defBack2TopData,
       footerData: defFooterData,
     },

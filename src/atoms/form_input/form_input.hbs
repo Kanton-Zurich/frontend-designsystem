@@ -5,7 +5,6 @@
   {{#if isSearch}}atm-form_input--search{{/if}}"
   {{#unless isSelectTrigger}} data-input{{/unless}}
   {{#if rules}} data-rules="{{rules}}"{{/if}}>
-
   {{# if isSelectTrigger}}
     <button aria-expanded="false" id="{{uuid}}"
             class="atm-form_input__input atm-form_input__input--trigger" type="button">
@@ -50,6 +49,8 @@
       {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
       {{#if validation}} data-validation{{/if}}
       {{#if isFloatingLabel}} data-floating{{/if}}
+      {{#if inputMask}} data-input-mask="{{inputMask}}"{{/if}}
+      {{#if maskPlaceholder}} data-mask-placeholder="{{maskPlaceholder}}"{{/if}}
       {{#if zipCity}}
         data-fills-city="{{zipCity.fills}}"
         data-zip="{{zipCity.data}}"
@@ -58,6 +59,11 @@
       {{#if disableAutocomplete}}autocomplete="new-password"{{/if}}
       {{#if filterListId}}aria-owns="{{filterListId}}" aria-autocomplete="list"{{/if}}
     >
+  {{/if}}
+  {{#if maskPlaceholder }}
+    <span class="atm-form_input__backdrop">
+      <i></i>{{maskPlaceholder}}
+    </span>
   {{/if}}
 
   {{# unless isSelectTrigger}}
@@ -74,7 +80,7 @@
           </span>
           <span>
              <span class="visuallyhidden">{{validation.ariaTextInvalid}}</span>
-             <svg class="icon">
+             <svg class="icon" focusable="false">
                 <use xlink:href="#caution"></use>
               </svg>
           </span>
@@ -87,14 +93,14 @@
       <button class="atm-form_input__functionality" type="button"
               data-buttontype="{{additionalFunctionality.buttontype}}">
         <span class="visuallyhidden">{{additionalFunctionality.ariaText}}</span>
-        <svg class="icon">
+        <svg class="icon" focusable="false">
           <use xlink:href="#{{additionalFunctionality.icon }}"></use>
         </svg>
       </button>
     {{/if}}
 
     {{#if iconOnly}}
-      <svg class="icon">
+      <svg class="icon" focusable="false">
         <use xlink:href="#{{iconOnly.icon }}"></use>
       </svg>
     {{/if}}

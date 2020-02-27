@@ -29,6 +29,7 @@ $stepperNavigationCurves: (
 
 .mdl-stepper_navigation {
   list-style-type: none;
+  margin-top: 3px; //CZHDEV-2092
 
   @include sizeCurve(margin-bottom, medium);
   @include resetList;
@@ -76,6 +77,7 @@ $stepperNavigationCurves: (
     justify-content: flex-start;
 
     color: $colorBlack60;
+    flex-basis: 100%;
 
     @include transition(color);
 

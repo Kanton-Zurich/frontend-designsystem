@@ -8,9 +8,17 @@
        <span class="atm-linklist_item__text">
          Text
        </span>
-      <input class="atm-form_input__input " id="{{formInputData.uuid}}" placeholder="{{formInputData.label}}" name="input_name" value="" type="text">
+      <input class="atm-form_input__input " id="{{formInputData.uuid}}" placeholder="{{formInputData.label}}"
+             name="input_name" value="" type="text"
+             {{#if formInputData.maskPlaceholder}}data-mask-placeholder="{{formInputData.maskPlaceholder}}"{{/if}}
+        {{#if formInputData.inputMask}}data-input-mask="{{formInputData.inputMask}}"{{/if}}>
+      {{#if formInputData.maskPlaceholder}}
+      <span class="atm-form_input__backdrop">
+        <i></i>{{formInputData.maskPlaceholder}}
+      </span>
+      {{/if}}
       <label for="datepicker-16">{{formInputData.label}}</label>
-      <svg class="icon">
+      <svg class="icon" focusable="false">
         <use xlink:href="#angle_drop_down"></use>
       </svg>
     </div>

@@ -23,6 +23,8 @@
   }
 
   &__no-results {
+    @include sizeCurve(margin-top, large);
+
     display: none;
 
     &.visible {

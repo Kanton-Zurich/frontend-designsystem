@@ -8,14 +8,14 @@ $pageHeaderCurves: (
     xlarge: 4px,
   ),
   ktzhLogoTop: (
-    tiny: 29px,
-    xsmall: 24px,
-    small: 17px,
-    medium: 0,
-    large: -10px,
-    xlarge: -17px,
+    tiny: 32px,
+    xsmall: 27px,
+    small: 22px,
+    medium: 2px,
+    large: -7px,
+    xlarge: -13px,
   ),
-  ktzhLogoMarginLeft: (
+  ktzhLogoLeft: (
     tiny: -6px,
     xsmall: -6px,
     small: 0,
@@ -117,13 +117,11 @@ $pageHeaderCurves: (
   &__logo-container {
     height: 0;
 
-    a {
-      display: inline-block;
-      position: relative;
+    display: inline-block;
+    position: relative;
 
-      @include polyFluidSizing('top', map-get($pageHeaderCurves, ktzhLogoTop));
-      @include polyFluidSizing('margin-left', map-get($pageHeaderCurves, ktzhLogoMarginLeft));
-    }
+    @include polyFluidSizing('top', map-get($pageHeaderCurves, ktzhLogoTop));
+    @include polyFluidSizing('left', map-get($pageHeaderCurves, ktzhLogoLeft));
   }
 
   &__logo {
