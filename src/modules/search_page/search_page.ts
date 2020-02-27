@@ -67,7 +67,7 @@ class SearchPage extends Module {
     const defaultOptions = {
       delay: 450,
       minInputLength: 3,
-      sessionIdStorageKey: 'czhdev_session_id',
+      sessionIdStorageKey: 'kzh-session-id',
       domSelectors: {
         input: '[data-search_page="input"]',
         form: '[data-search_page="form"]',
@@ -241,6 +241,7 @@ class SearchPage extends Module {
       } else {
         this.showNoResults(true);
       }
+      this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
     });
   }
 
@@ -367,8 +368,11 @@ class SearchPage extends Module {
         }
         return response.status === 204 ? {} : response.json(); // eslint-disable-line
       })
-      .then((response) => {
+      .then((response: any) => {
         if (response) {
+          if (response.resultsData && response.resultsData.queryId) {
+            this.queryId = response.resultsData.queryId;
+          }
           this.showNoResults(false);
           callback(response);
           this.ui.element.classList.remove(this.options.stateClasses.showError);

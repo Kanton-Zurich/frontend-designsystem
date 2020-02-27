@@ -4,3 +4,4 @@ dist
 .tmp
 .tmp-*
 package-lock.json
+frontend-living-styleguide.iml

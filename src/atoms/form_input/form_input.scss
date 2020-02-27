@@ -175,6 +175,12 @@ $triggerWidth: pxToRem(86px);
       top: 2px;
       padding-top: pxToRem(14px);
     }
+
+    /* ----- LABEL ON FOCUS/DIRTY ------ */
+    .atm-form_input__input:focus ~ .atm-form_input__backdrop,
+    .atm-form_input__input.dirty ~ .atm-form_input__backdrop {
+      display: block;
+    }
   }
 
   /* ------------------------------
@@ -476,5 +482,24 @@ $triggerWidth: pxToRem(86px);
 
     color: $colorBlack60;
     padding-top: $sizeMini;
+  }
+
+  &__backdrop {
+    @include transition(top);
+
+    position: absolute;
+    display: none;
+    top: pxToRem($sizeRegular * 2) + $borderWidthRem;
+    left: pxToRem($sizeRegular) + $borderWidthRem;
+    pointer-events: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    right: $borderWidth;
+    color: $colorBlack40;
+
+    i {
+      opacity: 0;
+    }
   }
 }

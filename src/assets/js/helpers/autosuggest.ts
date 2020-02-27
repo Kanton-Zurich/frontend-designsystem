@@ -140,27 +140,21 @@ class Autosuggest {
 
       if (this.options.url) {
         this.setLoading();
-
         await this.fetchData();
       }
 
       if (this.query.length > 1) {
         this.emptyAutosuggest();
         this.filterData();
-
         if (this.results.length > 0) {
           this.dispatchStatusEvent(Autosuggest.events.filtered, this.results.length);
-
           this.renderResults();
-
-
           window.dispatchEvent(new CustomEvent('reloadLineClamper'));
         } else {
           this.dispatchStatusEvent(Autosuggest.events.noResult);
         }
       } else {
         this.emptyAutosuggest();
-
         this.dispatchStatusEvent(Autosuggest.events.reset);
       }
 
@@ -314,7 +308,7 @@ class Autosuggest {
           this.data = [];
           return;
         }
-        if (Object.prototype.hasOwnProperty.call(response, 'suggestions')) {
+        if (response && Object.prototype.hasOwnProperty.call(response, 'suggestions')) {
           this.data = response.suggestions;
         }
       });

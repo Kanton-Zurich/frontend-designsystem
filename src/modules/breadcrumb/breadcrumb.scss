@@ -12,7 +12,7 @@
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
     @include transition(color);
 
-    line-height: $sizeLineHeightSubBase;
+    line-height: $sizeLineHeightBase;
 
     .mdl-breadcrumb__item--main &,
     .mdl-breadcrumb__item--active &,

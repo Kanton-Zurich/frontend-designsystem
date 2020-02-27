@@ -47,6 +47,8 @@ const variants = _.mapValues({
     props: {
       type: 'text',
       label: 'pflichtig von',
+      inputMask: '\\d\\d\\.[\\d.]\\d\\d\\.',
+      maskPlaceholder: 'TT.MM.',
       validation: {
         pattern: '^\\d{2}\\.\\d{2}\\.$',
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
@@ -270,15 +272,15 @@ const variants = _.mapValues({
       uuid: _.uniqueId('float_input_unitLeft'),
       unitLeft: true,
       unitLeftLabel: 'CHF',
-      type: 'number',
-      inputContent: '0.00',
-      label: '0.00',
+      type: 'text',
+      inputContent: '0',
+      label: '0',
+      inputMask: 'currency_flat',
       validation: {
-        pattern: '^[+-]?((\\.\\d+)|(\\d+(\\.\\d+)?))$',
+        pattern: '^[+-]?((\\.\\d+)|([\\d\']+(\\.\\d+)?))$',
         errorMsg: 'Hier muss eine Ganzzahl oder eine Gleitkommazahl eingegeben werden!',
         isRequired: true,
       },
-      step: 0.01,
     },
   },
   unitLeftWithFloating: {
@@ -290,16 +292,16 @@ const variants = _.mapValues({
       uuid: _.uniqueId('float_input_unitLeftFloating'),
       unitLeft: true,
       unitLeftLabel: 'CHF',
-      type: 'number',
+      type: 'text',
       inputContent: '0.00',
       label: 'Ihr Wunschgehalt',
       isFloatingLabel: true,
+      inputMask: 'currency',
       validation: {
-        pattern: '^[+-]?((\\.\\d+)|(\\d+(\\.\\d+)?))$',
+        pattern: '^[+-]?((\\.\\d+)|([\\d\']+(\\.\\d+)?))$',
         errorMsg: 'Hier muss eine Ganzzahl oder eine Gleitkommazahl eingegeben werden!',
         isRequired: true,
       },
-      step: 0.01,
     },
   },
   unitRight: {
@@ -376,6 +378,8 @@ const variants = _.mapValues({
       desc: '',
     },
     props: {
+      inputMask: 'phone',
+      maskPlaceholder: 'XX XXX XX XX',
       type: 'text',
       isSelectTrigger: true,
       isTriggerWithInput: true,

@@ -13,6 +13,7 @@ import {
 import namespace from '../../assets/js/helpers/namespace';
 import WindowEventListener from '../../assets/js/helpers/events';
 import jump from 'jump.js';
+import Form from '../../assets/js/helpers/form.class';
 
 interface CalculatorFormItemData {
   title: string;
@@ -512,6 +513,13 @@ class TaxCalc extends Module {
       itemsParentNode.appendChild(newItem);
       (<any>window).estatico.helpers.app.registerModulesInElement(newItem);
       (<any>window).estatico.helpers.app.initModulesInElement(newItem);
+      newItem.querySelectorAll('input').forEach((input) => {
+        this.ui.formBase.dispatchEvent(new CustomEvent(Form.events.initInput, {
+          detail: {
+            input,
+          },
+        }));
+      });
     });
     this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.next);
     this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.calculate);

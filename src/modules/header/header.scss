@@ -1,5 +1,6 @@
 $borderHeightSmall: 2px;
 $borderHeightNormal: 5px;
+$burgerSubNavHeight: 72px;
 
 $headerCurves: (
   height: (
@@ -51,6 +52,7 @@ $headerCurves: (
     .mdl-header__navigation {
       @include mq($to: small) {
         display: flex;
+        padding-top: $sizeRegular;
       }
     }
 
@@ -73,7 +75,7 @@ $headerCurves: (
         content: ' ';
         background-color: $colorWhite;
         width: 100%;
-        height: pxToRem($sizeHuge);
+        height: pxToRem($burgerSubNavHeight);
         position: fixed;
         left: 0;
       }
