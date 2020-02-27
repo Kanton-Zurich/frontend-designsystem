@@ -56,7 +56,7 @@ const demoDefaultItems = [
     link: '../../pages/news_detail/news_detail.html',
     type: 'Medienmitteilung',
     date: '14.12.2018',
-    title: 'Winterthur: Unbekannter Mann raubt Tankstellen-Shop aus',
+    title: 'Winterthur: Unbekannter Zeigerdereferenzierungsoperator raubt Tankstellen-Shop aus',
   },
   {
     link: '../../pages/news_detail/news_detail.html',

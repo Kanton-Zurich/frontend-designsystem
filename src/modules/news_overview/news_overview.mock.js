@@ -42,7 +42,7 @@ const data = {
       link: '../news_detail/news_detail.html',
       type: 'Medienmitteilung',
       date: '14.12.2018',
-      title: 'Zufahrt Strassenverkehrsamt Hinwil erschwert und hier noch ein seeeehr langer tiiitel mit viel extra Sosse und Zwiebeln',
+      title: 'Zufahrt Strassen&shy;verkehrsamt Hinwil erschwert und hier noch ein seeeehr langer tiiitel mit viel extra Sosse und Zwiebeln',
       teaserText: 'Strassenbau Winterthur- / Überlandstrassen: Bitte planen Sie für Ihre Fahrt zum Strassenverkehrsamt Hinwil genügend Zeit ein test langer laaaaanger text',
     },
     {
@@ -69,7 +69,7 @@ const data = {
       link: '../news_detail/news_detail.html',
       date: '14.12.2018',
       title: 'Vekehrsabgaben 2019',
-      teaserText: 'Alle Infos zu Verkehrsabgabenrechener, Fristen, Ratenzahlung etc',
+      teaserText: 'Alle Infos zu Verkehrs&shy;abgabenrechener, Eier&shy;sollbruchstellen&shy;verursacher, Ratenzahlung etc',
     },
     {
       link: '../news_detail/news_detail.html',
@@ -82,12 +82,12 @@ const data = {
       link: '../news_detail/news_detail.html',
       type: 'Medienmitteilung',
       date: '14.12.2018',
-      title: 'Winterthur: Unbekannter Mann raubt Tankstellen-Shop aus',
+      title: 'Winterthur: Unbekannter Mann raubt Eier&shy;sollbruchstellen&shy;verursacher aus ',
     },
     {
       link: '../news_detail/news_detail.html',
       date: '14.12.2018',
-      title: 'Zürich-Flughafen: Drogenkurier verhaftet und Kokain sichergestellt',
+      title: 'Zürich-Flughafen: Drogenkurier verhaftet und Eier&shy;sollbruchstellen&shy;verursacher sichergestellt ',
     },
     {
       link: '../news_detail/news_detail.html',
@@ -99,7 +99,7 @@ const data = {
       link: '../news_detail/news_detail.html',
       type: 'Medienmitteilung',
       date: '14.12.2018',
-      title: 'Winterthur: Unbekannter Mann raubt Tankstellen-Shop aus',
+      title: 'Winterthur: Unbekannter Mann raubt Tankstellen-Shop aus Eier&shy;sollbruchstellen&shy;verursacher',
       teaserImage: '../../assets/media/image/news_teaser_316x178_x15.jpeg',
     },
     {
