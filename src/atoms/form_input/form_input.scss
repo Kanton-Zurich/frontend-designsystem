@@ -19,6 +19,10 @@ $searchSizeCurve: (
   padding: (
     tiny: ($targetSmallInputHeight - ($sizeFontBiggerRegular * $sizeLineHeightBase)) / 2,
     large: ($targetInputHeight - ($sizeFontBig * $sizeLineHeightBase)) / 2,
+  ),
+  top: (
+    tiny: $sizeSmallRegular,
+    large: $sizeLarge,
   )
 );
 
@@ -353,6 +357,10 @@ $triggerWidth: pxToRem(86px);
 
       @include sizeCurve(font-size, font, $searchSizeCurve);
       @include sizeCurve(padding-top padding-bottom, padding, $searchSizeCurve);
+    }
+
+    .atm-form_input__functionality {
+      @include sizeCurve(top, top, $searchSizeCurve);
     }
   }
 
