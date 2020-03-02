@@ -42,7 +42,7 @@ const data = _.merge({}, defaultData, {
     alt: 'Das ist ein Alternativ-Text',
     placeholderImage: defImageFigureData,
   },
-}); 
+});
 
 data.colorVariations = []; // no color variations available
 
@@ -135,6 +135,16 @@ const variants = _.mapValues({
       isHeader: true,
       video_title: null,
       videoId: 'WzInVZXi_FA',
+    },
+  },
+  offlinePage: {
+    props: {
+      videoId: 'xk0DEe_syF4',
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Imagefilm des Kanton Zürich',
+      }),
+      video_title: 'Imagefilm des Kanton Zürich',
+      alt: 'Imagefilm des Kanton Zürich',
     },
   },
 }, (variant) => {

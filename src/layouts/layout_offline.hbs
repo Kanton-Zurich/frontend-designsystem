@@ -3,17 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{#if title}}{{title}} – {{/if}}{{meta.project}}</title>
+  <title>{{#if title}}{{title}}{{/if}}</title>
   <meta name="description" content="{{#if description}}{{description}}{{/if}}">
   <meta name="format-detection" content="telephone=no">
 
   {{! <link rel="manifest" href="site.webmanifest"> }}
   {{! <link rel="apple-touch-icon" href="icon.png"> }}
-  <link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
+  <link rel="stylesheet" href="/assets/css/main_minimal{{#unless env.dev}}.min{{/unless}}.css">
   <link rel="stylesheet" href="/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css">
-
-  <script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
-  <script src="/assets/js/main{{#unless env.dev}}.min{{/unless}}.js" load-main-script-deferred></script>
+  <script src="/assets/js/mainMinimal{{#unless env.dev}}.min{{/unless}}.js" load-main-script-deferred></script>
 
   {{! <meta name="theme-color" content="#fafafa"> }}
 
