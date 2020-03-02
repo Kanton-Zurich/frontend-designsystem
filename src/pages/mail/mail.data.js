@@ -22,9 +22,67 @@ const data = _.merge({}, defaultData, {
     questions: {
       subtitle: 'Bei Fragen',
       paragraph: 'Sollte es Fragen zu Ihrem Antrag haben, dann melden Sie sich beim Volksschulamt unter:',
-      contact: '+41 44 489 45 89',
+      contact: {
+        label: 'Tel.',
+        link: 'tel:+41444894589',
+        text: '+41 44 489 45 89',
+      },
     },
-    userdata: {},
+    userdata: {
+      subtitle: 'Ihre Angaben',
+      properties: [
+        {
+          label: 'Vorname',
+          value: 'Hans',
+        },
+        {
+          label: 'Nachname',
+          value: 'Mustermann',
+        },
+        {
+          label: 'Geburtsdatum',
+          value: '21.02.1970',
+        },
+        {
+          label: 'E-Mail',
+          value: 'hans.mustermann@zh.ch',
+        },
+        {
+          label: 'Kind',
+          block: [
+            {
+              label: 'Vorname',
+              value: 'Hansi',
+            },
+            {
+              label: 'Nachname',
+              value: 'Musterkind',
+            },
+            {
+              label: 'Geburtsdatum',
+              value: '21.02.2010',
+            },
+          ],
+        },
+        {
+          label: 'Weiteres Kind',
+          block: [
+            {
+              label: 'Vorname',
+              value: 'Martina',
+            },
+            {
+              label: 'Nachname',
+              value: 'Musterkind',
+            },
+            {
+              label: 'Geburtsdatum',
+              value: '21.02.2012',
+            },
+          ],
+        },
+      ],
+    },
   },
 });
 
