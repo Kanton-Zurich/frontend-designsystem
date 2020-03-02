@@ -379,10 +379,11 @@ const variants = _.mapValues({
     },
     props: {
       inputMask: 'phone',
-      maskPlaceholder: 'XX XXX XX XX',
+      maskPlaceholder: '__ ____ __ __',
       type: 'text',
       isSelectTrigger: true,
       isTriggerWithInput: true,
+      isFloatingLabel: true,
       isInput: false,
       label: 'Telefonnummer',
       icon: 'angle_drop_down',

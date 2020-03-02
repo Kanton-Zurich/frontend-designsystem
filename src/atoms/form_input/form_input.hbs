@@ -15,11 +15,27 @@
       </svg>
     </button>
     {{#if isTriggerWithInput}}
-      <input id="select_phone_input" name="phone_input" type="tel" placeholder="{{#if label}}{{label}}{{/if}}"
+      <input id="select_phone_input" name="phone_input" type="tel" placeholder="{{#if maskPlaceholder}}{{maskPlaceholder}}{{/if}}"
         {{#if validation.pattern }} data-pattern="{{validation.pattern}}"{{/if}}
         {{#if validation.isRequired}} required{{/if}}
         {{#if validation}} data-validation{{/if}}><label
-      class="visuallyhidden" for="select_phone_input">Bitte hier ihre Telefonnummer eingeben</label>{{/if}}
+      class="visuallyhidden" for="select_phone_input">Bitte hier ihre Telefonnummer eingeben</label>
+    <label for="{{uuid}}">{{label}}</label>
+    {{/if}}
+    <span class="atm-form_input__validate-icon">
+          <span>
+            <span class="visuallyhidden">{{validation.ariaTextValid}}</span>
+            <svg class="icon" focusable="false">
+              <use xlink:href="#confirm"></use>
+            </svg>
+          </span>
+          <span>
+             <span class="visuallyhidden">{{validation.ariaTextInvalid}}</span>
+             <svg class="icon" focusable="false">
+                <use xlink:href="#caution"></use>
+              </svg>
+          </span>
+        </span>
   {{/if}}
 
   {{# if isTextarea}}
@@ -60,11 +76,13 @@
       {{#if filterListId}}aria-owns="{{filterListId}}" aria-autocomplete="list"{{/if}}
     >
   {{/if}}
-  {{#if maskPlaceholder }}
-    <span class="atm-form_input__backdrop">
-      <i></i>{{maskPlaceholder}}
-    </span>
-  {{/if}}
+  {{#unless isTriggerWithInput }}
+    {{#if maskPlaceholder }}
+      <span class="atm-form_input__backdrop">
+        <i></i>{{maskPlaceholder}}
+      </span>
+    {{/if}}
+  {{/unless}}
 
   {{# unless isSelectTrigger}}
     <label for="{{uuid}}">{{label}}</label>

@@ -1,6 +1,7 @@
 interface ModuleDomSelectors {
   formBase: string;
   formItems: string;
+  beforeBlock: string;
   taxEntityInputs: string;
   taxTypeInputs: string;
   openSectionsValidationInputs: string;
@@ -57,6 +58,7 @@ export interface TaxCalcModuleOptions { // eslint-disable-line
 const domSelectors: ModuleDomSelectors = {
   formBase: '[data-tax_calc="formBase"]',
   formItems: '.mdl-tax_calc__form-block .mdl-accordion__item',
+  beforeBlock: '.mdl-tax_calc__before-block',
   taxEntityInputs: '[data-tax_calc="inputEntity"]',
   taxTypeInputs: '[data-tax_calc^="inputTaxType"]',
   openSectionsValidationInputs: '.mdl-accordion__item--open input[data-validation]',
