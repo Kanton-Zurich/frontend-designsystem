@@ -49,6 +49,7 @@ export interface TaxCalcModuleOptions { // eslint-disable-line
   flatCurrencyValues: string[];
   globalScopeVariables: string[];
   datePartialFields: string[];
+  negativeValues: string[];
   domSelectors: ModuleDomSelectors;
   stateClasses: ModuleStateClasses;
 }
@@ -105,6 +106,7 @@ export const TaxCalcDefaultOptions: TaxCalcModuleOptions = { // eslint-disable-l
   flatCurrencyValues: ['ascertainedTaxableIncome', 'taxableIncome', 'ascertainedTaxableAssets', 'taxableAssets', 'taxableFederalIncome'],
   globalScopeVariables: ['taxYear'],
   datePartialFields: ['liabilityBegin', 'liabilityEnd'],
+  negativeValues: ['withholdingTax'],
   attributeNames,
   domSelectors,
   stateClasses,

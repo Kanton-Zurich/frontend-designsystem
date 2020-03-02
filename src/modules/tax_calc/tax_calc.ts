@@ -487,6 +487,7 @@ class TaxCalc extends Module {
       }));
     } else if (defByApi.type === 'Number') {
       propData.maxLength = Math.floor(Math.log10(defByApi.maxSize));
+      propData.maxSize = defByApi.maxSize;
       if (setFromDef && defByApi.value !== undefined && defByApi.value !== null) {
         propData.value = defByApi.value.toString(10);
       } else {
@@ -624,9 +625,9 @@ class TaxCalc extends Module {
       const { value, currency, symbol } = tmp;
       if (currency) {
         // TODO Steueramt has to improve their API for better experience
-        // this is a hack due to the insufficient API of the tax department we had to hardcode certain values that
-        // should be displayed flat without decimal digits
-        return this.currencyNumberValueToString(value, this.options.flatCurrencyValues.indexOf(path) < 0);
+        // this is a hack due to the insufficient API of the tax department we had to hardcode
+        //  certain values that should be displayed flat without decimal digits
+        return `${this.options.negativeValues.indexOf(path) >= 0 ? '-' : ''}${this.currencyNumberValueToString(value, this.options.flatCurrencyValues.indexOf(path) < 0)}`; // eslint-disable-line
       }
       if (symbol) {
         return `${value} ${tmp.symbol}`;
