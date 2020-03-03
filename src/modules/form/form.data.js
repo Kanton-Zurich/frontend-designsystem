@@ -1290,7 +1290,7 @@ const variants = _.mapValues({
               {
                 isFloatingLabel: true,
                 label: 'Erlasstitel',
-                name: 'erlasstitel',
+                name: 'enactmentTitle',
                 uuid: 'erlasstitel',
               })),
           }],
@@ -1301,7 +1301,7 @@ const variants = _.mapValues({
               {
                 isFloatingLabel: true,
                 label: 'Ordnungsnummer',
-                name: 'ordnungsnummer',
+                name: 'referenceNumber',
                 uuid: 'ordnungsnummer',
               })),
           }, {
@@ -1310,7 +1310,7 @@ const variants = _.mapValues({
               {
                 isFloatingLabel: true,
                 label: 'Stichwort',
-                name: 'stichwort',
+                name: 'fullText',
                 uuid: 'stichwort',
               })),
           }],
@@ -1341,8 +1341,8 @@ const variants = _.mapValues({
               {
                 formInputData: {
                   label: 'Erlass',
-                  name: 'erlassdatum',
-                  uuid: 'erlassdatum',
+                  name: 'enactmentDate',
+                  uuid: 'erlassdatum_ls',
                   validation: false,
                 },
               })),
@@ -1354,8 +1354,8 @@ const variants = _.mapValues({
               {
                 formInputData: {
                   label: 'Inkraftsetzung',
-                  name: 'inkraftsetzungsdatum',
-                  uuid: 'inkraftsetzungsdatum',
+                  name: 'entryIntoForceDate',
+                  uuid: 'inkraftsetzungsdatum_ls',
                   validation: false,
                 },
               })),
@@ -1365,8 +1365,8 @@ const variants = _.mapValues({
               {
                 formInputData: {
                   label: 'Publikation',
-                  name: 'publikationsdatum',
-                  uuid: 'publikationsdatum',
+                  name: 'publicationDate',
+                  uuid: 'publikationsdatum_ls',
                   validation: false,
                 },
               })),
@@ -1377,7 +1377,7 @@ const variants = _.mapValues({
               checkboxData.variants.default.props,
               {
                 label: 'Auch aufgehobene Erlasse suchen',
-                groupName: 'include-repealed',
+                groupName: 'includeRepealedEnactments',
                 id: 410,
                 value: 'true',
               })),
@@ -1400,18 +1400,18 @@ const variants = _.mapValues({
               selectData.variants.default.props,
               {
                 listData: _.merge({}, listDemoData.props, {
-                  groupPostfix: 'lex_issue',
+                  groupPostfix: 'volumeNumber',
                   isSingleSelect: true,
                   selectOptions: [
-                    { value: '76', label: 'Band 76', id: _.uniqueId('zhlex_issue') },
-                    { value: '75', label: 'Band 75', id: _.uniqueId('zhlex_issue') },
-                    { value: '74', label: 'Band 74', id: _.uniqueId('zhlex_issue') },
-                    { value: '73', label: 'Band 73', id: _.uniqueId('zhlex_issue') },
-                    { value: '...', label: '...', id: _.uniqueId('zhlex_issue') },
-                    { value: '54', label: 'Band 54', id: _.uniqueId('zhlex_issue') },
-                    { value: '53', label: 'Band 53', id: _.uniqueId('zhlex_issue') },
-                    { value: '52', label: 'Band 52', id: _.uniqueId('zhlex_issue') },
-                    { value: '51', label: 'Band 51', id: _.uniqueId('zhlex_issue') },
+                    { value: '76', label: 'Band 76', id: _.uniqueId('volumeNumber') },
+                    { value: '75', label: 'Band 75', id: _.uniqueId('volumeNumber') },
+                    { value: '74', label: 'Band 74', id: _.uniqueId('volumeNumber') },
+                    { value: '73', label: 'Band 73', id: _.uniqueId('volumeNumber') },
+                    { value: '...', label: '...', id: _.uniqueId('volumeNumber') },
+                    { value: '54', label: 'Band 54', id: _.uniqueId('volumeNumber') },
+                    { value: '53', label: 'Band 53', id: _.uniqueId('volumeNumber') },
+                    { value: '52', label: 'Band 52', id: _.uniqueId('volumeNumber') },
+                    { value: '51', label: 'Band 51', id: _.uniqueId('volumeNumber') },
                   ],
                 }),
                 triggerInputData: {
@@ -1428,8 +1428,8 @@ const variants = _.mapValues({
               {
                 isFloatingLabel: true,
                 label: 'Seitenzahl in OS',
-                name: 'seitenzahl',
-                uuid: 'seitenzahl',
+                name: 'volumePageNumber',
+                uuid: 'seitenzahl_os',
               })),
           }],
         }],
@@ -1441,8 +1441,8 @@ const variants = _.mapValues({
               {
                 formInputData: {
                   label: 'Erlass',
-                  name: 'erlassdatum',
-                  uuid: 'erlassdatum',
+                  name: 'enactmentDate',
+                  uuid: 'erlassdatum_os',
                   validation: false,
                 },
               })),
@@ -1452,8 +1452,8 @@ const variants = _.mapValues({
               {
                 formInputData: {
                   label: 'Inkraftsetzung',
-                  name: 'inkraftsetzungsdatum',
-                  uuid: 'inkraftsetzungsdatum',
+                  name: 'entryIntoForceDate',
+                  uuid: 'inkraftsetzungsdatum_os',
                   validation: false,
                 },
               })),
@@ -1465,8 +1465,8 @@ const variants = _.mapValues({
               {
                 formInputData: {
                   label: 'Publikation',
-                  name: 'publikationsdatum',
-                  uuid: 'publikationsdatum',
+                  name: 'publicationDate',
+                  uuid: 'publikationsdatum_os',
                   validation: false,
                 },
               })),
@@ -1476,8 +1476,8 @@ const variants = _.mapValues({
               {
                 formInputData: {
                   label: 'Aufhebung',
-                  name: 'aufhebungsdatum',
-                  uuid: 'aufhebungsdatum',
+                  name: 'withdrawalDate',
+                  uuid: 'aufhebungsdatum_os',
                   validation: false,
                 },
               })),
