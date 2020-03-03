@@ -326,9 +326,6 @@ class FlexData extends Module {
       .replace('%1', jsonData.numberOfResults);
     if (!jsonData.numberOfResults || jsonData.numberOfResults <= 0) {
       resultsTitle = this.ui.results.getAttribute('data-no-results-title');
-      this.ui.results.classList.add('hidden');
-    } else {
-      this.ui.results.classList.remove('hidden');
     }
     // fill table date if present
     if (this.ui.resultsTable) {
