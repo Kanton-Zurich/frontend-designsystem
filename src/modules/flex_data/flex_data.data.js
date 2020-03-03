@@ -86,28 +86,22 @@ const variants = _.mapValues({
         hasColumnHeader: true,
         isWide: true,
         isStatic: true,
-        preSortedColumn: 'referenceNumber',
-        preSortedDirection: 'asc',
         headers: [
           {
             title: 'Ordnungs-Nr.',
             dataColumnName: 'referenceNumber',
-            isSortable: 'alpha',
           },
           {
             title: 'Erlasstitel',
             dataColumnName: 'enactmentTitle',
-            isSortable: 'alpha',
           },
           {
             title: 'Erlassdatum',
             dataColumnName: 'enactmentDate',
-            isSortable: 'date',
           },
           {
             title: 'Aufhebungsdatum',
             dataColumnName: 'withdrawalDate',
-            isSortable: 'date',
           },
         ],
         bodyrows: [],
@@ -132,28 +126,22 @@ const variants = _.mapValues({
         hasColumnHeader: true,
         isWide: true,
         isStatic: true,
-        preSortedColumn: 'referenceNumber',
-        preSortedDirection: 'asc',
         headers: [
           {
             title: 'Ordnungs-Nr.',
             dataColumnName: 'referenceNumber',
-            isSortable: 'alpha',
           },
           {
             title: 'Erlasstitel',
             dataColumnName: 'enactmentTitle',
-            isSortable: 'alpha',
           },
           {
             title: 'Erlassdatum',
             dataColumnName: 'enactmentDate',
-            isSortable: 'date',
           },
           {
             title: 'Inkraftsetzung',
             dataColumnName: 'entryIntoForceDate',
-            isSortable: 'date',
           },
         ],
         bodyrows: [],

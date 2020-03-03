@@ -1291,7 +1291,7 @@ const variants = _.mapValues({
                 isFloatingLabel: true,
                 label: 'Erlasstitel',
                 name: 'enactmentTitle',
-                uuid: 'erlasstitel',
+                uuid: _.uniqueId('erlasstitel'),
               })),
           }],
         }, {
@@ -1302,7 +1302,7 @@ const variants = _.mapValues({
                 isFloatingLabel: true,
                 label: 'Ordnungsnummer',
                 name: 'referenceNumber',
-                uuid: 'ordnungsnummer',
+                uuid: _.uniqueId('ordnungsnummer'),
               })),
           }, {
             cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
@@ -1311,7 +1311,7 @@ const variants = _.mapValues({
                 isFloatingLabel: true,
                 label: 'Stichwort',
                 name: 'fullText',
-                uuid: 'stichwort',
+                uuid: _.uniqueId('stichwort'),
               })),
           }],
         }],
@@ -1400,8 +1400,8 @@ const variants = _.mapValues({
               selectData.variants.default.props,
               {
                 listData: _.merge({}, listDemoData.props, {
-                  groupPostfix: 'volumeNumber',
                   isSingleSelect: true,
+                  groupId: 'volumeNumber',
                   selectOptions: [
                     { value: '76', label: 'Band 76', id: _.uniqueId('volumeNumber') },
                     { value: '75', label: 'Band 75', id: _.uniqueId('volumeNumber') },
@@ -1416,6 +1416,7 @@ const variants = _.mapValues({
                 }),
                 triggerInputData: {
                   label: 'Bandnummer',
+                  uuid: 'bandnummer_os',
                   validation: {
                     isRequired: false,
                   },
