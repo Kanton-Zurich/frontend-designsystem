@@ -24,6 +24,7 @@ const data = _.merge({}, defaultData, {
       message: 'Beim Laden der Daten ist ein Fehler aufgetreten!',
     }),
     resultCountTitle: '%1 Treffer zu ihrer Abfrage',
+    resultCountTitleMore: 'Mehr als %1 Treffer zu ihrer Abfrage',
     noResultsTitle: 'Es wurden keine Ergebnisse gefunden. Bitte passen Sie Ihre Suche an.',
   },
 });
