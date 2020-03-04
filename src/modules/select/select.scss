@@ -168,6 +168,11 @@ $selectOptionsMinWidth: 268px;
       .icon {
         transform: rotate(180deg);
       }
+      .atm-form_input__validate-icon {
+        .icon {
+          transform: none;
+        }
+      }
     }
 
     .mdl-select__options {
