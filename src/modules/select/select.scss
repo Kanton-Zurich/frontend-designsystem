@@ -52,6 +52,22 @@ $selectOptionsMinWidth: 268px;
     }
   }
 
+  &.valid {
+    .atm-form_input--trigger-phone {
+      .atm-form_input__validate-icon {
+        z-index: 1;
+
+        span:first-child {
+          display: block;
+        }
+
+        svg use {
+          fill: $colorGreen;
+        }
+      }
+    }
+  }
+
   &.invalid {
     .atm-form_input--trigger-phone {
       .atm-form_input__input--trigger + input {
@@ -152,6 +168,12 @@ $selectOptionsMinWidth: 268px;
       .icon {
         transform: rotate(180deg);
       }
+
+      .atm-form_input__validate-icon {
+        .icon {
+          transform: none;
+        }
+      }
     }
 
     .mdl-select__options {
@@ -248,8 +270,8 @@ $selectOptionsMinWidth: 268px;
       }
 
       &--trigger-phone .atm-form_input__input--trigger {
-        padding-top: $paddingInput;
-        padding-bottom: $paddingInput;
+        padding-top: $paddingInput + $paddingDifferenceOnFocus;
+        padding-bottom: $paddingInput - $paddingDifferenceOnFocus;
       }
 
       &--reduced {

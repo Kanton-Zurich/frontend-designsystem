@@ -384,7 +384,7 @@ class TaxCalc extends Module {
         });
       })
       .on('click', this.options.domSelectors.editBtn, () => {
-        jump(this.options.domSelectors.formBase);
+        jump(this.options.domSelectors.beforeBlock);
       });
   }
 
@@ -549,7 +549,6 @@ class TaxCalc extends Module {
 
   private setResultBlocks(blocksProps: TableBlockProperties[], remarks: string[]): void {
     this.ui.resultContainer.innerHTML = '';
-    jump(this.options.domSelectors.resultBlock);
 
     blocksProps.forEach((props) => {
       const newItem = document.createElement('div');
@@ -724,8 +723,8 @@ class TaxCalc extends Module {
           this.setResultBlocks(tableProps, remarks);
           this.ui.element.classList.add(this.options.stateClasses.hasResult);
           this.ui.resultTaxYear.innerText = resp.taxYear ? resp.taxYear.value : '';
-
           this.initStickyEditBtn();
+          setTimeout(() => { jump(this.options.domSelectors.resultBlock); }, 800); // eslint-disable-line
         }
       }, (postFailReason) => {
         this.log('FormSubmit failed! ', postFailReason);

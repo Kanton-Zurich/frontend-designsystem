@@ -616,11 +616,7 @@ class Select extends Module {
   }
 
   resetFocusOnTrigger() {
-    if (this.ui.phoneInput) {
-      this.ui.phoneInput.focus();
-    } else {
-      this.ui.trigger.focus();
-    }
+    this.ui.trigger.focus();
   }
 
   adjustContainerHeight() {

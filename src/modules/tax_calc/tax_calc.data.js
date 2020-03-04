@@ -235,7 +235,7 @@ const data = _.merge({}, defaultData, {
     },
     errorMessages: {
       number: 'Ungültige Zahleneingabe',
-      date: 'Ungültige Datumseingabe',
+      date: 'Bitte im Format TT.MM. eingeben',
     },
     serviceFailNotificationData: notificationApiFailProps,
   },

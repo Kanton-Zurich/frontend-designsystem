@@ -406,9 +406,11 @@ $triggerWidth: pxToRem(86px);
       height: pxToRem($targetInputHeight);
       background: none;
       left: $triggerWidth;
-      width: calc(100% - #{$triggerWidth} - $borderWidthRem);
+      width: calc(100% - #{$triggerWidth + $borderWidthRem + 3rem}); // stylelint-disable-line
       border: none;
       padding-left: pxToRem($sizeRegular);
+      padding-top: $paddingInput + $paddingDifferenceOnFocus;
+      padding-bottom: $paddingInput - $paddingDifferenceOnFocus;
       z-index: $zIndexInner;
 
       &:focus {
@@ -430,8 +432,23 @@ $triggerWidth: pxToRem(86px);
       @include visuallyhidden;
     }
 
-    .atm-form_input__input--trigger > .icon {
-      left: $triggerWidth - pxToRem(24);
+    > label:not(.visuallyhidden) {
+      top: pxToRem(14px);
+      transform: translateY(0);
+      font-size: $sizeFontTiny;
+      font-family: $fontFamilyBlack;
+      color: $colorBlack;
+      z-index: 1;
+    }
+
+    .atm-form_input__input--trigger {
+      padding-top: $paddingInput + $paddingDifferenceOnFocus;
+      padding-bottom: $paddingInput - $paddingDifferenceOnFocus;
+
+      > .icon {
+        left: $triggerWidth - pxToRem(24);
+        top: $paddingInput + $paddingDifferenceOnFocus;
+      }
     }
   }
 
@@ -447,7 +464,7 @@ $triggerWidth: pxToRem(86px);
       border: 0;
       padding: 0 pxToRem($sizeBig) 0 0;
       min-height: pxToRem($sizeBig);
-      align-items: center;
+      align-items: baseline;
 
       .atm-form_input__trigger-label {
         display: flex;

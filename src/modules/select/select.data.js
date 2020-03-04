@@ -80,7 +80,7 @@ const variants = _.mapValues({
         ],
       }),
       filterInputData: _.merge({}, defFilterInputData.props, {
-        label: 'Nach Stichwort filtern',
+        label: 'Telefonvorwahl nach Land wählen',
         type: 'text',
         isSmall: true,
         autocompleteOff: true,
