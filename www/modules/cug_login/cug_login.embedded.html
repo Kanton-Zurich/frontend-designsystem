@@ -1,0 +1,211 @@
+<div class="mdl-cug_login mdl-cug_login--embedded"
+     data-init="cugLogin" data-cug_login-devmode="true">
+    <input type="hidden" data-cug_login="authorizeEndpoint" value="/mocks/modules/cug_login/auth_ok.json" />
+    <input type="hidden" data-cug_login="successRedirectUrl" value="../../pages/focus/focus.html" />
+
+          <h3 class="atm-heading">
+            Login
+          </h3>
+    <p class="atm-paragraph">Um die Informationen dieser Seite zu sehen, müssen Sie sich einloggen. Sollten Sie kein Login besitzen oder Probleme beim Login haben, melden Sie sich bitte beim Strassenverkehrsamt unter folgender Telefonnummer: 012 345 78 96</p>
+
+    <div class="mdl-cug_login__form">
+        <form novalidate data-cug_login="loginForm" method="POST" action="/mocks/modules/cug_login/login_ok.json">
+
+          <section class="form__section" aria-live="polite">
+              <div class="form__group">
+
+                  <div class="form__row">
+                      <div class="form__cell" data-cug_login="cellUsername">
+                        <div class="atm-form_input atm-form_input--floated
+                          "
+                           data-input
+                          >
+                        
+                        
+                            <input class="atm-form_input__input"
+                               data-pattern="^([._\-@\a-zA-Z0-9]){4,}$"
+                              
+                               id="j_username" placeholder="Validation(Buchstaben/Wort)" name="j_username" value="" type="text"
+                              
+                               required
+                              
+                              
+                              
+                              
+                               data-validation
+                               data-floating
+                              
+                              
+                              
+                              
+                              
+                            >
+                        
+                            <label for="j_username">Validation(Buchstaben/Wort)</label>
+                                  <span class="atm-form_input__validate-icon">
+                                  <span>
+                                    <span class="visuallyhidden">Eingabe entspricht den Vorgaben.</span>
+                                    <svg class="icon" focusable="false">
+                                      <use xlink:href="#confirm"></use>
+                                    </svg>
+                                  </span>
+                                  <span>
+                                     <span class="visuallyhidden">Eingabe entspricht nicht den Vorgaben.</span>
+                                     <svg class="icon" focusable="false">
+                                        <use xlink:href="#caution"></use>
+                                      </svg>
+                                  </span>
+                                </span>
+                        
+                        
+                        
+                        
+                        
+                          
+                          <p data-message="pattern">Der Nutzername besteht aus mindestens 4 eingeben!</p>
+                          <p data-message="required">Dies ist ein Pflichtfeld</p>
+                        </div>
+                      </div>
+                  </div>
+
+                  <div class="form__row">
+                      <div class="form__cell" data-cug_login="cellPassword">
+                        <div class="atm-form_input atm-form_input--floated
+                          "
+                           data-input
+                          >
+                        
+                        
+                            <input class="atm-form_input__input"
+                               data-pattern="^(?&#x3D;.*\d)(?&#x3D;.*[a-z])(?&#x3D;.*[A-Z]).{6,}$"
+                              
+                               id="j_password" placeholder="Password" name="j_password" value="" type="password"
+                              
+                               required
+                              
+                               autocomplete="off" 
+                              
+                               data-hasbutton="true"
+                               data-validation
+                               data-floating
+                              
+                              
+                              
+                              
+                              
+                            >
+                        
+                            <label for="j_password">Password</label>
+                        
+                              <button class="atm-form_input__functionality" type="button"
+                                      data-buttontype="password">
+                                <span class="visuallyhidden">Zeige bzw verstecke Passwort</span>
+                                <svg class="icon" focusable="false">
+                                  <use xlink:href="#hide"></use>
+                                </svg>
+                              </button>
+                        
+                        
+                        
+                        
+                          
+                          <p data-message="pattern">Das Passwort besteht aus mindestens 6 Zeichen. Und enthält sowohl Groß- als auch Kleinbuchstaben und Zahlen.</p>
+                          <p data-message="required">Dies ist ein Pflichtfeld</p>
+                        </div>
+                      </div>
+                    <input type="hidden" aria-hidden="true" name="j_validate" id="j_validate" value="true"/>
+                  </div>
+
+                  <div class="form__row mdl-cug_login__failnotification">
+                      <div class="form__cell">
+                      <div class="mdl-notification
+                        
+                        
+                        " >
+                        <svg class="icon" focusable="false">
+                          <use xlink:href="#caution"></use>
+                        </svg>
+                        <div class="mdl-notification__message">
+                          
+                          <p>Bitte kontrollieren Sie Ihre Angaben für die Felder Benutzername und Passwort.</p>
+                        </div>
+                      </div>
+                      </div>
+                  </div>
+
+                  <div class="form__row">
+                      <div class="form__cell">
+                          <div class="mdl-cug_login__line"></div>
+                      </div>
+                  </div>
+
+                  <div class="form__row">
+                      <div class="form__cell">
+                        <div class="mdl-tooltip" data-init="tooltip">
+                          <div class="mdl-tooltip__text">
+                        
+                            <div class="mdl-tooltip__wrapper">
+                              <a class="mdl-tooltip__trigger mdl-tooltip__trigger--textual" tabindex="0">Passwort vergessen?</a>
+                              <div class="mdl-tooltip__bubble" id="aria-anchors172" aria-hidden="true">
+                                      <p>
+                                        Bitte kontaktieren Sie diese <a href="mailto:test@test.com" >Emailaddresse</a> wenn Sie ein neues Passwort benötigen.
+                                      </p>
+                                </div>
+                            </div>
+                        
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form__cell">
+                          <button class="atm-button mdl-cug_login__submit" data-cug_login="doLogin" >
+                            <span class="atm-button__text ">
+                              Anmelden
+                            </span>
+                            <span class="atm-button__spinner"></span>
+                          </button>
+                      </div>
+                  </div>
+
+              </div>
+
+          </section>
+        </form>
+    </div>
+
+    <div class="mdl-cug_login__alert-unauth">
+        <div class="mdl-notification
+          
+          
+          mdl-notification--dialog" >
+          <svg class="icon" focusable="false">
+            <use xlink:href="#caution"></use>
+          </svg>
+          <div class="mdl-notification__message">
+            <h3 class="mdl-notification__title">Ihr Login ist für diesen Bereich nicht gültig.</h3>
+            <p>Melden Sie sich ab und verwenden Sie die für diesen Bereich gültigen Login-Angaben.</p>
+          </div>
+            <button
+              class="atm-button"
+              
+            >
+                Abmelden
+            </button>
+        </div>
+    </div>
+
+    <div class="mdl-cug_login__alert-connection-fail">
+      <div class="mdl-notification
+        
+        
+        mdl-notification--dialog" >
+        <svg class="icon" focusable="false">
+          <use xlink:href="#caution"></use>
+        </svg>
+        <div class="mdl-notification__message">
+          <h3 class="mdl-notification__title">Entschuldigung, der Service ist nicht verfügbar.</h3>
+          <p>Grund dafür ist ein technisches Problem. Bitte versuchen Sie es später noch einmal.</p>
+        </div>
+      </div>
+    </div>
+</div>

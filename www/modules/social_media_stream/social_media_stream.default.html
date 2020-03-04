@@ -1,0 +1,118 @@
+<div class="mdl-social-media-stream" data-init="socialMediaStream" data-source="/mocks/modules/social_media_stream/social_media_stream.{page}.json">
+    <h2
+      class="atm-heading atm-heading--bordered "
+      id=""
+    >
+      Folgen Sie Jacqueline Fehr
+    </h2>
+  <ul class="mdl-social-media-stream__items">
+  </ul>
+  <script data-social-media="socialMediaPostTemplate" type="text/x-handlebars-template">
+<div class="mdl-social-media-post">
+  <% if (typeof(text) !== "undefined" && text !== false) { %>
+  <p class="mdl-social-media-post__text atm-paragraph">
+    <%=text%>
+  </p>
+  <% } %>
+  <% if (typeof(image) !== "undefined" && image !== false) { %>
+  <figure class="mdl-image-figure">
+    <div class="mdl-image-figure__img-wrapper">
+      <img class="mdl-image-figure__img" src="<%=image%>" alt="Das ist ein Beispielbild"/>
+    </div>
+  </figure>
+  <% } %>
+  <% if (typeof(cite) !== "undefined" && cite !== false) { %>
+  <blockquote class="mdl-social-media-post__cite">
+    <% if (typeof(cite.text) !== "undefined" && cite.text !== false) { %>
+    <p class="mdl-social-media-post__text atm-paragraph">
+      <%=cite.text%>
+    </p>
+    <% } %>
+    <% if (typeof(cite.image) !== "undefined" && cite.image !== false) { %>
+    <figure class="mdl-image-figure">
+      <div class="mdl-image-figure__img-wrapper">
+        <img class="mdl-image-figure__img" src="<%=cite.image%>" alt="Das ist ein Beispielbild"/>
+      </div>
+    </figure>
+    <% } %>
+    <div>
+      <a href="<%=cite.author.link%>" class="mdl-social-media-post__authorinfo" target="_blank">
+        <span><%=cite.author.name%></span><span><%=cite.datetime%></span>
+      </a>
+    </div>
+  </blockquote>
+  <% } %>
+
+  <div class="mdl-social-media-post__footer">
+    <a href="<%=author.link%>" class="mdl-social-media-post__authorinfo" target="_blank">
+      <span class="atm-button atm-button--icon-only atm-button--secondary">
+            <span class="atm-button__text visuallyhidden">
+              Button
+            </span>
+        <span class="visuallyhidden"><%=channel%></span>
+        <img class="icon" src="<%=icon%>" alt="">
+      </span>
+      <span><%=author.name%></span><span><%=datetime%></span>
+    </a>
+      <ul class="mdl-social-media-post__interaction">
+<% if (typeof(likes) !== "undefined" && likes !== false) { %>
+      <li class="mdl-social-media-post__interaction-button">
+        <svg class="icon" focusable="false">
+          <use xlink:href="#like"></use>
+        </svg>
+        <span><%=likes%></span><span class="visuallyhidden"> Likes</span>
+      </li>
+<% } %>
+<% if (typeof(comments) !== "undefined" && comments !== false) { %>
+      <li class="mdl-social-media-post__interaction-button">
+        <svg class="icon" focusable="false">
+          <use xlink:href="#comments"></use>
+        </svg>
+        <span><%=comments%></span><span class="visuallyhidden"> Kommentare</span>
+      </li>
+<% } %>
+<% if (typeof(forwards) !== "undefined" && forwards !== false) { %>
+       <li class="mdl-social-media-post__interaction-button">
+        <svg class="icon" focusable="false">
+          <use xlink:href="#repost"></use>
+        </svg>
+         <span><%=forwards%></span><span class="visuallyhidden"> Weiterleitungen</span>
+      </li>
+<% } %>
+      </ul>
+  </div>
+</div>
+
+  </script>
+  <script data-social-media="_cite_partial" type="text/x-handlebars-template">
+</script>
+  <script data-social-media="_text_partial" type="text/x-handlebars-template">
+</script>
+  <script data-social-media="_image_partial" type="text/x-handlebars-template">
+</script>
+  <div class="mdl-social-media-stream__footer">
+    <button class="atm-button mdl-social-media-stream__footer-button">
+    <span class="atm-button__text ">
+      Mehr anzeigen
+    </span>
+      <svg class="icon atm-button__icon" focusable="false">
+        <use xlink:href="#plus"></use>
+      </svg>
+      <span class="atm-button__spinner"></span>
+    </button>
+  </div>
+  <div class="mdl-social-media-stream__notification hidden">
+    <div class="mdl-notification
+      
+      
+      " >
+      <svg class="icon" focusable="false">
+        <use xlink:href="#caution"></use>
+      </svg>
+      <div class="mdl-notification__message">
+        
+        <p>Beim Laden der Daten ist ein Fehler aufgetreten!</p>
+      </div>
+    </div>
+  </div>
+</div>

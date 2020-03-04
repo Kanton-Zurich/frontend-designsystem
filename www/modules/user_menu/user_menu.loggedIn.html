@@ -1,0 +1,40 @@
+<div class="mdl-user-menu" data-init="userMenu" aria-describedby="aria-user-menu">
+  <input type="hidden" data-user-menu="loginStatusEndpoint" value="../../mocks/modules/cug_login/status_logged_in.json" />
+  <button class="mdl-user-menu__trigger">
+    <svg class="icon" focusable="false">
+      <use xlink:href="#user"></use>
+    </svg>
+    <span class="mdl-user-menu__user" data-user-menu="userNameField">
+      
+    </span>
+    <span class="mdl-user-menu__user-short"  data-user-menu="userShortField">
+      
+    </span>
+    <svg class="icon" focusable="false">
+      <use xlink:href="#angle_drop_down"></use>
+    </svg>
+  </button>
+
+  <div class="mdl-context_menu" id="aria-user-menu">
+    <div>
+      <ul class="mdl-context_menu__list">
+        <li>
+          <button
+            class="atm-context_menu_item "
+            
+            
+            data-context-menu="item"
+            data-user-menu="logout"
+          >
+            <span class="atm-context_menu_item__label">Abmelden</span>
+              <svg class="icon atm-context_menu_item__icon" focusable="false">
+                <use xlink:href="#logout-user"></use>
+              </svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+

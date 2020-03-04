@@ -1,0 +1,67 @@
+<figure class="mdl-video mdl-video--fullwidth " data-init="video">
+  
+  <div class="mdl-video__wrapper">
+    <div class="mdl-video__preview">
+      <figure class="mdl-image-figure">
+        <div class="mdl-image-figure__img-wrapper" >
+          <img
+              class="mdl-image-figure__img"
+              src="/assets/media/pngsprite/video_placeholder_600x338.png"
+              srcset="/assets/media/pngsprite/video_placeholder_600x338.png 600w, /assets/media/pngsprite/video_placeholder_1280x720.png 1280w"
+              sizes="100vw"
+              alt=""
+              
+              data-image-figure="image"
+            />
+            
+        </div>
+        
+      </figure>
+      <button class="atm-button">
+        <svg class="icon atm-button__icon" focusable="false">
+          <use xlink:href="#play"></use>
+        </svg>
+        <span class="atm-button__text">Video</span>
+      </button>
+    </div>
+    <div class="mdl-video__cookie-dialog" aria-hidden="true">
+      <button type="button">
+        <span class="visuallyhidden">
+          Cookie Dialog schliessen
+        </span>
+        <svg class="icon" focusable="false">
+          <use xlink:href="#exit"></use>
+        </svg>
+      </button>
+        <div>
+          <p>
+            <strong>Dieses Video kommt von YouTube</strong>
+            Mit dem Abspielen kann YouTube ihr Surf-Verhalten mitverfolgen.
+          </p>
+          <a href="#">Datenschutzerklärung</a>
+          <button class="atm-button">
+            <span class="atm-button__text">Video abspielen</span>
+            <svg class="icon atm-button__icon" focusable="false">
+              <use xlink:href="#youtube"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+    <iframe
+      class="mdl-video__frame"
+      data-expirydays="60"
+      data-cookieName="acceptYouTube"
+      data-youtubesrc="https://www.youtube.com/embed/TUBPWKf9gVs?modestbranding=1&rel=0&showInfo=0"
+      height="768"
+      width="432"
+      allowfullscreen
+      aria-describedby="mdl-video__TUBPWKf9gVs__alt-text"
+    ></iframe>
+  </div>
+  <figcaption class="mdl-video__caption">
+    <span class="atm-figcaption" data-figcaption="caption" >
+      Video der Kantonspolizei Zürich; Quelle: KaPo Zürich
+    </span>
+    <span id="mdl-video__TUBPWKf9gVs__alt-text" class="visuallyhidden">Das ist ein Alternativ-Text</span>
+  </figcaption>
+</figure>
