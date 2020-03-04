@@ -11,15 +11,16 @@
     <div class="mdl-search_page__notification hidden">
       {{> "modules/notification/notification" notificationData }}
     </div>
+    <form novalidate="true" data-search_page="dateFilter" class="mdl-search_page__date-filter">
+      {{> "modules/datepicker/datepicker" datepicker}}
+    </form>
     <div class="mdl-search_page__no-results">
       <h4 class=" atm-heading">Keine Resultate</h4>
       {{>"atoms/button/button" resetButton }}
     </div>
     <div class="mdl-search_page__results" data-search_page="results">
-      {{> "atoms/loading_circle/loading_circle"}}
     </div>
-
-
+    {{> "atoms/loading_circle/loading_circle"}}
     {{> "modules/pagination/pagination"}}
   </div>
 
@@ -46,9 +47,6 @@
           </li>
         <% }); %>
       </ul>
-      <form novalidate="true" data-search_page="dateFilter" class="mdl-search_page__date-filter">
-        {{> "modules/datepicker/datepicker" datepicker}}
-      </form>
     </div>
   </script>
 

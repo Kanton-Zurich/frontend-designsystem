@@ -46,6 +46,10 @@ export interface TaxCalcModuleOptions { // eslint-disable-line
     reinvoke: string;
     fieldTemplateType: string;
   };
+  flatCurrencyValues: string[];
+  globalScopeVariables: string[];
+  datePartialFields: string[];
+  negativeValues: string[];
   domSelectors: ModuleDomSelectors;
   stateClasses: ModuleStateClasses;
 }
@@ -99,6 +103,10 @@ export const TaxCalcDefaultOptions: TaxCalcModuleOptions = { // eslint-disable-l
   paramKeyCalculator: 'calculatorId',
   availableEntities: ['individual', 'incorp'],
   availableCalculator: ['income_assets', 'federal', 'benefit_payments', 'benefit_payments_federal', 'inheritance', 'legal_simple', 'legal_iterative'],
+  flatCurrencyValues: ['ascertainedTaxableIncome', 'taxableIncome', 'ascertainedTaxableAssets', 'taxableAssets', 'taxableFederalIncome'],
+  globalScopeVariables: ['taxYear'],
+  datePartialFields: ['liabilityBegin', 'liabilityEnd'],
+  negativeValues: ['withholdingTax'],
   attributeNames,
   domSelectors,
   stateClasses,

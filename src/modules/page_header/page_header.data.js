@@ -535,20 +535,19 @@ const variants = _.mapValues({
     },
     props: {
       noText: true,
-      homelink: false,
       breadcrumb: {
         contextMenu: false,
         path: [
           {
             title: 'Kanton Zürich',
-            href: false,
+            href: '#',
           },
         ],
       },
       pageTitle: 'Seite nicht erreichbar',
       errorBlock: {
         text: 'Wir arbeiten gerade an unserer Website. Schauen Sie doch in der Zwischenzeit unseren Imagefilm und versuchen es später nochmals.',
-        videoData: defVideoData.variants.default.props,
+        videoData: defVideoData.variants.offlinePage.props,
       },
     },
   },

@@ -122,8 +122,10 @@ class UserMenu extends Module {
 
   private getInitials(username: string): string {
     const split = username.split(' ');
-
-    return split[0][0] + split[split.length - 1][0];
+    if (split.length > 1) {
+      return split[0][0] + split[split.length - 1][0];
+    }
+    return username[0];
   }
 
   /**

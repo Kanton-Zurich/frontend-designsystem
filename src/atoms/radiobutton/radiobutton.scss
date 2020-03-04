@@ -89,7 +89,18 @@
     margin-bottom: 0;
 
     input {
-      @include visuallyhidden;
+      border: 0;
+      clip: rect(0 0 0 0);
+      height: 100%;
+      overflow: hidden;
+      position: absolute;
+      width: 100%;
+      left: 5px; // stylelint-disable-line
+
+      @at-root br#{&} {
+        content: '';
+        display: none;
+      }
     }
 
     label:after,

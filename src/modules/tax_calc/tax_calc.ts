@@ -75,6 +75,7 @@ class TaxCalc extends Module {
 
   private currentFormSection: number;
   private lastSectionIdx: number;
+  private globalScopeVariables: any;
 
   private readonly formConfig: any;
   private readonly resultTableConfig: any;
@@ -89,6 +90,7 @@ class TaxCalc extends Module {
     this.initEventListeners();
 
     this.apiBase = this.ui.element.getAttribute(this.options.attributeNames.apiBase);
+    this.globalScopeVariables = {};
     this.initCalculator();
 
     try {
@@ -194,6 +196,13 @@ class TaxCalc extends Module {
             let numValStr = '0';
             if (!isNaN(numVal)) { // eslint-disable-line
               numValStr = this.currencyNumberValueToString(numVal);
+            }
+            if (this.options.datePartialFields.indexOf(inEl.name) >= 0) {
+              let suffix = '';
+              if (this.globalScopeVariables[this.options.globalScopeVariables[0]]) {
+                suffix = this.globalScopeVariables[this.options.globalScopeVariables[0]];
+              }
+              numValStr = `${inEl.value}${suffix}`;
             }
             const valStr = `${inEl.placeholder}: ${numValStr}`;
             sectionVals.push(valStr);
@@ -478,6 +487,7 @@ class TaxCalc extends Module {
       }));
     } else if (defByApi.type === 'Number') {
       propData.maxLength = Math.floor(Math.log10(defByApi.maxSize));
+      propData.maxSize = defByApi.maxSize;
       if (setFromDef && defByApi.value !== undefined && defByApi.value !== null) {
         propData.value = defByApi.value.toString(10);
       } else {
@@ -487,6 +497,17 @@ class TaxCalc extends Module {
       propData.value = setFromDef ? defByApi.value : false;
     } else if (defByApi.type === 'Date') {
       propData.value = setFromDef ? defByApi.value : '';
+    }
+    if (this.options.globalScopeVariables.indexOf(fieldName) >= 0) {
+      this.globalScopeVariables[fieldName] = propData.value;
+      if (propData.value) {
+        this.globalScopeVariables[fieldName] = propData.value;
+      } else if (propData.selectOptions.length > 0) {
+        const selected = propData.selectOptions.filter(item => item.selected);
+        if (selected.length > 0) {
+          this.globalScopeVariables[fieldName] = selected[0].value;
+        }
+      }
     }
     return propData;
   }
@@ -603,7 +624,10 @@ class TaxCalc extends Module {
     if (typeof tmp === 'object' && tmp !== null) {
       const { value, currency, symbol } = tmp;
       if (currency) {
-        return this.currencyNumberValueToString(value, true);
+        // TODO Steueramt has to improve their API for better experience
+        // this is a hack due to the insufficient API of the tax department we had to hardcode
+        //  certain values that should be displayed flat without decimal digits
+        return `${this.options.negativeValues.indexOf(path) >= 0 ? '-' : ''}${this.currencyNumberValueToString(value, this.options.flatCurrencyValues.indexOf(path) < 0)}`; // eslint-disable-line
       }
       if (symbol) {
         return `${value} ${tmp.symbol}`;
