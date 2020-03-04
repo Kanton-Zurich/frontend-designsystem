@@ -8,8 +8,8 @@ const env = require('minimist')(process.argv.slice(2));
 const git = require('git-rev-sync');
 const nodeSass = require('node-sass');
 const gulpUtil = require('gulp-util');
+const helperFunctions = require('./gulp/_functions');
 require('./gulp/deploy-aem');
-require('./gulp/deploy-offlinepage');
 
 gulpUtil.env.aemTargetBase = '../czhdev-backend/sources/zhweb-core/zhweb-core-content/src/main/resources/jcr_root/apps/zhweb/core/';
 gulpUtil.env.aemTargetBaseResources = `${gulpUtil.env.aemTargetBase}clientlibs/publish/resources/`;
@@ -934,7 +934,6 @@ gulp.task('copy:ci', () => {
       '!./dist/assets/css/*',
       './dist/assets/js/*.min.*',
       './dist/assets/css/*.min.*',
-      // './dist/assets/css/critical.css',
       '!./dist/ci/**/*',
       '!./dist/**/*.dev.html',
     ],
@@ -968,6 +967,21 @@ gulp.task('clean', () => {
   const del = require('del');
 
   return del(['./dist', './src/assets/.tmp']);
+});
+
+
+/**
+ * Deploy offline page
+ */
+gulp.task('deploy:offlinepage', () => {
+  return helperFunctions.Inlinify('./dist/pages/pagedownerror/pagedownerror.html', './dist/ci/offline/', 'index.html');
+});
+
+/**
+ * Inlinify E-Mail assets
+ */
+gulp.task('email:inlineassets', () => {
+  return helperFunctions.Inlinify('./dist/pages/mail/mail.html');
 });
 
 /**
@@ -1021,8 +1035,8 @@ gulp.task('build', (done) => {
     task = gulp.series('clean', 'clean:aem', task);
   }
 
-  // create offline page
-  task = gulp.series(task, 'deploy:offlinepage', 'zip:offline');
+  // create offline page & inlinfify assets
+  task = gulp.series(task, 'email:inlineassets', 'deploy:offlinepage', 'zip:offline');
 
   // Create CI build structure
   if (env.ci) {
