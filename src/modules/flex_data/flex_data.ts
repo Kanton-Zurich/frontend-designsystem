@@ -324,6 +324,10 @@ class FlexData extends Module {
     }
     let resultsTitle = this.ui.results.getAttribute('data-result-count-title')
       .replace('%1', jsonData.numberOfResults);
+    if (jsonData.moreSearchResultsThanAllowed) {
+      resultsTitle = this.ui.results.getAttribute('data-result-count-title-more')
+        .replace('%1', jsonData.numberOfResults);
+    }
     if (!jsonData.numberOfResults || jsonData.numberOfResults <= 0) {
       resultsTitle = this.ui.results.getAttribute('data-no-results-title');
     }
