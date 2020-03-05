@@ -1,0 +1,73 @@
+  <div style="height: 500px">
+  	<!--TODO: Do not copy outer div, only for dev and LSG -->
+  	<div class="mdl-map_view" data-init="mapView" aria-label="Nicht zugängliche Karte" data-url="https://wms.zh.ch/ZHWEB" data-base-layers="Geometrie" data-label-layers="Beschriftungen">
+  		<ul hidden aria-hidden="true">
+  			<li data-map-view="markerProps">
+  				<span data-map-view="marker_lat">47.353611</span>
+  				<span data-map-view="marker_lng">8.512877</span>
+  			</li>
+  			<li data-map-view="markerProps">
+  				<span data-map-view="marker_lat">47.44424</span>
+  				<span data-map-view="marker_lng">8.613319</span>
+  			</li>
+  			<li data-map-view="markerProps">
+  				<span data-map-view="marker_lat">47.441567</span>
+  				<span data-map-view="marker_lng">8.461398</span>
+  			</li>
+  			<li data-map-view="markerProps">
+  				<span data-map-view="marker_lat">47.515148</span>
+  				<span data-map-view="marker_lng">8.693981</span>
+  			</li>
+  			<li data-map-view="markerProps">
+  				<span data-map-view="marker_lat">47.532225</span>
+  				<span data-map-view="marker_lng">8.527852</span>
+  			</li>
+  			<li data-map-view="markerProps">
+  				<span data-map-view="marker_lat">47.27153</span>
+  				<span data-map-view="marker_lng">8.585463</span>
+  			</li>
+  		</ul>
+  		<div id="map" class="mdl-map_view__container" data-map-view="map" aria-hidden="true"></div>
+  		<div class="mdl-map_view__controls" aria-hidden="true">
+  			<button class="atm-button atm-button--icon-only atm-button--cv-inverted" data-map-view="centerBtn">
+  				<span class="atm-button__text visuallyhidden">
+  					Karte zentrieren
+  				</span>
+  				<svg class="icon atm-button__icon" focusable="false">
+  					<use xlink:href="#locate"></use>
+  				</svg>
+  				<span class="atm-button__spinner"></span>
+  			</button>
+  			<button class="atm-button atm-button--icon-only atm-button--cv-inverted" data-map-view="zoomInBtn">
+  				<span class="atm-button__text visuallyhidden">
+  					Reinzoomen
+  				</span>
+  				<svg class="icon atm-button__icon" focusable="false">
+  					<use xlink:href="#plus"></use>
+  				</svg>
+  				<span class="atm-button__spinner"></span>
+  			</button>
+  			<button class="atm-button atm-button--icon-only atm-button--cv-inverted" data-map-view="zoomOutBtn">
+  				<span class="atm-button__text visuallyhidden">
+  					Herauszoomen
+  				</span>
+  				<svg class="icon atm-button__icon" focusable="false">
+  					<use xlink:href="#minus"></use>
+  				</svg>
+  				<span class="atm-button__spinner"></span>
+  			</button>
+  		</div>
+  		<input type="hidden" data-map-view="urlTemplateDirections" value="https://www.google.com/maps/dir/?api&#x3D;1&amp;destination&#x3D;{lat},{lng}" />
+  		<div class="mdl-map_view__directions-link">
+  			<a href="" class="atm-button atm-button--big" target="_blank" data-map-view="directionsBtn">
+  				<span class="atm-button__text ">
+  					Route anzeigen
+  				</span>
+  				<svg class="icon atm-button__icon" focusable="false">
+  					<use xlink:href="#directions"></use>
+  				</svg>
+  				<span class="atm-button__spinner"></span>
+  			</a>
+  		</div>
+  	</div>
+  </div>

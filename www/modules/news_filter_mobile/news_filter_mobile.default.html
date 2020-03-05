@@ -1,0 +1,336 @@
+  <!-- helper markup, can be ignored -->
+  <button class="atm-button atm-button--big" onclick="document.querySelector('#testFilter').dispatchEvent(new CustomEvent('Modal.open'))" aria-controls="testFilter">Filter
+  	einblenden
+  </button>
+  <div id="testFilter" class="mdl-modal" aria-hidden="true" data-init="modal">
+  	<div class="mdl-news-filter-mobile" data-init="newsFilterMobile">
+  		<div class="lyt-wrapper">
+  			<div class="grid-x grid-margin-x">
+  				<div class="cell small-offset-1 medium-offset-1 large-offset-2 xlarge-offset-2 small-10 medium-10 large-8">
+  					<div class="mdl-news-filter-mobile__sublevel">
+  						<div class="mdl-news-filter-mobile__sublevel-container">
+  							<h1 class="atm-heading mdl-news-filter-mobile__title">
+  								<a href="#" class="mdl-news-filter-mobile__sublevel-backbutton">
+  									<svg class="icon mdl-news-filter-mobile__sublevel-icon" focusable="false">
+  										<use xlink:href="#arrow-left"></use>
+  									</svg>
+  								</a>
+  								Themen
+  							</h1>
+  							<form novalidate>
+  								<div class="atm-form_input atm-form_input--small atm-form_input--icon
+                    " data-input>
+
+
+  									<input class="atm-form_input__input" id="input1" placeholder="Themen nach Stichwort filtern" name="input_name" value="" type="text" data-topiclist="input" data-hasbutton="true" aria-controls="topicSelect">
+
+  									<label for="input1">Themen nach Stichwort filtern</label>
+
+  									<button class="atm-form_input__functionality" type="button" data-buttontype="clear">
+  										<span class="visuallyhidden">Lösche Eingabe</span>
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#clear"></use>
+  										</svg>
+  									</button>
+
+  									<svg class="icon" focusable="false">
+  										<use xlink:href="#search"></use>
+  									</svg>
+
+
+
+
+
+
+  								</div>
+  							</form>
+  							<div class="mdl-news-filter-mobile__sublevel-list">
+  								<ul id="topicSelect" class="atm-list">
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="vehicle" placeholder="Fahrzeug">
+  										Fahrzeug
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="plate" placeholder="Autonummern">
+  										Autonummern
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="permit" placeholder="Führerausweis">
+  										Führerausweis
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="bike" placeholder="Velo">
+  										Velo
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="ausweis_schild" placeholder="Ausweis oder Schild verloren">
+  										Ausweis oder Schild verloren
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="verwarnung" placeholder="Ausweisentzug &amp; Verwarnung">
+  										Ausweisentzug &amp; Verwarnung
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="schiffahrt" placeholder="Schiffahrt">
+  										Schiffahrt
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="spez" placeholder="Spezielle Bewilligungen">
+  										Spezielle Bewilligungen
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="thema1" placeholder="Thema 1">
+  										Thema 1
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="thema2" placeholder="Thema 2">
+  										Thema 2
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="thema3" placeholder="Thema 3">
+  										Thema 3
+  									</li>
+  								</ul>
+  							</div>
+  							<div class="mdl-news-filter-mobile__sublevel-footer">
+  								<button class="atm-button">Anwenden</button>
+  							</div>
+  						</div>
+  					</div>
+  					<div class="mdl-news-filter-mobile__sublevel">
+  						<div class="mdl-news-filter-mobile__sublevel-container">
+  							<h1 class="atm-heading mdl-news-filter-mobile__title">
+  								<a href="#" class="mdl-news-filter-mobile__sublevel-backbutton">
+  									<svg class="icon mdl-news-filter-mobile__sublevel-icon" focusable="false">
+  										<use xlink:href="#arrow-left"></use>
+  									</svg>
+  								</a>
+  								Organisation
+  							</h1>
+  							<form novalidate>
+  								<div class="atm-form_input atm-form_input--small atm-form_input--icon
+                    " data-input>
+
+
+  									<input class="atm-form_input__input" id="input1" placeholder="Organisation nach Stichwort filtern" name="input_name" value="" type="text" data-organisationlist="input" data-hasbutton="true" aria-controls="organisationSelect">
+
+  									<label for="input1">Organisation nach Stichwort filtern</label>
+
+  									<button class="atm-form_input__functionality" type="button" data-buttontype="clear">
+  										<span class="visuallyhidden">Lösche Eingabe</span>
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#clear"></use>
+  										</svg>
+  									</button>
+
+  									<svg class="icon" focusable="false">
+  										<use xlink:href="#search"></use>
+  									</svg>
+
+
+
+
+
+
+  								</div>
+  							</form>
+  							<div class="mdl-news-filter-mobile__sublevel-list">
+  								<ul id="organisationSelect" class="atm-list">
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="org1" placeholder="Organisation 1">
+  										Organisation 1
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="org2" placeholder="Organisation 2">
+  										Organisation 2
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="org3" placeholder="Organisation 3">
+  										Organisation 3
+  									</li>
+  								</ul>
+  							</div>
+  							<div class="mdl-news-filter-mobile__sublevel-footer">
+  								<button class="atm-button">Anwenden</button>
+  							</div>
+  						</div>
+  					</div>
+  					<div class="mdl-news-filter-mobile__sublevel">
+  						<div class="mdl-news-filter-mobile__sublevel-container">
+  							<h1 class="atm-heading mdl-news-filter-mobile__title">
+  								<a href="#" class="mdl-news-filter-mobile__sublevel-backbutton">
+  									<svg class="icon mdl-news-filter-mobile__sublevel-icon" focusable="false">
+  										<use xlink:href="#arrow-left"></use>
+  									</svg>
+  								</a>
+  								News-Typ
+  							</h1>
+  							<form novalidate>
+  								<div class="atm-form_input atm-form_input--small atm-form_input--icon
+                    " data-input>
+
+
+  									<input class="atm-form_input__input" id="input1" placeholder="News-Typ nach Stichwort filtern" name="input_name" value="" type="text" data-newstype="input" data-hasbutton="true" aria-controls="newsTypeSelect">
+
+  									<label for="input1">News-Typ nach Stichwort filtern</label>
+
+  									<button class="atm-form_input__functionality" type="button" data-buttontype="clear">
+  										<span class="visuallyhidden">Lösche Eingabe</span>
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#clear"></use>
+  										</svg>
+  									</button>
+
+  									<svg class="icon" focusable="false">
+  										<use xlink:href="#search"></use>
+  									</svg>
+
+
+
+
+
+
+  								</div>
+  							</form>
+  							<div class="mdl-news-filter-mobile__sublevel-list">
+  								<ul id="newsTypeSelect" class="atm-list">
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="mit" placeholder="Mitteilung">
+  										Mitteilung
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="serv" placeholder="Services">
+  										Services
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="stat" placeholder="Statistik">
+  										Statistik
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="vid" placeholder="Video">
+  										Video
+  									</li>
+  									<li class="atm-list__item atm-list__item--check-icon">
+  										<svg class="icon" focusable="false">
+  											<use xlink:href="#check"></use>
+  										</svg>
+  										<input name="group-iconLeftMulti" type="checkbox" value="wahl" placeholder="Wahlen">
+  										Wahlen
+  									</li>
+  								</ul>
+  							</div>
+  							<div class="mdl-news-filter-mobile__sublevel-footer">
+  								<button class="atm-button">Anwenden</button>
+  							</div>
+  						</div>
+  					</div>
+  					<div class="mdl-news-filter-mobile__container">
+  						<h1 class="atm-heading mdl-news-filter-mobile__title">Filter</h1>
+  						<div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="date-range" data-localization="de">
+  							<div class="atm-form_input atm-form_input--icon atm-linklist_item atm-linklist_item--nocolor" data-input>
+  								<span class="atm-linklist_item__text">
+  									Text
+  								</span>
+  								<input class="atm-form_input__input " id="date-range-107" placeholder="Zeitraum von/bis" name="input_name" value="" type="text" data-mask-placeholder="TT.MM.JJJJ - TT.MM.JJJJ" data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d - ]\-[\d- ] [\d ]\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d">
+  								<span class="atm-form_input__backdrop">
+  									<i></i>TT.MM.JJJJ - TT.MM.JJJJ
+  								</span>
+  								<label for="datepicker-16">Zeitraum von/bis</label>
+  								<svg class="icon" focusable="false">
+  									<use xlink:href="#angle_drop_down"></use>
+  								</svg>
+  							</div>
+  						</div>
+  						<button class="atm-linklist_item  " data-subtitle-pattern="% gewählt" aria-expanded="false" data-multiselect>
+
+  							<span class="atm-linklist_item__text">
+  								<span>Themen</span>
+  							</span>
+  							<span class="atm-linklist_item__text-subtitle"> </span>
+  							<svg class="icon atm-linklist_item__arrow" focusable="false">
+  								<use xlink:href="#arrow-right"></use>
+  							</svg>
+  						</button>
+  						<button class="atm-linklist_item  " data-subtitle-pattern="% gewählt" aria-expanded="false" data-multiselect>
+
+  							<span class="atm-linklist_item__text">
+  								<span>Organisation</span>
+  							</span>
+  							<span class="atm-linklist_item__text-subtitle"> </span>
+  							<svg class="icon atm-linklist_item__arrow" focusable="false">
+  								<use xlink:href="#arrow-right"></use>
+  							</svg>
+  						</button>
+  						<button class="atm-linklist_item  " data-subtitle-pattern="% gewählt" aria-expanded="false" data-multiselect>
+
+  							<span class="atm-linklist_item__text">
+  								<span>News-Typ</span>
+  							</span>
+  							<span class="atm-linklist_item__text-subtitle"> </span>
+  							<svg class="icon atm-linklist_item__arrow" focusable="false">
+  								<use xlink:href="#arrow-right"></use>
+  							</svg>
+  						</button>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  		<div class="mdl-news-filter-mobile__footer">
+  			<button class="atm-button">Ergebnisse Anzeigen</button>
+  		</div>
+  	</div>
+  </div>
