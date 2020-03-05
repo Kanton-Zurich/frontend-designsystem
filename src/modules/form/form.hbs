@@ -1,5 +1,5 @@
-<section class="form__section" aria-live="polite">
-  {{#if sectionTitle }}<h{{headingLevel}} class="atm-heading form__section-title" tabindex="0">{{ sectionTitle }}</h{{headingLevel}}>{{/if}}
+<fieldset class="form__section">
+  {{#if sectionTitle }}<legend class="atm-heading h{{headingLevel}} form__section-title">{{ sectionTitle }}</legend>{{/if}}
   {{#each groups}}
     <div class="form__group {{#if isDuplicatable}}form__group--duplicatable{{/if}}" {{#if isDuplicatable}}data-form="duplicatable"{{/if}} {{#if maxDuplications}}data-max-duplications="{{maxDuplications}}"{{/if}}>
       {{#each rows}}
@@ -20,7 +20,7 @@
         {{/unless}}
         {{#if unwrapped}}
           {{#each fields}}
-          {{{cellContent}}}
+            {{{cellContent}}}
           {{/each}}
         {{/if}}
         {{#if isDuplicatable}}
@@ -43,6 +43,7 @@
                   <svg class="icon" focusable="false">
                     <use xlink:href="#delete"></use>
                   </svg>
+                  <span class="visuallyhidden">{{ duplicateLabels.remove }}</span>
                 </button>
                 <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
                   <svg class="icon icon--iframe-add" focusable="false">
@@ -83,6 +84,7 @@
                     <svg class="icon" focusable="false">
                       <use xlink:href="#delete"></use>
                     </svg>
+                    <span class="visuallyhidden">{{ ../duplicateLabels.remove }}</span>
                   </button>
                   <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
                     <svg class="icon icon--iframe-add" focusable="false">
@@ -98,4 +100,4 @@
       {{/if}}
     </div>
   {{/each}}
-</section>
+</fieldset>
