@@ -103,6 +103,7 @@ $stepperNavigationCurves: (
       font-family: $fontFamilyBlack;
 
       text-align: center;
+      max-width: 100%;
 
       @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
     }
