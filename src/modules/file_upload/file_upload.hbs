@@ -1,47 +1,47 @@
 <div {{#if rules}}data-rules="{{rules}}"{{/if}}>
-  <div class="mdl-file_upload" data-init="fileUpload" data-input>
-  {{#if title}}<h4 class="atm-heading">{{title}}</h4>{{/if}}
-  <label for="{{input.id}}">{{subtitle}}</label>
-  <input class="visuallyhidden" type="file" name="{{input.name}}" id="{{input.id}}" data-file_upload="input" {{#if isMultiple}}data-multiple{{/if}}
-    {{#if validation}}
-      data-validation
-    {{/if}}
-    {{#if validation.maxSize}}
-      data-max-size="{{validation.maxSize}}"
-    {{/if}}
-    {{#if validation.fileTypes}}
-      data-file-types="{{validation.fileTypes}}"
-    {{/if}}
-    {{#if validation.isRequired}}
-      required
-    {{/if}}
-  />
-  <div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
-    <p>{{dropzoneHint}}</p>
-    <label class="mdl-file_upload__button atm-button atm-button--secondary" for="{{input.id}}">{{buttonLabel}}</label>
-  </div>
-  <p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an</p>
-  <p class="mdl-file_upload__error" data-message="onlyonefile">Sie können nur 1 Datei gleichzeitig hochladen.</p>
-
-  <div class="mdl-file_upload__list" data-file_upload="list">
-
-  </div>
-
-  <script type="text/x-handlebars-template" data-file_upload="item-template">
-    <div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
-      <div class="mdl-file_upload__file-meta">
-        <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
-        <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
-        <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
-        <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB)</p>
-      </div>
-      <button class="mdl-file_upload__file-delete" data-file_upload="delete">
-        <span class="visuallyhidden">Datei wieder entfernen</span>
-        <svg class="icon" focusable="false">
-          <use xlink:href="#delete"></use>
-        </svg>
-      </button>
+  <fieldset class="mdl-file_upload" data-init="fileUpload" data-input>
+    {{#if title}}<legend class="atm-heading h4">{{title}}</legend>{{/if}}
+    <p class="mdl-file_upload__subtitle">{{subtitle}}</p>
+    <input class="visuallyhidden" type="file" name="{{input.name}}" id="{{input.id}}" data-file_upload="input" {{#if isMultiple}}data-multiple{{/if}}
+      {{#if validation}}
+        data-validation
+      {{/if}}
+      {{#if validation.maxSize}}
+        data-max-size="{{validation.maxSize}}"
+      {{/if}}
+      {{#if validation.fileTypes}}
+        data-file-types="{{validation.fileTypes}}"
+      {{/if}}
+      {{#if validation.isRequired}}
+        required
+      {{/if}}
+    />
+    <div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
+      <p>{{dropzoneHint}}</p>
+      <label class="mdl-file_upload__button atm-button atm-button--secondary" for="{{input.id}}">{{buttonLabel}}</label>
     </div>
-  </script>
-</div>
+    <p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an</p>
+    <p class="mdl-file_upload__error" data-message="onlyonefile">Sie können nur 1 Datei gleichzeitig hochladen.</p>
+
+    <div class="mdl-file_upload__list" data-file_upload="list">
+
+    </div>
+
+    <script type="text/x-handlebars-template" data-file_upload="item-template">
+      <div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
+        <div class="mdl-file_upload__file-meta">
+          <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+          <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+          <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+          <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB)</p>
+        </div>
+        <button class="mdl-file_upload__file-delete" data-file_upload="delete">
+          <span class="visuallyhidden">Datei wieder entfernen</span>
+          <svg class="icon" focusable="false">
+            <use xlink:href="#delete"></use>
+          </svg>
+        </button>
+      </div>
+    </script>
+  </fieldset>
 </div>

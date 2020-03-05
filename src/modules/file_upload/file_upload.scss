@@ -1,4 +1,23 @@
 .mdl-file_upload {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  position: relative;
+
+  input {
+    appearance: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__subtitle {
+    font-size: pxToRem($sizeFontRegular);
+    margin: 0;
+  }
+
   &__dropzone {
     margin-top: pxToRem($sizeTiny);
 
@@ -54,14 +73,14 @@
 
   &--duplicated:not(:first-child) {
     .atm-heading,
-    label:not(.atm-button) {
+    .mdl-file_upload__subtitle {
       @include visuallyhidden;
     }
   }
 
   &:not(:first-child) {
     .atm-heading,
-    label:not(.atm-button) {
+    .mdl-file_upload__subtitle {
       @include visuallyhidden;
     }
   }
