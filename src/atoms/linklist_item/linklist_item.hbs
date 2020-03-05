@@ -1,6 +1,6 @@
 <{{#if isButton}}button{{else}}a{{/if}}
   class="atm-linklist_item {{#if linkListItemIsDownload}}atm-linklist_item--download{{/if}} {{#if isLegalFoundation}}atm-linklist_item--legalfoundation{{/if}}{{#if linkListItemIsLocation}} atm-linklist_item--location{{/if}}"
-  {{#if linkListItemHref}}href="{{linkListItemHref}}"{{/if}}{{#if target}} target="_{{target}}"{{/if}}
+  {{#if linkListItemHref}}href="{{{linkListItemHref}}}"{{/if}}{{#if target}} target="_{{target}}"{{/if}}
   {{#if linkListItemIsLocation}}tabindex="0"{{/if}}
   {{#if linkListItemIsDownload}}{{#unless isButton}}download{{/unless}}{{/if}}
   {{#if subTitlePattern}} data-subtitle-pattern="{{subTitlePattern}}"{{/if}}
@@ -15,7 +15,7 @@
     <span class="visuallyhidden">Download</span>
   {{/unless}}{{/if}}
   <span class="atm-linklist_item__text">
-    <span>{{linkListItemTitle}}</span>
+    <span>{{{linkListItemTitle}}}</span>
     {{#if linkListItemLabel}}<span class="atm-linklist_item__label">{{linkListItemLabel}}
       {{#if copyRightImages}}
        | <span role="link" data-open_data="license_link" data-href="#" class="mdl-open_data__cc">

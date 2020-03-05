@@ -1,22 +1,21 @@
-<div >
-  <div class="mdl-file_upload" data-init="fileUpload" data-input>
-  <h4 class="atm-heading">Dokumente hochladen</h4>
-  <label for="file1">Hier können Sie ihren Lebenslauf hochladen</label>
-  <input class="visuallyhidden" type="file" name="file1" id="file1" data-file_upload="input" 
-  />
-  <div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
-    <p>Zum Hochladen Datei ziehen und hier ablegen</p>
-    <label class="mdl-file_upload__button atm-button atm-button--secondary" for="file1">Datei auswählen</label>
-  </div>
-  <p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an</p>
-  <p class="mdl-file_upload__error" data-message="onlyonefile">Sie können nur 1 Datei gleichzeitig hochladen.</p>
+<div>
+	<div class="mdl-file_upload" data-init="fileUpload" data-input>
+		<h4 class="atm-heading">Dokumente hochladen</h4>
+		<label for="file1">Hier können Sie ihren Lebenslauf hochladen</label>
+		<input class="visuallyhidden" type="file" name="file1" id="file1" data-file_upload="input" />
+		<div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
+			<p>Zum Hochladen Datei ziehen und hier ablegen</p>
+			<label class="mdl-file_upload__button atm-button atm-button--secondary" for="file1">Datei auswählen</label>
+		</div>
+		<p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an</p>
+		<p class="mdl-file_upload__error" data-message="onlyonefile">Sie können nur 1 Datei gleichzeitig hochladen.</p>
 
-  <div class="mdl-file_upload__list" data-file_upload="list">
+		<div class="mdl-file_upload__list" data-file_upload="list">
 
-  </div>
+		</div>
 
-  <script type="text/x-handlebars-template" data-file_upload="item-template">
-    <div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
+		<script type="text/x-handlebars-template" data-file_upload="item-template">
+			<div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
       <div class="mdl-file_upload__file-meta">
         <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
         <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
@@ -31,5 +30,5 @@
       </button>
     </div>
   </script>
-</div>
+	</div>
 </div>

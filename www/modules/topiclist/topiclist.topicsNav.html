@@ -1,104 +1,74 @@
 <div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.json&quot;}'>
-  <div data-topiclist="firstLayer">
-    
+	<div data-topiclist="firstLayer">
 
-      <div class="atm-form_input atm-form_input--small
-        "
-         data-input
-        >
-      
-      
-          <input class="atm-form_input__input"
-            
-            
-             id="topicNavFilter" placeholder="Filtern nach Themen" name="input_name" value="" type="text"
-             data-topiclist="input"
-            
-            
-            
-            
-             data-hasbutton="true"
-            
-            
-            
-            
-            
-            autocomplete="new-password"
-            
-          >
-      
-          <label for="topicNavFilter">Filtern nach Themen</label>
-      
-            <button class="atm-form_input__functionality" type="button"
-                    data-buttontype="clear">
-              <span class="visuallyhidden">Lösche Eingabe</span>
-              <svg class="icon" focusable="false">
-                <use xlink:href="#clear"></use>
-              </svg>
-            </button>
-      
-      
-      
-      
-        
-        
-        
-      </div>
 
-    <!-- Standard Topiclist -->
-    <div class="
+		<div class="atm-form_input atm-form_input--small
+        " data-input>
+
+
+			<input class="atm-form_input__input" id="topicNavFilter" placeholder="Filtern nach Themen" name="input_name" value="" type="text" data-topiclist="input" data-hasbutton="true" autocomplete="new-password">
+
+			<label for="topicNavFilter">Filtern nach Themen</label>
+
+			<button class="atm-form_input__functionality" type="button" data-buttontype="clear">
+				<span class="visuallyhidden">Lösche Eingabe</span>
+				<svg class="icon" focusable="false">
+					<use xlink:href="#clear"></use>
+				</svg>
+			</button>
+
+
+
+
+
+
+
+		</div>
+
+		<!-- Standard Topiclist -->
+		<div class="
       mdl-content_nav
       
         
         
-       mdl-topiclist__navigation"
-      
-      data-init="contentNav"
-      aria-live="polite"
-      data-topiclist="navigation"
-    >
-      <ul class="mdl-content_nav__list">
-      </ul>
-    
-    </div>
+       mdl-topiclist__navigation" data-init="contentNav" aria-live="polite" data-topiclist="navigation">
+			<ul class="mdl-content_nav__list">
+			</ul>
 
-    <!-- "Autosuggest" Topiclist" -->
-      <div class="
+		</div>
+
+		<!-- "Autosuggest" Topiclist" -->
+		<div class="
         mdl-content_nav
         
           
           
-         mdl-topiclist__autosuggest mdl-content_nav--single-column"
-        
-        data-init="contentNav"
-        aria-live="polite"
-        data-topiclist="autosuggest"
-      >
-        <ul class="mdl-content_nav__list">
-        </ul>
-      
-          <div class="atm-loading_circle">
-            <span class="atm-loading_circle__spinner"></span>
-          </div>
-      </div>
+         mdl-topiclist__autosuggest mdl-content_nav--single-column" data-init="contentNav" aria-live="polite" data-topiclist="autosuggest">
+			<ul class="mdl-content_nav__list">
+			</ul>
 
-      <div class="mdl-topiclist__fullwidth-wrapper">
-        <button class="atm-button mdl-topiclist__show-all" data-topiclist="showAllTrigger">
-          Alle anzeigen
-          <svg class="icon atm-button__icon">
-            <use xlink:href="#layer1"></use>
-          </svg>
-        </button>
-      </div>
-  </div>
+			<div class="atm-loading_circle">
+				<span class="atm-loading_circle__spinner"></span>
+			</div>
+		</div>
 
-    <div data-topiclist="furtherLayers">
-    </div>
+		<div class="mdl-topiclist__fullwidth-wrapper">
+			<button class="atm-button mdl-topiclist__show-all" data-topiclist="showAllTrigger">
+				Alle anzeigen
+				<svg class="icon atm-button__icon">
+					<use xlink:href="#layer1"></use>
+				</svg>
+			</button>
+		</div>
+	</div>
 
-  <!-- Template scripts -->
-    <!-- Content teaser template -->
-    <script data-topiclist="contentTeaserTemplate" type="text/x-handlebars-template">
-      <a class="atm-content_teaser " href=<%=target%>>
+	<div data-topiclist="furtherLayers">
+	</div>
+
+	<!-- Template scripts -->
+	<!-- Content teaser template -->
+	<script data-topiclist="contentTeaserTemplate" type="text/x-handlebars-template">
+		<a class="atm-content_teaser " href=<%=target%>>
   <span class="atm-content_teaser__content" data-lineclamp="true">
     <span class="atm-content_teaser__title">
       <%= shortTitle %>
@@ -108,17 +78,17 @@
 </a>
 
     </script>
-    <!-- No results template -->
-    <script data-topiclist="searchLink" type="text/x-handlebars-template">
-      <a href="<%= path %>" class="mdl-topiclist__search">
+	<!-- No results template -->
+	<script data-topiclist="searchLink" type="text/x-handlebars-template">
+		<a href="<%= path %>" class="mdl-topiclist__search">
         <svg class="icon" focusable="false">
           <use xlink:href="#inspect"></use>
         </svg>
         <span><%= title %></span>
       </a>
     </script>
-    <script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
-      <div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
+	<script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
+		<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
   <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
   <div class="mdl-subnavigation__title">
     <h3 class="atm-heading"><%=title%></h3>
