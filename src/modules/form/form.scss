@@ -75,6 +75,10 @@ $gapSize: pxToRem($sizeRegular);
         margin-bottom: 0;
       }
     }
+
+    .form__cell .form__cell {
+      padding: 0;
+    }
   }
 
   &__cell {
