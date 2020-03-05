@@ -147,73 +147,75 @@
         </td>
       </tr>
     </table>
-    <table cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff; max-width: 640px;" width="100%" class="mainwidth maxwidth">
-      <tr>
-        <td style="font-size: 32px; line-height: 32px;" valign="top" align="center" height="32"></td>
-      </tr>
-    </table>
     <!-- /divider -->
 
     <!-- section -->
-    <!-- subtitle -->
-    <table cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff; max-width: 640px;" width="100%" class="mainwidth maxwidth">
-      <tr>
-        <td width="32" width="width: 32px;" class="contentpadding"></td>
-        <td style="width: 574px; font-family: 'Arial Black', Helvetica, sans-serif, HelveticaNowBlack; font-size: 20px; line-height: 30px; font-weight: 900; color:#000001; padding-bottom: 8px;" class="autowidth" align="left">
-          <a style="font-family: 'Arial Black', Helvetica, sans-serif, HelveticaNowBlack; font-size: 20px; line-height: 30px; font-weight: 900; color:#000001;">{{ props.userdata.subtitle }}</a>
-        </td>
-        <td width="32" width="width: 32px;" class="contentpadding"></td>
-      </tr>
-    </table>
-    <!-- /subtitle -->
-    <table cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff; max-width: 640px;" width="100%" class="mainwidth maxwidth">
-      <tr>
-        <td width="32" width="width: 32px;" class="contentpadding"></td>
-        <td style="width: 574px; font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 12px; line-height: 14px; color:#000001;padding-right:0;padding-left:0;text-align:left;font-size:0;" valign="top" class="autowidth">
-          <table cellpadding="0" cellspacing="0" border="0" width="574" style="width: 574px;" class="fullwidth">
-            {{#each props.userdata.properties }}
-              {{#if this.block }}
-                <tr>
-                  <td style="font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 12px; line-height: 18px; font-weight: normal; color:#666666; padding-top: 32px;">
-                    {{ this.label }}
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 18px; line-height: 26px; font-weight: normal; color:#666666;">
-                    <table cellpadding="0" cellspacing="0" border="0" width="574" style="width: 574px;" class="fullwidth">
-                      {{#each this.block }}
-                        <tr>
-                          <td style="font-family: 'Arial Black', Helvetica, sans-serif, HelveticaNowBlack; font-size: 14px; line-height: 20px; font-weight: 900; color:#000000; padding-top: 12px;">
-                            {{ this.label }}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 18px; line-height: 26px; font-weight: normal; color:#666666; padding-bottom: 8px; border-bottom: 1px solid #cccccc;">
-                            {{ this.value }}
-                          </td>
-                        </tr>
-                      {{/each}}
-                    </table>
-                  </td>
-                </tr>
-              {{else}}
-                <tr>
-                  <td style="font-family: 'Arial Black', Helvetica, sans-serif, HelveticaNowBlack; font-size: 14px; line-height: 20px; font-weight: 900; color:#000000; padding-top: 12px;">
-                    {{ this.label }}
-                  </td>
-                </tr>
-                <tr>
-                  <td style="font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 18px; line-height: 26px; font-weight: normal; color:#666666; padding-bottom: 8px; border-bottom: 1px solid #cccccc;">
-                    {{ this.value }}
-                  </td>
-                </tr>
-              {{/if}}
-            {{/each}}
-          </table>
-        </td>
-        <td width="32" width="width: 32px;" class="contentpadding"></td>
-      </tr>
-    </table>
+    {{#each props.userdata }}
+      <table cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff; max-width: 640px;" width="100%" class="mainwidth maxwidth">
+        <tr>
+          <td style="font-size: 32px; line-height: 32px;" valign="top" align="center" height="32"></td>
+        </tr>
+      </table>
+      <!-- subtitle -->
+      <table cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff; max-width: 640px;" width="100%" class="mainwidth maxwidth">
+        <tr>
+          <td width="32" width="width: 32px;" class="contentpadding"></td>
+          <td style="width: 574px; font-family: 'Arial Black', Helvetica, sans-serif, HelveticaNowBlack; font-size: 20px; line-height: 30px; font-weight: 900; color:#000001; padding-bottom: 8px;" class="autowidth" align="left">
+            <a style="font-family: 'Arial Black', Helvetica, sans-serif, HelveticaNowBlack; font-size: 20px; line-height: 30px; font-weight: 900; color:#000001;">{{ this.subtitle }}</a>
+          </td>
+          <td width="32" width="width: 32px;" class="contentpadding"></td>
+        </tr>
+      </table>
+      <!-- /subtitle -->
+      <table cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff; max-width: 640px;" width="100%" class="mainwidth maxwidth">
+        <tr>
+          <td width="32" width="width: 32px;" class="contentpadding"></td>
+          <td style="width: 574px; font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 12px; line-height: 14px; color:#000001;padding-right:0;padding-left:0;text-align:left;font-size:0;" valign="top" class="autowidth">
+            <table cellpadding="0" cellspacing="0" border="0" width="574" style="width: 574px;" class="fullwidth">
+              {{#each this.properties }}
+                {{#if this.block }}
+                  <tr>
+                    <td style="font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 12px; line-height: 18px; font-weight: normal; color:#666666; padding-top: 32px;">
+                      {{ this.label }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 18px; line-height: 26px; font-weight: normal; color:#666666;">
+                      <table cellpadding="0" cellspacing="0" border="0" width="574" style="width: 574px;" class="fullwidth">
+                        {{#each this.block }}
+                          <tr>
+                            <td style="font-family: 'Arial Black', Helvetica, sans-serif, HelveticaNowBlack; font-size: 14px; line-height: 20px; font-weight: 900; color:#000000; padding-top: 12px;">
+                              {{ this.label }}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 18px; line-height: 26px; font-weight: normal; color:#666666; padding-bottom: 8px; border-bottom: 1px solid #cccccc;">
+                              {{ this.value }}
+                            </td>
+                          </tr>
+                        {{/each}}
+                      </table>
+                    </td>
+                  </tr>
+                {{else}}
+                  <tr>
+                    <td style="font-family: 'Arial Black', Helvetica, sans-serif, HelveticaNowBlack; font-size: 14px; line-height: 20px; font-weight: 900; color:#000000; padding-top: 12px;">
+                      {{ this.label }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 18px; line-height: 26px; font-weight: normal; color:#666666; padding-bottom: 8px; border-bottom: 1px solid #cccccc;">
+                      {{ this.value }}
+                    </td>
+                  </tr>
+                {{/if}}
+              {{/each}}
+            </table>
+          </td>
+          <td width="32" width="width: 32px;" class="contentpadding"></td>
+        </tr>
+      </table>
+    {{/each}}
     <!-- /section -->
 
     <table cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff; max-width: 640px;" width="100%" class="mainwidth maxwidth">
