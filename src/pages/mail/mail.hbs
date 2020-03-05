@@ -48,13 +48,65 @@
 	{{/content}}
 
 	{{#content "content"}}
+    <!-- richtext -->
+    <table cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff; max-width: 640px;" width="100%" class="mainwidth maxwidth">
+      <tr>
+        <td width="32" width="width: 32px;" class="contentpadding"></td>
+        <td style="width: 574px; font-family: 'Arial Black', Helvetica, sans-serif, HelveticaNowBlack; font-size: 20px; line-height: 30px; font-weight: 900; color:#000001; padding-bottom: 8px;" class="autowidth" align="left">
+          <h2 style="font-family: 'Arial Black', Helvetica, sans-serif, HelveticaNowBlack; font-size: 20px; line-height: 30px; font-weight: 900; color:#000001; padding-top: 24px; padding-bottom: 8px; margin: 0;">Richtext: {{ props.needtoknow.subtitle }}</h2>
+          <p style="font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 18px; line-height: 26px; font-weight: normal; color:#666666; padding-bottom: 8px; margin: 0;">{{ props.needtoknow.paragraph }}</p>
+          <ul style="margin: 0; padding-left: 24px;">
+            {{#each props.needtoknow.list}}
+              <li style="font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 18px; line-height: 26px; font-weight: normal; color:#666666; padding-bottom: 8px; margin: 0;">{{ this }}</li>
+            {{/each}}
+          </ul>
+          <h2 style="font-family: 'Arial Black', Helvetica, sans-serif, HelveticaNowBlack; font-size: 20px; line-height: 30px; font-weight: 900; color:#000001; padding-top: 24px; padding-bottom: 8px; margin: 0;">{{ props.questions.subtitle }}</h2>
+          <p style="font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 18px; line-height: 26px; font-weight: normal; color:#666666; padding-bottom: 8px; margin: 0;">{{ props.questions.paragraph }}</p>
+          <p style="font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 18px; line-height: 26px; font-weight: normal; color:#666666; padding-bottom: 8px; margin: 0;">{{ props.questions.contact.label }}: <a href="{{ props.questions.contact.link }}" style="font-family: Helvetica, sans-serif, HelveticaNowRegular; font-size: 18px; line-height: 26px; font-weight: normal; color:#0076BD; text-decoration: underline;" class="block" target="_blank">{{props.questions.contact.text}}</a></p>
+          </td>
+        <td width="32" width="width: 32px;" class="contentpadding"></td>
+      </tr>
+    </table>
+    <!-- /richtext -->
+
+    <!-- divider -->
+    <table cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff; max-width: 640px;" width="100%" class="mainwidth maxwidth">
+      <tr>
+        <td style="font-size: 20px; line-height: 20px;" valign="bottom" align="center" height="20">
+          <!--[if (gte mso 9)|(IE)]>
+          <table width="640" style="border-spacing:0; width:640px; height: auto;" >
+            <tr>
+              <td width="640" valign="top" style="padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;">
+                <![endif]-->
+                <table class="dividerwidth maxwidth" style="max-width: 640px;" width="100%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td height="1" style="font-size: 1px; line-height: 1px; background-color: #F0F0F0;">
+                      &#160;
+                    </td>
+                  </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+              </td>
+            </tr>
+          </table>
+          <![endif]-->
+        </td>
+      </tr>
+    </table>
+    <table cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff; max-width: 640px;" width="100%" class="mainwidth maxwidth">
+      <tr>
+        <td style="font-size: 32px; line-height: 32px;" valign="top" align="center" height="32"></td>
+      </tr>
+    </table>
+    <!-- /divider -->
+
     <!-- section -->
     <!-- subtitle -->
     <table cellpadding="0" cellspacing="0" border="0" style="background-color:#ffffff; max-width: 640px;" width="100%" class="mainwidth maxwidth">
       <tr>
         <td width="32" width="width: 32px;" class="contentpadding"></td>
         <td style="width: 574px; font-family: 'Arial Black', Helvetica, sans-serif, HelveticaNowBlack; font-size: 20px; line-height: 30px; font-weight: 900; color:#000001; padding-bottom: 8px;" class="autowidth" align="left">
-          <a style="font-family: 'Arial Black', Helvetica, sans-serif, HelveticaNowBlack; font-size: 20px; line-height: 30px; font-weight: 900; color:#000001;">{{ props.needtoknow.subtitle }}</a>
+          <a style="font-family: 'Arial Black', Helvetica, sans-serif, HelveticaNowBlack; font-size: 20px; line-height: 30px; font-weight: 900; color:#000001;">Table Layout: {{ props.needtoknow.subtitle }}</a>
         </td>
         <td width="32" width="width: 32px;" class="contentpadding"></td>
       </tr>
