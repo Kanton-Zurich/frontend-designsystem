@@ -86,11 +86,13 @@ class FormRules {
           const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
           const field = this.ui.form.querySelector(querySelector);
 
-          this.rules[i].conditions[x].isElementInSameStep = this.isElementInSameStep(field);
+          if (field) {
+            this.rules[i].conditions[x].isElementInSameStep = this.isElementInSameStep(field);
 
-          if (!this.rules[i].conditions[x].isElementInSameStep) {
-            this.ui.owner.setAttribute('data-watches-other-step', 'true');
-            this.data.watchesOtherStep = true;
+            if (!this.rules[i].conditions[x].isElementInSameStep) {
+              this.ui.owner.setAttribute('data-watches-other-step', 'true');
+              this.data.watchesOtherStep = true;
+            }
           }
         }
       }
