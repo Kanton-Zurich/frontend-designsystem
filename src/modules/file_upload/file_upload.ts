@@ -167,6 +167,7 @@ class FileUpload extends Module {
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.noDropzone);
     }
+    this.updateFlyingFocus(0);
   }
 
   addDropzoneClass() {
