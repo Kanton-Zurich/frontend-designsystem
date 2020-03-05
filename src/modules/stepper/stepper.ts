@@ -109,6 +109,7 @@ class Stepper extends Module {
       showFieldInvalid: 'showFieldInvalid',
       showRuleNotification: 'Stepper.showRuleNotification',
       hideRuleNotification: 'Stepper.hideRuleNotification',
+      checkRules: 'Stepper.checkRules',
     };
   }
 
@@ -308,6 +309,8 @@ class Stepper extends Module {
     }
 
     this.data.active = newIndex;
+
+    this.ui.steps[newIndex].dispatchEvent(new CustomEvent(Stepper.events.checkRules));
 
     return true;
   }
