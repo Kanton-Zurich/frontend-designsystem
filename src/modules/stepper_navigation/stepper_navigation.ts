@@ -143,18 +143,18 @@ class StepperNavigation extends Module {
         this.data.steps[after].removeAttribute('data-visited');
 
         this.ui.step[c].setAttribute('disabled', 'disabled');
-        this.ui.step[c].setAttribute('aria-selected', 'false');
+        this.ui.step[c].setAttribute('aria-pressed', 'false');
       }
     } else if (before !== null) {
       this.ui.step[before].classList.remove(this.options.stateClasses.activeStep);
-      this.ui.step[before].setAttribute('aria-selected', 'false');
+      this.ui.step[before].setAttribute('aria-pressed', 'false');
     }
 
     this.ui.step[after].classList.add(this.options.stateClasses.activeStep);
     this.ui.step[after].classList.remove(this.options.stateClasses.visitedStep);
 
     this.ui.step[after].removeAttribute('disabled');
-    this.ui.step[after].setAttribute('aria-selected', 'true');
+    this.ui.step[after].setAttribute('aria-pressed', 'true');
 
     this.data.steps[after].setAttribute('data-visited', 'true');
 
