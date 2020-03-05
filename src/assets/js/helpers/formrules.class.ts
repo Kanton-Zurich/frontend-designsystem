@@ -4,12 +4,18 @@ class FormRules {
   private ui: {
     owner: HTMLElement,
     form: HTMLFormElement,
+    step: HTMLDivElement,
   }
 
   private options: {
     domSelectors: any,
     stateClasses: any,
     isStep: boolean,
+  }
+
+  private data: {
+    stepIndex: number,
+    watchesOtherStep: boolean,
   }
 
   private rules: any;
@@ -28,12 +34,27 @@ class FormRules {
     this.ui = {
       owner: $ruleOwner,
       form: $ruleOwner.closest('form'),
+      step: $ruleOwner.closest('[data-step-index]'),
     };
+
+    this.data = {
+      stepIndex: null,
+      watchesOtherStep: false,
+    };
+
+    if (!$ruleOwner.hasAttribute('data-step-index') && $ruleOwner.closest('[data-step-index]')) {
+      this.data.stepIndex = parseInt($ruleOwner.closest('[data-step-index]').getAttribute('data-step-index'), 10);
+    }
 
     this.getRules();
 
     this.getHierarchicalRules();
 
+    if (this.data.stepIndex) {
+      this.checkRulesForSameStep();
+    }
+
+    this.initEventListeners();
     this.setInitialState();
     this.addWatchers();
   }
@@ -45,8 +66,47 @@ class FormRules {
     };
   }
 
+  initEventListeners() {
+    if (this.data.watchesOtherStep) {
+      this.ui.step.addEventListener(Stepper.events.checkRules, this.checkRules.bind(this));
+    }
+  }
+
   getRules() {
     this.rules = JSON.parse(this.ui.owner.getAttribute('data-rules'));
+  }
+
+  checkRulesForSameStep() {
+    if (this.data.stepIndex) {
+      for (let i = 0; i < this.rules.length; i += 1) {
+        const rule = this.rules[i];
+
+        for (let x = 0; x < rule.conditions.length; x += 1) {
+          const condition = rule.conditions[x];
+          const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+          const field = this.ui.form.querySelector(querySelector);
+
+          this.rules[i].conditions[x].isElementInSameStep = this.isElementInSameStep(field);
+
+          if (!this.rules[i].conditions[x].isElementInSameStep) {
+            this.ui.owner.setAttribute('data-watches-other-step', 'true');
+            this.data.watchesOtherStep = true;
+          }
+        }
+      }
+    }
+  }
+
+  isElementInSameStep(targetElement) {
+    const targetStep = targetElement.closest('[data-step-index]');
+
+    if (targetStep) {
+      const targetStepIndex = parseInt(targetStep.getAttribute('data-step-index'), 10);
+
+      return targetStepIndex === this.data.stepIndex;
+    }
+
+    return false;
   }
 
   getHierarchicalRules() {
@@ -193,24 +253,34 @@ class FormRules {
   }
 
   addWatchers() {
-    this.rules.forEach((rule) => {
-      rule.conditions.forEach((condition) => {
+    for (let i = 0; i < this.rules.length; i += 1) {
+      const rule = this.rules[i];
+
+      for (let x = 0; x < rule.conditions.length; x += 1) {
+        const condition = rule.conditions[x];
         const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
         const fields = this.ui.form.querySelectorAll(querySelector);
 
-        fields.forEach((field) => {
-          if (field.hasAttribute('data-select-option')) {
-            field.addEventListener('click', () => {
-              this.checkRules();
-            });
-          } else {
-            field.addEventListener('change', () => {
-              this.checkRules();
-            });
+        for (let c = 0; c < fields.length; c += 1) {
+          const field = fields[c];
+
+          // When there is a condition which is in another step,
+          // the conditions shouldn't be all binding events
+          if ((this.data.watchesOtherStep && condition.isElementInSameStep)
+          || !this.data.stepIndex) {
+            if (field.hasAttribute('data-select-option')) {
+              field.addEventListener('click', () => {
+                this.checkRules();
+              });
+            } else {
+              field.addEventListener('change', () => {
+                this.checkRules();
+              });
+            }
           }
-        });
-      });
-    });
+        }
+      }
+    }
   }
 
   checkRules() {
