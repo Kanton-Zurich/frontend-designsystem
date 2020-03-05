@@ -305,7 +305,7 @@ class FormRules {
 
         correctField = this.ui.form.querySelector(querySelector);
 
-        if (typeof correctField !== typeof undefined) {
+        if (typeof correctField !== typeof undefined && correctField) {
           if ((condition.equals && !correctField.checked)
             || (!condition.equals && correctField.checked)) {
             conditionsMet = false;
