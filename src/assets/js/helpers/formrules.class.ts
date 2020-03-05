@@ -218,19 +218,20 @@ class FormRules {
     const rulesResult = [];
     const { action } = this.rules[0];
 
-    this.rules.forEach((rule) => {
+    for (let i = 0; i < this.rules.length; i += 1) {
       let conditionsMet = true;
+      const rule = this.rules[i];
 
-      rule.conditions.forEach((condition) => {
-        const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
-        const fields = Array.prototype.slice.call(this.ui.form.querySelectorAll(querySelector));
+      for (let x = 0; x < rule.conditions.length; x += 1) {
+        const condition = rule.conditions[x];
+        let querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
         let correctField = null;
 
-        if (fields.length === 1) {
-          correctField = fields[0]; //eslint-disable-line
-        } else {
-          correctField = fields.filter(field => field.value === condition.value)[0]; //eslint-disable-line
+        if (condition.value) {
+          querySelector = `${querySelector}[value="${condition.value}"]`;
         }
+
+        correctField = this.ui.form.querySelector(querySelector);
 
         if (typeof correctField !== typeof undefined) {
           if ((condition.equals && !correctField.checked)
@@ -238,10 +239,10 @@ class FormRules {
             conditionsMet = false;
           }
         }
-      });
+      }
 
       rulesResult.push(conditionsMet);
-    });
+    }
 
     this.doAction(action, rulesResult.filter(result => result === true).length > 0);
   }
