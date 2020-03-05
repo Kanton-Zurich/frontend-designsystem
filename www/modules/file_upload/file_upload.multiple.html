@@ -1,7 +1,7 @@
 <div>
-	<div class="mdl-file_upload" data-init="fileUpload" data-input>
-		<h4 class="atm-heading">Dokumente hochladen</h4>
-		<label for="file2">Hier können Sie ihre Dokumente hochladen</label>
+	<fieldset class="mdl-file_upload" data-init="fileUpload" data-input>
+		<legend class="atm-heading h4">Dokumente hochladen</legend>
+		<p class="mdl-file_upload__subtitle">Hier können Sie ihre Dokumente hochladen</p>
 		<input class="visuallyhidden" type="file" name="file2" id="file2" data-file_upload="input" data-multiple />
 		<div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
 			<p>Zum Hochladen Dateien ziehen und hier ablegen</p>
@@ -16,19 +16,19 @@
 
 		<script type="text/x-handlebars-template" data-file_upload="item-template">
 			<div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
-      <div class="mdl-file_upload__file-meta">
-        <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
-        <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
-        <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
-        <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB)</p>
+        <div class="mdl-file_upload__file-meta">
+          <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+          <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+          <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+          <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB)</p>
+        </div>
+        <button class="mdl-file_upload__file-delete" data-file_upload="delete">
+          <span class="visuallyhidden">Datei wieder entfernen</span>
+          <svg class="icon" focusable="false">
+            <use xlink:href="#delete"></use>
+          </svg>
+        </button>
       </div>
-      <button class="mdl-file_upload__file-delete" data-file_upload="delete">
-        <span class="visuallyhidden">Datei wieder entfernen</span>
-        <svg class="icon" focusable="false">
-          <use xlink:href="#delete"></use>
-        </svg>
-      </button>
-    </div>
-  </script>
-	</div>
+    </script>
+	</fieldset>
 </div>
