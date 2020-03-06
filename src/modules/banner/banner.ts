@@ -11,14 +11,14 @@ import WindowEventListener from '../../assets/js/helpers/events';
 class Banner extends Module {
   public data: {
     closedItems: Array<string>,
-  }
+  };
 
   public options: {
     domSelectors: any,
     stateClasses: any,
     uid: string,
     fetchURL: string,
-  }
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -75,6 +75,10 @@ class Banner extends Module {
               throw new Error('Empty data');
             }
             this.ui.element.innerHTML = response;
+            const bannerImage = this.ui.element.querySelector('.mdl-banner__image');
+            if (bannerImage) {
+              bannerImage.onload = () => { this.initBanner(); };
+            }
             if (localStorage.getItem('closedBanners')) {
               const uid = this.ui.element.querySelector('[data-uid]').getAttribute('data-uid');
               this.data.closedItems = JSON.parse(localStorage.getItem('closedBanners'));
@@ -100,12 +104,14 @@ class Banner extends Module {
     if (lytWrapper) {
       this.ui.element.style.maxHeight = `${lytWrapper.offsetHeight}px`;
     }
+    this.dispatchVerticalResizeEvent(400); // eslint-disable-line
   }
 
   close() {
     this.ui.element.style.maxHeight = `${this.ui.element.getBoundingClientRect().height}px`;
     this.ui.element.classList.add(this.options.stateClasses.closing);
     this.ui.element.style.maxHeight = '0px';
+    this.dispatchVerticalResizeEvent(400); // eslint-disable-line
 
     this.writeToLocalStorage();
   }
@@ -122,7 +128,6 @@ class Banner extends Module {
    */
   destroy() {
     super.destroy();
-
     // Custom destroy actions go here
   }
 }

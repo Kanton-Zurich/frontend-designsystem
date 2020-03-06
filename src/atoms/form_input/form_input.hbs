@@ -15,7 +15,7 @@
       </svg>
     </button>
     {{#if isTriggerWithInput}}
-      <input id="select_phone_input" name="phone_input" type="tel" placeholder="{{#if maskPlaceholder}}{{maskPlaceholder}}{{/if}}"
+      <input id="select_phone_input" name="phone_input" type="tel" {{#if maskPlaceholder}}placeholder="{{maskPlaceholder}}"{{/if}}
         {{#if validation.pattern }} data-pattern="{{validation.pattern}}"{{/if}}
         {{#if validation.isRequired}} required{{/if}}
         {{#if validation}} data-validation{{/if}}><label

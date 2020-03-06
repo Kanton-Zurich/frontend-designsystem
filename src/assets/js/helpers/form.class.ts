@@ -174,10 +174,14 @@ class Form {
         });
         break;
       default:
+
         wrist.watch(input, 'value', (propName, oldValue, newValue) => {
           // prevent datepicker for being validated as its being validated on a close event
           this.onInputValueChange(input, oldValue, newValue, input.classList.contains('flatpickr-input') === false);
         });
+        if (input.hasAttribute('data-input-mask')) {
+          this.onInputMask(input, '', input.value);
+        }
         break;
     }
   }
@@ -214,6 +218,16 @@ class Form {
           .classList.remove(this.options.inputClasses.valid);
       }
     }
+    this.onInputMask(domElement, oldValue, newValue);
+  }
+
+  /**
+   * Prepare and process input mask
+   * @param domElement
+   * @param oldValue
+   * @param newValue
+   */
+  onInputMask(domElement, oldValue, newValue) {
     /* Backdrop mask */
     const maskPlaceholder = domElement.getAttribute('data-mask-placeholder');
     let backdrop = domElement.parentElement.querySelector(this.options.domSelectors.backdrop);
