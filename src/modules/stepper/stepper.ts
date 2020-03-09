@@ -278,7 +278,7 @@ class Stepper extends Module {
   }
 
   validateSection() {
-    const sections = this.ui.steps[this.data.active].querySelectorAll('section');
+    const sections = this.ui.steps[this.data.active].querySelectorAll('fieldset');
 
     this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
       detail: {
