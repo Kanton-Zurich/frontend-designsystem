@@ -43,6 +43,12 @@ $selectOptionsMinWidth: 268px;
 
       @include transition(transform, $time: $transitionTimeDefault);
     }
+
+    &:disabled {
+      .icon use {
+        fill: $colorBlack40;
+      }
+    }
   }
 
   .atm-form_input--trigger-phone {

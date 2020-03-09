@@ -224,12 +224,10 @@ class Select extends Module {
       // ------------------------------------------------------------
       // On Click Dropdown main element - open/close and stop propagation to prevent losing focus
       .on('click', this.options.domSelectors.trigger, (event) => {
-        if (!this.isDisabled()) {
-          if (this.isOpen) {
-            this.closeDropdown();
-          } else {
-            this.openDropdown();
-          }
+        if (this.isOpen) {
+          this.closeDropdown();
+        } else {
+          this.openDropdown();
         }
         event.stopPropagation();
       })
@@ -433,9 +431,11 @@ class Select extends Module {
    */
   setDisabled(disabled) {
     if (disabled) {
+      this.ui.element.setAttribute('disabled', '');
       this.ui.trigger.setAttribute('disabled', '');
       return;
     }
+    this.ui.element.removeAttribute('disabled');
     this.ui.trigger.removeAttribute('disabled');
   }
 
@@ -527,6 +527,8 @@ class Select extends Module {
     if (disabled) {
       this.closeDropdown(true);
     }
+    console.log(this.ui.element);
+    console.log('is disabled ' + disabled);
   }
 
   /**
@@ -546,6 +548,9 @@ class Select extends Module {
    * Open dropdown/select
    */
   openDropdown() {
+    if (this.isDisabled()) {
+      return;
+    }
     const openClass = this.options.stateClasses.open;
     const dropDown = this.ui.element;
     dropDown.classList.add(openClass);
