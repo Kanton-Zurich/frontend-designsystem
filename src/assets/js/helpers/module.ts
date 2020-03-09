@@ -377,7 +377,13 @@ class Module {
   /**
    * When vertical content size changes due to interaction expand / collapse
    */
-  dispatchVerticalResizeEvent() {
+  dispatchVerticalResizeEvent(timeout: number = 0) {
+    if (timeout > 0) {
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent(Module.globalEvents.verticalResize));
+      }, timeout);
+      return;
+    }
     window.dispatchEvent(new CustomEvent(Module.globalEvents.verticalResize));
   }
 }
