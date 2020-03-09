@@ -527,8 +527,6 @@ class Select extends Module {
     if (disabled) {
       this.closeDropdown(true);
     }
-    console.log(this.ui.element);
-    console.log('is disabled ' + disabled);
   }
 
   /**
