@@ -6,11 +6,14 @@ import Grid from './helpers/grid';
 
 // Enable by default
 // Remove these lines and run "localStorage.removeItem('debug');" to disable
-if (window.localStorage && !localStorage.debug) {
-  localStorage.debug = true;
+try {
+  if (window.localStorage && !localStorage.debug) {
+    localStorage.debug = true;
+  }
+  window[namespace].helpers.log = bows;
+} catch (error) {
+  // iOS security fix
 }
-
-window[namespace].helpers.log = bows;
 
 const inspector = new Inspector();
 const a11y = new A11y();

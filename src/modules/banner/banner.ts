@@ -79,7 +79,7 @@ class Banner extends Module {
             if (bannerImage) {
               bannerImage.onload = () => { this.initBanner(); };
             }
-            if (localStorage.getItem('closedBanners')) {
+            if (this.supportsLocalStorage() && localStorage.getItem('closedBanners')) {
               const uid = this.ui.element.querySelector('[data-uid]').getAttribute('data-uid');
               this.data.closedItems = JSON.parse(localStorage.getItem('closedBanners'));
               if (this.data.closedItems.indexOf(uid) >= 0) {
@@ -120,7 +120,9 @@ class Banner extends Module {
     const uid = this.ui.element.querySelector('[data-uid]').getAttribute('data-uid');
     this.data.closedItems.push(uid);
 
-    localStorage.setItem('closedBanners', JSON.stringify(this.data.closedItems));
+    if (this.supportsLocalStorage()) {
+      localStorage.setItem('closedBanners', JSON.stringify(this.data.closedItems));
+    }
   }
 
   /**
