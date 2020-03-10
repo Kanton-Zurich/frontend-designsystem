@@ -35,11 +35,6 @@ const data = _.merge({}, defaultData, {
           routeLinkLabel: 'Route anzeigen',
         },
         contactPhone: [
-          {
-            anchorLabel: '043 259 11 11',
-            phoneNumer: '+0432591111',
-            additionalInfo: 'Telefon',
-          },
         ],
         contactMail: {
           address: 'info@sk.zh.ch',
