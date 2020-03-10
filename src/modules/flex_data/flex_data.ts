@@ -324,11 +324,12 @@ class FlexData extends Module {
     }
     let resultsTitle = this.ui.results.getAttribute('data-result-count-title')
       .replace('%1', jsonData.numberOfResults);
+    if (jsonData.moreSearchResultsThanAllowed) {
+      resultsTitle = this.ui.results.getAttribute('data-result-count-title-more')
+        .replace('%1', jsonData.numberOfResults);
+    }
     if (!jsonData.numberOfResults || jsonData.numberOfResults <= 0) {
       resultsTitle = this.ui.results.getAttribute('data-no-results-title');
-      this.ui.results.classList.add('hidden');
-    } else {
-      this.ui.results.classList.remove('hidden');
     }
     // fill table date if present
     if (this.ui.resultsTable) {
@@ -336,8 +337,8 @@ class FlexData extends Module {
       this.ui.resultsTable.classList.remove('visible');
       this.ui.resultsTableTitle.innerText = resultsTitle;
       if (jsonData.data) {
+        this.ui.resultsTable.classList.add('visible');
         jsonData.data.forEach((item) => {
-          this.ui.resultsTable.classList.add('visible');
           const tr = document.createElement('tr');
           tr.classList.add('mdl-table__row');
           const props = {
@@ -389,7 +390,7 @@ class FlexData extends Module {
     let resultUrl = this.dataUrl;
 
     const append = (key, value) => {
-      if (value.length > 0) {
+      if (value && value.length > 0) {
         resultUrl += resultUrl === this.dataUrl ? '?' : '&';
         if (Array.isArray(value)) {
           value.forEach((item, index) => {

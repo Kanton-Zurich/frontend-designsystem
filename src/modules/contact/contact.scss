@@ -1,6 +1,7 @@
 $contactMapHeightSmall: 395px;
 $contactMapHeightMedium: 302px;
 $contactMapHeightLarge: 500px;
+$colorWhite70: rgba($colorWhite, 0.7);
 $contactMapHeightCurve: (
   default: (
     tiny: $contactMapHeightSmall,
@@ -80,7 +81,7 @@ $contactMapHeightCurve: (
   &__lead a {
     display: inline-block;
     position: relative;
-    color: inherit;
+    color: $colorWhite;
     font-size: $sizeFontRegular;
     font-family: $fontFamilyBase;
     line-height: $sizeLineHeightBase;
@@ -91,7 +92,7 @@ $contactMapHeightCurve: (
       position: absolute;
       top: 42%;
       right: 0;
-      transform: translateY(-50%);
+      transform: translateY(-42%);
 
       use {
         fill: $colorWhite;
@@ -125,6 +126,7 @@ $contactMapHeightCurve: (
       bottom: - pxToRem($sizeRegular);
       z-index: $zIndexDropDowns;
       padding-left: 0;
+      color: $colorWhite;
 
       span:last-of-type {
         display: none;
@@ -132,7 +134,7 @@ $contactMapHeightCurve: (
 
       svg {
         transition: transform 200ms ease-out 100ms;
-        transform: translateY(-50%) scale(0.6563) rotate(0deg);
+        transform: translateY(-40%) scale(0.57) rotate(0deg);
       }
     }
 
@@ -148,6 +150,10 @@ $contactMapHeightCurve: (
       a:not(.atm-button) {
         text-decoration: none;
         border-bottom: 1px solid $colorWhite;
+
+        &:hover {
+          border-color: $colorWhite70;
+        }
       }
 
       .atm-button {
@@ -168,7 +174,7 @@ $contactMapHeightCurve: (
         }
 
         svg {
-          transform: translateY(-50%) scale(0.6563) rotate(45deg);
+          transform: translateY(-40%) scale(0.6563) rotate(45deg);
         }
       }
 
@@ -236,6 +242,12 @@ $contactMapHeightCurve: (
 
     a {
       color: $colorWhite;
+      border-color: $colorWhite;
+
+      &:hover {
+        color: $colorWhite70;
+        border-color: $colorWhite70;
+      }
     }
   }
 
@@ -256,6 +268,11 @@ $contactMapHeightCurve: (
         color: inherit;
         text-decoration: none;
         border-bottom: 1px solid $colorWhite;
+
+        &:hover {
+          border-color: $colorWhite70;
+          color: $colorWhite70;
+        }
       }
 
       &__mail {
@@ -264,6 +281,11 @@ $contactMapHeightCurve: (
         color: inherit;
         text-decoration: none;
         border-bottom: 1px solid $colorWhite;
+
+        &:hover {
+          border-color: $colorWhite70;
+          color: $colorWhite70;
+        }
       }
     }
   }
@@ -278,6 +300,11 @@ $contactMapHeightCurve: (
     color: inherit;
     text-decoration: none;
     border-bottom: 1px solid $colorWhite;
+
+    &:hover {
+      border-color: $colorWhite70;
+      color: $colorWhite70;
+    }
   }
 
   &__mail {

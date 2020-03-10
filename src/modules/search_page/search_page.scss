@@ -6,10 +6,14 @@
   &--loading {
     position: relative;
 
-    height: 100px;
-    max-height: 100px;
+    .mdl-pagination {
+      display: none;
+    }
+  }
 
-    overflow: hidden;
+  .atm-loading_circle {
+    position: relative;
+    min-height: $sizeHuge;
   }
 
   &__notification {
@@ -89,6 +93,10 @@
     .atm-content_teaser {
       padding: pxToRem($sizeTiny) 0;
     }
+
+    &.initially-hidden {
+      display: none;
+    }
   }
 
   &--no-results {
@@ -98,6 +106,8 @@
 
     .mdl-search_page__no-results {
       display: block;
+
+      @include sizeCurve(margin-top, regular);
 
       .atm-button {
         background-color: transparent;
@@ -137,7 +147,11 @@
       display: block;
     }
 
-    .mdl-search_page__no-results {
+    .mdl-search_page__no-results,
+    .mdl-pagination,
+    .mdl-datepicker,
+    .mdl-search_page__results,
+    .mdl-search_page__results-head {
       display: none;
     }
   }

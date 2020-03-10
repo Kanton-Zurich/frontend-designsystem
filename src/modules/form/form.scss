@@ -2,6 +2,12 @@ $gapSize: pxToRem($sizeRegular);
 
 .form {
 
+  &__section {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
   &__section-title {
     margin-bottom: pxToRem($sizeSmallRegular);
 
@@ -68,6 +74,10 @@ $gapSize: pxToRem($sizeRegular);
       .form__cell {
         margin-bottom: 0;
       }
+    }
+
+    .form__cell .form__cell {
+      padding: 0;
     }
   }
 

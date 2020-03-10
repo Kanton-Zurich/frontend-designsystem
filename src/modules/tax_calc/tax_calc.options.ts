@@ -1,6 +1,7 @@
 interface ModuleDomSelectors {
   formBase: string;
   formItems: string;
+  beforeBlock: string;
   taxEntityInputs: string;
   taxTypeInputs: string;
   openSectionsValidationInputs: string;
@@ -46,6 +47,10 @@ export interface TaxCalcModuleOptions { // eslint-disable-line
     reinvoke: string;
     fieldTemplateType: string;
   };
+  flatCurrencyValues: string[];
+  globalScopeVariables: string[];
+  datePartialFields: string[];
+  negativeValues: string[];
   domSelectors: ModuleDomSelectors;
   stateClasses: ModuleStateClasses;
 }
@@ -53,6 +58,7 @@ export interface TaxCalcModuleOptions { // eslint-disable-line
 const domSelectors: ModuleDomSelectors = {
   formBase: '[data-tax_calc="formBase"]',
   formItems: '.mdl-tax_calc__form-block .mdl-accordion__item',
+  beforeBlock: '.mdl-tax_calc__before-block',
   taxEntityInputs: '[data-tax_calc="inputEntity"]',
   taxTypeInputs: '[data-tax_calc^="inputTaxType"]',
   openSectionsValidationInputs: '.mdl-accordion__item--open input[data-validation]',
@@ -99,6 +105,10 @@ export const TaxCalcDefaultOptions: TaxCalcModuleOptions = { // eslint-disable-l
   paramKeyCalculator: 'calculatorId',
   availableEntities: ['individual', 'incorp'],
   availableCalculator: ['income_assets', 'federal', 'benefit_payments', 'benefit_payments_federal', 'inheritance', 'legal_simple', 'legal_iterative'],
+  flatCurrencyValues: ['ascertainedTaxableIncome', 'taxableIncome', 'ascertainedTaxableAssets', 'taxableAssets', 'taxableFederalIncome'],
+  globalScopeVariables: ['taxYear'],
+  datePartialFields: ['liabilityBegin', 'liabilityEnd'],
+  negativeValues: ['withholdingTax'],
   attributeNames,
   domSelectors,
   stateClasses,

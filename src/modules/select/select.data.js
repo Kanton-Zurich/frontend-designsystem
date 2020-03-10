@@ -80,7 +80,7 @@ const variants = _.mapValues({
         ],
       }),
       filterInputData: _.merge({}, defFilterInputData.props, {
-        label: 'Nach Stichwort filtern',
+        label: 'Telefonvorwahl nach Land wählen',
         type: 'text',
         isSmall: true,
         autocompleteOff: true,
@@ -191,6 +191,7 @@ const variants = _.mapValues({
       isTable: true,
       listData: listDemoData.variants.table.props,
       triggerInputData: _.merge({}, inputDemoData.variants.triggerDefault.props, {
+        uuid: 'ordner_ls',
         label: 'Ordner',
       }),
     },

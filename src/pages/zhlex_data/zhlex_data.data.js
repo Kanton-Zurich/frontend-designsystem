@@ -13,6 +13,7 @@ const defContactData = require('../../modules/contact/contact.data.js').variants
 const defTagGroupData = require('../../modules/tag_group/tag_group.data.js').variants.default.props;
 const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withoutLinklist.props;
 const defZhLexData = require('../../modules/zhlex/zhlex.data.js').variants.default.props;
+const defBreadcrumbData = require('../../modules/breadcrumb/breadcrumb.data').variants.default.props;
 
 const defAnchorNavData = {
   anchornavTitle: {
@@ -79,6 +80,7 @@ const data = _.merge({}, defaultData, {
         pageTitle: 'Zürcher Gesetzessammlung ZH-Lex',
         inverted: true,
         buttonData: false,
+        breadcrumb: defBreadcrumbData,
         leadText: 'In der Loseblattsammlung (LS) finden Sie das aktuell geltende Zürcher Recht. Es ist in 14 Bänden nach Sachgebieten geordnet. In der Offiziellen Gesetzessammlung (OS) wird das kantonale Recht chronologisch publiziert.',
       }),
       anchorNav: defAnchorNavData,

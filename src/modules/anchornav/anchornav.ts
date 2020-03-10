@@ -178,6 +178,7 @@ class Anchornav extends Module {
       .on('click', this.options.domSelectors.btnLeft, this.onControlBtnClick.bind(this, 'left'));
 
     (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
+    (<any> window).addEventListener(Module.globalEvents.verticalResize, this.onResize.bind(this));
     // Necessary for jump.js plugin.
     // Is triggered before the debounced callback.
     (<any>WindowEventListener).addEventListener('scroll', this.onPageScroll.bind(this));

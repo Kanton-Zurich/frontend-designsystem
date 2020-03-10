@@ -109,6 +109,7 @@ class Stepper extends Module {
       showFieldInvalid: 'showFieldInvalid',
       showRuleNotification: 'Stepper.showRuleNotification',
       hideRuleNotification: 'Stepper.hideRuleNotification',
+      checkRules: 'Stepper.checkRules',
     };
   }
 
@@ -277,7 +278,7 @@ class Stepper extends Module {
   }
 
   validateSection() {
-    const sections = this.ui.steps[this.data.active].querySelectorAll('section');
+    const sections = this.ui.steps[this.data.active].querySelectorAll('fieldset');
 
     this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
       detail: {
@@ -308,6 +309,8 @@ class Stepper extends Module {
     }
 
     this.data.active = newIndex;
+
+    this.ui.steps[newIndex].dispatchEvent(new CustomEvent(Stepper.events.checkRules));
 
     return true;
   }

@@ -303,8 +303,9 @@ class Autosuggest {
     return fetch(`${this.options.url}?q=${encodeURIComponent(this.query)}`)
       .then(response => response.status === 200 ? response.json() : null) // eslint-disable-line
       .then((response) => {
-        if (this.disabled) {
+        if (this.disabled || !response) {
           this.disabled = false;
+          this.data = [];
           return;
         }
         if (response && Object.prototype.hasOwnProperty.call(response, 'suggestions')) {

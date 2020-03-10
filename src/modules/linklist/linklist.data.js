@@ -74,6 +74,7 @@ const variants = _.mapValues({
       desc: 'Implementation without title',
     },
     props: {
+      smallMargin: true,
       links: [
         {
           linkListItemTitle: 'Gesetz über das Bürgerrecht',

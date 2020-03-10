@@ -40,7 +40,7 @@ class AssetLoader extends Helper {
   }
 
   public loadAsset() {
-    if (!this.cache) {
+    if (!this.cache || !this.supportsLocalStorage()) {
       this.logger(`Fetching ${this.dataHref}`);
       this.injectAsset();
     } else if (localStorage[`asset_${this.dataHash}`]

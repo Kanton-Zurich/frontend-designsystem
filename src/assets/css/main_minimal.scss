@@ -1,0 +1,54 @@
+@import 'data/colors.json';
+@import 'globals/variables';
+@import 'globals/functions';
+@import 'globals/mixins';
+@import 'globals/mediaqueries';
+@import 'globals/icons';
+
+// Reset / normalize styles
+@import '../../../node_modules/normalize.css/normalize';
+
+
+// Importing of XY-Grid
+@import '../../../node_modules/foundation-sites/scss/foundation';
+
+@import 'globals/grid';
+
+// General styles
+@import 'mediaqueries_sync';
+@import 'globals/classes';
+
+// General layout
+@import 'layout';
+
+// Atoms
+@import '../../atoms/headings/headings';
+@import '../../atoms/figcaption/figcaption';
+@import '../../atoms/button/button';
+@import '../../atoms/text_link/text_link';
+@import '../../atoms/lead/lead';
+@import '../../atoms/paragraph/paragraph';
+@import '../../atoms/anchorlink/anchorlink';
+@import '../../atoms/form_input/form_input';
+@import '../../atoms/radiobutton/radiobutton';
+@import '../../atoms/checkbox/checkbox';
+@import '../../atoms/list/list';
+@import '../../atoms/smallcaption/smallcaption';
+//*autoinsertatom*
+
+@import '../../modules/image_figure/image_figure';
+@import '../../modules/breadcrumb/breadcrumb';
+@import '../../modules/richtext/richtext';
+@import '../../modules/texthighlight/texthighlight';
+@import '../../modules/video/video';
+@import '../../modules/quote/quote';
+@import '../../modules/publication_teaser/publication_teaser';
+@import '../../modules/social_media_links/social_media_links';
+@import '../../modules/contact/contact';
+@import '../../modules/page_header/page_header';
+@import '../../modules/footer/footer';
+//*autoinsertmodule*
+
+@media screen {
+  @import 'screen';
+}
