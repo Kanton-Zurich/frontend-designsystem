@@ -32,7 +32,7 @@ class Helper {
   public log(context) {
     let fn = () => {};
 
-    if (window.localStorage && localStorage.debug) {
+    if (this.supportsLocalStorage() && localStorage.debug) {
       if (typeof context === 'string' && context.length > 0) {
         fn = Function.prototype.bind.call(console.log, console, `${context} ☞`); //eslint-disable-line
       } else {
@@ -41,6 +41,17 @@ class Helper {
     }
 
     return fn;
+  }
+
+  /**
+   * Check support for localstorage
+   */
+  public supportsLocalStorage() {
+    try {
+      return window.localStorage;
+    } catch (error) {
+      return false;
+    }
   }
 
   /**

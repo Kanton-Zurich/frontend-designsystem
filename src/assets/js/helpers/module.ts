@@ -386,6 +386,17 @@ class Module {
     }
     window.dispatchEvent(new CustomEvent(Module.globalEvents.verticalResize));
   }
+
+  /**
+   * Check support for localstorage
+   */
+  public supportsLocalStorage() {
+    try {
+      return window.localStorage;
+    } catch (error) {
+      return false;
+    }
+  }
 }
 
 export default Module;
