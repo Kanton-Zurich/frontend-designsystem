@@ -766,7 +766,7 @@ class TaxCalc extends Module {
     document.querySelectorAll<HTMLElement>(this.options.domSelectors.formItems)
       .forEach((sectionCon, index) => {
         if (sectionCon.classList.contains(this.options.stateClasses.formItem.enabled)) {
-          const section = sectionCon.querySelector('section');
+          const section = sectionCon.querySelector('fieldset');
           if (section) {
             this.log('Dispatch validate for section. ', section, index, this.currentFormSection);
             this.ui.formBase.dispatchEvent(new CustomEvent('validateSection', {
