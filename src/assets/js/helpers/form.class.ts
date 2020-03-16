@@ -326,6 +326,9 @@ class Form {
         if (field.value.length > 0 || field.hasAttribute('required')) {
           errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
           errorField.classList[functionArray[1]](this.options.inputClasses.valid);
+        } else {
+          errorField.classList.remove(this.options.inputClasses.invalid);
+          errorField.classList.add(this.options.inputClasses.valid);
         }
     }
   }

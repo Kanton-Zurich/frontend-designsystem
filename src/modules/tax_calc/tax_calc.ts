@@ -697,7 +697,7 @@ class TaxCalc extends Module {
     this.log('Form Exception: ', exceptionStr);
     this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.disabled);
 
-    this.ui.apiErrorNotification.querySelector<HTMLSpanElement>('p')
+    this.ui.apiErrorNotification.querySelector('.mdl-notification__message')
       .innerHTML = exceptionStr;
     const height = this.getContentHeight(this.ui.apiErrorNotification);
     this.ui.apiErrorNotification.style.maxHeight = `${height}px`;
@@ -766,7 +766,7 @@ class TaxCalc extends Module {
     document.querySelectorAll<HTMLElement>(this.options.domSelectors.formItems)
       .forEach((sectionCon, index) => {
         if (sectionCon.classList.contains(this.options.stateClasses.formItem.enabled)) {
-          const section = sectionCon.querySelector('section');
+          const section = sectionCon.querySelector('fieldset');
           if (section) {
             this.log('Dispatch validate for section. ', section, index, this.currentFormSection);
             this.ui.formBase.dispatchEvent(new CustomEvent('validateSection', {

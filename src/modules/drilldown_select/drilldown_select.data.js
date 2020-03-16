@@ -27,6 +27,7 @@ data.props.primarySelectData.listData.selectOptions = [
   { value: 'jur', label: 'Juristische Personen', id: _.uniqueId('option-item') },
   { value: 'quel', label: 'Quellensteuer', id: _.uniqueId('option-item') },
   { value: 'verf', label: 'Verfahrensrecht', id: _.uniqueId('option-item') },
+  { value: 'qwe', label: 'LeerTest', id: _.uniqueId('option-item') },
 ];
 data.props.primarySelectData.listData.groupId = 'thema';
 data.props.primarySelectData.triggerInputData.label = 'Thema';

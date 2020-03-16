@@ -140,6 +140,7 @@ class Select extends Module {
       disable: 'Select.disable',
       setFilter: 'Select.setFilter',
       clear: 'Select.clear',
+      onItemsFiltered: 'Select.onItemsFiltered',
     };
   }
 
@@ -339,6 +340,7 @@ class Select extends Module {
    * Set filter value
    */
   setFilter(filterValue) {
+    const filteredValues = [];
     let filterAttribute;
     if (this.ui.element.hasAttribute('data-filter-attribute')) {
       filterAttribute = this.ui.element.getAttribute('data-filter-attribute');
@@ -350,11 +352,15 @@ class Select extends Module {
         : li.querySelector('input').placeholder;
       if (regex.test(testValue)) {
         li.classList.remove('hidden');
+        filteredValues.push(li.querySelector('input').value);
       } else {
         li.classList.add('hidden');
       }
     });
     this.adjustContainerHeight();
+    this.ui.element
+      .dispatchEvent(new CustomEvent(Select.events.onItemsFiltered,
+        { detail: { filteredValues } }));
   }
 
 
