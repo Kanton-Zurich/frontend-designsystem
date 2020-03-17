@@ -1,11 +1,23 @@
 .mdl-locations {
 
+
   .mdl-locations__map {
-    background: none;
+    display: none;
+  }
+
+  .mdl-locations__wrapper {
+    padding-top: 0;
+    margin-top: 0;
+    width: auto;
+    transform: none;
+    margin-left: 0;
   }
 
   .mdl-locations__sidebar-wrapper {
-    bottom: initial;
+    position: relative;
+    max-width: none;
+    top: 0;
+    bottom: 0;
 
     .mdl-locations__sidebar {
       height: auto;

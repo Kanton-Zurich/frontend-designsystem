@@ -1,3 +1,14 @@
+.mdl-teaser {
+  .mdl-image-figure__img-wrapper {
+    display: flex !important; // stylelint-disable-line
+    justify-content: center !important; // stylelint-disable-line
+  }
+
+  .mdl-image-figure__img {
+    max-height: 20rem !important; // stylelint-disable-line
+    width: auto !important; // stylelint-disable-line
+  }
+}
 /*
   * COLOR VARIATIONS
    */

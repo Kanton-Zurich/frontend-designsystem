@@ -6,4 +6,10 @@
   .mdl-button_group {
     display: none;
   }
+
+  .mdl-image-figure {
+    &__img {
+      max-height: 20rem !important; // stylelint-disable-line
+    }
+  }
 }
