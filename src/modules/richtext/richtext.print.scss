@@ -1,0 +1,8 @@
+.mdl-richtext {
+  max-width: none;
+
+  .atm-lead,
+  .atm-heading {
+    margin-left: 0 !important; // stylelint-disable-line
+  }
+}

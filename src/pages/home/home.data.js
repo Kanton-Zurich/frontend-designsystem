@@ -9,12 +9,23 @@ const defPageHeaderData = require('../../modules/page_header/page_header.data.js
 const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withProminentTeaser.props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
+const defImageGallery = require('../../modules/image_gallery/image_gallery.data').variants.default.props;
+const contactData = require('../../modules/contact/contact.data').variants.withLead.props;
+const locationsData = require('../../modules/locations/locations.data').variants.default.props;
+
 
 const defPageHeaderCustomData = {
   pageTitle: 'Kanton Zürich',
-  breadcrumb: false,
   leadText: 'Lead: ExtraBold Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
-  buttonData: { buttonTitle: 'Formular beantragen', serviceLink: '../../modules/service_list/service_page.mock.html', modalData: { modalId: 'service-modal0' } },
+  buttonData: false,
+  breadcrumb: {
+    path: [
+      {
+        title: 'Kanton Zürich',
+        href: '#',
+      },
+    ],
+  },
 };
 
 const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants.default.props;
@@ -124,11 +135,14 @@ const data = _.merge({}, defaultData, {
     + 'dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita '
     + 'kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur.',
     modules: {
-      pageHeaderData: _.merge(defPageHeaderData, defPageHeaderCustomData),
+      pageHeaderData: _.merge({}, defPageHeaderData, defPageHeaderCustomData),
       contentNavData: defContentNavCustomData,
       contactData: defContactCustomData,
       newsTeaserData: defNewsTeaserData,
+      imageGallery: defImageGallery,
+      locations: locationsData,
       footerData: defFooterData,
+      contact: contactData,
       back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
     },
   },

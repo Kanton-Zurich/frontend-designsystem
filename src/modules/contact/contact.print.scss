@@ -1,6 +1,8 @@
 .mdl-contact {
   background-color: initial;
   color: $colorText;
+  padding-top: 0;
+  padding-bottom: 0;
 
   .atm-heading--bordered {
     &:before {
@@ -8,8 +10,37 @@
     }
   }
 
+  &--with-map {
+    margin-bottom: 0;
+  }
+
   .mdl-contact__map_container {
-    background: none;
+    display: none;
+  }
+
+  &__section {
+    display: block;
+  }
+
+  &__section-cell {
+    position: relative;
+    width: 32% !important; // stylelint-disable-line
+    float: left;
+    padding: 0 !important; // stylelint-disable-line
+    margin: 0 !important; // stylelint-disable-line
+
+    .mdl-contact__cell-content {
+      margin: 0;
+      margin-left: 10px;
+      padding-left: 0 !important; // stylelint-disable-line
+    }
+
+    .mdl-contact__cell-icon {
+      margin-left: 5px;
+      position: relative !important; // stylelint-disable-line
+      top: auto;
+      left: auto;
+    }
   }
 }
 

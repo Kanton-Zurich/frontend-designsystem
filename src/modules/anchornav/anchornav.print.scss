@@ -1,3 +1,7 @@
 .mdl-anchornav {
   display: none;
+
+  &__placeholder {
+    display: none !important; // stylelint-disable-line
+  }
 }

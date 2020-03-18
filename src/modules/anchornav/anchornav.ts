@@ -563,6 +563,7 @@ class Anchornav extends Module {
    */
   createPlaceholder() {
     this.placeholder = document.createElement('div');
+    this.placeholder.classList.add('mdl-anchornav__placeholder');
     this.placeholder.style.marginBottom = `${this.marginBottom}px`;
     this.placeholder.style.height = `${(this.ui.element.getBoundingClientRect().height)}px`;
     this.placeholder.style.display = 'none';
