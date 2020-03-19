@@ -625,482 +625,308 @@
 				</header>
 			</div>
 			<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-				<div class="mdl-anchornav" data-init="anchornav" id="toc">
-					<div class="lyt-wrapper">
-						<div class="grid-x grid-margin-x">
-							<div class="cell tiny-12 xsmall-12 small-10 medium-10 large-10 xlarge-10 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2">
+				<div class="mdl-stepper" data-init="stepper">
+					<h2 class="atm-heading">Formular mit Schritten</h2>
 
-								<div class="mdl-anchornav__content">
-									<h5 class="atm-heading">Inhaltsverzeichnis</h5>
-									<div class="mdl-anchornav__ctrl mdl-anchornav__ctrl--left">
-										<button tabindex="-1">
-											<span class="visuallyhidden">Nach links scrollen</span>
-											<svg class="icon atm-button__icon" focusable="false">
-												<use xlink:href="#angle_left"></use>
-											</svg>
-										</button>
-									</div>
-
-									<div class="mdl-anchornav__list-wrapper" data-anchornav="scroll-area">
-										<ul class="mdl-anchornav__list">
-											<li class="mdl-anchornav__item">
-												<button data-href="ourtopics" class="atm-anchorlink atm-anchorlink--active">
-													Themen
-												</button>
-											</li>
-											<li class="mdl-anchornav__item">
-												<button data-href="eventsTODO" class="atm-anchorlink">
-													Veranstaltungen
-												</button>
-											</li>
-											<li class="mdl-anchornav__item">
-												<button data-href="contact" class="atm-anchorlink">
-													Kontakt
-												</button>
-											</li>
-											<li class="mdl-anchornav__item">
-												<button data-href="teamTODO" class="atm-anchorlink">
-													Team
-												</button>
-											</li>
-										</ul>
-									</div>
-
-									<div class="mdl-anchornav__ctrl mdl-anchornav__ctrl--right">
-										<button tabindex="-1">
-											<span class="visuallyhidden">Nach rechts scrollen</span>
-											<svg class="icon atm-button__icon" focusable="false">
-												<use xlink:href="#angle_right"></use>
-											</svg>
-										</button>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="mdl-topiclist" data-init="topiclist">
-
-					<h2 class="atm-heading atm-heading--bordered " id="ourtopics">
-						Unsere Themen
-					</h2>
-					<p class="atm-paragraph">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+					<ol class="mdl-stepper_navigation" data-init="stepperNavigation">
+						<li>
+							<button class="mdl-stepper_navigation__step" data-stepper_navigation="step" data-step="0" disabled>
+								<svg class="icon mdl-stepper_navigation__step-checkmark" focusable="false">
+									<use xlink:href="#check"></use>
+								</svg>
+								<svg class="icon mdl-stepper_navigation__step-dots" focusable="false">
+									<use xlink:href="#overflow"></use>
+								</svg>
+								<span class="mdl-stepper_navigation__step-ordinal" data-stepper_navigation="number"></span>
+								<span class="mdl-stepper_navigation__step-title">Schritt 1</span>
+							</button>
+						</li>
+						<li>
+							<button class="mdl-stepper_navigation__step" data-stepper_navigation="step" data-step="1" disabled>
+								<svg class="icon mdl-stepper_navigation__step-checkmark" focusable="false">
+									<use xlink:href="#check"></use>
+								</svg>
+								<svg class="icon mdl-stepper_navigation__step-dots" focusable="false">
+									<use xlink:href="#overflow"></use>
+								</svg>
+								<span class="mdl-stepper_navigation__step-ordinal" data-stepper_navigation="number"></span>
+								<span class="mdl-stepper_navigation__step-title">Schritt 2</span>
+							</button>
+						</li>
+						<li>
+							<button class="mdl-stepper_navigation__step" data-stepper_navigation="step" data-step="2" disabled>
+								<svg class="icon mdl-stepper_navigation__step-checkmark" focusable="false">
+									<use xlink:href="#check"></use>
+								</svg>
+								<svg class="icon mdl-stepper_navigation__step-dots" focusable="false">
+									<use xlink:href="#overflow"></use>
+								</svg>
+								<span class="mdl-stepper_navigation__step-ordinal" data-stepper_navigation="number"></span>
+								<span class="mdl-stepper_navigation__step-title">Bestätigung</span>
+							</button>
+						</li>
+					</ol>
+					<form class="form" data-stepper="form" novalidate action="/mocks/modules/form/form.json">
+						<div class="mdl-stepper__wrapper form" data-stepper="wrapper">
+							<div class="mdl-stepper__step" data-stepper="step" data-step-index="0">
+								<div data-stepper="ruleNotificationWrapper"></div>
+								<fieldset class="form__section">
+									<legend class="atm-heading h3 form__section-title">Persönliche Angaben</legend>
+									<div class="form__group ">
+										<div class="form__row">
+											<div class="form__cell ">
+												<div class="atm-form_input atm-form_input--floated
+                " data-input>
 
 
-					<!-- Standard Topiclist -->
-					<div class="
-          mdl-content_nav
-          
-            
-            
-          " data-init="contentNav" aria-live="polite" data-topiclist="contentNav">
-						<ul class="mdl-content_nav__list">
-							<li class="mdl-content_nav__item">
-								<a class="atm-content_teaser " href=#>
-									<span class="atm-content_teaser__content" data-lineclamp="true">
-										<span class="atm-content_teaser__title">
-											Führerausweis
-										</span>
+													<input class="atm-form_input__input" id="dummy_2" placeholder="Feld 2" name="dummy_2" value="" type="text" data-floating>
 
-									</span>
-								</a>
-							</li>
-							<li class="mdl-content_nav__item">
-								<a class="atm-content_teaser " href=#>
-									<span class="atm-content_teaser__content" data-lineclamp="true">
-										<span class="atm-content_teaser__title">
-											Fahrzeug
-										</span>
-
-									</span>
-								</a>
-							</li>
-							<li class="mdl-content_nav__item">
-								<a class="atm-content_teaser " href=#>
-									<span class="atm-content_teaser__content" data-lineclamp="true">
-										<span class="atm-content_teaser__title">
-											Autonummern
-										</span>
-
-									</span>
-								</a>
-							</li>
-							<li class="mdl-content_nav__item">
-								<a class="atm-content_teaser " href=#>
-									<span class="atm-content_teaser__content" data-lineclamp="true">
-										<span class="atm-content_teaser__title">
-											Führerausweis
-										</span>
-
-									</span>
-								</a>
-							</li>
-							<li class="mdl-content_nav__item">
-								<a class="atm-content_teaser " href=#>
-									<span class="atm-content_teaser__content" data-lineclamp="true">
-										<span class="atm-content_teaser__title">
-											Velo
-										</span>
-
-									</span>
-								</a>
-							</li>
-							<li class="mdl-content_nav__item">
-								<a class="atm-content_teaser " href=#>
-									<span class="atm-content_teaser__content" data-lineclamp="true">
-										<span class="atm-content_teaser__title">
-											Ausweis oder Schild verloren
-										</span>
-
-									</span>
-								</a>
-							</li>
-							<li class="mdl-content_nav__item">
-								<a class="atm-content_teaser " href=#>
-									<span class="atm-content_teaser__content" data-lineclamp="true">
-										<span class="atm-content_teaser__title">
-											Ausweisentzug &amp; Verwarnung
-										</span>
-
-									</span>
-								</a>
-							</li>
-							<li class="mdl-content_nav__item">
-								<a class="atm-content_teaser " href=#>
-									<span class="atm-content_teaser__content" data-lineclamp="true">
-										<span class="atm-content_teaser__title">
-											Schiffahrt
-										</span>
-
-									</span>
-								</a>
-							</li>
-							<li class="mdl-content_nav__item">
-								<a class="atm-content_teaser " href=#>
-									<span class="atm-content_teaser__content" data-lineclamp="true">
-										<span class="atm-content_teaser__title">
-											Spezielle Bewilligungen
-										</span>
-
-									</span>
-								</a>
-							</li>
-							<li class="mdl-content_nav__item">
-								<a class="atm-content_teaser " href=#>
-									<span class="atm-content_teaser__content" data-lineclamp="true">
-										<span class="atm-content_teaser__title">
-											Velo
-										</span>
-
-									</span>
-								</a>
-							</li>
-							<li class="mdl-content_nav__item">
-								<a class="atm-content_teaser " href=#>
-									<span class="atm-content_teaser__content" data-lineclamp="true">
-										<span class="atm-content_teaser__title">
-											Velo
-										</span>
-
-									</span>
-								</a>
-							</li>
-							<li class="mdl-content_nav__item">
-								<a class="atm-content_teaser " href=#>
-									<span class="atm-content_teaser__content" data-lineclamp="true">
-										<span class="atm-content_teaser__title">
-											Ausweis oder Schild verloren
-										</span>
-
-									</span>
-								</a>
-							</li>
-							<li class="mdl-content_nav__item">
-								<a class="atm-content_teaser " href=#>
-									<span class="atm-content_teaser__content" data-lineclamp="true">
-										<span class="atm-content_teaser__title">
-											Fahren im Alter1
-										</span>
-
-									</span>
-								</a>
-							</li>
-						</ul>
-
-					</div>
-
-					<!-- "Autosuggest" Topiclist" -->
-
-					<div class="mdl-topiclist__fullwidth-wrapper">
-						<button class="atm-button mdl-topiclist__show-all" data-topiclist="showAllTrigger">
-							Alle anzeigen
-							<svg class="icon atm-button__icon">
-								<use xlink:href="#layer1"></use>
-							</svg>
-						</button>
-					</div>
+													<label for="dummy_2">Feld 2</label>
 
 
 
-					<!-- Template scripts -->
-				</div>
-				<h1 id="eventsTODO" style="height: 200px;">(--VERANSTALTUNGEN KOMPONENTE PLACEHOLDER--)</h1>
-				<div id="contact" class="mdl-contact mdl-contact--fullwidth">
-					<div class="lyt-wrapper">
-						<div class="grid-x grid-margin-x">
-							<div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10">
-
-								<h2 class="atm-heading atm-heading--bordered">Kontakt</h2>
 
 
-								<div class="mdl-contact__section grid-x grid-margin-x">
 
-									<div class="mdl-contact__section-cell cell small-6 xlarge-4">
-										<div class="mdl-contact__cell-icon">
-											<h3 class="visuallyhidden"></h3>
-											<svg class="icon mdl-contact__icon-location" aria-hidden="true" focusable="false">
-												<use xlink:href="#location"></use>
-											</svg>
-										</div>
-										<div class="mdl-contact__cell-content">
-											<address class="mdl-contact__address">
-												biz Kloten<br>
-												Hamelirainstrasse 4<br>
-												8302 Kloten<br>
-												<a target="_blank" href="#" class="mdl-contact__show-route">Route anzeigen
-												</a>
-											</address>
 
-											<div class="mdl-contact__text">
 
-												<h4 class="atm-heading">Bürozeiten</h4>
-												<ul>
-													<li>Mo-Fr: 8.00 - 11:30 &amp;</li>
-													<li>13:30 - 17:00</li>
-												</ul>
-												<h4 class="atm-heading">Öffnungszeiten Infothek</h4>
-												<ul>
-													<li>Mo./Di./Mi./Fr.: 13.30 - 17:30 &amp;</li>
-													<li>Do.: 13:30 - 19:00</li>
-												</ul>
+												</div>
+
 											</div>
-
 										</div>
+
 									</div>
+								</fieldset>
+							</div>
+							<div class="mdl-stepper__step" data-stepper="step" data-step-index="1">
+								<div data-stepper="ruleNotificationWrapper"></div>
+								<fieldset class="form__section">
+									<legend class="atm-heading h3 form__section-title">Persönliche Angaben</legend>
+									<div class="form__group ">
+										<div class="form__row">
+											<div class="form__cell form__cell--small">
+												<div class="mdl-select" data-init="select" data-input>
+													<div class="atm-form_input atm-form_input--floated atm-form_input--trigger
+                  ">
+														<button aria-expanded="false" id="float_button-20" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+															<span class="atm-form_input__trigger-label">Select Float Label</span>
+															<span class="atm-form_input__trigger-value"></span>
+															<svg class="icon" focusable="false">
+																<use xlink:href="#angle_drop_down"></use>
+															</svg>
+														</button>
+														<span class="atm-form_input__validate-icon">
+															<span>
+																<span class="visuallyhidden"></span>
+																<svg class="icon" focusable="false">
+																	<use xlink:href="#confirm"></use>
+																</svg>
+															</span>
+															<span>
+																<span class="visuallyhidden"></span>
+																<svg class="icon" focusable="false">
+																	<use xlink:href="#caution"></use>
+																</svg>
+															</span>
+														</span>
 
-									<div class="mdl-contact__section-cell cell small-6 xlarge-4">
-										<div class="mdl-contact__cell-icon">
-											<h3 class="visuallyhidden"></h3>
-											<svg class="icon mdl-contact__icon-phone" aria-hidden="true" focusable="false">
-												<use xlink:href="#phone-call"></use>
-											</svg>
-										</div>
-										<div class="mdl-contact__cell-content">
-											<a class="mdl-contact__phone" href="tel:+41432598200">043 259 82 00</a>
 
-											<div class="mdl-contact__text">
-												<p>
-													Telefon
-												</p>
+
+
+
+
+														<p data-message="required">Dies ist ein Pflichtfeld</p>
+													</div>
+													<div class="mdl-select__options">
+
+														<ul class="atm-list" tabindex="-1" data-inputtype="radio" tabindex="-1">
+															<li id="option-item24" class="atm-list__item">
+																<input name="nationality-sf2" id="radio-option-item24" type="radio" value="" placeholder="" data-select-option data-validation required>
+
+
+																<label for="radio-option-item24"></label>
+															</li>
+															<li id="cnationalityx631" class="atm-list__item">
+																<input name="nationality-sf2" id="radio-cnationalityx631" type="radio" value="BE" placeholder="Belgien" data-select-option data-validation required>
+
+
+																<label for="radio-cnationalityx631">Belgien</label>
+															</li>
+															<li id="cnationalityx632" class="atm-list__item">
+																<input name="nationality-sf2" id="radio-cnationalityx632" type="radio" value="DE" placeholder="Deutschland" data-select-option data-validation required>
+
+
+																<label for="radio-cnationalityx632">Deutschland</label>
+															</li>
+															<li id="cnationalityx633" class="atm-list__item">
+																<input name="nationality-sf2" id="radio-cnationalityx633" type="radio" value="CH" placeholder="Schweiz" data-select-option data-validation required>
+
+
+																<label for="radio-cnationalityx633">Schweiz</label>
+															</li>
+															<li id="option-item28" class="atm-list__item">
+																<input name="nationality-sf2" id="radio-option-item28" type="radio" value="so" placeholder="Soziales" data-select-option data-validation required>
+
+
+																<label for="radio-option-item28">Soziales</label>
+															</li>
+															<li id="option-item29" class="atm-list__item">
+																<input name="nationality-sf2" id="radio-option-item29" type="radio" value="st" placeholder="Steuern" data-select-option data-validation required>
+
+
+																<label for="radio-option-item29">Steuern</label>
+															</li>
+															<li id="option-item30" class="atm-list__item">
+																<input name="nationality-sf2" id="radio-option-item30" type="radio" value="umte" placeholder="Umwelt & Tier" data-select-option data-validation required>
+
+
+																<label for="radio-option-item30">Umwelt & Tier</label>
+															</li>
+															<li id="option-item31" class="atm-list__item">
+																<input name="nationality-sf2" id="radio-option-item31" type="radio" value="ge" placeholder="Gemeinschaften" data-select-option data-validation required>
+
+
+																<label for="radio-option-item31">Gemeinschaften</label>
+															</li>
+															<li class="atm-list__item">
+																<input name="nationality-sf2" type="radio" value="scer" placeholder="Schulen & Erziehung" data-select-option data-validation required>
+
+
+																<label for="radio-">Schulen & Erziehung</label>
+															</li>
+
+														</ul>
+
+													</div>
+												</div>
+
 											</div>
-
 										</div>
+
+										<div class="form__row">
+											<div class="form__cell ">
+												<div data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;nationality-sf2&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;CH&quot;}],&quot;action&quot;:&quot;show&quot;},{&quot;conditions&quot;:[{&quot;field&quot;:&quot;nationality-sf2&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;DE&quot;}],&quot;action&quot;:&quot;show&quot;}]">
+													<fieldset class="mdl-file_upload" data-init="fileUpload" data-input>
+														<legend class="atm-heading h4">Dokumente hochladen</legend>
+														<p class="mdl-file_upload__subtitle">Hier können Sie ihren Lebenslauf hochladen</p>
+														<input class="visuallyhidden" type="file" name="fileupload_SXX" id="fileupload_SXX" data-file_upload="input" data-validation data-max-size="26214400" data-file-types="text/csv, image/gif, text/html, image/jpeg, application/pdf, image/png, image/tiff, application/rtf, image/svg+xml, text/plain, application/xml" required />
+														<div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
+															<p>Zum Hochladen Datei ziehen und hier ablegen</p>
+															<label class="mdl-file_upload__button atm-button atm-button--secondary" for="fileupload_SXX">Datei auswählen</label>
+														</div>
+														<p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an</p>
+														<p class="mdl-file_upload__error" data-message="onlyonefile">Sie können nur 1 Datei gleichzeitig hochladen.</p>
+
+														<div class="mdl-file_upload__list" data-file_upload="list">
+
+														</div>
+
+														<script type="text/x-handlebars-template" data-file_upload="item-template">
+															<div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
+                      <div class="mdl-file_upload__file-meta">
+                        <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+                        <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+                        <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+                        <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB)</p>
+                      </div>
+                      <button class="mdl-file_upload__file-delete" data-file_upload="delete">
+                        <span class="visuallyhidden">Datei wieder entfernen</span>
+                        <svg class="icon" focusable="false">
+                          <use xlink:href="#delete"></use>
+                        </svg>
+                      </button>
+                    </div>
+                  </script>
+													</fieldset>
+												</div>
+
+											</div>
+										</div>
+
 									</div>
-
-
-								</div>
-
+								</fieldset>
 							</div>
-						</div>
-					</div>
 
-				</div>
-				<h1 style="height: 200px;">(--MAP PLACEHOLDER--)</h1>
-				<h1 id="teamTODO" style="height: 200px;">(--PERSONEN-TEASER PLACEHOLDER--)</h1>
-				<div class="mdl-teaser__wrapper">
-					<div class="lyt-wrapper">
-						<a href="#" class="mdl-teaser mdl-teaser--inverted" data-init="teaser">
-							<div class="mdl-teaser__content">
-								<h2 class="mdl-teaser__title atm-heading" data-lineclamp="true">
-									Werden Sie Teil unseres Teams
-								</h2>
-								<time class="mdl-teaser__date" datetime="2018-12-14">14.12.2018</time>
-
-								<p data-teaser="teaserDescription" data-lineclamp="true" class="mdl-teaser__description">
-									Wir bieten Ihnen ein spannendes Tätigkeitsfeld und eine angenehme Arbeitsumgebung
-								</p>
-								<div>
-									<span class="atm-button atm-button--cv-inverted">
-										<span class="atm-button__text ">Mehr erfahren</span>
-									</span>
-								</div>
-							</div>
-							<div class="mdl-teaser__image">
-								<figure class="mdl-image-figure">
-									<div class="mdl-image-figure__img-wrapper">
-										<img class="mdl-image-figure__img" src="/assets/media/image/teaserimage_4_3_584_15.jpeg" srcset="/assets/media/image/teaserimage_4_3_584_15.jpeg 1024w, /assets/media/image/teaserimage_16_9_905_15.jpeg 600w, /assets/media/image/teaserimage_16_9_530_15.jpeg 320w" sizes="100vw" alt="" data-image-figure="image" />
-
-									</div>
-
-								</figure>
-							</div>
-						</a>
-					</div>
-				</div>
-				<h1>(--SOCIALMEDIA PLACEHOLDER--)</h1>
-				<h2>SPA</h2>
-				<div class="mdl-application__wrapper ">
-					<div class="lyt-wrapper">
-						<div class="grid-x grid-margin-x">
-							<div class="cell small-12 medium-12 large-12 xlarge-12">
-								<div class="mdl-application" data-init="application">
-									<style>
-										.spa_container {
-											margin: 0;
-											padding: 0;
-											height: 100%;
-											width: 100%;
-											border: 0;
-											overflow: hidden;
-											display: flex;
-										}
-
-										.spa_canvas {
-											border: 1px solid black;
-											background-color: black;
-											min-height: 1200px;
-										}
-									</style>
-									<div class="spa_container">
-										<canvas class="spa_canvas"></canvas>
-									</div>
-									<script type="text/javascript">
-										(function() {
-											const container = document.querySelector('.spa_container');
-											const spa_canvas = document.querySelector('.spa_canvas');
-											spa_canvas.width = container.clientWidth;
-											spa_canvas.height = container.clientHeight;
-
-											var c = spa_canvas.getContext('2d');
-
-
-											const color = [
-												"#6600CC",
-												"#FFCC00",
-												"#9EA9F0",
-												"#CC0000",
-											];
-
-
-											var maxRadius = 20;
-											var minRadius = 10;
-											var mouse = {
-												x: undefined,
-												y: undefined
-											};
-
-											window.addEventListener('mousemove', function(event) {
-												mouse.x = event.x;
-												mouse.y = event.y;
-											});
-
-											window.addEventListener('resize', function() {
-												spa_canvas.width = container.clientWidth;
-												spa_canvas.height = container.clientHeight;
-												spa_init();
-											});
-
-											function Circle(x, y, dx, dy, radius) {
-												this.x = x;
-												this.y = y;
-												this.dx = dx;
-												this.dy = dy;
-												this.radius = radius;
-												this.color = color[Math.floor(Math.random() * color.length)];
-
-												this.draw = function() {
-													c.beginPath();
-													c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-													c.fillStyle = this.color
-													c.fill();
-													c.stroke();
-												};
-
-												this.update = function() {
-													this.draw();
-													if (this.x + this.radius >= spa_canvas.width || this.x - this.radius <= 0) {
-														this.dx = -this.dx;
-													}
-													if (this.y + this.radius >= spa_canvas.height || this.y - this.radius <= 0) {
-														this.dy = -this.dy;
-													}
-													this.x += this.dx;
-													this.y -= this.dy;
-
-													if (mouse.x - this.x < 50 && mouse.x - this.x > -50 && mouse.y - this.y < 50 && mouse.y - this.y > -50 && this.radius < maxRadius) {
-														this.radius += 1;
-													} else if (this.radius > minRadius) {
-														this.radius -= 1;
-
-													}
-
-												}
-
-											}
-
-											var circleArray = [];
-
-											function spa_init() {
-												circleArray = [];
-												for (var i = 0; i < 200; i++) {
-													var r = Math.floor(Math.random() * 3) + 1;
-													var x = Math.random() * (innerWidth - r * 2) + r;
-													var y = Math.random() * (innerHeight - r * 2) + r;
-													var dx = (Math.random() - 0.5) * 5;
-													var dy = (Math.random() - 0.5) * 5;
-													circleArray.push(new Circle(x, y, dx, dy, r));
-												}
-											}
-
-											function spa_animate() {
-												requestAnimationFrame(spa_animate);
-												c.clearRect(0, 0, innerWidth, innerHeight);
-												for (i = 0; i < circleArray.length; i++) {
-													circleArray[i].update();
-												}
-											}
-											spa_animate();
-											spa_init();
-											document.addEventListener("DOMContentLoaded", function(event) {
-												spa_canvas.width = container.clientWidth;
-												spa_canvas.height = container.clientHeight;
-												spa_init();
-											});
-										})();
-									</script>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<h2>iFrame</h2>
-				<div class="mdl-iframe ">
-					<div class="lyt-wrapper">
-						<div class="grid-x grid-margin-x">
-							<div class="cell small-12 medium-12 large-12 xlarge-12">
-								<h3 class="atm-heading visuallyhidden">This is the homepage of the Inside Solutions GmbH</h3>
-								<div class="mdl-iframe__wrapper" style="height: 600px">
-									<iframe src="https://inside-reality.com/"></iframe>
-								</div>
-								<a class="atm-text_link atm-text_link--icon" href="https://inside-reality.com/" target="_blank">
-									Inhalt in seperater Seite anzeigen
-									<svg class="icon icon--iframe-arrow" focusable="false">
-										<use xlink:href="#arrow-right"></use>
+							<div class="mdl-stepper__step" data-stepper="step">
+								<div class="mdl-notification
+            mdl-notification--green
+            mdl-notification--big
+            ">
+									<svg class="icon" focusable="false">
+										<use xlink:href="#confirm"></use>
 									</svg>
-								</a>
+									<div class="mdl-notification__message">
+										<h3 class="mdl-notification__title">Vielen Dank</h3>
+										<p>Ihr Daten wurden an das Strassenverkehrsamt übermittelt, man wird sich mit Ihnen in Verbindung setzen.</p>
+									</div>
+								</div>
 							</div>
 						</div>
+
+						<div class="mdl-stepper__last-page-info" data-stepper="lastpage">
+
+						</div>
+					</form>
+
+
+					<div class="mdl-stepper__message" data-stepper="messageWrapper" data-singular-text="Bitte kontrollieren Sie Ihre Angabe für das Feld <%= list %>." data-plural-text="Bitte kontrollieren Sie Ihre Angaben für die folgenden Felder: <%= list %>" data-error-text="Da ist leider etwas schief gegangen! Ihre Angaben konnten leider nicht übermittelt werden. Es tut uns leid. Bitte probieren Sie es erneut oder melden Sie sich bei: Tel.: [XX]">
+						<script data-stepper="notificationTemplate" type="text/x-handlebars-template">
+							<div class="mdl-notification
+      <% if (typeof(isGreen) !== "undefined" && isGreen !== false) { %>mdl-notification--green<% } %>
+      <% if (typeof(isBig) !== "undefined" && isBig !== false) { %>mdl-notification--big<% } %>
+      <% if (typeof(isDialog) !== "undefined" && isDialog !== false) { %>mdl-notification--dialog<% } %>" <% if (typeof(focussable) !== "undefined" && focussable !== false) { %>tabindex="0"<% } %>>
+      <svg class="icon" focusable="false">
+        <use xlink:href="<%=icon%>"></use>
+      </svg>
+      <div class="mdl-notification__message">
+        <% if (typeof(title) !== "undefined" && title !== false) { %><h3 class="mdl-notification__title"><%=title%></h3><% } %>
+        <p><%=message%></p>
+      </div>
+      <% if (typeof(button) !== "undefined" && button !== false) { %>
+        <button
+          class="atm-button<% if (typeof(button.icon) !== "undefined" && button.icon !== false) { %> atm-button--icon-only atm-button--small<% } %>"
+          <% if (typeof(button.additionalAttribute) !== "undefined" && button.additionalAttribute !== false) { %><%=button.additionalAttribute%><% } %>
+        >
+          <% if (typeof(button.icon) !== "undefined" && button.icon !== false) { %>
+            <svg class="icon atm-button__icon" focusable="false">
+              <use xlink:href="#<%=button.icon%>"></use>
+            </svg>
+            <span class="visuallyhidden"><%= button.label %></span>
+          <%=else%>
+            <%= button.label %>
+          <% } %>
+        </button>
+      <% } %>
+    </div>
+    
+        </script>
+
+					</div>
+
+					<script type="text/x-handlebars-template" data-stepper="ruleNotification">
+						<div class="mdl-notification
+          
+          
+          mdl-notification--dialog" >
+          <svg class="icon" focusable="false">
+            <use xlink:href="#caution"></use>
+          </svg>
+          <div class="mdl-notification__message">
+            <h3 class="mdl-notification__title">Wichtig</h3>
+            <p>Die von Ihnen gemachte Änderung hat gegebenfalls Einfluss auf die danach folgenden Felder. Bitte überprüfen Sie Ihre Angaben erneut.</p>
+          </div>
+        </div>
+      </script>
+
+					<div class="mdl-stepper__control" data-stepper="control">
+						<button class="atm-button atm-button--secondary mdl-stepper__back" data-stepper="back">Zurück</button>
+						<button class="atm-button mdl-stepper__next" data-stepper="next">Weiter</button>
+						<button class="atm-button mdl-stepper__send" data-stepper="send">
+							<span class="atm-button__text ">
+								Senden
+							</span>
+							<span class="atm-button__spinner"></span>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -1136,7 +962,7 @@
 
 									<ul class="mdl-footer__submenu">
 										<li class="mdl-footer__copyright">
-											<p>©2020 Kanton Zürich</p>
+											<p>© Kanton Zürich</p>
 										</li>
 										<li>
 											<a href="#">Datenschutz</a>
@@ -1151,41 +977,8 @@
 
 									<div class="mdl-footer__social-media">
 										<div class="mdl-social-media-links" data-init="socialMediaLinks">
-											<h3 class="atm-heading">Folgen Sie dem Kanton auf</h3>
 
 											<ul>
-												<li class="mdl-social-media-links__item">
-													<a href="#" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
-														<span class="atm-button__text visuallyhidden">
-															Facebook
-														</span>
-														<img src="../../assets/media/image/facebook.svg" alt="">
-													</a>
-												</li>
-												<li class="mdl-social-media-links__item">
-													<a href="#" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
-														<span class="atm-button__text visuallyhidden">
-															Twitter
-														</span>
-														<img src="../../assets/media/image/twitter.svg" alt="">
-													</a>
-												</li>
-												<li class="mdl-social-media-links__item">
-													<a href="#" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
-														<span class="atm-button__text visuallyhidden">
-															LinkedIn
-														</span>
-														<img src="../../assets/media/image/linkedIn.svg" alt="">
-													</a>
-												</li>
-												<li class="mdl-social-media-links__item">
-													<a href="#" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
-														<span class="atm-button__text visuallyhidden">
-															YouTube
-														</span>
-														<img src="../../assets/media/image/youtube.svg" alt="">
-													</a>
-												</li>
 											</ul>
 										</div>
 
@@ -1200,11 +993,8 @@
 					<div class="mdl-back2top__icon">
 						<button class="atm-button atm-button--icon-only">
 							<span class="atm-button__text visuallyhidden">
-								Button
+
 							</span>
-							<svg class="icon atm-button__icon" focusable="false">
-								<use xlink:href="#arrow-up"></use>
-							</svg>
 							<span class="atm-button__spinner"></span>
 						</button>
 					</div>
