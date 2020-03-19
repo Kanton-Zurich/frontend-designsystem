@@ -17,7 +17,8 @@
     }
 
     .mdl-news-teaser__item {
-      min-width: 48% !important; // stylelint-disable-line
+      min-width: 32% !important; // stylelint-disable-line
+      max-width: 32% !important; // stylelint-disable-line
     }
   }
 }

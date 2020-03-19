@@ -5,6 +5,8 @@
 @import 'globals/mediaqueries';
 @import 'globals/icons';
 //*autoinsertatom*
+@import '../../atoms/lead/lead.print';
+@import '../../atoms/paragraph/paragraph.print';
 @import '../../modules/accordion/accordion.print';
 @import '../../modules/anchornav/anchornav.print';
 @import '../../modules/banner/banner.print';
