@@ -179,6 +179,23 @@ const variants = _.mapValues({
       },
     },
   },
+  withEmptyStepAndlogic: {
+    meta: {
+      title: 'Mit Formularlogik &  leerem Abschnit',
+      desc: 'Es gibt eine Formularlogik',
+    },
+    props: {
+      steps: [
+        formVariants.dummyStep2.props,
+        formVariants.withRulesAlt.props,
+      ],
+      navigation: {
+        steps: ['Schritt 1', 'Schritt 2'],
+      },
+      toggle: null,
+      replyTo: null,
+    },
+  },
   logicForNotification: {
     meta: {
       title: 'Mit Formularlogik und Notification (CZHDEV-1427)',

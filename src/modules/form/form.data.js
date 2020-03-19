@@ -28,6 +28,10 @@ const fileUploadData = require('../file_upload/file_upload.data');
 const datepickerHBS = dataHelper.getFileContent('../datepicker/datepicker.hbs');
 const datepickerData = require('../datepicker/datepicker.data');
 
+const toggle = require('../../atoms/toggle/toggle.data').variants.default.props;
+
+const formInput = require('../../atoms/form_input/form_input.data').variants.default.props;
+
 const listDemoData = require('../../atoms/list/list.data');
 
 const duplicateGroup = {
@@ -938,6 +942,87 @@ const variants = _.mapValues({
                             },
                           ],
                           action: 'hide',
+                        },
+                      ]),
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  withRulesAlt: {
+    meta: {
+      title: 'Formular mit Logik 2 (CZHDEV-1180)',
+      desc: 'Formular in dem Felder in gewissen Abhängigkeiten zu einander stehen',
+    },
+    props: {
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  isSmall: true,
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.variants.default.props,
+                    {
+                      listData: {
+                        groupId: 'nationality-sf2',
+                        isSingleSelect: true,
+                        selectOptions: [
+                          { value: '', label: '' },
+                          { value: 'BE', label: 'Belgien', id: _.uniqueId('cnationalityx') },
+                          { value: 'DE', label: 'Deutschland', id: _.uniqueId('cnationalityx') },
+                          { value: 'CH', label: 'Schweiz', id: _.uniqueId('cnationalityx') },
+                        ],
+                        iconRight: 'arrow-right',
+                        iconLeft: 'check',
+                        validation: {
+                          isRequired: true,
+                        },
+                      },
+                    })),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(fileUploadHBS)(_.merge({},
+                    fileUploadData.variants.default.props,
+                    {
+                      input: {
+                        name: 'fileupload_SXX',
+                        id: 'fileupload_SXX',
+                      },
+                      validation: {
+                        maxSize: 26214400,
+                        fileTypes: 'text/csv, image/gif, text/html, image/jpeg, application/pdf, image/png, image/tiff, application/rtf, image/svg+xml, text/plain, application/xml',
+                        isRequired: true,
+                      },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-sf2',
+                              equals: true,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-sf2',
+                              equals: true,
+                              value: 'DE',
+                            },
+                          ],
+                          action: 'show',
                         },
                       ]),
                     })),
