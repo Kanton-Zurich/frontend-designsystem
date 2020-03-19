@@ -177,6 +177,7 @@ $accordionMap: (
 
   &__panel-content {
     display: inline-block;
+    width: 100%;
 
     > :last-child {
       @include sizeCurve(margin-bottom, medium);
