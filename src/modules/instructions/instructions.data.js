@@ -8,7 +8,7 @@ const videoDemoData = require('../video/video.data');
 const imageFigureDemoData = require('../image_figure/image_figure.data');
 const carouselDemoData = require('../carousel/carousel.data');
 const texthighlightDemoData = require('../texthighlight/texthighlight.data');
-const defTabsData = require('../tabs/tabs.data').props;
+const defTabsData = require('../tabs/tabs.data').variants.default.props;
 
 const carouselHBS = dataHelper.getFileContent('../carousel/carousel.hbs');
 const imageFigureHBS = dataHelper.getFileContent('../image_figure/image_figure.hbs');

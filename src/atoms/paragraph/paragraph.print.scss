@@ -1,0 +1,5 @@
+.atm-paragraph {
+  @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+  @include sizeCurve('margin-bottom', small);
+}
+

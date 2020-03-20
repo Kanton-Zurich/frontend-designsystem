@@ -1,4 +1,12 @@
 .mdl-table {
+  &__table {
+    font-size: $sizeFontTiny;
+  }
+
+  &__cell.mdl-table__column-header {
+    font-size: $sizeFontMini;
+  }
+
   &__table--cloned {
     display: none;
   }

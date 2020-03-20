@@ -1,0 +1,11 @@
+.mdl-modal {
+  padding-top: 0 !important; // stylelint-disable-line
+  position: absolute;
+  height: auto;
+
+  .mdl-page-header {
+    transform: translateX(-5%); // stylelint-disable-line
+    margin: 0;
+    position: relative;
+  }
+}

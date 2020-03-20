@@ -19,4 +19,10 @@
   &__plus use {
     fill: $colorBlack100;
   }
+
+  &--cv-inverted {
+    transform: none !important; // stylelint-disable-line
+    margin: 0 !important; // stylelint-disable-line
+    padding: 0 !important; // stylelint-disable-line
+  }
 }
