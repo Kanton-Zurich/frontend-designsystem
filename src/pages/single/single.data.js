@@ -16,6 +16,8 @@ const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_i
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
 
+const defStepperForm = require('../../modules/stepper/stepper.data').variants.withEmptyStepAndlogic.props;
+
 const defPageHeaderCustomData = {
   pageTitle: 'biz Kloten',
   leadText: 'Gerne unterstützen wir Sie bei der Berufs- und Studienwahl sowie bei der Gestaltung Ihrer beruflichen Laufbahn',
@@ -154,11 +156,6 @@ const defContactCustomData = {
   ],
 };
 
-const defTeaserCustomData = {
-  teaserTitle: 'Werden Sie Teil unseres Teams',
-  teaserDescription: 'Wir bieten Ihnen ein spannendes Tätigkeitsfeld und eine angenehme Arbeitsumgebung',
-};
-
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Einzelseite',
@@ -173,14 +170,7 @@ const data = _.merge({}, defaultData, {
     text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData, defPageHeaderCustomData),
-      anchorNav: defAnchorNavData,
-      footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
-      topicListData: _.merge({}, _.omit(defTopicListData, ['contentNavData']), defTopicListCustomData, { topiclistHeading: { anchorNavReference: 'ourtopics' } }),
-      contactData: defContactCustomData,
-      teaserData: _.merge({}, defTeaserData, defTeaserCustomData),
-      SPAData: defSPAData,
-      iframeData: defiframeData,
+      stepperForm: defStepperForm,
     },
   },
 });
