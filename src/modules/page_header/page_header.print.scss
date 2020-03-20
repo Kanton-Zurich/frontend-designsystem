@@ -17,6 +17,10 @@
     @include polyFluidSizing('margin-left', map-get($sizeCurves, big));
   }
 
+  &__closebutton {
+    display: none;
+  }
+
   .mdl-service_button,
   .mdl-tag-group {
     display: none;

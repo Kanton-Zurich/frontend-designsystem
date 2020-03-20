@@ -266,7 +266,7 @@ class TaxCalc extends Module {
     if (forceFloat) {
       str = numVal.toFixed(2); // eslint-disable-line no-magic-numbers
     }
-    return str.replace(/\B(?=(\d{3})+(?!\d))/g, '’');
+    return str.replace(/\B(?=(\d{3})+(?!\d))/g, '\'');
   }
 
   private watchFormSection(sectionBlock: HTMLElement) {

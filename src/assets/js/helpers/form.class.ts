@@ -436,6 +436,10 @@ class Form {
       const index = oldValue.length;
       if (index < maskParts.length) {
         if (newValue[index].match(maskParts[index].regex)) {
+          if (maskParts.length - newValue.length === 1
+            && maskParts[index].autoFillValue) {
+            return `${newValue}${maskParts[index].autoFillValue}`;
+          }
           return newValue;
         } else if (maskParts[index] && maskParts[index].autoFill && newValue[index].match(maskParts[index].autoFill)) { // eslint-disable-line
           return `${oldValue}${maskParts[index].autoFillValue}${newValue[index]}`;

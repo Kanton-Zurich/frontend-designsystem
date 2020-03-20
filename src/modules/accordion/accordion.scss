@@ -176,11 +176,8 @@ $accordionMap: (
   }
 
   &__panel-content {
-    p {
-      @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
-
-      color: $colorBlack60;
-    }
+    display: inline-block;
+    width: 100%;
 
     > :last-child {
       @include sizeCurve(margin-bottom, medium);

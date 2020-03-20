@@ -44,7 +44,7 @@ const variants = _.mapValues({
     props: {
       name: 'Max Mustermann',
       role: 'Berufs-, Studien- und Laufbahnberater',
-      contactInfo: '<a href="mailto:max.mustermann@ajb.zh.ch" class="atm-text_link">max.mustermann@ajb.zh.ch</a><br>043 258 48 92 (Mo–Do)<br>Sekundarschulen: Grafstal in Lindau | 9 Plus in Rüti | Schweissrüti in Wila, Berufswahlschule Uster', // eslint-disable-line
+      contactInfo: '<a href="mailto:max.mustermann@ajb.zh.ch" class="atm-text_link">max.mustermann@ajb.zh.ch</a><br><a href="tel:0432584892" class="atm-text_link">043 258 48 92 (Mo–Do)</a><br>Sekundarschulen: Grafstal in Lindau | 9 Plus in Rüti | Schweissrüti in Wila, Berufswahlschule Uster', // eslint-disable-line
       buttonText: 'Mehr erfahren',
       hasImage: true,
       hasButton: true,
@@ -71,7 +71,7 @@ const variants = _.mapValues({
     props: {
       name: 'Yvonne Leibundgut',
       role: 'Leiterin Kommunikation',
-      contactInfo: 'yvonne.leibundgut@bi.zh.ch<br>+41 (0) 43 259 23 12<br>Walcheplatz 2, 8090 Zürich<br>Bürozeiten Montag bis Freitag: 08.00 bis 11.00 Uhr und 13.30 bis 16.00 Uhr',
+      contactInfo: 'yvonne.leibundgut@bi.zh.ch<br><a href="tel:+41432592312" class="atm-text_link">+41 (0) 43 259 23 12</a><br>Walcheplatz 2, 8090 Zürich<br>Bürozeiten Montag bis Freitag: 08.00 bis 11.00 Uhr und 13.30 bis 16.00 Uhr',
       buttonText: 'Mehr erfahren',
     },
   },
