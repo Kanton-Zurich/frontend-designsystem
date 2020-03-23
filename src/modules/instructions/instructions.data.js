@@ -130,6 +130,18 @@ const variants = _.mapValues({
           }),
         ],
       }, {
+        heading: 'Schritt 2',
+        contentModules: [
+          () => handlebars.compile(richtextHBS)({
+            embedded: true,
+            contentItems: [
+              { pText: 'Führerausweis Kopie.' },
+              { pText: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.' },
+              { pText: '<a href="#" class="atm-text_link">Diese Anforderungen muss Ihr Passfoto erfüllen</a>' },
+            ],
+          }),
+        ],
+        }, {
         heading: 'Beantragen',
         contentModules: [
           () => handlebars.compile(richtextHBS)({

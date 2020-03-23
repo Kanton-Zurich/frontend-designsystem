@@ -519,7 +519,9 @@ class FlexData extends Module {
           const wcmmode = this.getURLParam('wcmmode');
           const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}${wcmmode ? '&wcmmode=' + wcmmode : ''}`; // eslint-disable-line
           if (replaceState) {
-            history.replaceState({url: canonical, }, null, canonical); // eslint-disable-line
+            if (history.state.url && history.state.url !== canonical) { // eslint-disable-line
+              history.replaceState({url: canonical,}, null, canonical); // eslint-disable-line
+            }
           } else {
             history.pushState({url: canonical,}, null, canonical); // eslint-disable-line
           }
