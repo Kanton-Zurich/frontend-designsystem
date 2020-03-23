@@ -1229,6 +1229,28 @@ const variants = _.mapValues({
                       validation: {
                         isRequired: true,
                       },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'singleSelect',
+                              equals: true,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                        {
+                          conditions: [
+                            {
+                              field: 'singleSelect',
+                              equals: true,
+                              value: 'DE',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                      ]),
                     })),
                 },
               ],
