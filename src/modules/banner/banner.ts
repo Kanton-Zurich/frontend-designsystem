@@ -100,6 +100,15 @@ class Banner extends Module {
   }
 
   initBanner() {
+    if (this.supportsLocalStorage() && localStorage.getItem('closedBanners')) {
+      const uid = this.ui.element.querySelector('[data-uid]').getAttribute('data-uid');
+      this.data.closedItems = JSON.parse(localStorage.getItem('closedBanners'));
+      if (this.data.closedItems.indexOf(uid) >= 0) {
+        this.destroy();
+        this.ui.element.remove();
+        return;
+      }
+    }
     const lytWrapper = this.ui.element.querySelector('.lyt-wrapper');
     if (lytWrapper) {
       this.ui.element.style.maxHeight = `${lytWrapper.offsetHeight}px`;

@@ -24,6 +24,10 @@
       left: 0;
       right: 0;
 
+      &--single-location {
+        left: -100%;
+      }
+
       &:not(.show-details) {
         .mdl-linklist {
           margin-top: $sizeRegular;
@@ -42,7 +46,15 @@
 
       .mdl-locations__details_head,
       .mdl-locations__filter_head {
-        display: none;
+        padding: 0;
+
+        .mdl-locations__subtitle {
+          margin: 0;
+        }
+
+        .atm-form_input {
+          display: none;
+        }
       }
     }
   }

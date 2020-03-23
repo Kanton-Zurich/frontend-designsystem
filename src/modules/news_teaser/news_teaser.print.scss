@@ -53,14 +53,18 @@
       xlarge: $sizeFontSmall * $sizeLineHeightMedium * $maxTextLines,
     );
 
+    a {
+      padding: $sizeSmallRegular;
+    }
+
     // Overwrite item heading atom
     .atm-heading {
-      @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+      font-size: $sizeFontSmall;
       max-height: none;
     }
 
     .atm-paragraph {
-      @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+      font-size: $sizeFontTiny;
 
       // LineClamper Config
       $paragraphHeightCurve: (

@@ -14,7 +14,7 @@ $contactMapHeightCurve: (
     tiny: $contactMapHeightSmall - $sizeHuge + $sizeSmallRegular,
     small: $contactMapHeightMedium - $sizeHuge + $sizeBig,
     medium: $contactMapHeightMedium - $sizeHuge + $sizeBig,
-    large: $contactMapHeightMedium - $sizeHuge + $sizeBig,
+    large: $contactMapHeightLarge - $sizeHuge + $sizeBig,
     xlarge: $contactMapHeightLarge,
   ),
   leadBottomSpace: (
