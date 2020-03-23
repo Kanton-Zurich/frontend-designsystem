@@ -122,30 +122,7 @@ const variants = _.mapValues({
     props: {
       steps: [
         formVariants.checkboxesNationality.props,
-        _.merge({}, formVariants.placeOfCitizenshipPage.props, {
-          rules: JSON.stringify([
-            {
-              conditions: [
-                {
-                  field: 'singleSelect',
-                  equals: true,
-                  value: 'CH',
-                },
-              ],
-              action: 'enable',
-            },
-            {
-              conditions: [
-                {
-                  field: 'singleSelect',
-                  equals: true,
-                  value: 'DE',
-                },
-              ],
-              action: 'enable',
-            },
-          ]),
-        }),
+        _.merge({}, formVariants.placeOfCitizenshipPage.props),
         _.merge({}, formVariants.placeOfCitizenshipPage.props, {
           rules: JSON.stringify([
             {
