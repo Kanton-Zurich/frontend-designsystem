@@ -101,11 +101,16 @@ class Banner extends Module {
 
   initBanner() {
     if (this.supportsLocalStorage() && localStorage.getItem('closedBanners')) {
-      const uid = this.ui.element.querySelector('[data-uid]').getAttribute('data-uid');
-      this.data.closedItems = JSON.parse(localStorage.getItem('closedBanners'));
-      if (this.data.closedItems.indexOf(uid) >= 0) {
-        this.destroy();
-        this.ui.element.remove();
+      const uidElement = this.ui.element.querySelector('[data-uid]').getAttribute('data-uid');
+      if (uidElement) {
+        const uid = uidElement.getAttribute('data-uid');
+        this.data.closedItems = JSON.parse(localStorage.getItem('closedBanners'));
+        if (this.data.closedItems.indexOf(uid) >= 0) {
+          this.destroy();
+          this.ui.element.remove();
+          return;
+        }
+      } else {
         return;
       }
     }

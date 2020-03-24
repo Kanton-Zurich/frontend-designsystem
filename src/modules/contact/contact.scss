@@ -88,14 +88,27 @@ $contactMapHeightCurve: (
     padding-right: pxToRem(27px); //stylelint-disable-line
     text-decoration: none;
 
+    @include mq($from: tiny, $to: large) {
+      display: block;
+    }
+
     svg {
       position: absolute;
       top: 42%;
-      right: 0;
       transform: translateY(-42%);
 
       use {
         fill: $colorWhite;
+      }
+    }
+
+    &:hover {
+      color: $colorWhite70;
+
+      svg {
+        use {
+          fill: $colorWhite70;
+        }
       }
     }
   }
@@ -347,6 +360,16 @@ $contactMapHeightCurve: (
               fill: $colorBlack60;
             }
           }
+
+          &:hover {
+            color: $colorBlack;
+
+            svg {
+              use {
+                fill: $colorBlack;
+              }
+            }
+          }
         }
       }
 
@@ -507,11 +530,7 @@ $contactMapHeightCurve: (
     }
 
     &__lead {
-      margin-top: - pxToRem($sizeLarge);
-
-      a {
-        margin-top: pxToRem($sizeTiny);
-      }
+      margin-top: - pxToRem($sizeTiny);
     }
 
     &__show-route {
