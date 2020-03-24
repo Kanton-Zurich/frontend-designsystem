@@ -69,7 +69,7 @@ const data = _.merge({}, defaultData, {
     contentNav: {
       items: [],
       selector: 'data-search="autosuggest"',
-      additionalClasses: 'mdl-search__autosuggest mdl-content_nav--single-column',
+      additionalClasses: 'mdl-search__autosuggest mdl-content_nav--single-column initially-hidden',
     },
   },
 });

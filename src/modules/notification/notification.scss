@@ -24,13 +24,22 @@
 
   &__message {
     flex-grow: 1;
-    margin-left: pxToRem($sizeRegular);
+    margin: 0 pxToRem($sizeRegular);
     color: inherit;
 
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
 
     p {
       margin: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: $fontFamilyBlack;
     }
 
     button {
@@ -125,6 +134,27 @@
 
     button {
       min-width: auto;
+    }
+  }
+
+  @include mq($from: tiny, $to: medium) {
+    display: block;
+
+    .atm-button--icon-only {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: pxToRem($sizeTiny);
+    }
+
+    .mdl-notification__message {
+      margin: 0;
+    }
+
+    &.mdl-notification--dialog {
+      .mdl-notification__message {
+        margin: pxToRem($sizeTiny) 0;
+      }
     }
   }
 }
