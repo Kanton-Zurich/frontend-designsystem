@@ -101,7 +101,7 @@ class Banner extends Module {
 
   initBanner() {
     if (this.supportsLocalStorage() && localStorage.getItem('closedBanners')) {
-      const uidElement = this.ui.element.querySelector('[data-uid]').getAttribute('data-uid');
+      const uidElement = this.ui.element.querySelector('[data-uid]');
       if (uidElement) {
         const uid = uidElement.getAttribute('data-uid');
         this.data.closedItems = JSON.parse(localStorage.getItem('closedBanners'));
