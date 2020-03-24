@@ -205,6 +205,8 @@ class Modal extends Module {
       this.setPage(event.detail.page);
     }
 
+    this.ui.element.removeAttribute('aria-hidden');
+
     // Set show class
     this.ui.element.classList.add(this.options.stateClasses.beforeShow);
     setTimeout(() => { this.ui.element.classList.add(this.options.stateClasses.show); }, 1);
