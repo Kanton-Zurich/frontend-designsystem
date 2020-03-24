@@ -3,7 +3,7 @@
 </button>
 <!--  -->
 <!-- modal page content -->
-<div id="service-modal-03" class="mdl-modal   " aria-hidden="true" data-init="modal">
+<div id="service-modal-03" class="mdl-modal   " aria-hidden="true" data-init="modal" role="dialog">
 	<div class="lyt-wrapper">
 		<div class="grid-x grid-margin-x">
 			<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
@@ -42,22 +42,22 @@
 	<div class="mdl-application__wrapper mdl-application__wrapper--fullWidth">
 		<div class="mdl-application" data-init="application">
 			<style>
-				.spa_container{
-                margin: 0;
-                padding: 0;
-                height: 100%;
-                width: 100%;
-                border: 0;
-                overflow: hidden;
-                display: flex;
-              }
-            
-              .spa_canvas{
-                border: 1px solid black;
-                background-color: black;
-                min-height: 1200px;
-              }
-            </style>
+				.spa_container {
+					margin: 0;
+					padding: 0;
+					height: 100%;
+					width: 100%;
+					border: 0;
+					overflow: hidden;
+					display: flex;
+				}
+
+				.spa_canvas {
+					border: 1px solid black;
+					background-color: black;
+					min-height: 1200px;
+				}
+			</style>
 			<div class="spa_container">
 				<canvas class="spa_canvas"></canvas>
 			</div>

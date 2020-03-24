@@ -31,6 +31,12 @@
 
   @include sizeCurve(margin-bottom, big);
 
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
   h2.atm-heading--bordered {
     @include sizeCurve(margin-bottom, headingBottomMargin, $serviceListCurves);
   }

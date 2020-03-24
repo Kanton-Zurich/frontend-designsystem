@@ -120,7 +120,7 @@
 				</div>
 
 				<!-- modal page content -->
-				<div id="flyout-topics" class="mdl-modal  mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal">
+				<div id="flyout-topics" class="mdl-modal  mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog">
 					<button class="mdl-modal__close" data-modal="close">
 						<span class="mdl-modal__close-label">Schliessen</span>
 						<svg focusable="false" class="icon mdl-modal__exit">
@@ -393,7 +393,7 @@
 				</div>
 
 				<!-- modal page content -->
-				<div id="flyout-search" class="mdl-modal mdl-modal--search mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" data-modal-options="{&quot;transitionTime&quot;:500}">
+				<div id="flyout-search" class="mdl-modal mdl-modal--search mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog" data-modal-options="{&quot;transitionTime&quot;:500}">
 					<button class="mdl-modal__close" data-modal="close">
 						<span class="mdl-modal__close-label">Schliessen</span>
 						<svg focusable="false" class="icon mdl-modal__exit">
@@ -755,42 +755,50 @@
 				</div>
 				<div class="mdl-service_list" data-init="servicelist">
 					<h2 class="atm-heading atm-heading--bordered" id="services">Service</h2>
-					<a href="" class="mdl-service_list__item" data-url="" aria-controls="" role="button">
-						<div class="mdl-service_list__item-container">
-							<p class="atm-heading mdl-service_list__item-title" data-lineclamp="true">Lernfahrausweis beantragen</p>
-						</div>
-						<span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
-							<span class="atm-button__text">
-								Start
-							</span>
-						</span>
-					</a>
-					<div id="" class="mdl-modal mdl-modal--dynamicheader" data-init="modal">
-					</div>
-					<a href="" class="mdl-service_list__item" data-url="" aria-controls="" role="button">
-						<div class="mdl-service_list__item-container">
-							<p class="atm-heading mdl-service_list__item-title" data-lineclamp="true">Internationalen Führerschein beantragen</p>
-						</div>
-						<span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
-							<span class="atm-button__text">
-								Start
-							</span>
-						</span>
-					</a>
-					<div id="" class="mdl-modal mdl-modal--dynamicheader" data-init="modal">
-					</div>
-					<a href="" class="mdl-service_list__item" data-url="" aria-controls="" role="button">
-						<div class="mdl-service_list__item-container">
-							<p class="atm-heading mdl-service_list__item-title" data-lineclamp="true">WAB-Kursanbieter finden</p>
-						</div>
-						<span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
-							<span class="atm-button__text">
-								Start
-							</span>
-						</span>
-					</a>
-					<div id="" class="mdl-modal mdl-modal--dynamicheader" data-init="modal">
-					</div>
+					<ul>
+						<li>
+							<a href="" class="mdl-service_list__item" data-url="" aria-controls="" role="button">
+								<div class="mdl-service_list__item-container">
+									<p class="atm-heading mdl-service_list__item-title" data-lineclamp="true">Lernfahrausweis beantragen</p>
+								</div>
+								<span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
+									<span class="atm-button__text">
+										Start
+									</span>
+								</span>
+							</a>
+							<div id="" class="mdl-modal mdl-modal--dynamicheader" data-init="modal" aria-hidden="true" role="dialog">
+							</div>
+						</li>
+						<li>
+							<a href="" class="mdl-service_list__item" data-url="" aria-controls="" role="button">
+								<div class="mdl-service_list__item-container">
+									<p class="atm-heading mdl-service_list__item-title" data-lineclamp="true">Internationalen Führerschein beantragen</p>
+								</div>
+								<span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
+									<span class="atm-button__text">
+										Start
+									</span>
+								</span>
+							</a>
+							<div id="" class="mdl-modal mdl-modal--dynamicheader" data-init="modal" aria-hidden="true" role="dialog">
+							</div>
+						</li>
+						<li>
+							<a href="" class="mdl-service_list__item" data-url="" aria-controls="" role="button">
+								<div class="mdl-service_list__item-container">
+									<p class="atm-heading mdl-service_list__item-title" data-lineclamp="true">WAB-Kursanbieter finden</p>
+								</div>
+								<span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
+									<span class="atm-button__text">
+										Start
+									</span>
+								</span>
+							</a>
+							<div id="" class="mdl-modal mdl-modal--dynamicheader" data-init="modal" aria-hidden="true" role="dialog">
+							</div>
+						</li>
+					</ul>
 				</div>
 
 				<div class="mdl-accordion  " data-init="accordion">

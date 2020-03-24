@@ -205,6 +205,10 @@ class Header extends Module {
   hideFlyout() {
     this.flyoutVisible = false;
     let anchornavIsSticky = false;
+    const aEl = this.data.activeItem;
+    setTimeout(() => {
+      aEl.focus();
+    }, 350); // eslint-disable-line
 
     if (document.querySelector('.mdl-anchornav')) {
       anchornavIsSticky = document.querySelector('.mdl-anchornav').classList.contains('mdl-anchornav--sticky');
