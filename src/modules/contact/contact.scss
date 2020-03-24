@@ -501,10 +501,6 @@ $contactMapHeightCurve: (
       line-height: $sizeLineHeightNarrow;
       margin-bottom: pxToRem($sizeLarge);
 
-      br {
-        display: none;
-      }
-
       a {
         padding-left: pxToRem(18px);
       }
