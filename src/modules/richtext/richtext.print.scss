@@ -16,11 +16,26 @@
     }
   }
 
+
   ul {
     @include sizeCurve('margin-bottom', small);
 
     li {
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+    }
+
+    &.mdl-richtext__benefits {
+      li {
+        &:before {
+          content: url(svg-tickmark($colorBlack)); // stylelint-disable-line
+          background: none;
+          margin-top: -2px;
+          padding-left: 0;
+
+          @include sizeCurve('width', medium);
+          @include sizeCurve('height', medium);
+        }
+      }
     }
   }
 
@@ -33,6 +48,8 @@
 
       &:before {
         @include sizeCurve('margin-left', benefits, $indentCurve, true);
+
+        color: $colorBlack !important; // stylelint-disable-line
       }
     }
   }

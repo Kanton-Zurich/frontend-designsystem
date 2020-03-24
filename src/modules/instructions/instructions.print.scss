@@ -6,4 +6,14 @@
       }
     }
   }
+
+  ul.mdl-instructions__list {
+    .mdl-instructions__item {
+      &:before {
+        content: url(svg-checkmark($colorBlack)); // stylelint-disable-line
+        padding-right: pxToRem($sizeBig);
+        background: none;
+      }
+    }
+  }
 }
