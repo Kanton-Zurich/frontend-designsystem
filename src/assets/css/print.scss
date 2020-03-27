@@ -5,8 +5,12 @@
 @import 'globals/mediaqueries';
 @import 'globals/icons';
 //*autoinsertatom*
+@import '../../atoms/lead/lead.print';
+@import '../../atoms/linklist_item/linklist_item.print';
+@import '../../atoms/paragraph/paragraph.print';
 @import '../../modules/accordion/accordion.print';
 @import '../../modules/anchornav/anchornav.print';
+@import '../../modules/banner/banner.print';
 @import '../../modules/back2top/back2top.print';
 @import '../../modules/carousel/carousel.print';
 @import '../../modules/contact/contact.print';
@@ -33,9 +37,12 @@
 @import '../../modules/teaser/teaser.print';
 @import '../../modules/breadcrumb/breadcrumb.print';
 @import '../../modules/cug_login/cug_login.print';
+@import '../../modules/modal/modal.print';
 @import '../../modules/tabs/tabs.print';
+@import '../../modules/richtext/richtext.print';
 @import '../../modules/instructions/instructions.print';
 @import '../../modules/table/table.print';
+@import '../../modules/video/video.print';
 @import '../../modules/publication_teaser/publication_teaser.print';
 //*autoinsertmodule*
 
@@ -54,6 +61,10 @@ body {
 
     .icon use {
       fill: $colorBlack !important; //stylelint-disable-line
+    }
+
+    .atm-heading--bordered {
+      margin-top: 1rem;
     }
 
     .atm-button,

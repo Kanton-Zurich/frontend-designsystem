@@ -4,7 +4,7 @@
   }
 
   &__page-count {
-    padding-left: 0;
+    padding-left: $sizeMini;
   }
 
   &__input {
@@ -12,6 +12,9 @@
 
     .atm-form_input__input {
       border: 0;
+      text-align: right;
+      font-size: $sizeFontSmall;
+      height: 45px;
     }
   }
 }

@@ -1,3 +1,7 @@
 .mdl-topiclist {
   display: none;
+
+  > .atm-heading {
+    margin-top: 0 !important; // stylelint-disable-line
+  }
 }

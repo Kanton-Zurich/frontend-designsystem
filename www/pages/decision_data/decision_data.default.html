@@ -115,7 +115,7 @@
 				</div>
 
 				<!-- modal page content -->
-				<div id="flyout-topics" class="mdl-modal  mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal">
+				<div id="flyout-topics" class="mdl-modal  mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog">
 					<button class="mdl-modal__close" data-modal="close">
 						<span class="mdl-modal__close-label">Schliessen</span>
 						<svg focusable="false" class="icon mdl-modal__exit">
@@ -388,7 +388,7 @@
 				</div>
 
 				<!-- modal page content -->
-				<div id="flyout-search" class="mdl-modal mdl-modal--search mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" data-modal-options="{&quot;transitionTime&quot;:500}">
+				<div id="flyout-search" class="mdl-modal mdl-modal--search mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog" data-modal-options="{&quot;transitionTime&quot;:500}">
 					<button class="mdl-modal__close" data-modal="close">
 						<span class="mdl-modal__close-label">Schliessen</span>
 						<svg focusable="false" class="icon mdl-modal__exit">
@@ -457,7 +457,7 @@
       
         
         
-       mdl-search__autosuggest mdl-content_nav--single-column" data-init="contentNav" aria-live="polite" data-search="autosuggest">
+       mdl-search__autosuggest mdl-content_nav--single-column initially-hidden" data-init="contentNav" aria-live="polite" data-search="autosuggest">
 										<ul class="mdl-content_nav__list">
 										</ul>
 
@@ -1078,18 +1078,22 @@
 					</p>
 				</div>
 				<div class="mdl-service_list" data-init="servicelist">
-					<a href="../service/service.html" class="mdl-service_list__item" data-url="service_page.mock.html" aria-controls="service-modal0" role="button">
-						<div class="mdl-service_list__item-container">
-							<p class="atm-heading mdl-service_list__item-title" data-lineclamp="true">Separatdruck der Gesetzessammlung bestellen</p>
-						</div>
-						<span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
-							<span class="atm-button__text">
-								Start
-							</span>
-						</span>
-					</a>
-					<div id="service-modal0" class="mdl-modal mdl-modal--dynamicheader" data-init="modal">
-					</div>
+					<ul>
+						<li>
+							<a href="../service/service.html" class="mdl-service_list__item" data-url="service_page.mock.html" aria-controls="service-modal0" role="button">
+								<div class="mdl-service_list__item-container">
+									<p class="atm-heading mdl-service_list__item-title" data-lineclamp="true">Separatdruck der Gesetzessammlung bestellen</p>
+								</div>
+								<span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
+									<span class="atm-button__text">
+										Start
+									</span>
+								</span>
+							</a>
+							<div id="service-modal0" class="mdl-modal mdl-modal--dynamicheader" data-init="modal" aria-hidden="true" role="dialog">
+							</div>
+						</li>
+					</ul>
 				</div>
 				<div id="contact" class="mdl-contact">
 

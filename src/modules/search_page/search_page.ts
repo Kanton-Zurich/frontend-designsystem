@@ -450,6 +450,13 @@ class SearchPage extends Module {
   empty() {
     this.ui.resultsHead.innerHTML = '';
     this.ui.dateFilter.classList.remove(this.options.stateClasses.dateFilterVisible);
+    this.ui.datePicker.dispatchEvent(new CustomEvent(Datepicker.events.clear));
+    this.data = {
+      type: 'all',
+      page: 1,
+      dateTo: undefined,
+      dateFrom: undefined,
+    };
 
     this.emptyList();
   }

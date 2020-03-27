@@ -266,10 +266,7 @@ class FormRules {
         for (let c = 0; c < fields.length; c += 1) {
           const field = fields[c];
 
-          // When there is a condition which is in another step,
-          // the conditions shouldn't be all binding events
-          if ((this.data.watchesOtherStep && condition.isElementInSameStep)
-          || !this.data.stepIndex) {
+          if (condition.isElementInSameStep || !this.data.stepIndex) {
             if (field.hasAttribute('data-select-option')) {
               field.addEventListener('click', () => {
                 this.checkRules();

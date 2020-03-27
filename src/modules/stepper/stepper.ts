@@ -303,16 +303,34 @@ class Stepper extends Module {
         const firstInvalidField = this.ui.steps[this.data.active].querySelector('.invalid');
 
         firstInvalidField.focus();
+        this.scrollTo(firstInvalidField);
 
         return false;
       }
     }
-
     this.data.active = newIndex;
-
     this.ui.steps[newIndex].dispatchEvent(new CustomEvent(Stepper.events.checkRules));
+    this.scrollTop();
 
     return true;
+  }
+
+  /**
+   * Scroll to top
+   */
+  scrollTop() {
+    this.scrollTo(this.ui.element);
+  }
+
+  /**
+   * Scroll to top
+   */
+  scrollTo(element) {
+    setTimeout(() => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const rect = element.getBoundingClientRect();
+      window.scroll(0, rect.top + scrollTop);
+    }, 0);
   }
 
   async sendForm() {

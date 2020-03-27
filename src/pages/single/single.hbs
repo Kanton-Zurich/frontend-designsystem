@@ -5,18 +5,7 @@
   {{/content}}
 
   {{#content "content"}}
-    {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
-    {{> "modules/topiclist/topiclist" props.modules.topicListData}}
-    <h1 id="eventsTODO" style="height: 200px;">(--VERANSTALTUNGEN KOMPONENTE PLACEHOLDER--)</h1>
-    {{> "modules/contact/contact" props.modules.contactData}}
-    <h1 style="height: 200px;">(--MAP PLACEHOLDER--)</h1>
-    <h1 id="teamTODO" style="height: 200px;">(--PERSONEN-TEASER PLACEHOLDER--)</h1>
-    {{> "modules/teaser/teaser" props.modules.teaserData}}
-    <h1>(--SOCIALMEDIA PLACEHOLDER--)</h1>
-    <h2>SPA</h2>
-    {{> "modules/application/application" props.modules.SPAData}}
-    <h2>iFrame</h2>
-    {{> "modules/iframe/iframe" props.modules.iframeData}}
+    {{> "modules/stepper/stepper" props.modules.stepperForm }}
   {{/content}}
 
   {{#content "footer"}}

@@ -1,5 +1,6 @@
 .mdl-page-header {
   padding: 0 !important; // stylelint-disable-line
+  margin-bottom: 0 !important; // stylelint-disable-line
 
   .mdl-page-header__logo-container {
     .mdl-page-header__logo {
@@ -14,6 +15,10 @@
 
   .mdl-page-header__title {
     @include polyFluidSizing('margin-left', map-get($sizeCurves, big));
+  }
+
+  &__closebutton {
+    display: none;
   }
 
   .mdl-service_button,

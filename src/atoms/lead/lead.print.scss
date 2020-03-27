@@ -1,0 +1,12 @@
+.atm-lead {
+  $leadMargins :(
+    leadMarginBottom: (
+      tiny: 8px,
+      medium: 12px,
+      xlarge: 14px,
+    ),
+  );
+
+  @include polyFluidSizing('font-size', map-get($fontSizeCurves, xsmall));
+  @include sizeCurve('margin-bottom', leadMarginBottom, $leadMargins);
+}

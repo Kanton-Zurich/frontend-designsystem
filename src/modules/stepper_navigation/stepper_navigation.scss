@@ -117,7 +117,10 @@ $stepperNavigationCurves: (
 
       background: $colorWhite;
       padding-bottom: $sizeMini;
-      transform: translateY(-3px);
+
+      use {
+        transform: translateY(-3px);
+      }
 
       @include mq($to: small) {
         height: 2rem;

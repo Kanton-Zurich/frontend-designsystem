@@ -17,7 +17,7 @@
   display: flex;
 
   &__image {
-    @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 3, $gridWidthColumns, $trailingGutter: false);
+    @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 2, $gridWidthColumns, $trailingGutter: false);
   }
 
   &__content {

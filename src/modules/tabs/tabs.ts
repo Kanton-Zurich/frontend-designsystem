@@ -57,7 +57,7 @@ class Tabs extends Module {
 
     this.tabs.forEach((tab) => {
       if (urlParameter === tab.id && tab.getAttribute('aria-selected') === 'false') {
-        tab.click();
+        this.activateTab(tab, false, true);
       }
     });
   }
@@ -147,7 +147,7 @@ class Tabs extends Module {
     }
   }
 
-  private activateTab(tab, focus) {
+  private activateTab(tab, focus, replaceState = false) {
     const setFocus = focus || true;
     // Deactivate all other tabs
     this.deactivateTabs();
@@ -162,7 +162,9 @@ class Tabs extends Module {
 
     // URL reflection
     if (tab.id && tab.id.length > 0) {
-      window.history.pushState({ tabZH: tab.id }, '', `#${tab.id}`);
+      if (!replaceState && (!history.state || !history.state.tabZH || history.state.tabZH !== tab.id)) { // eslint-disable-line
+        window.history.pushState({ tabZH: tab.id }, '', `#${tab.id}`);
+      }
     }
 
     // Get the value of aria-controls (which is an ID)

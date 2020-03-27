@@ -115,7 +115,7 @@
 				</div>
 
 				<!-- modal page content -->
-				<div id="flyout-topics" class="mdl-modal  mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal">
+				<div id="flyout-topics" class="mdl-modal  mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog">
 					<button class="mdl-modal__close" data-modal="close">
 						<span class="mdl-modal__close-label">Schliessen</span>
 						<svg focusable="false" class="icon mdl-modal__exit">
@@ -388,7 +388,7 @@
 				</div>
 
 				<!-- modal page content -->
-				<div id="flyout-search" class="mdl-modal mdl-modal--search mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" data-modal-options="{&quot;transitionTime&quot;:500}">
+				<div id="flyout-search" class="mdl-modal mdl-modal--search mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog" data-modal-options="{&quot;transitionTime&quot;:500}">
 					<button class="mdl-modal__close" data-modal="close">
 						<span class="mdl-modal__close-label">Schliessen</span>
 						<svg focusable="false" class="icon mdl-modal__exit">
@@ -457,7 +457,7 @@
       
         
         
-       mdl-search__autosuggest mdl-content_nav--single-column" data-init="contentNav" aria-live="polite" data-search="autosuggest">
+       mdl-search__autosuggest mdl-content_nav--single-column initially-hidden" data-init="contentNav" aria-live="polite" data-search="autosuggest">
 										<ul class="mdl-content_nav__list">
 										</ul>
 
@@ -985,7 +985,7 @@
               <input class="atm-form_input__input<% if (value) { %> dirty<% } %>"  type="text" data-validation data-floating
                      data-pattern="^([0][1-9]|[1-2][0-9]|3[0-1])\.([0][1-9]|[1][0-2])\.$" tabindex="-1"
                      id="input-<%=fieldName%>" placeholder="<%=label%>" name="<%=fieldName%>" value="<%=value %>"
-                     data-input-mask="\d\d\.[\d.]\d\d\." data-mask-placeholder="TT.MM."
+                     data-input-mask="\d\d\.[\d.]\d\d[\d.]\." data-mask-placeholder="TT.MM."
                     <% if (reinvokeTrigger) { %> data-tax_calc-reinvoke="true"<% } %>
                     <% if (mandatory) { %> required<% } %> >
              <span class="atm-form_input__backdrop">

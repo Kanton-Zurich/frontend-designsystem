@@ -2,7 +2,9 @@
   {{#if serviceListHeading}}
     <h2 class="atm-heading atm-heading--bordered" {{#if serviceListHeading.anchorNavReference}} id="{{serviceListHeading.anchorNavReference}}"{{/if}}>{{serviceListHeading.title}}</h2>
   {{/if}}
+  <ul>
   {{#each items}}
+    <li>
     <a href="{{href}}" class="mdl-service_list__item" {{#if external}}target="_blank"{{/if}}
       {{#unless external}}data-url="{{serviceLink}}" aria-controls="{{modalData.modalId}}" role="button"{{/unless}}>
       <div class="mdl-service_list__item-container">
@@ -18,8 +20,10 @@
     </span>
     </a>
     {{#unless external}}
-      <div id="{{modalData.modalId}}" class="mdl-modal {{#unless staticHeader}}mdl-modal--dynamicheader{{/unless}}" data-init="modal">
+      <div id="{{modalData.modalId}}" class="mdl-modal {{#unless staticHeader}}mdl-modal--dynamicheader{{/unless}}" data-init="modal" aria-hidden="true" role="dialog">
       </div>
     {{/unless}}
+    </li>
   {{/each}}
+  </ul>
 </div>
