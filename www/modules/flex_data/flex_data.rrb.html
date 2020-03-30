@@ -254,7 +254,7 @@
 			</div>
 		</form>
 	</div>
-	<div class="mdl-flex-data__results initially-hidden" data-result-count-title="%1 Treffer zu ihrer Abfrage" data-no-results-title="Es wurden keine Ergebnisse gefunden. Bitte passen Sie Ihre Suche an." data-result-count-title-more="Mehr als %1 Treffer zu ihrer Abfrage">
+	<div class="mdl-flex-data__results initially-hidden" data-result-count-title="%1 Treffer zu ihrer Abfrage" data-no-results-title="Es wurden keine Ergebnisse gefunden. Bitte passen Sie Ihre Suche an." data-result-count-title-more="Mehr als %1 Treffer zu ihrer Abfrage" aria-live="polite">
 		<script data-flex-template type="text/x-handlebars-template">
 			<ul class="mdl-search_page__list">
         <% _.forEach(data, function(item, index) { %>
@@ -273,7 +273,7 @@
         </ul>
       
     </script>
-		<h3 class="visuallyhidden">Resultate</h3>
+		<h3 class="visuallyhidden" aria-live="polite">Resultate</h3>
 		<div class="mdl-flex-data__generic-sort">
 			<h4 class="visuallyhidden">Sortierung</h4>
 			<div class="atm-form_input atm-form_input--trigger atm-form_input--reduced">
