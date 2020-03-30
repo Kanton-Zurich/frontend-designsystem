@@ -53,7 +53,8 @@ const data = _.merge({}, defaultData, {
                         {
                           isSmall: true,
                           cellContent: () => handlebars.compile(formFieldsetHBS)({
-                            fieldsetTitle: false,
+                            fieldsetTitle: 'Für wen möchten Sie den Steuerbetrag berechnen.',
+                            isFieldsetTitleHidden: true,
                             isVertical: true,
                             requiredMessage: 'Bitte wählen Sie eine Option aus.',
                             options: [
