@@ -35,7 +35,6 @@
         {{{genericTemplate}}}
       {{/unless}}
     </script>
-    <h3 class="visuallyhidden">Resultate</h3>
     {{#if tableData}}
       {{> "modules/table/table" tableData }}
     {{/if}}
@@ -53,7 +52,7 @@
         </div>
         {{> "modules/context_menu/context_menu" sortContextMenu}}
       </div>
-      <h4 class="atm-heading mdl-flex-data__results-title"></h4>
+      <h3 class="atm-heading mdl-flex-data__results-title"></h3>
       <div class="mdl-flex-data__results-generic" data-sort-direction="descending" data-sort-column="relevance"></div>
     {{/unless}}
     <div class="mdl-flex-data__pagination">
