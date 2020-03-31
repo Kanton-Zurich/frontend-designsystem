@@ -345,11 +345,13 @@ const variants = _.mapValues({
       disabledColorVariations: ['cv-monochrome'],
     },
     props: {
-      pageTitle: 'Regierungsratsbeschluss  Nr. 749/2018',
+      pageTitle: 'Regierungsratsbeschluss Nr. 749/2018',
       inverted: false,
       hasBacklink: true,
       noText: true,
-      breadcrumb: backOnlyBreadcrumbData,
+      breadcrumb: _.merge({}, backOnlyBreadcrumbData, {
+        hasStorage: true,
+      }),
     },
   },
   error404: {

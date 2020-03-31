@@ -76,6 +76,8 @@ class FlexData extends Module {
     this.orderBy = '';
     this.initUi();
     this.initEventListeners();
+
+    window.localStorage.removeItem('origin');
   }
 
   static get events() {
@@ -162,6 +164,11 @@ class FlexData extends Module {
         this.loadResults(false, true);
       }, this.options.initDelay);
     }
+
+    // EventListener to set localstorage
+    this.eventDelegate.on('click', `${this.options.domSelectors.results} .mdl-table__cell a`, () => {
+      window.localStorage.setItem('origin', window.location.href);
+    });
   }
 
   /**
