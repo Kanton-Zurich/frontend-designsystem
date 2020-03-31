@@ -86,7 +86,7 @@ class BiometrieAppointment extends Module {
         calLinksDropdown: '.mdl-biometrie_appointment__details__calLinks .mdl-context_menu',
         contactBlock: '[data-biometrie_appointment=contact]',
         contactBlockToggle: '[data-biometrie_appointment=showContactBtn]',
-        howSelectorBtn: '.mdl-instructions__item-content > .mdl-button_group .atm-button',
+        howSelectorBtn: '.mdl-biometrie_appointment__wrapper > .mdl-button_group .atm-button',
         mainContainerOnline: '.mdl-biometrie_appointment',
         mainContainerSelect: '[data-biometrie_appointment=showOnlineBtn]',
       },
