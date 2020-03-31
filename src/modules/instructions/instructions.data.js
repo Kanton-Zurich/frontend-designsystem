@@ -162,8 +162,8 @@ const variants = _.mapValues({
   },
   biometrie: {
     meta: {
-      title: 'Anleitungsliste',
-      desc: 'Standard-Implementation mit einer nummerierten Liste',
+      title: 'Biometrie',
+      desc: 'Integration biometrie app',
     },
     props: {
       service: true,
