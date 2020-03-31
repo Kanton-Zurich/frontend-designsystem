@@ -1,8 +1,8 @@
-<button class="atm-button" onclick="document.querySelector('.mdl-filter-pills').dispatchEvent(new CustomEvent('FilterPills.addTag', { detail: { text: 'bla', value: 'blub' }}))">Filter Hinzufügen</button>
-<br />
-<div class="mdl-filter-pills" data-init="filterPills">
-	<script data-template type="text/x-handlebars-template">
-		<span data-pill="<%=value%>" class="atm-button atm-button--small atm-button--tag atm-button--tag-filter">
+  <button class="atm-button" onclick="document.querySelector('.mdl-filter-pills').dispatchEvent(new CustomEvent('FilterPills.addTag', { detail: { text: 'bla', value: 'blub' }}))">Filter Hinzufügen</button>
+  <br />
+  <div class="mdl-filter-pills" data-init="filterPills">
+  	<script data-template type="text/x-handlebars-template">
+  		<span data-pill="<%=value%>" class="atm-button atm-button--small atm-button--tag atm-button--tag-filter">
     <span class="atm-button__text ">
       <%=text%>
     </span>
@@ -13,13 +13,13 @@
     </button>
   </span>
   </script>
-	<button class="atm-button atm-button--secondary atm-button--small atm-button--tag atm-button--tag-edit mdl-filter-pills__hidden-control" data-clear>
-		<span class="atm-button__text ">
-			Zurücksetzen
-		</span>
-		<svg class="icon atm-button__icon" focusable="false">
-			<use xlink:href="#undo"></use>
-		</svg>
-		<span class="atm-button__spinner"></span>
-	</button>
-</div>
+  	<button class="atm-button atm-button--secondary atm-button--small atm-button--tag atm-button--tag-edit mdl-filter-pills__hidden-control" data-clear>
+  		<span class="atm-button__text ">
+  			Zurücksetzen
+  		</span>
+  		<svg class="icon atm-button__icon" focusable="false">
+  			<use xlink:href="#undo"></use>
+  		</svg>
+  		<span class="atm-button__spinner"></span>
+  	</button>
+  </div>
