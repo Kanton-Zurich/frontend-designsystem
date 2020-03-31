@@ -26,10 +26,6 @@ class BiometrieAppointment extends Module {
     calLinksToggle: HTMLButtonElement,
     calLinksDropdown: HTMLElement,
     contactBlock: HTMLDivElement,
-    contactBlockToggle: HTMLButtonElement[],
-    howSelectorBtn: HTMLButtonElement[],
-    mainContainerOnline: HTMLDivElement,
-    mainContainerSelect: HTMLButtonElement,
   };
 
   public data: {
@@ -54,10 +50,6 @@ class BiometrieAppointment extends Module {
       calLinksToggle: string;
       calLinksDropdown: string;
       contactBlock: string;
-      contactBlockToggle: string;
-      howSelectorBtn: string;
-      mainContainerOnline: string;
-      mainContainerSelect: string;
     }
     stateClasses: any
   };
@@ -85,10 +77,6 @@ class BiometrieAppointment extends Module {
         calLinksToggle: '[data-biometrie_appointment=toggleCalLinks]',
         calLinksDropdown: '.mdl-biometrie_appointment__details__calLinks .mdl-context_menu',
         contactBlock: '[data-biometrie_appointment=contact]',
-        contactBlockToggle: '[data-biometrie_appointment=showContactBtn]',
-        howSelectorBtn: '.mdl-biometrie_appointment__wrapper > .mdl-button_group .atm-button',
-        mainContainerOnline: '.mdl-biometrie_appointment',
-        mainContainerSelect: '[data-biometrie_appointment=showOnlineBtn]',
       },
       loginViewSelectors, detailViewSelectors, rescheduleViewSelectorsValues),
       stateClasses: {
@@ -223,28 +211,6 @@ class BiometrieAppointment extends Module {
     this.ui.calLinksToggle.addEventListener('click', () => {
       this.ui.calLinksDropdown.classList.toggle('visible');
     });
-
-    this.ui.contactBlockToggle.forEach((contactToggleBtn) => {
-      contactToggleBtn.addEventListener('click', () => {
-        this.ui.contactBlock.classList.add('visible');
-        this.ui.mainContainerOnline.classList.add('hide');
-        document.querySelectorAll<HTMLDivElement>(this.options.domSelectors.howSelectorBtn)
-          .forEach((btn) => {
-            btn.classList.add('atm-button--secondary');
-          });
-        contactToggleBtn.classList.remove('atm-button--secondary');
-      });
-    });
-
-    this.ui.mainContainerSelect.addEventListener('click', () => {
-      this.ui.mainContainerOnline.classList.remove('hide');
-      this.ui.contactBlock.classList.remove('visible');
-      document.querySelectorAll<HTMLDivElement>(this.options.domSelectors.howSelectorBtn)
-        .forEach((btn) => {
-          btn.classList.add('atm-button--secondary');
-        });
-      this.ui.mainContainerSelect.classList.remove('atm-button--secondary');
-    });
   }
 
   private addAlertDismissListeners(): void {
@@ -308,9 +274,6 @@ class BiometrieAppointment extends Module {
     this.toggleBackLink(false);
     this.toggleLogoutLink(false);
     this.apiService.logoutReset();
-    this.ui.contactBlockToggle.forEach((btn) => {
-      btn.classList.remove('atm-button--disabled');
-    });
   }
 
   private enterLoginView():void {
@@ -325,9 +288,6 @@ class BiometrieAppointment extends Module {
     this.detailsViewCntrl.prepareView();
     this.enterView('details');
     this.ui.contactBlock.classList.add('visible');
-    this.ui.contactBlockToggle.forEach((btn) => {
-      btn.classList.add('atm-button--disabled');
-    });
   }
 
   private enterRescheduleView(): void {
