@@ -159,7 +159,9 @@ class FlexData extends Module {
     if (this.getAllURLParams()['page'] || initialLoad) { // eslint-disable-line
       this.updateViewFromURLParams();
       setTimeout(() => {
-        this.loadResults(false, true);
+        if (this.isVisible()) {
+          this.loadResults(false, true);
+        }
       }, this.options.initDelay);
     }
   }
