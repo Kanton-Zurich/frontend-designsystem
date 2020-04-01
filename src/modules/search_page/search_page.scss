@@ -22,6 +22,15 @@
 
   &__no-results {
     display: none;
+
+    h2.atm-heading {
+      line-height: $sizeLineHeightMedium;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include mq($to: xsmall) {
+        line-height: $sizeLineHeightBase;
+      }
+    }
   }
 
   &__results-head {

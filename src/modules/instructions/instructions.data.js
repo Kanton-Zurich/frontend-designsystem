@@ -9,6 +9,7 @@ const imageFigureDemoData = require('../image_figure/image_figure.data');
 const carouselDemoData = require('../carousel/carousel.data');
 const texthighlightDemoData = require('../texthighlight/texthighlight.data');
 const defTabsData = require('../tabs/tabs.data').variants.default.props;
+const biometrieData = require('../biometrie_appointment/biometrie_appointment.data').props;
 
 const carouselHBS = dataHelper.getFileContent('../carousel/carousel.hbs');
 const imageFigureHBS = dataHelper.getFileContent('../image_figure/image_figure.hbs');
@@ -16,6 +17,7 @@ const videoHBS = dataHelper.getFileContent('../video/video.hbs');
 const linklistHBS = dataHelper.getFileContent('../linklist/linklist.hbs');
 const richtextHBS = dataHelper.getFileContent('../richtext/richtext.hbs');
 const tabsHBS = dataHelper.getFileContent('../tabs/tabs.hbs');
+const biometrieHBS = dataHelper.getFileContent('../biometrie_appointment/biometrie_appointment.hbs');
 const texthighlightHBS = dataHelper.getFileContent('../texthighlight/texthighlight.hbs');
 
 const template = dataHelper.getFileContent('instructions.hbs');
@@ -32,6 +34,7 @@ const data = _.merge({}, defaultData, {
     imageFigureDemoData.props, carouselDemoData.props, { title: { level: 4 } },
     texthighlightDemoData.props),
 });
+
 
 function getItems(ordered) {
   const headingsPre = ordered ? 'Anleitungsschritt-Titel' : 'Checklistenpunkt-Titel';
@@ -71,6 +74,7 @@ function getItems(ordered) {
   },
   ];
 }
+
 
 const variants = _.mapValues({
   default: {
@@ -156,6 +160,35 @@ const variants = _.mapValues({
       ],
     },
   },
+  biometrie: {
+    meta: {
+      title: 'Biometrie',
+      desc: 'Integration biometrie app',
+    },
+    props: {
+      service: true,
+      instructionslistItems: [
+        {
+          heading: 'Dokumente vorbereiten',
+          contentModules: [
+            '<div class="mdl-richtext">'
+            + '<p class="atm-paragraph">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>'
+            + '<ul><li>Brief mit der Terminbestätigung</li></ul>'
+            + '</div>',
+          ],
+        },
+        {
+          heading: 'Termin verschieben',
+          contentModules: [
+            '<div class="mdl-richtext">'
+            + '<p class="atm-paragraph">Wie möchten sie Ihren Termin verschieben?</p>'
+            + '</div>',
+            () => handlebars.compile(biometrieHBS)(biometrieData),
+          ],
+        },
+      ],
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
@@ -170,9 +203,10 @@ const variants = _.mapValues({
       },
     },
   });
-
   return variantData;
 });
+
+
 
 data.variants = variants;
 

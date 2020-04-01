@@ -642,7 +642,7 @@
 																		<div class="form__row">
 																			<div class="form__cell form__cell--small">
 																				<fieldset class="form__fieldset" data-input>
-
+																					<legend class="form__legend visuallyhidden">Für wen möchten Sie den Steuerbetrag berechnen.</legend>
 																					<div class="form__fieldset-list form__fieldset-list--vertical">
 																						<div class="atm-radiobutton " data-tax_calc="inputEntity">
 																							<input id="radioprivatperson" type="radio" value="individual" name="taxEntity" data-validation required>
@@ -1036,9 +1036,9 @@
                                   <tr class="mdl-table__row mdl-table__row">
                                   <% _.forEach(row.entries, function(entry, index) { %>
                                       <% if(index === 0) { %>
-                                      <th scope="row" class="mdl-table__cell mdl-table__row-header<% if(row.isHighlighted) { %> mdl-table__cell--highlighted<% } %>" data-table="cell">
+                                      <td scope="row" class="mdl-table__cell mdl-table__row-header<% if(row.isHighlighted) { %> mdl-table__cell--highlighted<% } %>" data-table="cell">
                                           <%=entry%>
-                                      </th>
+                                      </td>
                                       <% } else { %>
                                         <% if(row.isHighlighted) { %>
                                         <th class="mdl-table__cell  mdl-table__cell--highlighted" data-table="cell">
@@ -1231,7 +1231,7 @@
 								"tables": [{
 										"heading": "Einfache Staatssteuer Einkommen und Vermögen",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF",
 											"Steuersatz",
 											"Einfache Staatssteuer<br>100%, CHF"
@@ -1290,7 +1290,7 @@
 									{
 										"heading": "Steuerberechnung",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"",
 											"Steuerfuss",
 											"CHF"
@@ -1370,7 +1370,7 @@
 								"tables": [{
 										"heading": "Einkommen",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF",
 											"Steuersatz"
 										],
@@ -1394,7 +1394,7 @@
 									{
 										"heading": "Steuerberechnung",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF"
 										],
 										"fieldRows": [{
@@ -1426,7 +1426,7 @@
 								"tables": [{
 										"heading": "Kapitalleistungen",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF",
 											"Steuersatz",
 											"Einfache Staatssteuer<br>100%, CHF"
@@ -1485,7 +1485,7 @@
 									{
 										"heading": "Steuerberechnung",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"",
 											"Steuerfuss",
 											"CHF"
@@ -1541,7 +1541,7 @@
 								"tables": [{
 										"heading": "Kapitalleistungen",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF",
 											"Steuersatz",
 											"CHF"
@@ -1576,7 +1576,7 @@
 									{
 										"heading": "Steuerberechnung",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF"
 										],
 										"fieldRows": [{
@@ -1595,7 +1595,7 @@
 								"tables": [{
 									"heading": "Erbschafts- & Schenkungssteuern",
 									"thead": [
-										"<span class=\"visuallyhidden\">Zeilenname</span>",
+										"",
 										"CHF"
 									],
 									"fieldRows": [{
@@ -1644,7 +1644,7 @@
 								"tables": [{
 										"heading": "Einfache Steuer",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF",
 											"Steuersatz",
 											"Einfache Staatssteuer<br>100%, CHF"
@@ -1679,7 +1679,7 @@
 									{
 										"heading": "Staats- und Gemeindesteuern",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"Steuersatz",
 											"CHF"
 										],
@@ -1710,7 +1710,7 @@
 									{
 										"heading": "Direkte Bundessteuer",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"Steuersatz",
 											"CHF"
 										],
@@ -1731,7 +1731,7 @@
 								"tables": [{
 										"heading": "Steuerbarer Reingewinn",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF"
 										],
 										"fieldRows": [{
@@ -1764,7 +1764,7 @@
 									{
 										"heading": "Steuerbares Kapital",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF"
 										],
 										"fieldRows": [{
@@ -1797,7 +1797,7 @@
 									{
 										"heading": "Besteuerung Staat",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF",
 											"Steuersatz",
 											"Einfache Staatssteuer<br>100%, CHF"
@@ -1832,7 +1832,7 @@
 									{
 										"heading": "Besteuerung Bund",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF",
 											"Steuersatz",
 											"Einfache Staatssteuer<br>100%, CHF"
@@ -1850,7 +1850,7 @@
 									{
 										"heading": "Steuerberechnung",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF"
 										],
 										"fieldRows": [{
