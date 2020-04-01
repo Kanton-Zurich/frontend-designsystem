@@ -397,6 +397,11 @@ class Module {
       return false;
     }
   }
+
+  // Checks if the module is visually rendered
+  protected isVisible() {
+    return this.ui.element.offsetWidth !== 0 && this.ui.element.offsetHeight !== 0;
+  }
 }
 
 export default Module;
