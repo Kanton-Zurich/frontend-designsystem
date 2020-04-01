@@ -62,6 +62,14 @@
     }
   }
 
+  &__extended-subtitle {
+    @at-root {
+      h4#{&} {
+        @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+      }
+    }
+  }
+
   &__results {
     @include sizeCurve(margin-bottom, big);
     @include sizeCurve(margin-top, large);

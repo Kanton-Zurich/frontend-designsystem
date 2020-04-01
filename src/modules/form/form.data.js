@@ -28,9 +28,6 @@ const fileUploadData = require('../file_upload/file_upload.data');
 const datepickerHBS = dataHelper.getFileContent('../datepicker/datepicker.hbs');
 const datepickerData = require('../datepicker/datepicker.data');
 
-const toggle = require('../../atoms/toggle/toggle.data').variants.default.props;
-
-const formInput = require('../../atoms/form_input/form_input.data').variants.default.props;
 
 const listDemoData = require('../../atoms/list/list.data');
 
@@ -1442,6 +1439,11 @@ const variants = _.mapValues({
         }],
       }, {
         rows: [{
+          fields: [{
+            cellContent: '<h4 class="atm-heading mdl-flex-data__extended-subtitle">Einschränken nach Datum von/bis</h4>',
+          }],
+        },
+        {
           fields: [{
             cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
               datepickerData.variants.dateRange.props,
