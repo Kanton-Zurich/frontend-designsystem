@@ -93,6 +93,12 @@ class Accordion extends Module {
     this.togglesAll = this.ui.element.classList.contains(this.options.stateClasses.togglesAll);
   }
 
+  static get events() {
+    return {
+      clearSubheads: 'Accordion.clearSubheads',
+    };
+  }
+
   /**
    * Checks on initialization if the URL contains an panel-trigger-id as hash
    * and if so open it via triggering a click on the trigger
@@ -209,6 +215,14 @@ class Accordion extends Module {
     }
   }
 
+  clearSubheads() {
+    const subheads = this.ui.element.querySelectorAll('.mdl-accordion__subhead');
+
+    for (let i = 0; i < subheads.length; i += 1) {
+      (<HTMLElement>subheads[i]).innerText = '';
+    }
+  }
+
   /**
    * Calculating the height of the panel to fully display the accordion item
    *
@@ -272,6 +286,7 @@ class Accordion extends Module {
 
     this.eventDelegate.on('keydown', this.options.domSelectors.trigger, this.handleKeyOnTrigger.bind(this));
     this.eventDelegate.on('click', this.options.domSelectors.trigger, this.toggleItem.bind(this));
+    this.eventDelegate.on(Accordion.events.clearSubheads, this.clearSubheads.bind(this));
   }
 
   /**
