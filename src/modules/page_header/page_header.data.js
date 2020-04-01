@@ -345,11 +345,27 @@ const variants = _.mapValues({
       disabledColorVariations: ['cv-monochrome'],
     },
     props: {
-      pageTitle: 'Regierungsratsbeschluss  Nr. 749/2018',
+      pageTitle: 'Regierungsratsbeschluss Nr. 749/2018',
       inverted: false,
       hasBacklink: true,
       noText: true,
       breadcrumb: backOnlyBreadcrumbData,
+    },
+  },
+  zhLexDetail: {
+    meta: {
+      title: 'Flex Data (ZHLEX) (CZHDEV-1233)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+    },
+    props: {
+      pageTitle: 'Vertrag zwischen den Ständen Zürich und Schwyz betreffend die Hafengüter bei Richterswil',
+      inverted: false,
+      hasBacklink: true,
+      noText: true,
+      breadcrumb: _.merge({}, backOnlyBreadcrumbData, {
+        hasStorage: true,
+      }),
     },
   },
   error404: {
