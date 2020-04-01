@@ -349,6 +349,20 @@ const variants = _.mapValues({
       inverted: false,
       hasBacklink: true,
       noText: true,
+      breadcrumb: backOnlyBreadcrumbData,
+    },
+  },
+  zhLexDetail: {
+    meta: {
+      title: 'Flex Data (ZHLEX) (CZHDEV-1233)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+    },
+    props: {
+      pageTitle: 'Vertrag zwischen den Ständen Zürich und Schwyz betreffend die Hafengüter bei Richterswil',
+      inverted: false,
+      hasBacklink: true,
+      noText: true,
       breadcrumb: _.merge({}, backOnlyBreadcrumbData, {
         hasStorage: true,
       }),
