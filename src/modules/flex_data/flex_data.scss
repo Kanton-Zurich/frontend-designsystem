@@ -50,6 +50,10 @@
     }
   }
 
+  &__results-title {
+    @extend .h4;
+  }
+
   .form__section {
     .form__group {
       .form__row:last-child {
