@@ -186,6 +186,9 @@ class FlexData extends Module {
    */
   onClearResults() {
     this.ui.clearButton.classList.add('hidden');
+
+    this.ui.form.setAttribute('is-reset', 'true');
+
     this.ui.form.reset();
     this.ui.form.querySelectorAll('.mdl-select').forEach((select: HTMLElement) => {
       select.dispatchEvent(new CustomEvent(Select.events.clear));
@@ -196,6 +199,8 @@ class FlexData extends Module {
     if (initialLoad) {
       this.loadResults();
     }
+
+    this.ui.form.removeAttribute('is-reset');
   }
 
   /**
