@@ -54,6 +54,16 @@
         }
       }
     }
+
+    // CZHDEV-2318
+    @include mq($to: small) {
+      dd span {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
   }
 
   &__copy-success-notification {
