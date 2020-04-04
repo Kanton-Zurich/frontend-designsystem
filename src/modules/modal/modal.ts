@@ -218,7 +218,7 @@ class Modal extends Module {
     // delayed opacity animation and focus handling
     setTimeout(() => {
       const focusable = this.ui.element.querySelectorAll(this.options.domSelectors.focusable);
-      if (focusable.length > 0) {
+      if (focusable.length > 0 && !focusable[0].classList.contains('mdl-skiplinks__link')) {
         focusable[0].focus();
       }
       if (this.options.hasDynamicHeader) {
