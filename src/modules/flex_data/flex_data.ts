@@ -31,6 +31,7 @@ class FlexData extends Module {
     paginationInput: HTMLInputElement,
     submitButton: HTMLButtonElement,
     clearButton: HTMLButtonElement,
+    includeRepealed: HTMLInputElement,
   };
   public options: any;
   public dataUrl: string;
@@ -63,6 +64,7 @@ class FlexData extends Module {
         pagination: '.mdl-pagination',
         paginationInput: '.mdl-pagination input',
         notification: '.mdl-flex-data__notification',
+        includeRepealed: '[name="includeRepealedEnactments"]',
       },
       stateClasses: {
         loading: 'mdl-flex-data--loading',
@@ -324,6 +326,12 @@ class FlexData extends Module {
    * @param jsonData
    */
   populateResultList(jsonData) {
+    let removeColumnRepealed = false;
+
+    if (this.ui.includeRepealed) {
+      removeColumnRepealed = !this.ui.includeRepealed.checked;
+    }
+
     this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
     this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
     if (jsonData.numberOfResultPages > 1) {
@@ -378,6 +386,34 @@ class FlexData extends Module {
         this.ui.resultsGeneric.innerHTML = '';
         this.ui.resultsGeneric.innerHTML = this
           .markupFromTemplate(this.ui.resultsTemplate.innerHTML, jsonData);
+      }
+    }
+
+    // CZHDEV-2355
+    if (removeColumnRepealed) {
+      const { rows } = this.ui.resultsTable.querySelector('table');
+      let cellIndex = null;
+
+      for (let i = 0; i < rows.length; i += 1) {
+        const { cells } = rows[i];
+
+        if (cellIndex) {
+          rows[i].deleteCell(cellIndex);
+        }
+
+        for (let x = 0; x < cells.length; x += 1) {
+          const cell = cells[x];
+          if (cell.dataset.columnName === 'withdrawalDate') {
+            cellIndex = x;
+            cell.style.display = 'none';
+          }
+        }
+      }
+    } else {
+      const thWithdrawalDate = this.ui.resultsTable.querySelector('[data-column-name="withdrawalDate"]');
+
+      if (thWithdrawalDate) {
+        thWithdrawalDate.removeAttribute('style');
       }
     }
   }
