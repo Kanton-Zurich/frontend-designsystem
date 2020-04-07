@@ -583,8 +583,8 @@ const variants = _.mapValues({
                       {
                         id: 'privatperson',
                         groupName: 'taxEntity',
-                        label: 'Privatperson',
-                        descr: 'Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer (Natürliche Personen)',
+                        label: 'Natürliche Personen',
+                        descr: 'Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer',
                         isChecked: false,
                         additionalAttribute: 'data-tax_calc="inputEntity"',
                         validation: {
@@ -597,8 +597,8 @@ const variants = _.mapValues({
                       {
                         id: 'incorp',
                         groupName: 'taxEntity',
-                        label: 'Unternehmen, Vereine und Stiftungen',
-                        descr: 'Berechnen des Steuerbetrag und/ oder der Steuerrückstellung für ordentlich besteuerte Gesellschaften und Genossenschaften (Juristische Personen)',
+                        label: 'Juristische Personen',
+                        descr: 'Berechnen des Steuerbetrag und/ oder der Steuerrückstellung für ordentlich besteuerte Gesellschaften und Genossenschaften',
                         additionalAttribute: 'data-tax_calc="inputEntity""',
                         validation: {
                           isRequired: true,

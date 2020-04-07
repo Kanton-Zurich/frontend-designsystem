@@ -188,6 +188,10 @@ $accordionMap: (
     > .mdl-download_list:last-child {
       @include sizeCurve(margin-bottom, regular);
     }
+
+    .atm-heading.mdl-linklist__title {
+      margin-top: 0;
+    }
   }
 
   /** Inverted style */
