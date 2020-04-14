@@ -256,7 +256,11 @@ class Form {
     inputElement.dispatchEvent(new CustomEvent(Form.events.clearInput));
   }
 
-  validateField(field) {
+  validateField(field) { //eslint-disable-line
+    if (this.ui.element.hasAttribute('is-reset')) {
+      return false;
+    }
+
     const validation = window[namespace].form.validateField(field);
     const fileTimeout = 5;
     const inputWrapper = field.closest(this.options.inputSelector);
