@@ -176,17 +176,17 @@ class Accordion extends Module {
                 const selectEl = inEl.closest('.mdl-select').querySelector('.atm-form_input__trigger-label');
                 const labelEl = panel.querySelector<HTMLLabelElement>(`label[for=${inEl.id}]`);
                 const valStr = `${selectEl.childNodes[0].nodeValue}: ${labelEl.childNodes[0].nodeValue}`;
-                sectionVals.push(valStr);
+                sectionVals.push(valStr.trim());
 
               // radio button or checkbox
               } else if ((inEl.type === 'radio' || inEl.type === 'checkbox') && inEl.checked) {
                 const labelEl = panel.querySelector<HTMLLabelElement>(`label[for=${inEl.id}]`);
-                sectionVals.push(labelEl.childNodes[0].nodeValue);
+                sectionVals.push(labelEl.childNodes[0].nodeValue.trim());
 
               // text or datepicker
               } else if (inEl.type === 'text') {
                 if (inEl.value) {
-                  sectionVals.push(`${inEl.placeholder}: ${inEl.value}`);
+                  sectionVals.push(`${inEl.placeholder}: ${inEl.value}`.trim());
                 }
               }
             });
