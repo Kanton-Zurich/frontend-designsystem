@@ -10,6 +10,7 @@ import Table from '../table/table';
 import Select from '../select/select';
 import namespace from '../../assets/js/helpers/namespace';
 import Pagination from '../pagination/pagination';
+import Accordion from '../accordion/accordion';
 
 class FlexData extends Module {
   public ui: {
@@ -194,6 +195,9 @@ class FlexData extends Module {
     this.ui.form.reset();
     this.ui.form.querySelectorAll('.mdl-select').forEach((select: HTMLElement) => {
       select.dispatchEvent(new CustomEvent(Select.events.clear));
+    });
+    this.ui.form.querySelectorAll('.mdl-accordion').forEach((accordion: HTMLDivElement) => {
+      accordion.dispatchEvent(new CustomEvent(Accordion.events.clearSubheads));
     });
     this.ui.results.classList.add('initially-hidden');
     this.ui.pagination.classList.add('hidden');
