@@ -6,6 +6,8 @@ $gapSize: pxToRem($sizeRegular);
     border: 0;
     margin: 0;
     padding: 0;
+
+    min-width: 0;
   }
 
   &__section-title {
