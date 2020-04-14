@@ -117,6 +117,7 @@ class SocialMediaStream extends Module {
         window.open(item.link, '_blank');
       });
       this.ui.list.appendChild(element);
+      this.dispatchVerticalResizeEvent(1);
     });
   }
 
