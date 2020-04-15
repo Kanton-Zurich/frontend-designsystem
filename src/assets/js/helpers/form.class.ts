@@ -289,7 +289,7 @@ class Form {
             }
             message.classList.add('show');
             message.setAttribute('id', messageElementID);
-            field.setAttribute('aria-describledby', messageElementID);
+            field.setAttribute('aria-describedby', messageElementID);
           }
         });
 
