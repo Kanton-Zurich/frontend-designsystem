@@ -383,6 +383,33 @@ class FlexData extends Module {
           this.ui.resultsTableBody.appendChild(tr);
         });
       }
+      // CZHDEV-2355
+      if (removeColumnRepealed) {
+        const { rows } = this.ui.resultsTable.querySelector('table');
+        let cellIndex = null;
+
+        for (let i = 0; i < rows.length; i += 1) {
+          const { cells } = rows[i];
+
+          if (cellIndex) {
+            rows[i].deleteCell(cellIndex);
+          }
+
+          for (let x = 0; x < cells.length; x += 1) {
+            const cell = cells[x];
+            if (cell.dataset.columnName === 'withdrawalDate') {
+              cellIndex = x;
+              cell.style.display = 'none';
+            }
+          }
+        }
+      } else {
+        const thWithdrawalDate = this.ui.resultsTable.querySelector('[data-column-name="withdrawalDate"]');
+
+        if (thWithdrawalDate) {
+          thWithdrawalDate.removeAttribute('style');
+        }
+      }
     }
     // fill generic results
     if (this.ui.resultsGeneric) {
@@ -395,34 +422,6 @@ class FlexData extends Module {
         this.ui.resultsGeneric.innerHTML = '';
         this.ui.resultsGeneric.innerHTML = this
           .markupFromTemplate(this.ui.resultsTemplate.innerHTML, jsonData);
-      }
-    }
-
-    // CZHDEV-2355
-    if (removeColumnRepealed) {
-      const { rows } = this.ui.resultsTable.querySelector('table');
-      let cellIndex = null;
-
-      for (let i = 0; i < rows.length; i += 1) {
-        const { cells } = rows[i];
-
-        if (cellIndex) {
-          rows[i].deleteCell(cellIndex);
-        }
-
-        for (let x = 0; x < cells.length; x += 1) {
-          const cell = cells[x];
-          if (cell.dataset.columnName === 'withdrawalDate') {
-            cellIndex = x;
-            cell.style.display = 'none';
-          }
-        }
-      }
-    } else {
-      const thWithdrawalDate = this.ui.resultsTable.querySelector('[data-column-name="withdrawalDate"]');
-
-      if (thWithdrawalDate) {
-        thWithdrawalDate.removeAttribute('style');
       }
     }
   }
