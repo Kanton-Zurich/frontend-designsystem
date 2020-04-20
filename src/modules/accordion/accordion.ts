@@ -157,9 +157,7 @@ class Accordion extends Module {
       }
       eventDelegate.setAttribute('aria-expanded', true);
     }
-    setTimeout(() => {
-      this.dispatchVerticalResizeEvent();
-    }, this.options.transitionTime);
+    this.dispatchVerticalResizeEvent(this.options.transitionTime);
   }
 
   closeItem(item: HTMLElement) {

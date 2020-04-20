@@ -298,7 +298,7 @@ class FlexData extends Module {
         this.upsertLinkRel('canonical', canonicalUrl);
         this.populateResultList(jsonData);
         this.updateFlyingFocus(0);
-        this.dispatchVerticalResizeEvent();
+        this.dispatchVerticalResizeEvent(100); // eslint-disable-line
         if (scroll) {
           this.scrollTop();
         }
