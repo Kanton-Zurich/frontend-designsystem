@@ -1,4 +1,12 @@
 $biometrieViewTransitionDuration: 300ms;
+$fontSizeCurveBiometrie: (
+  input: (
+    xsmall: $sizeFontSmall,
+    small: $sizeFontBiggerRegular,
+    large: $sizeFontMedium,
+    xlarge: $sizeFontLarge
+  ),
+);
 
 
 .mdl-biometrie_appointment {
@@ -77,7 +85,7 @@ $biometrieViewTransitionDuration: 300ms;
         caret-color: $colorCyan;
         font-weight: 200;
 
-        @include polyFluidSizing(font-size, map-get($fontSizeCurves, biggerRegular));
+        @include polyFluidSizing(font-size, map-get($fontSizeCurveBiometrie, input));
         @include sizeCurve('margin-right', tiny);
 
         + .input {
@@ -143,6 +151,18 @@ $biometrieViewTransitionDuration: 300ms;
 
   &__details {
 
+    .mdl-metablock__row dd span {
+      display: inline;
+    }
+
+    .mdl-texthighlight {
+      .mdl-richtext {
+        .atm-heading {
+          @include sizeCurve(margin-bottom, small);
+        }
+      }
+    }
+
     .cell {
       border-bottom: 1px solid $colorBlack20;
 
@@ -188,7 +208,7 @@ $biometrieViewTransitionDuration: 300ms;
       display: flex;
       flex-wrap: wrap;
 
-      @include mq($to: small) {
+      @include mq($to: medium) {
         .atm-button {
           width: 100%;
         }
