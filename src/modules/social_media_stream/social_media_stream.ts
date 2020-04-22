@@ -117,7 +117,6 @@ class SocialMediaStream extends Module {
         window.open(item.link, '_blank');
       });
       this.ui.list.appendChild(element);
-      this.dispatchVerticalResizeEvent(1);
     });
   }
 
@@ -129,6 +128,7 @@ class SocialMediaStream extends Module {
       this.dataIdle = false;
       this.fetchData((jsonData) => {
         this.populatePostList(jsonData);
+        this.dispatchVerticalResizeEvent(200); // eslint-disable-line
         this.dataIdle = true;
       });
     }

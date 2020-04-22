@@ -178,7 +178,7 @@ class Tabs extends Module {
     if (setFocus) {
       tab.focus();
     }
-    this.dispatchVerticalResizeEvent();
+    this.dispatchVerticalResizeEvent(100); // eslint-disable-line
   }
 
   // Deactivate all tabs and tab panels
