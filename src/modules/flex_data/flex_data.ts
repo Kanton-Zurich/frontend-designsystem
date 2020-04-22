@@ -533,9 +533,12 @@ class FlexData extends Module {
                 item.parentElement.parentElement.parentElement.classList.add('dirty');
               } else {
                 // -----------
-                // textfield
+                // textfield or checkbox
                 item.value = decodeURIComponent(values[0]); // eslint-disable-line
                 item.classList.add('dirty');
+                if (item.getAttribute('type') === 'checkbox') {
+                  item.checked = true;
+                }
               }
             }
           }, this.options.initDelay);
