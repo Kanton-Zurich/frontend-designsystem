@@ -253,9 +253,10 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
         colEl.classList.remove('no-slots-available');
         const slotsCon = colEl.querySelector<HTMLElement>(this.selectors.weekDaySlotsContainer);
         slotsCon.innerHTML = ''; // empty
-
         daysSlots.forEach((timeslot) => {
-          if (timeslot.capacity > 0) {
+          if (timeslot.capacity > 0
+            && this.data.appointment.getAppointmentStartDate().toISOString() !== timeslot.startDate.toISOString() // eslint-disable-line
+            && this.data.appointment.getAppointmentEndDate().toISOString() !== timeslot.endDate.toISOString()) { // eslint-disable-line
             this.appendSlotBtn(slotsCon, slotSelectTemplate, timeslot);
           }
         });
