@@ -475,9 +475,12 @@ class FlexData extends Module {
    * Update from URL params
    */
   updateViewFromURLParams() {
+    if (!this.isVisible()) {
+      return;
+    }
     const params = this.getAllURLParams();
+    this.ui.clearButton.classList.remove('hidden');
     Object.keys(params).forEach((key) => {
-      this.ui.clearButton.classList.remove('hidden');
       switch (key) {
         case 'page':
           setTimeout(() => {
@@ -512,7 +515,7 @@ class FlexData extends Module {
                   data: item.getAttribute('type') === 'radio' ? values[0] : values,
                   emit: true,
                 };
-                const module = item.parentElement.parentElement.parentElement.parentElement;
+                const module = item.closest('.mdl-select');
                 if (module.hasAttribute('data-drilldown-secondary')) {
                   setTimeout(() => {
                     module
@@ -538,17 +541,28 @@ class FlexData extends Module {
           }, this.options.initDelay);
           break;
       }
-      // Set the sort element if present
-      if (this.ui.genericSortDropdown) {
-        let sortSelector = `[data-sort-column="${this.orderBy}"]`;
-        if (this.orderBy !== 'relevance') {
-          sortSelector += `[data-sort-direction="${this.order}"]`;
-        }
-        const sortSetting = this.ui.genericSortDropdown.querySelector(sortSelector);
-        this.updateSortDropdown(sortSetting);
-      }
     });
+
+    // Set accordion subheads if present
+    if (this.ui.form.querySelectorAll('.mdl-accordion').length) {
+      setTimeout(() => {
+        this.ui.form.querySelectorAll('.mdl-accordion').forEach((accordion: HTMLDivElement) => {
+          accordion.dispatchEvent(new CustomEvent(Accordion.events.updateSubheads));
+        });
+      }, this.options.initDelay);
+    }
+
+    // Set the sort element if present
+    if (this.ui.genericSortDropdown) {
+      let sortSelector = `[data-sort-column="${this.orderBy}"]`;
+      if (this.orderBy !== 'relevance') {
+        sortSelector += `[data-sort-direction="${this.order}"]`;
+      }
+      const sortSetting = this.ui.genericSortDropdown.querySelector(sortSelector);
+      this.updateSortDropdown(sortSetting);
+    }
   }
+
   /**
    * Fetch teaser data
    * @param callback
