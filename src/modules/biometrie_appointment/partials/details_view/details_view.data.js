@@ -30,7 +30,6 @@ const successNotification = {
   message: '<span data-biometrie_appointment="reservation-details__appointmentDateString"></span>&nbsp;<span data-biometrie_appointment="reservation-details__fromTimeString"></span>&nbsp;&ndash;&nbsp;<span data-biometrie_appointment="reservation-details__untilTimeString"></span>',
   icon: '#confirm',
   isGreen: true,
-  isBig: true,
   button: {
     icon: 'exit',
     additionalAttribute: 'data-biometrie_appointment="alertClose"',
@@ -56,8 +55,6 @@ const personDataMetablock = {
         {
           label: 'Geburtsdatum',
           text: '<span data-biometrie_appointment="reservation-details__dateOfBirth"></span>',
-        },
-        {
         },
       ],
     },
@@ -161,8 +158,6 @@ const variants = _.mapValues({
                 label: 'Geburtsdatum',
                 text: '<span data-biometrie_appointment="reservation-details__dateOfBirth">24.04.1983</span>',
               },
-              {
-              },
             ],
           },
         ],
@@ -247,7 +242,6 @@ const variants = _.mapValues({
           + '10:45</span>&nbsp;&ndash;&nbsp;<span data-biometrie_appointment="reservation-details__untilTimeString">11:00</span>',
         icon: '#confirm',
         isGreen: true,
-        isBig: true,
         button: {
           icon: 'exit',
           additionalAttribute: 'data-biometrie_appointment="alertClose"',

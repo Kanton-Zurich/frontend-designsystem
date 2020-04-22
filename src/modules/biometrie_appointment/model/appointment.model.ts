@@ -11,7 +11,7 @@ class Appointment {
   private dateFormatOptions = {
     day: '2-digit',
     month: '2-digit',
-    weekday: 'short',
+    weekday: 'long',
     year: 'numeric',
   };
 
@@ -37,7 +37,7 @@ class Appointment {
 
   get appointmentDateString(): string {
     const date = this.getAppointmentStartDate();
-    return date.toLocaleDateString(this.locale, this.dateFormatOptions).replace('.', '');
+    return date.toLocaleDateString(this.locale, this.dateFormatOptions);
   }
 
   get fromTimeString(): string {

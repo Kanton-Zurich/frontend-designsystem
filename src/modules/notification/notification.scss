@@ -5,6 +5,7 @@
   border-radius: 3px;
   background: $colorRed;
   padding: pxToRem($sizeRegular);
+  position: relative;
 
   .icon {
     min-width: pxToRem($sizeLarge);

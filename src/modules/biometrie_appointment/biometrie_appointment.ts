@@ -253,7 +253,6 @@ class BiometrieAppointment extends Module {
       .querySelector<HTMLAnchorElement>(this.options.domSelectors.logoutLink);
     if (setVisible) {
       logoutLink.classList.add('show');
-      logoutLink.scrollIntoView({ behavior: 'smooth' });
     } else {
       logoutLink.classList.remove('show');
     }
@@ -264,7 +263,6 @@ class BiometrieAppointment extends Module {
       .querySelector<HTMLAnchorElement>(this.options.domSelectors.backLink);
     if (setVisible) {
       backLink.classList.add('show');
-      backLink.scrollIntoView({ behavior: 'smooth' });
     } else {
       backLink.classList.remove('show');
     }

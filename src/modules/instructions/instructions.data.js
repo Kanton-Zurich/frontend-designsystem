@@ -173,7 +173,7 @@ const variants = _.mapValues({
           contentModules: [
             '<div class="mdl-richtext">'
             + '<p class="atm-paragraph">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>'
-            + '<ul><li>Brief mit der Terminbestätigung</li></ul>'
+            + '<ul><li>Brief mit der Terminbestätigung</li><li>&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li><li>&nbsp;</li></ul>'
             + '</div>',
           ],
         },
