@@ -4,4 +4,4 @@ To setup URL reflection(open/close-state) simply set the optional accordionPanel
 
 ### Integration
 
-HTML kopieren und einfügen.
+HTML kopieren, einfügen und speichern.
