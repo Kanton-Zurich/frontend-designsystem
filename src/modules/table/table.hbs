@@ -30,6 +30,7 @@
                       scope="col"
                       class="mdl-table__cell mdl-table__column-header {{#if isSortable}}mdl-table__column-header--sortable{{/if}}"
                       {{#if isSortable}}aria-sort="none"{{/if}}
+                      {{#unless isSortable}}{{#if dataColumnName}}data-column-name="{{dataColumnName}}"{{/if}}{{/unless}}
                     >
                       {{#if isSortable}}
                         <button

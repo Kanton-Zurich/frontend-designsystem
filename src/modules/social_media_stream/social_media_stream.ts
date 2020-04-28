@@ -128,6 +128,7 @@ class SocialMediaStream extends Module {
       this.dataIdle = false;
       this.fetchData((jsonData) => {
         this.populatePostList(jsonData);
+        this.dispatchVerticalResizeEvent(200); // eslint-disable-line
         this.dataIdle = true;
       });
     }

@@ -13,9 +13,8 @@ import WindowEventListener from '../../assets/js/helpers/events';
 class Header extends Module {
   public placeholder: HTMLElement;
   public delayHeaderIsFixed: number;
-  public isToggleable: boolean;
   public flyoutVisible: boolean;
-  public pageHeaderBounds: any;
+  public pageHeader: HTMLElement;
 
   private pinPos: number;
   public height: number;
@@ -92,8 +91,7 @@ class Header extends Module {
 
     this.data.scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     this.delayHeaderIsFixed = 0;
-    this.pageHeaderBounds = null;
-    this.isToggleable = true;
+    this.pageHeader = null;
     this.headerHeights = {
       tiny: 50,
       xsmall: 58,
@@ -133,7 +131,7 @@ class Header extends Module {
     window.addEventListener(Modal.events.closed, this.hideFlyout.bind(this));
 
     (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
-    (<any>WindowEventListener).addDebouncedScrollListener(this.handleScroll.bind(this));
+    (<any>WindowEventListener).addEventListener('scroll', this.handleScroll.bind(this));
 
     window.addEventListener(Anchornav.events.isSticky, () => {
       this.ui.element.classList.add(this.options.colorClasses.monochrome);
@@ -143,10 +141,7 @@ class Header extends Module {
       this.ui.element.classList.remove(this.options.colorClasses.monochrome);
     });
 
-    const pageHeader = document.querySelector('.mdl-page-header');
-    if (pageHeader) {
-      this.pageHeaderBounds = pageHeader.getBoundingClientRect();
-    }
+    this.pageHeader = document.querySelector('.mdl-page-header');
   }
 
   initWatchers() {
@@ -210,6 +205,10 @@ class Header extends Module {
   hideFlyout() {
     this.flyoutVisible = false;
     let anchornavIsSticky = false;
+    const aEl = this.data.activeItem;
+    setTimeout(() => {
+      aEl.focus();
+    }, 350); // eslint-disable-line
 
     if (document.querySelector('.mdl-anchornav')) {
       anchornavIsSticky = document.querySelector('.mdl-anchornav').classList.contains('mdl-anchornav--sticky');
@@ -258,48 +257,32 @@ class Header extends Module {
   }
 
   handleScroll() {
-    const newScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    let pageHeaderBounds = null;
+    if (this.pageHeader) {
+      pageHeaderBounds = this.pageHeader.getBoundingClientRect();
+    }
 
-    if (this.flyoutVisible || (window.pageYOffset < this.height && window.pageYOffset > 0)) {
+    if (this.flyoutVisible) {
       return;
     }
 
-    if (newScrollPosition >= this.height) {
-      this.placeholder.style.display = 'block';
-      this.ui.element.classList.add(this.options.stateClasses.fixed);
-    } else if (newScrollPosition === 0) {
+    if (pageHeaderBounds.top >= this.height) {
       this.placeholder.style.display = 'none';
       this.ui.element.classList.remove(this.options.stateClasses.fixed);
       document.documentElement.classList.remove(this.options.stateClasses.fixedHeader);
-    }
-
-    // Scroll down
-    if (this.data.scrollPosition < newScrollPosition && this.isToggleable) {
-      this.ui.element.style.display = 'none';
-      document.documentElement.classList.remove(this.options.stateClasses.fixedHeader);
-      this.ui.element.classList.remove(this.options.stateClasses.fixed);
-    } else if (this.data.scrollPosition > newScrollPosition && this.isToggleable) {
-      // Scroll up
-      this.ui.element.style.display = 'block';
+    } else {
+      this.placeholder.style.display = 'block';
+      this.ui.element.classList.add(this.options.stateClasses.fixed);
       document.documentElement.classList.add(this.options.stateClasses.fixedHeader);
     }
 
-    if (this.isToggleable) {
-      this.data.scrollPosition = newScrollPosition >= 0 ? newScrollPosition : 0;
-      this.isToggleable = false;
-    }
-
-    if (this.pageHeaderBounds && !document.querySelector('.mdl-anchornav')) {
-      if (this.data.scrollPosition > this.pageHeaderBounds.bottom) {
+    if (pageHeaderBounds) {
+      if (pageHeaderBounds.bottom < 0) {
         this.ui.element.classList.add(this.options.colorClasses.monochrome);
       } else {
         this.ui.element.classList.remove(this.options.colorClasses.monochrome);
       }
     }
-
-    setTimeout(() => {
-      this.isToggleable = true;
-    }, this.delayHeaderIsFixed);
   }
 
   private createPlaceholder() {

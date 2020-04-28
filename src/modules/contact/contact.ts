@@ -11,6 +11,7 @@ class Contact extends Module {
     element: any,
     mediaSection: HTMLDivElement,
     trigger: HTMLAnchorElement,
+    triggerSvg: HTMLElement,
     triggerSpans: HTMLSpanElement[],
     mediaContact: HTMLDivElement,
   };
@@ -19,6 +20,7 @@ class Contact extends Module {
     domSelectors: {
       mediaSection: string,
       trigger: string,
+      triggerSvg: string,
       triggerSpans: string,
       mediaContact: string,
     },
@@ -35,6 +37,7 @@ class Contact extends Module {
         mediaContact: '.mdl-contact__section-cell--media .mdl-contact__cell-content',
         trigger: '.mdl-contact__media-trigger',
         triggerSpans: '.mdl-contact__media-trigger span',
+        triggerSvg: '.mdl-contact__media-trigger svg',
       },
       stateClasses: {
         open: 'open',
@@ -50,11 +53,11 @@ class Contact extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.eventDelegate
-      .on('click', this.options.domSelectors.trigger, (event) => {
-        event.preventDefault();
-        this.toggleContact();
-      });
+    this.ui.trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      this.toggleContact();
+    });
   }
 
 

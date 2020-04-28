@@ -109,6 +109,7 @@ class Stepper extends Module {
       showFieldInvalid: 'showFieldInvalid',
       showRuleNotification: 'Stepper.showRuleNotification',
       hideRuleNotification: 'Stepper.hideRuleNotification',
+      checkRules: 'Stepper.checkRules',
     };
   }
 
@@ -277,7 +278,7 @@ class Stepper extends Module {
   }
 
   validateSection() {
-    const sections = this.ui.steps[this.data.active].querySelectorAll('section');
+    const sections = this.nextStepIsLast() ? this.ui.lastpage : this.ui.steps[this.data.active].querySelectorAll('fieldset');
 
     this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
       detail: {
@@ -285,13 +286,16 @@ class Stepper extends Module {
       },
     }));
 
-    if (this.nextStepIsLast()) {
-      this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
-        detail: {
-          sections: [this.ui.lastpage],
-        },
-      }));
-    }
+    // Thats needs a little delay (CZHDEV-1754)
+    setTimeout(() => {
+      const page = this.nextStepIsLast() ? this.ui.lastpage : this.ui.steps[this.data.active];
+      const invalid = page.querySelector('.invalid');
+
+      if (invalid) {
+        // Focus the first invalid error field for accessibility reasons
+        invalid.querySelector('input, textarea, .atm-form_input__input--trigger').focus();
+      }
+    }, 1);
   }
 
   changePage(newIndex) {
@@ -302,14 +306,34 @@ class Stepper extends Module {
         const firstInvalidField = this.ui.steps[this.data.active].querySelector('.invalid');
 
         firstInvalidField.focus();
+        this.scrollTo(firstInvalidField);
 
         return false;
       }
     }
-
     this.data.active = newIndex;
+    this.ui.steps[newIndex].dispatchEvent(new CustomEvent(Stepper.events.checkRules));
+    this.scrollTop();
 
     return true;
+  }
+
+  /**
+   * Scroll to top
+   */
+  scrollTop() {
+    this.scrollTo(this.ui.element);
+  }
+
+  /**
+   * Scroll to top
+   */
+  scrollTo(element) {
+    setTimeout(() => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const rect = element.getBoundingClientRect();
+      window.scroll(0, rect.top + scrollTop);
+    }, 0);
   }
 
   async sendForm() {

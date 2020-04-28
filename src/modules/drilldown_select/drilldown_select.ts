@@ -52,6 +52,17 @@ class DrilldownSelect extends Module {
       this.ui.selects[1]
         .dispatchEvent(new CustomEvent(Select.events.clear));
     });
+    this.ui.selects[1].addEventListener(Select.events.onItemsFiltered, (event) => {
+      const { filteredValues } = event.detail;
+
+      if (filteredValues.length > 0) {
+        this.ui.selects[1]
+          .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: false } }));
+      } else {
+        this.ui.selects[1]
+          .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: true } }));
+      }
+    });
     setTimeout(() => {
       this.ui.selects[1]
         .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: true } }));
@@ -63,8 +74,6 @@ class DrilldownSelect extends Module {
    * @param value
    */
   setSecondarySelectFilter(value) {
-    this.ui.selects[1]
-      .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: false } }));
     this.ui.selects[1]
       .dispatchEvent(new CustomEvent(Select.events.setFilter, { detail: { filterValue: value } }));
   }

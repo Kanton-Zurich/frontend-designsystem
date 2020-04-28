@@ -25,7 +25,7 @@ const data = _.merge({}, defaultData, {
     skiplinks: skiplinksData,
     header: _.merge({}, headerData, { inverted: true }),
     modules: {
-      pageHeaderData: _.merge({}, defPageHeaderData.variants.rrbDetail.props, {
+      pageHeaderData: _.merge({}, defPageHeaderData.variants.zhLexDetail.props, {
         pageTitle: 'Vertrag zwischen den Ständen Zürich und Schwyz betreffend die Hafengüter bei Richterswil',
         breadcrumb: {
           path: [

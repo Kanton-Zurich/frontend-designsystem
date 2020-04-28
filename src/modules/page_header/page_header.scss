@@ -114,6 +114,10 @@ $pageHeaderCurves: (
     }
   }
 
+  &__title {
+    word-break: break-word;
+  }
+
   &__logo-container {
     height: 0;
 

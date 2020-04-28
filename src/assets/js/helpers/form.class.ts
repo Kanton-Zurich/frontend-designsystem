@@ -174,10 +174,14 @@ class Form {
         });
         break;
       default:
+
         wrist.watch(input, 'value', (propName, oldValue, newValue) => {
           // prevent datepicker for being validated as its being validated on a close event
           this.onInputValueChange(input, oldValue, newValue, input.classList.contains('flatpickr-input') === false);
         });
+        if (input.hasAttribute('data-input-mask')) {
+          this.onInputMask(input, '', input.value);
+        }
         break;
     }
   }
@@ -214,6 +218,16 @@ class Form {
           .classList.remove(this.options.inputClasses.valid);
       }
     }
+    this.onInputMask(domElement, oldValue, newValue);
+  }
+
+  /**
+   * Prepare and process input mask
+   * @param domElement
+   * @param oldValue
+   * @param newValue
+   */
+  onInputMask(domElement, oldValue, newValue) {
     /* Backdrop mask */
     const maskPlaceholder = domElement.getAttribute('data-mask-placeholder');
     let backdrop = domElement.parentElement.querySelector(this.options.domSelectors.backdrop);
@@ -242,7 +256,11 @@ class Form {
     inputElement.dispatchEvent(new CustomEvent(Form.events.clearInput));
   }
 
-  validateField(field) {
+  validateField(field) { //eslint-disable-line
+    if (this.ui.element.hasAttribute('is-reset')) {
+      return false;
+    }
+
     const validation = window[namespace].form.validateField(field);
     const fileTimeout = 5;
     const inputWrapper = field.closest(this.options.inputSelector);
@@ -271,7 +289,7 @@ class Form {
             }
             message.classList.add('show');
             message.setAttribute('id', messageElementID);
-            field.setAttribute('aria-describledby', messageElementID);
+            field.setAttribute('aria-describedby', messageElementID);
           }
         });
 
@@ -312,6 +330,9 @@ class Form {
         if (field.value.length > 0 || field.hasAttribute('required')) {
           errorField.classList[functionArray[0]](this.options.inputClasses.invalid);
           errorField.classList[functionArray[1]](this.options.inputClasses.valid);
+        } else {
+          errorField.classList.remove(this.options.inputClasses.invalid);
+          errorField.classList.add(this.options.inputClasses.valid);
         }
     }
   }
@@ -419,6 +440,10 @@ class Form {
       const index = oldValue.length;
       if (index < maskParts.length) {
         if (newValue[index].match(maskParts[index].regex)) {
+          if (maskParts.length - newValue.length === 1
+            && maskParts[index].autoFillValue) {
+            return `${newValue}${maskParts[index].autoFillValue}`;
+          }
           return newValue;
         } else if (maskParts[index] && maskParts[index].autoFill && newValue[index].match(maskParts[index].autoFill)) { // eslint-disable-line
           return `${oldValue}${maskParts[index].autoFillValue}${newValue[index]}`;

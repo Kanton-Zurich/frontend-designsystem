@@ -1,0 +1,9 @@
+.atm-linklist_item {
+  @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+  @include sizeCurve(padding-top padding-bottom, tiny);
+
+  &:after {
+    border-bottom: 1px solid rgba($colorText, 0.2);
+    height: 0;
+  }
+}

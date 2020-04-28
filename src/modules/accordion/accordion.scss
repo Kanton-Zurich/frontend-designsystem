@@ -176,30 +176,21 @@ $accordionMap: (
   }
 
   &__panel-content {
-    p {
-      @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
-
-      color: $colorBlack60;
-    }
+    display: inline-block;
+    width: 100%;
 
     > :last-child {
-      @include sizeCurve(padding-bottom, medium);
+      @include sizeCurve(margin-bottom, medium);
     }
 
-    > p:last-child {
-      @include sizeCurve(padding-bottom, regular);
-    }
-
-    > .mdl-linklist:last-child {
-      margin-bottom: 0;
-
-      @include sizeCurve(padding-bottom, regular);
-    }
-
+    > p:last-child,
+    > .mdl-linklist:last-child,
     > .mdl-download_list:last-child {
-      margin-bottom: 0;
+      @include sizeCurve(margin-bottom, regular);
+    }
 
-      @include sizeCurve(padding-bottom, regular);
+    .atm-heading.mdl-linklist__title {
+      margin-top: 0;
     }
   }
 

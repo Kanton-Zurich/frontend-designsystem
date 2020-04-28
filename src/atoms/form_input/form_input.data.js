@@ -136,7 +136,7 @@ const variants = _.mapValues({
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
         errorMsg: 'Die Eingabe entspricht nicht den Vorgaben für die URL.',
-        isRequired: true,
+        isRequired: false,
       },
     },
   },
@@ -263,6 +263,30 @@ const variants = _.mapValues({
       },
     },
   },
+  phoneWithMask: {
+    meta: {
+      title: 'Telefonnummer mit Maske',
+      desc: 'Input mit floating Label und validierung und Hinweis',
+    },
+    props: {
+      type: 'text',
+      label: 'Telefonnummer',
+      inputMask: '\\+41\\s[\\d ]\\d\\d\\s[\\d ]\\d\\d\\d\\s[\\d ]\\d\\d\\s[\\d ]\\d\\d\\',
+      maskPlaceholder: '+41 __ ___ __ __',
+      inputContent: '+41',
+      validation: {
+        pattern: '\\+41\\s\\d{2,}\\s\\d{3,}\\s\\d{2,}\\s\\d{2,}$',
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Datum bitte im Format +41 XX XXX XX XX eingeben!',
+        isRequired: false,
+      },
+      uuid: _.uniqueId('float_input_valid'),
+      isFloatingLabel: true,
+      isRequired: true,
+
+    },
+  },
   unitLeft: {
     meta: {
       title: 'Nummereingabefeld mit Einheitsangabe (links)',
@@ -379,10 +403,11 @@ const variants = _.mapValues({
     },
     props: {
       inputMask: 'phone',
-      maskPlaceholder: 'XX XXX XX XX',
+      maskPlaceholder: '__ ____ __ __',
       type: 'text',
       isSelectTrigger: true,
       isTriggerWithInput: true,
+      isFloatingLabel: true,
       isInput: false,
       label: 'Telefonnummer',
       icon: 'angle_drop_down',

@@ -75,6 +75,14 @@ $searchCurves: (
     .mdl-search--hide-tags & {
       display: none;
     }
+
+    @include mq($to: small) {
+      margin-left: pxToRem($sizeBiggerBig + $sizeTiny);
+    }
+
+    .mdl-tag-group__tags {
+      margin-left: - pxToRem($sizeSmallRegular);
+    }
   }
 
   &__tag-group,

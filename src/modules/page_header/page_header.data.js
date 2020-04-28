@@ -345,11 +345,27 @@ const variants = _.mapValues({
       disabledColorVariations: ['cv-monochrome'],
     },
     props: {
-      pageTitle: 'Regierungsratsbeschluss  Nr. 749/2018',
+      pageTitle: 'Regierungsratsbeschluss Nr. 749/2018',
       inverted: false,
       hasBacklink: true,
       noText: true,
       breadcrumb: backOnlyBreadcrumbData,
+    },
+  },
+  zhLexDetail: {
+    meta: {
+      title: 'Flex Data (ZHLEX) (CZHDEV-1233)',
+      desc: '',
+      disabledColorVariations: ['cv-monochrome'],
+    },
+    props: {
+      pageTitle: 'Vertrag zwischen den Ständen Zürich und Schwyz betreffend die Hafengüter bei Richterswil',
+      inverted: false,
+      hasBacklink: true,
+      noText: true,
+      breadcrumb: _.merge({}, backOnlyBreadcrumbData, {
+        hasStorage: true,
+      }),
     },
   },
   error404: {
@@ -535,20 +551,19 @@ const variants = _.mapValues({
     },
     props: {
       noText: true,
-      homelink: false,
       breadcrumb: {
         contextMenu: false,
         path: [
           {
             title: 'Kanton Zürich',
-            href: false,
+            href: '#',
           },
         ],
       },
       pageTitle: 'Seite nicht erreichbar',
       errorBlock: {
         text: 'Wir arbeiten gerade an unserer Website. Schauen Sie doch in der Zwischenzeit unseren Imagefilm und versuchen es später nochmals.',
-        videoData: defVideoData.variants.default.props,
+        videoData: defVideoData.variants.offlinePage.props,
       },
     },
   },

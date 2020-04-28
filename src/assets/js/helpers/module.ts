@@ -377,8 +377,30 @@ class Module {
   /**
    * When vertical content size changes due to interaction expand / collapse
    */
-  dispatchVerticalResizeEvent() {
+  dispatchVerticalResizeEvent(timeout: number = 0) {
+    if (timeout > 0) {
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent(Module.globalEvents.verticalResize));
+      }, timeout);
+      return;
+    }
     window.dispatchEvent(new CustomEvent(Module.globalEvents.verticalResize));
+  }
+
+  /**
+   * Check support for localstorage
+   */
+  public supportsLocalStorage() {
+    try {
+      return window.localStorage;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  // Checks if the module is visually rendered
+  protected isVisible() {
+    return this.ui.element.offsetWidth !== 0 && this.ui.element.offsetHeight !== 0;
   }
 }
 

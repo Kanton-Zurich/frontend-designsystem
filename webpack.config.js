@@ -10,6 +10,7 @@ module.exports = [
     entry: {
       head: './src/assets/js/head.ts',
       main: './src/assets/js/main.ts',
+      mainMinimal: './src/assets/js/mainMinimal.ts',
     },
     output: {
       path: path.resolve('./dist/assets/js'),

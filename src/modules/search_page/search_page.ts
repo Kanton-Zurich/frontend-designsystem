@@ -123,6 +123,7 @@ class SearchPage extends Module {
       renderAsButton: true,
       autoHide: true,
     }, {});
+    this.ui.autosuggest.classList.remove('initially-hidden');
   }
 
   static get events() {
@@ -158,6 +159,12 @@ class SearchPage extends Module {
 
     this.ui.input.addEventListener(Form.events.clearInput, () => {
       this.onQueryChange(null, null, '');
+    });
+
+    this.ui.datePicker.addEventListener(Datepicker.events.dateSet, (event) => {
+      const { detail } = <CustomEvent>event;
+      [this.data.dateFrom, this.data.dateTo] = detail.dates;
+      this.onFilterChange(false);
     });
   }
 
@@ -226,11 +233,11 @@ class SearchPage extends Module {
       .generateParams(true, false, false, false, true, false, noAutoCorrection),
     (response) => {
       this.result = response;
+      this.checkIfPickerVisible();
       this.ui.autosuggest.dispatchEvent(new CustomEvent(Autosuggest.events.disableNext));
       if (response.results) {
         this.dispatchPageCount();
         this.renderResults();
-        this.ui.element.classList.add(this.options.stateClasses.showResults);
       } else {
         this.showNoResults(true);
       }
@@ -310,21 +317,19 @@ class SearchPage extends Module {
       this.data.type = event.target.value;
     }
 
-    this.ui.results.classList.add(this.options.stateClasses.loading);
+    this.ui.wrapper.classList.add(this.options.stateClasses.loading);
 
     this.setFilterInUrl();
 
     return this.getData(this.generateParams(true, true, false, true, true), (response) => {
       this.result = response;
+      this.checkIfPickerVisible();
       if (response.results) {
         this.dispatchPageCount();
-        this.renderHead();
-        this.renderList();
-        this.checkIfPickerVisible();
+        this.renderResults(true);
       } else {
         this.showNoResults(true);
       }
-      this.ui.results.classList.remove(this.options.stateClasses.loading);
     });
   }
 
@@ -334,18 +339,20 @@ class SearchPage extends Module {
     }
 
     this.emptyList();
-    this.ui.results.classList.add(this.options.stateClasses.loading);
+    this.ui.wrapper.classList.add(this.options.stateClasses.loading);
 
     this.data.page = event.detail.after;
     this.setFilterInUrl();
 
     return this.getData(this.generateParams(true, true, true, true, true, true), (response) => {
       this.result = response;
-
-      this.renderList();
-
-      this.ui.results.classList.remove(this.options.stateClasses.loading);
-      this.scrollTop();
+      this.checkIfPickerVisible();
+      if (response.results) {
+        this.renderResults(true);
+        this.scrollTop();
+      } else {
+        this.showNoResults(true);
+      }
     });
   }
 
@@ -369,22 +376,29 @@ class SearchPage extends Module {
           this.showNoResults(false);
           callback(response);
           this.ui.element.classList.remove(this.options.stateClasses.showError);
+          this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
         }
       })
       .catch((err) => {
         this.log('error', err);
-        callback({ error: err });
         this.ui.element.classList.add(this.options.stateClasses.showError);
+        this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
       });
   }
 
-  renderResults() {
-    this.renderHead();
+  renderResults(listOnly = false) {
+    if (!listOnly) {
+      this.renderHead();
+    }
     this.renderList();
-
-    this.checkIfPickerVisible();
-
-    (<any>window).estatico.helpers.app.registerForms();
+    if (!listOnly) {
+      (<any>window).estatico.helpers.app.registerForms();
+    }
+    this.ui.element.classList.add(this.options.stateClasses.showResults);
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('reloadLineClamper'));
+      this.ui.autosuggest.dispatchEvent(new CustomEvent(Autosuggest.events.empty));
+    }, 0);
   }
 
   renderHead() {
@@ -411,17 +425,6 @@ class SearchPage extends Module {
 
     this.initFilterEventListeners(parsedHTML);
 
-    (<any>window).estatico.helpers.registerModulesInElement
-      .bind((<any>window).estatico.helpers.app)(this.ui.element);
-    (<any>window).estatico.helpers.initModulesInElement
-      .bind((<any>window).estatico.helpers.app)(this.ui.element);
-
-    this.ui.datePicker.addEventListener(Datepicker.events.dateSet, (event) => {
-      const { detail } = <CustomEvent>event;
-      [this.data.dateFrom, this.data.dateTo] = detail.dates;
-      this.onFilterChange(false);
-    });
-
     if (this.data.dateFrom && this.data.dateTo) {
       this.setDatepickerInput();
     }
@@ -432,6 +435,7 @@ class SearchPage extends Module {
   }
 
   renderList() {
+    this.emptyList();
     const compiledTemplate = template(this.ui.resultsTemplate.innerHTML);
     const generatedHTML = compiledTemplate(this.result);
     const parsedHTML = new DOMParser().parseFromString(generatedHTML, 'text/html').querySelector('ul');
@@ -445,6 +449,14 @@ class SearchPage extends Module {
 
   empty() {
     this.ui.resultsHead.innerHTML = '';
+    this.ui.dateFilter.classList.remove(this.options.stateClasses.dateFilterVisible);
+    this.ui.datePicker.dispatchEvent(new CustomEvent(Datepicker.events.clear));
+    this.data = {
+      type: 'all',
+      page: 1,
+      dateTo: undefined,
+      dateFrom: undefined,
+    };
 
     this.emptyList();
   }
@@ -454,6 +466,7 @@ class SearchPage extends Module {
 
     if (list) list.remove();
   }
+
 
   /**
    * Generating the url with get params
@@ -505,6 +518,9 @@ class SearchPage extends Module {
     this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setPageCount, {
       detail: pageCount,
     }));
+    this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setPage, {
+      detail: this.data.page,
+    }));
   }
 
   getParamsInUrl() {
@@ -534,21 +550,14 @@ class SearchPage extends Module {
       this.ui.wrapper.classList.add(this.options.stateClasses.loading);
 
       this.getData(this.generateParams(true, true, true, true, true), (response) => {
-        this.ui.element.classList.add(this.options.stateClasses.showError);
         this.result = response;
+        this.checkIfPickerVisible();
         if (response.results) {
           this.dispatchPageCount();
           this.renderResults();
-          this.ui.element.classList.add(this.options.stateClasses.showResults);
-
-          this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setPage, {
-            detail: this.data.page,
-          }));
         } else {
           this.showNoResults(true);
         }
-
-        this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
       });
     }
   }

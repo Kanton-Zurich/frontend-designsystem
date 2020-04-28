@@ -153,6 +153,8 @@ class Modal extends Module {
       } else {
         pageHeader.dispatchEvent(new CustomEvent('PageHeader.expand'));
       }
+
+      this.rescaleBackgroundElements();
     }
   }
 
@@ -203,6 +205,8 @@ class Modal extends Module {
       this.setPage(event.detail.page);
     }
 
+    this.ui.element.removeAttribute('aria-hidden');
+
     // Set show class
     this.ui.element.classList.add(this.options.stateClasses.beforeShow);
     setTimeout(() => { this.ui.element.classList.add(this.options.stateClasses.show); }, 1);
@@ -214,17 +218,16 @@ class Modal extends Module {
     // delayed opacity animation and focus handling
     setTimeout(() => {
       const focusable = this.ui.element.querySelectorAll(this.options.domSelectors.focusable);
-      if (focusable.length > 0) {
+      if (focusable.length > 0 && !focusable[0].classList.contains('mdl-skiplinks__link')) {
         focusable[0].focus();
+      }
+      if (this.options.hasDynamicHeader) {
+        this.updateOnScroll(0);
       }
     }, 1);
     this.ui.element.focus();
     this.ui.element.scrollTop = 0;
 
-
-    if (this.options.hasDynamicHeader) {
-      this.updateOnScroll(0);
-    }
     this.updateSizing();
     (<any>WindowEventListener).addDebouncedResizeListener(this.updateSizing.bind(this));
     // If there is the navigation topic list a child, then load the navigation
@@ -251,6 +254,7 @@ class Modal extends Module {
 
   /** Closes the modal */
   closeModal() {
+    document.body.style.removeProperty('max-height');
     this.isolatedElements.forEach((element) => {
       element.removeAttribute('aria-hidden');
     });
@@ -285,6 +289,11 @@ class Modal extends Module {
 
   setPage(page) {
     this.ui.pageContainer.setAttribute('data-page', page);
+  }
+
+  rescaleBackgroundElements() {
+    const height = this.ui.element.clientHeight;
+    document.body.style.maxHeight = `${height}px`;
   }
 
   /**

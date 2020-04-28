@@ -10,6 +10,7 @@ import Table from '../table/table';
 import Select from '../select/select';
 import namespace from '../../assets/js/helpers/namespace';
 import Pagination from '../pagination/pagination';
+import Accordion from '../accordion/accordion';
 
 class FlexData extends Module {
   public ui: {
@@ -31,6 +32,7 @@ class FlexData extends Module {
     paginationInput: HTMLInputElement,
     submitButton: HTMLButtonElement,
     clearButton: HTMLButtonElement,
+    includeRepealed: HTMLInputElement,
   };
   public options: any;
   public dataUrl: string;
@@ -63,6 +65,7 @@ class FlexData extends Module {
         pagination: '.mdl-pagination',
         paginationInput: '.mdl-pagination input',
         notification: '.mdl-flex-data__notification',
+        includeRepealed: '[name="includeRepealedEnactments"]',
       },
       stateClasses: {
         loading: 'mdl-flex-data--loading',
@@ -76,6 +79,8 @@ class FlexData extends Module {
     this.orderBy = '';
     this.initUi();
     this.initEventListeners();
+
+    window.localStorage.removeItem('origin');
   }
 
   static get events() {
@@ -159,9 +164,16 @@ class FlexData extends Module {
     if (this.getAllURLParams()['page'] || initialLoad) { // eslint-disable-line
       this.updateViewFromURLParams();
       setTimeout(() => {
-        this.loadResults(false, true);
+        if (this.isVisible()) {
+          this.loadResults(false, true);
+        }
       }, this.options.initDelay);
     }
+
+    // EventListener to set localstorage
+    this.eventDelegate.on('click', `${this.options.domSelectors.results} .mdl-table__cell a`, () => {
+      window.localStorage.setItem('origin', window.location.href);
+    });
   }
 
   /**
@@ -177,9 +189,15 @@ class FlexData extends Module {
    */
   onClearResults() {
     this.ui.clearButton.classList.add('hidden');
+
+    this.ui.form.setAttribute('is-reset', 'true');
+
     this.ui.form.reset();
     this.ui.form.querySelectorAll('.mdl-select').forEach((select: HTMLElement) => {
       select.dispatchEvent(new CustomEvent(Select.events.clear));
+    });
+    this.ui.form.querySelectorAll('.mdl-accordion').forEach((accordion: HTMLDivElement) => {
+      accordion.dispatchEvent(new CustomEvent(Accordion.events.clearSubheads));
     });
     this.ui.results.classList.add('initially-hidden');
     this.ui.pagination.classList.add('hidden');
@@ -187,6 +205,8 @@ class FlexData extends Module {
     if (initialLoad) {
       this.loadResults();
     }
+
+    this.ui.form.removeAttribute('is-reset');
   }
 
   /**
@@ -278,7 +298,7 @@ class FlexData extends Module {
         this.upsertLinkRel('canonical', canonicalUrl);
         this.populateResultList(jsonData);
         this.updateFlyingFocus(0);
-        this.dispatchVerticalResizeEvent();
+        this.dispatchVerticalResizeEvent(100); // eslint-disable-line
         if (scroll) {
           this.scrollTop();
         }
@@ -315,6 +335,12 @@ class FlexData extends Module {
    * @param jsonData
    */
   populateResultList(jsonData) {
+    let removeColumnRepealed = false;
+
+    if (this.ui.includeRepealed) {
+      removeColumnRepealed = !this.ui.includeRepealed.checked;
+    }
+
     this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
     this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
     if (jsonData.numberOfResultPages > 1) {
@@ -324,11 +350,12 @@ class FlexData extends Module {
     }
     let resultsTitle = this.ui.results.getAttribute('data-result-count-title')
       .replace('%1', jsonData.numberOfResults);
+    if (jsonData.moreSearchResultsThanAllowed) {
+      resultsTitle = this.ui.results.getAttribute('data-result-count-title-more')
+        .replace('%1', jsonData.numberOfResults);
+    }
     if (!jsonData.numberOfResults || jsonData.numberOfResults <= 0) {
       resultsTitle = this.ui.results.getAttribute('data-no-results-title');
-      this.ui.results.classList.add('hidden');
-    } else {
-      this.ui.results.classList.remove('hidden');
     }
     // fill table date if present
     if (this.ui.resultsTable) {
@@ -336,8 +363,8 @@ class FlexData extends Module {
       this.ui.resultsTable.classList.remove('visible');
       this.ui.resultsTableTitle.innerText = resultsTitle;
       if (jsonData.data) {
+        this.ui.resultsTable.classList.add('visible');
         jsonData.data.forEach((item) => {
-          this.ui.resultsTable.classList.add('visible');
           const tr = document.createElement('tr');
           tr.classList.add('mdl-table__row');
           const props = {
@@ -355,6 +382,33 @@ class FlexData extends Module {
           });
           this.ui.resultsTableBody.appendChild(tr);
         });
+      }
+      // CZHDEV-2355
+      if (removeColumnRepealed) {
+        const { rows } = this.ui.resultsTable.querySelector('table');
+        let cellIndex = null;
+
+        for (let i = 0; i < rows.length; i += 1) {
+          const { cells } = rows[i];
+
+          if (cellIndex) {
+            rows[i].deleteCell(cellIndex);
+          }
+
+          for (let x = 0; x < cells.length; x += 1) {
+            const cell = cells[x];
+            if (cell.dataset.columnName === 'withdrawalDate') {
+              cellIndex = x;
+              cell.style.display = 'none';
+            }
+          }
+        }
+      } else {
+        const thWithdrawalDate = this.ui.resultsTable.querySelector('[data-column-name="withdrawalDate"]');
+
+        if (thWithdrawalDate) {
+          thWithdrawalDate.removeAttribute('style');
+        }
       }
     }
     // fill generic results
@@ -389,7 +443,7 @@ class FlexData extends Module {
     let resultUrl = this.dataUrl;
 
     const append = (key, value) => {
-      if (value.length > 0) {
+      if (value && value.length > 0) {
         resultUrl += resultUrl === this.dataUrl ? '?' : '&';
         if (Array.isArray(value)) {
           value.forEach((item, index) => {
@@ -421,9 +475,12 @@ class FlexData extends Module {
    * Update from URL params
    */
   updateViewFromURLParams() {
+    if (!this.isVisible()) {
+      return;
+    }
     const params = this.getAllURLParams();
+    this.ui.clearButton.classList.remove('hidden');
     Object.keys(params).forEach((key) => {
-      this.ui.clearButton.classList.remove('hidden');
       switch (key) {
         case 'page':
           setTimeout(() => {
@@ -458,7 +515,7 @@ class FlexData extends Module {
                   data: item.getAttribute('type') === 'radio' ? values[0] : values,
                   emit: true,
                 };
-                const module = item.parentElement.parentElement.parentElement.parentElement;
+                const module = item.closest('.mdl-select');
                 if (module.hasAttribute('data-drilldown-secondary')) {
                   setTimeout(() => {
                     module
@@ -476,25 +533,39 @@ class FlexData extends Module {
                 item.parentElement.parentElement.parentElement.classList.add('dirty');
               } else {
                 // -----------
-                // textfield
+                // textfield or checkbox
                 item.value = decodeURIComponent(values[0]); // eslint-disable-line
                 item.classList.add('dirty');
+                if (item.getAttribute('type') === 'checkbox') {
+                  item.checked = true;
+                }
               }
             }
           }, this.options.initDelay);
           break;
       }
-      // Set the sort element if present
-      if (this.ui.genericSortDropdown) {
-        let sortSelector = `[data-sort-column="${this.orderBy}"]`;
-        if (this.orderBy !== 'relevance') {
-          sortSelector += `[data-sort-direction="${this.order}"]`;
-        }
-        const sortSetting = this.ui.genericSortDropdown.querySelector(sortSelector);
-        this.updateSortDropdown(sortSetting);
-      }
     });
+
+    // Set accordion subheads if present
+    if (this.ui.form.querySelectorAll('.mdl-accordion').length) {
+      setTimeout(() => {
+        this.ui.form.querySelectorAll('.mdl-accordion').forEach((accordion: HTMLDivElement) => {
+          accordion.dispatchEvent(new CustomEvent(Accordion.events.updateSubheads));
+        });
+      }, this.options.initDelay);
+    }
+
+    // Set the sort element if present
+    if (this.ui.genericSortDropdown) {
+      let sortSelector = `[data-sort-column="${this.orderBy}"]`;
+      if (this.orderBy !== 'relevance') {
+        sortSelector += `[data-sort-direction="${this.order}"]`;
+      }
+      const sortSetting = this.ui.genericSortDropdown.querySelector(sortSelector);
+      this.updateSortDropdown(sortSetting);
+    }
   }
+
   /**
    * Fetch teaser data
    * @param callback
@@ -518,7 +589,9 @@ class FlexData extends Module {
           const wcmmode = this.getURLParam('wcmmode');
           const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}${wcmmode ? '&wcmmode=' + wcmmode : ''}`; // eslint-disable-line
           if (replaceState) {
-            history.replaceState({url: canonical, }, null, canonical); // eslint-disable-line
+            if (history.state && history.state.url && history.state.url !== canonical) { // eslint-disable-line
+              history.replaceState({url: canonical,}, null, canonical); // eslint-disable-line
+            }
           } else {
             history.pushState({url: canonical,}, null, canonical); // eslint-disable-line
           }

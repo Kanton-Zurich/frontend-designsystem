@@ -8,8 +8,8 @@ const env = require('minimist')(process.argv.slice(2));
 const git = require('git-rev-sync');
 const nodeSass = require('node-sass');
 const gulpUtil = require('gulp-util');
+const helperFunctions = require('./gulp/_functions');
 require('./gulp/deploy-aem');
-require('./gulp/deploy-offlinepage');
 
 gulpUtil.env.aemTargetBase = '../czhdev-backend/sources/zhweb-core/zhweb-core-content/src/main/resources/jcr_root/apps/zhweb/core/';
 gulpUtil.env.aemTargetBaseResources = `${gulpUtil.env.aemTargetBase}clientlibs/publish/resources/`;
@@ -934,7 +934,6 @@ gulp.task('copy:ci', () => {
       '!./dist/assets/css/*',
       './dist/assets/js/*.min.*',
       './dist/assets/css/*.min.*',
-      // './dist/assets/css/critical.css',
       '!./dist/ci/**/*',
       '!./dist/**/*.dev.html',
     ],
@@ -967,7 +966,94 @@ gulp.task('copy:ci', () => {
 gulp.task('clean', () => {
   const del = require('del');
 
-  return del(['./dist', './src/assets/.tmp']);
+  return del(['./dist', './www', './src/assets/.tmp']);
+});
+
+gulp.task('generate:diff', () => {
+  const through = require('through2').obj;
+  const handlebarsWax = require('handlebars-wax');
+  const { handlebars } = require('@unic/estatico-handlebars');
+  const prettify = require('js-beautify');
+
+  const options = {
+    partials: [
+      './src/**/*.hbs',
+    ],
+    helpers: [
+      './gulp/helpers/*.js',
+    ],
+  };
+
+  const wax = handlebarsWax(handlebars);
+
+  // Register partials
+  if (options.partials) {
+    const waxOptions = {};
+
+    if (options.parsePartialName) {
+      waxOptions.parsePartialName = options.parsePartialName;
+    }
+
+    wax.partials(options.partials, waxOptions);
+  }
+  // Register helpers
+  wax.helpers(require('handlebars-layouts'));
+
+  if (options.helpers) {
+    const waxOptions = {};
+
+    if (options.parseHelperName) {
+      waxOptions.parseHelperName = options.parseHelperName;
+    }
+
+    wax.helpers(options.helpers, waxOptions);
+  }
+
+  const generateWWW = function(file, enc, cb) {
+    console.log(file.path);
+    const data = require(file.path);
+    const f = path.parse(file.path);
+    let variants = data.variants ? data.variants : { default: data };
+    const isPage = !data.variants;
+    for (const variant in variants) {
+      const variantProps = isPage ? variants[variant] : variants[variant].props;
+      const template = fs.readFileSync(file.path.replace('.data.js', '.hbs'), 'utf-8');
+      const compiledVariant = () => handlebars.compile(template)(variantProps);
+      const newFile = file.clone();
+      newFile.contents = new Buffer(prettify.html(compiledVariant(), {
+        indent_char: '\t',
+        indent_size: 1,
+      }));
+      newFile.path = path.join(f.dir, `${f.name.replace('.data', '')}.${variant}.html`);
+      this.push(newFile);
+    }
+    cb();
+  };
+
+  return gulp.src([
+    './src/atoms/**/*.data.js',
+    '!./src/atoms/**/{{fileName}}.data.js',
+    './src/modules/**/*.data.js',
+    '!./src/modules/**/{{fileName}}.data.js',
+    './src/pages/**/*.data.js',
+    '!./src/pages/**/{{fileName}}.data.js',
+  ], { base: './src' })
+    .pipe(through(generateWWW))
+    .pipe(gulp.dest('./www'));
+});
+
+/**
+ * Deploy offline page
+ */
+gulp.task('deploy:offlinepage', () => {
+  return helperFunctions.Inlinify('./dist/pages/pagedownerror/pagedownerror.html', './dist/ci/offline/', 'index.html');
+});
+
+/**
+ * Inlinify E-Mail assets
+ */
+gulp.task('email:inlineassets', () => {
+  return helperFunctions.Inlinify('./dist/pages/mail/mail.html');
 });
 
 /**
@@ -1021,8 +1107,8 @@ gulp.task('build', (done) => {
     task = gulp.series('clean', 'clean:aem', task);
   }
 
-  // create offline page
-  task = gulp.series(task, 'deploy:offlinepage', 'zip:offline');
+  // create offline page & inlinfify assets
+  task = gulp.series(task, 'email:inlineassets', 'deploy:offlinepage', 'zip:offline');
 
   // Create CI build structure
   if (env.ci) {
@@ -1031,6 +1117,7 @@ gulp.task('build', (done) => {
     } else {
       task = gulp.series(task, 'copy:ci', 'zip');
     }
+    task = gulp.series(task, 'generate:diff');
   }
 
   if (env.watch && (!env.skipBuild && !env.noInteractive && !env.skipTests && !env.ci)) {

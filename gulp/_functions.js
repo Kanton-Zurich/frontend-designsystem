@@ -5,10 +5,6 @@ const gulpRename = require('gulp-rename');
 const strReplace = require('gulp-string-replace');
 const through = require('through2');
 
-const task = {
-  name: 'deploy:offlinepage',
-};
-
 const mimeTypes = {
   png: 'data:image/png;base64,',
   jpg: 'data:image/jpg;base64,',
@@ -17,18 +13,17 @@ const mimeTypes = {
   ico: 'data:image/ico;base64,',
 };
 
-const staticBasePath = './dist';
-
 const loadFileFromLocationSync = (url, options = null) => {
+  const staticBasePath = './dist';
   const resolvedBase = path.resolve(staticBasePath);
-  const safeSuffix = path.normalize(url).replace(/^(\.\.[\/\\])+/, '');
+  const safeSuffix = path.normalize(url).replace(/^(\.\.[/\\])+/, '');
   const fileLoc = path.join(resolvedBase, safeSuffix);
 
   return fs.readFileSync(fileLoc, options);
 };
 
 
-gulp.task(task.name, () => {
+const Inlinify = (srcFile, destination = false, rename = false) => {
   const linkRegex = /(href|src)="[^\s]+assets[^\s]+(png|jpg|jpeg|ico)"/g;
   const manifestRegex = /rel="manifest".+(href|src)="[^\s]+assets[^\s]+json"/g;
   const jsRegex = /<script.+src="[^\s]+assets[^\s]+js".+<\/script>/g;
@@ -36,10 +31,10 @@ gulp.task(task.name, () => {
   const svgRegex = /<!--svg href="[^\s]+"-->/g;
   const imgSvgRegex = /src="[^\s]+assets[^\s]+(svg)"/g;
   const srcsetRegex = /srcset="[^"]+"/g;
+  const dest = destination || `${path.dirname(srcFile)}/`;
+  const fileName = rename || path.basename(srcFile);
 
-  const destination = './dist/ci/offline/';
-
-  return gulp.src('./dist/pages/pagedownerror/pagedownerror.html')
+  return gulp.src(srcFile)
     .pipe(through.obj((chunk, enc, cb) => {
       console.log('Changed paths in file: ', chunk.path);
       cb(null, chunk);
@@ -59,6 +54,7 @@ gulp.task(task.name, () => {
       return '';
     }))
     .pipe(strReplace(cssRegex, (match) => {
+      console.log('MATCH');
       const url = match.split('"')[3];
       const fileContent = loadFileFromLocationSync(url, 'utf-8');
 
@@ -86,6 +82,8 @@ gulp.task(task.name, () => {
       const fileContent = loadFileFromLocationSync(url, 'utf-8');
       return `rel="manifest" href='${header}${fileContent.replace(/\r?\n|\r/g, '')}'`;
     }))
-    .pipe(gulpRename('index.html'))
-    .pipe(gulp.dest(destination));
-});
+    .pipe(gulpRename(fileName))
+    .pipe(gulp.dest(dest));
+};
+
+module.exports.Inlinify = Inlinify;

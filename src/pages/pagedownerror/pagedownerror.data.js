@@ -9,6 +9,8 @@ const defPageHeaderData = require('../../modules/page_header/page_header.data.js
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 
 const data = _.merge({}, defaultData, {
+  title: 'Kanton Zürich - Seite nicht verfügbar',
+  description: 'Staatskanzlei Kanton Zürich',
   meta: {
     title: 'Pagedown Fehlerseite',
     jira: 'CZHDEV-529',
@@ -23,27 +25,24 @@ const data = _.merge({}, defaultData, {
       contact: {
         fullWidth: true,
         contactTitle: 'Kontakt',
-        contactSubtitle: 'Kanton Zürich',
+        contactSubtitle: 'Kantons Zürich',
         contactAddress: {
-          name: 'Zürich-Albisgütli',
-          street: 'Uetlibergstrasse 301',
-          zip: '8036',
+          name: 'Staatskanzlei',
+          street: 'Neumühlequai 10',
+          zip: '8090',
           city: 'Zürich',
           routeLinkHref: '#',
           routeLinkLabel: 'Route anzeigen',
         },
         contactPhone: [
-          {
-            anchorLabel: '058 811 30 00',
-            phoneNumer: '+41588113000',
-            additionalInfo: 'Telefon',
-          },
         ],
         contactMail: {
-          address: 'info@zh.ch',
+          address: 'info@sk.zh.ch',
         },
       },
-      footerData: defFooterData,
+      footerData: _.merge({}, defFooterData, {
+        maintenance: true,
+      }),
     },
   },
 });

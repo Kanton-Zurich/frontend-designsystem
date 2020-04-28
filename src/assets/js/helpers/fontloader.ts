@@ -79,7 +79,11 @@ class FontLoader extends Helper {
   }
 
   public supportsLocalStorageAndXHR() {
-    return window.localStorage && (<any>window).XMLHttpRequest;
+    try {
+      return window.localStorage && (<any>window).XMLHttpRequest;
+    } catch (error) {
+      return false;
+    }
   }
 
   /**

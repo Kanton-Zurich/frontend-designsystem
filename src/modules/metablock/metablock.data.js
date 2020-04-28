@@ -39,7 +39,7 @@ const data = _.merge({}, defaultData, {
       {
         columns: [
           {
-            label: 'Themenbereic',
+            label: 'Themenbereich',
             text: 'Natürliche Personen',
           },
           {

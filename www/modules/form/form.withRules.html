@@ -1,0 +1,212 @@
+<fieldset class="form__section">
+	<legend class="atm-heading h3 form__section-title">Persönliche Angaben</legend>
+	<div class="form__group ">
+		<div class="form__row">
+			<div class="form__cell form__cell--small">
+				<div class="mdl-select" data-init="select" data-input>
+					<div class="atm-form_input atm-form_input--floated atm-form_input--trigger
+    ">
+						<button aria-expanded="false" id="float_button-20" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+							<span class="atm-form_input__trigger-label">Select Float Label</span>
+							<span class="atm-form_input__trigger-value"></span>
+							<svg class="icon" focusable="false">
+								<use xlink:href="#angle_drop_down"></use>
+							</svg>
+						</button>
+						<span class="atm-form_input__validate-icon">
+							<span>
+								<span class="visuallyhidden"></span>
+								<svg class="icon" focusable="false">
+									<use xlink:href="#confirm"></use>
+								</svg>
+							</span>
+							<span>
+								<span class="visuallyhidden"></span>
+								<svg class="icon" focusable="false">
+									<use xlink:href="#caution"></use>
+								</svg>
+							</span>
+						</span>
+
+
+
+
+
+
+						<p data-message="required">Dies ist ein Pflichtfeld</p>
+					</div>
+					<div class="mdl-select__options">
+
+						<ul class="atm-list" tabindex="-1" data-inputtype="radio" tabindex="-1">
+							<li id="option-item24" class="atm-list__item">
+								<input name="nationality-f2" id="radio-option-item24" type="radio" value="" placeholder="" data-select-option data-validation required>
+
+
+								<label for="radio-option-item24"></label>
+							</li>
+							<li id="nationalityx556" class="atm-list__item">
+								<input name="nationality-f2" id="radio-nationalityx556" type="radio" value="BE" placeholder="Belgien" data-select-option data-validation required>
+
+
+								<label for="radio-nationalityx556">Belgien</label>
+							</li>
+							<li id="nationalityx557" class="atm-list__item">
+								<input name="nationality-f2" id="radio-nationalityx557" type="radio" value="DE" placeholder="Deutschland" data-select-option data-validation required>
+
+
+								<label for="radio-nationalityx557">Deutschland</label>
+							</li>
+							<li id="nationalityx558" class="atm-list__item">
+								<input name="nationality-f2" id="radio-nationalityx558" type="radio" value="FR" placeholder="Frankreich" data-select-option data-validation required>
+
+
+								<label for="radio-nationalityx558">Frankreich</label>
+							</li>
+							<li id="nationalityx559" class="atm-list__item">
+								<input name="nationality-f2" id="radio-nationalityx559" type="radio" value="LU" placeholder="Luxemburg" data-select-option data-validation required>
+
+
+								<label for="radio-nationalityx559">Luxemburg</label>
+							</li>
+							<li id="nationalityx560" class="atm-list__item">
+								<input name="nationality-f2" id="radio-nationalityx560" type="radio" value="NL" placeholder="Niederlande" data-select-option data-validation required>
+
+
+								<label for="radio-nationalityx560">Niederlande</label>
+							</li>
+							<li id="nationalityx561" class="atm-list__item">
+								<input name="nationality-f2" id="radio-nationalityx561" type="radio" value="SWE" placeholder="Schweden" data-select-option data-validation required>
+
+
+								<label for="radio-nationalityx561">Schweden</label>
+							</li>
+							<li id="nationalityx562" class="atm-list__item">
+								<input name="nationality-f2" id="radio-nationalityx562" type="radio" value="CH" placeholder="Schweiz" data-select-option data-validation required>
+
+
+								<label for="radio-nationalityx562">Schweiz</label>
+							</li>
+							<li id="nationalityx563" class="atm-list__item">
+								<input name="nationality-f2" id="radio-nationalityx563" type="radio" value="UK" placeholder="Vereinigtes Königreich" data-select-option data-validation required>
+
+
+								<label for="radio-nationalityx563">Vereinigtes Königreich</label>
+							</li>
+							<li id="nationalityx564" class="atm-list__item">
+								<input name="nationality-f2" id="radio-nationalityx564" type="radio" value="US" placeholder="Vereinigte Staaten" data-select-option data-validation required>
+
+
+								<label for="radio-nationalityx564">Vereinigte Staaten</label>
+							</li>
+
+						</ul>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="form__row">
+			<div class="form__cell ">
+				<div data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;nationality-f2&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;CH&quot;}],&quot;action&quot;:&quot;show&quot;},{&quot;conditions&quot;:[{&quot;field&quot;:&quot;nationality-f2&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;DE&quot;}],&quot;action&quot;:&quot;show&quot;}]">
+					<fieldset class="mdl-file_upload" data-init="fileUpload" data-input>
+						<legend class="atm-heading h4">Dokumente hochladen</legend>
+						<p class="mdl-file_upload__subtitle">Hier können Sie ihren Lebenslauf hochladen</p>
+						<input class="visuallyhidden" type="file" name="fileupload_XX" id="fileupload_XX" data-file_upload="input" data-validation data-max-size="26214400" data-file-types="text/csv, image/gif, text/html, image/jpeg, application/pdf, image/png, image/tiff, application/rtf, image/svg+xml, text/plain, application/xml" required />
+						<div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
+							<p>Zum Hochladen Datei ziehen und hier ablegen</p>
+							<label class="mdl-file_upload__button atm-button atm-button--secondary" for="fileupload_XX">Datei auswählen</label>
+						</div>
+						<p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an</p>
+						<p class="mdl-file_upload__error" data-message="onlyonefile">Sie können nur 1 Datei gleichzeitig hochladen.</p>
+
+						<div class="mdl-file_upload__list" data-file_upload="list">
+
+						</div>
+
+						<script type="text/x-handlebars-template" data-file_upload="item-template">
+							<div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
+        <div class="mdl-file_upload__file-meta">
+          <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+          <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+          <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+          <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB)</p>
+        </div>
+        <button class="mdl-file_upload__file-delete" data-file_upload="delete">
+          <span class="visuallyhidden">Datei wieder entfernen</span>
+          <svg class="icon" focusable="false">
+            <use xlink:href="#delete"></use>
+          </svg>
+        </button>
+      </div>
+    </script>
+					</fieldset>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="form__row">
+			<div class="form__cell form__cell--small">
+				<fieldset class="form__fieldset" data-input>
+					<legend class="form__legend ">Nationalität</legend>
+					<div class="form__fieldset-list ">
+						<div class="atm-checkbox ">
+							<input type="checkbox" id="checkbox200" name="nationality-3" />
+							<label for="checkbox200">
+								Sind sie Ausländer/in?
+								<span>
+									<svg class="icon icon--iframe-arrow" focusable="false">
+										<use xlink:href="#check"></use>
+									</svg>
+								</span>
+
+							</label>
+						</div>
+
+					</div>
+					<p data-message="required" class="form__fieldset-error-message"></p>
+				</fieldset>
+
+			</div>
+		</div>
+
+		<div class="form__row">
+			<div class="form__cell ">
+				<div class="atm-form_input atm-form_input--floated
+  " data-input data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;nationality-3&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;CH&quot;}],&quot;action&quot;:&quot;hide&quot;}]">
+
+
+					<input class="atm-form_input__input" id="place_of_citizenship" placeholder="Bürgerort" name="place_of_citizenship" value="" type="text" required data-validation data-floating>
+
+					<label for="place_of_citizenship">Bürgerort</label>
+					<span class="atm-form_input__validate-icon">
+						<span>
+							<span class="visuallyhidden"></span>
+							<svg class="icon" focusable="false">
+								<use xlink:href="#confirm"></use>
+							</svg>
+						</span>
+						<span>
+							<span class="visuallyhidden"></span>
+							<svg class="icon" focusable="false">
+								<use xlink:href="#caution"></use>
+							</svg>
+						</span>
+					</span>
+
+
+
+
+
+
+
+					<p data-message="required">Dies ist ein Pflichtfeld</p>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</fieldset>

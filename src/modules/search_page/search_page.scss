@@ -6,10 +6,14 @@
   &--loading {
     position: relative;
 
-    height: 100px;
-    max-height: 100px;
+    .mdl-pagination {
+      display: none;
+    }
+  }
 
-    overflow: hidden;
+  .atm-loading_circle {
+    position: relative;
+    min-height: $sizeHuge;
   }
 
   &__notification {
@@ -18,6 +22,15 @@
 
   &__no-results {
     display: none;
+
+    h2.atm-heading {
+      line-height: $sizeLineHeightMedium;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include mq($to: xsmall) {
+        line-height: $sizeLineHeightBase;
+      }
+    }
   }
 
   &__results-head {
@@ -89,6 +102,10 @@
     .atm-content_teaser {
       padding: pxToRem($sizeTiny) 0;
     }
+
+    &.initially-hidden {
+      display: none;
+    }
   }
 
   &--no-results {
@@ -98,6 +115,8 @@
 
     .mdl-search_page__no-results {
       display: block;
+
+      @include sizeCurve(margin-top, regular);
 
       .atm-button {
         background-color: transparent;
@@ -137,7 +156,11 @@
       display: block;
     }
 
-    .mdl-search_page__no-results {
+    .mdl-search_page__no-results,
+    .mdl-pagination,
+    .mdl-datepicker,
+    .mdl-search_page__results,
+    .mdl-search_page__results-head {
       display: none;
     }
   }

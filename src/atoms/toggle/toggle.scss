@@ -12,6 +12,7 @@ $toggleDimension: 32px;
     padding-left: pxToRem($toggleWidth + $sizeSmallRegular);
     position: relative;
     cursor: pointer;
+    display: block;
 
     &:before,
     &:after {

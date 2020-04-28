@@ -140,6 +140,7 @@ class Select extends Module {
       disable: 'Select.disable',
       setFilter: 'Select.setFilter',
       clear: 'Select.clear',
+      onItemsFiltered: 'Select.onItemsFiltered',
     };
   }
 
@@ -224,12 +225,10 @@ class Select extends Module {
       // ------------------------------------------------------------
       // On Click Dropdown main element - open/close and stop propagation to prevent losing focus
       .on('click', this.options.domSelectors.trigger, (event) => {
-        if (!this.isDisabled()) {
-          if (this.isOpen) {
-            this.closeDropdown();
-          } else {
-            this.openDropdown();
-          }
+        if (this.isOpen) {
+          this.closeDropdown();
+        } else {
+          this.openDropdown();
         }
         event.stopPropagation();
       })
@@ -341,6 +340,7 @@ class Select extends Module {
    * Set filter value
    */
   setFilter(filterValue) {
+    const filteredValues = [];
     let filterAttribute;
     if (this.ui.element.hasAttribute('data-filter-attribute')) {
       filterAttribute = this.ui.element.getAttribute('data-filter-attribute');
@@ -352,11 +352,15 @@ class Select extends Module {
         : li.querySelector('input').placeholder;
       if (regex.test(testValue)) {
         li.classList.remove('hidden');
+        filteredValues.push(li.querySelector('input').value);
       } else {
         li.classList.add('hidden');
       }
     });
     this.adjustContainerHeight();
+    this.ui.element
+      .dispatchEvent(new CustomEvent(Select.events.onItemsFiltered,
+        { detail: { filteredValues } }));
   }
 
 
@@ -433,9 +437,11 @@ class Select extends Module {
    */
   setDisabled(disabled) {
     if (disabled) {
+      this.ui.element.setAttribute('disabled', '');
       this.ui.trigger.setAttribute('disabled', '');
       return;
     }
+    this.ui.element.removeAttribute('disabled');
     this.ui.trigger.removeAttribute('disabled');
   }
 
@@ -546,6 +552,9 @@ class Select extends Module {
    * Open dropdown/select
    */
   openDropdown() {
+    if (this.isDisabled()) {
+      return;
+    }
     const openClass = this.options.stateClasses.open;
     const dropDown = this.ui.element;
     dropDown.classList.add(openClass);
@@ -616,11 +625,7 @@ class Select extends Module {
   }
 
   resetFocusOnTrigger() {
-    if (this.ui.phoneInput) {
-      this.ui.phoneInput.focus();
-    } else {
-      this.ui.trigger.focus();
-    }
+    this.ui.trigger.focus();
   }
 
   adjustContainerHeight() {

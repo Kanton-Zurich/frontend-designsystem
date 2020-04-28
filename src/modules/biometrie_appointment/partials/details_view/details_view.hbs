@@ -7,7 +7,7 @@
 
       <div class="mdl-texthighlight">
         <div class="mdl-richtext">
-          <span class="atm-heading">{{ confirmationHead }}</span>
+          <h4 class="atm-heading">{{ confirmationHead }}</h4>
           <p class="atm-paragraph">{{{ confirmationIntroParagraph }}}</p>
           {{> "atoms/button/button" printConfirmationBtn}}
         </div>
@@ -48,7 +48,7 @@
     {{#with checkList}}
       <div class="mdl-texthighlight">
         <div class="mdl-richtext">
-          <p class="atm-heading">{{ heading }}</p>
+          <h4 class="atm-heading">{{ heading }}</h4>
           <ul class="mdl-richtext__benefits">
             {{#each items }}
               <li>{{ this }}</li>

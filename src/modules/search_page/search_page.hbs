@@ -11,21 +11,22 @@
     <div class="mdl-search_page__notification hidden">
       {{> "modules/notification/notification" notificationData }}
     </div>
+    <form novalidate="true" data-search_page="dateFilter" class="mdl-search_page__date-filter">
+      {{> "modules/datepicker/datepicker" datepicker}}
+    </form>
     <div class="mdl-search_page__no-results">
-      <h4 class=" atm-heading">Keine Resultate</h4>
+      <h2 class="atm-heading">Keine Resultate</h2>
       {{>"atoms/button/button" resetButton }}
     </div>
     <div class="mdl-search_page__results" data-search_page="results">
-      {{> "atoms/loading_circle/loading_circle"}}
     </div>
-
-
+    {{> "atoms/loading_circle/loading_circle"}}
     {{> "modules/pagination/pagination"}}
   </div>
 
   <script type="text/x-handlebars-template" data-search_page="resultsHeadTemplate">
     <div>
-      <span class="mdl-search_page__counter"><%- numberOfResults %> Ergebnisse<span class="mdl-search_page__autocorrect" data-search_page="autocorrect"> für <a data-search_page="force" class="atm-text_link" role="button"><%- autocorrectedTerm %></a>. Stattdessen suchen nach <a class="atm-text_link"  data-search_page="force" role="button" data-search_page="force"><%- originalTerm %></a></span></span>
+      <h2 class="mdl-search_page__counter"><%- numberOfResults %> Ergebnisse<span class="mdl-search_page__autocorrect" data-search_page="autocorrect"> für <a data-search_page="force" class="atm-text_link" role="button"><%- autocorrectedTerm %></a>. Stattdessen suchen nach <a class="atm-text_link"  data-search_page="force" role="button" data-search_page="force"><%- originalTerm %></a></span></h2>
       <ul class="mdl-search_page__tag-group mdl-tag-group__tags">
         <li>
           <div class="atm-radiobutton atm-radiobutton--tag">
@@ -46,9 +47,6 @@
           </li>
         <% }); %>
       </ul>
-      <form novalidate="true" data-search_page="dateFilter" class="mdl-search_page__date-filter">
-        {{> "modules/datepicker/datepicker" datepicker}}
-      </form>
     </div>
   </script>
 

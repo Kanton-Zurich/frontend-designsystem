@@ -122,30 +122,7 @@ const variants = _.mapValues({
     props: {
       steps: [
         formVariants.checkboxesNationality.props,
-        _.merge({}, formVariants.placeOfCitizenshipPage.props, {
-          rules: JSON.stringify([
-            {
-              conditions: [
-                {
-                  field: 'singleSelect',
-                  equals: true,
-                  value: 'CH',
-                },
-              ],
-              action: 'enable',
-            },
-            {
-              conditions: [
-                {
-                  field: 'singleSelect',
-                  equals: true,
-                  value: 'DE',
-                },
-              ],
-              action: 'enable',
-            },
-          ]),
-        }),
+        _.merge({}, formVariants.placeOfCitizenshipPage.props),
         _.merge({}, formVariants.placeOfCitizenshipPage.props, {
           rules: JSON.stringify([
             {
@@ -177,6 +154,23 @@ const variants = _.mapValues({
       navigation: {
         steps: ['Staatsangehörigkeit', 'Bürgerort 1', 'Bürgerort 2', 'Bürgerort 3', 'Bestätigung'],
       },
+    },
+  },
+  withEmptyStepAndlogic: {
+    meta: {
+      title: 'Mit Formularlogik &  leerem Abschnit',
+      desc: 'Es gibt eine Formularlogik',
+    },
+    props: {
+      steps: [
+        formVariants.dummyStep2.props,
+        formVariants.withRulesAlt.props,
+      ],
+      navigation: {
+        steps: ['Schritt 1', 'Schritt 2'],
+      },
+      toggle: null,
+      replyTo: null,
     },
   },
   logicForNotification: {

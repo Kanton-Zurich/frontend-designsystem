@@ -10,4 +10,15 @@
   .mdl-news-overview__topnews {
     display: none;
   }
+
+  .mdl-news-overview__newsgrid {
+    ul {
+      width: 100%;
+    }
+
+    .mdl-news-teaser__item {
+      min-width: 32% !important; // stylelint-disable-line
+      max-width: 32% !important; // stylelint-disable-line
+    }
+  }
 }

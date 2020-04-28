@@ -26,7 +26,7 @@ class AssetLoader extends Helper {
         if (matches && matches[0]) {
           const splitMatches = matches[0].split('.');
           if (splitMatches && splitMatches[1]) {
-            this.dataHash += splitMatches[1]; // eslint-disable-line
+            this.dataHash += '_' + splitMatches[1]; // eslint-disable-line
           }
         }
         if (!this.cache) {
@@ -40,13 +40,13 @@ class AssetLoader extends Helper {
   }
 
   public loadAsset() {
-    if (!this.cache) {
+    if (!this.cache || !this.supportsLocalStorage()) {
       this.logger(`Fetching ${this.dataHref}`);
       this.injectAsset();
-    } else if (localStorage[`asset_${this.dataHash}`]
-      && (Date.now() - localStorage[`asset_timestamp_${this.dataHash}`] < this.timeout)) {
+    } else if (localStorage[`asset__${this.dataHash}`]
+      && (Date.now() - localStorage[`asset-timestamp__${this.dataHash}`] < this.timeout)) {
       this.logger(`Loading ${this.dataHref} from cache`);
-      this.injectRaw(localStorage[`asset_${this.dataHash}`]);
+      this.injectRaw(localStorage[`asset__${this.dataHash}`]);
     } else {
       this.logger(`Storing ${this.dataHref}`);
       this.fetchAndStore();
@@ -96,8 +96,8 @@ class AssetLoader extends Helper {
         // once we have the content, quickly inject the css rules
         this.injectRaw(xhr.responseText);
 
-        localStorage[`asset_${this.dataHash}`] = xhr.responseText;
-        localStorage[`asset_timestamp_${this.dataHash}`] = Date.now();
+        localStorage[`asset__${this.dataHash}`] = xhr.responseText;
+        localStorage[`asset-timestamp__${this.dataHash}`] = Date.now();
       }
     };
     xhr.send();

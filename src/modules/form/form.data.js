@@ -28,6 +28,7 @@ const fileUploadData = require('../file_upload/file_upload.data');
 const datepickerHBS = dataHelper.getFileContent('../datepicker/datepicker.hbs');
 const datepickerData = require('../datepicker/datepicker.data');
 
+
 const listDemoData = require('../../atoms/list/list.data');
 
 const duplicateGroup = {
@@ -582,8 +583,8 @@ const variants = _.mapValues({
                       {
                         id: 'privatperson',
                         groupName: 'taxEntity',
-                        label: 'Privatperson',
-                        descr: 'Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer (Natürliche Personen)',
+                        label: 'Natürliche Personen',
+                        descr: 'Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer',
                         isChecked: false,
                         additionalAttribute: 'data-tax_calc="inputEntity"',
                         validation: {
@@ -596,8 +597,8 @@ const variants = _.mapValues({
                       {
                         id: 'incorp',
                         groupName: 'taxEntity',
-                        label: 'Unternehmen, Vereine und Stiftungen',
-                        descr: 'Berechnen des Steuerbetrag und/ oder der Steuerrückstellung für ordentlich besteuerte Gesellschaften und Genossenschaften (Juristische Personen)',
+                        label: 'Juristische Personen',
+                        descr: 'Berechnen des Steuerbetrag und/ oder der Steuerrückstellung für ordentlich besteuerte Gesellschaften und Genossenschaften',
                         additionalAttribute: 'data-tax_calc="inputEntity""',
                         validation: {
                           isRequired: true,
@@ -949,6 +950,87 @@ const variants = _.mapValues({
       ],
     },
   },
+  withRulesAlt: {
+    meta: {
+      title: 'Formular mit Logik 2 (CZHDEV-1180)',
+      desc: 'Formular in dem Felder in gewissen Abhängigkeiten zu einander stehen',
+    },
+    props: {
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  isSmall: true,
+                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
+                    selectData.variants.default.props,
+                    {
+                      listData: {
+                        groupId: 'nationality-sf2',
+                        isSingleSelect: true,
+                        selectOptions: [
+                          { value: '', label: '' },
+                          { value: 'BE', label: 'Belgien', id: _.uniqueId('cnationalityx') },
+                          { value: 'DE', label: 'Deutschland', id: _.uniqueId('cnationalityx') },
+                          { value: 'CH', label: 'Schweiz', id: _.uniqueId('cnationalityx') },
+                        ],
+                        iconRight: 'arrow-right',
+                        iconLeft: 'check',
+                        validation: {
+                          isRequired: true,
+                        },
+                      },
+                    })),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(fileUploadHBS)(_.merge({},
+                    fileUploadData.variants.default.props,
+                    {
+                      input: {
+                        name: 'fileupload_SXX',
+                        id: 'fileupload_SXX',
+                      },
+                      validation: {
+                        maxSize: 26214400,
+                        fileTypes: 'text/csv, image/gif, text/html, image/jpeg, application/pdf, image/png, image/tiff, application/rtf, image/svg+xml, text/plain, application/xml',
+                        isRequired: true,
+                      },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-sf2',
+                              equals: true,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-sf2',
+                              equals: true,
+                              value: 'DE',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                      ]),
+                    })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
   checkboxesNationality: {
     meta: {
       title: 'Checkboxes für Stepper mit Logik',
@@ -1144,6 +1226,28 @@ const variants = _.mapValues({
                       validation: {
                         isRequired: true,
                       },
+                      rules: JSON.stringify([
+                        {
+                          conditions: [
+                            {
+                              field: 'singleSelect',
+                              equals: true,
+                              value: 'CH',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                        {
+                          conditions: [
+                            {
+                              field: 'singleSelect',
+                              equals: true,
+                              value: 'DE',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                      ]),
                     })),
                 },
               ],
@@ -1290,8 +1394,8 @@ const variants = _.mapValues({
               {
                 isFloatingLabel: true,
                 label: 'Erlasstitel',
-                name: 'erlasstitel',
-                uuid: 'erlasstitel',
+                name: 'enactmentTitle',
+                uuid: _.uniqueId('erlasstitel'),
               })),
           }],
         }, {
@@ -1301,8 +1405,8 @@ const variants = _.mapValues({
               {
                 isFloatingLabel: true,
                 label: 'Ordnungsnummer',
-                name: 'ordnungsnummer',
-                uuid: 'ordnungsnummer',
+                name: 'referenceNumber',
+                uuid: _.uniqueId('ordnungsnummer'),
               })),
           }, {
             cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
@@ -1310,8 +1414,8 @@ const variants = _.mapValues({
               {
                 isFloatingLabel: true,
                 label: 'Stichwort',
-                name: 'stichwort',
-                uuid: 'stichwort',
+                name: 'fullText',
+                uuid: _.uniqueId('stichwort'),
               })),
           }],
         }],
@@ -1336,13 +1440,18 @@ const variants = _.mapValues({
       }, {
         rows: [{
           fields: [{
+            cellContent: '<h4 class="atm-heading mdl-flex-data__extended-subtitle">Einschränken nach Datum von/bis</h4>',
+          }],
+        },
+        {
+          fields: [{
             cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
               datepickerData.variants.dateRange.props,
               {
                 formInputData: {
                   label: 'Erlass',
-                  name: 'erlassdatum',
-                  uuid: 'erlassdatum',
+                  name: 'enactmentDate',
+                  uuid: 'erlassdatum_ls',
                   validation: false,
                 },
               })),
@@ -1354,8 +1463,8 @@ const variants = _.mapValues({
               {
                 formInputData: {
                   label: 'Inkraftsetzung',
-                  name: 'inkraftsetzungsdatum',
-                  uuid: 'inkraftsetzungsdatum',
+                  name: 'entryIntoForceDate',
+                  uuid: 'inkraftsetzungsdatum_ls',
                   validation: false,
                 },
               })),
@@ -1365,8 +1474,8 @@ const variants = _.mapValues({
               {
                 formInputData: {
                   label: 'Publikation',
-                  name: 'publikationsdatum',
-                  uuid: 'publikationsdatum',
+                  name: 'publicationDate',
+                  uuid: 'publikationsdatum_ls',
                   validation: false,
                 },
               })),
@@ -1377,7 +1486,7 @@ const variants = _.mapValues({
               checkboxData.variants.default.props,
               {
                 label: 'Auch aufgehobene Erlasse suchen',
-                groupName: 'include-repealed',
+                groupName: 'includeRepealedEnactments',
                 id: 410,
                 value: 'true',
               })),
@@ -1400,22 +1509,23 @@ const variants = _.mapValues({
               selectData.variants.default.props,
               {
                 listData: _.merge({}, listDemoData.props, {
-                  groupPostfix: 'lex_issue',
                   isSingleSelect: true,
+                  groupId: 'volumeNumber',
                   selectOptions: [
-                    { value: '76', label: 'Band 76', id: _.uniqueId('zhlex_issue') },
-                    { value: '75', label: 'Band 75', id: _.uniqueId('zhlex_issue') },
-                    { value: '74', label: 'Band 74', id: _.uniqueId('zhlex_issue') },
-                    { value: '73', label: 'Band 73', id: _.uniqueId('zhlex_issue') },
-                    { value: '...', label: '...', id: _.uniqueId('zhlex_issue') },
-                    { value: '54', label: 'Band 54', id: _.uniqueId('zhlex_issue') },
-                    { value: '53', label: 'Band 53', id: _.uniqueId('zhlex_issue') },
-                    { value: '52', label: 'Band 52', id: _.uniqueId('zhlex_issue') },
-                    { value: '51', label: 'Band 51', id: _.uniqueId('zhlex_issue') },
+                    { value: '76', label: 'Band 76', id: _.uniqueId('volumeNumber') },
+                    { value: '75', label: 'Band 75', id: _.uniqueId('volumeNumber') },
+                    { value: '74', label: 'Band 74', id: _.uniqueId('volumeNumber') },
+                    { value: '73', label: 'Band 73', id: _.uniqueId('volumeNumber') },
+                    { value: '...', label: '...', id: _.uniqueId('volumeNumber') },
+                    { value: '54', label: 'Band 54', id: _.uniqueId('volumeNumber') },
+                    { value: '53', label: 'Band 53', id: _.uniqueId('volumeNumber') },
+                    { value: '52', label: 'Band 52', id: _.uniqueId('volumeNumber') },
+                    { value: '51', label: 'Band 51', id: _.uniqueId('volumeNumber') },
                   ],
                 }),
                 triggerInputData: {
                   label: 'Bandnummer',
+                  uuid: 'bandnummer_os',
                   validation: {
                     isRequired: false,
                   },
@@ -1428,8 +1538,8 @@ const variants = _.mapValues({
               {
                 isFloatingLabel: true,
                 label: 'Seitenzahl in OS',
-                name: 'seitenzahl',
-                uuid: 'seitenzahl',
+                name: 'volumePageNumber',
+                uuid: 'seitenzahl_os',
               })),
           }],
         }],
@@ -1441,8 +1551,8 @@ const variants = _.mapValues({
               {
                 formInputData: {
                   label: 'Erlass',
-                  name: 'erlassdatum',
-                  uuid: 'erlassdatum',
+                  name: 'enactmentDate',
+                  uuid: 'erlassdatum_os',
                   validation: false,
                 },
               })),
@@ -1452,8 +1562,8 @@ const variants = _.mapValues({
               {
                 formInputData: {
                   label: 'Inkraftsetzung',
-                  name: 'inkraftsetzungsdatum',
-                  uuid: 'inkraftsetzungsdatum',
+                  name: 'entryIntoForceDate',
+                  uuid: 'inkraftsetzungsdatum_os',
                   validation: false,
                 },
               })),
@@ -1465,8 +1575,8 @@ const variants = _.mapValues({
               {
                 formInputData: {
                   label: 'Publikation',
-                  name: 'publikationsdatum',
-                  uuid: 'publikationsdatum',
+                  name: 'publicationDate',
+                  uuid: 'publikationsdatum_os',
                   validation: false,
                 },
               })),
@@ -1476,8 +1586,8 @@ const variants = _.mapValues({
               {
                 formInputData: {
                   label: 'Aufhebung',
-                  name: 'aufhebungsdatum',
-                  uuid: 'aufhebungsdatum',
+                  name: 'withdrawalDate',
+                  uuid: 'aufhebungsdatum_os',
                   validation: false,
                 },
               })),

@@ -24,6 +24,7 @@ const data = _.merge({}, defaultData, {
       message: 'Beim Laden der Daten ist ein Fehler aufgetreten!',
     }),
     resultCountTitle: '%1 Treffer zu ihrer Abfrage',
+    resultCountTitleMore: 'Mehr als %1 Treffer zu ihrer Abfrage',
     noResultsTitle: 'Es wurden keine Ergebnisse gefunden. Bitte passen Sie Ihre Suche an.',
   },
 });
@@ -86,28 +87,22 @@ const variants = _.mapValues({
         hasColumnHeader: true,
         isWide: true,
         isStatic: true,
-        preSortedColumn: 'ordnungsnummer',
-        preSortedDirection: 'asc',
         headers: [
           {
             title: 'Ordnungs-Nr.',
-            dataColumnName: 'ordnungsnummer',
-            isSortable: 'alpha',
+            dataColumnName: 'referenceNumber',
           },
           {
             title: 'Erlasstitel',
-            dataColumnName: 'erlasstitel',
-            isSortable: 'alpha',
+            dataColumnName: 'enactmentTitle',
           },
           {
             title: 'Erlassdatum',
-            dataColumnName: 'erlassdatum',
-            isSortable: 'date',
+            dataColumnName: 'enactmentDate',
           },
           {
             title: 'Aufhebungsdatum',
-            dataColumnName: 'aufhebungsdatum',
-            isSortable: 'date',
+            dataColumnName: 'withdrawalDate',
           },
         ],
         bodyrows: [],
@@ -132,28 +127,22 @@ const variants = _.mapValues({
         hasColumnHeader: true,
         isWide: true,
         isStatic: true,
-        preSortedColumn: 'ordnungsnummer',
-        preSortedDirection: 'asc',
         headers: [
           {
             title: 'Ordnungs-Nr.',
-            dataColumnName: 'ordnungsnummer',
-            isSortable: 'alpha',
+            dataColumnName: 'referenceNumber',
           },
           {
             title: 'Erlasstitel',
-            dataColumnName: 'erlasstitel',
-            isSortable: 'alpha',
+            dataColumnName: 'enactmentTitle',
           },
           {
             title: 'Erlassdatum',
-            dataColumnName: 'erlassdatum',
-            isSortable: 'date',
+            dataColumnName: 'enactmentDate',
           },
           {
             title: 'Inkraftsetzung',
-            dataColumnName: 'inkraftsetzungsdatum',
-            isSortable: 'date',
+            dataColumnName: 'entryIntoForceDate',
           },
         ],
         bodyrows: [],

@@ -69,6 +69,7 @@ class Anchornav extends Module {
       swipe: number,
       scrollDistance: number,
       jumpToMargin: number,
+      verticalScrollMargin: number,
     }
     btnScroll: {
       steps: number,
@@ -100,6 +101,7 @@ class Anchornav extends Module {
         swipe: 18,
         scrollDistance: 100,
         jumpToMargin: 2,
+        verticalScrollMargin: 80,
       },
       btnScroll: {
         steps: 10,
@@ -154,7 +156,9 @@ class Anchornav extends Module {
     }
 
     this.initEventListeners();
-    this.checkURL();
+    setTimeout(() => {
+      this.checkURL();
+    }, 2000); // eslint-disable-line
   }
 
   static get events() {
@@ -178,10 +182,12 @@ class Anchornav extends Module {
       .on('click', this.options.domSelectors.btnLeft, this.onControlBtnClick.bind(this, 'left'));
 
     (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
+    (<any> window).addEventListener(Module.globalEvents.verticalResize, this.onResize.bind(this));
     // Necessary for jump.js plugin.
     // Is triggered before the debounced callback.
     (<any>WindowEventListener).addEventListener('scroll', this.onPageScroll.bind(this));
     (<any> window).addEventListener(Module.globalEvents.verticalResize, this.onResize.bind(this));
+    this.dispatchVerticalResizeEvent(2000); // eslint-disable-line
   }
 
   /**
@@ -364,7 +370,7 @@ class Anchornav extends Module {
    * Sets the scroll direction
    */
   updateVerticalScrollInfo() {
-    const currentScrollPosition = this.getDocumnetScrollPosition();
+    const currentScrollPosition = this.getDocumentScrollPosition();
 
     if (currentScrollPosition > this.lastYScrollPositon) {
       this.scrollDirection = 'down';
@@ -379,7 +385,7 @@ class Anchornav extends Module {
    * Handles pin/unpin of the navigation
    */
   updateNavigationState() {
-    const currentScrollPosition = this.getDocumnetScrollPosition();
+    const currentScrollPosition = this.getDocumentScrollPosition();
     const scrollSpace = this.getScrollWidth();
     const pinPos = this.navigationPositionY;
 
@@ -405,7 +411,7 @@ class Anchornav extends Module {
    * Handles the active state of the anchornav items base on the scroll Y position
    */
   updateActiveAnchorState() {
-    const currentScrollPosition = this.getDocumnetScrollPosition();
+    const currentScrollPosition = this.getDocumentScrollPosition();
     let navItem;
 
     if (this.scrollDirection === 'down') {
@@ -553,7 +559,7 @@ class Anchornav extends Module {
    *
    * @return {number}
    */
-  getDocumnetScrollPosition():number {
+  getDocumentScrollPosition():number {
     return Math.abs(document.documentElement.getBoundingClientRect().top);
   }
 
@@ -562,6 +568,7 @@ class Anchornav extends Module {
    */
   createPlaceholder() {
     this.placeholder = document.createElement('div');
+    this.placeholder.classList.add('mdl-anchornav__placeholder');
     this.placeholder.style.marginBottom = `${this.marginBottom}px`;
     this.placeholder.style.height = `${(this.ui.element.getBoundingClientRect().height)}px`;
     this.placeholder.style.display = 'none';
@@ -604,7 +611,7 @@ class Anchornav extends Module {
       this.headerHeight = headerElement.getBoundingClientRect().height;
     }
 
-    return elementTop + scrollTop;
+    return elementTop + scrollTop - this.options.tolerances.verticalScrollMargin;
   }
 
   /**

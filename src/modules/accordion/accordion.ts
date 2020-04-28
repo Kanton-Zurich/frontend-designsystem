@@ -93,6 +93,13 @@ class Accordion extends Module {
     this.togglesAll = this.ui.element.classList.contains(this.options.stateClasses.togglesAll);
   }
 
+  static get events() {
+    return {
+      clearSubheads: 'Accordion.clearSubheads',
+      updateSubheads: 'Accordion.updateSubheads',
+    };
+  }
+
   /**
    * Checks on initialization if the URL contains an panel-trigger-id as hash
    * and if so open it via triggering a click on the trigger
@@ -151,9 +158,7 @@ class Accordion extends Module {
       }
       eventDelegate.setAttribute('aria-expanded', true);
     }
-    setTimeout(() => {
-      this.dispatchVerticalResizeEvent();
-    }, this.options.transitionTime);
+    this.dispatchVerticalResizeEvent(this.options.transitionTime);
   }
 
   closeItem(item: HTMLElement) {
@@ -167,33 +172,9 @@ class Accordion extends Module {
           panel.style.maxHeight = '0px';
           panel.setAttribute('aria-hidden', 'true');
 
-          const inputElements = panel.querySelectorAll<HTMLInputElement>('input');
-          if (inputElements.length) {
-            const sectionVals: string[] = [];
-            inputElements.forEach((inEl) => {
-              // select option
-              if (inEl.hasAttribute('data-select-option') && inEl.checked) {
-                const selectEl = inEl.closest('.mdl-select').querySelector('.atm-form_input__trigger-label');
-                const labelEl = panel.querySelector<HTMLLabelElement>(`label[for=${inEl.id}]`);
-                const valStr = `${selectEl.childNodes[0].nodeValue}: ${labelEl.childNodes[0].nodeValue}`;
-                sectionVals.push(valStr);
-
-              // radio button or checkbox
-              } else if ((inEl.type === 'radio' || inEl.type === 'checkbox') && inEl.checked) {
-                const labelEl = panel.querySelector<HTMLLabelElement>(`label[for=${inEl.id}]`);
-                sectionVals.push(labelEl.childNodes[0].nodeValue);
-
-              // text or datepicker
-              } else if (inEl.type === 'text') {
-                if (inEl.value) {
-                  sectionVals.push(`${inEl.placeholder}: ${inEl.value}`);
-                }
-              }
-            });
-            const subHead = triggerEl.querySelector<HTMLElement>('.mdl-accordion__subhead');
-            if (subHead) {
-              subHead.innerText = sectionVals.join(', ');
-            }
+          const subHead = triggerEl.querySelector<HTMLElement>('.mdl-accordion__subhead');
+          if (subHead) {
+            this.updateSubhead(panel, subHead);
           }
 
           this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), '-1');
@@ -206,6 +187,55 @@ class Accordion extends Module {
           triggerEl.setAttribute('aria-expanded', 'false');
         }
       }
+    }
+  }
+
+  updateSubhead(panel: HTMLElement, subHead: HTMLElement) {
+    const inputElements = panel.querySelectorAll<HTMLInputElement>('input');
+    if (inputElements.length) {
+      const sectionVals: string[] = [];
+      inputElements.forEach((inEl) => {
+        // select option
+        if (inEl.hasAttribute('data-select-option') && inEl.checked) {
+          const selectEl = inEl.closest('.mdl-select').querySelector('.atm-form_input__trigger-label');
+          const labelEl = panel.querySelector<HTMLLabelElement>(`label[for=${inEl.id}]`);
+          const valStr = `${selectEl.childNodes[0].nodeValue}: ${labelEl.childNodes[0].nodeValue}`;
+          sectionVals.push(valStr.trim());
+
+        // radio button or checkbox
+        } else if ((inEl.type === 'radio' || inEl.type === 'checkbox') && inEl.checked) {
+          const labelEl = panel.querySelector<HTMLLabelElement>(`label[for=${inEl.id}]`);
+          sectionVals.push(labelEl.childNodes[0].nodeValue.trim());
+
+        // text or datepicker
+        } else if (inEl.type === 'text') {
+          if (inEl.value) {
+            sectionVals.push(`${inEl.placeholder}: ${inEl.value}`.trim());
+          }
+        }
+      });
+      subHead.innerText = sectionVals.join(', ');
+    }
+  }
+
+  updateSubheads() {
+    for (let i = 0; i < this.ui.items.length; i += 1) {
+      if (!this.ui.items[i].classList.contains(this.options.stateClasses.open)) {
+        const panel = this.ui.items[i].querySelector(this.options.domSelectors.panel);
+        const subHead = this.ui.items[i].querySelector('.mdl-accordion__subhead');
+
+        if (subHead) {
+          this.updateSubhead(panel, subHead);
+        }
+      }
+    }
+  }
+
+  clearSubheads() {
+    const subheads = this.ui.element.querySelectorAll('.mdl-accordion__subhead');
+
+    for (let i = 0; i < subheads.length; i += 1) {
+      (<HTMLElement>subheads[i]).innerText = '';
     }
   }
 
@@ -272,6 +302,8 @@ class Accordion extends Module {
 
     this.eventDelegate.on('keydown', this.options.domSelectors.trigger, this.handleKeyOnTrigger.bind(this));
     this.eventDelegate.on('click', this.options.domSelectors.trigger, this.toggleItem.bind(this));
+    this.eventDelegate.on(Accordion.events.clearSubheads, this.clearSubheads.bind(this));
+    this.eventDelegate.on(Accordion.events.updateSubheads, this.updateSubheads.bind(this));
   }
 
   /**

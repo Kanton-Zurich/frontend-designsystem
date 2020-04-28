@@ -134,6 +134,11 @@ class NewsOverview extends Module {
    */
   initEventListeners() {
     // -----------------------------------------------
+    // focus first element before print
+    window.addEventListener('beforeprint', () => {
+      this.ui.searchWordInput.focus();
+    });
+    // -----------------------------------------------
     // open modal and set selected filters
     this.ui.filterMobileButton.addEventListener('click', () => {
       this.ui.filterMobileModal.dispatchEvent(new CustomEvent('Modal.open'));
