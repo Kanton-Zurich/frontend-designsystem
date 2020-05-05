@@ -4,7 +4,7 @@ Mit der Komponente &quot;Über Uns&quot; haben Institutionen die Möglichkeit si
 
 ### 2. Nutzen des Moduls für den Leser
 
-Das &quot;Über uns&quot; bietet den Nutzerinnen und Nutzern die wichtigsten Informationen zu einer Direktion oder einem Amt. Die Komponente liefert in kompakter Form ein umfassendes Bild zum Aufbau der Organisationseinheit. (= [Richtlinien](https://we.one-inside.com/confluence/pages/viewpage.action?pageId=185387326#id-%C3%9Cberuns-Vorgaben))
+Das &quot;Über uns&quot; bietet den Nutzerinnen und Nutzern die wichtigsten Informationen zu einer Direktion oder einem Amt. Die Komponente liefert in kompakter Form ein umfassendes Bild zum Aufbau der Organisationseinheit. (= [Richtlinien](https://we.one-inside.com/confluence/pages/viewpage.action?pageId=185387326#id-%C3%9Cberuns-Vorgaben)) 
 
 ### 3. Wo wird das Modul eingesetzt?
 
