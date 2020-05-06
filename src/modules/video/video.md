@@ -1,6 +1,6 @@
 ### Beschreibung
 
-Hallo hier ist die Dokumentation von der Video Komponente
+Komponente für die Darstellung und das Abspielen von Videos
 
 ### Integration
 

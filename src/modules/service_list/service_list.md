@@ -1,5 +1,10 @@
 ### Beschreibung
+Stehen zu einem Thema einer oder mehrere Services zur Verfügung, werden diese mit der Service-Liste einheitlich dargestellt. Ein Klick auf den Button «Start» lädt den Service als bildschirmfüllendes Overlay über der aktuellen Seite. Die Service-Liste wird hauptsächlich auf Themenseiten verwendet.
 
+#### Was verstehen wir unter einem Service?
+Ein Service wird immer dann erstellt, wenn die Nutzenden etwas erledigen müssen oder wollen. Beispielsweise einen Führerschein beantragen. Wir fassen den Begriff sehr weit, im Sinn einer Erledigung. Wir verstehen darunter, alles, was jemand im Zusammenspiel mit der kantonalen Verwaltung erledigen möchte. Es spielt dabei keine Rolle, ob sie oder er dabei ein Onlineformular ausfüllt, ein PDF-Formular herunter lädt, ausfüllt und uns per Post schickt, uns anruft oder am Schalter vorbei kommt. <br>
+
+Wir unterscheiden zwischen internen und externen Services. Von einem Service kann der Nutzer auf ein externes System weitergeleitet werden, muss aber nicht. Das Ziel eines Service kann auch sein, dass die Nutzenden wissen, welche Telefonnummer sie anrufen müssen, oder welche Dienststelle sie aufsuchen sollen.
 
 
 ### Integration

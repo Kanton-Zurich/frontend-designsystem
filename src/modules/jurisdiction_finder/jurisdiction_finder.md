@@ -1,6 +1,6 @@
 ### Beschreibung
 
-
+Der Zuständigkeitsfinder liefert einen passenden Kontakt mittels der (im Kontakt hinterlegten) Postleitzahl. Siehe auch Verwaltung von Kontakten.
 
 ### Integration
 

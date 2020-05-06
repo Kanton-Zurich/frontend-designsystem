@@ -1,5 +1,5 @@
 ### Beschreibung
-
+Dieses Modul dient der Darstellung von Tabellen. Nutzende können Daten in Tabellenform besser vergleichen.
 
 
 ### Integration
