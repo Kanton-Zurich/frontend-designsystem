@@ -387,20 +387,16 @@ class FlexData extends Module {
       if (removeColumnRepealed) {
         const { rows } = this.ui.resultsTable.querySelector('table');
         let cellIndex = null;
-
-        for (let i = 0; i < rows.length; i += 1) {
-          const { cells } = rows[i];
-
-          if (cellIndex) {
-            rows[i].deleteCell(cellIndex);
+        for (let x = 0; x < rows[0].cells.length; x += 1) {
+          const cell = rows[0].cells[x];
+          if (cell.dataset.columnName === 'withdrawalDate') {
+            cellIndex = x;
+            cell.style.display = 'none';
           }
-
-          for (let x = 0; x < cells.length; x += 1) {
-            const cell = cells[x];
-            if (cell.dataset.columnName === 'withdrawalDate') {
-              cellIndex = x;
-              cell.style.display = 'none';
-            }
+        }
+        if (cellIndex) {
+          for (let i = 1; i < rows.length; i += 1) {
+            rows[i].cells[cellIndex].style.display = 'none';
           }
         }
       } else {
