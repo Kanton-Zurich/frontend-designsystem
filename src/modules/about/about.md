@@ -1,3 +1,8 @@
+## Über uns (v1)
+Das "Über uns" bietet den Nutzerinnen und Nutzern die wichtigsten Informationen zu einer Direktion oder einem Amt. Die Komponente liefert in kompakter Form ein umfassendes Bild zum Aufbau der Organisationseinheit.
+
+## Über uns (v2)
+
 ### 1. Beschreibung Über Uns (about us)
 
 Mit der Komponente &quot;Über Uns&quot; haben Institutionen die Möglichkeit sich als Organisationseinheit dem Leser vorzustellen.
