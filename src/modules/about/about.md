@@ -45,9 +45,7 @@ Das Modul besteht aus vier Bereichen:
 1. Modularer Bereich
 2. Leitperson
 3. Unterseiten
-4. [Dokumente](https://styleguide.zh.ch/modules/about/about.html)
-
-
+4. [Dokumente](https://styleguide.zh.ch/modules/download_list/download_list.html)
 
 
 
