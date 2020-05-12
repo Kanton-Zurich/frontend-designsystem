@@ -1,6 +1,34 @@
 
 ---
 
+## Pauls Playground
+
+### testing links
+[I'm an inline-style link](https://www.google.com)
+
+[I'm an inline-style link with title](https://www.google.com "Google's Homepage")
+
+[I'm a reference-style link][Arbitrary case-insensitive reference text]
+
+[I'm a relative reference to a repository file](../blob/master/LICENSE)
+
+[You can use numbers for reference-style link definitions][1]
+
+Or leave it empty and use the [link text itself].
+
+URLs and URLs in angle brackets will automatically get turned into links. 
+http://www.example.com or <http://www.example.com> and sometimes 
+example.com (but not on Github, for example).
+
+Some text to show that the reference links can follow later.
+
+[arbitrary case-insensitive reference text]: https://www.mozilla.org
+[1]: http://slashdot.org
+[link text itself]: http://www.reddit.com
+
+---
+
+
 ## Über uns (v1)
 ### Beschreibung
 Das "Über uns" bietet den Nutzerinnen und Nutzern die wichtigsten Informationen zu einer Direktion oder einem Amt. Die Komponente liefert in kompakter Form ein umfassendes Bild zum Aufbau der Organisationseinheit.
@@ -12,14 +40,16 @@ HTML kopieren.
 ## Über uns (v2)
 ### Beschreibung
 Mit der Komponente &quot;Über Uns&quot; haben Institutionen die Möglichkeit sich als Organisationseinheit dem Leser vorzustellen.
-
 Das Modul besteht aus vier Bereichen:
-<ol>
-<li> Modularer Bereich
-<li> Leitperson
-<li> Unterseiten
-<li> Dokumente <a href "https://styleguide.zh.ch/modules/about/about.html">
-</ol>
+
+1. Modularer Bereich
+2. Leitperson
+3. Unterseiten
+4. [Dokumente](https://styleguide.zh.ch/modules/about/about.html)
+
+
+
+
 
 ### Einsatz des Moduls
 
