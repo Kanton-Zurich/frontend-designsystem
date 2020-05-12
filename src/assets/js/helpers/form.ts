@@ -49,13 +49,27 @@ class FormGlobalHelper {
             pattern = new RegExp(field.getAttribute('data-pattern'));
             break;
         }
-
         patternResult = pattern.test(field.value);
 
-        if (!patternResult) messages.push('pattern');
+        if (field.hasAttribute('data-input-mask')
+          && field.getAttribute('data-input-mask').startsWith('currency')) {
+          let inBounds = true;
+          const value = FormGlobalHelper.CurrencyToNumber(field.value);
+          if (field.hasAttribute('data-max-amount')) {
+            const maxAmount = parseFloat(field.getAttribute('data-max-amount'));
+            inBounds = inBounds && (value <= maxAmount);
+          }
+          if (field.hasAttribute('data-min-amount')) {
+            const minAmount = parseFloat(field.getAttribute('data-min-amount'));
+            inBounds = inBounds && (value >= minAmount);
+          }
+          if (!inBounds) {
+            messages.push('outofbounds');
+            patternResult = false;
+          } else if (!patternResult) messages.push('pattern');
+        } else if (!patternResult) messages.push('pattern');
       }
     }
-
 
     return {
       validationResult: requiredResult && patternResult,
@@ -252,6 +266,13 @@ class FormGlobalHelper {
      * @return {Boolean}          true if the element is a multiselect, false if not
      */
     const isMultiSelect = element => element.options && element.multiple;
+    /**
+     * Checks if an input is a `text` field with a currency
+     * @param  {Element} element  the element to check
+     * @return {Boolean}          true if the element is a currency text field
+     */
+    const isCurrencyTextField = element => element.hasAttribute('data-input-mask')
+      && element.getAttribute('data-input-mask').startsWith('currency');
 
     /**
      * Retrieves the selected options from a multi-select as an array.
@@ -277,6 +298,8 @@ class FormGlobalHelper {
           }
         } else if (isMultiSelect(element)) {
           data[element.name] = getSelectValues(element);
+        } else if (isCurrencyTextField(element)) {
+          data[element.name] = FormGlobalHelper.CurrencyToNumber(element.value);
         } else if (element.classList.contains('flatpickr-input')) {
           const dateRange = this.dateRangeToUrlParam(element.value);
           data[element.name] = dateRange !== '' ? dateRange : this.dateToUrlParam(element.value);
@@ -288,6 +311,43 @@ class FormGlobalHelper {
       }
       return data;
     }, {});
+  }
+
+  static FormatCurrency(numberValue, decimalPoints = 2) { // eslint-disable-line
+    let value = numberValue.replace(/\D+/g, '');
+    const formatValue = (inputValue, formattedValue = '', index = -1) => {
+      const idx = index < 0 ? inputValue.length - 1 : index;
+      formattedValue += inputValue[inputValue.length - 1 - idx]; // eslint-disable-line
+      if (idx > (decimalPoints + 1) && (idx - decimalPoints) % 3 === 0) { // eslint-disable-line
+        formattedValue += '\''; // eslint-disable-line
+      }
+      if (idx > 0) {
+        return formatValue(inputValue, formattedValue, idx - 1);
+      }
+      if (decimalPoints > 0 && formattedValue.length > decimalPoints) {
+        return [formattedValue.slice(0, formattedValue.length - decimalPoints), '.', formattedValue.slice(formattedValue.length - decimalPoints)].join('');
+      }
+      return formattedValue;
+    };
+
+    while (value[0] === '0') {
+      value = value.substring(1);
+    }
+    while (value.length < (decimalPoints + 1)) {
+      value = `0${value}`;
+    }
+    return formatValue(value);
+  }
+
+  static CurrencyToNumber(currency) {
+    const decimals = currency.split('.');
+    let number = decimals[0].split('\'').join('');
+
+    if (decimals.length > 1) {
+      number += `.${decimals[1]}`;
+    }
+
+    return parseFloat(number);
   }
 }
 

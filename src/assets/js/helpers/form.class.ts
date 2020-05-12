@@ -7,6 +7,7 @@ import FormRules from './formrules.class';
 import FileUpload from '../../../modules/file_upload/file_upload';
 import namespace from './namespace';
 import Datepicker from '../../../modules/datepicker/datepicker';
+import FormGlobalHelper from './form';
 
 class Form {
   private ui: {
@@ -365,11 +366,11 @@ class Form {
     switch (maskType) {
       case 'currency':
         // handle CHF formatting
-        domElement.value = this.formatCurrency(newValue, 2); // eslint-disable-line
+        domElement.value = FormGlobalHelper.FormatCurrency(newValue, 2); // eslint-disable-line
         break;
       case 'currency_flat':
         // handle CHF formatting
-        domElement.value = this.formatCurrency(newValue, 0);
+        domElement.value = FormGlobalHelper.FormatCurrency(newValue, 0);
         break;
       default:
         // handle mask
@@ -452,32 +453,6 @@ class Form {
       return oldValue;
     }
     return newValue;
-  }
-
-  formatCurrency(numberValue, decimalPoints = 2) { // eslint-disable-line
-    let value = numberValue.replace(/\D+/g, '');
-    const formatValue = (inputValue, formattedValue = '', index = -1) => {
-      const idx = index < 0 ? inputValue.length - 1 : index;
-      formattedValue += inputValue[inputValue.length - 1 - idx]; // eslint-disable-line
-      if (idx > (decimalPoints + 1) && (idx - decimalPoints) % 3 === 0) { // eslint-disable-line
-        formattedValue += '\''; // eslint-disable-line
-      }
-      if (idx > 0) {
-        return formatValue(inputValue, formattedValue, idx - 1);
-      }
-      if (decimalPoints > 0 && formattedValue.length > decimalPoints) {
-        return [formattedValue.slice(0, formattedValue.length - decimalPoints), '.', formattedValue.slice(formattedValue.length - decimalPoints)].join('');
-      }
-      return formattedValue;
-    };
-
-    while (value[0] === '0') {
-      value = value.substring(1);
-    }
-    while (value.length < (decimalPoints + 1)) {
-      value = `0${value}`;
-    }
-    return formatValue(value);
   }
 
   initDuplicationElements() {

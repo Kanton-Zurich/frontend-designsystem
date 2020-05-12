@@ -33,6 +33,7 @@ interface ApiFieldDefinition {
     code: string;
   }[];
   maxSize?: number;
+  minSize?: number;
   value?: number;
   hint: string;
 }
@@ -192,11 +193,7 @@ class TaxCalc extends Module {
           } else if (inEl.type === 'checkbox' && inEl.checked) {
             sectionVals.push(inEl.value);
           } else if (inEl.type === 'text') {
-            const numVal = +inEl.value;
-            let numValStr = '0';
-            if (!isNaN(numVal)) { // eslint-disable-line
-              numValStr = this.currencyNumberValueToString(numVal);
-            }
+            let numValStr = inEl.value;
             if (this.options.datePartialFields.indexOf(inEl.name) >= 0) {
               let suffix = '';
               if (this.globalScopeVariables[this.options.globalScopeVariables[0]]) {
@@ -487,6 +484,14 @@ class TaxCalc extends Module {
       }));
     } else if (defByApi.type === 'Number') {
       propData.maxLength = Math.floor(Math.log10(defByApi.maxSize));
+      propData.maxSize = defByApi.maxSize;
+      if (setFromDef && defByApi.value !== undefined && defByApi.value !== null) {
+        propData.value = defByApi.value.toString(10);
+      } else {
+        propData.value = '';
+      }
+    } else if (defByApi.type === 'Amount') {
+      propData.minSize = defByApi.minSize ? defByApi.minSize : 0;
       propData.maxSize = defByApi.maxSize;
       if (setFromDef && defByApi.value !== undefined && defByApi.value !== null) {
         propData.value = defByApi.value.toString(10);
