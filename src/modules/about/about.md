@@ -1,7 +1,30 @@
+
+---
+
 ## Über uns (v1)
+### Beschreibung
 Das "Über uns" bietet den Nutzerinnen und Nutzern die wichtigsten Informationen zu einer Direktion oder einem Amt. Die Komponente liefert in kompakter Form ein umfassendes Bild zum Aufbau der Organisationseinheit.
+### Integration
+HTML kopieren.
+
+---
 
 ## Über uns (v2)
+### Beschreibung
+Das "Über uns" bietet den Nutzerinnen und Nutzern die wichtigsten Informationen zu einer Direktion oder einem Amt. Die Komponente liefert in kompakter Form ein umfassendes Bild zum Aufbau der Organisationseinheit.
+### Einsatz des Moduls
+
+### Barrierefreiheit
+
+### CI/CD
+
+
+### Integration
+HTML kopieren.
+
+---
+
+## Über uns (v3)
 
 ### 1. Beschreibung Über Uns (about us)
 
