@@ -11,10 +11,20 @@ HTML kopieren.
 
 ## Über uns (v2)
 ### Beschreibung
-Das "Über uns" bietet den Nutzerinnen und Nutzern die wichtigsten Informationen zu einer Direktion oder einem Amt. Die Komponente liefert in kompakter Form ein umfassendes Bild zum Aufbau der Organisationseinheit.
+Mit der Komponente &quot;Über Uns&quot; haben Institutionen die Möglichkeit sich als Organisationseinheit dem Leser vorzustellen.
+
+Das Modul besteht aus vier Bereichen:
+<ol>
+<li> Modularer Bereich
+<li> Leitperson
+<li> Unterseiten
+<li> Dokumente <a href "https://styleguide.zh.ch/modules/about/about.html">
+</ol>
+
 ### Einsatz des Moduls
 
 ### Barrierefreiheit
+Die Titelgrössen sind im Code festgelegt. Die konsekutive Reihenfolge der Titelgrössen muss eingehalten werden.
 
 ### CI/CD
 
