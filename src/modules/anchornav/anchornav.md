@@ -23,16 +23,18 @@ Dank die Ankernavigation muss der Nutzer nicht durch die Seite scrollen um die g
 Die Verwendung der Ankernavigation ist bei langen Seiten angebracht (ab drei H2-Titeln).
 Die Ankernavigation ist nicht angebracht bei kurzen Seiten.
 
-Es können auch zusätzliche Untertitel der Formate H3 und H4 hinzugefügt werden.
+ Es können auch zusätzliche Untertitel der Formate H3 und H4 hinzugefügt werden.
 
-#### Beispiele einer korrekten Verwendung:
+ #### Beispiele einer korrekten Verwendung:
  
 - [Direktion der Justiz und des Innern](https://zh.ch/de/direktion-der-justiz-und-des-innern.html)
 - [Staatsanwaltschaft](www.zh.ch/de/direktion-der-justiz-und-des-innern/staatsanwaltschaft.html)
 
 
 4. ### Aufbau des Moduls
- ![](RackMultipart20200512-4-1sgjxg8_html_4ba822b3e6b11d33.png)
+
+![alt text](ackMultipart20200512-4-1sgjxg8_html_4ba822b3e6b11d33.png "Ankernavigation")
+
 
 5. ### Barrierefreiheit (Accessibility)
 Um die Barrierefreiheit zu gewährleisten ist die Titelhierarchie einzuhalten.
@@ -44,6 +46,6 @@ In Anlehnung an die Kantonalen Richtlinien sollten folgende Punkte befolgt werde
 - Folgende Untertitel werden nie in der Ankernavigation angezeigt: _Weiterf __ü__ hrende Informationen, News Teaser, Verwandte Inhalte, Verantwortliche Stellen und Social Media_.
 
 
-1. ### Integration
+7. ### Integration
 
 HTML kopieren
