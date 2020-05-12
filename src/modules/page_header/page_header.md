@@ -1,5 +1,6 @@
 ## Beschreibung
-### Modul: Seitenkopf
+
+Der Seitenkopf besteht aus einem Titel, einem Lead-Text und einem optionalen Bild oder Video.
 
 ## Integration
 
