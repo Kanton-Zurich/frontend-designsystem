@@ -1,21 +1,36 @@
-### 1. Beschreibung back2top
- ![](RackMultipart20200504-4-5g7es1_html_1b2a750b748e76d1.png)
+
+
+## Back2Top (v1)
+### 1. Beschreibung 
+![alt text](RackMultipart20200504-4-5g7es1_html_1b2a750b748e76d1.png "Back2Top Icon")
+
+Als User möchte ich auf langen Seiten mit einem Klick ganz nach oben zum Seitenanfang gelangen, damit ich möglichst wenig scrollen muss. Dafür nutze ich das Back2Top Element.
+
+Das Back To Top Icon erscheint erst, wenn der User lange Wege scrollt. Vorher ist er nicht sichtbar.
+
+---
+
+## Back2Top (v2)
+### 1. Beschreibung 
+![alt text](RackMultipart20200504-4-5g7es1_html_1b2a750b748e76d1.png "Back2Top Icon")
+
 Das Back To Top Icon erscheint erst, wenn der User lange Wege scrollt. Vorher ist er nicht sichtbar. Ein Klick darauf, führt ihn an den Seitenanfang.
-### 2. Zweck und Nutzen des Moduls für den Leser (Story)
-Als User möchte ich mit einem Klick ganz nach oben scrollen können, damit ich auf langen Seiten nicht zu viel Zeit beim Scrollen verliere.
-### 3. Wo wird das Modul eingesetzt?
-Auf allen Seitentypen
-### 4. Wann ist die Verwendung des Moduls angebracht, wann nicht?
+### 2. Nutzen des Moduls für den Leser (Story)
+Als User möchte ich auf langen Seiten mit einem Klick ganz nach oben zum Seitenanfang gelangen, damit ich möglichst wenig scrollen muss.
+### 3. Wann ist die Verwendung des Moduls angebracht?
 Die Verwendung ist immer angebracht.
-### 5. Aufbau der Komponente (des Moduls)
+
+Beispiele einer korrekten Verwendung:
+ 
+- [Direktion der Justiz und des Innern](https://zh.ch/de/direktion-der-justiz-und-des-innern.html)
+- [Staatsanwaltschaft](www.zh.ch/de/direktion-der-justiz-und-des-innern/staatsanwaltschaft.html)
+
+### 4. Aufbau des Moduls
 Das Modul besteht aus einem klickbaren Icon.
-### 6. Regeln zur Einhaltung der Barrierefreiheit (Accessibility)
-### 7. Regeln zur Einhaltung redaktioneller Vorgaben (Usability)
-### 8. Regeln zur Einhaltung von CI &amp; CD
-### 9. Use Cases
-### 10. Dos / Donts
+### 5. CI &amp; CD
 Der Button darf weder den Footer noch den Language Switch verdecken.
-### 11. Integration
+
+### 6. Integration
  HTML kopieren. 
  Der Back2Top erhält ein TypeScript, welches überprüft wenn die Voraussetzungen erfüllt sind (700px nach unten und dann 300px nach oben). Die Animationen sollen wenn möglich über CSS gesteuert werden. Das sticky behaviour soll via TypeScript gelöst werden. (=Confluence)
 ### !!! WICHTIG !!!
