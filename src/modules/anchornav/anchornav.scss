@@ -58,6 +58,10 @@ html.fixed-header .mdl-anchornav--sticky {
 
   &__content {
     position: relative;
+
+    h2.atm-heading {
+      font-size: $sizeFontTiny;
+    }
   }
 
   &__list-wrapper {
