@@ -23,6 +23,9 @@ $InputHeightRegular: 72px;
       .atm-form_input__input {
         color: $colorBlack;
         z-index: 1;
+
+        padding-top: $paddingInput + $paddingDifferenceOnFocus;
+        padding-bottom: $paddingInput - $paddingDifferenceOnFocus;
       }
 
       label {
