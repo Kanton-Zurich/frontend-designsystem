@@ -587,7 +587,7 @@
 				</header>
 			</div>
 			<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-				<div class="mdl-tax_calc" data-tax_calc-apibase="https://webcalc.services.zh.ch/ZH-Web-Calculators/calculators/" data-init="taxCalc">
+				<div class="mdl-tax_calc" data-tax_calc-apibase="https://int-webcalc.services.zh.ch/ZH-Web-Calculators/calculators/" data-init="taxCalc">
 					<div class="mdl-instructions" data-init="instructions">
 						<ol class="mdl-instructions__list mdl-instructions__list--ordered">
 							<li class="mdl-instructions__item mdl-tax_calc__before-block">
@@ -642,21 +642,21 @@
 																		<div class="form__row">
 																			<div class="form__cell form__cell--small">
 																				<fieldset class="form__fieldset" data-input>
-
+																					<legend class="form__legend visuallyhidden">Für wen möchten Sie den Steuerbetrag berechnen.</legend>
 																					<div class="form__fieldset-list form__fieldset-list--vertical">
 																						<div class="atm-radiobutton " data-tax_calc="inputEntity">
 																							<input id="radioprivatperson" type="radio" value="individual" name="taxEntity" data-validation required>
 																							<label for="radioprivatperson">
-																								Privatperson
-																								<span class="atm-radiobutton__descr">Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer (Natürliche Personen)</span>
+																								Natürliche Personen
+																								<span class="atm-radiobutton__descr">Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer</span>
 																							</label>
 																						</div>
 
 																						<div class="atm-radiobutton " data-tax_calc="inputEntity">
 																							<input id="radioincorp" type="radio" value="incorp" name="taxEntity" data-validation required>
 																							<label for="radioincorp">
-																								Unternehmen, Vereine und Stiftungen
-																								<span class="atm-radiobutton__descr">Berechnen des Steuerbetrag und/ oder der Steuerrückstellung für ordentlich besteuerte Gesellschaften und Genossenschaften (Juristische Personen)</span>
+																								Juristische Personen
+																								<span class="atm-radiobutton__descr">Berechnen des Steuerbetrag und/ oder der Steuerrückstellung für ordentlich besteuerte Gesellschaften und Genossenschaften</span>
 																							</label>
 																						</div>
 
@@ -951,6 +951,44 @@
           </div>
         </script>
 
+					<script type="text/x-handlebars-template" data-tax_calc-fieldtemplate="amount">
+						<div class="atm-form_input atm-form_input--floated" data-input>
+              <input class="atm-form_input__input<% if (value) { %> dirty<% } %>"
+                     tabindex="-1" type="text" data-validation data-floating
+                     data-input-mask="currency_flat"
+                     data-min-amount="<%=minSize%>"
+                     data-max-amount="<%=maxSize%>"
+                     data-pattern="^[+-]?((\.\d+)|([\d&#x27;]+(\.\d+)?))$" id="input-<%=fieldName%>" placeholder="<%=label%>"
+                    <% if (reinvokeTrigger) { %> data-tax_calc-reinvoke="true"<% } %>
+                     name="<%=fieldName%>" value="<%=value %>" type="text"<% if (mandatory) { %> required<% } %>>
+          
+              <label for="input-<%=fieldName%>"><%=label%></label>
+              <span class="atm-form_input__validate-icon">
+          		<span>
+          			<span class="visuallyhidden">Eingabe entspricht den Vorgaben.</span>
+          			<svg class="icon" focusable="false">
+          				<use xlink:href="#confirm"></use>
+          			</svg>
+          		</span>
+          		<span>
+          			<span class="visuallyhidden">Eingabe entspricht nicht den Vorgaben.</span>
+          			<svg class="icon" focusable="false">
+          				<use xlink:href="#caution"></use>
+          			</svg>
+          		</span>
+          	</span>
+          
+            <% if (mandatory) { %>
+            <p class="form__fieldset-error-message" data-message="required">Für die Berechnung ist hier eine Eingabe erforderlich.</p>
+            <% } %>
+            <p class="form__fieldset-error-message" data-message="pattern">Ungültige Zahleneingabe</p>
+            <p class="form__fieldset-error-message" data-message="outofbounds">Zahl ausserhalb des zulässigen Rahmens</p>
+            <% if (hint) { %>
+              <div class="atm-form_input__hint"><%=hint %></div>
+            <% } %>
+          </div>
+        </script>
+
 					<script type="text/x-handlebars-template" data-tax_calc-fieldtemplate="boolean">
 						<fieldset class="form__fieldset" data-input>
               <div class="form__fieldset-list form__fieldset-list--vertical">
@@ -1036,9 +1074,9 @@
                                   <tr class="mdl-table__row mdl-table__row">
                                   <% _.forEach(row.entries, function(entry, index) { %>
                                       <% if(index === 0) { %>
-                                      <th scope="row" class="mdl-table__cell mdl-table__row-header<% if(row.isHighlighted) { %> mdl-table__cell--highlighted<% } %>" data-table="cell">
+                                      <td scope="row" class="mdl-table__cell mdl-table__row-header<% if(row.isHighlighted) { %> mdl-table__cell--highlighted<% } %>" data-table="cell">
                                           <%=entry%>
-                                      </th>
+                                      </td>
                                       <% } else { %>
                                         <% if(row.isHighlighted) { %>
                                         <th class="mdl-table__cell  mdl-table__cell--highlighted" data-table="cell">
@@ -1231,7 +1269,7 @@
 								"tables": [{
 										"heading": "Einfache Staatssteuer Einkommen und Vermögen",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF",
 											"Steuersatz",
 											"Einfache Staatssteuer<br>100%, CHF"
@@ -1290,7 +1328,7 @@
 									{
 										"heading": "Steuerberechnung",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"",
 											"Steuerfuss",
 											"CHF"
@@ -1370,7 +1408,7 @@
 								"tables": [{
 										"heading": "Einkommen",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF",
 											"Steuersatz"
 										],
@@ -1394,7 +1432,7 @@
 									{
 										"heading": "Steuerberechnung",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF"
 										],
 										"fieldRows": [{
@@ -1426,7 +1464,7 @@
 								"tables": [{
 										"heading": "Kapitalleistungen",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF",
 											"Steuersatz",
 											"Einfache Staatssteuer<br>100%, CHF"
@@ -1485,7 +1523,7 @@
 									{
 										"heading": "Steuerberechnung",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"",
 											"Steuerfuss",
 											"CHF"
@@ -1541,7 +1579,7 @@
 								"tables": [{
 										"heading": "Kapitalleistungen",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF",
 											"Steuersatz",
 											"CHF"
@@ -1576,7 +1614,7 @@
 									{
 										"heading": "Steuerberechnung",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF"
 										],
 										"fieldRows": [{
@@ -1595,7 +1633,7 @@
 								"tables": [{
 									"heading": "Erbschafts- & Schenkungssteuern",
 									"thead": [
-										"<span class=\"visuallyhidden\">Zeilenname</span>",
+										"",
 										"CHF"
 									],
 									"fieldRows": [{
@@ -1644,7 +1682,7 @@
 								"tables": [{
 										"heading": "Einfache Steuer",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF",
 											"Steuersatz",
 											"Einfache Staatssteuer<br>100%, CHF"
@@ -1679,7 +1717,7 @@
 									{
 										"heading": "Staats- und Gemeindesteuern",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"Steuersatz",
 											"CHF"
 										],
@@ -1710,7 +1748,7 @@
 									{
 										"heading": "Direkte Bundessteuer",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"Steuersatz",
 											"CHF"
 										],
@@ -1731,7 +1769,7 @@
 								"tables": [{
 										"heading": "Steuerbarer Reingewinn",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF"
 										],
 										"fieldRows": [{
@@ -1764,7 +1802,7 @@
 									{
 										"heading": "Steuerbares Kapital",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF"
 										],
 										"fieldRows": [{
@@ -1797,7 +1835,7 @@
 									{
 										"heading": "Besteuerung Staat",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF",
 											"Steuersatz",
 											"Einfache Staatssteuer<br>100%, CHF"
@@ -1832,7 +1870,7 @@
 									{
 										"heading": "Besteuerung Bund",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF",
 											"Steuersatz",
 											"Einfache Staatssteuer<br>100%, CHF"
@@ -1850,7 +1888,7 @@
 									{
 										"heading": "Steuerberechnung",
 										"thead": [
-											"<span class=\"visuallyhidden\">Zeilenname</span>",
+											"",
 											"CHF"
 										],
 										"fieldRows": [{

@@ -124,7 +124,7 @@ class Pagination extends Module {
         this.setPageButtonStyles(maxPages);
         return;
       }
-      if (newValue < 1) {
+      if (!isNaN(parseInt(newValue)) && newValue < 1) { // eslint-disable-line
         watchable.value = 1;
         this.setPageButtonStyles(1);
       }

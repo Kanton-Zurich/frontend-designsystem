@@ -15,6 +15,7 @@ class SocialMediaStream extends Module {
     moreButton: any,
     footer: any,
     notification: any,
+    possibleLinks: any,
   };
   private currentPage: number;
   private dataIdle: boolean;
@@ -29,6 +30,7 @@ class SocialMediaStream extends Module {
         footer: '.mdl-social-media-stream__footer',
         moreButton: '.mdl-social-media-stream__footer-button',
         notification: '.mdl-social-media-stream__notification',
+        possibleLinks: '.mdl-social-media-stream__items a',
       },
       stateClasses: {},
     };
@@ -118,6 +120,10 @@ class SocialMediaStream extends Module {
       });
       this.ui.list.appendChild(element);
     });
+
+    this.ui.element.querySelectorAll(this.options.domSelectors.possibleLinks).forEach((link) => {
+      link.innerHTML = link.innerHTML.replace(/\u2028/g, '');
+    });
   }
 
   /**
@@ -128,6 +134,7 @@ class SocialMediaStream extends Module {
       this.dataIdle = false;
       this.fetchData((jsonData) => {
         this.populatePostList(jsonData);
+        this.dispatchVerticalResizeEvent(200); // eslint-disable-line
         this.dataIdle = true;
       });
     }

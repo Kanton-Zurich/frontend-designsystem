@@ -20,7 +20,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('tax_calc.md'),
   },
   props: {
-    apiBase: 'https://webcalc.services.zh.ch/ZH-Web-Calculators/calculators/',
+    apiBase: 'https://int-webcalc.services.zh.ch/ZH-Web-Calculators/calculators/',
     beforeBlock: {
       heading: 'Bevor Sie starten',
       benefitItems: [
@@ -53,7 +53,8 @@ const data = _.merge({}, defaultData, {
                         {
                           isSmall: true,
                           cellContent: () => handlebars.compile(formFieldsetHBS)({
-                            fieldsetTitle: false,
+                            fieldsetTitle: 'Für wen möchten Sie den Steuerbetrag berechnen.',
+                            isFieldsetTitleHidden: true,
                             isVertical: true,
                             requiredMessage: 'Bitte wählen Sie eine Option aus.',
                             options: [
@@ -62,8 +63,8 @@ const data = _.merge({}, defaultData, {
                                 {
                                   id: 'privatperson',
                                   groupName: 'taxEntity',
-                                  label: 'Privatperson',
-                                  descr: 'Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer (Natürliche Personen)',
+                                  label: 'Natürliche Personen',
+                                  descr: 'Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer',
                                   isChecked: false,
                                   additionalAttribute: 'data-tax_calc="inputEntity"',
                                   validation: {
@@ -76,8 +77,8 @@ const data = _.merge({}, defaultData, {
                                 {
                                   id: 'incorp',
                                   groupName: 'taxEntity',
-                                  label: 'Unternehmen, Vereine und Stiftungen',
-                                  descr: 'Berechnen des Steuerbetrag und/ oder der Steuerrückstellung für ordentlich besteuerte Gesellschaften und Genossenschaften (Juristische Personen)',
+                                  label: 'Juristische Personen',
+                                  descr: 'Berechnen des Steuerbetrag und/ oder der Steuerrückstellung für ordentlich besteuerte Gesellschaften und Genossenschaften',
                                   additionalAttribute: 'data-tax_calc="inputEntity"',
                                   validation: {
                                     isRequired: true,
@@ -236,6 +237,7 @@ const data = _.merge({}, defaultData, {
     errorMessages: {
       number: 'Ungültige Zahleneingabe',
       date: 'Bitte im Format TT.MM. eingeben',
+      outOfBounds: 'Zahl ausserhalb des zulässigen Rahmens',
     },
     serviceFailNotificationData: notificationApiFailProps,
   },

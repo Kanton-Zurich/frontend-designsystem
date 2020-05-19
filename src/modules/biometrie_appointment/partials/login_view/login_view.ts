@@ -268,10 +268,6 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
 
         this.setFocusAndCaret(focusEl, caretPos);
       });
-
-    setTimeout(() => {
-      this.setFocusAndCaret(inputEls.item(0), 0);
-    }, 0);
   }
 
   /**

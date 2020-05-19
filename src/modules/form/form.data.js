@@ -28,9 +28,6 @@ const fileUploadData = require('../file_upload/file_upload.data');
 const datepickerHBS = dataHelper.getFileContent('../datepicker/datepicker.hbs');
 const datepickerData = require('../datepicker/datepicker.data');
 
-const toggle = require('../../atoms/toggle/toggle.data').variants.default.props;
-
-const formInput = require('../../atoms/form_input/form_input.data').variants.default.props;
 
 const listDemoData = require('../../atoms/list/list.data');
 
@@ -586,8 +583,8 @@ const variants = _.mapValues({
                       {
                         id: 'privatperson',
                         groupName: 'taxEntity',
-                        label: 'Privatperson',
-                        descr: 'Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer (Natürliche Personen)',
+                        label: 'Natürliche Personen',
+                        descr: 'Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer',
                         isChecked: false,
                         additionalAttribute: 'data-tax_calc="inputEntity"',
                         validation: {
@@ -600,8 +597,8 @@ const variants = _.mapValues({
                       {
                         id: 'incorp',
                         groupName: 'taxEntity',
-                        label: 'Unternehmen, Vereine und Stiftungen',
-                        descr: 'Berechnen des Steuerbetrag und/ oder der Steuerrückstellung für ordentlich besteuerte Gesellschaften und Genossenschaften (Juristische Personen)',
+                        label: 'Juristische Personen',
+                        descr: 'Berechnen des Steuerbetrag und/ oder der Steuerrückstellung für ordentlich besteuerte Gesellschaften und Genossenschaften',
                         additionalAttribute: 'data-tax_calc="inputEntity""',
                         validation: {
                           isRequired: true,
@@ -1442,6 +1439,11 @@ const variants = _.mapValues({
         }],
       }, {
         rows: [{
+          fields: [{
+            cellContent: '<h4 class="atm-heading mdl-flex-data__extended-subtitle">Einschränken nach Datum von/bis</h4>',
+          }],
+        },
+        {
           fields: [{
             cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
               datepickerData.variants.dateRange.props,

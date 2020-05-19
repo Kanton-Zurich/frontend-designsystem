@@ -54,6 +54,28 @@
         }
       }
     }
+
+    // CZHDEV-2318
+    @include mq($to: small) {
+      dd {
+        .atm-button {
+          height: $sizeLarge;
+          min-width: $sizeLarge;
+          background: transparent;
+
+          &__spinner {
+            display: none;
+          }
+        }
+
+        span {
+          display: block;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+    }
   }
 
   &__copy-success-notification {

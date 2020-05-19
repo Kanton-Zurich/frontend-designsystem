@@ -278,7 +278,7 @@ class Stepper extends Module {
   }
 
   validateSection() {
-    const sections = this.ui.steps[this.data.active].querySelectorAll('fieldset');
+    const sections = this.nextStepIsLast() ? [this.ui.lastpage] : this.ui.steps[this.data.active].querySelectorAll('fieldset');
 
     this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
       detail: {
@@ -286,13 +286,16 @@ class Stepper extends Module {
       },
     }));
 
-    if (this.nextStepIsLast()) {
-      this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
-        detail: {
-          sections: [this.ui.lastpage],
-        },
-      }));
-    }
+    // Thats needs a little delay (CZHDEV-1754)
+    setTimeout(() => {
+      const page = this.nextStepIsLast() ? this.ui.lastpage : this.ui.steps[this.data.active];
+      const invalid = page.querySelector('.invalid');
+
+      if (invalid) {
+        // Focus the first invalid error field for accessibility reasons
+        invalid.querySelector('input, textarea, .atm-form_input__input--trigger').focus();
+      }
+    }, 1);
   }
 
   changePage(newIndex) {

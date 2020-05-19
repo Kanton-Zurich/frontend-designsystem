@@ -46,7 +46,48 @@
 			<div class="grid-x grid-margin-x">
 				<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
 					<!-- modal content -->
-					<div class="mdl-biometrie_appointment__wrapper" data-init="biometrieAppointment" data-biometrie_appointment_settings='{
+					<div class="mdl-instructions" data-init="instructions">
+
+						<ol class="mdl-instructions__list  mdl-instructions__list--ordered">
+							<li class="mdl-instructions__item">
+								<div>
+									<h3 class="mdl-instructions__item-title atm-heading">
+										Dokumente vorbereiten
+									</h3>
+									<div class="mdl-instructions__item-content">
+										<div class="mdl-richtext">
+											<p class="atm-paragraph">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+											<ul>
+												<li>Brief mit der Terminbestätigung</li>
+												<li>&nbsp;</li>
+												<li>&nbsp;</li>
+												<li>&nbsp;</li>
+												<li>&nbsp;</li>
+												<li>&nbsp;</li>
+												<li>&nbsp;</li>
+												<li>&nbsp;</li>
+												<li>&nbsp;</li>
+												<li>&nbsp;</li>
+												<li>&nbsp;</li>
+												<li>&nbsp;</li>
+												<li>&nbsp;</li>
+												<li>&nbsp;</li>
+												<li>&nbsp;</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="mdl-instructions__item">
+								<div>
+									<h3 class="mdl-instructions__item-title atm-heading">
+										Termin verschieben
+									</h3>
+									<div class="mdl-instructions__item-content">
+										<div class="mdl-richtext">
+											<p class="atm-paragraph">Wie möchten sie Ihren Termin verschieben?</p>
+										</div>
+										<div class="mdl-biometrie_appointment__wrapper" data-init="biometrieAppointment" data-biometrie_appointment_settings='{
                             "apiBase": "https://internet-acc.zh.ch/proxy/migek/",
                             "attemptsBeforeTelephone": 3,
                             "calendarLinkProperties": {
@@ -56,63 +97,6 @@
                                 "htmlDescription": "&lt;h3&gt;Ort&lt;/h3&gt; &lt;p&gt;Migrationsamt des Kantons Zürich&lt;br&gt;Berninastrasse 45&lt;br&gt;8057 Zürich&lt;/p&gt; &lt;p&gt;&lt;strong&gt;Schalter G-S&lt;/strong&gt; (bitte Ticket beim &lt;strong&gt;Eingang rechts&lt;/strong&gt; ziehen)&lt;/p&gt;&lt;p&gt;Montag - Freitag 08:00-12:00 Uhr und 13:00-16:30 Uhr&lt;/p&gt; &lt;h3&gt;Bringen Sie bitte folgende Unterlagen mit&lt;/h3&gt; &lt;ul&gt; &lt;li&gt;Terminbestätigung&lt;/li&gt; &lt;li&gt;Original Ausländerausweis (ausser bei erstmaligem Gesuch)&lt;/li&gt; &lt;li&gt;Original heimatlicher Reisepass&lt;/li&gt; &lt;li&gt;Geburtsschein (bei Neugeborenen)&lt;/li&gt; &lt;/ul&gt;"
                             }
                         }'>
-						<div class="mdl-instructions" data-init="instructions">
-							<ol class="mdl-instructions__list mdl-instructions__list--ordered">
-								<li class="mdl-instructions__item mdl-biometrie_appointment__before-block">
-									<div>
-										<h3 class="mdl-instructions__item-title atm-heading">
-											Dokumente vorbereiten
-										</h3>
-										<div class="mdl-instructions__item-content">
-											<div class="mdl-richtext">
-												<p class="atm-paragraph">
-													Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-												</p>
-												<ul class="mdl-richtext__benefits">
-													<li>Brief mit der Terminbestätigung</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li class="mdl-instructions__item mdl-biometrie_appointment__form-block">
-									<div>
-										<h3 class="mdl-instructions__item-title atm-heading">
-											Termin verschieben
-										</h3>
-										<div class="mdl-instructions__item-content">
-											<div class="mdl-richtext">
-												<p class="atm-paragraph">
-													Wie möchten sie Ihren Termin verschieben?
-												</p>
-											</div>
-											<ul class="mdl-button_group" data-init="buttonGroup">
-												<li class="mdl-button_group__item">
-													<button class="atm-button atm-button--secondary" data-biometrie_appointment="showContactBtn">
-														<span class="atm-button__text ">
-															Vor Ort
-														</span>
-														<span class="atm-button__spinner"></span>
-													</button>
-												</li>
-												<li class="mdl-button_group__item">
-													<button class="atm-button" data-biometrie_appointment="showOnlineBtn">
-														<span class="atm-button__text ">
-															Online
-														</span>
-														<span class="atm-button__spinner"></span>
-													</button>
-												</li>
-												<li class="mdl-button_group__item">
-													<button class="atm-button atm-button--secondary" data-biometrie_appointment="showContactBtn">
-														<span class="atm-button__text ">
-															Telefonisch
-														</span>
-														<span class="atm-button__spinner"></span>
-													</button>
-												</li>
-											</ul>
-
 											<div class="mdl-biometrie_appointment">
 
 												<div class="mdl-biometrie_appointment__toplinks">
@@ -153,9 +137,9 @@
 														<div class="mdl-biometrie_appointment__loginview__hint" data-biometrie_appointment="loginHint">
 															<div class="login_notification " data-biometrie_appointment="loginAlertErr1">
 																<div class="mdl-notification
-                                      
-                                      
-                                      ">
+                            
+                            
+                            ">
 																	<svg class="icon" focusable="false">
 																		<use xlink:href="#caution"></use>
 																	</svg>
@@ -167,9 +151,9 @@
 															</div>
 															<div class="login_notification " data-biometrie_appointment="loginAlertErr2">
 																<div class="mdl-notification
-                                      
-                                      
-                                      ">
+                            
+                            
+                            ">
 																	<svg class="icon" focusable="false">
 																		<use xlink:href="#caution"></use>
 																	</svg>
@@ -181,9 +165,9 @@
 															</div>
 															<div class="login_notification " data-biometrie_appointment="loginAlertErr3">
 																<div class="mdl-notification
-                                      
-                                      
-                                      ">
+                            
+                            
+                            ">
 																	<svg class="icon" focusable="false">
 																		<use xlink:href="#caution"></use>
 																	</svg>
@@ -213,9 +197,9 @@
 														<div class="mdl-biometrie_appointment__details__confirmation " data-biometrie_appointment="reschedule-success">
 
 															<div class="mdl-notification
-                                    mdl-notification--green
-                                    mdl-notification--big
-                                    ">
+                          mdl-notification--green
+                          
+                          ">
 																<svg class="icon" focusable="false">
 																	<use xlink:href="#confirm"></use>
 																</svg>
@@ -233,7 +217,7 @@
 
 															<div class="mdl-texthighlight">
 																<div class="mdl-richtext">
-																	<span class="atm-heading">Bitte beachten</span>
+																	<h4 class="atm-heading">Bitte beachten</h4>
 																	<p class="atm-paragraph">Drucken Sie die neue Terminbestätigung aus und nehmen Sie diese mit an den Termin.</p>
 																	<button class="atm-button" data-biometrie_appointment="printConfirmation">
 																		<span class="atm-button__text ">
@@ -268,12 +252,6 @@
 																	<dt>Geburtsdatum</dt>
 																	<dd>
 																		<span data-biometrie_appointment="reservation-details__dateOfBirth"></span>
-																	</dd>
-																</dl>
-																<dl class="mdl-descriptionlist">
-																	<dt></dt>
-																	<dd>
-
 																	</dd>
 																</dl>
 															</div>
@@ -363,7 +341,7 @@
 
 														<div class="mdl-texthighlight">
 															<div class="mdl-richtext">
-																<p class="atm-heading">Bringen Sie bitte folgende Unterlagen mit</p>
+																<h4 class="atm-heading">Bringen Sie bitte folgende Unterlagen mit</h4>
 																<ul class="mdl-richtext__benefits">
 																	<li>Terminbestätigung</li>
 																	<li>Original Ausländerausweis (außer bei erstmaligem Gesuch)</li>
@@ -470,9 +448,9 @@
 																<div data-biometrie_appointment="selection-details__wrapper" class="mdl-biometrie_appointment__reschedule__selectiondetails ">
 																	<div class="selection-details__blocked " data-biometrie_appointment="slotFullMsg">
 																		<div class="mdl-notification
-                                          
-                                          
-                                          ">
+                                
+                                
+                                ">
 																			<svg class="icon" focusable="false">
 																				<use xlink:href="#caution"></use>
 																			</svg>
@@ -537,9 +515,9 @@
 
 												<div class="mdl-biometrie_appointment__unavailable-alert" data-biometrie_appointment="unavailable-alert">
 													<div class="mdl-notification
-                              
-                              
-                              mdl-notification--dialog">
+                    
+                    
+                    mdl-notification--dialog">
 														<svg class="icon" focusable="false">
 															<use xlink:href="#caution"></use>
 														</svg>
@@ -553,132 +531,131 @@
 													</div>
 												</div>
 											</div>
+											<div class="mdl-biometrie_appointment__contact" data-biometrie_appointment="contact">
+												<div class="mdl-contact mdl-contact--fullwidth mdl-contact--with-map">
+													<div class="lyt-wrapper">
+														<div class="grid-x grid-margin-x">
+															<div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10">
 
-										</div>
+																<h2 class="atm-heading atm-heading--bordered">Ort</h2>
 
-									</div>
-								</li>
-							</ol>
-						</div>
+																<h3 class="mdl-contact__subtitle">
+																	Migrationsamt des Kantons Zürichs
+																	<a href="#">
+																		Mehr erfahren
+																		<svg class="icon" focusable="false">
+																			<use xlink:href="#arrow-right"></use>
+																		</svg>
+																	</a>
+																</h3>
 
-						<div class="mdl-biometrie_appointment__contact" data-biometrie_appointment="contact">
-							<div class="mdl-contact mdl-contact--fullwidth mdl-contact--with-map">
-								<div class="lyt-wrapper">
-									<div class="grid-x grid-margin-x">
-										<div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10">
+																<div class="mdl-contact__section grid-x grid-margin-x">
 
-											<h2 class="atm-heading atm-heading--bordered">Ort</h2>
+																	<div class="mdl-contact__section-cell cell small-6 xlarge-4">
+																		<div class="mdl-contact__cell-icon">
+																			<h4 class="visuallyhidden"></h4>
+																			<svg class="icon mdl-contact__icon-location" aria-hidden="true" focusable="false">
+																				<use xlink:href="#location"></use>
+																			</svg>
+																		</div>
+																		<div class="mdl-contact__cell-content">
+																			<address class="mdl-contact__address">
 
-											<h3 class="mdl-contact__subtitle">
-												Migrationsamt des Kantons Zürichs
-												<a href="#">
-													Mehr erfahren
-													<svg class="icon" focusable="false">
-														<use xlink:href="#arrow-right"></use>
-													</svg>
-												</a>
-											</h3>
+																				Berninastrasse 45<br>
+																				8057 Zürich<br>
+																			</address>
 
-											<div class="mdl-contact__section grid-x grid-margin-x">
+																			<div class="mdl-contact__text">
+																				<p>
+																					Schalter G-S (bitte beim Eingang rechts ziehen)
+																				</p>
 
-												<div class="mdl-contact__section-cell cell small-6 xlarge-4">
-													<div class="mdl-contact__cell-icon">
-														<h4 class="visuallyhidden"></h4>
-														<svg class="icon mdl-contact__icon-location" aria-hidden="true" focusable="false">
-															<use xlink:href="#location"></use>
-														</svg>
-													</div>
-													<div class="mdl-contact__cell-content">
-														<address class="mdl-contact__address">
+																			</div>
 
-															Berninastrasse 45<br>
-															8057 Zürich<br>
-														</address>
+																		</div>
+																	</div>
 
-														<div class="mdl-contact__text">
-															<p>
-																Schalter G-S (bitte beim Eingang rechts ziehen)
-															</p>
+																	<div class="mdl-contact__section-cell cell small-6 xlarge-4">
+																		<div class="mdl-contact__cell-icon">
+																			<h4 class="visuallyhidden"></h4>
+																			<svg class="icon mdl-contact__icon-phone" aria-hidden="true" focusable="false">
+																				<use xlink:href="#phone-call"></use>
+																			</svg>
+																		</div>
+																		<div class="mdl-contact__cell-content">
+																			<a class="atm-text_link mdl-contact__phone" href="tel:+ 41432598800">+ 41 43 259 88 00</a>
 
+																			<div class="mdl-contact__text">
+																				<p>
+																					Allgemeine Fragen
+																				</p>
+																				<p>
+																					Montag - Freitag 08:00 - 12:00 und 13:00 - 16:30Uhr
+																				</p>
+																			</div>
+
+																		</div>
+																	</div>
+
+
+																</div>
+
+															</div>
 														</div>
-
-													</div>
-												</div>
-
-												<div class="mdl-contact__section-cell cell small-6 xlarge-4">
-													<div class="mdl-contact__cell-icon">
-														<h4 class="visuallyhidden"></h4>
-														<svg class="icon mdl-contact__icon-phone" aria-hidden="true" focusable="false">
-															<use xlink:href="#phone-call"></use>
-														</svg>
-													</div>
-													<div class="mdl-contact__cell-content">
-														<a class="atm-text_link mdl-contact__phone" href="tel:+ 41432598800">+ 41 43 259 88 00</a>
-
-														<div class="mdl-contact__text">
-															<p>
-																Allgemeine Fragen
-															</p>
-															<p>
-																Montag - Freitag 08:00 - 12:00 und 13:00 - 16:30Uhr
-															</p>
+														<div class="mdl-contact__map_container">
+															<div class="mdl-map_view" data-init="mapView" aria-label="Nicht zugängliche Karte" data-url="https://wms.zh.ch/ZHWEB" data-base-layers="Geometrie" data-label-layers="Beschriftungen">
+																<ul hidden aria-hidden="true">
+																	<li data-map-view="markerProps">
+																		<span data-map-view="marker_lat">47.380467</span>
+																		<span data-map-view="marker_lng">8.548396</span>
+																	</li>
+																</ul>
+																<div id="contact-map" class="mdl-map_view__container" data-map-view="map" aria-hidden="true"></div>
+																<div class="mdl-map_view__controls" aria-hidden="true">
+																	<button class="atm-button atm-button--icon-only atm-button--cv-inverted" data-map-view="zoomInBtn">
+																		<span class="atm-button__text visuallyhidden">
+																			Reinzoomen
+																		</span>
+																		<svg class="icon atm-button__icon" focusable="false">
+																			<use xlink:href="#plus"></use>
+																		</svg>
+																		<span class="atm-button__spinner"></span>
+																	</button>
+																	<button class="atm-button atm-button--icon-only atm-button--cv-inverted" data-map-view="zoomOutBtn">
+																		<span class="atm-button__text visuallyhidden">
+																			Herauszoomen
+																		</span>
+																		<svg class="icon atm-button__icon" focusable="false">
+																			<use xlink:href="#minus"></use>
+																		</svg>
+																		<span class="atm-button__spinner"></span>
+																	</button>
+																</div>
+																<input type="hidden" data-map-view="urlTemplateDirections" value="https://www.google.com/maps/dir/?api&#x3D;1&amp;destination&#x3D;{lat},{lng}" />
+																<div class="mdl-map_view__directions-link">
+																	<a href="" class="atm-button atm-button--big" target="_blank" data-map-view="directionsBtn">
+																		<span class="atm-button__text ">
+																			Route anzeigen
+																		</span>
+																		<svg class="icon atm-button__icon" focusable="false">
+																			<use xlink:href="#directions"></use>
+																		</svg>
+																		<span class="atm-button__spinner"></span>
+																	</a>
+																</div>
+															</div>
 														</div>
-
 													</div>
+
 												</div>
-
-
-											</div>
-
-										</div>
-									</div>
-									<div class="mdl-contact__map_container">
-										<div class="mdl-map_view" data-init="mapView" aria-label="Nicht zugängliche Karte" data-url="https://wms.zh.ch/ZHWEB" data-base-layers="Geometrie" data-label-layers="Beschriftungen">
-											<ul hidden aria-hidden="true">
-												<li data-map-view="markerProps">
-													<span data-map-view="marker_lat">47.380467</span>
-													<span data-map-view="marker_lng">8.548396</span>
-												</li>
-											</ul>
-											<div id="contact-map" class="mdl-map_view__container" data-map-view="map" aria-hidden="true"></div>
-											<div class="mdl-map_view__controls" aria-hidden="true">
-												<button class="atm-button atm-button--icon-only atm-button--cv-inverted" data-map-view="zoomInBtn">
-													<span class="atm-button__text visuallyhidden">
-														Reinzoomen
-													</span>
-													<svg class="icon atm-button__icon" focusable="false">
-														<use xlink:href="#plus"></use>
-													</svg>
-													<span class="atm-button__spinner"></span>
-												</button>
-												<button class="atm-button atm-button--icon-only atm-button--cv-inverted" data-map-view="zoomOutBtn">
-													<span class="atm-button__text visuallyhidden">
-														Herauszoomen
-													</span>
-													<svg class="icon atm-button__icon" focusable="false">
-														<use xlink:href="#minus"></use>
-													</svg>
-													<span class="atm-button__spinner"></span>
-												</button>
-											</div>
-											<input type="hidden" data-map-view="urlTemplateDirections" value="https://www.google.com/maps/dir/?api&#x3D;1&amp;destination&#x3D;{lat},{lng}" />
-											<div class="mdl-map_view__directions-link">
-												<a href="" class="atm-button atm-button--big" target="_blank" data-map-view="directionsBtn">
-													<span class="atm-button__text ">
-														Route anzeigen
-													</span>
-													<svg class="icon atm-button__icon" focusable="false">
-														<use xlink:href="#directions"></use>
-													</svg>
-													<span class="atm-button__spinner"></span>
-												</a>
 											</div>
 										</div>
+
 									</div>
 								</div>
+							</li>
+						</ol>
 
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>

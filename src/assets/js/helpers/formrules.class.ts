@@ -128,6 +128,13 @@ class FormRules {
           const parentRules = JSON.parse(closestParent.dataset.rules);
 
           parentRules.forEach((parentRule, c) => {
+            if ((parentRule.action === 'hide' && rule.action === 'disable')
+            || (parentRule.action === 'hide' && rule.action === 'enable')
+            || (parentRule.action === 'hide' && rule.action === 'show')) {
+              for (let i = 0; i < parentRule.conditions; i += 1) {
+                parentRule.conditions[i].equals = !parentRule.conditions[i].equals;
+              }
+            }
             // Don't take the rules over when it is a step
             if (parentRule.action !== 'enable' && parentRule.action !== 'disable') {
               if (c === 0) {

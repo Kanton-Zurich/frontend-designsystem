@@ -17,7 +17,7 @@
       </div>
     </form>
   </div>
-  <div class="mdl-flex-data__results initially-hidden" data-result-count-title="{{resultCountTitle}}" data-no-results-title="{{noResultsTitle}}" data-result-count-title-more="{{resultCountTitleMore}}">
+  <div class="mdl-flex-data__results initially-hidden" data-result-count-title="{{resultCountTitle}}" data-no-results-title="{{noResultsTitle}}" data-result-count-title-more="{{resultCountTitleMore}}" aria-live="polite">
     <script data-flex-template type="text/x-handlebars-template">
       {{#if tableData}}
         {{#each tableData.headers}}
@@ -35,7 +35,7 @@
         {{{genericTemplate}}}
       {{/unless}}
     </script>
-    <h3 class="visuallyhidden">Resultate</h3>
+    <h3 class="visuallyhidden" aria-live="polite">Resultate</h3>
     {{#if tableData}}
       {{> "modules/table/table" tableData }}
     {{/if}}
@@ -53,7 +53,7 @@
         </div>
         {{> "modules/context_menu/context_menu" sortContextMenu}}
       </div>
-      <h4 class="atm-heading mdl-flex-data__results-title"></h4>
+      <h3 class="atm-heading mdl-flex-data__results-title"></h3>
       <div class="mdl-flex-data__results-generic" data-sort-direction="descending" data-sort-column="relevance"></div>
     {{/unless}}
     <div class="mdl-flex-data__pagination">
