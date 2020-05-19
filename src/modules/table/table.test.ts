@@ -1,4 +1,4 @@
-
+jest.setTimeout(30000); // eslint-disable-line no-magic-numbers
 describe('Table', () => {
   let page: any;
 
