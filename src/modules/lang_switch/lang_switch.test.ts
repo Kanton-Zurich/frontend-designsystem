@@ -1,3 +1,4 @@
+jest.setTimeout(30000); // eslint-disable-line no-magic-numbers
 describe('LangSwitch', () => {
   let page: any;
 
