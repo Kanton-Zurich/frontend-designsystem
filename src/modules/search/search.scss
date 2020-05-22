@@ -54,7 +54,7 @@ $searchCurves: (
     font-family: $fontFamilyBlack;
 
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
-    @include sizeCurve(height, height, $searchCurves);
+    @include sizeCurve(height line-height, height, $searchCurves);
 
     &:focus {
       outline: none;
