@@ -243,7 +243,7 @@ class Datepicker extends Module {
       this.flatpickr.l10n.rangeSeparator = ' - ';
     }
 
-    document.querySelector('.flatpickr-calendar').setAttribute('aria-hidden', 'false');
+    document.querySelector('.flatpickr-calendar').setAttribute('aria-hidden', 'true');
   }
 
   /**
