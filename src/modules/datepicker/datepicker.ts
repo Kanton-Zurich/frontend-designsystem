@@ -242,6 +242,8 @@ class Datepicker extends Module {
     if (this.pickerMode === 'date-range') {
       this.flatpickr.l10n.rangeSeparator = ' - ';
     }
+
+    document.querySelector('.flatpickr-calendar').setAttribute('aria-hidden', 'false');
   }
 
   /**
