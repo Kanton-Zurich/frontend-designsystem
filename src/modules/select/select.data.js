@@ -93,7 +93,9 @@ const variants = _.mapValues({
           ariaText: 'Lösche Eingabe',
         },
       }),
-      triggerInputData: inputDemoData.variants.triggerPhone.props,
+      triggerInputData: _.merge({}, inputDemoData.variants.triggerPhone.props, {
+        preLabel: 'Telefonvorwahl',
+      }),
     },
   },
   defaultMultiPreSelect: {
