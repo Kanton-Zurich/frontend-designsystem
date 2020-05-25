@@ -380,7 +380,7 @@ class FlexData extends Module {
           tr.addEventListener('click', (event) => {
             const a = tr.querySelector('a');
 
-            if (event.ctrlKey) {
+            if (event.ctrlKey || event.metaKey) {
               window.open(`${window.location.origin}${a.getAttribute('href')}`, '_blank');
             } else {
               a.click();
