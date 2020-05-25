@@ -14,6 +14,8 @@
       </div>
     {{/if}}
 
+    {{#if isMultiSelect}}<span class="visuallyhidden">Mehrere Optionen können ausgewählt werden.</span>{{/if}}
+
     {{> "atoms/list/list" listData }}
 
     {{#if hasButton}}
