@@ -1,9 +1,10 @@
 ### Beschreibung
-Dieses Modalfenster wird für die Umsetzung der Service Seite eigesetzt (https://we.one-inside.com/confluence/display/CZHDEV/Story%3A+ST_12+Service)
+Dieses Modalfenster (auch Lightbox genannt) wird eingesetzt um einen internen Service mit einem internem Referrer (d.h. keine Suchmaschine) bildschirmfüllend anzuzeigen. 
 
-Im Module "Service Liste" wird dieses Modalfenster referenziert
+In der Lightbox werden Seitenmodule wie Hauptnavigation, Breadcrumb, Kontakt und footer nicht angezeigt.
+
+Im Modul "Service Liste" wird auf dieses Modalfenster referenziert
 
 ### Integration
-
 
 HTML kopieren.
