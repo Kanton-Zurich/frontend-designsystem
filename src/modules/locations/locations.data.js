@@ -125,7 +125,7 @@ const data = _.merge({}, defaultData, {
       label: 'Standorte filter',
       dataSelector: 'data-locations="input"',
       type: 'text',
-      filterListId: 'standorteFList',
+      ariaDescribedBy: 'Die Standordliste wird gefiltert.',
       additionalFunctionality: {
         icon: 'clear',
         buttontype: 'clear',
