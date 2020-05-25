@@ -381,7 +381,7 @@ class FlexData extends Module {
             const a = tr.querySelector('a');
 
             if (event.ctrlKey || event.metaKey) {
-              window.open(`${window.location.origin}${a.getAttribute('href')}`, '_blank');
+              window.open(a.getAttribute('href'), '_blank');
             } else {
               a.click();
             }
