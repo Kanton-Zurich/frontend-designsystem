@@ -306,11 +306,13 @@ class Locations extends Module {
         this.ui.map.dispatchEvent(MapView.extMarkerShowHide(index, true));
         parentElement.style.removeProperty('display');
         parentElement.classList.remove('hide');
+        parentElement.setAttribute('aria-hidden', 'false');
         lastIndex = index;
       } else {
         this.ui.map.dispatchEvent(MapView.extMarkerShowHide(index, false));
         parentElement.classList.add('hide');
         parentElement.style.display = 'none';
+        parentElement.setAttribute('aria-hidden', 'true');
         countHidden += 1;
       }
     });
