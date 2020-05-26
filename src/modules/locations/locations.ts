@@ -347,8 +347,10 @@ class Locations extends Module {
       (<HTMLDivElement[]> this.ui.detailNodes).forEach((detailsContainer, i) => {
         if (i === indexToShow) {
           detailsContainer.classList.add(this.options.stateClasses.detailShow);
+          detailsContainer.setAttribute('aria-hidden', 'false');
         } else {
           detailsContainer.classList.remove(this.options.stateClasses.detailShow);
+          detailsContainer.setAttribute('aria-hidden', 'true');
         }
         detailsContainer.querySelectorAll('a').forEach((anchorEl) => {
           this.setTabable(anchorEl, indexToShow === i);

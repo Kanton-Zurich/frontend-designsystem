@@ -41,7 +41,7 @@
               {{> "atoms/button/button" backBtn }}
             </div>
             {{#each locationContacts}}
-              <div class="mdl-locations__details_location" data-locations="locationDetails">
+              <div class="mdl-locations__details_location" aria-hidden="true" data-locations="locationDetails">
                 {{> "modules/contact/contact" this}}
               </div>
             {{/each}}
