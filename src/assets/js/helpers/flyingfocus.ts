@@ -67,14 +67,14 @@ class FlyingFocus {
       this.initFlyingFocus();
     }
 
-    const ringmargin = document.querySelector('.mdl-carousel--fullscreen') ? 0 : 4; //eslint-disable-line
+    const ringmargin = document.querySelector('.mdl-carousel--fullscreen') ? 0 : 10; //eslint-disable-line
 
     if (target.tagName !== 'BODY') {
       const offset = this.offsetOf(target);
       this.ringElement.style.left = `${offset.left - (ringmargin / 2)}px`; //eslint-disable-line
       this.ringElement.style.top = `${offset.top - (ringmargin / 2)}px`; //eslint-disable-line
       this.ringElement.style.width = `${target.offsetWidth + ringmargin}px`;
-      this.ringElement.style.height = `${target.offsetHeigh + ringmargin}px`;
+      this.ringElement.style.height = `${target.offsetHeight + ringmargin}px`;
       if (isFirstFocus || !this.isJustPressed()) {
         return;
       }
