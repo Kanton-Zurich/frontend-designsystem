@@ -28,6 +28,7 @@ class Locations extends Module {
     toggleListBtn: HTMLButtonElement,
     emptyListHint: HTMLDivElement,
     notFoundTextTemplate: HTMLTemplateElement,
+    filterDescription: HTMLParagraphElement,
   };
 
   public options: LocationsModuleOptions;
@@ -295,6 +296,8 @@ class Locations extends Module {
 
   private filterListItemsByText(filterText: string, autoOpenSingleItem: boolean = false): void {
     const pattern = new RegExp(filterText, 'i');
+    const messageTimeout = 3000;
+
     const listItems = this.ui.listItems as HTMLAnchorElement[];
     let countHidden = 0;
     let lastIndex = -1;
@@ -337,6 +340,12 @@ class Locations extends Module {
           .events.fixMarker, { detail: { idx: lastIndex } }));
       }, 0);
     }
+
+    this.ui.filterDescription.style.display = 'inherit';
+
+    setTimeout(() => {
+      this.ui.filterDescription.removeAttribute('style');
+    }, messageTimeout);
   }
 
   private showLocationDetailsForIndex(indexToShow: number, setHeadFocus: boolean = true): void {

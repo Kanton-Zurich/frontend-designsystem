@@ -69,6 +69,10 @@ $mapRatioSmall: 0.75;
     width: calc(91.6667% - #{$sidebarMaxWidth});
   }
 
+  &__filter-message {
+    display: none;
+  }
+
   &__sidebar-wrapper {
     max-width: pxToRem($sidebarMaxWidth);
     position: absolute;
