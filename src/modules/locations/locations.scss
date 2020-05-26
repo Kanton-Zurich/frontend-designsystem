@@ -23,7 +23,7 @@ $mapRatioSmall: 0.75;
 .sideBarScrollContainer {
   height: calc(100% - #{$sideBarHeadHeight});
 
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 
   -webkit-overflow-scrolling: touch;
