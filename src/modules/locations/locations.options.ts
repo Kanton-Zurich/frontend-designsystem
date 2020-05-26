@@ -11,6 +11,7 @@ interface ModuleDomSelectors {
   toggleListBtn: string,
   emptyListHint: string,
   notFoundTextTemplate: string,
+  detailWrapper: string,
 }
 interface ModuleStateClasses {
   sidebar: {
@@ -53,6 +54,7 @@ const domSelectors: ModuleDomSelectors = {
   toggleListBtn: '[data-locations="toggleList"]',
   emptyListHint: '[data-locations="emptyNote"]',
   notFoundTextTemplate: '[data-locations="emptyNoteTextTemplate"]',
+  detailWrapper: '[data-locations="locationDetailsWrapper"]',
 };
 const stateClasses: ModuleStateClasses = {
   sidebar: {

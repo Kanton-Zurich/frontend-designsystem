@@ -28,6 +28,7 @@ class Locations extends Module {
     toggleListBtn: HTMLButtonElement,
     emptyListHint: HTMLDivElement,
     notFoundTextTemplate: HTMLTemplateElement,
+    detailWrapper: HTMLDivElement,
   };
 
   public options: LocationsModuleOptions;
@@ -261,11 +262,16 @@ class Locations extends Module {
         this.ui.backBtn.classList.remove('hidden');
       }
       this.toggleSidebarTabIndices(true);
+
+      this.ui.detailWrapper.setAttribute('aria-hidden', 'false');
     } else {
       this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.onDetails);
       this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.opened);
       this.toggleSidebarTabIndices();
+
+      this.ui.detailWrapper.setAttribute('aria-hidden', 'true');
     }
+
 
     this.showLocationDetailsForIndex(selectedItemIdx);
     this.highlightInMap(selectedItemIdx, true);
