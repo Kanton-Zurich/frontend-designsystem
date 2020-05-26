@@ -139,6 +139,8 @@ class SearchPage extends Module {
     this.eventDelegate.on('submit', this.options.domSelectors.form, () => {
       this.onQueryChange(null, null, this.ui.input.value);
 
+      this.log('test');
+
       return false;
     });
 
