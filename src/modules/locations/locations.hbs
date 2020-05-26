@@ -34,6 +34,7 @@
                 {{> "modules/notification/notification" errorMessage }}
               {{/if}}
             </div>
+            {{#if ariaDescribedBy}}<p class="visuallyhidden" id="{{ariaDescribedBy.id}}">{{ariaDescribedBy.text}}</p>{{/if}}
             {{> "modules/linklist/linklist" locationsList}}
           </div>
           <div class="mdl-locations__details">

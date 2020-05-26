@@ -73,8 +73,7 @@
       {{/if}}
       {{#if additionalFunctionality.ariaControls}}aria-controls="{{additionalFunctionality.ariaControls}}"{{/if}}
       {{#if disableAutocomplete}}autocomplete="new-password"{{/if}}
-      {{#if filterListId}}aria-owns="{{filterListId}}" aria-autocomplete="list"{{/if}}
-      {{#if ariaDescribedBy}}aria-describedby="{{ariaDescribedBy}}"{{/if}}
+      {{#if ariaDescribedBy}}aria-describedby="{{ariaDescribedBy.id}}"{{/if}}
     >
   {{/if}}
   {{#unless isTriggerWithInput }}
