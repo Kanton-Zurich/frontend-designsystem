@@ -2,6 +2,9 @@
   @include sizeCurve(padding-top padding-bottom, regular);
   border-bottom: 1px solid $colorBlack20;
 
+  display: flex;
+  flex-direction: column-reverse;
+
   &__content {
     text-decoration: none;
     display: block;

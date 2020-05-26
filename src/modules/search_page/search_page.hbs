@@ -54,23 +54,6 @@
     <ul class="mdl-search_page__list">
       <% _.forEach(results, function(item, index) { %>
         <li class="atm-search_result_item" <% if(item.type === 'service') { %>data-init="servicelist"<% } %>>
-          <span class="atm-search_result_item__meta">
-            <% if (item.typeLabel) { %>
-            <span>
-              <%- item.typeLabel %>
-            </span>
-            <% } %>
-            <% if (item.breadcrumb) { %>
-              <span>
-                <%- item.breadcrumb %>
-              </span>
-            <% } %>
-            <% if (item.date) { %>
-              <span>
-                <%- item.date %>
-              </span>
-            <% } %>
-          </span>
           <% if (item.type === 'service') { %>
             <a href="<%- item.link %>" class="mdl-service_list__item"
               data-url="<%- item.link %>" aria-controls="modal_search-result_<%- index %>" role="button"
@@ -105,6 +88,23 @@
               <p><%= item.teaserText %></p>
             </a>
           <% } %>
+          <span class="atm-search_result_item__meta">
+            <% if (item.typeLabel) { %>
+            <span>
+              <%- item.typeLabel %>
+            </span>
+            <% } %>
+            <% if (item.breadcrumb) { %>
+              <span>
+                <%- item.breadcrumb %>
+              </span>
+            <% } %>
+            <% if (item.date) { %>
+              <span>
+                <%- item.date %>
+              </span>
+            <% } %>
+          </span>
         </li>
       <% }); %>
     </ul>
