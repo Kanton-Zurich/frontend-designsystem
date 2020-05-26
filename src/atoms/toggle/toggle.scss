@@ -72,3 +72,19 @@ $toggleDimension: 32px;
     }
   }
 }
+
+@media screen and ( -ms-high-contrast: active ) {
+  .atm-toggle {
+    &__label {
+      &:before {
+        border: 1px dashed $colorWhite;
+      }
+    }
+
+    input:checked + &__label {
+      &:before {
+        border: 2px solid $colorWhite;
+      }
+    }
+  }
+}
