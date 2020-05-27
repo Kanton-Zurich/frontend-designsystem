@@ -101,7 +101,7 @@ class Locations extends Module {
       .on('keyup', this.options.domSelectors.detailNodes, (event, target) => {
         const keyEvent = event as KeyboardEvent;
         if (keyEvent.key === 'Escape') {
-          this.log('DetaiNodes Keypress "Escape"', event, target);
+          this.log('DetailNodes Keypress "Escape"', event, target);
           this.onListItemsSelect();
         }
       })
@@ -342,9 +342,11 @@ class Locations extends Module {
     }
 
     this.ui.filterDescription.style.display = 'inherit';
+    this.ui.filterInput.setAttribute('aria-describedby', this.ui.filterDescription.id);
 
     setTimeout(() => {
       this.ui.filterDescription.removeAttribute('style');
+      this.ui.filterInput.removeAttribute('aria-describedby');
     }, messageTimeout);
   }
 
