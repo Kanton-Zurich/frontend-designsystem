@@ -37,12 +37,12 @@
             {{#if ariaDescribedBy}}<p class="visuallyhidden mdl-locations__filter-message" data-locations="filterDescription" id="{{ariaDescribedBy.id}}">{{ariaDescribedBy.text}}</p>{{/if}}
             {{> "modules/linklist/linklist" locationsList}}
           </div>
-          <div class="mdl-locations__details">
+          <div class="mdl-locations__details" aria-hidden="true" data-locations="locationDetailsWrapper">
             <div class="mdl-locations__details_head">
               {{> "atoms/button/button" backBtn }}
             </div>
             {{#each locationContacts}}
-              <div class="mdl-locations__details_location" data-locations="locationDetails">
+              <div class="mdl-locations__details_location" aria-hidden="true" data-locations="locationDetails">
                 {{> "modules/contact/contact" this}}
               </div>
             {{/each}}
