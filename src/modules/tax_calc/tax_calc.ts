@@ -225,6 +225,8 @@ class TaxCalc extends Module {
         }
       } else if (i === sectionIdx) {
         this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.disabled);
+        this.ui.nextBtn.setAttribute('disabled', 'true');
+
         formSectionItem.classList.add(this.options.stateClasses.formItem.enabled);
         setTimeout(() => {
           toggleBtn.click();
@@ -300,8 +302,10 @@ class TaxCalc extends Module {
 
       if (allFilled) {
         conClasses.remove(this.options.stateClasses.nextBtn.disabled);
+        this.ui.nextBtn.removeAttribute('disabled');
       } else {
         conClasses.add(this.options.stateClasses.nextBtn.disabled);
+        this.ui.nextBtn.setAttribute('disabled', 'disabled');
       }
     }, this.options.transitionTimeout);
     // }
@@ -365,6 +369,7 @@ class TaxCalc extends Module {
         this.enableCalculatorOptionsForEntity(taxEntity);
         if (this.formHasErrors()) {
           this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.disabled);
+          this.ui.nextBtn.setAttribute('disabled', 'true');
         }
         if (this.currentFormSection > 1) {
           this.activateFormSection(1);
@@ -701,6 +706,7 @@ class TaxCalc extends Module {
   private onFormException(exceptionStr: string) {
     this.log('Form Exception: ', exceptionStr);
     this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.disabled);
+    this.ui.nextBtn.setAttribute('disabled', 'true');
 
     this.ui.apiErrorNotification.querySelector('.mdl-notification__message')
       .innerHTML = exceptionStr;
