@@ -56,6 +56,7 @@ const data = _.merge({}, defaultData, {
     endpointDoLogin: mockAssets.loginOk,
     endpointAuthorize: mockAssets.authOk,
     heading: 'Login ZHservices',
+    focussable: true,
     introText: 'Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichte - den ersten in der Schweiz.',
     userNameInput: _.merge({}, formInputData.variants.floatValidate.props, {
       uuid: 'j_username',
