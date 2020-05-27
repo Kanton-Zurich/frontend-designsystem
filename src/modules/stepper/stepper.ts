@@ -168,6 +168,7 @@ class Stepper extends Module {
    */
   onStepChange(propName, oldValue, newValue) {
     this.ui.steps[newValue].classList.remove(this.options.stateClasses.hiddenStep);
+    this.ui.steps[newValue].addAttribute('aria-current', 'step');
 
     this.setButtonVisibility();
     this.deactiveSteps(newValue);
@@ -198,6 +199,7 @@ class Stepper extends Module {
   deactiveSteps(newStepIndex: number = 0) {
     this.ui.steps.forEach((step, index) => {
       if (index !== newStepIndex) {
+        step.removeAttribute('aria-current');
         step.classList.add(this.options.stateClasses.hiddenStep);
       }
     });
