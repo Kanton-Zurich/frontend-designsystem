@@ -99,7 +99,8 @@ class FlexData extends Module {
     this.ui.submitButton.addEventListener('click', this.onSearchResults.bind(this));
     this.ui.clearButton.addEventListener('click', this.onClearResults.bind(this));
     this.ui.form.addEventListener('keypress', (event: any) => {
-      if (event.key === 'Enter') {
+      const active = document.activeElement;
+      if (event.key === 'Enter' && (active.tagName !== 'BUTTON' || active.hasAttribute('data-search-flex'))) {
         event.preventDefault();
         this.ui.submitButton.click();
         return false;
@@ -377,8 +378,14 @@ class FlexData extends Module {
             props[`text${index}`] = item[colName];
           });
           tr.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, props);
-          tr.addEventListener('click', () => {
-            tr.querySelector('a').click();
+          tr.addEventListener('click', (event) => {
+            const a = tr.querySelector('a');
+
+            if (event.ctrlKey || event.metaKey) {
+              window.open(a.getAttribute('href'), '_blank');
+            } else {
+              a.click();
+            }
           });
           this.ui.resultsTableBody.appendChild(tr);
         });

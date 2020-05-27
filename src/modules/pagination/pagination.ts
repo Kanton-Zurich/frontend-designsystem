@@ -175,13 +175,17 @@ class Pagination extends Module {
     const maxPages = parseInt(this.ui.element.getAttribute('data-pagecount'), 10);
     this.ui.prev.classList.remove(this.options.stateClasses.buttonDisabled);
     this.ui.next.classList.remove(this.options.stateClasses.buttonDisabled);
+    this.ui.prev.removeAttribute('disabled');
+    this.ui.next.removeAttribute('disabled');
 
     if (page <= 1) {
       this.ui.prev.classList.add(this.options.stateClasses.buttonDisabled);
+      this.ui.prev.setAttribute('disabled', 'true');
     }
 
     if (page >= maxPages) {
       this.ui.next.classList.add(this.options.stateClasses.buttonDisabled);
+      this.ui.next.setAttribute('disabled', 'true');
     }
   }
 

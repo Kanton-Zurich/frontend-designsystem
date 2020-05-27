@@ -17,6 +17,11 @@ const locationsLatLng = [
   { lat: 47.271530, lng: 8.585463 },
 ];
 
+const ariaDescribedBy = {
+  id: 'aria-filters-list',
+  text: 'Die Standortliste wird gefiltert.',
+};
+
 const locationsAsListItemLinks = [
   {
     linkListItemIsLocation: true,
@@ -121,11 +126,12 @@ const data = _.merge({}, defaultData, {
     title: 'Standorte des Strassenverkehrsamtes',
     headingLevel: 2,
     noPlzFound: 'Keine PLZ / Ort gefunden',
+    ariaDescribedBy,
     locationsFormInput: _.merge({}, inputClearButtonSmallWithIconData, {
       label: 'Standorte filter',
       dataSelector: 'data-locations="input"',
       type: 'text',
-      filterListId: 'standorteFList',
+      ariaDescribedBy,
       additionalFunctionality: {
         icon: 'clear',
         buttontype: 'clear',

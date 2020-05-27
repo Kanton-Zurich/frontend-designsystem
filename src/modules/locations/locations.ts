@@ -29,6 +29,7 @@ class Locations extends Module {
     emptyListHint: HTMLDivElement,
     notFoundTextTemplate: HTMLTemplateElement,
     detailWrapper: HTMLDivElement,
+    filterDescription: HTMLParagraphElement,
   };
 
   public options: LocationsModuleOptions;
@@ -101,7 +102,7 @@ class Locations extends Module {
       .on('keyup', this.options.domSelectors.detailNodes, (event, target) => {
         const keyEvent = event as KeyboardEvent;
         if (keyEvent.key === 'Escape') {
-          this.log('DetaiNodes Keypress "Escape"', event, target);
+          this.log('DetailNodes Keypress "Escape"', event, target);
           this.onListItemsSelect();
         }
       })
@@ -301,6 +302,8 @@ class Locations extends Module {
 
   private filterListItemsByText(filterText: string, autoOpenSingleItem: boolean = false): void {
     const pattern = new RegExp(filterText, 'i');
+    const messageTimeout = 3000;
+
     const listItems = this.ui.listItems as HTMLAnchorElement[];
     let countHidden = 0;
     let lastIndex = -1;
@@ -345,6 +348,14 @@ class Locations extends Module {
           .events.fixMarker, { detail: { idx: lastIndex } }));
       }, 0);
     }
+
+    this.ui.filterDescription.style.display = 'inherit';
+    this.ui.filterInput.setAttribute('aria-describedby', this.ui.filterDescription.id);
+
+    setTimeout(() => {
+      this.ui.filterDescription.removeAttribute('style');
+      this.ui.filterInput.removeAttribute('aria-describedby');
+    }, messageTimeout);
   }
 
   private showLocationDetailsForIndex(indexToShow: number, setHeadFocus: boolean = true): void {

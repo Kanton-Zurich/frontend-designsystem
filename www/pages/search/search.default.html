@@ -725,7 +725,7 @@
 
 					<script type="text/x-handlebars-template" data-search_page="resultsHeadTemplate">
 						<div>
-          <h2 class="mdl-search_page__counter"><%- numberOfResults %> Ergebnisse<span class="mdl-search_page__autocorrect" data-search_page="autocorrect"> für <a data-search_page="force" class="atm-text_link" role="button"><%- autocorrectedTerm %></a>. Stattdessen suchen nach <a class="atm-text_link"  data-search_page="force" role="button" data-search_page="force"><%- originalTerm %></a></span></h2>
+          <h2 class="mdl-search_page__counter"><%- numberOfResults %> Ergebnisse<span class="mdl-search_page__autocorrect" data-search_page="autocorrect"> für <a data-search_page="force" href="?q=<%- autocorrectedTerm %>" class="atm-text_link" tabindex="0" role="button"><%- autocorrectedTerm %></a>. Stattdessen suchen nach <a class="atm-text_link"  data-search_page="force" role="button" data-search_page="force" tabindex="0" href="?q=<%- originalTerm %>"><%- originalTerm %></a></span></h2>
           <ul class="mdl-search_page__tag-group mdl-tag-group__tags">
             <li>
               <div class="atm-radiobutton atm-radiobutton--tag">
@@ -753,23 +753,6 @@
 						<ul class="mdl-search_page__list">
           <% _.forEach(results, function(item, index) { %>
             <li class="atm-search_result_item" <% if(item.type === 'service') { %>data-init="servicelist"<% } %>>
-              <span class="atm-search_result_item__meta">
-                <% if (item.typeLabel) { %>
-                <span>
-                  <%- item.typeLabel %>
-                </span>
-                <% } %>
-                <% if (item.breadcrumb) { %>
-                  <span>
-                    <%- item.breadcrumb %>
-                  </span>
-                <% } %>
-                <% if (item.date) { %>
-                  <span>
-                    <%- item.date %>
-                  </span>
-                <% } %>
-              </span>
               <% if (item.type === 'service') { %>
                 <a href="<%- item.link %>" class="mdl-service_list__item"
                   data-url="<%- item.link %>" aria-controls="modal_search-result_<%- index %>" role="button"
@@ -804,6 +787,23 @@
                   <p><%= item.teaserText %></p>
                 </a>
               <% } %>
+              <span class="atm-search_result_item__meta">
+                <% if (item.typeLabel) { %>
+                <span>
+                  <%- item.typeLabel %>
+                </span>
+                <% } %>
+                <% if (item.breadcrumb) { %>
+                  <span>
+                    <%- item.breadcrumb %>
+                  </span>
+                <% } %>
+                <% if (item.date) { %>
+                  <span>
+                    <%- item.date %>
+                  </span>
+                <% } %>
+              </span>
             </li>
           <% }); %>
         </ul>
