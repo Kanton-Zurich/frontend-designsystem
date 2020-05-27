@@ -378,8 +378,14 @@ class FlexData extends Module {
             props[`text${index}`] = item[colName];
           });
           tr.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, props);
-          tr.addEventListener('click', () => {
-            tr.querySelector('a').click();
+          tr.addEventListener('click', (event) => {
+            const a = tr.querySelector('a');
+
+            if (event.ctrlKey || event.metaKey) {
+              window.open(a.getAttribute('href'), '_blank');
+            } else {
+              a.click();
+            }
           });
           this.ui.resultsTableBody.appendChild(tr);
         });
