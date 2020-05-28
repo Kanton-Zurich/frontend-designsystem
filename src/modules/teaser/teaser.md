@@ -3,6 +3,8 @@ Mit einem Teaser können relevante, weiterführende Inhalte prominent dargestell
 
 ### Integration
 
-HTML kopieren.
+<ul>
+<li>HTML kopieren.
 
-Die Bilder in Teaser sollten ein leeres alt-Attribut haben, nicht den hinterlegten Alternativtext für das Bild. Teaser-Bilder gelten als dekorativ.
+<li>Die Bilder im Teaser sollten ein leeres alt-Attribut haben, nicht den hinterlegten Alternativtext für das Bild. Teaser-Bilder gelten als dekorativ.
+</ul>
