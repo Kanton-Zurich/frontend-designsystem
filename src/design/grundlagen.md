@@ -20,7 +20,7 @@ Die Verwendung von Farben befolgt folgende Regeln:
 
 {{> "modules/image_figure/image_figure" colorsActiveImage }}
 
-<h2 class='atm-heading atm-heading--bordered'>Intarktionselemente</h2>
+<h2 class='atm-heading atm-heading--bordered'>Interaktionselemente</h2>
 
 <h3 class='atm-heading'>Buttons</h3>
 
@@ -36,7 +36,7 @@ Primäre Buttons treten alleine oder im Verbund mit sekundären Buttons auf. Der
 
 {{> "modules/image_figure/image_figure" buttonsImage }}
 
-<h3 class='atm-heading'>Linjks</h3>
+<h3 class='atm-heading'>Links</h3>
 
 Textlinks sind immer unterstrichen und in der Farbe Zürichblau ausgezeichnet. Sie verfügen über den gleichen Schriftschnitt wie der Text. Direkt in Texten und Listen platziert, ermöglichen sie eine hohe Kontextualität der Interaktion.
 

@@ -7,5 +7,4 @@ Important for testers! This moddule can be tested in all variantes within the te
 
 ### Integration
 
-### Temp by p
-![bild titel](/Users/webteamktzh/Documents/Bilder/markdown bild.png)
+HTML kopieren.
