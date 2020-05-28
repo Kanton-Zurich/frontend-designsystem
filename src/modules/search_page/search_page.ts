@@ -147,6 +147,13 @@ class SearchPage extends Module {
       this.onQueryChange(null, null, delegate.textContent, true, true);
     });
 
+    this.eventDelegate.on('keydown', this.options.domSelectors.force, (event, delegate) => {
+      if (event.key === 'Enter') {
+        this.ui.input.value = delegate.textContent;
+        this.onQueryChange(null, null, delegate.textContent, true, true);
+      }
+    });
+
     this.ui.pagination.addEventListener(Pagination.events.change, this.onPageChange.bind(this));
     this.ui.resetResults.addEventListener('click', this.onResetResults.bind(this));
 
