@@ -1,5 +1,5 @@
 ### Beschreibung
-Mit dieser Komponente können Zitate als solche erkennbar dargestellt werden. Sie heben sich optisch vom Rest des Inhalts ab.
+Mit diesem Modul können Zitate als solche erkennbar dargestellt werden. Sie heben sich optisch vom Rest des Inhalts ab.
 
 #### Info
 Wichtig für Tester! Dieses Modul kann im Text-Modul in allen Varianten getestet werden.
