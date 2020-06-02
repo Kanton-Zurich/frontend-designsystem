@@ -60,7 +60,9 @@ $tooltip-bubble-close-icon-size: 14px;
     cursor: pointer;
   }
 
-  p {
+  p,
+  ul,
+  ol {
     color: $colorBlack60;
   }
 
@@ -153,7 +155,14 @@ $tooltip-bubble-close-icon-size: 14px;
       }
     }
 
+    h1,
+    h2,
     h3,
+    h4,
+    h5,
+    h6,
+    ul,
+    ol,
     p {
       font-size: $sizeFontRegular;
       line-height: $sizeLineHeightBase;
@@ -164,8 +173,29 @@ $tooltip-bubble-close-icon-size: 14px;
       }
     }
 
-    h3 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       font-family: $fontFamilyBlack;
+      margin-bottom: $sizeMini;
+    }
+
+    p,
+    ul,
+    ol {
+      margin-bottom: $sizeTiny;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    ul,
+    ol {
+      padding-left: 1.5rem;
     }
   }
 
