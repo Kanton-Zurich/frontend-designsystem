@@ -14,7 +14,7 @@ const tooltipData = {
   helptext: 'Passwort vergessen?',
   asTextLink: true,
   bubble: {
-    text: 'Bitte kontaktieren Sie diese <a href="mailto:test@test.com" >Emailaddresse</a> wenn Sie ein neues Passwort benötigen.',
+    text: '<p>Bitte kontaktieren Sie diese <a href="mailto:test@test.com" >Emailaddresse</a> wenn Sie ein neues Passwort benötigen.</p>',
     id: _.uniqueId('aria-anchors'),
   },
 };
