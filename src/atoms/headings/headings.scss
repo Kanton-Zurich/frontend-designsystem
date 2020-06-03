@@ -39,6 +39,16 @@ $headingCurves: (
       top: 0;
     }
   }
+
+  &--lex-detail {
+    margin-top: -2px;
+    margin-bottom: pxToRem($sizeBig);
+    padding-top: 0;
+
+    @include mq($to: small) {
+      clear: both;
+    }
+  }
 }
 
 h1,

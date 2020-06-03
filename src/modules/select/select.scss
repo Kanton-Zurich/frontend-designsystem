@@ -283,14 +283,3 @@ $selectOptionsMinWidth: 268px;
     }
   }
 }
-
-// CZHDEV-2350: CSS seems to wrongfully generate this
-.mdl-select--float-right + .atm-heading {
-  margin-top: -2px;
-  margin-bottom: pxToRem($sizeBig);
-  padding-top: 0;
-
-  @include mq($to: small) {
-    clear: both;
-  }
-}
