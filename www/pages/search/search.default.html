@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="de" class="no-js">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>CZHDEV - Living Styleguide</title>
+	<meta name="description" content="Staatskanzlei Kanton Zürich - Beschreibung">
+	<meta name="format-detection" content="telephone=no">
+
+	<link rel="stylesheet" href="/assets/css/main.min.css">
+	<link rel="stylesheet" href="/assets/css/print.min.css" media="print">
+	<script src="/assets/js/head.min.js"></script>
+
+
+
+	<link rel="manifest" href="/assets/manifest.json">
+
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="application-name" content="Kanton Zürich">
+	<meta name="apple-mobile-web-app-title" content="Kanton Zürich">
+	<meta name="theme-color" content="#0076BD">
+	<meta name="msapplication-navbutton-color" content="#0076BD">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="msapplication-starturl" content="/">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+
+	<link rel="icon" type="image/png" href="/assets/media/icons/Favicon_48.png">
+
+	<link rel="shortcut icon" sizes="144x144" type="image/png" href="/assets/media/icons/Favicon_144.png">
+	<link rel="shortcut icon" sizes="96x96" type="image/png" href="/assets/media/icons/Favicon_96.png">
+	<link rel="shortcut icon" sizes="48x48" type="image/png" href="/assets/media/icons/Favicon_48.png">
+	<link rel="shortcut icon" sizes="16x16" type="image/png" href="/assets/media/icons/Favicon_16.png">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/assets/media/icons/apple-touch-icon-180x180.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/assets/media/icons/apple-touch-icon-76x76@2x.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/assets/media/icons/apple-touch-icon-72x72@2x.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/assets/media/icons/apple-touch-icon-60x60@2x.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/media/icons/apple-touch-icon-57x57@2x.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/assets/media/icons/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/assets/media/icons/apple-touch-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="57x57" href="/assets/media/icons/apple-touch-icon-57x57.png">
+</head>
+
+<body class="cv-blue" data-svgsprites-options='[&quot;/assets/media/svgsprite/base.svg&quot;]' data-script-main='/assets/js/main.min.js' data-style-fonts='/assets/css/fonts.min.css'>
+	<header class="lyt-wrapper" id="header">
+		<h1 class="visuallyhidden">Navigation</h1>
+		<div class="mdl-skiplinks" data-init="skiplinks">
+			<h2 class="visuallyhidden">Sprunglinks</h2>
+			<ul class="mdl-skiplinks__list">
+				<li class="mdl-skiplinks__item">
+					<a href="/" accesskey="0" class="mdl-skiplinks__link">Startseite</a>
+				</li>
+				<li class="mdl-skiplinks__item">
+					<a href="#navigation" accesskey="1" class="mdl-skiplinks__link">Navigation</a>
+				</li>
+				<li class="mdl-skiplinks__item">
+					<a href="#main" accesskey="2" class="mdl-skiplinks__link">Inhalt</a>
+				</li>
+				<li class="mdl-skiplinks__item">
+					<a href="#contact" accesskey="3" class="mdl-skiplinks__link">Kontakt</a>
+				</li>
+				<li class="mdl-skiplinks__item">
+					<a href="#search" accesskey="5" class="mdl-skiplinks__link">Suche</a>
+				</li>
+				<li class="mdl-skiplinks__item">
+					<a href="#contentinfo" accesskey="6" class="mdl-skiplinks__link">Fussbereich</a>
+				</li>
+			</ul>
+		</div>
+		<div class="grid-x grid-margin-x">
+			<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+				<div class="mdl-header mdl-header--inverted" data-init="header">
+					<div class="lyt-wrapper">
+						<div class="grid-margin-x grid-x">
+							<div class="mdl-header__wrapper cell tiny-offset-2 xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-10">
+								<h2 class="visuallyhidden">Hauptnavigation</h2>
+								<nav id="navigation">
+									<button class="mdl-header__nav-burger" data-menu-burger>
+										<svg class="icon burger" focusable="false">
+											<use xlink:href="#menu-1"></use>
+										</svg>
+										<svg class="icon close" focusable="false">
+											<use xlink:href="#exit"></use>
+										</svg>
+										<span class="mdl-header__nav-burger-text">Menu</span>
+									</button>
+									<ul class="mdl-header__navigation">
+										<li>
+											<button class="mdl-header__nav-item" data-header="openModal" aria-expanded="false" aria-haspopup="true" aria-controls="flyout-topics" data-nav-index="1">
+												Themen
+											</button>
+										</li>
+										<li>
+											<button class="mdl-header__nav-item" data-header="openModal" aria-expanded="false" aria-haspopup="true" aria-controls="flyout-topics" data-nav-index="2">
+												Organisation
+											</button>
+										</li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+					<div class="mdl-header__functions">
+						<div class="mdl-user-menu" data-init="userMenu" aria-describedby="aria-user-menu">
+							<input type="hidden" data-user-menu="loginStatusEndpoint" value="../../mocks/modules/cug_login/status_logged_in.json" />
+							<button class="mdl-user-menu__trigger">
+								<svg class="icon" focusable="false">
+									<use xlink:href="#user"></use>
+								</svg>
+								<span class="mdl-user-menu__user" data-user-menu="userNameField">
+
+								</span>
+								<span class="mdl-user-menu__user-short" data-user-menu="userShortField">
+
+								</span>
+								<svg class="icon" focusable="false">
+									<use xlink:href="#angle_drop_down"></use>
+								</svg>
+							</button>
+
+							<div class="mdl-context_menu" id="aria-user-menu">
+								<div>
+									<ul class="mdl-context_menu__list">
+										<li>
+											<button class="atm-context_menu_item " data-context-menu="item" data-user-menu="logout">
+												<span class="atm-context_menu_item__label">Abmelden</span>
+												<svg class="icon atm-context_menu_item__icon" focusable="false">
+													<use xlink:href="#logout-user"></use>
+												</svg>
+											</button>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+
+						<button id="search" type="button" class="mdl-header__search atm-button" data-header="openModal" aria-expanded="false" aria-haspopup="true" aria-controls="flyout-search" data-search>
+							<span class="atm-button__text">
+								Suchen
+							</span>
+							<svg class="icon atm-button__icon" focusable="false">
+								<use xlink:href="#inspect"></use>
+							</svg>
+						</button>
+					</div>
+				</div>
+
+				<!-- modal page content -->
+				<div id="flyout-topics" class="mdl-modal  mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog">
+					<button class="mdl-modal__close" data-modal="close">
+						<span class="mdl-modal__close-label">Schliessen</span>
+						<svg focusable="false" class="icon mdl-modal__exit">
+							<use xlink:href="#exit"></use>
+						</svg>
+					</button>
+					<div class="mdl-modal__pages">
+						<div class="mdl-modal__pages-page">
+							<div class="lyt-wrapper">
+								<div class="grid-x grid-margin-x">
+									<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+										<!-- modal content -->
+										<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.json&quot;}'>
+											<div data-topiclist="firstLayer">
+
+
+												<div class="atm-form_input atm-form_input--small
+          " data-input>
+
+
+													<input class="atm-form_input__input" id="topicNavFilter" placeholder="Filtern nach Themen" name="input_name" value="" type="text" data-topiclist="input" data-hasbutton="true" autocomplete="new-password">
+
+													<label for="topicNavFilter">Filtern nach Themen</label>
+
+													<button class="atm-form_input__functionality" type="button" data-buttontype="clear">
+														<span class="visuallyhidden">Lösche Eingabe</span>
+														<svg class="icon" focusable="false">
+															<use xlink:href="#clear"></use>
+														</svg>
+													</button>
+
+
+
+
+
+
+
+												</div>
+
+												<!-- Standard Topiclist -->
+												<div class="
+        mdl-content_nav
+        
+          
+          
+         mdl-topiclist__navigation" data-init="contentNav" aria-live="polite" data-topiclist="navigation">
+													<ul class="mdl-content_nav__list">
+													</ul>
+
+												</div>
+
+												<!-- "Autosuggest" Topiclist" -->
+												<div class="
+          mdl-content_nav
+          
+            
+            
+           mdl-topiclist__autosuggest mdl-content_nav--single-column" data-init="contentNav" aria-live="polite" data-topiclist="autosuggest">
+													<ul class="mdl-content_nav__list">
+													</ul>
+
+													<div class="atm-loading_circle">
+														<span class="atm-loading_circle__spinner"></span>
+													</div>
+												</div>
+
+												<div class="mdl-topiclist__fullwidth-wrapper">
+													<button class="atm-button mdl-topiclist__show-all" data-topiclist="showAllTrigger">
+														Alle anzeigen
+														<svg class="icon atm-button__icon">
+															<use xlink:href="#layer1"></use>
+														</svg>
+													</button>
+												</div>
+											</div>
+
+											<div data-topiclist="furtherLayers">
+											</div>
+
+											<!-- Template scripts -->
+											<!-- Content teaser template -->
+											<script data-topiclist="contentTeaserTemplate" type="text/x-handlebars-template">
+												<a class="atm-content_teaser " href=<%=target%>>
+    <span class="atm-content_teaser__content" data-lineclamp="true">
+      <span class="atm-content_teaser__title">
+        <%= shortTitle %>
+      </span>
+      
+    </span>
+  </a>
+  
+      </script>
+											<!-- No results template -->
+											<script data-topiclist="searchLink" type="text/x-handlebars-template">
+												<a href="<%= path %>" class="mdl-topiclist__search">
+          <svg class="icon" focusable="false">
+            <use xlink:href="#inspect"></use>
+          </svg>
+          <span><%= title %></span>
+        </a>
+      </script>
+											<script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
+												<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
+    <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
+    <div class="mdl-subnavigation__title">
+      <h3 class="atm-heading"><%=title%></h3>
+      <a class="atm-text_link atm-text_link--icon" href="<%=pageUrl%>">
+        Seite anzeigen
+        <svg class="icon icon--iframe-arrow" focusable="false">
+          <use xlink:href="#arrow-right"></use>
+        </svg>
+      </a>
+    </div>
+  
+    <div class="mdl-content_nav" data-subnavigation="contentNav">
+      <ul class="mdl-content_nav__list"></ul>
+    </div>
+  </div>
+  
+      </script>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="mdl-modal__pages-page">
+							<div class="lyt-wrapper">
+								<div class="grid-x grid-margin-x">
+									<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+										<!-- modal content -->
+										<div class="mdl-organisation_navigation" data-init="organisationNavigation">
+
+											<div class="mdl-organisation_navigation__top" data-organisation_navigation="topSection"></div>
+
+											<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.organisations.json&quot;}'>
+												<div data-topiclist="firstLayer">
+
+
+													<div class="atm-form_input atm-form_input--small
+            " data-input>
+
+
+														<input class="atm-form_input__input" id="organisationFilterInput" placeholder="Filtern nach Amt, Direktion" name="input_name" value="" type="text" data-topiclist="input" data-hasbutton="true">
+
+														<label for="organisationFilterInput">Filtern nach Amt, Direktion</label>
+
+														<button class="atm-form_input__functionality" type="button" data-buttontype="clear">
+															<span class="visuallyhidden">Lösche Eingabe</span>
+															<svg class="icon" focusable="false">
+																<use xlink:href="#clear"></use>
+															</svg>
+														</button>
+
+
+
+
+
+
+
+													</div>
+
+													<!-- Standard Topiclist -->
+													<div class="
+          mdl-content_nav
+          
+            
+            
+           mdl-topiclist__navigation" data-init="contentNav" aria-live="polite" data-topiclist="navigation">
+														<ul class="mdl-content_nav__list">
+														</ul>
+
+													</div>
+
+													<!-- "Autosuggest" Topiclist" -->
+													<div class="
+            mdl-content_nav
+            
+              
+              
+             mdl-topiclist__autosuggest mdl-content_nav--single-column" data-init="contentNav" aria-live="polite" data-topiclist="autosuggest">
+														<ul class="mdl-content_nav__list">
+														</ul>
+
+														<div class="atm-loading_circle">
+															<span class="atm-loading_circle__spinner"></span>
+														</div>
+													</div>
+
+													<div class="mdl-topiclist__fullwidth-wrapper">
+														<button class="atm-button mdl-topiclist__show-all" data-topiclist="showAllTrigger">
+															Alle anzeigen
+															<svg class="icon atm-button__icon">
+																<use xlink:href="#layer1"></use>
+															</svg>
+														</button>
+													</div>
+												</div>
+
+												<div data-topiclist="furtherLayers">
+												</div>
+
+												<!-- Template scripts -->
+												<!-- Content teaser template -->
+												<script data-topiclist="contentTeaserTemplate" type="text/x-handlebars-template">
+													<a class="atm-content_teaser " href=<%=target%>>
+      <span class="atm-content_teaser__content" data-lineclamp="true">
+        <span class="atm-content_teaser__title">
+          <%= shortTitle %>
+        </span>
+        
+      </span>
+    </a>
+    
+        </script>
+												<!-- No results template -->
+												<script data-topiclist="searchLink" type="text/x-handlebars-template">
+													<a href="<%= path %>" class="mdl-topiclist__search">
+            <svg class="icon" focusable="false">
+              <use xlink:href="#inspect"></use>
+            </svg>
+            <span><%= title %></span>
+          </a>
+        </script>
+												<script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
+													<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
+      <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
+      <div class="mdl-subnavigation__title">
+        <h3 class="atm-heading"><%=title%></h3>
+        <a class="atm-text_link atm-text_link--icon" href="<%=pageUrl%>">
+          Seite anzeigen
+          <svg class="icon icon--iframe-arrow" focusable="false">
+            <use xlink:href="#arrow-right"></use>
+          </svg>
+        </a>
+      </div>
+    
+      <div class="mdl-content_nav" data-subnavigation="contentNav">
+        <ul class="mdl-content_nav__list"></ul>
+      </div>
+    </div>
+    
+        </script>
+											</div>
+
+											<div class="mdl-organisation_navigation__highlight">
+												<div class="lyt-wrapper">
+													<div class="grid-x grid-margin-x">
+														<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8" data-organisation_navigation="bottomSection">
+														</div>
+													</div>
+												</div>
+											</div>
+
+
+											<script data-organisation_navigation="organisationTeaserTemplate" type="text/x-handlebars-template">
+												<div class="mdl-organisation_teaser" data-init="organisationTeaser">
+    <h3 class="atm-heading"><%=orgTitle%></h3>
+    <p class="atm-paragraph"><%=orgLead%> <a class="atm-text_link" href="<%=url%>"><%=moreLabel%></a></p>
+  </div>
+  
+    </script>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- modal page content -->
+				<div id="flyout-search" class="mdl-modal mdl-modal--search mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog" data-modal-options="{&quot;transitionTime&quot;:500}">
+					<button class="mdl-modal__close" data-modal="close">
+						<span class="mdl-modal__close-label">Schliessen</span>
+						<svg focusable="false" class="icon mdl-modal__exit">
+							<use xlink:href="#exit"></use>
+						</svg>
+					</button>
+
+
+					<div class="lyt-wrapper">
+						<div class="grid-x grid-margin-x">
+							<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+								<!-- modal content -->
+								<div class="mdl-search cv-monochrome" data-search-options="{&quot;url&quot;:&quot;/mocks/modules/search/search.json&quot;,&quot;searchPageUrl&quot;:&quot;/pages/search/search.html&quot;}" data-init="search">
+									<div class="mdl-search__head">
+										<svg class="icon mdl-search__icon" focusable="false">
+											<use xlink:href="#inspect"></use>
+										</svg>
+										<form novalidate data-search="form" method="GET" action="/pages/search/search.html">
+											<label class="visuallyhidden" for="query">Suchbegriff</label>
+											<input class="mdl-search__input atm-form_input" type="text" data-search="input" name="q" id="q" placeholder="Suchbegriff" autocomplete="new-password" />
+										</form>
+									</div>
+									<div class="mdl-tag-group mdl-search__tag-group">
+										<h2 class="atm-heading">Meist gesucht</h2>
+										<ul class="mdl-tag-group__tags">
+											<li>
+												<a href="/pages/search/search.html?q=Schulferien 2019" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+													Schulferien 2019
+												</a>
+											</li>
+											<li>
+												<a href="/pages/search/search.html?q=Kurse für Hundehalter" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+													Kurse für Hundehalter
+												</a>
+											</li>
+											<li>
+												<a href="/pages/search/search.html?q=Quellensteuer" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+													Quellensteuer
+												</a>
+											</li>
+											<li>
+												<a href="/pages/search/search.html?q=Handelsregistereintrag" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+													Handelsregistereintrag
+												</a>
+											</li>
+											<li>
+												<a href="/pages/search/search.html?q=Velo" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+													Velo
+												</a>
+											</li>
+											<li>
+												<a href="/pages/search/search.html?q=eAutoindex" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+													eAutoindex
+												</a>
+											</li>
+											<li>
+												<a href="/pages/search/search.html?q=Schulferien 2019" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+													Schulferien 2019
+												</a>
+											</li>
+										</ul>
+									</div>
+
+									<div class="
+      mdl-content_nav
+      
+        
+        
+       mdl-search__autosuggest mdl-content_nav--single-column initially-hidden" data-init="contentNav" aria-live="polite" data-search="autosuggest">
+										<ul class="mdl-content_nav__list">
+										</ul>
+
+									</div>
+
+									<script data-search="autosuggestTemplate" type="text/x-handlebars-template">
+										<a class="atm-content_teaser " href=<%=target%>>
+    <span class="atm-content_teaser__content" data-lineclamp="true">
+      <span class="atm-content_teaser__title">
+        <%= shortTitle %>
+      </span>
+      
+    </span>
+  </a>
+  
+    </script>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+
+			</div>
+		</div>
+	</header>
+	<main class="lyt-wrapper" id="main">
+		<div class="grid-x grid-margin-x">
+			<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+				<header class="mdl-page-header      " data-init="pageHeader">
+					<div class="lyt-wrapper">
+						<div class="grid-x grid-margin-x">
+							<div class="mdl-page-header__logo-container cell tiny-2 xsmall-2 small-2 medium-2 large-2 xlarge-2">
+								<a href="#">
+									<span class="visuallyhidden">Logo des Kantons Zürich</span>
+									<svg viewBox="0 0 100 100" class="mdl-page-header__logo print-hidden">
+										<use xlink:href="#ktzh"></use>
+									</svg>
+									<svg viewBox="0 0 100 100" class="mdl-page-header__logo screen-hidden">
+										<use xlink:href="#ktzh"></use>
+									</svg>
+								</a>
+							</div>
+							<div class="cell  tiny-10 xsmall-10 small-10 medium-10 large-10 xlarge-10">
+								<div class="mdl-page-header__breadcrumb">
+									<nav>
+										<h2 class="visuallyhidden">Sie sind hier: </h2>
+										<ol class="mdl-breadcrumb " data-init="breadcrumb">
+											<li class="mdl-breadcrumb__item
+            mdl-breadcrumb__item--main
+            
+          " data-index="0" data-breadcrumb="item">
+												<svg class="icon mdl-breadcrumb__arrow-left" focusable="false">
+													<use xlink:href="#arrow-left"></use>
+												</svg>
+												<a class="mdl-breadcrumb__link" href="#">Kanton Zürich</a>
+											</li>
+											<li class="mdl-breadcrumb__item
+            
+            mdl-breadcrumb__item--active
+          " data-index="1" data-breadcrumb="item">
+												<svg class="icon" focusable="false">
+													<use xlink:href="#angle_right"></use>
+												</svg>
+												<svg class="icon mdl-breadcrumb__arrow-left" focusable="false">
+													<use xlink:href="#arrow-left"></use>
+												</svg>
+												<span class="mdl-breadcrumb__link">Suche</span>
+											</li>
+											<li class="mdl-breadcrumb__item mdl-breadcrumb__hidden-items" data-breadcrumb="ellipsis">
+												<svg class="icon" focusable="false">
+													<use xlink:href="#angle_right"></use>
+												</svg>
+												<button class="mdl-breadcrumb__show-context" data-breadcrumb="showContext">
+													<span class="visuallyhidden">Ausgeblendete Navigationsebenen</span> ...
+												</button>
+												<div class="mdl-context_menu">
+													<div>
+													</div>
+												</div>
+											</li>
+										</ol>
+									</nav>
+								</div>
+								<h1 class="atm-heading mdl-page-header__title">Suche</h1>
+							</div>
+						</div>
+						<div class="grid-x grid-margin-x">
+							<div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
+								<p class="atm-lead">
+									<strong></strong>
+								</p>
+
+
+							</div>
+						</div>
+					</div>
+
+					<div class="mdl-page-header__subsection">
+					</div>
+				</header>
+			</div>
+			<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+				<div class="mdl-search_page" data-init="searchPage" data-search-page-options="{&quot;url&quot;:&quot;/mocks/modules/search_page/search_page.json&quot;,&quot;autosuggestURL&quot;:&quot;/mocks/modules/search/search.json&quot;}" data-search-no-results="Keine Ergebnisse zu «<%- searchTerm %>» gefunden.">
+					<form novalidate class="mdl-search_page__form" data-search_page="form">
+						<div class="atm-form_input
+          atm-form_input--search" data-input>
+
+
+							<input class="atm-form_input__input" id="input_search" placeholder="Suche" name="input_search" value="" type="text" data-search_page="input" autocomplete="off" data-hasbutton="true" autocomplete="new-password">
+
+							<label for="input_search">Suche</label>
+
+							<button class="atm-form_input__functionality" type="button" data-buttontype="clear">
+								<span class="visuallyhidden">Lösche Eingabe</span>
+								<svg class="icon" focusable="false">
+									<use xlink:href="#clear"></use>
+								</svg>
+							</button>
+
+
+
+
+
+
+
+						</div>
+					</form>
+
+					<div class="
+        mdl-content_nav
+        
+          
+          
+         mdl-search__autosuggest mdl-content_nav--single-column initially-hidden" data-init="contentNav" aria-live="polite" data-search_page="autosuggest">
+						<ul class="mdl-content_nav__list">
+						</ul>
+
+					</div>
+
+					<div class="mdl-search_page__results-wrapper" data-search_page="wrapper" aria-live="polite">
+						<div class="mdl-search_page__results-head" data-search_page="resultsHead">
+						</div>
+						<div class="mdl-search_page__notification hidden">
+							<div class="mdl-notification
+            
+            
+            ">
+								<svg class="icon" focusable="false">
+									<use xlink:href="#caution"></use>
+								</svg>
+								<div class="mdl-notification__message">
+
+									<p>Beim Laden der Daten ist ein Fehler aufgetreten!</p>
+								</div>
+							</div>
+						</div>
+						<form novalidate="true" data-search_page="dateFilter" class="mdl-search_page__date-filter">
+							<div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="date-range" data-localization="de">
+								<div class="atm-form_input atm-form_input--floated atm-form_input--icon
+                " data-input>
+
+
+									<input class="atm-form_input__input" data-pattern="^\d{2}.\d{2}.\d{4}\s-\s\d{2}.\d{2}.\d{4}$" id="date-range-107" placeholder="Zeitraum von/bis" name="input_name" value="" type="text" data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d - ]\-[\d- ] [\d ]\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d" data-mask-placeholder="TT.MM.JJJJ - TT.MM.JJJJ">
+									<span class="atm-form_input__backdrop">
+										<i></i>TT.MM.JJJJ - TT.MM.JJJJ
+									</span>
+
+									<label for="date-range-107">Zeitraum von/bis</label>
+
+
+									<svg class="icon" focusable="false">
+										<use xlink:href="#calendar"></use>
+									</svg>
+
+
+
+
+									<p data-message="pattern">Bitte geben Sie eine korrekte Zeitspanne an.</p>
+
+								</div>
+							</div>
+						</form>
+						<div class="mdl-search_page__no-results">
+							<h2 class="atm-heading">Keine Resultate</h2>
+							<button class="atm-button atm-button--secondary atm-button--small atm-button--tag atm-button--tag-edit">
+								<span class="atm-button__text ">
+									Suche Zurücksetzen
+								</span>
+								<svg class="icon atm-button__icon" focusable="false">
+									<use xlink:href="#undo"></use>
+								</svg>
+								<span class="atm-button__spinner"></span>
+							</button>
+						</div>
+
+						<h2 class="visuallyhidden">Gefundene Resultate:</h2>
+						<div class="mdl-search_page__results" data-search_page="results">
+						</div>
+						<div class="atm-loading_circle">
+							<span class="atm-loading_circle__spinner"></span>
+						</div>
+						<div class="mdl-pagination " data-init="pagination" data-pagecount="">
+							<h class="visuallyhidden">Seiten Navigation</h>
+							<div class="mdl-pagination__input atm-form_input atm-form_input--small">
+								<label class="visuallyhidden" for="pagination_input_field">Seite</label>
+								<input id="pagination_input_field" class="atm-form_input__input" value="1" type="number" aria-describedby="paginationCountDescr">
+							</div>
+							<p class="mdl-pagination__page-count" id="paginationCountDescr" aria-live="polite">
+								<em class="visuallyhidden"></em> von <span></span>
+							</p>
+							<a class="mdl-pagination__button-prev atm-button atm-button--icon-only atm-button--secondary" href="">
+								<span class="atm-button__text visuallyhidden">
+									Vorherige Seite
+								</span>
+								<svg class="icon atm-button__icon" focusable="false">
+									<use xlink:href="#angle_left"></use>
+								</svg>
+							</a>
+							<a class="mdl-pagination__button-next atm-button atm-button--icon-only atm-button--secondary" href="">
+								<span class="atm-button__text visuallyhidden">
+									Nächste Seite
+								</span>
+								<svg class="icon atm-button__icon" focusable="false">
+									<use xlink:href="#angle_right"></use>
+								</svg>
+							</a>
+						</div>
+					</div>
+
+					<script type="text/x-handlebars-template" data-search_page="resultsHeadTemplate">
+						<div>
+          <h2 class="mdl-search_page__counter"><%- numberOfResults %> Ergebnisse<span class="mdl-search_page__autocorrect" data-search_page="autocorrect"> für <a data-search_page="force" class="atm-text_link" tabindex="0" role="button"><%- autocorrectedTerm %></a>. Stattdessen suchen nach <a class="atm-text_link"  data-search_page="force" role="button" data-search_page="force" tabindex="0"><%- originalTerm %></a></span></h2>
+          <ul class="mdl-search_page__tag-group mdl-tag-group__tags">
+            <li>
+              <div class="atm-radiobutton atm-radiobutton--tag">
+                <input id="search_filter_all" type="radio" value="all" name="search_filter" checked>
+                <label class="atm-button atm-button--secondary atm-button--small atm-button--tag" for="search_filter_all">
+                  Alle
+                </label>
+              </div>
+            </li>
+            <% _.forEach(resultsByType, function(type, index) { %>
+              <li>
+                <div class="atm-radiobutton atm-radiobutton--tag">
+                  <input id="search_filter_<%- index %>" type="radio" value="<%- type.type %>" name="search_filter">
+                  <label class="atm-button atm-button--secondary atm-button--small atm-button--tag" for="search_filter_<%- index %>">
+                    <%- type.typeLabel %> (<%- type.numberOfResults %>)
+                  </label>
+                </div>
+              </li>
+            <% }); %>
+          </ul>
+        </div>
+      </script>
+
+					<script type="text/x-handlebars-template" data-search_page="resultsTemplate">
+						<ul class="mdl-search_page__list">
+          <% _.forEach(results, function(item, index) { %>
+            <li class="atm-search_result_item" <% if(item.type === 'service') { %>data-init="servicelist"<% } %>>
+              <% if (item.type === 'service') { %>
+                <a href="<%- item.link %>" class="mdl-service_list__item"
+                  data-url="<%- item.link %>" aria-controls="modal_search-result_<%- index %>" role="button"
+                >
+                  <div class="mdl-service_list__item-container">
+                    <p class="atm-heading mdl-service_list__item-title"><%= item.title %></p>
+                    <p class="atm-paragraph mdl-service_list__item-text" data-lineclamp="true"><%= item.teaserText %></p>
+                  </div>
+                  <span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
+                    <span class="atm-button__text">
+                      Start
+                    </span>
+                  </span>
+                </a>
+                <div id="modal_search-result_<%- index %>" class="mdl-modal" data-init="modal"></div>
+              <% } else if (item.type === 'document') { %>
+                <a class="atm-linklist_item atm-linklist_item--download atm-linklist_item--legalfoundation" href="<%- item.link %>" download>
+                  <span class="atm-linklist_item__text">
+                    <span><%= item.title %></span>
+                    <span class="atm-linklist_item__label"><%= item.teaserText %></span>
+                  </span>
+                  <span class="atm-linklist_item__download-button">
+                    <svg class="icon" focusable="false">
+                      <use xlink:href="#download"></use>
+                    </svg>
+                    <span>Download</span>
+                  </span>
+                </a>
+              <% } else { %>
+                <a class="atm-search_result_item__content" href="<%- item.link %>">
+                  <h4 class="atm-heading"><%= item.title %></h4>
+                  <p><%= item.teaserText %></p>
+                </a>
+              <% } %>
+              <span class="atm-search_result_item__meta">
+                <% if (item.typeLabel) { %>
+                <span>
+                  <%- item.typeLabel %>
+                </span>
+                <% } %>
+                <% if (item.breadcrumb) { %>
+                  <span>
+                    <%- item.breadcrumb %>
+                  </span>
+                <% } %>
+                <% if (item.date) { %>
+                  <span>
+                    <%- item.date %>
+                  </span>
+                <% } %>
+              </span>
+            </li>
+          <% }); %>
+        </ul>
+      </script>
+
+					<script data-search_page="autosuggestTemplate" type="text/x-handlebars-template">
+						<a class="atm-content_teaser " href=<%=target%>>
+      <span class="atm-content_teaser__content" data-lineclamp="true">
+        <span class="atm-content_teaser__title">
+          <%= shortTitle %>
+        </span>
+        
+      </span>
+    </a>
+    
+      </script>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer class="lyt-wrapper" id="footer">
+		<div class="grid-x grid-margin-x">
+			<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+				<h1 class="visuallyhidden">Fussbereich</h1>
+				<div id="contentinfo" class="mdl-footer" data-init="footer">
+					<div class="lyt-wrapper">
+						<div class="grid-margin-x grid-x">
+							<div class="cell tiny-12 xsmall-12 small-10 medium-10 large-10 xlarge-10 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2">
+								<div class="mdl-footer__content">
+									<h2 class="mdl-footer__title atm-heading">Kanton Zürich</h2>
+									<ul class="mdl-footer__menu">
+										<li>
+											<a href="#contact">Kontakt</a>
+										</li>
+										<li>
+											<a href="#">Medien</a>
+										</li>
+										<li>
+											<a href="#">Aktuell</a>
+										</li>
+										<li>
+											<a href="#">Jobs</a>
+										</li>
+										<li>
+											<a href="#">Veranstaltungen</a>
+										</li>
+									</ul>
+
+									<ul class="mdl-footer__submenu">
+										<li class="mdl-footer__copyright">
+											<p>©2020 Kanton Zürich</p>
+										</li>
+										<li>
+											<a href="#">Datenschutz</a>
+										</li>
+										<li>
+											<a href="#">Impressum</a>
+										</li>
+										<li>
+											<a href="#">Rechtliche Hinweise</a>
+										</li>
+									</ul>
+
+									<div class="mdl-footer__social-media">
+										<div class="mdl-social-media-links" data-init="socialMediaLinks">
+											<h3 class="atm-heading">Folgen Sie dem Kanton auf</h3>
+
+											<ul>
+												<li class="mdl-social-media-links__item">
+													<a href="#" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
+														<span class="atm-button__text visuallyhidden">
+															Facebook
+														</span>
+														<img src="../../assets/media/image/facebook.svg" alt="">
+													</a>
+												</li>
+												<li class="mdl-social-media-links__item">
+													<a href="#" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
+														<span class="atm-button__text visuallyhidden">
+															Twitter
+														</span>
+														<img src="../../assets/media/image/twitter.svg" alt="">
+													</a>
+												</li>
+												<li class="mdl-social-media-links__item">
+													<a href="#" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
+														<span class="atm-button__text visuallyhidden">
+															LinkedIn
+														</span>
+														<img src="../../assets/media/image/linkedIn.svg" alt="">
+													</a>
+												</li>
+												<li class="mdl-social-media-links__item">
+													<a href="#" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
+														<span class="atm-button__text visuallyhidden">
+															YouTube
+														</span>
+														<img src="../../assets/media/image/youtube.svg" alt="">
+													</a>
+												</li>
+											</ul>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mdl-back2top" data-init="back2top">
+					<div class="mdl-back2top__icon">
+						<button class="atm-button atm-button--icon-only">
+							<span class="atm-button__text visuallyhidden">
+								Button
+							</span>
+							<svg class="icon atm-button__icon" focusable="false">
+								<use xlink:href="#arrow-up"></use>
+							</svg>
+							<span class="atm-button__spinner"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+
+</html>
