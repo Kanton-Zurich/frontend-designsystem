@@ -130,7 +130,9 @@ class FormRules {
           parentRules.forEach((parentRule, c) => {
             if ((parentRule.action === 'hide' && rule.action === 'disable')
             || (parentRule.action === 'hide' && rule.action === 'enable')
-            || (parentRule.action === 'hide' && rule.action === 'show')) {
+            || (parentRule.action === 'hide' && rule.action === 'show')
+            || (parentRule.action === 'show' && rule.action === 'disable')
+            || (parentRule.action === 'show' && rule.action === 'hide')) {
               for (let i = 0; i < parentRule.conditions; i += 1) {
                 parentRule.conditions[i].equals = !parentRule.conditions[i].equals;
               }
