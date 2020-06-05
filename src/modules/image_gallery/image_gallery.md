@@ -7,5 +7,4 @@ Mit der Bildergalerie oder einem Slider können mehrere Bilder in ansprechender 
 </ul>
 
 ## Integration
-
-Copy HTML.
+HTML kopieren.

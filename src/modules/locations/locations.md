@@ -1,7 +1,10 @@
 ### Beschreibung
 
+Mit dem Standort-Modul können die Nutzerinnen und Nutzer einen Standort im geografischen Kontext oder in ihrer Nähe finden. Mit der Karte gelangen sie auf intuitive Art zu Kontaktinformationen.
+
+
 #### Vorsicht
-(!) Aufgrund dass der Living Styleguide mehrere Varianten unterstützt zur selben Zeit wird die Karte bei folgenden Varianten nicht korrekt angezeigt. Dies kann ignoriert werden!
+(!) Da der Living Styleguide zur selben Zeit mehrere Varianten unterstützt, wird die Karte bei folgenden Varianten nicht korrekt angezeigt. Dies kann ignoriert werden.
 
 ### Integration
 

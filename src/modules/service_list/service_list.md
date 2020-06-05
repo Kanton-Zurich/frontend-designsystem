@@ -13,7 +13,7 @@ ACHTUNG!: Es muss darauf geachtet werden, dass die id Attribute bei den Modals i
 
 #### Modal Markup
 ```html
-<p>
+>
 <html>
 <head>
   <link rel="canonical" href="{{canonical}}">
@@ -46,4 +46,3 @@ ACHTUNG!: Es muss darauf geachtet werden, dass die id Attribute bei den Modals i
 </div>
 </body>
 </html>
-</p>
