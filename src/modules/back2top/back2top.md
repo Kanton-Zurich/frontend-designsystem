@@ -1,7 +1,7 @@
 ### 1. Beschreibung 
 Das Back2Top Modul dient als Sprunglink für lange Seiten. Nutzende können, ohne lange scrollen zu müssen, an den Seitenanfang springen.
 
-Der dazugehörige Button (siehe "Back2Top Icon") ist grundsätzlich nicht sichtbar. Er erscheint erst dann am unteren rechten Seitenrand, wenn sich die Nutzenden in einem unteren Bereich der Seite befinden und dann ein kleines Stück nach oben scrollen.
+Der entsprechende Back2Top-Button ist grundsätzlich nicht sichtbar. Er erscheint erst dann am unteren rechten Seitenrand, wenn sich die Nutzenden in einem unteren Bereich der Seite befinden und dann ein kleines Stück nach oben scrollen.
 
 Wird der Button angeklickt, so springen die Nutzenden an den Seitenanfang und der Button verschwindet wieder.
 Wird der Button ignoriert und die Nutzenden scrollen nach oben, so wird der Button kurz vor dem Seitenheader ausgeblendet.

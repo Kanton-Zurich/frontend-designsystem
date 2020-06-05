@@ -1,6 +1,6 @@
 ### Beschreibung
 
-Datepicker
+Datumsfelder (tech: “datepicker”), auch Datumsauswahl genannt, werden immer dann eingesetzt wenn Nutzende ein bestimmtes Datum auswählen sollen. Typische Anwendungsfälle sind Inhaltsfilter oder Wrapper (z.B. Publikationen nach Datum anzeigen) sowie auch Formulare (z.B. Geburtstag eingeben). 
 
 ### Integration
 
