@@ -1,6 +1,6 @@
 ### Beschreibung
 
-
+Mit Text-Modul (tech. «richtext») kann Text CI-gerecht und barrierefrei gelayoutet in die Webseite eingefügt werden. 
 
 ### Integration
 

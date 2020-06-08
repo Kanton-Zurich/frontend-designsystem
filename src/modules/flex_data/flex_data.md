@@ -1,6 +1,7 @@
 ### Beschreibung
+Das Flex-Data Modul (tech. flex_data) dient dem Finden von Daten in grossen, strukturierten Datenbanken. Es besteht die Möglichkeit einer erweiterten Suche um die Suche einzugrenzen.
 
-(!) WICHTIG Sortierfunktionalität: Zu bemerken ist, dass die Sortierung im Living Styleguide nicht funktional ist und daher nur die URL und die Spaltenindikatoren sich ändern.
+(!) WICHTIG Sortierfunktionalität: Zu bemerken ist, dass die Sortierung im Living Styleguide nicht funktional ist und sich in dieser Ansicht daher nur die URL und die Spaltenindikatoren ändern.
 
 
 ### Integration
