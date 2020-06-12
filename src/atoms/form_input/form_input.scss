@@ -519,7 +519,7 @@ $triggerWidth: pxToRem(86px);
     z-index: $zIndexInner;
 
     i {
-      font-style: normal;
+      opacity: 0;
     }
   }
 }

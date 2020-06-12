@@ -55,6 +55,11 @@ $InputHeightRegular: 72px;
     background-color: transparent;
     text-overflow: ellipsis;
     min-height: $InputHeightRegular;
+
+    i {
+      font-style: normal;
+      opacity: 1;
+    }
   }
 
   .atm-form_input--floated {
