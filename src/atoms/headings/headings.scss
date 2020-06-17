@@ -40,9 +40,9 @@ $headingCurves: (
     }
   }
 
-  &--lex-detail.atm-heading.h3 {
+  &--lex-detail {
     margin-top: -2px;
-    margin-bottom: pxToRem($sizeBig);
+    margin-bottom: pxToRem($sizeBig) !important; //stylelint-disable-line
     padding-top: 0;
 
     @include mq($to: small) {
