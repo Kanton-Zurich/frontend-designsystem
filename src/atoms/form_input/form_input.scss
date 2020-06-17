@@ -514,12 +514,12 @@ $triggerWidth: pxToRem(86px);
     text-overflow: ellipsis;
     right: (pxToRem($sizeRegular) + pxToRem(24) + pxToRem($sizeTiny));
     color: $colorBlack;
-    background: $colorWhite;
+    background: transparent;
 
     z-index: $zIndexInner;
 
     i {
-      font-style: normal;
+      opacity: 0;
     }
   }
 }

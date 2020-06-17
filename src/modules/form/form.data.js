@@ -56,7 +56,7 @@ const duplicateGroup = {
         buttonRight: true,
         bubble: {
           heading: 'Tooltip Ipsum',
-          text: 'Ländernamen auf Deutsch eingeben',
+          text: '<p>Ländernamen auf Deutsch eingeben</p>',
           id: _.uniqueId('form-test'),
         },
       },
@@ -77,7 +77,7 @@ const duplicateGroup = {
         buttonLeft: true,
         bubble: {
           heading: 'Tooltip Ipsum',
-          text: 'Ländernamen auf Deutsch eingeben',
+          text: '<p>Ländernamen auf Deutsch eingeben</p>',
           id: _.uniqueId('form-test'),
         },
       },

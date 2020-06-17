@@ -355,8 +355,10 @@ class FlexData extends Module {
       resultsTitle = this.ui.results.getAttribute('data-result-count-title-more')
         .replace('%1', jsonData.numberOfResults);
     }
-    if (!jsonData.numberOfResults || jsonData.numberOfResults <= 0) {
+    if (Object.keys(jsonData).length === 0) {
       resultsTitle = this.ui.results.getAttribute('data-no-results-title');
+
+      this.ui.resultsTableBody.innerHTML = '';
     }
     // fill table date if present
     if (this.ui.resultsTable) {

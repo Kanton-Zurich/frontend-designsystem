@@ -40,7 +40,7 @@ const variants = _.mapValues({
       buttonLeft: true,
       bubble: {
         heading: 'Tooltip Ipsum',
-        text: 'Ländernamen auf deutsch eingeben',
+        text: '<p>Ländernamen auf deutsch eingeben</p><ul><li>Part 1</li><li>Part 2<ul><li>AA</li><li>BB</li></ul></li><li>Part 3</li></ul><h4>Subtitle</h4><ol><li>A 1</li><li>A 2</li><li>A 3</li></ol><p>Weiterer Absatztext</p>',
         id: _.uniqueId('aria-default'),
       },
     },
@@ -48,13 +48,13 @@ const variants = _.mapValues({
   noLongText: {
     meta: {
       title: 'Langer Tooltiptext',
-      desc: 'Tooltip mit Überschrift und einem sehr langen Text',
+      desc: 'Tooltip mit Überschrift und einem sehr langen Text<',
     },
     props: {
       buttonRight: true,
       bubble: {
         heading: 'Tooltip Ipsum',
-        text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+        text: '<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>',
         id: _.uniqueId('aria-longtxt'),
       },
     },
@@ -68,7 +68,7 @@ const variants = _.mapValues({
       helptext: 'Datenschutz Richtlinien',
       buttonRight: true,
       bubble: {
-        text: 'Ihre Daten werden ausschliesslich für den hier ersichtlichen Zweck verwendet. Siehe <a href="#" class="atm-text_link">Datenschutzerklärung</a> und <a href="#" class="atm-text_link">Nutzungsregelung</a>',
+        text: '<p>Ihre Daten werden ausschliesslich für den hier ersichtlichen Zweck verwendet. Siehe <a href="#" class="atm-text_link">Datenschutzerklärung</a> und <a href="#" class="atm-text_link">Nutzungsregelung</a></p>',
         id: _.uniqueId('aria-anchors'),
       },
     },
@@ -82,7 +82,7 @@ const variants = _.mapValues({
       helptext: 'Datenschutz Richtlinien',
       buttonRight: true,
       bubble: {
-        text: 'Ihre AHV-Nr. finden Sie unter anderem auf Ihrer Krankenversicherungskarte:',
+        text: '<p>Ihre AHV-Nr. finden Sie unter anderem auf Ihrer Krankenversicherungskarte:</p>',
         image: demoImageFigureData,
         id: _.uniqueId('aria-image'),
       },
@@ -97,7 +97,7 @@ const variants = _.mapValues({
       helptext: 'Passwort vergessen?',
       asTextLink: true,
       bubble: {
-        text: 'Bitte kontaktieren Sie diese <a href="mailto:info@sk.zh.ch" target="_blank">Emailadresse</a> wenn Sie ein neues Passwort benötigen.',
+        text: '<p>Bitte kontaktieren Sie diese <a href="mailto:info@sk.zh.ch" target="_blank">Emailadresse</a> wenn Sie ein neues Passwort benötigen.</p>',
         id: _.uniqueId('aria-default'),
       },
     },
