@@ -337,29 +337,38 @@ class FlexData extends Module {
    */
   populateResultList(jsonData) {
     let removeColumnRepealed = false;
+    let resultsTitle = '';
 
     if (this.ui.includeRepealed) {
       removeColumnRepealed = !this.ui.includeRepealed.checked;
     }
 
-    this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
-    this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
-    if (jsonData.numberOfResultPages > 1) {
+    // no results
+    if (!jsonData || Object.keys(jsonData).length === 0) {
+      resultsTitle = this.ui.results.getAttribute('data-no-results-title');
+      if (this.ui.resultsTableBody) {
+        this.ui.resultsTableBody.innerHTML = '';
+      }
+
+    // too many results
+    } else if (jsonData.moreSearchResultsThanAllowed) {
+      resultsTitle = this.ui.results.getAttribute('data-result-count-title-more')
+        .replace('%1', jsonData.numberOfResults);
+
+    // full list of results
+    } else {
+      resultsTitle = this.ui.results.getAttribute('data-result-count-title')
+        .replace('%1', jsonData.numberOfResults);
+    }
+
+    if (jsonData && jsonData.numberOfResultPages > 1) {
+      this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
+      this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
       this.ui.pagination.classList.remove('hidden');
     } else {
       this.ui.pagination.classList.add('hidden');
     }
-    let resultsTitle = this.ui.results.getAttribute('data-result-count-title')
-      .replace('%1', jsonData.numberOfResults);
-    if (jsonData.moreSearchResultsThanAllowed) {
-      resultsTitle = this.ui.results.getAttribute('data-result-count-title-more')
-        .replace('%1', jsonData.numberOfResults);
-    }
-    if (Object.keys(jsonData).length === 0) {
-      resultsTitle = this.ui.results.getAttribute('data-no-results-title');
-
-      this.ui.resultsTableBody.innerHTML = '';
-    }
+    
     // fill table date if present
     if (this.ui.resultsTable) {
       this.ui.resultsTableBody.innerHTML = '';
@@ -419,7 +428,7 @@ class FlexData extends Module {
     // fill generic results
     if (this.ui.resultsGeneric) {
       this.ui.resultsGenericTitle.innerText = resultsTitle;
-      if (!jsonData.numberOfResults || jsonData.numberOfResults <= 0) {
+      if (!jsonData || !jsonData.numberOfResults || jsonData.numberOfResults <= 0) {
         this.ui.genericSort.classList.add('hidden');
       } else {
         this.ui.genericSort.classList.remove('hidden');
