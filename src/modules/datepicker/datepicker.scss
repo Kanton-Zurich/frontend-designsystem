@@ -39,7 +39,7 @@ $InputHeightRegular: 72px;
       }
 
       /* ----- LABEL ON FOCUS/DIRTY ------ */
-      .atm-form_input__backdrop {
+      .atm-form_input__backdrop i {
         display: block;
         background: $colorWhite;
       }
@@ -55,6 +55,11 @@ $InputHeightRegular: 72px;
     background-color: transparent;
     text-overflow: ellipsis;
     min-height: $InputHeightRegular;
+
+    i {
+      font-style: normal;
+      opacity: 1;
+    }
   }
 
   .atm-form_input--floated {
