@@ -351,6 +351,8 @@ class Form {
 
     if (errorsInFields) {
       this.ui.element.setAttribute('form-has-errors', 'true');
+
+      (<any> this.ui.element.querySelector('.invalid input, .invalid textarea, .invalid button')).focus();
     } else {
       this.ui.element.removeAttribute('form-has-errors');
     }
