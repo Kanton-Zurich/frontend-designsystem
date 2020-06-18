@@ -168,6 +168,7 @@ class Stepper extends Module {
    */
   onStepChange(propName, oldValue, newValue) {
     this.ui.steps[newValue].classList.remove(this.options.stateClasses.hiddenStep);
+    this.ui.steps[newValue].setAttribute('aria-current', 'step');
 
     this.setButtonVisibility();
     this.deactiveSteps(newValue);
@@ -198,6 +199,7 @@ class Stepper extends Module {
   deactiveSteps(newStepIndex: number = 0) {
     this.ui.steps.forEach((step, index) => {
       if (index !== newStepIndex) {
+        step.removeAttribute('aria-current');
         step.classList.add(this.options.stateClasses.hiddenStep);
       }
     });
@@ -278,7 +280,7 @@ class Stepper extends Module {
   }
 
   validateSection() {
-    const sections = this.nextStepIsLast() ? [this.ui.lastpage] : this.ui.steps[this.data.active].querySelectorAll('fieldset');
+    const sections = this.nextStepIsLast() ? [this.ui.lastpage, ...Array.prototype.slice.call(this.ui.steps[this.data.active].querySelectorAll('fieldset'))] : this.ui.steps[this.data.active].querySelectorAll('fieldset');
 
     this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
       detail: {
@@ -288,12 +290,18 @@ class Stepper extends Module {
 
     // Thats needs a little delay (CZHDEV-1754)
     setTimeout(() => {
-      const page = this.nextStepIsLast() ? this.ui.lastpage : this.ui.steps[this.data.active];
-      const invalid = page.querySelector('.invalid');
+      const pages = this.nextStepIsLast()
+        ? [this.ui.lastpage, this.ui.steps[this.data.active]]
+        : [this.ui.steps[this.data.active]];
+      let errors = 0;
 
-      if (invalid) {
+      pages.forEach((page) => {
+        errors += page.querySelectorAll('invalid').length;
+      });
+
+      if (errors > 0) {
         // Focus the first invalid error field for accessibility reasons
-        invalid.querySelector('input, textarea, .atm-form_input__input--trigger').focus();
+        pages[0].querySelector('input, textarea, .atm-form_input__input--trigger').focus();
       }
     }, 1);
   }

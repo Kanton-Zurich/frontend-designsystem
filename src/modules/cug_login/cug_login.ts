@@ -78,8 +78,10 @@ class CugLogin extends Module {
     setTimeout(() => {
       if (this.loginFormHasErrors()) {
         this.ui.loginBtn.classList.add(this.options.stateClasses.loginBtnDisable);
+        this.ui.loginBtn.setAttribute('disabled', 'true');
       } else {
         this.ui.loginBtn.classList.remove(this.options.stateClasses.loginBtnDisable);
+        this.ui.loginBtn.removeAttribute('disabled');
       }
     }, 0);
   }
