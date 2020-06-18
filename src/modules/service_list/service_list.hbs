@@ -6,7 +6,7 @@
   {{#each items}}
     <li>
     <a href="{{href}}" class="mdl-service_list__item" {{#if external}}target="_blank"{{/if}}
-      {{#unless external}}data-url="{{serviceLink}}" aria-controls="{{modalData.modalId}}" role="button"{{/unless}}>
+      {{#unless external}}data-url="{{serviceLink}}" aria-controls="{{modalData.modalId}}" role="button"{{/unless}} aria-haspopup="dialog">
       <div class="mdl-service_list__item-container">
         <p class="atm-heading mdl-service_list__item-title" data-lineclamp="true">{{title}}</p>
         {{#if text}}
