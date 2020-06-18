@@ -5,17 +5,19 @@ class AssetLoader extends Helper {
   public dataHref: string;
   public dataAttr: string;
   public assetType: string;
+  public callback: any;
   public cache: boolean;
   public dataHash: string;
   public timeout = 864000000; // eslint-disable-line
 
-  constructor(dataAttr, type = 'style', cache = false) {
+  constructor(dataAttr, type = 'style', cache = false, callback = null) {
     super();
     this.logger = this.log(AssetLoader.name);
     this.dataAttr = dataAttr;
     this.assetType = type;
     this.cache = cache;
     this.dataHash = dataAttr;
+    this.callback = callback;
 
     // once cached, the css file is stored on the client forever unless
     // the URL below is changed. Any change will invalidate the cache
@@ -50,6 +52,10 @@ class AssetLoader extends Helper {
     } else {
       this.logger(`Storing ${this.dataHref}`);
       this.fetchAndStore();
+    }
+    if (this.callback) {
+      this.callback();
+      this.logger(`Callback from asset ${this.dataAttr}`);
     }
   }
 
