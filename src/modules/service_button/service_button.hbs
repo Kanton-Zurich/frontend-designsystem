@@ -1,5 +1,5 @@
 <a href="{{href}}" class="mdl-service_button " data-init="serviceButton" {{#if external}}target="_blank"{{/if}}
-  {{#unless external}}data-url="{{serviceLink}}" aria-controls="{{modalData.modalId}}"{{/unless}}>
+  {{#unless external}}data-url="{{serviceLink}}" aria-controls="{{modalData.modalId}}"{{/unless}} aria-haspopup="modal">
   <span class="atm-button {{#if isInverted}} atm-button--cv-inverted{{/if}}">
       <span class="atm-button__text">
         {{buttonTitle}}
