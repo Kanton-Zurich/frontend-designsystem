@@ -41,6 +41,8 @@ class NewsOverview extends Module {
     wrapper: HTMLDivElement,
     noResults: HTMLParagraphElement,
     notification: HTMLDivElement,
+    hasFilters: HTMLSpanElement,
+    hasNoFilters: HTMLSpanElement,
   };
 
   public options: {
@@ -95,6 +97,8 @@ class NewsOverview extends Module {
         wrapper: '[data-news_overview="wrapper"]',
         noResults: '.mdl-news-overview__no-results',
         notification: '.mdl-news-overview__notification',
+        hasFilters: '[data-news_overview="hasFilters"]',
+        hasNoFilters: '[data-news_overview="hasNoFilters"]',
       },
       stateClasses: {
         loading: 'mdl-news-overview--loading',
@@ -300,6 +304,19 @@ class NewsOverview extends Module {
       } else {
         this.ui.topNews.classList.add('visible');
       }
+    }
+
+    if (this.dateHash !== this.dateHashZero
+      || this.filterHash !== this.filterHashZero
+      || this.searchWordHash !== this.searchWordHashZero
+      || parseInt(this.ui.paginationInput.value, 10) > 1) {
+      // Sets the correct hidden text when filters are selected
+      this.ui.hasFilters.setAttribute('aria-hidden', 'false');
+      this.ui.hasNoFilters.setAttribute('aria-hidden', 'true');
+    } else {
+      // Sets the correct hidden text, when no filter is selected
+      this.ui.hasFilters.setAttribute('aria-hidden', 'true');
+      this.ui.hasNoFilters.setAttribute('aria-hidden', 'false');
     }
   }
 
