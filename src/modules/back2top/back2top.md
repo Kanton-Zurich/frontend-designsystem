@@ -1,4 +1,4 @@
-### 1. Beschreibung 
+### Beschreibung 
 Das «Back2Top»-Modul (tech. «.mdl-back2top») dient als Sprunglink für lange Seiten. Nutzende können, ohne lange scrollen zu müssen, an den Seitenanfang springen.
 
 Der entsprechende Back2Top-Button ist grundsätzlich nicht sichtbar. Er erscheint erst dann am unteren rechten Seitenrand, wenn sich die Nutzenden in einem unteren Bereich der Seite befinden und dann ein kleines Stück nach oben scrollen.
@@ -10,7 +10,7 @@ Wird der Button ignoriert und die Nutzenden scrollen wieder nach unten, so wird 
 Die Verwendung ist immer angebracht.
 Der Button darf weder den Footer noch den Language Switch verdecken.
 
-### 2. Integration
+### Integration
  HTML kopieren. 
  Der Back2Top erhält ein TypeScript, welches überprüft wenn die Voraussetzungen erfüllt sind (700px nach unten und dann 300px nach oben). Die Animationen sollen wenn möglich über CSS gesteuert werden. Das sticky behaviour soll via TypeScript gelöst werden.
 #### !!! WICHTIG !!!
