@@ -5,7 +5,7 @@ Filter Tags (tech. «.mdl-pills») oder Pills, zeigen Nutzenden an, welche Auswa
 Filter Pills sind nicht zu verwechseln mit den visuell ähnlichen Tag-Buttons aus der Tag Group.
 
 #### Enthaltene Atome und Module
-ATM: Button
+* ATM: Button
 
 
 ### Integration
