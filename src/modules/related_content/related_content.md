@@ -1,5 +1,9 @@
 ### Beschreibung
-Mit der Komponente «Verwandte Inhalte» werden relevante, weiterführende Inhalte angezeigt. Benutzende können sehen, was thematisch noch zum aktuellen Inhalt passt. Verwandte Inhalte sind am Ende der Seite unter der Überschrift «Das könnte Sie auch interessieren» als Links gesammelt.
+Die Verwandten Inhalte sind eine Variation der Themenliste. Am Ende einer Seite kann mit diesem Modul auf weiterführende Inhalte aufmerksam gemacht werden. Ein Klick auf einen der Themenlinks öffnet die entsprechende Seite.
+
+#### Enthaltene Atome und Module
+ATM: Content Teaser
+ATM: Heading
 
 
 ### Integration

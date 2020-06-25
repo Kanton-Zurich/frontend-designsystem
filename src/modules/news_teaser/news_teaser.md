@@ -1,6 +1,13 @@
 ### Beschreibung
-Newsteaser können nicht beliebig platziert werden, sie sind als festes Element auf den Seiten-Templates eingebunden. Sie lassen sich jedoch ausblenden, wenn man sie nicht braucht.
-Falls News auf der Seite gewünscht sind, kann man Themen und Organisationen auswählen, deren Mitteilungen und Neuigkeiten angezeigt werden sollen.
+News Teaser (tech. «.mdl-news-teaser») sind eine für News dedizierte Variation des Teasers (tech. «.mdl-teaser»). Mit der News Übersicht (tech. «.mdl-news-overview») lassen sich News Teaser bündeln damit Nutzende aus mehreren News auswählen können, für sie von Interesse sind. 
+ 
+Mit Teasern können relevante, weiterführende Inhalte prominent dargestellt werden. Der Teaser ist ein Push-Werkzeug, mit dem Inhalte beworben werden können, z.B. News oder Kampagnen. Er hebt sich optisch von den anderen Inhalten der Seite ab und wird so von den Nutzenden stärker wahrgenommen. Ein Teaser besteht aus einem Text- oder Text-Bild-Element. Die ganze Kachel ist verlinkt.
+ 
+#### Enthaltene Atome und Module
+ATM: Heading
+ATM: Anchorlink
+MDL: Bild
+MDL: Link-Liste
 
 
 ### Integration

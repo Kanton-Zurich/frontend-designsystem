@@ -1,9 +1,13 @@
 ### Beschreibung
-Dieses Modalfenster (auch Lightbox genannt) wird eingesetzt um einen internen Service mit einem internen Referrer (d.h. keine Suchmaschine) bildschirmfüllend anzuzeigen. 
+Das Modal (tech. «.mdl-modal-page»), auch Modalfenster oder Flyout genannt, wird eingesetzt wenn Nutzende mit der Webseite interagieren sollen. Inhalte von Modalseiten sind beispielsweise Services, Formulare, Applikationen oder Navigationen. Der Seiteninhalt wird bildschirmfüllend angezeigt. Es entfallen Header, Navigationen sowie Footer.  Der Inhalt kann den zur Verfügung stehenden Platz einnehmen und Nutzende fokussieren sich auf die Interaktion. 
 
-In der Lightbox werden Seitenmodule wie Hauptnavigation, Breadcrumb, Kontakt und Footer nicht angezeigt.
+Die Modalseite öffnet sich beim Klicken eines entsprechenden Buttons. Dieser Button kann auch wie bei der Themennavigation in einem Seitenkopf platziert sein.
 
-Im Modul "Service Liste" wird auf dieses Modalfenster referenziert
+Das Modalfenster ist dem Slider / Carousel (Bildergalerie) ähnlich, wird aber nicht für Bilder eingesetzt.
+
+#### Enthaltene Atome und Module
+MDL: Seitenkopf
+
 
 ### Integration
 

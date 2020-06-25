@@ -1,10 +1,19 @@
-## Description
-Mit der Bildergalerie oder einem Slider können mehrere Bilder in ansprechender Form gezeigt werden, um einen visuellen Eindruck zu vermitteln.  Es gibt zwei Typen von Bildergalerien:
-
+### Beschreibung
+Mit der Bildergalerie (tech. «.mdl-image-gallery») können mehrere Bilder in ansprechender Form als eine Art Vorschau oder Galerie angezeigt werden. Die Galerie vermittelt einen ersten visuellen Eindruck aller Bilder. Klickt man auf eines der Bilder, so öffnet es sich bildschirmfüllend und man kann mit Pfeilen durch die Bilder navigieren.
+ 
+#### Zwei Typen von Bildergalerien:
 <ul>
-<li>In der Bildergalerie (Image Gallery) werden mehrere Bilder gleichzeitig und verkleinert auf dunklem Hintergrund angezeigt. Per Klick auf das einzelne Bild wird dieses gross dargestellt. 
-<li>Im Slider oder Carousel wird das erste Bild gross angezeigt. Mit „Vor“- und „Zurück“-Pfeilen können alle Bilder durchgeblättert werden.
+<li>In der Bildergalerie (image-gallery) werden mehrere Bilder gleichzeitig und verkleinert auf dunklem Hintergrund angezeigt. Per Klick auf das einzelne Bild wird dieses gross dargestellt.
+<li>Im Slider oder Carousel (tech. «.mdl-carousel») wird das erste Bild gross angezeigt. Mit Vor- und Zurückpfeilen können alle Bilder durchgeblättert werden. Per Klick auf das einzelne Bild wird dieses gross dargestellt.
 </ul>
 
-## Integration
-HTML kopieren.
+#### Enthalten Atome und Module
+ATM: Button
+ATM: Heading
+MDL: Bild
+MDL: Carousel
+ 
+### Integration
+ 
+Copy HTML.
+

@@ -1,6 +1,6 @@
 ### Beschreibung
-Das Flex-Data Modul (tech. flex_data) dient dem Finden von Daten in grossen, strukturierten Datenbanken. Es besteht die Möglichkeit einer erweiterten Suche um die Suche einzugrenzen.
-
+Das Flex-Data-Suche Modul (tech. «.mdl-flex-data») ist eine Applikation. Sie dient dem Finden und Auflisten von Daten aus grossen, strukturierten Datenbanken. Es besteht die Möglichkeit einer erweiterten Suche um die Suche weiter einzugrenzen.
+ 
 (!) WICHTIG Sortierfunktionalität: Zu bemerken ist, dass die Sortierung im Living Styleguide nicht funktional ist und sich in dieser Ansicht daher nur die URL und die Spaltenindikatoren ändern.
 
 

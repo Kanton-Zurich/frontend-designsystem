@@ -1,6 +1,9 @@
 ### Beschreibung
 
-Die Kartenansicht (tech. "map view") dient der Anzeige von ein oder mehreren Standorten.
+Die Map View (tech. «.mdl-map-view») oder Kartenansicht, dient der Anzeige von ein oder mehreren Standorten.
+
+Die Map View wird z.B. eingesetzt in den Modulen Kontakt (contact) oder Standorte (locations).
+
 Mit den Zoom Buttons kann der Detaillierungsgrad der Darstellung verändert werden. 
 
 Über den zusätzlichen Button (props withUserLocate= true) kann automatisch die User location ermittelt werden, was Nutzenden die Angabe des eigenen Standortes vereinfacht. Dieser Standort wird über ein Event nach außen gereicht.

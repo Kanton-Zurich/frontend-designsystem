@@ -1,5 +1,12 @@
 ### Beschreibung
-Dieses Modul dient der Darstellung von Tabellen. Nutzende können Daten in Tabellenform besser vergleichen.
+
+Mit dem Modul Tabelle (tech. «.mdl-table») können Daten tabellarisch dargestellt werden.
+Nutzende können Daten in Tabellenform besser vergleichen.
+Die Darstellungsvarianten sind mannigfaltig (siehe Vorschau).
+
+#### Enthaltene Atome und Module
+ATM: Heading
+ATM: Legende
 
 
 ### Integration

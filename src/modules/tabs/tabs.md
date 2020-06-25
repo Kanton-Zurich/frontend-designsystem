@@ -1,6 +1,15 @@
 ### Beschreibung
 
-Mit Tabs (Registerkarten) lässt sich zwischen Ansichten desselben Kontext wechseln. Der Nutzer bleibt dabei auf derselben Seite.
+Tabs (tech. «.mdl-tabs), auch Reiter oder Registerkartern genannt, sind Steuerelemente mit denen Nutzende zwischen Inhalten einer Seite wechseln können. Die Tabs sind vergleichbar mit Registeruterteilungen in Papierordnern. Die Inhalte die mit den Tabs angezeigt werden, sollten thematisch zusammenhängend sein. So wie bei einem Papierordner auch. 
+
+Beim Öffnen einzelner Tabs bleiben Nutzende auf derselben Seite.
+
+Tabs werden horizontal angeordnet. Das vertikale Pendant dazu wären Akkordeons.
+
+Aus Accessibility-Gründen müssen Tabs auf der Webseite zwingend mit der Tabulatortaste der Tastatur ansteuerbar sein.
+
+Enthaltene Atome und Module
+MDL: Button Group
 
 ### Integration
 

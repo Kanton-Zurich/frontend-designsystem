@@ -1,10 +1,15 @@
 ### Beschreibung
 
-Werden auf einer Webseite grosse Mengen an Inhalten angezeigt oder aufgelistet kann es der Übersichtlichkeit dienen, diese Daten in diskrete, also nicht-kontinuierliche Unterseiten aufzuteilen. Beispiele solcher Seiteninhalte können sein: Such- oder Filterresultate, Listen, lange Artikel, Online-Shops, Blogs, Bilderstrecken oder Tabellen. Prominentes Beispiel für die Verwendung von Pagination-Modulen sind Suchmaschinen.
+Die «Organisationsnavigation» (tech. «.mdl-content_nav») ist eine Variation des Moduls «Themenliste». Im Unterschied zur Themenliste hat die Organisationsnavigation einen Header.
 
-Mit dem Modul Seitennavigation (tech. “pagination”), wird Nutzenden die Möglichkeit geboten, von Seite zu Seite zu blättern ohne die eigentliche URL zu verlassen auf die sie sich befinden.
+Die Organisationsnavigation ist so aufgebaut, dass sie die Kindseiten einer Webseite als klickbare «ContentTeaser» anzeigt (siehe auch Atom «ContentTeaser»). Der ContentTeaser bietet Platz für den Namen und eine kurze Beschreibung der Kindseite. Nutzende sehen auf einen Blick, welche Unterthemen die Seite besitzt und können sie per Klick ansteuern.
 
-Um lange Scrollwege möglichst zu vermeiden, sollte das Pagination-Modul sowohl am Anfang sowie auch am Ende der Seite platziert werden. 
+Navigationen mit ContentTeasern können als Modalfenster dargestellt werden (siehe auch Modul «Modal»).
+
+Die Navigation erfolgt in eine Richtung, nämlich immer um ein Seiten-Level tiefer. Eine nützliche Ergänzung zu den Navigationen mit ContentTeasern ist die «Breadcrumbnavigation». Diese erlaubt die Navigation in die andere Richtung, also um ein oder mehrere Seiten-Level nach oben.
+
+Navigationen sind für Nutzende ein Werkzeug um sich durch die Website-Struktur zu bewegen. Sie dienen dazu, Inhalte schnell zu finden und sich auf der Website zurechtzufinden. Die Struktur der Website hat einen grossen Einfluss auf die Nutzerfreundlichkeit der Navigation. Eine gute Navigation trägt massgeblich zu einem positiven Nutzererlebnis bei. 
+
 
 ### Integration
 

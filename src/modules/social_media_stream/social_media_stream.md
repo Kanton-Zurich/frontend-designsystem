@@ -1,8 +1,13 @@
 ### Beschreibung
-
-Mit dem Modul Social Media Stream können externe Social Media Feeds in Form einer Social Media Wall in einer Webseite eingebettet und in einer ansprechenden Weise dargestellt werden. Mit einer Social Media Wall können digitale Kommunikationen zu einem Thema visuell, interaktiv und zeitlich am Puls des Geschehens präsentiert werden. Der Nutzer wird dazu ermuntert zu interagieren und sich mit dem fokussierten Thema auseinanderzusetzen.
-
+ 
+Mit dem Modul Social Media Stream (tech. «.mdl-social-media-links») können externe Social Media Feeds in einer Webseite eingebettet und in einer ansprechenden Weise dargestellt werden. Mit dem Modul Social Media Stream können digitale Kommunikationen zu einem Thema visuell, interaktiv und zeitlich am Puls des Geschehens präsentiert werden. Nutzende werden dazu ermuntert zu interagieren und sich mit dem fokussierten Thema auseinanderzusetzen.
+ 
 Die Streams werden dabei asynchron geladen.
+ 
+#### Enthaltene Atome und Module
+ATM: Heading
+ATM: Button
+
 
 ### Integration
 

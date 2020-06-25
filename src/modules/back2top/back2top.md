@@ -1,5 +1,5 @@
 ### 1. Beschreibung 
-Das Back2Top Modul dient als Sprunglink für lange Seiten. Nutzende können, ohne lange scrollen zu müssen, an den Seitenanfang springen.
+Das «Back2Top»-Modul (tech. «.mdl-back2top») dient als Sprunglink für lange Seiten. Nutzende können, ohne lange scrollen zu müssen, an den Seitenanfang springen.
 
 Der entsprechende Back2Top-Button ist grundsätzlich nicht sichtbar. Er erscheint erst dann am unteren rechten Seitenrand, wenn sich die Nutzenden in einem unteren Bereich der Seite befinden und dann ein kleines Stück nach oben scrollen.
 

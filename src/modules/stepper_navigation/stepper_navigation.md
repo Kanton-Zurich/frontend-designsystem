@@ -1,10 +1,10 @@
 ### Beschreibung
 
-Die Formular-Navigation verleiht über das JavaScript den Formularschritten die Interaktion.
+Die Formular-Navigation (tech. «.mdl-stepper_navigation») verleiht über das JavaScript den Formularschritten die Interaktion (Ändern der Stati).
 
 
 ### Integration
-<ul>
-<li>HTML kopieren.
-<li>Die Stepper-Navigation braucht zwingend das Parent Element "Modul Formularschritte".
+HTML kopieren.
+
+Die Stepper-Navigation braucht zwingend das Parent Element «Modul Formularschritte».
 

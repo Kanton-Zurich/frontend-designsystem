@@ -1,5 +1,5 @@
 ### Beschreibung
-Der Regler (tech. «range») ist wie auch der Radiobutton oder die Select-Box ein interaktives Modul mit dem Nutzende eine Eingabe in einem Formular tätigen können. Der einstellbare Wert ist im Gegensatz zu vielen anderen Formularelementen jedoch unpräzise. Deshalb funktioniert das Range-Modul auch am effektivsten wenn keine exakten Werte verlangt sind.  
+Der Regler (tech. «.mdl-range») ist wie auch der Radiobutton oder die Select-Box ein interaktives Modul mit dem Nutzende eine Eingabe in einem Formular tätigen können. Die Nutzung als Filter ist auch vorstellbar. Der einstellbare Wert ist im Gegensatz zu vielen anderen Formularelementen jedoch unpräzise. Deshalb funktioniert das Range-Modul auch am effektivsten wenn keine exakten Werte verlangt sind.  
 
 Typische Anwendungsfälle sind Skalenwerte aus denen Nutzende eine Auswahl eingrenzen möchten. In Onlineshops sind dies typischerweise Preise oder Grössen, in Reiseportalen Entfernungen oder Zeitspannen.
 

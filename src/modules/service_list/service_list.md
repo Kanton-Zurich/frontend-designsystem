@@ -1,13 +1,18 @@
 ### Beschreibung
-Stehen zu einem Thema ein oder mehrere Services zur Verfügung, werden diese mit der Service-Liste einheitlich dargestellt. Ein Klick auf den Button «Start» lädt den Service als bildschirmfüllendes Overlay über die aktuelle Seite. 
-
-#### Was verstehen wir unter einem Service?
-Ein Service wird immer dann erstellt, wenn die Nutzenden etwas erledigen müssen oder wollen. Beispielsweise einen Führerschein beantragen. Wir fassen den Begriff sehr weit, im Sinn einer Erledigung. Wir verstehen darunter, alles, was jemand im Zusammenspiel mit der kantonalen Verwaltung erledigen möchte. Es spielt dabei keine Rolle, ob sie oder er dabei ein Onlineformular ausfüllt, ein PDF-Formular herunter lädt, ausfüllt und uns per Post schickt, uns anruft oder am Schalter vorbei kommt. <br>
-
-Wir unterscheiden zwischen internen und externen Services. Von einem Service kann der Nutzer auf ein externes System weitergeleitet werden, muss aber nicht. Das Ziel eines Service kann auch sein, dass die Nutzenden wissen, welche Telefonnummer sie anrufen müssen, oder welche Dienststelle sie aufsuchen sollen.
-
-
+Die Service Liste (tech. «.mdl-service_list») ist das verwendete Modul um einen Service aufzurufen bzw. zu starten. Stehen zu einem Thema ein oder mehrere Services zur Verfügung, werden diese mit der Service Liste einheitlich dargestellt. Ein Klick auf den Button «Start» (siehe «Service Button») lädt den Service als bildschirmfüllendes Overlay (siehe «Modal») über die aktuelle Seite.
+ 
+Auch wenn es nur ein Service ist der aufgerufen werden kann, soll die Liste verwendet werden.
+ 
+#### Was ist ein Service?
+Ein Service ist eine Erledigung. Ein Service wird immer dann erstellt, wenn Nutzende etwas erledigen möchten, beispielsweise einen Führerschein beantragen. Es spielt dabei keine Rolle ob Nutzende dabei ein Onlineformular ausfüllen oder ein PDF-Formular herunterladen, dass sie ausfüllen und per Post einreichen. Auch anrufen oder am Schalter vorbeikommen sind übliche Wege etwas zu erledigen.
+ 
+#### Enthaltene Atome und Module
+ATM: Button
+ATM: Heading
+ATM: Paragraph
+ 
 ### Integration
+
 
 ACHTUNG!: Es muss darauf geachtet werden, dass die id Attribute bei den Modals im DOM einzigartig sind. Das gilt insbesondere auch, für die Inhalte die in den Modalfenstern eingebunden werden.
 
