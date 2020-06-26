@@ -23,7 +23,7 @@ $mapRatioSmall: 0.75;
 .sideBarScrollContainer {
   height: calc(100% - #{$sideBarHeadHeight});
 
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 
   -webkit-overflow-scrolling: touch;
@@ -67,6 +67,10 @@ $mapRatioSmall: 0.75;
     height: 100%;
     background: $colorBlack15;
     width: calc(91.6667% - #{$sidebarMaxWidth});
+  }
+
+  &__filter-message {
+    display: none;
   }
 
   &__sidebar-wrapper {

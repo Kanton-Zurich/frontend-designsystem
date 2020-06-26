@@ -1,0 +1,101 @@
+<!-- Helper markup (do not include) -->
+<button class="atm-button atm-button--big" onclick="document.querySelector('#flyout-search').dispatchEvent(new CustomEvent('Modal.open'))">Modal anzeigen
+</button>
+<!--  -->
+<!-- modal page content -->
+<div id="flyout-search" class="mdl-modal mdl-modal--search mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog" data-modal-options="{&quot;transitionTime&quot;:500}">
+	<div role="document">
+		<button class="mdl-modal__close" data-modal="close">
+			<span class="mdl-modal__close-label">Schliessen</span>
+			<svg focusable="false" class="icon mdl-modal__exit">
+				<use xlink:href="#exit"></use>
+			</svg>
+		</button>
+
+
+		<div class="lyt-wrapper">
+			<div class="grid-x grid-margin-x">
+				<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+					<!-- modal content -->
+					<div class="mdl-search cv-monochrome" data-search-options="{&quot;url&quot;:&quot;/mocks/modules/search/search.json&quot;,&quot;searchPageUrl&quot;:&quot;/pages/search/search.html&quot;}" data-init="search">
+						<div class="mdl-search__head">
+							<svg class="icon mdl-search__icon" focusable="false">
+								<use xlink:href="#inspect"></use>
+							</svg>
+							<form novalidate data-search="form" method="GET" action="/pages/search/search.html">
+								<label class="visuallyhidden" for="query">Suchbegriff</label>
+								<input class="mdl-search__input atm-form_input" type="text" data-search="input" name="q" id="q" placeholder="Suchbegriff" autocomplete="new-password" />
+							</form>
+						</div>
+						<div class="mdl-tag-group mdl-search__tag-group">
+							<h2 class="atm-heading">Meist gesucht</h2>
+							<ul class="mdl-tag-group__tags">
+								<li>
+									<a href="/pages/search/search.html?q=Schulferien 2019" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+										Schulferien 2019
+									</a>
+								</li>
+								<li>
+									<a href="/pages/search/search.html?q=Kurse für Hundehalter" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+										Kurse für Hundehalter
+									</a>
+								</li>
+								<li>
+									<a href="/pages/search/search.html?q=Quellensteuer" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+										Quellensteuer
+									</a>
+								</li>
+								<li>
+									<a href="/pages/search/search.html?q=Handelsregistereintrag" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+										Handelsregistereintrag
+									</a>
+								</li>
+								<li>
+									<a href="/pages/search/search.html?q=Velo" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+										Velo
+									</a>
+								</li>
+								<li>
+									<a href="/pages/search/search.html?q=eAutoindex" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+										eAutoindex
+									</a>
+								</li>
+								<li>
+									<a href="/pages/search/search.html?q=Schulferien 2019" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+										Schulferien 2019
+									</a>
+								</li>
+							</ul>
+						</div>
+
+						<div class="
+    mdl-content_nav
+    
+      
+      
+     mdl-search__autosuggest mdl-content_nav--single-column initially-hidden" data-init="contentNav" aria-live="polite" data-search="autosuggest">
+							<ul class="mdl-content_nav__list">
+							</ul>
+
+						</div>
+
+						<script data-search="autosuggestTemplate" type="text/x-handlebars-template">
+							<a class="atm-content_teaser " href=<%=target%>>
+  <span class="atm-content_teaser__content" data-lineclamp="true">
+    <span class="atm-content_teaser__title">
+      <%= shortTitle %>
+    </span>
+    
+  </span>
+</a>
+
+  </script>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</div>

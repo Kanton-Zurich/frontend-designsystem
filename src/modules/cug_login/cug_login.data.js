@@ -14,7 +14,7 @@ const tooltipData = {
   helptext: 'Passwort vergessen?',
   asTextLink: true,
   bubble: {
-    text: 'Bitte kontaktieren Sie diese <a href="mailto:test@test.com" >Emailaddresse</a> wenn Sie ein neues Passwort benötigen.',
+    text: '<p>Bitte kontaktieren Sie diese <a href="mailto:test@test.com" >Emailaddresse</a> wenn Sie ein neues Passwort benötigen.</p>',
     id: _.uniqueId('aria-anchors'),
   },
 };
@@ -22,6 +22,7 @@ const tooltipData = {
 const loginFailNotificationData = {
   message: 'Bitte kontrollieren Sie Ihre Angaben für die Felder Benutzername und Passwort.',
   icon: '#caution',
+  focussable: true,
 };
 
 const unauthNotificationData = {
@@ -40,6 +41,7 @@ const serviceFailNotificationData = {
   title: 'Entschuldigung, der Service ist nicht verfügbar.',
   icon: '#caution',
   isDialog: true,
+  focussable: true,
 };
 
 const template = dataHelper.getFileContent('cug_login.hbs');
@@ -56,6 +58,7 @@ const data = _.merge({}, defaultData, {
     endpointDoLogin: mockAssets.loginOk,
     endpointAuthorize: mockAssets.authOk,
     heading: 'Login ZHservices',
+    focussable: true,
     introText: 'Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichte - den ersten in der Schweiz.',
     userNameInput: _.merge({}, formInputData.variants.floatValidate.props, {
       uuid: 'j_username',

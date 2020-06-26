@@ -23,6 +23,9 @@ $InputHeightRegular: 72px;
       .atm-form_input__input {
         color: $colorBlack;
         z-index: 1;
+
+        padding-top: $paddingInput + $paddingDifferenceOnFocus;
+        padding-bottom: $paddingInput - $paddingDifferenceOnFocus;
       }
 
       label {
@@ -36,8 +39,9 @@ $InputHeightRegular: 72px;
       }
 
       /* ----- LABEL ON FOCUS/DIRTY ------ */
-      .atm-form_input__backdrop {
+      .atm-form_input__backdrop i {
         display: block;
+        background: $colorWhite;
       }
     }
   }
@@ -51,6 +55,11 @@ $InputHeightRegular: 72px;
     background-color: transparent;
     text-overflow: ellipsis;
     min-height: $InputHeightRegular;
+
+    i {
+      font-style: normal;
+      opacity: 1;
+    }
   }
 
   .atm-form_input--floated {

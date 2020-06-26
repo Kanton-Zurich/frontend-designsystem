@@ -1057,6 +1057,18 @@ gulp.task('email:inlineassets', () => {
 });
 
 /**
+ * Zip downloag package
+ */
+gulp.task('pack', () => {
+  gulp.src(['dist/ci/dev/**/*'])
+    .pipe(zip('czhdev_lsg.zip'))
+    .pipe(gulp.dest('dist/ci/dev'));
+  return gulp.src(['dist/ci/prod/**/*'])
+    .pipe(zip('czhdev_lsg.zip'))
+    .pipe(gulp.dest('dist/ci/prod'));
+});
+
+/**
  * Zip deployment package
  */
 gulp.task('zip', () => {
@@ -1113,9 +1125,9 @@ gulp.task('build', (done) => {
   // Create CI build structure
   if (env.ci) {
     if (gulpUtil.env.aemPresent) {
-      task = gulp.series(task, 'copy:ci', 'copy:aem', 'deploy:aem', 'zip');
+      task = gulp.series(task, 'copy:ci', 'copy:aem', 'deploy:aem', 'pack', 'zip');
     } else {
-      task = gulp.series(task, 'copy:ci', 'zip');
+      task = gulp.series(task, 'copy:ci', 'pack', 'zip');
     }
     task = gulp.series(task, 'generate:diff');
   }

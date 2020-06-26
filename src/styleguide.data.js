@@ -150,9 +150,16 @@ styleguide.topiclistcontentNavData.items = _.sortBy(dataHelper.getDataGlob('./sr
 });
 
 styleguide.topiclistcontentNavData.items.push({
-  shortTitle: 'Offline Seite Download (zip)',
+  shortTitle: 'Download Offline Seite (zip)',
   buzzwords: '',
   target: 'offline.zip',
+  isPromotopic: false,
+});
+
+styleguide.topiclistcontentNavData.items.push({
+  shortTitle: 'Download Living Styleguide (zip)',
+  buzzwords: '',
+  target: 'czhdev_lsg.zip',
   isPromotopic: false,
 });
 

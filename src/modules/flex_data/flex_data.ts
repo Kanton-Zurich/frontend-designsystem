@@ -99,7 +99,8 @@ class FlexData extends Module {
     this.ui.submitButton.addEventListener('click', this.onSearchResults.bind(this));
     this.ui.clearButton.addEventListener('click', this.onClearResults.bind(this));
     this.ui.form.addEventListener('keypress', (event: any) => {
-      if (event.key === 'Enter') {
+      const active = document.activeElement;
+      if (event.key === 'Enter' && (active.tagName !== 'BUTTON' || active.hasAttribute('data-search-flex'))) {
         event.preventDefault();
         this.ui.submitButton.click();
         return false;
@@ -336,27 +337,38 @@ class FlexData extends Module {
    */
   populateResultList(jsonData) {
     let removeColumnRepealed = false;
+    let resultsTitle = '';
 
     if (this.ui.includeRepealed) {
       removeColumnRepealed = !this.ui.includeRepealed.checked;
     }
 
-    this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
-    this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
-    if (jsonData.numberOfResultPages > 1) {
+    // no results
+    if (!jsonData || Object.keys(jsonData).length === 0) {
+      resultsTitle = this.ui.results.getAttribute('data-no-results-title');
+      if (this.ui.resultsTableBody) {
+        this.ui.resultsTableBody.innerHTML = '';
+      }
+
+    // too many results
+    } else if (jsonData.moreSearchResultsThanAllowed) {
+      resultsTitle = this.ui.results.getAttribute('data-result-count-title-more')
+        .replace('%1', jsonData.numberOfResults);
+
+    // full list of results
+    } else {
+      resultsTitle = this.ui.results.getAttribute('data-result-count-title')
+        .replace('%1', jsonData.numberOfResults);
+    }
+
+    if (jsonData && jsonData.numberOfResultPages > 1) {
+      this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
+      this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
       this.ui.pagination.classList.remove('hidden');
     } else {
       this.ui.pagination.classList.add('hidden');
     }
-    let resultsTitle = this.ui.results.getAttribute('data-result-count-title')
-      .replace('%1', jsonData.numberOfResults);
-    if (jsonData.moreSearchResultsThanAllowed) {
-      resultsTitle = this.ui.results.getAttribute('data-result-count-title-more')
-        .replace('%1', jsonData.numberOfResults);
-    }
-    if (!jsonData.numberOfResults || jsonData.numberOfResults <= 0) {
-      resultsTitle = this.ui.results.getAttribute('data-no-results-title');
-    }
+    
     // fill table date if present
     if (this.ui.resultsTable) {
       this.ui.resultsTableBody.innerHTML = '';
@@ -377,8 +389,14 @@ class FlexData extends Module {
             props[`text${index}`] = item[colName];
           });
           tr.innerHTML = this.markupFromTemplate(this.ui.resultsTemplate.innerHTML, props);
-          tr.addEventListener('click', () => {
-            tr.querySelector('a').click();
+          tr.addEventListener('click', (event) => {
+            const a = tr.querySelector('a');
+
+            if (event.ctrlKey || event.metaKey) {
+              window.open(a.getAttribute('href'), '_blank');
+            } else {
+              a.click();
+            }
           });
           this.ui.resultsTableBody.appendChild(tr);
         });
@@ -387,20 +405,16 @@ class FlexData extends Module {
       if (removeColumnRepealed) {
         const { rows } = this.ui.resultsTable.querySelector('table');
         let cellIndex = null;
-
-        for (let i = 0; i < rows.length; i += 1) {
-          const { cells } = rows[i];
-
-          if (cellIndex) {
-            rows[i].deleteCell(cellIndex);
+        for (let x = 0; x < rows[0].cells.length; x += 1) {
+          const cell = rows[0].cells[x];
+          if (cell.dataset.columnName === 'withdrawalDate') {
+            cellIndex = x;
+            cell.style.display = 'none';
           }
-
-          for (let x = 0; x < cells.length; x += 1) {
-            const cell = cells[x];
-            if (cell.dataset.columnName === 'withdrawalDate') {
-              cellIndex = x;
-              cell.style.display = 'none';
-            }
+        }
+        if (cellIndex) {
+          for (let i = 1; i < rows.length; i += 1) {
+            rows[i].cells[cellIndex].style.display = 'none';
           }
         }
       } else {
@@ -414,7 +428,7 @@ class FlexData extends Module {
     // fill generic results
     if (this.ui.resultsGeneric) {
       this.ui.resultsGenericTitle.innerText = resultsTitle;
-      if (!jsonData.numberOfResults || jsonData.numberOfResults <= 0) {
+      if (!jsonData || !jsonData.numberOfResults || jsonData.numberOfResults <= 0) {
         this.ui.genericSort.classList.add('hidden');
       } else {
         this.ui.genericSort.classList.remove('hidden');

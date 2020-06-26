@@ -11,10 +11,16 @@ import AssetLoader from './helpers/assetloader';
 
 loadPolyfills();
 
+const trackingCallback = function () { // eslint-disable-line
+  if ((<any>window).startTracking && (<any>window).startTracking instanceof Function) {
+    (<any>window).startTracking();
+  }
+};
+
 window[namespace] = {
   data: {}, // Content data
   options: {}, // Module options
-  scriptLoader: new AssetLoader('data-script-main', 'script'),
+  scriptLoader: new AssetLoader('data-script-main', 'script', false, trackingCallback),
   fontLoader: new AssetLoader('data-style-fonts', 'style', true),
   helpers: new Helper(),
   lineClamper: new LineClamper(),
