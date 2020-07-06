@@ -531,7 +531,7 @@ class SearchPage extends Module {
   }
 
   getParamsInUrl() {
-    const query = this.getURLParam('q', true).replace('+', ' ');
+    const query = this.getURLParam('q', true).replaceAll('+', ' ');
     const type = this.getURLParam('type', true);
     const page = this.getURLParam('page', true);
     const dateTo = this.getURLParam('dateTo', true);
