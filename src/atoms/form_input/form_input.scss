@@ -513,7 +513,7 @@ $triggerWidth: pxToRem(86px);
     overflow: hidden;
     text-overflow: ellipsis;
     right: (pxToRem($sizeRegular) + pxToRem(24) + pxToRem($sizeTiny));
-    color: $colorBlack;
+    color: $colorBlack40;
     background: transparent;
 
     z-index: $zIndexInner;
