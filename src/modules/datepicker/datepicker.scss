@@ -39,9 +39,8 @@ $InputHeightRegular: 72px;
       }
 
       /* ----- LABEL ON FOCUS/DIRTY ------ */
-      .atm-form_input__backdrop i {
+      .atm-form_input__backdrop {
         display: block;
-        background: $colorWhite;
       }
     }
   }
