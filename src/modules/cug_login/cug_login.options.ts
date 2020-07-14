@@ -7,6 +7,7 @@ interface ModuleDomSelectors {
   passwordInput: string;
   showPasswordBtn: string;
   loginForm: string;
+  notification: string;
 }
 interface ModuleStateClasses {
   unauthorised: string;
@@ -37,6 +38,7 @@ const domSelectors: ModuleDomSelectors = {
   passwordInput: '[data-cug_login=cellPassword] input',
   showPasswordBtn: '[data-cug_login=cellPassword] .atm-form_input__functionality',
   loginForm: '[data-cug_login="loginForm"]',
+  notification: '[data-cug_login="loginForm"] .mdl-notification',
 };
 const stateClasses: ModuleStateClasses = {
   unauthorised: 'mdl-cug_login--unauthorized',

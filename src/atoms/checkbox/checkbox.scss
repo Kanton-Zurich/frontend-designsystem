@@ -103,3 +103,12 @@
     padding-top: pxToRem($sizeMini / 2);
   }
 }
+
+/** HIGHT CONTRAST MODE
+ */
+
+@media screen and ( -ms-high-contrast: active ) {
+  .atm-checkbox input {
+    appearance: auto;
+  }
+}

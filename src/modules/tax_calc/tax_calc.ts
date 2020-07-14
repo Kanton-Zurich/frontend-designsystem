@@ -33,6 +33,7 @@ interface ApiFieldDefinition {
     code: string;
   }[];
   maxSize?: number;
+  minSize?: number;
   value?: number;
   hint: string;
 }
@@ -192,11 +193,7 @@ class TaxCalc extends Module {
           } else if (inEl.type === 'checkbox' && inEl.checked) {
             sectionVals.push(inEl.value);
           } else if (inEl.type === 'text') {
-            const numVal = +inEl.value;
-            let numValStr = '0';
-            if (!isNaN(numVal)) { // eslint-disable-line
-              numValStr = this.currencyNumberValueToString(numVal);
-            }
+            let numValStr = inEl.value;
             if (this.options.datePartialFields.indexOf(inEl.name) >= 0) {
               let suffix = '';
               if (this.globalScopeVariables[this.options.globalScopeVariables[0]]) {
@@ -228,6 +225,8 @@ class TaxCalc extends Module {
         }
       } else if (i === sectionIdx) {
         this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.disabled);
+        this.ui.nextBtn.setAttribute('disabled', 'true');
+
         formSectionItem.classList.add(this.options.stateClasses.formItem.enabled);
         setTimeout(() => {
           toggleBtn.click();
@@ -303,8 +302,10 @@ class TaxCalc extends Module {
 
       if (allFilled) {
         conClasses.remove(this.options.stateClasses.nextBtn.disabled);
+        this.ui.nextBtn.removeAttribute('disabled');
       } else {
         conClasses.add(this.options.stateClasses.nextBtn.disabled);
+        this.ui.nextBtn.setAttribute('disabled', 'disabled');
       }
     }, this.options.transitionTimeout);
     // }
@@ -368,6 +369,7 @@ class TaxCalc extends Module {
         this.enableCalculatorOptionsForEntity(taxEntity);
         if (this.formHasErrors()) {
           this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.disabled);
+          this.ui.nextBtn.setAttribute('disabled', 'true');
         }
         if (this.currentFormSection > 1) {
           this.activateFormSection(1);
@@ -487,6 +489,14 @@ class TaxCalc extends Module {
       }));
     } else if (defByApi.type === 'Number') {
       propData.maxLength = Math.floor(Math.log10(defByApi.maxSize));
+      propData.maxSize = defByApi.maxSize;
+      if (setFromDef && defByApi.value !== undefined && defByApi.value !== null) {
+        propData.value = defByApi.value.toString(10);
+      } else {
+        propData.value = '';
+      }
+    } else if (defByApi.type === 'Amount') {
+      propData.minSize = defByApi.minSize ? defByApi.minSize : 0;
       propData.maxSize = defByApi.maxSize;
       if (setFromDef && defByApi.value !== undefined && defByApi.value !== null) {
         propData.value = defByApi.value.toString(10);
@@ -696,6 +706,7 @@ class TaxCalc extends Module {
   private onFormException(exceptionStr: string) {
     this.log('Form Exception: ', exceptionStr);
     this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.disabled);
+    this.ui.nextBtn.setAttribute('disabled', 'true');
 
     this.ui.apiErrorNotification.querySelector('.mdl-notification__message')
       .innerHTML = exceptionStr;

@@ -29,6 +29,7 @@ class CugLogin extends Module {
     passwordInput: HTMLInputElement,
     showPasswordBtn: HTMLElement,
     loginForm: HTMLFormElement,
+    notification: HTMLDivElement,
   };
 
   private devMode: boolean;
@@ -42,6 +43,8 @@ class CugLogin extends Module {
     this.initUi();
     this.initEventListeners();
     this.initWatchers();
+
+    this.ui.notification.setAttribute('aria-hidden', 'true');
 
     this.devMode = this.ui.element.hasAttribute(this.options.devModeAttr);
   }
@@ -78,8 +81,10 @@ class CugLogin extends Module {
     setTimeout(() => {
       if (this.loginFormHasErrors()) {
         this.ui.loginBtn.classList.add(this.options.stateClasses.loginBtnDisable);
+        this.ui.loginBtn.setAttribute('disabled', 'true');
       } else {
         this.ui.loginBtn.classList.remove(this.options.stateClasses.loginBtnDisable);
+        this.ui.loginBtn.removeAttribute('disabled');
       }
     }, 0);
   }
@@ -105,6 +110,8 @@ class CugLogin extends Module {
     ev.stopPropagation();
     ev.preventDefault();
 
+    this.ui.notification.setAttribute('aria-hidden', 'true');
+
     if (!this.loginFormHasErrors()) {
       this.ui.loginBtn.classList.add(this.options.stateClasses.loginBtnLoading);
 
@@ -125,6 +132,8 @@ class CugLogin extends Module {
           if (loginResp.status === 200) { // eslint-disable-line
             if (this.devMode && ['admin', 'user', 'offline'].indexOf(username) < 0) {
               this.ui.element.classList.add(this.options.stateClasses.credentialsFailed);
+              this.ui.notification.setAttribute('aria-hidden', 'false');
+              this.ui.notification.focus();
             } else {
               this.fetchJsonData(endpointAuthorize, false).then((authorizeResp) => {
                 if (authorizeResp.status === 200) { // eslint-disable-line
@@ -148,16 +157,22 @@ class CugLogin extends Module {
               }).catch((reason) => {
                 this.log('Failed to connect api for user login.', reason);
                 this.ui.element.classList.add(this.options.stateClasses.connectionFail);
+                this.ui.notification.setAttribute('aria-hidden', 'false');
+                this.ui.notification.focus();
               });
             }
           } else if (loginResp.status === 403) { // eslint-disable-line
             this.ui.element.classList.add(this.options.stateClasses.credentialsFailed);
+            this.ui.notification.setAttribute('aria-hidden', 'false');
+            this.ui.notification.focus();
           } else {
             throw new Error(loginResp.status);
           }
         }).catch((reason) => {
           this.log('Failed to connect api for user login.', reason);
           this.ui.element.classList.add(this.options.stateClasses.connectionFail);
+          this.ui.notification.setAttribute('aria-hidden', 'false');
+          this.ui.notification.focus();
         });
       this.ui.loginBtn.classList.add(this.options.stateClasses.loginBtnDisable);
       this.ui.loginBtn.classList.remove(this.options.stateClasses.loginBtnLoading);

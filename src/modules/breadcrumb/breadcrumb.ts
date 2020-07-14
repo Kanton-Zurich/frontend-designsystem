@@ -98,16 +98,22 @@ class Breadcrumb extends Module {
       referrer.href = document.referrer;
 
       this.ui.item.querySelector('a').addEventListener('click', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-
         if (actualReferrer) {
+          event.preventDefault();
+          event.stopPropagation();
           window.location.href = actualReferrer;
         } else if (document.referrer
-            && document.referrer.length > 0
-            && internalReferrer.hostname === referrer.hostname) { // eslint-disable-line
-          window.history.back();
+          && document.referrer.length > 0
+          && internalReferrer.hostname === referrer.hostname) { // eslint-disable-line
+          event.preventDefault();
+          event.stopPropagation();
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            window.location.href = document.referrer;
+          }
         }
+        // else fall back to href attribute
       });
     }
   }

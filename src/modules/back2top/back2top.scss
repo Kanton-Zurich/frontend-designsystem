@@ -25,7 +25,7 @@ $back2topMarginCurve: (
   &__icon {
     border-radius: 50%;
     overflow: hidden;
-    transition: all 800ms ease;
+    transition: all 600ms ease;
     margin-bottom: pxToRem(-$back2TopDiameter);
     margin-top: 0;
   }
@@ -33,7 +33,7 @@ $back2topMarginCurve: (
   &--unlocked {
     pointer-events: auto;
     height: pxToRem($back2TopDiameter);
-    transition: height, bottom 1200ms, 800ms ease;
+    transition: height, bottom 900ms, 600ms ease;
 
     .mdl-back2top__icon {
       margin-bottom: 0;
@@ -43,7 +43,8 @@ $back2topMarginCurve: (
       height: pxToRem($back2TopDiameter);
 
       .mdl-back2top__icon {
-        margin-top: pxToRem(-$back2TopDiameter);
+        margin-top: pxToRem($back2TopDiameter);
+        transform: rotate(180deg);
       }
     }
   }

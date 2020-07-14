@@ -20,7 +20,7 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('tax_calc.md'),
   },
   props: {
-    apiBase: 'https://webcalc.services.zh.ch/ZH-Web-Calculators/calculators/',
+    apiBase: 'https://int-webcalc.services.zh.ch/ZH-Web-Calculators/calculators/',
     beforeBlock: {
       heading: 'Bevor Sie starten',
       benefitItems: [
@@ -237,6 +237,7 @@ const data = _.merge({}, defaultData, {
     errorMessages: {
       number: 'Ungültige Zahleneingabe',
       date: 'Bitte im Format TT.MM. eingeben',
+      outOfBounds: 'Zahl ausserhalb des zulässigen Rahmens',
     },
     serviceFailNotificationData: notificationApiFailProps,
   },

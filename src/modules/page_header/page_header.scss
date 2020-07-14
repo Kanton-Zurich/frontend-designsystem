@@ -336,6 +336,10 @@ $pageHeaderCurves: (
         text-indent: 0;
       }
 
+      .atm-paragraph {
+        @include polyFluidSizing(font-size, map-get($fontSizeCurves, supersmall));
+      }
+
       &-button {
         @include sizeCurve(margin-bottom, regular);
 
