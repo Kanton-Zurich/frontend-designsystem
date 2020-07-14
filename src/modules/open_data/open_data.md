@@ -3,5 +3,4 @@ Mit dem Datenmodul (tech. «mdl-open_data») lassen sich Datensätze die als Ope
 
 
 ### Integration
-
-HTML kopieren.
+* HTML kopieren.

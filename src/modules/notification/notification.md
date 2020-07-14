@@ -5,6 +5,6 @@ Popup Nachrichten (tech. «mdl-notification») sind Hinweistexte die beispielswe
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.
 
-Hinweis: Notifications haben kein eigenes JS. Sie sollten deshalb von anderen Modulen gerendert werden.
+* Hinweis: Notifications haben kein eigenes JS. Sie sollten deshalb von anderen Modulen gerendert werden.

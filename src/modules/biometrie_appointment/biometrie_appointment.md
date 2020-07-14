@@ -12,4 +12,4 @@ werden in dem «cors restrictions» explizit deaktiviert wurden.
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.

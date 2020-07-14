@@ -6,19 +6,18 @@ Die Kontakt-Ergebnisse werden als Link-Liste angezeigt, der Standort wird auf ei
  
  
 #### Enthaltene Atome und Module
-ATM: Heading
-ATM: Button
-ATM: Form Input
-ATM: Text Link
-ATM: Paragraph
-MDL: Map View
-MDL: Link-Liste
+* ATM: Heading
+* ATM: Button
+* ATM: Form Input
+* ATM: Text Link
+* ATM: Paragraph
+* MDL: Map View
+* MDL: Link-Liste
  
 #### Vorsicht
-(!) Da der Living Styleguide zur selben Zeit mehrere Varianten unterstützt, wird die Karte bei folgenden Varianten nicht korrekt angezeigt. Dies kann ignoriert werden.
+* (!) Da der Living Styleguide zur selben Zeit mehrere Varianten unterstützt, wird die Karte bei folgenden Varianten nicht korrekt angezeigt. Dies kann ignoriert werden.
  
 ### Integration
- 
-HTML kopieren.
+* HTML kopieren.
  
 

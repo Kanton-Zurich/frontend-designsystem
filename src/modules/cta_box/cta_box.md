@@ -4,4 +4,4 @@ Eine CTA Box (tech. «.mdl-cta-box») oder Call To Action Box, wird immer dann e
 Die CTA Box ist der Aktions-Button in einem Teaser-Modul.
 
 ### Integration
-HTML kopieren.
+* HTML kopieren.

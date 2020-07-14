@@ -5,12 +5,11 @@ Das Modul News Filter Mobile für Mobilgeräte (tech. «.mdl-news-filter-mobile�
 Nutzende können aus einer Artikelsammlung (wie beispielsweise einer News-Sammlung) die Artikel herausfiltern die für sie von Interesse sind. Die Filterattribute können gesetzt werden.
  
 #### Enthaltene Atome und Module
-ATM: Form Input
-ATM: Button
-ATM: Link-List-Item
-MDL: Auswahlfeld
-MDL: Modal Seite
+* ATM: Form Input
+* ATM: Button
+* ATM: Link-List-Item
+* MDL: Auswahlfeld
+* MDL: Modal Seite
  
 ### Integration
- 
-HTML kopieren.
+* HTML kopieren.

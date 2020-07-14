@@ -7,12 +7,11 @@ Um Webangebote durchgehend accessibel anzubieten, sind auch Videos entsprechend 
 Sind Stellen des Videos auch mit dem Transkript rein auditiv nicht verständlich, so sind die Inhalte dieser Stellen zusätzlich zu beschreiben.
 
 #### Enthaltene Atome und Module
-ATM: Legende
-ATM: Heading
+* ATM: Legende
+* ATM: Heading
 
 ### Integration
 
-Set the youtube src to the data attribute "data-youtubesrc"
-Set the video cookie expiry days to the data attribute "data-expirydays"
-
-Copy HTML.
+* Set the youtube src to the data attribute "data-youtubesrc"
+* Set the video cookie expiry days to the data attribute "data-expirydays"
+* Copy HTML.

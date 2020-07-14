@@ -11,4 +11,4 @@ Tags in der Tag Group sind keine (CTA-)Buttons (call to action). Zwar sind beide
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.

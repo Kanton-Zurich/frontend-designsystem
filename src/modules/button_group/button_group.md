@@ -8,14 +8,10 @@ Ein Anwendungsbeispiel ist die Button Group im Slider / Carousel (tech. «.mdl-c
 Auch in Applikationen sind Buttongroups anzutreffen. Eine Werkzeugpalette einer Software zum Beispiel, besteht aus gruppierten Buttons mit einer verwandten Funktion.
 Die Nähe der Buttons zueinander sagt aus, dass die Buttons alle zueinander im Kontext stehen. 
  
-Enthaltene Atome und Module
-ATM: Button
+#### Enthaltene Atome und Module
+* ATM: Button
  
 ### Integration
  
-HTML kopieren.
+* HTML kopieren.
 
-
-### Integration
-
-HTML kopieren.

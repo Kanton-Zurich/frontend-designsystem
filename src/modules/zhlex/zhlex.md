@@ -3,4 +3,4 @@ Das Modul ZH-Lex (tech. «.mdl-zhlex») ist eine Applikation. Sie wurde entwicke
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.

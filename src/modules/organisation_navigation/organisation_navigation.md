@@ -13,4 +13,4 @@ Navigationen sind für Nutzende ein Werkzeug um sich durch die Website-Struktur 
 
 ### Integration
 
-Nur zur Verwendung als Template in der Hauptnavigation, keine sonstige Integration.
+* Nur zur Verwendung als Template in der Hauptnavigation, keine sonstige Integration.

@@ -7,4 +7,4 @@ Eine zweite Funktionalität der Subnavigation besteht darin, die in der Navigati
 
 ### Integration
 
-Nur zur Verwendung als Template in der Hauptnavigation, keine sonstige Integration.
+* Nur zur Verwendung als Template in der Hauptnavigation, keine sonstige Integration.

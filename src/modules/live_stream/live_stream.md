@@ -5,9 +5,7 @@ Mit dem Live-Stream-Video-Modul (tech. «.mdl-live-stream-video») können Live 
 Zum Live-Stream gehört ein versteckter Titel und textliche Informationen zum Inhalt. 
 
 #### Enthaltene Atome und Module
-ATM: Heading (versteckter Titel)
-
+* ATM: Heading (versteckter Titel)
 
 ### Integration
-
-HTML kopieren.
+* HTML kopieren.

@@ -9,9 +9,8 @@ Die Navigation erfolgt in eine Richtung, nämlich immer um ein Seiten-Level tief
 
 Navigationen sind für Nutzende ein Werkzeug um sich durch die Website-Struktur zu bewegen. Sie dienen dazu, Inhalte schnell zu finden und sich auf der Website zurechtzufinden. Die Struktur der Website hat einen grossen Einfluss auf die Nutzerfreundlichkeit der Navigation. Eine gute Navigation trägt massgeblich zu einem positiven Nutzererlebnis bei. 
 
-Die ContentNav enthält folgende Atome und Module:
-ContentTeaser (Atom)
-
+#### Enthaltene Atome und Module
+* ATM: ContentTeaser
 
 ### Integration
-HTML kopieren.
+* HTML kopieren.

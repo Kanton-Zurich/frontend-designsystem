@@ -12,4 +12,4 @@ In beiden Beispielen handelt es sich um Services.
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.

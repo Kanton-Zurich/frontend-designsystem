@@ -5,12 +5,12 @@ Mit Schwerpunkt Cards (tech. «.mdl-focus-card») wird die Aufmerksamkeit auf ei
 Schwerpunkt Cards sind Bestandteile des Schwerpunkt Teasers (tech. «.mdl-focus-teaser»). Mit dem Personenteaser können mehrere Personencards auf ansprechende Weise als Einheit präsentiert werden.
 
 #### Enthaltene Atome und Module
-ATM: Heading
-ATM: Text Link
-MDL: Bild
+* ATM: Heading
+* ATM: Text Link
+* MDL: Bild
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.
 
 Die Bilder in Schwerpunkt-Teaser sollten ein leeres alt-Attribut haben, nicht den hinterlegten Alternativtext für das Bild. Teaser-Bilder gelten als dekorativ.

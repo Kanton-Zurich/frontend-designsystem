@@ -5,4 +5,4 @@ Dabei wird die zu sch√ºtzende Seite unter der Loginseite die das CUG-Modul enth√
 
 
 ### Integration
-HTML kopieren.
+* HTML kopieren.

@@ -6,9 +6,9 @@ Der Header wird zuoberst, noch über dem Seitenkopf (tech. «.mdl-page-header»)
 Der Header ist nicht zu verwechseln mit dem Page Header. Während im Page Header Informationen zur aktuell angezeigten Seite anzeigt, dient der Header der Navigation und Suche.
  
 #### Enthaltene Atome und Module
-MDL: Hauptnavigation
-MDL: Benutzer-Menu
-MDL: Suche
+* MDL: Hauptnavigation
+* MDL: Benutzer-Menu
+* MDL: Suche
  
 ### Integration
-HTML kopieren.
+* HTML kopieren.

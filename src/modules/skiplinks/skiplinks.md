@@ -15,4 +15,4 @@ Das Modul Sprunglinks enthält keine weiteren Atome oder Module.
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.

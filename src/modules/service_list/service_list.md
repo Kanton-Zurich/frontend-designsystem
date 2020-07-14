@@ -7,13 +7,11 @@ Auch wenn es nur ein Service ist der aufgerufen werden kann, soll die Liste verw
 Ein Service ist eine Erledigung. Ein Service wird immer dann erstellt, wenn Nutzende etwas erledigen möchten, beispielsweise einen Führerschein beantragen. Es spielt dabei keine Rolle ob Nutzende dabei ein Onlineformular ausfüllen oder ein PDF-Formular herunterladen, dass sie ausfüllen und per Post einreichen. Auch anrufen oder am Schalter vorbeikommen sind übliche Wege etwas zu erledigen.
  
 #### Enthaltene Atome und Module
-ATM: Button
-ATM: Heading
-ATM: Paragraph
+* ATM: Button
+* ATM: Heading
+* ATM: Paragraph
  
 ### Integration
-
-
 ACHTUNG!: Es muss darauf geachtet werden, dass die id Attribute bei den Modals im DOM einzigartig sind. Das gilt insbesondere auch, für die Inhalte die in den Modalfenstern eingebunden werden.
 
 #### Modal Markup

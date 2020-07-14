@@ -10,6 +10,6 @@ Abhängige Auswahlfelder können als Filter in einer Suche oder Formular eingese
  
 ### Integration
  
-Abhängige Attribute die gesetzt werden müssen auf dem Sekundärdropdown li-Elementen (ex: 'data-filter-id')
+* Abhängige Attribute die gesetzt werden müssen auf dem Sekundärdropdown li-Elementen (ex: 'data-filter-id')
  
-HTML kopieren.
+* HTML kopieren.

@@ -4,4 +4,4 @@ Externe Posts aus den Sozialen Medien können mit dem Modul Social Media Post (t
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.

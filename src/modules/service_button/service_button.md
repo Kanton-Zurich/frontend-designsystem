@@ -8,4 +8,4 @@ Beispiele von Button-Texten: Starten, Anmelden, Einreichen, Lernausweis beantrag
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.

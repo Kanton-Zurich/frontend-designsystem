@@ -15,5 +15,5 @@ Für eine barrierefreie Darstellung muss die konsekutive Reihenfolge der Titelgr
 
 
 ### Integration
-HTML kopieren.
+* HTML kopieren.
 

@@ -6,9 +6,7 @@ Die Modalseite öffnet sich beim Klicken eines entsprechenden Buttons. Dieser Bu
 Das Modalfenster ist dem Slider / Carousel (Bildergalerie) ähnlich, wird aber nicht für Bilder eingesetzt.
 
 #### Enthaltene Atome und Module
-MDL: Seitenkopf
-
+* MDL: Seitenkopf
 
 ### Integration
-
-HTML kopieren.
+* HTML kopieren.

@@ -7,13 +7,12 @@ Mit der Bildergalerie (tech. «.mdl-image-gallery») können mehrere Bilder in a
 <li>Im Slider oder Carousel (tech. «.mdl-carousel») wird das erste Bild gross angezeigt. Mit Vor- und Zurückpfeilen können alle Bilder durchgeblättert werden. Per Klick auf das einzelne Bild wird dieses gross dargestellt.
 </ul>
 
-#### Enthalten Atome und Module
-ATM: Button
-ATM: Heading
-MDL: Bild
-MDL: Carousel
+#### Enthaltene Atome und Module
+* ATM: Button
+* ATM: Heading
+* MDL: Bild
+* MDL: Carousel
  
 ### Integration
- 
-Copy HTML.
+* Copy HTML.
 

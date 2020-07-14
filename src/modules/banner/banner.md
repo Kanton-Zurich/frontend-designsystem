@@ -3,10 +3,10 @@ Der Header Banner (tech. «.mdl-banner») ist ein visuell starkes Element, dass 
  
 Der Header Banner kann informativ oder warnend verwendet werden.
  
-Enthaltene Atome und Module
-ATM: Heading
-ATM: Text Link
+#### Enthaltene Atome und Module
+* ATM: Heading
+* ATM: Text Link
  
 ### Integration
-HTML kopieren.
+* HTML kopieren.
 

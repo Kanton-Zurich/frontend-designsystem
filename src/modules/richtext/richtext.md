@@ -3,15 +3,12 @@
 Mit dem Text-Modul (tech. «.mdl-richtext»), auch Richtext genannt, kann Text CI-gerecht und barrierefrei gelayoutet in die Webseite eingefügt werden.
  
 #### Enthaltene Atome und Module
-ATM: Heading
-
+* ATM: Heading
 
 ### Integration
-
-HTML kopieren.
+* HTML kopieren.
 
 #### Besonderheiten
-
 Vor einer Vorteilsliste mit der Klasse "mdl-richtext__benefits" muss vom CMS zwingend
 
 ```html

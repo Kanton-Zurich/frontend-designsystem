@@ -1,5 +1,5 @@
 ### Beschreibung
-Ein Kontextmenü (tech. «.mdl-context-menu») ist ein Menü das angezeigt wird, wenn auf ein Objekt ein Rechtsklick ausgeführt wird. 
+Ein ContextMenu (tech. «.mdl-context-menu»), auch Kontextmenü, ist ein Menü das angezeigt wird, wenn auf ein Objekt ein Rechtsklick ausgeführt wird. 
 
 Das Kontextmenü wird in verschiedensten Instanzen eingesetzt. Es listet nur Menüpunkte auf, die zum jeweiligen Zeitpunkt für das ausgewählte Objekt sinnvoll sind. Dadurch bleiben Kontextmenüs für die Nutzenden übersichtlich. Das Kontextmenü kann verschiedene Ausprägungen annehmen die über das Atom «Context-Menü-Items» gesteuert werden.
 
@@ -10,8 +10,8 @@ Anwendungsfälle können unter anderem sein:
 - Formularfelder
 - etc.
 
-Das Contextmenü enthält folgende Atome und Module:
-Context-Menu-Item (Atom)
+#### Enthaltene Atome und Module
+* ATM: Context-Menu-Item
 
 ### Integration
-HTML kopieren.
+* HTML kopieren.

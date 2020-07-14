@@ -7,4 +7,4 @@ Beispiele für Assets können sein: Dokumente, Studien, Inhaltsseiten
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.

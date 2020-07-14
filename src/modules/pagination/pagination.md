@@ -12,10 +12,9 @@ Es kann der Übersichtlichkeit dienen, diese Informationen in Unterseiten aufzut
 
 Um lange Scrollwege möglichst zu vermeiden, sollte das Pagination-Modul sowohl am Anfang sowie auch am Ende der Seite platziert werden und zusammen mit dem Back2Top Modul eingesetzt werden.
 
-Die Breadcrumb enthält folgende Atome und Module:
-Form Input (Atom)
-Button Group (Modul)
+#### Enthaltene Atome und Module
+* ATM: Form Input
+* MDL: Button Group
 
 ### Integration
-
-HTML kopieren.
+* HTML kopieren.

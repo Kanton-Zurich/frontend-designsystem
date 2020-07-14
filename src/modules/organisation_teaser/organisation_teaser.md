@@ -7,4 +7,4 @@ Mit Teasern können relevante, weiterführende Inhalte prominent dargestellt wer
 
 ### Integration
 
-Nur zur Verwendung als Template in der Hauptnavigation, keine sonstige Integration.
+* Nur zur Verwendung als Template in der Hauptnavigation, keine sonstige Integration.

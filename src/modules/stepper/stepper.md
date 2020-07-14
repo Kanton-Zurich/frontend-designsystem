@@ -4,10 +4,10 @@ Die Formularschritte (tech. «.mdl-stepper») sind Teil eines Online-Formulars. 
 Der Stepper ist immer horizontal aufgebaut. Jeder Schritt wird mit einem kurzen Namen versehen der unterhalb der Schrittmarkierung (Zahl oder Häkchen) steht.
  
 #### Enthaltene Atome und Module
-ATM: Button
-ATM: Heading
-MDL: Formular-Navigation (optional)
+* ATM: Button
+* ATM: Heading
+* MDL: Formular-Navigation (optional)
  
 ### Integration
  
-HTML kopieren.
+* HTML kopieren.

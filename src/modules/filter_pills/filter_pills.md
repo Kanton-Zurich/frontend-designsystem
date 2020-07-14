@@ -7,7 +7,6 @@ Filter Pills sind nicht zu verwechseln mit den visuell ähnlichen Tag-Buttons au
 #### Enthaltene Atome und Module
 * ATM: Button
 
-
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.

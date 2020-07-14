@@ -4,7 +4,7 @@ Die Formular-Navigation (tech. «.mdl-stepper_navigation») verleiht über das J
 
 
 ### Integration
-HTML kopieren.
+* HTML kopieren.
 
-Die Stepper-Navigation braucht zwingend das Parent Element «Modul Formularschritte».
+* Die Stepper-Navigation braucht zwingend das Parent Element «Modul Formularschritte».
 

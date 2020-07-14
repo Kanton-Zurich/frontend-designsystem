@@ -11,11 +11,9 @@ Das Modul bietet verschiedene Layoutvarianten, mit und ohne Weiterleitungsbutton
  
  
 #### Enthaltene Atome und Module
-ATM: Button
-ATM: Heading
-MDL: Bild
-
+* ATM: Button
+* ATM: Heading
+* MDL: Bild
 
 ### Integration
-
-HTML kopieren.
+* HTML kopieren.

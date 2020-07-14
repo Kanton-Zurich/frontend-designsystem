@@ -4,11 +4,11 @@ Mit Teasern (tech. «.mdl-teaser») können relevante, weiterführende Inhalte p
 Im Teaser selbst stehen diverse Darstellungskonfigurationen zur Verfügung. Es gibt aber auch Variationen von Teasern die für spezifische Einsatzzwecke ausgelegt sind. Diese sind im Living Styleguide unter den Modulen aufgeführt.
 
 #### Enthaltene Atome und Module
-MDL: Bild
-ATM: Heading
-ATM: Button
+* MDL: Bild
+* ATM: Heading
+* ATM: Button
  
 ### Integration
-HTML kopieren.
+* HTML kopieren.
  
-Die Bilder im Teaser sollten ein leeres alt-Attribut haben, nicht den hinterlegten Alternativtext für das Bild. Teaser-Bilder gelten als dekorativ.
+* Die Bilder im Teaser sollten ein leeres alt-Attribut haben, nicht den hinterlegten Alternativtext für das Bild. Teaser-Bilder gelten als dekorativ.

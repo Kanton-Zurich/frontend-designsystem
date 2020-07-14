@@ -8,8 +8,8 @@ Cookies können dazu genutzt werden, wiederkehrende Nutzende zu identifizieren u
 </ol>
  
 ### Integration
-HTML kopieren.
-Cookienamen werden über die Id's der Input Element gesetzt und wenn ein Cookie per default auf true gesetzt sein soll muss das Attribut «checked» gesetzt sein.
-Das Modul wird per JavaScript initialisiert und setzt bei einem Wechsel des Zustands einer Checkbox den entsprechenden Cookie-Parameter:
+* HTML kopieren.
+* Cookienamen werden über die Id's der Input Element gesetzt und wenn ein Cookie per default auf true gesetzt sein soll muss das Attribut «checked» gesetzt sein.
+* Das Modul wird per JavaScript initialisiert und setzt bei einem Wechsel des Zustands einer Checkbox den entsprechenden Cookie-Parameter:
 > name=value
 Um die üblichen Schwierigkeiten beim Auslesen und Setzen der Cookie-Werte zu vermeiden, verwenden wir https://www.npmjs.com/package/js-cookie.

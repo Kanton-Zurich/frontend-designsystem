@@ -5,12 +5,10 @@ Mit dem Modul Social Media Stream (tech. «.mdl-social-media-links») können ex
 Die Streams werden dabei asynchron geladen.
  
 #### Enthaltene Atome und Module
-ATM: Heading
-ATM: Button
-
+* ATM: Heading
+* ATM: Button
 
 ### Integration
-
 <ul>
 <li>Die Datenquelle ist mit einem Pattern definiert und kann frei konfiguriert werden. data-source
 {page} ist dabei der Seitenplatzhalter

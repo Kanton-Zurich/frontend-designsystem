@@ -4,4 +4,4 @@ Die News-Übersicht (tech. «.mdl-news-overview») zeigt in ansprechendem Design
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.

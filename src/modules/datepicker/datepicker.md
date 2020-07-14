@@ -26,4 +26,4 @@ If set, it initialized the plugin with the give date as minimum selectable date
 
 If set, it initialized the plugin with the give date as maximum selectable date
 
-HTML kopieren.
+* HTML kopieren.
