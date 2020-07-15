@@ -5,7 +5,7 @@ Mit Teasern können relevante, weiterführende Inhalte prominent dargestellt wer
  
 #### Enthaltene Atome und Module
 * <a href="../../atoms/headings/headings.html">ATM: Heading</a>
-* MDL: Gelabelte-Liste
+* <a href="../descriptionlist/descriptionlist.html">MDL: Gelabelte Liste (descriptionlist)</a>
 
 ### Integration
 * HTML kopieren.

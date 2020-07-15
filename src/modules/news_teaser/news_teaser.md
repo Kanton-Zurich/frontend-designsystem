@@ -6,8 +6,8 @@ Mit Teasern können relevante, weiterführende Inhalte prominent dargestellt wer
 #### Enthaltene Atome und Module
 * <a href="../../atoms/headings/headings.html">ATM: Heading</a>
 * <a href="../../atoms/anchorlink/anchorlink.html">ATM: Anchorlink</a>
-* <a href="../image-figure/image-figure.html">MDL: Bild (Image Figure)</a>
-* MDL: Link-Liste
+* <a href="../image_figure/image_figure.html">MDL: Bild (Image Figure)</a>
+* <a href="../linklist/linklist.html">MDL: Link-Liste</a>
 
 ### Integration
 * HTML kopieren.

@@ -7,6 +7,7 @@ Das Modalfenster ist dem Slider / Carousel (Bildergalerie) ähnlich, wird aber n
 
 #### Enthaltene Atome und Module
 * MDL: Seitenkopf
+* <a href="../page_header/page_header.html">MDL: Seitenkopf</a>
 
 ### Integration
 * HTML kopieren.

@@ -9,8 +9,8 @@ Das hier vorliegende Modul kann um einen Autosuggest erweitert werden. Der Autos
 Ein Overlay kann mit einem Modal (tech. «.mdl-modal-page») implementiert werden, ganz analog zur Hauptnavigation Themen und Organisation.
  
 #### Enthaltene Atome und Module
-* MDL: Themenliste
-* MDL: Tag Group (zB für häufig gesuchte Begriffe)
+* <a href="../topiclist/topiclist.html">MDL: Themenliste</a>
+* <a href="../tag_group/tag_group.html">MDL: Tag Group</a> (zB für häufig gesuchte Begriffe)
  
 ### Integration
 * HTML kopieren.

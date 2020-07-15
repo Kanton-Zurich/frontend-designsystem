@@ -6,7 +6,7 @@ Der Zuständigkeitsfinder (tech. «.mdl-jurisdiciton-finder») ist eine Applikat
 * <a href="../../atoms/paragraph/paragraph.html">ATM: Paragraph</a>
 * <a href="../../atoms/button/button.html">ATM: Button</a>
 * <a href="../../atoms/form_input/form_input.html">ATM: Form Input</a>
-* MDL: Standorte
+* <a href="../locations/locations.html">MDL: Standorte</a>
  
 ### Integration
  

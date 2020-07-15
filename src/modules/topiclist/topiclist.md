@@ -11,7 +11,7 @@ Navigationen sind für Nutzende ein Werkzeug um sich durch die Website-Struktur 
 
 #### Enthaltene Atome und Module
 * <a href="../../atoms/form_input/form_input.html">ATM: Form Input</a>
-* MDL: Contentnav
+* <a href="../content_nav/content_nav.html">MDL: ContentNav</a>
 * <a href="../../atoms/content_teaser/content_teaser.html">ATM: Content Teaser</a>
 * <a href="../../atoms/button/button.html">ATM: Button</a>
 * <a href="../../atoms/headings/headings.html">ATM: Heading</a>

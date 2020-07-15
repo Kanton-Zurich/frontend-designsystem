@@ -1,6 +1,6 @@
 ### Beschreibung
 
-Für Bilder (tech. «mdl-image-figure») gelten gegebene Seitenverhältnisse (siehe Vorschau).
+Für Bilder (tech. «mdl-image_figure») gelten gegebene Seitenverhältnisse (siehe Vorschau).
 
 Bilder sollten immer Inhaltsbilder sein und somit den Inhalt einer Seite sinnvoll ergänzen, also einen Mehrwert zum Inhalt bieten. Ein gutes Bild unterstützt das Nutzererlebnis, indem es hilft, den Inhalt zu verstehen.
 

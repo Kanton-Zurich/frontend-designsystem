@@ -2,9 +2,9 @@
 Mit dem Zitat-Modul (tech. «.mdl-quote») können Zitate als solche erkennbar dargestellt werden. Sie heben sich optisch vom Rest des Inhalts ab.
 
 #### Enthaltene Atome und Module
-* <a href="../image-figure/image-figure.html">MDL: Bild (Image Figure)</a>
+* <a href="../image_figure/image_figure.html">MDL: Bild (Image Figure)</a>
 Indirekt übernehmen von
-* MDL: Richtext (Zitat)
+* <a href="../richtext/richtext.html">MDL: Text</a> (Zitat)
 * <a href="../../atoms/figcaption/figcaption.html">ATM: FigCaption (Legende)</a> (Bilduntertitel)
 
 #### Info

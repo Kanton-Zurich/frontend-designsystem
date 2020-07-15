@@ -5,8 +5,8 @@ Ein Metablock (tech. «.mdl-metablock») stellt Metadaten und Daten aus Webseite
 Ein Anwendungsbeispiel ist die visuell ansprechende und geordnete Darstellung von Personendetails.
  
 #### Enthaltene Atome und Module
-* MDL: Gelabelte-Liste
-* MDL: Benachrichtigung
+* <a href="../descriptionlist/descriptionlist.html">MDL: Gelabelte Liste (descriptionlist)</a>
+* <a href="../notification/notification.html">MDL: PopUp Nachricht</a>
  
 ### Integration
  

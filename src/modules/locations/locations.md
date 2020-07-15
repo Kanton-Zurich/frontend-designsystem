@@ -11,8 +11,9 @@ Die Kontakt-Ergebnisse werden als Link-Liste angezeigt, der Standort wird auf ei
 * <a href="../../atoms/form_input/form_input.html">ATM: Form Input</a>
 * <a href="../../atoms/text_link/text_link.html">ATM: Text Link</a>
 * <a href="../../atoms/paragraph/paragraph.html">ATM: Paragraph</a>
-* MDL: Map View
-* MDL: Link-Liste
+* <a href="../map_view/map_view.html">MDL: Map View</a>
+* <a href="../linklist/linklist.html">MDL: Link-Liste</a>
+
  
 #### Vorsicht
 * (!) Da der Living Styleguide zur selben Zeit mehrere Varianten unterstützt, wird die Karte bei folgenden Varianten nicht korrekt angezeigt. Dies kann ignoriert werden.

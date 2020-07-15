@@ -7,8 +7,8 @@ Der Header ist nicht zu verwechseln mit dem Page Header. Während im Page Header
  
 #### Enthaltene Atome und Module
 * MDL: Hauptnavigation
-* MDL: Benutzer-Menu
-* MDL: Suche
+* * <a href="../user_menu/user_menu.html">MDL: Benutzer-Menu</a>
+* <a href="../search/search.html">MDL: Suche</a>
  
 ### Integration
 * HTML kopieren.

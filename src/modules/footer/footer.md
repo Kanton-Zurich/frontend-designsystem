@@ -6,7 +6,7 @@ Im Footer wird der Kanton Zürich deutlich erwähnt. Darunter sind seitenüberge
 
 #### Enthaltene Atome und Module
 * <a href="../../atoms/headings/headings.html">ATM: Heading</a> 
-* MDL: Social Media Links
+* <a href="../social_media_links/social_media_links.html">MDL: Social Media Links</a>
 
 ### Integration
 * HTML kopieren.

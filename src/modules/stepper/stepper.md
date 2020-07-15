@@ -6,7 +6,7 @@ Der Stepper ist immer horizontal aufgebaut. Jeder Schritt wird mit einem kurzen 
 #### Enthaltene Atome und Module
 * <a href="../../atoms/button/button.html">ATM: Button</a>
 * <a href="../../atoms/headings/headings.html">ATM: Heading</a>
-* MDL: Formular-Navigation (optional)
+* <a href="../stepper_navigation/stepper_navigation.html">MDL: Formular-Navigation (Stepper-Nav)</a>
  
 ### Integration
  

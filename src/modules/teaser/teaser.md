@@ -4,7 +4,7 @@ Mit Teasern (tech. «.mdl-teaser») können relevante, weiterführende Inhalte p
 Im Teaser selbst stehen diverse Darstellungskonfigurationen zur Verfügung. Es gibt aber auch Variationen von Teasern die für spezifische Einsatzzwecke ausgelegt sind. Diese sind im Living Styleguide unter den Modulen aufgeführt.
 
 #### Enthaltene Atome und Module
-* <a href="../image-figure/image-figure.html">MDL: Bild (Image Figure)</a>
+* <a href="../image_figure/image_figure.html">MDL: Bild (Image Figure)</a>
 * <a href="../../atoms/headings/headings.html">ATM: Heading</a>
 * <a href="../../atoms/button/button.html">ATM: Button</a>
  
