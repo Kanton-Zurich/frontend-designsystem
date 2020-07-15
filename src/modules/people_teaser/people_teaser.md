@@ -9,7 +9,7 @@ Mit Teasern können relevante, weiterführende Inhalte prominent dargestellt wer
  
 ####  Enthaltene Atome und Module
 * MDL: Personen Card
-* ATM: Heading
+* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
 * MDL: Richtext
 
 ### Integration

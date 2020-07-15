@@ -11,7 +11,7 @@ Zur Gewährleistung der Barrierefreiheit ist stets die Titelhierarchie in den ei
 #### Enthaltene Atome und Module:
 
 (Warnung) Nicht zu verwechseln mit unterstützten Inhalten des Accordions
-* ATM: Heading
+* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
 
 
 ### Integration

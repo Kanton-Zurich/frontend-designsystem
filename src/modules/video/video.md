@@ -7,8 +7,8 @@ Um Webangebote durchgehend accessibel anzubieten, sind auch Videos entsprechend 
 Sind Stellen des Videos auch mit dem Transkript rein auditiv nicht verständlich, so sind die Inhalte dieser Stellen zusätzlich zu beschreiben.
 
 #### Enthaltene Atome und Module
-* ATM: Legende
-* ATM: Heading
+* <a href="../../atoms/figcaption/figcaption.html">ATM: FigCaption (Legende)</a>
+* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
 
 ### Integration
 

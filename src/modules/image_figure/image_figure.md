@@ -10,7 +10,7 @@ Für ein barrierefreies Nutzererlebnis, sind Bildern beschreibende Alt-Texte zu 
 Generische Stimmungsbilder ohne Aussagekraft sind zu vermeiden.
 
 #### Enthaltene Atome und Module
-* ATM: Legende
+* <a href="../../atoms/figcaption/figcaption.html">ATM: FigCaption (Legende)</a>
 
 
 ### Integration

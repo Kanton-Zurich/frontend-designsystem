@@ -13,8 +13,8 @@ Es kann der Übersichtlichkeit dienen, diese Informationen in Unterseiten aufzut
 Um lange Scrollwege möglichst zu vermeiden, sollte das Pagination-Modul sowohl am Anfang sowie auch am Ende der Seite platziert werden und zusammen mit dem Back2Top Modul eingesetzt werden.
 
 #### Enthaltene Atome und Module
-* ATM: Form Input
-* MDL: Button Group
+* <a href="../../atoms/form_input/form_input.html">ATM: Form Input</a>
+* <a href="../button_group/button_group.html">MDL: Button Group</a>
 
 ### Integration
 * HTML kopieren.

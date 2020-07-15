@@ -8,9 +8,9 @@ Mit der Bildergalerie (tech. «.mdl-image-gallery») können mehrere Bilder in a
 </ul>
 
 #### Enthaltene Atome und Module
-* ATM: Button
-* ATM: Heading
-* MDL: Bild
+* <a href="../../atoms/button/button.html">ATM: Button</a>
+* <a href="../../atoms/headings/headings.html">ATM: Heading</a> 
+* <a href="../image-figure/image-figure.html">MDL: Bild (Image Figure)</a>
 * MDL: Carousel
  
 ### Integration

@@ -11,9 +11,9 @@ Das Modul bietet verschiedene Layoutvarianten, mit und ohne Weiterleitungsbutton
  
  
 #### Enthaltene Atome und Module
-* ATM: Button
-* ATM: Heading
-* MDL: Bild
+* <a href="../../atoms/button/button.html">ATM: Button</a> 
+* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
+* <a href="../image-figure/image-figure.html">MDL: Bild (Image Figure)</a>
 
 ### Integration
 * HTML kopieren.

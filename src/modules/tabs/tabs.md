@@ -9,7 +9,7 @@ Tabs werden horizontal angeordnet. Das vertikale Pendant dazu wären Akkordeons.
 Aus Accessibility-Gründen müssen Tabs auf der Webseite zwingend mit der Tabulatortaste der Tastatur ansteuerbar sein.
 
 #### Enthaltene Atome und Module
-* MDL: Button Group
+* <a href="../button_group/button_group.html">MDL: Button Group</a>
 
 ### Integration
 

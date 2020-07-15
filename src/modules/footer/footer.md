@@ -5,7 +5,7 @@ Der Footer (tech. «.mdl-footer») zeigt Nutzenden das Seitenende an. Entspreche
 Im Footer wird der Kanton Zürich deutlich erwähnt. Darunter sind seitenübergeordnete Links wie Kontaktdaten und Nutzungshinweise anzugeben. Des Weiteren können hier in Form von Icons (siehe Modul Social Media Links) Absprunglinks zu Social Media platziert werden. 
 
 #### Enthaltene Atome und Module
-* ATM: Heading
+* <a href="../../atoms/headings/headings.html">ATM: Heading</a> 
 * MDL: Social Media Links
 
 ### Integration

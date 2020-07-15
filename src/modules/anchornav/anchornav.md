@@ -5,7 +5,7 @@ Die Ankernavigation wird direkt unter dem Seitenkopf (Header) platziert. Sie ist
 
 
 #### Enthaltene Atome und Module
-* ATM: Anchorlink
+* <a href="../../atoms/anchorlink/anchorlink.html">ATM: Anchorlink</a>
 
 
 ### Integration

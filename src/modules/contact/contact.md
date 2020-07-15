@@ -7,7 +7,7 @@ Für jeden Seiteninhalt gibt es eine verantwortliche Stelle, an die sich Nutzend
 Das Kontaktmodul hat einen Titel, die Kontaktangaben (Name, Tel.Nr., E-Mail, etc.) und einen Text (z.B. für Öffnungszeiten). Die Darstellungsarten sind vielfältig (siehe Vorschau).
  
 #### Enthaltene Atome und Module
-* ATM: Heading
+* <a href="../../atoms/headings/headings.html">ATM: Heading</a> 
 * MDL: Richtext
 * MDL: Map View
  

@@ -7,7 +7,7 @@ Mit Teasern können relevante, weiterführende Inhalte prominent dargestellt wer
  
 #### Enthaltene Atome und Module
 * MDL: Schwerpunkt Card
-* ATM: Heading
+* <a href="../../atoms/headings/headings.html">ATM: Heading</a> 
 
 
 ### Integration

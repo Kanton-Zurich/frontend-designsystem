@@ -5,8 +5,8 @@ Mit dem Modul Social Media Stream (tech. «.mdl-social-media-links») können ex
 Die Streams werden dabei asynchron geladen.
  
 #### Enthaltene Atome und Module
-* ATM: Heading
-* ATM: Button
+* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
+* <a href="../../atoms/button/button.html">ATM: Button</a>
 
 ### Integration
 <ul>

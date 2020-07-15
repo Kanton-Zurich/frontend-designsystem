@@ -5,8 +5,8 @@ Nutzende können Daten in Tabellenform besser vergleichen. <br>
 Die Darstellungsvarianten sind mannigfaltig (siehe Vorschau).
 
 #### Enthaltene Atome und Module
-* ATM: Heading
-* ATM: Legende
+* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
+* <a href="../../atoms/figcaption/figcaption.html">ATM: FigCaption (Legende)</a>
 
 
 ### Integration

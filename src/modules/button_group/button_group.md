@@ -9,7 +9,7 @@ Auch in Applikationen sind Buttongroups anzutreffen. Eine Werkzeugpalette einer 
 Die Nähe der Buttons zueinander sagt aus, dass die Buttons alle zueinander im Kontext stehen. 
  
 #### Enthaltene Atome und Module
-* ATM: Button
+* <a href="../../atoms/button/button.html">ATM: Button</a>
  
 ### Integration
  
