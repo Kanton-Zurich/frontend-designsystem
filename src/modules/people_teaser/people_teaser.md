@@ -13,4 +13,4 @@ Der Personen Teaser ist eine Erweiterung der Personen Card (tech. «.mdl-person_
 * <a href="../richtext/richtext.html">MDL: Text</a>
 
 ### Integration
-* HTML kopieren.
+* HTML kopieren. 

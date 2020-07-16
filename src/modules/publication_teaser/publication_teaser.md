@@ -8,4 +8,4 @@
 * <a href="../descriptionlist/descriptionlist.html">MDL: Gelabelte Liste (descriptionlist)</a>
 
 ### Integration
-* HTML kopieren.
+* HTML kopieren. 

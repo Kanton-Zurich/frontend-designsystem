@@ -11,4 +11,4 @@ Im Teaser selbst stehen diverse Darstellungskonfigurationen zur Verfügung. Es g
 ### Integration
 * HTML kopieren.
  
-* Die Bilder im Teaser sollten ein leeres alt-Attribut haben, nicht den hinterlegten Alternativtext für das Bild. Teaser-Bilder gelten als dekorativ.
+* Die Bilder im Teaser sollten ein leeres alt-Attribut haben, nicht den hinterlegten Alternativtext für das Bild. Teaser-Bilder gelten als dekorativ. 

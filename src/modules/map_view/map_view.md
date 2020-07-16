@@ -12,4 +12,4 @@ Mit den Zoom Buttons kann der Detaillierungsgrad der Darstellung verändert werd
 
 ### Integration
 
-* HTML kopieren.
+* HTML kopieren. 

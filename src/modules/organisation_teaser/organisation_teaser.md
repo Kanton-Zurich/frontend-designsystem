@@ -7,4 +7,4 @@ OrganisationTeaser (tech. «.mdl-organisation_teaser») sind eine für Organisat
 
 ### Integration
 
-* Nur zur Verwendung als Template in der Hauptnavigation, keine sonstige Integration.
+* Nur zur Verwendung als Template in der Hauptnavigation, keine sonstige Integration. 

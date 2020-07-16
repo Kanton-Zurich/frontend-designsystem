@@ -1,5 +1,5 @@
 ### Beschreibung
-Cookies können dazu genutzt werden, wiederkehrende Nutzende zu identifizieren und Ihnen so eine personalisierte Nutzererfahrung zu bieten. Über das Modul Cookie Controls (tech: «.mdl-coookie_controls») können Nutzende Einstellungen zu dieser Personalisierung treffen oder auch die Speicherung von Cookies abwählen. Die Kontrolle über den Datenaustausch mit Webseiten ist ein Mehrwert den Webseiten mit diesem Modul anbieten können.
+Cookies können dazu genutzt werden, wiederkehrende Nutzende zu identifizieren und Ihnen so eine personalisierte Nutzererfahrung zu bieten. Über das Modul Cookie Controls (tech: «.mdl-coookie_controls») können Nutzende Einstellungen zu dieser Personalisierung treffen oder auch die Speicherung von Cookies abwählen. Die Kontrolle über den Datenaustausch mit Webseiten ist ein Mehrwert den Webseiten mit diesem Modul anbieten können. 
 
 #### einige Nutzungsbeispiele
 <ol>
