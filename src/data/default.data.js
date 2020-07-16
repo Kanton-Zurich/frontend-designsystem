@@ -95,7 +95,7 @@ const data = {
         label: 'Mehr erfahren',
       },
       contactMail: {
-        address: 'info@sk.zh.ch',
+        address: 'zhweb@sk.zh.ch',
       },
     },
     footer: {

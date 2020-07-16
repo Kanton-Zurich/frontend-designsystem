@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const defaultData = require('./data/default.data.js');
+const dataHelper = require('@unic/estatico-data');
 const defTopiclistData = require('./modules/topiclist/topiclist.data').variants.home.props;
 
 // Get other pages
@@ -29,8 +30,11 @@ mainMenu.topiclistcontentNavData.items = [
   },
 ];
 
+const documentation = dataHelper.getDocumentation('index.md');
+
 const data = _.merge({}, defaultData, {
   mainMenu,
+  documentation,
   wrappingElements: {
     pageHeaderData: {
       pageTitle: 'Richtlinien für Online-Anwendungen',
