@@ -22,6 +22,7 @@ const tooltipData = {
 const loginFailNotificationData = {
   message: 'Bitte kontrollieren Sie Ihre Angaben für die Felder Benutzername und Passwort.',
   icon: '#caution',
+  focussable: true,
 };
 
 const unauthNotificationData = {
@@ -40,6 +41,7 @@ const serviceFailNotificationData = {
   title: 'Entschuldigung, der Service ist nicht verfügbar.',
   icon: '#caution',
   isDialog: true,
+  focussable: true,
 };
 
 const template = dataHelper.getFileContent('cug_login.hbs');

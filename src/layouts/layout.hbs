@@ -12,6 +12,11 @@
   <link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
   <link rel="stylesheet" href="/assets/css/print{{#unless env.dev}}.min{{/unless}}.css" media="print">
 	<script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
+  <script type="text/javascript">
+    window.startTracking = function() {
+      console.log('Tracking analytics initialized!');
+    };
+  </script>
 
   {{#if env.dev}}
     <link rel="stylesheet" href="/preview/assets/css/dev.css">

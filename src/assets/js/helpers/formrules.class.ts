@@ -114,7 +114,7 @@ class FormRules {
   getHierarchicalRules() {
     const copiedRules = this.rules;
 
-    this.rules.forEach((rule) => {
+    this.rules.forEach((rule, ruleIdx) => {
       // Necessary to have the source, because we alter the source
       const ruleCopy = JSON.parse(JSON.stringify(rule));
 
@@ -137,7 +137,7 @@ class FormRules {
             // Don't take the rules over when it is a step
             if (parentRule.action !== 'enable' && parentRule.action !== 'disable') {
               if (c === 0) {
-                this.rules[c].conditions = [...ruleCopy.conditions,
+                this.rules[ruleIdx].conditions = [...ruleCopy.conditions,
                   ...parentRule.conditions];
               } else {
                 copiedRules.push({

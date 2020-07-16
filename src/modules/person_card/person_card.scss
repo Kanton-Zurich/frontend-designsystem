@@ -26,6 +26,11 @@
   @include sizeCurve(margin-bottom, large);
   @include mq($from: small) {
     display: flex;
+    flex-direction: row-reverse;
+  }
+  @include mq($to: small) {
+    display: flex;
+    flex-direction: column-reverse;
   }
 
   &__name {

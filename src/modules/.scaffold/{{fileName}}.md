@@ -4,4 +4,4 @@
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.

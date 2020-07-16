@@ -17,7 +17,8 @@
   text-decoration: none;
   color: rgba($colorText, 0.6);
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column-reverse;
 
   @include sizeCurve(margin-top padding-bottom, items, $paddingSizes);
 
@@ -26,6 +27,7 @@
   @include transition(color);
   @include mq($from: medium) {
     display: flex;
+    flex-direction: row-reverse;
   }
 
   width: 100%;

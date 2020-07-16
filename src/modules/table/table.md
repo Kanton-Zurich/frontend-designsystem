@@ -1,10 +1,17 @@
 ### Beschreibung
 
+Mit dem Modul Tabelle (tech. «.mdl-table») können Daten tabellarisch dargestellt werden.
+Nutzende können Daten in Tabellenform besser vergleichen. <br>
+Die Darstellungsvarianten sind mannigfaltig (siehe Vorschau).
+
+#### Enthaltene Atome und Module
+* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
+* <a href="../../atoms/figcaption/figcaption.html">ATM: FigCaption (Legende)</a>
 
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.
 
 #### Spezialfälle
 
