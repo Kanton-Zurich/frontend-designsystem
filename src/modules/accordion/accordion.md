@@ -10,7 +10,7 @@ Zur Gewährleistung der Barrierefreiheit ist stets die Titelhierarchie in den ei
 
 #### Enthaltene Atome und Module:
 
-(Warnung) Nicht zu verwechseln mit unterstützten Inhalten des Accordions
+(Warnung) Das Accordion-Modul ist nicht zu verwechseln mit den unterstützten «Inhalten» des Accordions.
 * <a href="../../atoms/headings/headings.html">ATM: Heading</a>
 
 
