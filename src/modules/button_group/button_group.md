@@ -1,7 +1,7 @@
 
 ### Beschreibung
  
-Mit der Button Group (tech. «mdl-button_group») lassen sich kontextverwandte Buttons gruppieren. Die Gruppierung kann über Spalten oder Zeilen erfolgen.
+Mit der Button Group (tech. «mdl-button_group») lassen sich Kontext-verwandte Buttons gruppieren. Die Gruppierung kann über Spalten oder Zeilen erfolgen.
 
 Ein Anwendungsbeispiel ist die Button Group im Slider / Carousel (tech. «.mdl-carousel»). 
 

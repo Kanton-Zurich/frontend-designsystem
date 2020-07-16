@@ -1,7 +1,7 @@
 ### Beschreibung
 News Teaser (tech. «.mdl-news-teaser») sind eine für News dedizierte Variation des Teasers (tech. «.mdl-teaser»). Mit der News Übersicht (tech. «.mdl-news-overview») lassen sich News Teaser bündeln damit Nutzende aus mehreren News auswählen können, für sie von Interesse sind. 
  
-Mit Teasern können relevante, weiterführende Inhalte prominent dargestellt werden. Der Teaser ist ein Push-Werkzeug, mit dem Inhalte beworben werden können, z.B. News oder Kampagnen. Er hebt sich optisch von den anderen Inhalten der Seite ab und wird so von den Nutzenden stärker wahrgenommen. Ein Teaser besteht aus einem Text- oder Text-Bild-Element. Die ganze Kachel ist verlinkt.
+<p>Mit Teasern können relevante, weiterführende Inhalte prominent dargestellt werden. Der Teaser ist ein Push-Werkzeug, mit dem Inhalte beworben werden können, z.&#8239B. News oder Kampagnen. Er hebt sich optisch von den anderen Inhalten der Seite ab und wird so von den Nutzenden stärker wahrgenommen. Ein Teaser besteht aus einem Text- oder Text-Bild-Element. Die ganze Kachel ist verlinkt.</p>
  
 #### Enthaltene Atome und Module
 * <a href="../../atoms/headings/headings.html">ATM: Heading</a>

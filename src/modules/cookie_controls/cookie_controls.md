@@ -4,7 +4,7 @@ Cookies können dazu genutzt werden, wiederkehrende Nutzende zu identifizieren u
 #### einige Nutzungsbeispiele
 <ol>
 <li> Die Einstellung zur angezeigten Sprachversion einer Seite: Möchten Nutzende eine Seite in einer bestimmten Sprache angezeigt bekommen oder auch nicht, so kann sich das über die Cookie Controls regeln lassen.
-<li> Bei eingebetteten Videos ist darauf hinzuweisen, dass die externe Quellseite (z.B. youtube) Cookies einsetzen kann. Über die Cookie Controls können Nutzende diesem Verhalten dauerhaft zustimmen oder verneinen.
+<li> Bei eingebetteten Videos ist darauf hinzuweisen, dass die externe Quellseite (z.&#8239B. youtube) Cookies einsetzen kann. Über die Cookie Controls können Nutzende diesem Verhalten dauerhaft zustimmen oder verneinen.
 </ol>
  
 ### Integration
