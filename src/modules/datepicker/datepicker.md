@@ -1,6 +1,6 @@
 ### Beschreibung
 
-Datepicker
+<p>Datumsfelder (tech. «.mdl-datepicker»), auch Datumsauswahl genannt, werden immer dann eingesetzt, wenn Nutzende ein bestimmtes Datum auswählen sollen. Typische Anwendungsfälle sind Inhaltsfilter (z.&#8239B. Publikationen nach Datum anzeigen) sowie auch Formulare (z.&#8239B. Geburtstag eingeben).</p> 
 
 ### Integration
 
@@ -26,4 +26,4 @@ If set, it initialized the plugin with the give date as minimum selectable date
 
 If set, it initialized the plugin with the give date as maximum selectable date
 
-HTML kopieren.
+* HTML kopieren.

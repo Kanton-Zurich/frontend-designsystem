@@ -16,8 +16,8 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     title: 'Über uns',
-    pText1: 'Sie Sicherheitsdirektion und die darunter liegenden Ämter und Bereiche kümmern sich um ein grosens Leistungsspektrum des Kantons. Die folgenden Schwerpunkte liegen uns besonders am Herzen.',
-    pText2: 'Sie Sicherheitsdirektion und die darunter liegenden Ämter und Bereiche kümmern sich um ein grosens Leistungsspektrum des Kantons. Die folgenden Schwerpunkte liegen uns besonders am Herzen.',
+    pText1: 'Die Sicherheitsdirektion und die darunter liegenden Ämter und Bereiche kümmern sich um ein grosens Leistungsspektrum des Kantons. Die folgenden Schwerpunkte liegen uns besonders am Herzen.',
+    pText2: 'Die Sicherheitsdirektion und die darunter liegenden Ämter und Bereiche kümmern sich um ein grosens Leistungsspektrum des Kantons. Die folgenden Schwerpunkte liegen uns besonders am Herzen.',
     infoTitle: 'H4: 20px Black title',
     infoText: 'Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunktfür mobile Geräte eingerichtet – den ersten in der Schweiz.',
     sTitle1: 'Wer wir sind',

@@ -3,7 +3,7 @@
 Das Form Input Atom umfasst alle Variationen der erlaubten Form Inputs für das Kanton Zürich.
 
 #### Floating Label
-Um eine Input-Label "floaten" zu lassen muss man lediglisch die Klasse `atm-form_input--floated` dem umschliessenden DIV-Element hinzufügen.
+Um ein Input-Label «floaten» zu lassen muss man lediglisch die Klasse `atm-form_input--floated` dem umschliessenden DIV-Element hinzufügen.
 
 ```html
 <div class="atm-form_input atm-form_input--floated" data-input>

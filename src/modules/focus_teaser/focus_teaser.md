@@ -1,7 +1,15 @@
 ### Beschreibung
-
+Gibt es im Webauftritt Seiten, die ein Thema besonders detailliert beschreiben (Schwerpunkt-Themen), so kann mit Schwerpunktteasern (tech. «.mdl-focus-teaser») von anderen Seiten darauf verwiesen werden. 
+ 
+Der Schwepunktteaser ist eine Erweiterung der Schwerpunkt Card (tech. «.mdl-focus-card»). Während die Schwerpunkt Card ein einzelnes Element des Schwepunktteasers darstellt, gruppiert der Schwepunktteaser diese Karten und ergänzt sie um Titel und Textbeschreibungen.
+ 
+<p>Mit Teasern können relevante, weiterführende Inhalte prominent dargestellt werden. Der Teaser ist ein Push-Werkzeug, mit dem Inhalte beworben werden können, z.&#8239B. News oder Kampagnen. Er hebt sich optisch von den anderen Inhalten der Seite ab und wird so von den Nutzenden stärker wahrgenommen. Ein Teaser besteht aus einem Text- oder Text-Bild-Element. Die ganze Kachel ist verlinkt.</p> 
+ 
+#### Enthaltene Atome und Module
+* <a href="../focus_card/focus_card.html">MDL: Schwerpunkt Card</a>
+* <a href="../../atoms/headings/headings.html">ATM: Heading</a> 
 
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.

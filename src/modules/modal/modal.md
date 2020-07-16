@@ -1,9 +1,13 @@
 ### Beschreibung
-Dieses Modalfenster wird für die Umsetzung der Service Seite eigesetzt (https://we.one-inside.com/confluence/display/CZHDEV/Story%3A+ST_12+Service)
+Das Modal (tech. «.mdl-modal-page»), auch Modalfenster oder Flyout genannt, wird eingesetzt, wenn Nutzende mit der Webseite interagieren sollen. Inhalte von Modalseiten sind beispielsweise Services, Formulare, Applikationen oder Navigationen. Der Seiteninhalt wird bildschirmfüllend angezeigt. Es entfallen Header, Navigationen sowie Footer.  Der Inhalt kann den zur Verfügung stehenden Platz einnehmen und Nutzende fokussieren sich auf die Interaktion. 
 
-Im Module "Service Liste" wird dieses Modalfenster referenziert
+Die Modalseite öffnet sich beim Klicken eines entsprechenden Buttons. Dieser Button kann auch wie bei der Themennavigation in einem Seitenkopf platziert sein.
+
+Das Modalfenster ist dem Slider / Carousel (Bildergalerie) ähnlich, wird aber nicht für Bilder eingesetzt.
+
+#### Enthaltene Atome und Module
+* MDL: Seitenkopf
+* <a href="../page_header/page_header.html">MDL: Seitenkopf</a>
 
 ### Integration
-
-
-HTML kopieren.
+* HTML kopieren.

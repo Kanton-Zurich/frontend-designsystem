@@ -1,9 +1,8 @@
 ### Beschreibung
 
-Die Sprunglinks sind eine versteckte Navigation, damit Screenreader-User wichtige Seiten und Seitenbereiche schnell anzuspringen können.
-
-Die Belegung ist folgendermassen (gemäss [Empfehlung von der Stiftung «Zugang für alle»](https://www.access-for-all.ch/ch/barrierefreiheit/barrierefreies-webdesign/tools-fuer-barrierefreies-webdesign/accesskeys.html)):
-
+Sprunglinks (tech. «.mdl-skiplinks») sind eine versteckte Navigation, über die Screenreader-User wichtige Seiten und Seitenbereiche anspringen können. Korrekt eingesetzte Sprunglinks sind ein wichtiger Faktor um eine Webseite akzessibel (barrierefrei) zu gestalten. 
+ 
+Die Stiftung «Zugang für alle» empfiehlt folgende Belegung
 * 0: Startseite
 * 1: Navigation
 * 2: Inhalt
@@ -11,7 +10,9 @@ Die Belegung ist folgendermassen (gemäss [Empfehlung von der Stiftung «Zugang 
 * 4: Inhaltsverzeichnis
 * 5: Suche
 * 6: Fussbereich
+ 
+Das Modul Sprunglinks enthält keine weiteren Atome oder Module.
 
 ### Integration
 
-HTML kopieren.
+* HTML kopieren.
