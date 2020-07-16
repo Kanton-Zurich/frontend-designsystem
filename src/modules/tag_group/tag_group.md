@@ -7,7 +7,7 @@ Tags in der Tag Group sind keine (Filter-)Pills. Äusserlich ähnlich, ist die V
 
 Tags in der Tag Group sind keine Filter Tags. Namentlich ähnlich, ist die Verwendung jedoch eine andere. Während Filter Tags in Filter-Suchen verwendet werden und keine Links beinhalten, sind Tags tatsächliche Buttons inklusive Link-Funktionalität. 
 
-Tags in der Tag Group sind keine (CTA-)Buttons (call to action). Zwar sind beides Buttons, jedoch ist die Verwendung eine andere. Während (CTA-)Buttons in Teasern verwendet werden und mit einem  aktiven Verb Nutzende dazu auffordern zu klicken, sind Tags Stichwörter, zum Beispiel zu Themen. Auf der Kantonalen Startseite beispielsweise, sind im Header die Top Themen in einer Tag Group, bestehend aus Tags, vereint.
+Tags in der Tag Group sind keine (CTA-)Buttons (call to action). Zwar sind beides Buttons, jedoch ist die Verwendung eine andere. Während (CTA-)Buttons in Teasern verwendet werden und mit einem  aktiven Verb Nutzende dazu auffordern zu klicken, sind Tags Stichwörter, zum Beispiel zu Themen. Auf der Kantonalen Startseite beispielsweise, sind im Header die Top-Themen in einer Tag Group, bestehend aus Tags, vereint.
 
 ### Integration
 

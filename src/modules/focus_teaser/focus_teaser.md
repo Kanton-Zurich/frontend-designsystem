@@ -1,5 +1,5 @@
 ### Beschreibung
-Gibt es im Webauftritt Seiten die ein Thema besonders detailliert beschreiben (Schwerpunkt-Themen), so kann mit Schwerpunktteasern (tech. «.mdl-focus-teaser») von anderen Seiten darauf verwiesen werden. 
+Gibt es im Webauftritt Seiten, die ein Thema besonders detailliert beschreiben (Schwerpunkt-Themen), so kann mit Schwerpunktteasern (tech. «.mdl-focus-teaser») von anderen Seiten darauf verwiesen werden. 
  
 Der Schwepunktteaser ist eine Erweiterung der Schwerpunkt Card (tech. «.mdl-focus-card»). Während die Schwerpunkt Card ein einzelnes Element des Schwepunktteasers darstellt, gruppiert der Schwepunktteaser diese Karten und ergänzt sie um Titel und Textbeschreibungen.
  

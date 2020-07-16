@@ -7,7 +7,7 @@ Personen Cards sind ergänzend zu den allgemeinen Kontaktangaben mit dem Kontakt
  
 Dieses persönliche Vorstellen hat Einfluss auf die Vertrauenswürdigkeit des Webauftritts.
  
-Das Modul bietet verschiedene Layoutvarianten, mit und ohne Weiterleitungsbutton sowie mit und ohne Bild.
+Das Modul bietet verschiedene Layout-Varianten, mit und ohne Weiterleitungsbutton sowie mit und ohne Bild.
  
  
 #### Enthaltene Atome und Module

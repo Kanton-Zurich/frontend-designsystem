@@ -2,7 +2,7 @@
 
 Mit dem Video-Modul (tech. «.mdl-video») können YouTube-Videos in eine Webseite eingebunden werden. 
 
-Um Webangebote durchgehend accessibel anzubieten, sind auch Videos entsprechend aufzubereiten. Die Legende unter dem Bild ist zwingend und so auch ein von Screenreadern lesbares Transcript des gesprochenen Inhaltes.
+Um Webangebote durchgehend akzessibel anzubieten, sind auch Videos entsprechend aufzubereiten. Die Legende unter dem Bild ist zwingend und so auch ein von Screenreadern lesbares Transcript des gesprochenen Inhaltes.
 
 Sind Stellen des Videos auch mit dem Transkript rein auditiv nicht verständlich, so sind die Inhalte dieser Stellen zusätzlich zu beschreiben.
 

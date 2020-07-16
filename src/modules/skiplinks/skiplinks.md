@@ -1,6 +1,6 @@
 ### Beschreibung
 
-Sprunglinks (tech. «.mdl-skiplinks») sind eine versteckte Navigation, über die Screenreader-User wichtige Seiten und Seitenbereiche anspringen können. Korrekt eingesetzte Sprunglinks sind ein wichtiger Faktor um eine Webseite accessibel (barrierefrei) zu gestalten. 
+Sprunglinks (tech. «.mdl-skiplinks») sind eine versteckte Navigation, über die Screenreader-User wichtige Seiten und Seitenbereiche anspringen können. Korrekt eingesetzte Sprunglinks sind ein wichtiger Faktor um eine Webseite akzessibel (barrierefrei) zu gestalten. 
  
 Die Stiftung «Zugang für alle» empfiehlt folgende Belegung
 * 0: Startseite

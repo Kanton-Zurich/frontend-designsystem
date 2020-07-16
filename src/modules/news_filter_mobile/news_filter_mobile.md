@@ -2,7 +2,7 @@
  
 Das Modul News Filter Mobile für Mobilgeräte (tech. «.mdl-news-filter-mobile») ist eine Modal-Version (Overlay) eines Filters das speziell für Mobilgeräte eingesetzt werden kann.
  
-Nutzende können aus einer Artikelsammlung (wie beispielsweise einer News-Sammlung) die Artikel herausfiltern die für sie von Interesse sind. Die Filterattribute können gesetzt werden.
+Nutzende können aus einer Artikelsammlung (wie beispielsweise einer News-Sammlung) die Artikel herausfiltern, die für sie von Interesse sind. Die Filterattribute können gesetzt werden.
  
 #### Enthaltene Atome und Module
 * <a href="../../atoms/form_input/form_input.html">ATM: Form Input</a>
