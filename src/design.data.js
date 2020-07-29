@@ -61,7 +61,7 @@ const data = _.merge({}, defaultData, {
       descriptionListItems: [
         {
           item: {
-            term: 'Herausgeberin und Bezug',
+            term: 'Herausgeber und Bezug',
             description: 'Regierungsrat',
           },
         },
@@ -74,7 +74,7 @@ const data = _.merge({}, defaultData, {
         {
           item: {
             term: 'Autor',
-            description: 'Kanton Zürich',
+            description: 'Staatskanzlei',
           },
         },
       ],
