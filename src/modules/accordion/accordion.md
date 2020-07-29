@@ -8,9 +8,10 @@ In Accordions lassen sich Module einbinden wie beispielsweise Bild, Download-Lis
 
 Zur Gewährleistung der Barrierefreiheit ist stets die Titelhierarchie in den einzelnen Abschnitten einzuhalten.<br>
 
-#### Enthaltene Atome und Module:
+#### Vorsicht
+* Das Accordion-Modul ist nicht zu verwechseln mit den unterstützten «Inhalten» des Accordions.
 
-(Warnung) Das Accordion-Modul ist nicht zu verwechseln mit den unterstützten «Inhalten» des Accordions.
+#### Enthaltene Atome und Module:
 * <a href="../../atoms/headings/headings.html">ATM: Heading</a>
 
 
@@ -19,5 +20,5 @@ Zur Gewährleistung der Barrierefreiheit ist stets die Titelhierarchie in den ei
 <ul>
 <li>HTML kopieren.
 
-<li>Um <b>URL-Reflection</b> (open/close-state) einzurichten, setzen Sie einfach das optionale accordionPanelID-Konfigurationsattribut oder direkt die ID auf dem Button-Element (Beispiel: person_detail page).
+<li>Um <b>URL-Reflection</b> (open/close-state) einzurichten, setzen Sie einfach das optionale accordionPanelID-Konfigurationsattribut oder direkt die id auf dem Button-Element (Beispiel: person_detail page).
 </ul>
