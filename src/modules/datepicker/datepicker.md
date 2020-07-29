@@ -1,6 +1,6 @@
 ### Beschreibung
 
-<p>Datumsfelder (tech. «.mdl-datepicker»), auch Datumsauswahl genannt, werden immer dann eingesetzt, wenn Nutzende ein bestimmtes Datum auswählen sollen. Typische Anwendungsfälle sind Inhaltsfilter (z.&#8239B. Publikationen nach Datum anzeigen) sowie auch Formulare (z.&#8239B. Geburtstag eingeben).</p> 
+<p>Datumsfelder (tech. «.mdl-datepicker»), auch Datumsauswahl genannt, werden immer dann eingesetzt, wenn Nutzende ein bestimmtes Datum auswählen sollen. Typische Anwendungsfälle sind Inhaltsfilter (z.B. Publikationen nach Datum anzeigen) sowie auch Formulare (z.B. Geburtstag eingeben).</p> 
 
 ### Integration
 

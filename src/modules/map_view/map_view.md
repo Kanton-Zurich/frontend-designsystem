@@ -2,7 +2,7 @@
 
 Die Map View (tech. «.mdl-map-view») oder Kartenansicht, dient der Anzeige von ein oder mehreren Standorten.
 
-<p>Die Map View wird z.&#8239B. eingesetzt in den Modulen Kontakt (contact) oder Standorte (locations).</p>
+<p>Die Map View wird z.B. eingesetzt in den Modulen Kontakt (contact) oder Standorte (locations).</p>
 
 Mit den Zoom Buttons kann der Detaillierungsgrad der Darstellung verändert werden. <br>
 

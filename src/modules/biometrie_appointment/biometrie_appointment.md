@@ -1,6 +1,6 @@
 ### Beschreibung
 
-Das Terminbuchungssystem (tech. «.mdl-biometrie_appointment») ist eine Single Page Application / SPA (tech. «mdl-application»). Sie besteht aus einem Login-Bereich und einem Kalender mit einer Terminübersicht. Eingeloggte Nutzende können in diesem Kalender Termine eintragen oder verschieben. 
+Das Terminbuchungssystem (tech. «.mdl-biometrie_appointment») ist eine Single Page Application (SPA) (tech. «mdl-application»). Sie besteht aus einem Login-Bereich und einem Kalender mit einer Terminübersicht. Eingeloggte Nutzende können in diesem Kalender Termine eintragen oder verschieben. 
 
 Test Token
 ```
