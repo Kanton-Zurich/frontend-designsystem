@@ -74,7 +74,7 @@ const data = _.merge({}, defaultData, {
         {
           item: {
             term: 'Autor',
-            description: 'Feurer Network AG',
+            description: 'Kanton Zürich',
           },
         },
       ],
@@ -82,9 +82,14 @@ const data = _.merge({}, defaultData, {
     linkListItem: {
       linkListItemTitle: 'Download',
       linkListItemIsDownload: true,
-      linkListItemLabel: 'PDF | 1 Seite | DE | 2MB',
-      linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      linkListItemLabel: 'PDF | 124 Seiten | DE | 22 MB',
+      //linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      //linkListItemHref: '<a href="../assets/media/pdf/corporate_design_manual_kanton_zuerich_2014.pdf></a>',
+      linkListItemHref: 'https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/politik-staat/kanton/kantonale-verwaltung/corporate_design_manual_kanton_zuerich_2014.pdf',
     },
+  
+
+
   },
   wrappingElements: {
     pageHeaderData: {
