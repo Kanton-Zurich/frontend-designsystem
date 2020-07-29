@@ -62,7 +62,7 @@ const data = _.merge({}, defaultData, {
         {
           item: {
             term: 'Herausgeberin und Bezug',
-            description: 'Direktion der Justiz und des Innern, Gesundheitsdirektion, Volkswirtschaftsdirektion, Baudirektion  Staatskanzlei des Kantons Zürich.',
+            description: 'Regierungsrat',
           },
         },
         {
