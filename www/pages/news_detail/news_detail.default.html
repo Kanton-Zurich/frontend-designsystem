@@ -1,0 +1,1358 @@
+<!doctype html>
+<html lang="de" class="no-js">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>CZHDEV - Living Styleguide</title>
+	<meta name="description" content="Staatskanzlei Kanton Zürich - Beschreibung">
+	<meta name="format-detection" content="telephone=no">
+
+	<link rel="stylesheet" href="/assets/css/main.min.css">
+	<link rel="stylesheet" href="/assets/css/print.min.css" media="print">
+	<script src="/assets/js/head.min.js"></script>
+	<script type="text/javascript">
+		window.startTracking = function() {
+			console.log('Tracking analytics initialized!');
+		};
+	</script>
+
+
+
+	<link rel="manifest" href="/assets/manifest.json">
+
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="application-name" content="Kanton Zürich">
+	<meta name="apple-mobile-web-app-title" content="Kanton Zürich">
+	<meta name="theme-color" content="#0076BD">
+	<meta name="msapplication-navbutton-color" content="#0076BD">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="msapplication-starturl" content="/">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+
+	<link rel="icon" type="image/png" href="/assets/media/icons/Favicon_48.png">
+
+	<link rel="shortcut icon" sizes="144x144" type="image/png" href="/assets/media/icons/Favicon_144.png">
+	<link rel="shortcut icon" sizes="96x96" type="image/png" href="/assets/media/icons/Favicon_96.png">
+	<link rel="shortcut icon" sizes="48x48" type="image/png" href="/assets/media/icons/Favicon_48.png">
+	<link rel="shortcut icon" sizes="16x16" type="image/png" href="/assets/media/icons/Favicon_16.png">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/assets/media/icons/apple-touch-icon-180x180.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/assets/media/icons/apple-touch-icon-76x76@2x.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/assets/media/icons/apple-touch-icon-72x72@2x.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/assets/media/icons/apple-touch-icon-60x60@2x.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/media/icons/apple-touch-icon-57x57@2x.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/assets/media/icons/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/assets/media/icons/apple-touch-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="57x57" href="/assets/media/icons/apple-touch-icon-57x57.png">
+</head>
+
+<body class="cv-blue" data-svgsprites-options='[&quot;/assets/media/svgsprite/base.svg&quot;]' data-script-main='/assets/js/main.min.js' data-style-fonts='/assets/css/fonts.min.css'>
+	<header class="lyt-wrapper" id="header">
+		<h1 class="visuallyhidden">Navigation</h1>
+		<div class="mdl-skiplinks" data-init="skiplinks">
+			<h2 class="visuallyhidden">Sprunglinks</h2>
+			<ul class="mdl-skiplinks__list">
+				<li class="mdl-skiplinks__item">
+					<a href="/" accesskey="0" class="mdl-skiplinks__link">Startseite</a>
+				</li>
+				<li class="mdl-skiplinks__item">
+					<a href="#navigation" accesskey="1" class="mdl-skiplinks__link">Navigation</a>
+				</li>
+				<li class="mdl-skiplinks__item">
+					<a href="#main" accesskey="2" class="mdl-skiplinks__link">Inhalt</a>
+				</li>
+				<li class="mdl-skiplinks__item">
+					<a href="#contact" accesskey="3" class="mdl-skiplinks__link">Kontakt</a>
+				</li>
+				<li class="mdl-skiplinks__item">
+					<a href="#search" accesskey="5" class="mdl-skiplinks__link">Suche</a>
+				</li>
+				<li class="mdl-skiplinks__item">
+					<a href="#contentinfo" accesskey="6" class="mdl-skiplinks__link">Fussbereich</a>
+				</li>
+			</ul>
+		</div>
+		<div class="grid-x grid-margin-x">
+			<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+				<div class="mdl-header mdl-header--inverted" data-init="header">
+					<div class="lyt-wrapper">
+						<div class="grid-margin-x grid-x">
+							<div class="mdl-header__wrapper cell tiny-offset-2 xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-10">
+								<h2 class="visuallyhidden">Hauptnavigation</h2>
+								<nav id="navigation">
+									<button class="mdl-header__nav-burger" data-menu-burger>
+										<svg class="icon burger" focusable="false">
+											<use xlink:href="#menu-1"></use>
+										</svg>
+										<svg class="icon close" focusable="false">
+											<use xlink:href="#exit"></use>
+										</svg>
+										<span class="mdl-header__nav-burger-text">Menu</span>
+									</button>
+									<ul class="mdl-header__navigation">
+										<li>
+											<button class="mdl-header__nav-item" data-header="openModal" aria-expanded="false" aria-haspopup="true" aria-controls="flyout-topics" data-nav-index="1">
+												Themen
+											</button>
+										</li>
+										<li>
+											<button class="mdl-header__nav-item" data-header="openModal" aria-expanded="false" aria-haspopup="true" aria-controls="flyout-topics" data-nav-index="2">
+												Organisation
+											</button>
+										</li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+					<div class="mdl-header__functions">
+						<button id="search" type="button" class="mdl-header__search atm-button" data-header="openModal" aria-expanded="false" aria-haspopup="true" aria-controls="flyout-search" data-search>
+							<span class="atm-button__text">
+								Suchen
+							</span>
+							<svg class="icon atm-button__icon" focusable="false">
+								<use xlink:href="#inspect"></use>
+							</svg>
+						</button>
+					</div>
+				</div>
+
+				<!-- modal page content -->
+				<div id="flyout-topics" class="mdl-modal  mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog">
+					<div role="document">
+						<button class="mdl-modal__close" data-modal="close">
+							<span class="mdl-modal__close-label">Schliessen</span>
+							<svg focusable="false" class="icon mdl-modal__exit">
+								<use xlink:href="#exit"></use>
+							</svg>
+						</button>
+						<div class="mdl-modal__pages">
+							<div class="mdl-modal__pages-page">
+								<div class="lyt-wrapper">
+									<div class="grid-x grid-margin-x">
+										<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+											<!-- modal content -->
+											<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.json&quot;}'>
+												<div data-topiclist="firstLayer">
+
+
+													<div class="atm-form_input atm-form_input--small
+          " data-input>
+
+
+														<input class="atm-form_input__input" id="topicNavFilter" placeholder="Filtern nach Themen" name="input_name" value="" type="text" data-topiclist="input" data-hasbutton="true" autocomplete="new-password">
+
+														<label for="topicNavFilter">Filtern nach Themen</label>
+
+														<button class="atm-form_input__functionality" type="button" data-buttontype="clear">
+															<span class="visuallyhidden">Lösche Eingabe</span>
+															<svg class="icon" focusable="false">
+																<use xlink:href="#clear"></use>
+															</svg>
+														</button>
+
+
+
+
+
+
+
+													</div>
+
+													<!-- Standard Topiclist -->
+													<div class="
+        mdl-content_nav
+        
+          
+          
+         mdl-topiclist__navigation" data-init="contentNav" aria-live="polite" data-topiclist="navigation">
+														<ul class="mdl-content_nav__list">
+														</ul>
+
+													</div>
+
+													<!-- "Autosuggest" Topiclist" -->
+													<div class="
+          mdl-content_nav
+          
+            
+            
+           mdl-topiclist__autosuggest mdl-content_nav--single-column" data-init="contentNav" aria-live="polite" data-topiclist="autosuggest">
+														<ul class="mdl-content_nav__list">
+														</ul>
+
+														<div class="atm-loading_circle">
+															<span class="atm-loading_circle__spinner"></span>
+														</div>
+													</div>
+
+													<div class="mdl-topiclist__fullwidth-wrapper">
+														<button class="atm-button mdl-topiclist__show-all" data-topiclist="showAllTrigger">
+															Alle anzeigen
+															<svg class="icon atm-button__icon">
+																<use xlink:href="#layer1"></use>
+															</svg>
+														</button>
+													</div>
+												</div>
+
+												<div data-topiclist="furtherLayers">
+												</div>
+
+												<!-- Template scripts -->
+												<!-- Content teaser template -->
+												<script data-topiclist="contentTeaserTemplate" type="text/x-handlebars-template">
+													<a class="atm-content_teaser " href=<%=target%>>
+    <span class="atm-content_teaser__content" data-lineclamp="true">
+      <span class="atm-content_teaser__title">
+        <%= shortTitle %>
+      </span>
+      
+    </span>
+  </a>
+  
+      </script>
+												<!-- No results template -->
+												<script data-topiclist="searchLink" type="text/x-handlebars-template">
+													<a href="<%= path %>" class="mdl-topiclist__search">
+          <svg class="icon" focusable="false">
+            <use xlink:href="#inspect"></use>
+          </svg>
+          <span><%= title %></span>
+        </a>
+      </script>
+												<script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
+													<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
+    <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
+    <div class="mdl-subnavigation__title">
+      <h3 class="atm-heading"><%=title%></h3>
+      <a class="atm-text_link atm-text_link--icon" href="<%=pageUrl%>">
+        Seite anzeigen
+        <svg class="icon icon--iframe-arrow" focusable="false">
+          <use xlink:href="#arrow-right"></use>
+        </svg>
+      </a>
+    </div>
+  
+    <div class="mdl-content_nav" data-subnavigation="contentNav">
+      <ul class="mdl-content_nav__list"></ul>
+    </div>
+  </div>
+  
+      </script>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="mdl-modal__pages-page">
+								<div class="lyt-wrapper">
+									<div class="grid-x grid-margin-x">
+										<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+											<!-- modal content -->
+											<div class="mdl-organisation_navigation" data-init="organisationNavigation">
+
+												<div class="mdl-organisation_navigation__top" data-organisation_navigation="topSection"></div>
+
+												<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.organisations.json&quot;}'>
+													<div data-topiclist="firstLayer">
+
+
+														<div class="atm-form_input atm-form_input--small
+            " data-input>
+
+
+															<input class="atm-form_input__input" id="organisationFilterInput" placeholder="Filtern nach Amt, Direktion" name="input_name" value="" type="text" data-topiclist="input" data-hasbutton="true">
+
+															<label for="organisationFilterInput">Filtern nach Amt, Direktion</label>
+
+															<button class="atm-form_input__functionality" type="button" data-buttontype="clear">
+																<span class="visuallyhidden">Lösche Eingabe</span>
+																<svg class="icon" focusable="false">
+																	<use xlink:href="#clear"></use>
+																</svg>
+															</button>
+
+
+
+
+
+
+
+														</div>
+
+														<!-- Standard Topiclist -->
+														<div class="
+          mdl-content_nav
+          
+            
+            
+           mdl-topiclist__navigation" data-init="contentNav" aria-live="polite" data-topiclist="navigation">
+															<ul class="mdl-content_nav__list">
+															</ul>
+
+														</div>
+
+														<!-- "Autosuggest" Topiclist" -->
+														<div class="
+            mdl-content_nav
+            
+              
+              
+             mdl-topiclist__autosuggest mdl-content_nav--single-column" data-init="contentNav" aria-live="polite" data-topiclist="autosuggest">
+															<ul class="mdl-content_nav__list">
+															</ul>
+
+															<div class="atm-loading_circle">
+																<span class="atm-loading_circle__spinner"></span>
+															</div>
+														</div>
+
+														<div class="mdl-topiclist__fullwidth-wrapper">
+															<button class="atm-button mdl-topiclist__show-all" data-topiclist="showAllTrigger">
+																Alle anzeigen
+																<svg class="icon atm-button__icon">
+																	<use xlink:href="#layer1"></use>
+																</svg>
+															</button>
+														</div>
+													</div>
+
+													<div data-topiclist="furtherLayers">
+													</div>
+
+													<!-- Template scripts -->
+													<!-- Content teaser template -->
+													<script data-topiclist="contentTeaserTemplate" type="text/x-handlebars-template">
+														<a class="atm-content_teaser " href=<%=target%>>
+      <span class="atm-content_teaser__content" data-lineclamp="true">
+        <span class="atm-content_teaser__title">
+          <%= shortTitle %>
+        </span>
+        
+      </span>
+    </a>
+    
+        </script>
+													<!-- No results template -->
+													<script data-topiclist="searchLink" type="text/x-handlebars-template">
+														<a href="<%= path %>" class="mdl-topiclist__search">
+            <svg class="icon" focusable="false">
+              <use xlink:href="#inspect"></use>
+            </svg>
+            <span><%= title %></span>
+          </a>
+        </script>
+													<script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
+														<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
+      <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
+      <div class="mdl-subnavigation__title">
+        <h3 class="atm-heading"><%=title%></h3>
+        <a class="atm-text_link atm-text_link--icon" href="<%=pageUrl%>">
+          Seite anzeigen
+          <svg class="icon icon--iframe-arrow" focusable="false">
+            <use xlink:href="#arrow-right"></use>
+          </svg>
+        </a>
+      </div>
+    
+      <div class="mdl-content_nav" data-subnavigation="contentNav">
+        <ul class="mdl-content_nav__list"></ul>
+      </div>
+    </div>
+    
+        </script>
+												</div>
+
+												<div class="mdl-organisation_navigation__highlight">
+													<div class="lyt-wrapper">
+														<div class="grid-x grid-margin-x">
+															<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8" data-organisation_navigation="bottomSection">
+															</div>
+														</div>
+													</div>
+												</div>
+
+
+												<script data-organisation_navigation="organisationTeaserTemplate" type="text/x-handlebars-template">
+													<div class="mdl-organisation_teaser" data-init="organisationTeaser">
+    <h3 class="atm-heading"><%=orgTitle%></h3>
+    <p class="atm-paragraph"><%=orgLead%> <a class="atm-text_link" href="<%=url%>"><%=moreLabel%></a></p>
+  </div>
+  
+    </script>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- modal page content -->
+				<div id="flyout-search" class="mdl-modal mdl-modal--search mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog" data-modal-options="{&quot;transitionTime&quot;:500}">
+					<div role="document">
+						<button class="mdl-modal__close" data-modal="close">
+							<span class="mdl-modal__close-label">Schliessen</span>
+							<svg focusable="false" class="icon mdl-modal__exit">
+								<use xlink:href="#exit"></use>
+							</svg>
+						</button>
+
+
+						<div class="lyt-wrapper">
+							<div class="grid-x grid-margin-x">
+								<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+									<!-- modal content -->
+									<div class="mdl-search cv-monochrome" data-search-options="{&quot;url&quot;:&quot;/mocks/modules/search/search.json&quot;,&quot;searchPageUrl&quot;:&quot;/pages/search/search.html&quot;}" data-init="search">
+										<div class="mdl-search__head">
+											<svg class="icon mdl-search__icon" focusable="false">
+												<use xlink:href="#inspect"></use>
+											</svg>
+											<form novalidate data-search="form" method="GET" action="/pages/search/search.html">
+												<label class="visuallyhidden" for="query">Suchbegriff</label>
+												<input class="mdl-search__input atm-form_input" type="text" data-search="input" name="q" id="q" placeholder="Suchbegriff" autocomplete="new-password" />
+											</form>
+										</div>
+										<div class="mdl-tag-group mdl-search__tag-group">
+											<h2 class="atm-heading">Meist gesucht</h2>
+											<ul class="mdl-tag-group__tags">
+												<li>
+													<a href="/pages/search/search.html?q=Schulferien 2019" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+														Schulferien 2019
+													</a>
+												</li>
+												<li>
+													<a href="/pages/search/search.html?q=Kurse für Hundehalter" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+														Kurse für Hundehalter
+													</a>
+												</li>
+												<li>
+													<a href="/pages/search/search.html?q=Quellensteuer" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+														Quellensteuer
+													</a>
+												</li>
+												<li>
+													<a href="/pages/search/search.html?q=Handelsregistereintrag" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+														Handelsregistereintrag
+													</a>
+												</li>
+												<li>
+													<a href="/pages/search/search.html?q=Velo" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+														Velo
+													</a>
+												</li>
+												<li>
+													<a href="/pages/search/search.html?q=eAutoindex" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+														eAutoindex
+													</a>
+												</li>
+												<li>
+													<a href="/pages/search/search.html?q=Schulferien 2019" class="atm-anchorlink atm-anchorlink--tag atm-anchorlink--tag-top">
+														Schulferien 2019
+													</a>
+												</li>
+											</ul>
+										</div>
+
+										<div class="
+      mdl-content_nav
+      
+        
+        
+       mdl-search__autosuggest mdl-content_nav--single-column initially-hidden" data-init="contentNav" aria-live="polite" data-search="autosuggest">
+											<ul class="mdl-content_nav__list">
+											</ul>
+
+										</div>
+
+										<script data-search="autosuggestTemplate" type="text/x-handlebars-template">
+											<a class="atm-content_teaser " href=<%=target%>>
+    <span class="atm-content_teaser__content" data-lineclamp="true">
+      <span class="atm-content_teaser__title">
+        <%= shortTitle %>
+      </span>
+      
+    </span>
+  </a>
+  
+    </script>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</header>
+	<main class="lyt-wrapper" id="main">
+		<div class="grid-x grid-margin-x">
+			<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+				<header class="mdl-page-header mdl-page-header--headerimage     " data-init="pageHeader">
+					<div class="lyt-wrapper">
+						<div class="grid-x grid-margin-x">
+							<div class="mdl-page-header__logo-container cell tiny-2 xsmall-2 small-2 medium-2 large-2 xlarge-2">
+								<a href="#">
+									<span class="visuallyhidden">Logo des Kantons Zürich</span>
+									<svg viewBox="0 0 100 100" class="mdl-page-header__logo print-hidden">
+										<use xlink:href="#ktzh"></use>
+									</svg>
+									<svg viewBox="0 0 100 100" class="mdl-page-header__logo screen-hidden">
+										<use xlink:href="#ktzh"></use>
+									</svg>
+								</a>
+							</div>
+							<div class="cell  tiny-10 xsmall-10 small-10 medium-10 large-10 xlarge-10">
+								<div class="mdl-page-header__breadcrumb">
+									<nav>
+										<h2 class="visuallyhidden">Sie sind hier: </h2>
+										<ol class="mdl-breadcrumb mdl-breadcrumb--backlink" data-init="breadcrumb">
+											<li class="mdl-breadcrumb__item
+            mdl-breadcrumb__item--main
+            mdl-breadcrumb__item--active
+          " data-index="0" data-breadcrumb="item">
+												<svg class="icon mdl-breadcrumb__arrow-left" focusable="false">
+													<use xlink:href="#arrow-left"></use>
+												</svg>
+												<a class="mdl-breadcrumb__link" href="../news_overview/news_overview.html">Zurück zur Übersicht</a>
+											</li>
+											<li class="mdl-breadcrumb__item mdl-breadcrumb__hidden-items" data-breadcrumb="ellipsis">
+												<svg class="icon" focusable="false">
+													<use xlink:href="#angle_right"></use>
+												</svg>
+												<button class="mdl-breadcrumb__show-context" data-breadcrumb="showContext">
+													<span class="visuallyhidden">Ausgeblendete Navigationsebenen</span> ...
+												</button>
+												<div class="mdl-context_menu">
+													<div>
+													</div>
+												</div>
+											</li>
+										</ol>
+									</nav>
+								</div>
+								<h1 class="atm-heading mdl-page-header__title">Hochschulgebiet Zürich Zentrum</h1>
+							</div>
+						</div>
+						<div class="grid-x grid-margin-x">
+							<div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
+								<figure class="mdl-image-figure mdl-image-figure--header">
+									<div class="mdl-image-figure__img-wrapper">
+										<img class="mdl-image-figure__img" src="/assets/media/image/header_1440_x15.jpg" srcset="/assets/media/image/header_1440_x15.jpg 1656w, /assets/media/image/header_1024_x15.jpg 1218w, /assets/media/image/header_600_x15.jpg 720w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-figure="image" />
+
+									</div>
+									<figcaption class="mdl-image-figure__caption">
+										<span class="atm-figcaption" data-figcaption="caption">
+											Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+										</span>
+
+									</figcaption>
+								</figure>
+
+
+							</div>
+						</div>
+					</div>
+
+					<div class="mdl-page-header__subsection">
+						<div class="lyt-wrapper">
+							<div class="grid-x grid-margin-x">
+								<div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
+									<p class="mdl-page-header__dateline">
+										<span class="mdl-page-header__news-category">Medienmitteilung</span>
+										08.01.2019
+									</p>
+									<p class="atm-lead">
+										<strong>Das Ziel des Generationenprojekts HGZZ ist es, die Lehre, Forschung und medizinische Versorgung im Hochschulgebiet zu sichern, weiter zu stärken, miteinander die städtebauliche Qualität zu erhöhen und ein lebendiges Hochschulquartier zu schaffen. Die Projektverantwortlichen von Kanton und Stadt Zürich sowie UniversitätsSpital Zürich (USZ), Universität Zürich (UZH) und ETH Zürich haben gemeinsam einen konkreten Einblick auf das künftige Hochschulgebiet gegeben.</strong>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</header>
+			</div>
+			<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+				<figure class="mdl-image-figure">
+					<div class="mdl-image-figure__img-wrapper">
+						<img class="mdl-image-figure__img" src="/assets/media/image/content_768_x15.jpeg" srcset="/assets/media/image/content_768_x15.jpeg 1152w, /assets/media/image/content_444_x15.jpeg 666w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-figure="image" />
+
+					</div>
+					<figcaption class="mdl-image-figure__caption">
+						<span class="atm-figcaption" data-figcaption="caption">
+							Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+						</span>
+
+					</figcaption>
+				</figure>
+				<div class="mdl-linklist ">
+					<ul class="mdl-linklist__list">
+						<li class="mdl-linklist__item">
+							<a class="atm-linklist_item  " href="#" target="__blank">
+
+								<span class="atm-linklist_item__text">
+									<span>Zur Webseite des Hochschulgebiet Zürich Zentrum</span>
+								</span>
+
+								<svg class="icon atm-linklist_item__arrow" focusable="false">
+									<use xlink:href="#arrow-right"></use>
+								</svg>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="mdl-person_card  ">
+					<div class="mdl-person_card__container">
+						<h4 class="mdl-person_card__name">Yvonne Leibundgut</h4>
+						<p class="atm-paragraph mdl-person_card__role">Leiterin Kommunikation</p>
+						<p class="atm-paragraph mdl-person_card__contactinfo">
+							yvonne.leibundgut@bi.zh.ch<br><a href="tel:+41432592312" class="atm-text_link">+41 (0) 43 259 23 12</a><br>Walcheplatz 2, 8090 Zürich<br>Bürozeiten Montag bis Freitag: 08.00 bis 11.00 Uhr und 13.30 bis 16.00 Uhr
+						</p>
+					</div>
+				</div>
+				<div class="mdl-image_gallery mdl-image_gallery--cv-inverted" data-init="imageGallery">
+					<div class="lyt-wrapper" data-image-gallery="gallery">
+						<div class="grid-x grid-margin-x">
+							<h2 class="mdl-image_gallery__title atm-heading atm-heading--bordered cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10">H2: Bildergalerie</h2>
+							<div class="cell tiny-12 medium-6 subgrid">
+								<div class="mdl-image_gallery__image mdl-image_gallery__image--highlight">
+									<figure class="mdl-image-figure">
+										<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+											<img class="mdl-image-figure__img" src="/assets/media/image/gallery-big_640.jpg" srcset="/assets/media/image/gallery-big_640.jpg 960w, /assets/media/image/gallery-big_455.jpeg 682w, /assets/media/image/gallery-big_267.jpeg 400w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+											<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+										</button>
+										<figcaption class="mdl-image-figure__caption">
+											<span class="atm-figcaption" data-figcaption="caption">
+												Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+											</span>
+											<a href="/assets/media/image/gallery-big_640.jpg" download class="mdl-image-figure__download">
+												<svg class="icon mdl-image-figure__download-icon" focusable="false">
+													<use xlink:href="#download"></use>
+												</svg>
+												<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+											</a>
+										</figcaption>
+									</figure>
+								</div>
+							</div>
+							<div class="cell tiny-12 medium-6 subgrid">
+								<ul class="mdl-image_gallery__images grid-x grid-margin-x">
+									<li class="cell tiny-6 subgrid">
+										<figure class="mdl-image-figure">
+											<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+												<img class="mdl-image-figure__img" src="/assets/media/image/gallery-small_300.jpeg" srcset="/assets/media/image/gallery-small_300.jpeg 450w, /assets/media/image/gallery-small_213.jpeg 320w, /assets/media/image/gallery-small_125.jpeg 188w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+												<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+											</button>
+											<figcaption class="mdl-image-figure__caption">
+												<span class="atm-figcaption" data-figcaption="caption">
+													Das ist ein Bild mit grauem Hintergrund und den Dimensionen des Bildes, Quelle: Max Mustermann
+												</span>
+												<a href="/assets/media/image/gallery-small_300.jpeg" download class="mdl-image-figure__download">
+													<svg class="icon mdl-image-figure__download-icon" focusable="false">
+														<use xlink:href="#download"></use>
+													</svg>
+													<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+												</a>
+											</figcaption>
+										</figure>
+									</li>
+									<li class="cell tiny-6 subgrid">
+										<figure class="mdl-image-figure">
+											<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+												<img class="mdl-image-figure__img" src="/assets/media/image/gallery-small_300.jpeg" srcset="/assets/media/image/gallery-small_300.jpeg 450w, /assets/media/image/gallery-small_213.jpeg 320w, /assets/media/image/gallery-small_125.jpeg 188w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+												<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+											</button>
+											<figcaption class="mdl-image-figure__caption">
+												<span class="atm-figcaption" data-figcaption="caption">
+													Das ist ein Bild mit grauem Hintergrund und den Dimensionen des Bildes, Quelle: Max Mustermann
+												</span>
+												<a href="/assets/media/image/gallery-small_300.jpeg" download class="mdl-image-figure__download">
+													<svg class="icon mdl-image-figure__download-icon" focusable="false">
+														<use xlink:href="#download"></use>
+													</svg>
+													<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+												</a>
+											</figcaption>
+										</figure>
+									</li>
+									<li class="cell tiny-6 subgrid">
+										<figure class="mdl-image-figure">
+											<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+												<img class="mdl-image-figure__img" src="/assets/media/image/gallery-small_300.jpeg" srcset="/assets/media/image/gallery-small_300.jpeg 450w, /assets/media/image/gallery-small_213.jpeg 320w, /assets/media/image/gallery-small_125.jpeg 188w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+												<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+											</button>
+											<figcaption class="mdl-image-figure__caption">
+												<span class="atm-figcaption" data-figcaption="caption">
+													Das ist ein Bild mit grauem Hintergrund und den Dimensionen des Bildes, Quelle: Max Mustermann
+												</span>
+												<a href="/assets/media/image/gallery-small_300.jpeg" download class="mdl-image-figure__download">
+													<svg class="icon mdl-image-figure__download-icon" focusable="false">
+														<use xlink:href="#download"></use>
+													</svg>
+													<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+												</a>
+											</figcaption>
+										</figure>
+									</li>
+									<li class="cell tiny-6 subgrid">
+										<figure class="mdl-image-figure">
+											<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+												<img class="mdl-image-figure__img" src="/assets/media/image/gallery-small_300.jpeg" srcset="/assets/media/image/gallery-small_300.jpeg 450w, /assets/media/image/gallery-small_213.jpeg 320w, /assets/media/image/gallery-small_125.jpeg 188w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+												<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+											</button>
+											<figcaption class="mdl-image-figure__caption">
+												<span class="atm-figcaption" data-figcaption="caption">
+													Das ist ein Bild mit grauem Hintergrund und den Dimensionen des Bildes, Quelle: Max Mustermann
+												</span>
+												<a href="/assets/media/image/gallery-small_300.jpeg" download class="mdl-image-figure__download">
+													<svg class="icon mdl-image-figure__download-icon" focusable="false">
+														<use xlink:href="#download"></use>
+													</svg>
+													<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+												</a>
+											</figcaption>
+										</figure>
+									</li>
+								</ul>
+							</div>
+							<div class="cell tiny-12 mdl-image_gallery__more  subgrid">
+								<button class="atm-button atm-button--secondary atm-button--small" data-image-gallery="showMore">
+									<span class="atm-button__text ">
+										Mehr <span class="visuallyhidden">Bilder</span> anzeigen
+									</span>
+									<span class="atm-button__spinner"></span>
+								</button>
+								<ul class="grid-x grid-margin-x mdl-image_gallery__images mdl-image_gallery__more-images" data-image-gallery="more">
+									<li class="cell tiny-6 medium-3 subgrid">
+										<figure class="mdl-image-figure">
+											<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+												<img class="mdl-image-figure__img" src="/assets/media/image/gallery-small_300.jpeg" srcset="/assets/media/image/gallery-small_300.jpeg 450w, /assets/media/image/gallery-small_213.jpeg 320w, /assets/media/image/gallery-small_125.jpeg 188w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+												<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+											</button>
+											<figcaption class="mdl-image-figure__caption">
+												<span class="atm-figcaption" data-figcaption="caption">
+													Das ist ein Bild mit grauem Hintergrund und den Dimensionen des Bildes, Quelle: Max Mustermann
+												</span>
+												<a href="/assets/media/image/gallery-small_300.jpeg" download class="mdl-image-figure__download">
+													<svg class="icon mdl-image-figure__download-icon" focusable="false">
+														<use xlink:href="#download"></use>
+													</svg>
+													<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+												</a>
+											</figcaption>
+										</figure>
+									</li>
+									<li class="cell tiny-6 medium-3 subgrid">
+										<figure class="mdl-image-figure">
+											<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+												<img class="mdl-image-figure__img" src="/assets/media/image/gallery-small_300.jpeg" srcset="/assets/media/image/gallery-small_300.jpeg 450w, /assets/media/image/gallery-small_213.jpeg 320w, /assets/media/image/gallery-small_125.jpeg 188w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+												<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+											</button>
+											<figcaption class="mdl-image-figure__caption">
+												<span class="atm-figcaption" data-figcaption="caption">
+													Das ist ein Bild mit grauem Hintergrund und den Dimensionen des Bildes, Quelle: Max Mustermann
+												</span>
+												<a href="/assets/media/image/gallery-small_300.jpeg" download class="mdl-image-figure__download">
+													<svg class="icon mdl-image-figure__download-icon" focusable="false">
+														<use xlink:href="#download"></use>
+													</svg>
+													<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+												</a>
+											</figcaption>
+										</figure>
+									</li>
+									<li class="cell tiny-6 medium-3 subgrid">
+										<figure class="mdl-image-figure">
+											<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+												<img class="mdl-image-figure__img" src="/assets/media/image/gallery-small_300.jpeg" srcset="/assets/media/image/gallery-small_300.jpeg 450w, /assets/media/image/gallery-small_213.jpeg 320w, /assets/media/image/gallery-small_125.jpeg 188w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+												<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+											</button>
+											<figcaption class="mdl-image-figure__caption">
+												<span class="atm-figcaption" data-figcaption="caption">
+													Das ist ein Bild mit grauem Hintergrund und den Dimensionen des Bildes, Quelle: Max Mustermann
+												</span>
+												<a href="/assets/media/image/gallery-small_300.jpeg" download class="mdl-image-figure__download">
+													<svg class="icon mdl-image-figure__download-icon" focusable="false">
+														<use xlink:href="#download"></use>
+													</svg>
+													<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+												</a>
+											</figcaption>
+										</figure>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="mdl-carousel" data-init="carousel">
+						<div class="mdl-carousel__meta">
+							<button class="mdl-carousel__close" data-carousel="close">
+								<span class="visuallyhidden">Schliessen</span>
+								<svg class="icon" focusable="false">
+									<use xlink:href="#exit"></use>
+								</svg>
+							</button>
+						</div>
+						<div class="mdl-carousel__slides" data-carousel="slide-wrapper">
+							<div class="mdl-carousel__slide" data-carousel="slide">
+								<figure class="mdl-image-figure">
+									<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+										<img class="mdl-image-figure__img" src="/assets/media/image/carousel_1440_x15.jpeg" srcset="/assets/media/image/carousel_1440_x15.jpeg 2160w, /assets/media/image/carousel_1024_x15.jpeg 1536w, /assets/media/image/carousel_600_x15.jpeg 900w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+										<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+									</button>
+									<figcaption class="mdl-image-figure__caption">
+										<span class="atm-figcaption" data-figcaption="caption">
+											Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+										</span>
+										<a href="/assets/media/image/carousel_1440_x15.jpeg" download class="mdl-image-figure__download">
+											<svg class="icon mdl-image-figure__download-icon" focusable="false">
+												<use xlink:href="#download"></use>
+											</svg>
+											<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+										</a>
+									</figcaption>
+								</figure>
+							</div>
+							<div class="mdl-carousel__slide" data-carousel="slide">
+								<figure class="mdl-image-figure">
+									<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+										<img class="mdl-image-figure__img" src="/assets/media/image/carousel_1440_x15.jpeg" srcset="/assets/media/image/carousel_1440_x15.jpeg 2160w, /assets/media/image/carousel_1024_x15.jpeg 1536w, /assets/media/image/carousel_600_x15.jpeg 900w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+										<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+									</button>
+									<figcaption class="mdl-image-figure__caption">
+										<span class="atm-figcaption" data-figcaption="caption">
+											Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+										</span>
+										<a href="/assets/media/image/carousel_1440_x15.jpeg" download class="mdl-image-figure__download">
+											<svg class="icon mdl-image-figure__download-icon" focusable="false">
+												<use xlink:href="#download"></use>
+											</svg>
+											<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+										</a>
+									</figcaption>
+								</figure>
+							</div>
+							<div class="mdl-carousel__slide" data-carousel="slide">
+								<figure class="mdl-image-figure">
+									<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+										<img class="mdl-image-figure__img" src="/assets/media/image/carousel_1440_x15.jpeg" srcset="/assets/media/image/carousel_1440_x15.jpeg 2160w, /assets/media/image/carousel_1024_x15.jpeg 1536w, /assets/media/image/carousel_600_x15.jpeg 900w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+										<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+									</button>
+									<figcaption class="mdl-image-figure__caption">
+										<span class="atm-figcaption" data-figcaption="caption">
+											Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+										</span>
+										<a href="/assets/media/image/carousel_1440_x15.jpeg" download class="mdl-image-figure__download">
+											<svg class="icon mdl-image-figure__download-icon" focusable="false">
+												<use xlink:href="#download"></use>
+											</svg>
+											<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+										</a>
+									</figcaption>
+								</figure>
+							</div>
+							<div class="mdl-carousel__slide" data-carousel="slide">
+								<figure class="mdl-image-figure">
+									<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+										<img class="mdl-image-figure__img" src="/assets/media/image/carousel_1440_x15.jpeg" srcset="/assets/media/image/carousel_1440_x15.jpeg 2160w, /assets/media/image/carousel_1024_x15.jpeg 1536w, /assets/media/image/carousel_600_x15.jpeg 900w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+										<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+									</button>
+									<figcaption class="mdl-image-figure__caption">
+										<span class="atm-figcaption" data-figcaption="caption">
+											Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+										</span>
+										<a href="/assets/media/image/carousel_1440_x15.jpeg" download class="mdl-image-figure__download">
+											<svg class="icon mdl-image-figure__download-icon" focusable="false">
+												<use xlink:href="#download"></use>
+											</svg>
+											<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+										</a>
+									</figcaption>
+								</figure>
+							</div>
+							<div class="mdl-carousel__slide" data-carousel="slide">
+								<figure class="mdl-image-figure">
+									<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+										<img class="mdl-image-figure__img" src="/assets/media/image/carousel_1440_x15.jpeg" srcset="/assets/media/image/carousel_1440_x15.jpeg 2160w, /assets/media/image/carousel_1024_x15.jpeg 1536w, /assets/media/image/carousel_600_x15.jpeg 900w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+										<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+									</button>
+									<figcaption class="mdl-image-figure__caption">
+										<span class="atm-figcaption" data-figcaption="caption">
+											Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+										</span>
+										<a href="/assets/media/image/carousel_1440_x15.jpeg" download class="mdl-image-figure__download">
+											<svg class="icon mdl-image-figure__download-icon" focusable="false">
+												<use xlink:href="#download"></use>
+											</svg>
+											<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+										</a>
+									</figcaption>
+								</figure>
+							</div>
+							<div class="mdl-carousel__slide" data-carousel="slide">
+								<figure class="mdl-image-figure">
+									<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+										<img class="mdl-image-figure__img" src="/assets/media/image/carousel_1440_x15.jpeg" srcset="/assets/media/image/carousel_1440_x15.jpeg 2160w, /assets/media/image/carousel_1024_x15.jpeg 1536w, /assets/media/image/carousel_600_x15.jpeg 900w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+										<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+									</button>
+									<figcaption class="mdl-image-figure__caption">
+										<span class="atm-figcaption" data-figcaption="caption">
+											Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+										</span>
+										<a href="/assets/media/image/carousel_1440_x15.jpeg" download class="mdl-image-figure__download">
+											<svg class="icon mdl-image-figure__download-icon" focusable="false">
+												<use xlink:href="#download"></use>
+											</svg>
+											<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+										</a>
+									</figcaption>
+								</figure>
+							</div>
+							<div class="mdl-carousel__slide" data-carousel="slide">
+								<figure class="mdl-image-figure">
+									<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+										<img class="mdl-image-figure__img" src="/assets/media/image/carousel_1440_x15.jpeg" srcset="/assets/media/image/carousel_1440_x15.jpeg 2160w, /assets/media/image/carousel_1024_x15.jpeg 1536w, /assets/media/image/carousel_600_x15.jpeg 900w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+										<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+									</button>
+									<figcaption class="mdl-image-figure__caption">
+										<span class="atm-figcaption" data-figcaption="caption">
+											Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+										</span>
+										<a href="/assets/media/image/carousel_1440_x15.jpeg" download class="mdl-image-figure__download">
+											<svg class="icon mdl-image-figure__download-icon" focusable="false">
+												<use xlink:href="#download"></use>
+											</svg>
+											<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+										</a>
+									</figcaption>
+								</figure>
+							</div>
+							<div class="mdl-carousel__slide" data-carousel="slide">
+								<figure class="mdl-image-figure">
+									<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+										<img class="mdl-image-figure__img" src="/assets/media/image/carousel_1440_x15.jpeg" srcset="/assets/media/image/carousel_1440_x15.jpeg 2160w, /assets/media/image/carousel_1024_x15.jpeg 1536w, /assets/media/image/carousel_600_x15.jpeg 900w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+										<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+									</button>
+									<figcaption class="mdl-image-figure__caption">
+										<span class="atm-figcaption" data-figcaption="caption">
+											Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+										</span>
+										<a href="/assets/media/image/carousel_1440_x15.jpeg" download class="mdl-image-figure__download">
+											<svg class="icon mdl-image-figure__download-icon" focusable="false">
+												<use xlink:href="#download"></use>
+											</svg>
+											<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+										</a>
+									</figcaption>
+								</figure>
+							</div>
+						</div>
+						<div class="mdl-carousel__control-wrapper">
+							<div class="mdl-carousel__control">
+								<span class="mdl-carousel__indicator" aria-live="polite">
+									<span data-carousel="indicator">1</span> von 8
+									<span class="visuallyhidden" data-carousel="textalternative"></span>
+								</span>
+
+								<ul class="mdl-button_group" data-init="buttonGroup">
+									<li class="mdl-button_group__item">
+										<button class="atm-button atm-button--icon-only atm-button--secondary" data-carousel="prev">
+											<span class="atm-button__text visuallyhidden">
+												Vorheriges Bild
+											</span>
+											<svg class="icon atm-button__icon" focusable="false">
+												<use xlink:href="#angle_left"></use>
+											</svg>
+											<span class="atm-button__spinner"></span>
+										</button>
+									</li>
+									<li class="mdl-button_group__item">
+										<button class="atm-button atm-button--icon-only atm-button--secondary" data-carousel="next">
+											<span class="atm-button__text visuallyhidden">
+												Nächstes Bild
+											</span>
+											<svg class="icon atm-button__icon" focusable="false">
+												<use xlink:href="#angle_right"></use>
+											</svg>
+											<span class="atm-button__spinner"></span>
+										</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mdl-download_list mdl-download_list--margin-bottom" data-init="downloadList">
+					<h2 class="atm-heading mdl-download_list__title">H2: Titel</h2>
+					<ul class="mdl-download_list__list">
+						<li class="mdl-download_list__item">
+							<a class="atm-linklist_item atm-linklist_item--download " href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" download>
+
+								<svg class="icon atm-linklist_item__download" focusable="false">
+									<use xlink:href="#download"></use>
+								</svg>
+								<span class="visuallyhidden">Download</span>
+
+								<span class="atm-linklist_item__text">
+									<span>Dokument</span>
+									<span class="atm-linklist_item__label">PDF | 1 Seite | DE | 2MB
+									</span>
+								</span>
+
+							</a>
+						</li>
+						<li class="mdl-download_list__item">
+							<a class="atm-linklist_item atm-linklist_item--download " href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" download>
+
+								<svg class="icon atm-linklist_item__download" focusable="false">
+									<use xlink:href="#download"></use>
+								</svg>
+								<span class="visuallyhidden">Download</span>
+
+								<span class="atm-linklist_item__text">
+									<span>Dokument</span>
+									<span class="atm-linklist_item__label">PDF | 1 Seite | DE | 2MB
+									</span>
+								</span>
+
+							</a>
+						</li>
+						<li class="mdl-download_list__item">
+							<button class="atm-linklist_item atm-linklist_item--download " aria-expanded="false" data-download_list="openContext">
+
+								<svg class="icon atm-linklist_item__download" focusable="false">
+									<use xlink:href="#download"></use>
+								</svg>
+								<span class="visuallyhidden">Download</span>
+
+								<span class="atm-linklist_item__text">
+									<span>Documents</span>
+									<span class="atm-linklist_item__label">PDF | 1 Seite | DE, FR, IT | 100kB
+									</span>
+								</span>
+
+							</button>
+							<div class="mdl-context_menu" data-download_list="contextMenu">
+								<div>
+									<ul class="mdl-context_menu__list">
+										<li data-item-index="0">
+											<a class="atm-context_menu_item " download href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" data-context-menu="item">
+												<svg class="icon atm-context_menu_item__icon" focusable="false">
+													<use xlink:href="#download"></use>
+												</svg>
+												<span class="visuallyhidden">Download</span>
+												<span class="atm-context_menu_item__label">Deutsch</span>
+											</a>
+										</li>
+										<li data-item-index="1">
+											<a class="atm-context_menu_item " download href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" data-context-menu="item">
+												<svg class="icon atm-context_menu_item__icon" focusable="false">
+													<use xlink:href="#download"></use>
+												</svg>
+												<span class="visuallyhidden">Download</span>
+												<span class="atm-context_menu_item__label">Français</span>
+											</a>
+										</li>
+										<li data-item-index="2">
+											<a class="atm-context_menu_item " download href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" data-context-menu="item">
+												<svg class="icon atm-context_menu_item__icon" focusable="false">
+													<use xlink:href="#download"></use>
+												</svg>
+												<span class="visuallyhidden">Download</span>
+												<span class="atm-context_menu_item__label">Italiano</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li class="mdl-download_list__item">
+							<button class="atm-linklist_item atm-linklist_item--download " aria-expanded="false" data-download_list="openContext">
+
+								<svg class="icon atm-linklist_item__download" focusable="false">
+									<use xlink:href="#download"></use>
+								</svg>
+								<span class="visuallyhidden">Download</span>
+
+								<span class="atm-linklist_item__text">
+									<span>Documents</span>
+									<span class="atm-linklist_item__label">PDF | 1 Seite | DE, FR, IT | 100kB
+									</span>
+								</span>
+
+							</button>
+							<div class="mdl-context_menu" data-download_list="contextMenu">
+								<div>
+									<ul class="mdl-context_menu__list">
+										<li data-item-index="0">
+											<a class="atm-context_menu_item " download href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" data-context-menu="item">
+												<svg class="icon atm-context_menu_item__icon" focusable="false">
+													<use xlink:href="#download"></use>
+												</svg>
+												<span class="visuallyhidden">Download</span>
+												<span class="atm-context_menu_item__label">Deutsch</span>
+											</a>
+										</li>
+										<li data-item-index="1">
+											<a class="atm-context_menu_item " download href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" data-context-menu="item">
+												<svg class="icon atm-context_menu_item__icon" focusable="false">
+													<use xlink:href="#download"></use>
+												</svg>
+												<span class="visuallyhidden">Download</span>
+												<span class="atm-context_menu_item__label">Français</span>
+											</a>
+										</li>
+										<li data-item-index="2">
+											<a class="atm-context_menu_item " download href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" data-context-menu="item">
+												<svg class="icon atm-context_menu_item__icon" focusable="false">
+													<use xlink:href="#download"></use>
+												</svg>
+												<span class="visuallyhidden">Download</span>
+												<span class="atm-context_menu_item__label">Italiano</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div id="news_teaser" class="mdl-news-teaser mdl-news-teaser--more-info" data-init="newsTeaser">
+					<div class="lyt-wrapper">
+						<div class="grid-x grid-margin-x">
+
+							<div class="mdl-news-teaser__content cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-12 small-10 medium-10 large-10 xlarge-10">
+								<div class="mdl-news-teaser__header">
+									<h2 class="atm-heading atm-heading--bordered">
+										News
+									</h2>
+									<a class="atm-text_link atm-text_link--icon" href="#">
+										Alle Beiträge
+										<svg class="icon icon--iframe-arrow" focusable="false">
+											<use xlink:href="#arrow-right"></use>
+										</svg>
+									</a>
+								</div>
+							</div>
+
+
+							<div class="mdl-news-teaser__content cell tiny-12
+            
+            
+            small-12 medium-12 large-12 xlarge-12">
+								<ul>
+									<li class="mdl-news-teaser__item">
+										<a href="../../pages/news_detail/news_detail.html">
+											<h3 class="atm-heading" data-lineclamp="true">
+												Winterthur: Unbekannter Zeigerdereferenzierungsoperator raubt Tankstellen-Shop aus
+											</h3>
+
+											<p class="mdl-news-teaser__item-label">
+												Medienmitteilung
+												<time datetime="">14.12.2018</time>
+											</p>
+
+											<div class="mdl-news-teaser__item-image">
+												<figure class="mdl-image-figure">
+													<div class="mdl-image-figure__img-wrapper">
+														<img class="mdl-image-figure__img" src="../../assets/media/image/news_teaser_316x178_x15.jpeg" alt="" />
+													</div>
+												</figure>
+											</div>
+
+										</a>
+									</li>
+									<li class="mdl-news-teaser__item">
+										<a href="../../pages/news_detail/news_detail.html">
+											<h3 class="atm-heading" data-lineclamp="true">
+												Vekehrsabgaben 2019
+											</h3>
+
+											<time class="mdl-news-teaser__date" datetime="">14.12.2018</time>
+
+
+											<p data-lineclamp="true" class="atm-paragraph">Alle Infos zu Verkehrsabgabenrechener, Fristen, Ratenzahlung etc</p>
+										</a>
+									</li>
+									<li class="mdl-news-teaser__item">
+										<a href="../../pages/news_detail/news_detail.html">
+											<h3 class="atm-heading" data-lineclamp="true">
+												Weiningen: Vermisstmeldung - Willi Müller
+											</h3>
+
+											<p class="mdl-news-teaser__item-label">
+												Medienmitteilung
+												<time datetime="">14.12.2018</time>
+											</p>
+
+											<div class="mdl-news-teaser__item-image">
+												<figure class="mdl-image-figure">
+													<div class="mdl-image-figure__img-wrapper">
+														<img class="mdl-image-figure__img" src="../../assets/media/image/news_teaser_316x178_x15.jpeg" alt="" />
+													</div>
+												</figure>
+											</div>
+
+										</a>
+									</li>
+								</ul>
+							</div>
+
+							<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-12 small-10 medium-10 large-10 xlarge-8">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mdl-tag-group mdl-tag-group--wrapped">
+					<div class="lyt-wrapper">
+						<div class="grid-x grid-margin-x">
+							<div class="mdl-tag-group__content cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-10 large-10 xlarge-10">
+								<h2 class="atm-heading">Für dieses Thema zuständig:</h2>
+								<ul class="mdl-tag-group__tags">
+									<li>
+										<a href="#" class="atm-anchorlink atm-anchorlink--inverted atm-anchorlink--tag atm-anchorlink--tag-top atm-anchorlink--tag-top-small">
+											Amt für Raumentwicklung
+										</a>
+									</li>
+									<li>
+										<a href="#" class="atm-anchorlink atm-anchorlink--inverted atm-anchorlink--tag atm-anchorlink--tag-top atm-anchorlink--tag-top-small">
+											Strassenverkehrsamt
+										</a>
+									</li>
+									<li>
+										<a href="#" class="atm-anchorlink atm-anchorlink--inverted atm-anchorlink--tag atm-anchorlink--tag-top atm-anchorlink--tag-top-small">
+											Kantonspolizei
+										</a>
+									</li>
+									<li>
+										<a href="#" class="atm-anchorlink atm-anchorlink--inverted atm-anchorlink--tag atm-anchorlink--tag-top atm-anchorlink--tag-top-small">
+											Koordinationsstelle Velo
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer class="lyt-wrapper" id="footer">
+		<div class="grid-x grid-margin-x">
+			<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+				<h1 class="visuallyhidden">Fussbereich</h1>
+				<div id="contentinfo" class="mdl-footer" data-init="footer">
+					<div class="lyt-wrapper">
+						<div class="grid-margin-x grid-x">
+							<div class="cell tiny-12 xsmall-12 small-10 medium-10 large-10 xlarge-10 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2">
+								<div class="mdl-footer__content">
+									<h2 class="mdl-footer__title atm-heading">Kanton Zürich</h2>
+									<ul class="mdl-footer__menu">
+										<li>
+											<a href="#contact">Kontakt</a>
+										</li>
+										<li>
+											<a href="#">Medien</a>
+										</li>
+										<li>
+											<a href="#">Aktuell</a>
+										</li>
+										<li>
+											<a href="#">Jobs</a>
+										</li>
+										<li>
+											<a href="#">Veranstaltungen</a>
+										</li>
+									</ul>
+
+									<ul class="mdl-footer__submenu">
+										<li class="mdl-footer__copyright">
+											<p>©2020 Kanton Zürich</p>
+										</li>
+										<li>
+											<a href="#">Datenschutz</a>
+										</li>
+										<li>
+											<a href="#">Impressum</a>
+										</li>
+										<li>
+											<a href="#">Rechtliche Hinweise</a>
+										</li>
+									</ul>
+
+									<div class="mdl-footer__social-media">
+										<div class="mdl-social-media-links" data-init="socialMediaLinks">
+											<h3 class="atm-heading">Folgen Sie dem Kanton auf</h3>
+
+											<ul>
+												<li class="mdl-social-media-links__item">
+													<a href="#" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
+														<span class="atm-button__text visuallyhidden">
+															Facebook
+														</span>
+														<img src="../../assets/media/image/facebook.svg" alt="">
+													</a>
+												</li>
+												<li class="mdl-social-media-links__item">
+													<a href="#" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
+														<span class="atm-button__text visuallyhidden">
+															Twitter
+														</span>
+														<img src="../../assets/media/image/twitter.svg" alt="">
+													</a>
+												</li>
+												<li class="mdl-social-media-links__item">
+													<a href="#" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
+														<span class="atm-button__text visuallyhidden">
+															LinkedIn
+														</span>
+														<img src="../../assets/media/image/linkedIn.svg" alt="">
+													</a>
+												</li>
+												<li class="mdl-social-media-links__item">
+													<a href="#" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
+														<span class="atm-button__text visuallyhidden">
+															YouTube
+														</span>
+														<img src="../../assets/media/image/youtube.svg" alt="">
+													</a>
+												</li>
+											</ul>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="mdl-back2top" data-init="back2top">
+					<div class="mdl-back2top__icon">
+						<button class="atm-button atm-button--icon-only">
+							<span class="atm-button__text visuallyhidden">
+								Button
+							</span>
+							<svg class="icon atm-button__icon" focusable="false">
+								<use xlink:href="#arrow-up"></use>
+							</svg>
+							<span class="atm-button__spinner"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+
+</html>
