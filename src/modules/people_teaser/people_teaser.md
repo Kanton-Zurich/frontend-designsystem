@@ -5,10 +5,10 @@ Verantwortliche, Ansprechpersonen und Teams können mit Personen Teasern ihre Di
  
 Der Personen Teaser ist eine Erweiterung der Personen Card (tech. «.mdl-person_card»). Während die Personen Card ein einzelnes Element des Personen Teasers darstellt, gruppiert der Personen Teaser diese Karten und ergänzt sie um Titel und Textbeschreibungen.
  
-<p>Mit Teasern können relevante, weiterführende Inhalte prominent dargestellt werden. Der Teaser ist ein Push-Werkzeug, mit dem Inhalte beworben werden können, z.&#8239B. News oder Kampagnen. Er hebt sich optisch von den anderen Inhalten der Seite ab und wird so von den Nutzenden stärker wahrgenommen. Ein Teaser besteht aus einem Text- oder Text-Bild-Element. Die ganze Kachel ist verlinkt.</p>
+<p>Mit Teasern können relevante, weiterführende Inhalte prominent dargestellt werden. Der Teaser ist ein Push-Werkzeug, mit dem Inhalte beworben werden können, z.B. News oder Kampagnen. Er hebt sich optisch von den anderen Inhalten der Seite ab und wird so von den Nutzenden stärker wahrgenommen. Ein Teaser besteht aus einem Text- oder Text-Bild-Element. Die ganze Kachel ist verlinkt.</p>
  
 ####  Enthaltene Atome und Module
-* <a href="../person_card/person_card.html">MDL: Personen Card/a>
+* <a href="../person_card/person_card.html">MDL: Personen Card</a>
 * <a href="../../atoms/headings/headings.html">ATM: Heading</a>
 * <a href="../richtext/richtext.html">MDL: Text</a>
 

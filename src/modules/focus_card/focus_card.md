@@ -13,4 +13,4 @@ Schwerpunkt Cards sind Bestandteile des Schwerpunkt Teasers (tech. «.mdl-focus-
 
 * HTML kopieren.
 
-Die Bilder in Schwerpunkt-Teaser sollten ein leeres alt-Attribut haben, nicht den hinterlegten Alternativtext für das Bild. Teaser-Bilder gelten als dekorativ.
+Die Bilder in Schwerpunkt-Teasern sollten ein leeres alt-Attribut haben, nicht den hinterlegten Alternativtext für das Bild. Teaser-Bilder gelten als dekorativ.

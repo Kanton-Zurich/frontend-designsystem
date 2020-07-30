@@ -16,7 +16,7 @@ Die Kontakt-Ergebnisse werden als Link-Liste angezeigt, der Standort wird auf ei
 
  
 #### Vorsicht
-* (!) Da der Living Styleguide zur selben Zeit mehrere Varianten unterstützt, wird die Karte bei folgenden Varianten nicht korrekt angezeigt. Dies kann ignoriert werden.
+* Da der Living Styleguide zur selben Zeit mehrere Varianten unterstützt, wird die Karte bei folgenden Varianten nicht korrekt angezeigt. Dies kann ignoriert werden.
  
 ### Integration
 * HTML kopieren.

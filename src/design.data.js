@@ -61,29 +61,30 @@ const data = _.merge({}, defaultData, {
       descriptionListItems: [
         {
           item: {
-            term: 'Herausgeberin und Bezug',
-            description: 'Direktion der Justiz und des Innern, Gesundheitsdirektion, Volkswirtschaftsdirektion, Baudirektion  Staatskanzlei des Kantons Zürich.',
+            term: 'Herausgeber und Bezug',
+            description: 'Regierungsrat',
           },
         },
         {
           item: {
             term: 'Publikationsdatum',
-            description: '14. Mai 2014',
+            description: 'Juni 2014',
           },
         },
         {
           item: {
             term: 'Autor',
-            description: 'Feurer Network AG',
+            description: 'Staatskanzlei',
           },
         },
       ],
     },
     linkListItem: {
       linkListItemTitle: 'Download',
+      target: 'blank',
       linkListItemIsDownload: true,
-      linkListItemLabel: 'PDF | 1 Seite | DE | 2MB',
-      linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      linkListItemLabel: 'PDF | 124 Seiten | DE | 22 MB',
+      linkListItemHref: 'https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/politik-staat/kanton/kantonale-verwaltung/corporate_design_manual_kanton_zuerich_2014.pdf',
     },
   },
   wrappingElements: {
