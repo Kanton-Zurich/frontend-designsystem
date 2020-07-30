@@ -3,10 +3,9 @@ Das Modal (tech. «.mdl-modal-page»), auch Modalfenster oder Flyout genannt, wi
 
 Die Modalseite öffnet sich beim Klicken eines entsprechenden Buttons. Dieser Button kann auch wie bei der Themennavigation in einem Seitenkopf platziert sein.
 
-Das Modalfenster ist dem Slider / Carousel (Bildergalerie) ähnlich, wird aber nicht für Bilder eingesetzt.
+Das Modalfenster ist dem Slider/Carousel (Bildergalerie) ähnlich, wird aber nicht für Bilder eingesetzt.
 
 #### Enthaltene Atome und Module
-* MDL: Seitenkopf
 * <a href="../page_header/page_header.html">MDL: Seitenkopf</a>
 
 ### Integration
