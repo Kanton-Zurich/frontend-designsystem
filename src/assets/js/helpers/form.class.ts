@@ -259,7 +259,7 @@ class Form {
 
   validateField(field) { //eslint-disable-line
     if (this.ui.element.hasAttribute('is-reset')) {
-      return false;
+      return true;
     }
 
     const validation = window[namespace].form.validateField(field);
@@ -275,39 +275,43 @@ class Form {
 
       if (validation.validationResult) {
         this.setValidClasses(field);
-      } else {
-        this.setValidClasses(field, ['add', 'remove']);
-        let messageElementID: string;
 
-        validation.messages.forEach((messageID) => {
-          const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
-
-          if (message) {
-            if ((field.getAttribute('type') === 'radio') || (field.hasAttribute(this.options.selectOptionSelector))) {
-              messageElementID = `${field.getAttribute('name')}__${messageID}-error`;
-            } else {
-              messageElementID = `${field.id}__${messageID}-error`;
-            }
-            message.classList.add('show');
-            message.setAttribute('id', messageElementID);
-            field.setAttribute('aria-describedby', messageElementID);
-          }
-        });
-
-        if (validation.files) {
-          setTimeout(() => {
-            validation.files.forEach((validationResult) => {
-              const fileContainer = field.closest(this.options.inputSelector).querySelector(`[data-file-id="${validationResult.id}"]`);
-
-              validationResult.errors.forEach((error) => {
-                fileContainer.querySelector(`[data-message="${error}"]`).classList.add('show');
-              });
-            });
-          }, fileTimeout);
-        }
-
-        this.ui.element.setAttribute('form-has-errors', 'true');
+        return true;
       }
+
+      this.setValidClasses(field, ['add', 'remove']);
+      let messageElementID: string;
+
+      validation.messages.forEach((messageID) => {
+        const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
+
+        if (message) {
+          if ((field.getAttribute('type') === 'radio') || (field.hasAttribute(this.options.selectOptionSelector))) {
+            messageElementID = `${field.getAttribute('name')}__${messageID}-error`;
+          } else {
+            messageElementID = `${field.id}__${messageID}-error`;
+          }
+          message.classList.add('show');
+          message.setAttribute('id', messageElementID);
+          field.setAttribute('aria-describedby', messageElementID);
+        }
+      });
+
+      if (validation.files) {
+        setTimeout(() => {
+          validation.files.forEach((validationResult) => {
+            const fileContainer = field.closest(this.options.inputSelector).querySelector(`[data-file-id="${validationResult.id}"]`);
+
+            validationResult.errors.forEach((error) => {
+              fileContainer.querySelector(`[data-message="${error}"]`).classList.add('show');
+            });
+          });
+        }, fileTimeout);
+      }
+
+      this.ui.element.setAttribute('form-has-errors', 'true');
+
+      return false;
     }
   }
 
@@ -340,16 +344,19 @@ class Form {
 
   validateSection(event) {
     const formSections = event.detail.sections;
+    let errorsInSections = 0;
 
     formSections.forEach((section) => {
       const fieldsInSection = section.querySelectorAll(this.options.watchEmitters.input);
 
-      fieldsInSection.forEach(this.validateField.bind(this));
+      fieldsInSection.forEach((field) => {
+        errorsInSections = !this.validateField(field)
+          ? errorsInSections += 1
+          : errorsInSections;
+      });
     });
 
-    const errorsInFields = this.ui.element.querySelectorAll(`.${this.options.inputClasses.invalid}`).length > 0;
-
-    if (errorsInFields) {
+    if (errorsInSections > 0) {
       this.ui.element.setAttribute('form-has-errors', 'true');
     } else {
       this.ui.element.removeAttribute('form-has-errors');
