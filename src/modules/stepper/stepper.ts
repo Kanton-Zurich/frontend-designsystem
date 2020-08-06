@@ -260,27 +260,19 @@ class Stepper extends Module {
    */
   setOnPageChangeFocus() {
     const step = this.ui.steps[this.data.active];
-    const stepTitles = step.querySelectorAll('.form__section-title');
 
-    if (stepTitles.length > 0) {
-      const amountOfStepTitles = stepTitles.length;
-      let iterator = 0;
-      let elementIsVisible = false;
-
-      do {
-        elementIsVisible = stepTitles[iterator].offsetWidth && stepTitles[iterator].offsetHeight;
-
-        if (elementIsVisible) stepTitles[iterator].focus();
-
-        iterator += 1;
-      } while (iterator < amountOfStepTitles && !elementIsVisible);
+    if (this.ui.navigation) {
+      this.ui.navigation.querySelector<HTMLButtonElement>('.mdl-stepper_navigation__step--active').focus();
     } else {
       step.querySelector('.mdl-notification').focus();
     }
+    this.updateFlyingFocus();
   }
 
   validateSection() {
     const sections = this.nextStepIsLast() ? [this.ui.lastpage, ...Array.prototype.slice.call(this.ui.steps[this.data.active].querySelectorAll('fieldset'))] : this.ui.steps[this.data.active].querySelectorAll('fieldset');
+
+    this.ui.form.removeAttribute('form-has-errors');
 
     this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
       detail: {
@@ -296,12 +288,14 @@ class Stepper extends Module {
       let errors = 0;
 
       pages.forEach((page) => {
-        errors += page.querySelectorAll('invalid').length;
+        errors += page.querySelectorAll('.invalid').length;
       });
 
       if (errors > 0) {
         // Focus the first invalid error field for accessibility reasons
-        pages[0].querySelector('input, textarea, .atm-form_input__input--trigger').focus();
+        const firstInvalidField = this.ui.steps[this.data.active].querySelector('.invalid');
+        firstInvalidField.querySelector('input, textarea, .atm-form_input__input--trigger').focus();
+        this.scrollTo(firstInvalidField);
       }
     }, 1);
   }
@@ -311,11 +305,6 @@ class Stepper extends Module {
       this.validateSection();
 
       if (this.ui.form.hasAttribute('form-has-errors')) {
-        const firstInvalidField = this.ui.steps[this.data.active].querySelector('.invalid');
-
-        firstInvalidField.focus();
-        this.scrollTo(firstInvalidField);
-
         return false;
       }
     }
