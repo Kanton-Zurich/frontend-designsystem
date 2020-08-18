@@ -108,7 +108,7 @@ class Topiclist extends Module {
     this.options.hasFilter = typeof this.ui.input !== typeof undefined;
 
     this.data.isNav = this.ui.element.classList.contains(this.options.stateClasses.nav);
-    this.data.isInMainNavigation = this.ui.element.closest('.mdl-modal') && !this.ui.element.closest('.mdl-organisation_navigation');
+    this.data.isInMainNavigation = this.ui.element.closest('.mdl-modal');
 
     this.initUi();
     this.initEventListeners();
