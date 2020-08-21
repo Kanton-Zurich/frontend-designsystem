@@ -252,9 +252,11 @@ class Datepicker extends Module {
 
   // Reset the field, when the form is reset
   addResetListener() {
-    this.flatpickr.form.addEventListener('reset', () => {
-      this.flatpickr.setDate(null, true);
-    });
+    if (this.flatpickr.form) {
+      this.flatpickr.form.addEventListener('reset', () => {
+        this.flatpickr.setDate(null, true);
+      });
+    }
   }
 
   /**
