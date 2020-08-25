@@ -1,4 +1,4 @@
-# CZHDEV 
+# CZHDEV - Go Live 1.0 Release Branch
 
 Kanton Zürich Estatico Nuo Living Styleguide
 
