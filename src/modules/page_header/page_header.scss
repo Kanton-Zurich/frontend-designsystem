@@ -91,7 +91,7 @@ $pageHeaderCurves: (
     xsmall: ($sizeSmallHuge + $sizeFontMedium + $sizeBig + $sizeTiny),
     medium : ($sizeHuge + $sizeFontMedium + $sizeBig + $sizeTiny),
     xlarge: ($sizeHuge + $sizeFontMedium + $sizeBiggerBig + $sizeTiny),
-  ),
+  )
 );
 
 
@@ -313,9 +313,9 @@ $pageHeaderCurves: (
       .atm-anchorlink--tag-top {
         margin-bottom: 0;
         margin-top: $sizeTiny;
+        font-size: $sizeFontBiggerRegular;
 
         @include mq($from: tiny, $to: medium) {
-          font-size: $sizeFontRegular;
           padding: 0 $sizeSmallRegular;
           height: $sizeBig;
           line-height: $sizeBig;
