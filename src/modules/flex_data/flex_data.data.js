@@ -23,8 +23,8 @@ const data = _.merge({}, defaultData, {
     notificationData: _.merge({}, defNotificationData, {
       message: 'Beim Laden der Daten ist ein Fehler aufgetreten!',
     }),
-    resultCountTitle: '%1 Treffer zu ihrer Abfrage',
-    resultCountTitleMore: 'Mehr als %1 Treffer zu ihrer Abfrage',
+    resultCountTitle: '%1 Treffer zu ihrer Anfrage',
+    resultCountTitleMore: 'Mehr als %1 Treffer zu ihrer Anfrage',
     noResultsTitle: 'Es wurden keine Ergebnisse gefunden. Bitte passen Sie Ihre Suche an.',
   },
 });
