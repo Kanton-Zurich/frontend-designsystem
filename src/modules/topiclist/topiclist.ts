@@ -17,6 +17,7 @@ class Topiclist extends Module {
     hasFilter: Boolean,
     inputDelay: number,
     maxEntries: number,
+    maxLayer: number,
     domSelectors: {
       showAllButton: string,
       contentNavItems: string,
@@ -48,6 +49,7 @@ class Topiclist extends Module {
     },
     filteredPages: any,
     currentLayer: number,
+    isInMainNavigation: boolean,
   }
 
   public ui: {
@@ -77,6 +79,7 @@ class Topiclist extends Module {
     const defaultOptions = {
       hasFilter: false,
       maxEntries: 8,
+      maxLayer: 2,
       domSelectors: {
         showAllButton: '[data-topiclist="showAllTrigger"]',
         contentNavItems: '[data-init="topiclist"] .mdl-content_nav > ul > li',
@@ -105,6 +108,7 @@ class Topiclist extends Module {
     this.options.hasFilter = typeof this.ui.input !== typeof undefined;
 
     this.data.isNav = this.ui.element.classList.contains(this.options.stateClasses.nav);
+    this.data.isInMainNavigation = this.ui.element.closest('.mdl-modal');
 
     this.initUi();
     this.initEventListeners();
@@ -225,6 +229,7 @@ class Topiclist extends Module {
    */
   renderNavigation() {
     const { middleSection } = this.data.json.pages;
+    const maxLayer = this.data.isInMainNavigation ? this.options.maxLayer - 1 : Infinity;
 
     this.ui.navigation.querySelector('ul').innerHTML = '';
 
@@ -232,7 +237,7 @@ class Topiclist extends Module {
       this.renderContentTeaser(this.ui.navigation, {
         shortTitle: topic.shortTitle,
         buzzwords: topic.keywords,
-        target: Object.prototype.hasOwnProperty.call(topic, 'subpages') ? '' : topic.path,
+        target: Object.prototype.hasOwnProperty.call(topic, 'subpages') && this.data.currentLayer <= maxLayer ? '' : topic.path,
       }, Object.prototype.hasOwnProperty.call(topic, 'subpages'),
       topic);
     });
