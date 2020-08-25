@@ -37,6 +37,7 @@ const variants = _.mapValues({
     },
     props: {
       modalId: 'service-modal-01',
+      closeButtonLabel: 'Schliessen',
       dynamicHeader: true,
       modules: {
         servicePageHeaderData: {
@@ -158,6 +159,7 @@ const variants = _.mapValues({
     },
     props: {
       modalId: 'flyout-topics',
+      closeButtonLabel: '<span class="visuallyhidden">Menu Themen </span>Schliessen',
       mainNavigation: true,
       paging: true,
       modules: {
@@ -175,6 +177,7 @@ const variants = _.mapValues({
     },
     props: {
       modalId: 'flyout-organisation',
+      closeButtonLabel: '<span class="visuallyhidden">Menu Organisation </span>Schliessen',
       mainNavigation: true,
       modules: {
         contentModules: [
@@ -190,6 +193,7 @@ const variants = _.mapValues({
     },
     props: {
       modalId: 'flyout-search',
+      closeButtonLabel: '<span class="visuallyhidden">Suche </span>Schliessen',
       mainNavigation: true,
       isSearch: true,
       modules: {
