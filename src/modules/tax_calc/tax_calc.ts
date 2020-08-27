@@ -132,7 +132,7 @@ class TaxCalc extends Module {
               () => {
                 this.toNextFormSection();
               },
-              (reason) => {
+              () => {
                 // this.log('Failed to prepare form', reason);
                 this.activateFormSection(0);
               },
