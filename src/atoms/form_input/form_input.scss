@@ -47,6 +47,9 @@ $triggerWidth: pxToRem(86px);
     border-radius: 2px;
     order: 1;
 
+    // Remove iOS Shadow
+    -webkit-appearance: none; //stylelint-disable-line
+
     &:focus {
       outline: none;
       border-color: $colorCyan;
