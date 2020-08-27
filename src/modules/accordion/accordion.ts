@@ -303,6 +303,9 @@ class Accordion extends Module {
    */
   initEventListeners() {
     (<any>WindowEventListener).addDebouncedResizeListener(this.checkForOpen.bind(this));
+    window.addEventListener('hashchange', () => {
+      this.checkURL();
+    }, false);
 
     this.eventDelegate.on('keydown', this.options.domSelectors.trigger, this.handleKeyOnTrigger.bind(this));
     this.eventDelegate.on('click', this.options.domSelectors.trigger, this.toggleItem.bind(this));
