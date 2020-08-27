@@ -110,6 +110,10 @@ class Accordion extends Module {
     this.data.idTriggers.forEach((trigger) => {
       if (urlParameter === trigger.id && trigger.item.getAttribute('aria-expanded') === 'false') {
         trigger.item.click();
+
+        trigger.item.scrollIntoView({
+          behavior: 'smooth',
+        });
       }
     });
   }
@@ -299,6 +303,9 @@ class Accordion extends Module {
    */
   initEventListeners() {
     (<any>WindowEventListener).addDebouncedResizeListener(this.checkForOpen.bind(this));
+    window.addEventListener('hashchange', () => {
+      this.checkURL();
+    }, false);
 
     this.eventDelegate.on('keydown', this.options.domSelectors.trigger, this.handleKeyOnTrigger.bind(this));
     this.eventDelegate.on('click', this.options.domSelectors.trigger, this.toggleItem.bind(this));
