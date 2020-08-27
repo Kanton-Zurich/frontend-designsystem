@@ -333,7 +333,7 @@ $zIndexScaffolds: 100; // for fixed header/ footer
 $zIndexOverlays: 1000;
 $zIndexFlyouts: 1100;
 $zIndexSkiplinks: 2000;
-$zIndexFlyingFocus: 9999;
+$zIndexFlyingFocus: $zIndexFlyouts - 1;
 
 // Loading Circle
 $loadingMinHeight: 200px;
