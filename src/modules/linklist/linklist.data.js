@@ -68,6 +68,15 @@ const variants = _.mapValues({
       desc: 'Implementation without title',
     },
   },
+  noTitleLast: {
+    meta: {
+      title: 'Without title',
+      desc: 'Implementation without title',
+    },
+    props: {
+      isLast: true,
+    },
+  },
   noTitleAlt: {
     meta: {
       title: 'Without title',
