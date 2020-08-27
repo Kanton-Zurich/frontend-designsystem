@@ -438,6 +438,12 @@
 
     transform: translateX(#{$translateLeft}) translateX(#{$additionalRem});
   }
+
+  @media print {
+    transform: none;
+    max-width: 100%;
+    margin-left: 0;
+  }
 }
 
 /**
