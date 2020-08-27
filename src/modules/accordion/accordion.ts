@@ -110,6 +110,10 @@ class Accordion extends Module {
     this.data.idTriggers.forEach((trigger) => {
       if (urlParameter === trigger.id && trigger.item.getAttribute('aria-expanded') === 'false') {
         trigger.item.click();
+
+        trigger.item.scrollIntoView({
+          behavior: 'smooth',
+        });
       }
     });
   }
