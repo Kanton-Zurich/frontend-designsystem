@@ -79,7 +79,7 @@ class Topiclist extends Module {
     const defaultOptions = {
       hasFilter: false,
       maxEntries: 8,
-      maxLayer: 2,
+      maxLayer: 1,
       domSelectors: {
         showAllButton: '[data-topiclist="showAllTrigger"]',
         contentNavItems: '[data-init="topiclist"] .mdl-content_nav > ul > li',
@@ -229,15 +229,12 @@ class Topiclist extends Module {
    */
   renderNavigation() {
     const { middleSection } = this.data.json.pages;
-    const maxLayer = this.data.isInMainNavigation ? this.options.maxLayer - 1 : Infinity;
-
-    this.ui.navigation.querySelector('ul').innerHTML = '';
 
     middleSection.forEach((topic) => {
       this.renderContentTeaser(this.ui.navigation, {
         shortTitle: topic.shortTitle,
         buzzwords: topic.keywords,
-        target: Object.prototype.hasOwnProperty.call(topic, 'subpages') && this.data.currentLayer <= maxLayer ? '' : topic.path,
+        target: Object.prototype.hasOwnProperty.call(topic, 'subpages') ? '' : topic.path,
       }, Object.prototype.hasOwnProperty.call(topic, 'subpages'),
       topic);
     });
@@ -349,13 +346,15 @@ class Topiclist extends Module {
   setContentNavOfSubnav(topic, subnav) {
     if (Object.prototype.hasOwnProperty.call(topic, 'subpages')) {
       const { subpages } = topic;
+      const maxLayer = this.data.isInMainNavigation ? this.options.maxLayer - 1 : Infinity;
 
       subpages.forEach((subtopic) => {
+        this.log(this.data.currentLayer, maxLayer, this.data.currentLayer < maxLayer);
         this.renderContentTeaser(subnav.querySelector('[data-subnavigation="contentNav"]'), {
           shortTitle: subtopic.shortTitle,
           buzzwords: subtopic.keywords,
-          target: Object.prototype.hasOwnProperty.call(subtopic, 'subpages') ? '' : subtopic.path,
-        }, Object.prototype.hasOwnProperty.call(subtopic, 'subpages'), subtopic);
+          target: Object.prototype.hasOwnProperty.call(subtopic, 'subpages') && this.data.currentLayer < maxLayer ? '' : subtopic.path,
+        }, Object.prototype.hasOwnProperty.call(subtopic, 'subpages') && this.data.currentLayer < maxLayer, subtopic);
       });
 
       window.dispatchEvent(new CustomEvent('reloadLineClamper'));
