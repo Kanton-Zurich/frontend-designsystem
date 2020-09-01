@@ -11,7 +11,7 @@ Anwendungsfälle können unter anderem sein:
 - etc.
 
 #### Enthaltene Atome und Module
-* <a href="../../atoms/context_menu_item./context_menu_item.html">ATM: Context Menu Item</a>
+* <a href="../../atoms/context_menu_item/context_menu_item.html">ATM: Context Menu Item</a>
 
 ### Integration
 * HTML kopieren.
