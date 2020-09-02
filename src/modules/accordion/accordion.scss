@@ -184,15 +184,15 @@ $accordionMap: (
       @include sizeCurve(margin-bottom, medium);
     }
 
-    > p:last-child,
-    > .mdl-linklist:last-child,
-    > .mdl-download_list:last-child {
-      @include sizeCurve(margin-bottom, regular);
-    }
-
     .atm-heading.mdl-linklist__title {
       margin-top: 0;
     }
+  }
+
+  > p:last-child,
+  > .mdl-linklist--last,
+  > .mdl-download_list--last {
+    @include sizeCurve(margin-bottom, regular);
   }
 
   /** Inverted style */
