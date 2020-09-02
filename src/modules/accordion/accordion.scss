@@ -180,6 +180,11 @@ $accordionMap: (
     display: inline-block;
     width: 100%;
 
+
+    > p:last-child {
+      @include sizeCurve(margin-bottom, regular);
+    }
+
     > :last-child {
       @include sizeCurve(margin-bottom, medium);
     }
@@ -189,9 +194,13 @@ $accordionMap: (
     }
   }
 
-  > p:last-child,
-  > .mdl-linklist--last,
-  > .mdl-download_list--last {
+  .mdl-linklist,
+  .mdl-download_list {
+    margin-bottom: 0;
+  }
+
+  .mdl-linklist--last,
+  .mdl-download_list--last {
     @include sizeCurve(margin-bottom, regular);
   }
 
