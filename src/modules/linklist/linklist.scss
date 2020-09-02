@@ -1,5 +1,7 @@
 .mdl-linklist {
-  @include sizeCurve(margin-bottom, big);
+  &--last {
+    @include sizeCurve(margin-bottom, big);
+  }
 
   &__title {
     @include sizeCurve(margin-top, big);
@@ -14,9 +16,5 @@
 
   &--small-margin {
     @include sizeCurve(margin-bottom, regular);
-  }
-
-  &--no-margin {
-    margin-bottom: 0 !important; //stylelint-disable-line
   }
 }

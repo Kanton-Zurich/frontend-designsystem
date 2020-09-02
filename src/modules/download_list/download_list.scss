@@ -1,5 +1,7 @@
 .mdl-download_list {
-  @include sizeCurve(margin-bottom, regular);
+  &--last {
+    @include sizeCurve(margin-bottom, regular);
+  }
 
   &__list {
     @include resetList;

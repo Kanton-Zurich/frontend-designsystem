@@ -194,11 +194,6 @@ $accordionMap: (
     }
   }
 
-  .mdl-linklist,
-  .mdl-download_list {
-    margin-bottom: 0;
-  }
-
   .mdl-linklist--last,
   .mdl-download_list--last {
     @include sizeCurve(margin-bottom, regular);

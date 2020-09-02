@@ -161,8 +161,8 @@
 /**
  * When used in an accordion
  */
-.mdl-linklist--last,
-.mdl-download_list--last {
+.mdl-accordion .mdl-linklist--last,
+.mdl-accordion .mdl-download_list--last {
   li:last-child {
     .atm-linklist_item {
       border-bottom: 0;
