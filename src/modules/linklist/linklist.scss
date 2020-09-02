@@ -15,4 +15,8 @@
   &--small-margin {
     @include sizeCurve(margin-bottom, regular);
   }
+
+  &--no-margin {
+    margin-bottom: 0 !important; //stylelint-disable-line
+  }
 }
