@@ -109,7 +109,7 @@ const variants = _.mapValues({
           techName: 'wi_item_1',
           children: [
             {
-              partial: downloadListData.variants.defaultWithoutTitle.meta.demo(),
+              partial: downloadListData.variants.defaultWithoutTitleLast.meta.demo(),
             },
           ],
         },

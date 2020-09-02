@@ -102,6 +102,16 @@ const variants = _.mapValues({
       title: false,
     },
   },
+  defaultWithoutTitleLast: {
+    meta: {
+      title: 'Standard ohne Titel',
+      desc: 'Eine Downloadliste ohne Titel',
+    },
+    props: {
+      title: false,
+      isLast: true,
+    },
+  },
   legalFoundationDownloadList: {
     meta: {
       title: 'Rechtliche Grundlagen',
