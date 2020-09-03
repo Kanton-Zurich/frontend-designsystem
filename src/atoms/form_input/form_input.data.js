@@ -271,9 +271,9 @@ const variants = _.mapValues({
     props: {
       type: 'text',
       label: 'Telefonnummer',
-      inputMask: '\\+41\\s[\\d ]\\d\\d\\s[\\d ]\\d\\d\\d\\s[\\d ]\\d\\d\\s[\\d ]\\d\\d\\',
+      inputMask: '\\+[\\d+41 ]4[\\d41 ]1[\\d1 ]\\s[\\d ]\\d\\d\\s[\\d ]\\d\\d\\d\\s[\\d ]\\d\\d\\s[\\d ]\\d\\d\\',
       maskPlaceholder: '+41 __ ___ __ __',
-      inputContent: '+41',
+      inputContent: '',
       validation: {
         pattern: '\\+41\\s\\d{2,}\\s\\d{3,}\\s\\d{2,}\\s\\d{2,}$',
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',

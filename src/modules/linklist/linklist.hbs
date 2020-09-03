@@ -1,4 +1,4 @@
-<div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-linklist {{#if smallMargin}}mdl-linklist--small-margin{{/if}}">
+<div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-linklist {{#if smallMargin}}mdl-linklist--small-margin{{/if}} {{#if isLast}}mdl-linklist--last{{/if}}">
   {{#if linkListTitle}}
     <h{{{headingLevel}}} class="atm-heading mdl-linklist__title">{{{linkListTitle}}}</h{{{headingLevel}}}>
   {{/if}}

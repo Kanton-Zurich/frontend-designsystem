@@ -348,6 +348,8 @@ class FlexData extends Module {
       resultsTitle = this.ui.results.getAttribute('data-no-results-title');
       if (this.ui.resultsTableBody) {
         this.ui.resultsTableBody.innerHTML = '';
+      } else if (this.ui.resultsGeneric) {
+        this.ui.resultsGeneric.innerHTML = '';
       }
 
     // too many results
@@ -368,7 +370,7 @@ class FlexData extends Module {
     } else {
       this.ui.pagination.classList.add('hidden');
     }
-    
+
     // fill table date if present
     if (this.ui.resultsTable) {
       this.ui.resultsTableBody.innerHTML = '';

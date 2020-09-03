@@ -68,6 +68,7 @@ $gapSize: pxToRem($sizeRegular);
 
   &__duplicated {
     position: relative;
+    margin: inherit $gapSize/-2;
 
     .form__row:last-of-type {
       padding-bottom: $gapSize;
@@ -77,17 +78,13 @@ $gapSize: pxToRem($sizeRegular);
         margin-bottom: 0;
       }
     }
-
-    .form__cell .form__cell {
-      padding: 0;
-    }
   }
 
   &__cell {
     padding: 0 $gapSize/2;
     flex: 1 1 0px; //stylelint-disable-line
 
-    &:first-child:last-child {
+    &:first-child:last-child:not(.form__cell--small) {
       flex-basis: 100%;
       min-width: 100%;
     }

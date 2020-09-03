@@ -47,6 +47,9 @@ $triggerWidth: pxToRem(86px);
     border-radius: 2px;
     order: 1;
 
+    // Remove iOS Shadow
+    -webkit-appearance: none; //stylelint-disable-line
+
     &:focus {
       outline: none;
       border-color: $colorCyan;
@@ -513,7 +516,7 @@ $triggerWidth: pxToRem(86px);
     overflow: hidden;
     text-overflow: ellipsis;
     right: (pxToRem($sizeRegular) + pxToRem(24) + pxToRem($sizeTiny));
-    color: $colorBlack;
+    color: $colorBlack40;
     background: transparent;
 
     z-index: $zIndexInner;

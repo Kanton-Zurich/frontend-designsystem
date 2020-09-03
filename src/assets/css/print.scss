@@ -49,14 +49,17 @@
 html,
 body {
   height: auto;
+  max-width: 100%;
 
   .lyt-wrapper {
     width: 100%;
     max-width: 100%;
+    transform: none;
 
     .cell:not(.subgrid) {
       margin-left: 40px;
       width: 90%;
+      transform: none;
     }
 
     .icon use {

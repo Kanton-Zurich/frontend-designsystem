@@ -114,7 +114,7 @@ class TaxCalc extends Module {
     let initialized = false;
     if (paramVal) {
       const calculatorId = paramVal[0];
-      this.log('Init for specific calculator id.', calculatorId);
+      // this.log('Init for specific calculator id.', calculatorId);
       this.ui.taxTypeInputs.forEach((inputCon) => {
         const actInput = inputCon.getElementsByTagName('input')[0];
         if (actInput.value === calculatorId) {
@@ -132,8 +132,8 @@ class TaxCalc extends Module {
               () => {
                 this.toNextFormSection();
               },
-              (reason) => {
-                this.log('Failed to prepare form', reason);
+              () => {
+                // this.log('Failed to prepare form', reason);
                 this.activateFormSection(0);
               },
             );
@@ -148,7 +148,7 @@ class TaxCalc extends Module {
     }
 
     if (!initialized) {
-      this.log('Init empty calculator.');
+      // this.log('Init empty calculator.');
       this.toNextFormSection();
     }
   }
@@ -161,7 +161,7 @@ class TaxCalc extends Module {
 
     const nextSectIdx = (this.currentFormSection === undefined)
       ? 0 : this.currentFormSection + 1;
-    this.log('NextSectionIdx: ', nextSectIdx);
+    // this.log('NextSectionIdx: ', nextSectIdx);
 
     this.activateFormSection(nextSectIdx);
   }
@@ -237,7 +237,7 @@ class TaxCalc extends Module {
           if (!init) {
             setTimeout(() => {
               const firstSectionInput = formSectionItem.querySelector<HTMLElement>('.atm-form_input button, input');
-              this.log('Focus on', firstSectionInput);
+              // //('Focus on', firstSectionInput);
               firstSectionInput.focus();
               this.updateFlyingFocus();
             }, this.options.transitionTimeout);
@@ -318,9 +318,9 @@ class TaxCalc extends Module {
   }
 
   private async onReinvokeTriggerChange() {
-    this.log('Reinvoke triggered!');
+    // this.log('Reinvoke triggered!');
     this.postCalculatorFormData(this.calculatorUrl).then((reinvokeResp) => {
-      this.log('ReinvokeResponse:', reinvokeResp);
+      // this.log('ReinvokeResponse:', reinvokeResp);
       const formItems = this.buildFormItemsFromResp(reinvokeResp, true);
       this.setFormItems(formItems, true);
       this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
@@ -343,7 +343,7 @@ class TaxCalc extends Module {
   initEventListeners() {
     this.eventDelegate
       .on('click', this.options.domSelectors.nextBtn, () => {
-        this.log('Next clicked.');
+        // this.log('Next clicked.');
         this.validateSections()
           .then(() => {
             if (this.currentFormSection === this.lastSectionIdx) {
@@ -379,7 +379,7 @@ class TaxCalc extends Module {
         this.ui.element.classList.remove(this.options.stateClasses.hasResult);
 
         const calculatorId = ev.target.value;
-        this.log('CalculatorId: ', calculatorId);
+        // this.log('CalculatorId: ', calculatorId);
         this.setCalculatorInURL(calculatorId);
         this.prepareCalculatorForm(calculatorId).catch(() => {
           this.onFormException(`Invalid calculatorId: ${calculatorId}`);
@@ -420,14 +420,14 @@ class TaxCalc extends Module {
             resolve();
           },
           (fetchFailReason) => {
-            this.log('FormConfig fetch failed: ', fetchFailReason);
+            // this.log('FormConfig fetch failed: ', fetchFailReason);
             this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
             reject(fetchFailReason);
           },
         );
       } else {
         this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
-        this.log('Unknown Calculator Id: ', calculatorId);
+        // this.log('Unknown Calculator Id: ', calculatorId);
         reject(new Error('Unknown CalculatorId.'));
       }
     });
@@ -437,13 +437,14 @@ class TaxCalc extends Module {
     : CalculatorFormItemData[] {
     const calcIdFromResp = apiResp.taxCalculatorId;
     const formItems = this.getCalculatorFormLayout(calcIdFromResp);
-    this.log('FormItems in Build', formItems);
+    // this.log('FormItems in Build', formItems);
     formItems.forEach((formItem) => {
       formItem.rows.forEach((row) => {
         row.fields = row.fields
         // fillin field partials
           .map(fieldName => this
-            .getFieldPartialByDefinition(apiResp, fieldName, setValuesFromResp));
+            .getFieldPartialByDefinition(apiResp, fieldName, setValuesFromResp))
+          .filter(field => field !== '');
       });
     });
     return formItems;
@@ -453,7 +454,7 @@ class TaxCalc extends Module {
     : string {
     const apiFieldDef: ApiFieldDefinition = apiResp[fieldName];
     if (apiFieldDef && apiFieldDef.type) {
-      this.log(this.ui.fieldTemplates);
+      // this.log(this.ui.fieldTemplates);
       let tmplHtml;
       this.ui.fieldTemplates.forEach((templateNode) => {
         const tempFieldType = templateNode
@@ -528,7 +529,7 @@ class TaxCalc extends Module {
     itemsParentNode.querySelectorAll(this.options.domSelectors.formItems)
       .forEach((formSection, index) => {
         if (index > 1) {
-          this.log('Remove for section: ', formSection);
+          // this.log('Remove for section: ', formSection);
           formSection.remove();
         }
       });
@@ -592,7 +593,7 @@ class TaxCalc extends Module {
 
   private getTablePropertiesFromResponse(resp: any): TableBlockProperties[] {
     const calcId = resp.taxCalculatorId;
-    this.log('Generating result tables for calculator: ', calcId);
+    // this.log('Generating result tables for calculator: ', calcId);
     const tables: TableBlockProperties[] = [];
 
     const resultTableConfigs = this.resultTableConfig[calcId].tables;
@@ -651,7 +652,7 @@ class TaxCalc extends Module {
         rows: { fields: string[]}[]
       }[] {
     let formLayout;
-    this.log('FormConfig currently is', this.formConfig);
+    // this.log('FormConfig currently is', this.formConfig);
     if (this.formConfig && this.formConfig[calcIdFromResp]) {
       formLayout = cloneDeep(this.formConfig[calcIdFromResp]);
     }
@@ -699,12 +700,12 @@ class TaxCalc extends Module {
   }
 
   private onApiError(errorsResponseObject: { error: {text: string}[]}) {
-    this.log('Response contained "errors" object. ', errorsResponseObject);
+    // this.log('Response contained "errors" object. ', errorsResponseObject);
     this.onFormException(errorsResponseObject.error.map(e => e.text).join('<br>'));
   }
 
   private onFormException(exceptionStr: string) {
-    this.log('Form Exception: ', exceptionStr);
+    // this.log('Form Exception: ', exceptionStr);
     this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.disabled);
     this.ui.nextBtn.setAttribute('disabled', 'true');
 
@@ -728,7 +729,7 @@ class TaxCalc extends Module {
         if (resp.errors) {
           this.onApiError(resp.errors);
         } else {
-          this.log('Calculate Response:', resp);
+          // this.log('Calculate Response:', resp);
           const tableProps = this.getTablePropertiesFromResponse(resp);
           const remarks = this.getRemarksFromResponse(resp);
           this.setResultBlocks(tableProps, remarks);
@@ -752,14 +753,14 @@ class TaxCalc extends Module {
 
     this.ui.nextBtn.classList.add(this.options.stateClasses.nextBtn.loading);
     return new Promise<any>((resolve, reject) => {
-      this.log('Post formdata to endpoint.', formData);
+      // this.log('Post formdata to endpoint.', formData);
       if (formData) {
         this.postJsonData(endpoint, formData).then((resp) => {
-          this.log('Api Response:', resp);
+          // this.log('Api Response:', resp);
           this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
           resolve(resp);
         }, (postFailReason) => {
-          this.log(`POST request to endpoint ${endpoint} failed with reason ${postFailReason}!`);
+          // this.log(`POST request to endpoint ${endpoint} failed with reason ${postFailReason}!`);
           this.ui.element.classList.add(this.options.stateClasses.connectionFail);
           reject(postFailReason);
         });
@@ -775,11 +776,11 @@ class TaxCalc extends Module {
    */
   private async validateSections() {
     document.querySelectorAll<HTMLElement>(this.options.domSelectors.formItems)
-      .forEach((sectionCon, index) => {
+      .forEach((sectionCon) => {
         if (sectionCon.classList.contains(this.options.stateClasses.formItem.enabled)) {
           const section = sectionCon.querySelector('fieldset');
           if (section) {
-            this.log('Dispatch validate for section. ', section, index, this.currentFormSection);
+            // this.log('Dispatch validate for section. ', section, index, this.currentFormSection);
             this.ui.formBase.dispatchEvent(new CustomEvent('validateSection', {
               detail: {
                 sections: [section],

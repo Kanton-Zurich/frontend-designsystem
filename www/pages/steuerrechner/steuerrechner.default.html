@@ -123,7 +123,7 @@
 				<div id="flyout-topics" class="mdl-modal  mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog">
 					<div role="document">
 						<button class="mdl-modal__close" data-modal="close">
-							<span class="mdl-modal__close-label">Schliessen</span>
+							<span class="mdl-modal__close-label"><span class="visuallyhidden">Menu Themen </span>Schliessen</span>
 							<svg focusable="false" class="icon mdl-modal__exit">
 								<use xlink:href="#exit"></use>
 							</svg>
@@ -398,7 +398,7 @@
 				<div id="flyout-search" class="mdl-modal mdl-modal--search mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog" data-modal-options="{&quot;transitionTime&quot;:500}">
 					<div role="document">
 						<button class="mdl-modal__close" data-modal="close">
-							<span class="mdl-modal__close-label">Schliessen</span>
+							<span class="mdl-modal__close-label"><span class="visuallyhidden">Suche </span>Schliessen</span>
 							<svg focusable="false" class="icon mdl-modal__exit">
 								<use xlink:href="#exit"></use>
 							</svg>
@@ -649,7 +649,7 @@
 
 																	<div class="form__group ">
 																		<div class="form__row">
-																			<div class="form__cell form__cell--small">
+																			<div class="form__cell ">
 																				<fieldset class="form__fieldset" data-input>
 																					<legend class="form__legend visuallyhidden">Für wen möchten Sie den Steuerbetrag berechnen.</legend>
 																					<div class="form__fieldset-list form__fieldset-list--vertical">
@@ -703,7 +703,7 @@
 
 																	<div class="form__group ">
 																		<div class="form__row">
-																			<div class="form__cell form__cell--small">
+																			<div class="form__cell ">
 																				<fieldset class="form__fieldset" data-input>
 
 																					<div class="form__fieldset-list form__fieldset-list--vertical">
@@ -1213,7 +1213,7 @@
 							}, {
 								"title": "Einkommen und Vermögen",
 								"rows": [{
-									"fields": ["benefitPayments", "ascertainedBenefitPayments"]
+									"fields": ["benefitPayments", "ascertainedBenefitPayments", "taxablePortion"]
 								}]
 							}],
 							"BENEFIT_PAYMENTS_FEDERAL": [{
@@ -1233,7 +1233,7 @@
 							}, {
 								"title": "Einkommen und Vermögen",
 								"rows": [{
-									"fields": ["benefitPayments", "ascertainedBenefitPayments"]
+									"fields": ["benefitPayments", "ascertainedBenefitPayments", "taxablePortion"]
 								}]
 							}],
 							"INHERITANCE": [{
@@ -1347,7 +1347,7 @@
 													"cantonalBaseTax.label",
 													"",
 													"cantonalBaseTaxRate",
-													"benefitPaymentsTax"
+													"cantonalBaseTax"
 												]
 											},
 											{

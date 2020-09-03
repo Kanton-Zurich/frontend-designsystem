@@ -209,6 +209,7 @@ const data = _.merge({}, defaultData, {
       linklistData: _.merge({},
         _.omit(defLinklistData.variants.default.props, ['links']),
         {
+          isLast: true,
           anchorReference: 'furtherinfo',
           linkListTitle: 'Weiterführende Information',
           links: [

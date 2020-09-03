@@ -51,7 +51,7 @@
 
 													<div class="form__group ">
 														<div class="form__row">
-															<div class="form__cell form__cell--small">
+															<div class="form__cell ">
 																<fieldset class="form__fieldset" data-input>
 																	<legend class="form__legend visuallyhidden">Für wen möchten Sie den Steuerbetrag berechnen.</legend>
 																	<div class="form__fieldset-list form__fieldset-list--vertical">
@@ -105,7 +105,7 @@
 
 													<div class="form__group ">
 														<div class="form__row">
-															<div class="form__cell form__cell--small">
+															<div class="form__cell ">
 																<fieldset class="form__fieldset" data-input>
 
 																	<div class="form__fieldset-list form__fieldset-list--vertical">
@@ -615,7 +615,7 @@
 			}, {
 				"title": "Einkommen und Vermögen",
 				"rows": [{
-					"fields": ["benefitPayments", "ascertainedBenefitPayments"]
+					"fields": ["benefitPayments", "ascertainedBenefitPayments", "taxablePortion"]
 				}]
 			}],
 			"BENEFIT_PAYMENTS_FEDERAL": [{
@@ -635,7 +635,7 @@
 			}, {
 				"title": "Einkommen und Vermögen",
 				"rows": [{
-					"fields": ["benefitPayments", "ascertainedBenefitPayments"]
+					"fields": ["benefitPayments", "ascertainedBenefitPayments", "taxablePortion"]
 				}]
 			}],
 			"INHERITANCE": [{
@@ -749,7 +749,7 @@
 									"cantonalBaseTax.label",
 									"",
 									"cantonalBaseTaxRate",
-									"benefitPaymentsTax"
+									"cantonalBaseTax"
 								]
 							},
 							{

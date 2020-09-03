@@ -38,6 +38,10 @@
     }
   }
 
+  .atm-heading {
+    @extend .h3;
+  }
+
   @include mq($from: medium) {
     margin-bottom: $sizeHuge;
 

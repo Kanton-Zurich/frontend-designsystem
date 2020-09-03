@@ -69,18 +69,20 @@ class FlyingFocus {
 
     const ringmargin = document.querySelector('.mdl-carousel--fullscreen') ? 0 : 10; //eslint-disable-line
 
-    if (target.tagName !== 'BODY') {
-      const offset = this.offsetOf(target);
-      this.ringElement.style.left = `${offset.left - (ringmargin / 2)}px`; //eslint-disable-line
-      this.ringElement.style.top = `${offset.top - (ringmargin / 2)}px`; //eslint-disable-line
-      this.ringElement.style.width = `${target.offsetWidth + ringmargin}px`;
-      this.ringElement.style.height = `${target.offsetHeight + ringmargin}px`;
-      if (isFirstFocus || !this.isJustPressed()) {
-        return;
+    if (target) {
+      if (target.tagName !== 'BODY') {
+        const offset = this.offsetOf(target);
+        this.ringElement.style.left = `${offset.left - (ringmargin / 2)}px`; //eslint-disable-line
+        this.ringElement.style.top = `${offset.top - (ringmargin / 2)}px`; //eslint-disable-line
+        this.ringElement.style.width = `${target.offsetWidth + ringmargin}px`;
+        this.ringElement.style.height = `${target.offsetHeight + ringmargin}px`;
+        if (isFirstFocus || !this.isJustPressed()) {
+          return;
+        }
+        target.classList.add(this.options.targetClass);
+        this.ringElement.classList.add(this.options.visibleClass);
+        this.prevFocused = target;
       }
-      target.classList.add(this.options.targetClass);
-      this.ringElement.classList.add(this.options.visibleClass);
-      this.prevFocused = target;
     }
   }
   /**

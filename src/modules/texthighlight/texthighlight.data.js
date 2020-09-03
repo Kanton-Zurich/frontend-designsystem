@@ -38,6 +38,7 @@ const variants = _.mapValues({
     props: _.merge(dataLinklist.props, {
       linklistVariation: true,
       texthighlightId: _.uniqueId('texthighlight'),
+      isLast: true,
     }),
   },
   image: {
