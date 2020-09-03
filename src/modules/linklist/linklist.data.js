@@ -70,7 +70,7 @@ const variants = _.mapValues({
   },
   noTitleLast: {
     meta: {
-      title: 'Without title',
+      title: 'Without title, and margin bottom',
       desc: 'Implementation without title',
     },
     props: {
@@ -79,7 +79,7 @@ const variants = _.mapValues({
   },
   noTitleAlt: {
     meta: {
-      title: 'Without title',
+      title: 'Without title, and small margin bottom',
       desc: 'Implementation without title',
     },
     props: {

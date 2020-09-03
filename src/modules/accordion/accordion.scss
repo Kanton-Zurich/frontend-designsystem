@@ -180,19 +180,23 @@ $accordionMap: (
     display: inline-block;
     width: 100%;
 
-    > :last-child {
-      @include sizeCurve(margin-bottom, medium);
+
+    > p:last-child {
+      @include sizeCurve(margin-bottom, regular);
     }
 
-    > p:last-child,
-    > .mdl-linklist:last-child,
-    > .mdl-download_list:last-child {
-      @include sizeCurve(margin-bottom, regular);
+    > :last-child {
+      @include sizeCurve(margin-bottom, medium);
     }
 
     .atm-heading.mdl-linklist__title {
       margin-top: 0;
     }
+  }
+
+  .mdl-linklist--last,
+  .mdl-download_list--last {
+    @include sizeCurve(margin-bottom, regular);
   }
 
   /** Inverted style */
