@@ -35,6 +35,12 @@ mainMenu.topiclistcontentNavData.items = [
     target: 'design/typography.html',
     isPromotopic: false,
   },
+  {
+    shortTitle: 'Design Patterns',
+    buzzwords: 'Layouts, Header/Footer, Navigation',
+    target: 'design/design_patterns.html',
+    isPromotopic: false,
+  },
 ];
 
 const documentation = dataHelper.getDocumentation('design.md');
