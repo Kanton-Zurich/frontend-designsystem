@@ -11,6 +11,7 @@ import Select from '../select/select';
 import namespace from '../../assets/js/helpers/namespace';
 import Pagination from '../pagination/pagination';
 import Accordion from '../accordion/accordion';
+import Datepicker from "../datepicker/datepicker";
 
 class FlexData extends Module {
   public ui: {
@@ -199,6 +200,9 @@ class FlexData extends Module {
     });
     this.ui.form.querySelectorAll('.mdl-accordion').forEach((accordion: HTMLDivElement) => {
       accordion.dispatchEvent(new CustomEvent(Accordion.events.clearSubheads));
+    });
+    this.ui.form.querySelectorAll('.mdl-datepicker').forEach((datepicker: HTMLDivElement) => {
+      datepicker.dispatchEvent(new CustomEvent(Datepicker.events.clear));
     });
     this.ui.results.classList.add('initially-hidden');
     this.ui.pagination.classList.add('hidden');
