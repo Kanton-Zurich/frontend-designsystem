@@ -11,7 +11,7 @@ import Select from '../select/select';
 import namespace from '../../assets/js/helpers/namespace';
 import Pagination from '../pagination/pagination';
 import Accordion from '../accordion/accordion';
-import Datepicker from "../datepicker/datepicker";
+import Datepicker from '../datepicker/datepicker';
 
 class FlexData extends Module {
   public ui: {
