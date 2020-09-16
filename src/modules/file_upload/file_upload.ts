@@ -253,6 +253,9 @@ class FileUpload extends Module {
         }));
       });
     }
+
+    // Change focus
+    parent.querySelector('input').focus();
   }
 
   duplicateItself() {
