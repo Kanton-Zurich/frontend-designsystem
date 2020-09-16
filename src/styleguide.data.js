@@ -149,6 +149,9 @@ styleguide.topiclistcontentNavData.items = _.sortBy(dataHelper.getDataGlob('./sr
   };
 });
 
+/*
+// Temporarily deactivated download assets
+
 styleguide.topiclistcontentNavData.items.push({
   shortTitle: 'Download Offline Seite (zip)',
   buzzwords: '',
@@ -162,6 +165,8 @@ styleguide.topiclistcontentNavData.items.push({
   target: 'czhdev_lsg.zip',
   isPromotopic: false,
 });
+
+*/
 
 const data = _.merge({}, defaultData, {
   atomList,
