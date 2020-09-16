@@ -72,11 +72,6 @@ $gapSize: pxToRem($sizeRegular);
 
     .form__row:last-of-type {
       padding-bottom: $gapSize;
-      flex-direction: row;
-
-      .form__cell {
-        margin-bottom: 0;
-      }
     }
   }
 
