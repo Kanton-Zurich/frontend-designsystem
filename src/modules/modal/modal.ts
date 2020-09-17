@@ -55,6 +55,7 @@ class Modal extends Module {
         noTransitionShow: 'mdl-modal--no-transition-show',
         search: 'mdl-modal--search',
         opened: 'mdl-modal--opened',
+        openModal: 'open-modal',
       },
       childSelectors: {
         nav: '.mdl-topiclist--nav',
@@ -250,6 +251,8 @@ class Modal extends Module {
       this.ui.element.classList.add(this.options.stateClasses.opened);
       window.dispatchEvent(new CustomEvent(Modal.events.opened, { detail: { sender: this } }));
     }, this.options.transitionTime);
+
+    document.body.classList.add(this.options.stateClasses.openModal);
   }
 
   /** Closes the modal */
@@ -279,6 +282,8 @@ class Modal extends Module {
       this.ui.element.classList.remove(this.options.stateClasses.show);
     }, this.options.transitionTime);
     window.dispatchEvent(new CustomEvent(Modal.events.closed, { detail: { sender: this } }));
+
+    document.body.classList.remove(this.options.stateClasses.openModal);
   }
 
   onSetPage(event) {
