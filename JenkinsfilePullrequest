@@ -4,16 +4,20 @@ pipeline {
     stages {
       stage('build') {
       steps {
+        sh 'node -v && npm -v'
+        sh 'npm install'
+        sh 'npm run build'
+        sh 'pwd'
+      }
+    }
+    stage('deploy') {
+      steps {
         script {
           def branch = "${GIT_BRANCH}"
           branch = branch.replaceAll("origin/", "")
           branch = java.net.URLEncoder.encode(branch, "UTF-8")
           env.BRANCH_NAME = branch
         }
-        sh 'node -v && npm -v'
-        sh 'npm install'
-        sh 'npm run build'
-        sh 'pwd'
         withCredentials([usernamePassword(credentialsId: 'sshuserLsgFE', passwordVariable: 'passWord', usernameVariable: 'userName')]) {
           sh 'sshpass -p $passWord ssh -o StrictHostKeyChecking=no -p 9022 $userName@10.100.128.12 "mkdir -p /usr/local/apache2/htdocs/czhdev/pullrequests/${BRANCH_NAME} &&  rm -rf /usr/local/apache2/htdocs/czhdev/pullrequests/${BRANCH_NAME}/"'
         }
@@ -21,6 +25,24 @@ pipeline {
           sh 'sshpass -p $passWord scp -o StrictHostKeyChecking=no -P 9022 -r dist/ci/dev/ $userName@10.100.128.12:/usr/local/apache2/htdocs/czhdev/pullrequests/${BRANCH_NAME}/'
         }
       }
+    }
+  }
+  post {
+    success {
+      bitbucketStatusNotify(buildState: 'SUCCESSFUL')
+      slackSend message: "${env.JOB_NAME} build succeeded: ${env.BUILD_URL}",
+      color: 'good',
+      channel: '#frontend',
+      teamDomain: 'zhdev',
+      tokenCredentialId: 'slack_auth_token_zhch'
+    }
+    failure {
+      bitbucketStatusNotify(buildState: 'FAILED')
+      slackSend message: "${env.JOB_NAME} build failed: ${env.BUILD_URL}",
+      color: 'danger',
+      channel: '#frontend',
+      teamDomain: 'zhdev',
+      tokenCredentialId: 'slack_auth_token_zhch'
     }
   }
 }
