@@ -336,12 +336,16 @@ class Stepper extends Module {
   async sendForm() {
     const { form } = this.ui;
     const action = form.getAttribute('action');
-    const formData = new FormData(this.ui.form);
+    let formData = null;
 
     this.validateSection();
 
     // Only of no errors are present in the form, it will be sent via ajax
     if (!this.ui.form.hasAttribute('form-has-errors')) {
+      this.removeHiddenFormElements();
+
+      formData = new FormData(this.ui.form);
+
       if (!window.fetch) {
         await import('whatwg-fetch');
       }
@@ -410,6 +414,26 @@ class Stepper extends Module {
     }
   }
 
+  /**
+   * Removing all hidden form elements, so they are not included in the send request
+   *
+   * @memberof Stepper
+   */
+  removeHiddenFormElements () {
+    const hiddenByRules = this.ui.form.querySelectorAll('.form__element--hidden-by-rule');
+
+    hiddenByRules.forEach((hiddenElement) => {
+      hiddenElement.parentNode.removeChild(hiddenElement);
+    });
+  }
+
+  /**
+   * Removing validation issues
+   *
+   * @param {Array<string>} validationErrors
+   * @returns
+   * @memberof Stepper
+   */
   cleanValidationErrors(validationErrors: Array<string>) {
     return validationErrors.filter((fieldName) => {
       const field = this.ui.element.querySelector(`[name="${fieldName}"]`);
