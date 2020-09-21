@@ -19,6 +19,7 @@ class Search extends Module {
 
   public data: {
     suggestions: Array<string>,
+    isDisplayed: Boolean,
   }
 
   public ui: {
@@ -70,6 +71,10 @@ class Search extends Module {
         url: this.options.url,
         searchPageUrl: this.options.searchPageUrl,
       }, {});
+    });
+
+    this.ui.element.addEventListener(Modal.events.opened, () => {
+      this.ui.input.focus();
     });
 
     // When the Autosuggest is used hide the tags
