@@ -19,7 +19,6 @@ class Search extends Module {
 
   public data: {
     suggestions: Array<string>,
-    isDisplayed: Boolean,
   }
 
   public ui: {
