@@ -273,7 +273,11 @@ $contactMapHeightCurve: (
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
     font-family: $fontFamilyBlack;
     line-height: $sizeLineHeightBase;
+  }
+
+  &__mail {
     hyphens: none;
+    word-break: break-all;
   }
 
   &:not(.mdl-contact--location) {
