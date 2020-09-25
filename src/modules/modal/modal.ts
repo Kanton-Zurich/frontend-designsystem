@@ -253,6 +253,8 @@ class Modal extends Module {
     }, this.options.transitionTime);
 
     document.body.classList.add(this.options.stateClasses.openModal);
+
+    window.dispatchEvent(new CustomEvent('reloadLineClamper'));
   }
 
   /** Closes the modal */
