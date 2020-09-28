@@ -1157,7 +1157,6 @@ gulp.task('build', (done) => {
         task = gulp.series(task, gulp.parallel('lint', 'test'));
       }
     }
-
     task(done);
   });
 });
