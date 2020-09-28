@@ -35,7 +35,7 @@ pipeline {
       slackSend message: "${env.JOB_NAME} DEVELOP build succeeded: ${env.BUILD_URL}",
       color: 'good',
       channel: '#frontend',
-      teamDomain: 'zhdev',
+      teamDomain: 'zhch',
       tokenCredentialId: 'slack_auth_token_zhch'
     }
     failure {
@@ -43,7 +43,7 @@ pipeline {
       slackSend message: "${env.JOB_NAME} DEVELOP build failed: ${env.BUILD_URL}",
       color: 'danger',
       channel: '#frontend',
-      teamDomain: 'zhdev',
+      teamDomain: 'zhch',
       tokenCredentialId: 'slack_auth_token_zhch'
     }
   }
