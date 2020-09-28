@@ -31,7 +31,7 @@ pipeline {
           env.PROJECT_NAME = "czhdev"
         }
         withCredentials([usernamePassword(credentialsId: 'sshuserLsgFE', passwordVariable: 'passWord', usernameVariable: 'userName')]) {
-          sh 'sshpass -p $passWord ssh -o StrictHostKeyChecking=no -p 9022 $userName@10.100.128.12 "mkdir -p /usr/local/apache2/htdocs/${PROJECT_NAME}/pullrequests/${PR_NR}_${BRANCH_NAME} &&  rm -rf /usr/local/apache2/htdocs/${PROJECT_NAME}/pullrequests/$${PR_NR}_{BRANCH_NAME}/"'
+          sh 'sshpass -p $passWord ssh -o StrictHostKeyChecking=no -p 9022 $userName@10.100.128.12 "mkdir -p /usr/local/apache2/htdocs/${PROJECT_NAME}/pullrequests/${PR_NR}_${BRANCH_NAME} &&  rm -rf /usr/local/apache2/htdocs/${PROJECT_NAME}/pullrequests/${PR_NR}_{BRANCH_NAME}/"'
         }
         withCredentials([usernamePassword(credentialsId: 'sshuserLsgFE', passwordVariable: 'passWord', usernameVariable: 'userName')]) {
           sh 'sshpass -p $passWord scp -o StrictHostKeyChecking=no -P 9022 -r dist/ci/dev/ $userName@10.100.128.12:/usr/local/apache2/htdocs/${PROJECT_NAME}/pullrequests/${PR_NR}_${BRANCH_NAME}/'
