@@ -22,7 +22,7 @@ pipeline {
           {
             pullreq = "0" + pullreq
           }
-          def branch = "${GIT_BRANCH}"
+          def branch = "${BITBUCKET_SOURCE_BRANCH}"
           branch = branch.replaceAll("origin/", "")
           branch = branch.replaceAll("/", "__")
           branch = java.net.URLEncoder.encode(branch, "UTF-8")
