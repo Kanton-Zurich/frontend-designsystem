@@ -14,7 +14,7 @@ pipeline {
             env.BUILD_LOG_FULL = sh (
                 script: "npm -v",
                 returnStdout: true
-            ) == 0
+            ).trim()
           }
           echo "Build full flag: ${env.BUILD_LOG_FULL}"
       }
