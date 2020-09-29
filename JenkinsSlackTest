@@ -24,7 +24,7 @@ pipeline {
         color: 'good',
         attachments: [
           [
-           text: currentBuild.rawBuild.log,
+           text: "${BUILD_URL}/consoleText",
            fallback: 'Logfile',
            color: '#00FF00'
           ],
