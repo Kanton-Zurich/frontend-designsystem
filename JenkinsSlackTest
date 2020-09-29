@@ -11,12 +11,12 @@ pipeline {
       steps {
           sh 'echo "Test build"'
           script {
-            env.BUILD_FULL = sh (
-                script: "echo 'LOOOOOG'",
+            env.BUILD_LOG_FULL = sh (
+                script: "npm install",
                 returnStatus: true
             ) == 0
           }
-          echo "Build full flag: ${env.BUILD_FULL}"
+          echo "Build full flag: ${env.BUILD_LOG_FULL}"
       }
     }
   }
