@@ -46,6 +46,7 @@ pipeline {
       color: 'good',
       channel: '#frontend',
       teamDomain: 'zhch',
+      botUser: true,
       tokenCredentialId: 'slack_auth_token_zhch'
     }
     failure {
@@ -54,6 +55,7 @@ pipeline {
       color: 'danger',
       channel: '#frontend',
       teamDomain: 'zhch',
+      botUser: true,
       tokenCredentialId: 'slack_auth_token_zhch'
     }
   }

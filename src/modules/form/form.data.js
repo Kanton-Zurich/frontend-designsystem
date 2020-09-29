@@ -1021,6 +1021,23 @@ const variants = _.mapValues({
                   })),
               }],
             },
+            {
+              fields: [{
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'E-Mail',
+                    name: 'e_mail',
+                    uuid: 'e_mail',
+                    type: 'email',
+                    validation: {
+                      isRequired: true,
+                      errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+                    },
+                  })),
+              }],
+            },
           ],
         },
         duplicateGroup2,

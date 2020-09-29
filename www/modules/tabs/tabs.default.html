@@ -213,6 +213,42 @@
 									</div>
 								</div>
 
+								<div class="form__row">
+									<div class="form__cell ">
+										<div class="atm-form_input atm-form_input--floated
+            " data-input>
+
+
+											<input class="atm-form_input__input" id="e_mail" placeholder="E-Mail" name="e_mail" value="" type="email" required data-validation data-floating>
+
+											<label for="e_mail">E-Mail</label>
+											<span class="atm-form_input__validate-icon">
+												<span>
+													<span class="visuallyhidden"></span>
+													<svg class="icon" focusable="false">
+														<use xlink:href="#confirm"></use>
+													</svg>
+												</span>
+												<span>
+													<span class="visuallyhidden"></span>
+													<svg class="icon" focusable="false">
+														<use xlink:href="#caution"></use>
+													</svg>
+												</span>
+											</span>
+
+
+
+
+
+
+											<p data-message="pattern">Bitte geben Sie eine gültige E-Mail-Adresse an.</p>
+											<p data-message="required">Dies ist ein Pflichtfeld</p>
+										</div>
+
+									</div>
+								</div>
+
 							</div>
 							<div class="form__group form__group--duplicatable" data-form="duplicatable" data-max-duplications="3">
 								<div class="form__row">
@@ -514,6 +550,7 @@
                 
                 
                 
+                
               >
           
               <label for="group2_text">Text</label>
@@ -566,6 +603,7 @@
                      data-floating
                      data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d"
                      data-mask-placeholder="TT.MM.JJJJ"
+                    
                     
                     
                   >
@@ -1075,7 +1113,7 @@
           " data-input data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;allowmailnotification&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;true&quot;}],&quot;action&quot;:&quot;show&quot;}]">
 
 
-						<input class="atm-form_input__input" id="reply-to180" placeholder="Ihre E-Mail-Adresse" name="reply-to181" value="" type="email" required data-validation data-floating>
+						<input class="atm-form_input__input" id="reply-to180" placeholder="Ihre E-Mail-Adresse" name="reply-to181" value="" type="email" required data-validation data-floating data-autofill="e_mail">
 
 						<label for="reply-to180">Ihre E-Mail-Adresse</label>
 						<span class="atm-form_input__validate-icon">

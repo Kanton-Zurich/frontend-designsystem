@@ -26,6 +26,7 @@ class Form {
       backdrop: string;
     };
     messageSelector: string,
+    autofillSelector: string,
     duplicateSelector: string,
     selectOptionSelector: string,
     inputSelector: string,
@@ -62,6 +63,7 @@ class Form {
         backdrop: '.atm-form_input__backdrop',
       },
       messageSelector: '[data-message]',
+      autofillSelector: '[data-autofill]',
       selectOptionSelector: 'data-select-option',
       inputSelector: '[data-input]',
       rulesSelector: '[data-rules]',
@@ -138,6 +140,23 @@ class Form {
     });
     this.eventDelegate.on('blur', this.options.domSelectors.floating, (event, field: HTMLInputElement) => {
       this.checkIfFieldDirty(field);
+    });
+    // autofill listener
+    const autoFillSelectors = this.ui.element.querySelectorAll(this.options.autofillSelector);
+    autoFillSelectors.forEach((autoFillElement: any) => {
+      const sourceElement = this.ui.element.querySelector(`#${autoFillElement.dataset.autofill}`);
+      if (sourceElement) {
+        let dirty = false;
+        autoFillElement.addEventListener('change', () => {
+          dirty = true;
+        });
+        sourceElement.addEventListener('change', (input) => {
+          const { value } = (<any>input.target);
+          if (!dirty) {
+            autoFillElement.value = value;
+          }
+        });
+      }
     });
   }
 
