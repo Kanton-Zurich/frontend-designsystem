@@ -17,7 +17,8 @@ pipeline {
             )
           }
           sh "echo ${env.BUILD_LOG_FULL} > log.txt"
-          echo "Build full flag: ${env.BUILD_LOG_FULL}"
+          sh "echo "output"
+          sh "cat log.txt"
       }
     }
   }
