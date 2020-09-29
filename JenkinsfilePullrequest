@@ -47,20 +47,19 @@ pipeline {
   post {
     success {
       bitbucketStatusNotify(buildState: 'SUCCESSFUL')
-      def attachments = [
-        [
-          text: currentBuild.rawBuild.log,
-          fallback: 'Logfile',
-          color: '#00FF00'
-        ]
-      ]
       slackSend(
         tokenCredentialId: "${env.SLACK_CREDENTIALS}",
         teamDomain: "${env.SLACK_TEAM_DOMAIN}",
         channel: "${env.SLACK_CHANNEL}",
         botUser: true,
         color: 'good',
-        attachments: attachments,
+        attachments: [
+          [
+           text: currentBuild.rawBuild.log,
+           fallback: 'Logfile',
+           color: '#00FF00'
+          ],
+        ],
         message: "${env.JOB_NAME} build succeeded: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
       )
     }
@@ -79,7 +78,13 @@ pipeline {
         channel: "${env.SLACK_CHANNEL}",
         botUser: true,
         color: 'danger',
-        attachments: attachments,
+        attachments: [
+          [
+           text: currentBuild.rawBuild.log,
+           fallback: 'Logfile',
+           color: '#FF0000'
+          ],
+        ],
         message: "${env.JOB_NAME} build failed: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
       )
     }
