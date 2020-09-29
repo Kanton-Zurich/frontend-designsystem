@@ -10,14 +10,6 @@ pipeline {
     stage('build') {
       steps {
           sh 'echo "Test build"'
-
-          script {
-            @NonCPS
-            def getTestSummary = {
-              return currentBuild.rawBuild.logText
-            }
-            getTestSummary()
-          }
       }
     }
   }
