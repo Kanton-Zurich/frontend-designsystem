@@ -40,23 +40,47 @@ pipeline {
     }
   }
   post {
+    def slackCredentialsId = 'slack_auth_token_zhch'
+    def slackTeamDomain = 'zhch'
+    def slackChannel = '#frontend'
+
     success {
       bitbucketStatusNotify(buildState: 'SUCCESSFUL')
-      slackSend message: "${env.JOB_NAME} build succeeded: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}",
-      color: 'good',
-      channel: '#frontend',
-      teamDomain: 'zhch',
-      botUser: true,
-      tokenCredentialId: 'slack_auth_token_zhch'
+      def attachments = [
+        [
+          text: currentBuild.rawBuild.log,
+          fallback: 'Logfile',
+          color: '#00FF00'
+        ]
+      ]
+      slackSend(
+        tokenCredentialId: slackCredentialsId,
+        botUser: true,
+        teamDomain: slackTeamDomain,
+        channel: slackChannel,
+        color: 'good',
+        attachments: attachments,
+        message: "${env.JOB_NAME} build succeeded: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
+      )
     }
     failure {
       bitbucketStatusNotify(buildState: 'FAILED')
-      slackSend message: "${env.JOB_NAME} build failed: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}",
-      color: 'danger',
-      channel: '#frontend',
-      teamDomain: 'zhch',
-      botUser: true,
-      tokenCredentialId: 'slack_auth_token_zhch'
+      def attachments = [
+        [
+          text: currentBuild.rawBuild.log,
+          fallback: 'Logfile',
+          color: '#ff0000'
+        ]
+      ]
+      slackSend(
+        tokenCredentialId: slackCredentialsId,
+        botUser: true,
+        teamDomain: slackTeamDomain,
+        channel: slackChannel,
+        color: 'danger',
+        attachments: attachments,
+        message: "${env.JOB_NAME} build failed: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
+      )
     }
   }
 }
