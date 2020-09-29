@@ -17,8 +17,7 @@ pipeline {
             )
           }
           sh "echo '${env.BUILD_LOG_FULL}' >> log.txt"
-          sh "echo 'output'"
-          sh "ls -la"
+          sh "cat log.txt"
       }
     }
   }
