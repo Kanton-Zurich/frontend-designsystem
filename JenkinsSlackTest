@@ -10,16 +10,7 @@ pipeline {
     stage('build') {
       steps {
           sh 'echo "Test build"'
-          script {
-              def logContent = Jenkins.getInstance()
-                  .getItemByFullName(env.JOB_NAME)
-                  .getBuildByNumber(
-                      Integer.parseInt(env.BUILD_NUMBER))
-                  .logFile.text
-              env.LOG_CAT = logContent
-          }
 
-          sh 'echo "${env.LOG_CAT}"'
       }
     }
   }
