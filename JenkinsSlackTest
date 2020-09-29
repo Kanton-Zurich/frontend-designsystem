@@ -11,7 +11,7 @@ pipeline {
       steps {
           sh 'echo "Test build"'
           script {
-            e.vBUILD_FULL = sh (
+            env.BUILD_FULL = sh (
                 script: "echo 'LOOOOOG'",
                 returnStatus: true
             ) == 0
