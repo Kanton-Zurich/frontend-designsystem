@@ -12,8 +12,14 @@ pipeline {
         bitbucketStatusNotify(buildState: 'INPROGRESS')
         sh 'node -v && npm -v'
         sh 'npm install'
-
-        writeFile file: "log.txt", text: "sdfsdfs"
+        sh 'npm run build'
+        script {
+          env.BUILD_LOG_LINT = sh (
+              script: "npm run gulp lint",
+              returnStdout: true
+          )
+        }
+        writeFile file: "log.txt", text: env.BUILD_LOG_LINT
         sh 'pwd'
       }
     }
