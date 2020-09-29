@@ -16,7 +16,7 @@ pipeline {
   }
   post {
     success {
-      sh "echo ''${BUILD_URL}/consoleText'"
+      sh 'echo "${BUILD_URL}/consoleText"'
       slackSend(
         tokenCredentialId: "${env.SLACK_CREDENTIALS}",
         teamDomain: "${env.SLACK_TEAM_DOMAIN}",
