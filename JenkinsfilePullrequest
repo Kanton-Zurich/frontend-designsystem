@@ -56,7 +56,7 @@ pipeline {
       ]
       slackSend(
         tokenCredentialId: "${env.SLACK_CREDENTIALS}",
-        teamDomain: "${env.SLACK_TEAM_DOMAIN},
+        teamDomain: "${env.SLACK_TEAM_DOMAIN}",
         channel: "${env.SLACK_CHANNEL}",
         botUser: true,
         color: 'good',
