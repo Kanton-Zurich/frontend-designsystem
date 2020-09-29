@@ -12,13 +12,8 @@ pipeline {
         bitbucketStatusNotify(buildState: 'INPROGRESS')
         sh 'node -v && npm -v'
         sh 'npm install'
-        script {
-          env.BUILD_LOG_FULL = sh (
-              script: "npm run build",
-              returnStdout: true
-          )
-        }
-        writeFile file: "log.txt", text: "${env.BUILD_LOG_FULL}"
+
+        writeFile file: "log.txt", text: "sdfsdfs"
         sh 'pwd'
       }
     }
