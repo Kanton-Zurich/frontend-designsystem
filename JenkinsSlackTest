@@ -22,20 +22,22 @@ pipeline {
   }
   post {
     success {
-      def slackResponse = slackSend(
-        tokenCredentialId: "${env.SLACK_CREDENTIALS}",
-        teamDomain: "${env.SLACK_TEAM_DOMAIN}",
-        channel: "${env.SLACK_CHANNEL}",
-        botUser: true,
-        color: 'good',
-        message: "Test Success"
-      )
-      slackUploadFile(
-        credentialId: "${env.SLACK_CREDENTIALS}",
-        channel: slackResponse.threadId,
-        filePath: 'log.txt',
-        initialComment: 'Build log'
-      )
+      script {
+        def slackResponse = slackSend(
+          tokenCredentialId: "${env.SLACK_CREDENTIALS}",
+          teamDomain: "${env.SLACK_TEAM_DOMAIN}",
+          channel: "${env.SLACK_CHANNEL}",
+          botUser: true,
+          color: 'good',
+          message: "Test Success"
+        )
+        slackUploadFile(
+          credentialId: "${env.SLACK_CREDENTIALS}",
+          channel: slackResponse.threadId,
+          filePath: 'log.txt',
+          initialComment: 'Build log'
+        )
+      }
     }
     failure {
       slackSend(
