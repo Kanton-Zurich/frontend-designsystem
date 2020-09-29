@@ -6,7 +6,7 @@ pipeline {
     SLACK_TEAM_DOMAIN = 'zhch'
     SLACK_CHANNEL = '#frontend'
     PROJECT_NAME = "czhdev"
-    DEPLOY_URL = "https://env.PROJECT_NAME.dev.one-inside.com/env.PROJECT_NAME/"
+    DEPLOY_URL = "https://${env.PROJECT_NAME}.dev.one-inside.com/${env.PROJECT_NAME}/"
   }
   stages {
     stage('build') {
@@ -48,9 +48,6 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'sshuserLsgFE', passwordVariable: 'passWord', usernameVariable: 'userName')]) {
           sh 'sshpass -p $passWord scp -o StrictHostKeyChecking=no -P 9022 -r dist/ci/dev/ $userName@10.100.128.12:/usr/local/apache2/htdocs/${PROJECT_NAME}/pullrequests/${PR_NR}_${BRANCH_NAME}/'
         }
-        withCredentials([usernamePassword(credentialsId: 'sshuserLsgFE', passwordVariable: 'passWord', usernameVariable: 'userName')]) {
-          sh 'sshpass -p $passWord scp -o StrictHostKeyChecking=no -P 9022 -r log.txt $userName@10.100.128.12:/usr/local/apache2/htdocs/${PROJECT_NAME}/pullrequests/${PR_NR}_${BRANCH_NAME}/'
-        }
       }
     }
   }
@@ -64,7 +61,7 @@ pipeline {
           channel: "${env.SLACK_CHANNEL}",
           botUser: true,
           color: 'good',
-          message: "${env.JOB_NAME} build succeeded: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK} Logfile: ${env.DEPLOY_URL}log.txt"
+          message: "${env.JOB_NAME} build succeeded: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
         )
       }
     }
@@ -77,7 +74,7 @@ pipeline {
           channel: "${env.SLACK_CHANNEL}",
           botUser: true,
           color: 'danger',
-          message: "${env.JOB_NAME} build failed: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK} Logfile: ${env.DEPLOY_URL}log.txt"
+          message: "${env.JOB_NAME} build failed: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
         )
       }
     }
