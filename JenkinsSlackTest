@@ -1,0 +1,52 @@
+pipeline {
+  agent any
+  tools {nodejs "node"}
+  environment {
+    SLACK_CREDENTIALS = 'slack_auth_token_zhch'
+    SLACK_TEAM_DOMAIN = 'zhch'
+    SLACK_CHANNEL = '#frontend'
+  }
+  stages {
+    stage('build') {
+      steps {
+          sh 'echo "Test build"'
+      }
+    }
+  }
+  post {
+    success {
+      slackSend(
+        tokenCredentialId: "${env.SLACK_CREDENTIALS}",
+        teamDomain: "${env.SLACK_TEAM_DOMAIN}",
+        channel: "${env.SLACK_CHANNEL}",
+        botUser: true,
+        color: 'good',
+        attachments: [
+          [
+           text: currentBuild.rawBuild.log,
+           fallback: 'Logfile',
+           color: '#00FF00'
+          ],
+        ],
+        message: "Test Success"
+      )
+    }
+    failure {
+      slackSend(
+        tokenCredentialId: "${env.SLACK_CREDENTIALS}",
+        teamDomain: "${env.SLACK_TEAM_DOMAIN}",
+        channel: "${env.SLACK_CHANNEL}",
+        botUser: true,
+        color: 'danger',
+        attachments: [
+          [
+           text: currentBuild.rawBuild.log,
+           fallback: 'Logfile',
+           color: '#FF0000'
+          ],
+        ],
+        message: "Test Fail"
+      )
+    }
+  }
+}
