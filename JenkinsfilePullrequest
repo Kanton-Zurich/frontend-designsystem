@@ -1,6 +1,11 @@
 pipeline {
   agent any
   tools {nodejs "node"}
+  node {
+    def slackCredentialsId = 'slack_auth_token_zhch'
+    def slackTeamDomain = 'zhch'
+    def slackChannel = '#frontend'
+  }
   stages {
     stage('build') {
       steps {
@@ -40,10 +45,6 @@ pipeline {
     }
   }
   post {
-    def slackCredentialsId = 'slack_auth_token_zhch'
-    def slackTeamDomain = 'zhch'
-    def slackChannel = '#frontend'
-
     success {
       bitbucketStatusNotify(buildState: 'SUCCESSFUL')
       def attachments = [
