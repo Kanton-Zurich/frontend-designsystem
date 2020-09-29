@@ -18,6 +18,7 @@ pipeline {
               returnStdout: true
           )
         }
+        echo "${env.BUILD_LOG_FULL}"
         sh 'pwd'
       }
     }

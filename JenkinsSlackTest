@@ -16,6 +16,7 @@ pipeline {
                 returnStdout: true
             )
           }
+          sh "echo ${env.BUILD_LOG_FULL} > log.txt"
           echo "Build full flag: ${env.BUILD_LOG_FULL}"
       }
     }
