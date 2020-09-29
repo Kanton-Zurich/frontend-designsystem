@@ -5,8 +5,6 @@ pipeline {
     SLACK_CREDENTIALS = 'slack_auth_token_zhch'
     SLACK_TEAM_DOMAIN = 'zhch'
     SLACK_CHANNEL = '#frontend'
-    PROJECT_NAME = "czhdev"
-    DEPLOY_URL = "https://${env.PROJECT_NAME}.dev.one-inside.com/${env.PROJECT_NAME}/"
   }
   stages {
     stage('build') {
@@ -20,7 +18,7 @@ pipeline {
               returnStdout: true
           )
         }
-        sh "echo '${env.BUILD_LOG_FULL}' > log.txt"
+        writeFile "log.txt" env.BUILD_LOG_FULL
         sh 'pwd'
       }
     }
@@ -41,6 +39,7 @@ pipeline {
           branch = java.net.URLEncoder.encode(branch, "UTF-8")
           env.BRANCH_NAME = branch
           env.PR_NR = pullreq
+          env.PROJECT_NAME = "czhdev"
         }
         withCredentials([usernamePassword(credentialsId: 'sshuserLsgFE', passwordVariable: 'passWord', usernameVariable: 'userName')]) {
           sh 'sshpass -p $passWord ssh -o StrictHostKeyChecking=no -p 9022 $userName@10.100.128.12 "mkdir -p /usr/local/apache2/htdocs/${PROJECT_NAME}/pullrequests/${PR_NR}_${BRANCH_NAME} &&  rm -rf /usr/local/apache2/htdocs/${PROJECT_NAME}/pullrequests/${PR_NR}_${BRANCH_NAME}/"'
@@ -63,6 +62,12 @@ pipeline {
           color: 'good',
           message: "${env.JOB_NAME} build succeeded: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
         )
+        slackUploadFile(
+          credentialId: "${env.SLACK_CREDENTIALS}",
+          channel: slackResponse.threadId,
+          filePath: 'log.txt',
+          initialComment: 'Build log'
+        )
       }
     }
     failure {
@@ -75,6 +80,12 @@ pipeline {
           botUser: true,
           color: 'danger',
           message: "${env.JOB_NAME} build failed: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
+        )
+        slackUploadFile(
+          credentialId: "${env.SLACK_CREDENTIALS}",
+          channel: slackResponse.threadId,
+          filePath: 'log.txt',
+          initialComment: 'Build log'
         )
       }
     }
