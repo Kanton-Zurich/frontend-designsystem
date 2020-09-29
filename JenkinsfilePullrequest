@@ -55,9 +55,9 @@ pipeline {
         ]
       ]
       slackSend(
-        tokenCredentialId: ${env.SLACK_CREDENTIALS},
-        teamDomain: ${env.SLACK_TEAM_DOMAIN},
-        channel: ${env.SLACK_CHANNEL},
+        tokenCredentialId: "${env.SLACK_CREDENTIALS}",
+        teamDomain: "${env.SLACK_TEAM_DOMAIN},
+        channel: "${env.SLACK_CHANNEL}",
         botUser: true,
         color: 'good',
         attachments: attachments,
@@ -74,9 +74,9 @@ pipeline {
         ]
       ]
       slackSend(
-        tokenCredentialId: ${env.SLACK_CREDENTIALS},
-        teamDomain: ${env.SLACK_TEAM_DOMAIN},
-        channel: ${env.SLACK_CHANNEL},
+        tokenCredentialId: "${env.SLACK_CREDENTIALS}",
+        teamDomain: "${env.SLACK_TEAM_DOMAIN}",
+        channel: "${env.SLACK_CHANNEL}",
         botUser: true,
         color: 'danger',
         attachments: attachments,
