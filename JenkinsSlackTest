@@ -30,7 +30,7 @@ pipeline {
         color: 'good',
         message: "Test Success"
       )
-      def slackUploadResponse = slackUploadFile(
+      slackUploadFile(
         credentialId: "${env.SLACK_CREDENTIALS}",
         channel: slackResponse.threadId,
         filePath: 'log.txt',
