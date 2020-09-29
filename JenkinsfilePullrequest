@@ -42,7 +42,7 @@ pipeline {
   post {
     success {
       bitbucketStatusNotify(buildState: 'SUCCESSFUL')
-      slackSend message: "${env.JOB_NAME} build succeeded: ${env.BUILD_URL}",
+      slackSend message: "${env.JOB_NAME} build succeeded: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}",
       color: 'good',
       channel: '#frontend',
       teamDomain: 'zhch',
@@ -51,7 +51,7 @@ pipeline {
     }
     failure {
       bitbucketStatusNotify(buildState: 'FAILED')
-      slackSend message: "${env.JOB_NAME} build failed: ${env.BUILD_URL}",
+      slackSend message: "${env.JOB_NAME} build failed: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}",
       color: 'danger',
       channel: '#frontend',
       teamDomain: 'zhch',
