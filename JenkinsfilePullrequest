@@ -15,8 +15,8 @@ pipeline {
         script {
           env.BUILD_LOG_FULL = sh (
               script: "npm run build",
-              returnStatus: true
-          ) == 0
+              returnStdout: true
+          )
         }
         sh 'pwd'
       }
