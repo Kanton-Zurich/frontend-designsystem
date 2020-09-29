@@ -65,13 +65,6 @@ pipeline {
     }
     failure {
       bitbucketStatusNotify(buildState: 'FAILED')
-      def attachments = [
-        [
-          text: currentBuild.rawBuild.log,
-          fallback: 'Logfile',
-          color: '#ff0000'
-        ]
-      ]
       slackSend(
         tokenCredentialId: "${env.SLACK_CREDENTIALS}",
         teamDomain: "${env.SLACK_TEAM_DOMAIN}",
