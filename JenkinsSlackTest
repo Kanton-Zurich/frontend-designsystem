@@ -11,12 +11,18 @@ pipeline {
       steps {
           sh 'echo "Test build"'
 
+          script {
+            @NonCPS
+            def getTestSummary = {
+              return currentBuild.rawBuild.logText
+            }
+            getTestSummary()
+          }
       }
     }
   }
   post {
     success {
-      sh 'curl ${BUILD_URL}consoleText'
       slackSend(
         tokenCredentialId: "${env.SLACK_CREDENTIALS}",
         teamDomain: "${env.SLACK_TEAM_DOMAIN}",
@@ -25,7 +31,7 @@ pipeline {
         color: 'good',
         attachments: [
           [
-           text: "${BUILD_URL}/consoleText",
+           text: currentBuild.rawBuild.log,
            fallback: 'Logfile',
            color: '#00FF00'
           ],
