@@ -12,7 +12,12 @@ pipeline {
         bitbucketStatusNotify(buildState: 'INPROGRESS')
         sh 'node -v && npm -v'
         sh 'npm install'
-        sh 'npm run build'
+        script {
+          env.BUILD_LOG_FULL = sh (
+              script: "npm run build",
+              returnStatus: true
+          ) == 0
+        }
         sh 'pwd'
       }
     }
@@ -55,7 +60,7 @@ pipeline {
         color: 'good',
         attachments: [
           [
-           text: currentBuild.rawBuild.log,
+           text: "${env.BUILD_LOG_FULL}",
            fallback: 'Logfile',
            color: '#00FF00'
           ],
@@ -73,7 +78,7 @@ pipeline {
         color: 'danger',
         attachments: [
           [
-           text: currentBuild.rawBuild.log,
+           text: "${env.BUILD_LOG_FULL}",
            fallback: 'Logfile',
            color: '#FF0000'
           ],
