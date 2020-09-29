@@ -17,26 +17,24 @@ pipeline {
             )
           }
           sh "echo '${env.BUILD_LOG_FULL}' >> log.txt"
-          sh "cat log.txt"
       }
     }
   }
   post {
     success {
-      slackSend(
+      def slackResponse = slackSend(
         tokenCredentialId: "${env.SLACK_CREDENTIALS}",
         teamDomain: "${env.SLACK_TEAM_DOMAIN}",
         channel: "${env.SLACK_CHANNEL}",
         botUser: true,
         color: 'good',
-        attachments: [
-          [
-           text: currentBuild.rawBuild.log,
-           fallback: 'Logfile',
-           color: '#00FF00'
-          ],
-        ],
         message: "Test Success"
+      )
+      def slackUploadResponse = slackUploadFile(
+        credentialId: "${env.SLACK_CREDENTIALS}",
+        channel: slackResponse.threadId,
+        filePath: 'log.txt',
+        initialComment: 'Build log'
       )
     }
     failure {
@@ -46,13 +44,6 @@ pipeline {
         channel: "${env.SLACK_CHANNEL}",
         botUser: true,
         color: 'danger',
-        attachments: [
-          [
-           text: "${BUILD_URL}/consoleText",
-           fallback: 'Logfile',
-           color: '#FF0000'
-          ],
-        ],
         message: "Test Fail"
       )
     }
