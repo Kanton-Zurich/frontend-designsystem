@@ -18,7 +18,7 @@ pipeline {
               returnStdout: true
           )
         }
-        echo "${env.BUILD_LOG_FULL}"
+        sh "echo '${env.BUILD_LOG_FULL}' > log.txt"
         sh 'pwd'
       }
     }
@@ -53,39 +53,41 @@ pipeline {
   post {
     success {
       bitbucketStatusNotify(buildState: 'SUCCESSFUL')
-      slackSend(
-        tokenCredentialId: "${env.SLACK_CREDENTIALS}",
-        teamDomain: "${env.SLACK_TEAM_DOMAIN}",
-        channel: "${env.SLACK_CHANNEL}",
-        botUser: true,
-        color: 'good',
-        attachments: [
-          [
-           text: "${env.BUILD_LOG_FULL}",
-           fallback: 'Logfile',
-           color: '#00FF00'
-          ],
-        ],
-        message: "${env.JOB_NAME} build succeeded: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
-      )
+      script {
+        def slackResponse = slackSend(
+          tokenCredentialId: "${env.SLACK_CREDENTIALS}",
+          teamDomain: "${env.SLACK_TEAM_DOMAIN}",
+          channel: "${env.SLACK_CHANNEL}",
+          botUser: true,
+          color: 'good',
+          message: "${env.JOB_NAME} build succeeded: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
+        )
+        slackUploadFile(
+          credentialId: "${env.SLACK_CREDENTIALS}",
+          channel: slackResponse.threadId,
+          filePath: 'log.txt',
+          initialComment: 'Build log'
+        )
+      }
     }
     failure {
       bitbucketStatusNotify(buildState: 'FAILED')
-      slackSend(
-        tokenCredentialId: "${env.SLACK_CREDENTIALS}",
-        teamDomain: "${env.SLACK_TEAM_DOMAIN}",
-        channel: "${env.SLACK_CHANNEL}",
-        botUser: true,
-        color: 'danger',
-        attachments: [
-          [
-           text: "${env.BUILD_LOG_FULL}",
-           fallback: 'Logfile',
-           color: '#FF0000'
-          ],
-        ],
-        message: "${env.JOB_NAME} build failed: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
-      )
+      script {
+        def slackResponse = slackSend(
+          tokenCredentialId: "${env.SLACK_CREDENTIALS}",
+          teamDomain: "${env.SLACK_TEAM_DOMAIN}",
+          channel: "${env.SLACK_CHANNEL}",
+          botUser: true,
+          color: 'danger',
+          message: "${env.JOB_NAME} build failed: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
+        )
+        slackUploadFile(
+          credentialId: "${env.SLACK_CREDENTIALS}",
+          channel: slackResponse.threadId,
+          filePath: 'log.txt',
+          initialComment: 'Build log'
+        )
+      }
     }
   }
 }
