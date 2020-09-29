@@ -1,10 +1,10 @@
 pipeline {
   agent any
   tools {nodejs "node"}
-  node {
-    def slackCredentialsId = 'slack_auth_token_zhch'
-    def slackTeamDomain = 'zhch'
-    def slackChannel = '#frontend'
+  environment {
+    SLACK_CREDENTIALS = 'slack_auth_token_zhch'
+    SLACK_TEAM_DOMAIN = 'zhch'
+    SLACK_CHANNEL = '#frontend'
   }
   stages {
     stage('build') {
@@ -55,10 +55,10 @@ pipeline {
         ]
       ]
       slackSend(
-        tokenCredentialId: slackCredentialsId,
+        tokenCredentialId: ${env.SLACK_CREDENTIALS},
+        teamDomain: ${env.SLACK_TEAM_DOMAIN},
+        channel: ${env.SLACK_CHANNEL},
         botUser: true,
-        teamDomain: slackTeamDomain,
-        channel: slackChannel,
         color: 'good',
         attachments: attachments,
         message: "${env.JOB_NAME} build succeeded: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
@@ -74,10 +74,10 @@ pipeline {
         ]
       ]
       slackSend(
-        tokenCredentialId: slackCredentialsId,
+        tokenCredentialId: ${env.SLACK_CREDENTIALS},
+        teamDomain: ${env.SLACK_TEAM_DOMAIN},
+        channel: ${env.SLACK_CHANNEL},
         botUser: true,
-        teamDomain: slackTeamDomain,
-        channel: slackChannel,
         color: 'danger',
         attachments: attachments,
         message: "${env.JOB_NAME} build failed: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
