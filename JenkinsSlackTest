@@ -10,6 +10,11 @@ pipeline {
     stage('build') {
       steps {
           sh 'echo "Test build"'
+          BUILD_FULL = sh (
+              script: "echo 'LOOOOOG'",
+              returnStatus: true
+          ) == 0
+          echo "Build full flag: ${BUILD_FULL}"
       }
     }
   }
