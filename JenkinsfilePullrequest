@@ -18,7 +18,7 @@ pipeline {
               returnStdout: true
           )
         }
-        writeFile "log.txt" env.BUILD_LOG_FULL
+        writeFile file: "log.txt", text: "${env.BUILD_LOG_FULL}"
         sh 'pwd'
       }
     }
