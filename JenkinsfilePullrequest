@@ -11,13 +11,11 @@ pipeline {
       steps {
         bitbucketStatusNotify(buildState: 'INPROGRESS')
         sh 'node -v && npm -v'
+        sh 'npm install'
+        sh 'npm run build'
         script {
           env.BUILD_LOG_LINT = sh (
-              script: "npm run gulp js:lint",
-              returnStdout: true
-          )
-          env.BUILD_LOG_LINT += sh (
-              script: "npm run gulp css:lint",
+              script: "npm run gulp js && npm run gulp js:lint && npm run gulp css:lint",
               returnStdout: true
           )
         }
