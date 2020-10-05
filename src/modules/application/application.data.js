@@ -27,6 +27,7 @@ const variants = _.mapValues({
       canvas: true,
       caption: _.merge({}, defFigcaptionData, {
         caption: 'Canvas Titel',
+        altCaption: 'Alt text',
       }),
     },
   },

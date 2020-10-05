@@ -10,7 +10,10 @@
           <div class="mdl-iframe__wrapper" style="height: {{{iframeHeight}}}px">
             <iframe src="{{{iframeSrc}}}"></iframe>
           </div>
-          {{> "atoms/text_link/text_link" iframeTextLink}}
+          <figcaption class="mdl-iframe__caption">
+            {{#if caption}}{{> "atoms/figcaption/figcaption" caption}}{{/if}}
+            {{#if iframeTextLink}}{{> "atoms/text_link/text_link" iframeTextLink}}{{/if}}
+          </figcaption>
           {{#unless iframeSmall}}
         </div>
       </div>

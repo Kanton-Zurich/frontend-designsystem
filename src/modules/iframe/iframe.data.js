@@ -2,6 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const defFigcaptionData = require('../../atoms/figcaption/figcaption.data').props;
 
 const template = dataHelper.getFileContent('iframe.hbs');
 const data = _.merge({}, defaultData, {
@@ -38,6 +39,24 @@ const variants = _.mapValues({
         textLinkSrc: 'https://inside-reality.com/',
         textLinkTargetBlank: true,
       },
+    },
+  },
+  default2: {
+    meta: {
+      title: 'Alternative',
+      desc: '',
+    },
+    props: {
+      iframeScreenReaderHeading: {
+        title: 'Testpage',
+        level: 3,
+      },
+      iframeHeight: 600,
+      iframeSrc: 'https://www.one-inside.com/de/',
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Iframe Titel',
+        altCaption: 'Alt text',
+      }),
     },
   },
   fullSize: {
