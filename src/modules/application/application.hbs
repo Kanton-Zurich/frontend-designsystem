@@ -14,6 +14,9 @@
       {{> "modules/application/wahlen.mock"}}
     </div>
   {{/if}}
+  {{#if caption}}<figcaption class="mdl-application__caption">
+    {{> "atoms/figcaption/figcaption" caption}}
+  </figcaption>{{/if}}
   {{#unless fullWidth}}
         </div>
       </div>

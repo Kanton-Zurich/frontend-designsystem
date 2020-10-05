@@ -16,13 +16,23 @@
         margin-bottom: 0;
       }
     }
+    margin-top: pxToRem($sizeHuge);
+    margin-bottom: pxToRem($sizeHuge);
+
+    @include mq($from: xlarge) {
+      margin-top: pxToRem($sizeGiant);
+      margin-bottom: pxToRem($sizeGiant);
+    }
   }
 
-  margin-top: pxToRem($sizeHuge);
-  margin-bottom: pxToRem($sizeHuge);
+  &__caption {
+    display: flex;
+    align-items: flex-start;
 
-  @include mq($from: xlarge) {
-    margin-top: pxToRem($sizeGiant);
-    margin-bottom: pxToRem($sizeGiant);
+    .atm-figcaption {
+      flex-grow: 1;
+    }
   }
+
+  margin-bottom: $sizeTiny;
 }
