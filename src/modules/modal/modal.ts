@@ -245,8 +245,6 @@ class Modal extends Module {
       }, this.options.transitionTime);
     }
 
-    this.log(this.options.transitionTime);
-
     setTimeout(() => {
       this.ui.element.classList.add(this.options.stateClasses.opened);
       window.dispatchEvent(new CustomEvent(Modal.events.opened, { detail: { sender: this } }));
