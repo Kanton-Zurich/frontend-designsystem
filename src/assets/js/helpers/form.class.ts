@@ -375,11 +375,15 @@ class Form {
     switch (maskType) {
       case 'currency':
         // handle CHF formatting
-        domElement.value = FormGlobalHelper.FormatCurrency(newValue, 2); // eslint-disable-line
+        if (domElement.value.length > 0) {
+          domElement.value = FormGlobalHelper.FormatCurrency(newValue, 2); // eslint-disable-line
+        }
         break;
       case 'currency_flat':
         // handle CHF formatting
-        domElement.value = FormGlobalHelper.FormatCurrency(newValue, 0);
+        if (domElement.value.length > 0) {
+          domElement.value = FormGlobalHelper.FormatCurrency(newValue, 0);
+        }
         break;
       default:
         // handle mask

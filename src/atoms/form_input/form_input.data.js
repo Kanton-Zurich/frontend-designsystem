@@ -317,7 +317,6 @@ const variants = _.mapValues({
       unitLeft: true,
       unitLeftLabel: 'CHF',
       type: 'text',
-      inputContent: '0.00',
       label: 'Ihr Wunschgehalt',
       isFloatingLabel: true,
       inputMask: 'currency',
