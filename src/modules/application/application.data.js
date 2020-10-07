@@ -25,8 +25,12 @@ const variants = _.mapValues({
     },
     props: {
       canvas: true,
+      heading: {
+        level: 2,
+        title: 'Single Page Application',
+      },
       caption: _.merge({}, defFigcaptionData, {
-        caption: 'Canvas Titel',
+        caption: 'Canvas Titel <a class="atm-text_link" href="#">Quelle</a>',
         altCaption: 'Alt text',
       }),
     },

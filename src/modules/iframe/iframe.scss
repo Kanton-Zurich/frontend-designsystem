@@ -4,7 +4,6 @@
     @include gridBleed($fullwidth: true);
   }
 
-  color: $colorBlack60;
   margin-top: pxToRem($sizeHuge);
   margin-bottom: pxToRem($sizeHuge);
 
@@ -13,7 +12,12 @@
     margin-bottom: pxToRem($sizeGiant);
   }
 
+  &--with-title {
+    margin-top: 0;
+  }
+
   &__wrapper {
+    color: $colorBlack60;
     position: relative;
     width: 100%;
     -webkit-overflow-scrolling: touch;

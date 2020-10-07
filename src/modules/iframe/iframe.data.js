@@ -47,9 +47,9 @@ const variants = _.mapValues({
       desc: '',
     },
     props: {
-      iframeScreenReaderHeading: {
-        title: 'Testpage',
-        level: 3,
+      heading: {
+        level: 2,
+        title: 'Small Iframe',
       },
       iframeHeight: 600,
       iframeSrc: 'https://www.one-inside.com/de/',
@@ -79,6 +79,10 @@ const variants = _.mapValues({
       iframeFullSize: false,
       iframeSmall: true,
       iframeHeight: 600,
+      heading: {
+        level: 2,
+        title: 'Small Iframe',
+      },
     },
   },
 }, (variant) => {

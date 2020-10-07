@@ -23,6 +23,10 @@
       margin-top: pxToRem($sizeGiant);
       margin-bottom: pxToRem($sizeGiant);
     }
+
+    &--with-title {
+      margin-top: 0;
+    }
   }
 
   &__caption {
