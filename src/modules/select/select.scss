@@ -284,6 +284,9 @@ $selectOptionsMinWidth: 268px;
     }
   }
 
+  /**
+   Simple scrollbar specific classes that cannot be changed and are only used within the select component
+   */
   .ss-wrapper {
     overflow: hidden;
     width: 100%;
@@ -296,7 +299,7 @@ $selectOptionsMinWidth: 268px;
   .ss-content {
     height: 100%;
     width: calc(100% + 18px);
-    padding: 0 0 0 0;
+    padding: 0;
     position: relative;
     overflow-x: auto;
     overflow-y: scroll;
@@ -319,10 +322,6 @@ $selectOptionsMinWidth: 268px;
   }
 
   .ss-grabbed {
-    -o-user-select: none;
-    -ms-user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
     user-select: none;
   }
 }

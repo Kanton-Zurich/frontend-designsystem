@@ -6,7 +6,7 @@
  */
 import Module from '../../assets/js/helpers/module';
 import { debounce } from 'lodash';
-import SimpleScrollbar from 'simple-scrollbar'
+import SimpleScrollbar from 'simple-scrollbar';
 
 class Select extends Module {
   public isOpen: boolean;
