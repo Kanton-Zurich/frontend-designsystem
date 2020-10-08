@@ -6,6 +6,7 @@
  */
 import Module from '../../assets/js/helpers/module';
 import { debounce } from 'lodash';
+import SimpleScrollbar from 'simple-scrollbar'
 
 class Select extends Module {
   public isOpen: boolean;
@@ -17,6 +18,7 @@ class Select extends Module {
   public buttonPostfix: string;
   public selections: Array<any>;
   private typeAhead: string;
+  private scrollInitialized: boolean;
 
   public ui: {
     element: any,
@@ -90,6 +92,7 @@ class Select extends Module {
     this.typeAhead = '';
     this.isMultiSelect = false;
     this.usedAnchors = false;
+    this.scrollInitialized = false;
     this.isFirefox = navigator.userAgent.search('Firefox') > -1;
     this.hasFilter = typeof this.ui.filter !== 'undefined';
     this.hasTableList = this.ui.list.classList.contains(this.options.stateClasses.tableList);
@@ -587,6 +590,10 @@ class Select extends Module {
     this.onFocusOut = this.onFocusOut.bind(this);
     window.addEventListener('mouseup', this.onFocusOut);
     this.emitOpen();
+    if (!this.scrollInitialized) {
+      SimpleScrollbar.initEl(this.ui.list);
+      this.scrollInitialized = true;
+    }
   }
 
   /**
