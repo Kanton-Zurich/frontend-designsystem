@@ -581,6 +581,7 @@ const variants = _.mapValues({
                         8310: 'Winterthur',
                         8700: 'Küsnacht ZH',
                         8620: 'Wetzikon',
+                        8500: ['Gerlikon', 'Frauenfeld'],
                       }),
                     },
                   })),
@@ -593,6 +594,7 @@ const variants = _.mapValues({
                     label: 'Ort',
                     name: 'city',
                     uuid: 'city',
+                    isZipCityTarget: true,
                     validation: {
                       isRequired: true,
                     },

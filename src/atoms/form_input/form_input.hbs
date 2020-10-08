@@ -75,6 +75,19 @@
       {{#if disableAutocomplete}}autocomplete="new-password"{{/if}}
     >
   {{/if}}
+
+  {{#if isZipCityTarget}}
+    <div class="atm-form_input__city-options" data-form_input="cityOptions">
+      <script type="text/x-handlebars-template" data-form_input="cityOptionsTemplate">
+        <li class="atm-list__item">
+          <button type="button" value="<%- city %>"><%- city %></button>
+        </li>
+      </script>
+      <ul class="atm-list" data-form_input="cityOptionsList">
+      </ul>
+    </div>
+  {{/if}}
+
   {{#unless isTriggerWithInput }}
     {{#if maskPlaceholder }}
       <span class="atm-form_input__backdrop">
