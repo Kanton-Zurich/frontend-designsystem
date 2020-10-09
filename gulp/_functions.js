@@ -36,7 +36,6 @@ const Inlinify = (srcFile, destination = false, rename = false) => {
 
   return gulp.src(srcFile)
     .pipe(through.obj((chunk, enc, cb) => {
-      console.log('Changed paths in file: ', chunk.path);
       cb(null, chunk);
     }))
     .pipe(strReplace(linkRegex, (match) => {
@@ -54,7 +53,6 @@ const Inlinify = (srcFile, destination = false, rename = false) => {
       return '';
     }))
     .pipe(strReplace(cssRegex, (match) => {
-      console.log('MATCH');
       const url = match.split('"')[3];
       const fileContent = loadFileFromLocationSync(url, 'utf-8');
 
