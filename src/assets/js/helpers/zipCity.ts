@@ -1,4 +1,5 @@
 import wrist from 'wrist';
+import SimpleScrollbar from 'simple-scrollbar';
 import { debounce, template } from 'lodash';
 
 class ZipCity {
@@ -15,7 +16,9 @@ class ZipCity {
     showOptionsClass: string;
   }
 
-  private data: any
+  private data: any;
+
+  private scrollbarInitialized: Boolean;
 
   constructor($zipField, $cityField) {
     this.fields = {
@@ -32,6 +35,8 @@ class ZipCity {
     };
 
     this.data = JSON.parse(this.fields.zip.getAttribute('data-zip'));
+
+    this.scrollbarInitialized = false;
 
     this.setWatcher();
   }
@@ -56,6 +61,12 @@ class ZipCity {
           this.fields.cityOptionsList.innerHTML = listItems;
 
           this.fields.city.parentElement.classList.add(this.options.showOptionsClass);
+
+          if (!this.scrollbarInitialized) {
+            SimpleScrollbar.initEl(this.fields.cityOptionsList);
+            this.scrollbarInitialized = true;
+          }
+
 
           this.addEventListeners();
         }

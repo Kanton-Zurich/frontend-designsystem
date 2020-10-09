@@ -539,6 +539,8 @@ $triggerWidth: pxToRem(86px);
     display: none;
     max-height: 400px;
 
+    @include simpleScrollbarStyles();
+
     .atm-list__item {
       padding-left: 0;
     }
