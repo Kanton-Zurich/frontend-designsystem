@@ -3,15 +3,15 @@
 
 
 
-	<input class="atm-form_input__input" data-pattern="^\d{2}\.\d{2}\.$" id="float_input_valid3" placeholder="pflichtig von" name="input_name" value="" type="text" required data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d[\d.]\." data-mask-placeholder="TT.MM.">
+	<input class="atm-form_input__input" data-pattern="\C\H\E\-\d{3,}\.\d{3,}\.\d{3,}$" id="float_input_valid16" placeholder="UID" name="input_name" value="" type="text" data-validation data-floating data-input-mask="\C[\dCHE-]H[\dHE-]E[\dE-]-[\d-]\d\d\d\.[\d.]\d\d\d\.[\d.]\d\d\d" data-mask-placeholder="CHE-___.___.___">
 
 
 
 	<span class="atm-form_input__backdrop">
-		<i></i>TT.MM.
+		<i></i>CHE-___.___.___
 	</span>
 
-	<label for="float_input_valid3">pflichtig von</label>
+	<label for="float_input_valid16">UID</label>
 	<span class="atm-form_input__validate-icon">
 		<span>
 			<span class="visuallyhidden">Eingabe entspricht den Vorgaben.</span>
@@ -31,7 +31,7 @@
 
 
 
-	<div class="atm-form_input__hint">Bitte im Format TT.MM. eingeben</div>
-	<p data-message="pattern">Datum bitte im Format TT.MM. eingeben!</p>
-	<p data-message="required">Dies ist ein Pflichtfeld</p>
+
+	<p data-message="pattern">Eingabe bitte im Format CHE-XXX.XXX.XXX eingeben!</p>
+
 </div>

@@ -3,12 +3,12 @@
 
 
 
-	<input class="atm-form_input__input" data-pattern="^([0-9]){1,2}$" id="float_input_float6" placeholder="Validation(Zahlen)" name="input_name" value="" type="text" required data-validation data-floating>
+	<input class="atm-form_input__input" data-pattern="\d{1,9}$" id="float_input_valid19" placeholder="Zemis-Nummer" name="input_name" value="" type="text" data-validation data-floating data-input-mask="\d\d\d\d\d\d\d\d\d">
 
 
 
 
-	<label for="float_input_float6">Validation(Zahlen)</label>
+	<label for="float_input_valid19">Zemis-Nummer</label>
 	<span class="atm-form_input__validate-icon">
 		<span>
 			<span class="visuallyhidden">Eingabe entspricht den Vorgaben.</span>
@@ -29,6 +29,6 @@
 
 
 
-	<p data-message="pattern">Dieses Eingabefeld erlaubt nur Zahlen. Es benötigt mindestens 1 und maximal 2 Zahlen im Eingabefeld!</p>
-	<p data-message="required">Dies ist ein Pflichtfeld</p>
+	<p data-message="pattern">Bitte im Format mit 1 bis 9 Ziffern!</p>
+
 </div>

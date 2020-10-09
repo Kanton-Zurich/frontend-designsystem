@@ -3,12 +3,15 @@
 
 
 
-	<input class="atm-form_input__input" data-pattern="^([0-9]){1,2}$" id="float_input_float6" placeholder="Validation(Zahlen)" name="input_name" value="" type="text" required data-validation data-floating>
+	<input class="atm-form_input__input" data-pattern="\d{8,}$" id="float_input_valid18" placeholder="BUR-Nummer" name="input_name" value="" type="text" data-validation data-floating data-input-mask="\d\d\d\d\d\d\d\d" data-mask-placeholder="XXXXXXXX">
 
 
 
+	<span class="atm-form_input__backdrop">
+		<i></i>XXXXXXXX
+	</span>
 
-	<label for="float_input_float6">Validation(Zahlen)</label>
+	<label for="float_input_valid18">BUR-Nummer</label>
 	<span class="atm-form_input__validate-icon">
 		<span>
 			<span class="visuallyhidden">Eingabe entspricht den Vorgaben.</span>
@@ -29,6 +32,6 @@
 
 
 
-	<p data-message="pattern">Dieses Eingabefeld erlaubt nur Zahlen. Es benötigt mindestens 1 und maximal 2 Zahlen im Eingabefeld!</p>
-	<p data-message="required">Dies ist ein Pflichtfeld</p>
+	<p data-message="pattern">Bitte im Format mit 8 Ziffern!</p>
+
 </div>
