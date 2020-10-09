@@ -97,6 +97,11 @@
       }
     }
 
+    .atm-text_link {
+      hyphens: none;
+      word-break: break-all;
+    }
+
     .atm-button {
       margin-top: $sizeRegular;
     }
