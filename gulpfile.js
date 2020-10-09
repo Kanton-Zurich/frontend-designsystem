@@ -1010,7 +1010,6 @@ gulp.task('generate:diff', () => {
   }
 
   const generateWWW = function(file, enc, cb) {
-    console.log(file.path);
     const data = require(file.path);
     const f = path.parse(file.path);
     let variants = data.variants ? data.variants : { default: data };
