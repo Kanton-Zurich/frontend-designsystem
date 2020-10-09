@@ -3,6 +3,7 @@ $selectHeightWithButton: 274px;
 $selectHeightWithFilter: 360px;
 $selectHeightWithFilterExtended: 424px;
 $selectOptionsMinWidth: 268px;
+$selectScrollbarWidth: 30px;
 
 .mdl-select {
   position: relative;
@@ -30,8 +31,13 @@ $selectOptionsMinWidth: 268px;
       overflow: hidden;
     }
 
-    .atm-list__item input {
-      display: none;
+    .atm-list__item {
+      padding-right: $selectScrollbarWidth;
+
+      input {
+        display: none;
+        width: calc(100% - #{$selectScrollbarWidth});
+      }
     }
   }
 
@@ -314,10 +320,11 @@ $selectOptionsMinWidth: 268px;
   .ss-scroll {
     position: relative;
     background: rgba(0, 0, 0, 0.3);
-    width: 9px;
+    width: 8px;
     border-radius: 4px;
     top: 0;
     z-index: 2;
+    transform: translateX(-2px);
     cursor: pointer;
   }
 
