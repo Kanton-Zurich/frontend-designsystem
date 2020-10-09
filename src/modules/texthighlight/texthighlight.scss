@@ -10,8 +10,7 @@
 @each $key, $val in $tl-color-variations {
   .#{$key} {
     .mdl-texthighlight {
-
-      background-color: #{rgba($val, 0.07)};
+      background-color: #{mix($val, $colorWhite, 5%)};
 
       .atm-figcaption {
         color: #{$val};
