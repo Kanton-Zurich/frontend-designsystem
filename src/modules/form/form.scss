@@ -79,7 +79,7 @@ $gapSize: pxToRem($sizeRegular);
     padding: 0 $gapSize/2;
     flex: 1 1 0px; //stylelint-disable-line
 
-    &:first-child:last-child:not(.form__cell--small) {
+    &:first-child:last-child {
       flex-basis: 100%;
       min-width: 100%;
     }

@@ -47,7 +47,7 @@ const variants = _.mapValues({
     props: {
       type: 'text',
       label: 'pflichtig von',
-      inputMask: '\\d\\d\\.[\\d.]\\d\\d\\.',
+      inputMask: '\\d\\d\\.[\\d.]\\d\\d[\\d.]\\.',
       maskPlaceholder: 'TT.MM.',
       validation: {
         pattern: '^\\d{2}\\.\\d{2}\\.$',
@@ -278,7 +278,127 @@ const variants = _.mapValues({
         pattern: '\\+41\\s\\d{2,}\\s\\d{3,}\\s\\d{2,}\\s\\d{2,}$',
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
-        errorMsg: 'Datum bitte im Format +41 XX XXX XX XX eingeben!',
+        errorMsg: 'Eingabe bitte im Format +41 XX XXX XX XX eingeben!',
+        isRequired: false,
+      },
+      uuid: _.uniqueId('float_input_valid'),
+      isFloatingLabel: true,
+      isRequired: true,
+
+    },
+  },
+  mwst: {
+    meta: {
+      title: 'Mehrwertsteuer mit Maske',
+      desc: 'Input mit floating Label und validierung und Hinweis',
+    },
+    props: {
+      type: 'text',
+      label: 'Mehrwertsteuer',
+      inputMask: '\\C[\\dCHE-]H[\\dHE-]E[\\dE-]-[\\d-]\\d\\d\\d\\.[\\d.]\\d\\d\\d\\.[\\d.]\\d\\d\\d\\s[\\M ]\\MWS\\T',
+      maskPlaceholder: 'CHE-___.___.___ MWST',
+      inputContent: '',
+      validation: {
+        pattern: '\\C\\H\\E\\-\\d{3,}\\.\\d{3,}\\.\\d{3,}\\s\\MWS\\T$',
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Eingabe bitte im Format CHE-XXX.XXX.XXX MWST eingeben!',
+        isRequired: false,
+      },
+      uuid: _.uniqueId('float_input_valid'),
+      isFloatingLabel: true,
+      isRequired: true,
+
+    },
+  },
+  UID: {
+    meta: {
+      title: 'UID mit Maske',
+      desc: 'Input mit floating Label und validierung und Hinweis',
+    },
+    props: {
+      type: 'text',
+      label: 'UID',
+      inputMask: '\\C[\\dCHE-]H[\\dHE-]E[\\dE-]-[\\d-]\\d\\d\\d\\.[\\d.]\\d\\d\\d\\.[\\d.]\\d\\d\\d',
+      maskPlaceholder: 'CHE-___.___.___',
+      inputContent: '',
+      validation: {
+        pattern: '\\C\\H\\E\\-\\d{3,}\\.\\d{3,}\\.\\d{3,}$',
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Eingabe bitte im Format CHE-XXX.XXX.XXX eingeben!',
+        isRequired: false,
+      },
+      uuid: _.uniqueId('float_input_valid'),
+      isFloatingLabel: true,
+      isRequired: true,
+
+    },
+  },
+  AHV: {
+    meta: {
+      title: 'AHV Nummer mit Maske',
+      desc: 'Input mit floating Label und validierung und Hinweis',
+    },
+    props: {
+      type: 'text',
+      label: 'AHV-Nummer',
+      inputMask: '\\d\\d\\d\\.[\\d.]\\d\\d\\d\\d\\.[\\d.]\\d\\d\\d\\d\\.[\\d.]\\d\\d',
+      maskPlaceholder: '___.____.____.__',
+      inputContent: '',
+      validation: {
+        pattern: '\\d{3,}\\.\\d{4,}\\.\\d{4,}\\.\\d{2,}$',
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Eingabe bitte im Format XXX.XXXX.XXXX.XX eingeben!',
+        isRequired: false,
+      },
+      uuid: _.uniqueId('float_input_valid'),
+      isFloatingLabel: true,
+      isRequired: true,
+
+    },
+  },
+  BUR: {
+    meta: {
+      title: 'BUR Nummer mit Maske',
+      desc: 'Input mit floating Label und validierung und Hinweis',
+    },
+    props: {
+      type: 'text',
+      label: 'BUR-Nummer',
+      inputMask: '\\d\\d\\d\\d\\d\\d\\d\\d',
+      maskPlaceholder: 'XXXXXXXX',
+      inputContent: '',
+      validation: {
+        pattern: '\\d{8,}$',
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Bitte im Format mit 8 Ziffern!',
+        isRequired: false,
+      },
+      uuid: _.uniqueId('float_input_valid'),
+      isFloatingLabel: true,
+      isRequired: true,
+
+    },
+  },
+  zemis: {
+    meta: {
+      title: 'Zemis Nummer',
+      desc: 'Input mit floating Label und validierung und Hinweis',
+    },
+    props: {
+      type: 'text',
+      label: 'Zemis-Nummer',
+      inputMask: '\\d\\d\\d\\d\\d\\d\\d\\d\\d',
+      maskPlaceholder: '',
+      inputContent: '',
+      validation: {
+        pattern: '\\d{1,9}$',
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Bitte im Format mit 1 bis 9 Ziffern!',
         isRequired: false,
       },
       uuid: _.uniqueId('float_input_valid'),

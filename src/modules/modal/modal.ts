@@ -245,14 +245,20 @@ class Modal extends Module {
       }, this.options.transitionTime);
     }
 
-    this.log(this.options.transitionTime);
-
     setTimeout(() => {
       this.ui.element.classList.add(this.options.stateClasses.opened);
       window.dispatchEvent(new CustomEvent(Modal.events.opened, { detail: { sender: this } }));
+
+      if (this.ui.initiable.length > 0) {
+        this.ui.initiable.forEach((target) => {
+          target.dispatchEvent(new CustomEvent(Modal.events.opened));
+        });
+      }
     }, this.options.transitionTime);
 
     document.body.classList.add(this.options.stateClasses.openModal);
+
+    window.dispatchEvent(new CustomEvent('reloadLineClamper'));
   }
 
   /** Closes the modal */
