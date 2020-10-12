@@ -88,7 +88,11 @@
             " data-input>
 
 
+
 									<input class="atm-form_input__input" id="prename" placeholder="Vorname" name="prename" value="" type="text" required data-validation data-floating>
+
+
+
 
 									<label for="prename">Vorname</label>
 									<span class="atm-form_input__validate-icon">
@@ -121,7 +125,11 @@
             " data-input>
 
 
+
 									<input class="atm-form_input__input" id="surname" placeholder="Nachname" name="surname" value="" type="text" required data-validation data-floating>
+
+
+
 
 									<label for="surname">Nachname</label>
 									<span class="atm-form_input__validate-icon">
@@ -157,7 +165,11 @@
             " data-input>
 
 
+
 									<input class="atm-form_input__input" id="emailaddr" placeholder="E-Mail" name="emailaddr" value="" type="email" data-validation data-floating>
+
+
+
 
 									<label for="emailaddr">E-Mail</label>
 									<span class="atm-form_input__validate-icon">
@@ -190,7 +202,11 @@
             " data-input>
 
 
+
 									<input class="atm-form_input__input" id="url_input" placeholder="URL" name="url_input" value="" type="url" data-validation data-floating>
+
+
+
 
 									<label for="url_input">URL</label>
 									<span class="atm-form_input__validate-icon">
@@ -226,7 +242,11 @@
             " data-input>
 
 
-									<input class="atm-form_input__input" data-pattern="^[0-9]{4,4}$" id="zip" placeholder="PLZ" name="zip" value="" type="text" required data-validation data-floating data-fills-city="city" data-zip="{&quot;8000&quot;:&quot;Zürich&quot;,&quot;8001&quot;:&quot;Zürich&quot;,&quot;8004&quot;:&quot;Zürich&quot;,&quot;8310&quot;:&quot;Winterthur&quot;,&quot;8620&quot;:&quot;Wetzikon&quot;,&quot;8700&quot;:&quot;Küsnacht ZH&quot;}">
+
+									<input class="atm-form_input__input" data-pattern="^[0-9]{4,4}$" id="zip" placeholder="PLZ" name="zip" value="" type="text" required data-validation data-floating data-fills-city="city" data-zip="{&quot;8000&quot;:&quot;Zürich&quot;,&quot;8001&quot;:&quot;Zürich&quot;,&quot;8004&quot;:&quot;Zürich&quot;,&quot;8310&quot;:&quot;Winterthur&quot;,&quot;8500&quot;:[&quot;Gerlikon&quot;,&quot;Frauenfeld&quot;],&quot;8620&quot;:&quot;Wetzikon&quot;,&quot;8700&quot;:&quot;Küsnacht ZH&quot;}">
+
+
+
 
 									<label for="zip">PLZ</label>
 									<span class="atm-form_input__validate-icon">
@@ -258,8 +278,22 @@
 								<div class="atm-form_input atm-form_input--floated
             " data-input>
 
+									<div class="atm-form_input__city-options" data-form_input="cityOptions">
+										<script type="text/x-handlebars-template" data-form_input="cityOptionsTemplate">
+											<li class="atm-list__item">
+                    <button type="button" value="<%- city %>"><%- city %> <span class="visuallyhidden">auswählen</span></button>
+                  </li>
+                </script>
+										<span class="visuallyhidden">Bitte wählen Sie die passende Ortschaft aus:</span>
+										<ul class="atm-list" data-form_input="cityOptionsList">
+										</ul>
+									</div>
+
 
 									<input class="atm-form_input__input" id="city" placeholder="Ort" name="city" value="" type="text" required data-validation data-floating>
+
+
+
 
 									<label for="city">Ort</label>
 									<span class="atm-form_input__validate-icon">
@@ -321,6 +355,10 @@
 
 
 
+
+
+
+
 										<p data-message="required">Dies ist ein Pflichtfeld</p>
 									</div>
 									<div class="mdl-select__options">
@@ -330,7 +368,11 @@
                     " data-input>
 
 
+
 												<input class="atm-form_input__input" id="input1" placeholder="Nach Stichwort filtern" name="input_name" value="" type="text" autocomplete="off" data-hasbutton="true">
+
+
+
 
 												<label for="input1">Nach Stichwort filtern</label>
 
@@ -445,7 +487,11 @@
                 " data-input>
 
 
+
 										<input class="atm-form_input__input" data-pattern="^\d{2}.\d{2}.\d{4}\s-\s\d{2}.\d{2}.\d{4}$" id="date-range-111" placeholder="Zeitraum von/bis" name="input_name" value="" type="text" required data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d - ]\-[\d- ] [\d ]\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d" data-mask-placeholder="TT.MM.JJJJ - TT.MM.JJJJ">
+
+
+
 										<span class="atm-form_input__backdrop">
 											<i></i>TT.MM.JJJJ - TT.MM.JJJJ
 										</span>
@@ -501,6 +547,10 @@
 
 
 
+
+
+
+
 										<p data-message="pattern">Die Eingabe entspricht nicht den Vorgaben für eine Telefonnummer.</p>
 										<p data-message="required">Dies ist ein Pflichtfeld</p>
 									</div>
@@ -511,7 +561,11 @@
                     " data-input>
 
 
+
 												<input class="atm-form_input__input" id="input1" placeholder="Telefonvorwahl nach Land wählen" name="input_name" value="" type="text" autocomplete="off" data-hasbutton="true">
+
+
+
 
 												<label for="input1">Telefonvorwahl nach Land wählen</label>
 
@@ -662,7 +716,11 @@
                 " data-input>
 
 
+
 										<input class="atm-form_input__input" data-pattern="^\d{2}.\d{2}.\d{4}\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" id="date-hour-113" placeholder="Datum/Uhrzeit" name="input_name" value="" type="text" required data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d ]\d\d:[\d:]\d\d" data-mask-placeholder="TT.MM.JJJJ HH:MM">
+
+
+
 										<span class="atm-form_input__backdrop">
 											<i></i>TT.MM.JJJJ HH:MM
 										</span>
@@ -691,7 +749,11 @@
             " data-input>
 
 
+
 									<input class="atm-form_input__input" id="altemailaddr" placeholder="Alternative E-Mail" name="altemailaddr" value="" type="email" required data-validation data-floating>
+
+
+
 
 									<label for="altemailaddr">Alternative E-Mail</label>
 									<span class="atm-form_input__validate-icon">
@@ -728,7 +790,11 @@
             " data-input>
 
 
+
 										<input class="atm-form_input__input" id="vornameKind599" placeholder="Vorname Kind" name="vornameKind598" value="" type="text" data-floating>
+
+
+
 
 										<label for="vornameKind599">Vorname Kind</label>
 
@@ -759,6 +825,7 @@
             >
           
           
+          
               <input class="atm-form_input__input"
                 
                 
@@ -776,6 +843,9 @@
                 
                 
               >
+          
+          
+          
           
               <label for="vornameKind601">Vorname Kind</label>
           
@@ -854,7 +924,11 @@
             " data-input>
 
 
+
 									<input class="atm-form_input__input" id="nationality" placeholder="Staatsangehörigkeit" name="nationality" value="" type="text" required data-validation data-floating>
+
+
+
 
 									<label for="nationality">Staatsangehörigkeit</label>
 									<span class="atm-form_input__validate-icon">
@@ -916,7 +990,11 @@
             " data-input>
 
 
+
 									<input class="atm-form_input__input" id="place_of_birth" placeholder="Geburtsort" name="place_of_birth" value="" type="text" required data-validation data-floating>
+
+
+
 
 									<label for="place_of_birth">Geburtsort</label>
 									<span class="atm-form_input__validate-icon">
@@ -1018,7 +1096,11 @@
                 " data-input>
 
 
+
 										<input class="atm-form_input__input" data-pattern="^\d{2}\.\d{2}\.\d{4}$" id="date-110" placeholder="Datum" name="input_name" value="" type="text" required data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d" data-mask-placeholder="TT.MM.JJJJ">
+
+
+
 										<span class="atm-form_input__backdrop">
 											<i></i>TT.MM.JJJJ
 										</span>
@@ -1057,6 +1139,7 @@
             >
           
           
+          
               <input class="atm-form_input__input"
                 
                 
@@ -1074,6 +1157,9 @@
                 
                 
               >
+          
+          
+          
           
               <label for="nationality">Staatsangehörigkeit</label>
                     <span class="atm-form_input__validate-icon">
@@ -1108,6 +1194,7 @@
             >
           
           
+          
               <input class="atm-form_input__input"
                 
                 
@@ -1125,6 +1212,9 @@
                 
                 
               >
+          
+          
+          
           
               <label for="place_of_birth">Geburtsort</label>
                     <span class="atm-form_input__validate-icon">
@@ -1221,6 +1311,7 @@
                 >
               
               
+              
                   <input class="atm-form_input__input"
                      data-pattern="^\d{2}\.\d{2}\.\d{4}$"
                     
@@ -1238,6 +1329,9 @@
                     
                     
                   >
+              
+              
+              
                     <span class="atm-form_input__backdrop">
                       <i></i>TT.MM.JJJJ
                     </span>
@@ -1338,7 +1432,11 @@
             " data-input>
 
 
+
 									<input class="atm-form_input__input" id="current_job" placeholder="Aktuelle Berufsebezichnung" name="current_job" value="" type="text" required data-validation data-floating>
+
+
+
 
 									<label for="current_job">Aktuelle Berufsebezichnung</label>
 									<span class="atm-form_input__validate-icon">
@@ -1374,7 +1472,11 @@
             " data-input>
 
 
+
 									<input class="atm-form_input__input" id="input1" placeholder="Berufslehre als" name="education_origin" value="" type="text" required data-validation data-floating>
+
+
+
 
 									<label for="input1">Berufslehre als</label>
 									<span class="atm-form_input__validate-icon">
@@ -1433,7 +1535,11 @@
           " data-input data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;allowmailnotification&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;true&quot;}],&quot;action&quot;:&quot;show&quot;}]">
 
 
+
 				<input class="atm-form_input__input" id="reply-to185" placeholder="Ihre E-Mail-Adresse" name="reply-to186" value="" type="email" required data-validation data-floating>
+
+
+
 
 				<label for="reply-to185">Ihre E-Mail-Adresse</label>
 				<span class="atm-form_input__validate-icon">
