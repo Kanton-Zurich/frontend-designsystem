@@ -185,6 +185,12 @@ $triggerWidth: pxToRem(86px);
     .atm-form_input__input.dirty ~ .atm-form_input__backdrop {
       display: block;
     }
+
+    /* ------ Unit ------ */
+    .atm-form_input__input:focus ~ .atm-form_input__unit,
+    .atm-form_input__input.dirty ~ .atm-form_input__unit {
+      opacity: 1;
+    }
   }
 
   /* ------------------------------
@@ -252,6 +258,7 @@ $triggerWidth: pxToRem(86px);
     }
 
     .atm-form_input--floated & {
+      opacity: 0;
       top: $paddingInput + $borderWidthRem + $paddingDifferenceOnFocus;
     }
   }
