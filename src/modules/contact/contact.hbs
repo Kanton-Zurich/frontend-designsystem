@@ -90,7 +90,7 @@
     {{/if}}
 
     {{#if contactPhone}}
-      <div class="mdl-contact__section-cell{{#if fullWidth}} cell xsmall-offset-2 small-offset-0 medium-offset-0 large-offset-0 xlarge-offset-0 x-small-6 xsmall-10 small-5 xlarge-3{{/if}}">
+      <div class="mdl-contact__section-cell{{#if fullWidth}} cell xsmall-offset-2 {{#if contactAddress }}small-offset-0 medium-offset-0 large-offset-0 xlarge-offset-0{{/if}}{{#unless contactAddress}}small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2{{/unless}} x-small-6 xsmall-10 small-5 xlarge-3{{/if}}">
         <div class="mdl-contact__cell-icon">
           <h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}} class="visuallyhidden">{{{contactAriaTitle_phone}}}</h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}}>
           <svg class="icon mdl-contact__icon-phone" aria-hidden="true" focusable="false">
@@ -132,7 +132,7 @@
     {{/if}}
 
     {{#if contactMail}}
-      <div class="mdl-contact__section-cell{{#if fullWidth}} cell xsmall-offset-2 small-offset-2 xlarge-offset-0 xsmall-10 small-8 xlarge-4{{/if}}">
+      <div class="mdl-contact__section-cell{{#if fullWidth}} cell xsmall-offset-2 small-offset-2 xlarge-offset-{{#if contactAddress}}0{{else}}{{#if contactPhone}}0{{else}}2{{/if}}{{/if}} xsmall-10 small-8 xlarge-4{{/if}}">
         <div class="mdl-contact__cell-icon">
           <h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}} class="visuallyhidden">{{{contactAriaTitle_email}}}</h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}}>
           <svg class="icon mdl-contact__icon-email" aria-hidden="true" focusable="false">
