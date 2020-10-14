@@ -30,6 +30,7 @@ $searchSizeCurve: (
 $triggerWidth: pxToRem(86px);
 
 .atm-form_input {
+  $self: &;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -531,5 +532,32 @@ $triggerWidth: pxToRem(86px);
     i {
       opacity: 0;
     }
+  }
+
+  /** -------------------- */
+  /* STYLING FOR CITY OPTS */
+  /* --------------------- */
+  &__city-options {
+    position: absolute;
+    top: $targetInputHeight + $borderWidth * 2;
+    left: 0;
+    right: 0;
+    background: $colorWhite;
+    display: none;
+
+    .atm-list__item {
+      padding-left: 0;
+    }
+
+    button {
+      height: 100%;
+      width: 100%;
+      padding-left: 0.75rem;
+    }
+  }
+
+  &--show-city-options #{$self}__city-options {
+    z-index: $zIndexDropDowns;
+    display: block;
   }
 }
