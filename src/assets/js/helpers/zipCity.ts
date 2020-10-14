@@ -1,5 +1,4 @@
 import wrist from 'wrist';
-import SimpleScrollbar from 'simple-scrollbar';
 import { debounce, template } from 'lodash';
 
 class ZipCity {
@@ -18,19 +17,19 @@ class ZipCity {
 
   private data: any;
 
-  private scrollbarInitialized: Boolean;
-
   private clickListener = () => {
     this.openOptionList();
   }
 
   private keydownListener = (event: KeyboardEvent) => {
-    if (event.key === 'Enter' || event.key === 'Spacebar' || event.key === ' ') {
+    const pressed = event.key;
+
+    if (['ArrowUp', 'ArrowDown', 'Up', 'Down', 'Enter', 'Spacebar', ' '].indexOf(pressed) >= 0) {
       event.stopPropagation();
       event.preventDefault();
 
       this.openOptionList();
-    } else if ((event.key === 'Tab') && !event.shiftKey) {
+    } else if ((pressed === 'Tab') && !event.shiftKey) {
       this.closeOptionList();
     }
   }
@@ -55,8 +54,6 @@ class ZipCity {
 
     this.data = JSON.parse(this.fields.zip.getAttribute('data-zip'));
 
-    this.scrollbarInitialized = false;
-
     this.setWatcher();
   }
 
@@ -70,6 +67,8 @@ class ZipCity {
 
           if (typeof this.data[newVal] === 'string') {
             this.setValue(this.data[newVal]);
+
+            this.removeEventListeners();
           } else if (Array.isArray(this.data[newVal])) {
             let listItems = '';
 
@@ -86,11 +85,6 @@ class ZipCity {
 
             this.fields.city.addEventListener('click', this.clickListener);
             this.fields.city.addEventListener('keydown', this.keydownListener);
-
-            if (!this.scrollbarInitialized) {
-              SimpleScrollbar.initEl(this.fields.cityOptionsList);
-              this.scrollbarInitialized = true;
-            }
 
             this.addEventListeners();
           }
@@ -116,7 +110,24 @@ class ZipCity {
         this.setValue(button.getAttribute('value'));
       });
       button.addEventListener('keydown', (event: KeyboardEvent) => {
-        if (event.key === 'Esc' || event.key === 'Escape') {
+        const pressed = event.key;
+
+        if (['ArrowUp', 'ArrowDown', 'Up', 'Down'].indexOf(pressed) >= 0) {
+          event.preventDefault();
+          event.stopPropagation();
+
+          let li = (event.target as HTMLButtonElement).parentElement as HTMLElement;
+
+          li.classList.remove('selected');
+          if ((['ArrowUp', 'Up'].indexOf(pressed) >= 0) && li.previousElementSibling) {
+            li = li.previousElementSibling as HTMLElement;
+          } else if ((['ArrowDown', 'Down'].indexOf(pressed) >= 0) && li.nextElementSibling) {
+            li = li.nextElementSibling as HTMLElement;
+          }
+          li.classList.add('selected');
+          li.querySelector('button').focus();
+          (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
+        } else if (pressed === 'Esc' || pressed === 'Escape') {
           this.fields.city.parentElement.classList.remove(this.options.showOptionsClass);
 
           this.fields.city.focus();
