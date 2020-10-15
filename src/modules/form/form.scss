@@ -144,6 +144,10 @@ $gapSize: pxToRem($sizeRegular);
       display: flex;
       flex-direction: column;
     }
+
+    .atm-radiobutton {
+      margin-bottom: 0;
+    }
   }
 
   &__duplicator {
@@ -186,8 +190,7 @@ $gapSize: pxToRem($sizeRegular);
       right: auto;
       top: auto;
       transform: none;
-
-      margin-top: pxToRem($sizeSmallLarge);
+      margin-bottom: pxToRem($sizeSmallLarge);
     }
 
     use {
