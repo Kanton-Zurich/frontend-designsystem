@@ -355,7 +355,9 @@ class Select extends Module {
       const regex = new RegExp(searchString, 'i');
       const testValue = filterAttribute ? li.querySelector('input').getAttribute(filterAttribute)
         : li.querySelector('input').placeholder;
+      li.querySelector('label').innerHTML = li.querySelector('input').placeholder;
       if (regex.test(testValue)) {
+        li.querySelector('label').innerHTML = testValue.replace(regex, `<mark>${searchString}</mark>`);
         li.classList.remove('hidden');
         filteredValues.push(li.querySelector('input').value);
       } else {

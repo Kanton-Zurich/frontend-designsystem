@@ -40,6 +40,17 @@ $selectScrollbarWidth: 30px;
         display: none;
         width: calc(100% - #{$selectScrollbarWidth});
       }
+
+      label {
+        mark {
+          background: none;
+          font-family: $fontFamilyBlack;
+        }
+      }
+
+      &.selected {
+        margin-right: $sizeSmallRegular;
+      }
     }
 
     .ss-wrapper:after {
@@ -51,7 +62,6 @@ $selectScrollbarWidth: 30px;
       top: 0;
       background-color: $colorBlack10;
       z-index: 1;
-      border-radius: 7px;
     }
   }
 
@@ -59,6 +69,12 @@ $selectScrollbarWidth: 30px;
     .ss-scroll,
     .ss-wrapper:after {
       display: none;
+    }
+
+    .atm-list__item {
+      &.selected {
+        margin-right: 0;
+      }
     }
   }
 
