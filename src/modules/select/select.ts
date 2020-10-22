@@ -357,7 +357,7 @@ class Select extends Module {
         : li.querySelector('input').placeholder;
       li.querySelector('label').innerHTML = li.querySelector('input').placeholder;
       if (regex.test(testValue)) {
-        li.querySelector('label').innerHTML = testValue.replace(regex, `<mark>${searchString}</mark>`);
+        li.querySelector('label').innerHTML = testValue.replace(regex, `<mark>${testValue.match(regex)[0]}</mark>`);
         li.classList.remove('hidden');
         filteredValues.push(li.querySelector('input').value);
       } else {

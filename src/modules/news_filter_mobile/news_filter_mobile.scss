@@ -113,6 +113,13 @@
         text-overflow: ellipsis;
         white-space: nowrap;
 
+        label {
+          mark {
+            background: none;
+            font-family: $fontFamilyBlack;
+          }
+        }
+
         &.hidden {
           display: none;
         }
