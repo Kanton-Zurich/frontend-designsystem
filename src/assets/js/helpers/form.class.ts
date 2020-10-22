@@ -20,10 +20,13 @@ class Form {
     inputClasses: any,
     validateDelay: number,
     messageClasses: any,
+    radiogroupClasses: any,
     domSelectors: {
       floating: string;
       datepicker: string;
       backdrop: string;
+      radiogroup: string;
+      radiobutton: string;
     };
     messageSelector: string,
     duplicateSelector: string,
@@ -60,6 +63,8 @@ class Form {
         floating: '[data-floating]',
         datepicker: '[data-init="datepicker"]',
         backdrop: '.atm-form_input__backdrop',
+        radiogroup: '.form__fieldset-list',
+        radiobutton: '.atm-radiobutton',
       },
       messageSelector: '[data-message]',
       selectOptionSelector: 'data-select-option',
@@ -68,6 +73,9 @@ class Form {
       prefixSelector: '.atm-form_input--unitLeft',
       messageClasses: {
         show: 'show',
+      },
+      radiogroupClasses: {
+        vertical: 'form__fieldset-list--vertical',
       },
       duplicateSelector: '[data-form="duplicatable"]',
     };
@@ -83,6 +91,7 @@ class Form {
     // Initialize duplication elements
     this.initDuplicationElements();
     this.initZipCity();
+    this.initRadioGroup();
 
     // Initialize rules
     this.initRules();
@@ -491,6 +500,25 @@ class Form {
     });
   }
 
+  initRadioGroup() {
+    const radiogroups = this.ui.element.querySelectorAll(this.options.domSelectors.radiogroup);
+
+    radiogroups.forEach((radiogroup) => {
+      const options = radiogroup.querySelectorAll(this.options.domSelectors.radiobutton);
+
+      if (options.length > 1) {
+        const firstItemTop = options[0].getBoundingClientRect().top;
+
+        for (var i = 1; i < options.length; i++) {
+          let currItemTop = options[i].getBoundingClientRect().top;
+          if (firstItemTop < currItemTop) {
+            radiogroup.classList.add(this.options.radiogroupClasses.vertical);
+            break;
+          }
+        }
+      }
+    });
+  }
 
   initRules() {
     const rulesElements = this.ui.element.querySelectorAll(this.options.rulesSelector);
