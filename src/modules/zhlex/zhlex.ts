@@ -30,7 +30,7 @@ class ZhLex extends Module {
     this.initUi();
     this.initEventListeners();
 
-    if (!location.hash) {
+    if (!window.location.hash) {
       setTimeout(() => {
         this.ui.tabs[0].click();
       }, 0);
