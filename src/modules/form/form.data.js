@@ -2423,7 +2423,6 @@ const variants = _.mapValues({
     if (key === 'rows' || Array.isArray(variantValue)) {
       return variantValue;
     }
-    return null;
   }).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
   const variantData = _.mergeWith({}, data, variant, {
@@ -2440,7 +2439,6 @@ const variants = _.mapValues({
     if (key === 'rows' || Array.isArray(variantValue)) {
       return variantValue;
     }
-    return null;
   });
 
   return variantData;
