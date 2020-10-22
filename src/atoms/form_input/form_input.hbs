@@ -40,11 +40,11 @@
 
   {{#if isZipCityTarget}}
     <div class="atm-form_input__city-options" data-form_input="cityOptions">
-      <script type="text/x-handlebars-template" data-form_input="cityOptionsTemplate">
+      <template type="text/x-handlebars-template" data-form_input="cityOptionsTemplate">
         <li class="atm-list__item">
-          <button type="button" value="<%- city %>"><%- city %> <span class="visuallyhidden">auswählen</span></button>
+          <button type="button" value="<%- city %>">${ city } <span class="visuallyhidden">auswählen</span></button>
         </li>
-      </script>
+      </template>
       <p class="visuallyhidden">Bitte wählen Sie die passende Ortschaft aus:</p>
       <ul class="atm-list" data-form_input="cityOptionsList">
       </ul>

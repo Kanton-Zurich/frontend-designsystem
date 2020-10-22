@@ -159,7 +159,7 @@
 
 
 
-											<input class="atm-form_input__input" data-pattern="^[0-9]{4,4}$" id="zip2" placeholder="PLZ" name="zip" value="" type="text" required data-validation data-floating>
+											<input class="atm-form_input__input" data-pattern="^[0-9]{4,4}$" id="zip2" placeholder="PLZ" name="zip2" value="" type="text" required data-validation data-floating data-fills-city="city2" data-zip="{&quot;8000&quot;:&quot;Zürich&quot;,&quot;8001&quot;:&quot;Zürich&quot;,&quot;8004&quot;:&quot;Zürich&quot;,&quot;8310&quot;:&quot;Winterthur&quot;,&quot;8500&quot;:[&quot;Gerlikon&quot;,&quot;Frauenfeld&quot;],&quot;8620&quot;:&quot;Wetzikon&quot;,&quot;8700&quot;:&quot;Küsnacht ZH&quot;}">
 
 
 
@@ -194,9 +194,19 @@
 										<div class="atm-form_input atm-form_input--floated
             " data-input>
 
+											<div class="atm-form_input__city-options" data-form_input="cityOptions">
+												<template type="text/x-handlebars-template" data-form_input="cityOptionsTemplate">
+													<li class="atm-list__item">
+														<button type="button" value="<%- city %>">${ city } <span class="visuallyhidden">auswählen</span></button>
+													</li>
+												</template>
+												<p class="visuallyhidden">Bitte wählen Sie die passende Ortschaft aus:</p>
+												<ul class="atm-list" data-form_input="cityOptionsList">
+												</ul>
+											</div>
 
 
-											<input class="atm-form_input__input" id="city2" placeholder="Ort" name="city" value="" type="text" required data-validation data-floating>
+											<input class="atm-form_input__input" id="city2" placeholder="Ort" name="city2" value="" type="text" required data-validation data-floating>
 
 
 
