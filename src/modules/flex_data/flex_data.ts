@@ -182,6 +182,15 @@ class FlexData extends Module {
    * Search for data
    */
   onSearchResults() {
+    // Set the sort element if present
+    if (this.ui.genericSortDropdown) {
+      let sortSelector = `[data-sort-column="${this.orderBy}"]`;
+      if (this.orderBy !== 'relevance') {
+        sortSelector += `[data-sort-direction="${this.order}"]`;
+      }
+      const sortSetting = this.ui.genericSortDropdown.querySelector(sortSelector);
+      this.updateSortDropdown(sortSetting);
+    }
     this.ui.paginationInput.value = '1';
     this.loadResults();
   }
