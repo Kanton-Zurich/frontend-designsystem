@@ -8,6 +8,7 @@ import FileUpload from '../../../modules/file_upload/file_upload';
 import namespace from './namespace';
 import Datepicker from '../../../modules/datepicker/datepicker';
 import FormGlobalHelper from './form';
+import WindowEventListener from './events';
 
 class Form {
   private ui: {
@@ -148,6 +149,7 @@ class Form {
     this.eventDelegate.on('blur', this.options.domSelectors.floating, (event, field: HTMLInputElement) => {
       this.checkIfFieldDirty(field);
     });
+    (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
   }
 
   private checkIfFieldDirty(field: HTMLInputElement): void {
@@ -251,6 +253,30 @@ class Form {
     if (domElement.hasAttribute('data-input-mask')) {
       this.handleInputMask(domElement, oldValue, newValue);
     }
+  }
+
+  /**
+   * Update radio group wrapping on resize
+   */
+  onResize() {
+    const radiogroups = this.ui.element.querySelectorAll(this.options.domSelectors.radiogroup);
+
+    radiogroups.forEach((radiogroup) => {
+      const options = radiogroup.querySelectorAll(this.options.domSelectors.radiobutton);
+      radiogroup.classList.remove(this.options.radiogroupClasses.vertical);
+
+      if (options.length > 1) {
+        const firstItemTop = options[0].getBoundingClientRect().top;
+        let i: number;
+
+        for (i = 1; i < options.length; i += i) {
+          if (firstItemTop < options[i].getBoundingClientRect().top) {
+            radiogroup.classList.add(this.options.radiogroupClasses.vertical);
+            break;
+          }
+        }
+      }
+    });
   }
 
   /**
@@ -501,23 +527,7 @@ class Form {
   }
 
   initRadioGroup() {
-    const radiogroups = this.ui.element.querySelectorAll(this.options.domSelectors.radiogroup);
-
-    radiogroups.forEach((radiogroup) => {
-      const options = radiogroup.querySelectorAll(this.options.domSelectors.radiobutton);
-
-      if (options.length > 1) {
-        const firstItemTop = options[0].getBoundingClientRect().top;
-        let i: number;
-
-        for (i = 1; i < options.length; i += i) {
-          if (firstItemTop < options[i].getBoundingClientRect().top) {
-            radiogroup.classList.add(this.options.radiogroupClasses.vertical);
-            break;
-          }
-        }
-      }
-    });
+    this.onResize();
   }
 
   initRules() {
