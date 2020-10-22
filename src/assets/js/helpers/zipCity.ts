@@ -60,6 +60,7 @@ class ZipCity {
   setWatcher() {
     wrist.watch(this.fields.zip, 'value', debounce((propName, oldVal, newVal) => {
       if (oldVal !== newVal) {
+        this.fields.city.value = '';
         this.fields.cityOptionsList.innerHTML = '';
 
         if (/^[1-9][0-9]{3}$/.test(newVal)) {
