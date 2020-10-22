@@ -92,7 +92,7 @@ const duplicateGroup = {
           () => handlebars.compile(radioHBS)(_.merge({},
             radioData.variants.default.props,
             {
-              label: 'Test 1',
+              label: 'Wilde Wälder',
               groupName: 'checkbox_in_duplication',
               id: 'checkbox_1',
               value: 'mrs',
@@ -100,7 +100,7 @@ const duplicateGroup = {
           () => handlebars.compile(radioHBS)(_.merge({},
             radioData.variants.default.props,
             {
-              label: 'Test 2',
+              label: 'Wasserfälle',
               groupName: 'checkbox_in_duplication',
               id: 'checkbox_2',
               value: 'mr',
@@ -108,7 +108,7 @@ const duplicateGroup = {
           () => handlebars.compile(radioHBS)(_.merge({},
             radioData.variants.default.props,
             {
-              label: 'Test 3',
+              label: 'Beschauliche alpine Auen',
               groupName: 'checkbox_in_duplication',
               id: 'checkbox_3',
               value: 'no',
