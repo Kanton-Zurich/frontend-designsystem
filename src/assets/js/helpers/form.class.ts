@@ -508,10 +508,10 @@ class Form {
 
       if (options.length > 1) {
         const firstItemTop = options[0].getBoundingClientRect().top;
+        let i: number;
 
-        for (var i = 1; i < options.length; i++) {
-          let currItemTop = options[i].getBoundingClientRect().top;
-          if (firstItemTop < currItemTop) {
+        for (i = 1; i < options.length; i++) {
+          if (firstItemTop < options[i].getBoundingClientRect().top) {
             radiogroup.classList.add(this.options.radiogroupClasses.vertical);
             break;
           }
