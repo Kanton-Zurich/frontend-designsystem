@@ -109,6 +109,10 @@
       overflow-x: hidden;
 
       li {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
         &.hidden {
           display: none;
         }
