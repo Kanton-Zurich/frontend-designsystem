@@ -70,8 +70,36 @@ $gapSize: pxToRem($sizeRegular);
     position: relative;
     margin: inherit $gapSize/-2;
 
+    @include mq($to: small) {
+      margin-right: 45px;
+    }
+
     .form__row:last-of-type {
       padding-bottom: $gapSize;
+    }
+
+    .form__remover {
+      padding: 0 $gapSize/2;
+      position: absolute;
+      right: 0;
+      transform: translateX(100%);
+      bottom: pxToRem($sizeBig + $sizeMini);
+
+      use {
+        fill: $colorBlack60;
+      }
+
+      &:hover {
+        use {
+          fill: $colorBlack;
+        }
+      }
+    }
+
+    &:last-of-type {
+      .form__remover {
+        bottom: pxToRem($sizeBig + $sizeSmallBig);
+      }
     }
   }
 
@@ -144,6 +172,10 @@ $gapSize: pxToRem($sizeRegular);
       display: flex;
       flex-direction: column;
     }
+
+    .atm-radiobutton {
+      margin-bottom: 0;
+    }
   }
 
   &__duplicator {
@@ -171,35 +203,14 @@ $gapSize: pxToRem($sizeRegular);
     .form__duplicator {
       display: none;
     }
-  }
 
-  &__remover {
-    padding: 0 $gapSize/2;
-
-    position: absolute;
-    right: 0;
-    transform: translateX(100%) translateY(-50%);
-    top: pxToRem($sizeBig + $sizeMini);
-
-    @include mq($to: medium) {
-      position: relative;
-      right: auto;
-      top: auto;
-      transform: none;
-
-      margin-top: pxToRem($sizeSmallLarge);
-    }
-
-    use {
-      fill: $colorBlack60;
-    }
-
-    &:hover {
-      use {
-        fill: $colorBlack;
+    .form__duplicated:last-of-type {
+      .form__remover {
+        bottom: pxToRem($sizeBig + $sizeMini);
       }
     }
   }
+
 
   &__element {
     &--hidden-by-rule {
