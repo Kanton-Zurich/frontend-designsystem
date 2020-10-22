@@ -78,6 +78,7 @@ class Select extends Module {
         open: 'mdl-select--open',
         selected: 'mdl-select--selected',
         tableList: 'atm-list--table',
+        disableScroll: 'mdl-select--disable-scroll',
       },
       dataSelectors: {
         itemType: 'inputtype',
@@ -337,6 +338,7 @@ class Select extends Module {
     if (this.isDisabled()) {
       this.setDisabled(true);
     }
+    this.updateScrollMode(this.ui.items.length);
   }
 
   /**
@@ -364,6 +366,7 @@ class Select extends Module {
     this.ui.element
       .dispatchEvent(new CustomEvent(Select.events.onItemsFiltered,
         { detail: { filteredValues } }));
+    this.updateScrollMode(filteredValues.length);
   }
 
 
@@ -398,6 +401,18 @@ class Select extends Module {
         });
         this.emitValueChanged(values);
       }
+    }
+  }
+
+  /**
+   * Check whether to show or hide the scrollbar
+   * @param visibleItems
+   */
+  updateScrollMode(visibleItems) {
+    this.ui.element.classList.remove(this.options.stateClasses.disableScroll);
+    if (visibleItems <= (this.hasFilter
+      ? this.options.largeDropdownMaxItems : this.options.smallDropdownMaxItems)) {
+      this.ui.element.classList.add(this.options.stateClasses.disableScroll);
     }
   }
 
