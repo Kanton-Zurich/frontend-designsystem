@@ -892,7 +892,7 @@
 
 
 
-																				<input class="atm-form_input__input" data-pattern="^[0-9]{4,4}$" id="zip2" placeholder="PLZ" name="zip" value="" type="text" required data-validation data-floating>
+																				<input class="atm-form_input__input" data-pattern="^[0-9]{4,4}$" id="zip2" placeholder="PLZ" name="zip2" value="" type="text" required data-validation data-floating data-fills-city="city2" data-zip="{&quot;8000&quot;:&quot;Zürich&quot;,&quot;8001&quot;:&quot;Zürich&quot;,&quot;8004&quot;:&quot;Zürich&quot;,&quot;8310&quot;:&quot;Winterthur&quot;,&quot;8500&quot;:[&quot;Gerlikon&quot;,&quot;Frauenfeld&quot;],&quot;8620&quot;:&quot;Wetzikon&quot;,&quot;8700&quot;:&quot;Küsnacht ZH&quot;}">
 
 
 
@@ -927,70 +927,80 @@
 																			<div class="atm-form_input atm-form_input--floated
                   " data-input>
 
+																				<div class="atm-form_input__city-options" data-form_input="cityOptions">
+																					<template type="text/x-handlebars-template" data-form_input="cityOptionsTemplate">
+						<li class="atm-list__item">
+							<button type="button" value="<%- city %>">${ city } <span class="visuallyhidden">auswählen</span></button>
+						</li>
+						</template>
+						<p class="visuallyhidden">Bitte wählen Sie die passende Ortschaft aus:</p>
+						<ul class="atm-list" data-form_input="cityOptionsList">
+						</ul>
+				</div>
 
 
-																				<input class="atm-form_input__input" id="city2" placeholder="Ort" name="city" value="" type="text" required data-validation data-floating>
-
-
-
-
-																				<label for="city2">Ort</label>
-																				<span class="atm-form_input__validate-icon">
-																					<span>
-																						<span class="visuallyhidden"></span>
-																						<svg class="icon" focusable="false">
-																							<use xlink:href="#confirm"></use>
-																						</svg>
-																					</span>
-																					<span>
-																						<span class="visuallyhidden"></span>
-																						<svg class="icon" focusable="false">
-																							<use xlink:href="#caution"></use>
-																						</svg>
-																					</span>
-																				</span>
+				<input class="atm-form_input__input" id="city2" placeholder="Ort" name="city2" value="" type="text" required data-validation data-floating>
 
 
 
 
+				<label for="city2">Ort</label>
+				<span class="atm-form_input__validate-icon">
+					<span>
+						<span class="visuallyhidden"></span>
+						<svg class="icon" focusable="false">
+							<use xlink:href="#confirm"></use>
+						</svg>
+					</span>
+					<span>
+						<span class="visuallyhidden"></span>
+						<svg class="icon" focusable="false">
+							<use xlink:href="#caution"></use>
+						</svg>
+					</span>
+				</span>
 
 
 
-																				<p data-message="required">Dies ist ein Pflichtfeld</p>
-																			</div>
 
-																		</div>
-																	</div>
 
-																</div>
-																<div class="form__group form__group--duplicatable" data-form="duplicatable" data-max-duplications="3">
-																	<div class="form__row">
-																		<div class="form__cell ">
-																			<div class="atm-form_input atm-form_input--floated
+
+
+				<p data-message="required">Dies ist ein Pflichtfeld</p>
+			</div>
+
+		</div>
+		</div>
+
+		</div>
+		<div class="form__group form__group--duplicatable" data-form="duplicatable" data-max-duplications="3">
+			<div class="form__row">
+				<div class="form__cell ">
+					<div class="atm-form_input atm-form_input--floated
                   " data-input>
 
 
 
-																				<input class="atm-form_input__input" id="group2_text" placeholder="Text" name="group2_text" value="" type="text" required data-validation data-floating>
+						<input class="atm-form_input__input" id="group2_text" placeholder="Text" name="group2_text" value="" type="text" required data-validation data-floating>
 
 
 
 
-																				<label for="group2_text">Text</label>
-																				<span class="atm-form_input__validate-icon">
-																					<span>
-																						<span class="visuallyhidden"></span>
-																						<svg class="icon" focusable="false">
-																							<use xlink:href="#confirm"></use>
-																						</svg>
-																					</span>
-																					<span>
-																						<span class="visuallyhidden"></span>
-																						<svg class="icon" focusable="false">
-																							<use xlink:href="#caution"></use>
-																						</svg>
-																					</span>
-																				</span>
+						<label for="group2_text">Text</label>
+						<span class="atm-form_input__validate-icon">
+							<span>
+								<span class="visuallyhidden"></span>
+								<svg class="icon" focusable="false">
+									<use xlink:href="#confirm"></use>
+								</svg>
+							</span>
+							<span>
+								<span class="visuallyhidden"></span>
+								<svg class="icon" focusable="false">
+									<use xlink:href="#caution"></use>
+								</svg>
+							</span>
+						</span>
 
 
 
@@ -998,69 +1008,69 @@
 
 
 
-																				<p data-message="required">Dies ist ein Pflichtfeld</p>
-																			</div>
+						<p data-message="required">Dies ist ein Pflichtfeld</p>
+					</div>
 
-																		</div>
-																	</div>
+				</div>
+			</div>
 
-																	<div class="form__row">
-																		<div class="form__cell ">
-																			<div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="date" data-localization="de">
-																				<div class="atm-form_input atm-form_input--floated atm-form_input--icon
+			<div class="form__row">
+				<div class="form__cell ">
+					<div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="date" data-localization="de">
+						<div class="atm-form_input atm-form_input--floated atm-form_input--icon
                       " data-input>
 
 
 
-																					<input class="atm-form_input__input" data-pattern="^\d{2}\.\d{2}\.\d{4}$" id="date-in-group2240" placeholder="Datum" name="input_name" value="" type="text" required data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d" data-mask-placeholder="TT.MM.JJJJ">
+							<input class="atm-form_input__input" data-pattern="^\d{2}\.\d{2}\.\d{4}$" id="date-in-group2240" placeholder="Datum" name="input_name" value="" type="text" required data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d" data-mask-placeholder="TT.MM.JJJJ">
 
 
 
-																					<span class="atm-form_input__backdrop">
-																						<i></i>TT.MM.JJJJ
-																					</span>
+							<span class="atm-form_input__backdrop">
+								<i></i>TT.MM.JJJJ
+							</span>
 
-																					<label for="date-in-group2240">Datum</label>
-
-
-																					<svg class="icon" focusable="false">
-																						<use xlink:href="#calendar"></use>
-																					</svg>
+							<label for="date-in-group2240">Datum</label>
 
 
+							<svg class="icon" focusable="false">
+								<use xlink:href="#calendar"></use>
+							</svg>
 
 
-																					<p data-message="pattern">Bitte geben Sie eine korrektes Datum an.</p>
-																					<p data-message="required">Dies ist ein Pflichtfeld</p>
-																				</div>
-																			</div>
 
-																		</div>
-																		<div class="form__cell ">
-																			<div class="mdl-select" data-init="select" data-input>
-																				<div class="atm-form_input atm-form_input--floated atm-form_input--trigger
+
+							<p data-message="pattern">Bitte geben Sie eine korrektes Datum an.</p>
+							<p data-message="required">Dies ist ein Pflichtfeld</p>
+						</div>
+					</div>
+
+				</div>
+				<div class="form__cell ">
+					<div class="mdl-select" data-init="select" data-input>
+						<div class="atm-form_input atm-form_input--floated atm-form_input--trigger
                     ">
-																					<button aria-expanded="false" id="dropdown-in-group2241" class="atm-form_input__input atm-form_input__input--trigger" type="button">
-																						<span class="atm-form_input__trigger-label">Dropdown</span>
-																						<span class="atm-form_input__trigger-value"></span>
-																						<svg class="icon" focusable="false">
-																							<use xlink:href="#angle_drop_down"></use>
-																						</svg>
-																					</button>
-																					<span class="atm-form_input__validate-icon">
-																						<span>
-																							<span class="visuallyhidden"></span>
-																							<svg class="icon" focusable="false">
-																								<use xlink:href="#confirm"></use>
-																							</svg>
-																						</span>
-																						<span>
-																							<span class="visuallyhidden"></span>
-																							<svg class="icon" focusable="false">
-																								<use xlink:href="#caution"></use>
-																							</svg>
-																						</span>
-																					</span>
+							<button aria-expanded="false" id="dropdown-in-group2241" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+								<span class="atm-form_input__trigger-label">Dropdown</span>
+								<span class="atm-form_input__trigger-value"></span>
+								<svg class="icon" focusable="false">
+									<use xlink:href="#angle_drop_down"></use>
+								</svg>
+							</button>
+							<span class="atm-form_input__validate-icon">
+								<span>
+									<span class="visuallyhidden"></span>
+									<svg class="icon" focusable="false">
+										<use xlink:href="#confirm"></use>
+									</svg>
+								</span>
+								<span>
+									<span class="visuallyhidden"></span>
+									<svg class="icon" focusable="false">
+										<use xlink:href="#caution"></use>
+									</svg>
+								</span>
+							</span>
 
 
 
@@ -1071,102 +1081,102 @@
 
 
 
-																					<p data-message="required">Dies ist ein Pflichtfeld</p>
-																				</div>
-																				<div class="mdl-select__options">
+							<p data-message="required">Dies ist ein Pflichtfeld</p>
+						</div>
+						<div class="mdl-select__options">
 
 
 
-																					<ul class="atm-list" tabindex="-1" data-inputtype="radio" tabindex="-1">
-																						<li id="option-item29" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item29" type="radio" value="" placeholder="" data-select-option data-validation required>
+							<ul class="atm-list" tabindex="-1" data-inputtype="radio" tabindex="-1">
+								<li id="option-item29" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item29" type="radio" value="" placeholder="" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item29"></label>
-																						</li>
-																						<li id="option-item30" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item30" type="radio" value="mig" placeholder="Migration & Integration" data-select-option data-validation required>
+									<label for="radio-option-item29"></label>
+								</li>
+								<li id="option-item30" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item30" type="radio" value="mig" placeholder="Migration & Integration" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item30">Migration & Integration</label>
-																						</li>
-																						<li id="option-item31" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item31" type="radio" value="mo" placeholder="Mobilität" data-select-option data-validation required>
+									<label for="radio-option-item30">Migration & Integration</label>
+								</li>
+								<li id="option-item31" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item31" type="radio" value="mo" placeholder="Mobilität" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item31">Mobilität</label>
-																						</li>
-																						<li id="option-item32" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item32" type="radio" value="sich" placeholder="Sicherheit & Justiz" data-select-option data-validation required>
+									<label for="radio-option-item31">Mobilität</label>
+								</li>
+								<li id="option-item32" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item32" type="radio" value="sich" placeholder="Sicherheit & Justiz" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item32">Sicherheit & Justiz</label>
-																						</li>
-																						<li id="option-item33" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item33" type="radio" value="so" placeholder="Soziales" data-select-option data-validation required>
+									<label for="radio-option-item32">Sicherheit & Justiz</label>
+								</li>
+								<li id="option-item33" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item33" type="radio" value="so" placeholder="Soziales" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item33">Soziales</label>
-																						</li>
-																						<li id="option-item34" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item34" type="radio" value="st" placeholder="Steuern" data-select-option data-validation required>
+									<label for="radio-option-item33">Soziales</label>
+								</li>
+								<li id="option-item34" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item34" type="radio" value="st" placeholder="Steuern" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item34">Steuern</label>
-																						</li>
-																						<li id="option-item35" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item35" type="radio" value="umte" placeholder="Umwelt & Tier" data-select-option data-validation required>
+									<label for="radio-option-item34">Steuern</label>
+								</li>
+								<li id="option-item35" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item35" type="radio" value="umte" placeholder="Umwelt & Tier" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item35">Umwelt & Tier</label>
-																						</li>
-																						<li id="option-item36" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item36" type="radio" value="ge" placeholder="Gemeinschaften" data-select-option data-validation required>
+									<label for="radio-option-item35">Umwelt & Tier</label>
+								</li>
+								<li id="option-item36" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item36" type="radio" value="ge" placeholder="Gemeinschaften" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item36">Gemeinschaften</label>
-																						</li>
-																						<li class="atm-list__item">
-																							<input name="singleSelect" type="radio" value="scer" placeholder="Schulen & Erziehung" data-select-option data-validation required>
+									<label for="radio-option-item36">Gemeinschaften</label>
+								</li>
+								<li class="atm-list__item">
+									<input name="singleSelect" type="radio" value="scer" placeholder="Schulen & Erziehung" data-select-option data-validation required>
 
 
-																							<label for="radio-">Schulen & Erziehung</label>
-																						</li>
+									<label for="radio-">Schulen & Erziehung</label>
+								</li>
 
-																					</ul>
+							</ul>
 
-																				</div>
-																			</div>
+						</div>
+					</div>
 
-																		</div>
-																	</div>
+				</div>
+			</div>
 
-																	<div class="form__row">
-																		<div class="form__cell ">
-																			<div class="mdl-select" data-init="select" data-input>
-																				<div class="atm-form_input atm-form_input--floated atm-form_input--trigger
+			<div class="form__row">
+				<div class="form__cell ">
+					<div class="mdl-select" data-init="select" data-input>
+						<div class="atm-form_input atm-form_input--floated atm-form_input--trigger
                     ">
-																					<button aria-expanded="false" id="dropdown-in-group2242" class="atm-form_input__input atm-form_input__input--trigger" type="button">
-																						<span class="atm-form_input__trigger-label">Dropdown 2</span>
-																						<span class="atm-form_input__trigger-value"></span>
-																						<svg class="icon" focusable="false">
-																							<use xlink:href="#angle_drop_down"></use>
-																						</svg>
-																					</button>
-																					<span class="atm-form_input__validate-icon">
-																						<span>
-																							<span class="visuallyhidden"></span>
-																							<svg class="icon" focusable="false">
-																								<use xlink:href="#confirm"></use>
-																							</svg>
-																						</span>
-																						<span>
-																							<span class="visuallyhidden"></span>
-																							<svg class="icon" focusable="false">
-																								<use xlink:href="#caution"></use>
-																							</svg>
-																						</span>
-																					</span>
+							<button aria-expanded="false" id="dropdown-in-group2242" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+								<span class="atm-form_input__trigger-label">Dropdown 2</span>
+								<span class="atm-form_input__trigger-value"></span>
+								<svg class="icon" focusable="false">
+									<use xlink:href="#angle_drop_down"></use>
+								</svg>
+							</button>
+							<span class="atm-form_input__validate-icon">
+								<span>
+									<span class="visuallyhidden"></span>
+									<svg class="icon" focusable="false">
+										<use xlink:href="#confirm"></use>
+									</svg>
+								</span>
+								<span>
+									<span class="visuallyhidden"></span>
+									<svg class="icon" focusable="false">
+										<use xlink:href="#caution"></use>
+									</svg>
+								</span>
+							</span>
 
 
 
@@ -1177,84 +1187,84 @@
 
 
 
-																					<p data-message="required">Dies ist ein Pflichtfeld</p>
-																				</div>
-																				<div class="mdl-select__options">
+							<p data-message="required">Dies ist ein Pflichtfeld</p>
+						</div>
+						<div class="mdl-select__options">
 
 
 
-																					<ul class="atm-list" tabindex="-1" data-inputtype="radio" tabindex="-1">
-																						<li id="option-item29" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item29" type="radio" value="" placeholder="" data-select-option data-validation required>
+							<ul class="atm-list" tabindex="-1" data-inputtype="radio" tabindex="-1">
+								<li id="option-item29" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item29" type="radio" value="" placeholder="" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item29"></label>
-																						</li>
-																						<li id="option-item30" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item30" type="radio" value="mig" placeholder="Migration & Integration" data-select-option data-validation required>
+									<label for="radio-option-item29"></label>
+								</li>
+								<li id="option-item30" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item30" type="radio" value="mig" placeholder="Migration & Integration" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item30">Migration & Integration</label>
-																						</li>
-																						<li id="option-item31" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item31" type="radio" value="mo" placeholder="Mobilität" data-select-option data-validation required>
+									<label for="radio-option-item30">Migration & Integration</label>
+								</li>
+								<li id="option-item31" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item31" type="radio" value="mo" placeholder="Mobilität" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item31">Mobilität</label>
-																						</li>
-																						<li id="option-item32" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item32" type="radio" value="sich" placeholder="Sicherheit & Justiz" data-select-option data-validation required>
+									<label for="radio-option-item31">Mobilität</label>
+								</li>
+								<li id="option-item32" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item32" type="radio" value="sich" placeholder="Sicherheit & Justiz" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item32">Sicherheit & Justiz</label>
-																						</li>
-																						<li id="option-item33" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item33" type="radio" value="so" placeholder="Soziales" data-select-option data-validation required>
+									<label for="radio-option-item32">Sicherheit & Justiz</label>
+								</li>
+								<li id="option-item33" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item33" type="radio" value="so" placeholder="Soziales" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item33">Soziales</label>
-																						</li>
-																						<li id="option-item34" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item34" type="radio" value="st" placeholder="Steuern" data-select-option data-validation required>
+									<label for="radio-option-item33">Soziales</label>
+								</li>
+								<li id="option-item34" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item34" type="radio" value="st" placeholder="Steuern" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item34">Steuern</label>
-																						</li>
-																						<li id="option-item35" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item35" type="radio" value="umte" placeholder="Umwelt & Tier" data-select-option data-validation required>
+									<label for="radio-option-item34">Steuern</label>
+								</li>
+								<li id="option-item35" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item35" type="radio" value="umte" placeholder="Umwelt & Tier" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item35">Umwelt & Tier</label>
-																						</li>
-																						<li id="option-item36" class="atm-list__item">
-																							<input name="singleSelect" id="radio-option-item36" type="radio" value="ge" placeholder="Gemeinschaften" data-select-option data-validation required>
+									<label for="radio-option-item35">Umwelt & Tier</label>
+								</li>
+								<li id="option-item36" class="atm-list__item">
+									<input name="singleSelect" id="radio-option-item36" type="radio" value="ge" placeholder="Gemeinschaften" data-select-option data-validation required>
 
 
-																							<label for="radio-option-item36">Gemeinschaften</label>
-																						</li>
-																						<li class="atm-list__item">
-																							<input name="singleSelect" type="radio" value="scer" placeholder="Schulen & Erziehung" data-select-option data-validation required>
+									<label for="radio-option-item36">Gemeinschaften</label>
+								</li>
+								<li class="atm-list__item">
+									<input name="singleSelect" type="radio" value="scer" placeholder="Schulen & Erziehung" data-select-option data-validation required>
 
 
-																							<label for="radio-">Schulen & Erziehung</label>
-																						</li>
+									<label for="radio-">Schulen & Erziehung</label>
+								</li>
 
-																					</ul>
+							</ul>
 
-																				</div>
-																			</div>
+						</div>
+					</div>
 
-																		</div>
-																	</div>
+				</div>
+			</div>
 
-																	<button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
-																		<svg class="icon icon--iframe-add" focusable="false">
-																			<use xlink:href="#add-new"></use>
-																		</svg>
-																		Weitere Gruppe hinzufügen
-																	</button>
-																	<script type="text/x-handlebars-template">
-																		<div class="form__duplicated">
+			<button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
+				<svg class="icon icon--iframe-add" focusable="false">
+					<use xlink:href="#add-new"></use>
+				</svg>
+				Weitere Gruppe hinzufügen
+			</button>
+			<script type="text/x-handlebars-template">
+				<div class="form__duplicated">
                               <div class="form__row">
                                   <div class="form__cell ">
                                     <div class="atm-form_input atm-form_input--floated
@@ -1827,73 +1837,73 @@
                                   </button>
                           </div>
                         </script>
-																</div>
-															</fieldset>
-														</div>
+		</div>
+		</fieldset>
+		</div>
 
-														<div class="mdl-stepper__step" data-stepper="step">
-															<div class="mdl-notification
+		<div class="mdl-stepper__step" data-stepper="step">
+			<div class="mdl-notification
               mdl-notification--green
               mdl-notification--big
               ">
-																<svg class="icon" focusable="false">
-																	<use xlink:href="#confirm"></use>
-																</svg>
-																<div class="mdl-notification__message">
-																	<h3 class="mdl-notification__title">Vielen Dank</h3>
-																	<p>Ihr Daten wurden an das Strassenverkehrsamt übermittelt, man wird sich mit Ihnen in Verbindung setzen.</p>
-																</div>
-															</div>
-														</div>
-													</div>
+				<svg class="icon" focusable="false">
+					<use xlink:href="#confirm"></use>
+				</svg>
+				<div class="mdl-notification__message">
+					<h3 class="mdl-notification__title">Vielen Dank</h3>
+					<p>Ihr Daten wurden an das Strassenverkehrsamt übermittelt, man wird sich mit Ihnen in Verbindung setzen.</p>
+				</div>
+			</div>
+		</div>
+		</div>
 
-													<div class="mdl-stepper__last-page-info" data-stepper="lastpage">
-														<label class="atm-toggle" for="allowmailnotification">
-															<input type="checkbox" value="true" name="allowmailnotification" id="allowmailnotification" />
-															<span class="atm-toggle__label">E-Mail Benachrichtigungen erlauben</span>
-														</label>
-														<div class="atm-form_input atm-form_input--floated
+		<div class="mdl-stepper__last-page-info" data-stepper="lastpage">
+			<label class="atm-toggle" for="allowmailnotification">
+				<input type="checkbox" value="true" name="allowmailnotification" id="allowmailnotification" />
+				<span class="atm-toggle__label">E-Mail Benachrichtigungen erlauben</span>
+			</label>
+			<div class="atm-form_input atm-form_input--floated
                 " data-input data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;allowmailnotification&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;true&quot;}],&quot;action&quot;:&quot;show&quot;}]">
 
 
 
-															<input class="atm-form_input__input" id="reply-to185" placeholder="Ihre E-Mail-Adresse" name="reply-to186" value="" type="email" required data-validation data-floating>
+				<input class="atm-form_input__input" id="reply-to185" placeholder="Ihre E-Mail-Adresse" name="reply-to186" value="" type="email" required data-validation data-floating>
 
 
 
 
-															<label for="reply-to185">Ihre E-Mail-Adresse</label>
-															<span class="atm-form_input__validate-icon">
-																<span>
-																	<span class="visuallyhidden"></span>
-																	<svg class="icon" focusable="false">
-																		<use xlink:href="#confirm"></use>
-																	</svg>
-																</span>
-																<span>
-																	<span class="visuallyhidden"></span>
-																	<svg class="icon" focusable="false">
-																		<use xlink:href="#caution"></use>
-																	</svg>
-																</span>
-															</span>
+				<label for="reply-to185">Ihre E-Mail-Adresse</label>
+				<span class="atm-form_input__validate-icon">
+					<span>
+						<span class="visuallyhidden"></span>
+						<svg class="icon" focusable="false">
+							<use xlink:href="#confirm"></use>
+						</svg>
+					</span>
+					<span>
+						<span class="visuallyhidden"></span>
+						<svg class="icon" focusable="false">
+							<use xlink:href="#caution"></use>
+						</svg>
+					</span>
+				</span>
 
 
 
 
 
 
-															<p data-message="pattern">Bitte geben Sie eine gültige Mail an.</p>
-															<p data-message="required">Dies ist ein Pflichtfeld</p>
-														</div>
+				<p data-message="pattern">Bitte geben Sie eine gültige Mail an.</p>
+				<p data-message="required">Dies ist ein Pflichtfeld</p>
+			</div>
 
-													</div>
-												</form>
+		</div>
+		</form>
 
 
-												<div class="mdl-stepper__message" data-stepper="messageWrapper" data-singular-text="Bitte kontrollieren Sie Ihre Angabe für das Feld <%= list %>." data-plural-text="Bitte kontrollieren Sie Ihre Angaben für die folgenden Felder: <%= list %>" data-error-text="Da ist leider etwas schief gegangen! Ihre Angaben konnten leider nicht übermittelt werden. Es tut uns leid. Bitte probieren Sie es erneut oder melden Sie sich bei: Tel.: [XX]">
-													<script data-stepper="notificationTemplate" type="text/x-handlebars-template">
-														<div class="mdl-notification
+		<div class="mdl-stepper__message" data-stepper="messageWrapper" data-singular-text="Bitte kontrollieren Sie Ihre Angabe für das Feld <%= list %>." data-plural-text="Bitte kontrollieren Sie Ihre Angaben für die folgenden Felder: <%= list %>" data-error-text="Da ist leider etwas schief gegangen! Ihre Angaben konnten leider nicht übermittelt werden. Es tut uns leid. Bitte probieren Sie es erneut oder melden Sie sich bei: Tel.: [XX]">
+			<script data-stepper="notificationTemplate" type="text/x-handlebars-template">
+				<div class="mdl-notification
         <% if (typeof(isGreen) !== "undefined" && isGreen !== false) { %>mdl-notification--green<% } %>
         <% if (typeof(isBig) !== "undefined" && isBig !== false) { %>mdl-notification--big<% } %>
         <% if (typeof(isDialog) !== "undefined" && isDialog !== false) { %>mdl-notification--dialog<% } %>" <% if (typeof(focussable) !== "undefined" && focussable !== false) { %>tabindex="0"<% } %>>
@@ -1923,10 +1933,10 @@
       
           </script>
 
-												</div>
+		</div>
 
-												<script type="text/x-handlebars-template" data-stepper="ruleNotification">
-													<div class="mdl-notification
+		<script type="text/x-handlebars-template" data-stepper="ruleNotification">
+			<div class="mdl-notification
             
             
             mdl-notification--dialog" >
@@ -1940,266 +1950,266 @@
           </div>
         </script>
 
-												<div class="mdl-stepper__control" data-stepper="control">
-													<button class="atm-button atm-button--secondary mdl-stepper__back" data-stepper="back">Zurück</button>
-													<button class="atm-button mdl-stepper__next" data-stepper="next">Weiter</button>
-													<button class="atm-button mdl-stepper__send" data-stepper="send">
-														<span class="atm-button__text ">
-															Senden
-														</span>
-														<span class="atm-button__spinner"></span>
-													</button>
-												</div>
-											</div>
-										</div>
-										<div class="mdl-tabs__tab" role="tabpanel">
-											<div class="mdl-richtext  ">
+		<div class="mdl-stepper__control" data-stepper="control">
+			<button class="atm-button atm-button--secondary mdl-stepper__back" data-stepper="back">Zurück</button>
+			<button class="atm-button mdl-stepper__next" data-stepper="next">Weiter</button>
+			<button class="atm-button mdl-stepper__send" data-stepper="send">
+				<span class="atm-button__text ">
+					Senden
+				</span>
+				<span class="atm-button__spinner"></span>
+			</button>
+		</div>
+		</div>
+		</div>
+		<div class="mdl-tabs__tab" role="tabpanel">
+			<div class="mdl-richtext  ">
 
-												<h4 class="atm-heading">
-													H4: Black title
-												</h4>
-												<p class="atm-paragraph">
-													P, Regular Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim <a href="#" class="atm-text_link">Landesmuseum</a> in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunktfür mobile Geräte eingerichtet – den ersten in der Schweiz.P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunktfür mobile Geräte eingerichtet – den ersten in der Schweiz.
-												</p>
-												<blockquote class="mdl-quote ">
-													<div>
-														<p class="mdl-quote__text">«Das richtige Paradigma von Projektmanagementerfolg stützt sich nicht auf die Einhaltung von Rahmenbedingungen, sondern orientiert sich am tieferen Sinn der Aufgabe: Das Transformieren von Ressourcen in Resultate, welche dem Unternehmen einen Nutzen stiften.»</p>
-														<cite class="mdl-quote__author">Claudia Pletscher, Leiterin Entwicklung Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolor</cite>
-													</div>
-												</blockquote>
-												<ul class="mdl-richtext__benefits">
-													<li><span class="visuallyhidden">Vorteil:</span> Informiert werden, sobald eine Sendung unterwegs ist. Informiert werden, sobald eine Sendung unterwegs ist</li>
-													<li><span class="visuallyhidden">Vorteil:</span> Informiert werden, sobald eine Sendung unterwegs ist. Informiert werden, sobald eine Sendung unterwegs ist</li>
-													<li><span class="visuallyhidden">Vorteil:</span> Informiert werden, sobald eine Sendung unterwegs ist. Informiert werden, sobald eine Sendung unterwegs ist</li>
-												</ul>
-											</div>
+				<h4 class="atm-heading">
+					H4: Black title
+				</h4>
+				<p class="atm-paragraph">
+					P, Regular Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim <a href="#" class="atm-text_link">Landesmuseum</a> in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunktfür mobile Geräte eingerichtet – den ersten in der Schweiz.P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunktfür mobile Geräte eingerichtet – den ersten in der Schweiz.
+				</p>
+				<blockquote class="mdl-quote ">
+					<div>
+						<p class="mdl-quote__text">«Das richtige Paradigma von Projektmanagementerfolg stützt sich nicht auf die Einhaltung von Rahmenbedingungen, sondern orientiert sich am tieferen Sinn der Aufgabe: Das Transformieren von Ressourcen in Resultate, welche dem Unternehmen einen Nutzen stiften.»</p>
+						<cite class="mdl-quote__author">Claudia Pletscher, Leiterin Entwicklung Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolor</cite>
+					</div>
+				</blockquote>
+				<ul class="mdl-richtext__benefits">
+					<li><span class="visuallyhidden">Vorteil:</span> Informiert werden, sobald eine Sendung unterwegs ist. Informiert werden, sobald eine Sendung unterwegs ist</li>
+					<li><span class="visuallyhidden">Vorteil:</span> Informiert werden, sobald eine Sendung unterwegs ist. Informiert werden, sobald eine Sendung unterwegs ist</li>
+					<li><span class="visuallyhidden">Vorteil:</span> Informiert werden, sobald eine Sendung unterwegs ist. Informiert werden, sobald eine Sendung unterwegs ist</li>
+				</ul>
+			</div>
 
-										</div>
-										<div class="mdl-tabs__tab" role="tabpanel">
-											<div class="mdl-carousel" data-init="carousel">
-												<div class="mdl-carousel__meta">
-													<button class="mdl-carousel__close" data-carousel="close">
-														<span class="visuallyhidden">Schliessen</span>
-														<svg class="icon" focusable="false">
-															<use xlink:href="#exit"></use>
-														</svg>
-													</button>
-												</div>
-												<div class="mdl-carousel__slides" data-carousel="slide-wrapper">
-													<div class="mdl-carousel__slide" data-carousel="slide">
-														<figure class="mdl-image-figure">
-															<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
-																<img class="mdl-image-figure__img" src="/assets/media/image/carousel_1440_1440_x15.jpeg" srcset="/assets/media/image/carousel_1440_1440_x15.jpeg 2160w, /assets/media/image/carousel_1024_1024_x15.jpeg 1536w, /assets/media/image/carousel_600_600_x15.jpeg 900w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
-																<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
-															</button>
-															<figcaption class="mdl-image-figure__caption">
-																<span class="atm-figcaption" data-figcaption="caption">
-																	Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
-																</span>
-																<a href="/assets/media/image/carousel_1440_1440_x15.jpeg" download class="mdl-image-figure__download">
-																	<svg class="icon mdl-image-figure__download-icon" focusable="false">
-																		<use xlink:href="#download"></use>
-																	</svg>
-																	<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
-																</a>
-															</figcaption>
-														</figure>
-													</div>
-													<div class="mdl-carousel__slide" data-carousel="slide">
-														<figure class="mdl-image-figure">
-															<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
-																<img class="mdl-image-figure__img" src="/assets/media/image/carousel_1440_2667_x15.jpeg" srcset="/assets/media/image/carousel_1440_2667_x15.jpeg 2160w, /assets/media/image/carousel_1024_1612_x15.jpeg 1536w, /assets/media/image/carousel_600_944_x15.jpeg 900w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
-																<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
-															</button>
-															<figcaption class="mdl-image-figure__caption">
-																<span class="atm-figcaption" data-figcaption="caption">
-																	Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
-																</span>
-																<a href="/assets/media/image/carousel_1440_2667_x15.jpeg" download class="mdl-image-figure__download">
-																	<svg class="icon mdl-image-figure__download-icon" focusable="false">
-																		<use xlink:href="#download"></use>
-																	</svg>
-																	<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
-																</a>
-															</figcaption>
-														</figure>
-													</div>
-													<div class="mdl-carousel__slide" data-carousel="slide">
-														<figure class="mdl-image-figure">
-															<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
-																<img class="mdl-image-figure__img" src="/assets/media/image/carousel_1440_x15.jpeg" srcset="/assets/media/image/carousel_1440_x15.jpeg 2160w, /assets/media/image/carousel_1024_x15.jpeg 1536w, /assets/media/image/carousel_600_x15.jpeg 900w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
-																<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
-															</button>
-															<figcaption class="mdl-image-figure__caption">
-																<span class="atm-figcaption" data-figcaption="caption">
-																	Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
-																</span>
-																<a href="/assets/media/image/carousel_1440_x15.jpeg" download class="mdl-image-figure__download">
-																	<svg class="icon mdl-image-figure__download-icon" focusable="false">
-																		<use xlink:href="#download"></use>
-																	</svg>
-																	<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
-																</a>
-															</figcaption>
-														</figure>
-													</div>
-												</div>
-												<div class="mdl-carousel__control-wrapper">
-													<div class="mdl-carousel__control">
-														<span class="mdl-carousel__indicator" aria-live="polite">
-															<span data-carousel="indicator">1</span> von 3
-															<span class="visuallyhidden" data-carousel="textalternative"></span>
-														</span>
-
-														<ul class="mdl-button_group" data-init="buttonGroup">
-															<li class="mdl-button_group__item">
-																<button class="atm-button atm-button--icon-only atm-button--secondary" data-carousel="prev">
-																	<span class="atm-button__text visuallyhidden">
-																		Vorheriges Bild
-																	</span>
-																	<svg class="icon atm-button__icon" focusable="false">
-																		<use xlink:href="#angle_left"></use>
-																	</svg>
-																	<span class="atm-button__spinner"></span>
-																</button>
-															</li>
-															<li class="mdl-button_group__item">
-																<button class="atm-button atm-button--icon-only atm-button--secondary" data-carousel="next">
-																	<span class="atm-button__text visuallyhidden">
-																		Nächstes Bild
-																	</span>
-																	<svg class="icon atm-button__icon" focusable="false">
-																		<use xlink:href="#angle_right"></use>
-																	</svg>
-																	<span class="atm-button__spinner"></span>
-																</button>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</li>
-					</ol>
-
+		</div>
+		<div class="mdl-tabs__tab" role="tabpanel">
+			<div class="mdl-carousel" data-init="carousel">
+				<div class="mdl-carousel__meta">
+					<button class="mdl-carousel__close" data-carousel="close">
+						<span class="visuallyhidden">Schliessen</span>
+						<svg class="icon" focusable="false">
+							<use xlink:href="#exit"></use>
+						</svg>
+					</button>
 				</div>
-				<div class="mdl-contact mdl-contact--fullwidth">
-					<div class="lyt-wrapper">
-						<div class="grid-x grid-margin-x">
-							<div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10">
+				<div class="mdl-carousel__slides" data-carousel="slide-wrapper">
+					<div class="mdl-carousel__slide" data-carousel="slide">
+						<figure class="mdl-image-figure">
+							<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+								<img class="mdl-image-figure__img" src="/assets/media/image/carousel_1440_1440_x15.jpeg" srcset="/assets/media/image/carousel_1440_1440_x15.jpeg 2160w, /assets/media/image/carousel_1024_1024_x15.jpeg 1536w, /assets/media/image/carousel_600_600_x15.jpeg 900w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+								<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+							</button>
+							<figcaption class="mdl-image-figure__caption">
+								<span class="atm-figcaption" data-figcaption="caption">
+									Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+								</span>
+								<a href="/assets/media/image/carousel_1440_1440_x15.jpeg" download class="mdl-image-figure__download">
+									<svg class="icon mdl-image-figure__download-icon" focusable="false">
+										<use xlink:href="#download"></use>
+									</svg>
+									<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+								</a>
+							</figcaption>
+						</figure>
+					</div>
+					<div class="mdl-carousel__slide" data-carousel="slide">
+						<figure class="mdl-image-figure">
+							<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+								<img class="mdl-image-figure__img" src="/assets/media/image/carousel_1440_2667_x15.jpeg" srcset="/assets/media/image/carousel_1440_2667_x15.jpeg 2160w, /assets/media/image/carousel_1024_1612_x15.jpeg 1536w, /assets/media/image/carousel_600_944_x15.jpeg 900w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+								<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+							</button>
+							<figcaption class="mdl-image-figure__caption">
+								<span class="atm-figcaption" data-figcaption="caption">
+									Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+								</span>
+								<a href="/assets/media/image/carousel_1440_2667_x15.jpeg" download class="mdl-image-figure__download">
+									<svg class="icon mdl-image-figure__download-icon" focusable="false">
+										<use xlink:href="#download"></use>
+									</svg>
+									<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+								</a>
+							</figcaption>
+						</figure>
+					</div>
+					<div class="mdl-carousel__slide" data-carousel="slide">
+						<figure class="mdl-image-figure">
+							<button class="mdl-image-figure__img-wrapper" data-carousel="open" role="presentation">
+								<img class="mdl-image-figure__img" src="/assets/media/image/carousel_1440_x15.jpeg" srcset="/assets/media/image/carousel_1440_x15.jpeg 2160w, /assets/media/image/carousel_1024_x15.jpeg 1536w, /assets/media/image/carousel_600_x15.jpeg 900w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-has-download data-image-figure="image" />
+								<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>
+							</button>
+							<figcaption class="mdl-image-figure__caption">
+								<span class="atm-figcaption" data-figcaption="caption">
+									Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+								</span>
+								<a href="/assets/media/image/carousel_1440_x15.jpeg" download class="mdl-image-figure__download">
+									<svg class="icon mdl-image-figure__download-icon" focusable="false">
+										<use xlink:href="#download"></use>
+									</svg>
+									<span class="visuallyhidden">Bild «Das ist ein Beispielbild» herunterladen</span>
+								</a>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+				<div class="mdl-carousel__control-wrapper">
+					<div class="mdl-carousel__control">
+						<span class="mdl-carousel__indicator" aria-live="polite">
+							<span data-carousel="indicator">1</span> von 3
+							<span class="visuallyhidden" data-carousel="textalternative"></span>
+						</span>
 
-								<h2 class="atm-heading atm-heading--bordered">Kontakt</h2>
+						<ul class="mdl-button_group" data-init="buttonGroup">
+							<li class="mdl-button_group__item">
+								<button class="atm-button atm-button--icon-only atm-button--secondary" data-carousel="prev">
+									<span class="atm-button__text visuallyhidden">
+										Vorheriges Bild
+									</span>
+									<svg class="icon atm-button__icon" focusable="false">
+										<use xlink:href="#angle_left"></use>
+									</svg>
+									<span class="atm-button__spinner"></span>
+								</button>
+							</li>
+							<li class="mdl-button_group__item">
+								<button class="atm-button atm-button--icon-only atm-button--secondary" data-carousel="next">
+									<span class="atm-button__text visuallyhidden">
+										Nächstes Bild
+									</span>
+									<svg class="icon atm-button__icon" focusable="false">
+										<use xlink:href="#angle_right"></use>
+									</svg>
+									<span class="atm-button__spinner"></span>
+								</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
 
-								<h3 class="mdl-contact__subtitle">
-									Koordinationsstelle Veloverkehr
-									<a href="#">
-										Mehr erfahren
-										<svg class="icon" focusable="false">
-											<use xlink:href="#arrow-right"></use>
-										</svg>
-									</a>
-								</h3>
+		</div>
+		</div>
+		</li>
+		</ol>
+
+		</div>
+		<div class="mdl-contact mdl-contact--fullwidth">
+			<div class="lyt-wrapper">
+				<div class="grid-x grid-margin-x">
+					<div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10">
+
+						<h2 class="atm-heading atm-heading--bordered">Kontakt</h2>
+
+						<h3 class="mdl-contact__subtitle">
+							Koordinationsstelle Veloverkehr
+							<a href="#">
+								Mehr erfahren
+								<svg class="icon" focusable="false">
+									<use xlink:href="#arrow-right"></use>
+								</svg>
+							</a>
+						</h3>
+					</div>
+				</div>
+				<div class="mdl-contact__section grid-x grid-margin-x">
+
+					<div class="mdl-contact__section-cell cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-5 xlarge-3">
+						<div class="mdl-contact__cell-icon">
+							<h4 class="visuallyhidden">Adresse</h4>
+							<svg class="icon mdl-contact__icon-location" aria-hidden="true" focusable="false">
+								<use xlink:href="#location"></use>
+							</svg>
+						</div>
+						<div class="mdl-contact__cell-content">
+							<address class="mdl-contact__address">
+								Zürich-Albisgütli<br>
+								Uetlibergstrasse 301<br>
+								8036 Zürich<br>
+								<a target="_blank" href="#" class="mdl-contact__show-route">Route anzeigen
+								</a>
+							</address>
+
+							<div class="mdl-contact__text">
+								<p>
+									Wir befinden uns im 2.Obergeschoss
+								</p>
+
+								<h4 class="atm-heading">Bürozeiten</h4>
+								<ul>
+									<li>Mo-Fr: 8.00 - 11:30 &amp;</li>
+									<li>13:30 - 17:00</li>
+								</ul>
+								<h4 class="atm-heading">Schalter</h4>
+								<ul>
+									<li>Mo - Mi: 12:30 - 17:30</li>
+									<li>Do: 13:30 - 19:00</li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="mdl-contact__section-cell cell xsmall-offset-2 small-offset-0 medium-offset-0 large-offset-0 xlarge-offset-0 x-small-6 xsmall-10 small-5 xlarge-3">
+						<div class="mdl-contact__cell-icon">
+							<h4 class="visuallyhidden">Telefon</h4>
+							<svg class="icon mdl-contact__icon-phone" aria-hidden="true" focusable="false">
+								<use xlink:href="#phone-call"></use>
+							</svg>
+						</div>
+						<div class="mdl-contact__cell-content">
+							<a class="atm-text_link mdl-contact__phone" href="tel:+41588113000">058 811 30 00</a>
+
+							<div class="mdl-contact__text">
+								<p>
+									Allgemeine Fragen
+								</p>
+								<ul>
+									<li>Mo-Mi: 13.30 - 17:30</li>
+									<li>Do: 13.30 - 19.00</li>
+									<li>Fr: 13.30 - 17.30</li>
+								</ul>
+							</div>
+							<a class="atm-text_link mdl-contact__phone" href="tel:+41588113020">058 811 30 20</a>
+
+							<div class="mdl-contact__text">
+								<p>
+									Notfall-Nummer
+								</p>
+								<p>
+									Nur Wochenends von Januar bis Mai
+								</p>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="mdl-contact__section-cell cell xsmall-offset-2 small-offset-2 xlarge-offset-0 xsmall-10 small-8 xlarge-4">
+						<div class="mdl-contact__cell-icon">
+							<h4 class="visuallyhidden">E-Mail</h4>
+							<svg class="icon mdl-contact__icon-email" aria-hidden="true" focusable="false">
+								<use xlink:href="#email"></use>
+							</svg>
+						</div>
+						<div class="mdl-contact__cell-content">
+							<a class="mdl-contact__mail" href="mailto:velo@vd.zh.ch">velo@vd.zh.ch</a><br>
+							<div class="mdl-contact__text">
+								<p>
+									Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.
+								</p>
 							</div>
 						</div>
-						<div class="mdl-contact__section grid-x grid-margin-x">
-
-							<div class="mdl-contact__section-cell cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-5 xlarge-3">
-								<div class="mdl-contact__cell-icon">
-									<h4 class="visuallyhidden">Adresse</h4>
-									<svg class="icon mdl-contact__icon-location" aria-hidden="true" focusable="false">
-										<use xlink:href="#location"></use>
-									</svg>
-								</div>
-								<div class="mdl-contact__cell-content">
-									<address class="mdl-contact__address">
-										Zürich-Albisgütli<br>
-										Uetlibergstrasse 301<br>
-										8036 Zürich<br>
-										<a target="_blank" href="#" class="mdl-contact__show-route">Route anzeigen
-										</a>
-									</address>
-
-									<div class="mdl-contact__text">
-										<p>
-											Wir befinden uns im 2.Obergeschoss
-										</p>
-
-										<h4 class="atm-heading">Bürozeiten</h4>
-										<ul>
-											<li>Mo-Fr: 8.00 - 11:30 &amp;</li>
-											<li>13:30 - 17:00</li>
-										</ul>
-										<h4 class="atm-heading">Schalter</h4>
-										<ul>
-											<li>Mo - Mi: 12:30 - 17:30</li>
-											<li>Do: 13:30 - 19:00</li>
-										</ul>
-									</div>
-
-								</div>
-							</div>
-
-							<div class="mdl-contact__section-cell cell xsmall-offset-2 small-offset-0 medium-offset-0 large-offset-0 xlarge-offset-0 x-small-6 xsmall-10 small-5 xlarge-3">
-								<div class="mdl-contact__cell-icon">
-									<h4 class="visuallyhidden">Telefon</h4>
-									<svg class="icon mdl-contact__icon-phone" aria-hidden="true" focusable="false">
-										<use xlink:href="#phone-call"></use>
-									</svg>
-								</div>
-								<div class="mdl-contact__cell-content">
-									<a class="atm-text_link mdl-contact__phone" href="tel:+41588113000">058 811 30 00</a>
-
-									<div class="mdl-contact__text">
-										<p>
-											Allgemeine Fragen
-										</p>
-										<ul>
-											<li>Mo-Mi: 13.30 - 17:30</li>
-											<li>Do: 13.30 - 19.00</li>
-											<li>Fr: 13.30 - 17.30</li>
-										</ul>
-									</div>
-									<a class="atm-text_link mdl-contact__phone" href="tel:+41588113020">058 811 30 20</a>
-
-									<div class="mdl-contact__text">
-										<p>
-											Notfall-Nummer
-										</p>
-										<p>
-											Nur Wochenends von Januar bis Mai
-										</p>
-									</div>
-
-								</div>
-							</div>
-
-							<div class="mdl-contact__section-cell cell xsmall-offset-2 small-offset-2 xlarge-offset-0 xsmall-10 small-8 xlarge-4">
-								<div class="mdl-contact__cell-icon">
-									<h4 class="visuallyhidden">E-Mail</h4>
-									<svg class="icon mdl-contact__icon-email" aria-hidden="true" focusable="false">
-										<use xlink:href="#email"></use>
-									</svg>
-								</div>
-								<div class="mdl-contact__cell-content">
-									<a class="mdl-contact__mail" href="mailto:velo@vd.zh.ch">velo@vd.zh.ch</a><br>
-									<div class="mdl-contact__text">
-										<p>
-											Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.
-										</p>
-									</div>
-								</div>
-							</div>
-
-						</div>
-
 					</div>
 
 				</div>
+
 			</div>
+
+		</div>
+		</div>
 		</div>
 	</main>
 	<footer class="lyt-wrapper" id="footer">

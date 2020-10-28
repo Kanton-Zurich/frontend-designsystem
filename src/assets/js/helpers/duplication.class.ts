@@ -104,6 +104,9 @@ class DuplicationElement {
         if (element.hasAttribute('for')) {
           element.setAttribute('for', `${element.getAttribute('for')}_${uid}`);
         }
+        if (element.hasAttribute('data-fills-city')) {
+          element.setAttribute('data-fills-city', `${element.getAttribute('data-fills-city')}_${uid}`);
+        }
         if (element.hasAttribute('data-remove-uid')) {
           element.setAttribute('data-remove-uid', uid);
         }

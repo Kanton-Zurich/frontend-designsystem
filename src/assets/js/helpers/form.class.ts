@@ -511,16 +511,17 @@ class Form {
 
       duplicatableElement.addEventListener(DuplicationElement.events.domReParsed, (event) => {
         this.addWatchers((<any>event).detail);
+        this.initZipCity((<any>event).detail);
       });
     });
   }
 
-  initZipCity() {
-    const zipFields = this.ui.element.querySelectorAll('[data-fills-city]');
+  initZipCity(domElement = this.ui.element) {
+    const zipFields = domElement.querySelectorAll('[data-fills-city]');
 
     zipFields.forEach(($zipField) => {
       const fillName = $zipField.getAttribute('data-fills-city');
-      const $cityField = this.ui.element.querySelector(`[name="${fillName}"]`);
+      const $cityField = domElement.querySelector(`[name="${fillName}"]`);
 
       new ZipCity($zipField, $cityField);
     });
