@@ -508,7 +508,6 @@ class FlexData extends Module {
       return;
     }
     const params = this.getAllURLParams();
-    this.ui.clearButton.classList.remove('hidden');
     Object.keys(params).forEach((key) => {
       switch (key) {
         case 'page':
@@ -531,6 +530,7 @@ class FlexData extends Module {
           this.orderBy = params[key][0]; // eslint-disable-line
           break;
         default:
+          this.ui.clearButton.classList.remove('hidden');
           setTimeout(() => {
             const selectedElements = this.ui.form.querySelectorAll(`input[name=${key}]`); // eslint-disable-line
             const values = params[key]; // eslint-disable-line

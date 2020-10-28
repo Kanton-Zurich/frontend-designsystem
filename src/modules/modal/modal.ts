@@ -278,7 +278,6 @@ class Modal extends Module {
       if (focusOrigin) {
         (<any> focusOrigin).focus();
       }
-
       this.ui.element.classList.remove(this.options.stateClasses.opened);
     }, this.options.transitionTime);
     setTimeout(() => {
@@ -290,6 +289,7 @@ class Modal extends Module {
     window.dispatchEvent(new CustomEvent(Modal.events.closed, { detail: { sender: this } }));
 
     document.body.classList.remove(this.options.stateClasses.openModal);
+    document.documentElement.scrollTop = this.parentScrollPosition;
   }
 
   onSetPage(event) {
