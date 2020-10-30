@@ -195,7 +195,7 @@ $headerCurves: (
 
     height: 100%;
 
-    background: rgba($colorWhite, 0.4);
+    background: rgba($colorWhite, 0.5);
 
     svg use {
       fill: $colorBlack80;
@@ -321,3 +321,7 @@ $headerCurves: (
   }
 }
 
+//CZHDEV-2671: When Modal opened, reset fixed header zindex
+.open-modal .mdl-header--fixed {
+  z-index: $zIndexFlyouts;
+}

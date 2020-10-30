@@ -38,6 +38,19 @@
         </span>
   {{/if}}
 
+  {{#if isZipCityTarget}}
+    <div class="atm-form_input__city-options" data-form_input="cityOptions">
+      <template type="text/x-handlebars-template" data-form_input="cityOptionsTemplate">
+        <li class="atm-list__item">
+          <button type="button" value="<%- city %>">${ city } <span class="visuallyhidden">auswählen</span></button>
+        </li>
+      </template>
+      <p class="visuallyhidden">Bitte wählen Sie die passende Ortschaft aus:</p>
+      <ul class="atm-list" data-form_input="cityOptionsList">
+      </ul>
+    </div>
+  {{/if}}
+
   {{# if isTextarea}}
     <textarea class="atm-form_input__input atm-form_input__input--txtarea" id="{{uuid}}" placeholder="{{label}}"{{#if
       name }}
@@ -75,6 +88,9 @@
       {{#if disableAutocomplete}}autocomplete="new-password"{{/if}}
     >
   {{/if}}
+
+
+
   {{#unless isTriggerWithInput }}
     {{#if maskPlaceholder }}
       <span class="atm-form_input__backdrop">

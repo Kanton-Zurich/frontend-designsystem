@@ -55,6 +55,7 @@ class Modal extends Module {
         noTransitionShow: 'mdl-modal--no-transition-show',
         search: 'mdl-modal--search',
         opened: 'mdl-modal--opened',
+        openModal: 'open-modal',
       },
       childSelectors: {
         nav: '.mdl-topiclist--nav',
@@ -244,12 +245,20 @@ class Modal extends Module {
       }, this.options.transitionTime);
     }
 
-    this.log(this.options.transitionTime);
-
     setTimeout(() => {
       this.ui.element.classList.add(this.options.stateClasses.opened);
       window.dispatchEvent(new CustomEvent(Modal.events.opened, { detail: { sender: this } }));
+
+      if (this.ui.initiable.length > 0) {
+        this.ui.initiable.forEach((target) => {
+          target.dispatchEvent(new CustomEvent(Modal.events.opened));
+        });
+      }
     }, this.options.transitionTime);
+
+    document.body.classList.add(this.options.stateClasses.openModal);
+
+    window.dispatchEvent(new CustomEvent('reloadLineClamper'));
   }
 
   /** Closes the modal */
@@ -269,7 +278,6 @@ class Modal extends Module {
       if (focusOrigin) {
         (<any> focusOrigin).focus();
       }
-
       this.ui.element.classList.remove(this.options.stateClasses.opened);
     }, this.options.transitionTime);
     setTimeout(() => {
@@ -279,6 +287,9 @@ class Modal extends Module {
       this.ui.element.classList.remove(this.options.stateClasses.show);
     }, this.options.transitionTime);
     window.dispatchEvent(new CustomEvent(Modal.events.closed, { detail: { sender: this } }));
+
+    document.body.classList.remove(this.options.stateClasses.openModal);
+    document.documentElement.scrollTop = this.parentScrollPosition;
   }
 
   onSetPage(event) {
