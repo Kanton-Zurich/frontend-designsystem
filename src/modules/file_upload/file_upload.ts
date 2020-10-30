@@ -116,6 +116,14 @@ class FileUpload extends Module {
   initEventListeners() {
     this.eventDelegate.on('change', this.options.domSelectors.input, this.onChange.bind(this));
 
+    this.eventDelegate.on(FileUpload.events.mainMoved, (event) => {
+      if (event.detail) this.ui.input.setAttribute('required', 'true');
+
+      if (this.options.isDuplicated && this.ui.input.files.length === 0) {
+        this.ui.element.remove();
+      }
+    });
+
     if (this.data.hasDropzone) {
       const dragEvents = ['drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave', 'drop'];
 
@@ -141,14 +149,6 @@ class FileUpload extends Module {
           this.onChange();
         } else {
           this.ui.onlyOneFile.classList.add('show');
-        }
-      });
-
-      this.eventDelegate.on(FileUpload.events.mainMoved, (event) => {
-        if (event.detail) this.ui.input.setAttribute('required', 'true');
-
-        if (this.options.isDuplicated && this.ui.input.files.length === 0) {
-          this.ui.element.remove();
         }
       });
     }
@@ -246,7 +246,6 @@ class FileUpload extends Module {
       this.ui.element.remove();
     }
 
-
     if (isFirst) {
       fileUploads.forEach((uploadElement, counter) => {
         uploadElement.dispatchEvent(new CustomEvent(FileUpload.events.mainMoved, {
@@ -254,6 +253,9 @@ class FileUpload extends Module {
         }));
       });
     }
+
+    // Change focus
+    parent.querySelector('input').focus();
   }
 
   duplicateItself() {
@@ -274,9 +276,11 @@ class FileUpload extends Module {
       isDuplicated: true,
     });
 
-    this.ui.form.dispatchEvent(new CustomEvent(FileUpload.events.duplicated, {
-      detail: clone,
-    }));
+    if (this.ui.form) {
+      this.ui.form.dispatchEvent(new CustomEvent(FileUpload.events.duplicated, {
+        detail: clone,
+      }));
+    }
   }
 
   /**

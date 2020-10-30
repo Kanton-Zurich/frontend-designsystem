@@ -8,6 +8,7 @@ import FileUpload from '../../../modules/file_upload/file_upload';
 import namespace from './namespace';
 import Datepicker from '../../../modules/datepicker/datepicker';
 import FormGlobalHelper from './form';
+import WindowEventListener from './events';
 
 class Form {
   private ui: {
@@ -20,10 +21,13 @@ class Form {
     inputClasses: any,
     validateDelay: number,
     messageClasses: any,
+    radiogroupClasses: any,
     domSelectors: {
       floating: string;
       datepicker: string;
       backdrop: string;
+      radiogroup: string;
+      radiobutton: string;
     };
     messageSelector: string,
     duplicateSelector: string,
@@ -60,6 +64,8 @@ class Form {
         floating: '[data-floating]',
         datepicker: '[data-init="datepicker"]',
         backdrop: '.atm-form_input__backdrop',
+        radiogroup: '.form__fieldset-list',
+        radiobutton: '.atm-radiobutton',
       },
       messageSelector: '[data-message]',
       selectOptionSelector: 'data-select-option',
@@ -68,6 +74,9 @@ class Form {
       prefixSelector: '.atm-form_input--unitLeft',
       messageClasses: {
         show: 'show',
+      },
+      radiogroupClasses: {
+        vertical: 'form__fieldset-list--vertical',
       },
       duplicateSelector: '[data-form="duplicatable"]',
     };
@@ -83,6 +92,7 @@ class Form {
     // Initialize duplication elements
     this.initDuplicationElements();
     this.initZipCity();
+    this.initRadioGroup();
 
     // Initialize rules
     this.initRules();
@@ -139,6 +149,7 @@ class Form {
     this.eventDelegate.on('blur', this.options.domSelectors.floating, (event, field: HTMLInputElement) => {
       this.checkIfFieldDirty(field);
     });
+    (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
   }
 
   private checkIfFieldDirty(field: HTMLInputElement): void {
@@ -245,6 +256,30 @@ class Form {
   }
 
   /**
+   * Update radio group wrapping on resize
+   */
+  onResize() {
+    const radiogroups = this.ui.element.querySelectorAll(this.options.domSelectors.radiogroup);
+
+    radiogroups.forEach((radiogroup) => {
+      const options = radiogroup.querySelectorAll(this.options.domSelectors.radiobutton);
+      radiogroup.classList.remove(this.options.radiogroupClasses.vertical);
+
+      if (options.length > 1) {
+        const firstItemTop = options[0].getBoundingClientRect().top;
+        let i: number;
+
+        for (i = 1; i < options.length; i += 1) {
+          if (firstItemTop < options[i].getBoundingClientRect().top) {
+            radiogroup.classList.add(this.options.radiogroupClasses.vertical);
+            break;
+          }
+        }
+      }
+    });
+  }
+
+  /**
    * Clear the field
    * @param event event object
    * @param delegate the clear button, as it is event delegate
@@ -259,7 +294,7 @@ class Form {
 
   validateField(field) { //eslint-disable-line
     if (this.ui.element.hasAttribute('is-reset')) {
-      return false;
+      return true;
     }
 
     const validation = window[namespace].form.validateField(field);
@@ -275,39 +310,43 @@ class Form {
 
       if (validation.validationResult) {
         this.setValidClasses(field);
-      } else {
-        this.setValidClasses(field, ['add', 'remove']);
-        let messageElementID: string;
 
-        validation.messages.forEach((messageID) => {
-          const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
-
-          if (message) {
-            if ((field.getAttribute('type') === 'radio') || (field.hasAttribute(this.options.selectOptionSelector))) {
-              messageElementID = `${field.getAttribute('name')}__${messageID}-error`;
-            } else {
-              messageElementID = `${field.id}__${messageID}-error`;
-            }
-            message.classList.add('show');
-            message.setAttribute('id', messageElementID);
-            field.setAttribute('aria-describedby', messageElementID);
-          }
-        });
-
-        if (validation.files) {
-          setTimeout(() => {
-            validation.files.forEach((validationResult) => {
-              const fileContainer = field.closest(this.options.inputSelector).querySelector(`[data-file-id="${validationResult.id}"]`);
-
-              validationResult.errors.forEach((error) => {
-                fileContainer.querySelector(`[data-message="${error}"]`).classList.add('show');
-              });
-            });
-          }, fileTimeout);
-        }
-
-        this.ui.element.setAttribute('form-has-errors', 'true');
+        return true;
       }
+
+      this.setValidClasses(field, ['add', 'remove']);
+      let messageElementID: string;
+
+      validation.messages.forEach((messageID) => {
+        const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
+
+        if (message) {
+          if ((field.getAttribute('type') === 'radio') || (field.hasAttribute(this.options.selectOptionSelector))) {
+            messageElementID = `${field.getAttribute('name')}__${messageID}-error`;
+          } else {
+            messageElementID = `${field.id}__${messageID}-error`;
+          }
+          message.classList.add('show');
+          message.setAttribute('id', messageElementID);
+          field.setAttribute('aria-describedby', messageElementID);
+        }
+      });
+
+      if (validation.files) {
+        setTimeout(() => {
+          validation.files.forEach((validationResult) => {
+            const fileContainer = field.closest(this.options.inputSelector).querySelector(`[data-file-id="${validationResult.id}"]`);
+
+            validationResult.errors.forEach((error) => {
+              fileContainer.querySelector(`[data-message="${error}"]`).classList.add('show');
+            });
+          });
+        }, fileTimeout);
+      }
+
+      this.ui.element.setAttribute('form-has-errors', 'true');
+
+      return false;
     }
   }
 
@@ -340,16 +379,19 @@ class Form {
 
   validateSection(event) {
     const formSections = event.detail.sections;
+    let errorsInSections = 0;
 
     formSections.forEach((section) => {
       const fieldsInSection = section.querySelectorAll(this.options.watchEmitters.input);
 
-      fieldsInSection.forEach(this.validateField.bind(this));
+      fieldsInSection.forEach((field) => {
+        errorsInSections = !this.validateField(field)
+          ? errorsInSections += 1
+          : errorsInSections;
+      });
     });
 
-    const errorsInFields = this.ui.element.querySelectorAll(`.${this.options.inputClasses.invalid}`).length > 0;
-
-    if (errorsInFields) {
+    if (errorsInSections > 0) {
       this.ui.element.setAttribute('form-has-errors', 'true');
 
       (<any> this.ui.element.querySelector('.invalid input, .invalid textarea, .invalid button')).focus();
@@ -368,11 +410,15 @@ class Form {
     switch (maskType) {
       case 'currency':
         // handle CHF formatting
-        domElement.value = FormGlobalHelper.FormatCurrency(newValue, 2); // eslint-disable-line
+        if (domElement.value.length > 0) {
+          domElement.value = FormGlobalHelper.FormatCurrency(newValue, 2); // eslint-disable-line
+        }
         break;
       case 'currency_flat':
         // handle CHF formatting
-        domElement.value = FormGlobalHelper.FormatCurrency(newValue, 0);
+        if (domElement.value.length > 0) {
+          domElement.value = FormGlobalHelper.FormatCurrency(newValue, 0);
+        }
         break;
       default:
         // handle mask
@@ -465,21 +511,25 @@ class Form {
 
       duplicatableElement.addEventListener(DuplicationElement.events.domReParsed, (event) => {
         this.addWatchers((<any>event).detail);
+        this.initZipCity((<any>event).detail);
       });
     });
   }
 
-  initZipCity() {
-    const zipFields = this.ui.element.querySelectorAll('[data-fills-city]');
+  initZipCity(domElement = this.ui.element) {
+    const zipFields = domElement.querySelectorAll('[data-fills-city]');
 
     zipFields.forEach(($zipField) => {
       const fillName = $zipField.getAttribute('data-fills-city');
-      const $cityField = this.ui.element.querySelector(`[name="${fillName}"]`);
+      const $cityField = domElement.querySelector(`[name="${fillName}"]`);
 
       new ZipCity($zipField, $cityField);
     });
   }
 
+  initRadioGroup() {
+    this.onResize();
+  }
 
   initRules() {
     const rulesElements = this.ui.element.querySelectorAll(this.options.rulesSelector);

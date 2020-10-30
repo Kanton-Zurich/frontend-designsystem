@@ -246,6 +246,17 @@ class Datepicker extends Module {
     if (flatpickrElement) {
       flatpickrElement.setAttribute('aria-hidden', 'true');
     }
+
+    this.addResetListener();
+  }
+
+  // Reset the field, when the form is reset
+  addResetListener() {
+    if (this.flatpickr.form) {
+      this.flatpickr.form.addEventListener('reset', () => {
+        this.flatpickr.setDate(null, true);
+      });
+    }
   }
 
   /**

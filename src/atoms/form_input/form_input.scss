@@ -30,6 +30,7 @@ $searchSizeCurve: (
 $triggerWidth: pxToRem(86px);
 
 .atm-form_input {
+  $self: &;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -46,6 +47,9 @@ $triggerWidth: pxToRem(86px);
     border: $borderWidth solid $colorBlack40;
     border-radius: 2px;
     order: 1;
+
+    // Remove iOS Shadow
+    -webkit-appearance: none; //stylelint-disable-line
 
     &:focus {
       outline: none;
@@ -144,7 +148,7 @@ $triggerWidth: pxToRem(86px);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      right: $borderWidth;
+      right: (pxToRem($sizeRegular) + pxToRem($sizeTiny));
       background: $colorWhite;
 
       @include transition(top);
@@ -180,6 +184,12 @@ $triggerWidth: pxToRem(86px);
     .atm-form_input__input:focus ~ .atm-form_input__backdrop,
     .atm-form_input__input.dirty ~ .atm-form_input__backdrop {
       display: block;
+    }
+
+    /* ------ Unit ------ */
+    .atm-form_input__input:focus ~ .atm-form_input__unit,
+    .atm-form_input__input.dirty ~ .atm-form_input__unit {
+      opacity: 1;
     }
   }
 
@@ -248,6 +258,7 @@ $triggerWidth: pxToRem(86px);
     }
 
     .atm-form_input--floated & {
+      opacity: 0;
       top: $paddingInput + $borderWidthRem + $paddingDifferenceOnFocus;
     }
   }
@@ -342,6 +353,10 @@ $triggerWidth: pxToRem(86px);
 
   &.valid,
   &.invalid {
+    label {
+      right: (pxToRem($sizeRegular) + pxToRem(24) + pxToRem($sizeTiny));
+    }
+
     .atm-form_input__unit--right {
       right: pxToRem($sizeRegular * 1.5) + $borderWidthRem + pxToRem(24);
     }
@@ -513,7 +528,7 @@ $triggerWidth: pxToRem(86px);
     overflow: hidden;
     text-overflow: ellipsis;
     right: (pxToRem($sizeRegular) + pxToRem(24) + pxToRem($sizeTiny));
-    color: $colorBlack;
+    color: $colorBlack40;
     background: transparent;
 
     z-index: $zIndexInner;
@@ -521,5 +536,32 @@ $triggerWidth: pxToRem(86px);
     i {
       opacity: 0;
     }
+  }
+
+  /** -------------------- */
+  /* STYLING FOR CITY OPTS */
+  /* --------------------- */
+  &__city-options {
+    position: absolute;
+    top: $targetInputHeight + $borderWidth * 2;
+    left: 0;
+    right: 0;
+    background: $colorWhite;
+    display: none;
+
+    .atm-list__item {
+      padding-left: 0;
+    }
+
+    button {
+      height: 100%;
+      width: 100%;
+      padding-left: 0.75rem;
+    }
+  }
+
+  &--show-city-options #{$self}__city-options {
+    z-index: $zIndexDropDowns;
+    display: block;
   }
 }

@@ -405,7 +405,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     @include mq($from: xlarge) {
       line-height: $sizeLineHeightNarrower;
     }
-}
+  }
 
   h3 {
     line-height: $sizeLineHeightMedium;
@@ -484,7 +484,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     @include sizeCurve('margin-bottom', regular);
   }
 
-  ul:not(.mdl-content_nav__list) {
+  ul:not(.mdl-content_nav__list):not(.mdl-anchornav__list) {
     margin: 0;
     list-style: none;
     color: rgba(0, 0, 0, 0.6);
@@ -510,6 +510,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
       }
     }
   }
+
   ol {
     $listSpacings: (
       top: (

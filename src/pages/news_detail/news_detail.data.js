@@ -48,6 +48,7 @@ const data = _.merge({}, defaultData, {
       linklistData: _.merge({},
         _.omit(defLinklistData.variants.default.props, ['links']),
         {
+          isLast: true,
           linkListTitle: '',
           links: [
             {
@@ -59,6 +60,7 @@ const data = _.merge({}, defaultData, {
         }),
       downloadListData: _.merge({}, defDownloadListData.props, {
         marginBottom: true,
+        isLast: true,
       }),
       personCardData: defPersonCardData.variants.noImageAlt.props,
       tagGroupData: defTagGroupData.props,

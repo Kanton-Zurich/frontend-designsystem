@@ -42,7 +42,7 @@ function getItems(ordered) {
     heading: `${headingsPre} (mit Linklisten Module)`,
     contentModules: [
       () => handlebars.compile(linklistHBS)(_.merge({},
-        linklistDemoData.props, { headingLevel: 4 })),
+        linklistDemoData.props, { headingLevel: 4, isLast: true })),
     ],
   }, {
     heading: `${headingsPre} (mit Video Module)`,
@@ -65,7 +65,7 @@ function getItems(ordered) {
     heading: `${headingsPre} (mit Infobox Module)`,
     contentModules: [
       () => handlebars.compile(texthighlightHBS)(_.merge({}, texthighlightDemoData.props,
-        linklistDemoData.props,
+        _.merge({}, linklistDemoData.props, { isLast: true }),
         imageFigureDemoData.props, {
           headingLevel: 4,
           texthighlightId: _.uniqueId('texthighlight'),

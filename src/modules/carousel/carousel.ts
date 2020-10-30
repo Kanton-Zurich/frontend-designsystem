@@ -85,6 +85,7 @@ class Carousel extends Module {
 
     this.initEventListeners();
     this.initWatchers();
+    this.initUi(['slides']);
 
     this.data.length = this.ui.slides.length ? this.ui.slides.length : 1;
 

@@ -157,7 +157,7 @@
 				<div id="flyout-topics" class="mdl-modal  mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog">
 					<div role="document">
 						<button class="mdl-modal__close" data-modal="close">
-							<span class="mdl-modal__close-label">Schliessen</span>
+							<span class="mdl-modal__close-label"><span class="visuallyhidden">Menu Themen </span>Schliessen</span>
 							<svg focusable="false" class="icon mdl-modal__exit">
 								<use xlink:href="#exit"></use>
 							</svg>
@@ -176,7 +176,11 @@
           " data-input>
 
 
+
 														<input class="atm-form_input__input" id="topicNavFilter" placeholder="Filtern nach Themen" name="input_name" value="" type="text" data-topiclist="input" data-hasbutton="true" autocomplete="new-password">
+
+
+
 
 														<label for="topicNavFilter">Filtern nach Themen</label>
 
@@ -299,7 +303,11 @@
             " data-input>
 
 
+
 															<input class="atm-form_input__input" id="organisationFilterInput" placeholder="Filtern nach Amt, Direktion" name="input_name" value="" type="text" data-topiclist="input" data-hasbutton="true">
+
+
+
 
 															<label for="organisationFilterInput">Filtern nach Amt, Direktion</label>
 
@@ -432,7 +440,7 @@
 				<div id="flyout-search" class="mdl-modal mdl-modal--search mdl-modal--flyout cv-monochrome print-hidden " aria-hidden="true" data-init="modal" role="dialog" data-modal-options="{&quot;transitionTime&quot;:500}">
 					<div role="document">
 						<button class="mdl-modal__close" data-modal="close">
-							<span class="mdl-modal__close-label">Schliessen</span>
+							<span class="mdl-modal__close-label"><span class="visuallyhidden">Suche </span>Schliessen</span>
 							<svg focusable="false" class="icon mdl-modal__exit">
 								<use xlink:href="#exit"></use>
 							</svg>
@@ -620,72 +628,71 @@
 										</svg>
 									</a>
 								</h3>
+							</div>
+						</div>
+						<div class="mdl-contact__section grid-x grid-margin-x">
 
-								<div class="mdl-contact__section grid-x grid-margin-x">
+							<div class="mdl-contact__section-cell cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-5 xlarge-3">
+								<div class="mdl-contact__cell-icon">
+									<h4 class="visuallyhidden">Adresse</h4>
+									<svg class="icon mdl-contact__icon-location" aria-hidden="true" focusable="false">
+										<use xlink:href="#location"></use>
+									</svg>
+								</div>
+								<div class="mdl-contact__cell-content">
+									<address class="mdl-contact__address">
+										Zürich-Albisgütli<br>
+										Uetlibergstrasse 301<br>
+										8036 Zürich<br>
+										<a target="_blank" href="#" class="mdl-contact__show-route">Route anzeigen
+										</a>
+									</address>
 
-									<div class="mdl-contact__section-cell cell small-6 xlarge-4">
-										<div class="mdl-contact__cell-icon">
-											<h4 class="visuallyhidden">Adresse</h4>
-											<svg class="icon mdl-contact__icon-location" aria-hidden="true" focusable="false">
-												<use xlink:href="#location"></use>
-											</svg>
-										</div>
-										<div class="mdl-contact__cell-content">
-											<address class="mdl-contact__address">
-												Zürich-Albisgütli<br>
-												Uetlibergstrasse 301<br>
-												8036 Zürich<br>
-												<a target="_blank" href="#" class="mdl-contact__show-route">Route anzeigen
-												</a>
-											</address>
+									<div class="mdl-contact__text">
 
-											<div class="mdl-contact__text">
-
-											</div>
-
-										</div>
-									</div>
-
-									<div class="mdl-contact__section-cell cell small-6 xlarge-4">
-										<div class="mdl-contact__cell-icon">
-											<h4 class="visuallyhidden">Telefon</h4>
-											<svg class="icon mdl-contact__icon-phone" aria-hidden="true" focusable="false">
-												<use xlink:href="#phone-call"></use>
-											</svg>
-										</div>
-										<div class="mdl-contact__cell-content">
-											<a class="atm-text_link mdl-contact__phone" href="tel:+41588113000">058 811 30 00</a>
-
-											<div class="mdl-contact__text">
-												<p>
-													Telefon
-												</p>
-											</div>
-
-										</div>
-									</div>
-
-									<div class="mdl-contact__section-cell cell small-6 xlarge-4">
-										<div class="mdl-contact__cell-icon">
-											<h4 class="visuallyhidden">E-Mail</h4>
-											<svg class="icon mdl-contact__icon-email" aria-hidden="true" focusable="false">
-												<use xlink:href="#email"></use>
-											</svg>
-										</div>
-										<div class="mdl-contact__cell-content">
-											<a class="mdl-contact__mail" href="mailto:velo@vd.zh.ch">velo@vd.zh.ch</a><br>
-											<div class="mdl-contact__text">
-												<p>
-
-												</p>
-											</div>
-										</div>
 									</div>
 
 								</div>
-
 							</div>
+
+							<div class="mdl-contact__section-cell cell xsmall-offset-2 small-offset-0 medium-offset-0 large-offset-0 xlarge-offset-0 x-small-6 xsmall-10 small-5 xlarge-3">
+								<div class="mdl-contact__cell-icon">
+									<h4 class="visuallyhidden">Telefon</h4>
+									<svg class="icon mdl-contact__icon-phone" aria-hidden="true" focusable="false">
+										<use xlink:href="#phone-call"></use>
+									</svg>
+								</div>
+								<div class="mdl-contact__cell-content">
+									<a class="atm-text_link mdl-contact__phone" href="tel:+41588113000">058 811 30 00</a>
+
+									<div class="mdl-contact__text">
+										<p>
+											Telefon
+										</p>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="mdl-contact__section-cell cell xsmall-offset-2 small-offset-2 xlarge-offset-0 xsmall-10 small-8 xlarge-4">
+								<div class="mdl-contact__cell-icon">
+									<h4 class="visuallyhidden">E-Mail</h4>
+									<svg class="icon mdl-contact__icon-email" aria-hidden="true" focusable="false">
+										<use xlink:href="#email"></use>
+									</svg>
+								</div>
+								<div class="mdl-contact__cell-content">
+									<a class="mdl-contact__mail" href="mailto:velo@vd.zh.ch">velo@vd.zh.ch</a><br>
+									<div class="mdl-contact__text">
+										<p>
+
+										</p>
+									</div>
+								</div>
+							</div>
+
 						</div>
+
 					</div>
 
 				</div>

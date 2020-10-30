@@ -11,6 +11,7 @@ import Select from '../select/select';
 import namespace from '../../assets/js/helpers/namespace';
 import Pagination from '../pagination/pagination';
 import Accordion from '../accordion/accordion';
+import Datepicker from '../datepicker/datepicker';
 
 class FlexData extends Module {
   public ui: {
@@ -181,6 +182,15 @@ class FlexData extends Module {
    * Search for data
    */
   onSearchResults() {
+    // Set the sort element if present
+    if (this.ui.genericSortDropdown) {
+      let sortSelector = `[data-sort-column="${this.orderBy}"]`;
+      if (this.orderBy !== 'relevance') {
+        sortSelector += `[data-sort-direction="${this.order}"]`;
+      }
+      const sortSetting = this.ui.genericSortDropdown.querySelector(sortSelector);
+      this.updateSortDropdown(sortSetting);
+    }
     this.ui.paginationInput.value = '1';
     this.loadResults();
   }
@@ -199,6 +209,9 @@ class FlexData extends Module {
     });
     this.ui.form.querySelectorAll('.mdl-accordion').forEach((accordion: HTMLDivElement) => {
       accordion.dispatchEvent(new CustomEvent(Accordion.events.clearSubheads));
+    });
+    this.ui.form.querySelectorAll('.mdl-datepicker').forEach((datepicker: HTMLDivElement) => {
+      datepicker.dispatchEvent(new CustomEvent(Datepicker.events.clear));
     });
     this.ui.results.classList.add('initially-hidden');
     this.ui.pagination.classList.add('hidden');
@@ -348,6 +361,8 @@ class FlexData extends Module {
       resultsTitle = this.ui.results.getAttribute('data-no-results-title');
       if (this.ui.resultsTableBody) {
         this.ui.resultsTableBody.innerHTML = '';
+      } else if (this.ui.resultsGeneric) {
+        this.ui.resultsGeneric.innerHTML = '';
       }
 
     // too many results
@@ -368,7 +383,7 @@ class FlexData extends Module {
     } else {
       this.ui.pagination.classList.add('hidden');
     }
-    
+
     // fill table date if present
     if (this.ui.resultsTable) {
       this.ui.resultsTableBody.innerHTML = '';
@@ -493,7 +508,6 @@ class FlexData extends Module {
       return;
     }
     const params = this.getAllURLParams();
-    this.ui.clearButton.classList.remove('hidden');
     Object.keys(params).forEach((key) => {
       switch (key) {
         case 'page':
@@ -516,6 +530,7 @@ class FlexData extends Module {
           this.orderBy = params[key][0]; // eslint-disable-line
           break;
         default:
+          this.ui.clearButton.classList.remove('hidden');
           setTimeout(() => {
             const selectedElements = this.ui.form.querySelectorAll(`input[name=${key}]`); // eslint-disable-line
             const values = params[key]; // eslint-disable-line

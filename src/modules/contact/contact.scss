@@ -96,6 +96,7 @@ $contactMapHeightCurve: (
       position: absolute;
       top: 42%;
       transform: translateY(-42%);
+      right: 0;
 
       use {
         fill: $colorWhite;
@@ -148,6 +149,7 @@ $contactMapHeightCurve: (
       svg {
         transition: transform 200ms ease-out 100ms;
         transform: translateY(-40%) scale(0.57) rotate(0deg);
+        right: 0;
       }
     }
 
@@ -322,6 +324,8 @@ $contactMapHeightCurve: (
 
 
   &__mail {
+    hyphens: none;
+    word-break: break-all;
     margin-bottom: pxToRem($sizeTiny);
   }
 
@@ -354,7 +358,7 @@ $contactMapHeightCurve: (
           margin-top: pxToRem($sizeTiny);
 
           svg {
-            right: auto;
+            right: 0;
 
             use {
               fill: $colorBlack60;

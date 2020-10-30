@@ -1010,7 +1010,6 @@ gulp.task('generate:diff', () => {
   }
 
   const generateWWW = function(file, enc, cb) {
-    console.log(file.path);
     const data = require(file.path);
     const f = path.parse(file.path);
     let variants = data.variants ? data.variants : { default: data };
@@ -1057,7 +1056,7 @@ gulp.task('email:inlineassets', () => {
 });
 
 /**
- * Zip downloag package
+ * Zip download package
  */
 gulp.task('pack', () => {
   gulp.src(['dist/ci/dev/**/*'])
@@ -1120,14 +1119,14 @@ gulp.task('build', (done) => {
   }
 
   // create offline page & inlinfify assets
-  task = gulp.series(task, 'email:inlineassets', 'deploy:offlinepage', 'zip:offline');
+  task = gulp.series(task, 'email:inlineassets'/* , 'deploy:offlinepage', 'zip:offline' */);
 
   // Create CI build structure
   if (env.ci) {
     if (gulpUtil.env.aemPresent) {
-      task = gulp.series(task, 'copy:ci', 'copy:aem', 'deploy:aem', 'pack', 'zip');
+      task = gulp.series(task, 'copy:ci', 'copy:aem', 'deploy:aem', /* 'pack', */ 'zip');
     } else {
-      task = gulp.series(task, 'copy:ci', 'pack', 'zip');
+      task = gulp.series(task, 'copy:ci', /* 'pack', */'zip');
     }
     task = gulp.series(task, 'generate:diff');
   }
@@ -1157,7 +1156,6 @@ gulp.task('build', (done) => {
         task = gulp.series(task, gulp.parallel('lint', 'test'));
       }
     }
-
     task(done);
   });
 });

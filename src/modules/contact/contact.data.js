@@ -177,7 +177,7 @@ const variants = _.mapValues({
       }),
     },
   },
-  mediaContractPlain: {
+  mediaContactPlain: {
     meta: {
       title: 'Medienkontakt ohne Karte',
       desc: 'Darstellung eines Kontakts mit Medienkontakt',
@@ -200,6 +200,89 @@ const variants = _.mapValues({
         address: 'Kasernenstrasse 29, Postfach, 8021 Zürich',
         additionals: 'Bürozeiten Mo bis Fr 08.00 bis 11.00 Uhr und 13.30 bis 16 Uhr',
       },
+    },
+  },
+  comb1: {
+    meta: {
+      title: 'Kombination 1',
+      desc: 'Darstellung eines Kontakts mit Medienkontakt',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactAddress: demoAddressData,
+      contactPhone: demoPhoneData,
+      contactMail: {
+        address: 'info@ajb.zh.ch',
+        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
+      },
+    },
+  },
+  comb2: {
+    meta: {
+      title: 'Kombination 2',
+      desc: 'Darstellung eines Kontakts mit Medienkontakt',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactAddress: demoAddressData,
+      contactPhone: demoPhoneData,
+    },
+  },
+  comb3: {
+    meta: {
+      title: 'Kombination 3',
+      desc: 'Darstellung eines Kontakts mit Medienkontakt',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactAddress: demoAddressData,
+      contactMail: {
+        address: 'info@ajb.zh.ch',
+        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
+      },
+    },
+  },
+  comb4: {
+    meta: {
+      title: 'Kombination 4',
+      desc: 'Darstellung eines Kontakts mit Medienkontakt',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactPhone: demoPhoneData,
+      contactMail: {
+        address: 'info@ajb.zh.ch',
+        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
+      },
+    },
+  },
+  comb5: {
+    meta: {
+      title: 'Kombination 5',
+      desc: 'Darstellung eines Kontakts mit Medienkontakt',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactMail: {
+        address: 'info@ajb.zh.ch',
+        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
+      },
+    },
+  },
+  comb6: {
+    meta: {
+      title: 'Kombination 6',
+      desc: 'Darstellung eines Kontakts mit Medienkontakt',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactPhone: demoPhoneData,
     },
   },
   fullWidthLessData2: {

@@ -22,7 +22,7 @@ const data = _.merge({}, defaultData, {
     teaserDisplayDate: '14.12.2018',
     teaserMachineReadableDate: '2018-12-14',
     teaserButtonLabel: 'Mehr erfahren',
-    teaserHeadingLevel: 2,
+    teaserHeadingLevel: 3,
   }, imageFigureDemoData.props, {
     noTitle: true,
     hasImage: true,

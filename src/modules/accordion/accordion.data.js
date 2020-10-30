@@ -109,7 +109,7 @@ const variants = _.mapValues({
           techName: 'wi_item_1',
           children: [
             {
-              partial: downloadListData.variants.defaultWithoutTitle.meta.demo(),
+              partial: downloadListData.variants.defaultWithoutTitleLast.meta.demo(),
             },
           ],
         },
@@ -119,7 +119,7 @@ const variants = _.mapValues({
           techname: 'wi_item_2',
           children: [
             {
-              partial: linklistData.variants.noTitle.meta.demo(),
+              partial: linklistData.variants.noTitleLast.meta.demo(),
             },
           ],
         },
@@ -129,7 +129,7 @@ const variants = _.mapValues({
           techName: 'wi_item_3',
           children: [
             {
-              partial: linklistData.variants.noTitleAlt.meta.demo(),
+              partial: linklistData.variants.noTitleLast.meta.demo(),
             },
           ],
         },
