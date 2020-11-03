@@ -1,4 +1,3 @@
-import { uniqueId } from 'lodash';
 import { Delegate } from 'dom-delegate';
 import { watch } from 'wrist';
 
@@ -86,11 +85,17 @@ class DuplicationElement {
     }
   }
 
+  getUniqueId() {
+    const uid: number = (this.ui.element.getAttribute('data-iterator')) ? parseInt(this.ui.element.getAttribute('data-iterator'), 10) + 1 : 1;
+    this.ui.element.setAttribute('data-iterator', uid.toString());
+    return uid.toString();
+  }
+
   duplicateItself() {
     if (this.data.duplications < this.data.maxDuplications) {
       const parsedHTML = new DOMParser().parseFromString(this.ui.template.innerHTML, 'text/html').querySelector('div');
-      const uid = uniqueId();
-      const fields = parsedHTML.querySelectorAll('[for], [name], [id], [data-remove-uid]');
+      const uid = this.getUniqueId();
+      const fields = parsedHTML.querySelectorAll('[for], [name], [id], [data-fills-city], [data-remove-uid]');
 
       parsedHTML.setAttribute('data-uid', uid);
 
