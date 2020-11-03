@@ -16,7 +16,12 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     primarySelectData: _.merge({}, defSelectData.variants.default.props, { additionalAttributes: 'data-filter-attribute="data-filter-id" data-drilldown-primary' }),
-    secondarySelectData: _.merge({}, defSelectData.variants.default.props, { additionalAttributes: 'data-filter-attribute="data-filter-id" data-drilldown-secondary' }),
+    secondarySelectData: _.merge({}, defSelectData.variants.default.props, {
+      additionalAttributes: 'data-filter-attribute="data-filter-id" data-drilldown-secondary',
+      triggerInputData: {
+        disabled: true,
+      },
+    }),
     preview: true,
   },
 });
