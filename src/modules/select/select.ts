@@ -451,7 +451,7 @@ class Select extends Module {
    * Check if element is disabled
    */
   isDisabled() {
-    return this.ui.element.hasAttribute('disabled');
+    return this.ui.element.hasAttribute('aria-disabled');
   }
 
   /**
@@ -459,11 +459,11 @@ class Select extends Module {
    */
   setDisabled(disabled) {
     if (disabled) {
-      this.ui.element.setAttribute('disabled', '');
+      this.ui.element.setAttribute('aria-disabled', 'true');
       this.ui.trigger.setAttribute('disabled', '');
       return;
     }
-    this.ui.element.removeAttribute('disabled');
+    this.ui.element.removeAttribute('aria-disabled');
     this.ui.trigger.removeAttribute('disabled');
   }
 
