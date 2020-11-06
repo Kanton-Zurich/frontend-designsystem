@@ -71,7 +71,7 @@ Unsere Online-Anwendungen sind einfach, intuitiv und schnell bedienbar. Um dies 
 * Fehlertoleranz: Die Anwendung lässt keine schwerwiegenden Bedienungsfehler zu. Sie ist tolerant gegenüber weniger schwerwiegenden Fehlern oder unterstützt die Nutzenden in derer Vermeidung.
 * Zufriedenheit: Die Nutzenden sind zufrieden mit der Online-Anwendung.
 
-<h4 class="atm-heading">Ästetik & Design</h4>
+<h4 class="atm-heading">Ästhetik & Design</h4>
 
 Unsere Online-Anwendungen sind optisch attraktiv gestaltet. Das Design unterstützt das Verständnis und die Wahrnehmung der enthaltenen Funktionen. Der Einsatz von Farbe, Bild, Ikonografie und Schrift soll die Nutzenden bei der Bedienung der Online-Anwendung unterstützen.
 
