@@ -6,7 +6,7 @@
   {{#unless isSelectTrigger}} data-input{{/unless}}
   {{#if rules}} data-rules="{{rules}}"{{/if}}>
   {{#if isSelectTrigger}}
-    <button aria-expanded="false" id="{{uuid}}"
+    <button aria-expanded="false" id="{{uuid}}"{{#if disabled}} disabled{{/if}}
             class="atm-form_input__input atm-form_input__input--trigger" type="button">
       <span class="atm-form_input__trigger-label">{{#if preLabel}}{{preLabel}}{{else}}{{label}}{{/if}}</span>
       <span class="atm-form_input__trigger-value"></span>
