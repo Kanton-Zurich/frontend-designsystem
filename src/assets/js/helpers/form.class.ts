@@ -30,6 +30,7 @@ class Form {
       radiobutton: string;
     };
     messageSelector: string,
+    autofillSelector: string,
     duplicateSelector: string,
     selectOptionSelector: string,
     inputSelector: string,
@@ -68,6 +69,7 @@ class Form {
         radiobutton: '.atm-radiobutton',
       },
       messageSelector: '[data-message]',
+      autofillSelector: '[data-autofill]',
       selectOptionSelector: 'data-select-option',
       inputSelector: '[data-input]',
       rulesSelector: '[data-rules]',
@@ -150,6 +152,23 @@ class Form {
       this.checkIfFieldDirty(field);
     });
     (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
+    // autofill listener
+    const autoFillSelectors = this.ui.element.querySelectorAll(this.options.autofillSelector);
+    autoFillSelectors.forEach((autoFillElement: any) => {
+      const sourceElement = this.ui.element.querySelector(`#${autoFillElement.dataset.autofill}`);
+      if (sourceElement) {
+        let dirty = false;
+        autoFillElement.addEventListener('change', () => {
+          dirty = true;
+        });
+        sourceElement.addEventListener('change', (input) => {
+          const { value } = (<any>input.target);
+          if (!dirty) {
+            autoFillElement.value = value;
+          }
+        });
+      }
+    });
   }
 
   private checkIfFieldDirty(field: HTMLInputElement): void {
