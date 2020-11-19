@@ -213,7 +213,9 @@ class Stepper extends Module {
   setButtonVisibility() {
     // If the last page show no buttons
     if (this.data.active === this.ui.steps.length - 1) {
-      this.ui.control.style.display = 'none';
+      if (this.ui.control) {
+        this.ui.control.style.display = 'none';
+      }
 
       this.ui.element.classList.add(this.options.stateClasses.success);
       this.ui.element.classList.remove(this.options.stateClasses.onLastPage);

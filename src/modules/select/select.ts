@@ -6,6 +6,7 @@
  */
 import Module from '../../assets/js/helpers/module';
 import { debounce } from 'lodash';
+import SimpleScrollbar from 'simple-scrollbar';
 
 class Select extends Module {
   public isOpen: boolean;
@@ -17,6 +18,7 @@ class Select extends Module {
   public buttonPostfix: string;
   public selections: Array<any>;
   private typeAhead: string;
+  private scrollInitialized: boolean;
 
   public ui: {
     element: any,
@@ -76,6 +78,7 @@ class Select extends Module {
         open: 'mdl-select--open',
         selected: 'mdl-select--selected',
         tableList: 'atm-list--table',
+        disableScroll: 'mdl-select--disable-scroll',
       },
       dataSelectors: {
         itemType: 'inputtype',
@@ -90,6 +93,7 @@ class Select extends Module {
     this.typeAhead = '';
     this.isMultiSelect = false;
     this.usedAnchors = false;
+    this.scrollInitialized = false;
     this.isFirefox = navigator.userAgent.search('Firefox') > -1;
     this.hasFilter = typeof this.ui.filter !== 'undefined';
     this.hasTableList = this.ui.list.classList.contains(this.options.stateClasses.tableList);
@@ -334,6 +338,7 @@ class Select extends Module {
     if (this.isDisabled()) {
       this.setDisabled(true);
     }
+    this.updateScrollMode(this.ui.items.length);
   }
 
   /**
@@ -350,7 +355,11 @@ class Select extends Module {
       const regex = new RegExp(searchString, 'i');
       const testValue = filterAttribute ? li.querySelector('input').getAttribute(filterAttribute)
         : li.querySelector('input').placeholder;
+      li.querySelector('label').innerHTML = li.querySelector('input').placeholder;
       if (regex.test(testValue)) {
+        if (!filterAttribute) {
+          li.querySelector('label').innerHTML = testValue.replace(regex, `<mark>${testValue.match(regex)[0]}</mark>`);
+        }
         li.classList.remove('hidden');
         filteredValues.push(li.querySelector('input').value);
       } else {
@@ -361,6 +370,7 @@ class Select extends Module {
     this.ui.element
       .dispatchEvent(new CustomEvent(Select.events.onItemsFiltered,
         { detail: { filteredValues } }));
+    this.updateScrollMode(filteredValues.length);
   }
 
 
@@ -399,6 +409,18 @@ class Select extends Module {
   }
 
   /**
+   * Check whether to show or hide the scrollbar
+   * @param visibleItems
+   */
+  updateScrollMode(visibleItems) {
+    this.ui.element.classList.remove(this.options.stateClasses.disableScroll);
+    if (visibleItems <= (this.hasFilter
+      ? this.options.largeDropdownMaxItems : this.options.smallDropdownMaxItems)) {
+      this.ui.element.classList.add(this.options.stateClasses.disableScroll);
+    }
+  }
+
+  /**
    * Type ahead selection
    * @param key
    */
@@ -429,7 +451,7 @@ class Select extends Module {
    * Check if element is disabled
    */
   isDisabled() {
-    return this.ui.element.hasAttribute('disabled');
+    return this.ui.element.hasAttribute('aria-disabled');
   }
 
   /**
@@ -437,11 +459,11 @@ class Select extends Module {
    */
   setDisabled(disabled) {
     if (disabled) {
-      this.ui.element.setAttribute('disabled', '');
+      this.ui.element.setAttribute('aria-disabled', 'true');
       this.ui.trigger.setAttribute('disabled', '');
       return;
     }
-    this.ui.element.removeAttribute('disabled');
+    this.ui.element.removeAttribute('aria-disabled');
     this.ui.trigger.removeAttribute('disabled');
   }
 
@@ -587,6 +609,10 @@ class Select extends Module {
     this.onFocusOut = this.onFocusOut.bind(this);
     window.addEventListener('mouseup', this.onFocusOut);
     this.emitOpen();
+    if (!this.scrollInitialized) {
+      SimpleScrollbar.initEl(this.ui.list);
+      this.scrollInitialized = true;
+    }
   }
 
   /**

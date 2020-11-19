@@ -243,7 +243,9 @@ class NewsFilterMobile extends Module {
     this.watch(element, 'value', debounce((key, before, after) => { // eslint-disable-line
       listItems.forEach((li) => {
         const regex = new RegExp(after, 'i');
+        li.querySelector('label').innerHTML = li.querySelector('input').placeholder;
         if (regex.test(li.querySelector('input').placeholder)) {
+          li.querySelector('label').innerHTML = li.querySelector('label').innerHTML.replace(regex, `<mark>${li.querySelector('label').innerHTML.match(regex)[0]}</mark>`);
           li.classList.remove('hidden');
         } else {
           li.classList.add('hidden');

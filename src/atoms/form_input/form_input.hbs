@@ -6,7 +6,7 @@
   {{#unless isSelectTrigger}} data-input{{/unless}}
   {{#if rules}} data-rules="{{rules}}"{{/if}}>
   {{#if isSelectTrigger}}
-    <button aria-expanded="false" id="{{uuid}}"
+    <button aria-expanded="false" id="{{uuid}}"{{#if disabled}} disabled{{/if}}
             class="atm-form_input__input atm-form_input__input--trigger" type="button">
       <span class="atm-form_input__trigger-label">{{#if preLabel}}{{preLabel}}{{else}}{{label}}{{/if}}</span>
       <span class="atm-form_input__trigger-value"></span>
@@ -36,6 +36,19 @@
               </svg>
           </span>
         </span>
+  {{/if}}
+
+  {{#if isZipCityTarget}}
+    <div class="atm-form_input__city-options" data-form_input="cityOptions">
+      <template type="text/x-handlebars-template" data-form_input="cityOptionsTemplate">
+        <li class="atm-list__item">
+          <button type="button" value="<%- city %>">${ city } <span class="visuallyhidden">auswählen</span></button>
+        </li>
+      </template>
+      <p class="visuallyhidden">Bitte wählen Sie die passende Ortschaft aus:</p>
+      <ul class="atm-list" data-form_input="cityOptionsList">
+      </ul>
+    </div>
   {{/if}}
 
   {{# if isTextarea}}
@@ -76,6 +89,9 @@
       {{#if disableAutocomplete}}autocomplete="new-password"{{/if}}
     >
   {{/if}}
+
+
+
   {{#unless isTriggerWithInput }}
     {{#if maskPlaceholder }}
       <span class="atm-form_input__backdrop">

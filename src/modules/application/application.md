@@ -8,7 +8,7 @@ Mit dem Modul Single Page Application (tech. «.mdl-application») lassen sich e
 * HTML kopieren.
  
 #### Modal
-* Wichtig: Für das Laden des Modal Fenster bitte «Modal» Komponente anschauen (Variante => «Single Page Applikation» (SPA))
+* Wichtig: Für das Laden des Modal Fenster bitte «<a href="../modal/modal.html">MDL: Modal</a>» Komponente anschauen (Variante => «Single Page Applikation» (SPA))
  
 #### Rendering Modi
 * Render das Markup der URL des Remote HTML oder, falls keine gültige Antwort, das Fallback HTML.
