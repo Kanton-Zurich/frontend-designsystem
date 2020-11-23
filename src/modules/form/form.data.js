@@ -60,6 +60,36 @@ const duplicateGroup = {
           id: _.uniqueId('form-test'),
         },
       },
+    }],
+  },
+  {
+    fields: [{
+      isSmall: true,
+      cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+        formInputData.variants.default.props,
+        {
+          isFloatingLabel: true,
+          label: 'PLZ',
+          name: 'zip_place_of_birth',
+          uuid: 'zip_place_of_birth',
+          validation: {
+            isRequired: true,
+            pattern: '^[0-9]{4,4}$',
+            errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
+          },
+          zipCity: {
+            fills: 'place_of_birth',
+            data: JSON.stringify({
+              8000: 'Zürich',
+              8001: 'Zürich',
+              8004: 'Zürich',
+              8310: 'Winterthur',
+              8700: 'Küsnacht ZH',
+              8620: 'Wetzikon',
+              8500: ['Gerlikon', 'Frauenfeld'],
+            }),
+          },
+        })),
     },
     {
       cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
@@ -69,6 +99,7 @@ const duplicateGroup = {
           label: 'Geburtsort',
           name: 'place_of_birth',
           uuid: 'place_of_birth',
+          isZipCityTarget: true,
           validation: {
             isRequired: true,
           },
@@ -92,7 +123,7 @@ const duplicateGroup = {
           () => handlebars.compile(radioHBS)(_.merge({},
             radioData.variants.default.props,
             {
-              label: 'Test 1',
+              label: 'Wilde Wälder',
               groupName: 'checkbox_in_duplication',
               id: 'checkbox_1',
               value: 'mrs',
@@ -100,7 +131,7 @@ const duplicateGroup = {
           () => handlebars.compile(radioHBS)(_.merge({},
             radioData.variants.default.props,
             {
-              label: 'Test 2',
+              label: 'Wasserfälle',
               groupName: 'checkbox_in_duplication',
               id: 'checkbox_2',
               value: 'mr',
@@ -108,7 +139,7 @@ const duplicateGroup = {
           () => handlebars.compile(radioHBS)(_.merge({},
             radioData.variants.default.props,
             {
-              label: 'Test 3',
+              label: 'Beschauliche alpine Auen',
               groupName: 'checkbox_in_duplication',
               id: 'checkbox_3',
               value: 'no',
@@ -581,6 +612,7 @@ const variants = _.mapValues({
                         8310: 'Winterthur',
                         8700: 'Küsnacht ZH',
                         8620: 'Wetzikon',
+                        8500: ['Gerlikon', 'Frauenfeld'],
                       }),
                     },
                   })),
@@ -593,6 +625,7 @@ const variants = _.mapValues({
                     label: 'Ort',
                     name: 'city',
                     uuid: 'city',
+                    isZipCityTarget: true,
                     validation: {
                       isRequired: true,
                     },
@@ -807,7 +840,7 @@ const variants = _.mapValues({
                         groupName: 'taxEntity',
                         label: 'Juristische Personen',
                         descr: 'Berechnen des Steuerbetrag und/ oder der Steuerrückstellung für ordentlich besteuerte Gesellschaften und Genossenschaften',
-                        additionalAttribute: 'data-tax_calc="inputEntity""',
+                        additionalAttribute: 'data-tax_calc="inputEntity"',
                         validation: {
                           isRequired: true,
                         },
@@ -998,12 +1031,24 @@ const variants = _.mapValues({
                   {
                     isFloatingLabel: true,
                     label: 'PLZ',
-                    name: 'zip',
+                    name: 'zip2',
                     uuid: 'zip2',
                     validation: {
                       isRequired: true,
                       pattern: '^[0-9]{4,4}$',
                       errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
+                    },
+                    zipCity: {
+                      fills: 'city2',
+                      data: JSON.stringify({
+                        8000: 'Zürich',
+                        8001: 'Zürich',
+                        8004: 'Zürich',
+                        8310: 'Winterthur',
+                        8700: 'Küsnacht ZH',
+                        8620: 'Wetzikon',
+                        8500: ['Gerlikon', 'Frauenfeld'],
+                      }),
                     },
                   })),
               },
@@ -1013,10 +1058,28 @@ const variants = _.mapValues({
                   {
                     isFloatingLabel: true,
                     label: 'Ort',
-                    name: 'city',
+                    name: 'city2',
                     uuid: 'city2',
+                    isZipCityTarget: true,
                     validation: {
                       isRequired: true,
+                    },
+                  })),
+              }],
+            },
+            {
+              fields: [{
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'E-Mail',
+                    name: 'e_mail',
+                    uuid: 'e_mail',
+                    type: 'email',
+                    validation: {
+                      isRequired: true,
+                      errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
                     },
                   })),
               }],

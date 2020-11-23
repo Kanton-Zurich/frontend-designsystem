@@ -41,6 +41,7 @@ const data = _.merge({}, defaultData, {
       label: 'Ihre E-Mail-Adresse',
       uuid: _.uniqueId('reply-to'),
       name: _.uniqueId('reply-to'),
+      autofill: 'e_mail',
       validation: {
         isRequired: true,
         errorMsg: 'Bitte geben Sie eine gültige Mail an.',

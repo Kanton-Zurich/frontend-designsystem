@@ -25,6 +25,8 @@ html.fixed-header .mdl-anchornav--sticky {
     margin-left: 0;
     padding-top: 0;
 
+    z-index: $zIndexFixedHeader;
+
     .atm-heading {
       display: none;
     }
@@ -218,4 +220,8 @@ html.fixed-header .mdl-anchornav--sticky {
       bottom: 0;
     }
   }
+}
+
+.open-modal .mdl-anchornav--sticky {
+  z-index: $zIndexScaffolds;
 }

@@ -72,6 +72,10 @@ class Search extends Module {
       }, {});
     });
 
+    this.ui.element.addEventListener(Modal.events.opened, () => {
+      this.ui.input.focus();
+    });
+
     // When the Autosuggest is used hide the tags
     this.ui.element.addEventListener(Autosuggest.events.filtered, () => {
       this.ui.element.classList.add(this.options.stateClasses.noTags);

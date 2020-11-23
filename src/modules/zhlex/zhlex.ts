@@ -8,12 +8,17 @@ import Module from '../../assets/js/helpers/module';
 // import namespace from '../../assets/js/helpers/namespace';
 
 class ZhLex extends Module {
+  public ui: {
+    element: HTMLDivElement,
+    tabs: NodeListOf<HTMLButtonElement>,
+  }
+
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
     };
     const defaultOptions = {
       domSelectors: {
-        // item: '[data-${{{className}}.name}="item"]'
+        tabs: 'button[role="tab"]',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -24,6 +29,12 @@ class ZhLex extends Module {
 
     this.initUi();
     this.initEventListeners();
+
+    if (!window.location.hash) {
+      setTimeout(() => {
+        this.ui.tabs[0].click();
+      }, 0);
+    }
   }
 
   static get events() {

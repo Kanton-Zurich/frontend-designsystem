@@ -199,6 +199,11 @@ $accordionMap: (
     @include sizeCurve(margin-bottom, regular);
   }
 
+
+  .mdl-linklist--small-margin {
+    @include sizeCurve(margin-bottom, regular);
+  }
+
   /** Inverted style */
   &--cv-inverted {
     @include gridBleed($fullwidth: true);
