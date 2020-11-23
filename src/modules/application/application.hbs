@@ -1,9 +1,14 @@
-<div class="mdl-application__wrapper {{#if fullWidth}}mdl-application__wrapper--fullWidth{{/if}}">
+<div class="mdl-application__wrapper {{#if fullWidth}}mdl-application__wrapper--fullWidth{{/if}}{{#if heading}} mdl-application__wrapper--with-title{{/if}}">
 {{#unless fullWidth}}
     <div class="lyt-wrapper">
       <div class="grid-x grid-margin-x">
         <div class="cell small-12 medium-12 large-12 xlarge-12">
 {{/unless}}
+  {{#if heading.title}}
+    <h{{heading.level}} class="atm-heading {{#unless smallerHeadings}}atm-heading--bordered{{/unless}}">
+      {{heading.title}}
+    </h{{heading.level}}>
+  {{/if}}
   {{#if canvas}}
           <div class="mdl-application" data-init="application">
             {{> "modules/application/application.mock"}}
@@ -14,6 +19,9 @@
       {{> "modules/application/wahlen.mock"}}
     </div>
   {{/if}}
+  {{#if caption}}<legend class="mdl-application__caption">
+    {{> "atoms/figcaption/figcaption" caption}}
+  </legend>{{/if}}
   {{#unless fullWidth}}
         </div>
       </div>
