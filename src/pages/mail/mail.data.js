@@ -82,6 +82,21 @@ const data = _.merge({}, defaultData, {
               },
             ],
           },
+          {
+            label: 'Dokumente',
+            block: [
+              {
+                label: '011220_Steuerbescheid',
+                value: 'PDF | 3.2 MB',
+                file: true,
+              },
+              {
+                label: '011220_Erbschein',
+                value: 'PDF | 866 KB',
+                file: true,
+              },
+            ],
+          },
         ],
       },
       {

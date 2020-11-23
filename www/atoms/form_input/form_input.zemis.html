@@ -3,12 +3,12 @@
 
 
 
-	<input class="atm-form_input__input" data-pattern="\d{1,9}$" id="float_input_valid19" placeholder="Zemis-Nummer" name="input_name" value="" type="text" data-validation data-floating data-input-mask="\d\d\d\d\d\d\d\d\d">
+	<input class="atm-form_input__input" data-pattern="^[0-9]{6,11}\.[0-9]$" id="float_input_valid20" placeholder="Zemis-Nummer" name="input_name" value="" type="text" data-validation data-floating>
 
 
 
 
-	<label for="float_input_valid19">Zemis-Nummer</label>
+	<label for="float_input_valid20">Zemis-Nummer</label>
 	<span class="atm-form_input__validate-icon">
 		<span>
 			<span class="visuallyhidden">Eingabe entspricht den Vorgaben.</span>
@@ -29,6 +29,6 @@
 
 
 
-	<p data-message="pattern">Bitte im Format mit 1 bis 9 Ziffern!</p>
+	<p data-message="pattern">Bitte im Format mit 6 bis 11 Ziffern gefolgt von einem &quot;.&quot; und einer weiteren Ziffer!</p>
 
 </div>
