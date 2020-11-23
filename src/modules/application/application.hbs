@@ -9,6 +9,7 @@
       {{heading.title}}
     </h{{heading.level}}>
   {{/if}}
+  {{#if caption}}<figure class="mdl-application__figure">{{/if}}
   {{#if canvas}}
           <div class="mdl-application" data-init="application">
             {{> "modules/application/application.mock"}}
@@ -19,9 +20,12 @@
       {{> "modules/application/wahlen.mock"}}
     </div>
   {{/if}}
-  {{#if caption}}<legend class="mdl-application__caption">
-    {{> "atoms/figcaption/figcaption" caption}}
-  </legend>{{/if}}
+  {{#if caption}}
+    <figcaption class="mdl-application__caption">
+      {{> "atoms/figcaption/figcaption" caption}}
+    </figcaption>
+  </figure>
+  {{/if}}
   {{#unless fullWidth}}
         </div>
       </div>

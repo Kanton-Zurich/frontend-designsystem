@@ -56,7 +56,11 @@
     }
   }
 
-  &__caption:not(:last-child) {
+  &__figure {
+    margin: 0;
+  }
+
+  &__figure:not(:last-child) {
     margin-bottom: pxToRem($sizeTiny);
   }
 
