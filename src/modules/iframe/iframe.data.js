@@ -39,6 +39,9 @@ const variants = _.mapValues({
         textLinkSrc: 'https://inside-reality.com/',
         textLinkTargetBlank: true,
       },
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Iframe Titel <a class="atm-text_link" href="#">Quelle</a>',
+      }),
     },
   },
   default2: {
@@ -54,8 +57,7 @@ const variants = _.mapValues({
       iframeHeight: 600,
       iframeSrc: 'https://www.one-inside.com/de/',
       caption: _.merge({}, defFigcaptionData, {
-        caption: 'Iframe Titel',
-        altCaption: 'Alt text',
+        caption: 'Iframe Titel <a class="atm-text_link" href="#">Quelle</a>',
       }),
     },
   },

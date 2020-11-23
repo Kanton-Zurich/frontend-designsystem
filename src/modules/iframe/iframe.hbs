@@ -19,8 +19,10 @@
           </div>
           <legend class="mdl-iframe__caption">
             {{#if caption}}{{> "atoms/figcaption/figcaption" caption}}{{/if}}
-            {{#if iframeTextLink}}{{> "atoms/text_link/text_link" iframeTextLink}}{{/if}}
           </legend>
+          <div class="mdl-iframe__sub">
+            {{#if iframeTextLink}}{{> "atoms/text_link/text_link" iframeTextLink}}{{/if}}
+          </div>
           {{#unless iframeSmall}}
         </div>
       </div>
