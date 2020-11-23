@@ -44,30 +44,18 @@
 
   &--active-dropzone {
     .mdl-file_upload__dropzone {
-      @include mq($from: medium) {
-        padding: pxToRem($sizeSmallHuge);
-        border: 2px dashed $colorBlack40;
+      padding: pxToRem($sizeSmallHuge);
+      border: 2px dashed $colorBlack40;
 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
       p {
         display: inherit;
         text-align: center;
         margin-top: 0;
-
-        @include mq($to: medium) {
-          display: none;
-        }
       }
-    }
-  }
-
-  &--no-dropzone {
-    .mdl-file_upload__dropzone {
-      display: none;
     }
   }
 
