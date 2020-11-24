@@ -28,6 +28,10 @@
       color: $colorBlack60;
     }
 
+    &-hint {
+      margin-bottom: 0;
+    }
+
     &--dragover {
       background: rgba($colorBlue, 0.5);
       border-color: $colorBlue;
@@ -63,6 +67,13 @@
     .atm-heading,
     .mdl-file_upload__subtitle {
       @include visuallyhidden;
+    }
+  }
+
+  &--no-dropzone {
+
+    .mdl-file_upload__dropzone-hint {
+      display: none;
     }
   }
 
