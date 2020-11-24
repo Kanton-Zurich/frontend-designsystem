@@ -17,10 +17,11 @@
       {{/if}}
     />
     <div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
-      <p>{{dropzoneHint}}</p>
+      <p class="mdl-file_upload__dropzone-hint">{{dropzoneHint}}</p>
+      <p class="mdl-file_upload__format-hint">{{formatHint}}</p>
       <label class="mdl-file_upload__button atm-button atm-button--secondary" for="{{input.id}}">{{buttonLabel}}</label>
     </div>
-    <p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an</p>
+    <p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an.</p>
     <p class="mdl-file_upload__error" data-message="onlyonefile">Sie können nur 1 Datei gleichzeitig hochladen.</p>
 
     <div class="mdl-file_upload__list" data-file_upload="list">
@@ -33,7 +34,7 @@
           <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
           <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
           <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
-          <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB)</p>
+          <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
         </div>
         <button class="mdl-file_upload__file-delete" data-file_upload="delete">
           <span class="visuallyhidden">Datei wieder entfernen</span>
