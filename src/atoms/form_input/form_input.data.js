@@ -383,6 +383,28 @@ const variants = _.mapValues({
 
     },
   },
+  kvg: {
+    meta: {
+      title: 'KVG Nummer',
+      desc: 'Input mit floating Label und validierung und Hinweis',
+    },
+    props: {
+      type: 'text',
+      label: 'KVG-Nummer',
+      inputContent: '',
+      validation: {
+        pattern: '^[0-9]{1,6}\\-[0-9]{4}$',
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Bitte im Format 1-6 Ziffern gefolgt von einem "-" und weiteren 4 Ziffern!',
+        isRequired: false,
+      },
+      uuid: _.uniqueId('float_input_valid'),
+      isFloatingLabel: true,
+      isRequired: true,
+
+    },
+  },
   zemis: {
     meta: {
       title: 'Zemis Nummer',
@@ -391,14 +413,12 @@ const variants = _.mapValues({
     props: {
       type: 'text',
       label: 'Zemis-Nummer',
-      inputMask: '\\d\\d\\d\\d\\d\\d\\d\\d\\d',
-      maskPlaceholder: '',
       inputContent: '',
       validation: {
-        pattern: '\\d{1,9}$',
+        pattern: '^[0-9]{6,11}\\.[0-9]$',
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
-        errorMsg: 'Bitte im Format mit 1 bis 9 Ziffern!',
+        errorMsg: 'Bitte im Format mit 6 bis 11 Ziffern gefolgt von einem "." und einer weiteren Ziffer!',
         isRequired: false,
       },
       uuid: _.uniqueId('float_input_valid'),

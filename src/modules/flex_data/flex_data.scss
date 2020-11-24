@@ -92,6 +92,18 @@
 
     .mdl-flex-data__results-generic {
       padding-bottom: $sizeLarge;
+
+      .atm-search_result_item {
+        flex-direction: column;
+
+        h4 {
+          margin-bottom: pxToRem($sizeTiny);
+        }
+
+        .atm-search_result_item__meta {
+          margin-bottom: pxToRem($sizeTiny);
+        }
+      }
     }
 
     .mdl-flex-data__generic-sort {
@@ -103,8 +115,12 @@
         position: relative;
       }
       @include mq($from: large) {
-        top: pxToRem(-$sizeTiny);
+        top: pxToRem($sizeRegular);
         position: absolute;
+      }
+
+      .icon {
+        top: 0;
       }
 
       &.hidden {
