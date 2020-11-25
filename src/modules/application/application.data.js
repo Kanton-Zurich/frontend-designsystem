@@ -2,6 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const defFigcaptionData = require('../../atoms/figcaption/figcaption.data').props;
 
 const template = dataHelper.getFileContent('application.hbs');
 const data = _.merge({}, defaultData, {
@@ -24,6 +25,14 @@ const variants = _.mapValues({
     },
     props: {
       canvas: true,
+      heading: {
+        level: 2,
+        title: 'Single Page Application',
+      },
+      caption: _.merge({}, defFigcaptionData, {
+        caption: 'Canvas Titel <a class="atm-text_link" href="#">Quelle</a>',
+        altCaption: 'Alt text',
+      }),
     },
   },
   fullWidth: {

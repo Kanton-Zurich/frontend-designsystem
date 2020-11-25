@@ -1,16 +1,32 @@
 {{#unless iframeFullSize}}
-  <div class="mdl-iframe {{#if iframeSmall}}mdl-iframe--small{{/if}}">
+  <div class="mdl-iframe {{#if iframeSmall}}mdl-iframe--small{{/if}}{{#if heading}} mdl-iframe--with-title{{/if}}">
   {{#unless iframeSmall}}
     <div class="lyt-wrapper">
       <div class="grid-x grid-margin-x">
         <div class="cell small-12 medium-12 large-12 xlarge-12">
           {{/unless}}
+          {{#if heading.title}}
+            <h{{heading.level}} class="atm-heading {{#unless smallerHeadings}}atm-heading--bordered{{/unless}}">
+              {{heading.title}}
+            </h{{heading.level}}>
+          {{/if}}
+          {{#unless heading.title}}
           <h{{{iframeScreenReaderHeading.level}}}
             class="atm-heading visuallyhidden">{{{iframeScreenReaderHeading.title}}}</h{{{iframeScreenReaderHeading.level}}}>
+          {{/unless}}
+          {{#if caption}}<figure class="mdl-iframe__figure">{{/if}}
           <div class="mdl-iframe__wrapper" style="height: {{{iframeHeight}}}px">
             <iframe src="{{{iframeSrc}}}"></iframe>
           </div>
-          {{> "atoms/text_link/text_link" iframeTextLink}}
+          {{#if caption}}
+            <figcaption class="mdl-iframe__caption">
+              {{> "atoms/figcaption/figcaption" caption}}
+            </figcaption>
+          </figure>
+          {{/if}}
+          <div class="mdl-iframe__sub">
+            {{#if iframeTextLink}}{{> "atoms/text_link/text_link" iframeTextLink}}{{/if}}
+          </div>
           {{#unless iframeSmall}}
         </div>
       </div>

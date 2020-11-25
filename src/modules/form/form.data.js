@@ -1067,6 +1067,23 @@ const variants = _.mapValues({
                   })),
               }],
             },
+            {
+              fields: [{
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'E-Mail',
+                    name: 'e_mail',
+                    uuid: 'e_mail',
+                    type: 'email',
+                    validation: {
+                      isRequired: true,
+                      errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+                    },
+                  })),
+              }],
+            },
           ],
         },
         duplicateGroup2,
@@ -1696,8 +1713,7 @@ const variants = _.mapValues({
           fields: [{
             cellContent: '<h4 class="atm-heading mdl-flex-data__extended-subtitle">Einschränken nach Datum von/bis</h4>',
           }],
-        },
-        {
+        }, {
           fields: [{
             cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
               datepickerData.variants.dateRange.props,
@@ -1799,6 +1815,10 @@ const variants = _.mapValues({
         }],
       }, {
         rows: [{
+          fields: [{
+            cellContent: '<h4 class="atm-heading mdl-flex-data__extended-subtitle">Einschränken nach Datum von/bis</h4>',
+          }],
+        }, {
           fields: [{
             cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
               datepickerData.variants.dateRange.props,

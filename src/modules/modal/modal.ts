@@ -123,6 +123,7 @@ class Modal extends Module {
     (<any>window).estatico.helpers.bodyElement.appendChild(this.ui.element);
     window.addEventListener('keydown', this.closeOnEscape.bind(this));
     this.eventDelegate.on(Modal.events.setPage, this.onSetPage.bind(this));
+    this.ui.element.addEventListener('scroll', this.onScrollInModal.bind(this));
   }
 
   /**
@@ -130,11 +131,6 @@ class Modal extends Module {
    */
   initContent() {
     const closeButton = this.ui.element.querySelector(this.options.domSelectors.closeButton);
-    if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
-      this.ui.element.addEventListener('scroll', (event) => {
-        this.updateOnScroll((<HTMLElement>event.target).scrollTop);
-      });
-    }
     if (closeButton) {
       closeButton.addEventListener('click', this.closeModal.bind(this));
       this.hasCloseBtn = true;
@@ -175,6 +171,7 @@ class Modal extends Module {
       }
       this.ui.element.style.paddingTop = `${this.headerHeight}px`;
     }
+    this.updateFlyingFocus(0);
   }
 
   closeOnEscape(event) {
@@ -300,6 +297,13 @@ class Modal extends Module {
 
   setPage(page) {
     this.ui.pageContainer.setAttribute('data-page', page);
+  }
+
+  onScrollInModal(event) {
+    if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
+      this.updateOnScroll((<HTMLElement>event.target).scrollTop);
+    }
+    this.updateFlyingFocus(0);
   }
 
   rescaleBackgroundElements() {

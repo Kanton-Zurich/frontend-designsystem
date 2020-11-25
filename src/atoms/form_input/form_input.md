@@ -43,6 +43,19 @@ Ausschliesslich Eingabefelder vom Type 'text' können mit einer Inputmaskierung 
 - Generische Masken die immer die gleiche Länge haben müssen
 
 
+##### Abhängige Felder (Autofill)
+(!) Achtung: Die folgende Funktionalität kann nur innerhalb eines Formulars verwendet werden und funktioniert nicht global.
+
+Durch das `data-autofill="id"` Attribut kann ein Textfeld funktional von einem anderen Textfeld abhängig gemacht werden. Dadurch wird der Eingabewert vom Textfeld welches im Attribut referenziert wurde fortlaufend übernommen.
+Sobald jedoch eine manuelle Eingabe auf dem Textfeld mit dem Autofill-Attribut stattgefunden hat, wird die Eingabe des referenzierten Textfeldes nicht mehr übernommen.
+
+Beispiel:
+`<input class="atm-form_input__input" id="e_mail"  name="e_mail" value="" type="email" required>`
+`<input class="atm-form_input__input"  value="" type="email" data-autofill="e_mail">`
+
+Dies funktioniert nur bei textbasierten Eingabefeldern
+
+
 ##### Währungen
 
 Attribute:
