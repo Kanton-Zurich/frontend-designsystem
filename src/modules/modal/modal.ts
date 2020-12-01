@@ -312,7 +312,7 @@ class Modal extends Module {
   }
 
   onHeaderScroll(event) {
-    const scrollTop = this.ui.element.scrollTop;
+    const { scrollTop } = this.ui.element;
     this.ui.element.scrollTop = scrollTop + event.deltaY;
     this.updateOnScroll(this.ui.element.scrollTop);
     this.updateFlyingFocus(0);
