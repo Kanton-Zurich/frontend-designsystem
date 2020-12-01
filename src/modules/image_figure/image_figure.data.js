@@ -58,6 +58,8 @@ const variants = _.mapValues({
       desc: 'Ein Inhaltsbild, welches über die volle Breite geht (Verhältnis 16:9)',
     },
     props: {
+      headingLevel: 2,
+      heading: 'Image Title',
       srcsets: [{
         image: '/assets/media/image/fullwidth_16_9_1440_x15.jpeg',
         imageWidth: 2160,
@@ -117,6 +119,8 @@ const variants = _.mapValues({
       desc: 'Ein Inhaltsbild, welches über einen Button heruntergeladen werden kann.',
     },
     props: {
+      headingLevel: 2,
+      heading: 'Image Title',
       hasDownload: true,
     },
   },
