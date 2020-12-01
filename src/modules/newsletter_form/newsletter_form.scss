@@ -12,6 +12,11 @@
     @include mq($to: small) {
       display: block;
 
+      .atm-button {
+        display: flex;
+        justify-content: center;
+      }
+
       .atm-form_input {
         margin-bottom: $sizeSmallRegular;
       }
