@@ -20,12 +20,18 @@
 
   &__dropzone {
     margin-top: pxToRem($sizeTiny);
+    padding: pxToRem($sizeSmallHuge);
+    border: 2px dashed $colorBlack40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     @include transition(background border-color);
 
     p {
-      display: none;
       color: $colorBlack60;
+      text-align: center;
+      margin-top: 0;
     }
 
     &-hint {
@@ -43,23 +49,6 @@
 
     @include mq($to: medium) {
       width: 100%;
-    }
-  }
-
-  &--active-dropzone {
-    .mdl-file_upload__dropzone {
-      padding: pxToRem($sizeSmallHuge);
-      border: 2px dashed $colorBlack40;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      p {
-        display: inherit;
-        text-align: center;
-        margin-top: 0;
-      }
     }
   }
 
