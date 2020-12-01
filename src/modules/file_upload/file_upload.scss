@@ -35,6 +35,7 @@
     }
 
     &-hint {
+      display: none;
       margin-bottom: 0;
     }
 
@@ -61,8 +62,15 @@
 
   &--no-dropzone {
 
-    .mdl-file_upload__dropzone-hint {
+    .mdl-file_upload__dropzone {
       display: none;
+    }
+  }
+
+  &--active-dropzone {
+
+    .mdl-file_upload__dropzone-hint {
+      display: block;
     }
   }
 
