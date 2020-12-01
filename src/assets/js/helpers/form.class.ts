@@ -532,6 +532,7 @@ class Form {
         this.addWatchers((<any>event).detail);
         this.initZipCity((<any>event).detail);
         this.initPrefix((<any>event).detail);
+        this.initRadioGroup();
       });
     });
   }
