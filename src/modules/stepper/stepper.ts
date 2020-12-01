@@ -298,6 +298,9 @@ class Stepper extends Module {
         const firstInvalidField = this.ui.steps[this.data.active].querySelector('.invalid');
         firstInvalidField.querySelector('input, textarea, .atm-form_input__input--trigger').focus();
         this.scrollTo(firstInvalidField);
+      } else {
+        // CZHDEV-2740 scroll to top so notification is visible after filling out a long form
+        this.scrollTo(this.ui.element);
       }
     }, 1);
   }
