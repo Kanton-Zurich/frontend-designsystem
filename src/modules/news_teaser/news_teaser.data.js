@@ -67,7 +67,7 @@ const demoDefaultItems = [
     link: '../../pages/news_detail/news_detail.html',
     type: 'Medienmitteilung',
     date: '14.12.2018',
-    title: 'Weiningen: Vermisstmeldung - Willi Müller',
+    title: 'Weiningenasdasdasdasdasd: Vermisstmeldung - Willi Müller',
   },
 ];
 
