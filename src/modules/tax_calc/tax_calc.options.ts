@@ -12,6 +12,7 @@ interface ModuleDomSelectors {
   resultContainer: string;
   editBtn: string;
   formItemTemplate: string;
+  formSubtitleTemplate: string;
   tableBlockTemplate: string;
   remarkBlockTemplate: string;
   fieldTemplates: string;
@@ -69,6 +70,7 @@ const domSelectors: ModuleDomSelectors = {
   editBtn: '[data-tax_calc="editBtn"]',
   resultContainer: '[data-tax_calc="resultCon"]',
   formItemTemplate: '[data-tax_calc="formItemTemplate"]',
+  formSubtitleTemplate: '[data-tax_calc="formSubtitleTemplate"]',
   tableBlockTemplate: '[data-tax_calc="tableBlockTemplate"]',
   remarkBlockTemplate: '[data-tax_calc="remarksTemplate"]',
   fieldTemplates: '[data-tax_calc-fieldtemplate]',

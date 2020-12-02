@@ -64,6 +64,7 @@ class TaxCalc extends Module {
     resultTaxYear: HTMLElement,
     resultContainer: HTMLElement,
     formItemTemplate: HTMLScriptElement,
+    formSubtitleTemplate: HTMLScriptElement,
     fieldTemplates: HTMLElement[],
     tableBlockTemplate: HTMLScriptElement,
     remarkBlockTemplate: HTMLScriptElement,
@@ -452,6 +453,9 @@ class TaxCalc extends Module {
 
   private getFieldPartialByDefinition(apiResp: any, fieldName: string, setValuesFromApiResp = false)
     : string {
+    if (fieldName.split(':')[0] === 'subtitle') {
+      return template(this.ui.formSubtitleTemplate.innerHTML)({ subtitle: fieldName.split(':')[1] });
+    }
     const apiFieldDef: ApiFieldDefinition = apiResp[fieldName];
     if (apiFieldDef && apiFieldDef.type) {
       // this.log(this.ui.fieldTemplates);
