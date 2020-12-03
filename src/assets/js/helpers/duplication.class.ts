@@ -95,27 +95,8 @@ class DuplicationElement {
     if (this.data.duplications < this.data.maxDuplications) {
       const parsedHTML = new DOMParser().parseFromString(this.ui.template.innerHTML, 'text/html').querySelector('div');
       const uid = this.getUniqueId();
-      const fields = parsedHTML.querySelectorAll('[for], [name], [id], [data-fills-city], [data-remove-uid]');
 
-      parsedHTML.setAttribute('data-uid', uid);
-
-      fields.forEach((element) => {
-        if (element.hasAttribute('name')) {
-          element.setAttribute('name', `${element.getAttribute('name')}_${uid}`);
-        }
-        if (element.hasAttribute('id')) {
-          element.setAttribute('id', `${element.getAttribute('id')}_${uid}`);
-        }
-        if (element.hasAttribute('for')) {
-          element.setAttribute('for', `${element.getAttribute('for')}_${uid}`);
-        }
-        if (element.hasAttribute('data-fills-city')) {
-          element.setAttribute('data-fills-city', `${element.getAttribute('data-fills-city')}_${uid}`);
-        }
-        if (element.hasAttribute('data-remove-uid')) {
-          element.setAttribute('data-remove-uid', uid);
-        }
-      });
+      this.setIndices(parsedHTML, uid, false);
 
       this.ui.element.appendChild(parsedHTML);
       [].slice.call(parsedHTML.querySelectorAll('[data-init]')).forEach((subElement) => {
@@ -150,6 +131,15 @@ class DuplicationElement {
 
     this.data.duplications -= 1;
 
+    const duplications = this.ui.element.querySelectorAll('[data-uid]');
+    let i: number;
+    for (i = 1; i <= duplications.length; i += 1) {
+      if (parseInt(duplications[i - 1].getAttribute('data-uid'), 10) !== i) {
+        this.setIndices(duplications[i - 1] as HTMLElement, i.toString(), true);
+      }
+    }
+    this.ui.element.setAttribute('data-iterator', duplications.length.toString());
+
     const duplicators = this.ui.element.querySelectorAll(this.options.eventSelectors.duplicator);
 
     setTimeout(() => {
@@ -161,10 +151,36 @@ class DuplicationElement {
     }
   }
 
-  initRules(duplicatedGroup, uid) {
+  setIndices(duplicatedGroup: HTMLElement, uid: string, rename: boolean) {
+    const fields = duplicatedGroup.querySelectorAll('[for], [name], [id], [data-fills-city], [data-remove-uid]');
+
+    duplicatedGroup.setAttribute('data-uid', uid);
+
+    fields.forEach((element: HTMLElement) => {
+      this.setIndex(element, 'name', uid, rename);
+      this.setIndex(element, 'id', uid, rename);
+      this.setIndex(element, 'for', uid, rename);
+      this.setIndex(element, 'data-fills-city', uid, rename);
+      if (element.hasAttribute('data-remove-uid')) {
+        element.setAttribute('data-remove-uid', uid);
+      }
+    });
+  }
+
+  setIndex(element: HTMLElement, attribute: string, uid: string, rename: boolean) {
+    if (element.hasAttribute(attribute)) {
+      let baseAttributeName = element.getAttribute(attribute);
+      if (rename) {
+        baseAttributeName = baseAttributeName.substring(0, baseAttributeName.lastIndexOf('_'));
+      }
+      element.setAttribute(attribute, `${baseAttributeName}_${uid}`);
+    }
+  }
+
+  initRules(duplicatedGroup: HTMLElement, uid: string) {
     const rulesElements = duplicatedGroup.querySelectorAll(this.options.rulesSelector);
 
-    rulesElements.forEach(($elementWithARule) => {
+    rulesElements.forEach(($elementWithARule: HTMLElement) => {
       const rules = JSON.parse($elementWithARule.dataset.rules);
 
       rules.forEach((rule) => {
