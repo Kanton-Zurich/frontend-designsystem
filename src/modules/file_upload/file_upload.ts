@@ -16,7 +16,7 @@ class FileUpload extends Module {
     isMultiple: boolean,
     isDuplicated: boolean,
     fileuploadSelector: string,
-  }
+  };
 
   public ui: {
     element: HTMLDivElement,
@@ -26,14 +26,16 @@ class FileUpload extends Module {
     dropzone: HTMLDivElement,
     form: HTMLFormElement,
     onlyOneFile: HTMLParagraphElement,
-  }
+  };
 
   public data: {
     hasDropzone: boolean,
     files: FileList,
     counter: number,
     htmlAttributes: any,
-  }
+  };
+
+  private changePending: boolean;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -63,6 +65,7 @@ class FileUpload extends Module {
 
     super($element, defaultData, defaultOptions, data, options);
 
+    this.changePending = false;
     this.initUi();
 
     this.options.isMultiple = this.ui.input.hasAttribute('data-multiple');
@@ -145,7 +148,6 @@ class FileUpload extends Module {
 
         if (e.dataTransfer.files.length === 1) {
           this.ui.input.files = e.dataTransfer.files;
-
           this.onChange();
         } else {
           this.ui.onlyOneFile.classList.add('show');
@@ -155,19 +157,25 @@ class FileUpload extends Module {
   }
 
   onChange() {
-    this.initFileList();
-    this.ui.onlyOneFile.classList.remove('show');
+    if (!this.changePending) {
+      this.changePending = true;
+      this.initFileList();
+      this.ui.onlyOneFile.classList.remove('show');
+      if (this.ui.input.files.length > 0) {
+        this.ui.element.classList.add(this.options.stateClasses.noDropzone);
 
-    if (this.ui.input.files.length > 0) {
-      this.ui.element.classList.add(this.options.stateClasses.noDropzone);
-
-      if (this.options.isMultiple) {
-        this.duplicateItself();
+        if (this.options.isMultiple) {
+          this.duplicateItself();
+        }
+      } else {
+        this.ui.element.classList.remove(this.options.stateClasses.noDropzone);
       }
-    } else {
-      this.ui.element.classList.remove(this.options.stateClasses.noDropzone);
+      this.updateFlyingFocus(0);
+      // prevent double triggering on safari
+      setTimeout(() => {
+        this.changePending = false;
+      }, 1);
     }
-    this.updateFlyingFocus(0);
   }
 
   addDropzoneClass() {
