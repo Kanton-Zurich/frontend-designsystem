@@ -39,6 +39,7 @@ const variants = _.mapValues({
       icon: '#confirm',
       isGreen: true,
       isBig: true,
+      focussable: true,
     },
   },
   closeUserGroup: {
