@@ -50,6 +50,12 @@
           .form__section {
             padding: pxToRem($sizeRegular) 0;
           }
+
+          #{$root}__subtitle {
+            @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+            @include sizeCurve(margin-top, small);
+            padding-top: 0;
+          }
         }
       }
 
