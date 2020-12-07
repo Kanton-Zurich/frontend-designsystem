@@ -135,6 +135,11 @@ class Modal extends Module {
       closeButton.addEventListener('click', this.closeModal.bind(this));
       this.hasCloseBtn = true;
     }
+
+    if (this.options.hasDynamicHeader) {
+      const pageHeader = this.ui.element.querySelector(this.options.domSelectors.pageHeader);
+      pageHeader.addEventListener('wheel', this.onHeaderScroll.bind(this));
+    }
   }
 
   /**
@@ -303,6 +308,13 @@ class Modal extends Module {
     if (this.ui.element.classList.contains(this.options.stateClasses.dynamicHeader)) {
       this.updateOnScroll((<HTMLElement>event.target).scrollTop);
     }
+    this.updateFlyingFocus(0);
+  }
+
+  onHeaderScroll(event) {
+    const { scrollTop } = this.ui.element;
+    this.ui.element.scrollTop = scrollTop + event.deltaY;
+    this.updateOnScroll(this.ui.element.scrollTop);
     this.updateFlyingFocus(0);
   }
 

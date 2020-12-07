@@ -234,8 +234,6 @@
 		</ol>
 	</div>
 
-
-
 	<div class="mdl-tax_calc__alert-connection-fail">
 		<div class="mdl-notification
         
@@ -251,25 +249,25 @@
 		</div>
 	</div>
 
-
 	<script type="text/x-handlebars-template" data-tax_calc="formItemTemplate">
 		<h4 class="mdl-accordion__header">
-            <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger" type="button" tabindex="-1">
-              <span class="mdl-accordion__control">
-                <%=title%>
-              </span>
-              <svg class="icon mdl-accordion__plus" focusable="false">
-                <use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
-                <use xlink:href="#plus-horizontal"></use>
-              </svg>
-            </button>
-            <span class="mdl-accordion__subhead"></span>
-          </h4>
-          <div class="mdl-accordion__panel" data-accordion="panel" aria-hidden="true">
-            <div class="mdl-accordion__panel-content" data-accordion="panel-content">
-              <fieldset class="form__section" aria-live="polite">
-                <div class="form__group">
-                  <% _.forEach(rows, function(row, index) { %>
+          <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger" type="button" tabindex="-1">
+            <span class="mdl-accordion__control">
+              <%=title%>
+            </span>
+            <svg class="icon mdl-accordion__plus" focusable="false">
+              <use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
+              <use xlink:href="#plus-horizontal"></use>
+            </svg>
+          </button>
+          <span class="mdl-accordion__subhead"></span>
+        </h4>
+        <div class="mdl-accordion__panel" data-accordion="panel" aria-hidden="true">
+          <div class="mdl-accordion__panel-content" data-accordion="panel-content">
+            <fieldset class="form__section" aria-live="polite">
+              <div class="form__group">
+                <% _.forEach(rows, function(row, index) {
+                  if (row.fields.length) { %>
                     <div class="form__row">
                       <% _.forEach(row.fields, function(field, index) { %>
                         <div class="form__cell">
@@ -277,54 +275,58 @@
                         </div>
                       <% }); %>
                     </div>
-                  <% }); %>
-                </div>
-              </fieldset>
-            </div>
+                  <% }
+                  }); %>
+              </div>
+            </fieldset>
           </div>
+        </div>
     </script>
 
+	<script type="text/x-handlebars-template" data-tax_calc="formSubtitleTemplate">
+		<h5 class="atm-heading h5 mdl-tax_calc__subtitle"><%=subtitle%></h5>
+    </script>
 
 	<script type="text/x-handlebars-template" data-tax_calc-fieldtemplate="list">
 		<div class="mdl-select" data-input data-init="select">
-            <div class="atm-form_input atm-form_input--floated atm-form_input--trigger">
-        
-                <button aria-expanded="false" aria-labelledby="aria-labledBy- " class="atm-form_input__input atm-form_input__input--trigger" type="button" tabindex="-1">
-                    <span id="aria-labledBy-" class="atm-form_input__trigger-label"><%=label%></span>
-                    <span class="atm-form_input__trigger-value"></span>
-                    <svg class="icon" focusable="false">
-                        <use xlink:href="#angle_drop_down"></use>
-                    </svg>
-                </button>
-        
-                <% if (mandatory) { %>
-                  <p class="form__fieldset-error-message" data-message="required">Bitte wählen Sie eine Option.</p>
-                <% } %>
-            </div>
-        
-            <div class="mdl-select__options">
-                <ul class="atm-list" data-inputtype="radio" tabindex="-1">
-                  <% _.forEach(selectOptions, function(option, index) { %>
-                      <li class="atm-list__item atm-list__item--icon-right">
-        
-                          <input name="<%=fieldName%>"
-                                 id="<%='radio-'+fieldName+'-'+index%>"
-                                 type="radio"
-                                 value="<%=option.value%>" placeholder="<%=option.label%>"
-                                 data-select-option data-validation
-                                 tabindex="-1"
-                          <% if (option.selected) { %> checked<% } %>
-                          <% if (mandatory) { %> required<% } %>
-                          <% if (reinvokeTrigger) { %> data-tax_calc-reinvoke="true"<% } %>
-                          >
-        
-                          <label for="<%='radio-'+fieldName+'-'+index%>"><%=option.label%></label>
-                      </li>
-        
-                    <% }); %>
-                </ul>
-            </div>
-        </div>
+          <div class="atm-form_input atm-form_input--floated atm-form_input--trigger">
+      
+              <button aria-expanded="false" aria-labelledby="aria-labledBy- " class="atm-form_input__input atm-form_input__input--trigger" type="button" tabindex="-1">
+                  <span id="aria-labledBy-" class="atm-form_input__trigger-label"><%=label%></span>
+                  <span class="atm-form_input__trigger-value"></span>
+                  <svg class="icon" focusable="false">
+                      <use xlink:href="#angle_drop_down"></use>
+                  </svg>
+              </button>
+      
+              <% if (mandatory) { %>
+                <p class="form__fieldset-error-message" data-message="required">Bitte wählen Sie eine Option.</p>
+              <% } %>
+          </div>
+      
+          <div class="mdl-select__options">
+              <ul class="atm-list" data-inputtype="radio" tabindex="-1">
+                <% _.forEach(selectOptions, function(option, index) { %>
+                    <li class="atm-list__item atm-list__item--icon-right">
+      
+                        <input name="<%=fieldName%>"
+                               id="<%='radio-'+fieldName+'-'+index%>"
+                               type="radio"
+                               value="<%=option.value%>" placeholder="<%=option.label%>"
+                               data-select-option data-validation
+                               tabindex="-1"
+                        <% if (option.selected) { %> checked<% } %>
+                        <% if (mandatory) { %> required<% } %>
+                        <% if (reinvokeTrigger) { %> data-tax_calc-reinvoke="true"<% } %>
+                        >
+      
+                        <label for="<%='radio-'+fieldName+'-'+index%>"><%=option.label%></label>
+                    </li>
+      
+                  <% }); %>
+              </ul>
+          </div>
+      </div>
     </script>
 
 	<script type="text/x-handlebars-template" data-tax_calc-fieldtemplate="number">
@@ -530,8 +532,11 @@
 	<script type="application/json" data-tax_calc-formconfig>
 		{
 			"INCOME_ASSETS": [{
-				"title": "Genauer",
+				"title": "Steuerart und Zeitraum",
 				"rows": [{
+						"fields": ["subtitle:Steuerart"]
+					},
+					{
 						"fields": ["isLiabilityLessThanAYear"]
 					},
 					{
@@ -539,11 +544,11 @@
 					},
 					{
 						"fields": ["hasQualifiedInvestments"]
-					}
-				]
-			}, {
-				"title": "Für welchen Zeitraum möchten Sie den Steuerbetrag berechnen?",
-				"rows": [{
+					},
+					{
+						"fields": ["subtitle:Für welchen Zeitraum möchten Sie den Steuerbetrag berechnen?"]
+					},
+					{
 						"fields": ["taxYear"]
 					},
 					{

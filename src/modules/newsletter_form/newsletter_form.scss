@@ -8,6 +8,24 @@
       flex-grow: 1;
       margin-right: $sizeRegular;
     }
+
+    @include mq($to: small) {
+      display: block;
+
+      .atm-button {
+        display: flex;
+        justify-content: center;
+      }
+
+      .atm-form_input {
+        margin-bottom: $sizeSmallRegular;
+      }
+
+      .atm-form_input,
+      .atm-button {
+        width: 100%;
+      }
+    }
   }
 
   &__wrapper {

@@ -20,15 +20,23 @@
 
   &__dropzone {
     margin-top: pxToRem($sizeTiny);
+    padding: pxToRem($sizeSmallHuge);
+    border: 2px dashed $colorBlack40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     @include transition(background border-color);
 
     p {
-      display: none;
       color: $colorBlack60;
+      text-align: center;
+      margin-top: 0;
+      max-width: 100%;
     }
 
     &-hint {
+      display: none;
       margin-bottom: 0;
     }
 
@@ -46,23 +54,6 @@
     }
   }
 
-  &--active-dropzone {
-    .mdl-file_upload__dropzone {
-      padding: pxToRem($sizeSmallHuge);
-      border: 2px dashed $colorBlack40;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      p {
-        display: inherit;
-        text-align: center;
-        margin-top: 0;
-      }
-    }
-  }
-
   &--duplicated:not(:first-child) {
     .atm-heading,
     .mdl-file_upload__subtitle {
@@ -72,8 +63,15 @@
 
   &--no-dropzone {
 
-    .mdl-file_upload__dropzone-hint {
+    .mdl-file_upload__dropzone {
       display: none;
+    }
+  }
+
+  &--active-dropzone {
+
+    .mdl-file_upload__dropzone-hint {
+      display: block;
     }
   }
 

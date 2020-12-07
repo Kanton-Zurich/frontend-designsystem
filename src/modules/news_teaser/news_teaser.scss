@@ -104,7 +104,7 @@ $maxTextLines: 4;
       margin-bottom: 0;
       order: 2;
       overflow: hidden;
-      text-overflow: ellipsis;
+      word-break: break-word;
 
       // LineClamper Config
       $headingHeightCurve: (

@@ -531,6 +531,8 @@ class Form {
       duplicatableElement.addEventListener(DuplicationElement.events.domReParsed, (event) => {
         this.addWatchers((<any>event).detail);
         this.initZipCity((<any>event).detail);
+        this.initPrefix((<any>event).detail);
+        this.initRadioGroup();
       });
     });
   }
@@ -558,8 +560,8 @@ class Form {
     });
   }
 
-  initPrefix() {
-    const inputWithPrefix = this.ui.element.querySelectorAll(this.options.prefixSelector);
+  initPrefix(domElement = this.ui.element) {
+    const inputWithPrefix = domElement.querySelectorAll(this.options.prefixSelector);
     const paddingMultiplier = 1.5;
 
     inputWithPrefix.forEach((prefixedInput) => {

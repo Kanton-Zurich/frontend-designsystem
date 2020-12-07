@@ -34,15 +34,3 @@ document.onkeydown = (e: any) => {
     grid.run();
   }
 };
-
-// fetch listener for mock
-(function(ns, fetch){ // eslint-disable-line
-  if(typeof fetch !== 'function') return; // eslint-disable-line
-  ns.fetch = (url) => { // eslint-disable-line
-   console.log(url); // eslint-disable-line
-    var out = fetch.apply(this, [url]); // eslint-disable-line
-    out.then((response) => { // eslint-disable-line
-    }); // eslint-disable-line
-    return out;// eslint-disable-line
-  }// eslint-disable-line
-}(window, window.fetch)); // eslint-disable-line

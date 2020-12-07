@@ -14,7 +14,7 @@ class Stepper extends Module {
   public data: {
     active: number,
     hasNavigation: boolean,
-  }
+  };
 
   public navigation: any;
 
@@ -33,14 +33,15 @@ class Stepper extends Module {
     rules: NodeListOf<HTMLDivElement>,
     lastpage: HTMLDivElement,
     ruleNotification: HTMLScriptElement,
-  }
+  };
 
   public options: {
     transitionTime: number,
+    scrollTopMargin: number,
     domSelectors: any,
     stateClasses: any,
     hasRules: Boolean,
-  }
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -49,6 +50,7 @@ class Stepper extends Module {
     };
     const defaultOptions = {
       transitionTime: 350,
+      scrollTopMargin: 100,
       domSelectors: {
         steps: '[data-stepper="step"]',
         back: '[data-stepper="back"]',
@@ -297,7 +299,10 @@ class Stepper extends Module {
         // Focus the first invalid error field for accessibility reasons
         const firstInvalidField = this.ui.steps[this.data.active].querySelector('.invalid');
         firstInvalidField.querySelector('input, textarea, .atm-form_input__input--trigger').focus();
-        this.scrollTo(firstInvalidField);
+        this.scrollTo(firstInvalidField, this.options.scrollTopMargin);
+      } else {
+        // CZHDEV-2740 scroll to top so notification is visible after filling out a long form
+        this.scrollTo(this.ui.element, this.options.scrollTopMargin);
       }
     }, 1);
   }
@@ -327,11 +332,11 @@ class Stepper extends Module {
   /**
    * Scroll to top
    */
-  scrollTo(element) {
+  scrollTo(element, marginTop = 0) {
     setTimeout(() => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const rect = element.getBoundingClientRect();
-      window.scroll(0, rect.top + scrollTop);
+      window.scroll(0, rect.top + scrollTop - marginTop);
     }, 0);
   }
 

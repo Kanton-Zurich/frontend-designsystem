@@ -77,20 +77,20 @@
         </ol>
     </div>
 
-
-
     <div class="mdl-tax_calc__alert-connection-fail">
       {{> "modules/notification/notification" serviceFailNotificationData }}
     </div>
 
-
     <script type="text/x-handlebars-template" data-tax_calc="formItemTemplate">
-        {{> "modules/tax_calc/templates/_form-section-item" }}
+      {{> "modules/tax_calc/templates/_form-section-item" }}
     </script>
 
+    <script type="text/x-handlebars-template" data-tax_calc="formSubtitleTemplate">
+      {{> "modules/tax_calc/templates/_subtitle" }}
+    </script>
 
     <script type="text/x-handlebars-template" data-tax_calc-fieldtemplate="list">
-        {{> "modules/tax_calc/templates/_select-list" }}
+      {{> "modules/tax_calc/templates/_select-list" }}
     </script>
 
     <script type="text/x-handlebars-template" data-tax_calc-fieldtemplate="number">
@@ -122,15 +122,13 @@
     <script type="application/json" data-tax_calc-formconfig>
         {
           "INCOME_ASSETS": [{
-            "title": "Genauer",
+            "title": "Steuerart und Zeitraum",
             "rows": [
-              { "fields": [ "isLiabilityLessThanAYear"] },
-              { "fields": [ "hasTaxSeparation"] },
-              { "fields": [ "hasQualifiedInvestments"] }
-            ]
-          }, {
-            "title": "Für welchen Zeitraum möchten Sie den Steuerbetrag berechnen?",
-            "rows": [
+              { "fields": ["subtitle:Steuerart"] },
+              { "fields": ["isLiabilityLessThanAYear"] },
+              { "fields": ["hasTaxSeparation"] },
+              { "fields": ["hasQualifiedInvestments"] },
+              { "fields": ["subtitle:Für welchen Zeitraum möchten Sie den Steuerbetrag berechnen?"] },
               { "fields": ["taxYear"] },
               { "fields": ["liabilityBegin", "liabilityEnd"] }
             ]
