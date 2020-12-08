@@ -271,7 +271,6 @@ class TaxCalc extends Module {
   }
 
   private watchFormSection(sectionBlock: HTMLElement) {
-    // this.log(sectionBlock);
     const sectionInputs = sectionBlock.querySelectorAll<HTMLInputElement>('input');
     sectionInputs.forEach((inEl) => {
       if (inEl.type === 'number' || inEl.type === 'text') {
@@ -324,9 +323,8 @@ class TaxCalc extends Module {
   }
 
   private async onReinvokeTriggerChange(event: Event) {
-    const sectionBlock: HTMLElement = (event.target as HTMLElement).closest(this.options.domSelectors.formItems);
+    const sectionBlock = (event.target as HTMLElement).closest(this.options.domSelectors.formItems);
     const sectionIndex: number = Array.from(sectionBlock.parentNode.children).indexOf(sectionBlock);
-    // this.log(sectionIndex);
     this.postCalculatorFormData(this.calculatorUrl).then((reinvokeResp) => {
       // this.log('ReinvokeResponse:', reinvokeResp);
       const formItems = this.buildFormItemsFromResp(reinvokeResp, true);
