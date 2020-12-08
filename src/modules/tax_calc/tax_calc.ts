@@ -171,7 +171,7 @@ class TaxCalc extends Module {
     return document.querySelectorAll<HTMLDivElement>(this.options.domSelectors.formItems);
   }
 
-  private activateFormSection(sectionIdx: number, init:boolean = false) {
+  private activateFormSection(sectionIdx: number, init: boolean = false) {
     const formSectionItems = this.getFormSectionItems();
     formSectionItems.forEach((formSectionItem, i) => {
       const toggleBtn = formSectionItem.querySelector<HTMLButtonElement>('.mdl-accordion__button');
@@ -212,6 +212,7 @@ class TaxCalc extends Module {
         }
 
         formSectionItem.classList.add(this.options.stateClasses.formItem.enabled);
+        this.watchFormSection(formSectionItem);
         toggleBtn.setAttribute('aria-disabled', 'false');
         toggleBtn.removeAttribute('tabindex');
 
@@ -273,12 +274,15 @@ class TaxCalc extends Module {
     const sectionInputs = sectionBlock.querySelectorAll<HTMLInputElement>('input');
     sectionInputs.forEach((inEl) => {
       if (inEl.type === 'number' || inEl.type === 'text') {
+        inEl.removeEventListener('keyup', this.onFormChange.bind(this));
         inEl.addEventListener('keyup', this.onFormChange.bind(this));
       } else {
+        inEl.removeEventListener('change', this.onFormChange.bind(this));
         inEl.addEventListener('change', this.onFormChange.bind(this));
       }
 
       if (inEl.getAttribute(this.options.attributeNames.reinvoke)) {
+        inEl.removeEventListener('change', this.onReinvokeTriggerChange.bind(this));
         inEl.addEventListener('change', this.onReinvokeTriggerChange.bind(this));
       }
     });
@@ -318,15 +322,16 @@ class TaxCalc extends Module {
     this.ui.apiErrorNotification.style.margin = '0';
   }
 
-  private async onReinvokeTriggerChange() {
-    // this.log('Reinvoke triggered!');
+  private async onReinvokeTriggerChange(event: Event) {
+    const sectionBlock = (event.target as HTMLElement).closest(this.options.domSelectors.formItems);
+    const sectionIndex: number = Array.from(sectionBlock.parentNode.children).indexOf(sectionBlock);
     this.postCalculatorFormData(this.calculatorUrl).then((reinvokeResp) => {
       // this.log('ReinvokeResponse:', reinvokeResp);
       const formItems = this.buildFormItemsFromResp(reinvokeResp, true);
       this.setFormItems(formItems, true);
       this.ui.nextBtn.classList.remove(this.options.stateClasses.nextBtn.loading);
       setTimeout(() => {
-        this.activateFormSection(this.currentFormSection);
+        this.activateFormSection(sectionIndex);
         this.onFormChange();
       });
     });
