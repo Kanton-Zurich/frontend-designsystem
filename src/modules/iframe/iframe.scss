@@ -16,10 +16,11 @@
     margin-top: 0;
   }
 
-  &__wrapper {
+  iframe {
     color: $colorBlack60;
     position: relative;
-    width: 100%;
+    width: 1px;
+    min-width: 100%;
     -webkit-overflow-scrolling: touch;
     overflow: auto;
     margin-bottom: $sizeTiny;
@@ -27,16 +28,6 @@
 
     // Hide scrollbar on wrapper in firefox
     scrollbar-width: none;
-  }
-
-  iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-    border: none;
   }
 
   &--fullWidth {
