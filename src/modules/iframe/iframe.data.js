@@ -21,15 +21,15 @@ const variants = _.mapValues({
   default: {
     meta: {
       title: 'Default',
-      desc: 'Default implementation',
+      desc: 'IFrame mit dynamischer Höhe',
     },
     props: {
       iframeScreenReaderHeading: {
-        title: 'This is the homepage of the Inside Solutions GmbH',
+        title: 'IFrame with dynamic height',
         level: 3,
       },
-      iframeHeight: 600,
-      iframeSrc: 'https://inside-reality.com/',
+      iframeHeight: null,
+      iframeSrc: 'iframe_content.mock.html',
       iframeTextLink: {
         icon: 'arrow-right',
         text: 'Inhalt in seperater Seite anzeigen',
