@@ -5,8 +5,8 @@
   <{{#if useInCarousel}}button{{else}}div{{/if}} class="mdl-image-figure__img-wrapper" {{#if useInCarousel}}data-carousel="open" role="presentation"{{/if}}>
     <img
         class="mdl-image-figure__img"
-        src="{{srcsets.[0].image}}"
-        srcset="{{#each srcsets}}{{image}} {{imageWidth}}w{{#if @last}}{{else}}, {{/if}}{{/each}}"
+        {{#if lazy}}data-{{/if}}src="{{srcsets.[0].image}}"
+        {{#if lazy}}data-{{/if}}srcset="{{#each srcsets}}{{image}} {{imageWidth}}w{{#if @last}}{{else}}, {{/if}}{{/each}}"
         sizes="100vw"
         alt="{{alt}}"
         {{#if hasDownload}}data-image-has-download{{/if}}
