@@ -323,5 +323,5 @@ $headerCurves: (
 
 //CZHDEV-2671: When Modal opened, reset fixed header zindex
 .open-modal .mdl-header--fixed {
-  z-index: $zIndexFlyouts;
+  z-index: $zIndexFlyouts + 1;
 }
