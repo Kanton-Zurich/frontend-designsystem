@@ -164,7 +164,6 @@ class Module {
     return hash;
   }
 
-
   /**
    * Extract url parameters
    * @param param
@@ -176,7 +175,8 @@ class Module {
     const paramList = url.split('?').length > 1 ? url.split('?')[1].split('&') : null;
     if (paramList) {
       result = paramList.filter(paramString => paramString.substr(0, param.length) === param)
-        .map(item => decodeURIComponent(item.split('=')[1].replace('#', '')));
+        .map(item => decodeURIComponent(item.split('=')[1].replace('#', ''))
+          .replace(/[\<\>\+\'\"\#\&]/gi, '')); // eslint-disable-line
       if (result.length > 0 && singleValue) {
         result = result[0].replace('#', '');
       }
@@ -196,7 +196,7 @@ class Module {
       params = stringParams.reduce((total, amount) => {
         const keyValue = amount.split('=');
         total[keyValue[0]] = total[keyValue[0]] ? total[keyValue[0]] : [];
-        total[keyValue[0]].push(keyValue[1] ? keyValue[1] : null);
+        total[keyValue[0]].push(keyValue[1] ? keyValue[1].replace(/[\<\>\+\'\"\#\&]/gi, '') : null); // eslint-disable-line
         return total;
       }, {});
     }
