@@ -1,0 +1,13 @@
+{{#extend "layouts/layout"}}
+  {{#content "header"}}
+    {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
+  {{/content}}
+
+  {{#content "content"}}
+    {{> "modules/stepper/stepper" props.modules.stepperData }}
+  {{/content}}
+
+  {{#content "footer"}}
+    {{> "modules/footer/footer" props.modules.footerData }}
+  {{/content}}
+{{/extend}}

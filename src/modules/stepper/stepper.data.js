@@ -439,6 +439,35 @@ const variants = _.mapValues({
       },
     },
   },
+  requestForm: {
+    meta: {
+      title: 'Antragsformular Testfall',
+      desc: '',
+    },
+    props: {
+      steps: [
+        formVariants.personType.props,
+        _.merge({}, formVariants.personType2.props, {
+          rules: JSON.stringify([
+            {
+              conditions: [
+                {
+                  field: 'pType',
+                  equals: true,
+                  value: 'dritt',
+                },
+              ],
+              action: 'enable',
+            },
+          ]),
+        }),
+        formVariants.dummyStep1.props,
+      ],
+      navigation: {
+        steps: ['Bestellung', 'Gegenstand der Bestellung', 'Wrapup', 'Bestätigung'],
+      },
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
