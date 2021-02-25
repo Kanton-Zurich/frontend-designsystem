@@ -459,6 +459,235 @@ const complRulesSpecial = {
   ],
 };
 
+const personType = {
+  rows: [
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formFieldsetHBS)({
+            fieldsetTitle: '1',
+            options: [
+              () => handlebars.compile(radioHBS)(_.merge({},
+                radioData.variants.default.props,
+                {
+                  label: 'Privatperson',
+                  groupName: 'pType',
+                  id: 'pType_a',
+                  value: 'privat',
+                })),
+              () => handlebars.compile(radioHBS)(_.merge({},
+                radioData.variants.default.props,
+                {
+                  label: 'Juristische Person',
+                  groupName: 'pType',
+                  id: 'pType_b',
+                  value: 'juristisch',
+                })),
+              () => handlebars.compile(radioHBS)(_.merge({},
+                radioData.variants.default.props,
+                {
+                  label: 'Drittperson',
+                  groupName: 'pType',
+                  id: 'pType_c',
+                  value: 'dritt',
+                })),
+            ],
+          }),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Name Privatperson',
+              name: 'name_privat',
+              uuid: 'name_privat',
+              type: 'text',
+              validation: {
+                isRequired: true,
+                errorMsg: 'Bitte geben Sie einen Namen an',
+              },
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'pType',
+                      equals: true,
+                      value: 'privat',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Name juristische Person',
+              name: 'name_juristisch',
+              uuid: 'name_juristisch',
+              type: 'text',
+              validation: {
+                isRequired: true,
+                errorMsg: 'Bitte geben Sie einen Namen an',
+              },
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'pType',
+                      equals: true,
+                      value: 'juristisch',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Name Drittperson',
+              name: 'name_dritt',
+              uuid: 'name_dritt',
+              type: 'text',
+              validation: {
+                isRequired: true,
+                errorMsg: 'Bitte geben Sie einen Namen an',
+              },
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'pType',
+                      equals: true,
+                      value: 'dritt',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+  ],
+};
+
+const personType2 = {
+  rows: [
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formFieldsetHBS)({
+            fieldsetTitle: '1',
+            options: [
+              () => handlebars.compile(radioHBS)(_.merge({},
+                radioData.variants.default.props,
+                {
+                  label: 'Natürliche Person',
+                  groupName: 'pType2',
+                  id: 'pType2_a',
+                  value: 'natural',
+                })),
+              () => handlebars.compile(radioHBS)(_.merge({},
+                radioData.variants.default.props,
+                {
+                  label: 'Juristische Person',
+                  groupName: 'pType2',
+                  id: 'pType2_b',
+                  value: 'legal',
+                })),
+            ],
+          }),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Name Natürliche Person',
+              name: 'name_natural',
+              uuid: 'name_natural',
+              type: 'text',
+              validation: {
+                isRequired: true,
+                errorMsg: 'Bitte geben Sie einen Namen an',
+              },
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'pType2',
+                      equals: true,
+                      value: 'natural',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Name juristische Person',
+              name: 'name_legal',
+              uuid: 'name_legal',
+              type: 'text',
+              validation: {
+                isRequired: true,
+                errorMsg: 'Bitte geben Sie einen Namen an',
+              },
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'pType2',
+                      equals: true,
+                      value: 'legal',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+
+      ],
+    },
+  ],
+};
+
 const template = dataHelper.getFileContent('form.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -2434,6 +2663,28 @@ const variants = _.mapValues({
     props: {
       groups: [
         complRulesSpecial,
+      ],
+    },
+  },
+  personType: {
+    meta: {
+      title: 'Antrag Form 1',
+      desc: 'Testfall Ansässigkeitsbescheinigung',
+    },
+    props: {
+      groups: [
+        personType,
+      ],
+    },
+  },
+  personType2: {
+    meta: {
+      title: 'Antrag Form 2',
+      desc: 'Testfall Ansässigkeitsbescheinigung 2',
+    },
+    props: {
+      groups: [
+        personType2,
       ],
     },
   },
