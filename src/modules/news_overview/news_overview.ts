@@ -6,6 +6,7 @@
  */
 import Module from '../../assets/js/helpers/module';
 import { template } from 'lodash';
+import { sanitizeSearchString } from '../../assets/js/helpers/common';
 import NewsFilterMobile from '../news_filter_mobile/news_filter_mobile';
 import Select from '../select/select';
 import FilterPills from '../filter_pills/filter_pills';
@@ -241,7 +242,7 @@ class NewsOverview extends Module {
     // Listen to Search input and clear event
     this.ui.searchWordInput.addEventListener('keypress', (event: any) => {
       if (event.key === 'Enter') {
-        this.searchWord = event.target.value;
+        this.searchWord = sanitizeSearchString(event.target.value);
         this.filterView();
       }
     });
@@ -250,7 +251,7 @@ class NewsOverview extends Module {
       this.filterView();
     });
     this.ui.searchWordInput.addEventListener('focusout', (event: any) => {
-      this.searchWord = event.target.value;
+      this.searchWord = sanitizeSearchString(event.target.value);
       this.filterView();
     });
   }

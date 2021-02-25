@@ -11,3 +11,8 @@ export const sanitizeFileSize = (fileSize) => {
 
   return `${parseFloat((fileSize / (k ** i)).toFixed(dm))} ${sizes[i]}`;
 };
+
+
+export const sanitizeSearchString = (searchWord) => { // eslint-disable-line
+  return searchWord.replace(/[\<\>\+\'\"\#\&]/gi, ''); // eslint-disable-line
+};
