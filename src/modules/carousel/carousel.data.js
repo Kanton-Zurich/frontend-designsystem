@@ -43,6 +43,7 @@ const data = _.merge({}, defaultData, {
       _.merge({}, imageDataFile.variants.default.props, {
         hasDownload: true,
         useInCarousel: true,
+        lazy: true,
         srcsets: [
           {
             image: '/assets/media/image/carousel_1440_2667_x15.jpeg',
@@ -61,6 +62,7 @@ const data = _.merge({}, defaultData, {
       _.merge({}, imageDataFile.variants.default.props, {
         hasDownload: true,
         useInCarousel: true,
+        lazy: true,
         srcsets: [
           {
             image: '/assets/media/image/carousel_1440_x15.jpeg',
@@ -105,6 +107,88 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+  },
+  alt: {
+    meta: {
+      title: 'Alternative',
+    },
+    props: {
+      slides: [
+        _.merge({}, imageDataFile.variants.default.props, {
+          hasDownload: true,
+          useInCarousel: true,
+          srcsets: [
+            {
+              image: '/assets/media/image/carousel_1440_x15.jpeg',
+              imageWidth: 2160,
+            },
+            {
+              image: '/assets/media/image/carousel_1024_x15.jpeg',
+              imageWidth: 1536,
+            },
+            {
+              image: '/assets/media/image/carousel_600_x15.jpeg',
+              imageWidth: 900,
+            },
+          ],
+        }),
+        _.merge({}, imageDataFile.variants.default.props, {
+          hasDownload: true,
+          useInCarousel: true,
+          srcsets: [
+            {
+              image: '/assets/media/image/carousel_1440_x15.jpeg',
+              imageWidth: 2160,
+            },
+            {
+              image: '/assets/media/image/carousel_1024_x15.jpeg',
+              imageWidth: 1536,
+            },
+            {
+              image: '/assets/media/image/carousel_600_x15.jpeg',
+              imageWidth: 900,
+            },
+          ],
+        }),
+        _.merge({}, imageDataFile.variants.default.props, {
+          hasDownload: true,
+          useInCarousel: true,
+          lazy: true,
+          srcsets: [
+            {
+              image: '/assets/media/image/carousel_1440_2667_x15.jpeg',
+              imageWidth: 2160,
+            },
+            {
+              image: '/assets/media/image/carousel_1024_1612_x15.jpeg',
+              imageWidth: 1536,
+            },
+            {
+              image: '/assets/media/image/carousel_600_944_x15.jpeg',
+              imageWidth: 900,
+            },
+          ],
+        }),
+        _.merge({}, imageDataFile.variants.default.props, {
+          hasDownload: true,
+          useInCarousel: true,
+          srcsets: [
+            {
+              image: '/assets/media/image/carousel_1440_x15.jpeg',
+              imageWidth: 2160,
+            },
+            {
+              image: '/assets/media/image/carousel_1024_x15.jpeg',
+              imageWidth: 1536,
+            },
+            {
+              image: '/assets/media/image/carousel_600_x15.jpeg',
+              imageWidth: 900,
+            },
+          ],
+        }),
+      ],
     },
   },
 }, (variant) => {
