@@ -592,17 +592,22 @@ class Select extends Module {
         input.style.width = `${dropDownWidth}px`;
       });
     }
-
     if (this.ui.filter) {
       this.ui.filter.focus();
     } else if (!this.isMultiSelect) {
       if (this.ui.element.querySelector(`${this.options.domSelectors.inputItems}:checked`)) {
-        this.ui.element.querySelector(`${this.options.domSelectors.inputItems}:checked`).focus();
+        setTimeout(() => {
+          this.ui.element.querySelector(`${this.options.domSelectors.inputItems}:checked`).focus();
+        }, 0);
       } else {
-        this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
+        setTimeout(() => {
+          this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
+        }, 0);
       }
     } else {
-      this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
+      setTimeout(() => {
+        this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
+      }, 0);
     }
     this.adjustContainerHeight();
     // click out of element loose focus and close
