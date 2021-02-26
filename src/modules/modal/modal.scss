@@ -213,6 +213,7 @@ $modalCurves: (
     &.mdl-modal--show {
       max-width: 100vw;
       max-height: 100vh;
+      z-index: $zIndexFlyouts + 2;
     }
 
     &.mdl-modal--before-hide {
