@@ -234,8 +234,11 @@ class Carousel extends Module {
   handleLazyLoad(index) {
     const nextSlide = this.ui.slides[index + 1]
       ? this.ui.slides[index + 1].querySelector(this.options.domSelectors.image) : null;
-    const previousSlide = this.ui.slides[index - 1]
-      ? this.ui.slides[index - 1].querySelector(this.options.domSelectors.image) : null;
+    const previousSlide = this.ui.slides[index - 1] // eslint-disable-line
+      ? this.ui.slides[index - 1].querySelector(this.options.domSelectors.image)
+      : index === 0
+        ? this.ui.slides[this.ui.slides.length - 1].querySelector(this.options.domSelectors.image)
+        : null;
     const lazyloadImage = (imageElement) => {
       if (imageElement && imageElement.hasAttribute('data-src')) {
         imageElement.setAttribute('src', imageElement.getAttribute('data-src'));
