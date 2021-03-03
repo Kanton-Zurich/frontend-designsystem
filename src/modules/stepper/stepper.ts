@@ -428,9 +428,14 @@ class Stepper extends Module {
    */
   removeHiddenFormElements() {
     const hiddenByRules = this.ui.form.querySelectorAll('.form__element--hidden-by-rule');
+    const disabledSteps = this.ui.form.querySelectorAll('[data-enabled="false"]');
 
     hiddenByRules.forEach((hiddenElement) => {
       hiddenElement.parentNode.removeChild(hiddenElement);
+    });
+
+    disabledSteps.forEach((disabledStep) => {
+      disabledStep.parentNode.removeChild(disabledStep);
     });
   }
 

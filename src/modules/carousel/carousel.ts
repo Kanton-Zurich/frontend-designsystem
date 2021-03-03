@@ -89,6 +89,7 @@ class Carousel extends Module {
 
     this.data.length = this.ui.slides.length ? this.ui.slides.length : 1;
 
+    this.handleLazyLoad(0);
     this.setAccessibilityAttributesForSlides();
     this.setAlternativeText();
 
@@ -211,6 +212,7 @@ class Carousel extends Module {
    * @memberof Carousel
    */
   onActiveChange() {
+    this.handleLazyLoad(this.data.active - 1);
     this.setTransformValue();
     this.setIndicatorText();
 
@@ -223,6 +225,30 @@ class Carousel extends Module {
     } else {
       this.ui.slides[this.data.active - 1].querySelector('figure').focus();
     }
+  }
+
+  /**
+   * Handle lazy loading images if necessary
+   * @param index
+   */
+  handleLazyLoad(index) {
+    const nextSlide = this.ui.slides[index + 1]
+      ? this.ui.slides[index + 1].querySelector(this.options.domSelectors.image) : null;
+    const previousSlide = this.ui.slides[index - 1] // eslint-disable-line
+      ? this.ui.slides[index - 1].querySelector(this.options.domSelectors.image)
+      : index === 0
+        ? this.ui.slides[this.ui.slides.length - 1].querySelector(this.options.domSelectors.image)
+        : null;
+    const lazyloadImage = (imageElement) => {
+      if (imageElement && imageElement.hasAttribute('data-src')) {
+        imageElement.setAttribute('src', imageElement.getAttribute('data-src'));
+        imageElement.removeAttribute('data-src');
+        imageElement.setAttribute('srcset', imageElement.getAttribute('data-srcset'));
+        imageElement.removeAttribute('data-srcset');
+      }
+    };
+    lazyloadImage(nextSlide);
+    lazyloadImage(previousSlide);
   }
 
   /**

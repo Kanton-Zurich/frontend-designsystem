@@ -1,5 +1,5 @@
 {{#unless iframeFullSize}}
-  <div class="mdl-iframe {{#if iframeSmall}}mdl-iframe--small{{/if}}{{#if heading}} mdl-iframe--with-title{{/if}}">
+  <div class="mdl-iframe {{#if iframeSmall}}mdl-iframe--small{{/if}}{{#if heading}} mdl-iframe--with-title{{/if}}" data-init="iframe">
   {{#unless iframeSmall}}
     <div class="lyt-wrapper">
       <div class="grid-x grid-margin-x">
@@ -15,9 +15,7 @@
             class="atm-heading visuallyhidden">{{{iframeScreenReaderHeading.title}}}</h{{{iframeScreenReaderHeading.level}}}>
           {{/unless}}
           {{#if caption}}<figure class="mdl-iframe__figure">{{/if}}
-          <div class="mdl-iframe__wrapper" style="height: {{{iframeHeight}}}px">
-            <iframe src="{{{iframeSrc}}}"></iframe>
-          </div>
+            <iframe src="{{{iframeSrc}}}" {{#if iframeHeight}} style="height: {{{iframeHeight}}}px"{{/if}}></iframe>
           {{#if caption}}
             <figcaption class="mdl-iframe__caption">
               {{> "atoms/figcaption/figcaption" caption}}
@@ -35,7 +33,7 @@
   </div>
 {{/unless}}
 {{#if iframeFullSize}}
-  <div class="mdl-iframe mdl-iframe--fullWidth">
+  <div class="mdl-iframe mdl-iframe--fullWidth" data-init="iframe">
     <iframe src="{{{iframeSrc}}}"></iframe>
   </div>
 {{/if}}

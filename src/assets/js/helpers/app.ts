@@ -56,6 +56,7 @@ import JurisdictionFinder from '../../../modules/jurisdiction_finder/jurisdictio
 import NewsletterForm from '../../../modules/newsletter_form/newsletter_form';
 import ZhLex from '../../../modules/zhlex/zhlex';
 import Metablock from '../../../modules/metablock/metablock';
+import IFrame from '../../../modules/iframe/iframe';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -121,6 +122,7 @@ class App {
     this.modules.newsletterForm = NewsletterForm;
     this.modules.zhLex = ZhLex;
     this.modules.metablock = Metablock;
+    this.modules.iframe = IFrame;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

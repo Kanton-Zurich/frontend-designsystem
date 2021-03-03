@@ -40,6 +40,7 @@ class Select extends Module {
   public options: {
     inputDelay: number,
     firefoxDelay: number,
+    itemVerticalMargin: number,
     dropdownDelay: number,
     typeAheadReset: number,
     smallDropdownMaxItems: number,
@@ -56,6 +57,7 @@ class Select extends Module {
       firefoxDelay: 180,
       dropdownDelay: 400,
       typeAheadReset: 1000,
+      itemVerticalMargin: 20,
       smallDropdownMaxItems: 4,
       largeDropdownMaxItems: 6,
       domSelectors: {
@@ -295,6 +297,21 @@ class Select extends Module {
         }
         if (evt.key === 'Enter') {
           evt.preventDefault();
+        }
+      });
+      // ---------------------------------------------------------------------------------------
+      // Safari fix: Hack defective autoscroll behaviour on apple products. Safari is the new IE
+      li.querySelector('input').addEventListener('keyup', (evt) => {
+        const pressed = evt.key;
+        if (['ArrowUp', 'ArrowDown', 'Up', 'Down'].indexOf(pressed) >= 0) {
+          const topOutOfBounds = this.ui.list.getBoundingClientRect().top > (document.activeElement.getBoundingClientRect().top + this.options.itemVerticalMargin); // eslint-disable-line
+          const bottomOutOfBounds = this.ui.list.getBoundingClientRect().bottom < (document.activeElement.getBoundingClientRect().bottom - this.options.itemVerticalMargin); // eslint-disable-line
+          if (topOutOfBounds || bottomOutOfBounds) {
+            const aElement = document.activeElement;
+            li.nextElementSibling.querySelector('input').focus();
+            (<any>aElement).focus();
+            this.updateFlyingFocus(1);
+          }
         }
       });
     });
@@ -592,17 +609,22 @@ class Select extends Module {
         input.style.width = `${dropDownWidth}px`;
       });
     }
-
     if (this.ui.filter) {
       this.ui.filter.focus();
     } else if (!this.isMultiSelect) {
       if (this.ui.element.querySelector(`${this.options.domSelectors.inputItems}:checked`)) {
-        this.ui.element.querySelector(`${this.options.domSelectors.inputItems}:checked`).focus();
+        setTimeout(() => {
+          this.ui.element.querySelector(`${this.options.domSelectors.inputItems}:checked`).focus();
+        }, 0);
       } else {
-        this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
+        setTimeout(() => {
+          this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
+        }, 0);
       }
     } else {
-      this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
+      setTimeout(() => {
+        this.ui.element.querySelector(this.options.domSelectors.inputItems).focus();
+      }, 0);
     }
     this.adjustContainerHeight();
     // click out of element loose focus and close
@@ -662,7 +684,7 @@ class Select extends Module {
       // adjust height if single select
       const visibleItems = this.ui.element
         .querySelectorAll(this.options.domSelectors.visibleInputItems);
-      const itemHeight = visibleItems[0] ? visibleItems[0].clientHeight : 0;
+      const itemHeight = visibleItems[0] ? visibleItems[0].getBoundingClientRect().height : 0;
       const maxHeight = itemHeight * dropdownMaxItems;
       const itemsVerticalSize = (visibleItems.length * itemHeight);
       const containerSize = Math.min(itemsVerticalSize, maxHeight)

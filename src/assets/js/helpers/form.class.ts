@@ -9,6 +9,7 @@ import namespace from './namespace';
 import Datepicker from '../../../modules/datepicker/datepicker';
 import FormGlobalHelper from './form';
 import WindowEventListener from './events';
+import Module from './module';
 
 class Form {
   private ui: {
@@ -152,6 +153,7 @@ class Form {
       this.checkIfFieldDirty(field);
     });
     (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
+    (<any> window).addEventListener(Module.globalEvents.verticalResize, this.onResize.bind(this));
     // autofill listener
     const autoFillSelectors = this.ui.element.querySelectorAll(this.options.autofillSelector);
     autoFillSelectors.forEach((autoFillElement: any) => {

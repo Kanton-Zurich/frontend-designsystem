@@ -69,6 +69,7 @@ class PageHeader extends Module {
       }
       this.ui.element.dispatchEvent(new CustomEvent(PageHeader.events.collapseTriggered));
     }
+    this.dispatchVerticalResizeEvent();
   }
 
   /**
