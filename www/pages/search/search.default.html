@@ -703,19 +703,6 @@
 								</div>
 							</div>
 						</form>
-						<div class="mdl-search_page__no-results">
-							<h2 class="atm-heading">Keine Resultate</h2>
-							<button class="atm-button atm-button--secondary atm-button--small atm-button--tag atm-button--tag-edit">
-								<span class="atm-button__text ">
-									Suche Zurücksetzen
-								</span>
-								<svg class="icon atm-button__icon" focusable="false">
-									<use xlink:href="#undo"></use>
-								</svg>
-								<span class="atm-button__spinner"></span>
-							</button>
-						</div>
-
 						<h2 class="visuallyhidden">Gefundene Resultate:</h2>
 						<div class="mdl-search_page__results" data-search_page="results">
 						</div>
@@ -748,11 +735,35 @@
 								</svg>
 							</a>
 						</div>
+						<div class="mdl-search_page__no-results">
+							<h2 class="atm-heading">Keine Resultate</h2>
+							<button class="atm-button atm-button--secondary atm-button--small atm-button--tag atm-button--tag-edit">
+								<span class="atm-button__text ">
+									Suche Zurücksetzen
+								</span>
+								<svg class="icon atm-button__icon" focusable="false">
+									<use xlink:href="#undo"></use>
+								</svg>
+								<span class="atm-button__spinner"></span>
+							</button>
+						</div>
 					</div>
 
 					<script type="text/x-handlebars-template" data-search_page="resultsHeadTemplate">
 						<div>
+          <% if (typeof numberOfResults !== 'undefined') { %>
           <h2 class="mdl-search_page__counter"><%- numberOfResults %> Ergebnisse<span class="mdl-search_page__autocorrect" data-search_page="autocorrect"> für <a data-search_page="force" class="atm-text_link" tabindex="0" role="button"><%- autocorrectedTerm %></a>. Stattdessen suchen nach <a class="atm-text_link"  data-search_page="force" role="button" data-search_page="force" tabindex="0"><%- originalTerm %></a></span></h2>
+          <% } else { %>
+          <h2 class="mdl-search_page__counter">Keine Ergebnisse</h2>
+          <% } %>
+          <% if (didYouMean) { %>
+          <div class="mdl-search_page__suggestions">Meinten Sie:
+            <% _.forEach(didYouMean, function(suggestion, index) { %>
+            <a class="atm-text_link" role="button" data-search_page="force"><%- suggestion %></a>&nbsp;
+            <% }); %>
+          </div>
+          <% } %>
+          <% if (typeof resultsByType !== 'undefined'){ %>
           <ul class="mdl-search_page__tag-group mdl-tag-group__tags">
             <li>
               <div class="atm-radiobutton atm-radiobutton--tag">
@@ -773,6 +784,7 @@
               </li>
             <% }); %>
           </ul>
+          <% } %>
         </div>
       </script>
 
@@ -832,6 +844,27 @@
                 <% } %>
               </span>
             </li>
+            <% if (typeof similarTerms !== 'undefined' && (index === 2 || (results.length < 3 && index === results.length - 1))) { %>
+            <div class="mdl-texthighlight">
+              <h4 class="atm-heading">Suchen nach</h4>
+              <div class="mdl-linklist atm-search_result_item__linklist">
+                <ul class="mdl-linklist__list">
+                  <% _.forEach(similarTerms, function(similarTerm, index) { %>
+                  <li class="mdl-linklist__item">
+                    <a class="atm-linklist_item  " role="button" data-search_page="alternativeTerm">
+                      <span class="atm-linklist_item__text">
+                        <span><%- similarTerm %></span>
+                      </span>
+                      <svg class="icon atm-linklist_item__arrow" focusable="false">
+                        <use xlink:href="#arrow-right"></use>
+                      </svg>
+                    </a>
+                  </li>
+                  <% }); %>
+                </ul>
+              </div>
+            </div>
+            <% } %>
           <% }); %>
         </ul>
       </script>
