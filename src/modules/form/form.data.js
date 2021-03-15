@@ -799,6 +799,8 @@ const variants = _.mapValues({
                     type: 'email',
                     validation: {
                       errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+                      inputRange: '../../mocks/modules/form/form.validation.json?param={value}',
+                      rangeErrorMsg: 'Diese E-Mail Adresse ist bei uns nicht registriert',
                     },
                   })),
               },
