@@ -349,6 +349,24 @@ class FormGlobalHelper {
 
     return parseFloat(number);
   }
+
+  static ParseDateTimeString(dateTime) {
+    const parts = dateTime.split(' ');
+    // try date
+    const dateParts = parts && parts.length > 0 ? parts[0].split('.') : null;
+    // try time
+    const timeParts = parts && parts.length > 1 ? parts[1].split(':') : null;
+    let parseString = '';
+
+    if (dateParts && dateParts.length > 2) { // eslint-disable-line
+      parseString += `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+    }
+    if (timeParts && timeParts.length > 1) {
+      parseString += `T${timeParts[0]}:${timeParts[1]}`;
+    }
+
+    return Date.parse(parseString);
+  }
 }
 
 export default FormGlobalHelper;
