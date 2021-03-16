@@ -367,6 +367,13 @@ class FormGlobalHelper {
 
     return Date.parse(parseString);
   }
+
+  static CurrentDateAgeDifference(age) {
+    const dt = new Date();
+    const ageDate = new Date(dt.setFullYear(dt.getFullYear() - age));
+
+    return ageDate.getTime();
+  }
 }
 
 export default FormGlobalHelper;

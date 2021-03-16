@@ -343,6 +343,10 @@ class FormRules {
           }
 
           const parseValue = (val) => {
+            // check if there is an age comparison required
+            if (condition.compareAge) {
+              return FormGlobalHelper.CurrentDateAgeDifference(val);
+            }
             if (compareModeDate) {
               return FormGlobalHelper.ParseDateTimeString(val);
             }

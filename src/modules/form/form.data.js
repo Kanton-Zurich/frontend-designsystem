@@ -953,6 +953,82 @@ const compareDate = {
   ],
 };
 
+const compareAge = {
+  rows: [
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+            datepickerData.variants.defaultDate.props,
+            {
+              formInputData: {
+                name: 'compare_age',
+                uuid: 'compare_age',
+                liveUpdate: true,
+              },
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Älter oder mindestens 18 Jahre',
+              name: 'compare_age_older_18',
+              uuid: 'compare_age_older_18',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_age',
+                      compare: 'lessEqual',
+                      compareAge: true,
+                      value: '18',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Jünger 18 Jahre',
+              name: 'compare_younger_18',
+              uuid: 'compare_younger_18',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_age',
+                      compare: 'greater',
+                      compareAge: true,
+                      value: '18',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+  ],
+};
+
 const template = dataHelper.getFileContent('form.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -2972,6 +3048,17 @@ const variants = _.mapValues({
     props: {
       groups: [
         compareDate,
+      ],
+    },
+  },
+  ageCompare: {
+    meta: {
+      title: 'Altersvergleich',
+      desc: '',
+    },
+    props: {
+      groups: [
+        compareAge,
       ],
     },
   },
