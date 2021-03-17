@@ -4,7 +4,6 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        bitbucketStatusNotify(buildState: 'INPROGRESS')
         sh 'node -v && npm -v'
         sh 'npm install'
         sh 'npm run build'
@@ -31,7 +30,6 @@ pipeline {
   }
   post {
     success {
-      bitbucketStatusNotify(buildState: 'SUCCESSFUL')
       slackSend message: "${env.JOB_NAME} DEVELOP build succeeded: ${env.BUILD_URL}",
       color: 'good',
       channel: '#frontend',
@@ -39,7 +37,6 @@ pipeline {
       tokenCredentialId: 'slack_auth_token_zhch'
     }
     failure {
-      bitbucketStatusNotify(buildState: 'FAILED')
       slackSend message: "${env.JOB_NAME} DEVELOP build failed: ${env.BUILD_URL}",
       color: 'danger',
       channel: '#frontend',
