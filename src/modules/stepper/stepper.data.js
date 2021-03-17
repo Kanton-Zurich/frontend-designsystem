@@ -468,6 +468,18 @@ const variants = _.mapValues({
       },
     },
   },
+  duplicateUpload: {
+    meta: {
+      title: 'Upload (duplizierbar)',
+      desc: '',
+    },
+    props: {
+      steps: [
+        formVariants.duplicationUpload.props,
+        formVariants.dummyStep1.props,
+      ],
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
