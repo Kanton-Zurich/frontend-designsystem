@@ -69,7 +69,7 @@ class Form {
         backdrop: '.atm-form_input__backdrop',
         radiogroup: '.form__fieldset-list',
         radiobutton: '.atm-radiobutton',
-        lengthIndicator: '.atm-form_input__input--length-indicator',
+        lengthIndicator: '.atm-form_input__length-indicator',
       },
       messageSelector: '[data-message]',
       autofillSelector: '[data-autofill]',
