@@ -1,5 +1,5 @@
 class FormGlobalHelper {
-  validateField(field) {
+  async validateField(field) {
     const fieldType = field.getAttribute('type');
 
     if (field.closest('.form__element--hidden-by-rule') !== null) {
@@ -16,13 +16,13 @@ class FormGlobalHelper {
       case 'file':
         return this.validateFileField(field);
       case 'number':
-        return this.validateNumberField(field);
+        return await this.validateNumberField(field); // eslint-disable-line
       default:
-        return this.validateTextField(field);
+        return await this.validateTextField(field); // eslint-disable-line
     }
   }
 
-  validateTextField(field) {
+  async validateTextField(field) {
     let requiredResult = true;
     let patternResult = true;
     const messages = [];
@@ -71,13 +71,22 @@ class FormGlobalHelper {
       }
     }
 
+    let rangeValidationResult = true;
+
+    if (requiredResult && patternResult) {
+      rangeValidationResult = await this.validateDataRange(field);
+      if (!rangeValidationResult) {
+        messages.push('range');
+      }
+    }
+
     return {
-      validationResult: requiredResult && patternResult,
+      validationResult: requiredResult && patternResult && rangeValidationResult,
       messages,
     };
   }
 
-  validateNumberField(field: HTMLInputElement) {
+  async validateNumberField(field: HTMLInputElement) {
     let requiredResult = true;
     let inBounds = true;
     const messages = [];
@@ -103,9 +112,16 @@ class FormGlobalHelper {
       if (!inBounds) messages.push('outofbounds');
     }
 
+    let rangeValidationResult = true;
+    if ((requiredResult && inBounds)) {
+      rangeValidationResult = await this.validateDataRange(field);
+      if (!rangeValidationResult) {
+        messages.push('range');
+      }
+    }
 
     return {
-      validationResult: requiredResult && inBounds,
+      validationResult: requiredResult && inBounds && rangeValidationResult,
       messages,
     };
   }
@@ -175,6 +191,29 @@ class FormGlobalHelper {
       messages,
       files,
     };
+  }
+
+  /**
+   * Validate against a range of values
+   * @param field
+   */
+  async validateDataRange(field) {
+    if (field.hasAttribute('data-validate-range') && field.value !== '') {
+      const url = field.getAttribute('data-validate-range').replace('{value}', field.value);
+      if (url === field.getAttribute('data-validation-range-last-url')) {
+        return field.getAttribute('data-validation-range-result') === 'true';
+      }
+      const response = await fetch(url);
+      if (response.status !== 200) { // eslint-disable-line
+        return true;
+      }
+      const result = await response.json();
+      field.setAttribute('data-validation-range-result', result.validation);
+      field.setAttribute('data-validation-range-last-url', url);
+      return result.validation;
+    }
+
+    return true;
   }
 
   /**

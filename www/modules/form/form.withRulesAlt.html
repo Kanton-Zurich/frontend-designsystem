@@ -37,7 +37,9 @@
 
 
 
+
 						<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 					</div>
 					<div class="mdl-select__options">
 
@@ -50,23 +52,23 @@
 
 								<label for="radio-option-item30"></label>
 							</li>
-							<li id="cnationalityx571" class="atm-list__item">
-								<input name="nationality-sf2" id="radio-cnationalityx571" type="radio" value="BE" placeholder="Belgien" data-select-option data-validation required>
+							<li id="cnationalityx556" class="atm-list__item">
+								<input name="nationality-sf2" id="radio-cnationalityx556" type="radio" value="BE" placeholder="Belgien" data-select-option data-validation required>
 
 
-								<label for="radio-cnationalityx571">Belgien</label>
+								<label for="radio-cnationalityx556">Belgien</label>
 							</li>
-							<li id="cnationalityx572" class="atm-list__item">
-								<input name="nationality-sf2" id="radio-cnationalityx572" type="radio" value="DE" placeholder="Deutschland" data-select-option data-validation required>
+							<li id="cnationalityx557" class="atm-list__item">
+								<input name="nationality-sf2" id="radio-cnationalityx557" type="radio" value="DE" placeholder="Deutschland" data-select-option data-validation required>
 
 
-								<label for="radio-cnationalityx572">Deutschland</label>
+								<label for="radio-cnationalityx557">Deutschland</label>
 							</li>
-							<li id="cnationalityx573" class="atm-list__item">
-								<input name="nationality-sf2" id="radio-cnationalityx573" type="radio" value="CH" placeholder="Schweiz" data-select-option data-validation required>
+							<li id="cnationalityx558" class="atm-list__item">
+								<input name="nationality-sf2" id="radio-cnationalityx558" type="radio" value="CH" placeholder="Schweiz" data-select-option data-validation required>
 
 
-								<label for="radio-cnationalityx573">Schweiz</label>
+								<label for="radio-cnationalityx558">Schweiz</label>
 							</li>
 							<li id="option-item34" class="atm-list__item">
 								<input name="nationality-sf2" id="radio-option-item34" type="radio" value="so" placeholder="Soziales" data-select-option data-validation required>
@@ -126,22 +128,22 @@
 
 						</div>
 
-						<script type="text/x-handlebars-template" data-file_upload="item-template">
+						<div class="mdl-file_upload__template" data-file_upload="item-template">
 							<div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
-        <div class="mdl-file_upload__file-meta">
-          <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
-          <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
-          <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
-          <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
-        </div>
-        <button class="mdl-file_upload__file-delete" data-file_upload="delete">
-          <span class="visuallyhidden">Datei wieder entfernen</span>
-          <svg class="icon" focusable="false">
-            <use xlink:href="#delete"></use>
-          </svg>
-        </button>
-      </div>
-    </script>
+								<div class="mdl-file_upload__file-meta">
+									<span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+									<span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+									<p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+									<p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
+								</div>
+								<button class="mdl-file_upload__file-delete" data-file_upload="delete">
+									<span class="visuallyhidden">Datei wieder entfernen</span>
+									<svg class="icon" focusable="false">
+										<use xlink:href="#delete"></use>
+									</svg>
+								</button>
+							</div>
+						</div>
 					</fieldset>
 				</div>
 
