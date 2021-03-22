@@ -187,7 +187,7 @@ class FileUpload extends Module {
   }
 
   initFileList() {
-    const compiled = template(this.ui.itemTemplate.innerHTML);
+    const compiled = template(this.ui.itemTemplate.innerHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>'));
     const fileListLength = this.ui.input.files.length;
 
     this.ui.list.innerHTML = '';

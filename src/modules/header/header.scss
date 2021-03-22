@@ -38,7 +38,7 @@ $headerCurves: (
     transform: translateX(0);
     margin-left: 0;
 
-    z-index: $zIndexFixedHeader;
+    z-index: $zIndexFlyouts;
   }
 
   &--open {

@@ -313,12 +313,12 @@ class Form {
     inputElement.dispatchEvent(new CustomEvent(Form.events.clearInput));
   }
 
-  validateField(field) { //eslint-disable-line
+  async validateField(field) { //eslint-disable-line
     if (this.ui.element.hasAttribute('is-reset')) {
       return true;
     }
 
-    const validation = window[namespace].form.validateField(field);
+    const validation = await window[namespace].form.validateField(field);
     const fileTimeout = 5;
     const inputWrapper = field.closest(this.options.inputSelector);
 
@@ -398,19 +398,19 @@ class Form {
     }
   }
 
-  validateSection(event) {
+  async validateSection(event) {
     const formSections = event.detail.sections;
     let errorsInSections = 0;
 
-    formSections.forEach((section) => {
-      const fieldsInSection = section.querySelectorAll(this.options.watchEmitters.input);
+    for (let h = 0; h < formSections.length; h++) { // eslint-disable-line
+      const fieldsInSection = formSections[h].querySelectorAll(this.options.watchEmitters.input);
 
-      fieldsInSection.forEach((field) => {
-        errorsInSections = !this.validateField(field)
+      for (let i = 0; i < fieldsInSection.length; i++) { // eslint-disable-line
+        errorsInSections = !(await this.validateField(fieldsInSection[i])) // eslint-disable-line
           ? errorsInSections += 1
           : errorsInSections;
-      });
-    });
+      }
+    }
 
     if (errorsInSections > 0) {
       this.ui.element.setAttribute('form-has-errors', 'true');
@@ -419,6 +419,7 @@ class Form {
     } else {
       this.ui.element.removeAttribute('form-has-errors');
     }
+    event.detail.callback();
   }
 
   handleInputMask(domElement, oldValue, newValue) {
