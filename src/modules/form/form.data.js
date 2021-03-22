@@ -28,7 +28,6 @@ const fileUploadData = require('../file_upload/file_upload.data');
 const datepickerHBS = dataHelper.getFileContent('../datepicker/datepicker.hbs');
 const datepickerData = require('../datepicker/datepicker.data');
 
-
 const listDemoData = require('../../atoms/list/list.data');
 
 const duplicateGroup = {
@@ -38,138 +37,148 @@ const duplicateGroup = {
     add: 'Weitere Staatsangehörigkeit hinzufügen',
     remove: 'Staatangehörigkeit wieder entfernen',
   },
-  rows: [{
-    fields: [{
-      cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-        formInputData.variants.default.props,
-        {
-          isFloatingLabel: true,
-          label: 'Staatsangehörigkeit',
-          name: 'nationality',
-          uuid: 'nationality',
-          validation: {
-            isRequired: true,
+  rows: [
+    {
+      fields: [{
+        cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+          formInputData.variants.default.props,
+          {
+            isFloatingLabel: true,
+            label: 'Staatsangehörigkeit',
+            name: 'nationality',
+            uuid: 'nationality',
+            validation: {
+              isRequired: true,
+            },
+          })),
+        tooltip: {
+          helptext: 'Info',
+          buttonRight: true,
+          bubble: {
+            heading: 'Tooltip Ipsum',
+            text: '<p>Ländernamen auf Deutsch eingeben</p>',
+            id: _.uniqueId('form-test'),
           },
-        })),
-      tooltip: {
-        helptext: 'Info',
-        buttonRight: true,
-        bubble: {
-          heading: 'Tooltip Ipsum',
-          text: '<p>Ländernamen auf Deutsch eingeben</p>',
-          id: _.uniqueId('form-test'),
         },
-      },
-    }],
-  },
-  {
-    fields: [{
-      isSmall: true,
-      cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-        formInputData.variants.default.props,
-        {
-          isFloatingLabel: true,
-          label: 'PLZ',
-          name: 'zip_place_of_birth',
-          uuid: 'zip_place_of_birth',
-          validation: {
-            isRequired: true,
-            pattern: '^[0-9]{4,4}$',
-            errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
-          },
-          zipCity: {
-            fills: 'place_of_birth',
-            data: JSON.stringify({
-              8000: 'Zürich',
-              8001: 'Zürich',
-              8004: 'Zürich',
-              8310: 'Winterthur',
-              8700: 'Küsnacht ZH',
-              8620: 'Wetzikon',
-              8500: ['Gerlikon', 'Frauenfeld'],
-            }),
-          },
-        })),
+      }],
     },
     {
-      cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-        formInputData.variants.default.props,
+      fields: [
         {
-          isFloatingLabel: true,
-          label: 'Geburtsort',
-          name: 'place_of_birth',
-          uuid: 'place_of_birth',
-          isZipCityTarget: true,
-          validation: {
-            isRequired: true,
-          },
-        })),
-      tooltip: {
-        buttonLeft: true,
-        bubble: {
-          heading: 'Tooltip Ipsum',
-          text: '<p>Ländernamen auf Deutsch eingeben</p>',
-          id: _.uniqueId('form-test'),
+          cellContent: () => handlebars.compile(fileUploadHBS)(_.merge({},
+            fileUploadData.variants.default.props, { validation: { isRequired: true } })),
         },
-      },
-    }],
-  },
-  {
-    fields: [{
-      isSmall: true,
-      cellContent: () => handlebars.compile(formFieldsetHBS)({
-        fieldsetTitle: 'Checkboxen',
-        options: [
-          () => handlebars.compile(radioHBS)(_.merge({},
-            radioData.variants.default.props,
-            {
-              label: 'Wilde Wälder',
-              groupName: 'checkbox_in_duplication',
-              id: 'checkbox_1',
-              value: 'mrs',
-            })),
-          () => handlebars.compile(radioHBS)(_.merge({},
-            radioData.variants.default.props,
-            {
-              label: 'Wasserfälle',
-              groupName: 'checkbox_in_duplication',
-              id: 'checkbox_2',
-              value: 'mr',
-            })),
-          () => handlebars.compile(radioHBS)(_.merge({},
-            radioData.variants.default.props,
-            {
-              label: 'Beschauliche alpine Auen',
-              groupName: 'checkbox_in_duplication',
-              id: 'checkbox_3',
-              value: 'no',
-            })),
-        ],
-      }),
-    }],
-  },
-  {
-    fields: [
-      {
-        cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
-          datepickerData.variants.defaultDate.props,
+      ],
+    },
+    {
+      fields: [{
+        isSmall: true,
+        cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+          formInputData.variants.default.props,
           {
-            rules: JSON.stringify([
-              {
-                conditions: [
-                  {
-                    field: 'checkbox_in_duplication',
-                    equals: true,
-                    value: 'mr',
-                  },
-                ],
-                action: 'show',
-              },
-            ]),
+            isFloatingLabel: true,
+            label: 'PLZ',
+            name: 'zip_place_of_birth',
+            uuid: 'zip_place_of_birth',
+            validation: {
+              isRequired: true,
+              pattern: '^[0-9]{4,4}$',
+              errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
+            },
+            zipCity: {
+              fills: 'place_of_birth',
+              data: JSON.stringify({
+                8000: 'Zürich',
+                8001: 'Zürich',
+                8004: 'Zürich',
+                8310: 'Winterthur',
+                8700: 'Küsnacht ZH',
+                8620: 'Wetzikon',
+                8500: ['Gerlikon', 'Frauenfeld'],
+              }),
+            },
           })),
       },
-    ],
-  }],
+      {
+        cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+          formInputData.variants.default.props,
+          {
+            isFloatingLabel: true,
+            label: 'Geburtsort',
+            name: 'place_of_birth',
+            uuid: 'place_of_birth',
+            isZipCityTarget: true,
+            validation: {
+              isRequired: true,
+            },
+          })),
+        tooltip: {
+          buttonLeft: true,
+          bubble: {
+            heading: 'Tooltip Ipsum',
+            text: '<p>Ländernamen auf Deutsch eingeben</p>',
+            id: _.uniqueId('form-test'),
+          },
+        },
+      }],
+    },
+    {
+      fields: [{
+        isSmall: true,
+        cellContent: () => handlebars.compile(formFieldsetHBS)({
+          fieldsetTitle: 'Checkboxen',
+          options: [
+            () => handlebars.compile(radioHBS)(_.merge({},
+              radioData.variants.default.props,
+              {
+                label: 'Wilde Wälder',
+                groupName: 'checkbox_in_duplication',
+                id: 'checkbox_1',
+                value: 'mrs',
+              })),
+            () => handlebars.compile(radioHBS)(_.merge({},
+              radioData.variants.default.props,
+              {
+                label: 'Wasserfälle',
+                groupName: 'checkbox_in_duplication',
+                id: 'checkbox_2',
+                value: 'mr',
+              })),
+            () => handlebars.compile(radioHBS)(_.merge({},
+              radioData.variants.default.props,
+              {
+                label: 'Beschauliche alpine Auen',
+                groupName: 'checkbox_in_duplication',
+                id: 'checkbox_3',
+                value: 'no',
+              })),
+          ],
+        }),
+      }],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+            datepickerData.variants.defaultDate.props,
+            {
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'checkbox_in_duplication',
+                      equals: true,
+                      value: 'mr',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+  ],
   duplicateButton: 'Weitere Staatsangehörigkeit hinzufügen',
 };
 
@@ -1029,6 +1038,72 @@ const compareAge = {
   ],
 };
 
+const selectionAlternative = {
+  rows: [
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(selectHBS)({
+            isSingleSelect: true,
+            listData: _.assign(_.merge({}, listDemoData.variants.defaultSingle.props, {
+              setHiddenIndex: true,
+              groupId: 'nationality-x3',
+            }), {
+              selectOptions: [
+                { value: 'schweiz', label: 'Schweiz' },
+                { value: 'lichtenstein', label: 'Lichtenstein' },
+                { value: 'andere', label: 'Andere' },
+              ],
+            }),
+            triggerInputData: {
+              type: 'text',
+              isSelectTrigger: true,
+              isFloatingLabel: true,
+              isInput: false,
+              icon: 'angle_drop_down',
+              label: 'Staatsangehörigkeit',
+              validation: {
+                isRequired: true,
+              },
+            },
+          }),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Andere Nationalität',
+              name: 'other_nationality',
+              uuid: 'other_nationality',
+              type: 'text',
+              validation: {
+                isRequired: true,
+                errorMsg: 'Bitte geben Sie ihre Nationalität ein',
+              },
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'nationality-x3',
+                      equals: true,
+                      value: 'andere',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+  ],
+};
+
 const template = dataHelper.getFileContent('form.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -1129,6 +1204,28 @@ const variants = _.mapValues({
               }],
             },
             {
+              fields: [
+                {
+                  cellContent: () => {
+                    return `
+                    <div class="mdl-richtext">
+                      <h3 class="atm-heading">Test titel</h3>
+                      <p class="atm-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                      <ul>
+                        <li>P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.</li>
+                        <li>Koordinaten begegnen uns täglich. <ul>
+                            <li>P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.</li>
+                            <li>Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt.</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                    `;
+                  },
+                },
+              ],
+            },
+            {
               fields: [{
                 cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
                   formInputData.variants.default.props,
@@ -1140,6 +1237,8 @@ const variants = _.mapValues({
                     type: 'email',
                     validation: {
                       errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+                      inputRange: '../../mocks/modules/form/form.validation.json?param={value}',
+                      rangeErrorMsg: 'Diese E-Mail Adresse ist bei uns nicht registriert',
                     },
                   })),
               },
@@ -3026,6 +3125,28 @@ const variants = _.mapValues({
     props: {
       groups: [
         personType2,
+      ],
+    },
+  },
+  alternativeSelection: {
+    meta: {
+      title: 'Auswahlalternative',
+      desc: 'Eine alternative Eingabe zur Auswahl tätigen'
+    },
+    props: {
+      groups: [
+        selectionAlternative,
+      ],
+    },
+  },
+  duplicationUpload: {
+    meta: {
+      title: 'Duplizierung Upload',
+      desc: 'Duplizierung Upload',
+    },
+    props: {
+      groups: [
+        duplicateGroup,
       ],
     },
   },

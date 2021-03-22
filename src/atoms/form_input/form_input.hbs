@@ -17,6 +17,7 @@
     {{#if isTriggerWithInput}}
       <input id="select_phone_input" name="phone_input" type="tel" {{#if maskPlaceholder}}placeholder="{{maskPlaceholder}}"{{/if}}
         {{#if validation.pattern }} data-pattern="{{validation.pattern}}"{{/if}}
+        {{#if validation.inputRange }} data-validate-range="{{validation.inputRange}}"{{/if}}
         {{#if validation.isRequired}} required{{/if}}
         {{#if validation}} data-validation{{/if}}><label
       class="visuallyhidden" for="select_phone_input">Bitte hier ihre Telefonnummer ohne Telefonvorwahl eingeben</label>
@@ -62,7 +63,11 @@
       {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
       {{#if validation}} data-validation{{/if}}
       {{#if isFloatingLabel}} data-floating{{/if}}
+      {{#if inputLengthRestriction}} maxlength="{{inputLengthRestriction}}"{{/if}}
       ></textarea>
+    {{#if inputLengthRestriction}}
+      <div class="atm-form_input__length-indicator">0/{{inputLengthRestriction}}</div>
+    {{/if}}
   {{/if}}
 
   {{# if isInput}}
@@ -72,6 +77,7 @@
        id="{{uuid}}" placeholder="{{label}}" name="{{name}}" value="{{inputContent}}" type="{{type}}"
       {{#if dataSelector}} {{{dataSelector}}}{{/if}}
       {{#if validation.isRequired}} required{{/if}}
+      {{#if validation.inputRange }} data-validate-range="{{validation.inputRange}}"{{/if}}
       {{#if isReadOnly}} readonly{{/if}}
       {{#if autocompleteOff}} autocomplete="off" {{/if}}
       {{#if disabled}} disabled{{/if}}
@@ -155,5 +161,7 @@
 
   {{#if hint}}<div class="atm-form_input__hint">{{hint}}</div>{{/if}}
   {{#if validation.errorMsg}}<p data-message="pattern">{{validation.errorMsg}}</p>{{/if}}
+  {{#if validation.rangeErrorMsg}}<p data-message="range">{{validation.rangeErrorMsg}}</p>{{/if}}
   {{#if validation.isRequired}}<p data-message="required">Dies ist ein Pflichtfeld</p>{{/if}}
+
 </div>

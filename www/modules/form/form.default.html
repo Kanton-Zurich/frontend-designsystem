@@ -71,7 +71,9 @@
 
 
 
+
 					<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 				</div>
 
 			</div>
@@ -108,7 +110,28 @@
 
 
 
+
 					<p data-message="required">Dies ist ein Pflichtfeld</p>
+
+				</div>
+
+			</div>
+		</div>
+
+		<div class="form__row">
+			<div class="form__cell ">
+
+				<div class="mdl-richtext">
+					<h3 class="atm-heading">Test titel</h3>
+					<p class="atm-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+					<ul>
+						<li>P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.</li>
+						<li>Koordinaten begegnen uns täglich. <ul>
+								<li>P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.</li>
+								<li>Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt.</li>
+							</ul>
+						</li>
+					</ul>
 				</div>
 
 			</div>
@@ -121,7 +144,7 @@
 
 
 
-					<input class="atm-form_input__input" id="emailaddr" placeholder="E-Mail" name="emailaddr" value="" type="email" data-validation data-floating>
+					<input class="atm-form_input__input" id="emailaddr" placeholder="E-Mail" name="emailaddr" value="" type="email" data-validate-range="../../mocks/modules/form/form.validation.json?param&#x3D;{value}" data-validation data-floating>
 
 
 
@@ -148,6 +171,8 @@
 
 
 					<p data-message="pattern">Bitte geben Sie eine gültige E-Mail-Adresse an.</p>
+					<p data-message="range">Diese E-Mail Adresse ist bei uns nicht registriert</p>
+
 
 				</div>
 
@@ -185,6 +210,8 @@
 
 
 					<p data-message="pattern">Bitte geben Sie eine gültige URL an.</p>
+
+
 
 				</div>
 
@@ -225,7 +252,9 @@
 
 
 					<p data-message="pattern">Bitte geben Sie eine gültige schweizerische Postleizahl an.</p>
+
 					<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 				</div>
 
 			</div>
@@ -272,7 +301,9 @@
 
 
 
+
 					<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 				</div>
 
 			</div>
@@ -314,7 +345,9 @@
 
 
 
+
 						<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 					</div>
 					<div class="mdl-select__options">
 						<div class="mdl-select__filter">
@@ -341,6 +374,8 @@
 								<svg class="icon" focusable="false">
 									<use xlink:href="#search"></use>
 								</svg>
+
+
 
 
 
@@ -462,7 +497,9 @@
 
 
 						<p data-message="pattern">Bitte geben Sie eine korrekte Zeitspanne an.</p>
+
 						<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 					</div>
 				</div>
 
@@ -507,7 +544,9 @@
 
 
 						<p data-message="pattern">Die Eingabe entspricht nicht den Vorgaben für eine Telefonnummer.</p>
+
 						<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 					</div>
 					<div class="mdl-select__options">
 						<div class="mdl-select__filter">
@@ -534,6 +573,8 @@
 								<svg class="icon" focusable="false">
 									<use xlink:href="#search"></use>
 								</svg>
+
+
 
 
 
@@ -691,7 +732,9 @@
 
 
 						<p data-message="pattern">Bitte geben Sie ein korrektes Datum an.</p>
+
 						<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 					</div>
 				</div>
 
@@ -732,7 +775,9 @@
 
 
 					<p data-message="pattern">Bitte geben Sie eine gültige E-Mail-Adresse an.</p>
+
 					<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 				</div>
 
 			</div>
@@ -752,6 +797,8 @@
 
 
 						<label for="vornameKind553">Vorname Kind</label>
+
+
 
 
 
@@ -792,6 +839,7 @@
       
       
       
+      
        data-floating
       
       
@@ -813,6 +861,8 @@
   
   
   
+  
+
 </div>
 
                     </div>
@@ -852,22 +902,22 @@
 
 						</div>
 
-						<script type="text/x-handlebars-template" data-file_upload="item-template">
+						<div class="mdl-file_upload__template" data-file_upload="item-template">
 							<div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
-        <div class="mdl-file_upload__file-meta">
-          <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
-          <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
-          <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
-          <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
-        </div>
-        <button class="mdl-file_upload__file-delete" data-file_upload="delete">
-          <span class="visuallyhidden">Datei wieder entfernen</span>
-          <svg class="icon" focusable="false">
-            <use xlink:href="#delete"></use>
-          </svg>
-        </button>
-      </div>
-    </script>
+								<div class="mdl-file_upload__file-meta">
+									<span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+									<span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+									<p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+									<p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
+								</div>
+								<button class="mdl-file_upload__file-delete" data-file_upload="delete">
+									<span class="visuallyhidden">Datei wieder entfernen</span>
+									<svg class="icon" focusable="false">
+										<use xlink:href="#delete"></use>
+									</svg>
+								</button>
+							</div>
+						</div>
 					</fieldset>
 				</div>
 
@@ -910,7 +960,9 @@
 
 
 
+
 					<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 				</div>
 
 				<div class="mdl-tooltip" data-init="tooltip">
@@ -942,6 +994,47 @@
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+
+		<div class="form__row">
+			<div class="form__cell ">
+				<div>
+					<fieldset class="mdl-file_upload" data-init="fileUpload" data-input>
+						<legend class="atm-heading h4">Dokumente hochladen</legend>
+						<p class="mdl-file_upload__subtitle">Hier können Sie ihren Lebenslauf hochladen</p>
+						<input class="visuallyhidden" type="file" name="file1" id="file1" data-file_upload="input" data-validation required />
+						<div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
+							<p class="mdl-file_upload__dropzone-hint">Zum Hochladen Datei ziehen und hier ablegen.</p>
+							<p class="mdl-file_upload__format-hint">Zulässige Dateiformate: gif, jpeg, png, tiff, svg (max. 25 MB).</p>
+							<label class="mdl-file_upload__button atm-button atm-button--secondary" for="file1">Datei auswählen</label>
+						</div>
+						<p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an.</p>
+						<p class="mdl-file_upload__error" data-message="onlyonefile">Sie können nur 1 Datei gleichzeitig hochladen.</p>
+
+						<div class="mdl-file_upload__list" data-file_upload="list">
+
+						</div>
+
+						<div class="mdl-file_upload__template" data-file_upload="item-template">
+							<div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
+								<div class="mdl-file_upload__file-meta">
+									<span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+									<span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+									<p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+									<p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
+								</div>
+								<button class="mdl-file_upload__file-delete" data-file_upload="delete">
+									<span class="visuallyhidden">Datei wieder entfernen</span>
+									<svg class="icon" focusable="false">
+										<use xlink:href="#delete"></use>
+									</svg>
+								</button>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+
 			</div>
 		</div>
 
@@ -979,7 +1072,9 @@
 
 
 					<p data-message="pattern">Bitte geben Sie eine gültige schweizerische Postleizahl an.</p>
+
 					<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 				</div>
 
 			</div>
@@ -1026,7 +1121,9 @@
 
 
 
+
 					<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 				</div>
 
 				<div class="mdl-tooltip" data-init="tooltip">
@@ -1124,7 +1221,9 @@
 
 
 						<p data-message="pattern">Bitte geben Sie eine korrektes Datum an.</p>
+
 						<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 					</div>
 				</div>
 
@@ -1154,6 +1253,7 @@
        id="nationality" placeholder="Staatsangehörigkeit" name="nationality" value="" type="text"
       
        required
+      
       
       
       
@@ -1193,7 +1293,52 @@
 
   
   
+  
   <p data-message="required">Dies ist ein Pflichtfeld</p>
+
+</div>
+
+                  </div>
+              </div>
+              <div class="form__row">
+                  <div class="form__cell ">
+                    <div >
+  <fieldset class="mdl-file_upload" data-init="fileUpload" data-input>
+    <legend class="atm-heading h4">Dokumente hochladen</legend>
+    <p class="mdl-file_upload__subtitle">Hier können Sie ihren Lebenslauf hochladen</p>
+    <input class="visuallyhidden" type="file" name="file1" id="file1" data-file_upload="input" 
+        data-validation
+        required
+    />
+    <div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
+      <p class="mdl-file_upload__dropzone-hint">Zum Hochladen Datei ziehen und hier ablegen.</p>
+      <p class="mdl-file_upload__format-hint">Zulässige Dateiformate: gif, jpeg, png, tiff, svg (max. 25 MB).</p>
+      <label class="mdl-file_upload__button atm-button atm-button--secondary" for="file1">Datei auswählen</label>
+    </div>
+    <p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an.</p>
+    <p class="mdl-file_upload__error" data-message="onlyonefile">Sie können nur 1 Datei gleichzeitig hochladen.</p>
+
+    <div class="mdl-file_upload__list" data-file_upload="list">
+
+    </div>
+
+    <div class="mdl-file_upload__template" data-file_upload="item-template">
+      <div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
+        <div class="mdl-file_upload__file-meta">
+          <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+          <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+          <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+          <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
+        </div>
+        <button class="mdl-file_upload__file-delete" data-file_upload="delete">
+          <span class="visuallyhidden">Datei wieder entfernen</span>
+          <svg class="icon" focusable="false">
+            <use xlink:href="#delete"></use>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </fieldset>
 </div>
 
                   </div>
@@ -1213,6 +1358,7 @@
        id="zip_place_of_birth" placeholder="PLZ" name="zip_place_of_birth" value="" type="text"
       
        required
+      
       
       
       
@@ -1254,7 +1400,9 @@
 
   
   <p data-message="pattern">Bitte geben Sie eine gültige schweizerische Postleizahl an.</p>
+  
   <p data-message="required">Dies ist ein Pflichtfeld</p>
+
 </div>
 
                   </div>
@@ -1282,6 +1430,7 @@
        id="place_of_birth" placeholder="Geburtsort" name="place_of_birth" value="" type="text"
       
        required
+      
       
       
       
@@ -1321,7 +1470,9 @@
 
   
   
+  
   <p data-message="required">Dies ist ein Pflichtfeld</p>
+
 </div>
 
                   </div>
@@ -1405,6 +1556,7 @@
           
           
           
+          
            data-validation
            data-floating
           
@@ -1432,7 +1584,9 @@
     
       
       <p data-message="pattern">Bitte geben Sie eine korrektes Datum an.</p>
+      
       <p data-message="required">Dies ist ein Pflichtfeld</p>
+    
     </div>
 </div>
 

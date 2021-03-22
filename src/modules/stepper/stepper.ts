@@ -270,22 +270,16 @@ class Stepper extends Module {
     } else {
       step.querySelector('.mdl-notification').focus();
     }
+    this.dispatchVerticalResizeEvent();
     this.updateFlyingFocus();
   }
 
-  validateSection() {
+  validateSection(callback) {
     const sections = this.nextStepIsLast() ? [this.ui.lastpage, ...Array.prototype.slice.call(this.ui.steps[this.data.active].querySelectorAll('fieldset'))] : this.ui.steps[this.data.active].querySelectorAll('fieldset');
 
     this.ui.form.removeAttribute('form-has-errors');
 
-    this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
-      detail: {
-        sections,
-      },
-    }));
-
-    // Thats needs a little delay (CZHDEV-1754)
-    setTimeout(() => {
+    const validationCallback = () => {
       const pages = this.nextStepIsLast()
         ? [this.ui.lastpage, this.ui.steps[this.data.active]]
         : [this.ui.steps[this.data.active]];
@@ -304,22 +298,33 @@ class Stepper extends Module {
         // CZHDEV-2740 scroll to top so notification is visible after filling out a long form
         this.scrollTo(this.ui.element, this.options.scrollTopMargin);
       }
-    }, 1);
+      callback();
+    };
+
+    this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
+      detail: {
+        sections,
+        callback: validationCallback,
+      },
+    }));
   }
 
-  changePage(newIndex) {
+  changePage(newIndex): void {
     if (newIndex > this.data.active) {
-      this.validateSection();
+      this.validateSection(() => {
+        if (this.ui.form.hasAttribute('form-has-errors')) {
+          return;
+        }
 
-      if (this.ui.form.hasAttribute('form-has-errors')) {
-        return false;
-      }
+        this.data.active = newIndex;
+        this.ui.steps[newIndex].dispatchEvent(new CustomEvent(Stepper.events.checkRules));
+        this.scrollTop();
+      });
+      return;
     }
     this.data.active = newIndex;
     this.ui.steps[newIndex].dispatchEvent(new CustomEvent(Stepper.events.checkRules));
     this.scrollTop();
-
-    return true;
   }
 
   /**
@@ -345,80 +350,80 @@ class Stepper extends Module {
     const action = form.getAttribute('action');
     let formData = null;
 
-    this.validateSection();
+    this.validateSection(async () => {
+      // Only of no errors are present in the form, it will be sent via ajax
+      if (!this.ui.form.hasAttribute('form-has-errors')) {
+        this.removeHiddenFormElements();
 
-    // Only of no errors are present in the form, it will be sent via ajax
-    if (!this.ui.form.hasAttribute('form-has-errors')) {
-      this.removeHiddenFormElements();
+        formData = new FormData(this.ui.form);
 
-      formData = new FormData(this.ui.form);
+        if (!window.fetch) {
+          await import('whatwg-fetch');
+        }
 
-      if (!window.fetch) {
-        await import('whatwg-fetch');
-      }
+        this.ui.send.classList.add(this.options.stateClasses.buttonLoading);
 
-      this.ui.send.classList.add(this.options.stateClasses.buttonLoading);
+        fetch(action, {
+          method: 'post',
+          body: formData,
+        })
+          .then((response) => {
+            if (!response.ok) {
+              const notifications = this.ui.messageWrapper.querySelectorAll('.mdl-notification');
 
-      fetch(action, {
-        method: 'post',
-        body: formData,
-      })
-        .then((response) => {
-          if (!response.ok) {
+              notifications.forEach((notification) => {
+                notification.remove();
+              });
+
+              this.showNetworkError();
+            }
+
+            this.ui.send.classList.remove(this.options.stateClasses.buttonLoading);
+
+            return response;
+          })
+          .then(async (response) => {
+            const validationErrorStatus = 400;
+            const responseData = await response.json();
+
             const notifications = this.ui.messageWrapper.querySelectorAll('.mdl-notification');
 
             notifications.forEach((notification) => {
               notification.remove();
             });
 
-            this.showNetworkError();
-          }
+            if (response.status === validationErrorStatus || (<any>responseData).validationErrors) {
+              const cleanedValidationErrors = this
+                .cleanValidationErrors((<any>responseData).validationErrors);
 
-          this.ui.send.classList.remove(this.options.stateClasses.buttonLoading);
+              if (cleanedValidationErrors.length > 0) {
+                this.showValidationErrors((<any>responseData).validationErrors);
+              }
+            } else {
+              // successful submission
+              let newPageIndex = this.data.active + 1;
 
-          return response;
-        })
-        .then(async (response) => {
-          const validationErrorStatus = 400;
-          const responseData = await response.json();
+              while (this.ui.steps[newPageIndex].getAttribute('data-enabled') === 'false') {
+                newPageIndex += 1;
+              }
 
-          const notifications = this.ui.messageWrapper.querySelectorAll('.mdl-notification');
+              this.data.active = newPageIndex;
 
-          notifications.forEach((notification) => {
-            notification.remove();
-          });
-
-          if (response.status === validationErrorStatus || (<any>responseData).validationErrors) {
-            const cleanedValidationErrors = this
-              .cleanValidationErrors((<any>responseData).validationErrors);
-
-            if (cleanedValidationErrors.length > 0) {
-              this.showValidationErrors((<any>responseData).validationErrors);
-            }
-          } else {
-            // successful submission
-            let newPageIndex = this.data.active + 1;
-
-            while (this.ui.steps[newPageIndex].getAttribute('data-enabled') === 'false') {
-              newPageIndex += 1;
-            }
-
-            this.data.active = newPageIndex;
-
-            // show service overlay if defined
-            const overlayId = this.ui.wrapper.getAttribute('data-overlay-id');
-            if (overlayId) {
-              const overlay = document.querySelector(`#${overlayId}`);
-              if (overlay) {
-                overlay.dispatchEvent(new CustomEvent('ServiceWrapper.showOverlay'));
+              // show service overlay if defined
+              const overlayId = this.ui.wrapper.getAttribute('data-overlay-id');
+              if (overlayId) {
+                const overlay = document.querySelector(`#${overlayId}`);
+                if (overlay) {
+                  overlay.dispatchEvent(new CustomEvent('ServiceWrapper.showOverlay'));
+                }
               }
             }
-          }
-        })
-        .catch((err) => {
-          this.log('error', err);
-        });
-    }
+          })
+          .catch((err) => {
+            this.log('error', err);
+          });
+      }
+    });
   }
 
   /**

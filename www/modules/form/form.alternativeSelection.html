@@ -1,0 +1,119 @@
+<fieldset class="form__section">
+	<legend class="atm-heading h3 form__section-title">Persönliche Angaben</legend>
+	<div class="form__group ">
+		<div class="form__row">
+			<div class="form__cell ">
+				<div class="mdl-select" data-init="select" data-input>
+					<div class="atm-form_input atm-form_input--floated atm-form_input--trigger
+    ">
+						<button aria-expanded="false" id="" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+							<span class="atm-form_input__trigger-label">Staatsangehörigkeit</span>
+							<span class="atm-form_input__trigger-value"></span>
+							<svg class="icon" focusable="false">
+								<use xlink:href="#angle_drop_down"></use>
+							</svg>
+						</button>
+						<span class="atm-form_input__validate-icon">
+							<span>
+								<span class="visuallyhidden"></span>
+								<svg class="icon" focusable="false">
+									<use xlink:href="#confirm"></use>
+								</svg>
+							</span>
+							<span>
+								<span class="visuallyhidden"></span>
+								<svg class="icon" focusable="false">
+									<use xlink:href="#caution"></use>
+								</svg>
+							</span>
+						</span>
+
+
+
+
+
+
+
+
+
+
+
+						<p data-message="required">Dies ist ein Pflichtfeld</p>
+
+					</div>
+					<div class="mdl-select__options">
+
+
+
+						<ul class="atm-list" tabindex="-1" data-inputtype="radio" tabindex="-1">
+							<li class="atm-list__item">
+								<input name="nationality-x3" type="radio" value="schweiz" placeholder="Schweiz" data-select-option data-validation required>
+
+
+								<label for="radio-">Schweiz</label>
+							</li>
+							<li class="atm-list__item">
+								<input name="nationality-x3" type="radio" value="lichtenstein" placeholder="Lichtenstein" data-select-option data-validation required>
+
+
+								<label for="radio-">Lichtenstein</label>
+							</li>
+							<li class="atm-list__item">
+								<input name="nationality-x3" type="radio" value="andere" placeholder="Andere" data-select-option data-validation required>
+
+
+								<label for="radio-">Andere</label>
+							</li>
+
+						</ul>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="form__row">
+			<div class="form__cell ">
+				<div class="atm-form_input atm-form_input--floated
+  " data-input data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;nationality-x3&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;andere&quot;}],&quot;action&quot;:&quot;show&quot;}]">
+
+
+
+					<input class="atm-form_input__input" id="other_nationality" placeholder="Andere Nationalität" name="other_nationality" value="" type="text" required data-validation data-floating>
+
+
+
+
+					<label for="other_nationality">Andere Nationalität</label>
+					<span class="atm-form_input__validate-icon">
+						<span>
+							<span class="visuallyhidden"></span>
+							<svg class="icon" focusable="false">
+								<use xlink:href="#confirm"></use>
+							</svg>
+						</span>
+						<span>
+							<span class="visuallyhidden"></span>
+							<svg class="icon" focusable="false">
+								<use xlink:href="#caution"></use>
+							</svg>
+						</span>
+					</span>
+
+
+
+
+
+
+					<p data-message="pattern">Bitte geben Sie ihre Nationalität ein</p>
+
+					<p data-message="required">Dies ist ein Pflichtfeld</p>
+
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</fieldset>

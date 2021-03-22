@@ -57,8 +57,11 @@
     font-size: pxToRem($sizeFontTiny);
     font-family: $fontFamilyBlack;
     display: block;
+    margin-bottom: 0;
+  }
 
-    @include sizeCurve(margin-bottom, small);
+  &__suggestions {
+    margin-top: $sizeMini;
   }
 
   &__results {
@@ -67,6 +70,21 @@
     .mdl-service_list__item-title {
       color: $colorBlack;
     }
+
+
+    .mdl-texthighlight {
+      margin-bottom: 1rem;
+
+      h4.atm-heading {
+        padding-bottom: $sizeTiny;
+      }
+
+      .mdl-linklist {
+        .atm-linklist_item {
+          color: rgba($colorText, 0.6);
+        }
+      }
+    }
   }
 
   &__list {
@@ -74,8 +92,7 @@
   }
 
   &__tag-group {
-
-    margin-top: -$sizeMini;
+    @include sizeCurve(margin-top, small);
   }
 
   &__autocorrect {
@@ -115,8 +132,7 @@
 
     .mdl-search_page__no-results {
       display: block;
-
-      @include sizeCurve(margin-top, regular);
+      margin-top: -2rem;
 
       .atm-button {
         background-color: transparent;
