@@ -94,10 +94,21 @@ $triggerWidth: pxToRem(86px);
         color: $colorBlack20;
       }
     }
+
+    &--length-indicator {
+      position: absolute;
+      top: pxToRem(14px);
+      right: pxToRem(21px);
+      z-index: 10;
+
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+      color: $colorBlack60;
+    }
   }
 
   label {
     color: $colorBlack60;
+    //padding-right: pxToRem(24);
   }
 
   /* --------------------
