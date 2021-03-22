@@ -1,22 +1,23 @@
 import Stepper from '../../../modules/stepper/stepper';
+import FormGlobalHelper from './form';
 
 class FormRules {
   private ui: {
     owner: HTMLElement,
     form: HTMLFormElement,
     step: HTMLDivElement,
-  }
+  };
 
   private options: {
     domSelectors: any,
     stateClasses: any,
     isStep: boolean,
-  }
+  };
 
   private data: {
     stepIndex: number,
     watchesOtherStep: boolean,
-  }
+  };
 
   private rules: any;
 
@@ -282,6 +283,19 @@ class FormRules {
                 this.checkRules();
               });
             }
+            if (field.hasAttribute('data-live')) {
+              let checkLock = false;
+              field.addEventListener('keyup', () => {
+                if (!checkLock) {
+                  // Block checks inside safety interval to prevent browser performance issues
+                  checkLock = true;
+                  setTimeout(() => {
+                    this.checkRules();
+                    checkLock = false;
+                  }, 500); // eslint-disable-line
+                }
+              });
+            }
           }
         }
       }
@@ -293,6 +307,7 @@ class FormRules {
     const rulesResult = [];
     const { action } = this.rules[0];
 
+
     for (let i = 0; i < this.rules.length; i += 1) {
       let conditionsMet = true;
       const rule = this.rules[i];
@@ -302,16 +317,68 @@ class FormRules {
         let querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
         let correctField = null;
 
-        if (condition.value) {
-          querySelector = `${querySelector}[value="${condition.value}"]`;
+        if (condition.equals) {
+          if (condition.value) {
+            querySelector = `${querySelector}[value="${condition.value}"]`;
+          }
+
+          correctField = this.ui.form.querySelector(querySelector);
+
+          if (typeof correctField !== typeof undefined && correctField) {
+            if ((condition.equals && !correctField.checked)
+              || (!condition.equals && correctField.checked)) {
+              conditionsMet = false;
+            }
+          }
         }
 
-        correctField = this.ui.form.querySelector(querySelector);
+        if (condition.compare) {
+          let compareModeDate = false;
+          let value = this.ui.form.querySelector(querySelector).value.replace('\'', '');
+          conditionsMet = false;
 
-        if (typeof correctField !== typeof undefined && correctField) {
-          if ((condition.equals && !correctField.checked)
-            || (!condition.equals && correctField.checked)) {
-            conditionsMet = false;
+          if (isNaN(value)) { // eslint-disable-line
+            value = FormGlobalHelper.ParseDateTimeString(value);
+            compareModeDate = true;
+          }
+
+          const parseValue = (val) => {
+            // check if there is an age comparison required
+            if (condition.compareAge) {
+              return FormGlobalHelper.CurrentDateAgeDifference(val);
+            }
+            if (compareModeDate) {
+              return FormGlobalHelper.ParseDateTimeString(val);
+            }
+            return parseFloat(val);
+          };
+
+          if (!isNaN(value)) { // eslint-disable-line
+            const valueNumeric = parseFloat(value);
+            switch (condition.compare) {
+              case 'greater':
+                if (valueNumeric > parseValue(condition.value)) {
+                  conditionsMet = true;
+                }
+                break;
+              case 'less':
+                if (valueNumeric < parseValue(condition.value)) {
+                  conditionsMet = true;
+                }
+                break;
+              case 'greaterEqual':
+                if (valueNumeric >= parseValue(condition.value)) {
+                  conditionsMet = true;
+                }
+                break;
+              case 'lessEqual':
+                if (valueNumeric <= parseValue(condition.value)) {
+                  conditionsMet = true;
+                }
+                break;
+              default:
+                conditionsMet = false;
+            }
           }
         }
       }

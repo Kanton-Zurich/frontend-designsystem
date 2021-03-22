@@ -697,6 +697,347 @@ const personType2 = {
   ],
 };
 
+const compareValue = {
+  rows: [
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.unitLeftWithFloating.props,
+            {
+              isFloatingLabel: true,
+              label: 'Zahleneingabe',
+              name: 'compare_text',
+              uuid: 'compare_text',
+              type: 'text',
+              liveUpdate: true,
+              validation: {
+                isRequired: true,
+                errorMsg: 'Bitte gültigen Wert eingeben',
+              },
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Vergleichswert grösser als 100',
+              name: 'compare_greater',
+              uuid: 'compare_greater',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_text',
+                      compare: 'greater',
+                      value: '100',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Vergleichswert grösser-gleich 100',
+              name: 'compare_greater_equal',
+              uuid: 'compare_greater_equal',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_text',
+                      compare: 'greaterEqual',
+                      value: '100',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Vergleichswert kleiner als 100',
+              name: 'compare_less',
+              uuid: 'compare_less',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_text',
+                      compare: 'less',
+                      value: '100',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Vergleichswert kleiner-gleich 100',
+              name: 'compare_less_equal',
+              uuid: 'compare_less_equal',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_text',
+                      compare: 'lessEqual',
+                      value: '100',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+
+      ],
+    },
+  ],
+};
+
+const compareDate = {
+  rows: [
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+            datepickerData.variants.defaultDate.props,
+            {
+              formInputData: {
+                name: 'compare_date',
+                uuid: 'compare_date',
+                liveUpdate: true,
+              },
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Zeitpunkt jünger als 20.02.2021',
+              name: 'compare_date_greater',
+              uuid: 'compare_date_greater',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_date',
+                      compare: 'greater',
+                      value: '20.02.2021',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Zeitpunkt jünger als oder gleich wie 20.02.2021',
+              name: 'compare_date_greater_equal',
+              uuid: 'compare_date_greater_equal',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_date',
+                      compare: 'greaterEqual',
+                      value: '20.02.2021',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Zeitpunkt älter als 20.02.2021',
+              name: 'compare_date_less',
+              uuid: 'compare_date_less',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_date',
+                      compare: 'less',
+                      value: '20.02.2021',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Zeitpunkt älter als oder gleich wie 20.02.2021',
+              name: 'compare_date_less_equal',
+              uuid: 'compare_date_less_equal',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_date',
+                      compare: 'lessEqual',
+                      value: '20.02.2021',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+  ],
+};
+
+const compareAge = {
+  rows: [
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+            datepickerData.variants.defaultDate.props,
+            {
+              formInputData: {
+                name: 'compare_age',
+                uuid: 'compare_age',
+                liveUpdate: true,
+              },
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Älter oder mindestens 18 Jahre',
+              name: 'compare_age_older_18',
+              uuid: 'compare_age_older_18',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_age',
+                      compare: 'lessEqual',
+                      compareAge: true,
+                      value: '18',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Jünger 18 Jahre',
+              name: 'compare_younger_18',
+              uuid: 'compare_younger_18',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_age',
+                      compare: 'greater',
+                      compareAge: true,
+                      value: '18',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+  ],
+};
+
 const selectionAlternative = {
   rows: [
     {
@@ -2806,6 +3147,39 @@ const variants = _.mapValues({
     props: {
       groups: [
         duplicateGroup,
+      ],
+    },
+  },
+  valueCompare: {
+    meta: {
+      title: 'Vergleichsbediungen',
+      desc: '',
+    },
+    props: {
+      groups: [
+        compareValue,
+      ],
+    },
+  },
+  dateCompare: {
+    meta: {
+      title: 'Datumsvergleichsbediung',
+      desc: '',
+    },
+    props: {
+      groups: [
+        compareDate,
+      ],
+    },
+  },
+  ageCompare: {
+    meta: {
+      title: 'Altersvergleich',
+      desc: '',
+    },
+    props: {
+      groups: [
+        compareAge,
       ],
     },
   },
