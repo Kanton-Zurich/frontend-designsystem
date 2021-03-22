@@ -15,21 +15,21 @@
 
 		</div>
 
-		<script type="text/x-handlebars-template" data-file_upload="item-template">
+		<div class="mdl-file_upload__template" data-file_upload="item-template">
 			<div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
-        <div class="mdl-file_upload__file-meta">
-          <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
-          <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
-          <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
-          <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
-        </div>
-        <button class="mdl-file_upload__file-delete" data-file_upload="delete">
-          <span class="visuallyhidden">Datei wieder entfernen</span>
-          <svg class="icon" focusable="false">
-            <use xlink:href="#delete"></use>
-          </svg>
-        </button>
-      </div>
-    </script>
+				<div class="mdl-file_upload__file-meta">
+					<span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+					<span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+					<p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+					<p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
+				</div>
+				<button class="mdl-file_upload__file-delete" data-file_upload="delete">
+					<span class="visuallyhidden">Datei wieder entfernen</span>
+					<svg class="icon" focusable="false">
+						<use xlink:href="#delete"></use>
+					</svg>
+				</button>
+			</div>
+		</div>
 	</fieldset>
 </div>
