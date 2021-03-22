@@ -797,6 +797,28 @@ const variants = _.mapValues({
               }],
             },
             {
+              fields: [
+                {
+                  cellContent: () => {
+                    return `
+                    <div class="mdl-richtext">
+                      <h3 class="atm-heading">Test titel</h3>
+                      <p class="atm-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                      <ul>
+                        <li>P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.</li>
+                        <li>Koordinaten begegnen uns täglich. <ul>
+                            <li>P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.</li>
+                            <li>Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt.</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                    `;
+                  },
+                },
+              ],
+            },
+            {
               fields: [{
                 cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
                   formInputData.variants.default.props,
