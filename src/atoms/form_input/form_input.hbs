@@ -63,7 +63,11 @@
       {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
       {{#if validation}} data-validation{{/if}}
       {{#if isFloatingLabel}} data-floating{{/if}}
+      {{#if inputLengthRestriction}} maxlength="{{inputLengthRestriction}}"{{/if}}
       ></textarea>
+    {{#if inputLengthRestriction}}
+      <div class="atm-form_input__length-indicator">0/{{inputLengthRestriction}}</div>
+    {{/if}}
   {{/if}}
 
   {{# if isInput}}

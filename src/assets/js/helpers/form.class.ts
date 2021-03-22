@@ -29,6 +29,7 @@ class Form {
       backdrop: string;
       radiogroup: string;
       radiobutton: string;
+      lengthIndicator: string;
     };
     messageSelector: string,
     autofillSelector: string,
@@ -68,6 +69,7 @@ class Form {
         backdrop: '.atm-form_input__backdrop',
         radiogroup: '.form__fieldset-list',
         radiobutton: '.atm-radiobutton',
+        lengthIndicator: '.atm-form_input__length-indicator',
       },
       messageSelector: '[data-message]',
       autofillSelector: '[data-autofill]',
@@ -252,6 +254,13 @@ class Form {
       }
     }
     this.onInputMask(domElement, oldValue, newValue);
+
+    if (domElement.hasAttribute('maxlength')) {
+      const maxLength = domElement.getAttribute('maxlength');
+      if (newValue.length <= maxLength) {
+        domElement.parentElement.querySelector(this.options.domSelectors.lengthIndicator).innerHTML = `${newValue.length}/${maxLength}`;
+      }
+    }
   }
 
   /**
