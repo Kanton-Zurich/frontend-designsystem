@@ -82,6 +82,7 @@ class SearchPage extends Module {
         dateFilter: '[data-search_page="dateFilter"]',
         datePicker: '[data-init="datepicker"]',
         force: '[data-search_page="force"]',
+        alternativeTerm: '[data-search_page="alternativeTerm"]',
         autocorrect: '[data-search_page="autocorrect"]',
         notification: '.mdl-search_page__notification',
         noResults: '.mdl-search_page__no-results',
@@ -145,6 +146,11 @@ class SearchPage extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.force, (event, delegate) => {
       this.ui.input.value = delegate.textContent;
       this.onQueryChange(null, null, delegate.textContent, true, true);
+    });
+
+    this.eventDelegate.on('click', this.options.domSelectors.alternativeTerm, (event, delegate) => {
+      this.ui.input.value = delegate.querySelector('span span').textContent;
+      this.onQueryChange(null, null, delegate.querySelector('span span').textContent, true, true);
     });
 
     this.eventDelegate.on('keydown', this.options.domSelectors.force, (event, delegate) => {
@@ -247,6 +253,7 @@ class SearchPage extends Module {
         this.renderResults();
       } else {
         this.showNoResults(true);
+        this.renderHead();
       }
       this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
     });
@@ -336,6 +343,7 @@ class SearchPage extends Module {
         this.renderResults(true);
       } else {
         this.showNoResults(true);
+        this.renderHead();
       }
     });
   }
@@ -359,6 +367,7 @@ class SearchPage extends Module {
         this.scrollTop();
       } else {
         this.showNoResults(true);
+        this.renderHead();
       }
     });
   }
@@ -373,7 +382,7 @@ class SearchPage extends Module {
         if (response.status !== 200 && response.status !== 204 ) { // eslint-disable-line
           throw new Error('Error fetching resource!');
         }
-        return response.status === 204 ? {} : response.json(); // eslint-disable-line
+        return response.json(); // eslint-disable-line
       })
       .then((response: any) => {
         if (response) {
@@ -409,12 +418,14 @@ class SearchPage extends Module {
   }
 
   renderHead() {
-    const autocorrection = {
+    const templateData = {
       originalTerm: this.query,
       autocorrectedTerm: this.result.autoCorrectedTerm ? this.result.autoCorrectedTerm : '',
+      didYouMean: this.result.didYouMean ? this.result.didYouMean : null,
+      ...this.result.resultsData,
     };
     const compiledTemplate = template(this.ui.resultsHeadTemplate.innerHTML);
-    const generatedHTML = compiledTemplate({ ...this.result.resultsData, ...autocorrection });
+    const generatedHTML = compiledTemplate({ ...templateData });
     const parsedHTML = new DOMParser().parseFromString(generatedHTML, 'text/html').querySelector('div');
 
     this.ui.resultsHead.innerHTML = '';
@@ -436,7 +447,7 @@ class SearchPage extends Module {
       this.setDatepickerInput();
     }
 
-    if (autocorrection.autocorrectedTerm !== '') {
+    if (templateData.autocorrectedTerm !== '') {
       parsedHTML.querySelector(this.options.domSelectors.autocorrect).style.display = 'inline';
     }
   }
@@ -564,6 +575,7 @@ class SearchPage extends Module {
           this.renderResults();
         } else {
           this.showNoResults(true);
+          this.renderHead();
         }
       });
     }

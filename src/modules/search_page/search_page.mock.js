@@ -58,6 +58,8 @@ const data = {
       typeLabel: 'Veranstaltungen',
     }],
   },
+  didYouMean: ['Schule', 'Scuol', 'Schuhe'],
+  similarTerms: ['Schulferien Kalender', 'Schulzulassungprüfung', 'Schulpflege'],
   autoCorrectedTerm: 'Zürich',
 };
 
