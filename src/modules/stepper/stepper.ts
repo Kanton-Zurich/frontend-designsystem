@@ -270,6 +270,7 @@ class Stepper extends Module {
     } else {
       step.querySelector('.mdl-notification').focus();
     }
+    this.dispatchVerticalResizeEvent();
     this.updateFlyingFocus();
   }
 
