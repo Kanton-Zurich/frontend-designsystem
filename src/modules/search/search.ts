@@ -90,7 +90,7 @@ class Search extends Module {
     this.ui.form.addEventListener('submit', (event) => {
       event.preventDefault();
       event.stopPropagation();
-      window.location.href = `${this.options.searchPageUrl}?q=${escape(this.ui.input.value)}`;
+      window.location.href = `${this.options.searchPageUrl}?q=${encodeURIComponent(this.ui.input.value)}`;
     });
   }
 
