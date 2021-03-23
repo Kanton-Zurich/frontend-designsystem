@@ -32,7 +32,7 @@
       <% } else { %>
       <h2 class="mdl-search_page__counter">Keine Ergebnisse</h2>
       <% } %>
-      <% if (didYouMean) { %>
+      <% if (didYouMean && didYouMean.length > 0) { %>
       <div class="mdl-search_page__suggestions">Meinten Sie:
         <% _.forEach(didYouMean, function(suggestion, index) { %>
         <a class="atm-text_link" role="button" data-search_page="force"><%- suggestion %></a>&nbsp;
