@@ -30,6 +30,7 @@ class Form {
       radiogroup: string;
       radiobutton: string;
       lengthIndicator: string;
+      validateIcon: string;
     };
     messageSelector: string,
     autofillSelector: string,
@@ -70,6 +71,7 @@ class Form {
         radiogroup: '.form__fieldset-list',
         radiobutton: '.atm-radiobutton',
         lengthIndicator: '.atm-form_input__length-indicator',
+        validateIcon: '.atm-form_input__validate-icon',
       },
       messageSelector: '[data-message]',
       autofillSelector: '[data-autofill]',
@@ -386,6 +388,13 @@ class Form {
 
     if (field.hasAttribute(this.options.selectOptionSelector)) {
       fieldType = 'selectOption';
+    }
+
+    if (field.hasAttribute('data-validation') && field.hasAttribute('maxlength')) {
+      const validateIcon = field.parentElement.querySelector(
+        this.options.domSelectors.validateIcon,
+      );
+      validateIcon.classList.add('atm-form_input__validate-icon--textarea');
     }
 
     switch (fieldType) {
