@@ -53,6 +53,13 @@ const data = _.merge({}, defaultData, {
           ],
         },
       },
+      serviceButtonData: {
+        title: 'Service Titel',
+        buttonTitle: 'Modal Test',
+        serviceLink: '../../modules/service_list/service_page.mock.html',
+        href: '../../pages/service/service.html',
+        modalData: { modalId: 'service-modal0' },
+      },
       footerData: defFooterData,
       back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
     },
