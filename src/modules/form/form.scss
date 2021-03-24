@@ -168,22 +168,21 @@ $gapSize: pxToRem($sizeRegular);
   }
 
   &__fieldset-list {
-
     .atm-radiobutton {
-      margin-bottom: 0;
+      display: block;
+      padding-right: 0;
+      margin-bottom: 0.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
-    &--vertical {
-      display: flex;
-      flex-direction: column;
-
+    &--horizontal {
       .atm-radiobutton {
-        padding-right: 0;
-        margin-bottom: 0.5rem;
-
-        &:last-child {
-          margin-bottom: 0;
-        }
+        margin-bottom: 0;
+        display: inline-flex;
+        padding-right: 1rem;
       }
     }
   }

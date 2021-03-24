@@ -41,7 +41,7 @@ const variants = _.mapValues({
       dynamicHeader: true,
       modules: {
         servicePageHeaderData: {
-          pageTitle: 'Führerausweis bestellen',
+          pageTitle: 'Dienstleistungen zur Steuerrechnung beantragen',
           inverted: true,
           hasImageTitle: false,
           hasVideo: false,

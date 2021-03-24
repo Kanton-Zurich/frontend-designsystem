@@ -21,6 +21,7 @@ class Form {
     eventEmitters: any,
     inputClasses: any,
     validateDelay: number,
+    resizeDelay: number,
     messageClasses: any,
     radiogroupClasses: any,
     domSelectors: {
@@ -49,6 +50,7 @@ class Form {
 
     this.options = {
       validateDelay: 400,
+      resizeDelay: 200,
       padding: 16,
       eventEmitters: {
         clearButton: '[data-buttontype="clear"]',
@@ -79,7 +81,7 @@ class Form {
         show: 'show',
       },
       radiogroupClasses: {
-        vertical: 'form__fieldset-list--vertical',
+        horizontal: 'form__fieldset-list--horizontal',
       },
       duplicateSelector: '[data-form="duplicatable"]',
     };
@@ -282,9 +284,20 @@ class Form {
   onResize() {
     const radiogroups = this.ui.element.querySelectorAll(this.options.domSelectors.radiogroup);
 
-    radiogroups.forEach((radiogroup) => {
+    radiogroups.forEach((radiogroup: HTMLElement) => {
       const options = radiogroup.querySelectorAll(this.options.domSelectors.radiobutton);
-      radiogroup.classList.remove(this.options.radiogroupClasses.vertical);
+      radiogroup.classList.add(this.options.radiogroupClasses.horizontal);
+      if (!radiogroup.hasAttribute('data-resizing')) {
+        radiogroup.setAttribute('data-resizing', '');
+        setTimeout(() => {
+          radiogroup.style.removeProperty('height');
+          const { height } = radiogroup.getBoundingClientRect();
+          if (height > 0) {
+            radiogroup.style.height = `${height}px`;
+          }
+          radiogroup.removeAttribute('data-resizing');
+        }, this.options.resizeDelay);
+      }
 
       if (options.length > 1) {
         const firstItemTop = options[0].getBoundingClientRect().top;
@@ -292,7 +305,7 @@ class Form {
 
         for (i = 1; i < options.length; i += 1) {
           if (firstItemTop < options[i].getBoundingClientRect().top) {
-            radiogroup.classList.add(this.options.radiogroupClasses.vertical);
+            radiogroup.classList.remove(this.options.radiogroupClasses.horizontal);
             break;
           }
         }

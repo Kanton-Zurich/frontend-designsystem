@@ -20,6 +20,9 @@ const tabsHBS = dataHelper.getFileContent('../tabs/tabs.hbs');
 const biometrieHBS = dataHelper.getFileContent('../biometrie_appointment/biometrie_appointment.hbs');
 const texthighlightHBS = dataHelper.getFileContent('../texthighlight/texthighlight.hbs');
 
+const stepperHBS = dataHelper.getFileContent('../stepper/stepper.hbs');
+const defStepperData = require('../stepper/stepper.data').variants.default.props;
+
 const template = dataHelper.getFileContent('instructions.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -155,6 +158,11 @@ const variants = _.mapValues({
             ],
           }),
           () => handlebars.compile(tabsHBS)(defTabsData),
+        ],
+      }, {
+        heading: 'Test',
+        contentModules: [
+          () => handlebars.compile(stepperHBS)(defStepperData),
         ],
       },
       ],
