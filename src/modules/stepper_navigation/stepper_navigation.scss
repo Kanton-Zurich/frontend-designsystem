@@ -22,10 +22,7 @@ $stepperNavigationMobileStepTitleBottom: 22px;
 
   .mdl-stepper_navigation__step--active .mdl-stepper_navigation__step-title {
     display: block;
-    position: absolute;
-    bottom: -$stepperNavigationMobileStepTitleBottom;
     width: 100%;
-    left: 0;
   }
 }
 
@@ -41,12 +38,6 @@ $stepperNavigationMobileStepTitleBottom: 22px;
 
   @include mq($to: medium) {
     padding-bottom: pxToRem($sizeRegular * $sizeLineHeightBase);
-
-    .mdl-stepper_navigation__step:first-of-type {
-      .mdl-stepper_navigation__step-title {
-        text-align: left;
-      }
-    }
 
     @include mobileOrdinalStyles();
   }
@@ -73,9 +64,6 @@ $stepperNavigationMobileStepTitleBottom: 22px;
     background: $colorBlack20;
 
     @include polyFluidSizing(top, map-get($stepperNavigationCurves, greyline));
-    @include mq($to: small) {
-      top: 25%;
-    }
   }
 
   &__step {
