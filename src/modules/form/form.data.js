@@ -1614,6 +1614,34 @@ const variants = _.mapValues({
             },
             ],
           },
+          {
+            fields: [{
+              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                formInputData.variants.unitLeftWithFloating.props,
+                {
+                  isFloatingLabel: true,
+                  label: 'Jahreseinkommen',
+                  name: 'income_assets',
+                  uuid: 'income_assets',
+                  validation: {
+                    isRequired: false,
+                  },
+                })),
+            },
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.unitLeftWithFloating.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Vermögen',
+                    name: 'assets',
+                    uuid: 'assets',
+                    validation: {
+                      isRequired: false,
+                    },
+                  })),
+              }],
+          },
         ],
       },
       ],
