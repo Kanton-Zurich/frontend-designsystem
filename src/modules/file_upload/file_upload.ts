@@ -103,13 +103,13 @@ class FileUpload extends Module {
   initDuplicatedUpload() {
     this.ui.element.classList.add(this.options.stateClasses.duplicated);
 
-    this.ui.input.setAttribute('id', `${this.data.htmlAttributes.id}_${this.data.counter}`);
-    this.ui.input.setAttribute('name', `${this.data.htmlAttributes.name}_${this.data.counter}`);
+    this.ui.input.setAttribute('id', `${this.data.htmlAttributes.id}_multiupload_${this.data.counter}`);
+    this.ui.input.setAttribute('name', `${this.data.htmlAttributes.name}_multiupload_${this.data.counter}`);
 
     const allForElements = this.ui.element.querySelectorAll('[for]');
 
     allForElements.forEach((elementWithFor) => {
-      elementWithFor.setAttribute('for', `${this.data.htmlAttributes.id}_${this.data.counter}`);
+      elementWithFor.setAttribute('for', `${this.data.htmlAttributes.id}_multiupload_${this.data.counter}`);
     });
   }
 
