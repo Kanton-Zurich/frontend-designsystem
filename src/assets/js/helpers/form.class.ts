@@ -286,9 +286,10 @@ class Form {
   }
 
   /**
-   * Update radio group wrapping on resize
+   * Update radio group wrapping and form-input-unit on resize
    */
   onResize() {
+    this.initPrefix();
     const radiogroups = this.ui.element.querySelectorAll(this.options.domSelectors.radiogroup);
 
     radiogroups.forEach((radiogroup) => {

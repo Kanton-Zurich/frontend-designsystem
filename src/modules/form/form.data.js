@@ -1614,6 +1614,34 @@ const variants = _.mapValues({
             },
             ],
           },
+          {
+            fields: [{
+              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                formInputData.variants.unitLeftWithFloating.props,
+                {
+                  isFloatingLabel: true,
+                  label: 'Jahreseinkommen',
+                  name: 'income_assets',
+                  uuid: 'income_assets',
+                  validation: {
+                    isRequired: false,
+                  },
+                })),
+            },
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.unitLeftWithFloating.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Vermögen',
+                    name: 'assets',
+                    uuid: 'assets',
+                    validation: {
+                      isRequired: false,
+                    },
+                  })),
+              }],
+          },
         ],
       },
       ],
@@ -2806,12 +2834,15 @@ const variants = _.mapValues({
               fields: [
                 {
                   cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                    formInputData.variants.default.props,
+                    formInputData.variants.unitLeftWithFloating.props,
                     {
                       isFloatingLabel: true,
-                      label: 'Feld 2',
-                      name: 'dummy_2',
-                      uuid: 'dummy_2',
+                      label: 'Jahreseinkommen',
+                      name: 'income_assets',
+                      uuid: 'income_assets',
+                      validation: {
+                        isRequired: false,
+                      },
                     })),
                 },
               ],

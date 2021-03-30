@@ -3,24 +3,41 @@
 	<div class="form__group ">
 		<div class="form__row">
 			<div class="form__cell ">
-				<div class="atm-form_input atm-form_input--floated
+				<div class="atm-form_input atm-form_input--floated atm-form_input--unitLeft
   " data-input>
 
 
 
-					<input class="atm-form_input__input" id="dummy_2" placeholder="Feld 2" name="dummy_2" value="" type="text" data-floating>
+					<input class="atm-form_input__input" data-pattern="^[+-]?((\.\d+)|([\d&#x27;]+(\.\d+)?))$" id="income_assets" placeholder="Jahreseinkommen" name="income_assets" value="" type="text" data-validation data-floating data-input-mask="currency">
 
 
 
 
-					<label for="dummy_2">Feld 2</label>
+					<label for="income_assets">Jahreseinkommen</label>
+					<span class="atm-form_input__validate-icon">
+						<span>
+							<span class="visuallyhidden"></span>
+							<svg class="icon" focusable="false">
+								<use xlink:href="#confirm"></use>
+							</svg>
+						</span>
+						<span>
+							<span class="visuallyhidden"></span>
+							<svg class="icon" focusable="false">
+								<use xlink:href="#caution"></use>
+							</svg>
+						</span>
+					</span>
 
 
 
+					<span class="atm-form_input__unit atm-form_input__unit--left">
+						CHF
+					</span>
 
 
 
-
+					<p data-message="pattern">Hier muss eine Ganzzahl oder eine Gleitkommazahl eingegeben werden!</p>
 
 
 
