@@ -219,6 +219,11 @@ $triggerWidth: pxToRem(86px);
     }
   }
 
+  &__validate-icon--textarea {
+    top: pxToRem(35px);
+    right: pxToRem(21px);
+  }
+
   &__functionality {
     display: none;
     line-height: 0;
