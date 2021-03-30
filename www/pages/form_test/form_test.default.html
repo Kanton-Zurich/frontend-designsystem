@@ -563,27 +563,15 @@
 								<div class="mdl-page-header__breadcrumb">
 									<nav>
 										<h2 class="visuallyhidden">Sie sind hier: </h2>
-										<ol class="mdl-breadcrumb " data-init="breadcrumb">
+										<ol class="mdl-breadcrumb mdl-breadcrumb--backlink" data-init="breadcrumb">
 											<li class="mdl-breadcrumb__item
             mdl-breadcrumb__item--main
-            
+            mdl-breadcrumb__item--active
           " data-index="0" data-breadcrumb="item">
 												<svg class="icon mdl-breadcrumb__arrow-left" focusable="false">
 													<use xlink:href="#arrow-left"></use>
 												</svg>
-												<a class="mdl-breadcrumb__link" href="#">Kanton Zürich</a>
-											</li>
-											<li class="mdl-breadcrumb__item
-            
-            mdl-breadcrumb__item--active
-          " data-index="1" data-breadcrumb="item">
-												<svg class="icon" focusable="false">
-													<use xlink:href="#angle_right"></use>
-												</svg>
-												<svg class="icon mdl-breadcrumb__arrow-left" focusable="false">
-													<use xlink:href="#arrow-left"></use>
-												</svg>
-												<span class="mdl-breadcrumb__link">Suche</span>
+												<a class="mdl-breadcrumb__link" href="#">Zurück zur Übersicht</a>
 											</li>
 											<li class="mdl-breadcrumb__item mdl-breadcrumb__hidden-items" data-breadcrumb="ellipsis">
 												<svg class="icon" focusable="false">
@@ -600,14 +588,11 @@
 										</ol>
 									</nav>
 								</div>
-								<h1 class="atm-heading mdl-page-header__title">Suche</h1>
+								<h1 class="atm-heading mdl-page-header__title">Form Test</h1>
 							</div>
 						</div>
 						<div class="grid-x grid-margin-x">
 							<div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
-								<p class="atm-lead">
-									<strong></strong>
-								</p>
 
 
 							</div>
@@ -619,276 +604,743 @@
 				</header>
 			</div>
 			<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-				<div class="mdl-search_page" data-init="searchPage" data-search-page-options="{&quot;url&quot;:&quot;/mocks/modules/search_page/search_page.json&quot;,&quot;autosuggestURL&quot;:&quot;/mocks/modules/search/search.json&quot;}" data-search-no-results="Keine Ergebnisse zu «<%- searchTerm %>» gefunden.">
-					<form novalidate class="mdl-search_page__form" data-search_page="form">
-						<div class="atm-form_input
-          atm-form_input--search" data-input>
+				<h2 class="atm-heading">From Section 1</h2>
+				<form novalidate>
+					<fieldset class="form__section">
+						<legend class="atm-heading h3 form__section-title">Persönliche Angaben</legend>
+						<div class="form__group ">
+							<div class="form__row">
+								<div class="form__cell ">
+									<div>
+										<fieldset class="mdl-file_upload" data-init="fileUpload" data-input>
+											<legend class="atm-heading h4">Dokumente hochladen</legend>
+											<p class="mdl-file_upload__subtitle">Hier können Sie ihre Dokumente hochladen</p>
+											<input class="visuallyhidden" type="file" name="file2" id="file2" data-file_upload="input" data-multiple data-validation data-max-size="26214400" data-file-types="text/csv, image/gif, text/html, image/jpeg, application/pdf, image/png, image/tiff, application/rtf, image/svg+xml, text/plain, application/xml" required />
+											<div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
+												<p class="mdl-file_upload__dropzone-hint">Zum Hochladen Dateien ziehen und hier ablegen.</p>
+												<p class="mdl-file_upload__format-hint">Zulässige Dateiformate: gif, jpeg, png, tiff, svg (max. 25 MB).</p>
+												<label class="mdl-file_upload__button atm-button atm-button--secondary" for="file2">Dateien auswählen</label>
+											</div>
+											<p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an.</p>
+											<p class="mdl-file_upload__error" data-message="onlyonefile">Sie können nur 1 Datei gleichzeitig hochladen.</p>
 
+											<div class="mdl-file_upload__list" data-file_upload="list">
 
+											</div>
 
-							<input class="atm-form_input__input" id="input_search" placeholder="Suche" name="input_search" value="" type="text" data-search_page="input" autocomplete="off" data-hasbutton="true" autocomplete="new-password">
-
-
-
-
-							<label for="input_search">Suche</label>
-
-							<button class="atm-form_input__functionality" type="button" data-buttontype="clear">
-								<span class="visuallyhidden">Lösche Eingabe</span>
-								<svg class="icon" focusable="false">
-									<use xlink:href="#clear"></use>
-								</svg>
-							</button>
-
-
-
-
-
-
-
-
-
-						</div>
-					</form>
-
-					<div class="
-        mdl-content_nav
-        
-          
-          
-         mdl-search__autosuggest mdl-content_nav--single-column initially-hidden" data-init="contentNav" aria-live="polite" data-search_page="autosuggest">
-						<ul class="mdl-content_nav__list">
-						</ul>
-
-					</div>
-
-					<div class="mdl-search_page__results-wrapper" data-search_page="wrapper" aria-live="polite">
-						<div class="mdl-search_page__results-head" data-search_page="resultsHead">
-						</div>
-						<div class="mdl-search_page__notification hidden">
-							<div class="mdl-notification
-            
-            
-            ">
-								<svg class="icon" focusable="false">
-									<use xlink:href="#caution"></use>
-								</svg>
-								<div class="mdl-notification__message">
-
-									<p>Beim Laden der Daten ist ein Fehler aufgetreten!</p>
-								</div>
-							</div>
-						</div>
-						<form novalidate="true" data-search_page="dateFilter" class="mdl-search_page__date-filter">
-							<div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="date-range" data-localization="de">
-								<div class="atm-form_input atm-form_input--floated atm-form_input--icon
-                " data-input>
-
-
-
-									<input class="atm-form_input__input" data-pattern="^\d{2}.\d{2}.\d{4}\s-\s\d{2}.\d{2}.\d{4}$" id="date-range-113" placeholder="Zeitraum von/bis" name="input_name" value="" type="text" data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d - ]\-[\d- ] [\d ]\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d" data-mask-placeholder="TT.MM.JJJJ - TT.MM.JJJJ">
-
-
-
-									<span class="atm-form_input__backdrop">
-										<i></i>TT.MM.JJJJ - TT.MM.JJJJ
-									</span>
-
-									<label for="date-range-113">Zeitraum von/bis</label>
-
-
-									<svg class="icon" focusable="false">
-										<use xlink:href="#calendar"></use>
-									</svg>
-
-
-
-
-									<p data-message="pattern">Bitte geben Sie eine korrekte Zeitspanne an.</p>
-
-
+											<div class="mdl-file_upload__template" data-file_upload="item-template">
+												<div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
+													<div class="mdl-file_upload__file-meta">
+														<span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+														<span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+														<p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+														<p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
+													</div>
+													<button class="mdl-file_upload__file-delete" data-file_upload="delete">
+														<span class="visuallyhidden">Datei wieder entfernen</span>
+														<svg class="icon" focusable="false">
+															<use xlink:href="#delete"></use>
+														</svg>
+													</button>
+												</div>
+											</div>
+										</fieldset>
+									</div>
 
 								</div>
 							</div>
-						</form>
-						<h2 class="visuallyhidden">Gefundene Resultate:</h2>
-						<div class="mdl-search_page__results" data-search_page="results">
+
 						</div>
-						<div class="atm-loading_circle">
-							<span class="atm-loading_circle__spinner"></span>
-						</div>
-						<div class="mdl-pagination " data-init="pagination" data-pagecount="">
-							<h class="visuallyhidden">Seiten Navigation</h>
-							<div class="mdl-pagination__input atm-form_input atm-form_input--small">
-								<label class="visuallyhidden" for="pagination_input_field">Seite</label>
-								<input id="pagination_input_field" class="atm-form_input__input" value="1" type="number" aria-describedby="paginationCountDescr">
+					</fieldset>
+				</form>
+				<h2 class="atm-heading">From Section 2</h2>
+				<form novalidate>
+					<fieldset class="form__section">
+						<legend class="atm-heading h3 form__section-title">Persönliche Angaben</legend>
+						<div class="form__group form__group--duplicatable" data-form="duplicatable" data-max-duplications="1">
+							<div class="form__row">
+								<div class="form__cell ">
+									<div class="atm-form_input atm-form_input--floated
+        " data-input>
+
+
+
+										<input class="atm-form_input__input" id="nationality" placeholder="Staatsangehörigkeit" name="nationality" value="" type="text" required data-validation data-floating>
+
+
+
+
+										<label for="nationality">Staatsangehörigkeit</label>
+										<span class="atm-form_input__validate-icon">
+											<span>
+												<span class="visuallyhidden"></span>
+												<svg class="icon" focusable="false">
+													<use xlink:href="#confirm"></use>
+												</svg>
+											</span>
+											<span>
+												<span class="visuallyhidden"></span>
+												<svg class="icon" focusable="false">
+													<use xlink:href="#caution"></use>
+												</svg>
+											</span>
+										</span>
+
+
+
+
+
+
+
+
+										<p data-message="required">Dies ist ein Pflichtfeld</p>
+
+									</div>
+
+									<div class="mdl-tooltip" data-init="tooltip">
+										<div class="mdl-tooltip__text">
+
+											<p>Info</p>
+
+											<div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--right">
+												<button type="button" class="mdl-tooltip__trigger" aria-describedby="form-test116">
+													<span class="visuallyhidden">
+														Erweiterter Hilfetext anzeigen
+													</span>
+													<svg class="icon" focusable="false">
+														<use xlink:href="#get-information"></use>
+													</svg>
+												</button>
+												<div class="mdl-tooltip__bubble" id="form-test116" aria-hidden="true">
+													<button type="button" tabindex="-1">
+														<span class="visuallyhidden">
+															Hilfetextfenster schliessen
+														</span>
+														<svg class="icon" focusable="false">
+															<use xlink:href="#exit"></use>
+														</svg>
+													</button>
+													<h3>Tooltip Ipsum</h3>
+													<p>Ländernamen auf Deutsch eingeben</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
-							<p class="mdl-pagination__page-count" id="paginationCountDescr" aria-live="polite">
-								<em class="visuallyhidden"></em> von <span></span>
-							</p>
-							<a class="mdl-pagination__button-prev atm-button atm-button--icon-only atm-button--secondary" href="">
-								<span class="atm-button__text visuallyhidden">
-									Vorherige Seite
-								</span>
-								<svg class="icon atm-button__icon" focusable="false">
-									<use xlink:href="#angle_left"></use>
+
+							<div class="form__row">
+								<div class="form__cell ">
+									<div>
+										<fieldset class="mdl-file_upload" data-init="fileUpload" data-input>
+											<legend class="atm-heading h4">Dokumente hochladen</legend>
+											<p class="mdl-file_upload__subtitle">Hier können Sie ihren Lebenslauf hochladen</p>
+											<input class="visuallyhidden" type="file" name="file1" id="file1" data-file_upload="input" data-validation required />
+											<div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
+												<p class="mdl-file_upload__dropzone-hint">Zum Hochladen Datei ziehen und hier ablegen.</p>
+												<p class="mdl-file_upload__format-hint">Zulässige Dateiformate: gif, jpeg, png, tiff, svg (max. 25 MB).</p>
+												<label class="mdl-file_upload__button atm-button atm-button--secondary" for="file1">Datei auswählen</label>
+											</div>
+											<p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an.</p>
+											<p class="mdl-file_upload__error" data-message="onlyonefile">Sie können nur 1 Datei gleichzeitig hochladen.</p>
+
+											<div class="mdl-file_upload__list" data-file_upload="list">
+
+											</div>
+
+											<div class="mdl-file_upload__template" data-file_upload="item-template">
+												<div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
+													<div class="mdl-file_upload__file-meta">
+														<span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+														<span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+														<p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+														<p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
+													</div>
+													<button class="mdl-file_upload__file-delete" data-file_upload="delete">
+														<span class="visuallyhidden">Datei wieder entfernen</span>
+														<svg class="icon" focusable="false">
+															<use xlink:href="#delete"></use>
+														</svg>
+													</button>
+												</div>
+											</div>
+										</fieldset>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="form__row">
+								<div class="form__cell form__cell--small">
+									<div class="atm-form_input atm-form_input--floated
+        " data-input>
+
+
+
+										<input class="atm-form_input__input" data-pattern="^[0-9]{4,4}$" id="zip_place_of_birth" placeholder="PLZ" name="zip_place_of_birth" value="" type="text" required data-validation data-floating data-fills-city="place_of_birth" data-zip="{&quot;8000&quot;:&quot;Zürich&quot;,&quot;8001&quot;:&quot;Zürich&quot;,&quot;8004&quot;:&quot;Zürich&quot;,&quot;8310&quot;:&quot;Winterthur&quot;,&quot;8500&quot;:[&quot;Gerlikon&quot;,&quot;Frauenfeld&quot;],&quot;8620&quot;:&quot;Wetzikon&quot;,&quot;8700&quot;:&quot;Küsnacht ZH&quot;}">
+
+
+
+
+										<label for="zip_place_of_birth">PLZ</label>
+										<span class="atm-form_input__validate-icon">
+											<span>
+												<span class="visuallyhidden"></span>
+												<svg class="icon" focusable="false">
+													<use xlink:href="#confirm"></use>
+												</svg>
+											</span>
+											<span>
+												<span class="visuallyhidden"></span>
+												<svg class="icon" focusable="false">
+													<use xlink:href="#caution"></use>
+												</svg>
+											</span>
+										</span>
+
+
+
+
+
+
+										<p data-message="pattern">Bitte geben Sie eine gültige schweizerische Postleizahl an.</p>
+
+										<p data-message="required">Dies ist ein Pflichtfeld</p>
+
+									</div>
+
+								</div>
+								<div class="form__cell ">
+									<div class="atm-form_input atm-form_input--floated
+        " data-input>
+
+										<div class="atm-form_input__city-options" data-form_input="cityOptions">
+											<template type="text/x-handlebars-template" data-form_input="cityOptionsTemplate">
+												<li class="atm-list__item">
+													<button type="button" value="<%- city %>">${ city } <span class="visuallyhidden">auswählen</span></button>
+												</li>
+											</template>
+											<p class="visuallyhidden">Bitte wählen Sie die passende Ortschaft aus:</p>
+											<ul class="atm-list" data-form_input="cityOptionsList">
+											</ul>
+										</div>
+
+
+										<input class="atm-form_input__input" id="place_of_birth" placeholder="Geburtsort" name="place_of_birth" value="" type="text" required data-validation data-floating>
+
+
+
+
+										<label for="place_of_birth">Geburtsort</label>
+										<span class="atm-form_input__validate-icon">
+											<span>
+												<span class="visuallyhidden"></span>
+												<svg class="icon" focusable="false">
+													<use xlink:href="#confirm"></use>
+												</svg>
+											</span>
+											<span>
+												<span class="visuallyhidden"></span>
+												<svg class="icon" focusable="false">
+													<use xlink:href="#caution"></use>
+												</svg>
+											</span>
+										</span>
+
+
+
+
+
+
+
+
+										<p data-message="required">Dies ist ein Pflichtfeld</p>
+
+									</div>
+
+									<div class="mdl-tooltip" data-init="tooltip">
+										<div class="mdl-tooltip__text">
+											<div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--left">
+												<button type="button" class="mdl-tooltip__trigger" aria-describedby="form-test117">
+													<span class="visuallyhidden">
+														Erweiterter Hilfetext anzeigen
+													</span>
+													<svg class="icon" focusable="false">
+														<use xlink:href="#get-information"></use>
+													</svg>
+												</button>
+												<div class="mdl-tooltip__bubble" id="form-test117" aria-hidden="true">
+													<button type="button" tabindex="-1">
+														<span class="visuallyhidden">
+															Hilfetextfenster schliessen
+														</span>
+														<svg class="icon" focusable="false">
+															<use xlink:href="#exit"></use>
+														</svg>
+													</button>
+													<h3>Tooltip Ipsum</h3>
+													<p>Ländernamen auf Deutsch eingeben</p>
+												</div>
+											</div>
+
+
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="form__row">
+								<div class="form__cell form__cell--small">
+									<fieldset class="form__fieldset" data-input>
+										<legend class="form__legend ">Checkboxen</legend>
+										<div class="form__fieldset-list ">
+											<div class="atm-radiobutton ">
+												<input id="radiocheckbox_1" type="radio" value="mrs" name="checkbox_in_duplication">
+												<label for="radiocheckbox_1">
+													Wilde Wälder
+
+												</label>
+											</div>
+
+											<div class="atm-radiobutton ">
+												<input id="radiocheckbox_2" type="radio" value="mr" name="checkbox_in_duplication">
+												<label for="radiocheckbox_2">
+													Wasserfälle
+
+												</label>
+											</div>
+
+											<div class="atm-radiobutton ">
+												<input id="radiocheckbox_3" type="radio" value="no" name="checkbox_in_duplication">
+												<label for="radiocheckbox_3">
+													Beschauliche alpine Auen
+
+												</label>
+											</div>
+
+										</div>
+										<p data-message="required" class="form__fieldset-error-message"></p>
+									</fieldset>
+
+								</div>
+							</div>
+
+							<div class="form__row">
+								<div class="form__cell ">
+									<div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="date" data-localization="de" data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;checkbox_in_duplication&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;mr&quot;}],&quot;action&quot;:&quot;show&quot;}]">
+										<div class="atm-form_input atm-form_input--floated atm-form_input--icon
+            " data-input>
+
+
+
+											<input class="atm-form_input__input" data-pattern="^\d{2}\.\d{2}\.\d{4}$" id="date-111" placeholder="Datum" name="input_name" value="" type="text" required data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d" data-mask-placeholder="TT.MM.JJJJ">
+
+
+
+											<span class="atm-form_input__backdrop">
+												<i></i>TT.MM.JJJJ
+											</span>
+
+											<label for="date-111">Datum</label>
+
+
+											<svg class="icon" focusable="false">
+												<use xlink:href="#calendar"></use>
+											</svg>
+
+
+
+
+											<p data-message="pattern">Bitte geben Sie eine korrektes Datum an.</p>
+
+											<p data-message="required">Dies ist ein Pflichtfeld</p>
+
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
+								<svg class="icon icon--iframe-add" focusable="false">
+									<use xlink:href="#add-new"></use>
 								</svg>
-							</a>
-							<a class="mdl-pagination__button-next atm-button atm-button--icon-only atm-button--secondary" href="">
-								<span class="atm-button__text visuallyhidden">
-									Nächste Seite
-								</span>
-								<svg class="icon atm-button__icon" focusable="false">
-									<use xlink:href="#angle_right"></use>
-								</svg>
-							</a>
-						</div>
-						<div class="mdl-search_page__no-results">
-							<h2 class="atm-heading">Keine Resultate</h2>
-							<button class="atm-button atm-button--secondary atm-button--small atm-button--tag atm-button--tag-edit">
-								<span class="atm-button__text ">
-									Suche Zurücksetzen
-								</span>
-								<svg class="icon atm-button__icon" focusable="false">
-									<use xlink:href="#undo"></use>
-								</svg>
-								<span class="atm-button__spinner"></span>
+								Weitere Staatsangehörigkeit hinzufügen
 							</button>
-						</div>
-					</div>
-
-					<script type="text/x-handlebars-template" data-search_page="resultsHeadTemplate">
-						<div>
-          <% if (typeof numberOfResults !== 'undefined') { %>
-          <h2 class="mdl-search_page__counter"><%- numberOfResults %> Ergebnisse<span class="mdl-search_page__autocorrect" data-search_page="autocorrect"> für <a data-search_page="force" class="atm-text_link" tabindex="0" role="button"><%- autocorrectedTerm %></a>. Stattdessen suchen nach <a class="atm-text_link"  data-search_page="force" role="button" data-search_page="force" tabindex="0"><%- originalTerm %></a></span></h2>
-          <% } else { %>
-          <h2 class="mdl-search_page__counter">Keine Ergebnisse</h2>
-          <% } %>
-          <% if (didYouMean && didYouMean.length > 0) { %>
-          <div class="mdl-search_page__suggestions">Meinten Sie:
-            <% _.forEach(didYouMean, function(suggestion, index) { %>
-            <a class="atm-text_link" role="button" data-search_page="force"><%- suggestion %></a>&nbsp;
-            <% }); %>
-          </div>
-          <% } %>
-          <% if (typeof resultsByType !== 'undefined'){ %>
-          <ul class="mdl-search_page__tag-group mdl-tag-group__tags">
-            <li>
-              <div class="atm-radiobutton atm-radiobutton--tag">
-                <input id="search_filter_all" type="radio" value="all" name="search_filter" checked>
-                <label class="atm-button atm-button--secondary atm-button--small atm-button--tag" for="search_filter_all">
-                  Alle
-                </label>
-              </div>
-            </li>
-            <% _.forEach(resultsByType, function(type, index) { %>
-              <li>
-                <div class="atm-radiobutton atm-radiobutton--tag">
-                  <input id="search_filter_<%- index %>" type="radio" value="<%- type.type %>" name="search_filter">
-                  <label class="atm-button atm-button--secondary atm-button--small atm-button--tag" for="search_filter_<%- index %>">
-                    <%- type.typeLabel %> (<%- type.numberOfResults %>)
-                  </label>
-                </div>
-              </li>
-            <% }); %>
-          </ul>
-          <% } %>
-        </div>
-      </script>
-
-					<script type="text/x-handlebars-template" data-search_page="resultsTemplate">
-						<ul class="mdl-search_page__list">
-          <% _.forEach(results, function(item, index) { %>
-            <li class="atm-search_result_item" <% if(item.type === 'service') { %>data-init="servicelist"<% } %>>
-              <% if (item.type === 'service') { %>
-                <a href="<%- item.link %>" class="mdl-service_list__item"
-                  data-url="<%- item.link %>" aria-controls="modal_search-result_<%- index %>" role="button"
-                >
-                  <div class="mdl-service_list__item-container">
-                    <p class="atm-heading mdl-service_list__item-title"><%= item.title %></p>
-                    <p class="atm-paragraph mdl-service_list__item-text" data-lineclamp="true"><%= item.teaserText %></p>
-                  </div>
-                  <span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
-                    <span class="atm-button__text">
-                      Start
-                    </span>
-                  </span>
-                </a>
-                <div id="modal_search-result_<%- index %>" class="mdl-modal" data-init="modal"></div>
-              <% } else if (item.type === 'document') { %>
-                <a class="atm-linklist_item atm-linklist_item--download atm-linklist_item--legalfoundation" href="<%- item.link %>" download>
-                  <span class="atm-linklist_item__text">
-                    <span><%= item.title %></span>
-                    <span class="atm-linklist_item__label"><%= item.teaserText %></span>
-                  </span>
-                  <span class="atm-linklist_item__download-button">
-                    <svg class="icon" focusable="false">
-                      <use xlink:href="#download"></use>
-                    </svg>
-                    <span>Download</span>
-                  </span>
-                </a>
-              <% } else { %>
-                <a class="atm-search_result_item__content" href="<%- item.link %>">
-                  <h4 class="atm-heading"><%= item.title %></h4>
-                  <p><%= item.teaserText %></p>
-                </a>
-              <% } %>
-              <span class="atm-search_result_item__meta">
-                <% if (item.typeLabel) { %>
+							<script type="text/x-handlebars-template">
+								<div class="form__duplicated">
+                    <div class="form__row">
+                        <div class="form__cell ">
+                          <div class="atm-form_input atm-form_input--floated
+        "
+         data-input
+        >
+      
+      
+      
+          <input class="atm-form_input__input"
+            
+            
+             id="nationality" placeholder="Staatsangehörigkeit" name="nationality" value="" type="text"
+            
+             required
+            
+            
+            
+            
+            
+             data-validation
+             data-floating
+            
+            
+            
+            
+            
+            
+          >
+      
+      
+      
+      
+          <label for="nationality">Staatsangehörigkeit</label>
+                <span class="atm-form_input__validate-icon">
                 <span>
-                  <%- item.typeLabel %>
+                  <span class="visuallyhidden"></span>
+                  <svg class="icon" focusable="false">
+                    <use xlink:href="#confirm"></use>
+                  </svg>
                 </span>
-                <% } %>
-                <% if (item.breadcrumb) { %>
-                  <span>
-                    <%- item.breadcrumb %>
-                  </span>
-                <% } %>
-                <% if (item.date) { %>
-                  <span>
-                    <%- item.date %>
-                  </span>
-                <% } %>
+                <span>
+                   <span class="visuallyhidden"></span>
+                   <svg class="icon" focusable="false">
+                      <use xlink:href="#caution"></use>
+                    </svg>
+                </span>
               </span>
-            </li>
-            <% if (typeof similarTerms !== 'undefined' && (index === 2 || (results.length < 3 && index === results.length - 1))) { %>
-            <div class="mdl-texthighlight">
-              <h4 class="atm-heading">Suchen nach</h4>
-              <div class="mdl-linklist atm-search_result_item__linklist">
-                <ul class="mdl-linklist__list">
-                  <% _.forEach(similarTerms, function(similarTerm, index) { %>
-                  <li class="mdl-linklist__item">
-                    <a class="atm-linklist_item  " role="button" data-search_page="alternativeTerm">
-                      <span class="atm-linklist_item__text">
-                        <span><%- similarTerm %></span>
-                      </span>
-                      <svg class="icon atm-linklist_item__arrow" focusable="false">
-                        <use xlink:href="#arrow-right"></use>
-                      </svg>
-                    </a>
-                  </li>
-                  <% }); %>
-                </ul>
-              </div>
-            </div>
-            <% } %>
-          <% }); %>
-        </ul>
-      </script>
-
-					<script data-search_page="autosuggestTemplate" type="text/x-handlebars-template">
-						<a class="atm-content_teaser " href=<%=target%>>
-      <span class="atm-content_teaser__content" data-lineclamp="true">
-        <span class="atm-content_teaser__title">
-          <%= shortTitle %>
-        </span>
+      
+      
+      
+      
+      
         
-      </span>
-    </a>
-    
-      </script>
-				</div>
+        
+        
+        <p data-message="required">Dies ist ein Pflichtfeld</p>
+      
+      </div>
+      
+                        </div>
+                    </div>
+                    <div class="form__row">
+                        <div class="form__cell ">
+                          <div >
+        <fieldset class="mdl-file_upload" data-init="fileUpload" data-input>
+          <legend class="atm-heading h4">Dokumente hochladen</legend>
+          <p class="mdl-file_upload__subtitle">Hier können Sie ihren Lebenslauf hochladen</p>
+          <input class="visuallyhidden" type="file" name="file1" id="file1" data-file_upload="input" 
+              data-validation
+              required
+          />
+          <div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
+            <p class="mdl-file_upload__dropzone-hint">Zum Hochladen Datei ziehen und hier ablegen.</p>
+            <p class="mdl-file_upload__format-hint">Zulässige Dateiformate: gif, jpeg, png, tiff, svg (max. 25 MB).</p>
+            <label class="mdl-file_upload__button atm-button atm-button--secondary" for="file1">Datei auswählen</label>
+          </div>
+          <p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an.</p>
+          <p class="mdl-file_upload__error" data-message="onlyonefile">Sie können nur 1 Datei gleichzeitig hochladen.</p>
+      
+          <div class="mdl-file_upload__list" data-file_upload="list">
+      
+          </div>
+      
+          <div class="mdl-file_upload__template" data-file_upload="item-template">
+            <div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
+              <div class="mdl-file_upload__file-meta">
+                <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+                <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+                <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+                <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
+              </div>
+              <button class="mdl-file_upload__file-delete" data-file_upload="delete">
+                <span class="visuallyhidden">Datei wieder entfernen</span>
+                <svg class="icon" focusable="false">
+                  <use xlink:href="#delete"></use>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      
+                        </div>
+                    </div>
+                    <div class="form__row">
+                        <div class="form__cell form__cell--small">
+                          <div class="atm-form_input atm-form_input--floated
+        "
+         data-input
+        >
+      
+      
+      
+          <input class="atm-form_input__input"
+             data-pattern="^[0-9]{4,4}$"
+            
+             id="zip_place_of_birth" placeholder="PLZ" name="zip_place_of_birth" value="" type="text"
+            
+             required
+            
+            
+            
+            
+            
+             data-validation
+             data-floating
+            
+            
+            
+              data-fills-city="place_of_birth"
+              data-zip="{&quot;8000&quot;:&quot;Zürich&quot;,&quot;8001&quot;:&quot;Zürich&quot;,&quot;8004&quot;:&quot;Zürich&quot;,&quot;8310&quot;:&quot;Winterthur&quot;,&quot;8500&quot;:[&quot;Gerlikon&quot;,&quot;Frauenfeld&quot;],&quot;8620&quot;:&quot;Wetzikon&quot;,&quot;8700&quot;:&quot;Küsnacht ZH&quot;}"
+            
+            
+            
+          >
+      
+      
+      
+      
+          <label for="zip_place_of_birth">PLZ</label>
+                <span class="atm-form_input__validate-icon">
+                <span>
+                  <span class="visuallyhidden"></span>
+                  <svg class="icon" focusable="false">
+                    <use xlink:href="#confirm"></use>
+                  </svg>
+                </span>
+                <span>
+                   <span class="visuallyhidden"></span>
+                   <svg class="icon" focusable="false">
+                      <use xlink:href="#caution"></use>
+                    </svg>
+                </span>
+              </span>
+      
+      
+      
+      
+      
+        
+        <p data-message="pattern">Bitte geben Sie eine gültige schweizerische Postleizahl an.</p>
+        
+        <p data-message="required">Dies ist ein Pflichtfeld</p>
+      
+      </div>
+      
+                        </div>
+                        <div class="form__cell ">
+                          <div class="atm-form_input atm-form_input--floated
+        "
+         data-input
+        >
+      
+          <div class="atm-form_input__city-options" data-form_input="cityOptions">
+            <template type="text/x-handlebars-template" data-form_input="cityOptionsTemplate">
+              <li class="atm-list__item">
+                <button type="button" value="<%- city %>">${ city } <span class="visuallyhidden">auswählen</span></button>
+              </li>
+            </template>
+            <p class="visuallyhidden">Bitte wählen Sie die passende Ortschaft aus:</p>
+            <ul class="atm-list" data-form_input="cityOptionsList">
+            </ul>
+          </div>
+      
+      
+          <input class="atm-form_input__input"
+            
+            
+             id="place_of_birth" placeholder="Geburtsort" name="place_of_birth" value="" type="text"
+            
+             required
+            
+            
+            
+            
+            
+             data-validation
+             data-floating
+            
+            
+            
+            
+            
+            
+          >
+      
+      
+      
+      
+          <label for="place_of_birth">Geburtsort</label>
+                <span class="atm-form_input__validate-icon">
+                <span>
+                  <span class="visuallyhidden"></span>
+                  <svg class="icon" focusable="false">
+                    <use xlink:href="#confirm"></use>
+                  </svg>
+                </span>
+                <span>
+                   <span class="visuallyhidden"></span>
+                   <svg class="icon" focusable="false">
+                      <use xlink:href="#caution"></use>
+                    </svg>
+                </span>
+              </span>
+      
+      
+      
+      
+      
+        
+        
+        
+        <p data-message="required">Dies ist ein Pflichtfeld</p>
+      
+      </div>
+      
+                        </div>
+                    </div>
+                    <div class="form__row">
+                        <div class="form__cell form__cell--small">
+                          <fieldset class="form__fieldset" data-input >
+        <legend class="form__legend ">Checkboxen</legend>
+        <div class="form__fieldset-list ">
+            <div class="atm-radiobutton ">
+        <input
+          id="radiocheckbox_1"
+          type="radio" value="mrs"
+          name="checkbox_in_duplication"
+          
+          
+          
+          
+        >
+        <label  for="radiocheckbox_1">
+          Wilde Wälder
+          
+        </label>
+      </div>
+      
+            <div class="atm-radiobutton ">
+        <input
+          id="radiocheckbox_2"
+          type="radio" value="mr"
+          name="checkbox_in_duplication"
+          
+          
+          
+          
+        >
+        <label  for="radiocheckbox_2">
+          Wasserfälle
+          
+        </label>
+      </div>
+      
+            <div class="atm-radiobutton ">
+        <input
+          id="radiocheckbox_3"
+          type="radio" value="no"
+          name="checkbox_in_duplication"
+          
+          
+          
+          
+        >
+        <label  for="radiocheckbox_3">
+          Beschauliche alpine Auen
+          
+        </label>
+      </div>
+      
+        </div>
+        <p data-message="required" class="form__fieldset-error-message"></p>
+      </fieldset>
+      
+                        </div>
+                    </div>
+                    <div class="form__row">
+                        <div class="form__cell ">
+                          <div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="date" data-localization="de"  data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;checkbox_in_duplication&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;mr&quot;}],&quot;action&quot;:&quot;show&quot;}]">
+          <div class="atm-form_input atm-form_input--floated atm-form_input--icon
+            "
+             data-input
+            >
+          
+          
+          
+              <input class="atm-form_input__input"
+                 data-pattern="^\d{2}\.\d{2}\.\d{4}$"
+                
+                 id="date-111" placeholder="Datum" name="input_name" value="" type="text"
+                
+                 required
+                
+                
+                
+                
+                
+                 data-validation
+                 data-floating
+                
+                 data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d"
+                 data-mask-placeholder="TT.MM.JJJJ"
+                
+                
+                
+              >
+          
+          
+          
+                <span class="atm-form_input__backdrop">
+                  <i></i>TT.MM.JJJJ
+                </span>
+          
+              <label for="date-111">Datum</label>
+          
+          
+                <svg class="icon" focusable="false">
+                  <use xlink:href="#calendar"></use>
+                </svg>
+          
+          
+          
+            
+            <p data-message="pattern">Bitte geben Sie eine korrektes Datum an.</p>
+            
+            <p data-message="required">Dies ist ein Pflichtfeld</p>
+          
+          </div>
+      </div>
+      
+                        </div>
+                    </div>
+                        <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
+                          <svg class="icon" focusable="false">
+                            <use xlink:href="#delete"></use>
+                          </svg>
+                          <span class="visuallyhidden">Staatangehörigkeit wieder entfernen</span>
+                        </button>
+                        <button type="button" class="form__duplicator atm-text_link atm-text_link--icon" data-duplicate="duplicator">
+                          <svg class="icon icon--iframe-add" focusable="false">
+                            <use xlink:href="#add-new"></use>
+                          </svg>
+                          Weitere Staatsangehörigkeit hinzufügen
+                        </button>
+                </div>
+              </script>
+						</div>
+					</fieldset>
+				</form>
 			</div>
 		</div>
 	</main>
@@ -980,19 +1432,6 @@
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="mdl-back2top" data-init="back2top">
-					<div class="mdl-back2top__icon">
-						<button class="atm-button atm-button--icon-only">
-							<span class="atm-button__text visuallyhidden">
-								Button
-							</span>
-							<svg class="icon atm-button__icon" focusable="false">
-								<use xlink:href="#arrow-up"></use>
-							</svg>
-							<span class="atm-button__spinner"></span>
-						</button>
 					</div>
 				</div>
 			</div>
