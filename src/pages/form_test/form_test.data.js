@@ -7,11 +7,11 @@ const headerData = require('../../modules/header/header.data').variants.inverted
 
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
-const defStepperData = require('../../modules/stepper/stepper.data').variants.requestForm.props;
+const defFormData = require('../../modules/form/form.data').variants;
 
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Form Stepper Test',
+    title: 'Form Test',
     jira: 'CZHDEV-',
     content: dataHelper.getFileContent('form_test.hbs'),
     documentation: dataHelper.getDocumentation('form_test.md'),
@@ -21,7 +21,7 @@ const data = _.merge({}, defaultData, {
     skiplinks: skiplinksData,
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData.variants.rrbDetail.props, {
-        pageTitle: 'Stepper Test',
+        pageTitle: 'Form Test',
         breadcrumb: {
           path: [{
             title: 'Zurück zur Übersicht',
@@ -29,7 +29,8 @@ const data = _.merge({}, defaultData, {
           }],
         },
       }),
-      stepperData: defStepperData,
+      formSection1: defFormData.simpleMultiUpload.props,
+      formSection2: defFormData.duplicationUpload.props,
       footerData: defFooterData,
     },
   },

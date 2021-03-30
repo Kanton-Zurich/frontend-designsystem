@@ -4,7 +4,14 @@
   {{/content}}
 
   {{#content "content"}}
-    {{> "modules/stepper/stepper" props.modules.stepperData }}
+    <h2 class="atm-heading">From Section 1</h2>
+    <form novalidate>
+      {{> "modules/form/form" props.modules.formSection1 }}
+    </form>
+    <h2 class="atm-heading">From Section 2</h2>
+    <form novalidate>
+      {{> "modules/form/form" props.modules.formSection2 }}
+    </form>
   {{/content}}
 
   {{#content "footer"}}
