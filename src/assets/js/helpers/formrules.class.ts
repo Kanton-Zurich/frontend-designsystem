@@ -1,5 +1,6 @@
 import Stepper from '../../../modules/stepper/stepper';
 import FormGlobalHelper from './form';
+import Module from './module';
 
 class FormRules {
   private ui: {
@@ -387,6 +388,14 @@ class FormRules {
     }
 
     this.doAction(action, rulesResult.filter(result => result === true).length > 0);
+    // 50 ms throttled update of resize event to ensure vertical correction when elements are shown
+    if (!document.body.hasAttribute('ruleUpdateRunning')) {
+      document.body.setAttribute('ruleUpdateRunning', '');
+      setTimeout(() => {
+        document.body.removeAttribute('ruleUpdateRunning');
+        window.dispatchEvent(new CustomEvent(Module.globalEvents.verticalResize));
+      }, 50); // eslint-disable-line
+    }
   }
 
   // Checks if the parent step was visited once and is currently hidden

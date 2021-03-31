@@ -1628,19 +1628,19 @@ const variants = _.mapValues({
                   },
                 })),
             },
-              {
-                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                  formInputData.variants.unitLeftWithFloating.props,
-                  {
-                    isFloatingLabel: true,
-                    label: 'Vermögen',
-                    name: 'assets',
-                    uuid: 'assets',
-                    validation: {
-                      isRequired: false,
-                    },
-                  })),
-              }],
+            {
+              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                formInputData.variants.unitLeftWithFloating.props,
+                {
+                  isFloatingLabel: true,
+                  label: 'Vermögen',
+                  name: 'assets',
+                  uuid: 'assets',
+                  validation: {
+                    isRequired: false,
+                  },
+                })),
+            }],
           },
         ],
       },
@@ -1979,6 +1979,35 @@ const variants = _.mapValues({
                           ],
                           action: 'show',
                         },
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-sf2',
+                              equals: true,
+                              value: 'DE',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                      ]),
+                    })),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.variants.unitLeftWithFloating.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Jahreseinkommen',
+                      name: 'income_assets',
+                      uuid: 'income_assets',
+                      validation: {
+                        isRequired: false,
+                      },
+                      rules: JSON.stringify([
                         {
                           conditions: [
                             {
