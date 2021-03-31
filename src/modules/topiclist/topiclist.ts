@@ -14,6 +14,7 @@ import Modal from '../modal/modal';
 class Topiclist extends Module {
   public options: {
     url: string,
+    searchUrl: string,
     hasFilter: Boolean,
     inputDelay: number,
     maxEntries: number,
@@ -32,8 +33,9 @@ class Topiclist extends Module {
       hidden: string,
       visible: string,
       loading: string,
-    };
-  }
+      noResult: string,
+    },
+  };
 
   public data: {
     query: string,
@@ -50,7 +52,7 @@ class Topiclist extends Module {
     filteredPages: any,
     currentLayer: number,
     isInMainNavigation: boolean,
-  }
+  };
 
   public ui: {
     element: any,
@@ -59,12 +61,11 @@ class Topiclist extends Module {
     autosuggest: any,
     contentNav: any,
     contentTeaserTemplate: any,
-    searchLink: any,
     navigation: any,
     subnavigationTemplate: any,
     firstLayer: any,
     furtherLayers: any,
-  }
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -87,7 +88,6 @@ class Topiclist extends Module {
         autosuggest: '[data-topiclist="autosuggest"]',
         contentNav: '[data-topiclist="contentNav"]',
         contentTeaserTemplate: '[data-topiclist="contentTeaserTemplate"]',
-        searchLink: '[data-topiclist="searchLink"]',
         navigation: '[data-topiclist="navigation"]',
         subnavigationTemplate: '[data-topiclist="subnavigationTemplate"]',
         firstLayer: '[data-topiclist="firstLayer"]',
@@ -101,6 +101,7 @@ class Topiclist extends Module {
         hidden: 'mdl-topiclist--hidden',
         visible: 'mdl-topiclist--visible',
         loading: 'mdl-topiclist--loading',
+        noResult: 'mdl-topiclist__autosuggest--no-result',
       },
     };
     super($element, defaultData, defaultOptions, data, options);
@@ -131,6 +132,13 @@ class Topiclist extends Module {
       .on('focus', this.options.domSelectors.input, () => {
         if (Object.keys(this.data.json).length === 0) {
           this.fetchData();
+        }
+      })
+      .on('keyup', this.options.domSelectors.input, (event) => {
+        if (event.key === 'Enter') {
+          if (this.options.searchUrl) {
+            window.location.href = this.options.searchUrl.replace('{value}', encodeURIComponent(this.ui.input.value));
+          }
         }
       });
 
@@ -275,45 +283,14 @@ class Topiclist extends Module {
    */
   renderNoResult(event) {
     this.onAutosuggestDisplay(event);
-
-    const compiled = template(this.ui.contentTeaserTemplate.innerHTML);
-    const html = compiled({
-      shortTitle: this.data.json.filterField.noResultsLabel,
-      buzzwords: '',
-      target: '',
-    });
-
-    const parsedHTML = new DOMParser().parseFromString(html, 'text/html').querySelector('a');
-
-    parsedHTML.setAttribute('disabled', 'disabled');
-    parsedHTML.setAttribute('data-topiclist', 'noResult');
-
-    if (parsedHTML.querySelector('[data-lineclamp]')) {
-      parsedHTML.querySelector('[data-lineclamp]').removeAttribute('data-lineclamp');
-    }
-
-    parsedHTML.removeAttribute('href');
-
-    this.ui.autosuggest.appendChild(parsedHTML);
-
-    // Render the link to the search
-    const compiled2 = template(this.ui.searchLink.innerHTML);
-    const html2 = compiled2({
-      title: this.data.json.filterField.searchInSiteSearchLabel.replace(/\${query}/g, event.detail.query),
-      path: this.data.json.filterField.searchPage.replace(/\${query}/g, event.detail.query),
-    });
-
-    const parsedLink = new DOMParser().parseFromString(html2, 'text/html').querySelector('a');
-    parsedLink.setAttribute('data-topiclist', 'noResult');
-
-
-    this.ui.autosuggest.appendChild(parsedLink);
+    this.ui.autosuggest.classList.add(this.options.stateClasses.noResult);
   }
 
   /**
    * Removing the no result block
    */
   removeNoResult() {
+    this.ui.autosuggest.classList.remove(this.options.stateClasses.noResult);
     const noResultBlocks = this.ui.element.querySelectorAll('[data-topiclist="noResult"]');
 
     noResultBlocks.forEach((block) => {

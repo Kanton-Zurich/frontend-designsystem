@@ -45,15 +45,6 @@
     <script data-topiclist="contentTeaserTemplate" type="text/x-handlebars-template">
       {{{ contentTeaserTemplate }}}
     </script>
-    <!-- No results template -->
-    <script data-topiclist="searchLink" type="text/x-handlebars-template">
-      <a href="<%= path %>" class="mdl-topiclist__search">
-        <svg class="icon" focusable="false">
-          <use xlink:href="#inspect"></use>
-        </svg>
-        <span><%= title %></span>
-      </a>
-    </script>
   {{/if}}
   {{#if isNavigation}}
     <script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">

@@ -177,6 +177,7 @@ const variants = _.mapValues({
       contentTeaserTemplate: contentTeaserDefaultData.variants.default.meta.code.template,
       options: JSON.stringify({
         url: '/mocks/modules/topiclist/topiclist.json',
+        searchUrl: '/pages/search/search.html?q={value}',
       }),
     },
   },
@@ -217,6 +218,7 @@ const variants = _.mapValues({
       contentTeaserTemplate: contentTeaserDefaultData.variants.default.meta.code.template,
       options: JSON.stringify({
         url: '/mocks/modules/topiclist/topiclist.json',
+        searchUrl: '/pages/search/search.html?q={value}',
       }),
       subnavigationTemplate,
     },
@@ -257,6 +259,7 @@ const variants = _.mapValues({
       contentTeaserTemplate: contentTeaserDefaultData.variants.default.meta.code.template,
       options: JSON.stringify({
         url: '/mocks/modules/topiclist/topiclist.organisations.json',
+        searchUrl: '/pages/search/search.html?q={value}',
       }),
       subnavigationTemplate,
       organisationTeaser: {
