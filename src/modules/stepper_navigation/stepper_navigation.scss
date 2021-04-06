@@ -13,6 +13,8 @@ $stepperNavigationCurves: (
   ),
 );
 
+$stepperNavigationMobileStepTitleBottom: 22px;
+
 @mixin mobileOrdinalStyles {
   .mdl-stepper_navigation__step-title {
     display: none;
@@ -20,10 +22,7 @@ $stepperNavigationCurves: (
 
   .mdl-stepper_navigation__step--active .mdl-stepper_navigation__step-title {
     display: block;
-    position: absolute;
-    bottom: 0;
     width: 100%;
-    left: 0;
   }
 }
 
@@ -65,9 +64,6 @@ $stepperNavigationCurves: (
     background: $colorBlack20;
 
     @include polyFluidSizing(top, map-get($stepperNavigationCurves, greyline));
-    @include mq($to: small) {
-      top: 25%;
-    }
   }
 
   &__step {
@@ -75,6 +71,7 @@ $stepperNavigationCurves: (
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    position: relative;
 
     color: $colorBlack60;
     flex-basis: 100%;
@@ -251,6 +248,10 @@ $stepperNavigationCurves: (
 
     .mdl-stepper_navigation__step {
       align-items: flex-start;
+
+      &-title {
+        text-align: left;
+      }
 
       .mdl-stepper_navigation__step-ordinal {
         padding-left: 0;

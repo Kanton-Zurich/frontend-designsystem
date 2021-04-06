@@ -124,6 +124,24 @@ class Modal extends Module {
     window.addEventListener('keydown', this.closeOnEscape.bind(this));
     this.eventDelegate.on(Modal.events.setPage, this.onSetPage.bind(this));
     this.ui.element.addEventListener('scroll', this.onScrollInModal.bind(this));
+
+    /**
+     * IOS Safari 10 fix background scrolling since apples safari creates tons of problems
+     */
+    let clientY = null; // remember Y position on touch start
+    this.ui.element.addEventListener('touchstart', (event) => {
+      if (event.targetTouches.length === 1) {
+        // detect single touch
+        clientY = event.targetTouches[0].clientY; // eslint-disable-line
+      }
+    }, false);
+
+    this.ui.element.addEventListener('touchmove', (event) => {
+      if (event.targetTouches.length === 1) {
+        // detect single touch
+        this.disableRubberBand(event, clientY);
+      }
+    }, false);
   }
 
   /**
@@ -321,6 +339,29 @@ class Modal extends Module {
   rescaleBackgroundElements() {
     const height = this.ui.element.clientHeight;
     document.body.style.maxHeight = `${height}px`;
+  }
+
+  private disableRubberBand(event, elementClientY) {
+    const clientY = event.targetTouches[0].clientY - elementClientY;
+
+    if (this.ui.element.scrollTop === 0 && clientY > 0) {
+      // element is at the top of its scroll
+      if (event.cancelable) {
+        event.preventDefault();
+      }
+    }
+
+    if (this.isOverlayTotallyScrolled() && clientY < 0) {
+      // element is at the top of its scroll
+      if (event.cancelable) {
+        event.preventDefault();
+      }
+    }
+  }
+
+  private isOverlayTotallyScrolled() {
+    // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight#Problems_and_solutions
+    return this.ui.element.scrollHeight - this.ui.element.scrollTop <= this.ui.element.clientHeight;
   }
 
   /**
