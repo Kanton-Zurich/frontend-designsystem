@@ -11,6 +11,7 @@ class DecisionTree extends Module {
   public ui: {
     element: HTMLDivElement,
     stepper: HTMLDivElement,
+    form: HTMLFormElement,
     steps: HTMLDivElement[],
     navSteps: HTMLDivElement[],
     nextButton: HTMLButtonElement,
@@ -24,6 +25,8 @@ class DecisionTree extends Module {
     domSelectors: any,
     stateClasses: any,
     animationDelay: number,
+    stackDelay: number,
+    stepperTopPadding: number,
   };
 
   public currentStepIndex: number;
@@ -33,6 +36,8 @@ class DecisionTree extends Module {
     };
     const defaultOptions = {
       animationDelay: 500,
+      stackDelay: 10,
+      stepperTopPadding: 32,
       domSelectors: {
         stepper: '.mdl-stepper',
         steps: '[data-stepper="step"]',
@@ -42,10 +47,12 @@ class DecisionTree extends Module {
         navigation: '.mdl-decision_tree__navigation',
         notch: '.mdl-decision_tree__notch',
         top: '.mdl-decision_tree__top',
+        form: '.mdl-stepper form',
       },
       stateClasses: {
         // animation states
         beforeInProgress: 'mdl-decision_tree--before-in-progress',
+        beforeStepChange: 'mdl-decision_tree--before-step-change',
         inProgress: 'mdl-decision_tree--in-progress',
         topBeforeShow: 'mdl-decision_tree__top--before-show',
         topBeforeOpen: 'mdl-decision_tree__top--before-open',
@@ -71,7 +78,9 @@ class DecisionTree extends Module {
    */
   initEventListeners() {
     this.eventDelegate.on('click', this.options.domSelectors.nextButton, () => {
-      this.ui.stepper.dispatchEvent(new CustomEvent(Stepper.events.triggerNext));
+      this.animStepChange(() => {
+        this.ui.stepper.dispatchEvent(new CustomEvent(Stepper.events.triggerNext));
+      });
     });
 
     this.eventDelegate.on('click', this.options.domSelectors.showNavButton, () => {
@@ -142,7 +151,7 @@ class DecisionTree extends Module {
           callback();
         }
       }, this.options.animationDelay);
-    }, 10);
+    }, this.options.stackDelay);
   }
 
 
@@ -165,9 +174,13 @@ class DecisionTree extends Module {
           callback();
         }
       }, this.options.animationDelay);
-    }, 10);
+    }, this.options.stackDelay);
   }
 
+  /**
+   * Animation to close top header
+   * @param callback
+   */
   animCloseTop(callback = null) {
     const height = this.ui.top.clientHeight;
     this.ui.top.style.height = `${height}px`;
@@ -181,8 +194,33 @@ class DecisionTree extends Module {
           callback();
         }
       }, this.options.animationDelay);
-    }, 10);
+    }, this.options.stackDelay);
   }
+
+  /**
+   * Animate step change
+   * @param callback
+   */
+  animStepChange(callback = null) {
+    let height = this.ui.form.clientHeight + this.options.stepperTopPadding;
+    this.ui.element.classList.add(this.options.stateClasses.beforeStepChange);
+    setTimeout(() => {
+      this.ui.element.classList.remove(this.options.stateClasses.beforeStepChange);
+      this.ui.stepper.style.height = `${height}px`;
+      if (callback) {
+        callback();
+      }
+      setTimeout(() => {
+        let height = this.ui.form.clientHeight + this.options.stepperTopPadding;
+        this.ui.stepper.style.height = `${height}px`;
+        setTimeout(() => {
+          this.ui.stepper.style.removeProperty('height');
+        }, this.options.animationDelay);
+      }, this.options.stackDelay);
+    }, this.options.animationDelay);
+  }
+
+
   /**
    * Unbind events, remove data, custom teardown
    */

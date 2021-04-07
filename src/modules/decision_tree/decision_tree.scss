@@ -14,7 +14,7 @@ $decision-tree-notch-size: pxToRem(48px);
   background-color: $colorBlack5;
 
   &__top {
-    @include sizeCurve(margin-top, medium);
+    @include sizeCurve(margin-top, biggerRegular);
 
     overflow: hidden;
     transition: height 0.5s ease-in-out;
@@ -94,19 +94,19 @@ $decision-tree-notch-size: pxToRem(48px);
   }
 
   &__notch {
-    transition: margin-bottom 0.5s ease, opacity 0.5s;
+    transition: height 0.5s ease, opacity 0.5s;
     margin-bottom: 0;
     opacity: 0;
     position: relative;
     display: flex;
     justify-content: center;
     color: rgba($colorBlack, 0.6);
-    height: pxToRem($sizeBig);
+    height: 0;
 
     .atm-button {
       border-radius: 50%;
       position: absolute;
-      top: calc(100% - #{pxToRem($sizeTiny)});
+      top: calc(100% - #{$decision-tree-notch-size / 2});
       left: calc(50% - #{$decision-tree-notch-size / 2});
       background-color: $colorBlack5;
 
@@ -122,7 +122,7 @@ $decision-tree-notch-size: pxToRem(48px);
       content: ' ';
       position: absolute;
       background: radial-gradient(farthest-side at 50% -40%, rgba($colorBlack, 0.1), rgba($colorBlack, 0.1) 25%, transparent 100%);
-      top: calc(100% + #{$sizeRegular});
+      top: calc(100%);
       left: 0;
       max-width: pxToEm($sizeWidthContent);
       z-index: -1;
@@ -142,7 +142,7 @@ $decision-tree-notch-size: pxToRem(48px);
   &--in-progress,
   &--before-in-progress {
     .mdl-decision_tree__notch {
-      margin-bottom: pxToRem($sizeHuge);
+      height: $decision-tree-notch-size;
       opacity: 1;
     }
   }
@@ -154,47 +154,59 @@ $decision-tree-notch-size: pxToRem(48px);
     }
   }
 
+  &--before-step-change {
+    .mdl-stepper {
+      .form {
+        transform: translateY(-150%);
+      }
+    }
+  }
+
   .mdl-stepper {
     padding-bottom: 0;
+    padding-top: pxToRem($sizeBig);
+    overflow: hidden;
+    transition: height 0.5s ease;
 
     &__step {
       background-color: $colorBlack5;
     }
-  }
 
+    .form {
+      transition: transform 0.5s ease-in;
 
-  .form {
-    &__fieldset-list {
-      &--horizontal {
-        .atm-radiobutton {
-          display: block;
-          padding-right: 0;
-          margin-bottom: 0.5rem;
+      &__fieldset-list {
+        &--horizontal {
+          .atm-radiobutton {
+            display: block;
+            padding-right: 0;
+            margin-bottom: 0.5rem;
+          }
         }
       }
-    }
 
-    &__group {
-      margin-left: 0;
-      margin-right: 0;
-    }
-
-    &__row {
-      @include sizeCurve(padding-right, tiny);
-      @include sizeCurve(padding-left, tiny);
-      @include sizeCurve(padding-top, atomic);
-
-      padding-top: pxToRem($sizeTiny);
-      padding-bottom: pxToRem($sizeSmallLarge);
-      background-color: $colorWhite;
-      margin-bottom: pxToRem($sizeMini);
-
-      h3.atm-heading {
-        margin-bottom: pxToRem($sizeSmallRegular);
+      &__group {
+        margin-left: 0;
+        margin-right: 0;
       }
 
-      h4.atm-heading {
+      &__row {
+        @include sizeCurve(padding-right, tiny);
+        @include sizeCurve(padding-left, tiny);
+        @include sizeCurve(padding-top, atomic);
+
+        padding-top: pxToRem($sizeTiny);
+        padding-bottom: pxToRem($sizeSmallLarge);
+        background-color: $colorWhite;
         margin-bottom: pxToRem($sizeMini);
+
+        h3.atm-heading {
+          margin-bottom: pxToRem($sizeSmallRegular);
+        }
+
+        h4.atm-heading {
+          margin-bottom: pxToRem($sizeMini);
+        }
       }
     }
   }
