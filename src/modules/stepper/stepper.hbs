@@ -1,4 +1,4 @@
-<div class="mdl-stepper" data-init="stepper">
+<div class="mdl-stepper" data-init="stepper"{{#if disableScroll}} data-disable-scroll{{/if}}>
   {{#if title}}<h2 class="atm-heading">{{title}}</h2>{{/if}}
 
   {{#if navigation}}
@@ -13,9 +13,11 @@
         </div>
       {{/each}}
 
+      {{#if confirmation}}
       <div class="mdl-stepper__step" data-stepper="step">
       {{> "modules/notification/notification" confirmation}}
       </div>
+      {{/if}}
     </div>
 
     <div class="mdl-stepper__last-page-info" data-stepper="lastpage">
@@ -29,7 +31,7 @@
     </div>
   </form>
 
-
+  {{#if notificationTemplate}}
   <div class="mdl-stepper__message"
     data-stepper="messageWrapper"
     data-singular-text="Bitte kontrollieren Sie Ihre Angabe für das Feld <%= list %>."
@@ -41,11 +43,15 @@
     </script>
 
   </div>
+  {{/if}}
 
+  {{#if ruleNotification}}
   <script type="text/x-handlebars-template" data-stepper="ruleNotification">
     {{> "modules/notification/notification" ruleNotification}}
   </script>
+  {{/if}}
 
+  {{#unless noControls}}
   <div class="mdl-stepper__control" data-stepper="control">
     <button class="atm-button atm-button--secondary mdl-stepper__back" data-stepper="back">Zurück</button>
     <button class="atm-button mdl-stepper__next" data-stepper="next">Weiter</button>
@@ -56,4 +62,5 @@
       <span class="atm-button__spinner"></span>
     </button>
   </div>
+  {{/unless}}
 </div>

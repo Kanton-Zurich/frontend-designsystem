@@ -1,0 +1,201 @@
+$decision-tree-curves: (
+  top-shadow: (
+    tiny: 80px,
+    small: 100px,
+    medium: 250px,
+  ),
+);
+$decision-tree-notch-size: pxToRem(48px);
+
+.mdl-decision_tree {
+  @include gridBleed($fullwidth: true);
+  @include sizeCurve(padding-bottom, big);
+
+  background-color: $colorBlack5;
+
+  &__top {
+    @include sizeCurve(margin-top, medium);
+
+    overflow: hidden;
+    transition: height 0.5s ease-in-out;
+
+    &--before-show {
+      opacity: 0;
+      position: absolute;
+
+      .mdl-decision_tree__intro,
+      .mdl-decision_tree__navigation {
+        display: block;
+      }
+    }
+
+    &--before-open {
+      height: 0;
+      position: relative;
+      display: block;
+      opacity: 1;
+      .mdl-decision_tree__intro,
+      .mdl-decision_tree__navigation {
+        display: block;
+      }
+    }
+
+    &--before-close {
+      height: 0;
+    }
+
+    &--open {
+      .mdl-decision_tree__intro,
+      .mdl-decision_tree__navigation {
+        display: block;
+      }
+    }
+  }
+
+  &__intro {
+    @include sizeCurve(margin-bottom, regular);
+
+    display: none;
+  }
+
+  &__navigation {
+    @include sizeCurve(margin-bottom, regular);
+
+    display: none;
+
+    &-step {
+      display: none;
+      padding:  pxToRem($sizeMini) pxToRem($sizeSmallLarge) pxToRem($sizeSmallLarge) pxToRem($sizeSmallLarge);
+      background-color: $colorWhite;
+      margin-bottom: pxToRem($sizeSmallRegular);
+
+      .mdl-descriptionlist {
+        dt {
+          font-family: $fontFamilyBase;
+          color: rgba($colorBlack, 0.6);
+        }
+
+        dd {
+          @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+
+          font-family: $fontFamilyBase;
+          color: $colorText;
+          padding-top: pxToRem($sizeMini);
+          padding-bottom: pxToRem($sizeTiny);
+        }
+
+        margin-bottom: pxToRem($sizeRegular);
+      }
+
+      &[data-active="true"] {
+        display: block;
+      }
+    }
+  }
+
+  &__notch {
+    transition: margin-bottom 0.5s ease, opacity 0.5s;
+    margin-bottom: 0;
+    opacity: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    color: rgba($colorBlack, 0.6);
+    height: pxToRem($sizeBig);
+
+    .atm-button {
+      border-radius: 50%;
+      position: absolute;
+      top: calc(100% - #{pxToRem($sizeTiny)});
+      left: calc(50% - #{$decision-tree-notch-size / 2});
+      background-color: $colorBlack5;
+
+      &:hover {
+        background: $colorBlack10;
+      }
+    }
+
+    &:after{
+      @include gridBleed($fullwidth: true);
+      @include sizeCurve(height, top-shadow, $decision-tree-curves);
+
+      content: ' ';
+      position: absolute;
+      background: radial-gradient(farthest-side at 50% -40%, rgba($colorBlack, 0.1), rgba($colorBlack, 0.1) 25%, transparent 100%);
+      top: calc(100% + #{$sizeRegular});
+      left: 0;
+      max-width: pxToEm($sizeWidthContent);
+      z-index: -1;
+    }
+  }
+
+  &__next {
+    @include sizeCurve(margin-top, biggerRegular);
+  }
+
+  &--in-progress {
+    .mdl-decision_tree__top {
+      margin-bottom: 0;
+    }
+  }
+
+  &--in-progress,
+  &--before-in-progress {
+    .mdl-decision_tree__notch {
+      margin-bottom: pxToRem($sizeHuge);
+      opacity: 1;
+    }
+  }
+
+  &:not(.mdl-decision_tree--in-progress) {
+    .mdl-decision_tree__intro,
+    .mdl-decision_tree__navigation {
+      display: block;
+    }
+  }
+
+  .mdl-stepper {
+    padding-bottom: 0;
+
+    &__step {
+      background-color: $colorBlack5;
+    }
+  }
+
+
+  .form {
+    &__fieldset-list {
+      &--horizontal {
+        .atm-radiobutton {
+          display: block;
+          padding-right: 0;
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+
+    &__group {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    &__row {
+      @include sizeCurve(padding-right, tiny);
+      @include sizeCurve(padding-left, tiny);
+      @include sizeCurve(padding-top, atomic);
+
+      padding-top: pxToRem($sizeTiny);
+      padding-bottom: pxToRem($sizeSmallLarge);
+      background-color: $colorWhite;
+      margin-bottom: pxToRem($sizeMini);
+
+      h3.atm-heading {
+        margin-bottom: pxToRem($sizeSmallRegular);
+      }
+
+      h4.atm-heading {
+        margin-bottom: pxToRem($sizeMini);
+      }
+    }
+  }
+}

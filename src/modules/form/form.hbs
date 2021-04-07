@@ -10,6 +10,9 @@
         <div class="form__row">
           {{#each fields}}
             <div class="form__cell {{#if isSmall}}form__cell--small{{/if}}">
+              {{#if cellTitle}}
+                <h{{../../../headingLevel}} class="atm-heading">{{cellTitle}}</h{{../../../headingLevel}}>
+              {{/if}}
               {{{cellContent}}}
               {{#if tooltip}}
                 {{> "modules/tooltip/tooltip" tooltip}}
