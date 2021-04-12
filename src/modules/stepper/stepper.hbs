@@ -7,9 +7,14 @@
   <form class="form" data-stepper="form" novalidate action="{{action}}">
     <div class="mdl-stepper__wrapper form" data-stepper="wrapper" {{#if overlayId}}data-overlay-id="{{overlayId}}"{{/if}}>
       {{#each steps}}
-        <div class="mdl-stepper__step" data-stepper="step" data-step-index="{{@index}}" {{#if rules}}data-rules="{{rules}}"{{/if}}>
+        <div class="mdl-stepper__step{{#if page}} mdl-stepper__step-page{{/if}}" data-stepper="step"{{#if endpoint}} data-stepper-endpoint{{/if}} data-step-index="{{@index}}" {{#if rules}}data-rules="{{rules}}"{{/if}}>
           <div data-stepper="ruleNotificationWrapper"></div>
+          {{#if page}}
+            {{{page}}}
+          {{/if}}
+          {{#unless page}}
           {{> "modules/form/form" this}}
+          {{/unless}}
         </div>
       {{/each}}
 

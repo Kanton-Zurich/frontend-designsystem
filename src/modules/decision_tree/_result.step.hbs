@@ -1,0 +1,8 @@
+<div class="mdl-richtext">
+  <h{{headingLevel}} class="h2 atm-heading atm-heading--with-lead">{{heading}}</h{{headingLevel}}>
+  {{>"atoms/lead/lead" text}}
+  <ul class="mdl-richtext__benefits">
+    {{#each params}}<li><span class="visuallyhidden">Vorteil:</span> {{this}}</li>{{/each}}
+  </ul>
+</div>
+{{#if serviceList}}{{>"modules/service_list/service_list" serviceList}}{{/if}}

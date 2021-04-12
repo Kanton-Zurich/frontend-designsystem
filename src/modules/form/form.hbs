@@ -14,6 +14,7 @@
                 <h{{../../../headingLevel}} class="atm-heading">{{cellTitle}}</h{{../../../headingLevel}}>
               {{/if}}
               {{{cellContent}}}
+              {{#if cellAttachment}}{{{cellAttachment}}}{{/if}}
               {{#if tooltip}}
                 {{> "modules/tooltip/tooltip" tooltip}}
               {{/if}}
@@ -24,6 +25,7 @@
         {{#if unwrapped}}
           {{#each fields}}
             {{{cellContent}}}
+            {{#if cellAttachment}}{{{cellAttachment}}}{{/if}}
           {{/each}}
         {{/if}}
         {{#if isDuplicatable}}
@@ -39,6 +41,7 @@
                   {{#each fields}}
                     <div class="form__cell {{#if isSmall}}form__cell--small{{/if}}">
                       {{{cellContent}}}
+                      {{#if cellAttachment}}{{{cellAttachment}}}{{/if}}
                     </div>
                   {{/each}}
                 </div>
@@ -78,6 +81,7 @@
                 {{#each fields}}
                   <div class="form__cell {{#if isSmall}}form__cell--small{{/if}}">
                     {{{cellContent}}}
+                    {{#if cellAttachment}}{{{cellAttachment}}}{{/if}}
                   </div>
                 {{/each}}
               </div>

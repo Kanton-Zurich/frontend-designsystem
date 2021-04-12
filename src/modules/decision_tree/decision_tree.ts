@@ -50,6 +50,7 @@ class DecisionTree extends Module {
         form: '.mdl-stepper form',
       },
       stateClasses: {
+        endpoint : 'mdl-decision_tree--endpoint',
         // animation states
         beforeInProgress: 'mdl-decision_tree--before-in-progress',
         beforeStepChange: 'mdl-decision_tree--before-step-change',
@@ -78,9 +79,14 @@ class DecisionTree extends Module {
    */
   initEventListeners() {
     this.eventDelegate.on('click', this.options.domSelectors.nextButton, () => {
-      this.animStepChange(() => {
-        this.ui.stepper.dispatchEvent(new CustomEvent(Stepper.events.triggerNext));
-      });
+      const callback = (hasErrors) => {
+        if (!hasErrors) {
+          this.animStepChange(() => {
+            this.ui.stepper.dispatchEvent(new CustomEvent(Stepper.events.triggerNext));
+          });
+        }
+      };
+      this.ui.stepper.dispatchEvent(new CustomEvent(Stepper.events.triggerValidateSection, { detail: { callback } }));
     });
 
     this.eventDelegate.on('click', this.options.domSelectors.showNavButton, () => {
@@ -91,6 +97,21 @@ class DecisionTree extends Module {
       }
     });
 
+    this.ui.navSteps.forEach((navStep) => {
+      const editButton = navStep.querySelector('button');
+      const dataStepIndex = parseInt(navStep.getAttribute('data-step'), 10);
+
+      editButton.addEventListener('click', () => {
+        if (dataStepIndex === 0) {
+          this.animToStart();
+        }
+        this.animCloseTop();
+        this.animStepChange(() => {
+          this.ui.stepper.dispatchEvent(new CustomEvent(Stepper.events.triggerGoToStep, {detail: {newStepIndex: dataStepIndex}}));
+        });
+      });
+    });
+
     this.ui.stepper.addEventListener(Stepper.events.stepChanged, (event: any) => {
       this.currentStepIndex = event.detail.newStep;
       if (this.currentStepIndex > 0 && !this.ui.element.classList.contains(this.options.stateClasses.inProgress)) {
@@ -98,9 +119,11 @@ class DecisionTree extends Module {
       } else {
         this.updateNavigation();
       }
+      this.ui.element.classList.remove(this.options.stateClasses.endpoint);
+      if (this.ui.steps[this.currentStepIndex].hasAttribute('data-stepper-endpoint')) {
+        this.ui.element.classList.add(this.options.stateClasses.endpoint);
+      }
     });
-
-    this.updateNavigation();
   }
 
   /**
@@ -110,7 +133,7 @@ class DecisionTree extends Module {
     this.ui.navSteps.forEach((step, index) => {
       const navItems = step.querySelectorAll('[data-step-item]');
       const fields = this.ui.steps[index].querySelectorAll('[data-input]');
-      step.setAttribute('data-active', (index < this.currentStepIndex).toString());
+      step.setAttribute('data-active', (parseInt(step.getAttribute('data-step'),10) < this.currentStepIndex).toString());
 
       if (navItems.length !== fields.length) {
         console.warn('Decision Tree: Form field count does not correspond with navigation items');
@@ -133,6 +156,8 @@ class DecisionTree extends Module {
     });
   }
 
+  /** --- Animations --- **/
+
   /**
    * Animation to in progress state
    * @param callback
@@ -154,27 +179,43 @@ class DecisionTree extends Module {
     }, this.options.stackDelay);
   }
 
+  /**
+   * Animation to in progress state
+   * @param callback
+   */
+  animToStart(callback = null) {
+    this.ui.element.classList.remove(this.options.stateClasses.inProgress);
+    if (callback) {
+      callback();
+    }
+  }
 
   /**
    * Animation to open top header
    * @param callback
    */
   animOpenTop(callback = null) {
-    this.ui.top.classList.add(this.options.stateClasses.topBeforeShow);
-    const height = this.ui.top.clientHeight;
-    this.ui.top.classList.add(this.options.stateClasses.topBeforeOpen);
-    this.ui.top.classList.remove(this.options.stateClasses.topBeforeShow);
-    setTimeout(() => {
-      this.ui.top.style.height = `${height}px`;
+    if (!this.ui.top.classList.contains(this.options.stateClasses.topOpen)) {
+      this.ui.top.classList.add(this.options.stateClasses.topBeforeShow);
+      const height = this.ui.top.clientHeight;
+      this.ui.top.classList.add(this.options.stateClasses.topBeforeOpen);
+      this.ui.top.classList.remove(this.options.stateClasses.topBeforeShow);
       setTimeout(() => {
-        this.ui.top.classList.add(this.options.stateClasses.topOpen);
-        this.ui.top.classList.remove(this.options.stateClasses.topBeforeOpen);
-        this.ui.top.style.removeProperty('height');
-        if (callback) {
-          callback();
-        }
-      }, this.options.animationDelay);
-    }, this.options.stackDelay);
+        this.ui.top.style.height = `${height}px`;
+        setTimeout(() => {
+          this.ui.top.classList.add(this.options.stateClasses.topOpen);
+          this.ui.top.classList.remove(this.options.stateClasses.topBeforeOpen);
+          this.ui.top.style.removeProperty('height');
+          if (callback) {
+            callback();
+          }
+        }, this.options.animationDelay);
+      }, this.options.stackDelay);
+    } else {
+      if (callback) {
+        callback();
+      }
+    }
   }
 
   /**
@@ -182,19 +223,25 @@ class DecisionTree extends Module {
    * @param callback
    */
   animCloseTop(callback = null) {
-    const height = this.ui.top.clientHeight;
-    this.ui.top.style.height = `${height}px`;
-    this.ui.top.classList.add(this.options.stateClasses.topBeforeClose);
-    setTimeout(() => {
-      this.ui.top.style.removeProperty('height');
+    if (this.ui.top.classList.contains(this.options.stateClasses.topOpen)) {
+      const height = this.ui.top.clientHeight;
+      this.ui.top.style.height = `${height}px`;
+      this.ui.top.classList.add(this.options.stateClasses.topBeforeClose);
       setTimeout(() => {
-        this.ui.top.classList.remove(this.options.stateClasses.topOpen);
-        this.ui.top.classList.remove(this.options.stateClasses.topBeforeClose);
-        if (callback) {
-          callback();
-        }
-      }, this.options.animationDelay);
-    }, this.options.stackDelay);
+        this.ui.top.style.removeProperty('height');
+        setTimeout(() => {
+          this.ui.top.classList.remove(this.options.stateClasses.topOpen);
+          this.ui.top.classList.remove(this.options.stateClasses.topBeforeClose);
+          if (callback) {
+            callback();
+          }
+        }, this.options.animationDelay);
+      }, this.options.stackDelay);
+    } else {
+      if (callback) {
+        callback();
+      }
+    }
   }
 
   /**
@@ -219,7 +266,6 @@ class DecisionTree extends Module {
       }, this.options.stackDelay);
     }, this.options.animationDelay);
   }
-
 
   /**
    * Unbind events, remove data, custom teardown

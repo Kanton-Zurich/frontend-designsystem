@@ -133,6 +133,12 @@ $decision-tree-notch-size: pxToRem(48px);
     @include sizeCurve(margin-top, biggerRegular);
   }
 
+  &--endpoint {
+    .mdl-decision_tree__next {
+      display: none;
+    }
+  }
+
   &--in-progress {
     .mdl-decision_tree__top {
       margin-bottom: 0;
@@ -170,6 +176,14 @@ $decision-tree-notch-size: pxToRem(48px);
 
     &__step {
       background-color: $colorBlack5;
+
+      &-page {
+        background-color: transparent;
+
+        .mdl-service_list {
+          margin-bottom: 0;
+        }
+      }
     }
 
     .form {
@@ -182,6 +196,16 @@ $decision-tree-notch-size: pxToRem(48px);
             padding-right: 0;
             margin-bottom: 0.5rem;
           }
+        }
+      }
+
+      .mdl-accordion {
+        @include sizeCurve(margin-top, small);
+
+        padding-bottom: 0;
+
+        .mdl-richtext {
+          @include sizeCurve(margin-bottom, regular);
         }
       }
 

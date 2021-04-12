@@ -119,6 +119,7 @@ class Stepper extends Module {
       // external events
       triggerNext: 'Stepper.TriggerNext',
       triggerGoToStep: 'Stepper.TriggerGoToStep',
+      triggerValidateSection: 'Stepper.TriggerValidateSection',
     };
   }
 
@@ -128,6 +129,13 @@ class Stepper extends Module {
   initEventListeners() {
     this.eventDelegate.on(Stepper.events.triggerNext, this.onNext.bind(this));
     this.eventDelegate.on(Stepper.events.triggerGoToStep, this.onGoToStep.bind(this));
+    this.eventDelegate.on(Stepper.events.triggerValidateSection, (event) => {
+      if (event.detail && event.detail.callback) {
+        this.validateSection(event.detail.callback);
+      } else {
+        this.validateSection(() => {});
+      }
+    });
     this.eventDelegate.on('click', this.options.domSelectors.next, this.onNext.bind(this));
     this.eventDelegate.on('click', this.options.domSelectors.back, this.onBack.bind(this));
     this.eventDelegate.on('click', this.options.domSelectors.send, this.sendForm.bind(this));
@@ -185,7 +193,8 @@ class Stepper extends Module {
    * @param event
    */
   onGoToStep(event) {
-    if (event.detail.newStepIndex) {
+    if (event.detail) {
+      console.log(event.detail);
       this.changePage(event.detail.newStepIndex);
     }
   }
@@ -331,7 +340,7 @@ class Stepper extends Module {
         // CZHDEV-2740 scroll to top so notification is visible after filling out a long form
         this.scrollTo(this.ui.element, this.options.scrollTopMargin);
       }
-      callback();
+      callback(errors > 0);
     };
 
     this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
@@ -344,7 +353,7 @@ class Stepper extends Module {
 
   changePage(newIndex): void {
     if (newIndex > this.data.active) {
-      this.validateSection(() => {
+      this.validateSection((hasErrors) => {
         if (this.ui.form.hasAttribute('form-has-errors')) {
           return;
         }
@@ -387,7 +396,7 @@ class Stepper extends Module {
     const action = form.getAttribute('action');
     let formData = null;
 
-    this.validateSection(async () => {
+    this.validateSection(async (hasErrors) => {
       // Only of no errors are present in the form, it will be sent via ajax
       if (!this.ui.form.hasAttribute('form-has-errors')) {
         this.removeHiddenFormElements();
