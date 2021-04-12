@@ -2,7 +2,7 @@
   " data-input>
 
 
-	<textarea class="atm-form_input__input atm-form_input__input--txtarea" id="textarea4" placeholder="Placeholder" name="input_name" data-floating maxlength="600"></textarea>
+	<textarea class="atm-form_input__input atm-form_input__input--txtarea" id="textarea4" placeholder="Placeholder" name="input_name" required data-validation data-floating maxlength="600"></textarea>
 	<div class="atm-form_input__length-indicator">0/600</div>
 
 
@@ -10,6 +10,20 @@
 
 
 	<label for="textarea4">Placeholder</label>
+	<span class="atm-form_input__validate-icon">
+		<span>
+			<span class="visuallyhidden"></span>
+			<svg class="icon" focusable="false">
+				<use xlink:href="#confirm"></use>
+			</svg>
+		</span>
+		<span>
+			<span class="visuallyhidden"></span>
+			<svg class="icon" focusable="false">
+				<use xlink:href="#caution"></use>
+			</svg>
+		</span>
+	</span>
 
 
 
@@ -18,6 +32,6 @@
 
 
 
-
+	<p data-message="required">Dies ist ein Pflichtfeld</p>
 
 </div>
