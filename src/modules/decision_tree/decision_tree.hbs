@@ -11,6 +11,7 @@
           </div>
           <div class="mdl-decision_tree__navigation">
             {{#each stepper.steps}}
+              {{#unless endpoint}}
             <div class="mdl-decision_tree__navigation-step" data-step="{{@index}}">
               <dl class="mdl-descriptionlist">
                   {{#each groups.0.rows}}
@@ -22,12 +23,13 @@
               </dl>
               {{> "atoms/button/button" ../editButton }}
             </div>
+              {{/unless}}
             {{/each}}
           </div>
         </div>
-        <div class="mdl-decision_tree__notch">
+        <div class="mdl-decision_tree__notch" aria-hidden="true">
           Bisherige Antworten anzeigen
-          <button class="atm-button atm-button--secondary atm-button--icon-only">
+          <button class="atm-button atm-button--secondary atm-button--icon-only" aria-hidden="true" tabindex="-1">
             <svg class="icon atm-button__icon" focusable="false">
               <use xlink:href="#arrow-up"></use>
             </svg>

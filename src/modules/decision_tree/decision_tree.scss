@@ -17,7 +17,7 @@ $decision-tree-notch-size: pxToRem(48px);
     @include sizeCurve(margin-top, biggerRegular);
 
     overflow: hidden;
-    transition: height 0.5s ease-in-out;
+    transition: height 0.25s ease-in-out;
 
     &--before-show {
       opacity: 0;
@@ -154,15 +154,40 @@ $decision-tree-notch-size: pxToRem(48px);
   }
 
   &:not(.mdl-decision_tree--in-progress) {
-    .mdl-decision_tree__intro,
-    .mdl-decision_tree__navigation {
+    .mdl-decision_tree__intro {
       display: block;
     }
   }
 
-  &--before-step-change {
+  &--before-step-change-up {
     .mdl-stepper {
       .form {
+        transform: translateY(-150%);
+      }
+    }
+  }
+
+  &--before-step-change-down {
+    .mdl-stepper {
+      .form {
+        transform: translateY(150%);
+      }
+    }
+  }
+
+  &--between-step-change-up {
+    .mdl-stepper {
+      .form {
+        transition: none !important;
+        transform: translateY(150%);
+      }
+    }
+  }
+
+  &--between-step-change-down {
+    .mdl-stepper {
+      .form {
+        transition: none !important;
         transform: translateY(-150%);
       }
     }

@@ -77,6 +77,7 @@ class Stepper extends Module {
         onLastPage: 'mdl-stepper--last-page',
         success: 'mdl-stepper--success',
         buttonLoading: 'atm-button--loading',
+        focussable : 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
       },
       hasRules: false,
     };
@@ -194,7 +195,6 @@ class Stepper extends Module {
    */
   onGoToStep(event) {
     if (event.detail) {
-      console.log(event.detail);
       this.changePage(event.detail.newStepIndex);
     }
   }
@@ -310,7 +310,18 @@ class Stepper extends Module {
     if (this.ui.navigation) {
       this.ui.navigation.querySelector<HTMLButtonElement>('.mdl-stepper_navigation__step--active').focus();
     } else {
-      step.querySelector('.mdl-notification').focus();
+      const notification = step.querySelector('.mdl-notification');
+      if (this.data.active === this.ui.steps.length - 1 && notification) {
+        notification.focus();
+      } else {
+        setTimeout(() => {
+          const firstFocussableElement = step.querySelector(this.options.stateClasses.focussable);
+          if (firstFocussableElement) {
+            firstFocussableElement.focus();
+            this.updateFlyingFocus();
+          }
+        }, 1000);
+      }
     }
     this.dispatchVerticalResizeEvent();
     this.updateFlyingFocus();

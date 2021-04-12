@@ -18,6 +18,7 @@ class DecisionTree extends Module {
     showNavButton: HTMLButtonElement,
     navigation: HTMLDivElement,
     notch: HTMLDivElement,
+    notchButton: HTMLButtonElement,
     top: HTMLDivElement,
   };
 
@@ -25,6 +26,7 @@ class DecisionTree extends Module {
     domSelectors: any,
     stateClasses: any,
     animationDelay: number,
+    animationDelayShort: number,
     stackDelay: number,
     stepperTopPadding: number,
   };
@@ -36,6 +38,7 @@ class DecisionTree extends Module {
     };
     const defaultOptions = {
       animationDelay: 500,
+      animationDelayShort: 60,
       stackDelay: 10,
       stepperTopPadding: 32,
       domSelectors: {
@@ -46,14 +49,17 @@ class DecisionTree extends Module {
         showNavButton: '.mdl-decision_tree__notch button',
         navigation: '.mdl-decision_tree__navigation',
         notch: '.mdl-decision_tree__notch',
+        notchButton: '.mdl-decision_tree__notch button',
         top: '.mdl-decision_tree__top',
         form: '.mdl-stepper form',
       },
       stateClasses: {
         endpoint : 'mdl-decision_tree--endpoint',
+        focussable : 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
         // animation states
         beforeInProgress: 'mdl-decision_tree--before-in-progress',
         beforeStepChange: 'mdl-decision_tree--before-step-change',
+        betweenStepChange: 'mdl-decision_tree--between-step-change',
         inProgress: 'mdl-decision_tree--in-progress',
         topBeforeShow: 'mdl-decision_tree__top--before-show',
         topBeforeOpen: 'mdl-decision_tree__top--before-open',
@@ -91,9 +97,16 @@ class DecisionTree extends Module {
 
     this.eventDelegate.on('click', this.options.domSelectors.showNavButton, () => {
       if (this.ui.top.classList.contains(this.options.stateClasses.topOpen)) {
-        this.animCloseTop();
+        this.animCloseTop(() => {
+          this.updateFlyingFocus();
+        });
       } else {
-        this.animOpenTop();
+        this.animOpenTop(() => {
+          const focussable = this.ui.top.querySelector(this.options.stateClasses.focussable);
+          if (focussable) {
+            focussable.focus();
+          }
+        });
       }
     });
 
@@ -106,9 +119,11 @@ class DecisionTree extends Module {
           this.animToStart();
         }
         this.animCloseTop();
-        this.animStepChange(() => {
-          this.ui.stepper.dispatchEvent(new CustomEvent(Stepper.events.triggerGoToStep, {detail: {newStepIndex: dataStepIndex}}));
-        });
+        setTimeout(() => {
+          this.animStepChange(() => {
+            this.ui.stepper.dispatchEvent(new CustomEvent(Stepper.events.triggerGoToStep, {detail: {newStepIndex: dataStepIndex}}));
+          }, true);
+        },  this.options.animationDelay);
       });
     });
 
@@ -119,6 +134,7 @@ class DecisionTree extends Module {
       } else {
         this.updateNavigation();
       }
+      this.setNotchEnabled(this.currentStepIndex > 0);
       this.ui.element.classList.remove(this.options.stateClasses.endpoint);
       if (this.ui.steps[this.currentStepIndex].hasAttribute('data-stepper-endpoint')) {
         this.ui.element.classList.add(this.options.stateClasses.endpoint);
@@ -133,7 +149,9 @@ class DecisionTree extends Module {
     this.ui.navSteps.forEach((step, index) => {
       const navItems = step.querySelectorAll('[data-step-item]');
       const fields = this.ui.steps[index].querySelectorAll('[data-input]');
-      step.setAttribute('data-active', (parseInt(step.getAttribute('data-step'),10) < this.currentStepIndex).toString());
+      const stepperStep = this.ui.steps[parseInt(step.getAttribute('data-step'), 10)];
+      const enabled = !stepperStep.hasAttribute('data-enabled') || stepperStep.getAttribute('data-enabled') === 'true';
+      step.setAttribute('data-active', (parseInt(step.getAttribute('data-step'),10) < this.currentStepIndex && enabled).toString());
 
       if (navItems.length !== fields.length) {
         console.warn('Decision Tree: Form field count does not correspond with navigation items');
@@ -154,6 +172,18 @@ class DecisionTree extends Module {
         navItems[index].querySelector('dd').innerText = value;
       });
     });
+  }
+
+  setNotchEnabled(enabled) {
+    if (enabled) {
+      this.ui.notch.setAttribute('aria-hidden', 'false');
+      this.ui.notchButton.setAttribute('aria-hidden', 'false');
+      this.ui.notchButton.removeAttribute('tabindex');
+    } else {
+      this.ui.notch.setAttribute('aria-hidden', 'true');
+      this.ui.notchButton.setAttribute('aria-hidden', 'true');
+      this.ui.notchButton.setAttribute('tabindex', '-1');
+    }
   }
 
   /** --- Animations --- **/
@@ -248,20 +278,31 @@ class DecisionTree extends Module {
    * Animate step change
    * @param callback
    */
-  animStepChange(callback = null) {
-    let height = this.ui.form.clientHeight + this.options.stepperTopPadding;
-    this.ui.element.classList.add(this.options.stateClasses.beforeStepChange);
+  animStepChange(callback = null, downward = false) {
+    const originalHeight = this.ui.form.clientHeight + this.options.stepperTopPadding;
+    this.ui.element.classList.add(`${this.options.stateClasses.beforeStepChange}${ downward ? '-down' : '-up'}`);
     setTimeout(() => {
-      this.ui.element.classList.remove(this.options.stateClasses.beforeStepChange);
-      this.ui.stepper.style.height = `${height}px`;
+      this.ui.stepper.style.height = `${originalHeight}px`;
       if (callback) {
         callback();
       }
       setTimeout(() => {
-        let height = this.ui.form.clientHeight + this.options.stepperTopPadding;
-        this.ui.stepper.style.height = `${height}px`;
+        const newHeight = this.ui.form.clientHeight + this.options.stepperTopPadding;
+        if (newHeight > originalHeight) {
+          this.ui.stepper.style.height = `${newHeight}px`;
+        }
+        this.ui.element.classList.add(`${this.options.stateClasses.betweenStepChange}${ downward ? '-down' : '-up'}`);
+        this.ui.element.classList.remove(`${this.options.stateClasses.beforeStepChange}${ downward ? '-down' : '-up'}`);
         setTimeout(() => {
-          this.ui.stepper.style.removeProperty('height');
+          this.ui.element.classList.remove(`${this.options.stateClasses.betweenStepChange}${ downward ? '-down' : '-up'}`);
+        }, this.options.animationDelayShort);
+        setTimeout(() => {
+          if (newHeight < originalHeight) {
+            this.ui.stepper.style.height = `${newHeight}px`;
+          }
+          setTimeout(() => {
+            this.ui.stepper.style.removeProperty('height');
+          }, this.options.animationDelay);
         }, this.options.animationDelay);
       }, this.options.stackDelay);
     }, this.options.animationDelay);
