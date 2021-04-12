@@ -56,6 +56,7 @@ class Modal extends Module {
         search: 'mdl-modal--search',
         opened: 'mdl-modal--opened',
         openModal: 'open-modal',
+        openModalNav: 'open-modal-nav',
       },
       childSelectors: {
         nav: '.mdl-topiclist--nav',
@@ -277,6 +278,9 @@ class Modal extends Module {
     }, this.options.transitionTime);
 
     document.body.classList.add(this.options.stateClasses.openModal);
+    if (this.options.isNav || this.options.isSearch) {
+      document.body.classList.add(this.options.stateClasses.openModalNav);
+    }
 
     window.dispatchEvent(new CustomEvent('reloadLineClamper'));
   }
@@ -309,6 +313,7 @@ class Modal extends Module {
     window.dispatchEvent(new CustomEvent(Modal.events.closed, { detail: { sender: this } }));
 
     document.body.classList.remove(this.options.stateClasses.openModal);
+    document.body.classList.remove(this.options.stateClasses.openModalNav);
     document.documentElement.scrollTop = this.parentScrollPosition;
   }
 

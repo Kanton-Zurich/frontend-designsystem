@@ -1,4 +1,5 @@
 $borderHeightSmall: 2px;
+$borderHeightSmall: 2px;
 $borderHeightNormal: 5px;
 $burgerSubNavHeight: 72px;
 
@@ -322,6 +323,14 @@ $headerCurves: (
 }
 
 //CZHDEV-2671: When Modal opened, reset fixed header zindex
-.open-modal .mdl-header--fixed {
-  z-index: $zIndexFlyouts;
+.open-modal {
+  .mdl-header--fixed {
+    z-index: $zIndexFlyouts;
+  }
+
+  &.open-modal-nav {
+    .mdl-header--fixed {
+      z-index: $zIndexFlyouts + 1;
+    }
+  }
 }

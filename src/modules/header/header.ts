@@ -119,6 +119,10 @@ class Header extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
+    // Chrome vertical scroll compensation CZHDEV-2907
+    if (window.scrollY < 100) { // eslint-disable-line
+      scrollTo(0, -1); // eslint-disable-line
+    }
     this.eventDelegate.on('click', this.options.domSelectors.openModal, this.toggleFlyout.bind(this));
     this.eventDelegate.on('click', this.options.domSelectors.dataMenuBurger, () => {
       if (this.ui.element.classList.contains(this.options.stateClasses.open)) {
