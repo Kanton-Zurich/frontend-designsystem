@@ -354,8 +354,8 @@ class FormRules {
             return parseFloat(val);
           };
 
-          if (!isNaN(value)) { // eslint-disable-line
-            const valueNumeric = parseFloat(value);
+          const valueNumeric = parseFloat(value);
+          if (!isNaN(valueNumeric)) { // eslint-disable-line
             switch (condition.compare) {
               case 'greater':
                 if (valueNumeric > parseValue(condition.value)) {
@@ -380,10 +380,14 @@ class FormRules {
               default:
                 conditionsMet = false;
             }
+          } else {
+            conditionsMet = false;
           }
         }
+        if (!conditionsMet) {
+          break;
+        }
       }
-
       rulesResult.push(conditionsMet);
     }
 

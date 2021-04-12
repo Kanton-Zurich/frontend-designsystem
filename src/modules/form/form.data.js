@@ -995,6 +995,34 @@ const compareAge = {
             {
               isFloatingLabel: true,
               label: 'Älter oder mindestens 18 Jahre',
+              name: 'compare_age_older_equal_18',
+              uuid: 'compare_age_older_equal_18',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_age',
+                      compare: 'lessEqual',
+                      compareAge: true,
+                      value: '18',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Älter 18 Jahre',
               name: 'compare_age_older_18',
               uuid: 'compare_age_older_18',
               type: 'text',
@@ -1003,7 +1031,7 @@ const compareAge = {
                   conditions: [
                     {
                       field: 'compare_age',
-                      compare: 'lessEqual',
+                      compare: 'less',
                       compareAge: true,
                       value: '18',
                     },
@@ -1032,6 +1060,34 @@ const compareAge = {
                     {
                       field: 'compare_age',
                       compare: 'greater',
+                      compareAge: true,
+                      value: '18',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Jünger oder genau 18 Jahre',
+              name: 'compare_younger_equal_18',
+              uuid: 'compare_younger_equal_18',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_age',
+                      compare: 'greaterEqual',
                       compareAge: true,
                       value: '18',
                     },
