@@ -97,12 +97,16 @@ $triggerWidth: pxToRem(86px);
   }
 
   &__length-indicator {
-    position: absolute;
-    top: pxToRem(14px);
-    right: pxToRem(21px);
-    z-index: 10;
-
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 21px);
+    text-align: right;
+    background-color: $colorWhite;
+    margin: 2px 21px 0 2px;
+    padding-top: pxToRem(11px);
     color: $colorBlack60;
   }
 
@@ -374,7 +378,8 @@ $triggerWidth: pxToRem(86px);
     }
 
     .atm-form_input__input--txtarea ~ label {
-      right: pxToRem($sizeRegular + $sizeGiant);
+      right: pxToRem($sizeBig + $sizeGiant);
+      background-color: transparent;
     }
 
     .atm-form_input__unit--right {
