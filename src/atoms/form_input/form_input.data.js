@@ -91,6 +91,9 @@ const variants = _.mapValues({
       label: 'Placeholder',
       uuid: _.uniqueId('textarea'),
       name: 'input_name',
+      validation: {
+        isRequired: true,
+      },
     },
   },
   disabled: {
