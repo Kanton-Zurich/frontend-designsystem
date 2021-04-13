@@ -6,6 +6,11 @@ const defaultData = require('../../data/default.data.js');
 const formVariants = require('../form/form.data').variants;
 const notification = require('../../modules/notification/notification.data').variants;
 
+const formFieldsetHBS = dataHelper.getFileContent('../form/_form.fieldset.hbs');
+
+const radioHBS = dataHelper.getFileContent('../../atoms/radiobutton/radiobutton.hbs');
+const radioData = require('../../atoms/radiobutton/radiobutton.data');
+
 const toggle = require('../../atoms/toggle/toggle.data').variants.default.props;
 
 const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
@@ -478,6 +483,68 @@ const variants = _.mapValues({
         formVariants.duplicationUpload.props,
         formVariants.dummyStep1.props,
       ],
+    },
+  },
+  nestedRules: {
+    meta: {
+      title: 'Merhstufige Regeln',
+      desc: '',
+    },
+    props: {
+      steps: [
+        {
+          groups: [
+            {
+              rows: [
+                {
+                  fields: [
+                    {
+                      cellContent: () => handlebars.compile(formFieldsetHBS)({
+                        fieldsetTitle: '1',
+                        options: [
+                          () => handlebars.compile(radioHBS)(_.merge({},
+                            radioData.variants.default.props,
+                            {
+                              label: 'A',
+                              groupName: 'abType',
+                              id: 'abType_1',
+                              value: 'a',
+                            })),
+                          () => handlebars.compile(radioHBS)(_.merge({},
+                            radioData.variants.default.props,
+                            {
+                              label: 'B',
+                              groupName: 'abType',
+                              id: 'abType_2',
+                              value: 'b',
+                            })),
+                        ],
+                      }),
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        _.merge({}, formVariants.dummyStep1.props, {
+          rules: JSON.stringify([
+            {
+              conditions: [
+                {
+                  field: 'abType',
+                  equals: true,
+                  value: 'aasdas',
+                },
+              ],
+              action: 'enable',
+            },
+          ]),
+        }),
+      ],
+      navigation: {
+        steps: ['Schritt', 'Abhängiger Schritt', 'Bestätigung'],
+      },
     },
   },
 }, (variant) => {

@@ -96,6 +96,23 @@ const variants = _.mapValues({
       },
     },
   },
+  textarea_alt: {
+    meta: {
+      title: 'Standard Textfeld (2)',
+      desc: 'Standard Implementierung eines mehrzeiligen Textfelds mit Input-limite und nach oben gleitenden Beschriftung (floating Label)',
+    },
+    props: {
+      isTextarea: true,
+      isInput: false,
+      isFloatingLabel: true,
+      label: 'Placeholder',
+      uuid: _.uniqueId('textarea'),
+      name: 'input_name',
+      validation: {
+        isRequired: true,
+      },
+    },
+  },
   disabled: {
     meta: {
       title: 'Eingabefeld deaktiviert',

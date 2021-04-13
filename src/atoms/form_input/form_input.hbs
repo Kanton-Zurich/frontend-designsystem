@@ -65,9 +65,7 @@
       {{#if isFloatingLabel}} data-floating{{/if}}
       {{#if inputLengthRestriction}} maxlength="{{inputLengthRestriction}}"{{/if}}
       ></textarea>
-    {{#if inputLengthRestriction}}
-      <div class="atm-form_input__length-indicator">0/{{inputLengthRestriction}}</div>
-    {{/if}}
+      <div class="atm-form_input__length-indicator">{{#if inputLengthRestriction}}0/{{inputLengthRestriction}}{{/if}}</div>
   {{/if}}
 
   {{# if isInput}}

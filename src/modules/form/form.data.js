@@ -976,7 +976,7 @@ const compareAge = {
       fields: [
         {
           cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
-            datepickerData.variants.defaultDate.props,
+            datepickerData.variants.dateAndTime.props,
             {
               formInputData: {
                 name: 'compare_age',

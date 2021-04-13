@@ -108,6 +108,7 @@ $triggerWidth: pxToRem(86px);
     margin: 2px 21px 0 2px;
     padding-top: pxToRem(11px);
     color: $colorBlack60;
+    min-height: calc(1rem + #{pxToRem(13px)});
   }
 
   label {
