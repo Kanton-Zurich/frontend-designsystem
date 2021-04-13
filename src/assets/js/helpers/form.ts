@@ -398,12 +398,13 @@ class FormGlobalHelper {
     let parseString = '';
 
     if (dateParts && dateParts.length > 2) { // eslint-disable-line
-      parseString += `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}T00:00:00`;
+      parseString += `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
     }
     if (timeParts && timeParts.length > 1) {
       parseString += `T${timeParts[0]}:${timeParts[1]}:00`;
+    } else {
+      parseString += 'T00:00:00';
     }
-
     return Date.parse(parseString);
   }
 
