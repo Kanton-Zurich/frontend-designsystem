@@ -1,0 +1,252 @@
+<div class="mdl-stepper" data-init="stepper">
+	<h2 class="atm-heading">Formular mit Schritten</h2>
+
+	<ol class="mdl-stepper_navigation" data-init="stepperNavigation">
+		<li>
+			<button class="mdl-stepper_navigation__step" data-stepper_navigation="step" data-step="0" disabled>
+				<svg class="icon mdl-stepper_navigation__step-checkmark" focusable="false">
+					<use xlink:href="#check"></use>
+				</svg>
+				<svg class="icon mdl-stepper_navigation__step-dots" focusable="false">
+					<use xlink:href="#overflow"></use>
+				</svg>
+				<span class="mdl-stepper_navigation__step-ordinal" data-stepper_navigation="number"></span>
+				<span class="mdl-stepper_navigation__step-title">Staatsangehörigkeit</span>
+			</button>
+		</li>
+		<li>
+			<button class="mdl-stepper_navigation__step" data-stepper_navigation="step" data-step="1" disabled>
+				<svg class="icon mdl-stepper_navigation__step-checkmark" focusable="false">
+					<use xlink:href="#check"></use>
+				</svg>
+				<svg class="icon mdl-stepper_navigation__step-dots" focusable="false">
+					<use xlink:href="#overflow"></use>
+				</svg>
+				<span class="mdl-stepper_navigation__step-ordinal" data-stepper_navigation="number"></span>
+				<span class="mdl-stepper_navigation__step-title">Bürgerort 1</span>
+			</button>
+		</li>
+		<li>
+			<button class="mdl-stepper_navigation__step" data-stepper_navigation="step" data-step="2" disabled>
+				<svg class="icon mdl-stepper_navigation__step-checkmark" focusable="false">
+					<use xlink:href="#check"></use>
+				</svg>
+				<svg class="icon mdl-stepper_navigation__step-dots" focusable="false">
+					<use xlink:href="#overflow"></use>
+				</svg>
+				<span class="mdl-stepper_navigation__step-ordinal" data-stepper_navigation="number"></span>
+				<span class="mdl-stepper_navigation__step-title">Bestätigung</span>
+			</button>
+		</li>
+	</ol>
+	<form class="form" data-stepper="form" novalidate action="/mocks/modules/form/form.json">
+		<div class="mdl-stepper__wrapper form" data-stepper="wrapper">
+			<div class="mdl-stepper__step" data-stepper="step" data-step-index="0">
+				<div data-stepper="ruleNotificationWrapper"></div>
+				<fieldset class="form__section">
+					<legend class="atm-heading h3 form__section-title">Staatsangehörigkeit</legend>
+					<div class="form__group ">
+						<div class="form__row">
+							<div class="form__cell ">
+								<fieldset class="form__fieldset" data-input>
+									<legend class="form__legend ">Nationalität</legend>
+									<div class="form__fieldset-list ">
+										<div class="atm-radiobutton ">
+											<input id="radio444" type="radio" value="CH" name="nationality-50">
+											<label for="radio444">
+												Schweiz
+
+											</label>
+										</div>
+
+										<div class="atm-radiobutton ">
+											<input id="radio445" type="radio" value="none" name="nationality-50">
+											<label for="radio445">
+												Nicht Schweiz
+
+											</label>
+										</div>
+
+									</div>
+									<p data-message="required" class="form__fieldset-error-message"></p>
+								</fieldset>
+
+							</div>
+						</div>
+
+					</div>
+				</fieldset>
+			</div>
+			<div class="mdl-stepper__step" data-stepper="step" data-step-index="1">
+				<div data-stepper="ruleNotificationWrapper"></div>
+				<fieldset class="form__section">
+					<legend class="atm-heading h3 form__section-title">Bürgerort</legend>
+					<div class="form__group ">
+						<div class="form__row">
+							<div class="form__cell ">
+								<div class="atm-form_input atm-form_input--floated
+            " data-input data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;nationality-50&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;CH&quot;}],&quot;action&quot;:&quot;show&quot;}]">
+
+
+
+									<input class="atm-form_input__input" id="place_of_citizenship721" placeholder="Bürgerort" name="place_of_citizenship10" value="" type="text" required data-validation data-floating>
+
+
+
+
+									<label for="place_of_citizenship721">Bürgerort</label>
+									<span class="atm-form_input__validate-icon">
+										<span>
+											<span class="visuallyhidden"></span>
+											<svg class="icon" focusable="false">
+												<use xlink:href="#confirm"></use>
+											</svg>
+										</span>
+										<span>
+											<span class="visuallyhidden"></span>
+											<svg class="icon" focusable="false">
+												<use xlink:href="#caution"></use>
+											</svg>
+										</span>
+									</span>
+
+
+
+
+
+
+
+
+									<p data-message="required">Dies ist ein Pflichtfeld</p>
+
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</fieldset>
+			</div>
+
+			<div class="mdl-stepper__step" data-stepper="step">
+				<div class="mdl-notification
+        mdl-notification--green
+        mdl-notification--big
+        " tabindex="0">
+					<svg class="icon" focusable="false">
+						<use xlink:href="#confirm"></use>
+					</svg>
+					<div class="mdl-notification__message">
+						<h3 class="mdl-notification__title">Vielen Dank</h3>
+						<p>Ihr Daten wurden an das Strassenverkehrsamt übermittelt, man wird sich mit Ihnen in Verbindung setzen.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="mdl-stepper__last-page-info" data-stepper="lastpage">
+			<label class="atm-toggle" for="allowmailnotification">
+				<input type="checkbox" value="true" name="allowmailnotification" id="allowmailnotification" />
+				<span class="atm-toggle__label">E-Mail Benachrichtigungen erlauben</span>
+			</label>
+			<div class="atm-form_input atm-form_input--floated
+          " data-input data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;allowmailnotification&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;true&quot;}],&quot;action&quot;:&quot;show&quot;}]">
+
+
+
+				<input class="atm-form_input__input" id="reply-to187" placeholder="Ihre E-Mail-Adresse" name="reply-to188" value="" type="email" required data-validation data-floating data-autofill="e_mail">
+
+
+
+
+				<label for="reply-to187">Ihre E-Mail-Adresse</label>
+				<span class="atm-form_input__validate-icon">
+					<span>
+						<span class="visuallyhidden"></span>
+						<svg class="icon" focusable="false">
+							<use xlink:href="#confirm"></use>
+						</svg>
+					</span>
+					<span>
+						<span class="visuallyhidden"></span>
+						<svg class="icon" focusable="false">
+							<use xlink:href="#caution"></use>
+						</svg>
+					</span>
+				</span>
+
+
+
+
+
+
+				<p data-message="pattern">Bitte geben Sie eine gültige Mail an.</p>
+
+				<p data-message="required">Dies ist ein Pflichtfeld</p>
+
+			</div>
+
+		</div>
+	</form>
+
+
+	<div class="mdl-stepper__message" data-stepper="messageWrapper" data-singular-text="Bitte kontrollieren Sie Ihre Angabe für das Feld <%= list %>." data-plural-text="Bitte kontrollieren Sie Ihre Angaben für die folgenden Felder: <%= list %>" data-error-text="Da ist leider etwas schief gegangen! Ihre Angaben konnten leider nicht übermittelt werden. Es tut uns leid. Bitte probieren Sie es erneut oder melden Sie sich bei: Tel.: [XX]">
+		<script data-stepper="notificationTemplate" type="text/x-handlebars-template">
+			<div class="mdl-notification
+  <% if (typeof(isGreen) !== "undefined" && isGreen !== false) { %>mdl-notification--green<% } %>
+  <% if (typeof(isBig) !== "undefined" && isBig !== false) { %>mdl-notification--big<% } %>
+  <% if (typeof(isDialog) !== "undefined" && isDialog !== false) { %>mdl-notification--dialog<% } %>" <% if (typeof(focussable) !== "undefined" && focussable !== false) { %>tabindex="0"<% } %>>
+  <svg class="icon" focusable="false">
+    <use xlink:href="<%=icon%>"></use>
+  </svg>
+  <div class="mdl-notification__message">
+    <% if (typeof(title) !== "undefined" && title !== false) { %><h3 class="mdl-notification__title"><%=title%></h3><% } %>
+    <p><%=message%></p>
+  </div>
+  <% if (typeof(button) !== "undefined" && button !== false) { %>
+    <button
+      class="atm-button<% if (typeof(button.icon) !== "undefined" && button.icon !== false) { %> atm-button--icon-only atm-button--small<% } %>"
+      <% if (typeof(button.additionalAttribute) !== "undefined" && button.additionalAttribute !== false) { %><%=button.additionalAttribute%><% } %>
+    >
+      <% if (typeof(button.icon) !== "undefined" && button.icon !== false) { %>
+        <svg class="icon atm-button__icon" focusable="false">
+          <use xlink:href="#<%=button.icon%>"></use>
+        </svg>
+        <span class="visuallyhidden"><%= button.label %></span>
+      <%=else%>
+        <%= button.label %>
+      <% } %>
+    </button>
+  <% } %>
+</div>
+
+    </script>
+
+	</div>
+
+	<script type="text/x-handlebars-template" data-stepper="ruleNotification">
+		<div class="mdl-notification
+      
+      
+      mdl-notification--dialog" >
+      <svg class="icon" focusable="false">
+        <use xlink:href="#caution"></use>
+      </svg>
+      <div class="mdl-notification__message">
+        <h3 class="mdl-notification__title">Wichtig</h3>
+        <p>Die von Ihnen gemachte Änderung hat gegebenfalls Einfluss auf die danach folgenden Felder. Bitte überprüfen Sie Ihre Angaben erneut.</p>
+      </div>
+    </div>
+  </script>
+
+	<div class="mdl-stepper__control" data-stepper="control">
+		<button class="atm-button atm-button--secondary mdl-stepper__back" data-stepper="back">Zurück</button>
+		<button class="atm-button mdl-stepper__next" data-stepper="next">Weiter</button>
+		<button class="atm-button mdl-stepper__send" data-stepper="send">
+			<span class="atm-button__text ">
+				Senden
+			</span>
+			<span class="atm-button__spinner"></span>
+		</button>
+	</div>
+</div>

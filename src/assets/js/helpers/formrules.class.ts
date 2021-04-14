@@ -72,6 +72,10 @@ class FormRules {
     if (this.data.watchesOtherStep) {
       this.ui.step.addEventListener(Stepper.events.checkRules, this.checkRules.bind(this));
     }
+    // do first check  after initialisation
+    setTimeout(() => {
+      this.checkRules();
+    }, 0);
   }
 
   getRules() {
@@ -330,12 +334,14 @@ class FormRules {
               || (!condition.equals && correctField.checked)) {
               conditionsMet = false;
             }
+          } else {
+            conditionsMet = false;
           }
         }
 
         if (condition.compare) {
           let compareModeDate = false;
-          let value = this.ui.form.querySelector(querySelector).value.replace('\'', '');
+          let value = this.ui.form.querySelector(querySelector).value.replace(/\'/g, ''); // eslint-disable-line
           conditionsMet = false;
 
           if (isNaN(value)) { // eslint-disable-line
@@ -353,7 +359,6 @@ class FormRules {
             }
             return parseFloat(val);
           };
-
           const valueNumeric = parseFloat(value);
           if (!isNaN(valueNumeric)) { // eslint-disable-line
             switch (condition.compare) {
