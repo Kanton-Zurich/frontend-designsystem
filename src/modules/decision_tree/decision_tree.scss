@@ -17,7 +17,7 @@ $decision-tree-notch-size: pxToRem(48px);
     @include sizeCurve(margin-top, biggerRegular);
 
     overflow: hidden;
-    transition: height 0.25s ease-in-out;
+    transition: height 0.3s ease-in;
 
     &--before-show {
       opacity: 0;
@@ -34,6 +34,7 @@ $decision-tree-notch-size: pxToRem(48px);
       position: relative;
       display: block;
       opacity: 1;
+
       .mdl-decision_tree__intro,
       .mdl-decision_tree__navigation {
         display: block;
@@ -65,7 +66,7 @@ $decision-tree-notch-size: pxToRem(48px);
 
     &-step {
       display: none;
-      padding:  pxToRem($sizeMini) pxToRem($sizeSmallLarge) pxToRem($sizeSmallLarge) pxToRem($sizeSmallLarge);
+      padding: pxToRem($sizeMini) pxToRem($sizeSmallLarge) pxToRem($sizeSmallLarge) pxToRem($sizeSmallLarge);
       background-color: $colorWhite;
       margin-bottom: pxToRem($sizeSmallRegular);
 
@@ -87,7 +88,7 @@ $decision-tree-notch-size: pxToRem(48px);
         margin-bottom: pxToRem($sizeRegular);
       }
 
-      &[data-active="true"] {
+      &[ data-active='true' ] {
         display: block;
       }
     }
@@ -115,7 +116,7 @@ $decision-tree-notch-size: pxToRem(48px);
       }
     }
 
-    &:after{
+    &:after {
       @include gridBleed($fullwidth: true);
       @include sizeCurve(height, top-shadow, $decision-tree-curves);
 
@@ -135,7 +136,7 @@ $decision-tree-notch-size: pxToRem(48px);
 
   &--endpoint {
     .mdl-decision_tree__next {
-      display: none;
+      opacity: 0;
     }
   }
 
@@ -159,37 +160,58 @@ $decision-tree-notch-size: pxToRem(48px);
     }
   }
 
-  &--before-step-change-up {
+  &--anim-slide-out {
     .mdl-stepper {
       .form {
+        animation: slide-out 0.6s ease-in;
         transform: translateY(-150%);
       }
     }
   }
 
-  &--before-step-change-down {
+  &--anim-slide-in {
     .mdl-stepper {
       .form {
-        transform: translateY(150%);
+        animation: slide-in 0.6s ease-out;
+        transform: translateY(0%);
       }
     }
   }
 
-  &--between-step-change-up {
+  &--anim-fade-in {
     .mdl-stepper {
       .form {
-        transition: none !important;
-        transform: translateY(150%);
+        animation: fade-in 0.4s;
+        opacity: 1;
       }
     }
   }
 
-  &--between-step-change-down {
-    .mdl-stepper {
-      .form {
-        transition: none !important;
-        transform: translateY(-150%);
-      }
+  @keyframes slide-out {
+    from {
+      transform: translateY(0%);
+    }
+
+    to {
+      transform: translateY(-150%);
+    }
+  }
+  @keyframes slide-in {
+    from {
+      transform: translateY(150%);
+    }
+
+    to {
+      transform: translateY(0%);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
     }
   }
 
@@ -212,7 +234,7 @@ $decision-tree-notch-size: pxToRem(48px);
     }
 
     .form {
-      transition: transform 0.5s ease-in;
+      transition: transform 0.5s ease-in, opacity 0.2s ease;
 
       &__fieldset-list {
         &--horizontal {

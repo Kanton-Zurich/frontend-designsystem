@@ -39,6 +39,7 @@ class Stepper extends Module {
   public options: {
     transitionTime: number,
     scrollTopMargin: number,
+    pageFocusDelay: number,
     domSelectors: any,
     stateClasses: any,
     hasRules: Boolean,
@@ -52,6 +53,7 @@ class Stepper extends Module {
     const defaultOptions = {
       transitionTime: 350,
       scrollTopMargin: 100,
+      pageFocusDelay: 1000,
       domSelectors: {
         steps: '[data-stepper="step"]',
         back: '[data-stepper="back"]',
@@ -77,7 +79,7 @@ class Stepper extends Module {
         onLastPage: 'mdl-stepper--last-page',
         success: 'mdl-stepper--success',
         buttonLoading: 'atm-button--loading',
-        focussable : 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        focussable: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
       },
       hasRules: false,
     };
@@ -320,7 +322,7 @@ class Stepper extends Module {
             firstFocussableElement.focus();
             this.updateFlyingFocus();
           }
-        }, 1000);
+        }, this.options.pageFocusDelay);
       }
     }
     this.dispatchVerticalResizeEvent();
@@ -364,7 +366,7 @@ class Stepper extends Module {
 
   changePage(newIndex): void {
     if (newIndex > this.data.active) {
-      this.validateSection((hasErrors) => {
+      this.validateSection((hasErrors) => { // eslint-disable-line
         if (this.ui.form.hasAttribute('form-has-errors')) {
           return;
         }
@@ -407,7 +409,7 @@ class Stepper extends Module {
     const action = form.getAttribute('action');
     let formData = null;
 
-    this.validateSection(async (hasErrors) => {
+    this.validateSection(async (hasErrors) => { // eslint-disable-line
       // Only of no errors are present in the form, it will be sent via ajax
       if (!this.ui.form.hasAttribute('form-has-errors')) {
         this.removeHiddenFormElements();

@@ -27,12 +27,6 @@ const data = _.merge({}, defaultData, {
   props: {
     title: 'Einbürgergungs-Assistent',
     intro: 'Unser Assistent stellt Ihnen Schritt für Schritt Fragen. Beantworten Sie diese und finden Sie heraus, welche Art der Einbürgerung für Sie gilt:',
-    nextButton: {
-      text: 'Weiter',
-      additionalClasses: 'mdl-decision_tree__next',
-      icon: 'arrow-down',
-      isTextVisible: true,
-    },
     editButton: {
       text: 'Anpassen',
       additionalClasses: 'mdl-decision_tree__navigation-edit',
@@ -53,6 +47,12 @@ const data = _.merge({}, defaultData, {
       replyTo: null,
       noControls: true,
       disableScroll: true,
+      footerButton: {
+        text: 'Weiter',
+        additionalClasses: 'mdl-decision_tree__next',
+        icon: 'arrow-down',
+        isTextVisible: true,
+      },
       // data
       steps: [
         {
