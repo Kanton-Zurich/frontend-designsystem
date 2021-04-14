@@ -72,6 +72,10 @@ class FormRules {
     if (this.data.watchesOtherStep) {
       this.ui.step.addEventListener(Stepper.events.checkRules, this.checkRules.bind(this));
     }
+    // do first check  after initialisation
+    setTimeout(() => {
+      this.checkRules();
+    }, 0);
   }
 
   getRules() {

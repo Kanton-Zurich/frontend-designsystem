@@ -487,7 +487,7 @@ const variants = _.mapValues({
   },
   nestedRules: {
     meta: {
-      title: 'Merhstufige Regeln',
+      title: 'Mehrstufige Regeln',
       desc: '',
     },
     props: {
@@ -534,7 +534,7 @@ const variants = _.mapValues({
                 {
                   field: 'abType',
                   equals: true,
-                  value: 'aasdas',
+                  value: 'b',
                 },
               ],
               action: 'enable',

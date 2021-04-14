@@ -11,7 +11,7 @@
 					<use xlink:href="#overflow"></use>
 				</svg>
 				<span class="mdl-stepper_navigation__step-ordinal" data-stepper_navigation="number"></span>
-				<span class="mdl-stepper_navigation__step-title">Staatsangehörigkeit</span>
+				<span class="mdl-stepper_navigation__step-title">Schritt</span>
 			</button>
 		</li>
 		<li>
@@ -23,7 +23,7 @@
 					<use xlink:href="#overflow"></use>
 				</svg>
 				<span class="mdl-stepper_navigation__step-ordinal" data-stepper_navigation="number"></span>
-				<span class="mdl-stepper_navigation__step-title">Bürgerort 1</span>
+				<span class="mdl-stepper_navigation__step-title">Abhängiger Schritt</span>
 			</button>
 		</li>
 		<li>
@@ -44,25 +44,25 @@
 			<div class="mdl-stepper__step" data-stepper="step" data-step-index="0">
 				<div data-stepper="ruleNotificationWrapper"></div>
 				<fieldset class="form__section">
-					<legend class="atm-heading h3 form__section-title">Staatsangehörigkeit</legend>
+
 					<div class="form__group ">
 						<div class="form__row">
 							<div class="form__cell ">
 								<fieldset class="form__fieldset" data-input>
-									<legend class="form__legend ">Nationalität</legend>
+									<legend class="form__legend ">1</legend>
 									<div class="form__fieldset-list ">
 										<div class="atm-radiobutton ">
-											<input id="radio444" type="radio" value="CH" name="nationality-50">
-											<label for="radio444">
-												Schweiz
+											<input id="radioabType_1" type="radio" value="a" name="abType">
+											<label for="radioabType_1">
+												A
 
 											</label>
 										</div>
 
 										<div class="atm-radiobutton ">
-											<input id="radio445" type="radio" value="none" name="nationality-50">
-											<label for="radio445">
-												Nicht Schweiz
+											<input id="radioabType_2" type="radio" value="b" name="abType">
+											<label for="radioabType_2">
+												B
 
 											</label>
 										</div>
@@ -77,38 +77,24 @@
 					</div>
 				</fieldset>
 			</div>
-			<div class="mdl-stepper__step" data-stepper="step" data-step-index="1">
+			<div class="mdl-stepper__step" data-stepper="step" data-step-index="1" data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;abType&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;b&quot;}],&quot;action&quot;:&quot;enable&quot;}]">
 				<div data-stepper="ruleNotificationWrapper"></div>
 				<fieldset class="form__section">
-					<legend class="atm-heading h3 form__section-title">Bürgerort</legend>
+					<legend class="atm-heading h3 form__section-title">Persönliche Angaben</legend>
 					<div class="form__group ">
 						<div class="form__row">
 							<div class="form__cell ">
 								<div class="atm-form_input atm-form_input--floated
-            " data-input data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;nationality-50&quot;,&quot;equals&quot;:true,&quot;value&quot;:&quot;CH&quot;}],&quot;action&quot;:&quot;show&quot;}]">
+            " data-input>
 
 
 
-									<input class="atm-form_input__input" id="place_of_citizenship721" placeholder="Bürgerort" name="place_of_citizenship10" value="" type="text" required data-validation data-floating>
+									<input class="atm-form_input__input" id="dummy_1" placeholder="Feld 1" name="dummy_1" value="" type="text" data-floating>
 
 
 
 
-									<label for="place_of_citizenship721">Bürgerort</label>
-									<span class="atm-form_input__validate-icon">
-										<span>
-											<span class="visuallyhidden"></span>
-											<svg class="icon" focusable="false">
-												<use xlink:href="#confirm"></use>
-											</svg>
-										</span>
-										<span>
-											<span class="visuallyhidden"></span>
-											<svg class="icon" focusable="false">
-												<use xlink:href="#caution"></use>
-											</svg>
-										</span>
-									</span>
+									<label for="dummy_1">Feld 1</label>
 
 
 
@@ -117,7 +103,7 @@
 
 
 
-									<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 
 								</div>
 
