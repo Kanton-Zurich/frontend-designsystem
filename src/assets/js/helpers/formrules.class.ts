@@ -65,6 +65,7 @@ class FormRules {
     return {
       stateChange: 'formrules.stateChange',
       hidden: 'formrules.hidden',
+      checkRules: 'formrules.checkRules',
     };
   }
 
@@ -394,6 +395,7 @@ class FormRules {
         }
       }
       rulesResult.push(conditionsMet);
+      this.ui.form.dispatchEvent(new CustomEvent(FormRules.events.checkRules));
     }
 
     this.doAction(action, rulesResult.filter(result => result === true).length > 0);

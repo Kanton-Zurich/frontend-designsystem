@@ -9,6 +9,7 @@ import { template } from 'lodash';
 
 import Module from '../../assets/js/helpers/module';
 import StepperNavigation from '../stepper_navigation/stepper_navigation';
+import FormRules from '../../assets/js/helpers/formrules.class';
 
 class Stepper extends Module {
   public data: {
@@ -87,10 +88,7 @@ class Stepper extends Module {
 
     this.initEventListeners();
     this.initWatchers();
-
     this.deactiveSteps();
-
-    this.setButtonVisibility();
 
     this.options.hasRules = this.ui.element.querySelectorAll('.mdl-stepper__step[data-rules]').length > 0;
 
@@ -144,6 +142,10 @@ class Stepper extends Module {
     });
     this.eventDelegate.on(Stepper.events.showRuleNotification,
       this.showRuleNotification.bind(this));
+
+    this.ui.form.addEventListener(FormRules.events.checkRules, () => {
+      setTimeout(this.setButtonVisibility.bind(this), 0);
+    });
 
     if (this.ui.navigation) {
       this.ui.navigation.addEventListener(StepperNavigation.events.navigationChange,
