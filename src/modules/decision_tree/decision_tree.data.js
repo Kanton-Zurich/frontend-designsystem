@@ -82,6 +82,27 @@ const data = _.merge({}, defaultData, {
                     },
                   ],
                 },
+              ],
+            },
+          ],
+        },
+        {
+          headingLevel: 3,
+          rules: JSON.stringify([
+            {
+              conditions: [
+                {
+                  field: 'duration_of_stay',
+                  compare: 'greaterEqual',
+                  value: '5',
+                },
+              ],
+              action: 'enable',
+            },
+          ]),
+          groups: [
+            {
+              rows: [
                 {
                   fields: [
                     {
@@ -116,6 +137,26 @@ const data = _.merge({}, defaultData, {
                     },
                   ],
                 },
+              ],
+            },
+          ],
+        },
+        {
+          headingLevel: 3,
+          rules: JSON.stringify([
+            {
+              conditions: [
+                {
+                  field: 'c_permit_group',
+                  equals: 'ja',
+                },
+              ],
+              action: 'enable',
+            },
+          ]),
+          groups: [
+            {
+              rows: [
                 {
                   fields: [
                     {
@@ -151,7 +192,7 @@ const data = _.merge({}, defaultData, {
                   ],
                 },
               ],
-            },
+            }
           ],
         },
         {
@@ -250,15 +291,6 @@ const data = _.merge({}, defaultData, {
                   field: 'duration_of_partnership',
                   compare: 'greaterEqual',
                   value: '3',
-                },
-                {
-                  field: 'duration_of_stay',
-                  compare: 'greaterEqual',
-                  value: '5',
-                },
-                {
-                  field: 'c_permit_group',
-                  equals: 'ja',
                 },
               ],
               action: 'enable',

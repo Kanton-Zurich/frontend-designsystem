@@ -140,19 +140,20 @@ class FormRules {
                 parentRule.conditions[i].equals = !parentRule.conditions[i].equals;
               }
             }
+            // todo check if this if-scope can be permanently removed
             // Don't take the rules over when it is a step
-            if (parentRule.action !== 'enable' && parentRule.action !== 'disable') {
-              if (c === 0) {
-                this.rules[ruleIdx].conditions = [...ruleCopy.conditions,
-                  ...parentRule.conditions];
-              } else {
-                copiedRules.push({
-                  action: rule.action,
-                  conditions: [...ruleCopy.conditions,
-                    ...parentRule.conditions],
-                });
-              }
+            // if (parentRule.action !== 'enable' && parentRule.action !== 'disable') {
+            if (c === 0) {
+              this.rules[ruleIdx].conditions = [...ruleCopy.conditions,
+                ...parentRule.conditions];
+            } else {
+              copiedRules.push({
+                action: rule.action,
+                conditions: [...ruleCopy.conditions,
+                  ...parentRule.conditions],
+              });
             }
+            // }
           });
         }
       });

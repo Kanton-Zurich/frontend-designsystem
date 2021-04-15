@@ -111,8 +111,36 @@ $decision-tree-notch-size: pxToRem(48px);
       left: calc(50% - #{$decision-tree-notch-size / 2});
       background-color: $colorBlack5;
 
+      .icon {
+        &.closed {
+          display: block;
+          width: pxToRem(#{$sizeLarge + 1});
+          height: pxToRem(#{$sizeLarge + 1});
+        }
+
+        &.open {
+          display: none;
+          width: pxToRem($sizeRegular);
+          height: pxToRem($sizeRegular);
+        }
+      }
+
       &:hover {
         background: $colorBlack10;
+      }
+    }
+
+    &--open {
+      .atm-button {
+        .icon {
+          &.closed {
+            display: none;
+          }
+
+          &.open {
+            display: block;
+          }
+        }
       }
     }
 
@@ -137,6 +165,7 @@ $decision-tree-notch-size: pxToRem(48px);
   &--endpoint {
     .mdl-decision_tree__next {
       opacity: 0;
+      pointer-events: none;
     }
   }
 

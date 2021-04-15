@@ -11,6 +11,7 @@ import { animationEvent } from '../../assets/js/helpers/common';
 class DecisionTree extends Module {
   public ui: {
     element: HTMLDivElement,
+    heading: HTMLHeadingElement,
     stepper: HTMLDivElement,
     form: HTMLFormElement,
     steps: HTMLDivElement[],
@@ -30,6 +31,7 @@ class DecisionTree extends Module {
     animationDelay: number,
     stackDelay: number,
     stepperTopPadding: number,
+    scrollTopMargin: number,
   };
 
   public currentStepIndex: number;
@@ -41,8 +43,10 @@ class DecisionTree extends Module {
       animationDelay: 300,
       stackDelay: 10,
       stepperTopPadding: 32,
+      scrollTopMargin: 200,
       domSelectors: {
         stepper: '.mdl-stepper',
+        heading: '.mdl-decision_tree__heading',
         steps: '[data-stepper="step"]',
         navSteps: '.mdl-decision_tree__navigation [data-step]',
         nextButton: '.mdl-decision_tree__next',
@@ -64,6 +68,7 @@ class DecisionTree extends Module {
         topBeforeOpen: 'mdl-decision_tree__top--before-open',
         topBeforeClose: 'mdl-decision_tree__top--before-close',
         topOpen: 'mdl-decision_tree__top--open',
+        notchOpen: 'mdl-decision_tree__notch--open',
         stepSlideIn: 'mdl-decision_tree--anim-slide-in',
         stepSlideOut: 'mdl-decision_tree--anim-slide-out',
         stepFadeIn: 'mdl-decision_tree--anim-fade-in',
@@ -90,6 +95,10 @@ class DecisionTree extends Module {
       event.preventDefault();
       const callback = (hasErrors) => {
         if (!hasErrors) {
+          if (this.ui.stepper.getBoundingClientRect().y < 0) {
+            const marginTop = this.ui.heading ? parseInt(getComputedStyle(this.ui.heading).marginTop.slice(0, -2), 10) : 0; // eslint-disable-line
+            this.scrollTo(this.ui.element, -(marginTop - 10));
+          }
           this.animStepChange(() => {
             this.ui.stepper.dispatchEvent(new CustomEvent(Stepper.events.triggerNext));
           });
@@ -121,6 +130,14 @@ class DecisionTree extends Module {
       const dataStepIndex = parseInt(navStep.getAttribute('data-step'), 10);
 
       editButton.addEventListener('click', () => {
+        if (this.ui.navigation.getBoundingClientRect().y < 0) {
+          if (dataStepIndex === 0) {
+            this.scrollTo(this.ui.navigation, this.options.scrollTopMargin);
+          } else {
+            const marginTop = this.ui.heading ? parseInt(getComputedStyle(this.ui.heading).marginTop.slice(0, -2), 10) : 0; // eslint-disable-line
+            this.scrollTo(this.ui.element, -(marginTop - 10));
+          }
+        }
         if (dataStepIndex === 0) {
           this.animToStart();
         }
@@ -187,6 +204,10 @@ class DecisionTree extends Module {
     });
   }
 
+  /**
+   * Enabled or disable not at the top
+   * @param enabled
+   */
   setNotchEnabled(enabled) {
     if (enabled) {
       this.ui.notch.setAttribute('aria-hidden', 'false');
@@ -197,6 +218,19 @@ class DecisionTree extends Module {
       this.ui.notchButton.setAttribute('aria-hidden', 'true');
       this.ui.notchButton.setAttribute('tabindex', '-1');
     }
+  }
+
+  /**
+   * Scroll helper function
+   * @param element
+   * @param marginTop
+   */
+  scrollTo(element, marginTop = 0) {
+    setTimeout(() => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const rect = element.getBoundingClientRect();
+      window.scroll(0, rect.top + scrollTop - marginTop);
+    }, 0);
   }
 
   /** --- Animations --- */
@@ -239,6 +273,7 @@ class DecisionTree extends Module {
   animOpenTop(callback = null) {
     if (!this.ui.top.classList.contains(this.options.stateClasses.topOpen)) {
       this.ui.top.classList.add(this.options.stateClasses.topBeforeShow);
+      this.ui.notch.classList.add(this.options.stateClasses.notchOpen);
       const height = this.ui.top.clientHeight;
       this.ui.top.classList.add(this.options.stateClasses.topBeforeOpen);
       this.ui.top.classList.remove(this.options.stateClasses.topBeforeShow);
@@ -268,6 +303,7 @@ class DecisionTree extends Module {
       const height = this.ui.top.clientHeight;
       this.ui.top.style.height = `${height}px`;
       this.ui.top.classList.add(this.options.stateClasses.topBeforeClose);
+      this.ui.notch.classList.remove(this.options.stateClasses.notchOpen);
       const { marginBottom } = getComputedStyle(this.ui.intro);
       const introHeight = this.ui.intro.clientHeight + parseInt(marginBottom.slice(0, -2), 10); // eslint-disable-line
       setTimeout(() => {
