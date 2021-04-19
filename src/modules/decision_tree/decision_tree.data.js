@@ -16,12 +16,30 @@ const radioHBS = dataHelper.getFileContent('../../atoms/radiobutton/radiobutton.
 const radioData = require('../../atoms/radiobutton/radiobutton.data');
 
 const template = dataHelper.getFileContent('decision_tree.hbs');
+
+const markdownHbs = dataHelper.getDocumentation('decision_tree.md').replace(/\{\{(.*?)\}\}/g, (m) => {
+  return m.replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+});
+const markdownData = {
+  decisionTreeDiagram: {
+    srcsets: [{
+      image: '/preview/assets/media/image/decisiontree.jpg',
+      imageWidth: 1280,
+    }],
+    alt: 'Entscheidungsbaum Diagramm',
+    isWide: true,
+    caption: {
+      caption: 'Diagramm des dargestellten Entscheidungsbaums',
+    },
+  },
+};
+
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Entscheidungsbaum',
     className: 'DecisionTree',
     jira: 'CZHDEV-2845',
-    documentation: dataHelper.getDocumentation('decision_tree.md'),
+    documentation: handlebars.compile(markdownHbs)(markdownData),
     label: 'Formular',
   },
   props: {
@@ -232,49 +250,6 @@ const data = _.merge({}, defaultData, {
                         })),
                       cellAttachment: () => handlebars.compile(accordionHBS)(_.merge({},
                         accordionData.variants.singleItem.props)),
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-        {
-          headingLevel: 3,
-          groups: [
-            {
-              rows: [
-                {
-                  fields: [
-                    {
-                      cellTitle: 'Sind Sie in der Schweiz geboren? ',
-                      cellContent: () => handlebars.compile(formFieldsetHBS)({
-                        requiredMessage: 'Bitte wählen Sie eine Option',
-                        options: [
-                          () => handlebars.compile(radioHBS)(_.merge({},
-                            radioData.variants.default.props,
-                            {
-                              label: 'Ja',
-                              groupName: 'born_ch',
-                              id: 'born_ch_1',
-                              value: 'ja',
-                              validation: {
-                                isRequired: true,
-                              },
-                            })),
-                          () => handlebars.compile(radioHBS)(_.merge({},
-                            radioData.variants.default.props,
-                            {
-                              label: 'Nein',
-                              groupName: 'born_ch',
-                              id: 'born_ch_2',
-                              value: 'nein',
-                              validation: {
-                                isRequired: true,
-                              },
-                            })),
-                        ],
-                      }),
                     },
                   ],
                 },

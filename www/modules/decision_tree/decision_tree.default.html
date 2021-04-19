@@ -2,7 +2,7 @@
 	<div class="lyt-wrapper">
 		<div class="grid-x grid-margin-x">
 			<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-				<h2 class="atm-heading atm-heading--bordered">Einbürgergungs-Assistent</h2>
+				<h2 class="mdl-decision_tree__heading atm-heading atm-heading--bordered">Einbürgergungs-Assistent</h2>
 				<div class="mdl-richtext mdl-decision_tree__top">
 					<div class="mdl-richtext mdl-decision_tree__intro">
 						<p class="atm-paragraph">
@@ -14,14 +14,6 @@
 							<dl class="mdl-descriptionlist">
 								<div data-step-item>
 									<dt>Seit wann leben Sie in der Schweiz?</dt>
-									<dd><%--value%></dd>
-								</div>
-								<div data-step-item>
-									<dt>Haben Sie eine Niederlassungsbewilligung C?</dt>
-									<dd><%--value%></dd>
-								</div>
-								<div data-step-item>
-									<dt>Sind Sie mit einem Schweizer oder einer Schweizerin verheiratet oder in eingetragener Partnerschaft?</dt>
 									<dd><%--value%></dd>
 								</div>
 							</dl>
@@ -38,7 +30,7 @@
 						<div class="mdl-decision_tree__navigation-step" data-step="1">
 							<dl class="mdl-descriptionlist">
 								<div data-step-item>
-									<dt>Wie lange sind Sie verheiratet oder in eingetragener Partnerschaft?</dt>
+									<dt>Haben Sie eine Niederlassungsbewilligung C?</dt>
 									<dd><%--value%></dd>
 								</div>
 							</dl>
@@ -55,7 +47,24 @@
 						<div class="mdl-decision_tree__navigation-step" data-step="2">
 							<dl class="mdl-descriptionlist">
 								<div data-step-item>
-									<dt>Sind Sie in der Schweiz geboren? </dt>
+									<dt>Sind Sie mit einem Schweizer oder einer Schweizerin verheiratet oder in eingetragener Partnerschaft?</dt>
+									<dd><%--value%></dd>
+								</div>
+							</dl>
+							<button class="atm-button atm-button--secondary atm-button--small atm-button--tag mdl-decision_tree__navigation-edit">
+								<span class="atm-button__text ">
+									Anpassen
+								</span>
+								<svg class="icon atm-button__icon" focusable="false">
+									<use xlink:href="#edit"></use>
+								</svg>
+								<span class="atm-button__spinner"></span>
+							</button>
+						</div>
+						<div class="mdl-decision_tree__navigation-step" data-step="3">
+							<dl class="mdl-descriptionlist">
+								<div data-step-item>
+									<dt>Wie lange sind Sie verheiratet oder in eingetragener Partnerschaft?</dt>
 									<dd><%--value%></dd>
 								</div>
 							</dl>
@@ -74,8 +83,11 @@
 				<div class="mdl-decision_tree__notch" aria-hidden="true">
 					Bisherige Antworten anzeigen
 					<button class="atm-button atm-button--secondary atm-button--icon-only" aria-hidden="true" tabindex="-1">
-						<svg class="icon atm-button__icon" focusable="false">
+						<svg class="icon atm-button__icon closed" focusable="false">
 							<use xlink:href="#arrow-up"></use>
+						</svg>
+						<svg class="icon atm-button__icon open" focusable="false">
+							<use xlink:href="#exit"></use>
 						</svg>
 					</button>
 				</div>
@@ -133,6 +145,14 @@
 											</div>
 										</div>
 
+									</div>
+								</fieldset>
+							</div>
+							<div class="mdl-stepper__step" data-stepper="step" data-step-index="1" data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;duration_of_stay&quot;,&quot;compare&quot;:&quot;greaterEqual&quot;,&quot;value&quot;:&quot;5&quot;}],&quot;action&quot;:&quot;enable&quot;}]">
+								<div data-stepper="ruleNotificationWrapper"></div>
+								<fieldset class="form__section">
+
+									<div class="form__group ">
 										<div class="form__row">
 											<div class="form__cell ">
 												<h3 class="atm-heading">Haben Sie eine Niederlassungsbewilligung C?</h3>
@@ -163,6 +183,14 @@
 											</div>
 										</div>
 
+									</div>
+								</fieldset>
+							</div>
+							<div class="mdl-stepper__step" data-stepper="step" data-step-index="2" data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;c_permit_group&quot;,&quot;equals&quot;:&quot;ja&quot;}],&quot;action&quot;:&quot;enable&quot;}]">
+								<div data-stepper="ruleNotificationWrapper"></div>
+								<fieldset class="form__section">
+
+									<div class="form__group ">
 										<div class="form__row">
 											<div class="form__cell ">
 												<h3 class="atm-heading">Sind Sie mit einem Schweizer oder einer Schweizerin verheiratet oder in eingetragener Partnerschaft?</h3>
@@ -196,7 +224,7 @@
 									</div>
 								</fieldset>
 							</div>
-							<div class="mdl-stepper__step" data-stepper="step" data-step-index="1" data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;partnered_ch&quot;,&quot;equals&quot;:&quot;ja&quot;}],&quot;action&quot;:&quot;enable&quot;}]">
+							<div class="mdl-stepper__step" data-stepper="step" data-step-index="3" data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;partnered_ch&quot;,&quot;equals&quot;:&quot;ja&quot;}],&quot;action&quot;:&quot;enable&quot;}]">
 								<div data-stepper="ruleNotificationWrapper"></div>
 								<fieldset class="form__section">
 
@@ -280,45 +308,7 @@
 									</div>
 								</fieldset>
 							</div>
-							<div class="mdl-stepper__step" data-stepper="step" data-step-index="2">
-								<div data-stepper="ruleNotificationWrapper"></div>
-								<fieldset class="form__section">
-
-									<div class="form__group ">
-										<div class="form__row">
-											<div class="form__cell ">
-												<h3 class="atm-heading">Sind Sie in der Schweiz geboren? </h3>
-												<fieldset class="form__fieldset" data-input>
-
-													<div class="form__fieldset-list ">
-														<div class="atm-radiobutton ">
-															<input id="radioborn_ch_1" type="radio" value="ja" name="born_ch" data-validation required>
-															<label for="radioborn_ch_1">
-																Ja
-
-															</label>
-														</div>
-
-														<div class="atm-radiobutton ">
-															<input id="radioborn_ch_2" type="radio" value="nein" name="born_ch" data-validation required>
-															<label for="radioborn_ch_2">
-																Nein
-
-															</label>
-														</div>
-
-													</div>
-													<p data-message="required" class="form__fieldset-error-message">Bitte wählen Sie eine Option</p>
-												</fieldset>
-
-
-											</div>
-										</div>
-
-									</div>
-								</fieldset>
-							</div>
-							<div class="mdl-stepper__step mdl-stepper__step-page" data-stepper="step" data-stepper-endpoint data-step-index="3" data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;duration_of_partnership&quot;,&quot;compare&quot;:&quot;greaterEqual&quot;,&quot;value&quot;:&quot;3&quot;},{&quot;field&quot;:&quot;duration_of_stay&quot;,&quot;compare&quot;:&quot;greaterEqual&quot;,&quot;value&quot;:&quot;5&quot;},{&quot;field&quot;:&quot;c_permit_group&quot;,&quot;equals&quot;:&quot;ja&quot;}],&quot;action&quot;:&quot;enable&quot;}]">
+							<div class="mdl-stepper__step mdl-stepper__step-page" data-stepper="step" data-stepper-endpoint data-step-index="4" data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;duration_of_partnership&quot;,&quot;compare&quot;:&quot;greaterEqual&quot;,&quot;value&quot;:&quot;3&quot;}],&quot;action&quot;:&quot;enable&quot;}]">
 								<div data-stepper="ruleNotificationWrapper"></div>
 								<div class="mdl-richtext">
 									<h3 class="h2 atm-heading atm-heading--with-lead">Sie können sich einbürgern lassen.</h3>
@@ -350,7 +340,7 @@
 
 
 							</div>
-							<div class="mdl-stepper__step mdl-stepper__step-page" data-stepper="step" data-stepper-endpoint data-step-index="4" data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;duration_of_stay&quot;,&quot;compare&quot;:&quot;greaterEqual&quot;,&quot;value&quot;:&quot;10&quot;},{&quot;field&quot;:&quot;c_permit_group&quot;,&quot;equals&quot;:&quot;ja&quot;}],&quot;action&quot;:&quot;enable&quot;}]">
+							<div class="mdl-stepper__step mdl-stepper__step-page" data-stepper="step" data-stepper-endpoint data-step-index="5" data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;duration_of_stay&quot;,&quot;compare&quot;:&quot;greaterEqual&quot;,&quot;value&quot;:&quot;10&quot;},{&quot;field&quot;:&quot;c_permit_group&quot;,&quot;equals&quot;:&quot;ja&quot;}],&quot;action&quot;:&quot;enable&quot;}]">
 								<div data-stepper="ruleNotificationWrapper"></div>
 								<div class="mdl-richtext">
 									<h3 class="h2 atm-heading atm-heading--with-lead">Sie können sich einbürgern lassen.</h3>
@@ -381,7 +371,7 @@
 
 
 							</div>
-							<div class="mdl-stepper__step mdl-stepper__step-page" data-stepper="step" data-stepper-endpoint data-step-index="5">
+							<div class="mdl-stepper__step mdl-stepper__step-page" data-stepper="step" data-stepper-endpoint data-step-index="6">
 								<div data-stepper="ruleNotificationWrapper"></div>
 								<div class="mdl-richtext">
 									<h3 class="h2 atm-heading atm-heading--with-lead">Sie können sich nicht einbürgern lassen.</h3>
