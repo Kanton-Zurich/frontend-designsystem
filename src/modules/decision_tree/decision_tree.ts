@@ -205,7 +205,7 @@ class DecisionTree extends Module {
   }
 
   /**
-   * Enabled or disable not at the top
+   * Enabled or disable notch at the top
    * @param enabled
    */
   setNotchEnabled(enabled) {
@@ -256,7 +256,7 @@ class DecisionTree extends Module {
   }
 
   /**
-   * Animation to in progress state
+   * Animation to start page state
    * @param callback
    */
   animToStart(callback = null) {
