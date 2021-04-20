@@ -181,7 +181,11 @@ $sizeCurves: (
   mini: (
     tiny: $sizeTiny,
     xlarge: $sizeTiny,
-  )
+  ),
+  atomic: (
+    tiny: $sizeMini,
+    medium: $sizeTiny,
+  ),
 );
 
 // Layout Wrapper Spacing

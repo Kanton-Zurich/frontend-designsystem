@@ -16,3 +16,24 @@ export const sanitizeFileSize = (fileSize) => {
 export const sanitizeSearchString = (searchWord) => { // eslint-disable-line
   return searchWord.replace(/[\<\>\+\'\"\#\&]/gi, ''); // eslint-disable-line
 };
+
+/* eslint-disable */
+/**
+ * Polyfill to get correct animation event for each browser
+ * @param animationEventType
+ */
+export const animationEvent = (animationEventType) => {
+  const el = document.createElement('fake');
+  const animEndEventNames = {
+      'WebkitAnimation' : `webkitAnimation${animationEventType.charAt(0).toUpperCase()}${animationEventType.slice(1)}`,// Saf 6, Android Browser
+      'MozAnimation'    : `animation${animationEventType}`, // only for FF < 15
+      'animation'       : `animation${animationEventType}` // IE10, Opera, Chrome, FF 15+, Saf 7+
+    };
+
+  for(let t in animEndEventNames){
+    if( el.style[t] !== undefined ){
+      return animEndEventNames[t];
+    }
+  }
+};
+/* eslint-enable */

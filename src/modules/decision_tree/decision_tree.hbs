@@ -1,0 +1,45 @@
+<div class="mdl-decision_tree" data-init="decisionTree">
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+        <h2 class="mdl-decision_tree__heading atm-heading atm-heading--bordered">{{title}}</h2>
+        <div class="mdl-richtext mdl-decision_tree__top">
+          <div class="mdl-richtext mdl-decision_tree__intro">
+            <p class="atm-paragraph">
+              {{intro}}
+            </p>
+          </div>
+          <div class="mdl-decision_tree__navigation">
+            {{#each stepper.steps}}
+              {{#unless endpoint}}
+            <div class="mdl-decision_tree__navigation-step" data-step="{{@index}}">
+              <dl class="mdl-descriptionlist">
+                  {{#each groups.0.rows}}
+                  <div data-step-item>
+                    <dt>{{fields.0.cellTitle}}</dt>
+                    <dd><%--value%></dd>
+                  </div>
+                  {{/each}}
+              </dl>
+              {{> "atoms/button/button" ../editButton }}
+            </div>
+              {{/unless}}
+            {{/each}}
+          </div>
+        </div>
+        <div class="mdl-decision_tree__notch" aria-hidden="true">
+          Bisherige Antworten anzeigen
+          <button class="atm-button atm-button--secondary atm-button--icon-only" aria-hidden="true" tabindex="-1">
+            <svg class="icon atm-button__icon closed" focusable="false">
+              <use xlink:href="#arrow-up"></use>
+            </svg>
+            <svg class="icon atm-button__icon open" focusable="false">
+              <use xlink:href="#exit"></use>
+            </svg>
+          </button>
+        </div>
+        {{> "modules/stepper/stepper" stepper}}
+      </div>
+    </div>
+  </div>
+</div>

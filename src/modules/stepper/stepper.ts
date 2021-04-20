@@ -18,6 +18,7 @@ class Stepper extends Module {
   };
 
   public navigation: any;
+  public disableScroll: boolean;
 
   public ui: {
     element: HTMLDivElement,
@@ -39,6 +40,7 @@ class Stepper extends Module {
   public options: {
     transitionTime: number,
     scrollTopMargin: number,
+    pageFocusDelay: number,
     domSelectors: any,
     stateClasses: any,
     hasRules: Boolean,
@@ -52,6 +54,7 @@ class Stepper extends Module {
     const defaultOptions = {
       transitionTime: 350,
       scrollTopMargin: 100,
+      pageFocusDelay: 1000,
       domSelectors: {
         steps: '[data-stepper="step"]',
         back: '[data-stepper="back"]',
@@ -77,6 +80,7 @@ class Stepper extends Module {
         onLastPage: 'mdl-stepper--last-page',
         success: 'mdl-stepper--success',
         buttonLoading: 'atm-button--loading',
+        focussable: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
       },
       hasRules: false,
     };
@@ -100,6 +104,7 @@ class Stepper extends Module {
     }
 
     this.ui.element.classList.add(this.options.stateClasses.initialised);
+    this.disableScroll = this.ui.element.hasAttribute('data-disable-scroll');
   }
 
   static get events() {
@@ -110,6 +115,12 @@ class Stepper extends Module {
       showRuleNotification: 'Stepper.showRuleNotification',
       hideRuleNotification: 'Stepper.hideRuleNotification',
       checkRules: 'Stepper.checkRules',
+      // status events
+      stepChanged: 'Stepper.StepChanged',
+      // external events
+      triggerNext: 'Stepper.TriggerNext',
+      triggerGoToStep: 'Stepper.TriggerGoToStep',
+      triggerValidateSection: 'Stepper.TriggerValidateSection',
     };
   }
 
@@ -117,24 +128,17 @@ class Stepper extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.eventDelegate.on('click', this.options.domSelectors.next, () => {
-      let newPageIndex = this.data.active + 1;
-
-      while (this.ui.steps[newPageIndex].getAttribute('data-enabled') === 'false') {
-        newPageIndex += 1;
+    this.eventDelegate.on(Stepper.events.triggerNext, this.onNext.bind(this));
+    this.eventDelegate.on(Stepper.events.triggerGoToStep, this.onGoToStep.bind(this));
+    this.eventDelegate.on(Stepper.events.triggerValidateSection, (event) => {
+      if (event.detail && event.detail.callback) {
+        this.validateSection(event.detail.callback);
+      } else {
+        this.validateSection(() => {});
       }
-
-      this.changePage(newPageIndex);
     });
-    this.eventDelegate.on('click', this.options.domSelectors.back, () => {
-      let newPageIndex = this.data.active - 1;
-
-      while (this.ui.steps[newPageIndex].getAttribute('data-enabled') === 'false') {
-        newPageIndex -= 1;
-      }
-
-      this.changePage(newPageIndex);
-    });
+    this.eventDelegate.on('click', this.options.domSelectors.next, this.onNext.bind(this));
+    this.eventDelegate.on('click', this.options.domSelectors.back, this.onBack.bind(this));
     this.eventDelegate.on('click', this.options.domSelectors.send, this.sendForm.bind(this));
     this.eventDelegate.on('submit', this.options.domSelectors.wrapper, () => {
       this.sendForm();
@@ -163,6 +167,43 @@ class Stepper extends Module {
   }
 
   /**
+   * Event next step
+   */
+  onNext() {
+    let newPageIndex = this.data.active + 1;
+
+    while (this.ui.steps[newPageIndex].getAttribute('data-enabled') === 'false') {
+      newPageIndex += 1;
+    }
+
+    this.changePage(newPageIndex);
+  }
+
+  /**
+   * Event next step
+   */
+  onBack() {
+    let newPageIndex = this.data.active - 1;
+
+    while (this.ui.steps[newPageIndex].getAttribute('data-enabled') === 'false') {
+      newPageIndex -= 1;
+    }
+
+    this.changePage(newPageIndex);
+  }
+
+
+  /**
+   * Event goto step
+   * @param event
+   */
+  onGoToStep(event) {
+    if (event.detail) {
+      this.changePage(event.detail.newStepIndex);
+    }
+  }
+
+  /**
    * When step changes, do the transitions and other functions
    *
    * @param {string} propName is always "active"
@@ -177,12 +218,14 @@ class Stepper extends Module {
     this.setButtonVisibility();
     this.deactiveSteps(newValue);
 
+    const eventPayload = {
+      detail: {
+        newStep: newValue,
+      },
+    };
+
     if (this.ui.navigation) {
-      this.ui.navigation.dispatchEvent(new CustomEvent(Stepper.events.stepChange, {
-        detail: {
-          newStep: newValue,
-        },
-      }));
+      this.ui.navigation.dispatchEvent(new CustomEvent(Stepper.events.stepChange, eventPayload));
     }
 
     // Remove any rule Notifications
@@ -191,6 +234,7 @@ class Stepper extends Module {
     }
 
     setTimeout(() => {
+      this.ui.element.dispatchEvent(new CustomEvent(Stepper.events.stepChanged, eventPayload));
       this.setOnPageChangeFocus();
     }, 0);
   }
@@ -270,7 +314,18 @@ class Stepper extends Module {
     if (this.ui.navigation) {
       this.ui.navigation.querySelector<HTMLButtonElement>('.mdl-stepper_navigation__step--active').focus();
     } else {
-      step.querySelector('.mdl-notification').focus();
+      const notification = step.querySelector('.mdl-notification');
+      if (this.data.active === this.ui.steps.length - 1 && notification) {
+        notification.focus();
+      } else {
+        setTimeout(() => {
+          const firstFocussableElement = step.querySelector(this.options.stateClasses.focussable);
+          if (firstFocussableElement) {
+            firstFocussableElement.focus();
+            this.updateFlyingFocus();
+          }
+        }, this.options.pageFocusDelay);
+      }
     }
     this.dispatchVerticalResizeEvent();
     this.updateFlyingFocus();
@@ -300,7 +355,7 @@ class Stepper extends Module {
         // CZHDEV-2740 scroll to top so notification is visible after filling out a long form
         this.scrollTo(this.ui.element, this.options.scrollTopMargin);
       }
-      callback();
+      callback(errors > 0);
     };
 
     this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
@@ -313,7 +368,7 @@ class Stepper extends Module {
 
   changePage(newIndex): void {
     if (newIndex > this.data.active) {
-      this.validateSection(() => {
+      this.validateSection((hasErrors) => { // eslint-disable-line
         if (this.ui.form.hasAttribute('form-has-errors')) {
           return;
         }
@@ -333,18 +388,22 @@ class Stepper extends Module {
    * Scroll to top
    */
   scrollTop() {
-    this.scrollTo(this.ui.element);
+    if (!this.disableScroll) {
+      this.scrollTo(this.ui.element);
+    }
   }
 
   /**
    * Scroll to top
    */
   scrollTo(element, marginTop = 0) {
-    setTimeout(() => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const rect = element.getBoundingClientRect();
-      window.scroll(0, rect.top + scrollTop - marginTop);
-    }, 0);
+    if (!this.disableScroll) {
+      setTimeout(() => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const rect = element.getBoundingClientRect();
+        window.scroll(0, rect.top + scrollTop - marginTop);
+      }, 0);
+    }
   }
 
   async sendForm() {
@@ -352,7 +411,7 @@ class Stepper extends Module {
     const action = form.getAttribute('action');
     let formData = null;
 
-    this.validateSection(async () => {
+    this.validateSection(async (hasErrors) => { // eslint-disable-line
       // Only of no errors are present in the form, it will be sent via ajax
       if (!this.ui.form.hasAttribute('form-has-errors')) {
         this.removeHiddenFormElements();
@@ -363,7 +422,9 @@ class Stepper extends Module {
           await import('whatwg-fetch');
         }
 
-        this.ui.send.classList.add(this.options.stateClasses.buttonLoading);
+        if (this.ui.send) {
+          this.ui.send.classList.add(this.options.stateClasses.buttonLoading);
+        }
 
         fetch(action, {
           method: 'post',
@@ -380,7 +441,9 @@ class Stepper extends Module {
               this.showNetworkError();
             }
 
-            this.ui.send.classList.remove(this.options.stateClasses.buttonLoading);
+            if (this.ui.send) {
+              this.ui.send.classList.remove(this.options.stateClasses.buttonLoading);
+            }
 
             return response;
           })
@@ -462,48 +525,52 @@ class Stepper extends Module {
   }
 
   showValidationErrors(validationErrors: Array<string>) {
-    const convertedTemplate = template(this.ui.notificationTemplate.innerHTML);
-    const context = {
-      list: this.generateList(validationErrors),
-    };
-    let message = '';
+    if (this.ui.notificationTemplate) {
+      const convertedTemplate = template(this.ui.notificationTemplate.innerHTML);
+      const context = {
+        list: this.generateList(validationErrors),
+      };
+      let message = '';
 
-    if (validationErrors.length === 1) {
-      message = this.ui.messageWrapper.getAttribute('data-singular-text');
-    } else {
-      message = this.ui.messageWrapper.getAttribute('data-plural-text');
+      if (validationErrors.length === 1) {
+        message = this.ui.messageWrapper.getAttribute('data-singular-text');
+      } else {
+        message = this.ui.messageWrapper.getAttribute('data-plural-text');
+      }
+
+      const convertedMessage = template(message);
+      const messageHTML = convertedMessage(context);
+
+      const notificationHTML = convertedTemplate({
+        icon: '#caution',
+        message: messageHTML,
+        isGreen: false,
+        isBig: false,
+        title: false,
+      });
+
+      const parsedNotification = new DOMParser().parseFromString(notificationHTML, 'text/html').querySelector('.mdl-notification');
+
+      this.ui.messageWrapper.appendChild(parsedNotification);
+      this.addNotificationEventListeners(parsedNotification);
     }
-
-    const convertedMessage = template(message);
-    const messageHTML = convertedMessage(context);
-
-    const notificationHTML = convertedTemplate({
-      icon: '#caution',
-      message: messageHTML,
-      isGreen: false,
-      isBig: false,
-      title: false,
-    });
-
-    const parsedNotification = new DOMParser().parseFromString(notificationHTML, 'text/html').querySelector('.mdl-notification');
-
-    this.ui.messageWrapper.appendChild(parsedNotification);
-    this.addNotificationEventListeners(parsedNotification);
   }
 
   showNetworkError() {
-    const convertedTemplate = template(this.ui.notificationTemplate.innerHTML);
-    const context = {
-      title: false,
-      message: this.ui.messageWrapper.getAttribute('data-error-text'),
-      isGreen: false,
-      isBig: false,
-      icon: '#caution',
-    };
-    const errorHTML = convertedTemplate(context);
-    const parsedError = new DOMParser().parseFromString(errorHTML, 'text/html').querySelector('.mdl-notification');
+    if (this.ui.notificationTemplate) {
+      const convertedTemplate = template(this.ui.notificationTemplate.innerHTML);
+      const context = {
+        title: false,
+        message: this.ui.messageWrapper.getAttribute('data-error-text'),
+        isGreen: false,
+        isBig: false,
+        icon: '#caution',
+      };
+      const errorHTML = convertedTemplate(context);
+      const parsedError = new DOMParser().parseFromString(errorHTML, 'text/html').querySelector('.mdl-notification');
 
-    this.ui.messageWrapper.appendChild(parsedError);
+      this.ui.messageWrapper.appendChild(parsedError);
+    }
   }
 
   generateList(validationErrors) {
