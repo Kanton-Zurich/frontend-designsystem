@@ -354,6 +354,7 @@ class DecisionTree extends Module {
             break;
           case 'fade-in':
             this.ui.element.classList.remove(this.options.stateClasses.stepFadeIn);
+            this.ui.element.removeEventListener(animationEvent('end'), onAnimationEvent);
             break;
           default:
             break;
