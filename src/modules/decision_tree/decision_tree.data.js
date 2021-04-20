@@ -100,6 +100,40 @@ const data = _.merge({}, defaultData, {
                     },
                   ],
                 },
+                {
+                  fields: [
+                    {
+                      cellTitle: 'Gefällt es Ihnen hier?',
+                      cellContent: () => handlebars.compile(formFieldsetHBS)({
+                        requiredMessage: 'Bitte wählen Sie eine Option',
+                        options: [
+                          () => handlebars.compile(radioHBS)(_.merge({},
+                            radioData.variants.default.props,
+                            {
+                              label: 'Ja',
+                              groupName: 'like',
+                              id: 'like_a',
+                              value: 'ja',
+                              validation: {
+                                isRequired: true,
+                              },
+                            })),
+                          () => handlebars.compile(radioHBS)(_.merge({},
+                            radioData.variants.default.props,
+                            {
+                              label: 'Nein',
+                              groupName: 'like',
+                              id: 'like_b',
+                              value: 'nein',
+                              validation: {
+                                isRequired: true,
+                              },
+                            })),
+                        ],
+                      }),
+                    },
+                  ],
+                },
               ],
             },
           ],

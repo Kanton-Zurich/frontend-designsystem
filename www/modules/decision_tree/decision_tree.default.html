@@ -16,6 +16,10 @@
 									<dt>Seit wann leben Sie in der Schweiz?</dt>
 									<dd><%--value%></dd>
 								</div>
+								<div data-step-item>
+									<dt>Gefällt es Ihnen hier?</dt>
+									<dd><%--value%></dd>
+								</div>
 							</dl>
 							<button class="atm-button atm-button--secondary atm-button--small atm-button--tag mdl-decision_tree__navigation-edit">
 								<span class="atm-button__text ">
@@ -140,6 +144,36 @@
 													<p data-message="required">Dies ist ein Pflichtfeld</p>
 
 												</div>
+
+
+											</div>
+										</div>
+
+										<div class="form__row">
+											<div class="form__cell ">
+												<h3 class="atm-heading">Gefällt es Ihnen hier?</h3>
+												<fieldset class="form__fieldset" data-input>
+
+													<div class="form__fieldset-list ">
+														<div class="atm-radiobutton ">
+															<input id="radiolike_a" type="radio" value="ja" name="like" data-validation required>
+															<label for="radiolike_a">
+																Ja
+
+															</label>
+														</div>
+
+														<div class="atm-radiobutton ">
+															<input id="radiolike_b" type="radio" value="nein" name="like" data-validation required>
+															<label for="radiolike_b">
+																Nein
+
+															</label>
+														</div>
+
+													</div>
+													<p data-message="required" class="form__fieldset-error-message">Bitte wählen Sie eine Option</p>
+												</fieldset>
 
 
 											</div>
