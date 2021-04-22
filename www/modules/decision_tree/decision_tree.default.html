@@ -13,7 +13,7 @@
 						<div class="mdl-decision_tree__navigation-step" data-step="0">
 							<dl class="mdl-descriptionlist">
 								<div data-step-item>
-									<dt>Seit wann leben Sie in der Schweiz?</dt>
+									<dt>Wie lange leben Sie schon in der Schweiz?</dt>
 									<dd><%--value%></dd>
 								</div>
 								<div data-step-item>
@@ -68,7 +68,7 @@
 						<div class="mdl-decision_tree__navigation-step" data-step="3">
 							<dl class="mdl-descriptionlist">
 								<div data-step-item>
-									<dt>Wie lange sind Sie verheiratet oder in eingetragener Partnerschaft?</dt>
+									<dt>Seit wann sind Sie verheiratet oder in eingetragener Partnerschaft?</dt>
 									<dd><%--value%></dd>
 								</div>
 							</dl>
@@ -107,7 +107,7 @@
 									<div class="form__group ">
 										<div class="form__row">
 											<div class="form__cell ">
-												<h3 class="atm-heading">Seit wann leben Sie in der Schweiz?</h3>
+												<h3 class="atm-heading">Wie lange leben Sie schon in der Schweiz?</h3>
 												<div class="atm-form_input atm-form_input--floated
                     " data-input>
 
@@ -265,42 +265,36 @@
 									<div class="form__group ">
 										<div class="form__row">
 											<div class="form__cell ">
-												<h3 class="atm-heading">Wie lange sind Sie verheiratet oder in eingetragener Partnerschaft?</h3>
-												<div class="atm-form_input atm-form_input--floated
-                    " data-input>
+												<h3 class="atm-heading">Seit wann sind Sie verheiratet oder in eingetragener Partnerschaft?</h3>
+												<div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="date" data-localization="de">
+													<div class="atm-form_input atm-form_input--floated atm-form_input--icon
+                        " data-input>
 
 
 
-													<input class="atm-form_input__input" data-pattern="^([0-9]){1,2}$" id="duration_of_partnership" placeholder="Dauer in Jahren" name="duration_of_partnership" value="" type="text" required data-validation data-floating>
+														<input class="atm-form_input__input" data-pattern="^\d{2}\.\d{2}\.\d{4}$" id="duration_of_partnership" placeholder="Datum der Eintragung" name="duration_of_partnership" value="" type="text" required data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d" data-mask-placeholder="TT.MM.JJJJ">
 
 
 
-
-													<label for="duration_of_partnership">Dauer in Jahren</label>
-													<span class="atm-form_input__validate-icon">
-														<span>
-															<span class="visuallyhidden">Eingabe entspricht den Vorgaben.</span>
-															<svg class="icon" focusable="false">
-																<use xlink:href="#confirm"></use>
-															</svg>
+														<span class="atm-form_input__backdrop">
+															<i></i>TT.MM.JJJJ
 														</span>
-														<span>
-															<span class="visuallyhidden">Eingabe entspricht nicht den Vorgaben.</span>
-															<svg class="icon" focusable="false">
-																<use xlink:href="#caution"></use>
-															</svg>
-														</span>
-													</span>
+
+														<label for="duration_of_partnership">Datum der Eintragung</label>
+
+
+														<svg class="icon" focusable="false">
+															<use xlink:href="#calendar"></use>
+														</svg>
 
 
 
 
+														<p data-message="pattern">Bitte geben Sie eine gültiges Datum an.</p>
 
+														<p data-message="required">Dies ist ein Pflichtfeld</p>
 
-													<p data-message="pattern">Dieses Eingabefeld erlaubt nur Zahlen.</p>
-
-													<p data-message="required">Dies ist ein Pflichtfeld</p>
-
+													</div>
 												</div>
 
 
@@ -342,12 +336,12 @@
 									</div>
 								</fieldset>
 							</div>
-							<div class="mdl-stepper__step mdl-stepper__step-page" data-stepper="step" data-stepper-endpoint data-step-index="4" data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;duration_of_partnership&quot;,&quot;compare&quot;:&quot;greaterEqual&quot;,&quot;value&quot;:&quot;3&quot;}],&quot;action&quot;:&quot;enable&quot;}]">
+							<div class="mdl-stepper__step mdl-stepper__step-page" data-stepper="step" data-stepper-endpoint data-step-index="4" data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;duration_of_partnership&quot;,&quot;compare&quot;:&quot;less&quot;,&quot;compareAge&quot;:true,&quot;value&quot;:&quot;3&quot;}],&quot;action&quot;:&quot;enable&quot;}]">
 								<div data-stepper="ruleNotificationWrapper"></div>
 								<div class="mdl-richtext">
 									<h3 class="h2 atm-heading atm-heading--with-lead">Sie können sich einbürgern lassen.</h3>
 									<p class="atm-lead">
-										<strong>Für Sie gilt die erleichterte Einbürgerung. Weil Sie ...</strong>
+										<strong>Für Sie gilt die erleichterte Einbürgerung. Weil Sie ...</strong>
 									</p>
 									<ul class="mdl-richtext__benefits">
 										<li><span class="visuallyhidden">Vorteil:</span> Seit mehr als 5 Jahren in der Schweiz leben.</li>

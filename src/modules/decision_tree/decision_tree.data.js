@@ -15,6 +15,9 @@ const accordionData = require('../accordion/accordion.data');
 const radioHBS = dataHelper.getFileContent('../../atoms/radiobutton/radiobutton.hbs');
 const radioData = require('../../atoms/radiobutton/radiobutton.data');
 
+const datepickerHBS = dataHelper.getFileContent('../datepicker/datepicker.hbs');
+const datepickerData = require('../datepicker/datepicker.data');
+
 const template = dataHelper.getFileContent('decision_tree.hbs');
 
 const markdownHbs = dataHelper.getDocumentation('decision_tree.md').replace(/\{\{(.*?)\}\}/g, (m) => {
@@ -81,7 +84,7 @@ const data = _.merge({}, defaultData, {
                 {
                   fields: [
                     {
-                      cellTitle: 'Seit wann leben Sie in der Schweiz?',
+                      cellTitle: 'Wie lange leben Sie schon in der Schweiz?',
                       cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
                         formInputData.variants.default.props,
                         {
@@ -266,7 +269,24 @@ const data = _.merge({}, defaultData, {
                 {
                   fields: [
                     {
-                      cellTitle: 'Wie lange sind Sie verheiratet oder in eingetragener Partnerschaft?',
+                      cellTitle: 'Seit wann sind Sie verheiratet oder in eingetragener Partnerschaft?',
+                      cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+                        datepickerData.variants.defaultDate.props,
+                        {
+                          formInputData: _.merge({}, formInputData.variants.default.props, {
+                            label: 'Datum der Eintragung',
+                            uuid: 'duration_of_partnership',
+                            name: 'duration_of_partnership',
+                            validation: {
+                              pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',
+                              isRequired: true,
+                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+                              errorMsg: 'Bitte geben Sie eine gültiges Datum an.',
+                            },
+                          }),
+                        })),
+                     /* cellTitle: 'Wie lange sind Sie verheiratet oder in eingetragener Partnerschaft?',
                       cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
                         formInputData.variants.default.props,
                         {
@@ -281,7 +301,7 @@ const data = _.merge({}, defaultData, {
                             errorMsg: 'Dieses Eingabefeld erlaubt nur Zahlen.',
                             isRequired: true,
                           },
-                        })),
+                        })),*/
                       cellAttachment: () => handlebars.compile(accordionHBS)(_.merge({},
                         accordionData.variants.singleItem.props)),
                     },
@@ -298,7 +318,8 @@ const data = _.merge({}, defaultData, {
               conditions: [
                 {
                   field: 'duration_of_partnership',
-                  compare: 'greaterEqual',
+                  compare: 'less',
+                  compareAge: true,
                   value: '3',
                 },
               ],
@@ -309,7 +330,7 @@ const data = _.merge({}, defaultData, {
             headingLevel: 3,
             heading: 'Sie können sich einbürgern lassen.',
             text: {
-              leadText: 'Für Sie gilt die erleichterte Einbürgerung. Weil Sie ...',
+              leadText: 'Für Sie gilt die erleichterte Einbürgerung. Weil Sie ...',
             },
             params: [
               'Seit mehr als 5 Jahren in der Schweiz leben.',
