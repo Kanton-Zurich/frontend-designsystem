@@ -14,8 +14,8 @@ class DecisionTree extends Module {
     heading: HTMLHeadingElement,
     stepper: HTMLDivElement,
     form: HTMLFormElement,
-    steps: HTMLDivElement[],
-    navSteps: HTMLDivElement[],
+    steps: any[],
+    navSteps: any[],
     nextButton: HTMLButtonElement,
     showNavButton: HTMLButtonElement,
     navigation: HTMLDivElement,
@@ -78,6 +78,8 @@ class DecisionTree extends Module {
     super($element, defaultData, defaultOptions, data, options);
     this.currentStepIndex = 0;
     this.initUi();
+    this.ui.navSteps = this.ui.navSteps instanceof NodeList ? Array.from(this.ui.navSteps) : [this.ui.navSteps]; // eslint-disable-line
+    this.ui.steps = this.ui.steps instanceof NodeList ? Array.from(this.ui.steps) : [this.ui.steps]; // eslint-disable-line
     this.initEventListeners();
   }
 
