@@ -191,6 +191,8 @@ $decision-tree-notch-size: pxToRem(48px);
 
   &--anim-slide-out {
     .mdl-stepper {
+      overflow: hidden;
+
       .form {
         animation: slide-out 0.6s ease-in;
         transform: translateY(-150%);
@@ -200,6 +202,8 @@ $decision-tree-notch-size: pxToRem(48px);
 
   &--anim-slide-in {
     .mdl-stepper {
+      overflow: hidden;
+
       .form {
         animation: slide-in 0.6s ease-out;
         transform: translateY(0%);
@@ -247,7 +251,6 @@ $decision-tree-notch-size: pxToRem(48px);
   .mdl-stepper {
     padding-bottom: 0;
     padding-top: pxToRem($sizeBig);
-    overflow: hidden;
     transition: height 0.5s ease;
 
     &__step {
