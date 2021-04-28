@@ -6,7 +6,7 @@
  */
 import Module from '../../assets/js/helpers/module';
 import Stepper from '../stepper/stepper';
-import { animationEvent } from '../../assets/js/helpers/common';
+import { animationEvent, detectSafari } from '../../assets/js/helpers/common';
 
 class DecisionTree extends Module {
   public ui: {
@@ -32,6 +32,7 @@ class DecisionTree extends Module {
     stackDelay: number,
     stepperTopPadding: number,
     scrollTopMargin: number,
+    heightAdjustmentDelay: number,
   };
 
   public currentStepIndex: number;
@@ -44,6 +45,7 @@ class DecisionTree extends Module {
       stackDelay: 10,
       stepperTopPadding: 32,
       scrollTopMargin: 200,
+      heightAdjustmentDelay: 600,
       domSelectors: {
         stepper: '.mdl-stepper',
         heading: '.mdl-decision_tree__heading',
@@ -345,13 +347,15 @@ class DecisionTree extends Module {
             setTimeout(() => {
               const newHeight = this.ui.form.clientHeight + this.options.stepperTopPadding;
               this.ui.stepper.style.height = `${newHeight}px`;
-            }, 0);
+            }, detectSafari() ? this.options.heightAdjustmentDelay : 0);
             this.ui.element.classList.add(this.options.stateClasses.stepSlideIn);
             break;
           case 'slide-in':
             this.ui.element.classList.remove(this.options.stateClasses.stepSlideOut);
             this.ui.element.classList.remove(this.options.stateClasses.stepSlideIn);
-            this.ui.stepper.style.removeProperty('height');
+            setTimeout(() => {
+              this.ui.stepper.style.removeProperty('height');
+            }, detectSafari() ? this.options.heightAdjustmentDelay : 0);
             this.ui.element.removeEventListener(animationEvent('end'), onAnimationEvent);
             break;
           case 'fade-in':

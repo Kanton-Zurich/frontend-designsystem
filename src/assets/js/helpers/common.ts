@@ -16,6 +16,11 @@ export const sanitizeFileSize = (fileSize) => {
 export const sanitizeSearchString = (searchWord) => { // eslint-disable-line
   return searchWord.replace(/[\<\>\+\'\"\#\&]/gi, ''); // eslint-disable-line
 };
+/* eslint-disable */
+export const detectSafari = () => {
+  return !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+};
+/* eslint-enable */
 
 /* eslint-disable */
 /**

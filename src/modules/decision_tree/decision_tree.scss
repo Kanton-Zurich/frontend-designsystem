@@ -14,6 +14,7 @@ $decision-tree-notch-size: pxToRem(48px);
   background-color: $colorBlack5;
   z-index: 1;
   position: relative;
+  outline: none;
 
   &__top {
     @include sizeCurve(margin-top, biggerRegular);
@@ -268,7 +269,7 @@ $decision-tree-notch-size: pxToRem(48px);
     }
 
     .form {
-      transition: transform 0.5s ease-in, opacity 0.2s ease;
+      transition: opacity 0.2s ease;
 
       &__fieldset-list {
         &--horizontal {
