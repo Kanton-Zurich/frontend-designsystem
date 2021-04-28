@@ -321,22 +321,28 @@ class FormRules {
 
       for (let x = 0; x < rule.conditions.length; x += 1) {
         const condition = rule.conditions[x];
-        let querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+        const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+        let querySubSelector = null;
         let correctField = null;
 
         if (condition.equals) {
           if (condition.value) {
-            querySelector = `${querySelector}[value="${condition.value}"]`;
+            querySubSelector = `${querySelector}[value="${condition.value}"]`;
+          }
+          if (querySubSelector) {
+            correctField = this.ui.form.querySelector(querySubSelector);
           }
 
-          correctField = this.ui.form.querySelector(querySelector);
-
-          if (typeof correctField !== typeof undefined && correctField) {
-            if ((condition.equals && !correctField.checked)
-              || (!condition.equals && correctField.checked)) {
-              conditionsMet = false;
-            }
-          } else {
+          if (typeof correctField === typeof undefined || !correctField) {
+            conditionsMet = false;
+            [].slice.call(this.ui.form.querySelectorAll(querySelector)).forEach((item) => { // eslint-disable-line
+              if (item.value === condition.value) {
+                correctField = item;
+                conditionsMet = true;
+              }
+            });
+          } else if ((condition.equals && !correctField.checked)
+            || (!condition.equals && correctField.checked)) {
             conditionsMet = false;
           }
         }
@@ -364,6 +370,16 @@ class FormRules {
           const valueNumeric = parseFloat(value);
           if (!isNaN(valueNumeric)) { // eslint-disable-line
             switch (condition.compare) {
+              case 'equal':
+                if (valueNumeric === parseValue(condition.value)) {
+                  conditionsMet = true;
+                }
+                break;
+              case 'unequal':
+                if (valueNumeric !== parseValue(condition.value)) {
+                  conditionsMet = true;
+                }
+                break;
               case 'greater':
                 if (valueNumeric > parseValue(condition.value)) {
                   conditionsMet = true;

@@ -839,6 +839,34 @@ const compareValue = {
 
       ],
     },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Vergleichswert genau 100.01',
+              name: 'compare_equal',
+              uuid: 'compare_equal',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_text',
+                      equals: true,
+                      value: '100.01',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+
+      ],
+    },
   ],
 };
 
