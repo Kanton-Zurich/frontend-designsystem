@@ -13,6 +13,7 @@ const defAboutData = require('../../modules/about/about.data').props;
 const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withoutLinklist.props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
+const decisionTreeData = require('../../modules/decision_tree/decision_tree.data').variants.default.props;
 
 const pageHeaderWithoutBreadcrumb = _.omit(defPageHeaderData.variants.colorPeopleTeaser.props, ['breadcrumb']);
 defPageHeaderData.variants.colorPeopleTeaser.props = pageHeaderWithoutBreadcrumb;
@@ -82,6 +83,7 @@ const data = _.merge({}, defaultData, {
     header: headerData,
     text: '',
     modules: {
+      decisionTreeData,
       pageHeaderData: _.merge({}, defPageHeaderData, {
         variants: {
           colorPeopleTeaser: {

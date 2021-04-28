@@ -12,6 +12,8 @@ $decision-tree-notch-size: pxToRem(48px);
   @include sizeCurve(padding-bottom, big);
 
   background-color: $colorBlack5;
+  z-index: 1;
+  position: relative;
 
   &__top {
     @include sizeCurve(margin-top, biggerRegular);

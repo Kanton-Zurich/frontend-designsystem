@@ -286,22 +286,6 @@ const data = _.merge({}, defaultData, {
                             },
                           }),
                         })),
-                     /* cellTitle: 'Wie lange sind Sie verheiratet oder in eingetragener Partnerschaft?',
-                      cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                        formInputData.variants.default.props,
-                        {
-                          name: 'duration_of_partnership',
-                          uuid: 'duration_of_partnership',
-                          isFloatingLabel: true,
-                          label: 'Dauer in Jahren',
-                          validation: {
-                            pattern: '^([0-9]){1,2}$',
-                            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
-                            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
-                            errorMsg: 'Dieses Eingabefeld erlaubt nur Zahlen.',
-                            isRequired: true,
-                          },
-                        })),*/
                       cellAttachment: () => handlebars.compile(accordionHBS)(_.merge({},
                         accordionData.variants.singleItem.props)),
                     },
