@@ -172,7 +172,7 @@ class Stepper extends Module {
   onNext() {
     let newPageIndex = this.data.active + 1;
 
-    while (this.ui.steps[newPageIndex].getAttribute('data-enabled') === 'false') {
+    while (this.ui.steps[newPageIndex] && this.ui.steps[newPageIndex].getAttribute('data-enabled') === 'false') {
       newPageIndex += 1;
     }
 
