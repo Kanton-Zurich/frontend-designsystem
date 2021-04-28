@@ -296,7 +296,7 @@ class Stepper extends Module {
   nextStepIsLast() {
     let nextStep = this.data.active + 1;
 
-    while (this.ui.steps[nextStep].getAttribute('data-enabled') === 'false') {
+    while (this.ui.steps[nextStep] && this.ui.steps[nextStep].getAttribute('data-enabled') === 'false') {
       nextStep += 1;
     }
 
