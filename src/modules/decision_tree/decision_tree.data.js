@@ -106,7 +106,7 @@ const data = _.merge({}, defaultData, {
                 {
                   fields: [
                     {
-                      cellTitle: 'Gefällt es Ihnen hier?',
+                      cellTitle: 'Haben sie früher schon einmal in der Schweiz gelebt?',
                       cellContent: () => handlebars.compile(formFieldsetHBS)({
                         requiredMessage: 'Bitte wählen Sie eine Option',
                         options: [
@@ -114,8 +114,8 @@ const data = _.merge({}, defaultData, {
                             radioData.variants.default.props,
                             {
                               label: 'Ja',
-                              groupName: 'like',
-                              id: 'like_a',
+                              groupName: 'live_before',
+                              id: 'live_before_a',
                               value: 'ja',
                               validation: {
                                 isRequired: true,
@@ -125,8 +125,8 @@ const data = _.merge({}, defaultData, {
                             radioData.variants.default.props,
                             {
                               label: 'Nein',
-                              groupName: 'like',
-                              id: 'like_b',
+                              groupName: 'live_before',
+                              id: 'live_before_b',
                               value: 'nein',
                               validation: {
                                 isRequired: true,
@@ -319,9 +319,9 @@ const data = _.merge({}, defaultData, {
               leadText: 'Für Sie gilt die erleichterte Einbürgerung. Weil Sie ...',
             },
             params: [
-              'Seit mehr als 5 Jahren in der Schweiz leben.',
-              'Eine Niederlassungsbewilligung C besitzen.',
-              'Seit mehr als 3 Jahren mit einer Schweizerin oder einem Schweizer verheiratet sind oder in eingetragener Partnerschaft zusammen leben.',
+              'seit mehr als 5 Jahren in der Schweiz leben.',
+              'und eine Niederlassungsbewilligung C besitzen.',
+              'und seit mehr als 3 Jahren mit einer Schweizerin oder einem Schweizer verheiratet sind oder in eingetragener Partnerschaft zusammen leben.',
             ],
             serviceList: {
               hasHeading: false,
@@ -359,11 +359,11 @@ const data = _.merge({}, defaultData, {
             headingLevel: 3,
             heading: 'Sie können sich einbürgern lassen.',
             text: {
-              leadText: 'Für Sie gilt die ordentliche Einbürgerung. Weil Sie ...',
+              leadText: 'Für Sie gilt die ordentliche Einbürgerung. Weil Sie ...',
             },
             params: [
               'Seit mehr als 10 Jahren in der Schweiz leben.',
-              'Eine Niederlassungsbewilligung C besitzen.',
+              'und eine Niederlassungsbewilligung C besitzen.',
             ],
             serviceList: {
               hasHeading: false,
@@ -384,12 +384,12 @@ const data = _.merge({}, defaultData, {
             headingLevel: 3,
             heading: 'Sie können sich nicht einbürgern lassen.',
             text: {
-              leadText: 'Für Sie ist die Einbürgerung derzeit nicht mögliche weil...',
+              leadText: 'Für Sie ist die Einbürgerung derzeit nicht mögliche weil Sie entweder...',
             },
             params: [
-              'Nicht seit mehr als 10 Jahren in der Schweiz leben.',
-              'Keine Niederlassungsbewilligung C besitzen.',
-              'Nicht seit mehr als 5 Jahren in der Schweiz leben und seit mehr als 3 Jahren mit einer Schweizerin oder einem Schweizer verheiratet sind oder in eingetragener Partnerschaft zusammen leben.',
+              'nicht seit mehr als 10 Jahren in der Schweiz leben.',
+              'oder nicht seit mehr als 5 Jahren in der Schweiz leben und seit mehr als 3 Jahren mit einer Schweizerin oder einem Schweizer verheiratet sind oder in eingetragener Partnerschaft zusammen leben.',
+              'oder keine Niederlassungsbewilligung C besitzen.',
             ],
           }),
         },
