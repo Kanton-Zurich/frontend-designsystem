@@ -2,7 +2,7 @@
 	<div class="lyt-wrapper">
 		<div class="grid-x grid-margin-x">
 			<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-				<h2 class="mdl-decision_tree__heading atm-heading atm-heading--bordered">Einbürgergungs-Assistent</h2>
+				<h2 class="mdl-decision_tree__heading atm-heading atm-heading--bordered">Einbürgerungs-Assistent</h2>
 				<div class="mdl-richtext mdl-decision_tree__top">
 					<div class="mdl-richtext mdl-decision_tree__intro">
 						<p class="atm-paragraph">
@@ -17,7 +17,7 @@
 									<dd><%--value%></dd>
 								</div>
 								<div data-step-item>
-									<dt>Gefällt es Ihnen hier?</dt>
+									<dt>Haben sie früher schon einmal in der Schweiz gelebt?</dt>
 									<dd><%--value%></dd>
 								</div>
 							</dl>
@@ -85,7 +85,8 @@
 					</div>
 				</div>
 				<div class="mdl-decision_tree__notch" aria-hidden="true">
-					Bisherige Antworten anzeigen
+					<span class="mdl-decision_tree__notch-show-text">Bisherige Antworten anzeigen</span>
+					<span class="mdl-decision_tree__notch-hide-text">Bisherige Antworten ausblenden</span>
 					<button class="atm-button atm-button--secondary atm-button--icon-only" aria-hidden="true" tabindex="-1">
 						<svg class="icon atm-button__icon closed" focusable="false">
 							<use xlink:href="#arrow-up"></use>
@@ -151,21 +152,21 @@
 
 										<div class="form__row">
 											<div class="form__cell ">
-												<h3 class="atm-heading">Gefällt es Ihnen hier?</h3>
+												<h3 class="atm-heading">Haben sie früher schon einmal in der Schweiz gelebt?</h3>
 												<fieldset class="form__fieldset" data-input>
 
 													<div class="form__fieldset-list ">
 														<div class="atm-radiobutton ">
-															<input id="radiolike_a" type="radio" value="ja" name="like" data-validation required>
-															<label for="radiolike_a">
+															<input id="radiolive_before_a" type="radio" value="ja" name="live_before" data-validation required>
+															<label for="radiolive_before_a">
 																Ja
 
 															</label>
 														</div>
 
 														<div class="atm-radiobutton ">
-															<input id="radiolike_b" type="radio" value="nein" name="like" data-validation required>
-															<label for="radiolike_b">
+															<input id="radiolive_before_b" type="radio" value="nein" name="live_before" data-validation required>
+															<label for="radiolive_before_b">
 																Nein
 
 															</label>
@@ -344,9 +345,9 @@
 										<strong>Für Sie gilt die erleichterte Einbürgerung. Weil Sie ...</strong>
 									</p>
 									<ul class="mdl-richtext__benefits">
-										<li><span class="visuallyhidden">Vorteil:</span> Seit mehr als 5 Jahren in der Schweiz leben.</li>
-										<li><span class="visuallyhidden">Vorteil:</span> Eine Niederlassungsbewilligung C besitzen.</li>
-										<li><span class="visuallyhidden">Vorteil:</span> Seit mehr als 3 Jahren mit einer Schweizerin oder einem Schweizer verheiratet sind oder in eingetragener Partnerschaft zusammen leben.</li>
+										<li><span class="visuallyhidden">Vorteil:</span> seit mehr als 5 Jahren in der Schweiz leben.</li>
+										<li><span class="visuallyhidden">Vorteil:</span> und eine Niederlassungsbewilligung C besitzen.</li>
+										<li><span class="visuallyhidden">Vorteil:</span> und seit mehr als 3 Jahren mit einer Schweizerin oder einem Schweizer verheiratet sind oder in eingetragener Partnerschaft zusammen leben.</li>
 									</ul>
 								</div>
 								<div class="mdl-service_list" data-init="servicelist">
@@ -373,11 +374,11 @@
 								<div class="mdl-richtext">
 									<h3 class="h2 atm-heading atm-heading--with-lead">Sie können sich einbürgern lassen.</h3>
 									<p class="atm-lead">
-										<strong>Für Sie gilt die ordentliche Einbürgerung. Weil Sie ...</strong>
+										<strong>Für Sie gilt die ordentliche Einbürgerung. Weil Sie ...</strong>
 									</p>
 									<ul class="mdl-richtext__benefits">
 										<li><span class="visuallyhidden">Vorteil:</span> Seit mehr als 10 Jahren in der Schweiz leben.</li>
-										<li><span class="visuallyhidden">Vorteil:</span> Eine Niederlassungsbewilligung C besitzen.</li>
+										<li><span class="visuallyhidden">Vorteil:</span> und eine Niederlassungsbewilligung C besitzen.</li>
 									</ul>
 								</div>
 								<div class="mdl-service_list" data-init="servicelist">
@@ -404,12 +405,12 @@
 								<div class="mdl-richtext">
 									<h3 class="h2 atm-heading atm-heading--with-lead">Sie können sich nicht einbürgern lassen.</h3>
 									<p class="atm-lead">
-										<strong>Für Sie ist die Einbürgerung derzeit nicht mögliche weil...</strong>
+										<strong>Für Sie ist die Einbürgerung derzeit nicht mögliche weil Sie entweder...</strong>
 									</p>
 									<ul class="mdl-richtext__benefits">
-										<li><span class="visuallyhidden">Vorteil:</span> Nicht seit mehr als 10 Jahren in der Schweiz leben.</li>
-										<li><span class="visuallyhidden">Vorteil:</span> Keine Niederlassungsbewilligung C besitzen.</li>
-										<li><span class="visuallyhidden">Vorteil:</span> Nicht seit mehr als 5 Jahren in der Schweiz leben und seit mehr als 3 Jahren mit einer Schweizerin oder einem Schweizer verheiratet sind oder in eingetragener Partnerschaft zusammen leben.</li>
+										<li><span class="visuallyhidden">Vorteil:</span> nicht seit mehr als 10 Jahren in der Schweiz leben.</li>
+										<li><span class="visuallyhidden">Vorteil:</span> oder nicht seit mehr als 5 Jahren in der Schweiz leben und seit mehr als 3 Jahren mit einer Schweizerin oder einem Schweizer verheiratet sind oder in eingetragener Partnerschaft zusammen leben.</li>
+										<li><span class="visuallyhidden">Vorteil:</span> oder keine Niederlassungsbewilligung C besitzen.</li>
 									</ul>
 								</div>
 
