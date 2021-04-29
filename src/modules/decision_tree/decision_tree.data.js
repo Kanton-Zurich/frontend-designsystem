@@ -203,7 +203,8 @@ const data = _.merge({}, defaultData, {
               conditions: [
                 {
                   field: 'c_permit_group',
-                  equals: 'ja',
+                  equals: true,
+                  value: 'ja'
                 },
               ],
               action: 'enable',
@@ -257,7 +258,8 @@ const data = _.merge({}, defaultData, {
               conditions: [
                 {
                   field: 'partnered_ch',
-                  equals: 'ja',
+                  equals: true,
+                  value: 'ja',
                 },
               ],
               action: 'enable',
@@ -346,7 +348,8 @@ const data = _.merge({}, defaultData, {
                 },
                 {
                   field: 'c_permit_group',
-                  equals: 'ja',
+                  equals: true,
+                  value: 'ja'
                 },
               ],
               action: 'enable',
