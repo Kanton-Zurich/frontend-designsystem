@@ -107,6 +107,10 @@ $decision-tree-notch-size: pxToRem(48px);
     color: rgba($colorBlack, 0.6);
     height: 0;
 
+    &-hide-text {
+      display: none;
+    }
+
     .atm-button {
       border-radius: 50%;
       position: absolute;
@@ -134,6 +138,14 @@ $decision-tree-notch-size: pxToRem(48px);
     }
 
     &--open {
+      .mdl-decision_tree__notch-show-text {
+        display: none;
+      }
+
+      .mdl-decision_tree__notch-hide-text {
+        display: inline;
+      }
+
       .atm-button {
         .icon {
           &.closed {
