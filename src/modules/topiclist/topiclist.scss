@@ -39,6 +39,10 @@ $topiclistSizeCurves: (
         border-width: 0;
       }
     }
+
+    &--no-result {
+      display: none;
+    }
   }
 
   &--expanded,
@@ -166,6 +170,10 @@ $topiclistSizeCurves: (
 
     .mdl-topiclist__autosuggest {
       display: inherit;
+
+      &--no-result {
+        display: none;
+      }
     }
   }
 

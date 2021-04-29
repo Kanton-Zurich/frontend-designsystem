@@ -96,6 +96,21 @@ $triggerWidth: pxToRem(86px);
     }
   }
 
+  &__length-indicator {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 21px);
+    text-align: right;
+    background-color: $colorWhite;
+    margin: 2px 21px 0 2px;
+    padding-top: pxToRem(11px);
+    color: $colorBlack60;
+    min-height: calc(1rem + #{pxToRem(13px)});
+  }
+
   label {
     color: $colorBlack60;
   }
@@ -105,6 +120,7 @@ $triggerWidth: pxToRem(86px);
   --------------------- */
   .atm-form_input__input--txtarea {
     min-height: pxToRem(112px);
+    resize: vertical;
   }
 
   /* --------------------
@@ -135,7 +151,7 @@ $triggerWidth: pxToRem(86px);
     .atm-form_input__input--txtarea ~ label {
       top: $borderWidthRem;
       padding-top: $paddingInput;
-      right: pxToRem($borderWidth + $sizeLarge);
+      right: pxToRem($sizeRegular + $sizeGiant);
 
       @include transition(top padding);
     }
@@ -206,6 +222,11 @@ $triggerWidth: pxToRem(86px);
       line-height: 0;
       display: none;
     }
+  }
+
+  &__validate-icon--textarea {
+    top: pxToRem(35px);
+    right: pxToRem(21px);
   }
 
   &__functionality {
@@ -355,6 +376,11 @@ $triggerWidth: pxToRem(86px);
   &.invalid {
     label {
       right: (pxToRem($sizeRegular) + pxToRem(24) + pxToRem($sizeTiny));
+    }
+
+    .atm-form_input__input--txtarea ~ label {
+      right: pxToRem($sizeBig + $sizeGiant);
+      background-color: transparent;
     }
 
     .atm-form_input__unit--right {

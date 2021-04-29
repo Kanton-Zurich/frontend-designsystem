@@ -10,17 +10,9 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        bitbucketStatusNotify(buildState: 'INPROGRESS')
         sh 'node -v && npm -v'
         sh 'npm install'
         sh 'npm run build'
-        script {
-          env.BUILD_LOG_LINT = sh (
-              script: "npm run gulp js && npm run gulp js:lint && npm run gulp css:lint",
-              returnStdout: true
-          )
-        }
-        writeFile file: "log.txt", text: env.BUILD_LOG_LINT
         sh 'pwd'
       }
     }
@@ -53,7 +45,6 @@ pipeline {
   }
   post {
     success {
-      bitbucketStatusNotify(buildState: 'SUCCESSFUL')
       script {
         def slackResponse = slackSend(
           tokenCredentialId: "${env.SLACK_CREDENTIALS}",
@@ -63,16 +54,9 @@ pipeline {
           color: 'good',
           message: "${env.JOB_NAME} build succeeded: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
         )
-        slackUploadFile(
-          credentialId: "${env.SLACK_CREDENTIALS}",
-          channel: slackResponse.threadId,
-          filePath: 'log.txt',
-          initialComment: 'Build log'
-        )
       }
     }
     failure {
-      bitbucketStatusNotify(buildState: 'FAILED')
       script {
         def slackResponse = slackSend(
           tokenCredentialId: "${env.SLACK_CREDENTIALS}",
@@ -81,12 +65,6 @@ pipeline {
           botUser: true,
           color: 'danger',
           message: "${env.JOB_NAME} build failed: ${env.BUILD_URL} Pull Request: ${env.BITBUCKET_PULL_REQUEST_LINK}"
-        )
-        slackUploadFile(
-          credentialId: "${env.SLACK_CREDENTIALS}",
-          channel: slackResponse.threadId,
-          filePath: 'log.txt',
-          initialComment: 'Build log'
         )
       }
     }

@@ -17,7 +17,7 @@ $back2topMarginCurve: (
   @include sizeCurve(right bottom, default, $back2topMarginCurve);
 
   position: fixed;
-  z-index: $zIndexFlyouts;
+  z-index: $zIndexPreFlyouts;
   height: 0;
   overflow: hidden;
   pointer-events: none;

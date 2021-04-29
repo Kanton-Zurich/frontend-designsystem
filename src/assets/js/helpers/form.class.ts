@@ -21,6 +21,7 @@ class Form {
     eventEmitters: any,
     inputClasses: any,
     validateDelay: number,
+    resizeDelay: number,
     messageClasses: any,
     radiogroupClasses: any,
     domSelectors: {
@@ -29,6 +30,8 @@ class Form {
       backdrop: string;
       radiogroup: string;
       radiobutton: string;
+      lengthIndicator: string;
+      validateIcon: string;
     };
     messageSelector: string,
     autofillSelector: string,
@@ -49,6 +52,7 @@ class Form {
 
     this.options = {
       validateDelay: 400,
+      resizeDelay: 200,
       padding: 16,
       eventEmitters: {
         clearButton: '[data-buttontype="clear"]',
@@ -68,6 +72,8 @@ class Form {
         backdrop: '.atm-form_input__backdrop',
         radiogroup: '.form__fieldset-list',
         radiobutton: '.atm-radiobutton',
+        lengthIndicator: '.atm-form_input__length-indicator',
+        validateIcon: '.atm-form_input__validate-icon',
       },
       messageSelector: '[data-message]',
       autofillSelector: '[data-autofill]',
@@ -79,7 +85,7 @@ class Form {
         show: 'show',
       },
       radiogroupClasses: {
-        vertical: 'form__fieldset-list--vertical',
+        horizontal: 'form__fieldset-list--horizontal',
       },
       duplicateSelector: '[data-form="duplicatable"]',
     };
@@ -252,6 +258,13 @@ class Form {
       }
     }
     this.onInputMask(domElement, oldValue, newValue);
+
+    if (domElement.hasAttribute('maxlength')) {
+      const maxLength = domElement.getAttribute('maxlength');
+      if (newValue.length <= maxLength) {
+        domElement.parentElement.querySelector(this.options.domSelectors.lengthIndicator).innerHTML = `${newValue.length}/${maxLength}`;
+      }
+    }
   }
 
   /**
@@ -277,14 +290,26 @@ class Form {
   }
 
   /**
-   * Update radio group wrapping on resize
+   * Update radio group wrapping and form-input-unit on resize
    */
   onResize() {
+    this.initPrefix();
     const radiogroups = this.ui.element.querySelectorAll(this.options.domSelectors.radiogroup);
 
-    radiogroups.forEach((radiogroup) => {
+    radiogroups.forEach((radiogroup: HTMLElement) => {
       const options = radiogroup.querySelectorAll(this.options.domSelectors.radiobutton);
-      radiogroup.classList.remove(this.options.radiogroupClasses.vertical);
+      radiogroup.classList.add(this.options.radiogroupClasses.horizontal);
+      if (!radiogroup.hasAttribute('data-resizing')) {
+        radiogroup.setAttribute('data-resizing', '');
+        setTimeout(() => {
+          radiogroup.style.removeProperty('height');
+          const { height } = radiogroup.getBoundingClientRect();
+          if (height > 0) {
+            radiogroup.style.height = `${height}px`;
+          }
+          radiogroup.removeAttribute('data-resizing');
+        }, this.options.resizeDelay);
+      }
 
       if (options.length > 1) {
         const firstItemTop = options[0].getBoundingClientRect().top;
@@ -292,7 +317,7 @@ class Form {
 
         for (i = 1; i < options.length; i += 1) {
           if (firstItemTop < options[i].getBoundingClientRect().top) {
-            radiogroup.classList.add(this.options.radiogroupClasses.vertical);
+            radiogroup.classList.remove(this.options.radiogroupClasses.horizontal);
             break;
           }
         }
@@ -313,12 +338,12 @@ class Form {
     inputElement.dispatchEvent(new CustomEvent(Form.events.clearInput));
   }
 
-  validateField(field) { //eslint-disable-line
+  async validateField(field) { //eslint-disable-line
     if (this.ui.element.hasAttribute('is-reset')) {
       return true;
     }
 
-    const validation = window[namespace].form.validateField(field);
+    const validation = await window[namespace].form.validateField(field);
     const fileTimeout = 5;
     const inputWrapper = field.closest(this.options.inputSelector);
 
@@ -379,6 +404,13 @@ class Form {
       fieldType = 'selectOption';
     }
 
+    if (field.hasAttribute('data-validation') && field.hasAttribute('maxlength')) {
+      const validateIcon = field.parentElement.querySelector(
+        this.options.domSelectors.validateIcon,
+      );
+      validateIcon.classList.add('atm-form_input__validate-icon--textarea');
+    }
+
     switch (fieldType) {
       case 'radio':
       case 'checkbox':
@@ -398,19 +430,19 @@ class Form {
     }
   }
 
-  validateSection(event) {
+  async validateSection(event) {
     const formSections = event.detail.sections;
     let errorsInSections = 0;
 
-    formSections.forEach((section) => {
-      const fieldsInSection = section.querySelectorAll(this.options.watchEmitters.input);
+    for (let h = 0; h < formSections.length; h++) { // eslint-disable-line
+      const fieldsInSection = formSections[h].querySelectorAll(this.options.watchEmitters.input);
 
-      fieldsInSection.forEach((field) => {
-        errorsInSections = !this.validateField(field)
+      for (let i = 0; i < fieldsInSection.length; i++) { // eslint-disable-line
+        errorsInSections = !(await this.validateField(fieldsInSection[i])) // eslint-disable-line
           ? errorsInSections += 1
           : errorsInSections;
-      });
-    });
+      }
+    }
 
     if (errorsInSections > 0) {
       this.ui.element.setAttribute('form-has-errors', 'true');
@@ -419,6 +451,7 @@ class Form {
     } else {
       this.ui.element.removeAttribute('form-has-errors');
     }
+    event.detail.callback();
   }
 
   handleInputMask(domElement, oldValue, newValue) {

@@ -1,22 +1,24 @@
 import Stepper from '../../../modules/stepper/stepper';
+import FormGlobalHelper from './form';
+import Module from './module';
 
 class FormRules {
   private ui: {
     owner: HTMLElement,
     form: HTMLFormElement,
     step: HTMLDivElement,
-  }
+  };
 
   private options: {
     domSelectors: any,
     stateClasses: any,
     isStep: boolean,
-  }
+  };
 
   private data: {
     stepIndex: number,
     watchesOtherStep: boolean,
-  }
+  };
 
   private rules: any;
 
@@ -63,6 +65,7 @@ class FormRules {
     return {
       stateChange: 'formrules.stateChange',
       hidden: 'formrules.hidden',
+      checkRules: 'formrules.checkRules',
     };
   }
 
@@ -70,6 +73,10 @@ class FormRules {
     if (this.data.watchesOtherStep) {
       this.ui.step.addEventListener(Stepper.events.checkRules, this.checkRules.bind(this));
     }
+    // do first check  after initialisation
+    setTimeout(() => {
+      this.checkRules();
+    }, 0);
   }
 
   getRules() {
@@ -134,19 +141,20 @@ class FormRules {
                 parentRule.conditions[i].equals = !parentRule.conditions[i].equals;
               }
             }
+            // todo check if this if-scope can be permanently removed
             // Don't take the rules over when it is a step
-            if (parentRule.action !== 'enable' && parentRule.action !== 'disable') {
-              if (c === 0) {
-                this.rules[ruleIdx].conditions = [...ruleCopy.conditions,
-                  ...parentRule.conditions];
-              } else {
-                copiedRules.push({
-                  action: rule.action,
-                  conditions: [...ruleCopy.conditions,
-                    ...parentRule.conditions],
-                });
-              }
+            // if (parentRule.action !== 'enable' && parentRule.action !== 'disable') {
+            if (c === 0) {
+              this.rules[ruleIdx].conditions = [...ruleCopy.conditions,
+                ...parentRule.conditions];
+            } else {
+              copiedRules.push({
+                action: rule.action,
+                conditions: [...ruleCopy.conditions,
+                  ...parentRule.conditions],
+              });
             }
+            // }
           });
         }
       });
@@ -282,6 +290,19 @@ class FormRules {
                 this.checkRules();
               });
             }
+            if (field.hasAttribute('data-live')) {
+              let checkLock = false;
+              field.addEventListener('keyup', () => {
+                if (!checkLock) {
+                  // Block checks inside safety interval to prevent browser performance issues
+                  checkLock = true;
+                  setTimeout(() => {
+                    this.checkRules();
+                    checkLock = false;
+                  }, 500); // eslint-disable-line
+                }
+              });
+            }
           }
         }
       }
@@ -293,33 +314,116 @@ class FormRules {
     const rulesResult = [];
     const { action } = this.rules[0];
 
+
     for (let i = 0; i < this.rules.length; i += 1) {
       let conditionsMet = true;
       const rule = this.rules[i];
 
       for (let x = 0; x < rule.conditions.length; x += 1) {
         const condition = rule.conditions[x];
-        let querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+        const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+        let querySubSelector = null;
         let correctField = null;
 
-        if (condition.value) {
-          querySelector = `${querySelector}[value="${condition.value}"]`;
-        }
+        if (condition.equals) {
+          if (condition.value) {
+            querySubSelector = `${querySelector}[value="${condition.value}"]`;
+          }
+          if (querySubSelector) {
+            correctField = this.ui.form.querySelector(querySubSelector);
+          }
 
-        correctField = this.ui.form.querySelector(querySelector);
-
-        if (typeof correctField !== typeof undefined && correctField) {
-          if ((condition.equals && !correctField.checked)
+          if (typeof correctField === typeof undefined || !correctField) {
+            conditionsMet = false;
+            [].slice.call(this.ui.form.querySelectorAll(querySelector)).forEach((item) => { // eslint-disable-line
+              if (item.value === condition.value) {
+                correctField = item;
+                conditionsMet = true;
+              }
+            });
+          } else if ((condition.equals && !correctField.checked)
             || (!condition.equals && correctField.checked)) {
             conditionsMet = false;
           }
         }
-      }
 
+        if (condition.compare) {
+          let compareModeDate = false;
+          let value = this.ui.form.querySelector(querySelector).value.replace(/\'/g, ''); // eslint-disable-line
+          conditionsMet = false;
+
+          if (isNaN(value)) { // eslint-disable-line
+            value = FormGlobalHelper.ParseDateTimeString(value);
+            compareModeDate = true;
+          }
+
+          const parseValue = (val) => {
+            // check if there is an age comparison required
+            if (condition.compareAge) {
+              return FormGlobalHelper.CurrentDateAgeDifference(val);
+            }
+            if (compareModeDate) {
+              return FormGlobalHelper.ParseDateTimeString(val);
+            }
+            return parseFloat(val);
+          };
+          const valueNumeric = parseFloat(value);
+          if (!isNaN(valueNumeric)) { // eslint-disable-line
+            switch (condition.compare) {
+              case 'equal':
+                if (valueNumeric === parseValue(condition.value)) {
+                  conditionsMet = true;
+                }
+                break;
+              case 'unequal':
+                if (valueNumeric !== parseValue(condition.value)) {
+                  conditionsMet = true;
+                }
+                break;
+              case 'greater':
+                if (valueNumeric > parseValue(condition.value)) {
+                  conditionsMet = true;
+                }
+                break;
+              case 'less':
+                if (valueNumeric < parseValue(condition.value)) {
+                  conditionsMet = true;
+                }
+                break;
+              case 'greaterEqual':
+                if (valueNumeric >= parseValue(condition.value)) {
+                  conditionsMet = true;
+                }
+                break;
+              case 'lessEqual':
+                if (valueNumeric <= parseValue(condition.value)) {
+                  conditionsMet = true;
+                }
+                break;
+              default:
+                conditionsMet = false;
+            }
+          } else {
+            conditionsMet = false;
+          }
+        }
+        if (!conditionsMet) {
+          break;
+        }
+      }
       rulesResult.push(conditionsMet);
+      this.ui.form.dispatchEvent(new CustomEvent(FormRules.events.checkRules));
     }
 
     this.doAction(action, rulesResult.filter(result => result === true).length > 0);
+    // 50 ms throttled update of resize event to ensure vertical correction when elements are shown
+    if (!document.body.hasAttribute('ruleUpdateRunning')) {
+      document.body.setAttribute('ruleUpdateRunning', '');
+      setTimeout(() => {
+        document.body.removeAttribute('ruleUpdateRunning');
+        window.dispatchEvent(new CustomEvent(Module.globalEvents.verticalResize));
+      }, 50); // eslint-disable-line
+    }
   }
 
   // Checks if the parent step was visited once and is currently hidden

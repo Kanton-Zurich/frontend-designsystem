@@ -64,8 +64,6 @@ class ZipCity {
         this.fields.cityOptionsList.innerHTML = '';
 
         if (/^[1-9][0-9]{3}$/.test(newVal)) {
-          this.fields.city.readOnly = true;
-
           if (typeof this.data[newVal] === 'string') {
             this.setValue(this.data[newVal]);
 
@@ -81,16 +79,12 @@ class ZipCity {
             });
 
             this.fields.cityOptionsList.innerHTML = listItems;
-
             this.fields.city.parentElement.classList.add(this.options.showOptionsClass);
-
             this.fields.city.addEventListener('click', this.clickListener);
             this.fields.city.addEventListener('keydown', this.keydownListener);
-
             this.addEventListeners();
           }
         } else {
-          this.fields.city.readOnly = false;
           this.unsetValue();
           this.removeEventListeners();
         }

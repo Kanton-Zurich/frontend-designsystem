@@ -1,4 +1,4 @@
-<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.organisations.json&quot;}'>
+<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.organisations.json&quot;,&quot;searchUrl&quot;:&quot;/pages/search/search.html?q&#x3D;{value}&quot;}'>
 	<div data-topiclist="firstLayer">
 
 
@@ -20,6 +20,8 @@
 					<use xlink:href="#clear"></use>
 				</svg>
 			</button>
+
+
 
 
 
@@ -81,15 +83,6 @@
   </span>
 </a>
 
-    </script>
-	<!-- No results template -->
-	<script data-topiclist="searchLink" type="text/x-handlebars-template">
-		<a href="<%= path %>" class="mdl-topiclist__search">
-        <svg class="icon" focusable="false">
-          <use xlink:href="#inspect"></use>
-        </svg>
-        <span><%= title %></span>
-      </a>
     </script>
 	<script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
 		<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">

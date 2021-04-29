@@ -85,6 +85,13 @@ class Search extends Module {
     this.ui.element.addEventListener(Autosuggest.events.reset, () => {
       this.ui.element.classList.remove(this.options.stateClasses.noTags);
     });
+
+    // override default submit
+    this.ui.form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      window.location.href = `${this.options.searchPageUrl}?q=${encodeURIComponent(this.ui.input.value)}`;
+    });
   }
 
   /**

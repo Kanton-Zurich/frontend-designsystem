@@ -81,7 +81,25 @@ const variants = _.mapValues({
   textarea: {
     meta: {
       title: 'Standard Textfeld',
-      desc: 'Standard Implementierung eines mehrzeiligen Textfelds mit nach oben gleitenden Beschriftung (floating Label)',
+      desc: 'Standard Implementierung eines mehrzeiligen Textfelds mit Input-limite und nach oben gleitenden Beschriftung (floating Label)',
+    },
+    props: {
+      isTextarea: true,
+      isInput: false,
+      inputLengthRestriction: 600,
+      isFloatingLabel: true,
+      label: 'Placeholder',
+      uuid: _.uniqueId('textarea'),
+      name: 'input_name',
+      validation: {
+        isRequired: true,
+      },
+    },
+  },
+  textarea_alt: {
+    meta: {
+      title: 'Standard Textfeld (2)',
+      desc: 'Standard Implementierung eines mehrzeiligen Textfelds mit Input-limite und nach oben gleitenden Beschriftung (floating Label)',
     },
     props: {
       isTextarea: true,
@@ -90,6 +108,9 @@ const variants = _.mapValues({
       label: 'Placeholder',
       uuid: _.uniqueId('textarea'),
       name: 'input_name',
+      validation: {
+        isRequired: true,
+      },
     },
   },
   disabled: {

@@ -134,7 +134,7 @@
 									<div class="grid-x grid-margin-x">
 										<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
 											<!-- modal content -->
-											<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.json&quot;}'>
+											<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.json&quot;,&quot;searchUrl&quot;:&quot;/pages/search/search.html?q&#x3D;{value}&quot;}'>
 												<div data-topiclist="firstLayer">
 
 
@@ -156,6 +156,8 @@
 																<use xlink:href="#clear"></use>
 															</svg>
 														</button>
+
+
 
 
 
@@ -218,15 +220,6 @@
   </a>
   
       </script>
-												<!-- No results template -->
-												<script data-topiclist="searchLink" type="text/x-handlebars-template">
-													<a href="<%= path %>" class="mdl-topiclist__search">
-          <svg class="icon" focusable="false">
-            <use xlink:href="#inspect"></use>
-          </svg>
-          <span><%= title %></span>
-        </a>
-      </script>
 												<script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
 													<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
     <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
@@ -261,7 +254,7 @@
 
 												<div class="mdl-organisation_navigation__top" data-organisation_navigation="topSection"></div>
 
-												<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.organisations.json&quot;}'>
+												<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.organisations.json&quot;,&quot;searchUrl&quot;:&quot;/pages/search/search.html?q&#x3D;{value}&quot;}'>
 													<div data-topiclist="firstLayer">
 
 
@@ -283,6 +276,8 @@
 																	<use xlink:href="#clear"></use>
 																</svg>
 															</button>
+
+
 
 
 
@@ -344,15 +339,6 @@
       </span>
     </a>
     
-        </script>
-													<!-- No results template -->
-													<script data-topiclist="searchLink" type="text/x-handlebars-template">
-														<a href="<%= path %>" class="mdl-topiclist__search">
-            <svg class="icon" focusable="false">
-              <use xlink:href="#inspect"></use>
-            </svg>
-            <span><%= title %></span>
-          </a>
         </script>
 													<script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
 														<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
@@ -647,12 +633,12 @@
 
 
 
-										<input class="atm-form_input__input" id="float_input_float8" placeholder="Validation(Email)" name="input_name" value="" type="email" required data-validation data-floating>
+										<input class="atm-form_input__input" id="float_input_float9" placeholder="Validation(Email)" name="input_name" value="" type="email" required data-validation data-floating>
 
 
 
 
-										<label for="float_input_float8">Validation(Email)</label>
+										<label for="float_input_float9">Validation(Email)</label>
 										<span class="atm-form_input__validate-icon">
 											<span>
 												<span class="visuallyhidden">Eingabe entspricht den Vorgaben.</span>
@@ -674,7 +660,9 @@
 
 
 										<p data-message="pattern">Die Eingabe entspricht nicht den Vorgaben für eine Email.</p>
+
 										<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 									</div>
 								</div>
 							</div>
@@ -691,8 +679,8 @@
 							<div class="form__row">
 								<div class="form__cell form__cell">
 									<div class="atm-checkbox atm-checkbox--strong">
-										<input type="checkbox" id="checkboxcheck_287" name="checkbox" />
-										<label for="checkboxcheck_287">
+										<input type="checkbox" id="checkboxcheck_304" name="checkbox" />
+										<label for="checkboxcheck_304">
 											Bildung
 											<span>
 												<svg class="icon icon--iframe-arrow" focusable="false">
@@ -705,8 +693,8 @@
 								</div>
 								<div class="form__cell form__cell">
 									<div class="atm-checkbox atm-checkbox--strong">
-										<input type="checkbox" id="checkboxcheck_288" name="checkbox" />
-										<label for="checkboxcheck_288">
+										<input type="checkbox" id="checkboxcheck_305" name="checkbox" />
+										<label for="checkboxcheck_305">
 											Wirtschaft &amp; Unternehmen
 											<span>
 												<svg class="icon icon--iframe-arrow" focusable="false">
@@ -721,8 +709,8 @@
 							<div class="form__row">
 								<div class="form__cell form__cell">
 									<div class="atm-checkbox atm-checkbox--strong">
-										<input type="checkbox" id="checkboxcheck_289" name="checkbox" />
-										<label for="checkboxcheck_289">
+										<input type="checkbox" id="checkboxcheck_306" name="checkbox" />
+										<label for="checkboxcheck_306">
 											Freizeit &amp; Kultur
 											<span>
 												<svg class="icon icon--iframe-arrow" focusable="false">
@@ -735,8 +723,8 @@
 								</div>
 								<div class="form__cell form__cell">
 									<div class="atm-checkbox atm-checkbox--strong">
-										<input type="checkbox" id="checkboxcheck_290" name="checkbox" />
-										<label for="checkboxcheck_290">
+										<input type="checkbox" id="checkboxcheck_307" name="checkbox" />
+										<label for="checkboxcheck_307">
 											Raum &amp; Bauen
 											<span>
 												<svg class="icon icon--iframe-arrow" focusable="false">
@@ -751,8 +739,8 @@
 							<div class="form__row">
 								<div class="form__cell form__cell">
 									<div class="atm-checkbox atm-checkbox--strong">
-										<input type="checkbox" id="checkboxcheck_291" name="checkbox" />
-										<label for="checkboxcheck_291">
+										<input type="checkbox" id="checkboxcheck_308" name="checkbox" />
+										<label for="checkboxcheck_308">
 											Gesundheit
 											<span>
 												<svg class="icon icon--iframe-arrow" focusable="false">
@@ -765,8 +753,8 @@
 								</div>
 								<div class="form__cell form__cell">
 									<div class="atm-checkbox atm-checkbox--strong">
-										<input type="checkbox" id="checkboxcheck_292" name="checkbox" />
-										<label for="checkboxcheck_292">
+										<input type="checkbox" id="checkboxcheck_309" name="checkbox" />
+										<label for="checkboxcheck_309">
 											Steuern
 											<span>
 												<svg class="icon icon--iframe-arrow" focusable="false">
@@ -781,8 +769,8 @@
 							<div class="form__row">
 								<div class="form__cell form__cell">
 									<div class="atm-checkbox atm-checkbox--strong">
-										<input type="checkbox" id="checkboxcheck_293" name="checkbox" />
-										<label for="checkboxcheck_293">
+										<input type="checkbox" id="checkboxcheck_310" name="checkbox" />
+										<label for="checkboxcheck_310">
 											Politik
 											<span>
 												<svg class="icon icon--iframe-arrow" focusable="false">
@@ -795,8 +783,8 @@
 								</div>
 								<div class="form__cell form__cell">
 									<div class="atm-checkbox atm-checkbox--strong">
-										<input type="checkbox" id="checkboxcheck_294" name="checkbox" />
-										<label for="checkboxcheck_294">
+										<input type="checkbox" id="checkboxcheck_311" name="checkbox" />
+										<label for="checkboxcheck_311">
 											Ausländer &amp; Migration
 											<span>
 												<svg class="icon icon--iframe-arrow" focusable="false">
@@ -811,8 +799,8 @@
 							<div class="form__row">
 								<div class="form__cell form__cell">
 									<div class="atm-checkbox atm-checkbox--strong">
-										<input type="checkbox" id="checkboxcheck_295" name="checkbox" />
-										<label for="checkboxcheck_295">
+										<input type="checkbox" id="checkboxcheck_312" name="checkbox" />
+										<label for="checkboxcheck_312">
 											Umwelt &amp; Tiere
 											<span>
 												<svg class="icon icon--iframe-arrow" focusable="false">
@@ -825,8 +813,8 @@
 								</div>
 								<div class="form__cell form__cell">
 									<div class="atm-checkbox atm-checkbox--strong">
-										<input type="checkbox" id="checkboxcheck_296" name="checkbox" />
-										<label for="checkboxcheck_296">
+										<input type="checkbox" id="checkboxcheck_313" name="checkbox" />
+										<label for="checkboxcheck_313">
 											Sicherheit &amp; Justiz
 											<span>
 												<svg class="icon icon--iframe-arrow" focusable="false">
@@ -841,8 +829,8 @@
 							<div class="form__row">
 								<div class="form__cell form__cell">
 									<div class="atm-checkbox atm-checkbox--strong">
-										<input type="checkbox" id="checkboxcheck_297" name="checkbox" />
-										<label for="checkboxcheck_297">
+										<input type="checkbox" id="checkboxcheck_314" name="checkbox" />
+										<label for="checkboxcheck_314">
 											Verkehr
 											<span>
 												<svg class="icon icon--iframe-arrow" focusable="false">
@@ -855,8 +843,8 @@
 								</div>
 								<div class="form__cell form__cell">
 									<div class="atm-checkbox atm-checkbox--strong">
-										<input type="checkbox" id="checkboxcheck_298" name="checkbox" />
-										<label for="checkboxcheck_298">
+										<input type="checkbox" id="checkboxcheck_315" name="checkbox" />
+										<label for="checkboxcheck_315">
 											Über den Kanton Zürich
 											<span>
 												<svg class="icon icon--iframe-arrow" focusable="false">
@@ -871,8 +859,8 @@
 							<div class="form__row">
 								<div class="form__cell form__cell">
 									<div class="atm-checkbox atm-checkbox--strong">
-										<input type="checkbox" id="checkboxcheck_299" name="checkbox" />
-										<label for="checkboxcheck_299">
+										<input type="checkbox" id="checkboxcheck_316" name="checkbox" />
+										<label for="checkboxcheck_316">
 											Familie
 											<span>
 												<svg class="icon icon--iframe-arrow" focusable="false">

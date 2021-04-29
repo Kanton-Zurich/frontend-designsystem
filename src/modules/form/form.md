@@ -12,4 +12,6 @@ In beiden Beispielen handelt es sich um Services.</p>
 
 ### Integration
 
+Hinweis: Richtexte können einfach per <div class="mdl-richtext"> eingebunden werden
+
 * HTML kopieren.

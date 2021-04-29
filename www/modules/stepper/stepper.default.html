@@ -79,6 +79,7 @@
 									<p data-message="required" class="form__fieldset-error-message">Bitte geben Sie eine Anrede an.</p>
 								</fieldset>
 
+
 							</div>
 						</div>
 
@@ -116,8 +117,11 @@
 
 
 
+
 									<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 								</div>
+
 
 							</div>
 							<div class="form__cell ">
@@ -153,8 +157,31 @@
 
 
 
+
 									<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 								</div>
+
+
+							</div>
+						</div>
+
+						<div class="form__row">
+							<div class="form__cell ">
+
+								<div class="mdl-richtext">
+									<h3 class="atm-heading">Test titel</h3>
+									<p class="atm-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+									<ul>
+										<li>P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.</li>
+										<li>Koordinaten begegnen uns täglich. <ul>
+												<li>P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.</li>
+												<li>Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt.</li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+
 
 							</div>
 						</div>
@@ -166,7 +193,7 @@
 
 
 
-									<input class="atm-form_input__input" id="emailaddr" placeholder="E-Mail" name="emailaddr" value="" type="email" data-validation data-floating>
+									<input class="atm-form_input__input" id="emailaddr" placeholder="E-Mail" name="emailaddr" value="" type="email" data-validate-range="../../mocks/modules/form/form.validation.json?param&#x3D;{value}" data-validation data-floating>
 
 
 
@@ -193,8 +220,11 @@
 
 
 									<p data-message="pattern">Bitte geben Sie eine gültige E-Mail-Adresse an.</p>
+									<p data-message="range">Diese E-Mail Adresse ist bei uns nicht registriert</p>
+
 
 								</div>
+
 
 							</div>
 							<div class="form__cell ">
@@ -231,7 +261,10 @@
 
 									<p data-message="pattern">Bitte geben Sie eine gültige URL an.</p>
 
+
+
 								</div>
+
 
 							</div>
 						</div>
@@ -270,8 +303,11 @@
 
 
 									<p data-message="pattern">Bitte geben Sie eine gültige schweizerische Postleizahl an.</p>
+
 									<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 								</div>
+
 
 							</div>
 							<div class="form__cell ">
@@ -317,8 +353,11 @@
 
 
 
+
 									<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 								</div>
+
 
 							</div>
 						</div>
@@ -328,7 +367,7 @@
 								<div class="mdl-select mdl-select--filter mdl-select--button" data-init="select" data-multiple="true" data-multiselectpostfix="gewählt" data-input>
 									<div class="atm-form_input atm-form_input--floated atm-form_input--trigger
               ">
-										<button aria-expanded="false" id="float_button-26" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+										<button aria-expanded="false" id="float_button-27" class="atm-form_input__input atm-form_input__input--trigger" type="button">
 											<span class="atm-form_input__trigger-label">Select Float Label</span>
 											<span class="atm-form_input__trigger-value"></span>
 											<svg class="icon" focusable="false">
@@ -359,7 +398,9 @@
 
 
 
+
 										<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 									</div>
 									<div class="mdl-select__options">
 										<div class="mdl-select__filter">
@@ -392,6 +433,8 @@
 
 
 
+
+
 											</div>
 
 										</div>
@@ -399,77 +442,77 @@
 										<span class="visuallyhidden">Mehrere Optionen auswählbar. Navigieren Sie mit den Pfeiltasten.</span>
 
 										<ul class="atm-list" tabindex="-1" data-inputtype="checkbox" tabindex="-1">
-											<li id="option-item46" class="atm-list__item atm-list__item--check-icon">
-												<svg class="icon" focusable="false">
-													<use xlink:href="#check"></use>
-												</svg>
-												<input name="iconLeftMulti" id="checkbox-option-item46" type="checkbox" value="mig" placeholder="Migration & Integration" data-select-option data-validation required>
-
-
-												<label for="checkbox-option-item46">Migration & Integration</label>
-											</li>
 											<li id="option-item47" class="atm-list__item atm-list__item--check-icon">
 												<svg class="icon" focusable="false">
 													<use xlink:href="#check"></use>
 												</svg>
-												<input name="iconLeftMulti" id="checkbox-option-item47" type="checkbox" value="mo" placeholder="Mobilität" data-select-option data-validation required>
+												<input name="iconLeftMulti" id="checkbox-option-item47" type="checkbox" value="mig" placeholder="Migration & Integration" data-select-option data-validation required>
 
 
-												<label for="checkbox-option-item47">Mobilität</label>
+												<label for="checkbox-option-item47">Migration & Integration</label>
 											</li>
 											<li id="option-item48" class="atm-list__item atm-list__item--check-icon">
 												<svg class="icon" focusable="false">
 													<use xlink:href="#check"></use>
 												</svg>
-												<input name="iconLeftMulti" id="checkbox-option-item48" type="checkbox" value="sich" placeholder="Sicherheit & Justiz" data-select-option data-validation required>
+												<input name="iconLeftMulti" id="checkbox-option-item48" type="checkbox" value="mo" placeholder="Mobilität" data-select-option data-validation required>
 
 
-												<label for="checkbox-option-item48">Sicherheit & Justiz</label>
+												<label for="checkbox-option-item48">Mobilität</label>
 											</li>
 											<li id="option-item49" class="atm-list__item atm-list__item--check-icon">
 												<svg class="icon" focusable="false">
 													<use xlink:href="#check"></use>
 												</svg>
-												<input name="iconLeftMulti" id="checkbox-option-item49" type="checkbox" value="so" placeholder="Soziales" data-select-option data-validation required>
+												<input name="iconLeftMulti" id="checkbox-option-item49" type="checkbox" value="sich" placeholder="Sicherheit & Justiz" data-select-option data-validation required>
 
 
-												<label for="checkbox-option-item49">Soziales</label>
+												<label for="checkbox-option-item49">Sicherheit & Justiz</label>
 											</li>
 											<li id="option-item50" class="atm-list__item atm-list__item--check-icon">
 												<svg class="icon" focusable="false">
 													<use xlink:href="#check"></use>
 												</svg>
-												<input name="iconLeftMulti" id="checkbox-option-item50" type="checkbox" value="st" placeholder="Steuern" data-select-option data-validation required>
+												<input name="iconLeftMulti" id="checkbox-option-item50" type="checkbox" value="so" placeholder="Soziales" data-select-option data-validation required>
 
 
-												<label for="checkbox-option-item50">Steuern</label>
+												<label for="checkbox-option-item50">Soziales</label>
 											</li>
 											<li id="option-item51" class="atm-list__item atm-list__item--check-icon">
 												<svg class="icon" focusable="false">
 													<use xlink:href="#check"></use>
 												</svg>
-												<input name="iconLeftMulti" id="checkbox-option-item51" type="checkbox" value="umte" placeholder="Umwelt & Tier" data-select-option data-validation required>
+												<input name="iconLeftMulti" id="checkbox-option-item51" type="checkbox" value="st" placeholder="Steuern" data-select-option data-validation required>
 
 
-												<label for="checkbox-option-item51">Umwelt & Tier</label>
+												<label for="checkbox-option-item51">Steuern</label>
 											</li>
 											<li id="option-item52" class="atm-list__item atm-list__item--check-icon">
 												<svg class="icon" focusable="false">
 													<use xlink:href="#check"></use>
 												</svg>
-												<input name="iconLeftMulti" id="checkbox-option-item52" type="checkbox" value="ge" placeholder="Gemeinschaften" data-select-option data-validation required>
+												<input name="iconLeftMulti" id="checkbox-option-item52" type="checkbox" value="umte" placeholder="Umwelt & Tier" data-select-option data-validation required>
 
 
-												<label for="checkbox-option-item52">Gemeinschaften</label>
+												<label for="checkbox-option-item52">Umwelt & Tier</label>
 											</li>
 											<li id="option-item53" class="atm-list__item atm-list__item--check-icon">
 												<svg class="icon" focusable="false">
 													<use xlink:href="#check"></use>
 												</svg>
-												<input name="iconLeftMulti" id="checkbox-option-item53" type="checkbox" value="scer" placeholder="Schulen & Erziehung" data-select-option data-validation required>
+												<input name="iconLeftMulti" id="checkbox-option-item53" type="checkbox" value="ge" placeholder="Gemeinschaften" data-select-option data-validation required>
 
 
-												<label for="checkbox-option-item53">Schulen & Erziehung</label>
+												<label for="checkbox-option-item53">Gemeinschaften</label>
+											</li>
+											<li id="option-item54" class="atm-list__item atm-list__item--check-icon">
+												<svg class="icon" focusable="false">
+													<use xlink:href="#check"></use>
+												</svg>
+												<input name="iconLeftMulti" id="checkbox-option-item54" type="checkbox" value="scer" placeholder="Schulen & Erziehung" data-select-option data-validation required>
+
+
+												<label for="checkbox-option-item54">Schulen & Erziehung</label>
 											</li>
 
 										</ul>
@@ -480,6 +523,7 @@
 									</div>
 								</div>
 
+
 							</div>
 							<div class="form__cell ">
 								<div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="date-range" data-localization="de">
@@ -488,7 +532,7 @@
 
 
 
-										<input class="atm-form_input__input" data-pattern="^\d{2}.\d{2}.\d{4}\s-\s\d{2}.\d{2}.\d{4}$" id="date-range-112" placeholder="Zeitraum von/bis" name="input_name" value="" type="text" required data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d - ]\-[\d- ] [\d ]\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d" data-mask-placeholder="TT.MM.JJJJ - TT.MM.JJJJ">
+										<input class="atm-form_input__input" data-pattern="^\d{2}.\d{2}.\d{4}\s-\s\d{2}.\d{2}.\d{4}$" id="date-range-113" placeholder="Zeitraum von/bis" name="input_name" value="" type="text" required data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d - ]\-[\d- ] [\d ]\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d" data-mask-placeholder="TT.MM.JJJJ - TT.MM.JJJJ">
 
 
 
@@ -496,7 +540,7 @@
 											<i></i>TT.MM.JJJJ - TT.MM.JJJJ
 										</span>
 
-										<label for="date-range-112">Zeitraum von/bis</label>
+										<label for="date-range-113">Zeitraum von/bis</label>
 
 
 										<svg class="icon" focusable="false">
@@ -507,9 +551,12 @@
 
 
 										<p data-message="pattern">Bitte geben Sie eine korrekte Zeitspanne an.</p>
+
 										<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 									</div>
 								</div>
+
 
 							</div>
 						</div>
@@ -519,7 +566,7 @@
 								<div class="mdl-select mdl-select--filter" data-init="select" data-input>
 									<div class="atm-form_input atm-form_input--floated atm-form_input--trigger atm-form_input--trigger-phone
               ">
-										<button aria-expanded="false" id="float_button-27" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+										<button aria-expanded="false" id="float_button-28" class="atm-form_input__input atm-form_input__input--trigger" type="button">
 											<span class="atm-form_input__trigger-label">Telefonvorwahl</span>
 											<span class="atm-form_input__trigger-value"></span>
 											<svg class="icon" focusable="false">
@@ -527,7 +574,7 @@
 											</svg>
 										</button>
 										<input id="select_phone_input" name="phone_input" type="tel" placeholder="__ ____ __ __" data-pattern="^[()\- \d]+$" required data-validation><label class="visuallyhidden" for="select_phone_input">Bitte hier ihre Telefonnummer ohne Telefonvorwahl eingeben</label>
-										<label for="float_button-27">Telefonnummer</label>
+										<label for="float_button-28">Telefonnummer</label>
 										<span class="atm-form_input__validate-icon">
 											<span>
 												<span class="visuallyhidden"></span>
@@ -552,7 +599,9 @@
 
 
 										<p data-message="pattern">Die Eingabe entspricht nicht den Vorgaben für eine Telefonnummer.</p>
+
 										<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 									</div>
 									<div class="mdl-select__options">
 										<div class="mdl-select__filter">
@@ -585,6 +634,8 @@
 
 
 
+
+
 											</div>
 
 										</div>
@@ -592,119 +643,120 @@
 
 
 										<ul class="atm-list" tabindex="-1" data-inputtype="radio" tabindex="-1">
-											<li id="option-item68" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item68" type="radio" value="+61" placeholder="+61 Australia (Australien)" data-select-option>
-
-
-												<label for="radio-option-item68">+61 Australia (Australien)</label>
-											</li>
 											<li id="option-item69" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item69" type="radio" value="+43" placeholder="+43 Austria (Österreich)" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item69" type="radio" value="+61" placeholder="+61 Australia (Australien)" data-select-option>
 
 
-												<label for="radio-option-item69">+43 Austria (Österreich)</label>
+												<label for="radio-option-item69">+61 Australia (Australien)</label>
 											</li>
 											<li id="option-item70" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item70" type="radio" value="+32" placeholder="+32 Belgium (Belgien)" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item70" type="radio" value="+43" placeholder="+43 Austria (Österreich)" data-select-option>
 
 
-												<label for="radio-option-item70">+32 Belgium (Belgien)</label>
+												<label for="radio-option-item70">+43 Austria (Österreich)</label>
 											</li>
 											<li id="option-item71" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item71" type="radio" value="+01" placeholder="+01 Canada (Kanada)" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item71" type="radio" value="+32" placeholder="+32 Belgium (Belgien)" data-select-option>
 
 
-												<label for="radio-option-item71">+01 Canada (Kanada)</label>
+												<label for="radio-option-item71">+32 Belgium (Belgien)</label>
 											</li>
 											<li id="option-item72" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item72" type="radio" value="+385" placeholder="+385 Croatia (Kroatien)" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item72" type="radio" value="+01" placeholder="+01 Canada (Kanada)" data-select-option>
 
 
-												<label for="radio-option-item72">+385 Croatia (Kroatien)</label>
+												<label for="radio-option-item72">+01 Canada (Kanada)</label>
 											</li>
 											<li id="option-item73" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item73" type="radio" value="+45" placeholder="+86 Denmark (Dänemark)" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item73" type="radio" value="+385" placeholder="+385 Croatia (Kroatien)" data-select-option>
 
 
-												<label for="radio-option-item73">+86 Denmark (Dänemark)</label>
+												<label for="radio-option-item73">+385 Croatia (Kroatien)</label>
 											</li>
 											<li id="option-item74" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item74" type="radio" value="+33" placeholder="+33 French (Frankreich)" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item74" type="radio" value="+45" placeholder="+86 Denmark (Dänemark)" data-select-option>
 
 
-												<label for="radio-option-item74">+33 French (Frankreich)</label>
+												<label for="radio-option-item74">+86 Denmark (Dänemark)</label>
 											</li>
 											<li id="option-item75" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item75" type="radio" value="+49" placeholder="+49 Germany (Deutschland)" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item75" type="radio" value="+33" placeholder="+33 French (Frankreich)" data-select-option>
 
 
-												<label for="radio-option-item75">+49 Germany (Deutschland)</label>
+												<label for="radio-option-item75">+33 French (Frankreich)</label>
 											</li>
 											<li id="option-item76" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item76" type="radio" value="+39" placeholder="+39 Italy (Italien)" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item76" type="radio" value="+49" placeholder="+49 Germany (Deutschland)" data-select-option>
 
 
-												<label for="radio-option-item76">+39 Italy (Italien)</label>
+												<label for="radio-option-item76">+49 Germany (Deutschland)</label>
 											</li>
 											<li id="option-item77" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item77" type="radio" value="+352" placeholder="+352 Luxembourg (Luxemburg)" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item77" type="radio" value="+39" placeholder="+39 Italy (Italien)" data-select-option>
 
 
-												<label for="radio-option-item77">+352 Luxembourg (Luxemburg)</label>
+												<label for="radio-option-item77">+39 Italy (Italien)</label>
 											</li>
 											<li id="option-item78" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item78" type="radio" value="+31" placeholder="+31 Netherlands (Niederlande)" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item78" type="radio" value="+352" placeholder="+352 Luxembourg (Luxemburg)" data-select-option>
 
 
-												<label for="radio-option-item78">+31 Netherlands (Niederlande)</label>
+												<label for="radio-option-item78">+352 Luxembourg (Luxemburg)</label>
 											</li>
 											<li id="option-item79" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item79" type="radio" value="+86" placeholder="+86 Peoples Republic of China`(China)" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item79" type="radio" value="+31" placeholder="+31 Netherlands (Niederlande)" data-select-option>
 
 
-												<label for="radio-option-item79">+86 Peoples Republic of China`(China)</label>
+												<label for="radio-option-item79">+31 Netherlands (Niederlande)</label>
 											</li>
 											<li id="option-item80" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item80" type="radio" value="+46" placeholder="+46 Sweden (Schweden)" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item80" type="radio" value="+86" placeholder="+86 Peoples Republic of China`(China)" data-select-option>
 
 
-												<label for="radio-option-item80">+46 Sweden (Schweden)</label>
+												<label for="radio-option-item80">+86 Peoples Republic of China`(China)</label>
 											</li>
-											<li id="option-item81" class="atm-list__item selected">
-												<input name="phoneSingleSelect" id="radio-option-item81" type="radio" value="+41" placeholder="+41 Switzerland (Schweiz)" data-select-option checked>
+											<li id="option-item81" class="atm-list__item">
+												<input name="phoneSingleSelect" id="radio-option-item81" type="radio" value="+46" placeholder="+46 Sweden (Schweden)" data-select-option>
 
 
-												<label for="radio-option-item81">+41 Switzerland (Schweiz)</label>
+												<label for="radio-option-item81">+46 Sweden (Schweden)</label>
 											</li>
-											<li id="option-item82" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item82" type="radio" value="+34" placeholder="+34 Spain (Spanien)" data-select-option>
+											<li id="option-item82" class="atm-list__item selected">
+												<input name="phoneSingleSelect" id="radio-option-item82" type="radio" value="+41" placeholder="+41 Switzerland (Schweiz)" data-select-option checked>
 
 
-												<label for="radio-option-item82">+34 Spain (Spanien)</label>
+												<label for="radio-option-item82">+41 Switzerland (Schweiz)</label>
 											</li>
 											<li id="option-item83" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item83" type="radio" value="+963" placeholder="+963 Syria (‫سوريا‬‎)" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item83" type="radio" value="+34" placeholder="+34 Spain (Spanien)" data-select-option>
 
 
-												<label for="radio-option-item83">+963 Syria (‫سوريا‬‎)</label>
+												<label for="radio-option-item83">+34 Spain (Spanien)</label>
 											</li>
 											<li id="option-item84" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item84" type="radio" value="+886" placeholder="+886 Taiwan (台灣))" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item84" type="radio" value="+963" placeholder="+963 Syria (‫سوريا‬‎)" data-select-option>
 
 
-												<label for="radio-option-item84">+886 Taiwan (台灣))</label>
+												<label for="radio-option-item84">+963 Syria (‫سوريا‬‎)</label>
 											</li>
 											<li id="option-item85" class="atm-list__item">
-												<input name="phoneSingleSelect" id="radio-option-item85" type="radio" value="+66" placeholder="+66 Thailand (ไทย)‎)" data-select-option>
+												<input name="phoneSingleSelect" id="radio-option-item85" type="radio" value="+886" placeholder="+886 Taiwan (台灣))" data-select-option>
 
 
-												<label for="radio-option-item85">+66 Thailand (ไทย)‎)</label>
+												<label for="radio-option-item85">+886 Taiwan (台灣))</label>
+											</li>
+											<li id="option-item86" class="atm-list__item">
+												<input name="phoneSingleSelect" id="radio-option-item86" type="radio" value="+66" placeholder="+66 Thailand (ไทย)‎)" data-select-option>
+
+
+												<label for="radio-option-item86">+66 Thailand (ไทย)‎)</label>
 											</li>
 
 										</ul>
 
 									</div>
 								</div>
+
 
 							</div>
 						</div>
@@ -717,7 +769,7 @@
 
 
 
-										<input class="atm-form_input__input" data-pattern="^\d{2}.\d{2}.\d{4}\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" id="date-hour-114" placeholder="Datum/Uhrzeit" name="input_name" value="" type="text" required data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d ]\d\d:[\d:]\d\d" data-mask-placeholder="TT.MM.JJJJ HH:MM">
+										<input class="atm-form_input__input" data-pattern="^\d{2}.\d{2}.\d{4}\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" id="date-hour-115" placeholder="Datum/Uhrzeit" name="input_name" value="" type="text" required data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d ]\d\d:[\d:]\d\d" data-mask-placeholder="TT.MM.JJJJ HH:MM">
 
 
 
@@ -725,7 +777,7 @@
 											<i></i>TT.MM.JJJJ HH:MM
 										</span>
 
-										<label for="date-hour-114">Datum/Uhrzeit</label>
+										<label for="date-hour-115">Datum/Uhrzeit</label>
 
 
 										<svg class="icon" focusable="false">
@@ -736,9 +788,12 @@
 
 
 										<p data-message="pattern">Bitte geben Sie ein korrektes Datum an.</p>
+
 										<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 									</div>
 								</div>
+
 
 							</div>
 						</div>
@@ -777,8 +832,11 @@
 
 
 									<p data-message="pattern">Bitte geben Sie eine gültige E-Mail-Adresse an.</p>
+
 									<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 								</div>
+
 
 							</div>
 						</div>
@@ -791,12 +849,14 @@
 
 
 
-										<input class="atm-form_input__input" id="vornameKind600" placeholder="Vorname Kind" name="vornameKind599" value="" type="text" data-floating>
+										<input class="atm-form_input__input" id="vornameKind685" placeholder="Vorname Kind" name="vornameKind684" value="" type="text" data-floating>
 
 
 
 
-										<label for="vornameKind600">Vorname Kind</label>
+										<label for="vornameKind685">Vorname Kind</label>
+
+
 
 
 
@@ -806,6 +866,7 @@
 
 
 									</div>
+
 
 								</div>
 							</div>
@@ -829,7 +890,8 @@
               <input class="atm-form_input__input"
                 
                 
-                 id="vornameKind602" placeholder="Vorname Kind" name="vornameKind601" value="" type="text"
+                 id="vornameKind687" placeholder="Vorname Kind" name="vornameKind686" value="" type="text"
+                
                 
                 
                 
@@ -843,12 +905,13 @@
                 
                 
                 
+                
               >
           
           
           
           
-              <label for="vornameKind602">Vorname Kind</label>
+              <label for="vornameKind687">Vorname Kind</label>
           
           
           
@@ -857,8 +920,11 @@
             
             
             
+            
+          
           </div>
           
+                                
                               </div>
                           </div>
                           <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
@@ -896,24 +962,25 @@
 
 										</div>
 
-										<script type="text/x-handlebars-template" data-file_upload="item-template">
+										<div class="mdl-file_upload__template" data-file_upload="item-template">
 											<div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
-                  <div class="mdl-file_upload__file-meta">
-                    <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
-                    <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
-                    <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
-                    <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
-                  </div>
-                  <button class="mdl-file_upload__file-delete" data-file_upload="delete">
-                    <span class="visuallyhidden">Datei wieder entfernen</span>
-                    <svg class="icon" focusable="false">
-                      <use xlink:href="#delete"></use>
-                    </svg>
-                  </button>
-                </div>
-              </script>
+												<div class="mdl-file_upload__file-meta">
+													<span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+													<span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+													<p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+													<p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
+												</div>
+												<button class="mdl-file_upload__file-delete" data-file_upload="delete">
+													<span class="visuallyhidden">Datei wieder entfernen</span>
+													<svg class="icon" focusable="false">
+														<use xlink:href="#delete"></use>
+													</svg>
+												</button>
+											</div>
+										</div>
 									</fieldset>
 								</div>
+
 
 							</div>
 						</div>
@@ -954,8 +1021,11 @@
 
 
 
+
 									<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 								</div>
+
 
 								<div class="mdl-tooltip" data-init="tooltip">
 									<div class="mdl-tooltip__text">
@@ -963,7 +1033,7 @@
 										<p>Info</p>
 
 										<div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--right">
-											<button type="button" class="mdl-tooltip__trigger" aria-describedby="form-test116">
+											<button type="button" class="mdl-tooltip__trigger" aria-describedby="form-test117">
 												<span class="visuallyhidden">
 													Erweiterter Hilfetext anzeigen
 												</span>
@@ -971,7 +1041,7 @@
 													<use xlink:href="#get-information"></use>
 												</svg>
 											</button>
-											<div class="mdl-tooltip__bubble" id="form-test116" aria-hidden="true">
+											<div class="mdl-tooltip__bubble" id="form-test117" aria-hidden="true">
 												<button type="button" tabindex="-1">
 													<span class="visuallyhidden">
 														Hilfetextfenster schliessen
@@ -986,6 +1056,48 @@
 										</div>
 									</div>
 								</div>
+							</div>
+						</div>
+
+						<div class="form__row">
+							<div class="form__cell ">
+								<div>
+									<fieldset class="mdl-file_upload" data-init="fileUpload" data-input>
+										<legend class="atm-heading h4">Dokumente hochladen</legend>
+										<p class="mdl-file_upload__subtitle">Hier können Sie ihren Lebenslauf hochladen</p>
+										<input class="visuallyhidden" type="file" name="file1" id="file1" data-file_upload="input" data-validation required />
+										<div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
+											<p class="mdl-file_upload__dropzone-hint">Zum Hochladen Datei ziehen und hier ablegen.</p>
+											<p class="mdl-file_upload__format-hint">Zulässige Dateiformate: gif, jpeg, png, tiff, svg (max. 25 MB).</p>
+											<label class="mdl-file_upload__button atm-button atm-button--secondary" for="file1">Datei auswählen</label>
+										</div>
+										<p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an.</p>
+										<p class="mdl-file_upload__error" data-message="onlyonefile">Sie können nur 1 Datei gleichzeitig hochladen.</p>
+
+										<div class="mdl-file_upload__list" data-file_upload="list">
+
+										</div>
+
+										<div class="mdl-file_upload__template" data-file_upload="item-template">
+											<div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
+												<div class="mdl-file_upload__file-meta">
+													<span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+													<span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+													<p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+													<p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
+												</div>
+												<button class="mdl-file_upload__file-delete" data-file_upload="delete">
+													<span class="visuallyhidden">Datei wieder entfernen</span>
+													<svg class="icon" focusable="false">
+														<use xlink:href="#delete"></use>
+													</svg>
+												</button>
+											</div>
+										</div>
+									</fieldset>
+								</div>
+
+
 							</div>
 						</div>
 
@@ -1023,8 +1135,11 @@
 
 
 									<p data-message="pattern">Bitte geben Sie eine gültige schweizerische Postleizahl an.</p>
+
 									<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 								</div>
+
 
 							</div>
 							<div class="form__cell ">
@@ -1070,13 +1185,16 @@
 
 
 
+
 									<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 								</div>
+
 
 								<div class="mdl-tooltip" data-init="tooltip">
 									<div class="mdl-tooltip__text">
 										<div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--left">
-											<button type="button" class="mdl-tooltip__trigger" aria-describedby="form-test117">
+											<button type="button" class="mdl-tooltip__trigger" aria-describedby="form-test118">
 												<span class="visuallyhidden">
 													Erweiterter Hilfetext anzeigen
 												</span>
@@ -1084,7 +1202,7 @@
 													<use xlink:href="#get-information"></use>
 												</svg>
 											</button>
-											<div class="mdl-tooltip__bubble" id="form-test117" aria-hidden="true">
+											<div class="mdl-tooltip__bubble" id="form-test118" aria-hidden="true">
 												<button type="button" tabindex="-1">
 													<span class="visuallyhidden">
 														Hilfetextfenster schliessen
@@ -1134,9 +1252,18 @@
 											</label>
 										</div>
 
+										<div class="atm-radiobutton ">
+											<input id="radiocheckbox_4" type="radio" value="no" name="checkbox_in_duplication">
+											<label for="radiocheckbox_4">
+												Test Test
+
+											</label>
+										</div>
+
 									</div>
 									<p data-message="required" class="form__fieldset-error-message"></p>
 								</fieldset>
+
 
 							</div>
 						</div>
@@ -1149,7 +1276,7 @@
 
 
 
-										<input class="atm-form_input__input" data-pattern="^\d{2}\.\d{2}\.\d{4}$" id="date-111" placeholder="Datum" name="input_name" value="" type="text" required data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d" data-mask-placeholder="TT.MM.JJJJ">
+										<input class="atm-form_input__input" data-pattern="^\d{2}\.\d{2}\.\d{4}$" id="date-112" placeholder="Datum" name="input_name" value="" type="text" required data-validation data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d" data-mask-placeholder="TT.MM.JJJJ">
 
 
 
@@ -1157,7 +1284,7 @@
 											<i></i>TT.MM.JJJJ
 										</span>
 
-										<label for="date-111">Datum</label>
+										<label for="date-112">Datum</label>
 
 
 										<svg class="icon" focusable="false">
@@ -1168,9 +1295,12 @@
 
 
 										<p data-message="pattern">Bitte geben Sie eine korrektes Datum an.</p>
+
 										<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 									</div>
 								</div>
+
 
 							</div>
 						</div>
@@ -1202,8 +1332,10 @@
                 
                 
                 
+                
                  data-validation
                  data-floating
+                
                 
                 
                 
@@ -1236,9 +1368,56 @@
           
             
             
+            
             <p data-message="required">Dies ist ein Pflichtfeld</p>
+          
           </div>
           
+                              
+                            </div>
+                        </div>
+                        <div class="form__row">
+                            <div class="form__cell ">
+                              <div >
+            <fieldset class="mdl-file_upload" data-init="fileUpload" data-input>
+              <legend class="atm-heading h4">Dokumente hochladen</legend>
+              <p class="mdl-file_upload__subtitle">Hier können Sie ihren Lebenslauf hochladen</p>
+              <input class="visuallyhidden" type="file" name="file1" id="file1" data-file_upload="input" 
+                  data-validation
+                  required
+              />
+              <div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
+                <p class="mdl-file_upload__dropzone-hint">Zum Hochladen Datei ziehen und hier ablegen.</p>
+                <p class="mdl-file_upload__format-hint">Zulässige Dateiformate: gif, jpeg, png, tiff, svg (max. 25 MB).</p>
+                <label class="mdl-file_upload__button atm-button atm-button--secondary" for="file1">Datei auswählen</label>
+              </div>
+              <p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an.</p>
+              <p class="mdl-file_upload__error" data-message="onlyonefile">Sie können nur 1 Datei gleichzeitig hochladen.</p>
+          
+              <div class="mdl-file_upload__list" data-file_upload="list">
+          
+              </div>
+          
+              <div class="mdl-file_upload__template" data-file_upload="item-template">
+                <div class="mdl-file_upload__file" data-file-id="<%- fileID %>">
+                  <div class="mdl-file_upload__file-meta">
+                    <span class="mdl-file_upload__file-title"><%- fileTitle %></span>
+                    <span class="mdl-file_upload__file-info"><%- fileType %> | <%- fileSize %></span>
+                    <p class="mdl-file_upload__error" data-message="size">Die Datei ist grösser als die maximale Dateigrösse.</p>
+                    <p class="mdl-file_upload__error" data-message="type">Zulässige Dateiformate: csv, gif, html, jpeg, pdf, png, tiff, rtf, svg, txt, xml (max. 25 MB).</p>
+                  </div>
+                  <button class="mdl-file_upload__file-delete" data-file_upload="delete">
+                    <span class="visuallyhidden">Datei wieder entfernen</span>
+                    <svg class="icon" focusable="false">
+                      <use xlink:href="#delete"></use>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          
+                              
                             </div>
                         </div>
                         <div class="form__row">
@@ -1260,8 +1439,10 @@
                 
                 
                 
+                
                  data-validation
                  data-floating
+                
                 
                 
                   data-fills-city="place_of_birth"
@@ -1296,9 +1477,12 @@
           
             
             <p data-message="pattern">Bitte geben Sie eine gültige schweizerische Postleizahl an.</p>
+            
             <p data-message="required">Dies ist ein Pflichtfeld</p>
+          
           </div>
           
+                              
                             </div>
                             <div class="form__cell ">
                               <div class="atm-form_input atm-form_input--floated
@@ -1328,8 +1512,10 @@
                 
                 
                 
+                
                  data-validation
                  data-floating
+                
                 
                 
                 
@@ -1362,9 +1548,12 @@
           
             
             
+            
             <p data-message="required">Dies ist ein Pflichtfeld</p>
+          
           </div>
           
+                              
                             </div>
                         </div>
                         <div class="form__row">
@@ -1420,10 +1609,27 @@
             </label>
           </div>
           
+                <div class="atm-radiobutton ">
+            <input
+              id="radiocheckbox_4"
+              type="radio" value="no"
+              name="checkbox_in_duplication"
+              
+              
+              
+              
+            >
+            <label  for="radiocheckbox_4">
+              Test Test
+              
+            </label>
+          </div>
+          
             </div>
             <p data-message="required" class="form__fieldset-error-message"></p>
           </fieldset>
           
+                              
                             </div>
                         </div>
                         <div class="form__row">
@@ -1439,15 +1645,17 @@
                   <input class="atm-form_input__input"
                      data-pattern="^\d{2}\.\d{2}\.\d{4}$"
                     
-                     id="date-111" placeholder="Datum" name="input_name" value="" type="text"
+                     id="date-112" placeholder="Datum" name="input_name" value="" type="text"
                     
                      required
                     
                     
                     
                     
+                    
                      data-validation
                      data-floating
+                    
                      data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d"
                      data-mask-placeholder="TT.MM.JJJJ"
                     
@@ -1461,7 +1669,7 @@
                       <i></i>TT.MM.JJJJ
                     </span>
               
-                  <label for="date-111">Datum</label>
+                  <label for="date-112">Datum</label>
               
               
                     <svg class="icon" focusable="false">
@@ -1472,10 +1680,13 @@
               
                 
                 <p data-message="pattern">Bitte geben Sie eine korrektes Datum an.</p>
+                
                 <p data-message="required">Dies ist ein Pflichtfeld</p>
+              
               </div>
           </div>
           
+                              
                             </div>
                         </div>
                             <button type="button" class="form__remover" data-duplicate="remover" data-remove-uid="">
@@ -1548,6 +1759,7 @@
 									<p data-message="required" class="form__fieldset-error-message">Bitte wählen Sie eine Option aus.</p>
 								</fieldset>
 
+
 							</div>
 						</div>
 
@@ -1585,8 +1797,11 @@
 
 
 
+
 									<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 								</div>
+
 
 							</div>
 						</div>
@@ -1625,8 +1840,100 @@
 
 
 
+
 									<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 								</div>
+
+
+							</div>
+						</div>
+
+						<div class="form__row">
+							<div class="form__cell ">
+								<div class="atm-form_input atm-form_input--floated atm-form_input--unitLeft
+            " data-input>
+
+
+
+									<input class="atm-form_input__input" data-pattern="^[+-]?((\.\d+)|([\d&#x27;]+(\.\d+)?))$" id="income_assets" placeholder="Jahreseinkommen" name="income_assets" value="" type="text" data-validation data-floating data-input-mask="currency">
+
+
+
+
+									<label for="income_assets">Jahreseinkommen</label>
+									<span class="atm-form_input__validate-icon">
+										<span>
+											<span class="visuallyhidden"></span>
+											<svg class="icon" focusable="false">
+												<use xlink:href="#confirm"></use>
+											</svg>
+										</span>
+										<span>
+											<span class="visuallyhidden"></span>
+											<svg class="icon" focusable="false">
+												<use xlink:href="#caution"></use>
+											</svg>
+										</span>
+									</span>
+
+
+
+									<span class="atm-form_input__unit atm-form_input__unit--left">
+										CHF
+									</span>
+
+
+
+									<p data-message="pattern">Hier muss eine Ganzzahl oder eine Gleitkommazahl eingegeben werden!</p>
+
+
+
+								</div>
+
+
+							</div>
+							<div class="form__cell ">
+								<div class="atm-form_input atm-form_input--floated atm-form_input--unitLeft
+            " data-input>
+
+
+
+									<input class="atm-form_input__input" data-pattern="^[+-]?((\.\d+)|([\d&#x27;]+(\.\d+)?))$" id="assets" placeholder="Vermögen" name="assets" value="" type="text" data-validation data-floating data-input-mask="currency">
+
+
+
+
+									<label for="assets">Vermögen</label>
+									<span class="atm-form_input__validate-icon">
+										<span>
+											<span class="visuallyhidden"></span>
+											<svg class="icon" focusable="false">
+												<use xlink:href="#confirm"></use>
+											</svg>
+										</span>
+										<span>
+											<span class="visuallyhidden"></span>
+											<svg class="icon" focusable="false">
+												<use xlink:href="#caution"></use>
+											</svg>
+										</span>
+									</span>
+
+
+
+									<span class="atm-form_input__unit atm-form_input__unit--left">
+										CHF
+									</span>
+
+
+
+									<p data-message="pattern">Hier muss eine Ganzzahl oder eine Gleitkommazahl eingegeben werden!</p>
+
+
+
+								</div>
+
 
 							</div>
 						</div>
@@ -1661,12 +1968,12 @@
 
 
 
-				<input class="atm-form_input__input" id="reply-to186" placeholder="Ihre E-Mail-Adresse" name="reply-to187" value="" type="email" required data-validation data-floating data-autofill="e_mail">
+				<input class="atm-form_input__input" id="reply-to187" placeholder="Ihre E-Mail-Adresse" name="reply-to188" value="" type="email" required data-validation data-floating data-autofill="e_mail">
 
 
 
 
-				<label for="reply-to186">Ihre E-Mail-Adresse</label>
+				<label for="reply-to187">Ihre E-Mail-Adresse</label>
 				<span class="atm-form_input__validate-icon">
 					<span>
 						<span class="visuallyhidden"></span>
@@ -1688,12 +1995,14 @@
 
 
 				<p data-message="pattern">Bitte geben Sie eine gültige Mail an.</p>
+
 				<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 			</div>
 
 		</div>
-	</form>
 
+	</form>
 
 	<div class="mdl-stepper__message" data-stepper="messageWrapper" data-singular-text="Bitte kontrollieren Sie Ihre Angabe für das Feld <%= list %>." data-plural-text="Bitte kontrollieren Sie Ihre Angaben für die folgenden Felder: <%= list %>" data-error-text="Da ist leider etwas schief gegangen! Ihre Angaben konnten leider nicht übermittelt werden. Es tut uns leid. Bitte probieren Sie es erneut oder melden Sie sich bei: Tel.: [XX]">
 		<script data-stepper="notificationTemplate" type="text/x-handlebars-template">

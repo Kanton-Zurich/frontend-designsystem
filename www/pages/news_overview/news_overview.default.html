@@ -168,7 +168,7 @@
 									<div class="grid-x grid-margin-x">
 										<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
 											<!-- modal content -->
-											<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.json&quot;}'>
+											<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.json&quot;,&quot;searchUrl&quot;:&quot;/pages/search/search.html?q&#x3D;{value}&quot;}'>
 												<div data-topiclist="firstLayer">
 
 
@@ -190,6 +190,8 @@
 																<use xlink:href="#clear"></use>
 															</svg>
 														</button>
+
+
 
 
 
@@ -252,15 +254,6 @@
   </a>
   
       </script>
-												<!-- No results template -->
-												<script data-topiclist="searchLink" type="text/x-handlebars-template">
-													<a href="<%= path %>" class="mdl-topiclist__search">
-          <svg class="icon" focusable="false">
-            <use xlink:href="#inspect"></use>
-          </svg>
-          <span><%= title %></span>
-        </a>
-      </script>
 												<script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
 													<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
     <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
@@ -295,7 +288,7 @@
 
 												<div class="mdl-organisation_navigation__top" data-organisation_navigation="topSection"></div>
 
-												<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.organisations.json&quot;}'>
+												<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.organisations.json&quot;,&quot;searchUrl&quot;:&quot;/pages/search/search.html?q&#x3D;{value}&quot;}'>
 													<div data-topiclist="firstLayer">
 
 
@@ -317,6 +310,8 @@
 																	<use xlink:href="#clear"></use>
 																</svg>
 															</button>
+
+
 
 
 
@@ -378,15 +373,6 @@
       </span>
     </a>
     
-        </script>
-													<!-- No results template -->
-													<script data-topiclist="searchLink" type="text/x-handlebars-template">
-														<a href="<%= path %>" class="mdl-topiclist__search">
-            <svg class="icon" focusable="false">
-              <use xlink:href="#inspect"></use>
-            </svg>
-            <span><%= title %></span>
-          </a>
         </script>
 													<script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
 														<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
@@ -700,6 +686,8 @@
 
 
 
+
+
 										</div>
 										<div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="date-range" data-localization="de">
 											<div class="atm-form_input atm-form_input--floated atm-form_input--icon
@@ -707,7 +695,7 @@
 
 
 
-												<input class="atm-form_input__input" id="date-range-112" placeholder="Zeitraum" name="input_name" value="" type="text" data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d - ]\-[\d- ] [\d ]\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d" data-mask-placeholder="TT.MM.JJJJ - TT.MM.JJJJ">
+												<input class="atm-form_input__input" id="date-range-113" placeholder="Zeitraum" name="input_name" value="" type="text" data-floating data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d - ]\-[\d- ] [\d ]\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d" data-mask-placeholder="TT.MM.JJJJ - TT.MM.JJJJ">
 
 
 
@@ -715,7 +703,7 @@
 													<i></i>TT.MM.JJJJ - TT.MM.JJJJ
 												</span>
 
-												<label for="date-range-112">Zeitraum</label>
+												<label for="date-range-113">Zeitraum</label>
 
 
 												<svg class="icon" focusable="false">
@@ -727,12 +715,14 @@
 
 
 
+
+
 											</div>
 										</div>
 										<div class="mdl-select mdl-select--filter mdl-select--button" data-init="select" data-multiple="true" data-multiselectpostfix="gewählt" data-input>
 											<div class="atm-form_input atm-form_input--floated atm-form_input--trigger
                     ">
-												<button aria-expanded="false" id="float_button-26" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+												<button aria-expanded="false" id="float_button-27" class="atm-form_input__input atm-form_input__input--trigger" type="button">
 													<span class="atm-form_input__trigger-label">Themen</span>
 													<span class="atm-form_input__trigger-value"></span>
 													<svg class="icon" focusable="false">
@@ -753,6 +743,8 @@
 														</svg>
 													</span>
 												</span>
+
+
 
 
 
@@ -790,6 +782,8 @@
 														<svg class="icon" focusable="false">
 															<use xlink:href="#search"></use>
 														</svg>
+
+
 
 
 
@@ -886,7 +880,7 @@
 										<div class="mdl-select mdl-select--filter mdl-select--button" data-init="select" data-multiple="true" data-multiselectpostfix="gewählt" data-input>
 											<div class="atm-form_input atm-form_input--floated atm-form_input--trigger
                     ">
-												<button aria-expanded="false" id="float_button-26" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+												<button aria-expanded="false" id="float_button-27" class="atm-form_input__input atm-form_input__input--trigger" type="button">
 													<span class="atm-form_input__trigger-label">Organisationen</span>
 													<span class="atm-form_input__trigger-value"></span>
 													<svg class="icon" focusable="false">
@@ -907,6 +901,8 @@
 														</svg>
 													</span>
 												</span>
+
+
 
 
 
@@ -944,6 +940,8 @@
 														<svg class="icon" focusable="false">
 															<use xlink:href="#search"></use>
 														</svg>
+
+
 
 
 
@@ -1022,7 +1020,7 @@
 										<div class="mdl-select mdl-select--button" data-init="select" data-multiple="true" data-multiselectpostfix="gewählt" data-input>
 											<div class="atm-form_input atm-form_input--floated atm-form_input--trigger
                     ">
-												<button aria-expanded="false" id="float_button-26" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+												<button aria-expanded="false" id="float_button-27" class="atm-form_input__input atm-form_input__input--trigger" type="button">
 													<span class="atm-form_input__trigger-label">Typ</span>
 													<span class="atm-form_input__trigger-value"></span>
 													<svg class="icon" focusable="false">
@@ -1043,6 +1041,8 @@
 														</svg>
 													</span>
 												</span>
+
+
 
 
 
@@ -1165,6 +1165,8 @@
 
 
 
+
+
 																</div>
 															</form>
 															<div class="mdl-news-filter-mobile__sublevel-list">
@@ -1271,6 +1273,8 @@
 
 
 
+
+
 																</div>
 															</form>
 															<div class="mdl-news-filter-mobile__sublevel-list">
@@ -1363,6 +1367,8 @@
 
 
 
+
+
 																</div>
 															</form>
 															<div class="mdl-news-filter-mobile__sublevel-list">
@@ -1416,7 +1422,7 @@
 																<span class="atm-linklist_item__text">
 																	Text
 																</span>
-																<input class="atm-form_input__input " id="date-range-115" placeholder="Zeitraum von/bis" name="input_name" value="" type="text" data-mask-placeholder="TT.MM.JJJJ - TT.MM.JJJJ" data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d - ]\-[\d- ] [\d ]\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d">
+																<input class="atm-form_input__input " id="date-range-116" placeholder="Zeitraum von/bis" name="input_name" value="" type="text" data-mask-placeholder="TT.MM.JJJJ - TT.MM.JJJJ" data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d - ]\-[\d- ] [\d ]\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d">
 																<span class="atm-form_input__backdrop">
 																	<i></i>TT.MM.JJJJ - TT.MM.JJJJ
 																</span>
@@ -1707,12 +1713,12 @@
 
 
 
-											<input class="atm-form_input__input" id="float_input_float8" placeholder="Ihre E-Mail" name="input_name" value="" type="email" required data-validation>
+											<input class="atm-form_input__input" id="float_input_float9" placeholder="Ihre E-Mail" name="input_name" value="" type="email" required data-validation>
 
 
 
 
-											<label for="float_input_float8">Ihre E-Mail</label>
+											<label for="float_input_float9">Ihre E-Mail</label>
 											<span class="atm-form_input__validate-icon">
 												<span>
 													<span class="visuallyhidden">Eingabe entspricht den Vorgaben.</span>
@@ -1734,7 +1740,9 @@
 
 
 											<p data-message="pattern">Die Eingabe entspricht nicht den Vorgaben für eine Email.</p>
+
 											<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 										</div>
 										<button class="atm-button">
 											<span class="atm-button__text ">

@@ -168,7 +168,7 @@
 									<div class="grid-x grid-margin-x">
 										<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
 											<!-- modal content -->
-											<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.json&quot;}'>
+											<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.json&quot;,&quot;searchUrl&quot;:&quot;/pages/search/search.html?q&#x3D;{value}&quot;}'>
 												<div data-topiclist="firstLayer">
 
 
@@ -190,6 +190,8 @@
 																<use xlink:href="#clear"></use>
 															</svg>
 														</button>
+
+
 
 
 
@@ -252,15 +254,6 @@
   </a>
   
       </script>
-												<!-- No results template -->
-												<script data-topiclist="searchLink" type="text/x-handlebars-template">
-													<a href="<%= path %>" class="mdl-topiclist__search">
-          <svg class="icon" focusable="false">
-            <use xlink:href="#inspect"></use>
-          </svg>
-          <span><%= title %></span>
-        </a>
-      </script>
 												<script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
 													<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
     <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
@@ -295,7 +288,7 @@
 
 												<div class="mdl-organisation_navigation__top" data-organisation_navigation="topSection"></div>
 
-												<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.organisations.json&quot;}'>
+												<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.organisations.json&quot;,&quot;searchUrl&quot;:&quot;/pages/search/search.html?q&#x3D;{value}&quot;}'>
 													<div data-topiclist="firstLayer">
 
 
@@ -317,6 +310,8 @@
 																	<use xlink:href="#clear"></use>
 																</svg>
 															</button>
+
+
 
 
 
@@ -378,15 +373,6 @@
       </span>
     </a>
     
-        </script>
-													<!-- No results template -->
-													<script data-topiclist="searchLink" type="text/x-handlebars-template">
-														<a href="<%= path %>" class="mdl-topiclist__search">
-            <svg class="icon" focusable="false">
-              <use xlink:href="#inspect"></use>
-            </svg>
-            <span><%= title %></span>
-          </a>
         </script>
 													<script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
 														<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
@@ -717,7 +703,9 @@
 
 
 												<p data-message="pattern">Der Nutzername besteht aus mindestens 4 eingeben!</p>
+
 												<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 											</div>
 										</div>
 									</div>
@@ -748,7 +736,9 @@
 
 
 												<p data-message="pattern">Das Passwort besteht aus mindestens 6 Zeichen. Und enthält sowohl Groß- als auch Kleinbuchstaben und Zahlen.</p>
+
 												<p data-message="required">Dies ist ein Pflichtfeld</p>
+
 											</div>
 										</div>
 										<input type="hidden" aria-hidden="true" name="j_validate" id="j_validate" value="true" />
@@ -784,7 +774,7 @@
 
 													<div class="mdl-tooltip__wrapper">
 														<a class="mdl-tooltip__trigger mdl-tooltip__trigger--textual" tabindex="0">Passwort vergessen?</a>
-														<div class="mdl-tooltip__bubble" id="aria-anchors264" aria-hidden="true">
+														<div class="mdl-tooltip__bubble" id="aria-anchors269" aria-hidden="true">
 
 															<p>Bitte kontaktieren Sie diese <a href="mailto:test@test.com">Emailaddresse</a> wenn Sie ein neues Passwort benötigen.</p>
 														</div>

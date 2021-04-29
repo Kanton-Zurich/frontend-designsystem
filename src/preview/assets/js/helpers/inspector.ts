@@ -109,6 +109,9 @@ class Inspector extends Helper {
     }
     // Sending event to all children who have to be redrawn
     (<any>window).estatico.helpers.sendRedrawEvent(panel);
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('eventname.global.vertical_resize'));
+    }, 100);
   }
 
   public static triggerFilterChangeOnElement(node) {

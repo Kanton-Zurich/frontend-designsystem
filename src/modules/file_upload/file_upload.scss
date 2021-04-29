@@ -18,6 +18,10 @@
     margin: 0;
   }
 
+  &__template {
+    display: none;
+  }
+
   &__dropzone {
     margin-top: pxToRem($sizeTiny);
     padding: pxToRem($sizeSmallHuge);

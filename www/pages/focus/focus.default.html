@@ -168,7 +168,7 @@
 									<div class="grid-x grid-margin-x">
 										<div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
 											<!-- modal content -->
-											<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.json&quot;}'>
+											<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.json&quot;,&quot;searchUrl&quot;:&quot;/pages/search/search.html?q&#x3D;{value}&quot;}'>
 												<div data-topiclist="firstLayer">
 
 
@@ -190,6 +190,8 @@
 																<use xlink:href="#clear"></use>
 															</svg>
 														</button>
+
+
 
 
 
@@ -252,15 +254,6 @@
   </a>
   
       </script>
-												<!-- No results template -->
-												<script data-topiclist="searchLink" type="text/x-handlebars-template">
-													<a href="<%= path %>" class="mdl-topiclist__search">
-          <svg class="icon" focusable="false">
-            <use xlink:href="#inspect"></use>
-          </svg>
-          <span><%= title %></span>
-        </a>
-      </script>
 												<script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
 													<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
     <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
@@ -295,7 +288,7 @@
 
 												<div class="mdl-organisation_navigation__top" data-organisation_navigation="topSection"></div>
 
-												<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.organisations.json&quot;}'>
+												<div class="mdl-topiclist mdl-topiclist--home mdl-topiclist--nav" data-init="topiclist" data-topiclist-options='{&quot;url&quot;:&quot;/mocks/modules/topiclist/topiclist.organisations.json&quot;,&quot;searchUrl&quot;:&quot;/pages/search/search.html?q&#x3D;{value}&quot;}'>
 													<div data-topiclist="firstLayer">
 
 
@@ -317,6 +310,8 @@
 																	<use xlink:href="#clear"></use>
 																</svg>
 															</button>
+
+
 
 
 
@@ -378,15 +373,6 @@
       </span>
     </a>
     
-        </script>
-													<!-- No results template -->
-													<script data-topiclist="searchLink" type="text/x-handlebars-template">
-														<a href="<%= path %>" class="mdl-topiclist__search">
-            <svg class="icon" focusable="false">
-              <use xlink:href="#inspect"></use>
-            </svg>
-            <span><%= title %></span>
-          </a>
         </script>
 													<script data-topiclist="subnavigationTemplate" type="text/x-handlebars-template">
 														<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
@@ -811,6 +797,15 @@
 								</li>
 							</ul>
 						</div>
+					</div>
+					<a href="../../pages/service/service.html" class="mdl-service_button " data-init="serviceButton" data-url="../../modules/service_list/service_page.mock.html" aria-controls="service-modal0" aria-haspopup="dialog">
+						<span class="atm-button ">
+							<span class="atm-button__text">
+								Modal Test
+							</span>
+						</span>
+					</a>
+					<div id="service-modal0" class="mdl-modal mdl-modal--dynamicheader" data-init="modal">
 					</div>
 					<div class="mdl-about__block">
 						<div class="mdl-related-content" data-init="relatedContent">

@@ -343,6 +343,28 @@ const variants = _.mapValues({
       }],
     },
   },
+  singleItem: {
+    meta: {
+      title: 'Einzelelement (Entscheidungsbaum)',
+      desc: 'Accordion für Entscheidungsbaum',
+    },
+    props: {
+      accordionHeading: {
+        title: false,
+      },
+      items: [{
+        title: 'Warum stellen wir diese Frage?',
+        subHead: ' ',
+        children: [{
+          partial: `<div class="mdl-richtext">
+            <p class="atm-paragraph">
+            Die Schweiz erlaubt das Doppelbürgerrecht. Bitte beachten Sie, dass es Staaten gibt, deren Bürgerinnen und Bürger mit dem Erwerb des Schweizer Bürgerrechts ihre Staatsangehörigkeit verlieren. Informieren Sie sich deshalb bitte bei der zuständigen Behörde Ihres Herkunftslandes.
+            </p>
+          </div>`,
+        }],
+      }],
+    },
+  },
 }, (variant) => {
   // eslint-disable-next-line consistent-return
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {

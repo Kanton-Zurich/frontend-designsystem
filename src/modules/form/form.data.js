@@ -28,7 +28,6 @@ const fileUploadData = require('../file_upload/file_upload.data');
 const datepickerHBS = dataHelper.getFileContent('../datepicker/datepicker.hbs');
 const datepickerData = require('../datepicker/datepicker.data');
 
-
 const listDemoData = require('../../atoms/list/list.data');
 
 const duplicateGroup = {
@@ -38,138 +37,156 @@ const duplicateGroup = {
     add: 'Weitere Staatsangehörigkeit hinzufügen',
     remove: 'Staatangehörigkeit wieder entfernen',
   },
-  rows: [{
-    fields: [{
-      cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-        formInputData.variants.default.props,
-        {
-          isFloatingLabel: true,
-          label: 'Staatsangehörigkeit',
-          name: 'nationality',
-          uuid: 'nationality',
-          validation: {
-            isRequired: true,
+  rows: [
+    {
+      fields: [{
+        cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+          formInputData.variants.default.props,
+          {
+            isFloatingLabel: true,
+            label: 'Staatsangehörigkeit',
+            name: 'nationality',
+            uuid: 'nationality',
+            validation: {
+              isRequired: true,
+            },
+          })),
+        tooltip: {
+          helptext: 'Info',
+          buttonRight: true,
+          bubble: {
+            heading: 'Tooltip Ipsum',
+            text: '<p>Ländernamen auf Deutsch eingeben</p>',
+            id: _.uniqueId('form-test'),
           },
-        })),
-      tooltip: {
-        helptext: 'Info',
-        buttonRight: true,
-        bubble: {
-          heading: 'Tooltip Ipsum',
-          text: '<p>Ländernamen auf Deutsch eingeben</p>',
-          id: _.uniqueId('form-test'),
         },
-      },
-    }],
-  },
-  {
-    fields: [{
-      isSmall: true,
-      cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-        formInputData.variants.default.props,
-        {
-          isFloatingLabel: true,
-          label: 'PLZ',
-          name: 'zip_place_of_birth',
-          uuid: 'zip_place_of_birth',
-          validation: {
-            isRequired: true,
-            pattern: '^[0-9]{4,4}$',
-            errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
-          },
-          zipCity: {
-            fills: 'place_of_birth',
-            data: JSON.stringify({
-              8000: 'Zürich',
-              8001: 'Zürich',
-              8004: 'Zürich',
-              8310: 'Winterthur',
-              8700: 'Küsnacht ZH',
-              8620: 'Wetzikon',
-              8500: ['Gerlikon', 'Frauenfeld'],
-            }),
-          },
-        })),
+      }],
     },
     {
-      cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-        formInputData.variants.default.props,
+      fields: [
         {
-          isFloatingLabel: true,
-          label: 'Geburtsort',
-          name: 'place_of_birth',
-          uuid: 'place_of_birth',
-          isZipCityTarget: true,
-          validation: {
-            isRequired: true,
-          },
-        })),
-      tooltip: {
-        buttonLeft: true,
-        bubble: {
-          heading: 'Tooltip Ipsum',
-          text: '<p>Ländernamen auf Deutsch eingeben</p>',
-          id: _.uniqueId('form-test'),
+          cellContent: () => handlebars.compile(fileUploadHBS)(_.merge({},
+            fileUploadData.variants.default.props, { validation: { isRequired: true } })),
         },
-      },
-    }],
-  },
-  {
-    fields: [{
-      isSmall: true,
-      cellContent: () => handlebars.compile(formFieldsetHBS)({
-        fieldsetTitle: 'Checkboxen',
-        options: [
-          () => handlebars.compile(radioHBS)(_.merge({},
-            radioData.variants.default.props,
-            {
-              label: 'Wilde Wälder',
-              groupName: 'checkbox_in_duplication',
-              id: 'checkbox_1',
-              value: 'mrs',
-            })),
-          () => handlebars.compile(radioHBS)(_.merge({},
-            radioData.variants.default.props,
-            {
-              label: 'Wasserfälle',
-              groupName: 'checkbox_in_duplication',
-              id: 'checkbox_2',
-              value: 'mr',
-            })),
-          () => handlebars.compile(radioHBS)(_.merge({},
-            radioData.variants.default.props,
-            {
-              label: 'Beschauliche alpine Auen',
-              groupName: 'checkbox_in_duplication',
-              id: 'checkbox_3',
-              value: 'no',
-            })),
-        ],
-      }),
-    }],
-  },
-  {
-    fields: [
-      {
-        cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
-          datepickerData.variants.defaultDate.props,
+      ],
+    },
+    {
+      fields: [{
+        isSmall: true,
+        cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+          formInputData.variants.default.props,
           {
-            rules: JSON.stringify([
-              {
-                conditions: [
-                  {
-                    field: 'checkbox_in_duplication',
-                    equals: true,
-                    value: 'mr',
-                  },
-                ],
-                action: 'show',
-              },
-            ]),
+            isFloatingLabel: true,
+            label: 'PLZ',
+            name: 'zip_place_of_birth',
+            uuid: 'zip_place_of_birth',
+            validation: {
+              isRequired: true,
+              pattern: '^[0-9]{4,4}$',
+              errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
+            },
+            zipCity: {
+              fills: 'place_of_birth',
+              data: JSON.stringify({
+                8000: 'Zürich',
+                8001: 'Zürich',
+                8004: 'Zürich',
+                8310: 'Winterthur',
+                8700: 'Küsnacht ZH',
+                8620: 'Wetzikon',
+                8500: ['Gerlikon', 'Frauenfeld'],
+              }),
+            },
           })),
       },
-    ],
-  }],
+      {
+        cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+          formInputData.variants.default.props,
+          {
+            isFloatingLabel: true,
+            label: 'Geburtsort',
+            name: 'place_of_birth',
+            uuid: 'place_of_birth',
+            isZipCityTarget: true,
+            validation: {
+              isRequired: true,
+            },
+          })),
+        tooltip: {
+          buttonLeft: true,
+          bubble: {
+            heading: 'Tooltip Ipsum',
+            text: '<p>Ländernamen auf Deutsch eingeben</p>',
+            id: _.uniqueId('form-test'),
+          },
+        },
+      }],
+    },
+    {
+      fields: [{
+        isSmall: true,
+        cellContent: () => handlebars.compile(formFieldsetHBS)({
+          fieldsetTitle: 'Checkboxen',
+          options: [
+            () => handlebars.compile(radioHBS)(_.merge({},
+              radioData.variants.default.props,
+              {
+                label: 'Wilde Wälder',
+                groupName: 'checkbox_in_duplication',
+                id: 'checkbox_1',
+                value: 'mrs',
+              })),
+            () => handlebars.compile(radioHBS)(_.merge({},
+              radioData.variants.default.props,
+              {
+                label: 'Wasserfälle',
+                groupName: 'checkbox_in_duplication',
+                id: 'checkbox_2',
+                value: 'mr',
+              })),
+            () => handlebars.compile(radioHBS)(_.merge({},
+              radioData.variants.default.props,
+              {
+                label: 'Beschauliche alpine Auen',
+                groupName: 'checkbox_in_duplication',
+                id: 'checkbox_3',
+                value: 'no',
+              })),
+            () => handlebars.compile(radioHBS)(_.merge({},
+              radioData.variants.default.props,
+              {
+                label: 'Test Test',
+                groupName: 'checkbox_in_duplication',
+                id: 'checkbox_4',
+                value: 'no',
+              })),
+          ],
+        }),
+      }],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+            datepickerData.variants.defaultDate.props,
+            {
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'checkbox_in_duplication',
+                      equals: true,
+                      value: 'mr',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+  ],
   duplicateButton: 'Weitere Staatsangehörigkeit hinzufügen',
 };
 
@@ -688,6 +705,497 @@ const personType2 = {
   ],
 };
 
+const compareValue = {
+  rows: [
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.unitLeftWithFloating.props,
+            {
+              isFloatingLabel: true,
+              label: 'Zahleneingabe',
+              name: 'compare_text',
+              uuid: 'compare_text',
+              type: 'text',
+              liveUpdate: true,
+              validation: {
+                isRequired: true,
+                errorMsg: 'Bitte gültigen Wert eingeben',
+              },
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Vergleichswert grösser als 100',
+              name: 'compare_greater',
+              uuid: 'compare_greater',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_text',
+                      compare: 'greater',
+                      value: '100',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Vergleichswert grösser-gleich 100',
+              name: 'compare_greater_equal',
+              uuid: 'compare_greater_equal',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_text',
+                      compare: 'greaterEqual',
+                      value: '100',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Vergleichswert kleiner als 100',
+              name: 'compare_less',
+              uuid: 'compare_less',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_text',
+                      compare: 'less',
+                      value: '100',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Vergleichswert kleiner-gleich 100',
+              name: 'compare_less_equal',
+              uuid: 'compare_less_equal',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_text',
+                      compare: 'lessEqual',
+                      value: '100',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Vergleichswert genau 100.01',
+              name: 'compare_equal',
+              uuid: 'compare_equal',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_text',
+                      equals: true,
+                      value: '100.01',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+
+      ],
+    },
+  ],
+};
+
+const compareDate = {
+  rows: [
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+            datepickerData.variants.defaultDate.props,
+            {
+              formInputData: {
+                name: 'compare_date',
+                uuid: 'compare_date',
+                liveUpdate: true,
+              },
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Zeitpunkt jünger als 20.02.2021',
+              name: 'compare_date_greater',
+              uuid: 'compare_date_greater',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_date',
+                      compare: 'greater',
+                      value: '20.02.2021',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Zeitpunkt jünger als oder gleich wie 20.02.2021',
+              name: 'compare_date_greater_equal',
+              uuid: 'compare_date_greater_equal',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_date',
+                      compare: 'greaterEqual',
+                      value: '20.02.2021',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Zeitpunkt älter als 20.02.2021',
+              name: 'compare_date_less',
+              uuid: 'compare_date_less',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_date',
+                      compare: 'less',
+                      value: '20.02.2021',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Zeitpunkt älter als oder gleich wie 20.02.2021',
+              name: 'compare_date_less_equal',
+              uuid: 'compare_date_less_equal',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_date',
+                      compare: 'lessEqual',
+                      value: '20.02.2021',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+  ],
+};
+
+const compareAge = {
+  rows: [
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(datepickerHBS)(_.merge({},
+            datepickerData.variants.dateAndTime.props,
+            {
+              formInputData: {
+                name: 'compare_age',
+                uuid: 'compare_age',
+                liveUpdate: true,
+              },
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Älter oder mindestens 18 Jahre',
+              name: 'compare_age_older_equal_18',
+              uuid: 'compare_age_older_equal_18',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_age',
+                      compare: 'lessEqual',
+                      compareAge: true,
+                      value: '18',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Älter 18 Jahre',
+              name: 'compare_age_older_18',
+              uuid: 'compare_age_older_18',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_age',
+                      compare: 'less',
+                      compareAge: true,
+                      value: '18',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Jünger 18 Jahre',
+              name: 'compare_younger_18',
+              uuid: 'compare_younger_18',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_age',
+                      compare: 'greater',
+                      compareAge: true,
+                      value: '18',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Jünger oder genau 18 Jahre',
+              name: 'compare_younger_equal_18',
+              uuid: 'compare_younger_equal_18',
+              type: 'text',
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'compare_age',
+                      compare: 'greaterEqual',
+                      compareAge: true,
+                      value: '18',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+  ],
+};
+
+const selectionAlternative = {
+  rows: [
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(selectHBS)({
+            isSingleSelect: true,
+            listData: _.assign(_.merge({}, listDemoData.variants.defaultSingle.props, {
+              setHiddenIndex: true,
+              groupId: 'nationality-x3',
+            }), {
+              selectOptions: [
+                { value: 'schweiz', label: 'Schweiz' },
+                { value: 'lichtenstein', label: 'Lichtenstein' },
+                { value: 'andere', label: 'Andere' },
+              ],
+            }),
+            triggerInputData: {
+              type: 'text',
+              isSelectTrigger: true,
+              isFloatingLabel: true,
+              isInput: false,
+              icon: 'angle_drop_down',
+              label: 'Staatsangehörigkeit',
+              validation: {
+                isRequired: true,
+              },
+            },
+          }),
+        },
+      ],
+    },
+    {
+      fields: [
+        {
+          cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+            formInputData.variants.default.props,
+            {
+              isFloatingLabel: true,
+              label: 'Andere Nationalität',
+              name: 'other_nationality',
+              uuid: 'other_nationality',
+              type: 'text',
+              validation: {
+                isRequired: true,
+                errorMsg: 'Bitte geben Sie ihre Nationalität ein',
+              },
+              rules: JSON.stringify([
+                {
+                  conditions: [
+                    {
+                      field: 'nationality-x3',
+                      equals: true,
+                      value: 'andere',
+                    },
+                  ],
+                  action: 'show',
+                },
+              ]),
+            })),
+        },
+      ],
+    },
+  ],
+};
+
 const template = dataHelper.getFileContent('form.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
@@ -788,6 +1296,28 @@ const variants = _.mapValues({
               }],
             },
             {
+              fields: [
+                {
+                  cellContent: () => {
+                    return `
+                    <div class="mdl-richtext">
+                      <h3 class="atm-heading">Test titel</h3>
+                      <p class="atm-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                      <ul>
+                        <li>P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.</li>
+                        <li>Koordinaten begegnen uns täglich. <ul>
+                            <li>P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.</li>
+                            <li>Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt.</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                    `;
+                  },
+                },
+              ],
+            },
+            {
               fields: [{
                 cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
                   formInputData.variants.default.props,
@@ -799,6 +1329,8 @@ const variants = _.mapValues({
                     type: 'email',
                     validation: {
                       errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+                      inputRange: '../../mocks/modules/form/form.validation.json?param={value}',
+                      rangeErrorMsg: 'Diese E-Mail Adresse ist bei uns nicht registriert',
                     },
                   })),
               },
@@ -1174,6 +1706,34 @@ const variants = _.mapValues({
             },
             ],
           },
+          {
+            fields: [{
+              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                formInputData.variants.unitLeftWithFloating.props,
+                {
+                  isFloatingLabel: true,
+                  label: 'Jahreseinkommen',
+                  name: 'income_assets',
+                  uuid: 'income_assets',
+                  validation: {
+                    isRequired: false,
+                  },
+                })),
+            },
+            {
+              cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                formInputData.variants.unitLeftWithFloating.props,
+                {
+                  isFloatingLabel: true,
+                  label: 'Vermögen',
+                  name: 'assets',
+                  uuid: 'assets',
+                  validation: {
+                    isRequired: false,
+                  },
+                })),
+            }],
+          },
         ],
       },
       ],
@@ -1511,6 +2071,35 @@ const variants = _.mapValues({
                           ],
                           action: 'show',
                         },
+                        {
+                          conditions: [
+                            {
+                              field: 'nationality-sf2',
+                              equals: true,
+                              value: 'DE',
+                            },
+                          ],
+                          action: 'show',
+                        },
+                      ]),
+                    })),
+                },
+              ],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                    formInputData.variants.unitLeftWithFloating.props,
+                    {
+                      isFloatingLabel: true,
+                      label: 'Jahreseinkommen',
+                      name: 'income_assets',
+                      uuid: 'income_assets',
+                      validation: {
+                        isRequired: false,
+                      },
+                      rules: JSON.stringify([
                         {
                           conditions: [
                             {
@@ -2366,12 +2955,15 @@ const variants = _.mapValues({
               fields: [
                 {
                   cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                    formInputData.variants.default.props,
+                    formInputData.variants.unitLeftWithFloating.props,
                     {
                       isFloatingLabel: true,
-                      label: 'Feld 2',
-                      name: 'dummy_2',
-                      uuid: 'dummy_2',
+                      label: 'Jahreseinkommen',
+                      name: 'income_assets',
+                      uuid: 'income_assets',
+                      validation: {
+                        isRequired: false,
+                      },
                     })),
                 },
               ],
@@ -2685,6 +3277,90 @@ const variants = _.mapValues({
     props: {
       groups: [
         personType2,
+      ],
+    },
+  },
+  alternativeSelection: {
+    meta: {
+      title: 'Auswahlalternative',
+      desc: 'Eine alternative Eingabe zur Auswahl tätigen'
+    },
+    props: {
+      groups: [
+        selectionAlternative,
+      ],
+    },
+  },
+  duplicationUpload: {
+    meta: {
+      title: 'Duplizierung Upload',
+      desc: 'Duplizierung Upload',
+    },
+    props: {
+      groups: [
+        duplicateGroup,
+      ],
+    },
+  },
+  valueCompare: {
+    meta: {
+      title: 'Vergleichsbediungen',
+      desc: '',
+    },
+    props: {
+      groups: [
+        compareValue,
+      ],
+    },
+  },
+  dateCompare: {
+    meta: {
+      title: 'Datumsvergleichsbediung',
+      desc: '',
+    },
+    props: {
+      groups: [
+        compareDate,
+      ],
+    },
+  },
+  ageCompare: {
+    meta: {
+      title: 'Altersvergleich',
+      desc: '',
+    },
+    props: {
+      groups: [
+        compareAge,
+      ],
+    },
+  },
+  simpleMultiUpload: {
+    meta: {
+      title: 'Test: Multi upload',
+      desc: '',
+    },
+    props: {
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(fileUploadHBS)(_.merge({},
+                    fileUploadData.variants.multiple.props,
+                    {
+                      validation: {
+                        maxSize: 26214400,
+                        fileTypes: 'text/csv, image/gif, text/html, image/jpeg, application/pdf, image/png, image/tiff, application/rtf, image/svg+xml, text/plain, application/xml',
+                        isRequired: true,
+                      },
+                    })),
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
   },
