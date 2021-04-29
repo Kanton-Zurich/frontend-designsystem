@@ -46,7 +46,7 @@ const data = _.merge({}, defaultData, {
     label: 'Formular',
   },
   props: {
-    title: 'Einbürgergungs-Assistent',
+    title: 'Einbürgerungs-Assistent',
     intro: 'Unser Assistent stellt Ihnen Schritt für Schritt Fragen. Beantworten Sie diese und finden Sie heraus, welche Art der Einbürgerung für Sie gilt:',
     editButton: {
       text: 'Anpassen',
