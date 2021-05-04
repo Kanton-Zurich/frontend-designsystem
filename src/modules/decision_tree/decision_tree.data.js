@@ -189,6 +189,17 @@ const data = _.merge({}, defaultData, {
                             })),
                         ],
                       }),
+                      cellAttachment: () => `
+                          <figure class="mdl-image-figure">
+                            <div class="mdl-image-figure__img-wrapper">
+                              <img class="mdl-image-figure__img" src="../../assets/media/image/content_768_x15.jpeg" srcset="../../assets/media/image/content_768_x15.jpeg 1152w, ../../assets/media/image/content_444_x15.jpeg 666w" sizes="100vw" alt="Das ist ein Beispielbild" data-image-figure="image" />
+                            </div>
+                            <figcaption class="mdl-image-figure__caption">
+                              <span class="atm-figcaption" data-figcaption="caption">
+                                Das ist ein Bild, Quelle: Fotograf Andreas Andreasen
+                              </span>
+                            </figcaption>
+                          </figure>`,
                     },
                   ],
                 },
@@ -204,7 +215,7 @@ const data = _.merge({}, defaultData, {
                 {
                   field: 'c_permit_group',
                   equals: true,
-                  value: 'ja'
+                  value: 'ja',
                 },
               ],
               action: 'enable',
@@ -244,11 +255,24 @@ const data = _.merge({}, defaultData, {
                             })),
                         ],
                       }),
+                      cellAttachment: () => `
+                          <div class="mdl-richtext">
+                            <h3 class="atm-heading">Test titel</h3>
+                            <p class="atm-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
+                            <ul>
+                              <li>P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.</li>
+                              <li>Koordinaten begegnen uns täglich. <ul>
+                                  <li>P, Helvetic Roman Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen.</li>
+                                  <li>Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt.</li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </div>`,
                     },
                   ],
                 },
               ],
-            }
+            },
           ],
         },
         {
@@ -333,7 +357,7 @@ const data = _.merge({}, defaultData, {
                   external: true,
                 },
               ],
-            }
+            },
           }),
         },
         {
@@ -375,7 +399,7 @@ const data = _.merge({}, defaultData, {
                   external: true,
                 },
               ],
-            }
+            },
           }),
         },
         {
