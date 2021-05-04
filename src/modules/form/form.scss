@@ -118,6 +118,10 @@ $gapSize: pxToRem($sizeRegular);
       flex-grow: 0;
     }
 
+    &-attachment {
+      margin-top: pxToRem($sizeRegular);
+    }
+
     @include mq($to: small) {
       flex-basis: 100%;
       max-width: 100%;

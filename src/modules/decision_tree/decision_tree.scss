@@ -325,6 +325,21 @@ $decision-tree-notch-size: pxToRem(48px);
         h4.atm-heading {
           margin-bottom: pxToRem($sizeMini);
         }
+
+        .mdl-image-figure {
+          margin-bottom: 0;
+        }
+
+        .mdl-richtext {
+          .atm-heading {
+            padding-top: 0;
+            margin-top: 0;
+          }
+
+          *:last-child {
+            margin-bottom: 0;
+          }
+        }
       }
     }
   }

@@ -549,6 +549,9 @@ class Form {
           }
           return newValue;
         } else if (maskParts[index] && maskParts[index].autoFill && newValue[index].match(maskParts[index].autoFill)) { // eslint-disable-line
+          if (newValue[index] === maskParts[index].autoFillValue[0]) {
+            return `${oldValue}${newValue[index]}`;
+          }
           return `${oldValue}${maskParts[index].autoFillValue}${newValue[index]}`;
         }
       }
