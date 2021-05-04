@@ -308,6 +308,30 @@ const variants = _.mapValues({
 
     },
   },
+  phoneWithMask: {
+    meta: {
+      title: 'Telefonnummer mit Maske',
+      desc: 'Input mit floating Label und validierung und Hinweis',
+    },
+    props: {
+      type: 'text',
+      label: 'GLN Nummer',
+      inputMask: '\\7[\\d76]6[\\d6]\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d',
+      maskPlaceholder: '76___________',
+      inputContent: '',
+      validation: {
+        pattern: '76\\d{11,}$',
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Eingabe bitte im Format +41 XX XXX XX XX eingeben!',
+        isRequired: false,
+      },
+      uuid: _.uniqueId('float_input_valid'),
+      isFloatingLabel: true,
+      isRequired: true,
+
+    },
+  },
   mwst: {
     meta: {
       title: 'Mehrwertsteuer mit Maske',
