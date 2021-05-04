@@ -2104,7 +2104,7 @@ const variants = _.mapValues({
                           conditions: [
                             {
                               field: 'nationality-sf2',
-                              equals: true,
+                              equals: false,
                               value: 'DE',
                             },
                           ],

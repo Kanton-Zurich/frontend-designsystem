@@ -325,7 +325,7 @@ class FormRules {
         let querySubSelector = null;
         let correctField = null;
 
-        if (condition.equals) {
+        if (Object.prototype.hasOwnProperty.call(condition, 'equals')) {
           if (condition.value) {
             querySubSelector = `${querySelector}[value="${condition.value}"]`;
           }
