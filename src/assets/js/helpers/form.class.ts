@@ -123,8 +123,8 @@ class Form {
   }
 
   addEventListeners() {
-    this.eventDelegate.on('keypress', (event) => {
-      if(event.keyCode === 13) {
+    this.eventDelegate.on('keypress', (event) => { // eslint-disable-line
+      if (event.keyCode === 13) { // eslint-disable-line
         event.preventDefault();
         return false;
       }
