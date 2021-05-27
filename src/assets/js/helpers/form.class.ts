@@ -123,6 +123,12 @@ class Form {
   }
 
   addEventListeners() {
+    this.eventDelegate.on('keypress', (event) => { // eslint-disable-line
+      if (event.keyCode === 13) { // eslint-disable-line
+        event.preventDefault();
+        return false;
+      }
+    });
     this.eventDelegate.on('click', this.options.eventEmitters.clearButton, this.clearField.bind(this));
     this.eventDelegate.on('keyup', this.options.watchEmitters.input, debounce((event, field) => {
       if (field.type !== 'radio') this.validateField(field);
