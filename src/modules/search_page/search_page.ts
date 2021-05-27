@@ -220,8 +220,7 @@ class SearchPage extends Module {
     this.empty();
     this.data.page = 1;
 
-    if ((newValue === this.query || newValue.length < this.options.minInputLength)
-      && !noAutoCorrection) {
+    if (newValue.length < this.options.minInputLength && !noAutoCorrection) {
       this.ui.element.classList.remove(this.options.stateClasses.showResults);
       this.query = newValue;
 

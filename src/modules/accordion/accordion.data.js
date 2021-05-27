@@ -13,6 +13,7 @@ const downloadListData = require('../download_list/download_list.data');
 const linklistData = require('../linklist/linklist.data');
 const tableData = require('../table/table.data');
 const publicationTeaserData = require('../publication_teaser/publication_teaser.data');
+const defaultCarouselData = require('../carousel/carousel.data');
 const radioData = require('../../atoms/radiobutton/radiobutton.data');
 
 const radioHBS = dataHelper.getFileContent('../../atoms/radiobutton/radiobutton.hbs');
@@ -52,6 +53,16 @@ const variants = _.mapValues({
           children: [
             {
               text: 'Wird ein Lernfahrgesuch erstmals eingereicht, muss der/die Gesuchsteller/in persönlich bei der Gemeindeverwaltung/Einwohnerkontrolle oder beim Strassenverkehrsamt vorsprechen und einen gültigen Identifikationsnachweis mit Foto (CH-Bürger: Identitätskarte/Pass, Ausländer: Originalausländerausweis) vorlegen. Für die erstmalige Identifikation wird beim Strassenverkehrsamt eine Gebühr von Fr. 20.-- erhoben. Sie haben bereits einmal ein Gesuch eingereicht oder sind bereits im Besitz eines Führerausweises im Kredikartenformat können Sie das Gesuch per Post oder am Schalter direkt einreichen (ohne Identifikationsbestätigung).',
+            },
+          ],
+        },
+        {
+          title: 'Kurzer Accordiontitel 1',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
+          techName: 'acc_item_1_1',
+          children: [
+            {
+              partial: defaultCarouselData.variants.default.meta.demo,
             },
           ],
         },

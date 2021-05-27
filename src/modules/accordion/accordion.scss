@@ -84,6 +84,7 @@ $accordionMap: (
     &--transition-end {
       .mdl-accordion__panel {
         overflow: visible;
+        transform: scaleY(1);
       }
     }
 
@@ -171,6 +172,7 @@ $accordionMap: (
 
   &__panel {
     max-height: 0;
+    transform: scaleY(0);
     overflow: hidden;
 
     @include transition(max-height, $easing: $transitionEasingDecelerate);
