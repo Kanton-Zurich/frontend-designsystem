@@ -97,6 +97,11 @@ class Autosuggest {
         return false;
       }
 
+      if (event.code === 'Enter') {
+        this.options.parent.dispatchEvent(new CustomEvent(Autosuggest.events.termSelected, {
+          detail: this.options.input.value,
+        }));
+      }
       return true;
     });
 
