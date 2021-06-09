@@ -1,0 +1,155 @@
+<div class="mdl-accordion  mdl-accordion--toggleall " data-init="accordion">
+	<p class="visuallyhidden">Verwenden Sie die Akkordeon-Bedienelemente, um die Sichtbarkeit der jeweiligen Panels (unterhalb der Bedienelemente) umzuschalten.</p>
+	<div>
+		<div class="mdl-accordion__item" data-accordion="item">
+			<h3 class="mdl-accordion__header">
+				<button class="mdl-accordion__button mdl-accordion__button--subhead" aria-expanded="false" data-accordion="trigger" type="button" id="accordionDemoId-175">
+					<span class="mdl-accordion__button--subhead__flexbox">
+						<span class="mdl-accordion__control">
+							Für wen möchten Sie den Steuerbetrag berechnen?
+						</span>
+						<svg class="icon mdl-accordion__plus" focusable="false">
+							<use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
+							<use xlink:href="#plus-horizontal"></use>
+						</svg>
+					</span>
+					<span class="mdl-accordion__subhead">Unternehmen, Vereine und Stiftungen</span>
+				</button>
+			</h3>
+			<div class="mdl-accordion__panel" data-accordion="panel" aria-hidden="true">
+				<div class="mdl-accordion__panel-content" data-accordion="panel-content">
+					<fieldset class="form__section">
+
+						<div class="form__group ">
+							<div class="form__row">
+								<div class="form__cell form__cell--small">
+									<fieldset class="form__fieldset" data-input>
+
+										<div class="form__fieldset-list form__fieldset-list--vertical">
+											<div class="atm-radiobutton " data-tax_calc="inputEntity">
+												<input id="radioprivatperson" type="radio" value="individual" name="taxEntity" data-validation required>
+												<label for="radioprivatperson">
+													Natürliche Personen
+													<span class="atm-radiobutton__descr">Berechnen von Bundes-, Staats- und Gemeindesteuerbetrag, Steuerbetrag auf Kapitalleistungen aus Vorsorge sowie Erbschafts- und Schenkungssteuer</span>
+												</label>
+											</div>
+
+											<div class="atm-radiobutton " data-tax_calc="inputEntity">
+												<input id="radioincorp" type="radio" value="incorp" name="taxEntity" data-validation required>
+												<label for="radioincorp">
+													Juristische Personen
+													<span class="atm-radiobutton__descr">Berechnen des Steuerbetrag und/ oder der Steuerrückstellung für ordentlich besteuerte Gesellschaften und Genossenschaften</span>
+												</label>
+											</div>
+
+										</div>
+										<p data-message="required" class="form__fieldset-error-message">Bitte wählen Sie eine Option aus.</p>
+									</fieldset>
+
+
+								</div>
+							</div>
+
+						</div>
+					</fieldset>
+
+				</div>
+			</div>
+		</div>
+		<div class="mdl-accordion__item" data-accordion="item">
+			<h3 class="mdl-accordion__header">
+				<button class="mdl-accordion__button mdl-accordion__button--subhead" aria-expanded="false" data-accordion="trigger" type="button" id="accordionDemoId-176">
+					<span class="mdl-accordion__button--subhead__flexbox">
+						<span class="mdl-accordion__control">
+							Was möchten Sie berechnen?
+						</span>
+						<svg class="icon mdl-accordion__plus" focusable="false">
+							<use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
+							<use xlink:href="#plus-horizontal"></use>
+						</svg>
+					</span>
+					<span class="mdl-accordion__subhead">Steuerrückstellung</span>
+				</button>
+			</h3>
+			<div class="mdl-accordion__panel" data-accordion="panel" aria-hidden="true">
+				<div class="mdl-accordion__panel-content" data-accordion="panel-content">
+					<fieldset class="form__section">
+
+						<div class="form__group ">
+							<div class="form__row">
+								<div class="form__cell form__cell--small">
+									<fieldset class="form__fieldset" data-input>
+
+										<div class="form__fieldset-list form__fieldset-list--vertical">
+											<div class="atm-radiobutton " data-tax_calc="inputTaxTypeIndividual">
+												<input id="radioincome_assets" type="radio" value="value" name="taxType">
+												<label for="radioincome_assets">
+													Staats- &amp; Gemeindesteuern
+													<span class="atm-radiobutton__descr">Berechnung Staats- und Gemeindesteuern, auch Sonderfälle.</span>
+												</label>
+											</div>
+
+											<div class="atm-radiobutton " data-tax_calc="inputTaxTypeIndividual">
+												<input id="radiofederal" type="radio" value="value" name="taxType">
+												<label for="radiofederal">
+													Direkte Bundessteuer
+													<span class="atm-radiobutton__descr">Berechnung Direkte Bundessteuer, auch Sonderfälle.</span>
+												</label>
+											</div>
+
+											<div class="atm-radiobutton " data-tax_calc="inputTaxTypeIndividual">
+												<input id="radiobenefit_payments" type="radio" value="value" name="taxType">
+												<label for="radiobenefit_payments">
+													Staats- &amp; Gemeindesteuern auf Kapitalleistungen
+													<span class="atm-radiobutton__descr">Berechnung der Staats- und Gemeindesteuern auf Kapitalleistungen aus Vorsorge.</span>
+												</label>
+											</div>
+
+											<div class="atm-radiobutton " data-tax_calc="inputTaxTypeIndividual">
+												<input id="radiobenefit_payments_federal" type="radio" value="value" name="taxType">
+												<label for="radiobenefit_payments_federal">
+													Direkte Bundessteuer auf Kapitalleistungen
+													<span class="atm-radiobutton__descr">Berechnung der Direkten Bundessteuer auf Kapitalleistungen aus Vorsorge.</span>
+												</label>
+											</div>
+
+											<div class="atm-radiobutton " data-tax_calc="inputTaxTypeIndividual">
+												<input id="radioinheritance" type="radio" value="value" name="taxType">
+												<label for="radioinheritance">
+													Erbschafts- &amp; Schenkungssteuern
+													<span class="atm-radiobutton__descr">Berechnung Erbschafts- und Schenkungssteuern für natürliche Personen.</span>
+												</label>
+											</div>
+
+											<div class="atm-radiobutton " data-tax_calc="inputTaxTypeInc">
+												<input id="radiolegal_simple" type="radio" value="value" name="taxType">
+												<label for="radiolegal_simple">
+													Steuerbetrag juristische Personen
+													<span class="atm-radiobutton__descr">Berechnen der Steuern, ausgehend vom steuerbaren Reingewinn und vom Kapital.</span>
+												</label>
+											</div>
+
+											<div class="atm-radiobutton " data-tax_calc="inputTaxTypeInc">
+												<input id="radiolegal_iterative" type="radio" value="value" name="taxType">
+												<label for="radiolegal_iterative">
+													Steuerrückstellung juristische Personen
+													<span class="atm-radiobutton__descr">Berechnen der Steuern, ausgehend von Gewinn und Kapital vor Steuern, mit dem Zweck der Vornahme der Steuerrückstellung.</span>
+												</label>
+											</div>
+
+										</div>
+										<p data-message="required" class="form__fieldset-error-message">Bitte wählen Sie eine Option aus.</p>
+									</fieldset>
+
+
+								</div>
+							</div>
+
+						</div>
+					</fieldset>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
