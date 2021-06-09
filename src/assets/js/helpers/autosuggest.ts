@@ -102,7 +102,6 @@ class Autosuggest {
           detail: this.options.input.value,
         }));
       }
-
       return true;
     });
 
