@@ -86,6 +86,11 @@ class Search extends Module {
       this.ui.element.classList.remove(this.options.stateClasses.noTags);
     });
 
+    // Autosuggest search on enter
+    this.ui.element.addEventListener(Autosuggest.events.termSelected, () => {
+      this.ui.form.dispatchEvent(new CustomEvent('submit'));
+    });
+
     // override default submit
     this.ui.form.addEventListener('submit', (event) => {
       event.preventDefault();
