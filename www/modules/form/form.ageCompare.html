@@ -1,0 +1,158 @@
+<fieldset class="form__section">
+	<legend class="atm-heading h3 form__section-title">Persönliche Angaben</legend>
+	<div class="form__group ">
+		<div class="form__row">
+			<div class="form__cell">
+				<div class="mdl-datepicker" data-init="datepicker" data-datetimeformat="date-time" data-localization="de">
+					<div class="atm-form_input atm-form_input--floated atm-form_input--icon
+      " data-input>
+
+
+
+						<input class="atm-form_input__input" data-pattern="^\d{2}.\d{2}.\d{4}\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" id="compare_age" placeholder="Datum/Uhrzeit" name="compare_age" value="" type="text" required data-validation data-floating data-live data-input-mask="\d\d\.[\d.]\d\d\.[\d.]\d\d\d\d [\d ]\d\d:[\d:]\d\d" data-mask-placeholder="TT.MM.JJJJ HH:MM">
+
+
+
+						<span class="atm-form_input__backdrop">
+							<i></i>TT.MM.JJJJ HH:MM
+						</span>
+
+						<label for="compare_age">Datum/Uhrzeit</label>
+
+
+						<svg class="icon" focusable="false">
+							<use xlink:href="#calendar"></use>
+						</svg>
+
+
+
+
+						<p data-message="pattern">Bitte geben Sie ein korrektes Datum an.</p>
+
+						<p data-message="required">Dies ist ein Pflichtfeld</p>
+
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+		<div class="form__row">
+			<div class="form__cell">
+				<div class="atm-form_input atm-form_input--floated
+  " data-input data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;compare_age&quot;,&quot;compare&quot;:&quot;lessEqual&quot;,&quot;compareAge&quot;:true,&quot;value&quot;:&quot;18&quot;}],&quot;action&quot;:&quot;show&quot;}]">
+
+
+
+					<input class="atm-form_input__input" id="compare_age_older_equal_18" placeholder="Älter oder mindestens 18 Jahre" name="compare_age_older_equal_18" value="" type="text" data-floating>
+
+
+
+
+					<label for="compare_age_older_equal_18">Älter oder mindestens 18 Jahre</label>
+
+
+
+
+
+
+
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+
+		<div class="form__row">
+			<div class="form__cell">
+				<div class="atm-form_input atm-form_input--floated
+  " data-input data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;compare_age&quot;,&quot;compare&quot;:&quot;less&quot;,&quot;compareAge&quot;:true,&quot;value&quot;:&quot;18&quot;}],&quot;action&quot;:&quot;show&quot;}]">
+
+
+
+					<input class="atm-form_input__input" id="compare_age_older_18" placeholder="Älter 18 Jahre" name="compare_age_older_18" value="" type="text" data-floating>
+
+
+
+
+					<label for="compare_age_older_18">Älter 18 Jahre</label>
+
+
+
+
+
+
+
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+
+		<div class="form__row">
+			<div class="form__cell">
+				<div class="atm-form_input atm-form_input--floated
+  " data-input data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;compare_age&quot;,&quot;compare&quot;:&quot;greater&quot;,&quot;compareAge&quot;:true,&quot;value&quot;:&quot;18&quot;}],&quot;action&quot;:&quot;show&quot;}]">
+
+
+
+					<input class="atm-form_input__input" id="compare_younger_18" placeholder="Jünger 18 Jahre" name="compare_younger_18" value="" type="text" data-floating>
+
+
+
+
+					<label for="compare_younger_18">Jünger 18 Jahre</label>
+
+
+
+
+
+
+
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+
+		<div class="form__row">
+			<div class="form__cell">
+				<div class="atm-form_input atm-form_input--floated
+  " data-input data-rules="[{&quot;conditions&quot;:[{&quot;field&quot;:&quot;compare_age&quot;,&quot;compare&quot;:&quot;greaterEqual&quot;,&quot;compareAge&quot;:true,&quot;value&quot;:&quot;18&quot;}],&quot;action&quot;:&quot;show&quot;}]">
+
+
+
+					<input class="atm-form_input__input" id="compare_younger_equal_18" placeholder="Jünger oder genau 18 Jahre" name="compare_younger_equal_18" value="" type="text" data-floating>
+
+
+
+
+					<label for="compare_younger_equal_18">Jünger oder genau 18 Jahre</label>
+
+
+
+
+
+
+
+
+
+
+				</div>
+
+
+			</div>
+		</div>
+
+	</div>
+</fieldset>

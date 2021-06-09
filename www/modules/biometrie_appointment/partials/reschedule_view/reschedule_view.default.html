@@ -1,0 +1,151 @@
+  <div class="mdl-biometrie_appointment__reschedule">
+
+  	<div class="mdl-biometrie_appointment__reschedule__allopen">
+  		<p class="atm-lead">Termin wählen</p>
+
+  		<div class="mdl-biometrie_appointment__reschedule__allopen__wrapper">
+  			<div class="group-wrapper">
+  				<ul class="mdl-button_group" data-init="buttonGroup">
+  					<li class="mdl-button_group__item">
+  						<button class="atm-button atm-button--icon-only atm-button--secondary" data-biometrie_appointment="toPrevWeek">
+  							<span class="atm-button__text visuallyhidden">
+  								Button
+  							</span>
+  							<svg class="icon atm-button__icon" focusable="false">
+  								<use xlink:href="#angle_left"></use>
+  							</svg>
+  							<span class="atm-button__spinner"></span>
+  						</button>
+  					</li>
+  					<li class="mdl-button_group__item details hidden-small-up">
+  						<div class="strong" data-biometrie_appointment="selectedWeekRange"></div>
+  						<div class="strong lighter" data-biometrie_appointment="selectedWeek"></div>
+  					</li>
+  					<li class="mdl-button_group__item">
+  						<button class="atm-button atm-button--icon-only atm-button--secondary" data-biometrie_appointment="toNextWeek">
+  							<span class="atm-button__text visuallyhidden">
+  								Button
+  							</span>
+  							<svg class="icon atm-button__icon" focusable="false">
+  								<use xlink:href="#angle_right"></use>
+  							</svg>
+  							<span class="atm-button__spinner"></span>
+  						</button>
+  					</li>
+  				</ul>
+  				<strong class="btn-line hidden-small-down atm-heading" data-biometrie_appointment="selectedWeekRange"></strong>
+  				<strong class="btn-line lighter hidden-small-down" data-biometrie_appointment="selectedWeek"></strong>
+  			</div>
+  			<div data-biometrie_appointment="otherSlotsSelect" class="mdl-biometrie_appointment__reschedule__allopen__slotselect">
+  				<div class="slotselect-headrow">
+  					<div data-biometrie_appointment="weekDayHead" class="weekday-head"></div>
+  					<div data-biometrie_appointment="weekDayHead" class="weekday-head"></div>
+  					<div data-biometrie_appointment="weekDayHead" class="weekday-head"></div>
+  					<div data-biometrie_appointment="weekDayHead" class="weekday-head"></div>
+  					<div data-biometrie_appointment="weekDayHead" class="weekday-head"></div>
+  				</div>
+  				<div class="slotselect-slotsrow">
+  					<div data-biometrie_appointment="weekDayColumn" class="weekday-column column">
+  						<div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
+
+  						</div>
+  						<div class="no-openslots-msg">
+  							Keine Termine
+  						</div>
+  					</div>
+  					<div data-biometrie_appointment="weekDayColumn" class="weekday-column column">
+  						<div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
+
+  						</div>
+  						<div class="no-openslots-msg">
+  							Keine Termine
+  						</div>
+  					</div>
+  					<div data-biometrie_appointment="weekDayColumn" class="weekday-column column">
+  						<div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
+
+  						</div>
+  						<div class="no-openslots-msg">
+  							Keine Termine
+  						</div>
+  					</div>
+  					<div data-biometrie_appointment="weekDayColumn" class="weekday-column column">
+  						<div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
+
+  						</div>
+  						<div class="no-openslots-msg">
+  							Keine Termine
+  						</div>
+  					</div>
+  					<div data-biometrie_appointment="weekDayColumn" class="weekday-column column">
+  						<div data-biometrie_appointment="weekDaySlots" class="weekday-slotscontainer">
+
+  						</div>
+  						<div class="no-openslots-msg">
+  							Keine Termine
+  						</div>
+  					</div>
+  				</div>
+
+  			</div>
+  			<div data-biometrie_appointment="selection-details__wrapper" class="mdl-biometrie_appointment__reschedule__selectiondetails ">
+  				<div class="selection-details__blocked " data-biometrie_appointment="slotFullMsg">
+  					<div class="mdl-notification
+              
+              
+              ">
+  						<svg class="icon" focusable="false">
+  							<use xlink:href="#caution"></use>
+  						</svg>
+  						<div class="mdl-notification__message">
+
+  							<p>Diesen Termin hat soeben jemand reserviert. Er ist nicht mehr verfügbar.</p>
+  						</div>
+  						<button class="atm-button atm-button--icon-only atm-button--small" data-biometrie_appointment="alertClose">
+  							<svg class="icon atm-button__icon" focusable="false">
+  								<use xlink:href="#exit"></use>
+  							</svg>
+  							<span class="visuallyhidden"></span>
+  						</button>
+  					</div>
+  				</div>
+
+  				<div class="mdl-biometrie_appointment__reschedule__selectiondetails__wrapper">
+  					<div class="atm-heading selection-details__byselection">Gewählter Termin</div>
+  					<div class="atm-heading selection-details__next">Nächster freier Termin</div>
+  					<div class="atm-heading selection-details__none">Bitte wählen Sie einen Termin</div>
+  					<div class="atm-heading selection-details__date" data-biometrie_appointment="selection-details__date"></div>
+  					<div class="atm-paragraph selection-details__counter" data-biometrie_appointment="selection-details__capacity"></div>
+  				</div>
+  				<button class="atm-button selection-details__select-btn" data-biometrie_appointment="doScheduleSelected">
+  					<span class="atm-button__text ">
+  						Termin reservieren
+  					</span>
+  					<span class="atm-button__spinner"></span>
+  				</button>
+  			</div>
+  		</div>
+  	</div>
+
+  </div>
+
+  <div class="mdl-biometrie_appointment__contenttemplate" data-biometrie_appointment="capacityMsgTemplate">
+  	An diesem Termin gibt es noch {schalter} freie(n) Schalter.
+  </div>
+
+  <div class="mdl-biometrie_appointment__contenttemplate" data-biometrie_appointment="slotSelectTemplate">
+  	<div class="weekday-slot">
+  		<button class="atm-button atm-button--secondary atm-button--small" data-biometrie_appointment="timeSlotSelect">
+  			<span class="atm-button__text ">
+  				{timeslot-range}
+  			</span>
+  			<span class="atm-button__spinner"></span>
+  		</button>
+  	</div>
+  </div>
+
+  <div class="mdl-biometrie_appointment__contenttemplate" data-biometrie_appointment="slotTimescaleTemplate">
+  	<div class="slot lighter">
+  		{timeString}
+  	</div>
+  </div>
