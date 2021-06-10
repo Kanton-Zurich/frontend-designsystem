@@ -96,8 +96,7 @@ class Autosuggest {
 
         return false;
       }
-
-      if (event.code === 'Enter') {
+      if (event.code === 'Enter' || event.key === 'Enter') {
         this.options.parent.dispatchEvent(new CustomEvent(Autosuggest.events.termSelected, {
           detail: this.options.input.value,
         }));
