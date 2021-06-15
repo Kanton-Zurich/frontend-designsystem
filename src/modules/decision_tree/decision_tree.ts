@@ -180,13 +180,13 @@ class DecisionTree extends Module {
    * Update the values within the navigation
    */
   updateNavigation() {
-    this.ui.navSteps.forEach((step, stepIndex) => {
+    this.ui.navSteps.forEach((step) => {
       const navItems = step.querySelectorAll('[data-step-item]');
-      const fields = this.ui.steps[stepIndex].querySelectorAll('[data-input]');
+
       const stepperStep = this.ui.steps[parseInt(step.getAttribute('data-step'), 10)];
+      const fields = stepperStep.querySelectorAll('[data-input]');
       const enabled = !stepperStep.hasAttribute('data-enabled') || stepperStep.getAttribute('data-enabled') === 'true';
       step.setAttribute('data-active', (parseInt(step.getAttribute('data-step'), 10) < this.currentStepIndex && enabled).toString());
-
       if (navItems.length !== fields.length) {
         console.warn('Decision Tree: Form field count does not correspond with navigation items'); // eslint-disable-line
         return;

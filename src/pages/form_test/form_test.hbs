@@ -4,13 +4,9 @@
   {{/content}}
 
   {{#content "content"}}
-    <h2 class="atm-heading">From Section 1</h2>
+    <h2 class="atm-heading">Section</h2>
     <form novalidate>
-      {{> "modules/form/form" props.modules.formSection1 }}
-    </form>
-    <h2 class="atm-heading">From Section 2</h2>
-    <form novalidate>
-      {{> "modules/form/form" props.modules.formSection2 }}
+      {{> "modules/form/form" props.modules.formSection }}
     </form>
   {{/content}}
 
@@ -18,3 +14,4 @@
     {{> "modules/footer/footer" props.modules.footerData }}
   {{/content}}
 {{/extend}}
+
