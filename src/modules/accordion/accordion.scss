@@ -24,6 +24,7 @@ $accordionMap: (
 
   &__item {
     position: relative;
+    overflow: hidden;
 
     &:after {
       display: block;
@@ -171,7 +172,6 @@ $accordionMap: (
 
   &__panel {
     max-height: 0;
-    overflow: hidden;
 
     @include transition(max-height, $easing: $transitionEasingDecelerate);
   }
