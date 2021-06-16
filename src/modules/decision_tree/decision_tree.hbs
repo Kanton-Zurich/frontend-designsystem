@@ -5,9 +5,7 @@
         <h2 class="mdl-decision_tree__heading atm-heading atm-heading--bordered">{{title}}</h2>
         <div class="mdl-richtext mdl-decision_tree__top">
           <div class="mdl-richtext mdl-decision_tree__intro">
-            <p class="atm-paragraph">
-              {{intro}}
-            </p>
+              {{{intro}}}
           </div>
           <div class="mdl-decision_tree__navigation">
             {{#each stepper.steps}}
@@ -15,10 +13,12 @@
             <div class="mdl-decision_tree__navigation-step" data-step="{{@index}}">
               <dl class="mdl-descriptionlist">
                   {{#each groups.0.rows}}
+                    {{#unless endpoint }}
                   <div data-step-item>
                     <dt>{{fields.0.cellTitle}}</dt>
                     <dd><%--value%></dd>
                   </div>
+                    {{/unless}}
                   {{/each}}
               </dl>
               {{> "atoms/button/button" ../editButton }}

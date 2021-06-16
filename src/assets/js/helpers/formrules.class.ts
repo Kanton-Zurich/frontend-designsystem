@@ -137,8 +137,34 @@ class FormRules {
           parentRules.forEach((parentRule, c) => {
             if ((parentRule.action !== rule.action)
             && parentRule.action !== 'show' && rule.action !== 'enable') {
-              for (let i = 0; i < parentRule.conditions; i += 1) {
-                parentRule.conditions[i].equals = !parentRule.conditions[i].equals;
+              for (let i = 0; i < parentRule.conditions.length; i += 1) {
+                if ('equals' in parentRule.conditions[i]) {
+                  parentRule.conditions[i].equals = !parentRule.conditions[i].equals;
+                }
+                if ('compare' in parentRule.conditions[i]) {
+                  switch (parentRule.conditions[i].compare) {
+                    case 'equal':
+                      parentRule.conditions[i].compare = 'unequal';
+                      break;
+                    case 'unequal':
+                      parentRule.conditions[i].compare = 'equal';
+                      break;
+                    case 'greater':
+                      parentRule.conditions[i].compare = 'lessEqual';
+                      break;
+                    case 'less':
+                      parentRule.conditions[i].compare = 'greaterEqual';
+                      break;
+                    case 'greaterEqual':
+                      parentRule.conditions[i].compare = 'less';
+                      break;
+                    case 'lessEqual':
+                      parentRule.conditions[i].compare = 'greater';
+                      break;
+                    default:
+                      break;
+                  }
+                }
               }
             }
             // todo check if this if-scope can be permanently removed
