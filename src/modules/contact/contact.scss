@@ -325,7 +325,7 @@ $contactMapHeightCurve: (
 
   &__mail {
     hyphens: none;
-    word-break: break-all;
+    word-break: break-word;
     margin-bottom: pxToRem($sizeTiny);
   }
 
