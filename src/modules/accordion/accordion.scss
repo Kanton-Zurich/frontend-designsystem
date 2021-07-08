@@ -56,6 +56,7 @@ $accordionMap: (
     }
 
     &--open {
+
       .mdl-accordion__plus .vertical {
         transform: rotate(90deg);
       }
@@ -83,6 +84,8 @@ $accordionMap: (
     }
 
     &--transition-end {
+      overflow: visible;
+
       .mdl-accordion__panel {
         overflow: visible;
       }
