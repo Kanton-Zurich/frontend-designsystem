@@ -192,7 +192,7 @@ const variants = _.mapValues({
                               {
                                 label: 'Nein',
                                 groupName: 'c_permit_group',
-                                id: 'c_permit_group_1',
+                                id: 'c_permit_group_2',
                                 value: 'nein',
                                 validation: {
                                   isRequired: true,

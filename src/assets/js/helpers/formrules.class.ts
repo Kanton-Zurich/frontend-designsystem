@@ -135,8 +135,13 @@ class FormRules {
           const parentRules = JSON.parse(closestParent.dataset.rules);
 
           parentRules.forEach((parentRule, c) => {
-            if ((parentRule.action !== rule.action)
-            && parentRule.action !== 'show' && rule.action !== 'enable') {
+            // if there inverted parent rules these case have to be adjusted when inheriting rules
+            if ((parentRule.action !== rule.action) && (
+              (parentRule.action === 'show' && rule.action === 'hide')
+              || (parentRule.action === 'hide' && rule.action === 'show')
+              || (parentRule.action === 'enable' && rule.action === 'hide')
+              || (parentRule.action === 'disable' && rule.action === 'show')
+            )) {
               for (let i = 0; i < parentRule.conditions.length; i += 1) {
                 if ('equals' in parentRule.conditions[i]) {
                   parentRule.conditions[i].equals = !parentRule.conditions[i].equals;
