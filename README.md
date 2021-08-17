@@ -25,7 +25,7 @@ See `gulpfile.js` for details.
 
 ## Basic run/watch command
 ```bash
-npm run gulp -- --dev --watch
+npm run start
 ```
 
 ## Create a new module / page /atom
@@ -33,10 +33,6 @@ npm run gulp -- --dev --watch
 npm run gulp scaffold
 ```
 
-## Run Js tests only
-```bash
-npm run gulp js:test
-```
 
 ## Docker
 

@@ -879,80 +879,6 @@ gulp.task('clean', () => {
   return del(['./dist', './www', './src/assets/.tmp']);
 });
 
-gulp.task('generate:diff', () => {
-  const through = require('through2').obj;
-  const handlebarsWax = require('handlebars-wax');
-  const { handlebars } = require('@unic/estatico-handlebars');
-  const prettify = require('js-beautify');
-
-  const options = {
-    partials: [
-      './src/**/*.hbs',
-    ],
-    helpers: [
-      './gulp/helpers/*.js',
-    ],
-  };
-
-  const wax = handlebarsWax(handlebars);
-
-  // Register partials
-  if (options.partials) {
-    const waxOptions = {};
-
-    if (options.parsePartialName) {
-      waxOptions.parsePartialName = options.parsePartialName;
-    }
-
-    wax.partials(options.partials, waxOptions);
-  }
-  // Register helpers
-  wax.helpers(require('handlebars-layouts'));
-
-  if (options.helpers) {
-    const waxOptions = {};
-
-    if (options.parseHelperName) {
-      waxOptions.parseHelperName = options.parseHelperName;
-    }
-
-    wax.helpers(options.helpers, waxOptions);
-  }
-
-  // eslint-disable-next-line func-names
-  const generateWWW = function (file, enc, cb) {
-    // eslint-disable-next-line import/no-dynamic-require
-    const data = require(file.path);
-    const f = path.parse(file.path);
-    const variants = data.variants ? data.variants : { default: data };
-    const isPage = !data.variants;
-    for (const variant in variants) {
-      const variantProps = isPage ? variants[variant] : variants[variant].props;
-      const template = fs.readFileSync(file.path.replace('.data.js', '.hbs'), 'utf-8');
-      const compiledVariant = () => handlebars.compile(template)(variantProps);
-      const newFile = file.clone();
-      newFile.contents = new Buffer(prettify.html(compiledVariant(), {
-        indent_char: '\t',
-        indent_size: 1,
-      }));
-      newFile.path = path.join(f.dir, `${f.name.replace('.data', '')}.${variant}.html`);
-      this.push(newFile);
-    }
-    cb();
-  };
-
-  return gulp.src([
-    './src/atoms/**/*.data.js',
-    '!./src/atoms/**/{{fileName}}.data.js',
-    './src/modules/**/*.data.js',
-    '!./src/modules/**/{{fileName}}.data.js',
-    './src/pages/**/*.data.js',
-    '!./src/pages/**/{{fileName}}.data.js',
-  ], { base: './src' })
-    .pipe(through(generateWWW))
-    .pipe(gulp.dest('./www'));
-});
-
 /**
  * Deploy offline page
  */
@@ -965,18 +891,6 @@ gulp.task('deploy:offlinepage', () => {
  */
 gulp.task('email:inlineassets', () => {
   return helperFunctions.Inlinify('./dist/pages/mail/mail.html');
-});
-
-/**
- * Zip download package
- */
-gulp.task('pack', () => {
-  gulp.src(['dist/ci/dev/**/*'])
-    .pipe(zip('czhdev_lsg.zip'))
-    .pipe(gulp.dest('dist/ci/dev'));
-  return gulp.src(['dist/ci/prod/**/*'])
-    .pipe(zip('czhdev_lsg.zip'))
-    .pipe(gulp.dest('dist/ci/prod'));
 });
 
 /**
@@ -1023,20 +937,15 @@ gulp.task('build', (done) => {
 
   // Clean first
   if (!env.skipBuild) {
-    task = gulp.series('clean', 'clean:aem', task);
+    task = gulp.series('clean', task);
   }
 
   // create offline page & inlinfify assets
-  task = gulp.series(task, 'email:inlineassets'/* , 'deploy:offlinepage', 'zip:offline' */);
+  task = gulp.series(task, 'email:inlineassets');
 
   // Create CI build structure
   if (env.ci) {
-    if (gulpUtil.env.aemPresent) {
-      task = gulp.series(task, 'copy:ci', 'copy:aem', 'deploy:aem', /* 'pack', */ 'zip');
-    } else {
-      task = gulp.series(task, 'copy:ci', /* 'pack', */'zip');
-    }
-    task = gulp.series(task, 'generate:diff');
+    task = gulp.series(task, 'copy:ci', 'zip');
   }
 
   if (env.watch && (!env.skipBuild && !env.noInteractive && !env.skipTests && !env.ci)) {
