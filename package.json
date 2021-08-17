@@ -12,7 +12,7 @@
     "start": "gulp --dev --watch",
     "netlify": "gulp build --skipTests"
   },
-  "author": "Unic AG / One Inside AG / Zeix AG",
+  "author": "Staatskanzlei Kanton Zürich",
   "devDependencies": {
     "@types/jest": "^24.0.9",
     "@types/lodash": "^4.14.121",

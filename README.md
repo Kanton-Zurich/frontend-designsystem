@@ -38,12 +38,6 @@ npm run gulp scaffold
 npm run gulp js:test
 ```
 
-## Run bringover for backend
-```bash
-npm run gulp build
-```
-The detailed description can be found in this [confluence entre](https://we.one-inside.com/confluence/display/CZHDEV/FE+%3E+BE+Bringover+Workflow)
-
 ## Docker
 
 ```bash

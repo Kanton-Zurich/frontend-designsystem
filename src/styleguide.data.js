@@ -78,7 +78,7 @@ const atomList = _.merge({}, defTopiclistData, {
 atomList.topiclistcontentNavData.items = Object.keys(atomsGlob).map((item) => {
   return {
     shortTitle: atomsGlob[item].meta.title,
-    buzzwords: `<span class="sg_jira-link" href="https://we.one-inside.com/jira/browse/${atomsGlob[item].meta.jira}">${atomsGlob[item].meta.jira}</span> `,
+    buzzwords: ``,
     target: atomsGlob[item].meta.previewUrl,
     isPromotopic: false,
     isTagged: true,
@@ -109,7 +109,7 @@ moduleList.topiclistcontentNavData.items = moduleArray.map((item) => {
   return {
     shortTitle: item.meta.title,
     alt: true,
-    buzzwords: `<span class="sg_jira-link" href="https://we.one-inside.com/jira/browse/${item.meta.jira}">${item.meta.jira}</span> `
+    buzzwords: ``
       + `<span class="sg_group-label" style="border-color:  ${item.meta.labelBackground}; background-color:  ${item.meta.labelBackground}; color: ${item.meta.labelColor}">${item.meta.label}</span>`,
     target: item.meta.previewUrl,
     isPromotopic: false,
@@ -128,7 +128,7 @@ const pageList = _.merge({}, defTopiclistData, {
 pageList.topiclistcontentNavData.items = Object.keys(pagesGlob).map((item) => {
   return {
     shortTitle: pagesGlob[item].meta.title,
-    buzzwords: `<span class="sg_jira-link" href="https://we.one-inside.com/jira/browse/${pagesGlob[item].meta.jira}">${pagesGlob[item].meta.jira}</span> `,
+    buzzwords: ``,
     target: pagesGlob[item].meta.previewUrl,
     isTagged: true,
     isPromotopic: false,

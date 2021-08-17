@@ -5,27 +5,11 @@ const path = require('path');
 const fs = require('fs');
 const process = require('process');
 const env = require('minimist')(process.argv.slice(2));
-const git = require('git-rev-sync');
 const nodeSass = require('node-sass');
 const gulpUtil = require('gulp-util');
 const helperFunctions = require('./gulp/_functions');
-require('./gulp/deploy-aem');
 
-gulpUtil.env.aemTargetBase = '../czhdev-backend/sources/zhweb-core/zhweb-core-content/src/main/resources/jcr_root/apps/zhweb/core/';
-gulpUtil.env.aemTargetBaseResources = `${gulpUtil.env.aemTargetBase}clientlibs/publish/resources/`;
-gulpUtil.env.aemAssetsProxy = '/etc.clientlibs/zhweb/core/clientlibs/publish/resources/';
-gulpUtil.env.revision = `.${git.short()}`;
-gulpUtil.env.aemPresent = false;
-
-try {
-  if (fs.existsSync(gulpUtil.env.aemTargetBaseResources)) {
-    gulpUtil.env.aemPresent = true;
-  } else {
-    console.log('AEM not present for deployment, skipping deployment of assets');
-  }
-} catch (err) {
-  console.log('AEM not present for deployment, skipping deployment of assets');
-}
+gulpUtil.env.revision = 'REV';
 
 /**
  * HTML task
@@ -44,11 +28,8 @@ gulp.task('html', () => {
       './src/*.hbs',
       './src/design/*.hbs',
       './src/pages/**/*.hbs',
-      // './src/demo/pages/**/*.hbs',
-      // '!./src/demo/pages/handlebars/*.hbs',
       './src/modules/**/!(_)*.hbs',
       './src/atoms/**/!(_)*.hbs',
-      // './src/demo/modules/**/!(_)*.hbs',
       './src/preview/styleguide/*.hbs',
     ],
     srcBase: './src',
@@ -839,66 +820,6 @@ gulp.task('copy', () => {
 });
 
 /**
- * Copy files for AEM
- * Copies files, optionally renames them.
- *
- * Using `--watch` (or manually setting `env` to `{ watch: true }`) starts file watcher
- * When combined with `--skipBuild`, the task will not run immediately but only after changes
- */
-gulp.task('copy:aem', () => {
-  const task = require('@unic/estatico-copy');
-
-  const instance = task({
-    src: [
-      './dist/assets/**/*.{css,js,svg,json}',
-      './dist/assets/media/icons/*',
-      './dist/assets/media/pngsprite/*',
-    ],
-    srcBase: './dist/assets',
-    dest: gulpUtil.env.aemTargetBaseResources,
-    plugins: {
-      changed: null,
-      rename: (filePath) => {
-        let returnPath = filePath;
-
-        if (filePath.match(/manifest\.json/)) {
-          return returnPath;
-        }
-
-        if (filePath.match(/\.min\.js/)) {
-          returnPath = returnPath.replace(/\.min\.js/, `.${git.short()}.min.js`);
-        } else if (filePath.match(/\.js/)) {
-          returnPath = returnPath.replace(/\.js/, `.${git.short()}.js`);
-        }
-
-        if (filePath.match(/\.min\.css/)) {
-          returnPath = returnPath.replace(/\.min\.css/, `.${git.short()}.min.css`);
-        } else if (filePath.match(/\.css/)) {
-          returnPath = returnPath.replace(/\.css/, `.${git.short()}.css`);
-        }
-
-        if (filePath.match(/\.svg/)) {
-          returnPath = returnPath.replace(/\.svg/, `.${git.short()}.svg`);
-        }
-
-        return returnPath;
-      },
-    },
-  }, env);
-
-  return instance();
-});
-
-/**
- * Clean AEM Assets
- */
-gulp.task('clean:aem', (callback) => {
-  const del = require('del');
-
-  return del(gulpUtil.env.aemTargetBaseResources, { force: true }, callback);
-});
-
-/**
  * Create dev and prod build directories
  * Copies specific files into `dist/ci/dev` and `dist/ci/prod`, respectively
  */
@@ -947,19 +868,6 @@ gulp.task('copy:ci', () => {
     },
   }, env);
 
-
-  // perserve .content.xml file in resource folder
-  const contentXML = task({
-    src: [
-      `${gulpUtil.env.aemTargetBaseResources}../css/.content.xml`,
-    ],
-    srcBase: `${gulpUtil.env.aemTargetBaseResources}../css/`,
-    dest: gulpUtil.env.aemTargetBaseResources,
-  }, env);
-
-  if (gulpUtil.env.aemPresent) {
-    return merge(dev(), prod(), contentXML());
-  }
   return merge(dev(), prod());
 });
 
@@ -968,7 +876,6 @@ gulp.task('copy:ci', () => {
  */
 gulp.task('clean', () => {
   const del = require('del');
-
   return del(['./dist', './www', './src/assets/.tmp']);
 });
 
@@ -1012,10 +919,12 @@ gulp.task('generate:diff', () => {
     wax.helpers(options.helpers, waxOptions);
   }
 
-  const generateWWW = function(file, enc, cb) {
+  // eslint-disable-next-line func-names
+  const generateWWW = function (file, enc, cb) {
+    // eslint-disable-next-line import/no-dynamic-require
     const data = require(file.path);
     const f = path.parse(file.path);
-    let variants = data.variants ? data.variants : { default: data };
+    const variants = data.variants ? data.variants : { default: data };
     const isPage = !data.variants;
     for (const variant in variants) {
       const variantProps = isPage ? variants[variant] : variants[variant].props;
@@ -1073,20 +982,16 @@ gulp.task('pack', () => {
 /**
  * Zip deployment package
  */
-gulp.task('zip', () => {
-  return gulp.src(['dist/ci/prod/**/*'])
-    .pipe(zip('deploy.zip'))
-    .pipe(gulp.dest('dist/ci'));
-});
+gulp.task('zip', () => gulp.src(['dist/ci/prod/**/*'])
+  .pipe(zip('deploy.zip'))
+  .pipe(gulp.dest('dist/ci')));
 
 /**
  * Zip offline package
  */
-gulp.task('zip:offline', () => {
-  return gulp.src('dist/ci/offline/**/*')
-    .pipe(zip('offline.zip'))
-    .pipe(gulp.dest('dist'));
-});
+gulp.task('zip:offline', () => gulp.src('dist/ci/offline/**/*')
+  .pipe(zip('offline.zip'))
+  .pipe(gulp.dest('dist')));
 
 
 /**
