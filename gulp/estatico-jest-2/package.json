@@ -2,7 +2,7 @@
   "_args": [
     [
       "@unic/estatico-jest@0.2.4",
-      "/Users/robertwueest/PROJECTS/KTZH/frontend-living-styleguide"
+      ""
     ]
   ],
   "_development": true,
@@ -28,7 +28,7 @@
   ],
   "_resolved": "https://registry.npmjs.org/@unic/estatico-jest/-/estatico-jest-0.2.4.tgz",
   "_spec": "0.2.4",
-  "_where": "/Users/robertwueest/PROJECTS/KTZH/frontend-living-styleguide",
+  "_where": "",
   "author": {
     "name": "Unic AG"
   },
