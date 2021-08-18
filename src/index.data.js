@@ -149,12 +149,15 @@ styleguide.topiclistcontentNavData.items = _.sortBy(dataHelper.getDataGlob('./sr
   };
 });
 
+const documentation = dataHelper.getDocumentation('index.md');
+
 const data = _.merge({}, defaultData, {
   atomList,
   moduleList,
   moduleLabels,
   pageList,
   styleguide,
+  documentation,
   wrappingElements: {
     pageHeaderData: {
       breadcrumb: {
