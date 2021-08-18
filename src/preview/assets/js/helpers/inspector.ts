@@ -52,6 +52,11 @@ class Inspector extends Helper {
           input.addEventListener('change', (event) => {
             Inspector.triggerFilterChangeOnElement(<any>event.target);
           });
+          if (input.type === 'text') {
+            input.addEventListener('keyup', (event) => {
+              Inspector.triggerFilterChangeOnElement(<any>event.target);
+            });
+          }
         });
         if (variantsInput.length > 0) {
           Inspector.triggerVariantChangeOnElement(variantsInput[0]);
@@ -116,7 +121,7 @@ class Inspector extends Helper {
 
   public static triggerFilterChangeOnElement(node) {
     const allModules = [].slice.call(document.querySelectorAll('li[data-label-index]'));
-    if (node.value === 'nofilter') {
+    if (node.value === 'nofilter' || node.value === '') {
       allModules.forEach((li) => {
         li.style.display = 'block';
       });
@@ -125,8 +130,16 @@ class Inspector extends Helper {
     allModules.forEach((li) => {
       li.style.display = 'none';
     });
-    const selectedModules = [].slice.call(document.querySelectorAll(`li[data-label-index="${node.value}"]`));
+
+    const selector = node.type === 'text' ? 'li[data-label-index]' : `li[data-label-index="${node.value}"]`;
+    const selectedModules = [].slice.call(document.querySelectorAll(selector));
     selectedModules.forEach((li) => {
+      // eslint-disable-next-line no-magic-numbers
+      if (node.type === 'text' && node.value.length >= 2) {
+        const title = li.querySelector('.atm-content_teaser__title').innerHTML;
+        const regex = new RegExp(`${node.value}\\w*`);
+        if (!title.match(regex)) return;
+      }
       li.style.display = 'block';
     });
   }
