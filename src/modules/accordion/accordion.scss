@@ -42,7 +42,8 @@ $accordionMap: (
     }
 
     @include hover() {
-      .mdl-accordion__control {
+      .mdl-accordion__control,
+      .mdl-accordion__title-prefix {
         color: $colorBlack100;
       }
 
@@ -51,7 +52,8 @@ $accordionMap: (
       }
     }
 
-    .mdl-accordion__control {
+    .mdl-accordion__control,
+    .mdl-accordion__title-prefix {
       color: $colorBlack60;
     }
 
@@ -65,10 +67,14 @@ $accordionMap: (
         @include transition(max-height);
       }
 
+      .mdl-accordion__control,
+      .mdl-accordion__title-prefix {
+        color: $colorBlack100;
+      }
+
       .mdl-accordion__control {
         max-height: none;
         white-space: normal;
-        color: $colorBlack100;
       }
 
       .mdl-accordion__plus use {
@@ -135,23 +141,32 @@ $accordionMap: (
     @include transition(opacity padding);
   }
 
-  &__control {
+  &__control,
+  &__title-prefix {
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
-    @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 1.5));
-
     letter-spacing: -0.3px;
+    white-space: nowrap;
+    font-family: $fontFamilyBlack;
+    line-height: $sizeLineHeightMedium;
+    @include transition(color);
+  }
+
+  &__title-prefix {
+    // 16 24 26
+    // $sizeRegular = 16 $sizeLarge = 24 $sizeSmallBig = 28
+    //@include sizeCurve(padding-left, indentPadding, $accordionMap);
+    @include sizeCurve(padding-right, regular);
+  }
+
+  &__control {
+    @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 1.5));
     flex-grow: 1;
     overflow: hidden;
     width: calc(100% - 24px);
     text-overflow: ellipsis;
-    white-space: nowrap;
-    font-family: $fontFamilyBlack;
-    line-height: $sizeLineHeightMedium;
     margin: 0;
     display: block;
-
     @include sizeCurve(margin-top margin-bottom, controlMargin, $accordionMap);
-    @include transition(color);
   }
 
 
@@ -205,6 +220,21 @@ $accordionMap: (
 
   .mdl-linklist--small-margin {
     @include sizeCurve(margin-bottom, regular);
+  }
+
+  /** Indented (table of contents/sozial care) variante **/
+  &--indented {
+    .atm-heading--bordered {
+      padding-top: 0;
+
+      &:before {
+        display: none;
+      }
+    }
+
+    .mdl-accordion__panel-content {
+      padding-left: pxToRem(38px);
+    }
   }
 
   /** Inverted style */
