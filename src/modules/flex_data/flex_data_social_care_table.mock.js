@@ -1,0 +1,62 @@
+const data = {
+  data: [
+    {
+      link: '../flex_detail/flex_detail.html',
+      chapter: '9 Einkommen und Vermögen (WSH)',
+      subChapter: 'subChapter 1',
+      title: 'Anrechnung von Vermögen und Freibeträgen',
+      'chapter-number': '9.2.01',
+      'valide-since-date': '1. Januar 2021',
+      'publication-date': '21. Juni 1999',
+    },
+    {
+      link: '../flex_detail/flex_detail.html',
+      chapter: '15 Rückerstattung ',
+      subChapter: 'subChapter 4',
+      title: 'Voraussetzung Rückerstattung von rechtmässig bezogenen Leistungen',
+      'chapter-number': '15.2.04',
+      'valide-since-date': '5. Oktober 2018',
+      'publication-date': '18. Mai 2017',
+    },
+    {
+      link: '../flex_detail/flex_detail.html',
+      chapter: '16 Strafrecht, Gewaltschutz, Opferhilfe',
+      subChapter: 'subChapter 5',
+      title: 'Strafbestimmung StGB',
+      'chapter-number': '16.2.03',
+      'valide-since-date': '1. Januar 2021',
+      'publication-date': '12. Juni 2020',
+    },
+    {
+      link: '../flex_detail/flex_detail.html',
+      chapter: '9 Einkommen und Vermögen (WSH)',
+      subChapter: 'subChapter 1',
+      title: 'Anrechnung von Vermögen und Freibeträgen',
+      'chapter-number': '9.2.01',
+      'valide-since-date': '1. Januar 2021',
+      'publication-date': '21. Juni 1999',
+    },
+    {
+      link: '../flex_detail/flex_detail.html',
+      chapter: '15 Rückerstattung ',
+      subChapter: 'subChapter 4',
+      title: 'Voraussetzung Rückerstattung von rechtmässig bezogenen Leistungen',
+      'chapter-number': '15.2.04',
+      'valide-since-date': '5. Oktober 2018',
+      'publication-date': '18. Mai 2017',
+    },
+    {
+      link: '../flex_detail/flex_detail.html',
+      chapter: '16 Strafrecht, Gewaltschutz, Opferhilfe',
+      subChapter: 'subChapter 5',
+      title: 'Strafbestimmung StGB',
+      'chapter-number': '16.2.03',
+      'valide-since-date': '1. Januar 2021',
+      'publication-date': '12. Juni 2020',
+    },
+  ],
+  numberOfResults: 12,
+  numberOfResultPages: 2,
+};
+
+module.exports = data;

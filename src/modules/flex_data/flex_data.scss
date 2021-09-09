@@ -90,6 +90,11 @@
       }
     }
 
+    // Hide table of Contents when results are displayed (CZHDEV 3005)
+    &:not(.initially-hidden) + .mdl-accordion {
+      display: none;
+    }
+
     .mdl-flex-data__results-generic {
       padding-bottom: $sizeLarge;
 
