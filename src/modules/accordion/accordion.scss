@@ -224,6 +224,8 @@ $accordionMap: (
 
   /** Indented (table of contents/sozial care) variante **/
   &--indented {
+    @include sizeCurve(margin-top, large);
+
     .atm-heading--bordered {
       padding-top: 0;
 

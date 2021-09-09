@@ -376,7 +376,7 @@ const variants = _.mapValues({
       }],
     },
   },
-  tableOfContent: {
+  tableOfContents: {
     meta: {
       title: 'Inhaltsverzeichnis (CZHDEV-3005)',
       desc: 'Akkordeon für das Inhaltsverzeichnis der Sozialhilfe',
