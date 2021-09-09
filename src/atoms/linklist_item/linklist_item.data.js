@@ -25,7 +25,7 @@ const variants = _.mapValues({
   },
   socialCare: {
     meta: {
-      title: 'Link zu einem Sozialhilfeeintrag',
+      title: 'Link zu einem Sozialhilfeeintrag (CZHDEV-3005)',
       desc: 'Weiterführender Link im Inhaltsverzeichnis des Sozialhilfehandbuchs',
     },
     props: {

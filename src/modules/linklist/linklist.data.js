@@ -154,7 +154,7 @@ const variants = _.mapValues({
   },
   socialCare: {
     meta: {
-      title: 'Social Care Linklist',
+      title: 'Social Care Linklist (CZHDEV-3005)',
       desc: 'List with links to social care chapters.',
     },
     props: {
@@ -175,7 +175,7 @@ const variants = _.mapValues({
         {
           linkListItemIsSocialCare: true,
           linkListItemChapterNumber: '2.1.03',
-          linkListItemTitle: 'Organisation der Bezirksrats',
+          linkListItemTitle: 'Organisation generell',
         },
       ],
     },
