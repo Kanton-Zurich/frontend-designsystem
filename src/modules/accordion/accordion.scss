@@ -144,29 +144,26 @@ $accordionMap: (
   &__control,
   &__title-prefix {
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    @include transition(color);
     letter-spacing: -0.3px;
     white-space: nowrap;
     font-family: $fontFamilyBlack;
     line-height: $sizeLineHeightMedium;
-    @include transition(color);
   }
 
   &__title-prefix {
-    // 16 24 26
-    // $sizeRegular = 16 $sizeLarge = 24 $sizeSmallBig = 28
-    //@include sizeCurve(padding-left, indentPadding, $accordionMap);
     @include sizeCurve(padding-right, regular);
   }
 
   &__control {
     @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 1.5));
+    @include sizeCurve(margin-top margin-bottom, controlMargin, $accordionMap);
     flex-grow: 1;
     overflow: hidden;
     width: calc(100% - 24px);
     text-overflow: ellipsis;
     margin: 0;
     display: block;
-    @include sizeCurve(margin-top margin-bottom, controlMargin, $accordionMap);
   }
 
 
