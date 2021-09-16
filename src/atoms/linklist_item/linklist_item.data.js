@@ -23,6 +23,17 @@ const variants = _.mapValues({
       desc: 'Default implementation',
     },
   },
+  socialCare: {
+    meta: {
+      title: 'Link zu einem Sozialhilfeeintrag (CZHDEV-3005)',
+      desc: 'Weiterführender Link im Inhaltsverzeichnis des Sozialhilfehandbuchs',
+    },
+    props: {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.2.01',
+      linkListItemTitle: 'Aufsichtstätigkeiten des Bezirksrats über die Sozialbehörden',
+    },
+  },
   location: {
     meta: {
       title: 'Link zu einem Standort',

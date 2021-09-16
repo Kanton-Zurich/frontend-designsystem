@@ -57,6 +57,26 @@
     }
   }
 
+  &--social-care {
+    font-family: $fontFamilyBase;
+
+
+    .atm-linklist_item__text {
+      display: flex;
+    }
+
+    .atm-linklist_item__chapter-number {
+      flex-shrink: 0;
+      padding-right: pxToRem($sizeTiny);
+    }
+
+    @include mq($from: zero, $to: medium) {
+      .atm-linklist_item__arrow {
+        display: none;
+      }
+    }
+  }
+
   &--download {
     align-items: flex-start;
   }
