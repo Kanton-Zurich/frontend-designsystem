@@ -134,9 +134,7 @@ class App {
     window[namespace].helpers.initModulesInElement = this.initModulesInElement;
     window[namespace].helpers.app = this;
     window[namespace].form = new FormGlobalHelper();
-
     const bodyElement = document.querySelector('[data-body-element]');
-
     if (bodyElement) {
       window[namespace].helpers.bodyElement = bodyElement;
     } else {
