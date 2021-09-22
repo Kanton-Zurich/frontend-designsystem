@@ -190,6 +190,43 @@ const variants = _.mapValues({
       `,
     },
   },
+  socialCareHandbook: {
+    meta: {
+      title: 'Sozialhilfehandbuch (CZHDEV-3005)',
+      desc: '',
+    },
+    props: {
+      pagination: defPaginationData.variants.default.props,
+      flexDataSource: '/mocks/modules/flex_data/flex_data_social_care_table.json',
+      flexGenericFormData: _.merge({}, defFormData.variants.socialCareHandbook.props),
+      flexTableOfContents: _.merge({}, defAccordionData.variants.tableOfContents.props),
+      resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
+      tableData: {
+        tableTitle: '',
+        hasTitle: true,
+        tableHeadingLevel: 4,
+        hasColumnHeader: true,
+        isWide: true,
+        isStatic: true,
+        headers: [
+          {
+            title: 'Kapitelnr.',
+            dataColumnName: 'chapter-number',
+            isSortable: 'enum',
+          },
+          {
+            title: 'Titel',
+            dataColumnName: 'title',
+          },
+          {
+            title: 'Kapitel',
+            dataColumnName: 'chapter',
+          },
+        ],
+        bodyrows: [],
+      },
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

@@ -152,6 +152,34 @@ const variants = _.mapValues({
       ],
     },
   },
+  socialCare: {
+    meta: {
+      title: 'Social Care Linklist (CZHDEV-3005)',
+      desc: 'List with links to social care chapters.',
+    },
+    props: {
+      linkListTitle: 'Aufgaben der Gemeinde',
+      linkListChapterNumber: '2.2',
+      headingLevel: 4,
+      links: [
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.01',
+          linkListItemTitle: 'Aufgaben der Sozialbehörde',
+        },
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.02',
+          linkListItemTitle: 'Organisation der Sozialbehörde',
+        },
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.03',
+          linkListItemTitle: 'Organisation generell',
+        },
+      ],
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
