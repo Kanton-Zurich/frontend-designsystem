@@ -58,10 +58,10 @@ import ZhLex from '../../../modules/zhlex/zhlex';
 import Metablock from '../../../modules/metablock/metablock';
 import IFrame from '../../../modules/iframe/iframe';
 import DecisionTree from '../../../modules/decision_tree/decision_tree';
-import Searchhighlight from '../../../modules/searchhighlight/searchhighlight';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
+import SearchHighlight from './searchHighlight';
 import FormGlobalHelper from './form';
 
 class App {
@@ -126,7 +126,6 @@ class App {
     this.modules.metablock = Metablock;
     this.modules.iframe = IFrame;
     this.modules.decisionTree = DecisionTree;
-    this.modules.searchhighlight = Searchhighlight;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
@@ -135,12 +134,17 @@ class App {
     window[namespace].helpers.initModulesInElement = this.initModulesInElement;
     window[namespace].helpers.app = this;
     window[namespace].form = new FormGlobalHelper();
+
     const bodyElement = document.querySelector('[data-body-element]');
+
     if (bodyElement) {
       window[namespace].helpers.bodyElement = bodyElement;
     } else {
       window[namespace].helpers.bodyElement = document.body;
     }
+    window[namespace].searchHighlight = new SearchHighlight(
+      window[namespace].helpers.bodyElement, {}, {},
+    );
 
     const sAgent = window.navigator.userAgent;
     const isIE = sAgent.indexOf('MSIE');
