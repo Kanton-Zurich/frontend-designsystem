@@ -29,11 +29,10 @@ class SearchHighlight extends Module {
     this.parameterName = 'search';
     this.params = this.paramsObject[this.parameterName];
     this.decodedParams = decodeURIComponent(this.paramsObject[this.parameterName]).trim();
-    // this.params = decodeURIComponent(this.paramsObject[this.parameterName]);
     this.highLightStart = '<mark class="searchhighlight">';
     this.highLightEnd = '</mark>';
     this.matchedElements = [];
-    this.basicRequirementsRegex = new RegExp('[a-zA-ZäöüÄÖÜß|0-9]{2,}', 'g');
+    this.basicRequirementsRegex = new RegExp('[a-zäöüßâàæêèéëîïôòœûùç|0-9]{2,}', 'gi');
 
 
     if (this.params && this.decodedParams.match(this.basicRequirementsRegex)) {

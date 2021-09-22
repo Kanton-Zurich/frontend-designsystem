@@ -6,7 +6,7 @@
     }
     // Invert on modules/atomes that already has the theme-color applied
     .mdl-texthighlight {
-      .mdl-searchhighlight {
+      .searchhighlight {
         color: #{mix($val, $colorWhite, 5%)};
         background-color: #{$val};
       }
