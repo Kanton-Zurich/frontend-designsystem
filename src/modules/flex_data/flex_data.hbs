@@ -62,7 +62,13 @@
     {{> "atoms/loading_circle/loading_circle"}}
   </div>
   {{#if flexTableOfContents}}
-    {{> "modules/accordion/accordion" flexTableOfContents }}
+    <!--
+      AEM generated div for LSG demonstration purpos only.
+      DO NOT COPY!
+    -->
+    <div>
+      {{> "modules/accordion/accordion" flexTableOfContents }}
+    </div>
   {{/if}}
   <div class="mdl-flex-data__notification hidden">
     {{> "modules/notification/notification" notificationData }}
