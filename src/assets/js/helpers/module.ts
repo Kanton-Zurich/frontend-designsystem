@@ -3,7 +3,6 @@ import extend from 'lodash/extend';
 import uniqueId from 'lodash/uniqueId';
 import namespace from './namespace';
 import wrist from 'wrist';
-import { sanitizeSearchString } from './common';
 
 class Module {
   public name: string;
@@ -163,44 +162,6 @@ class Module {
       hash = hash & hash; // eslint-disable-line
     }
     return hash;
-  }
-
-  /**
-   * Extract url parameters
-   * @param param
-   * @param singleValue
-   */
-  getURLParam(param, singleValue = false) {
-    let result = null;
-    const url = window.location.href;
-    const paramList = url.split('?').length > 1 ? url.split('?')[1].split('&') : null;
-    if (paramList) {
-      result = paramList.filter(paramString => paramString.substr(0, param.length) === param)
-        .map(item => sanitizeSearchString(decodeURIComponent(item.split('=')[1].replace('#', '')))); // eslint-disable-line
-      if (result.length > 0 && singleValue) {
-        result = result[0].replace('#', '');
-      }
-    }
-
-    return result && result.length > 0 ? result : null;
-  }
-
-  /**
-   * Get all URL params as object
-   */
-  getAllURLParams() {
-    const queryString = window.location.search;
-    const stringParams = queryString.split('?').length > 1 ? queryString.split('?')[1].split('&') : null;
-    let params = {};
-    if (stringParams) {
-      params = stringParams.reduce((total, amount) => {
-        const keyValue = amount.split('=');
-        total[keyValue[0]] = total[keyValue[0]] ? total[keyValue[0]] : [];
-        total[keyValue[0]].push(keyValue[1] ? sanitizeSearchString(keyValue[1]) : null); // eslint-disable-line
-        return total;
-      }, {});
-    }
-    return params;
   }
 
   /**

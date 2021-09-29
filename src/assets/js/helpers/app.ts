@@ -133,6 +133,7 @@ class App {
     window[namespace].helpers.registerModulesInElement = this.registerModulesInElement;
     window[namespace].helpers.initModulesInElement = this.initModulesInElement;
     window[namespace].helpers.app = this;
+    window[namespace].helpers.searchHighlight = new SearchHighlight();
     window[namespace].form = new FormGlobalHelper();
     const bodyElement = document.querySelector('[data-body-element]');
     if (bodyElement) {
@@ -140,9 +141,6 @@ class App {
     } else {
       window[namespace].helpers.bodyElement = document.body;
     }
-    window[namespace].searchHighlight = new SearchHighlight(
-      window[namespace].helpers.bodyElement, {}, {},
-    );
 
     const sAgent = window.navigator.userAgent;
     const isIE = sAgent.indexOf('MSIE');

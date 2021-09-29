@@ -5,6 +5,7 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import { getAllURLParams, getURLParam } from '../../assets/js/helpers/common';
 import { template } from 'lodash';
 import Table from '../table/table';
 import Select from '../select/select';
@@ -163,7 +164,7 @@ class FlexData extends Module {
     this.order = sortParamElemet.getAttribute('data-sort-direction');
     this.orderBy = sortParamElemet.getAttribute('data-sort-column');
     const initialLoad = this.ui.element.hasAttribute('data-initial-load');
-    if (this.getAllURLParams()['page'] || initialLoad) { // eslint-disable-line
+    if (getAllURLParams()['page'] || initialLoad) { // eslint-disable-line
       this.updateViewFromURLParams();
       setTimeout(() => {
         if (this.isVisible()) {
@@ -507,7 +508,7 @@ class FlexData extends Module {
     if (!this.isVisible()) {
       return;
     }
-    const params = this.getAllURLParams();
+    const params = getAllURLParams();
     Object.keys(params).forEach((key) => {
       switch (key) {
         case 'page':
@@ -615,7 +616,7 @@ class FlexData extends Module {
       })
       .then((response) => {
         if (response) {
-          const wcmmode = this.getURLParam('wcmmode');
+          const wcmmode = getURLParam('wcmmode');
           const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}${wcmmode ? '&wcmmode=' + wcmmode : ''}`; // eslint-disable-line
           if (replaceState) {
             if (history.state && history.state.url && history.state.url !== canonical) { // eslint-disable-line
