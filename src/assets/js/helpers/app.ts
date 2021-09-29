@@ -61,6 +61,7 @@ import DecisionTree from '../../../modules/decision_tree/decision_tree';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
+import SearchHighlight from './searchHighlight';
 import FormGlobalHelper from './form';
 
 class App {
@@ -132,6 +133,7 @@ class App {
     window[namespace].helpers.registerModulesInElement = this.registerModulesInElement;
     window[namespace].helpers.initModulesInElement = this.initModulesInElement;
     window[namespace].helpers.app = this;
+    window[namespace].helpers.searchHighlight = new SearchHighlight();
     window[namespace].form = new FormGlobalHelper();
     const bodyElement = document.querySelector('[data-body-element]');
     if (bodyElement) {
