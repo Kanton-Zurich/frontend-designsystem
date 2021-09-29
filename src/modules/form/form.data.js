@@ -2986,7 +2986,7 @@ const variants = _.mapValues({
                       ariaTextValid: 'Eingabe entspricht den Vorgaben.',
                       ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                       errorMsg: 'Datum bitte im Format TT.MM.YYYY eingeben!',
-                      isRequired: true,
+                      isRequired: false,
                     },
                   })),
               },
