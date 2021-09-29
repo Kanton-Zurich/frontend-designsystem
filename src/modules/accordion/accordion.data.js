@@ -396,7 +396,7 @@ const variants = _.mapValues({
           accordionPanelID: _.uniqueId('accordionDemoId-'),
           children: [
             {
-              partial: linklistData.variants.socialCare.meta.demo,
+              partial: linklistData.variants.socialCareBold.meta.demo,
             },
           ],
         },

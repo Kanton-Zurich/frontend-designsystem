@@ -57,9 +57,13 @@
     }
   }
 
+  // Sozialhilfeeintrag (CZHDEV-3005)
   &--social-care {
     font-family: $fontFamilyBase;
 
+    &-bold {
+      font-family: $fontFamilyBlack;
+    }
 
     .atm-linklist_item__text {
       display: flex;

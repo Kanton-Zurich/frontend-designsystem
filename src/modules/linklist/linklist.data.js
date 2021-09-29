@@ -180,6 +180,37 @@ const variants = _.mapValues({
       ],
     },
   },
+  socialCareBold: {
+    meta: {
+      title: 'Social Care Linklist Bold (CZHDEV-3005)',
+      desc: 'List with links to social care chapters but no heading, instead a bolded link.',
+    },
+    props: {
+      links: [
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemIsSocialCareBold: true,
+          linkListItemChapterNumber: '0.2',
+          linkListItemTitle: 'Aufgaben der Gemeinde',
+        },
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.01',
+          linkListItemTitle: 'Aufgaben der Sozialbehörde',
+        },
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.02',
+          linkListItemTitle: 'Organisation der Sozialbehörde',
+        },
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.03',
+          linkListItemTitle: 'Organisation generell',
+        },
+      ],
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
