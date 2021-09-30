@@ -1,6 +1,6 @@
 # CZHDEV - Go Live 1.0 Release Branch
 
-Kanton ZÅrich Estatico Nuo Living Styleguide
+Kanton Z√ºrich Estatico Nuo Living Styleguide
 
 ## Installation
 
