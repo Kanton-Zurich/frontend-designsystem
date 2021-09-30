@@ -395,8 +395,16 @@ class FlexData extends Module {
         jsonData.data.forEach((item) => {
           const tr = document.createElement('tr');
           tr.classList.add('mdl-table__row');
+
+          // Added searchhighlight to link href CZHDEV-3007
+          let searchHighlightQuery = '';
+          const searchInputValue = (<HTMLInputElement>(this.ui.form.querySelector('input[type="text"]'))).value;
+          if (searchInputValue) {
+            searchHighlightQuery = `?search=${searchInputValue}`;
+          }
+
           const props = {
-            link: item.link,
+            link: `${item.link}${searchHighlightQuery}`,
           };
           const resultsTableColumns = this.ui.resultsTableColumns.length
             ? this.ui.resultsTableColumns : [this.ui.resultsTableColumns];
