@@ -1,6 +1,6 @@
 # CZHDEV - Go Live 1.0 Release Branch
 
-Kanton Zürich Estatico Nuo Living Styleguide
+Kanton Z�rich Estatico Nuo Living Styleguide
 
 ## Installation
 
@@ -8,7 +8,7 @@ Kanton Zürich Estatico Nuo Living Styleguide
 
 # Optionally use Docker container, see below
 
-# Install correct node version
+# Install correct node version v10.15.3
 nvm install
 
 # Install npm packages
