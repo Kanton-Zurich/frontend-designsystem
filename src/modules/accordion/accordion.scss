@@ -236,6 +236,7 @@ $accordionMap: (
 
       .mdl-linklist__title {
         @include sizeCurve(padding-top padding-bottom, small);
+        display: flex;
       }
 
       > :not(.mdl-linklist:last-child) {

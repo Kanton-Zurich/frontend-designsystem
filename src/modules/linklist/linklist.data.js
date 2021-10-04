@@ -158,7 +158,7 @@ const variants = _.mapValues({
       desc: 'List with links to social care chapters.',
     },
     props: {
-      linkListTitle: 'Aufgaben der Gemeinde',
+      linkListTitle: 'Aufgaben der Gemeinde lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor',
       linkListChapterNumber: '2.2',
       headingLevel: 4,
       links: [
