@@ -391,7 +391,7 @@ const variants = _.mapValues({
       indented: true,
       items: [
         {
-          title: 'Akkordeontitel lang lang lang lang lang lang lang lang lang lang lang lang lang lang lang lang lang lang lang lang lang',
+          title: 'Akkordeontitel der über mehere Zeilen gehen soll Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna ',
           titlePrefix: '0',
           accordionPanelID: _.uniqueId('accordionDemoId-'),
           children: [
