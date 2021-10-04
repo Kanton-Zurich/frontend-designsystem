@@ -1,0 +1,27 @@
+.mdl-search-result-detail-header {
+  @include sizeCurve(margin-bottom, regular);
+  display: flex;
+  flex-direction: column;
+
+  @include mq($from: medium) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .atm-heading,
+  .mdl-select {
+    padding: 0;
+    margin: 0;
+  }
+
+  .mdl-select {
+
+    @include mq($from: medium) {
+      margin-left: auto;
+    }
+  }
+
+  .atm-form_input__input--trigger {
+    align-items: center;
+  }
+}
