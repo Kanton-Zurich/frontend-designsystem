@@ -1,10 +1,10 @@
 {{#unless leadHeading}}
-<h1{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{title}} 1 {{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h1>
-<h2{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{title}} 2 {{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h2>
-<h3{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{title}} 3 {{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h3>
-<h4{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{title}} 4 {{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h4>
-<h5{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{title}} 5 {{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h5>
-<h6{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{title}} 6 {{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h6>
+  <h1{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{#if prefix}}<span class="atm-heading__prefix">{{prefix}}</span><span class="atm-heading__content">{{/if}}{{title}} 1 {{#if prefix}}</span>{{/if}}{{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h1>
+<h2{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{#if prefix}}<span class="atm-heading__prefix">{{prefix}}</span><span class="atm-heading__content">{{/if}}{{title}} 2 {{#if prefix}}</span>{{/if}}{{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h2>
+<h3{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{#if prefix}}<span class="atm-heading__prefix">{{prefix}}</span><span class="atm-heading__content">{{/if}}{{title}} 3 {{#if prefix}}</span>{{/if}}{{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h3>
+<h4{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{#if prefix}}<span class="atm-heading__prefix">{{prefix}}</span><span class="atm-heading__content">{{/if}}{{title}} 4 {{#if prefix}}</span>{{/if}}{{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h4>
+<h5{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{#if prefix}}<span class="atm-heading__prefix">{{prefix}}</span><span class="atm-heading__content">{{/if}}{{title}} 5 {{#if prefix}}</span>{{/if}}{{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h5>
+<h6{{#if variant}} class="atm-heading{{#if modifier}} atm-heading--{{modifier}}{{/if}}"{{/if}}>{{#if prefix}}<span class="atm-heading__prefix">{{prefix}}</span><span class="atm-heading__content">{{/if}}{{title}} 6 {{#if prefix}}</span>{{/if}}{{#if small}}<small>{{small}}</small> {{/if}}{{#if link}}<a href="#">{{link}}</a>{{/if}}</h6>
 {{/unless}}
 {{#if leadHeading}}
   <p class="atm-heading__lead">{{leadTitle}}</p>
