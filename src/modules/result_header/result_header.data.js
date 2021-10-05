@@ -5,14 +5,14 @@ const defaultData = require('../../data/default.data.js');
 
 const defSelectData = require('../select/select.data.js').variants.history.props;
 
-const template = dataHelper.getFileContent('search_result_detail_header.hbs');
+const template = dataHelper.getFileContent('result_header.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Suchresultate Detail-Header',
-    className: 'SearchResultDetailHeader',
+    title: 'Suchresultate Header',
+    className: 'ResultHeader',
     jira: 'CZHDEV-3030',
     label: 'Applikation',
-    documentation: dataHelper.getDocumentation('search_result_detail_header.md'),
+    documentation: dataHelper.getDocumentation('result_header.md'),
   },
   props: {
     headingTitle: 'Details',
@@ -22,13 +22,13 @@ const variants = _.mapValues({
   default: {
     meta: {
       title: 'Default',
-      desc: 'Implementation eines Suchresultate-Detail-Headers mit einer einfachen Überschrift',
+      desc: 'Implementation eines Suchresultate-Headers mit einer einfachen Überschrift',
     },
   },
   defaultWithSelect: {
     meta: {
       title: 'Mit Auswahlfeld',
-      desc: 'Implementation eines Suchresultate-Detail-Headers mit einer einfachen Überschrift und Auswahlfeld',
+      desc: 'Implementation eines Suchresultate-Headers mit einer einfachen Überschrift und Auswahlfeld',
     },
     props: {
       selectData: _.merge({}, defSelectData, {
