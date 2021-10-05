@@ -103,10 +103,10 @@ const variants = _.mapValues({
           content: '<h2 class="atm-heading">Erläuterungen</h2>',
         },
         {
-          content: '<h3 class="atm-heading atm-heading--number-prefix"><span>1.</span>Anrechenbare Vermögenswerte</h3>',
+          content: '<h3 class="atm-heading atm-heading--number-prefix"><span class="atm-heading__prefix">1.</span><span class="atm-heading__content">Anrechenbare Vermögenswerte</span></h3>',
         },
         {
-          content: '<h4 class="atm-heading atm-heading--number-prefix"><span>1.1</span>Bundesebene</h4>',
+          content: '<h4 class="atm-heading atm-heading--number-prefix"><span class="atm-heading__prefix">1.1</span><span class="atm-heading__content">Bundesebene</span></h4>',
         },
         {
           content: '<p class="atm-paragraph">'
@@ -116,7 +116,7 @@ const variants = _.mapValues({
             + '</p>',
         },
         {
-          content: '<h4 class="atm-heading atm-heading--number-prefix"><span>1.2</span>Kantonale Verordnungen</h4>',
+          content: '<h4 class="atm-heading atm-heading--number-prefix"><span class="atm-heading__prefix">1.2</span><span class="atm-heading__content">Kantonale Verordnungen</span></h4>',
         },
         {
           content: '<ul>'
@@ -127,7 +127,7 @@ const variants = _.mapValues({
             + '</ul>',
         },
         {
-          content: '<h3 class="atm-heading atm-heading--number-prefix"><span>2.</span>Persönliche Effekten und Hausrat</h3>',
+          content: '<h3 class="atm-heading atm-heading--number-prefix"><span class="atm-heading__prefix">2.</span><span class="atm-heading__content">Persönliche Effekten und Hausrat</span></h3>',
         },
         {
           content: '<p class="atm-paragraph">'
@@ -146,7 +146,7 @@ const variants = _.mapValues({
             + '</p>',
         },
         {
-          content: '<h3 class="atm-heading atm-heading--number-prefix"><span>3.</span>Leistungen aus Genugtuung und Integritätsentschädigungen</h3>',
+          content: '<h3 class="atm-heading atm-heading--number-prefix"><span class="atm-heading__prefix">3.</span><span class="atm-heading__content">Leistungen aus Genugtuung und Integritätsentschädigungen</span></h3>',
         },
         {
           content: '<p class="atm-paragraph">'
