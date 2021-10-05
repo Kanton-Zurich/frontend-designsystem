@@ -2981,6 +2981,7 @@ const variants = _.mapValues({
                     inputMask: '\\d\\d\\.[\\d.]\\d\\d[\\d.]\\.[\\d.]\\d\\d\\d\\d[\\d.]',
                     maskPlaceholder: 'TT.MM.YYYY',
                     hint: false,
+                    usedCustomIcon: true,
                     validation: {
                       pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',
                       ariaTextValid: 'Eingabe entspricht den Vorgaben.',
@@ -3000,6 +3001,7 @@ const variants = _.mapValues({
                     uuid: 'valide-since-date-social-care',
                     inputMask: '\\d\\d\\.[\\d.]\\d\\d[\\d.]\\.[\\d.]\\d\\d\\d\\d[\\d.]',
                     maskPlaceholder: 'TT.MM.YYYY',
+                    usedCustomIcon: true,
                     hint: false,
                     validation: {
                       pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',

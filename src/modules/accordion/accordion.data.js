@@ -391,12 +391,18 @@ const variants = _.mapValues({
       indented: true,
       items: [
         {
-          title: 'Akkordeontitel lang',
+          title: 'Akkordeontitel der über mehere Zeilen gehen soll Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna ',
           titlePrefix: '0',
           accordionPanelID: _.uniqueId('accordionDemoId-'),
           children: [
             {
               partial: linklistData.variants.socialCareBold.meta.demo,
+            },
+            {
+              partial: linklistData.variants.socialCareBold.meta.demo,
+            },
+            {
+              partial: linklistData.variants.socialCare.meta.demo,
             },
           ],
         },
@@ -406,7 +412,13 @@ const variants = _.mapValues({
           accordionPanelID: _.uniqueId('accordionDemoId-'),
           children: [
             {
+              partial: linklistData.variants.socialCareBold.meta.demo,
+            },
+            {
               partial: linklistData.variants.socialCare.meta.demo,
+            },
+            {
+              partial: linklistData.variants.socialCareBold.meta.demo,
             },
           ],
         },
@@ -418,6 +430,9 @@ const variants = _.mapValues({
             {
               partial: linklistData.variants.socialCare.meta.demo,
             },
+            {
+              partial: linklistData.variants.socialCare.meta.demo,
+            },
           ],
         },
         {
@@ -426,7 +441,10 @@ const variants = _.mapValues({
           accordionPanelID: _.uniqueId('accordionDemoId-'),
           children: [
             {
-              partial: linklistData.variants.socialCare.meta.demo,
+              partial: linklistData.variants.socialCareBold.meta.demo,
+            },
+            {
+              partial: linklistData.variants.socialCareBold.meta.demo,
             },
           ],
         },

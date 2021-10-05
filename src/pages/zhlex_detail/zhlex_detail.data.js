@@ -11,7 +11,7 @@ const defBack2TopData = require('../../modules/back2top/back2top.data').variants
 const defReleatedContentData = require('../../modules/related_content/related_content.data.js').variants.default.props;
 const defContactData = require('../../modules/contact/contact.data.js').variants.smallMailOnly.props;
 const defTagGroupData = require('../../modules/tag_group/tag_group.data.js').variants.default.props;
-const defSelectData = require('../../modules/select/select.data.js').variants.history.props;
+const defResultHeaderData = require('../../modules/result_header/result_header.data.js').variants.defaultWithSelect.props;
 const buttonDefaultData = require('../../atoms/button/button.data').variants.secondaryWithoutText.props;
 
 const data = _.merge({}, defaultData, {
@@ -36,7 +36,7 @@ const data = _.merge({}, defaultData, {
           ],
         },
       }),
-      selectData: defSelectData,
+      resultHeader: defResultHeaderData,
       metablockData: {
         headingLevel: 2,
         smallerHeadings: true,

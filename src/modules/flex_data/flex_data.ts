@@ -400,7 +400,7 @@ class FlexData extends Module {
           let searchHighlightQuery = '';
           const searchInputValue = (<HTMLInputElement>(this.ui.form.querySelector('input[type="text"]'))).value;
           if (searchInputValue) {
-            searchHighlightQuery = `?search=${searchInputValue}`;
+            searchHighlightQuery = `?search=${encodeURIComponent(searchInputValue)}`;
           }
 
           const props = {

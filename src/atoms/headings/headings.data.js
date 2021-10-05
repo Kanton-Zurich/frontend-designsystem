@@ -70,6 +70,19 @@ const variants = _.mapValues({
       variant: 'primary',
     },
   },
+  prefixHeading: {
+    meta: {
+      title: 'Heading mit Prefix',
+      desc: '',
+    },
+    props: {
+      title: 'Überschrift',
+      headingLevel: 2,
+      modifier: 'number-prefix',
+      prefix: '1',
+      variant: 'primary',
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

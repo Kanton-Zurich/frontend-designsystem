@@ -64,6 +64,7 @@ class SearchHighlight {
         },
       },
     );
+
     // Run the iterator
     let node = nodeIterator.nextNode();
     while (node) {
@@ -80,13 +81,15 @@ class SearchHighlight {
   private insertHighlights() {
     const matches = this.matchedElements.length;
 
+    // Insert replace placeholder
     for (let i = 0; i < matches; i += 1) {
-      // Insert replace placeholder
       const currentNode = this.matchedElements[i];
       currentNode.nodeValue = currentNode.nodeValue.replace(this.searchRegex, subString => `<%>${subString}</%>`);
+    }
 
-      // Insert highlight-spans
-      const currentElement = currentNode.parentElement;
+    // Insert highlights
+    for (let i = 0; i < matches; i += 1) {
+      const currentElement = this.matchedElements[i].parentElement;
       if (currentElement) { // Prevent new null-parent
         currentElement.innerHTML = currentElement.innerHTML
           .replace(/&lt;%&gt;/g, this.highLightStart)
