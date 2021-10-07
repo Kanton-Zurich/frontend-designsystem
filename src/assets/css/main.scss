@@ -18,6 +18,7 @@
 @import 'globals/grid';
 @import 'globals/flatpickr';
 @import 'globals/nouislider';
+@import 'globals/searchhighlight';
 
 // Icons (as font or dataurl), PNG sprites
 // @import '../.tmp/iconfont';
@@ -140,6 +141,7 @@
 @import '../../modules/newsletter_form/newsletter_form';
 @import '../../modules/notification/notification';
 @import '../../modules/decision_tree/decision_tree';
+@import '../../modules/result_header/result_header';
 //*autoinsertmodule*
 
 @media screen {

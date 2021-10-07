@@ -1,6 +1,6 @@
 $accordionMap: (
   controlMargin: (
-    tiny: 12px,
+    zero: 12px,
     small: 14.5px,
     large: 17px,
   )
@@ -42,7 +42,8 @@ $accordionMap: (
     }
 
     @include hover() {
-      .mdl-accordion__control {
+      .mdl-accordion__control,
+      .mdl-accordion__title-prefix {
         color: $colorBlack100;
       }
 
@@ -51,7 +52,8 @@ $accordionMap: (
       }
     }
 
-    .mdl-accordion__control {
+    .mdl-accordion__control,
+    .mdl-accordion__title-prefix {
       color: $colorBlack60;
     }
 
@@ -65,10 +67,14 @@ $accordionMap: (
         @include transition(max-height);
       }
 
+      .mdl-accordion__control,
+      .mdl-accordion__title-prefix {
+        color: $colorBlack100;
+      }
+
       .mdl-accordion__control {
         max-height: none;
         white-space: normal;
-        color: $colorBlack100;
       }
 
       .mdl-accordion__plus use {
@@ -135,23 +141,29 @@ $accordionMap: (
     @include transition(opacity padding);
   }
 
-  &__control {
+  &__control,
+  &__title-prefix {
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
-    @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 1.5));
-
+    @include transition(color);
     letter-spacing: -0.3px;
+    white-space: nowrap;
+    font-family: $fontFamilyBlack;
+    line-height: $sizeLineHeightMedium;
+  }
+
+  &__title-prefix {
+    @include sizeCurve(padding-right, regular);
+  }
+
+  &__control {
+    @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 1.5));
+    @include sizeCurve(margin-top margin-bottom, controlMargin, $accordionMap);
     flex-grow: 1;
     overflow: hidden;
     width: calc(100% - 24px);
     text-overflow: ellipsis;
-    white-space: nowrap;
-    font-family: $fontFamilyBlack;
-    line-height: $sizeLineHeightMedium;
     margin: 0;
     display: block;
-
-    @include sizeCurve(margin-top margin-bottom, controlMargin, $accordionMap);
-    @include transition(color);
   }
 
 
@@ -167,7 +179,7 @@ $accordionMap: (
 
     .vertical {
       transform: rotate(0);
-      transform-origin: 12px 12px;
+      transform-origin: 50% 50%;
 
       @include transition(transform);
     }
@@ -205,6 +217,40 @@ $accordionMap: (
 
   .mdl-linklist--small-margin {
     @include sizeCurve(margin-bottom, regular);
+  }
+
+  /** Indented (table of contents/sozial care) variante **/
+  &--indented {
+    @include sizeCurve(margin-top, large);
+
+    .atm-heading--bordered {
+      padding-top: 0;
+
+      &:before {
+        display: none;
+      }
+    }
+
+    .mdl-accordion__panel-content {
+      padding-left: pxToRem(38px);
+
+      .mdl-linklist__title {
+        @include sizeCurve(padding-top padding-bottom, small);
+        display: flex;
+      }
+
+      > :not(.mdl-linklist:last-child) {
+        @include sizeCurve(margin-bottom, medium);
+      }
+
+      > .mdl-linklist:last-child {
+        margin-bottom: pxToRem($sizeHuge);
+
+        @include mq($to: small) {
+          margin-bottom: pxToRem($sizeBiggerBig);
+        }
+      }
+    }
   }
 
   /** Inverted style */

@@ -7,7 +7,7 @@ Kanton Zürich Estatico Nuo Living Styleguide
 ```bash
 # Optionally use Docker container, see below
 
-# Install correct node version
+# Install correct node version v10.x.x
 nvm install
 
 # Install npm packages

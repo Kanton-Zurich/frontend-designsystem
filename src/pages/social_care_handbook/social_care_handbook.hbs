@@ -3,18 +3,15 @@
     {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
   {{/content}}
 
-  {{#content "content"}}
-    {{> "modules/result_header/result_header" props.modules.resultHeader }}
-    {{> "atoms/smallcaption/smallcaption" props.modules.smallcaptionData }}
-    {{> "modules/download_list/download_list" props.modules.downloadListData }}
-    {{> "modules/metablock/metablock" props.modules.metablockData}}
+	{{#content "content"}}
+    {{> "modules/flex_data/flex_data" props.modules.flexData }}
     {{> "modules/contact/contact" props.modules.contactData}}
     {{> "modules/related_content/related_content" props.modules.releatedContentData}}
     {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
-  {{/content}}
+	{{/content}}
 
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData }}
-    {{> "modules/back2top/back2top" props.modules.back2topData}}
+    {{> "modules/back2top/back2top" props.modules.back2topData }}
   {{/content}}
 {{/extend}}
