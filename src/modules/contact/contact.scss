@@ -62,9 +62,26 @@ $contactMapHeightCurve: (
     font-family: $fontFamilyBlack;
     margin-bottom: $sizeRegular;
     margin-top: 0;
+  }
 
-    a {
-      margin-bottom: pxToRem($sizeTiny);
+  // CR CZHDEV-2980
+  &__subtitle-link {
+    @include sizeCurve(margin-bottom, medium, $sizeCurves);
+    font-family: $fontFamilyBlack;
+    padding: 0 $sizeLarge;
+    background: rgba($colorBlack100, 0.1);
+    color: $colorBlack60;
+    margin-bottom: pxToRem($sizeLarge);
+    height: pxToRem($sizeBig);
+    min-width: pxToRem($sizeBig);
+    font-size: pxToRem($sizeFontSmall);
+    line-height: 1;
+    align-items: center;
+    display: inline-flex;
+
+    &:hover {
+      background: rgba($colorBlack100, 0.15);
+      color: $colorBlack100;
     }
   }
 
@@ -74,44 +91,44 @@ $contactMapHeightCurve: (
 
     a {
       margin-top: pxToRem($sizeTiny);
-    }
-  }
+      color: $colorWhite;
+      font-size: $sizeFontRegular;
+      font-family: $fontFamilyBase;
+      line-height: $sizeLineHeightBase;
+      display: inline-block;
+      padding-right: pxToRem(27px); //stylelint-disable-line
 
-  &__subtitle a,
-  &__lead a {
-    display: inline-block;
-    position: relative;
-    color: $colorWhite;
-    font-size: $sizeFontRegular;
-    font-family: $fontFamilyBase;
-    line-height: $sizeLineHeightBase;
-    padding-right: pxToRem(27px); //stylelint-disable-line
-    text-decoration: none;
-
-    @include mq($from: tiny, $to: large) {
-      display: block;
-    }
-
-    svg {
-      position: absolute;
-      top: 42%;
-      transform: translateY(-42%);
-      right: 0;
-
-      use {
-        fill: $colorWhite;
+      @include mq($from: tiny, $to: large) {
+        display: block;
       }
-    }
-
-    &:hover {
-      color: $colorWhite70;
 
       svg {
+        position: absolute;
+        top: 42%;
+        transform: translateY(-42%);
+        right: 0;
+
         use {
-          fill: $colorWhite70;
+          fill: $colorWhite;
+        }
+      }
+
+      &:hover {
+        color: $colorWhite70;
+
+        svg {
+          use {
+            fill: $colorWhite70;
+          }
         }
       }
     }
+  }
+
+  &__subtitle-link,
+  &__lead a {
+    position: relative;
+    text-decoration: none;
   }
 
   &__section {
@@ -351,30 +368,6 @@ $contactMapHeightCurve: (
         margin-left: auto;
         margin-right: auto;
         font-size: pxToRem($sizeFontLarge);
-
-        a {
-          color: $colorBlack60;
-          padding-left: 0;
-          margin-top: pxToRem($sizeTiny);
-
-          svg {
-            right: 0;
-
-            use {
-              fill: $colorBlack60;
-            }
-          }
-
-          &:hover {
-            color: $colorBlack;
-
-            svg {
-              use {
-                fill: $colorBlack;
-              }
-            }
-          }
-        }
       }
 
       &__section {

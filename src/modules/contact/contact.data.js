@@ -445,7 +445,7 @@ const variants = _.mapValues({
       contactPhone: locationDemoData.phone,
       contactSubtitleMoreInfo: {
         href: '#',
-        label: 'Seite anzeigen',
+        label: 'Mehr erfahren',
       },
       contactMail: {
         address: 'info@stva.zh.ch',
