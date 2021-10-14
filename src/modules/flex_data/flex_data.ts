@@ -222,6 +222,9 @@ class FlexData extends Module {
     }
 
     this.ui.form.removeAttribute('is-reset');
+    // Clear url
+    const baseUrl = this.getBaseUrl();
+    window.history.pushState({}, document.title, baseUrl);
   }
 
   /**
