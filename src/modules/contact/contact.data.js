@@ -40,10 +40,12 @@ const demoAddressData = {
   city: 'Zürich',
   routeLinkHref: '#',
   routeLinkLabel: 'Route anzeigen',
-  additionalInfo: 'Wir befinden uns im 2.Obergeschoss',
   openingTimes: demoAddressTimesDataFullWidth,
 };
 
+const demoCopyButton = {
+  label: 'Adresse kopieren',
+};
 
 const demoAddressDataFullWidth = {
   name: 'Zürich-Albisgütli',
@@ -143,6 +145,7 @@ const variants = _.mapValues({
     props: {
       fullWidth: true,
       contactTitle: 'Kontakt',
+      withModuleLogic: true,
       contactAddress: {
         name: 'Kantonspolizei',
         street: 'Kasernenstrasse 29',
@@ -184,6 +187,7 @@ const variants = _.mapValues({
     },
     props: {
       fullWidth: true,
+      withModuleLogic: true,
       contactTitle: 'Kontakt',
       contactAddress: demoAddressData,
       contactPhone: demoPhoneData,
@@ -209,8 +213,11 @@ const variants = _.mapValues({
     },
     props: {
       fullWidth: true,
+      withModuleLogic: true,
       contactTitle: 'Kontakt',
-      contactAddress: demoAddressData,
+      contactAddress: _.merge({}, demoAddressData, {
+        copytoclipboardButton: demoCopyButton,
+      }),
       contactPhone: demoPhoneData,
       contactMail: {
         address: 'info@ajb.zh.ch',

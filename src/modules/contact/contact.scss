@@ -22,6 +22,14 @@ $contactMapHeightCurve: (
     medium: $sizeLarge,
     xlarge: $sizeBig,
   ),
+  subTitleBottom: (
+    tiny: $sizeSmallRegular,
+    xsmall: $sizeSmallRegular,
+    small: $sizeRegular,
+    medium: $sizeSmallLarge,
+    large: $sizeLarge,
+    xlarge: $sizeSmallBig,
+  ),
 );
 
 .mdl-contact {
@@ -280,6 +288,15 @@ $contactMapHeightCurve: (
       &__show-route {
         display: inline-block;
         margin-top: calc((#{$sizeFontRegular} * #{$sizeLineHeightBase}) / 2);
+      }
+
+      // CR CZHDEV-2961
+      &__copy-button,
+      &__show-route {
+        font-family: $fontFamilyBase;
+        font-size: $sizeFontSmall;
+        line-height: $sizeLineHeightBigger;
+        margin-right: auto;
         color: inherit;
         text-decoration: none;
         border-bottom: 1px solid $colorWhite;
@@ -288,6 +305,17 @@ $contactMapHeightCurve: (
           border-color: $colorWhite70;
           color: $colorWhite70;
         }
+
+        @include mq($from: small) {
+          font-size: $sizeFontRegular;
+          line-height: $sizeLineHeightBase;
+        }
+      }
+
+      &__address {
+        margin-bottom: pxToRem($sizeSmallRegular);
+        display: flex;
+        flex-direction: column;
       }
 
       &__mail {
