@@ -207,6 +207,12 @@ class FlexData extends Module {
     this.ui.form.reset();
     this.ui.form.querySelectorAll('.mdl-select').forEach((select: HTMLElement) => {
       select.dispatchEvent(new CustomEvent(Select.events.clear));
+
+      // Disabled 2. select in case its a drilldown-select
+      if (select.hasAttribute('data-drilldown-secondary')) {
+        select
+          .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: true } }));
+      }
     });
     this.ui.form.querySelectorAll('.mdl-accordion').forEach((accordion: HTMLDivElement) => {
       accordion.dispatchEvent(new CustomEvent(Accordion.events.clearSubheads));
@@ -222,6 +228,9 @@ class FlexData extends Module {
     }
 
     this.ui.form.removeAttribute('is-reset');
+    // Clear url
+    const baseUrl = this.getBaseUrl();
+    window.history.pushState({}, document.title, baseUrl);
   }
 
   /**
