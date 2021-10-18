@@ -1,12 +1,11 @@
 <div{{#if anchorNavReference}} id="{{anchorNavReference}}"{{/if}} class="mdl-contact{{#if fullWidth}} mdl-contact--fullwidth{{/if}}{{#if
                                 inLocation}} mdl-contact--location{{/if}}{{#if mapData}} mdl-contact--with-map{{/if}}"
-{{#if mediaContact}}data-init="contact"{{/if}}>
+{{#if withModuleLogic}}data-init="contact"{{/if}}>
   {{#if fullWidth}}
   <div class="lyt-wrapper">
   <div class="grid-x grid-margin-x">
   <div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10">
   {{/if}}
-
   {{#if contactTitle}}
     <h2 class="atm-heading atm-heading--bordered">{{contactTitle}}</h2>
   {{/if}}
@@ -51,15 +50,22 @@
         </div>
         <div class="mdl-contact__cell-content">
           <address class="mdl-contact__address">
-            {{contactAddress.name}}{{#if contactAddress.name}}<br>{{/if}}
-            {{contactAddress.street}}<br>
-            {{contactAddress.zip}} {{contactAddress.city}}<br>
+            <div data-contact-copy-source>
+              {{contactAddress.name}}{{#if contactAddress.name}}<br>{{/if}}
+              {{contactAddress.street}}<br>
+              {{contactAddress.zip}} {{contactAddress.city}}<br>
+            </div>
             {{#if contactAddress.routeLinkHref}}
               <a target="_blank"
                  href="{{contactAddress.routeLinkHref}}"
                  class="mdl-contact__show-route{{#if
-                   inLocation}} atm-text_link{{/if}}">{{contactAddress.routeLinkLabel}}
+                         inLocation}} atm-text_link{{/if}}">{{contactAddress.routeLinkLabel}}
               </a>
+            {{/if}}
+            {{#if contactAddress.copytoclipboardButton}}
+              <button data-contact-copy-button class="mdl-contact__copy-button">
+                {{contactAddress.copytoclipboardButton.label}}
+              </button>
             {{/if}}
           </address>
 
