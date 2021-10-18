@@ -302,6 +302,12 @@ class Accordion extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
+    if (this.ui.element.hasAttribute('data-accordion-store-origin')) {
+      this.eventDelegate.on('click', `${this.options.domSelectors.panelContent} a`, () => {
+        window.localStorage.setItem('origin', window.location.href);
+      });
+    }
+
     (<any>WindowEventListener).addDebouncedResizeListener(this.checkForOpen.bind(this));
     window.addEventListener('hashchange', () => {
       this.checkURL();

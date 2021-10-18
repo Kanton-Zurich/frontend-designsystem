@@ -1,6 +1,6 @@
 
 <div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-accordion{{#if indented}} mdl-accordion--indented{{/if}} {{#if isInverted}}mdl-accordion--cv-inverted cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10{{/if}}{{#if toggleAll}} mdl-accordion--toggleall{{/if}} {{#if smallerHeadings}}mod-smaller-headings{{/if}}"
-                                                            {{#unless singleMode}}data-init="accordion"{{/unless}}>
+                                                            {{#if storeOrigin}}data-accordion-store-origin {{/if}}{{#unless singleMode}}data-init="accordion"{{/unless}}>
 {{#if isInverted}}
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
