@@ -304,7 +304,7 @@ class Accordion extends Module {
   initEventListeners() {
     if (this.ui.element.hasAttribute('data-accordion-store-origin')) {
       this.eventDelegate.on('click', `${this.options.domSelectors.panelContent} a`, () => {
-        window.localStorage.setItem('origin', window.location.href);
+        window.sessionStorage.setItem('origin', window.location.href);
       });
     }
 
