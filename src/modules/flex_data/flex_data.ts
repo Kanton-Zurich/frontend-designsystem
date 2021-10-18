@@ -82,7 +82,7 @@ class FlexData extends Module {
     this.initUi();
     this.initEventListeners();
 
-    window.localStorage.removeItem('origin');
+    window.sessionStorage.removeItem('origin');
   }
 
   static get events() {
@@ -175,7 +175,7 @@ class FlexData extends Module {
 
     // EventListener to set localstorage
     this.eventDelegate.on('click', `${this.options.domSelectors.results} .mdl-table__cell a`, () => {
-      window.localStorage.setItem('origin', window.location.href);
+      window.sessionStorage.setItem('origin', window.location.href);
     });
   }
 

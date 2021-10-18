@@ -32,6 +32,7 @@ const variants = _.mapValues({
       linkListItemIsSocialCare: true,
       linkListItemChapterNumber: '2.2.01',
       linkListItemTitle: 'Aufsichtstätigkeiten des Bezirksrats über die Sozialbehörden',
+      linkListItemHref: '/',
     },
   },
   socialCareBold: {
@@ -44,6 +45,7 @@ const variants = _.mapValues({
       linkListItemIsSocialCareBold: true,
       linkListItemChapterNumber: '0.2',
       linkListItemTitle: 'Aufgaben',
+      linkListItemHref: '/',
     },
   },
   location: {
