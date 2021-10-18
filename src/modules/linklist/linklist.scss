@@ -9,6 +9,8 @@
   }
 
   &__chapter-number {
+    // 112px === the width of the value 99.99.99
+    min-width: pxToRem(112px);
     padding-right: pxToRem($sizeTiny);
   }
 
