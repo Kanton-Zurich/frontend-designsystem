@@ -53,6 +53,7 @@ class MapView extends Module {
   private userPosMarker: L.Marker;
   private clusterGroup: any;
   private markerSelected: boolean;
+  private attribution: L.Control.Attribution;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -204,11 +205,15 @@ class MapView extends Module {
 
   private initMap(): void {
     const zhWmsUrl = this.ui.element.getAttribute('data-url');
+    // Removed default Leaflet string from copyright label
+    this.attribution = L.control.attribution({ prefix: false });
+
     const getMapBaseLayer = () => L.tileLayer.wms(zhWmsUrl, {
       version: '1.3.0',
       format: 'image/png; mode=8bit',
       transparent: false,
       layers: this.ui.element.getAttribute('data-base-layers'),
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     });
     const getLabelLayer = () => wms.overlay(zhWmsUrl, {
       version: '1.3.0',
@@ -217,6 +222,7 @@ class MapView extends Module {
       layers: this.ui.element.getAttribute('data-label-layers'),
     });
     this.map = new L.Map(this.ui.mapContainer, mapOptions);
+    this.attribution.addTo(this.map);
     getMapBaseLayer().addTo(this.map);
     getLabelLayer().addTo(this.map);
 

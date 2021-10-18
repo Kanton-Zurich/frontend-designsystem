@@ -108,7 +108,7 @@ $mapViewSelectedMarkerHeight: 59px;
 
   &__controls {
     position: absolute;
-    bottom: pxToRem($sizeTiny);
+    bottom: pxToRem($sizeSmallLarge);
     right: pxToRem($sizeTiny);
     z-index: 10000;
 
