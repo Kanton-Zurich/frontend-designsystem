@@ -499,6 +499,37 @@ const variants = _.mapValues({
       }),
     },
   },
+  revamp1: {
+    meta: {
+      title: 'Revamp Standart',
+      desc: 'Darstellung eines Kontakts mit Titel, Subtitel, Lead und Karte',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Koordinationsstelle Veloverkehr',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+      },
+      contactAddress: {
+        street: 'Uetlibergstrasse 301',
+        zip: '8036',
+        city: 'Zürich-Albisgütli',
+        copytoclipboardButton: demoCopyButton,
+      },
+      withModuleLogic: true,
+      contactPhone: [{
+        anchorLabel: '058 811 30 00',
+        phoneNumer: '+41588113000',
+        additionalInfo: 'Kostenlos',
+      }],
+      contactMail: {
+        address: 'passbuerozürich@ds.zh.ch',
+        additionalInfo: 'Bitte keine Gesuche über diese Email einreichen',
+      },
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);

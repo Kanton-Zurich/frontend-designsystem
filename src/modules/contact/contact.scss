@@ -70,10 +70,53 @@ $contactMapHeightCurve: (
     font-family: $fontFamilyBlack;
     margin-bottom: $sizeRegular;
     margin-top: 0;
+
+    a {
+      margin-bottom: pxToRem($sizeTiny);
+    }
+  }
+
+  &__subtitle a,
+  &__subtitle + a,
+  &__lead a {
+    display: inline-block;
+    position: relative;
+    color: $colorWhite;
+    font-size: $sizeFontRegular;
+    font-family: $fontFamilyBase;
+    line-height: $sizeLineHeightBase;
+    padding-right: pxToRem(27px); //stylelint-disable-line
+    text-decoration: none;
+    margin-bottom: pxToRem($sizeLarge);
+
+    @include mq($from: tiny, $to: large) {
+      display: block;
+    }
+
+    svg {
+      position: absolute;
+      top: 42%;
+      transform: translateY(-42%);
+      right: 0;
+
+      use {
+        fill: $colorWhite;
+      }
+    }
+
+    &:hover {
+      color: $colorWhite70;
+
+      svg {
+        use {
+          fill: $colorWhite70;
+        }
+      }
+    }
   }
 
   // CR CZHDEV-2980
-  &__subtitle-link {
+ /* &__subtitle-link {
     @include sizeCurve(margin-bottom, medium, $sizeCurves);
     font-family: $fontFamilyBlack;
     padding: 0 $sizeLarge;
@@ -131,13 +174,13 @@ $contactMapHeightCurve: (
         }
       }
     }
-  }
+  }*/
 
-  &__subtitle-link,
+  /*&__subtitle-link,
   &__lead a {
     position: relative;
     text-decoration: none;
-  }
+  }*/
 
   &__section {
     display: flex;
@@ -166,6 +209,7 @@ $contactMapHeightCurve: (
       z-index: $zIndexDropDowns;
       padding-left: 0;
       color: $colorWhite;
+      margin-bottom: 0;
 
       span:last-of-type {
         display: none;
@@ -396,6 +440,30 @@ $contactMapHeightCurve: (
         margin-left: auto;
         margin-right: auto;
         font-size: pxToRem($sizeFontLarge);
+
+        a {
+          color: $colorBlack60;
+          padding-left: 0;
+          margin-top: pxToRem($sizeTiny);
+
+          svg {
+            right: 0;
+
+            use {
+              fill: $colorBlack60;
+            }
+          }
+
+          &:hover {
+            color: $colorBlack;
+
+            svg {
+              use {
+                fill: $colorBlack;
+              }
+            }
+          }
+        }
       }
 
       &__section {

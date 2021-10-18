@@ -18,11 +18,21 @@
       {{#if contactSubtitleMoreInfo}}
         <a class="mdl-contact__subtitle-link" href="{{contactSubtitleMoreInfo.href}}">
           {{contactSubtitleMoreInfo.label}}
+          {{#if contactSubtitleMoreInfo.icon}}
+            <svg class="icon" focusable="false">
+              <use xlink:href="#arrow-right"></use>
+            </svg>
+          {{/if}}
         </a>
       {{/if}}
     {{/unless}}
   {{/if}}
   {{#if contactLead}}
+  {{#if contactInfoText}}
+    <p class="mdl-contact__infotext">
+    {{contactInfoText}}
+    </p>
+  {{/if}}
   {{#if contactSubtitleMoreInfo}}
     <p class="mdl-contact__lead">
       <a href="{{contactSubtitleMoreInfo.href}}">
