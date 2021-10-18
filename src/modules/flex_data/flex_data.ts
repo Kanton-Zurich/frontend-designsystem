@@ -300,6 +300,7 @@ class FlexData extends Module {
           this.dataIdle = true;
           return;
         }
+        this.ui.clearButton.classList.remove('hidden');
         if (jsonData.numberOfResultPages > 1) {
           this.ui.pagination.classList.remove('hidden');
         }
