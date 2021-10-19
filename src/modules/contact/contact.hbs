@@ -16,6 +16,11 @@
     </h3>
     {{#unless contactLead}}
       {{#if contactSubtitleMoreInfo}}
+        {{#if contactInfoText}}
+          <p class="mdl-contact__infotext">
+            {{contactInfoText}}
+          </p>
+        {{/if}}
         <a class="mdl-contact__subtitle-link" href="{{contactSubtitleMoreInfo.href}}">
           {{contactSubtitleMoreInfo.label}}
           {{#if contactSubtitleMoreInfo.icon}}
@@ -28,12 +33,12 @@
     {{/unless}}
   {{/if}}
   {{#if contactLead}}
-  {{#if contactInfoText}}
-    <p class="mdl-contact__infotext">
-    {{contactInfoText}}
-    </p>
-  {{/if}}
   {{#if contactSubtitleMoreInfo}}
+    {{#if contactInfoText}}
+      <p class="mdl-contact__infotext">
+        {{contactInfoText}}
+      </p>
+    {{/if}}
     <p class="mdl-contact__lead">
       <a href="{{contactSubtitleMoreInfo.href}}">
         {{contactSubtitleMoreInfo.label}}
@@ -167,12 +172,12 @@
   </div>
   {{#if mediaContact}}
   <div class="mdl-contact__section grid-x{{#if fullWidth}} grid-margin-x{{/if}}">
-    <div class="mdl-contact__section-cell mdl-contact__section-cell--media{{#if fullWidth}} cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2{{/if}}">
+    <div class="mdl-contact__section-cell mdl-contact__section-cell--media{{#if mediaContact.seperatorTop}} mdl-contact__section-cell--sperator-top{{/if}}{{#if mediaContact.seperatorBottom}} mdl-contact__section-cell--sperator-bottom{{/if}}{{#if fullWidth}} cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2{{/if}}">
 
       <h3 class="mdl-contact__subtitle">Medienkontakt
         <span id="mdl-contact__aria-desc" class="visuallyhidden">Medienkontakt ein oder ausblenden</span>
         <a role="button" href="#" class="mdl-contact__media-trigger" id="mdl-contact__aria-ref" aria-labelledby="mdl-contact__aria-desc mdl-contact__aria-ref">
-          <span aria-hidden="false">anzeigen</span>
+  <span aria-hidden="false">{{#if mediaContact.openLabel}}{{mediaContact.openLabel}}{{else}}anzeigen{{/if}}</span>
           <span aria-hidden="true">schliessen</span>
           <svg class="icon">
             <use xlink:href="#layer1"></use>

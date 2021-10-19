@@ -50,13 +50,23 @@ $contactMapHeightCurve: (
     @include sizeCurve(margin-bottom, makespace, $contactMapHeightCurve);
   }
 
-  .atm-heading--bordered {
+  .atm-heading.atm-heading--bordered {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
     line-height: $sizeLineHeightMedium;
     margin-bottom: pxToRem($sizeLarge);
+    padding-top: pxToRem($sizeSmallRegular);
 
     &:before {
       background: $colorWhite;
+    }
+
+    @include mq($from: medium) {
+      margin-bottom: pxToRem($sizeBig);
+    }
+
+    @include mq($from: xlarge) {
+      padding-top: pxToRem($sizeRegular);
+      margin-bottom: pxToRem($sizeBiggerBig);
     }
   }
 
@@ -68,18 +78,24 @@ $contactMapHeightCurve: (
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
     line-height: $sizeLineHeightMedium;
     font-family: $fontFamilyBlack;
-    margin-bottom: $sizeRegular;
+    margin-bottom: $sizeTiny;
     margin-top: 0;
 
     a {
       margin-bottom: pxToRem($sizeTiny);
     }
   }
+  &:not(.mdl-contact--location):not(.mdl-contact--fullwidth):not(.mdl-contact--with-map) {
+    .mdl-contact__subtitle {
+      margin-bottom: pxToRem($sizeSmallLarge);
+    }
+  }
 
   &__subtitle a,
   &__subtitle + a,
+  &__subtitle-link,
   &__lead a {
-    display: inline-block;
+    display: inline-flex;
     position: relative;
     color: $colorWhite;
     font-size: $sizeFontRegular;
@@ -87,17 +103,9 @@ $contactMapHeightCurve: (
     line-height: $sizeLineHeightBase;
     padding-right: pxToRem(27px); //stylelint-disable-line
     text-decoration: none;
-    margin-bottom: pxToRem($sizeLarge);
-
-    @include mq($from: tiny, $to: large) {
-      display: block;
-    }
+    margin-bottom: pxToRem($sizeSmallRegular);
 
     svg {
-      position: absolute;
-      top: 42%;
-      transform: translateY(-42%);
-      right: 0;
 
       use {
         fill: $colorWhite;
@@ -115,72 +123,21 @@ $contactMapHeightCurve: (
     }
   }
 
-  // CR CZHDEV-2980
- /* &__subtitle-link {
-    @include sizeCurve(margin-bottom, medium, $sizeCurves);
-    font-family: $fontFamilyBlack;
-    padding: 0 $sizeLarge;
-    background: rgba($colorBlack100, 0.1);
-    color: $colorBlack60;
-    margin-bottom: pxToRem($sizeLarge);
-    height: pxToRem($sizeBig);
-    min-width: pxToRem($sizeBig);
-    font-size: pxToRem($sizeFontSmall);
-    line-height: 1;
-    align-items: center;
-    display: inline-flex;
-
-    &:hover {
-      background: rgba($colorBlack100, 0.15);
-      color: $colorBlack100;
+  &__subtitle a,
+  &__lead a {
+    @include mq($from: tiny, $to: large) {
+      display: block;
     }
   }
 
-  &__lead {
-    @include sizeCurve(margin-bottom, leadBottomSpace, $contactMapHeightCurve);
-    margin-top: - pxToRem($sizeRegular);
+  &__subtitle-link .icon {
+    margin-left: $sizeTiny;
+  }
 
-    a {
-      margin-top: pxToRem($sizeTiny);
-      color: $colorWhite;
-      font-size: $sizeFontRegular;
-      font-family: $fontFamilyBase;
-      line-height: $sizeLineHeightBase;
-      display: inline-block;
-      padding-right: pxToRem(27px); //stylelint-disable-line
-
-      @include mq($from: tiny, $to: large) {
-        display: block;
-      }
-
-      svg {
-        position: absolute;
-        top: 42%;
-        transform: translateY(-42%);
-        right: 0;
-
-        use {
-          fill: $colorWhite;
-        }
-      }
-
-      &:hover {
-        color: $colorWhite70;
-
-        svg {
-          use {
-            fill: $colorWhite70;
-          }
-        }
-      }
-    }
-  }*/
-
-  /*&__subtitle-link,
-  &__lead a {
-    position: relative;
-    text-decoration: none;
-  }*/
+  &__infotext {
+    margin-top: 0;
+    margin-bottom: $sizeMini;
+  }
 
   &__section {
     display: flex;
@@ -194,6 +151,26 @@ $contactMapHeightCurve: (
     & + .mdl-contact__section-cell {
       margin-top: pxToRem($sizeRegular);
     }
+  }
+
+  &__section-cell--sperator-top:before,
+  &__section-cell--sperator-bottom:after {
+    content: '';
+    height: pxToRem(1px);
+    display: block;
+    position: absolute;
+
+    background: $colorWhite;
+    width: 100vw;
+    left: 0;
+  }
+
+  &__section-cell--sperator-top:before {
+    top: -12px;
+  }
+
+  &__section-cell--sperator-bottom:after {
+    bottom: -24px;
   }
 
   &__section-cell--media {
@@ -216,6 +193,8 @@ $contactMapHeightCurve: (
       }
 
       svg {
+        position: absolute;
+        top: 42%;
         transition: transform 200ms ease-out 100ms;
         transform: translateY(-40%) scale(0.57) rotate(0deg);
         right: 0;
@@ -265,6 +244,22 @@ $contactMapHeightCurve: (
       .mdl-contact__cell-content {
         opacity: 1;
       }
+    }
+  }
+
+  &__section-cell--sperator-top {
+    margin-top: pxToRem($sizeLarge);
+
+    .mdl-contact__media-trigger {
+      bottom: 0;
+    }
+
+    @include mq($from: medium) {
+      margin-top: pxToRem($sizeBig);
+    }
+
+    @include mq($from: xlarge) {
+      margin-top: pxToRem($sizeBiggerBig);
     }
   }
 
@@ -397,10 +392,10 @@ $contactMapHeightCurve: (
         display: inline-block;
         color: inherit;
         text-decoration: none;
-        border-bottom: 1px solid $colorWhite;
+        border-bottom: none;
 
         &:hover {
-          border-color: $colorWhite70;
+          // border-color: $colorWhite70;
           color: $colorWhite70;
         }
       }
@@ -521,9 +516,9 @@ $contactMapHeightCurve: (
     &--fullwidth {
       padding: pxToRem($sizeHuge) 0;
 
-      .mdl-contact__subtitle {
+      /*.mdl-contact__subtitle {
         margin-bottom: 0;
-      }
+      }*/
 
       .mdl-contact__cell:last-of-type {
         padding-top: pxToRem($sizeSmallRegular);
@@ -595,9 +590,9 @@ $contactMapHeightCurve: (
     &--fullwidth {
       padding: pxToRem($sizeGiant) 0;
 
-      .mdl-contact__subtitle {
+      /*.mdl-contact__subtitle {
         margin-bottom: pxToRem($sizeLarge);
-      }
+      }*/
 
       .mdl-contact__cell-icon {
         margin-top: 0;
@@ -615,7 +610,7 @@ $contactMapHeightCurve: (
 
     &__subtitle {
       line-height: $sizeLineHeightNarrow;
-      margin-bottom: pxToRem($sizeLarge);
+      // margin-bottom: pxToRem($sizeLarge);
 
       a {
         padding-left: pxToRem(18px);

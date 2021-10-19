@@ -40,6 +40,7 @@ const demoAddressData = {
   city: 'Zürich',
   routeLinkHref: '#',
   routeLinkLabel: 'Route anzeigen',
+  additionalInfo: 'Wir befinden uns im 2.Obergeschoss',
   openingTimes: demoAddressTimesDataFullWidth,
 };
 
@@ -215,9 +216,7 @@ const variants = _.mapValues({
       fullWidth: true,
       withModuleLogic: true,
       contactTitle: 'Kontakt',
-      contactAddress: _.merge({}, demoAddressData, {
-        copytoclipboardButton: demoCopyButton,
-      }),
+      contactAddress: demoAddressData,
       contactPhone: demoPhoneData,
       contactMail: {
         address: 'info@ajb.zh.ch',
@@ -304,6 +303,7 @@ const variants = _.mapValues({
       contactSubtitleMoreInfo: {
         href: '#',
         label: 'Mehr erfahren',
+        icon: true,
       },
       contactAddress: {
         name: 'Regionale Fachstelle der Ost- und Zentralschweiz ',
@@ -501,8 +501,8 @@ const variants = _.mapValues({
   },
   revamp1: {
     meta: {
-      title: 'Revamp Standart',
-      desc: 'Darstellung eines Kontakts mit Titel, Subtitel, Lead und Karte',
+      title: 'CZHDEV-2963 (Standart)',
+      desc: 'Standart Kontakt',
     },
     props: {
       fullWidth: true,
@@ -511,12 +511,17 @@ const variants = _.mapValues({
       contactSubtitleMoreInfo: {
         href: '#',
         label: 'Mehr erfahren',
+        icon: true,
       },
       contactAddress: {
         street: 'Uetlibergstrasse 301',
         zip: '8036',
-        city: 'Zürich-Albisgütli',
+        name: 'Zürich-Albisgütli',
+        city: 'Zürich',
         copytoclipboardButton: demoCopyButton,
+        routeLinkHref: '#',
+        routeLinkLabel: 'Route anzeigen',
+        openingTimes: demoAddressTimesDataFullWidth,
       },
       withModuleLogic: true,
       contactPhone: [{
@@ -527,6 +532,52 @@ const variants = _.mapValues({
       contactMail: {
         address: 'passbuerozürich@ds.zh.ch',
         additionalInfo: 'Bitte keine Gesuche über diese Email einreichen',
+      },
+    },
+  },
+  revamp2: {
+    meta: {
+      title: 'CZHDEV-2963 (Medienkontakt)',
+      desc: 'Medienkontakt',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Koordinationsstelle Veloverkehr',
+      contactInfoText: 'Bitte keine Gesuche über diese Email einreichen',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+        icon: true,
+      },
+      contactAddress: {
+        street: 'Uetlibergstrasse 301',
+        zip: '8036',
+        name: 'Zürich-Albisgütli',
+        city: 'Zürich',
+        copytoclipboardButton: demoCopyButton,
+        routeLinkHref: '#',
+        routeLinkLabel: 'Route anzeigen',
+        openingTimes: demoAddressTimesDataFullWidth,
+      },
+      withModuleLogic: true,
+      contactPhone: [{
+        anchorLabel: '058 811 30 00',
+        phoneNumer: '+41588113000',
+        additionalInfo: 'Kostenlos',
+      }],
+      contactMail: {
+        address: 'passbuerozürich@ds.zh.ch',
+        additionalInfo: 'Bitte keine Gesuche über diese Email einreichen',
+      },
+      mediaContact: {
+        seperatorTop: true,
+        seperatorBottom: true,
+        title: 'Medienkontakt',
+        openLabel: 'Medienkontakt',
+        lead: 'Kommunikationsbeauftragter der Finanzdirektion',
+        email: 'media@dz.zh.ch',
+        additionals: 'Nur für Medienanliegen, andere Anfregen werden weitergeleitet',
       },
     },
   },
