@@ -11,7 +11,7 @@
 						<span data-map-view="marker_lng">8.512877</span>
 					</li>
 				</ul>
-				<div id="locations_map291" class="mdl-map_view__container" data-map-view="map" aria-hidden="true"></div>
+				<div id="locations_map288" class="mdl-map_view__container" data-map-view="map" aria-hidden="true"></div>
 				<div class="mdl-map_view__controls" aria-hidden="true">
 					<button class="atm-button atm-button--icon-only atm-button--cv-inverted" data-map-view="centerBtn">
 						<span class="atm-button__text visuallyhidden">
@@ -98,26 +98,25 @@
 				</div>
 				<div class="mdl-locations__details" aria-hidden="true" data-locations="locationDetailsWrapper">
 					<div class="mdl-locations__details_head">
-						<button class="atm-button atm-button--secondary atm-button--small" data-locations="back">
+						<button class="atm-button atm-button--small atm-button--plain-text" data-locations="back">
 							<span class="atm-button__text ">
 								Zurück
 							</span>
+							<svg class="icon atm-button__icon" focusable="false">
+								<use xlink:href="#arrow-left"></use>
+							</svg>
 							<span class="atm-button__spinner"></span>
 						</button>
 					</div>
 					<div class="mdl-locations__details_location" aria-hidden="true" data-locations="locationDetails">
 						<div class="mdl-contact mdl-contact--location">
 
-
 							<h3 class="mdl-contact__subtitle">
 								Strassenverkehrsamt Kanton Zürich
-								<a href="#">
-									Seite anzeigen
-									<svg class="icon" focusable="false">
-										<use xlink:href="#arrow-right"></use>
-									</svg>
-								</a>
 							</h3>
+							<a class="mdl-contact__subtitle-link" href="#">
+								Mehr erfahren
+							</a>
 							<div class="mdl-contact__section grid-x">
 
 								<div class="mdl-contact__section-cell">
@@ -129,9 +128,11 @@
 									</div>
 									<div class="mdl-contact__cell-content">
 										<address class="mdl-contact__address">
+											<div data-contact-copy-source>
 
-											Uetlibergstrasse 301<br>
-											8036 Zürich<br>
+												Uetlibergstrasse 301<br>
+												8036 Zürich<br>
+											</div>
 											<a target="_blank" href="#" class="mdl-contact__show-route atm-text_link">Route anzeigen
 											</a>
 										</address>
