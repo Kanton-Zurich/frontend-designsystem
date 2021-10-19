@@ -56,8 +56,7 @@ $headingCurves: (
 
     .atm-heading__prefix {
       @include sizeCurve(padding-right, atomic);
-      // 112px === the width of the value 99.99.99
-      min-width: pxToRem(112px);
+      min-width: pxToRem($chapterNumberMinWidth);
     }
   }
 }
