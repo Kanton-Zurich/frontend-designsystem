@@ -43,7 +43,7 @@ class SearchHighlight {
       this.pipeSeperatedQueryParams = this.decodedParams;
     }
 
-    this.searchRegex = new RegExp(`/${this.pipeSeperatedQueryParams}/`, 'gi');
+    this.searchRegex = new RegExp(this.pipeSeperatedQueryParams, 'gi');
   }
 
   /**
