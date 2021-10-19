@@ -2482,9 +2482,9 @@ const variants = _.mapValues({
               formInputData.variants.default.props,
               {
                 isFloatingLabel: true,
-                label: 'Erlasstitel',
-                name: 'enactmentTitle',
-                uuid: _.uniqueId('erlasstitel'),
+                label: 'Stichwort',
+                name: 'fullText',
+                uuid: _.uniqueId('stichwort'),
               })),
           }],
         }, {
@@ -2493,11 +2493,34 @@ const variants = _.mapValues({
               formInputData.variants.default.props,
               {
                 isFloatingLabel: true,
+                label: 'Erlasstitel',
+                name: 'enactmentTitle',
+                uuid: _.uniqueId('erlasstitel'),
+              })),
+          }, {
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
                 label: 'Ordnungsnummer',
                 name: 'referenceNumber',
                 uuid: _.uniqueId('ordnungsnummer'),
               })),
-          }, {
+          }],
+        }],
+      }],
+    },
+  },
+  zhlexLS: {
+    meta: {
+      title: 'ZH-Lex Loseblattsammlung (CZHDEV-1240)',
+      desc: 'Flex Data ZH-Lex Suche Loseblattsammlung',
+    },
+    props: {
+      sectionTitle: null,
+      groups: [{
+        rows: [{
+          fields: [{
             cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
               formInputData.variants.default.props,
               {
@@ -2507,19 +2530,27 @@ const variants = _.mapValues({
                 uuid: _.uniqueId('stichwort'),
               })),
           }],
-        }],
-      }],
-    },
-  },
-  zhlexLSExtended: {
-    meta: {
-      title: 'ZH-Lex Loseblattsammlung (CZHDEV-1240)',
-      desc: 'Flex Data ZH-Lex Erweiterte Suche Loseblattsammlung',
-    },
-    props: {
-      sectionTitle: null,
-      groups: [{
-        rows: [{
+        }, {
+          fields: [{
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Erlasstitel',
+                name: 'enactmentTitle',
+                uuid: _.uniqueId('erlasstitel'),
+              })),
+          }, {
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Ordnungsnummer',
+                name: 'referenceNumber',
+                uuid: _.uniqueId('ordnungsnummer'),
+              })),
+          }],
+        }, {
           fields: [{
             cellContent: () => handlebars.compile(selectHBS)(_.merge({},
               selectData.variants.table.props,
@@ -2529,7 +2560,7 @@ const variants = _.mapValues({
       }, {
         rows: [{
           fields: [{
-            cellContent: '<h4 class="atm-heading mdl-flex-data__extended-subtitle">Einschränken nach Datum von/bis</h4>',
+            cellContent: '<h3 class="atm-heading mdl-flex-data__extended-subtitle">Einschränken nach Datum von/bis</h3>',
           }],
         }, {
           fields: [{
@@ -2583,15 +2614,46 @@ const variants = _.mapValues({
       }],
     },
   },
-  zhlexOSExtended: {
+  zhlexOS: {
     meta: {
       title: 'ZH-Lex Offizielle Gesetzessammlung (CZHDEV-1240)',
-      desc: 'Flex Data ZH-Lex Erweiterte Suche Offizielle Gesetzessammlung',
+      desc: 'Flex Data ZH-Lex Suche Offizielle Gesetzessammlung',
     },
     props: {
       sectionTitle: null,
       groups: [{
         rows: [{
+          fields: [{
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Stichwort',
+                name: 'fullText',
+                uuid: _.uniqueId('stichwort'),
+              })),
+          }],
+        }, {
+          fields: [{
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Erlasstitel',
+                name: 'enactmentTitle',
+                uuid: _.uniqueId('erlasstitel'),
+              })),
+          }, {
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Ordnungsnummer',
+                name: 'referenceNumber',
+                uuid: _.uniqueId('ordnungsnummer'),
+              })),
+          }],
+        }, {
           fields: [{
             cellContent: () => handlebars.compile(selectHBS)(_.merge({},
               selectData.variants.default.props,
@@ -2634,7 +2696,7 @@ const variants = _.mapValues({
       }, {
         rows: [{
           fields: [{
-            cellContent: '<h4 class="atm-heading mdl-flex-data__extended-subtitle">Einschränken nach Datum von/bis</h4>',
+            cellContent: '<h3 class="atm-heading mdl-flex-data__extended-subtitle">Einschränken nach Datum von/bis</h3>',
           }],
         }, {
           fields: [{
