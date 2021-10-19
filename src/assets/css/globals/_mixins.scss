@@ -425,6 +425,7 @@
   width: calc(100vw - var(--scrollbar-wd)); //stylelint-disable-line
   transform: translateX(-50%);
   margin-left: 50%;
+  z-index: -1;
 
   @include mq($from: small, $to: medium) {
     $translateLeft: -50% - (2/12/2) * 100;
