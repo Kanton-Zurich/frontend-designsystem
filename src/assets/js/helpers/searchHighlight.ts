@@ -21,7 +21,7 @@ class SearchHighlight {
     this.highLightStart = '<mark class="searchhighlight">';
     this.highLightEnd = '</mark>';
     this.matchedElements = [];
-    this.basicRequirementsRegex = new RegExp('[a-zäöüßâàæêèéëîïôòœûùç|0-9]{2,}', 'gmi');
+    this.basicRequirementsRegex = new RegExp('[a-zäöüßâàæêèéëîïôòœûùç|0-9]{2,}', 'gi');
 
     if (this.params && this.decodedParams.match(this.basicRequirementsRegex)) {
       this.prepareRegexPattern();
@@ -34,13 +34,16 @@ class SearchHighlight {
    * @private
    */
   private prepareRegexPattern() {
-    this.pipeSeperatedQueryParams = `((?<=\\W)${this.decodedParams.match(this.basicRequirementsRegex).join('(?=\\W))|((?<=\\W)')}(?=\\W))`;
-    if (this.pipeSeperatedQueryParams.indexOf('|') !== -1) {
+    const matchesArray = this.decodedParams.match(this.basicRequirementsRegex);
+    if (matchesArray.length > 1) {
       // Combine piped-string with full/original querystring
-      this.pipeSeperatedQueryParams = `(${this.decodedParams})|${this.pipeSeperatedQueryParams}`;
+      this.pipeSeperatedQueryParams = `${this.decodedParams}|${matchesArray.join('|')}`;
+    } else {
+      // Simply use the search term
+      this.pipeSeperatedQueryParams = this.decodedParams;
     }
 
-    this.searchRegex = new RegExp(this.pipeSeperatedQueryParams, 'gi');
+    this.searchRegex = new RegExp(`/${this.pipeSeperatedQueryParams}/`, 'gi');
   }
 
   /**
