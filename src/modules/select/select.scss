@@ -89,8 +89,10 @@ $selectScrollbarWidth: 30px;
     }
 
     &:disabled {
+      color: $colorBlack20;
+
       .icon use {
-        fill: $colorBlack40;
+        fill: $colorBlack20;
       }
     }
   }
