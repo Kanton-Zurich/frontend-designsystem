@@ -99,6 +99,16 @@ const variants = _.mapValues({
             },
           ],
         },
+        {
+          title: 'Ein Accordion mit Downloadliste',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
+          techName: 'acc_item_5',
+          children: [
+            {
+              partial: downloadListData.variants.defaultWithoutTitleLast.meta.demo(),
+            },
+          ],
+        },
       ],
     },
   },
