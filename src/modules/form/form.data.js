@@ -16,6 +16,9 @@ const checkboxData = require('../../atoms/checkbox/checkbox.data');
 const radioHBS = dataHelper.getFileContent('../../atoms/radiobutton/radiobutton.hbs');
 const radioData = require('../../atoms/radiobutton/radiobutton.data');
 
+const hCaptchaHBS = dataHelper.getFileContent('../../atoms/hcaptcha/hcaptcha.hbs');
+const hCaptchaData = require('../../atoms/hcaptcha/hcaptcha.data');
+
 const selectHBS = dataHelper.getFileContent('../select/select.hbs');
 const selectData = require('../select/select.data');
 
@@ -1298,8 +1301,7 @@ const variants = _.mapValues({
             {
               fields: [
                 {
-                  cellContent: () => {
-                    return `
+                  cellContent: () => `
                     <div class="mdl-richtext">
                       <h3 class="atm-heading">Test titel</h3>
                       <p class="atm-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
@@ -1312,8 +1314,7 @@ const variants = _.mapValues({
                         </li>
                       </ul>
                     </div>
-                    `;
-                  },
+                    `,
                 },
               ],
             },
@@ -1741,8 +1742,8 @@ const variants = _.mapValues({
   },
   defaultDuplicate: {
     meta: {
-      title: 'Default mit anderen IDs',
-      desc: '',
+      title: 'Default mit anderen IDs und hCaptcha',
+      desc: 'Beispiel mit hCaptcha',
     },
     props: {
       groups: [
@@ -1876,6 +1877,15 @@ const variants = _.mapValues({
           ],
         },
         duplicateGroup2,
+        {
+          rows: [{
+            fields: [{
+              cellContent: () => handlebars.compile(hCaptchaHBS)(_.merge({},
+                hCaptchaData.variants.default.props,
+                {})),
+            }],
+          }],
+        },
       ],
     },
   },
@@ -3450,7 +3460,7 @@ const variants = _.mapValues({
   alternativeSelection: {
     meta: {
       title: 'Auswahlalternative',
-      desc: 'Eine alternative Eingabe zur Auswahl tätigen'
+      desc: 'Eine alternative Eingabe zur Auswahl tätigen',
     },
     props: {
       groups: [
@@ -3532,7 +3542,7 @@ const variants = _.mapValues({
     },
   },
 }, (variant) => {
-  // eslint-disable
+  // eslint-disable-next-line consistent-return
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
     if (key === 'rows' || Array.isArray(variantValue)) {
       return variantValue;
@@ -3549,7 +3559,7 @@ const variants = _.mapValues({
         data: dataHelper.getFormattedJson(variantProps),
       },
     },
-  }, (dataValue, variantValue, key) => {
+  }, (dataValue, variantValue, key) => { // eslint-disable-line consistent-return
     if (key === 'rows' || Array.isArray(variantValue)) {
       return variantValue;
     }
