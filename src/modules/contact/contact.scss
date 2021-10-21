@@ -81,6 +81,7 @@ $contactMapHeightCurve: (
       margin-bottom: pxToRem($sizeTiny);
     }
   }
+
   &:not(.mdl-contact--location):not(.mdl-contact--fullwidth):not(.mdl-contact--with-map) {
     .mdl-contact__subtitle {
       margin-bottom: pxToRem($sizeSmallLarge);
@@ -249,7 +250,6 @@ $contactMapHeightCurve: (
       transform: translate(-50%, -50%) scale(0.7);
     }
   }
-
 
   // White seperation lines
   &__section-cell--sperator-top:before,
