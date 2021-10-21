@@ -603,7 +603,6 @@ const variants = _.mapValues({
       },
       mediaContact: {
         seperatorTop: true,
-        seperatorBottom: false,
         title: 'Medienkontakt',
         openLabel: 'Medienkontakt',
         lead: 'Kommunikationsbeauftragter der Finanzdirektion',
@@ -645,7 +644,6 @@ const variants = _.mapValues({
       },
       mediaContact: {
         seperatorTop: true,
-        seperatorBottom: false,
         title: 'Medienkontakt',
         openLabel: 'Medienkontakt',
         lead: 'Kommunikationsbeauftragter der Finanzdirektion',

@@ -251,9 +251,8 @@ $contactMapHeightCurve: (
   }
 
 
-  // White seperation lines (top/bottom)
+  // White seperation lines
   &__section-cell--sperator-top:before,
-  &__section-cell--sperator-bottom:after,
   &__section-cell--social-media:before {
     content: '';
     height: pxToRem(1px);
@@ -271,10 +270,6 @@ $contactMapHeightCurve: (
 
   &__section-cell--sperator-top:before {
     top: -12px;
-  }
-
-  &__section-cell--sperator-bottom:after {
-    bottom: -24px;
   }
 
   &__section-cell--sperator-top {
