@@ -224,7 +224,7 @@
 													<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
     <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
     <div class="mdl-subnavigation__title">
-      <h3 class="atm-heading"><a href="/pages/department/department.html"><%=title%></a></h3>
+      <h3 class="atm-heading"><%=title%></h3>
       <a class="atm-text_link atm-text_link--icon" href="<%=pageUrl%>">
         Seite anzeigen
         <svg class="icon icon--iframe-arrow" focusable="false">
@@ -344,7 +344,7 @@
 														<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
       <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
       <div class="mdl-subnavigation__title">
-        <h3 class="atm-heading"><a href="/pages/department/department.html"><%=title%></a></h3>
+        <h3 class="atm-heading"><%=title%></h3>
         <a class="atm-text_link atm-text_link--icon" href="<%=pageUrl%>">
           Seite anzeigen
           <svg class="icon icon--iframe-arrow" focusable="false">
@@ -976,7 +976,7 @@
 										<span data-map-view="marker_lng">8.585463</span>
 									</li>
 								</ul>
-								<div id="locations_map286" class="mdl-map_view__container" data-map-view="map" aria-hidden="true"></div>
+								<div id="locations_map289" class="mdl-map_view__container" data-map-view="map" aria-hidden="true"></div>
 								<div class="mdl-map_view__controls" aria-hidden="true">
 									<button class="atm-button atm-button--icon-only atm-button--cv-inverted" data-map-view="centerBtn">
 										<span class="atm-button__text visuallyhidden">
@@ -1196,25 +1196,26 @@
 								</div>
 								<div class="mdl-locations__details" aria-hidden="true" data-locations="locationDetailsWrapper">
 									<div class="mdl-locations__details_head">
-										<button class="atm-button atm-button--small atm-button--plain-text" data-locations="back">
+										<button class="atm-button atm-button--secondary atm-button--small" data-locations="back">
 											<span class="atm-button__text ">
 												Zurück
 											</span>
-											<svg class="icon atm-button__icon" focusable="false">
-												<use xlink:href="#arrow-left"></use>
-											</svg>
 											<span class="atm-button__spinner"></span>
 										</button>
 									</div>
 									<div class="mdl-locations__details_location" aria-hidden="true" data-locations="locationDetails">
 										<div class="mdl-contact mdl-contact--location">
 
+
 											<h3 class="mdl-contact__subtitle">
 												Strassenverkehrsamt Kanton Zürich
+												<a href="#">
+													Seite anzeigen
+													<svg class="icon" focusable="false">
+														<use xlink:href="#arrow-right"></use>
+													</svg>
+												</a>
 											</h3>
-											<a class="mdl-contact__subtitle-link" href="#">
-												Mehr erfahren
-											</a>
 											<div class="mdl-contact__section grid-x">
 
 												<div class="mdl-contact__section-cell">
@@ -1226,11 +1227,9 @@
 													</div>
 													<div class="mdl-contact__cell-content">
 														<address class="mdl-contact__address">
-															<div data-contact-copy-source>
 
-																Uetlibergstrasse 301<br>
-																8036 Zürich<br>
-															</div>
+															Uetlibergstrasse 301<br>
+															8036 Zürich<br>
 															<a target="_blank" href="#" class="mdl-contact__show-route atm-text_link">Route anzeigen
 															</a>
 														</address>
@@ -1303,13 +1302,17 @@
 									</div>
 									<div class="mdl-locations__details_location" aria-hidden="true" data-locations="locationDetails">
 										<div class="mdl-contact mdl-contact--location">
+
 
 											<h3 class="mdl-contact__subtitle">
 												Strassenverkehrsamt Bassersdorf
+												<a href="#">
+													Seite anzeigen
+													<svg class="icon" focusable="false">
+														<use xlink:href="#arrow-right"></use>
+													</svg>
+												</a>
 											</h3>
-											<a class="mdl-contact__subtitle-link" href="#">
-												Mehr erfahren
-											</a>
 											<div class="mdl-contact__section grid-x">
 
 												<div class="mdl-contact__section-cell">
@@ -1321,11 +1324,9 @@
 													</div>
 													<div class="mdl-contact__cell-content">
 														<address class="mdl-contact__address">
-															<div data-contact-copy-source>
 
-																Grindelstrasse 22<br>
-																8303 Bassersdorf<br>
-															</div>
+															Grindelstrasse 22<br>
+															8303 Bassersdorf<br>
 															<a target="_blank" href="#" class="mdl-contact__show-route atm-text_link">Route anzeigen
 															</a>
 														</address>
@@ -1398,13 +1399,17 @@
 									</div>
 									<div class="mdl-locations__details_location" aria-hidden="true" data-locations="locationDetails">
 										<div class="mdl-contact mdl-contact--location">
+
 
 											<h3 class="mdl-contact__subtitle">
 												Strassenverkehrsamt Kanton Zürich - Prüfstelle Regensdorf
+												<a href="#">
+													Seite anzeigen
+													<svg class="icon" focusable="false">
+														<use xlink:href="#arrow-right"></use>
+													</svg>
+												</a>
 											</h3>
-											<a class="mdl-contact__subtitle-link" href="#">
-												Mehr erfahren
-											</a>
 											<div class="mdl-contact__section grid-x">
 
 												<div class="mdl-contact__section-cell">
@@ -1416,11 +1421,9 @@
 													</div>
 													<div class="mdl-contact__cell-content">
 														<address class="mdl-contact__address">
-															<div data-contact-copy-source>
-																Postfach 420<br>
-																Riedthofstrasse 192<br>
-																8105 Regensdorf<br>
-															</div>
+															Postfach 420<br>
+															Riedthofstrasse 192<br>
+															8105 Regensdorf<br>
 															<a target="_blank" href="#" class="mdl-contact__show-route atm-text_link">Route anzeigen
 															</a>
 														</address>
@@ -1493,13 +1496,17 @@
 									</div>
 									<div class="mdl-locations__details_location" aria-hidden="true" data-locations="locationDetails">
 										<div class="mdl-contact mdl-contact--location">
+
 
 											<h3 class="mdl-contact__subtitle">
 												Strassenverkehrsamt Kanton Zürich
+												<a href="#">
+													Seite anzeigen
+													<svg class="icon" focusable="false">
+														<use xlink:href="#arrow-right"></use>
+													</svg>
+												</a>
 											</h3>
-											<a class="mdl-contact__subtitle-link" href="#">
-												Mehr erfahren
-											</a>
 											<div class="mdl-contact__section grid-x">
 
 												<div class="mdl-contact__section-cell">
@@ -1511,11 +1518,9 @@
 													</div>
 													<div class="mdl-contact__cell-content">
 														<address class="mdl-contact__address">
-															<div data-contact-copy-source>
 
-																Taggenbergstrasse 1<br>
-																8408 Winterthur<br>
-															</div>
+															Taggenbergstrasse 1<br>
+															8408 Winterthur<br>
 															<a target="_blank" href="#" class="mdl-contact__show-route atm-text_link">Route anzeigen
 															</a>
 														</address>
@@ -1588,13 +1593,17 @@
 									</div>
 									<div class="mdl-locations__details_location" aria-hidden="true" data-locations="locationDetails">
 										<div class="mdl-contact mdl-contact--location">
+
 
 											<h3 class="mdl-contact__subtitle">
 												Strassenverkehrsamt Kanton Zürich - Prüfstelle Bülach
+												<a href="#">
+													Seite anzeigen
+													<svg class="icon" focusable="false">
+														<use xlink:href="#arrow-right"></use>
+													</svg>
+												</a>
 											</h3>
-											<a class="mdl-contact__subtitle-link" href="#">
-												Mehr erfahren
-											</a>
 											<div class="mdl-contact__section grid-x">
 
 												<div class="mdl-contact__section-cell">
@@ -1606,11 +1615,9 @@
 													</div>
 													<div class="mdl-contact__cell-content">
 														<address class="mdl-contact__address">
-															<div data-contact-copy-source>
 
-																Schützenmatt Straße 120<br>
-																8180 Bülach<br>
-															</div>
+															Schützenmatt Straße 120<br>
+															8180 Bülach<br>
 															<a target="_blank" href="#" class="mdl-contact__show-route atm-text_link">Route anzeigen
 															</a>
 														</address>
@@ -1684,12 +1691,16 @@
 									<div class="mdl-locations__details_location" aria-hidden="true" data-locations="locationDetails">
 										<div class="mdl-contact mdl-contact--location">
 
+
 											<h3 class="mdl-contact__subtitle">
 												Strassenverkehrsamt Kanton Zürich - Schifffahrtskontrolle
+												<a href="#">
+													Seite anzeigen
+													<svg class="icon" focusable="false">
+														<use xlink:href="#arrow-right"></use>
+													</svg>
+												</a>
 											</h3>
-											<a class="mdl-contact__subtitle-link" href="#">
-												Mehr erfahren
-											</a>
 											<div class="mdl-contact__section grid-x">
 
 												<div class="mdl-contact__section-cell">
@@ -1701,11 +1712,9 @@
 													</div>
 													<div class="mdl-contact__cell-content">
 														<address class="mdl-contact__address">
-															<div data-contact-copy-source>
 
-																Seestrasse 87<br>
-																8942 Oberrieden<br>
-															</div>
+															Seestrasse 87<br>
+															8942 Oberrieden<br>
 															<a target="_blank" href="#" class="mdl-contact__show-route atm-text_link">Route anzeigen
 															</a>
 														</address>
@@ -1785,6 +1794,7 @@
 					<div class="lyt-wrapper">
 						<div class="grid-x grid-margin-x">
 							<div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10">
+
 								<h2 class="atm-heading atm-heading--bordered">Kontakt</h2>
 
 								<h3 class="mdl-contact__subtitle">
@@ -1811,11 +1821,9 @@
 								</div>
 								<div class="mdl-contact__cell-content">
 									<address class="mdl-contact__address">
-										<div data-contact-copy-source>
 
-											Walcheplatz 2<br>
-											8090 Zürich<br>
-										</div>
+										Walcheplatz 2<br>
+										8090 Zürich<br>
 									</address>
 
 									<div class="mdl-contact__text">
