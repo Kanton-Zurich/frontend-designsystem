@@ -701,7 +701,7 @@ const variants = _.mapValues({
   revampedService: {
     meta: {
       title: 'CZHDEV-2963 (Variante Service)',
-      desc: 'Kontakt mit Social-Media Buttons',
+      desc: 'Kontakt klein nur mit Adresse-Kopierfunktion',
     },
     props: {
       contactSubtitle: 'Koordinationsstelle Veloverkehr',
