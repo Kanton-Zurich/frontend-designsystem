@@ -60,10 +60,6 @@ $contactMapHeightCurve: (
       background: $colorWhite;
     }
 
-    @include mq($from: medium) {
-      margin-bottom: pxToRem($sizeBig);
-    }
-
     @include mq($from: xlarge) {
       padding-top: pxToRem($sizeRegular);
       margin-bottom: pxToRem($sizeBiggerBig);
@@ -153,26 +149,6 @@ $contactMapHeightCurve: (
     }
   }
 
-  &__section-cell--sperator-top:before,
-  &__section-cell--sperator-bottom:after {
-    content: '';
-    height: pxToRem(1px);
-    display: block;
-    position: absolute;
-
-    background: $colorWhite;
-    width: 100vw;
-    left: 0;
-  }
-
-  &__section-cell--sperator-top:before {
-    top: -12px;
-  }
-
-  &__section-cell--sperator-bottom:after {
-    bottom: -24px;
-  }
-
   &__section-cell--media {
     margin-top: calc(#{$sizeBiggerBig} + #{$sizeLarge});
     max-height: pxToRem($sizeHuge);
@@ -247,37 +223,89 @@ $contactMapHeightCurve: (
     }
   }
 
-  &__section-cell--sperator-top {
+  // Social media share section
+  &__section-cell--social-media {
     margin-top: pxToRem($sizeLarge);
+  }
 
-    .mdl-contact__media-trigger {
-      bottom: 0;
+  &__social-list {
+    @include resetList();
+
+    li {
+      display: inline-flex;
+
+      &:not(:last-of-type) {
+        margin-right: pxToRem($sizeMini);
+      }
     }
+  }
 
-    @include mq($from: medium) {
-      margin-top: pxToRem($sizeBig);
-    }
+  &__social-links {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.2);
 
-    @include mq($from: xlarge) {
-      margin-top: pxToRem($sizeBiggerBig);
+    svg {
+      fill: $colorWhite;
+      transform: translate(-50%, -50%) scale(0.7);
     }
   }
 
 
+  // White seperation lines (top/bottom)
+  &__section-cell--sperator-top:before,
+  &__section-cell--sperator-bottom:after,
+  &__section-cell--social-media:before {
+    content: '';
+    height: pxToRem(1px);
+    display: block;
+    position: absolute;
+
+    background: $colorWhite;
+    width: 100vw;
+    left: 0;
+  }
+
+  &__section-cell--social-media:before {
+    top: 0;
+  }
+
+  &__section-cell--sperator-top:before {
+    top: -12px;
+  }
+
+  &__section-cell--sperator-bottom:after {
+    bottom: -24px;
+  }
+
+  &__section-cell--sperator-top {
+    margin-top: pxToRem($sizeLarge);
+
+    .mdl-contact__media-trigger {
+      bottom: -4px;
+    }
+  }
+
+  &__social-links,
   &__cell-icon {
     display: inline-flex;
     width: pxToRem($sizeBig);
     height: pxToRem($sizeBig);
     border-radius: 50%;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+  }
+
+  &__cell-icon {
     background-color: $colorWhite;
     position: absolute;
     top: 0;
     left: 0;
 
     svg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
       transform: translate(-50%, -50%) scale(0.8);
     }
   }
@@ -346,9 +374,9 @@ $contactMapHeightCurve: (
         margin-top: calc((#{$sizeFontRegular} * #{$sizeLineHeightBase}) / 2);
       }
 
-      // CR CZHDEV-2961
       &__copy-button,
-      &__show-route {
+      &__show-route,
+      &__service-link {
         font-family: $fontFamilyBase;
         font-size: $sizeFontSmall;
         line-height: $sizeLineHeightBigger;
@@ -360,11 +388,6 @@ $contactMapHeightCurve: (
         &:hover {
           border-color: $colorWhite70;
           color: $colorWhite70;
-        }
-
-        @include mq($from: small) {
-          font-size: $sizeFontRegular;
-          line-height: $sizeLineHeightBase;
         }
       }
 
@@ -395,7 +418,6 @@ $contactMapHeightCurve: (
         border-bottom: none;
 
         &:hover {
-          // border-color: $colorWhite70;
           color: $colorWhite70;
         }
       }
@@ -513,12 +535,15 @@ $contactMapHeightCurve: (
       padding: pxToRem($sizeLarge) 0;
     }
 
+    &__copy-button,
+    &__show-route,
+    &__service-link {
+      font-size: $sizeFontRegular;
+      line-height: $sizeLineHeightBase;
+    }
+
     &--fullwidth {
       padding: pxToRem($sizeHuge) 0;
-
-      /*.mdl-contact__subtitle {
-        margin-bottom: 0;
-      }*/
 
       .mdl-contact__cell:last-of-type {
         padding-top: pxToRem($sizeSmallRegular);
@@ -537,7 +562,7 @@ $contactMapHeightCurve: (
       }
     }
 
-    .mdl-contact__section-cell:not(.mdl-contact__section-cell--media) {
+    .mdl-contact__section-cell:not(.mdl-contact__section-cell--media):not(.mdl-contact__section-cell--social-media) {
       margin-top: 0;
     }
 
@@ -580,19 +605,40 @@ $contactMapHeightCurve: (
     }
   }
   /*
+  * Media Queries MEDIUM
+  */
+  @include mq($from: medium) {
+    .atm-heading.atm-heading--bordered {
+      margin-bottom: pxToRem($sizeBig);
+    }
+
+    &__section-cell--sperator-top {
+      margin-top: pxToRem($sizeBig);
+    }
+
+    &__section-cell--social-media {
+      margin-top: pxToRem($sizeBig);
+    }
+  }
+  /*
   * Media Queries XLARGE
   */
   @include mq($from: xlarge) {
+    .atm-heading.atm-heading--bordered {
+      padding-top: pxToRem($sizeRegular);
+      margin-bottom: pxToRem($sizeBiggerBig);
+    }
+
+    &__section-cell--sperator-top {
+      margin-top: pxToRem($sizeBiggerBig);
+    }
+
     &:not(.mdl-contact--location):not(.mdl-contact--fullwidth):not(.mdl-contact--with-map) {
       padding: pxToRem($sizeBiggerBig) 0;
     }
 
     &--fullwidth {
       padding: pxToRem($sizeGiant) 0;
-
-      /*.mdl-contact__subtitle {
-        margin-bottom: pxToRem($sizeLarge);
-      }*/
 
       .mdl-contact__cell-icon {
         margin-top: 0;

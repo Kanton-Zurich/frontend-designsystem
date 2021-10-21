@@ -122,6 +122,32 @@ const locationDemoData = {
   ],
 };
 
+const socialMediaData = {
+  title: 'Folgen Sie uns auf',
+  links: [
+    {
+      href: '#',
+      shareTarget: 'facebook',
+      icon: 'facebook',
+    },
+    {
+      href: '#',
+      shareTarget: 'xing',
+      icon: 'xing',
+    },
+    {
+      href: '#',
+      shareTarget: 'youtube',
+      icon: 'youtube',
+    },
+    {
+      href: '#',
+      shareTarget: 'linkedIn',
+      icon: 'linkedIn',
+    },
+  ],
+};
+
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Kontakt',
@@ -499,10 +525,10 @@ const variants = _.mapValues({
       }),
     },
   },
-  revamp1: {
+  revampedStandart: {
     meta: {
-      title: 'CZHDEV-2963 (Standart)',
-      desc: 'Standart Kontakt',
+      title: 'CZHDEV-2963 (Variante Standart)',
+      desc: 'Kontakt mit Service Link und Adresse-Kopierfunktion',
     },
     props: {
       fullWidth: true,
@@ -532,13 +558,18 @@ const variants = _.mapValues({
       contactMail: {
         address: 'passbuerozürich@ds.zh.ch',
         additionalInfo: 'Bitte keine Gesuche über diese Email einreichen',
+        additionalService: {
+          label: 'Antwortzeiten',
+          linkLabel: 'Kontaktformular',
+          linkHref: '#',
+        },
       },
     },
   },
-  revamp2: {
+  revampedMedia: {
     meta: {
-      title: 'CZHDEV-2963 (Medienkontakt)',
-      desc: 'Medienkontakt',
+      title: 'CZHDEV-2963 (Variante Medienkontakt)',
+      desc: 'Kontakt mit Medienkontakt, Social-Media Buttons und ohne Karte',
     },
     props: {
       fullWidth: true,
@@ -572,12 +603,116 @@ const variants = _.mapValues({
       },
       mediaContact: {
         seperatorTop: true,
-        seperatorBottom: true,
+        seperatorBottom: false,
         title: 'Medienkontakt',
         openLabel: 'Medienkontakt',
         lead: 'Kommunikationsbeauftragter der Finanzdirektion',
         email: 'media@dz.zh.ch',
         additionals: 'Nur für Medienanliegen, andere Anfregen werden weitergeleitet',
+      },
+      socialMedia: socialMediaData,
+    },
+  },
+  revampedMap: {
+    meta: {
+      title: 'CZHDEV-2963 (Variante Karte)',
+      desc: 'Kontakt mit Medienkontakt und Karte',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Koordinationsstelle Veloverkehr',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+        icon: true,
+      },
+      contactAddress: {
+        street: 'Uetlibergstrasse 301',
+        zip: '8036',
+        name: 'Zürich-Albisgütli',
+        city: 'Zürich',
+        copytoclipboardButton: demoCopyButton,
+      },
+      withModuleLogic: true,
+      contactPhone: [{
+        anchorLabel: '058 811 30 00',
+        phoneNumer: '+41588113000',
+        additionalInfo: 'Kostenlos',
+      }],
+      contactMail: {
+        address: 'passbuerozürich@ds.zh.ch',
+      },
+      mediaContact: {
+        seperatorTop: true,
+        seperatorBottom: false,
+        title: 'Medienkontakt',
+        openLabel: 'Medienkontakt',
+        lead: 'Kommunikationsbeauftragter der Finanzdirektion',
+        email: 'media@dz.zh.ch',
+        additionals: 'Nur für Medienanliegen, andere Anfregen werden weitergeleitet',
+      },
+      mapData: _.merge({}, mapViewDefaultData, {
+        mapId: 'contact-map',
+        withUserLocate: false,
+        mapMarker: [
+          { lat: 47.380467, lng: 8.548396 },
+        ],
+        directions: {
+          enabled: true,
+        },
+      }),
+    },
+  },
+  revampedSocialMedia: {
+    meta: {
+      title: 'CZHDEV-2963 (Variante Social-Media)',
+      desc: 'Kontakt mit Social-Media Buttons',
+    },
+    props: {
+      fullWidth: true,
+      withModuleLogic: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Koordinationsstelle Veloverkehr',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+        icon: true,
+      },
+      contactAddress: {
+        street: 'Uetlibergstrasse 301',
+        zip: '8036',
+        name: 'Zürich-Albisgütli',
+        city: 'Zürich',
+        routeLinkHref: '#',
+        routeLinkLabel: 'Route anzeigen',
+      },
+      contactPhone: [{
+        anchorLabel: '058 811 30 00',
+        phoneNumer: '+41588113000',
+        additionalInfo: 'Kostenlos',
+      }],
+      contactMail: {
+        address: 'passbuerozürich@ds.zh.ch',
+      },
+      socialMedia: socialMediaData,
+    },
+  },
+  revampedService: {
+    meta: {
+      title: 'CZHDEV-2963 (Variante Service)',
+      desc: 'Kontakt mit Social-Media Buttons',
+    },
+    props: {
+      contactSubtitle: 'Koordinationsstelle Veloverkehr',
+      contactAddress: {
+        street: 'Uetlibergstrasse 301',
+        zip: '8036',
+        name: 'Zürich-Albisgütli',
+        city: 'Zürich',
+        routeLinkHref: '#',
+        routeLinkLabel: 'Route anzeigen',
+        copytoclipboardButton: demoCopyButton,
       },
     },
   },

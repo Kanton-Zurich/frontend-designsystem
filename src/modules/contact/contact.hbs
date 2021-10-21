@@ -139,6 +139,9 @@
                     {{#each this.times}}
                       <li>{{this.text}}</li>
                     {{/each}}
+                    {{#if this.timeTitle}}
+                      <h4 class="atm-heading">{{this.timeTitle}}</h4>
+                    {{/if}}
                   </ul>
                 {{/each}}
               {{/if}}
@@ -150,7 +153,7 @@
     {{/if}}
 
     {{#if contactMail}}
-      <div class="mdl-contact__section-cell{{#if fullWidth}} cell xsmall-offset-2 small-offset-2 xlarge-offset-{{#if contactAddress}}0{{else}}{{#if contactPhone}}0{{else}}2{{/if}}{{/if}} xsmall-10 small-8 xlarge-4{{/if}}">
+      <div class="mdl-contact__section-cell{{#if fullWidth}} cell xsmall-offset-2 small-offset-2 medium-offset-2 xlarge-offset-{{#if contactAddress}}0{{else}}{{#if contactPhone}}0{{else}}2{{/if}}{{/if}} xsmall-10 small-8 xlarge-4{{/if}}">
         <div class="mdl-contact__cell-icon">
           <h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}} class="visuallyhidden">{{{contactAriaTitle_email}}}</h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}}>
           <svg class="icon mdl-contact__icon-email" aria-hidden="true" focusable="false">
@@ -164,6 +167,10 @@
             <p>
               {{contactMail.additionalInfo}}
             </p>
+            {{#if contactMail.additionalService }}
+                <h4 class="atm-heading">{{contactMail.additionalService.label}}</h4>
+                <a class="mdl-contact__service-link" href="{{contactMail.additionalService.linkHref}}">{{contactMail.additionalService.linkLabel}}</a>
+            {{/if}}
           </div>
         </div>
       </div>
@@ -172,7 +179,7 @@
   </div>
   {{#if mediaContact}}
   <div class="mdl-contact__section grid-x{{#if fullWidth}} grid-margin-x{{/if}}">
-    <div class="mdl-contact__section-cell mdl-contact__section-cell--media{{#if mediaContact.seperatorTop}} mdl-contact__section-cell--sperator-top{{/if}}{{#if mediaContact.seperatorBottom}} mdl-contact__section-cell--sperator-bottom{{/if}}{{#if fullWidth}} cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2{{/if}}">
+    <div class="mdl-contact__section-cell mdl-contact__section-cell--media{{#if mediaContact.seperatorTop}} mdl-contact__section-cell--sperator-top{{/if}}{{#if mediaContact.seperatorBottom}} mdl-contact__section-cell--sperator-bottom{{/if}}{{#if fullWidth}} cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10 large-10{{/if}}">
 
       <h3 class="mdl-contact__subtitle">Medienkontakt
         <span id="mdl-contact__aria-desc" class="visuallyhidden">Medienkontakt ein oder ausblenden</span>
@@ -213,6 +220,27 @@
       </div>
     </div>
   </div>
+  {{/if}}
+  {{#if socialMedia}}
+    <div class="mdl-contact__section grid-x{{#if fullWidth}} grid-margin-x{{/if}}">
+      <div class="mdl-contact__section-cell mdl-contact__section-cell--social-media{{#if fullWidth}} cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10 medium-10 large-10 xlarge-10{{/if}}">
+        <h3 class="atm-heading">
+          {{socialMedia.title}}
+        </h3>
+        <ul class="mdl-contact__social-list">
+          {{#each socialMedia.links}}
+            <li>
+              <a class="mdl-contact__social-links" href="{{this.href}}">
+                <span class="visuallyhidden">Link to {{this.shareTarget}}</span>
+                <svg class="icon" focusable="false">
+                  <use xlink:href="#{{this.icon}}"></use>
+                </svg>
+              </a>
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
   {{/if}}
 
   {{#if fullWidth}}
