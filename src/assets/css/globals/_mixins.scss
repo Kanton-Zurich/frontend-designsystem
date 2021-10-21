@@ -463,6 +463,7 @@
  * Resets the button no styling
  */
 @mixin blankButton() {
+  color: $colorBlack;
   border: none;
   background: none;
   padding: 0;
