@@ -71,6 +71,7 @@
 
     .atm-linklist_item__chapter-number {
       flex-shrink: 0;
+      min-width: pxToRem($chapterNumberMinWidth);
       padding-right: pxToRem($sizeTiny);
     }
 

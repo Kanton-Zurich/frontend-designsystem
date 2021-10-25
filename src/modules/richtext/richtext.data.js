@@ -100,13 +100,13 @@ const variants = _.mapValues({
       smallerHeadings: true,
       customContent: [
         {
-          content: '<h2 class="atm-heading">Erläuterungen</h2>',
+          content: '<h2 class="atm-heading atm-heading--number-prefix"><span class="atm-heading__prefix">1.</span>Erläuterungen</h2>',
         },
         {
-          content: '<h3 class="atm-heading atm-heading--number-prefix"><span class="atm-heading__prefix">1.</span><span class="atm-heading__content">Anrechenbare Vermögenswerte</span></h3>',
+          content: '<h3 class="atm-heading atm-heading--number-prefix"><span class="atm-heading__prefix">1.1</span><span class="atm-heading__content">Anrechenbare Vermögenswerte</span></h3>',
         },
         {
-          content: '<h4 class="atm-heading atm-heading--number-prefix"><span class="atm-heading__prefix">1.1</span><span class="atm-heading__content">Bundesebene</span></h4>',
+          content: '<h4 class="atm-heading atm-heading--number-prefix"><span class="atm-heading__prefix">1.1.1</span><span class="atm-heading__content">Bundesebene</span></h4>',
         },
         {
           content: '<p class="atm-paragraph">'

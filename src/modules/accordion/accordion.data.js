@@ -363,6 +363,7 @@ const variants = _.mapValues({
       smallerHeadings: false,
       isInverted: true,
       indented: true,
+      storeOrigin: true,
       items: [
         {
           title: 'Akkordeontitel der über mehere Zeilen gehen soll Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna ',

@@ -9,6 +9,7 @@
   }
 
   &__chapter-number {
+    min-width: pxToRem($chapterNumberMinWidth);
     padding-right: pxToRem($sizeTiny);
   }
 

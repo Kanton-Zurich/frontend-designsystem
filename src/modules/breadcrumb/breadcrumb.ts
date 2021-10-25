@@ -91,7 +91,7 @@ class Breadcrumb extends Module {
       let actualReferrer = null;
 
       if (this.ui.element.hasAttribute('data-storage')) {
-        actualReferrer = window.localStorage.getItem(this.ui.element.getAttribute('data-storage'));
+        actualReferrer = window.sessionStorage.getItem(this.ui.element.getAttribute('data-storage'));
       }
       const internalReferrer = this.ui.item.querySelector('a');
       const referrer = document.createElement('a');
