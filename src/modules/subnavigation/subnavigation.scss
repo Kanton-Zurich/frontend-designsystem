@@ -26,6 +26,11 @@ $subnavigationCurves: (
 
     .atm-heading {
       @include sizeCurve(padding-top, headerPaddingTop, $subnavigationCurves);
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
     }
   }
 

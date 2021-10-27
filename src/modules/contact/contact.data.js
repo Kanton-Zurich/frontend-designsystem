@@ -44,6 +44,9 @@ const demoAddressData = {
   openingTimes: demoAddressTimesDataFullWidth,
 };
 
+const demoCopyButton = {
+  label: 'Adresse kopieren',
+};
 
 const demoAddressDataFullWidth = {
   name: 'Zürich-Albisgütli',
@@ -119,6 +122,32 @@ const locationDemoData = {
   ],
 };
 
+const socialMediaData = {
+  title: 'Folgen Sie uns auf',
+  links: [
+    {
+      href: '#',
+      shareTarget: 'facebook',
+      icon: 'facebook',
+    },
+    {
+      href: '#',
+      shareTarget: 'xing',
+      icon: 'xing',
+    },
+    {
+      href: '#',
+      shareTarget: 'youtube',
+      icon: 'youtube',
+    },
+    {
+      href: '#',
+      shareTarget: 'linkedIn',
+      icon: 'linkedIn',
+    },
+  ],
+};
+
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Kontakt',
@@ -143,6 +172,7 @@ const variants = _.mapValues({
     props: {
       fullWidth: true,
       contactTitle: 'Kontakt',
+      withModuleLogic: true,
       contactAddress: {
         name: 'Kantonspolizei',
         street: 'Kasernenstrasse 29',
@@ -184,6 +214,7 @@ const variants = _.mapValues({
     },
     props: {
       fullWidth: true,
+      withModuleLogic: true,
       contactTitle: 'Kontakt',
       contactAddress: demoAddressData,
       contactPhone: demoPhoneData,
@@ -209,6 +240,7 @@ const variants = _.mapValues({
     },
     props: {
       fullWidth: true,
+      withModuleLogic: true,
       contactTitle: 'Kontakt',
       contactAddress: demoAddressData,
       contactPhone: demoPhoneData,
@@ -297,6 +329,7 @@ const variants = _.mapValues({
       contactSubtitleMoreInfo: {
         href: '#',
         label: 'Mehr erfahren',
+        icon: true,
       },
       contactAddress: {
         name: 'Regionale Fachstelle der Ost- und Zentralschweiz ',
@@ -445,7 +478,7 @@ const variants = _.mapValues({
       contactPhone: locationDemoData.phone,
       contactSubtitleMoreInfo: {
         href: '#',
-        label: 'Seite anzeigen',
+        label: 'Mehr erfahren',
       },
       contactMail: {
         address: 'info@stva.zh.ch',
@@ -490,6 +523,195 @@ const variants = _.mapValues({
           enabled: true,
         },
       }),
+    },
+  },
+  revampedStandart: {
+    meta: {
+      title: 'CZHDEV-2963 (Variante Standart)',
+      desc: 'Kontakt mit Service Link und Adresse-Kopierfunktion',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Koordinationsstelle Veloverkehr',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+        icon: true,
+      },
+      contactAddress: {
+        street: 'Uetlibergstrasse 301',
+        zip: '8036',
+        name: 'Zürich-Albisgütli',
+        city: 'Zürich',
+        copytoclipboardButton: demoCopyButton,
+        routeLinkHref: '#',
+        routeLinkLabel: 'Route anzeigen',
+        openingTimes: demoAddressTimesDataFullWidth,
+      },
+      withModuleLogic: true,
+      contactPhone: [{
+        anchorLabel: '058 811 30 00',
+        phoneNumer: '+41588113000',
+        additionalInfo: 'Kostenlos',
+      }],
+      contactMail: {
+        address: 'passbuerozürich@ds.zh.ch',
+        additionalInfo: 'Bitte keine Gesuche über diese Email einreichen',
+        additionalService: {
+          label: 'Antwortzeiten',
+          linkLabel: 'Kontaktformular',
+          linkHref: '#',
+        },
+      },
+    },
+  },
+  revampedMedia: {
+    meta: {
+      title: 'CZHDEV-2963 (Variante Medienkontakt)',
+      desc: 'Kontakt mit Medienkontakt, Social-Media Buttons und ohne Karte',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Koordinationsstelle Veloverkehr',
+      contactInfoText: 'Bitte keine Gesuche über diese Email einreichen',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+        icon: true,
+      },
+      contactAddress: {
+        street: 'Uetlibergstrasse 301',
+        zip: '8036',
+        name: 'Zürich-Albisgütli',
+        city: 'Zürich',
+        copytoclipboardButton: demoCopyButton,
+        routeLinkHref: '#',
+        routeLinkLabel: 'Route anzeigen',
+        openingTimes: demoAddressTimesDataFullWidth,
+      },
+      withModuleLogic: true,
+      contactPhone: [{
+        anchorLabel: '058 811 30 00',
+        phoneNumer: '+41588113000',
+        additionalInfo: 'Kostenlos',
+      }],
+      contactMail: {
+        address: 'passbuerozürich@ds.zh.ch',
+        additionalInfo: 'Bitte keine Gesuche über diese Email einreichen',
+      },
+      mediaContact: {
+        seperatorTop: true,
+        title: 'Medienkontakt',
+        openLabel: 'Medienkontakt',
+        lead: 'Kommunikationsbeauftragter der Finanzdirektion',
+        email: 'media@dz.zh.ch',
+        additionals: 'Nur für Medienanliegen, andere Anfregen werden weitergeleitet',
+      },
+      socialMedia: socialMediaData,
+    },
+  },
+  revampedMap: {
+    meta: {
+      title: 'CZHDEV-2963 (Variante Karte)',
+      desc: 'Kontakt mit Medienkontakt und Karte',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Koordinationsstelle Veloverkehr',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+        icon: true,
+      },
+      contactAddress: {
+        street: 'Uetlibergstrasse 301',
+        zip: '8036',
+        name: 'Zürich-Albisgütli',
+        city: 'Zürich',
+        copytoclipboardButton: demoCopyButton,
+      },
+      withModuleLogic: true,
+      contactPhone: [{
+        anchorLabel: '058 811 30 00',
+        phoneNumer: '+41588113000',
+        additionalInfo: 'Kostenlos',
+      }],
+      contactMail: {
+        address: 'passbuerozürich@ds.zh.ch',
+      },
+      mediaContact: {
+        seperatorTop: true,
+        title: 'Medienkontakt',
+        openLabel: 'Medienkontakt',
+        lead: 'Kommunikationsbeauftragter der Finanzdirektion',
+        email: 'media@dz.zh.ch',
+        additionals: 'Nur für Medienanliegen, andere Anfregen werden weitergeleitet',
+      },
+      mapData: _.merge({}, mapViewDefaultData, {
+        mapId: 'contact-map',
+        withUserLocate: false,
+        mapMarker: [
+          { lat: 47.380467, lng: 8.548396 },
+        ],
+        directions: {
+          enabled: true,
+        },
+      }),
+    },
+  },
+  revampedSocialMedia: {
+    meta: {
+      title: 'CZHDEV-2963 (Variante Social-Media)',
+      desc: 'Kontakt mit Social-Media Buttons',
+    },
+    props: {
+      fullWidth: true,
+      withModuleLogic: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Koordinationsstelle Veloverkehr',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+        icon: true,
+      },
+      contactAddress: {
+        street: 'Uetlibergstrasse 301',
+        zip: '8036',
+        name: 'Zürich-Albisgütli',
+        city: 'Zürich',
+        routeLinkHref: '#',
+        routeLinkLabel: 'Route anzeigen',
+      },
+      contactPhone: [{
+        anchorLabel: '058 811 30 00',
+        phoneNumer: '+41588113000',
+        additionalInfo: 'Kostenlos',
+      }],
+      contactMail: {
+        address: 'passbuerozürich@ds.zh.ch',
+      },
+      socialMedia: socialMediaData,
+    },
+  },
+  revampedService: {
+    meta: {
+      title: 'CZHDEV-2963 (Variante Service)',
+      desc: 'Kontakt klein nur mit Adresse-Kopierfunktion',
+    },
+    props: {
+      contactSubtitle: 'Koordinationsstelle Veloverkehr',
+      contactAddress: {
+        street: 'Uetlibergstrasse 301',
+        zip: '8036',
+        name: 'Zürich-Albisgütli',
+        city: 'Zürich',
+        routeLinkHref: '#',
+        routeLinkLabel: 'Route anzeigen',
+        copytoclipboardButton: demoCopyButton,
+      },
     },
   },
 }, (variant) => {

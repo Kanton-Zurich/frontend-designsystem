@@ -77,8 +77,7 @@ const variants = _.mapValues({
       pagination: _.merge({}, defPaginationData.variants.fullWidth.props, {
         additionalClasses: 'hidden',
       }),
-      flexTableFormData: _.merge({}, defFormData.variants.zhlex.props),
-      extendedFlexFormData: _.merge({}, defAccordionData.variants.zhLexLSExtendedSearch.props),
+      flexTableFormData: _.merge({}, defFormData.variants.zhlexLS.props),
       resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
       tableData: {
         tableTitle: '',
@@ -117,8 +116,7 @@ const variants = _.mapValues({
     props: {
       flexDataSource: '/mocks/modules/flex_data/flex_data_zhlex_os.json',
       pagination: defPaginationData.variants.fullWidth.props,
-      flexTableFormData: _.merge({}, defFormData.variants.zhlex.props),
-      extendedFlexFormData: _.merge({}, defAccordionData.variants.zhLexOSExtendedSearch.props),
+      flexTableFormData: _.merge({}, defFormData.variants.zhlexOS.props),
       resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
       tableData: {
         tableTitle: '',
