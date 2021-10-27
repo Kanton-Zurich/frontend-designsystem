@@ -294,6 +294,36 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
       visibility: hidden;
     }
   }
+
+  // CR CZHDEV-2980
+  &--plain-text {
+    font-family: $fontFamilyBase;
+    background: none;
+    color: $colorBlack60;
+    padding: 0;
+
+    .atm-button__icon {
+      margin-left: 0 !important; //stylelint-disable-line
+      order: 1;
+
+      use {
+        fill: $colorBlack60;
+      }
+    }
+
+    .atm-button__text {
+      order: 2;
+    }
+
+    &:hover {
+      background: none;
+      color: $colorBlack;
+
+      .atm-button__icon use {
+        fill: $colorBlack;
+      }
+    }
+  }
 }
 
 @keyframes ball-clip-rotate {

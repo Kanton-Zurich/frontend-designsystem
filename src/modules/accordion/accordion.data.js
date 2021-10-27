@@ -99,6 +99,16 @@ const variants = _.mapValues({
             },
           ],
         },
+        {
+          title: 'Ein Accordion mit Downloadliste',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
+          techName: 'acc_item_5',
+          children: [
+            {
+              partial: downloadListData.variants.defaultWithoutTitleLast.meta.demo(),
+            },
+          ],
+        },
       ],
     },
   },
@@ -315,42 +325,6 @@ const variants = _.mapValues({
             }),
           },
         ],
-      }],
-    },
-  },
-  zhLexLSExtendedSearch: {
-    meta: {
-      title: 'ZH-Lex LS Erweiterte Suche (CZHDEV-1240)',
-      desc: 'Akkordeon mit Formularfeldern für die erweiterte Suche bei ZH-Lex Loseblattsammlung',
-    },
-    props: {
-      accordionHeading: {
-        title: false,
-      },
-      items: [{
-        title: 'Erweiterte Suche',
-        subHead: ' ',
-        children: [{
-          partial: () => handlebars.compile(formHBS)(defaultFormData.variants.zhlexLSExtended.props),
-        }],
-      }],
-    },
-  },
-  zhLexOSExtendedSearch: {
-    meta: {
-      title: 'ZH-Lex OS Erweiterte Suche (CZHDEV-1240)',
-      desc: 'Akkordeon mit Formularfeldern für die erweiterte Suche bei ZH-Lex Offizielle Gesetzessammlung',
-    },
-    props: {
-      accordionHeading: {
-        title: false,
-      },
-      items: [{
-        title: 'Erweiterte Suche',
-        subHead: ' ',
-        children: [{
-          partial: () => handlebars.compile(formHBS)(defaultFormData.variants.zhlexOSExtended.props),
-        }],
       }],
     },
   },

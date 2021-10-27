@@ -14,6 +14,8 @@ class Contact extends Module {
     triggerSvg: HTMLElement,
     triggerSpans: HTMLSpanElement[],
     mediaContact: HTMLDivElement,
+    copyButton: HTMLButtonElement,
+    copySource: HTMLElement,
   };
 
   public options: {
@@ -23,6 +25,8 @@ class Contact extends Module {
       triggerSvg: string,
       triggerSpans: string,
       mediaContact: string,
+      copyButton: string,
+      copySource: string,
     },
     stateClasses: {
       open: string,
@@ -38,6 +42,8 @@ class Contact extends Module {
         trigger: '.mdl-contact__media-trigger',
         triggerSpans: '.mdl-contact__media-trigger span',
         triggerSvg: '.mdl-contact__media-trigger svg',
+        copyButton: '[data-contact-copy-button]',
+        copySource: '[data-contact-copy-source]',
       },
       stateClasses: {
         open: 'open',
@@ -53,11 +59,37 @@ class Contact extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.ui.trigger.addEventListener('click', (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      this.toggleContact();
-    });
+    if (this.ui.trigger) {
+      this.ui.trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        this.toggleContact();
+      });
+    }
+
+    // CR CZHDEV-2961
+    if (this.ui.copyButton) {
+      this.eventDelegate.on('click', this.options.domSelectors.copyButton, () => {
+        if (this.ui.copySource) {
+          const el = document.createElement('textarea');
+          el.value = this.ui.copySource.innerText;
+          el.setAttribute('readonly', '');
+          el.style.position = 'absolute';
+          el.style.left = '-9999px';
+          document.body.appendChild(el);
+          const selected = document.getSelection().rangeCount > 0
+            ? document.getSelection().getRangeAt(0)
+            : false;
+          el.select();
+          document.execCommand('copy');
+          document.body.removeChild(el);
+          if (selected) {
+            document.getSelection().removeAllRanges();
+            document.getSelection().addRange(selected);
+          }
+        }
+      });
+    }
   }
 
 
