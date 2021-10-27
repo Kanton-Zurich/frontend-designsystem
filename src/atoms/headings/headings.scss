@@ -7,12 +7,12 @@ $headingCurves: (
     tiny: $sizeHuge,
     large: $sizeGiant,
   ),
-  smallModFontSizeH5H6:(
+  smallModFontSizeH5H6: (
     tiny: $sizeFontSmall,
-    regular: $sizeFontSmall,
+    small: $sizeFontSmall,
     medium: $sizeFontRegular,
     large: $sizeFontRegular,
-    xlarge: $sizeFontBiggerRegular,
+    xlarge: $sizeFontBiggerRegular
   ),
 );
 
@@ -226,7 +226,7 @@ p.atm-heading__lead {
   }
 
   h3,
-  .h3{
+  .h3 {
     &.atm-heading {
       line-height: $sizeLineHeightMedium;
 
@@ -257,7 +257,8 @@ p.atm-heading__lead {
   .h5,
   .h6 {
     &.atm-heading {
-      @include polyFluidSizing('font-size', map-get($headingCurves, smallModFontSizeH5H6));
+      @include polyFluidSizing(font-size, map-get($headingCurves, smallModFontSizeH5H6));
+      // @include polyFluidSizing(font-size, map-get($fontSizeCurveBiometrie, input));
       line-height: $sizeLineHeightBigger;
 
       @include mq($from: medium) {
