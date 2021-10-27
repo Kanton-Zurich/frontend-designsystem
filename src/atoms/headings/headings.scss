@@ -220,15 +220,9 @@ p.atm-heading__lead {
   .h5,
   .h6 {
     &.atm-heading {
+      line-height: $sizeLineHeightMedium;
       margin-bottom: 0;
       padding-top: 0;
-    }
-  }
-
-  h3,
-  .h3 {
-    &.atm-heading {
-      line-height: $sizeLineHeightMedium;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
       @include mq($to: xsmall) {
@@ -237,28 +231,31 @@ p.atm-heading__lead {
     }
   }
 
-  h4,
-  .h4 {
-    &.atm-heading {
-      line-height: $sizeLineHeightBase;
-      font-family: $fontFamilyBase;
-
-      @include mq($from: xsmall) {
-        line-height: $sizeLineHeightBigger;
-      }
-      @include mq($from: xlarge) {
+  .mdl-richtext,
+  &.mdl-richtext,
+  .mdl-page-header,
+  &.mdl-page-header {
+    h4,
+    .h4 {
+      &.atm-heading {
         line-height: $sizeLineHeightBase;
+        font-family: $fontFamilyBase;
+
+        @include mq($from: xsmall) {
+          line-height: $sizeLineHeightBigger;
+        }
+        @include mq($from: xlarge) {
+          line-height: $sizeLineHeightBase;
+        }
       }
     }
-  }
 
-  h5,
-  h6,
-  .h5,
-  .h6 {
-    &.atm-heading {
+    h5.atm-heading,
+    h6.atm-heading,
+    .h5.atm-heading,
+    .h6.atm-heading,
+    .atm-lead strong {
       @include polyFluidSizing(font-size, map-get($headingCurves, smallModFontSizeH5H6));
-      // @include polyFluidSizing(font-size, map-get($fontSizeCurveBiometrie, input));
       line-height: $sizeLineHeightBigger;
 
       @include mq($from: medium) {
