@@ -82,7 +82,7 @@ class FlexData extends Module {
     this.initUi();
     this.initEventListeners();
 
-    window.localStorage.removeItem('origin');
+    window.sessionStorage.removeItem('origin');
   }
 
   static get events() {
@@ -175,7 +175,7 @@ class FlexData extends Module {
 
     // EventListener to set localstorage
     this.eventDelegate.on('click', `${this.options.domSelectors.results} .mdl-table__cell a`, () => {
-      window.localStorage.setItem('origin', window.location.href);
+      window.sessionStorage.setItem('origin', window.location.href);
     });
   }
 
@@ -207,6 +207,12 @@ class FlexData extends Module {
     this.ui.form.reset();
     this.ui.form.querySelectorAll('.mdl-select').forEach((select: HTMLElement) => {
       select.dispatchEvent(new CustomEvent(Select.events.clear));
+
+      // Disabled 2. select in case its a drilldown-select
+      if (select.hasAttribute('data-drilldown-secondary')) {
+        select
+          .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: true } }));
+      }
     });
     this.ui.form.querySelectorAll('.mdl-accordion').forEach((accordion: HTMLDivElement) => {
       accordion.dispatchEvent(new CustomEvent(Accordion.events.clearSubheads));
@@ -222,6 +228,9 @@ class FlexData extends Module {
     }
 
     this.ui.form.removeAttribute('is-reset');
+    // Clear url
+    const baseUrl = this.getBaseUrl();
+    window.history.pushState({}, document.title, baseUrl);
   }
 
   /**
@@ -291,6 +300,7 @@ class FlexData extends Module {
           this.dataIdle = true;
           return;
         }
+        this.ui.clearButton.classList.remove('hidden');
         if (jsonData.numberOfResultPages > 1) {
           this.ui.pagination.classList.remove('hidden');
         }
