@@ -218,24 +218,10 @@
     </div>
   </div>
   {{/if}}
-  {{#if socialMedia}}
+  {{#if socialMediaLinks}}
     <div class="mdl-contact__section grid-x{{#if fullWidth}} grid-margin-x{{/if}}">
       <div class="mdl-contact__section-cell mdl-contact__section-cell--social-media{{#if fullWidth}} cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10 medium-10 large-10 xlarge-10{{/if}}">
-        <h3 class="atm-heading">
-          {{socialMedia.title}}
-        </h3>
-        <ul class="mdl-contact__social-list">
-          {{#each socialMedia.links}}
-            <li>
-              <a class="mdl-contact__social-links" href="{{this.href}}">
-                <span class="visuallyhidden">Link to {{this.shareTarget}}</span>
-                <svg class="icon" focusable="false">
-                  <use xlink:href="#{{this.icon}}"></use>
-                </svg>
-              </a>
-            </li>
-          {{/each}}
-        </ul>
+        {{> "modules/social_media_links/social_media_links" socialMediaLinks}}
       </div>
     </div>
   {{/if}}

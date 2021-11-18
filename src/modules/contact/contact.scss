@@ -229,33 +229,6 @@ $contactMapHeightCurve: (
     margin-top: pxToRem($sizeLarge);
   }
 
-  &__social-list {
-    @include resetList();
-
-    li {
-      display: inline-flex;
-
-      &:not(:last-of-type) {
-        margin-right: pxToRem($sizeMini);
-      }
-    }
-  }
-
-  &__social-links {
-    position: relative;
-    background: rgba($colorBlack100, 0.2);
-    color: $colorWhite;
-
-    svg {
-      fill: $colorWhite;
-      transform: translate(-50%, -50%) scale(0.7);
-    }
-
-    &:hover {
-      background: rgba($colorBlack100, 0.4);
-    }
-  }
-
   // White seperation lines
   &__section-cell--sperator-top:before,
   &__section-cell--social-media:before {
@@ -285,7 +258,6 @@ $contactMapHeightCurve: (
     }
   }
 
-  &__social-links,
   &__cell-icon {
     display: inline-flex;
     width: pxToRem($sizeBig);

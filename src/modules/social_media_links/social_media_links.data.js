@@ -13,7 +13,9 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('social_media_links.md'),
   },
   props: {
-
+    socialMediaLinksHeading: {
+      title: 'Folgen Sie uns auf',
+    },
   },
 });
 const variants = _.mapValues({
@@ -24,29 +26,63 @@ const variants = _.mapValues({
     },
     props: {
       socialMediaLinksHeading: {
-        title: 'Folgen Sie uns auf',
         level: 2,
       },
-      facebook: {
-        url: '#',
-        linkText: 'Facebook',
-        imgSrc: '../../assets/media/image/facebook.svg',
+      items: [
+        {
+          url: '#',
+          linkText: 'Facebook',
+          imgSrc: '../../assets/media/image/facebook.svg',
+        },
+        {
+          url: '#',
+          linkText: 'Twitter',
+          imgSrc: '../../assets/media/image/twitter.svg',
+        },
+        {
+          url: '#',
+          linkText: 'linkedIn',
+          imgSrc: '../../assets/media/image/linkedIn.svg',
+        },
+        {
+          url: '#',
+          linkText: 'YouTube',
+          imgSrc: '../../assets/media/image/youtube.svg',
+        },
+      ],
+    },
+  },
+  contactVariant: {
+    meta: {
+      title: 'Social Media for contact',
+    },
+    props: {
+      contactVariant: true,
+      socialMediaLinksHeading: {
+        level: 3,
       },
-      twitter: {
-        url: '#',
-        linkText: 'Twitter',
-        imgSrc: '../../assets/media/image/twitter.svg',
-      },
-      linkedIn: {
-        url: '#',
-        linkText: 'LinkedIn',
-        imgSrc: '../../assets/media/image/linkedIn.svg',
-      },
-      youtube: {
-        url: '#',
-        linkText: 'YouTube',
-        imgSrc: '../../assets/media/image/youtube.svg',
-      },
+      items: [
+        {
+          url: '#',
+          linkText: 'Facebook',
+          imgSrc: '../../assets/media/image/facebook--white.svg',
+        },
+        {
+          url: '#',
+          linkText: 'Xing',
+          imgSrc: '../../assets/media/image/xing--white.svg',
+        },
+        {
+          url: '#',
+          linkText: 'YouTube',
+          imgSrc: '../../assets/media/image/youtube--white.svg',
+        },
+        {
+          url: '#',
+          linkText: 'linkedIn',
+          imgSrc: '../../assets/media/image/linkedIn--white.svg',
+        },
+      ],
     },
   },
 }, (variant) => {
