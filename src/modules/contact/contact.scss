@@ -259,6 +259,10 @@ $contactMapHeightCurve: (
   }
 
   &__cell-icon {
+    background-color: $colorWhite;
+    position: absolute;
+    top: 0;
+    left: 0;
     display: inline-flex;
     width: pxToRem($sizeBig);
     height: pxToRem($sizeBig);
@@ -268,16 +272,6 @@ $contactMapHeightCurve: (
       position: absolute;
       top: 50%;
       left: 50%;
-    }
-  }
-
-  &__cell-icon {
-    background-color: $colorWhite;
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    svg {
       transform: translate(-50%, -50%) scale(0.8);
     }
   }
