@@ -308,30 +308,6 @@ const variants = _.mapValues({
 
     },
   },
-  phoneWithMask: {
-    meta: {
-      title: 'Telefonnummer mit Maske',
-      desc: 'Input mit floating Label und validierung und Hinweis',
-    },
-    props: {
-      type: 'text',
-      label: 'GLN Nummer',
-      inputMask: '\\7[\\d76]6[\\d6]\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d',
-      maskPlaceholder: '76___________',
-      inputContent: '',
-      validation: {
-        pattern: '76\\d{11,}$',
-        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
-        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
-        errorMsg: 'Eingabe bitte im Format +41 XX XXX XX XX eingeben!',
-        isRequired: false,
-      },
-      uuid: _.uniqueId('float_input_valid'),
-      isFloatingLabel: true,
-      isRequired: true,
-
-    },
-  },
   mwst: {
     meta: {
       title: 'Mehrwertsteuer mit Maske',
@@ -634,6 +610,28 @@ const variants = _.mapValues({
       },
       label: 'Uhrzeit',
       uuid: _.uniqueId('datepicker-'),
+    },
+  },
+  datePickerNoIcon: {
+    meta: {
+      title: 'Datepicker mit Eingabemaske ohne Icon',
+      desc: 'Datepicker mit floating Label und Eingabemaske aber ohne Icon',
+    },
+    props: {
+      type: 'text',
+      isFloatingLabel: true,
+      isInput: true,
+      inputMask: '\\d\\d\\.[\\d.]\\d\\d[\\d.]\\.[\\d.]\\d\\d\\d\\d[\\d.]',
+      maskPlaceholder: 'TT.MM.YYYY',
+      label: 'Publikationsdatum',
+      uuid: _.uniqueId('datepicker-'),
+      validation: {
+        pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+        errorMsg: 'Datum bitte im Format TT.MM.YYYY eingeben!',
+        isRequired: false,
+      },
     },
   },
   search: {

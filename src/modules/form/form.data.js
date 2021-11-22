@@ -3047,7 +3047,7 @@ const variants = _.mapValues({
                   formInputData.variants.floatValidateHint.props,
                   {
                     isFloatingLabel: true,
-                    label: 'Publicationsdatum',
+                    label: 'Publikationsdatum',
                     name: 'publication-date',
                     uuid: 'publication-date-social-care',
                     inputMask: '\\d\\d\\.[\\d.]\\d\\d[\\d.]\\.[\\d.]\\d\\d\\d\\d[\\d.]',
