@@ -301,6 +301,7 @@ class Anchornav extends Module {
       const hTriggerPos = itemLeft - this.ui.scrollContent.getBoundingClientRect().left;
       if (element !== null) {
         element.setAttribute('tabindex', '-1');
+        element.classList.add('focus-invisible');
         this.navReferences.push({
           navTrigger: this.ui.navItems[i],
           element,
