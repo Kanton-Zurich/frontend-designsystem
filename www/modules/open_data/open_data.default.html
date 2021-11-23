@@ -1,0 +1,47 @@
+<div class="mdl-open_data" data-init="openData" data-api-calls="[&quot;https://opendata.swiss/api/3/action/resource_show?id&#x3D;47b71c10-8fe7-4d58-804e-74d2b1e45c82&quot;]">
+	<h2 class="atm-heading">Datenkomponente</h2>
+	<div data-open_data="wrapper"></div>
+
+	<script data-open_data="template" type="text/x-handlebars-template">
+		<% _.forEach(resources, function(resource) { %>
+      <% if (resources.length > 1) { %>
+        <li>
+      <% } %>
+      <a
+  class="atm-linklist_item atm-linklist_item--download"
+  href="<%- resource.url %>"
+  
+  download
+  
+  
+  
+  
+>
+  
+    <svg class="icon atm-linklist_item__download" focusable="false">
+      <use xlink:href="#download"></use>
+    </svg>
+    <span class="visuallyhidden">Download</span>
+  
+  <span class="atm-linklist_item__text">
+    
+    <span><%- resource.title %></span>
+    <span class="atm-linklist_item__label">zuletzt aktualisiert: <%- resource.label %>
+       | <span role="link" data-open_data="license_link" data-href="#" class="mdl-open_data__cc">
+          <% if(resource.license === "NonCommercialAllowed-CommercialAllowed-ReferenceNotRequired") { %>
+            <img src="https://mirrors.creativecommons.org/presskit/buttons/80x15/png/cc-zero.png" alt="Publicdomain"/>
+          <% } else { %>
+            <img src="https://mirrors.creativecommons.org/presskit/buttons/80x15/png/by.png" alt="Creative commons, reference required"/>
+          <% } %>
+        </span>
+       </span>
+  </span>
+  
+</a>
+
+      <% if (resources.length > 1) { %>
+        </li>
+      <% } %>
+    <% }); %>
+  </script>
+</div>
