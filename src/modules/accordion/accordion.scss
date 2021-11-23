@@ -263,6 +263,7 @@ $accordionMap: (
     @include sizeCurve(padding-top, big);
 
     background: $colorBlack5;
+    z-index: 1;
 
     h2.atm-heading.atm-heading--bordered,
     h3.atm-heading.atm-heading--bordered,
