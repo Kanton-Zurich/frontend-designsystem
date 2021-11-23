@@ -534,7 +534,7 @@ const variants = _.mapValues({
         address: 'passbuerozürich@ds.zh.ch',
         additionalInfo: 'Bitte keine Gesuche über diese Email einreichen',
         additionalService: {
-          label: 'Antwortzeiten',
+          label: 'Ausweisanträge können nur am Schalter entgegengenommen werden',
           linkLabel: 'Kontaktformular',
           linkHref: '#',
         },

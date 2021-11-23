@@ -14,6 +14,11 @@
         {{/if}}
       </div>
       <span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
+      {{#if icon}}
+      <svg class="icon atm-button__icon" focusable="false">
+        <use xlink:href="#{{icon}}"></use>
+      </svg>
+      {{/if}}
       <span class="atm-button__text">
         {{buttonTitle}}
       </span>

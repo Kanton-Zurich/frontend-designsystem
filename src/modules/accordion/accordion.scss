@@ -107,6 +107,7 @@ $accordionMap: (
 
   &__button {
     width: 100%;
+    text-decoration: none;
 
     &:not(.mdl-accordion__button--subhead) {
       display: flex;

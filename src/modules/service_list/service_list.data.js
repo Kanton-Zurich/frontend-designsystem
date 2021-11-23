@@ -28,6 +28,7 @@ const data = _.merge({}, defaultData, {
         serviceLink: 'service_page.mock.html',
         href: '../../pages/service/service.html',
         modalData: { modalId: 'service-modal1' },
+        icon: 'lock',
       },
       {
         title: 'Terminverschiebung periodische Fahrzeugprüfung',

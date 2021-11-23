@@ -224,7 +224,7 @@
 													<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
     <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
     <div class="mdl-subnavigation__title">
-      <h3 class="atm-heading"><%=title%></h3>
+      <h3 class="atm-heading"><a href="/pages/department/department.html"><%=title%></a></h3>
       <a class="atm-text_link atm-text_link--icon" href="<%=pageUrl%>">
         Seite anzeigen
         <svg class="icon icon--iframe-arrow" focusable="false">
@@ -344,7 +344,7 @@
 														<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
       <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
       <div class="mdl-subnavigation__title">
-        <h3 class="atm-heading"><%=title%></h3>
+        <h3 class="atm-heading"><a href="/pages/department/department.html"><%=title%></a></h3>
         <a class="atm-text_link atm-text_link--icon" href="<%=pageUrl%>">
           Seite anzeigen
           <svg class="icon icon--iframe-arrow" focusable="false">
@@ -1911,6 +1911,19 @@
                           </div>
                         </script>
 		</div>
+		<div class="form__group ">
+			<div class="form__row">
+				<div class="form__cell">
+					<div class="atm-hcaptcha">
+						<div class="h-captcha" data-sitekey="d850cd29-28be-44ef-842c-fb02df12efb0"></div>
+						<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
 		</fieldset>
 		</div>
 
@@ -2587,7 +2600,7 @@
 				<div class="mdl-select mdl-select--filter mdl-select--button" data-init="select" data-multiple="true" data-multiselectpostfix="gewählt" data-input>
 					<div class="atm-form_input atm-form_input--floated atm-form_input--trigger
                     ">
-						<button aria-expanded="false" id="float_button-28" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+						<button aria-expanded="false" id="float_button-27" class="atm-form_input__input atm-form_input__input--trigger" type="button">
 							<span class="atm-form_input__trigger-label">Select Float Label</span>
 							<span class="atm-form_input__trigger-value"></span>
 							<svg class="icon" focusable="false">
@@ -2786,7 +2799,7 @@
 				<div class="mdl-select mdl-select--filter" data-init="select" data-input>
 					<div class="atm-form_input atm-form_input--floated atm-form_input--trigger atm-form_input--trigger-phone
                     ">
-						<button aria-expanded="false" id="float_button-29" class="atm-form_input__input atm-form_input__input--trigger" type="button">
+						<button aria-expanded="false" id="float_button-28" class="atm-form_input__input atm-form_input__input--trigger" type="button">
 							<span class="atm-form_input__trigger-label">Telefonvorwahl</span>
 							<span class="atm-form_input__trigger-value"></span>
 							<svg class="icon" focusable="false">
@@ -2794,7 +2807,7 @@
 							</svg>
 						</button>
 						<input id="select_phone_input" name="phone_input" type="tel" placeholder="__ ____ __ __" data-pattern="^[()\- \d]+$" required data-validation><label class="visuallyhidden" for="select_phone_input">Bitte hier ihre Telefonnummer ohne Telefonvorwahl eingeben</label>
-						<label for="float_button-29">Telefonnummer</label>
+						<label for="float_button-28">Telefonnummer</label>
 						<span class="atm-form_input__validate-icon">
 							<span>
 								<span class="visuallyhidden"></span>
@@ -3069,12 +3082,12 @@
 
 
 
-						<input class="atm-form_input__input" id="vornameKind730" placeholder="Vorname Kind" name="vornameKind729" value="" type="text" data-floating>
+						<input class="atm-form_input__input" id="vornameKind721" placeholder="Vorname Kind" name="vornameKind720" value="" type="text" data-floating>
 
 
 
 
-						<label for="vornameKind730">Vorname Kind</label>
+						<label for="vornameKind721">Vorname Kind</label>
 
 
 
@@ -3110,7 +3123,7 @@
                     <input class="atm-form_input__input"
                       
                       
-                       id="vornameKind732" placeholder="Vorname Kind" name="vornameKind731" value="" type="text"
+                       id="vornameKind723" placeholder="Vorname Kind" name="vornameKind722" value="" type="text"
                       
                       
                       
@@ -3131,7 +3144,7 @@
                 
                 
                 
-                    <label for="vornameKind732">Vorname Kind</label>
+                    <label for="vornameKind723">Vorname Kind</label>
                 
                 
                 
@@ -3253,7 +3266,7 @@
 							<p>Info</p>
 
 							<div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--right">
-								<button type="button" class="mdl-tooltip__trigger" aria-describedby="form-test118">
+								<button type="button" class="mdl-tooltip__trigger" aria-describedby="form-test119">
 									<span class="visuallyhidden">
 										Erweiterter Hilfetext anzeigen
 									</span>
@@ -3261,7 +3274,7 @@
 										<use xlink:href="#get-information"></use>
 									</svg>
 								</button>
-								<div class="mdl-tooltip__bubble" id="form-test118" aria-hidden="true">
+								<div class="mdl-tooltip__bubble" id="form-test119" aria-hidden="true">
 									<button type="button" tabindex="-1">
 										<span class="visuallyhidden">
 											Hilfetextfenster schliessen
@@ -3414,7 +3427,7 @@
 					<div class="mdl-tooltip" data-init="tooltip">
 						<div class="mdl-tooltip__text">
 							<div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--left">
-								<button type="button" class="mdl-tooltip__trigger" aria-describedby="form-test119">
+								<button type="button" class="mdl-tooltip__trigger" aria-describedby="form-test120">
 									<span class="visuallyhidden">
 										Erweiterter Hilfetext anzeigen
 									</span>
@@ -3422,7 +3435,7 @@
 										<use xlink:href="#get-information"></use>
 									</svg>
 								</button>
-								<div class="mdl-tooltip__bubble" id="form-test119" aria-hidden="true">
+								<div class="mdl-tooltip__bubble" id="form-test120" aria-hidden="true">
 									<button type="button" tabindex="-1">
 										<span class="visuallyhidden">
 											Hilfetextfenster schliessen
@@ -4295,18 +4308,14 @@
 			<div class="lyt-wrapper">
 				<div class="grid-x grid-margin-x">
 					<div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10">
-
 						<h2 class="atm-heading atm-heading--bordered">Kontakt</h2>
 
 						<h3 class="mdl-contact__subtitle">
 							Koordinationsstelle Veloverkehr
-							<a href="#">
-								Mehr erfahren
-								<svg class="icon" focusable="false">
-									<use xlink:href="#arrow-right"></use>
-								</svg>
-							</a>
 						</h3>
+						<a class="mdl-contact__subtitle-link" href="#">
+							Mehr erfahren
+						</a>
 					</div>
 				</div>
 				<div class="mdl-contact__section grid-x grid-margin-x">
@@ -4320,9 +4329,11 @@
 						</div>
 						<div class="mdl-contact__cell-content">
 							<address class="mdl-contact__address">
-								Zürich-Albisgütli<br>
-								Uetlibergstrasse 301<br>
-								8036 Zürich<br>
+								<div data-contact-copy-source>
+									Zürich-Albisgütli<br>
+									Uetlibergstrasse 301<br>
+									8036 Zürich<br>
+								</div>
 								<a target="_blank" href="#" class="mdl-contact__show-route">Route anzeigen
 								</a>
 							</address>
@@ -4381,7 +4392,7 @@
 						</div>
 					</div>
 
-					<div class="mdl-contact__section-cell cell xsmall-offset-2 small-offset-2 xlarge-offset-0 xsmall-10 small-8 xlarge-4">
+					<div class="mdl-contact__section-cell cell xsmall-offset-2 small-offset-2 medium-offset-2 xlarge-offset-0 xsmall-10 small-8 xlarge-4">
 						<div class="mdl-contact__cell-icon">
 							<h4 class="visuallyhidden">E-Mail</h4>
 							<svg class="icon mdl-contact__icon-email" aria-hidden="true" focusable="false">
@@ -4473,7 +4484,7 @@
 												<li class="mdl-social-media-links__item">
 													<a href="#" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
 														<span class="atm-button__text visuallyhidden">
-															LinkedIn
+															linkedIn
 														</span>
 														<img src="../../assets/media/image/linkedIn.svg" alt="">
 													</a>
@@ -4488,8 +4499,6 @@
 												</li>
 											</ul>
 										</div>
-
-
 									</div>
 								</div>
 							</div>
