@@ -3,6 +3,7 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const mapViewDefaultData = require('../../modules/map_view/map_view.data').variants.default.props;
+const socialMediaLinksContactData = require('../../modules/social_media_links/social_media_links.data').variants.contactVariant.props;
 
 const template = dataHelper.getFileContent('contact.hbs');
 
@@ -118,32 +119,6 @@ const locationDemoData = {
       anchorLabel: '058 811 50 01',
       phoneNumer: '+41588113020',
       additionalInfo: 'Fax',
-    },
-  ],
-};
-
-const socialMediaData = {
-  title: 'Folgen Sie uns auf',
-  links: [
-    {
-      href: '#',
-      shareTarget: 'facebook',
-      icon: 'facebook',
-    },
-    {
-      href: '#',
-      shareTarget: 'xing',
-      icon: 'xing',
-    },
-    {
-      href: '#',
-      shareTarget: 'youtube',
-      icon: 'youtube',
-    },
-    {
-      href: '#',
-      shareTarget: 'linkedIn',
-      icon: 'linkedIn',
     },
   ],
 };
@@ -559,7 +534,7 @@ const variants = _.mapValues({
         address: 'passbuerozürich@ds.zh.ch',
         additionalInfo: 'Bitte keine Gesuche über diese Email einreichen',
         additionalService: {
-          label: 'Antwortzeiten',
+          label: 'Ausweisanträge können nur am Schalter entgegengenommen werden',
           linkLabel: 'Kontaktformular',
           linkHref: '#',
         },
@@ -609,7 +584,7 @@ const variants = _.mapValues({
         email: 'media@dz.zh.ch',
         additionals: 'Nur für Medienanliegen, andere Anfregen werden weitergeleitet',
       },
-      socialMedia: socialMediaData,
+      socialMediaLinks: socialMediaLinksContactData,
     },
   },
   revampedMap: {
@@ -693,7 +668,7 @@ const variants = _.mapValues({
       contactMail: {
         address: 'passbuerozürich@ds.zh.ch',
       },
-      socialMedia: socialMediaData,
+      socialMediaLinks: socialMediaLinksContactData,
     },
   },
   revampedService: {

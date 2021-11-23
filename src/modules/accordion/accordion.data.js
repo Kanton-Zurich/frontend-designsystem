@@ -366,6 +366,12 @@ const variants = _.mapValues({
       storeOrigin: true,
       items: [
         {
+          title: 'Link',
+          titlePrefix: 'X',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
+          isLink: true,
+        },
+        {
           title: 'Akkordeontitel der über mehere Zeilen gehen soll Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna ',
           titlePrefix: '0',
           accordionPanelID: _.uniqueId('accordionDemoId-'),

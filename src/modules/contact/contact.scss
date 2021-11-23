@@ -32,6 +32,19 @@ $contactMapHeightCurve: (
   ),
 );
 
+$contactFontCurve: (
+  boldText: (
+    tiny: $sizeFontRegular,
+    large: $sizeFontRegular,
+    xlarge: $sizeFontBiggerRegular,
+  ),
+  furtherInformation: (
+    tiny: $sizeFontSmall,
+    xsmall: $sizeFontSmall,
+    small: $sizeFontRegular,
+  ),
+);
+
 .mdl-contact {
   background-color: $colorViolet;
   color: $colorWhite;
@@ -184,6 +197,10 @@ $contactMapHeightCurve: (
       padding-left: 0;
     }
 
+    .mdl-contact__address {
+      margin-bottom: 0;
+    }
+
     .mdl-contact__text {
       margin-top: pxToRem($sizeSmallRegular);
 
@@ -229,33 +246,6 @@ $contactMapHeightCurve: (
     margin-top: pxToRem($sizeLarge);
   }
 
-  &__social-list {
-    @include resetList();
-
-    li {
-      display: inline-flex;
-
-      &:not(:last-of-type) {
-        margin-right: pxToRem($sizeMini);
-      }
-    }
-  }
-
-  &__social-links {
-    position: relative;
-    background: rgba($colorBlack100, 0.2);
-    color: $colorWhite;
-
-    svg {
-      fill: $colorWhite;
-      transform: translate(-50%, -50%) scale(0.7);
-    }
-
-    &:hover {
-      background: rgba($colorBlack100, 0.4);
-    }
-  }
-
   // White seperation lines
   &__section-cell--sperator-top:before,
   &__section-cell--social-media:before {
@@ -285,8 +275,11 @@ $contactMapHeightCurve: (
     }
   }
 
-  &__social-links,
   &__cell-icon {
+    background-color: $colorWhite;
+    position: absolute;
+    top: 0;
+    left: 0;
     display: inline-flex;
     width: pxToRem($sizeBig);
     height: pxToRem($sizeBig);
@@ -296,23 +289,13 @@ $contactMapHeightCurve: (
       position: absolute;
       top: 50%;
       left: 50%;
-    }
-  }
-
-  &__cell-icon {
-    background-color: $colorWhite;
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    svg {
       transform: translate(-50%, -50%) scale(0.8);
     }
   }
 
   &__cell-content {
     hyphens: auto;
-    padding-left: calc(#{$sizeSmallRegular} + #{$sizeBiggerBig});
+    padding-left: calc(#{$sizeRegular} + #{$sizeBig});
 
     > *:last-of-type {
       margin-bottom: 0;
@@ -324,7 +307,6 @@ $contactMapHeightCurve: (
   }
 
   &__text {
-    @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
     margin-top: pxToRem($sizeMini);
     hyphens: auto;
 
@@ -359,11 +341,21 @@ $contactMapHeightCurve: (
   }
 
   &__address,
+  &__phone,
+  &__mail {
+    @include polyFluidSizing('font-size', map-get($contactFontCurve, boldText));
+    line-height: $sizeLineHeightBase;
+  }
+
+  &__address,
   &__show-route,
   &__phone,
   &__mail {
-    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
     font-family: $fontFamilyBlack;
+  }
+
+  &__show-route {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
     line-height: $sizeLineHeightBase;
   }
 
@@ -372,14 +364,21 @@ $contactMapHeightCurve: (
       &__show-route {
         display: inline-block;
         margin-top: calc((#{$sizeFontRegular} * #{$sizeLineHeightBase}) / 2);
+        margin-bottom: pxToRem($sizeMini);
+      }
+
+      &__text,
+      &__copy-button,
+      &__show-route,
+      &__service-link {
+        @include polyFluidSizing('font-size', map-get($contactFontCurve, furtherInformation));
+        line-height: $sizeLineHeightBigger;
       }
 
       &__copy-button,
       &__show-route,
       &__service-link {
         font-family: $fontFamilyBase;
-        font-size: $sizeFontSmall;
-        line-height: $sizeLineHeightBigger;
         margin-right: auto;
         color: inherit;
         text-decoration: none;
@@ -397,9 +396,19 @@ $contactMapHeightCurve: (
         flex-direction: column;
       }
 
+      &__section-cell--media {
+        .mdl-contact__address {
+          margin-bottom: 0;
+        }
+
+        .mdl-contact__text {
+          margin-top: 0;
+        }
+      }
+
       &__mail {
-        margin: 0;
-        display: inline;
+        margin-bottom: pxToRem($sizeTiny);
+        display: inline-block;
         color: inherit;
         text-decoration: none;
         border-bottom: 1px solid $colorWhite;
@@ -535,11 +544,11 @@ $contactMapHeightCurve: (
       padding: pxToRem($sizeLarge) 0;
     }
 
+    &__text,
     &__copy-button,
     &__show-route,
     &__service-link {
-      font-size: $sizeFontRegular;
-      line-height: $sizeLineHeightBase;
+      line-height: $sizeLineHeightMedium;
     }
 
     &--fullwidth {
@@ -547,18 +556,6 @@ $contactMapHeightCurve: (
 
       .mdl-contact__cell:last-of-type {
         padding-top: pxToRem($sizeSmallRegular);
-      }
-
-      .mdl-contact__cell-icon {
-        margin-top: pxToRem($sizeRegular);
-        position: relative;
-        top: auto;
-        left: auto;
-      }
-
-      .mdl-contact__cell-content {
-        margin-top: pxToRem($sizeTiny);
-        padding-left: 0;
       }
     }
 
@@ -604,6 +601,21 @@ $contactMapHeightCurve: (
       margin-bottom: pxToRem($sizeSmallRegular);
     }
   }
+  @include mq($from: small, $to: medium) {
+    &--fullwidth {
+      .mdl-contact__cell-icon {
+        margin-top: pxToRem($sizeRegular);
+        position: relative;
+        top: auto;
+        left: auto;
+      }
+
+      .mdl-contact__cell-content {
+        margin-top: pxToRem($sizeTiny);
+        padding-left: 0;
+      }
+    }
+  }
   /*
   * Media Queries MEDIUM
   */
@@ -618,6 +630,10 @@ $contactMapHeightCurve: (
 
     &__section-cell--social-media {
       margin-top: pxToRem($sizeBig);
+    }
+
+    &--fullwidth {
+      padding: pxToRem($sizeGiant) 0;
     }
   }
   /*
@@ -638,11 +654,13 @@ $contactMapHeightCurve: (
     }
 
     &--fullwidth {
-      padding: pxToRem($sizeGiant) 0;
-
       .mdl-contact__cell-icon {
         margin-top: 0;
       }
+    }
+
+    &__cell-content {
+      padding-left: calc(#{$sizeRegular} + #{$sizeBiggerBig});
     }
 
     &--with-map {

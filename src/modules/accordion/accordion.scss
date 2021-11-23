@@ -9,6 +9,9 @@ $accordionMap: (
 .mdl-accordion {
   @include sizeCurve(padding-bottom, big);
 
+  position: relative;
+  z-index: 1;
+
   .atm-heading--bordered { // CZHDEV-428
     @include sizeCurve(margin-bottom, medium);
   }
@@ -107,6 +110,7 @@ $accordionMap: (
 
   &__button {
     width: 100%;
+    text-decoration: none;
 
     &:not(.mdl-accordion__button--subhead) {
       display: flex;

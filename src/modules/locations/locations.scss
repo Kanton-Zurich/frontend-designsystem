@@ -225,6 +225,15 @@ $mapRatioSmall: 0.75;
       .mdl-contact {
         padding-top: 0;
       }
+
+      .mdl-contact__subtitle-link {
+        @extend .atm-button;
+        @extend .atm-button--secondary;
+        @extend .atm-button--small;
+        margin-top: pxToRem($sizeRegular);
+
+        @include sizeCurve(margin-bottom, medium, $sizeCurves);
+      }
     }
   }
 
@@ -428,6 +437,14 @@ $mapRatioSmall: 0.75;
           padding-left: 0;
         }
       }
+    }
+  }
+}
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-contact__subtitle {
+      color: rgba($val, 1);
     }
   }
 }
