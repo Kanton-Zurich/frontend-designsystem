@@ -7,7 +7,7 @@
 			<div class="mdl-map_view" data-init="mapView" aria-label="Nicht zugängliche Karte" data-url="https://wms.zh.ch/ZHWEB" data-base-layers="Geometrie" data-label-layers="Beschriftungen">
 				<ul hidden aria-hidden="true">
 				</ul>
-				<div id="locations_map292" class="mdl-map_view__container" data-map-view="map" aria-hidden="true"></div>
+				<div id="locations_map291" class="mdl-map_view__container" data-map-view="map" aria-hidden="true"></div>
 				<div class="mdl-map_view__controls" aria-hidden="true">
 					<button class="atm-button atm-button--icon-only atm-button--cv-inverted" data-map-view="centerBtn">
 						<span class="atm-button__text visuallyhidden">
@@ -74,10 +74,13 @@
 				</div>
 				<div class="mdl-locations__details" aria-hidden="true" data-locations="locationDetailsWrapper">
 					<div class="mdl-locations__details_head">
-						<button class="atm-button atm-button--secondary atm-button--small" data-locations="back">
+						<button class="atm-button atm-button--small atm-button--plain-text" data-locations="back">
 							<span class="atm-button__text ">
 								Zurück
 							</span>
+							<svg class="icon atm-button__icon" focusable="false">
+								<use xlink:href="#arrow-left"></use>
+							</svg>
 							<span class="atm-button__spinner"></span>
 						</button>
 					</div>

@@ -258,7 +258,7 @@
 													<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
     <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
     <div class="mdl-subnavigation__title">
-      <h3 class="atm-heading"><%=title%></h3>
+      <h3 class="atm-heading"><a href="/pages/department/department.html"><%=title%></a></h3>
       <a class="atm-text_link atm-text_link--icon" href="<%=pageUrl%>">
         Seite anzeigen
         <svg class="icon icon--iframe-arrow" focusable="false">
@@ -378,7 +378,7 @@
 														<div class="mdl-subnavigation" data-init="subnavigation" data-layer="<%=layer%>">
       <button data-subnavigation="layerUp" class="atm-button atm-button--secondary atm-button--small">Zurück zu <%=parent%></button>
       <div class="mdl-subnavigation__title">
-        <h3 class="atm-heading"><%=title%></h3>
+        <h3 class="atm-heading"><a href="/pages/department/department.html"><%=title%></a></h3>
         <a class="atm-text_link atm-text_link--icon" href="<%=pageUrl%>">
           Seite anzeigen
           <svg class="icon icon--iframe-arrow" focusable="false">
@@ -774,7 +774,7 @@
 
 													<div class="mdl-tooltip__wrapper">
 														<a class="mdl-tooltip__trigger mdl-tooltip__trigger--textual" tabindex="0">Passwort vergessen?</a>
-														<div class="mdl-tooltip__bubble" id="aria-anchors276" aria-hidden="true">
+														<div class="mdl-tooltip__bubble" id="aria-anchors275" aria-hidden="true">
 
 															<p>Bitte kontaktieren Sie diese <a href="mailto:test@test.com">Emailaddresse</a> wenn Sie ein neues Passwort benötigen.</p>
 														</div>
@@ -911,18 +911,14 @@
 					<div class="lyt-wrapper">
 						<div class="grid-x grid-margin-x">
 							<div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10">
-
 								<h2 class="atm-heading atm-heading--bordered">Kontakt</h2>
 
 								<h3 class="mdl-contact__subtitle">
 									Kanton Zürich
-									<a href="#">
-										Mehr erfahren
-										<svg class="icon" focusable="false">
-											<use xlink:href="#arrow-right"></use>
-										</svg>
-									</a>
 								</h3>
+								<a class="mdl-contact__subtitle-link" href="#">
+									Mehr erfahren
+								</a>
 							</div>
 						</div>
 						<div class="mdl-contact__section grid-x grid-margin-x">
@@ -936,9 +932,11 @@
 								</div>
 								<div class="mdl-contact__cell-content">
 									<address class="mdl-contact__address">
-										Zürich-Albisgütli<br>
-										Uetlibergstrasse 301<br>
-										8036 Zürich<br>
+										<div data-contact-copy-source>
+											Zürich-Albisgütli<br>
+											Uetlibergstrasse 301<br>
+											8036 Zürich<br>
+										</div>
 										<a target="_blank" href="#" class="mdl-contact__show-route">Route anzeigen
 										</a>
 									</address>
@@ -969,7 +967,7 @@
 								</div>
 							</div>
 
-							<div class="mdl-contact__section-cell cell xsmall-offset-2 small-offset-2 xlarge-offset-0 xsmall-10 small-8 xlarge-4">
+							<div class="mdl-contact__section-cell cell xsmall-offset-2 small-offset-2 medium-offset-2 xlarge-offset-0 xsmall-10 small-8 xlarge-4">
 								<div class="mdl-contact__cell-icon">
 									<h4 class="visuallyhidden">E-Mail</h4>
 									<svg class="icon mdl-contact__icon-email" aria-hidden="true" focusable="false">
@@ -1061,7 +1059,7 @@
 												<li class="mdl-social-media-links__item">
 													<a href="#" class="atm-button atm-button--icon-only atm-button--secondary atm-button--cv-inverted">
 														<span class="atm-button__text visuallyhidden">
-															LinkedIn
+															linkedIn
 														</span>
 														<img src="../../assets/media/image/linkedIn.svg" alt="">
 													</a>
@@ -1076,8 +1074,6 @@
 												</li>
 											</ul>
 										</div>
-
-
 									</div>
 								</div>
 							</div>
