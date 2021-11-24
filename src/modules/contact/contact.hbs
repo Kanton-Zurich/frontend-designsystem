@@ -4,7 +4,7 @@
   {{#if fullWidth}}
   <div class="lyt-wrapper">
   <div class="grid-x grid-margin-x">
-  <div class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10">
+  <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10">
   {{/if}}
   {{#if contactTitle}}
     <h2 class="atm-heading atm-heading--bordered">{{contactTitle}}</h2>
@@ -56,7 +56,7 @@
   <div class="mdl-contact__section grid-x{{#if fullWidth}} grid-margin-x{{/if}}">
 
     {{#if contactAddress}}
-      <div class="mdl-contact__section-cell{{#if fullWidth}} cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-5 xlarge-3{{else}}{{/if}}">
+      <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-5 xlarge-3{{else}}{{/if}}">
         <div class="mdl-contact__cell-icon">
           <h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}} class="visuallyhidden">{{{contactAriaTitle_location}}}</h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}}>
           <svg class="icon mdl-contact__icon-location" aria-hidden="true" focusable="false">
@@ -108,7 +108,7 @@
     {{/if}}
 
     {{#if contactPhone}}
-      <div class="mdl-contact__section-cell{{#if fullWidth}} cell xsmall-offset-2 {{#if contactAddress }}small-offset-0 medium-offset-0 large-offset-0 xlarge-offset-0{{/if}}{{#unless contactAddress}}small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2{{/unless}} x-small-6 xsmall-10 small-5 xlarge-3{{/if}}">
+      <div class="mdl-contact__section-cell{{#if fullWidth}} cell {{#if contactAddress }}small-offset-0 medium-offset-0 large-offset-0 xlarge-offset-0{{/if}}{{#unless contactAddress}}small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2{{/unless}} x-small-6 xsmall-10 small-5 xlarge-3{{/if}}">
         <div class="mdl-contact__cell-icon">
           <h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}} class="visuallyhidden">{{{contactAriaTitle_phone}}}</h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}}>
           <svg class="icon mdl-contact__icon-phone" aria-hidden="true" focusable="false">
@@ -150,7 +150,7 @@
     {{/if}}
 
     {{#if contactMail}}
-      <div class="mdl-contact__section-cell{{#if fullWidth}} cell xsmall-offset-2 small-offset-2 medium-offset-2 xlarge-offset-{{#if contactAddress}}0{{else}}{{#if contactPhone}}0{{else}}2{{/if}}{{/if}} xsmall-10 small-8 xlarge-4{{/if}}">
+      <div class="mdl-contact__section-cell{{#if fullWidth}} cell small-offset-2 medium-offset-2 xlarge-offset-{{#if contactAddress}}0{{else}}{{#if contactPhone}}0{{else}}2{{/if}}{{/if}} xsmall-10 small-8 xlarge-4{{/if}}">
         <div class="mdl-contact__cell-icon">
           <h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}} class="visuallyhidden">{{{contactAriaTitle_email}}}</h{{#if contactSubtitle}}4{{/if}}{{#unless contactSubtitle}}3{{/unless}}>
           <svg class="icon mdl-contact__icon-email" aria-hidden="true" focusable="false">
@@ -181,7 +181,7 @@
   </div>
   {{#if mediaContact}}
   <div class="mdl-contact__section grid-x{{#if fullWidth}} grid-margin-x{{/if}}">
-    <div class="mdl-contact__section-cell mdl-contact__section-cell--media{{#if mediaContact.seperatorTop}} mdl-contact__section-cell--sperator-top{{/if}}{{#if fullWidth}} cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10 large-10{{/if}}">
+    <div class="mdl-contact__section-cell mdl-contact__section-cell--media{{#if mediaContact.seperatorTop}} mdl-contact__section-cell--sperator-top{{/if}}{{#if fullWidth}} cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10 large-10{{/if}}">
 
       <h3 class="mdl-contact__subtitle">Medienkontakt
         <span id="mdl-contact__aria-desc" class="visuallyhidden">Medienkontakt ein oder ausblenden</span>
@@ -225,7 +225,7 @@
   {{/if}}
   {{#if socialMediaLinks}}
     <div class="mdl-contact__section grid-x{{#if fullWidth}} grid-margin-x{{/if}}">
-      <div class="mdl-contact__section-cell mdl-contact__section-cell--social-media{{#if fullWidth}} cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10 medium-10 large-10 xlarge-10{{/if}}">
+      <div class="mdl-contact__section-cell mdl-contact__section-cell--social-media{{#if fullWidth}} cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-10 small-10 medium-10 large-10 xlarge-10{{/if}}">
         {{> "modules/social_media_links/social_media_links" socialMediaLinks}}
       </div>
     </div>

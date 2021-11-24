@@ -1433,7 +1433,7 @@ const variants = _.mapValues({
                     formInputData.variants.default.props,
                     {
                       isFloatingLabel: true,
-                      label: 'Alternative E-Mail',
+                      label: 'Alternative E-Mail asdasd asda d weifjhewrfkj eahrjkherjkgs klerg',
                       name: 'altemailaddr',
                       uuid: 'altemailaddr',
                       type: 'email',
