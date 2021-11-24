@@ -18,6 +18,7 @@ class ContextMenu extends Module {
     trigger: HTMLButtonElement,
     domSelectors: any,
     customTrigger: Boolean,
+    headerHeight: number,
     stateClasses: {
       active: string;
     },
@@ -44,6 +45,7 @@ class ContextMenu extends Module {
       showImmediate: false,
       attachTo: null,
       trigger: null,
+      headerHeight: 50,
       domSelectors: {
         // item: '[data-${{{className}}.name}="item"]'
       },
@@ -163,8 +165,9 @@ class ContextMenu extends Module {
     const contextMenuBottomPoint = copiedNodeRect.top + copiedNodeRect.height;
     const contextMenuRightPoint = copiedNodeRect.left + copiedNodeRect.width;
 
-    if (contextMenuBottomPoint > document.documentElement.clientHeight) {
-      this.data.copiedNode.style.marginTop = `${0 - copiedNodeRect.height - attachToPos.height}px`;
+    if (contextMenuBottomPoint > document.documentElement.offsetHeight) {
+      const calculatedTop = 0 - copiedNodeRect.height - attachToPos.height;
+      this.data.copiedNode.style.marginTop = `${calculatedTop}px`;
     }
 
     if (contextMenuRightPoint > document.documentElement.clientWidth) {
