@@ -222,3 +222,38 @@
     }
   }
 }
+
+.mod-smaller-headings {
+  .mdl-richtext,
+  &.mdl-richtext {
+    h4,
+    .h4 {
+      &.atm-heading {
+        line-height: $sizeLineHeightBase;
+        font-family: $fontFamilyBase;
+
+        @include mq($from: xsmall) {
+          line-height: $sizeLineHeightBigger;
+        }
+        @include mq($from: xlarge) {
+          line-height: $sizeLineHeightBase;
+        }
+      }
+    }
+
+    h5.atm-heading,
+    h6.atm-heading,
+    .h5.atm-heading,
+    .h6.atm-heading {
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, smallModFontSizeH5H6));
+      line-height: $sizeLineHeightBigger;
+
+      @include mq($from: medium) {
+        line-height: $sizeLineHeightBase;
+      }
+      @include mq($from: medium) {
+        line-height: $sizeLineHeightMedium;
+      }
+    }
+  }
+}

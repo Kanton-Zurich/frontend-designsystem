@@ -16,6 +16,9 @@ const checkboxData = require('../../atoms/checkbox/checkbox.data');
 const radioHBS = dataHelper.getFileContent('../../atoms/radiobutton/radiobutton.hbs');
 const radioData = require('../../atoms/radiobutton/radiobutton.data');
 
+const hCaptchaHBS = dataHelper.getFileContent('../../atoms/hcaptcha/hcaptcha.hbs');
+const hCaptchaData = require('../../atoms/hcaptcha/hcaptcha.data');
+
 const selectHBS = dataHelper.getFileContent('../select/select.hbs');
 const selectData = require('../select/select.data');
 
@@ -1298,8 +1301,7 @@ const variants = _.mapValues({
             {
               fields: [
                 {
-                  cellContent: () => {
-                    return `
+                  cellContent: () => `
                     <div class="mdl-richtext">
                       <h3 class="atm-heading">Test titel</h3>
                       <p class="atm-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</p>
@@ -1312,8 +1314,7 @@ const variants = _.mapValues({
                         </li>
                       </ul>
                     </div>
-                    `;
-                  },
+                    `,
                 },
               ],
             },
@@ -1432,7 +1433,7 @@ const variants = _.mapValues({
                     formInputData.variants.default.props,
                     {
                       isFloatingLabel: true,
-                      label: 'Alternative E-Mail',
+                      label: 'Alternative E-Mail asdasd asda d weifjhewrfkj eahrjkherjkgs klerg',
                       name: 'altemailaddr',
                       uuid: 'altemailaddr',
                       type: 'email',
@@ -1741,8 +1742,8 @@ const variants = _.mapValues({
   },
   defaultDuplicate: {
     meta: {
-      title: 'Default mit anderen IDs',
-      desc: '',
+      title: 'Default mit anderen IDs und hCaptcha',
+      desc: 'Beispiel mit hCaptcha',
     },
     props: {
       groups: [
@@ -1876,6 +1877,15 @@ const variants = _.mapValues({
           ],
         },
         duplicateGroup2,
+        {
+          rows: [{
+            fields: [{
+              cellContent: () => handlebars.compile(hCaptchaHBS)(_.merge({},
+                hCaptchaData.variants.default.props,
+                {})),
+            }],
+          }],
+        },
       ],
     },
   },
@@ -2482,9 +2492,9 @@ const variants = _.mapValues({
               formInputData.variants.default.props,
               {
                 isFloatingLabel: true,
-                label: 'Erlasstitel',
-                name: 'enactmentTitle',
-                uuid: _.uniqueId('erlasstitel'),
+                label: 'Stichwort',
+                name: 'fullText',
+                uuid: _.uniqueId('stichwort'),
               })),
           }],
         }, {
@@ -2493,11 +2503,34 @@ const variants = _.mapValues({
               formInputData.variants.default.props,
               {
                 isFloatingLabel: true,
+                label: 'Erlasstitel',
+                name: 'enactmentTitle',
+                uuid: _.uniqueId('erlasstitel'),
+              })),
+          }, {
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
                 label: 'Ordnungsnummer',
                 name: 'referenceNumber',
                 uuid: _.uniqueId('ordnungsnummer'),
               })),
-          }, {
+          }],
+        }],
+      }],
+    },
+  },
+  zhlexLS: {
+    meta: {
+      title: 'ZH-Lex Loseblattsammlung (CZHDEV-1240)',
+      desc: 'Flex Data ZH-Lex Suche Loseblattsammlung',
+    },
+    props: {
+      sectionTitle: null,
+      groups: [{
+        rows: [{
+          fields: [{
             cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
               formInputData.variants.default.props,
               {
@@ -2507,19 +2540,27 @@ const variants = _.mapValues({
                 uuid: _.uniqueId('stichwort'),
               })),
           }],
-        }],
-      }],
-    },
-  },
-  zhlexLSExtended: {
-    meta: {
-      title: 'ZH-Lex Loseblattsammlung (CZHDEV-1240)',
-      desc: 'Flex Data ZH-Lex Erweiterte Suche Loseblattsammlung',
-    },
-    props: {
-      sectionTitle: null,
-      groups: [{
-        rows: [{
+        }, {
+          fields: [{
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Erlasstitel',
+                name: 'enactmentTitle',
+                uuid: _.uniqueId('erlasstitel'),
+              })),
+          }, {
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Ordnungsnummer',
+                name: 'referenceNumber',
+                uuid: _.uniqueId('ordnungsnummer'),
+              })),
+          }],
+        }, {
           fields: [{
             cellContent: () => handlebars.compile(selectHBS)(_.merge({},
               selectData.variants.table.props,
@@ -2529,7 +2570,7 @@ const variants = _.mapValues({
       }, {
         rows: [{
           fields: [{
-            cellContent: '<h4 class="atm-heading mdl-flex-data__extended-subtitle">Einschränken nach Datum von/bis</h4>',
+            cellContent: '<h3 class="atm-heading mdl-flex-data__extended-subtitle">Einschränken nach Datum von/bis</h3>',
           }],
         }, {
           fields: [{
@@ -2583,15 +2624,46 @@ const variants = _.mapValues({
       }],
     },
   },
-  zhlexOSExtended: {
+  zhlexOS: {
     meta: {
       title: 'ZH-Lex Offizielle Gesetzessammlung (CZHDEV-1240)',
-      desc: 'Flex Data ZH-Lex Erweiterte Suche Offizielle Gesetzessammlung',
+      desc: 'Flex Data ZH-Lex Suche Offizielle Gesetzessammlung',
     },
     props: {
       sectionTitle: null,
       groups: [{
         rows: [{
+          fields: [{
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Stichwort',
+                name: 'fullText',
+                uuid: _.uniqueId('stichwort'),
+              })),
+          }],
+        }, {
+          fields: [{
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Erlasstitel',
+                name: 'enactmentTitle',
+                uuid: _.uniqueId('erlasstitel'),
+              })),
+          }, {
+            cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+              formInputData.variants.default.props,
+              {
+                isFloatingLabel: true,
+                label: 'Ordnungsnummer',
+                name: 'referenceNumber',
+                uuid: _.uniqueId('ordnungsnummer'),
+              })),
+          }],
+        }, {
           fields: [{
             cellContent: () => handlebars.compile(selectHBS)(_.merge({},
               selectData.variants.default.props,
@@ -2634,7 +2706,7 @@ const variants = _.mapValues({
       }, {
         rows: [{
           fields: [{
-            cellContent: '<h4 class="atm-heading mdl-flex-data__extended-subtitle">Einschränken nach Datum von/bis</h4>',
+            cellContent: '<h3 class="atm-heading mdl-flex-data__extended-subtitle">Einschränken nach Datum von/bis</h3>',
           }],
         }, {
           fields: [{
@@ -2975,7 +3047,7 @@ const variants = _.mapValues({
                   formInputData.variants.floatValidateHint.props,
                   {
                     isFloatingLabel: true,
-                    label: 'Publicationsdatum',
+                    label: 'Publikationsdatum',
                     name: 'publication-date',
                     uuid: 'publication-date-social-care',
                     inputMask: '\\d\\d\\.[\\d.]\\d\\d[\\d.]\\.[\\d.]\\d\\d\\d\\d[\\d.]',
@@ -3388,7 +3460,7 @@ const variants = _.mapValues({
   alternativeSelection: {
     meta: {
       title: 'Auswahlalternative',
-      desc: 'Eine alternative Eingabe zur Auswahl tätigen'
+      desc: 'Eine alternative Eingabe zur Auswahl tätigen',
     },
     props: {
       groups: [
@@ -3470,7 +3542,7 @@ const variants = _.mapValues({
     },
   },
 }, (variant) => {
-  // eslint-disable
+  // eslint-disable-next-line consistent-return
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
     if (key === 'rows' || Array.isArray(variantValue)) {
       return variantValue;
@@ -3487,7 +3559,7 @@ const variants = _.mapValues({
         data: dataHelper.getFormattedJson(variantProps),
       },
     },
-  }, (dataValue, variantValue, key) => {
+  }, (dataValue, variantValue, key) => { // eslint-disable-line consistent-return
     if (key === 'rows' || Array.isArray(variantValue)) {
       return variantValue;
     }

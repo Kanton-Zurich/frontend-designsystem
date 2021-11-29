@@ -25,3 +25,8 @@
 
   @include gridBleed($trailingGutters: false);
 }
+
+// Hack for AEM Stacking Context Issue CZHDEV-2957
+.aem-Grid {
+  position: relative;
+}

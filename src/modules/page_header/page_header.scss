@@ -452,3 +452,39 @@ $pageHeaderCurves: (
     }
   }
 }
+
+.mod-smaller-headings {
+  .mdl-page-header,
+  &.mdl-page-header {
+    h4,
+    .h4 {
+      &.atm-heading {
+        line-height: $sizeLineHeightBase;
+        font-family: $fontFamilyBase;
+
+        @include mq($from: xsmall) {
+          line-height: $sizeLineHeightBigger;
+        }
+        @include mq($from: xlarge) {
+          line-height: $sizeLineHeightBase;
+        }
+      }
+    }
+
+    h5.atm-heading,
+    h6.atm-heading,
+    .h5.atm-heading,
+    .h6.atm-heading,
+    .atm-lead strong {
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, smallModFontSizeH5H6));
+      line-height: $sizeLineHeightBigger;
+
+      @include mq($from: medium) {
+        line-height: $sizeLineHeightBase;
+      }
+      @include mq($from: medium) {
+        line-height: $sizeLineHeightMedium;
+      }
+    }
+  }
+}

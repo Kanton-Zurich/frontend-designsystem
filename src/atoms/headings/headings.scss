@@ -7,11 +7,6 @@ $headingCurves: (
     tiny: $sizeHuge,
     large: $sizeGiant,
   ),
-  prefixMinWidth: (
-    tiny: 30px,
-    medium: 34px,
-    xlarge: 36px,
-  ),
 );
 
 .atm-heading {
@@ -60,8 +55,8 @@ $headingCurves: (
     display: flex;
 
     .atm-heading__prefix {
-      @include sizeCurve(min-width, prefixMinWidth, $headingCurves);
       @include sizeCurve(padding-right, atomic);
+      min-width: pxToRem($chapterNumberMinWidth);
     }
   }
 }

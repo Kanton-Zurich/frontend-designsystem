@@ -2,12 +2,14 @@
   padding-top: pxToRem($sizeLarge);
   padding-bottom: pxToRem($sizeLarge);
 
-  .atm-heading {
-    font-size: pxToRem($sizeFontTiny);
-    line-height: $sizeLineHeightBase;
-    font-family: $fontFamilyBase;
-    color: $colorBlack60;
-    margin-bottom: 0;
+  &:not(.mdl-social-media-links--contact) {
+    .atm-heading {
+      font-size: pxToRem($sizeFontTiny);
+      line-height: $sizeLineHeightBase;
+      font-family: $fontFamilyBase;
+      color: $colorBlack60;
+      margin-bottom: 0;
+    }
   }
 
   ul {
@@ -28,18 +30,48 @@
     }
   }
 
+  &--contact {
+    padding: 0;
+
+    ul {
+      padding-top: 0;
+    }
+
+    .mdl-social-media-links__item {
+
+      .atm-button {
+        background: rgba($colorBlack100, 0.2);
+
+        &:hover {
+          background: rgba($colorBlack100, 0.4);
+        }
+      }
+
+      img {
+        height: 16px;
+        width: auto;
+      }
+    }
+  }
+
   @include mq($from: small) {
-    .atm-heading {
-      font-size: pxToRem($sizeFontSmall);
-      line-height: $sizeLineHeightBigger;
+    &:not(.mdl-social-media-links--contact) {
+      .atm-heading {
+        font-size: pxToRem($sizeFontSmall);
+        line-height: $sizeLineHeightBigger;
+      }
     }
   }
   @include mq($from: large) {
-    padding-top: pxToRem($sizeBig);
-    padding-bottom: pxToRem($sizeBig);
+    &:not(.mdl-social-media-links--contact) {
+      padding-top: pxToRem($sizeBig);
+      padding-bottom: pxToRem($sizeBig);
+    }
   }
   @include mq($from: xlarge) {
-    padding-top: pxToRem($sizeBiggerBig);
-    padding-bottom: pxToRem($sizeBiggerBig);
+    &:not(.mdl-social-media-links--contact) {
+      padding-top: pxToRem($sizeBiggerBig);
+      padding-bottom: pxToRem($sizeBiggerBig);
+    }
   }
 }

@@ -34,10 +34,13 @@ class SearchHighlight {
    * @private
    */
   private prepareRegexPattern() {
-    this.pipeSeperatedQueryParams = `(${this.decodedParams.match(this.basicRequirementsRegex).join(')|(')})`;
-    if (this.pipeSeperatedQueryParams.indexOf('|') !== -1) {
+    const matchesArray = this.decodedParams.match(this.basicRequirementsRegex);
+    if (matchesArray.length > 1) {
       // Combine piped-string with full/original querystring
-      this.pipeSeperatedQueryParams = `(${this.decodedParams})|${this.pipeSeperatedQueryParams}`;
+      this.pipeSeperatedQueryParams = `${this.decodedParams}|${matchesArray.join('|')}`;
+    } else {
+      // Simply use the search term
+      this.pipeSeperatedQueryParams = this.decodedParams;
     }
 
     this.searchRegex = new RegExp(this.pipeSeperatedQueryParams, 'gi');

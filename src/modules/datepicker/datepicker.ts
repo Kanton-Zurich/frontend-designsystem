@@ -229,7 +229,6 @@ class Datepicker extends Module {
         locale: localization,
       });
     }
-
     this.initFlatpickr();
   }
 
