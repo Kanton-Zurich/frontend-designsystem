@@ -10,6 +10,7 @@ const nodeSass = require('node-sass');
 const gulpUtil = require('gulp-util');
 const helperFunctions = require('./gulp/_functions');
 require('./gulp/deploy-aem');
+require('./gulp/app-archetype');
 
 gulpUtil.env.aemTargetBase = '../czhdev-backend/sources/zhweb-core/zhweb-core-content/src/main/resources/jcr_root/apps/zhweb/core/';
 gulpUtil.env.aemTargetBaseResources = `${gulpUtil.env.aemTargetBase}clientlibs/publish/resources/`;
@@ -981,6 +982,11 @@ gulp.task('deploy:offlinepage', () => {
 gulp.task('email:inlineassets', () => {
   return helperFunctions.Inlinify('./dist/pages/mail/mail.html');
 });
+
+/**
+ * Clean build app archetype
+ */
+gulp.task('app:archetype', gulp.series('js', 'media:svgsprite', 'css:fonts', 'css', 'app:archetype:hbs', 'app:archetype:copy', 'app:archetype:pack'));
 
 /**
  * Zip deployment package

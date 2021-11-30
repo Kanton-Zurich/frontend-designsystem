@@ -32,6 +32,15 @@ npm run start
 npm run gulp scaffold
 ```
 
+## Create archetype for embedded application wrapper
+- To create a development environment archetype project for creating markup for an embedded application (Component: mdl-application) an archetype project can be created
+- The archetype can be found after generating in the dist folder ``dist/app_archetype`` or packed ``dist/app_archetype.zip``
+
+
+```bash
+npm run archetype
+```
+
 
 ## Docker
 

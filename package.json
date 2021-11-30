@@ -10,7 +10,8 @@
     "gulp": "gulp",
     "build": "gulp build --ci",
     "start": "gulp --dev --watch",
-    "netlify": "gulp build --skipTests"
+    "netlify": "gulp build --skipTests",
+    "archetype": "gulp app:archetype --ci"
   },
   "author": "Staatskanzlei Kanton Zürich",
   "devDependencies": {
