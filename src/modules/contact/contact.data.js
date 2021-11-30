@@ -7,20 +7,21 @@ const socialMediaLinksContactData = require('../../modules/social_media_links/so
 
 const template = dataHelper.getFileContent('contact.hbs');
 
-const demoAddressTimesDataFullWidth = [
+const demoAddressTextsDataFullWidth = [
   {
-    timeTitle: 'Bürozeiten',
-    times: [
-      { text: 'Mo-Fr: 8.00 - 11:30 &' },
-      { text: '13:30 - 17:00' },
+    title: 'Postfach',
+    texts: [
+      'Postfach<br>8080 Zürich',
     ],
   },
   {
-    timeTitle: 'Schalter',
-    times: [
-      { text: 'Mo - Mi: 12:30 - 17:30' },
-      { text: 'Do: 13:30 - 19:00' },
+    title: 'Schalter',
+    texts: [
+      'Mo - Mi: 13.30 - 17.30<br>Do: 13:30 - 19:00<br>Fr: 13:30 - 17:30',
     ],
+    link: {
+      text: 'Andere Kontakte',
+    },
   },
 ];
 
@@ -34,6 +35,10 @@ const demoPhoneTimesData = [
   },
 ];
 
+const demoCopyButton = {
+  label: 'Adresse kopieren',
+};
+
 const demoAddressData = {
   name: 'Zürich-Albisgütli',
   street: 'Uetlibergstrasse 301',
@@ -41,12 +46,9 @@ const demoAddressData = {
   city: 'Zürich',
   routeLinkHref: '#',
   routeLinkLabel: 'Route anzeigen',
+  copytoclipboardButton: demoCopyButton,
   additionalInfo: 'Wir befinden uns im 2.Obergeschoss',
-  openingTimes: demoAddressTimesDataFullWidth,
-};
-
-const demoCopyButton = {
-  label: 'Adresse kopieren',
+  additionalTexts: demoAddressTextsDataFullWidth,
 };
 
 const demoAddressDataFullWidth = {
@@ -56,8 +58,9 @@ const demoAddressDataFullWidth = {
   city: 'Zürich',
   routeLinkHref: '#',
   routeLinkLabel: 'Route anzeigen',
+  copytoclipboardButton: demoCopyButton,
   additionalInfo: 'Wir befinden uns im 2.Obergeschoss',
-  openingTimes: demoAddressTimesDataFullWidth,
+  additionalTexts: demoAddressTextsDataFullWidth,
 };
 
 const demoPhoneData = [
@@ -95,14 +98,9 @@ const locationDemoData = {
     city: 'Regensdorf 1',
     routeLinkHref: '#',
     routeLinkLabel: 'Route anzeigen',
+    copytoclipboardButton: _.merge({}, demoCopyButton, { link: true }),
     additionalInfo: 'Wir befinden uns im 2.Obergeschoss',
-    openingTimes: [{
-      timeTitle: 'Öffnungszeiten',
-      times: [
-        { text: 'Montag / Dienstag 07:15 - 17:00' },
-        { text: 'Mittwoch - Freitag 07:15 - 16.00' },
-      ],
-    }],
+    additionalTexts: demoAddressTextsDataFullWidth,
   },
   phone: [
     {
@@ -522,7 +520,7 @@ const variants = _.mapValues({
         copytoclipboardButton: demoCopyButton,
         routeLinkHref: '#',
         routeLinkLabel: 'Route anzeigen',
-        openingTimes: demoAddressTimesDataFullWidth,
+        additionalTexts: demoAddressTextsDataFullWidth,
       },
       withModuleLogic: true,
       contactPhone: [{
@@ -564,7 +562,7 @@ const variants = _.mapValues({
         copytoclipboardButton: demoCopyButton,
         routeLinkHref: '#',
         routeLinkLabel: 'Route anzeigen',
-        openingTimes: demoAddressTimesDataFullWidth,
+        additionalTexts: demoAddressTextsDataFullWidth,
       },
       withModuleLogic: true,
       contactPhone: [{
