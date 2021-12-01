@@ -65,7 +65,7 @@
         </div>
         <div class="mdl-contact__cell-content">
           <address class="mdl-contact__address">
-            <div data-contact-copy-source>
+            <div class="mdl-contact__address-title" data-contact-copy-source>
               {{contactAddress.name}}{{#if contactAddress.name}}<br>{{/if}}
               {{contactAddress.street}}<br>
               {{contactAddress.zip}} {{contactAddress.city}}<br>
@@ -78,7 +78,7 @@
               </a>
             {{/if}}
             {{#if contactAddress.copytoclipboardButton}}
-              <button data-contact-copy-button class="mdl-contact__copy-button">
+              <button data-contact-copy-button class="mdl-contact__copy-button{{#if contactAddress.copytoclipboardButton.link }} atm-text_link{{/if}}">
                 {{contactAddress.copytoclipboardButton.label}}
               </button>
             {{/if}}
@@ -90,19 +90,18 @@
                 {{contactAddress.additionalInfo}}
               </p>
             {{/if}}
-
-            {{#each contactAddress.openingTimes}}
-              {{#if this.timeTitle}}
-                <h4 class="atm-heading">{{this.timeTitle}}</h4>
-              {{/if}}
-              <ul>
-                {{#each this.times}}
-                  <li>{{this.text}}</li>
-                {{/each}}
-              </ul>
-            {{/each}}
           </div>
-
+            {{#each contactAddress.additionalTexts}}
+            <div class="mdl-contact__text">
+              {{#if this.title}}
+                <h4 class="atm-heading">{{this.title}}</h4>
+              {{/if}}
+              {{#each this.texts}}
+                <p>{{{this}}}</p>
+              {{/each}}
+              {{#if this.link}}<a class="atm-text_link" href="#">{{this.link.text}}</a>{{/if}}
+            </div>
+            {{/each}}
         </div>
       </div>
     {{/if}}
