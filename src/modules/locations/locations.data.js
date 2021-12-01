@@ -148,7 +148,6 @@ const data = _.merge({}, defaultData, {
     backBtn: _.merge({}, buttonDefaultData, {
       additionalClasses: 'atm-button--plain-text',
       isSecondary: false,
-      isSmall: true,
       additionalAttribute: 'data-locations="back"',
       text: 'Zurück',
       icon: 'arrow-left',

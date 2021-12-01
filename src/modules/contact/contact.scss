@@ -89,10 +89,6 @@ $contactFontCurve: (
     font-family: $fontFamilyBlack;
     margin-bottom: $sizeTiny;
     margin-top: 0;
-
-    a {
-      margin-bottom: pxToRem($sizeTiny);
-    }
   }
 
   &:not(.mdl-contact--location):not(.mdl-contact--fullwidth):not(.mdl-contact--with-map) {
@@ -113,7 +109,6 @@ $contactFontCurve: (
     line-height: $sizeLineHeightBase;
     padding-right: pxToRem(27px); //stylelint-disable-line
     text-decoration: none;
-    margin-bottom: pxToRem($sizeSmallRegular);
 
     svg {
 
@@ -307,7 +302,6 @@ $contactFontCurve: (
   }
 
   &__text {
-    margin-top: pxToRem($sizeMini);
     hyphens: auto;
 
     ul {
@@ -322,6 +316,10 @@ $contactFontCurve: (
       font-size: inherit;
       line-height: $sizeLineHeightBigger;
       margin: 0;
+    }
+
+    h4 {
+      margin: pxToRem($sizeTiny) 0;
     }
 
     p,
@@ -359,76 +357,81 @@ $contactFontCurve: (
     line-height: $sizeLineHeightBase;
   }
 
-  &:not(.mdl-contact--location) {
-    .mdl-contact {
-      &__show-route {
-        display: inline-block;
-        margin-top: calc((#{$sizeFontRegular} * #{$sizeLineHeightBase}) / 2);
-        margin-bottom: pxToRem($sizeMini);
+  .mdl-contact {
+    &__text,
+    &__copy-button,
+    &__show-route,
+    &__service-link {
+      @include polyFluidSizing('font-size', map-get($contactFontCurve, furtherInformation));
+      line-height: $sizeLineHeightBigger;
+      margin-bottom: pxToRem($sizeSmallRegular);
+    }
+
+    &__text {
+      margin-bottom: pxToRem($sizeRegular);
+    }
+
+    &__copy-button,
+    &__show-route,
+    &__service-link {
+      font-family: $fontFamilyBase;
+      margin-right: auto;
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid $colorWhite;
+
+      &:hover {
+        border-color: $colorWhite70;
+        color: $colorWhite70;
       }
+    }
 
-      &__text,
-      &__copy-button,
-      &__show-route,
-      &__service-link {
-        @include polyFluidSizing('font-size', map-get($contactFontCurve, furtherInformation));
-        line-height: $sizeLineHeightBigger;
-      }
+    &__address {
+      margin-bottom: pxToRem($sizeRegular);
+      display: flex;
+      flex-direction: column;
 
-      &__copy-button,
-      &__show-route,
-      &__service-link {
-        font-family: $fontFamilyBase;
-        margin-right: auto;
-        color: inherit;
-        text-decoration: none;
-        border-bottom: 1px solid $colorWhite;
-
-        &:hover {
-          border-color: $colorWhite70;
-          color: $colorWhite70;
-        }
-      }
-
-      &__address {
+      &-title {
         margin-bottom: pxToRem($sizeSmallRegular);
-        display: flex;
-        flex-direction: column;
       }
 
-      &__section-cell--media {
-        .mdl-contact__address {
-          margin-bottom: 0;
-        }
+      :last-child {
+        margin-bottom: 0;
+      }
+    }
 
-        .mdl-contact__text {
-          margin-top: 0;
-        }
+    &__section-cell--media {
+      .mdl-contact__address {
+        margin-bottom: 0;
       }
 
-      &__mail {
-        margin-bottom: pxToRem($sizeTiny);
-        display: inline-block;
-        color: inherit;
-        text-decoration: none;
-        border-bottom: 1px solid $colorWhite;
-
-        &:hover {
-          border-color: $colorWhite70;
-          color: $colorWhite70;
-        }
+      .mdl-contact__text {
+        margin-top: 0;
       }
+    }
 
-      &__phone {
-        margin: 0;
-        display: inline-block;
-        color: inherit;
-        text-decoration: none;
-        border-bottom: none;
+    &__mail {
+      margin-bottom: pxToRem($sizeTiny);
+      display: inline-block;
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid $colorWhite;
 
-        &:hover {
-          color: $colorWhite70;
-        }
+      &:hover {
+        border-color: $colorWhite70;
+        color: $colorWhite70;
+      }
+    }
+
+    &__phone {
+      margin: 0;
+      display: inline-block;
+      color: inherit;
+      text-decoration: none;
+      border-bottom: none;
+
+      &:hover {
+        color: $colorWhite70;
       }
     }
   }
@@ -457,9 +460,25 @@ $contactFontCurve: (
         font-size: pxToRem($sizeFontRegular);
       }
 
+      &__address,
+      &__phone,
+      &__mail {
+        &.atm-text_link {
+          color: $colorText;
+        }
+      }
+
       &__text {
-        font-size: pxToRem($sizeFontSmall);
         color: $colorBlack60;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        h4.atm-heading {
+          color: $colorText;
+          line-height: 1.5;
+        }
       }
 
       &__subtitle {
@@ -499,11 +518,11 @@ $contactFontCurve: (
       &__cell {
         &-content {
           word-break: break-word;
-          padding-bottom: $sizeRegular;
+          padding-left: pxToRem($sizeSmallHuge);
         }
 
         &-icon {
-          background-color: $colorBlack5;
+          background-color: $colorBlack10;
           width: pxToRem($sizeBig);
           height: pxToRem($sizeBig);
 
@@ -522,9 +541,11 @@ $contactFontCurve: (
     .atm-text_link {
       color: $colorBlack60;
       margin-bottom: $sizeTiny;
+      border-bottom: 1px solid $colorCyan;
 
       &:hover {
         color: $colorText;
+        border-color: $colorText;
       }
     }
   }
@@ -560,7 +581,7 @@ $contactFontCurve: (
     }
 
     .mdl-contact__section-cell:not(.mdl-contact__section-cell--media):not(.mdl-contact__section-cell--social-media) {
-      margin-top: 0;
+      margin-top: pxToRem($sizeLarge);
     }
 
     &:not(.mdl-contact--fullwidth):not(.mdl-contact--location) {
@@ -587,10 +608,6 @@ $contactFontCurve: (
     &__phone,
     &__mail {
       line-height: $sizeLineHeightMedium;
-    }
-
-    &__show-route {
-      margin-top: calc((#{$sizeFontBiggerRegular} * #{$sizeLineHeightMedium}) / 2);
     }
 
     &__phone:not(:first-of-type) {
@@ -682,10 +699,6 @@ $contactFontCurve: (
 
     &__lead {
       margin-top: - pxToRem($sizeTiny);
-    }
-
-    &__show-route {
-      margin-top: calc((#{$sizeFontMedium} * #{$sizeLineHeightMedium}) / 2);
     }
 
     &__mail {
