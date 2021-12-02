@@ -89,6 +89,11 @@ $contactFontCurve: (
     font-family: $fontFamilyBlack;
     margin-bottom: $sizeTiny;
     margin-top: 0;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
   }
 
   &:not(.mdl-contact--location):not(.mdl-contact--fullwidth):not(.mdl-contact--with-map) {
@@ -97,8 +102,6 @@ $contactFontCurve: (
     }
   }
 
-  &__subtitle a,
-  &__subtitle + a,
   &__subtitle-link,
   &__lead a {
     display: inline-flex;
@@ -152,10 +155,7 @@ $contactFontCurve: (
   &__section-cell {
     position: relative;
     width: 100%;
-
-    & + .mdl-contact__section-cell {
-      margin-top: pxToRem($sizeRegular);
-    }
+    margin-top: pxToRem($sizeRegular);
   }
 
   &__section-cell--media {
@@ -172,6 +172,10 @@ $contactFontCurve: (
       padding-left: 0;
       color: $colorWhite;
       margin-bottom: 0;
+      font-size: 16px;
+      font-family: $fontFamilyBase;
+      line-height: 1.5;
+      padding-right: 1.6875rem;
 
       span:last-of-type {
         display: none;
@@ -183,6 +187,8 @@ $contactFontCurve: (
         transition: transform 200ms ease-out 100ms;
         transform: translateY(-40%) scale(0.57) rotate(0deg);
         right: 0;
+
+        fill: $colorWhite;
       }
     }
 
@@ -468,6 +474,12 @@ $contactFontCurve: (
         }
       }
 
+      &__phone {
+        &.atm-text_link {
+          border-bottom: none;
+        }
+      }
+
       &__text {
         color: $colorBlack60;
 
@@ -487,7 +499,6 @@ $contactFontCurve: (
         font-size: pxToRem($sizeFontLarge);
 
         a {
-          color: $colorBlack60;
           padding-left: 0;
           margin-top: pxToRem($sizeTiny);
 
@@ -557,6 +568,10 @@ $contactFontCurve: (
     background: $colorBlack15;
   }
 
+  .mdl-contact__section-cell:not(.mdl-contact__section-cell--media):not(.mdl-contact__section-cell--social-media) {
+    margin-top: pxToRem($sizeLarge);
+  }
+
   /*
   * Media Queries SMALL
   */
@@ -578,10 +593,6 @@ $contactFontCurve: (
       .mdl-contact__cell:last-of-type {
         padding-top: pxToRem($sizeSmallRegular);
       }
-    }
-
-    .mdl-contact__section-cell:not(.mdl-contact__section-cell--media):not(.mdl-contact__section-cell--social-media) {
-      margin-top: pxToRem($sizeLarge);
     }
 
     &:not(.mdl-contact--fullwidth):not(.mdl-contact--location) {

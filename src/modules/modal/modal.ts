@@ -112,6 +112,9 @@ class Modal extends Module {
       if (!this.hasCloseBtn) {
         this.initContent();
       }
+      if (!this.scriptsInitialized) {
+        this.runScripts(this.ui.element);
+      }
       (<any>window).estatico.helpers.registerModulesInElement
         .bind((<any>window).estatico.helpers.app)(this.ui.element);
       (<any>window).estatico.helpers.initModulesInElement

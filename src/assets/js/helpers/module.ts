@@ -19,6 +19,8 @@ class Module {
   public eventDelegate: Delegate;
   private _log: Function;
   public watchers: Object;
+  public scriptsInitialized: boolean;
+  public runScriptTypes: string[];
 
   /**
    * Helper Class
@@ -35,6 +37,26 @@ class Module {
     this.ui = {
       element,
     };
+
+    this.runScriptTypes = [
+      'application/javascript',
+      'application/ecmascript',
+      'application/x-ecmascript',
+      'application/x-javascript',
+      'text/ecmascript',
+      'text/javascript',
+      'text/javascript1.0',
+      'text/javascript1.1',
+      'text/javascript1.2',
+      'text/javascript1.3',
+      'text/javascript1.4',
+      'text/javascript1.5',
+      'text/jscript',
+      'text/livescript',
+      'text/x-ecmascript',
+      'text/x-javascript',
+    ];
+    this.scriptsInitialized = false;
 
     const globalData = window[namespace].data[this.name];
     const globalOptions = window[namespace].options[this.name];
@@ -362,6 +384,91 @@ class Module {
   // Checks if the module is visually rendered
   protected isVisible() {
     return this.ui.element.offsetWidth !== 0 && this.ui.element.offsetHeight !== 0;
+  }
+
+  /**
+   * All scripts are loaded
+   */
+  scriptsDone() {
+    const DOMContentLoadedEvent = document.createEvent('Event');
+    DOMContentLoadedEvent.initEvent('DOMContentLoaded', true, true);
+    document.dispatchEvent(DOMContentLoadedEvent);
+  }
+
+  /**
+   * Sequential run
+   * @param arr
+   * @param callback
+   * @param idx
+   */
+  seq(arr, callback, idx = 0) {
+    let index = idx;
+    arr[index](() => {
+      index += 1;
+      if (index === arr.length) {
+        callback();
+      } else {
+        this.seq(arr, callback, index);
+      }
+    });
+  }
+
+  /**
+   * Inject scripts
+   * @param $script
+   * @param callback
+   */
+  insertScript($script, callback) {
+    const s = document.createElement('script');
+    s.type = 'text/javascript';
+    if ($script.src) {
+      s.onload = callback;
+      s.onerror = callback;
+      s.src = $script.src;
+    } else {
+      s.textContent = $script.innerHTML;
+    }
+
+    // re-insert the script tag so it executes.
+    document.head.appendChild(s);
+
+    // clean-up
+    $script.parentNode.removeChild($script);
+
+    // run the callback immediately for inline scripts
+    if (!$script.src) {
+      callback();
+    }
+  }
+
+  /**
+   * Run injected scripts
+   * @param $container
+   */
+  runScripts($container) {
+    this.scriptsInitialized = true;
+    // get scripts tags from a node
+    const $scripts = $container.querySelectorAll('script');
+    const runList = [];
+    let typeAttr;
+
+    [].forEach.call($scripts, ($script) => {
+      typeAttr = $script.getAttribute('type');
+
+      // only run script tags without the type attribute
+      // or with a javascript mime attribute value
+      if (!typeAttr || this.runScriptTypes.indexOf(typeAttr) !== -1) {
+        runList.push((callback) => {
+          this.insertScript($script, callback);
+        });
+      }
+    });
+
+    // insert the script tags sequentially
+    // to preserve execution order
+    if (runList.length > 0) {
+      this.seq(runList, this.scriptsDone);
+    }
   }
 }
 
