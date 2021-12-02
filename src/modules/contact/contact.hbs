@@ -12,7 +12,9 @@
 
   {{#if contactSubtitle}}
     <h3 class="mdl-contact__subtitle">
+      {{#if contactSubtitleLink}}<a href="{{contactSubtitleLink}}">{{/if}}
       {{contactSubtitle}}{{#if contactLead}} &ndash; {{contactLead}}{{/if}}
+      {{#if contactSubtitleLink}}</a>{{/if}}
     </h3>
     {{#unless contactLead}}
       {{#if contactSubtitleMoreInfo}}
