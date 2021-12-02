@@ -123,7 +123,7 @@ $mapRatioSmall: 0.75;
 
       .mdl-locations__subtitle {
         &.atm-heading {
-          margin-left: $sizeRegular;
+          padding-top: 0;
 
           @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
         }
@@ -250,7 +250,6 @@ $mapRatioSmall: 0.75;
       }
 
       &_location {
-        margin-top: pxToRem($sizeRegular);
         max-height: 100%;
         display: block;
         height: auto;
@@ -417,7 +416,7 @@ $mapRatioSmall: 0.75;
       }
 
       &__filter {
-        padding: 0 pxToRem($sizeSmallRegular);
+        padding: pxToRem($sizeSmallRegular) pxToRem($sizeSmallRegular) pxToRem($sizeMini) pxToRem($sizeSmallRegular);
 
         &_head {
           padding-right: pxToRem($sizeHuge);
