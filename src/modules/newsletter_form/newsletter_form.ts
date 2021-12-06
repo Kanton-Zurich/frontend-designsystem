@@ -9,9 +9,10 @@ import Module from '../../assets/js/helpers/module';
 class NewsletterForm extends Module {
   public ui: {
     element: any,
-    formInput: HTMLInputElement,
-    formInputWrapper: HTMLDivElement,
+    formInputs: any,
+    formInputWrappers: any,
     form: HTMLFormElement,
+    submitButton: HTMLButtonElement,
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -19,9 +20,10 @@ class NewsletterForm extends Module {
     };
     const defaultOptions = {
       domSelectors: {
-        formInput: '.atm-form_input input',
-        formInputWrapper: '.atm-form_input',
-        form: '.mdl-newsletter_form__form',
+        formInputs: '.atm-form_input input',
+        formInputWrappers: '.atm-form_input',
+        form: 'form',
+        submitButton: '.atm-button',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -45,9 +47,23 @@ class NewsletterForm extends Module {
    */
   initEventListeners() {
     // Event listeners
+    this.ui.submitButton.addEventListener('click', () => {
+      if (this.ui.formInputs.length) {
+        this.ui.formInputs.forEach((formInput) => {
+          formInput.dispatchEvent(new CustomEvent('validateDeferred', { detail: { field: formInput } }));
+        });
+      } else {
+        this.ui.formInputs.dispatchEvent(new CustomEvent('validateDeferred', { detail: { field: this.ui.formInputs } }));
+      }
+    });
     this.ui.form.addEventListener('submit', (event: any) => {
-      this.ui.formInput.dispatchEvent(new CustomEvent('validateDeferred', { detail: { field: this.ui.formInput } }));
-      if (this.ui.formInputWrapper.classList.contains('invalid')) {
+      if (this.ui.formInputWrappers.length) {
+        this.ui.formInputWrappers.forEach((formInputWrapper) => {
+          if (formInputWrapper.classList.contains('invalid')) {
+            event.preventDefault();
+          }
+        });
+      } else if (this.ui.formInputWrappers.classList.contains('invalid')) {
         event.preventDefault();
       }
     });
