@@ -1,18 +1,20 @@
-# CZHDEV - Go Live 1.0 Release Branch
+#Frontend living styleguide from Kanton Zürich
 
-Kanton Zürich Estatico Nuo Living Styleguide
+Living Styleguide based on Estatico Nuo
 
 ## Installation
 
 ```bash
 # Optionally use Docker container, see below
 
-# Install correct node version v10.x.x
+# Install correct node version v10.x.x use node version manager nvm or manually install node version 10.x.x
 nvm install
 
 # Install npm packages
 npm install
 ```
+
+Dependency: Graphicsmagick http://www.graphicsmagick.org/README.html has to be manually installed
 
 ## Usage
 
@@ -32,8 +34,9 @@ npm run start
 npm run gulp scaffold
 ```
 
-## Create archetype for embedded application wrapper
+## Create archetype for external develoment or embedded application creation
 - To create a development environment archetype project for creating markup for an embedded application (Component: mdl-application) an archetype project can be created
+- Modules and atoms can be included or excluded at discretion (!) Caution: some modules are depending on atoms or other modules so some combination can not be created
 - The archetype can be found after generating in the dist folder ``dist/app_archetype`` or packed ``dist/app_archetype.zip``
 
 
