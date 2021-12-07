@@ -984,9 +984,9 @@ gulp.task('email:inlineassets', () => {
 });
 
 /**
- * Clean build app archetype
+ * Build app archetype
  */
-gulp.task('app:archetype', gulp.series('js', 'media:svgsprite', 'css:fonts', 'css', 'app:archetype:hbs', 'app:archetype:copy', 'app:archetype:pack'));
+gulp.task('app:archetype', gulp.series('clean', 'media:svgsprite', 'app:archetype:subset', 'app:archetype:hbs', 'app:archetype:copy', 'app:archetype:pack', 'app:archetype:clean'));
 
 /**
  * Zip deployment package
@@ -1026,7 +1026,7 @@ gulp.task('build', (done) => {
     'copy',
     // When starting watcher without building, "css:fonts" will never finish
     // In order for "css" to still run properly, we switch from serial to parallel execution
-    (env.watch && env.skipBuild) ? gulp.parallel('css:fonts', 'css') : gulp.series('css:fonts', 'css'),
+    (env.watch && env.skipBuild) ? gulp.parallel('css') : gulp.series('css'),
   );
   let readEnv = new Promise(resolve => resolve());
 

@@ -137,7 +137,7 @@ class Inspector extends Helper {
       // eslint-disable-next-line no-magic-numbers
       if (node.type === 'text' && node.value.length >= 2) {
         const title = li.querySelector('.atm-content_teaser__title').innerHTML;
-        const regex = new RegExp(`${node.value}\\w*`);
+        const regex = new RegExp(`${node.value}\\w*`, 'gi');
         if (!title.match(regex)) return;
       }
       li.style.display = 'block';
