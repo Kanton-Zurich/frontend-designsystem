@@ -1,7 +1,7 @@
 {
-  "name": "Kanton-Zurich/frontend-designsystem",
+  "name": "kanton-zurich-frontend-design-system",
   "version": "1.0.0",
-  "description": "",
+  "description": "https://github.com/Kanton-Zurich/frontend-designsystem",
   "main": "index.js",
   "scripts": {
     "gulp": "gulp",
