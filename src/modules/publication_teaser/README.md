@@ -1,6 +1,6 @@
 ### Enthaltene Atome und Module
-* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
-* <a href="../descriptionlist/descriptionlist.html">MDL: Gelabelte Liste (descriptionlist)</a>
+* [ATM: Heading](../../atoms/headings/headings.html)
+* [MDL: Gelabelte Liste (descriptionlist)](../descriptionlist/descriptionlist.html)
 
 ### Integration
  

@@ -3,7 +3,7 @@
 
  
 #### Modal
-* Wichtig: Für das Laden des Modal Fenster bitte «<a href="../modal/modal.html">MDL: Modal</a>» Komponente anschauen (Variante => «Single Page Applikation» (SPA))
+* Wichtig: Für das Laden des Modal Fenster bitte [MDL: Modal](../modal/modal.html) Komponente anschauen (Variante => «Single Page Applikation» (SPA))
  
 #### Rendering Modi
 * Render das Markup der URL des Remote HTML oder, falls keine gültige Antwort, das Fallback HTML.

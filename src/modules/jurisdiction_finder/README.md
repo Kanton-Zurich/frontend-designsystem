@@ -1,8 +1,8 @@
 ### Enthaltene Atome und Module
-* <a href="../../atoms/paragraph/paragraph.html">ATM: Paragraph</a>
-* <a href="../../atoms/button/button.html">ATM: Button</a>
-* <a href="../../atoms/form_input/form_input.html">ATM: Form Input</a>
-* <a href="../locations/locations.html">MDL: Standorte</a>
+* [ATM: Paragraph](../../atoms/paragraph/paragraph.html)
+* [ATM: Button](../../atoms/button/button.html)
+* [ATM: Form Input](../../atoms/form_input/form_input.html)
+* [MDL: Standorte](../locations/locations.html)
  
 ### Integration
  

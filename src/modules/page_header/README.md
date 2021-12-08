@@ -1,10 +1,10 @@
 ### Enthaltene Atome und Module
-* <a href="../tag_group/tag_group.html">MDL: Tag Group</a>
-* <a href="../../atoms/button/button.html">ATM: Button</a>
-* <a href="../image_figure/image_figure.html">MDL: Bild (Image Figure)</a>
-* <a href="../video/video.html">MDL: Video</a>
-* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
-* <a href="../breadcrumb/breadcrumb.html">MDL: Breadcrumb</a>
+* [MDL: Tag Group](../tag_group/tag_group.html)
+* [ATM: Button](../../atoms/button/button.html)
+* [MDL: Bild (Image Figure)](../image_figure/image_figure.html)
+* [MDL: Video](../video/video.html)
+* [ATM: Heading](../../atoms/headings/headings.html)
+* [MDL: Breadcrumb](../breadcrumb/breadcrumb.html)
  
 ### Integration
 * Copy HTML.

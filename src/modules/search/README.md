@@ -1,7 +1,7 @@
 ### Enthaltene Atome und Module
-* <a href="../topiclist/topiclist.html">MDL: Themenliste</a>
-* <a href="../tag_group/tag_group.html">MDL: Tag Group</a> (z.B. für häufig gesuchte Begriffe)
- 
+* [MDL: Themenliste](../topiclist/topiclist.html)
+* [MDL: Tag Group](../tag_group/tag_group.html) (z.B. für häufig gesuchte Begriffe)
+
 ### Integration
 
  

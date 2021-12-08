@@ -1,6 +1,6 @@
 ### Enthaltene Atome und Module
-* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
-* <a href="../../atoms/text_link/text_link.html">ATM: Text Link</a>
+* [ATM: Heading](../../atoms/headings/headings.html)
+* [ATM: Text Link](../../atoms/text_link/text_link.html)
  
 ### Integration
 

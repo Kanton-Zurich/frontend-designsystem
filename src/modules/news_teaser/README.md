@@ -1,8 +1,8 @@
 ### Enthaltene Atome und Module
-* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
-* <a href="../../atoms/anchorlink/anchorlink.html">ATM: Anchorlink</a>
-* <a href="../image_figure/image_figure.html">MDL: Bild (Image Figure)</a>
-* <a href="../linklist/linklist.html">MDL: Link-Liste</a>
+* [ATM: Heading](../../atoms/headings/headings.html)
+* [ATM: Anchorlink](../../atoms/anchorlink/anchorlink.html)
+* [MDL: Bild (Image Figure)](../image_figure/image_figure.html)
+* [MDL: Link-Liste](../linklist/linklist.html)
 
 ### Integration
 

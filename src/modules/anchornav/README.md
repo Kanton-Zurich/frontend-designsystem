@@ -1,5 +1,5 @@
 ### Enthaltene Atome und Module
-* <a href="../../atoms/anchorlink/anchorlink.html">ATM: Anchorlink</a>
+* [ATM: Anchorlink](../../atoms/anchorlink/anchorlink.html)
 
 
 ### Integration

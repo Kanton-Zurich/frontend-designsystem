@@ -1,5 +1,5 @@
 ### Enthaltene Atome und Module
-* <a href="../elect/select.html">MDL: Auswahlfeld</a>
+* [MDL: Auswahlfeld](../elect/select.html)
  
 ### Integration
  

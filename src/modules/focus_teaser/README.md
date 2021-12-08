@@ -1,6 +1,6 @@
 ### Enthaltene Atome und Module
-* <a href="../focus_card/focus_card.html">MDL: Schwerpunkt Card</a>
-* <a href="../../atoms/headings/headings.html">ATM: Heading</a> 
+* [MDL: Schwerpunkt Card](../focus_card/focus_card.html)
+* * [ATM: Heading](../../atoms/headings/headings.html)
 
 
 ### Integration

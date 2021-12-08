@@ -1,5 +1,5 @@
 ### Enthaltene Atome und Module
-* <a href="../../atoms/figcaption/figcaption.html">ATM: FigCaption (Legende)</a>
+* [ATM: FigCaption (Legende)](../../atoms/figcaption/figcaption.html)
 
 
 ### Integration

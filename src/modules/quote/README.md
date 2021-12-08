@@ -1,9 +1,9 @@
 ### Enthaltene Atome und Module
-* <a href="../image_figure/image_figure.html">MDL: Bild (Image Figure)</a><br>
+* [MDL: Bild (Image Figure)](../image_figure/image_figure.html)
 
 Indirekt übernehmen von:
-* <a href="../richtext/richtext.html">MDL: Text</a> (Zitat)
-* <a href="../../atoms/figcaption/figcaption.html">ATM: FigCaption (Legende)</a> (Bilduntertitel)
+* [MDL: Text](../richtext/richtext.html) (Zitat)
+* [ATM: FigCaption (Legende)](../../atoms/figcaption/figcaption.html) (Bilduntertitel)
 
 #### Info
 <p>Wichtig für Tester! Dieses Modul kann im Text-Modul in allen Varianten getestet werden.</p>

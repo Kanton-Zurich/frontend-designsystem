@@ -1,7 +1,7 @@
 ### Enthaltene Atome und Module
-* <a href="../../atoms/button/button.html">ATM: Button</a> 
-* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
-* <a href="../image_figure/image_figure.html">MDL: Bild (Image Figure)</a>
+* [ATM: Button](../../atoms/button/button.html)
+* [ATM: Heading](../../atoms/headings/headings.html)
+* [MDL: Bild (Image Figure)](../image_figure/image_figure.html)
 
 ### Integration
 

@@ -1,6 +1,6 @@
 ### Enthaltene Atome und Module
-* <a href="../descriptionlist/descriptionlist.html">MDL: Gelabelte Liste (descriptionlist)</a>
-* <a href="../notification/notification.html">MDL: PopUp Nachricht</a>
+* [MDL: Gelabelte Liste (descriptionlist)](../descriptionlist/descriptionlist.html)
+* [MDL: PopUp Nachricht](../notification/notification.html)
  
 ### Integration
  

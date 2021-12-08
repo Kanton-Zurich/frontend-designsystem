@@ -1,5 +1,5 @@
 ### Enthaltene Atome und Module
-* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
+* [ATM: Heading](../../atoms/headings/headings.html)
 
 ### Integration
 

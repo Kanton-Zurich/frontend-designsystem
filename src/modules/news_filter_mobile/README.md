@@ -1,9 +1,9 @@
 ### Enthaltene Atome und Module
-* <a href="../../atoms/form_input/form_input.html">ATM: Form Input</a>
-* <a href="../../atoms/button/button.html">ATM: Button</a>
-* <a href="../../atoms/linklist_item/linklist_item.html">ATM: LinklistItem</a>
-* <a href="../drilldown_select/drilldown_select.html">MDL: Auswahlfeld</a>
-* <a href="../modal/modal.html">MDL: Modal(-seite)</a>
+* [ATM: Form Input](../../atoms/form_input/form_input.html)
+* [ATM: Button](../../atoms/button/button.html)
+* [ATM: LinklistItem](../../atoms/linklist_item/linklist_item.html)
+* [MDL: Auswahlfeld](../drilldown_select/drilldown_select.html)
+* [MDL: Modal(-seite)](../modal/modal.html)
  
 ### Integration
 

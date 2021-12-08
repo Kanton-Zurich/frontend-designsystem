@@ -1,9 +1,9 @@
 ### Enthaltene Atome und Module
-* <a href="../../atoms/form_input/form_input.html">ATM: Form Input</a>
-* <a href="../content_nav/content_nav.html">MDL: ContentNav</a>
-* <a href="../../atoms/content_teaser/content_teaser.html">ATM: Content Teaser</a>
-* <a href="../../atoms/button/button.html">ATM: Button</a>
-* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
+* [ATM: Form Input](../../atoms/form_input/form_input.html)
+* [MDL: ContentNav](../content_nav/content_nav.html)
+* [ATM: Content Teaser](../../atoms/content_teaser/content_teaser.html)
+* [ATM: Button](../../atoms/button/button.html)
+* [ATM: Heading](../../atoms/headings/headings.html)
 
 
 ### Integration

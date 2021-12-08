@@ -1,5 +1,5 @@
 ### Enthaltene Atome und Module
-* <a href="../button_group/button_group.html">MDL: Button Group</a>
+* [MDL: Button Group](../button_group/button_group.html)
 
 ### Integration
 

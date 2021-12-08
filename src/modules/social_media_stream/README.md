@@ -1,6 +1,6 @@
 ### Enthaltene Atome und Module
-* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
-* <a href="../../atoms/button/button.html">ATM: Button</a>
+* [ATM: Heading](../../atoms/headings/headings.html)
+* [ATM: Button](../../atoms/button/button.html)
 
 ### Integration
 <ul>

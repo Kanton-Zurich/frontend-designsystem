@@ -1,6 +1,6 @@
 ### Enthaltene Atome und Module
-* <a href="../../atoms/headings/headings.html">ATM: Heading</a>
-* <a href="../../atoms/figcaption/figcaption.html">ATM: FigCaption (Legende)</a>
+* [ATM: Heading](../../atoms/headings/headings.html)
+* [ATM: FigCaption (Legende)](../../atoms/figcaption/figcaption.html)
 
 
 ### Integration
