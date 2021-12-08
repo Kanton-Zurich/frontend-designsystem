@@ -1,6 +1,6 @@
 {
-  "name": "@unic/estatico-boilerplate",
-  "version": "1.5.5",
+  "name": "Kanton-Zurich/frontend-designsystem",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
