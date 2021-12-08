@@ -1,11 +1,6 @@
-### Beschreibung
- 
-Mit dem Modul Single Page Application (tech. «.mdl-application») lassen sich externe Applikationen nahtlos in eine Webseite einbinden. Das geschieht über die Einbindung der URL der externen Seite (remote HTML).
- 
- 
 ### Integration
  
-* HTML kopieren.
+
  
 #### Modal
 * Wichtig: Für das Laden des Modal Fenster bitte «<a href="../modal/modal.html">MDL: Modal</a>» Komponente anschauen (Variante => «Single Page Applikation» (SPA))

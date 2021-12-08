@@ -1,12 +1,4 @@
-### Beschreibung
-Die Service Liste (tech. «.mdl-service_list») ist das verwendete Modul um einen Service aufzurufen bzw. zu starten. Stehen zu einem Thema ein oder mehrere Services zur Verfügung, werden diese mit der Service Liste einheitlich dargestellt. Ein Klick auf den Button «Start» (siehe «Service Button») lädt den Service als bildschirmfüllendes Overlay (siehe «Modal») über die aktuelle Seite.
- 
-Auch wenn es sich nur um einen einzelnen Service handelt der aufgerufen werden kann, soll die Liste verwendet werden.
- 
-#### Was ist ein Service?
-Ein Service ist eine Erledigung. Ein Service wird immer dann erstellt, wenn Nutzende etwas erledigen möchten, beispielsweise einen Führerschein beantragen. Es spielt dabei keine Rolle, ob Nutzende dabei ein Onlineformular ausfüllen oder ein PDF-Formular herunterladen, dass sie ausfüllen und per Post einreichen. Auch anrufen oder am Schalter vorbeikommen sind übliche Wege etwas zu erledigen.
- 
-#### Enthaltene Atome und Module
+### Enthaltene Atome und Module
 * <a href="../../atoms/button/button.html">ATM: Button</a>
 * <a href="../../atoms/headings/headings.html">ATM: Heading</a>
 * <a href="../../atoms/paragraph/paragraph.html">ATM: Paragraph</a>

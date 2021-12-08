@@ -1,8 +1,4 @@
-### Beschreibung
- 
-Der Zuständigkeitsfinder (tech. «.mdl-jurisdiciton-finder») ist eine Applikation. Geben Nutzende eine Postleitzahl ein, so liefert der Zuständigkeitsfinder einen passenden, für dieses Gebiet zuständige, Kontakt und zeigt die Adresse auf einer Karte an.  
- 
-#### Enthaltene Atome und Module
+### Enthaltene Atome und Module
 * <a href="../../atoms/paragraph/paragraph.html">ATM: Paragraph</a>
 * <a href="../../atoms/button/button.html">ATM: Button</a>
 * <a href="../../atoms/form_input/form_input.html">ATM: Form Input</a>
@@ -15,5 +11,5 @@ Wie in folgendem Beispiel:
 ```html
 <a class="atm-linklist_item   atm-linklist_item--location" tabindex="0" data-locations="listItem" data-filter-attr="8000,8001">
 ```
-* HTML kopieren.
+
 

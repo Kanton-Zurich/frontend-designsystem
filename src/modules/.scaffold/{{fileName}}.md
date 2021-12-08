@@ -1,7 +1,3 @@
-### Beschreibung
-
-
-
 ### Integration
 
-* HTML kopieren.
+

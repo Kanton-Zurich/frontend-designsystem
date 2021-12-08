@@ -1,8 +1,3 @@
-### Beschreibung
- 
-Das Modul Suchseite (tech. «.mdl-search_page») ist ein Eingabefeld für Suchbegriffe. Es kann nur auf einer Seite eingebunden werden.
-
-
 ### Integration
 
 * HTML kopieren

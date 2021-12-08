@@ -169,7 +169,7 @@ gulp.task('html:validate', () => {
   }, env);
 
   // Don't immediately run task when skipping build
-  if (env.watch && env.skipTests) {
+  if (env.watch && env.skipLinting) {
     return instance;
   }
 
@@ -359,7 +359,7 @@ gulp.task('css:lint', () => {
   }, env);
 
   // Don't immediately run task when skipping build
-  if (env.watch && env.skipTests) {
+  if (env.watch && env.skipLinting) {
     return instance;
   }
 
@@ -444,69 +444,11 @@ gulp.task('js:lint', () => {
   }, env);
 
   // Don't immediately run task when skipping build
-  if (env.watch && env.skipTests) {
+  if (env.watch && env.skipLinting) {
     return instance;
   }
 
   return instance();
-});
-
-/**
- * JavaScript testing task
- * Uses Jest with Puppeteer to check for JS errors and run tests
- * Expects an npm script called "jest" which is running jest
- *
- * An alternative would be to use jest.runCLI instead. However, this currently fails
- * due to the teardown script terminating the process in order to close the static webserver.
- *
- * Instead of running this task it is possible to just execute `npm run jest`
- */
-gulp.task('js:test', (done) => { // eslint-disable-line consistent-return
-
-  // TODO: Introduce new JEST environment
-  return done();
-
-  if (env.skipTests) {
-    return done();
-  }
-
-  const { spawn } = require('child_process');
-  const stripAnsi = require('strip-ansi');
-
-  let failed = false;
-  let killed = false;
-  let teardownFailed = false;
-
-  const tests = spawn('npm', ['run', 'jest'].concat(env.ci ? ['--', '--ci', '--runInBand', '--forceExit'] : []), {
-    // Add proper output coloring unless in CI env (where this would have weird side-effects)
-    stdio: env.ci ? 'pipe' : ['inherit', 'inherit', 'pipe'],
-  });
-
-  tests.stderr.on('data', (data) => {
-    if (stripAnsi(`${data}`).match(/(Test Suites: (.*?) failed|npm ERR!)/m)) {
-      failed = true;
-    }
-
-    // Don't treat as failure: Travis seems to kill the whole process for whatever reason
-    if (stripAnsi(`${data}`).match(/Killed/m)) {
-      killed = true;
-    }
-
-    // Don't treat as failure: The web server might have stopped or the process could not be found
-    if (stripAnsi(`${data}`).match(/No process found on port/m)) {
-      teardownFailed = true;
-    }
-
-    process.stderr.write(data);
-  });
-
-  tests.on('close', () => {
-    if (failed && !env.dev && !killed && !teardownFailed) {
-      process.exit(1);
-    }
-
-    done();
-  });
 });
 
 /**
@@ -1004,16 +946,15 @@ gulp.task('zip:offline', () => gulp.src('dist/ci/offline/**/*')
 
 
 /**
- * Test & lint / validate
+ * Lint / validate
  */
 gulp.task('lint', gulp.parallel('css:lint', 'js:lint', 'data:lint'));
-gulp.task('test', gulp.parallel(/* 'html:validate', */ 'js:test'));
 
 /**
  * Create complete build
- * Prompts whether tests and linting should run when in --watch mode
+ * Prompts whether linting should run when in --watch mode
  *
- * --noInteractive / --skipTests will bypass the prompt
+ * --noInteractive / --skipLinting will bypass the prompt
  * --ci will create complete builds in `dist/ci/dev` and `dist/ci/prod` directories
  */
 gulp.task('build', (done) => {
@@ -1047,29 +988,29 @@ gulp.task('build', (done) => {
     }
   }
 
-  if (env.watch && (!env.skipBuild && !env.noInteractive && !env.skipTests && !env.ci)) {
+  if (env.watch && (!env.skipBuild && !env.noInteractive && !env.skipLinting && !env.ci)) {
     const inquirer = require('inquirer');
 
     readEnv = inquirer.prompt([{
       type: 'confirm',
-      name: 'skipTests',
-      message: 'Do you want to skip tests and linting?',
+      name: 'skipLinting',
+      message: 'Do you want to skip linting?',
       default: false,
     }]).then((answers) => {
       // Persist answer to env
-      env.skipTests = answers.skipTests;
+      env.skipLinting = answers.skipLinting;
 
       return env;
     });
   }
 
   readEnv.then(() => {
-    if (!env.skipTests || (env.watch && env.skipBuild)) {
+    if (!env.skipLinting || (env.watch && env.skipBuild)) {
       // In watch mode, the main task will not finish so we need to run everything in parallel
       if (env.watch && env.skipBuild) {
-        task = gulp.parallel(task, 'lint', 'test');
+        task = gulp.parallel(task, 'lint');
       } else {
-        task = gulp.series(task, gulp.parallel('lint', 'test'));
+        task = gulp.series(task, gulp.parallel('lint'));
       }
     }
     task(done);
@@ -1105,7 +1046,7 @@ gulp.task('default', (done) => {
     // When starting watcher without building, "build" will never finish
     // In order for "serve" to still run properly, we switch from serial to parallel execution
     if (env.skipBuild) {
-      env.skipTests = true;
+      env.skipLinting = true;
 
       return gulp.parallel('build', 'serve')(done);
     }

@@ -4,18 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run build",
-    "jest": "jest",
-    "ts-jest": "npm run gulp js:test",
     "gulp": "gulp",
     "build": "gulp build --ci",
     "start": "gulp --dev --watch",
-    "netlify": "gulp build --skipTests",
+    "netlify": "gulp build --skipLinting",
     "archetype": "gulp app:archetype --ci"
   },
   "author": "Staatskanzlei Kanton Zürich",
   "devDependencies": {
-    "@types/jest": "^24.0.9",
     "@types/lodash": "^4.14.121",
     "@typescript-eslint/parser": "^1.4.2",
     "@unic/estatico-browsersync": "0.0.11",
@@ -25,10 +21,8 @@
     "@unic/estatico-font-datauri": "0.0.11",
     "@unic/estatico-handlebars": "0.0.11",
     "@unic/estatico-imageversions": "0.0.12",
-    "@unic/estatico-jest": "^0.2.4",
     "@unic/estatico-json-mocks": "0.0.10",
     "@unic/estatico-json-schema": "^0.2.0",
-    "@unic/estatico-puppeteer": "^0.0.14",
     "@unic/estatico-sass": "^0.0.14",
     "@unic/estatico-scaffold": "0.0.15",
     "@unic/estatico-stylelint": "0.0.11",
@@ -60,7 +54,6 @@
     "strip-ansi": "^5.0.0",
     "terser-webpack-plugin": "^1.2.3",
     "through2": "^3.0.0",
-    "ts-jest": "^24.0.0",
     "ts-loader": "^5.3.3",
     "typescript": "^3.3.3"
   },

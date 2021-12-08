@@ -17,4 +17,4 @@ Um lange Scrollwege möglichst zu vermeiden, sollte das Pagination-Modul sowohl 
 * <a href="../button_group/button_group.html">MDL: Button Group</a>
 
 ### Integration
-* HTML kopieren.
+

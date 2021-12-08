@@ -1,8 +1,4 @@
-### Beschreibung
-
-Das Steuerrechner-Modul (tech. «.mdl-tax_calc») ist eine Applikation. Nutzende können damit ihren Steuerbetrag berechnen lassen.
-
-#### Enthaltene Atome und Module
+### Enthaltene Atome und Module
 * <a href="../instructions/instructions.html">MDL: Anleitung</a>
 * <a href="../richtext/richtext.html">MDL: Text</a>
 * <a href="../stepper/stepper.html">MDL: Formularschritte (Stepper)</a>
@@ -16,4 +12,4 @@ Das Steuerrechner-Modul (tech. «.mdl-tax_calc») ist eine Applikation. Nutzende
 
 ### Integration
 
-* HTML kopieren.
+
