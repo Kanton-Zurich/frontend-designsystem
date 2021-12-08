@@ -16,6 +16,7 @@ import WindowEventListener from '../../assets/js/helpers/events';
 
 class Datepicker extends Module {
   public isOpen: boolean;
+  public ignoreFlatpickr: boolean;
   public pickerMode: string;
   public usedConfig: any;
   public flatpickr: any;
@@ -36,11 +37,13 @@ class Datepicker extends Module {
       dateFormat: string,
       position: string,
       allowInput: boolean,
+      disableMobile: boolean,
     },
     date: {
       dateFormat: string,
       position: string,
       allowInput: boolean,
+      disableMobile: boolean,
     },
     dateRange: {
       mode: string,
@@ -96,6 +99,7 @@ class Datepicker extends Module {
     this.initEventListeners();
 
     this.isOpen = false;
+    this.ignoreFlatpickr = this.ui.element.hasAttribute('data-no-flatpickr');
 
     this.customConfigs = {
       time: {
@@ -105,11 +109,13 @@ class Datepicker extends Module {
         dateFormat: 'H:i',
         position: 'below',
         allowInput: true,
+        disableMobile: this.ignoreFlatpickr,
       },
       date: {
         dateFormat: 'd.m.Y',
         position: 'below',
         allowInput: true,
+        disableMobile: this.ignoreFlatpickr,
       },
       dateRange: {
         mode: 'range',

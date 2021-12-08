@@ -1,29 +1,31 @@
 .mdl-newsletter_form {
   @include sizeCurve(margin-bottom, big);
 
-  &__form {
-    display: flex;
-
-    .atm-form_input {
-      flex-grow: 1;
-      margin-right: $sizeRegular;
-    }
-
-    @include mq($to: small) {
-      display: block;
-
-      .atm-button {
-        display: flex;
-        justify-content: center;
-      }
+  &--reduced {
+    .mdl-newsletter_form__form {
+      display: flex;
 
       .atm-form_input {
-        margin-bottom: $sizeSmallRegular;
+        flex-grow: 1;
+        margin-right: $sizeRegular;
       }
 
-      .atm-form_input,
-      .atm-button {
-        width: 100%;
+      @include mq($to: small) {
+        display: block;
+
+        .atm-button {
+          display: flex;
+          justify-content: center;
+        }
+
+        .atm-form_input {
+          margin-bottom: $sizeSmallRegular;
+        }
+
+        .atm-form_input,
+        .atm-button {
+          width: 100%;
+        }
       }
     }
   }

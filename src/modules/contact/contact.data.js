@@ -7,20 +7,21 @@ const socialMediaLinksContactData = require('../../modules/social_media_links/so
 
 const template = dataHelper.getFileContent('contact.hbs');
 
-const demoAddressTimesDataFullWidth = [
+const demoAddressTextsDataFullWidth = [
   {
-    timeTitle: 'Bürozeiten',
-    times: [
-      { text: 'Mo-Fr: 8.00 - 11:30 &' },
-      { text: '13:30 - 17:00' },
+    title: 'Postfach',
+    texts: [
+      'Postfach<br>8080 Zürich',
     ],
   },
   {
-    timeTitle: 'Schalter',
-    times: [
-      { text: 'Mo - Mi: 12:30 - 17:30' },
-      { text: 'Do: 13:30 - 19:00' },
+    title: 'Schalter',
+    texts: [
+      'Mo - Mi: 13.30 - 17.30<br>Do: 13:30 - 19:00<br>Fr: 13:30 - 17:30',
     ],
+    link: {
+      text: 'Andere Kontakte',
+    },
   },
 ];
 
@@ -34,6 +35,10 @@ const demoPhoneTimesData = [
   },
 ];
 
+const demoCopyButton = {
+  label: 'Adresse kopieren',
+};
+
 const demoAddressData = {
   name: 'Zürich-Albisgütli',
   street: 'Uetlibergstrasse 301',
@@ -41,12 +46,9 @@ const demoAddressData = {
   city: 'Zürich',
   routeLinkHref: '#',
   routeLinkLabel: 'Route anzeigen',
+  copytoclipboardButton: demoCopyButton,
   additionalInfo: 'Wir befinden uns im 2.Obergeschoss',
-  openingTimes: demoAddressTimesDataFullWidth,
-};
-
-const demoCopyButton = {
-  label: 'Adresse kopieren',
+  additionalTexts: demoAddressTextsDataFullWidth,
 };
 
 const demoAddressDataFullWidth = {
@@ -56,8 +58,9 @@ const demoAddressDataFullWidth = {
   city: 'Zürich',
   routeLinkHref: '#',
   routeLinkLabel: 'Route anzeigen',
+  copytoclipboardButton: demoCopyButton,
   additionalInfo: 'Wir befinden uns im 2.Obergeschoss',
-  openingTimes: demoAddressTimesDataFullWidth,
+  additionalTexts: demoAddressTextsDataFullWidth,
 };
 
 const demoPhoneData = [
@@ -95,14 +98,9 @@ const locationDemoData = {
     city: 'Regensdorf 1',
     routeLinkHref: '#',
     routeLinkLabel: 'Route anzeigen',
+    copytoclipboardButton: _.merge({}, demoCopyButton, { link: true }),
     additionalInfo: 'Wir befinden uns im 2.Obergeschoss',
-    openingTimes: [{
-      timeTitle: 'Öffnungszeiten',
-      times: [
-        { text: 'Montag / Dienstag 07:15 - 17:00' },
-        { text: 'Mittwoch - Freitag 07:15 - 16.00' },
-      ],
-    }],
+    additionalTexts: demoAddressTextsDataFullWidth,
   },
   phone: [
     {
@@ -139,367 +137,6 @@ const data = _.merge({}, defaultData, {
 });
 
 const variants = _.mapValues({
-  mediaContractWidthMap: {
-    meta: {
-      title: 'Medienkontakt mit Karte',
-      desc: 'Darstellung eines Kontakts mit Medienkontakt und Karte',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      withModuleLogic: true,
-      contactAddress: {
-        name: 'Kantonspolizei',
-        street: 'Kasernenstrasse 29',
-        zip: '8021',
-        city: 'Zürich',
-      },
-      contactPhone: [
-        {
-          anchorLabel: '+41 44 247 22 11',
-          phoneNumer: '+41442472211',
-          additionalInfo: 'Telefon',
-        },
-      ],
-      mediaContact: {
-        title: 'Medienkontakt',
-        lead: 'Mediendienst',
-        email: 'info@kapo.zh.ch',
-        phoneLabel: '058 811 30 00',
-        phoneNumer: '+41588113000',
-        address: 'Kasernenstrasse 29, Postfach, 8021 Zürich',
-        additionals: 'Bürozeiten Mo bis Fr 08.00 bis 11.00 Uhr und 13.30 bis 16 Uhr',
-      },
-      mapData: _.merge({}, mapViewDefaultData, {
-        mapId: 'contact-map-media',
-        withUserLocate: false,
-        mapMarker: [
-          { lat: 47.380467, lng: 8.448396 },
-        ],
-        directions: {
-          enabled: true,
-        },
-      }),
-    },
-  },
-  mediaContactPlain: {
-    meta: {
-      title: 'Medienkontakt ohne Karte',
-      desc: 'Darstellung eines Kontakts mit Medienkontakt',
-    },
-    props: {
-      fullWidth: true,
-      withModuleLogic: true,
-      contactTitle: 'Kontakt',
-      contactAddress: demoAddressData,
-      contactPhone: demoPhoneData,
-      contactMail: {
-        address: 'info@ajb.zh.ch',
-        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
-      },
-      mediaContact: {
-        title: 'Medienkontakt',
-        lead: 'Mediendienst',
-        email: 'info@kapo.zh.ch',
-        phoneLabel: '058 811 30 00',
-        phoneNumer: '+41588113000',
-        address: 'Kasernenstrasse 29, Postfach, 8021 Zürich',
-        additionals: 'Bürozeiten Mo bis Fr 08.00 bis 11.00 Uhr und 13.30 bis 16 Uhr',
-      },
-    },
-  },
-  comb1: {
-    meta: {
-      title: 'Kombination 1',
-      desc: 'Darstellung eines Kontakts mit Medienkontakt',
-    },
-    props: {
-      fullWidth: true,
-      withModuleLogic: true,
-      contactTitle: 'Kontakt',
-      contactAddress: demoAddressData,
-      contactPhone: demoPhoneData,
-      contactMail: {
-        address: 'info@ajb.zh.ch',
-        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
-      },
-    },
-  },
-  comb2: {
-    meta: {
-      title: 'Kombination 2',
-      desc: 'Darstellung eines Kontakts mit Medienkontakt',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactAddress: demoAddressData,
-      contactPhone: demoPhoneData,
-    },
-  },
-  comb3: {
-    meta: {
-      title: 'Kombination 3',
-      desc: 'Darstellung eines Kontakts mit Medienkontakt',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactAddress: demoAddressData,
-      contactMail: {
-        address: 'info@ajb.zh.ch',
-        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
-      },
-    },
-  },
-  comb4: {
-    meta: {
-      title: 'Kombination 4',
-      desc: 'Darstellung eines Kontakts mit Medienkontakt',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactPhone: demoPhoneData,
-      contactMail: {
-        address: 'info@ajb.zh.ch',
-        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
-      },
-    },
-  },
-  comb5: {
-    meta: {
-      title: 'Kombination 5',
-      desc: 'Darstellung eines Kontakts mit Medienkontakt',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactMail: {
-        address: 'info@ajb.zh.ch',
-        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
-      },
-    },
-  },
-  comb6: {
-    meta: {
-      title: 'Kombination 6',
-      desc: 'Darstellung eines Kontakts mit Medienkontakt',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactPhone: demoPhoneData,
-    },
-  },
-  fullWidthLessData2: {
-    meta: {
-      title: 'Kontakt volle Breite (mit Karte)',
-      desc: 'Kontakt unter Verwendung des gesamten Platzes - reduzierte Informationen',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-        icon: true,
-      },
-      contactAddress: {
-        name: 'Regionale Fachstelle der Ost- und Zentralschweiz ',
-        street: 'Haldenbachstrasse 12',
-        zip: 'CH-8006',
-        city: 'Zürich',
-      },
-      contactPhone: [
-        {
-          anchorLabel: '058 811 30 00',
-          phoneNumer: '+41588113000',
-          additionalInfo: 'Allgemeine Fragen',
-        },
-        {
-          anchorLabel: '058 811 30 20',
-          phoneNumer: '+41588113020',
-          additionalInfo: 'Notfall-Nummer',
-        },
-      ],
-      contactMail: {
-        address: 'heilmittelkontrolle@khz.zh.ch',
-      },
-      mapData: _.merge({}, mapViewDefaultData, {
-        mapId: 'contact-map',
-        withUserLocate: false,
-        mapMarker: [
-          { lat: 47.380467, lng: 8.548396 },
-        ],
-        directions: {
-          enabled: true,
-        },
-      }),
-    },
-  },
-  default: {
-    meta: {
-      title: 'Kontakt klein (nur Adresse)',
-      desc: 'Kontakt klein nur mit Adresse',
-    },
-    props: {
-      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
-      contactAddress: demoAddressData,
-    },
-  },
-  smallPhoneOnly: {
-    meta: {
-      title: 'Kontakt klein (nur Telefon)',
-      desc: 'Kontakt klein nur mit Telefon',
-    },
-    props: {
-      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
-      contactPhone: demoPhoneData,
-    },
-  },
-  smallMailOnly: {
-    meta: {
-      title: 'Kontakt klein (nur E-Mail)',
-      desc: 'Kontakt klein nur mit Telefon',
-    },
-    props: {
-      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
-      contactMail: {
-        address: 'velo@vd.zh.ch',
-        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
-      },
-    },
-  },
-  defaultSmallLead: {
-    meta: {
-      title: 'Kontakt klein (mit Untertitel)',
-      desc: 'Kontakt klein',
-    },
-    props: {
-      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
-      contactAddress: demoAddressData,
-      contactLead: 'Hallo ich bin ein Untertitel',
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-      },
-    },
-  },
-  fullWidth: {
-    meta: {
-      title: 'Kontakt volle Breite',
-      desc: 'Kontakt unter Verwendung des gesamten Platzes',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactSubtitle: 'Koordinationsstelle Veloverkehr',
-      contactAddress: demoAddressDataFullWidth,
-      contactPhone: demoPhoneDataFullWidth,
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-      },
-      contactMail: {
-        address: 'velo@vd.zh.ch',
-        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
-      },
-    },
-  },
-  fullWidthLessData: {
-    meta: {
-      title: 'Kontakt volle Breite (Nur Titel)',
-      desc: 'Kontakt unter Verwendung des gesamten Platzes - reduzierte Informationen',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactSubtitle: 'Koordinationsstelle Veloverkehr',
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-      },
-      contactAddress: {
-        name: 'Zürich-Albisgütli',
-        street: 'Uetlibergstrasse 301',
-        zip: '8036',
-        city: 'Zürich',
-        routeLinkHref: '#',
-        routeLinkLabel: 'Route anzeigen',
-      },
-      contactPhone: [
-        {
-          anchorLabel: '058 811 30 00',
-          phoneNumer: '+41588113000',
-          additionalInfo: 'Telefon',
-        },
-      ],
-      contactMail: {
-        address: 'velo@vd.zh.ch',
-      },
-    },
-  },
-  location: {
-    meta: {
-      title: 'Standort -Kontakt',
-      desc: 'Darstellung wie verwendet in Standorte (module locations)',
-    },
-    props: {
-      inLocation: true,
-      contactSubtitle: 'Strassenverkehrsamt Regensdorf',
-      contactAddress: locationDemoData.adress,
-      contactPhone: locationDemoData.phone,
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-      },
-      contactMail: {
-        address: 'info@stva.zh.ch',
-        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
-      },
-    },
-  },
-  withLead: {
-    meta: {
-      title: 'Kontakt mit Titel, Subtitel, Lead und Karte',
-      desc: 'Darstellung eines Kontakts mit Titel, Subtitel, Lead und Karte',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactSubtitle: 'Amt für Abfall, Wasser, Energie und Luft',
-      contactLead: 'Abteilung Gewässerschutz, Sektion Abwasserreinigungsanlagen',
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-      },
-      contactAddress: {
-        street: 'Walcheplatz 2',
-        zip: '8090',
-        city: 'Zürich',
-      },
-      contactPhone: [{
-        anchorLabel: '+41 43 258 61 00',
-        phoneNumer: '+41432586100',
-        additionalInfo: 'Allgemeint Fragen',
-      }],
-      contactMail: {
-        address: 'awel@bd.zh.ch',
-      },
-      mapData: _.merge({}, mapViewDefaultData, {
-        mapId: 'contact-map',
-        withUserLocate: false,
-        mapMarker: [
-          { lat: 47.380467, lng: 8.548396 },
-        ],
-        directions: {
-          enabled: true,
-        },
-      }),
-    },
-  },
   revampedStandart: {
     meta: {
       title: 'CZHDEV-2963 (Variante Standart)',
@@ -522,7 +159,7 @@ const variants = _.mapValues({
         copytoclipboardButton: demoCopyButton,
         routeLinkHref: '#',
         routeLinkLabel: 'Route anzeigen',
-        openingTimes: demoAddressTimesDataFullWidth,
+        additionalTexts: demoAddressTextsDataFullWidth,
       },
       withModuleLogic: true,
       contactPhone: [{
@@ -564,7 +201,7 @@ const variants = _.mapValues({
         copytoclipboardButton: demoCopyButton,
         routeLinkHref: '#',
         routeLinkLabel: 'Route anzeigen',
-        openingTimes: demoAddressTimesDataFullWidth,
+        additionalTexts: demoAddressTextsDataFullWidth,
       },
       withModuleLogic: true,
       contactPhone: [{
@@ -687,6 +324,205 @@ const variants = _.mapValues({
         routeLinkLabel: 'Route anzeigen',
         copytoclipboardButton: demoCopyButton,
       },
+    },
+  },
+  fullWidthLessData2: {
+    meta: {
+      title: 'Kontakt volle Breite (mit Karte)',
+      desc: 'Kontakt unter Verwendung des gesamten Platzes - reduzierte Informationen',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+        icon: true,
+      },
+      contactAddress: {
+        name: 'Regionale Fachstelle der Ost- und Zentralschweiz ',
+        street: 'Haldenbachstrasse 12',
+        zip: 'CH-8006',
+        city: 'Zürich',
+      },
+      contactPhone: [
+        {
+          anchorLabel: '058 811 30 00',
+          phoneNumer: '+41588113000',
+          additionalInfo: 'Allgemeine Fragen',
+        },
+        {
+          anchorLabel: '058 811 30 20',
+          phoneNumer: '+41588113020',
+          additionalInfo: 'Notfall-Nummer',
+        },
+      ],
+      contactMail: {
+        address: 'heilmittelkontrolle@khz.zh.ch',
+      },
+      mapData: _.merge({}, mapViewDefaultData, {
+        mapId: 'contact-map',
+        withUserLocate: false,
+        mapMarker: [
+          { lat: 47.380467, lng: 8.548396 },
+        ],
+        directions: {
+          enabled: true,
+        },
+      }),
+    },
+  },
+  default: {
+    meta: {
+      title: 'Kontakt klein (nur Adresse)',
+      desc: 'Kontakt klein nur mit Adresse',
+    },
+    props: {
+      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
+      contactAddress: demoAddressData,
+    },
+  },
+  smallMailOnly: {
+    meta: {
+      title: 'Kontakt klein (nur E-Mail)',
+      desc: 'Kontakt klein nur mit Telefon',
+    },
+    props: {
+      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
+      contactMail: {
+        address: 'velo@vd.zh.ch',
+        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
+      },
+    },
+  },
+  defaultSmallLead: {
+    meta: {
+      title: 'Kontakt klein (mit Untertitel)',
+      desc: 'Kontakt klein',
+    },
+    props: {
+      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
+      contactAddress: demoAddressData,
+      contactLead: 'Hallo ich bin ein Untertitel',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+      },
+    },
+  },
+  fullWidth: {
+    meta: {
+      title: 'Kontakt volle Breite',
+      desc: 'Kontakt unter Verwendung des gesamten Platzes',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Koordinationsstelle Veloverkehr',
+      contactAddress: demoAddressDataFullWidth,
+      contactPhone: demoPhoneDataFullWidth,
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+      },
+      contactMail: {
+        address: 'velo@vd.zh.ch',
+        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
+      },
+    },
+  },
+  fullWidthLessData: {
+    meta: {
+      title: 'Kontakt volle Breite (Nur Titel)',
+      desc: 'Kontakt unter Verwendung des gesamten Platzes - reduzierte Informationen',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Koordinationsstelle Veloverkehr',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+      },
+      contactAddress: {
+        name: 'Zürich-Albisgütli',
+        street: 'Uetlibergstrasse 301',
+        zip: '8036',
+        city: 'Zürich',
+        routeLinkHref: '#',
+        routeLinkLabel: 'Route anzeigen',
+      },
+      contactPhone: [
+        {
+          anchorLabel: '058 811 30 00',
+          phoneNumer: '+41588113000',
+          additionalInfo: 'Telefon',
+        },
+      ],
+      contactMail: {
+        address: 'velo@vd.zh.ch',
+      },
+    },
+  },
+  location: {
+    meta: {
+      title: 'Standort -Kontakt',
+      desc: 'Darstellung wie verwendet in Standorte (module locations)',
+    },
+    props: {
+      inLocation: true,
+      contactSubtitle: 'Strassenverkehrsamt Regensdorf',
+      contactSubtitleLink: '#',
+      contactAddress: locationDemoData.adress,
+      contactPhone: locationDemoData.phone,
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+      },
+      contactMail: {
+        address: 'info@stva.zh.ch',
+        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
+      },
+    },
+  },
+  withLead: {
+    meta: {
+      title: 'Kontakt mit Titel, Subtitel, Lead und Karte',
+      desc: 'Darstellung eines Kontakts mit Titel, Subtitel, Lead und Karte',
+    },
+    props: {
+      fullWidth: true,
+      contactTitle: 'Kontakt',
+      contactSubtitle: 'Amt für Abfall, Wasser, Energie und Luft',
+      contactLead: 'Abteilung Gewässerschutz, Sektion Abwasserreinigungsanlagen',
+      contactSubtitleMoreInfo: {
+        href: '#',
+        label: 'Mehr erfahren',
+      },
+      contactAddress: {
+        street: 'Walcheplatz 2',
+        zip: '8090',
+        city: 'Zürich',
+      },
+      contactPhone: [{
+        anchorLabel: '+41 43 258 61 00',
+        phoneNumer: '+41432586100',
+        additionalInfo: 'Allgemeint Fragen',
+      }],
+      contactMail: {
+        address: 'awel@bd.zh.ch',
+      },
+      mapData: _.merge({}, mapViewDefaultData, {
+        mapId: 'contact-map',
+        withUserLocate: false,
+        mapMarker: [
+          { lat: 47.380467, lng: 8.548396 },
+        ],
+        directions: {
+          enabled: true,
+        },
+      }),
     },
   },
 }, (variant) => {
