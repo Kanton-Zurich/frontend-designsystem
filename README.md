@@ -1,6 +1,6 @@
-#Frontend living styleguide from Kanton Zürich
+#Frontend design system from Kanton Zürich
 
-Living Styleguide based on Estatico Nuo
+Boiler plate based on Estatico Nuo
 
 ## Installation
 

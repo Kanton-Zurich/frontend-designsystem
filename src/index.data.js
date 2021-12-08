@@ -163,7 +163,7 @@ const data = _.merge({}, defaultData, {
       breadcrumb: {
         path: [
           {
-            title: 'Kanton Zürich - Living Styleguide',
+            title: 'Kanton Zürich - Design System',
             href: 'index.html',
           },
         ],
