@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Zwischentitel',
     className: 'Smallcaption',
     jira: 'CZHDEV-1234',
-    documentation: dataHelper.getDocumentation('smallcaption.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     headingLevel: 3,

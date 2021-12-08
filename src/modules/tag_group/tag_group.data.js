@@ -46,7 +46,7 @@ const data = _.merge({}, defaultData, {
     className: 'TagGroup',
     jira: 'CZHDEV-261',
     label: 'UI Element',
-    documentation: dataHelper.getDocumentation('tag_group.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     tagGroupdHeading: {

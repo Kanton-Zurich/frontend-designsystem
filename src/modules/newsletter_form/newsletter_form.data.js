@@ -13,7 +13,7 @@ const data = _.merge({}, defaultData, {
     className: 'NewsletterForm',
     jira: 'CZHDEV-1713',
     label: 'Formular',
-    documentation: dataHelper.getDocumentation('newsletter_form.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     action: '/go_to_newsletter',

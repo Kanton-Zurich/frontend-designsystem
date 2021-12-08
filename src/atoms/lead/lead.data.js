@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Lead Text',
     className: 'atm-lead',
     jira: 'CZHDEV-111',
-    documentation: dataHelper.getDocumentation('lead.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     hideFromListing: false,
   },
   props: {

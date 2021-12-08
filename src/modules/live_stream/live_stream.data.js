@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     className: 'LiveStream',
     jira: 'CZHDEV-176',
     label: 'Eingebettet',
-    documentation: dataHelper.getDocumentation('live_stream.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     liveStreamHeading: {

@@ -12,7 +12,7 @@ const data = _.merge({}, defaultData, {
     className: 'Footer',
     jira: 'CZHDEV-490',
     label: 'Layout',
-    documentation: dataHelper.getDocumentation('footer.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     modules: {

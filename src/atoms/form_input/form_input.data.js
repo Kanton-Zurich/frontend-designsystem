@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Form Input',
     className: 'FormInput',
     jira: 'CZHDEV-844',
-    documentation: dataHelper.getDocumentation('form_input.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     wrapInForm: true,
   },
   props: {

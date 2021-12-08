@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Checkbox',
     className: 'Checkbox',
     jira: 'CZHDEV-*',
-    documentation: dataHelper.getDocumentation('checkbox.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     label: 'Checkbox label',

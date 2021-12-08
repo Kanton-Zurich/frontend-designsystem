@@ -12,7 +12,7 @@ const data = _.merge({}, defaultData, {
     className: 'OrganisationNavigation',
     jira: 'CZHDEV-*',
     label: 'Navigation',
-    documentation: dataHelper.getDocumentation('organisation_navigation.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     organisationTeaserTemplate,

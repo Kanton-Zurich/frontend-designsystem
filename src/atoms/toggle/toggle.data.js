@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Toggle',
     className: 'Toggle',
     jira: 'CZHDEV-1144',
-    documentation: dataHelper.getDocumentation('toggle.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     label: 'E-Mail Benachrichtigungen erlauben',

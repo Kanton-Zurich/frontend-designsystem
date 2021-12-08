@@ -12,7 +12,7 @@ const data = _.merge({}, defaultData, {
     className: 'SocialMediaStream',
     jira: 'CZHDEV-474',
     label: 'Social media',
-    documentation: dataHelper.getDocumentation('social_media_stream.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     heading: {

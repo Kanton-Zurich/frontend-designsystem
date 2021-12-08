@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Radiobutton',
     className: 'Radiobutton',
     jira: 'CZHDEV-847',
-    documentation: dataHelper.getDocumentation('radiobutton.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     label: 'Radio button label',

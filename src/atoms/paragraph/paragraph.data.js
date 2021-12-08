@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Paragraph',
     className: 'atm-paragraph',
     jira: 'CZHDEV-741',
-    documentation: dataHelper.getDocumentation('paragraph.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     hideFromListing: false,
   },
   props: {

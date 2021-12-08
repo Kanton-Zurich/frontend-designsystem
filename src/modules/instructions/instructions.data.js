@@ -30,7 +30,7 @@ const data = _.merge({}, defaultData, {
     className: 'Instructions',
     jira: 'CZHDEV-223',
     label: 'Container',
-    documentation: dataHelper.getDocumentation('instructions.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: _.merge({ instructions_title: 'Anleitung (H2)' },
     richtextDemoData.props, linklistDemoData.props, videoDemoData.props, { headingLevel: 4 },

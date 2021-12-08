@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     className: 'Range',
     jira: 'CZHDEV-845',
     label: 'Formular',
-    documentation: dataHelper.getDocumentation('range.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
 

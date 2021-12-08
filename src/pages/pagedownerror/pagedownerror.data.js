@@ -15,7 +15,7 @@ const data = _.merge({}, defaultData, {
     title: 'Pagedown Fehlerseite',
     jira: 'CZHDEV-529',
     content: dataHelper.getFileContent('pagedownerror.hbs'),
-    documentation: dataHelper.getDocumentation('pagedownerror.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     skiplinks: skiplinksData,

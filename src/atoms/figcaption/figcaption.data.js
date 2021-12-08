@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Figcaption',
     className: 'Figcaption',
     jira: 'CZHDEV-191',
-    documentation: dataHelper.getDocumentation('figcaption.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     caption: 'Bildlegende Fluss Quelle mit lange Texte in der Legende',

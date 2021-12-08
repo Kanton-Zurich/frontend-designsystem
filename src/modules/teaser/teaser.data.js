@@ -11,7 +11,7 @@ const data = _.merge({}, defaultData, {
     className: 'Teaser',
     jira: 'CZHDEV-347',
     label: 'Teaser',
-    documentation: dataHelper.getDocumentation('teaser.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: _.merge({
     anchorNavReference: '',

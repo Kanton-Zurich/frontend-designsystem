@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Überschriften',
     className: 'Überschriften',
     jira: 'CZHDEV-189',
-    documentation: dataHelper.getDocumentation('headings.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     hideFromListing: false,
   },
   props: {

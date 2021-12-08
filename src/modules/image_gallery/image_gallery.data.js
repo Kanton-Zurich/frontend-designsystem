@@ -58,7 +58,7 @@ const data = _.merge({}, defaultData, {
     className: 'ImageGallery',
     jira: 'CZHDEV-113',
     label: 'Komplex',
-    documentation: dataHelper.getDocumentation('image_gallery.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'H2: Bildergalerie',

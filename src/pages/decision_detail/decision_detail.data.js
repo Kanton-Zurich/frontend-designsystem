@@ -17,7 +17,7 @@ const data = _.merge({}, defaultData, {
     title: 'Flex Data Detailseite (Entscheide)',
     jira: 'CZHDEV-1234',
     content: dataHelper.getFileContent('decision_detail.hbs'),
-    documentation: dataHelper.getDocumentation('decision_detail.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     header: headerData,

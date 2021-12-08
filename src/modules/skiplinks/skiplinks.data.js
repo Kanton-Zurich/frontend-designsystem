@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     className: 'Skiplinks',
     jira: 'CZHDEV-292',
     label: 'Navigation',
-    documentation: dataHelper.getDocumentation('skiplinks.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
   },

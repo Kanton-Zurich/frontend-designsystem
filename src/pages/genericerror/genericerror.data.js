@@ -14,7 +14,7 @@ const data = _.merge({}, defaultData, {
     title: 'Generische Fehlerseite',
     jira: 'CZHDEV-528',
     content: dataHelper.getFileContent('genericerror.hbs'),
-    documentation: dataHelper.getDocumentation('genericerror.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'Generische Fehlerseite',

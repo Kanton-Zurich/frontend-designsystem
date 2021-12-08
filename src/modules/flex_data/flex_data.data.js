@@ -17,7 +17,7 @@ const data = _.merge({}, defaultData, {
     className: 'FlexData',
     jira: 'CZHDEV-1234',
     label: 'Applikation',
-    documentation: dataHelper.getDocumentation('flex_data.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     notificationData: _.merge({}, defNotificationData, {

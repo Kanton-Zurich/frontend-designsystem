@@ -13,7 +13,7 @@ const data = _.merge({}, defaultData, {
     className: 'Search',
     jira: 'CZHDEV-805',
     label: 'Suche',
-    documentation: dataHelper.getDocumentation('search.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     anchorlinks: [

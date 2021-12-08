@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Anchorlink',
     className: 'Anchorlink',
     jira: 'CZHDEV-*',
-    documentation: dataHelper.getDocumentation('anchorlink.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     anchorlink: {

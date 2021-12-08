@@ -14,7 +14,7 @@ const data = _.merge({}, defaultData, {
     className: 'Carousel',
     jira: 'CZHDEV-113',
     label: 'Komplex',
-    documentation: dataHelper.getDocumentation('carousel.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: {

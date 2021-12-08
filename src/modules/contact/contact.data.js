@@ -127,7 +127,7 @@ const data = _.merge({}, defaultData, {
     className: 'Contact',
     jira: 'CZHDEV-257',
     label: 'Komplex',
-    documentation: dataHelper.getDocumentation('contact.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     contactAriaTitle_location: 'Adresse',

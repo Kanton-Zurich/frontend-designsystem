@@ -1206,7 +1206,7 @@ const data = _.merge({}, defaultData, {
     className: 'FormSection',
     jira: 'CZHDEV-850',
     label: 'Formular',
-    documentation: dataHelper.getDocumentation('form.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     wrapInForm: true,
   },
   props: {

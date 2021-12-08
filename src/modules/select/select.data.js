@@ -13,7 +13,7 @@ const data = _.merge({}, defaultData, {
     className: 'Select',
     jira: 'CZHDEV-846, CZHDEV-848, CZHDEV-852, CZHDEV-992, CZHDEV-1240',
     label: 'Formular',
-    documentation: dataHelper.getDocumentation('select.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
 

@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     title: 'Metablock',
     className: 'Metablock',
     jira: 'CZHDEV-1234',
-    documentation: dataHelper.getDocumentation('metablock.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     label: 'Liste',
   },
   props: {

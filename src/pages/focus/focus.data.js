@@ -24,7 +24,7 @@ const data = _.merge({}, defaultData, {
     title: 'Schwerpunktseite',
     jira: 'CZHDEV-509',
     content: dataHelper.getFileContent('focus.hbs'),
-    documentation: dataHelper.getDocumentation('focus.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     skiplinks: skiplinksData,
