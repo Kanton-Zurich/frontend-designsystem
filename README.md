@@ -29,6 +29,11 @@ See `gulpfile.js` for details.
 npm run start
 ```
 
+## Build all assets for deployment
+```bash
+npm run build
+```
+
 ## Create a new module / page /atom
 ```bash
 npm run gulp scaffold
@@ -36,14 +41,12 @@ npm run gulp scaffold
 
 ## Create archetype for external develoment or embedded application creation
 - To create a development environment archetype project for creating markup for an embedded application (Component: mdl-application) an archetype project can be created
-- Modules and atoms can be included or excluded at discretion (!) Caution: some modules are depending on atoms or other modules so some combination can not be created
-- The archetype can be found after generating in the dist folder ``dist/app_archetype`` or packed ``dist/app_archetype.zip``
-
+- Modules and atoms can be included or excluded at discretion (!) Caution: some modules are depending on atoms or other modules so some combinations can not be created and will lead to build errors.
+- The generated archetype can be found in the folder ``dist/app_archetype`` or as package ``dist/app_archetype.zip``
 
 ```bash
 npm run archetype
 ```
-
 
 ## Docker
 
