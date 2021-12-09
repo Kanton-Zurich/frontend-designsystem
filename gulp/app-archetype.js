@@ -90,71 +90,88 @@ gulp.task('app:archetype:subset', (done) => {
   });
 
 
-  inquirer
-    .prompt([
-      {
-        type: 'checkbox',
-        name: 'atoms',
-        message: 'Which atoms shall be included? (Press <space> to select, <a> to toggle all, <i> to invert selection)',
-        choices: atoms,
-        default: atoms,
-      },
-      {
-        type: 'checkbox',
-        name: 'modules',
-        message: 'Which modules shall be included? (Press <space> to select, <a> to toggle all, <i> to invert selection)',
-        choices: modules,
-        default: modules,
-      },
-    ])
-    .then(answers => {
-      lineArraySCSS.forEach((line) => {
-        if (line.match(/\/modules\/[A-Za-z_\-0-9]*\//g)) {
-          if (answers.modules.find((mdl) => {
-            const rgx = new RegExp(`\/modules\/${mdl}*`);
-            return line.match(rgx);
-          })) {
+  inquirer.prompt([{
+    type: 'confirm',
+    name: 'skipSubsetConfiguration',
+    message: 'Do you want to configure the included atomes & modules to be used in the archetype?',
+    default: false,
+  }]).then((result) => {
+    if (result.skipSubsetConfiguration === true) {
+      inquirer
+        .prompt([
+          {
+            type: 'checkbox',
+            name: 'atoms',
+            message: 'Which atoms shall be included? (Press <space> to select, <a> to toggle all, <i> to invert selection)',
+            choices: atoms,
+            default: atoms,
+          },
+          {
+            type: 'checkbox',
+            name: 'modules',
+            message: 'Which modules shall be included? (Press <space> to select, <a> to toggle all, <i> to invert selection)',
+            choices: modules,
+            default: modules,
+          },
+        ])
+        .then((answers) => {
+          lineArraySCSS.forEach((line) => {
+            if (line.match(/\/modules\/[A-Za-z_\-0-9]*\//g)) {
+              if (answers.modules.find((mdl) => {
+                const rgx = new RegExp(`\/modules\/${mdl}*`);
+                return line.match(rgx);
+              })) {
+                scssSubset.push(line);
+              }
+              return;
+            }
+            if (line.match(/\/atoms\/[A-Za-z_\-0-9]*\//g)) {
+              if (answers.atoms.find((atm) => {
+                const rgx = new RegExp(`\/atoms\/${atm}*`);
+                return line.match(rgx);
+              })) {
+                scssSubset.push(line);
+              }
+              return;
+            }
             scssSubset.push(line);
-          }
-          return;
-        }
-        if (line.match(/\/atoms\/[A-Za-z_\-0-9]*\//g)) {
-          if (answers.atoms.find((atm) => {
-            const rgx = new RegExp(`\/atoms\/${atm}*`);
-            return line.match(rgx);
-          })) {
-            scssSubset.push(line);
-          }
-          return;
-        }
-        scssSubset.push(line);
-      });
+          });
 
-      const moduleReferencesToRemove = [];
-      lineArrayJS.forEach((line) => {
-        const matchModules = line.match(/\/modules\/[A-Za-z_\-0-9]*\//g);
-        if (matchModules) {
-          if (answers.modules.indexOf(matchModules[0].split('/')[2]) >= 0) {
+          const moduleReferencesToRemove = [];
+          lineArrayJS.forEach((line) => {
+            const matchModules = line.match(/\/modules\/[A-Za-z_\-0-9]*\//g);
+            if (matchModules) {
+              if (answers.modules.indexOf(matchModules[0].split('/')[2]) >= 0) {
+                jsSubset.push(line);
+              } else {
+                moduleReferencesToRemove.push(line.match(/import.*from/g)[0].split(' ')[1]);
+              }
+              return;
+            }
+            if (moduleReferencesToRemove.find((ref) => {
+              const regexRef = new RegExp(`this\.modules.*${ref}\;`);
+              return line.match(regexRef);
+            })) return;
             jsSubset.push(line);
-          } else {
-            moduleReferencesToRemove.push(line.match(/import.*from/g)[0].split(' ')[1]);
-          }
-          return;
-        }
-        if (moduleReferencesToRemove.find((ref) => {
-          const regexRef = new RegExp(`this\.modules.*${ref}\;`);
-          return line.match(regexRef);
-        })) return;
-        jsSubset.push(line);
-      });
-      fs.writeFileSync('src/assets/js/helpers/tmp-app.ts', jsSubset.join('\n'));
-      fs.writeFileSync('src/assets/css/tmp-main.scss', scssSubset.join('\n'));
-      const webpackFile = readFileSyncCached('./webpack.config.js').toString().replace('main: \'./src/assets/js/main.ts\',', 'main: \'./src/assets/js/tmp-main.ts\',');
-      const mainFile = readFileSyncCached('./src/assets/js/main.ts').toString().replace('import App from \'./helpers/app\';', 'import App from \'./helpers/tmp-app\';');
+          });
+          fs.writeFileSync('src/assets/js/helpers/tmp-app.ts', jsSubset.join('\n'));
+          fs.writeFileSync('src/assets/css/tmp-main.scss', scssSubset.join('\n'));
+          const webpackFile = readFileSyncCached('./webpack.config.js').toString().replace('main: \'./src/assets/js/main.ts\',', 'main: \'./src/assets/js/tmp-main.ts\',');
+          const mainFile = readFileSyncCached('./src/assets/js/main.ts').toString().replace('import App from \'./helpers/app\';', 'import App from \'./helpers/tmp-app\';');
+          fs.writeFileSync('./tmp-webpack.config.js', webpackFile);
+          fs.writeFileSync('src/assets/js/tmp-main.ts', mainFile);
+          task(done);
+        });
+    } else {
+      fs.writeFileSync('src/assets/js/helpers/tmp-app.ts', lineArrayJS.join('\n'));
+      fs.writeFileSync('src/assets/css/tmp-main.scss', lineArraySCSS.join('\n'));
+      const webpackFile = readFileSyncCached('./webpack.config.js').toString();
+      const mainFile = readFileSyncCached('./src/assets/js/main.ts').toString();
       fs.writeFileSync('./tmp-webpack.config.js', webpackFile);
       fs.writeFileSync('src/assets/js/tmp-main.ts', mainFile);
       task(done);
-    });
+    }
+  });
 });
 
 gulp.task('app:archetype:clean', (cb) => {
