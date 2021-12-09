@@ -1093,7 +1093,7 @@ gulp.task('zip:offline', () => {
  * Test & lint / validate
  */
 gulp.task('lint', gulp.parallel('css:lint', 'js:lint', 'data:lint'));
-gulp.task('test', gulp.parallel(/* 'html:validate', */ 'js:test'));
+// gulp.task('test', gulp.parallel(/* 'html:validate', 'js:test' */));
 
 /**
  * Create complete build
@@ -1154,9 +1154,9 @@ gulp.task('build', (done) => {
     if (!env.skipTests || (env.watch && env.skipBuild)) {
       // In watch mode, the main task will not finish so we need to run everything in parallel
       if (env.watch && env.skipBuild) {
-        task = gulp.parallel(task, 'lint', 'test');
+        task = gulp.parallel(task, 'lint');
       } else {
-        task = gulp.series(task, gulp.parallel('lint', 'test'));
+        task = gulp.series(task, gulp.parallel('lint'));
       }
     }
     task(done);
