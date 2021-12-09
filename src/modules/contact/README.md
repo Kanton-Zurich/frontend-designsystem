@@ -1,5 +1,5 @@
 ### Enthaltene Atome und Module
-* * [ATM: Heading](../../atoms/headings/headings.html)
+* [ATM: Heading](../../atoms/headings/headings.html)
 * [MDL: Text](../richtext/richtext.html)
 * [MDL: Map View](../map_view/map_view.html)
  
