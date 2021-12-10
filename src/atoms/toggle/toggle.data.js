@@ -6,7 +6,7 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('toggle.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Toggle',
+    title: 'Schalter',
     className: 'Toggle',
     jira: 'CZHDEV-1144',
     documentation: dataHelper.getDocumentation('README.md'),

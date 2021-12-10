@@ -6,7 +6,7 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('range.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Range',
+    title: 'Schieberegler',
     className: 'Range',
     jira: 'CZHDEV-845',
     label: 'Formular',
@@ -19,8 +19,8 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default Range',
-      desc: 'Default implementation',
+      title: 'Standard',
+      desc: '',
     },
     props: {
       rangelabel: 'Ihr Brutto-Jahresgehalt',
@@ -37,8 +37,8 @@ const variants = _.mapValues({
   },
   rangeFromTo: {
     meta: {
-      title: 'Range(Von/bis)',
-      desc: 'Default implementation',
+      title: 'Bereich',
+      desc: '',
     },
     props: {
       withLabels: true,
@@ -61,8 +61,8 @@ const variants = _.mapValues({
   },
   rangeWithTickmarks: {
     meta: {
-      title: 'Range(mit Tickmarks)',
-      desc: 'Default implementation',
+      title: 'Min/Max-Wert (mit Tickmarks)',
+      desc: '',
     },
     props: {
       withTickmarks: true,
