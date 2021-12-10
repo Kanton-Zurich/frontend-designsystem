@@ -1,6 +1,6 @@
 ### Enthaltene Atome und Module
-* [ATM: Heading](../../atoms/headings/headings.html)
-* [ATM: Paragraph](../../atoms/paragraph/paragraph.html)
+* [Atom: Titel (Heading)](../../atoms/headings/headings.html)
+* [Atom: Paragraph](../../atoms/paragraph/paragraph.html)
 * [MDL: Link-Liste](../linklist/linklist.html)
 * [MDL: Text Highlight](../texthighlight/texthighlight.html)
 * [MDL: Download-Liste](../download_list/download_list.html)

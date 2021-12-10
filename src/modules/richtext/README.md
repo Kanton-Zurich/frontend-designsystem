@@ -1,8 +1,10 @@
 ### Enthaltene Atome und Module
-* [ATM: Heading](../../atoms/headings/headings.html)
+* [Atom: Titel (Heading)](../../atoms/headings/headings.html)
+* [Atom: Lead](../../atoms/lead/lead.html)
+* [Atom: Paragraph](../../atoms/paragraph/paragraph.html)
+* [Modul: Zitat (Quote)](../../modules/quote/quote.html)
 
 ### Integration
-
 
 #### Besonderheiten
 Vor einer Vorteilsliste mit der Klasse "mdl-richtext__benefits" muss vom CMS zwingend

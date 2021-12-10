@@ -32,7 +32,7 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   blue: {
     meta: {
-      title: 'Default',
+      title: 'Standard',
       desc: '',
     },
     props: {

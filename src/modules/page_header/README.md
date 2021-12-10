@@ -3,7 +3,7 @@
 * [ATM: Button](../../atoms/button/button.html)
 * [MDL: Bild (Image Figure)](../image_figure/image_figure.html)
 * [MDL: Video](../video/video.html)
-* [ATM: Heading](../../atoms/headings/headings.html)
+* [Atom: Titel (Heading)](../../atoms/headings/headings.html)
 * [MDL: Breadcrumb](../breadcrumb/breadcrumb.html)
  
 ### Integration

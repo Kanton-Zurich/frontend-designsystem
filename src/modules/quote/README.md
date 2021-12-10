@@ -2,8 +2,8 @@
 * [MDL: Bild (Image Figure)](../image_figure/image_figure.html)
 
 Indirekt übernehmen von:
-* [MDL: Text](../richtext/richtext.html) (Zitat)
-* [ATM: FigCaption (Legende)](../../atoms/figcaption/figcaption.html) (Bilduntertitel)
+* [Modul: Text (Richtext)](../richtext/richtext.html) (Zitat)
+* [Atom: Legende (Figcaption)](../../atoms/figcaption/figcaption.html) (Bilduntertitel)
 
 #### Info
 <p>Wichtig für Tester! Dieses Modul kann im Text-Modul in allen Varianten getestet werden.</p>

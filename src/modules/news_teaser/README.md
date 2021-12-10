@@ -1,5 +1,5 @@
 ### Enthaltene Atome und Module
-* [ATM: Heading](../../atoms/headings/headings.html)
+* [Atom: Titel (Heading)](../../atoms/headings/headings.html)
 * [ATM: Anchorlink](../../atoms/anchorlink/anchorlink.html)
 * [MDL: Bild (Image Figure)](../image_figure/image_figure.html)
 * [MDL: Link-Liste](../linklist/linklist.html)

@@ -1,5 +1,5 @@
 ### Enthaltene Atome und Module
-* [ATM: Paragraph](../../atoms/paragraph/paragraph.html)
+* [Atom: Paragraph](../../atoms/paragraph/paragraph.html)
 * [ATM: Button](../../atoms/button/button.html)
 * [ATM: Form Input](../../atoms/form_input/form_input.html)
 * [MDL: Standorte](../locations/locations.html)

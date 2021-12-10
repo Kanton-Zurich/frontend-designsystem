@@ -1,6 +1,6 @@
 ### Enthaltene Atome und Module
-* [ATM: Heading](../../atoms/headings/headings.html)
-* [ATM: FigCaption (Legende)](../../atoms/figcaption/figcaption.html)
+* [Atom: Titel (Heading)](../../atoms/headings/headings.html)
+* [Atom: Legende (Figcaption)](../../atoms/figcaption/figcaption.html)
 
 
 ### Integration

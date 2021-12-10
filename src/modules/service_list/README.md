@@ -1,7 +1,7 @@
 ### Enthaltene Atome und Module
 * [ATM: Button](../../atoms/button/button.html)
-* [ATM: Heading](../../atoms/headings/headings.html)
-* [ATM: Paragraph](../../atoms/paragraph/paragraph.html)
+* [Atom: Titel (Heading)](../../atoms/headings/headings.html)
+* [Atom: Paragraph](../../atoms/paragraph/paragraph.html)
  
 ### Integration
 ACHTUNG!: Es muss darauf geachtet werden, dass die id Attribute bei den Modals im DOM einzigartig sind. Das gilt insbesondere auch, für die Inhalte die in den Modalfenstern eingebunden werden.
