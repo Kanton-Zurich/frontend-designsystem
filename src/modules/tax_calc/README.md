@@ -4,7 +4,7 @@
 * [MDL: Formularschritte (Stepper)](../stepper/stepper.html)
 * [MDL: Accordion](../accordion/accordion.html)
 * [MDL: PopUp Nachricht](../notification/notification.html)
-* [ATM: Button](../../atoms/button/button.html)
+* [Atom: Button](../../atoms/button/button.html)
 
 
 

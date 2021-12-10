@@ -6,14 +6,14 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('anchorlink.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Anchorlink',
+    title: 'Link',
     className: 'Anchorlink',
     jira: 'CZHDEV-*',
     documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     anchorlink: {
-      anchorlinkText: 'Anchorlink',
+      anchorlinkText: 'Text Link',
       anchorlinkAdress: '#',
       anchorlinkIsActive: false,
       anchorlinkIsTagAnchor: false,
@@ -28,13 +28,13 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Anchorlink',
+      title: 'Link',
       desc: '',
     },
   },
   defaultActive: {
     meta: {
-      title: 'Anchorlink (aktiv)',
+      title: 'Link, aktiv',
       desc: '',
     },
     props: {

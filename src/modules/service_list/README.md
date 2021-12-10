@@ -1,5 +1,5 @@
 ### Enthaltene Atome und Module
-* [ATM: Button](../../atoms/button/button.html)
+* [Atom: Button](../../atoms/button/button.html)
 * [Atom: Titel (Heading)](../../atoms/headings/headings.html)
 * [Atom: Paragraph](../../atoms/paragraph/paragraph.html)
  

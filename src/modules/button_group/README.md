@@ -1,6 +1,6 @@
 
 ### Enthaltene Atome und Module
-* [ATM: Button](../../atoms/button/button.html)
+* [Atom: Button](../../atoms/button/button.html)
  
 ### Integration
  

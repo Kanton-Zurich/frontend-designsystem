@@ -1,6 +1,6 @@
 ### Enthaltene Atome und Module
 * [Atom: Titel (Heading)](../../atoms/headings/headings.html)
-* [ATM: Anchorlink](../../atoms/anchorlink/anchorlink.html)
+* [Atom: Link (Anchorlink)](../../atoms/anchorlink/anchorlink.html)
 * [Modul: Bild (ImageFigure)](../image_figure/image_figure.html)
 * [MDL: Link-Liste](../linklist/linklist.html)
 

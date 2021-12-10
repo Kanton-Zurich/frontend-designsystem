@@ -1,6 +1,6 @@
 ### Enthaltene Atome und Module
 * [Atom: Titel (Heading)](../../atoms/headings/headings.html)
-* [ATM: Button](../../atoms/button/button.html)
+* [Atom: Button](../../atoms/button/button.html)
 * [ATM: Form Input](../../atoms/form_input/form_input.html)
 * [ATM: Text Link](../../atoms/text_link/text_link.html)
 * [Atom: Paragraph](../../atoms/paragraph/paragraph.html)

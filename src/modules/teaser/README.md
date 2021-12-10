@@ -1,7 +1,7 @@
 ### Enthaltene Atome und Module
 * [Modul: Bild (ImageFigure)](../image_figure/image_figure.html)
 * [Atom: Titel (Heading)](../../atoms/headings/headings.html)
-* [ATM: Button](../../atoms/button/button.html)
+* [Atom: Button](../../atoms/button/button.html)
  
 ### Integration
 
