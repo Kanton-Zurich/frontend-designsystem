@@ -8,7 +8,7 @@ const defNotificationData = require('../../modules/notification/notification.dat
 const template = dataHelper.getFileContent('social_media_stream.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Social Media Stream',
+    title: 'Social-Media-Stream',
     className: 'SocialMediaStream',
     jira: 'CZHDEV-474',
     label: 'Social media',

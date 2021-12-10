@@ -3,11 +3,8 @@
 
 Indirekt übernehmen von:
 * [Modul: Text (Richtext)](../richtext/richtext.html) (Zitat)
-* [Atom: Legende (Figcaption)](../../atoms/figcaption/figcaption.html) (Bilduntertitel)
+* [Atom: Legende (Figcaption)](../../atoms/figcaption/figcaption.html) (Quelle)
 
-#### Info
-<p>Wichtig für Tester! Dieses Modul kann im Text-Modul in allen Varianten getestet werden.</p>
-<p>Important for testers! This moddule can be tested in all variantes within the text-module.</p>
 
 ### Integration
 

@@ -56,7 +56,7 @@ const variants = _.mapValues({
   h3: {
     meta: {
       title: 'Standard, mit H3',
-      desc: 'Standardmässige Videoeinbindung mit einem h3 als Titel',
+      desc: 'Standardmässige Videoeinbindung mit einem H3 als Titel',
     },
     props: {
       headingLevel: 3,
