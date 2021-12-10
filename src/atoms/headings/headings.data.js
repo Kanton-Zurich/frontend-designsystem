@@ -6,8 +6,8 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('headings.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Überschriften',
-    className: 'Überschriften',
+    title: 'Titel',
+    className: 'Headings',
     jira: 'CZHDEV-189',
     documentation: dataHelper.getDocumentation('README.md'),
     hideFromListing: false,
