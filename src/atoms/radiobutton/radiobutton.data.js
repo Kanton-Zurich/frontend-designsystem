@@ -21,14 +21,14 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+      title: 'Standard',
+      desc: '',
     },
   },
   checked: {
     meta: {
-      title: 'Vorausgewählt',
-      desc: 'Initial Ausgewählt/aktiv.',
+      title: 'Ausgewählt',
+      desc: '',
     },
     props: {
       isChecked: true,
@@ -37,7 +37,7 @@ const variants = _.mapValues({
   disabled: {
     meta: {
       title: 'Deaktiviert',
-      desc: 'Initial deaktiviert, nicht click- bzw auswählbar.',
+      desc: 'nicht klick- bzw. auswählbar',
     },
     props: {
       isDisabled: true,
@@ -45,7 +45,7 @@ const variants = _.mapValues({
   },
   tag: {
     meta: {
-      title: 'Tag als Radiobutton',
+      title: 'Chip als Radiobutton',
       desc: 'Verwendung in der Suche',
     },
     props: {
@@ -55,8 +55,8 @@ const variants = _.mapValues({
   },
   withDescription: {
     meta: {
-      title: 'With Description',
-      desc: 'Mit Label und Beschreibung.',
+      title: 'Mit Hinweis',
+      desc: 'zusätzlicher Erklärungstext',
     },
     props: {
       id: 'privatperson',
