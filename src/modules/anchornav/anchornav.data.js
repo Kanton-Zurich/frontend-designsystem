@@ -68,8 +68,8 @@ const data = _.merge({}, defaultData, {
       },
       {
         anchorlink: {
-          anchorlinkText: 'Bildergallerie',
-          anchorlinkAdress: '#bildergallerie',
+          anchorlinkText: 'Bildergalerie',
+          anchorlinkAdress: '#bildergalerie',
           anchorlinkIsActive: false,
           anchorlinkAsButton: true,
         },

@@ -119,8 +119,8 @@ data.colorVariations = []; // no color variations available
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+      title: 'Standard',
+      desc: '',
     },
   },
 }, (variant) => {

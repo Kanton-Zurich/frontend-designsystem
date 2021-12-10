@@ -1,5 +1,5 @@
 ### Enthaltene Atome und Module
-* [MDL: Bild (Image Figure)](../image_figure/image_figure.html)
+* [Modul: Bild (ImageFigure)](../image_figure/image_figure.html)
 * [Atom: Titel (Heading)](../../atoms/headings/headings.html)
 * [ATM: Button](../../atoms/button/button.html)
  
