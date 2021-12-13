@@ -120,7 +120,7 @@ const data = _.merge({}, defaultData, {
     className: 'Locations',
     jira: 'CZHDEV-476',
     label: 'Komplex',
-    documentation: dataHelper.getDocumentation('locations.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'Standorte des Strassenverkehrsamtes',

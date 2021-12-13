@@ -17,7 +17,7 @@ const data = _.merge({}, defaultData, {
     className: 'TaxCalc',
     jira: 'CZHDEV-1238',
     label: 'Applikation',
-    documentation: dataHelper.getDocumentation('tax_calc.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     apiBase: 'https://int-webcalc.services.zh.ch/ZH-Web-Calculators/calculators/',

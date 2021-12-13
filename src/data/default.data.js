@@ -37,7 +37,7 @@ const strPad = (num) => {
 const env = parseArgs(process.argv.slice(2));
 const data = {
   meta: {
-    project: 'CZHDEV - Living Styleguide',
+    project: 'CZHDEV - Design System',
     gitRemoteLink: git.remoteUrl().slice(0, -4).replace(/(?<=https:\/\/)(.*)(?=bitbucket\.org)/g, '') //eslint-disable-line
       + '/src/' + git.long(),
     gitBranch: git.branch(),
@@ -57,7 +57,7 @@ const data = {
     pageHeaderData: {
       title: 'Seitenkopf',
       homelink: '',
-      pageTitle: 'Living Styleguide',
+      pageTitle: 'Design System',
       breadcrumb: {
         contextMenu: false,
         path: [
@@ -86,13 +86,15 @@ const data = {
           ],
         },
       },
+      withModuleLogic: true,
       contactPhone: [{
         anchorLabel: '043 259 11 11',
         phoneNumer: '+41432591111',
       }],
       contactSubtitleMoreInfo: {
-        href: 'https://www.zh.ch/',
+        href: '#',
         label: 'Mehr erfahren',
+        icon: true,
       },
       contactMail: {
         address: 'zhweb@sk.zh.ch',

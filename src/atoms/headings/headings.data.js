@@ -6,10 +6,10 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('headings.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Überschriften',
-    className: 'Überschriften',
+    title: 'Titel',
+    className: 'Heading',
     jira: 'CZHDEV-189',
-    documentation: dataHelper.getDocumentation('headings.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     hideFromListing: false,
   },
   props: {
@@ -22,57 +22,29 @@ data.colorVariations = []; // no color variations available
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Blank',
-      desc: 'Standard HTML-Elemente ohne Klassen',
+      title: 'Standard',
+      desc: '',
     },
     props: {
       title: 'Überschrift Stufe',
-      small: 'mit kleinem Text',
-      link: 'und einem Link',
-    },
-  },
-  primary: {
-    meta: {
-      title: 'Primary',
-      desc: 'Beliebige HTML-Elemente mit Klassen atm-heading',
-    },
-    props: {
-      title: 'Überschrift Stufe',
-      small: '',
-      link: 'und einem Link',
       variant: 'primary',
     },
   },
   inverted: {
     meta: {
-      title: 'Inverted',
-      desc: 'Beliebige HTML-Elemente mit Klassen atm-heading und atm-heading--cv-inverted',
+      title: 'Invertiert',
+      desc: '',
     },
     props: {
       title: 'Überschrift Stufe',
-      small: '',
-      link: 'und einem Link',
       isInverted: true,
       modifier: 'cv-inverted',
       variant: 'inverted',
     },
   },
-  leadHeading: {
-    meta: {
-      title: 'Heading mit lead',
-      desc: '',
-    },
-    props: {
-      leadHeading: true,
-      title: 'max@mustermann.com',
-      leadTitle: 'Ihre E-Mail Adresse',
-      headingLevel: 2,
-      variant: 'primary',
-    },
-  },
   prefixHeading: {
     meta: {
-      title: 'Heading mit Prefix',
+      title: 'Titel mit Prefix',
       desc: '',
     },
     props: {
@@ -80,6 +52,19 @@ const variants = _.mapValues({
       headingLevel: 2,
       modifier: 'number-prefix',
       prefix: '1',
+      variant: 'primary',
+    },
+  },
+  leadHeading: {
+    meta: {
+      title: 'Titel mit Legende',
+      desc: 'Titelzeile oberhalb der Überschrift',
+    },
+    props: {
+      leadHeading: true,
+      title: 'max@mustermann.com',
+      leadTitle: 'Ihre E-Mail Adresse',
+      headingLevel: 2,
       variant: 'primary',
     },
   },

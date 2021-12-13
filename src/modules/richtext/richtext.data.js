@@ -11,7 +11,7 @@ const data = _.merge({}, defaultData, {
     className: 'Richtext',
     jira: 'CZHDEV-111',
     label: 'Inhalt',
-    documentation: dataHelper.getDocumentation('richtext.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: _.merge({
     h1Text: 'H1: Pagetitle Black Strassenverkehrsamt',

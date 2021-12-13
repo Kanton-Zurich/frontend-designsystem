@@ -18,7 +18,7 @@ const data = _.merge({}, defaultData, {
     title: 'Flex Data Detailseite',
     jira: 'CZHDEV-1234',
     content: dataHelper.getFileContent('flex_detail.hbs'),
-    documentation: dataHelper.getDocumentation('flex_detail.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     skiplinks: skiplinksData,

@@ -13,7 +13,7 @@ const data = _.merge({}, defaultData, {
     className: 'Header',
     jira: 'CZHDEV-496',
     label: 'Layout',
-    documentation: dataHelper.getDocumentation('header.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     navItem: [

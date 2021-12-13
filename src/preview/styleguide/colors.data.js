@@ -15,10 +15,6 @@ data.wrappingElements.pageHeaderData.breadcrumb.path = [
     href: '../../index.html',
   },
   {
-    title: 'Living Styleguide',
-    href: '../../styleguide.html',
-  },
-  {
     title: 'Farben',
   },
 ];

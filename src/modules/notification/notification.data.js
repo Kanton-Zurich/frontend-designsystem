@@ -12,7 +12,7 @@ const data = _.merge({}, defaultData, {
     className: 'Notification',
     jira: 'CZHDEV-850',
     label: 'UI Element',
-    documentation: dataHelper.getDocumentation('notification.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     message: 'Bitte kontrollieren Sie ihre Angaben für folgende Felder: <button>Vorname</button>',

@@ -22,7 +22,7 @@ const data = _.merge({}, defaultData, {
     title: 'Sozialhilfe Handbuch',
     jira: 'CZHDEV-3005',
     content: dataHelper.getFileContent('social_care_handbook.hbs'),
-    documentation: dataHelper.getDocumentation('social_care_handbook.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     skiplinks: skiplinksData,

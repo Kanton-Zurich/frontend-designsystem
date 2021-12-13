@@ -30,7 +30,7 @@ const data = _.merge({}, defaultData, {
     className: 'Instructions',
     jira: 'CZHDEV-223',
     label: 'Container',
-    documentation: dataHelper.getDocumentation('instructions.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: _.merge({ instructions_title: 'Anleitung (H2)' },
     richtextDemoData.props, linklistDemoData.props, videoDemoData.props, { headingLevel: 4 },
@@ -42,30 +42,30 @@ const data = _.merge({}, defaultData, {
 function getItems(ordered) {
   const headingsPre = ordered ? 'Anleitungsschritt-Titel' : 'Checklistenpunkt-Titel';
   return [{
-    heading: `${headingsPre} (mit Linklisten Module)`,
+    heading: `${headingsPre} (mit Linkliste Modul)`,
     contentModules: [
       () => handlebars.compile(linklistHBS)(_.merge({},
         linklistDemoData.props, { headingLevel: 4, isLast: true })),
     ],
   }, {
-    heading: `${headingsPre} (mit Video Module)`,
+    heading: `${headingsPre} (mit Video Modul)`,
     contentModules: [
       () => handlebars.compile(videoHBS)(_.merge({},
         videoDemoData.props, { title: true, headingLevel: 4 })),
     ],
   }, {
-    heading: `${headingsPre} (mit Bilder Module)`,
+    heading: `${headingsPre} (mit Bilder Modul)`,
     contentModules: [
       () => handlebars.compile(imageFigureHBS)(imageFigureDemoData.props),
     ],
   }, {
-    heading: `${headingsPre} (mit Bildgallerie/Carousel Module)`,
+    heading: `${headingsPre} (mit Bildergalerie/Slider Modul)`,
     contentModules: [
       () => handlebars.compile(carouselHBS)(_.merge({},
         carouselDemoData.props, { title: { level: 4 } })),
     ],
   }, {
-    heading: `${headingsPre} (mit Infobox Module)`,
+    heading: `${headingsPre} (mit Infobox Modul)`,
     contentModules: [
       () => handlebars.compile(texthighlightHBS)(_.merge({}, texthighlightDemoData.props,
         _.merge({}, linklistDemoData.props, { isLast: true }),

@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     className: 'CookieControls',
     jira: 'CZHDEV-466',
     label: 'Formular',
-    documentation: dataHelper.getDocumentation('cookie_controls.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
 

@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'LoadingCircle',
     className: 'LoadingCircle',
     jira: 'CZHDEV-807',
-    documentation: dataHelper.getDocumentation('loading_circle.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     hideFromListing: false,
     setLoadingClass: true,
   },

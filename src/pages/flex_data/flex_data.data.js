@@ -19,7 +19,7 @@ const data = _.merge({}, defaultData, {
     title: 'Flex Data (Steuerbuch)',
     jira: 'CZHDEV-1234',
     content: dataHelper.getFileContent('flex_data.hbs'),
-    documentation: dataHelper.getDocumentation('flex_data.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'Steuerbuch',

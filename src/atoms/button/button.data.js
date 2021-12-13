@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Button',
     className: 'Button',
     jira: 'CZHDEV-205',
-    documentation: dataHelper.getDocumentation('button.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     icon: null,

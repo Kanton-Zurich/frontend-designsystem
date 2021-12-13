@@ -11,7 +11,7 @@ const data = _.merge({}, defaultData, {
     className: 'ZhLex',
     jira: 'CZHDEV-1240',
     label: 'Applikation',
-    documentation: dataHelper.getDocumentation('zhlex.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     id: 'zhlex_search',

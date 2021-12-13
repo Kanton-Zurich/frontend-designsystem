@@ -12,7 +12,7 @@ const data = _.merge({}, defaultData, {
     className: 'ImageFigure',
     jira: 'CZHDEV-192',
     label: 'Inhalt',
-    documentation: dataHelper.getDocumentation('image_figure.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     srcsets: [{

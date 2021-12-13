@@ -69,7 +69,7 @@ const data = _.merge({}, defaultData, {
     title: 'ZH-Lex Suche',
     jira: 'CZHDEV-1240',
     content: dataHelper.getFileContent('zhlex_data.hbs'),
-    documentation: dataHelper.getDocumentation('zhlex_data.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     skiplinks: skiplinksData,

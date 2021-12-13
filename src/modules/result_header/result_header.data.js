@@ -12,7 +12,7 @@ const data = _.merge({}, defaultData, {
     className: 'ResultHeader',
     jira: 'CZHDEV-3030',
     label: 'Applikation',
-    documentation: dataHelper.getDocumentation('result_header.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     headingTitle: 'Details',

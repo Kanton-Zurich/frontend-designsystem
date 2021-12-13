@@ -15,7 +15,7 @@ const data = _.merge({}, defaultData, {
     title: 'Newsletter Einstellungen',
     jira: 'CZHDEV-1712',
     content: dataHelper.getFileContent('newsletter_settings.hbs'),
-    documentation: dataHelper.getDocumentation('newsletter_settings.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     skiplinks: skiplinksData,

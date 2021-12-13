@@ -28,7 +28,7 @@ const data = _.merge({}, defaultData, {
     className: 'Video',
     jira: 'CZHDEV-123',
     label: 'Eingebettet',
-    documentation: dataHelper.getDocumentation('video.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     headingLevel: 2,
@@ -56,7 +56,7 @@ const variants = _.mapValues({
   h3: {
     meta: {
       title: 'Standard, mit H3',
-      desc: 'Standardmässige Videoeinbindung mit einem h3 als Titel',
+      desc: 'Standardmässige Videoeinbindung mit einem H3 als Titel',
     },
     props: {
       headingLevel: 3,

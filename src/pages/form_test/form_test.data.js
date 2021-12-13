@@ -33,7 +33,7 @@ const data = _.merge({}, defaultData, {
     title: 'Form Test',
     jira: 'CZHDEV-',
     content: dataHelper.getFileContent('form_test.hbs'),
-    documentation: dataHelper.getDocumentation('form_test.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     header: headerData,

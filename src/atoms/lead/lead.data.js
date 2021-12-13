@@ -6,10 +6,10 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('lead.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Lead Text',
+    title: 'Lead',
     className: 'atm-lead',
     jira: 'CZHDEV-111',
-    documentation: dataHelper.getDocumentation('lead.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     hideFromListing: false,
   },
   props: {
@@ -22,7 +22,7 @@ data.colorVariations = []; // no color variations available
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'default',
+      title: 'Standard',
     },
     props: {
     },

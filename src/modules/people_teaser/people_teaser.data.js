@@ -11,7 +11,7 @@ const data = _.merge({}, defaultData, {
     className: 'PeopleTeaser',
     jira: 'CZHDEV-178',
     label: 'Teaser',
-    documentation: dataHelper.getDocumentation('people_teaser.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     personCardData0: defPersonCardData.default.props,

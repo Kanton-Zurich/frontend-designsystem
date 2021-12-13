@@ -68,7 +68,7 @@ const data = _.merge({}, defaultData, {
     className: 'PublicationTeaser',
     jira: 'CZHDEV-180',
     label: 'Teaser',
-    documentation: dataHelper.getDocumentation('publication_teaser.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     publicationTitle: 'H3: Kontrollpunkt für mobile Gerate einrichten - den ersten in der Schweiz',

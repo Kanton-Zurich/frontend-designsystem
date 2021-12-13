@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'hCaptcha',
     className: 'Hcaptcha',
     jira: 'CZHDEV-3024',
-    documentation: dataHelper.getDocumentation('hcaptcha.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     siteKey: 'd850cd29-28be-44ef-842c-fb02df12efb0',

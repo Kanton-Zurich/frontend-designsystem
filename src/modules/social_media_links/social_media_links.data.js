@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     className: 'SocialMediaLinks',
     jira: 'CZHDEV-438',
     label: 'Social media',
-    documentation: dataHelper.getDocumentation('social_media_links.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     socialMediaLinksHeading: {

@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     className: 'MdlServiceList',
     jira: 'CZHDEV-174',
     label: 'Liste',
-    documentation: dataHelper.getDocumentation('service_list.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     headingText: 'Service',

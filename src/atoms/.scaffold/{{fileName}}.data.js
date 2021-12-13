@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: '{{name}}',
     className: '{{className}}',
     jira: 'CZHDEV-*',
-    documentation: dataHelper.getDocumentation('{{fileName}}.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
 

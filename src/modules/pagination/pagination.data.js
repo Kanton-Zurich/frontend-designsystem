@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     className: 'Pagination',
     jira: 'CZHDEV-990',
     label: 'Navigation',
-    documentation: dataHelper.getDocumentation('pagination.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     headingLevel: 4,
