@@ -5,6 +5,7 @@
  * @copyright
  */
 import { template, cloneDeep } from 'lodash';
+import { getURLParam } from '../../assets/js/helpers/common';
 import Module from '../../assets/js/helpers/module';
 import {
   TaxCalcDefaultOptions,
@@ -111,7 +112,7 @@ class TaxCalc extends Module {
    * Check for URL params
    */
   initCalculator() {
-    const paramVal = this.getURLParam(this.options.paramKeyCalculator);
+    const paramVal = getURLParam(this.options.paramKeyCalculator);
     let initialized = false;
     if (paramVal) {
       const calculatorId = paramVal[0];
@@ -704,7 +705,7 @@ class TaxCalc extends Module {
     } else {
       newSearchStr = `${paramKey}=${calculatorId}`;
     }
-    const wcmmode = this.getURLParam('wcmmode');
+    const wcmmode = getURLParam('wcmmode');
     window.history.pushState(null, null, `?${newSearchStr}${wcmmode ? '&wcmmode=' + wcmmode : ''}`); // eslint-disable-line
   }
 

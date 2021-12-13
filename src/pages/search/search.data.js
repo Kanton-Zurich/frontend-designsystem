@@ -15,7 +15,7 @@ const data = _.merge({}, defaultData, {
     title: 'Suchseite',
     jira: 'CZHDEV-807',
     content: dataHelper.getFileContent('search.hbs'),
-    documentation: dataHelper.getDocumentation('search.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'Title',

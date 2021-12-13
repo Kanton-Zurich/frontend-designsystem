@@ -18,11 +18,7 @@
 @import 'globals/grid';
 @import 'globals/flatpickr';
 @import 'globals/nouislider';
-
-// Icons (as font or dataurl), PNG sprites
-// @import '../.tmp/iconfont';
-// @import '../.tmp/dataurls';
-// @import '../.tmp/pngsprite';
+@import 'globals/searchhighlight';
 
 // General styles
 @import 'mediaqueries_sync';
@@ -54,13 +50,6 @@
 //*autoinsertatom*
 
 // Modules
-// @import '../../demo/modules/media/media';
-// @import '../../demo/modules/teaser/teaser';
-// @import '../../demo/modules/teasers/teasers';
-// @import '../../demo/modules/skiplinks/skiplinks';
-// @import '../../demo/modules/slideshow/slideshow';
-// @import '../../demo/modules/imageversions/imageversions';
-// @import '../../demo/modules/svgsprite/svgsprite';
 @import '../../modules/linklist/linklist';
 @import '../../modules/table/table';
 @import '../../modules/image_figure/image_figure';
@@ -140,6 +129,7 @@
 @import '../../modules/newsletter_form/newsletter_form';
 @import '../../modules/notification/notification';
 @import '../../modules/decision_tree/decision_tree';
+@import '../../modules/result_header/result_header';
 //*autoinsertmodule*
 
 @media screen {

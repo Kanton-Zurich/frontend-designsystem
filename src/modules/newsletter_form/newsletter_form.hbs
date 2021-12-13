@@ -1,4 +1,4 @@
-<div class="mdl-newsletter_form" data-init="newsletterForm">
+<div class="mdl-newsletter_form{{#if reduced}} mdl-newsletter_form--reduced{{/if}}" data-init="newsletterForm">
   {{#if title}}
   <h{{headingLevel}} class="atm-heading atm-heading--bordered">{{title}}</h{{headingLevel}}>
   {{/if}}
@@ -11,9 +11,27 @@
       <div class="grid-x grid-margin-x">
         <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-8 large-6">
   {{/if}}
+  {{#if reduced}}
           <form class="mdl-newsletter_form__form" novalidate action="{{action}}" method="{{method}}">
             {{> "atoms/form_input/form_input" formInputData }} {{> "atoms/button/button" buttonData }}
           </form>
+  {{/if}}
+  {{#unless reduced}}
+    <form novalidate action="{{action}}" method="{{method}}">
+      <div class="form__group">
+        <div class="form__row">
+          <div class="form__cell">{{> "atoms/form_input/form_input" formInputFirstname }}</div>
+          <div class="form__cell">{{> "atoms/form_input/form_input" formInputLastname }}</div>
+        </div>
+        <div class="form__row">
+          <div class="form__cell">{{> "atoms/form_input/form_input" formInputEmail }}</div>
+        </div>
+      </div>
+      <div class="mdl-stepper__control">
+      {{> "atoms/button/button" buttonData }}
+      </div>
+    </form>
+  {{/unless}}
   {{#if wrapped}}
         </div>
       </div>

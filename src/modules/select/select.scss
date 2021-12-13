@@ -81,6 +81,7 @@ $selectScrollbarWidth: 30px;
   .atm-form_input__input--trigger {
     overflow: hidden;
     text-overflow: ellipsis;
+    color: $colorBlack;
 
     > .icon {
       transform: rotate(0deg);
@@ -89,6 +90,8 @@ $selectScrollbarWidth: 30px;
     }
 
     &:disabled {
+      color: $colorBlack40;
+
       .icon use {
         fill: $colorBlack40;
       }

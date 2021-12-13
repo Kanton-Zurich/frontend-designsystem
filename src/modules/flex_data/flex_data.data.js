@@ -17,7 +17,7 @@ const data = _.merge({}, defaultData, {
     className: 'FlexData',
     jira: 'CZHDEV-1234',
     label: 'Applikation',
-    documentation: dataHelper.getDocumentation('flex_data.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     notificationData: _.merge({}, defNotificationData, {
@@ -77,8 +77,7 @@ const variants = _.mapValues({
       pagination: _.merge({}, defPaginationData.variants.fullWidth.props, {
         additionalClasses: 'hidden',
       }),
-      flexTableFormData: _.merge({}, defFormData.variants.zhlex.props),
-      extendedFlexFormData: _.merge({}, defAccordionData.variants.zhLexLSExtendedSearch.props),
+      flexTableFormData: _.merge({}, defFormData.variants.zhlexLS.props),
       resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
       tableData: {
         tableTitle: '',
@@ -117,8 +116,7 @@ const variants = _.mapValues({
     props: {
       flexDataSource: '/mocks/modules/flex_data/flex_data_zhlex_os.json',
       pagination: defPaginationData.variants.fullWidth.props,
-      flexTableFormData: _.merge({}, defFormData.variants.zhlex.props),
-      extendedFlexFormData: _.merge({}, defAccordionData.variants.zhLexOSExtendedSearch.props),
+      flexTableFormData: _.merge({}, defFormData.variants.zhlexOS.props),
       resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
       tableData: {
         tableTitle: '',
@@ -188,6 +186,43 @@ const variants = _.mapValues({
           <% }); %>
         </ul>
       `,
+    },
+  },
+  socialCareHandbook: {
+    meta: {
+      title: 'Sozialhilfehandbuch (CZHDEV-3005)',
+      desc: '',
+    },
+    props: {
+      pagination: defPaginationData.variants.default.props,
+      flexDataSource: '/mocks/modules/flex_data/flex_data_social_care_table.json',
+      flexGenericFormData: _.merge({}, defFormData.variants.socialCareHandbook.props),
+      flexTableOfContents: _.merge({}, defAccordionData.variants.tableOfContents.props),
+      resultsTemplate: templateConverter('<a href="{{link}}" class="atm-text_link">{{text}}</a>', false),
+      tableData: {
+        tableTitle: '',
+        hasTitle: true,
+        tableHeadingLevel: 4,
+        hasColumnHeader: true,
+        isWide: true,
+        isStatic: true,
+        headers: [
+          {
+            title: 'Kapitelnr.',
+            dataColumnName: 'chapter-number',
+            isSortable: 'enum',
+          },
+          {
+            title: 'Titel',
+            dataColumnName: 'title',
+          },
+          {
+            title: 'Kapitel',
+            dataColumnName: 'chapter',
+          },
+        ],
+        bodyrows: [],
+      },
     },
   },
 }, (variant) => {

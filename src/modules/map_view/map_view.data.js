@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     title: 'Map View',
     className: 'MapView',
     jira: 'CZHDEV-441',
-    documentation: dataHelper.getDocumentation('map_view.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     label: 'Komplex',
   },
   props: {

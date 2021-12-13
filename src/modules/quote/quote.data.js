@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     className: 'Quote',
     jira: 'CZHDEV-171',
     label: 'Inhalt',
-    documentation: dataHelper.getDocumentation('quote.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     quoteText: '«Das richtige Paradigma von Projektmanagementerfolg stützt sich nicht auf die Einhaltung von'
@@ -32,7 +32,7 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   blue: {
     meta: {
-      title: 'Default',
+      title: 'Standard',
       desc: '',
     },
     props: {

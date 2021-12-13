@@ -21,7 +21,7 @@ const data = _.merge({}, defaultData, {
     title: 'News-Detailseite 2',
     jira: 'CZHDEV-514',
     content: dataHelper.getFileContent('news_detail_2.hbs'),
-    documentation: dataHelper.getDocumentation('news_detail_2.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     skiplinks: skiplinksData,

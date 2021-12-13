@@ -24,7 +24,7 @@ const data = _.merge({}, defaultData, {
     className: 'Stepper',
     jira: 'CZHDEV-850',
     label: 'Formular',
-    documentation: dataHelper.getDocumentation('stepper.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'Formular mit Schritten',
@@ -46,6 +46,7 @@ const data = _.merge({}, defaultData, {
       label: 'Ihre E-Mail-Adresse',
       uuid: _.uniqueId('reply-to'),
       name: _.uniqueId('reply-to'),
+      margin: true,
       autofill: 'e_mail',
       validation: {
         isRequired: true,
@@ -100,7 +101,7 @@ const variants = _.mapValues({
     },
     props: {
       navigation: false,
-      remark: '<p>Ihre Daten werden ausschliesslich für den hier ersichtlichen Zweck verwendet.</p><p>Siehe <a class="atm-text_link" href="https://czhdev.dev.one-inside.com/czhdev/develop/modules/stepper/stepper.html#">Datenschutzerklärung</a> und <a class="atm-text_link" href="https://czhdev.dev.one-inside.com/czhdev/develop/modules/stepper/stepper.html#">Nutzungsbedingungen</a>.</p>',
+      remark: '<p>Ihre Daten werden ausschliesslich für den hier ersichtlichen Zweck verwendet.</p><p>Siehe <a class="atm-text_link" href="#">Datenschutzerklärung</a> und <a class="atm-text_link" href="#">Nutzungsbedingungen</a>.</p>',
       steps: [
         formVariants.defaultDuplicate.props,
       ],

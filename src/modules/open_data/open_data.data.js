@@ -13,7 +13,7 @@ const data = _.merge({}, defaultData, {
     title: 'Datenkomponente',
     className: 'OpenData',
     jira: 'CZHDEV-486',
-    documentation: dataHelper.getDocumentation('open_data.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     label: 'Liste',
   },
   props: {

@@ -6,10 +6,10 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('figcaption.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Figcaption',
+    title: 'Legende',
     className: 'Figcaption',
     jira: 'CZHDEV-191',
-    documentation: dataHelper.getDocumentation('figcaption.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     caption: 'Bildlegende Fluss Quelle mit lange Texte in der Legende',
@@ -22,14 +22,14 @@ data.colorVariations = []; // no color variations available
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+      title: 'Standard',
+      desc: '',
     },
   },
   inverted: {
     meta: {
-      title: 'Inverted',
-      desc: 'Inverted for image galleries and carousels',
+      title: 'Invertiert',
+      desc: '',
     },
     props: {
       isInverted: true,

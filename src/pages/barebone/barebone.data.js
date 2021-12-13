@@ -12,7 +12,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Barebone Page',
     jira: 'CZHDEV-*',
-    documentation: dataHelper.getDocumentation('barebone.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     content: dataHelper.getFileContent('barebone.hbs'),
   },
   props: {

@@ -19,7 +19,7 @@ const data = _.merge({}, defaultData, {
     title: 'Regierungsratssbeschlüsse',
     jira: 'CZHDEV-1236',
     content: dataHelper.getFileContent('rrb_data.hbs'),
-    documentation: dataHelper.getDocumentation('rrb_data.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     defaultColorVariation: 'cv-bordeaux',

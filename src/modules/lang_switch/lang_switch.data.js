@@ -13,7 +13,7 @@ const data = _.merge({}, defaultData, {
     className: 'LangSwitch',
     jira: 'CZHDEV-802',
     label: 'Navigation',
-    documentation: dataHelper.getDocumentation('lang_switch.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
 

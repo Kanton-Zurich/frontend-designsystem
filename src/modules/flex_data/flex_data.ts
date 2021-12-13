@@ -5,6 +5,7 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import { getAllURLParams, getURLParam } from '../../assets/js/helpers/common';
 import { template } from 'lodash';
 import Table from '../table/table';
 import Select from '../select/select';
@@ -81,7 +82,7 @@ class FlexData extends Module {
     this.initUi();
     this.initEventListeners();
 
-    window.localStorage.removeItem('origin');
+    window.sessionStorage.removeItem('origin');
   }
 
   static get events() {
@@ -163,7 +164,7 @@ class FlexData extends Module {
     this.order = sortParamElemet.getAttribute('data-sort-direction');
     this.orderBy = sortParamElemet.getAttribute('data-sort-column');
     const initialLoad = this.ui.element.hasAttribute('data-initial-load');
-    if (this.getAllURLParams()['page'] || initialLoad) { // eslint-disable-line
+    if (getAllURLParams()['page'] || initialLoad) { // eslint-disable-line
       this.updateViewFromURLParams();
       setTimeout(() => {
         if (this.isVisible()) {
@@ -174,7 +175,7 @@ class FlexData extends Module {
 
     // EventListener to set localstorage
     this.eventDelegate.on('click', `${this.options.domSelectors.results} .mdl-table__cell a`, () => {
-      window.localStorage.setItem('origin', window.location.href);
+      window.sessionStorage.setItem('origin', window.location.href);
     });
   }
 
@@ -206,6 +207,12 @@ class FlexData extends Module {
     this.ui.form.reset();
     this.ui.form.querySelectorAll('.mdl-select').forEach((select: HTMLElement) => {
       select.dispatchEvent(new CustomEvent(Select.events.clear));
+
+      // Disabled 2. select in case its a drilldown-select
+      if (select.hasAttribute('data-drilldown-secondary')) {
+        select
+          .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: true } }));
+      }
     });
     this.ui.form.querySelectorAll('.mdl-accordion').forEach((accordion: HTMLDivElement) => {
       accordion.dispatchEvent(new CustomEvent(Accordion.events.clearSubheads));
@@ -221,6 +228,9 @@ class FlexData extends Module {
     }
 
     this.ui.form.removeAttribute('is-reset');
+    // Clear url
+    const baseUrl = this.getBaseUrl();
+    window.history.pushState({}, document.title, baseUrl);
   }
 
   /**
@@ -290,6 +300,7 @@ class FlexData extends Module {
           this.dataIdle = true;
           return;
         }
+        this.ui.clearButton.classList.remove('hidden');
         if (jsonData.numberOfResultPages > 1) {
           this.ui.pagination.classList.remove('hidden');
         }
@@ -394,8 +405,16 @@ class FlexData extends Module {
         jsonData.data.forEach((item) => {
           const tr = document.createElement('tr');
           tr.classList.add('mdl-table__row');
+
+          // Added searchhighlight to link href CZHDEV-3007
+          let searchHighlightQuery = '';
+          const searchInputValue = (<HTMLInputElement>(this.ui.form.querySelector('input[type="text"]'))).value;
+          if (searchInputValue) {
+            searchHighlightQuery = `?search=${encodeURIComponent(searchInputValue)}`;
+          }
+
           const props = {
-            link: item.link,
+            link: `${item.link}${searchHighlightQuery}`,
           };
           const resultsTableColumns = this.ui.resultsTableColumns.length
             ? this.ui.resultsTableColumns : [this.ui.resultsTableColumns];
@@ -507,7 +526,7 @@ class FlexData extends Module {
     if (!this.isVisible()) {
       return;
     }
-    const params = this.getAllURLParams();
+    const params = getAllURLParams();
     Object.keys(params).forEach((key) => {
       switch (key) {
         case 'page':
@@ -615,7 +634,7 @@ class FlexData extends Module {
       })
       .then((response) => {
         if (response) {
-          const wcmmode = this.getURLParam('wcmmode');
+          const wcmmode = getURLParam('wcmmode');
           const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}${wcmmode ? '&wcmmode=' + wcmmode : ''}`; // eslint-disable-line
           if (replaceState) {
             if (history.state && history.state.url && history.state.url !== canonical) { // eslint-disable-line

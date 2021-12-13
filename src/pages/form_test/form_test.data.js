@@ -25,12 +25,15 @@ const selectData = require('../../modules/select/select.data');
 
 const listDemoData = require('../../atoms/list/list.data');
 
+const radioHBS = dataHelper.getFileContent('../../atoms/radiobutton/radiobutton.hbs');
+const radioData = require('../../atoms/radiobutton/radiobutton.data');
+
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Form Test',
     jira: 'CZHDEV-',
     content: dataHelper.getFileContent('form_test.hbs'),
-    documentation: dataHelper.getDocumentation('form_test.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     header: headerData,
@@ -212,18 +215,70 @@ const data = _.merge({}, defaultData, {
       },
       stepper: _.merge({}, defStepperData, {
         steps: [
-          defFormData.dummyStep1.props,
+          {
+            groups: [
+              {
+                rows: [
+                  {
+                    fields: [
+                      {
+                        cellContent: () => handlebars.compile(formFieldsetHBS)({
+                          fieldsetTitle: 'Bestellung von Steuerakten',
+                          requiredMessage: 'Bitte wählen Sie.',
+                          options: [
+                            () => handlebars.compile(radioHBS)(_.merge({},
+                              radioData.variants.default.props,
+                              {
+                                label: 'Privatperson',
+                                groupName: 'bestellung_type',
+                                id: 1,
+                                value: 'privat',
+                                validation: {
+                                  isRequired: true,
+                                },
+                              })),
+                            () => handlebars.compile(radioHBS)(_.merge({},
+                              radioData.variants.default.props,
+                              {
+                                label: 'Juristische Person',
+                                groupName: 'bestellung_type',
+                                id: 2,
+                                value: 'juristisch',
+                                validation: {
+                                  isRequired: true,
+                                },
+                              })),
+                            () => handlebars.compile(radioHBS)(_.merge({},
+                              radioData.variants.default.props,
+                              {
+                                label: 'Drittperson',
+                                groupName: 'bestellung_type',
+                                id: 3,
+                                value: 'dritt',
+                                validation: {
+                                  isRequired: true,
+                                },
+                              })),
+                          ],
+                        }),
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
           {
             rules: JSON.stringify([
               {
                 conditions: [
                   {
-                    field: 'dummy_1',
-                    compare: 'greaterEqual',
-                    value: '20',
+                    field: 'bestellung_type',
+                    equals: true,
+                    value: 'dritt',
                   },
                 ],
-                action: 'disable',
+                action: 'enable',
               },
             ]),
             groups: [
@@ -232,17 +287,34 @@ const data = _.merge({}, defaultData, {
                   {
                     fields: [
                       {
-                        cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                          formInputData.variants.unitLeftWithFloating.props,
-                          {
-                            isFloatingLabel: true,
-                            label: 'Jahreseinkommen',
-                            name: 'income_assets',
-                            uuid: 'income_assets',
-                            validation: {
-                              isRequired: false,
-                            },
-                          })),
+                        cellContent: () => handlebars.compile(formFieldsetHBS)({
+                          fieldsetTitle: 'Gegenstand der Bestellung',
+                          requiredMessage: 'Bestellung von Steuerakten betreffend einer',
+                          options: [
+                            () => handlebars.compile(radioHBS)(_.merge({},
+                              radioData.variants.default.props,
+                              {
+                                label: 'Natürliche Person',
+                                groupName: 'gegenstand_type',
+                                id: 10,
+                                value: 'nat',
+                                validation: {
+                                  isRequired: true,
+                                },
+                              })),
+                            () => handlebars.compile(radioHBS)(_.merge({},
+                              radioData.variants.default.props,
+                              {
+                                label: 'Juristische Person',
+                                groupName: 'gegenstand_type',
+                                id: 11,
+                                value: 'jur',
+                                validation: {
+                                  isRequired: true,
+                                },
+                              })),
+                          ],
+                        }),
                       },
                     ],
                   },
@@ -256,9 +328,9 @@ const data = _.merge({}, defaultData, {
                               {
                                 conditions: [
                                   {
-                                    field: 'dummy_1',
-                                    compare: 'greaterEqual',
-                                    value: '5',
+                                    field: 'gegenstand_type',
+                                    equals: true,
+                                    value: 'nat',
                                   },
                                 ],
                                 action: 'show',
@@ -266,8 +338,8 @@ const data = _.merge({}, defaultData, {
                             ]),
                             isFloatingLabel: true,
                             label: 'Conditional Field',
-                            name: 'alt_input',
-                            uuid: 'alt_input',
+                            name: 'alt_input11',
+                            uuid: 'alt_input11',
                             validation: {
                               isRequired: false,
                             },
@@ -279,10 +351,9 @@ const data = _.merge({}, defaultData, {
               },
             ],
           },
-          defFormData.dummyStep3.props,
         ],
         navigation: {
-          steps: ['Schritt 1', 'Schritt 2', 'Schritt 3', 'Bestätigung'],
+          steps: ['Schritt 1', 'Schritt 2', 'Bestätigung'],
         },
       }),
       footerData: defFooterData,

@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'LinklistItem',
     className: 'LinklistItem',
     jira: 'CZHDEV-188',
-    documentation: dataHelper.getDocumentation('linklist_item.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     linkListItemTitle: 'Test',
@@ -21,6 +21,31 @@ const variants = _.mapValues({
     meta: {
       title: 'Default',
       desc: 'Default implementation',
+    },
+  },
+  socialCare: {
+    meta: {
+      title: 'Link zu einem Sozialhilfeeintrag (CZHDEV-3005)',
+      desc: 'Weiterführender Link im Inhaltsverzeichnis des Sozialhilfehandbuchs',
+    },
+    props: {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.2.01',
+      linkListItemTitle: 'Aufsichtstätigkeiten des Bezirksrats über die Sozialbehörden',
+      linkListItemHref: '/',
+    },
+  },
+  socialCareBold: {
+    meta: {
+      title: 'Link zu einem Sozialhilfeeintrag fett (CZHDEV-3005)',
+      desc: 'Weiterführender Link im Inhaltsverzeichnis des Sozialhilfehandbuchs',
+    },
+    props: {
+      linkListItemIsSocialCare: true,
+      linkListItemIsSocialCareBold: true,
+      linkListItemChapterNumber: '0.2',
+      linkListItemTitle: 'Aufgaben',
+      linkListItemHref: '/',
     },
   },
   location: {

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="de" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{#if title}}{{title}} – {{/if}}{{meta.project}}</title>
+  <meta name="description" content="{{#if description}}{{description}}{{/if}}">
+  <meta name="format-detection" content="telephone=no">
+
+  {{! <link rel="manifest" href="site.webmanifest"> }}
+  {{! <link rel="apple-touch-icon" href="icon.png"> }}
+  <link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
+  <link rel="stylesheet" href="/assets/css/print{{#unless env.dev}}.min{{/unless}}.css" media="print">
+  <script src="/assets/js/head{{#unless env.dev}}.min{{/unless}}.js"></script>
+  <script type="text/javascript">
+    window.startTracking = function() {
+      console.log('Tracking analytics initialized!');
+    };
+  </script>
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Kanton Zürich">
+  <meta name="apple-mobile-web-app-title" content="Kanton Zürich">
+  <meta name="theme-color" content="#0076BD">
+  <meta name="msapplication-navbutton-color" content="#0076BD">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-starturl" content="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+</head>
+<body {{#if props.defaultColorVariation}}class="{{props.defaultColorVariation}}"{{/if}} {{#unless props.defaultColorVariation}}class="cv-blue"{{/unless}} data-svgsprites-options='[&quot;/assets/media/svgsprite/base.svg&quot;]'
+      data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'
+      data-style-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'>
+{{#block "banner"}}
+{{/block}}
+<header class="lyt-wrapper">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      <div class="mdl-page-header      " data-init="pageHeader" data-page-header-instance="pageheader1">
+        <div class="lyt-wrapper">
+          <div class="grid-x grid-margin-x">
+            <div class="mdl-page-header__logo-container cell tiny-2 xsmall-2 small-2 medium-2 large-2 xlarge-2">
+                  <span>
+                    <span class="visuallyhidden">Logo des Kantons Zürich</span>
+                    <svg viewBox="0 0 100 100" class="mdl-page-header__logo print-hidden">
+                      <use xlink:href="#ktzh"></use>
+                    </svg>
+                    <svg viewBox="0 0 100 100" class="mdl-page-header__logo screen-hidden">
+                      <use xlink:href="#ktzh"></use>
+                    </svg>
+                    <span>
+                </span></span></div>
+            <div class="cell  tiny-10 xsmall-10 small-10 medium-10 large-10 xlarge-10">
+              <div class="mdl-page-header__breadcrumb">
+                <nav>
+                  <ol class="mdl-breadcrumb " data-init="breadcrumb" data-breadcrumb-instance="breadcrumb2">
+                    <li class="mdl-breadcrumb__item mdl-breadcrumb__item--main mdl-breadcrumb__item--parent" data-index="0" data-breadcrumb="item">
+                      <svg class="icon mdl-breadcrumb__arrow-left" focusable="false">
+                        <use xlink:href="#arrow-left"></use>
+                      </svg>
+                      <a class="mdl-breadcrumb__link" href="#">Kanton Zürich</a>
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+              <h1 class="atm-heading mdl-page-header__title">Demoseite für eingebettete Applikation</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="lyt-wrapper" id="main">
+  <div class="grid-x grid-margin-x">
+    <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      <div class="mdl-application__wrapper  mdl-application__wrapper--with-title">
+        <div class="lyt-wrapper">
+          <div class="grid-x grid-margin-x">
+            <div class="cell small-12 medium-12 large-12 xlarge-12">
+              <h2 class="atm-heading atm-heading--bordered">
+                MDL Application Wrapper
+              </h2>
+              <figure class="mdl-application__figure">
+                <div class="mdl-application" data-init="application">
+                  <!-- --------------------------------- -->
+                  <!-- Custom content goes here this markup has to be placed in the application component within AEM -->
+                  <!-- --------------------------------- -->
+
+                  <!-- link style sheet, this can be a foreign hosted asset using absolute URIs https://.. -->
+                  <link rel="stylesheet" href="style.css" />
+
+                  <!--  scripts  this can be a foreign hosted asset using absolute URIs https://.. -->
+                  <script type="text/javascript" src="script.js"></script>
+
+                  <!-- add your own markup or components from styleguide -->
+                  <button class="atm-button">Test Button</button>
+                  <div class="mdl-accordion  " data-init="accordion">
+                    <div>
+                      <div class="mdl-accordion__item" data-accordion="item">
+                        <h3 class="mdl-accordion__header">
+                          <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger" type="button" id="accordionDemoId-172">
+                            <span class="mdl-accordion__control">Integration Single Page Application</span>
+                            <svg class="icon mdl-accordion__plus" focusable="false">
+                              <use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
+                              <use xlink:href="#plus-horizontal"></use>
+                            </svg>
+                          </button>
+                        </h3>
+                        <div class="mdl-accordion__panel" data-accordion="panel" aria-hidden="true">
+                          <div class="mdl-accordion__panel-content" data-accordion="panel-content">
+                            <p class="atm-paragraph">
+                              Um eine eigene Applikation zu integrieren muss das Markup den verwaltenden Autoren zur Verfügung gestellt werden. Das Markup darf keine relativen Links auf Bilder, Scripts und Stylesheets enthalten. Diese
+                              müssen absolut definiert sein und an einer anderen Stelle gehostet werden.
+                            </p>
+                            <p class="atm-paragraph">
+                              Es können Komponenten aus dem Styleguide von zh.ch verwendet werden um die Applikation zu realisieren.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mdl-accordion__item" data-accordion="item">
+                        <h3 class="mdl-accordion__header">
+                          <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger" type="button" id="accordionDemoId-173">
+                            <span class="mdl-accordion__control">Beispiel Markup</span>
+                            <svg class="icon mdl-accordion__plus" focusable="false">
+                              <use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
+                              <use xlink:href="#plus-horizontal"></use>
+                            </svg>
+                          </button>
+                        </h3>
+                        <div class="mdl-accordion__panel" data-accordion="panel" aria-hidden="true">
+                          <div class="mdl-accordion__panel-content" data-accordion="panel-content">
+                            <p class="atm-paragraph">
+
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- --------------------------------- -->
+                  <!-- / End of custom content -->
+                  <!-- --------------------------------- -->
+                </div>
+                <figcaption class="mdl-application__caption">
+                  <span class="atm-figcaption" data-figcaption="caption">
+                    Titel <a class="atm-text_link" href="#">Quelle</a>
+                  </span>
+                  <span class="visuallyhidden">Alt text</span>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

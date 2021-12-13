@@ -11,7 +11,7 @@ const data = _.merge({}, defaultData, {
     className: 'ButtonGroup',
     jira: 'CZHDEV-206',
     label: 'UI Element',
-    documentation: dataHelper.getDocumentation('button_group.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     buttons: [

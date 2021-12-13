@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     className: 'FocusCard',
     jira: 'CZHDEV-445',
     label: 'Teaser',
-    documentation: dataHelper.getDocumentation('focus_card.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     srcsets: [{

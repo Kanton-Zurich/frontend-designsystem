@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     className: 'Linklist',
     jira: 'CZHDEV-187',
     label: 'Liste',
-    documentation: dataHelper.getDocumentation('linklist.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     links: [
@@ -148,6 +148,72 @@ const variants = _.mapValues({
           linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich - Schifffahrtskontrolle',
           linkListItemLabel: 'Seestrasse 87, 8942 Oberrieden',
           linkListItemHref: '/',
+        },
+      ],
+    },
+  },
+  socialCare: {
+    meta: {
+      title: 'Social Care Linklist (CZHDEV-3005)',
+      desc: 'List with links to social care chapters.',
+    },
+    props: {
+      linkListTitle: 'Aufgaben der Gemeinde lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor',
+      linkListChapterNumber: '2.2',
+      headingLevel: 4,
+      links: [
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.01',
+          linkListItemTitle: 'Aufgaben der Sozialbehörde',
+          linkListItemHref: '/',
+        },
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.02',
+          linkListItemTitle: 'Organisation der Sozialbehörde',
+          linkListItemHref: '/',
+        },
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.03',
+          linkListItemTitle: 'Organisation generell',
+          linkListItemHref: '/pages/zhlex_detail/zhlex_detail.html',
+        },
+      ],
+    },
+  },
+  socialCareBold: {
+    meta: {
+      title: 'Social Care Linklist Bold (CZHDEV-3005)',
+      desc: 'List with links to social care chapters but no heading, instead a bolded link.',
+    },
+    props: {
+      links: [
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemIsSocialCareBold: true,
+          linkListItemChapterNumber: '0.2',
+          linkListItemTitle: 'Aufgaben der Gemeinde',
+          linkListItemHref: '/',
+        },
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.01',
+          linkListItemTitle: 'Aufgaben der Sozialbehörde',
+          linkListItemHref: '/',
+        },
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.02',
+          linkListItemTitle: 'Organisation der Sozialbehörde',
+          linkListItemHref: '/',
+        },
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.03',
+          linkListItemTitle: 'Organisation generell',
+          linkListItemHref: '/pages/zhlex_detail/zhlex_detail.html',
         },
       ],
     },

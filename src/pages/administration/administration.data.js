@@ -75,7 +75,7 @@ const data = _.merge({}, defaultData, {
     title: 'Direktionsseite',
     jira: 'CZHDEV-340',
     content: dataHelper.getFileContent('administration.hbs'),
-    documentation: dataHelper.getDocumentation('administration.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'Direktionsseite',

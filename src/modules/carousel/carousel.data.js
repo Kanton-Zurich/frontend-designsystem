@@ -10,11 +10,11 @@ const buttonDefaultData = require('../../atoms/button/button.data').variants.def
 const template = dataHelper.getFileContent('carousel.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Slider / Carousel (Bildergalerie)',
+    title: 'Slider',
     className: 'Carousel',
     jira: 'CZHDEV-113',
     label: 'Komplex',
-    documentation: dataHelper.getDocumentation('carousel.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: {
@@ -141,8 +141,8 @@ data.colorVariations = []; // no color variations available
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+      title: 'Standard',
+      desc: '',
     },
   },
   alt: {

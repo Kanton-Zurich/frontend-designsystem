@@ -15,7 +15,7 @@ const data = _.merge({}, defaultData, {
     title: 'Newsletter Abmeldung',
     jira: 'CZHDEV-1711',
     content: dataHelper.getFileContent('newsletter_unsubscribe.hbs'),
-    documentation: dataHelper.getDocumentation('newsletter_unsubscribe.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'Title',

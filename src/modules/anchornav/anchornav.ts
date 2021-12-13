@@ -182,10 +182,9 @@ class Anchornav extends Module {
       .on('click', this.options.domSelectors.btnLeft, this.onControlBtnClick.bind(this, 'left'));
 
     (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
-    (<any> window).addEventListener(Module.globalEvents.verticalResize, this.onResize.bind(this));
     // Necessary for jump.js plugin.
     // Is triggered before the debounced callback.
-    (<any>WindowEventListener).addEventListener('scroll', this.onPageScroll.bind(this));
+    (<any>WindowEventListener).addDebouncedScrollListener(this.onPageScroll.bind(this));
     (<any> window).addEventListener(Module.globalEvents.verticalResize, this.onResize.bind(this));
     this.dispatchVerticalResizeEvent(2000); // eslint-disable-line
   }
@@ -302,6 +301,7 @@ class Anchornav extends Module {
       const hTriggerPos = itemLeft - this.ui.scrollContent.getBoundingClientRect().left;
       if (element !== null) {
         element.setAttribute('tabindex', '-1');
+        element.classList.add('focus-invisible');
         this.navReferences.push({
           navTrigger: this.ui.navItems[i],
           element,
@@ -442,7 +442,6 @@ class Anchornav extends Module {
 
     if (this.ui.navItemActive !== navItem && navItem !== undefined) {
       this.toggleActiveNavigationItemClass(navItem);
-      // this.syncHorizontalPositon();
     }
   }
 

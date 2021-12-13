@@ -15,7 +15,7 @@ $mapRatioSmall: 0.75;
 
 .sidebarhead {
   position: relative;
-  padding: pxToRem($sizeRegular) 0;
+  padding-bottom: pxToRem($sizeRegular);
   width: 100%;
   z-index: 10;
 }
@@ -112,7 +112,7 @@ $mapRatioSmall: 0.75;
   }
 
   &__filter {
-    padding: 0 pxToRem($sizeRegular);
+    padding: pxToRem($sizeRegular);
     width: 50%;
     height: 100%;
     float: left;
@@ -123,7 +123,7 @@ $mapRatioSmall: 0.75;
 
       .mdl-locations__subtitle {
         &.atm-heading {
-          margin-left: $sizeRegular;
+          padding-top: 0;
 
           @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
         }
@@ -136,7 +136,6 @@ $mapRatioSmall: 0.75;
 
     .mdl-linklist {
       @extend .sideBarScrollContainer;
-      padding: 0 pxToRem($sizeRegular);
 
       li {
         max-height: 1000px;
@@ -193,7 +192,7 @@ $mapRatioSmall: 0.75;
   }
 
   &__details {
-    padding: pxToRem($sizeRegular);
+    padding: pxToRem($sizeLarge);
     padding-bottom: 0;
     width: 50%;
     height: 100%;
@@ -201,9 +200,10 @@ $mapRatioSmall: 0.75;
 
     &_head {
       @extend .sidebarhead;
-      padding-left: pxToRem($sizeRegular);
 
       .atm-button {
+        height: auto;
+
         &.hidden {
           display: none;
         }
@@ -212,7 +212,6 @@ $mapRatioSmall: 0.75;
 
     &_location {
       @extend .sideBarScrollContainer;
-      padding: 0 pxToRem($sizeRegular);
       margin-top: 0;
       max-height: 0;
       transition: max-height, margin-top 600ms, 150ms ease-out;
@@ -224,6 +223,14 @@ $mapRatioSmall: 0.75;
 
       .mdl-contact {
         padding-top: 0;
+      }
+
+      .mdl-contact__subtitle-link {
+        @extend .atm-button;
+        @extend .atm-button--secondary;
+        @extend .atm-button--small;
+
+        margin-top: pxToRem($sizeRegular);
       }
     }
   }
@@ -243,7 +250,6 @@ $mapRatioSmall: 0.75;
       }
 
       &_location {
-        margin-top: pxToRem($sizeRegular);
         max-height: 100%;
         display: block;
         height: auto;
@@ -410,7 +416,7 @@ $mapRatioSmall: 0.75;
       }
 
       &__filter {
-        padding: 0 pxToRem($sizeSmallRegular);
+        padding: pxToRem($sizeSmallRegular) pxToRem($sizeSmallRegular) pxToRem($sizeMini) pxToRem($sizeSmallRegular);
 
         &_head {
           padding-right: pxToRem($sizeHuge);
@@ -427,6 +433,16 @@ $mapRatioSmall: 0.75;
         &_head {
           padding-left: 0;
         }
+      }
+    }
+  }
+}
+
+@each $key, $val in $tl-color-variations {
+  .#{$key} {
+    .mdl-locations {
+      .mdl-contact__subtitle {
+        color: rgba($val, 1);
       }
     }
   }

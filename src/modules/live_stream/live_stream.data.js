@@ -6,16 +6,16 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('live_stream.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Live Stream Video',
+    title: 'Video-Live-Stream',
     className: 'LiveStream',
     jira: 'CZHDEV-176',
     label: 'Eingebettet',
-    documentation: dataHelper.getDocumentation('live_stream.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     liveStreamHeading: {
       level: 2,
-      title: 'Live Stream Video',
+      title: 'Video-Live-Stream',
     },
     videoUrl: 'https://www.blitzvideoserver.de/player.html?serverip=62.113.210.2&serverapp=vod&smil=video-stream-hosting-testvideo.smil&stream360p=video-stream-hosting-testvideo_360p.mp4&stream480p=video-stream-hosting-testvideo_480p.mp4&stream720p=video-stream-hosting-testvideo_720p.mp4&stream1080p=video-stream-hosting-testvideo_1080p.mp4&bgimage=https://www.blitzvideoserver.de/video-stream-hosting-testvideo.jpg&livestreamnichtaktiv=funktioniert%20nicht&livestreamnichtaktivuntertitel=Abruf%20nicht%20m%C3%B6glich%0A&dateistreamnichtaktiv=gehtnicht&dateistreamnichtaktivuntertitel=datei%20nicht%20vorhanden',
   },
@@ -23,8 +23,8 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+      title: 'Standard',
+      desc: '',
     },
   },
 }, (variant) => {

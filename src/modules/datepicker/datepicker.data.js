@@ -12,7 +12,7 @@ const data = _.merge({}, defaultData, {
     className: 'Datepicker',
     jira: 'CZHDEV-849',
     label: 'Formular',
-    documentation: dataHelper.getDocumentation('datepicker.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     wrapInForm: true,
   },
   props: {
@@ -143,6 +143,29 @@ const variants = _.mapValues({
         iconOnly: { icon: 'calendar' },
         uuid: _.uniqueId('date-range-'),
         usedCustomIcon: true,
+      }),
+    },
+  },
+  noFlatPicker: {
+    meta: {
+      title: 'Datumsauswahl ohne Kalenderblatt (CZHDEV-2981)',
+      desc: 'Implementation einer Datumsauswahl ohne Flatpicker/Kalenderbaltt',
+    },
+    props: {
+      noFlatPicker: true,
+      datetimeformat: 'date',
+      formInputData: _.merge({}, defaultFormInputData, {
+        label: 'Datum',
+        inputMask: '\\d\\d\\.[\\d.]\\d\\d\\.[\\d.]\\d\\d\\d\\d',
+        maskPlaceholder: 'TT.MM.JJJJ',
+        iconOnly: { icon: 'calendar' },
+        uuid: _.uniqueId('date-'),
+        usedCustomIcon: true,
+        validation: {
+          pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',
+          isRequired: true,
+          errorMsg: 'Bitte geben Sie eine korrektes Datum an.',
+        },
       }),
     },
   },

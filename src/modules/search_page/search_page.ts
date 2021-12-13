@@ -5,6 +5,7 @@
  * @copyright
  */
 import { template } from 'lodash';
+import { getURLParam } from '../../assets/js/helpers/common';
 
 import Module from '../../assets/js/helpers/module';
 import Pagination from '../pagination/pagination';
@@ -541,11 +542,11 @@ class SearchPage extends Module {
   }
 
   getParamsInUrl() {
-    const query = this.getURLParam('q', true);
-    const type = this.getURLParam('type', true);
-    const page = this.getURLParam('page', true);
-    const dateTo = this.getURLParam('dateTo', true);
-    const dateFrom = this.getURLParam('dateFrom', true);
+    const query = getURLParam('q', true);
+    const type = getURLParam('type', true);
+    const page = getURLParam('page', true);
+    const dateTo = getURLParam('dateTo', true);
+    const dateFrom = getURLParam('dateFrom', true);
 
     if (query) {
       this.query = query;

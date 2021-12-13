@@ -12,7 +12,7 @@ const data = _.merge({}, defaultData, {
     className: 'JurisdictionFinder',
     jira: 'CZHDEV-1131',
     label: 'Applikation',
-    documentation: dataHelper.getDocumentation('jurisdiction_finder.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     text: 'Geben Sie Ihre Postleitzahl ein, um die Beratungsangebote in Ihrer Nähe zu finden.',

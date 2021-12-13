@@ -49,6 +49,16 @@ $headingCurves: (
       clear: both;
     }
   }
+
+  // Number-Prefix-Heading (CZHDEV-3010)
+  &--number-prefix {
+    display: flex;
+
+    .atm-heading__prefix {
+      @include sizeCurve(padding-right, atomic);
+      min-width: pxToRem($chapterNumberMinWidth);
+    }
+  }
 }
 
 h1,
@@ -103,6 +113,11 @@ h6,
 .h4,
 .h5,
 .h6 {
+  // Number-Prefix-Heading (CZHDEV-3010)
+  &.atm-heading--number-prefix {
+    font-family: $fontFamilyBase;
+  }
+
   &.atm-heading {
     line-height: $sizeLineHeightMedium;
     margin-bottom: 0;

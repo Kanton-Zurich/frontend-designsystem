@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     className: 'ServiceButton',
     jira: 'CZHDEV-892',
     label: 'UI Element',
-    documentation: dataHelper.getDocumentation('service_button.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'Service Titel',

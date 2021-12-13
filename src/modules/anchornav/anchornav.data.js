@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     className: 'Anchornav',
     jira: 'CZHDEV-259',
     label: 'Navigation',
-    documentation: dataHelper.getDocumentation('anchornav.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     anchornavTitle: {
@@ -68,8 +68,8 @@ const data = _.merge({}, defaultData, {
       },
       {
         anchorlink: {
-          anchorlinkText: 'Bildergallerie',
-          anchorlinkAdress: '#bildergallerie',
+          anchorlinkText: 'Bildergalerie',
+          anchorlinkAdress: '#bildergalerie',
           anchorlinkIsActive: false,
           anchorlinkAsButton: true,
         },

@@ -13,7 +13,7 @@ const data = _.merge({}, defaultData, {
     title: 'Applikationsseite',
     jira: 'CZHDEV-533',
     content: dataHelper.getFileContent('application.hbs'),
-    documentation: dataHelper.getDocumentation('application.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'Applikation',

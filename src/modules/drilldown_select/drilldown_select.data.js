@@ -11,7 +11,7 @@ const data = _.merge({}, defaultData, {
     className: 'DrilldownSelect',
     jira: 'CZHDEV-1234',
     label: 'Formular',
-    documentation: dataHelper.getDocumentation('drilldown_select.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     wrapInForm: true,
   },
   props: {

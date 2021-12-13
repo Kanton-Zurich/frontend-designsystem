@@ -15,7 +15,7 @@ const data = _.merge({}, defaultData, {
     title: 'Steuerrechner',
     jira: 'CZHDEV-1238',
     content: dataHelper.getFileContent('steuerrechner.hbs'),
-    documentation: dataHelper.getDocumentation('steuerrechner.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     skiplinks: skiplinksData,

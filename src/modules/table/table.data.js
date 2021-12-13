@@ -12,7 +12,7 @@ const data = _.merge({}, defaultData, {
     className: 'Table',
     jira: 'CZHDEV-121',
     label: 'Inhalt',
-    documentation: dataHelper.getDocumentation('table.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     tableTitle: 'Der Kanton in Zahlen',

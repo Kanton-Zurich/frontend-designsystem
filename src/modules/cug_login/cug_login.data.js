@@ -51,7 +51,7 @@ const data = _.merge({}, defaultData, {
     className: 'CugLogin',
     jira: 'CZHDEV-538',
     label: 'Formular',
-    documentation: dataHelper.getDocumentation('cug_login.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     successRedirectUrl: '../../pages/focus/focus.html',

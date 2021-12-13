@@ -11,7 +11,7 @@ const data = _.merge({}, defaultData, {
     className: 'Subnavigation',
     jira: 'CZHDEV-*',
     label: 'Navigation',
-    documentation: dataHelper.getDocumentation('subnavigation.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'Mobilität',

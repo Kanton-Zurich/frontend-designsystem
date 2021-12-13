@@ -8,6 +8,11 @@
     @include sizeCurve(margin-bottom, tiny);
   }
 
+  &__chapter-number {
+    min-width: pxToRem($chapterNumberMinWidth);
+    padding-right: pxToRem($sizeTiny);
+  }
+
   &__list {
     margin: 0;
     padding: 0;

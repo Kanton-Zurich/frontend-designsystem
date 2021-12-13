@@ -16,7 +16,7 @@ const data = _.merge({}, defaultData, {
     title: 'Serviceseite Biometrie',
     jira: 'CZHDEV-517',
     content: dataHelper.getFileContent('service_biometrie.hbs'),
-    documentation: dataHelper.getDocumentation('service_biometrie.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     skiplinks: skiplinksData,

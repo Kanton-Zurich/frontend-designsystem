@@ -11,6 +11,12 @@ $InputHeightRegular: 72px;
     }
   }
 
+  &[ data-no-flatpickr ] {
+    .flatpickr-calendar {
+      display: none !important; // stylelint-disable-line
+    }
+  }
+
   &.open {
     .icon {
       fill: $colorBlack;

@@ -11,7 +11,7 @@ const locationContactDefault = require('../../modules/contact/contact.data').var
 const locationsLatLng = [
   { lat: 47.353611, lng: 8.512877 },
   { lat: 47.444240, lng: 8.613319 },
-  { lat: 47.444240, lng: 8.613319 }, //{ lat: 47.441567, lng: 8.461398 },
+  { lat: 47.444240, lng: 8.613319 }, // { lat: 47.441567, lng: 8.461398 },
   { lat: 47.515148, lng: 8.693981 },
   { lat: 47.532225, lng: 8.527852 },
   { lat: 47.271530, lng: 8.585463 },
@@ -120,7 +120,7 @@ const data = _.merge({}, defaultData, {
     className: 'Locations',
     jira: 'CZHDEV-476',
     label: 'Komplex',
-    documentation: dataHelper.getDocumentation('locations.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'Standorte des Strassenverkehrsamtes',
@@ -146,10 +146,11 @@ const data = _.merge({}, defaultData, {
       links: [],
     },
     backBtn: _.merge({}, buttonDefaultData, {
-      isSecondary: true,
-      isSmall: true,
+      additionalClasses: 'atm-button--plain-text',
+      isSecondary: false,
       additionalAttribute: 'data-locations="back"',
       text: 'Zurück',
+      icon: 'arrow-left',
     }),
     textLinkNoResult: _.merge({}, textLinkDefaultData, {
       icon: 'search',

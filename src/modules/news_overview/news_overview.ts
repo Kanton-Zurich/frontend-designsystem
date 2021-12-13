@@ -6,7 +6,7 @@
  */
 import Module from '../../assets/js/helpers/module';
 import { template } from 'lodash';
-import { sanitizeSearchString } from '../../assets/js/helpers/common';
+import { sanitizeSearchString, getURLParam } from '../../assets/js/helpers/common';
 import NewsFilterMobile from '../news_filter_mobile/news_filter_mobile';
 import Select from '../select/select';
 import FilterPills from '../filter_pills/filter_pills';
@@ -397,14 +397,14 @@ class NewsOverview extends Module {
    * Filters from URL params
    */
   filterFromUrlParams() {
-    const topics = this.getURLParam('topic');
-    const organisations = this.getURLParam('organisation');
-    const types = this.getURLParam('type');
-    const dateFromStr = this.getURLParam('dateFrom', true);
-    const dateToStr = this.getURLParam('dateTo', true);
-    const searchWord = this.getURLParam('fullText', true);
-    const page = this.getURLParam('page', true);
-    const orderBy = this.getURLParam('orderBy', true);
+    const topics = getURLParam('topic');
+    const organisations = getURLParam('organisation');
+    const types = getURLParam('type');
+    const dateFromStr = getURLParam('dateFrom', true);
+    const dateToStr = getURLParam('dateTo', true);
+    const searchWord = getURLParam('fullText', true);
+    const page = getURLParam('page', true);
+    const orderBy = getURLParam('orderBy', true);
     if (page) {
       setTimeout(() => {
         this.ui.pagination
@@ -462,7 +462,7 @@ class NewsOverview extends Module {
       })
       .then((response) => {
         if (response) {
-          const wcmmode = this.getURLParam('wcmmode');
+          const wcmmode = getURLParam('wcmmode');
           const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}${wcmmode ? '&wcmmode=' + wcmmode : ''}`; // eslint-disable-line
           if (replaceState) {
             history.replaceState({url: canonical,}, null, canonical); // eslint-disable-line

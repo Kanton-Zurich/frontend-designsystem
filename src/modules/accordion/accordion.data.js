@@ -27,7 +27,7 @@ const data = _.merge({}, defaultData, {
     className: 'Accordion',
     jira: 'CZHDEV-109',
     label: 'Container',
-    documentation: dataHelper.getDocumentation('accordion.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     isInverted: false,
@@ -99,13 +99,23 @@ const variants = _.mapValues({
             },
           ],
         },
+        {
+          title: 'Ein Accordion mit Downloadliste',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
+          techName: 'acc_item_5',
+          children: [
+            {
+              partial: downloadListData.variants.defaultWithoutTitleLast.meta.demo(),
+            },
+          ],
+        },
       ],
     },
   },
   furtherInformation: {
     meta: {
       title: 'Weiterführende Informationen',
-      desc: 'Das Accordion in der Variante "Weiterführende Informationen"',
+      desc: 'Das Akkordeon in der Variante "Weiterführende Informationen"',
     },
     props: {
       isInverted: true,
@@ -169,7 +179,7 @@ const variants = _.mapValues({
   furtherInformationSingle: {
     meta: {
       title: 'Weiterführende Informationen Einzeln',
-      desc: 'Das Accordion in der Variante "Weiterführende Informationen"',
+      desc: 'Das Akkordeon in der Variante "Weiterführende Informationen"',
     },
     props: {
       isInverted: true,
@@ -194,8 +204,8 @@ const variants = _.mapValues({
   },
   h4: {
     meta: {
-      title: 'Accordion mit H4-Titel',
-      desc: 'Ein Standard-Accordion mit einem h4 als Titel',
+      title: 'Akkordeon mit H4-Titel',
+      desc: 'Ein Standard-Akkordeon mit einem h4 als Titel',
     },
     props: {
       accordionHeading: {
@@ -206,7 +216,7 @@ const variants = _.mapValues({
   taxForms: {
     meta: {
       title: 'TaxCalc Initforms (CZHDEV-1238)',
-      desc: 'Accordion mit Formular Feldern zur Ermittlung des Steuerrechners',
+      desc: 'Akkordeon mit Formular Feldern zur Ermittlung des Steuerrechners',
     },
     props: {
       accordionHeading: {
@@ -318,46 +328,10 @@ const variants = _.mapValues({
       }],
     },
   },
-  zhLexLSExtendedSearch: {
-    meta: {
-      title: 'ZH-Lex LS Erweiterte Suche (CZHDEV-1240)',
-      desc: 'Accordion mit Formularfeldern für die erweiterte Suche bei ZH-Lex Loseblattsammlung',
-    },
-    props: {
-      accordionHeading: {
-        title: false,
-      },
-      items: [{
-        title: 'Erweiterte Suche',
-        subHead: ' ',
-        children: [{
-          partial: () => handlebars.compile(formHBS)(defaultFormData.variants.zhlexLSExtended.props),
-        }],
-      }],
-    },
-  },
-  zhLexOSExtendedSearch: {
-    meta: {
-      title: 'ZH-Lex OS Erweiterte Suche (CZHDEV-1240)',
-      desc: 'Accordion mit Formularfeldern für die erweiterte Suche bei ZH-Lex Offizielle Gesetzessammlung',
-    },
-    props: {
-      accordionHeading: {
-        title: false,
-      },
-      items: [{
-        title: 'Erweiterte Suche',
-        subHead: ' ',
-        children: [{
-          partial: () => handlebars.compile(formHBS)(defaultFormData.variants.zhlexOSExtended.props),
-        }],
-      }],
-    },
-  },
   singleItem: {
     meta: {
       title: 'Einzelelement (Entscheidungsbaum)',
-      desc: 'Accordion für Entscheidungsbaum',
+      desc: 'Akkordeon für Entscheidungsbaum',
     },
     props: {
       accordionHeading: {
@@ -374,6 +348,98 @@ const variants = _.mapValues({
           </div>`,
         }],
       }],
+    },
+  },
+  tableOfContents: {
+    meta: {
+      title: 'Inhaltsverzeichnis (CZHDEV-3005)',
+      desc: 'Akkordeon für das Inhaltsverzeichnis der Sozialhilfe',
+    },
+    props: {
+      accordionHeading: {
+        title: 'Inhaltsverzeichnis',
+        level: 2,
+      },
+      smallerHeadings: false,
+      isInverted: true,
+      indented: true,
+      storeOrigin: true,
+      items: [
+        {
+          title: 'Link',
+          titlePrefix: 'X',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
+          isLink: true,
+        },
+        {
+          title: 'Akkordeontitel der über mehere Zeilen gehen soll Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna ',
+          titlePrefix: '0',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
+          children: [
+            {
+              partial: linklistData.variants.socialCareBold.meta.demo,
+            },
+            {
+              partial: linklistData.variants.socialCareBold.meta.demo,
+            },
+            {
+              partial: linklistData.variants.socialCare.meta.demo,
+            },
+          ],
+        },
+        {
+          title: 'Akkordeontitel lang',
+          titlePrefix: '1',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
+          children: [
+            {
+              partial: linklistData.variants.socialCareBold.meta.demo,
+            },
+            {
+              partial: linklistData.variants.socialCare.meta.demo,
+            },
+            {
+              partial: linklistData.variants.socialCareBold.meta.demo,
+            },
+          ],
+        },
+        {
+          title: 'Organisation',
+          titlePrefix: '2',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
+          children: [
+            {
+              partial: linklistData.variants.socialCare.meta.demo,
+            },
+            {
+              partial: linklistData.variants.socialCare.meta.demo,
+            },
+          ],
+        },
+        {
+          title: 'Zuständigkeit',
+          titlePrefix: '3',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
+          children: [
+            {
+              partial: linklistData.variants.socialCareBold.meta.demo,
+            },
+            {
+              partial: linklistData.variants.socialCareBold.meta.demo,
+            },
+          ],
+        },
+        {
+          title: 'Persönliche Hilfe',
+          titlePrefix: '4',
+          accordionPanelID: _.uniqueId('accordionDemoId-'),
+          children: [
+            {
+              partial: linklistData.variants.socialCare.meta.demo,
+            },
+          ],
+        },
+      ],
     },
   },
 }, (variant) => {

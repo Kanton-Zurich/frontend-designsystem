@@ -20,7 +20,7 @@ const datepickerData = require('../datepicker/datepicker.data');
 
 const template = dataHelper.getFileContent('decision_tree.hbs');
 
-const markdownHbs = dataHelper.getDocumentation('decision_tree.md').replace(/\{\{(.*?)\}\}/g, (m) => {
+const markdownHbs = dataHelper.getDocumentation('README.md').replace(/\{\{(.*?)\}\}/g, (m) => {
   return m.replace(/&gt;/g, '>').replace(/&quot;/g, '"');
 });
 const markdownData = {
@@ -192,7 +192,7 @@ const variants = _.mapValues({
                               {
                                 label: 'Nein',
                                 groupName: 'c_permit_group',
-                                id: 'c_permit_group_1',
+                                id: 'c_permit_group_2',
                                 value: 'nein',
                                 validation: {
                                   isRequired: true,

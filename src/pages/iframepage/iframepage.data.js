@@ -13,7 +13,7 @@ const data = _.merge({}, defaultData, {
     title: 'Iframeseite',
     jira: 'CZHDEV-533',
     content: dataHelper.getFileContent('iframepage.hbs'),
-    documentation: dataHelper.getDocumentation('iframepage.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'IFrame Test',
