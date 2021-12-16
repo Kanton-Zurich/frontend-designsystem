@@ -1,4 +1,4 @@
-# Frontend design system from Kanton Zürich
+# Frontend design system for Kanton Zürich
 
 Boiler plate based on Estatico Nuo
 
