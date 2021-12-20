@@ -20,7 +20,7 @@ const datepickerData = require('../datepicker/datepicker.data');
 
 const template = dataHelper.getFileContent('decision_tree.hbs');
 
-const markdownHbs = dataHelper.getDocumentation('decision_tree.md').replace(/\{\{(.*?)\}\}/g, (m) => {
+const markdownHbs = dataHelper.getDocumentation('README.md').replace(/\{\{(.*?)\}\}/g, (m) => {
   return m.replace(/&gt;/g, '>').replace(/&quot;/g, '"');
 });
 const markdownData = {

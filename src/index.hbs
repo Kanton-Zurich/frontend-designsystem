@@ -2,18 +2,47 @@
   {{#content "header"}}
     {{> "modules/page_header/page_header" wrappingElements.pageHeaderData}}
   {{/content}}
-	{{#content "content"}}
+  {{#content "content"}}
     <div class="lyt-wrapper">
       <div class="grid-x grid-margin-x">
         <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
-          {{#if mainMenu}}
-            {{> "modules/topiclist/topiclist" mainMenu }}
-          {{/if}}
+          <p class="atm-paragraph">Build Datum: {{meta.buildDate}}</p>
           <div class="sg_documentation">
-          {{{documentation}}}
+            {{{documentation}}}
           </div>
+          <h2 id="lsg_atoms" class="atm-heading atm-heading--bordered">Atome</h2>
+          {{> "modules/topiclist/topiclist" atomList }}
+          <h2 id="lsg_modules" class="atm-heading atm-heading--bordered">Module</h2>
+          <div class="sg_filter-frame">
+            <form novalidate>
+            <div class="atm-form_input atm-form_input--small atm-form_input--icon" data-input>
+              <input class="atm-form_input__input" id="filter_modules" placeholder="Filter" name="fghfgh" value="" type="text" data-hasbutton="true">
+              <label for="filter_modules">Filter</label>
+              <button class="atm-form_input__functionality" type="button" data-buttontype="clear">
+                <span class="visuallyhidden">Lösche Eingabe</span>
+                <svg class="icon" focusable="false">
+                  <use xlink:href="#clear"></use>
+                </svg>
+              </button>
+              <svg class="icon" focusable="false">
+                <use xlink:href="#search"></use>
+              </svg>
+            </div>
+            </form>
+          </div>
+          <div class="sg_filter-frame">Kategorien:
+            <div><label class="sg_group-label" style="border-color:  #666; background-color:  #FFF; color: #666"><input type="radio" name="moduleFilter" value="nofilter" checked/> Kein Filter</label>
+              {{#each moduleLabels }}{{#if label}} <label class="sg_group-label" style="border-color:  {{background}}; background-color:  {{background}}; color: {{foreground}}"><input type="radio" name="moduleFilter" value="{{label}}"/> {{label}}</label> {{/if}}{{/each}}</div>
+          </div>
+          {{> "modules/topiclist/topiclist" moduleList }}
+          <h2 id="lsg_pages" class="atm-heading atm-heading--bordered">Seiten</h2>
+          {{> "modules/topiclist/topiclist" pageList }}
+          {{#if styleguide}}
+            <h2 id="lsg_styleguide" class="atm-heading atm-heading--bordered">Styleguide</h2>
+            {{> "modules/topiclist/topiclist" styleguide }}
+          {{/if}}
         </div>
       </div>
     </div>
-	{{/content}}
+  {{/content}}
 {{/extend}}

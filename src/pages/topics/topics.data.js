@@ -80,7 +80,7 @@ const data = _.merge({}, defaultData, {
   meta: {
     title: 'Themenseite',
     jira: 'CZHDEV-336',
-    documentation: dataHelper.getDocumentation('topics.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     content: dataHelper.getFileContent('topics.hbs'),
   },
   props: {

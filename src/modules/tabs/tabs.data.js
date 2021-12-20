@@ -14,7 +14,7 @@ const data = _.merge({}, defaultData, {
     className: 'Tabs',
     jira: 'CZHDEV-473',
     label: 'Container',
-    documentation: dataHelper.getDocumentation('tabs.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
   },

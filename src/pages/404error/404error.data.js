@@ -13,7 +13,7 @@ const data = _.merge({}, defaultData, {
     title: '404 Fehlerseite',
     jira: 'CZHDEV-525',
     content: dataHelper.getFileContent('404error.hbs'),
-    documentation: dataHelper.getDocumentation('404error.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: '404 Fehlerseite',

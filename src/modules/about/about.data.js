@@ -12,7 +12,7 @@ const data = _.merge({}, defaultData, {
     className: 'MdlAbout',
     jira: 'CZHDEV-478',
     label: 'Container',
-    documentation: dataHelper.getDocumentation('about.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'Über uns',

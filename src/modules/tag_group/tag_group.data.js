@@ -42,11 +42,11 @@ const anchorlink4 = {
 const template = dataHelper.getFileContent('tag_group.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Tag Group',
+    title: 'Verantwortliche Stellen',
     className: 'TagGroup',
     jira: 'CZHDEV-261',
     label: 'UI Element',
-    documentation: dataHelper.getDocumentation('tag_group.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     tagGroupdHeading: {
@@ -71,8 +71,8 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+      title: 'Standard',
+      desc: '',
     },
   },
 }, (variant) => {

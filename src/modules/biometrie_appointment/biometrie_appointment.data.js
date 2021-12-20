@@ -103,7 +103,7 @@ const data = _.merge({}, defaultData, {
     className: 'BiometrieAppointment',
     jira: 'CZBDEV',
     label: 'Applikation',
-    documentation: dataHelper.getDocumentation('biometrie_appointment.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     heading: 'Termin verschieben',

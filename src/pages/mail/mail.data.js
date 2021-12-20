@@ -7,7 +7,7 @@ const data = _.merge({}, defaultData, {
     title: 'E-Mail-Bestätigung',
     jira: 'CZHDEV-1349',
     content: dataHelper.getFileContent('mail.hbs'),
-    documentation: dataHelper.getDocumentation('mail.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     title: 'Ihre Angaben wurden an das Strassenverkehrsamt übermittelt. Wir werden sie schnellst möglich bearbeiten.',

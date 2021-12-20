@@ -15,7 +15,7 @@ const data = _.merge({}, defaultData, {
     className: 'UserMenu',
     jira: 'CZHDEV-538',
     label: 'Navigation',
-    documentation: dataHelper.getDocumentation('user_menu.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     logoutItem: {

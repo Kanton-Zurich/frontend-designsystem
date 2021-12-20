@@ -20,7 +20,7 @@ const data = _.merge({}, defaultData, {
     title: 'Datenschutzerklärung',
     jira: 'CZHDEV-466',
     content: dataHelper.getFileContent('privacy_notice.hbs'),
-    documentation: dataHelper.getDocumentation('privacy_notice.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     skiplinks: skiplinksData,

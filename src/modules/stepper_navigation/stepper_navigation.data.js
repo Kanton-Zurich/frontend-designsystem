@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     className: 'StepperNavigation',
     jira: 'CZHDEV-850',
     label: 'Formular',
-    documentation: dataHelper.getDocumentation('stepper_navigation.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
     hideFromListing: true,
   },
   props: {

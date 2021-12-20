@@ -10,7 +10,7 @@ const data = _.merge({}, defaultData, {
     title: '{{name}}',
     jira: 'CZHDEV-*',
     content: dataHelper.getFileContent('{{fileName}}.hbs'),
-    documentation: dataHelper.getDocumentation('{{fileName}}.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     skiplinks: skiplinksData,

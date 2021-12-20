@@ -13,7 +13,7 @@ const data = _.merge({}, defaultData, {
     className: 'TextHighlight',
     jira: 'CZHDEV-117',
     label: 'Inhalt',
-    documentation: dataHelper.getDocumentation('texthighlight.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
   },

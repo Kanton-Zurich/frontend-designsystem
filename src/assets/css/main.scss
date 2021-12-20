@@ -20,11 +20,6 @@
 @import 'globals/nouislider';
 @import 'globals/searchhighlight';
 
-// Icons (as font or dataurl), PNG sprites
-// @import '../.tmp/iconfont';
-// @import '../.tmp/dataurls';
-// @import '../.tmp/pngsprite';
-
 // General styles
 @import 'mediaqueries_sync';
 @import 'globals/flyingfocus';
@@ -55,13 +50,6 @@
 //*autoinsertatom*
 
 // Modules
-// @import '../../demo/modules/media/media';
-// @import '../../demo/modules/teaser/teaser';
-// @import '../../demo/modules/teasers/teasers';
-// @import '../../demo/modules/skiplinks/skiplinks';
-// @import '../../demo/modules/slideshow/slideshow';
-// @import '../../demo/modules/imageversions/imageversions';
-// @import '../../demo/modules/svgsprite/svgsprite';
 @import '../../modules/linklist/linklist';
 @import '../../modules/table/table';
 @import '../../modules/image_figure/image_figure';

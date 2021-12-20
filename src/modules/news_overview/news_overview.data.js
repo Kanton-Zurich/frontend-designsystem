@@ -47,7 +47,7 @@ const data = _.merge({}, defaultData, {
     className: 'NewsOverview',
     jira: 'CZHDEV-511',
     label: 'News',
-    documentation: dataHelper.getDocumentation('news_overview.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     noResults: 'Keine News zu Ihren Filterkriterien gefunden.',

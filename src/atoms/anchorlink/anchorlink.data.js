@@ -6,14 +6,14 @@ const defaultData = require('../../data/default.data.js');
 const template = dataHelper.getFileContent('anchorlink.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Anchorlink',
+    title: 'Link',
     className: 'Anchorlink',
     jira: 'CZHDEV-*',
-    documentation: dataHelper.getDocumentation('anchorlink.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     anchorlink: {
-      anchorlinkText: 'Anchorlink',
+      anchorlinkText: 'Text Link',
       anchorlinkAdress: '#',
       anchorlinkIsActive: false,
       anchorlinkIsTagAnchor: false,
@@ -28,14 +28,14 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Anchorlink',
-      desc: 'Default implementation eines Anchorlinks',
+      title: 'Link',
+      desc: '',
     },
   },
   defaultActive: {
     meta: {
-      title: 'Anchorlink (aktiv)',
-      desc: 'Default implementation eines Anchorlinks im "active state".',
+      title: 'Link, aktiv',
+      desc: '',
     },
     props: {
       anchorlink: {
@@ -45,24 +45,24 @@ const variants = _.mapValues({
   },
   tag: {
     meta: {
-      title: 'Tag Label Anchorlink',
-      desc: 'Implementation eines Tag Label Anchorlinks.',
+      title: 'Chip',
+      desc: '',
     },
     props: {
       anchorlink: {
-        anchorlinkText: 'Tag Label',
+        anchorlinkText: 'Chip Label',
         anchorlinkIsTagAnchor: true,
       },
     },
   },
   tagActive: {
     meta: {
-      title: 'Tag Label Anchorlink (aktiv)',
-      desc: 'Implementation eines Tag Label Anchorlinks im "active state".',
+      title: 'Chip, aktiv',
+      desc: '',
     },
     props: {
       anchorlink: {
-        anchorlinkText: 'Tag Label',
+        anchorlinkText: 'Chip Label',
         anchorlinkIsTagAnchor: true,
         anchorlinkIsActive: true,
       },
@@ -70,12 +70,12 @@ const variants = _.mapValues({
   },
   tagTopic: {
     meta: {
-      title: 'Topic Tag Anchorlink',
-      desc: 'Implementation eines Topic Tag Anchorlinks.',
+      title: 'Chip klein, aktiv',
+      desc: '',
     },
     props: {
       anchorlink: {
-        anchorlinkText: 'Topic Tag',
+        anchorlinkText: 'Chip Label',
         anchorlinkIsTagAnchor: true,
         anchorlinkIsActive: true,
         anchorlinkIsTagTopic: true,
@@ -84,12 +84,12 @@ const variants = _.mapValues({
   },
   tagTopTags: {
     meta: {
-      title: 'Topitem Tag Anchorlink',
-      desc: 'Implementation eines Topitem Tag Anchorlink.',
+      title: 'Chip Link gross',
+      desc: '',
     },
     props: {
       anchorlink: {
-        anchorlinkText: 'Topitem',
+        anchorlinkText: 'Chip Link Text',
         anchorlinkIsTagAnchor: true,
         anchorlinkIsTopitem: true,
       },
@@ -97,12 +97,12 @@ const variants = _.mapValues({
   },
   tagTopTagsSmall: {
     meta: {
-      title: 'Topitem Tag Anchorlink (klein)',
-      desc: 'Implementation eines Topitem Tag Anchorlink (klein).',
+      title: 'Chip Link',
+      desc: '',
     },
     props: {
       anchorlink: {
-        anchorlinkText: 'Topitem',
+        anchorlinkText: 'Chip Link Text',
         anchorlinkIsTagAnchor: true,
         anchorlinkIsTopitem: true,
         anchorlinkIsTopitemSmall: true,
@@ -111,12 +111,12 @@ const variants = _.mapValues({
   },
   tagInverted: {
     meta: {
-      title: 'Tag Label Anchorlink (invertiert)',
-      desc: 'Implementation eines Tag Label Anchorlinks.',
+      title: 'Chip, invertiert',
+      desc: '',
     },
     props: {
       anchorlink: {
-        anchorlinkText: 'Tag Label',
+        anchorlinkText: 'Chip Label',
         anchorlinkIsTagAnchor: true,
         anchorlinkIsInverted: true,
       },
@@ -125,12 +125,12 @@ const variants = _.mapValues({
   },
   tagActiveInverted: {
     meta: {
-      title: 'Tag Label Anchorlink (aktiv/invertiert)',
-      desc: 'Implementation eines Tag Label Anchorlinks im "active state".',
+      title: 'Chip, aktiv invertiert',
+      desc: '',
     },
     props: {
       anchorlink: {
-        anchorlinkText: 'Tag Label',
+        anchorlinkText: 'Chip Label',
         anchorlinkIsTagAnchor: true,
         anchorlinkIsActive: true,
         anchorlinkIsInverted: true,
@@ -140,12 +140,12 @@ const variants = _.mapValues({
   },
   tagTopicInverted: {
     meta: {
-      title: 'Topic Tag Anchorlink (invertiert)',
-      desc: 'Implementation eines Topic Tag Anchorlinks.',
+      title: 'Chip klein, aktiv invertiert',
+      desc: '',
     },
     props: {
       anchorlink: {
-        anchorlinkText: 'Topic Tag',
+        anchorlinkText: 'Chip Label',
         anchorlinkIsTagAnchor: true,
         anchorlinkIsActive: true,
         anchorlinkIsTagTopic: true,
@@ -156,12 +156,12 @@ const variants = _.mapValues({
   },
   tagTopTagsInverted: {
     meta: {
-      title: 'Topitem Tag Anchorlink (invertiert)',
-      desc: 'Implementation eines Topitem Tag Anchorlink.',
+      title: 'Chip Link gross, invertiert',
+      desc: '',
     },
     props: {
       anchorlink: {
-        anchorlinkText: 'Topitem',
+        anchorlinkText: 'Chip Link Text',
         anchorlinkIsTagAnchor: true,
         anchorlinkIsTopitem: true,
         anchorlinkIsInverted: true,
@@ -171,12 +171,12 @@ const variants = _.mapValues({
   },
   tagTopTagsSmallInverted: {
     meta: {
-      title: 'Topitem Tag Anchorlink (klein/invertiert)',
-      desc: 'Implementation eines Topitem Tag Anchorlink (klein).',
+      title: 'Chip Link, invertiert',
+      desc: '',
     },
     props: {
       anchorlink: {
-        anchorlinkText: 'Topitem',
+        anchorlinkText: 'Chip Link Text',
         anchorlinkIsTagAnchor: true,
         anchorlinkIsTopitem: true,
         anchorlinkIsTopitemSmall: true,

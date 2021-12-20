@@ -161,7 +161,7 @@ const data = _.merge({}, defaultData, {
     title: 'Einzelseite',
     jira: 'CZHDEV-283',
     content: dataHelper.getFileContent('single.hbs'),
-    documentation: dataHelper.getDocumentation('single.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     skiplinks: skiplinksData,

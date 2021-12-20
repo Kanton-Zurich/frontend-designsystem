@@ -11,7 +11,7 @@ const data = _.merge({}, defaultData, {
     className: 'FilterPills',
     jira: 'CZHDEV-1138',
     label: 'UI Element',
-    documentation: dataHelper.getDocumentation('filter_pills.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     buttonData: _.merge({}, defButtonData.variants.tagEdit.props, {

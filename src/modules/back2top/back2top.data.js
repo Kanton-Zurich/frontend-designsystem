@@ -11,7 +11,7 @@ const data = _.merge({}, defaultData, {
     className: 'Back2top',
     jira: 'CZHDEV-499',
     label: 'Navigation',
-    documentation: dataHelper.getDocumentation('back2top.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     toTopBtn: _.merge({}, buttonDefaultData, {

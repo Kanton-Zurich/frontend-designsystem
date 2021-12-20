@@ -1,19 +1,20 @@
-# CZHDEV - Go Live 1.0 Release Branch
+# Frontend design system for Kanton Zürich
 
-Kanton Zürich Estatico Nuo Living Styleguide
+Boiler plate based on Estatico Nuo
 
 ## Installation
 
 ```bash
-
 # Optionally use Docker container, see below
 
-# Install correct node version v10.x.x
+# Install correct node version v10.x.x use node version manager nvm or manually install node version 10.x.x
 nvm install
 
 # Install npm packages
 npm install
 ```
+
+Dependency: Graphicsmagick http://www.graphicsmagick.org/README.html has to be manually installed
 
 ## Usage
 
@@ -25,7 +26,12 @@ See `gulpfile.js` for details.
 
 ## Basic run/watch command
 ```bash
-npm run gulp -- --dev --watch
+npm run start
+```
+
+## Build all assets for deployment
+```bash
+npm run build
 ```
 
 ## Create a new module / page /atom
@@ -33,16 +39,14 @@ npm run gulp -- --dev --watch
 npm run gulp scaffold
 ```
 
-## Run Js tests only
-```bash
-npm run gulp js:test
-```
+## Create archetype for external develoment or embedded application creation
+- To create a development environment archetype project for creating markup for an embedded application (Component: mdl-application) an archetype project can be created
+- Modules and atoms can be included or excluded at discretion (!) Caution: some modules are depending on atoms or other modules so some combinations can not be created and will lead to build errors.
+- The generated archetype can be found in the folder ``dist/app_archetype`` or as package ``dist/app_archetype.zip``
 
-## Run bringover for backend
 ```bash
-npm run gulp build
+npm run archetype
 ```
-The detailed description can be found in this [confluence entre](https://we.one-inside.com/confluence/display/CZHDEV/FE+%3E+BE+Bringover+Workflow)
 
 ## Docker
 

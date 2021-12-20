@@ -9,7 +9,7 @@ const data = _.merge({}, defaultData, {
     title: 'Checkbox',
     className: 'Checkbox',
     jira: 'CZHDEV-*',
-    documentation: dataHelper.getDocumentation('checkbox.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     label: 'Checkbox label',
@@ -21,25 +21,14 @@ const data = _.merge({}, defaultData, {
 const variants = _.mapValues({
   default: {
     meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-    },
-  },
-  withHint: {
-    meta: {
-      title: 'Mit Hinweis (CZHDEV-1238)',
-      desc: 'Checkbox mit Hinweis Feld.',
-    },
-    props: {
-      label: 'Qualifizierte Beteiligungen',
-      hint: 'von wenigstens 10% an Aktien-, Grund- oder Stammkapital',
-      id: 'wihthint',
+      title: 'Standard',
+      desc: '',
     },
   },
   checked: {
     meta: {
-      title: 'Vorausgewählt',
-      desc: 'Initial Ausgewählt/aktiv.',
+      title: 'Ausgewählt',
+      desc: '',
     },
     props: {
       isChecked: true,
@@ -48,7 +37,7 @@ const variants = _.mapValues({
   disabled: {
     meta: {
       title: 'Deaktiviert',
-      desc: 'Initial deaktiviert, nicht click- bzw auswählbar.',
+      desc: 'nicht klick- bzw. auswählbar',
     },
     props: {
       isDisabled: true,
@@ -57,12 +46,23 @@ const variants = _.mapValues({
   required: {
     meta: {
       title: 'Erforderlich',
-      desc: 'Die Checkbox ist erforderlich',
+      desc: '',
     },
     props: {
       validation: {
         isRequired: true,
       },
+    },
+  },
+  withHint: {
+    meta: {
+      title: 'Mit Hinweis',
+      desc: 'zusätzlicher Erklärungstext',
+    },
+    props: {
+      label: 'Qualifizierte Beteiligungen',
+      hint: 'von wenigstens 10% an Aktien-, Grund- oder Stammkapital',
+      id: 'wihthint',
     },
   },
 }, (variant) => {

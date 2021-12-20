@@ -10,6 +10,7 @@ const nodeSass = require('node-sass');
 const gulpUtil = require('gulp-util');
 const helperFunctions = require('./gulp/_functions');
 require('./gulp/deploy-aem');
+require('./gulp/app-archetype');
 
 gulpUtil.env.aemTargetBase = '../czhdev-backend/sources/zhweb-core/zhweb-core-content/src/main/resources/jcr_root/apps/zhweb/core/';
 gulpUtil.env.aemTargetBaseResources = `${gulpUtil.env.aemTargetBase}clientlibs/publish/resources/`;
@@ -44,11 +45,8 @@ gulp.task('html', () => {
       './src/*.hbs',
       './src/design/*.hbs',
       './src/pages/**/*.hbs',
-      // './src/demo/pages/**/*.hbs',
-      // '!./src/demo/pages/handlebars/*.hbs',
       './src/modules/**/!(_)*.hbs',
       './src/atoms/**/!(_)*.hbs',
-      // './src/demo/modules/**/!(_)*.hbs',
       './src/preview/styleguide/*.hbs',
     ],
     srcBase: './src',
@@ -171,7 +169,7 @@ gulp.task('html:validate', () => {
   }, env);
 
   // Don't immediately run task when skipping build
-  if (env.watch && env.skipTests) {
+  if (env.watch && env.skipLinting) {
     return instance;
   }
 
@@ -361,7 +359,7 @@ gulp.task('css:lint', () => {
   }, env);
 
   // Don't immediately run task when skipping build
-  if (env.watch && env.skipTests) {
+  if (env.watch && env.skipLinting) {
     return instance;
   }
 
@@ -446,69 +444,11 @@ gulp.task('js:lint', () => {
   }, env);
 
   // Don't immediately run task when skipping build
-  if (env.watch && env.skipTests) {
+  if (env.watch && env.skipLinting) {
     return instance;
   }
 
   return instance();
-});
-
-/**
- * JavaScript testing task
- * Uses Jest with Puppeteer to check for JS errors and run tests
- * Expects an npm script called "jest" which is running jest
- *
- * An alternative would be to use jest.runCLI instead. However, this currently fails
- * due to the teardown script terminating the process in order to close the static webserver.
- *
- * Instead of running this task it is possible to just execute `npm run jest`
- */
-gulp.task('js:test', (done) => { // eslint-disable-line consistent-return
-
-  // TODO: Introduce new JEST environment
-  return done();
-
-  if (env.skipTests) {
-    return done();
-  }
-
-  const { spawn } = require('child_process');
-  const stripAnsi = require('strip-ansi');
-
-  let failed = false;
-  let killed = false;
-  let teardownFailed = false;
-
-  const tests = spawn('npm', ['run', 'jest'].concat(env.ci ? ['--', '--ci', '--runInBand', '--forceExit'] : []), {
-    // Add proper output coloring unless in CI env (where this would have weird side-effects)
-    stdio: env.ci ? 'pipe' : ['inherit', 'inherit', 'pipe'],
-  });
-
-  tests.stderr.on('data', (data) => {
-    if (stripAnsi(`${data}`).match(/(Test Suites: (.*?) failed|npm ERR!)/m)) {
-      failed = true;
-    }
-
-    // Don't treat as failure: Travis seems to kill the whole process for whatever reason
-    if (stripAnsi(`${data}`).match(/Killed/m)) {
-      killed = true;
-    }
-
-    // Don't treat as failure: The web server might have stopped or the process could not be found
-    if (stripAnsi(`${data}`).match(/No process found on port/m)) {
-      teardownFailed = true;
-    }
-
-    process.stderr.write(data);
-  });
-
-  tests.on('close', () => {
-    if (failed && !env.dev && !killed && !teardownFailed) {
-      process.exit(1);
-    }
-
-    done();
-  });
 });
 
 /**
@@ -968,80 +908,7 @@ gulp.task('copy:ci', () => {
  */
 gulp.task('clean', () => {
   const del = require('del');
-
   return del(['./dist', './www', './src/assets/.tmp']);
-});
-
-gulp.task('generate:diff', () => {
-  const through = require('through2').obj;
-  const handlebarsWax = require('handlebars-wax');
-  const { handlebars } = require('@unic/estatico-handlebars');
-  const prettify = require('js-beautify');
-
-  const options = {
-    partials: [
-      './src/**/*.hbs',
-    ],
-    helpers: [
-      './gulp/helpers/*.js',
-    ],
-  };
-
-  const wax = handlebarsWax(handlebars);
-
-  // Register partials
-  if (options.partials) {
-    const waxOptions = {};
-
-    if (options.parsePartialName) {
-      waxOptions.parsePartialName = options.parsePartialName;
-    }
-
-    wax.partials(options.partials, waxOptions);
-  }
-  // Register helpers
-  wax.helpers(require('handlebars-layouts'));
-
-  if (options.helpers) {
-    const waxOptions = {};
-
-    if (options.parseHelperName) {
-      waxOptions.parseHelperName = options.parseHelperName;
-    }
-
-    wax.helpers(options.helpers, waxOptions);
-  }
-
-  const generateWWW = function(file, enc, cb) {
-    const data = require(file.path);
-    const f = path.parse(file.path);
-    let variants = data.variants ? data.variants : { default: data };
-    const isPage = !data.variants;
-    for (const variant in variants) {
-      const variantProps = isPage ? variants[variant] : variants[variant].props;
-      const template = fs.readFileSync(file.path.replace('.data.js', '.hbs'), 'utf-8');
-      const compiledVariant = () => handlebars.compile(template)(variantProps);
-      const newFile = file.clone();
-      newFile.contents = new Buffer(prettify.html(compiledVariant(), {
-        indent_char: '\t',
-        indent_size: 1,
-      }));
-      newFile.path = path.join(f.dir, `${f.name.replace('.data', '')}.${variant}.html`);
-      this.push(newFile);
-    }
-    cb();
-  };
-
-  return gulp.src([
-    './src/atoms/**/*.data.js',
-    '!./src/atoms/**/{{fileName}}.data.js',
-    './src/modules/**/*.data.js',
-    '!./src/modules/**/{{fileName}}.data.js',
-    './src/pages/**/*.data.js',
-    '!./src/pages/**/{{fileName}}.data.js',
-  ], { base: './src' })
-    .pipe(through(generateWWW))
-    .pipe(gulp.dest('./www'));
 });
 
 /**
@@ -1059,47 +926,35 @@ gulp.task('email:inlineassets', () => {
 });
 
 /**
- * Zip download package
+ * Build app archetype
  */
-gulp.task('pack', () => {
-  gulp.src(['dist/ci/dev/**/*'])
-    .pipe(zip('czhdev_lsg.zip'))
-    .pipe(gulp.dest('dist/ci/dev'));
-  return gulp.src(['dist/ci/prod/**/*'])
-    .pipe(zip('czhdev_lsg.zip'))
-    .pipe(gulp.dest('dist/ci/prod'));
-});
+gulp.task('app:archetype', gulp.series('clean', 'media:svgsprite', 'app:archetype:subset', 'app:archetype:hbs', 'app:archetype:copy', 'app:archetype:pack', 'app:archetype:clean'));
 
 /**
  * Zip deployment package
  */
-gulp.task('zip', () => {
-  return gulp.src(['dist/ci/prod/**/*'])
-    .pipe(zip('deploy.zip'))
-    .pipe(gulp.dest('dist/ci'));
-});
+gulp.task('zip', () => gulp.src(['dist/ci/prod/**/*'])
+  .pipe(zip('deploy.zip'))
+  .pipe(gulp.dest('dist/ci')));
 
 /**
  * Zip offline package
  */
-gulp.task('zip:offline', () => {
-  return gulp.src('dist/ci/offline/**/*')
-    .pipe(zip('offline.zip'))
-    .pipe(gulp.dest('dist'));
-});
+gulp.task('zip:offline', () => gulp.src('dist/ci/offline/**/*')
+  .pipe(zip('offline.zip'))
+  .pipe(gulp.dest('dist')));
 
 
 /**
- * Test & lint / validate
+ * Lint / validate
  */
 gulp.task('lint', gulp.parallel('css:lint', 'js:lint', 'data:lint'));
-// gulp.task('test', gulp.parallel(/* 'html:validate', 'js:test' */));
 
 /**
  * Create complete build
- * Prompts whether tests and linting should run when in --watch mode
+ * Prompts whether linting should run when in --watch mode
  *
- * --noInteractive / --skipTests will bypass the prompt
+ * --noInteractive / --skipLinting will bypass the prompt
  * --ci will create complete builds in `dist/ci/dev` and `dist/ci/prod` directories
  */
 gulp.task('build', (done) => {
@@ -1112,7 +967,7 @@ gulp.task('build', (done) => {
     'copy',
     // When starting watcher without building, "css:fonts" will never finish
     // In order for "css" to still run properly, we switch from serial to parallel execution
-    (env.watch && env.skipBuild) ? gulp.parallel('css:fonts', 'css') : gulp.series('css:fonts', 'css' /* , 'critical' */),
+    (env.watch && env.skipBuild) ? gulp.parallel('css') : gulp.series('css'),
   );
   let readEnv = new Promise(resolve => resolve());
 
@@ -1122,36 +977,35 @@ gulp.task('build', (done) => {
   }
 
   // create offline page & inlinfify assets
-  task = gulp.series(task, 'email:inlineassets'/* , 'deploy:offlinepage', 'zip:offline' */);
+  task = gulp.series(task, 'email:inlineassets');
 
   // Create CI build structure
   if (env.ci) {
     if (gulpUtil.env.aemPresent) {
-      task = gulp.series(task, 'copy:ci', 'copy:aem', 'deploy:aem', /* 'pack', */ 'zip');
+      task = gulp.series(task, 'copy:ci', 'copy:aem', 'deploy:aem', 'zip');
     } else {
-      task = gulp.series(task, 'copy:ci', /* 'pack', */'zip');
+      task = gulp.series(task, 'copy:ci', 'zip');
     }
-    task = gulp.series(task, 'generate:diff');
   }
 
-  if (env.watch && (!env.skipBuild && !env.noInteractive && !env.skipTests && !env.ci)) {
+  if (env.watch && (!env.skipBuild && !env.noInteractive && !env.skipLinting && !env.ci)) {
     const inquirer = require('inquirer');
 
     readEnv = inquirer.prompt([{
       type: 'confirm',
-      name: 'skipTests',
-      message: 'Do you want to skip tests and linting?',
+      name: 'skipLinting',
+      message: 'Do you want to skip linting?',
       default: false,
     }]).then((answers) => {
       // Persist answer to env
-      env.skipTests = answers.skipTests;
+      env.skipLinting = answers.skipLinting;
 
       return env;
     });
   }
 
   readEnv.then(() => {
-    if (!env.skipTests || (env.watch && env.skipBuild)) {
+    if (!env.skipLinting || (env.watch && env.skipBuild)) {
       // In watch mode, the main task will not finish so we need to run everything in parallel
       if (env.watch && env.skipBuild) {
         task = gulp.parallel(task, 'lint');
@@ -1192,7 +1046,7 @@ gulp.task('default', (done) => {
     // When starting watcher without building, "build" will never finish
     // In order for "serve" to still run properly, we switch from serial to parallel execution
     if (env.skipBuild) {
-      env.skipTests = true;
+      env.skipLinting = true;
 
       return gulp.parallel('build', 'serve')(done);
     }

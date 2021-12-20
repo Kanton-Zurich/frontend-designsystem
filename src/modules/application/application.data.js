@@ -11,7 +11,7 @@ const data = _.merge({}, defaultData, {
     className: 'Application',
     jira: 'CZHDEV-792',
     label: 'Eingebettet',
-    documentation: dataHelper.getDocumentation('application.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
 

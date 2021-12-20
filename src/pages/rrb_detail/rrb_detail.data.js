@@ -16,7 +16,7 @@ const data = _.merge({}, defaultData, {
     title: 'Regierungsratsbeschlüsse Detail',
     jira: 'CZHDEV-1236',
     content: dataHelper.getFileContent('rrb_detail.hbs'),
-    documentation: dataHelper.getDocumentation('rrb_detail.md'),
+    documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
     skiplinks: skiplinksData,
