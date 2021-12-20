@@ -88,7 +88,7 @@ class Search extends Module {
 
     // Autosuggest search on enter
     this.ui.element.addEventListener(Autosuggest.events.termSelected, () => {
-      this.ui.form.dispatchEvent(new CustomEvent('submit'));
+      this.ui.form.dispatchEvent(new Event('submit', { cancelable: true }));
     });
 
     // override default submit
