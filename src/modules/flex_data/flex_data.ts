@@ -408,9 +408,9 @@ class FlexData extends Module {
 
           // Added searchhighlight to link href CZHDEV-3007
           let searchHighlightQuery = '';
-          const searchInputValue = (<HTMLInputElement>(this.ui.form.querySelector('input[type="text"]'))).value;
-          if (searchInputValue) {
-            searchHighlightQuery = `?search=${encodeURIComponent(searchInputValue)}`;
+          const searchInputValue = (<HTMLInputElement>(this.ui.form.querySelector('input[type="text"]')));
+          if (searchInputValue && searchInputValue.value) {
+            searchHighlightQuery = `?search=${encodeURIComponent(searchInputValue.value)}`;
           }
 
           const props = {
