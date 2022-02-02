@@ -139,8 +139,7 @@ class ContextMenu extends Module {
 
     this.data.copiedNode.classList.add(this.options.stateClasses.active);
     this.data.copiedNode.addEventListener('hide', this.hide.bind(this));
-
-    this.options.attachTo.appendChild(this.data.copiedNode);
+    document.body.appendChild(this.data.copiedNode);
 
     this.ui.element.removeAttribute('id');
   }
@@ -152,21 +151,22 @@ class ContextMenu extends Module {
    */
   positionMenu() {
     const attachToPos = this.options.attachTo.getBoundingClientRect();
-
     this.data.copiedNode.style.maxWidth = '300px';
     this.data.copiedNode.style.position = 'absolute';
     this.data.copiedNode.style.display = 'block';
     this.data.copiedNode.style.zIndex = '1000'; // overlay zIndex
 
-    this.data.copiedNode.style.top = `${attachToPos.height}px`;
+    this.data.copiedNode.style.top = `${window.scrollY + attachToPos.top + attachToPos.height}px`;
+    this.data.copiedNode.style.left = `${window.scrollX + attachToPos.left}px`;
 
     // Check if context menu is not completely visible, then put it above attach to target
     const copiedNodeRect = this.data.copiedNode.getBoundingClientRect();
     const contextMenuBottomPoint = copiedNodeRect.top + copiedNodeRect.height;
     const contextMenuRightPoint = copiedNodeRect.left + copiedNodeRect.width;
 
-    if (contextMenuBottomPoint > document.documentElement.offsetHeight) {
-      const calculatedTop = 0 - copiedNodeRect.height - attachToPos.height;
+    if (contextMenuBottomPoint + window.scrollY > document.documentElement.offsetHeight) {
+      const calculatedTop = document.documentElement.offsetHeight
+        - (contextMenuBottomPoint + window.scrollY);
       this.data.copiedNode.style.marginTop = `${calculatedTop}px`;
     }
 
@@ -234,7 +234,7 @@ class ContextMenu extends Module {
    * @memberof ContextMenu
    */
   removeDomNode() {
-    this.options.attachTo.removeChild(this.data.copiedNode);
+    document.body.removeChild(this.data.copiedNode);
 
     this.ui.element.setAttribute('id', this.data.uniqueId);
 
