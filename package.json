@@ -68,7 +68,7 @@
     "element-closest": "^3.0.1",
     "flatpickr": "^4.6.2",
     "foundation-sites": "^6.5.3",
-    "git-rev-sync": "^1.12.0",
+    "git-rev-sync": "^3.0.2",
     "gulp-rename": "^1.4.0",
     "gulp-string-replace": "^1.1.2",
     "gulp-util": "^3.0.8",
