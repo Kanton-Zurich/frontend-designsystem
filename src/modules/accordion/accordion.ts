@@ -122,7 +122,6 @@ class Accordion extends Module {
     const panel = eventDelegate.parentElement.nextElementSibling;
     const item = eventDelegate.parentElement.parentElement;
     const ariaExpanded = eventDelegate.getAttribute('aria-expanded') === 'true';
-    const verticalIcon = document.documentElement.classList.contains('is-ie') ? item.querySelector(this.options.domSelectors.verticalIcon) : null;
 
     if (ariaExpanded) {
       this.closeItem(item);
@@ -137,9 +136,6 @@ class Accordion extends Module {
       panel.setAttribute('aria-hidden', 'false');
 
       this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), null);
-
-      // CZHDEV - 424, if ie add manual transform
-      if (verticalIcon) verticalIcon.setAttribute('transform', 'rotate(90)');
 
       item.classList.add(this.options.stateClasses.open);
 
@@ -171,8 +167,6 @@ class Accordion extends Module {
       const triggerEl = item.querySelector<HTMLElement>(this.options.domSelectors.trigger);
       if (panel && triggerEl) {
         if (triggerEl.getAttribute('aria-disabled') !== 'true') {
-          const verticalIcon = document.documentElement.classList.contains('is-ie') ? item.querySelector(this.options.domSelectors.verticalIcon) : null;
-
           panel.style.maxHeight = '0px';
           panel.setAttribute('aria-hidden', 'true');
 
@@ -182,8 +176,6 @@ class Accordion extends Module {
           }
 
           this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), '-1');
-
-          if (verticalIcon) verticalIcon.removeAttribute('transform');
 
           item.classList.remove(this.options.stateClasses.open);
           item.classList.remove(this.options.stateClasses.transitionEnd);

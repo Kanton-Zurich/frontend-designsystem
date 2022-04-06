@@ -39,13 +39,6 @@ class App {
       window[namespace].helpers.bodyElement = document.body;
     }
 
-    const sAgent = window.navigator.userAgent;
-    const isIE = sAgent.indexOf('MSIE');
-
-    if (isIE > 0 || !!navigator.userAgent.match(/Trident\/7\./)) {
-      document.documentElement.classList.add('is-ie');
-    }
-
     this.getLanguage();
   }
 
