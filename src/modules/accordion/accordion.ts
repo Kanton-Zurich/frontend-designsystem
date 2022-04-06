@@ -131,10 +131,8 @@ class Accordion extends Module {
       if (eventDelegate.id && eventDelegate.id.length > 0) {
         window.history.pushState({ accordionZH: eventDelegate.id }, '', `#${eventDelegate.id}`);
       }
-
+      panel.style.display = 'block';
       panel.style.maxHeight = `${this.calcHeight(panel)}px`;
-
-      panel.setAttribute('aria-hidden', 'false');
 
       this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), null);
 
@@ -174,7 +172,6 @@ class Accordion extends Module {
           const verticalIcon = document.documentElement.classList.contains('is-ie') ? item.querySelector(this.options.domSelectors.verticalIcon) : null;
 
           panel.style.maxHeight = '0px';
-          panel.setAttribute('aria-hidden', 'true');
 
           const subHead = triggerEl.querySelector<HTMLElement>('.mdl-accordion__subhead');
           if (subHead) {
@@ -191,6 +188,12 @@ class Accordion extends Module {
           triggerEl.setAttribute('aria-expanded', 'false');
         }
       }
+    }
+  }
+
+  hideItem(event, eventDelegate) {
+    if (eventDelegate.style.maxHeight === '0px') {
+      eventDelegate.style.display = 'none';
     }
   }
 
@@ -317,6 +320,7 @@ class Accordion extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.trigger, this.toggleItem.bind(this));
     this.eventDelegate.on(Accordion.events.clearSubheads, this.clearSubheads.bind(this));
     this.eventDelegate.on(Accordion.events.updateSubheads, this.updateSubheads.bind(this));
+    this.eventDelegate.on('transitionend', this.options.domSelectors.panel, this.hideItem.bind(this));
   }
 
   /**
