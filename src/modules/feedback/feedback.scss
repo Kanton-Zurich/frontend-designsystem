@@ -8,7 +8,7 @@
     justify-content: space-between;
     align-items: center;
 
-    h3 {
+    .atm-heading {
       padding-top: 0;
       margin-bottom: 0;
     }
@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
 
-    button {
+    .atm-button {
       margin-left: pxToRem($sizeTiny);
     }
   }
@@ -51,12 +51,12 @@
   @include mq($from: tiny, $to: medium) {
     padding: pxToRem($sizeBig) 0;
 
-    h3 {
+    .atm-heading {
       margin-bottom: pxToRem($sizeSmallLarge);
     }
 
     &__container {
-      button:first-of-type {
+      .atm-button:first-of-type {
         margin-left: 0;
       }
     }
@@ -64,7 +64,7 @@
     &__container--aligned {
       flex-direction: column;
 
-      h3 {
+      .atm-heading {
         margin-top: pxToRem($sizeSmallLarge);
         margin-bottom: 0;
       }
