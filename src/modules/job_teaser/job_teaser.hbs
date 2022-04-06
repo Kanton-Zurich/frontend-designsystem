@@ -1,0 +1,34 @@
+<div class="mdl-job-teaser" data-init="jobTeaser" data-api-url="{{apiUrl}}" data-base-url="{{baseUrl}}" data-filters="{{filters}}">
+  <div class="mdl-teaser__wrapper">
+    <div class="lyt-wrapper">
+      <div class="mdl-teaser mdl-teaser--inverted">
+        <div class="mdl-teaser__content">
+          <h3 class="mdl-teaser__title atm-heading" data-lineclamp="true">
+            {{teaserTitle}}
+          </h3>
+          <p data-teaser="teaserDescription" data-lineclamp="true" class="mdl-teaser__description">
+            {{teaserText}}
+          </p>
+          <div>
+            <a href="{{linkMoreInfo}}" class="atm-button atm-button--cv-inverted">
+              <span class="atm-button__text ">Mehr Infos</span>
+            </a>
+            <a href="{{linkAllJobs}}" class="atm-button atm-button--secondary atm-button--cv-inverted">
+              <span class="atm-button__text ">Alle offenen Stellen</span>
+            </a>
+          </div>
+        </div>
+        <div class="mdl-teaser__image">
+          {{> "modules/image_figure/image_figure"}}
+        </div>
+      </div>
+      <div class="mdl-job-teaser__jobs mdl-news-teaser__content">
+        <ul data-job-teaser-list>
+        </ul>
+      </div>
+      <script data-job-teaser-template type="text/x-handlebars-template">
+        {{{template}}}
+      </script>
+    </div>
+  </div>
+</div>

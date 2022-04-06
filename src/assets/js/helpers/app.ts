@@ -58,6 +58,7 @@ import ZhLex from '../../../modules/zhlex/zhlex';
 import Metablock from '../../../modules/metablock/metablock';
 import IFrame from '../../../modules/iframe/iframe';
 import DecisionTree from '../../../modules/decision_tree/decision_tree';
+import JobTeaser from '../../../modules/job_teaser/job_teaser';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -126,6 +127,7 @@ class App {
     this.modules.metablock = Metablock;
     this.modules.iframe = IFrame;
     this.modules.decisionTree = DecisionTree;
+    this.modules.jobTeaser = JobTeaser;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function

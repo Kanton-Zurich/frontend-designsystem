@@ -1,0 +1,69 @@
+.mdl-job-teaser {
+  $teaserMargins: (
+    marginBottom: (
+      tiny: $sizeBiggerBig,
+      large: $sizeHuge,
+    ),
+  );
+
+  @include sizeCurve(margin-bottom, marginBottom, $teaserMargins);
+
+  .mdl-teaser {
+    margin-bottom: 0;
+  }
+
+  .mdl-news-teaser {
+    &__content {
+      ul {
+        display: block;
+      }
+    }
+
+    &__item {
+      max-width: 100%;
+      position: relative;
+
+      .mdl-job-teaser__job-details {
+        order: 3;
+        font-size: $sizeFontTiny;
+        color: $colorBlack;
+
+        span {
+          padding-right: 0.5rem;
+          margin-right: 0.5rem;
+          line-height: 1;
+          display: inline-block;
+          border-right: 1px solid $colorBlack60;
+
+          &:last-child {
+            padding-right: 0;
+            margin-right: 0;
+            border-right: none;
+          }
+        }
+      }
+      
+      .atm-button {
+        position: absolute;
+        right: pxToRem($sizeBig);
+        border-radius: 50%;
+        top: calc(50% - #{$sizeLarge});
+        display: none;
+
+        @include mq($from: medium) {
+          display: flex;
+        }
+      }
+
+      a {
+        @include mq($from: medium) {
+          padding-right: pxToRem($sizeBig + $sizeHuge);
+        }
+      }
+    }
+  }
+
+  &__jobs {
+    padding-right: 0.5rem;
+  }
+}
