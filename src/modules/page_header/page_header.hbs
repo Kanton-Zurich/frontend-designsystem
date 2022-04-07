@@ -8,7 +8,7 @@
       <div class="mdl-page-header__logo-container cell {{#if minimal}}tiny-0{{/if}}{{#unless
         minimal}}tiny-2{{/unless}} xsmall-2 small-2 medium-2 large-2 xlarge-2">
         {{#unless minimal}}
-          <{{#if homelink}}a href="{{homelink}}"{{else}}span{{/if}}>
+          <{{#if homelink}}a href="{{homelink}}" class="mdl-no-modal-focus"{{else}}span{{/if}}>
             <span class="visuallyhidden">Logo des Kantons Zürich</span>
             {{#if inverted}}
               <svg viewBox="0 0 100 100" class="mdl-page-header__logo print-hidden">

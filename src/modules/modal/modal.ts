@@ -243,9 +243,17 @@ class Modal extends Module {
     // delayed opacity animation and focus handling
     setTimeout(() => {
       const focusable = this.ui.element.querySelectorAll(this.options.domSelectors.focusable);
-      if (focusable.length > 0 && !focusable[0].classList.contains('mdl-skiplinks__link')) {
-        focusable[0].focus();
-      }
+
+      // Loop focusable elements and focus the first one without the class "mdl-no-modal-focus"
+      Array.from(focusable).some((el) => {
+        if (!el.classList.contains('mdl-no-modal-focus')) {
+          el.focus();
+          return true;
+        }
+
+        return false;
+      });
+
       if (this.options.hasDynamicHeader) {
         this.updateOnScroll(0);
       }
