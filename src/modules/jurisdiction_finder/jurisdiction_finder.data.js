@@ -29,7 +29,7 @@ const data = _.merge({}, defaultData, {
       isSmall: true,
       autocompleteOff: true,
       iconOnly: {
-        icon: 'search',
+        icon: 'inspect',
       },
       additionalFunctionality: {
         icon: 'clear',

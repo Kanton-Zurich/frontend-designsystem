@@ -153,7 +153,7 @@ const data = _.merge({}, defaultData, {
       icon: 'arrow-left',
     }),
     textLinkNoResult: _.merge({}, textLinkDefaultData, {
-      icon: 'search',
+      icon: 'inspect',
       text: 'Gesamte Webseite nach «{searchTerm}» durchsuchen',
       additionalAttribute: 'data-locations="emptyNote"',
       isInverted: false,
