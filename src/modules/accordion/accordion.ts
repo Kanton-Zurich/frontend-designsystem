@@ -38,7 +38,7 @@ class Accordion extends Module {
 
   public data: {
     hasOpenItem: boolean,
-    openItems: Array<number>,
+    openItems: Array<string>,
     idTriggers: Array<any>,
   };
 
@@ -159,6 +159,7 @@ class Accordion extends Module {
         }
       }
       eventDelegate.setAttribute('aria-expanded', true);
+      this.data.openItems.push(eventDelegate.id)
     }
     this.dispatchVerticalResizeEvent(this.options.transitionTime);
   }
@@ -186,13 +187,15 @@ class Accordion extends Module {
           item.classList.remove(this.options.stateClasses.transitionEnd);
 
           triggerEl.setAttribute('aria-expanded', 'false');
+          this.data.openItems.splice(this.data.openItems.indexOf(triggerEl.id), 1);
         }
       }
     }
   }
 
-  hideItem(event, eventDelegate) {
-    if (eventDelegate.style.maxHeight === '0px') {
+  itemTransitionEnd(event, eventDelegate) {
+    const itemId = eventDelegate.parentElement.querySelector(this.options.domSelectors.trigger).id;
+    if (!this.data.openItems.includes(itemId)) {
       eventDelegate.style.display = 'none';
     }
   }
@@ -320,7 +323,7 @@ class Accordion extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.trigger, this.toggleItem.bind(this));
     this.eventDelegate.on(Accordion.events.clearSubheads, this.clearSubheads.bind(this));
     this.eventDelegate.on(Accordion.events.updateSubheads, this.updateSubheads.bind(this));
-    this.eventDelegate.on('transitionend', this.options.domSelectors.panel, this.hideItem.bind(this));
+    this.eventDelegate.on('transitionend', this.options.domSelectors.panel, this.itemTransitionEnd.bind(this));
   }
 
   /**
