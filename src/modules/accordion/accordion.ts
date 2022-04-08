@@ -87,7 +87,6 @@ class Accordion extends Module {
       }
     });
 
-    this.initTabindex();
     this.checkURL();
 
     this.togglesAll = this.ui.element.classList.contains(this.options.stateClasses.togglesAll);
@@ -134,8 +133,6 @@ class Accordion extends Module {
       panel.style.display = 'block';
       panel.style.maxHeight = `${this.calcHeight(panel)}px`;
 
-      this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), null);
-
       // CZHDEV - 424, if ie add manual transform
       if (verticalIcon) verticalIcon.setAttribute('transform', 'rotate(90)');
 
@@ -179,8 +176,6 @@ class Accordion extends Module {
             this.updateSubhead(panel, subHead);
           }
 
-          this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), '-1');
-
           if (verticalIcon) verticalIcon.removeAttribute('transform');
 
           item.classList.remove(this.options.stateClasses.open);
@@ -193,6 +188,11 @@ class Accordion extends Module {
     }
   }
 
+  /**
+   * Ends the transition of a panelItem in setting it's display style to 'none'.
+   * @param event 
+   * @param eventDelegate 
+   */
   itemTransitionEnd(event, eventDelegate) {
     const itemId = eventDelegate.parentElement.querySelector(this.options.domSelectors.trigger).id;
     if (!this.data.openItems.includes(itemId)) {
@@ -326,34 +326,6 @@ class Accordion extends Module {
     this.eventDelegate.on('transitionend', this.options.domSelectors.panel, this.itemTransitionEnd.bind(this));
   }
 
-  /**
-   * Initializing the tabindex for all focusable children of panelContent(s)
-   *
-   * @memberof Accordion
-   */
-  initTabindex() {
-    this.ui.panelContent.forEach((panelContent) => {
-      this.setTabindex([].slice
-        .call(panelContent.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), -1);
-    });
-  }
-
-  /**
-   * Setting the tabindex for a list of focusable elements
-   *
-   * @param {NodeList} focusableElements
-   * @param {Number} tabindex -1 or 0
-   * @memberof Accordion
-   */
-  setTabindex(focusableElements, tabindex) {
-    focusableElements.forEach((focusable) => {
-      if (tabindex) {
-        focusable.setAttribute('tabindex', tabindex);
-      } else {
-        focusable.removeAttribute('tabindex');
-      }
-    });
-  }
 
   updateFlyingFocus() {
     (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
