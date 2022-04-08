@@ -194,7 +194,7 @@ class Accordion extends Module {
    * @param eventDelegate 
    */
   itemTransitionEnd(event, eventDelegate) {
-    const itemId = eventDelegate.parentElement.querySelector(this.options.domSelectors.trigger).id;
+    const itemId = eventDelegate.closest(this.options.domSelectors.items).querySelector(this.options.domSelectors.trigger).id;
     if (!this.data.openItems.includes(itemId)) {
       eventDelegate.style.display = 'none';
     }
