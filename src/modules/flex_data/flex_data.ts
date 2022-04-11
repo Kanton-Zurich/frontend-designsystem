@@ -123,6 +123,11 @@ class FlexData extends Module {
         });
       }
     });
+    this.ui.form.querySelectorAll('.mdl-datepicker').forEach((datePicker: HTMLDivElement) => {
+      datePicker.addEventListener(Datepicker.events.dateSet, () => {
+        this.ui.clearButton.classList.remove('hidden');
+      });
+    });
     // -----------------------------------------------
     // Listen to pagination change event
     this.ui.pagination.addEventListener(Pagination.events.change, () => {
