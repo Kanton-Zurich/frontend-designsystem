@@ -9,3 +9,7 @@
 .clearfix {
   @include clearfix;
 }
+
+.hidden {
+  display: none;
+}

@@ -34,7 +34,7 @@
         </div>
       </div>
     <iframe
-      class="mdl-video__frame"
+      class="mdl-video__frame hidden"
       {{#if expiryDays}}data-expirydays="{{expiryDays}}"{{/if}}
       {{#if cookieName}}data-cookieName="{{cookieName}}"{{/if}}
       data-youtubesrc="https://www.youtube.com/embed/{{videoId}}?modestbranding=1&rel=0&showInfo=0"
@@ -42,7 +42,6 @@
       width="432"
       allowfullscreen
       aria-labelledby="mdl-video__{{videoId}}__alt-text"
-      style="display: none;"
       aria-hidden="true"
       tabindex="-1"
     ></iframe>
@@ -50,6 +49,6 @@
 
   <figcaption class="mdl-video__caption">
     {{> "atoms/figcaption/figcaption" caption}}
-    <span id="mdl-video__{{videoId}}__alt-text" class="visuallyhidden" style="display: none;" aria-hidden="true">{{alt}}</span>
+    <span id="mdl-video__{{videoId}}__alt-text" class="visuallyhidden hidden" aria-hidden="true">{{alt}}</span>
   </figcaption>
 </figure>
