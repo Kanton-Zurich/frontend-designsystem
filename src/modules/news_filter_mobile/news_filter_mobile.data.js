@@ -34,7 +34,7 @@ const data = _.merge({}, defaultData, {
           dataSelector: 'data-topiclist="input"',
           isSmall: true,
           iconOnly: {
-            icon: 'search',
+            icon: 'inspect',
           },
           additionalFunctionality: {
             icon: 'clear',
@@ -106,7 +106,7 @@ const data = _.merge({}, defaultData, {
           dataSelector: 'data-organisationlist="input"',
           isSmall: true,
           iconOnly: {
-            icon: 'search',
+            icon: 'inspect',
           },
           additionalFunctionality: {
             icon: 'clear',
@@ -146,7 +146,7 @@ const data = _.merge({}, defaultData, {
           dataSelector: 'data-newstype="input"',
           isSmall: true,
           iconOnly: {
-            icon: 'search',
+            icon: 'inspect',
           },
           additionalFunctionality: {
             icon: 'clear',

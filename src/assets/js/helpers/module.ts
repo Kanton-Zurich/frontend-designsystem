@@ -297,14 +297,7 @@ class Module {
    * @param url
    */
   redirect(url: string) {
-    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
-      const referLink = document.createElement('a');
-      referLink.href = url;
-      document.body.appendChild(referLink);
-      referLink.click();
-    } else {
-      window.location.href = url;
-    }
+    window.location.href = url;
   }
 
   /**
