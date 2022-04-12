@@ -633,6 +633,7 @@ class Anchornav extends Module {
     this.isKeyEvent = true;
     const { target } = event;
     this.updateWindowHistory(target.dataset.href);
+    this.toggleActiveNavigationItemClass(target);
     this.moveToPageElementFor(target);
   }
 
@@ -758,13 +759,15 @@ class Anchornav extends Module {
    * Toggles the jump.js plugin flag
    */
   toggleJumpFlag() {
-    this.navReferences.forEach((item) => {
-      if (item.navTrigger === this.ui.navItemActive
-        && this.isKeyEvent) {
-        item.element.focus();
-        this.isKeyEvent = false;
-      }
-    });
+    if (this.isKeyEvent) {
+      this.navReferences.forEach((item) => {
+        if (item.navTrigger === this.ui.navItemActive) {
+          item.element.focus();
+          this.isKeyEvent = false;
+        }
+      });
+    }
+
     this.jumpPossible = !this.jumpPossible;
     this.isClickEvent = false;
   }
