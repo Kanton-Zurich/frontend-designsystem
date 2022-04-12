@@ -231,7 +231,7 @@ const variants = _.mapValues({
       label: 'Filter',
       isFloatingLabel: true,
       iconOnly: {
-        icon: 'search',
+        icon: 'inspect',
       },
       uuid: _.uniqueId('float_input_clear'),
       additionalFunctionality: {
@@ -251,7 +251,7 @@ const variants = _.mapValues({
       label: 'Filter',
       isSmall: true,
       iconOnly: {
-        icon: 'search',
+        icon: 'inspect',
       },
       uuid: _.uniqueId('float_input_clear'),
       additionalFunctionality: {
@@ -534,7 +534,7 @@ const variants = _.mapValues({
       isSmall: true,
       uuid: _.uniqueId('float_input_smallTopic'),
       iconOnly: {
-        icon: 'search',
+        icon: 'inspect',
       },
     },
   },
