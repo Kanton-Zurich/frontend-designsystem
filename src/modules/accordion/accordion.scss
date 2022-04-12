@@ -190,6 +190,7 @@ $accordionMap: (
   }
 
   &__panel {
+    display: none;
     max-height: 0;
 
     @include transition(max-height, $easing: $transitionEasingDecelerate);
