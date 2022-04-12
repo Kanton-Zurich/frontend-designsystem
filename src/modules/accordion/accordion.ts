@@ -8,8 +8,6 @@
 import Module from '../../assets/js/helpers/module';
 import WindowEventListener from '../../assets/js/helpers/events';
 
-import { INTERACTION_ELEMENTS_QUERY } from '../../assets/js/helpers/constants';
-
 class Accordion extends Module {
   public options: {
     domSelectors: {
@@ -156,7 +154,7 @@ class Accordion extends Module {
         }
       }
       eventDelegate.setAttribute('aria-expanded', true);
-      this.data.openItems.push(eventDelegate.id)
+      this.data.openItems.push(eventDelegate.id);
     }
     this.dispatchVerticalResizeEvent(this.options.transitionTime);
   }
@@ -190,11 +188,12 @@ class Accordion extends Module {
 
   /**
    * Ends the transition of a panelItem in setting it's display style to 'none'.
-   * @param event 
-   * @param eventDelegate 
+   * @param event
+   * @param eventDelegate
    */
   itemTransitionEnd(event, eventDelegate) {
-    const itemId = eventDelegate.closest(this.options.domSelectors.items).querySelector(this.options.domSelectors.trigger).id;
+    const itemId = eventDelegate.closest(this.options.domSelectors.items)
+      .querySelector(this.options.domSelectors.trigger).id;
     if (!this.data.openItems.includes(itemId)) {
       eventDelegate.style.display = 'none';
     }
