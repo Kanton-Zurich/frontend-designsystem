@@ -1,12 +1,10 @@
-import loadPolyfills from './helpers/polyfills';
+import '@babel/polyfill';
 import WindowEventListener from './helpers/events';
 import './helpers/modernizrrc';
 import Helper from './helpers/helper';
 import namespace from './helpers/namespace';
 import FlyingFocus from './helpers/flyingfocus';
 import App from './helpers/appMinimal';
-
-loadPolyfills();
 
 window[namespace] = {
   data: {}, // Content data

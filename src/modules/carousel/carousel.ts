@@ -4,7 +4,6 @@
  * @author
  * @copyright
  */
-import objectFitImages from 'object-fit-images';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 import WindowEventListener from '../../assets/js/helpers/events';
@@ -338,9 +337,6 @@ class Carousel extends Module {
       this.ui.element.classList.add(this.options.stateClasses.inverted);
 
       this.setTransformValue();
-
-      // Polyfill for IE11
-      objectFitImages();
       this.setCaptionPositions();
 
       disableBodyScroll(this.ui.element);
