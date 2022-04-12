@@ -45,7 +45,7 @@ class Video extends Module {
         dialogCloseBtn: '.mdl-video__cookie-dialog > button',
         dialogPlayBtn: '.mdl-video__cookie-dialog .atm-button',
         iFrame: '.mdl-video__frame',
-        iFrameAlt: '.mdl-video__caption > span:last-child',
+        iFrameAlt: '.mdl-video__alt-text',
       },
       stateClasses: {
         // activated: 'is-activated'
@@ -65,7 +65,7 @@ class Video extends Module {
         this.hideElement(this.ui.dialog);
         this.ui.iFrame.setAttribute('src', this.youTubeSrc);
         this.showElement(this.ui.iFrame);
-        this.ui.iFrameAlt.style.display = 'block';
+        this.ui.iFrameAlt.classList.remove('hidden');
       } else {
         this.log(`${this.cookieName} cookie value not found or its not accepted.`);
       }
@@ -95,7 +95,7 @@ class Video extends Module {
         }
         this.ui.iFrame.setAttribute('src', `${this.youTubeSrc}&autoplay=1&mute=1`);
         this.showElement(this.ui.iFrame);
-        this.ui.iFrameAlt.style.display = 'block';
+        this.ui.iFrameAlt.classList.remove('hidden');
       });
   }
 
