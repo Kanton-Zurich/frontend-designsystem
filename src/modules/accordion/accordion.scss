@@ -211,6 +211,8 @@ $accordionMap: (
 
     .atm-heading.mdl-linklist__title {
       margin-top: 0;
+
+      @include sizeCurve('padding-top', tiny);
     }
   }
 
