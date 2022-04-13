@@ -33,7 +33,6 @@ class Form {
       lengthIndicator: string;
       validateIcon: string;
     };
-    hintSelector: string;
     messageSelector: string,
     autofillSelector: string,
     duplicateSelector: string,
@@ -76,7 +75,6 @@ class Form {
         lengthIndicator: '.atm-form_input__length-indicator',
         validateIcon: '.atm-form_input__validate-icon',
       },
-      hintSelector: '[data-hint]',
       messageSelector: '[data-message]',
       autofillSelector: '[data-autofill]',
       selectOptionSelector: 'data-select-option',
