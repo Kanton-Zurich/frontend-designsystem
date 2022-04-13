@@ -31,11 +31,8 @@
     .atm-figcaption {
       flex-grow: 1;
     }
-  }
 
-  &__alt-text {
-
-    &.hidden {
+    & .hidden {
       display: none;
     }
   }
