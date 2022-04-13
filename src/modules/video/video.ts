@@ -90,7 +90,7 @@ class Video extends Module {
         if (this.cookieName) {
           document.cookie = `${this.cookieName}=true; max-age=${this.getExpireDate()}; path=/`;
         }
-        this.ui.iFrame.setAttribute('src', `${this.youTubeSrc}&autoplay=1&mute=1`);
+        this.ui.iFrame.setAttribute('src', `${this.youTubeSrc}&autoplay=1&mute=0`);
         this.showElement(this.ui.iFrame);
       });
   }
