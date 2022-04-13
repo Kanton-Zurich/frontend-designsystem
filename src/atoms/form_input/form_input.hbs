@@ -1,5 +1,5 @@
 {{#if hintBefore}}
-  {{#if hint}}<div id="{{uuid}}__hint" class="atm-form_input__hint atm-form_input__hint--before">{{hint}}</div>{{/if}}
+  {{#if hint}}<p id="{{uuid}}__hint" class="atm-form_input__hint atm-form_input__hint--before">{{hint}}</p>{{/if}}
 {{/if}}
 
 <div class="atm-form_input{{#if isFloatingLabel}} atm-form_input--floated{{/if}}{{#if
@@ -166,7 +166,7 @@
   {{/unless}}
 
   {{#unless hintBefore}}
-    {{#if hint}}<div id="{{uuid}}__hint" class="atm-form_input__hint">{{hint}}</div>{{/if}}
+    {{#if hint}}<p id="{{uuid}}__hint" class="atm-form_input__hint">{{hint}}</p>{{/if}}
   {{/unless}}
 
   {{#if validation.errorMsg}}<p data-message="pattern">{{validation.errorMsg}}</p>{{/if}}
