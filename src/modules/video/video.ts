@@ -23,6 +23,7 @@ class Video extends Module {
 
   public options: {
     domSelectors: {
+      preview: string,
       previewBtn: string,
       dialogCloseBtn: string,
       dialogPlayBtn: string,
@@ -76,7 +77,7 @@ class Video extends Module {
    */
   initEventListeners() {
     this.eventDelegate
-      .on('click', this.options.domSelectors.previewBtn, () => {
+      .on('click', this.options.domSelectors.preview, () => {
         this.hideElement(this.ui.preview);
         this.showElement(this.ui.dialog);
         this.ui.dialog.focus();

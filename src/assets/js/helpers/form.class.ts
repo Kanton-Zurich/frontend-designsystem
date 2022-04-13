@@ -129,6 +129,11 @@ class Form {
         return false;
       }
     });
+    this.eventDelegate.on('reset', () => {
+      this.ui.element.querySelectorAll(this.options.watchEmitters.input).forEach((input) => {
+        input.classList.toggle('dirty', false);
+      });
+    });
     this.eventDelegate.on('click', this.options.eventEmitters.clearButton, this.clearField.bind(this));
     this.eventDelegate.on('keyup', this.options.watchEmitters.input, debounce((event, field) => {
       if (field.type !== 'radio') this.validateField(field);
