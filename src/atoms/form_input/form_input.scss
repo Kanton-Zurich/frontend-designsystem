@@ -544,6 +544,17 @@ $triggerWidth: pxToRem(86px);
 
     color: $colorBlack60;
     padding-top: $sizeMini;
+
+    &--before {
+      order: unset;
+      margin-top: 0;
+      padding-top: 0;
+      line-height: $sizeLineHeightBase;
+      hyphens: auto;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include sizeCurve('margin-bottom', small);
+    }
   }
 
   &__backdrop {

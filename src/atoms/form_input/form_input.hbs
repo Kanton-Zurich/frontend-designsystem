@@ -1,3 +1,7 @@
+{{#if hintBefore}}
+  {{#if hint}}<div id="{{uuid}}__hint" class="atm-form_input__hint atm-form_input__hint--before">{{hint}}</div>{{/if}}
+{{/if}}
+
 <div class="atm-form_input{{#if isFloatingLabel}} atm-form_input--floated{{/if}}{{#if
   isSmall}} atm-form_input--small{{/if}}{{#if unitLeft}} atm-form_input--unitLeft{{/if}}{{#if
   iconOnly}} atm-form_input--icon{{/if}}{{#if isSelectTrigger}} atm-form_input--trigger{{/if}}{{#if
@@ -161,7 +165,10 @@
     {{/if}}
   {{/unless}}
 
-  {{#if hint}}<div id="{{uuid}}__hint" class="atm-form_input__hint">{{hint}}</div>{{/if}}
+  {{#unless hintBefore}}
+    {{#if hint}}<div id="{{uuid}}__hint" class="atm-form_input__hint">{{hint}}</div>{{/if}}
+  {{/unless}}
+
   {{#if validation.errorMsg}}<p data-message="pattern">{{validation.errorMsg}}</p>{{/if}}
   {{#if validation.rangeErrorMsg}}<p data-message="range">{{validation.rangeErrorMsg}}</p>{{/if}}
   {{#if validation.isRequired}}<p data-message="required">Dies ist ein Pflichtfeld</p>{{/if}}
