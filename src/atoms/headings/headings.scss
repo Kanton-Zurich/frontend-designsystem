@@ -85,7 +85,7 @@ h2,
       line-height: $sizeLineHeightNarrower;
     }
 
-    &.atm-heading--bordered {
+    &--bordered {
       @include sizeCurve(padding-top, borderedTopPadding, $headingCurves);
       @include sizeCurve(margin-top, borderedTopMargin, $headingCurves);
       @include headingFullWidth();
@@ -103,6 +103,12 @@ h3,
     @include sizeCurve('margin-bottom', mini);
     @include mq($from: xlarge) {
       line-height: $sizeLineHeightNarrow;
+    }
+
+    &--bordered {
+      @include sizeCurve(padding-top, borderedTopPadding, $headingCurves);
+      @include sizeCurve(margin-top, borderedTopMargin, $headingCurves);
+      @include headingFullWidth();
     }
   }
 }
