@@ -212,6 +212,10 @@ $accordionMap: (
     .atm-heading.mdl-linklist__title {
       margin-top: 0;
     }
+
+    .aem-Grid .aem-GridColumn:not(:last-child) > .mdl-linklist {
+      @include sizeCurve(margin-bottom, medium);
+    }
   }
 
   .mdl-linklist--last,
