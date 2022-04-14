@@ -18,7 +18,7 @@ class Video extends Module {
     dialog: HTMLDivElement,
     dialogCloseBtn: HTMLButtonElement,
     dialogPlayBtn: HTMLButtonElement,
-    iFrame: HTMLIFrameElement,
+    iFrame: HTMLIFrameElement
   };
 
   public options: {
@@ -62,6 +62,7 @@ class Video extends Module {
         this.hideElement(this.ui.preview);
         this.hideElement(this.ui.dialog);
         this.ui.iFrame.setAttribute('src', this.youTubeSrc);
+        this.showElement(this.ui.iFrame);
       } else {
         this.log(`${this.cookieName} cookie value not found or its not accepted.`);
       }
@@ -90,6 +91,7 @@ class Video extends Module {
           document.cookie = `${this.cookieName}=true; max-age=${this.getExpireDate()}; path=/`;
         }
         this.ui.iFrame.setAttribute('src', `${this.youTubeSrc}&autoplay=1&mute=0`);
+        this.showElement(this.ui.iFrame);
       });
   }
 

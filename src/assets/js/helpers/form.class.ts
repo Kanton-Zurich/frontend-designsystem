@@ -367,12 +367,14 @@ class Form {
 
       if (validation.validationResult) {
         this.setValidClasses(field);
+        this.setDescribedBy(field, []);
 
         return true;
       }
 
       this.setValidClasses(field, ['add', 'remove']);
       let messageElementID: string;
+      const errorMessageIds: Array<string> = [];
 
       validation.messages.forEach((messageID) => {
         const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
@@ -385,9 +387,10 @@ class Form {
           }
           message.classList.add('show');
           message.setAttribute('id', messageElementID);
-          field.setAttribute('aria-describedby', messageElementID);
+          errorMessageIds.push(messageElementID);
         }
       });
+      this.setDescribedBy(field, errorMessageIds);
 
       if (validation.files) {
         setTimeout(() => {
@@ -405,6 +408,15 @@ class Form {
 
       return false;
     }
+  }
+
+  setDescribedBy(field, errorMessageIds: Array<string>) {
+    let idsString: string = '';
+    if (field.hasAttribute('aria-describedby')) {
+      idsString = field.getAttribute('aria-describedby');
+    }
+    const idsArray = idsString.split(' ').filter(id => !id.endsWith('-error')).concat(errorMessageIds);
+    field.setAttribute('aria-describedby', idsArray.join(' '));
   }
 
   setValidClasses(field, functionArray: Array<string> = ['remove', 'add']) {

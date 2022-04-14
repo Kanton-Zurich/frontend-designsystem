@@ -15,10 +15,11 @@
             class="atm-heading visuallyhidden">{{{iframeScreenReaderHeading.title}}}</h{{{iframeScreenReaderHeading.level}}}>
           {{/unless}}
           {{#if caption}}<figure class="mdl-iframe__figure">{{/if}}
-            <iframe src="{{{iframeSrc}}}" {{#if iframeHeight}} style="height: {{{iframeHeight}}}px"{{/if}}></iframe>
+            <iframe src="{{{iframeSrc}}}" aria-labelledby="{{iframeCaptionId}}" {{#if iframeHeight}} style="height: {{{iframeHeight}}}px"{{/if}}></iframe>
           {{#if caption}}
             <figcaption class="mdl-iframe__caption">
               {{> "atoms/figcaption/figcaption" caption}}
+              <span id="{{iframeCaptionId}}" class="hidden">{{{caption.caption}}}</span>
             </figcaption>
           </figure>
           {{/if}}

@@ -16,6 +16,13 @@
     margin-top: 0;
   }
 
+  &__caption {
+
+    .hidden {
+      display: none;
+    }
+  }
+
   iframe {
     color: $colorBlack60;
     position: relative;

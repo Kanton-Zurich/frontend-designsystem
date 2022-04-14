@@ -79,7 +79,7 @@
     "iframe-resizer": "^4.3.0",
     "impetus": "^0.8.8",
     "jest": "^23.6.0",
-    "js-beautify": "^1.10.3",
+    "js-beautify": "^1.14.1",
     "jump.js": "^1.0.2",
     "leaflet": "^1.5.1",
     "leaflet.markercluster": "^1.4.1",
