@@ -20,14 +20,13 @@ const data = _.merge({}, defaultData, {
         buttons: [
           {
             title: 'Ja',
-            value: 'yes',
+            id: 'feedback-trigger-yes',
           },
           {
             title: 'Nein',
-            value: 'no',
+            id: 'feedback-trigger-no',
           },
         ],
-        target: './',
       },
       {
         innerTitle: 'Vielen Dank für Ihr Feedback!',
