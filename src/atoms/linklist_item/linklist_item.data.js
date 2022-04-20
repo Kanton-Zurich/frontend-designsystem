@@ -48,6 +48,21 @@ const variants = _.mapValues({
       linkListItemHref: '/',
     },
   },
+  toc: {
+    meta: {
+      title: 'Inhaltsverzeichnisüberschrift (CZHDEV-3178)',
+      desc: 'Überschrift in Inhaltsverzeichnis',
+    },
+    props: {
+      linkListItemIsSocialCare: true,
+      linkListItemIsSocialCareBold: true,
+      linkListItemChapterNumber: '0.2',
+      linkListItemTitle: 'Aufgaben',
+      linkListItemHref: '/',
+      isHeading: true,
+      headingLevel: 3,
+    },
+  },
   location: {
     meta: {
       title: 'Link zu einem Standort',

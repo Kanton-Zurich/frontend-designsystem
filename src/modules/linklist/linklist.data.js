@@ -218,6 +218,44 @@ const variants = _.mapValues({
       ],
     },
   },
+  tableOfContents: {
+    meta: {
+      title: 'Table of Contents (CZHDEV-3178)',
+      desc: 'create a table of contents on the basis of the SocialCareBold Variant',
+    },
+    props: {
+      linkListTitle: 'In diesem Kapitel',
+      headingLevel: 2,
+      links: [
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemIsSocialCareBold: true,
+          linkListItemChapterNumber: '2.2',
+          linkListItemTitle: 'Aufgaben der Gemeinde',
+          linkListItemHref: '/',
+          isHeading: true,
+        },
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.01',
+          linkListItemTitle: 'Aufgaben der Sozialbehörde',
+          linkListItemHref: '/',
+        },
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.02',
+          linkListItemTitle: 'Organisation der Sozialbehörde',
+          linkListItemHref: '/',
+        },
+        {
+          linkListItemIsSocialCare: true,
+          linkListItemChapterNumber: '2.1.03',
+          linkListItemTitle: 'Organisation generell',
+          linkListItemHref: '/pages/zhlex_detail/zhlex_detail.html',
+        },
+      ],
+    },
+  },
 }, (variant) => {
   const variantProps = _.merge({}, data, variant).props;
   const compiledVariant = () => handlebars.compile(template)(variantProps);
