@@ -12,6 +12,7 @@ class Feedback extends Module {
     steps: HTMLDivElement[],
   };
   currentStep: number;
+  sessionKey: string;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -22,12 +23,16 @@ class Feedback extends Module {
       },
       stateClasses: {
         active: 'active',
-        targetAttr: 'data-step-target',
+        visible: 'mdl-feedback--show',
       },
     };
 
     super($element, defaultData, defaultOptions, data, options);
     this.currentStep = 0;
+    this.sessionKey = `czhdev_feedback_${window.location.href}`;
+    if (!sessionStorage.getItem(this.sessionKey)) {
+      this.ui.element.classList.add(this.options.stateClasses.visible);
+    }
     this.initUi();
     this.initEventListeners();
   }
@@ -44,16 +49,11 @@ class Feedback extends Module {
   initEventListeners() {
     if (this.ui.steps && this.ui.steps.length > 0) {
       this.ui.steps.forEach((step) => {
-        if (step.hasAttribute(this.options.stateClasses.targetAttr)) {
-          const target = step.getAttribute(this.options.stateClasses.targetAttr);
-          [].slice.call(step.querySelectorAll('[data-value]')).forEach((button) => {
-            button.onclick = () => {
-              this.fetchJsonData(`${target}?value=${button.getAttribute('data-value')}`, false).then(() => {
-                this.nextStep();
-              });
-            };
-          });
-        }
+        [].slice.call(step.querySelectorAll('button')).forEach((button) => {
+          button.onclick = () => {
+            this.nextStep();
+          };
+        });
       });
       this.ui.steps[0].classList.add(this.options.stateClasses.active);
     }
@@ -66,6 +66,11 @@ class Feedback extends Module {
         step.classList.remove(this.options.stateClasses.active);
       });
       this.ui.steps[this.currentStep].classList.add(this.options.stateClasses.active);
+
+      if (this.currentStep + 1 === this.ui.steps.length) {
+        // last step track session
+        sessionStorage.setItem(this.sessionKey, 'true');
+      }
     }
   }
 
