@@ -2,6 +2,11 @@
   @include gridBleed($fullwidth: true);
   background-color: $colorBlack80;
   padding: pxToRem($sizeHuge) 0;
+  display: none;
+
+  &--show {
+    display: block;
+  }
 
   &__step {
     display: none;
