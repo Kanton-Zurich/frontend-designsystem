@@ -19,7 +19,7 @@
     </svg>
     <span class="visuallyhidden">Download</span>
   {{/unless}}{{/if}}
-  <span class="atm-linklist_item__text">
+  <{{#if isHeading}}h{{increment headingLevel}}{{else}}span{{/if}} class="atm-linklist_item__text">
     {{#if linkListItemChapterNumber}}<span class="atm-linklist_item__chapter-number">{{linkListItemChapterNumber}}</span>{{/if}}
     <span>{{{linkListItemTitle}}}</span>
     {{#if linkListItemLabel}}<span class="atm-linklist_item__label">{{linkListItemLabel}}
@@ -34,7 +34,7 @@
        {{/if}}
        </span>
       {{/if}}
-  </span>
+  </{{#if isHeading}}h{{increment headingLevel}}{{else}}span{{/if}}>
   {{#if subtitle}}<span class="atm-linklist_item__text-subtitle">{{subtitle}}</span>{{/if}}
   {{#unless linkListItemIsDownload}}
     {{#if linkListItemIsLocation}}
