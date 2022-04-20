@@ -55,6 +55,7 @@ const duplicateGroup = {
               isRequired: true,
             },
           })),
+        tooltipBefore: true,
         tooltip: {
           helptext: 'Info',
           descriptionId: 'nationality__description',
