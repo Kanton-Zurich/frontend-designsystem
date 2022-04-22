@@ -34,18 +34,21 @@
         </div>
       </div>
     <iframe
-      class="mdl-video__frame"
+      class="mdl-video__frame hidden"
       {{#if expiryDays}}data-expirydays="{{expiryDays}}"{{/if}}
       {{#if cookieName}}data-cookieName="{{cookieName}}"{{/if}}
       data-youtubesrc="https://www.youtube.com/embed/{{videoId}}?modestbranding=1&rel=0&showInfo=0"
       height="768"
       width="432"
       allowfullscreen
-      aria-describedby="mdl-video__{{videoId}}__alt-text"
+      aria-labelledby="mdl-video__{{videoId}}__alt-text"
+      aria-hidden="true"
+      tabindex="-1"
     ></iframe>
   </div>
+
   <figcaption class="mdl-video__caption">
     {{> "atoms/figcaption/figcaption" caption}}
-    <span id="mdl-video__{{videoId}}__alt-text" class="visuallyhidden">{{alt}}</span>
+    <span id="mdl-video__{{videoId}}__alt-text" class="hidden">{{alt}}</span>
   </figcaption>
 </figure>

@@ -317,7 +317,7 @@ $triggerWidth: pxToRem(86px);
   /* ------------------
   -- VALIDATION MSG ---
   ------------------ */
-  p {
+  [ data-message ] {
     transform: scaleY(0) translateY(-100%);
     margin: -1px 0 0;
     padding: pxToRem($sizeMini) pxToRem($sizeRegular);
@@ -544,6 +544,16 @@ $triggerWidth: pxToRem(86px);
 
     color: $colorBlack60;
     padding-top: $sizeMini;
+    margin: 0;
+
+    &--before {
+      padding-top: 0;
+      line-height: $sizeLineHeightBase;
+      hyphens: auto;
+
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include sizeCurve('margin-bottom', mini);
+    }
   }
 
   &__backdrop {

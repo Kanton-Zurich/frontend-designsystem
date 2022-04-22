@@ -9,6 +9,7 @@ import WindowEventListener from '../../assets/js/helpers/events';
 
 class Modal extends Module {
   private parentScrollPosition: number;
+  private closeButton: HTMLButtonElement;
   private hasCloseBtn: boolean;
   private headerHeight: number;
   private isolatedElements: HTMLElement[];
@@ -38,7 +39,7 @@ class Modal extends Module {
       transitionTime: 280,
       domSelectors: {
         pageHeader: '.mdl-page-header',
-        closeButton: '.mdl-page-header__closebutton',
+        closeButton: '.mdl-page-header__closebutton, .mdl-modal__close',
         close: '[data-modal="close"]',
         focusable: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
         initiable: '[data-init]',
@@ -152,9 +153,9 @@ class Modal extends Module {
    * Initialize sub modules to make them functional
    */
   initContent() {
-    const closeButton = this.ui.element.querySelector(this.options.domSelectors.closeButton);
-    if (closeButton) {
-      closeButton.addEventListener('click', this.closeModal.bind(this));
+    this.closeButton = this.ui.element.querySelector(this.options.domSelectors.closeButton);
+    if (this.closeButton) {
+      this.closeButton.addEventListener('click', this.closeModal.bind(this));
       this.hasCloseBtn = true;
     }
 
@@ -242,10 +243,10 @@ class Modal extends Module {
     this.parentScrollPosition = document.documentElement.scrollTop;
     // delayed opacity animation and focus handling
     setTimeout(() => {
-      const focusable = this.ui.element.querySelectorAll(this.options.domSelectors.focusable);
-      if (focusable.length > 0 && !focusable[0].classList.contains('mdl-skiplinks__link')) {
-        focusable[0].focus();
+      if (this.hasCloseBtn) {
+        this.closeButton.focus();
       }
+
       if (this.options.hasDynamicHeader) {
         this.updateOnScroll(0);
       }
