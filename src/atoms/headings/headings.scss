@@ -135,6 +135,7 @@ h6,
 
     &--bordered {
       @include sizeCurve('padding-top', small);
+      @include sizeCurve(margin-top, borderedTopPadding, $headingCurves);
     }
   }
 }
