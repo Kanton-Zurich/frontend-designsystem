@@ -103,8 +103,6 @@ class Video extends Module {
    */
   private hideElement(element: HTMLDivElement) {
     element.style.display = 'none';
-    element.setAttribute('aria-hidden', 'true');
-    element.setAttribute('tabindex', '-1');
   }
 
   /**
@@ -115,8 +113,6 @@ class Video extends Module {
    */
   private showElement(element: HTMLDivElement) {
     element.style.display = 'flex';
-    element.setAttribute('aria-hidden', 'false');
-    element.setAttribute('tabindex', '0');
   }
 
   /**

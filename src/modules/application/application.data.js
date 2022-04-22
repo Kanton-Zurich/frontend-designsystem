@@ -29,6 +29,7 @@ const variants = _.mapValues({
         level: 2,
         title: 'Single Page Application',
       },
+      altCaptionId: _.uniqueId('mdl-application__caption'),
       caption: _.merge({}, defFigcaptionData, {
         caption: 'Canvas Titel <a class="atm-text_link" href="#">Quelle</a>',
         altCaption: 'Alt text',
