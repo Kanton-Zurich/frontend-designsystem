@@ -18,4 +18,8 @@
     padding: 0;
     list-style-type: none;
   }
+
+  &:not(.mdl-linklist__title ~ .mdl-linklist__list) {
+    @include sizeCurve(margin-top, medium);
+  }
 }
