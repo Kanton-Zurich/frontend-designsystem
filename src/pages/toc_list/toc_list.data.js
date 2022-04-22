@@ -2,7 +2,6 @@ const _ = require('lodash');
 const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 
-const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
 const headerData = require('../../modules/header/header.data').variants.userMenu.props;
 
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.colored.props;
@@ -10,9 +9,149 @@ const contextMenuProps = require('../../modules/context_menu/context_menu.data')
 const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 
 const defFlexData = require('../../modules/flex_data/flex_data.data').variants.socialCareHandbook.props;
-const defContactData = require('../../modules/contact/contact.data.js').variants.fullWidthLessData.props;
-const defReleatedContentData = require('../../modules/related_content/related_content.data.js').variants.default.props;
-const defTagGroupData = require('../../modules/tag_group/tag_group.data.js').variants.default.props;
+const defLinklistData = require('../../modules/linklist/linklist.data').variants.tableOfContents.props;
+const defLinklistDataSec = {
+  headingLevel: 2,
+  links: [
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemIsSocialCareBold: true,
+      linkListItemChapterNumber: '2.1',
+      linkListItemTitle: 'Aufgaben des Bezirkrates',
+      linkListItemHref: '/',
+      isHeading: true,
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.2.01',
+      linkListItemTitle: 'Aufsichtstätigkeit des Bezirksrats über die Sozialbehörden',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.2.02',
+      linkListItemTitle: 'Bezirksrat als Rekursinstanz',
+      linkListItemHref: '/',
+    },
+  ],
+}
+const defLinklistDataThird = {
+  headingLevel: 2,
+  links: [
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemIsSocialCareBold: true,
+      linkListItemChapterNumber: '2.3',
+      linkListItemTitle: 'Aufgaben des Kantonalen Sozialamts',
+      linkListItemHref: '/',
+      isHeading: true,
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.3.01',
+      linkListItemTitle: 'Überblick über die Aufgaben des Kantonalen Sozialamts',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.3.02',
+      linkListItemTitle: 'Aufgaben Amtsleitung des Kantonalen Sozialamts',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.3.03',
+      linkListItemTitle: 'Aufgaben der Abteilung Öffentliche Sozialhilfe',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.3.04',
+      linkListItemTitle: 'Aufgaben der Abteilung Soziale Einrichtungen',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.3.05',
+      linkListItemTitle: 'Aufgaben der Abteilung Asylkoordination',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.3.06',
+      linkListItemTitle: 'Aufgaben Abteilung Sozialversucherungen',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.3.03',
+      linkListItemTitle: 'Aufgaben Kantonale IV-Betriebe',
+      linkListItemHref: '/',
+    },
+  ],
+}
+const defLinklistDataFourth = {
+  headingLevel: 2,
+  links: [
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemIsSocialCareBold: true,
+      linkListItemChapterNumber: '2.4',
+      linkListItemTitle: 'Aufgaben ausgewählter nicht-staatlicher Organisationen',
+      linkListItemHref: '/',
+      isHeading: true,
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.4.01',
+      linkListItemTitle: 'Gesetzgeberische Aufgaben des Bundes Bereich Sozialhilfe',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.4.02',
+      linkListItemTitle: 'Aufgaben des Fachbereichs Sozialhilfe für Auslandschweizerinnen und Auslandschweizer SAS',
+      linkListItemHref: '/',
+    },
+  ],
+}
+const defLinklistDataFifth = {
+  headingLevel: 2,
+  links: [
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemIsSocialCareBold: true,
+      linkListItemChapterNumber: '2.5',
+      linkListItemTitle: 'Aufgaben des Bundes in der Sozialhilfe',
+      linkListItemHref: '/',
+      isHeading: true,
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.5.01',
+      linkListItemTitle: 'Sozialkonferenz des Kantons Zürich',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.5.02',
+      linkListItemTitle: 'Aufgaben der Informationsstelle des Zürcher Sozialwesens',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.5.03',
+      linkListItemTitle: 'Aufgaben Schweizerische Konferenz für Sozialhilfe SKOS',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsSocialCare: true,
+      linkListItemChapterNumber: '2.5.04',
+      linkListItemTitle: 'Aufgaben der Konferenz der schweizerischen Sozialdirektorinnen und Sozialdirektoren SODK',
+      linkListItemHref: '/',
+    },
+  ],
+}
 
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
@@ -25,7 +164,6 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
-    skiplinks: skiplinksData,
     header: headerData,
     defaultColorVariation: 'cv-magenta',
     modules: {
@@ -60,23 +198,11 @@ const data = _.merge({}, defaultData, {
         },
         leadText: 'Das Sozialhilfe-Behördenhandbuch enthält Beiträge zum Sozialhilferecht des Kantons Zürich und zum Zuständigkeitsgesetz des Bundes. Daneben gibt es einen Überblick über die Einrichtungen der primären sozialen Sicherheit und zu weiteren sozialrechtlichen Fragen.',
       }),
-      flexData: defFlexData,
-      contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
-      releatedContentData: _.merge({}, defReleatedContentData, { relatedContentHeading: { anchorNavReference: 'related_content' } }),
-      tagGroupData: _.assign(_.merge({}, defTagGroupData, { tagGroupdHeading: { anchorNavReference: 'responsibilities' } }),
-        {
-          anchorLinks: [{
-            anchorlink: {
-              anchorlinkText: 'Staatskanzlei',
-              anchorlinkAdress: '#',
-              anchorlinkIsActive: false,
-              anchorlinkIsTagAnchor: true,
-              anchorlinkIsInverted: true,
-              anchorlinkIsTopitem: true,
-              anchorlinkIsTopitemSmall: true,
-            },
-          }],
-        }),
+      linklistData: defLinklistData,
+      linklistDataSec: defLinklistDataSec,
+      linklistDataThird: defLinklistDataThird,
+      linklistDataFourth: defLinklistDataFourth,
+      linklistDataFifth: defLinklistDataFifth,
       footerData: defFooterData,
       back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: true }),
     },
