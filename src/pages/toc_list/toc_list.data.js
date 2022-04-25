@@ -8,7 +8,6 @@ const defPageHeaderData = require('../../modules/page_header/page_header.data.js
 const contextMenuProps = require('../../modules/context_menu/context_menu.data').props;
 const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 
-const defFlexData = require('../../modules/flex_data/flex_data.data').variants.socialCareHandbook.props;
 const defLinklistData = require('../../modules/linklist/linklist.data').variants.tableOfContents.props;
 const defLinklistDataSec = {
   headingLevel: 2,

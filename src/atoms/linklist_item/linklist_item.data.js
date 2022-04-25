@@ -48,7 +48,7 @@ const variants = _.mapValues({
       linkListItemHref: '/',
     },
   },
-  toc: {
+  tableOfContents: {
     meta: {
       title: 'Inhaltsverzeichnisüberschrift (CZHDEV-3178)',
       desc: 'Überschrift in Inhaltsverzeichnis',
