@@ -37,8 +37,21 @@
     list-style: none;
   }
 
-  h2.atm-heading--bordered {
-    @include sizeCurve(margin-bottom, headingBottomMargin, $serviceListCurves);
+  h2,
+  h3 {
+    &.atm-heading--bordered {
+
+      @include sizeCurve('margin-bottom', headingBottomMargin, $serviceListCurves);
+    }
+  }
+
+  h4,
+  h5,
+  h6 {
+    &.atm-heading--bordered {
+
+      @include sizeCurve('margin-bottom', tiny);
+    }
   }
 
   &__item {
