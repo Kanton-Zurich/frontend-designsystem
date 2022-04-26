@@ -50,12 +50,15 @@ const duplicateGroup = {
             label: 'Staatsangehörigkeit',
             name: 'nationality',
             uuid: 'nationality',
+            describedBy: 'nationality__description',
             validation: {
               isRequired: true,
             },
           })),
+        tooltipBefore: true,
         tooltip: {
           helptext: 'Info',
+          descriptionId: 'nationality__description',
           buttonRight: true,
           bubble: {
             heading: 'Tooltip Ipsum',
@@ -3360,9 +3363,11 @@ const variants = _.mapValues({
                     label: 'Geschäftsnummer',
                     name: 'geschaeftsnummer',
                     uuid: 'geschaeftsnummer',
+                    describedBy: 'geschaeftsnummer__description',
                   })),
                 tooltip: {
                   helptext: 'Beispiel: 2017.2523',
+                  descriptionId: 'geschaeftsnummer__description',
                 },
               },
             ],

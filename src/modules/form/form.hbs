@@ -13,11 +13,18 @@
               {{#if cellTitle}}
                 <h{{../../../headingLevel}} class="atm-heading">{{cellTitle}}</h{{../../../headingLevel}}>
               {{/if}}
+              {{#if tooltipBefore}}
+                {{#if tooltip}}
+                  {{> "modules/tooltip/tooltip" tooltip}}
+                {{/if}}
+              {{/if}}
               {{{cellContent}}}
               {{#if cellAttachment}}<div class="form__cell-attachment">{{{cellAttachment}}}</div>{{/if}}
-              {{#if tooltip}}
-                {{> "modules/tooltip/tooltip" tooltip}}
-              {{/if}}
+              {{#unless tooltipBefore}}
+                {{#if tooltip}}
+                  {{> "modules/tooltip/tooltip" tooltip}}
+                {{/if}}
+              {{/unless}}
             </div>
           {{/each}}
         </div>

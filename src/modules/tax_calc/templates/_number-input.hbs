@@ -1,7 +1,11 @@
 <div class="atm-form_input atm-form_input--floated" data-input>
     <input class="atm-form_input__input<% if (value) { %> dirty<% } %>"
-           tabindex="-1" type="text" data-validation data-floating
-           data-pattern="^([0-9]){1,<%=maxLength%>}$|^<%=maxSize%>$" id="input-<%=fieldName%>" placeholder="<%=label%>"
+           tabindex="-1"
+           type="text" data-validation data-floating
+           data-pattern="^([0-9]){1,<%=maxLength%>}$|^<%=maxSize%>$"
+           id="input-<%=fieldName%>"
+           aria-describedby="input-<%=fieldName%>__hint"
+           placeholder="<%=label%>"
           <% if (reinvokeTrigger) { %> data-tax_calc-reinvoke="true"<% } %>
            name="<%=fieldName%>" value="<%=value %>" type="text"<% if (mandatory) { %> required<% } %>>
 
@@ -27,6 +31,6 @@
   <p class="form__fieldset-error-message" data-message="pattern">{{errorMessages.number}}</p>
 
   <% if (hint) { %>
-    <div class="atm-form_input__hint"><%=hint %></div>
+    <p id="input-<%=fieldName%>__hint" class="atm-form_input__hint"><%=hint %></p>
   <% } %>
 </div>

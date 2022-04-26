@@ -62,30 +62,6 @@ const variants = _.mapValues({
       isRequired: true,
     },
   },
-  floatValidateHintBefore: {
-    meta: {
-      title: 'Hinweis davor (CZHDEV-1238)',
-      desc: 'Input mit Floating Label und Validierung und Hinweis vor dem Feld',
-    },
-    props: {
-      type: 'text',
-      label: 'pflichtig von',
-      inputMask: '\\d\\d\\.[\\d.]\\d\\d[\\d.]\\.',
-      maskPlaceholder: 'TT.MM.',
-      validation: {
-        pattern: '^\\d{2}\\.\\d{2}\\.$',
-        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
-        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
-        errorMsg: 'Datum bitte im Format TT.MM. eingeben!',
-        isRequired: true,
-      },
-      hint: 'Bitte im Format TT.MM. eingeben',
-      hintBefore: true,
-      uuid: _.uniqueId('float_input_valid'),
-      isFloatingLabel: true,
-      isRequired: true,
-    },
-  },
   default: {
     meta: {
       title: 'Standard Eingabefeld',
