@@ -1,5 +1,10 @@
 <{{#if isButton}}button{{else}}a{{/if}}
-  class="atm-linklist_item{{#if linkListItemIsDownload}} atm-linklist_item--download{{/if}}{{#if isLegalFoundation}} atm-linklist_item--legalfoundation{{/if}}{{#if linkListItemIsLocation}} atm-linklist_item--location{{/if}}{{#if linkListItemIsSocialCare}} atm-linklist_item--social-care{{/if}}{{#if linkListItemIsSocialCareBold}} atm-linklist_item--social-care-bold{{/if}}"
+  class="atm-linklist_item
+    {{#if linkListItemIsDownload}} atm-linklist_item--download{{/if}}
+    {{#if isLegalFoundation}} atm-linklist_item--legalfoundation{{/if}}
+    {{#if linkListItemIsLocation}} atm-linklist_item--location{{/if}}
+    {{#if linkListItemIsTOC}} atm-linklist_item--numbered{{/if}}
+    {{#if linkListItemIsTOCHeading}} atm-linklist_item--numbered-title{{/if}}"
   {{#if linkListItemHref}}href="{{{linkListItemHref}}}"{{/if}}{{#if target}} target="_{{target}}"{{/if}}
   {{#if linkListItemIsLocation}}tabindex="0"{{/if}}
   {{#if linkListItemIsDownload}}{{#unless isButton}}download{{/unless}}{{/if}}
@@ -14,7 +19,15 @@
     </svg>
     <span class="visuallyhidden">Download</span>
   {{/unless}}{{/if}}
-  <span class="atm-linklist_item__text">
+  {{#if linkListItemIsTOCHeading}}
+    {{#if headingLevel}}
+      <h{{increment headingLevel}} class="atm-linklist_item__text">
+    {{else}}
+      <span class="atm-linklist_item__text">
+    {{/if}}
+  {{else}}
+      <span class="atm-linklist_item__text">
+  {{/if}}
     {{#if linkListItemChapterNumber}}<span class="atm-linklist_item__chapter-number">{{linkListItemChapterNumber}}</span>{{/if}}
     <span>{{{linkListItemTitle}}}</span>
     {{#if linkListItemLabel}}<span class="atm-linklist_item__label">{{linkListItemLabel}}
@@ -29,7 +42,15 @@
        {{/if}}
        </span>
       {{/if}}
-  </span>
+  {{#if linkListItemIsTOCHeading}}
+    {{#if headingLevel}}
+      </h{{increment headingLevel}}>
+    {{else}}
+      </span>
+    {{/if}}
+  {{else}}
+      </span>
+  {{/if}}
   {{#if subtitle}}<span class="atm-linklist_item__text-subtitle">{{subtitle}}</span>{{/if}}
   {{#unless linkListItemIsDownload}}
     {{#if linkListItemIsLocation}}
