@@ -163,19 +163,19 @@ const variants = _.mapValues({
       headingLevel: 4,
       links: [
         {
-          linkListItemIsSocialCare: true,
+          linkListItemIsTOC: true,
           linkListItemChapterNumber: '2.1.01',
           linkListItemTitle: 'Aufgaben der Sozialbehörde',
           linkListItemHref: '/',
         },
         {
-          linkListItemIsSocialCare: true,
+          linkListItemIsTOC: true,
           linkListItemChapterNumber: '2.1.02',
           linkListItemTitle: 'Organisation der Sozialbehörde',
           linkListItemHref: '/',
         },
         {
-          linkListItemIsSocialCare: true,
+          linkListItemIsTOC: true,
           linkListItemChapterNumber: '2.1.03',
           linkListItemTitle: 'Organisation generell',
           linkListItemHref: '/pages/zhlex_detail/zhlex_detail.html',
@@ -189,28 +189,29 @@ const variants = _.mapValues({
       desc: 'List with links to social care chapters but no heading, instead a bolded link.',
     },
     props: {
+      headingLevel: 2,
       links: [
         {
-          linkListItemIsSocialCare: true,
-          linkListItemIsSocialCareBold: true,
+          linkListItemIsTOC: true,
+          linkListItemIsTOCHeading: true,
           linkListItemChapterNumber: '0.2',
           linkListItemTitle: 'Aufgaben der Gemeinde',
           linkListItemHref: '/',
         },
         {
-          linkListItemIsSocialCare: true,
+          linkListItemIsTOC: true,
           linkListItemChapterNumber: '2.1.01',
           linkListItemTitle: 'Aufgaben der Sozialbehörde',
           linkListItemHref: '/',
         },
         {
-          linkListItemIsSocialCare: true,
+          linkListItemIsTOC: true,
           linkListItemChapterNumber: '2.1.02',
           linkListItemTitle: 'Organisation der Sozialbehörde',
           linkListItemHref: '/',
         },
         {
-          linkListItemIsSocialCare: true,
+          linkListItemIsTOC: true,
           linkListItemChapterNumber: '2.1.03',
           linkListItemTitle: 'Organisation generell',
           linkListItemHref: '/pages/zhlex_detail/zhlex_detail.html',
@@ -228,27 +229,26 @@ const variants = _.mapValues({
       headingLevel: 2,
       links: [
         {
-          linkListItemIsSocialCare: true,
-          linkListItemIsSocialCareBold: true,
+          linkListItemIsTOC: true,
+          linkListItemIsTOCHeading: true,
           linkListItemChapterNumber: '2.2',
           linkListItemTitle: 'Aufgaben der Gemeinde',
           linkListItemHref: '/',
-          isHeading: true,
         },
         {
-          linkListItemIsSocialCare: true,
+          linkListItemIsTOC: true,
           linkListItemChapterNumber: '2.1.01',
           linkListItemTitle: 'Aufgaben der Sozialbehörde',
           linkListItemHref: '/',
         },
         {
-          linkListItemIsSocialCare: true,
+          linkListItemIsTOC: true,
           linkListItemChapterNumber: '2.1.02',
           linkListItemTitle: 'Organisation der Sozialbehörde',
           linkListItemHref: '/',
         },
         {
-          linkListItemIsSocialCare: true,
+          linkListItemIsTOC: true,
           linkListItemChapterNumber: '2.1.03',
           linkListItemTitle: 'Organisation generell',
           linkListItemHref: '/pages/zhlex_detail/zhlex_detail.html',
