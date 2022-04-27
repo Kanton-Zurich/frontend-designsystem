@@ -117,6 +117,7 @@ const defLinklistDataFourth = {
 const defLinklistDataFifth = {
   headingLevel: 2,
   isTOC: true,
+  isLast: true,
   links: [
     {
       linkListItemIsTOC: true,
