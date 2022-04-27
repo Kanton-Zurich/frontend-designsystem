@@ -1,4 +1,9 @@
 .mdl-linklist {
+  &--toc {
+    @include gridBleed($fullwidth: true);
+    background: $colorBlack5;
+  }
+
   &--last {
     @include sizeCurve(margin-bottom, big);
   }
@@ -21,6 +26,11 @@
 
   &:not(:last-child) {
 
-    @include sizeCurve(margin-bottom, medium);
+    @include sizeCurve(padding-bottom, large);
+  }
+
+  &:last-child {
+
+    @include sizeCurve(padding-bottom, big);
   }
 }
