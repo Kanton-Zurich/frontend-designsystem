@@ -4,14 +4,11 @@ $tooltip-bubble-close-icon-size: 14px;
 
 .mdl-tooltip {
   position: relative;
-  margin: pxToRem($sizeMini) 0;
-
-  &:first-child {
-    margin-top: 0;
-  }
+  margin: 0 0 pxToRem($sizeMini);
+  padding: 0 $gapSize/2;
 
   &:last-child {
-    margin-bottom: 0;
+    margin: pxToRem($sizeMini) 0 0;
   }
 
   &.open {
@@ -275,7 +272,7 @@ $tooltip-bubble-close-icon-size: 14px;
 }
 
 /* CZHDEV-3166 special case for Tooltips before a .form__row (for both fields, for example ZIP, Location) */
-.form__group > .mdl-tooltip {
-  padding: 0 $gapSize/2;
+.form__cell .mdl-tooltip {
+  padding: 0;
   margin-top: 0;
 }
