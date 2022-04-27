@@ -273,3 +273,9 @@ $tooltip-bubble-close-icon-size: 14px;
     }
   }
 }
+
+/* CZHDEV-3166 special case for Tooltips before a .form__row (for both fields, for example ZIP, Location) */
+.form__group > .mdl-tooltip {
+  padding: 0 $gapSize/2;
+  margin-top: 0;
+}
