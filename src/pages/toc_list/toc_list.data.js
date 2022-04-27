@@ -11,6 +11,7 @@ const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_i
 const defLinklistData = require('../../modules/linklist/linklist.data').variants.tableOfContents.props;
 const defLinklistDataSec = {
   headingLevel: 2,
+  isTOC: true,
   links: [
     {
       linkListItemIsTOC: true,
@@ -35,6 +36,7 @@ const defLinklistDataSec = {
 }
 const defLinklistDataThird = {
   headingLevel: 2,
+  isTOC: true,
   links: [
     {
       linkListItemIsTOC: true,
@@ -89,6 +91,7 @@ const defLinklistDataThird = {
 }
 const defLinklistDataFourth = {
   headingLevel: 2,
+  isTOC: true,
   links: [
     {
       linkListItemIsTOC: true,
@@ -113,6 +116,7 @@ const defLinklistDataFourth = {
 }
 const defLinklistDataFifth = {
   headingLevel: 2,
+  isTOC: true,
   links: [
     {
       linkListItemIsTOC: true,

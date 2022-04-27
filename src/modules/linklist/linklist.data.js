@@ -161,6 +161,7 @@ const variants = _.mapValues({
       linkListTitle: 'Aufgaben der Gemeinde lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor',
       linkListChapterNumber: '2.2',
       headingLevel: 4,
+      isTOC: true,
       links: [
         {
           linkListItemIsTOC: true,
@@ -190,6 +191,7 @@ const variants = _.mapValues({
     },
     props: {
       headingLevel: 2,
+      isTOC: true,
       links: [
         {
           linkListItemIsTOC: true,
@@ -227,6 +229,7 @@ const variants = _.mapValues({
     props: {
       linkListTitle: 'In diesem Kapitel',
       headingLevel: 2,
+      isTOC: true,
       links: [
         {
           linkListItemIsTOC: true,
