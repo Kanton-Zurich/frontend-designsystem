@@ -30,7 +30,6 @@ const data = _.merge({}, defaultData, {
       },
       {
         innerTitle: 'Vielen Dank für Ihr Feedback!',
-        icon: 'like',
       },
     ],
   },
