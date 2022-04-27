@@ -5,7 +5,6 @@ $tooltip-bubble-close-icon-size: 14px;
 .mdl-tooltip {
   position: relative;
   margin: 0 0 pxToRem($sizeMini);
-  padding: 0 $gapSize/2; // CZHDEV-3166 special case for tooltips before a .form__row
 
   &:last-child {
     margin: pxToRem($sizeMini) 0 0;
@@ -271,7 +270,11 @@ $tooltip-bubble-close-icon-size: 14px;
   }
 }
 
-/* Reset for CZHDEV-3166 hack */
+/* // CZHDEV-3166 special case for tooltips before a .form__row */
+.form__section .mdl-tooltip {
+  padding: 0 $gapSize/2;
+}
+
 .form__cell .mdl-tooltip {
-  padding: 0;
+  padding: 0; // reset
 }
