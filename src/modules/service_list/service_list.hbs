@@ -1,4 +1,4 @@
-<div class="mdl-service_list" data-init="servicelist">
+<div class="mdl-service_list {{#unless serviceListHeading}}mdl-service_list--no-heading{{/unless}}" data-init="servicelist">
   {{#if serviceListHeading}}
     <h2 class="atm-heading atm-heading--bordered" {{#if serviceListHeading.anchorNavReference}} id="{{serviceListHeading.anchorNavReference}}"{{/if}}>{{serviceListHeading.title}}</h2>
   {{/if}}

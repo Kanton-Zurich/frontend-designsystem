@@ -37,6 +37,10 @@
     list-style: none;
   }
 
+  &--no-heading {
+    @include sizeCurve('margin-top', medium);
+  }
+
   h2,
   h3 {
     &.atm-heading--bordered {
