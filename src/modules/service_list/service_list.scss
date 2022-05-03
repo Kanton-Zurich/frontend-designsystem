@@ -37,7 +37,10 @@
     list-style: none;
   }
 
-  .decisiontree + .servicelist &--no-heading {
+  // create margin if stuck to a decision tree CZHDEV-3100
+
+  .decisiontree + .servicelist &--no-heading,
+  .decisiontree + .furtherinformation + .servicelist &--no-heading {
 
     @include sizeCurve('margin-top', medium);
   }
