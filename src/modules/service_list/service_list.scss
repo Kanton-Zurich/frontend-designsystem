@@ -37,7 +37,8 @@
     list-style: none;
   }
 
-  &--no-heading {
+  .decisiontree + .servicelist &--no-heading {
+
     @include sizeCurve('margin-top', medium);
   }
 
