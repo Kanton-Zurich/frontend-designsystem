@@ -563,7 +563,6 @@ const variants = _.mapValues({
       pageTitle: 'Seite nicht erreichbar',
       errorBlock: {
         text: 'Wir arbeiten gerade an unserer Website. Schauen Sie doch in der Zwischenzeit unseren Imagefilm und versuchen es später nochmals.',
-        videoData: defVideoData.variants.offlinePage.props,
       },
     },
   },
