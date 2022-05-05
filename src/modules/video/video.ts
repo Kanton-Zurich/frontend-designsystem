@@ -80,11 +80,13 @@ class Video extends Module {
       .on('click', this.options.domSelectors.preview, () => {
         this.hideElement(this.ui.preview);
         this.showElement(this.ui.dialog);
-        this.ui.dialog.focus();
+        this.ui.dialogCloseBtn.focus();
+        this.updateFlyingFocus();
       }).on('click', this.options.domSelectors.dialogCloseBtn, () => {
         this.hideElement(this.ui.dialog);
         this.showElement(this.ui.preview);
-        this.ui.preview.focus();
+        this.ui.previewBtn.focus();
+        this.updateFlyingFocus();
       }).on('click', this.options.domSelectors.dialogPlayBtn, () => {
         this.hideElement(this.ui.dialog);
         if (this.cookieName) {
@@ -92,6 +94,8 @@ class Video extends Module {
         }
         this.ui.iFrame.setAttribute('src', `${this.youTubeSrc}&autoplay=1&mute=0`);
         this.showElement(this.ui.iFrame);
+        this.ui.iFrame.contentWindow.focus();
+        this.updateFlyingFocus();
       });
   }
 
