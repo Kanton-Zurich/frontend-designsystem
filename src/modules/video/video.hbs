@@ -48,6 +48,7 @@
         const element = document.querySelector('.mdl-video');
         const iFrame = element.querySelector('.mdl-video__frame');
         const preview = element.querySelector('.mdl-video__preview');
+        const previewBtn = element.querySelector('.mdl-video__preview button');
         const dialog = element.querySelector('.mdl-video__cookie-dialog');
         const dialogCloseBtn = element.querySelector('.mdl-video__cookie-dialog > button');
         const dialogPlayBtn = element.querySelector('.mdl-video__cookie-dialog .atm-button');
@@ -69,13 +70,13 @@
         {
           preview.style.display = 'none';
           dialog.style.display = 'flex';
-          dialog.focus();
+          dialogCloseBtn.focus();
         })
         dialogCloseBtn.addEventListener('click', () =>
         {
           preview.style.display = 'flex';
           dialog.style.display = 'none';
-          preview.focus();
+          previewBtn.focus();
         })
         dialogPlayBtn.addEventListener('click', () =>
         {
@@ -86,6 +87,7 @@
           }
           iFrame.setAttribute('src', `${youTubeSrc}&autoplay=1&mute=0`);
           iFrame.style.display = 'flex';
+          iFrame.contentWindow.focus();
         });
         const getExpireDate = () =>
         {
