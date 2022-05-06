@@ -43,6 +43,64 @@
       allowfullscreen
       aria-labelledby="mdl-video__{{videoId}}__alt-text"
     ></iframe>
+    {{#if offlinePage}}
+      <script type="text/javascript">
+        const element = document.querySelector('.mdl-video');
+        const iFrame = element.querySelector('.mdl-video__frame');
+        const preview = element.querySelector('.mdl-video__preview');
+        const previewBtn = element.querySelector('.mdl-video__preview button');
+        const dialog = element.querySelector('.mdl-video__cookie-dialog');
+        const dialogCloseBtn = element.querySelector('.mdl-video__cookie-dialog > button');
+        const dialogPlayBtn = element.querySelector('.mdl-video__cookie-dialog .atm-button');
+        const youTubeSrc = iFrame.dataset.youtubesrc;
+        const daysToExpire = parseInt(iFrame.dataset.expirydays, 10);
+        const cookieName = iFrame.dataset.cookiename;
+        if (cookieName)
+        {
+          const match = document.cookie.match(new RegExp(`(^| )${cookieName}=([^;]+)`));
+          if (match && match[2] === 'true')
+          {
+            preview.style.display = 'none';
+            dialog.style.display = 'none';
+            iFrame.setAttribute('src', youTubeSrc);
+            iFrame.style.display = 'flex';
+          }
+        }
+        preview.addEventListener('click', () =>
+        {
+          preview.style.display = 'none';
+          dialog.style.display = 'flex';
+          dialogCloseBtn.focus();
+        })
+        dialogCloseBtn.addEventListener('click', () =>
+        {
+          preview.style.display = 'flex';
+          dialog.style.display = 'none';
+          previewBtn.focus();
+        })
+        dialogPlayBtn.addEventListener('click', () =>
+        {
+          dialog.style.display = 'none';
+          if (cookieName)
+          {
+            document.cookie = `${cookieName}=true; max-age=${getExpireDate()}; path=/`;
+          }
+          iFrame.setAttribute('src', `${youTubeSrc}&autoplay=1&mute=0`);
+          iFrame.style.display = 'flex';
+          iFrame.contentWindow.focus();
+        });
+        const getExpireDate = () =>
+        {
+          const date = new Date();
+          const hoursADay = 24;
+          const minsPerHour = 60;
+          const secsPerMin = 60;
+          const milliSecs = 1000;
+          date.setTime(date.getTime() + this.daysToExpire * hoursADay * minsPerHour * secsPerMin * milliSecs);
+          return date.toUTCString();
+        }
+      </script>
+    {{/if}}
   </div>
 
   <figcaption class="mdl-video__caption">
