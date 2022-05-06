@@ -216,6 +216,7 @@ class Module {
    * Update flying focus with a delay
    */
   updateFlyingFocus(delay = 0) {
+    this.log('flying focus', document.activeElement);
     setTimeout(() => {
       (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
     }, delay);
