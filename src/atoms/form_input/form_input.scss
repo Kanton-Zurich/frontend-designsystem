@@ -172,15 +172,6 @@ $triggerWidth: pxToRem(86px);
       background: $colorWhite;
 
       @include transition(top);
-
-      &.multiline-label {
-        white-space: initial;
-        -webkit-line-clamp: 3;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-      }
     }
 
     /* ----- INPUT ON FOCUS/DIRTY ----- */
@@ -207,6 +198,15 @@ $triggerWidth: pxToRem(86px);
     .atm-form_input__input--txtarea.dirty ~ label {
       top: 2px;
       padding-top: pxToRem(14px);
+    }
+
+    .atm-form_input__input--txtarea:not(:focus):not(.dirty) ~ label.multiline-label {
+      white-space: initial;
+      -webkit-line-clamp: 3;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     /* ----- LABEL ON FOCUS/DIRTY ------ */
