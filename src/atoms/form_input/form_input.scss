@@ -202,7 +202,7 @@ $triggerWidth: pxToRem(86px);
       padding-top: pxToRem(14px);
     }
 
-    .atm-form_input__input--txtarea:not(:focus):not(.dirty) ~ label.multiline-label {
+    .atm-form_input__input--txtarea:not(:focus):not(.dirty) ~ label.atm-form_input__label--textarea {
       white-space: initial;
       -webkit-line-clamp: 3;
       display: -webkit-box;
