@@ -1,3 +1,5 @@
+/* stylelint-disable property-no-vendor-prefix */
+/* stylelint-disable value-no-vendor-prefix */
 $borderWidth: 2px;
 $borderWidthRem: pxToRem($borderWidth);
 $targetInputHeight: 72px  - $borderWidth * 2;
