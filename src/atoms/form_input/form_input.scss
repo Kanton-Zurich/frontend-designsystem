@@ -172,6 +172,15 @@ $triggerWidth: pxToRem(86px);
       background: $colorWhite;
 
       @include transition(top);
+
+      &.multiline-label {
+        white-space: initial;
+        -webkit-line-clamp: 3;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
     }
 
     /* ----- INPUT ON FOCUS/DIRTY ----- */
