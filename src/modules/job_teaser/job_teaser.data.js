@@ -19,9 +19,9 @@ const data = _.merge({}, defaultData, {
       teaserText: 'Beim Kanton Zürich sind über 35\'000 Personen angestellt. Sie arbeiten in den unterschiedlichsten Berufen und gestalten den Kanton zum Wohle von Bevölkerung, Unternehmen, Natur sowie Infrastruktur. Werden Sie ein Teil von uns!',
       linkMoreInfo: '#',
       linkAllJobs: '#',
-      apiUrl: 'https://live.solique.ch/KTZH/de/api/v1/data/',
-      baseUrl: 'https://live.solique.ch/KTZH/de/',
-      filters: 'office.id=KTZH_Office;organization.id=ORG60',
+      apiUrl: 'https://stage.solique.ch/KTZH/de/api/v1/data/',
+      baseUrl: 'https://stage.solique.ch/KTZH/de/',
+      filters: 'office.id=OFF017;organization.id=ORG10',
       template: `<li class="mdl-news-teaser__item">
           <a href="<%=link%>" target="_blank">
             <h3 class="atm-heading"><%=title.value%>

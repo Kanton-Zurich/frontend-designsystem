@@ -85,6 +85,7 @@ class JobTeaser extends Module {
           }
           return drilledObj;
         };
+
         const jobPropertyValue = drillDown(job, filterProperty);
         if (jobPropertyValue !== filterValue) {
           return false;
