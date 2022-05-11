@@ -40,6 +40,10 @@
     .atm-figcaption {
       flex-grow: 1;
     }
+
+    .hidden {
+      display: none;
+    }
   }
 
   margin-bottom: $sizeTiny;

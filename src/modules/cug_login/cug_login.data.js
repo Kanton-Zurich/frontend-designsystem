@@ -12,6 +12,7 @@ const mockAssets = {
 
 const tooltipData = {
   helptext: 'Passwort vergessen?',
+  descriptionId: 'j_password__description',
   asTextLink: true,
   bubble: {
     text: '<p>Bitte kontaktieren Sie diese <a href="mailto:test@test.com" >Emailaddresse</a> wenn Sie ein neues Passwort benötigen.</p>',
@@ -67,18 +68,19 @@ const data = _.merge({}, defaultData, {
         pattern: '^([\.\_\\-@\\a-zA-Z0-9]){4,}$', // eslint-disable-line
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
-        errorMsg: 'Der Nutzername besteht aus mindestens 4 eingeben!',
+        errorMsg: 'Der Nutzername besteht aus mindestens 4 Zeichen.',
         isRequired: true,
       },
     }),
     passwordInput: _.merge({}, formInputData.variants.showPasswordButton.props, {
       uuid: 'j_password',
       name: 'j_password',
+      describedBy: 'j_password__description',
       validation: {
         pattern: '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$',
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
-        errorMsg: 'Das Passwort besteht aus mindestens 6 Zeichen. Und enthält sowohl Groß- als auch Kleinbuchstaben und Zahlen.',
+        errorMsg: 'Das Passwort besteht aus mindestens 6 Zeichen. Und enthält sowohl Gross- als auch Kleinbuchstaben und Zahlen.',
         isRequired: true,
       },
     }),

@@ -138,7 +138,7 @@ const data = _.merge({}, defaultData, {
       isInput: true,
       isFloatingLabel: true,
       iconOnly: {
-        icon: 'search',
+        icon: 'inspect',
       },
       additionalFunctionality: {
         icon: 'clear',

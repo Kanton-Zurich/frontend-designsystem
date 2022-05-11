@@ -3,18 +3,18 @@
     {{#if buttonLeft}}
       <div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--left">
         <button type="button" class="mdl-tooltip__trigger" aria-describedby="{{bubble.id}}">
-        <span class="visuallyhidden">
-          Erweiterter Hilfetext anzeigen
-        </span>
+          <span class="visuallyhidden">
+            Erweiterter Hilfetext anzeigen
+          </span>
           <svg class="icon" focusable="false">
             <use xlink:href="#get-information"></use>
           </svg>
         </button>
         <div class="mdl-tooltip__bubble" id="{{bubble.id}}" aria-hidden="true">
           <button type="button" tabindex="-1">
-        <span class="visuallyhidden">
-          Hilfetextfenster schliessen
-        </span>
+            <span class="visuallyhidden">
+              Hilfetextfenster schliessen
+            </span>
             <svg class="icon" focusable="false">
               <use xlink:href="#exit"></use>
             </svg>
@@ -29,36 +29,42 @@
     {{/if}}
 
     {{#unless asTextLink }}
-      {{#if helptext}}<p>{{helptext}}</p>{{/if}}
+      {{#if helptext}}<p
+        {{#if descriptionId}} id="{{descriptionId}}"{{/if}}
+      >{{helptext}}</p>{{/if}}
     {{/unless}}
     {{#if asTextLink }}
-    <div class="mdl-tooltip__wrapper">
-      <a class="mdl-tooltip__trigger mdl-tooltip__trigger--textual" tabindex="0">{{helptext}}</a>
-      <div class="mdl-tooltip__bubble" id="{{bubble.id}}" aria-hidden="true">
-        {{#if bubble.heading}}<h3>{{bubble.heading}}</h3>{{/if}}
-        {{#if bubble.text}}{{{bubble.text}}}{{/if}}
-        {{#if bubble.image}}
-          {{> "modules/image_figure/image_figure" bubble.image}}
-        {{/if}}
+      <div class="mdl-tooltip__wrapper">
+        <a
+          {{#if descriptionId}} id="{{descriptionId}}"{{/if}}
+          class="mdl-tooltip__trigger mdl-tooltip__trigger--textual"
+          tabindex="0"
+        >{{helptext}}</a>
+        <div class="mdl-tooltip__bubble" id="{{bubble.id}}" aria-hidden="true">
+          {{#if bubble.heading}}<h3>{{bubble.heading}}</h3>{{/if}}
+          {{#if bubble.text}}{{{bubble.text}}}{{/if}}
+          {{#if bubble.image}}
+            {{> "modules/image_figure/image_figure" bubble.image}}
+          {{/if}}
+        </div>
       </div>
-    </div>
     {{/if}}
 
     {{#if buttonRight}}
       <div class="mdl-tooltip__wrapper mdl-tooltip__wrapper--right">
         <button type="button" class="mdl-tooltip__trigger" aria-describedby="{{bubble.id}}">
-        <span class="visuallyhidden">
-          Erweiterter Hilfetext anzeigen
-        </span>
+          <span class="visuallyhidden">
+            Erweiterter Hilfetext anzeigen
+          </span>
           <svg class="icon" focusable="false">
             <use xlink:href="#get-information"></use>
           </svg>
         </button>
         <div class="mdl-tooltip__bubble" id="{{bubble.id}}" aria-hidden="true">
           <button type="button" tabindex="-1">
-        <span class="visuallyhidden">
-          Hilfetextfenster schliessen
-        </span>
+            <span class="visuallyhidden">
+              Hilfetextfenster schliessen
+            </span>
             <svg class="icon" focusable="false">
               <use xlink:href="#exit"></use>
             </svg>

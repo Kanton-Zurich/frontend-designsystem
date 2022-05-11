@@ -1,0 +1,89 @@
+.mdl-feedback {
+  @include gridBleed($fullwidth: true);
+  background-color: $colorBlack80;
+  padding: pxToRem($sizeHuge) 0;
+  display: none;
+
+  &--show {
+    display: block;
+  }
+
+  &__step {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+
+    .atm-heading {
+      padding-top: 0;
+      margin-bottom: 0;
+    }
+
+    &.active {
+      display: flex;
+    }
+  }
+
+  &__container {
+    display: flex;
+
+    .atm-button {
+      margin-left: pxToRem($sizeTiny);
+    }
+  }
+
+  &__icon {
+    background-color: $colorWhite;
+    position: relative;
+    display: inline-flex;
+    width: pxToRem($sizeSmallHuge);
+    height: pxToRem($sizeSmallHuge);
+    border-radius: 50%;
+    margin-right: pxToRem($sizeSmallRegular);
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+
+      use {
+        fill: $colorBlack80;
+      }
+    }
+  }
+
+  @include mq($from: tiny, $to: medium) {
+    padding: pxToRem($sizeBig) 0;
+
+    .atm-heading {
+      margin-bottom: pxToRem($sizeSmallLarge);
+    }
+
+    &__container {
+      .atm-button:first-of-type {
+        margin-left: 0;
+      }
+    }
+
+    &__container--aligned {
+      flex-direction: column;
+
+      .atm-heading {
+        margin-bottom: 0;
+      }
+    }
+
+    &__step {
+      &.active {
+        display: block;
+      }
+    }
+  }
+  @include mq($from: tiny, $to: small) {
+    &__container--aligned {
+      .atm-heading {
+        text-align: center;
+      }
+    }
+  }
+}

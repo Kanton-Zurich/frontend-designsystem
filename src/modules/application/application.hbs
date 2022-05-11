@@ -11,18 +11,21 @@
   {{/if}}
   {{#if caption}}<figure class="mdl-application__figure">{{/if}}
   {{#if canvas}}
-          <div class="mdl-application" data-init="application">
+          <div class="mdl-application" data-init="application" {{#if caption.altCaption}} aria-labelledby="{{altCaptionId}}" {{/if}}>
             {{> "modules/application/application.mock"}}
           </div>
   {{/if}}
   {{#if zhApp}}
-    <div class="mdl-application" data-init="application">
+    <div class="mdl-application" data-init="application" {{#if caption.altCaption}} aria-labelledby="{{altCaptionId}}" {{/if}}>
       {{> "modules/application/wahlen.mock"}}
     </div>
   {{/if}}
   {{#if caption}}
     <figcaption class="mdl-application__caption">
       {{> "atoms/figcaption/figcaption" caption}}
+      {{#if caption.altCaption}}
+        <span id="{{altCaptionId}}" class="hidden">{{{caption.altCaption}}}</span>
+      {{/if}}
     </figcaption>
   </figure>
   {{/if}}

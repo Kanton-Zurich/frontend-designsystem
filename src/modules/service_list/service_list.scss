@@ -37,8 +37,29 @@
     list-style: none;
   }
 
-  h2.atm-heading--bordered {
-    @include sizeCurve(margin-bottom, headingBottomMargin, $serviceListCurves);
+  // create margin if stuck to a decision tree CZHDEV-3100
+
+  .decisiontree + .servicelist &--no-heading,
+  .decisiontree + .furtherinformation + .servicelist &--no-heading {
+
+    @include sizeCurve('margin-top', medium);
+  }
+
+  h2,
+  h3 {
+    &.atm-heading--bordered {
+
+      @include sizeCurve('margin-bottom', headingBottomMargin, $serviceListCurves);
+    }
+  }
+
+  h4,
+  h5,
+  h6 {
+    &.atm-heading--bordered {
+
+      @include sizeCurve('margin-bottom', tiny);
+    }
   }
 
   &__item {

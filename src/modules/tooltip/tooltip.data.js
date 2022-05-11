@@ -37,6 +37,7 @@ const variants = _.mapValues({
     },
     props: {
       helptext: 'Lorem Ipsum Lorem Ipsum',
+      descriptionId: 'form_input__description',
       buttonLeft: true,
       bubble: {
         heading: 'Tooltip Ipsum',
@@ -48,7 +49,7 @@ const variants = _.mapValues({
   noLongText: {
     meta: {
       title: 'Langer Tooltiptext',
-      desc: 'Tooltip mit Überschrift und einem sehr langen Text<',
+      desc: 'Tooltip mit Überschrift und einem sehr langen Text',
     },
     props: {
       buttonRight: true,
@@ -95,6 +96,7 @@ const variants = _.mapValues({
     },
     props: {
       helptext: 'Passwort vergessen?',
+      descriptionId: 'j_password__description',
       asTextLink: true,
       bubble: {
         text: '<p>Bitte kontaktieren Sie diese <a href="mailto:info@sk.zh.ch" target="_blank">Emailadresse</a> wenn Sie ein neues Passwort benötigen.</p>',

@@ -81,6 +81,7 @@
     color: $colorBlack60;
     font-size: pxToRem($sizeFontSmall);
     padding-top: pxToRem($sizeMini);
+    margin-left: pxToRem($sizeTiny);
   }
 
   &--tag {

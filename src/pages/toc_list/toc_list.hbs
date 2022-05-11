@@ -1,0 +1,18 @@
+{{#extend "layouts/layout"}}
+  {{#content "header"}}
+    {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
+  {{/content}}
+
+	{{#content "content"}}
+    {{> "modules/linklist/linklist" props.modules.linklistData }}
+    {{> "modules/linklist/linklist" props.modules.linklistDataSec }}
+    {{> "modules/linklist/linklist" props.modules.linklistDataThird }}
+    {{> "modules/linklist/linklist" props.modules.linklistDataFourth }}
+    {{> "modules/linklist/linklist" props.modules.linklistDataFifth }}
+	{{/content}}
+
+  {{#content "footer"}}
+    {{> "modules/footer/footer" props.modules.footerData }}
+    {{> "modules/back2top/back2top" props.modules.back2topData }}
+  {{/content}}
+{{/extend}}

@@ -2,41 +2,36 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const defSearchInputData = require('../../atoms/form_input/form_input.data');
-const defLocationsData = require('../locations/locations.data').variants.noFilter.props;
 
-const template = dataHelper.getFileContent('jurisdiction_finder.hbs');
+const template = dataHelper.getFileContent('feedback.hbs');
 const data = _.merge({}, defaultData, {
   meta: {
-    title: 'Zuständigkeits-Finder',
-    className: 'JurisdictionFinder',
-    jira: 'CZHDEV-1131',
-    label: 'Applikation',
+    title: 'Feedback',
+    className: 'Feedback',
+    jira: 'CZHDEV-3129',
+    label: 'UI Element',
     documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
-    text: 'Geben Sie Ihre Postleitzahl ein, um die Beratungsangebote in Ihrer Nähe zu finden.',
-    headingPattern: 'Beratungsangebote für &laquo;%s&raquo;',
-    buttonData: {
-      text: 'Beratungsangebote anzeigen',
-      isTextVisible: true,
-      additionalAttribute: 'type="button"',
-    },
-    locationsData: defLocationsData,
-    searchInputData: _.merge({}, defSearchInputData.props, {
-      label: 'PLZ',
-      type: 'text',
-      isSmall: true,
-      autocompleteOff: true,
-      iconOnly: {
-        icon: 'inspect',
+    title: 'Bitte geben Sie uns Feedback',
+    steps: [
+      {
+        outerTitle: 'War diese Seite hilfreich für Sie?',
+        buttons: [
+          {
+            title: 'Ja',
+            id: 'feedback-trigger-yes',
+          },
+          {
+            title: 'Nein',
+            id: 'feedback-trigger-no',
+          },
+        ],
       },
-      additionalFunctionality: {
-        icon: 'clear',
-        buttontype: 'clear',
-        ariaText: 'Lösche Eingabe',
+      {
+        innerTitle: 'Vielen Dank für Ihr Feedback!',
       },
-    }),
+    ],
   },
 });
 const variants = _.mapValues({
