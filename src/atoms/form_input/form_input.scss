@@ -1,3 +1,5 @@
+/* stylelint-disable property-no-vendor-prefix */
+/* stylelint-disable value-no-vendor-prefix */
 $borderWidth: 2px;
 $borderWidthRem: pxToRem($borderWidth);
 $targetInputHeight: 72px  - $borderWidth * 2;
@@ -122,7 +124,7 @@ $triggerWidth: pxToRem(86px);
   /* --------------------
   ------ TEXTAREA -------
   --------------------- */
-  .atm-form_input__input--txtarea {
+  .atm-form_input__input--textarea {
     min-height: pxToRem(112px);
     resize: vertical;
   }
@@ -152,7 +154,7 @@ $triggerWidth: pxToRem(86px);
       }
     }
 
-    .atm-form_input__input--txtarea ~ label {
+    .atm-form_input__input--textarea ~ label {
       top: $borderWidthRem;
       padding-top: $paddingInput;
       right: pxToRem($sizeRegular + $sizeGiant);
@@ -194,10 +196,19 @@ $triggerWidth: pxToRem(86px);
     }
 
     // FOR TEXTAREA
-    .atm-form_input__input--txtarea:focus ~ label,
-    .atm-form_input__input--txtarea.dirty ~ label {
+    .atm-form_input__input--textarea:focus ~ label,
+    .atm-form_input__input--textarea.dirty ~ label {
       top: 2px;
       padding-top: pxToRem(14px);
+    }
+
+    .atm-form_input__input--textarea:not(:focus):not(.dirty) ~ label.atm-form_input__label--textarea {
+      white-space: initial;
+      -webkit-line-clamp: 3;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     /* ----- LABEL ON FOCUS/DIRTY ------ */
@@ -382,7 +393,7 @@ $triggerWidth: pxToRem(86px);
       right: (pxToRem($sizeRegular) + pxToRem(24) + pxToRem($sizeTiny));
     }
 
-    .atm-form_input__input--txtarea ~ label {
+    .atm-form_input__input--textarea ~ label {
       right: pxToRem($sizeBig + $sizeGiant);
       background-color: transparent;
     }
