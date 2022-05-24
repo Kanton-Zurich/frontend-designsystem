@@ -25,7 +25,10 @@ const data = {
     link: 'http://search.zh.ch/xyl#personId',
     role: 'Leitende Berufs-, Studien- und Laufbahnberaterin',
     email: 'max.mustermann@ajb.zh.ch',
-    phone: '043 258 48 92',
+    phone: {
+      title: '043 258 48 92',
+      link: 'tel:0432584892',
+    },
   }, {
     type: 'document',
     title: 'Berufe der Grundbildung',

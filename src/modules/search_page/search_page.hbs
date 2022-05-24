@@ -97,20 +97,21 @@
               </span>
             </a>
           <% } else if (item.type === 'person') { %>
-            <a class="atm-search_result_item__content" href="<%- item.link %>">
+            <div class="atm-search_result_item__content">
               <div class="mdl-person_card">
                 <div class="mdl-person_card__container">
                   <h4 class="mdl-person_card__name"><%- item.title %></h4>
                   <p class="atm-paragraph mdl-person_card__role"><%- item.role %></p>
                   <% if (item.email || item.phone) { %>
                   <p class="atm-paragraph mdl-person_card__contactinfo">
-                    <% if (item.email) { %><span class="atm-text_link"><%- item.email %></span><% if (item.phone) { %><br><% } %><% } %>
-                    <% if (item.phone) { %><span class="atm-text_link"><%- item.phone %></span><% } %>
+                    <% if (item.email) { %><a class="atm-text_link" href="mailto:<%- item.email %>"><%- item.email %></a><% if (item.phone) { %><br><% } %><% } %>
+                    <% if (item.phone) { %><a class="atm-text_link" href="<%- item.phone.link %>"><%- item.phone.title %></a><% } %>
                   </p>
+                  <a href="<%- item.link %>" class="atm-button atm-button--small atm-button--secondary">Mehr erfahren</a>
                   <% } %>
                 </div>
               </div>
-            </a>
+            </div>
           <% } else { %>
             <a class="atm-search_result_item__content" href="<%- item.link %>">
               <h4 class="atm-heading"><%= item.title %></h4>
