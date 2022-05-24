@@ -96,6 +96,21 @@
                 <span>Download</span>
               </span>
             </a>
+          <% } else if (item.type === 'person') { %>
+            <a class="atm-search_result_item__content" href="<%- item.link %>">
+              <div class="mdl-person_card">
+                <div class="mdl-person_card__container">
+                  <h4 class="mdl-person_card__name"><%- item.title %></h4>
+                  <p class="atm-paragraph mdl-person_card__role"><%- item.role %></p>
+                  <% if (item.email || item.phone) { %>
+                  <p class="atm-paragraph mdl-person_card__contactinfo">
+                    <% if (item.email) { %><span class="atm-text_link"><%- item.email %></span><% if (item.phone) { %><br><% } %><% } %>
+                    <% if (item.phone) { %><span class="atm-text_link"><%- item.phone %></span><% } %>
+                  </p>
+                  <% } %>
+                </div>
+              </div>
+            </a>
           <% } else { %>
             <a class="atm-search_result_item__content" href="<%- item.link %>">
               <h4 class="atm-heading"><%= item.title %></h4>
