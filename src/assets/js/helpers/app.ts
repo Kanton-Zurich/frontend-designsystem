@@ -154,6 +154,7 @@ class App {
 
     this.registerModules();
     this.initModuleInitialiser();
+    this.updateAnchorScrollOffset();
   }
 
   initModule(moduleName, element) {
@@ -260,6 +261,19 @@ class App {
 
   getLanguage() {
     window[namespace].lang = document.documentElement.lang;
+  }
+
+  /**
+   * Called when an URL param for anchor link is present to scroll to the respective element
+   * with an offset to respect the sticky header
+   */
+  updateAnchorScrollOffset() {
+    const urlParameters = window.location.href.split('#');
+    const scrollOffset = 180;
+
+    if (urlParameters.length > 1) {
+      window.scrollTo(window.scrollX, window.scrollY - scrollOffset);
+    }
   }
 }
 

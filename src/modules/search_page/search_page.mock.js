@@ -20,6 +20,16 @@ const data = {
     link: '/modules/service_list/service_page.mock.html',
     typeLabel: 'Service',
   }, {
+    type: 'person',
+    title: 'Carla Mom',
+    link: 'http://search.zh.ch/xyl#personId',
+    role: 'Leitende Berufs-, Studien- und Laufbahnberaterin',
+    email: 'max.mustermann@ajb.zh.ch',
+    phone: {
+      title: '043 258 48 92',
+      link: 'tel:0432584892',
+    },
+  }, {
     type: 'document',
     title: 'Berufe der Grundbildung',
     teaserText: 'RRB Nr.  258 | 21.03.2019 | Direktion',
@@ -50,6 +60,12 @@ const data = {
       numberOfResultPages: 1,
       numberOfResults: 8,
       typeLabel: 'Dokumente',
+    },
+    {
+      type: 'person',
+      numberOfResultPages: 1,
+      numberOfResults: 3,
+      typeLabel: 'Personen',
     },
     {
       type: 'event',
