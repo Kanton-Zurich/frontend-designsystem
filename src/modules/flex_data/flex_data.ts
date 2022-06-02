@@ -48,7 +48,8 @@ class FlexData extends Module {
     const defaultData = {
     };
     const defaultOptions = {
-      initDelay: 300,
+      initDelay0: 200,
+      initDelay1: 300,
       domSelectors: {
         results: '.mdl-flex-data__results',
         resultsGeneric: '.mdl-flex-data__results .mdl-flex-data__results-generic',
@@ -175,7 +176,7 @@ class FlexData extends Module {
         if (this.isVisible()) {
           this.loadResults(false, true);
         }
-      }, this.options.initDelay);
+      }, this.options.initDelay1);
     }
 
     // EventListener to set localstorage
@@ -596,7 +597,7 @@ class FlexData extends Module {
                 }
               }
             }
-          }, this.options.initDelay);
+          }, this.options.initDelay0);
           break;
       }
     });
@@ -607,7 +608,7 @@ class FlexData extends Module {
         this.ui.form.querySelectorAll('.mdl-accordion').forEach((accordion: HTMLDivElement) => {
           accordion.dispatchEvent(new CustomEvent(Accordion.events.updateSubheads));
         });
-      }, this.options.initDelay);
+      }, this.options.initDelay0);
     }
 
     // Set the sort element if present
