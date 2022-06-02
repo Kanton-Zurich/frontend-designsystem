@@ -562,10 +562,12 @@ class FlexData extends Module {
               const item = <HTMLInputElement>selectedElements[0];
 
               if (item.hasAttribute('data-select-option')) {
+                // eslint-disable-next-line no-shadow
+                const decodedValues = values.map(item => decodeURIComponent(item));
                 // -----------
                 // dropdown
                 const payload = {
-                  data: item.getAttribute('type') === 'radio' ? values[0] : values,
+                  data: item.getAttribute('type') === 'radio' ? decodedValues[0] : decodedValues,
                   emit: true,
                 };
                 const module = item.closest('.mdl-select');
