@@ -3546,6 +3546,127 @@ const variants = _.mapValues({
       ],
     },
   },
+  newsletter: {
+    meta: {
+      title: 'Newsletter anmelden',
+      desc: 'Newsletter anmelden',
+    },
+    props: {
+      sectionTitle: null,
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  isSmall: true,
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Anrede',
+                    requiredMessage: 'Bitte geben Sie eine Anrede an.',
+                    options: [
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Frau',
+                          groupName: 'salutation',
+                          id: 1,
+                          value: 'mrs',
+                          validation: {
+                            isRequired: true,
+                          },
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Herr',
+                          groupName: 'salutation',
+                          id: 2,
+                          value: 'mr',
+                          validation: {
+                            isRequired: true,
+                          },
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Keine Angabe',
+                          groupName: 'salutation',
+                          id: 3,
+                          value: 'no',
+                          validation: {
+                            isRequired: true,
+                          },
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+            {
+              fields: [{
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Vorname',
+                    name: 'prename',
+                    uuid: 'prename',
+                    validation: {
+                      isRequired: true,
+                    },
+                  })),
+              },
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Nachname',
+                    name: 'surname',
+                    uuid: 'surname',
+                    validation: {
+                      isRequired: true,
+                    },
+                  })),
+              }],
+            },
+            {
+              fields: [{
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'E-Mail',
+                    name: 'emailaddr',
+                    uuid: 'emailaddr',
+                    type: 'email',
+                    validation: {
+                      errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+                      isRequired: true,
+                    },
+                  })),
+              }],
+            },
+            {
+              fields: [{
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Organisation',
+                    name: 'organisation',
+                    uuid: 'organisation',
+                    validation: {
+                      isRequired: true,
+                    },
+                  })),
+              }],
+            },
+          ],
+        },
+      ],
+    },
+  },
 }, (variant) => {
   // eslint-disable-next-line consistent-return
   const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
