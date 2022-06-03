@@ -17,20 +17,12 @@
           </form>
   {{/if}}
   {{#unless reduced}}
-    <form novalidate action="{{action}}" method="{{method}}">
-      <div class="form__group">
-        <div class="form__row">
-          <div class="form__cell">{{> "atoms/form_input/form_input" formInputFirstname }}</div>
-          <div class="form__cell">{{> "atoms/form_input/form_input" formInputLastname }}</div>
-        </div>
-        <div class="form__row">
-          <div class="form__cell">{{> "atoms/form_input/form_input" formInputEmail }}</div>
-        </div>
-      </div>
-      <div class="mdl-stepper__control">
+  <form class="mdl-newsletter_form__form" novalidate action="{{action}}" method="{{method}}">
+    {{> "modules/form/form" newsletterFormData }}
+    <div class="mdl-stepper__control">
       {{> "atoms/button/button" buttonData }}
-      </div>
-    </form>
+    </div>
+  </form>
   {{/unless}}
   {{#if wrapped}}
         </div>

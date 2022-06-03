@@ -20,8 +20,8 @@ class NewsletterForm extends Module {
     };
     const defaultOptions = {
       domSelectors: {
-        formInputs: '.atm-form_input input',
-        formInputWrappers: '.atm-form_input',
+        formInputs: '[data-input] input',
+        formInputWrappers: '[data-input]',
         form: 'form',
         submitButton: '.atm-button',
       },
