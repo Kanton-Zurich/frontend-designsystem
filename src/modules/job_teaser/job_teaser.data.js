@@ -22,6 +22,7 @@ const data = _.merge({}, defaultData, {
       apiUrl: 'https://live.solique.ch/KTZH/de/api/v1/data/',
       baseUrl: 'https://live.solique.ch/KTZH/de/',
       filters: 'office.id=OFF066;organization.id=ORG40',
+      limit: 10,
       template: `<li class="mdl-news-teaser__item">
           <a href="<%=link%>" target="_blank">
             <h3 class="atm-heading"><%=title.value%>
