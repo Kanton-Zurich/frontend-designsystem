@@ -3656,11 +3656,38 @@ const variants = _.mapValues({
                     label: 'Organisation',
                     name: 'organisation',
                     uuid: 'organisation',
-                    validation: {
-                      isRequired: true,
-                    },
                   })),
               }],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(selectHBS)({
+                    isSingleSelect: true,
+                    listData: _.assign(_.merge({}, listDemoData.variants.defaultSingle.props, {
+                      setHiddenIndex: true,
+                      groupId: 'nationality-x3',
+                    }), {
+                      selectOptions: [
+                        { value: 'schweiz', label: 'Schweiz' },
+                        { value: 'lichtenstein', label: 'Lichtenstein' },
+                        { value: 'andere', label: 'Andere' },
+                      ],
+                    }),
+                    triggerInputData: {
+                      type: 'text',
+                      isSelectTrigger: true,
+                      isFloatingLabel: true,
+                      isInput: false,
+                      icon: 'angle_drop_down',
+                      label: 'Staatsangehörigkeit',
+                      validation: {
+                        isRequired: true,
+                      },
+                    },
+                  }),
+                },
+              ],
             },
           ],
         },

@@ -55,7 +55,8 @@ class Metablock extends Module {
       this.copyTextToClipboard(event.target);
     });
     this.eventDelegate.on('click', this.options.domSelectors.done, () => {
-      this.toggleNotication();
+      this.ui.element.querySelector(this.options.domSelectors.notification)
+        .classList.add(this.options.stateClasses.hidden);
     });
   }
 
@@ -84,15 +85,20 @@ class Metablock extends Module {
       document.getSelection().addRange(selected);
     }
 
-    this.toggleNotication();
+    this.showNotification();
   }
 
   /**
-   * Toggle notification message
+   * Show notification message - and hide after 2 seconds
    */
-  private toggleNotication():void {
+  private showNotification():void {
+    const notificationFlashTime = 2000;
     this.ui.element.querySelector(this.options.domSelectors.notification)
-      .classList.toggle(this.options.stateClasses.hidden);
+      .classList.remove(this.options.stateClasses.hidden);
+    setTimeout(() => {
+      this.ui.element.querySelector(this.options.domSelectors.notification)
+        .classList.add(this.options.stateClasses.hidden);
+    }, notificationFlashTime);
   }
 
   /**
