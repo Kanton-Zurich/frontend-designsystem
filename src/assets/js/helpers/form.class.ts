@@ -86,6 +86,7 @@ class Form {
       },
       radiogroupClasses: {
         horizontal: 'form__fieldset-list--horizontal',
+        visible: 'form__fieldset-list--visible',
       },
       duplicateSelector: '[data-form="duplicatable"]',
     };
@@ -310,8 +311,9 @@ class Form {
     radiogroups.forEach((radiogroup: HTMLElement) => {
       const options = radiogroup.querySelectorAll(this.options.domSelectors.radiobutton);
       radiogroup.classList.add(this.options.radiogroupClasses.horizontal);
+      radiogroup.classList.add(this.options.radiogroupClasses.visible);
       if (!radiogroup.hasAttribute('data-resizing')) {
-        radiogroup.setAttribute('data-resizing', '');
+        radiogroup.toggleAttribute('data-resizing', true);
         setTimeout(() => {
           radiogroup.style.removeProperty('height');
           const { height } = radiogroup.getBoundingClientRect();

@@ -173,6 +173,8 @@ $gapSize: pxToRem($sizeRegular);
 
   &__fieldset-list {
     .atm-radiobutton {
+      opacity: 0;
+      height: 0;
       display: block;
       padding-right: 0;
       margin-bottom: 0.5rem;
@@ -187,6 +189,15 @@ $gapSize: pxToRem($sizeRegular);
         margin-bottom: 0;
         display: inline-flex;
         padding-right: 1rem;
+      }
+    }
+
+    &--visible,
+    &--horizontal,
+    &--vertical {
+      .atm-radiobutton {
+        opacity: 1;
+        height: auto;
       }
     }
   }
