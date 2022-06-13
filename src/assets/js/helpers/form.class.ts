@@ -476,7 +476,7 @@ class Form {
     } else {
       this.ui.element.removeAttribute('form-has-errors');
     }
-    event.detail.callback();
+    event.detail.callback?.();
   }
 
   handleInputMask(domElement, oldValue, newValue) {
