@@ -251,6 +251,7 @@ class SearchPage extends Module {
       if (response.results) {
         this.dispatchPageCount();
         this.renderResults();
+        window.scroll(0, 0);
       } else {
         this.showNoResults(true);
         this.renderHead();

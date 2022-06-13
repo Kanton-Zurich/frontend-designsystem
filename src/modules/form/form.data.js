@@ -3664,6 +3664,7 @@ const variants = _.mapValues({
                 {
                   cellContent: () => handlebars.compile(selectHBS)({
                     isSingleSelect: true,
+                    maxItems: 3,
                     listData: _.assign(_.merge({}, listDemoData.variants.defaultSingle.props, {
                       setHiddenIndex: true,
                       groupId: 'nationality-x3',
@@ -3671,6 +3672,8 @@ const variants = _.mapValues({
                       selectOptions: [
                         { value: 'schweiz', label: 'Schweiz' },
                         { value: 'lichtenstein', label: 'Lichtenstein' },
+                        { value: 'test1', label: 'Test 1' },
+                        { value: 'test2', label: 'Test 2' },
                         { value: 'andere', label: 'Andere' },
                       ],
                     }),
