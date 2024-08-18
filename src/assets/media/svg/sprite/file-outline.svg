@@ -1,4 +1,1 @@
-<svg width="24" height="24" viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">
-<path d="M13.5 3L18 7.5H13.5V3Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M14.4142 1H3.5V23H20V6.58579L14.4142 1ZM5.5 21V3H13.5L18 7.5V21H5.5Z" />
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M13.5 3 18 7.5h-4.5z"/><path fill-rule="evenodd" d="M14.414 1H3.5v22H20V6.586zM5.5 21V3h8L18 7.5V21z" clip-rule="evenodd"/></svg>
