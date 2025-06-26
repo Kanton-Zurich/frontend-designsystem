@@ -48,7 +48,8 @@ class FlexData extends Module {
     const defaultData = {
     };
     const defaultOptions = {
-      initDelay: 300,
+      initDelay0: 200,
+      initDelay1: 300,
       domSelectors: {
         results: '.mdl-flex-data__results',
         resultsGeneric: '.mdl-flex-data__results .mdl-flex-data__results-generic',
@@ -123,6 +124,11 @@ class FlexData extends Module {
         });
       }
     });
+    this.ui.form.querySelectorAll('.mdl-datepicker').forEach((datePicker: HTMLDivElement) => {
+      datePicker.addEventListener(Datepicker.events.dateSet, () => {
+        this.ui.clearButton.classList.remove('hidden');
+      });
+    });
     // -----------------------------------------------
     // Listen to pagination change event
     this.ui.pagination.addEventListener(Pagination.events.change, () => {
@@ -170,7 +176,7 @@ class FlexData extends Module {
         if (this.isVisible()) {
           this.loadResults(false, true);
         }
-      }, this.options.initDelay);
+      }, this.options.initDelay1);
     }
 
     // EventListener to set localstorage
@@ -408,9 +414,9 @@ class FlexData extends Module {
 
           // Added searchhighlight to link href CZHDEV-3007
           let searchHighlightQuery = '';
-          const searchInputValue = (<HTMLInputElement>(this.ui.form.querySelector('input[type="text"]'))).value;
-          if (searchInputValue) {
-            searchHighlightQuery = `?search=${encodeURIComponent(searchInputValue)}`;
+          const searchInputValue = (<HTMLInputElement>(this.ui.form.querySelector('input[type="text"]')));
+          if (searchInputValue && searchInputValue.value) {
+            searchHighlightQuery = `?search=${encodeURIComponent(searchInputValue.value)}`;
           }
 
           const props = {
@@ -557,10 +563,12 @@ class FlexData extends Module {
               const item = <HTMLInputElement>selectedElements[0];
 
               if (item.hasAttribute('data-select-option')) {
+                // eslint-disable-next-line no-shadow
+                const decodedValues = values.map(item => decodeURIComponent(item));
                 // -----------
                 // dropdown
                 const payload = {
-                  data: item.getAttribute('type') === 'radio' ? values[0] : values,
+                  data: item.getAttribute('type') === 'radio' ? decodedValues[0] : decodedValues,
                   emit: true,
                 };
                 const module = item.closest('.mdl-select');
@@ -589,7 +597,7 @@ class FlexData extends Module {
                 }
               }
             }
-          }, this.options.initDelay);
+          }, this.options.initDelay0);
           break;
       }
     });
@@ -600,7 +608,7 @@ class FlexData extends Module {
         this.ui.form.querySelectorAll('.mdl-accordion').forEach((accordion: HTMLDivElement) => {
           accordion.dispatchEvent(new CustomEvent(Accordion.events.updateSubheads));
         });
-      }, this.options.initDelay);
+      }, this.options.initDelay0);
     }
 
     // Set the sort element if present

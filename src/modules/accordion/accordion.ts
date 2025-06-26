@@ -8,8 +8,6 @@
 import Module from '../../assets/js/helpers/module';
 import WindowEventListener from '../../assets/js/helpers/events';
 
-import { INTERACTION_ELEMENTS_QUERY } from '../../assets/js/helpers/constants';
-
 class Accordion extends Module {
   public options: {
     domSelectors: {
@@ -38,7 +36,7 @@ class Accordion extends Module {
 
   public data: {
     hasOpenItem: boolean,
-    openItems: Array<number>,
+    openItems: Array<string>,
     idTriggers: Array<any>,
   };
 
@@ -87,7 +85,6 @@ class Accordion extends Module {
       }
     });
 
-    this.initTabindex();
     this.checkURL();
 
     this.togglesAll = this.ui.element.classList.contains(this.options.stateClasses.togglesAll);
@@ -122,7 +119,6 @@ class Accordion extends Module {
     const panel = eventDelegate.parentElement.nextElementSibling;
     const item = eventDelegate.parentElement.parentElement;
     const ariaExpanded = eventDelegate.getAttribute('aria-expanded') === 'true';
-    const verticalIcon = document.documentElement.classList.contains('is-ie') ? item.querySelector(this.options.domSelectors.verticalIcon) : null;
 
     if (ariaExpanded) {
       this.closeItem(item);
@@ -131,15 +127,8 @@ class Accordion extends Module {
       if (eventDelegate.id && eventDelegate.id.length > 0) {
         window.history.pushState({ accordionZH: eventDelegate.id }, '', `#${eventDelegate.id}`);
       }
-
+      panel.style.display = 'block';
       panel.style.maxHeight = `${this.calcHeight(panel)}px`;
-
-      panel.setAttribute('aria-hidden', 'false');
-
-      this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), null);
-
-      // CZHDEV - 424, if ie add manual transform
-      if (verticalIcon) verticalIcon.setAttribute('transform', 'rotate(90)');
 
       item.classList.add(this.options.stateClasses.open);
 
@@ -161,6 +150,7 @@ class Accordion extends Module {
         }
       }
       eventDelegate.setAttribute('aria-expanded', true);
+      this.data.openItems.push(eventDelegate.id);
     }
     this.dispatchVerticalResizeEvent(this.options.transitionTime);
   }
@@ -171,26 +161,33 @@ class Accordion extends Module {
       const triggerEl = item.querySelector<HTMLElement>(this.options.domSelectors.trigger);
       if (panel && triggerEl) {
         if (triggerEl.getAttribute('aria-disabled') !== 'true') {
-          const verticalIcon = document.documentElement.classList.contains('is-ie') ? item.querySelector(this.options.domSelectors.verticalIcon) : null;
-
           panel.style.maxHeight = '0px';
-          panel.setAttribute('aria-hidden', 'true');
 
           const subHead = triggerEl.querySelector<HTMLElement>('.mdl-accordion__subhead');
           if (subHead) {
             this.updateSubhead(panel, subHead);
           }
 
-          this.setTabindex([].slice.call(panel.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), '-1');
-
-          if (verticalIcon) verticalIcon.removeAttribute('transform');
-
           item.classList.remove(this.options.stateClasses.open);
           item.classList.remove(this.options.stateClasses.transitionEnd);
 
           triggerEl.setAttribute('aria-expanded', 'false');
+          this.data.openItems.splice(this.data.openItems.indexOf(triggerEl.id), 1);
         }
       }
+    }
+  }
+
+  /**
+   * Ends the transition of a panelItem in setting it's display style to 'none'.
+   * @param event
+   * @param eventDelegate
+   */
+  itemTransitionEnd(event, eventDelegate) {
+    const itemId = eventDelegate.closest(this.options.domSelectors.items)
+      .querySelector(this.options.domSelectors.trigger).id;
+    if (!this.data.openItems.includes(itemId)) {
+      eventDelegate.style.display = 'none';
     }
   }
 
@@ -317,36 +314,9 @@ class Accordion extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.trigger, this.toggleItem.bind(this));
     this.eventDelegate.on(Accordion.events.clearSubheads, this.clearSubheads.bind(this));
     this.eventDelegate.on(Accordion.events.updateSubheads, this.updateSubheads.bind(this));
+    this.eventDelegate.on('transitionend', this.options.domSelectors.panel, this.itemTransitionEnd.bind(this));
   }
 
-  /**
-   * Initializing the tabindex for all focusable children of panelContent(s)
-   *
-   * @memberof Accordion
-   */
-  initTabindex() {
-    this.ui.panelContent.forEach((panelContent) => {
-      this.setTabindex([].slice
-        .call(panelContent.querySelectorAll(INTERACTION_ELEMENTS_QUERY)), -1);
-    });
-  }
-
-  /**
-   * Setting the tabindex for a list of focusable elements
-   *
-   * @param {NodeList} focusableElements
-   * @param {Number} tabindex -1 or 0
-   * @memberof Accordion
-   */
-  setTabindex(focusableElements, tabindex) {
-    focusableElements.forEach((focusable) => {
-      if (tabindex) {
-        focusable.setAttribute('tabindex', tabindex);
-      } else {
-        focusable.removeAttribute('tabindex');
-      }
-    });
-  }
 
   updateFlyingFocus() {
     (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);

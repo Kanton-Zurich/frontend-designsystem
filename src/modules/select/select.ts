@@ -19,6 +19,7 @@ class Select extends Module {
   public selections: Array<any>;
   private typeAhead: string;
   private scrollInitialized: boolean;
+  private dropdownMaxItems: number;
 
   public ui: {
     element: any,
@@ -86,6 +87,7 @@ class Select extends Module {
         itemType: 'inputtype',
         isMultiSelect: 'multiple',
         selectPostfix: 'multiselectpostfix',
+        maxItems: 'maxItems',
       },
     };
 
@@ -98,6 +100,15 @@ class Select extends Module {
     this.scrollInitialized = false;
     this.isFirefox = navigator.userAgent.search('Firefox') > -1;
     this.hasFilter = typeof this.ui.filter !== 'undefined';
+    this.dropdownMaxItems = this.hasFilter
+      ? this.options.largeDropdownMaxItems
+      : this.options.smallDropdownMaxItems;
+    if (this.ui.element.dataset[this.options.dataSelectors.maxItems]) {
+      this.dropdownMaxItems = parseInt(
+        this.ui.element.dataset[this.options.dataSelectors.maxItems],
+        10,
+      );
+    }
     this.hasTableList = this.ui.list.classList.contains(this.options.stateClasses.tableList);
     if (this.ui.element.dataset[this.options.dataSelectors.isMultiSelect]) {
       this.isMultiSelect = true;
@@ -112,6 +123,7 @@ class Select extends Module {
     if (this.isMultiSelect) {
       this.buttonPostfix = this.ui.element.dataset[this.options.dataSelectors.selectPostfix];
     }
+
 
     // Array of selection indicies
     this.selections = [];
@@ -431,8 +443,7 @@ class Select extends Module {
    */
   updateScrollMode(visibleItems) {
     this.ui.element.classList.remove(this.options.stateClasses.disableScroll);
-    if (visibleItems <= (this.hasFilter
-      ? this.options.largeDropdownMaxItems : this.options.smallDropdownMaxItems)) {
+    if (visibleItems <= this.dropdownMaxItems) {
       this.ui.element.classList.add(this.options.stateClasses.disableScroll);
     }
   }
@@ -678,14 +689,11 @@ class Select extends Module {
 
   adjustContainerHeight() {
     if (this.isOpen && !this.hasTableList) {
-      const dropdownMaxItems = this.ui.filterContainer
-        ? this.options.largeDropdownMaxItems
-        : this.options.smallDropdownMaxItems;
       // adjust height if single select
       const visibleItems = this.ui.element
         .querySelectorAll(this.options.domSelectors.visibleInputItems);
       const itemHeight = visibleItems[0] ? visibleItems[0].getBoundingClientRect().height : 0;
-      const maxHeight = itemHeight * dropdownMaxItems;
+      const maxHeight = itemHeight * this.dropdownMaxItems;
       const itemsVerticalSize = (visibleItems.length * itemHeight);
       const containerSize = Math.min(itemsVerticalSize, maxHeight)
         + (this.ui.filterContainer ? this.ui.filterContainer.clientHeight : 0)

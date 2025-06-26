@@ -61,11 +61,11 @@
     outline: none;
   }
 
-  // Sozialhilfeeintrag (CZHDEV-3005)
-  &--social-care {
+  // Sozialhilfeeintrag (CZHDEV-3005) & Inhaltsverzeichnis (CZHDEV-3178)
+  &--numbered {
     font-family: $fontFamilyBase;
 
-    &-bold {
+    &-title {
       font-family: $fontFamilyBlack;
     }
 
@@ -149,6 +149,8 @@
 
   &__text {
     line-height: 1.33;
+    margin: 0;
+    font-size: inherit;
 
     > span {
       display: block;

@@ -3,8 +3,12 @@ $tooltip-bubble-max-width: 260px;
 $tooltip-bubble-close-icon-size: 14px;
 
 .mdl-tooltip {
-  margin-top: pxToRem($sizeMini);
   position: relative;
+  margin: 0 0 pxToRem($sizeMini);
+
+  &:last-child {
+    margin: pxToRem($sizeMini) 0 0;
+  }
 
   &.open {
     .mdl-tooltip__bubble {
@@ -264,4 +268,13 @@ $tooltip-bubble-close-icon-size: 14px;
       }
     }
   }
+}
+
+/* // CZHDEV-3166 special case for tooltips before a .form__row */
+.form__section .mdl-tooltip {
+  padding: 0 $gapSize/2;
+}
+
+.form__cell .mdl-tooltip {
+  padding: 0; // reset
 }

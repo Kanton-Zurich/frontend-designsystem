@@ -1,12 +1,22 @@
-<div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-linklist {{#if smallMargin}}mdl-linklist--small-margin{{/if}} {{#if isLast}}mdl-linklist--last{{/if}}">
-  {{#if linkListTitle}}
-    <h{{{headingLevel}}} class="atm-heading mdl-linklist__title">{{#if linkListChapterNumber}}<span class="mdl-linklist__chapter-number">{{{linkListChapterNumber}}}</span><span class="mdl-linklist__title-content">{{/if}}{{{linkListTitle}}}{{#if linkListChapterNumber}}</span>{{/if}}</h{{{headingLevel}}}>
-  {{/if}}
-  <ul class="mdl-linklist__list" {{#if ariaLive}}aria-live="{{ariaLive}}"{{/if}} {{#if filterListId}} id="{{filterListId}}"{{/if}}>
-    {{#each links}}
-      <li class="mdl-linklist__item" {{#if ../hasIndex}}data-linklist-itemindex="{{@index}}"{{/if}}>
-        {{> "atoms/linklist_item/linklist_item" this}}
-      </li>
-    {{/each}}
-  </ul>
+<div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-linklist {{#if smallMargin}}mdl-linklist--small-margin{{/if}} {{#if isLast}}mdl-linklist--last{{/if}} {{#if isTOC}}mdl-linklist--toc{{/if}}">
+{{#if isTOC}}
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+      <div class="cell small-offset-2 medium-offset-2 small-10 medium-9 large-offset-2 large-8">
+{{/if}}
+        {{#if linkListTitle}}
+          <h{{{headingLevel}}} class="atm-heading mdl-linklist__title">{{#if linkListChapterNumber}}<span class="mdl-linklist__chapter-number">{{{linkListChapterNumber}}}</span><span class="mdl-linklist__title-content">{{/if}}{{{linkListTitle}}}{{#if linkListChapterNumber}}</span>{{/if}}</h{{{headingLevel}}}>
+        {{/if}}
+        <ul class="mdl-linklist__list" {{#if ariaLive}}aria-live="{{ariaLive}}"{{/if}} {{#if filterListId}} id="{{filterListId}}"{{/if}}>
+          {{#each links}}
+            <li class="mdl-linklist__item" {{#if ../hasIndex}}data-linklist-itemindex="{{@index}}"{{/if}}>
+              {{> "atoms/linklist_item/linklist_item" this headingLevel=../headingLevel}}
+            </li>
+          {{/each}}
+        </ul>
+{{#if isTOC}}
+      </div>
+    </div>
+  </div>
+{{/if}}
 </div>

@@ -1,6 +1,6 @@
 <div
   class="mdl-select{{#if orientationUpwards}} mdl-select--list-upwards{{/if}}{{#if hasFilter}} mdl-select--filter{{/if}}{{#if hasButton}} mdl-select--button{{/if}}{{#if floatRight}} mdl-select--float-right{{/if}}"
-  data-init="select"{{#if isMultiSelect}} data-multiple="true" data-multiselectpostfix="gewählt"{{/if}}
+  data-init="select"{{#if isMultiSelect}} data-multiple="true" data-multiselectpostfix="gewählt"{{/if}}{{#if maxItems}} data-max-items="{{maxItems}}"{{/if}}
   data-input
   {{#if additionalAttributes}}{{{additionalAttributes}}}{{/if}}
   >

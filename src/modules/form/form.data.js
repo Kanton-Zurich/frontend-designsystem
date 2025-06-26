@@ -50,12 +50,15 @@ const duplicateGroup = {
             label: 'Staatsangehörigkeit',
             name: 'nationality',
             uuid: 'nationality',
+            describedBy: 'nationality__description',
             validation: {
               isRequired: true,
             },
           })),
+        tooltipBefore: true,
         tooltip: {
           helptext: 'Info',
+          descriptionId: 'nationality__description',
           buttonRight: true,
           bubble: {
             heading: 'Tooltip Ipsum',
@@ -3360,9 +3363,11 @@ const variants = _.mapValues({
                     label: 'Geschäftsnummer',
                     name: 'geschaeftsnummer',
                     uuid: 'geschaeftsnummer',
+                    describedBy: 'geschaeftsnummer__description',
                   })),
                 tooltip: {
                   helptext: 'Beispiel: 2017.2523',
+                  descriptionId: 'geschaeftsnummer__description',
                 },
               },
             ],
@@ -3533,6 +3538,157 @@ const variants = _.mapValues({
                         isRequired: true,
                       },
                     })),
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  newsletter: {
+    meta: {
+      title: 'Newsletter anmelden',
+      desc: 'Newsletter anmelden',
+    },
+    props: {
+      sectionTitle: null,
+      groups: [
+        {
+          rows: [
+            {
+              fields: [
+                {
+                  isSmall: true,
+                  cellContent: () => handlebars.compile(formFieldsetHBS)({
+                    fieldsetTitle: 'Anrede',
+                    requiredMessage: 'Bitte geben Sie eine Anrede an.',
+                    options: [
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Frau',
+                          groupName: 'salutation',
+                          id: 1,
+                          value: 'mrs',
+                          validation: {
+                            isRequired: true,
+                          },
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Herr',
+                          groupName: 'salutation',
+                          id: 2,
+                          value: 'mr',
+                          validation: {
+                            isRequired: true,
+                          },
+                        })),
+                      () => handlebars.compile(radioHBS)(_.merge({},
+                        radioData.variants.default.props,
+                        {
+                          label: 'Keine Angabe',
+                          groupName: 'salutation',
+                          id: 3,
+                          value: 'no',
+                          validation: {
+                            isRequired: true,
+                          },
+                        })),
+                    ],
+                  }),
+                },
+              ],
+            },
+            {
+              fields: [{
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Vorname',
+                    name: 'prename',
+                    uuid: 'prename',
+                    validation: {
+                      isRequired: true,
+                    },
+                  })),
+              },
+              {
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Nachname',
+                    name: 'surname',
+                    uuid: 'surname',
+                    validation: {
+                      isRequired: true,
+                    },
+                  })),
+              }],
+            },
+            {
+              fields: [{
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'E-Mail',
+                    name: 'emailaddr',
+                    uuid: 'emailaddr',
+                    type: 'email',
+                    validation: {
+                      errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
+                      isRequired: true,
+                    },
+                  })),
+              }],
+            },
+            {
+              fields: [{
+                cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
+                  formInputData.variants.default.props,
+                  {
+                    isFloatingLabel: true,
+                    label: 'Organisation',
+                    name: 'organisation',
+                    uuid: 'organisation',
+                  })),
+              }],
+            },
+            {
+              fields: [
+                {
+                  cellContent: () => handlebars.compile(selectHBS)({
+                    isSingleSelect: true,
+                    maxItems: 3,
+                    listData: _.assign(_.merge({}, listDemoData.variants.defaultSingle.props, {
+                      setHiddenIndex: true,
+                      groupId: 'nationality-x3',
+                    }), {
+                      selectOptions: [
+                        { value: 'schweiz', label: 'Schweiz' },
+                        { value: 'lichtenstein', label: 'Lichtenstein' },
+                        { value: 'test1', label: 'Test 1' },
+                        { value: 'test2', label: 'Test 2' },
+                        { value: 'andere', label: 'Andere' },
+                      ],
+                    }),
+                    triggerInputData: {
+                      type: 'text',
+                      isSelectTrigger: true,
+                      isFloatingLabel: true,
+                      isInput: false,
+                      icon: 'angle_drop_down',
+                      label: 'Staatsangehörigkeit',
+                      validation: {
+                        isRequired: true,
+                      },
+                    },
+                  }),
                 },
               ],
             },

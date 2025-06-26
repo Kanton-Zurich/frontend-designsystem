@@ -1,6 +1,29 @@
 .mdl-linklist {
+
+  &:not(:last-child) {
+
+    @include sizeCurve(margin-bottom, large);
+  }
+
+  &--toc {
+    @include gridBleed($fullwidth: true);
+    background: $colorBlack5;
+
+    &:not(:last-child) {
+      margin-bottom: 0;
+
+      @include sizeCurve(padding-bottom, large);
+    }
+  }
+
   &--last {
     @include sizeCurve(margin-bottom, big);
+
+    &.mdl-linklist--toc {
+      margin-bottom: 0;
+
+      @include sizeCurve(padding-bottom, big);
+    }
   }
 
   &__title {

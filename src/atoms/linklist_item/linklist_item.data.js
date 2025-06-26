@@ -29,7 +29,7 @@ const variants = _.mapValues({
       desc: 'Weiterführender Link im Inhaltsverzeichnis des Sozialhilfehandbuchs',
     },
     props: {
-      linkListItemIsSocialCare: true,
+      linkListItemIsTOC: true,
       linkListItemChapterNumber: '2.2.01',
       linkListItemTitle: 'Aufsichtstätigkeiten des Bezirksrats über die Sozialbehörden',
       linkListItemHref: '/',
@@ -41,11 +41,26 @@ const variants = _.mapValues({
       desc: 'Weiterführender Link im Inhaltsverzeichnis des Sozialhilfehandbuchs',
     },
     props: {
-      linkListItemIsSocialCare: true,
-      linkListItemIsSocialCareBold: true,
+      linkListItemIsTOC: true,
+      linkListItemIsTOCHeading: true,
       linkListItemChapterNumber: '0.2',
       linkListItemTitle: 'Aufgaben',
       linkListItemHref: '/',
+      headingLevel: 3,
+    },
+  },
+  tableOfContents: {
+    meta: {
+      title: 'Inhaltsverzeichnisüberschrift (CZHDEV-3178)',
+      desc: 'Überschrift in Inhaltsverzeichnis',
+    },
+    props: {
+      linkListItemIsTOC: true,
+      linkListItemIsTOCHeading: true,
+      linkListItemChapterNumber: '0.2',
+      linkListItemTitle: 'Aufgaben',
+      linkListItemHref: '/',
+      headingLevel: 3,
     },
   },
   location: {

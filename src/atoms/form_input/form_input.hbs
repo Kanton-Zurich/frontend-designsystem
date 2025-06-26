@@ -5,6 +5,7 @@
   {{#if isSearch}}atm-form_input--search{{/if}}{{#if margin}} atm-form_input--margin{{/if}}"
   {{#unless isSelectTrigger}} data-input{{/unless}}
   {{#if rules}} data-rules="{{rules}}"{{/if}}>
+
   {{#if isSelectTrigger}}
     <button aria-expanded="false" id="{{uuid}}"{{#if disabled}} disabled{{/if}}
             class="atm-form_input__input atm-form_input__input--trigger" type="button">
@@ -15,7 +16,9 @@
       </svg>
     </button>
     {{#if isTriggerWithInput}}
-      <input id="select_phone_input" name="phone_input" type="tel" {{#if maskPlaceholder}}placeholder="{{maskPlaceholder}}"{{/if}}
+      <input id="select_phone_input" name="phone_input" type="tel"
+        {{#if maskPlaceholder}} placeholder="{{maskPlaceholder}}"{{/if}}
+        {{#if describedBy}} aria-describedby="{{describedBy}}"{{/if}}
         {{#if validation.pattern }} data-pattern="{{validation.pattern}}"{{/if}}
         {{#if validation.inputRange }} data-validate-range="{{validation.inputRange}}"{{/if}}
         {{#if validation.isRequired}} required{{/if}}
@@ -24,19 +27,19 @@
     <label for="{{uuid}}">{{label}}</label>
     {{/if}}
     <span class="atm-form_input__validate-icon">
-          <span>
-            <span class="visuallyhidden">{{validation.ariaTextValid}}</span>
-            <svg class="icon" focusable="false">
-              <use xlink:href="#confirm"></use>
-            </svg>
-          </span>
-          <span>
-             <span class="visuallyhidden">{{validation.ariaTextInvalid}}</span>
-             <svg class="icon" focusable="false">
-                <use xlink:href="#caution"></use>
-              </svg>
-          </span>
-        </span>
+      <span>
+        <span class="visuallyhidden">{{validation.ariaTextValid}}</span>
+        <svg class="icon" focusable="false">
+          <use xlink:href="#confirm"></use>
+        </svg>
+      </span>
+      <span>
+          <span class="visuallyhidden">{{validation.ariaTextInvalid}}</span>
+          <svg class="icon" focusable="false">
+            <use xlink:href="#caution"></use>
+          </svg>
+      </span>
+    </span>
   {{/if}}
 
   {{#if isZipCityTarget}}
@@ -52,14 +55,16 @@
     </div>
   {{/if}}
 
-  {{# if isTextarea}}
-    <textarea class="atm-form_input__input atm-form_input__input--txtarea" id="{{uuid}}" placeholder="{{label}}"{{#if
-      name }}
-              name="{{name}}"{{/if}}{{#if cols }}
-              cols="{{cols}}"{{/if}}{{#if rows }} rows="{{rows}}"{{/if}}{{#if validation.max }}
-              maxlength="{{validation.max}}"{{/if}}{{#if validation.isRequired}} required{{/if}}{{#if isReadOnly}}
-              readonly{{/if}}{{#if
-      disabled}} disabled{{/if}}
+  {{#if isTextarea}}
+    <textarea class="atm-form_input__input atm-form_input__input--textarea" id="{{uuid}}" placeholder="{{label}}"
+      {{#if name }} name="{{name}}"{{/if}}
+      {{#if cols }} cols="{{cols}}"{{/if}}
+      {{#if rows }} rows="{{rows}}"{{/if}}
+      {{#if describedBy}} aria-describedby="{{describedBy}}"{{/if}}
+      {{#if validation.max }} maxlength="{{validation.max}}"{{/if}}
+      {{#if validation.isRequired}} required{{/if}}
+      {{#if isReadOnly}} readonly{{/if}}
+      {{#if disabled}} disabled{{/if}}
       {{#if additionalFunctionality}} data-hasbutton="true"{{/if}}
       {{#if validation}} data-validation{{/if}}
       {{#if isFloatingLabel}} data-floating{{/if}}
@@ -68,12 +73,13 @@
       <div class="atm-form_input__length-indicator">{{#if inputLengthRestriction}}0/{{inputLengthRestriction}}{{/if}}</div>
   {{/if}}
 
-  {{# if isInput}}
+  {{#if isInput}}
     <input class="atm-form_input__input"
       {{#if validation.pattern }} data-pattern="{{validation.pattern}}"{{/if}}
       {{#if step}} step="{{step}}"{{/if}}
-       id="{{uuid}}" placeholder="{{label}}" name="{{name}}" value="{{inputContent}}" type="{{type}}"
+      id="{{uuid}}" placeholder="{{label}}" name="{{name}}" value="{{inputContent}}" type="{{type}}"
       {{#if dataSelector}} {{{dataSelector}}}{{/if}}
+      {{#if describedBy}} aria-describedby="{{describedBy}}"{{/if}}
       {{#if validation.isRequired}} required{{/if}}
       {{#if validation.inputRange }} data-validate-range="{{validation.inputRange}}"{{/if}}
       {{#if isReadOnly}} readonly{{/if}}
@@ -95,8 +101,6 @@
     >
   {{/if}}
 
-
-
   {{#unless isTriggerWithInput }}
     {{#if maskPlaceholder }}
       <span class="atm-form_input__backdrop">
@@ -106,7 +110,7 @@
   {{/unless}}
 
   {{# unless isSelectTrigger}}
-    <label for="{{uuid}}">{{label}}</label>
+    <label {{#if isTextarea}} class="atm-form_input__label--textarea"{{/if}} for="{{uuid}}">{{label}}</label>
     {{# unless additionalFunctionality}}
       {{#if validation }}
         {{#unless usedCustomIcon}}
@@ -140,7 +144,7 @@
 
     {{#if iconOnly}}
       <svg class="icon" focusable="false">
-        <use xlink:href="#{{iconOnly.icon }}"></use>
+        <use xlink:href="#{{iconOnly.icon}}"></use>
       </svg>
     {{/if}}
 
@@ -157,7 +161,11 @@
     {{/if}}
   {{/unless}}
 
-  {{#if hint}}<div class="atm-form_input__hint">{{hint}}</div>{{/if}}
+  {{#if hint}}<p
+    {{#if describedBy}} id="{{describedBy}}"{{/if}}
+    class="atm-form_input__hint">{{hint}}</p>
+  {{/if}}
+
   {{#if validation.errorMsg}}<p data-message="pattern">{{validation.errorMsg}}</p>{{/if}}
   {{#if validation.rangeErrorMsg}}<p data-message="range">{{validation.rangeErrorMsg}}</p>{{/if}}
   {{#if validation.isRequired}}<p data-message="required">Dies ist ein Pflichtfeld</p>{{/if}}

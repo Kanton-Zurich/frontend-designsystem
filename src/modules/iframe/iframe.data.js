@@ -39,6 +39,7 @@ const variants = _.mapValues({
         textLinkSrc: 'https://inside-reality.com/',
         textLinkTargetBlank: true,
       },
+      iframeCaptionId: _.uniqueId('mdl-iframe__caption'),
       caption: _.merge({}, defFigcaptionData, {
         caption: 'Iframe Titel <a class="atm-text_link" href="#">Quelle</a>',
       }),

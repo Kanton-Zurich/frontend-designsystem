@@ -18,11 +18,12 @@ class Video extends Module {
     dialog: HTMLDivElement,
     dialogCloseBtn: HTMLButtonElement,
     dialogPlayBtn: HTMLButtonElement,
-    iFrame: HTMLIFrameElement,
+    iFrame: HTMLIFrameElement
   };
 
   public options: {
     domSelectors: {
+      preview: string,
       previewBtn: string,
       dialogCloseBtn: string,
       dialogPlayBtn: string,
@@ -61,6 +62,7 @@ class Video extends Module {
         this.hideElement(this.ui.preview);
         this.hideElement(this.ui.dialog);
         this.ui.iFrame.setAttribute('src', this.youTubeSrc);
+        this.showElement(this.ui.iFrame);
       } else {
         this.log(`${this.cookieName} cookie value not found or its not accepted.`);
       }
@@ -75,20 +77,25 @@ class Video extends Module {
    */
   initEventListeners() {
     this.eventDelegate
-      .on('click', this.options.domSelectors.previewBtn, () => {
+      .on('click', this.options.domSelectors.preview, () => {
         this.hideElement(this.ui.preview);
         this.showElement(this.ui.dialog);
-        this.ui.dialog.focus();
+        this.ui.dialogCloseBtn.focus();
+        this.updateFlyingFocus();
       }).on('click', this.options.domSelectors.dialogCloseBtn, () => {
         this.hideElement(this.ui.dialog);
         this.showElement(this.ui.preview);
-        this.ui.preview.focus();
+        this.ui.previewBtn.focus();
+        this.updateFlyingFocus();
       }).on('click', this.options.domSelectors.dialogPlayBtn, () => {
         this.hideElement(this.ui.dialog);
         if (this.cookieName) {
           document.cookie = `${this.cookieName}=true; max-age=${this.getExpireDate()}; path=/`;
         }
-        this.ui.iFrame.setAttribute('src', `${this.youTubeSrc}&autoplay=1&mute=1`);
+        this.ui.iFrame.setAttribute('src', `${this.youTubeSrc}&autoplay=1&mute=0`);
+        this.showElement(this.ui.iFrame);
+        this.ui.iFrame.contentWindow.focus();
+        this.updateFlyingFocus();
       });
   }
 
@@ -100,8 +107,6 @@ class Video extends Module {
    */
   private hideElement(element: HTMLDivElement) {
     element.style.display = 'none';
-    element.setAttribute('aria-hidden', 'true');
-    element.setAttribute('tabindex', '-1');
   }
 
   /**
@@ -112,8 +117,6 @@ class Video extends Module {
    */
   private showElement(element: HTMLDivElement) {
     element.style.display = 'flex';
-    element.setAttribute('aria-hidden', 'false');
-    element.setAttribute('tabindex', '0');
   }
 
   /**

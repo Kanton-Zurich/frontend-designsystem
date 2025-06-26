@@ -7,15 +7,9 @@
   <meta name="description" content="{{#if description}}{{description}}{{/if}}">
   <meta name="format-detection" content="telephone=no">
 
-  {{! <link rel="manifest" href="site.webmanifest"> }}
-  {{! <link rel="apple-touch-icon" href="icon.png"> }}
   <link rel="stylesheet" href="/assets/css/main_minimal{{#unless env.dev}}.min{{/unless}}.css">
   <link rel="stylesheet" href="/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css">
-  <script src="/assets/js/mainMinimal{{#unless env.dev}}.min{{/unless}}.js" load-main-script-deferred></script>
 
-  {{! <meta name="theme-color" content="#fafafa"> }}
-
-  <link rel="manifest" href="/assets/manifest.json">
 
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -26,22 +20,6 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="msapplication-starturl" content="/">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
-
-  <link rel="icon" type="image/png" href="/assets/media/icons/Favicon_48.png" >
-
-  <link rel="shortcut icon" sizes="144x144" type="image/png" href="/assets/media/icons/Favicon_144.png" >
-  <link rel="shortcut icon" sizes="96x96" type="image/png" href="/assets/media/icons/Favicon_96.png" >
-  <link rel="shortcut icon" sizes="48x48" type="image/png" href="/assets/media/icons/Favicon_48.png" >
-  <link rel="shortcut icon" sizes="16x16" type="image/png" href="/assets/media/icons/Favicon_16.png" >
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/media/icons/apple-touch-icon-180x180.png" >
-  <link rel="apple-touch-icon" sizes="152x152" href="/assets/media/icons/apple-touch-icon-76x76@2x.png" >
-  <link rel="apple-touch-icon" sizes="144x144" href="/assets/media/icons/apple-touch-icon-72x72@2x.png" >
-  <link rel="apple-touch-icon" sizes="120x120" href="/assets/media/icons/apple-touch-icon-60x60@2x.png" >
-  <link rel="apple-touch-icon" sizes="114x114" href="/assets/media/icons/apple-touch-icon-57x57@2x.png" >
-  <link rel="apple-touch-icon" sizes="76x76" href="/assets/media/icons/apple-touch-icon-76x76.png" >
-  <link rel="apple-touch-icon" sizes="60x60" href="/assets/media/icons/apple-touch-icon-60x60.png" >
-  <link rel="apple-touch-icon" sizes="57x57" href="/assets/media/icons/apple-touch-icon-57x57.png" >
 </head>
 <body {{#if props.defaultColorVariation}}class="{{props.defaultColorVariation}}"{{/if}} {{#unless props.defaultColorVariation}}class="cv-blue"{{/unless}}>
 <main class="lyt-wrapper" id="main">

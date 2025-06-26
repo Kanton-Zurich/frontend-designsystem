@@ -85,7 +85,7 @@ const variants = _.mapValues({
         isSmall: true,
         autocompleteOff: true,
         iconOnly: {
-          icon: 'search',
+          icon: 'inspect',
         },
         additionalFunctionality: {
           icon: 'clear',
@@ -152,7 +152,7 @@ const variants = _.mapValues({
         isSmall: true,
         autocompleteOff: true,
         iconOnly: {
-          icon: 'search',
+          icon: 'inspect',
         },
         additionalFunctionality: {
           icon: 'clear',
@@ -240,7 +240,7 @@ const variants = _.mapValues({
         isSmall: true,
         autocompleteOff: true,
         iconOnly: {
-          icon: 'search',
+          icon: 'inspect',
         },
         additionalFunctionality: {
           icon: 'clear',

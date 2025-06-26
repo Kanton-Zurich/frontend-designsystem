@@ -216,6 +216,7 @@ class Module {
    * Update flying focus with a delay
    */
   updateFlyingFocus(delay = 0) {
+    this.log('flying focus', document.activeElement);
     setTimeout(() => {
       (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
     }, delay);
@@ -297,14 +298,7 @@ class Module {
    * @param url
    */
   redirect(url: string) {
-    if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)) {
-      const referLink = document.createElement('a');
-      referLink.href = url;
-      document.body.appendChild(referLink);
-      referLink.click();
-    } else {
-      window.location.href = url;
-    }
+    window.location.href = url;
   }
 
   /**

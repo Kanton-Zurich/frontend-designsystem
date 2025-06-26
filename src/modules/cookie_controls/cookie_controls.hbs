@@ -2,7 +2,10 @@
 	<h{{headingLevel}} class="atm-heading mdl-cookie_controls__heading">{{heading}}</h{{headingLevel}}>
   {{#each items}}
   <div class="atm-checkbox atm-checkbox--strong">
-    <input type="checkbox" id="{{cookieName}}" {{#if defaultValue}}checked{{/if}}/>
+    <input type="checkbox" id="{{cookieName}}"
+      {{#if description}}aria-describedby="{{cookieName}}__hint"{{/if}}
+      {{#if defaultValue}}checked{{/if}}
+    />
     <label for="{{cookieName}}">
       {{label}}
       <span>
@@ -11,7 +14,7 @@
 			</svg>
 		</span>
       {{#if description}}
-        <div class="atm-checkbox__hint">{{description}}</div>
+        <p id="{{cookieName}}__hint" class="atm-checkbox__hint">{{description}}</p>
       {{/if}}
     </label>
   </div>

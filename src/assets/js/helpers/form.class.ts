@@ -86,6 +86,7 @@ class Form {
       },
       radiogroupClasses: {
         horizontal: 'form__fieldset-list--horizontal',
+        visible: 'form__fieldset-list--visible',
       },
       duplicateSelector: '[data-form="duplicatable"]',
     };
@@ -128,6 +129,11 @@ class Form {
         event.preventDefault();
         return false;
       }
+    });
+    this.eventDelegate.on('reset', () => {
+      this.ui.element.querySelectorAll(this.options.watchEmitters.input).forEach((input) => {
+        input.classList.toggle('dirty', false);
+      });
     });
     this.eventDelegate.on('click', this.options.eventEmitters.clearButton, this.clearField.bind(this));
     this.eventDelegate.on('keyup', this.options.watchEmitters.input, debounce((event, field) => {
@@ -305,8 +311,9 @@ class Form {
     radiogroups.forEach((radiogroup: HTMLElement) => {
       const options = radiogroup.querySelectorAll(this.options.domSelectors.radiobutton);
       radiogroup.classList.add(this.options.radiogroupClasses.horizontal);
+      radiogroup.classList.add(this.options.radiogroupClasses.visible);
       if (!radiogroup.hasAttribute('data-resizing')) {
-        radiogroup.setAttribute('data-resizing', '');
+        radiogroup.toggleAttribute('data-resizing', true);
         setTimeout(() => {
           radiogroup.style.removeProperty('height');
           const { height } = radiogroup.getBoundingClientRect();
@@ -362,12 +369,14 @@ class Form {
 
       if (validation.validationResult) {
         this.setValidClasses(field);
+        this.setDescribedBy(field, []);
 
         return true;
       }
 
       this.setValidClasses(field, ['add', 'remove']);
       let messageElementID: string;
+      const errorMessageIds: Array<string> = [];
 
       validation.messages.forEach((messageID) => {
         const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
@@ -380,9 +389,10 @@ class Form {
           }
           message.classList.add('show');
           message.setAttribute('id', messageElementID);
-          field.setAttribute('aria-describedby', messageElementID);
+          errorMessageIds.push(messageElementID);
         }
       });
+      this.setDescribedBy(field, errorMessageIds);
 
       if (validation.files) {
         setTimeout(() => {
@@ -400,6 +410,15 @@ class Form {
 
       return false;
     }
+  }
+
+  setDescribedBy(field, errorMessageIds: Array<string>) {
+    let idsString: string = '';
+    if (field.hasAttribute('aria-describedby')) {
+      idsString = field.getAttribute('aria-describedby');
+    }
+    const idsArray = idsString.split(' ').filter(id => !id.endsWith('-error')).concat(errorMessageIds);
+    field.setAttribute('aria-describedby', idsArray.join(' '));
   }
 
   setValidClasses(field, functionArray: Array<string> = ['remove', 'add']) {
@@ -457,7 +476,7 @@ class Form {
     } else {
       this.ui.element.removeAttribute('form-has-errors');
     }
-    event.detail.callback();
+    event.detail.callback?.();
   }
 
   handleInputMask(domElement, oldValue, newValue) {
