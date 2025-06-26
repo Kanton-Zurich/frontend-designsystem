@@ -1,6 +1,14 @@
+@media screen {
+  .mdl-feedback {
+    --color-text: #{$colorWhite};
+    --color-text-soft: var(--color-accent-soft);
+    --color-bg: #{$colorBlack80};
+  }
+}
+
 .mdl-feedback {
   @include gridBleed($fullwidth: true);
-  background-color: $colorBlack80;
+  background-color: var(--color-bg);
   padding: pxToRem($sizeHuge) 0;
   display: none;
 
@@ -32,7 +40,7 @@
   }
 
   &__icon {
-    background-color: $colorWhite;
+    background-color: var(--color-text);
     position: relative;
     display: inline-flex;
     width: pxToRem($sizeSmallHuge);
@@ -47,7 +55,7 @@
       transform: translate(-50%, -50%) scale(1);
 
       use {
-        fill: $colorBlack80;
+        fill: var(--color-bg);
       }
     }
   }

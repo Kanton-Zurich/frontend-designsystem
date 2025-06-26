@@ -1,5 +1,5 @@
 .atm-lead {
-  $leadMargins :(
+  $leadMargins: (
     leadMarginBottom: (
       tiny: 16px,
       medium: 20px,
@@ -7,19 +7,13 @@
     ),
   );
 
-  color: $colorBlack;
+  color: var(--color-text);
   font-family: $fontFamilyBlack;
   line-height: $sizeLineHeightMedium;
   hyphens: auto;
 
   @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
   @include sizeCurve('margin-bottom', leadMarginBottom, $leadMargins);
-  @include mq($from: tiny, $to: xsmall) {
-    @include gridNestedOffset('text-indent', 1, $gridOffsetColumns);
-  }
-  @include mq($from: xsmall) {
-    text-indent: 0;
-  }
 
   strong {
     font-family: $fontFamilyBlack;

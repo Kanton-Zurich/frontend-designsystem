@@ -1,4 +1,26 @@
-<{{#if isTagFilter}}span{{else}}{{#if isAnchor}}a href="{{{anchorLink}}}"{{else}}button{{/if}}{{/if}} class="atm-button{{#unless isTextVisible}} atm-button--icon-only{{/unless}}{{#if isSecondary}} atm-button--secondary{{/if}}{{#if isSmall}} atm-button--small{{/if}}{{#if isBig}} atm-button--big{{/if}}{{#if disabled}} atm-button--disabled{{/if}}{{#if isInverted}} atm-button--cv-inverted{{/if}}{{#if isTagButton}} atm-button--tag{{/if}}{{#if isTagFilter}} atm-button--tag-filter{{/if}}{{#if isTopic}} atm-button--tag-topic{{/if}}{{#if isEdit}} atm-button--tag-edit{{/if}}{{#if isTopTag}} atm-button--tag-top{{/if}}{{#if isLoading}} atm-button--loading{{/if}}{{#if additionalClasses}} {{{additionalClasses}}}{{/if}}" {{#if additionalAttribute}}{{{additionalAttribute}}}{{/if}} {{#if disabled}}disabled="disabled"{{/if}}>
+<{{#if isTagFilter}}span{{else}}{{#if isAnchor}}a href="{{{anchorLink}}}"{{else}}button{{/if}}{{/if}} 
+
+  class="atm-button
+    {{#unless isTextVisible}}atm-button--icon-only{{/unless}}
+    {{#if isSecondary}}atm-button--secondary{{/if}}
+    {{#if isSmall}}atm-button--small{{/if}}
+    {{#if isBig}}atm-button--big{{/if}}
+    {{#if disabled}}atm-button--disabled{{/if}}
+    {{#if isInverted}}atm-button--cv-inverted{{/if}}
+    {{#if isTagButton}}atm-button--tag{{/if}}
+    {{#if isTagFilter}}atm-button--tag-filter{{/if}}
+    {{#if isTopic}}atm-button--tag-topic{{/if}}
+    {{#if isEdit}}atm-button--tag-edit{{/if}}
+    {{#if isTopTag}}atm-button--tag-top{{/if}}
+    {{#if isLoading}}atm-button--loading{{/if}}
+    {{#if additionalClasses}}{{{additionalClasses}}}{{/if}}
+  "
+  
+  {{#if additionalAttribute}}{{{additionalAttribute}}}{{/if}}
+  {{#if disabled}}disabled="disabled"{{/if}}
+  {{#if type}} type="{{type}}"{{/if}}
+>
+
   <span class="atm-button__text {{#unless isTextVisible}}visuallyhidden{{/unless}}">
       {{{text}}}
   </span>
@@ -17,4 +39,5 @@
     {{/unless}}
   {{/if}}
   <span class="atm-button__spinner"></span>
-  </{{#if isTagFilter}}span{{else}}{{#if isAnchor}}a{{else}}button{{/if}}{{/if}}>
+
+</{{#if isTagFilter}}span{{else}}{{#if isAnchor}}a{{else}}button{{/if}}{{/if}}>

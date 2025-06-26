@@ -1,38 +1,23 @@
 $pageHeaderCurves: (
-  ktzhLogoPaddingTop: (
-    tiny: 0,
-    xsmall: 4px,
-    small: 4px,
-    medium: 0,
-    large: 0,
-    xlarge: 4px,
-  ),
   ktzhLogoTop: (
-    tiny: 32px,
-    xsmall: 27px,
-    small: 22px,
-    medium: 2px,
-    large: -7px,
-    xlarge: -13px,
+    small: 28px,
+    medium: 10px,
+    large: 2px,
+    xlarge: 0,
   ),
   ktzhLogoLeft: (
-    tiny: -6px,
-    xsmall: -6px,
-    small: 0,
+    small: 10px,
+    medium: 15px,
+    large: 14px,
+    xlarge: 18px,
   ),
   ktzhLogoWidth: (
     tiny: 54px,
-    xsmall: 66px,
-    small: 87px,
-    medium: 125px,
-    large: 153px,
+    xsmall: 68px,
+    small: 84px,
+    medium: 123px,
+    large: 140px,
     xlarge: 184px,
-  ),
-  pageHeaderTop: (
-    tiny: $sizeLarge,
-    small: $sizeBig,
-    medium: $sizeBiggerBig,
-    xlarge: $sizeSmallHuge
   ),
   closeButtonWidth: (
     tiny: $sizeSmallRegular,
@@ -42,19 +27,15 @@ $pageHeaderCurves: (
     tiny: $sizeRegular,
     medium: $sizeLarge,
   ),
-  pageHeaderBottom: (
-    tiny: $sizeLarge,
-    medium: $sizeBiggerBig,
-  ),
-  pageHeaderMinimal: (
+  pageHeaderMinimalPadding: (
     tiny: $sizeLarge,
     medium: $sizeSmallBig,
   ),
-  pageTitleMinimalLineHeight: (
-    tiny: $sizeFontBiggerRegular,
-    medium: $sizeFontLarge,
+  pageTitleMinimalHeight: (
+    tiny: 64px,
+    medium: 72px,
   ),
-  pageHeaderSmallTitle :(
+  pageHeaderSmallTitle: (
     tiny: 2px,
     xsmall: 5px,
     small: 8px,
@@ -62,138 +43,168 @@ $pageHeaderCurves: (
     large: 7px,
     xlarge: 13px,
   ),
-  breadcrumpMarginBottom: (
+  breadcrumbMarginBottom: (
     tiny: $sizeSmallRegular,
-    xlarge: $sizeRegular
+    xlarge: $sizeRegular,
   ),
-  subsectionMarginBottom: (
-    tiny: $sizeLarge,
-    medium: $sizeBiggerBig,
+  govPlatformPaddingBottom: (
+    tiny: 15rem,
+    small: 20rem,
+    large: 25rem,
   ),
-  subsectionMarginTop: (
-    tiny: $sizeSmallHuge,
-    medium : $sizeHuge,
-    xlarge: $sizeHuge,
-  ),
-  subsectionPaddingTop: (
-    tiny: ($sizeSmallHuge + $sizeLarge),
-    medium : ($sizeHuge + $sizeBig),
-    xlarge: ($sizeHuge + $sizeBiggerBig),
-  ),
-  subsectionImageTitleMarginTop: (
-    tiny: ($sizeSmallHuge + $sizeFontBiggerRegular + $sizeTiny),
-    xsmall: ($sizeSmallHuge + $sizeFontMedium + $sizeTiny),
-    medium : ($sizeHuge + $sizeFontMedium + $sizeTiny),
-    xlarge: ($sizeHuge + $sizeFontMedium + $sizeTiny),
-  ),
-  subsectionImageTitlePaddingTop: (
-    tiny: ($sizeSmallHuge + $sizeFontBiggerRegular + $sizeLarge + $sizeTiny),
-    xsmall: ($sizeSmallHuge + $sizeFontMedium + $sizeBig + $sizeTiny),
-    medium : ($sizeHuge + $sizeFontMedium + $sizeBig + $sizeTiny),
-    xlarge: ($sizeHuge + $sizeFontMedium + $sizeBiggerBig + $sizeTiny),
-  )
 );
-
 
 .mdl-page-header {
   @include gridBleed($fullwidth: true);
-  @include sizeCurve('padding-top', pageHeaderTop, $pageHeaderCurves);
-  @include sizeCurve(padding-bottom, pageHeaderBottom, $pageHeaderCurves);
+  @include sizeCurve(padding-top, medium);
+  @include sizeCurve(padding-bottom, medium);
 
   z-index: $zIndexInner;
   overflow: visible;
   position: relative;
 
-  &:not(.mdl-page-header--inverted) {
+  &:not(.cv-inverted) {
     h1.atm-heading {
       @include polyFluidSizing(padding-top, map-get($pageHeaderCurves, pageHeaderSmallTitle));
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
       @include mq($from: xlarge) {
         padding-top: 10px; // stylelint-disable-line
       }
+
+      margin-bottom: 0;
     }
   }
 
-  &__title {
+  &.cv-inverted {
+    background-color: var(--color-accent);
+  }
+
+  &__close {
+    position: fixed;
+    line-height: $sizeLineHeightBase;
+    color: $colorWhite;
+    z-index: 1;
+
+    @include mq($from: tiny, $to: large) {
+      right: pxToRem($sizeBig);
+      right: calc(#{$sizeBig} + var(--scrollbar-wd)); // stylelint-disable-line
+    }
+    @include mq($from: large) {
+      right: pxToRem($sizeBiggerBig);
+      right: calc(#{$sizeBiggerBig} + var(--scrollbar-wd)); // stylelint-disable-line
+    }
+    @include sizeCurve('top', closeButtonTop, $pageHeaderCurves);
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+
+    .icon {
+      @include sizeCurve('width', closeButtonWidth, $pageHeaderCurves);
+      display: inline-block;
+      vertical-align: middle;
+      top: -2px;
+      left: pxToRem($sizeTiny);
+      position: relative;
+
+      use {
+        fill: $colorWhite;
+      }
+    }
+  }
+
+  &__title.atm-heading {
     word-break: break-word;
+
+    @include sizeCurve(margin-bottom, medium);
   }
 
   &__logo-container {
-    height: 0;
-
-    display: inline-block;
     position: relative;
 
+    @include mq($to: small) {
+      @include visuallyhidden();
+    }
     @include polyFluidSizing('top', map-get($pageHeaderCurves, ktzhLogoTop));
     @include polyFluidSizing('left', map-get($pageHeaderCurves, ktzhLogoLeft));
-  }
-
-  &__logo {
-    @include polyFluidSizing('width', map-get($pageHeaderCurves, ktzhLogoWidth));
-    @include polyFluidSizing('height', map-get($pageHeaderCurves, ktzhLogoWidth));
-    @include sizeCurve('padding-top', ktzhLogoPaddingTop, $pageHeaderCurves);
   }
 
   &__breadcrumb {
     min-height: 1.5em;
 
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-    @include sizeCurve('margin-bottom', breadcrumpMarginBottom, $pageHeaderCurves);
+    @include sizeCurve('margin-bottom', breadcrumbMarginBottom, $pageHeaderCurves);
 
     span {
-      color: $colorBlack60;
-    }
-
-    .mdl-page-header__closebutton {
-      position: fixed;
-      line-height: 1.5em;
-
-      @include mq($from: tiny, $to: large) {
-        right: $sizeBig;
-        right: calc(#{$sizeBig} + var(--scrollbar-wd)); // stylelint-disable-line
-      }
-      @include mq($from: large) {
-        right: $sizeBiggerBig;
-        right: calc(#{$sizeBiggerBig} + var(--scrollbar-wd)); // stylelint-disable-line
-      }
-      @include sizeCurve('top', closeButtonTop, $pageHeaderCurves);
-      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-
-      .icon {
-        @include sizeCurve('width', closeButtonWidth, $pageHeaderCurves);
-        display: inline-block;
-        vertical-align: middle;
-        top: -2px;
-        left: $sizeTiny;
-        position: relative;
-      }
-    }
-
-    .mdl-breadcrumb--back-only {
-      @include mq($to: small) {
-        margin-left: pxToRem(-1 * $sizeLarge);
-      }
+      color: var(--color-text-soft);
     }
   }
 
   &__breadcrumb-angle,
   &__breadcrumb-backlink {
     vertical-align: text-top;
-    width: $sizeFontMedium;
-    height: $sizeFontMedium;
+    width: pxToRem($sizeSmallLarge);
+    height: pxToRem($sizeSmallLarge);
     margin-left: 0;
 
     @include mq($from: tiny, $to: medium) {
-      margin-left: -$sizeFontMedium;
+      margin-left: pxToRem(-1 * $sizeSmallLarge);
     }
   }
 
   &__breadcrumb-backlink use {
-    fill: $colorBlack60;
+    fill: var(--color-text-soft);
+  }
+
+  .mdl-content_nav {
+    @include sizeCurve(margin-block, medium);
+  }
+
+  .mdl-lead_section {
+    margin-top: 0;
+
+    @include sizeCurve(margin-bottom, medium);
+  }
+
+  .mdl-tag-group {
+    max-width: pxToRem($sizeWidthTextContent);
+
+    @include sizeCurve(margin-bottom, smallerRegular);
+
+    .atm-heading {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+      @include mq($from: tiny, $to: medium) {
+        margin-bottom: 0;
+      }
+      @include mq($from: medium) {
+        margin-bottom: pxToRem($sizeMini);
+      }
+    }
+
+    &__tags {
+      margin-bottom: 0;
+
+      @include mq($from: large) {
+        li {
+          margin-right: pxToRem($sizeTiny);
+        }
+      }
+
+      .atm-anchorlink--tag-top {
+        margin-top: pxToRem($sizeTiny);
+        margin-bottom: 0;
+        font-size: pxToRem($sizeFontBiggerRegular);
+
+        @include mq($from: tiny, $to: medium) {
+          padding: 0 pxToRem($sizeSmallRegular);
+          height: pxToRem($sizeBig);
+          line-height: $sizeBig;
+          margin-top: pxToRem($sizeMini);
+        }
+      }
+    }
   }
 
   &--minimal {
-    @include sizeCurve(padding-bottom padding-top, pageHeaderMinimal, $pageHeaderCurves);
+    @include sizeCurve(padding-bottom padding-top, pageHeaderMinimalPadding, $pageHeaderCurves);
+    @include sizeCurve(min-height, pageTitleMinimalHeight, $pageHeaderCurves);
 
     .mdl-page-header__breadcrumb {
       margin-bottom: 0;
@@ -205,13 +216,7 @@ $pageHeaderCurves: (
     }
 
     .mdl-page-header__title {
-      @include sizeCurve(line-height, pageTitleMinimalLineHeight, $pageHeaderCurves);
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-      @include mq($from: xlarge) {
-        position: fixed;
-        left: $sizeBig;
-        top: $sizeSmallBig;
-      }
 
       margin-bottom: 0;
     }
@@ -220,18 +225,10 @@ $pageHeaderCurves: (
       display: none;
     }
 
-    .mdl-page-header__expander {
-      margin-top: -$sizeMini;
-
-      @include mq($from: tiny, $to: medium) {
-        margin-top: -$sizeTiny;
-      }
-    }
-
     .lyt-wrapper:first-child {
       .grid-x:nth-child(1) {
         @include mq($from: xlarge) {
-          min-height: $sizeLarge;
+          min-height: pxToRem($sizeLarge);
         }
       }
 
@@ -241,214 +238,77 @@ $pageHeaderCurves: (
     }
   }
 
-  &__dateline {
-    margin-bottom: $sizeMini;
-    color: $colorBlack60;
-    font-size: $sizeFontTiny;
-  }
+  &--report {
+    @include sizeCurve('margin-bottom', big);
 
-  &__news-category {
-    font-family: $fontFamilyBlack;
-  }
-
-  &__expander {
-    position: fixed;
-    right: 0;
-    margin-top: $sizeTiny;
-    padding-right: $sizeRegular;
-
-    @include mq($from: tiny, $to: medium) {
-      margin-top: -$sizeTiny;
-    }
-  }
-
-  .atm-lead {
-    margin-top: 0;
-    margin-left: 0;
-  }
-
-  .atm-button {
-    @include sizeCurve(margin-bottom, regular);
-  }
-
-  .mdl-video__preview {
-    .atm-button {
+    &:not(.mdl-page-header--mood-image) {
       margin-bottom: 0;
     }
-  }
 
-  .mdl-person_card {
-    margin-bottom: 0;
+    &.mdl-page-header--mood-image {
+      padding-bottom: 0 !important; // stylelint-disable-line
+      overflow: hidden;
+    }
 
-    .atm-button {
-      margin-bottom: 0;
+    .lyt-wrapper {
+      isolation: isolate;
+      z-index: $zIndexInner;
     }
   }
 
-  .mdl-tag-group {
-    @include mq($from: tiny, $to: xsmall) {
-      @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
-    }
+  &__report {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background-color: transparent !important; // stylelint-disable-line
 
-    max-width: $sizeWidthTextContent;
-
-    .atm-heading {
-      @include mq($from: tiny, $to: medium) {
-        margin-bottom: 0;
-      }
-      @include mq($from: medium) {
-        margin-bottom: $sizeMini;
-      }
-    }
-
-    .mdl-tag-group__tags {
-      @include sizeCurve(margin-bottom, regular);
-      @include mq($from: large) {
-
-        li {
-          margin-right: $sizeTiny;
-        }
-      }
-
-      .atm-anchorlink--tag-top {
-        margin-bottom: 0;
-        margin-top: $sizeTiny;
-        font-size: $sizeFontBiggerRegular;
-
-        @include mq($from: tiny, $to: medium) {
-          padding: 0 $sizeSmallRegular;
-          height: $sizeBig;
-          line-height: $sizeBig;
-          margin-top: $sizeMini;
-        }
-      }
-    }
+    @include sizeCurve('padding-bottom', govPlatformPaddingBottom, $pageHeaderCurves);
   }
 
-  &--error {
-
-    @include sizeCurve(padding-bottom, big);
-
-    &__block {
-      .atm-lead,
-      .atm-paragraph {
-        margin-bottom: $sizeTiny;
-        text-indent: 0;
-      }
-
-      .atm-paragraph {
-        @include polyFluidSizing(font-size, map-get($fontSizeCurves, supersmall));
-      }
-
-      &-button {
-        @include sizeCurve(margin-bottom, regular);
-
-        .atm-button {
-          margin-bottom: 0;
-        }
-      }
-
-      .mdl-image-figure,
-      .mdl-video {
-        margin-bottom: 0;
-      }
-
-
-      @include sizeCurve(margin-bottom, medium);
-
-      .mdl-tag-group {
-        @include sizeCurve(margin-top, medium);
-      }
-
-      p:last-of-type {
-        @include sizeCurve(margin-bottom, medium);
-      }
-    }
-  }
-
-
-  &--headerimage {
-    padding-bottom: 0;
+  &__mood-image {
+    position: absolute;
+    bottom: 0;
 
     .mdl-image-figure {
+      margin: 0;
+      width: 100%;
+
       &__img-wrapper {
         margin-bottom: 0;
       }
-    }
 
-    .mdl-page-header__subsection {
-      @include sizeCurve(margin-top, subsectionMarginTop, $pageHeaderCurves, $isNegative: true);
-      @include sizeCurve(padding-top, subsectionPaddingTop, $pageHeaderCurves);
-
-      .lyt-wrapper {
-        @include sizeCurve(margin-bottom, subsectionMarginBottom, $pageHeaderCurves);
+      img {
+        max-width: none;
+        width: 100%;
+        margin-left: 0;
+        transform: none;
       }
     }
 
-    &.mdl-page-header--image-title {
-      .mdl-image-figure__img-wrapper {
-        margin-bottom: $sizeTiny;
-      }
+    &:after {
+      content: '';
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      display: block;
+      position: absolute;
+      top: 0;
+      background: linear-gradient(180deg, var(--color-accent) 0%, transparent 100%);
 
-      .mdl-page-header__subsection {
-        @include sizeCurve(margin-top, subsectionImageTitleMarginTop, $pageHeaderCurves, $isNegative: true);
-        @include sizeCurve(padding-top, subsectionImageTitlePaddingTop, $pageHeaderCurves);
+      @include mq($from: small) {
+        aspect-ratio: 7 / 3;
       }
     }
   }
-}
 
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .mdl-page-header {
-      &--inverted,
-      [ class*='--inverted' ] & {
-        background-color: #{$val};
+  &--e-directory {
+    @include sizeCurve(padding-top, big);
+  }
 
-        ::selection {
-          color: $colorBlack;
-          background: $colorWhite;
-        }
-
-        .atm-heading,
-        .atm-lead,
-        .atm-paragraph,
-        .mdl-page-header__breadcrumb,
-        .mdl-breadcrumb__show-context,
-        .mdl-page-header__closebutton {
-          color: $colorWhite;
-        }
-
-        .mdl-person_card {
-          .atm-paragraph {
-            color: $colorText;
-          }
-
-          .atm-heading {
-            color: $colorBlack;
-          }
-        }
-
-        .mdl-page-header__breadcrumb use {
-          fill: $colorWhite;
-        }
-
-        .mdl-page-header__subsection {
-          background-color: $colorWhite;
-
-          ::selection {
-            background: #{$val};
-            color: $colorWhite;
-          }
-
-          .atm-heading,
-          .atm-lead,
-          .atm-paragraph,
-          .mdl-page-header__breadcrumb {
-            color: $colorBlack;
-          }
-        }
-      }
+  .atm-button.atm-button--secondary {
+    &,
+    &:hover,
+    &:focus {
+      color: var(--color-text);
     }
   }
 }

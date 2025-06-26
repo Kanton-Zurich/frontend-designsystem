@@ -2,7 +2,7 @@ $modalCurves: (
   closeTop: (
     tiny: $sizeRegular,
     medium: $sizeLarge,
-    xlarge: $sizeLarge
+    xlarge: $sizeLarge,
   ),
   closeRight: (
     tiny: $sizeRegular,
@@ -12,7 +12,7 @@ $modalCurves: (
     tiny: 128px,
     xsmall: 128px,
     small: 56px,
-    medium: 72px
+    medium: 72px,
   ),
 );
 
@@ -81,7 +81,7 @@ $modalCurves: (
       display: none;
     }
 
-    &[ data-page='1' ] {
+    &[data-page='1'] {
       transform: translateX(0);
 
       .mdl-modal__pages-page:nth-child(1) {
@@ -90,7 +90,7 @@ $modalCurves: (
       }
     }
 
-    &[ data-page='2' ] {
+    &[data-page='2'] {
       transform: translateX(-100%);
 
       .mdl-modal__pages-page:nth-child(2) {
@@ -99,7 +99,7 @@ $modalCurves: (
       }
     }
 
-    &[ data-page='3' ] {
+    &[data-page='3'] {
       transform: translateX(-200%);
 
       .mdl-modal__pages-page:nth-child(3) {
@@ -108,7 +108,7 @@ $modalCurves: (
       }
     }
 
-    &[ data-page='4' ] {
+    &[data-page='4'] {
       transform: translateX(-300%);
 
       .mdl-modal__pages-page:nth-child(4) {
@@ -143,6 +143,16 @@ $modalCurves: (
     }
   }
 
+  &[id*='edirectory'] > div {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    > div:nth-of-type(2) {
+      flex-grow: 1;
+    }
+  }
+
   &__close {
     position: absolute;
     right: 0;
@@ -151,8 +161,8 @@ $modalCurves: (
     align-items: baseline;
     z-index: $zIndexOverlays;
 
-    @include sizeCurve(margin-top, closeTop, $modalCurves);
-    @include sizeCurve(margin-right, closeRight, $modalCurves);
+    @include sizeCurve(padding-block, closeTop, $modalCurves);
+    @include sizeCurve(padding-right, closeRight, $modalCurves);
     @include textButton;
   }
 
@@ -177,12 +187,11 @@ $modalCurves: (
     top: 0;
     left: 0;
     transition: min-height 1s, max-height 1s;
-    max-height: $scrollHeightMax;
     min-height: $scrollHeightMedium;
 
     &--minimal {
       min-height: $scrollHeightTiny;
-      max-height: $scrollHeightSmall;
+      max-height: $scrollHeightMedium;
     }
   }
 
@@ -191,6 +200,7 @@ $modalCurves: (
     transform: initial;
     position: initial;
     margin-left: 0;
+    margin-top: 0;
   }
 
   /**
@@ -233,5 +243,13 @@ $modalCurves: (
       right: 50vw;
       transform: translateX(50%) !important; //stylelint-disable-line
     }
+  }
+}
+
+// move modal up when navigation is on level 1 to take space
+// of hidden top navigation
+.mdl-modal--flyout:has(div[data-topiclist='furtherLayers']):has(.mdl-subnavigation) {
+  @include mq($to: small) {
+    padding-top: 4rem;
   }
 }

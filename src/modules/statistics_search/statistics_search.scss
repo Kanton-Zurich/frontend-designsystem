@@ -1,0 +1,186 @@
+.mdl-statistics_search {
+  $dropdownWidth: pxToRem(120px);
+  $sortMinWidth: pxToRem(280px);
+  $inputElementHeight: pxToRem(72px);
+
+  &--loading {
+    position: relative;
+    height: $loadingMinHeight;
+    overflow: hidden;
+  }
+
+  &__wrapper {
+    @include gridBleed($fullwidth: true);
+    background: $colorBg;
+    padding-top: pxToRem($sizeLarge);
+
+    @include mq($from: medium) {
+      padding-top: pxToRem($sizeBiggerBig);
+    }
+  }
+
+  &__simple {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__form {
+    background: $colorWhite;
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem($sizeRegular);
+    padding: pxToRem($sizeRegular);
+    box-shadow: 0 0 pxToRem($sizeGiant) rgba(0, 0, 0, 0.2);
+    margin-bottom: 0;
+    z-index: 1;
+
+    @include mq($from: medium) {
+      flex-direction: row;
+    }
+
+    .atm-form_input {
+      display: inline-block;
+      flex: 1;
+    }
+
+    .atm-button {
+      justify-content: center;
+    }
+
+    &:after {
+      height: 50%;
+      width: 200vw;
+      top: 50%;
+      left: -50vw;
+      content: '';
+      position: absolute;
+      z-index: -1;
+      background-color: $colorBg;
+    }
+  }
+
+  > .atm-heading {
+    @include sizeCurve(margin-bottom, medium);
+  }
+
+  &__autosuggest {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    background: $colorWhite;
+    box-shadow: 0 0 pxToRem($sizeRegular) rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
+
+    .atm-content_teaser {
+      padding: pxToRem($sizeSmallRegular);
+
+      &[role='button'] {
+        .atm-content_teaser__title {
+          font-family: $fontFamilyBase;
+          color: $colorBlack60;
+          font-size: $sizeFontRegular;
+        }
+      }
+
+      &:hover,
+      &:focus {
+        background: $colorBlack10;
+
+        &[role='button'] {
+          .atm-content_teaser__title {
+            color: $colorBlack;
+          }
+        }
+      }
+
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+
+    @include mq($from: medium) {
+      flex-direction: row;
+    }
+
+    gap: pxToRem(30px);
+
+    @include sizeCurve('padding-bottom', medium);
+
+    .mdl-statistics_search__selection {
+      &.hidden {
+        display: none;
+      }
+
+      .mdl-filter-pills {
+        display: flex;
+
+        .atm-button--secondary {
+          color: $colorBlack;
+        }
+
+        button[data-clear] {
+          &.hidden {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  &__filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: pxToRem($sizeMini);
+  }
+
+  .mdl-statistics_teaser {
+    padding: 0 2rem 4.5rem;
+
+    @include mq($from: medium) {
+      padding-bottom: pxToRem(96px);
+    }
+    @include mq($from: large) {
+      max-width: pxToEm($sizeWidthContent);
+    }
+  }
+
+  &__no-results {
+    display: none;
+
+    &.visible {
+      display: block;
+
+      .atm-button {
+        display: inline-flex;
+        flex-direction: row-reverse;
+        gap: $sizeTiny;
+
+        svg {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  &__pagination {
+    margin-top: pxToRem($sizeRegular);
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  &__notification {
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .atm-loading_circle {
+    background: none;
+  }
+}

@@ -1,0 +1,393 @@
+.mdl-chatbot {
+  @include gridBleed($fullwidth: true);
+  background: var(--color-accent);
+  position: relative;
+  contain: layout;
+
+  .cell {
+    display: flex;
+    align-items: center;
+    gap: pxToRem($sizeSmallRegular);
+  }
+
+  &__title {
+    flex: 1;
+    color: $colorWhite;
+    font-family: $fontFamilyBlack;
+
+    @include sizeCurve(margin-top margin-bottom, smallerLarge);
+
+    font-size: $sizeFontBiggerRegular;
+
+    @include mq($from: small) {
+      font-size: $sizeFontMedium;
+    }
+    @include mq($from: large) {
+      font-size: $sizeFontSmallBig;
+    }
+  }
+
+  &__loading-hidden {
+    display: none;
+  }
+
+  &__error {
+    margin: -1px 0 0;
+    padding: pxToRem($sizeMini) pxToRem($sizeRegular);
+    font-size: $sizeFontTiny;
+    line-height: 1.5;
+    background: $colorRed;
+    color: $colorWhite;
+    width: 100%;
+
+    &-hidden {
+      display: none;
+    }
+  }
+}
+
+.mdl-chatbot__webchat {
+  height: 100%;
+
+  > div {
+    height: 100%;
+  }
+
+  .webchat__suggested-action {
+    font-family: InterBlack;
+  }
+
+  .webchat__adaptive-card-renderer .ac-actionSet .ac-pushButton {
+    border: none;
+    padding: pxToRem(10px) 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.6);
+    font-family: InterBlack;
+    justify-content: space-between !important; // stylelint-disable-line
+
+    &::after {
+      content: url("data:image/svg+xml,%3Csvg width='13' height='12' viewBox='0 0 13 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.95969 0.75L13 6L7.95969 11.25L6.62346 9.85777L9.38254 7L3.71547e-07 7L5.46392e-07 5L9.38254 5L6.62346 2.14191L7.95969 0.75Z' fill='black' fill-opacity='0.6'/%3E%3C/svg%3E%0A");
+      width: pxToRem(20px);
+      height: pxToRem(20px);
+      margin: pxToRem(5px);
+    }
+  }
+
+  .webchat__adaptive-card-renderer .ac-actionSet .ac-pushButton[aria-pressed='true'] {
+    background-color: inherit;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .webchat__basic-transcript .webchat__stacked-layout {
+    margin-left: pxToRem(5px);
+    margin-right: pxToRem($sizeRegular);
+
+    @include mq($from: small) {
+      margin-left: pxToRem(21px);
+      margin-right: pxToRem($sizeHuge);
+    }
+    @include mq($from: large) {
+      margin-left: pxToRem(66px);
+      margin-right: pxToRem(112px);
+    }
+
+    .webchat__stacked-layout__message-row .webchat__stacked-layout__message {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+
+      max-width: calc(100% - pxToRem($sizeBiggerBig));
+
+      @include mq($from: small) {
+        max-width: calc(100% - pxToRem($sizeHuge));
+      }
+      @include mq($from: large) {
+        max-width: calc(100% - pxToRem(92px));
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        border-bottom: 1px solid var(--color-accent);
+        hyphens: manual;
+
+        &:hover {
+          color: var(--color-text);
+          border-color: var(--color-text);
+        }
+      }
+    }
+  }
+
+  /* CZHDEV-4296 offset avatar width for user bubbles */
+  .webchat__stacked-layout.webchat__stacked-layout--from-user {
+    padding-left: pxToRem(37px);
+
+    @include mq($from: xlarge) {
+      padding-left: pxToRem(45px);
+    }
+  }
+
+  .webchat__stacked-layout:not(.webchat__stacked-layout--from-user) {
+    .webchat__stacked-layout__main {
+      gap: 5px;
+
+      .webchat__stacked-layout__avatar-gutter {
+        @include mq($from: xlarge) {
+          width: pxToRem($sizeBiggerBig);
+        }
+      }
+
+      .webchat__defaultAvatar {
+        overflow: visible;
+
+        .webchat__imageAvatar {
+          top: -0.3rem;
+          overflow: visible;
+
+          @include mq($from: xlarge) {
+            width: pxToRem($sizeBiggerBig);
+            height: pxToRem($sizeBiggerBig);
+          }
+        }
+      }
+    }
+
+    .webchat__stacked-layout__content {
+      &::before {
+        content: var(--botname);
+        font-family: InterBlack;
+        color: $colorWhite;
+      }
+    }
+
+    .webchat__bubble--hide-nub .webchat__bubble__nub-pad {
+      width: 0;
+    }
+
+    .webchat__bubble.webchat__bubble--from-user .webchat__bubble__content {
+      border-radius: 10px 0 10px 10px;
+    }
+
+    .webchat__bubble:not(.webchat__bubble--from-user) .webchat__bubble__content {
+      border-radius: 0 10px 10px;
+    }
+
+    .webchat__fileContent__buttonLink {
+      flex-direction: row-reverse;
+
+      border: none;
+      padding: pxToRem(10px) 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+      .webchat__fileContent__fileName {
+        color: rgba(0, 0, 0, 0.6);
+        font-family: InterBlack;
+
+        &::before {
+          content: url("data:image/svg+xml,%3Csvg width='20' height='18' viewBox='0 0 20 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 13L15.25 7.95969L13.8581 6.62346L11 9.38254V0H9V9.38254L6.14223 6.62346L4.75 7.95969L10 13Z' fill='black' fill-opacity='0.6'/%3E%3Cpath d='M20 18V16H0V18H20Z' fill='black' fill-opacity='0.6'/%3E%3C/svg%3E");
+          width: pxToRem($sizeLarge);
+          height: pxToRem($sizeLarge);
+          margin-right: pxToRem(10px);
+        }
+      }
+
+      .webchat__fileContent__downloadIcon {
+        display: none;
+      }
+    }
+  }
+
+  .webchat__typingIndicator {
+    border-radius: 0 10px 10px;
+    background-color: #eceff1; // from the animation blob
+    background-position: center;
+    padding: var(--webchat__padding--regular);
+    height: calc(100% + var(--webchat__padding--regular) * 2);
+
+    margin-left: pxToRem($sizeBig);
+
+    @include mq($from: small) {
+      margin-left: calc(pxToRem($sizeHuge) - 10px);
+    }
+    @include mq($from: large) {
+      margin-left: calc(pxToRem(112px) - 10px);
+    }
+  }
+
+  .webchat__suggested-actions__focus-indicator,
+  .webchat__suggested-action__keyboard-focus-indicator,
+  .webchat__icon-button__keyboard-focus-indicator,
+  .webchat__basic-transcript__activity-indicator--focus,
+  .webchat__stacked-layout__alignment-pad {
+    display: none;
+  }
+
+  .webchat__connectivityStatus {
+    margin: 0;
+    padding: pxToRem($sizeMini) pxToRem($sizeRegular);
+
+    @include mq($from: small) {
+      padding: pxToRem($sizeMini) pxToRem($sizeHuge);
+    }
+    @include mq($from: large) {
+      padding: pxToRem($sizeMini) pxToRem(112px);
+    }
+
+    font-size: $sizeFontTiny;
+    line-height: 1.5;
+    background: transparent;
+    color: $colorWhite;
+
+    svg,
+    div {
+      display: none;
+    }
+
+    &:has(svg) {
+      background: $colorRed;
+    }
+  }
+
+  .webchat__send-box {
+    padding: 0;
+    padding-bottom: pxToRem($sizeRegular);
+    padding-inline: pxToRem($sizeRegular);
+
+    @include mq($from: small) {
+      padding-inline: pxToRem($sizeHuge);
+    }
+    @include mq($from: large) {
+      padding-inline: pxToRem(112px);
+    }
+
+    background: $colorWhite;
+
+    .webchat__suggested-actions__flow-box {
+      @include fullWidthBackground();
+    }
+
+    div.webchat__send-box__main {
+      margin-top: pxToRem($sizeRegular);
+      border: 2px solid $colorBlack20;
+      border-radius: 1px;
+
+      .webchat__icon-button.webchat__send-box__button--align-stretch {
+        align-self: center;
+        margin-inline: pxToRem($sizeRegular);
+        height: pxToRem($sizeBig);
+        width: pxToRem($sizeBig);
+
+        @include mq($from: small) {
+          width: pxToRem($sizeSmallHuge);
+          height: pxToRem($sizeSmallHuge);
+        }
+
+        .webchat__icon-button__shade {
+          border-radius: 50%;
+        }
+
+        .webchat__send-icon {
+          width: pxToRem($sizeRegular);
+          height: pxToRem($sizeRegular);
+
+          @include mq($from: small) {
+            width: pxToRem($sizeLarge);
+            height: pxToRem($sizeLarge);
+          }
+        }
+      }
+
+      &:focus-within {
+        border: 2px solid $colorCyan;
+
+        .webchat__icon-button__shade {
+          background: rgba(0, 0, 0, 1);
+        }
+
+        .webchat__send-icon {
+          fill: #fff;
+        }
+      }
+    }
+  }
+
+  .webchat__basic-transcript__filler {
+    display: none;
+  }
+
+  .webchat__basic-transcript .webchat__basic-transcript__scrollable {
+    scrollbar-color: rgba(0, 0, 0, 0.4) rgba(255, 255, 255, 0);
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar-track {
+      display: none;
+    }
+
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 6px;
+    }
+  }
+}
+
+.mdl-chatbot__dialog {
+  background: linear-gradient(
+    126.83deg,
+    color-mix(in srgb, var(--color-accent) 70%, transparent) 6.31%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+
+  .mdl-dialog__window {
+    background: var(--color-accent);
+    border-radius: 8px;
+    overflow: hidden;
+
+    .mdl-dialog__header {
+      margin: pxToRem($sizeLarge) pxToRem($sizeLarge) pxToRem($sizeSmallRegular);
+
+      button {
+        color: $colorWhite;
+
+        use {
+          fill: $colorWhite;
+        }
+      }
+
+      .mdl-dialog__close {
+        background: rgba(0, 0, 0, 0.2);
+        height: pxToRem($sizeSmallHuge);
+        width: pxToRem($sizeSmallHuge);
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+
+        &:hover {
+          background: rgba($colorBlack, 0.4);
+        }
+
+        &:active {
+          background: $colorBlack;
+          color: $colorWhite;
+
+          use {
+            fill: $colorWhite;
+          }
+        }
+      }
+    }
+
+    .mdl-dialog__scroll-area {
+      padding: 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+
+      .mdl-dialog__content {
+        overflow: hidden;
+      }
+    }
+  }
+}

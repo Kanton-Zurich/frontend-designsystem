@@ -16,37 +16,89 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
-
+    languages: [
+      {
+        language: 'Leichte Sprache',
+        isEasyLanguage: true,
+        active: false,
+      },
+      {
+        language: 'English',
+        active: false,
+      },
+      {
+        language: 'Português',
+        active: false,
+      },
+      {
+        language: 'Türkçe',
+        active: false,
+      },
+      {
+        language: 'Deutsch',
+        active: true,
+      },
+    ],
   },
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Default',
+        desc: 'Default implementation',
+      },
+      props: {},
     },
-    props: {
-      selectData: selectDemoData.variants.defaultUpwards.props,
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
-
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+    active: {
+      meta: {
+        title: 'Leichte Sprache aktiv',
+        desc: 'Darstellung mit aktiver leichter Sprache',
+      },
+      props: {
+        languages: [
+          {
+            language: 'Leichte Sprache',
+            isEasyLanguage: true,
+            active: true,
+          },
+          {
+            language: 'English',
+            active: false,
+          },
+          {
+            language: 'Português',
+            active: false,
+          },
+          {
+            language: 'Türkçe',
+            active: false,
+          },
+          {
+            language: 'Deutsch',
+            active: false,
+          },
+        ],
       },
     },
-  });
+  },
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
+      },
+    });
 
-  return variantData;
-});
-
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

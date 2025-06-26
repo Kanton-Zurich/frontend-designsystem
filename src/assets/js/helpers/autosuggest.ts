@@ -1,36 +1,49 @@
 import { watch } from 'wrist';
-import {
-  debounce,
-  merge,
-  template,
-  sortBy,
-} from 'lodash';
+import debounce from 'lodash/debounce';
+import merge from 'lodash/merge';
+import template from 'lodash/template';
+import sortBy from 'lodash/sortBy';
+
+type AutosuggestOptions = {
+  url?: string;
+  input: HTMLInputElement;
+  target: HTMLDivElement;
+  delay?: number;
+  parent: HTMLDivElement; // only used fo events not for attaching dialog
+  list?: HTMLUListElement;
+  template: string; // lodash template for single element with <a> tag inside
+  renderAsButton?: boolean; // try to turn the give the a tag an aria role of button
+  searchPageUrl?: string;
+  autoHide?: boolean;
+  preventEnter?: boolean;
+  maxResults?: number;
+  searchTermFirst?: boolean;
+};
+
+type AutosuggestItem = {
+  title: string;
+  value?: string;
+  subpages?: any[];
+  path?: string;
+  synonyms?: string[];
+};
+
+type AutosuggestData = AutosuggestItem[] | string[];
 /**
  *
  *
  * @class Autosuggest
  */
 class Autosuggest {
-  private options: {
-    url: string,
-    input: HTMLInputElement,
-    target: HTMLDivElement,
-    delay: number,
-    parent: HTMLDivElement,
-    list: HTMLUListElement,
-    template: string,
-    renderAsButton: boolean,
-    searchPageUrl: string,
-    autoHide: boolean,
-  };
+  private options: AutosuggestOptions;
 
   private classes: {
-    parent: any,
+    parent: any;
   };
 
   private stateClasses: any;
 
-  private data: any;
+  private data: AutosuggestData;
 
   private query: string;
 
@@ -42,11 +55,15 @@ class Autosuggest {
 
   private disabled: boolean;
 
-  constructor(options, data) {
-    this.options = merge({}, {
-      delay: 500,
-      list: options.target.querySelector('ul'),
-    }, options);
+  constructor(options: AutosuggestOptions, data) {
+    this.options = merge(
+      {},
+      {
+        delay: 500,
+        list: options.target.querySelector('ul'),
+      },
+      options
+    );
 
     this.data = data;
 
@@ -91,23 +108,28 @@ class Autosuggest {
    */
   addEvents() {
     this.options.input.addEventListener('keydown', (event) => {
-      if (event.code === 'ArrowDown' && this.options.list.childElementCount > 0) {
+      if (
+        (event.code === 'ArrowDown' && this.options.list.childElementCount > 0) ||
+        (this.options.preventEnter && (event.code === 'Enter' || event.key === 'Enter'))
+      ) {
         this.focusFirstItem();
-
         return false;
       }
       if (event.code === 'Enter' || event.key === 'Enter') {
-        this.options.parent.dispatchEvent(new CustomEvent(Autosuggest.events.termSelected, {
-          detail: this.options.input.value,
-        }));
+        this.options.parent.dispatchEvent(
+          new CustomEvent(Autosuggest.events.termSelected, {
+            detail: this.options.input.value,
+          })
+        );
       }
       return true;
     });
 
-    this.options.target
-      .addEventListener(Autosuggest.events.empty, this.onEmpty.bind(this));
-    this.options.target
-      .addEventListener(Autosuggest.events.disableNext, this.onDisableNext.bind(this));
+    this.options.target.addEventListener(Autosuggest.events.empty, this.onEmpty.bind(this));
+    this.options.target.addEventListener(
+      Autosuggest.events.disableNext,
+      this.onDisableNext.bind(this)
+    );
   }
 
   /**
@@ -117,12 +139,14 @@ class Autosuggest {
    * @memberof Autosuggest
    */
   dispatchStatusEvent(event, results = 0) {
-    this.options.parent.dispatchEvent(new CustomEvent(event, {
-      detail: {
-        results,
-        query: this.query,
-      },
-    }));
+    this.options.parent.dispatchEvent(
+      new CustomEvent(event, {
+        detail: {
+          results,
+          query: this.query,
+        },
+      })
+    );
   }
 
   /**
@@ -153,7 +177,6 @@ class Autosuggest {
         if (this.results.length > 0) {
           this.dispatchStatusEvent(Autosuggest.events.filtered, this.results.length);
           this.renderResults();
-          window.dispatchEvent(new CustomEvent('reloadLineClamper'));
         } else {
           this.dispatchStatusEvent(Autosuggest.events.noResult);
         }
@@ -197,6 +220,34 @@ class Autosuggest {
   }
 
   /**
+   * Sorting the results with search term first
+   *
+   * @memberof Autosuggest
+   */
+  sortSearchTermFirst() {
+    this.results = this.results.sort((a, b) => {
+      let aText = '';
+      if (typeof a === 'string') {
+        aText = a;
+      } else if (Object.prototype.hasOwnProperty.call(a, 'title')) {
+        aText = a.title;
+      }
+      let bText = '';
+      if (typeof b === 'string') {
+        bText = b;
+      } else if (Object.prototype.hasOwnProperty.call(b, 'title')) {
+        bText = b.title;
+      }
+      const aStartsWithQuery = aText.trim().toLowerCase().startsWith(this.query.toLowerCase());
+      const bStartsWithQuery = bText.trim().toLowerCase().startsWith(this.query.toLowerCase());
+
+      if (aStartsWithQuery && !bStartsWithQuery) return -1;
+      if (!aStartsWithQuery && bStartsWithQuery) return 1;
+      return aText.localeCompare(bText);
+    });
+  }
+
+  /**
    * Filter the given response
    *
    * @memberof Autosuggest
@@ -208,10 +259,17 @@ class Autosuggest {
     this.data.forEach((item) => {
       if (Object.prototype.hasOwnProperty.call(item, 'title')) {
         this.matchComplexItem(item, queryRegEx);
-      } else {
+      } else if (typeof item === 'string') {
         this.results.push(item.replace(queryRegEx, '<span class="bold">$1</span>'));
       }
     });
+
+    this.results = sortBy(this.results, ['title']);
+    if (this.options.searchTermFirst) this.sortSearchTermFirst();
+
+    if (this.options.maxResults && this.results.length > this.options.maxResults) {
+      this.results = this.results.slice(0, this.options.maxResults);
+    }
   }
 
   /**
@@ -226,7 +284,7 @@ class Autosuggest {
     let synonymMatch = false;
 
     if (item.synonyms) {
-      synonymMatch = item.synonyms.filter(synonym => regEx.test(synonym)).length > 0;
+      synonymMatch = item.synonyms.filter((synonym) => regEx.test(synonym)).length > 0;
     }
 
     if (titleMatch || synonymMatch) this.results.push(item);
@@ -244,21 +302,22 @@ class Autosuggest {
    * @memberof Autosuggest
    */
   renderResults() {
-    const sortedResults = sortBy(this.results, ['title']);
-
-    sortedResults.forEach((result) => {
+    this.results.forEach((result) => {
       if (this.options.autoHide) {
         this.options.target.style.removeProperty('display');
       }
 
       let resultTerm = result;
       if (typeof result === 'string') {
-        resultTerm = result.replace(/(<([^>]+)>)/ig, '');
+        resultTerm = result.replace(/(<([^>]+)>)/gi, '');
       }
       this.renderItem({
         shortTitle: Object.prototype.hasOwnProperty.call(result, 'title') ? result.title : result,
         buzzwords: '',
-        target: Object.prototype.hasOwnProperty.call(result, 'path') ? result.path : `${this.options.searchPageUrl}?q=${encodeURIComponent(resultTerm)}`,
+        target: Object.prototype.hasOwnProperty.call(result, 'path')
+          ? result.path
+          : `${this.options.searchPageUrl}?q=${encodeURIComponent(resultTerm)}`,
+        value: Object.prototype.hasOwnProperty.call(result, 'value') ? result.value : null,
       });
     });
 
@@ -271,7 +330,7 @@ class Autosuggest {
    * @param {any} context the object with the context information
    * @memberof Autosuggest
    */
-  renderItem(context) {
+  renderItem(context: { shortTitle: string; buzzwords: string; target: string; value?: string }) {
     const html = `<li class="mdl-content_nav__item">${this.template(context)}</li>`;
     const parsed = new DOMParser().parseFromString(html, 'text/html').querySelector('li');
 
@@ -279,7 +338,8 @@ class Autosuggest {
       const aTag = parsed.querySelector('a');
       aTag.setAttribute('role', 'button');
       aTag.removeAttribute('href');
-      aTag.setAttribute('data-term', context.shortTitle.replace(/(<([^>]+)>)/ig, ''));
+      aTag.setAttribute('data-term', context.shortTitle.replace(/(<([^>]+)>)/gi, ''));
+      if (context.value) aTag.setAttribute('data-value', context.value);
       aTag.setAttribute('tabindex', '0');
 
       aTag.addEventListener('click', this.dispatchTerm.bind(this, aTag));
@@ -300,12 +360,8 @@ class Autosuggest {
    * @memberof Autosuggest
    */
   async fetchData() {
-    if (!window.fetch) {
-      await import('whatwg-fetch');
-    }
-
     return fetch(`${this.options.url}?q=${encodeURIComponent(this.query)}`)
-      .then(response => response.status === 200 ? response.json() : null) // eslint-disable-line
+      .then((response) => (response.status === 200 ? response.json() : null)) // eslint-disable-line
       .then((response) => {
         if (this.disabled || !response) {
           this.disabled = false;
@@ -326,14 +382,19 @@ class Autosuggest {
   addRenderedEvents() {
     const listItems = this.options.list.querySelectorAll('a, button');
 
-    listItems.forEach((listItem) => {
-      listItem.addEventListener('keydown', (event) => {
-        switch ((<KeyboardEvent>event).code) {
+    listItems.forEach((listItem: HTMLElement) => {
+      listItem.addEventListener('keydown', (event: KeyboardEvent) => {
+        switch (event.code) {
           case 'ArrowUp':
+            event.preventDefault();
             this.focusPrevItem(event.target);
             break;
           case 'ArrowDown':
+            event.preventDefault();
             this.focusNextItem(event.target);
+            break;
+          case 'Enter':
+            listItem.click();
             break;
           default:
             break;
@@ -348,7 +409,10 @@ class Autosuggest {
    * @memberof Autosuggest
    */
   focusFirstItem() {
-    (<HTMLElement> this.options.list.querySelector('a, button')).focus();
+    const firstElement: HTMLElement = this.options.list.querySelector('a, button');
+    if (firstElement) {
+      firstElement.focus();
+    }
   }
 
   focusPrevItem(currentFocus) {
@@ -380,9 +444,11 @@ class Autosuggest {
   dispatchTerm(aTag) {
     this.selectedTerm = aTag.dataset.term;
 
-    this.options.parent.dispatchEvent(new CustomEvent(Autosuggest.events.termSelected, {
-      detail: this.selectedTerm,
-    }));
+    this.options.parent.dispatchEvent(
+      new CustomEvent(Autosuggest.events.termSelected, {
+        detail: aTag.dataset.value || this.selectedTerm,
+      })
+    );
   }
 }
 

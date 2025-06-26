@@ -6,7 +6,7 @@
  */
 import Module from '../../assets/js/helpers/module';
 import { getAllURLParams, getURLParam } from '../../assets/js/helpers/common';
-import { template } from 'lodash';
+import template from 'lodash/template';
 import Table from '../table/table';
 import Select from '../select/select';
 import namespace from '../../assets/js/helpers/namespace';
@@ -16,25 +16,25 @@ import Datepicker from '../datepicker/datepicker';
 
 class FlexData extends Module {
   public ui: {
-    element: HTMLDivElement,
-    results: HTMLDivElement,
-    resultsTemplate: HTMLScriptElement,
-    resultsGeneric: HTMLDivElement,
-    genericSort: HTMLDivElement,
-    genericSortDropdown: HTMLDivElement,
-    genericSortButton: HTMLButtonElement,
-    resultsGenericTitle: HTMLHeadingElement,
-    resultsTable: HTMLTableElement,
-    resultsTableBody: HTMLElement,
-    resultsTableTitle: HTMLHeadingElement,
-    resultsTableColumns: HTMLElement[],
-    form: HTMLFormElement,
-    pagination: HTMLDivElement,
-    notification: HTMLDivElement,
-    paginationInput: HTMLInputElement,
-    submitButton: HTMLButtonElement,
-    clearButton: HTMLButtonElement,
-    includeRepealed: HTMLInputElement,
+    element: HTMLDivElement;
+    results: HTMLDivElement;
+    resultsTemplate: HTMLScriptElement;
+    resultsGeneric: HTMLDivElement;
+    genericSort: HTMLDivElement;
+    genericSortDropdown: HTMLDivElement;
+    genericSortButton: HTMLButtonElement;
+    resultsGenericTitle: HTMLHeadingElement;
+    resultsTable: HTMLTableElement;
+    resultsTableBody: HTMLElement;
+    resultsTableTitle: HTMLHeadingElement;
+    resultsTableColumns: HTMLElement[];
+    form: HTMLFormElement;
+    pagination: HTMLDivElement;
+    notification: HTMLDivElement;
+    paginationInput: HTMLInputElement;
+    submitButton: HTMLButtonElement;
+    clearButton: HTMLButtonElement;
+    includeRepealed: HTMLInputElement;
   };
   public options: any;
   public dataUrl: string;
@@ -45,8 +45,7 @@ class FlexData extends Module {
   private paginationInteraction: boolean;
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       initDelay0: 200,
       initDelay1: 300,
@@ -103,7 +102,10 @@ class FlexData extends Module {
     this.ui.clearButton.addEventListener('click', this.onClearResults.bind(this));
     this.ui.form.addEventListener('keypress', (event: any) => {
       const active = document.activeElement;
-      if (event.key === 'Enter' && (active.tagName !== 'BUTTON' || active.hasAttribute('data-search-flex'))) {
+      if (
+        event.key === 'Enter' &&
+        (active.tagName !== 'BUTTON' || active.hasAttribute('data-search-flex'))
+      ) {
         event.preventDefault();
         this.ui.submitButton.click();
         return false;
@@ -141,7 +143,8 @@ class FlexData extends Module {
     // Listen to sort-dropdown events
     if (this.ui.genericSortButton) {
       this.ui.genericSortButton.addEventListener('click', () => {
-        const newState = this.ui.genericSortButton.getAttribute('aria-expanded') === 'false' ? 'true' : 'false';
+        const newState =
+          this.ui.genericSortButton.getAttribute('aria-expanded') === 'false' ? 'true' : 'false';
         this.ui.genericSortDropdown.classList.toggle('visible');
         this.ui.genericSortButton.setAttribute('aria-expanded', newState);
       });
@@ -170,7 +173,8 @@ class FlexData extends Module {
     this.order = sortParamElemet.getAttribute('data-sort-direction');
     this.orderBy = sortParamElemet.getAttribute('data-sort-column');
     const initialLoad = this.ui.element.hasAttribute('data-initial-load');
-    if (getAllURLParams()['page'] || initialLoad) { // eslint-disable-line
+    // eslint-disable-next-line
+    if (getAllURLParams()['page'] || initialLoad) {
       this.updateViewFromURLParams();
       setTimeout(() => {
         if (this.isVisible()) {
@@ -179,10 +183,14 @@ class FlexData extends Module {
       }, this.options.initDelay1);
     }
 
-    // EventListener to set localstorage
-    this.eventDelegate.on('click', `${this.options.domSelectors.results} .mdl-table__cell a`, () => {
-      window.sessionStorage.setItem('origin', window.location.href);
-    });
+    // EventListener to set session storage
+    this.eventDelegate.on(
+      'click',
+      `${this.options.domSelectors.results} .mdl-table__cell a`,
+      () => {
+        window.sessionStorage.setItem('origin', window.location.href);
+      }
+    );
   }
 
   /**
@@ -216,8 +224,9 @@ class FlexData extends Module {
 
       // Disabled 2. select in case its a drilldown-select
       if (select.hasAttribute('data-drilldown-secondary')) {
-        select
-          .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: true } }));
+        select.dispatchEvent(
+          new CustomEvent(Select.events.disable, { detail: { disabled: true } })
+        );
       }
     });
     this.ui.form.querySelectorAll('.mdl-accordion').forEach((accordion: HTMLDivElement) => {
@@ -279,7 +288,9 @@ class FlexData extends Module {
     });
     sortSetting.classList.add('atm-context_menu_item--selected');
     sortSetting.setAttribute('aria-pressed', 'true');
-    this.ui.genericSortButton.querySelector<HTMLSpanElement>('.atm-form_input__trigger-value').innerText = sortSetting.querySelector('span').innerText;
+    this.ui.genericSortButton.querySelector<HTMLSpanElement>(
+      '.atm-form_input__trigger-value'
+    ).innerText = sortSetting.querySelector('span').innerText;
   }
 
   /**
@@ -310,19 +321,33 @@ class FlexData extends Module {
         if (jsonData.numberOfResultPages > 1) {
           this.ui.pagination.classList.remove('hidden');
         }
-        this.ui.pagination.dispatchEvent(new CustomEvent(Pagination
-          .events.setPageCount, { detail: jsonData.numberOfResultPages }));
+        this.ui.pagination.dispatchEvent(
+          new CustomEvent(Pagination.events.setPageCount, { detail: jsonData.numberOfResultPages })
+        );
         const canonicalUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
         let prevUrl = '';
         if (parseInt(this.ui.paginationInput.value, 10) > 1) {
-          prevUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`)}`;
+          prevUrl = `${this.getBaseUrl()}?${this.currentUrl
+            .split('?')[1]
+            .replace(
+              /page=(0|[1-9][0-9]*)/,
+              `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`
+            )}`;
         }
         let nextUrl = '';
         if (parseInt(this.ui.paginationInput.value, 10) < jsonData.numberOfResultPages) {
-          nextUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`)}`;
+          nextUrl = `${this.getBaseUrl()}?${this.currentUrl
+            .split('?')[1]
+            .replace(
+              /page=(0|[1-9][0-9]*)/,
+              `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`
+            )}`;
         }
-        this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setCanonicalUrls,
-          { detail: { prev: prevUrl, next: nextUrl } }));
+        this.ui.pagination.dispatchEvent(
+          new CustomEvent(Pagination.events.setCanonicalUrls, {
+            detail: { prev: prevUrl, next: nextUrl },
+          })
+        );
         // update canonical links
         this.upsertLinkRel('prev', prevUrl);
         this.upsertLinkRel('next', nextUrl);
@@ -382,20 +407,23 @@ class FlexData extends Module {
         this.ui.resultsGeneric.innerHTML = '';
       }
 
-    // too many results
+      // too many results
     } else if (jsonData.moreSearchResultsThanAllowed) {
-      resultsTitle = this.ui.results.getAttribute('data-result-count-title-more')
+      resultsTitle = this.ui.results
+        .getAttribute('data-result-count-title-more')
         .replace('%1', jsonData.numberOfResults);
 
-    // full list of results
+      // full list of results
     } else {
-      resultsTitle = this.ui.results.getAttribute('data-result-count-title')
+      resultsTitle = this.ui.results
+        .getAttribute('data-result-count-title')
         .replace('%1', jsonData.numberOfResults);
     }
 
     if (jsonData && jsonData.numberOfResultPages > 1) {
       this.ui.pagination.setAttribute('data-pagecount', jsonData.numberOfResultPages);
-      this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML = jsonData.numberOfResultPages;
+      this.ui.pagination.querySelector('.mdl-pagination__page-count > span').innerHTML =
+        jsonData.numberOfResultPages;
       this.ui.pagination.classList.remove('hidden');
     } else {
       this.ui.pagination.classList.add('hidden');
@@ -414,7 +442,9 @@ class FlexData extends Module {
 
           // Added searchhighlight to link href CZHDEV-3007
           let searchHighlightQuery = '';
-          const searchInputValue = (<HTMLInputElement>(this.ui.form.querySelector('input[type="text"]')));
+          const searchInputValue = <HTMLInputElement>(
+            this.ui.form.querySelector('input[type="text"]')
+          );
           if (searchInputValue && searchInputValue.value) {
             searchHighlightQuery = `?search=${encodeURIComponent(searchInputValue.value)}`;
           }
@@ -423,7 +453,8 @@ class FlexData extends Module {
             link: `${item.link}${searchHighlightQuery}`,
           };
           const resultsTableColumns = this.ui.resultsTableColumns.length
-            ? this.ui.resultsTableColumns : [this.ui.resultsTableColumns];
+            ? this.ui.resultsTableColumns
+            : [this.ui.resultsTableColumns];
           resultsTableColumns.forEach((col, index) => {
             const colName = col.getAttribute('data-column-name');
             props[`text${index}`] = item[colName];
@@ -458,7 +489,9 @@ class FlexData extends Module {
           }
         }
       } else {
-        const thWithdrawalDate = this.ui.resultsTable.querySelector('[data-column-name="withdrawalDate"]');
+        const thWithdrawalDate = this.ui.resultsTable.querySelector(
+          '[data-column-name="withdrawalDate"]'
+        );
 
         if (thWithdrawalDate) {
           thWithdrawalDate.removeAttribute('style');
@@ -474,8 +507,10 @@ class FlexData extends Module {
         this.ui.genericSort.classList.remove('hidden');
 
         this.ui.resultsGeneric.innerHTML = '';
-        this.ui.resultsGeneric.innerHTML = this
-          .markupFromTemplate(this.ui.resultsTemplate.innerHTML, jsonData);
+        this.ui.resultsGeneric.innerHTML = this.markupFromTemplate(
+          this.ui.resultsTemplate.innerHTML,
+          jsonData
+        );
       }
     }
   }
@@ -537,14 +572,17 @@ class FlexData extends Module {
       switch (key) {
         case 'page':
           setTimeout(() => {
-            this.ui.pagination
-              .dispatchEvent(new CustomEvent(Pagination.events.setPage, { detail: params[key] }));
+            this.ui.pagination.dispatchEvent(
+              new CustomEvent(Pagination.events.setPage, { detail: params[key] })
+            );
           }, 0);
           break;
         case 'order':
           if (this.ui.resultsTable) {
-            this.ui.resultsTable.setAttribute('data-sort-direction',
-              params[key][0] === 'desc' ? 'descending' : 'ascending');
+            this.ui.resultsTable.setAttribute(
+              'data-sort-direction',
+              params[key][0] === 'desc' ? 'descending' : 'ascending'
+            );
           }
           this.order = params[key][0]; // eslint-disable-line
           break;
@@ -564,7 +602,7 @@ class FlexData extends Module {
 
               if (item.hasAttribute('data-select-option')) {
                 // eslint-disable-next-line no-shadow
-                const decodedValues = values.map(item => decodeURIComponent(item));
+                const decodedValues = values.map((item) => decodeURIComponent(item));
                 // -----------
                 // dropdown
                 const payload = {
@@ -574,12 +612,14 @@ class FlexData extends Module {
                 const module = item.closest('.mdl-select');
                 if (module.hasAttribute('data-drilldown-secondary')) {
                   setTimeout(() => {
-                    module
-                      .dispatchEvent(new CustomEvent(Select.events.setValue, { detail: payload }));
+                    module.dispatchEvent(
+                      new CustomEvent(Select.events.setValue, { detail: payload })
+                    );
                   }, 0);
                 } else {
-                  module
-                    .dispatchEvent(new CustomEvent(Select.events.setValue, { detail: payload }));
+                  module.dispatchEvent(
+                    new CustomEvent(Select.events.setValue, { detail: payload })
+                  );
                 }
               } else if (item.classList.contains('flatpickr-input')) {
                 // -----------
@@ -628,14 +668,11 @@ class FlexData extends Module {
    */
   async fetchData(callback: Function, replaceState = false) {
     this.ui.results.classList.add(this.options.stateClasses.loading);
-
-    if (!window.fetch) {
-      await import('whatwg-fetch');
-    }
     this.currentUrl = this.constructUrl();
     return fetch(this.currentUrl)
       .then((response) => {
-        if (response.status !== 200 && response.status !== 204 ) { // eslint-disable-line
+        // eslint-disable-next-line
+        if (response.status !== 200 && response.status !== 204) {
           throw new Error('Error fetching resource!');
         }
         return response.status === 204 ? {} : response.json(); // eslint-disable-line
@@ -643,13 +680,16 @@ class FlexData extends Module {
       .then((response) => {
         if (response) {
           const wcmmode = getURLParam('wcmmode');
-          const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}${wcmmode ? '&wcmmode=' + wcmmode : ''}`; // eslint-disable-line
+          const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}${
+            wcmmode ? '&wcmmode=' + wcmmode : ''
+          }`; // eslint-disable-line
           if (replaceState) {
-            if (history.state && history.state.url && history.state.url !== canonical) { // eslint-disable-line
-              history.replaceState({url: canonical,}, null, canonical); // eslint-disable-line
+            if (history.state && history.state.url && history.state.url !== canonical) {
+              // eslint-disable-line
+              history.replaceState({ url: canonical }, null, canonical); // eslint-disable-line
             }
           } else {
-            history.pushState({url: canonical,}, null, canonical); // eslint-disable-line
+            history.pushState({ url: canonical }, null, canonical); // eslint-disable-line
           }
           callback(response);
           this.ui.notification.classList.add('hidden');

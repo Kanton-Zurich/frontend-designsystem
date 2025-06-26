@@ -1,8 +1,10 @@
+@use 'sass:math';
+
 $locationsPaddingCurve: (
   default: (
     tiny: $sizeBiggerBig,
     large: $sizeGiant,
-  )
+  ),
 );
 
 $sidebarMaxWidth: 386px;
@@ -50,10 +52,12 @@ $mapRatioSmall: 0.75;
   @include sizeCurve(margin-top margin-bottom, default, $locationsPaddingCurve);
 
   &__wrapper {
-    padding-top: calc((100vw - #{$sizeGiant}) / #{$mapRatioLarge}); // stylelint-disable-line -- preserve aspect 16:9 ratio
+    padding-top: calc(
+      (100vw - #{$sizeGiant}) / #{$mapRatioLarge}
+    ); // stylelint-disable-line -- preserve aspect 16:9 ratio
     margin-top: pxToRem($sizeGiant);
 
-    @media ( min-width: $sizeGlobalMaxWidth ) {
+    @media (min-width: $sizeGlobalMaxWidth) {
       padding-top: 768px; // stylelint-disable-line -- preserve 16:9 aspect ratio
     }
 
@@ -159,6 +163,10 @@ $mapRatioSmall: 0.75;
           fill: $colorText;
         }
       }
+    }
+
+    .mdl-contact__subtitle {
+      color: var(--color-accent);
     }
 
     &_empty {
@@ -321,7 +329,7 @@ $mapRatioSmall: 0.75;
             text-align: center;
             right: pxToRem($sizeRegular);
             top: 50%;
-            margin-top: pxToRem(-$sizeSmallHuge / 2 + $sizeMini);
+            margin-top: pxToRem(-1 * math.div($sizeSmallHuge, 2) + $sizeMini);
 
             svg use {
               fill: $colorBlack60;
@@ -376,7 +384,6 @@ $mapRatioSmall: 0.75;
     }
   }
   @include mq($to: small) {
-
     .mdl-locations {
       &__wrapper {
         padding-top: calc(100vw / #{$mapRatioSmall});
@@ -402,21 +409,22 @@ $mapRatioSmall: 0.75;
 
         &.opened {
           .mdl-linklist {
-            max-height: pxToRem($sideBarHeightSmall -  $sideBarHeadHeight - $sizeRegular);
+            max-height: pxToRem($sideBarHeightSmall - $sideBarHeadHeight - $sizeRegular);
           }
 
           .mdl-locations__details_location {
             padding: 0;
 
             &.show {
-              max-height: pxToRem($sideBarHeightSmall -  $sideBarHeadHeight - $sizeRegular);
+              max-height: pxToRem($sideBarHeightSmall - $sideBarHeadHeight - $sizeRegular);
             }
           }
         }
       }
 
       &__filter {
-        padding: pxToRem($sizeSmallRegular) pxToRem($sizeSmallRegular) pxToRem($sizeMini) pxToRem($sizeSmallRegular);
+        padding: pxToRem($sizeSmallRegular) pxToRem($sizeSmallRegular) pxToRem($sizeMini)
+          pxToRem($sizeSmallRegular);
 
         &_head {
           padding-right: pxToRem($sizeHuge);
@@ -433,16 +441,6 @@ $mapRatioSmall: 0.75;
         &_head {
           padding-left: 0;
         }
-      }
-    }
-  }
-}
-
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .mdl-locations {
-      .mdl-contact__subtitle {
-        color: rgba($val, 1);
       }
     }
   }

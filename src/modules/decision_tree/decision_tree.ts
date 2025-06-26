@@ -10,36 +10,35 @@ import { animationEvent, detectSafari } from '../../assets/js/helpers/common';
 
 class DecisionTree extends Module {
   public ui: {
-    element: HTMLDivElement,
-    heading: HTMLHeadingElement,
-    stepper: HTMLDivElement,
-    form: HTMLFormElement,
-    steps: any[],
-    navSteps: any[],
-    nextButton: HTMLButtonElement,
-    showNavButton: HTMLButtonElement,
-    navigation: HTMLDivElement,
-    notch: HTMLDivElement,
-    notchButton: HTMLButtonElement,
-    intro: HTMLDivElement,
-    top: HTMLDivElement,
+    element: HTMLDivElement;
+    heading: HTMLHeadingElement;
+    stepper: HTMLDivElement;
+    form: HTMLFormElement;
+    steps: any[];
+    navSteps: any[];
+    nextButton: HTMLButtonElement;
+    showNavButton: HTMLButtonElement;
+    navigation: HTMLDivElement;
+    notch: HTMLDivElement;
+    notchButton: HTMLButtonElement;
+    intro: HTMLDivElement;
+    top: HTMLDivElement;
   };
 
   public options: {
-    domSelectors: any,
-    stateClasses: any,
-    animationDelay: number,
-    stackDelay: number,
-    stepperTopPadding: number,
-    scrollTopMargin: number,
-    heightAdjustmentDelay: number,
+    domSelectors: any;
+    stateClasses: any;
+    animationDelay: number;
+    stackDelay: number;
+    stepperTopPadding: number;
+    scrollTopMargin: number;
+    heightAdjustmentDelay: number;
   };
 
   public currentStepIndex: number;
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       animationDelay: 300,
       stackDelay: 10,
@@ -80,7 +79,9 @@ class DecisionTree extends Module {
     super($element, defaultData, defaultOptions, data, options);
     this.currentStepIndex = 0;
     this.initUi();
-    this.ui.navSteps = this.ui.navSteps instanceof NodeList ? Array.from(this.ui.navSteps) : [this.ui.navSteps]; // eslint-disable-line
+    // eslint-disable-next-line no-magic-numbers
+    this.ui.navSteps =
+      this.ui.navSteps instanceof NodeList ? Array.from(this.ui.navSteps) : [this.ui.navSteps];
     this.ui.steps = this.ui.steps instanceof NodeList ? Array.from(this.ui.steps) : [this.ui.steps]; // eslint-disable-line
     this.initEventListeners();
   }
@@ -100,18 +101,16 @@ class DecisionTree extends Module {
       const callback = (hasErrors) => {
         if (!hasErrors) {
           if (this.ui.stepper.getBoundingClientRect().y < 0) {
-            const marginTop = this.ui.heading ? parseInt(getComputedStyle(this.ui.heading).marginTop.slice(0, -2), 10) : 0; // eslint-disable-line
-            this.scrollTo(this.ui.element, -(marginTop - 10));
+            this.ui.element.scrollIntoView({ behavior: 'smooth' });
           }
           this.animStepChange(() => {
             this.ui.stepper.dispatchEvent(new CustomEvent(Stepper.events.triggerNext));
           });
         }
       };
-      this.ui.stepper.dispatchEvent(new CustomEvent(
-        Stepper.events.triggerValidateSection,
-        { detail: { callback } },
-      ));
+      this.ui.stepper.dispatchEvent(
+        new CustomEvent(Stepper.events.triggerValidateSection, { detail: { callback } })
+      );
     });
 
     this.eventDelegate.on('click', this.options.domSelectors.showNavButton, () => {
@@ -136,10 +135,13 @@ class DecisionTree extends Module {
       editButton.addEventListener('click', () => {
         if (this.ui.navigation.getBoundingClientRect().y < 0) {
           if (dataStepIndex === 0) {
-            this.scrollTo(this.ui.navigation, this.options.scrollTopMargin);
+            this.ui.navigation.scrollIntoView({ behavior: 'smooth' });
           } else {
-            const marginTop = this.ui.heading ? parseInt(getComputedStyle(this.ui.heading).marginTop.slice(0, -2), 10) : 0; // eslint-disable-line
-            this.scrollTo(this.ui.element, -(marginTop - 10));
+            // eslint-disable-next-line no-unused-vars
+            const marginTop = this.ui.heading
+              ? parseInt(getComputedStyle(this.ui.heading).marginTop.slice(0, -2), 10) // eslint-disable-line no-magic-numbers
+              : 0;
+            this.ui.element.scrollIntoView({ behavior: 'smooth' });
           }
         }
         if (dataStepIndex === 0) {
@@ -147,18 +149,21 @@ class DecisionTree extends Module {
         }
         this.animCloseTop(null, dataStepIndex === 0);
         this.animStepChange(() => {
-          this.ui.stepper.dispatchEvent(new CustomEvent(
-            Stepper.events.triggerGoToStep,
-            { detail: { newStepIndex: dataStepIndex } },
-          ));
+          this.ui.stepper.dispatchEvent(
+            new CustomEvent(Stepper.events.triggerGoToStep, {
+              detail: { newStepIndex: dataStepIndex },
+            })
+          );
         }, true);
       });
     });
 
     this.ui.stepper.addEventListener(Stepper.events.stepChanged, (event: any) => {
       this.currentStepIndex = event.detail.newStep;
-      if (this.currentStepIndex > 0
-        && !this.ui.element.classList.contains(this.options.stateClasses.inProgress)) {
+      if (
+        this.currentStepIndex > 0 &&
+        !this.ui.element.classList.contains(this.options.stateClasses.inProgress)
+      ) {
         this.animToInProgress(this.updateNavigation.bind(this));
       } else {
         this.updateNavigation();
@@ -172,6 +177,12 @@ class DecisionTree extends Module {
         this.ui.element.classList.add(this.options.stateClasses.endpoint);
         this.ui.nextButton.setAttribute('tabindex', '-1');
         this.ui.nextButton.setAttribute('aria-hidden', 'true');
+        const zapGradeContainer = this.ui.steps[this.currentStepIndex].querySelector(
+          '[data-decision_tree-grade]'
+        );
+        if (zapGradeContainer) {
+          this.calcZAPGrade(zapGradeContainer);
+        }
       }
     });
   }
@@ -184,9 +195,14 @@ class DecisionTree extends Module {
       const navItems = step.querySelectorAll('[data-step-item]');
 
       const stepperStep = this.ui.steps[parseInt(step.getAttribute('data-step'), 10)];
-      const fields = stepperStep.querySelectorAll('[data-input]');
-      const enabled = !stepperStep.hasAttribute('data-enabled') || stepperStep.getAttribute('data-enabled') === 'true';
-      step.setAttribute('data-active', (parseInt(step.getAttribute('data-step'), 10) < this.currentStepIndex && enabled).toString());
+      const fields = stepperStep.querySelectorAll('.form__cell');
+      const enabled =
+        !stepperStep.hasAttribute('data-enabled') ||
+        stepperStep.getAttribute('data-enabled') === 'true';
+      step.setAttribute(
+        'data-active',
+        (parseInt(step.getAttribute('data-step'), 10) < this.currentStepIndex && enabled).toString()
+      );
       if (navItems.length !== fields.length) {
         console.warn('Decision Tree: Form field count does not correspond with navigation items'); // eslint-disable-line
         return;
@@ -195,13 +211,15 @@ class DecisionTree extends Module {
       fields.forEach((field, fieldIndex) => {
         const input = <HTMLInputElement>field.querySelector('input');
         let value = '';
-        if (input.type === 'radio') {
-          const selected = <HTMLLabelElement>field.querySelector('input:checked + label');
-          if (selected) {
-            value = selected.innerText;
+        if (input) {
+          if (input.type === 'radio') {
+            const selected = <HTMLLabelElement>field.querySelector('input:checked + label');
+            if (selected) {
+              value = selected.innerText;
+            }
+          } else {
+            value = `${input.placeholder}: ${input.value}`;
           }
-        } else {
-          value = `${input.placeholder}: ${input.value}`;
         }
         navItems[fieldIndex].querySelector('dd').innerText = value;
       });
@@ -340,22 +358,30 @@ class DecisionTree extends Module {
       if (event.target.nodeName === 'FORM') {
         switch (event.animationName) {
           case 'slide-out':
-            this.ui.stepper.style.height = `${this.ui.form.clientHeight + this.options.stepperTopPadding}px`;
+            this.ui.stepper.style.height = `${
+              this.ui.form.clientHeight + this.options.stepperTopPadding
+            }px`;
             if (callback) {
               callback();
             }
-            setTimeout(() => {
-              const newHeight = this.ui.form.clientHeight + this.options.stepperTopPadding;
-              this.ui.stepper.style.height = `${newHeight}px`;
-            }, detectSafari() ? this.options.heightAdjustmentDelay : 0);
+            setTimeout(
+              () => {
+                const newHeight = this.ui.form.clientHeight + this.options.stepperTopPadding;
+                this.ui.stepper.style.height = `${newHeight}px`;
+              },
+              detectSafari() ? this.options.heightAdjustmentDelay : 0
+            );
             this.ui.element.classList.add(this.options.stateClasses.stepSlideIn);
             break;
           case 'slide-in':
             this.ui.element.classList.remove(this.options.stateClasses.stepSlideOut);
             this.ui.element.classList.remove(this.options.stateClasses.stepSlideIn);
-            setTimeout(() => {
-              this.ui.stepper.style.removeProperty('height');
-            }, detectSafari() ? this.options.heightAdjustmentDelay : 0);
+            setTimeout(
+              () => {
+                this.ui.stepper.style.removeProperty('height');
+              },
+              detectSafari() ? this.options.heightAdjustmentDelay : 0
+            );
             this.ui.element.removeEventListener(animationEvent('end'), onAnimationEvent);
             break;
           case 'fade-in':
@@ -382,12 +408,107 @@ class DecisionTree extends Module {
   }
 
   /**
+   * Special handling for ZAP calculator
+   */
+  calcZAPGrade(container: HTMLDivElement) {
+    const shortcode = container.getAttribute('data-decision_tree-grade');
+
+    const getPreGradeValue = (subject: string): number => {
+      const el: HTMLInputElement = this.ui.form.querySelector(
+        `[name="${shortcode}-${subject}"]:checked`
+      );
+      return parseFloat(el?.value) || 0;
+    };
+
+    // eslint-disable-next-line no-magic-numbers
+    const getRoundedVariable = (num: number): string => num.toFixed(4);
+
+    const tags = {
+      vn: 0,
+      pn475: 0,
+      pn450: 0,
+      gn600: 0,
+    };
+
+    const vnma = getPreGradeValue('vnma');
+    const vnde = getPreGradeValue('vnde');
+    const vnaa = getPreGradeValue('vnaa');
+    const vnge = getPreGradeValue('vnge');
+    const vnfr = getPreGradeValue('vnfr');
+    const vnen = getPreGradeValue('vnen');
+    const vnnt = getPreGradeValue('vnnt');
+
+    switch (shortcode) {
+      case 'prim6': {
+        // eslint-disable-next-line no-magic-numbers
+        tags.vn = (vnma + vnde) / 2;
+        break;
+      }
+      case 'seka2': {
+        // eslint-disable-next-line no-magic-numbers
+        tags.vn = (2 * (vnaa / 3) + vnge / 3 + vnde + vnfr + vnen + vnnt) / 5;
+        break;
+      }
+      case 'seka3': {
+        // eslint-disable-next-line no-magic-numbers
+        tags.vn = (vnaa + vnde + vnfr + vnen + vnnt) / 5;
+        break;
+      }
+      default:
+    }
+
+    // eslint-disable-next-line no-magic-numbers
+    tags.pn475 = 2 * 4.75 - tags.vn;
+    // eslint-disable-next-line no-magic-numbers
+    tags.pn450 = 2 * 4.5 - tags.vn;
+    // eslint-disable-next-line no-magic-numbers
+    tags.gn600 = (6 + tags.vn) / 2;
+
+    if (!container.querySelector('[data-decision_tree-result-variable]')) {
+      let resultHTML = container.innerHTML;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [key, value] of Object.entries(tags)) {
+        const regex = new RegExp(`\\[${key}\\]`, 'g');
+        resultHTML = resultHTML.replace(
+          regex,
+          `<span data-decision_tree-result-variable="${key}">${getRoundedVariable(value)}</span>`
+        );
+      }
+      container.innerHTML = resultHTML;
+    } else {
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [key, value] of Object.entries(tags)) {
+        container.querySelectorAll(`[data-decision_tree-result-variable="${key}"]`).forEach((e) => {
+          e.innerHTML = getRoundedVariable(value);
+        });
+      }
+    }
+
+    const pn475Schools = container.querySelectorAll('[data-decision_tree-school="pn475"]');
+    const pn450Schools = container.querySelectorAll('[data-decision_tree-school="pn450"]');
+
+    const toggleSchoolsVisibility = (schools: NodeList, show: boolean) => {
+      const passedSel = '[data-decision_tree-result="passed"]';
+      const failedSel = '[data-decision_tree-result="failed"]';
+      const resultHiddenClass = 'mdl-decision_tree__result--hidden';
+
+      schools.forEach((school: HTMLElement) => {
+        school.querySelector(show ? failedSel : passedSel).classList.add(resultHiddenClass);
+        school.querySelector(show ? passedSel : failedSel).classList.remove(resultHiddenClass);
+      });
+    };
+
+    // eslint-disable-next-line no-magic-numbers
+    toggleSchoolsVisibility(pn475Schools, tags.pn475 <= 6);
+    // eslint-disable-next-line no-magic-numbers
+    toggleSchoolsVisibility(pn450Schools, tags.pn450 <= 6);
+  }
+
+  /**
    * Unbind events, remove data, custom teardown
    */
   destroy() {
     super.destroy();
-
-    // Custom destroy actions go here
   }
 }
 

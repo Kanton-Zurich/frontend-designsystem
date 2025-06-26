@@ -14,29 +14,29 @@ class Tooltip extends Module {
   tooltipMaxWidth: number;
 
   public ui: {
-    element: HTMLDivElement,
-    infoButton: HTMLButtonElement,
-    tooltip: HTMLDivElement,
-    infoContainer: HTMLDivElement,
-    wrapper: HTMLDivElement,
-    closeButton: HTMLButtonElement,
+    element: HTMLDivElement;
+    infoButton: HTMLButtonElement;
+    tooltip: HTMLDivElement;
+    infoContainer: HTMLDivElement;
+    wrapper: HTMLDivElement;
+    closeButton: HTMLButtonElement;
   };
 
   public options: {
     domSelectors: {
-      infoButton: string,
-      tooltip: string,
-      infoContainer: string,
-      wrapper: string,
-      closeButton: string,
-    },
+      infoButton: string;
+      tooltip: string;
+      infoContainer: string;
+      wrapper: string;
+      closeButton: string;
+    };
     stateClasses: {
-      tooltipBaseClass: string,
-      arrowBottom: string,
-      arrowLeft: string,
-      arrowTop: string,
-      arrowRight: string,
-    },
+      tooltipBaseClass: string;
+      arrowBottom: string;
+      arrowLeft: string;
+      arrowTop: string;
+      arrowRight: string;
+    };
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -81,7 +81,8 @@ class Tooltip extends Module {
         event.stopPropagation();
         this.log('Toggle click');
         this.toggleTooltip();
-      }).on('click', this.options.domSelectors.closeButton, () => {
+      })
+      .on('click', this.options.domSelectors.closeButton, () => {
         this.closeTooltip();
       })
       .on('click', this.options.domSelectors.tooltip, (event) => {
@@ -112,6 +113,9 @@ class Tooltip extends Module {
     setTimeout(() => {
       if (this.ui.tooltip) {
         this.ui.tooltip.style.display = 'none';
+        this.ui.tooltip.querySelectorAll('a').forEach((anchor) => {
+          anchor.setAttribute('tabindex', '-1');
+        });
       }
     }, 100);
   }
@@ -151,6 +155,9 @@ class Tooltip extends Module {
    */
   hideTooltip() {
     this.ui.element.classList.remove('open');
+    this.ui.tooltip.querySelectorAll('a').forEach((anchor) => {
+      anchor.setAttribute('tabindex', '-1');
+    });
     this.ui.tooltip.setAttribute('aria-hidden', 'true');
     if (this.ui.closeButton) {
       this.ui.closeButton.setAttribute('tabindex', '-1');
@@ -166,6 +173,9 @@ class Tooltip extends Module {
     this.setOptimalPosition();
     this.ui.element.classList.add('open');
     this.ui.tooltip.setAttribute('aria-hidden', 'false');
+    this.ui.tooltip.querySelectorAll('a').forEach((anchor) => {
+      anchor.setAttribute('tabindex', '0');
+    });
     if (this.ui.closeButton) {
       this.ui.closeButton.setAttribute('tabindex', '0');
     }
@@ -193,17 +203,26 @@ class Tooltip extends Module {
     const bulletRect = this.ui.wrapper.getBoundingClientRect();
 
     const topMargin = bulletRect.top - toolTipRect.height - borderOffset;
-    const bottomMargin = window.outerHeight
-      - (bulletRect.top + toolTipRect.height + bulletRect.height + arrowOffset) - borderOffset;
+    const bottomMargin =
+      window.outerHeight -
+      (bulletRect.top + toolTipRect.height + bulletRect.height + arrowOffset) -
+      borderOffset;
 
-    const leftMargin = bulletRect.left - (toolTipRect.width / 2)  - borderOffset; // eslint-disable-line
-    const rightMargin = window.outerWidth - bulletRect.left - (toolTipRect.width / 2)  - borderOffset; // eslint-disable-line
+    const leftMargin = bulletRect.left - toolTipRect.width / 2 - borderOffset; // eslint-disable-line
+    const rightMargin = window.outerWidth - bulletRect.left - toolTipRect.width / 2 - borderOffset; // eslint-disable-line
 
-    const quadrant = toolTipRect.top < (window.outerHeight / 2) && toolTipRect.left < (window.innerWidth / 2) ? 'topLeft' : // eslint-disable-line
-      toolTipRect.top < (window.outerHeight / 2) && toolTipRect.left >= (window.innerWidth / 2) ? 'topRight' : // eslint-disable-line
-        toolTipRect.top >= (window.outerHeight / 2) && toolTipRect.left < (window.innerWidth / 2) ? 'bottomLeft' : 'bottomRight'; // eslint-disable-line
+    const quadrant =
+      toolTipRect.top < window.outerHeight / 2 && toolTipRect.left < window.innerWidth / 2 // eslint-disable-line
+        ? 'topLeft'
+        : toolTipRect.top < window.outerHeight / 2 && toolTipRect.left >= window.innerWidth / 2 // eslint-disable-line
+        ? 'topRight'
+        : toolTipRect.top >= window.outerHeight / 2 && toolTipRect.left < window.innerWidth / 2 // eslint-disable-line
+        ? 'bottomLeft'
+        : 'bottomRight';
 
-    switch (quadrant) { // eslint-disable-line
+    switch (
+      quadrant // eslint-disable-line
+    ) {
       case 'topLeft':
         if (leftMargin < 0) {
           this.lastStateClass = this.options.stateClasses.arrowLeft;

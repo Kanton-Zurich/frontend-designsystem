@@ -10,7 +10,7 @@ class SearchHighlight {
   private readonly matchedElements: Array<Node>;
 
   private searchRegex: RegExp;
-  private pipeSeperatedQueryParams: string;
+  private pipeSeparatedQueryParams: string;
   private highLightStart: string;
 
   constructor() {
@@ -37,13 +37,13 @@ class SearchHighlight {
     const matchesArray = this.decodedParams.match(this.basicRequirementsRegex);
     if (matchesArray.length > 1) {
       // Combine piped-string with full/original querystring
-      this.pipeSeperatedQueryParams = `${this.decodedParams}|${matchesArray.join('|')}`;
+      this.pipeSeparatedQueryParams = `${this.decodedParams}|${matchesArray.join('|')}`;
     } else {
       // Simply use the search term
-      this.pipeSeperatedQueryParams = this.decodedParams;
+      this.pipeSeparatedQueryParams = this.decodedParams;
     }
 
-    this.searchRegex = new RegExp(this.pipeSeperatedQueryParams, 'gi');
+    this.searchRegex = new RegExp(this.pipeSeparatedQueryParams, 'gi');
   }
 
   /**
@@ -51,22 +51,20 @@ class SearchHighlight {
    * @param rootElement
    * @private
    */
-  private getMatchingElementsFrom(rootElement:HTMLElement) {
+  private getMatchingElementsFrom(rootElement: HTMLElement) {
     // Configure NodeIterator to only consider text-nodes that matches the query string
     // and exclude elements that have the screenreader class
-    const nodeIterator = document.createNodeIterator(
-      rootElement,
-      NodeFilter.SHOW_TEXT,
-      {
-        acceptNode: (node) => {
-          if (node.nodeValue.match(this.searchRegex)
-            && !node.parentElement.classList.contains('visuallyhidden')) {
-            return NodeFilter.FILTER_ACCEPT;
-          }
-          return -1;
-        },
+    const nodeIterator = document.createNodeIterator(rootElement, NodeFilter.SHOW_TEXT, {
+      acceptNode: (node) => {
+        if (
+          node.nodeValue.match(this.searchRegex) &&
+          !node.parentElement.classList.contains('visuallyhidden')
+        ) {
+          return NodeFilter.FILTER_ACCEPT;
+        }
+        return -1;
       },
-    );
+    });
 
     // Run the iterator
     let node = nodeIterator.nextNode();
@@ -87,13 +85,17 @@ class SearchHighlight {
     // Insert replace placeholder
     for (let i = 0; i < matches; i += 1) {
       const currentNode = this.matchedElements[i];
-      currentNode.nodeValue = currentNode.nodeValue.replace(this.searchRegex, subString => `<%>${subString}</%>`);
+      currentNode.nodeValue = currentNode.nodeValue.replace(
+        this.searchRegex,
+        (subString) => `<%>${subString}</%>`
+      );
     }
 
     // Insert highlights
     for (let i = 0; i < matches; i += 1) {
       const currentElement = this.matchedElements[i].parentElement;
-      if (currentElement) { // Prevent new null-parent
+      if (currentElement) {
+        // Prevent new null-parent
         currentElement.innerHTML = currentElement.innerHTML
           .replace(/&lt;%&gt;/g, this.highLightStart)
           .replace(/&lt;\/%&gt;/g, this.highLightEnd);

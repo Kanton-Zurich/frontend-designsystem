@@ -1,15 +1,18 @@
 {{#extend "layouts/layout"}}
-  {{#content "header"}}
+  {{#content "pageheader"}}
     {{> "modules/page_header/page_header" props.modules.pageHeader}}
   {{/content}}
 
   {{#content "content"}}
-      {{> "modules/instructions/instructions" props.modules.instructions}}
-      {{> "modules/contact/contact" props.modules.contact }}
+    {{> "modules/instructions/instructions" props.modules.instructions}}
+  {{/content}}
+
+  {{#content "pagefooter"}}
+    {{> "modules/contact/contact" props.modules.contact}}
   {{/content}}
 
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData}}
-    {{> "modules/back2top/back2top" props.modules.back2topData}}
+    {{> "modules/back_to/back_to" props.modules.backToData}}
   {{/content}}
 {{/extend}}

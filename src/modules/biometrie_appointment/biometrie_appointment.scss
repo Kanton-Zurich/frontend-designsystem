@@ -4,10 +4,9 @@ $fontSizeCurveBiometrie: (
     xsmall: $sizeFontSmall,
     small: $sizeFontBiggerRegular,
     large: $sizeFontMedium,
-    xlarge: $sizeFontLarge
+    xlarge: $sizeFontLarge,
   ),
 );
-
 
 .mdl-biometrie_appointment {
   margin-top: $sizeBiggerBig;
@@ -54,7 +53,6 @@ $fontSizeCurveBiometrie: (
   }
 
   &__loginview {
-
     &__input {
       border: 2px solid;
       border-radius: 4px;
@@ -66,7 +64,7 @@ $fontSizeCurveBiometrie: (
 
       label {
         font-weight: $fontFamilyBlack;
-        color: $colorBlack100;
+        color: $colorBlack;
         display: block;
 
         @include sizeCurve('margin-bottom', mini);
@@ -79,7 +77,7 @@ $fontSizeCurveBiometrie: (
         background: transparent;
         display: inline-block;
         min-width: 1.2em;
-        color: $colorBlack100;
+        color: $colorBlack;
         height: $sizeRegular;
         line-height: $sizeSmallLarge;
         caret-color: $colorCyan;
@@ -126,7 +124,7 @@ $fontSizeCurveBiometrie: (
 
     &__hint {
       min-height: 2rem;
-      border-bottom: 2px solid $colorBlack100;
+      border-bottom: 2px solid $colorBlack;
       margin-bottom: pxToRem($sizeRegular);
       padding-bottom: pxToRem($sizeRegular);
 
@@ -150,7 +148,6 @@ $fontSizeCurveBiometrie: (
   }
 
   &__details {
-
     .mdl-metablock__row dd span {
       display: inline;
     }
@@ -273,9 +270,7 @@ $fontSizeCurveBiometrie: (
   }
 
   &__reschedule {
-
     &__allopen {
-
       &__wrapper {
         @include sizeCurve('margin-top', regular);
 
@@ -300,18 +295,17 @@ $fontSizeCurveBiometrie: (
               margin-bottom: 0;
             }
 
-
             button.disabled {
               cursor: not-allowed;
               pointer-events: none;
-              background-color: $colorBlack5;
+              background-color: $colorBg;
 
               use {
                 fill: $colorBlack20;
               }
 
               &.atm-button--secondary:hover {
-                background-color: $colorBlack5;
+                background-color: $colorBg;
 
                 .atm-button__icon use {
                   fill: $colorBlack20;
@@ -360,7 +354,7 @@ $fontSizeCurveBiometrie: (
       &__slotselect {
         @include sizeCurve('margin-top', tiny);
         position: relative;
-        border-bottom: 2px solid $colorBlack100;
+        border-bottom: 2px solid $colorBlack;
         overflow: hidden;
 
         .column {
@@ -378,8 +372,8 @@ $fontSizeCurveBiometrie: (
         }
 
         .slotselect-headrow {
-          border-top: 2px solid $colorBlack100;
-          border-bottom: 2px solid $colorBlack100;
+          border-top: 2px solid $colorBlack;
+          border-bottom: 2px solid $colorBlack;
 
           @extend .row;
 
@@ -447,7 +441,7 @@ $fontSizeCurveBiometrie: (
                   }
 
                   &.disabled {
-                    background: $colorBlack5;
+                    background: $colorBg;
                     color: $colorBlack20;
                   }
                 }
@@ -455,7 +449,7 @@ $fontSizeCurveBiometrie: (
                 &:hover {
                   button.atm-button {
                     background: $colorBlack20;
-                    color: $colorBlack100;
+                    color: $colorBlack;
 
                     &.selected {
                       color: $colorWhite;
@@ -490,15 +484,14 @@ $fontSizeCurveBiometrie: (
         }
 
         @include mq($to: medium) {
-
           @each $idx in 0, 1, 2, 3, 4 {
-            &[ data-selected-weekday='#{$idx}' ] {
+            &[data-selected-weekday='#{$idx}'] {
               .slotselect-slotsrow {
                 right: $idx * 100%;
               }
 
               .weekday-head:nth-child(#{$idx + 1}) {
-                border-bottom: 2px solid $colorBlack100;
+                border-bottom: 2px solid $colorBlack;
                 margin-bottom: -1px;
 
                 .weekday-head {
@@ -549,7 +542,7 @@ $fontSizeCurveBiometrie: (
                   margin-left: 2%;
                   padding: 0 2px;
 
-                  &:nth-child(3n+1) {
+                  &:nth-child(3n + 1) {
                     margin-left: 0;
                   }
                 }
@@ -574,11 +567,11 @@ $fontSizeCurveBiometrie: (
                   margin-left: 1%;
                   padding: 0 6px;
 
-                  &:nth-child(3n+1) {
+                  &:nth-child(3n + 1) {
                     margin-left: 1%;
                   }
 
-                  &:nth-child(2n+1) {
+                  &:nth-child(2n + 1) {
                     margin-left: 0;
                   }
                 }
@@ -632,7 +625,6 @@ $fontSizeCurveBiometrie: (
         }
 
         .selection-details {
-
           &__counter {
             @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
           }
@@ -695,7 +687,6 @@ $fontSizeCurveBiometrie: (
       }
 
       .selection-details {
-
         &__blocked {
           display: none;
 
@@ -798,7 +789,7 @@ $fontSizeCurveBiometrie: (
   }
 }
 
-[ class^='mdl-biometrie_appointment' ] {
+[class^='mdl-biometrie_appointment'] {
   .strong {
     color: $colorText;
     font-family: $fontFamilyBlack;

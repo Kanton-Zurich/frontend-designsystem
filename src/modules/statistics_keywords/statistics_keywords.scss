@@ -1,0 +1,11 @@
+.mdl-statistics_keywords {
+  @include sizeCurve('margin-bottom', big);
+
+  &__list {
+    @include resetList;
+    @include sizeCurve('padding-top', tiny);
+    display: flex;
+    flex-wrap: wrap;
+    gap: pxToRem($sizeSmallRegular) pxToRem($sizeTiny);
+  }
+}

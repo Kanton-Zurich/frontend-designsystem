@@ -2,13 +2,13 @@ $searchCurves: (
   height: (
     tiny: 48px,
     xsmall: 56px,
-    medium: 72px
+    medium: 72px,
   ),
   headMarginBottom: (
     tiny: $sizeBiggerBig,
     medium: $sizeSmallLarge + $sizeBig,
     xlarge: $sizeLarge + $sizeBiggerBig,
-  )
+  ),
 );
 
 .mdl-search {
@@ -81,7 +81,7 @@ $searchCurves: (
     }
 
     .mdl-tag-group__tags {
-      margin-left: - pxToRem($sizeSmallRegular);
+      margin-left: pxToRem(-$sizeSmallRegular);
     }
   }
 

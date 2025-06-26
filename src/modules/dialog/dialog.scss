@@ -1,0 +1,207 @@
+$dialogCurves: (
+  closeTop: (
+    tiny: $sizeRegular,
+    medium: $sizeLarge,
+    xlarge: $sizeLarge,
+  ),
+  closeRight: (
+    tiny: $sizeRegular,
+    medium: $sizeSmallBig,
+  ),
+);
+
+.mdl-dialog {
+  position: fixed;
+  z-index: $zIndexInvisible;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-color: rgba($colorBlack, 0.6);
+  display: none;
+  transform: translateY(-50vh);
+
+  @include transition(transform opacity, $transitionTimeDefault, $transitionEasingDefault);
+
+  &--show {
+    opacity: 1;
+    z-index: $zIndexFlyouts;
+    transform: translateY(0);
+  }
+
+  /**
+   * ALL THE SPECIAL ANIMATION CLASSES
+   */
+  &--before-show {
+    display: block;
+  }
+
+  &--before-hide {
+    opacity: 0;
+    transform: translateY(-50vh);
+  }
+
+  &--hide {
+    transform: translateY(-50vh);
+    opacity: 0;
+  }
+
+  /** END OF THE ANIMATION STUFF */
+
+  &__window {
+    position: absolute;
+    width: 100vw;
+    height: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: $colorWhite;
+
+    @include mq($from: medium) {
+      width: 80vw;
+      max-width: pxToRem(968px);
+      height: 80vh;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+  }
+
+  &__form {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    position: relative;
+    height: 100%;
+  }
+
+  &__scroll-area {
+    overflow-y: auto;
+    padding: pxToRem($sizeBig);
+
+    @include mq($from: medium) {
+      padding: pxToRem($sizeBiggerBig);
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: flex-end;
+    gap: pxToRem($sizeSmallRegular);
+    align-items: center;
+    margin-bottom: pxToRem($sizeSmallRegular);
+
+    button {
+      display: flex;
+      gap: pxToRem($sizeTiny);
+    }
+
+    @include mq($from: medium) {
+      margin-bottom: pxToRem($sizeSmallLarge);
+    }
+    @include mq($from: xlarge) {
+      margin-bottom: pxToRem($sizeLarge);
+    }
+  }
+
+  &__title.atm-heading {
+    flex: 1;
+    padding-top: 0;
+    margin-bottom: 0;
+    font-size: pxToRem($sizeFontLarge);
+
+    @include mq($from: medium) {
+      font-size: pxToRem($sizeFontBig);
+    }
+    @include mq($from: xlarge) {
+      font-size: pxToRem($sizeFontBiggerBig);
+    }
+  }
+
+  &__close {
+    width: pxToRem($sizeRegular);
+    height: pxToRem($sizeRegular);
+
+    .icon {
+      width: pxToRem($sizeRegular);
+      height: pxToRem($sizeRegular);
+    }
+
+    use {
+      fill: $colorBlack60;
+    }
+  }
+
+  &__footer {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    background: $colorWhite;
+    z-index: $zIndexInner;
+    /*
+    box-shadow: 0 0 pxToRem($sizeGiant) rgba($colorBlack, 0.2);
+    */
+
+    .atm-button {
+      height: 4rem;
+      padding: pxToRem($sizeSmallRegular) pxToRem($sizeLarge);
+
+      @include mq($to: medium) {
+        flex-basis: 50%;
+      }
+      @include mq($from: large) {
+        height: 5rem;
+        flex-basis: 25%;
+      }
+
+      &__text {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+
+  .mdl-accordion {
+    padding-bottom: 0;
+  }
+
+  /* Override default form styles */
+  .form__group {
+    padding: $sizeSmallRegular $sizeSmallLarge;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: $colorBlack5;
+    display: inline-block;
+    width: 100%;
+
+    input [type='checkbox'] {
+      background: $colorWhite;
+    }
+  }
+
+  $columnGap: $sizeSmallRegular;
+
+  .form__row {
+    flex-wrap: wrap;
+    padding-bottom: 0;
+    column-gap: $columnGap;
+  }
+
+  .form__cell {
+    flex-basis: calc(50% - ($columnGap) / 2);
+    flex-grow: 0;
+    padding: $sizeSmallRegular 0;
+    $border: 1px solid rgba(0, 0, 0, 0.2);
+    border-top: $border;
+    margin: 0;
+
+    &:first-child,
+    &:nth-child(2) {
+      border-top: none;
+    }
+
+    @include mq($to: small) {
+      &:nth-child(2) {
+        border-top: $border;
+      }
+    }
+  }
+}

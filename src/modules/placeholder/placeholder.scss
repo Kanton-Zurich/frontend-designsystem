@@ -1,0 +1,42 @@
+.mdl-placeholder {
+  text-align: center;
+
+  @include sizeCurve(padding-left padding-right, medium);
+  @include sizeCurve(padding-top padding-bottom, smallerLarge);
+  @include sizeCurve(margin-bottom, small);
+
+  border: 2px dashed $colorBlack20;
+  border-radius: $sizeMini;
+
+  &__title.atm-heading {
+    margin-bottom: $sizeTiny;
+    padding-top: 0;
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+  }
+
+  &__text.atm-paragraph {
+    color: $colorBlack60;
+    margin: 0;
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+  }
+
+  &__button,
+  & .atm-button {
+    display: block;
+    font-size: $sizeFontSmall;
+    font-family: $fontFamilyBlack;
+    padding: $sizeSmallRegular $sizeLarge;
+    line-height: $sizeLarge;
+
+    @include sizeCurve(margin-top, regular);
+
+    margin-bottom: 0;
+    text-decoration: none;
+
+    @include mq($from: xsmall) {
+      display: inline-block;
+    }
+  }
+}

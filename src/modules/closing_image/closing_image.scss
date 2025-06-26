@@ -1,0 +1,27 @@
+.mdl-closing_image {
+  @include gridBleed($fullwidth: true);
+  position: relative;
+  padding: 0;
+
+  .mdl-image-figure {
+    margin: 0;
+    width: 100%;
+
+    img {
+      max-width: none;
+      width: 100%;
+      margin-left: 0;
+      transform: none;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+
+      @include mq($from: small) {
+        aspect-ratio: 7 / 3;
+      }
+    }
+  }
+
+  .mdl-image-figure__img-wrapper {
+    margin-bottom: 0;
+  }
+}

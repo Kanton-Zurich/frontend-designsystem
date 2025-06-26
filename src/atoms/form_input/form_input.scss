@@ -1,13 +1,17 @@
+@use 'sass:math';
+
 /* stylelint-disable property-no-vendor-prefix */
 /* stylelint-disable value-no-vendor-prefix */
 $borderWidth: 2px;
 $borderWidthRem: pxToRem($borderWidth);
-$targetInputHeight: 72px  - $borderWidth * 2;
-$paddingInput: (pxToRem($targetInputHeight) - (pxToRem($sizeFontRegular) * $sizeLineHeightBase)) / 2;
+$targetInputHeight: 72px - $borderWidth * 2;
+$paddingInput: pxToRem(math.div($targetInputHeight - ($sizeFontRegular * $sizeLineHeightBase), 2));
 
 // VARIABLES FOR SMALL
 $targetSmallInputHeight: 48px - $borderWidth * 2;
-$paddingSmallInput: (pxToRem($targetSmallInputHeight) - (pxToRem($sizeFontRegular) * $sizeLineHeightBase)) / 2;
+$paddingSmallInput: pxToRem(
+  math.div($targetSmallInputHeight - ($sizeFontRegular * $sizeLineHeightBase), 2)
+);
 
 // VARIABLES FOR FLOATED
 $paddingDifferenceOnFocus: pxToRem(10px);
@@ -19,13 +23,13 @@ $searchSizeCurve: (
     large: $sizeFontBig,
   ),
   padding: (
-    tiny: ($targetSmallInputHeight - ($sizeFontBiggerRegular * $sizeLineHeightBase)) / 2,
-    large: ($targetInputHeight - ($sizeFontBig * $sizeLineHeightBase)) / 2,
+    tiny: math.div($targetSmallInputHeight - ($sizeFontBiggerRegular * $sizeLineHeightBase), 2),
+    large: math.div($targetInputHeight - ($sizeFontBig * $sizeLineHeightBase), 2),
   ),
   top: (
     tiny: $sizeSmallRegular,
     large: $sizeLarge,
-  )
+  ),
 );
 
 // VARIABLES FOR INTERNATIONAL PHONE INPUT
@@ -45,7 +49,8 @@ $triggerWidth: pxToRem(86px);
     font-size: pxToRem($sizeFontRegular);
     line-height: $sizeLineHeightBase;
 
-    padding: $paddingInput (pxToRem($sizeRegular) + pxToRem(24) + pxToRem($sizeTiny))  $paddingInput pxToRem($sizeRegular);
+    padding: $paddingInput pxToRem($sizeRegular + $sizeLarge + $sizeTiny) $paddingInput
+      pxToRem($sizeRegular);
 
     display: block;
     width: 100%;
@@ -77,7 +82,7 @@ $triggerWidth: pxToRem(86px);
       margin: 0;
     }
 
-    &[ type='number' ] {
+    &[type='number'] {
       -moz-appearance: textfield; // stylelint-disable-line
     }
 
@@ -87,7 +92,7 @@ $triggerWidth: pxToRem(86px);
 
     /* --- DISABLED --- */
     &:disabled,
-    &[ disabled ] {
+    &[disabled] {
       background: $colorWhite;
       border-color: $colorBlack20;
       color: $colorBlack20;
@@ -202,7 +207,8 @@ $triggerWidth: pxToRem(86px);
       padding-top: pxToRem(14px);
     }
 
-    .atm-form_input__input--textarea:not(:focus):not(.dirty) ~ label.atm-form_input__label--textarea {
+    .atm-form_input__input--textarea:not(:focus):not(.dirty)
+      ~ label.atm-form_input__label--textarea {
       white-space: initial;
       -webkit-line-clamp: 3;
       display: -webkit-box;
@@ -328,7 +334,7 @@ $triggerWidth: pxToRem(86px);
   /* ------------------
   -- VALIDATION MSG ---
   ------------------ */
-  [ data-message ] {
+  [data-message] {
     transform: scaleY(0) translateY(-100%);
     margin: -1px 0 0;
     padding: pxToRem($sizeMini) pxToRem($sizeRegular);
@@ -390,7 +396,7 @@ $triggerWidth: pxToRem(86px);
   &.valid,
   &.invalid {
     label {
-      right: (pxToRem($sizeRegular) + pxToRem(24) + pxToRem($sizeTiny));
+      right: pxToRem($sizeRegular) + pxToRem($sizeLarge) + pxToRem($sizeTiny);
     }
 
     .atm-form_input__input--textarea ~ label {
@@ -425,7 +431,8 @@ $triggerWidth: pxToRem(86px);
   --------------------- */
 
   &__input--trigger {
-    min-height: (pxToRem($sizeRegular) * $sizeLineHeightBase) + $paddingInput * 2 + $borderWidthRem * 2;
+    min-height: pxToRem($sizeRegular) * $sizeLineHeightBase + (2 * $paddingInput) +
+      (2 * $borderWidthRem);
 
     .icon {
       position: absolute;

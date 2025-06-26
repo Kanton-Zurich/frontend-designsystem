@@ -1,11 +1,13 @@
 {{#extend "layouts/layout"}}
-  {{#content "header"}}
+  {{#content "pageheader"}}
     {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
   {{/content}}
 
   {{#content "content"}}
-    {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
-    {{> "modules/zhlex/zhlex" props.modules.zhlex }}
+    <div class="mdl-anchornav__wrapper">
+      {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
+      {{> "modules/zhlex/zhlex" props.modules.zhlex }}
+    </div>
     <div class="mdl-richtext">
       <h2 id="zhlex_index" class="atm-heading">Sachregister</h3>
       <p class="atm-paragraph">
@@ -28,6 +30,9 @@
     </div>
     {{> "modules/service_list/service_list" props.modules.serviceList }}
     {{> "modules/contact/contact" props.modules.contactData}}
+  {{/content}}
+
+  {{#content "pagefooter"}}
     {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
     {{> "modules/related_content/related_content" props.modules.releatedContentData}}
     {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
@@ -35,6 +40,6 @@
 
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData }}
-    {{> "modules/back2top/back2top" props.modules.back2topData}}
+    {{> "modules/back_to/back_to" props.modules.backToData}}
   {{/content}}
 {{/extend}}

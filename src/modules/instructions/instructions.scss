@@ -1,24 +1,23 @@
 .mdl-instructions {
-
   $customSizing: (
     itemTop: (
       tiny: $sizeFontBiggerBig + $sizeFontBiggerRegular,
-      xlarge: $sizeBiggerBig
+      xlarge: $sizeBiggerBig,
     ),
     counterFontSize: (
       tiny: $sizeFontSmallBig,
       small: $sizeFontBiggerBig,
-      xlarge: $sizeFontGiant
+      xlarge: $sizeFontGiant,
     ),
     counterLineHeight: (
       tiny: 34px,
       small: 48px,
-      xlarge: 72px
+      xlarge: 72px,
     ),
     checkerIconSize: (
       zero: 19.38px,
       small: 25.83px,
-      xlarge: 38.75px
+      xlarge: 38.75px,
     ),
     headingPaddingTop: (
       small: $sizeMini,
@@ -56,6 +55,7 @@
         @include polyFluidSizing('font-size', map-get($customSizing, counterFontSize));
         @include sizeCurve('line-height', counterLineHeight, $customSizing);
 
+        color: var(--color-accent);
         font-family: $fontFamilyBlack;
         content: counter(item-counter, decimal-leading-zero);
 
@@ -84,7 +84,7 @@
 
         content: '';
         padding-right: pxToRem($sizeBig);
-        background-image: url(svg-checkmark($colorBlack));  // stylelint-disable-line
+        background-image: url(svg-checkmark($colorBlack)); // stylelint-disable-line
         background-position: bottom left;
         background-repeat: no-repeat;
       }
@@ -156,12 +156,8 @@
 */
 @each $key, $val in $tl-color-variations {
   .#{$key} {
-    ol.mdl-instructions__list .mdl-instructions__item:before {
-      color: #{$val};
-    }
-
     ul.mdl-instructions__list .mdl-instructions__item:before {
-      background-image: url(svg-checkmark($val));  // stylelint-disable-line
+      background-image: url(svg-checkmark($val)); // stylelint-disable-line
     }
   }
 }

@@ -1,98 +1,156 @@
-<div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-table
-  {{#if alignRight}} mdl-table--align-right{{/if}}
-  {{#if isInverted}} mdl-table--inverted{{/if}}
-  {{#if isWide}} mdl-table--fullwidth{{/if}}
-  {{#if isFirstColumnFixed}} mdl-table--first-column-fixed{{/if}}"
+<div class="mdl-table
+  {{#if alignRight}}mdl-table--align-right{{/if}}
+  {{#if isInverted}}mdl-table--inverted{{/if}}
+  {{#if isWide}}mdl-table--fullwidth{{/if}}
+  {{#if isFirstColumnFixed}}mdl-table--first-column-fixed{{/if}}
+  {{#if eDirectory}}mdl-table--e-directory{{/if}}
+  {{#if whiteBackground}}mdl-table--white-background{{/if}}
+  {{#if isFinanceTable}}mdl-table--finance{{/if}}"
+  {{#if isInverted}}data-anchornav="fullwidth" {{/if}}
   data-init="table"
   data-redraw="true"
   {{#if isStatic}}data-static{{/if}}
   {{#if preSortedColumn}}data-sort-column="{{preSortedColumn}}"{{/if}}
-  {{#if preSortedDirection}}data-sort-direction="{{preSortedDirection}}"{{/if}}
->
+  {{#if preSortedDirection}}data-sort-direction="{{preSortedDirection}}"{{/if}}>
+
+  {{#if spa}}
+    <template data-table="template-table-row">
+      <tr class="mdl-table__row"></tr>
+    </template>
+
+    <template data-table="template-header-cell">
+      <th scope="col" class="mdl-table__cell mdl-table__column-header">
+        <span></span>
+      </th>
+    </template>
+
+    <template data-table="template-body-cell">
+      <td class="mdl-table__cell" data-table="cell"></td>
+    </template>
+  {{/if}}
+
   {{#if isInverted}}
     <div class="lyt-wrapper">
       <div class="grid-x grid-margin-x">
         <div class=" cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10 medium-8">
   {{/if}}
-	{{#if hasTitle}}
-		<h{{ tableHeadingLevel }} class="atm-heading mdl-table__title">{{ tableTitle }}</h{{ tableHeadingLevel }}>
-	{{/if}}
-  <{{#if hasCaption}}figure{{else}}div{{/if}} class="mdl-table__figure">
-  {{#if isWide}}<div class="lyt-wrapper">{{/if}}
-			<div class="mdl-table__scroll-area" data-table="scroll-area">
-				<div class="mdl-table__wrapper" data-table="scroll-area-wrapper">
-          <table class="mdl-table__table" data-table="table">
-            {{#if hasColumnHeader}}
-              <thead>
-                <tr class="mdl-table__row">
-                  {{#each headers}}
-                    <th
+
+  {{#if hasTitle}}
+    <h{{ headingLevel }}
+      {{#if anchorNavReference}}id="{{anchorNavReference}}" data-anchornav="target"{{/if}}
+      class="atm-heading mdl-table__title
+        {{#if_compare visualHeadingLevel "!==" headingLevel}}h{{visualHeadingLevel}}{{/if_compare}}
+        {{#if_compare visualHeadingLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+      >
+      {{{ tableTitle }}}
+    </h{{ headingLevel }}>
+  {{/if}}
+
+  <{{#if hasCaption}}figure{{else}}div{{/if}} class="mdl-table__figure" {{#if isWide}}data-anchornav="fullwidth"{{/if}}>
+
+    {{#if isWide}}
+      <div class="lyt-wrapper">
+    {{/if}}
+
+    <div class="mdl-table__scroll-area" data-table="scroll-area">
+      <div class="mdl-table__wrapper" data-table="scroll-area-wrapper">
+        <table class="mdl-table__table" data-table="table" {{#if spa}}data-table-header-labels="{{tableHeaderLabels}}"
+               {{/if}}>
+          {{#if hasColumnHeader}}
+            <thead class="mdl-table__head" data-table="table-head">
+              <tr class="mdl-table__row">
+                {{#each headers}}
+                  <th
                       scope="col"
-                      class="mdl-table__cell mdl-table__column-header {{#if isSortable}}mdl-table__column-header--sortable{{/if}}"
-                      {{#if isSortable}}aria-sort="none"{{/if}}
-                      {{#unless isSortable}}{{#if dataColumnName}}data-column-name="{{dataColumnName}}"{{/if}}{{/unless}}
-                    >
-                      {{#if isSortable}}
-                        <button
-                          data-table="sortable"
-                          data-order="{{isSortable}}"
-                          data-column-index="{{@index}}"
-                          {{#if dataColumnName}}data-column-name="{{dataColumnName}}"{{/if}}
-                        >
-                      {{/if}}
-                        <span>{{{ this.title }}}</span>
-                        {{#if isSortable}}
-                          <svg class="icon mdl-table__sort-arrow" focusable="false">
-                            <use xlink:href="#arrow-up"></use>
-                          </svg>
-                        {{/if}}
-                      {{#if isSortable}}</button>{{/if}}
-                    </th>
-                  {{/each}}
-                </tr>
-              </thead>
-            {{/if}}
-            <tbody class="mdl-table__body">
-              {{#each bodyrows}}
-                <tr class="mdl-table__row mdl-table__row">
-                  {{#each this.data}}
-                    {{#if @first}}
-                      <th scope="row" class="mdl-table__cell
-                        {{#if  ../../hasRowHeader}}mdl-table__row-header{{/if}}
-                        {{#if this.isHighlighted}}mdl-table__cell--highlighted{{/if}}"
-                        data-table="cell"
-                      >
-                        {{#if_object this}}
-                          {{{ ../this.cellContent }}}
-                        {{else}}
-                          {{{ ../this }}}
-                        {{/if_object}}
-                      </th>
-                    {{else}}
-                        <td class="mdl-table__cell {{#if this.isHighlighted}}mdl-table__cell--highlighted{{/if}}" data-table="cell">
-                          {{#if this.isHighlighted}}<strong>{{/if}}
-                            {{#if_object this}}
-                              {{{ ../this.cellContent }}}
-                            {{else}}
-                              {{{ ../this }}}
-                            {{/if_object}}
-                          {{#if this.isHighlighted}}</strong>{{/if}}
-                        </td>
+                      class="mdl-table__cell mdl-table__column-header {{#if isSortable}}mdl-table__column-header--sortable{{/if}}
+                        {{#if this.highlightColumn}}mdl-table__cell--highlight-column{{/if}}"
+                      {{#if isSortable}}aria-sort="none" {{/if}}
+                      {{#unless isSortable}}{{#if dataColumnName}}data-column-name="{{dataColumnName}}"
+                      {{/if}}{{/unless}}>
+                    {{#if isSortable}}
+                      <button
+                        data-table="sortable"
+                        data-order="{{isSortable}}"
+                        data-column-index="{{@index}}"
+                        {{#if dataColumnName}}data-column-name="{{dataColumnName}}" {{/if}}>
                     {{/if}}
-                  {{/each}}
-                </tr>
-              {{/each}}
-            </tbody>
-          </table>
-				</div>
-			</div>
-		{{#if hasCaption}}
-			<figcaption class="mdl-table__figcaption">
-				{{> "atoms/figcaption/figcaption" caption}}
-			</figcaption>
-		{{/if}}
-  {{#if isWide}}</div>{{/if}}
+                    <span>{{{ this.title }}}</span>
+                    {{#if isSortable}}
+                      <svg class="icon mdl-table__sort-arrow" focusable="false">
+                        <use xlink:href="#arrow-up"></use>
+                      </svg>
+                    {{/if}}
+                    {{#if isSortable}}</button>{{/if}}
+                  </th>
+                {{/each}}
+              </tr>
+            </thead>
+          {{/if}}
+          <tbody class="mdl-table__body" data-table="table-body">
+            {{#each bodyrows}}
+              <tr class="mdl-table__row {{#if this.bold}}mdl-table__row--bold{{/if}}
+                {{#if this.lineBottom}}mdl-table__row--line-bottom{{/if}}
+                {{#if this.lineBottomBold}}mdl-table__row--line-bottom-bold{{/if}}
+                {{#if this.spaceTop}}mdl-table__row--space-top{{/if}}">
+                {{#each this.data}}
+                  {{#if @first}}
+                    <th scope="row" class="mdl-table__cell
+                      {{#if  ../../hasRowHeader}}mdl-table__row-header{{/if}}
+                      {{#if this.isHighlighted}}mdl-table__cell--highlighted{{/if}}"
+                      data-table="cell">
+                      {{#if_object this}}
+                        <div>
+                          {{{ ../this.cellContent }}}
+                        </div>
+                      {{else}}
+                        <div>
+                          {{{ ../this }}}
+                        </div>
+                      {{/if_object}}
+                    </th>
+                  {{else}}
+                    <td class="mdl-table__cell {{#if this.isHighlighted}}mdl-table__cell--highlighted{{/if}}
+                      {{#if this.highlightColumn}}mdl-table__cell--highlight-column{{/if}}"
+                        data-table="cell">
+                      {{#if this.isHighlighted}}<strong>{{/if}}
+                      {{#if_object this}}
+                        {{{ ../this.cellContent }}}
+                  {{else}}
+                    {{{ ../this }}}
+                      {{/if_object}}
+                      {{#if this.isHighlighted}}</strong>{{/if}}
+                    </td>
+                  {{/if}}
+                {{/each}}
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {{#if hasCaption}}
+      {{#if_compare isFinanceTable "&&" isWide }}
+        <div class="grid-x grid-margin-x">
+          <div class=" cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10 medium-8">
+      {{/if_compare}}
+      <figcaption class="mdl-table__figcaption">
+        {{> "atoms/figcaption/figcaption" caption}}
+      </figcaption>
+      {{#if dataDownload}}
+        {{>"modules/data_download/data_download" dataDownload }}
+      {{/if}}
+      {{#if_compare isFinanceTable "&&" isWide }}
+          </div>
+        </div>
+      {{/if_compare}}
+    {{/if}}
+    {{#if pagination}}
+      {{> "modules/pagination/pagination" pagination }}
+    {{/if}}
+    {{#if isWide}}</div>{{/if}}
+
   </{{#if hasCaption}}figure{{else}}div{{/if}}>
+
   {{#if isInverted}}
         </div>
       </div>

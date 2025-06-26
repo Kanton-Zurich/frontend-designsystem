@@ -1,19 +1,10 @@
-$customParagraphCurve: (
-  tiny: $sizeFontSmall,
-  xsmall: $sizeFontSmall,
-  small: $sizeFontRegular,
-  medium: $sizeFontRegular,
-  large: $sizeFontBiggerRegular,
-);
-
-
 $maxTextLines: 4;
 
 .mdl-news-teaser {
   @include gridBleed($fullwidth: true);
   padding-top: pxToRem($sizeBig);
   padding-bottom: pxToRem($sizeBig);
-  background-color: $colorBlack5;
+  background-color: $colorBg;
 
   &--more-info {
     margin-top: 0;
@@ -32,20 +23,28 @@ $maxTextLines: 4;
 
   &__header {
     position: relative;
+    display: flex;
+
+    @include sizeCurve(gap, columnGap, $sizeCurves);
+    justify-content: space-between;
+    margin-bottom: pxToRem($sizeLarge);
+
+    @include mq($to: small) {
+      flex-wrap: wrap;
+    }
 
     .atm-text_link {
-      position: absolute;
       display: flex;
-      bottom: 0;
-      right: 0;
+      flex-shrink: 0;
       font-size: pxToRem($sizeFontRegular);
       line-height: $sizeLineHeightSuper;
+      align-items: flex-end;
     }
 
     // Overwrite heading atom style
     .atm-heading {
       margin-top: pxToRem($sizeBig);
-      margin-bottom: pxToRem($sizeLarge);
+      margin-bottom: 0;
     }
   }
 
@@ -79,7 +78,7 @@ $maxTextLines: 4;
 
     // HOVER OVER ITEMS
     &:hover {
-      z-index: 1;
+      z-index: $zIndexInner;
 
       &:before {
         background-color: $colorBorderFrameHover;
@@ -88,7 +87,7 @@ $maxTextLines: 4;
       .atm-heading,
       time,
       p {
-        color: $colorBlack;
+        color: var(--color-text);
       }
     }
 
@@ -100,21 +99,14 @@ $maxTextLines: 4;
     // Overwrite item heading atom
     .atm-heading {
       padding-top: pxToRem($sizeMini);
-      padding-bottom: pxToRem($sizeTiny);
-      margin-bottom: 0;
+      margin-bottom: pxToRem($sizeTiny);
       order: 2;
       overflow: hidden;
       word-break: break-word;
+      color: var(--color-accent);
 
-      // LineClamper Config
-      $headingHeightCurve: (
-        tiny: $sizeFontBiggerRegular * $sizeLineHeightMedium * $maxTextLines,
-        xsmall: $sizeFontMedium * $sizeLineHeightMedium * $maxTextLines,
-        large: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLines,
-        xlarge: $sizeFontSmallBig * $sizeLineHeightMedium * $maxTextLines,
-      );
-
-      @include polyFluidSizing(max-height, $headingHeightCurve);
+      @include h4__atm-heading;
+      @include lineClamp(3);
     }
 
     // Overwrite item paragraph atom
@@ -124,15 +116,7 @@ $maxTextLines: 4;
       line-height: $sizeLineHeightBase;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
-
-      // LineClamper Config
-      $paragraphHeightCurve: (
-        tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLines,
-        small: $sizeFontRegular * $sizeLineHeightBase * $maxTextLinesDesktop,
-        large: $sizeFontBiggerRegular * $sizeLineHeightBase * $maxTextLinesDesktop,
-      );
-
-      @include polyFluidSizing(max-height, $paragraphHeightCurve);
+      @include lineClamp(4);
     }
   }
 
@@ -146,6 +130,7 @@ $maxTextLines: 4;
 
     time {
       font-family: $fontFamilyBase;
+      margin-left: pxToRem($sizeMini);
     }
   }
 
@@ -183,7 +168,6 @@ $maxTextLines: 4;
   * MEDIA QUERIES
   */
   @include mq($from: small, $media: screen) {
-
     &--more-info {
       padding-top: 0;
       padding-bottom: pxToRem($sizeBiggerBig);
@@ -213,9 +197,7 @@ $maxTextLines: 4;
 
     &__header {
       // Overwrite heading atom style
-      .atm-heading {
-        margin-bottom: pxToRem($sizeBiggerBig);
-      }
+      margin-bottom: pxToRem($sizeBiggerBig);
     }
 
     &--more-info {
@@ -246,17 +228,6 @@ $maxTextLines: 4;
 
     .mdl-linklist {
       margin: calc(#{$sizeBiggerBig} + #{$sizeRegular}) 0 0;
-    }
-  }
-}
-
-/*
-* COLOR VARIATIONS
-*/
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .mdl-news-teaser__item a {
-      color: #{$val};
     }
   }
 }

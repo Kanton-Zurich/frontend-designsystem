@@ -4,15 +4,15 @@ $carouselCurves: (
     small: $sizeBig,
     large: $sizeBiggerBig,
   ),
-  imageMaxHeight: (
-    tiny: 296px,
-    xsmall: 386px,
-    small: 444px,
-    medium: 576px,
-    large: 621px,
-    xlarge: 768px,
-  ),
 );
+
+@media screen {
+  .mdl-carousel--fullscreen {
+    --color-text: #{$colorWhite};
+    --color-text-soft: #{$colorBlack20};
+    --color-bg: #{$colorBlack80};
+  }
+}
 
 .mdl-carousel {
   @include sizeCurve(margin-bottom, medium);
@@ -49,13 +49,12 @@ $carouselCurves: (
     }
   }
 
-
   &__close,
   &__download {
     padding: 0 pxToRem(5px);
 
     use {
-      fill: $colorWhite;
+      fill: var(--color-text);
     }
   }
 
@@ -66,6 +65,7 @@ $carouselCurves: (
 
     flex-grow: 1;
     overflow-x: hidden;
+    contain: layout;
     padding-top: $sizeSmallRegular;
     overflow-anchor: none;
   }
@@ -108,30 +108,15 @@ $carouselCurves: (
     display: inline-block;
 
     &__img {
-      @include sizeCurve(max-height, imageMaxHeight, $carouselCurves);
       max-width: 100%;
       width: auto;
-      // IE 11 only
-      @media all and ( -ms-high-contrast: none ) {
-        width: 100%;
-      }
     }
   }
 
   .mdl-button_group {
     position: absolute;
-
-    @include mq($from: large) {
-      top: 0;
-      right: 0;
-    }
-    @include mq($to: large) {
-      left: 0;
-      justify-content: flex-end;
-      padding-right: 2px;
-
-      @include gridBleed;
-    }
+    top: 0;
+    right: 0;
   }
 
   /**
@@ -139,20 +124,16 @@ $carouselCurves: (
    */
   &--fullscreen {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     height: 100vh;
+    height: 100dvh; //stylelint-disable-line
+    width: 100vw;
+    width: 100dvw; //stylelint-disable-line
     z-index: $zIndexFlyouts;
-
-    background: $colorBlack80;
+    background: var(--color-bg);
     margin: 0;
-    max-width: none;
     transform: none;
-
     padding-bottom: 2px;
-
     display: flex;
     flex-direction: column;
 
@@ -162,14 +143,9 @@ $carouselCurves: (
 
     .mdl-carousel__slides {
       align-items: stretch;
-      overflow: visible;
       padding-top: 0;
       min-height: 0;
       height: 100%;
-
-      .mdl-image-figure__img-wrapper {
-        height: 100%;
-      }
     }
 
     .mdl-carousel__slides,
@@ -178,9 +154,9 @@ $carouselCurves: (
     }
 
     .mdl-carousel__slide {
-      @include sizeCurve(padding-left padding-right, paddingCurve, $carouselCurves);
+      display: block;
 
-      max-height: 100%;
+      @include sizeCurve(padding-inline, paddingCurve, $carouselCurves);
     }
 
     .mdl-carousel__control {
@@ -196,22 +172,63 @@ $carouselCurves: (
 
     .mdl-image-figure {
       display: flex;
-      width: 100%;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      // Necessary to overwrite mediaqueries
+      margin-bottom: 0 !important; //stylelint-disable-line declaration-no-important
+
+      &__img-wrapper {
+        min-height: 0;
+      }
 
       &__img {
-        max-height: 100%;
-        max-width: 100%;
+        height: 100%;
         width: 100%;
       }
-    }
 
-    .mdl-image-figure__download {
-      display: none;
+      &__caption {
+        .atm-figcaption {
+          @include lineClamp(2);
+        }
+      }
+
+      &__download {
+        position: fixed;
+        display: none;
+
+        @include sizeCurve(top, small);
+        right: pxToRem($sizeBig);
+
+        @include sizeCurve(margin-right, small);
+
+        padding: 0;
+        opacity: 0;
+
+        transition: opacity $transitionTimeFadeOut $transitionEasingAccelerate;
+
+        .icon {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+      }
+
+      &.mdl-image-figure--imagesmall {
+        padding: 0 16.67%;
+      }
     }
 
     .mdl-carousel__slide--active {
       .mdl-image-figure__download {
         display: inherit;
+      }
+    }
+
+    .mdl-carousel__slide--active .mdl-image-figure {
+      .mdl-image-figure__download {
+        opacity: 1;
+        transition: opacity $transitionTimeFadeIn $transitionEasingDecelerate;
       }
     }
   }

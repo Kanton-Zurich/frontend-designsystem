@@ -14,10 +14,10 @@
     <div class="mdl-accordion__panel-content" data-accordion="panel-content">
       <fieldset class="form__section" aria-live="polite">
         <div class="form__group">
-          <% _.forEach(rows, function(row, index) {
+          <% rows.forEach((row, index) => {
             if (row.fields.length) { %>
               <div class="form__row">
-                <% _.forEach(row.fields, function(field, index) { %>
+                <% row.fields.forEach((field, index) => { %>
                   <div class="form__cell">
                     <%=field%>
                   </div>

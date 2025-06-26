@@ -16,32 +16,47 @@ const data = _.merge({}, defaultData, {
     name: 'allowmailnotification',
     id: 'allowmailnotification',
     checked: false,
+    labelLeft: false,
   },
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Standard',
-      desc: 'Standard Implementierung ohne Vorauswahl',
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
-
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        data: dataHelper.getFormattedJson(variantProps),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Standard',
+        desc: 'Standard Implementierung ohne Vorauswahl',
       },
     },
-  });
+    labelLeft: {
+      meta: {
+        title: 'Label links',
+        desc: 'Variante mit Label links vom Schalter',
+      },
+      props: {
+        label: 'Gebärdensprache',
+        id: 'signlanguage',
+        labelLeft: true,
+      },
+    },
+  },
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-  return variantData;
-});
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          data: dataHelper.getFormattedJson(variantProps),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+        },
+      },
+    });
+
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

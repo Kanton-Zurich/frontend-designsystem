@@ -1,9 +1,3 @@
-/*!
- * UserMenu
- *
- * @author
- * @copyright
- */
 import Module from '../../assets/js/helpers/module';
 import {
   UserMenuDefaultOptions,
@@ -20,24 +14,22 @@ class UserMenu extends Module {
   public options: UserMenuModuleOptions;
 
   public ui: {
-    element: HTMLElement,
-    configuredStatusEndpoint: HTMLInputElement,
-    trigger: HTMLButtonElement,
-    userNameField: HTMLElement,
-    userShortField: HTMLElement,
-    logout: HTMLButtonElement | HTMLAnchorElement,
-    contextMenu: HTMLDivElement,
+    element: HTMLElement;
+    configuredStatusEndpoint: HTMLInputElement;
+    trigger: HTMLButtonElement;
+    userNameField: HTMLElement;
+    loginLabel: HTMLElement;
+    logout: HTMLButtonElement | HTMLAnchorElement;
+    contextMenu: HTMLDivElement;
   };
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
 
     super($element, defaultData, UserMenuDefaultOptions, data, options);
 
     this.initUi();
     this.initEventListeners();
-
     this.initLoginState();
   }
 
@@ -55,12 +47,18 @@ class UserMenu extends Module {
         this.log(`Loggedin User: "${loginStatusResponse.name}"`);
         this.ui.element.classList.add(this.options.stateClasses.initialised);
         this.ui.userNameField.innerText = loginStatusResponse.name;
-        this.ui.userShortField.innerText = this.getInitials(loginStatusResponse.name);
+        this.ui.loginLabel.innerText = '';
       } else {
         this.ui.element.classList.remove(this.options.stateClasses.initialised);
+        this.ui.loginLabel.innerText = 'Anmelden';
       }
-      document.dispatchEvent(new CustomEvent(UserMenu
-        .events.stateFetched, { detail: loginStatusResponse }));
+
+      document.dispatchEvent(
+        new CustomEvent(UserMenu.events.stateFetched, {
+          bubbles: true,
+          detail: loginStatusResponse,
+        })
+      );
     });
   }
 
@@ -110,12 +108,14 @@ class UserMenu extends Module {
         this.log('No loginstatus younger than configured maxAge in Storage.');
         const apiEndpoint = this.ui.configuredStatusEndpoint.value;
         this.log(`Fetching status from "${apiEndpoint}".`);
-        this.fetchJsonData(apiEndpoint).then((resp) => {
-          this.storeLoginStatus(resp);
-          resolve(resp);
-        }).catch((reason) => {
-          reject(reason);
-        });
+        this.fetchJsonData(apiEndpoint)
+          .then((resp) => {
+            this.storeLoginStatus(resp);
+            resolve(resp);
+          })
+          .catch((reason) => {
+            reject(reason);
+          });
       }
     });
   }
@@ -167,7 +167,7 @@ class UserMenu extends Module {
         meta.name = 'referrer';
         meta.content = 'no-referrer';
         document.getElementsByTagName('head')[0].appendChild(meta);
-        window.location.reload(true);
+        window.location.reload();
       });
     }
   }

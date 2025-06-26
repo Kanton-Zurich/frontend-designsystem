@@ -1,14 +1,14 @@
 interface ModuleDomSelectors {
-  configuredStatusEndpoint: string,
-  trigger: string,
-  userNameField: string,
-  userShortField: string,
-  logout: string,
-  contextMenu: string,
+  configuredStatusEndpoint: string;
+  trigger: string;
+  userNameField: string;
+  loginLabel: string;
+  logout: string;
+  contextMenu: string;
 }
 interface ModuleStateClasses {
-  open: string,
-  initialised: string,
+  open: string;
+  initialised: string;
 }
 export interface UserMenuModuleOptions {
   statusStorage: {
@@ -18,17 +18,17 @@ export interface UserMenuModuleOptions {
       name: string;
       logoutUrl: string;
       timestamp: string;
-    }
-  },
-  domSelectors: ModuleDomSelectors
-  stateClasses: ModuleStateClasses
+    };
+  };
+  domSelectors: ModuleDomSelectors;
+  stateClasses: ModuleStateClasses;
 }
 
 const domSelectors: ModuleDomSelectors = {
   configuredStatusEndpoint: '[data-user-menu=loginStatusEndpoint]',
   trigger: '.mdl-user-menu__trigger',
   userNameField: '[data-user-menu=userNameField]',
-  userShortField: '[data-user-menu=userShortField]',
+  loginLabel: '.mdl-user-menu__loginlabel',
   logout: '[data-user-menu=logout]',
   contextMenu: '.mdl-context_menu',
 };
@@ -45,7 +45,8 @@ const statusStorage = {
     timestamp: 'kzh-status-timestamp',
   },
 };
-export const UserMenuDefaultOptions: UserMenuModuleOptions = { // eslint-disable-line
+export const UserMenuDefaultOptions: UserMenuModuleOptions = {
+  // eslint-disable-line
   statusStorage,
   domSelectors,
   stateClasses,

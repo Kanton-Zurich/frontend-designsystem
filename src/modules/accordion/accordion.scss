@@ -1,18 +1,24 @@
+$colorWhite70: rgba($colorWhite, 0.7);
+
 $accordionMap: (
   controlMargin: (
     zero: 12px,
     small: 14.5px,
     large: 17px,
-  )
+  ),
+  contentMargin: (
+    zero: calc(22px - 12px),
+    small: calc(25px - 14.5px),
+    medium: calc(29px - 14.5px),
+    xlarge: calc(36px - 17px),
+  ),
 );
 
 .mdl-accordion {
   @include sizeCurve(padding-bottom, big);
 
-  position: relative;
-  z-index: 1;
-
-  .atm-heading--bordered { // CZHDEV-428
+  .atm-heading--bordered {
+    // CZHDEV-428
     @include sizeCurve(margin-bottom, medium);
   }
 
@@ -38,29 +44,19 @@ $accordionMap: (
       position: absolute;
       bottom: 0;
       transform: scaleY(1);
+      background-color: $colorBlack20;
 
-      background: $colorBlack20;
-
-      @include transition(background transform);
+      @include transition(background-color transform);
     }
 
-    @include hover() {
-      .mdl-accordion__control,
-      .mdl-accordion__title-prefix {
-        color: $colorBlack100;
-      }
-
-      .mdl-accordion__plus use {
-        fill: $colorBlack100;
-      }
-    }
-
-    .mdl-accordion__control,
-    .mdl-accordion__title-prefix {
-      color: $colorBlack60;
+    .mdl-contact_entry:first-child {
+      @include sizeCurve(margin-top, contentMargin, $accordionMap);
     }
 
     &--open {
+      &:after {
+        content: none;
+      }
 
       .mdl-accordion__plus .vertical {
         transform: rotate(90deg);
@@ -68,20 +64,6 @@ $accordionMap: (
 
       .mdl-accordion__panel {
         @include transition(max-height);
-      }
-
-      .mdl-accordion__control,
-      .mdl-accordion__title-prefix {
-        color: $colorBlack100;
-      }
-
-      .mdl-accordion__control {
-        max-height: none;
-        white-space: normal;
-      }
-
-      .mdl-accordion__plus use {
-        fill: $colorBlack100;
       }
 
       .mdl-accordion__subhead {
@@ -103,7 +85,33 @@ $accordionMap: (
     @include hover('.mdl-accordion__item--open') {
       &:after {
         transform: scaleY(3);
-        background: $colorBlack100;
+        background-color: $colorBlack;
+      }
+    }
+  }
+
+  &__header {
+    margin: 0;
+
+    @include hover() {
+      .mdl-accordion__control,
+      .mdl-accordion__title-prefix {
+        color: $colorBlack;
+      }
+
+      .mdl-accordion__plus use {
+        fill: $colorBlack;
+      }
+    }
+
+    .mdl-accordion__item--open & {
+      .mdl-accordion__control,
+      .mdl-accordion__title-prefix {
+        color: $colorBlack;
+      }
+
+      .mdl-accordion__plus use {
+        fill: $colorBlack;
       }
     }
   }
@@ -115,26 +123,22 @@ $accordionMap: (
     &:not(.mdl-accordion__button--subhead) {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: start;
     }
 
     &--subhead {
       &__flexbox {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: start;
       }
     }
-  }
-
-  &__header {
-    margin: 0;
   }
 
   &__subhead {
     font-size: pxToRem($sizeRegular);
     bottom: pxToRem($sizeMini);
-    margin-top: pxToRem(- $sizeRegular);
+    margin-top: pxToRem(-$sizeRegular);
     line-height: pxToRem($sizeLarge);
     padding-bottom: pxToRem($sizeSmallLarge);
     color: $colorBlack60;
@@ -153,27 +157,30 @@ $accordionMap: (
     white-space: nowrap;
     font-family: $fontFamilyBlack;
     line-height: $sizeLineHeightMedium;
+    color: $colorBlack60;
   }
 
   &__title-prefix {
     @include sizeCurve(padding-right, regular);
+    @include sizeCurve(margin-top, controlMargin, $accordionMap);
   }
 
   &__control {
-    @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 1.5));
     @include sizeCurve(margin-top margin-bottom, controlMargin, $accordionMap);
     flex-grow: 1;
-    overflow: hidden;
-    width: calc(100% - 24px);
-    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-word;
     margin: 0;
     display: block;
+    hyphens: auto;
   }
-
 
   &__plus {
     overflow: hidden;
     margin-right: 2px;
+    flex-shrink: 0;
+
+    @include sizeCurve(margin-top margin-bottom margin-left, controlMargin, $accordionMap);
 
     use {
       fill: $colorBlack60;
@@ -200,7 +207,6 @@ $accordionMap: (
     display: inline-block;
     width: 100%;
 
-
     > p:last-child {
       @include sizeCurve(margin-bottom, regular);
     }
@@ -223,23 +229,12 @@ $accordionMap: (
     @include sizeCurve(margin-bottom, regular);
   }
 
-
   .mdl-linklist--small-margin {
     @include sizeCurve(margin-bottom, regular);
   }
 
   /** Indented (table of contents/sozial care) variante **/
   &--indented {
-    @include sizeCurve(margin-top, large);
-
-    .atm-heading--bordered {
-      padding-top: 0;
-
-      &:before {
-        display: none;
-      }
-    }
-
     .mdl-accordion__panel-content {
       padding-left: pxToRem(38px);
 
@@ -262,17 +257,15 @@ $accordionMap: (
     }
   }
 
-  /** Inverted style */
+  /** Legacy "Inverted" style with light-gray background */
   &--cv-inverted {
     @include gridBleed($fullwidth: true);
     @include sizeCurve(padding-top, big);
 
-    background: $colorBlack5;
+    background: $colorBg;
     z-index: 1;
 
     h2.atm-heading.atm-heading--bordered,
-    h3.atm-heading.atm-heading--bordered,
-    h4.atm-heading.atm-heading--bordered,
     h2.atm-heading,
     h3.atm-heading,
     h4.atm-heading {
@@ -284,15 +277,70 @@ $accordionMap: (
     }
 
     h2.atm-heading--bordered {
-      margin-top: 0;
+      margin-top: 0 !important; // stylelint-disable-line
+    }
+
+    .mdl-table .atm-text_link {
+      color: var(--color-accent);
     }
   }
-}
 
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .mdl-accordion--cv-inverted .mdl-table .atm-text_link {
-      color: $val;
+  /** Contact style */
+  &--contact {
+    padding-bottom: 0;
+    padding-top: 0;
+
+    .mdl-accordion__item {
+      &:first-child:before,
+      &:after {
+        background-color: $colorWhite;
+      }
+
+      @include hover('.mdl-accordion__item--open') {
+        &:first-child:before,
+        &:after {
+          background-color: $colorWhite70;
+        }
+      }
+    }
+
+    .mdl-accordion__header {
+      .mdl-accordion__control {
+        color: $colorWhite;
+      }
+
+      .mdl-accordion__plus use {
+        fill: $colorWhite;
+      }
+
+      @include hover() {
+        .mdl-accordion__control {
+          color: $colorWhite70;
+        }
+
+        .mdl-accordion__plus use {
+          fill: $colorWhite70;
+        }
+      }
+    }
+
+    .mdl-accordion__item:first-child:before {
+      display: block;
+      content: ' ';
+      left: 0;
+      right: 0;
+      height: 1px;
+      position: absolute;
+      top: 0;
+      transform: scaleY(1);
+      background-color: $colorWhite;
+
+      @include transition(background-color transform);
+    }
+
+    .mdl-accordion__control {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
+      max-height: none;
     }
   }
 }

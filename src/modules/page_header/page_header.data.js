@@ -1,14 +1,17 @@
 const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
-const {handlebars} = require('@unic/estatico-handlebars');
-const defaultData = require('../../data/default.data.js');
+const { handlebars } = require('@unic/estatico-handlebars');
+const defaultData = require('../../data/default.data');
+const defContentNav = require('../content_nav/content_nav.data');
+const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants
+  .default.props;
 const defImageFigureData = require('../image_figure/image_figure.data');
 const defVideoData = require('../video/video.data');
-const defServiceButtonData = require('../service_button/service_button.data').props;
 const defBreadcrumbData = require('../breadcrumb/breadcrumb.data');
-const backOnlyBreadcrumbData = require('../breadcrumb/breadcrumb.data').variants.singlePathItem.props;
-const defPersonCardData = require('../person_card/person_card.data.js').variants.promo.props;
-
+const defPersonCardData = require('../person_card/person_card.data').variants.default.props;
+const logoData = require('../../atoms/logo/logo.data').variants;
+const headerExpandData = require('../header_expand/header_expand.data').props;
+const leadSectionData = require('../lead_section/lead_section.data').variants;
 
 const template = dataHelper.getFileContent('page_header.hbs');
 const data = _.merge({}, defaultData, {
@@ -21,569 +24,661 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     title: 'Seitenkopf',
-    homelink: '#',
+    logo: logoData.linked.props,
     pageTitle: 'H1: Pagetitle Black Strassenverkehrsamt',
-    leadText: 'Lead: ExtraBold Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
+    keyVisual: false,
     newsCategory: '',
     publicationDate: '',
-    personCardData: defPersonCardData,
-    expandNav: 'Navigation anzeigen',
-    collapseNav: 'Navigation ausblenden',
   },
 });
 
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      breadcrumb: defBreadcrumbData.variants.default.props,
-      buttonData: _.merge(defServiceButtonData, {
-        buttonTitle: 'Formular beantragen',
-        modalData: {modalId: 'service-modal0'}
-      }),
-    },
-  },
-  default2: {
-    meta: {
-      title: 'Default 2',
-      desc: 'Default implementation',
-      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      breadcrumb: defBreadcrumbData.variants.default.props,
-      newsCategory: 'Medienmitteilung',
-      publicationDate: '08.01.2019',
-    },
-  },
-  defaultImage: {
-    meta: {
-      title: 'Default mit Bild',
-      desc: 'Default implementation',
-      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      breadcrumb: backOnlyBreadcrumbData,
-      imageData: defImageFigureData.variants.header.props,
-      hasImage: true,
-      newsCategory: 'Medienmitteilung',
-      publicationDate: '08.01.2019',
-    },
-  },
-  colored: {
-    meta: {
-      title: 'Mit Farbe',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      inverted: true,
-      buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: {modalId: 'service-modal1'}}),
-      breadcrumb: defBreadcrumbData.variants.default.props,
-    },
-  },
-  coloredAnchors: {
-    meta: {
-      title: 'Mit Farbe und Tags',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      inverted: true,
-      buttonData: _.merge({}, defServiceButtonData, {isInverted: true, modalData: {modalId: 'service-modal2'}}),
-      breadcrumb: defBreadcrumbData.variants.default.props,
-      anchorLinks: [
-        {
-          anchorlink: {
-            anchorlinkText: 'eAutoindex',
-            anchorlinkAdress: '#',
-            anchorlinkIsActive: false,
-            anchorlinkIsTagAnchor: true,
-            anchorlinkIsInverted: true,
-            anchorlinkIsTopitem: true,
-            anchorlinkIsTopitemSmall: false,
-          },
-        },
-        {
-          anchorlink: {
-            anchorlinkText: 'Fahrzeugprüfung',
-            anchorlinkAdress: '#',
-            anchorlinkIsActive: false,
-            anchorlinkIsTagAnchor: true,
-            anchorlinkIsInverted: true,
-            anchorlinkIsTopitem: true,
-            anchorlinkIsTopitemSmall: false,
-          },
-        },
-        {
-          anchorlink: {
-            anchorlinkText: 'Drohnen und Flugmodelle',
-            anchorlinkAdress: '#',
-            anchorlinkIsActive: false,
-            anchorlinkIsTagAnchor: true,
-            anchorlinkIsInverted: true,
-            anchorlinkIsTopitem: true,
-            anchorlinkIsTopitemSmall: false,
-          },
-        },
-        {
-          anchorlink: {
-            anchorlinkText: 'Veloschulen',
-            anchorlinkAdress: '#',
-            anchorlinkIsActive: false,
-            anchorlinkIsTagAnchor: true,
-            anchorlinkIsInverted: true,
-            anchorlinkIsTopitem: true,
-            anchorlinkIsTopitemSmall: false,
-          },
-        },
-      ],
-    },
-  },
-  coloredImage: {
-    meta: {
-      title: 'Mit Farbe und Bild',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      imageData: defImageFigureData.variants.headerNoTitle.props,
-      inverted: true,
-      hasImage: true,
-      breadcrumb: defBreadcrumbData.variants.default.props,
-    },
-  },
-  coloredImageTitle: {
-    meta: {
-      title: 'Mit Farbe, Bild und Untertitel',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      imageData: defImageFigureData.variants.header.props,
-      inverted: true,
-      hasImageTitle: true,
-      hasImage: true,
-      breadcrumb: defBreadcrumbData.variants.default.props,
-    },
-  },
-  coloredVideoTitle: {
-    meta: {
-      title: 'Mit Farbe, Video und Untertitel',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      videoData: defVideoData.variants.header.props,
-      inverted: true,
-      hasImageTitle: true,
-      hasVideo: true,
-      hasImage: true,
-      buttonData: _.merge({}, defServiceButtonData),
-      breadcrumb: defBreadcrumbData.variants.default.props,
-    },
-  },
-  colorPeopleTeaser: {
-    meta: {
-      title: 'Mit Farbe und Personen Teaser',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      imageData: defImageFigureData.variants.headerNoTitle.props,
-      inverted: true,
-      breadcrumb: defBreadcrumbData.variants.default.props,
-      hasImage: false,
-      hasPersonCard: true,
-    },
-  },
-  serviceModal: {
-    meta: {
-      title: 'Service Modal (CZHDEV-468)',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-      defaultColorVariation: 'cv-green',
-    },
-    props: {
-      pageTitle: 'Führerausweis bestellen',
-      inverted: true,
-      hasImageTitle: false,
-      hasVideo: false,
-      hasImage: false,
-      noText: true,
-      hasCloseButton: true,
-    },
-  },
-  servicePage: {
-    meta: {
-      title: 'Service Stand alone (CZHDEV-468)',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-      defaultColorVariation: 'cv-green',
-    },
-    props: {
-      pageTitle: 'Führerausweis bestellen',
-      inverted: true,
-      hasImageTitle: false,
-      hasVideo: false,
-      hasImage: false,
-      breadcrumb: defBreadcrumbData.variants.default.props,
-    },
-  },
-  servicePageSmall: {
-    meta: {
-      title: 'Service Seite klein (CZHDEV-468)',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-      defaultColorVariation: 'cv-green',
-    },
-    props: {
-      pageTitle: 'Internationalen Führerausweis bestellen',
-      inverted: true,
-      hasImageTitle: false,
-      hasVideo: false,
-      hasImage: false,
-      noText: true,
-      minimal: true,
-      hasCloseButton: true,
-    },
-  },
-  application: {
-    meta: {
-      title: 'Applikation (CZHDEV-533)',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-      defaultColorVariation: 'cv-darkblue',
-    },
-    props: {
-      pageTitle: 'Applikation',
-      applicationHeader: true,
-      inverted: true,
-      noText: true,
-      breadcrumb: defBreadcrumbData.variants.default.props,
-    },
-  },
-  applicationStandalone: {
-    meta: {
-      title: 'Applikation Standalone (CZHDEV-533)',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-      defaultColorVariation: 'cv-darkblue',
-    },
-    props: {
-      pageTitle: 'Applikation',
-      inverted: true,
-      noText: true,
-      breadcrumb: defBreadcrumbData.variants.default.props,
-    },
-  },
-  applicationModal: {
-    meta: {
-      title: 'Applikation Modal (CZHDEV-533)',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-      defaultColorVariation: 'cv-darkblue',
-    },
-    props: {
-      pageTitle: 'Applikation',
-      inverted: true,
-      hasImageTitle: false,
-      hasVideo: false,
-      hasImage: false,
-      noText: true,
-      hasCloseButton: true,
-    },
-  },
-  applicationModalSmall: {
-    meta: {
-      title: 'Applikation Modal klein (CZHDEV-533)',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-      defaultColorVariation: 'cv-darkblue',
-    },
-    props: {
-      pageTitle: 'Applikation',
-      inverted: true,
-      hasImageTitle: false,
-      hasVideo: false,
-      hasImage: false,
-      noText: true,
-      minimal: true,
-      hasCloseButton: true,
-    },
-  },
-  steuerBuch: {
-    meta: {
-      title: 'Flex Data (Steuerbuch) (CZHDEV-1234)',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-      defaultColorVariation: 'cv-darkblue',
-    },
-    props: {
-      pageTitle: 'ZStB-Nr. 3.1',
-      inverted: false,
-      leadText: 'Steuerliche Zugehörigkeit',
-      breadcrumb: backOnlyBreadcrumbData,
-    },
-  },
-  rrbDetail: {
-    meta: {
-      title: 'Flex Data (RRB) (CZHDEV-1233)',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-    },
-    props: {
-      pageTitle: 'Regierungsratsbeschluss Nr. 749/2018',
-      inverted: false,
-      hasBacklink: true,
-      noText: true,
-      breadcrumb: backOnlyBreadcrumbData,
-    },
-  },
-  zhLexDetail: {
-    meta: {
-      title: 'Flex Data (ZHLEX) (CZHDEV-1233)',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome'],
-    },
-    props: {
-      pageTitle: 'Vertrag zwischen den Ständen Zürich und Schwyz betreffend die Hafengüter bei Richterswil',
-      inverted: false,
-      hasBacklink: true,
-      noText: true,
-      breadcrumb: _.merge({}, backOnlyBreadcrumbData, {
-        hasStorage: true,
-      }),
-    },
-  },
-  error404: {
-    meta: {
-      title: 'Error404 (CZHDEV-528)',
-      desc: 'Default implementation',
-      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      noText: true,
-      breadcrumb: {
-        contextMenu: false,
-        path: [
+const variants = _.mapValues(
+  {
+    home: {
+      meta: {
+        title: 'Home',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-blue',
+      },
+      props: {
+        inverted: true,
+        logo: logoData.invertedLinked.props,
+        pageTitle: 'Kanton Zürich',
+        anchorLinks: [
           {
-            title: 'Kanton Zürich',
-            href: '#',
+            anchorlink: {
+              anchorlinkText: 'eAutoindex',
+              anchorlinkAdress: '#',
+              anchorlinkIsActive: false,
+              anchorlinkIsTagAnchor: true,
+              anchorlinkIsInverted: true,
+              anchorlinkIsTopitem: true,
+              anchorlinkIsTopitemSmall: false,
+            },
+          },
+          {
+            anchorlink: {
+              anchorlinkText: 'Fahrzeugprüfung',
+              anchorlinkAdress: '#',
+              anchorlinkIsActive: false,
+              anchorlinkIsTagAnchor: true,
+              anchorlinkIsInverted: true,
+              anchorlinkIsTopitem: true,
+              anchorlinkIsTopitemSmall: false,
+            },
+          },
+          {
+            anchorlink: {
+              anchorlinkText: 'Drohnen und Flugmodelle',
+              anchorlinkAdress: '#',
+              anchorlinkIsActive: false,
+              anchorlinkIsTagAnchor: true,
+              anchorlinkIsInverted: true,
+              anchorlinkIsTopitem: true,
+              anchorlinkIsTopitemSmall: false,
+            },
+          },
+          {
+            anchorlink: {
+              anchorlinkText: 'Veloschulen',
+              anchorlinkAdress: '#',
+              anchorlinkIsActive: false,
+              anchorlinkIsTagAnchor: true,
+              anchorlinkIsInverted: true,
+              anchorlinkIsTopitem: true,
+              anchorlinkIsTopitemSmall: false,
+            },
           },
         ],
       },
-      pageTitle: 'Seite nicht gefunden',
-      homeCTA: {title: 'Zur Startseite', href: '#'},
-      errorBlock: {
-        code: 'Fehlercode:404',
-        text: 'Bitte wählen Sie über die Hauptnavigation andere Inhalte, versuchen Sie es über die Eingabe eines Suchbegriffs oder wechseln Sie zur Startseite.',
+    },
+    topics: {
+      meta: {
+        title: 'Themenseite',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-turqoise',
       },
-    },
-  },
-  error404Ext: {
-    meta: {
-      title: 'Error404 Erweitert (CZHDEV-528)',
-      desc: 'Default implementation',
-      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      anchorLinks: [
-        {
-          anchorlink: {
-            anchorlinkText: 'Schulferien 2019',
-            anchorlinkAdress: '#',
-            anchorlinkIsActive: false,
-            anchorlinkIsTagAnchor: true,
-            anchorlinkIsInverted: false,
-            anchorlinkIsTopitem: true,
-            anchorlinkIsTopitemSmall: false,
-          },
+      props: {
+        inverted: true,
+        logo: logoData.invertedLinked.props,
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+        pageTitle: 'Erwerbstätigkeit von Ausländerinnen und Ausländern',
+        contentNav: {
+          anchorNavReference: 'ourtopics',
+          items: [
+            _.merge({}, contentTeaserDefaultData, {
+              shortTitle: 'Autofahren lernen',
+              buzzwords:
+                'Voraussetzungen, Lernfahrausweis, Theorieprüfung, praktische Führerprüfung ',
+            }),
+            _.merge({}, contentTeaserDefaultData, {
+              shortTitle: 'Motorradfahren lernen',
+              buzzwords: 'Motorrad- oder Mofa-Führerausweis:, Voraussetzungen, Prüfungen',
+            }),
+            _.merge({}, contentTeaserDefaultData, {
+              shortTitle: 'Weitere Fahrzeuge fahren lernen',
+              buzzwords: 'Anhänger, Lastwagen, Bus, Taxi, Traktor, langsame Fahrzeuge und',
+            }),
+            _.merge({}, contentTeaserDefaultData, {
+              shortTitle: 'Führerausweis auf Probe',
+              buzzwords:
+                '«Grüner L»  Führerausweis: WAB-Kursangebote, wichtige Fristen, unbefristeter Ausweis',
+            }),
+            _.merge({}, contentTeaserDefaultData, {
+              shortTitle: 'Fahren im Alter',
+              buzzwords:
+                'Alterskontrolle, medizinische Anforderungen, anerkannte Ärztinnen und Ärzte finden',
+            }),
+            _.merge({}, contentTeaserDefaultData, {
+              shortTitle: 'Internationaler Führerschein',
+              buzzwords: 'Länderliste, Informationen, Internationalen Führerschein bestellen',
+            }),
+            _.merge({}, contentTeaserDefaultData, {
+              shortTitle: 'Ausländischen Führerausweis ',
+              buzzwords: 'Führerausweis verloren/kaputt',
+            }),
+            _.merge({}, contentTeaserDefaultData, {
+              shortTitle: 'Führerausweis verloren/kaputt',
+              buzzwords: 'Ersatz beantragen',
+            }),
+          ],
         },
-        {
-          anchorlink: {
-            anchorlinkText: 'Kurs für Hundehalter',
-            anchorlinkAdress: '#',
-            anchorlinkIsActive: false,
-            anchorlinkIsTagAnchor: true,
-            anchorlinkIsInverted: false,
-            anchorlinkIsTopitem: true,
-            anchorlinkIsTopitemSmall: false,
+      },
+    },
+    topicsImage: {
+      meta: {
+        title: 'Themenseite mit Bild',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-turqoise',
+      },
+      props: {
+        inverted: true,
+        logo: logoData.invertedLinked.props,
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+        contentNav: defContentNav.variants.twoItems.props,
+        keyVisual: true,
+        imageData: defImageFigureData.variants.headerNoTitle.props,
+      },
+    },
+    topicsVideo: {
+      meta: {
+        title: 'Themenseite mit Video',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-turqoise',
+      },
+      props: {
+        inverted: true,
+        logo: logoData.invertedLinked.props,
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+        contentNav: defContentNav.variants.oneItem.props,
+        keyVisual: true,
+        videoData: defVideoData.variants.header.props,
+      },
+    },
+    department: {
+      meta: {
+        title: 'Direktionsseite mit Personenteaser',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-blue',
+      },
+      props: {
+        inverted: true,
+        logo: logoData.invertedLinked.props,
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+        pageTitle: 'Sicherheitsdirektion',
+        keyVisual: true,
+        personCardData: defPersonCardData,
+      },
+    },
+    office: {
+      meta: {
+        title: 'Amtsseite',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-blue',
+      },
+      props: {
+        inverted: true,
+        logo: logoData.invertedLinked.props,
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+        pageTitle: 'Strassenverkehrsamt',
+      },
+    },
+    allElements: {
+      meta: {
+        title: 'Alle Elemente',
+        desc: 'Beispiel mit allen möglichen Elementen im Page Header. Kommt so auf keiner Seite vor.',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-blue',
+      },
+      props: {
+        inverted: true,
+        logo: logoData.invertedLinked.props,
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+        anchorLinks: [
+          {
+            anchorlink: {
+              anchorlinkText: 'eAutoindex',
+              anchorlinkAdress: '#',
+              anchorlinkIsActive: false,
+              anchorlinkIsTagAnchor: true,
+              anchorlinkIsInverted: true,
+              anchorlinkIsTopitem: true,
+              anchorlinkIsTopitemSmall: false,
+            },
           },
+          {
+            anchorlink: {
+              anchorlinkText: 'Fahrzeugprüfung',
+              anchorlinkAdress: '#',
+              anchorlinkIsActive: false,
+              anchorlinkIsTagAnchor: true,
+              anchorlinkIsInverted: true,
+              anchorlinkIsTopitem: true,
+              anchorlinkIsTopitemSmall: false,
+            },
+          },
+          {
+            anchorlink: {
+              anchorlinkText: 'Drohnen und Flugmodelle',
+              anchorlinkAdress: '#',
+              anchorlinkIsActive: false,
+              anchorlinkIsTagAnchor: true,
+              anchorlinkIsInverted: true,
+              anchorlinkIsTopitem: true,
+              anchorlinkIsTopitemSmall: false,
+            },
+          },
+          {
+            anchorlink: {
+              anchorlinkText: 'Veloschulen',
+              anchorlinkAdress: '#',
+              anchorlinkIsActive: false,
+              anchorlinkIsTagAnchor: true,
+              anchorlinkIsInverted: true,
+              anchorlinkIsTopitem: true,
+              anchorlinkIsTopitemSmall: false,
+            },
+          },
+        ],
+        contentNav: defContentNav.variants.withPromotopic.props,
+        leadSection: leadSectionData.reports.props,
+        keyVisual: true,
+        imageData: defImageFigureData.variants.headerNoTitle.props,
+      },
+    },
+    newsDetail: {
+      meta: {
+        title: 'Newsseite',
+        disabledColorVariations: [
+          'cv-monochrome',
+          'cv-turqoise',
+          'cv-bordeaux',
+          'cv-magenta',
+          'cv-violet',
+          'cv-green',
+          'cv-darkblue',
+          'cv-anthracite',
+        ],
+        defaultColorVariation: 'cv-blue',
+      },
+      props: {
+        breadcrumb: _.merge({}, defBreadcrumbData.variants.backOnly.props, {
+          hasStorage: true,
+        }),
+      },
+    },
+    newsDetailImage: {
+      meta: {
+        title: 'Newsseite mit Bild',
+        disabledColorVariations: [
+          'cv-monochrome',
+          'cv-turqoise',
+          'cv-bordeaux',
+          'cv-magenta',
+          'cv-violet',
+          'cv-green',
+          'cv-darkblue',
+          'cv-anthracite',
+        ],
+        defaultColorVariation: 'cv-blue',
+      },
+      props: {
+        breadcrumb: _.merge({}, defBreadcrumbData.variants.backOnly.props, {
+          hasStorage: true,
+        }),
+        keyVisual: true,
+        imageData: defImageFigureData.variants.header.props,
+      },
+    },
+    reportsStart: {
+      meta: {
+        title: 'Berichte Einstieg',
+      },
+      props: {
+        inverted: true,
+        isReport: true,
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+        pageTitle: 'Gemeinde- und Wirksamkeitsbericht',
+        leadSection: leadSectionData.default.props,
+        hasImage: true,
+        imageData: defImageFigureData.variants.moodImage.props,
+      },
+    },
+    reportsChapter: {
+      meta: {
+        title: 'Berichte Kapitel',
+      },
+      props: {
+        inverted: true,
+        isReport: true,
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+        pageTitle: 'Gemeinde- und Wirksamkeitsbericht',
+        leadSection: leadSectionData.reports.props,
+        hasImage: true,
+        imageData: defImageFigureData.variants.moodImage.props,
+      },
+    },
+    facts: {
+      meta: {
+        title: 'Factsseite',
+        desc: 'Default implementation',
+        disabledColorVariations: [
+          'cv-monochrome',
+          'cv-turqoise',
+          'cv-bordeaux',
+          'cv-magenta',
+          'cv-violet',
+          'cv-green',
+          'cv-darkblue',
+          'cv-anthracite',
+        ],
+        defaultColorVariation: 'cv-blue',
+      },
+      props: {
+        breadcrumb: _.merge({}, defBreadcrumbData.variants.backOnly.props, {
+          hasStorage: true,
+        }),
+      },
+    },
+    govPlatformStart: {
+      meta: {
+        title: 'Regierungsplattform Startseite (CZHDEV-3480)',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-blue',
+      },
+      props: {
+        pageTitle: 'Richtlinien der Regierungspolitik 2023-2027',
+        isReport: true,
+        inverted: true,
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+        logo: logoData.invertedLinked.props,
+        leadSection: leadSectionData.govPlatformStart.props,
+        hasImage: true,
+        imageData: defImageFigureData.variants.moodImage.props,
+      },
+    },
+    govPlatformPolicyArea: {
+      meta: {
+        title: 'Regierungsplattform Politikbereich (CZHDEV-3480)',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-blue',
+      },
+      props: {
+        pageTitle: 'Allgemeine Verwaltung',
+        isReport: true,
+        inverted: true,
+        logo: logoData.invertedLinked.props,
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+        hasImage: true,
+        imageData: defImageFigureData.variants.moodImage.props,
+      },
+    },
+    govPlatformPolicyAreaWithoutImage: {
+      meta: {
+        title: 'Regierungsplattform Politikbereich ohne Stimmungsbild (CZHDEV-3480)',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-blue',
+      },
+      props: {
+        pageTitle: 'Allgemeine Verwaltung',
+        isReport: true,
+        inverted: true,
+        logo: logoData.invertedLinked.props,
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+      },
+    },
+    govPlatformObjective: {
+      meta: {
+        title: 'Regierungsplattform Ziel (CZHDEV-3492)',
+      },
+      props: {
+        pageTitle:
+          'Die Verwaltungsstrukturen sind besser an die Aufgabenerfüllung angepasst und die Qualität in den Querschnittsbereichen ist verbessert.',
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+      },
+    },
+    govPlatformMeasure: {
+      meta: {
+        title: 'Regierungsplattform Massnahme (CZHDEV-3492)',
+      },
+      props: {
+        pageTitle:
+          'Die Struktur der Leistungsgruppen des Kantons überprüfen, um die Aufgabenerfüllung, Kompetenzen und Verantwortung besser abzubilden.',
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+      },
+    },
+    error404: {
+      meta: {
+        title: 'Error 404: Nicht gefunden (CZHDEV-528)',
+        desc: '',
+        disabledColorVariations: [
+          'cv-monochrome',
+          'cv-turqoise',
+          'cv-bordeaux',
+          'cv-magenta',
+          'cv-violet',
+          'cv-green',
+          'cv-darkblue',
+          'cv-anthracite',
+        ],
+        defaultColorVariation: 'cv-blue',
+      },
+      props: {
+        pageTitle: 'Seite nicht gefunden',
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+      },
+    },
+    unavailable: {
+      meta: {
+        title: 'Error: Nicht erreichbar (CZHDEV-529)',
+        desc: '',
+        disabledColorVariations: [
+          'cv-monochrome',
+          'cv-turqoise',
+          'cv-bordeaux',
+          'cv-magenta',
+          'cv-violet',
+          'cv-green',
+          'cv-darkblue',
+          'cv-anthracite',
+        ],
+        defaultColorVariation: 'cv-blue',
+      },
+      props: {
+        breadcrumb: {
+          contextMenu: false,
+          path: [
+            {
+              title: 'Kanton Zürich',
+              href: '#',
+            },
+          ],
         },
-        {
-          anchorlink: {
-            anchorlinkText: 'Quellensteuer',
-            anchorlinkAdress: '#',
-            anchorlinkIsActive: false,
-            anchorlinkIsTagAnchor: true,
-            anchorlinkIsInverted: false,
-            anchorlinkIsTopitem: true,
-            anchorlinkIsTopitemSmall: false,
-          },
-        },
-        {
-          anchorlink: {
-            anchorlinkText: 'Handelsregistereintrag',
-            anchorlinkAdress: '#',
-            anchorlinkIsActive: false,
-            anchorlinkIsTagAnchor: true,
-            anchorlinkIsInverted: false,
-            anchorlinkIsTopitem: true,
-            anchorlinkIsTopitemSmall: false,
-          },
-        },
-      ],
-      noText: true,
-      breadcrumb: {
-        contextMenu: false,
-        path: [
-          {
-            title: 'Kanton Zürich',
-            href: '#',
-          },
-        ],
+        pageTitle: 'Seite nicht erreichbar',
       },
-      pageTitle: 'Seite nicht gefunden',
-      errorBlock: {
-        text: 'Bitte wählen Sie über die Hauptnavigation andere Inhalte, versuchen Sie es über die Eingabe eines Suchbegriffs oder wechseln Sie zur Startseite.',
+    },
+    serviceOverlay: {
+      meta: {
+        title: 'Service-Overlay',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-darkblue',
+      },
+      props: {
+        pageTitle: 'Führerausweis bestellen',
+        inverted: true,
+        logo: logoData.invertedLinked.props,
+        hasCloseButton: true,
+      },
+    },
+    servicePage: {
+      meta: {
+        title: 'Serviceseite',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-green',
+      },
+      props: {
+        pageTitle: 'Führerausweis bestellen',
+        inverted: true,
+        logo: logoData.invertedLinked.props,
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+      },
+    },
+    servicePageSmall: {
+      meta: {
+        title: 'Service Seite klein (CZHDEV-468)',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-green',
+      },
+      props: {
+        pageTitle:
+          'Internationalen Führerausweis bestellen Internationalen Führerausweis bestellen',
+        inverted: true,
+        minimal: true,
+        hasCloseButton: true,
+      },
+    },
+    application: {
+      meta: {
+        title: 'Applikation (CZHDEV-533)',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-darkblue',
+      },
+      props: {
+        pageTitle: 'Applikation',
+        inverted: true,
+        logo: logoData.invertedLinked.props,
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+        headerExpandData,
+      },
+    },
+    applicationStandalone: {
+      meta: {
+        title: 'Applikation Standalone (CZHDEV-533)',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-darkblue',
+      },
+      props: {
+        pageTitle: 'Applikation',
+        inverted: true,
+        logo: logoData.invertedLinked.props,
+        breadcrumb: defBreadcrumbData.variants.parentOnly.props,
+      },
+    },
+    applicationModal: {
+      meta: {
+        title: 'Applikation Modal (CZHDEV-533)',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-darkblue',
+      },
+      props: {
+        pageTitle: 'Applikation',
+        inverted: true,
+        logo: logoData.invertedLinked.props,
+        hasCloseButton: true,
+      },
+    },
+    applicationModalSmall: {
+      meta: {
+        title: 'Applikation Modal klein (CZHDEV-533)',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-darkblue',
+      },
+      props: {
+        pageTitle: 'Applikation',
+        inverted: true,
+        minimal: true,
+        hasCloseButton: true,
+      },
+    },
+    steuerBuch: {
+      meta: {
+        title: 'Flex Data (Steuerbuch) (CZHDEV-1234)',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-darkblue',
+      },
+      props: {
+        pageTitle: 'ZStB-Nr. 3.1',
+        inverted: false,
+        logo: logoData.invertedLinked.props,
+        breadcrumb: _.merge({}, defBreadcrumbData.variants.backOnly.props, {
+          hasStorage: true,
+        }),
+      },
+    },
+    rrbDetail: {
+      meta: {
+        title: 'Flex Data (RRB) (CZHDEV-1233)',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+      },
+      props: {
+        pageTitle: 'Regierungsratsbeschluss Nr. 749/2018',
+        inverted: false,
+        logo: logoData.invertedLinked.props,
+        breadcrumb: _.merge({}, defBreadcrumbData.variants.backOnly.props, {
+          hasStorage: true,
+        }),
+      },
+    },
+    zhLexDetail: {
+      meta: {
+        title: 'Flex Data (ZHLEX) (CZHDEV-1233)',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+      },
+      props: {
+        pageTitle:
+          'Vertrag zwischen den Ständen Zürich und Schwyz betreffend die Hafengüter bei Richterswil',
+        inverted: false,
+        logo: logoData.invertedLinked.props,
+        breadcrumb: _.merge({}, defBreadcrumbData.variants.backOnly.props, {
+          hasStorage: true,
+        }),
+      },
+    },
+    eDirectory: {
+      meta: {
+        title: 'Behördenverzeichnis-Overlay',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-darkblue',
+      },
+      props: {
+        isEDirectory: true,
+        pageTitle: 'Behörde x (Maximalausprägung)',
+        breadcrumb: defBreadcrumbData.variants.eDirectory.props,
+        hasCloseButton: true,
+        inverted: true,
+      },
+    },
+    eDirectoryEmpty: {
+      meta: {
+        title: 'Behördenverzeichnis-Overlay',
+        desc: '',
+        disabledColorVariations: ['cv-monochrome'],
+        defaultColorVariation: 'cv-darkblue',
+      },
+      props: {
+        isEDirectory: true,
+        pageTitle: '',
+        breadcrumb: defBreadcrumbData.variants.eDirectory.props,
+        hasCloseButton: true,
+        inverted: true,
       },
     },
   },
-  error403: {
-    meta: {
-      title: 'Error403 (CZHDEV-525)',
-      desc: 'Default implementation',
-      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      noText: true,
-      breadcrumb: {
-        contextMenu: false,
-        path: [
-          {
-            title: 'Kanton Zürich',
-            href: '#',
-          },
-        ],
-      },
-      pageTitle: 'Oops!',
-      homeCTA: { title: 'Zur Startseite', href: '#' },
-      errorBlock: {
-        code: 'Fehlercode: 403',
-        text: 'Entschuldigung, es ist ein Fehler aufgetreten.',
-      },
-    },
-  },
-  error403Ext: {
-    meta: {
-      title: 'Error403 Erweitert (CZHDEV-525)',
-      desc: 'Default implementation',
-      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      noText: true,
-      breadcrumb: {
-        contextMenu: false,
-        path: [
-          {
-            title: 'Kanton Zürich',
-            href: '#',
-          },
-        ],
-      },
-      pageTitle: 'Oops!',
-      homeCTA: { title: 'Zur Startseite', href: '#' },
-      errorBlock: {
-        text: 'Entschuldigung, es ist ein Fehler aufgetreten.',
-      },
-    },
-  },
-  error404Image: {
-    meta: {
-      title: 'Error404 mit Bild (CZHDEV-528)',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      noText: true,
-      breadcrumb: {
-        contextMenu: false,
-        path: [
-          {
-            title: 'Kanton Zürich',
-            href: '#',
-          },
-        ],
-      },
-      pageTitle: 'Seite nicht gefunden',
-      homeCTA: { title: 'Zur Startseite', href: '#' },
-      errorBlock: {
-        code: 'Fehlercode: 404',
-        text: 'Bitte wählen Sie über die Hauptnavigation andere Inhalte, versuchen Sie es über die Eingabe eines Suchbegriffs oder wechseln Sie zur Startseite.',
-        imageData: defImageFigureData.variants.noTitle.props,
-      },
-    },
-  },
-  unavailable: {
-    meta: {
-      title: 'Error: Nicht erreichbar (CZHDEV-529)',
-      desc: '',
-      disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
-      defaultColorVariation: 'cv-blue',
-    },
-    props: {
-      noText: true,
-      breadcrumb: {
-        contextMenu: false,
-        path: [
-          {
-            title: 'Kanton Zürich',
-            href: '#',
-          },
-        ],
-      },
-      pageTitle: 'Seite nicht erreichbar',
-      errorBlock: {
-        text: 'Wir arbeiten gerade an unserer Website. Schauen Sie doch in der Zwischenzeit unseren Imagefilm und versuchen es später nochmals.',
-      },
-    },
-  },
-},
-(variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
       },
-    },
-  });
+    });
 
-  return variantData;
-});
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

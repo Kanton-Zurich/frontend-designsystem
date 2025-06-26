@@ -1,0 +1,10 @@
+<div class="mdl-facts_block">
+  <h3 class="mdl-facts_block__title atm-heading">
+    {{title}}
+  </h3>
+  <div class="mdl-facts_block__rows">
+    {{#each factRows}}
+        {{> "modules/facts_row/facts_row" this}}
+    {{/each}}
+  </div>
+</div>

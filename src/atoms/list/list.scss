@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .atm-list {
   @include resetList;
   background-color: $colorWhite;
@@ -34,7 +36,7 @@
       color: $colorBlack;
       text-align: left;
       font-family: $fontFamilyBlack;
-      padding: ($sizeSmallRegular/ 2) $sizeSmallRegular;
+      padding: math.div($sizeSmallRegular, 2) $sizeSmallRegular;
 
       @include mq($to: small) {
         @include visuallyhidden();
@@ -45,7 +47,7 @@
     tbody td {
       text-align: left;
       font-family: $fontFamilyBase;
-      padding: ($sizeSmallRegular/ 2) $sizeSmallRegular;
+      padding: math.div($sizeSmallRegular, 2) $sizeSmallRegular;
     }
 
     .atm-list__item {

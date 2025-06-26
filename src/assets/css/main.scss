@@ -1,8 +1,8 @@
-@import 'data/colors.json';
 @import 'globals/variables';
 @import 'globals/functions';
 @import 'globals/mixins';
 @import 'globals/mediaqueries';
+@import 'globals/fonts';
 @import 'globals/icons';
 
 // Reset / normalize styles
@@ -14,7 +14,7 @@
 // Importing of XY-Grid
 @import '../../../node_modules/foundation-sites/scss/foundation';
 @import '../../../node_modules/flatpickr/dist/flatpickr';
-@import '../../../node_modules/nouislider/distribute/nouislider';
+@import '../../../node_modules/nouislider/dist/nouislider';
 @import 'globals/grid';
 @import 'globals/flatpickr';
 @import 'globals/nouislider';
@@ -27,6 +27,9 @@
 
 // General layout
 @import 'layout';
+
+// Deprecated atoms and modules
+// @import '../../modules/page_header_deprecated/page_header_deprecated';
 
 // Atoms
 @import '../../atoms/headings/headings';
@@ -47,6 +50,8 @@
 @import '../../atoms/loading_circle/loading_circle';
 @import '../../atoms/smallcaption/smallcaption';
 @import '../../atoms/search_result_item/search_result_item';
+@import '../../atoms/tag/tag';
+@import '../../atoms/logo/logo';
 //*autoinsertatom*
 
 // Modules
@@ -70,6 +75,7 @@
 @import '../../modules/instructions/instructions';
 @import '../../modules/tag_group/tag_group';
 @import '../../modules/contact/contact';
+@import '../../modules/contact_entry/contact_entry';
 @import '../../modules/page_header/page_header';
 @import '../../modules/content_nav/content_nav';
 @import '../../modules/breadcrumb/breadcrumb';
@@ -90,8 +96,6 @@
 @import '../../modules/news_teaser/news_teaser';
 @import '../../modules/iframe/iframe';
 @import '../../modules/social_media_links/social_media_links';
-@import '../../modules/social_media_stream/social_media_stream';
-@import '../../modules/social_media_post/social_media_post';
 @import '../../modules/subnavigation/subnavigation';
 @import '../../modules/organisation_teaser/organisation_teaser';
 @import '../../modules/organisation_navigation/organisation_navigation';
@@ -132,6 +136,38 @@
 @import '../../modules/result_header/result_header';
 @import '../../modules/job_teaser/job_teaser';
 @import '../../modules/feedback/feedback';
+@import '../../modules/toc_list/toc_list';
+@import '../../modules/measures_list/measures_list';
+@import '../../modules/dataset/dataset';
+@import '../../modules/objectives_list/objectives_list';
+@import '../../modules/sibling_navigation/sibling_navigation';
+@import '../../modules/placeholder/placeholder';
+@import '../../modules/comment_introduction/comment_introduction';
+@import '../../modules/closing_image/closing_image';
+@import '../../modules/dialog/dialog';
+@import '../../modules/measures_search/measures_search';
+@import '../../modules/statistics_teaser/statistics_teaser';
+@import '../../modules/statistics_card/statistics_card';
+@import '../../modules/statistics_keywords/statistics_keywords';
+@import '../../modules/statistics_search/statistics_search';
+@import '../../modules/data_download/data_download';
+@import '../../modules/lead_section/lead_section';
+@import '../../modules/header_expand/header_expand';
+@import '../../modules/key_visual/key_visual';
+@import '../../modules/chatbot/chatbot';
+@import '../../modules/back_to/back_to';
+@import '../../modules/scroll2top/scroll2top';
+@import '../../modules/back_to_chat/back_to_chat';
+@import '../../modules/teaser_set/teaser_set';
+@import '../../modules/teaser_card/teaser_card';
+@import '../../modules/content_list/content_list';
+@import '../../modules/facts_section/facts_section';
+@import '../../modules/facts_row/facts_row';
+@import '../../modules/fact_tile/fact_tile';
+@import '../../modules/facts_block/facts_block';
+@import '../../modules/contact_block/contact_block';
+@import '../../modules/edirectory/edirectory';
+@import '../../modules/edirectory_details/edirectory_details';
 //*autoinsertmodule*
 
 @media screen {

@@ -1,0 +1,165 @@
+<div
+  class="mdl-contact_entry
+    {{#if inLocation}} mdl-contact_entry--location{{/if}}
+    {{#if singleColumn}} mdl-contact_entry--single-column{{/if}}"
+    data-init="contactEntry">
+
+  <div class="mdl-contact_entry__header">
+    <h{{entryHeading.level}} class="atm-heading mdl-contact_entry__title">
+      {{#if entryHeading.href}}<a href="{{entryHeading.href}}" class="atm-text_link">{{/if}}
+      {{entryHeading.title}}
+      {{#if entryHeading.href}}</a>{{/if}}
+    </h{{entryHeading.level}}>
+    {{#if entryInfoText}}
+      <p class="mdl-contact_entry__infotext">
+        {{entryInfoText}}
+      </p>
+    {{/if}}
+  </div>
+
+  <div class="mdl-contact_entry__section">
+    {{#if entryAddress}}
+      <div class="mdl-contact_entry__section-cell">
+        <div class="mdl-contact_entry__cell-icon">
+          <h{{increment entryHeading.level}} class="visuallyhidden">{{{entryAriaTitle_location}}}</h{{increment
+            entryHeading.level}}>
+          <svg class="icon mdl-contact_entry__icon-location" aria-hidden="true" focusable="false">
+            <use xlink:href="#location"></use>
+          </svg>
+        </div>
+        <div class="mdl-contact_entry__cell-content">
+          <address class="mdl-contact_entry__address">
+            <div class="mdl-contact_entry__address-title" data-contact-copy-source>
+              {{entryAddress.name}}{{#if entryAddress.name}}<br>{{/if}}
+              {{entryAddress.street}}<br>
+              {{entryAddress.zip}} {{entryAddress.city}}<br>
+            </div>
+            {{#if entryAddress.routeLinkHref}}
+              <a target="_blank" href="{{entryAddress.routeLinkHref}}"
+                class="atm-text_link mdl-contact_entry__show-route">
+                {{entryAddress.routeLinkLabel}}
+              </a>
+            {{/if}}
+            {{#if entryAddress.copytoclipboardButton}}
+              <div class="mdl-contact_entry__copy">
+                <button data-contact-copy-button class="atm-text_link mdl-contact_entry__copy-button">
+                  {{entryAddress.copytoclipboardButton.label}}
+                </button>
+                <svg class="icon mdl-contact_entry__copy-button-confirm" focusable="false">
+                  <use xlink:href="#confirm"></use>
+                </svg>
+                <svg class="icon mdl-contact_entry__copy-button-caution" focusable="false">
+                  <use xlink:href="#caution"></use>
+                </svg>
+              </div>
+            {{/if}}
+          </address>
+
+          {{#if entryAddress.additionalInfo}}
+            <div class="mdl-contact_entry__text">
+              <p>
+                {{entryAddress.additionalInfo}}
+              </p>
+            </div>
+          {{/if}}
+          {{#each entryAddress.additionalTexts}}
+            <div class="mdl-contact_entry__text">
+              {{#if this.title}}
+                <h{{increment ../entryHeading.level}} class="atm-heading h4">{{this.title}}</h{{increment
+                  ../entryHeading.level}}>
+              {{/if}}
+              {{#each this.texts}}
+                <p>{{{this}}}</p>
+              {{/each}}
+              {{#if this.link}}<a class="atm-text_link" href="#">{{this.link.text}}</a>{{/if}}
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if entryPhone}}
+      <div class="mdl-contact_entry__section-cell">
+        <div class="mdl-contact_entry__cell-icon">
+          <h{{increment entryHeading.level}} class="visuallyhidden">{{{entryAriaTitle_phone}}}</h{{increment
+            entryHeading.level}}>
+          <svg class="icon mdl-contact_entry__icon-phone" aria-hidden="true" focusable="false">
+            <use xlink:href="#phone-call"></use>
+          </svg>
+        </div>
+        <div class="mdl-contact_entry__cell-content">
+          {{#each entryPhone}}
+            <a class="atm-text_link mdl-contact_entry__phone" href="tel:{{this.phoneNumer}}">{{this.anchorLabel}}</a>
+            {{#if this.additionalInfo}}
+              <div class="mdl-contact_entry__text">
+                <p>
+                  {{this.additionalInfo}}
+                </p>
+                {{#if this.additionalInfoSpaced}}
+                  <p>
+                    {{this.additionalInfoSpaced}}
+                  </p>
+                {{/if}}
+                {{#if this.openingTimes}}
+                  {{#each this.openingTimes}}
+                    {{#if this.timeTitle}}
+                      <h{{increment ../entryHeading.level}} class="atm-heading h4">{{this.timeTitle}}</h{{increment
+                        ../entryHeading.level}}>
+                    {{/if}}
+                    <ul class="mdl-contact_entry__opening-times">
+                      {{#each this.times}}
+                        <li>{{this.text}}</li>
+                      {{/each}}
+                    </ul>
+                  {{/each}}
+                {{/if}}
+              </div>
+            {{/if}}
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if entryMail}}
+      <div class="mdl-contact_entry__section-cell">
+        <div class="mdl-contact_entry__cell-icon">
+          <h{{increment entryHeading.level}} class="visuallyhidden">{{{entryAriaTitle_email}}}</h{{increment
+            entryHeading.level}}>
+          <svg class="icon mdl-contact_entry__icon-email" aria-hidden="true" focusable="false">
+            <use xlink:href="#email"></use>
+          </svg>
+        </div>
+        <div class="mdl-contact_entry__cell-content">
+          <a class="atm-text_link mdl-contact_entry__mail" href="mailto: {{entryMail.address}}">
+            {{entryMail.address}}
+          </a><br>
+          {{#if entryMail.additionalInfo }}
+            <div class="mdl-contact_entry__text">
+              <p>
+                {{entryMail.additionalInfo}}
+              </p>
+            </div>
+          {{/if}}
+          {{#if entryMail.additionalService }}
+            <a class="atm-text_link mdl-contact_entry__mail" href="{{entryMail.additionalService.linkHref}}">
+              {{entryMail.additionalService.linkLabel}}
+            </a><br>
+            {{#if entryMail.additionalService.label}}
+              <div class="mdl-contact_entry__text">
+                <p>
+                  {{entryMail.additionalService.label}}
+                </p>
+              </div>
+            {{/if}}
+          {{/if}}
+        </div>
+      </div>
+    {{/if}}
+  </div>
+
+  {{#if socialMediaLinks}}
+    <div class="mdl-contact_entry__social-media">
+      {{> "modules/social_media_links/social_media_links" socialMediaLinks}}
+    </div>
+  {{/if}}
+</div>

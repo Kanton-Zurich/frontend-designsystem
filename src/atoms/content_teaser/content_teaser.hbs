@@ -1,8 +1,11 @@
-<a class="atm-content_teaser {{#if isPromotopic}}atm-content_teaser--promo{{/if}}{{#if isTagged}} atm-content_teaser--tagged{{/if}}" href={{target}}>
-  <span class="atm-content_teaser__content" data-lineclamp="true">
+<a class="atm-content_teaser {{#if isPromotopic}}atm-content_teaser--promo{{/if}}{{#if isTagged}} atm-content_teaser--tagged{{/if}}"
+  href={{target}}>
+  <span class="atm-content_teaser__content">
     <span class="atm-content_teaser__title">
-      {{#if buzzwords }}<span class="visuallyhidden">Kategorie: </span>{{/if}}{{ shortTitle }}{{#if buzzwords}}<br class="visuallyhidden">{{/if}}
+      <span class="visuallyhidden">Kategorie: </span>
+      {{ shortTitle }}
+      <br class="visuallyhidden">
     </span>
-    {{#if buzzwords}}{{{ buzzwords }}}{{/if}}
+    {{{ buzzwords }}}
   </span>
 </a>

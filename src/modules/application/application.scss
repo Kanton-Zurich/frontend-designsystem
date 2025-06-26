@@ -16,6 +16,7 @@
         margin-bottom: 0;
       }
     }
+
     margin-top: pxToRem($sizeHuge);
     margin-bottom: pxToRem($sizeHuge);
 
@@ -29,6 +30,12 @@
     }
   }
 
+  &__description {
+    color: $colorBlack60;
+    margin-top: pxToRem($sizeBig);
+    margin-bottom: pxToRem($sizeSmallLarge);
+  }
+
   &__figure {
     margin: 0;
   }
@@ -36,6 +43,8 @@
   &__caption {
     display: flex;
     align-items: flex-start;
+
+    @include sizeCurve(margin-bottom, small);
 
     .atm-figcaption {
       flex-grow: 1;

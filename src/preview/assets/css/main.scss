@@ -1,8 +1,7 @@
-@import 'data/colors.json';
-@import 'globals/variables';
-@import 'globals/functions';
-@import 'globals/mixins';
-@import 'globals/mediaqueries';
+@import '../../../assets/css/globals/variables';
+@import '../../../assets/css/globals/functions';
+@import '../../../assets/css/globals/mixins';
+@import '../../../assets/css/globals/mediaqueries';
 @import '../../../node_modules/highlight.js/styles/github';
 
 // Preview: defaults
@@ -11,8 +10,8 @@
 // Lesson learned, OrT: browsers decided to reduce font size from 16px to 13px when the font applied is the fallbacked monospace.
 // Solution: declare monospace and then give it another fallback.
 // http://meyerweb.com/eric/thoughts/2010/02/12/fixed-monospace-sizing/
-$sg_font: "HelveticaNowRegular", Helvetica, serif;
-$sg_font_black: "HelveticaNowBlack", Helvetica, serif;
+$sg_font: 'InterRegular', Helvetica, serif;
+$sg_font_black: 'InterBlack', Helvetica, serif;
 
 $sg_breakpoint: 1480px;
 $sg_marginsBoxed: 20px;
@@ -31,8 +30,8 @@ $sg_defaultTransitionProperty: all;
 $sg_defaultTransitionDuration: 0.2s;
 $sg_defaultTransitionTimingFunction: ease-in-out;
 $sg_defaultTransitionDelay: 0s;
-$sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDuration $sg_defaultTransitionTimingFunction $sg_defaultTransitionDelay;
-
+$sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDuration
+  $sg_defaultTransitionTimingFunction $sg_defaultTransitionDelay;
 
 // Preview: mixins
 // ----------------------------------------------------------------------------------------------------
@@ -53,12 +52,10 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   }
 }
 
-
 // Preview: generic styles
 // ----------------------------------------------------------------------------------------------------
 
 .sg_wrapper {
-
   .sg_h2,
   .sg_h3,
   .sg_documentation,
@@ -70,7 +67,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   }
 
   .sg_code {
-
     &--collapsible {
       max-height: 33px;
       overflow: hidden;
@@ -175,7 +171,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   padding: 1em;
 }
 
-
 // Preview: modules
 // ----------------------------------------------------------------------------------------------------
 
@@ -209,11 +204,11 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     }
 
     &:before {
-      margin-right: .25em;
+      margin-right: 0.25em;
     }
 
     &:after {
-      margin-left: .25em;
+      margin-left: 0.25em;
     }
   }
 
@@ -235,14 +230,13 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   $i: $numTabs;
 
   @while $i > 0 {
-
     .tab_trigger:nth-child(#{$i}):checked ~ .panels > .tab_content:nth-child(#{$i}) {
       display: block;
     }
 
     .tab_trigger:nth-child(#{$i}):checked ~ .labels > label:nth-child(#{$i}) {
       background-color: #000;
-      color: #FFF;
+      color: #fff;
     }
 
     /* .tab_trigger:nth-child(#{$i}):focus ~ .labels > label:nth-child(#{$i}) {
@@ -258,14 +252,13 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 .hljs {
   background-color: $sg_colorLightGray;
   tab-size: 2;
+  overflow: scroll;
 }
-
 
 // Preview: commons
 // ----------------------------------------------------------------------------------------------------
 
 .sg_inner_wrapper {
-
   .sg_colors &,
   .sg_elements &,
   .sg_fonts &,
@@ -319,7 +312,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     @each $key, $val in $tl-color-variations {
       &.#{$key} {
         + label {
-          background-color: $val
+          background-color: $val;
         }
 
         &:checked + label {
@@ -327,8 +320,8 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
         }
 
         &:disabled + label {
-          border-color: #CCC;
-          background-color: #FFF;
+          border-color: #ccc;
+          background-color: #fff;
         }
       }
     }
@@ -336,7 +329,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 }
 
 .sg_title {
-
   .sg_colors &,
   .sg_elements &,
   .sg_fonts &,
@@ -365,16 +357,14 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 }
 
 .sg_documentation {
-
   h1,
   h2,
   h3,
   h4,
   h5,
   h6,
-  th
-  {
-    font-family: "HelveticaNowBlack", Helvetica, sans-serif;
+  th {
+    font-family: 'InterBlack', Helvetica, sans-serif;
   }
 
   h1,
@@ -382,10 +372,9 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   h3,
   h4 {
     &.sg_flat_font {
-      font-family: "HelveticaNowRegular", Helvetica, sans-serif;
+      font-family: 'InterRegular', Helvetica, sans-serif;
     }
   }
-
 
   h1 {
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, huge));
@@ -430,14 +419,13 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     }
   }
 
-
   th:not(.mdl-table__cell) {
     border-bottom: 1px solid $sg_colorLightGray;
     text-align: left;
   }
 
-  th:not(.mdl-table__cell) ,
-  td:not(.mdl-table__cell)  {
+  th:not(.mdl-table__cell),
+  td:not(.mdl-table__cell) {
     border-left: 1px solid $sg_colorLightGray;
     padding: 0.2em 0.5em;
 
@@ -516,17 +504,17 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
       top: (
         tiny: 0,
         medium: 4px,
-        xlarge: 8px
+        xlarge: 8px,
       ),
       bottom: (
         tiny: 12px,
-        xlarge: 16px
+        xlarge: 16px,
       ),
       containerBottom: (
         tiny: 8px,
         medium: 12px,
-        xlarge: 16px
-      )
+        xlarge: 16px,
+      ),
     );
 
     margin: 0;
@@ -639,15 +627,15 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 }
 
 .sg_filter-frame {
-  border: 1px solid #BBB;
+  border: 1px solid #bbb;
   padding: 5px;
   border-radius: 5px;
-   > div {
-     label {
-       width: 19%;
-       margin: 1px;
-     }
-   }
+  > div {
+    label {
+      width: 19%;
+      margin: 1px;
+    }
+  }
 }
 
 .sg_group-label {
@@ -675,7 +663,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
 // ----------------------------------------------------------------------------------------------------
 
 .sg_module {
-
   .sg_h2,
   .sg_h3,
   .sg_h4 {
@@ -683,7 +670,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
   }
 
   .sg_inner_wrapper {
-
     &:nth-of-type(even) {
       margin-bottom: 1em;
       padding-bottom: pxToEm(36px);
@@ -696,7 +682,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     display: none;
   }
 }
-
 
 // Preview: Icons page
 // ----------------------------------------------------------------------------------------------------
@@ -727,7 +712,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
     display: table-row;
   }
 }
-
 
 // Preview: Colors page
 // ----------------------------------------------------------------------------------------------------
@@ -816,7 +800,6 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
               }
             }
 
-
             &:first-child {
               color: #fff;
             }
@@ -828,7 +811,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
               color: #fff;
             }
 
-            &[ style-valid='true' ] {
+            &[style-valid='true'] {
               border-right: 10px solid #0a0;
 
               &:after {
@@ -836,7 +819,7 @@ $sg_defaultTransition: $sg_defaultTransitionProperty $sg_defaultTransitionDurati
               }
             }
 
-            &[ style-valid='false' ] {
+            &[style-valid='false'] {
               border-right: 10px solid #e00;
 
               &:after {

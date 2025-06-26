@@ -9,9 +9,9 @@ import Impetus from 'impetus';
 
 class Tabs extends Module {
   public ui: {
-    element: HTMLDivElement,
-    controls: HTMLDivElement,
-    controlButtons: HTMLUListElement,
+    element: HTMLDivElement;
+    controls: HTMLDivElement;
+    controlButtons: HTMLUListElement;
   };
   private tabs: HTMLElement[];
   private panels: HTMLElement[];
@@ -80,8 +80,13 @@ class Tabs extends Module {
       this.updateSwipeFunction(0);
       this.impetus = new Impetus({
         source: this.ui.controls,
-        boundX: [-(Math.abs(this.ui.controlButtons.getBoundingClientRect().width
-          - this.ui.controls.getBoundingClientRect().width)), 0],
+        boundX: [
+          -Math.abs(
+            this.ui.controlButtons.getBoundingClientRect().width -
+              this.ui.controls.getBoundingClientRect().width
+          ),
+          0,
+        ],
         bounce: false,
         multiplier: 1,
         friction: 0,
@@ -99,13 +104,18 @@ class Tabs extends Module {
     }
     this.ui.controlButtons.style.transform = `translate(${translateX}px, 0px)`;
 
-    this.ui.controls.classList.remove('mdl-tabs__controls-scroll-right', 'mdl-tabs__controls-scroll-left');
+    this.ui.controls.classList.remove(
+      'mdl-tabs__controls-scroll-right',
+      'mdl-tabs__controls-scroll-left'
+    );
     if (clientWidth > width) {
       const scrollValue = Math.abs(translateX) / (clientWidth - width);
-      if (scrollValue > 0.05) { // eslint-disable-line
+      // eslint-disable-next-line
+      if (scrollValue > 0.05) {
         this.ui.controls.classList.add('mdl-tabs__controls-scroll-right');
       }
-      if (scrollValue < 0.95) { // eslint-disable-line
+      // eslint-disable-next-line
+      if (scrollValue < 0.95) {
         this.ui.controls.classList.add('mdl-tabs__controls-scroll-left');
       }
     }
@@ -115,7 +125,6 @@ class Tabs extends Module {
     const tab = event.target;
     this.activateTab(tab, false);
   }
-
 
   // Handle keyup on tabs
   private keyupEventListener(event) {
@@ -162,8 +171,12 @@ class Tabs extends Module {
 
     // URL reflection
     if (tab.id && tab.id.length > 0) {
-      if (!replaceState && (!history.state || !history.state.tabZH || history.state.tabZH !== tab.id)) { // eslint-disable-line
-        window.history.pushState({ tabZH: tab.id }, '', `#${tab.id}`);
+      if (
+        !replaceState &&
+        (!history.state || !history.state.tabZH || history.state.tabZH !== tab.id)
+      ) {
+        // eslint-disable-line
+        window.history.replaceState({ tabZH: tab.id }, '', `#${tab.id}`);
       }
     }
 

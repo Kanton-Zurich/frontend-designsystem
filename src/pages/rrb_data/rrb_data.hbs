@@ -1,5 +1,5 @@
 {{#extend "layouts/layout"}}
-  {{#content "header"}}
+  {{#content "pageheader"}}
     {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
   {{/content}}
 
@@ -12,14 +12,17 @@
       <p class="atm-paragraph">Für die vor dem 1. Oktober 2008 gefassten, aber weniger als 30 Jahre alten Regierungsratsbeschlüsse ist ein Zugangsgesuch an die Staatskanzlei zu richten.</p>
       <p class="atm-paragraph">Die über 30 Jahre alten Regierungsratsbeschlüsse sind zur dauernden Aufbewahrung ans Staatsarchiv übergegangen und können bis zum Jahr 1803 zurück online abgefragt werden. Im Volltext, soweit keine Datenschutzfristen mehr gelten, ansonsten nach dem Titel. Das Staatsarchiv ist auch zuständig für die Prüfung von Informationszugangsgesuchen in Bezug auf archivierte Dokumente.</p>
     </div>
-    {{> "modules/contact/contact" props.modules.contactData}}
+  {{/content}}
+
+  {{#content "pagefooter"}}
     {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
     {{> "modules/related_content/related_content" props.modules.releatedContentData}}
     {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
+    {{> "modules/contact/contact" props.modules.contactData}}
   {{/content}}
 
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData }}
-    {{> "modules/back2top/back2top" props.modules.back2topData}}
+    {{> "modules/back_to/back_to" props.modules.backToData}}
   {{/content}}
 {{/extend}}

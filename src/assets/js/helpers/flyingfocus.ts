@@ -7,10 +7,10 @@
  */
 class FlyingFocus {
   private options: {
-    duration: number,
-    ringId: string,
-    visibleClass: string,
-    targetClass: string,
+    duration: number;
+    ringId: string;
+    visibleClass: string;
+    targetClass: string;
   };
   private ringElement: any = null;
   private movingId: any = 0;
@@ -48,9 +48,9 @@ class FlyingFocus {
    * @memberof FlyingFocus
    * @param event: Event
    */
-  public showFlyingFocus(event) {
+  public showFlyingFocus(event: Event) {
     this.ringElement.style.display = 'block';
-    if (event.target.id === this.options.ringId) {
+    if ((event.target as HTMLElement).id === this.options.ringId) {
       return;
     }
     this.currentFocused = event.target;
@@ -72,8 +72,8 @@ class FlyingFocus {
     if (target) {
       if (target.tagName !== 'BODY') {
         const offset = this.offsetOf(target);
-        this.ringElement.style.left = `${offset.left - (ringmargin / 2)}px`; //eslint-disable-line
-        this.ringElement.style.top = `${offset.top - (ringmargin / 2)}px`; //eslint-disable-line
+        this.ringElement.style.left = `${offset.left - ringmargin / 2}px`; //eslint-disable-line
+        this.ringElement.style.top = `${offset.top - ringmargin / 2}px`; //eslint-disable-line
         this.ringElement.style.width = `${target.offsetWidth + ringmargin}px`;
         this.ringElement.style.height = `${target.offsetHeight + ringmargin}px`;
         if (isFirstFocus || !this.isJustPressed()) {
@@ -123,8 +123,10 @@ class FlyingFocus {
     const rect: any = elem.getBoundingClientRect();
     const clientLeft: number = this.docElement.clientLeft || this.body.clientLeft;
     const clientTop: number = this.docElement.clientTop || this.body.clientTop;
-    const scrollLeft: number = window.pageXOffset || this.docElement.scrollLeft || this.body.scrollLeft; // eslint-disable-line max-len
-    const scrollTop: number = window.pageYOffset || this.docElement.scrollTop || this.body.scrollTop; // eslint-disable-line max-len
+    const scrollLeft: number =
+      window.pageXOffset || this.docElement.scrollLeft || this.body.scrollLeft; // eslint-disable-line max-len
+    const scrollTop: number =
+      window.pageYOffset || this.docElement.scrollTop || this.body.scrollTop; // eslint-disable-line max-len
     const left: number = rect.left + scrollLeft - clientLeft;
     const top: number = rect.top + scrollTop - clientTop;
     return {
@@ -139,22 +141,39 @@ class FlyingFocus {
    * @memberof FlyingFocus
    */
   private initEventListeners() {
-    this.docElement.addEventListener('keydown', (event) => {
-      const code: number = event.which;
-      // Show animation only upon Tab or Arrow keys press.
-      if (code === 9 || (code > 36 && code < 41)) { // eslint-disable-line no-magic-numbers
-        this.keyDownTime = Date.now();
-      }
-      if (event.key === 'Esc' || event.key === 'Escape') {
-        this.currentFocused.blur();
-      }
-    }, true);
-    this.docElement.addEventListener('focus', (event) => {
-      this.showFlyingFocus(event);
-    }, true);
-    this.docElement.addEventListener('blur', () => {
-      this.hideFlyingFocus();
-    }, true);
+    this.docElement.addEventListener(
+      'keydown',
+      (event) => {
+        const code: number = event.which;
+        // Show animation only upon Tab or Arrow keys press.
+        // eslint-disable-next-line no-magic-numbers
+        if (code === 9 || (code > 36 && code < 41)) {
+          this.keyDownTime = Date.now();
+        }
+        if (event.key === 'Esc' || event.key === 'Escape') {
+          this.currentFocused.blur();
+        }
+      },
+      true
+    );
+    this.docElement.addEventListener(
+      'focus',
+      (event) => {
+        // Don't show FlyingFocus with elements with tabindex="-1" on user interactions
+        // Scripts need to call window.estatico.flyingFocus.doFocusOnTarget() themselves after focus()
+        if (event.target.tabIndex >= 0) {
+          this.showFlyingFocus(event);
+        }
+      },
+      true
+    );
+    this.docElement.addEventListener(
+      'blur',
+      () => {
+        this.hideFlyingFocus();
+      },
+      true
+    );
   }
 }
 export default FlyingFocus;

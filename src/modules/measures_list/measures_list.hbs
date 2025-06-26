@@ -1,0 +1,16 @@
+<div class="mdl-measures_list{{#if hasStarted }} mdl-measures_list--started{{/if}}">
+  {{#if heading.title }}
+    <h2 class="mdl-measures_list__title atm-heading h3">
+      {{heading.title}}
+    </h2>
+  {{/if}}
+  <ul class="mdl-measures_list__list">
+    {{#each measuresListItems}}
+      <li class="mdl-measures_list__item
+        {{#if withStatus}}mdl-measures_list__item--{{status.modifier}}{{/if}}">
+        <a href="{{link}}">
+          {{> "modules/dataset/dataset" this }}
+        </a>
+      </li>
+    {{/each}}
+</div>

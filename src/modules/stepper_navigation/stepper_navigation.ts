@@ -5,31 +5,32 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+// eslint-disable-next-line import/no-cycle
 import FormRules from '../../assets/js/helpers/formrules.class';
 
 import ContextMenu from '../context_menu/context_menu';
 
 class StepperNavigation extends Module {
   public data: {
-    active: number,
-    steps: NodeListOf<HTMLDivElement>
-    stepper: HTMLDivElement,
-  }
+    active: number;
+    steps: HTMLDivElement[];
+    stepper: HTMLDivElement;
+  };
 
   public ui: {
-    element: HTMLOListElement,
-    step: NodeListOf<HTMLButtonElement>,
-    multipleBefore: HTMLButtonElement,
-    multipleAfter: HTMLButtonElement,
-  }
+    element: HTMLOListElement;
+    step: HTMLButtonElement[];
+    multipleBefore: HTMLButtonElement;
+    multipleAfter: HTMLButtonElement;
+  };
 
   public options: {
-    domSelectors: any,
-    stateClasses: any,
-    hasRules: boolean,
-    hasTooManySteps: boolean,
-    maxSteps: Number,
-  }
+    domSelectors: any;
+    stateClasses: any;
+    hasRules: boolean;
+    hasTooManySteps: boolean;
+    maxSteps: Number;
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -65,7 +66,9 @@ class StepperNavigation extends Module {
     this.initUi(['step']);
 
     this.options.hasTooManySteps = this.ui.step.length > this.options.maxSteps;
-    const pendingSteps = Array.prototype.slice.call(this.data.steps).filter(step => step.dataset.pending === 'true');
+    const pendingSteps = Array.prototype.slice
+      .call(this.data.steps)
+      .filter((step) => step.dataset.pending === 'true');
 
     if (pendingSteps.length > 0) {
       pendingSteps.forEach((step) => {
@@ -107,11 +110,13 @@ class StepperNavigation extends Module {
       this.setActiveItem(this.data.active, event.detail.newStep);
     });
     this.eventDelegate.on('click', this.options.domSelectors.step, (event, delegate) => {
-      this.ui.element.dispatchEvent(new CustomEvent(StepperNavigation.events.navigationChange, {
-        detail: {
-          clickedPage: parseInt(delegate.getAttribute('data-step'), 10),
-        },
-      }));
+      this.ui.element.dispatchEvent(
+        new CustomEvent(StepperNavigation.events.navigationChange, {
+          detail: {
+            clickedPage: parseInt(delegate.getAttribute('data-step'), 10),
+          },
+        })
+      );
     });
 
     this.data.steps.forEach((step) => {
@@ -121,11 +126,13 @@ class StepperNavigation extends Module {
     this.eventDelegate.on('click', this.options.domSelectors.contextMenuItem, (event, delegate) => {
       const dataIndex = parseInt(delegate.parentElement.dataset.itemIndex, 10);
 
-      this.ui.element.dispatchEvent(new CustomEvent(StepperNavigation.events.navigationChange, {
-        detail: {
-          clickedPage: dataIndex,
-        },
-      }));
+      this.ui.element.dispatchEvent(
+        new CustomEvent(StepperNavigation.events.navigationChange, {
+          detail: {
+            clickedPage: dataIndex,
+          },
+        })
+      );
     });
   }
 
@@ -169,7 +176,10 @@ class StepperNavigation extends Module {
       const number = step.querySelector(this.options.domSelectors.number);
       const stepInStepper = this.data.steps[index];
 
-      if (!stepInStepper.hasAttribute('data-enabled') || stepInStepper.getAttribute('data-enabled') === 'true') {
+      if (
+        !stepInStepper.hasAttribute('data-enabled') ||
+        stepInStepper.getAttribute('data-enabled') === 'true'
+      ) {
         number.innerHTML = counter;
 
         counter += 1;
@@ -236,9 +246,8 @@ class StepperNavigation extends Module {
     }
   }
 
-
   getPositionByStepIndex(index, steps) {
-    return steps.findIndex(step => index.toString() === step.dataset.stepIndex);
+    return steps.findIndex((step) => index.toString() === step.dataset.stepIndex);
   }
 
   getActiveNavigationSteps(activeFormSteps) {
@@ -255,30 +264,34 @@ class StepperNavigation extends Module {
     return navigationSteps;
   }
 
-
   /* eslint-disable no-magic-numbers */
   hideSteps() {
     const arrSteps = Array.prototype.slice.call(this.data.steps);
-    const indexOfFirstPending = arrSteps.findIndex(step => step.dataset.pending === 'true');
+    const indexOfFirstPending = arrSteps.findIndex((step) => step.dataset.pending === 'true');
     const hasPending = indexOfFirstPending !== -1;
-    const lastStepIndex = hasPending
-      ? indexOfFirstPending : arrSteps.length - 1;
+    const lastStepIndex = hasPending ? indexOfFirstPending : arrSteps.length - 1;
     const hideSteps = [];
     const visibleSteps = [];
 
     if (hasPending) {
       this.ui.multipleAfter.parentElement.classList.add(this.options.stateClasses.alignRightStep);
     } else {
-      this.ui.multipleAfter.parentElement.classList
-        .remove(this.options.stateClasses.alignRightStep);
+      this.ui.multipleAfter.parentElement.classList.remove(
+        this.options.stateClasses.alignRightStep
+      );
     }
 
     this.moveContextMenuTrigger(indexOfFirstPending);
 
     arrSteps.length = lastStepIndex + 1;
 
-    const activeSteps = arrSteps.filter(step => (!step.dataset.enabled || step.dataset.enabled === 'true') && step.dataset.pending !== '');
-    const disabledSteps = arrSteps.filter(step => step.dataset.enabled === 'false' || step.dataset.pending === 'true').map(step => parseInt(step.dataset.stepIndex, 10));
+    const activeSteps = arrSteps.filter(
+      (step) =>
+        (!step.dataset.enabled || step.dataset.enabled === 'true') && step.dataset.pending !== ''
+    );
+    const disabledSteps = arrSteps
+      .filter((step) => step.dataset.enabled === 'false' || step.dataset.pending === 'true')
+      .map((step) => parseInt(step.dataset.stepIndex, 10));
 
     const activeNavigationSteps = this.getActiveNavigationSteps(activeSteps);
     const position = this.getPositionByStepIndex(this.data.active, activeSteps);
@@ -368,31 +381,33 @@ class StepperNavigation extends Module {
     });
 
     if (contextMenus.before.length > 0) {
-      const beforeContextMenuItems = this.ui.multipleBefore.nextElementSibling
-        .querySelectorAll(this.options.domSelectors.contextMenuItem);
+      const beforeContextMenuItems = this.ui.multipleBefore.nextElementSibling.querySelectorAll(
+        this.options.domSelectors.contextMenuItem
+      );
 
       for (let i = 0; i < this.ui.step.length; i += 1) {
         if (contextMenus.before.indexOf(i) !== -1) {
-          beforeContextMenuItems[i].classList
-            .remove(this.options.stateClasses.hiddenContextMenuItem);
+          beforeContextMenuItems[i].classList.remove(
+            this.options.stateClasses.hiddenContextMenuItem
+          );
         } else {
-          beforeContextMenuItems[i].classList
-            .add(this.options.stateClasses.hiddenContextMenuItem);
+          beforeContextMenuItems[i].classList.add(this.options.stateClasses.hiddenContextMenuItem);
         }
       }
     }
 
     if (contextMenus.after.length > 0) {
-      const afterContextMenuItems = this.ui.multipleAfter.nextElementSibling
-        .querySelectorAll(this.options.domSelectors.contextMenuItem);
+      const afterContextMenuItems = this.ui.multipleAfter.nextElementSibling.querySelectorAll(
+        this.options.domSelectors.contextMenuItem
+      );
 
       for (let i = 0; i < this.ui.step.length; i += 1) {
         if (contextMenus.after.indexOf(i) !== -1) {
-          afterContextMenuItems[i].classList
-            .remove(this.options.stateClasses.hiddenContextMenuItem);
+          afterContextMenuItems[i].classList.remove(
+            this.options.stateClasses.hiddenContextMenuItem
+          );
         } else {
-          afterContextMenuItems[i].classList
-            .add(this.options.stateClasses.hiddenContextMenuItem);
+          afterContextMenuItems[i].classList.add(this.options.stateClasses.hiddenContextMenuItem);
         }
       }
     }
@@ -403,10 +418,14 @@ class StepperNavigation extends Module {
   initContextMenu(contextMenuButton) {
     const contextMenu = contextMenuButton.nextElementSibling;
 
-    new ContextMenu(contextMenu, {}, {
-      attachTo: contextMenuButton,
-      trigger: contextMenuButton,
-    });
+    new ContextMenu(
+      contextMenu,
+      {},
+      {
+        attachTo: contextMenuButton,
+        trigger: contextMenuButton,
+      }
+    );
   }
 
   moveContextMenuTrigger(_positionAfter: number = this.ui.step.length - 1) {
@@ -417,10 +436,14 @@ class StepperNavigation extends Module {
       positionAfter = this.ui.step.length - 1;
     }
 
-    this.ui.element
-      .insertBefore(this.ui.multipleBefore.parentNode, this.ui.step[positionBefore].parentNode);
-    this.ui.element
-      .insertBefore(this.ui.multipleAfter.parentNode, this.ui.step[positionAfter].parentNode);
+    this.ui.element.insertBefore(
+      this.ui.multipleBefore.parentNode,
+      this.ui.step[positionBefore].parentNode
+    );
+    this.ui.element.insertBefore(
+      this.ui.multipleAfter.parentNode,
+      this.ui.step[positionAfter].parentNode
+    );
   }
 
   /**

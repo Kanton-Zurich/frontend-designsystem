@@ -1,9 +1,12 @@
-<div class="mdl-tag-group mdl-tag-group--wrapped">
+<div class="mdl-tag-group mdl-tag-group--wrapped" data-anchornav="fullwidth">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="mdl-tag-group__content cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-10 large-10 xlarge-10">
-        {{#if tagGroupdHeading}}
-        <h2 class="atm-heading"{{#if tagGroupdHeading.anchorNavReference}} id="{{tagGroupdHeading.anchorNavReference}}"{{/if}}>{{tagGroupdHeading.title}}</h2>
+        {{#if heading}}
+        <h2
+          {{#if anchorNavReference}}id="{{anchorNavReference}}" data-anchornav="target"{{/if}}
+          class="atm-heading"
+        >{{heading.title}}</h2>
         {{/if}}
         <ul class="mdl-tag-group__tags">
           {{#each anchorLinks}}

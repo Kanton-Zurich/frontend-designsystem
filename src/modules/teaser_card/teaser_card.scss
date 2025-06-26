@@ -1,0 +1,77 @@
+.mdl-teaser_card {
+  background-color: $colorWhite;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: pxToRem($sizeBig);
+  text-decoration: none;
+
+  &:is(a) .atm-heading {
+    color: var(--color-accent);
+  }
+
+  &__date,
+  &__label {
+    font-size: $sizeFontTiny;
+    line-height: $sizeLineHeightBase;
+    font-family: $fontFamilyBlack;
+    margin: 0;
+    order: 1;
+
+    time {
+      font-family: $fontFamilyBase;
+      margin-left: pxToRem($sizeMini);
+    }
+  }
+
+  &__image {
+    order: 3;
+    margin-top: auto;
+    margin-bottom: 0;
+    flex-shrink: 0;
+
+    // Overwrite item image-figure-module
+    figure {
+      margin-top: pxToRem($sizeLarge);
+      margin-bottom: 0;
+
+      > div {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  time,
+  p {
+    color: $colorBlack60;
+  }
+
+  // Overwrite item heading atom
+  .atm-heading {
+    padding-top: pxToRem($sizeMini);
+    margin-bottom: pxToRem($sizeTiny);
+    order: 2;
+    overflow: hidden;
+    word-break: break-word;
+
+    @include h4__atm-heading;
+    @include lineClamp(6);
+    @include mq($from: large) {
+      @include lineClamp(4);
+    }
+  }
+
+  // Overwrite item paragraph atom
+  .atm-paragraph {
+    order: 3;
+    margin: 0 0 pxToRem($sizeRegular) 0;
+    line-height: $sizeLineHeightBase;
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+    @include lineClamp(6);
+    @include mq($from: large) {
+      @include lineClamp(4);
+    }
+  }
+}

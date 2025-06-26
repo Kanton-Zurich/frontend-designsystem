@@ -4,7 +4,7 @@
   $serviceListCurves: (
     itemPadding: (
       tiny: $sizeRegular,
-      large:$sizeLarge,
+      large: $sizeLarge,
     ),
     headingBottomMargin: (
       tiny: $sizeLarge,
@@ -12,10 +12,10 @@
     ),
   );
   $textHeightCurve: (
-    tiny: $sizeFontRegular * $sizeLineHeightBase * $lineCountMobile ,
-    xsmall: $sizeFontRegular * $sizeLineHeightBase * $lineCountMobile ,
+    tiny: $sizeFontRegular * $sizeLineHeightBase * $lineCountMobile,
+    xsmall: $sizeFontRegular * $sizeLineHeightBase * $lineCountMobile,
     small: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountDesktop,
-    medium: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountDesktop ,
+    medium: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountDesktop,
     large: $sizeFontBiggerRegular * $sizeLineHeightBase * $lineCountDesktop,
     xlarge: $sizeFontMedium * $sizeLineHeightBase * $lineCountDesktop,
   );
@@ -41,14 +41,12 @@
 
   .decisiontree + .servicelist &--no-heading,
   .decisiontree + .furtherinformation + .servicelist &--no-heading {
-
     @include sizeCurve('margin-top', medium);
   }
 
   h2,
   h3 {
     &.atm-heading--bordered {
-
       @include sizeCurve('margin-bottom', headingBottomMargin, $serviceListCurves);
     }
   }
@@ -57,7 +55,6 @@
   h5,
   h6 {
     &.atm-heading--bordered {
-
       @include sizeCurve('margin-bottom', tiny);
     }
   }
@@ -89,12 +86,12 @@
       line-height: $sizeLineHeightMedium;
       margin-bottom: 0;
       margin-right: $sizeTiny;
+      color: var(--color-accent);
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
       @include mq($to: xsmall) {
         line-height: $sizeLineHeightBase;
       }
-      @include polyFluidSizing(max-height, $titleHeightCurve);
     }
   }
 
@@ -103,7 +100,7 @@
     margin-bottom: 0;
     margin-right: $sizeTiny;
 
-    @include polyFluidSizing(max-height, $textHeightCurve);
+    @include lineClamp(2);
     @include mq($from: tiny, $to: small) {
       margin-right: 0;
       margin-bottom: $sizeRegular;
@@ -117,16 +114,6 @@
 
     @include mq($from: tiny, $to: small) {
       margin-top: $sizeTiny;
-    }
-  }
-}
-
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .mdl-service_list {
-      &__item-title {
-        color: #{$val};
-      }
     }
   }
 }

@@ -3,6 +3,10 @@
 * [Atom: Titel (Heading)](../../atoms/headings/headings.html)
 
 
+####
+Vorsicht: Die Varianten für Kontakt sind wegen weisser Schrift auf weissem Hintergrund nicht sichtbar. Sie werden aussschliesslich im Kontaktelement mit kräftigen, dunklen Farben als Hintergrund verwendet.
+
+
 ### Integration
 
 <ul>

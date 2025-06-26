@@ -1,16 +1,20 @@
 {{#extend "layouts/layout"}}
-  {{#content "header"}}
+  {{#content "pageheader"}}
     {{> "modules/page_header/page_header" props.modules.pageHeaderData}}
   {{/content}}
 
 	{{#content "content"}}
+    {{> "modules/topiclist/topiclist" props.modules.topiclist}}
     {{> "modules/image_gallery/image_gallery" props.modules.imageGallery }}
     {{> "modules/locations/locations" props.modules.locations }}
-    {{> "modules/contact/contact" props.modules.contact }}
 	{{/content}}
+
+  {{#content "pagefooter"}}
+    {{> "modules/contact/contact" props.modules.contact}}
+  {{/content}}
 
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData}}
-    {{> "modules/back2top/back2top" props.modules.back2topData}}
+    {{> "modules/back_to/back_to" props.modules.backToData}}
   {{/content}}
 {{/extend}}

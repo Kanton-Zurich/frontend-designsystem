@@ -1,0 +1,50 @@
+<div
+  class="mdl-statistics_teaser{{#if moduleHeader}} mdl-statistics_teaser--more-info{{/if}}"
+  data-anchornav="fullwidth"
+  data-init="statisticsTeaser"
+>
+
+  {{#unless isSearchResult}}
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+  {{/unless}}
+
+      {{#if moduleHeader}}
+        <div class="mdl-statistics_teaser__content cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-12 small-10 medium-10 large-10 xlarge-10">
+          <div class="mdl-statistics_teaser__header">
+            <h{{moduleHeader.headinglevel}}
+              {{#if anchorNavReference}}id="{{anchorNavReference}}" data-anchornav="target"{{/if}}
+              class="atm-heading
+              {{#if_compare moduleHeader.visualHeadingLevel "!==" moduleHeader.headingLevel}}h{{moduleHeader.visualHeadingLevel}}{{/if_compare}}
+              {{#if_compare moduleHeader.visualHeadingLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+            >
+              {{{moduleHeader.title}}}
+            </h{{moduleHeader.headinglevel}}>
+            <a class="atm-text_link atm-text_link--icon" href="{{{moduleHeader.allArticleHref}}}">
+              {{{moduleHeader.allArticleLabel}}}
+              <svg class="icon icon--iframe-arrow" focusable="false">
+                <use xlink:href="#arrow-right"></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+      {{/if}}
+
+      <div class="mdl-statistics_teaser__content cell tiny-12
+        {{#if_compare statisticsTeaserItems.length "===" 1 }}small-offset-2 small-6 medium-offset-2 medium-6 large-offset-2 large-8 xlarge-offset-2 xlarge-8{{/if_compare}}
+        {{#if_compare statisticsTeaserItems.length "===" 2 }}small-12 medium-12 large-offset-2 large-8 xlarge-offset-2 xlarge-8{{/if_compare}}
+        {{#if_compare statisticsTeaserItems.length ">=" 3 }}small-12 medium-12 large-12 xlarge-12{{/if_compare}}">
+        <ul class="mdl-statistics_teaser__list">
+          {{#each statisticsTeaserItems}}
+            <li class="mdl-statistics_teaser__item">
+              {{> "modules/statistics_card/statistics_card" this }}
+            </li>
+          {{/each}}
+        </ul>
+      </div>
+
+  {{#unless isSearchResult}}
+    </div>
+  </div>
+  {{/unless}}
+</div>

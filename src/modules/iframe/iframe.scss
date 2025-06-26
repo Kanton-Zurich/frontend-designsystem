@@ -1,9 +1,4 @@
 .mdl-iframe {
-
-  &:not(.mdl-iframe--small) {
-    @include gridBleed($fullwidth: true);
-  }
-
   margin-top: pxToRem($sizeHuge);
   margin-bottom: pxToRem($sizeHuge);
 
@@ -17,10 +12,13 @@
   }
 
   &__caption {
-
     .hidden {
       display: none;
     }
+  }
+
+  &:not(.mdl-iframe--small) .mdl-iframe__wrapper {
+    @include gridBleed($fullwidth: true);
   }
 
   iframe {

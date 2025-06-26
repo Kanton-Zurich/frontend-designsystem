@@ -1,4 +1,4 @@
-import { Delegate } from 'dom-delegate';
+import Delegate from 'ftdomdelegate/main';
 import { watch } from 'wrist';
 
 import FormRules from './formrules.class';
@@ -6,21 +6,21 @@ import { INTERACTION_ELEMENTS_QUERY } from './constants';
 
 class DuplicationElement {
   public ui: {
-    element: HTMLDivElement,
-    template: HTMLScriptElement,
-    button: HTMLButtonElement,
-  }
+    element: HTMLDivElement;
+    template: HTMLScriptElement;
+    button: HTMLButtonElement;
+  };
 
   public options: {
-    eventSelectors: any,
-    stateClasses: any,
-    rulesSelector: string,
-  }
+    eventSelectors: any;
+    stateClasses: any;
+    rulesSelector: string;
+  };
 
   public data: {
-    duplications: number,
-    maxDuplications: number,
-  }
+    duplications: number;
+    maxDuplications: number;
+  };
 
   private eventDelegate: any;
 
@@ -51,7 +51,10 @@ class DuplicationElement {
     this.eventDelegate = new Delegate(element);
 
     if (this.ui.element.hasAttribute('data-max-duplications')) {
-      this.data.maxDuplications = parseInt(this.ui.element.getAttribute('data-max-duplications'), 10);
+      this.data.maxDuplications = parseInt(
+        this.ui.element.getAttribute('data-max-duplications'),
+        10
+      );
     }
 
     if (this.data.maxDuplications <= 0) {
@@ -69,8 +72,16 @@ class DuplicationElement {
   }
 
   initEventListeners() {
-    this.eventDelegate.on('click', this.options.eventSelectors.duplicator, this.duplicateItself.bind(this));
-    this.eventDelegate.on('click', this.options.eventSelectors.remover, this.removeDuplication.bind(this));
+    this.eventDelegate.on(
+      'click',
+      this.options.eventSelectors.duplicator,
+      this.duplicateItself.bind(this)
+    );
+    this.eventDelegate.on(
+      'click',
+      this.options.eventSelectors.remover,
+      this.removeDuplication.bind(this)
+    );
   }
 
   initWatcher() {
@@ -86,27 +97,35 @@ class DuplicationElement {
   }
 
   getUniqueId() {
-    const uid: number = (this.ui.element.getAttribute('data-iterator')) ? parseInt(this.ui.element.getAttribute('data-iterator'), 10) + 1 : 1;
+    const uid: number = this.ui.element.getAttribute('data-iterator')
+      ? parseInt(this.ui.element.getAttribute('data-iterator'), 10) + 1
+      : 1;
     this.ui.element.setAttribute('data-iterator', uid.toString());
     return uid.toString();
   }
 
   duplicateItself() {
     if (this.data.duplications < this.data.maxDuplications) {
-      const parsedHTML = new DOMParser().parseFromString(this.ui.template.innerHTML, 'text/html').querySelector('div');
+      const parsedHTML = new DOMParser()
+        .parseFromString(this.ui.template.innerHTML, 'text/html')
+        .querySelector('div');
       const uid = this.getUniqueId();
 
       this.setIndices(parsedHTML, uid, false);
 
       this.ui.element.appendChild(parsedHTML);
       [].slice.call(parsedHTML.querySelectorAll('[data-init]')).forEach((subElement) => {
-        (<any>window).estatico.helpers.initModule
-          .bind((<any>window).estatico.helpers.app)(subElement.getAttribute('data-init'), subElement);
+        (<any>window).estatico.helpers.initModule.bind((<any>window).estatico.helpers.app)(
+          subElement.getAttribute('data-init'),
+          subElement
+        );
       });
 
-      this.ui.element.dispatchEvent(new CustomEvent(DuplicationElement.events.domReParsed, {
-        detail: parsedHTML,
-      }));
+      this.ui.element.dispatchEvent(
+        new CustomEvent(DuplicationElement.events.domReParsed, {
+          detail: parsedHTML,
+        })
+      );
 
       // Focus the first focusable element in the duplicated group
       setTimeout(() => {
@@ -125,7 +144,9 @@ class DuplicationElement {
 
   removeDuplication(event, delegate) {
     const button = delegate;
-    const duplication = this.ui.element.querySelector(`[data-uid="${button.getAttribute('data-remove-uid')}"]`);
+    const duplication = this.ui.element.querySelector(
+      `[data-uid="${button.getAttribute('data-remove-uid')}"]`
+    );
 
     duplication.parentNode.removeChild(duplication);
 
@@ -152,7 +173,9 @@ class DuplicationElement {
   }
 
   setIndices(duplicatedGroup: HTMLElement, uid: string, rename: boolean) {
-    const fields = duplicatedGroup.querySelectorAll('[for], [name], [id], [data-fills-city], [data-remove-uid]');
+    const fields = duplicatedGroup.querySelectorAll(
+      '[for], [name], [id], [data-fills-city], [data-remove-uid]'
+    );
 
     duplicatedGroup.setAttribute('data-uid', uid);
 
@@ -185,7 +208,8 @@ class DuplicationElement {
 
       rules.forEach((rule) => {
         rule.conditions.forEach((condition) => {
-          const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+          const querySelector =
+            condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
           const field = this.ui.element.querySelector(querySelector);
 
           if (field) {

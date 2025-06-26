@@ -13,7 +13,11 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
-    headingText: 'Service',
+    heading: {
+      level: 2,
+      visualLevel: 2,
+      title: 'Services',
+    },
     items: [
       {
         title: 'Service Titel',
@@ -47,7 +51,7 @@ const data = _.merge({}, defaultData, {
       },
       {
         title: 'Internationalen Führerschein beantragen',
-        text: 'In nicht englischsprachigen Ländern ausserhalb der EU empfehlen wir Ihnen, einen internationalen Führerschein ausstellen zu lassen.',
+        text: 'In nicht englischsprachigen Ländern ausserhalb der EU empfehlen wir Ihnen, einen internationalen Führerschein ausstellen zu lassen. In nicht englischsprachigen Ländern ausserhalb der EU empfehlen wir Ihnen, einen internationalen Führerschein ausstellen zu lassen. In nicht englischsprachigen Ländern ausserhalb der EU empfehlen wir Ihnen, einen internationalen Führerschein ausstellen zu lassen.',
         buttonTitle: 'Start',
         href: '../../pages/service/service.html',
         external: true,
@@ -62,45 +66,62 @@ const data = _.merge({}, defaultData, {
     ],
   },
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Default',
+        desc: 'Default implementation',
+      },
+      props: {
+        heading: {
+          lebel: 2,
+          visualLevel: 2,
+          title: 'Service',
+        },
+      },
     },
-    props: {
-      hasHeading: true,
-      serviceListHeading: {
-        title: 'Service',
+    noHeading: {
+      meta: {
+        title: 'Ohne Titel',
+        desc: '',
+      },
+      props: {
+        serviceListHeading: false,
+      },
+    },
+    h3Style: {
+      meta: {
+        title: 'H3 Style',
+        desc: 'Implementierung mit H3 Style',
+      },
+      props: {
+        heading: {
+          level: 2,
+          visualLevel: 3,
+          title: 'Services',
+        },
       },
     },
   },
-  noHeading: {
-    meta: {
-      title: 'Ohne Titel',
-      desc: '',
-    },
-    props: {
-      hasHeading: false,
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
       },
-    },
-  });
+    });
 
-  return variantData;
-});
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

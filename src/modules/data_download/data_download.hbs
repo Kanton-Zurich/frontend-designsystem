@@ -1,0 +1,29 @@
+<div class="mdl-data-download" data-init="dataDownload">
+  <{{#if contextMenu}}button aria-expanded="false"{{else}}a href="{{href}}" {{#unless isLink}}download{{/unless}}{{/if}}
+    class="mdl-data-download__trigger">
+    <span class="mdl-data-download__icon">
+      {{#if isLink}}
+        <svg class="icon" focusable="false" aria-hidden="true">
+          <use xlink:href="#arrow-right"></use>
+        </svg>
+      {{else}}
+        <svg class="icon" focusable="false" aria-hidden="true">
+          <use xlink:href="#download"></use>
+        </svg>
+        <span class="visuallyhidden">Download</span>
+      {{/if}}
+    </span>
+    <span class="mdl-data-download__text">{{text}}</span>
+    {{#if meta}}<span class="mdl-data-download__meta">({{meta}})</span>{{/if}}
+    {{#if contextMenu}}
+      <span class="mdl-data-download__angle">
+        <svg class="icon" focusable="false" aria-hidden="true">
+          <use xlink:href="#angle_drop_down"></use>
+        </svg>
+      </span>
+    {{/if}}
+  </{{#if contextMenu}}button{{else}}a{{/if}}>
+  {{#if contextMenu}}
+    {{> "modules/context_menu/context_menu" contextMenu}}
+  {{/if}}
+</div>

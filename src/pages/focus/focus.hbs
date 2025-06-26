@@ -1,13 +1,16 @@
 {{#extend "layouts/layout"}}
-  {{#content "header"}}
+  {{#content "pageheader"}}
     {{> "modules/page_header/page_header" props.modules.pageHeaderData}}
   {{/content}}
 
   {{#content "content"}}
+    <div class="mdl-anchornav__wrapper">
+      {{> "modules/lead_section/lead_section" props.modules.leadSectionData}}
+    </div>
     <div class="mdl-about">
       <div class="mdl-about__block">
-        <h2 class="atm-heading">Kantonspolizei</h2>
-        {{> "modules/video/video" props.modules.videoData.variants.default.props}}
+        <h2 class="atm-heading atm-heading--bordered">Kantonspolizei</h2>
+        {{> "modules/video/video" props.modules.videoData.variants.h3.props}}
         <p class="atm-paragraph">
           Die Kantonspolizei Zürich umfasst die Kriminal-, Sicherheits- und Verkehrspolizei.
           Kernaufgabe der Polizei ist es, Gefahren für die öffentliche Sicherheit und Ordnung abzuwehren und Störungen
@@ -20,7 +23,7 @@
         {{> "modules/linklist/linklist" props.modules.linklist.list1}}
       </div>
       <div class="mdl-about__block">
-        <h2 class="atm-heading">Amt für Militär und Umweltschutz</h2>
+        <h2 class="atm-heading atm-heading--bordered">Amt für Militär und Umweltschutz</h2>
         <p class="atm-paragraph">
           Das AMZ vollzieht die bundesrechtlichen Vorschriften in den Bereichen Militärverwaltung, Zivilschutz und
           Wehrpflichtersatz.
@@ -28,7 +31,7 @@
         {{> "modules/linklist/linklist" props.modules.linklist.list1}}
       </div>
       <div class="mdl-about__block">
-        <h2 class="atm-heading">Strassenverkehrsamt</h2>
+        <h2 class="atm-heading atm-heading--bordered">Strassenverkehrsamt</h2>
         <p class="atm-paragraph">
           Das Strassenverkehrsamt überprüft die Betriebssicherheit der im Verkehr stehenden oder neu zuzulassenden
           Fahrzeuge und Schiffe anlässlich der technischen Kontrollen. Es führt die theoretischen und praktischen
@@ -40,14 +43,17 @@
         </p>
         {{> "modules/linklist/linklist" props.modules.linklist.list1}}
       </div>
-    {{> "modules/service_button/service_button" props.modules.serviceButtonData }}
-      <div class="mdl-about__block">
-        {{> "modules/related_content/related_content" props.modules.relatedContentData}}
-      </div>
+      {{> "modules/service_button/service_button" props.modules.serviceButtonData }}
+    </div>
+  {{/content}}
+
+  {{#content "pagefooter"}}
+    {{> "modules/related_content/related_content" props.modules.relatedContentData}}
+    {{> "modules/contact/contact" props.modules.contact}}
   {{/content}}
 
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData}}
-    {{> "modules/back2top/back2top" props.modules.back2topData}}
+    {{> "modules/back_to/back_to" props.modules.backToData}}
   {{/content}}
 {{/extend}}

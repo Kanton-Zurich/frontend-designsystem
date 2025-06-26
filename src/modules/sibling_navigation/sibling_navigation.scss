@@ -1,0 +1,81 @@
+$siblingLinkColor: inherit;
+$siblingNavigationCurves: (
+  gap: (
+    tiny: $sizeSmallRegular,
+    small: $sizeRegular,
+    medium: $sizeLarge,
+    large: $sizeBig,
+  ),
+);
+
+.mdl-sibling_navigation {
+  display: block;
+
+  @include sizeCurve(margin-bottom margin-top, big);
+
+  &__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @include resetList();
+    @include sizeCurve(gap, gap, $siblingNavigationCurves);
+    @include mq($to: medium) {
+      &:has(li:only-child) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  &__item {
+    min-width: 0;
+  }
+
+  &__link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: $colorBlack10;
+    text-decoration: none;
+    color: var(--color-accent);
+
+    @include sizeCurve('padding-top', small);
+    @include sizeCurve(padding-bottom padding-left padding-right, regular);
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+
+    &:hover {
+      color: $colorBlack;
+
+      svg {
+        background: $colorBlack;
+      }
+    }
+  }
+
+  &__link-text {
+    font-family: $fontFamilyBlack;
+    hyphens: auto;
+  }
+
+  &__link-type {
+    display: flex;
+    align-items: center;
+    gap: pxToRem($sizeTiny);
+    color: $colorBlack60;
+    margin-bottom: pxToRem($sizeMini);
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+
+    svg {
+      width: pxToRem(14px);
+      height: pxToRem(14px);
+      background: $colorBlack60;
+      border-radius: 50%;
+      fill: $colorBlack10;
+    }
+  }
+}
+
+// should not be affected by .mod-smaller-headings
+.mod-smaller-headings .mdl-sibling_navigation .atm-heading.atm-heading--bordered {
+  @include h2__atm-heading;
+}

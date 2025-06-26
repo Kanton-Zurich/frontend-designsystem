@@ -6,7 +6,6 @@
  */
 import Module from '../../assets/js/helpers/module';
 
-
 class ServiceList extends Module {
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
@@ -33,8 +32,9 @@ class ServiceList extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    const serviceElements = [].slice
-      .call(this.ui.element.querySelectorAll(this.options.domSelectors.items));
+    const serviceElements = [].slice.call(
+      this.ui.element.querySelectorAll(this.options.domSelectors.items)
+    );
     serviceElements.forEach((service) => {
       service.addEventListener('click', (event) => {
         const modal = document.querySelector(`#${service.getAttribute('aria-controls')}`);
@@ -64,14 +64,13 @@ class ServiceList extends Module {
    * Fetch page data
    */
   async fetchServicePage(url: string, callback: Function) {
-    if (!window.fetch) {
-      await import('whatwg-fetch');
-    }
-
-    return window.fetch(url)
+    return window
+      .fetch(url)
       .then((response) => {
         if (response) {
-          response.text().then((text) => { callback(text); });
+          response.text().then((text) => {
+            callback(text);
+          });
         }
       })
       .catch((err) => {

@@ -1,24 +1,22 @@
 <div {{#if rules}}data-rules="{{rules}}"{{/if}}>
   <fieldset class="mdl-file_upload" data-init="fileUpload" data-input>
     {{#if title}}<legend class="atm-heading h4">{{title}}</legend>{{/if}}
-    <p class="mdl-file_upload__subtitle">{{subtitle}}</p>
-    <input class="visuallyhidden" type="file" name="{{input.name}}" id="{{input.id}}" data-file_upload="input" {{#if isMultiple}}data-multiple{{/if}}
-      {{#if validation}}
-        data-validation
-      {{/if}}
-      {{#if validation.maxSize}}
-        data-max-size="{{validation.maxSize}}"
-      {{/if}}
-      {{#if validation.fileTypes}}
-        data-file-types="{{validation.fileTypes}}"
-      {{/if}}
-      {{#if validation.isRequired}}
-        required
-      {{/if}}
+    {{#if subtitle}}<p id="{{input.id}}__subtitle" class="mdl-file_upload__subtitle">{{subtitle}}</p>{{/if}}
+    <input
+      class="visuallyhidden"
+      type="file" name="{{input.name}}"
+      id="{{input.id}}"
+      data-file_upload="input"
+      aria-describedby="{{#if subtitle}}{{input.id}}__subtitle{{/if}} {{#if formatHint}}{{input.id}}__format-hint{{/if}}"
+      {{#if isMultiple}}data-multiple{{/if}}
+      {{#if validation}}data-validation{{/if}}
+      {{#if validation.maxSize}}data-max-size="{{validation.maxSize}}"{{/if}}
+      {{#if validation.fileTypes}}data-file-types="{{validation.fileTypes}}"{{/if}}
+      {{#if validation.isRequired}}required{{/if}}
     />
     <div class="mdl-file_upload__dropzone" aria-hidden="true" data-file_upload="dropzone">
-      <p class="mdl-file_upload__dropzone-hint">{{dropzoneHint}}</p>
-      <p class="mdl-file_upload__format-hint">{{formatHint}}</p>
+      {{#if dropzoneHint}}<p class="mdl-file_upload__dropzone-hint">{{dropzoneHint}}</p>{{/if}}
+      {{#if formatHint}}<p id="{{input.id}}__format-hint" class="mdl-file_upload__format-hint">{{formatHint}}</p>{{/if}}
       <label class="mdl-file_upload__button atm-button atm-button--secondary" for="{{input.id}}">{{buttonLabel}}</label>
     </div>
     <p class="mdl-file_upload__error" data-message="required">Bitte geben Sie eine Datei an.</p>

@@ -1,0 +1,23 @@
+<a class="mdl-statistics_card" href="{{link}}">
+  <h{{headingLevel}} class="atm-heading h4">
+    {{{title}}}
+  </h{{headingLevel}}>
+
+  <p class="mdl-statistics_card__label">
+    {{#if publicationType}}{{publicationType}}{{/if}}
+  </p>
+
+  {{#if teaserImage}}
+    <div class="mdl-statistics_card__image">
+      <figure class="mdl-image-figure">
+        <div class="mdl-image-figure__img-wrapper">
+          <img class="mdl-image-figure__img" src="{{teaserImage}}" alt="" />
+        </div>
+      </figure>
+    </div>
+  {{/if}}
+
+  {{#if text}}
+    <p class="atm-paragraph">{{text}}</p>
+  {{/if}}
+</a>

@@ -6,6 +6,7 @@ const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').varia
 const headerData = require('../../modules/header/header.data');
 
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
+const defLeadSectionData = require('../../modules/lead_section/lead_section.data.js');
 const defContactData = require('../../modules/contact/contact.data.js');
 
 const data = _.merge({}, defaultData, {
@@ -18,9 +19,10 @@ const data = _.merge({}, defaultData, {
   props: {
     title: '404 Fehlerseite',
     skiplinks: skiplinksData,
-    header: headerData.variants.inverted.props,
+    header: headerData.variants.defaultWithUserLoggedOut.props,
     modules: {
       pageHeader: defPageHeaderData.variants.error404.props,
+      leadSection: defLeadSectionData.variants.error404.props,
       contact: defContactData.variants.fullWidthLessData.props,
     },
   },

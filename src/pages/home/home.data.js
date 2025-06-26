@@ -3,32 +3,28 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
-const headerData = require('../../modules/header/header.data').props;
+const headerData = require('../../modules/header/header.data').variants.invertedWithUserLoggedOut
+  .props;
 
-const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.colored.props;
-const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withProminentTeaser.props;
+const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.home
+  .props;
+const defTopiclistData = require('../../modules/topiclist/topiclist.data').variants.home.props;
+const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants
+  .withProminentTeaser.props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
-const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
-const defImageGallery = require('../../modules/image_gallery/image_gallery.data').variants.default.props;
-const contactData = require('../../modules/contact/contact.data').variants.withLead.props;
+const backToData = require('../../modules/back_to/back_to.data').variants.default.props;
+const defImageGallery = require('../../modules/image_gallery/image_gallery.data').variants.default
+  .props;
+const defContactData = require('../../modules/contact/contact.data.js').variants.fullWidthLessData
+  .props;
 const locationsData = require('../../modules/locations/locations.data').variants.default.props;
-
 
 const defPageHeaderCustomData = {
   pageTitle: 'Kanton Zürich',
-  leadText: 'Lead: ExtraBold Interessierte können ab sofort die Genauigkeit ihrer Smartphones und Navigationsgeräte überprüfen. Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichtet – den ersten in der Schweiz.',
-  buttonData: false,
-  breadcrumb: {
-    path: [
-      {
-        title: 'Kanton Zürich',
-        href: '#',
-      },
-    ],
-  },
 };
 
-const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants.default.props;
+const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants
+  .default.props;
 
 const defContentNavCustomData = {
   items: [
@@ -38,35 +34,45 @@ const defContentNavCustomData = {
     }),
     _.merge({}, contentTeaserDefaultData, {
       shortTitle: 'Familie',
-      buzzwords: 'Partnerschaft, Eltern & Kinder, Untersützung für Kinder & Jugendliche, Alter, Tod, Vormunds Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+      buzzwords:
+        'Partnerschaft, Eltern & Kinder, Untersützung für Kinder & Jugendliche, Alter, Tod, Vormunds Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
     }),
     _.merge({}, contentTeaserDefaultData, {
       shortTitle: 'Soziales',
-      buzzwords: 'Arbeitslosigkeit, Finanzielle Hilfen, Sozialversicherungen, Beratungsangebote, Soziale Einricht Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+      buzzwords:
+        'Arbeitslosigkeit, Finanzielle Hilfen, Sozialversicherungen, Beratungsangebote, Soziale Einricht Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
     }),
     _.merge({}, contentTeaserDefaultData, {
       shortTitle: 'Bildung',
-      buzzwords: 'Bildungssystem, Schulen, Unterrichten, Schwierigkeiten in der Schule, Weiterbildung, Forschung, Bil Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+      buzzwords:
+        'Bildungssystem, Schulen, Unterrichten, Schwierigkeiten in der Schule, Weiterbildung, Forschung, Bil Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
     }),
     _.merge({}, contentTeaserDefaultData, {
       shortTitle: 'Sport & Kultur',
-      buzzwords: 'Jugendsport, Sportförderung, Kulturpolitik, Kulturförderung, Kulturpreise, Archä Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+      buzzwords:
+        'Jugendsport, Sportförderung, Kulturpolitik, Kulturförderung, Kulturpreise, Archä Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
     }),
     _.merge({}, contentTeaserDefaultData, {
       shortTitle: 'Wirtschaft & Arbeit',
-      buzzwords: 'Arbeitsmarkt, Arbeitnehmer- & Arbeitgeberverhältnis, Schwarzarbeit, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+      buzzwords:
+        'Arbeitsmarkt, Arbeitnehmer- & Arbeitgeberverhältnis, Schwarzarbeit, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
     }),
-    _.merge({}, {
-      shortTitle: 'Steuern',
-      buzzwords: 'Steuererklärung, Steuern bezahlen, Grundlagen',
-    }),
+    _.merge(
+      {},
+      {
+        shortTitle: 'Steuern',
+        buzzwords: 'Steuererklärung, Steuern bezahlen, Grundlagen',
+      }
+    ),
     _.merge({}, contentTeaserDefaultData, {
       shortTitle: 'Mobilität',
-      buzzwords: 'Reisen: Pass & ID, Fahren lernen, Führerausweis, Fahrzeuge, Autonummern, Gesamtverkehr, Öffentliches, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+      buzzwords:
+        'Reisen: Pass & ID, Fahren lernen, Führerausweis, Fahrzeuge, Autonummern, Gesamtverkehr, Öffentliches, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
     }),
     _.merge({}, contentTeaserDefaultData, {
       shortTitle: 'Bauen & Planen',
-      buzzwords: 'Karten, Bauprojekte (Hochbau), Baubewilligung, Wohnbauförderung, Energie, Lärm, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+      buzzwords:
+        'Karten, Bauprojekte (Hochbau), Baubewilligung, Wohnbauförderung, Energie, Lärm, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
     }),
     _.merge({}, contentTeaserDefaultData, {
       shortTitle: 'Umwelt & Tier',
@@ -74,24 +80,28 @@ const defContentNavCustomData = {
     }),
     _.merge({}, contentTeaserDefaultData, {
       shortTitle: 'Wahlen & Abstimmungen',
-      buzzwords: 'Bezirke, Gemeinden, Daten & Statistik, Recht & Gesetze, Beschlüsse, Vernehmlassungen, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+      buzzwords:
+        'Bezirke, Gemeinden, Daten & Statistik, Recht & Gesetze, Beschlüsse, Vernehmlassungen, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
     }),
     _.merge({}, contentTeaserDefaultData, {
       shortTitle: 'Migration & Integration',
-      buzzwords: 'Willkommen im Kanton Zürich, Einreise, Aufenthalt, Wegweisung, Asyl, Integration, Einbürgerung, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+      buzzwords:
+        'Willkommen im Kanton Zürich, Einreise, Aufenthalt, Wegweisung, Asyl, Integration, Einbürgerung, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
     }),
     _.merge({}, contentTeaserDefaultData, {
       shortTitle: 'Sicherheit & Justiz',
-      buzzwords: 'Polizeimeldungen, Bussen, ePolice, Strafanzeige, Prävention, Kriminalität, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+      buzzwords:
+        'Polizeimeldungen, Bussen, ePolice, Strafanzeige, Prävention, Kriminalität, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
     }),
     _.merge({}, contentTeaserDefaultData, {
       shortTitle: 'Über den Kanton',
-      buzzwords: 'Zahlen & Fakten, So funktioniert der Kanton, Grossprojekte, Ausgewählte Publikation, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
+      buzzwords:
+        'Zahlen & Fakten, So funktioniert der Kanton, Grossprojekte, Ausgewählte Publikation, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
     }),
   ],
 };
 
-const defContactCustomData = {
+/* const defContactCustomData = {
   fullWidth: true,
   contactTitle: 'Kontakt',
   contactAddress: {
@@ -118,7 +128,7 @@ const defContactCustomData = {
   contactMail: {
     address: 'info@sk.zh.ch',
   },
-};
+}; */
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -131,19 +141,20 @@ const data = _.merge({}, defaultData, {
     skiplinks: skiplinksData,
     header: headerData,
     title: 'Title',
-    text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et '
-    + 'dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita '
-    + 'kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur.',
+    text:
+      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et ' +
+      'dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita ' +
+      'kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur.',
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData, defPageHeaderCustomData),
+      topiclist: defTopiclistData,
       contentNavData: defContentNavCustomData,
-      contactData: defContactCustomData,
       newsTeaserData: defNewsTeaserData,
       imageGallery: defImageGallery,
       locations: locationsData,
       footerData: defFooterData,
-      contact: contactData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
+      contact: defContactData,
+      backToData,
     },
   },
 });

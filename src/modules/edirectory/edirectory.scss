@@ -1,0 +1,85 @@
+.mdl-edirectory {
+  @include sizeCurve(margin-top, big);
+
+  &__form {
+    position: relative;
+  }
+
+  .mdl-notification {
+    margin-bottom: pxToRem($sizeLarge);
+
+    .atm-button {
+      background: transparent;
+    }
+  }
+
+  &__form-controls {
+    display: flex;
+    justify-content: flex-end;
+
+    padding-top: pxToRem($sizeRegular);
+
+    border-top: 3px solid $colorBlack;
+
+    .atm-button {
+      margin-left: pxToRem($sizeTiny);
+
+      &.hidden {
+        display: none;
+      }
+    }
+  }
+
+  &__placeholder {
+    @include sizeCurve(margin-block, big);
+
+    .atm-button {
+      display: inline-flex;
+      flex-direction: row-reverse;
+      gap: $sizeTiny;
+
+      svg {
+        margin: 0;
+      }
+    }
+  }
+
+  &__results {
+    @include sizeCurve(margin-bottom, big);
+
+    .mdl-table__row {
+      [data-table='cell'] {
+        .atm-text_link {
+          display: inline;
+          padding-bottom: 3px;
+        }
+      }
+
+      &:hover {
+        [data-table='cell'] {
+          background-color: $colorBlack10;
+          cursor: pointer;
+
+          &.mdl-table__cell {
+            color: $colorBlack;
+
+            .atm-text_link {
+              color: $colorBlack;
+              border-color: $colorBlack;
+
+              .icon {
+                fill: $colorBlack;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .mdl-toc-list {
+    @include sizeCurve(margin-top, big);
+
+    padding: 0;
+  }
+}

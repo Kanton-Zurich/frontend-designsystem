@@ -11,7 +11,7 @@ $InputHeightRegular: 72px;
     }
   }
 
-  &[ data-no-flatpickr ] {
+  &[data-no-flatpickr] {
     .flatpickr-calendar {
       display: none !important; // stylelint-disable-line
     }
@@ -24,7 +24,6 @@ $InputHeightRegular: 72px;
   }
 
   &.dirty {
-
     .atm-form_input--floated {
       .atm-form_input__input {
         color: $colorBlack;

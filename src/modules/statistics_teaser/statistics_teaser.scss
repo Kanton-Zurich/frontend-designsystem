@@ -1,0 +1,139 @@
+.mdl-statistics_teaser {
+  @include gridBleed($fullwidth: true);
+  padding-top: pxToRem($sizeBig);
+  padding-bottom: pxToRem($sizeBig);
+  background-color: $colorBg;
+
+  &--more-info {
+    margin-top: 0;
+  }
+
+  &__header {
+    position: relative;
+
+    .atm-text_link {
+      position: absolute;
+      display: flex;
+      bottom: 0;
+      right: 0;
+      font-size: pxToRem($sizeFontRegular);
+      line-height: $sizeLineHeightSuper;
+      align-items: flex-end;
+    }
+
+    // Overwrite heading atom style
+    .atm-heading {
+      margin-top: pxToRem($sizeBig);
+      margin-bottom: pxToRem($sizeLarge);
+    }
+  }
+
+  &__list {
+    @include resetList();
+    display: flex;
+    flex-flow: row wrap;
+    padding-top: pxToRem($sizeTiny);
+    padding-left: pxToRem($sizeTiny);
+    width: 100%;
+  }
+
+  &__item {
+    position: relative;
+    background-color: $colorBlack10;
+    margin-right: pxToRem($sizeTiny);
+    margin-bottom: pxToRem($sizeTiny);
+    width: 100%;
+
+    &:before {
+      content: '';
+      position: absolute;
+      display: block;
+      top: pxToRem(-$sizeTiny);
+      left: pxToRem(-$sizeTiny);
+      width: calc(100% + #{$sizeRegular});
+      height: calc(100% + #{$sizeRegular});
+      background-color: $colorBlack10;
+    }
+
+    // HOVER OVER ITEMS
+    &:hover {
+      z-index: $zIndexInner;
+
+      &:before {
+        background-color: $colorBorderFrameHover;
+      }
+
+      // Overwrite statistics teaser
+      .atm-heading,
+      time,
+      p {
+        color: $colorBlack;
+      }
+    }
+  }
+
+  /*
+  * MEDIA QUERIES
+  */
+  @include mq($from: small, $media: screen) {
+    &--more-info {
+      padding-top: 0;
+      padding-bottom: pxToRem($sizeBiggerBig);
+    }
+
+    &__header {
+      .atm-heading {
+        margin-top: pxToRem($sizeBiggerBig);
+      }
+    }
+
+    &__item {
+      flex-basis: calc(50% - #{$sizeTiny});
+      max-width: calc(50% - #{$sizeTiny});
+    }
+    // Single item style
+    .medium-6 ul {
+      .mdl-statistics_teaser__item {
+        flex-basis: 100%;
+        max-width: 100%;
+      }
+    }
+  }
+  @include mq($from: medium) {
+    padding-top: pxToRem($sizeBiggerBig);
+    padding-bottom: pxToRem($sizeBiggerBig);
+
+    &__header {
+      // Overwrite heading atom style
+      .atm-heading {
+        margin-bottom: pxToRem($sizeBiggerBig);
+      }
+    }
+
+    &--more-info {
+      padding-top: 0;
+      padding-bottom: pxToRem($sizeGiant);
+
+      .mdl-statistics_teaser__header {
+        .atm-heading {
+          margin-top: pxToRem($sizeGiant);
+        }
+      }
+    }
+
+    // Single item style
+    .medium-6 ul {
+      max-width: 50%;
+    }
+    // Two item style
+    .large-8 .mdl-statistics_teaser__item {
+      flex-basis: calc(50% - #{$sizeTiny});
+      max-width: calc(50% - #{$sizeTiny});
+    }
+
+    &__item {
+      flex-basis: calc(33.33% - #{$sizeTiny});
+      max-width: calc(33.33% - #{$sizeTiny});
+    }
+  }
+}

@@ -1,7 +1,12 @@
-<div class="mdl-carousel" data-init="carousel" {{#if isInGallery}}data-image-gallery="carousel"{{/if}}>
-  {{#if title}}
+<div class="mdl-carousel" data-init="carousel" {{#if isInGallery}}data-image-gallery="carousel" {{/if}}>
+  {{#if heading}}
     <div class="mdl-carousel__title">
-      <h{{{title.level}}} class="atm-heading">{{ title.text }}</h{{{title.level}}}>
+      <h{{heading.level}} class="atm-heading
+        {{#if_compare heading.visualLevel "!==" heading.level}}h{{heading.visualLevel}}{{/if_compare}}
+        {{#if_compare heading.visualLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+      >
+        {{heading.title}}
+      </h{{heading.level}}>
     </div>
   {{/if}}
   <div class="mdl-carousel__meta">

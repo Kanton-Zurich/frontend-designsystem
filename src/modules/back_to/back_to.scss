@@ -1,0 +1,22 @@
+$back_to_MarginCurve: (
+  default: (
+    tiny: $sizeLarge,
+    small: $sizeBig,
+    medium: $sizeBig,
+    large: $sizeBiggerBig,
+    xlarge: $sizeSmallHuge,
+  ),
+);
+
+.mdl-back_to {
+  @include sizeCurve(right bottom, default, $back_to_MarginCurve);
+
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: pxToRem(13px);
+
+  position: fixed;
+  z-index: $zIndexPreFlyouts;
+  overflow: hidden;
+}

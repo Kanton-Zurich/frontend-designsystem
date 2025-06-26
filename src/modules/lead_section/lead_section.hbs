@@ -1,0 +1,27 @@
+<div class="mdl-lead_section {{#if noMarginTop}}mdl-lead_section--no-margin-top{{/if}}">
+
+  {{#if publicationDate}}
+    <p class="mdl-lead_section__dateline">
+      {{#if newsCategory}}<span class="mdl-lead_section__category">{{newsCategory}}</span>{{/if}}
+      {{publicationDate}}
+    </p>
+  {{/if}}
+
+  {{#if leadText}}
+    <p class="atm-lead">
+      <strong>{{leadText}}</strong>
+    </p>
+  {{/if}}
+
+  {{#if additionalText}}
+    <p class="atm-paragraph">{{additionalText}}</p>
+  {{/if}}
+
+  {{#if serviceButtonData}}
+    {{> "modules/service_button/service_button" serviceButtonData}}
+  {{/if}}
+
+  {{#if homeCTA}}
+    <a class="atm-button {{#if isReport}}atm-button--secondary{{/if}}" href="{{homeCTA.href}}">{{homeCTA.title}}</a>
+  {{/if}}
+</div>

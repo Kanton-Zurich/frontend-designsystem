@@ -1,0 +1,17 @@
+<div class="mdl-comment_introduction{{#unless date}} mdl-comment_introduction--placeholder{{/unless}}">
+  {{#if heading.title}}
+    <h2 class="mdl-comment_introduction__title atm-heading h3">
+      {{heading.title}}
+    </h2>
+  {{/if}}
+  {{#if date}}
+    <div class="mdl-comment_introduction__meta">
+      <time class="mdl-comment_introduction__date">
+        {{date}}
+      </time>
+      {{> "atoms/tag/tag" status }}
+    </div>
+  {{else}}
+    {{> modules/placeholder/placeholder placeholder }}
+  {{/if}}
+</div>

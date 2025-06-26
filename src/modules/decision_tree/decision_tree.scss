@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 $decision-tree-curves: (
   top-shadow: (
     tiny: 80px,
@@ -11,7 +13,7 @@ $decision-tree-notch-size: pxToRem(48px);
   @include gridBleed($fullwidth: true);
   @include sizeCurve(padding-bottom, big);
 
-  background-color: $colorBlack5;
+  background-color: $colorBg;
   z-index: 1;
   position: relative;
   outline: none;
@@ -69,7 +71,8 @@ $decision-tree-notch-size: pxToRem(48px);
 
     &-step {
       display: none;
-      padding: pxToRem($sizeMini) pxToRem($sizeSmallLarge) pxToRem($sizeSmallLarge) pxToRem($sizeSmallLarge);
+      padding: pxToRem($sizeMini) pxToRem($sizeSmallLarge) pxToRem($sizeSmallLarge)
+        pxToRem($sizeSmallLarge);
       background-color: $colorWhite;
       margin-bottom: pxToRem($sizeSmallRegular);
 
@@ -91,7 +94,7 @@ $decision-tree-notch-size: pxToRem(48px);
         margin-bottom: pxToRem($sizeRegular);
       }
 
-      &[ data-active='true' ] {
+      &[data-active='true'] {
         display: block;
       }
     }
@@ -114,15 +117,15 @@ $decision-tree-notch-size: pxToRem(48px);
     .atm-button {
       border-radius: 50%;
       position: absolute;
-      top: calc(100% - #{$decision-tree-notch-size / 2});
-      left: calc(50% - #{$decision-tree-notch-size / 2});
-      background-color: $colorBlack5;
+      top: calc(100% - math.div($decision-tree-notch-size, 2));
+      left: calc(50% - math.div($decision-tree-notch-size, 2));
+      background-color: $colorBg;
 
       .icon {
         &.closed {
           display: block;
-          width: pxToRem(#{$sizeLarge + 1});
-          height: pxToRem(#{$sizeLarge + 1});
+          width: pxToRem($sizeLarge + 1px);
+          height: pxToRem($sizeLarge + 1px);
         }
 
         &.open {
@@ -165,7 +168,12 @@ $decision-tree-notch-size: pxToRem(48px);
 
       content: ' ';
       position: absolute;
-      background: radial-gradient(farthest-side at 50% -40%, rgba($colorBlack, 0.1), rgba($colorBlack, 0.1) 25%, transparent 100%);
+      background: radial-gradient(
+        farthest-side at 50% -40%,
+        rgba($colorBlack, 0.1),
+        rgba($colorBlack, 0.1) 25%,
+        transparent 100%
+      );
       top: calc(100%);
       left: 0;
       max-width: pxToEm($sizeWidthContent);
@@ -263,13 +271,21 @@ $decision-tree-notch-size: pxToRem(48px);
     }
   }
 
+  &__result-block {
+    @include sizeCurve(margin-bottom, medium);
+  }
+
+  &__result--hidden {
+    display: none;
+  }
+
   .mdl-stepper {
     padding-bottom: 0;
     padding-top: pxToRem($sizeBig);
     transition: height 0.5s ease;
 
     &__step {
-      background-color: $colorBlack5;
+      background-color: $colorBg;
 
       &-page {
         background-color: transparent;
@@ -290,6 +306,10 @@ $decision-tree-notch-size: pxToRem(48px);
             padding-right: 0;
             margin-bottom: 0.5rem;
           }
+        }
+
+        .atm-radiobutton {
+          display: flex;
         }
       }
 
@@ -317,6 +337,8 @@ $decision-tree-notch-size: pxToRem(48px);
         padding-bottom: pxToRem($sizeSmallLarge);
         background-color: $colorWhite;
         margin-bottom: pxToRem($sizeMini);
+        flex-wrap: wrap;
+        row-gap: pxToRem($sizeRegular);
 
         h3.atm-heading {
           margin-bottom: pxToRem($sizeSmallRegular);
@@ -337,10 +359,24 @@ $decision-tree-notch-size: pxToRem(48px);
           }
 
           *:last-child {
-            margin-bottom: 0;
+            margin-bottom: pxToRem($sizeSmallRegular);
           }
         }
       }
+
+      &__cell {
+        flex: 0 0 50%;
+        margin-bottom: 0;
+
+        /* CZHDEV-3315 hide subheadings of form section in decision tree */
+        > h4.atm-heading:first-child {
+          display: none;
+        }
+      }
     }
+  }
+
+  strong {
+    font-family: $fontFamilyBlack;
   }
 }

@@ -3,17 +3,18 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
-const headerData = require('../../modules/header/header.data').variants.inverted.props;
+const headerData = require('../../modules/header/header.data').variants.defaultWithUserLoggedOut
+  .props;
 
+const breadcrumbData = require('../../modules/breadcrumb/breadcrumb.data.js').variants.parentOnly
+  .props;
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
-const contextMenuProps = require('../../modules/context_menu/context_menu.data').props;
-const contextMenuItemDef = require('../../atoms/context_menu_item/context_menu_item.data').variants.default.props;
 const defCookieControls = require('../../modules/cookie_controls/cookie_controls.data.js');
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
-const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
+const backToData = require('../../modules/back_to/back_to.data').variants.default.props;
 
-const pageHeaderWithoutBreadcrumbs = _.omit(defPageHeaderData.variants.default.props, ['breadcrumb']);
-defPageHeaderData.variants.default.props = pageHeaderWithoutBreadcrumbs;
+const pageHeaderWithoutBreadcrumbs = _.omit(defPageHeaderData.variants.facts.props, ['breadcrumb']);
+defPageHeaderData.variants.facts.props = pageHeaderWithoutBreadcrumbs;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -30,38 +31,15 @@ const data = _.merge({}, defaultData, {
         variants: {
           default: {
             props: {
+              breadcrumb: breadcrumbData,
               pageTitle: 'Datenschutzerklärung',
-              buttonData: false,
-              inverted: false,
-              noText: true,
-              breadcrumb: {
-                contextMenu: _.merge({}, contextMenuProps, {
-                  lists: [
-                    {
-                      items: [
-                        _.merge({}, contextMenuItemDef, { text: 'Kanton Zürich', iconAfter: false, iconBefore: false }),
-                      ],
-                    },
-                  ],
-                }),
-                path: [
-                  {
-                    title: 'Kanton Zürich',
-                    href: '#',
-                  },
-                  {
-                    title: 'Datenschutzerklärung',
-                    href: '#',
-                  },
-                ],
-              },
             },
           },
         },
       }),
       cookieControlsData: defCookieControls,
       tagGroupData: {
-        tagGroupdHeading: {
+        heading: {
           title: 'Für dieses Thema zuständig:',
         },
         anchorLinks: [
@@ -79,7 +57,7 @@ const data = _.merge({}, defaultData, {
         ],
       },
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
+      backToData,
     },
   },
 });

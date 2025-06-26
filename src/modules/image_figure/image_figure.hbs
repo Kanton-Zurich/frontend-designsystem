@@ -1,26 +1,43 @@
 <figure class="mdl-image-figure{{#if isSmall}} mdl-image-figure--imagesmall{{/if}}{{#if isWide}} mdl-image-figure--fullwidth{{/if}}{{#if isHeader}} mdl-image-figure--header{{/if}}">
   {{#if heading}}
-    <h{{{headingLevel}}} class="atm-heading">{{{heading}}}</h{{{headingLevel}}}>
+    <h{{{headingLevel}}} class="atm-heading
+      {{#if_compare visualHeadingLevel "!==" headingLevel}}h{{visualHeadingLevel}}{{/if_compare}}
+      {{#if_compare visualHeadingLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+    >{{{heading}}}</h{{{headingLevel}}}>
   {{/if}}
+
+  {{#if description}}
+    <p class="mdl-image-figure__description">{{description}}</p>
+  {{/if}}
+
   <{{#if useInCarousel}}button{{else}}div{{/if}} class="mdl-image-figure__img-wrapper" {{#if useInCarousel}}data-carousel="open" role="presentation"{{/if}}>
     <img
         class="mdl-image-figure__img"
+        {{#if isWide}} data-anchornav="fullwidth"{{/if}}
         {{#if lazy}}data-{{/if}}src="{{srcsets.[0].image}}"
-        {{#if lazy}}data-{{/if}}srcset="{{#each srcsets}}{{image}} {{imageWidth}}w{{#if @last}}{{else}}, {{/if}}{{/each}}"
+        {{#if lazy }}data-{{/if}}srcset="{{#each srcsets}}{{image}} {{imageWidth}}w{{#if @last}}{{else}}, {{/if}}{{/each}}"
         sizes="100vw"
+        {{#if useInCarousel}}loading="lazy"{{/if}}
         alt="{{alt}}"
         {{#if hasDownload}}data-image-has-download{{/if}}
         data-image-figure="image"
       />
       {{#if useInCarousel}}<span class="visuallyhidden" data-carousel="ariaFullscreen">Bild im Vollbildmodus anzeigen</span>{{/if}}
   </{{#if useInCarousel}}button{{else}}div{{/if}}>
-  {{#unless noTitle}}<figcaption class="mdl-image-figure__caption">
-    {{> "atoms/figcaption/figcaption" caption}}
-    {{#if hasDownload}}<a href="{{srcsets.[0].image}}" download class="mdl-image-figure__download">
-      <svg class="icon mdl-image-figure__download-icon" focusable="false">
-        <use xlink:href="#download"></use>
-      </svg>
-      <span class="visuallyhidden">Bild{{#if alt}} «{{alt}}»{{/if}} herunterladen</span>
-    </a>{{/if}}
-  </figcaption>{{/unless}}
+
+  {{#unless noTitle}}
+    <figcaption class="mdl-image-figure__caption">
+      {{> "atoms/figcaption/figcaption" caption}}
+      {{#if hasDownload}}<a href="{{srcsets.[0].image}}" download class="mdl-image-figure__download">
+        <svg class="icon mdl-image-figure__download-icon" focusable="false">
+          <use xlink:href="#download"></use>
+        </svg>
+        <span class="visuallyhidden">Bild{{#if alt}} «{{alt}}»{{/if}} herunterladen</span>
+      </a>{{/if}}
+    </figcaption>
+  {{/unless}}
+
+  {{#if dataDownload}}
+    {{>"modules/data_download/data_download" dataDownload }}
+  {{/if}}
 </figure>

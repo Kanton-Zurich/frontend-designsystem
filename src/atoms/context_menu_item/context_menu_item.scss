@@ -17,7 +17,7 @@
   &:active,
   &--selected {
     color: $colorBlack;
-    background: $colorBlack5;
+    background: $colorBg;
 
     .atm-context_menu_item__icon use {
       fill: $colorBlack;
@@ -47,7 +47,6 @@
     }
 
     &.atm-context_menu_item--selected {
-
       .atm-context_menu_item__icon:first-child {
         opacity: 1;
       }

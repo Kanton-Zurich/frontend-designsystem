@@ -1,0 +1,35 @@
+$scroll2TopDiameter: $sizeSmallHuge;
+$scroll2TopIconsSize: $sizeLarge;
+
+.mdl-scroll2top {
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+
+  &__icon {
+    border-radius: 50%;
+    overflow: hidden;
+    transition: all 600ms ease;
+    margin-bottom: pxToRem(-$scroll2TopDiameter);
+    margin-top: 0;
+  }
+
+  &--unlocked {
+    pointer-events: auto;
+    height: pxToRem($scroll2TopDiameter);
+    transition: height, bottom 900ms, 600ms ease;
+
+    .mdl-scroll2top__icon {
+      margin-bottom: 0;
+    }
+
+    &.mdl-scroll2top--scrolled-on {
+      height: pxToRem($scroll2TopDiameter);
+
+      .mdl-scroll2top__icon {
+        margin-top: pxToRem($scroll2TopDiameter);
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

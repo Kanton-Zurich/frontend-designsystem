@@ -1,0 +1,62 @@
+<div class="mdl-measures_search" data-init="measuresSearch" data-source="/mocks/modules/measures_search/measures_search.json" data-order-by="code">
+
+  <h2 class="visuallyhidden">Filterformular</h2>
+  <div class="mdl-measures_search__simple">
+    <form class="mdl-measures_search__form" novalidate>
+      {{>"atoms/form_input/form_input" searchInputData }}
+      <button type="button" class="atm-button atm-button--secondary">
+        Erweiterte Suche
+      </button>
+    </form>
+  </div>
+  <div class="mdl-measures_search__extended">
+    {{> "modules/dialog/dialog" modules.dialog }}
+  </div>
+
+  <div data-measures_search="wrapper" class="mdl-measures_search--loading">
+    <div class="mdl-measures_search__controls">
+      <h3 class="visuallyhidden">Aktive Filter</h3>
+      <div class="mdl-measures_search__selection">
+        <p class="visuallyhidden" aria-hidden="false" data-measures_search="hasNoFilters">Aktuell sind keine Filter
+          ausgewählt</p>
+        {{>"modules/filter_pills/filter_pills" filterPillsData }}
+      </div>
+      <div class="mdl-measures_search__sort">
+        <h3 class="visuallyhidden">Sortierung</h3>
+        <span>Sortieren nach: </span>
+        <button class="mdl-measures_search__sort-dropdown">
+          <span>Nummer</span>
+          <svg class="icon" focusable="false">
+            <use xlink:href="#angle_drop_down"></use>
+          </svg>
+        </button>
+        {{> "modules/context_menu/context_menu" sortContextMenu }}
+      </div>
+      {{> "atoms/loading_circle/loading_circle"}}
+    </div>
+    <div class="mdl-measures_search__results">
+      <h2 class="visuallyhidden">Resultate</h2>
+      <div class="mdl-measures_search__no-results">
+        <h3 class="atm-heading">{{noResults}}</h3>
+        <p class="atm-paragraph">{{noResultsSubText}}</p>
+      </div>
+      <script data-teaser-template type="text/x-handlebars-template">
+        {{{ datasetTemplate }}}
+      </script>
+      <div class="mdl-measures_list mdl-measures_list--started">
+        <ul class="mdl-measures_list__list">
+        </ul>
+      </div>
+    </div>
+    <div class="mdl-measures_search__pagination hidden">
+      {{> "modules/pagination/pagination" modules.pagination }}
+    </div>
+    <div class="mdl-measures_search__notification hidden">
+      {{> "modules/notification/notification" notificationData }}
+    </div>
+  </div>
+
+  <script data-search_page="autosuggestTemplate" type="text/x-handlebars-template">
+    {{{ autosuggestTemplate }}}
+  </script>
+</div>

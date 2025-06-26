@@ -1,8 +1,10 @@
+$colorWhite70: rgba($colorWhite, 0.7);
+
 .atm-text_link {
   color: $colorBlack60;
   text-decoration: none;
   border-bottom: 1px solid $colorCyan;
-  height: $sizeLineHeightBase;
+  line-height: $sizeLineHeightBase;
   cursor: pointer;
 
   &--icon {
@@ -23,17 +25,9 @@
     &--iframe-arrow {
       margin-left: 7px;
 
-      @media all and ( -ms-high-contrast: none ) {
+      @media all and (-ms-high-contrast: none) {
         height: 1.8rem;
       }
-    }
-  }
-
-  &--cv-inverted {
-    color: $colorWhite;
-
-    .icon {
-      fill: $colorWhite;
     }
   }
 
@@ -43,6 +37,24 @@
 
     .icon {
       fill: $colorBlack;
+    }
+  }
+
+  &--cv-inverted {
+    color: $colorWhite;
+    border-color: $colorWhite;
+
+    .icon {
+      fill: $colorWhite;
+    }
+
+    &:hover {
+      color: $colorWhite70;
+      border-color: $colorWhite70;
+
+      .icon {
+        fill: $colorWhite70;
+      }
     }
   }
 }

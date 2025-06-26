@@ -4,17 +4,28 @@ import { ApiConnectionFailure, ApiFailureType } from '../../service/migek-api.se
 /* eslint-disable no-unused-vars */
 import Appointment from '../../model/appointment.model';
 
+// eslint-disable-next-line no-shadow
 enum LoginAlert {
   Incomplete,
   Unauthorized,
-  ShowTelephone
+  ShowTelephone,
 }
 /* eslint-enable */
 
 const TOKEN_BLOCKS: number = 4;
 const TOKEN_BLOCK_LENGTH: number = 4;
-const TOKEN_BLOCK_SEPERATOR: string = '-';
+const TOKEN_BLOCK_SEPARATOR: string = '-';
 const VALID_TOKEN_LENGTH = TOKEN_BLOCKS * TOKEN_BLOCK_LENGTH + (TOKEN_BLOCKS - 1);
+
+export interface LoginViewSelectors {
+  inputFieldsWrapper: string;
+  inputFields: string;
+  submitBtn: string;
+  loginAlertErr1: string;
+  loginAlertErr2: string;
+  loginAlertErr3: string;
+  loginHint: string;
+}
 
 export const loginViewSelectors: LoginViewSelectors = {
   inputFieldsWrapper: '[data-biometrie_appointment=inputfieldswrapper]',
@@ -25,15 +36,7 @@ export const loginViewSelectors: LoginViewSelectors = {
   loginAlertErr3: '[data-biometrie_appointment=loginAlertErr3]',
   loginHint: '[data-biometrie_appointment=loginHint]',
 };
-export interface LoginViewSelectors {
-  inputFieldsWrapper: string;
-  inputFields: string;
-  submitBtn: string;
-  loginAlertErr1: string;
-  loginAlertErr2: string;
-  loginAlertErr3: string,
-  loginHint: string,
-}
+
 interface LoginViewData {
   appointment: Appointment;
   loading: boolean;
@@ -72,7 +75,8 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
       this.showLoginAlert(LoginAlert.Incomplete);
     } else {
       this.data.loading = true;
-      this.apiService.login(this.loginToken)
+      this.apiService
+        .login(this.loginToken)
         .then((appointment) => {
           if (appointment) {
             this.data.appointment = appointment;
@@ -97,11 +101,9 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
   }
 
   private initInputEvents(eventDelegate): void {
-    const inputWrapper = document
-      .querySelector<HTMLDivElement>(this.selectors.inputFieldsWrapper);
+    const inputWrapper = document.querySelector<HTMLDivElement>(this.selectors.inputFieldsWrapper);
 
-    const inputEls = inputWrapper
-      .querySelectorAll<HTMLSpanElement>(this.selectors.inputFields);
+    const inputEls = inputWrapper.querySelectorAll<HTMLSpanElement>(this.selectors.inputFields);
 
     let inPaste = false;
     let caretPos = 0;
@@ -198,7 +200,12 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
         setTimeout(() => {
           this.fillLoginTokenCleaned(totalStr);
           this.log('Login Paste: Initial Caret position ', caretPos, overallCaretPos);
-          this.log('Login Paste: Segment lengths ', this.loginToken.length, beforeCaretLength, afterCaretLength);
+          this.log(
+            'Login Paste: Segment lengths ',
+            this.loginToken.length,
+            beforeCaretLength,
+            afterCaretLength
+          );
           const cleanPasteLength = this.loginToken.length - (beforeCaretLength + afterCaretLength);
           this.log('Login Paste: CleanPaste length ', cleanPasteLength);
           overallCaretPos += cleanPasteLength;
@@ -220,7 +227,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
         }
 
         this.log('Event KeyUp: ', event, target);
-        const targetInput = (target as HTMLSpanElement);
+        const targetInput = target as HTMLSpanElement;
         caretPos = window.getSelection().getRangeAt(0).startOffset;
 
         let totalStr = '';
@@ -259,7 +266,10 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
             focusEl = inputEls[targetInputIdx - 1];
             caretPos = Math.min(focusEl.innerText.length, TOKEN_BLOCK_LENGTH);
           }
-        } else if ((caretPos === TOKEN_BLOCK_LENGTH) && (event.key === 'Right' || event.key === 'ArrowRight')) {
+        } else if (
+          caretPos === TOKEN_BLOCK_LENGTH &&
+          (event.key === 'Right' || event.key === 'ArrowRight')
+        ) {
           if (targetInputIdx < TOKEN_BLOCKS - 1) {
             focusEl = inputEls[targetInputIdx + 1];
             caretPos = 0;
@@ -278,7 +288,8 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
   private getPasteStr(pasteEv): string {
     // eslint-disable-next-line dot-notation
     const ieClipboardData = window['clipboardData'];
-    if (ieClipboardData && ieClipboardData.getData) { // IE
+    if (ieClipboardData && ieClipboardData.getData) {
+      // IE
       return ieClipboardData.getData('Text');
     }
     if (pasteEv.clipboardData && pasteEv.clipboardData.getData) {
@@ -299,7 +310,7 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
   }
 
   /**
-   * Strips invalid characters form a given string, injects the TokenBlockSeperators
+   * Strips invalid characters form a given string, injects the TokenBlockSeparators
    * and cuts the string to max length of a valid token.
    *
    * @param { string } inValue string to process
@@ -311,9 +322,10 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
     }
     const regexPattern = `.{1,${TOKEN_BLOCK_LENGTH}}`;
     const tokenBlocks = cleanedVal.match(new RegExp(regexPattern, 'g'));
-    cleanedVal = tokenBlocks ? tokenBlocks.join(TOKEN_BLOCK_SEPERATOR) : '';
+    cleanedVal = tokenBlocks ? tokenBlocks.join(TOKEN_BLOCK_SEPARATOR) : '';
     return cleanedVal.length > VALID_TOKEN_LENGTH
-      ? cleanedVal.substr(0, VALID_TOKEN_LENGTH) : cleanedVal;
+      ? cleanedVal.substr(0, VALID_TOKEN_LENGTH)
+      : cleanedVal;
   }
 
   /**
@@ -325,19 +337,18 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
    */
   private fillLoginTokenCleaned(totalStr) {
     const cleanedStr = this.cleanTokenValue(totalStr);
-    const tokenBlocks = cleanedStr.split(TOKEN_BLOCK_SEPERATOR);
-    document.querySelectorAll<HTMLInputElement>(this.selectors.inputFields)
-      .forEach((el, i) => {
-        let setText = '';
-        for (let j = 0; j < TOKEN_BLOCK_LENGTH; j += 1) {
-          if (tokenBlocks.length > i && tokenBlocks[i].length > j) {
-            setText += tokenBlocks[i][j];
-          } else {
-            setText += '_';
-          }
+    const tokenBlocks = cleanedStr.split(TOKEN_BLOCK_SEPARATOR);
+    document.querySelectorAll<HTMLInputElement>(this.selectors.inputFields).forEach((el, i) => {
+      let setText = '';
+      for (let j = 0; j < TOKEN_BLOCK_LENGTH; j += 1) {
+        if (tokenBlocks.length > i && tokenBlocks[i].length > j) {
+          setText += tokenBlocks[i][j];
+        } else {
+          setText += '_';
         }
-        el.innerText = setText;
-      });
+      }
+      el.innerText = setText;
+    });
 
     if (cleanedStr.length >= VALID_TOKEN_LENGTH) {
       this.showLoginAlert();
@@ -359,7 +370,6 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
         const range = document.createRange();
         range.selectNodeContents(focusEl);
 
-
         range.setStart(focusEl.firstChild, caretPos);
         range.setEnd(focusEl.firstChild, caretPos);
 
@@ -375,8 +385,10 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
   private handleUnauthedLogin(): void {
     this.log('Unauthorised!');
     this.loginReqAttempts += 1;
-    if (this.data.attemptsBeforeTelephone > 0
-      && this.loginReqAttempts >= this.data.attemptsBeforeTelephone) {
+    if (
+      this.data.attemptsBeforeTelephone > 0 &&
+      this.loginReqAttempts >= this.data.attemptsBeforeTelephone
+    ) {
       this.showLoginAlert(LoginAlert.ShowTelephone);
     } else {
       this.showLoginAlert(LoginAlert.Unauthorized);
@@ -392,7 +404,9 @@ class BiometrieLoginView extends ViewController<LoginViewSelectors, LoginViewDat
   private showLoginAlert(loginAlert?: LoginAlert) {
     const wrapperEl = document.querySelector(this.selectors.inputFieldsWrapper);
 
-    const alertConDirectChildren = document.querySelectorAll<HTMLElement>(`${this.selectors.loginHint} > *`);
+    const alertConDirectChildren = document.querySelectorAll<HTMLElement>(
+      `${this.selectors.loginHint} > *`
+    );
     alertConDirectChildren.forEach((child) => {
       child.classList.remove('show');
     });

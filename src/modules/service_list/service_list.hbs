@@ -1,34 +1,41 @@
-<div class="mdl-service_list {{#unless serviceListHeading}}mdl-service_list--no-heading{{/unless}}" data-init="servicelist">
-  {{#if serviceListHeading}}
-    <h2 class="atm-heading atm-heading--bordered" {{#if serviceListHeading.anchorNavReference}} id="{{serviceListHeading.anchorNavReference}}"{{/if}}>{{serviceListHeading.title}}</h2>
+<div class="mdl-service_list {{#unless heading}}mdl-service_list--no-heading{{/unless}}"
+  data-init="servicelist">
+  {{#if heading}}
+    <h{{heading.level}} {{#if anchorNavReference}}id="{{anchorNavReference}}" data-anchornav="target" {{/if}}
+      class="atm-heading
+      {{#if_compare heading.visualLevel "!==" heading.level}}h{{heading.visualLevel}}{{/if_compare}}
+      {{#if_compare heading.visualLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+    >{{heading.title}}</h{{heading.level}}>
   {{/if}}
   <ul>
-  {{#each items}}
-    <li>
-    <a href="{{href}}" class="mdl-service_list__item" {{#if external}}target="_blank"{{/if}}
-      {{#unless external}}data-url="{{serviceLink}}" aria-controls="{{modalData.modalId}}" role="button"{{/unless}} aria-haspopup="dialog">
-      <div class="mdl-service_list__item-container">
-        <p class="atm-heading mdl-service_list__item-title" data-lineclamp="true">{{title}}</p>
-        {{#if text}}
-          <p class="atm-paragraph mdl-service_list__item-text" data-lineclamp="true">{{text}}</p>
-        {{/if}}
-      </div>
-      <span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
-      {{#if icon}}
-      <svg class="icon atm-button__icon" focusable="false">
-        <use xlink:href="#{{icon}}"></use>
-      </svg>
-      {{/if}}
-      <span class="atm-button__text">
-        {{buttonTitle}}
-      </span>
-    </span>
-    </a>
-    {{#unless external}}
-      <div id="{{modalData.modalId}}" class="mdl-modal {{#unless staticHeader}}mdl-modal--dynamicheader{{/unless}}" data-init="modal" aria-hidden="true" role="dialog">
-      </div>
-    {{/unless}}
-    </li>
-  {{/each}}
+    {{#each items}}
+      <li>
+        <a href="{{href}}" class="mdl-service_list__item" {{#if external}}target="_blank" {{/if}} {{#unless
+          external}}data-url="{{serviceLink}}" aria-controls="{{modalData.modalId}}" role="button" {{/unless}}
+          aria-haspopup="dialog">
+          <div class="mdl-service_list__item-container">
+            <p class="atm-heading mdl-service_list__item-title">{{title}}</p>
+            {{#if text}}
+              <p class="atm-paragraph mdl-service_list__item-text">{{text}}</p>
+            {{/if}}
+          </div>
+          <span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
+            {{#if icon}}
+              <svg class="icon atm-button__icon" focusable="false">
+                <use xlink:href="#{{icon}}"></use>
+              </svg>
+            {{/if}}
+            <span class="atm-button__text">
+              {{buttonTitle}}
+            </span>
+          </span>
+        </a>
+        {{#unless external}}
+          <div id="{{modalData.modalId}}" class="mdl-modal {{#unless staticHeader}}mdl-modal--dynamicheader{{/unless}}"
+            data-init="modal" aria-hidden="true" role="dialog">
+          </div>
+        {{/unless}}
+      </li>
+    {{/each}}
   </ul>
 </div>

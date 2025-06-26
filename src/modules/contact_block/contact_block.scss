@@ -1,0 +1,106 @@
+.mdl-contact_block {
+  $fontSizeCurveRegular: (
+    medium: $sizeFontBiggerRegular,
+    xlarge: $sizeFontMedium,
+  );
+
+  display: flex;
+  flex-direction: column;
+  gap: $sizeSmallRegular;
+
+  &__section,
+  &__detail-list {
+    @include resetList();
+  }
+
+  &__section {
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: $sizeLarge;
+
+    @include sizeCurve(row-gap, medium);
+  }
+
+  &--leaders {
+    .mdl-contact_block__section {
+      @include mq($from: medium) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto 1fr;
+        row-gap: 0;
+      }
+    }
+
+    .mdl-contact_block__section:has(.mdl-contact_block__section-cell.hidden) {
+      grid-template-columns: 1fr;
+    }
+
+    .mdl-contact_block__section-cell {
+      @include mq($from: medium) {
+        grid-row: span 2;
+
+        display: grid;
+        grid-template-rows: subgrid;
+      }
+    }
+  }
+
+  &__name-group {
+    display: flex;
+    flex-direction: column;
+    row-gap: $sizeMini;
+
+    @include sizeCurve(margin-block-end, small);
+  }
+
+  &__contact-name,
+  &__contact-jobtitle {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    margin-block: 0;
+  }
+
+  &__contact-name {
+    font-family: $fontFamilyBlack;
+  }
+
+  &__contact-jobtitle {
+    color: $colorBlack60;
+  }
+
+  &__detail-list {
+    @include resetList();
+
+    display: flex;
+    flex-direction: column;
+
+    @include sizeCurve(row-gap, small);
+  }
+
+  &__detail-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: $sizeRegular;
+  }
+
+  &__icon-wrapper {
+    width: $sizeBig;
+    height: $sizeBig;
+    padding: 7px;
+    border-radius: $sizeSmallLarge;
+    background-color: var(--color-accent-soft);
+  }
+
+  &__icon {
+    width: 18px;
+    height: 18px;
+    fill: $colorBlue;
+  }
+
+  &__link {
+    @include polyFluidSizing(font-size, $fontSizeCurveRegular);
+
+    font-family: $fontFamilyBlack;
+    color: var(--color-accent);
+    border-bottom: none;
+    text-decoration: underline 1.5px;
+  }
+}

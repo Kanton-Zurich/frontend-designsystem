@@ -7,17 +7,16 @@
 import Module from '../../assets/js/helpers/module';
 import WindowEventListener from '../../assets/js/helpers/events';
 
-
 class Banner extends Module {
   public data: {
-    closedItems: Array<string>,
+    closedItems: Array<string>;
   };
 
   public options: {
-    domSelectors: any,
-    stateClasses: any,
-    uid: string,
-    fetchURL: string,
+    domSelectors: any;
+    stateClasses: any;
+    uid: string;
+    fetchURL: string;
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -54,17 +53,14 @@ class Banner extends Module {
 
   async loadBanner() {
     if (this.options.fetchURL) {
-      if (!window.fetch) {
-        await import('whatwg-fetch');
-      }
-
       fetch(this.options.fetchURL, {
         headers: {
           'Content-Type': 'text/html',
         },
       })
         .then((response) => {
-          if (response.status !== 200 && response.status !== 204) { // eslint-disable-line
+          // eslint-disable-next-line
+          if (response.status !== 200 && response.status !== 204) {
             throw new Error('Server error while fetching data');
           }
           return response.status === 204 ? '' : response.text(); // eslint-disable-line
@@ -77,7 +73,9 @@ class Banner extends Module {
             this.ui.element.innerHTML = response;
             const bannerImage = this.ui.element.querySelector('.mdl-banner__image');
             if (bannerImage) {
-              bannerImage.onload = () => { this.initBanner(); };
+              bannerImage.onload = () => {
+                this.initBanner();
+              };
             }
             if (this.supportsLocalStorage() && localStorage.getItem('closedBanners')) {
               const uid = this.ui.element.querySelector('[data-uid]').getAttribute('data-uid');
@@ -93,6 +91,9 @@ class Banner extends Module {
               this.initBanner();
             }
           }
+        })
+        .catch((error) => {
+          console.error(error);
         });
     } else {
       console.error('No fetch url given');

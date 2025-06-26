@@ -4,7 +4,6 @@
   <!--------------------------->
   <!-- Page header goes here -->
   <!--------------------------->
-  <link rel="stylesheet" href="{{meta.aemPath}}/css/fonts.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.css">
   <link rel="stylesheet" href="{{meta.aemPath}}/css/main.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.css">
   <script src="{{meta.aemPath}}/js/head.{{meta.gitShort}}{{#unless env.dev}}.min{{/unless}}.js"></script>
 
@@ -14,12 +13,15 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="application-name" content="Kanton Zürich">
   <meta name="apple-mobile-web-app-title" content="Kanton Zürich">
-  <meta name="theme-color" content="#0076BD">
-  <meta name="msapplication-navbutton-color" content="#0076BD">
+  <meta name="theme-color" content="#0070B4">
+  <meta name="msapplication-navbutton-color" content="#0070B4">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="msapplication-starturl" content="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <link rel="preload" href="/assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Inter-Black.woff2" as="font" type="font/woff2" crossorigin>
+  
   <link rel="icon" type="image/png" href="/assets/media/icons/Favicon_48.png"/>
 
   <link rel="shortcut icon" sizes="144x144" type="image/png" href="/assets/media/icons/Favicon_144.png"/>
@@ -61,7 +63,7 @@
     </div>
   </div>
 </header>
-<main class="lyt-wrapper" id="main">
+<main class="lyt-wrapper" id="main" tabindex="-1">
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
       <!-------------------------------->

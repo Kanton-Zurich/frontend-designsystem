@@ -5,24 +5,23 @@
  */
 
 $iconsDataurls: (
-	{{#each icons}}"{{@key}}": (
-		"dimensions": (
-			"x": {{this.dimensions.x}},
-			"y": {{this.dimensions.y}}
-		),
-		"urls": (
-			{{#each this.urls}}"{{@key}}": (
-				"svg": "{{this.svg}}",
-				"svgInline": "url({{this.svg}})",
-				"png": "{{this.png}}",
-				"pngInline": "url({{this.png}})"
-			),
-			{{/each}}
-		)
-	),
-	{{/each}}
+  {{#each icons}}'{{@key}}': (
+      'dimensions': (
+        'x': {{this.dimensions.x}},
+        'y': {{this.dimensions.y}},
+      ),
+      'urls': (
+        {{#each this.urls}}'{{@key}}': (
+            'svg': '{{this.svg}}',
+            'svgInline': 'url({{this.svg}})',
+            'png': '{{this.png}}',
+            'pngInline': 'url({{this.png}})',
+          ),
+        {{/ each}},
+      ),
+    ),
+  {{/ each}}
 );
-
 
 /**
  * Mixins
@@ -33,48 +32,48 @@ $iconsDataurls: (
  * It is used by iconDataurl()
  */
 
-@mixin iconDataurl($name, $color: "primary", $after: false) {
-	$selector: "before";
+@mixin iconDataurl($name, $color: 'primary', $after: false) {
+  $selector: 'before';
 
-	@if $after == true {
-		$selector: "after";
-	}
+  @if $after == true {
+    $selector: 'after';
+  }
 
-	&:#{$selector} {
-		@include iconDataurlStyles($name, $color);
+  &:#{$selector} {
+    @include iconDataurlStyles($name, $color);
 
-		content: "";
-		display: inline-block;
-	}
+    content: '';
+    display: inline-block;
+  }
 }
 
-@mixin iconDataurlStyles($name, $color: "primary", $skipDimensions: false, $skipFallback: false) {
-	$icon: map-get($iconsDataurls, $name);
+@mixin iconDataurlStyles($name, $color: 'primary', $skipDimensions: false, $skipFallback: false) {
+  $icon: map-get($iconsDataurls, $name);
 
-	@if $icon == null {
-		@error "No icon '#{$name}' found";
-	}
+  @if $icon == null {
+    @error "No icon '#{$name}' found";
+  }
 
-	$dimensions: map-get($icon, "dimensions");
-	$urls: map-get($icon, "urls");
-	$urls: map-get($urls, $color);
+  $dimensions: map-get($icon, 'dimensions');
+  $urls: map-get($icon, 'urls');
+  $urls: map-get($urls, $color);
 
-	@if $urls == null {
-		@error "No color '#{$color}' of icon '#{$name}' found";
-	}
+  @if $urls == null {
+    @error "No color '#{$color}' of icon '#{$name}' found";
+  }
 
-	background-image: unquote(map-get($urls, "svgInline"));
-	background-repeat: no-repeat;
-	background-size: contain;
+  background-image: unquote(map-get($urls, 'svgInline'));
+  background-repeat: no-repeat;
+  background-size: contain;
 
-	@if $skipDimensions != true {
-		height: pxToEm(map-get($dimensions, "y"));
-		width: pxToEm(map-get($dimensions, "x"));
-	}
+  @if $skipDimensions != true {
+    height: pxToEm(map-get($dimensions, 'y'));
+    width: pxToEm(map-get($dimensions, 'x'));
+  }
 
-	@if $skipFallback != true {
-		.no-svg & {
-			background-image: url(map-get($urls, "png"));
-		}
-	}
+  @if $skipFallback != true {
+    .no-svg & {
+      background-image: url(map-get($urls, 'png'));
+    }
+  }
 }

@@ -1,12 +1,22 @@
-<div class="mdl-topiclist{{#if isOfficeNavigation}} mdl-topiclist--office{{/if}}{{#if isTopiclistHome}} mdl-topiclist--home{{/if}}{{#if isNavigation}} mdl-topiclist--nav{{/if}}{{#if additionalClasses}} {{additionalClasses}}{{/if}}" data-init="topiclist" {{#if options}}data-topiclist-options='{{options}}'{{/if}}>
+<div class="mdl-topiclist
+  {{#if isOfficeNavigation}}mdl-topiclist--office{{/if}}
+  {{#if isTopiclistHome}}mdl-topiclist--home{{/if}}
+  {{#if isNavigation}}mdl-topiclist--nav{{/if}}
+  {{#if additionalClasses}}{{additionalClasses}}{{/if}}"
+  data-init="topiclist"
+  {{#if options}}data-topiclist-options="{{options}}"{{/if}}
+>
   {{#if isNavigation}}<div data-topiclist="firstLayer">{{/if}}
-    {{#if topiclistHeading}}
-      <h{{topiclistHeading.level}}
-        class="atm-heading atm-heading--bordered {{#if topiclistHeading.isHidden}}visuallyhidden{{/if}}"
-        id="{{{topiclistHeading.anchorNavReference}}}"
+    {{#if heading}}
+      <h{{heading.level}}
+        {{#if anchorNavReference}}id="{{anchorNavReference}}" data-anchornav="target"{{/if}}
+        class="atm-heading
+        {{#if_compare heading.visualLevel "!==" heading.level}}h{{heading.visualLevel}}{{/if_compare}}
+        {{#if_compare heading.visualLevel "===" 2 }}atm-heading--bordered{{/if_compare}}
+        {{#if heading.isHidden}}visuallyhidden{{/if}}"
       >
-        {{topiclistHeading.title}}
-      </h{{topiclistHeading.level}}>
+        {{heading.title}}
+      </h{{heading.level}}>
     {{/if}}
     {{#if topiclistLead}}<p class="atm-paragraph">{{{topiclistLead}}}</p>{{/if}}
 
@@ -15,15 +25,24 @@
     {{/if}}
 
     <!-- Standard Topiclist -->
-    {{> "modules/content_nav/content_nav" topiclistcontentNavData}}
+    {{#if topiclistcontentNavData}}
+      {{> "modules/content_nav/content_nav" topiclistcontentNavData}}
+    {{/if}}
+
+    {{#if sectionedTopiclistcontentNavData}}
+      {{#each sectionedTopiclistcontentNavData}}
+        <h3 class="atm-heading">{{this.title}}</h3>
+        {{> "modules/content_nav/content_nav" this.navData}}
+      {{/each}}
+    {{/if}}
 
     <!-- "Autosuggest" Topiclist" -->
     {{#if isTopiclistHome}}
       {{> "modules/content_nav/content_nav" autosuggestTopicList}}
     {{/if}}
 
-    {{#if  topiclistButtonLabel}}
-      <div class="mdl-topiclist__fullwidth-wrapper">
+    {{#if topiclistButtonLabel}}
+      <div class="mdl-topiclist__fullwidth-wrapper" data-anchornav="fullwidth">
         <button class="atm-button mdl-topiclist__show-all" data-topiclist="showAllTrigger">
           {{{topiclistButtonLabel}}}
           <svg class="icon atm-button__icon">
@@ -38,6 +57,12 @@
     <div data-topiclist="furtherLayers">
     </div>
   {{/if}}
+
+  <div class="mdl-topiclist__no-results-placeholder mdl-placeholder">
+    <h3 class="atm-heading mdl-placeholder__title">{{noResultsPlaceholder.title}}</h3>
+    <p class="atm-paragraph mdl-placeholder__text">{{noResultsPlaceholder.text}}</p>
+    {{>"atoms/button/button" noResultsPlaceholder.button }}
+  </div>
 
   <!-- Template scripts -->
   {{#if isTopiclistHome}}

@@ -3,7 +3,6 @@ const dataHelper = require('@unic/estatico-data');
 
 dataHelper.getFileContent('wahlen.mock.hbs');
 
-const data = {
-};
+const data = {};
 
 module.exports = data;

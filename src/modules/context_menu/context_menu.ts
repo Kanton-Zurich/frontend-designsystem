@@ -4,7 +4,7 @@
  * @author
  * @copyright
  */
-import { uniqueId } from 'lodash';
+import uniqueId from 'lodash/uniqueId';
 
 import Module from '../../assets/js/helpers/module';
 import WindowEventListener from '../../assets/js/helpers/events';
@@ -13,26 +13,25 @@ import { INTERACTION_ELEMENTS_QUERY } from '../../assets/js/helpers/constants';
 
 class ContextMenu extends Module {
   public options: {
-    showImmediate: Boolean,
-    attachTo: HTMLElement,
-    trigger: HTMLButtonElement,
-    domSelectors: any,
-    customTrigger: Boolean,
-    headerHeight: number,
+    showImmediate: Boolean;
+    attachTo: HTMLElement;
+    trigger: HTMLButtonElement;
+    domSelectors: any;
+    customTrigger: Boolean;
+    headerHeight: number;
     stateClasses: {
       active: string;
-    },
+    };
   };
 
   public data: {
-    copiedNode: HTMLElement,
-    isActive: Boolean,
-    escapeEvent: any,
-    uniqueId: string,
+    copiedNode: HTMLElement;
+    isActive: Boolean;
+    escapeEvent: any;
+    uniqueId: string;
   };
 
   public hideListener: any;
-
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -151,7 +150,6 @@ class ContextMenu extends Module {
    */
   positionMenu() {
     const attachToPos = this.options.attachTo.getBoundingClientRect();
-    this.data.copiedNode.style.maxWidth = '300px';
     this.data.copiedNode.style.position = 'absolute';
     this.data.copiedNode.style.display = 'block';
     this.data.copiedNode.style.zIndex = '1000'; // overlay zIndex
@@ -165,16 +163,14 @@ class ContextMenu extends Module {
     const contextMenuRightPoint = copiedNodeRect.left + copiedNodeRect.width;
 
     if (contextMenuBottomPoint + window.scrollY > document.documentElement.offsetHeight) {
-      const calculatedTop = document.documentElement.offsetHeight
-        - (contextMenuBottomPoint + window.scrollY);
+      const calculatedTop =
+        document.documentElement.offsetHeight - (contextMenuBottomPoint + window.scrollY);
       this.data.copiedNode.style.marginTop = `${calculatedTop}px`;
     }
 
     if (contextMenuRightPoint > document.documentElement.clientWidth) {
       const variableAmount = 10;
-      let pullLeft = contextMenuRightPoint
-        - document.documentElement.clientWidth
-        + variableAmount;
+      let pullLeft = contextMenuRightPoint - document.documentElement.clientWidth + variableAmount;
 
       if (this.data.copiedNode.clientWidth >= document.documentElement.clientWidth) {
         this.data.copiedNode.style.maxWidth = '90vw';
@@ -197,7 +193,9 @@ class ContextMenu extends Module {
    * @memberof ContextMenu
    */
   closeOther() {
-    const activeContextMenus = [].slice.call(document.querySelectorAll(`.${this.options.stateClasses.active}`));
+    const activeContextMenus = [].slice.call(
+      document.querySelectorAll(`.${this.options.stateClasses.active}`)
+    );
 
     activeContextMenus.forEach((actMenu) => {
       actMenu.dispatchEvent(new CustomEvent('hide'));
@@ -265,7 +263,7 @@ class ContextMenu extends Module {
     this.data.uniqueId = uniqueId('contextmenu');
 
     this.options.trigger.setAttribute('aria-controls', this.data.uniqueId);
-    this.ui.element.setAttribute('id', this.data.uniqueId);
+    // this.ui.element.setAttribute('id', this.data.uniqueId);
   }
 
   /**

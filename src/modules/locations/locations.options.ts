@@ -1,39 +1,40 @@
 interface ModuleDomSelectors {
-  map: string,
-  listItems: string,
-  distanceAnnotation: string
-  filterInput: string,
-  linkList: string,
-  filterHead: string,
-  sidebar: string,
-  backBtn: string,
-  detailNodes: string,
-  toggleListBtn: string,
-  emptyListHint: string,
-  notFoundTextTemplate: string,
-  filterDescription: string,
-  detailWrapper: string,
+  map: string;
+  listItems: string;
+  distanceAnnotation: string;
+  filterInput: string;
+  linkList: string;
+  filterHead: string;
+  sidebar: string;
+  backBtn: string;
+  detailNodes: string;
+  toggleListBtn: string;
+  emptyListHint: string;
+  notFoundTextTemplate: string;
+  filterDescription: string;
+  detailWrapper: string;
 }
 interface ModuleStateClasses {
   sidebar: {
-    opened: string,
-    notFound: string,
-    onDetails: string,
-    singleItem: string,
-  },
-  detailShow: string,
-  mapMarkerIsHovered: string,
-  listItemHide: string,
+    opened: string;
+    notFound: string;
+    onDetails: string;
+    singleItem: string;
+  };
+  detailShow: string;
+  mapMarkerIsHovered: string;
+  listItemHide: string;
 }
-export interface LocationsModuleOptions { // eslint-disable-line
-  focusDelay: number,
-  transitionDelay: number,
+export interface LocationsModuleOptions {
+  // eslint-disable-line
+  focusDelay: number;
+  transitionDelay: number;
   attrNames: {
     itemIndex: string;
     locDistance: string;
-  }
-  domSelectors: ModuleDomSelectors
-  stateClasses: ModuleStateClasses
+  };
+  domSelectors: ModuleDomSelectors;
+  stateClasses: ModuleStateClasses;
 }
 
 const focusDelay = 500;
@@ -70,7 +71,8 @@ const stateClasses: ModuleStateClasses = {
   listItemHide: 'hide',
 };
 
-export const DefaultOptions: LocationsModuleOptions = { // eslint-disable-line
+export const DefaultOptions: LocationsModuleOptions = {
+  // eslint-disable-line
   focusDelay,
   transitionDelay,
   attrNames,

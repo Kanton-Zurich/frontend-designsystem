@@ -3,13 +3,16 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
-const headerData = require('../../modules/header/header.data').variants.inverted.props;
+const headerData = require('../../modules/header/header.data').variants.defaultWithUserLoggedOut
+  .props;
 
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
-const defReleatedContentData = require('../../modules/related_content/related_content.data.js').variants.default.props;
-const defContactData = require('../../modules/contact/contact.data.js').variants.fullWidthLessData.props;
+const defReleatedContentData = require('../../modules/related_content/related_content.data.js')
+  .variants.default.props;
+const defContactData = require('../../modules/contact/contact.data.js').variants.fullWidthLessData
+  .props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
-const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
+const backToData = require('../../modules/back_to/back_to.data').variants.default.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -24,13 +27,12 @@ const data = _.merge({}, defaultData, {
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData.variants.rrbDetail.props, {
         breadcrumb: {
-          path:
-            [
-              {
-                title: 'Zurück zur Übersicht',
-                href: '../rrb_data/rrb_data.html',
-              },
-            ],
+          path: [
+            {
+              title: 'Zurück zur Übersicht',
+              href: '../rrb_data/rrb_data.html',
+            },
+          ],
         },
       }),
       metablockData: {
@@ -86,15 +88,18 @@ const data = _.merge({}, defaultData, {
               linkListItemTitle: 'RRB-2018-0749 ',
               linkListItemIsDownload: true,
               linkListItemLabel: 'PDF | 6 Seiten | 100KB',
-              linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+              linkListItemHref:
+                'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
             },
           },
         ],
       },
-      releatedContentData: _.merge({}, defReleatedContentData, { relatedContentHeading: { anchorNavReference: 'related_content' } }),
-      contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
+      releatedContentData: _.merge({}, defReleatedContentData, {
+        anchorNavReference: 'related_content',
+      }),
+      contactData: _.merge({}, defContactData, { anchorNavReference: 'contact_title' }),
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
+      backToData,
     },
   },
 });

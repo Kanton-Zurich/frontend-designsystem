@@ -10,27 +10,27 @@ import { INTERACTION_ELEMENTS_QUERY } from '../../assets/js/helpers/constants';
 class ImageGallery extends Module {
   public options: {
     domSelectors: {
-      showMore: string,
-      openCarousel: string,
-      carousel: string,
-    }
+      showMore: string;
+      openCarousel: string;
+      carousel: string;
+    };
     stateClasses: {
-      expanded: string,
-      fullscreen: string,
-    }
-  }
+      expanded: string;
+      fullscreen: string;
+    };
+  };
 
   public ui: {
-    element: Element,
-    carousel: Element,
-    gallery: HTMLElement,
-    more: HTMLElement,
-    openCarousel: NodeListOf<HTMLElement>;
-  }
+    element: Element;
+    carousel: Element;
+    gallery: HTMLElement;
+    more: HTMLElement;
+    openCarousel: HTMLElement[];
+  };
 
   public data: {
-    isExpanded: boolean,
-  }
+    isExpanded: boolean;
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -64,10 +64,7 @@ class ImageGallery extends Module {
    */
   setExpanded() {
     this.ui.element.classList.add(this.options.stateClasses.expanded);
-
-    (<any>window).estatico.lineClamper.updateLineClamping();
-
-    (<HTMLElement> this.ui.more.querySelector(INTERACTION_ELEMENTS_QUERY)).focus();
+    (<HTMLElement>this.ui.more.querySelector(INTERACTION_ELEMENTS_QUERY)).focus();
   }
 
   /**
@@ -91,15 +88,17 @@ class ImageGallery extends Module {
         if (!this.ui.element.classList.contains(this.options.stateClasses.fullscreen)) {
           this.ui.element.classList.add(this.options.stateClasses.fullscreen);
 
-          this.ui.carousel.dispatchEvent(new (<any>CustomEvent)('ImageGallery.open', {
-            detail: parseInt(target.getAttribute('data-gallery-index'), 10),
-          }));
+          this.ui.carousel.dispatchEvent(
+            new (<any>CustomEvent)('ImageGallery.open', {
+              detail: parseInt(target.getAttribute('data-gallery-index'), 10),
+            })
+          );
         }
       })
       .on('Carousel.close', (e) => {
         this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
 
-        this.ui.openCarousel[e.detail - 1].focus();
+        (this.ui.openCarousel[e.detail - 1] as HTMLElement).focus();
       });
   }
 
@@ -109,8 +108,9 @@ class ImageGallery extends Module {
    * @memberof ImageGallery
    */
   setIndexNumbers() {
-    const images = [].slice.call(this.ui.element
-      .firstElementChild.querySelectorAll(this.options.domSelectors.openCarousel));
+    const images = [].slice.call(
+      this.ui.element.firstElementChild.querySelectorAll(this.options.domSelectors.openCarousel)
+    );
 
     images.forEach((image, index) => {
       image.setAttribute('data-gallery-index', index.toString());

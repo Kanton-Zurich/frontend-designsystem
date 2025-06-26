@@ -1,0 +1,163 @@
+.mdl-measures_search {
+  $dropdownWidth: pxToRem(120px);
+  $sortMinWidth: pxToRem(280px);
+  $inputElementHeight: pxToRem(72px);
+
+  position: relative;
+  z-index: 1;
+  margin-bottom: pxToRem(72px);
+
+  @include mq($from: medium) {
+    margin-bottom: pxToRem(96px);
+  }
+
+  &--loading {
+    position: relative;
+    height: $loadingMinHeight;
+    overflow: hidden;
+  }
+
+  &__simple {
+    margin-bottom: pxToRem(40px);
+  }
+
+  &__form {
+    position: relative;
+    background: $colorWhite;
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem($sizeRegular);
+    padding: pxToRem($sizeRegular);
+    box-shadow: 0 0 pxToRem($sizeGiant) rgba(0, 0, 0, 0.2);
+
+    @include mq($from: medium) {
+      flex-direction: row;
+    }
+
+    .atm-form_input {
+      flex: 1;
+    }
+
+    .atm-button {
+      justify-content: center;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    @include mq($from: medium) {
+      flex-direction: row;
+    }
+
+    gap: pxToRem(30px);
+    margin-bottom: pxToRem(30px);
+
+    .mdl-measures_search__selection {
+      &.hidden {
+        display: none;
+      }
+
+      flex-grow: 1;
+
+      .mdl-filter-pills {
+        display: flex;
+
+        button[data-clear] {
+          &.hidden {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .mdl-measures_search__sort {
+      &.hidden {
+        display: none;
+      }
+
+      min-width: $sortMinWidth;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      position: relative;
+      top: pxToRem(-$sizeTiny);
+
+      > span {
+        font-size: $sizeFontSmall;
+        color: $colorBlack60;
+      }
+
+      span,
+      button {
+        white-space: nowrap;
+      }
+
+      &-dropdown {
+        font-size: $sizeFontRegular;
+        padding-left: $sizeRegular;
+
+        .icon {
+          position: relative;
+          top: $sizeMini;
+        }
+      }
+
+      .mdl-context_menu {
+        right: 0;
+        top: calc(100% + #{$sizeTiny});
+        display: none;
+        min-width: $dropdownWidth;
+
+        > div {
+          width: 100%;
+        }
+
+        button {
+          width: 100%;
+        }
+
+        &.visible {
+          display: flex;
+          z-index: 1;
+        }
+      }
+    }
+  }
+
+  &__filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .mdl-measures_list {
+    margin-bottom: pxToRem(16px);
+  }
+
+  &__no-results {
+    @include sizeCurve('margin-top', large);
+
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
+
+  &__pagination {
+    margin-top: pxToRem($sizeRegular + $sizeTiny);
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  &__notification {
+    &.hidden {
+      display: none;
+    }
+  }
+}

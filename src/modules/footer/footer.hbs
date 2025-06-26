@@ -1,10 +1,16 @@
-<div id="contentinfo" class="mdl-footer{{#if maintenance}} mdl-footer--maintenance{{/if}}" data-init="footer">
+<div
+  id="contentinfo"
+  class="mdl-footer {{#if maintenance}}mdl-footer--maintenance{{/if}}"
+  data-anchornav="fullwidth"
+  data-init="footer"
+  tabindex="-1"
+>
   <div class="lyt-wrapper">
     <div class="grid-margin-x grid-x">
       <div class="cell tiny-12 xsmall-12 small-10 medium-10 large-10 xlarge-10 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2">
         <div class="mdl-footer__content">
           <h2 class="mdl-footer__title atm-heading">Kanton Zürich</h2>
-          {{#unless maintenance}}
+          {{#if showMenu}}
           <ul class="mdl-footer__menu">
             <li>
               <a href="#contact">Kontakt</a>
@@ -22,13 +28,13 @@
               <a href="#">Veranstaltungen</a>
             </li>
           </ul>
-          {{/unless}}
+          {{/if}}
 
           <ul class="mdl-footer__submenu">
             <li class="mdl-footer__copyright">
               <p>©{{copyrightYear}} Kanton Zürich</p>
             </li>
-            {{#unless maintenance}}
+            {{#if showSubmenu}}
             <li>
               <a href="#">Datenschutz</a>
             </li>
@@ -38,12 +44,14 @@
             <li>
               <a href="#">Rechtliche Hinweise</a>
             </li>
-            {{/unless}}
+            {{/if}}
           </ul>
 
+          {{#if showSocialBar}}
           <div class="mdl-footer__social-media">
             {{> "modules/social_media_links/social_media_links" modules.socialLinks}}
           </div>
+          {{/if}}
         </div>
       </div>
     </div>

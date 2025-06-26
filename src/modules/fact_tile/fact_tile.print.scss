@@ -1,0 +1,10 @@
+.mdl-fact_tile {
+  &__content {
+    border-color: $colorBlack;
+  }
+
+  &__icon {
+    background-color: $colorBlack;
+    print-color-adjust: exact;
+  }
+}

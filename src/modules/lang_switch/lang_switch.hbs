@@ -1,45 +1,22 @@
-<div class="mdl-lang-switch mdl-lang-switch--fixed" data-init="langSwitch">
+<div class="mdl-lang-switch" data-init="langSwitch">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
-
-      <div class="mdl-lang-switch__content cell">
-
-        <h2 class="atm-heading">Weitere Sprachen für diese Seite</h2>
-
+      <div class="
+        mdl-lang-switch__content cell
+        small-offset-2 medium-offset-2 large-offset-0 xlarge-offset-0
+        small-10 medium-10 large-12 xlarge-12
+      ">
+        <h2 class="atm-heading">Diese Seite ist übersetzt in:</h2>
         <ul class="mdl-lang-switch__list">
+          {{#each languages}}
           <li>
-            <a href="#" class="atm-anchorlink atm-anchorlink--active" aria-current="page">
-              <span class="visuallyhidden">Gewählte Sprache: </span>Deutsch
+            <a href="#" class="atm-button {{#unless active}}atm-button--cv-inverted{{/unless}}" {{#if active}}aria-current="page"{{/if}}>
+              {{#if active}}<span class="visuallyhidden">Gewählte Sprache: </span>{{/if}}{{language}}
             </a>
           </li>
-          <li>
-            <a href="#" class="atm-anchorlink">
-              Português
-            </a>
-          </li>
-          <li>
-            <a href="#" class="atm-anchorlink">
-              Pусский
-            </a>
-          </li>
-          <li>
-            <a href="#" class="atm-anchorlink">
-              Türkçe
-            </a>
-          </li>
+           {{/each}}
         </ul>
-
-        {{> "modules/select/select" selectData }}
-
-        <button class="mdl-lang-switch__close">
-          <span>Schliessen</span>
-          <svg class="icon" focusable="false">
-            <use xlink:href="#exit"></use>
-          </svg>
-        </button>
-
       </div>
-
     </div>
   </div>
 </div>

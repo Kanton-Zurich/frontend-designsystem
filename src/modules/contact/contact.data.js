@@ -2,23 +2,19 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const mapViewDefaultData = require('../../modules/map_view/map_view.data').variants.default.props;
-const socialMediaLinksContactData = require('../../modules/social_media_links/social_media_links.data').variants.contactVariant.props;
+const contactEntryData = require('../contact_entry/contact_entry.data');
+const accordionData = require('../accordion/accordion.data');
 
 const template = dataHelper.getFileContent('contact.hbs');
 
 const demoAddressTextsDataFullWidth = [
   {
     title: 'Postfach',
-    texts: [
-      'Postfach<br>8080 Zürich',
-    ],
+    texts: ['Postfach<br>8080 Zürich'],
   },
   {
     title: 'Schalter',
-    texts: [
-      'Mo - Mi: 13.30 - 17.30<br>Do: 13:30 - 19:00<br>Fr: 13:30 - 17:30',
-    ],
+    texts: ['Mo - Mi: 13.30 - 17.30<br>Do: 13:30 - 19:00<br>Fr: 13:30 - 17:30'],
     link: {
       text: 'Andere Kontakte',
     },
@@ -63,19 +59,6 @@ const demoAddressDataFullWidth = {
   additionalTexts: demoAddressTextsDataFullWidth,
 };
 
-const demoPhoneData = [
-  {
-    anchorLabel: '058 811 30 00',
-    phoneNumer: '+41588113000',
-    additionalInfo: 'Allgemeine Fragen',
-    openingTimes: demoPhoneTimesData,
-  },
-  {
-    anchorLabel: '058 811 30 20',
-    phoneNumer: '+41588113020',
-    additionalInfo: 'Notfall-Nummer',
-  },
-];
 const demoPhoneDataFullWidth = [
   {
     anchorLabel: '058 811 30 00',
@@ -91,41 +74,11 @@ const demoPhoneDataFullWidth = [
   },
 ];
 
-const locationDemoData = {
-  adress: {
-    street: 'Riedthofstrasse 192',
-    zip: '8105',
-    city: 'Regensdorf 1',
-    routeLinkHref: '#',
-    routeLinkLabel: 'Route anzeigen',
-    copytoclipboardButton: _.merge({}, demoCopyButton, { link: true }),
-    additionalInfo: 'Wir befinden uns im 2.Obergeschoss',
-    additionalTexts: demoAddressTextsDataFullWidth,
-  },
-  phone: [
-    {
-      anchorLabel: '058 811 50 00',
-      phoneNumer: '+41588113000',
-      additionalInfo: 'Telefon',
-      openingTimes: [{
-        times: [
-          { text: 'Von 12.00 bis 13.00 Uhr können über die Telefonzentrale keine Anrufe entgegen genommen werden.' },
-        ],
-      }],
-    },
-    {
-      anchorLabel: '058 811 50 01',
-      phoneNumer: '+41588113020',
-      additionalInfo: 'Fax',
-    },
-  ],
-};
-
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Kontakt',
     className: 'Contact',
-    jira: 'CZHDEV-257',
+    jira: 'CZHDEV-3295',
     label: 'Komplex',
     documentation: dataHelper.getDocumentation('README.md'),
   },
@@ -136,412 +89,179 @@ const data = _.merge({}, defaultData, {
   },
 });
 
-const variants = _.mapValues({
-  revampedStandart: {
-    meta: {
-      title: 'CZHDEV-2963 (Variante Standart)',
-      desc: 'Kontakt mit Service Link und Adresse-Kopierfunktion',
+const variants = _.mapValues(
+  {
+    revampedStandard: {
+      meta: {
+        title: 'CZHDEV-3295 (Variante Standard)',
+        desc: 'Kontakt mit Service Link und Adresse-Kopierfunktion, Social-Media Buttons',
+      },
+      props: {
+        fullWidth: true,
+        contactTitle: 'Kontakt',
+        contactEntry: contactEntryData.variants.revampedStandard.props,
+      },
     },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactSubtitle: 'Koordinationsstelle Veloverkehr',
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-        icon: true,
+    revampedMedia: {
+      meta: {
+        title: 'CZHDEV-3295 (Variante Medienkontakt)',
+        desc: 'Kontakt mit Medienkontakt, Social-Media Buttons',
       },
-      contactAddress: {
-        street: 'Uetlibergstrasse 301',
-        zip: '8036',
-        name: 'Zürich-Albisgütli',
-        city: 'Zürich',
-        copytoclipboardButton: demoCopyButton,
-        routeLinkHref: '#',
-        routeLinkLabel: 'Route anzeigen',
-        additionalTexts: demoAddressTextsDataFullWidth,
+      props: {
+        fullWidth: true,
+        contactTitle: 'Kontakt',
+        contactEntry: contactEntryData.variants.revampedStandard.props,
+        contactAccordion: accordionData.variants.mediaContact.props,
       },
-      withModuleLogic: true,
-      contactPhone: [{
-        anchorLabel: '058 811 30 00',
-        phoneNumer: '+41588113000',
-        additionalInfo: 'Kostenlos',
-      }],
-      contactMail: {
-        address: 'passbuerozürich@ds.zh.ch',
-        additionalInfo: 'Bitte keine Gesuche über diese Email einreichen',
-        additionalService: {
-          label: 'Ausweisanträge können nur am Schalter entgegengenommen werden',
-          linkLabel: 'Kontaktformular',
-          linkHref: '#',
+    },
+    multiContacts: {
+      meta: {
+        title: 'CZHDEV-3295 (Variante mehrere Kontaktadressen)',
+        desc: 'Mehrere Kontakte im Akkordeon, erste Adresse offen',
+      },
+      props: {
+        fullWidth: true,
+        contactTitle: 'Kontakt',
+        contactAccordion: accordionData.variants.multiContact.props,
+      },
+    },
+    revampedService: {
+      meta: {
+        title: 'CZHDEV-2963 (Variante Service)',
+        desc: 'Kontakt klein nur mit Adresse-Kopierfunktion',
+      },
+      props: {
+        contactEntry: {
+          entryHeading: {
+            title: 'Koordinationsstelle Veloverkehr',
+            level: 3,
+            href: '#',
+          },
+          entryAddress: {
+            street: 'Uetlibergstrasse 301',
+            zip: '8036',
+            name: 'Zürich-Albisgütli',
+            city: 'Zürich',
+            routeLinkHref: '#',
+            routeLinkLabel: 'Route anzeigen',
+            copytoclipboardButton: demoCopyButton,
+          },
         },
       },
     },
-  },
-  revampedMedia: {
-    meta: {
-      title: 'CZHDEV-2963 (Variante Medienkontakt)',
-      desc: 'Kontakt mit Medienkontakt, Social-Media Buttons und ohne Karte',
+    contentFull: {
+      meta: contactEntryData.variants.contentFull.meta,
+      props: {
+        contactEntry: contactEntryData.variants.contentFull.props,
+      },
     },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactSubtitle: 'Koordinationsstelle Veloverkehr',
-      contactInfoText: 'Bitte keine Gesuche über diese Email einreichen',
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-        icon: true,
+    contentMedium: {
+      meta: contactEntryData.variants.contentMedium.meta,
+      props: {
+        contactEntry: contactEntryData.variants.contentMedium.props,
       },
-      contactAddress: {
-        street: 'Uetlibergstrasse 301',
-        zip: '8036',
-        name: 'Zürich-Albisgütli',
-        city: 'Zürich',
-        copytoclipboardButton: demoCopyButton,
-        routeLinkHref: '#',
-        routeLinkLabel: 'Route anzeigen',
-        additionalTexts: demoAddressTextsDataFullWidth,
-      },
-      withModuleLogic: true,
-      contactPhone: [{
-        anchorLabel: '058 811 30 00',
-        phoneNumer: '+41588113000',
-        additionalInfo: 'Kostenlos',
-      }],
-      contactMail: {
-        address: 'passbuerozürich@ds.zh.ch',
-        additionalInfo: 'Bitte keine Gesuche über diese Email einreichen',
-      },
-      mediaContact: {
-        seperatorTop: true,
-        title: 'Medienkontakt',
-        openLabel: 'Medienkontakt',
-        lead: 'Kommunikationsbeauftragter der Finanzdirektion',
-        email: 'media@dz.zh.ch',
-        additionals: 'Nur für Medienanliegen, andere Anfregen werden weitergeleitet',
-      },
-      socialMediaLinks: socialMediaLinksContactData,
     },
-  },
-  revampedMap: {
-    meta: {
-      title: 'CZHDEV-2963 (Variante Karte)',
-      desc: 'Kontakt mit Medienkontakt und Karte',
+    contentSmall: {
+      meta: contactEntryData.variants.contentSmall.meta,
+      props: {
+        contactEntry: contactEntryData.variants.contentSmall.props,
+      },
     },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactSubtitle: 'Koordinationsstelle Veloverkehr',
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-        icon: true,
+    default: {
+      meta: {
+        title: 'Kontakt klein (nur Adresse)',
+        desc: 'Kontakt klein nur mit Adresse',
       },
-      contactAddress: {
-        street: 'Uetlibergstrasse 301',
-        zip: '8036',
-        name: 'Zürich-Albisgütli',
-        city: 'Zürich',
-        copytoclipboardButton: demoCopyButton,
-      },
-      withModuleLogic: true,
-      contactPhone: [{
-        anchorLabel: '058 811 30 00',
-        phoneNumer: '+41588113000',
-        additionalInfo: 'Kostenlos',
-      }],
-      contactMail: {
-        address: 'passbuerozürich@ds.zh.ch',
-      },
-      mediaContact: {
-        seperatorTop: true,
-        title: 'Medienkontakt',
-        openLabel: 'Medienkontakt',
-        lead: 'Kommunikationsbeauftragter der Finanzdirektion',
-        email: 'media@dz.zh.ch',
-        additionals: 'Nur für Medienanliegen, andere Anfregen werden weitergeleitet',
-      },
-      mapData: _.merge({}, mapViewDefaultData, {
-        mapId: 'contact-map',
-        withUserLocate: false,
-        mapMarker: [
-          { lat: 47.380467, lng: 8.548396 },
-        ],
-        directions: {
-          enabled: true,
+      props: {
+        contactEntry: {
+          entryHeading: {
+            title: 'Kantonale Heilmittelstelle des Kantons Zürich',
+            level: 3,
+            href: '#',
+          },
+          entryAddress: demoAddressData,
         },
-      }),
-    },
-  },
-  revampedSocialMedia: {
-    meta: {
-      title: 'CZHDEV-2963 (Variante Social-Media)',
-      desc: 'Kontakt mit Social-Media Buttons',
-    },
-    props: {
-      fullWidth: true,
-      withModuleLogic: true,
-      contactTitle: 'Kontakt',
-      contactSubtitle: 'Koordinationsstelle Veloverkehr',
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-        icon: true,
-      },
-      contactAddress: {
-        street: 'Uetlibergstrasse 301',
-        zip: '8036',
-        name: 'Zürich-Albisgütli',
-        city: 'Zürich',
-        routeLinkHref: '#',
-        routeLinkLabel: 'Route anzeigen',
-      },
-      contactPhone: [{
-        anchorLabel: '058 811 30 00',
-        phoneNumer: '+41588113000',
-        additionalInfo: 'Kostenlos',
-      }],
-      contactMail: {
-        address: 'passbuerozürich@ds.zh.ch',
-      },
-      socialMediaLinks: socialMediaLinksContactData,
-    },
-  },
-  revampedService: {
-    meta: {
-      title: 'CZHDEV-2963 (Variante Service)',
-      desc: 'Kontakt klein nur mit Adresse-Kopierfunktion',
-    },
-    props: {
-      contactSubtitle: 'Koordinationsstelle Veloverkehr',
-      contactAddress: {
-        street: 'Uetlibergstrasse 301',
-        zip: '8036',
-        name: 'Zürich-Albisgütli',
-        city: 'Zürich',
-        routeLinkHref: '#',
-        routeLinkLabel: 'Route anzeigen',
-        copytoclipboardButton: demoCopyButton,
       },
     },
-  },
-  fullWidthLessData2: {
-    meta: {
-      title: 'Kontakt volle Breite (mit Karte)',
-      desc: 'Kontakt unter Verwendung des gesamten Platzes - reduzierte Informationen',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-        icon: true,
+    smallMailOnly: {
+      meta: {
+        title: 'Kontakt klein (nur E-Mail)',
+        desc: 'Kontakt klein nur mit Telefon',
       },
-      contactAddress: {
-        name: 'Regionale Fachstelle der Ost- und Zentralschweiz ',
-        street: 'Haldenbachstrasse 12',
-        zip: 'CH-8006',
-        city: 'Zürich',
-      },
-      contactPhone: [
-        {
-          anchorLabel: '058 811 30 00',
-          phoneNumer: '+41588113000',
-          additionalInfo: 'Allgemeine Fragen',
+      props: {
+        contactSubtitle: 'Kantonale Heilmittelstelle des Kantons Zürich',
+        contactEntry: {
+          entryMail: {
+            address: 'velo@vd.zh.ch',
+            additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
+          },
         },
-        {
-          anchorLabel: '058 811 30 20',
-          phoneNumer: '+41588113020',
-          additionalInfo: 'Notfall-Nummer',
+      },
+    },
+    fullWidth: {
+      meta: {
+        title: 'Kontakt volle Breite',
+        desc: 'Kontakt unter Verwendung des gesamten Platzes',
+      },
+      props: {
+        fullWidth: true,
+        contactTitle: 'Kontakt',
+        contactEntry: {
+          entryHeading: {
+            title: 'Koordinationsstelle Veloverkehr',
+            level: 3,
+            href: '#',
+          },
+          entryAddress: demoAddressDataFullWidth,
+          entryPhone: demoPhoneDataFullWidth,
+          entryMail: {
+            address: 'velo@vd.zh.ch',
+            additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
+          },
         },
-      ],
-      contactMail: {
-        address: 'heilmittelkontrolle@khz.zh.ch',
       },
-      mapData: _.merge({}, mapViewDefaultData, {
-        mapId: 'contact-map',
-        withUserLocate: false,
-        mapMarker: [
-          { lat: 47.380467, lng: 8.548396 },
-        ],
-        directions: {
-          enabled: true,
-        },
-      }),
     },
-  },
-  default: {
-    meta: {
-      title: 'Kontakt klein (nur Adresse)',
-      desc: 'Kontakt klein nur mit Adresse',
+    fullWidthLessData: {
+      meta: {
+        title: 'Kontakt volle Breite (Nur Titel)',
+        desc: 'Kontakt unter Verwendung des gesamten Platzes - reduzierte Informationen',
+      },
+      props: {
+        fullWidth: true,
+        contactTitle: 'Kontakt',
+        contactEntry: contactEntryData.variants.fullWidthLessData.props,
+      },
     },
-    props: {
-      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
-      contactAddress: demoAddressData,
-    },
-  },
-  smallMailOnly: {
-    meta: {
-      title: 'Kontakt klein (nur E-Mail)',
-      desc: 'Kontakt klein nur mit Telefon',
-    },
-    props: {
-      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
-      contactMail: {
-        address: 'velo@vd.zh.ch',
-        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
+    biometrieAppointment: {
+      meta: {
+        title: 'Migrationsamt',
+        desc: 'Für Biometrie-Terminvereinbarung',
+      },
+      props: {
+        fullWidth: true,
+        contactTitle: 'Ort',
+        contactEntry: contactEntryData.variants.biometrieAppointment.props,
       },
     },
   },
-  defaultSmallLead: {
-    meta: {
-      title: 'Kontakt klein (mit Untertitel)',
-      desc: 'Kontakt klein',
-    },
-    props: {
-      contactSubtitle: 'Kantonale Heilmittelstellte des Kantons Zürich',
-      contactAddress: demoAddressData,
-      contactLead: 'Hallo ich bin ein Untertitel',
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-      },
-    },
-  },
-  fullWidth: {
-    meta: {
-      title: 'Kontakt volle Breite',
-      desc: 'Kontakt unter Verwendung des gesamten Platzes',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactSubtitle: 'Koordinationsstelle Veloverkehr',
-      contactAddress: demoAddressDataFullWidth,
-      contactPhone: demoPhoneDataFullWidth,
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-      },
-      contactMail: {
-        address: 'velo@vd.zh.ch',
-        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
-      },
-    },
-  },
-  fullWidthLessData: {
-    meta: {
-      title: 'Kontakt volle Breite (Nur Titel)',
-      desc: 'Kontakt unter Verwendung des gesamten Platzes - reduzierte Informationen',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactSubtitle: 'Koordinationsstelle Veloverkehr',
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-      },
-      contactAddress: {
-        name: 'Zürich-Albisgütli',
-        street: 'Uetlibergstrasse 301',
-        zip: '8036',
-        city: 'Zürich',
-        routeLinkHref: '#',
-        routeLinkLabel: 'Route anzeigen',
-      },
-      contactPhone: [
-        {
-          anchorLabel: '058 811 30 00',
-          phoneNumer: '+41588113000',
-          additionalInfo: 'Telefon',
-        },
-      ],
-      contactMail: {
-        address: 'velo@vd.zh.ch',
-      },
-    },
-  },
-  location: {
-    meta: {
-      title: 'Standort -Kontakt',
-      desc: 'Darstellung wie verwendet in Standorte (module locations)',
-    },
-    props: {
-      inLocation: true,
-      contactSubtitle: 'Strassenverkehrsamt Regensdorf',
-      contactSubtitleLink: '#',
-      contactAddress: locationDemoData.adress,
-      contactPhone: locationDemoData.phone,
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-      },
-      contactMail: {
-        address: 'info@stva.zh.ch',
-        additionalInfo: 'Ihre Anfrage wird innerhalb der nächsten 3 Werktage bearbeitet.',
-      },
-    },
-  },
-  withLead: {
-    meta: {
-      title: 'Kontakt mit Titel, Subtitel, Lead und Karte',
-      desc: 'Darstellung eines Kontakts mit Titel, Subtitel, Lead und Karte',
-    },
-    props: {
-      fullWidth: true,
-      contactTitle: 'Kontakt',
-      contactSubtitle: 'Amt für Abfall, Wasser, Energie und Luft',
-      contactLead: 'Abteilung Gewässerschutz, Sektion Abwasserreinigungsanlagen',
-      contactSubtitleMoreInfo: {
-        href: '#',
-        label: 'Mehr erfahren',
-      },
-      contactAddress: {
-        street: 'Walcheplatz 2',
-        zip: '8090',
-        city: 'Zürich',
-      },
-      contactPhone: [{
-        anchorLabel: '+41 43 258 61 00',
-        phoneNumer: '+41432586100',
-        additionalInfo: 'Allgemeint Fragen',
-      }],
-      contactMail: {
-        address: 'awel@bd.zh.ch',
-      },
-      mapData: _.merge({}, mapViewDefaultData, {
-        mapId: 'contact-map',
-        withUserLocate: false,
-        mapMarker: [
-          { lat: 47.380467, lng: 8.548396 },
-        ],
-        directions: {
-          enabled: true,
-        },
-      }),
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
       },
-    },
-  });
+    });
 
-  return variantData;
-});
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

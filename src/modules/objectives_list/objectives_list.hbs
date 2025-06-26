@@ -1,0 +1,15 @@
+<div class="mdl-objectives_list{{#if singleItem}} mdl-objectives_list--single-item{{/if}}">
+  {{#if heading.title}}
+  <h2 class="mdl-objectives_list__title atm-heading atm-heading--bordered">
+    {{heading.title}}
+  </h2>
+  {{/if}}
+
+  <ul class="mdl-objectives_list__list">
+    {{#each objectivesListItems}}
+    <li class="mdl-objectives_list__item">
+      {{> "modules/objectives_list/_objectives_list_item" this }}
+    </li>
+    {{/each}}
+  </ul>
+</div>

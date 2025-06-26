@@ -2,8 +2,8 @@
   padding: 0 !important; // stylelint-disable-line
   margin-bottom: 0 !important; // stylelint-disable-line
 
-  .mdl-page-header__logo-container {
-    .mdl-page-header__logo {
+  &__logo-container {
+    .atm-logo {
       position: absolute;
       top: auto;
 
@@ -13,11 +13,23 @@
     }
   }
 
-  .mdl-page-header__title {
+  &__title {
     @include polyFluidSizing('margin-left', map-get($sizeCurves, big));
   }
 
-  &__closebutton {
+  &.cv-inverted {
+    background-color: initial;
+  }
+
+  .atm-heading,
+  .atm-lead,
+  .atm-paragraph,
+  &__breadcrumb,
+  .mdl-breadcrumb__show-context {
+    color: $colorBlack;
+  }
+
+  &__close {
     display: none;
   }
 
@@ -25,25 +37,8 @@
   .mdl-tag-group {
     display: none;
   }
-}
 
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .mdl-page-header {
-      &--inverted,
-      [ class*='--inverted' ] & {
-        background-color: initial;
-      }
-
-
-      .atm-heading,
-      .atm-lead,
-      .atm-paragraph,
-      .mdl-page-header__breadcrumb,
-      .mdl-breadcrumb__show-context,
-      .mdl-page-header__closebutton {
-        color: $colorText;
-      }
-    }
+  &__mood-image {
+    display: none;
   }
 }

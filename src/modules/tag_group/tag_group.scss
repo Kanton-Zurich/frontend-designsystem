@@ -3,18 +3,18 @@
     containerTopPadding: (
       tiny: $sizeBiggerBig,
       medium: $sizeBiggerBig,
-      large: $sizeHuge
+      large: $sizeHuge,
     ),
     containerBottomPadding: (
       tiny: $sizeLarge,
       medium: $sizeLarge,
       large: $sizeBig,
-      xlarge: $sizeBiggerBig
+      xlarge: $sizeBiggerBig,
     ),
     headingBottomMargin: (
       tiny: $sizeTiny,
       medium: $sizeTiny,
-      large: $sizeSmallRegular
+      large: $sizeSmallRegular,
     ),
     tagsBottomMargin: (
       tiny: $sizeSmallRegular,
@@ -24,11 +24,15 @@
   );
 
   &--wrapped {
-    background-color: $colorBordeaux;
+    background-color: var(--color-accent);
 
     @include gridBleed($fullwidth: true, $trailingGutters: true);
     @include sizeCurve('padding-top', containerTopPadding, $tagGroupSizeMaps);
     @include sizeCurve('padding-bottom', containerBottomPadding, $tagGroupSizeMaps);
+
+    .cv-monochrome & {
+      background-color: $colorWhite;
+    }
 
     .lyt-wrapper {
       margin: 0;
@@ -58,9 +62,10 @@
   }
 
   .atm-heading {
-    font-size: pxToRem($sizeFontTiny);
-    padding-top: 0;
-    line-height: $sizeLineHeightBase;
+    // should not be affected by .mod-smaller-headings
+    font-size: pxToRem($sizeFontTiny) !important; // stylelint-disable-line
+    padding-top: 0 !important; // stylelint-disable-line
+    line-height: $sizeLineHeightBase !important; // stylelint-disable-line
     color: $colorWhite;
 
     @include sizeCurve('margin-bottom', headingBottomMargin, $tagGroupSizeMaps);
@@ -71,9 +76,6 @@
   }
 
   &__tags {
-    margin-left: -#{$sizeMini};
-    margin-right: -#{$sizeMini};
-
     @include sizeCurve(margin-bottom, tagsBottomMargin, $tagGroupSizeMaps);
 
     padding: 0;
@@ -90,29 +92,5 @@
 
   a {
     margin-bottom: pxToRem($sizeMini);
-  }
-
-  @include mq($from: small) {
-    &__tags {
-      margin-left: -#{$sizeSmallRegular};
-      margin-right: -#{$sizeSmallRegular};
-    }
-  }
-}
-
-/*
-* COLOR-VARIATIONS
-*/
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .mdl-tag-group--wrapped {
-      background-color: #{$val};
-    }
-  }
-
-  .cv-monochrome {
-    .mdl-tag-group--wrapped {
-      background-color: $colorWhite;
-    }
   }
 }

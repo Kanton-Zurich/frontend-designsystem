@@ -1,6 +1,6 @@
 <div class="mdl-metablock {{#if marginTop}}mdl-metablock--margin-top{{/if}} {{#if marginBottom}}mdl-metablock--margin-bottom{{/if}} {{#if smallerHeadings}}mod-smaller-headings{{/if}}" data-init="metablock">
   {{#if hasTopTitle}}
-    <h{{headingLevel}} class="atm-heading">{{title}}</h{{headingLevel}}>
+    <h{{headingLevel}} class="atm-heading{{#if_compare headingLevel "===" 2 }} h3{{/if_compare}}">{{title}}</h{{headingLevel}}>
   {{/if}}
   {{#each rows}}
     <div class="mdl-metablock__row">

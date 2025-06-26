@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 /**
  * Layout
  */
@@ -33,35 +35,36 @@ $fontSizeCurves: (
     small: $sizeFontBiggerBig,
     medium: $sizeFontSmallHuge,
     large: $sizeFontHuge,
-    xlarge: $sizeFontGiant
+    xlarge: $sizeFontGiant,
   ),
   big: (
     tiny: $sizeFontLarge,
     small: $sizeFontSmallBig,
     medium: $sizeFontBig,
     large: $sizeFontBiggerBig,
-    xlarge: $sizeFontSmallHuge
+    xlarge: $sizeFontSmallHuge,
   ),
   large: (
     tiny: $sizeFontBiggerRegular,
     medium: $sizeFontLarge,
     large: $sizeFontSmallBig,
-    xlarge: $sizeFontBig
+    xlarge: $sizeFontBig,
   ),
   medium: (
     tiny: $sizeFontBiggerRegular,
     xsmall: $sizeFontMedium,
     medium: $sizeFontMedium,
     large: $sizeFontLarge,
-    xlarge: $sizeFontSmallBig
+    xlarge: $sizeFontSmallBig,
   ),
   // Leads & Blockquotes
-  biggerRegular: (
-    xsmall: $sizeFontBiggerRegular,
-    small: $sizeFontMedium,
-    large: $sizeFontMedium,
-    xlarge: $sizeFontLarge
-  ),
+  biggerRegular:
+    (
+      xsmall: $sizeFontBiggerRegular,
+      small: $sizeFontMedium,
+      large: $sizeFontMedium,
+      xlarge: $sizeFontLarge,
+    ),
   regular: (
     tiny: $sizeFontRegular,
     xsmall: $sizeFontBiggerRegular,
@@ -78,11 +81,11 @@ $fontSizeCurves: (
     small: $sizeFontSmall,
     medium: $sizeFontRegular,
     large: $sizeFontRegular,
-    xlarge: $sizeFontBiggerRegular
+    xlarge: $sizeFontBiggerRegular,
   ),
   tiny: (
     xsmall: $sizeFontTiny,
-    small: $sizeFontSmall
+    small: $sizeFontSmall,
   ),
   xsmall: (
     tiny: $sizeFontTiny,
@@ -94,12 +97,12 @@ $fontSizeCurves: (
     tiny: $sizeFontTiny,
     small: $sizeFontSmall,
     large: $sizeFontRegular,
-  )
+  ),
 );
 
 $sizeFontBase: $sizeFontRegular;
-$fontFamilyBase: 'HelveticaNowRegular', Helvetica, sans-serif;
-$fontFamilyBlack: 'HelveticaNowBlack', 'Arial Black', Helvetica, sans-serif;
+$fontFamilyBase: 'InterRegular', Helvetica, sans-serif;
+$fontFamilyBlack: 'InterBlack', 'Arial Black', Helvetica, sans-serif;
 /**
  * Line heights
  */
@@ -148,42 +151,53 @@ $sizeGiant: 80px;
 $sizeCurves: (
   big: (
     tiny: $sizeHuge,
-    medium: $sizeGiant
+    medium: $sizeGiant,
   ),
   large: (
     tiny: $sizeBiggerBig,
     medium: $sizeHuge,
   ),
+  smallerLarge: (
+    tiny: $sizeBig,
+    small: $sizeBiggerBig,
+    xlarge: $sizeHuge,
+  ),
   medium: (
     tiny: $sizeLarge,
-    small: $sizeLarge,
     medium: $sizeBig,
-    xlarge: $sizeBiggerBig
+    xlarge: $sizeBiggerBig,
   ),
   biggerRegular: (
     tiny: $sizeSmallLarge,
     medium: $sizeLarge,
-    xlarge: $sizeBig
+    xlarge: $sizeBig,
+  ),
+  columnGap: (
+    tiny: $sizeSmallRegular,
+    small: $sizeRegular,
+    medium: $sizeLarge,
+    xlarge: $sizeBig,
   ),
   regular: (
-    tiny: $sizeRegular,
+    tiny: $sizeSmallRegular,
+    xsmall: $sizeRegular,
     medium: $sizeSmallLarge,
-    xlarge: $sizeLarge
+    xlarge: $sizeLarge,
   ),
   smallerRegular: (
     tiny: $sizeRegular,
     xsmall: $sizeSmallLarge,
     large: $sizeSmallLarge,
-    xlarge: $sizeLarge
+    xlarge: $sizeLarge,
   ),
   small: (
     tiny: $sizeSmallRegular,
-    xlarge: $sizeRegular
+    xlarge: $sizeRegular,
   ),
   tiny: (
     tiny: $sizeTiny,
     medium: $sizeSmallRegular,
-    xlarge: $sizeRegular
+    xlarge: $sizeRegular,
   ),
   mini: (
     tiny: $sizeTiny,
@@ -213,18 +227,18 @@ $indentCurve: (
   ),
   benefits: (
     tiny: $sizeBig,
-    medium: $sizeBiggerBig
+    medium: $sizeBiggerBig,
   ),
   quote: (
     tiny: 18px,
     xsmall: 22px,
-    small: $sizeLarge
+    small: $sizeLarge,
   ),
   quoteParagraph: (
     tiny: $sizeRegular,
     medium: $sizeLarge,
-    large: $sizeBig
-  )
+    large: $sizeBig,
+  ),
 );
 
 // used in video and image
@@ -239,8 +253,8 @@ $imageCustomSizes: (
   ),
   headerImageWidthAspect: (
     tiny: 149px,
-    xsmall:182px,
-    small:274px,
+    xsmall: 182px,
+    small: 274px,
     medium: 381px,
     large: 466px,
     xlarge: 583px,
@@ -252,7 +266,7 @@ $gridOffsetColumns: (
   tiny: 6,
   small: 10,
   medium: 9,
-  large: 8
+  large: 8,
 );
 
 /**
@@ -264,7 +278,7 @@ $breakpoints: (
   small: $sizeBreakpointSmall,
   medium: $sizeBreakpointMedium,
   large: $sizeBreakpointLarge,
-  xlarge: $sizeBreakpointXLarge
+  xlarge: $sizeBreakpointXLarge,
 );
 
 $grid-margin-gutters: (
@@ -272,7 +286,7 @@ $grid-margin-gutters: (
   xsmall: $sizeRegular,
   medium: $sizeLarge,
   large: $sizeLarge,
-  xlarge: $sizeBig
+  xlarge: $sizeBig,
 );
 
 $grid-outer-gutters: (
@@ -284,9 +298,9 @@ $grid-outer-gutters: (
     xlarge: 0,
   ),
   contentWidthBleed: (
-    large: $sizeSmallHuge / 2,
+    large: math.div($sizeSmallHuge, 2),
     xlarge: 0,
-  )
+  ),
 );
 
 $breakpoint-classes: (tiny xsmall small medium large xlarge);
@@ -294,10 +308,39 @@ $breakpoint-classes: (tiny xsmall small medium large xlarge);
 /**
  * Custom colors
  */
-$colorBlack: $colorBlack100;
-$colorText: $colorBlack100;
-$colorBg: $colorBlack5;
+$colorBlack: #000;
+$colorBlack80: #333;
+$colorBlack60: #666;
+$colorBlack40: #949494;
+$colorBlack20: #ccc;
+$colorBlack15: #d9d9d9;
+$colorBlack10: #f0f0f0;
+$colorBlack5: #f7f7f7;
+$colorWhite: #fff;
+
+$colorBlue: #0070b4;
+$colorDarkBlue: #00407c;
+$colorTurqoise: #00797b;
+$colorBordeaux: #b01657;
+$colorMagenta: #d40053;
+$colorViolet: #7f3da7;
+$colorAnthracite: $colorBlack60;
+$colorGreen: #1a7f1f;
+$colorCyan: #009ee0;
+$colorRed: #e2001a;
+
+$colorBlueSoft: #edf5fa;
+$colorDarkBlueSoft: #e0e8ee;
+$colorTurqoiseSoft: #e8f3f2;
+$colorBordeauxSoft: #f6e3ea;
+$colorMagentaSoft: #fcedf3;
+$colorVioletSoft: #ece2f1;
+$colorAnthraciteSoft: $colorBlack10;
+$colorGreenSoft: #ebf6eb;
+
+$colorText: $colorBlack;
 $colorBorderFrameHover: #e4e4e4;
+$colorBg: $colorBlack5;
 
 /**
  * Color variations
@@ -312,6 +355,18 @@ $tl-color-variations: (
   cv-violet: $colorViolet,
   cv-anthracite: $colorAnthracite,
   cv-monochrome: $colorBlack,
+);
+
+$tl-color-variations-soft: (
+  cv-blue: $colorBlueSoft,
+  cv-darkblue: $colorDarkBlueSoft,
+  cv-turqoise: $colorTurqoiseSoft,
+  cv-green: $colorGreenSoft,
+  cv-bordeaux: $colorBordeauxSoft,
+  cv-magenta: $colorMagentaSoft,
+  cv-violet: $colorVioletSoft,
+  cv-anthracite: $colorAnthraciteSoft,
+  cv-monochrome: $colorAnthraciteSoft,
 );
 
 /**
@@ -356,18 +411,3 @@ $spinnerBorderSize: 2px;
 
 // Chapter number min-width (Richtext & Linklist)
 $chapterNumberMinWidth: 96px;
-
-:root {
-
-  --scrollbar-wd: 17px;
-}
-
-html {
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-
-  [ data-lineclamp="true" ] { //stylelint-disable-line
-    opacity: 0;
-    transition: opacity 0.1s ease-in-out;
-  }
-}
-

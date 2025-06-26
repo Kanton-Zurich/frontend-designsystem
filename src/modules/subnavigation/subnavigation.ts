@@ -8,8 +8,7 @@ import Module from '../../assets/js/helpers/module';
 
 class Subnavigation extends Module {
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       domSelectors: {
         // item: '[data-${{{className}}.name}="item"]'

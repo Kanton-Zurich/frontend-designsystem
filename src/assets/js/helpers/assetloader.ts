@@ -32,7 +32,9 @@ class AssetLoader extends Helper {
           }
         }
         if (!this.cache) {
-          this.logger(`don't block the loading of the page; wait until it's done; then download asset ${this.dataHref}`);
+          this.logger(
+            `don't block the loading of the page; wait until it's done; then download asset ${this.dataHref}`
+          );
           this.on(window, 'load', this.loadAsset.bind(this));
         } else {
           this.loadAsset();
@@ -45,8 +47,10 @@ class AssetLoader extends Helper {
     if (!this.cache || !this.supportsLocalStorage()) {
       this.logger(`Fetching ${this.dataHref}`);
       this.injectAsset();
-    } else if (localStorage[`asset__${this.dataHash}`]
-      && (Date.now() - localStorage[`asset-timestamp__${this.dataHash}`] < this.timeout)) {
+    } else if (
+      localStorage[`asset__${this.dataHash}`] &&
+      Date.now() - localStorage[`asset-timestamp__${this.dataHash}`] < this.timeout
+    ) {
       this.logger(`Loading ${this.dataHref} from cache`);
       this.injectRaw(localStorage[`asset__${this.dataHash}`]);
     } else {

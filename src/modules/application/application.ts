@@ -6,20 +6,19 @@
  */
 import Module from '../../assets/js/helpers/module';
 import WindowEventListener from '../../assets/js/helpers/events';
-import PageHeader from '../page_header/page_header';
+import HeaderExpand from '../header_expand/header_expand';
 
 class Application extends Module {
   public options: {
-    domSelectors: any,
-    stateClasses: any,
-    transitionDelay: number,
+    domSelectors: any;
+    stateClasses: any;
+    transitionDelay: number;
   };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
     const defaultOptions = {
-      domSelectors: {
-      },
+      domSelectors: {},
       stateClasses: {
         // activated: 'is-activated'
       },
@@ -48,20 +47,15 @@ class Application extends Module {
       this.verticalSizeUpdate();
     });
 
-    const pageHeader = document.querySelector('.mdl-page-header');
+    this.eventDelegate.on(HeaderExpand.events.expandTriggered, () => {
+      this.verticalSizeUpdate();
+      window.dispatchEvent(new CustomEvent('resize'));
+    });
+    this.eventDelegate.on(HeaderExpand.events.collapseTriggered, () => {
+      this.verticalSizeUpdate();
+      window.dispatchEvent(new CustomEvent('resize'));
+    });
 
-    if (pageHeader) {
-      pageHeader
-        .addEventListener(PageHeader.events.expandTriggered, () => {
-          this.verticalSizeUpdate();
-          window.dispatchEvent(new CustomEvent('resize'));
-        });
-      pageHeader
-        .addEventListener(PageHeader.events.collapseTriggered, () => {
-          this.verticalSizeUpdate();
-          window.dispatchEvent(new CustomEvent('resize'));
-        });
-    }
     setTimeout(() => {
       this.verticalSizeUpdate();
       window.dispatchEvent(new CustomEvent('resize'));

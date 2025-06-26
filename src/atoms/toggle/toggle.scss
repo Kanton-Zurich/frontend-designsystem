@@ -4,47 +4,31 @@ $toggleBackgroundHeight: 24px;
 $toggleDimension: 32px;
 
 .atm-toggle {
-  display: block;
+  display: flex;
+  position: relative;
+  gap: $sizeSmallRegular;
   margin: pxToRem($sizeRegular) 0;
   cursor: pointer;
 
-  &__label {
-    padding-left: pxToRem($toggleWidth + $sizeSmallRegular);
+  &__switch {
+    flex-shrink: 0;
     position: relative;
-    cursor: pointer;
-    display: block;
+    width: pxToRem($toggleWidth);
+    height: pxToRem($toggleBackgroundHeight);
+    border-radius: pxToRem(calc($toggleBackgroundHeight / 2));
+    background: $colorBlack20;
 
-    &:before,
+    @include transition(background-color);
+
     &:after {
-      display: block;
+      box-sizing: border-box;
       content: '';
       position: absolute;
-
-      top: 0;
-    }
-
-    &:before {
-      width: pxToRem($toggleWidth);
-      height: pxToRem($toggleBackgroundHeight);
-      border-radius: pxToRem($toggleBackgroundHeight / 2);
-
-      background: $colorBlack20;
-      left: 0;
-
-      top: 50%;
-      transform: translateY(-50%);
-
-      @include transition(background);
-    }
-
-    &:after {
       width: pxToRem($toggleDimension);
       height: pxToRem($toggleDimension);
-
       border: 2px solid $colorBlack20;
       left: 0;
-      top: 50%;
-      transform: translateY(-50%);
+      top: pxToRem(calc((($toggleDimension - $toggleBackgroundHeight) / 2) * -1));
       background: $colorWhite;
       border-radius: 100%;
 
@@ -55,36 +39,37 @@ $toggleDimension: 32px;
   input {
     opacity: 0;
     position: absolute;
+    top: pxToRem(calc(($toggleDimension / 4) * -1));
     height: pxToRem($sizeBiggerBig);
     width: pxToRem($toggleFrameWidth);
-    margin-top: - pxToRem($sizeTiny);
     z-index: 1;
+    cursor: pointer;
   }
 
-  input:checked + &__label {
-    &:before {
-      background: $colorCyan;
-    }
+  input:checked + &__switch {
+    background: $colorCyan;
 
     &:after {
       left: pxToRem($toggleWidth - $toggleDimension);
       border-color: $colorCyan;
     }
   }
+
+  &:hover {
+    .atm-toggle__switch::after {
+      border-color: $colorBlack60;
+    }
+  }
 }
 
-@media screen and ( -ms-high-contrast: active ) {
+@media screen and (-ms-high-contrast: active) {
   .atm-toggle {
-    &__label {
-      &:before {
-        border: 1px dashed $colorWhite;
-      }
+    &__switch {
+      border: 1px dashed $colorWhite;
     }
 
-    input:checked + &__label {
-      &:before {
-        border: 2px solid $colorWhite;
-      }
+    input:checked + &__switch {
+      border: 2px solid $colorWhite;
     }
   }
 }

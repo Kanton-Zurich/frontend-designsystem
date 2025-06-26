@@ -1,0 +1,19 @@
+.mdl-comment_introduction {
+  &__meta {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &__date {
+    flex: 1;
+    font-size: $sizeFontTiny;
+    line-height: $sizeLineHeightBase;
+    color: $colorBlack60;
+    margin: pxToRem($sizeMini) 0;
+  }
+
+  &--placeholder {
+    @include sizeCurve(margin-bottom, big);
+  }
+}

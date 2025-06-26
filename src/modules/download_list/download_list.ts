@@ -10,26 +10,22 @@ import ContextMenu from '../context_menu/context_menu';
 class DownloadList extends Module {
   public options: {
     domSelectors: {
-      openContext: string,
-      contextMenu: string,
-    },
-    stateClasses: Object,
-  }
+      openContext: string;
+      contextMenu: string;
+    };
+    stateClasses: Object;
+  };
 
   public ui: {
-    element: any,
-  }
+    element: any;
+  };
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       domSelectors: {
         openContext: '[data-download_list="openContext"]',
         contextMenu: '[data-download_list="contextMenu"]',
-      },
-      stateClasses: {
-        // activated: 'is-activated'
       },
     };
 
@@ -63,8 +59,11 @@ class DownloadList extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.eventDelegate
-      .on('click', this.options.domSelectors.openContext, this.openContext.bind(this));
+    this.eventDelegate.on(
+      'click',
+      this.options.domSelectors.openContext,
+      this.openContext.bind(this)
+    );
   }
 
   /**
@@ -73,18 +72,23 @@ class DownloadList extends Module {
    * @memberof DownloadList
    */
   initContextMenus() {
-    const buttonsInList = [].slice
-      .call(this.ui.element.querySelectorAll(this.options.domSelectors.openContext));
+    const buttonsInList = [].slice.call(
+      this.ui.element.querySelectorAll(this.options.domSelectors.openContext)
+    );
 
     buttonsInList.forEach((button) => {
       const listElement = button.parentNode;
       const contextMenu = listElement.querySelector(this.options.domSelectors.contextMenu);
 
-      new ContextMenu(contextMenu, {}, {
-        attachTo: listElement,
-        trigger: button,
-        customTrigger: true,
-      });
+      new ContextMenu(
+        contextMenu,
+        {},
+        {
+          attachTo: listElement,
+          trigger: button,
+          customTrigger: true,
+        }
+      );
     });
   }
 

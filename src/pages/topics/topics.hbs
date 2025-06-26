@@ -2,22 +2,32 @@
   {{#content "banner"}}
     {{> "modules/banner/banner" props.modules.banner }}
   {{/content}}
-  {{#content "header"}}
-    {{> "modules/page_header/page_header" props.modules.pageHeaderData.variants.colored.props}}
+
+  {{#content "pageheader"}}
+    {{> "modules/page_header/page_header" props.modules.pageHeaderData}}
+    {{> "modules/lang_switch/lang_switch" props.modules.langSwitchData}}
   {{/content}}
+
   {{#content "content"}}
-    {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
-    {{> "modules/content_nav/content_nav" props.modules.contentNavData }}
+    <div class="mdl-anchornav__wrapper">
+      {{> "modules/lead_section/lead_section" props.modules.leadSectionData}}
+      {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
+    </div>
     {{> "modules/service_list/service_list" props.modules.serviceListData }}
+    {{> "modules/chatbot/chatbot" props.modules.chatbot }}
     {{> "modules/accordion/accordion" props.modules.accordionData }}
-    {{> "modules/contact/contact" props.modules.contactData}}
+    {{> "modules/carousel/carousel" props.modules.carouselData }}
+  {{/content}}
+
+  {{#content "pagefooter"}}
     {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
     {{> "modules/related_content/related_content" props.modules.releatedContentData}}
     {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
+    {{> "modules/contact/contact" props.modules.contactData}}
   {{/content}}
+
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData }}
-    {{> "modules/back2top/back2top" props.modules.back2topData}}
-    {{> "modules/lang_switch/lang_switch" props.modules.langSwitchData}}
+    {{> "modules/back_to/back_to" props.modules.backToData}}
   {{/content}}
 {{/extend}}

@@ -1,6 +1,11 @@
-<div class="mdl-social-media-links{{#if contactVariant}} mdl-social-media-links--contact{{/if}}" data-init="socialMediaLinks"{{#if anchorReference}} id="{{anchorReference}}"{{/if}}>
-  {{#if socialMediaLinksHeading}}
-    <h{{socialMediaLinksHeading.level}} class="atm-heading">{{socialMediaLinksHeading.title}}</h{{socialMediaLinksHeading.level}}>
+<div class="mdl-social-media-links{{#if contactVariant}} mdl-social-media-links--contact{{/if}}" data-init="socialMediaLinks">
+  {{#if heading}}
+    <h{{heading.level}}
+      {{#if anchorNavReference}}id="{{anchorNavReference}}" data-anchornav="target"{{/if}}
+      class="atm-heading{{#if contactVariant}} visuallyhidden{{/if}}"
+    >
+      {{heading.title}}
+    </h{{heading.level}}>
   {{/if}}
 
   <ul>

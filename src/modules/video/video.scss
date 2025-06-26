@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .mdl-video {
   margin: 0;
   padding: 0;
@@ -35,6 +37,10 @@
     .hidden {
       display: none;
     }
+
+    &--sign-language {
+      display: none;
+    }
   }
 
   &__preview,
@@ -67,12 +73,16 @@
         height: pxToRem($sizeHuge);
       }
     }
+
+    &--sign-language {
+      display: none;
+    }
   }
 
   &__cookie-dialog {
     display: none;
     flex-direction: column;
-    background-color: $colorBlack5;
+    background-color: $colorBg;
 
     > button {
       @include blankButton();
@@ -170,13 +180,17 @@
     }
   }
 
+  .atm-toggle.atm-toggle--label-left {
+    justify-content: end;
+  }
+
   &--fullwidth {
     @include sizeCurve(margin-bottom margin-top, big);
 
     .mdl-video__wrapper {
-      padding-top: calc(100vw / 1.777); // stylelint-disable-line -- preserve aspect 16:9 ratio
+      padding-top: math.div(100vw, 1.777); // stylelint-disable-line -- preserve aspect 16:9 ratio
 
-      @media ( min-width: $sizeGlobalMaxWidth ) {
+      @media (min-width: $sizeGlobalMaxWidth) {
         padding-top: 810px; // stylelint-disable-line -- preserve 16:9 aspect ratio
       }
 
@@ -184,38 +198,13 @@
 
       z-index: 1;
     }
-  }
 
-  &--header {
-    margin-bottom: 0;
+    .atm-toggle.atm-toggle--label-left {
+      @include gridBleed;
+      padding-right: pxToRem($sizeRegular);
 
-    .mdl-video__wrapper {
-      $maxImageWidth: 1104px;
-      $maxLayoutBreakPointWidth: 1248px;
-
-      max-width: $maxImageWidth;
-      max-height: calc(#{$maxImageWidth} / 1.777);
-
-      @include polyFluidSizing('width', map-get($imageCustomSizes, headerImageWidth));
-      @include polyFluidSizing('height', map-get($imageCustomSizes, headerImageWidthAspect));
-      $breakpointValue: $maxLayoutBreakPointWidth;
-      $sizeValue: $sizeBreakpointLarge;
-      $nextBreakpointValue: $sizeGlobalMaxWidth;
-      $nextSizeValue: $maxImageWidth;
-
-      @media ( min-width: $breakpointValue ) {
-        width: linearInterpolation(($breakpointValue: $sizeValue, $nextBreakpointValue: $nextSizeValue)); //stylelint-disable-line
-        height: linearInterpolation(($breakpointValue: ($sizeValue / 1.777), $nextBreakpointValue: ($nextSizeValue / 1.777))); //stylelint-disable-line
-      }
-
-      @include mq($from: tiny, $to: xsmall) {
-        @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
-      }
-    }
-
-    @include mq($from: tiny, $to: xsmall) {
-      .mdl-video__caption {
-        @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
+      @media (min-width: $sizeGlobalMaxWidth) {
+        padding-right: 0;
       }
     }
   }

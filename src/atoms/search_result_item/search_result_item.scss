@@ -12,6 +12,7 @@
     h4 {
       color: $colorBlack;
       margin-bottom: pxToRem($sizeMini);
+      font-family: $fontFamilyBlack !important; // stylelint-disable declaration-no-important
     }
 
     p {
@@ -30,10 +31,6 @@
   &__meta {
     font-size: pxToRem($sizeFontTiny);
     color: $colorBlack60;
-
-    span:first-child {
-      font-family: $fontFamilyBlack;
-    }
   }
 
   .atm-linklist_item {

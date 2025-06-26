@@ -5,18 +5,17 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import { template } from 'lodash';
+import template from 'lodash/template';
 
 class FilterPills extends Module {
   public ui: {
-    element: any,
-    clearButton: HTMLButtonElement,
-    template: HTMLScriptElement,
+    element: any;
+    clearButton: HTMLButtonElement;
+    template: HTMLScriptElement;
   };
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       domSelectors: {
         clearButton: '[data-clear]',
@@ -65,9 +64,12 @@ class FilterPills extends Module {
     const container = document.createElement('div');
     container.innerHTML = template(this.ui.template.innerHTML)(data);
     const pill = container.querySelector('span');
-    pill.querySelector('button').addEventListener('click', () => {
-      this.emitRemove(pill);
-    });
+    const removeButton = pill.querySelector('button');
+    if (removeButton) {
+      removeButton.addEventListener('click', () => {
+        this.emitRemove(pill);
+      });
+    }
     this.ui.element.insertBefore(pill, this.ui.element.firstChild);
     this.ui.clearButton.classList.remove(this.options.domSelectors.hiddenControl);
   }

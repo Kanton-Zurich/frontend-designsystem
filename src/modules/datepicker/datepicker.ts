@@ -4,7 +4,7 @@ import { French } from 'flatpickr/dist/l10n/fr';
 import { Italian } from 'flatpickr/dist/l10n/it';
 import { english } from 'flatpickr/dist/l10n/default';
 
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 /*!
  * Datepicker
  *
@@ -22,60 +22,60 @@ class Datepicker extends Module {
   public flatpickr: any;
 
   public globalConfig: {
-    nextArrow: string,
-    prevArrow: string,
-    onChange: any,
-    onClose: any,
-    static: boolean,
+    nextArrow: string;
+    prevArrow: string;
+    onChange: any;
+    onClose: any;
+    static: boolean;
   };
 
   public customConfigs: {
     time: {
-      enableTime: boolean,
-      noCalendar: boolean,
-      time_24hr: boolean, // eslint-disable-line
-      dateFormat: string,
-      position: string,
-      allowInput: boolean,
-      disableMobile: boolean,
-    },
+      enableTime: boolean;
+      noCalendar: boolean;
+      time_24hr: boolean; // eslint-disable-line
+      dateFormat: string;
+      position: string;
+      allowInput: boolean;
+      disableMobile: boolean;
+    };
     date: {
-      dateFormat: string,
-      position: string,
-      allowInput: boolean,
-      disableMobile: boolean,
-    },
+      dateFormat: string;
+      position: string;
+      allowInput: boolean;
+      disableMobile: boolean;
+    };
     dateRange: {
-      mode: string,
-      separator: string,
-      disableMobile: boolean,
-      allowInput: boolean,
-    },
+      mode: string;
+      separator: string;
+      disableMobile: boolean;
+      allowInput: boolean;
+    };
     dataTime: {
-      dateFormat: string,
-      position: string,
-      noCalendar: boolean,
-      disableMobile: boolean,
-      allowInput: boolean,
-    }
+      dateFormat: string;
+      position: string;
+      noCalendar: boolean;
+      disableMobile: boolean;
+      allowInput: boolean;
+    };
   };
 
   public ui: {
-    element: any,
-    trigger: any,
-    container: any,
-    calendar: any,
+    element: any;
+    trigger: any;
+    container: any;
+    calendar: any;
   };
 
   public options: {
     domSelectors: {
-      trigger: string,
-      container: string,
-    },
-    stateClasses: {},
+      trigger: string;
+      container: string;
+    };
+    stateClasses: {};
     dataSelectors: {
-      pickerMode: string,
-    }
+      pickerMode: string;
+    };
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -132,15 +132,16 @@ class Datepicker extends Module {
       },
     };
 
-
     this.pickerMode = this.ui.element.dataset[this.options.dataSelectors.pickerMode];
     this.globalConfig = {
-      nextArrow: '<svg class="icon" focusable="false">\n'
-      + '<use xlink:href="#angle_right"></use>\n'
-      + '</svg>',
-      prevArrow: '<svg class="icon" focusable="false">\n'
-      + '<use xlink:href="#angle_left"></use>\n'
-      + '</svg>',
+      nextArrow:
+        '<svg class="icon" focusable="false">\n' +
+        '<use xlink:href="#angle_right"></use>\n' +
+        '</svg>',
+      prevArrow:
+        '<svg class="icon" focusable="false">\n' +
+        '<use xlink:href="#angle_left"></use>\n' +
+        '</svg>',
       onChange: this.onValueChange.bind(this),
       onClose: this.onClose.bind(this),
       static: true,
@@ -168,7 +169,7 @@ class Datepicker extends Module {
       .on('click', this.options.domSelectors.trigger, this.onTriggerClick.bind(this))
       .on('focusin', this.options.domSelectors.trigger, this.onTriggerFocusIn.bind(this))
       .on('blur', this.options.domSelectors.trigger, this.onTriggerFocusOut.bind(this))
-      .on('keyup', this.options.domSelectors.trigger, event => event.stopPropagation())
+      .on('keyup', this.options.domSelectors.trigger, (event) => event.stopPropagation())
       .on(Datepicker.events.injectDate, this.onInjectDate.bind(this))
       .on(Datepicker.events.clear, this.onClear.bind(this));
 
@@ -176,8 +177,8 @@ class Datepicker extends Module {
   }
 
   /**
-  * Merge the configs correspondingly to the pickerMode data attribute
-  */
+   * Merge the configs correspondingly to the pickerMode data attribute
+   */
   constructConfig() {
     // Setup type specific config
     if (this.pickerMode === 'time') {
@@ -185,17 +186,9 @@ class Datepicker extends Module {
     } else if (this.pickerMode === 'date') {
       this.usedConfig = this.customConfigs.date;
     } else if (this.pickerMode === 'date-range') {
-      this.usedConfig = merge(
-        {},
-        this.customConfigs.date,
-        this.customConfigs.dateRange,
-      );
+      this.usedConfig = merge({}, this.customConfigs.date, this.customConfigs.dateRange);
     } else if (this.pickerMode === 'date-time') {
-      this.usedConfig = merge(
-        {},
-        this.customConfigs.time,
-        this.customConfigs.dataTime,
-      );
+      this.usedConfig = merge({}, this.customConfigs.time, this.customConfigs.dataTime);
     }
 
     // Merge with global config
@@ -243,7 +236,7 @@ class Datepicker extends Module {
    */
   initFlatpickr() {
     this.flatpickr = flatpickr(this.ui.trigger, this.usedConfig);
-    // Replace default range seperator
+    // Replace default range separator
     if (this.pickerMode === 'date-range') {
       this.flatpickr.l10n.rangeSeparator = ' - ';
     }
@@ -266,7 +259,7 @@ class Datepicker extends Module {
 
   /**
    * Move picker if horizontally out of window
-    */
+   */
   positionCorrection() {
     const borderMargin = 20;
     if (this.ui.element.classList.contains('open')) {
@@ -274,7 +267,7 @@ class Datepicker extends Module {
       const calendarRect = element.getBoundingClientRect();
       if (calendarRect.width < window.innerWidth) {
         const rightEnd = calendarRect.left + calendarRect.width;
-        if ((rightEnd + borderMargin) > window.innerWidth) {
+        if (rightEnd + borderMargin > window.innerWidth) {
           element.style.marginLeft = `-${rightEnd - window.innerWidth + borderMargin}px`;
         } else {
           element.removeAttribute('style');
@@ -359,9 +352,12 @@ class Datepicker extends Module {
   }
 
   formatDateRange(dateRangeString: string) {
-    const dates = dateRangeString.replace(/\s/g, '')
-      .split('-').map(part => this.formatDate(part));
-    if (dates.length >= 2) { // eslint-disable-line
+    const dates = dateRangeString
+      .replace(/\s/g, '')
+      .split('-')
+      .map((part) => this.formatDate(part));
+    // eslint-disable-next-line
+    if (dates.length >= 2) {
       return `${dates[0]} - ${dates[1]}`;
     }
     return dateRangeString;
@@ -369,7 +365,8 @@ class Datepicker extends Module {
 
   formatDateTime(dateTimeString: string) {
     const dateTimeParts = dateTimeString.split('-');
-    if (dateTimeParts.length >= 2) { // eslint-disable-line
+    // eslint-disable-next-line
+    if (dateTimeParts.length >= 2) {
       const date = this.formatDate(dateTimeParts[0]);
       const time = this.formatTime(dateTimeParts[1]);
       return `${date} ${time}`;
@@ -379,28 +376,32 @@ class Datepicker extends Module {
 
   formatDate(dateString: string) {
     const dateParts = dateString.split('.').map((part, index) => {
-      if (index < 2) { // eslint-disable-line
-        if (part.length < 2) { // eslint-disable-line
+      // eslint-disable-next-line
+      if (index < 2) {
+        // eslint-disable-next-line
+        if (part.length < 2) {
           return `0${part}`;
         }
       }
       return part;
     });
-    if (dateParts.length === 3) { // eslint-disable-line
+    // eslint-disable-next-line
+    if (dateParts.length === 3) {
       return `${dateParts[0]}.${dateParts[1]}.${dateParts[2]}`; // eslint-disable-line
     }
     return dateString;
   }
 
-
   formatTime(timeString: string) {
     const timeParts = timeString.split(':').map((part) => {
-      if (part.length < 2) { // eslint-disable-line
+      // eslint-disable-next-line
+      if (part.length < 2) {
         return `0${part}`;
       }
       return part;
     });
-    if (timeParts.length === 2) { // eslint-disable-line
+    // eslint-disable-next-line
+    if (timeParts.length === 2) {
       return `${timeParts[0]}:${timeParts[1]}`;
     }
     return timeString;

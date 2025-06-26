@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 $stepperNavigationCurves: (
   ordinalFontSize: (
     tiny: $sizeFontSmallBig,
@@ -8,8 +10,8 @@ $stepperNavigationCurves: (
     large: $sizeFontBiggerBig * 1.2,
   ),
   greyline: (
-    tiny: $sizeFontSmallBig / 2,
-    large: $sizeFontBiggerBig / 2,
+    tiny: math.div($sizeFontSmallBig, 2),
+    large: math.div($sizeFontBiggerBig, 2),
   ),
 );
 
@@ -80,7 +82,7 @@ $stepperNavigationMobileStepTitleBottom: 22px;
 
     z-index: $zIndexInner;
 
-    &[ disabled ] {
+    &[disabled] {
       pointer-events: none;
     }
 
@@ -123,7 +125,6 @@ $stepperNavigationMobileStepTitleBottom: 22px;
         height: 2rem;
       }
     }
-
 
     &-checkmark {
       width: 4rem;
@@ -184,7 +185,6 @@ $stepperNavigationMobileStepTitleBottom: 22px;
 
     &--pending,
     &--multiple {
-
       .mdl-stepper_navigation__step-dots {
         display: block;
       }
@@ -197,7 +197,6 @@ $stepperNavigationMobileStepTitleBottom: 22px;
         display: none;
       }
 
-
       .mdl-stepper_navigation__step-title {
         visibility: hidden;
       }
@@ -207,7 +206,7 @@ $stepperNavigationMobileStepTitleBottom: 22px;
       position: relative;
       z-index: $zIndexOverlays;
 
-      &[ data-stepper_navigation='multipleBefore' ] {
+      &[data-stepper_navigation='multipleBefore'] {
         svg use {
           fill: $colorCyan;
         }

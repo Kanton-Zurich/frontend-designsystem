@@ -19,39 +19,42 @@ const data = _.merge({}, defaultData, {
 
 data.colorVariations = []; // no color variations available
 
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Standard',
-      desc: '',
-    },
-  },
-  inverted: {
-    meta: {
-      title: 'Invertiert',
-      desc: '',
-    },
-    props: {
-      isInverted: true,
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
-
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        data: dataHelper.getFormattedJson(variantProps),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Standard',
+        desc: '',
       },
     },
-  });
+    inverted: {
+      meta: {
+        title: 'Invertiert',
+        desc: '',
+      },
+      props: {
+        isInverted: true,
+      },
+    },
+  },
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-  return variantData;
-});
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          data: dataHelper.getFormattedJson(variantProps),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+        },
+      },
+    });
+
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

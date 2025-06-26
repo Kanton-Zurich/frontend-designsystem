@@ -120,7 +120,7 @@
 /** HIGHT CONTRAST MODE
  */
 
-@media screen and ( -ms-high-contrast: active ) {
+@media screen and (-ms-high-contrast: active) {
   .atm-radiobutton input {
     appearance: auto;
   }

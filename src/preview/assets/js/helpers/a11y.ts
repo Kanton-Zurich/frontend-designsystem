@@ -17,8 +17,6 @@ class A11y extends Helper {
   constructor() {
     super();
     this.logger = this.log(A11y.name);
-
-
     this.logger(`Initialized ${A11y.name}`);
   }
 
@@ -94,7 +92,10 @@ class A11y extends Helper {
       const ariaPrefix = 'aria-';
 
       node.attributes.forEach((attribute) => {
-        if (attribute.name === 'role' || attribute.name.substring(0, ariaPrefix.length) === ariaPrefix) {
+        if (
+          attribute.name === 'role' ||
+          attribute.name.substring(0, ariaPrefix.length) === ariaPrefix
+        ) {
           log += `[${attribute.name}=${attribute.value}]`;
         }
       });

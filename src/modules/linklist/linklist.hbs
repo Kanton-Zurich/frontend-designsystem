@@ -1,22 +1,93 @@
-<div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-linklist {{#if smallMargin}}mdl-linklist--small-margin{{/if}} {{#if isLast}}mdl-linklist--last{{/if}} {{#if isTOC}}mdl-linklist--toc{{/if}}">
-{{#if isTOC}}
-  <div class="lyt-wrapper">
-    <div class="grid-x grid-margin-x">
-      <div class="cell small-offset-2 medium-offset-2 small-10 medium-9 large-offset-2 large-8">
-{{/if}}
-        {{#if linkListTitle}}
-          <h{{{headingLevel}}} class="atm-heading mdl-linklist__title">{{#if linkListChapterNumber}}<span class="mdl-linklist__chapter-number">{{{linkListChapterNumber}}}</span><span class="mdl-linklist__title-content">{{/if}}{{{linkListTitle}}}{{#if linkListChapterNumber}}</span>{{/if}}</h{{{headingLevel}}}>
-        {{/if}}
-        <ul class="mdl-linklist__list" {{#if ariaLive}}aria-live="{{ariaLive}}"{{/if}} {{#if filterListId}} id="{{filterListId}}"{{/if}}>
-          {{#each links}}
-            <li class="mdl-linklist__item" {{#if ../hasIndex}}data-linklist-itemindex="{{@index}}"{{/if}}>
+<div class="mdl-linklist
+  {{#if smallMargin}}mdl-linklist--small-margin{{/if}}
+  {{#if isLast}}mdl-linklist--last{{/if}}
+  {{#if isTOC}}mdl-linklist--toc{{/if}}
+  {{#if hasFilter}}mdl-linklist--filter{{/if}}
+  {{#if spa}}mdl-linklist--spa{{/if}}
+  {{#if titleNoMarginTop}}mdl-linklist--title-no-margin-top{{/if}}"
+  data-init="linklist">
+
+  {{#if spa}}
+    <template class="mdl-linklist__item" data-linklist="template-linklist-item">
+      <li class="mdl-linklist__item mdl-linklist__item--spa">
+        <a class="atm-linklist_item" href="">
+          <span class="atm-linklist_item__text">
+            <span></span>
+          </span>
+        </a>
+      </li>
+    </template>
+  {{/if}}
+
+  {{#if hasGroups}}
+  <div class="mdl-linklist__group-list" data-linklist="group-list">
+    <div class="mdl-linklist__group" data-linklist="group">
+  {{/if}}
+
+      {{#if linkListTitle}}
+        <h{{{headingLevel}}}
+          {{#if anchorNavReference}}id="{{anchorNavReference}}" data-anchornav="target"{{/if}}
+          class="atm-heading mdl-linklist__title
+            {{#if_compare visualHeadingLevel "!==" headingLevel}}h{{visualHeadingLevel}}{{/if_compare}}
+            {{#if_compare visualHeadingLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+            data-linklist="title">
+          {{#if linkListChapterNumber}}
+            <span class="mdl-linklist__chapter-number">{{{linkListChapterNumber}}}</span>
+            <span class="mdl-linklist__title-content">
+          {{/if}}
+            {{{linkListTitle}}}
+          {{#if linkListChapterNumber}}</span>{{/if}}
+        </h{{{headingLevel}}}>
+      {{/if}}
+
+      {{#if description}}
+        <p class="atm-paragraph">{{description}}</p>
+      {{/if}}
+
+      {{#if hasFilter}}
+        <form class="mdl-linklist__form-search" data-linklist="form" novalidate>
+          {{> "atoms/form_input/form_input" searchInput}}
+        </form>
+      {{/if}}
+
+      <ul class="mdl-linklist__list"
+        {{#if ariaLive}}aria-live="{{ariaLive}}"{{/if}}
+        {{#if filterListId}}id="{{filterListId}}"{{/if}}
+        data-linklist="linklist-list">
+        {{#each links}}
+          <li class="mdl-linklist__item"
+            {{#if ../hasIndex}}data-linklist-itemindex="{{@index}}"{{/if}}
+            {{#if additionalAttributes}}{{{additionalAttributes}}}{{/if}}>
+            {{#if useContentTeaser}}
+              <a class="atm-content_teaser" href={{target}}>
+                <span class="atm-content_teaser__content">
+                  <span class="atm-content_teaser__title">
+                    {{ shortTitle }}
+                  </span>
+                </span>
+              </a>
+            {{else}}
               {{> "atoms/linklist_item/linklist_item" this headingLevel=../headingLevel}}
-            </li>
-          {{/each}}
-        </ul>
-{{#if isTOC}}
-      </div>
+            {{/if}}
+          </li>
+        {{/each}}
+      </ul>
+
+      {{#if hasFilter}}
+        <div class="mdl-placeholder hidden {{#if placeholder.additionalClasses}}{{placeholder.additionalClasses}}{{/if}}" data-linklist-no-results>
+          <h3 class="mdl-placeholder__title atm-heading">
+            {{placeholder.title}}
+          </h3>
+          <p class="mdl-placeholder__text atm-paragraph">
+            {{placeholder.text}}
+          </p>
+          {{>"atoms/button/button" placeholder.button }}
+        </div>
+        {{#if pagination}}{{> "modules/pagination/pagination" pagination}}{{/if}}
+      {{/if}}
+
+  {{#if hasGroups}}
     </div>
   </div>
-{{/if}}
+  {{/if}}
 </div>

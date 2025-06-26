@@ -84,10 +84,9 @@
   }
 }
 
-@media screen and ( -ms-high-contrast: active ) {
+@media screen and (-ms-high-contrast: active) {
   .noUi-connects {
     border: 6px solid $colorWhite;
     transform: translateY(-6px);
   }
 }
-

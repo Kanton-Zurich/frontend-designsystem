@@ -1,5 +1,3 @@
-
-
 .atm-loading_circle {
   justify-content: center;
   align-items: center;
@@ -46,7 +44,7 @@
     }
   }
 
-  [ class*='--loading' ] & {
+  [class*='--loading'] & {
     display: flex;
   }
 }

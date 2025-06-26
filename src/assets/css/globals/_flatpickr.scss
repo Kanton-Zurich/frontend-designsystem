@@ -1,7 +1,7 @@
 /*
 * Flatpickr Style Overwrites
 */
-[ data-datetimeformat='date-time' ] .flatpickr-calendar {
+[data-datetimeformat='date-time'] .flatpickr-calendar {
   height: 478px;
 }
 
@@ -21,7 +21,6 @@
   select::-ms-expand {
     display: none;
   }
-
 
   // Remove little up arrow
   &:before,
@@ -53,7 +52,6 @@
     display: block;
     height: 100%;
     max-height: pxToRem($sizeSmallHuge);
-
 
     .numInputWrapper {
       height: 100%;
@@ -181,12 +179,21 @@
     color: $colorBlack60;
     border-width: 2px;
     // IE 11 fix for sizing
-    @media all and ( -ms-high-contrast: none ) {
+    @media all and (-ms-high-contrast: none) {
       border-width: 0;
     }
 
+    &.flatpickr-disabled {
+      color: rgba(
+        57,
+        57,
+        57,
+        0.1
+      ); // greyed out color of flatpickr. Needs to be set here because the specific of the component is not strong enough to overright the color we set on 181
+    }
+
     &.today {
-      border-color: $colorBlack5;
+      border-color: $colorBg;
     }
 
     &.prevMonthDay,
@@ -210,9 +217,9 @@
     }
 
     &.inRange {
-      background-color: $colorBlack5;
+      background-color: $colorBg;
       box-shadow: none;
-      border-color: $colorBlack5;
+      border-color: $colorBg;
       color: $colorBlack60;
     }
 
@@ -245,7 +252,7 @@
       input,
       .arrowDown,
       .arrowUp {
-        background: $colorBlack5;
+        background: $colorBg;
       }
     }
 
@@ -258,7 +265,7 @@
 
       &:hover,
       &:focus {
-        background: $colorBlack5;
+        background: $colorBg;
       }
     }
 
@@ -287,4 +294,3 @@
     }
   }
 }
-

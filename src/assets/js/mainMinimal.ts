@@ -1,6 +1,4 @@
-import '@babel/polyfill';
 import WindowEventListener from './helpers/events';
-import './helpers/modernizrrc';
 import Helper from './helpers/helper';
 import namespace from './helpers/namespace';
 import FlyingFocus from './helpers/flyingfocus';
@@ -13,7 +11,6 @@ window[namespace] = {
   flyingFocus: new FlyingFocus(),
 };
 
-
 document.addEventListener('DOMContentLoaded', () => {
   const adjustScrollbarWidth = () => {
     const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
@@ -24,13 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 'update-scrollbar-handling');
   adjustScrollbarWidth();
 });
-document.addEventListener('DOMContentLoaded', () => { (<any>window).estatico.flyingFocus.initFlyingFocus(); });
+document.addEventListener('DOMContentLoaded', () => {
+  (<any>window).estatico.flyingFocus.initFlyingFocus();
+});
 
 // reload on back or forward interaction
 window.addEventListener('popstate', () => {
   document.location.reload();
 });
-
 
 let app;
 
@@ -41,7 +39,9 @@ const loadApp = () => {
 
 if (document.querySelector('[load-main-script-deferred]')) {
   document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => { loadApp(); }, 0);
+    setTimeout(() => {
+      loadApp();
+    }, 0);
   });
 } else {
   loadApp();

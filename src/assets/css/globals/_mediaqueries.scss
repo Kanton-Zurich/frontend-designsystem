@@ -25,21 +25,6 @@ $mqBreakpoints: (
   xlarge: $sizeBreakpointXLarge,
 );
 
-/**
- * Define the breakpoint from the $mqBreakpoints list that should
- * be used as the target width when outputting a static stylesheet
- * (i.e. when $mqResponsive is set to 'false').
- */
-$mqStaticBreakpoint: xsmall;
-
-/**
- * If you want to display the currently active breakpoint in the top
- * right corner of your site during development, add the breakpoints
- * to this list, ordered by width, e.g. (mobile, tablet, desktop).
- */
-$mqShowBreakpoints: (zero, tiny, xsmall, small, medium, large, xlarge);
-
-
 @function mqGetBreakpointWidth($name) {
   @if (map-has-key($mqBreakpoints, $name)) {
     @return map-get($mqBreakpoints, $name);
@@ -69,7 +54,6 @@ $mqShowBreakpoints: (zero, tiny, xsmall, small, medium, large, xlarge);
  *     }
  * }
  */
-
 @mixin mq($from: false, $to: false, $and: false, $height: false, $media: all) {
   // Initialize variables
   $minSize: 0;
@@ -102,7 +86,12 @@ $mqShowBreakpoints: (zero, tiny, xsmall, small, medium, large, xlarge);
     @if type-of($staticBreakpointWidth) == number {
       $targetWidth: pxToEm($staticBreakpointWidth, 16);
       // Output only rules that start at or span our target width
-      @if ($and == false and ($minSize <= $targetWidth) and (($to == false) or ($maxSize >= $targetWidth))) {
+      @if (
+        $and ==
+          false and
+          ($minSize <= $targetWidth) and
+          (($to == false) or ($maxSize >= $targetWidth))
+      ) {
         @content;
       }
     } @else {
@@ -128,43 +117,4 @@ $mqShowBreakpoints: (zero, tiny, xsmall, small, medium, large, xlarge);
       @content;
     }
   }
-}
-
-/**
- * Add a breakpoint
- * Usage: $mqBreakpoints: mqAddBreakpoint(tvscreen, 1920px);
- */
-@function mqAddBreakpoint($name, $breakpoint) {
-  $newBreakpoint: ($name: $breakpoint);
-
-  @return map-merge($mqBreakpoints, $newBreakpoint);
-}
-
-/**
- * Create JSON string of map of breakpoints
- */
-@function mqGetBreakpointsJSON($breakpoints: $mqBreakpoints) {
-  $json: '{';
-
-  @each $name in map-keys($breakpoints) {
-    $value: map-get($breakpoints, $name);
-
-    $json: $json + '"#{$name}":"#{$value}",';
-  }
-
-  // Remove last ','
-  $json: str-slice($json, 1, str-length($json) - 1);
-
-  // Close JSON string
-  $json: $json + '}';
-
-  @return $json;
-}
-
-
-/**
- * Create JSON string of single breakpoint
- */
-@function mqGetBreakpointJSON($name, $value) {
-  @return '{"name":"#{$name}","value":"#{$value}"}';
 }

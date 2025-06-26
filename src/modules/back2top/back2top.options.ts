@@ -1,8 +1,8 @@
 interface ModuleDomSelectors {
-  toTopBtn: string,
+  toTopBtn: string;
 }
 interface ModuleStateClasses {
-  unlocked: string,
+  unlocked: string;
   scrolledOn: string;
   preserveLangSwitch: string;
 }
@@ -11,13 +11,13 @@ export interface Back2TopModuleOptions {
   sufficientScrollUp: number;
   stateSlip: number;
   customSmoothScrollConfig: {
-    stepDuration: number,
-    refinement: number,
+    stepDuration: number;
+    refinement: number;
   };
   transitionDelay: number;
   footerSelector: string;
-  domSelectors: ModuleDomSelectors
-  stateClasses: ModuleStateClasses
+  domSelectors: ModuleDomSelectors;
+  stateClasses: ModuleStateClasses;
 }
 
 const domSelectors: ModuleDomSelectors = {
@@ -29,7 +29,8 @@ const stateClasses: ModuleStateClasses = {
   preserveLangSwitch: 'mdl-back2top--preserveLangSwitch',
 };
 
-export const Back2TopDefaultOptions: Back2TopModuleOptions = { // eslint-disable-line
+export const Back2TopDefaultOptions: Back2TopModuleOptions = {
+  // eslint-disable-line
   necessaryScrollY: 700,
   sufficientScrollUp: 300,
   stateSlip: 50,

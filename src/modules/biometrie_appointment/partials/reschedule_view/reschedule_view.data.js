@@ -55,48 +55,51 @@ const data = _.merge({}, defaultData, {
   },
 });
 
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-    },
-  },
-  mockData: {
-    meta: {
-      title: 'DEMO mit DummyDaten',
-      desc: 'Füllt die Ansicht mit Dummy TimeSlots.',
-    },
-    props: {
-      withMockedData: true,
-      isSlotFull: false,
-    },
-  },
-  demoSlotFull: {
-    meta: {
-      title: 'DEMO Slotfull',
-      desc: 'Zeigt die Meldung für den Fall, dass der angefragte Timeslot ausgebucht ist.',
-    },
-    props: {
-      withMockedData: true,
-      isSlotFull: true,
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  return _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
-
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Default',
+        desc: 'Default implementation',
       },
     },
-  });
-});
+    mockData: {
+      meta: {
+        title: 'DEMO mit DummyDaten',
+        desc: 'Füllt die Ansicht mit Dummy TimeSlots.',
+      },
+      props: {
+        withMockedData: true,
+        isSlotFull: false,
+      },
+    },
+    demoSlotFull: {
+      meta: {
+        title: 'DEMO Slotfull',
+        desc: 'Zeigt die Meldung für den Fall, dass der angefragte Timeslot ausgebucht ist.',
+      },
+      props: {
+        withMockedData: true,
+        isSlotFull: true,
+      },
+    },
+  },
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    return _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
+
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
+      },
+    });
+  }
+);
 
 data.variants = variants;
 

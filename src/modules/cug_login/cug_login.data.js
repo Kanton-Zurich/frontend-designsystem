@@ -60,12 +60,13 @@ const data = _.merge({}, defaultData, {
     endpointAuthorize: mockAssets.authOk,
     heading: 'Login ZHservices',
     focussable: true,
-    introText: 'Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichte - den ersten in der Schweiz.',
+    introText:
+      'Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt für mobile Geräte eingerichte - den ersten in der Schweiz.',
     userNameInput: _.merge({}, formInputData.variants.floatValidate.props, {
       uuid: 'j_username',
       name: 'j_username',
       validation: {
-        pattern: '^([\.\_\\-@\\a-zA-Z0-9]){4,}$', // eslint-disable-line
+        pattern: '^([._\\-@\\a-zA-Z0-9]){4,}$', // eslint-disable-line
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
         errorMsg: 'Der Nutzername besteht aus mindestens 4 Zeichen.',
@@ -80,7 +81,8 @@ const data = _.merge({}, defaultData, {
         pattern: '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$',
         ariaTextValid: 'Eingabe entspricht den Vorgaben.',
         ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
-        errorMsg: 'Das Passwort besteht aus mindestens 6 Zeichen. Und enthält sowohl Gross- als auch Kleinbuchstaben und Zahlen.',
+        errorMsg:
+          'Das Passwort besteht aus mindestens 6 Zeichen. Und enthält sowohl Gross- als auch Kleinbuchstaben und Zahlen.',
         isRequired: true,
       },
     }),
@@ -91,51 +93,55 @@ const data = _.merge({}, defaultData, {
     serviceFailNotificationData,
   },
 });
-const variants = _.mapValues({
-  develop: {
-    meta: {
-      title: 'Develop Mode',
-      desc: 'Nutzt Mocks. Benutzername: "user" => unauthorized, "offline" => Connection Failure, "admin" => Login OK , alle anderen unauthenticated.',
-    },
-    props: {
-      devMode: true,
-    },
-  },
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-    },
-  },
-  embedded: {
-    meta: {
-      title: 'Eingebettet',
-      desc: 'Kleinere im Seitenfluss eingebettete Login -Variante',
-    },
-    props: {
-      heading: 'Login',
-      introText: 'Um die Informationen dieser Seite zu sehen, müssen Sie sich einloggen. Sollten Sie kein Login besitzen oder Probleme beim Login haben, melden Sie sich bitte beim Strassenverkehrsamt unter folgender Telefonnummer: 012 345 78 96',
-      devMode: true,
-      embedded: true,
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
-
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+const variants = _.mapValues(
+  {
+    develop: {
+      meta: {
+        title: 'Develop Mode',
+        desc: 'Nutzt Mocks. Benutzername: "user" => unauthorized, "offline" => Connection Failure, "admin" => Login OK , alle anderen unauthenticated.',
+      },
+      props: {
+        devMode: true,
       },
     },
-  });
+    default: {
+      meta: {
+        title: 'Default',
+        desc: 'Default implementation',
+      },
+    },
+    embedded: {
+      meta: {
+        title: 'Eingebettet',
+        desc: 'Kleinere im Seitenfluss eingebettete Login -Variante',
+      },
+      props: {
+        heading: 'Login',
+        introText:
+          'Um die Informationen dieser Seite zu sehen, müssen Sie sich einloggen. Sollten Sie kein Login besitzen oder Probleme beim Login haben, melden Sie sich bitte beim Strassenverkehrsamt unter folgender Telefonnummer: 012 345 78 96',
+        devMode: true,
+        embedded: true,
+      },
+    },
+  },
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-  return variantData;
-});
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
+      },
+    });
+
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

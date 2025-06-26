@@ -1,0 +1,50 @@
+.mdl-backToChat {
+  &--visible {
+    display: flex;
+  }
+  display: none;
+  align-items: center;
+  gap: pxToRem($sizeSmallRegular);
+  background: $colorBlack80;
+  color: $colorWhite;
+  border-radius: $sizeMini;
+
+  @include sizeCurve('padding', small);
+
+  svg use {
+    fill: $colorWhite;
+  }
+
+  &__button {
+    background: rgba(0, 0, 0, 0.2);
+    margin-left: pxToRem($sizeSmallRegular);
+
+    .atm-button__text {
+      display: none;
+    }
+
+    .icon.atm-button__icon {
+      width: pxToRem($sizeLarge);
+      height: pxToRem($sizeLarge);
+      margin-left: 0;
+    }
+
+    @include mq($to: medium) {
+      padding: 0;
+      place-content: center;
+    }
+    @include mq($from: medium) {
+      .atm-button__text {
+        display: initial;
+      }
+
+      .atm-button__icon {
+        display: none;
+      }
+    }
+  }
+
+  &-title {
+    flex: 1;
+  }
+}

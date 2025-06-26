@@ -13,95 +13,100 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
-    socialMediaLinksHeading: {
+    heading: {
       title: 'Folgen Sie uns auf',
     },
   },
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Standard',
-      desc: 'Standard-Implementation',
-    },
-    props: {
-      socialMediaLinksHeading: {
-        level: 2,
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Standard',
+        desc: 'Standard-Implementation',
       },
-      items: [
-        {
-          url: '#',
-          linkText: 'Facebook',
-          imgSrc: '../../assets/media/image/facebook.svg',
+      props: {
+        heading: {
+          level: 2,
+          visualLevel: 2,
         },
-        {
-          url: '#',
-          linkText: 'Twitter',
-          imgSrc: '../../assets/media/image/twitter.svg',
+        items: [
+          {
+            url: '#',
+            linkText: 'Facebook',
+            imgSrc: '../../assets/media/image/facebook.svg',
+          },
+          {
+            url: '#',
+            linkText: 'Twitter',
+            imgSrc: '../../assets/media/image/twitter.svg',
+          },
+          {
+            url: '#',
+            linkText: 'linkedIn',
+            imgSrc: '../../assets/media/image/linkedIn.svg',
+          },
+          {
+            url: '#',
+            linkText: 'YouTube',
+            imgSrc: '../../assets/media/image/youtube.svg',
+          },
+        ],
+      },
+    },
+    contactVariant: {
+      meta: {
+        title: 'Social Media for contact',
+      },
+      props: {
+        contactVariant: true,
+        heading: {
+          level: 4,
+          visualLevel: 4,
         },
-        {
-          url: '#',
-          linkText: 'linkedIn',
-          imgSrc: '../../assets/media/image/linkedIn.svg',
-        },
-        {
-          url: '#',
-          linkText: 'YouTube',
-          imgSrc: '../../assets/media/image/youtube.svg',
-        },
-      ],
+        items: [
+          {
+            url: '#',
+            linkText: 'Facebook',
+            imgSrc: '../../assets/media/image/facebook--white.svg',
+          },
+          {
+            url: '#',
+            linkText: 'Xing',
+            imgSrc: '../../assets/media/image/xing--white.svg',
+          },
+          {
+            url: '#',
+            linkText: 'YouTube',
+            imgSrc: '../../assets/media/image/youtube--white.svg',
+          },
+          {
+            url: '#',
+            linkText: 'linkedIn',
+            imgSrc: '../../assets/media/image/linkedIn--white.svg',
+          },
+        ],
+      },
     },
   },
-  contactVariant: {
-    meta: {
-      title: 'Social Media for contact',
-    },
-    props: {
-      contactVariant: true,
-      socialMediaLinksHeading: {
-        level: 3,
-      },
-      items: [
-        {
-          url: '#',
-          linkText: 'Facebook',
-          imgSrc: '../../assets/media/image/facebook--white.svg',
-        },
-        {
-          url: '#',
-          linkText: 'Xing',
-          imgSrc: '../../assets/media/image/xing--white.svg',
-        },
-        {
-          url: '#',
-          linkText: 'YouTube',
-          imgSrc: '../../assets/media/image/youtube--white.svg',
-        },
-        {
-          url: '#',
-          linkText: 'linkedIn',
-          imgSrc: '../../assets/media/image/linkedIn--white.svg',
-        },
-      ],
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
       },
-    },
-  });
+    });
 
-  return variantData;
-});
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

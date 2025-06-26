@@ -1,4 +1,10 @@
 .mdl-teaser {
+  background-color: $colorWhite !important; // stylelint-disable-line
+
+  .mdl-teaser__content {
+    background-color: $colorWhite !important; // stylelint-disable-line
+  }
+
   .mdl-image-figure__img-wrapper {
     display: flex !important; // stylelint-disable-line
     justify-content: center !important; // stylelint-disable-line
@@ -7,19 +13,5 @@
   .mdl-image-figure__img {
     max-height: 20rem !important; // stylelint-disable-line
     width: auto !important; // stylelint-disable-line
-  }
-}
-/*
-  * COLOR VARIATIONS
-   */
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .mdl-teaser {
-      background-color: $colorWhite;
-    }
-
-    .mdl-teaser--inverted .mdl-teaser__content {
-      background-color: $colorWhite;
-    }
   }
 }

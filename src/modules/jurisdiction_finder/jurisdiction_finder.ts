@@ -10,24 +10,23 @@ import MapView from '../map_view/map_view';
 
 class JurisdictionFinder extends Module {
   public ui: {
-    element: HTMLDivElement,
-    searchButton: HTMLButtonElement,
-    searchInput: HTMLInputElement,
-    searchInputClear: HTMLButtonElement,
-    locations: HTMLDivElement,
-    subtitle: HTMLHeadingElement,
-    map: HTMLDivElement,
+    element: HTMLDivElement;
+    searchButton: HTMLButtonElement;
+    searchInput: HTMLInputElement;
+    searchInputClear: HTMLButtonElement;
+    locations: HTMLDivElement;
+    subtitle: HTMLHeadingElement;
+    map: HTMLDivElement;
   };
 
   public options: {
-    searchDelay: number,
-    domSelectors: any,
-    stateClasses: any,
+    searchDelay: number;
+    domSelectors: any;
+    stateClasses: any;
   };
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       searchDelay: 100,
       domSelectors: {
@@ -60,15 +59,18 @@ class JurisdictionFinder extends Module {
    */
   initEventListeners() {
     // Event listeners
-    this.ui.searchButton.addEventListener('click',
-      () => this.searchLocations(this.ui.searchInput.value ? this.ui.searchInput.value : ''));
+    this.ui.searchButton.addEventListener('click', () =>
+      this.searchLocations(this.ui.searchInput.value ? this.ui.searchInput.value : '')
+    );
     this.ui.searchInput.addEventListener('keypress', (event: any) => {
       if (event.key === 'Enter') {
         this.searchLocations(this.ui.searchInput.value ? this.ui.searchInput.value : '');
         event.preventDefault();
       }
     });
-    this.ui.searchInputClear.addEventListener('click', () => { this.searchLocations(''); });
+    this.ui.searchInputClear.addEventListener('click', () => {
+      this.searchLocations('');
+    });
   }
 
   /**
@@ -81,10 +83,15 @@ class JurisdictionFinder extends Module {
   }
 
   searchLocations(text) {
-    this.ui.subtitle.innerText = this.ui.element.getAttribute('data-heading-pattern').replace('%s', text);
-    this.ui.locations.dispatchEvent(new CustomEvent(Locations.events.filterLocations,
-      { detail: { text, autoOpenSingleItem: true } }));
-    const caption = <HTMLElement> this.ui.element.querySelector('.mdl-locations__subtitle');
+    this.ui.subtitle.innerText = this.ui.element
+      .getAttribute('data-heading-pattern')
+      .replace('%s', text);
+    this.ui.locations.dispatchEvent(
+      new CustomEvent(Locations.events.filterLocations, {
+        detail: { text, autoOpenSingleItem: true },
+      })
+    );
+    const caption = <HTMLElement>this.ui.element.querySelector('.mdl-locations__subtitle');
     caption.style.display = 'none';
     if (text.length > 0) {
       caption.style.display = 'block';

@@ -1,0 +1,18 @@
+<div class="mdl-content_list {{#if additionalClasses}}{{additionalClasses}}{{/if}}">
+    {{#if heading}}
+      <h{{heading.level}}
+        {{#if anchorNavReference}}id="{{anchorNavReference}}" data-anchornav="target"{{/if}}
+        class="atm-heading
+          {{#if_compare heading.visualLevel "!==" heading.level}}h{{heading.visualLevel}}{{/if_compare}}
+          {{#if_compare heading.visualLevel "===" 2 }}atm-heading--bordered{{/if_compare}}
+          {{#if heading.isHidden}}visuallyhidden{{/if}}"
+      >
+        {{heading.title}}
+      </h{{heading.level}}>
+    {{/if}}
+
+    <!-- Standard Topiclist -->
+    {{#if contentListNavData}}
+      {{> "modules/content_nav/content_nav" contentListNavData}}
+    {{/if}}
+</div>

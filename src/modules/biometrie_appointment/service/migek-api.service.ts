@@ -1,14 +1,22 @@
+/* eslint-disable max-classes-per-file */
 import Appointment from '../model/appointment.model';
 
 // TODO: Interfaces an enums are marked as unused by eslint (?)
 /* eslint-disable no-unused-vars */
 import {
   AppointmentDetailsResponse,
-  AppointmentPayload, ErrorResponse,
-  LoginResponse, PostponeResponse, TimeslotPayload,
+  AppointmentPayload,
+  ErrorResponse,
+  LoginResponse,
+  PostponeResponse,
+  TimeslotPayload,
   TimeslotsResponse,
 } from '../model/api-payload.interfaces';
 
+// TODO: Limit method to those which are actually used
+type HttpMethod = 'POST' | 'GET' | 'PUT' | 'DELETE' | 'OPTIONS' | 'HEAD';
+
+// eslint-disable-next-line no-shadow
 export enum ApiFailureType {
   FORBIDDEN,
   UNCHANGED_RESERVATION,
@@ -50,7 +58,8 @@ const HttpStatusCodes = {
 class MigekApiService {
   public static readonly CONFIRMATION_FILENAME = 'Bestätigung_Biometrie.pdf'; // TODO Filename konfigurierbar
 
-  private static readonly FAILURE_MSG_UNCHANGED = 'The start and end time of the reservation is unchanged';
+  private static readonly FAILURE_MSG_UNCHANGED =
+    'The start and end time of the reservation is unchanged';
   private static readonly FAILURE_MSG_SLOTFULL = 'The time slot is fully booked';
 
   private apiBasePath: string;
@@ -133,15 +142,16 @@ class MigekApiService {
     if (!this.currentAppointment || !this.bearerStr) {
       throw new Error('Unexpected runtime error');
     }
-    return this.doPost(this.postponePath, this.getPostponeRequestBody(startTime, endTime))
-      .then((resp) => {
+    return this.doPost(this.postponePath, this.getPostponeRequestBody(startTime, endTime)).then(
+      (resp) => {
         const postponeResp = resp as PostponeResponse;
         this.currentAppointment = postponeResp.reservation;
 
         // eslint-disable-next-line no-underscore-dangle
         this.confirmationPath = postponeResp._links.confirmation.href;
         return new Appointment(this.currentAppointment);
-      });
+      }
+    );
   }
 
   /**
@@ -165,23 +175,19 @@ class MigekApiService {
           if (xhr.status >= HttpStatusCodes.OK && xhr.status < HttpStatusCodes.MULTIPLE) {
             const arrayBuffer = [new Uint8Array(xhr.response)];
             const file = new Blob(arrayBuffer, { type: 'application/pdf' });
-            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-              window.navigator.msSaveOrOpenBlob(file, MigekApiService.CONFIRMATION_FILENAME);
-            } else {
-              const fileURL = URL.createObjectURL(file);
+            const fileURL = URL.createObjectURL(file);
 
-              if (ios12Window) {
-                ios12Window.location.href = fileURL;
-              } else {
-                const hiddenA = document.createElement('a');
-                hiddenA.style.display = 'none';
-                hiddenA.href = fileURL;
-                hiddenA.download = MigekApiService.CONFIRMATION_FILENAME;
-                document.body.appendChild(hiddenA);
-                hiddenA.click();
-                hiddenA.remove();
-                URL.revokeObjectURL(fileURL);
-              }
+            if (ios12Window) {
+              ios12Window.location.href = fileURL;
+            } else {
+              const hiddenA = document.createElement('a');
+              hiddenA.style.display = 'none';
+              hiddenA.href = fileURL;
+              hiddenA.download = MigekApiService.CONFIRMATION_FILENAME;
+              document.body.appendChild(hiddenA);
+              hiddenA.click();
+              hiddenA.remove();
+              URL.revokeObjectURL(fileURL);
             }
           } else {
             throw new Error('API connection failure');
@@ -208,11 +214,11 @@ class MigekApiService {
    */
   private detectIOsVersion(): [number, number, number] | undefined {
     if (/iP(hone|od|ad)/.test(navigator.platform)) {
-      const v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+      const v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
       return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || '0', 10)];
     }
     if (this.isIpadOS()) {
-      const v = (navigator.appVersion).match(/Version\/(\d+).(\d+).?(\d+)?/);
+      const v = navigator.appVersion.match(/Version\/(\d+).(\d+).?(\d+)?/);
       return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || '0', 10)];
     }
     return undefined;
@@ -222,10 +228,13 @@ class MigekApiService {
    * Method to check for new gen. IPads version (which can not be detected by "navigator.platform")
    */
   private isIpadOS() {
-    // eslint-disable-next-line no-magic-numbers
-    return navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform);
+    return (
+      navigator.maxTouchPoints &&
+      navigator.maxTouchPoints > 2 && // eslint-disable-line no-magic-numbers
+      /MacIntel/.test(navigator.platform)
+    );
   }
-  
+
   public logoutReset(): void {
     this.bearerStr = undefined;
     this.currentAppointment = undefined;
@@ -243,10 +252,11 @@ class MigekApiService {
 
   private getPostponeRequestBody(startTime: string, endTime: string): string {
     if (this.currentAppointment) {
-      const reqAppointment = Object.assign({}, this.currentAppointment, {
+      const reqAppointment = {
+        ...this.currentAppointment,
         from: startTime,
         until: endTime,
-      });
+      };
       return JSON.stringify(reqAppointment);
     }
     return '';
@@ -297,7 +307,10 @@ class MigekApiService {
   }
 
   private handleConnectionFailure(xhr: XMLHttpRequest): ApiConnectionFailure {
-    let failure = new ApiConnectionFailure(ApiFailureType.UNKNOWN, 'Unexpected API connection failure!');
+    let failure = new ApiConnectionFailure(
+      ApiFailureType.UNKNOWN,
+      'Unexpected API connection failure!'
+    );
     if (xhr.status === HttpStatusCodes.FORBIDDEN) {
       failure = new ApiForbidden();
     } else if (xhr.status === HttpStatusCodes.BAD_REQUEST) {
@@ -319,8 +332,5 @@ class MigekApiService {
     return failure;
   }
 }
-
-// TODO: Limit method to those which are actually used
-type HttpMethod = 'POST' | 'GET' | 'PUT' | 'DELETE' | 'OPTIONS' | 'HEAD';
 
 export default MigekApiService;

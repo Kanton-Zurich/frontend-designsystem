@@ -24,7 +24,7 @@ export interface CugLoginModuleOptions {
     unauthenticatedLogin: string;
     unauthorizedLogin: string;
     loginOk: string;
-  },
+  };
   domSelectors: ModuleDomSelectors;
   stateClasses: ModuleStateClasses;
 }
@@ -48,7 +48,8 @@ const stateClasses: ModuleStateClasses = {
   loading: 'mdl-cug_login--loading',
   loginBtnLoading: 'atm-button--loading',
 };
-export const CugLoginDefaultOptions: CugLoginModuleOptions = { // eslint-disable-line
+export const CugLoginDefaultOptions: CugLoginModuleOptions = {
+  // eslint-disable-line
   devModeAttr: 'data-cug_login-devmode',
   mockAssets: {
     emptyResponse: '/mocks/modules/cug_login/login_empty.json',

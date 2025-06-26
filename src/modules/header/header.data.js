@@ -4,7 +4,13 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
 const modalData = require('../modal/modal.data');
-const devUserMenuData = require('../user_menu/user_menu.data').variants.loggedIn.props;
+const devUserMenuDataLoggedIn = require('../user_menu/user_menu.data').variants.loggedIn.props;
+const devUserMenuDataLoggedOut = require('../user_menu/user_menu.data').variants.loggedOut.props;
+const devUserMenuDataInvertedLoggedIn = require('../user_menu/user_menu.data').variants
+  .loggedInInverted.props;
+const devUserMenuDataInvertedLoggedOut = require('../user_menu/user_menu.data').variants
+  .loggedOutInverted.props;
+const logoData = require('../../atoms/logo/logo.data').variants;
 
 const template = dataHelper.getFileContent('header.hbs');
 const data = _.merge({}, defaultData, {
@@ -16,6 +22,8 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
+    userMenu: false,
+    logo: logoData.linked.props,
     navItem: [
       {
         title: 'Themen',
@@ -36,62 +44,65 @@ const data = _.merge({}, defaultData, {
     ],
   },
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-    },
-  },
-  inverted: {
-    meta: {
-      title: 'Invertiert',
-      desc: 'Head Module ignoriert Farbschema und wird einfach plain schwarz/weiss dargestellt',
-    },
-    props: {
-      inverted: true,
-      hasUserMenu: true,
-      userMenu: devUserMenuData,
-    },
-  },
-  userMenu: {
-    meta: {
-      title: 'Mit User Menu',
-      desc: 'Head Module mit User-Menu',
-    },
-    props: {
-      hasUserMenu: true,
-      userMenu: devUserMenuData,
-    },
-  },
-  userMenuInv: {
-    meta: {
-      title: 'Mit User Menu (invertiert)',
-      desc: 'Invertiertes HeadModule mit User-Menu',
-    },
-    props: {
-      inverted: true,
-      hasUserMenu: true,
-      userMenu: devUserMenuData,
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
-
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+const variants = _.mapValues(
+  {
+    defaultWithUserLoggedOut: {
+      meta: {
+        title: 'Standard User ausgeloggt',
+        desc: 'Standard Variante mit augeloggtem Benutzer',
+      },
+      props: {
+        userMenu: devUserMenuDataLoggedOut,
       },
     },
-  });
+    defaultWithUserLoggedIn: {
+      meta: {
+        title: 'Standard User eingeloggt',
+        desc: 'Standard Variante mit eingeloggtem Benutzer',
+      },
+      props: {
+        userMenu: devUserMenuDataLoggedIn,
+      },
+    },
+    invertedWithUserLoggedOut: {
+      meta: {
+        title: 'Invertiert User ausgeloggt',
+        desc: 'Invertierte Variante mit ausgeloggtem Benutzer',
+      },
+      props: {
+        inverted: true,
+        userMenu: devUserMenuDataInvertedLoggedOut,
+      },
+    },
+    invertedWithUserLoggedIn: {
+      meta: {
+        title: 'Invertiert User eingeloggt',
+        desc: 'Invertierte Variante mit eingeloggtem Benutzer',
+      },
+      props: {
+        inverted: true,
+        userMenu: devUserMenuDataInvertedLoggedIn,
+      },
+    },
+  },
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-  return variantData;
-});
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
+      },
+    });
+
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

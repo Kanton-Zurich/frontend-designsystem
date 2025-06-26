@@ -1,0 +1,19 @@
+<div class="mdl-key_visual">
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+      <div class="cell {{#if personCardData}}medium-offset-2 large-offset-2 xlarge-offset-2 medium-9 large-8{{/if}}">
+        {{#if imageData}}
+            {{> "modules/image_figure/image_figure" imageData}}
+        {{/if}}
+
+        {{#if videoData}}
+          {{> "modules/video/video" videoData}}
+        {{/if}}
+
+        {{#if personCardData}}
+          {{> "modules/person_card/person_card" personCardData}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,23 +8,22 @@ import Module from '../../assets/js/helpers/module';
 
 class Metablock extends Module {
   public ui: {
-    element: HTMLDListElement,
+    element: HTMLDListElement;
   };
 
   public options: {
     domSelectors: {
-      buttons: string,
-      done: string,
-      notification: string,
-    },
+      buttons: string;
+      done: string;
+      notification: string;
+    };
     stateClasses: {
-      hidden: string,
-    }
+      hidden: string;
+    };
   };
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       domSelectors: {
         buttons: '[data-metablock="copy"]',
@@ -55,7 +54,8 @@ class Metablock extends Module {
       this.copyTextToClipboard(event.target);
     });
     this.eventDelegate.on('click', this.options.domSelectors.done, () => {
-      this.ui.element.querySelector(this.options.domSelectors.notification)
+      this.ui.element
+        .querySelector(this.options.domSelectors.notification)
         .classList.add(this.options.stateClasses.hidden);
     });
   }
@@ -66,7 +66,7 @@ class Metablock extends Module {
    * @param {HTMLElement}
    * @return {void}
    */
-  private copyTextToClipboard(target: HTMLElement):void {
+  private copyTextToClipboard(target: HTMLElement): void {
     const el = document.createElement('textarea');
 
     el.value = target.closest('dd').querySelector('span').innerText;
@@ -74,9 +74,8 @@ class Metablock extends Module {
     el.style.position = 'absolute';
     el.style.left = '-9999px';
     document.body.appendChild(el);
-    const selected = document.getSelection().rangeCount > 0
-      ? document.getSelection().getRangeAt(0)
-      : false;
+    const selected =
+      document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
@@ -91,12 +90,14 @@ class Metablock extends Module {
   /**
    * Show notification message - and hide after 2 seconds
    */
-  private showNotification():void {
+  private showNotification(): void {
     const notificationFlashTime = 2000;
-    this.ui.element.querySelector(this.options.domSelectors.notification)
+    this.ui.element
+      .querySelector(this.options.domSelectors.notification)
       .classList.remove(this.options.stateClasses.hidden);
     setTimeout(() => {
-      this.ui.element.querySelector(this.options.domSelectors.notification)
+      this.ui.element
+        .querySelector(this.options.domSelectors.notification)
         .classList.add(this.options.stateClasses.hidden);
     }, notificationFlashTime);
   }

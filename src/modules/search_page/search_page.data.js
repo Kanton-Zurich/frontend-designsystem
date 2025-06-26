@@ -5,7 +5,7 @@ const defaultData = require('../../data/default.data.js');
 
 const formInputData = require('../../atoms/form_input/form_input.data');
 const paginationData = require('../pagination/pagination.data');
-const defNotificationData = require('../../modules/notification/notification.data').variants.default.props;
+const defNotificationData = require('../notification/notification.data').variants.default.props;
 const contentTeaser = require('../../atoms/content_teaser/content_teaser.data');
 const defButtonData = require('../../atoms/button/button.data.js');
 const datepicker = require('../datepicker/datepicker.data');
@@ -26,8 +26,7 @@ const data = _.merge({}, defaultData, {
       autosuggestURL: '/mocks/modules/search/search.json',
     }),
     pagination: paginationData.props,
-    templates: {
-    },
+    templates: {},
     autosuggestTemplate: contentTeaser.variants.default.meta.code.template,
     contentNav: {
       items: [],
@@ -44,30 +43,33 @@ const data = _.merge({}, defaultData, {
     }),
   },
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: '',
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
-
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Default',
+        desc: '',
       },
     },
-  });
+  },
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-  return variantData;
-});
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
+      },
+    });
+
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

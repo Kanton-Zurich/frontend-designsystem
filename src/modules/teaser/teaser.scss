@@ -1,28 +1,58 @@
-$maxTextLines: 6;
-$maxTextLinesDesktop: 4;
+$teaserMargins: (
+  marginBottom: (
+    tiny: pxToRem($sizeBiggerBig),
+    large: pxToRem($sizeHuge),
+  ),
+);
 
 .mdl-teaser {
-  $teaserMargins: (
-    marginBottom: (
-      tiny: $sizeBiggerBig,
-      large: $sizeHuge,
-    ),
-  );
   text-decoration: none;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  position: relative;
 
-  @include sizeCurve(margin-bottom, marginBottom, $teaserMargins);
+  @include sizeCurve('margin-bottom', marginBottom, $teaserMargins);
+
+  &:before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: pxToRem(-$sizeTiny);
+    left: pxToRem(-$sizeTiny);
+    width: calc(100% + #{$sizeRegular});
+    height: calc(100% + #{$sizeRegular});
+    background-color: $colorBlack10;
+  }
+
+  // HOVER OVER ITEMS
+  &:hover {
+    z-index: $zIndexInner;
+
+    &:before {
+      background-color: $colorBorderFrameHover;
+    }
+
+    .atm-heading,
+    time,
+    p {
+      color: var(--color-text);
+    }
+  }
+
+  &--with-margins {
+    @include sizeCurve('margin-block', big);
+  }
 
   &--article {
     margin-bottom: 0;
+
     // News Teaser Overwrites
     & + .mdl-news-teaser {
       padding-top: 0;
       padding-bottom: 0;
-      background-color: $white;
+      background-color: var(--color-bg);
       transform: translateX(-50%);
     }
   }
@@ -30,9 +60,8 @@ $maxTextLinesDesktop: 4;
   &__title.atm-heading {
     line-height: $sizeLineHeightNarrow;
 
-    @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
-    @include sizeCurve('padding-top', regular);
     @include sizeCurve('margin-bottom', regular);
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, big));
     @include mq($to: small) {
       line-height: $sizeLineHeightMedium;
     }
@@ -41,15 +70,26 @@ $maxTextLinesDesktop: 4;
     }
   }
 
+  &__title--smaller.atm-heading {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
+  }
+
   &__content {
-    padding: $sizeBig;
     display: flex;
     flex-direction: column;
+    background-color: var(--color-bg);
+
+    @include sizeCurve('padding', smallerLarge);
 
     div:last-of-type {
       order: 3;
-      margin-top: auto;
     }
+  }
+
+  &__content,
+  &__image {
+    position: relative;
+    z-index: $zIndexInner;
   }
 
   &__title,
@@ -63,52 +103,43 @@ $maxTextLinesDesktop: 4;
   &__label {
     order: 1;
     font-family: $fontFamilyBlack;
-    font-size: $sizeFontTiny;
-    color: rgba($colorBlack, 0.6);
-    margin: 0;
+    font-size: pxToRem($sizeFontTiny);
+    color: var(--color-text-soft);
+    margin: pxToRem($sizeMini) 0;
     word-break: break-all;
 
     time {
       font-family: $fontFamilyBase;
+      margin-left: pxToRem($sizeMini);
     }
   }
 
   .atm-heading {
     order: 2;
-    color: $colorBlack100;
-    margin: 4px 0 $sizeTiny;
+    color: var(--color-accent);
     padding-top: 0;
     word-break: break-word;
 
-    $titleHeightCurve: (
-      tiny: $sizeFontLarge * $sizeLineHeightMedium * $maxTextLines ,
-      small: $sizeFontSmallBig * $sizeLineHeightNarrow * $maxTextLinesDesktop,
-      medium: $sizeFontBig * $sizeLineHeightNarrow * $maxTextLinesDesktop ,
-      large: $sizeFontBiggerBig * $sizeLineHeightNarrow * $maxTextLinesDesktop,
-      xlarge: $sizeFontSmallHuge * $sizeLineHeightNarrower * $maxTextLinesDesktop,
-    );
-
-    @include polyFluidSizing(max-height, $titleHeightCurve);
+    @include lineClamp(6);
+    @include mq($from: large) {
+      @include lineClamp(4);
+    }
   }
 
   &__description {
     order: 3;
-    color: $colorBlack60;
+    color: var(--color-text-soft);
     margin: 0;
     hyphens: auto;
-
-    $descripionHeightCurve: (
-      tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLines,
-      xsmall: $sizeFontSmall * $sizeLineHeightBase * $maxTextLines,
-      small: $sizeFontRegular * $sizeLineHeightBase * $maxTextLinesDesktop,
-      large: $sizeFontBiggerRegular * $sizeLineHeightBase * $maxTextLinesDesktop,
-    );
-
-    @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
-    @include polyFluidSizing('max-height', $descripionHeightCurve);
-
     line-height: $sizeLineHeightBase;
     overflow: hidden;
+
+    @include lineClamp(6);
+    @include mq($from: large) {
+      @include lineClamp(4);
+    }
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, smallModFontSizeH5H6));
+    @include sizeCurve('margin-bottom', regular);
   }
 
   &__description + div {
@@ -116,25 +147,51 @@ $maxTextLinesDesktop: 4;
   }
 
   .atm-button {
-    margin-top: $sizeRegular;
     display: inline-flex;
     height: 2rem;
 
     span {
-      font-size: $sizeFontSmall;
+      font-size: pxToRem($sizeFontSmall);
     }
   }
 
+  &__icon-easy-language {
+    width: 1rem;
+    height: 1rem;
+    margin-right: $sizeTiny;
+  }
+
   &--inverted {
+    &:before {
+      display: none;
+    }
+
+    .atm-heading,
+    time,
+    p {
+      color: var(--color-accent-soft);
+    }
+
+    &:hover {
+      .atm-heading,
+      time,
+      p {
+        color: var(--color-bg);
+      }
+    }
 
     .mdl-teaser__content {
-      background-color: $colorBlack100;
+      background-color: var(--color-accent);
     }
 
     .mdl-teaser__label,
-    .mdl-teaser__title,
+    .mdl-teaser__date,
     .mdl-teaser__description {
-      color: $colorWhite;
+      color: var(--color-accent-soft);
+    }
+
+    .mdl-teaser__title {
+      color: var(--color-bg);
     }
   }
 
@@ -151,25 +208,20 @@ $maxTextLinesDesktop: 4;
 
   @include mq($from: tiny) {
     &__wrapper {
-      @include gridBleed();
-    }
-
-    .atm-heading {
-      margin: 4px 0 $sizeRegular;
+      @include gridBleed($fullwidth: true);
     }
   }
   @include mq($from: large) {
     flex-direction: row;
 
     &__wrapper + .mdl-teaser__wrapper {
-      margin-top: $sizeGiant;
+      margin-top: pxToRem($sizeGiant);
     }
 
     &__content,
     &__image {
       flex-basis: 50%;
       flex-grow: 1;
-      position: relative;
     }
 
     &--left {
@@ -177,31 +229,17 @@ $maxTextLinesDesktop: 4;
     }
 
     &--noImage {
-      max-width: 622px;
+      max-width: pxToRem(622px);
 
       .mdl-teaser__content {
         max-width: 100%;
       }
     }
 
-    .atm-heading {
-      margin: 4px 0 $sizeSmallLarge;
-    }
-
-    .atm-button {
-      margin-top: $sizeLarge;
-    }
-
     &__content {
-      padding: $sizeBiggerBig;
       display: flex;
       flex-direction: column;
       max-width: 50%;
-    }
-
-    &__title + div:not(.mdl-teaser__description),
-    &__description + div {
-      margin-top: auto;
     }
 
     &__image {
@@ -222,41 +260,8 @@ $maxTextLinesDesktop: 4;
     }
   }
   @include mq($from: xlarge) {
-    .atm-heading {
-      margin: 4px 0 $sizeLarge;
-    }
-
-    &__content {
-      padding: $sizeHuge;
-    }
-
     &--noImage {
-      max-width: 770px;
-    }
-  }
-}
-
-
-/*
-  * COLOR VARIATIONS
-   */
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .mdl-teaser {
-      background-color: $colorWhite;
-    }
-
-    .mdl-teaser__title {
-      color: #{$val};
-    }
-
-    .mdl-teaser--inverted .mdl-teaser__content {
-      background-color: #{$val};
-
-      time,
-      .mdl-teaser__title {
-        color: $colorWhite;
-      }
+      max-width: pxToRem(770px);
     }
   }
 }

@@ -10,19 +10,18 @@ import ContextMenu from '../context_menu/context_menu';
 class PublicationTeaser extends Module {
   public options: {
     domSelectors: {
-      openContext: string,
-      contextMenu: string,
-    },
-    stateClasses: Object,
+      openContext: string;
+      contextMenu: string;
+    };
+    stateClasses: Object;
   };
 
   public ui: {
-    element: any,
+    element: any;
   };
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       domSelectors: {
         openContext: '[data-download_list="openContext"]',
@@ -44,9 +43,7 @@ class PublicationTeaser extends Module {
   /**
    * Event listeners initialisation
    */
-  initEventListeners() {
-
-  }
+  initEventListeners() {}
 
   /**
    * Initializing the context menus
@@ -54,17 +51,22 @@ class PublicationTeaser extends Module {
    * @memberof DownloadList
    */
   initContextMenus() {
-    const buttonsInList = [].slice
-      .call(this.ui.element.querySelectorAll(this.options.domSelectors.openContext));
+    const buttonsInList = [].slice.call(
+      this.ui.element.querySelectorAll(this.options.domSelectors.openContext)
+    );
 
     buttonsInList.forEach((button) => {
       const listElement = button.parentNode;
       const contextMenu = listElement.querySelector(this.options.domSelectors.contextMenu);
 
-      new ContextMenu(contextMenu, {}, {
-        attachTo: listElement,
-        trigger: button,
-      });
+      new ContextMenu(
+        contextMenu,
+        {},
+        {
+          attachTo: listElement,
+          trigger: button,
+        }
+      );
     });
   }
 

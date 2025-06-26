@@ -1,4 +1,4 @@
-<div class="mdl-decision_tree" data-init="decisionTree">
+<div class="mdl-decision_tree" data-anchornav="fullwidth" data-init="decisionTree">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
@@ -12,14 +12,14 @@
               {{#unless endpoint}}
             <div class="mdl-decision_tree__navigation-step" data-step="{{@index}}">
               <dl class="mdl-descriptionlist">
-                  {{#each groups.0.rows}}
-                    {{#unless endpoint }}
+                {{#each groups.0.rows}}
+                  {{#each this.fields}}
                   <div data-step-item>
-                    <dt>{{fields.0.cellTitle}}</dt>
+                    <dt>{{this.cellTitle}}</dt>
                     <dd><%--value%></dd>
                   </div>
-                    {{/unless}}
                   {{/each}}
+                {{/each}}
               </dl>
               {{> "atoms/button/button" ../editButton }}
             </div>

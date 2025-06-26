@@ -10,8 +10,17 @@
           <div class="form__row">
           {{#each fields}}
             <div class="form__cell{{#if isSmall}} form__cell--small{{/if}}">
-              {{#if cellTitle}}
-                <h{{../../../headingLevel}} class="atm-heading">{{cellTitle}}</h{{../../../headingLevel}}>
+              {{#if headingLevel}}
+                <h{{headingLevel}} class="atm-heading
+                  {{#if_compare visualHeadingLevel "!==" headingLevel}}h{{visualHeadingLevel}}{{/if_compare}}
+                  {{#if_compare visualHeadingLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+                >{{cellTitle}}</h{{headingLevel}}>
+              {{else}}
+                {{#if cellTitle}}
+                  <h{{../../../headingLevel}} class="atm-heading {{#if_compare ../../../headingLevel "===" 2 }} atm-heading--bordered {{/if_compare}}">
+                    {{cellTitle}}
+                  </h{{../../../headingLevel}}>
+                {{/if}}
               {{/if}}
               {{#if tooltipBefore}}
                 {{#if tooltip}}

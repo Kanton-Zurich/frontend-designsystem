@@ -1,13 +1,49 @@
+@use 'sass:math';
+
 $gapSize: pxToRem($sizeRegular);
 
 .form {
-
   &__section {
     border: 0;
     margin: 0;
     padding: 0;
 
     min-width: 0;
+  }
+
+  &__section--two-columns {
+    column-count: 1;
+
+    @include mq($from: medium) {
+      column-count: 2;
+
+      &:has(> :nth-child(2):last-child) {
+        display: flex;
+        align-items: flex-start;
+      }
+    }
+    column-gap: 1em;
+
+    .form__group {
+      margin: 0 0 1em;
+      break-inside: avoid;
+    }
+
+    .form__group + .form__group {
+      margin-top: inherit;
+    }
+
+    .form__row {
+      display: grid;
+    }
+
+    .form__cell:first-child {
+      font-family: $fontFamilyBlack;
+    }
+
+    .form__group .form__cell:nth-child(2) {
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
   }
 
   &__section-title {
@@ -23,8 +59,8 @@ $gapSize: pxToRem($sizeRegular);
   }
 
   &__group {
-    margin-left: -($gapSize/2);
-    margin-right: -($gapSize/2);
+    margin-left: -1 * math.div($gapSize, 2);
+    margin-right: -1 * math.div($gapSize, 2);
 
     .form__group--duplicatable {
       margin: 0;
@@ -68,7 +104,6 @@ $gapSize: pxToRem($sizeRegular);
 
   &__duplicated {
     position: relative;
-    margin: inherit $gapSize/-2;
 
     @include mq($to: small) {
       margin-right: 45px;
@@ -79,7 +114,7 @@ $gapSize: pxToRem($sizeRegular);
     }
 
     .form__remover {
-      padding: 0 $gapSize/2;
+      padding: 0 math.div($gapSize, 2);
       position: absolute;
       right: 0;
       transform: translateX(100%);
@@ -104,8 +139,8 @@ $gapSize: pxToRem($sizeRegular);
   }
 
   &__cell {
-    padding: 0 $gapSize/2;
-    flex: 1 1 0px; //stylelint-disable-line
+    padding: 0 math.div($gapSize, 2);
+    flex: 1 1 0; //stylelint-disable-line
 
     &:first-child:last-child {
       flex-basis: 100%;
@@ -203,7 +238,7 @@ $gapSize: pxToRem($sizeRegular);
   }
 
   &__duplicator {
-    margin-left: $gapSize/2;
+    margin-left: math.div($gapSize, 2);
     display: flex;
 
     .icon {
@@ -234,7 +269,6 @@ $gapSize: pxToRem($sizeRegular);
       }
     }
   }
-
 
   &__element {
     &--hidden-by-rule {

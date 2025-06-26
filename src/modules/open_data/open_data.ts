@@ -7,19 +7,19 @@
 import Module from '../../assets/js/helpers/module';
 import namespace from '../../assets/js/helpers/namespace';
 import { sanitizeFileSize } from '../../assets/js/helpers/common';
-import { template } from 'lodash';
+import template from 'lodash/template';
 
 class OpenData extends Module {
   public options: {
-    domSelectors: any,
-    stateClasses: any,
-    apiCalls: Array<string>,
+    domSelectors: any;
+    stateClasses: any;
+    apiCalls: Array<string>;
   };
 
   public ui: {
-    element: HTMLDivElement,
-    wrapper: HTMLDivElement|HTMLUListElement,
-    template: HTMLScriptElement,
+    element: HTMLDivElement;
+    wrapper: HTMLDivElement | HTMLUListElement;
+    template: HTMLScriptElement;
   };
 
   public data: {
@@ -72,9 +72,9 @@ class OpenData extends Module {
   }
 
   renderResults() {
-    const filtered = this.data.resources.filter(el => el !== null);
+    const filtered = this.data.resources.filter((el) => el !== null);
 
-    const resources = filtered.map(resource => ({
+    const resources = filtered.map((resource) => ({
       title: resource.title[window[namespace].lang],
       url: resource.download_url,
       label: this.sanitizeLabel(resource.modified, resource.byte_size, resource.format),
@@ -89,31 +89,31 @@ class OpenData extends Module {
 
   async loadData() {
     const promises = [];
-
-    if (!window.fetch) {
-      await import('whatwg-fetch');
-    }
-
     this.data.resources = new Array(this.options.apiCalls.length);
     this.options.apiCalls.forEach((resourceURL, index) => {
-      promises.push(fetch(resourceURL, {})
-        .then(response => response.json())
-        .then((response) => {
-          if (response && response.success) {
-            this.data.resources[index] = response.result;
-          }
-        }));
+      promises.push(
+        fetch(resourceURL, {})
+          .then((response) => response.json())
+          .then((response) => {
+            if (response && response.success) {
+              this.data.resources[index] = response.result;
+            }
+          })
+      );
     });
 
     return Promise.all(promises);
   }
 
   sanitizeLabel(modifiedDate, byteSize, format) {
-    const formattedDate = new Date(modifiedDate).toLocaleDateString(`${window[namespace].lang}-CH`, {
-      year: 'numeric',
-      month: '2-digit',
-      day: 'numeric',
-    });
+    const formattedDate = new Date(modifiedDate).toLocaleDateString(
+      `${window[namespace].lang}-CH`,
+      {
+        year: 'numeric',
+        month: '2-digit',
+        day: 'numeric',
+      }
+    );
 
     return [formattedDate, sanitizeFileSize(byteSize), format].join(' | ');
   }

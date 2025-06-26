@@ -16,7 +16,8 @@ const downloadButtonItem = {
   isButton: true,
   linkListItemHref: false,
 };
-const downloadLegalFoundation = require('../../atoms/linklist_item/linklist_item.data').variants.legalFoundation.props;
+const downloadLegalFoundation = require('../../atoms/linklist_item/linklist_item.data').variants
+  .legalFoundation.props;
 
 const contextMenuDownload = require('../context_menu/context_menu.data').variants.download.props;
 
@@ -28,12 +29,22 @@ const data = _.merge({}, defaultData, {
     jira: 'CZHDEV-172',
     label: 'Liste',
     documentation: dataHelper.getDocumentation('README.md'),
-    disabledColorVariations: ['cv-monochrome', 'cv-turqoise', 'cv-bordeaux', 'cv-magenta', 'cv-violet', 'cv-green', 'cv-darkblue', 'cv-anthracite'],
+    disabledColorVariations: [
+      'cv-monochrome',
+      'cv-turqoise',
+      'cv-bordeaux',
+      'cv-magenta',
+      'cv-violet',
+      'cv-green',
+      'cv-darkblue',
+      'cv-anthracite',
+    ],
   },
   props: {
-    title: {
+    heading: {
       level: 2,
-      text: 'H2: Titel',
+      visualLevel: 2,
+      title: 'H2: Titel',
     },
     links: [
       {
@@ -62,122 +73,128 @@ const data = _.merge({}, defaultData, {
   },
 });
 
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Standard mit h2',
-      desc: 'Eine Downloadliste mit h2-Titel',
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Standard mit h2',
+        desc: 'Eine Downloadliste mit h2-Titel',
+      },
     },
-  },
-  h3: {
-    meta: {
-      title: 'Standard mit h3',
-      desc: 'Eine Downloadliste mit h3-Titel',
+    h3: {
+      meta: {
+        title: 'Standard mit h3',
+        desc: 'Eine Downloadliste mit h3-Titel',
+      },
+      props: {
+        heading: {
+          level: 3,
+          visualLevel: 3,
+          title: 'H3: Titel',
+        },
+      },
     },
-    props: {
-      title: {
-        level: 3,
-        text: 'H3: Titel',
+    h4: {
+      meta: {
+        title: 'Standard mit h4',
+        desc: 'Eine Downloadliste mit h4-Titel',
+      },
+      props: {
+        heading: {
+          level: 4,
+          visualLevel: 4,
+          title: 'H4: Titel',
+        },
+      },
+    },
+    defaultWithoutTitle: {
+      meta: {
+        title: 'Standard ohne Titel',
+        desc: 'Eine Downloadliste ohne Titel',
+      },
+      props: {
+        heading: false,
+      },
+    },
+    defaultWithoutTitleLast: {
+      meta: {
+        title: 'Standard ohne Titel',
+        desc: 'Eine Downloadliste ohne Titel',
+      },
+      props: {
+        heading: false,
+        isLast: true,
+      },
+    },
+    legalFoundationDownloadList: {
+      meta: {
+        title: 'Rechtliche Grundlagen',
+        desc: 'Eine Downloadliste mit rechtlichen Grundlagen',
+      },
+      props: {
+        heading: {
+          level: 3,
+          visualLevel: 3,
+          title: 'Rechtliche Grundlagen',
+        },
+        links: [
+          {
+            link: downloadLegalFoundation,
+          },
+          {
+            link: downloadLegalFoundation,
+          },
+          {
+            link: downloadLegalFoundation,
+          },
+          {
+            link: downloadLegalFoundation,
+          },
+        ],
+      },
+    },
+    legalFoundationDownloadListNoTitle: {
+      meta: {
+        title: 'Rechtliche Grundlagen (ohne Titel)',
+        desc: 'Eine Downloadliste mit rechtlichen Grundlagen (kein Titel)',
+      },
+      props: {
+        heading: false,
+        links: [
+          {
+            link: downloadLegalFoundation,
+          },
+          {
+            link: downloadLegalFoundation,
+          },
+          {
+            link: downloadLegalFoundation,
+          },
+          {
+            link: downloadLegalFoundation,
+          },
+        ],
       },
     },
   },
-  h4: {
-    meta: {
-      title: 'Standard mit h4',
-      desc: 'Eine Downloadliste mit h4-Titel',
-    },
-    props: {
-      title: {
-        level: 4,
-        text: 'H4: Titel',
-      },
-    },
-  },
-  defaultWithoutTitle: {
-    meta: {
-      title: 'Standard ohne Titel',
-      desc: 'Eine Downloadliste ohne Titel',
-    },
-    props: {
-      title: false,
-    },
-  },
-  defaultWithoutTitleLast: {
-    meta: {
-      title: 'Standard ohne Titel',
-      desc: 'Eine Downloadliste ohne Titel',
-    },
-    props: {
-      title: false,
-      isLast: true,
-    },
-  },
-  legalFoundationDownloadList: {
-    meta: {
-      title: 'Rechtliche Grundlagen',
-      desc: 'Eine Downloadliste mit rechtlichen Grundlagen',
-    },
-    props: {
-      title: {
-        level: 3,
-        text: 'Rechtliche Grundlagen',
-      },
-      links: [
-        {
-          link: downloadLegalFoundation,
-        },
-        {
-          link: downloadLegalFoundation,
-        },
-        {
-          link: downloadLegalFoundation,
-        },
-        {
-          link: downloadLegalFoundation,
-        },
-      ],
-    },
-  },
-  legalFoundationDownloadListNoTitle: {
-    meta: {
-      title: 'Rechtliche Grundlagen (ohne Titel)',
-      desc: 'Eine Downloadliste mit rechtlichen Grundlagen (kein Titel)',
-    },
-    props: {
-      title: false,
-      links: [
-        {
-          link: downloadLegalFoundation,
-        },
-        {
-          link: downloadLegalFoundation,
-        },
-        {
-          link: downloadLegalFoundation,
-        },
-        {
-          link: downloadLegalFoundation,
-        },
-      ],
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
       },
-    },
-  });
+    });
 
-  return variantData;
-});
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

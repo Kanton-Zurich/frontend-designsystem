@@ -1,0 +1,43 @@
+<div class="mdl-richtext" tabindex="0">
+  <h{{headingLevel}} class="h2 atm-heading atm-heading--with-lead">{{heading}}</h{{headingLevel}}>
+  <p class="atm-paragraph">{{{paragraph}}}</p>
+</div>
+<!-- hardcoded richtext section -->
+<div class="mdl-richtext">
+  <ul>
+    {{#each reasons}}
+      <li{{#if this.rules}} data-rules-no-inheritance="true" data-rules="{{this.rules}}"{{/if}}>{{{this.reason}}}</li>
+    {{/each}}
+  </ul>
+</div>
+<!-- / hardcoded richtext section -->
+<div class="mdl-richtext">
+  <h{{headingLevel}} class="h2 atm-heading atm-heading--with-lead">{{explanation.heading}}</h{{headingLevel}}>
+  <p class="atm-paragraph">{{{explanation.paragraph1}}}</p>
+  <p class="atm-paragraph">{{{explanation.paragraph2}}}</p>
+  <h{{headingLevel}} class="h2 atm-heading atm-heading--with-lead">{{examGradeNeeded.heading}}</h{{headingLevel}}>
+</div>
+{{#each examGradeNeeded.schools}}
+  <div class="mdl-decision_tree__result-block"
+    data-rules-no-inheritance="true"
+    {{#if this.rules}}data-rules="{{this.rules}}"{{/if}}>
+    <h{{increment ../headingLevel}} class="h3 atm-heading">{{this.heading}}</h{{increment ../headingLevel}}>
+    <div class="mdl-richtext">
+      <p class="atm-paragraph">{{{this.paragraph}}}</p>
+    </div>
+    <div class="mdl-linklist">
+      <ul class="mdl-linklist__list">
+        <li class="mdl-linklist__item">
+          <a class="atm-linklist_item" href="{{this.linkHref}}">
+            <span class="atm-linklist_item__text">
+              <span>{{this.linkText}}</span>
+            </span>
+            <svg class="icon atm-linklist_item__arrow" focusable="false">
+              <use xlink:href="#arrow-right"></use>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+{{/each}}

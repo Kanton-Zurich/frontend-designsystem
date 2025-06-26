@@ -1,0 +1,7 @@
+<div class="mdl-policy_area_list" data-init="policyAreaList">
+  {{#if isHome }}
+    {{> "modules/content_nav/content_nav" contentNavData }}
+  {{else}}
+    {{> "modules/related_content/related_content" this }}
+  {{/if}}
+</div>

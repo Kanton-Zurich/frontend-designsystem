@@ -34,8 +34,7 @@ const data = _.merge({}, defaultData, {
           routeLinkHref: '#',
           routeLinkLabel: 'Route anzeigen',
         },
-        contactPhone: [
-        ],
+        contactPhone: [],
         contactMail: {
           address: 'info@sk.zh.ch',
         },

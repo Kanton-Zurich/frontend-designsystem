@@ -1,19 +1,13 @@
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .searchhighlight { // stylelint-disable-line
-      color: #{$val};
-      background-color: #{mix($val, $colorWhite, 5%)};
-    }
-    // Invert on modules/atomes that already has the theme-color applied
-    .mdl-texthighlight {
-      .searchhighlight {
-        color: #{mix($val, $colorWhite, 5%)};
-        background-color: #{$val};
-      }
-    }
-  }
-}
-
 .searchhighlight {
   word-break: keep-all;
+  color: var(--color-accent);
+  background-color: var(--color-accent-soft);
+}
+
+// Invert on modules/atomes that already has the theme-color applied
+.mdl-texthighlight {
+  .searchhighlight {
+    color: var(--color-accent-soft);
+    background-color: var(--color-accent);
+  }
 }

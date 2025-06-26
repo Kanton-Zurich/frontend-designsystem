@@ -4,7 +4,8 @@ const dataHelper = require('@unic/estatico-data');
 dataHelper.getFileContent('biometrie_appointment_page.mock.hbs');
 
 const data = {
-  canonical: 'https://ma.zh.ch/internet/sicherheitsdirektion/migrationsamt/de/einreise_aufenthalt/ausweise_bewilligungsarten/biometrie.html',
+  canonical:
+    'https://ma.zh.ch/internet/sicherheitsdirektion/migrationsamt/de/einreise_aufenthalt/ausweise_bewilligungsarten/biometrie.html',
   biometrieData: biometrieData.variants.biometrie.props,
   pageHeader: {
     pageTitle: 'Termin verschieben',

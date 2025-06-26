@@ -3,9 +3,11 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.fullsize.props;
-const headerData = require('../../modules/header/header.data').props;
+const headerData = require('../../modules/header/header.data').variants.invertedWithUserLoggedOut
+  .props;
 
-const defPageHeaderData = require('../../modules/page_header/page_header.data').variants.application.props;
+const defPageHeaderData = require('../../modules/page_header/page_header.data').variants.application
+  .props;
 const defApplicationData = require('../../modules/application/application.data');
 
 const data = _.merge({}, defaultData, {

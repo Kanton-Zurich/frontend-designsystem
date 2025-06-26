@@ -1,11 +1,16 @@
-{{#extend "layouts/layout"}}
-  {{#content "header"}}
+{{#extend "layouts/layout_detail"}}
+  {{#content "pageheader"}}
     {{> "modules/page_header/page_header" props.modules.pageHeaderData}}
   {{/content}}
 
 	{{#content "content"}}
+    <div class="mdl-anchornav__wrapper">
+      {{> "modules/lead_section/lead_section" props.modules.leadSectionData}}
+      {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
+    </div>
+    <div class="mdl-anchornav__wrapper">
+    </div>
     {{> "modules/image_figure/image_figure" props.modules.imageFigureData.variants.default.props}}
-    {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
     <div class="mdl-richtext mod-smaller-headings">
       <p id="welcome" class="atm-paragraph">
         Herzlich willkommen
@@ -40,17 +45,20 @@
     {{> "modules/table/table" props.modules.tableData4 }}
     {{> "modules/table/table" props.modules.tableData5 }}
     {{> "modules/linklist/linklist" props.modules.linklistData }}
-    {{> "modules/contact/contact" props.modules.contactData}}
     {{> "modules/person_card/person_card" props.modules.personCardData}}
     <h2 class="atm-heading atm-heading--bordered">
       Folgen Sie Jacqueline Fehr
     </h2>
-    <h3>Social Media Stream (TODO) </h3>
+    <h3>Social Media Links</h3>
     {{> "modules/social_media_links/social_media_links" props.modules.socialLinksData}}
 	{{/content}}
 
+  {{#content "pagefooter"}}
+    {{> "modules/contact/contact" props.modules.contactData}}
+  {{/content}}
+
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData}}
-    {{> "modules/back2top/back2top" props.modules.back2topData}}
+    {{> "modules/back_to/back_to" props.modules.backToData}}
   {{/content}}
 {{/extend}}

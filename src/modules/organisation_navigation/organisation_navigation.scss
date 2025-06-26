@@ -5,7 +5,7 @@
     @include gridBleed($fullwidth: true);
     @include sizeCurve(padding-top padding-bottom, large);
 
-    background: $colorBlack5;
+    background: $colorBg;
   }
 
   &--next-layer {

@@ -7,6 +7,25 @@ import DateHelper from '../../../../util/date-helper.class';
 import { ApiConnectionFailure, ApiFailureType } from '../../service/migek-api.service';
 /* eslint-enable */
 
+export interface RescheduleViewSelectors {
+  otherSlotsContainer: string;
+  capacityMsgTemplate: string;
+  toPrevWeekBtn: string;
+  toNextWeekBtn: string;
+  weekIndicator: string;
+  weekRange: string;
+  weekDayColumns: string;
+  weekDayHeads: string;
+  weekDaySlotsContainer: string;
+  slotSelectTemplate: string;
+  slotSelect: string;
+  selectionDetailsWrapper: string;
+  selectionDetailsDate: string;
+  selectionDetailsCapacity: string;
+  doRescheduleBtn: string;
+  slotFullMsg: string;
+}
+
 export const rescheduleViewSelectorsValues: RescheduleViewSelectors = {
   otherSlotsContainer: '[data-biometrie_appointment=otherSlotsSelect]',
   capacityMsgTemplate: '[data-biometrie_appointment=capacityMsgTemplate]',
@@ -26,30 +45,13 @@ export const rescheduleViewSelectorsValues: RescheduleViewSelectors = {
   slotFullMsg: '[data-biometrie_appointment=slotFullMsg]',
 };
 
-export interface RescheduleViewSelectors {
-  otherSlotsContainer: string,
-  capacityMsgTemplate: string,
-  toPrevWeekBtn: string,
-  toNextWeekBtn: string,
-  weekIndicator: string,
-  weekRange: string,
-  weekDayColumns: string,
-  weekDayHeads: string,
-  weekDaySlotsContainer: string,
-  slotSelectTemplate: string,
-  slotSelect: string,
-  selectionDetailsWrapper: string;
-  selectionDetailsDate: string,
-  selectionDetailsCapacity: string;
-  doRescheduleBtn: string,
-  slotFullMsg: string;
-}
 interface RescheduleViewData {
   appointment: Appointment;
   loading: boolean;
   rescheduled: boolean;
   apiAvailable: boolean;
 }
+
 class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, RescheduleViewData> {
   private firstOpenSlot: Timeslot;
   private allSlots: Timeslot[];
@@ -60,9 +62,11 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
   private prevNotBefore: Date[] = [];
 
   private capacityMsgClone = document
-    .querySelector<HTMLDivElement>(this.selectors.capacityMsgTemplate).firstChild.cloneNode(true);
-  private otherSlotsContainer = document
-    .querySelector<HTMLElement>(this.selectors.otherSlotsContainer);
+    .querySelector<HTMLDivElement>(this.selectors.capacityMsgTemplate)
+    .firstChild.cloneNode(true);
+  private otherSlotsContainer = document.querySelector<HTMLElement>(
+    this.selectors.otherSlotsContainer
+  );
   private slotFullMsg = document.querySelector<HTMLElement>(this.selectors.slotFullMsg);
 
   constructor(_data: any, _selectors: RescheduleViewSelectors) {
@@ -86,16 +90,17 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     this.addWeekDayHeadListeners();
   }
 
-
   private requestTimeslot(timeslot: Timeslot): void {
     if (timeslot) {
       this.data.loading = true;
       const p = timeslot.payload;
-      this.apiService.rescheduleTo(p.startTime, p.endTime)
+      this.apiService
+        .rescheduleTo(p.startTime, p.endTime)
         .then((appointment) => {
           this.data.rescheduled = true;
           this.data.appointment = appointment;
-        }).catch((rejectionCause) => {
+        })
+        .catch((rejectionCause) => {
           this.log('Postpone request rejected');
 
           if (rejectionCause && rejectionCause instanceof ApiConnectionFailure) {
@@ -105,75 +110,84 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
             }
           }
           this.handleFatal(rejectionCause);
-        }).finally(() => {
+        })
+        .finally(() => {
           this.data.loading = false;
         });
     }
   }
 
-  private handleSlotFull(timeslotId: string):void {
+  private handleSlotFull(timeslotId: string): void {
     this.slotFullMsg.classList.add('show');
     this.slotFullMsg.querySelector<HTMLElement>('.mdl-notification').classList.remove('dismissed');
 
-    const detailWrapper = document
-      .querySelector<HTMLElement>(this.selectors.selectionDetailsWrapper);
+    const detailWrapper = document.querySelector<HTMLElement>(
+      this.selectors.selectionDetailsWrapper
+    );
     detailWrapper.classList.remove('next');
     detailWrapper.classList.add('none');
 
-    const timeSlotEl = document
-      .querySelector<HTMLElement>(`[data-timeslot-id="${timeslotId}"]`);
+    const timeSlotEl = document.querySelector<HTMLElement>(`[data-timeslot-id="${timeslotId}"]`);
     timeSlotEl.classList.add('disabled');
   }
 
   public prepareView(): void {
     this.data.loading = true;
-    this.apiService.getTimeSlots().then((timeslots) => {
-      this.log('Timeslots', timeslots);
+    this.apiService
+      .getTimeSlots()
+      .then((timeslots) => {
+        this.log('Timeslots', timeslots);
 
-      if (timeslots && timeslots.length > 0) {
-        this.allSlots = timeslots
-          .map(p => new Timeslot(p))
-          .sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
+        if (timeslots && timeslots.length > 0) {
+          this.allSlots = timeslots
+            .map((p) => new Timeslot(p))
+            .sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
 
-        const { 0: nextOpen } = this.allSlots.filter(slot => slot.capacity > 0);
-        this.firstOpenSlot = nextOpen;
+          const { 0: nextOpen } = this.allSlots.filter((slot) => slot.capacity > 0);
+          this.firstOpenSlot = nextOpen;
 
-        this.prepareSlotsSelectView();
-      }
-    }).catch((rejectionCause) => {
-      this.handleFatal(rejectionCause);
-    }).finally(() => {
-      this.data.loading = false;
-    });
+          this.prepareSlotsSelectView();
+        }
+      })
+      .catch((rejectionCause) => {
+        this.handleFatal(rejectionCause);
+      })
+      .finally(() => {
+        this.data.loading = false;
+      });
   }
 
   private getAndRenderWeek(doGetNextWeek = true): void {
     this.data.loading = true;
     const notBeforeDate = doGetNextWeek ? this.nextNotBefore : this.prevNotBefore.pop();
-    this.apiService.getTimeSlots(notBeforeDate).then((timeslots) => {
-      if (timeslots && timeslots.length > 0) {
-        if (doGetNextWeek) {
-          this.prevNotBefore.push(this.currentNotBefore);
-        }
-        this.allSlots = timeslots
-          .map(p => new Timeslot(p))
-          .sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
+    this.apiService
+      .getTimeSlots(notBeforeDate)
+      .then((timeslots) => {
+        if (timeslots && timeslots.length > 0) {
+          if (doGetNextWeek) {
+            this.prevNotBefore.push(this.currentNotBefore);
+          }
+          this.allSlots = timeslots
+            .map((p) => new Timeslot(p))
+            .sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
 
-        this.resetView();
-        this.prepareSlotsSelectView();
-      }
-    }).catch((rejectionCause) => {
-      this.handleFatal(rejectionCause);
-    }).finally(() => {
-      this.data.loading = false;
-    });
+          this.resetView();
+          this.prepareSlotsSelectView();
+        }
+      })
+      .catch((rejectionCause) => {
+        this.handleFatal(rejectionCause);
+      })
+      .finally(() => {
+        this.data.loading = false;
+      });
   }
 
   private nextBtnActive(active: boolean) {
     this.toggleSetClass(
       document.querySelector<HTMLElement>(this.selectors.toNextWeekBtn),
       'disabled',
-      !active,
+      !active
     );
   }
 
@@ -181,7 +195,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     this.toggleSetClass(
       document.querySelector<HTMLElement>(this.selectors.toPrevWeekBtn),
       'disabled',
-      !active,
+      !active
     );
   }
 
@@ -202,8 +216,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     this.prevBtnActive(this.firstOpenSlot.startDate.getTime() < earliestDate.getTime());
 
     const weekNo = DateHelper.getWeekNumber(earliestDate);
-    const weekIndicators = document
-      .querySelectorAll<HTMLElement>(this.selectors.weekIndicator);
+    const weekIndicators = document.querySelectorAll<HTMLElement>(this.selectors.weekIndicator);
     weekIndicators.forEach((el) => {
       el.innerText = `KW ${weekNo.toString()}`;
     });
@@ -213,11 +226,12 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     this.currentNotBefore = weeksDates.shift();
     // Setting saturday as the "notBefore" parameter for next week request (and remove from array)
     this.nextNotBefore = weeksDates.pop();
-    const [weeksMonday,,,, weeksFriday ] = weeksDates;
-    const weekRangeElements = document
-      .querySelectorAll<HTMLElement>(this.selectors.weekRange);
+    const [weeksMonday, , , , weeksFriday] = weeksDates;
+    const weekRangeElements = document.querySelectorAll<HTMLElement>(this.selectors.weekRange);
     weekRangeElements.forEach((weekRangeEl) => {
-      weekRangeEl.innerText = `${DateHelper.getDeDateStr(weeksMonday)}-${DateHelper.getDeDateStr(weeksFriday)}`;
+      weekRangeEl.innerText = `${DateHelper.getDeDateStr(weeksMonday)}-${DateHelper.getDeDateStr(
+        weeksFriday
+      )}`;
     });
 
     const openSlotsPerWeekDay: Timeslot[][] = [];
@@ -236,27 +250,35 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     // Disable next btn if there are no more slots than shown in this week.
     this.nextBtnActive(totalSlotsInWeek < this.allSlots.length);
 
-    this.otherSlotsContainer = document
-      .querySelector<HTMLElement>(this.selectors.otherSlotsContainer);
+    this.otherSlotsContainer = document.querySelector<HTMLElement>(
+      this.selectors.otherSlotsContainer
+    );
     this.otherSlotsContainer.setAttribute('data-selected-weekday', '0');
 
     this.fillWeekDayTableHeads(weeksDates);
 
-    const slotSelectTemplate = document
-      .querySelector<HTMLElement>(this.selectors.slotSelectTemplate).firstElementChild;
+    const slotSelectTemplate = document.querySelector<HTMLElement>(
+      this.selectors.slotSelectTemplate
+    ).firstElementChild;
 
-    const weekdayColumnsNodeList = this.otherSlotsContainer
-      .querySelectorAll<HTMLDivElement>(this.selectors.weekDayColumns);
+    const weekdayColumnsNodeList = this.otherSlotsContainer.querySelectorAll<HTMLDivElement>(
+      this.selectors.weekDayColumns
+    );
     weekdayColumnsNodeList.forEach((colEl, i) => {
-      const daysSlots = openSlotsPerWeekDay[i].filter(slot => slot.capacity > 0);
+      const daysSlots = openSlotsPerWeekDay[i].filter((slot) => slot.capacity > 0);
       if (daysSlots.length > 0) {
         colEl.classList.remove('no-slots-available');
         const slotsCon = colEl.querySelector<HTMLElement>(this.selectors.weekDaySlotsContainer);
         slotsCon.innerHTML = ''; // empty
         daysSlots.forEach((timeslot) => {
-          if (timeslot.capacity > 0
-            && this.data.appointment.getAppointmentStartDate().toISOString() !== timeslot.startDate.toISOString() // eslint-disable-line
-            && this.data.appointment.getAppointmentEndDate().toISOString() !== timeslot.endDate.toISOString()) { // eslint-disable-line
+          if (
+            timeslot.capacity > 0 &&
+            this.data.appointment.getAppointmentStartDate().toISOString() !==
+              timeslot.startDate.toISOString() && // eslint-disable-line
+            this.data.appointment.getAppointmentEndDate().toISOString() !==
+              timeslot.endDate.toISOString()
+          ) {
+            // eslint-disable-line
             this.appendSlotBtn(slotsCon, slotSelectTemplate, timeslot);
           }
         });
@@ -271,12 +293,13 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     });
     // after rendering select the first slot available if none selected.
     if (!this.selectedSlot) {
-      const firstFoundSlot = this.otherSlotsContainer
-        .querySelector<HTMLElement>('[data-timeslot-id]');
+      const firstFoundSlot =
+        this.otherSlotsContainer.querySelector<HTMLElement>('[data-timeslot-id]');
       if (firstFoundSlot) {
         firstFoundSlot.click();
-        const detailWrapper = document
-          .querySelector<HTMLElement>(this.selectors.selectionDetailsWrapper);
+        const detailWrapper = document.querySelector<HTMLElement>(
+          this.selectors.selectionDetailsWrapper
+        );
         detailWrapper.classList.add('next');
         setTimeout(() => {
           this.otherSlotsContainer.classList.add('next');
@@ -285,8 +308,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
     }
   }
 
-  private appendSlotBtn(slotsCon: HTMLElement,
-    templateContent: Element, timeslot: Timeslot): void {
+  private appendSlotBtn(slotsCon: HTMLElement, templateContent: Element, timeslot: Timeslot): void {
     if (templateContent) {
       const slotElement = document.importNode(templateContent, true);
       const { innerHTML } = slotElement;
@@ -296,7 +318,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
       const slotSelect = slotElement.querySelector(this.selectors.slotSelect);
       if (slotSelect) {
         slotSelect.setAttribute('data-timeslot-id', timeslot.id);
-        slotSelect.addEventListener('click', ev => this.onSlotSelect(ev));
+        slotSelect.addEventListener('click', (ev) => this.onSlotSelect(ev));
       }
 
       slotsCon.appendChild(slotElement);
@@ -304,8 +326,9 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
   }
 
   private fillWeekDayTableHeads(weeksDates: Date[]): void {
-    const weekdayHeads = this.otherSlotsContainer
-      .querySelectorAll<HTMLDivElement>(this.selectors.weekDayHeads);
+    const weekdayHeads = this.otherSlotsContainer.querySelectorAll<HTMLDivElement>(
+      this.selectors.weekDayHeads
+    );
     weekdayHeads.forEach((headEl, i) => {
       const colDate = weeksDates[i];
       const dayName = colDate.toLocaleDateString('de', {
@@ -321,8 +344,9 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
   }
 
   private addWeekDayHeadListeners(): void {
-    const weekdayHeads = this.otherSlotsContainer
-      .querySelectorAll<HTMLDivElement>(this.selectors.weekDayHeads);
+    const weekdayHeads = this.otherSlotsContainer.querySelectorAll<HTMLDivElement>(
+      this.selectors.weekDayHeads
+    );
     weekdayHeads.forEach((headEl, i) => {
       headEl.addEventListener('click', () => {
         this.otherSlotsContainer.setAttribute('data-selected-weekday', `${i}`);
@@ -350,7 +374,7 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
   private doSlotSelect(target: HTMLElement): void {
     if (target) {
       const timeSlotId = target.getAttribute('data-timeslot-id');
-      this.selectedSlot = this.allSlots.find(slot => slot.id === timeSlotId);
+      this.selectedSlot = this.allSlots.find((slot) => slot.id === timeSlotId);
       this.fillInSlotDetails(this.selectedSlot);
 
       target.classList.add('selected');
@@ -358,11 +382,13 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
   }
 
   private fillInSlotDetails(slot?: Timeslot): void {
-    const detailWrapper = document
-      .querySelector<HTMLElement>(this.selectors.selectionDetailsWrapper);
+    const detailWrapper = document.querySelector<HTMLElement>(
+      this.selectors.selectionDetailsWrapper
+    );
     const detailDate = document.querySelector<HTMLElement>(this.selectors.selectionDetailsDate);
-    const detailCapacity = document
-      .querySelector<HTMLElement>(this.selectors.selectionDetailsCapacity);
+    const detailCapacity = document.querySelector<HTMLElement>(
+      this.selectors.selectionDetailsCapacity
+    );
     if (slot) {
       detailWrapper.classList.add('show');
       detailWrapper.classList.remove('next');
@@ -393,7 +419,8 @@ class BiometrieRescheduleView extends ViewController<RescheduleViewSelectors, Re
 
   public resetView(doClearSelection?: boolean): void {
     this.slotFullMsg.classList.remove('show');
-    document.querySelectorAll<HTMLElement>(this.selectors.weekDaySlotsContainer)
+    document
+      .querySelectorAll<HTMLElement>(this.selectors.weekDaySlotsContainer)
       .forEach((slotCon) => {
         slotCon.innerHTML = '';
       });

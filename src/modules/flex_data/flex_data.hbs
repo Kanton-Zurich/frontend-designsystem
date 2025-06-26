@@ -1,5 +1,10 @@
 <div class="mdl-flex-data" data-init="flexData" data-source="{{ flexDataSource }}" {{#if initialLoad}}data-initial-load="true"{{/if}}>
-  {{#if title}}<h{{headingLevel}} class="atm-heading">{{title}}</h{{headingLevel}}>{{/if}}
+  {{#if title}}
+    <h{{headingLevel}} class="atm-heading
+      {{#if_compare visualHeadingLevel "!==" headingLevel}}h{{visualHeadingLevel}}{{/if_compare}}
+      {{#if_compare visualHeadingLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+    >{{title}}</h{{headingLevel}}>
+  {{/if}}
   <div class="mdl-flex-data__form">
     <form novalidate>
       {{#if flexTableFormData}}

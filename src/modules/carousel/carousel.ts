@@ -1,20 +1,12 @@
-/*!
- * Carousel
- *
- * @author
- * @copyright
- */
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
-
-import WindowEventListener from '../../assets/js/helpers/events';
 import Module from '../../assets/js/helpers/module';
 
 class Carousel extends Module {
   public data: {
-    active: number,
-    length: number,
-    isFullscreen: boolean,
-    isInGallery: boolean,
+    active: number;
+    length: number;
+    isFullscreen: boolean;
+    isInGallery: boolean;
   };
   public ui: {
     element: any;
@@ -28,24 +20,28 @@ class Carousel extends Module {
     nextButton: any;
   };
   public options: {
-    keyArrowLeft: number,
-    keyArrowRight: number,
+    keyArrowLeft: number;
+    keyArrowRight: number;
     domSelectors: {
-      indicator: string,
-      prevButton: string,
-      nextButton: string,
-      slides: string,
-      slideWrapper: string,
-      close: string,
-      open: string,
-      image: string,
-      caption: string,
-      ariaFullscreen: string,
-    },
+      indicator: string;
+      prevButton: string;
+      nextButton: string;
+      fullscreenSlide: string;
+      slides: string;
+      slideWrapper: string;
+      close: string;
+      open: string;
+      fullscreenImageWrapper: string;
+      image: string;
+      figcaption: string;
+      caption: string;
+      figure: string;
+      ariaFullscreen: string;
+    };
     stateClasses: {
-      fullscreen: string,
-      inverted: string,
-      active: string,
+      fullscreen: string;
+      inverted: string;
+      active: string;
     };
   };
   private closeOnEscapeFunction: any;
@@ -63,12 +59,16 @@ class Carousel extends Module {
         indicator: '[data-carousel="indicator"]',
         prevButton: '[data-carousel="prev"]',
         nextButton: '[data-carousel="next"]',
+        fullscreenSlide: '.mdl-carousel--fullscreen .mdl-carousel__slide',
         slides: '[data-carousel="slide"]',
         slideWrapper: '[data-carousel="slide-wrapper"]',
         close: '[data-carousel="close"]',
         download: '[data-carousel="download"]',
         open: '[data-carousel="open"]',
+        fullscreenImageWrapper: '.mdl-carousel--fullscreen .mdl-image-figure__img-wrapper',
         image: '[data-image-figure="image"]',
+        figure: '.mdl-image-figure',
+        figcaption: '.mdl-image-figure__caption',
         caption: '[data-figcaption="caption"]',
         textalternative: '[data-carousel="textalternative"]',
         ariaFullscreen: '[data-carousel="ariaFullscreen"]',
@@ -98,9 +98,7 @@ class Carousel extends Module {
   }
 
   static get events() {
-    return {
-      // eventname: `eventname.${ Carousel.name }.${  }`
-    };
+    return {};
   }
 
   /**
@@ -115,8 +113,13 @@ class Carousel extends Module {
       .on('swipeLeft', this.increment.bind(this))
       .on('swipeRight', this.decrement.bind(this))
       .on('keydown', (event) => {
-        const key = event.which ? event.which === this.options.keyArrowRight // eslint-disable-line
-            ? 'ArrowRight' : event.which === this.options.keyArrowLeft ? 'ArrowLeft' : '' : event.key; // eslint-disable-line
+        const key = event.which
+          ? event.which === this.options.keyArrowRight // eslint-disable-line
+            ? 'ArrowRight'
+            : event.which === this.options.keyArrowLeft
+            ? 'ArrowLeft'
+            : ''
+          : event.key; // eslint-disable-line
         switch (key) {
           case 'ArrowLeft':
             this.decrement();
@@ -135,9 +138,7 @@ class Carousel extends Module {
 
           this.setAccessibilityAttributesForSlides();
 
-
-          (<any>window).estatico.helpers
-            .setHiddenTabIndex(this.ui.element);
+          (<any>window).estatico.helpers.setHiddenTabIndex(this.ui.element);
         }
       })
       .on('click', this.options.domSelectors.open, this.open.bind(this))
@@ -161,12 +162,28 @@ class Carousel extends Module {
         return true;
       });
 
-    (<any>WindowEventListener).addDebouncedResizeListener(() => {
-      if (this.data.isFullscreen) {
-        this.setCaptionPositions();
-      }
-    });
     this.closeOnEscapeFunction = this.closeOnEscape.bind(this);
+
+    this.ui.slides.forEach((slide) => {
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          this.resizeSlide(entry.target);
+        }
+      });
+
+      resizeObserver.observe(slide);
+    });
+  }
+
+  resizeSlide(slide) {
+    const image = slide.querySelector(
+      this.options.domSelectors.fullscreenImageWrapper
+    ) as HTMLElement;
+
+    if (image) {
+      const figcaption = slide.querySelector(this.options.domSelectors.figcaption) as HTMLElement;
+      figcaption.style.width = `${image.clientWidth}px`;
+    }
   }
 
   /**
@@ -217,13 +234,23 @@ class Carousel extends Module {
 
     this.setAccessibilityAttributesForSlides();
     this.setAlternativeText();
-    this.dispatchVerticalResizeEvent();
-
-    if (this.data.isFullscreen) {
-      this.ui.slides[this.data.active - 1].querySelector('button').focus();
-    } else {
-      this.ui.slides[this.data.active - 1].querySelector('figure').focus();
-    }
+    this.ui.slides.forEach((slide) =>
+      slide.addEventListener(
+        'transitionend',
+        () => {
+          if (this.data.isFullscreen) {
+            this.ui.slides[this.data.active - 1]
+              .querySelector('button')
+              .focus({ preventScroll: true });
+          } else {
+            this.ui.slides[this.data.active - 1]
+              .querySelector('figure')
+              .focus({ preventScroll: true });
+          }
+        },
+        { once: true, passive: true }
+      )
+    );
   }
 
   /**
@@ -231,23 +258,44 @@ class Carousel extends Module {
    * @param index
    */
   handleLazyLoad(index) {
-    const nextSlide = this.ui.slides[index + 1]
-      ? this.ui.slides[index + 1].querySelector(this.options.domSelectors.image) : null;
-    const previousSlide = this.ui.slides[index - 1] // eslint-disable-line
+    if (!this.ui.slides || !this.ui.slides.length) {
+      return;
+    }
+    const currentImage = this.ui.slides[index]?.querySelector(this.options.domSelectors.image);
+    const nextImage = this.ui.slides[index + 1]
+      ? this.ui.slides[index + 1].querySelector(this.options.domSelectors.image)
+      : null;
+    const previousImage = this.ui.slides[index - 1] // eslint-disable-line
       ? this.ui.slides[index - 1].querySelector(this.options.domSelectors.image)
       : index === 0
-        ? this.ui.slides[this.ui.slides.length - 1].querySelector(this.options.domSelectors.image)
-        : null;
+      ? this.ui.slides[this.ui.slides.length - 1].querySelector(this.options.domSelectors.image)
+      : null;
     const lazyloadImage = (imageElement) => {
-      if (imageElement && imageElement.hasAttribute('data-src')) {
-        imageElement.setAttribute('src', imageElement.getAttribute('data-src'));
-        imageElement.removeAttribute('data-src');
-        imageElement.setAttribute('srcset', imageElement.getAttribute('data-srcset'));
-        imageElement.removeAttribute('data-srcset');
+      if (imageElement) {
+        if (imageElement.hasAttribute('data-src')) {
+          imageElement.setAttribute('src', imageElement.getAttribute('data-src'));
+          imageElement.removeAttribute('data-src');
+        }
+        if (imageElement.hasAttribute('data-srcset')) {
+          imageElement.setAttribute('srcset', imageElement.getAttribute('data-srcset'));
+          imageElement.removeAttribute('data-srcset');
+        }
+        imageElement.addEventListener(
+          'load',
+          () => {
+            const slide = imageElement.closest(this.options.domSelectors.fullscreenSlide);
+            if (slide) {
+              this.resizeSlide(slide);
+            }
+            window.dispatchEvent(new Event('resize'));
+          },
+          { once: true, passive: true }
+        );
       }
     };
-    lazyloadImage(nextSlide);
-    lazyloadImage(previousSlide);
+    lazyloadImage(currentImage);
+    lazyloadImage(nextImage);
+    lazyloadImage(previousImage);
   }
 
   /**
@@ -257,13 +305,12 @@ class Carousel extends Module {
    */
   setTransformValue() {
     const { active } = this.data;
-    const transform = ((active - 1) * 100) * -1;
+    const transform = (active - 1) * 100 * -1;
 
     this.ui.slides[0].style.marginLeft = `${transform}%`;
 
-    // Taking the nodelist into an array, due to IE incompability to handle foreach on NodeList
-    Array.prototype.slice.call(this.ui.slides).forEach((slide, index) => {
-      const classListMethod = index === (active - 1) ? 'add' : 'remove';
+    [...this.ui.slides].forEach((slide, index) => {
+      const classListMethod = index === active - 1 ? 'add' : 'remove';
 
       slide.classList[classListMethod](this.options.stateClasses.active);
     });
@@ -289,8 +336,7 @@ class Carousel extends Module {
     if (!this.data.isFullscreen) {
       this.data.isFullscreen = true;
 
-      (<any>window).estatico.helpers
-        .setHiddenTabIndex(this.ui.element);
+      (<any>window).estatico.helpers.setHiddenTabIndex(this.ui.element);
     }
   }
 
@@ -303,11 +349,17 @@ class Carousel extends Module {
     this.data.isFullscreen = false;
 
     if (this.ui.element.parentElement.classList.contains('mdl-image_gallery')) {
-      this.ui.element.parentElement.dispatchEvent(new CustomEvent('Carousel.close', { detail: this.data.active }));
+      this.ui.element.parentElement.dispatchEvent(
+        new CustomEvent('Carousel.close', { detail: this.data.active })
+      );
     }
 
-    (<any>window).estatico.helpers
-      .resetHiddenTabIndex();
+    this.ui.slides.forEach((slide) => {
+      const figcaption = slide.querySelector(this.options.domSelectors.figcaption) as HTMLElement;
+      figcaption.removeAttribute('style');
+    });
+
+    (<any>window).estatico.helpers.resetHiddenTabIndex();
   }
 
   /**
@@ -337,17 +389,19 @@ class Carousel extends Module {
       this.ui.element.classList.add(this.options.stateClasses.inverted);
 
       this.setTransformValue();
-      this.setCaptionPositions();
-
       disableBodyScroll(this.ui.element);
       document.documentElement.classList.add('locked');
 
       window.addEventListener('keydown', this.closeOnEscapeFunction);
 
-      [].slice.call(this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen)).forEach(e => e.setAttribute('aria-hidden', 'true'));
+      [].slice
+        .call(this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen))
+        .forEach((e) => e.setAttribute('aria-hidden', 'true'));
 
       (<any>window).estatico.helpers.wrapAccessibility(this.ui.element);
-      setTimeout(() => { this.ui.close.focus(); }, 0);
+      setTimeout(() => {
+        this.ui.close.focus();
+      }, 0);
     } else {
       this.ui.element.classList.remove(this.options.stateClasses.fullscreen);
       this.ui.element.classList.remove(this.options.stateClasses.inverted);
@@ -358,69 +412,12 @@ class Carousel extends Module {
       document.documentElement.classList.remove('locked');
       window.removeEventListener('keydown', this.closeOnEscapeFunction);
 
-      [].slice.call(this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen)).forEach(e => e.setAttribute('aria-hidden', 'false'));
+      [].slice
+        .call(this.ui.element.querySelectorAll(this.options.domSelectors.ariaFullscreen))
+        .forEach((e) => e.setAttribute('aria-hidden', 'false'));
 
       (<any>window).estatico.helpers.unwrapAccessibility(this.ui.element);
     }
-  }
-
-  /**
-   * Calcing the position of the caption for this slide
-   *
-   * @param {Element} slide
-   * @memberof Carousel
-   */
-  calcCaptionPosition(slide) {
-    const image = slide.querySelector(this.options.domSelectors.image);
-    const imageWrapper = slide.querySelector(this.options.domSelectors.open);
-    const caption = slide.querySelector(this.options.domSelectors.caption);
-    const hasBackgroundImage = image.style.backgroundImage !== '';
-
-    caption.removeAttribute('style');
-
-    const divider = 2;
-    const imageWrapperScrollHeight = imageWrapper.scrollHeight;
-    let imageNaturalAspectRatio = 0;
-
-    if (hasBackgroundImage) {
-      const imageSrc = image.style.backgroundImage.replace(/url\((['"])?(.*?)\1\)/gi, '$2').split(',')[0];
-      const artificialImage = new Image();
-
-      artificialImage.src = imageSrc;
-
-      imageNaturalAspectRatio = artificialImage.width / artificialImage.height;
-    } else {
-      imageNaturalAspectRatio = image.naturalWidth / image.naturalHeight;
-    }
-    const imageWrapperScrollWidth = image.scrollWidth;
-    const imageActualWidth = imageWrapperScrollHeight * imageNaturalAspectRatio;
-    const imageActualHeight = imageWrapperScrollWidth / imageNaturalAspectRatio;
-
-    if (imageWrapperScrollHeight > imageActualHeight) {
-      // Margin which has to be subtracted from caption to get it to image
-      const captionHeight = caption.scrollHeight / divider;
-      const differenceActualHeight = imageWrapperScrollHeight - imageActualHeight;
-      const negativeTopMargin = (differenceActualHeight / divider) * -1 - captionHeight;
-
-      caption.style.marginTop = `${negativeTopMargin}px`;
-    } else if (imageWrapperScrollWidth > imageActualWidth) {
-      // Padding Value which has to be added
-      const paddingValue = (imageWrapperScrollWidth - imageActualWidth) / divider;
-
-      caption.style.paddingLeft = `${paddingValue}px`;
-      caption.style.paddingRight = `${paddingValue}px`;
-    }
-  }
-
-  /**
-   * Setting the caption position slides
-   *
-   * @memberof Carousel
-   */
-  setCaptionPositions() {
-    this.ui.slides.forEach((slide) => {
-      this.calcCaptionPosition(slide);
-    });
   }
 
   /**
@@ -429,7 +426,7 @@ class Carousel extends Module {
    * @memberof Carousel
    */
   removeCaptionStyles() {
-    const captions = [].slice.call(document.querySelectorAll(this.options.domSelectors.caption));
+    const captions = [...Array.from(document.querySelectorAll(this.options.domSelectors.caption))];
 
     captions.forEach((caption) => {
       caption.removeAttribute('style');
@@ -442,6 +439,9 @@ class Carousel extends Module {
    * @memberof Carousel
    */
   setAccessibilityAttributesForSlides() {
+    if (!this.ui.slides || !this.ui.slides.length) {
+      return;
+    }
     const activeIndex = this.data.active - 1;
     const slidesArray = Array.prototype.slice.call(this.ui.slides);
 
@@ -468,6 +468,9 @@ class Carousel extends Module {
    * @memberof Carousel
    */
   setAlternativeText() {
+    if (!this.ui.slides || !this.ui.slides.length) {
+      return;
+    }
     const activeIndex = this.data.active - 1;
     const activeSlideImg = this.ui.slides[activeIndex].querySelector('img');
     const altAttribute = activeSlideImg.getAttribute('alt');

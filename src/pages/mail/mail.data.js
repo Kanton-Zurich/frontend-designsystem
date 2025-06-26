@@ -10,10 +10,12 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
-    title: 'Ihre Angaben wurden an das Strassenverkehrsamt übermittelt. Wir werden sie schnellst möglich bearbeiten.',
+    title:
+      'Ihre Angaben wurden an das Strassenverkehrsamt übermittelt. Wir werden sie schnellst möglich bearbeiten.',
     needtoknow: {
       subtitle: 'Was Sie nun wissen müssen',
-      paragraph: 'Wir werden Ihnen den internationalen Führerausweis per Post zustellen. Sobald Sie ihn erhalten haben, müssen Sie folgendes beachten:',
+      paragraph:
+        'Wir werden Ihnen den internationalen Führerausweis per Post zustellen. Sobald Sie ihn erhalten haben, müssen Sie folgendes beachten:',
       list: [
         'Unterschreiben Sie den Führerausweis',
         'Führen Sie immer Ihren normalen Führerausweis zusätzlich mit sich. Der internaltionale Führerausweis ist alleine nicht gültig.',
@@ -21,7 +23,8 @@ const data = _.merge({}, defaultData, {
     },
     questions: {
       subtitle: 'Bei Fragen',
-      paragraph: 'Sollte es Fragen zu Ihrem Antrag haben, dann melden Sie sich beim Volksschulamt unter:',
+      paragraph:
+        'Sollte es Fragen zu Ihrem Antrag haben, dann melden Sie sich beim Volksschulamt unter:',
       contact: {
         label: 'Tel.',
         link: 'tel:+41444894589',

@@ -1,14 +1,7 @@
-
-/*!
- * Header
- *
- * @author
- * @copyright
- */
 import Module from '../../assets/js/helpers/module';
-import Anchornav from '../anchornav/anchornav';
 import Modal from '../modal/modal';
 import WindowEventListener from '../../assets/js/helpers/events';
+import UserMenu from '../user_menu/user_menu';
 
 class Header extends Module {
   public placeholder: HTMLElement;
@@ -19,44 +12,50 @@ class Header extends Module {
   private pinPos: number;
   public height: number;
   private headerHeights: {
-    tiny: number,
-    xsmall: number,
-    medium: number,
+    tiny: number;
+    xsmall: number;
+    medium: number;
   };
   private bpXsmall: number;
   private bpMedium: number;
 
   public options: {
     transitionDelays: {
-      default: number,
-    },
+      default: number;
+    };
     domSelectors: {
-      openModal: string,
-      close: string,
-      dataMenuBurger: string,
-    },
+      openModal: string;
+      wasInverted: string;
+      close: string;
+      dataMenuBurger: string;
+      dataMenuBurgerText: string;
+      expander: string;
+    };
     stateClasses: {
-      activeItem: string,
-      open: string,
-      fixedHeader: string,
-      fixed: string,
-      navItem: string,
-    },
-    colorClasses: {
-      monochrome: string,
-    }
+      activeItem: string;
+      open: string;
+      fixedHeader: string;
+      fixed: string;
+      navItem: string;
+      scrolledPastHeader: string;
+      inverted: string;
+      navBurgerWithLoggedinUser: string;
+      navBurgerTextWithLoggedinUser: string;
+    };
   };
 
   public ui: {
-    element: any,
-    close: any,
+    element: any;
+    close: any;
+    dataMenuBurger: any;
+    dataMenuBurgerText: any;
   };
 
   public data: {
-    activeModal: HTMLElement,
-    activeItem: HTMLElement,
-    scrollPosition: number,
-    headerIsFixed: boolean,
+    activeModal: HTMLElement;
+    activeItem: HTMLElement;
+    scrollPosition: number;
+    headerIsFixed: boolean;
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -71,9 +70,12 @@ class Header extends Module {
         default: 280,
       },
       domSelectors: {
+        header: 'mdl-header',
         openModal: '[data-header="openModal"]',
+        wasInverted: 'data-header-was-inverted',
         close: '[data-modal="close"]',
         dataMenuBurger: '[data-menu-burger]',
+        dataMenuBurgerText: '[data-menu-burger-text]',
       },
       stateClasses: {
         activeItem: 'mdl-header__nav-item--active',
@@ -81,9 +83,10 @@ class Header extends Module {
         fixedHeader: 'fixed-header',
         fixed: 'mdl-header--fixed',
         navItem: 'mdl-header__nav-item',
-      },
-      colorClasses: {
-        monochrome: 'cv-monochrome',
+        scrolledPastHeader: 'mdl-header--scrolled-past-header',
+        inverted: 'cv-inverted',
+        navBurgerWithLoggedinUser: 'mdl-header__nav-burger-with-user',
+        navBurgerTextWithLoggedinUser: 'mdl-header__nav-burger-text--with-user',
       },
     };
 
@@ -120,10 +123,15 @@ class Header extends Module {
    */
   initEventListeners() {
     // Chrome vertical scroll compensation CZHDEV-2907
-    if (window.scrollY < 100) { // eslint-disable-line
+    if (window.scrollY < 100) {
+      // eslint-disable-line
       scrollTo(0, -1); // eslint-disable-line
     }
-    this.eventDelegate.on('click', this.options.domSelectors.openModal, this.toggleFlyout.bind(this));
+    this.eventDelegate.on(
+      'click',
+      this.options.domSelectors.openModal,
+      this.toggleFlyout.bind(this)
+    );
     this.eventDelegate.on('click', this.options.domSelectors.dataMenuBurger, () => {
       if (this.ui.element.classList.contains(this.options.stateClasses.open)) {
         this.data.activeModal.dispatchEvent(new CustomEvent(Modal.events.closeModal));
@@ -132,18 +140,20 @@ class Header extends Module {
       }
     });
 
+    document.addEventListener('layerChange', (event: CustomEvent) => {
+      if (event.detail === 1) {
+        this.ui.element.classList.add('mdl-header--nav-level-one');
+      }
+      if (event.detail === 0) {
+        this.ui.element.classList.remove('mdl-header--nav-level-one');
+      }
+    });
+
     window.addEventListener(Modal.events.closed, this.hideFlyout.bind(this));
+    window.addEventListener(UserMenu.events.stateFetched, this.adjustNavburgerPosition.bind(this));
 
     (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
     (<any>WindowEventListener).addEventListener('scroll', this.handleScroll.bind(this));
-
-    window.addEventListener(Anchornav.events.isSticky, () => {
-      this.ui.element.classList.add(this.options.colorClasses.monochrome);
-    });
-
-    window.addEventListener(Anchornav.events.isNotSticky, () => {
-      this.ui.element.classList.remove(this.options.colorClasses.monochrome);
-    });
 
     this.pageHeader = document.querySelector('.mdl-page-header');
   }
@@ -160,7 +170,11 @@ class Header extends Module {
     } else if (this.data.activeItem !== delegate && this.data.activeModal === targetModal) {
       this.data.activeItem.setAttribute('aria-expanded', 'false');
       this.switchPage(delegate);
-      this.data.activeModal.dispatchEvent(new CustomEvent(Modal.events.setPage, { detail: { page: delegate.getAttribute('data-nav-index') } }));
+      this.data.activeModal.dispatchEvent(
+        new CustomEvent(Modal.events.setPage, {
+          detail: { page: delegate.getAttribute('data-nav-index') },
+        })
+      );
     } else if (!this.flyoutVisible) {
       this.showFlyout(delegate, delegate.classList.contains(this.options.stateClasses.navItem));
     } else {
@@ -172,17 +186,19 @@ class Header extends Module {
     }
   }
 
-
   showFlyout(delegate, mainNav = false) {
     this.flyoutVisible = true;
     this.data.activeModal = document.querySelector(`#${delegate.getAttribute('aria-controls')}`);
     this.data.activeItem = delegate;
 
-    this.data.activeModal.dispatchEvent(new CustomEvent(Modal.events.openModal, { detail: { page: delegate.getAttribute('data-nav-index') } }));
+    this.data.activeModal.dispatchEvent(
+      new CustomEvent(Modal.events.openModal, {
+        detail: { page: delegate.getAttribute('data-nav-index') },
+      })
+    );
 
     if (!this.data.activeItem.hasAttribute('data-search')) {
       this.ui.element.classList.add(this.options.stateClasses.open);
-      this.ui.element.classList.add(this.options.colorClasses.monochrome);
       this.data.activeItem.classList.add(this.options.stateClasses.activeItem);
     }
 
@@ -191,8 +207,8 @@ class Header extends Module {
     // if pageheader is present correct padding
     const pageHeader = <HTMLDivElement>document.querySelector('.mdl-page-header');
     if (pageHeader && mainNav) {
-      const offsetTop = this.ui.element.clientHeight
-        + parseInt(window.getComputedStyle(pageHeader).paddingTop, 10);
+      const offsetTop =
+        this.ui.element.clientHeight + parseInt(window.getComputedStyle(pageHeader).paddingTop, 10);
       pageHeader.style.paddingTop = `${offsetTop}px`;
     }
 
@@ -218,21 +234,32 @@ class Header extends Module {
     }
 
     if (document.querySelector('.mdl-anchornav')) {
-      anchornavIsSticky = document.querySelector('.mdl-anchornav').classList.contains('mdl-anchornav--sticky');
+      anchornavIsSticky = document
+        .querySelector('.mdl-anchornav')
+        .classList.contains('mdl-anchornav--sticky');
     }
 
     this.unsetClasses();
 
     this.ui.element.classList.remove(this.options.stateClasses.open);
 
-    if (!anchornavIsSticky) {
-      this.ui.element.classList.remove(this.options.colorClasses.monochrome);
-    }
+    this.setHeaderColor(anchornavIsSticky);
 
     // if pageheader is present correct padding
     const pageHeader = <HTMLDivElement>document.querySelector('.mdl-page-header');
     if (pageHeader) {
       pageHeader.removeAttribute('style');
+    }
+  }
+
+  adjustNavburgerPosition(event: CustomEvent) {
+    const { stateClasses } = this.options;
+    if (event.detail.isLoggedIn) {
+      this.ui.dataMenuBurger.classList.add(stateClasses.navBurgerWithLoggedinUser);
+      this.ui.dataMenuBurgerText.classList.add(stateClasses.navBurgerTextWithLoggedinUser);
+    } else {
+      this.ui.dataMenuBurger.classList.remove(stateClasses.navBurgerWithLoggedinUser);
+      this.ui.dataMenuBurgerText.classList.remove(stateClasses.navBurgerTextWithLoggedinUser);
     }
   }
 
@@ -284,11 +311,7 @@ class Header extends Module {
     }
 
     if (pageHeaderBounds) {
-      if (pageHeaderBounds.bottom < 0) {
-        this.ui.element.classList.add(this.options.colorClasses.monochrome);
-      } else {
-        this.ui.element.classList.remove(this.options.colorClasses.monochrome);
-      }
+      this.setHeaderColor(pageHeaderBounds.bottom < 0);
     }
   }
 
@@ -296,30 +319,42 @@ class Header extends Module {
     this.placeholder = document.createElement('div');
     this.placeholder.style.display = 'none';
     this.placeholder.style.height = `${this.height}px`;
-
     this.placeholder.classList.add('mdl-header__placeholder');
-
+    if (this.ui.element.classList.contains(this.options.stateClasses.inverted)) {
+      this.placeholder.classList.add(this.options.stateClasses.inverted);
+    }
     this.ui.element.parentNode.insertBefore(this.placeholder, this.ui.element);
   }
 
   /**
    * Toggling the fixed header
    *
-   * @param {*} propName
-   * @param {*} valueBefore
-   * @param {*} valueAfter The Value after its change
    * @memberof Header
    */
-  toggleFixedHeader(propName, valueBefore, valueAfter) {
+  toggleFixedHeader() {
     let anchornavIsSticky = false;
 
     if (document.querySelector('.mdl-anchornav')) {
-      anchornavIsSticky = document.querySelector('.mdl-anchornav').classList.contains('mdl-anchornav--sticky');
+      anchornavIsSticky = document
+        .querySelector('.mdl-anchornav')
+        .classList.contains('mdl-anchornav--sticky');
     }
 
-    if (valueAfter) {
-      if (anchornavIsSticky) {
-        this.ui.element.classList.add(this.options.colorClasses.monochrome);
+    this.setHeaderColor(anchornavIsSticky);
+  }
+
+  setHeaderColor(sticky: boolean) {
+    if (sticky) {
+      this.ui.element.classList.add(this.options.stateClasses.scrolledPastHeader);
+      if (this.ui.element.classList.contains(this.options.stateClasses.inverted)) {
+        this.ui.element.setAttribute(this.options.domSelectors.wasInverted, 'true');
+        this.ui.element.classList.remove(this.options.stateClasses.inverted);
+      }
+    } else {
+      this.ui.element.classList.remove(this.options.stateClasses.scrolledPastHeader);
+      if (this.ui.element.getAttribute(this.options.domSelectors.wasInverted)) {
+        this.ui.element.removeAttribute(this.options.domSelectors.wasInverted);
+        this.ui.element.classList.add(this.options.stateClasses.inverted);
       }
     }
   }

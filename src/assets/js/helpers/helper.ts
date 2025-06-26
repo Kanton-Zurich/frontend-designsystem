@@ -1,14 +1,13 @@
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 
 import { INTERACTION_ELEMENTS_QUERY } from './constants';
-
 
 class Helper {
   /** So Touchmove and touchstart can talk about initial values */
   private swipeData: {
     initialX: number;
     initialY: number;
-  }
+  };
 
   /*
    * Create a console.log wrapper with optional namespace/context
@@ -23,7 +22,6 @@ class Helper {
    * `MyModule -> it's now initialised`
 
    * The output form depends on build flag - without --dev it will be plain message
-   * with the --dev flag it will be more corefull message using bows plugin
    */
   /**
    * Log function
@@ -76,10 +74,13 @@ class Helper {
   public extend(destination, source) {
     let property;
 
-    for (property in source) { // eslint-disable-line no-restricted-syntax
-      if (source[property]
-          && source[property].constructor
-          && source[property].constructor === Object) {
+    for (property in source) {
+      // eslint-disable-line no-restricted-syntax
+      if (
+        source[property] &&
+        source[property].constructor &&
+        source[property].constructor === Object
+      ) {
         destination[property] = destination[property] || {}; // eslint-disable-line
 
         this.extend(destination[property], source[property]);
@@ -113,8 +114,20 @@ class Helper {
   public addSwipeSupport(element: any, eventDelegate: any) {
     const debounceDelay = 100;
 
-    element.addEventListener('touchstart', (event) => { this.onTouchStart(event); }, { passive: true });
-    element.addEventListener('touchmove', debounce((event) => { this.onTouchMove(event, element, eventDelegate); }, debounceDelay), { passive: true });
+    element.addEventListener(
+      'touchstart',
+      (event) => {
+        this.onTouchStart(event);
+      },
+      { passive: true }
+    );
+    element.addEventListener(
+      'touchmove',
+      debounce((event) => {
+        this.onTouchMove(event, element, eventDelegate);
+      }, debounceDelay),
+      { passive: true }
+    );
   }
 
   /**
@@ -169,15 +182,18 @@ class Helper {
    * @memberof Helper
    */
   public setHiddenTabIndex(excludeNode) {
-    [].slice.call(window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY)).forEach((focusable) => { // eslint-disable-line
-      if (!excludeNode.contains(focusable)) {
-        if (focusable.hasAttribute('tabindex')) {
-          focusable.setAttribute('data-tabindex', focusable.getAttribute('tabindex'));
-        }
+    [].slice
+      .call(window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY))
+      .forEach((focusable) => {
+        // eslint-disable-line
+        if (!excludeNode.contains(focusable)) {
+          if (focusable.hasAttribute('tabindex')) {
+            focusable.setAttribute('data-tabindex', focusable.getAttribute('tabindex'));
+          }
 
-        focusable.setAttribute('tabindex', '-1');
-      }
-    });
+          focusable.setAttribute('tabindex', '-1');
+        }
+      });
   }
 
   /**
@@ -187,15 +203,20 @@ class Helper {
    * @memberof Helper
    */
   public resetHiddenTabIndex() {
-    [].slice.call(window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY)).forEach((focusable) => { // eslint-disable-line
-      const tabindex = focusable.hasAttribute('data-tabindex') ? focusable.getAttribute('data-tabindex') : false;
+    [].slice
+      .call(window.document.querySelectorAll(INTERACTION_ELEMENTS_QUERY))
+      .forEach((focusable) => {
+        // eslint-disable-line
+        const tabindex = focusable.hasAttribute('data-tabindex')
+          ? focusable.getAttribute('data-tabindex')
+          : false;
 
-      if (tabindex) {
-        focusable.setAttribute('tabindex', tabindex);
-      } else {
-        focusable.removeAttribute('tabindex');
-      }
-    });
+        if (tabindex) {
+          focusable.setAttribute('tabindex', tabindex);
+        } else {
+          focusable.removeAttribute('tabindex');
+        }
+      });
   }
 
   /**

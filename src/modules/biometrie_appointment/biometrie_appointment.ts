@@ -22,10 +22,10 @@ import { BiometrieViewController } from './util/view-controller.class';
 const SETTINGS_ATTR_NAME = 'data-biometrie_appointment_settings';
 class BiometrieAppointment extends Module {
   public ui: {
-    element: HTMLDivElement,
-    calLinksToggle: HTMLButtonElement,
-    calLinksDropdown: HTMLElement,
-    contactBlock: HTMLDivElement,
+    element: HTMLDivElement;
+    calLinksToggle: HTMLButtonElement;
+    calLinksDropdown: HTMLElement;
+    contactBlock: HTMLDivElement;
   };
 
   public data: {
@@ -50,8 +50,8 @@ class BiometrieAppointment extends Module {
       calLinksToggle: string;
       calLinksDropdown: string;
       contactBlock: string;
-    }
-    stateClasses: any
+    };
+    stateClasses: any;
   };
 
   private loginViewCntrl: BiometrieLoginView;
@@ -65,7 +65,7 @@ class BiometrieAppointment extends Module {
 
   constructor($element: any, data: Object, options: Object) {
     const defaultOptions = {
-      domSelectors: Object.assign({
+      domSelectors: {
         loadingSpinner: '[data-biometrie_appointment=loading-spinner]',
         viewCon: '[data-biometrie_appointment^=view__]',
         backLink: '[data-biometrie_appointment=rescheduleBack]',
@@ -77,8 +77,10 @@ class BiometrieAppointment extends Module {
         calLinksToggle: '[data-biometrie_appointment=toggleCalLinks]',
         calLinksDropdown: '.mdl-biometrie_appointment__details__calLinks .mdl-context_menu',
         contactBlock: '[data-biometrie_appointment=contact]',
+        ...loginViewSelectors,
+        ...detailViewSelectors,
+        ...rescheduleViewSelectorsValues,
       },
-      loginViewSelectors, detailViewSelectors, rescheduleViewSelectorsValues),
       stateClasses: {
         // activated: 'is-activated'
       },
@@ -97,19 +99,21 @@ class BiometrieAppointment extends Module {
     };
     let settings = {};
     try {
-      const settingsStr = document.querySelector(defaultOptions.domSelectors.settings)
+      const settingsStr = document
+        .querySelector(defaultOptions.domSelectors.settings)
         .getAttribute(SETTINGS_ATTR_NAME);
       settings = JSON.parse(settingsStr);
     } catch (e) {
       console.error('Unparseable settings object: ', e);
     }
     settings = Object.assign(defaultSettings, settings);
-    const defaultData = Object.assign({
+    const defaultData = {
       appointment: undefined,
       apiAvailable: undefined,
       loading: true,
       loggedIn: false,
-    }, settings);
+      ...settings,
+    };
     super($element, defaultData, defaultOptions, data, options);
     this.log('Module "Biometrie Appointment" init!', this);
     this.initUi();
@@ -125,15 +129,19 @@ class BiometrieAppointment extends Module {
 
   private initServices(): void {
     this.apiService = new MigekApiService(this.data.apiBase, this.log);
-    this.apiService.getStatus().then((statusOk) => {
-      this.log('ApiService initialiside. StatusOk: ', statusOk);
-      this.data.apiAvailable = statusOk;
-    }).catch((exception) => {
-      this.log('Caught Exception on API status request: ', exception);
-      this.data.apiAvailable = false;
-    }).finally(() => {
-      this.data.loading = false;
-    });
+    this.apiService
+      .getStatus()
+      .then((statusOk) => {
+        this.log('ApiService initialiside. StatusOk: ', statusOk);
+        this.data.apiAvailable = statusOk;
+      })
+      .catch((exception) => {
+        this.log('Caught Exception on API status request: ', exception);
+        this.data.apiAvailable = false;
+      })
+      .finally(() => {
+        this.data.loading = false;
+      });
 
     this.calendarLinkGenerator = new CalendarLinkGenerator(this.data.calendarLinkProperties);
   }
@@ -144,17 +152,21 @@ class BiometrieAppointment extends Module {
     this.loginViewCntrl = new BiometrieLoginView(this.data, loginViewSelectors);
     this.viewController.push(this.loginViewCntrl);
 
-    this.detailsViewCntrl = new BiometrieDetailsView(this.data, detailViewSelectors,
-      this.calendarLinkGenerator)
-      .onRescheduleClicked((rescheduleIntention) => {
-        if (rescheduleIntention) {
-          this.enterRescheduleView();
-        }
-      });
+    this.detailsViewCntrl = new BiometrieDetailsView(
+      this.data,
+      detailViewSelectors,
+      this.calendarLinkGenerator
+    ).onRescheduleClicked((rescheduleIntention) => {
+      if (rescheduleIntention) {
+        this.enterRescheduleView();
+      }
+    });
     this.viewController.push(this.detailsViewCntrl);
 
-    this.rescheduleViewCntrl = new BiometrieRescheduleView(this.data,
-      rescheduleViewSelectorsValues);
+    this.rescheduleViewCntrl = new BiometrieRescheduleView(
+      this.data,
+      rescheduleViewSelectorsValues
+    );
     this.viewController.push(this.rescheduleViewCntrl);
 
     this.viewController.forEach((cntrl) => {
@@ -183,28 +195,32 @@ class BiometrieAppointment extends Module {
    */
   initEventListeners() {
     // Init Controller Event listeners
-    this.viewController.forEach(cntrl => cntrl.initEventListeners(this.eventDelegate));
+    this.viewController.forEach((cntrl) => cntrl.initEventListeners(this.eventDelegate));
 
-    this.eventDelegate.on('click', this.options.domSelectors.backLink, () => {
-      this.data.loading = true;
-      this.apiService.getReservationDetails()
-      // Refresh details, to prevent inconsistency between views
-        .then((refreshedAppointment) => {
-          this.data.appointment = refreshedAppointment;
-        })
-        .catch((exception) => {
-          this.log('Unexpected exception connecting to API', exception);
-          this.data.apiAvailable = false;
-        })
-        .finally(() => {
-          this.data.loading = false;
-        });
-      this.rescheduleViewCntrl.resetView(true);
-    }).on('click', this.options.domSelectors.logoutLink, () => {
-      this.doLogout();
-    }).on('click', this.options.domSelectors.connectRetry, () => {
-      this.doLogout();
-    });
+    this.eventDelegate
+      .on('click', this.options.domSelectors.backLink, () => {
+        this.data.loading = true;
+        this.apiService
+          .getReservationDetails()
+          // Refresh details, to prevent inconsistency between views
+          .then((refreshedAppointment) => {
+            this.data.appointment = refreshedAppointment;
+          })
+          .catch((exception) => {
+            this.log('Unexpected exception connecting to API', exception);
+            this.data.apiAvailable = false;
+          })
+          .finally(() => {
+            this.data.loading = false;
+          });
+        this.rescheduleViewCntrl.resetView(true);
+      })
+      .on('click', this.options.domSelectors.logoutLink, () => {
+        this.doLogout();
+      })
+      .on('click', this.options.domSelectors.connectRetry, () => {
+        this.doLogout();
+      });
 
     this.addAlertDismissListeners();
 
@@ -214,8 +230,9 @@ class BiometrieAppointment extends Module {
   }
 
   private addAlertDismissListeners(): void {
-    const alertDismissElements = document
-      .querySelectorAll<HTMLDivElement>(this.options.domSelectors.alertDismiss);
+    const alertDismissElements = document.querySelectorAll<HTMLDivElement>(
+      this.options.domSelectors.alertDismiss
+    );
     alertDismissElements.forEach((alertDismiss) => {
       const alertClasslist = alertDismiss.parentElement.classList;
       alertDismiss.addEventListener('click', () => {
@@ -225,8 +242,9 @@ class BiometrieAppointment extends Module {
   }
 
   private toggleLoadingSpinner(): void {
-    const loadingConClassList = document
-      .querySelector<HTMLInputElement>(this.options.domSelectors.loadingSpinner).classList;
+    const loadingConClassList = document.querySelector<HTMLInputElement>(
+      this.options.domSelectors.loadingSpinner
+    ).classList;
     if (loadingConClassList.contains('show')) {
       loadingConClassList.remove('show');
     } else {
@@ -249,8 +267,9 @@ class BiometrieAppointment extends Module {
   }
 
   private toggleLogoutLink(setVisible: boolean): void {
-    const logoutLink = document
-      .querySelector<HTMLAnchorElement>(this.options.domSelectors.logoutLink);
+    const logoutLink = document.querySelector<HTMLAnchorElement>(
+      this.options.domSelectors.logoutLink
+    );
     if (setVisible) {
       logoutLink.classList.add('show');
     } else {
@@ -259,8 +278,7 @@ class BiometrieAppointment extends Module {
   }
 
   private toggleBackLink(setVisible: boolean): void {
-    const backLink = document
-      .querySelector<HTMLAnchorElement>(this.options.domSelectors.backLink);
+    const backLink = document.querySelector<HTMLAnchorElement>(this.options.domSelectors.backLink);
     if (setVisible) {
       backLink.classList.add('show');
     } else {
@@ -274,7 +292,7 @@ class BiometrieAppointment extends Module {
     this.apiService.logoutReset();
   }
 
-  private enterLoginView():void {
+  private enterLoginView(): void {
     this.enterView('login');
     this.ui.contactBlock.classList.remove('visible');
   }
@@ -297,7 +315,7 @@ class BiometrieAppointment extends Module {
     this.ui.contactBlock.classList.remove('visible');
   }
 
-  private enterView(viewName?: string):void {
+  private enterView(viewName?: string): void {
     const viewCon = document.querySelectorAll<HTMLInputElement>(this.options.domSelectors.viewCon);
 
     viewCon.forEach((el) => {

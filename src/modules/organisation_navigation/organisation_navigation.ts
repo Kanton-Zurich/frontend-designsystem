@@ -4,30 +4,30 @@
  * @author
  * @copyright
  */
-import { template } from 'lodash';
+import template from 'lodash/template';
 import Module from '../../assets/js/helpers/module';
 
 class OrganisationNavigation extends Module {
   public ui: {
-    element: HTMLElement,
-    topiclist: HTMLElement,
-    topSection: HTMLElement,
-    bottomSection: HTMLElement,
-    organisationTeaserTemplate: HTMLElement,
-  }
+    element: HTMLElement;
+    topiclist: HTMLElement;
+    topSection: HTMLElement;
+    bottomSection: HTMLElement;
+    organisationTeaserTemplate: HTMLElement;
+  };
 
   public options: {
     domSelectors: {
-      topiclist: string,
-    },
-    stateClasses: any,
-  }
+      topiclist: string;
+    };
+    stateClasses: any;
+  };
 
   public data: {
-    topSection: any,
-    bottomSection: Array<any>,
-    moreLabel: string,
-  }
+    topSection: any;
+    bottomSection: Array<any>;
+    moreLabel: string;
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -97,11 +97,12 @@ class OrganisationNavigation extends Module {
     const compiled = template(this.ui.organisationTeaserTemplate.innerHTML);
     const htmlString = compiled(context);
 
-    const parsedHTML = new DOMParser().parseFromString(htmlString, 'text/html').querySelector('div');
+    const parsedHTML = new DOMParser()
+      .parseFromString(htmlString, 'text/html')
+      .querySelector('div');
 
     appendTo.appendChild(parsedHTML);
   }
-
 
   /**
    * Unbind events, remove data, custom teardown

@@ -15,7 +15,9 @@ const data = _.merge({}, defaultData, {
     wrapInForm: true,
   },
   props: {
-    primarySelectData: _.merge({}, defSelectData.variants.default.props, { additionalAttributes: 'data-filter-attribute="data-filter-id" data-drilldown-primary' }),
+    primarySelectData: _.merge({}, defSelectData.variants.default.props, {
+      additionalAttributes: 'data-filter-attribute="data-filter-id" data-drilldown-primary',
+    }),
     secondarySelectData: _.merge({}, defSelectData.variants.default.props, {
       additionalAttributes: 'data-filter-attribute="data-filter-id" data-drilldown-secondary',
       triggerInputData: {
@@ -38,67 +40,115 @@ data.props.primarySelectData.listData.groupId = 'thema';
 data.props.primarySelectData.triggerInputData.label = 'Thema';
 
 data.props.secondarySelectData.listData.selectOptions = [
-  { value: 'allg_erl', label: 'Erlasse &amp; Merkblätter', filterId: 'allg', id: _.uniqueId('option-item') },
-  { value: 'quel_erl', label: 'Erlasse &amp; Merkblätter', filterId: 'quel', id: _.uniqueId('option-item') },
-  { value: 'verf_erl', label: 'Erlasse &amp; Merkblätter', filterId: 'verf', id: _.uniqueId('option-item') },
-  { value: 'strpf_nat', label: 'Steuerpflicht', filterId: 'natü person', id: _.uniqueId('option-item') },
-  { value: 'ausgl_nat', label: 'Ausgleich kalte Progression', filterId: 'natü person', id: _.uniqueId('option-item') },
-  { value: 'einkstr_nat', label: 'Einkommenssteuer', filterId: 'natü person', id: _.uniqueId('option-item') },
-  { value: 'zeitbl_nat', label: 'Zeitliche Bemessung', filterId: 'natü person', id: _.uniqueId('option-item') },
-  { value: 'verm_nat', label: 'Vermögenssteuer', filterId: 'natü person', id: _.uniqueId('option-item') },
+  {
+    value: 'allg_erl',
+    label: 'Erlasse &amp; Merkblätter',
+    filterId: 'allg',
+    id: _.uniqueId('option-item'),
+  },
+  {
+    value: 'quel_erl',
+    label: 'Erlasse &amp; Merkblätter',
+    filterId: 'quel',
+    id: _.uniqueId('option-item'),
+  },
+  {
+    value: 'verf_erl',
+    label: 'Erlasse &amp; Merkblätter',
+    filterId: 'verf',
+    id: _.uniqueId('option-item'),
+  },
+  {
+    value: 'strpf_nat',
+    label: 'Steuerpflicht',
+    filterId: 'natü person',
+    id: _.uniqueId('option-item'),
+  },
+  {
+    value: 'ausgl_nat',
+    label: 'Ausgleich kalte Progression',
+    filterId: 'natü person',
+    id: _.uniqueId('option-item'),
+  },
+  {
+    value: 'einkstr_nat',
+    label: 'Einkommenssteuer',
+    filterId: 'natü person',
+    id: _.uniqueId('option-item'),
+  },
+  {
+    value: 'zeitbl_nat',
+    label: 'Zeitliche Bemessung',
+    filterId: 'natü person',
+    id: _.uniqueId('option-item'),
+  },
+  {
+    value: 'verm_nat',
+    label: 'Vermögenssteuer',
+    filterId: 'natü person',
+    id: _.uniqueId('option-item'),
+  },
   { value: 'strpf_jur', label: 'Steuerpflicht', filterId: 'jur', id: _.uniqueId('option-item') },
-  { value: 'zeitbl_jur', label: 'Zeitliche Bemessung', filterId: 'jur', id: _.uniqueId('option-item') },
+  {
+    value: 'zeitbl_jur',
+    label: 'Zeitliche Bemessung',
+    filterId: 'jur',
+    id: _.uniqueId('option-item'),
+  },
   { value: 'gew_jur', label: 'Gewinnsteuer', filterId: 'jur', id: _.uniqueId('option-item') },
 ];
 data.props.secondarySelectData.listData.groupId = 'unterthema';
 data.props.secondarySelectData.triggerInputData.label = 'Unterthema';
 
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-    },
-    props: {
-      primarySelectData: {
-        listData: {
-          validation: {
-            isRequired: false,
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Default',
+        desc: 'Default implementation',
+      },
+      props: {
+        primarySelectData: {
+          listData: {
+            validation: {
+              isRequired: false,
+            },
+          },
+        },
+        secondarySelectData: {
+          listData: {
+            validation: {
+              isRequired: false,
+            },
           },
         },
       },
-      secondarySelectData: {
-        listData: {
-          validation: {
-            isRequired: false,
-          },
+    },
+    required: {
+      meta: {
+        title: 'Required',
+        desc: '',
+      },
+    },
+  },
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
+
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
         },
       },
-    },
-  },
-  required: {
-    meta: {
-      title: 'Required',
-      desc: '',
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
+    });
 
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
-      },
-    },
-  });
-
-  return variantData;
-});
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

@@ -1,13 +1,29 @@
+@use 'sass:math';
+
+:root {
+  --color-text: #{$colorBlack};
+  --color-text-soft: #{$colorBlack60};
+  --color-bg: #{$colorWhite};
+  --scrollbar-wd: 17px;
+
+  @include sizeCurve(--grid-outer-gutters, bleed, $grid-outer-gutters);
+}
+
 * {
   box-sizing: border-box;
+  font-feature-settings: 'ss07', 'ss08', 'cv03', 'cv04', 'cv10';
 }
 
 html {
   background: $colorWhite;
   color: $colorText;
   font-family: $fontFamilyBase;
-  font-size: $sizeFontBase / 16px * 100%;
+  font-size: math.div(strip-unit($sizeFontBase), 16) * 100%;
+  font-optical-sizing: auto;
   line-height: $sizeLineHeightBase;
+  scroll-behavior: smooth;
+  scroll-padding-top: pxToRem(120px);
+  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 html,
@@ -45,7 +61,7 @@ nav {
   @each $bp, $bpWidth in $mqBreakpoints {
     @if map-has-key($map: $wrapperSpacing, $key: $bp) {
       @include mq($bp) {
-        max-width: calc(100% - #{2 * pxToRem(map-get($wrapperSpacing, $bp))});
+        max-width: calc(100% - pxToRem(2 * map-get($wrapperSpacing, $bp)));
       }
     } @else {
       @include mq($bp) {
@@ -55,14 +71,35 @@ nav {
   }
 }
 
+/**
+ * Color variations
+ */
 @each $key, $val in $tl-color-variations {
   .#{$key} {
     * {
       ::selection {
         background: #{$val};
-        color: $colorWhite;
+        color: #{$colorWhite};
       }
     }
+    --color-accent: #{$val};
+  }
+}
+@each $key, $val in $tl-color-variations-soft {
+  .#{$key} {
+    --color-accent-soft: #{$val};
+  }
+}
+
+@media screen {
+  .cv-inverted {
+    ::selection {
+      color: #{$colorBlack};
+      background: #{$colorWhite};
+    }
+    --color-text: #{$colorWhite};
+    --color-text-soft: var(--color-accent-soft);
+    --color-bg: var(--color-accent);
   }
 }
 

@@ -16,14 +16,14 @@ class Back2top extends Module {
   public options: Back2TopModuleOptions;
 
   public ui: {
-    element: HTMLElement,
+    element: HTMLElement;
   };
 
   public data: {
     unlockCond: {
-      necessary: boolean,
-      sufficient: boolean,
-    }
+      necessary: boolean;
+      sufficient: boolean;
+    };
   };
 
   private defaultBottomPos: number;
@@ -63,48 +63,10 @@ class Back2top extends Module {
   initEventListeners() {
     this.eventDelegate.on('click', () => {
       this.ui.element.classList.remove(this.options.stateClasses.unlocked);
-      if (this.scrollBehaviourEnabled()) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        this.smoothScrollTop();
-      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     this.initScrollEventListener();
-  }
-
-  private scrollBehaviourEnabled(): boolean {
-    return 'scrollBehavior' in document.documentElement.style;
-  }
-
-  /**
-   * Smooth scroll method for browser not supporting scroll behaviour option.
-   *
-   * @param options Configuration object with property 'stepDuration' = time in ms for each scroll
-   * step and a 'refinement' factor, which is an integer > 0 controlling the scroll amount
-   * for each step.
-   */
-  private smoothScrollTop(options = this.options.customSmoothScrollConfig): void {
-    const initialScrollY = window.pageYOffset;
-
-    let stepScrollY = initialScrollY;
-
-    const scrollSteps = [...new Array(options.refinement)].map((x, idx) => idx * idx);
-    const int = setInterval(() => {
-      const d = initialScrollY - stepScrollY;
-      scrollSteps.every((stepSize, i) => {
-        const bound = stepSize * options.stepDuration;
-        if (stepScrollY < bound || d < bound || i === scrollSteps.length - 1) {
-          stepScrollY -= stepSize;
-          return false;
-        }
-        return true;
-      });
-      window.scroll(0, stepScrollY);
-      if (stepScrollY <= 0) {
-        clearInterval(int);
-      }
-    }, options.stepDuration);
   }
 
   private initScrollEventListener() {
@@ -170,9 +132,13 @@ class Back2top extends Module {
 
     // Handle case when langswitch is closed.
     if (this.ui.element.classList.contains(this.options.stateClasses.preserveLangSwitch)) {
-      document.addEventListener(LangSwitch.events.hide, () => {
-        this.ui.element.classList.remove(this.options.stateClasses.preserveLangSwitch);
-      }, { once: true });
+      document.addEventListener(
+        LangSwitch.events.hide,
+        () => {
+          this.ui.element.classList.remove(this.options.stateClasses.preserveLangSwitch);
+        },
+        { once: true }
+      );
     }
   }
 
@@ -182,7 +148,8 @@ class Back2top extends Module {
       this.ui.element.classList.add(this.options.stateClasses.unlocked);
     } else if (!newVal) {
       this.ui.element.classList.add(this.options.stateClasses.scrolledOn);
-      setTimeout(() => { // Remove classes after animations completed.
+      setTimeout(() => {
+        // Remove classes after animations completed.
         this.ui.element.classList.remove(this.options.stateClasses.scrolledOn);
         this.ui.element.classList.remove(this.options.stateClasses.unlocked);
       }, this.options.transitionDelay);

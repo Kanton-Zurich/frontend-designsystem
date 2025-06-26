@@ -1,0 +1,8 @@
+<p class="atm-tag{{#if modifier}} atm-tag--{{modifier}}{{/if}}{{#if isNegative}} atm-tag--is-negative{{/if}}">
+  {{#if icon}}<span class="atm-tag__icon">
+    <svg class="icon" aria-hidden="true">
+      <use xlink:href="#{{icon}}"></use>
+    </svg>
+  </span>{{/if}}
+  <span class="atm-tag__text">{{text}}</span>
+</p>

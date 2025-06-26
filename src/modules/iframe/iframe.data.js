@@ -13,98 +13,112 @@ const data = _.merge({}, defaultData, {
     label: 'Eingebettet',
     documentation: dataHelper.getDocumentation('README.md'),
   },
-  props: {
-
-  },
+  props: {},
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'IFrame mit dynamischer Höhe',
-    },
-    props: {
-      iframeScreenReaderHeading: {
-        title: 'IFrame with dynamic height',
-        level: 3,
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Default',
+        desc: 'IFrame mit dynamischer Höhe',
       },
-      iframeHeight: null,
-      iframeSrc: 'iframe_content.mock.html',
-      iframeTextLink: {
-        icon: 'arrow-right',
-        text: 'Inhalt in seperater Seite anzeigen',
-        isInverted: false,
-        hasLeadingIcon: false,
-        hasTrailingIcon: true,
-        textLinkSrc: 'https://inside-reality.com/',
-        textLinkTargetBlank: true,
-      },
-      iframeCaptionId: _.uniqueId('mdl-iframe__caption'),
-      caption: _.merge({}, defFigcaptionData, {
-        caption: 'Iframe Titel <a class="atm-text_link" href="#">Quelle</a>',
-      }),
-    },
-  },
-  default2: {
-    meta: {
-      title: 'Alternative',
-      desc: '',
-    },
-    props: {
-      heading: {
-        level: 2,
-        title: 'Small Iframe',
-      },
-      iframeHeight: 600,
-      iframeSrc: 'https://www.one-inside.com/de/',
-      caption: _.merge({}, defFigcaptionData, {
-        caption: 'Iframe Titel <a class="atm-text_link" href="#">Quelle</a>',
-      }),
-    },
-  },
-  fullSize: {
-    meta: {
-      title: 'Volle Grösse',
-      desc: '',
-    },
-    props: {
-      iframeSrc: 'https://www.one-inside.com/de/',
-      iframeFullSize: true,
-    },
-  },
-  small: {
-    meta: {
-      title: 'Schmal / Klein',
-      desc: '',
-    },
-    props: {
-      iframeSrc: 'https://www.one-inside.com/de/',
-      iframeFullSize: false,
-      iframeSmall: true,
-      iframeHeight: 600,
-      heading: {
-        level: 2,
-        title: 'Small Iframe',
+      props: {
+        iframeScreenReaderHeading: {
+          title: 'iFrame ohne sichtbaren Titel',
+          level: 3,
+          visualLevel: 3,
+        },
+        iframeHeight: null,
+        iframeSrc: 'iframe_content.mock.html',
+        iframeTextLink: {
+          icon: 'arrow-right',
+          text: 'Inhalt in separater Seite anzeigen',
+          isInverted: false,
+          hasLeadingIcon: false,
+          hasTrailingIcon: true,
+          textLinkSrc: 'https://zeix.com/',
+          textLinkTargetBlank: true,
+        },
+        iframeCaptionId: _.uniqueId('mdl-iframe__caption'),
+        caption: _.merge({}, defFigcaptionData, {
+          caption:
+            'Iframe Titel, der gleichzeitig Legende als auch Alternativtext ist. <a class="atm-text_link" href="#">Quelle</a>',
+        }),
       },
     },
+    default2: {
+      meta: {
+        title: 'iFrame mit H2',
+        desc: '',
+      },
+      props: {
+        heading: {
+          level: 2,
+          visualLevel: 2,
+          title: 'iFrame mit H2',
+        },
+        iframeHeight: 600,
+        iframeSrc: 'https://www.zeix.com/',
+        iframeCaptionId: _.uniqueId('mdl-iframe__caption'),
+        caption: _.merge({}, defFigcaptionData, {
+          caption: 'Iframe Titel <a class="atm-text_link" href="#">Quelle</a>',
+        }),
+      },
+    },
+    fullSize: {
+      meta: {
+        title: 'Volle Grösse',
+        desc: '',
+      },
+      props: {
+        iframeSrc: 'https://www.zeix.com/',
+        iframeFullSize: true,
+        iframeCaptionId: _.uniqueId('mdl-iframe__caption'),
+        caption: _.merge({}, defFigcaptionData, {
+          caption: 'Iframe Titel <a class="atm-text_link" href="#">Quelle</a>',
+        }),
+      },
+    },
+    small: {
+      meta: {
+        title: 'Schmal / Klein',
+        desc: 'Kleines iFrame mit H3 Style',
+      },
+      props: {
+        iframeSrc: 'https://www.zeix.com/',
+        iframeFullSize: false,
+        iframeSmall: true,
+        iframeHeight: 600,
+        heading: {
+          level: 2,
+          visualLevel: 3,
+          title: 'Kleines iFrame mit H3 Style',
+        },
+        iframeCaptionId: _.uniqueId('mdl-iframe__caption'),
+        caption: _.merge({}, defFigcaptionData, {
+          caption: 'Iframe Titel <a class="atm-text_link" href="#">Quelle</a>',
+        }),
+      },
+    },
   },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
       },
-    },
-  });
+    });
 
-  return variantData;
-});
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

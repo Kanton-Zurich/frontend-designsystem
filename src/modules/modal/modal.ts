@@ -5,7 +5,13 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
+import HeaderExpand from '../header_expand/header_expand';
 import WindowEventListener from '../../assets/js/helpers/events';
+import { cause, effect } from '../../assets/js/helpers/causeEffect';
+import type { OrganisationData } from '../edirectory/edirectory';
+import Pagination from '../pagination/pagination';
+
+const MAX_RESULTS_PER_PAGE = 10;
 
 class Modal extends Module {
   private parentScrollPosition: number;
@@ -13,24 +19,32 @@ class Modal extends Module {
   private hasCloseBtn: boolean;
   private headerHeight: number;
   private isolatedElements: HTMLElement[];
+  private headerResizeObserver: ResizeObserver;
 
   public options: {
-    domSelectors: any,
-    stateClasses: any,
-    transitionTime: number,
-    hasDynamicHeader: boolean,
-    isSPA: boolean,
-    isNav: boolean,
-    isSearch: boolean,
-    childSelectors: any,
-    scrollThreshold: number,
+    domSelectors: any;
+    stateClasses: any;
+    transitionTime: number;
+    hasDynamicHeader: boolean;
+    isSPA: boolean;
+    isNav: boolean;
+    isSearch: boolean;
+    childSelectors: any;
+    scrollThreshold: number;
   };
 
   public ui: {
-    element: HTMLDivElement,
-    initiable: NodeListOf<HTMLElement>,
-    pageContainer: HTMLDivElement,
-    pages: HTMLDivElement[],
+    element: HTMLDivElement;
+    initiable: NodeList;
+    pageContainer: HTMLDivElement;
+    pages: HTMLDivElement[];
+    pageHeader: HTMLElement;
+    breadcrumbs: HTMLElement;
+    contactBlockOrganisation: HTMLElement;
+    contactBlockLeaders: HTMLElement;
+    membersTable: HTMLElement;
+    membersPagination: HTMLElement;
+    linkListOrganisations: HTMLElement;
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -39,12 +53,18 @@ class Modal extends Module {
       transitionTime: 280,
       domSelectors: {
         pageHeader: '.mdl-page-header',
-        closeButton: '.mdl-page-header__closebutton, .mdl-modal__close',
+        closeButton: '.mdl-page-header__close, .mdl-modal__close',
         close: '[data-modal="close"]',
         focusable: 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
         initiable: '[data-init]',
         pageContainer: '.mdl-modal__pages',
         pages: '.mdl-modal__pages-page',
+        breadcrumbs: '.mdl-breadcrumb',
+        contactBlockOrganisation: '.mdl-contact_block--organisation',
+        contactBlockLeaders: '.mdl-contact_block--leaders',
+        membersTable: '.mdl-table',
+        membersPagination: '.mdl-table .mdl-pagination',
+        linkListOrganisations: '.mdl-linklist',
       },
       stateClasses: {
         beforeShow: 'mdl-modal--before-show',
@@ -89,6 +109,7 @@ class Modal extends Module {
       closed: 'Modal.closed',
       opened: 'Modal.opened',
       setPage: 'Modal.setPage',
+      setData: 'Component.setData',
     };
   }
 
@@ -96,8 +117,9 @@ class Modal extends Module {
    * Set the properties if the modal is in a different variation
    */
   initVariations() {
-    this.options.hasDynamicHeader = this.ui.element.classList
-      .contains(this.options.stateClasses.dynamicHeader);
+    this.options.hasDynamicHeader = this.ui.element.classList.contains(
+      this.options.stateClasses.dynamicHeader
+    );
 
     this.options.isSPA = this.ui.element.querySelector(this.options.childSelectors.spa);
     this.options.isNav = this.ui.element.querySelector(this.options.childSelectors.nav);
@@ -116,10 +138,12 @@ class Modal extends Module {
       if (!this.scriptsInitialized) {
         this.runScripts(this.ui.element);
       }
-      (<any>window).estatico.helpers.registerModulesInElement
-        .bind((<any>window).estatico.helpers.app)(this.ui.element);
-      (<any>window).estatico.helpers.initModulesInElement
-        .bind((<any>window).estatico.helpers.app)(this.ui.element);
+      (<any>window).estatico.helpers.registerModulesInElement.bind(
+        (<any>window).estatico.helpers.app
+      )(this.ui.element);
+      (<any>window).estatico.helpers.initModulesInElement.bind((<any>window).estatico.helpers.app)(
+        this.ui.element
+      );
       (<any>window).estatico.helpers.app.registerForms();
     });
     this.eventDelegate.on(Modal.events.closeModal, this.closeModal.bind(this));
@@ -134,19 +158,36 @@ class Modal extends Module {
      * IOS Safari 10 fix background scrolling since apples safari creates tons of problems
      */
     let clientY = null; // remember Y position on touch start
-    this.ui.element.addEventListener('touchstart', (event) => {
-      if (event.targetTouches.length === 1) {
-        // detect single touch
-        clientY = event.targetTouches[0].clientY; // eslint-disable-line
-      }
-    }, false);
+    this.ui.element.addEventListener(
+      'touchstart',
+      (event) => {
+        if (event.targetTouches.length === 1) {
+          // detect single touch
+          clientY = event.targetTouches[0].clientY; // eslint-disable-line
+        }
+      },
+      false
+    );
 
-    this.ui.element.addEventListener('touchmove', (event) => {
-      if (event.targetTouches.length === 1) {
-        // detect single touch
-        this.disableRubberBand(event, clientY);
-      }
-    }, false);
+    this.ui.element.addEventListener(
+      'touchmove',
+      (event) => {
+        if (event.targetTouches.length === 1) {
+          // detect single touch
+          this.disableRubberBand(event, clientY);
+        }
+      },
+      false
+    );
+
+    if (this.ui.pageHeader) {
+      this.headerResizeObserver = new ResizeObserver((entries) => {
+        entries.forEach(() => {
+          this.updateSizing();
+        });
+      });
+      this.headerResizeObserver.observe(this.ui.pageHeader);
+    }
   }
 
   /**
@@ -173,11 +214,11 @@ class Modal extends Module {
     const pageHeader = this.ui.element.querySelector(this.options.domSelectors.pageHeader);
 
     if (pageHeader) {
-      if (scrollTop > this.options.scrollThreshold) {
-        pageHeader.dispatchEvent(new CustomEvent('PageHeader.collapse'));
-      } else {
-        pageHeader.dispatchEvent(new CustomEvent('PageHeader.expand'));
-      }
+      const myEvent =
+        scrollTop > this.options.scrollThreshold
+          ? HeaderExpand.events.collapseTriggered
+          : HeaderExpand.events.expandTriggered;
+      pageHeader.dispatchEvent(new CustomEvent(myEvent, { bubbles: true }));
 
       this.rescaleBackgroundElements();
     }
@@ -197,7 +238,8 @@ class Modal extends Module {
           this.headerHeight = pageHeader.style.pixelHeight;
         }
       }
-      this.ui.element.style.paddingTop = `${this.headerHeight}px`;
+      this.ui.element.style.paddingTop = `${pageHeader.offsetHeight}px`;
+      this.ui.element.style.minHeight = `calc(100dvh - ${this.headerHeight}px)`;
     }
     this.updateFlyingFocus(0);
   }
@@ -215,7 +257,7 @@ class Modal extends Module {
   /**
    * Open the modal and isolate content
    */
-  openModal(event) {
+  openModal(event: CustomEvent) {
     // isolate modal
     this.isolatedElements = [];
     (<any>window).estatico.helpers.bodyElement.childNodes.forEach((child) => {
@@ -227,15 +269,22 @@ class Modal extends Module {
       }
     });
 
+    // Page number of multi-step modals
     if (event.detail && event.detail.page) {
       this.setPage(event.detail.page);
+
+      // Function to get current autority data (Behördenverzeichnis)
+    } else if (typeof event.detail === 'function') {
+      this.updateData(event.detail);
     }
 
     this.ui.element.removeAttribute('aria-hidden');
 
     // Set show class
     this.ui.element.classList.add(this.options.stateClasses.beforeShow);
-    setTimeout(() => { this.ui.element.classList.add(this.options.stateClasses.show); }, 1);
+    setTimeout(() => {
+      this.ui.element.classList.add(this.options.stateClasses.show);
+    }, 1);
     document.documentElement.style.overflowY = 'hidden';
 
     // Accessibility features
@@ -266,7 +315,9 @@ class Modal extends Module {
     // reload Single page Applications scripts in case of asynchronous loading
     if (this.ui.element.querySelector(this.options.childSelectors.spa)) {
       setTimeout(() => {
-        this.ui.element.querySelector(this.options.childSelectors.spa).dispatchEvent(new CustomEvent('Application.initScripts'));
+        this.ui.element
+          .querySelector(this.options.childSelectors.spa)
+          .dispatchEvent(new CustomEvent('Application.initScripts'));
       }, this.options.transitionTime);
     }
 
@@ -285,12 +336,13 @@ class Modal extends Module {
     if (this.options.isNav || this.options.isSearch) {
       document.body.classList.add(this.options.stateClasses.openModalNav);
     }
-
-    window.dispatchEvent(new CustomEvent('reloadLineClamper'));
   }
 
   /** Closes the modal */
   closeModal() {
+    const focusSelector = this.ui.element.getAttribute('id').includes('edirectory')
+      ? `a[href="${window.location.hash}"]`
+      : `[aria-controls="${this.ui.element.getAttribute('id')}"]`;
     document.body.style.removeProperty('max-height');
     this.isolatedElements.forEach((element) => {
       element.removeAttribute('aria-hidden');
@@ -302,9 +354,9 @@ class Modal extends Module {
     setTimeout(() => {
       this.ui.element.classList.add(this.options.stateClasses.hide);
       (<any>window).estatico.helpers.resetHiddenTabIndex();
-      const focusOrigin = document.querySelector(`[aria-controls="${this.ui.element.getAttribute('id')}"]`);
+      const focusOrigin = document.querySelector(focusSelector);
       if (focusOrigin) {
-        (<any> focusOrigin).focus();
+        (<any>focusOrigin).focus();
       }
       this.ui.element.classList.remove(this.options.stateClasses.opened);
     }, this.options.transitionTime);
@@ -373,13 +425,83 @@ class Modal extends Module {
     return this.ui.element.scrollHeight - this.ui.element.scrollTop <= this.ui.element.clientHeight;
   }
 
+  private updateData(authorityData: () => OrganisationData) {
+    const [membersList, setMembersList] = cause([]);
+    const [membersPage, setMembersPage] = cause(1);
+
+    const dispatchSetData = (elementName: string, data: any) => {
+      this.ui[elementName].dispatchEvent(
+        new CustomEvent(Modal.events.setData, {
+          detail: data,
+        })
+      );
+    };
+
+    // Effect to update the data in the modal
+    effect(() => {
+      const organisation = authorityData();
+      if (organisation == null) return;
+
+      dispatchSetData('pageHeader', {
+        title: organisation.title,
+      });
+      setTimeout(() => {
+        dispatchSetData('breadcrumbs', {
+          title: organisation.title,
+          breadcrumbs: organisation.breadcrumbs,
+        });
+      });
+      dispatchSetData('contactBlockOrganisation', [organisation]);
+      dispatchSetData('contactBlockLeaders', organisation.leaders || []);
+
+      setMembersList(organisation.members || []);
+      setMembersPage(1);
+      this.ui.membersPagination.dispatchEvent(
+        new CustomEvent(Pagination.events.setPage, {
+          detail: 1,
+        })
+      );
+      const handlePagination = (e: CustomEvent) => {
+        setMembersPage(parseInt(e.detail.after, 10) || 1);
+      };
+      const pageCount = Math.ceil(organisation.members?.length / MAX_RESULTS_PER_PAGE || 1);
+      if (pageCount > 1) {
+        this.ui.membersPagination.removeEventListener(Pagination.events.change, handlePagination);
+        this.ui.membersPagination.addEventListener(Pagination.events.change, handlePagination);
+        this.ui.membersPagination.dispatchEvent(
+          new CustomEvent(Pagination.events.setPageCount, {
+            detail: pageCount,
+          })
+        );
+        this.ui.membersPagination.classList.remove('hidden');
+      } else {
+        this.ui.membersPagination.classList.add('hidden');
+      }
+
+      dispatchSetData('linkListOrganisations', organisation);
+    });
+
+    // Effect to update the members list in the modal
+    effect(() => {
+      const page = membersPage();
+      const members = membersList()
+        .slice((page - 1) * MAX_RESULTS_PER_PAGE, page * MAX_RESULTS_PER_PAGE)
+        .map((member) => {
+          return {
+            ...member,
+            name: `${member.firstName} ${member.lastName}`,
+          };
+        });
+      dispatchSetData('membersTable', members);
+    });
+  }
+
   /**
    * Unbind events, remove data, custom teardown
    */
   destroy() {
     super.destroy();
-
-    // Custom destroy actions go here
+    this.headerResizeObserver.disconnect();
   }
 }
 

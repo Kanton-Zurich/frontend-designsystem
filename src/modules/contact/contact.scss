@@ -1,66 +1,35 @@
-$contactMapHeightSmall: 395px;
-$contactMapHeightMedium: 302px;
-$contactMapHeightLarge: 500px;
 $colorWhite70: rgba($colorWhite, 0.7);
-$contactMapHeightCurve: (
-  default: (
-    tiny: $contactMapHeightSmall,
-    small: $contactMapHeightMedium,
-    medium: $contactMapHeightMedium,
-    large: $contactMapHeightLarge,
-    xlarge: $contactMapHeightLarge,
-  ),
-  makespace: (
-    tiny: $contactMapHeightSmall - $sizeHuge + $sizeSmallRegular,
-    small: $contactMapHeightMedium - $sizeHuge + $sizeBig,
-    medium: $contactMapHeightMedium - $sizeHuge + $sizeBig,
-    large: $contactMapHeightLarge - $sizeHuge + $sizeBig,
-    xlarge: $contactMapHeightLarge,
-  ),
-  leadBottomSpace: (
-    tiny: $sizeBig,
-    medium: $sizeLarge,
-    xlarge: $sizeBig,
-  ),
-  subTitleBottom: (
-    tiny: $sizeSmallRegular,
-    xsmall: $sizeSmallRegular,
-    small: $sizeRegular,
-    medium: $sizeSmallLarge,
-    large: $sizeLarge,
-    xlarge: $sizeSmallBig,
-  ),
-);
 
-$contactFontCurve: (
-  boldText: (
-    tiny: $sizeFontRegular,
-    large: $sizeFontRegular,
-    xlarge: $sizeFontBiggerRegular,
-  ),
-  furtherInformation: (
-    tiny: $sizeFontSmall,
-    xsmall: $sizeFontSmall,
-    small: $sizeFontRegular,
-  ),
-);
+@media screen {
+  .mdl-contact {
+    --color-text: #{$colorWhite};
+    --color-text-soft: var(--color-accent-soft);
+    --color-bg: var(--color-accent);
+  }
+}
 
 .mdl-contact {
-  background-color: $colorViolet;
-  color: $colorWhite;
-  padding: pxToRem($sizeLarge) pxToRem($sizeSmallRegular);
-
   @include sizeCurve(margin-bottom, big);
+  padding: pxToRem($sizeHuge) 0;
+
+  padding-inline: pxToRem($sizeSmallRegular);
+  background-color: var(--color-accent);
+  color: var(--color-text);
 
   &--fullwidth {
     @include gridBleed($fullwidth: true);
-
-    padding: $sizeHuge 0;
     margin-bottom: 0;
   }
 
-  &--with-map {
-    @include sizeCurve(margin-bottom, makespace, $contactMapHeightCurve);
+  a,
+  .atm-text_link {
+    color: $colorWhite;
+    border-color: $colorWhite;
+
+    &:hover {
+      color: $colorWhite70;
+      border-color: $colorWhite70;
+    }
   }
 
   .atm-heading.atm-heading--bordered {
@@ -69,13 +38,10 @@ $contactFontCurve: (
     margin-bottom: pxToRem($sizeLarge);
     padding-top: pxToRem($sizeSmallRegular);
 
-    &:before {
-      background: $colorWhite;
-    }
-
     @include mq($from: xlarge) {
       padding-top: pxToRem($sizeRegular);
       margin-bottom: pxToRem($sizeBiggerBig);
+      line-height: $sizeLineHeightNarrower;
     }
   }
 
@@ -83,679 +49,52 @@ $contactFontCurve: (
     margin-top: 0;
   }
 
-  &__subtitle {
-    @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
-    line-height: $sizeLineHeightMedium;
-    font-family: $fontFamilyBlack;
-    margin-bottom: $sizeTiny;
-    margin-top: 0;
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+  .mdl-contact_entry + .mdl-accordion--contact {
+    @include sizeCurve(margin-top, medium);
   }
 
-  &:not(.mdl-contact--location):not(.mdl-contact--fullwidth):not(.mdl-contact--with-map) {
-    .mdl-contact__subtitle {
-      margin-bottom: pxToRem($sizeSmallLarge);
-    }
-  }
-
-  &__subtitle-link,
-  &__lead a {
-    display: inline-flex;
-    position: relative;
-    color: $colorWhite;
-    font-size: $sizeFontRegular;
-    font-family: $fontFamilyBase;
-    line-height: $sizeLineHeightBase;
-    padding-right: pxToRem(27px); //stylelint-disable-line
-    text-decoration: none;
-
-    svg {
-
-      use {
-        fill: $colorWhite;
-      }
-    }
-
-    &:hover {
-      color: $colorWhite70;
-
-      svg {
-        use {
-          fill: $colorWhite70;
-        }
-      }
-    }
-  }
-
-  &__subtitle a,
-  &__lead a {
-    @include mq($from: tiny, $to: large) {
-      display: block;
-    }
-  }
-
-  &__subtitle-link .icon {
-    margin-left: $sizeTiny;
-  }
-
-  &__infotext {
-    margin-top: 0;
-    margin-bottom: $sizeMini;
-  }
-
-  &__section {
-    display: flex;
-    flex-flow: row wrap;
-  }
-
-  &__section-cell {
-    position: relative;
-    width: 100%;
-    margin-top: pxToRem($sizeRegular);
-  }
-
-  &__section-cell--media {
-    margin-top: calc(#{$sizeBiggerBig} + #{$sizeLarge});
-    max-height: pxToRem($sizeHuge);
-    transition: max-height 200ms ease-out 100ms;
-    padding-bottom: pxToRem($sizeBig);
-
-    .mdl-contact__media-trigger {
-      position: absolute;
-      left: 0;
-      bottom: - pxToRem($sizeRegular);
-      z-index: $zIndexDropDowns;
-      padding-left: 0;
-      color: $colorWhite;
-      margin-bottom: 0;
-      font-size: 16px;
-      font-family: $fontFamilyBase;
-      line-height: 1.5;
-      padding-right: 1.6875rem;
-
-      span:last-of-type {
-        display: none;
-      }
-
-      svg {
-        position: absolute;
-        top: 42%;
-        transition: transform 200ms ease-out 100ms;
-        transform: translateY(-40%) scale(0.57) rotate(0deg);
-        right: 0;
-
-        fill: $colorWhite;
-      }
-    }
-
-    .mdl-contact__cell-content {
-      transition: opacity 200ms ease-out 100ms;
-      opacity: 0;
-      padding-left: 0;
-    }
-
-    .mdl-contact__address {
-      margin-bottom: 0;
-    }
-
-    .mdl-contact__text {
-      margin-top: pxToRem($sizeSmallRegular);
-
-      a:not(.atm-button) {
-        text-decoration: none;
-        border-bottom: 1px solid $colorWhite;
-
-        &:hover {
-          border-color: $colorWhite70;
-        }
-      }
-
-      .atm-button {
-        margin-top: pxToRem($sizeLarge);
-      }
-    }
-
-    &.open {
-      max-height: 1000px;
-
-      .mdl-contact__media-trigger {
-        span:first-of-type {
-          display: none;
-        }
-
-        span:last-of-type {
-          display: inline;
-        }
-
-        svg {
-          transform: translateY(-40%) scale(0.6563) rotate(45deg);
-        }
-      }
-
-      .mdl-contact__cell-content {
-        opacity: 1;
-      }
-    }
-  }
-
-  // Social media share section
-  &__section-cell--social-media {
-    margin-top: pxToRem($sizeLarge);
-  }
-
-  // White seperation lines
-  &__section-cell--sperator-top:before,
-  &__section-cell--social-media:before {
-    content: '';
-    height: pxToRem(1px);
-    display: block;
-    position: absolute;
-
-    background: $colorWhite;
-    width: 100vw;
-    left: 0;
-  }
-
-  &__section-cell--social-media:before {
-    top: 0;
-  }
-
-  &__section-cell--sperator-top:before {
-    top: -12px;
-  }
-
-  &__section-cell--sperator-top {
-    margin-top: pxToRem($sizeLarge);
-
-    .mdl-contact__media-trigger {
-      bottom: -4px;
-    }
-  }
-
-  &__cell-icon {
-    background-color: $colorWhite;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: inline-flex;
-    width: pxToRem($sizeBig);
-    height: pxToRem($sizeBig);
-    border-radius: 50%;
-
-    svg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.8);
-    }
-  }
-
-  &__cell-content {
-    hyphens: auto;
-    padding-left: calc(#{$sizeRegular} + #{$sizeBig});
-
-    > *:last-of-type {
-      margin-bottom: 0;
-    }
-  }
-
-  &__address {
-    font-style: normal;
-  }
-
-  &__text {
-    hyphens: auto;
-
-    ul {
-      @include resetList();
-    }
-
-    p,
-    a,
-    h4,
-    ul,
-    li {
-      font-size: inherit;
-      line-height: $sizeLineHeightBigger;
-      margin: 0;
-    }
-
-    h4 {
-      margin: pxToRem($sizeTiny) 0;
-    }
-
-    p,
-    ul {
-      margin-bottom: pxToRem($sizeTiny);
-    }
-
-    a {
-      color: $colorWhite;
-      border-color: $colorWhite;
-
-      &:hover {
-        color: $colorWhite70;
-        border-color: $colorWhite70;
-      }
-    }
-  }
-
-  &__address,
-  &__phone,
-  &__mail {
-    @include polyFluidSizing('font-size', map-get($contactFontCurve, boldText));
-    line-height: $sizeLineHeightBase;
-  }
-
-  &__address,
-  &__show-route,
-  &__phone,
-  &__mail {
-    font-family: $fontFamilyBlack;
-  }
-
-  &__show-route {
-    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-    line-height: $sizeLineHeightBase;
-  }
-
-  .mdl-contact {
-    &__text,
-    &__copy-button,
-    &__show-route,
-    &__service-link {
-      @include polyFluidSizing('font-size', map-get($contactFontCurve, furtherInformation));
-      line-height: $sizeLineHeightBigger;
-      margin-bottom: pxToRem($sizeSmallRegular);
-    }
-
-    &__text {
-      margin-bottom: pxToRem($sizeRegular);
-    }
-
-    &__copy-button,
-    &__show-route,
-    &__service-link {
-      font-family: $fontFamilyBase;
-      margin-right: auto;
-      color: inherit;
-      text-decoration: none;
-      border-bottom: 1px solid $colorWhite;
-
-      &:hover {
-        border-color: $colorWhite70;
-        color: $colorWhite70;
-      }
-    }
-
-    &__address {
-      margin-bottom: pxToRem($sizeRegular);
-      display: flex;
-      flex-direction: column;
-
-      &-title {
-        margin-bottom: pxToRem($sizeSmallRegular);
-      }
-
-      :last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    &__section-cell--media {
-      .mdl-contact__address {
-        margin-bottom: 0;
-      }
-
-      .mdl-contact__text {
-        margin-top: 0;
-      }
-    }
-
-    &__mail {
-      margin-bottom: pxToRem($sizeTiny);
-      display: inline-block;
-      color: inherit;
-      text-decoration: none;
-      border-bottom: 1px solid $colorWhite;
-
-      &:hover {
-        border-color: $colorWhite70;
-        color: $colorWhite70;
-      }
-    }
-
-    &__phone {
-      margin: 0;
-      display: inline-block;
-      color: inherit;
-      text-decoration: none;
-      border-bottom: 1px solid $colorWhite;
-
-      &:hover {
-        color: $colorWhite70;
-        border-color: $colorWhite70;
-      }
-    }
-  }
-
-  &__phone:not(:first-of-type) {
-    margin-top: pxToRem($sizeTiny);
-  }
-
-
-  &__mail {
-    hyphens: none;
-    word-break: break-word;
-    margin-bottom: pxToRem($sizeTiny);
-  }
-
-  &--location {
-    background-color: $colorWhite;
-    color: $colorText;
-    padding: pxToRem($sizeLarge) 0 0 0;
-
-    .mdl-contact {
-      &__address,
-      &__show-route,
-      &__phone,
-      &__mail {
-        font-size: pxToRem($sizeFontRegular);
-      }
-
-      &__address,
-      &__phone,
-      &__mail {
-        &.atm-text_link {
-          color: $colorText;
-        }
-      }
-
-      &__phone {
-        &.atm-text_link {
-          border-bottom: 1px solid $colorBlack;
-
-          &:hover {
-            color: $colorBlack60;
-            border-color: $colorBlack60;
-          }
-        }
-      }
-
-      &__text {
-        color: $colorBlack60;
-
-        &:last-child {
-          margin-bottom: 0;
-        }
-
-        h4.atm-heading {
-          color: $colorText;
-          line-height: 1.5;
-        }
-      }
-
-      &__subtitle {
-        margin-left: auto;
-        margin-right: auto;
-        font-size: pxToRem($sizeFontLarge);
-
-        a {
-          padding-left: 0;
-          margin-top: pxToRem($sizeTiny);
-
-          svg {
-            right: 0;
-
-            use {
-              fill: $colorBlack60;
-            }
-          }
-
-          &:hover {
-            color: $colorBlack;
-
-            svg {
-              use {
-                fill: $colorBlack;
-              }
-            }
-          }
-        }
-      }
-
-      &__section {
-        margin: 0;
-      }
-
-      &__cell {
-        &-content {
-          word-break: break-word;
-          padding-left: pxToRem($sizeSmallHuge);
-        }
-
-        &-icon {
-          background-color: $colorBlack10;
-          width: pxToRem($sizeBig);
-          height: pxToRem($sizeBig);
-
-          svg {
-            width: pxToRem($sizeSmallLarge);
-            height: pxToRem($sizeSmallLarge);
-
-            use {
-              fill: $colorText;
-            }
-          }
-        }
-      }
-    }
-
-    .atm-text_link {
-      color: $colorBlack60;
-      margin-bottom: $sizeTiny;
-      border-bottom: 1px solid $colorCyan;
-
-      &:hover {
-        color: $colorText;
-        border-color: $colorText;
-      }
-    }
-  }
-
-  &__map_container {
-    @include sizeCurve(height , default, $contactMapHeightCurve);
-    @include sizeCurve(margin-bottom , default, $contactMapHeightCurve, true);
-    margin-top: pxToRem($sizeBiggerBig);
-    background: $colorBlack15;
-  }
-
-  .mdl-contact__section-cell:not(.mdl-contact__section-cell--media):not(.mdl-contact__section-cell--social-media) {
-    margin-top: pxToRem($sizeLarge);
+  // overwrite default for first child
+  .mdl-accordion__item:first-child:before {
+    display: none;
   }
 
   /*
   * Media Queries SMALL
   */
   @include mq($from: small) {
-    &:not(.mdl-contact--location):not(.mdl-contact--fullwidth):not(.mdl-contact--with-map) {
-      padding: pxToRem($sizeLarge) 0;
-    }
+    &:not(.mdl-contact--fullwidth) {
+      padding-inline: 0;
 
-    &__text,
-    &__copy-button,
-    &__show-route,
-    &__service-link {
-      line-height: $sizeLineHeightMedium;
-    }
-
-    &--fullwidth {
-      padding: pxToRem($sizeHuge) 0;
-
-      .mdl-contact__cell:last-of-type {
-        padding-top: pxToRem($sizeSmallRegular);
-      }
-    }
-
-    &:not(.mdl-contact--fullwidth):not(.mdl-contact--location) {
       > * {
         @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
         @include gridNestedOffset('margin-right', 1, $gridOffsetColumns);
       }
     }
-
-    &__lead {
-      margin-top: 0;
-
-      a {
-        margin-top: 0;
-      }
-    }
-
-    .atm-heading {
-      line-height: $sizeLineHeightNarrow;
-    }
-
-    &__address,
-    &__show-route,
-    &__phone,
-    &__mail {
-      line-height: $sizeLineHeightMedium;
-    }
-
-    &__phone:not(:first-of-type) {
-      margin-top: pxToRem($sizeSmallRegular);
-    }
-
-    &__mail {
-      margin-bottom: pxToRem($sizeSmallRegular);
-    }
   }
-  @include mq($from: small, $to: medium) {
-    &--fullwidth {
-      .mdl-contact__cell-icon {
-        margin-top: pxToRem($sizeRegular);
-        position: relative;
-        top: auto;
-        left: auto;
-      }
 
-      .mdl-contact__cell-content {
-        margin-top: pxToRem($sizeTiny);
-        padding-left: 0;
-      }
-    }
-  }
   /*
-  * Media Queries MEDIUM
-  */
+   * Media Queries MEDIUM
+   */
   @include mq($from: medium) {
+    padding-inline: 0;
+
     .atm-heading.atm-heading--bordered {
       margin-bottom: pxToRem($sizeBig);
     }
-
-    &__section-cell--sperator-top {
-      margin-top: pxToRem($sizeBig);
-    }
-
-    &__section-cell--social-media {
-      margin-top: pxToRem($sizeBig);
-    }
-
-    &--fullwidth {
-      padding: pxToRem($sizeGiant) 0;
-    }
   }
+
   /*
-  * Media Queries XLARGE
-  */
+   * Media Queries XLARGE
+   */
   @include mq($from: xlarge) {
     .atm-heading.atm-heading--bordered {
       padding-top: pxToRem($sizeRegular);
       margin-bottom: pxToRem($sizeBiggerBig);
     }
 
-    &__section-cell--sperator-top {
-      margin-top: pxToRem($sizeBiggerBig);
-    }
-
-    &:not(.mdl-contact--location):not(.mdl-contact--fullwidth):not(.mdl-contact--with-map) {
-      padding: pxToRem($sizeBiggerBig) 0;
-    }
-
     &--fullwidth {
       .mdl-contact__cell-icon {
         margin-top: 0;
-      }
-    }
-
-    &__cell-content {
-      padding-left: calc(#{$sizeRegular} + #{$sizeBiggerBig});
-    }
-
-    &--with-map {
-      padding: pxToRem($sizeHuge) 0;
-    }
-
-    .atm-heading--bordered {
-      line-height: $sizeLineHeightNarrower;
-      margin-bottom: pxToRem($sizeBiggerBig);
-    }
-
-    &__subtitle {
-      line-height: $sizeLineHeightNarrow;
-
-      a {
-        padding-left: pxToRem(18px);
-      }
-    }
-
-    &__lead {
-      margin-top: - pxToRem($sizeTiny);
-    }
-
-    &__mail {
-      margin-bottom: pxToRem($sizeRegular);
-    }
-
-    &__cell-icon {
-      width: pxToRem($sizeBiggerBig);
-      height: pxToRem($sizeBiggerBig);
-
-      svg {
-        transform: translate(-50%, -50%) scale(1);
-      }
-    }
-
-    &__address,
-    &__show-route,
-    &__phone,
-    &__mail {
-      line-height: $sizeLineHeightMedium;
-    }
-
-    &__map_container {
-      margin-top: pxToRem($sizeHuge);
-    }
-  }
-}
-
-/*
-* COLOR-VARIATIONS
-*/
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .mdl-contact:not(.mdl-contact--location) {
-      background-color: #{$val};
-
-      .mdl-contact__cell-icon {
-        svg use {
-          fill: #{$val};
-        }
       }
     }
   }

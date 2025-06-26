@@ -1,16 +1,20 @@
-<div class="mdl-user-menu" data-init="userMenu" aria-describedby="aria-user-menu">
+<div class="
+  mdl-user-menu
+  {{#if inverted}}mdl-user-menu--inverted{{/if}}"
+  data-init="userMenu"
+  aria-describedby="aria-user-menu"
+>
   <input type="hidden" data-user-menu="loginStatusEndpoint" value="{{ endpointLoginStatus }}" />
+  
   <button class="mdl-user-menu__trigger">
-    <svg class="icon" focusable="false">
-      <use xlink:href="#user"></use>
-    </svg>
-    <span class="mdl-user-menu__user" data-user-menu="userNameField">
-      {{ userName }}
+    <span class="mdl-user-menu__user-icon-wrapper">
+      <svg class="icon mdl-user-menu__user-icon" focusable="false">
+        <use xlink:href="#user"></use>
+      </svg>
     </span>
-    <span class="mdl-user-menu__user-short"  data-user-menu="userShortField">
-      {{ userInitials }}
-    </span>
-    <svg class="icon" focusable="false">
+    <span class="mdl-user-menu__username" data-user-menu="userNameField"></span>
+    <span class="mdl-user-menu__loginlabel">{{loginLabelText}}</span>
+    <svg class="icon mdl-user-menu__trigger-triangle-icon" focusable="false">
       <use xlink:href="#angle_drop_down"></use>
     </svg>
   </button>
@@ -25,5 +29,3 @@
     </div>
   </div>
 </div>
-
-

@@ -3,13 +3,13 @@
     tiny: 2,
     small: 10,
     medium: 9,
-    large: 8
+    large: 8,
   );
 
   $verticalSpacingCurves: (
     quoteWithImage: (
       tiny: $sizeBiggerBig,
-      large: $sizeHuge
+      large: $sizeHuge,
     ),
   );
 
@@ -75,7 +75,12 @@
 
       .mdl-quote__image {
         @include gridNestedOffset('margin-left', 1, $gridOffsetColumns);
-        @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 4, $gridOffsetColumns, $trailingGutter: false);
+        @include gridNestedOffset(
+          'width' 'height' 'min-width' 'min-height',
+          4,
+          $gridOffsetColumns,
+          $trailingGutter: false
+        );
       }
 
       .mdl-quote__text,
@@ -90,7 +95,12 @@
     @include mq($from: small, $to: large) {
       .mdl-quote__image {
         @include gridNestedOffset('margin-left', 2, $gridOffsetColumns, $isNegative: true);
-        @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 4, $gridWidthColumns, $trailingGutter: false);
+        @include gridNestedOffset(
+          'width' 'height' 'min-width' 'min-height',
+          4,
+          $gridWidthColumns,
+          $trailingGutter: false
+        );
       }
 
       .mdl-quote__text,
@@ -101,7 +111,12 @@
     @include mq($from: large) {
       .mdl-quote__image {
         @include gridNestedOffset('margin-left', 1, $gridOffsetColumns, $isNegative: true);
-        @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 3, $gridWidthColumns, $trailingGutter: false);
+        @include gridNestedOffset(
+          'width' 'height' 'min-width' 'min-height',
+          3,
+          $gridWidthColumns,
+          $trailingGutter: false
+        );
       }
 
       .mdl-quote__text,
@@ -110,7 +125,13 @@
       }
 
       div {
-        @include gridNestedOffset('margin-right', 1, $gridWidthColumns, $trailingGutter: true, $isNegative: true);
+        @include gridNestedOffset(
+          'margin-right',
+          1,
+          $gridWidthColumns,
+          $trailingGutter: true,
+          $isNegative: true
+        );
       }
     }
   }

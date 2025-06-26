@@ -3,14 +3,14 @@
     termFontSize: (
       tiny: $sizeFontTiny,
       xsmall: $sizeFontTiny,
-      small: $sizeFontSmall
+      small: $sizeFontSmall,
     ),
     definitonFontSize: (
       tiny: $sizeFontRegular,
       xsmall: $sizeFontBiggerRegular,
       large: $sizeFontBiggerRegular,
-      xlarge: $sizeFontMedium
-    )
+      xlarge: $sizeFontMedium,
+    ),
   );
   text-decoration: none;
   color: $colorText;

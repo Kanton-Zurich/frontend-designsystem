@@ -1,5 +1,13 @@
 $socialSpace: 220px;
 
+@media screen {
+  .mdl-footer {
+    --color-text: #{$colorWhite};
+    --color-text-soft: #{$colorBlack20};
+    --color-bg: #{$colorBlack80};
+  }
+}
+
 .mdl-footer {
   $footerCurves: (
     headingBottomMargin: (
@@ -26,7 +34,7 @@ $socialSpace: 220px;
   );
 
   @include gridBleed($fullwidth: true);
-  background-color: $colorBlack80;
+  background-color: var(--color-bg);
 
   &__content {
     position: relative;
@@ -55,7 +63,7 @@ $socialSpace: 220px;
 
   &__title,
   &__menu .atm-anchorlink {
-    color: $colorWhite;
+    color: var(--color-text);
   }
 
   &__menu {
@@ -64,10 +72,10 @@ $socialSpace: 220px;
     a {
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
       font-family: $fontFamilyBlack;
-      color: $colorWhite;
+      color: var(--color-text);
 
       &:hover {
-        color: $colorWhite;
+        color: var(--color-text);
         opacity: 0.7;
       }
     }
@@ -86,7 +94,7 @@ $socialSpace: 220px;
 
   &__submenu {
     @include sizeCurve('margin-bottom', submenuBottomMargin, $footerCurves);
-    color: $colorBlack20;
+    color: var(--color-text-soft);
 
     p {
       font-family: $fontFamilyBlack;
@@ -97,9 +105,8 @@ $socialSpace: 220px;
       color: inherit;
       font-family: $fontFamilyBase;
 
-
       &:hover {
-        color: $colorWhite;
+        color: var(--color-text);
       }
     }
 
@@ -113,22 +120,22 @@ $socialSpace: 220px;
   &__social-media {
     .mdl-social-media-links {
       padding: 0;
+
+      .atm-heading {
+        padding-top: 0;
+        color: var(--color-text-soft);
+      }
     }
 
     .mdl-social-media-links__item:last-of-type {
       margin-right: 0;
     }
 
-    .atm-heading {
-      padding-top: 0;
-      color: $colorBlack20;
-    }
-
     .atm-button {
       background: $colorBlack40;
 
       &:hover {
-        background: $colorWhite;
+        background: var(--color-text);
       }
     }
   }
