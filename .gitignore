@@ -6,3 +6,4 @@ www
 .tmp-*
 tmp-*
 frontend-living-styleguide.iml
+**/.DS_Store

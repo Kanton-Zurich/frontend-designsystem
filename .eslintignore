@@ -1,3 +1,4 @@
 src/demo
 {{fileName}}.ts
 webpack.config.js
+gulpfile.esm.js
