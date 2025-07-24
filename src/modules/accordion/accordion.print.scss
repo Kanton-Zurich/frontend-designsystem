@@ -6,18 +6,18 @@
   }
 
   &__panel {
-    transition: none;
-    max-height: none;
+    display: block !important; // stylelint-disable-line
+    max-height: initial !important; // stylelint-disable-line
   }
 
   &__control {
     max-height: none;
     white-space: normal;
-    color: $colorBlack100;
+    color: $colorBlack;
   }
 
   &__plus use {
-    fill: $colorBlack100;
+    fill: $colorBlack;
   }
 
   &--cv-inverted {

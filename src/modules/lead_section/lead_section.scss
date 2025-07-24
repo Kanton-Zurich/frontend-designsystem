@@ -1,0 +1,38 @@
+.mdl-lead_section {
+  @include sizeCurve(margin-top margin-bottom, big);
+
+  &--no-margin-top {
+    margin-top: 0;
+  }
+
+  &__dateline {
+    margin-top: 0;
+    margin-bottom: pxToRem($sizeMini);
+    color: var(--color-text-soft);
+    font-size: pxToRem($sizeFontTiny);
+  }
+
+  &__category {
+    font-family: $fontFamilyBlack;
+    color: var(--color-text);
+  }
+
+  .atm-lead {
+    margin-top: 0;
+    margin-left: 0;
+
+    &:not(:last-of-type) {
+      margin-bottom: pxToRem($sizeTiny);
+    }
+  }
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .atm-button {
+    @include sizeCurve(margin-top, medium);
+
+    margin-bottom: 0;
+  }
+}

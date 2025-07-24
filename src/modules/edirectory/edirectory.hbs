@@ -1,0 +1,43 @@
+<div class="mdl-edirectory" data-init="edirectory" data-source="{{ dataSource }}">
+  <h2 class="mdl-edirectory__title visuallyhidden">Im Behördenverzeichnis suchen</h2>
+  <form action="#" novalidate class="mdl-edirectory__form mdl-edirectory__form--loading">
+    {{> "modules/form/form" form }}
+    <div class="mdl-notification hidden" data-edirectory-error>
+      <svg class="icon" focusable="false">
+        <use xlink:href="#caution"></use>
+      </svg>
+      <div class="mdl-notification__message">
+        <p>{{ noDataMessage }}</p>
+      </div>
+      <button class="atm-button atm-button--icon-only atm-button--small" data-edirectory-dismiss>
+        <svg class="icon atm-button__icon" focusable="false">
+          <use xlink:href="#exit"></use>
+        </svg>
+        <span class="visuallyhidden">Fertig</span>
+      </button>
+    </div>
+    <div class="mdl-edirectory__form-controls">
+      <button data-edirectory-clear type="reset" class="atm-button atm-button--secondary hidden">Zurücksetzen</button>
+      <button data-edirectory-search type="submit" class="atm-button atm-button--disabled">Suchen</button>
+    </div>
+    {{#if hasSpinner}}
+    {{> "atoms/loading_circle/loading_circle"}}
+    {{/if}}
+  </form>
+
+  <div class="mdl-edirectory__placeholder mdl-placeholder hidden" data-edirectory-no-results>
+    <h3 class="mdl-placeholder__title atm-heading">
+      {{placeholder.title}}
+    </h3>
+    <p class="mdl-placeholder__text atm-paragraph">
+      {{placeholder.text}}
+    </p>
+    {{>"atoms/button/button" placeholder.button }}
+  </div>
+
+  <div class="mdl-edirectory__results hidden" data-edirectory-results>
+    {{> "modules/table/table" table }}
+  </div>
+  {{> "modules/modal/modal" modal }}
+  {{> "modules/toc_list/toc_list" tocList }}
+</div>

@@ -5,7 +5,7 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import { template } from 'lodash';
+import template from 'lodash/template';
 import { sanitizeSearchString, getURLParam } from '../../assets/js/helpers/common';
 import NewsFilterMobile from '../news_filter_mobile/news_filter_mobile';
 import Select from '../select/select';
@@ -16,41 +16,41 @@ import Modal from '../modal/modal';
 
 class NewsOverview extends Module {
   public ui: {
-    element: any,
-    teaserTemplate: any,
-    pagination: HTMLDivElement,
-    filter: HTMLDivElement,
-    paginationWrapper: HTMLDivElement,
-    paginationInput: HTMLInputElement,
-    topNews: HTMLDivElement,
-    filterSelects: HTMLDivElement[],
-    filterMobileButton: HTMLButtonElement,
-    filterMobileModal: HTMLDivElement,
-    filterMobile: HTMLDivElement,
-    list: any,
-    pills: HTMLDivElement,
-    datePicker: HTMLDivElement,
-    datePickerInput: HTMLInputElement,
-    pillsClearButton: HTMLButtonElement,
-    sortButton: HTMLButtonElement,
-    sortDropdown: HTMLDivElement,
-    newsGrid: HTMLDivElement,
-    sort: HTMLDivElement,
-    selection: HTMLDivElement,
-    searchWordInput: HTMLInputElement,
-    searchWordInputClear: HTMLButtonElement,
-    wrapper: HTMLDivElement,
-    noResults: HTMLParagraphElement,
-    notification: HTMLDivElement,
-    hasNoFilters: HTMLParagraphElement,
+    element: any;
+    teaserTemplate: any;
+    pagination: HTMLDivElement;
+    filter: HTMLDivElement;
+    paginationWrapper: HTMLDivElement;
+    paginationInput: HTMLInputElement;
+    topNews: HTMLDivElement;
+    filterSelects: HTMLDivElement[];
+    filterMobileButton: HTMLButtonElement;
+    filterMobileModal: HTMLDivElement;
+    filterMobile: HTMLDivElement;
+    list: any;
+    pills: HTMLDivElement;
+    datePicker: HTMLDivElement;
+    datePickerInput: HTMLInputElement;
+    pillsClearButton: HTMLButtonElement;
+    sortButton: HTMLButtonElement;
+    sortDropdown: HTMLDivElement;
+    newsGrid: HTMLDivElement;
+    sort: HTMLDivElement;
+    selection: HTMLDivElement;
+    searchWordInput: HTMLInputElement;
+    searchWordInputClear: HTMLButtonElement;
+    wrapper: HTMLDivElement;
+    noResults: HTMLParagraphElement;
+    notification: HTMLDivElement;
+    hasNoFilters: HTMLParagraphElement;
   };
 
   public options: {
-    domSelectors: any,
-    stateClasses: any,
-    dataSelectors: any,
-    filterPillsThreshold: number,
-    loadDelay: number,
+    domSelectors: any;
+    stateClasses: any;
+    dataSelectors: any;
+    filterPillsThreshold: number;
+    loadDelay: number;
   };
 
   private dataUrl: string;
@@ -84,6 +84,7 @@ class NewsOverview extends Module {
         topNews: '.mdl-news-overview__topnews',
         newsGrid: '.mdl-news-overview__newsgrid',
         list: '.mdl-news-overview__newsgrid .mdl-news-teaser__content > ul',
+        links: '.mdl-news-teaser a',
         pills: '.mdl-filter-pills',
         pillsClearButton: '.mdl-filter-pills button[data-clear]',
         datePicker: '.mdl-news-overview__filter .mdl-datepicker',
@@ -125,7 +126,11 @@ class NewsOverview extends Module {
     this.initEventListeners();
     // deferred filtering from URL params
     this.filterFromUrlParams();
-    setTimeout(() => { this.filterView(true, true, false, false, true); }, 0);
+    setTimeout(() => {
+      this.filterView(true, true, false, false, true);
+    }, 0);
+
+    window.sessionStorage.removeItem('origin');
   }
 
   static get events() {
@@ -151,7 +156,7 @@ class NewsOverview extends Module {
         },
       };
       this.ui.filterMobile.dispatchEvent(
-        new CustomEvent(NewsFilterMobile.events.setSelectedFilterItems, eventData),
+        new CustomEvent(NewsFilterMobile.events.setSelectedFilterItems, eventData)
       );
     });
     // -----------------------------------------------
@@ -177,30 +182,33 @@ class NewsOverview extends Module {
     this.ui.datePicker.addEventListener(Datepicker.events.dateSet, this.onDateSet.bind(this));
     // -----------------------------------------------
     // Listen to date changed from mobile view
-    this.ui.filterMobile.addEventListener(NewsFilterMobile.events.dateSet,
-      this.onMobileDateSet.bind(this));
+    this.ui.filterMobile.addEventListener(
+      NewsFilterMobile.events.dateSet,
+      this.onMobileDateSet.bind(this)
+    );
     // -----------------------------------------------
     // Listen to filter changed from mobile view -- topics, organisations, types
-    this.ui.filterMobile
-      .addEventListener(NewsFilterMobile.events.setSelectedFilterItems,
-        (event: any) => {
-          this.filterLists = event.detail.filterLists;
-          this.filterView();
-        });
+    this.ui.filterMobile.addEventListener(
+      NewsFilterMobile.events.setSelectedFilterItems,
+      (event: any) => {
+        this.filterLists = event.detail.filterLists;
+        this.filterView();
+      }
+    );
     // -----------------------------------------------
     // Listen to date changed from mobile view
-    this.ui.filterMobile.addEventListener(NewsFilterMobile.events.confirm,
-      () => {
-        this.ui.filterMobileModal.dispatchEvent(new CustomEvent(Modal.events.closeModal));
-      });
+    this.ui.filterMobile.addEventListener(NewsFilterMobile.events.confirm, () => {
+      this.ui.filterMobileModal.dispatchEvent(new CustomEvent(Modal.events.closeModal));
+    });
     // -----------------------------------------------
     // Listen to remove event from filter pills
     this.ui.pills.addEventListener(FilterPills.events.removeTag, (event: any) => {
       const value = event.detail.target.getAttribute('data-pill');
       if (value.indexOf('filter:') === 0) {
         const filterValues = value.split(':');
-        this.filterLists[filterValues[1]] = this.filterLists[filterValues[1]]
-          .filter(e => e !== filterValues[2]);
+        this.filterLists[filterValues[1]] = this.filterLists[filterValues[1]].filter(
+          (e) => e !== filterValues[2]
+        );
       } else if (value === 'date-range') {
         this.dateRange = [];
         this.ui.datePicker.dispatchEvent(new CustomEvent(Datepicker.events.clear));
@@ -208,8 +216,11 @@ class NewsOverview extends Module {
       } else if (value.indexOf('fullText:') === 0) {
         this.searchWord = '';
         this.ui.searchWordInput.value = '';
-        (<HTMLButtonElement> this.ui.sortDropdown
-          .querySelector(`button[data-sort="${this.ui.element.getAttribute('data-order-by')}"]`)).click();
+        (<HTMLButtonElement>(
+          this.ui.sortDropdown.querySelector(
+            `button[data-sort="${this.ui.element.getAttribute('data-order-by')}"]`
+          )
+        )).click();
       }
       this.filterView(false);
     });
@@ -254,23 +265,39 @@ class NewsOverview extends Module {
       this.searchWord = sanitizeSearchString(event.target.value);
       this.filterView();
     });
+
+    // EventListener to set session storage
+    this.eventDelegate.on('click', this.options.domSelectors.links, () => {
+      window.sessionStorage.setItem('origin', window.location.href);
+    });
   }
 
   /**
    * Update view in case filters changed
    */
-  filterView(updateFilterPills = true, forced = false, resetPaging = true, scroll = false, replaceState = false) { // eslint-disable-line
+  filterView(
+    updateFilterPills = true,
+    forced = false,
+    resetPaging = true,
+    scroll = false,
+    replaceState = false
+  ) {
+    // eslint-disable-line
     const filterHash = this.createObjectHash(this.filterLists);
     const dateHash = this.createObjectHash(this.dateRange);
     const searchWordHash = this.createObjectHash(this.searchWord);
     this.paginationInteraction = false;
     // only reload view if there is a change or forced load
-    if (forced || this.filterHash !== filterHash
-      || this.dateHash !== dateHash
-      || this.searchWordHash !== searchWordHash) {
+    if (
+      forced ||
+      this.filterHash !== filterHash ||
+      this.dateHash !== dateHash ||
+      this.searchWordHash !== searchWordHash
+    ) {
       if (this.searchWord !== '' && this.searchWordHash !== searchWordHash) {
-        (<HTMLButtonElement> this.ui.sortDropdown
-          .querySelector('button[data-sort="relevance"]')).click();
+        (<HTMLButtonElement>(
+          this.ui.sortDropdown.querySelector('button[data-sort="relevance"]')
+        )).click();
       }
       if (updateFilterPills) {
         this.updatePills();
@@ -295,10 +322,12 @@ class NewsOverview extends Module {
     });
     // hide top news if any filter is active
     if (this.ui.topNews) {
-      if (this.dateHash !== this.dateHashZero
-        || this.filterHash !== this.filterHashZero
-        || this.searchWordHash !== this.searchWordHashZero
-        || parseInt(this.ui.paginationInput.value, 10) > 1) {
+      if (
+        this.dateHash !== this.dateHashZero ||
+        this.filterHash !== this.filterHashZero ||
+        this.searchWordHash !== this.searchWordHashZero ||
+        parseInt(this.ui.paginationInput.value, 10) > 1
+      ) {
         this.ui.topNews.classList.remove('visible');
       } else {
         this.ui.topNews.classList.add('visible');
@@ -306,9 +335,11 @@ class NewsOverview extends Module {
     }
 
     // hide visually hidden text for no filters if any filter is active
-    if (this.dateHash !== this.dateHashZero
-      || this.filterHash !== this.filterHashZero
-      || this.searchWordHash !== this.searchWordHashZero) {
+    if (
+      this.dateHash !== this.dateHashZero ||
+      this.filterHash !== this.filterHashZero ||
+      this.searchWordHash !== this.searchWordHashZero
+    ) {
       this.ui.hasNoFilters.setAttribute('aria-hidden', 'true');
     } else {
       this.ui.hasNoFilters.setAttribute('aria-hidden', 'false');
@@ -328,7 +359,8 @@ class NewsOverview extends Module {
    * @param event
    */
   onDateSet(event: any) {
-    if (event.detail.dates.length < 2) { // eslint-disable-line
+    // eslint-disable-next-line
+    if (event.detail.dates.length < 2) {
       return;
     }
     this.updateDate(event.detail);
@@ -340,7 +372,8 @@ class NewsOverview extends Module {
    * @param event
    */
   onMobileDateSet(event: any) {
-    if (event.detail.dates.length < 2) { // eslint-disable-line
+    // eslint-disable-next-line
+    if (event.detail.dates.length < 2) {
       return;
     }
     this.ui.datePickerInput.value = event.detail.dateString;
@@ -366,12 +399,14 @@ class NewsOverview extends Module {
     // add pills for selected filters
     this.filterLists.forEach((filterList, index) => {
       filterList.forEach((filterValue) => {
-        const inputCheckbox = (<HTMLInputElement> this.ui.filterSelects[index]
-          .querySelector(`li input[value="${filterValue}"]`));
+        const inputCheckbox = <HTMLInputElement>(
+          this.ui.filterSelects[index].querySelector(`li input[value="${filterValue}"]`)
+        );
         if (inputCheckbox) {
           const tag = {
-            text: (<HTMLInputElement> this.ui.filterSelects[index]
-              .querySelector(`li input[value="${filterValue}"]`)).placeholder,
+            text: (<HTMLInputElement>(
+              this.ui.filterSelects[index].querySelector(`li input[value="${filterValue}"]`)
+            )).placeholder,
             value: `filter:${index}:${filterValue}`,
           };
           tags.push(tag);
@@ -379,7 +414,8 @@ class NewsOverview extends Module {
       });
     });
     // add pill for date
-    if (this.dateRange.length === 2) { // eslint-disable-line
+    // eslint-disable-next-line
+    if (this.dateRange.length === 2) {
       tags.push({ text: this.dateString, value: 'date-range' });
     }
     // add pill for search word
@@ -407,8 +443,9 @@ class NewsOverview extends Module {
     const orderBy = getURLParam('orderBy', true);
     if (page) {
       setTimeout(() => {
-        this.ui.pagination
-          .dispatchEvent(new CustomEvent(Pagination.events.setPage, { detail: page }));
+        this.ui.pagination.dispatchEvent(
+          new CustomEvent(Pagination.events.setPage, { detail: page })
+        );
       }, 0);
     }
     this.searchWord = searchWord !== null ? searchWord : '';
@@ -421,8 +458,11 @@ class NewsOverview extends Module {
     if (dateToStr && dateFromStr) {
       const dateTo = new Date(dateToStr);
       const dateFrom = new Date(dateFromStr);
-      this.dateRange = [ dateFrom, dateTo ];
-      this.dateString = `${('0' + dateFrom.getDate()).slice(-2)}.${('0' + (dateFrom.getMonth() + 1)).slice(-2)}.${dateFrom.getFullYear()} - ${('0' + dateTo.getDate()).slice(-2)}.${('0' + (dateTo.getMonth() + 1)).slice(-2)}.${dateTo.getFullYear()}`; // eslint-disable-line
+      this.dateRange = [dateFrom, dateTo];
+      /* eslint-disable no-magic-numbers */
+      /* prettier-ignore */
+      this.dateString = `${('0' + dateFrom.getDate()).slice(-2)}.${('0' + (dateFrom.getMonth() + 1)).slice(-2)}.${dateFrom.getFullYear()} - ${('0' + dateTo.getDate()).slice(-2)}.${('0' + (dateTo.getMonth() + 1)).slice(-2)}.${dateTo.getFullYear()}`;
+      /* eslint-enable no-magic-numbers */
       setTimeout(() => {
         this.ui.datePickerInput.value = this.dateString;
         this.ui.datePicker.classList.add('dirty');
@@ -434,8 +474,9 @@ class NewsOverview extends Module {
       this.ui.searchWordInput.classList.add('dirty');
     }
     if (orderBy && orderBy.length > 0) {
-      this.ui.sortButton.querySelector('span').innerHTML = this.ui.sortDropdown
-        .querySelector(`li > button[data-sort="${orderBy}"] span`).innerHTML;
+      this.ui.sortButton.querySelector('span').innerHTML = this.ui.sortDropdown.querySelector(
+        `li > button[data-sort="${orderBy}"] span`
+      ).innerHTML;
       this.orderBy = orderBy;
     }
   }
@@ -447,15 +488,12 @@ class NewsOverview extends Module {
   async fetchData(callback: Function, replaceState = false) {
     // add Loading class
     this.ui.wrapper.classList.add(this.options.stateClasses.loading);
-
-    if (!window.fetch) {
-      await import('whatwg-fetch');
-    }
     this.currentUrl = this.constructUrl();
 
     return fetch(this.currentUrl)
       .then((response) => {
-        if (response.status !== 200 && response.status !== 204 ) { // eslint-disable-line
+        // eslint-disable-next-line
+        if (response.status !== 200 && response.status !== 204) {
           throw new Error('Error fetching resource!');
         }
         return response.status === 204 ? {} : response.json(); // eslint-disable-line
@@ -463,11 +501,13 @@ class NewsOverview extends Module {
       .then((response) => {
         if (response) {
           const wcmmode = getURLParam('wcmmode');
-          const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}${wcmmode ? '&wcmmode=' + wcmmode : ''}`; // eslint-disable-line
+          const canonical = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}${
+            wcmmode ? '&wcmmode=' + wcmmode : ''
+          }`; // eslint-disable-line
           if (replaceState) {
-            history.replaceState({url: canonical,}, null, canonical); // eslint-disable-line
+            history.replaceState({ url: canonical }, null, canonical); // eslint-disable-line
           } else {
-            history.pushState({url: canonical,}, null, canonical); // eslint-disable-line
+            history.pushState({ url: canonical }, null, canonical); // eslint-disable-line
           }
           callback(response);
           this.ui.notification.classList.add('hidden');
@@ -512,19 +552,33 @@ class NewsOverview extends Module {
           this.ui.paginationWrapper.classList.add('hidden');
         }
         // update canonical href
-        this.ui.pagination.dispatchEvent(new CustomEvent(Pagination
-          .events.setPageCount, { detail: jsonData.numberOfResultPages }));
+        this.ui.pagination.dispatchEvent(
+          new CustomEvent(Pagination.events.setPageCount, { detail: jsonData.numberOfResultPages })
+        );
         const canonicalUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
         let prevUrl = '';
         if (parseInt(this.ui.paginationInput.value, 10) > 1) {
-          prevUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`)}`;
+          prevUrl = `${this.getBaseUrl()}?${this.currentUrl
+            .split('?')[1]
+            .replace(
+              /page=(0|[1-9][0-9]*)/,
+              `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`
+            )}`;
         }
         let nextUrl = '';
         if (parseInt(this.ui.paginationInput.value, 10) < jsonData.numberOfResultPages) {
-          nextUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1].replace(/page=(0|[1-9][0-9]*)/, `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`)}`;
+          nextUrl = `${this.getBaseUrl()}?${this.currentUrl
+            .split('?')[1]
+            .replace(
+              /page=(0|[1-9][0-9]*)/,
+              `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`
+            )}`;
         }
-        this.ui.pagination.dispatchEvent(new CustomEvent(Pagination.events.setCanonicalUrls,
-          { detail: { prev: prevUrl, next: nextUrl } }));
+        this.ui.pagination.dispatchEvent(
+          new CustomEvent(Pagination.events.setCanonicalUrls, {
+            detail: { prev: prevUrl, next: nextUrl },
+          })
+        );
         // update canonical links
         this.upsertLinkRel('prev', prevUrl);
         this.upsertLinkRel('next', nextUrl);
@@ -557,10 +611,12 @@ class NewsOverview extends Module {
         this.ui.list.appendChild(element);
       });
     }
-    (<any>window).estatico.lineClamper.updateLineClamping();
     this.updateFlyingFocus(this.options.loadDelay);
 
-    if ([].slice.call(this.ui.pills.querySelectorAll('[data-pill]')).length >= this.options.filterPillsThreshold) {
+    if (
+      [].slice.call(this.ui.pills.querySelectorAll('[data-pill]')).length >=
+      this.options.filterPillsThreshold
+    ) {
       this.ui.pillsClearButton.classList.remove('hidden');
     } else {
       this.ui.pillsClearButton.classList.add('hidden');
@@ -617,12 +673,28 @@ class NewsOverview extends Module {
         resultUrl += `${key}=${encodeURIComponent(value)}`;
       }
     };
-    this.filterLists[0].forEach((topic) => { append('topic', topic); });
-    this.filterLists[1].forEach((organisation) => { append('organisation', organisation); });
-    this.filterLists[2].forEach((type) => { append('type', type); });
+    this.filterLists[0].forEach((topic) => {
+      append('topic', topic);
+    });
+    this.filterLists[1].forEach((organisation) => {
+      append('organisation', organisation);
+    });
+    this.filterLists[2].forEach((type) => {
+      append('type', type);
+    });
     if (this.dateRange.length > 1) {
-      append('dateFrom', `${this.dateRange[0].getFullYear()}-${('0' + (this.dateRange[0].getMonth() + 1)).slice(-2)}-${('0' + this.dateRange[0].getDate()).slice(-2)}`); // eslint-disable-line
-      append('dateTo', `${this.dateRange[1].getFullYear()}-${('0' + (this.dateRange[1].getMonth() + 1)).slice(-2)}-${('0' + this.dateRange[1].getDate()).slice(-2)}`); // eslint-disable-line
+      append(
+        'dateFrom',
+        `${this.dateRange[0].getFullYear()}-${('0' + (this.dateRange[0].getMonth() + 1)).slice(
+          -2 // eslint-disable-line
+        )}-${('0' + this.dateRange[0].getDate()).slice(-2)}` // eslint-disable-line
+      );
+      append(
+        'dateTo',
+        `${this.dateRange[1].getFullYear()}-${('0' + (this.dateRange[1].getMonth() + 1)).slice(
+          -2 // eslint-disable-line
+        )}-${('0' + this.dateRange[1].getDate()).slice(-2)}` // eslint-disable-line
+      );
     }
     append('fullText', this.searchWord);
     append('page', this.ui.paginationInput.value);

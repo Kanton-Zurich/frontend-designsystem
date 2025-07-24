@@ -1,0 +1,36 @@
+{{#extend "layouts/layout"}}
+  {{#content "pageheader"}}
+    {{> "modules/page_header/page_header" props.modules.pageHeader}}
+  {{/content}}
+
+  {{#content "content"}}
+    {{> "modules/policy_area_list/policy_area_list" props.modules.policyAreaList}}
+
+    {{> "modules/richtext/richtext" props.modules.richtext}}
+    {{> "modules/table/table" props.modules.table}}
+    {{> "modules/image_figure/image_figure" props.modules.imageFigure}}
+    {{> "modules/image_gallery/image_gallery" props.modules.imageGallery}}
+    {{> "modules/video/video" props.modules.video}}
+    {{> "modules/download_list/download_list" props.modules.downloadList}}
+    {{> "modules/linklist/linklist" props.modules.linkList}}
+    {{> "modules/accordion/accordion" props.modules.accordion}}
+    {{> "modules/locations/locations" props.modules.locations}}
+    {{> "modules/service_list/service_list" props.modules.serviceList}}
+    {{> "modules/quote/quote" props.modules.quote}}
+    {{> "modules/texthighlight/texthighlight" props.modules.texthighlight}}
+    {{> "modules/newsletter_form/newsletter_form" props.modules.newsletterForm}}
+
+    {{> "modules/teaser/teaser" props.modules.teaser}}
+    {{> "modules/publication_teaser/publication_teaser" props.modules.publicationTeaser}}
+  {{/content}}
+
+  {{#content "pagefooter"}}
+    {{> "modules/closing_image/closing_image" props.modules.closingImage}}
+    {{> "modules/feedback/feedback" props.modules.feedback}}
+    {{> "modules/contact/contact" props.modules.contact}}
+  {{/content}}
+
+  {{#content "footer"}}
+    {{> "modules/footer/footer" props.modules.footer}}
+  {{/content}}
+{{/extend}}

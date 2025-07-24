@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .atm-checkbox {
   position: relative;
   display: flex;
@@ -100,7 +102,7 @@
     display: block;
     color: $colorBlack60;
     font-size: pxToRem($sizeFontSmall);
-    padding-top: pxToRem($sizeMini / 2);
+    padding-top: pxToRem(math.div($sizeMini, 2));
     margin: 0;
   }
 }
@@ -108,7 +110,7 @@
 /** HIGHT CONTRAST MODE
  */
 
-@media screen and ( -ms-high-contrast: active ) {
+@media screen and (-ms-high-contrast: active) {
   .atm-checkbox input {
     appearance: auto;
   }

@@ -1,6 +1,9 @@
 <div class="mdl-newsletter_form{{#if reduced}} mdl-newsletter_form--reduced{{/if}}" data-init="newsletterForm">
   {{#if title}}
-  <h{{headingLevel}} class="atm-heading atm-heading--bordered">{{title}}</h{{headingLevel}}>
+  <h{{headingLevel}} class="atm-heading
+    {{#if_compare visualHeadingLevel "!==" headingLevel}}h{{visualHeadingLevel}}{{/if_compare}}
+    {{#if_compare visualHeadingLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+  >{{title}}</h{{headingLevel}}>
   {{/if}}
   {{#if description}}
   <p class="atm-paragraph">{{description}}</p>

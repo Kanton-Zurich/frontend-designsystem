@@ -3,15 +3,19 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
-const headerData = require('../../modules/header/header.data').variants.userMenu.props;
+const headerData = require('../../modules/header/header.data').variants.invertedWithUserLoggedIn
+  .props;
 
-const breadcrumbData = require('../../modules/breadcrumb/breadcrumb.data.js').variants.default.props;
+const breadcrumbData = require('../../modules/breadcrumb/breadcrumb.data.js').variants.parentOnly
+  .props;
 const defLoginData = require('../../modules/cug_login/cug_login.data.js').props;
-const defReleatedContentData = require('../../modules/related_content/related_content.data.js').variants.default.props;
+const defReleatedContentData = require('../../modules/related_content/related_content.data.js')
+  .variants.default.props;
 const contactData = require('../../modules/contact/contact.data').variants.fullWidthLessData.props;
-const notLoggedInUserMenu = require('../../modules/user_menu/user_menu.data').variants.notloggedIn.props;
+const notLoggedInUserMenu = require('../../modules/user_menu/user_menu.data').variants.loggedOut
+  .props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
-const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
+const backToData = require('../../modules/back_to/back_to.data').variants.default.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -45,12 +49,14 @@ const data = _.merge({}, defaultData, {
       cugLoginData: _.merge({}, defLoginData, {
         devMode: true,
       }),
-      releatedContentData: _.merge({}, defReleatedContentData, { relatedContentHeading: { anchorNavReference: 'related_content' } }),
+      releatedContentData: _.merge({}, defReleatedContentData, {
+        anchorNavReference: 'related_content',
+      }),
       contact: _.merge({}, contactData, {
         contactSubtitle: 'Kanton Zürich',
       }),
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
+      backToData,
     },
   },
 });

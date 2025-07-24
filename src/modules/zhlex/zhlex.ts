@@ -9,13 +9,12 @@ import Module from '../../assets/js/helpers/module';
 
 class ZhLex extends Module {
   public ui: {
-    element: HTMLDivElement,
-    tabs: NodeListOf<HTMLButtonElement>,
-  }
+    element: HTMLDivElement;
+    tabs: HTMLButtonElement[];
+  };
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       domSelectors: {
         tabs: 'button[role="tab"]',

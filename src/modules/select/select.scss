@@ -149,7 +149,7 @@ $selectScrollbarWidth: 30px;
 
   &__apply {
     bottom: pxToRem(-$sizeGiant);
-    background-color: $colorBlack5;
+    background-color: $colorBg;
 
     button {
       width: 100%;
@@ -301,7 +301,6 @@ $selectScrollbarWidth: 30px;
   &--selected,
   &--open {
     .atm-form_input {
-
       &__input--trigger {
         padding-top: $paddingInput + $paddingDifferenceOnFocus;
         padding-bottom: $paddingInput - $paddingDifferenceOnFocus;

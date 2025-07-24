@@ -19,6 +19,7 @@ interface ModuleDomSelectors {
   reinvokeTrigger: string;
   formLayoutConfig: string;
   resultTableConfig: string;
+  footer: string;
 }
 interface ModuleStateClasses {
   formItem: {
@@ -33,11 +34,13 @@ interface ModuleStateClasses {
     next: string;
     calculate: string;
     loading: string;
-  }
+  };
   hasResult: string;
   connectionFail: string;
+  toFormButtonVisible: string;
 }
-export interface TaxCalcModuleOptions { // eslint-disable-line
+export interface TaxCalcModuleOptions {
+  // eslint-disable-line
   transitionTimeout: number;
   paramKeyCalculator: string;
   availableEntities: string[];
@@ -77,6 +80,7 @@ const domSelectors: ModuleDomSelectors = {
   reinvokeTrigger: '[data-tax_calc-reinvoke]',
   formLayoutConfig: '[data-tax_calc-formconfig]',
   resultTableConfig: '[data-tax_calc-resultconfig]',
+  footer: '[data-init="footer"]',
 };
 const stateClasses: ModuleStateClasses = {
   formItem: {
@@ -94,6 +98,7 @@ const stateClasses: ModuleStateClasses = {
   },
   hasResult: 'mdl-tax_calc--result',
   connectionFail: 'mdl-tax_calc--connection-fail',
+  toFormButtonVisible: 'mdl-tax_calc__toformbtn--visible',
 };
 const attributeNames = {
   module: 'data-tax_calc',
@@ -102,12 +107,27 @@ const attributeNames = {
   fieldTemplateType: 'data-tax_calc-fieldtemplate',
 };
 
-export const TaxCalcDefaultOptions: TaxCalcModuleOptions = { // eslint-disable-line
+export const TaxCalcDefaultOptions: TaxCalcModuleOptions = {
+  // eslint-disable-line
   transitionTimeout: 600,
   paramKeyCalculator: 'calculatorId',
-  availableEntities: ['individual', 'incorp'],
-  availableCalculator: ['income_assets', 'federal', 'benefit_payments', 'benefit_payments_federal', 'inheritance', 'legal_simple', 'legal_iterative'],
-  flatCurrencyValues: ['ascertainedTaxableIncome', 'taxableIncome', 'ascertainedTaxableAssets', 'taxableAssets', 'taxableFederalIncome'],
+  availableEntities: ['individuals', 'corporations', 'associations'],
+  availableCalculator: [
+    'income_assets',
+    'federal',
+    'benefit_payments',
+    'benefit_payments_federal',
+    'inheritance',
+    'legal_simple',
+    'legal_iterative',
+  ],
+  flatCurrencyValues: [
+    'ascertainedTaxableIncome',
+    'taxableIncome',
+    'ascertainedTaxableAssets',
+    'taxableAssets',
+    'taxableFederalIncome',
+  ],
   globalScopeVariables: ['taxYear'],
   datePartialFields: ['liabilityBegin', 'liabilityEnd'],
   negativeValues: [],

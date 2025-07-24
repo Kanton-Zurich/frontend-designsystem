@@ -1,19 +1,24 @@
-@import 'data/colors.json';
 @import 'globals/variables';
 @import 'globals/functions';
 @import 'globals/mixins';
 @import 'globals/mediaqueries';
 @import 'globals/icons';
-//*autoinsertatom*
+
+// Deprecated atoms and modules
+// @import '../../modules/page_header_deprecated/page_header_deprecated.print';
+
+@import '../../atoms/tag/tag.print';
 @import '../../atoms/lead/lead.print';
 @import '../../atoms/linklist_item/linklist_item.print';
 @import '../../atoms/paragraph/paragraph.print';
+//*autoinsertatom*
 @import '../../modules/accordion/accordion.print';
 @import '../../modules/anchornav/anchornav.print';
 @import '../../modules/banner/banner.print';
 @import '../../modules/back2top/back2top.print';
 @import '../../modules/carousel/carousel.print';
 @import '../../modules/contact/contact.print';
+@import '../../modules/contact_entry/contact_entry.print';
 @import '../../modules/content_nav/content_nav.print';
 @import '../../modules/footer/footer.print';
 @import '../../modules/header/header.print';
@@ -26,7 +31,6 @@
 @import '../../modules/page_header/page_header.print';
 @import '../../modules/related_content/related_content.print';
 @import '../../modules/social_media_links/social_media_links.print';
-@import '../../modules/social_media_stream/social_media_stream.print';
 @import '../../modules/tag_group/tag_group.print';
 @import '../../modules/pagination/pagination.print';
 @import '../../modules/cta_box/cta_box.print';
@@ -44,7 +48,27 @@
 @import '../../modules/table/table.print';
 @import '../../modules/video/video.print';
 @import '../../modules/publication_teaser/publication_teaser.print';
-@import '../../modules/feedback/feedback';
+@import '../../modules/feedback/feedback.print';
+@import '../../modules/toc_list/toc_list.print';
+@import '../../modules/dataset/dataset.print';
+@import '../../modules/objectives_list/objectives_list.print';
+@import '../../modules/sibling_navigation/sibling_navigation.print';
+@import '../../modules/closing_image/closing_image.print';
+@import '../../modules/dialog/dialog.print';
+@import '../../modules/measures_search/measures_search.print';
+@import '../../modules/statistics_search/statistics_search.print';
+@import '../../modules/statistics_teaser/statistics_teaser.print';
+@import '../../modules/lead_section/lead_section.print';
+@import '../../modules/header_expand/header_expand.print';
+@import '../../modules/key_visual/key_visual.print';
+@import '../../modules/back_to/back_to.print';
+@import '../../modules/scroll2top/scroll2top.print';
+@import '../../modules/chatbot/chatbot.print';
+@import '../../modules/teaser_set/teaser_set.print';
+@import '../../modules/content_list/content_list.print';
+@import '../../modules/fact_tile/fact_tile.print';
+@import '../../modules/contact_block/contact_block.print';
+@import '../../modules/edirectory/edirectory.print';
 //*autoinsertmodule*
 
 html,
@@ -82,7 +106,8 @@ body {
     display: none !important; //stylelint-disable-line
   }
 
-  .screen-hidden {
+  .screen-hidden,
+  .print-visible {
     display: block !important; //stylelint-disable-line
   }
 
@@ -95,8 +120,6 @@ body {
   }
 }
 
-
 html.fixed-header {
   padding-top: 0;
 }
-

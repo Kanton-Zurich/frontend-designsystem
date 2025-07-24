@@ -4,13 +4,13 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
-const headerData = require('../../modules/header/header.data').variants.inverted.props;
+const headerData = require('../../modules/header/header.data').variants.defaultWithUserLoggedOut
+  .props;
 
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
 const defFormData = require('../../modules/form/form.data').variants;
 const defStepperData = require('../../modules/stepper/stepper.data').props;
-
 
 const formInputHBS = dataHelper.getFileContent('../../atoms/form_input/form_input.hbs');
 const formInputData = require('../../atoms/form_input/form_input.data');
@@ -42,175 +42,186 @@ const data = _.merge({}, defaultData, {
       pageHeaderData: _.merge({}, defPageHeaderData.variants.rrbDetail.props, {
         pageTitle: 'Form Test',
         breadcrumb: {
-          path: [{
-            title: 'Zurück zur Übersicht',
-            href: '#',
-          }],
+          path: [
+            {
+              title: 'Zurück zur Übersicht',
+              href: '#',
+            },
+          ],
         },
       }),
       formSection: {
         sectionTitle: 'Angaben',
-        groups: [{
-          rows: [
-            {
-              fields: [
-                {
-                  isSmall: true,
-                  cellContent: () => handlebars.compile(selectHBS)(_.merge({},
-                    selectData.variants.default.props,
-                    {
-                      listData: {
-                        groupId: 'showhide',
-                        isSingleSelect: true,
-                        selectOptions: [
-                          { value: '', label: '' },
-                          { value: 'show', label: 'Show', id: _.uniqueId('showhide') },
-                          { value: 'hide', label: 'Hide', id: _.uniqueId('showhide') },
-                        ],
-                      },
-                    })),
-                },
-              ],
-            },
-            {
-              fields: [
-                {
-                  isSmall: true,
-                  cellContent: () => handlebars.compile(formFieldsetHBS)({
-                    rules: JSON.stringify([
-                      {
-                        conditions: [
-                          {
-                            field: 'showhide',
-                            equals: true,
-                            value: 'hide',
+        groups: [
+          {
+            rows: [
+              {
+                fields: [
+                  {
+                    isSmall: true,
+                    cellContent: () =>
+                      handlebars.compile(selectHBS)(
+                        _.merge({}, selectData.variants.default.props, {
+                          listData: {
+                            groupId: 'showhide',
+                            isSingleSelect: true,
+                            selectOptions: [
+                              { value: '', label: '' },
+                              { value: 'show', label: 'Show', id: _.uniqueId('showhide') },
+                              { value: 'hide', label: 'Hide', id: _.uniqueId('showhide') },
+                            ],
                           },
+                        })
+                      ),
+                  },
+                ],
+              },
+              {
+                fields: [
+                  {
+                    isSmall: true,
+                    cellContent: () =>
+                      handlebars.compile(formFieldsetHBS)({
+                        rules: JSON.stringify([
+                          {
+                            conditions: [
+                              {
+                                field: 'showhide',
+                                equals: true,
+                                value: 'hide',
+                              },
+                            ],
+                            action: 'hide',
+                          },
+                        ]),
+                        fieldsetTitle: 'Auswahl',
+                        isVertical: true,
+                        requiredMessage: 'Bitte wählen Sie eine Option aus.',
+                        options: [
+                          () =>
+                            handlebars.compile(checkboxHBS)(
+                              _.merge({}, checkboxData.variants.default.props, {
+                                label: 'Option 1',
+                                groupName: 'opt_check',
+                                id: 'op1',
+                                value: '1',
+                              })
+                            ),
+                          () =>
+                            handlebars.compile(checkboxHBS)(
+                              _.merge({}, checkboxData.variants.default.props, {
+                                label: 'Option 2',
+                                groupName: 'opt_check',
+                                id: 'op2',
+                                value: '2',
+                              })
+                            ),
+                          () =>
+                            handlebars.compile(checkboxHBS)(
+                              _.merge({}, checkboxData.variants.default.props, {
+                                label: 'Option 3',
+                                groupName: 'opt_check',
+                                id: 'op3',
+                                value: '3',
+                              })
+                            ),
                         ],
-                        action: 'hide',
-                      },
-                    ]),
-                    fieldsetTitle: 'Auswahl',
-                    isVertical: true,
-                    requiredMessage: 'Bitte wählen Sie eine Option aus.',
-                    options: [
-                      () => handlebars.compile(checkboxHBS)(_.merge({},
-                        checkboxData.variants.default.props,
-                        {
-                          label: 'Option 1',
-                          groupName: 'opt_check',
-                          id: 'op1',
-                          value: '1',
-                        })),
-                      () => handlebars.compile(checkboxHBS)(_.merge({},
-                        checkboxData.variants.default.props,
-                        {
-                          label: 'Option 2',
-                          groupName: 'opt_check',
-                          id: 'op2',
-                          value: '2',
-                        })),
-                      () => handlebars.compile(checkboxHBS)(_.merge({},
-                        checkboxData.variants.default.props,
-                        {
-                          label: 'Option 3',
-                          groupName: 'opt_check',
-                          id: 'op3',
-                          value: '3',
-                        })),
-                    ],
-                  }),
-                },
-              ],
-            },
-            {
-              fields: [
-                {
-                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                    formInputData.variants.default.props,
-                    {
-                      rules: JSON.stringify([
-                        {
-                          conditions: [
+                      }),
+                  },
+                ],
+              },
+              {
+                fields: [
+                  {
+                    cellContent: () =>
+                      handlebars.compile(formInputHBS)(
+                        _.merge({}, formInputData.variants.default.props, {
+                          rules: JSON.stringify([
                             {
-                              field: 'opt_check',
-                              equals: true,
-                              value: '3',
+                              conditions: [
+                                {
+                                  field: 'opt_check',
+                                  equals: true,
+                                  value: '3',
+                                },
+                              ],
+                              action: 'show',
                             },
-                          ],
-                          action: 'show',
-                        },
-                      ]),
-                      isFloatingLabel: true,
-                      label: 'Aktuelle Berufsebezichnung',
-                      name: 'current_job',
-                      uuid: 'current_job',
-                      validation: {
-                        isRequired: true,
-                      },
-                    })),
-                },
-              ],
-            },
-            {
-              fields: [
-                {
-                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                    formInputData.variants.default.props,
-                    {
-                      rules: JSON.stringify([
-                        {
-                          conditions: [
+                          ]),
+                          isFloatingLabel: true,
+                          label: 'Aktuelle Berufsebezichnung',
+                          name: 'current_job',
+                          uuid: 'current_job',
+                          validation: {
+                            isRequired: true,
+                          },
+                        })
+                      ),
+                  },
+                ],
+              },
+              {
+                fields: [
+                  {
+                    cellContent: () =>
+                      handlebars.compile(formInputHBS)(
+                        _.merge({}, formInputData.variants.default.props, {
+                          rules: JSON.stringify([
                             {
-                              field: 'opt_check',
-                              equals: true,
-                              value: '2',
+                              conditions: [
+                                {
+                                  field: 'opt_check',
+                                  equals: true,
+                                  value: '2',
+                                },
+                              ],
+                              action: 'show',
                             },
-                          ],
-                          action: 'show',
-                        },
-                      ]),
-                      isFloatingLabel: true,
-                      label: 'Alter',
-                      name: 'age',
-                      uuid: 'age',
-                      validation: {
-                        isRequired: true,
-                      },
-                    })),
-                },
-              ],
-            },
-            {
-              fields: [
-                {
-                  cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                    formInputData.variants.default.props,
-                    {
-                      rules: JSON.stringify([
-                        {
-                          conditions: [
+                          ]),
+                          isFloatingLabel: true,
+                          label: 'Alter',
+                          name: 'age',
+                          uuid: 'age',
+                          validation: {
+                            isRequired: true,
+                          },
+                        })
+                      ),
+                  },
+                ],
+              },
+              {
+                fields: [
+                  {
+                    cellContent: () =>
+                      handlebars.compile(formInputHBS)(
+                        _.merge({}, formInputData.variants.default.props, {
+                          rules: JSON.stringify([
                             {
-                              field: 'age',
-                              compare: 'greater',
-                              value: '20',
+                              conditions: [
+                                {
+                                  field: 'age',
+                                  compare: 'greater',
+                                  value: '20',
+                                },
+                              ],
+                              action: 'show',
                             },
-                          ],
-                          action: 'show',
-                        },
-                      ]),
-                      isFloatingLabel: true,
-                      label: 'Sub Alter',
-                      name: 'subAge',
-                      uuid: 'subAge',
-                      validation: {
-                        isRequired: true,
-                      },
-                    })),
-                },
-              ],
-            },
-          ],
-        },
+                          ]),
+                          isFloatingLabel: true,
+                          label: 'Sub Alter',
+                          name: 'subAge',
+                          uuid: 'subAge',
+                          validation: {
+                            isRequired: true,
+                          },
+                        })
+                      ),
+                  },
+                ],
+              },
+            ],
+          },
         ],
       },
       stepper: _.merge({}, defStepperData, {
@@ -222,45 +233,49 @@ const data = _.merge({}, defaultData, {
                   {
                     fields: [
                       {
-                        cellContent: () => handlebars.compile(formFieldsetHBS)({
-                          fieldsetTitle: 'Bestellung von Steuerakten',
-                          requiredMessage: 'Bitte wählen Sie.',
-                          options: [
-                            () => handlebars.compile(radioHBS)(_.merge({},
-                              radioData.variants.default.props,
-                              {
-                                label: 'Privatperson',
-                                groupName: 'bestellung_type',
-                                id: 1,
-                                value: 'privat',
-                                validation: {
-                                  isRequired: true,
-                                },
-                              })),
-                            () => handlebars.compile(radioHBS)(_.merge({},
-                              radioData.variants.default.props,
-                              {
-                                label: 'Juristische Person',
-                                groupName: 'bestellung_type',
-                                id: 2,
-                                value: 'juristisch',
-                                validation: {
-                                  isRequired: true,
-                                },
-                              })),
-                            () => handlebars.compile(radioHBS)(_.merge({},
-                              radioData.variants.default.props,
-                              {
-                                label: 'Drittperson',
-                                groupName: 'bestellung_type',
-                                id: 3,
-                                value: 'dritt',
-                                validation: {
-                                  isRequired: true,
-                                },
-                              })),
-                          ],
-                        }),
+                        cellContent: () =>
+                          handlebars.compile(formFieldsetHBS)({
+                            fieldsetTitle: 'Bestellung von Steuerakten',
+                            requiredMessage: 'Bitte wählen Sie.',
+                            options: [
+                              () =>
+                                handlebars.compile(radioHBS)(
+                                  _.merge({}, radioData.variants.default.props, {
+                                    label: 'Privatperson',
+                                    groupName: 'bestellung_type',
+                                    id: 1,
+                                    value: 'privat',
+                                    validation: {
+                                      isRequired: true,
+                                    },
+                                  })
+                                ),
+                              () =>
+                                handlebars.compile(radioHBS)(
+                                  _.merge({}, radioData.variants.default.props, {
+                                    label: 'Juristische Person',
+                                    groupName: 'bestellung_type',
+                                    id: 2,
+                                    value: 'juristisch',
+                                    validation: {
+                                      isRequired: true,
+                                    },
+                                  })
+                                ),
+                              () =>
+                                handlebars.compile(radioHBS)(
+                                  _.merge({}, radioData.variants.default.props, {
+                                    label: 'Drittperson',
+                                    groupName: 'bestellung_type',
+                                    id: 3,
+                                    value: 'dritt',
+                                    validation: {
+                                      isRequired: true,
+                                    },
+                                  })
+                                ),
+                            ],
+                          }),
                       },
                     ],
                   },
@@ -287,63 +302,67 @@ const data = _.merge({}, defaultData, {
                   {
                     fields: [
                       {
-                        cellContent: () => handlebars.compile(formFieldsetHBS)({
-                          fieldsetTitle: 'Gegenstand der Bestellung',
-                          requiredMessage: 'Bestellung von Steuerakten betreffend einer',
-                          options: [
-                            () => handlebars.compile(radioHBS)(_.merge({},
-                              radioData.variants.default.props,
-                              {
-                                label: 'Natürliche Person',
-                                groupName: 'gegenstand_type',
-                                id: 10,
-                                value: 'nat',
-                                validation: {
-                                  isRequired: true,
-                                },
-                              })),
-                            () => handlebars.compile(radioHBS)(_.merge({},
-                              radioData.variants.default.props,
-                              {
-                                label: 'Juristische Person',
-                                groupName: 'gegenstand_type',
-                                id: 11,
-                                value: 'jur',
-                                validation: {
-                                  isRequired: true,
-                                },
-                              })),
-                          ],
-                        }),
+                        cellContent: () =>
+                          handlebars.compile(formFieldsetHBS)({
+                            fieldsetTitle: 'Gegenstand der Bestellung',
+                            requiredMessage: 'Bestellung von Steuerakten betreffend einer',
+                            options: [
+                              () =>
+                                handlebars.compile(radioHBS)(
+                                  _.merge({}, radioData.variants.default.props, {
+                                    label: 'Natürliche Person',
+                                    groupName: 'gegenstand_type',
+                                    id: 10,
+                                    value: 'nat',
+                                    validation: {
+                                      isRequired: true,
+                                    },
+                                  })
+                                ),
+                              () =>
+                                handlebars.compile(radioHBS)(
+                                  _.merge({}, radioData.variants.default.props, {
+                                    label: 'Juristische Person',
+                                    groupName: 'gegenstand_type',
+                                    id: 11,
+                                    value: 'jur',
+                                    validation: {
+                                      isRequired: true,
+                                    },
+                                  })
+                                ),
+                            ],
+                          }),
                       },
                     ],
                   },
                   {
                     fields: [
                       {
-                        cellContent: () => handlebars.compile(formInputHBS)(_.merge({},
-                          formInputData.variants.unitLeftWithFloating.props,
-                          {
-                            rules: JSON.stringify([
-                              {
-                                conditions: [
-                                  {
-                                    field: 'gegenstand_type',
-                                    equals: true,
-                                    value: 'nat',
-                                  },
-                                ],
-                                action: 'show',
+                        cellContent: () =>
+                          handlebars.compile(formInputHBS)(
+                            _.merge({}, formInputData.variants.unitLeftWithFloating.props, {
+                              rules: JSON.stringify([
+                                {
+                                  conditions: [
+                                    {
+                                      field: 'gegenstand_type',
+                                      equals: true,
+                                      value: 'nat',
+                                    },
+                                  ],
+                                  action: 'show',
+                                },
+                              ]),
+                              isFloatingLabel: true,
+                              label: 'Conditional Field',
+                              name: 'alt_input11',
+                              uuid: 'alt_input11',
+                              validation: {
+                                isRequired: false,
                               },
-                            ]),
-                            isFloatingLabel: true,
-                            label: 'Conditional Field',
-                            name: 'alt_input11',
-                            uuid: 'alt_input11',
-                            validation: {
-                              isRequired: false,
-                            },
-                          })),
+                            })
+                          ),
                       },
                     ],
                   },

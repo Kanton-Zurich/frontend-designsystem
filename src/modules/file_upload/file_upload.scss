@@ -24,12 +24,14 @@
 
   &__dropzone {
     margin-top: pxToRem($sizeTiny);
-    padding: pxToRem($sizeSmallHuge);
-    border: 2px dashed $colorBlack40;
+    border: 2px dashed $colorBlack20;
+    border-radius: $sizeMini;
     display: flex;
     flex-direction: column;
     align-items: center;
 
+    @include sizeCurve(padding-left padding-right, medium);
+    @include sizeCurve(padding-top padding-bottom, smallerLarge);
     @include transition(background border-color);
 
     p {
@@ -66,14 +68,12 @@
   }
 
   &--no-dropzone {
-
     .mdl-file_upload__dropzone {
       display: none;
     }
   }
 
   &--active-dropzone {
-
     .mdl-file_upload__dropzone-hint {
       display: block;
     }

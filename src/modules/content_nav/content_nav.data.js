@@ -3,8 +3,10 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 
-const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants.default.props;
-const contentTeaserPromoData = require('../../atoms/content_teaser/content_teaser.data').variants.promotopic.props;
+const contentTeaserDefaultData = require('../../atoms/content_teaser/content_teaser.data').variants
+  .default.props;
+const contentTeaserPromoData = require('../../atoms/content_teaser/content_teaser.data').variants
+  .promotopic.props;
 
 const template = dataHelper.getFileContent('content_nav.hbs');
 const data = _.merge({}, defaultData, {
@@ -24,7 +26,8 @@ const data = _.merge({}, defaultData, {
       }),
       _.merge({}, contentTeaserDefaultData, {
         shortTitle: 'Gesundheit',
-        buzzwords: 'Krankenversicherung, Prämienverbilligung, Kliniken',
+        buzzwords:
+          'Krankenversicherung, Prämienverbilligung, Kliniken, Spitäler, Gesundheitsförderung, Prävention, Pflege, Apotheken, Ärzte, Notfall, Impfungen, Rehabilitation, Psychische Gesundheit, Suchtprävention, Ernährung, Bewegung, Gesundheitspolitik, Patientenrechte, Medizinische Forschung, Palliativpflege',
       }),
       _.merge({}, contentTeaserDefaultData, {
         shortTitle: 'Freizeit & Kultur',
@@ -41,69 +44,66 @@ const data = _.merge({}, defaultData, {
     ],
   },
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-    },
-  },
-  oneItem: {
-    meta: {
-      title: 'Nur 1 Element',
-      desc: 'Content-Navigation mit nur einem Element',
-    },
-    props: {
-      items: [
-        contentTeaserDefaultData,
-      ],
-    },
-  },
-  twoItems: {
-    meta: {
-      title: 'Nur 2 bis 4 Elemente',
-      desc: 'Content-Navigation mit zwei Elementen',
-    },
-    props: {
-      items: [
-        contentTeaserDefaultData,
-        contentTeaserDefaultData,
-        contentTeaserDefaultData,
-      ],
-    },
-  },
-  withPromotopic: {
-    meta: {
-      title: 'Mit einem Promotopic',
-      desc: 'Diese Variante verfügt über eine Promotopic',
-    },
-    props: {
-      promotopic: contentTeaserPromoData,
-    },
-  },
-}, (variant) => {
-  // eslint-disable-next-line consistent-return
-  const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
-    if (key === 'items') {
-      return variantValue;
-    }
-  }).props;
-
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
-
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Default',
+        desc: 'Default implementation',
       },
     },
-  });
+    oneItem: {
+      meta: {
+        title: 'Nur 1 Element',
+        desc: 'Content-Navigation mit nur einem Element',
+      },
+      props: {
+        items: [contentTeaserDefaultData],
+      },
+    },
+    twoItems: {
+      meta: {
+        title: 'Nur 2 bis 4 Elemente',
+        desc: 'Content-Navigation mit zwei Elementen',
+      },
+      props: {
+        items: [contentTeaserDefaultData, contentTeaserDefaultData, contentTeaserDefaultData],
+      },
+    },
+    withPromotopic: {
+      meta: {
+        title: 'Mit einem Promotopic',
+        desc: 'Diese Variante verfügt über eine Promotopic',
+      },
+      props: {
+        promotopic: contentTeaserPromoData,
+      },
+    },
+  },
+  (variant) => {
+    // eslint-disable-next-line consistent-return
+    const variantProps = _.mergeWith({}, data, variant, (dataValue, variantValue, key) => {
+      if (key === 'items') {
+        return variantValue;
+      }
+    }).props;
 
-  return variantData;
-});
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
+
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
+      },
+    });
+
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

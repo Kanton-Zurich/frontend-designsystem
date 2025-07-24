@@ -8,20 +8,19 @@ import Module from '../../assets/js/helpers/module';
 import { iframeResizer } from 'iframe-resizer';
 import WindowEventListener from '../../assets/js/helpers/events';
 
-
 class IFrame extends Module {
   public ui: {
-    element: any,
-    iframe: HTMLDivElement,
+    element: any;
+    iframe: HTMLDivElement;
   };
 
   public options: {
     domSelectors: {
-      iframe: string,
-    },
+      iframe: string;
+    };
     stateClasses: {
-      fullWidth: string,
-    },
+      fullWidth: string;
+    };
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -44,18 +43,23 @@ class IFrame extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    if (this.ui.iframe
-      && !this.ui.iframe.style.height
-      && !this.ui.element.classList.contains(this.options.stateClasses.fullWidth)) {
-      iframeResizer({
-        heightCalculationMethod: 'lowestElement',
-        bodyPadding: '5px 5px',
-      }, this.ui.iframe);
+    if (
+      this.ui.iframe &&
+      !this.ui.iframe.style.height &&
+      !this.ui.element.classList.contains(this.options.stateClasses.fullWidth)
+    ) {
+      iframeResizer(
+        {
+          heightCalculationMethod: 'lowestElement',
+          bodyPadding: '5px 5px',
+        },
+        this.ui.iframe
+      );
     }
 
     if (this.ui.element.classList.contains(this.options.stateClasses.fullWidth)) {
       (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
-      (<any> window).addEventListener(Module.globalEvents.verticalResize, this.onResize.bind(this));
+      (<any>window).addEventListener(Module.globalEvents.verticalResize, this.onResize.bind(this));
       setTimeout(this.onResize.bind(this), 0);
     }
   }

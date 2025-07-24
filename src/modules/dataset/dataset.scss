@@ -1,0 +1,121 @@
+.mdl-dataset {
+  background-color: $colorBlack10;
+  position: relative;
+  display: grid;
+  grid-template-areas: 'title' 'meta';
+  gap: pxToRem($sizeTiny);
+  padding: pxToRem($sizeSmallLarge) pxToRem($sizeLarge);
+
+  @include mq($from: medium) {
+    padding-left: pxToRem($sizeLarge);
+    padding-right: pxToRem(36px);
+  }
+
+  &--with-status {
+    grid-template-areas: 'status status' 'title title' 'meta meta';
+    grid-template-columns: auto 1fr;
+
+    @include mq($from: medium) {
+      grid-template-areas: 'title title status' 'meta meta status';
+      grid-template-columns: auto 1fr auto;
+      column-gap: pxToRem($sizeRegular);
+      padding-top: pxToRem($sizeSmallLarge);
+      padding-right: pxToRem($sizeSmallLarge);
+    }
+  }
+
+  &--with-icon {
+    grid-template-areas: 'icon status' 'title title' 'meta meta';
+    grid-template-columns: auto 1fr;
+
+    @include mq($from: xsmall) {
+      grid-template-areas: '. status' 'icon title' 'icon meta';
+      padding-top: pxToRem($sizeSmallRegular);
+    }
+    @include mq($from: medium) {
+      grid-template-areas: 'icon title status' 'icon meta status';
+      grid-template-columns: auto 1fr auto;
+      column-gap: pxToRem($sizeRegular);
+      padding-top: pxToRem($sizeSmallLarge);
+      padding-left: pxToRem($sizeRegular);
+      padding-right: pxToRem($sizeSmallLarge);
+    }
+  }
+
+  &__title.atm-heading {
+    grid-area: title;
+    padding: 0;
+    font-size: pxToRem($sizeRegular);
+    margin: 0;
+  }
+
+  &__icon {
+    grid-area: icon;
+    display: grid;
+    align-self: start;
+    border-radius: 50%;
+    background: $colorWhite;
+
+    @include mq($from: medium) {
+      place-items: center;
+    }
+
+    .icon {
+      width: pxToRem($sizeBiggerBig);
+      height: pxToRem($sizeBiggerBig);
+      padding: pxToRem($sizeTiny);
+
+      @include mq($from: large) {
+        width: pxToRem($sizeSmallHuge);
+        height: pxToRem($sizeSmallHuge);
+        padding: pxToRem($sizeSmallRegular);
+      }
+    }
+  }
+
+  &__meta-list {
+    grid-area: meta;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 pxToRem($sizeSmallRegular);
+    font-size: pxToRem($sizeFontTiny);
+    margin: 0;
+
+    > div {
+      display: flex;
+      gap: 0 pxToRem($sizeMini);
+    }
+  }
+
+  &__meta-term {
+    color: $colorBlack60;
+    display: inline-block;
+  }
+
+  &__meta-data {
+    display: inline-block;
+    margin: 0;
+  }
+
+  &__status {
+    grid-area: status;
+    display: grid;
+    place-items: center;
+  }
+
+  .atm-tag {
+    margin: 0;
+  }
+
+  @include mq($to: medium) {
+    .atm-tag {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 1px pxToRem($sizeTiny);
+      font-size: pxToRem($sizeFontTiny);
+      border-radius: 0 0 0 4px;
+      margin: 0;
+    }
+  }
+}

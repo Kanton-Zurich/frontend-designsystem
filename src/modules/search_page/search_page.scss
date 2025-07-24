@@ -37,10 +37,6 @@
     @include sizeCurve(margin-bottom, medium);
   }
 
-  &__form {
-    // @include sizeCurve(padding-bottom, regular);
-  }
-
   &__date-filter {
     display: none;
 
@@ -71,12 +67,12 @@
       color: $colorBlack;
     }
 
-
     .mdl-texthighlight {
       margin-bottom: 1rem;
 
-      h4.atm-heading {
+      .atm-heading {
         padding-bottom: $sizeTiny;
+        font-family: $fontFamilyBlack;
       }
 
       .mdl-linklist {

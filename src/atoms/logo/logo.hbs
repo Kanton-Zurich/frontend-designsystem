@@ -1,0 +1,11 @@
+<div class="atm-logo">
+  {{#if homelink}}<a href="{{homelink}}">{{/if}}
+    <span class="visuallyhidden">Logo des Kantons Zürich</span>
+    <svg viewBox="0 0 100 100" class="atm-logo--screen-inverted print-hidden">
+      <use xlink:href="#ktzh_inverted"></use>
+    </svg>
+    <svg viewBox="0 0 100 100" class="atm-logo--screen print-visible">
+      <use xlink:href="#ktzh"></use>
+    </svg>
+  {{#if homelink}}</a>{{/if}}
+</div>

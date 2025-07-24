@@ -1,43 +1,36 @@
-/*!
- * Accordion
- *
- * @author
- * @copyright
- */
-
 import Module from '../../assets/js/helpers/module';
-import WindowEventListener from '../../assets/js/helpers/events';
 
 class Accordion extends Module {
   public options: {
     domSelectors: {
-      items: string,
-      triggers: string,
-      panel: string,
-      panelContent: string,
-      title: string,
-      verticalIcon: string,
-      trigger: string,
-    },
+      items: string;
+      triggers: string;
+      panel: string;
+      panelContent: string;
+      title: string;
+      verticalIcon: string;
+      trigger: string;
+    };
     stateClasses: {
-      open: string,
-      transitionEnd: string,
-      togglesAll: string,
-    }
-    transitionTime: number,
+      open: string;
+      transitionEnd: string;
+      togglesAll: string;
+    };
+    transitionTime: number;
   };
 
   public ui: {
-    element: HTMLElement,
-    items: any,
-    triggers: any,
-    panelContent: any,
+    element: HTMLElement;
+    items: any;
+    triggers: any;
+    panelContent: any;
   };
 
   public data: {
-    hasOpenItem: boolean,
-    openItems: Array<string>,
-    idTriggers: Array<any>,
+    hasOpenItem: boolean;
+    openItems: Array<string>;
+    idTriggers: Array<any>;
+    resizeObserver: ResizeObserver;
   };
 
   // Flag controlling toggling behaviour.
@@ -69,15 +62,12 @@ class Accordion extends Module {
     };
 
     super($element, defaultData, defaultOptions, data, options);
-
-    // (<any>window).estatico.lineClamper.initLineClamping();
-
     this.initUi(['items', 'triggers', 'panelContent']);
     this.initEventListeners();
 
     // Check for ids in case an url parameter matches
     this.ui.triggers.forEach((trigger) => {
-      if (typeof trigger.id !== 'undefined' && trigger.id.length > 0) {
+      if (trigger.id) {
         this.data.idTriggers.push({
           item: trigger,
           id: trigger.id,
@@ -85,8 +75,55 @@ class Accordion extends Module {
       }
     });
 
-    this.checkURL();
+    // check panelcontent for ids, open item if id is in url
+    this.ui.items.forEach((item) => {
+      const panelContent = item.querySelector(defaultOptions.domSelectors.panelContent);
+      const trigger = item.querySelector(defaultOptions.domSelectors.trigger);
+      if (panelContent && trigger) {
+        const ids = panelContent.innerHTML.match(/id="([^"]*)(?=")/g);
+        if (ids) {
+          ids.forEach((id) => {
+            // loop over each id and add an idTrigger for each of it.
+            const cleanId = id.replace('id="', '');
+            this.data.idTriggers.push({
+              item: trigger,
+              id: cleanId,
+              target: document.getElementById(cleanId),
+            });
+          });
+        }
+      }
+    });
 
+    // toggle items with the this.options.stateClasses.open class
+    this.ui.items.forEach((item) => {
+      if (item.classList.contains(this.options.stateClasses.open)) {
+        this.data.hasOpenItem = true;
+        this.toggleItem(null, item.querySelector(defaultOptions.domSelectors.trigger), false);
+      }
+    });
+
+    // add ResizeObserver with callback
+    this.data.resizeObserver = new ResizeObserver((entries) => {
+      entries.forEach((entry) => {
+        const panel = entry.target.parentElement as HTMLDivElement;
+
+        panel.style.maxHeight = `${this.calcHeight(panel)}px`;
+      });
+    });
+
+    // observe panelContent with resize observer
+    this.ui.items.forEach((item) => {
+      const panel = item.querySelector(defaultOptions.domSelectors.panel);
+
+      if (panel) {
+        const panelContent = panel.querySelector(this.options.domSelectors.panelContent);
+
+        this.data.resizeObserver.observe(panelContent);
+      }
+    });
+
+    this.checkURL();
     this.togglesAll = this.ui.element.classList.contains(this.options.stateClasses.togglesAll);
   }
 
@@ -94,6 +131,7 @@ class Accordion extends Module {
     return {
       clearSubheads: 'Accordion.clearSubheads',
       updateSubheads: 'Accordion.updateSubheads',
+      resizeHeight: 'Accordion.resizeHeight',
     };
   }
 
@@ -107,15 +145,11 @@ class Accordion extends Module {
     this.data.idTriggers.forEach((trigger) => {
       if (urlParameter === trigger.id && trigger.item.getAttribute('aria-expanded') === 'false') {
         trigger.item.click();
-
-        trigger.item.scrollIntoView({
-          behavior: 'smooth',
-        });
       }
     });
   }
 
-  toggleItem(event, eventDelegate) {
+  toggleItem(event, eventDelegate, reflectURL = true) {
     const panel = eventDelegate.parentElement.nextElementSibling;
     const item = eventDelegate.parentElement.parentElement;
     const ariaExpanded = eventDelegate.getAttribute('aria-expanded') === 'true';
@@ -124,17 +158,22 @@ class Accordion extends Module {
       this.closeItem(item);
     } else {
       // URL reflection
-      if (eventDelegate.id && eventDelegate.id.length > 0) {
-        window.history.pushState({ accordionZH: eventDelegate.id }, '', `#${eventDelegate.id}`);
+      if (eventDelegate.id && eventDelegate.id.length > 0 && reflectURL) {
+        const url = new URL(window.location.href);
+        url.hash = eventDelegate.id;
+        window.history.replaceState({ accordionZH: eventDelegate.id }, '', url);
       }
+
       panel.style.display = 'block';
       panel.style.maxHeight = `${this.calcHeight(panel)}px`;
-
       item.classList.add(this.options.stateClasses.open);
 
       // Adding extra class to set overflow to visible, so dropdowns are seen completely
       setTimeout(() => {
         item.classList.add(this.options.stateClasses.transitionEnd);
+        if (panel.offsetWidth || panel.offsetHeight || panel.getClientRects().length) {
+          panel.style.maxHeight = `${this.calcHeight(panel)}px`;
+        }
         this.updateFlyingFocus();
       }, this.options.transitionTime);
 
@@ -184,7 +223,8 @@ class Accordion extends Module {
    * @param eventDelegate
    */
   itemTransitionEnd(event, eventDelegate) {
-    const itemId = eventDelegate.closest(this.options.domSelectors.items)
+    const itemId = eventDelegate
+      .closest(this.options.domSelectors.items)
       .querySelector(this.options.domSelectors.trigger).id;
     if (!this.data.openItems.includes(itemId)) {
       eventDelegate.style.display = 'none';
@@ -198,17 +238,19 @@ class Accordion extends Module {
       inputElements.forEach((inEl) => {
         // select option
         if (inEl.hasAttribute('data-select-option') && inEl.checked) {
-          const selectEl = inEl.closest('.mdl-select').querySelector('.atm-form_input__trigger-label');
+          const selectEl = inEl
+            .closest('.mdl-select')
+            .querySelector('.atm-form_input__trigger-label');
           const labelEl = panel.querySelector<HTMLLabelElement>(`label[for=${inEl.id}]`);
           const valStr = `${selectEl.childNodes[0].nodeValue}: ${labelEl.childNodes[0].nodeValue}`;
           sectionVals.push(valStr.trim());
 
-        // radio button or checkbox
+          // radio button or checkbox
         } else if ((inEl.type === 'radio' || inEl.type === 'checkbox') && inEl.checked) {
           const labelEl = panel.querySelector<HTMLLabelElement>(`label[for=${inEl.id}]`);
           sectionVals.push(labelEl.childNodes[0].nodeValue.trim());
 
-        // text or datepicker
+          // text or datepicker
         } else if (inEl.type === 'text') {
           if (inEl.value) {
             sectionVals.push(`${inEl.placeholder}: ${inEl.value}`.trim());
@@ -248,34 +290,8 @@ class Accordion extends Module {
    */
   calcHeight(item) {
     const panelContent = item.querySelector(this.options.domSelectors.panelContent);
-    const panelContentChildren = Array.prototype.slice.call(panelContent.children);
-    let completeHeight = 0;
 
-    panelContentChildren.forEach((child) => {
-      if (typeof child.offsetHeight !== 'undefined') {
-        const styles = window.getComputedStyle(child);
-        const margin = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
-
-        completeHeight += Math.ceil(child.offsetHeight + margin);
-      }
-    });
-
-    return completeHeight;
-  }
-
-  /**
-   * Iterating through items and recalcing the height of the open ones
-   *
-   * @memberof Accordion
-   */
-  checkForOpen() {
-    this.ui.items.forEach((item) => {
-      if (item.classList.contains(this.options.stateClasses.open)) {
-        const panel = item.querySelector(this.options.domSelectors.panel);
-
-        panel.style.maxHeight = `${this.calcHeight(item)}px`;
-      }
-    });
+    return panelContent.offsetHeight;
   }
 
   /**
@@ -305,18 +321,28 @@ class Accordion extends Module {
       });
     }
 
-    (<any>WindowEventListener).addDebouncedResizeListener(this.checkForOpen.bind(this));
-    window.addEventListener('hashchange', () => {
-      this.checkURL();
-    }, false);
+    window.addEventListener(
+      'hashchange',
+      () => {
+        this.checkURL();
+      },
+      false
+    );
 
-    this.eventDelegate.on('keydown', this.options.domSelectors.trigger, this.handleKeyOnTrigger.bind(this));
+    this.eventDelegate.on(
+      'keydown',
+      this.options.domSelectors.trigger,
+      this.handleKeyOnTrigger.bind(this)
+    );
     this.eventDelegate.on('click', this.options.domSelectors.trigger, this.toggleItem.bind(this));
     this.eventDelegate.on(Accordion.events.clearSubheads, this.clearSubheads.bind(this));
     this.eventDelegate.on(Accordion.events.updateSubheads, this.updateSubheads.bind(this));
-    this.eventDelegate.on('transitionend', this.options.domSelectors.panel, this.itemTransitionEnd.bind(this));
+    this.eventDelegate.on(
+      'transitionend',
+      this.options.domSelectors.panel,
+      this.itemTransitionEnd.bind(this)
+    );
   }
-
 
   updateFlyingFocus() {
     (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
@@ -327,8 +353,7 @@ class Accordion extends Module {
    */
   destroy() {
     super.destroy();
-
-    // Custom destroy actions go here
+    this.data.resizeObserver.disconnect();
   }
 }
 

@@ -31,7 +31,8 @@ class DateHelper {
    * @returns { string } a string like "20190711T140001Z"
    */
   public static getStrippedIsoString(date: Date): string {
-    return date.toISOString()
+    return date
+      .toISOString()
       .replace(/[-:]/g, '')
       .replace(/[.]\d{3}/g, '');
   }
@@ -88,8 +89,9 @@ class DateHelper {
     const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
     d.setUTCDate(d.getUTCDate() + dowThursday - (d.getUTCDay() || DateHelper.DAYS_IN_WEEK));
     const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1)).getTime();
-    return Math.ceil((((d.getTime() - yearStart) / DateHelper.MS_IN_DAY) + 1)
-      / DateHelper.DAYS_IN_WEEK);
+    return Math.ceil(
+      ((d.getTime() - yearStart) / DateHelper.MS_IN_DAY + 1) / DateHelper.DAYS_IN_WEEK
+    );
   }
 
   /**
@@ -102,7 +104,7 @@ class DateHelper {
   public static getWeekDayOfSameWeek(date: Date, dow: number) {
     const d = new Date(date);
     const day = d.getDay();
-    const diff = d.getDate() - day + (day === 0 ? (1 - DateHelper.DAYS_IN_WEEK) : dow);
+    const diff = d.getDate() - day + (day === 0 ? 1 - DateHelper.DAYS_IN_WEEK : dow);
     return new Date(d.setDate(diff));
   }
 
@@ -118,7 +120,7 @@ class DateHelper {
       const d = new Date(date);
       d.setHours(0, 0, 0);
       const day = d.getDay();
-      const diff = d.getDate() - day + (day === 0 ? (1 - DateHelper.DAYS_IN_WEEK) : dow);
+      const diff = d.getDate() - day + (day === 0 ? 1 - DateHelper.DAYS_IN_WEEK : dow);
       datesOfWeek.push(new Date(d.setDate(diff)));
     }
     return datesOfWeek;

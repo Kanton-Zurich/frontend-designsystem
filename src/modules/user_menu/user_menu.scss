@@ -1,59 +1,149 @@
+$userMenuCurves: (
+  loginLabel: (
+    small: $sizeRegular,
+    medium: $sizeSmallLarge,
+    large: $sizeSmallLarge,
+    xlarge: $sizeLarge,
+  ),
+  user: (
+    tiny: 0,
+    xsmall: $sizeSmallRegular,
+    small: $sizeSmallRegular,
+    medium: $sizeSmallRegular,
+    large: $sizeSmallRegular,
+    xlarge: $sizeRegular,
+  ),
+);
+
 .mdl-user-menu {
+  // Now:        Hide user menu on logged out state completely.
+  // Previously: logged-out state was shown.
+  // Default state is logged out.
+  //
+  // Kept existing styles for logged-out state as shown here:
+  // https://www.figma.com/file/d6Pv21UVUbnBs3AdcZijHmbN/KTZH-Design-System?type=design&node-id=11882-6529&mode=dev
+  display: none;
+
   @include sizeCurve(height, height, $headerCurves); // Used variable from header module
   position: relative;
-  display: inline-flex;
-  background-color: rgba(255, 255, 255, 0.4);
-  margin-right: $sizeMini;
 
   &__trigger {
     @include blankButton;
-    padding: 0 pxToRem($sizeSmallRegular);
-    display: none;
+    display: inline-flex;
     align-items: center;
-    color: $colorBlack80;
+    color: $colorBlack;
+    padding-left: pxToRem($sizeSmallRegular);
 
     .icon use {
-      fill: $colorBlack80;
+      fill: $colorBlack;
     }
   }
 
-  &--initialised {
-    .mdl-user-menu {
-      &__trigger {
-        display: inline-flex;
+  &__user-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: pxToRem($sizeBig);
+    height: pxToRem($sizeBig);
+    border-radius: 0;
+
+    @include mq($to: small) {
+      margin-right: pxToRem($sizeSmallRegular);
+    }
+
+    &:before {
+      @include mq($to: small) {
+        content: '';
+        height: pxToRem($sizeBig);
+        position: absolute;
+        left: 0;
+        border-left: 1px solid $colorBlack;
       }
     }
   }
 
-  &__user,
-  &__user-short {
-    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular)); // Used variable from header module
-    @include sizeCurve(line-height, nav, $lineHeightCurves, $pxToRem: false); // Used variable from header module
+  &__trigger-triangle-icon {
     display: none;
-    color: inherit;
+    transition: transform 200ms ease-out;
+    transform: rotate(0deg);
+
+    @include sizeCurve(margin-right, user, $userMenuCurves);
   }
 
-  &__user {
-    padding: 0 pxToRem($sizeTiny) 0 pxToRem($sizeSmallRegular);
+  &__username,
+  &__loginlabel {
+    @include polyFluidSizing(
+      font-size,
+      map-get($fontSizeCurves, regular)
+    ); // Used variable from header module
   }
 
-  &__user-short {
-    padding: 0 pxToRem($sizeTiny);
+  &__username {
+    display: none;
+  }
 
-    & + .icon {
-      display: none;
-      transition: transform 200ms ease-out;
-      transform: rotate(0deg);
+  &__loginlabel {
+    display: none;
+    margin-left: pxToRem($sizeTiny);
+
+    @include sizeCurve(margin-right, loginLabel, $userMenuCurves);
+    @include mq($from: small) {
+      display: block;
+    }
+  }
+
+  // class added of user is logged in
+  &--initialised {
+    display: inline-flex; // revert inital 'display: none' of user menu
+
+    .mdl-user-menu {
+      &__trigger {
+        .mdl-user-menu__user-icon use {
+          fill: $colorWhite;
+        }
+      }
+
+      &__user-icon-wrapper {
+        border-radius: pxToRem($sizeBig);
+        background-color: $colorBlack;
+      }
+
+      &__user-icon {
+        width: pxToRem($sizeRegular);
+        height: pxToRem($sizeRegular);
+      }
+
+      &__trigger-triangle-icon {
+        @include mq($from: small) {
+          display: block;
+        }
+      }
+
+      &__username {
+        margin-left: pxToRem($sizeTiny);
+        margin-right: pxToRem($sizeTiny);
+
+        @include mq($from: large) {
+          display: block;
+        }
+      }
+
+      &__loginlabel {
+        display: none;
+      }
     }
   }
 
   &.open {
     border-radius: 2px;
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
+    box-shadow: 0 0 $sizeRegular rgba(0, 0, 0, 0.16), 0 0 2px rgba(0, 0, 0, 0.32);
 
-    .mdl-user-menu__user-short + .icon {
+    .mdl-user-menu {
+      color: $colorBlack;
+    }
+
+    .mdl-user-menu__trigger-triangle-icon {
       transform: rotate(180deg);
-      display: block;
     }
 
     .mdl-context_menu,
@@ -61,31 +151,11 @@
       display: block;
     }
 
-    .mdl-user-menu__user-short {
-      display: none;
-    }
-
     .mdl-user-menu__trigger {
       z-index: 1001;
-      padding-bottom: 2px;
       background-color: $colorWhite;
       border-radius: 1px;
       color: $colorBlack;
-
-      &:after {
-        content: '';
-        position: absolute;
-        bottom: 2px;
-        left: 0;
-
-        width: 100%;
-        height: 1px;
-        background-color: rgba(0, 0, 0, 0.2);
-      }
-
-      .icon use {
-        fill: $colorBlack;
-      }
     }
   }
 
@@ -102,56 +172,32 @@
     display: none;
     width: 100%;
   }
-
-  /**
-  * Media queries
-  */
-  @include mq($from: xsmall) {
-    &__trigger {
-      padding: 0 pxToRem($sizeRegular);
-    }
-  }
-  @include mq($from: medium) {
-    background-color: transparent;
-
-    &__user-short,
-    &__user-short + .icon {
-      display: block;
-    }
-
-    &__trigger {
-      color: $colorWhite;
-
-      .icon use {
-        fill: $colorWhite;
-      }
-    }
-  }
-  @include mq($from: xlarge) {
-    &__user {
-      display: block;
-    }
-
-    &__user-short {
-      display: none;
-    }
-  }
 }
 
-.cv-monochrome {
-  .mdl-user-menu {
-    background: $colorBlack10;
+.cv-inverted {
+  .mdl-user-menu__trigger {
+    color: $colorWhite;
 
-    &__trigger {
-      color: $colorBlack60;
+    .icon use {
+      fill: $colorWhite;
+    }
+  }
 
-      .icon use {
-        fill: $colorBlack60;
+  .mdl-user-menu__user-icon-wrapper {
+    &:before {
+      @include mq($to: small) {
+        border-left-color: $colorWhite;
       }
     }
+  }
 
-    @include mq($from: medium) {
-      background-color: transparent;
+  .mdl-user-menu--initialised {
+    .mdl-user-menu__user-icon-wrapper {
+      background-color: rgba($colorWhite, 0.7);
+    }
+
+    .icon.mdl-user-menu__user-icon use {
+      fill: var(--color-accent);
     }
   }
 }

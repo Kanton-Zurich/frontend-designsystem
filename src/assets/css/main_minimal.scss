@@ -1,4 +1,3 @@
-@import 'data/colors.json';
 @import 'globals/variables';
 @import 'globals/functions';
 @import 'globals/mixins';
@@ -7,7 +6,6 @@
 
 // Reset / normalize styles
 @import '../../../node_modules/normalize.css/normalize';
-
 
 // Importing of XY-Grid
 @import '../../../node_modules/foundation-sites/scss/foundation';
@@ -45,6 +43,7 @@
 @import '../../modules/publication_teaser/publication_teaser';
 @import '../../modules/social_media_links/social_media_links';
 @import '../../modules/contact/contact';
+@import '../../modules/contact_entry/contact_entry';
 @import '../../modules/page_header/page_header';
 @import '../../modules/footer/footer';
 //*autoinsertmodule*

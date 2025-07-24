@@ -1,13 +1,12 @@
-// TODO: Marked as unused by eslint although required (?)
-/* eslint-disable no-unused-vars */
-import { Delegate } from 'dom-delegate';
+import Delegate from 'ftdomdelegate/main';
 import MigekApiService from '../service/migek-api.service';
-/* eslint-enable */
-
 
 export interface BiometrieViewController {
+  // eslint-disable-next-line no-unused-vars
   initEventListeners(eventDelegate: Delegate): void;
+  // eslint-disable-next-line no-unused-vars
   withApi(apiService: MigekApiService): BiometrieViewController;
+  // eslint-disable-next-line no-unused-vars
   withLogFn(_logFn: Function): BiometrieViewController;
 }
 
@@ -24,6 +23,7 @@ export abstract class ViewController<T, U> implements BiometrieViewController {
     this.data = _data;
   }
 
+  // eslint-disable-next-line no-unused-vars
   abstract initEventListeners(eventDelegate: Delegate): void;
 
   withApi(apiService: MigekApiService): BiometrieViewController {

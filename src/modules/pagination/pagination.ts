@@ -9,10 +9,10 @@ import Module from '../../assets/js/helpers/module';
 class Pagination extends Module {
   public ui: {
     element: any;
-    input: HTMLInputElement,
-    prev: HTMLButtonElement,
-    next: HTMLButtonElement,
-    pageCount: HTMLDivElement,
+    input: HTMLInputElement;
+    prev: HTMLButtonElement;
+    next: HTMLButtonElement;
+    pageCount: HTMLDivElement;
   };
 
   private lastValue: number;
@@ -98,7 +98,8 @@ class Pagination extends Module {
   onInputChange(property, oldValue, newValue, watchable) {
     const maxPages = parseInt(this.ui.element.getAttribute('data-pagecount'), 10);
     if (document.activeElement !== watchable) {
-      if (isNaN(parseInt(newValue))) { // eslint-disable-line
+      if (isNaN(parseInt(newValue))) {
+        // eslint-disable-line
         return;
       }
       if (newValue > maxPages) {
@@ -111,7 +112,8 @@ class Pagination extends Module {
         this.setPageButtonStyles(1);
         return;
       }
-      if (!isNaN(parseInt(oldValue, 10)) && (oldValue < 1 || oldValue > maxPages)) { // eslint-disable-line
+      if (!isNaN(parseInt(oldValue, 10)) && (oldValue < 1 || oldValue > maxPages)) {
+        // eslint-disable-line
         return;
       }
       this.lastValue = newValue;
@@ -124,7 +126,8 @@ class Pagination extends Module {
         this.setPageButtonStyles(maxPages);
         return;
       }
-      if (!isNaN(parseInt(newValue)) && newValue < 1) { // eslint-disable-line
+      if (!isNaN(parseInt(newValue)) && newValue < 1) {
+        // eslint-disable-line
         watchable.value = 1;
         this.setPageButtonStyles(1);
       }
@@ -135,10 +138,14 @@ class Pagination extends Module {
    * On input interaction
    */
   onInputInteraction(event: any) {
-    if(!isNaN(parseInt(event.target.value,10)) && // eslint-disable-line
-    this.lastValue !== event.target.value) {
+    if (
+      !isNaN(parseInt(event.target.value, 10)) && // eslint-disable-line
+      this.lastValue !== event.target.value
+    ) {
       this.emitChange(this.lastValue, event.target.value);
       this.lastValue = event.target.value;
+    } else if (Number.isNaN(parseInt(event.target.value, 10))) {
+      event.target.value = this.lastValue;
     }
   }
 

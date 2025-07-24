@@ -15,7 +15,6 @@
   }
 
   .mdl-select {
-
     @include mq($from: medium) {
       margin-left: auto;
     }

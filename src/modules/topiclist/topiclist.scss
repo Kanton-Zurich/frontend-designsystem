@@ -5,13 +5,13 @@ $leadFontCurve: (
 );
 $topiclistSizeCurves: (
   input: (
-    tiny: $sizeSmallLarge,
-    medium: $sizeHuge,
+    tiny: $sizeLarge,
+    medium: $sizeBig,
+    large: $sizeBiggerBig,
   ),
 );
 
 .mdl-topiclist {
-
   @include sizeCurve('margin-top', big);
   @include sizeCurve('margin-bottom', big);
 
@@ -20,18 +20,11 @@ $topiclistSizeCurves: (
     min-height: $loadingMinHeight;
   }
 
-  // Hide items only on default topiclist
-  .mdl-content_nav {
-    &__item:nth-child(1n+13) {
-      display: none;
-    }
-  }
-
   .mdl-topiclist__autosuggest {
     display: none;
 
     &.mdl-content_nav {
-      .mdl-content_nav__item:nth-child(1n+9) {
+      .mdl-content_nav__item:nth-child(1n + 9) {
         display: none;
       }
 
@@ -45,22 +38,10 @@ $topiclistSizeCurves: (
     }
   }
 
-  &--expanded,
-  &--home,
-  &--office {
-    &:not(.mdl-topiclist__autosuggest) {
-      .mdl-content_nav__item:nth-child(1n+13),
-      .mdl-content_nav__item:nth-child(1n+10) {
-        display: flex;
-      }
-    }
-  }
-
   &--expanded {
     .mdl-topiclist__autosuggest {
-
       &.mdl-content_nav {
-        .mdl-content_nav__item:nth-child(1n+9) {
+        .mdl-content_nav__item:nth-child(1n + 9) {
           display: flex;
         }
       }
@@ -112,10 +93,10 @@ $topiclistSizeCurves: (
     }
 
     &:hover {
-      color: $colorBlack100;
+      color: $colorBlack;
 
       .icon use {
-        fill: $colorBlack100;
+        fill: $colorBlack;
       }
     }
   }
@@ -129,18 +110,18 @@ $topiclistSizeCurves: (
     }
   }
 
-  .atm-heading {
+  + .atm-heading {
     padding-top: $sizeSmallRegular;
     margin-bottom: $sizeLarge;
   }
 
   @include mq($from: large) {
-    .atm-heading {
+    + .atm-heading {
       margin-bottom: $sizeBig;
     }
   }
   @include mq($from: xlarge) {
-    .atm-heading {
+    + .atm-heading {
       margin-bottom: $sizeBiggerBig;
     }
   }
@@ -178,7 +159,7 @@ $topiclistSizeCurves: (
   }
 
   /** Default styles for further layers */
-  [ data-layer ] {
+  [data-layer] {
     display: none;
 
     &.mdl-topiclist--visible {
@@ -188,5 +169,28 @@ $topiclistSizeCurves: (
 
   &--hidden {
     display: none;
+  }
+
+  // overwrite contentnav for sectioned topiclist
+  .mdl-content_nav:not(:last-child) {
+    @include sizeCurve(margin-bottom, medium);
+  }
+
+  &__no-results-placeholder {
+    display: none;
+
+    &.visible {
+      display: block;
+
+      .atm-button {
+        display: inline-flex;
+        flex-direction: row-reverse;
+        gap: $sizeTiny;
+
+        svg {
+          margin: 0;
+        }
+      }
+    }
   }
 }

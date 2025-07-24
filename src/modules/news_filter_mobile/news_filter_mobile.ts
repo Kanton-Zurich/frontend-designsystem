@@ -5,26 +5,26 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import Datepicker from '../datepicker/datepicker';
 
 class NewsFilterMobile extends Module {
   public ui: {
-    element: HTMLDivElement,
-    sublevelItems: HTMLDivElement[],
-    listItems: HTMLAnchorElement[],
-    footer: HTMLDivElement,
-    footerButton: HTMLButtonElement,
-    container: HTMLDivElement,
-    datePicker: HTMLDivElement,
+    element: HTMLDivElement;
+    sublevelItems: HTMLDivElement[];
+    listItems: HTMLAnchorElement[];
+    footer: HTMLDivElement;
+    footerButton: HTMLButtonElement;
+    container: HTMLDivElement;
+    datePicker: HTMLDivElement;
   };
 
   public options: {
-    inputDelay: number,
-    visibilityDelay: number,
-    focusDelay: number,
-    keys: any,
-    domSelectors: any,
+    inputDelay: number;
+    visibilityDelay: number;
+    focusDelay: number;
+    keys: any;
+    domSelectors: any;
     stateClasses: {};
   };
 
@@ -49,7 +49,6 @@ class NewsFilterMobile extends Module {
       stateClasses: {
         // activated: 'is-activated'
       },
-
     };
     super($element, defaultData, defaultOptions, data, options);
     this.filterLists = [];
@@ -110,14 +109,14 @@ class NewsFilterMobile extends Module {
         this.openSublevelItem(this.ui.sublevelItems[i], this.ui.listItems[i]);
         this.ui.sublevelItems[i].querySelector('input').value = '';
         this.ui.sublevelItems[i].querySelectorAll('li ').forEach((li) => {
-          li.querySelector('input').checked = this.filterLists[i]
-            .indexOf(li.querySelector('input').value) >= 0;
+          li.querySelector('input').checked =
+            this.filterLists[i].indexOf(li.querySelector('input').value) >= 0;
         });
         event.preventDefault();
       });
       this.initFilterSelect(this.ui.sublevelItems[i].querySelector('input'));
       this.ui.sublevelItems[i]
-        .querySelector((<any> this.options.domSelectors).sublevelFooterButton)
+        .querySelector((<any>this.options.domSelectors).sublevelFooterButton)
         .addEventListener('click', () => {
           this.updateFilterList(i);
           this.closeSublevelItem(this.ui.sublevelItems[i]);
@@ -201,28 +200,33 @@ class NewsFilterMobile extends Module {
       li.querySelector('input').addEventListener('keydown', (evt) => {
         const pressed = evt.key;
         let newTarget = <any>evt.target;
-        if (pressed === 'ArrowUp' || pressed === 'ArrowDown'
-          || pressed === 'Home' || pressed === 'End'
-          || pressed === 'Tab') {
+        if (
+          pressed === 'ArrowUp' ||
+          pressed === 'ArrowDown' ||
+          pressed === 'Home' ||
+          pressed === 'End' ||
+          pressed === 'Tab'
+        ) {
           if (pressed === 'ArrowUp' || pressed === 'ArrowDown') {
-            let nextFocusable = pressed === 'ArrowUp'
-              ? li.previousElementSibling
-              : li.nextElementSibling;
+            let nextFocusable =
+              pressed === 'ArrowUp' ? li.previousElementSibling : li.nextElementSibling;
             while (nextFocusable) {
               if (!nextFocusable.classList.contains('hidden')) {
                 newTarget = nextFocusable.querySelector('input');
                 break;
               }
-              nextFocusable = pressed === 'ArrowUp'
-                ? nextFocusable.previousElementSibling
-                : nextFocusable.nextElementSibling;
+              nextFocusable =
+                pressed === 'ArrowUp'
+                  ? nextFocusable.previousElementSibling
+                  : nextFocusable.nextElementSibling;
             }
             newTarget.focus();
           }
           if (pressed === 'Home' || pressed === 'End') {
             const visibleElements = listElement.querySelectorAll('li:not(.hidden)');
-            newTarget = (pressed === 'Home' ? visibleElements[0] : visibleElements[visibleElements.length - 1])
-              .querySelector('input');
+            newTarget = (
+              pressed === 'Home' ? visibleElements[0] : visibleElements[visibleElements.length - 1]
+            ).querySelector('input');
             newTarget.focus();
           }
           if (pressed === 'Tab') {
@@ -240,18 +244,28 @@ class NewsFilterMobile extends Module {
 
     // -------------------------------
     // Observe inputs and update values
-    this.watch(element, 'value', debounce((key, before, after) => { // eslint-disable-line
-      listItems.forEach((li) => {
-        const regex = new RegExp(after, 'i');
-        li.querySelector('label').innerHTML = li.querySelector('input').placeholder;
-        if (regex.test(li.querySelector('input').placeholder)) {
-          li.querySelector('label').innerHTML = li.querySelector('label').innerHTML.replace(regex, `<mark>${li.querySelector('label').innerHTML.match(regex)[0]}</mark>`);
-          li.classList.remove('hidden');
-        } else {
-          li.classList.add('hidden');
-        }
-      });
-    }, this.options.inputDelay));
+    this.watch(
+      element,
+      'value',
+      debounce((key, before, after) => {
+        // eslint-disable-line
+        listItems.forEach((li) => {
+          const regex = new RegExp(after, 'i');
+          li.querySelector('label').innerHTML = li.querySelector('input').placeholder;
+          if (regex.test(li.querySelector('input').placeholder)) {
+            li.querySelector('label').innerHTML = li
+              .querySelector('label')
+              .innerHTML.replace(
+                regex,
+                `<mark>${li.querySelector('label').innerHTML.match(regex)[0]}</mark>`
+              );
+            li.classList.remove('hidden');
+          } else {
+            li.classList.add('hidden');
+          }
+        });
+      }, this.options.inputDelay)
+    );
   }
 
   /**
@@ -272,20 +286,20 @@ class NewsFilterMobile extends Module {
    * Emit list change event
    */
   emitSetSelectedFilterItems() {
-    this.ui.element.dispatchEvent(new CustomEvent(NewsFilterMobile.events.setSelectedFilterItems,
-      {
+    this.ui.element.dispatchEvent(
+      new CustomEvent(NewsFilterMobile.events.setSelectedFilterItems, {
         detail: {
           filterLists: this.filterLists,
         },
-      }));
+      })
+    );
   }
 
   /**
    * Emit date change event
    */
   emitDateSet(event) {
-    this.ui.element.dispatchEvent(new CustomEvent(NewsFilterMobile.events.dateSet,
-      event));
+    this.ui.element.dispatchEvent(new CustomEvent(NewsFilterMobile.events.dateSet, event));
   }
 
   /**
@@ -297,13 +311,14 @@ class NewsFilterMobile extends Module {
 
     // Update value text
     for (let i = 0; i < this.ui.listItems.length; i += 1) {
-      this.ui.listItems[i].querySelector('.atm-linklist_item__text-subtitle')
-        .innerHTML = this.filterLists[i].length < 1
+      this.ui.listItems[i].querySelector('.atm-linklist_item__text-subtitle').innerHTML =
+        this.filterLists[i].length < 1
           ? ''
           : this.ui.listItems[i]
-            .getAttribute('data-subtitle-pattern')
-            .replace('%', this.filterLists[i].length);
-      this.ui.sublevelItems[i].querySelectorAll('li input')
+              .getAttribute('data-subtitle-pattern')
+              .replace('%', this.filterLists[i].length);
+      this.ui.sublevelItems[i]
+        .querySelectorAll('li input')
         .forEach((checkbox: HTMLInputElement) => {
           checkbox.checked = this.filterLists[i].indexOf(checkbox.value) >= 0;
         });
@@ -315,8 +330,8 @@ class NewsFilterMobile extends Module {
    * @param event
    */
   onSetDate(event) {
-    (<HTMLInputElement> this.ui.datePicker
-      .querySelector('.atm-form_input__input')).value = event.detail.dateString;
+    (<HTMLInputElement>this.ui.datePicker.querySelector('.atm-form_input__input')).value =
+      event.detail.dateString;
   }
 
   /**

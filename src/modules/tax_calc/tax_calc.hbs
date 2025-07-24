@@ -210,15 +210,17 @@
           "LEGAL_SIMPLE": [{
             "title": "Ihre Angaben",
             "rows": [
+              { "fields": ["category"] },
               { "fields": ["municipality", "taxYear"] },
-              { "fields": [ "earnings", "capital"] }
+              { "fields": ["earnings", "capital"] }
             ]
           }],
           "LEGAL_ITERATIVE": [{
             "title": "Ihre Angaben",
             "rows": [
+              { "fields": ["category"] },
               { "fields": ["municipality", "taxYear"] },
-              { "fields": [ "earnings", "capital"] }
+              { "fields": ["earnings", "capital"] }
             ]
           }]
         }
@@ -697,7 +699,7 @@
               "heading": "Staats- und Gemeindesteuern",
               "thead": [
                 "",
-                "Steuersatz",
+                "Steuerfuss",
                 "CHF"
               ],
               "fieldRows": [
@@ -705,14 +707,14 @@
                   "entries": [
                     "cantonalTaxRate.label",
                     "cantonalTaxRate",
-                    ""
+                    "cantonalTax"
                   ]
                 },
                 {
                   "entries": [
                     "resultingMunicipalityTaxRate.label",
                     "resultingMunicipalityTaxRate",
-                    ""
+                    "resultingMunicipalityTax"
                   ]
                 },
                 {
@@ -726,7 +728,7 @@
               ]
             },
             {
-              "heading": "Direkte Bundessteuer",
+              "heading": "Besteuerung Bund",
               "thead": [
                 "",
                 "Steuersatz",
@@ -854,17 +856,49 @@
               ]
             },
             {
+              "heading": "Staats- und Gemeindesteuern",
+              "thead": [
+                "",
+                "Steuerfuss",
+                "CHF"
+              ],
+              "fieldRows": [
+                {
+                  "entries": [
+                    "cantonalTaxRate.label",
+                    "cantonalTaxRate",
+                    "cantonalTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "resultingMunicipalityTaxRate.label",
+                    "resultingMunicipalityTaxRate",
+                    "resultingMunicipalityTax"
+                  ]
+                },
+                {
+                  "entries": [
+                    "totalCantonalTax.label",
+                    "resultingCantonalTaxRate",
+                    "totalCantonalTax"
+                  ],
+                  "isHighlighted": true
+                }
+              ]
+            },
+            {
               "heading": "Besteuerung Bund",
               "thead": [
                 "",
                 "CHF",
                 "Steuersatz",
-                "Einfache Staatssteuer<br>100%, CHF"
+                "CHF"
               ],
               "fieldRows": [
                 {
                   "entries": [
-                    "taxableEarnings.label",
+                    "totalFederalTax.label",
                     "taxableEarnings",
                     "earningsFederalTaxRate",
                     "totalFederalTax"

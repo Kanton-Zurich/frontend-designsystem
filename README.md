@@ -1,13 +1,13 @@
 # Frontend design system for Kanton Zürich
 
-Boiler plate based on Estatico Nuo
+Boilerplate based on Estatico Nuo
 
 ## Installation
 
 ```bash
 # Optionally use Docker container, see below
 
-# Install correct node version v10.x.x use node version manager nvm or manually install node version 10.x.x
+# Install correct node version v20.x.x use node version manager nvm or manually install node version 20.x.x
 nvm install
 
 # Install npm packages
@@ -23,29 +23,22 @@ Dependency: Graphicsmagick http://www.graphicsmagick.org/README.html has to be m
 
 See `gulpfile.js` for details.
 
-
 ## Basic run/watch command
+
 ```bash
 npm run start
 ```
 
 ## Build all assets for deployment
+
 ```bash
 npm run build
 ```
 
 ## Create a new module / page /atom
+
 ```bash
 npm run gulp scaffold
-```
-
-## Create archetype for external develoment or embedded application creation
-- To create a development environment archetype project for creating markup for an embedded application (Component: mdl-application) an archetype project can be created
-- Modules and atoms can be included or excluded at discretion (!) Caution: some modules are depending on atoms or other modules so some combinations can not be created and will lead to build errors.
-- The generated archetype can be found in the folder ``dist/app_archetype`` or as package ``dist/app_archetype.zip``
-
-```bash
-npm run archetype
 ```
 
 ## Docker

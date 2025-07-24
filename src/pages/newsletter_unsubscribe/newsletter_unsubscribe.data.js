@@ -3,9 +3,11 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
-const headerData = require('../../modules/header/header.data').variants.inverted.props;
+const headerData = require('../../modules/header/header.data').variants.defaultWithUserLoggedOut
+  .props;
 
-const breadcrumbData = require('../../modules/breadcrumb/breadcrumb.data.js').variants.singleItemErrorPage.props;
+const breadcrumbData = require('../../modules/breadcrumb/breadcrumb.data.js').variants.parentOnly
+  .props;
 const contactData = require('../../modules/contact/contact.data').variants.fullWidthLessData.props;
 const defServiceButtonData = require('../../modules/service_button/service_button.data').props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
@@ -24,15 +26,12 @@ const data = _.merge({}, defaultData, {
     modules: {
       pageHeader: {
         pageTitle: 'Auf wiedersehen!',
-        leadText: 'Wir bedauern, dass Sie unseren Newsletter-Service nicht länger nutzen möchten. Ihre Abmeldung wurde bereits bearbeitet.',
+        leadSection: {
+          leadText:
+            'Wir bedauern, dass Sie unseren Newsletter-Service nicht länger nutzen möchten. Ihre Abmeldung wurde bereits bearbeitet.',
+        },
         breadcrumb: breadcrumbData,
         inverted: false,
-        hasImageTitle: false,
-        hasVideo: false,
-        hasImage: false,
-        hasBacklink: false,
-        hasBreadcrumb: true,
-        noButton: true,
         buttonData: _.merge({}, defServiceButtonData, {
           buttonTitle: 'Zur Startseite',
         }),

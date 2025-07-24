@@ -1,0 +1,16 @@
+{{#unless this.inactive}}
+  <a class="mdl-objectives_list__item-link" href="{{this.link}}">
+{{/unless}}
+<h3 class="mdl-objectives_list__item-title atm-heading">
+  {{this.title}}
+</h3>
+
+<p class="mdl-objectives_list__item-label">
+  {{this.label}}
+  <span class="mdl-objectives_list__item-id">
+    {{{this.id}}}
+  </span>
+</p>
+{{#unless this.inactive}}
+  </a>
+{{/unless}}

@@ -1,5 +1,5 @@
-{{#extend "layouts/layout"}}
-  {{#content "header"}}
+{{#extend "layouts/layout_detail"}}
+  {{#content "pageheader"}}
     {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
   {{/content}}
 
@@ -9,12 +9,15 @@
     {{> "modules/download_list/download_list" props.modules.downloadListData }}
     {{> "modules/metablock/metablock" props.modules.metablockData}}
     {{> "modules/contact/contact" props.modules.contactData}}
+  {{/content}}
+
+  {{#content "pagefooter"}}
     {{> "modules/related_content/related_content" props.modules.releatedContentData}}
     {{> "modules/tag_group/tag_group" props.modules.tagGroupData}}
   {{/content}}
 
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData }}
-    {{> "modules/back2top/back2top" props.modules.back2topData}}
+    {{> "modules/back_to/back_to" props.modules.backToData}}
   {{/content}}
 {{/extend}}

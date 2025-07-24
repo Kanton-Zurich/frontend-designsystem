@@ -1,5 +1,8 @@
-<div class="mdl-related-content" data-init="relatedContent">
-  <h{{relatedContentHeading.level}}{{#if relatedContentHeading.anchorNavReference}} id="{{relatedContentHeading.anchorNavReference}}"{{/if}} class="atm-heading atm-heading--bordered">{{relatedContentHeading.title}}</h{{relatedContentHeading.level}}>
+<div class="mdl-related-content" data-init="relatedContent" {{#if fullWidth}}data-anchornav="fullwidth"{{/if}}>
+  <h{{heading.level}} class="atm-heading
+      {{#if_compare heading.visualLevel "!==" heading.level}}h{{heading.visualLevel}}{{/if_compare}}
+      {{#if_compare heading.visualLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+    >{{heading.title}}</h{{heading.level}}>
   {{#if relatedContentLead}}<p class="atm-paragraph">{{{relatedContentLead}}}</p>{{/if}}
   {{> "modules/content_nav/content_nav" contentNavData}}
 </div>

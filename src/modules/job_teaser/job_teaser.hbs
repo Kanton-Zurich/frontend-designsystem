@@ -1,12 +1,13 @@
-<div class="mdl-job-teaser" data-init="jobTeaser" data-api-url="{{apiUrl}}" data-base-url="{{baseUrl}}" data-filters="{{filters}}" data-limit="{{limit}}">
-  <div class="mdl-teaser__wrapper">
+<div class="mdl-job-teaser" data-init="jobTeaser" data-api-url="{{apiUrl}}" data-base-url="{{baseUrl}}"
+  data-filters="{{filters}}" data-limit="{{limit}}">
+  <div class="mdl-teaser__wrapper" data-anchornav="fullwidth">
     <div class="lyt-wrapper">
       <div class="mdl-teaser mdl-teaser--inverted">
         <div class="mdl-teaser__content">
-          <h3 class="mdl-teaser__title atm-heading" data-lineclamp="true">
+          <h3 class="mdl-teaser__title atm-heading">
             {{teaserTitle}}
           </h3>
-          <p data-teaser="teaserDescription" data-lineclamp="true" class="mdl-teaser__description">
+          <p data-teaser="teaserDescription" class="mdl-teaser__description">
             {{teaserText}}
           </p>
           <div>
@@ -27,7 +28,7 @@
         </ul>
       </div>
       <script data-job-teaser-template type="text/x-handlebars-template">
-        {{{template}}}
+      {{{template}}}
       </script>
     </div>
   </div>

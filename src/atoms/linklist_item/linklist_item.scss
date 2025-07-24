@@ -1,9 +1,6 @@
 .atm-linklist_item {
-  text-decoration: none;
-  color: rgba($colorText, 0.6);
   font-family: $fontFamilyBlack;
   position: relative;
-  cursor: pointer;
 
   .icon {
     min-width: pxToRem(24);
@@ -44,23 +41,6 @@
     @include transition(transform, $transitionTimeAreaSmall);
   }
 
-  &:hover {
-    color: rgba($colorText, 1);
-
-    &:after {
-      transform: translateY(50%) scaleY(3);
-      background: $colorText;
-    }
-
-    .icon use {
-      fill: $colorText;
-    }
-  }
-
-  &:focus {
-    outline: none;
-  }
-
   // Sozialhilfeeintrag (CZHDEV-3005) & Inhaltsverzeichnis (CZHDEV-3178)
   &--numbered {
     font-family: $fontFamilyBase;
@@ -84,6 +64,10 @@
         display: none;
       }
     }
+  }
+
+  &--e-directory {
+    font-family: $fontFamilyBase;
   }
 
   &--download {
@@ -117,9 +101,20 @@
   &--location {
     font-size: pxToRem($sizeFontRegular);
 
-    &:not(:hover) {
-      .atm-linklist_item__label:not(:hover) {
-        color: rgba($colorText, 0.6);
+    .atm-linklist_item__text {
+      color: var(--color-accent);
+    }
+
+    .atm-linklist_item__label {
+      color: var(--color-text-soft);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        .atm-linklist_item__text,
+        .atm-linklist_item__label {
+          color: var(--color-text);
+        }
       }
     }
 
@@ -132,10 +127,6 @@
     .atm-linklist_item__distance {
       font-size: pxToRem($sizeFontTiny);
       font-family: $fontFamilyBase;
-
-      &:not(:hover) {
-        color: rgba($colorText, 0.6);
-      }
     }
   }
 
@@ -161,7 +152,7 @@
       @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
 
       text-align: right;
-      color: rgba($colorText, 0.6);
+      color: var(--color-text-soft);
       font-family: $fontFamilyBase;
     }
   }
@@ -170,22 +161,39 @@
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
     font-family: $fontFamilyBase;
   }
-
-  .icon use {
-    fill: $colorBlack60;
-    transition: fill $transitionTimeSimple $transitionEasingDefault;
-  }
 }
 
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .atm-linklist_item--location {
-      color: rgba($val, 1);
+/**
+ * Interactive Elements
+ */
+a.atm-linklist_item,
+button.atm-linklist_item {
+  text-decoration: none;
+  color: var(--color-text-soft);
+  cursor: pointer;
 
-      &:hover {
-        color: rgba($colorText, 1);
+  .icon use {
+    fill: var(--color-text-soft);
+    transition: fill $transitionTimeSimple $transitionEasingDefault;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: var(--color-text);
+
+      &:after {
+        transform: translateY(50%) scaleY(3);
+        background: var(--color-text);
+      }
+
+      .icon use {
+        fill: var(--color-text);
       }
     }
+  }
+
+  &:focus {
+    outline: none;
   }
 }
 

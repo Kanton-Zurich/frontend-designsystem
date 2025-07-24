@@ -1,34 +1,19 @@
 <div class="mdl-people_teaser" data-init="peopleTeaser">
-  <h{{headingLevel}} class="atm-heading {{#if headingBordered}}atm-heading--bordered{{/if}}">Unser Team mit Zwischentiteln</h{{headingLevel}}>
-  <div class="mdl-people_teaser__block">
-    <h{{increment headingLevel}} class="atm-heading">Leitung biz Oerlikon</h{{increment headingLevel}}>
-    <div class="mdl-people_teaser__cardlist">
-      {{> "modules/person_card/person_card" personCardData0 }}
+  <h{{headingLevel}} class="atm-heading
+    {{#if_compare visualHeadingLevel "!==" headingLevel}}h{{visualHeadingLevel}}{{/if_compare}}
+    {{#if_compare visualHeadingLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+  >{{title}}</h{{headingLevel}}>
+  {{#each teaserBlockList}}
+    <div class="mdl-people_teaser__block">
+      <h{{increment ../headingLevel}} class="atm-heading">{{this.headingText}}</h{{increment ../headingLevel}}>
+      <div class="mdl-people_teaser__cardlist">
+        {{#each teaserCardList}}
+          {{> "modules/person_card/person_card" this}}
+        {{/each}}
+      </div>
+      <p class="atm-paragraph">
+        {{text}}
+      </p>
     </div>
-    <p class="atm-paragraph">
-      Sie Sicherheitsdirektion und die darunter liegenden Ämter und Bereiche kümmern sich um ein grosens Leistungsspektrum des Kantons. Die folgenden Schwerpunkte liegen uns besonders am Herzen.
-    </p>
-  </div>
-  <div class="mdl-people_teaser__block">
-    <h{{increment headingLevel}} class="atm-heading">Berater</h{{increment headingLevel}}>
-    <div class="mdl-people_teaser__cardlist">
-      {{> "modules/person_card/person_card" personCardData0 }}
-      {{> "modules/person_card/person_card" personCardData1 }}
-    </div>
-    <p class="atm-paragraph">
-      Sie Sicherheitsdirektion und die darunter liegenden Ämter und Bereiche kümmern sich um ein grosens Leistungsspektrum des Kantons. Die folgenden Schwerpunkte liegen uns besonders am Herzen.
-    </p>
-  </div>
-  <div class="mdl-people_teaser__block">
-    <h3 class="atm-heading">Was wir tun</h3>
-    <div class="mdl-people_teaser__cardlist">
-      {{> "modules/person_card/person_card" personCardData2 }}
-    </div>
-    <p class="atm-paragraph">
-      Sie Sicherheitsdirektion und die darunter liegenden Ämter und Bereiche kümmern sich um ein grosens Leistungsspektrum des Kantons. Die folgenden Schwerpunkte liegen uns besonders am Herzen.
-    </p>
-    <div class="mdl-people_teaser__cardlist">
-      {{> "modules/person_card/person_card" personCardData3 }}
-    </div>
-  </div>
+  {{/each}}
 </div>

@@ -1,6 +1,9 @@
 <nav>
   <h2 class="visuallyhidden">Sie sind hier: </h2>
-  <ol class="mdl-breadcrumb {{#if backOnly}}mdl-breadcrumb--backlink{{/if}}" {{#if hasStorage}}data-storage="origin"{{/if}} data-init="breadcrumb">
+  <ol class="mdl-breadcrumb
+    {{#if backOnly}}mdl-breadcrumb--backlink{{/if}}
+    {{#if parentOnly}}mdl-breadcrumb--parentlink{{/if}}"
+    {{#if hasStorage}}data-storage="origin"{{/if}} data-init="breadcrumb">
     {{#each path}}
       <li class="mdl-breadcrumb__item
         {{#if @first}}mdl-breadcrumb__item--main{{/if}}
@@ -31,7 +34,40 @@
       <button class="mdl-breadcrumb__show-context" data-breadcrumb="showContext">
         <span class="visuallyhidden">Ausgeblendete Navigationsebenen</span> ...
       </button>
-      {{> "modules/context_menu/context_menu" contextMenu}}
+      <div class="mdl-context_menu">
+        <div>
+          <ul class="mdl-context_menu__list">
+          </ul>
+        </div>
+      </div>
     </li>
+    {{#if spa}}
+      <template data-breadcrumb="template-link">
+        <li class="mdl-breadcrumb__item" data-breadcrumb="item">
+          <svg class="icon" focusable="false">
+            <use xlink:href="#angle_right"></use>
+          </svg>
+          <svg class="icon mdl-breadcrumb__arrow-left" focusable="false">
+            <use xlink:href="#arrow-left"></use>
+          </svg>
+          <a class="mdl-breadcrumb__link"></a>
+        </li>
+      </template>
+      <template data-breadcrumb="template-active">
+        <li class="mdl-breadcrumb__item mdl-breadcrumb__item--active" data-breadcrumb="item">
+          <svg class="icon" focusable="false">
+            <use xlink:href="#angle_right"></use>
+          </svg>
+          <span class="mdl-breadcrumb__link"></span>
+        </li>
+      </template>
+      <template data-breadcrumb="template-context">
+        <li hidden>
+          <a class="atm-context_menu_item" data-context-menu="item">
+            <span class="atm-context_menu_item__label"></span>
+          </a>
+        </li>
+      </template>
+    {{/if}}
   </ol>
 </nav>

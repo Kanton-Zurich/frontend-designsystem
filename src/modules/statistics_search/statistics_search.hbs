@@ -1,0 +1,70 @@
+<div class="mdl-statistics_search" data-init="statisticsSearch" data-source="/mocks/modules/statistics_search/statistics_search.json" data-order-by="code">
+  {{#if heading.level}}
+    <h{{heading.level}}
+      {{#if anchorNavReference}}id="{{anchorNavReference}}" data-anchornav="target"{{/if}}
+      class="atm-heading
+      {{#if_compare heading.visualLevel "!==" heading.level}}h{{heading.visualLevel}}{{/if_compare}}
+      {{#if_compare heading.visualLevel "===" 2 }}atm-heading--bordered{{/if_compare}}
+      {{#if heading.isHidden}} visuallyhidden{{/if}}"
+    >
+      {{heading.title}}
+    </h{{heading.level}}>
+    {{else}}
+      <h2 class="visuallyhidden">Filterformular</h2>
+  {{/if}}
+
+  <div class="mdl-statistics_search__simple">
+    <form class="mdl-statistics_search__form" novalidate>
+      {{>"atoms/form_input/form_input" searchInputData }}
+      <button type="button" class="atm-button atm-button--secondary">
+        Erweiterte Suche
+      </button>
+    </form>
+  </div>
+  <script data-statistics="autosuggestTemplate" type="text/x-handlebars-template">
+    {{{ modules.autosuggestTemplate }}}
+  </script>
+
+  {{!-- contentnav is the target for autosuggest --}}
+  {{> "modules/content_nav/content_nav" modules.contentNav}}
+
+  <div class="mdl-statistics_search__extended">
+    {{> "modules/dialog/dialog" modules.dialog }}
+  </div>
+
+  <div data-statistics_search="wrapper" class="mdl-statistics_search__wrapper mdl-statistics_search--loading" data-anchornav="fullwidth">
+    <div class="lyt-wrapper lyt-main-grid">
+      <div class="grid-x grid-margin-x">
+        <div class="mdl-statistics_search__result-cell cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+          <div class="mdl-statistics_search__controls">
+            <h3 class="visuallyhidden">Aktive Filter</h3>
+            <div class="mdl-statistics_search__selection">
+              <p class="visuallyhidden" aria-hidden="false" data-statistics_search="hasNoFilters">Aktuell sind keine Filter
+                ausgewählt</p>
+              {{>"modules/filter_pills/filter_pills" filterPillsData }}
+            </div>
+            {{> "atoms/loading_circle/loading_circle"}}
+          </div>
+          <div class="mdl-statistics_search__results">
+            <h2 class="visuallyhidden">Resultate</h2>
+            <div class="mdl-statistics_search__no-results mdl-placeholder">
+              <h3 class="atm-heading mdl-placeholder__title">{{noResults}}</h3>
+              <p class="atm-paragraph mdl-placeholder__text">{{noResultsSubText}}</p>
+              {{>"atoms/button/button" noResultResetButton }}
+            </div>
+            <script data-statisticTeaser-template type="text/x-handlebars-template">
+              {{{ statisticTeaserTemplate }}}
+            </script>
+            {{> "modules/statistics_teaser/statistics_teaser" modules.statisticsTeaser }}
+          </div>
+          <div class="mdl-statistics_search__pagination hidden">
+            {{> "modules/pagination/pagination" modules.pagination }}
+          </div>
+          <div class="mdl-statistics_search__notification hidden">
+            {{> "modules/notification/notification" notificationData }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

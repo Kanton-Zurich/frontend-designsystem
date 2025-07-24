@@ -9,8 +9,9 @@ export interface GeneralEventData {
   geo?: {
     lat: number;
     lon: number;
-  }
+  };
   status?: 'CONFIRMED' | 'TENTATIVE' | 'CANCELLED';
+  startInputType?: string;
 }
 
 class CalendarLinkGenerator {
@@ -25,34 +26,26 @@ class CalendarLinkGenerator {
   private generalData: GeneralEventData;
 
   constructor(generalEventData: GeneralEventData) {
-    this.generalData = Object.assign({ status: 'CONFIRMED', startInputType: 'utc' }, generalEventData);
+    this.generalData = {
+      status: 'CONFIRMED',
+      startInputType: 'utc',
+      ...generalEventData,
+    };
   }
 
   public static isSupportedCalType(calType: string): boolean {
     return CalendarLinkGenerator.SUPPORTED_CALENDAR_TYPE_IDS.indexOf(calType) > -1;
   }
 
-  public prepareCalendarLink(linkEl: HTMLAnchorElement, calType: string,
-    start: Date, end: Date): void {
+  public prepareCalendarLink(
+    linkEl: HTMLAnchorElement,
+    calType: string,
+    start: Date,
+    end: Date
+  ): void {
     if (calType === CalendarLinkGenerator.CALENDER_TYPES.ICS) {
       const baseEncodedIcs = this.getIcsBase64String(start, end);
-      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        const byteCharacters = atob(baseEncodedIcs);
-        const byteNumbers = new Array(byteCharacters.length);
-        for (let i = 0; i < byteCharacters.length; i += 1) {
-          byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-        const file = new Blob([byteArray], { type: 'application/octet-stream' });
-
-        const fileName = linkEl.getAttribute('download');
-        linkEl.addEventListener('click', (ev) => {
-          window.navigator.msSaveOrOpenBlob(file, fileName);
-          ev.stopPropagation();
-        });
-      } else {
-        linkEl.href = `data:application/octet-stream;charset=utf-16le;base64,${baseEncodedIcs}`;
-      }
+      linkEl.href = `data:application/octet-stream;charset=utf-16le;base64,${baseEncodedIcs}`;
     }
     if (calType === CalendarLinkGenerator.CALENDER_TYPES.GOOGLE) {
       linkEl.href = this.getGoogleCalendarLink(start, end);
@@ -61,7 +54,8 @@ class CalendarLinkGenerator {
 
   private getGoogleCalendarLink(start: Date, end: Date): string {
     let details = this.generalData.htmlDescription
-      ? this.generalData.htmlDescription : this.generalData.description;
+      ? this.generalData.htmlDescription
+      : this.generalData.description;
     if (this.generalData.url) {
       const linktag = `<a href="${this.generalData.url}">Link</a>`;
       if (details) {
@@ -78,7 +72,10 @@ class CalendarLinkGenerator {
     calHref += '&';
     calHref += this.getAsSearchParamStr('location', this.generalData.location);
     calHref += '&';
-    calHref += this.getAsSearchParamStr('dates', `${DateHelper.getStrippedIsoString(start)}/${DateHelper.getStrippedIsoString(end)}`);
+    calHref += this.getAsSearchParamStr(
+      'dates',
+      `${DateHelper.getStrippedIsoString(start)}/${DateHelper.getStrippedIsoString(end)}`
+    );
     calHref += '&';
     calHref += this.getAsSearchParamStr('ctz', 'CET');
     return calHref;
@@ -97,16 +94,13 @@ class CalendarLinkGenerator {
     return window.btoa(unescape(encodeURIComponent(value)));
   }
 
-  private buildIcsFileContent(eventData: {
-    start: Date;
-    end: Date;
-    summary: string;
-  }): string {
+  private buildIcsFileContent(eventData: { start: Date; end: Date; summary: string }): string {
     const dtstamp = DateHelper.getStrippedIsoString(new Date());
     const dtstart = DateHelper.getStrippedIsoString(eventData.start);
     const dtend = DateHelper.getStrippedIsoString(eventData.end);
 
-    let contentStr = 'BEGIN:VCALENDAR\nVERSION:2.0\nCALSCALE:GREGORIAN\nPRODID:czbdev\nMETHOD:PUBLISH\nX-PUBLISHED-TTL:PT1H\nBEGIN:VEVENT\n';
+    let contentStr =
+      'BEGIN:VCALENDAR\nVERSION:2.0\nCALSCALE:GREGORIAN\nPRODID:czbdev\nMETHOD:PUBLISH\nX-PUBLISHED-TTL:PT1H\nBEGIN:VEVENT\n';
 
     contentStr += `UID:${this.generateGuid()}\n`;
     contentStr += `SUMMARY:${eventData.summary}\n`;
@@ -126,8 +120,7 @@ class CalendarLinkGenerator {
 
     let escapedDesc = '';
     if (this.generalData.description) {
-      escapedDesc += this.generalData.description
-        .replace(/\n/gm, '\\n');
+      escapedDesc += this.generalData.description.replace(/\n/gm, '\\n');
     }
     if (this.generalData.url) {
       escapedDesc += `\\n\\n${this.generalData.url}\\n\\n`;
@@ -148,8 +141,8 @@ class CalendarLinkGenerator {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
       // Sorry! I dont intend to translate this hence disabling linting.
       /* eslint-disable no-bitwise, no-magic-numbers, no-mixed-operators */
-      const r = Math.random() * 16 | 0;
-      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      const r = (Math.random() * 16) | 0;
+      const v = c === 'x' ? r : (r & 0x3) | 0x8;
       return v.toString(16);
       /* eslint-enable */
     });

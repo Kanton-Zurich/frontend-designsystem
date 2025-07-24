@@ -1,167 +1,92 @@
-<header class="mdl-page-header {{#if hasImage}}mdl-page-header--headerimage{{/if}} {{#if
-  hasPersonCard}}mdl-page-header--headerimage{{/if}} {{#if
-  inverted}}mdl-page-header--inverted{{/if}} {{#if minimal}}mdl-page-header--minimal{{/if}} {{#if
-  hasImageTitle}}mdl-page-header--image-title{{/if}} {{#if
-  errorBlock}}mdl-page-header--error{{/if}}" data-init="pageHeader">
-  <div class="lyt-wrapper">
-    <div class="grid-x grid-margin-x">
-      <div class="mdl-page-header__logo-container cell {{#if minimal}}tiny-0{{/if}}{{#unless
-        minimal}}tiny-2{{/unless}} xsmall-2 small-2 medium-2 large-2 xlarge-2">
-        {{#unless minimal}}
-          <{{#if homelink}}a href="{{homelink}}"{{else}}span{{/if}}>
-            <span class="visuallyhidden">Logo des Kantons Zürich</span>
-            {{#if inverted}}
-              <svg viewBox="0 0 100 100" class="mdl-page-header__logo print-hidden">
-                <use xlink:href="#ktzh_inverted"></use>
-              </svg>
-            {{else}}
-              <svg viewBox="0 0 100 100" class="mdl-page-header__logo{{#if inverted}} screen-hidden{{/if}} print-hidden">
-                <use xlink:href="#ktzh"></use>
-              </svg>
-            {{/if}}
-            <svg viewBox="0 0 100 100" class="mdl-page-header__logo screen-hidden">
-              <use xlink:href="#ktzh"></use>
-            </svg>
-          <{{#if homelink}}/a{{else}}span{{/if}}>
-        {{/unless}}
-      </div>
-      <div class="cell {{#if minimal}}tiny-6 xsmall-6 small-7{{/if}} {{#unless
-        minimal}}tiny-10 xsmall-10 small-10{{/unless}} medium-10 large-10 xlarge-10">
-        {{#unless minimal}}
-          {{#if breadcrumb}}
-            <div class="mdl-page-header__breadcrumb">
-              {{> "modules/breadcrumb/breadcrumb" breadcrumb}}</div>
-          {{/if}}
-        {{/unless}}
-        {{#if hasCloseButton}}
-          <div class="mdl-page-header__breadcrumb">
-            <button class="mdl-page-header__closebutton">Schliessen
-              <svg class="icon" focusable="false">
-                <use xlink:href="#exit"></use>
-              </svg>
-            </button>
+<header class="mdl-page-header
+  {{#if inverted}}cv-inverted{{/if}}
+  {{#if minimal}}mdl-page-header--minimal{{/if}}
+  {{#if isReport}}mdl-page-header--report{{/if}}
+  {{#if hasImage}}mdl-page-header--mood-image{{/if}}
+  {{#if isEDirectory}}mdl-page-header--e-directory{{/if}}" data-init="pageHeader">
 
-          </div>
-        {{/if}}
-        {{#if minimal}}
-          <h4 class="atm-heading mdl-page-header__title">{{pageTitle}}</h4>
-        {{/if}}
-        {{#unless minimal}}
-          <h1 class="atm-heading mdl-page-header__title">{{pageTitle}}</h1>
-        {{/unless}}
-      </div>
-    </div>
-    <div class="grid-x grid-margin-x">
-      <div
-        class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
-        {{#unless errorBlock}}
-          {{#unless hasImage}}
-            {{#if anchorLinks}}
-              <div class="mdl-tag-group">
-                <h2 class="atm-heading">Meist gesucht</h2>
-                <ul class="mdl-tag-group__tags">
-                  {{#each anchorLinks}}
-                    <li>
-                      {{> "atoms/anchorlink/anchorlink" this}}
-                    </li>
-                  {{/each}}
-                </ul>
-              </div>
-            {{/if}}
-            {{#unless noText}}
-              {{#if publicationDate}}
-                <p class="mdl-page-header__dateline">
-                  {{#if newsCategory}}<span class="mdl-page-header__news-category">{{newsCategory}}</span>{{/if}}
-                  {{publicationDate}}
-                </p>
-              {{/if}}
-              {{> "atoms/lead/lead"}}
-            {{/unless}}
-            {{#unless anchorLinks }}
-              {{#if buttonData}}
-                {{> "modules/service_button/service_button" buttonData}}
-              {{/if}}
-              {{#if homeCTA}}
-                <a class="atm-button" href="{{homeCTA.href}}">{{homeCTA.title}}</a>
-              {{/if}}
-            {{/unless}}
-          {{/unless}}
-          {{#if hasImage}}{{#unless hasVideo}}{{> "modules/image_figure/image_figure" imageData}}{{/unless}}{{/if}}
-          {{#if hasVideo}}{{> "modules/video/video" videoData}}{{/if}}
-        {{/unless}}
-        {{#if errorBlock}}
-          <div class="mdl-page-header--error__block">
-            {{#if errorBlock.text}}<p class="atm-lead">{{errorBlock.text}}</p>{{/if}}
-            {{#if errorBlock.code}}<p class="atm-paragraph">{{errorBlock.code}}</p>{{/if}}
-            {{#if anchorLinks}}
-              <div class="mdl-tag-group">
-                <h2 class="atm-heading">Meist gesucht</h2>
-                <ul class="mdl-tag-group__tags">
-                  {{#each anchorLinks}}
-                    <li>
-                      {{> "atoms/anchorlink/anchorlink" this}}
-                    </li>
-                  {{/each}}
-                </ul>
-              </div>
-            {{/if}}
-            {{#if homeCTA}}
-              <div class="mdl-page-header--error__block-button">
-                <a class="atm-button" href="{{homeCTA.href}}">{{homeCTA.title}}</a>
-              </div>
-            {{/if}}
-            {{#if errorBlock.imageData}}
-              {{> "modules/image_figure/image_figure" errorBlock.imageData}}
-            {{/if}}
-            {{#if errorBlock.videoData}}
-              {{> "modules/video/video" errorBlock.videoData}}
-            {{/if}}
-          </div>
-        {{/if}}
-      </div>
-    </div>
-    {{#if hasPersonCard}}
-      <div class="grid-x grid-margin-x">
-        <div
-          class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
-          {{> "modules/person_card/person_card" personCardData}}
-        </div>
-      </div>
-    {{/if}}
-    {{#if applicationHeader}}
-    <button
-      class="mdl-page-header__expander atm-button atm-button--secondary atm-button--small atm-button--cv-inverted">
-      <span class="atm-button__text" data-expand="{{expandNav}}" data-collapse="{{collapseNav}}">
-        {{collapseNav}}
-      </span>
-      <svg class="mdl-page-header__expander-icon icon atm-button__icon">
-        <use xlink:href="#angle_drop_up"></use>
+  {{!-- Close Button --}}
+  {{#if hasCloseButton}}
+    <button class="mdl-page-header__close">Schliessen
+      <svg class="icon" focusable="false">
+        <use xlink:href="#exit"></use>
       </svg>
     </button>
-    {{/if}}
-  </div>
+  {{/if}}
+  {{!-- Close Button END --}}
 
-  <div class="mdl-page-header__subsection">
-    {{#if hasImage}}
-      <div class="lyt-wrapper">
-        <div class="grid-x grid-margin-x">
-          <div
-            class="cell xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 xsmall-auto small-auto medium-9 large-8 xlarge-8">
-            {{#unless noText}}
-              {{#if publicationDate}}
-                <p class="mdl-page-header__dateline">
-                  {{#if newsCategory}}<span class="mdl-page-header__news-category">{{newsCategory}}</span>{{/if}}
-                  {{publicationDate}}
-                </p>
-              {{/if}}
-              {{> "atoms/lead/lead"}}
-            {{/unless}}
-            {{#if buttonData}}
-              {{> "modules/service_button/service_button" buttonData}}
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+
+      {{!--  Logo --}}
+      {{#unless minimal}}
+        <div class="cell small-2 mdl-page-header__logo-container">
+          {{> "atoms/logo/logo" logo}}
+        </div>
+      {{/unless}}
+      {{!-- Logo END --}}
+
+      <div class="cell small-10 medium-10">
+        {{!-- Breadcrumbs --}}
+        {{#unless minimal}}
+          <div class="mdl-page-header__breadcrumb">
+            {{#if breadcrumb}}
+              {{> "modules/breadcrumb/breadcrumb" breadcrumb}}
             {{/if}}
           </div>
+        {{/unless}}
+        {{!-- Breadcrumbs END --}}
+
+        {{!-- Title  --}}
+        <h1 class="atm-heading mdl-page-header__title {{#if minimal}}h4{{/if}}">{{pageTitle}}</h1>
+        {{!-- Title END --}}
+      </div>
+
+      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+
+        {{#if anchorLinks}}
+          <div class="mdl-tag-group">
+            <h2 class="atm-heading">Meist gesucht</h2>
+            <ul class="mdl-tag-group__tags">
+              {{#each anchorLinks}}
+                <li>
+                  {{> "atoms/anchorlink/anchorlink" this}}
+                </li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
+
+        {{#if contentNav}}
+          {{> "modules/content_nav/content_nav" contentNav}}
+        {{/if}}
+
+        {{#if leadSection}}
+          {{> "modules/lead_section/lead_section" leadSection}}
+        {{/if}}
+
+      </div>
+    </div>
+  </div>
+
+  {{#if headerExpandData}}
+    {{> "modules/header_expand/header_expand" headerExpandData}}
+  {{/if}}
+
+  {{#if isReport}}
+    {{#if hasImage}}
+      <div class="mdl-page-header__report">
+        <div class="mdl-page-header__mood-image">
+          {{> "modules/image_figure/image_figure" imageData}}
         </div>
       </div>
     {{/if}}
-  </div>
+  {{/if}}
 </header>
+
+{{!-- Key Visual has to be placed immediately after .mdl-page-header.cv-inverted
+      otherwise the colored strip below the key visual won't be shown (adjacent selector in CSS)
+--}}
+{{#if keyVisual}}
+  {{> "modules/key_visual/key_visual" }}
+{{/if}}

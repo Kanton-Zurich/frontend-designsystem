@@ -34,7 +34,7 @@ const luminance = (hex) => {
   const r = parseInt(hex.substr(1, 2), 16);
   const g = parseInt(hex.substr(3, 2), 16);
   const b = parseInt(hex.substr(5, 2), 16);
-  return Math.sqrt((0.299 * r) ** 2 + (0.587 * g) ** 2 + (0.114 * b) ** 2 );
+  return Math.sqrt((0.299 * r) ** 2 + (0.587 * g) ** 2 + (0.114 * b) ** 2);
 };
 
 const transform = (originalData, filePath) => {
@@ -75,22 +75,27 @@ const atomList = _.merge({}, defTopiclistData, {
   topiclistInput: null,
 });
 
-atomList.topiclistcontentNavData.items = Object.keys(atomsGlob).map((item) => {
-  return {
-    shortTitle: atomsGlob[item].meta.title,
-    buzzwords: ``,
-    target: atomsGlob[item].meta.previewUrl,
-    isPromotopic: false,
-    isTagged: true,
-  };
-}).filter(item => item && item.shortTitle && item.shortTitle.length > 0);
+atomList.topiclistcontentNavData.items = Object.keys(atomsGlob)
+  .map((item) => {
+    return {
+      shortTitle: atomsGlob[item].meta.title,
+      buzzwords: ``,
+      target: atomsGlob[item].meta.previewUrl,
+      isPromotopic: false,
+      isTagged: true,
+    };
+  })
+  .filter((item) => item && item.shortTitle && item.shortTitle.length > 0);
 
 // Get Modules
 const moduleArray = [];
 const moduleLabels = [];
-const moduleGroups = _.groupBy(_.filter(getDataArray('./src/modules/**/*.data.js', transform),item => item.meta.title), item => item.meta.label);
+const moduleGroups = _.groupBy(
+  _.filter(getDataArray('./src/modules/**/*.data.js', transform), (item) => item.meta.title),
+  (item) => item.meta.label
+);
 Object.keys(moduleGroups).forEach((label, index) => {
-  moduleGroups[label] = _.sortBy(moduleGroups[label], item => item.meta.title);
+  moduleGroups[label] = _.sortBy(moduleGroups[label], (item) => item.meta.title);
   const background = colorPalette[index];
   const foreground = luminance(colorPalette[index]) > 120.0 ? '#000000' : '#FFFFFF'; // eslint-disable-line
   moduleLabels.push({ label, foreground, background });
@@ -109,8 +114,7 @@ moduleList.topiclistcontentNavData.items = moduleArray.map((item) => {
   return {
     shortTitle: item.meta.title,
     alt: true,
-    buzzwords: ``
-      + `<span class="sg_group-label" style="border-color:  ${item.meta.labelBackground}; background-color:  ${item.meta.labelBackground}; color: ${item.meta.labelColor}">${item.meta.label}</span>`,
+    buzzwords: `<span class="sg_group-label" style="border-color:  ${item.meta.labelBackground}; background-color:  ${item.meta.labelBackground}; color: ${item.meta.labelColor}">${item.meta.label}</span>`,
     target: item.meta.previewUrl,
     isPromotopic: false,
     isTagged: true,
@@ -125,25 +129,30 @@ const pageList = _.merge({}, defTopiclistData, {
   topiclistInput: null,
 });
 
-pageList.topiclistcontentNavData.items = Object.keys(pagesGlob).map((item) => {
-  return {
-    shortTitle: pagesGlob[item].meta.title,
-    buzzwords: ``,
-    target: pagesGlob[item].meta.previewUrl,
-    isTagged: true,
-    isPromotopic: false,
-  };
-}).filter(item => item && item.shortTitle && item.shortTitle.length > 0);
+pageList.topiclistcontentNavData.items = Object.keys(pagesGlob)
+  .map((item) => {
+    return {
+      shortTitle: pagesGlob[item].meta.title,
+      buzzwords: '',
+      target: pagesGlob[item].meta.previewUrl,
+      isTagged: true,
+      isPromotopic: false,
+    };
+  })
+  .filter((item) => item && item.shortTitle && item.shortTitle.length > 0);
 
 // Get other pages
 const styleguide = _.merge({}, defTopiclistData, {
   topiclistInput: null,
 });
 
-styleguide.topiclistcontentNavData.items = _.sortBy(dataHelper.getDataGlob('./src/preview/styleguide/*.data.js', transform), item => item.meta.title).map((item) => {
+styleguide.topiclistcontentNavData.items = _.sortBy(
+  dataHelper.getDataGlob('./src/preview/styleguide/*.data.js', transform),
+  (item) => item.meta.title
+).map((item) => {
   return {
     shortTitle: item.meta.title,
-    buzzwords: ' ',
+    buzzwords: '',
     target: item.meta.previewUrl,
     isPromotopic: false,
   };
@@ -172,22 +181,22 @@ const data = _.merge({}, defaultData, {
   },
 });
 
+data.pages = _.sortBy(data.pages, (item) => item.meta.title);
 
-data.pages = _.sortBy(data.pages, item => item.meta.title);
-
-const modules = _
-  .groupBy(_.filter(data.modules, item => item.meta.title), item => item.meta.label);
+const modules = _.groupBy(
+  _.filter(data.modules, (item) => item.meta.title),
+  (item) => item.meta.label
+);
 
 data.modules = [];
 const labelGroups = Object.keys(modules);
 labelGroups.forEach((label, index) => {
-  modules[label] = _.sortBy(modules[label], item => item.meta.title);
+  modules[label] = _.sortBy(modules[label], (item) => item.meta.title);
   modules[label].forEach((module) => {
     module.meta.labelBackground = colorPalette[index];
     module.meta.labelColor = luminance(colorPalette[index]) > 120.0 ? '#000000' : '#FFFFFF';
   });
   data.modules.push(modules[label]);
 });
-
 
 module.exports = data;

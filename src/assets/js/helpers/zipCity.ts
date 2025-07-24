@@ -1,25 +1,26 @@
-import wrist from 'wrist';
-import { debounce, template } from 'lodash';
+import { watch } from 'wrist';
+import debounce from 'lodash/debounce';
+import template from 'lodash/template';
 
 class ZipCity {
   private fields: {
-    zip: HTMLInputElement,
-    city: HTMLInputElement,
-    cityOptionsWrap: HTMLDivElement,
-    cityOptionsList: HTMLUListElement,
-    cityOptionsTemplate: HTMLScriptElement,
-  }
+    zip: HTMLInputElement;
+    city: HTMLInputElement;
+    cityOptionsWrap: HTMLDivElement;
+    cityOptionsList: HTMLUListElement;
+    cityOptionsTemplate: HTMLScriptElement;
+  };
 
   private options: {
-    debounce: number,
+    debounce: number;
     showOptionsClass: string;
-  }
+  };
 
   private data: any;
 
   private clickListener = () => {
     this.openOptionList();
-  }
+  };
 
   private keydownListener = (event: KeyboardEvent) => {
     const pressed = event.key;
@@ -29,22 +30,26 @@ class ZipCity {
       event.preventDefault();
 
       this.openOptionList();
-    } else if ((pressed === 'Tab') && !event.shiftKey) {
+    } else if (pressed === 'Tab' && !event.shiftKey) {
       this.closeOptionList();
     }
-  }
+  };
 
   private mouseupListener = () => {
     this.closeOptionList();
-  }
+  };
 
   constructor($zipField, $cityField) {
     this.fields = {
       zip: $zipField,
       city: $cityField,
       cityOptionsWrap: $cityField.parentElement.querySelector('[data-form_input="cityOptions"]'),
-      cityOptionsList: $cityField.parentElement.querySelector('[data-form_input="cityOptionsList"]'),
-      cityOptionsTemplate: $cityField.parentElement.querySelector('[data-form_input="cityOptionsTemplate"]'),
+      cityOptionsList: $cityField.parentElement.querySelector(
+        '[data-form_input="cityOptionsList"]'
+      ),
+      cityOptionsTemplate: $cityField.parentElement.querySelector(
+        '[data-form_input="cityOptionsTemplate"]'
+      ),
     };
 
     this.options = {
@@ -58,38 +63,42 @@ class ZipCity {
   }
 
   setWatcher() {
-    wrist.watch(this.fields.zip, 'value', debounce((propName, oldVal, newVal) => {
-      if (oldVal !== newVal) {
-        this.fields.city.value = '';
-        this.fields.cityOptionsList.innerHTML = '';
+    watch(
+      this.fields.zip,
+      'value',
+      debounce((propName, oldVal, newVal) => {
+        if (oldVal !== newVal) {
+          this.fields.city.value = '';
+          this.fields.cityOptionsList.innerHTML = '';
 
-        if (/^[1-9][0-9]{3}$/.test(newVal)) {
-          if (typeof this.data[newVal] === 'string') {
-            this.setValue(this.data[newVal]);
+          if (/^[1-9][0-9]{3}$/.test(newVal)) {
+            if (typeof this.data[newVal] === 'string') {
+              this.setValue(this.data[newVal]);
 
+              this.removeEventListeners();
+            } else if (Array.isArray(this.data[newVal])) {
+              let listItems = '';
+
+              this.data[newVal].forEach((city) => {
+                const compiled = template(this.fields.cityOptionsTemplate.innerHTML);
+                const html = compiled({ city });
+
+                listItems = `${listItems}${html}`;
+              });
+
+              this.fields.cityOptionsList.innerHTML = listItems;
+              this.fields.city.parentElement.classList.add(this.options.showOptionsClass);
+              this.fields.city.addEventListener('click', this.clickListener);
+              this.fields.city.addEventListener('keydown', this.keydownListener);
+              this.addEventListeners();
+            }
+          } else {
+            this.unsetValue();
             this.removeEventListeners();
-          } else if (Array.isArray(this.data[newVal])) {
-            let listItems = '';
-
-            this.data[newVal].forEach((city) => {
-              const compiled = template(this.fields.cityOptionsTemplate.innerHTML);
-              const html = compiled({ city });
-
-              listItems = `${listItems}${html}`;
-            });
-
-            this.fields.cityOptionsList.innerHTML = listItems;
-            this.fields.city.parentElement.classList.add(this.options.showOptionsClass);
-            this.fields.city.addEventListener('click', this.clickListener);
-            this.fields.city.addEventListener('keydown', this.keydownListener);
-            this.addEventListeners();
           }
-        } else {
-          this.unsetValue();
-          this.removeEventListeners();
         }
-      }
-    }, this.options.debounce));
+      }, this.options.debounce)
+    );
   }
 
   addEventListeners() {
@@ -102,7 +111,7 @@ class ZipCity {
 
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
-        this.setValue(button.getAttribute('value'));
+        this.setValue(button.textContent.trim());
       });
       button.addEventListener('keydown', (event: KeyboardEvent) => {
         const pressed = event.key;
@@ -114,9 +123,9 @@ class ZipCity {
           let li = (event.target as HTMLButtonElement).parentElement as HTMLElement;
 
           li.classList.remove('selected');
-          if ((['ArrowUp', 'Up'].indexOf(pressed) >= 0) && li.previousElementSibling) {
+          if (['ArrowUp', 'Up'].indexOf(pressed) >= 0 && li.previousElementSibling) {
             li = li.previousElementSibling as HTMLElement;
-          } else if ((['ArrowDown', 'Down'].indexOf(pressed) >= 0) && li.nextElementSibling) {
+          } else if (['ArrowDown', 'Down'].indexOf(pressed) >= 0 && li.nextElementSibling) {
             li = li.nextElementSibling as HTMLElement;
           }
           li.classList.add('selected');
@@ -148,7 +157,9 @@ class ZipCity {
 
     window.addEventListener('mouseup', this.mouseupListener);
 
-    const button: HTMLButtonElement = this.fields.cityOptionsList.querySelector(`button[value="${this.fields.city.value}"]`);
+    const button: HTMLButtonElement = this.fields.cityOptionsList.querySelector(
+      `button[value="${this.fields.city.value}"]`
+    );
 
     button.parentElement.classList.add('selected');
     button.focus();

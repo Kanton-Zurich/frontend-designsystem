@@ -1,0 +1,61 @@
+.mdl-measures_list {
+  @include sizeCurve(margin-bottom, large);
+
+  &__list {
+    display: grid;
+    gap: pxToRem($sizeTiny);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__item {
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      &:hover {
+        color: $colorBlack60;
+        filter: grayscale(100%);
+
+        .atm-heading {
+          color: $colorBlack60;
+        }
+      }
+    }
+
+    &--completed .mdl-dataset__icon {
+      color: $colorBlack;
+    }
+
+    &--delayed .mdl-dataset__icon {
+      color: $colorDarkBlue;
+    }
+
+    &--on-schedule .mdl-dataset__icon {
+      color: $colorBlue;
+    }
+
+    &--abandonned .mdl-dataset__icon {
+      color: $colorBlack60;
+    }
+
+    &--paused .mdl-dataset__icon {
+      color: $colorBlack60;
+    }
+  }
+
+  .mdl-dataset__icon {
+    fill: currentColor;
+  }
+}
+
+/* CZHDEV-4752 - fix too small margin-top when previous item is .mdl-objectives_list--single-item */
+.mdl-objectives_list--single-item + .mdl-measures_list {
+  margin-top: pxToRem(36px);
+
+  /* CZHDEV-4752 - fix excessive margin-top */
+  .mdl-measures_list__title {
+    margin-top: pxToRem(36px);
+  }
+}

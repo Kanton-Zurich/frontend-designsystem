@@ -9,13 +9,12 @@ import Select from '../select/select';
 
 class DrilldownSelect extends Module {
   public ui: {
-    element: any,
-    selects: any,
+    element: any;
+    selects: any;
   };
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       domSelectors: {
         selects: '.mdl-select',
@@ -32,9 +31,7 @@ class DrilldownSelect extends Module {
   }
 
   static get events() {
-    return {
-
-    };
+    return {};
   }
 
   /**
@@ -46,26 +43,29 @@ class DrilldownSelect extends Module {
       if (event.detail !== '') {
         this.setSecondarySelectFilter(event.detail);
       } else {
-        this.ui.selects[1]
-          .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: true } }));
+        this.ui.selects[1].dispatchEvent(
+          new CustomEvent(Select.events.disable, { detail: { disabled: true } })
+        );
       }
-      this.ui.selects[1]
-        .dispatchEvent(new CustomEvent(Select.events.clear));
+      this.ui.selects[1].dispatchEvent(new CustomEvent(Select.events.clear));
     });
     this.ui.selects[1].addEventListener(Select.events.onItemsFiltered, (event) => {
       const { filteredValues } = event.detail;
 
       if (filteredValues.length > 0) {
-        this.ui.selects[1]
-          .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: false } }));
+        this.ui.selects[1].dispatchEvent(
+          new CustomEvent(Select.events.disable, { detail: { disabled: false } })
+        );
       } else {
-        this.ui.selects[1]
-          .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: true } }));
+        this.ui.selects[1].dispatchEvent(
+          new CustomEvent(Select.events.disable, { detail: { disabled: true } })
+        );
       }
     });
     setTimeout(() => {
-      this.ui.selects[1]
-        .dispatchEvent(new CustomEvent(Select.events.disable, { detail: { disabled: true } }));
+      this.ui.selects[1].dispatchEvent(
+        new CustomEvent(Select.events.disable, { detail: { disabled: true } })
+      );
     }, 0);
   }
 
@@ -74,8 +74,9 @@ class DrilldownSelect extends Module {
    * @param value
    */
   setSecondarySelectFilter(value) {
-    this.ui.selects[1]
-      .dispatchEvent(new CustomEvent(Select.events.setFilter, { detail: { filterValue: value } }));
+    this.ui.selects[1].dispatchEvent(
+      new CustomEvent(Select.events.setFilter, { detail: { filterValue: value } })
+    );
   }
 
   /**

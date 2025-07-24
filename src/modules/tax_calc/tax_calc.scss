@@ -20,7 +20,8 @@
       .form__section {
         margin-bottom: 0;
 
-        .atm-radiobutton.hidden {
+        .atm-radiobutton.hidden,
+        .mdl-select.hidden {
           display: none;
         }
 
@@ -39,7 +40,6 @@
       }
 
       &.mdl-accordion {
-
         &__item {
           overflow: hidden;
 
@@ -149,6 +149,7 @@
 
   &__toformbtn {
     display: none;
+    background: var(--color-accent);
   }
 
   &--result {
@@ -169,14 +170,39 @@
     }
 
     #{$root}__toformbtn {
-      display: block;
-      position: absolute;
+      display: flex;
+      position: fixed;
       border-radius: 50%;
-      right: - 10%;
-      // bottom: pxToRem($sizeLarge);
-      top: 100px;
+      right: pxToRem($sizeLarge);
+      bottom: pxToRem($sizeLarge);
       text-align: center;
       z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      backface-visibility: hidden;
+
+      @include transition(
+        opacity,
+        $time: $transitionTimeFade,
+        $easing: $transitionEasingAccelerate
+      );
+      @include mq($from: small) {
+        right: pxToRem($sizeBig);
+        bottom: pxToRem($sizeBig);
+      }
+      @include mq($from: large) {
+        right: pxToRem($sizeBiggerBig);
+        bottom: pxToRem($sizeBiggerBig);
+      }
+      @include mq($from: xlarge) {
+        right: pxToRem($sizeSmallHuge);
+        bottom: pxToRem($sizeSmallHuge);
+      }
+    }
+
+    #{$root}__toformbtn--visible {
+      opacity: 1;
+      pointer-events: all;
     }
   }
 
@@ -192,15 +218,6 @@
 
     .mdl-instructions {
       display: none;
-    }
-  }
-}
-
-
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .mdl-tax_calc__toformbtn {
-      background: #{$val};
     }
   }
 }

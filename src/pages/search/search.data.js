@@ -6,9 +6,10 @@ const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').varia
 const headerData = require('../../modules/header/header.data');
 
 const searchData = require('../../modules/search_page/search_page.data.js').variants.default.props;
-const defBreadcrumbData = require('../../modules/breadcrumb/breadcrumb.data').props;
+const defBreadcrumbData = require('../../modules/breadcrumb/breadcrumb.data').variants.parentOnly
+  .props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
-const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
+const backToData = require('../../modules/back_to/back_to.data').variants.default.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -20,27 +21,15 @@ const data = _.merge({}, defaultData, {
   props: {
     title: 'Title',
     skiplinks: skiplinksData,
-    header: headerData.variants.inverted.props,
+    header: headerData.variants.defaultWithUserLoggedOut.props,
     modules: {
       pageHeader: {
-        homelink: '#',
         pageTitle: 'Suche',
-        breadcrumb: _.merge({}, defBreadcrumbData, {
-          contextMenu: false,
-          path: [
-            {
-              title: 'Kanton Zürich',
-              href: '#',
-            },
-            {
-              title: 'Suche',
-            },
-          ],
-        }),
+        breadcrumb: defBreadcrumbData,
       },
       search: searchData,
       footer: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
+      backToData,
     },
   },
 });

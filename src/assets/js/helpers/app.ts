@@ -5,6 +5,7 @@
  */
 import namespace from './namespace';
 
+import Skiplinks from '../../../modules/skiplinks/skiplinks';
 import Table from '../../../modules/table/table';
 import Carousel from '../../../modules/carousel/carousel';
 import ImageGallery from '../../../modules/image_gallery/image_gallery';
@@ -24,7 +25,6 @@ import Tabs from '../../../modules/tabs/tabs';
 import Subnavigation from '../../../modules/subnavigation/subnavigation';
 import OrganisationNavigation from '../../../modules/organisation_navigation/organisation_navigation';
 import PageHeader from '../../../modules/page_header/page_header';
-import SocialMediaStream from '../../../modules/social_media_stream/social_media_stream';
 import Stepper from '../../../modules/stepper/stepper';
 import ServiceButton from '../../../modules/service_button/service_button';
 import Application from '../../../modules/application/application';
@@ -50,7 +50,7 @@ import Video from '../../../modules/video/video';
 import OpenData from '../../../modules/open_data/open_data';
 import CookieControls from '../../../modules/cookie_controls/cookie_controls';
 import Banner from '../../../modules/banner/banner';
-import Contact from '../../../modules/contact/contact';
+import ContactEntry from '../../../modules/contact_entry/contact_entry';
 import TaxCalc from '../../../modules/tax_calc/tax_calc';
 import JurisdictionFinder from '../../../modules/jurisdiction_finder/jurisdiction_finder';
 import NewsletterForm from '../../../modules/newsletter_form/newsletter_form';
@@ -60,6 +60,17 @@ import IFrame from '../../../modules/iframe/iframe';
 import DecisionTree from '../../../modules/decision_tree/decision_tree';
 import Feedback from '../../../modules/feedback/feedback';
 import JobTeaser from '../../../modules/job_teaser/job_teaser';
+import Dialog from '../../../modules/dialog/dialog';
+import MeasuresSearch from '../../../modules/measures_search/measures_search';
+import StatisticsSearch from '../../../modules/statistics_search/statistics_search';
+import DataDownload from '../../../modules/data_download/data_download';
+import HeaderExpand from '../../../modules/header_expand/header_expand';
+import Chatbot from '../../../modules/chatbot/chatbot';
+import Scroll2top from '../../../modules/scroll2top/scroll2top';
+import BackToChat from '../../../modules/back_to_chat/back_to_chat';
+import ContactBlock from '../../../modules/contact_block/contact_block';
+import Edirectory from '../../../modules/edirectory/edirectory';
+import Linklist from '../../../modules/linklist/linklist';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -75,6 +86,7 @@ class App {
     window[namespace].modules = {};
     // Module registry - mapping module name (used in data-init) to module Class
     this.modules = {};
+    this.modules.skiplinks = Skiplinks;
     this.modules.table = Table;
     this.modules.imageGallery = ImageGallery;
     this.modules.carousel = Carousel;
@@ -94,7 +106,6 @@ class App {
     this.modules.subnavigation = Subnavigation;
     this.modules.organisationNavigation = OrganisationNavigation;
     this.modules.pageHeader = PageHeader;
-    this.modules.socialMediaStream = SocialMediaStream;
     this.modules.stepper = Stepper;
     this.modules.serviceButton = ServiceButton;
     this.modules.application = Application;
@@ -122,7 +133,7 @@ class App {
     this.modules.banner = Banner;
     this.modules.taxCalc = TaxCalc;
     this.modules.jurisdictionFinder = JurisdictionFinder;
-    this.modules.contact = Contact;
+    this.modules.contactEntry = ContactEntry;
     this.modules.newsletterForm = NewsletterForm;
     this.modules.zhLex = ZhLex;
     this.modules.metablock = Metablock;
@@ -130,6 +141,17 @@ class App {
     this.modules.decisionTree = DecisionTree;
     this.modules.jobTeaser = JobTeaser;
     this.modules.feedback = Feedback;
+    this.modules.dialog = Dialog;
+    this.modules.measuresSearch = MeasuresSearch;
+    this.modules.statisticsSearch = StatisticsSearch;
+    this.modules.dataDownload = DataDownload;
+    this.modules.headerExpand = HeaderExpand;
+    this.modules.chatbot = Chatbot;
+    this.modules.scroll2top = Scroll2top;
+    this.modules.backToChat = BackToChat;
+    this.modules.contactBlock = ContactBlock;
+    this.modules.edirectory = Edirectory;
+    this.modules.linklist = Linklist;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
@@ -220,8 +242,7 @@ class App {
       const modules = element.dataset.init.split(' ');
 
       modules.forEach((moduleName) => {
-        if (this.isRegistered(moduleName)
-          && !this.isInitialised(element, moduleName)) {
+        if (this.isRegistered(moduleName) && !this.isInitialised(element, moduleName)) {
           this.initModule(moduleName, element);
         }
       });
@@ -268,11 +289,17 @@ class App {
    * with an offset to respect the sticky header
    */
   updateAnchorScrollOffset() {
-    const urlParameters = window.location.href.split('#');
-    const scrollOffset = 180;
+    const { hash } = document.location;
+    const id = hash.split('#')[1];
 
-    if (urlParameters.length > 1) {
-      window.scrollTo(window.scrollX, window.scrollY - scrollOffset);
+    if (id) {
+      const element = document.querySelector(`[id="${id}"]`);
+
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+        });
+      }
     }
   }
 }

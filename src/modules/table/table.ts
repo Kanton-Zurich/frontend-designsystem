@@ -4,74 +4,118 @@
  * @author
  * @copyright
  */
-import { orderBy } from 'lodash';
+import mq from '../../assets/js/helpers/mediaqueries';
+import orderBy from 'lodash/orderBy';
+import {
+  stripWhitespace,
+  isExternalURL,
+  removeProtocol,
+  isSafeURL,
+} from '../../assets/js/helpers/common';
 
 import WindowEventListener from '../../assets/js/helpers/events';
 import Module from '../../assets/js/helpers/module';
-// import namespace from '../../assets/js/helpers/namespace';
+import Modal from '../modal/modal';
+
+type TableData = Partial<{
+  id: string;
+  title: string;
+  leaders: string;
+  breadcrumbs: string;
+  firstName: string;
+  lastName: string;
+  jobTitle: string;
+  email: string;
+  phone: string;
+  website: string;
+  ariaControls: string;
+}>;
 
 class Table extends Module {
   public ui: {
-    element: HTMLElement,
-    table: HTMLElement,
-    scrollArea: HTMLElement,
-    scrollAreaWrapper: HTMLElement,
-    sortable: NodeList,
+    element: HTMLElement;
+    table: HTMLElement;
+    tableBody: HTMLElement;
+    tableHead: HTMLElement;
+    scrollArea: HTMLElement;
+    scrollAreaWrapper: HTMLElement;
+    sortable: NodeList;
+    templateTableRow: HTMLTemplateElement;
+    templateTableBodyCell: HTMLTemplateElement;
+    templateTableHeaderCell: HTMLTemplateElement;
+    templateCell: HTMLTemplateElement;
   };
   public options: {
-    isFixedFirstColumn: Boolean,
-    isSortable: Boolean,
+    isFixedFirstColumn: Boolean;
+    isSortable: Boolean;
     domSelectors: {
-      table: string,
-      scrollArea: string,
-      sortable: string,
-      cell: string,
-    },
+      table: string;
+      tableBody: string;
+      tableHead: string;
+      scrollArea: string;
+      sortable: string;
+      cell: string;
+      templateTableBodyCell: string;
+      templateTableHeaderCell: string;
+      templateCell: string;
+      templateTableRow: string;
+      headerCells: string;
+      headerFixed: string;
+      anchornavFixed: string;
+    };
     stateClasses: {
-      firstColumnFixed: string,
-      sortable: string,
-      cloned: string,
-      shadeRight: string,
-      shadeLeft: string,
-      columnAscending: string,
-      columnDescending: string,
-    },
+      tableFinance: string;
+      firstColumnFixed: string;
+      firstRowFixed: string;
+      sortable: string;
+      shadeRight: string;
+      shadeLeft: string;
+      columnAscending: string;
+      columnDescending: string;
+    };
   };
 
   public data: {
     shades: {
-      left: any,
-      right: any,
-    },
-    clonedTable: any,
-    tableData: Array<Object>,
+      left: any;
+      right: any;
+      bottom: any;
+    };
+    tableData: Array<Object>;
   };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
-      clonedTable: null,
       tableData: null,
       shades: {
         left: null,
         right: null,
+        bottom: null,
       },
     };
     const defaultOptions = {
       isFixedFirstColumn: false,
       isSortable: false,
       domSelectors: {
-        // item: '[data-${{{className}}.name}="item"]'
         table: '[data-table="table"]',
+        tableHead: '[data-table="table-head"]',
+        tableBody: '[data-table="table-body"]',
+        cell: '[data-table="cell"]',
         scrollArea: '[data-table="scroll-area"]',
         scrollAreaWrapper: '[data-table="scroll-area-wrapper"]',
         sortable: '[data-table="sortable"]',
-        cell: '[data-table="cell"]',
+        templateTableRow: '[data-table="template-table-row"]',
+        templateTableBodyCell: '[data-table="template-body-cell"]',
+        templateTableHeaderCell: '[data-table="template-header-cell"]',
+        headerCells: '.mdl-table.mdl-table--first-row-fixed .mdl-table__head th',
+        headerFixed: '.mdl-header.mdl-header--fixed',
+        anchornavFixed: '.mdl-anchornav__container.mdl-anchornav__container--sticky',
       },
       stateClasses: {
-        // activated: 'is-activated'
+        tableFinance: 'mdl-table--finance',
         firstColumnFixed: 'mdl-table--first-column-fixed',
+        firstRowFixed: 'mdl-table--first-row-fixed',
         sortable: 'mdl-table--sortable',
-        cloned: 'mdl-table__table--cloned',
         shadeRight: 'mdl-table--shade-right',
         shadeLeft: 'mdl-table--shade-left',
         columnAscending: 'mdl-table__column--asc',
@@ -79,18 +123,12 @@ class Table extends Module {
       },
     };
     super($element, defaultData, defaultOptions, data, options);
-
-
     this.initUi();
-
-    this.options.isFixedFirstColumn = this.ui.element.classList
-      .contains(this.options.stateClasses.firstColumnFixed);
+    this.options.isFixedFirstColumn = this.ui.element.classList.contains(
+      this.options.stateClasses.firstColumnFixed
+    );
     this.options.isSortable = typeof this.ui.sortable !== 'undefined';
-
     this.initEventListeners();
-
-    if (this.options.isFixedFirstColumn) this.cloneTable();
-
     this.setupShades();
   }
 
@@ -112,7 +150,6 @@ class Table extends Module {
       .on('redraw', this.setShades.bind(this))
       .on(Table.events.sortColumn, this.onSortColumn.bind(this));
 
-
     // handle pre sort
     this.cleanSortableColumns();
     if (this.ui.element.hasAttribute('data-sort-column')) {
@@ -120,20 +157,177 @@ class Table extends Module {
       if (this.ui.element.hasAttribute('data-sort-direction')) {
         orderDirection = this.ui.element.getAttribute('data-sort-direction');
       }
-      const columnHeader = this.ui.element.querySelector(`[data-column-name="${this.ui.element.getAttribute('data-sort-column')}"]`);
+      const columnHeader = this.ui.element.querySelector(
+        `[data-column-name="${this.ui.element.getAttribute('data-sort-column')}"]`
+      );
       this.setColumnHeader(orderDirection, columnHeader);
+    }
+
+    this.eventDelegate.on(Modal.events.setData, (event) => {
+      this.setData(event.detail);
+    });
+
+    if (this.ui.element.classList.contains(this.options.stateClasses.tableFinance)) {
+      window.addEventListener('scroll', this.setStickyHeaderRow.bind(this));
+      window.addEventListener('resize', this.setStickyHeaderRow.bind(this));
     }
   }
 
-  /**
-   * Clone table for fixed first column
-   */
-  cloneTable() {
-    this.data.clonedTable = this.ui.table.cloneNode(true);
-    this.data.clonedTable.classList.add(this.options.stateClasses.cloned);
-    this.data.clonedTable.removeAttribute('data-table');
-    this.data.clonedTable.setAttribute('aria-hidden', 'true');
-    this.ui.scrollArea.appendChild(this.data.clonedTable);
+  setStickyHeaderRow() {
+    const fixedHeader = document.querySelector(this.options.domSelectors.headerFixed);
+    const fixedAnchorNav = document.querySelector(this.options.domSelectors.anchornavFixed);
+    const tableHeaderCells = this.ui.element.querySelectorAll(
+      this.options.domSelectors.headerCells
+    );
+    const tableHeadHeight = this.ui.tableHead.getBoundingClientRect().height;
+    let fixedHeaderHeight = 0;
+    let fixedAnchorNavHeight = 0;
+    let insetTopTotal = 0;
+    let tableIsIntersectingHeaderArea = false;
+    let tableIsTallerThanViewport = false;
+    let tableIsVisible = false;
+
+    if (fixedHeader) {
+      fixedHeaderHeight = fixedHeader.getBoundingClientRect().height;
+    }
+    if (fixedAnchorNav && !mq.get('large').matches) {
+      fixedAnchorNavHeight = fixedAnchorNav.getBoundingClientRect().height;
+    }
+
+    insetTopTotal = fixedHeaderHeight + fixedAnchorNavHeight;
+    tableIsTallerThanViewport =
+      this.ui.table.getBoundingClientRect().height > window.innerHeight - insetTopTotal;
+    tableIsIntersectingHeaderArea = this.ui.tableHead.getBoundingClientRect().top < insetTopTotal;
+    tableIsVisible = this.ui.table.getBoundingClientRect().bottom > insetTopTotal + tableHeadHeight;
+
+    if (tableIsTallerThanViewport && tableIsIntersectingHeaderArea && tableIsVisible) {
+      const insetBlockStart = insetTopTotal - this.ui.tableHead.getBoundingClientRect().top;
+
+      window.requestAnimationFrame(() => {
+        this.ui.element.classList.add(this.options.stateClasses.firstRowFixed);
+        tableHeaderCells.forEach((cell: HTMLElement) => {
+          cell.style.top = `${insetBlockStart}px`;
+        });
+        this.data.shades.bottom.style.top = `${insetBlockStart + tableHeadHeight}px`;
+      });
+    } else {
+      this.ui.element.classList.remove(this.options.stateClasses.firstRowFixed);
+      tableHeaderCells.forEach((cell: HTMLElement) => {
+        cell.removeAttribute('style');
+      });
+      this.data.shades.bottom.removeAttribute('style');
+    }
+  }
+
+  setData(rowDataList: Array<TableData>) {
+    let tableHeaderLabels: Record<string, string>;
+    let columnNames: string[];
+    try {
+      tableHeaderLabels = JSON.parse(this.ui.table.dataset.tableHeaderLabels);
+      columnNames = Object.keys(tableHeaderLabels);
+    } catch (error) {
+      console.error('Error parsing table header labels:', error);
+      return;
+    }
+    const renderTable = () => {
+      const removeEmptyColumnNames = (columnNamesToCheck: Array<string>) => {
+        columnNamesToCheck.forEach((columnNameToCheck) => {
+          const columnIndex = columnNames.indexOf(columnNameToCheck);
+          const hasColumnNameToCheck = rowDataList.reduce(
+            (hasNameToCheck, current: any) => hasNameToCheck || current[columnNameToCheck],
+            false
+          );
+          if (!hasColumnNameToCheck && columnIndex >= 0) {
+            columnNames.splice(columnIndex, 1);
+          }
+        });
+      };
+
+      removeEmptyColumnNames(Array.from(columnNames));
+
+      this.ui.element.classList.remove('hidden');
+      this.ui.tableBody.replaceChildren();
+      this.ui.tableHead.replaceChildren();
+      this.ui.tableHead.appendChild(this.ui.templateTableRow.content.cloneNode(true));
+
+      const headerRow = this.ui.tableHead.querySelector('tr');
+
+      columnNames.forEach((columnName) => {
+        const newHeaderCell = this.ui.templateTableHeaderCell.content.cloneNode(
+          true
+        ) as HTMLElement;
+
+        newHeaderCell.querySelector('span').textContent = tableHeaderLabels[columnName];
+        headerRow.appendChild(newHeaderCell);
+      });
+
+      rowDataList.forEach((rowDataItem) => {
+        const tableRowFragment = this.ui.templateTableRow.content.cloneNode(true) as HTMLElement;
+        this.ui.tableBody.appendChild(tableRowFragment);
+
+        const lastTableRow = this.ui.tableBody.querySelector('tr:last-child');
+
+        columnNames.forEach((columnName) => {
+          const cellFragment = this.ui.templateTableBodyCell.content.cloneNode(true) as HTMLElement;
+          lastTableRow.appendChild(cellFragment);
+
+          const cell = lastTableRow.querySelector('td:last-child');
+
+          if (
+            ['email', 'phone', 'website', 'title'].includes(columnName) &&
+            rowDataItem[columnName]
+          ) {
+            const link = document.createElement('a');
+
+            let href = '';
+            let linkText = '';
+            const value = stripWhitespace(rowDataItem[columnName]);
+
+            switch (columnName) {
+              case 'title':
+                href = `#${rowDataItem.id}`;
+                linkText = rowDataItem[columnName];
+                lastTableRow.addEventListener('click', () => {
+                  lastTableRow.querySelector('a').click();
+                });
+                if (rowDataItem['ariaControls'])
+                  link.setAttribute('aria-controls', rowDataItem['ariaControls']);
+                break;
+              case 'email':
+                href = `mailto:${value}`;
+                linkText = rowDataItem[columnName];
+                break;
+              case 'phone':
+                href = `tel:${value}`;
+                linkText = rowDataItem[columnName];
+                break;
+              case 'website':
+                href = isSafeURL(value) ? value : '#';
+                linkText = removeProtocol(value);
+                if (isExternalURL(value)) {
+                  link.setAttribute('target', '_blank');
+                }
+                break;
+              default:
+                href = '';
+            }
+
+            link.classList.add('atm-text_link');
+            link.href = href;
+            link.textContent = linkText;
+            cell.appendChild(link);
+          } else {
+            cell.textContent = rowDataItem[columnName];
+          }
+        });
+      });
+    };
+
+    if (rowDataList.length > 0) {
+      renderTable();
+    } else {
+      this.ui.element.classList.add('hidden');
+    }
   }
 
   /**
@@ -143,9 +337,7 @@ class Table extends Module {
    */
   setupShades() {
     this.ui.scrollAreaWrapper.addEventListener('scroll', this.setShades.bind(this));
-
     this.createShadeNodes();
-
     this.setShades();
   }
 
@@ -157,19 +349,24 @@ class Table extends Module {
   createShadeNodes() {
     const leftShade = document.createElement('span');
     const rightShade = document.createElement('span');
+    const bottomShade = document.createElement('span');
 
     leftShade.setAttribute('aria-hidden', 'true');
     rightShade.setAttribute('aria-hidden', 'true');
+    bottomShade.setAttribute('aria-hidden', 'true');
 
     leftShade.classList.add('mdl-table__shade-left');
     rightShade.classList.add('mdl-table__shade-right');
+    bottomShade.classList.add('mdl-table__shade-bottom');
 
     this.ui.scrollArea.appendChild(leftShade);
     this.ui.scrollArea.appendChild(rightShade);
+    this.ui.scrollArea.appendChild(bottomShade);
 
     this.data.shades = {
       left: leftShade,
       right: rightShade,
+      bottom: bottomShade,
     };
   }
 
@@ -181,7 +378,7 @@ class Table extends Module {
   setLeftOffset() {
     const firstThRow = this.ui.table.querySelector('th[scope="row"]');
     if (firstThRow) {
-      this.data.shades.left.style.left = `${firstThRow.getBoundingClientRect().width}px`;
+      this.data.shades.left.style.left = `${firstThRow.getBoundingClientRect().width - 1}px`;
     }
   }
 
@@ -222,7 +419,9 @@ class Table extends Module {
   getScrollPercentage() {
     const scrollWrapper = this.ui.scrollAreaWrapper;
 
-    return 100 * scrollWrapper.scrollLeft / (scrollWrapper.scrollWidth - scrollWrapper.clientWidth);
+    return (
+      (100 * scrollWrapper.scrollLeft) / (scrollWrapper.scrollWidth - scrollWrapper.clientWidth)
+    );
   }
 
   /**
@@ -233,7 +432,6 @@ class Table extends Module {
    */
   onOrderTable(event) {
     let columnHeader = event.target;
-    this.log(columnHeader);
 
     if (columnHeader.tagName !== 'BUTTON') {
       columnHeader = columnHeader.parentNode;
@@ -260,46 +458,40 @@ class Table extends Module {
     }
 
     const column = columnHeader.getAttribute('data-column-index');
+    const isOrderedBy =
+      columnHeader.classList.contains(this.options.stateClasses.columnAscending) ||
+      columnHeader.classList.contains(this.options.stateClasses.columnDescending);
+    const orderDirection = isOrderedBy ? columnHeader.getAttribute('data-order-by') : false;
+    const isNumeric = columnHeader.getAttribute('data-order') === 'enum';
+    let orderedByTableData = null;
+    this.cleanSortableColumns();
 
-    if (this.isInClonedTable(columnHeader)) {
-      const buttonInDefaultTable = this.ui.table.querySelector(`[data-column-index="${column}"]`);
+    let order = null;
 
-      (<HTMLElement>buttonInDefaultTable).click();
-    } else {
-      const isOrderedBy = columnHeader.classList.contains(this.options.stateClasses.columnAscending)
-        || columnHeader.classList.contains(this.options.stateClasses.columnDescending);
-      const orderDirection = isOrderedBy ? (columnHeader.getAttribute('data-order-by')) : false;
-      const isNumeric = columnHeader.getAttribute('data-order') === 'enum';
-      let orderedByTableData = null;
-      this.cleanSortableColumns();
-
-      let order = null;
-
-      switch (orderDirection) {
-        // The current sortOrder is ascending, so the new one has to be descending
-        case 'ascending':
-          order = 'descending';
-          this.setColumnHeader(order, columnHeader);
-          break;
-        // The current sortOrder is descending, next stage is no sort at all (default)
-        case 'descending':
-          this.setColumnHeader(null, columnHeader);
-          break;
-        // There is no active sortOrder next stage is ascending
-        default:
-          order = 'ascending';
-          this.setColumnHeader(order, columnHeader);
-          break;
-      }
-      if (order) {
-        orderedByTableData = this.orderTableData(isNumeric, column, order);
-        columnHeader.setAttribute('data-order-by', order);
-      } else {
-        orderedByTableData = this.data.tableData;
-      }
-
-      this.redrawTable(orderedByTableData);
+    switch (orderDirection) {
+      // The current sortOrder is ascending, so the new one has to be descending
+      case 'ascending':
+        order = 'descending';
+        this.setColumnHeader(order, columnHeader);
+        break;
+      // The current sortOrder is descending, next stage is no sort at all (default)
+      case 'descending':
+        this.setColumnHeader(null, columnHeader);
+        break;
+      // There is no active sortOrder next stage is ascending
+      default:
+        order = 'ascending';
+        this.setColumnHeader(order, columnHeader);
+        break;
     }
+    if (order) {
+      orderedByTableData = this.orderTableData(isNumeric, column, order);
+      columnHeader.setAttribute('data-order-by', order);
+    } else {
+      orderedByTableData = this.data.tableData;
+    }
+
+    this.redrawTable(orderedByTableData);
   }
 
   /**
@@ -310,18 +502,26 @@ class Table extends Module {
    */
   orderTableData(isNumeric: boolean, columnIndex: number, order: any) {
     return isNumeric
-      ? orderBy(this.data.tableData, (o) => {
-        const tmp = document.createElement('DIV');
-        tmp.innerHTML = o[columnIndex];
+      ? orderBy(
+          this.data.tableData,
+          (o) => {
+            const tmp = document.createElement('DIV');
+            tmp.innerHTML = o[columnIndex];
 
-        return parseFloat(tmp.textContent.replace(',', '.'));
-      }, [order === 'ascending' ? 'asc' : 'desc'])
-      : orderBy(this.data.tableData, (o) => {
-        const tmp = document.createElement('DIV');
-        tmp.innerHTML = o[columnIndex];
+            return parseFloat(tmp.textContent.replace(',', '.'));
+          },
+          [order === 'ascending' ? 'asc' : 'desc']
+        )
+      : orderBy(
+          this.data.tableData,
+          (o) => {
+            const tmp = document.createElement('DIV');
+            tmp.innerHTML = o[columnIndex];
 
-        return tmp.textContent;
-      }, [order === 'ascending' ? 'asc' : 'desc']);
+            return tmp.textContent;
+          },
+          [order === 'ascending' ? 'asc' : 'desc']
+        );
   }
 
   /**
@@ -351,7 +551,9 @@ class Table extends Module {
    */
   setColumnHeader(orderDirection, columnHeader) {
     const th = columnHeader.parentNode;
-    switch (orderDirection) { // eslint-disable-line
+    switch (
+      orderDirection // eslint-disable-line
+    ) {
       case 'descending':
         columnHeader.classList.add(this.options.stateClasses.columnDescending);
         th.setAttribute('aria-sort', 'descending');
@@ -378,7 +580,7 @@ class Table extends Module {
 
     domRows.forEach((row) => {
       const cells = row.querySelectorAll(this.options.domSelectors.cell);
-      const rowData = Array.prototype.slice.call(cells).map(cell => cell.innerHTML);
+      const rowData = Array.prototype.slice.call(cells).map((cell) => cell.innerHTML);
       const rowObject = {
         isHighlighted: false,
       };
@@ -404,10 +606,6 @@ class Table extends Module {
    * @memberof Table
    */
   redrawTable(sortedData) {
-    if (this.data.clonedTable) {
-      this.data.clonedTable.remove();
-    }
-
     const tBodyRows = [].slice.call(this.ui.table.querySelectorAll('tbody tr'));
 
     tBodyRows.forEach((row, rowIndex) => {
@@ -423,10 +621,6 @@ class Table extends Module {
         row.classList.remove('mdl-table__row--highlighted');
       }
     });
-
-    if (this.options.isFixedFirstColumn) {
-      this.cloneTable();
-    }
   }
 
   /**
@@ -435,7 +629,9 @@ class Table extends Module {
    * @memberof Table
    */
   cleanSortableColumns() {
-    const sortableColumnHeaders = [].slice.call(this.ui.table.querySelectorAll('thead tr .mdl-table__column-header--sortable'));
+    const sortableColumnHeaders = [].slice.call(
+      this.ui.table.querySelectorAll('thead tr .mdl-table__column-header--sortable')
+    );
     const sortableButtons = [].slice.call(this.ui.table.querySelectorAll('thead tr th button'));
 
     sortableColumnHeaders.forEach((sortableColumnHeader) => {
@@ -446,27 +642,6 @@ class Table extends Module {
       sortableButton.classList.remove(this.options.stateClasses.columnAscending);
       sortableButton.classList.remove(this.options.stateClasses.columnDescending);
     });
-  }
-
-  /**
-   * Check if an element is inside the cloned table
-   *
-   * @param {*} element
-   * @returns
-   * @memberof Table
-   */
-  isInClonedTable(element) {
-    let elementParent = element.parentNode;
-
-    while (!elementParent.classList.contains('mdl-table__table--cloned')) {
-      elementParent = elementParent.parentNode;
-
-      if (elementParent.classList.contains('mdl-table')) {
-        return false;
-      }
-    }
-
-    return true;
   }
 
   /**

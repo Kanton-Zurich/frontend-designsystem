@@ -3,21 +3,23 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
-const headerData = require('../../modules/header/header.data').props;
+const headerData = require('../../modules/header/header.data').variants.invertedWithUserLoggedOut
+  .props;
 
-const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.coloredImage.props;
+const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants
+  .topicsImage.props;
 const defRelatedContent = require('../../modules/related_content/related_content.data.js');
 const defContactData = require('../../modules/contact/contact.data.js');
 const defFocusTeaserData = require('../../modules/focus_teaser/focus_teaser.data.js');
 const defVideoData = require('../../modules/video/video.data.js');
 const loggedInUserMenu = require('../../modules/user_menu/user_menu.data').variants.loggedIn.props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
-const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
+const backToData = require('../../modules/back_to/back_to.data').variants.default.props;
 
 const defRelatedContentProps = _.merge({}, defRelatedContent);
 const magicNumber = 3;
-defRelatedContentProps.variants.default.props.contentNavData.items = defRelatedContentProps
-  .variants.default.props.contentNavData.items.slice(0, magicNumber);
+defRelatedContentProps.variants.default.props.contentNavData.items =
+  defRelatedContentProps.variants.default.props.contentNavData.items.slice(0, magicNumber);
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -37,8 +39,11 @@ const data = _.merge({}, defaultData, {
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData, {
         pageTitle: 'Sicherheit',
-        leadText: 'Sicherheit zu schaffen gehört zu den zentralen und klassischen Aufgaben des Staates. Zwar sind den finanziellen Möglichkeiten unseres Kantons auch dann Schranken gesetzt, wenn es um mehr Sicherheit geht. Aber wir wollen das Beste machen.',
       }),
+      leadSectionData: {
+        leadText:
+          'Sicherheit zu schaffen gehört zu den zentralen und klassischen Aufgaben des Staates. Zwar sind den finanziellen Möglichkeiten unseres Kantons auch dann Schranken gesetzt, wenn es um mehr Sicherheit geht. Aber wir wollen das Beste machen.',
+      },
       relatedContentData: defRelatedContentProps.variants.default.props,
       contactData: defContactData,
       focusTeaserData: defFocusTeaserData,
@@ -61,7 +66,7 @@ const data = _.merge({}, defaultData, {
         modalData: { modalId: 'service-modal0' },
       },
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
+      backToData,
     },
   },
   defaultColorVariation: 'cv-blue',

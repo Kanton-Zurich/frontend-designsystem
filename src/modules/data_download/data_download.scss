@@ -1,0 +1,88 @@
+.mdl-data-download {
+  border-top: 1px solid $colorBlack20;
+
+  @include sizeCurve(padding-top, small);
+  @include sizeCurve(margin-bottom, medium);
+
+  &__trigger {
+    @at-root button {
+      @include blankButton;
+    }
+
+    @include transition(color);
+
+    display: inline-flex;
+    align-items: center;
+    gap: pxToRem($sizeTiny);
+    font-size: $sizeFontRegular;
+    text-decoration: none;
+    color: rgba($colorText, 0.6);
+    cursor: pointer;
+
+    .icon use {
+      fill: $colorBlack60;
+      transition: fill $transitionTimeSimple $transitionEasingDefault;
+    }
+
+    &:hover:not([aria-expanded='true']) {
+      color: rgba($colorText, 1);
+
+      &:after {
+        transform: translateY(50%) scaleY(3);
+        background: $colorText;
+      }
+
+      .icon use {
+        fill: $colorText;
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__icon {
+    padding: 8px;
+    margin: 0;
+    background-color: $colorBlack10;
+    border-radius: 50%;
+    transition: background-color $transitionTimeSimple $transitionEasingDefault;
+  }
+
+  .icon {
+    display: block;
+    height: 16px;
+    width: 16px;
+    margin: 0;
+  }
+
+  &__angle {
+    margin: 0;
+
+    .icon {
+      height: 24px;
+      width: 24px;
+    }
+  }
+
+  &__text {
+    margin: 0;
+  }
+
+  &[aria-expanded='true'] &__angle {
+    transform: rotate(180deg);
+  }
+
+  &[aria-expanded='true'] &__icon {
+    background-color: $colorBlack;
+
+    use {
+      fill: $colorWhite;
+    }
+  }
+
+  .mdl-context_menu {
+    display: none;
+  }
+}

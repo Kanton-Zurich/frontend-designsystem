@@ -1,0 +1,16 @@
+<div class="mdl-fact_tile {{#if stacked}}mdl-fact_tile--stacked{{/if}}">
+  {{#if title}}
+  <h3 class="mdl-fact_tile__title atm-heading">
+    {{title}}
+  </h3>
+  {{/if}}
+  <div class="mdl-fact_tile__content">
+    <div class="mdl-fact_tile__icon" style="mask: url({{content.icon.src}}) no-repeat center / contain;"></div>
+    <p class="mdl-fact_tile__indicator">
+      <span class="mdl-fact_tile__number">{{content.number}}</span>
+      {{#if content.unit}}<span class="mdl-fact_tile__unit">{{content.unit}}</span>{{/if}}
+    </p>
+  </div>
+  {{#if info.description}}<p class="mdl-fact_tile__description atm-paragraph">{{info.description}}</p>{{/if}}
+  {{#if info.textLink}}{{> "atoms/text_link/text_link" info.textLink }}{{/if}}
+</div>

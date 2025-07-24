@@ -1,11 +1,9 @@
 {{#extend "layouts/layout"}}
-  {{#content "header"}}
+  {{#content "pageheader"}}
     {{> "modules/page_header/page_header" props.modules.pageHeader}}
   {{/content}}
 
   {{#content "content"}}
-    <br />
-    <br />
     <form novalidate>
       <section class="form__section">
         <h3 class="atm-heading form__section-title">Ihre Angaben</h3>
@@ -17,8 +15,6 @@
           </div>
         </div>
       </section>
-      <br />
-      <br />
       <section class="form__section">
         <h3 class="atm-heading form__section-title">Ihre Themen</h3>
         <p class="atm-paragraph">
@@ -36,8 +32,6 @@
           {{/each}}
         </div>
       </section>
-      <br />
-      <br />
       <section class="form__section">
         <h3 class="atm-heading form__section-title">Regelmässigkeit der Zustellung</h3>
         <p class="atm-paragraph">
@@ -64,11 +58,10 @@
         </button>
       </div>
     </form>
-    <br />
-    <br />
-    <br />
-    <br />
-    {{> "modules/contact/contact" props.modules.contact }}
+  {{/content}}
+
+  {{#content "pagefooter"}}
+    {{> "modules/contact/contact" props.modules.contact}}
   {{/content}}
 
   {{#content "footer"}}

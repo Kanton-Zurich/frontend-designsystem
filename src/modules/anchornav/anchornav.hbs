@@ -1,39 +1,29 @@
-<div class="mdl-anchornav" data-init="anchornav" id="toc">
-  <div class="lyt-wrapper">
-    <div class="grid-x grid-margin-x">
-      <div class="cell tiny-12 xsmall-12 small-10 medium-10 large-10 xlarge-10 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2">
-
-        <div class="mdl-anchornav__content">
-          <h{{{anchornavTitle.level}}} class="atm-heading">{{ anchornavTitle.title }}</h{{{anchornavTitle.level}}}>
-          <div class="mdl-anchornav__ctrl mdl-anchornav__ctrl--left">
-            <button tabindex="-1">
-              <span class="visuallyhidden">Nach links scrollen</span>
-              <svg class="icon atm-button__icon" focusable="false">
-                <use xlink:href="#angle_left"></use>
-              </svg>
-            </button>
-          </div>
-
-          <div class="mdl-anchornav__list-wrapper" data-anchornav="scroll-area">
-            <ul class="mdl-anchornav__list">
-              {{#each anchornavItems}}
-                <li class="mdl-anchornav__item">
-                  {{> "atoms/anchorlink/anchorlink" this}}
-                </li>
-              {{/each}}
-            </ul>
-          </div>
-
-          <div class="mdl-anchornav__ctrl mdl-anchornav__ctrl--right">
-            <button tabindex="-1">
-              <span class="visuallyhidden">Nach rechts scrollen</span>
-              <svg class="icon atm-button__icon" focusable="false">
-                <use xlink:href="#angle_right"></use>
-              </svg>
-            </button>
+<div class="mdl-anchornav" id="toc" data-init="anchornav" tabindex="-1">
+  <div class="mdl-anchornav__container">
+    <div class="lyt-wrapper">
+      <div class="grid-x grid-margin-x">
+        <div class="cell
+          tiny-12 xsmall-12 small-10 medium-10 large-2 xlarge-2
+          small-offset-2 medium-offset-2 large-offset-0
+          ">
+          <div class="mdl-anchornav__content">
+            <details open>
+              <summary tabindex="-1">
+                <h{{{anchornavTitle.level}}} class="atm-heading">{{ anchornavTitle.title }}</h{{{anchornavTitle.level}}}>
+              </summary>
+              <ul class="mdl-anchornav__list">
+                {{#each anchornavItems}}
+                  <li class="mdl-anchornav__item">
+                    <a
+                      href="#{{anchorlink.anchorlinkAdress}}"
+                      class="mdl-anchornav__anchorlink"
+                    >{{anchorlink.anchorlinkText}}</a>
+                  </li>
+                {{/each}}
+              </ul>
+            </details>
           </div>
         </div>
-
       </div>
     </div>
   </div>

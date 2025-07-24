@@ -6,5 +6,6 @@
 
 ### Integration
 
-* Set the youtube src to the data attribute "data-youtubesrc"
+* Set the youtube srcId of the video with spoken language to the data attribute "data-youtubevideoidspokenlanguage"
+* Set the youtube srcId of the video with sign language to the data attribute "data-youtubevideoidsignlanguage"
 * Set the video cookie expiry days to the data attribute "data-expirydays"

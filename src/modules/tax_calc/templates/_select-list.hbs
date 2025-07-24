@@ -1,39 +1,39 @@
 <div class="mdl-select" data-input data-init="select">
-    <div class="atm-form_input atm-form_input--floated atm-form_input--trigger">
+  <div class="atm-form_input atm-form_input--floated atm-form_input--trigger">
 
-        <button aria-expanded="false" aria-labelledby="aria-labledBy- " class="atm-form_input__input atm-form_input__input--trigger" type="button" tabindex="-1">
-            <span id="aria-labledBy-" class="atm-form_input__trigger-label"><%=label%></span>
-            <span class="atm-form_input__trigger-value"></span>
-            <svg class="icon" focusable="false">
-                <use xlink:href="#angle_drop_down"></use>
-            </svg>
-        </button>
+      <button aria-expanded="false" class="atm-form_input__input atm-form_input__input--trigger" type="button" tabindex="-1">
+          <span class="atm-form_input__trigger-label"><%=label%></span>
+          <span class="atm-form_input__trigger-value"></span>
+          <svg class="icon" focusable="false">
+              <use xlink:href="#angle_drop_down"></use>
+          </svg>
+      </button>
 
-        <% if (mandatory) { %>
-          <p class="form__fieldset-error-message" data-message="required">{{requiredMessages.list}}</p>
-        <% } %>
-    </div>
+      <% if (mandatory) { %>
+        <p class="form__fieldset-error-message" data-message="required">{{requiredMessages.list}}</p>
+      <% } %>
+  </div>
 
-    <div class="mdl-select__options">
-        <ul class="atm-list" data-inputtype="radio" tabindex="-1">
-          <% _.forEach(selectOptions, function(option, index) { %>
-              <li class="atm-list__item atm-list__item--icon-right">
+  <div class="mdl-select__options">
+    <ul class="atm-list" data-inputtype="radio" tabindex="-1">
+      <% selectOptions.forEach((option, index) => { %>
+        <li class="atm-list__item atm-list__item--icon-right">
 
-                  <input name="<%=fieldName%>"
-                         id="<%='radio-'+fieldName+'-'+index%>"
-                         type="radio"
-                         value="<%=option.value%>" placeholder="<%=option.label%>"
-                         data-select-option data-validation
-                         tabindex="-1"
-                  <% if (option.selected) { %> checked<% } %>
-                  <% if (mandatory) { %> required<% } %>
-                  <% if (reinvokeTrigger) { %> data-tax_calc-reinvoke="true"<% } %>
-                  >
+          <input name="<%=fieldName%>"
+                  id="<%='radio-'+fieldName+'-'+index%>"
+                  type="radio"
+                  value="<%=option.value%>" placeholder="<%=option.label%>"
+                  data-select-option data-validation
+                  tabindex="-1"
+            <% if (option.selected) { %> checked<% } %>
+            <% if (mandatory) { %> required<% } %>
+            <% if (reinvokeTrigger) { %> data-tax_calc-reinvoke="true"<% } %>
+          >
 
-                  <label for="<%='radio-'+fieldName+'-'+index%>"><%=option.label%></label>
-              </li>
+          <label for="<%='radio-'+fieldName+'-'+index%>"><%=option.label%></label>
+        </li>
 
-            <% }); %>
-        </ul>
-    </div>
+      <% }); %>
+    </ul>
+  </div>
 </div>

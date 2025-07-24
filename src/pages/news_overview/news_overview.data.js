@@ -5,13 +5,15 @@ const dataHelper = require('@unic/estatico-data');
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
 const headerData = require('../../modules/header/header.data');
 
-const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.default.props;
+const defPageHeaderData = require('../../modules/page_header/page_header.data.js').variants.facts
+  .props;
 const defNewsOverviewData = require('../../modules/news_overview/news_overview.data');
 const defNewsletterFormData = require('../../modules/newsletter_form/newsletter_form.data');
 const defContactData = require('../../modules/contact/contact.data');
-const defBreadcrumbData = require('../../modules/breadcrumb/breadcrumb.data').variants.default.props;
+const defBreadcrumbData = require('../../modules/breadcrumb/breadcrumb.data').variants.parentOnly
+  .props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
-const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
+const backToData = require('../../modules/back_to/back_to.data').variants.default.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -22,7 +24,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     skiplinks: skiplinksData,
-    header: headerData.variants.inverted.props,
+    header: headerData.variants.defaultWithUserLoggedOut.props,
     modules: {
       pageHeader: _.merge({}, defPageHeaderData, {
         homelink: '#',
@@ -34,7 +36,7 @@ const data = _.merge({}, defaultData, {
       newsOverview: defNewsOverviewData.props,
       newsletterFormData: defNewsletterFormData.variants.default.props,
       contactData: defContactData.variants.fullWidthLessData.props,
-      back2topData: defBack2TopData,
+      backToData,
       footerData: defFooterData,
     },
   },

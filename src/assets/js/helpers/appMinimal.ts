@@ -5,12 +5,9 @@
  */
 import namespace from './namespace';
 
-import Locations from '../../../modules/locations/locations';
-import MapView from '../../../modules/map_view/map_view';
 import Video from '../../../modules/video/video';
 
 /* autoinsertmodulereference */ // eslint-disable-line
-
 
 class App {
   public initEvents = [];
@@ -21,8 +18,6 @@ class App {
     window[namespace].modules = {};
     // Module registry - mapping module name (used in data-init) to module Class
     this.modules = {};
-    this.modules.locations = Locations;
-    this.modules.mapView = MapView;
     this.modules.video = Video;
 
     /* autoinsertmodule */ // eslint-disable-line
@@ -110,8 +105,7 @@ class App {
       const modules = element.dataset.init.split(' ');
 
       modules.forEach((moduleName) => {
-        if (this.isRegistered(moduleName)
-          && !this.isInitialised(element, moduleName)) {
+        if (this.isRegistered(moduleName) && !this.isInitialised(element, moduleName)) {
           this.initModule(moduleName, element);
         }
       });

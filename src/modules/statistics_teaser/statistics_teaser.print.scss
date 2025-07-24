@@ -1,0 +1,77 @@
+.mdl-statistics_teaser {
+  .mdl-statistics_teaser__item a {
+    page-break-before: auto;
+    page-break-after: auto;
+    page-break-inside: avoid;
+  }
+
+  padding-top: pxToRem($sizeBiggerBig);
+  padding-bottom: pxToRem($sizeBiggerBig);
+
+  &__header {
+    // Overwrite heading atom style
+    .atm-heading {
+      margin-bottom: pxToRem($sizeBiggerBig);
+    }
+  }
+
+  &--more-info {
+    padding-top: 0;
+    padding-bottom: pxToRem($sizeGiant);
+
+    .mdl-statistics_teaser__header {
+      .atm-heading {
+        margin-top: pxToRem($sizeGiant);
+      }
+    }
+  }
+
+  // Single item style
+  .medium-6 ul {
+    max-width: 50%;
+  }
+  // Two item style
+  .large-8 .mdl-statistics_teaser__item {
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+
+  &__item {
+    $maxTextLines: 4;
+    $maxTextLinesDesktop: 4;
+
+    flex-basis: 32%;
+    max-width: 32%;
+
+    // LineClamper Config
+    $headingHeightCurve: (
+      tiny: $sizeFontSmall * $sizeLineHeightMedium * $maxTextLines,
+      xsmall: $sizeFontSmall * $sizeLineHeightMedium * $maxTextLines,
+      large: $sizeFontSmall * $sizeLineHeightMedium * $maxTextLines,
+      xlarge: $sizeFontSmall * $sizeLineHeightMedium * $maxTextLines,
+    );
+
+    a {
+      padding: $sizeSmallRegular;
+    }
+
+    // Overwrite item heading atom
+    .atm-heading {
+      font-size: $sizeFontSmall;
+      max-height: none;
+    }
+
+    .atm-paragraph {
+      font-size: $sizeFontTiny;
+
+      // LineClamper Config
+      $paragraphHeightCurve: (
+        tiny: $sizeFontSmall * $sizeLineHeightBase * $maxTextLines,
+        small: $sizeFontSmall * $sizeLineHeightBase * $maxTextLinesDesktop,
+        large: $sizeFontSmall * $sizeLineHeightBase * $maxTextLinesDesktop,
+      );
+
+      @include polyFluidSizing(max-height, $paragraphHeightCurve);
+    }
+  }
+}

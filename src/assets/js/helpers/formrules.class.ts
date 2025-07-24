@@ -1,23 +1,24 @@
+// eslint-disable-next-line import/no-cycle
 import Stepper from '../../../modules/stepper/stepper';
 import FormGlobalHelper from './form';
 import Module from './module';
 
 class FormRules {
   private ui: {
-    owner: HTMLElement,
-    form: HTMLFormElement,
-    step: HTMLDivElement,
+    owner: HTMLElement;
+    form: HTMLFormElement;
+    step: HTMLDivElement;
   };
 
   private options: {
-    domSelectors: any,
-    stateClasses: any,
-    isStep: boolean,
+    domSelectors: any;
+    stateClasses: any;
+    isStep: boolean;
   };
 
   private data: {
-    stepIndex: number,
-    watchesOtherStep: boolean,
+    stepIndex: number;
+    watchesOtherStep: boolean;
   };
 
   private rules: any;
@@ -45,12 +46,14 @@ class FormRules {
     };
 
     if (!$ruleOwner.hasAttribute('data-step-index') && $ruleOwner.closest('[data-step-index]')) {
-      this.data.stepIndex = parseInt($ruleOwner.closest('[data-step-index]').getAttribute('data-step-index'), 10);
+      this.data.stepIndex = parseInt(
+        $ruleOwner.closest('[data-step-index]').getAttribute('data-step-index'),
+        10
+      );
     }
 
     this.getRules();
-
-    this.getHierarchicalRules();
+    if (!$ruleOwner.getAttribute('data-rules-no-inheritance')) this.getHierarchicalRules();
 
     if (this.data.stepIndex) {
       this.checkRulesForSameStep();
@@ -90,7 +93,8 @@ class FormRules {
 
         for (let x = 0; x < rule.conditions.length; x += 1) {
           const condition = rule.conditions[x];
-          const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+          const querySelector =
+            condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
           const field = this.ui.form.querySelector(querySelector);
 
           if (field) {
@@ -126,7 +130,8 @@ class FormRules {
       const ruleCopy = JSON.parse(JSON.stringify(rule));
 
       rule.conditions.forEach((condition) => {
-        const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+        const querySelector =
+          condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
         const field = this.ui.form.querySelector(querySelector);
 
         const closestParent = field ? field.closest('[data-rules]') : null;
@@ -137,12 +142,13 @@ class FormRules {
           parentRules.forEach((parentRule, c) => {
             // if there are inverted parent rules,
             // the conditions have to be adjusted when inheriting rules
-            if ((parentRule.action !== rule.action) && (
-              (parentRule.action === 'show' && rule.action === 'hide')
-              || (parentRule.action === 'hide' && rule.action === 'show')
-              || (parentRule.action === 'enable' && rule.action === 'hide')
-              || (parentRule.action === 'disable' && rule.action === 'show')
-            )) {
+            if (
+              parentRule.action !== rule.action &&
+              ((parentRule.action === 'show' && rule.action === 'hide') ||
+                (parentRule.action === 'hide' && rule.action === 'show') ||
+                (parentRule.action === 'enable' && rule.action === 'disable') ||
+                (parentRule.action === 'disable' && rule.action === 'enable'))
+            ) {
               for (let i = 0; i < parentRule.conditions.length; i += 1) {
                 if ('equals' in parentRule.conditions[i]) {
                   parentRule.conditions[i].equals = !parentRule.conditions[i].equals;
@@ -177,13 +183,11 @@ class FormRules {
             // Don't take the rules over when it is a step
             // if (parentRule.action !== 'enable' && parentRule.action !== 'disable') {
             if (c === 0) {
-              this.rules[ruleIdx].conditions = [...ruleCopy.conditions,
-                ...parentRule.conditions];
+              this.rules[ruleIdx].conditions = [...ruleCopy.conditions, ...parentRule.conditions];
             } else {
               copiedRules.push({
                 action: rule.action,
-                conditions: [...ruleCopy.conditions,
-                  ...parentRule.conditions],
+                conditions: [...ruleCopy.conditions, ...parentRule.conditions],
               });
             }
             // }
@@ -200,7 +204,7 @@ class FormRules {
 
     this.rules.forEach((rule) => {
       if (action !== rule.action) {
-        console.error('Rule mismatching, you can\'t mix show and hide rules');
+        console.error("Rule mismatching, you can't mix show and hide rules");
       }
     });
 
@@ -213,12 +217,14 @@ class FormRules {
       case 'disable':
         this.ui.owner.setAttribute('data-pending', 'true');
         this.ui.owner.removeAttribute('data-enabled');
-        this.ui.owner.dispatchEvent(new CustomEvent(FormRules.events.stateChange, {
-          detail: {
-            state: 'pending',
-            index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
-          },
-        }));
+        this.ui.owner.dispatchEvent(
+          new CustomEvent(FormRules.events.stateChange, {
+            detail: {
+              state: 'pending',
+              index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
+            },
+          })
+        );
 
         break;
       default:
@@ -253,22 +259,26 @@ class FormRules {
           this.ui.owner.setAttribute('data-enabled', 'true');
           this.ui.owner.removeAttribute('data-pending');
 
-          this.ui.owner.dispatchEvent(new CustomEvent(FormRules.events.stateChange, {
-            detail: {
-              state: 'enabled',
-              index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
-            },
-          }));
+          this.ui.owner.dispatchEvent(
+            new CustomEvent(FormRules.events.stateChange, {
+              detail: {
+                state: 'enabled',
+                index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
+              },
+            })
+          );
         } else {
           this.ui.owner.setAttribute('data-enabled', 'false');
           this.ui.owner.removeAttribute('data-pending');
 
-          this.ui.owner.dispatchEvent(new CustomEvent(FormRules.events.stateChange, {
-            detail: {
-              state: 'disabled',
-              index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
-            },
-          }));
+          this.ui.owner.dispatchEvent(
+            new CustomEvent(FormRules.events.stateChange, {
+              detail: {
+                state: 'disabled',
+                index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
+              },
+            })
+          );
         }
         break;
       case 'disable':
@@ -276,22 +286,26 @@ class FormRules {
           this.ui.owner.setAttribute('data-enabled', 'false');
           this.ui.owner.removeAttribute('data-pending');
 
-          this.ui.owner.dispatchEvent(new CustomEvent(FormRules.events.stateChange, {
-            detail: {
-              state: 'disabled',
-              index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
-            },
-          }));
+          this.ui.owner.dispatchEvent(
+            new CustomEvent(FormRules.events.stateChange, {
+              detail: {
+                state: 'disabled',
+                index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
+              },
+            })
+          );
         } else {
           this.ui.owner.setAttribute('data-enabled', 'true');
           this.ui.owner.removeAttribute('data-pending');
 
-          this.ui.owner.dispatchEvent(new CustomEvent(FormRules.events.stateChange, {
-            detail: {
-              state: 'enabled',
-              index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
-            },
-          }));
+          this.ui.owner.dispatchEvent(
+            new CustomEvent(FormRules.events.stateChange, {
+              detail: {
+                state: 'enabled',
+                index: parseInt(this.ui.owner.getAttribute('data-step-index'), 10),
+              },
+            })
+          );
         }
 
         break;
@@ -306,7 +320,8 @@ class FormRules {
 
       for (let x = 0; x < rule.conditions.length; x += 1) {
         const condition = rule.conditions[x];
-        const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+        const querySelector =
+          condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
         const fields = this.ui.form.querySelectorAll(querySelector);
 
         for (let c = 0; c < fields.length; c += 1) {
@@ -346,14 +361,14 @@ class FormRules {
     const rulesResult = [];
     const { action } = this.rules[0];
 
-
     for (let i = 0; i < this.rules.length; i += 1) {
       let conditionsMet = true;
       const rule = this.rules[i];
 
       for (let x = 0; x < rule.conditions.length; x += 1) {
         const condition = rule.conditions[x];
-        const querySelector = condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
+        const querySelector =
+          condition.field.charAt(0) === '#' ? condition.field : `[name="${condition.field}"]`;
         let querySubSelector = null;
         let correctField = null;
 
@@ -367,14 +382,17 @@ class FormRules {
 
           if (typeof correctField === typeof undefined || !correctField) {
             conditionsMet = false;
-            [].slice.call(this.ui.form.querySelectorAll(querySelector)).forEach((item) => { // eslint-disable-line
+            [].slice.call(this.ui.form.querySelectorAll(querySelector)).forEach((item) => {
+              // eslint-disable-line
               if (item.value === condition.value) {
                 correctField = item;
                 conditionsMet = true;
               }
             });
-          } else if ((condition.equals && !correctField.checked)
-            || (!condition.equals && correctField.checked)) {
+          } else if (
+            (condition.equals && !correctField.checked) ||
+            (!condition.equals && correctField.checked)
+          ) {
             conditionsMet = false;
           }
         }
@@ -384,7 +402,8 @@ class FormRules {
           let value = this.ui.form.querySelector(querySelector).value.replace(/\'/g, ''); // eslint-disable-line
           conditionsMet = false;
 
-          if (isNaN(value)) { // eslint-disable-line
+          if (isNaN(value)) {
+            // eslint-disable-line
             value = FormGlobalHelper.ParseDateTimeString(value);
             compareModeDate = true;
           }
@@ -400,7 +419,8 @@ class FormRules {
             return parseFloat(val);
           };
           const valueNumeric = parseFloat(value);
-          if (!isNaN(valueNumeric)) { // eslint-disable-line
+          if (!isNaN(valueNumeric)) {
+            // eslint-disable-line
             switch (condition.compare) {
               case 'equal':
                 if (valueNumeric === parseValue(condition.value)) {
@@ -447,7 +467,7 @@ class FormRules {
       this.ui.form.dispatchEvent(new CustomEvent(FormRules.events.checkRules));
     }
 
-    this.doAction(action, rulesResult.filter(result => result === true).length > 0);
+    this.doAction(action, rulesResult.filter((result) => result === true).length > 0);
     // 50 ms throttled update of resize event to ensure vertical correction when elements are shown
     if (!document.body.hasAttribute('ruleUpdateRunning')) {
       document.body.setAttribute('ruleUpdateRunning', '');
@@ -468,9 +488,11 @@ class FormRules {
       const isHidden = step.classList.contains('mdl-stepper__step--hidden');
 
       if (isStepVisited && isHidden) {
-        stepper.dispatchEvent(new CustomEvent(Stepper.events.showRuleNotification, {
-          detail: parseInt(step.getAttribute('data-step-index'), 10),
-        }));
+        stepper.dispatchEvent(
+          new CustomEvent(Stepper.events.showRuleNotification, {
+            detail: parseInt(step.getAttribute('data-step-index'), 10),
+          })
+        );
       }
     }
   }

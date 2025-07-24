@@ -3,15 +3,20 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
-const headerData = require('../../modules/header/header.data').props;
+const headerData = require('../../modules/header/header.data').variants.invertedWithUserLoggedOut
+  .props;
 
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
-const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
-const defPageHeaderData = require('../../modules/page_header/page_header.data').variants.default.props;
-const defReleatedContentData = require('../../modules/related_content/related_content.data.js').variants.default.props;
-const defContactData = require('../../modules/contact/contact.data.js').variants.smallMailOnly.props;
+const backToData = require('../../modules/back_to/back_to.data').variants.default.props;
+const defPageHeaderData = require('../../modules/page_header/page_header.data').variants.office
+  .props;
+const defReleatedContentData = require('../../modules/related_content/related_content.data.js')
+  .variants.default.props;
+const defContactData = require('../../modules/contact/contact.data.js').variants.smallMailOnly
+  .props;
 const defTagGroupData = require('../../modules/tag_group/tag_group.data.js').variants.default.props;
-const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants.withoutLinklist.props;
+const defNewsTeaserData = require('../../modules/news_teaser/news_teaser.data').variants
+  .withoutLinklist.props;
 const defFlexDataData = require('../../modules/flex_data/flex_data.data').variants.default.props;
 const defFormData = require('../../modules/form/form.data');
 
@@ -30,10 +35,11 @@ const data = _.merge({}, defaultData, {
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData, {
         pageTitle: 'Entscheide',
-        inverted: true,
-        buttonData: false,
-        leadText: 'Die Datenbank enthält wegleitende Entscheide des Regierungsrates, der Direktionen sowie der direktionsabhängigen und -zugeordneten Gremien ab dem 1. Juli 2001. Es handelt sich dabei um Rechtsmittelentscheide, vereinzelt um erstinstanzliche Anordnungen. Die veröffentlichten Entscheide sind in der Regel rechtskräftig.',
       }),
+      leadSectionData: {
+        leadText:
+          'Die Datenbank enthält wegleitende Entscheide des Regierungsrates, der Direktionen sowie der direktionsabhängigen und -zugeordneten Gremien ab dem 1. Juli 2001. Es handelt sich dabei um Rechtsmittelentscheide, vereinzelt um erstinstanzliche Anordnungen. Die veröffentlichten Entscheide sind in der Regel rechtskräftig.',
+      },
       downloadList1: {
         title: false,
         links: [
@@ -42,7 +48,8 @@ const data = _.merge({}, defaultData, {
               linkListItemTitle: 'Tipps und Hinweise zur Suchfunktion',
               linkListItemIsDownload: true,
               linkListItemLabel: 'PDF | 1 Seite | 2MB',
-              linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+              linkListItemHref:
+                'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
             },
           },
         ],
@@ -55,7 +62,8 @@ const data = _.merge({}, defaultData, {
               linkListItemTitle: 'Anonymisierungsrichtlinien',
               linkListItemIsDownload: true,
               linkListItemLabel: 'PDF | 1 Seite | 2MB',
-              linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+              linkListItemHref:
+                'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
             },
           },
         ],
@@ -66,7 +74,7 @@ const data = _.merge({}, defaultData, {
           {
             title: 'Separatdruck der Gesetzessammlung bestellen',
             buttonTitle: 'Start',
-            serviceLink: 'service_page.mock.html',
+            serviceLink: '../../modules/service_list/service_page.mock.html',
             href: '../service/service.html',
             modalData: { modalId: 'service-modal0' },
           },
@@ -110,24 +118,30 @@ const data = _.merge({}, defaultData, {
         },
       }),
       newsTeaserData: defNewsTeaserData,
-      releatedContentData: _.merge({}, defReleatedContentData, { relatedContentHeading: { anchorNavReference: 'related_content' } }),
-      contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
-      tagGroupData: _.assign(_.merge({}, defTagGroupData, { tagGroupdHeading: { anchorNavReference: 'responsibilities' } }),
+      releatedContentData: _.merge({}, defReleatedContentData, {
+        anchorNavReference: 'related_content',
+      }),
+      contactData: _.merge({}, defContactData, { anchorNavReference: 'contact_title' }),
+      tagGroupData: _.assign(
+        _.merge({}, defTagGroupData, { anchorNavReference: 'responsibilities' }),
         {
-          anchorLinks: [{
-            anchorlink: {
-              anchorlinkText: 'Staatskanzlei',
-              anchorlinkAdress: '#',
-              anchorlinkIsActive: false,
-              anchorlinkIsTagAnchor: true,
-              anchorlinkIsInverted: true,
-              anchorlinkIsTopitem: true,
-              anchorlinkIsTopitemSmall: true,
+          anchorLinks: [
+            {
+              anchorlink: {
+                anchorlinkText: 'Staatskanzlei',
+                anchorlinkAdress: '#',
+                anchorlinkIsActive: false,
+                anchorlinkIsTagAnchor: true,
+                anchorlinkIsInverted: true,
+                anchorlinkIsTopitem: true,
+                anchorlinkIsTopitemSmall: true,
+              },
             },
-          }],
-        }),
+          ],
+        }
+      ),
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
+      backToData,
     },
   },
 });

@@ -36,6 +36,10 @@ $contentNavGrid: (
     display: flex;
   }
 
+  .atm-content_teaser__content {
+    @include lineClamp(3);
+  }
+
   &--single-column {
     .mdl-content_nav__list {
       grid-template-columns: 1fr;
@@ -58,7 +62,8 @@ $contentNavGrid: (
 
       margin-right: calc(-50% - #{$sizeBiggerBig * 0.16});
       margin-left: $sizeBiggerBig * -0.16;
+      width: auto;
+      transform: none;
     }
   }
 }
-

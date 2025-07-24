@@ -5,31 +5,26 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import MapView,
-{ MarkerEvent, UserLocateEvent } // eslint-disable-line no-unused-vars
-  from '../map_view/map_view';
-import {
-  DefaultOptions,
-  LocationsModuleOptions, // eslint-disable-line no-unused-vars
-} from './locations.options';
+import MapView, { MarkerEvent, UserLocateEvent } from '../map_view/map_view';
+import { DefaultOptions, LocationsModuleOptions } from './locations.options';
 import WindowEventListener from '../../assets/js/helpers/events';
 
 class Locations extends Module {
   public ui: {
-    element: HTMLDivElement,
-    filterInput: HTMLInputElement,
-    sidebar: HTMLDivElement,
-    backBtn: HTMLButtonElement,
-    filterHead: HTMLDivElement,
-    linkList: HTMLDivElement,
-    listItems: HTMLAnchorElement | HTMLAnchorElement[],
-    detailNodes: HTMLDivElement | HTMLDivElement[],
-    map: HTMLDivElement,
-    toggleListBtn: HTMLButtonElement,
-    emptyListHint: HTMLDivElement,
-    notFoundTextTemplate: HTMLTemplateElement,
-    detailWrapper: HTMLDivElement,
-    filterDescription: HTMLParagraphElement,
+    element: HTMLDivElement;
+    filterInput: HTMLInputElement;
+    sidebar: HTMLDivElement;
+    backBtn: HTMLButtonElement;
+    filterHead: HTMLDivElement;
+    linkList: HTMLDivElement;
+    listItems: HTMLAnchorElement | HTMLAnchorElement[];
+    detailNodes: HTMLDivElement | HTMLDivElement[];
+    map: HTMLDivElement;
+    toggleListBtn: HTMLButtonElement;
+    emptyListHint: HTMLDivElement;
+    notFoundTextTemplate: HTMLTemplateElement;
+    detailWrapper: HTMLDivElement;
+    filterDescription: HTMLParagraphElement;
   };
 
   public options: LocationsModuleOptions;
@@ -37,8 +32,7 @@ class Locations extends Module {
   private keepMapHighlight: boolean;
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
 
     super($element, defaultData, DefaultOptions, data, options);
 
@@ -116,55 +110,55 @@ class Locations extends Module {
         }
       });
 
-    this.ui.map
-      .addEventListener(MapView.events.markerMouseOver, (ev: MarkerEvent) => {
-        const markerMouseOverIdx = ev.detail.idx;
-        this.log('Mouseover from map on marker', markerMouseOverIdx);
+    this.ui.map.addEventListener(MapView.events.markerMouseOver, (ev: MarkerEvent) => {
+      const markerMouseOverIdx = ev.detail.idx;
+      this.log('Mouseover from map on marker', markerMouseOverIdx);
 
-        if (this.ui.listItems && [].slice.call(this.ui.listItems).length > 0
-          && this.ui.listItems[0]) {
-          (this.ui.listItems as HTMLAnchorElement[]).forEach((listItem, i) => {
-            if (markerMouseOverIdx === i) {
-              listItem.classList.add(this.options.stateClasses.mapMarkerIsHovered);
-            } else {
-              listItem.classList.remove(this.options.stateClasses.mapMarkerIsHovered);
-            }
-          });
-        } else {
-          const singleItemsClasses = (this.ui.listItems as HTMLAnchorElement).classList;
-          if (markerMouseOverIdx === 0) {
-            singleItemsClasses.add(this.options.stateClasses.mapMarkerIsHovered);
+      if (
+        this.ui.listItems &&
+        [].slice.call(this.ui.listItems).length > 0 &&
+        this.ui.listItems[0]
+      ) {
+        (this.ui.listItems as HTMLAnchorElement[]).forEach((listItem, i) => {
+          if (markerMouseOverIdx === i) {
+            listItem.classList.add(this.options.stateClasses.mapMarkerIsHovered);
           } else {
-            singleItemsClasses.remove(this.options.stateClasses.mapMarkerIsHovered);
+            listItem.classList.remove(this.options.stateClasses.mapMarkerIsHovered);
           }
+        });
+      } else {
+        const singleItemsClasses = (this.ui.listItems as HTMLAnchorElement).classList;
+        if (markerMouseOverIdx === 0) {
+          singleItemsClasses.add(this.options.stateClasses.mapMarkerIsHovered);
+        } else {
+          singleItemsClasses.remove(this.options.stateClasses.mapMarkerIsHovered);
         }
-      });
+      }
+    });
 
-    this.ui.map
-      .addEventListener(MapView.events.markerClicked, (ev: MarkerEvent) => {
-        if ([].slice.call(this.ui.listItems).length > 1) {
-          const clickedIdx = ev.detail.idx;
-          this.log('Marker clicked in map', clickedIdx);
-          this.toggleLocationDetails(clickedIdx);
+    this.ui.map.addEventListener(MapView.events.markerClicked, (ev: MarkerEvent) => {
+      if ([].slice.call(this.ui.listItems).length > 1) {
+        const clickedIdx = ev.detail.idx;
+        this.log('Marker clicked in map', clickedIdx);
+        this.toggleLocationDetails(clickedIdx);
+      }
+    });
+
+    this.ui.map.addEventListener(MapView.events.userLocated, (ev: UserLocateEvent) => {
+      this.log('User located event: ', ev.detail);
+      if (ev.detail.markerDistances) {
+        const distances = ev.detail.markerDistances;
+        if (distances.length > 1) {
+          (<HTMLElement[]>this.ui.listItems).forEach((item, i) => {
+            this.addDistanceToListItem(item, distances[i]);
+          });
+        } else if (distances.length === 1) {
+          this.addDistanceToListItem(this.ui.listItems as HTMLElement, distances[0]);
         }
-      });
 
-    this.ui.map
-      .addEventListener(MapView.events.userLocated, (ev: UserLocateEvent) => {
-        this.log('User located event: ', ev.detail);
-        if (ev.detail.markerDistances) {
-          const distances = ev.detail.markerDistances;
-          if (distances.length > 1) {
-            (<HTMLElement[]> this.ui.listItems).forEach((item, i) => {
-              this.addDistanceToListItem(item, distances[i]);
-            });
-          } else if (distances.length === 1) {
-            this.addDistanceToListItem(this.ui.listItems as HTMLElement, distances[0]);
-          }
-
-          this.sortListItemsByDistance();
-        }
-      });
+        this.sortListItemsByDistance();
+      }
+    });
 
     if (this.ui.filterInput) {
       this.ui.filterInput.addEventListener('keypress', (event) => {
@@ -174,10 +168,14 @@ class Locations extends Module {
       });
     }
 
-    this.ui.element
-      .addEventListener(Locations.events.filterLocations, this.onFilterEvent.bind(this));
-    this.ui.element
-      .addEventListener(Locations.events.triggerBackButton, this.onTriggerBackButton.bind(this));
+    this.ui.element.addEventListener(
+      Locations.events.filterLocations,
+      this.onFilterEvent.bind(this)
+    );
+    this.ui.element.addEventListener(
+      Locations.events.triggerBackButton,
+      this.onTriggerBackButton.bind(this)
+    );
 
     (<any>WindowEventListener).addDebouncedResizeListener(this.setSideBarScrollArea.bind(this));
     this.setSideBarScrollArea();
@@ -187,8 +185,9 @@ class Locations extends Module {
     let selectedItemIndex: number = -1;
 
     if (selectEventTarget && selectEventTarget.parentElement) {
-      const targetItemIndexStr = selectEventTarget.parentElement
-        .getAttribute(this.options.attrNames.itemIndex);
+      const targetItemIndexStr = selectEventTarget.parentElement.getAttribute(
+        this.options.attrNames.itemIndex
+      );
       try {
         selectedItemIndex = Number.parseInt(targetItemIndexStr, 10);
       } catch (e) {
@@ -273,18 +272,17 @@ class Locations extends Module {
       this.ui.detailWrapper.setAttribute('aria-hidden', 'true');
     }
 
-
     this.showLocationDetailsForIndex(selectedItemIdx);
     this.highlightInMap(selectedItemIdx, true);
   }
 
   private toggleSidebarTabIndices(onDetails: boolean = false, initialLoad: boolean = false): void {
     if (this.ui.listItems && [].slice.call(this.ui.listItems).length > 0 && this.ui.listItems[0]) {
-      (<HTMLAnchorElement[]> this.ui.listItems).forEach((listItem) => {
+      (<HTMLAnchorElement[]>this.ui.listItems).forEach((listItem) => {
         this.setTabable(listItem, !onDetails);
       });
     } else {
-      this.setTabable((<HTMLAnchorElement> this.ui.listItems), !onDetails);
+      this.setTabable(<HTMLAnchorElement>this.ui.listItems, !onDetails);
     }
     this.setTabable(this.ui.filterInput, !onDetails);
     this.setTabable(this.ui.backBtn, onDetails);
@@ -310,7 +308,8 @@ class Locations extends Module {
     listItems.forEach((listNode, index) => {
       const { parentElement } = listNode;
       const searchText = listNode.hasAttribute('data-filter-attr')
-        ? listNode.getAttribute('data-filter-attr') : listNode.innerText;
+        ? listNode.getAttribute('data-filter-attr')
+        : listNode.innerText;
       if (pattern.test(searchText)) {
         this.ui.map.dispatchEvent(MapView.extMarkerShowHide(index, true));
         parentElement.style.removeProperty('display');
@@ -329,10 +328,15 @@ class Locations extends Module {
     if (countHidden === listItems.length) {
       if (this.ui.emptyListHint) {
         this.ui.emptyListHint.childNodes.forEach((childNode) => {
-          if (!childNode.hasChildNodes() && childNode.textContent
-            && childNode.textContent.trim().length > 0) {
-            childNode.textContent = this.ui.notFoundTextTemplate.content
-              .textContent.replace('{searchTerm}', filterText);
+          if (
+            !childNode.hasChildNodes() &&
+            childNode.textContent &&
+            childNode.textContent.trim().length > 0
+          ) {
+            childNode.textContent = this.ui.notFoundTextTemplate.content.textContent.replace(
+              '{searchTerm}',
+              filterText
+            );
           }
         });
       }
@@ -344,8 +348,9 @@ class Locations extends Module {
     if (autoOpenSingleItem && listItems.length - countHidden === 1) {
       setTimeout(() => {
         this.toggleLocationDetails(lastIndex, true);
-        this.ui.map.dispatchEvent(new CustomEvent(MapView
-          .events.fixMarker, { detail: { idx: lastIndex } }));
+        this.ui.map.dispatchEvent(
+          new CustomEvent(MapView.events.fixMarker, { detail: { idx: lastIndex } })
+        );
       }, 0);
     }
 
@@ -359,9 +364,12 @@ class Locations extends Module {
   }
 
   private showLocationDetailsForIndex(indexToShow: number, setHeadFocus: boolean = true): void {
-    if (this.ui.detailNodes && [].slice.call(this.ui.detailNodes).length > 0
-      && this.ui.detailNodes[0]) {
-      (<HTMLDivElement[]> this.ui.detailNodes).forEach((detailsContainer, i) => {
+    if (
+      this.ui.detailNodes &&
+      [].slice.call(this.ui.detailNodes).length > 0 &&
+      this.ui.detailNodes[0]
+    ) {
+      (<HTMLDivElement[]>this.ui.detailNodes).forEach((detailsContainer, i) => {
         if (i === indexToShow) {
           detailsContainer.classList.add(this.options.stateClasses.detailShow);
           detailsContainer.setAttribute('aria-hidden', 'false');
@@ -374,7 +382,7 @@ class Locations extends Module {
         });
       });
     } else {
-      const detailsContainer = <HTMLDivElement> this.ui.detailNodes;
+      const detailsContainer = <HTMLDivElement>this.ui.detailNodes;
       if (detailsContainer) {
         if (indexToShow === 0) {
           detailsContainer.classList.add(this.options.stateClasses.detailShow);

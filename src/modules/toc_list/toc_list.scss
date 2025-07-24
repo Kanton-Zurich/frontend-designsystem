@@ -1,0 +1,53 @@
+$fontsizecurveEDirectoryLarge: (
+  xsmall: $sizeLarge,
+  medium: $sizeSmallBig,
+  xlarge: $sizeBiggerBig,
+);
+
+.mdl-toc-list {
+  @include gridBleed($fullwidth: true);
+  padding-top: pxToRem($sizeBig);
+  padding-bottom: pxToRem($sizeBig);
+  background-color: $colorBlack5;
+
+  &__header {
+    position: relative;
+
+    .atm-text_link {
+      position: absolute;
+      display: flex;
+      bottom: 0;
+      right: 0;
+      font-size: pxToRem($sizeFontRegular);
+      line-height: $sizeLineHeightSuper;
+      align-items: flex-end;
+    }
+
+    // Overwrite heading atom style
+    .atm-heading {
+      margin-top: pxToRem($sizeBig);
+      margin-bottom: pxToRem($sizeLarge);
+    }
+  }
+
+  &__content {
+    background: transparent;
+    height: auto;
+  }
+
+  &--e-directory {
+    .mdl-toc-list__header {
+      .atm-heading {
+        @include polyFluidSizing('font-size', $fontsizecurveEDirectoryLarge);
+      }
+    }
+
+    .mdl-accordion {
+      padding-bottom: $sizeBiggerBig;
+
+      .atm-heading {
+        padding-top: 0;
+      }
+    }
+  }
+}

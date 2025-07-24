@@ -1,4 +1,10 @@
-<div class="mdl-news-overview" data-init="newsOverview" data-source="/mocks/modules/news_overview/news_overview.json" data-order-by="new">
+<div
+  class="mdl-news-overview"
+  data-anchornav="fullwidth"
+  data-init="newsOverview"
+  data-source="/mocks/modules/news_overview/news_overview.json"
+  data-order-by="new"
+>
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="cell">
@@ -18,7 +24,7 @@
           <div class="mdl-news-teaser mdl-news-overview__topnews">
             <h3 class="visuallyhidden">Top News</h3>
             <div class="mdl-news-teaser__content">
-          {{> "modules/teaser/teaser" prominentTeaser}}
+              {{> "modules/teaser/teaser" prominentTeaser}}
             </div>
             <div class="mdl-news-teaser__content">
               <ul>
@@ -53,7 +59,7 @@
           <div class="mdl-news-teaser mdl-news-overview__newsgrid">
             <div class="mdl-news-teaser__content">
               <div class="mdl-news-overview__no-results">
-                <h4 class=" atm-heading">{{noResults}}</h4>
+                <h3 class="atm-heading h4">{{noResults}}</h3>
                 <p class="atm-paragraph">{{noResultsSubText}}</p>
               </div>
               <script data-teaser-template type="text/x-handlebars-template">

@@ -1,12 +1,16 @@
 <div class="
   mdl-content_nav
-  {{#if forceTwoColums}}mdl-content_nav--two-columns{{/if}}
-  {{#unless forceTwoColumns}}
+  {{#if forceTwoColumns}}
+    {{#ifLengthBetween items 1 1}}mdl-content_nav--single-column
+    {{else}}mdl-content_nav--two-columns
+    {{/ifLengthBetween}}
+  {{else}}
     {{#ifLengthBetween items 1 1}}mdl-content_nav--single-column{{/ifLengthBetween}}
     {{#ifLengthBetween items 2 4}}mdl-content_nav--two-columns{{/ifLengthBetween}}
-  {{/unless}}
+  {{/if}}
+
   {{#if additionalClasses}} {{{additionalClasses}}}{{/if}}"
-  {{#if anchorNavReference}} id="{{anchorNavReference}}"{{/if}}
+  {{#if anchorNavReference}} id="{{anchorNavReference}}" data-anchornav="target"{{/if}}
   data-init="contentNav"
   aria-live="polite"
   {{#if selector}}{{{selector}}}{{/if}}

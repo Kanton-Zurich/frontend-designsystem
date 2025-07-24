@@ -18,31 +18,34 @@ const data = _.merge({}, defaultData, {
     pageURL: 'pages/topic/topic.html',
   },
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
-
-      code: {
-        template: templateConverter(template),
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Default',
+        desc: 'Default implementation',
       },
     },
-  });
+  },
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-  return variantData;
-});
+        code: {
+          template: templateConverter(template),
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
+      },
+    });
+
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

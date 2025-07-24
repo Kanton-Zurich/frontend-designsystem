@@ -34,7 +34,6 @@
       min-width: 50%;
     }
 
-
     @include mq($from: tiny, $to: small) {
       display: block;
 

@@ -3,13 +3,18 @@
     display: none;
   }
 
-  .mdl-button_group {
-    display: none;
+  &__slides {
+    flex-direction: column;
+    align-items: flex-end;
   }
 
   .mdl-image-figure {
     &__img {
       max-height: 20rem !important; // stylelint-disable-line
     }
+  }
+
+  &__control-wrapper {
+    display: none;
   }
 }

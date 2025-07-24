@@ -1,21 +1,35 @@
 
-<div{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-accordion{{#if indented}} mdl-accordion--indented{{/if}} {{#if isInverted}}mdl-accordion--cv-inverted cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10{{/if}}{{#if toggleAll}} mdl-accordion--toggleall{{/if}} {{#if smallerHeadings}}mod-smaller-headings{{/if}}"
-                                                            {{#if storeOrigin}}data-accordion-store-origin {{/if}}{{#unless singleMode}}data-init="accordion"{{/unless}}>
-{{#if isInverted}}
+<div
+  class="mdl-accordion
+  {{#if indented}}mdl-accordion--indented{{/if}}
+  {{#if hasBackground}}mdl-accordion--cv-inverted cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10{{/if}}
+  {{#if isContact}}mdl-accordion--contact{{/if}}
+  {{#if toggleAll}}mdl-accordion--toggleall{{/if}}
+  {{#if smallerHeadings}}mod-smaller-headings{{/if}}"
+  {{#if storeOrigin}}data-accordion-store-origin{{/if}}
+  {{#if hasBackground}}data-anchornav="fullwidth"{{/if}}
+  {{#unless singleMode}}data-init="accordion"{{/unless}}
+>
+{{#if hasBackground}}
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
       <div class="cell {{#if indented}}medium-offset-1 small-12 medium-10{{else}}small-offset-2 medium-offset-2 small-10 medium-9{{/if}} large-offset-2 large-8">
 {{/if}}
-  {{#if accordionHeading.title}}
-    <h{{accordionHeading.level}} class="atm-heading {{#unless smallerHeadings}}atm-heading--bordered{{/unless}}">
-      {{accordionHeading.title}}
-    </h{{accordionHeading.level}}>
+  {{#if heading.title}}
+    <h{{heading.level}}
+      {{#if anchorNavReference}} id="{{anchorNavReference}}" data-anchornav="target"{{/if}}
+      class="atm-heading
+      {{#if_compare heading.visualLevel "!==" heading.level}}h{{heading.visualLevel}}{{/if_compare}}
+      {{#if_compare heading.visualLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+    >
+      {{heading.title}}
+    </h{{heading.level}}>
   {{/if}}
   <p class="visuallyhidden">Verwenden Sie die Akkordeon-Bedienelemente, um die Sichtbarkeit der jeweiligen Panels (unterhalb der Bedienelemente) umzuschalten.</p>
   <div>
     {{#if singleMode}}
       {{#each items}}
-      <h{{increment ../accordionHeading.level}} class="mdl-accordion__control">{{title}}</h{{increment ../accordionHeading.level}}>
+      <h{{increment ../heading.level}} class="mdl-accordion__control">{{title}}</h{{increment ../heading.level}}>
           <div class="mdl-accordion__panel-content" data-accordion="panel-content">
             {{#each children}}
               {{#if text}}
@@ -31,24 +45,25 @@
       {{#each items}}
         <div class="mdl-accordion__item{{#if additionalClass}} {{additionalClass}}{{/if}}"{{#if additionalAttribute}} {{additionalAttribute}}{{/if}} data-accordion="item">
           {{#if isLink}}
-            <h{{increment ../accordionHeading.level}} class="mdl-accordion__header">
-              <a href="#" class="mdl-accordion__button{{#if subHead}} mdl-accordion__button--subhead{{/if}}">
+            <h{{increment ../heading.level}} class="mdl-accordion__header">
+              <a href="#" class="mdl-accordion__button{{#if subHead}} mdl-accordion__button--subhead{{/if}}"
+                {{#if ariaControls}}aria-controls="{{ariaControls}}"{{/if}}
+              >
                 {{#if subHead}}<span class="mdl-accordion__button--subhead__flexbox">{{/if}}
                 {{#if titlePrefix}}<span class="mdl-accordion__title-prefix">{{titlePrefix}}</span>{{/if}}
                 <span class="mdl-accordion__control">
                   {{title}}
                 </span>
                 <svg class="icon mdl-accordion__plus" focusable="false">
-                  <use class="vertical" xlink:href="#arrow-right" data-accordion="verticalIcon"></use>
                   <use xlink:href="#arrow-right"></use>
                 </svg>
                 {{#if subHead}}</span>
                   <span class="mdl-accordion__subhead">{{subHead}}</span>{{/if}}
               </a>
-            </h{{increment ../accordionHeading.level}}>
+            </h{{increment ../heading.level}}>
           {{/if}}
           {{#unless isLink}}
-          <h{{increment ../accordionHeading.level}} class="mdl-accordion__header">
+          <h{{increment ../heading.level}} class="mdl-accordion__header">
             <button class="mdl-accordion__button{{#if subHead}} mdl-accordion__button--subhead{{/if}}" aria-expanded="false" data-accordion="trigger" type="button"{{#if accordionPanelID}} id="{{accordionPanelID}}"{{/if}}>
               {{#if subHead}}<span class="mdl-accordion__button--subhead__flexbox">{{/if}}
               {{#if titlePrefix}}<span class="mdl-accordion__title-prefix">{{titlePrefix}}</span>{{/if}}
@@ -62,7 +77,7 @@
               {{#if subHead}}</span>
                 <span class="mdl-accordion__subhead">{{subHead}}</span>{{/if}}
             </button>
-          </h{{increment ../accordionHeading.level}}>
+          </h{{increment ../heading.level}}>
           <div class="mdl-accordion__panel" data-accordion="panel">
             <div class="mdl-accordion__panel-content" data-accordion="panel-content">
               {{#each children}}
@@ -79,7 +94,7 @@
       {{/each}}
     {{/unless}}
   </div>
-  {{#if isInverted}}
+  {{#if hasBackground}}
       </div>
     </div>
   </div>

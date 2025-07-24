@@ -18,70 +18,91 @@ const data = _.merge({}, defaultData, {
     value: 'value',
   },
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Standard',
-      desc: '',
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Standard',
+        desc: '',
+      },
     },
-  },
-  checked: {
-    meta: {
-      title: 'Ausgewählt',
-      desc: '',
+    checked: {
+      meta: {
+        title: 'Ausgewählt',
+        desc: '',
+      },
+      props: {
+        isChecked: true,
+      },
     },
-    props: {
-      isChecked: true,
+    disabled: {
+      meta: {
+        title: 'Deaktiviert',
+        desc: 'nicht klick- bzw. auswählbar',
+      },
+      props: {
+        isDisabled: true,
+      },
     },
-  },
-  disabled: {
-    meta: {
-      title: 'Deaktiviert',
-      desc: 'nicht klick- bzw. auswählbar',
+    required: {
+      meta: {
+        title: 'Erforderlich',
+        desc: '',
+      },
+      props: {
+        validation: {
+          isRequired: true,
+        },
+      },
     },
-    props: {
-      isDisabled: true,
+    withHint: {
+      meta: {
+        title: 'Mit Hinweis',
+        desc: 'zusätzlicher Erklärungstext',
+      },
+      props: {
+        label: 'Qualifizierte Beteiligungen',
+        hint: 'von wenigstens 10% an Aktien-, Grund- oder Stammkapital',
+        id: 'wihthint',
+      },
     },
-  },
-  required: {
-    meta: {
-      title: 'Erforderlich',
-      desc: '',
-    },
-    props: {
-      validation: {
-        isRequired: true,
+    withDataParams: {
+      meta: {
+        title: 'Mit data-Attributen',
+        desc: 'zusätzliche data-Attribute',
+      },
+      props: {
+        data: [
+          {
+            key: 'testdata',
+            value: 'testvalue',
+          },
+          {
+            key: 'testdata2',
+            value: 'testvalue2',
+          },
+        ],
       },
     },
   },
-  withHint: {
-    meta: {
-      title: 'Mit Hinweis',
-      desc: 'zusätzlicher Erklärungstext',
-    },
-    props: {
-      label: 'Qualifizierte Beteiligungen',
-      hint: 'von wenigstens 10% an Aktien-, Grund- oder Stammkapital',
-      id: 'wihthint',
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        data: dataHelper.getFormattedJson(variantProps),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          data: dataHelper.getFormattedJson(variantProps),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+        },
       },
-    },
-  });
+    });
 
-  return variantData;
-});
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

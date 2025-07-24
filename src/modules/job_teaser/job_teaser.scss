@@ -9,6 +9,7 @@
   @include sizeCurve(margin-bottom, marginBottom, $teaserMargins);
 
   .mdl-teaser {
+    cursor: initial;
     margin-bottom: 0;
   }
 

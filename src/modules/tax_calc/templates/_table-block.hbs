@@ -6,7 +6,7 @@
                 <table class="mdl-table__table" data-table="table">
                     <thead>
                         <tr class="mdl-table__row">
-                        <% _.forEach(headRow, function(entry, index) { %>
+                        <% headRow.forEach((entry, index) => { %>
                             <th scope="col" class="mdl-table__cell mdl-table__column-header ">
                                 <span><%=entry%></span>
                             </th>
@@ -14,9 +14,9 @@
                         </tr>
                     </thead>
                     <tbody class="mdl-table__body">
-                    <% _.forEach(bodyRows, function(row, index) { %>
+                    <% bodyRows.forEach((row, index) => { %>
                         <tr class="mdl-table__row mdl-table__row">
-                        <% _.forEach(row.entries, function(entry, index) { %>
+                        <% row.entries.forEach((entry, index) => { %>
                             <% if(index === 0) { %>
                             <td scope="row" class="mdl-table__cell mdl-table__row-header<% if(row.isHighlighted) { %> mdl-table__cell--highlighted<% } %>" data-table="cell">
                                 <%=entry%>

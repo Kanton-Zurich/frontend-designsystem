@@ -26,7 +26,7 @@ A string that will be attached at the end of the tooltip text.
 This number indicates how many decimals will be after the zero dot.
 
 - **data-tooltipthousand** (Value: Char/String)
-This symbol will be used to seperate thousands e.g. 10000 will become 10‘000.
+This symbol will be used to separate thousands e.g. 10000 will become 10‘000.
 
 #### Configuring Tickmark/ Pips: 
 (for further informations see https://refreshless.com/nouislider/pips/)

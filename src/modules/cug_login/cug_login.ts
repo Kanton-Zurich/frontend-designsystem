@@ -11,6 +11,7 @@ import {
 } from './cug_login.options';
 import UserMenu from '../user_menu/user_menu';
 
+// eslint-disable-next-line no-unused-vars
 interface LoginResponse {
   isAuthenticated: boolean;
   isAuthorized: boolean;
@@ -20,23 +21,22 @@ class CugLogin extends Module {
   public options: CugLoginModuleOptions;
 
   public ui: {
-    element: HTMLElement,
-    configuredAuthorizeEndpoint: HTMLInputElement,
-    configuredRedirectUrl: HTMLInputElement,
-    logoutBtn: HTMLElement,
-    loginBtn: HTMLElement,
-    usernameInput: HTMLInputElement,
-    passwordInput: HTMLInputElement,
-    showPasswordBtn: HTMLElement,
-    loginForm: HTMLFormElement,
-    notification: HTMLDivElement,
+    element: HTMLElement;
+    configuredAuthorizeEndpoint: HTMLInputElement;
+    configuredRedirectUrl: HTMLInputElement;
+    logoutBtn: HTMLElement;
+    loginBtn: HTMLElement;
+    usernameInput: HTMLInputElement;
+    passwordInput: HTMLInputElement;
+    showPasswordBtn: HTMLElement;
+    loginForm: HTMLFormElement;
+    notification: HTMLDivElement;
   };
 
   private devMode: boolean;
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
 
     super($element, defaultData, CugLoginDefaultOptions, data, options);
 
@@ -129,46 +129,55 @@ class CugLogin extends Module {
       this.postFormData(this.ui.loginForm)
         .then((loginResp) => {
           this.log('Response to login request: ', loginResp);
-          if (loginResp.status === 200) { // eslint-disable-line
+          // eslint-disable-next-line
+          if (loginResp.status === 200) {
             if (this.devMode && ['admin', 'user', 'offline'].indexOf(username) < 0) {
               this.ui.element.classList.add(this.options.stateClasses.credentialsFailed);
               this.ui.notification.setAttribute('aria-hidden', 'false');
               this.ui.notification.focus();
             } else {
-              this.fetchJsonData(endpointAuthorize, false).then((authorizeResp) => {
-                if (authorizeResp.status === 200) { // eslint-disable-line
-                  if (this.devMode && username !== 'admin') {
+              this.fetchJsonData(endpointAuthorize, false)
+                .then((authorizeResp) => {
+                  // eslint-disable-next-line
+                  if (authorizeResp.status === 200) {
+                    if (this.devMode && username !== 'admin') {
+                      document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
+                      this.ui.element.classList.add(this.options.stateClasses.unauthorised);
+                      this.ui.logoutBtn.focus();
+                    } else {
+                      document.addEventListener(UserMenu.events.stateFetched, () => {
+                        this.redirect(this.ui.configuredRedirectUrl.value);
+                      });
+                      document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
+                    }
+                  }
+                  // eslint-disable-next-line
+                  else if (authorizeResp.status === 404) {
                     document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
                     this.ui.element.classList.add(this.options.stateClasses.unauthorised);
                     this.ui.logoutBtn.focus();
                   } else {
-                    document.addEventListener(UserMenu.events.stateFetched, () => {
-                      this.redirect(this.ui.configuredRedirectUrl.value);
-                    });
-                    document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
+                    throw new Error(authorizeResp.status);
                   }
-                } else if (authorizeResp.status === 404) { // eslint-disable-line
-                  document.dispatchEvent(new CustomEvent(UserMenu.events.updateState));
-                  this.ui.element.classList.add(this.options.stateClasses.unauthorised);
-                  this.ui.logoutBtn.focus();
-                } else {
-                  throw new Error(authorizeResp.status);
-                }
-              }).catch((reason) => {
-                this.log('Failed to connect api for user login.', reason);
-                this.ui.element.classList.add(this.options.stateClasses.connectionFail);
-                this.ui.notification.setAttribute('aria-hidden', 'false');
-                this.ui.notification.focus();
-              });
+                })
+                .catch((reason) => {
+                  this.log('Failed to connect api for user login.', reason);
+                  this.ui.element.classList.add(this.options.stateClasses.connectionFail);
+                  this.ui.notification.setAttribute('aria-hidden', 'false');
+                  this.ui.notification.focus();
+                });
             }
-          } else if (loginResp.status === 403) { // eslint-disable-line
+          }
+          // eslint-disable-next-line
+          else if (loginResp.status === 403) {
             this.ui.element.classList.add(this.options.stateClasses.credentialsFailed);
             this.ui.notification.setAttribute('aria-hidden', 'false');
             this.ui.notification.focus();
           } else {
             throw new Error(loginResp.status);
           }
-        }).catch((reason) => {
+        })
+        .catch((reason) => {
           this.log('Failed to connect api for user login.', reason);
           this.ui.element.classList.add(this.options.stateClasses.connectionFail);
           this.ui.notification.setAttribute('aria-hidden', 'false');

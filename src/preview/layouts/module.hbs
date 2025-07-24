@@ -1,15 +1,14 @@
 <!doctype html>
-<!--[if IE 7]>         <html lang="de" class="no-js ie7 lte-ie9 lte-ie8 lte-ie7"> <![endif]-->
-<!--[if IE 8]>         <html lang="de" class="no-js ie8 lte-ie9 lte-ie8">         <![endif]-->
-<!--[if IE 9]>         <html lang="de" class="no-js ie9 lte-ie9">                 <![endif]-->
-<!--[if gt IE 9]><!--> <html lang="de" class="no-js">                         <!--<![endif]-->
+<html lang="de" class="no-js">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>{{#if meta.title}}{{meta.title}} – {{/if}}{{meta.project}}</title>
   <meta name="format-detection" content="telephone=no">
 
-  <link rel="stylesheet" href="/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css">
+  <link rel="preload" href="/assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Inter-Black.woff2" as="font" type="font/woff2" crossorigin>
+  
 	<link rel="stylesheet" href="/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
 	<link rel="stylesheet" href="/assets/css/print{{#unless env.dev}}.min{{/unless}}.css" media="print">
 	<link rel="stylesheet" href="/preview/assets/css/main{{#unless env.dev}}.min{{/unless}}.css">
@@ -21,11 +20,11 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="application-name" content="Kanton Zürich">
   <meta name="apple-mobile-web-app-title" content="Kanton Zürich">
-  <meta name="theme-color" content="#0076BD">
-  <meta name="msapplication-navbutton-color" content="#0076BD">
+  <meta name="theme-color" content="#0070B4">
+  <meta name="msapplication-navbutton-color" content="#0070B4">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="msapplication-starturl" content="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="icon" type="image/png" href="/assets/media/icons/Favicon_48.png"/>
 
@@ -131,7 +130,7 @@
 							<div class="tab_content" id="panel{{@index}}" aria-labelledby="tabLabel{{@index}}">
                 <div class="preview-separator">Beginn Vorschau</div>
                 <div class="lyt-wrapper lyt-main-grid">
-                  <div class="sg_demo {{#if props.isInverted}}sg_demo--inverted{{/if}} grid-x grid-margin-x">
+                  <div class="sg_demo {{#if props.isInverted}}cv-inverted{{/if}} grid-x grid-margin-x">
                     {{#if meta.noOffset}}
                       <div class="cell tiny-12">
                         {{{meta.demo}}}
@@ -193,7 +192,7 @@
 
 				{{#each variants}}
           <div class="preview-separator">Beginn Vorschau</div>
-					<div class="sg_demo {{#if props.isInverted}}sg_demo--inverted{{/if}}">
+					<div class="sg_demo {{#if props.isInverted}}cv-inverted{{/if}}">
 						{{#block "content"}}
 							{{{meta.demo}}}
 						{{/block}}

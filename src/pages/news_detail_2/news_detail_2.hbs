@@ -1,20 +1,26 @@
-{{#extend "layouts/layout"}}
-  {{#content "header"}}
+{{#extend "layouts/layout_detail"}}
+  {{#content "pageheader"}}
     {{> "modules/page_header/page_header" props.modules.pageHeaderData}}
   {{/content}}
 
   {{#content "content"}}
+    <div class="mdl-anchornav__wrapper">
+      {{> "modules/lead_section/lead_section" props.modules.leadSectionData}}
+    </div>
     {{> "modules/image_figure/image_figure" props.modules.imageFigureData.variants.default.props}}
     {{> "modules/linklist/linklist" props.modules.linklistData }}
     {{> "modules/person_card/person_card" props.modules.personCardData}}
     {{> "modules/image_gallery/image_gallery" props.modules.imageGalleryData }}
     {{> "modules/download_list/download_list" props.modules.downloadListData }}
+  {{/content}}
+
+  {{#content "pagefooter"}}
     {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
     {{> "modules/tag_group/tag_group" props.modules.tagGroupData }}
   {{/content}}
 
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData}}
-    {{> "modules/back2top/back2top" props.modules.back2topData}}
+    {{> "modules/back_to/back_to" props.modules.backToData}}
   {{/content}}
 {{/extend}}

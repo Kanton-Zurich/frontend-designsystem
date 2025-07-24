@@ -1,4 +1,4 @@
-import { Delegate } from 'dom-delegate';
+import Delegate from 'ftdomdelegate/main';
 import debounce from 'lodash/debounce';
 import throttle from 'raf-throttle';
 
@@ -19,7 +19,7 @@ import throttle from 'raf-throttle';
 
 class WindowEventListener {
   public eventDelegate = new Delegate(document);
-  public eventHandlers:any = {};
+  public eventHandlers: any = {};
 
   constructor() {
     const events = {
@@ -31,7 +31,8 @@ class WindowEventListener {
       },
     };
 
-    for (const eventName of Object.keys(events)) { // eslint-disable-line no-restricted-syntax
+    for (const eventName of Object.keys(events)) {
+      // eslint-disable-line no-restricted-syntax
       this.registerDebouncedEvent(eventName, events[eventName]);
       this.registerThrottledEvent(eventName);
     }
@@ -43,9 +44,11 @@ class WindowEventListener {
    * @param {Object} data
    */
   dispatch(eventName, data) {
-    this.eventDelegate.rootElement.dispatchEvent(new CustomEvent(eventName, {
-      detail: data,
-    }));
+    this.eventDelegate.rootElement.dispatchEvent(
+      new CustomEvent(eventName, {
+        detail: data,
+      })
+    );
   }
 
   /**
@@ -59,15 +62,25 @@ class WindowEventListener {
     const methodName = eventName.charAt(0).toUpperCase() + eventName.slice(1);
     const debouncedEventName = `debounced${methodName}`;
 
-    window.addEventListener(eventName, debounce((event) => {
-      this.dispatch(debouncedEventName, {
-        originalEvent: event,
-      });
-    }, config.interval), false);
+    window.addEventListener(
+      eventName,
+      debounce((event) => {
+        this.dispatch(debouncedEventName, {
+          originalEvent: event,
+        });
+      }, config.interval),
+      false
+    );
 
     // adds a public shorthand method, e.g. addResizeListener to the WindowEventListener class
-    this[`addDebounced${methodName}Listener`] = this.addEventListener.bind(this, debouncedEventName);
-    this[`removeDebounced${methodName}Listener`] = this.removeEventListener.bind(this, debouncedEventName);
+    this[`addDebounced${methodName}Listener`] = this.addEventListener.bind(
+      this,
+      debouncedEventName
+    );
+    this[`removeDebounced${methodName}Listener`] = this.removeEventListener.bind(
+      this,
+      debouncedEventName
+    );
   }
 
   /**
@@ -80,15 +93,24 @@ class WindowEventListener {
     const methodName = eventName.charAt(0).toUpperCase() + eventName.slice(1);
     const throttledEventName = `throttled${methodName}`;
 
-    window.addEventListener(eventName, throttle((event) => {
-      this.dispatch(throttledEventName, {
-        originalEvent: event,
-      });
-    }));
+    window.addEventListener(
+      eventName,
+      throttle((event) => {
+        this.dispatch(throttledEventName, {
+          originalEvent: event,
+        });
+      })
+    );
 
     // adds a public shorthand method, e.g. addResizeListener to the WindowEventListener class
-    this[`addThrottled${methodName}Listener`] = this.addEventListener.bind(this, throttledEventName);
-    this[`removeThrottled${methodName}Listener`] = this.removeEventListener.bind(this, throttledEventName);
+    this[`addThrottled${methodName}Listener`] = this.addEventListener.bind(
+      this,
+      throttledEventName
+    );
+    this[`removeThrottled${methodName}Listener`] = this.removeEventListener.bind(
+      this,
+      throttledEventName
+    );
   }
 
   /**

@@ -1,0 +1,48 @@
+{{#if preview}}
+  <!-- Helper markup (do not include) -->
+  <button class="atm-button atm-button--big"
+          onclick="document.getElementById('{{dialogId}}').dispatchEvent(new CustomEvent('Dialog.open'))">Dialog anzeigen
+  </button>
+  <!-- /  Helper markup -->
+{{/if}}
+<div id="{{dialogId}}" class="mdl-dialog
+  {{#if additionalClasses}}{{{additionalClasses}}}{{/if}}
+" role="dialog" aria-hidden="true" data-init="dialog" data-dialog="close"
+>
+  <div class="mdl-dialog__window" role="document">
+    <form class="mdl-dialog__form" novalidate{{#if action}} action="{{action}}"{{/if}}{{#if method}} method="{{method}}"{{/if}}>
+      <div class="mdl-dialog__scroll-area">
+        <header class="mdl-dialog__header">
+          {{#if dialogTitle}}<h1 class="mdl-dialog__title atm-heading">{{dialogTitle}}</h1>{{/if}}
+
+          {{#if additionalActionButton }}
+          <button class="mdl-dialog__additional-action" type="button">
+            {{#if additionalActionButton.label }}{{additionalActionButton.label}}{{/if}}
+            <svg class="icon" focusable="false">
+              <use xlink:href="#{{additionalActionButton.icon}}"></use>
+            </svg>
+          </button>
+          {{/if}}
+
+          <button class="mdl-dialog__close" type="button">
+            <span class="visuallyhidden">{{closeButtonLabel}}</span>
+            <svg class="icon" focusable="false">
+              <use xlink:href="#exit"></use>
+            </svg>
+          </button>
+        </header>
+        <div class="mdl-dialog__content">
+          {{#each modules.contentModules}}
+            <!-- Dialog content -->
+            {{{this}}}
+          {{/each}}
+        </div>
+      </div>
+      <footer class="mdl-dialog__footer">
+        {{#each footerButtons}}
+          {{> "atoms/button/button" this}}
+        {{/each}}
+      </footer>
+    </form>
+  </div>
+</div>

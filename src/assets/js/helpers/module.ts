@@ -1,8 +1,8 @@
-import { Delegate } from 'dom-delegate';
+import Delegate from 'ftdomdelegate/main';
 import extend from 'lodash/extend';
 import uniqueId from 'lodash/uniqueId';
 import namespace from './namespace';
-import wrist from 'wrist';
+import { watch } from 'wrist';
 
 class Module {
   public name: string;
@@ -103,11 +103,11 @@ class Module {
     if (Object.prototype.hasOwnProperty.call(watchable, propertyName) || isDomElement) {
       let watcher = null;
       if (isDomElement) {
-        watcher = wrist.watch(watchable, propertyName, (propName, oldVal, newVal) => {
+        watcher = watch(watchable, propertyName, (propName, oldVal, newVal) => {
           callback(propName, oldVal, newVal, watchable);
         });
       } else {
-        watcher = wrist.watch(watchable, propertyName, callback);
+        watcher = watch(watchable, propertyName, callback);
       }
 
       this.watchers[propertyName] = watcher;
@@ -131,11 +131,12 @@ class Module {
     domSelectorKeys.forEach((selectorKey) => {
       const wrapInArray = enforceNodeList.indexOf(selectorKey) !== -1;
 
-      const queryElements = this.ui.element
-        .querySelectorAll(this.options.domSelectors[selectorKey]);
+      const queryElements = this.ui.element.querySelectorAll(
+        this.options.domSelectors[selectorKey]
+      );
 
-      this.ui[selectorKey] = queryElements.length > 1 || wrapInArray
-        ? queryElements : queryElements[0];
+      this.ui[selectorKey] =
+        queryElements.length > 1 || wrapInArray ? queryElements : queryElements[0];
     });
   }
 
@@ -180,7 +181,7 @@ class Module {
     }
     for (let i = 0; i < strlen; i += 1) {
       const c = s.charCodeAt(i);
-      hash = ((hash << 5) - hash) + c; // eslint-disable-line
+      hash = (hash << 5) - hash + c; // eslint-disable-line
       hash = hash & hash; // eslint-disable-line
     }
     return hash;
@@ -216,12 +217,10 @@ class Module {
    * Update flying focus with a delay
    */
   updateFlyingFocus(delay = 0) {
-    this.log('flying focus', document.activeElement);
     setTimeout(() => {
       (<any>window).estatico.flyingFocus.doFocusOnTarget(document.activeElement);
     }, delay);
   }
-
 
   /**
    * Fetch json data
@@ -229,20 +228,15 @@ class Module {
    * @param url endpoint URL to fetch data from
    */
   async fetchJsonData(url: string, managed: boolean = true): Promise<any> {
-    if (!window.fetch) {
-      await import('whatwg-fetch');
-    }
-
     if (managed) {
       return fetch(url)
-        .then(response => response.json())
+        .then((response) => response.json())
         .catch((err) => {
           this.log('error', err);
           throw new Error(`Failed to fetch data from "${url}"!`);
         });
     }
-    return fetch(url)
-      .then(response => response);
+    return fetch(url).then((response) => response);
   }
 
   /**
@@ -276,7 +270,8 @@ class Module {
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
-          if (xhr.status >= 200 && xhr.status < 300) { // eslint-disable-line no-magic-numbers
+          // eslint-disable-next-line no-magic-numbers
+          if (xhr.status >= 200 && xhr.status < 300) {
             try {
               resolve(JSON.parse(xhr.responseText));
             } catch (e) {
@@ -313,7 +308,8 @@ class Module {
     const singleDigitDays = 10;
 
     if (date.getMonth && date.getDate && date.getFullYear) {
-      const month = date.getMonth() < singleDigitMonth ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+      const month =
+        date.getMonth() < singleDigitMonth ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
       const day = date.getDate() < singleDigitDays ? `0${date.getDate()}` : date.getDate();
 
       return `${date.getFullYear()}-${month}-${day}`;
@@ -334,12 +330,21 @@ class Module {
       const len = form.elements.length;
       for (let i = 0; i < len; i += 1) {
         field = form.elements[i];
-        if (field.name && !field.disabled && field.type !== 'file' && field.type !== 'reset' && field.type !== 'submit' && field.type !== 'button') {
+        if (
+          field.name &&
+          !field.disabled &&
+          field.type !== 'file' &&
+          field.type !== 'reset' &&
+          field.type !== 'submit' &&
+          field.type !== 'button'
+        ) {
           if (field.type === 'select-multiple') {
             l = form.elements[i].options.length;
             for (let j = 0; j < l; j += 1) {
               if (field.options[j].selected) {
-                s[s.length] = `${encodeURIComponent(field.name)}=${encodeURIComponent(field.options[j].value)}`;
+                s[s.length] = `${encodeURIComponent(field.name)}=${encodeURIComponent(
+                  field.options[j].value
+                )}`;
               }
             }
           } else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {

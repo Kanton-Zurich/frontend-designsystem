@@ -1,0 +1,35 @@
+<div class="mdl-dataset{{#if withStatus}} mdl-dataset--with-status{{/if}}{{#if icon}} mdl-dataset--with-icon{{/if}}" data-init="dataset">
+  <h{{headingLevel}} class="mdl-dataset__title atm-heading">
+    {{heading}}
+  </h{{headingLevel}}>
+
+  {{#if icon}}
+    <div class="mdl-dataset__icon">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#{{icon}}"></use>
+      </svg>
+    </div>
+  {{/if}}
+
+  {{#if withStatus}}
+    <div class="mdl-dataset__status">
+      <p class="atm-tag{{#if status.modifier}} atm-tag--{{status.modifier}}{{/if}}">
+        {{#if status.icon}}<span class="atm-tag__icon">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#{{status.icon}}"></use>
+          </svg>
+        </span>{{/if}}
+        <span class="atm-tag__text">{{status.text}}</span>
+      </p>
+    </div>
+  {{/if}}
+
+  <dl class="mdl-dataset__meta-list">
+    {{#each meta}}
+      <div>
+        <dt class="mdl-dataset__meta-term">{{this.term}}</dt>
+        <dd class="mdl-dataset__meta-data">{{this.data}}</dd>
+    </div>
+    {{/each}}
+  </dl>
+</div>

@@ -1,6 +1,6 @@
-import noUiSlider from 'nouislider';
+import { create } from 'nouislider';
 import wNumb from 'wnumb';
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 /*!
  * Slider
  *
@@ -32,39 +32,39 @@ class Range extends Module {
   public tooltips: Array<any>;
 
   public tooltip: {
-    decimals: number,
-    thousand: string,
-    suffix: string,
+    decimals: number;
+    thousand: string;
+    suffix: string;
   };
 
   public ui: {
-    element: any,
-    slider: any,
-    input: any,
+    element: any;
+    slider: any;
+    input: any;
   };
 
   public options: {
     domSelectors: {
-      slider: string,
-      input: string,
-    },
+      slider: string;
+      input: string;
+    };
     stateClasses: {
-      tickmarks: string,
-      tickmarksLabels: string,
-    },
+      tickmarks: string;
+      tickmarksLabels: string;
+    };
     dataSelectos: {
-      rangeMin: string,
-      rangeMax: string,
-      rangeHandleOne: string,
-      rangeHandleTwo: string,
-      rangeSteps: string,
-      rangeTooltipDecimals: string,
-      rangeTooltipSuffix: string,
-      rangeTooltipThousand: string,
-      rangeTickmarkMode: string,
-      rangeTickmarkValues: string,
-      rangeTickmarkDensity: string,
-    },
+      rangeMin: string;
+      rangeMax: string;
+      rangeHandleOne: string;
+      rangeHandleTwo: string;
+      rangeSteps: string;
+      rangeTooltipDecimals: string;
+      rangeTooltipSuffix: string;
+      rangeTooltipThousand: string;
+      rangeTickmarkMode: string;
+      rangeTickmarkValues: string;
+      rangeTickmarkDensity: string;
+    };
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -95,8 +95,9 @@ class Range extends Module {
 
     super($element, defaultData, defaultOptions, data, options);
 
-    this.hasTickmarks = this.ui.element.classList.contains(this.options.stateClasses.tickmarks)
-      || this.ui.element.classList.contains(this.options.stateClasses.tickmarksLabels);
+    this.hasTickmarks =
+      this.ui.element.classList.contains(this.options.stateClasses.tickmarks) ||
+      this.ui.element.classList.contains(this.options.stateClasses.tickmarksLabels);
 
     this.handles = [];
 
@@ -167,7 +168,8 @@ class Range extends Module {
     this.handlePositions = [];
     this.handlePositions.push(this.handleOne);
 
-    if (isNaN(this.handleTwo)) { // eslint-disable-line
+    if (isNaN(this.handleTwo)) {
+      // eslint-disable-line
       this.rangeConnects = [true, false];
     } else {
       // Two handles
@@ -219,7 +221,7 @@ class Range extends Module {
    * to synchronize the values with the hidden input
    */
   initSliderPlugin() {
-    noUiSlider.create(this.ui.slider, this.usedConfig);
+    create(this.ui.slider, this.usedConfig);
 
     const firstHandle = this.ui.slider.querySelector('.noUi-handle-lower');
     const secondHandle = this.ui.slider.querySelector('.noUi-handle-upper');

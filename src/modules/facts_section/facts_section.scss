@@ -1,0 +1,18 @@
+$colorWhite70: rgba($colorWhite, 0.7);
+
+.mdl-facts_section {
+  --color-text-hover: #{$colorWhite70};
+
+  @include gridBleed($fullwidth: true);
+  @include sizeCurve('padding-bottom', big);
+
+  &__title {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, big));
+  }
+
+  &__rows {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem($sizeBig);
+  }
+}

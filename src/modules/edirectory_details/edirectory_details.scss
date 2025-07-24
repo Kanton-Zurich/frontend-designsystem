@@ -1,0 +1,18 @@
+.mdl-edirectory_details {
+  @include sizeCurve(margin-block, big);
+  @include sizeCurve(gap, big);
+
+  display: flex;
+  flex-direction: column;
+
+  &__contacts {
+    @include sizeCurve(gap, large);
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__contacts:has(.mdl-contact_block.hidden + .mdl-contact_block.hidden) {
+    display: none;
+  }
+}

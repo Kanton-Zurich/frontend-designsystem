@@ -8,10 +8,12 @@ const defFigcaptionData = require('../../atoms/figcaption/figcaption.data').prop
 const contextMenuDownload = require('../context_menu/context_menu.data').variants.download.props;
 
 const demoImageFigureData = {
-  srcsets: [{
-    image: '/assets/media/image/publication-teaser_5_7_372x526_x15.jpeg',
-    imageWidth: 558,
-  }],
+  srcsets: [
+    {
+      image: '/assets/media/image/publication-teaser_5_7_372x526_x15.jpeg',
+      imageWidth: 558,
+    },
+  ],
   alt: 'Das ist ein Beispielbild',
   caption: _.merge({}, defFigcaptionData, {
     caption: 'Das ist ein Bild, Quelle: Fotograf Andreas Andreasen',
@@ -27,7 +29,8 @@ const demoDescriptionListItemsData = {
     {
       item: {
         term: 'Herausgeberin und Bezug',
-        description: 'Amt für Verkehr, Empa, Bundesamt für Verkehr, Bundestam für Landwirtschaft, Statistisches Amt',
+        description:
+          'Amt für Verkehr, Empa, Bundesamt für Verkehr, Bundestam für Landwirtschaft, Statistisches Amt',
       },
     },
     {
@@ -76,45 +79,48 @@ const data = _.merge({}, defaultData, {
     descriptionList: demoDescriptionListItemsData,
   },
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-    },
-    props: {
-      linkListItem: demoLinkListItemDataMultiLanguage,
-      contextMenu: _.merge({}, contextMenuDownload, {
-        domSelector: 'data-download_list="contextMenu"',
-      }),
-    },
-  },
-  oneLanguage: {
-    meta: {
-      title: 'Einsprachiger Download',
-      desc: 'Default implementation mit einem einsprachigen Download Item',
-    },
-    props: {
-      linkListItem: demoLinkListItemDataOneLanguage,
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
-
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Default',
+        desc: 'Default implementation',
+      },
+      props: {
+        linkListItem: demoLinkListItemDataMultiLanguage,
+        contextMenu: _.merge({}, contextMenuDownload, {
+          domSelector: 'data-download_list="contextMenu"',
+        }),
       },
     },
-  });
+    oneLanguage: {
+      meta: {
+        title: 'Einsprachiger Download',
+        desc: 'Default implementation mit einem einsprachigen Download Item',
+      },
+      props: {
+        linkListItem: demoLinkListItemDataOneLanguage,
+      },
+    },
+  },
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-  return variantData;
-});
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
+      },
+    });
+
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

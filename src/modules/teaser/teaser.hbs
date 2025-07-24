@@ -1,25 +1,39 @@
-<div class="mdl-teaser__wrapper">
+<div class="mdl-teaser__wrapper" {{#if hasImage}}data-anchornav="fullwidth" {{/if}}>
   <div class="lyt-wrapper">
-    <a href="{{teaserLink}}" class="mdl-teaser{{#if defaultLeft}} mdl-teaser--left{{/if}}{{#if inverted}} mdl-teaser--inverted{{/if}}{{#unless hasImage}} mdl-teaser--noImage{{/unless}}"
-       data-init="teaser">
+    <a href="{{teaserLink}}" class="mdl-teaser
+        {{#if defaultLeft}}mdl-teaser--left{{/if}}
+        {{#if inverted}}mdl-teaser--inverted{{/if}}
+        {{#unless hasImage}}mdl-teaser--noImage{{/unless}}
+        {{#if isEasyLanguage}}mdl-teaser--with-margins{{/if}}">
       <div class="mdl-teaser__content">
-        <h{{teaserHeadingLevel}} {{#if anchorNavReference}}id="{{{anchorNavReference}}}"{{/if}} class="mdl-teaser__title atm-heading" data-lineclamp="true">
+        <h{{headingLevel}} {{#if anchorNavReference}}id="{{{anchorNavReference}}}" {{/if}} data-anchornav="target"
+          class="mdl-teaser__title atm-heading {{#if isEasyLanguage}}mdl-teaser__title--smaller{{/if}}">
           {{teaserTitle}}
-        </h{{teaserHeadingLevel}}>
-        {{#if teaserLabel}}
-          <p class="mdl-teaser__label">
-            {{teaserLabel}}
-            <time datetime="{{teaserMachineReadableDate}}">{{teaserDisplayDate}}</time>
-          </p>
-        {{else}}
-          <time class="mdl-teaser__date" datetime="{{teaserMachineReadableDate}}">{{teaserDisplayDate}}</time>
+        </h{{headingLevel}}>
+
+        {{#if teaserDisplayDate}}
+          {{#if teaserLabel}}
+            <p class="mdl-teaser__label">
+              {{teaserLabel}}
+              <time datetime="{{teaserMachineReadableDate}}">{{teaserDisplayDate}}</time>
+            </p>
+          {{else}}
+            <time class="mdl-teaser__date" datetime="{{teaserMachineReadableDate}}">{{teaserDisplayDate}}</time>
+          {{/if}}
         {{/if}}
 
-        <p data-teaser="teaserDescription" data-lineclamp="true" class="mdl-teaser__description">
-          {{teaserDescription}}
-        </p>
+        {{#if teaserDescription}}
+          <p data-teaser="teaserDescription" class="mdl-teaser__description">
+            {{teaserDescription}}
+          </p>
+        {{/if}}
         <div>
           <span class="atm-button{{#if inverted}} atm-button--cv-inverted{{/if}}">
+            {{#if isEasyLanguage}}
+              <svg class="mdl-teaser__icon-easy-language" focusable="false">
+                <use xlink:href="#easy-language"></use>
+              </svg>
+            {{/if}}
             <span class="atm-button__text ">{{teaserButtonLabel}}</span>
           </span>
         </div>
@@ -31,23 +45,21 @@
       {{/if}}
     </a>
     {{#if multiple}}
-      <a href="{{teaserLink}}"
-         class="mdl-teaser mdl-teaser--inverted"
-         data-init="teaser">
+      <a href="{{teaserLink}}" class="mdl-teaser mdl-teaser--inverted" data-init="teaser">
         <div class="mdl-teaser__content">
-          <h{{teaserHeadingLevel}} id="{{{anchorNavReference}}}" class="mdl-teaser__title atm-heading" data-lineclamp="true">
+          <h{{headingLevel}} class="mdl-teaser__title atm-heading">
             {{teaserTitle}}
-          </h{{teaserHeadingLevel}}>
+          </h{{headingLevel}}>
           <time class="mdl-teaser__date" datetime="{{teaserMachineReadableDate}}">{{teaserDisplayDate}}</time>
 
-          <p class="mdl-teaser__description" data-lineclamp="true">
+          <p class="mdl-teaser__description">
             {{teaserDescription}}
           </p>
 
           <div>
-        <span class="atm-button atm-button--cv-inverted">
-          <span class="atm-button__text ">{{teaserButtonLabel}}</span>
-        </span>
+            <span class="atm-button atm-button--cv-inverted">
+              <span class="atm-button__text ">{{teaserButtonLabel}}</span>
+            </span>
           </div>
 
         </div>

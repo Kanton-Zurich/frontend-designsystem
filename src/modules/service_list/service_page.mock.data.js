@@ -7,8 +7,10 @@ const defContactData = require('../contact/contact.data');
 dataHelper.getFileContent('service_page.mock.hbs');
 
 const data = {
-  servicePageHeaderData: _.merge({},
-    defModalData.variants.default.props.modules.servicePageHeaderData),
+  servicePageHeaderData: _.merge(
+    {},
+    defModalData.variants.default.props.modules.servicePageHeaderData
+  ),
   canonical: 'http://www.zh.ch/de/mobilitaet/internationaler-fuehrerschein.html',
   instructions: defInstructionsData.variants.serviceDemo.props,
   contact: defContactData.variants.fullWidth.props,

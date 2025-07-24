@@ -4,7 +4,8 @@
   @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
 
   &--cv-inverted,
-  [ class*='--cv-inverted' ] & {
+  .cv-inverted &,
+  [class*='--cv-inverted'] & {
     color: $colorBlack20;
   }
 
@@ -14,7 +15,7 @@
         tiny: $sizeFontTiny * 1.5 * 4,
         small: $sizeFontSmall * 1.5 * 4,
         medium: $sizeFontSmall * 1.5 * 2,
-      )
+      ),
     );
 
     @include sizeCurve(max-height, maxHeight, $captionHeightCurve);

@@ -1,3 +1,5 @@
+@import '../../../assets/css/globals/variables';
+
 /**
  * Overlay for inspection of elements (see dev.js)
  */
@@ -54,8 +56,8 @@
 
 /** styleguide module styles */
 
-.sg_demo--inverted {
-  background: #333;
+.sg_demo.cv-inverted {
+  background: var(--color-accent);
 }
 
 /** styleguide atom styles */
@@ -113,8 +115,8 @@
   padding-right: 10px;
   background: #fff;
 
-  &--inverted {
-    background: #0076bd;
+  &.cv-inverted {
+    background: var(--color-accent);
   }
 }
 
@@ -123,15 +125,10 @@
   padding-top: 10px;
 }
 
-
 /** Special styles for preview module */
 .sg_module {
   .sg_demo {
     padding: 0;
-
-    &--inverted {
-      background: #f7f7f7;
-    }
 
     > .cell > .mdl-context_menu {
       position: static;

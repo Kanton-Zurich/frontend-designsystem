@@ -8,15 +8,14 @@ import Module from '../../assets/js/helpers/module';
 
 class Feedback extends Module {
   public ui: {
-    element: HTMLDivElement,
-    steps: HTMLDivElement[],
+    element: HTMLDivElement;
+    steps: HTMLDivElement[];
   };
   currentStep: number;
   sessionKey: string;
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       domSelectors: {
         steps: '.mdl-feedback__step',

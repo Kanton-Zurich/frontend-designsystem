@@ -1,4 +1,9 @@
-<div class="mdl-pagination {{#if fullWidth}}mdl-pagination--fullwidth{{/if}}{{#if additionalClasses}} {{additionalClasses}}{{/if}}" data-init="pagination" data-pagecount="{{pageCount}}">
+<div
+  class="mdl-pagination{{#if fullWidth}} mdl-pagination--fullwidth{{/if}}{{#if additionalClasses}} {{additionalClasses}}{{/if}}"
+  {{#if fullWidth}}data-anchornav="fullwidth"{{/if}}
+  data-init="pagination"
+  data-pagecount="{{pageCount}}"
+>
   <h{{headingLevel}} class="visuallyhidden">Seiten Navigation</h{{headingLevel}}>
   {{#if fullWidth}}
     <div class="lyt-wrapper">

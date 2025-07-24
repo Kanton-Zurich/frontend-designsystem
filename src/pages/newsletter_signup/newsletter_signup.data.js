@@ -3,13 +3,16 @@ const defaultData = require('../../data/default.data.js');
 const dataHelper = require('@unic/estatico-data');
 
 const skiplinksData = require('../../modules/skiplinks/skiplinks.data.js').variants.noToc.props;
-const headerData = require('../../modules/header/header.data').props;
+const headerData = require('../../modules/header/header.data').variants.invertedWithUserLoggedOut
+  .props;
 
-const breadcrumbData = require('../../modules/breadcrumb/breadcrumb.data.js').variants.default.props;
+const breadcrumbData = require('../../modules/breadcrumb/breadcrumb.data.js').variants.parentOnly
+  .props;
 const contactData = require('../../modules/contact/contact.data').variants.fullWidthLessData.props;
 const checkBoxData = require('../../atoms/checkbox/checkbox.data').variants.withHint.props;
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
-const defFormInputData = require('../../atoms/form_input/form_input.data').variants.floatValidateEmail.props;
+const defFormInputData = require('../../atoms/form_input/form_input.data').variants
+  .floatValidateEmail.props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -23,16 +26,12 @@ const data = _.merge({}, defaultData, {
     header: headerData,
     modules: {
       pageHeader: {
-        pageTitle: 'Newsletter verwalten',
-        leadText: 'Verwalten Sie hier Ihre Newsletter-Einstellungen',
         breadcrumb: breadcrumbData,
+        pageTitle: 'Newsletter verwalten',
+        leadSection: {
+          leadText: 'Verwalten Sie hier Ihre Newsletter-Einstellungen',
+        },
         inverted: true,
-        hasImageTitle: false,
-        hasVideo: false,
-        hasImage: false,
-        hasBacklink: false,
-        hasBreadcrumb: true,
-        noButton: true,
       },
       footerData: defFooterData,
       contact: _.merge({}, contactData, {

@@ -1,0 +1,34 @@
+.mdl-content_list {
+  @include sizeCurve('margin-top', big);
+  @include sizeCurve('margin-bottom', big);
+
+  &__fullwidth-wrapper {
+    @include gridBleed($fullwidth: true);
+    text-align: center;
+  }
+
+  + .atm-heading {
+    padding-top: $sizeSmallRegular;
+    margin-bottom: $sizeLarge;
+  }
+
+  @include mq($from: large) {
+    + .atm-heading {
+      margin-bottom: $sizeBig;
+    }
+  }
+  @include mq($from: xlarge) {
+    + .atm-heading {
+      margin-bottom: $sizeBiggerBig;
+    }
+  }
+
+  &--hidden {
+    display: none;
+  }
+}
+
+// should not be affected by .mod-smaller-headings
+.mod-smaller-headings .mdl-content_list .atm-heading.atm-heading--bordered {
+  @include h2__atm-heading;
+}

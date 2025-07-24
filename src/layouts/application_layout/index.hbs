@@ -18,19 +18,23 @@
     };
   </script>
 
+  <link rel="preload" href="/assets/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Inter-Black.woff2" as="font" type="font/woff2" crossorigin>
+  
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="application-name" content="Kanton Zürich">
   <meta name="apple-mobile-web-app-title" content="Kanton Zürich">
-  <meta name="theme-color" content="#0076BD">
-  <meta name="msapplication-navbutton-color" content="#0076BD">
+  <meta name="theme-color" content="#0070B4">
+  <meta name="msapplication-navbutton-color" content="#0070B4">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="msapplication-starturl" content="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body {{#if props.defaultColorVariation}}class="{{props.defaultColorVariation}}"{{/if}} {{#unless props.defaultColorVariation}}class="cv-blue"{{/unless}} data-svgsprites-options='[&quot;/assets/media/svgsprite/base.svg&quot;]'
-      data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'
-      data-style-fonts='/assets/css/fonts{{#unless env.dev}}.min{{/unless}}.css'>
+<body {{#if props.defaultColorVariation}}class="{{props.defaultColorVariation}}"{{/if}}
+  {{#unless props.defaultColorVariation}}class="cv-blue"{{/unless}}
+  data-svgsprites-options='[&quot;/assets/media/svgsprite/base.svg&quot;]'
+  data-script-main='/assets/js/main{{#unless env.dev}}.min{{/unless}}.js'>
 {{#block "banner"}}
 {{/block}}
 <header class="lyt-wrapper">
@@ -71,7 +75,7 @@
     </div>
   </div>
 </header>
-<main class="lyt-wrapper" id="main">
+<main class="lyt-wrapper" id="main" tabindex="-1">
   <div class="grid-x grid-margin-x">
     <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
       <div class="mdl-application__wrapper  mdl-application__wrapper--with-title">

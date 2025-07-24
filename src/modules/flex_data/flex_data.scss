@@ -18,7 +18,6 @@
   }
 
   &__form {
-
     .mdl-accordion {
       padding-bottom: 0;
 
@@ -154,7 +153,6 @@
       }
     }
 
-
     .mdl-pagination {
       &.hidden {
         display: none;
@@ -180,7 +178,7 @@
       }
 
       .mdl-table__row {
-        [ data-table='cell' ] {
+        [data-table='cell'] {
           &.mdl-table__cell {
             padding: 12px;
 
@@ -197,7 +195,7 @@
         }
 
         &:hover {
-          [ data-table='cell' ] {
+          [data-table='cell'] {
             background-color: $colorBlack10;
             cursor: pointer;
 

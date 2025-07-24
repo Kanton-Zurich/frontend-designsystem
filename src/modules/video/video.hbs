@@ -1,9 +1,33 @@
-<figure{{#if anchorReference}} id="{{anchorReference}}"{{/if}} class="mdl-video {{#if isFullwidth}}mdl-video--fullwidth{{/if}} {{#if isHeader}}mdl-video--header{{/if}}" data-init="video">
-  {{#if video_title}}<h{{headingLevel}} class="atm-heading">{{video_title}}</h{{headingLevel}}>{{/if}}
-  <div class="mdl-video__wrapper">
+<figure
+  class="mdl-video
+    {{#if isFullwidth}}mdl-video--fullwidth{{/if}}
+    {{#if isHeader}}mdl-video--header{{/if}}
+    {{#if offlinePage}}mdl-video--offline{{/if}}
+  "
+  {{#unless offlinePage}}data-init="video"{{/unless}}
+>
+  {{#if video_title}}
+    <h{{headingLevel}}
+      {{#if anchorNavReference}}id="{{anchorNavReference}}" data-anchornav="target"{{/if}}
+      class="atm-heading
+      {{#if_compare visualHeadingLevel "!==" headingLevel}}h{{visualHeadingLevel}}{{/if_compare}}
+      {{#if_compare visualHeadingLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+    >{{video_title}}</h{{headingLevel}}>
+  {{/if}}
+  {{#if videoVariant.signLanguage}}
+    {{> "atoms/toggle/toggle" toggle}}
+  {{/if}}
+  <div class="mdl-video__wrapper" {{#if isFullwidth}}data-anchornav="fullwidth"{{/if}}>
     <div class="mdl-video__preview">
-      {{> "modules/image_figure/image_figure" placeholderImage}}
-      <button class="atm-button">
+      <div class="mdl-video__preview--spoken-language">
+        {{> "modules/image_figure/image_figure" videoVariant.spokenLanguage.placeholderImage}}
+      </div>
+      {{#if videoVariant.signLanguage}}
+        <div class="mdl-video__preview--sign-language">
+          {{> "modules/image_figure/image_figure" videoVariant.signLanguage.placeholderImage}}
+        </div>
+      {{/if}}
+      <button class="atm-button" aria-describedby="mdl-video__{{videoVariant.spokenLanguage.videoId}}__alt-text">
         <svg class="icon atm-button__icon" focusable="false">
           <use xlink:href="#play"></use>
         </svg>
@@ -22,7 +46,7 @@
         <div>
           <p>
             <strong>Dieses Video kommt von YouTube</strong>
-            Mit dem Abspielen kann YouTube ihr Surf-Verhalten mitverfolgen.
+            Mit dem Abspielen kann YouTube Ihr Surf-Verhalten mitverfolgen.
           </p>
           <a href="#">Datenschutzerklärung</a>
           <button class="atm-button">
@@ -32,65 +56,65 @@
             </svg>
           </button>
         </div>
-      </div>
+    </div>
     <iframe
       class="mdl-video__frame hidden"
       {{#if expiryDays}}data-expirydays="{{expiryDays}}"{{/if}}
       {{#if cookieName}}data-cookieName="{{cookieName}}"{{/if}}
-      data-youtubesrc="https://www.youtube.com/embed/{{videoId}}?modestbranding=1&rel=0&showInfo=0"
+      data-youtubevideoidspokenlanguage="{{videoVariant.spokenLanguage.videoId}}"
+      {{#if videoVariant.signLanguage}}data-youtubevideoidsignlanguage="{{videoVariant.signLanguage.videoId}}"{{/if}}
       height="768"
       width="432"
       allowfullscreen
-      aria-labelledby="mdl-video__{{videoId}}__alt-text"
+      aria-labelledby="mdl-video__{{videoVariant.spokenLanguage.videoId}}__alt-text"
     ></iframe>
     {{#if offlinePage}}
       <script type="text/javascript">
-        const element = document.querySelector('.mdl-video');
-        const iFrame = element.querySelector('.mdl-video__frame');
-        const preview = element.querySelector('.mdl-video__preview');
-        const previewBtn = element.querySelector('.mdl-video__preview button');
-        const dialog = element.querySelector('.mdl-video__cookie-dialog');
-        const dialogCloseBtn = element.querySelector('.mdl-video__cookie-dialog > button');
-        const dialogPlayBtn = element.querySelector('.mdl-video__cookie-dialog .atm-button');
-        const youTubeSrc = iFrame.dataset.youtubesrc;
+        const element = document.querySelector('.mdl-video.mdl-video--offline');
+        const iFrame = element.querySelector('.mdl-video--offline .mdl-video__frame');
+        const preview = element.querySelector('.mdl-video--offline .mdl-video__preview');
+        const previewBtn = element.querySelector('.mdl-video--offline .mdl-video__preview button');
+        const dialog = element.querySelector('.mdl-video--offline .mdl-video__cookie-dialog');
+        const dialogCloseBtn = element.querySelector('.mdl-video--offline .mdl-video__cookie-dialog > button');
+        const dialogPlayBtn = element.querySelector('.mdl-video--offline .mdl-video__cookie-dialog .atm-button');
+        const youtubeVideoIdSpokenlanguage = iFrame.dataset.youtubevideoidspokenlanguage;
         const daysToExpire = parseInt(iFrame.dataset.expirydays, 10);
         const cookieName = iFrame.dataset.cookiename;
-        if (cookieName)
-        {
+        const setYoutubeIFrameSrc = function() {
+          const src = `https://www.youtube.com/embed/${youtubeVideoIdSpokenlanguage}?modestbranding=1&rel=0&showInfo=0`;
+
+          iFrame.setAttribute('src', src);
+        };
+
+        if (cookieName) {
           const match = document.cookie.match(new RegExp(`(^| )${cookieName}=([^;]+)`));
-          if (match && match[2] === 'true')
-          {
+          if (match && match[2] === 'true') {
             preview.style.display = 'none';
             dialog.style.display = 'none';
-            iFrame.setAttribute('src', youTubeSrc);
+            setYoutubeIFrameSrc();
             iFrame.style.display = 'flex';
           }
         }
-        preview.addEventListener('click', () =>
-        {
+        preview.addEventListener('click', () => {
           preview.style.display = 'none';
           dialog.style.display = 'flex';
           dialogCloseBtn.focus();
-        })
-        dialogCloseBtn.addEventListener('click', () =>
-        {
+        });
+        dialogCloseBtn.addEventListener('click', () => {
           preview.style.display = 'flex';
           dialog.style.display = 'none';
           previewBtn.focus();
-        })
-        dialogPlayBtn.addEventListener('click', () =>
-        {
+        });
+        dialogPlayBtn.addEventListener('click', () => {
           dialog.style.display = 'none';
-          if (cookieName)
-          {
+          if (cookieName) {
             document.cookie = `${cookieName}=true; max-age=${getExpireDate()}; path=/`;
           }
-          iFrame.setAttribute('src', `${youTubeSrc}&autoplay=1&mute=0`);
+          setYoutubeIFrameSrc();
           iFrame.style.display = 'flex';
           iFrame.contentWindow.focus();
         });
-        const getExpireDate = () =>
-        {
+        const getExpireDate = () => {
           const date = new Date();
           const hoursADay = 24;
           const minsPerHour = 60;
@@ -98,13 +122,29 @@
           const milliSecs = 1000;
           date.setTime(date.getTime() + this.daysToExpire * hoursADay * minsPerHour * secsPerMin * milliSecs);
           return date.toUTCString();
-        }
+        };
       </script>
     {{/if}}
   </div>
-
-  <figcaption class="mdl-video__caption">
-    {{> "atoms/figcaption/figcaption" caption}}
-    <span id="mdl-video__{{videoId}}__alt-text" class="hidden">{{alt}}</span>
+  <figcaption class="mdl-video__caption mdl-video__caption--spoken-language">
+    {{> "atoms/figcaption/figcaption" videoVariant.spokenLanguage.caption}}
+    <span
+      id="mdl-video__{{videoVariant.spokenLanguage.videoId}}__alt-text"
+      class="mdl-video__alt hidden"
+    >
+      {{videoVariant.spokenLanguage.alt}}
+    </span>
   </figcaption>
+
+  {{#if videoVariant.signLanguage}}
+    <figcaption class="mdl-video__caption mdl-video__caption--sign-language">
+      {{> "atoms/figcaption/figcaption" videoVariant.signLanguage.caption}}
+      <span
+        id="mdl-video__{{videoVariant.signLanguage.videoId}}__alt-text"
+        class="mdl-video__alt hidden"
+      >
+        {{videoVariant.signLanguage.alt}}
+      </span>
+    </figcaption>
+  {{/if}}
 </figure>

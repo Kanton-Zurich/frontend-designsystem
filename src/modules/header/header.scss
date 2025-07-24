@@ -1,13 +1,12 @@
 $borderHeightSmall: 2px;
-$borderHeightSmall: 2px;
 $borderHeightNormal: 5px;
-$burgerSubNavHeight: 72px;
+$burgerSubNavHeight: pxToRem(72px);
 
 $headerCurves: (
   height: (
     tiny: 48px,
     xsmall: 56px,
-    medium: 72px
+    medium: 72px,
   ),
   borderHeight: (
     tiny: $borderHeightSmall,
@@ -17,9 +16,25 @@ $headerCurves: (
     tiny: $sizeSmallHuge,
     xsmall: $sizeHuge,
   ),
+  burgerHeightPlusOne: (
+    tiny: calc($sizeSmallHuge + 1px),
+    xsmall: calc($sizeHuge + 1px),
+  ),
+  burgerHeightPlusTwo: (
+    tiny: calc($sizeSmallHuge + 2px),
+    xsmall: calc($sizeHuge + 2px),
+  ),
   searchPadding: (
     tiny: $sizeSmallRegular,
     xsmall: $sizeRegular,
+  ),
+  ktzhTextTop: (
+    tiny: 0,
+    xsmall: 1px,
+  ),
+  ktzhLogoWidth: (
+    tiny: 32px,
+    xsmall: 38px,
   ),
 );
 
@@ -30,15 +45,50 @@ $headerCurves: (
   position: relative;
   z-index: $zIndexFlyouts;
 
+  background: $colorWhite;
+
+  @include mq($to: small) {
+    padding-bottom: 0;
+
+    @include sizeCurve(border-bottom-width, borderHeight, $headerCurves);
+    border-bottom-style: solid;
+    border-bottom-color: $colorBlack;
+  }
+
+  &__logo {
+    @include polyFluidSizing('width', map-get($headerCurves, ktzhLogoWidth));
+    @include polyFluidSizing('height', map-get($headerCurves, ktzhLogoWidth));
+
+    margin-right: $sizeMini;
+
+    @include mq($from: small) {
+      display: none;
+    }
+  }
+
+  &__logo-text {
+    font-family: $fontFamilyBlack;
+    display: inline-block;
+    position: relative;
+
+    @include polyFluidSizing('top', map-get($headerCurves, ktzhTextTop));
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+    @include mq($from: small) {
+      display: none;
+    }
+  }
+
+  &__spacer {
+    margin: auto;
+  }
+
   &--fixed {
     position: fixed;
     top: 0;
     left: 0;
     transition: none;
-
     transform: translateX(0);
     margin-left: 0;
-
     z-index: $zIndexFlyouts;
   }
 
@@ -52,10 +102,18 @@ $headerCurves: (
 
     z-index: $zIndexFlyouts + 1;
 
+    .mdl-header__logo {
+      display: none;
+    }
+
+    .mdl-header__logo-text {
+      display: none;
+    }
+
     .mdl-header__navigation {
       @include mq($to: small) {
         display: flex;
-        padding-top: $sizeRegular;
+        padding-top: pxToRem($sizeRegular);
       }
     }
 
@@ -63,8 +121,6 @@ $headerCurves: (
       svg {
         &.close {
           display: flex;
-          width: $sizeRegular;
-          height: $sizeRegular;
         }
 
         &.burger {
@@ -73,7 +129,7 @@ $headerCurves: (
       }
 
       &:after {
-        @include sizeCurve(top, burgerHeight, $headerCurves);
+        @include sizeCurve(top, burgerHeightPlusTwo, $headerCurves);
 
         content: ' ';
         background-color: $colorWhite;
@@ -81,6 +137,21 @@ $headerCurves: (
         height: pxToRem($burgerSubNavHeight);
         position: fixed;
         left: 0;
+        border-bottom: 1px solid $colorBlack20;
+      }
+    }
+  }
+
+  &--open.mdl-header--nav-level-one {
+    .mdl-header__navigation {
+      @include mq($to: small) {
+        display: none;
+      }
+    }
+
+    .mdl-header__nav-burger {
+      &:after {
+        content: none;
       }
     }
   }
@@ -88,13 +159,22 @@ $headerCurves: (
   &__placeholder {
     width: 200vw;
     margin-left: -100vw;
+    background-color: var(--color-bg);
   }
 
+  &__placeholder.cv-inverted {
+    background-color: var(--color-accent);
+  }
 
   &__wrapper {
+    @include mq($to: small) {
+      display: flex;
+      align-items: center;
+    }
+
     &:after {
       @include sizeCurve(height, borderHeight, $headerCurves);
-      background: $colorWhite;
+      background: $colorBlack;
 
       width: 100vw;
       position: absolute;
@@ -102,6 +182,9 @@ $headerCurves: (
       content: ' ';
 
       @include transition(background);
+      @include mq($to: small) {
+        content: none;
+      }
     }
   }
 
@@ -113,26 +196,51 @@ $headerCurves: (
     padding: 0 pxToRem($sizeSmallRegular);
     align-items: center;
 
+    &-text {
+      font-size: pxToRem(16px);
+      color: $colorBlack;
+    }
+
+    &-text--with-user {
+      @include mq($to: xsmall) {
+        display: none;
+      }
+    }
+
+    .icon {
+      padding: pxToRem(4px);
+    }
+
+    svg {
+      fill: $colorBlack;
+      height: pxToRem(24px);
+      width: pxToRem(24px);
+    }
+
     svg.close {
       display: none;
     }
 
-    &-text {
-      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-
-      font-family: $fontFamilyBlack;
-      color: $colorWhite;
-      margin-left: $sizeSmallRegular;
-
-      transform: translateY(3px);
-    }
-
-    svg {
-      fill: $colorWhite;
-    }
-
     @include mq($from: small) {
       display: none;
+    }
+    @include mq($to: small) {
+      position: relative;
+    }
+    @include mq(tiny) {
+      right: pxToRem(34px);
+    }
+    @include mq(xsmall) {
+      right: pxToRem(40px);
+    }
+
+    &.mdl-header__nav-burger-with-user {
+      @include mq(tiny) {
+        right: pxToRem(96px);
+      }
+      @include mq(xsmall) {
+        right: pxToRem(100px);
+      }
     }
   }
 
@@ -147,7 +255,6 @@ $headerCurves: (
 
     @include mq($to: small) {
       display: none;
-      border-bottom: 1px solid $colorBlack40;
       position: absolute;
       left: 0;
       right: 0;
@@ -163,23 +270,25 @@ $headerCurves: (
     display: flex;
     align-items: center;
 
-    color: $colorWhite;
+    color: $colorBlack;
 
     @include mq($to: small) {
-      height: $sizeSmallHuge;
+      height: pxToRem($sizeSmallHuge);
     }
     @include transition(color);
 
     &--active {
       font-family: $fontFamilyBlack;
-
-      @include mq($to: small) {
-        border-bottom: 2px solid $colorBlack;
-      }
     }
   }
 
+  &__spacer-line {
+    height: pxToRem(8px);
+    border-left: 1px $colorBlack;
+  }
+
   &__functions {
+    height: 100%;
     position: absolute;
     right: 0;
 
@@ -190,20 +299,25 @@ $headerCurves: (
   }
 
   &__search {
-    color: $colorBlack80;
+    color: rgba($colorBlack, 0.6);
     font-family: $fontFamilyBase;
-    font-size: $sizeFontMedium;
+
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
 
     height: 100%;
 
-    background: rgba($colorWhite, 0.5);
+    background: rgba($colorBlack, 0.1);
 
     svg use {
-      fill: $colorBlack80;
+      fill: rgba($colorBlack, 0.6);
     }
 
     &:hover {
-      background: rgba($colorWhite, 0.8);
+      background: rgba($colorBlack, 0.3);
+    }
+
+    @include mq($to: small) {
+      padding-bottom: 0;
     }
   }
 
@@ -222,102 +336,38 @@ $headerCurves: (
   }
 }
 
-.mdl-header--inverted {
-  background: $colorWhite;
+.cv-inverted:not(.mdl-header--scrolled-past-header) {
+  color: $colorWhite;
+  background-color: var(--color-accent);
+  border-bottom-color: $colorWhite;
 
-  .mdl-header__nav-item {
-    color: $colorBlack100;
+  .mdl-header__nav-burger-text {
+    color: $colorWhite;
+  }
+
+  .mdl-header__nav-burger {
+    svg {
+      fill: $colorWhite;
+    }
+  }
+
+  @include mq($from: small) {
+    .mdl-header__nav-item {
+      color: $colorWhite;
+    }
   }
 
   .mdl-header__wrapper:after {
-    background: $colorBlack;
+    background: $colorWhite;
   }
 
   .mdl-header__functions {
-    color: $colorBlack60;
-
     .icon {
-      fill: $colorBlack60;
+      fill: rgba($colorBlack, 0.8);
     }
 
     .mdl-header__search {
-      background-color: $colorBlack10;
-    }
-  }
-
-  @include mq($to: medium) {
-    .mdl-user-menu {
-      background: $colorBlack10;
-    }
-  }
-  @include mq($from: medium) {
-    .mdl-user-menu {
-
-      &__trigger {
-        color: $colorBlack60;
-
-        .icon use {
-          fill: $colorBlack60;
-        }
-      }
-    }
-  }
-}
-
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .mdl-header__placeholder {
-      background: $val;
-    }
-
-    .mdl-header {
-      background: $val;
-
-      &__wrapper,
-      &__functions {
-        background: $val;
-      }
-
-      &--inverted,
-      &.cv-monochrome {
-        background: $colorWhite;
-
-        .mdl-header__nav-burger {
-          &-text {
-            color: $colorBlack;
-          }
-
-          svg {
-            fill: $colorBlack;
-          }
-        }
-
-        .mdl-header__nav-item {
-          color: $colorBlack100;
-        }
-
-        .mdl-header__wrapper:after {
-          background: $colorBlack;
-        }
-
-        .mdl-header__wrapper,
-        .mdl-header__functions {
-          background: transparent;
-        }
-
-        .mdl-header__functions {
-          color: $colorBlack60;
-
-          .icon {
-            fill: $colorBlack60;
-          }
-
-          .mdl-header__search {
-            background: $colorBlack10;
-            color: $colorBlack60;
-          }
-        }
-      }
+      background-color: rgba($colorWhite, 0.4);
     }
   }
 }
@@ -332,5 +382,18 @@ $headerCurves: (
     .mdl-header--fixed {
       z-index: $zIndexFlyouts + 1;
     }
+  }
+}
+
+.mdl-header--scrolled-past-header {
+  border-bottom: 1px solid $colorBlack20;
+  padding-bottom: 0;
+
+  .mdl-header__wrapper:after {
+    content: none;
+  }
+
+  .mdl-header__nav-burger:after {
+    @include sizeCurve(top, burgerHeightPlusOne, $headerCurves);
   }
 }

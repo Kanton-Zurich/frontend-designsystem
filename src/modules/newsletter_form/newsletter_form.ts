@@ -8,16 +8,15 @@ import Module from '../../assets/js/helpers/module';
 
 class NewsletterForm extends Module {
   public ui: {
-    element: any,
-    formInputs: any,
-    formInputWrappers: any,
-    form: HTMLFormElement,
-    submitButton: HTMLButtonElement,
+    element: any;
+    formInputs: any;
+    formInputWrappers: any;
+    form: HTMLFormElement;
+    submitButton: HTMLButtonElement;
   };
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       domSelectors: {
         formInputs: '[data-input] input',
@@ -50,10 +49,14 @@ class NewsletterForm extends Module {
     this.ui.submitButton.addEventListener('click', () => {
       if (this.ui.formInputs.length) {
         this.ui.formInputs.forEach((formInput) => {
-          formInput.dispatchEvent(new CustomEvent('validateDeferred', { detail: { field: formInput } }));
+          formInput.dispatchEvent(
+            new CustomEvent('validateDeferred', { detail: { field: formInput } })
+          );
         });
       } else {
-        this.ui.formInputs.dispatchEvent(new CustomEvent('validateDeferred', { detail: { field: this.ui.formInputs } }));
+        this.ui.formInputs.dispatchEvent(
+          new CustomEvent('validateDeferred', { detail: { field: this.ui.formInputs } })
+        );
       }
     });
     this.ui.form.addEventListener('submit', (event: any) => {

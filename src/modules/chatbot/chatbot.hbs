@@ -1,0 +1,30 @@
+<div class="mdl-chatbot"
+  data-anchornav="fullwidth"
+  data-init="chatbot"
+  data-token-url="{{tokenUrl}}"
+  data-api-url="{{apiUrl}}"
+  data-placeholder="{{placeholder}}"
+  data-botname="{{botname}}"
+>
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+        <h2 class="mdl-chatbot__title">{{title}}</h2>
+        <span class="atm-loading_circle__spinner mdl-chatbot__loading mdl-chatbot__loading-hidden"></span>
+        {{> "atoms/button/button" modules.chatbotBtn}}
+        {{> "modules/dialog/dialog" modules.dialog }}
+      </div>
+    </div>
+
+    <div class="grid-x grid-margin-x">
+      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+        <span class="mdl-chatbot__error mdl-chatbot__error-hidden">
+          Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.
+        </span>
+      </div>
+    </div>
+
+  </div>
+  {{!-- CDN could be changed to self-hosted link --}}
+  <script crossorigin="anonymous" src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+</div>

@@ -1,4 +1,5 @@
-<div class="mdl-search_page" data-init="searchPage" {{#if options}}data-search-page-options="{{options}}"{{/if}} data-search-no-results="Keine Ergebnisse zu «<%- searchTerm %>» gefunden.">
+<div class="mdl-search_page mod-smaller-headings" data-init="searchPage" {{#if options}}data-search-page-options="{{options}}" {{/if}}
+  data-search-no-results="Keine Ergebnisse zu «<%- searchTerm %>» gefunden.">
   <form novalidate class="mdl-search_page__form" data-search_page="form">
     {{> "atoms/form_input/form_input" input}}
   </form>
@@ -34,7 +35,7 @@
       <% } %>
       <% if (didYouMean && didYouMean.length > 0) { %>
       <div class="mdl-search_page__suggestions">Meinten Sie:
-        <% _.forEach(didYouMean, function(suggestion, index) { %>
+        <% didYouMean.forEach((suggestion, index) => { %>
         <a class="atm-text_link" role="button" data-search_page="force"><%- suggestion %></a>&nbsp;
         <% }); %>
       </div>
@@ -49,7 +50,7 @@
             </label>
           </div>
         </li>
-        <% _.forEach(resultsByType, function(type, index) { %>
+        <% resultsByType.forEach((type, index) => { %>
           <li>
             <div class="atm-radiobutton atm-radiobutton--tag">
               <input id="search_filter_<%- index %>" type="radio" value="<%- type.type %>" name="search_filter">
@@ -66,7 +67,7 @@
 
   <script type="text/x-handlebars-template" data-search_page="resultsTemplate">
     <ul class="mdl-search_page__list">
-      <% _.forEach(results, function(item, index) { %>
+      <% results.forEach((item, index) => { %>
         <li class="atm-search_result_item" <% if(item.type === 'service') { %>data-init="servicelist"<% } %>>
           <% if (item.type === 'service') { %>
             <a href="<%- item.link %>" class="mdl-service_list__item"
@@ -74,7 +75,7 @@
             >
               <div class="mdl-service_list__item-container">
                 <p class="atm-heading mdl-service_list__item-title"><%= item.title %></p>
-                <p class="atm-paragraph mdl-service_list__item-text" data-lineclamp="true"><%= item.teaserText %></p>
+                <p class="atm-paragraph mdl-service_list__item-text"><%= item.teaserText %></p>
               </div>
               <span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
                 <span class="atm-button__text">
@@ -141,7 +142,7 @@
           <h4 class="atm-heading">Suchen nach</h4>
           <div class="mdl-linklist atm-search_result_item__linklist">
             <ul class="mdl-linklist__list">
-              <% _.forEach(similarTerms, function(similarTerm, index) { %>
+              <% similarTerms.forEach((similarTerm, index) => { %>
               <li class="mdl-linklist__item">
                 <a class="atm-linklist_item  " role="button" data-search_page="alternativeTerm">
                   <span class="atm-linklist_item__text">
@@ -162,6 +163,6 @@
   </script>
 
   <script data-search_page="autosuggestTemplate" type="text/x-handlebars-template">
-    {{{ autosuggestTemplate }}}
+  {{{ autosuggestTemplate }}}
   </script>
 </div>

@@ -60,13 +60,13 @@ class ServiceButton extends Module {
    * Fetch page data
    */
   async fetchServicePage(url: string, callback: Function) {
-    if (!window.fetch) {
-      await import('whatwg-fetch');
-    }
-    return window.fetch(url)
+    return window
+      .fetch(url)
       .then((response) => {
         if (response) {
-          response.text().then((text) => { callback(text); });
+          response.text().then((text) => {
+            callback(text);
+          });
         }
       })
       .catch((err) => {

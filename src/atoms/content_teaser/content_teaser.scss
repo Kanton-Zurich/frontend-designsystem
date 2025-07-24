@@ -1,14 +1,14 @@
 .atm-content_teaser {
   display: block;
 
-  padding: pxToRem($sizeRegular) 0;
+  padding: pxToRem($sizeSmallRegular) 0 pxToRem($sizeRegular);
   box-sizing: border-box;
   flex-basis: 100%;
 
   line-height: $sizeLineHeightBase;
   position: relative;
   cursor: pointer;
-  color: $colorBlack60;
+  color: var(--color-text-soft);
   text-decoration: none;
 
   .bold {
@@ -33,44 +33,52 @@
 
   &:hover,
   &:focus {
-    color: $colorBlack100;
+    .atm-content_teaser__title,
+    .atm-content_teaser__content {
+      color: var(--color-text);
+    }
 
     &:after {
-      background-color: $colorBlack100;
+      background-color: var(--color-text);
       transform: scaleY(3);
     }
   }
 
   &__title {
     font-family: $fontFamilyBlack;
+    color: var(--color-accent);
   }
 
   &__content {
     @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
-    // 4.2 because of line height 1.4 multiply with max 3 lines (1.4 * 3)
-    @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 4.2), 5);
 
     overflow-y: hidden;
     display: block;
-
-    @include mq($to: medium) {
-      // 2.8 because of line height 1.4 multiplied with max 2 lines (1.4 * 2)
-      @include polyFluidSizing(max-height, multiplyMapValues(map-get($fontSizeCurves, regular), 2.8), 5);
-    }
+    color: var(--color-text-soft);
   }
 
   /** Promotopic variation */
   &--promo {
     @include sizeCurve(padding-left padding-right, regular);
 
+    background: var(--color-accent);
+
+    .atm-content_teaser__title {
+      color: var(--color-bg);
+    }
+
     .atm-content_teaser__content {
+      color: var(--color-accent-soft);
       display: flex;
       flex-direction: column;
     }
 
-    .atm-content_teaser__content,
-    .atm-content_teaser__content:hover {
-      color: $colorWhite;
+    &:hover,
+    &:focus {
+      .atm-content_teaser__title,
+      .atm-content_teaser__content {
+        color: var(--color-bg);
+      }
     }
 
     &:after {
@@ -84,41 +92,59 @@
     }
   }
 
-  &[ disabled='disabled' ] {
+  &[disabled='disabled'] {
     cursor: default;
     pointer-events: none;
 
     .atm-content_teaser__title {
-      color: $colorBlack !important; //stylelint-disable-line
+      color: var(--color-text) !important; //stylelint-disable-line
     }
   }
-}
 
-@each $key, $val in $tl-color-variations {
-  .#{$key} {
-    .atm-content_teaser:not(.atm-content_teaser--promo) {
-      .atm-content_teaser__title {
-        color: $val;
+  /** Styles for inverted use */
+  .cv-inverted &,
+  [class*='--inverted'] & {
+    .atm-content_teaser__title {
+      color: var(--color-text);
+    }
+
+    .atm-content_teaser__content {
+      color: var(--color-text-soft);
+    }
+
+    &:after {
+      background-color: var(--color-accent-soft);
+    }
+
+    &:hover,
+    &:focus {
+      .atm-content_teaser__title,
+      .atm-content_teaser__content {
+        color: var(--color-text);
       }
 
-      &:hover {
-        .atm-content_teaser__title {
-          color: $colorBlack100;
+      &:after {
+        background-color: var(--color-text);
+      }
+    }
+
+    &.atm-content_teaser--promo {
+      background: var(--color-text);
+
+      .atm-content_teaser__title {
+        color: var(--color-accent);
+      }
+
+      .atm-content_teaser__content {
+        color: $colorBlack60;
+      }
+
+      &:hover,
+      &:focus {
+        .atm-content_teaser__title,
+        .atm-content_teaser__content {
+          color: $colorBlack;
         }
-      }
-    }
-
-    .atm-content_teaser[ role='button' ] {
-      .atm-content_teaser__title {
-        color: $colorBlack;
-      }
-    }
-
-    .atm-content_teaser--promo {
-      background: $val;
-
-      .atm-content_teaser__title {
-        color: $colorWhite;
       }
     }
   }

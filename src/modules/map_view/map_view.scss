@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 $mapViewMarkerWidth: 30px;
 $mapViewMarkerHeight: 38px;
 $mapViewSelectedMarkerWidth: 48px;
@@ -27,7 +29,7 @@ $mapViewSelectedMarkerHeight: 59px;
       @extend .mdl-map_view_markericon;
       height: pxToRem($mapViewMarkerHeight);
       width: pxToRem($mapViewMarkerWidth);
-      left: pxToRem(-$mapViewMarkerWidth / 2);
+      left: pxToRem(-1 * math.div($mapViewMarkerWidth, 2));
     }
   }
 
@@ -36,18 +38,18 @@ $mapViewSelectedMarkerHeight: 59px;
       @extend .mdl-map_view_markericon;
       height: pxToRem($mapViewMarkerHeight);
       width: pxToRem($mapViewMarkerWidth);
-      left: pxToRem(-$mapViewMarkerWidth / 2);
-      background-image: url(svg-mapmarker($colorBlack));  // stylelint-disable-line
+      left: pxToRem(-1 * math.div($mapViewMarkerWidth, 2));
+      background-image: url(svg-mapmarker($colorBlack)); // stylelint-disable-line
     }
   }
 
   &__marker_selected {
     &:after {
       @extend .mdl-map_view_markericon;
-      left: pxToRem(-$mapViewSelectedMarkerWidth / 2);
+      left: pxToRem(-1 * math.div($mapViewSelectedMarkerWidth, 2));
       height: pxToRem($mapViewSelectedMarkerHeight);
       width: pxToRem($mapViewSelectedMarkerWidth);
-      background-image: url(svg-mapmarker($colorBlack));  // stylelint-disable-line
+      background-image: url(svg-mapmarker($colorBlack)); // stylelint-disable-line
     }
   }
 
@@ -59,17 +61,18 @@ $mapViewSelectedMarkerHeight: 59px;
 
   &__clustericon {
     position: absolute;
-    left: pxToRem(-$sizeBiggerBig / 2);
-    top: pxToRem(-$sizeBiggerBig / 2);
+    left: pxToRem(-1 * math.div($sizeBiggerBig, 2));
+    top: pxToRem(-1 * math.div($sizeBiggerBig, 2));
     width: pxToRem($sizeBiggerBig);
     height: pxToRem($sizeBiggerBig);
     background-color: $colorWhite;
-    border: pxToRem(2) solid;
+    border: 2px solid var(--color-accent);
     border-radius: 50%;
     text-align: center;
     line-height: pxToRem($sizeBiggerBig - 5);
     font-family: $fontFamilyBlack;
     font-size: pxToRem($sizeFontMedium);
+    color: var(--color-accent);
 
     &:hover {
       color: $colorBlack;
@@ -87,8 +90,8 @@ $mapViewSelectedMarkerHeight: 59px;
       position: absolute;
       height: pxToRem($userPosMarkerOuterW);
       width: pxToRem($userPosMarkerOuterW);
-      left: pxToRem(-$userPosMarkerOuterW / 2);
-      top: pxToRem(-$userPosMarkerOuterW / 2);
+      left: pxToRem(-1 * math.div($userPosMarkerOuterW, 2));
+      top: pxToRem(-1 * math.div($userPosMarkerOuterW, 2));
       background-color: rgba($colorCyan, 0.25);
       border-radius: 50%;
     }
@@ -98,8 +101,8 @@ $mapViewSelectedMarkerHeight: 59px;
       position: absolute;
       height: pxToRem($userPosMarkerInnerW - $userPosMarkerInnerRing);
       width: pxToRem($userPosMarkerInnerW - $userPosMarkerInnerRing);
-      left: pxToRem(-($userPosMarkerInnerW + $userPosMarkerInnerRing)/ 2);
-      top: pxToRem(-($userPosMarkerInnerW + $userPosMarkerInnerRing)/ 2);
+      left: pxToRem(-1 * math.div($userPosMarkerInnerW + $userPosMarkerInnerRing, 2));
+      top: pxToRem(-1 * math.div($userPosMarkerInnerW + $userPosMarkerInnerRing, 2));
       background-color: rgba($colorCyan, 0.99);
       border: $userPosMarkerInnerRing solid $colorWhite;
       border-radius: 50%;
@@ -125,13 +128,13 @@ $mapViewSelectedMarkerHeight: 59px;
     }
 
     button + button {
-      margin-top: pxToRem($sizeMini / 2);
+      margin-top: pxToRem(math.div($sizeMini, 2));
     }
 
     button.disabled {
       pointer-events: none;
       cursor: not-allowed;
-      background: $colorBlack5;
+      background: $colorBg;
 
       .atm-button__icon use {
         fill: $colorBlack20;
@@ -167,22 +170,16 @@ $mapViewSelectedMarkerHeight: 59px;
   }
 }
 
-
 @each $key, $val in $tl-color-variations {
   .#{$key} {
     .mdl-map_view__marker:after {
-      background-image: url(svg-mapmarker($val));  // stylelint-disable-line
-    }
-
-    .mdl-map_view__clustericon:not(:hover) {
-      color: $val;
-      border-color: $val;
+      background-image: url(svg-mapmarker($val)); // stylelint-disable-line
     }
 
     .mdl-map_view--single-item {
       .mdl-map_view__marker_selected {
         &:after {
-          background-image: url(svg-mapmarker($val));  // stylelint-disable-line
+          background-image: url(svg-mapmarker($val)); // stylelint-disable-line
         }
       }
     }

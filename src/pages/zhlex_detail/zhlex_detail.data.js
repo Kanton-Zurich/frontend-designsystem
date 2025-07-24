@@ -7,12 +7,16 @@ const headerData = require('../../modules/header/header.data').props;
 
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
-const defBack2TopData = require('../../modules/back2top/back2top.data').variants.default.props;
-const defReleatedContentData = require('../../modules/related_content/related_content.data.js').variants.default.props;
-const defContactData = require('../../modules/contact/contact.data.js').variants.smallMailOnly.props;
+const backToData = require('../../modules/back_to/back_to.data').variants.default.props;
+const defReleatedContentData = require('../../modules/related_content/related_content.data.js')
+  .variants.default.props;
+const defContactData = require('../../modules/contact/contact.data.js').variants.smallMailOnly
+  .props;
 const defTagGroupData = require('../../modules/tag_group/tag_group.data.js').variants.default.props;
-const defResultHeaderData = require('../../modules/result_header/result_header.data.js').variants.defaultWithSelect.props;
-const buttonDefaultData = require('../../atoms/button/button.data').variants.secondaryWithoutText.props;
+const defResultHeaderData = require('../../modules/result_header/result_header.data.js').variants
+  .defaultWithSelect.props;
+const buttonDefaultData = require('../../atoms/button/button.data').variants.secondaryWithoutText
+  .props;
 
 const data = _.merge({}, defaultData, {
   meta: {
@@ -23,10 +27,11 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     skiplinks: skiplinksData,
-    header: _.merge({}, headerData, { inverted: true }),
+    header: _.merge({}, headerData, { inverted: false }),
     modules: {
       pageHeaderData: _.merge({}, defPageHeaderData.variants.zhLexDetail.props, {
-        pageTitle: 'Vertrag zwischen den Ständen Zürich und Schwyz betreffend die Hafengüter bei Richterswil',
+        pageTitle:
+          'Vertrag zwischen den Ständen Zürich und Schwyz betreffend die Hafengüter bei Richterswil',
         breadcrumb: {
           path: [
             {
@@ -136,14 +141,18 @@ const data = _.merge({}, defaultData, {
               linkListItemTitle: '112_19.5.41_91',
               linkListItemIsDownload: true,
               linkListItemLabel: 'PDF | 6 Seiten | 100KB',
-              linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+              linkListItemHref:
+                'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
             },
           },
         ],
       },
-      releatedContentData: _.merge({}, defReleatedContentData, { relatedContentHeading: { anchorNavReference: 'related_content' } }),
-      contactData: _.merge({}, defContactData, { anchorNavReference: 'contact' }),
-      tagGroupData: _.assign(_.merge({}, defTagGroupData, { tagGroupdHeading: { anchorNavReference: 'responsibilities' } }),
+      releatedContentData: _.merge({}, defReleatedContentData, {
+        anchorNavReference: 'related_content',
+      }),
+      contactData: _.merge({}, defContactData, { anchorNavReference: 'contact_title' }),
+      tagGroupData: _.assign(
+        _.merge({}, defTagGroupData, { anchorNavReference: 'responsibilities' }),
         {
           anchorLinks: [
             {
@@ -158,9 +167,10 @@ const data = _.merge({}, defaultData, {
               },
             },
           ],
-        }),
+        }
+      ),
       footerData: defFooterData,
-      back2topData: _.merge({}, defBack2TopData, { preserveLangSwitch: false }),
+      backToData,
     },
   },
 });

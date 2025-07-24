@@ -2,7 +2,8 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
-const buttonDefaultData = require('../../atoms/button/button.data').variants.secondaryWithoutText.props;
+const buttonDefaultData = require('../../atoms/button/button.data').variants.secondaryWithoutText
+  .props;
 
 const template = dataHelper.getFileContent('metablock.hbs');
 const data = _.merge({}, defaultData, {
@@ -88,40 +89,43 @@ const data = _.merge({}, defaultData, {
     },
   },
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-    },
-  },
-  withTitle: {
-    meta: {
-      title: 'Mit Titel',
-      desc: '',
-    },
-    props: {
-      title: 'Steuerbuch Artikel',
-      hasTopTitle: true,
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
-
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Default',
+        desc: 'Default implementation',
       },
     },
-  });
+    withTitle: {
+      meta: {
+        title: 'Mit Titel',
+        desc: '',
+      },
+      props: {
+        title: 'Steuerbuch Artikel',
+        hasTopTitle: true,
+      },
+    },
+  },
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-  return variantData;
-});
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
+      },
+    });
+
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

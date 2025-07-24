@@ -1,0 +1,20 @@
+<div class="mdl-facts_section cv-inverted" data-anchornav="fullwidth">
+  <div class="lyt-wrapper">
+    <div class="grid-x grid-margin-x">
+      <div class="mdl-facts_section__content cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-12 small-10 medium-10 large-10 xlarge-10">
+        <h{{heading.level}} {{#if anchorNavReference}}id="{{anchorNavReference}}" data-anchornav="target"{{/if}}
+          class="mdl-facts_section__title atm-heading
+          {{#if_compare heading.visualLevel "!==" heading.level}}h{{heading.visualLevel}}{{/if_compare}}
+          {{#if_compare heading.visualLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+        >
+          {{heading.title}}
+        </h{{heading.level}}>
+      </div>
+      <div class="mdl-facts_section__rows cell tiny-12 small-12 medium-12 large-12 xlarge-12">
+        {{#each factRows}}
+          {{> "modules/facts_row/facts_row" this}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>

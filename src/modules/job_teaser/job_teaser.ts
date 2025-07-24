@@ -5,13 +5,13 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import { template } from 'lodash';
+import template from 'lodash/template';
 
 class JobTeaser extends Module {
   public ui: {
-    element: HTMLDivElement,
-    list: HTMLUListElement,
-    template: HTMLScriptElement,
+    element: HTMLDivElement;
+    list: HTMLUListElement;
+    template: HTMLScriptElement;
   };
   public apiUrl;
   public baseUrl;
@@ -19,8 +19,7 @@ class JobTeaser extends Module {
   public limit;
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       domSelectors: {
         list: '[data-job-teaser-list]',
@@ -45,8 +44,7 @@ class JobTeaser extends Module {
   }
 
   static get events() {
-    return {
-    };
+    return {};
   }
 
   /**
@@ -76,7 +74,7 @@ class JobTeaser extends Module {
     let jobsCompiled = '';
     // sort jobs descending from date modified
     const jobsSorted = data.jobs.sort((a, b) => {
-      if ((new Date(a.dateModified2)).getTime() < ((new Date(b.dateModified2)).getTime())) {
+      if (new Date(a.dateModified2).getTime() < new Date(b.dateModified2).getTime()) {
         return 1;
       }
       return -1;

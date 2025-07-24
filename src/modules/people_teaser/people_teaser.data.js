@@ -5,6 +5,24 @@ const defaultData = require('../../data/default.data.js');
 const defPersonCardData = require('../person_card/person_card.data.js').variants;
 
 const template = dataHelper.getFileContent('people_teaser.hbs');
+
+const personCardDataDefault = {
+  ...defPersonCardData.default.props,
+  headingLevel: 4,
+};
+const personCardDataAlternativeVariant = {
+  ...defPersonCardData.alt.props,
+  headingLevel: 4,
+};
+const personCardDataNoImage = {
+  ...defPersonCardData.noImageAlt.props,
+  headingLevel: 4,
+};
+const personCardDataNoImageNoButton = {
+  ...defPersonCardData.noImage.props,
+  headingLevel: 4,
+};
+
 const data = _.merge({}, defaultData, {
   meta: {
     title: 'Personen Teaser',
@@ -14,57 +32,102 @@ const data = _.merge({}, defaultData, {
     documentation: dataHelper.getDocumentation('README.md'),
   },
   props: {
-    personCardData0: defPersonCardData.default.props,
-    personCardData1: defPersonCardData.alt.props,
-    personCardData2: defPersonCardData.noImageAlt.props,
-    personCardData3: defPersonCardData.noImage.props,
+    title: 'Unser Team mit Zwischentiteln',
   },
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-    },
-    props: {
-      headingLevel: 2,
-      headingBordered: true,
-      personCardData0: { headingLevel: 4 },
-      personCardData1: { headingLevel: 4 },
-      personCardData2: { headingLevel: 4 },
-      personCardData3: { headingLevel: 4 },
-    },
-  },
-  alternativeHeadings: {
-    meta: {
-      title: 'H3 / H4 Variante',
-      desc: '',
-    },
-    props: {
-      headingLevel: 3,
-      personCardData0: { headingLevel: 5 },
-      personCardData1: { headingLevel: 5 },
-      personCardData2: { headingLevel: 5 },
-      personCardData3: { headingLevel: 5 },
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
-
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
-        data: dataHelper.getFormattedJson(variantProps),
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Default',
+        desc: 'Default implementation',
+      },
+      props: {
+        headingLevel: 2,
+        visualHeadingLevel: 2,
+        headingBordered: true,
+        teaserBlockList: [
+          {
+            headingText: 'Leitung biz Oerlikon',
+            teaserCardList: [personCardDataDefault],
+            text: 'Die Sicherheitsdirektion und die darunter liegenden Ämter und Bereiche kümmern sich um ein grosens Leistungsspektrum des Kantons. Die folgenden Schwerpunkte liegen uns besonders am Herzen.',
+          },
+          {
+            headingText: 'Berater',
+            teaserCardList: [personCardDataDefault, personCardDataAlternativeVariant],
+            text: 'Die Sicherheitsdirektion und die darunter liegenden Ämter und Bereiche kümmern sich um ein grosens Leistungsspektrum des Kantons. Die folgenden Schwerpunkte liegen uns besonders am Herzen.',
+          },
+          {
+            headingText: 'Was wir tun',
+            teaserCardList: [personCardDataNoImage, personCardDataNoImageNoButton],
+            text: 'Die Sicherheitsdirektion und die darunter liegenden Ämter und Bereiche kümmern sich um ein grosens Leistungsspektrum des Kantons. Die folgenden Schwerpunkte liegen uns besonders am Herzen.',
+          },
+        ],
       },
     },
-  });
+    alternativeHeadings: {
+      meta: {
+        title: 'H3 / H4 Variante',
+        desc: '',
+      },
+      props: {
+        headingLevel: 3,
+        visualHeadingLevel: 3,
+        teaserBlockList: [
+          {
+            headingText: 'Was wir tun',
+            teaserCardList: [
+              {
+                ...personCardDataNoImage,
+                headingLevel: 5,
+              },
+              {
+                ...personCardDataNoImageNoButton,
+                headingLevel: 5,
+              },
+            ],
+            text: 'Die Sicherheitsdirektion und die darunter liegenden Ämter und Bereiche kümmern sich um ein grosens Leistungsspektrum des Kantons. Die folgenden Schwerpunkte liegen uns besonders am Herzen.',
+          },
+        ],
+      },
+    },
+    decisionTree: {
+      meta: {
+        title: 'Entscheidungsbaum',
+        desc: 'Variante mit weissem Hintergrund für den Entscheidungsbaum',
+      },
+      props: {
+        headingLevel: 3,
+        visualHeadingLevel: 3,
+        title: '',
+        teaserBlockList: [
+          {
+            headingText: '',
+            teaserCardList: [personCardDataDefault, personCardDataNoImage],
+            text: '',
+          },
+        ],
+      },
+    },
+  },
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-  return variantData;
-});
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+          data: dataHelper.getFormattedJson(variantProps),
+        },
+      },
+    });
+
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

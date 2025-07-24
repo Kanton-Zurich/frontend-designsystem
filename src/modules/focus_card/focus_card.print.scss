@@ -3,21 +3,26 @@
     tiny: 6,
     small: 10,
     medium: 9,
-    large: 8
+    large: 8,
   );
 
   $paddingSizes: (
     gutters: $grid-margin-gutters,
     items: (
       tiny: $sizeRegular,
-      large: $sizeLarge
+      large: $sizeLarge,
     ),
   );
 
   display: flex;
 
   &__image {
-    @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 2, $gridWidthColumns, $trailingGutter: false);
+    @include gridNestedOffset(
+      'width' 'height' 'min-width' 'min-height',
+      2,
+      $gridWidthColumns,
+      $trailingGutter: false
+    );
   }
 
   &__content {

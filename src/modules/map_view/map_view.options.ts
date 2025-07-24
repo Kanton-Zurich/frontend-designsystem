@@ -1,29 +1,29 @@
 interface ModuleDomSelectors {
-  mapContainer: string,
-  zoomInBtn: string,
-  zoomOutBtn: string,
-  centerBtn: string,
-  directionsBtn: string,
-  directionsUrlTemplateInput: string,
-  markerProps: string,
-  markerPropsLat: string,
-  markerPropsLng: string,
+  mapContainer: string;
+  zoomInBtn: string;
+  zoomOutBtn: string;
+  centerBtn: string;
+  directionsBtn: string;
+  directionsUrlTemplateInput: string;
+  markerProps: string;
+  markerPropsLat: string;
+  markerPropsLng: string;
 }
 interface ModuleStateClasses {
-  singleItem: string,
-  directionsBtnVisible: string,
-  controlDisabled: string,
+  singleItem: string;
+  directionsBtnVisible: string;
+  controlDisabled: string;
   markerClasses: {
-    default: string,
-    highlight: string,
-    selected: string,
-    hidden: string,
-    userPos: string,
-  }
+    default: string;
+    highlight: string;
+    selected: string;
+    hidden: string;
+    userPos: string;
+  };
 }
 export interface MapViewModuleOptions {
-  domSelectors: ModuleDomSelectors
-  stateClasses: ModuleStateClasses
+  domSelectors: ModuleDomSelectors;
+  stateClasses: ModuleStateClasses;
 }
 
 const domSelectors: ModuleDomSelectors = {
@@ -50,7 +50,8 @@ const stateClasses: ModuleStateClasses = {
   },
 };
 
-export const MapViewDefaultOptions: MapViewModuleOptions = { // eslint-disable-line
+export const MapViewDefaultOptions: MapViewModuleOptions = {
+  // eslint-disable-line
   domSelectors,
   stateClasses,
 };

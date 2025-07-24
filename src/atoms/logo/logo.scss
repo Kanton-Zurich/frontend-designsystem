@@ -1,0 +1,19 @@
+.atm-logo {
+  &--screen {
+    display: block;
+  }
+
+  &--screen-inverted {
+    display: none;
+  }
+
+  .cv-inverted & {
+    &--screen {
+      display: none;
+    }
+
+    &--screen-inverted {
+      display: block;
+    }
+  }
+}

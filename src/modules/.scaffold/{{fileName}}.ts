@@ -8,6 +8,10 @@ import Module from '../../assets/js/helpers/module';
 import namespace from '../../assets/js/helpers/namespace';
 
 class {{className}} extends Module {
+  public ui: {
+    element: HTMLDivElement,
+  };
+
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
     };

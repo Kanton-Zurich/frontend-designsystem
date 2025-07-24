@@ -68,11 +68,12 @@
   * Tag Style
   */
   &--tag {
+    font-size: pxToRem($sizeFontSmall);
     color: rgba($colorBlack, 0.6);
     border-radius: 75.5px;
-    padding: 0 pxToRem($sizeRegular);
+    padding: pxToRem(6px) pxToRem($sizeRegular);
     background: $colorBlack10;
-    height: pxToRem($sizeBiggerBig);
+    height: pxToRem($sizeBig);
     max-width: 100%;
 
     &:hover {

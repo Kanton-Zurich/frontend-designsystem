@@ -2,14 +2,22 @@ $imageGalleryPaddingCurve: (
   default: (
     tiny: $sizeBiggerBig,
     large: $sizeGiant,
-  )
+  ),
 );
+
+@media screen {
+  .mdl-image_gallery {
+    --color-text: #{$colorWhite};
+    --color-text-soft: var(--color-accent-soft);
+    --color-bg: #{$colorBlack80};
+  }
+}
 
 .mdl-image_gallery {
   @include gridBleed($fullwidth: true);
   @include sizeCurve(padding-top padding-bottom, default, $imageGalleryPaddingCurve);
 
-  background: $colorBlack80;
+  background: var(--color-bg);
   overflow-x: hidden;
 
   h2.mdl-image_gallery__title {
@@ -25,6 +33,18 @@ $imageGalleryPaddingCurve: (
     list-style: none;
     padding: 0;
     margin-top: 0;
+  }
+
+  .mdl-image-figure__caption {
+    display: flex;
+    column-gap: $sizeTiny;
+
+    .atm-figcaption {
+      @include lineClamp(4);
+      @include mq($from: small) {
+        @include lineClamp(2);
+      }
+    }
   }
 
   &__more {

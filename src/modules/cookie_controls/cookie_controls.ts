@@ -10,26 +10,24 @@ class CookieControls extends Module {
   private daysToExpire: number;
 
   public ui: {
-    element: HTMLDivElement,
-    items: HTMLInputElement[],
+    element: HTMLDivElement;
+    items: HTMLInputElement[];
   };
 
   public options: {
     domSelectors: {
-      items: string,
-    },
-    stateClasses: {}
+      items: string;
+    };
+    stateClasses: {};
   };
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       domSelectors: {
         items: '.atm-checkbox input',
       },
-      stateClasses: {
-      },
+      stateClasses: {},
     };
 
     super($element, defaultData, defaultOptions, data, options);
@@ -64,7 +62,9 @@ class CookieControls extends Module {
    */
   initEventListeners() {
     this.eventDelegate.on('click', this.options.domSelectors.items, (event) => {
-      document.cookie = `${event.target.id}=${event.target.checked}; max-age=${this.getExpireDate()}; path=/`;
+      document.cookie = `${event.target.id}=${
+        event.target.checked
+      }; max-age=${this.getExpireDate()}; path=/`;
     });
   }
 
@@ -73,14 +73,15 @@ class CookieControls extends Module {
    *
    * @return {string}
    */
-  private getExpireDate():string {
+  private getExpireDate(): string {
     const date = new Date();
     const hoursADay = 24;
     const minsPerHour = 60;
     const secsPerMin = 60;
     const milliSecs = 1000;
-    date.setTime(date.getTime()
-      + this.daysToExpire * hoursADay * minsPerHour * secsPerMin * milliSecs);
+    date.setTime(
+      date.getTime() + this.daysToExpire * hoursADay * minsPerHour * secsPerMin * milliSecs
+    );
 
     return date.toUTCString();
   }

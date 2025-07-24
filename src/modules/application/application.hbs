@@ -1,37 +1,64 @@
-<div class="mdl-application__wrapper {{#if fullWidth}}mdl-application__wrapper--fullWidth{{/if}}{{#if heading}} mdl-application__wrapper--with-title{{/if}}">
-{{#unless fullWidth}}
+<div class="mdl-application__wrapper
+  {{#if fullWidth}}mdl-application__wrapper--fullWidth{{/if}}
+  {{#if heading}}mdl-application__wrapper--with-title{{/if}}"
+     {{#if fullWidth}}data-anchornav="fullwidth" {{/if}}>
+
+  {{#if fullWidth}}
+    {{> wrapper-content}}
+  {{else}}
     <div class="lyt-wrapper">
       <div class="grid-x grid-margin-x">
         <div class="cell small-12 medium-12 large-12 xlarge-12">
-{{/unless}}
-  {{#if heading.title}}
-    <h{{heading.level}} class="atm-heading {{#unless smallerHeadings}}atm-heading--bordered{{/unless}}">
-      {{heading.title}}
-    </h{{heading.level}}>
-  {{/if}}
-  {{#if caption}}<figure class="mdl-application__figure">{{/if}}
-  {{#if canvas}}
-          <div class="mdl-application" data-init="application" {{#if caption.altCaption}} aria-labelledby="{{altCaptionId}}" {{/if}}>
-            {{> "modules/application/application.mock"}}
-          </div>
-  {{/if}}
-  {{#if zhApp}}
-    <div class="mdl-application" data-init="application" {{#if caption.altCaption}} aria-labelledby="{{altCaptionId}}" {{/if}}>
-      {{> "modules/application/wahlen.mock"}}
-    </div>
-  {{/if}}
-  {{#if caption}}
-    <figcaption class="mdl-application__caption">
-      {{> "atoms/figcaption/figcaption" caption}}
-      {{#if caption.altCaption}}
-        <span id="{{altCaptionId}}" class="hidden">{{{caption.altCaption}}}</span>
-      {{/if}}
-    </figcaption>
-  </figure>
-  {{/if}}
-  {{#unless fullWidth}}
+          {{> wrapper-content}}
         </div>
       </div>
     </div>
-  {{/unless}}
+  {{/if}}
+
 </div>
+
+
+{{#*inline "wrapper-content"}}
+  {{#if heading.title}}
+    <h{{heading.level}} class="atm-heading
+      {{#if_compare heading.visualLevel "!==" heading.level}}h{{heading.visualLevel}}{{/if_compare}}
+      {{#if_compare heading.visualLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+    >
+      {{heading.title}}
+    </h{{heading.level}}>
+  {{/if}}
+
+  {{#if description}}
+    <p class="mdl-application__description">{{description}}</p>
+  {{/if}}
+
+  {{#if caption}}
+    <figure class="mdl-application__figure">
+      {{> application-content}}
+      <figcaption class="mdl-application__caption">
+        {{> "atoms/figcaption/figcaption" caption}}
+        {{#if caption.altCaption}}
+          <span id="{{altCaptionId}}" class="hidden">{{{caption.altCaption}}}</span>
+        {{/if}}
+      </figcaption>
+    </figure>
+  {{else}}
+    {{> application-content}}
+  {{/if}}
+
+  {{#if dataDownload}}
+    {{>"modules/data_download/data_download" dataDownload }}
+  {{/if}}
+{{/inline}}
+
+{{#*inline "application-content"}}
+  <div class="mdl-application" data-init="application"
+       {{#if caption.altCaption}} aria-labelledby="{{altCaptionId}}" {{/if}}>
+    {{#if canvas}}
+      {{> "modules/application/application.mock"}}
+    {{/if}}
+    {{#if zhApp}}
+      {{> "modules/application/wahlen.mock"}}
+    {{/if}}
+  </div>
+{{/inline}}

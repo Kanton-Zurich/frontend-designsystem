@@ -1,0 +1,392 @@
+$contactFontCurve: (
+  boldText: (
+    tiny: $sizeFontRegular,
+    large: $sizeFontRegular,
+    xlarge: $sizeFontBiggerRegular,
+  ),
+  furtherInformation: (
+    tiny: $sizeFontSmall,
+    xsmall: $sizeFontSmall,
+    small: $sizeFontRegular,
+  ),
+);
+
+.mdl-contact_entry {
+  display: grid;
+  grid-template-areas: 'header' 'section' 'socialmedia';
+
+  &__header {
+    grid-area: header;
+  }
+
+  &__section {
+    grid-area: section;
+    display: flex;
+    flex-direction: column;
+
+    @include sizeCurve('margin-bottom', medium);
+  }
+
+  &__social-media {
+    grid-area: socialmedia;
+    margin-top: pxToRem($sizeLarge);
+    margin-left: calc(#{$sizeRegular} + #{$sizeBig});
+
+    @include mq($from: small) {
+      margin: 0;
+    }
+  }
+
+  &__title {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
+    line-height: $sizeLineHeightBase;
+    font-family: $fontFamilyBlack;
+    margin-bottom: pxToRem($sizeTiny);
+    margin-top: 0;
+
+    a {
+      text-decoration: none;
+      border-bottom-width: 2px;
+    }
+  }
+
+  // Hack to make selector stronger
+  .mdl-contact_entry__title {
+    padding-top: 0;
+  }
+
+  &:not(.mdl-contact_entry--location, .mdl-contact_entry--single-column) {
+    @include mq($from: small) {
+      grid-template-columns: auto min-content;
+      grid-template-areas: 'header socialmedia' 'section section';
+      column-gap: pxToRem($sizeRegular);
+    }
+
+    .mdl-contact_entry__section {
+      @include mq($from: small) {
+        flex-flow: row wrap;
+        column-gap: pxToRem($sizeRegular);
+      }
+      @include mq($from: xlarge) {
+        flex-wrap: nowrap;
+      }
+    }
+
+    @include mq($from: small) {
+      .mdl-contact_entry__section-cell {
+        max-width: 50%;
+        flex: 30% 0.5 0;
+
+        &:last-child {
+          max-width: unset;
+          flex: 40% 1 1;
+        }
+      }
+    }
+  }
+
+  &__infotext {
+    margin-top: 0;
+    color: var(--color-text);
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+    @include sizeCurve('margin-bottom', regular);
+  }
+
+  &__section-cell:first-of-type {
+    margin-top: pxToRem($sizeSmallLarge);
+  }
+
+  &__section-cell {
+    position: relative;
+    margin-top: pxToRem($sizeSmallRegular);
+    min-height: pxToRem($sizeBig);
+  }
+
+  &__cell-icon {
+    background-color: $colorBlack10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-flex;
+    width: pxToRem($sizeBig);
+    height: pxToRem($sizeBig);
+    border-radius: 50%;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+
+      use {
+        fill: var(--color-text);
+      }
+    }
+
+    .mdl-contact & {
+      background-color: var(--color-text);
+
+      svg use {
+        fill: var(--color-accent);
+      }
+    }
+  }
+
+  &__cell-content {
+    hyphens: auto;
+    padding-left: calc(#{$sizeRegular} + #{$sizeBig});
+  }
+
+  &__text {
+    hyphens: auto;
+    margin-bottom: pxToRem($sizeRegular);
+
+    p,
+    a,
+    h4,
+    h5,
+    h6,
+    ul,
+    li {
+      font-size: inherit;
+      line-height: $sizeLineHeightBigger;
+      margin: 0;
+    }
+
+    h4,
+    h5,
+    h6 {
+      margin: pxToRem($sizeTiny) 0;
+    }
+
+    p,
+    ul {
+      margin-bottom: pxToRem($sizeTiny);
+    }
+  }
+
+  &__address,
+  &__phone,
+  &__mail {
+    @include polyFluidSizing('font-size', map-get($contactFontCurve, boldText));
+    line-height: $sizeLineHeightBase;
+    font-family: $fontFamilyBlack;
+  }
+
+  &--single-column,
+  &--location {
+    .mdl-contact_entry__section {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &--single-column {
+    .mdl-contact_entry__section-cell:first-of-type {
+      margin-top: pxToRem($sizeSmallRegular);
+    }
+
+    .mdl-contact_entry__phone,
+    .mdl-contact_entry__show-route {
+      margin-bottom: pxToRem($sizeTiny - 1);
+    }
+
+    .mdl-contact_entry__text {
+      margin-bottom: 0;
+
+      @include mq($from: medium) {
+        margin-bottom: pxToRem($sizeSmallRegular);
+      }
+    }
+
+    .mdl-contact_entry__address-title,
+    .mdl-contact_entry__copy-button {
+      margin-bottom: pxToRem($sizeTiny);
+
+      @include mq($from: medium) {
+        margin-bottom: pxToRem($sizeSmallRegular);
+      }
+    }
+
+    .mdl-contact_entry__address {
+      margin-bottom: 0;
+    }
+  }
+
+  &--location {
+    .mdl-contact_entry__address,
+    .mdl-contact_entry__phone,
+    .mdl-contact_entry__mail {
+      color: var(--color-text);
+    }
+
+    .mdl-contact_entry__title,
+    .mdl-contact_entry__title .atm-text_link {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+
+    .mdl-contact_entry__title .atm-text_link:hover {
+      color: var(--color-text);
+      border-color: var(--color-text);
+    }
+  }
+
+  &__copy {
+    display: flex;
+    gap: $sizeTiny;
+  }
+
+  &__text,
+  &__copy-button,
+  &__show-route,
+  &__service-link {
+    @include polyFluidSizing('font-size', map-get($contactFontCurve, furtherInformation));
+    line-height: $sizeLineHeightBigger;
+    margin-bottom: pxToRem($sizeSmallRegular);
+  }
+
+  &__copy-button {
+    font-family: $fontFamilyBase;
+  }
+
+  &__copy-button-confirm {
+    display: none;
+    fill: $colorGreen;
+    background: $colorWhite;
+    border-radius: 50%;
+  }
+
+  &__copy-button-caution {
+    display: none;
+    fill: $colorRed;
+    background: $colorWhite;
+    border-radius: 50%;
+  }
+
+  &__show-route,
+  &__service-link {
+    font-family: $fontFamilyBase;
+    margin-right: auto;
+  }
+
+  &__address {
+    font-style: normal;
+    margin-bottom: pxToRem($sizeRegular);
+    display: flex;
+    flex-direction: column;
+
+    &-title {
+      margin-bottom: pxToRem($sizeSmallRegular);
+      color: var(--color-text);
+    }
+
+    :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__mail,
+  &__phone {
+    margin-bottom: pxToRem($sizeTiny);
+    display: inline-block;
+    hyphens: none;
+    word-break: break-word;
+  }
+
+  &__phone:not(:first-of-type) {
+    margin-top: pxToRem($sizeTiny);
+  }
+
+  &__mail {
+    display: inline;
+  }
+
+  &__mail ~ &__text {
+    margin-top: pxToRem($sizeTiny);
+  }
+
+  /*
+   * Media Queries SMALL
+   */
+  @include mq($from: small) {
+    &__text,
+    &__copy-button,
+    &__show-route,
+    &__service-link {
+      line-height: $sizeLineHeightMedium;
+    }
+
+    &__address,
+    &__show-route,
+    &__phone,
+    &__mail {
+      line-height: $sizeLineHeightMedium;
+    }
+
+    &__phone:not(:first-of-type) {
+      margin-top: pxToRem($sizeSmallRegular);
+    }
+
+    &__mail {
+      margin-bottom: pxToRem($sizeSmallRegular);
+    }
+  }
+
+  /*
+   * Media Queries XLARGE
+   */
+  @include mq($from: xlarge) {
+    &__cell-content {
+      padding-left: calc(#{$sizeRegular} + #{$sizeBiggerBig});
+    }
+
+    &__title {
+      line-height: $sizeLineHeightNarrow;
+    }
+
+    &__mail {
+      margin-bottom: pxToRem($sizeRegular);
+    }
+
+    &__cell-icon {
+      width: pxToRem($sizeBiggerBig);
+      height: pxToRem($sizeBiggerBig);
+
+      svg {
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    &__section-cell {
+      min-height: pxToRem($sizeBiggerBig);
+    }
+
+    &__address,
+    &__show-route,
+    &__phone,
+    &__mail {
+      line-height: $sizeLineHeightMedium;
+    }
+  }
+}
+
+/*
+ * Media Queries SMALL only
+ */
+@include mq($from: small, $to: medium) {
+  .mdl-contact--fullwidth {
+    .mdl-contact_entry__cell-icon {
+      margin-top: pxToRem($sizeRegular);
+      position: relative;
+      top: auto;
+      left: auto;
+    }
+
+    .mdl-contact_entry__cell-content {
+      margin-top: pxToRem($sizeTiny);
+      padding-left: 0;
+    }
+  }
+}

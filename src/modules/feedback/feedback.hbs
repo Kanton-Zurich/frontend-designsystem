@@ -1,22 +1,29 @@
-<div class="mdl-feedback" data-init="feedback">
+<div class="mdl-feedback" data-anchornav="fullwidth" data-init="feedback">
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
-      <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+      <div
+        class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8"
+      >
         <h2 class="visuallyhidden">{{title}}</h2>
         {{#each steps}}
-        <div class="mdl-feedback__step">
-          {{#if outerTitle}}<h3 class="atm-heading atm-heading--cv-inverted">{{outerTitle}}</h3>{{/if}}
-          {{#if buttons}}
-          <div class="mdl-feedback__container">
-            {{#each buttons}}<button class="atm-button atm-button--cv-inverted" id="{{id}}">{{title}}</button>{{/each}}
+          <div class="mdl-feedback__step">
+            {{#if outerTitle}}<h3
+                class="atm-heading atm-heading--cv-inverted"
+              >{{outerTitle}}</h3>{{/if}}
+            {{#if buttons}}
+              <div class="mdl-feedback__container">
+                {{#each buttons}}<button
+                    class="atm-button atm-button--cv-inverted"
+                    id="{{id}}"
+                  >{{title}}</button>{{/each}}
+              </div>
+            {{/if}}
+            {{#if innerTitle}}
+              <div class="mdl-feedback__container mdl-feedback__container--aligned">
+                <h3 class="atm-heading atm-heading--cv-inverted">{{innerTitle}}</h3>
+              </div>
+            {{/if}}
           </div>
-          {{/if}}
-          {{#if innerTitle}}
-          <div class="mdl-feedback__container mdl-feedback__container--aligned">
-            <h3 class="atm-heading atm-heading--cv-inverted">{{innerTitle}}</h3>
-          </div>
-          {{/if}}
-        </div>
         {{/each}}
       </div>
     </div>

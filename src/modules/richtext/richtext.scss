@@ -49,7 +49,7 @@
 
     p {
       line-height: 1.3em;
-      color: $colorBlack;
+      color: var(--color-accent);
       margin-bottom: 0;
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
@@ -91,7 +91,6 @@
       @include sizeCurve('padding-left', benefits, $indentCurve);
 
       li {
-
         &:before {
           content: '\2003\2003';
           background-image: url(svg-tickmark($colorBlack)); // stylelint-disable-line
@@ -139,14 +138,22 @@
         position: absolute;
         content: counter(ol-counter, decimal-leading-zero);
         font-family: $fontFamilyBlack;
-        color: $colorBlack;
+        color: var(--color-accent);
 
         @include sizeCurve('margin-left', benefits, $indentCurve, true);
       }
     }
   }
 
+  .mdl-quote {
+    p,
+    span {
+      color: var(--color-accent);
+    }
+  }
+
   /* Inverted */
+  .cv-inverted &,
   &--cv-inverted {
     ::selection {
       color: $colorBlack;
@@ -202,57 +209,6 @@
             background-image: url(svg-tickmark($val)); // stylelint-disable-line
           }
         }
-      }
-
-      ol li:before {
-        color: #{$val};
-      }
-
-      .mdl-richtext__emphasis {
-        p {
-          color: #{$val};
-        }
-      }
-    }
-
-    .mdl-quote {
-      p {
-        color: #{$val};
-      }
-    }
-  }
-}
-
-.mod-smaller-headings {
-  .mdl-richtext,
-  &.mdl-richtext {
-    h4,
-    .h4 {
-      &.atm-heading {
-        line-height: $sizeLineHeightBase;
-        font-family: $fontFamilyBase;
-
-        @include mq($from: xsmall) {
-          line-height: $sizeLineHeightBigger;
-        }
-        @include mq($from: xlarge) {
-          line-height: $sizeLineHeightBase;
-        }
-      }
-    }
-
-    h5.atm-heading,
-    h6.atm-heading,
-    .h5.atm-heading,
-    .h6.atm-heading {
-      @include polyFluidSizing(font-size, map-get($fontSizeCurves, smallModFontSizeH5H6));
-      line-height: $sizeLineHeightBigger;
-
-      @include mq($from: medium) {
-        line-height: $sizeLineHeightBase;
-      }
-      @include mq($from: medium) {
-        line-height: $sizeLineHeightMedium;
       }
     }
   }

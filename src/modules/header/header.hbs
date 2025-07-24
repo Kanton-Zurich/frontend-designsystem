@@ -1,17 +1,24 @@
-<div class="mdl-header{{#if inverted}} mdl-header--inverted{{/if}}" data-init="header">
+<div class="mdl-header{{#if inverted}} cv-inverted{{/if}}" data-init="header">
   <div class="lyt-wrapper">
     <div class="grid-margin-x grid-x">
-      <div class="mdl-header__wrapper cell tiny-offset-2 xsmall-offset-2 small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-10">
+      <div class="mdl-header__wrapper cell small-offset-2 medium-offset-2 large-offset-2">
+        <div class="mdl-header__logo">
+          {{> "atoms/logo/logo" logo}}
+        </div>
+        <span class="mdl-header__logo-text">Kanton Zürich</span>
+
+        {{!-- Hauptnavigation --}}
         <h2 class="visuallyhidden">Hauptnavigation</h2>
-        <nav id="navigation">
+        <div class="mdl-header__spacer"></div>
+        <nav class="mdl-header__navigation-container" id="navigation" tabindex="-1">
           <button class="mdl-header__nav-burger" data-menu-burger>
+            <span class="mdl-header__nav-burger-text" data-menu-burger-text>Menu</span>
             <svg class="icon burger" focusable="false">
               <use xlink:href="#menu-1"></use>
             </svg>
             <svg class="icon close" focusable="false">
               <use xlink:href="#exit"></use>
             </svg>
-            <span class="mdl-header__nav-burger-text">Menu</span>
           </button>
           <ul class="mdl-header__navigation">
             {{#each navItem}}
@@ -23,11 +30,12 @@
             {{/each}}
           </ul>
         </nav>
+        {{!-- Hauptnavigation END --}}
       </div>
     </div>
   </div>
   <div class="mdl-header__functions">
-    {{#if hasUserMenu}}
+    {{#if userMenu}}
       {{> "modules/user_menu/user_menu" userMenu}}
     {{/if}}
     <button
@@ -47,6 +55,7 @@
         <use xlink:href="#inspect"></use>
       </svg>
     </button>
+
   </div>
 </div>
 

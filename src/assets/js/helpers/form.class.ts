@@ -1,6 +1,5 @@
-import { Delegate } from 'dom-delegate';
-import wrist from 'wrist';
-import { debounce } from 'lodash';
+import Delegate from 'ftdomdelegate/main';
+import { watch } from 'wrist';
 import DuplicationElement from './duplication.class';
 import ZipCity from './zipCity';
 import FormRules from './formrules.class';
@@ -13,17 +12,17 @@ import Module from './module';
 
 class Form {
   private ui: {
-    element: HTMLElement,
+    element: HTMLElement;
   };
 
   private options: {
-    watchEmitters: any,
-    eventEmitters: any,
-    inputClasses: any,
-    validateDelay: number,
-    resizeDelay: number,
-    messageClasses: any,
-    radiogroupClasses: any,
+    watchEmitters: any;
+    eventEmitters: any;
+    inputClasses: any;
+    validateDelay: number;
+    resizeDelay: number;
+    messageClasses: any;
+    radiogroupClasses: any;
     domSelectors: {
       floating: string;
       datepicker: string;
@@ -33,19 +32,19 @@ class Form {
       lengthIndicator: string;
       validateIcon: string;
     };
-    messageSelector: string,
-    autofillSelector: string,
-    duplicateSelector: string,
-    selectOptionSelector: string,
-    inputSelector: string,
-    rulesSelector: string,
-    padding: number,
-    prefixSelector: string,
+    messageSelector: string;
+    autofillSelector: string;
+    duplicateSelector: string;
+    selectOptionSelector: string;
+    inputSelector: string;
+    rulesSelector: string;
+    padding: number;
+    prefixSelector: string;
   };
 
   private eventDelegate: any;
 
-  constructor(el) {
+  constructor(el, enterKeyHandling = true) {
     this.ui = {
       element: el,
     };
@@ -59,7 +58,8 @@ class Form {
       },
       watchEmitters: {
         input: '[data-validation], [data-hasbutton="true"], [data-floating]',
-        datePickerInput: '.flatpickr_input, [data-validation], [data-hasbutton="true"], [data-floating]',
+        datePickerInput:
+          '.flatpickr_input, [data-validation], [data-hasbutton="true"], [data-floating]',
       },
       inputClasses: {
         dirty: 'dirty',
@@ -94,7 +94,7 @@ class Form {
     this.eventDelegate = new Delegate(el);
 
     // Buttons are listened to
-    this.addEventListeners();
+    this.addEventListeners(enterKeyHandling);
 
     // Inputs will be watched
     this.addWatchers();
@@ -120,32 +120,41 @@ class Form {
     return {
       clearInput: 'Input.clear',
       initInput: 'Input.initialize',
+      resizeForm: 'Form.resize',
     };
   }
 
-  addEventListeners() {
-    this.eventDelegate.on('keypress', (event) => { // eslint-disable-line
-      if (event.keyCode === 13) { // eslint-disable-line
-        event.preventDefault();
-        return false;
-      }
-    });
+  addEventListeners(enterKeyHandling = true) {
+    if (enterKeyHandling) {
+      this.eventDelegate.on('keypress', (event) => {
+        // eslint-disable-next-line
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          return false;
+        }
+      });
+    }
     this.eventDelegate.on('reset', () => {
       this.ui.element.querySelectorAll(this.options.watchEmitters.input).forEach((input) => {
         input.classList.toggle('dirty', false);
       });
     });
-    this.eventDelegate.on('click', this.options.eventEmitters.clearButton, this.clearField.bind(this));
-    this.eventDelegate.on('keyup', this.options.watchEmitters.input, debounce((event, field) => {
-      if (field.type !== 'radio') this.validateField(field);
-      if (field.type === 'number' || field.type === 'text') {
-        this.checkIfFieldDirty(field);
-      }
-    }, this.options.validateDelay));
+    this.eventDelegate.on(
+      'click',
+      this.options.eventEmitters.clearButton,
+      this.clearField.bind(this)
+    );
     this.eventDelegate.on('blur', this.options.watchEmitters.input, (event, field) => {
-      if (field.type !== 'file' && field.type !== 'radio' && !field.classList.contains('flatpickr-input')) this.validateField(field);
+      if (
+        field.type !== 'file' &&
+        field.type !== 'radio' &&
+        !field.classList.contains('flatpickr-input')
+      ) {
+        this.validateField(field);
+      }
     });
-    this.ui.element.querySelectorAll(this.options.watchEmitters.datePickerInput)
+    this.ui.element
+      .querySelectorAll(this.options.watchEmitters.datePickerInput)
       .forEach((input) => {
         input.addEventListener(Datepicker.events.close, (event) => {
           this.validateField(event.target);
@@ -161,17 +170,22 @@ class Form {
       const { input } = event.detail;
       this.addInputElementWatchers(input);
     });
+    // this.eventDelegate.on(Form.events.resizeForm, this.onDelegateResize.bind(this));
     this.eventDelegate.on('showFieldInvalid', (event) => {
       this.setValidClasses(event.detail.field, ['add', 'remove']);
     });
     this.eventDelegate.on(FileUpload.events.duplicated, (event) => {
       this.addWatchers(event.detail);
     });
-    this.eventDelegate.on('blur', this.options.domSelectors.floating, (event, field: HTMLInputElement) => {
-      this.checkIfFieldDirty(field);
-    });
+    this.eventDelegate.on(
+      'blur',
+      this.options.domSelectors.floating,
+      (event, field: HTMLInputElement) => {
+        this.checkIfFieldDirty(field);
+      }
+    );
     (<any>WindowEventListener).addDebouncedResizeListener(this.onResize.bind(this));
-    (<any> window).addEventListener(Module.globalEvents.verticalResize, this.onResize.bind(this));
+    (<any>window).addEventListener(Module.globalEvents.verticalResize, this.onResize.bind(this));
     // autofill listener
     const autoFillSelectors = this.ui.element.querySelectorAll(this.options.autofillSelector);
     autoFillSelectors.forEach((autoFillElement: any) => {
@@ -182,7 +196,7 @@ class Form {
           dirty = true;
         });
         sourceElement.addEventListener('change', (input) => {
-          const { value } = (<any>input.target);
+          const { value } = <any>input.target;
           if (!dirty) {
             autoFillElement.value = value;
           }
@@ -215,7 +229,7 @@ class Form {
     switch (inputType) {
       case 'radio':
       case 'checkbox':
-        wrist.watch(input, 'checked', () => {
+        watch(input, 'checked', () => {
           this.validateField(input);
         });
         break;
@@ -225,10 +239,14 @@ class Form {
         });
         break;
       default:
-
-        wrist.watch(input, 'value', (propName, oldValue, newValue) => {
+        watch(input, 'value', (propName, oldValue, newValue) => {
           // prevent datepicker for being validated as its being validated on a close event
-          this.onInputValueChange(input, oldValue, newValue, input.classList.contains('flatpickr-input') === false);
+          this.onInputValueChange(
+            input,
+            oldValue,
+            newValue,
+            input.classList.contains('flatpickr-input') === false
+          );
         });
         if (input.hasAttribute('data-input-mask')) {
           this.onInputMask(input, '', input.value);
@@ -265,7 +283,8 @@ class Form {
         this.validateField(domElement);
       } else {
         domElement.classList.remove(this.options.inputClasses.dirty);
-        domElement.closest(this.options.inputSelector)
+        domElement
+          .closest(this.options.inputSelector)
           .classList.remove(this.options.inputClasses.valid);
       }
     }
@@ -274,7 +293,9 @@ class Form {
     if (domElement.hasAttribute('maxlength')) {
       const maxLength = domElement.getAttribute('maxlength');
       if (newValue.length <= maxLength) {
-        domElement.parentElement.querySelector(this.options.domSelectors.lengthIndicator).innerHTML = `${newValue.length}/${maxLength}`;
+        domElement.parentElement.querySelector(
+          this.options.domSelectors.lengthIndicator
+        ).innerHTML = `${newValue.length}/${maxLength}`;
       }
     }
   }
@@ -290,8 +311,9 @@ class Form {
     const maskPlaceholder = domElement.getAttribute('data-mask-placeholder');
     let backdrop = domElement.parentElement.querySelector(this.options.domSelectors.backdrop);
     if (domElement.parentElement.classList.contains('flatpickr-wrapper')) {
-      backdrop = domElement.parentElement
-        .parentElement.querySelector(this.options.domSelectors.backdrop);
+      backdrop = domElement.parentElement.parentElement.querySelector(
+        this.options.domSelectors.backdrop
+      );
     }
     if (maskPlaceholder && backdrop) {
       backdrop.innerHTML = `<i>${newValue}</i>${maskPlaceholder.substring(newValue.length)}`;
@@ -301,9 +323,6 @@ class Form {
     }
   }
 
-  /**
-   * Update radio group wrapping and form-input-unit on resize
-   */
   onResize() {
     this.initPrefix();
     const radiogroups = this.ui.element.querySelectorAll(this.options.domSelectors.radiogroup);
@@ -351,7 +370,8 @@ class Form {
     inputElement.dispatchEvent(new CustomEvent(Form.events.clearInput));
   }
 
-  async validateField(field) { //eslint-disable-line
+  async validateField(field) {
+    //eslint-disable-line
     if (this.ui.element.hasAttribute('is-reset')) {
       return true;
     }
@@ -362,7 +382,9 @@ class Form {
 
     // Only Do something about validation when there is a parent with data-input is present
     if (inputWrapper) {
-      field.closest(this.options.inputSelector).querySelectorAll(this.options.messageSelector)
+      field
+        .closest(this.options.inputSelector)
+        .querySelectorAll(this.options.messageSelector)
         .forEach((message) => {
           message.classList.remove(this.options.messageClasses.show);
         });
@@ -379,10 +401,15 @@ class Form {
       const errorMessageIds: Array<string> = [];
 
       validation.messages.forEach((messageID) => {
-        const message = field.closest(this.options.inputSelector).querySelector(`[data-message="${messageID}"]`);
+        const message = field
+          .closest(this.options.inputSelector)
+          .querySelector(`[data-message="${messageID}"]`);
 
         if (message) {
-          if ((field.getAttribute('type') === 'radio') || (field.hasAttribute(this.options.selectOptionSelector))) {
+          if (
+            field.getAttribute('type') === 'radio' ||
+            field.hasAttribute(this.options.selectOptionSelector)
+          ) {
             messageElementID = `${field.getAttribute('name')}__${messageID}-error`;
           } else {
             messageElementID = `${field.id}__${messageID}-error`;
@@ -397,7 +424,9 @@ class Form {
       if (validation.files) {
         setTimeout(() => {
           validation.files.forEach((validationResult) => {
-            const fileContainer = field.closest(this.options.inputSelector).querySelector(`[data-file-id="${validationResult.id}"]`);
+            const fileContainer = field
+              .closest(this.options.inputSelector)
+              .querySelector(`[data-file-id="${validationResult.id}"]`);
 
             validationResult.errors.forEach((error) => {
               fileContainer.querySelector(`[data-message="${error}"]`).classList.add('show');
@@ -417,7 +446,10 @@ class Form {
     if (field.hasAttribute('aria-describedby')) {
       idsString = field.getAttribute('aria-describedby');
     }
-    const idsArray = idsString.split(' ').filter(id => !id.endsWith('-error')).concat(errorMessageIds);
+    const idsArray = idsString
+      .split(' ')
+      .filter((id) => !id.endsWith('-error'))
+      .concat(errorMessageIds);
     field.setAttribute('aria-describedby', idsArray.join(' '));
   }
 
@@ -431,7 +463,7 @@ class Form {
 
     if (field.hasAttribute('data-validation') && field.hasAttribute('maxlength')) {
       const validateIcon = field.parentElement.querySelector(
-        this.options.domSelectors.validateIcon,
+        this.options.domSelectors.validateIcon
       );
       validateIcon.classList.add('atm-form_input__validate-icon--textarea');
     }
@@ -459,12 +491,14 @@ class Form {
     const formSections = event.detail.sections;
     let errorsInSections = 0;
 
-    for (let h = 0; h < formSections.length; h++) { // eslint-disable-line
+    for (let h = 0; h < formSections.length; h++) {
+      // eslint-disable-line
       const fieldsInSection = formSections[h].querySelectorAll(this.options.watchEmitters.input);
 
-      for (let i = 0; i < fieldsInSection.length; i++) { // eslint-disable-line
+      for (let i = 0; i < fieldsInSection.length; i++) {
+        // eslint-disable-line
         errorsInSections = !(await this.validateField(fieldsInSection[i])) // eslint-disable-line
-          ? errorsInSections += 1
+          ? (errorsInSections += 1)
           : errorsInSections;
       }
     }
@@ -472,11 +506,13 @@ class Form {
     if (errorsInSections > 0) {
       this.ui.element.setAttribute('form-has-errors', 'true');
 
-      (<any> this.ui.element.querySelector('.invalid input, .invalid textarea, .invalid button')).focus();
+      (<any>(
+        this.ui.element.querySelector('.invalid input, .invalid textarea, .invalid button')
+      )).focus();
     } else {
       this.ui.element.removeAttribute('form-has-errors');
     }
-    event.detail.callback?.();
+    return event.detail.callback && event.detail.callback();
   }
 
   handleInputMask(domElement, oldValue, newValue) {
@@ -501,7 +537,8 @@ class Form {
         break;
       default:
         // handle mask
-        const parseSub = (input, maskPartial) => {  // eslint-disable-line
+        // eslint-disable-next-line
+        const parseSub = (input, maskPartial) => {
           const symbol = input[0];
           let idx = 1;
           let regex;
@@ -516,7 +553,8 @@ class Form {
           return maskPartial;
         };
 
-        const findNext = (input, index, symbol) => {  // eslint-disable-line
+        // eslint-disable-next-line
+        const findNext = (input, index, symbol) => {
           if (input[index] === symbol) {
             return index;
           }
@@ -526,7 +564,8 @@ class Form {
           return -1;
         };
 
-        const parse = (input, index, maskPattern) => { // eslint-disable-line
+        // eslint-disable-next-line
+        const parse = (input, index, maskPattern) => {
           const symbol = input[index];
           let idx = index;
           let regex;
@@ -568,12 +607,16 @@ class Form {
       const index = oldValue.length;
       if (index < maskParts.length) {
         if (newValue[index].match(maskParts[index].regex)) {
-          if (maskParts.length - newValue.length === 1
-            && maskParts[index].autoFillValue) {
+          if (maskParts.length - newValue.length === 1 && maskParts[index].autoFillValue) {
             return `${newValue}${maskParts[index].autoFillValue}`;
           }
           return newValue;
-        } else if (maskParts[index] && maskParts[index].autoFill && newValue[index].match(maskParts[index].autoFill)) { // eslint-disable-line
+        } else if (
+          maskParts[index] &&
+          maskParts[index].autoFill &&
+          newValue[index].match(maskParts[index].autoFill)
+        ) {
+          // eslint-disable-line
           if (newValue[index] === maskParts[index].autoFillValue[0]) {
             return `${oldValue}${newValue[index]}`;
           }

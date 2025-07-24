@@ -10,30 +10,27 @@ class LangSwitch extends Module {
   public placeholder: HTMLElement;
 
   public ui: {
-    element: any,
-    activeAnchor: any,
-    closeButton: any,
+    element: any;
+    activeAnchor: any;
+    closeButton: any;
   };
 
   public options: {
     domSelectors: {
-      anchors: string,
-      activeAnchor: string,
-      closeButton: string,
-    },
+      anchors: string;
+      activeAnchor: string;
+    };
     stateClasses: {
-      active: string,
-    },
+      active: string;
+    };
   };
 
   constructor($element: any, data: Object, options: Object) {
-    const defaultData = {
-    };
+    const defaultData = {};
     const defaultOptions = {
       domSelectors: {
         anchors: '.atm-anchorlink',
         activeAnchor: '.atm-anchorlink--active',
-        closeButton: '.mdl-lang-switch__close',
       },
       stateClasses: {
         active: 'atm-anchorlink--active',
@@ -56,17 +53,13 @@ class LangSwitch extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.eventDelegate
-      .on('click', this.options.domSelectors.closeButton, () => {
-        this.ui.element.style.display = 'none';
-        document.dispatchEvent(new CustomEvent(LangSwitch.events.hide));
-      }).on('click', this.options.domSelectors.anchors, (event) => {
-        if (event.target !== this.ui.activeAnchor) {
-          this.ui.activeAnchor.classList.remove(this.options.stateClasses.active);
-          event.target.classList.add(this.options.stateClasses.active);
-          this.ui.activeAnchor = event.target;
-        }
-      });
+    this.eventDelegate.on('click', this.options.domSelectors.anchors, (event) => {
+      if (event.target !== this.ui.activeAnchor) {
+        this.ui.activeAnchor.classList.remove(this.options.stateClasses.active);
+        event.target.classList.add(this.options.stateClasses.active);
+        this.ui.activeAnchor = event.target;
+      }
+    });
   }
 
   /**
@@ -74,8 +67,6 @@ class LangSwitch extends Module {
    */
   destroy() {
     super.destroy();
-
-    // Custom destroy actions go here
   }
 }
 

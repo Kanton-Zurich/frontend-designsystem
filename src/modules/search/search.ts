@@ -11,23 +11,23 @@ import Modal from '../modal/modal';
 
 class Search extends Module {
   public options: {
-    url: string,
-    domSelectors: any,
-    stateClasses: any,
-    searchPageUrl: string,
-  }
+    url: string;
+    domSelectors: any;
+    stateClasses: any;
+    searchPageUrl: string;
+  };
 
   public data: {
-    suggestions: Array<string>,
-  }
+    suggestions: Array<string>;
+  };
 
   public ui: {
-    element: HTMLDivElement,
-    input: HTMLInputElement,
-    template: HTMLScriptElement,
-    autosuggest: HTMLDivElement,
-    form: HTMLFormElement,
-  }
+    element: HTMLDivElement;
+    input: HTMLInputElement;
+    template: HTMLScriptElement;
+    autosuggest: HTMLDivElement;
+    form: HTMLFormElement;
+  };
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
@@ -62,14 +62,17 @@ class Search extends Module {
    */
   initEventListeners() {
     this.ui.element.addEventListener(Modal.events.display, async () => {
-      new Autosuggest({
-        input: this.ui.input,
-        parent: this.ui.element,
-        template: this.ui.template.innerHTML,
-        target: this.ui.autosuggest,
-        url: this.options.url,
-        searchPageUrl: this.options.searchPageUrl,
-      }, {});
+      new Autosuggest(
+        {
+          input: this.ui.input,
+          parent: this.ui.element,
+          template: this.ui.template.innerHTML,
+          target: this.ui.autosuggest,
+          url: this.options.url,
+          searchPageUrl: this.options.searchPageUrl,
+        },
+        {}
+      );
     });
 
     this.ui.element.addEventListener(Modal.events.opened, () => {
@@ -95,7 +98,9 @@ class Search extends Module {
     this.ui.form.addEventListener('submit', (event) => {
       event.preventDefault();
       event.stopPropagation();
-      window.location.href = `${this.options.searchPageUrl}?q=${encodeURIComponent(this.ui.input.value)}`;
+      window.location.href = `${this.options.searchPageUrl}?q=${encodeURIComponent(
+        this.ui.input.value
+      )}`;
     });
   }
 

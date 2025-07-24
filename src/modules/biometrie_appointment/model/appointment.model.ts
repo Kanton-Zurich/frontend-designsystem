@@ -7,8 +7,11 @@ class Appointment {
   private details: AppointmentPayload;
   private locale: string[] = ['de-CH'];
 
-  private timeFormatOptions = { hour: '2-digit', minute: '2-digit' };
-  private dateFormatOptions = {
+  private timeFormatOptions: Intl.DateTimeFormatOptions = {
+    hour: '2-digit',
+    minute: '2-digit',
+  };
+  private dateFormatOptions: Intl.DateTimeFormatOptions = {
     day: '2-digit',
     month: '2-digit',
     weekday: 'long',

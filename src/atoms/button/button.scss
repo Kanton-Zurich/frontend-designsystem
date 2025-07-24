@@ -1,4 +1,3 @@
-
 $normalButtonSize: $sizeBiggerBig + $sizeTiny;
 
 .atm-button {
@@ -34,10 +33,8 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
     text-overflow: ellipsis;
   }
 
-  &__icon {
-    use {
-      fill: $colorWhite;
-    }
+  use {
+    fill: $colorWhite;
   }
 
   &__text:not(.visuallyhidden) + .atm-button__icon {
@@ -86,27 +83,19 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
    * Type variations
    */
   &--secondary {
-    background: rgba($colorBlack100, 0.1);
-    color: $colorBlack60;
+    @include textButton;
 
-    .atm-button__icon use {
-      fill: $colorBlack60;
-    }
+    background: rgba($colorBlack, 0.1);
 
     &:hover {
-      background: rgba($colorBlack100, 0.15);
-      color: $colorBlack100;
-
-      .atm-button__icon use {
-        fill: $colorBlack100;
-      }
+      background: rgba($colorBlack, 0.2);
     }
 
     &:active {
-      background: $colorBlack100;
+      background: $colorBlack;
       color: $colorWhite;
 
-      .atm-button__icon use {
+      use {
         fill: $colorWhite;
       }
     }
@@ -116,14 +105,14 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
     background-color: $colorBlack15;
     cursor: not-allowed;
 
-    .atm-button__icon use {
+    use {
       fill: $colorWhite;
     }
 
     &:hover {
       background-color: $colorBlack15;
 
-      .atm-button__icon use {
+      use {
         fill: $colorWhite;
       }
     }
@@ -132,13 +121,14 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
   /**
    * Inverted
    */
+  .cv-inverted,
   &--cv-inverted,
-  [ class*='--cv-inverted' ] & {
+  [class*='--cv-inverted'] & {
     background: rgba($colorWhite, 1);
-    color: $colorBlack100;
+    color: $colorBlack;
 
-    .atm-button__icon use {
-      fill: $colorBlack100;
+    use {
+      fill: $colorBlack;
     }
 
     &:hover {
@@ -147,23 +137,23 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
 
     //Secondary Button Inverted styles
     &.atm-button--secondary {
-      background: rgba($colorBlack100, 0.2);
+      background: rgba($colorBlack, 0.2);
       color: $colorWhite;
 
-      .atm-button__icon use {
+      use {
         fill: $colorWhite;
       }
 
       &:hover {
-        background: rgba($colorBlack100, 0.4);
+        background: rgba($colorBlack, 0.4);
       }
 
       &:active {
         background: rgba($colorWhite, 1);
-        color: $colorBlack100;
+        color: $colorBlack;
 
-        .atm-button__icon use {
-          fill: $colorBlack100;
+        use {
+          fill: $colorBlack;
         }
       }
     }
@@ -180,9 +170,9 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
 
     &:hover:not(.atm-button--cv-inverted) {
       &:not(.atm-button--secondary) {
-        background: rgba($colorBlack100, 0.8);
+        background: rgba($colorBlack, 0.8);
       }
-      background: rgba($colorBlack100, 0.15);
+      background: rgba($colorBlack, 0.15);
     }
 
     &:not(.atm-button--tag-top) {
@@ -215,12 +205,12 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
       padding: 0 calc(#{$sizeRegular} / 2);
       height: pxToRem($sizeLarge);
       border-radius: $sizeSmallRegular;
-      background: $colorBlack100;
+      background: $colorBlack;
       color: $colorWhite;
       font-size: $sizeFontTiny;
 
       &:hover {
-        background: rgba($colorBlack100, 0.8);
+        background: rgba($colorBlack, 0.8);
       }
     }
 
@@ -297,18 +287,15 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
 
   // CR CZHDEV-2980
   &--plain-text {
+    @include textButton;
+
     font-family: $fontFamilyBase;
     background: none;
-    color: $colorBlack60;
     padding: 0;
 
     .atm-button__icon {
       margin-left: 0 !important; //stylelint-disable-line
       order: 1;
-
-      use {
-        fill: $colorBlack60;
-      }
     }
 
     .atm-button__text {
@@ -317,11 +304,6 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
 
     &:hover {
       background: none;
-      color: $colorBlack;
-
-      .atm-button__icon use {
-        fill: $colorBlack;
-      }
     }
   }
 }
@@ -335,4 +317,3 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
     transform: rotate(360deg);
   }
 }
-

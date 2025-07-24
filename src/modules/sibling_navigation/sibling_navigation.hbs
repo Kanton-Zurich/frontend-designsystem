@@ -1,0 +1,40 @@
+<nav class="mdl-sibling_navigation">
+  {{#if heading.title }}
+    <h{{heading.level}} class="mdl-sibling_navigation__title atm-heading
+      {{#if_compare heading.visualLevel "!==" heading.level}}h{{heading.visualLevel}}{{/if_compare}}
+      {{#if_compare heading.visualLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+    >
+      {{heading.title}}
+    </h{{heading.level}}>
+  {{/if}}
+
+  <ul class="mdl-sibling_navigation__list">
+    {{#if previous.url}}
+      <li class="mdl-sibling_navigation__item">
+        <a class="mdl-sibling_navigation__link" href="{{previous.url}}">
+          <div class="mdl-sibling_navigation__link-type">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#arrow-left"></use>
+            </svg>
+            {{labels.previous}}
+          </div>
+          <span class="mdl-sibling_navigation__link-text">{{previous.linkText}}</span>
+        </a>
+      </li>
+    {{/if}}
+
+    {{#if next.url}}
+      <li class="mdl-sibling_navigation__item">
+        <a class="mdl-sibling_navigation__link" href="{{next.url}}">
+          <div class="mdl-sibling_navigation__link-type">
+            {{labels.next}}
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#arrow-right"></use>
+            </svg>
+          </div>
+          <span class="mdl-sibling_navigation__link-text">{{next.linkText}}</span>
+        </a>
+      </li>
+    {{/if}}
+  </ul>
+</nav>

@@ -28,14 +28,12 @@
             background: transparent;
 
             use {
-
               @include transition(fill);
             }
 
             @include hover() {
-
               use {
-                fill: $colorBlack100;
+                fill: $colorBlack;
               }
             }
           }

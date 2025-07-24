@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 /**
  * Hide visually
  *
@@ -66,7 +68,6 @@
   }
 }
 
-
 /**
  * Lists with layout purpose
  */
@@ -76,7 +77,6 @@
   margin: 0;
   padding: 0;
 }
-
 
 /**
  * Replace text
@@ -89,6 +89,16 @@
   white-space: nowrap;
 }
 
+/**
+ * Line Clamp
+ */
+
+@mixin lineClamp($lines: 2) {
+  display: -webkit-box; // stylelint-disable-line value-no-vendor-prefix
+  -webkit-box-orient: vertical; // stylelint-disable-line property-no-vendor-prefix
+  -webkit-line-clamp: $lines; // stylelint-disable-line property-no-vendor-prefix
+  overflow: hidden;
+}
 
 /**
  * Better font rendering (on OS X)
@@ -117,7 +127,6 @@
   -moz-osx-font-smoothing: auto;
 }
 
-
 /**
  * Placeholder in input fields
  */
@@ -126,11 +135,13 @@
     @content;
   }
 
-  &:-moz-placeholder { // Firefox 18-
+  &:-moz-placeholder {
+    // Firefox 18-
     @content;
   }
 
-  &::-moz-placeholder { // Firefox 19+
+  &::-moz-placeholder {
+    // Firefox 19+
     @content;
   }
 
@@ -168,16 +179,22 @@
   @for $i from 1 through ($length - 1) {
     $breakpointValue: map-get($mqBreakpoints, nth($keys, $i));
     $sizeValue: map-get($map, nth($keys, $i));
-    $nextBreakpointValue: map-get($mqBreakpoints, nth($keys, $i+1));
-    $nextSizeValue: map-get($map, nth($keys, ($i+1)));
+    $nextBreakpointValue: map-get($mqBreakpoints, nth($keys, $i + 1));
+    $nextSizeValue: map-get($map, nth($keys, ($i + 1)));
 
-    @media ( min-width: $breakpointValue ) {
-      #{$property}: linearInterpolation(($breakpointValue: $sizeValue, $nextBreakpointValue: $nextSizeValue), $margin); //stylelint-disable-line
+    @media (min-width: $breakpointValue) {
+      #{$property}: linearInterpolation(
+        (
+          $breakpointValue: $sizeValue,
+          $nextBreakpointValue: $nextSizeValue,
+        ),
+        $margin
+      ); //stylelint-disable-line
     }
   }
 
   // Maxmimum size
-  @media (min-width: map-get($mqBreakpoints, nth($keys, $length))) { //stylelint-disable-line
+  @media (min-width: map-get($mqBreakpoints, nth($keys, $length))) {
     @if ($margin > 0) {
       #{$property}: calc(#{map-get($map, nth($keys, $length))} + #{$margin}px);
     } @else {
@@ -202,7 +219,10 @@
     @error 'linear-interpolation() $map must be exactly 2 values';
   }
   // The slope
-  $m: (map-get($map, nth($keys, 2)) - map-get($map, nth($keys, 1)))/(nth($keys, 2) - nth($keys, 1));
+  $m: math.div(
+    map-get($map, nth($keys, 2)) - map-get($map, nth($keys, 1)),
+    nth($keys, 2) - nth($keys, 1)
+  );
 
   // The y-intercept
   $b: map-get($map, nth($keys, 1)) - $m * nth($keys, 1);
@@ -216,9 +236,9 @@
     $b: abs($b);
   }
   @if ($margin > 0) {
-    @return calc(#{$m*100}vw #{$sign} #{$b} + #{$margin}px); //stylelint-disable-line
+    @return calc(#{$m * 100}vw #{$sign} #{$b} + #{$margin}px); //stylelint-disable-line
   } @else {
-    @return calc(#{$m*100}vw #{$sign} #{$b}); //stylelint-disable-line
+    @return calc(#{$m * 100}vw #{$sign} #{$b}); //stylelint-disable-line
   }
 }
 
@@ -296,16 +316,32 @@
     @each $breakpoint, $size in $selectedCurve {
       @if $breakpoint == tiny {
         @if $pxToRem {
-          @include generateCSSFromListOrString($attributes, pxToRem(map-get($selectedCurve, tiny)), $isNegative);
+          @include generateCSSFromListOrString(
+            $attributes,
+            pxToRem(map-get($selectedCurve, tiny)),
+            $isNegative
+          );
         } @else {
-          @include generateCSSFromListOrString($attributes, map-get($selectedCurve, tiny), $isNegative);
+          @include generateCSSFromListOrString(
+            $attributes,
+            map-get($selectedCurve, tiny),
+            $isNegative
+          );
         }
       } @else {
         @include mq($from: $breakpoint) {
           @if $pxToRem {
-            @include generateCSSFromListOrString($attributes, pxToRem(map-get($selectedCurve, $breakpoint)), $isNegative);
+            @include generateCSSFromListOrString(
+              $attributes,
+              pxToRem(map-get($selectedCurve, $breakpoint)),
+              $isNegative
+            );
           } @else {
-            @include generateCSSFromListOrString($attributes, map-get($selectedCurve, $breakpoint), $isNegative);
+            @include generateCSSFromListOrString(
+              $attributes,
+              map-get($selectedCurve, $breakpoint),
+              $isNegative
+            );
           }
         }
       }
@@ -318,77 +354,161 @@
 /**
  * Grid offset for content elements
  */
-@mixin gridNestedOffset($attributes, $offsetColumnCount, $columnsWidthCount, $isNegative: false, $trailingGutter: true) {
+@mixin gridNestedOffset(
+  $attributes,
+  $offsetColumnCount,
+  $columnsWidthCount,
+  $isNegative: false,
+  $trailingGutter: true
+) {
   @include mq($from: tiny, $to: xsmall) {
-    $columnsOffset: (100% / 6) * $offsetColumnCount;
-    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, tiny)) / map-get($columnsWidthCount, tiny)) * $offsetColumnCount;
+    $columnsOffset: math.div(100%, 6) * $offsetColumnCount;
+    $gutterCorrection: pxToRem(
+      math.div(map-get($grid-margin-gutters, tiny), map-get($columnsWidthCount, tiny)) *
+        $offsetColumnCount
+    );
     @if ($trailingGutter == false) {
-      $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, tiny)) / map-get($columnsWidthCount, tiny)) * $offsetColumnCount - pxToRem(map-get($grid-margin-gutters, tiny));
+      $gutterCorrection: pxToRem(
+        math.div(map-get($grid-margin-gutters, tiny), map-get($columnsWidthCount, tiny)) *
+          $offsetColumnCount -
+          map-get($grid-margin-gutters, tiny)
+      );
     }
     @if $isNegative == true {
-      @include generateCSSFromListOrString($attributes, calc(-#{$columnsOffset} - #{$gutterCorrection}));
+      @include generateCSSFromListOrString(
+        $attributes,
+        calc(-#{$columnsOffset} - #{$gutterCorrection})
+      );
     } @else {
-      @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+      @include generateCSSFromListOrString(
+        $attributes,
+        calc(#{$columnsOffset} + #{$gutterCorrection})
+      );
     }
   }
   @include mq($from: xsmall, $to: small) {
-    $columnsOffset: (100% / 6) * $offsetColumnCount;
-    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, xsmall)) / map-get($columnsWidthCount, tiny)) * $offsetColumnCount;
+    $columnsOffset: math.div(100%, 6) * $offsetColumnCount;
+    $gutterCorrection: pxToRem(
+      math.div(map-get($grid-margin-gutters, xsmall), map-get($columnsWidthCount, tiny)) *
+        $offsetColumnCount
+    );
     @if ($trailingGutter == false) {
-      $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, xsmall)) / map-get($columnsWidthCount, tiny)) * $offsetColumnCount - pxToRem(map-get($grid-margin-gutters, xsmall));
+      $gutterCorrection: pxToRem(
+        math.div(map-get($grid-margin-gutters, xsmall), map-get($columnsWidthCount, tiny)) *
+          $offsetColumnCount -
+          map-get($grid-margin-gutters, xsmall)
+      );
     }
     @if $isNegative == true {
-      @include generateCSSFromListOrString($attributes, calc(-#{$columnsOffset} - #{$gutterCorrection}));
+      @include generateCSSFromListOrString(
+        $attributes,
+        calc(-#{$columnsOffset} - #{$gutterCorrection})
+      );
     } @else {
-      @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+      @include generateCSSFromListOrString(
+        $attributes,
+        calc(#{$columnsOffset} + #{$gutterCorrection})
+      );
     }
   }
   @include mq($from: small, $to: medium) {
-    $columnsOffset: (100% / 10) * $offsetColumnCount;
-    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, xsmall)) / map-get($columnsWidthCount, small)) * $offsetColumnCount;
+    $columnsOffset: math.div(100%, 10) * $offsetColumnCount;
+    $gutterCorrection: pxToRem(
+      math.div(map-get($grid-margin-gutters, xsmall), map-get($columnsWidthCount, small)) *
+        $offsetColumnCount
+    );
     @if ($trailingGutter == false) {
-      $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, xsmall)) / map-get($columnsWidthCount, small)) * $offsetColumnCount - pxToRem(map-get($grid-margin-gutters, xsmall));
+      $gutterCorrection: pxToRem(
+        math.div(map-get($grid-margin-gutters, xsmall), map-get($columnsWidthCount, small)) *
+          $offsetColumnCount -
+          map-get($grid-margin-gutters, xsmall)
+      );
     }
     @if $isNegative == true {
-      @include generateCSSFromListOrString($attributes, calc(-#{$columnsOffset} - #{$gutterCorrection}));
+      @include generateCSSFromListOrString(
+        $attributes,
+        calc(-#{$columnsOffset} - #{$gutterCorrection})
+      );
     } @else {
-      @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+      @include generateCSSFromListOrString(
+        $attributes,
+        calc(#{$columnsOffset} + #{$gutterCorrection})
+      );
     }
   }
   @include mq($from: medium, $to: large) {
-    $columnsOffset: (100% / 9) * $offsetColumnCount;
-    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, medium)) / map-get($columnsWidthCount, medium)) * $offsetColumnCount;
+    $columnsOffset: math.div(100%, 9) * $offsetColumnCount;
+    $gutterCorrection: pxToRem(
+      math.div(map-get($grid-margin-gutters, medium), map-get($columnsWidthCount, medium)) *
+        $offsetColumnCount
+    );
     @if ($trailingGutter == false) {
-      $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, medium)) / map-get($columnsWidthCount, medium)) * $offsetColumnCount - pxToRem(map-get($grid-margin-gutters, medium));
+      $gutterCorrection: pxToRem(
+        math.div(map-get($grid-margin-gutters, medium), map-get($columnsWidthCount, medium)) *
+          $offsetColumnCount -
+          map-get($grid-margin-gutters, medium)
+      );
     }
     @if $isNegative == true {
-      @include generateCSSFromListOrString($attributes, calc(-#{$columnsOffset} - #{$gutterCorrection}));
+      @include generateCSSFromListOrString(
+        $attributes,
+        calc(-#{$columnsOffset} - #{$gutterCorrection})
+      );
     } @else {
-      @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+      @include generateCSSFromListOrString(
+        $attributes,
+        calc(#{$columnsOffset} + #{$gutterCorrection})
+      );
     }
   }
   @include mq($from: large, $to: xlarge) {
-    $columnsOffset: (100% / 8) * $offsetColumnCount;
-    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, medium)) / map-get($columnsWidthCount, medium)) * $offsetColumnCount;
+    $columnsOffset: math.div(100%, 8) * $offsetColumnCount;
+    $gutterCorrection: pxToRem(
+      math.div(map-get($grid-margin-gutters, medium), map-get($columnsWidthCount, medium)) *
+        $offsetColumnCount
+    );
     @if ($trailingGutter == false) {
-      $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, medium)) / map-get($columnsWidthCount, medium)) * $offsetColumnCount - pxToRem(map-get($grid-margin-gutters, medium));
+      $gutterCorrection: pxToRem(
+        math.div(map-get($grid-margin-gutters, medium), map-get($columnsWidthCount, medium)) *
+          $offsetColumnCount -
+          map-get($grid-margin-gutters, medium)
+      );
     }
     @if $isNegative == true {
-      @include generateCSSFromListOrString($attributes, calc(-#{$columnsOffset} - #{$gutterCorrection}));
+      @include generateCSSFromListOrString(
+        $attributes,
+        calc(-#{$columnsOffset} - #{$gutterCorrection})
+      );
     } @else {
-      @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+      @include generateCSSFromListOrString(
+        $attributes,
+        calc(#{$columnsOffset} + #{$gutterCorrection})
+      );
     }
   }
   @include mq($from: xlarge) {
-    $columnsOffset: (100% / 8) * $offsetColumnCount;
-    $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, xlarge)) / map-get($columnsWidthCount, large)) * $offsetColumnCount;
+    $columnsOffset: math.div(100%, 8) * $offsetColumnCount;
+    $gutterCorrection: pxToRem(
+      math.div(map-get($grid-margin-gutters, xlarge), map-get($columnsWidthCount, large)) *
+        $offsetColumnCount
+    );
     @if ($trailingGutter == false) {
-      $gutterCorrection: (pxToRem(map-get($grid-margin-gutters, xlarge)) / map-get($columnsWidthCount, large)) * $offsetColumnCount - pxToRem(map-get($grid-margin-gutters, xlarge));
+      $gutterCorrection: pxToRem(
+        math.div(map-get($grid-margin-gutters, xlarge), map-get($columnsWidthCount, large)) *
+          $offsetColumnCount -
+          map-get($grid-margin-gutters, xlarge)
+      );
     }
     @if $isNegative == true {
-      @include generateCSSFromListOrString($attributes, calc(-#{$columnsOffset} - #{$gutterCorrection}));
+      @include generateCSSFromListOrString(
+        $attributes,
+        calc(-#{$columnsOffset} - #{$gutterCorrection})
+      );
     } @else {
-      @include generateCSSFromListOrString($attributes, calc(#{$columnsOffset} + #{$gutterCorrection}));
+      @include generateCSSFromListOrString(
+        $attributes,
+        calc(#{$columnsOffset} + #{$gutterCorrection})
+      );
     }
   }
 }
@@ -397,7 +517,6 @@
  * Grid bleeding for content elements
  */
 @mixin gridBleed($trailingGutters: false, $fullwidth: false, $isContentWidth: false) {
-
   @if $trailingGutters == true {
     @if ($isContentWidth == false) {
       @include sizeCurve(padding-left padding-right, bleed, $grid-outer-gutters);
@@ -427,14 +546,14 @@
   margin-left: 50%;
 
   @include mq($from: small, $to: medium) {
-    $translateLeft: -50% - (2/12/2) * 100;
-    $additionalRem: pxToRem(map-get($grid-margin-gutters, tiny)) * 1.5/6;
+    $translateLeft: -50% - math.div(1, 12) * 100;
+    $additionalRem: pxToRem(map-get($grid-margin-gutters, tiny) * math.div(1.5, 6));
 
     transform: translateX(#{$translateLeft}) translateX(#{$additionalRem});
   }
   @include mq($from: medium, $to: large) {
-    $translateLeft: -50% - (1/12/2) * 100;
-    $additionalRem: pxToRem(map-get($grid-margin-gutters, medium))/12 - 0.01;
+    $translateLeft: -50% - math.div(1, 24) * 100;
+    $additionalRem: pxToRem(math.div(map-get($grid-margin-gutters, medium), 12) - 0.01);
 
     transform: translateX(#{$translateLeft}) translateX(#{$additionalRem});
   }
@@ -445,19 +564,18 @@
     margin-left: 0;
   }
 }
-
-/**
- * Corrected content with for headings
- */
-@mixin headingFullWidth() {
-  @include mq($from: medium, $to: large) {
-    margin-right: calc(-11.1% - 0.08em);
-  }
-  @include mq($from: large) {
-    margin-right: calc(-25% - 0.15em);
+@mixin fullWidthBackground($zIndex: 0) {
+  &:before {
+    height: 100%;
+    width: 200vw;
+    top: 0;
+    left: -50vw;
+    content: '';
+    z-index: $zIndex;
+    position: absolute;
+    background-color: var(--color-accent);
   }
 }
-
 
 /**
  * Resets the button no styling
@@ -482,19 +600,28 @@
  * SVG Icons
  */
 @function svg-tickmark($color) {
-  $encodedSvg: encode_Base64('<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 18" style="enable-background:new 0 0 24 18" xml:space="preserve"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' + rgba($color, 0.99) + '" /></svg>'); // stylelint-disable-line
+  $encodedSvg: svg-encode(
+    '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 18" style="enable-background:new 0 0 24 18" xml:space="preserve"><path d="M17.25 6.75L9.375 14.25L6 10.875L4.5 12.375L9.375 17.25L18.75 8.25L17.25 6.75Z" fill="' +
+      rgba($color, 0.99) + '" /></svg>'
+  );
 
-  @return 'data:image/svg+xml;base64,#{$encodedSvg}';
+  @return $encodedSvg;
 }
 @function svg-mapmarker($color) {
-  $encodedSvg: encode_Base64('<svg width="32" height="38" viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg"><circle cx="15" cy="15" r="5.625" fill="white"/><path d="M25.6051 4.96472C22.7699 2.1978 18.9616 0.654846 15.0001 0.668053C11.0386 0.654846 7.23025 2.1978 4.39509 4.96472C3.00568 6.31104 1.90074 7.92263 1.14579 9.70395C0.390834 11.4853 0.00123501 13.4 9.1192e-05 15.3347C-0.0138092 19.4276 1.5619 23.366 4.39509 26.3197L15.0001 37.3347L25.6051 26.3197C28.4383 23.366 30.014 19.4276 30.0001 15.3347C29.9989 13.4 29.6094 11.4853 28.8544 9.70395C28.0994 7.92263 26.9945 6.31104 25.6051 4.96472ZM15.0001 20.6681C12.2318 20.6681 10.0001 18.4347 10.0001 15.6664C9.99921 15.0096 10.128 14.3591 10.3789 13.7522C10.6299 13.1453 10.9982 12.5938 11.4627 12.1295C11.9272 11.6651 12.4787 11.297 13.0858 11.0463C13.6928 10.7955 14.3433 10.667 15.0001 10.6681C17.7684 10.6681 20.0001 12.9014 20.0001 15.6664C20.0012 16.3234 19.8726 16.9741 19.6218 17.5814C19.3709 18.1886 19.0027 18.7403 18.5382 19.205C18.0737 19.6696 17.5221 20.038 16.9149 20.2891C16.3078 20.5401 15.6571 20.6689 15.0001 20.6681Z" fill="' + rgba($color, 0.99) + '"/></svg>'); // stylelint-disable-line
+  $encodedSvg: svg-encode(
+    '<svg width="32" height="38" viewBox="0 0 30 38" xmlns="http://www.w3.org/2000/svg"><circle cx="15" cy="15" r="5.625" fill="white"/><path d="M25.6051 4.96472C22.7699 2.1978 18.9616 0.654846 15.0001 0.668053C11.0386 0.654846 7.23025 2.1978 4.39509 4.96472C3.00568 6.31104 1.90074 7.92263 1.14579 9.70395C0.390834 11.4853 0.00123501 13.4 9.1192e-05 15.3347C-0.0138092 19.4276 1.5619 23.366 4.39509 26.3197L15.0001 37.3347L25.6051 26.3197C28.4383 23.366 30.014 19.4276 30.0001 15.3347C29.9989 13.4 29.6094 11.4853 28.8544 9.70395C28.0994 7.92263 26.9945 6.31104 25.6051 4.96472ZM15.0001 20.6681C12.2318 20.6681 10.0001 18.4347 10.0001 15.6664C9.99921 15.0096 10.128 14.3591 10.3789 13.7522C10.6299 13.1453 10.9982 12.5938 11.4627 12.1295C11.9272 11.6651 12.4787 11.297 13.0858 11.0463C13.6928 10.7955 14.3433 10.667 15.0001 10.6681C17.7684 10.6681 20.0001 12.9014 20.0001 15.6664C20.0012 16.3234 19.8726 16.9741 19.6218 17.5814C19.3709 18.1886 19.0027 18.7403 18.5382 19.205C18.0737 19.6696 17.5221 20.038 16.9149 20.2891C16.3078 20.5401 15.6571 20.6689 15.0001 20.6681Z" fill="' +
+      rgba($color, 0.99) + '"/></svg>'
+  ); // stylelint-disable-line
 
-  @return 'data:image/svg+xml;base64,#{$encodedSvg}';
+  @return $encodedSvg;
 }
 @function svg-checkmark($color) {
-  $encodedSvg: encode_Base64('<svg width="24" height="24" viewBox="0 0 24 24" fill="' + rgba($color, 0.99) + '" xmlns="http://www.w3.org/2000/svg"><path d="M20.25 5.75L12.375 13.25L9 9.875L7.5 11.375L12.375 16.25L21.75 7.25L20.25 5.75Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M2.375 2.375H16.5V4.625H4.625V19.375H19.375V14H21.625V21.625H2.375V2.375Z"/></svg>'); // stylelint-disable-line
+  $encodedSvg: svg-encode(
+    '<svg width="24" height="24" viewBox="0 0 24 24" fill="' + rgba($color, 0.99) +
+      '" xmlns="http://www.w3.org/2000/svg"><path d="M20.25 5.75L12.375 13.25L9 9.875L7.5 11.375L12.375 16.25L21.75 7.25L20.25 5.75Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M2.375 2.375H16.5V4.625H4.625V19.375H19.375V14H21.625V21.625H2.375V2.375Z"/></svg>'
+  ); // stylelint-disable-line
 
-  @return 'data:image/svg+xml;base64,#{$encodedSvg}';
+  @return $encodedSvg;
 }
 
 /**
@@ -506,7 +633,13 @@
     $propertyString: '';
 
     @for $i from 1 through length($propertyList) {
-      $propertyString: $propertyString + nth($propertyList, $i) + ' ' + $time + ' ' + $easing + ', ';
+      $propertyString: $propertyString +
+        nth($propertyList, $i) +
+        ' ' +
+        $time +
+        ' ' +
+        $easing +
+        ', ';
     }
 
     transition: unquote(str-slice($propertyString, 1, -3));
@@ -519,7 +652,12 @@
   $newMap: ();
 
   @each $breakpoint, $value in $map {
-    $newMap: map-merge($newMap, ($breakpoint: $value * $factor));
+    $newMap: map-merge(
+      $newMap,
+      (
+        $breakpoint: $value * $factor,
+      )
+    );
   }
 
   @return $newMap;
@@ -535,7 +673,8 @@
  * A Special Mixin to disable hover effects on mobile
  */
 @mixin hover($additionalNot: false) {
-  @media not all and (hover: none) { // stylelint-disable-line
+  @media not all and (hover: none) {
+    // stylelint-disable-line
     @if $additionalNot {
       &:hover:not(#{$additionalNot}) {
         @content;

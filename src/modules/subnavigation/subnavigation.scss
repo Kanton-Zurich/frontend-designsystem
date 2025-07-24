@@ -5,36 +5,25 @@ $subnavigationCurves: (
     xlarge: $sizeLarge,
   ),
   headerPaddingTop: (
+    tiny: $sizeSmallLarge,
+    xlarge: $sizeSmallBig,
+  ),
+  headerMarginButtom: (
     tiny: $sizeLarge,
-    xlarge: $sizeBig,
-  )
+    xsmall: $sizeSmallBig,
+    medium: $sizeBig,
+    large: $sizeBiggerBig,
+  ),
 );
 
 .mdl-subnavigation {
-  &__title {
-    display: flex;
-
-    align-items: baseline;
-
-    @include mq($to: medium) {
-      flex-direction: column;
-
-      .atm-heading {
-        margin-bottom: pxToRem(3px);
-      }
-    }
-
-    .atm-heading {
-      @include sizeCurve(padding-top, headerPaddingTop, $subnavigationCurves);
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-    }
+  .atm-heading {
+    @include sizeCurve(padding-top, headerPaddingTop, $subnavigationCurves);
+    @include sizeCurve(margin-bottom, headerMarginButtom, $subnavigationCurves);
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, big));
   }
 
-  .atm-text_link {
-    @include sizeCurve(margin-left, textLinkMarginLeft, $subnavigationCurves);
+  &__title {
+    color: var(--color-accent);
   }
 }

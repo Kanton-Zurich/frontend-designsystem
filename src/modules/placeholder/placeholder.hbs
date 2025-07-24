@@ -1,0 +1,15 @@
+<div class="mdl-placeholder" data-init="placeholder">
+  {{#if title}}<h3 class="mdl-placeholder__title atm-heading">
+      {{title}}
+    </h3>{{/if}}
+  <p class="mdl-placeholder__text atm-paragraph">
+    {{text}}
+  </p>
+  {{#if button}}
+    <a href="{{button.href}}" class="mdl-placeholder__button atm-button atm-button--secondary">
+      <span class="atm-button__text">
+        {{button.text}}
+      </span>
+    </a>
+  {{/if}}
+</div>

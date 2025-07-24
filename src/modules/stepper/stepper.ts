@@ -1,49 +1,50 @@
-
 /*!
  * Stepper
  *
  * @author
  * @copyright
  */
-import { template } from 'lodash';
+import template from 'lodash/template';
 
 import Module from '../../assets/js/helpers/module';
+// eslint-disable-next-line import/no-cycle
 import StepperNavigation from '../stepper_navigation/stepper_navigation';
+// eslint-disable-next-line import/no-cycle
 import FormRules from '../../assets/js/helpers/formrules.class';
 
 class Stepper extends Module {
   public data: {
-    active: number,
-    hasNavigation: boolean,
+    active: number;
+    hasNavigation: boolean;
   };
 
   public navigation: any;
   public disableScroll: boolean;
 
   public ui: {
-    element: HTMLDivElement,
-    steps: any,
-    back: HTMLButtonElement,
-    next: HTMLButtonElement,
-    wrapper: HTMLDivElement,
-    form: HTMLFormElement,
-    send: HTMLButtonElement,
-    control: HTMLDivElement,
-    navigation: HTMLOListElement,
-    notificationTemplate: HTMLScriptElement,
-    messageWrapper: HTMLDivElement,
-    rules: NodeListOf<HTMLDivElement>,
-    lastpage: HTMLDivElement,
-    ruleNotification: HTMLScriptElement,
+    element: HTMLDivElement;
+    steps: any;
+    back: HTMLButtonElement;
+    next: HTMLButtonElement;
+    wrapper: HTMLDivElement;
+    form: HTMLFormElement;
+    send: HTMLButtonElement;
+    control: HTMLDivElement;
+    navigation: HTMLOListElement;
+    notificationTemplate: HTMLScriptElement;
+    messageWrapper: HTMLDivElement;
+    rules: HTMLDivElement[];
+    lastpage: HTMLDivElement;
+    ruleNotification: HTMLScriptElement;
   };
 
   public options: {
-    transitionTime: number,
-    scrollTopMargin: number,
-    pageFocusDelay: number,
-    domSelectors: any,
-    stateClasses: any,
-    hasRules: Boolean,
+    transitionTime: number;
+    scrollTopMargin: number;
+    pageFocusDelay: number;
+    domSelectors: any;
+    stateClasses: any;
+    hasRules: Boolean;
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -94,13 +95,17 @@ class Stepper extends Module {
     this.initWatchers();
     this.deactiveSteps();
 
-    this.options.hasRules = this.ui.element.querySelectorAll('.mdl-stepper__step[data-rules]').length > 0;
+    this.options.hasRules =
+      this.ui.element.querySelectorAll('.mdl-stepper__step[data-rules]').length > 0;
 
     if (this.ui.navigation) {
-      this.navigation = new StepperNavigation(this.ui.navigation,
-        { active: this.data.active, steps: this.ui.steps }, {
+      this.navigation = new StepperNavigation(
+        this.ui.navigation,
+        { active: this.data.active, steps: this.ui.steps },
+        {
           hasRules: this.options.hasRules,
-        });
+        }
+      );
     }
 
     this.ui.element.classList.add(this.options.stateClasses.initialised);
@@ -144,24 +149,25 @@ class Stepper extends Module {
       this.sendForm();
       return false;
     });
-    this.eventDelegate.on(Stepper.events.showRuleNotification,
-      this.showRuleNotification.bind(this));
+    this.eventDelegate.on(
+      Stepper.events.showRuleNotification,
+      this.showRuleNotification.bind(this)
+    );
 
     this.ui.form.addEventListener(FormRules.events.checkRules, () => {
       setTimeout(this.setButtonVisibility.bind(this), 0);
     });
 
     if (this.ui.navigation) {
-      this.ui.navigation.addEventListener(StepperNavigation.events.navigationChange,
-        (event) => {
-          this.data.active = (<any>event).detail.clickedPage;
-        });
+      this.ui.navigation.addEventListener(StepperNavigation.events.navigationChange, (event) => {
+        this.data.active = (<any>event).detail.clickedPage;
+      });
     }
   }
 
   /**
-    * Initializing property watchers
-  */
+   * Initializing property watchers
+   */
   initWatchers() {
     this.watch(this.data, 'active', this.onStepChange.bind(this));
   }
@@ -172,7 +178,10 @@ class Stepper extends Module {
   onNext() {
     let newPageIndex = this.data.active + 1;
 
-    while (this.ui.steps[newPageIndex] && this.ui.steps[newPageIndex].getAttribute('data-enabled') === 'false') {
+    while (
+      this.ui.steps[newPageIndex] &&
+      this.ui.steps[newPageIndex].getAttribute('data-enabled') === 'false'
+    ) {
       newPageIndex += 1;
     }
 
@@ -191,7 +200,6 @@ class Stepper extends Module {
 
     this.changePage(newPageIndex);
   }
-
 
   /**
    * Event goto step
@@ -296,7 +304,10 @@ class Stepper extends Module {
   nextStepIsLast() {
     let nextStep = this.data.active + 1;
 
-    while (this.ui.steps[nextStep] && this.ui.steps[nextStep].getAttribute('data-enabled') === 'false') {
+    while (
+      this.ui.steps[nextStep] &&
+      this.ui.steps[nextStep].getAttribute('data-enabled') === 'false'
+    ) {
       nextStep += 1;
     }
 
@@ -312,7 +323,9 @@ class Stepper extends Module {
     const step = this.ui.steps[this.data.active];
 
     if (this.ui.navigation) {
-      this.ui.navigation.querySelector<HTMLButtonElement>('.mdl-stepper_navigation__step--active').focus();
+      this.ui.navigation
+        .querySelector<HTMLButtonElement>('.mdl-stepper_navigation__step--active')
+        .focus();
     } else {
       const notification = step.querySelector('.mdl-notification');
       if (this.data.active === this.ui.steps.length - 1 && notification) {
@@ -332,7 +345,14 @@ class Stepper extends Module {
   }
 
   validateSection(callback) {
-    const sections = this.nextStepIsLast() ? [this.ui.lastpage, ...Array.prototype.slice.call(this.ui.steps[this.data.active].querySelectorAll('fieldset'))] : this.ui.steps[this.data.active].querySelectorAll('fieldset');
+    const sections = this.nextStepIsLast()
+      ? [
+          this.ui.lastpage,
+          ...Array.prototype.slice.call(
+            this.ui.steps[this.data.active].querySelectorAll('fieldset')
+          ),
+        ]
+      : this.ui.steps[this.data.active].querySelectorAll('fieldset');
 
     this.ui.form.removeAttribute('form-has-errors');
 
@@ -358,17 +378,20 @@ class Stepper extends Module {
       callback(errors > 0);
     };
 
-    this.ui.form.dispatchEvent(new CustomEvent(Stepper.events.validateSection, {
-      detail: {
-        sections,
-        callback: validationCallback,
-      },
-    }));
+    this.ui.form.dispatchEvent(
+      new CustomEvent(Stepper.events.validateSection, {
+        detail: {
+          sections,
+          callback: validationCallback,
+        },
+      })
+    );
   }
 
   changePage(newIndex): void {
     if (newIndex > this.data.active) {
-      this.validateSection((hasErrors) => { // eslint-disable-line
+      // eslint-disable-next-line
+      this.validateSection((hasErrors) => {
         if (this.ui.form.hasAttribute('form-has-errors')) {
           return;
         }
@@ -411,16 +434,13 @@ class Stepper extends Module {
     const action = form.getAttribute('action');
     let formData = null;
 
-    this.validateSection(async (hasErrors) => { // eslint-disable-line
+    // eslint-disable-next-line
+    this.validateSection(async (hasErrors) => {
       // Only of no errors are present in the form, it will be sent via ajax
       if (!this.ui.form.hasAttribute('form-has-errors')) {
         this.removeHiddenFormElements();
 
         formData = new FormData(this.ui.form);
-
-        if (!window.fetch) {
-          await import('whatwg-fetch');
-        }
 
         if (this.ui.send) {
           this.ui.send.classList.add(this.options.stateClasses.buttonLoading);
@@ -458,8 +478,9 @@ class Stepper extends Module {
             });
 
             if (response.status === validationErrorStatus || (<any>responseData).validationErrors) {
-              const cleanedValidationErrors = this
-                .cleanValidationErrors((<any>responseData).validationErrors);
+              const cleanedValidationErrors = this.cleanValidationErrors(
+                (<any>responseData).validationErrors
+              );
 
               if (cleanedValidationErrors.length > 0) {
                 this.showValidationErrors((<any>responseData).validationErrors);
@@ -549,7 +570,9 @@ class Stepper extends Module {
         title: false,
       });
 
-      const parsedNotification = new DOMParser().parseFromString(notificationHTML, 'text/html').querySelector('.mdl-notification');
+      const parsedNotification = new DOMParser()
+        .parseFromString(notificationHTML, 'text/html')
+        .querySelector('.mdl-notification');
 
       this.ui.messageWrapper.appendChild(parsedNotification);
       this.addNotificationEventListeners(parsedNotification);
@@ -567,7 +590,9 @@ class Stepper extends Module {
         icon: '#caution',
       };
       const errorHTML = convertedTemplate(context);
-      const parsedError = new DOMParser().parseFromString(errorHTML, 'text/html').querySelector('.mdl-notification');
+      const parsedError = new DOMParser()
+        .parseFromString(errorHTML, 'text/html')
+        .querySelector('.mdl-notification');
 
       this.ui.messageWrapper.appendChild(parsedError);
     }
@@ -594,7 +619,10 @@ class Stepper extends Module {
       const label = select.querySelector('.atm-form_input__trigger-label');
 
       fieldLabel = label.textContent.trim();
-    } else if (field.getAttribute('type') === 'radio' || field.getAttribute('type') === 'checkbox') {
+    } else if (
+      field.getAttribute('type') === 'radio' ||
+      field.getAttribute('type') === 'checkbox'
+    ) {
       const fieldset = field.closest('fieldset');
       const legend = fieldset.querySelector('legend');
 
@@ -609,11 +637,13 @@ class Stepper extends Module {
       fieldLabel = fieldElement.querySelector('label').textContent.trim();
     }
 
-    this.ui.wrapper.dispatchEvent(new CustomEvent(Stepper.events.showFieldInvalid, {
-      detail: {
-        field,
-      },
-    }));
+    this.ui.wrapper.dispatchEvent(
+      new CustomEvent(Stepper.events.showFieldInvalid, {
+        detail: {
+          field,
+        },
+      })
+    );
 
     return `<button data-field="${validationError}">${fieldLabel}</button>`;
   }
@@ -641,8 +671,9 @@ class Stepper extends Module {
   showRuleNotification(event) {
     const stepIndex = event.detail;
     const step = this.ui.steps[stepIndex];
-    const notificationWrapper = step
-      .querySelector(this.options.domSelectors.ruleNotificationWrapper);
+    const notificationWrapper = step.querySelector(
+      this.options.domSelectors.ruleNotificationWrapper
+    );
     const ruleNotification = this.ui.ruleNotification.innerHTML;
 
     notificationWrapper.innerHTML = ruleNotification;
@@ -650,12 +681,12 @@ class Stepper extends Module {
 
   hideRuleNotification(stepIndex) {
     const step = this.ui.steps[stepIndex];
-    const notificationWrapper = step
-      .querySelector(this.options.domSelectors.ruleNotificationWrapper);
+    const notificationWrapper = step.querySelector(
+      this.options.domSelectors.ruleNotificationWrapper
+    );
 
     notificationWrapper.innerHTML = '';
   }
-
 
   /**
    * Unbind events, remove data, custom teardown

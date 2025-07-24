@@ -1,0 +1,19 @@
+.mdl-key_visual {
+  @include gridBleed($fullwidth: true);
+
+  position: relative;
+  margin-top: 0;
+}
+
+.cv-inverted + .mdl-key_visual {
+  &:before {
+    height: pxToRem($sizeGiant);
+    width: 200vw;
+    top: 0;
+    left: -50vw;
+    content: '';
+    position: absolute;
+    z-index: -1;
+    background: var(--color-accent);
+  }
+}

@@ -4,35 +4,35 @@
  * @author
  * @copyright
  */
-import { template } from 'lodash';
+import template from 'lodash/template';
 
 import Module from '../../assets/js/helpers/module';
 import { sanitizeFileSize } from '../../assets/js/helpers/common';
 
 class FileUpload extends Module {
   public options: {
-    domSelectors: any,
-    stateClasses: any,
-    isMultiple: boolean,
-    isDuplicated: boolean,
-    fileuploadSelector: string,
+    domSelectors: any;
+    stateClasses: any;
+    isMultiple: boolean;
+    isDuplicated: boolean;
+    fileuploadSelector: string;
   };
 
   public ui: {
-    element: HTMLDivElement,
-    input: HTMLInputElement,
-    itemTemplate: HTMLScriptElement,
-    list: HTMLDivElement | HTMLUListElement,
-    dropzone: HTMLDivElement,
-    form: HTMLFormElement,
-    onlyOneFile: HTMLParagraphElement,
+    element: HTMLDivElement;
+    input: HTMLInputElement;
+    itemTemplate: HTMLScriptElement;
+    list: HTMLDivElement | HTMLUListElement;
+    dropzone: HTMLDivElement;
+    form: HTMLFormElement;
+    onlyOneFile: HTMLParagraphElement;
   };
 
   public data: {
-    hasDropzone: boolean,
-    files: FileList,
-    counter: number,
-    htmlAttributes: any,
+    hasDropzone: boolean;
+    files: FileList;
+    counter: number;
+    htmlAttributes: any;
   };
 
   private changePending: boolean;
@@ -58,7 +58,6 @@ class FileUpload extends Module {
         dropzoneDragOver: 'mdl-file_upload__dropzone--dragover',
         noDropzone: 'mdl-file_upload--no-dropzone',
         duplicated: 'mdl-file_upload--duplicated',
-
       },
       fileuploadSelector: '[data-init="fileUpload"]',
     };
@@ -72,6 +71,7 @@ class FileUpload extends Module {
 
     // Test if i can set the files attribute, this allows drag'n'drop behaviour
     try {
+      // eslint-disable-next-line no-self-assign
       this.ui.input.files = this.ui.input.files;
       this.ui.element.classList.add(this.options.stateClasses.activeDropzone);
     } catch (e) {
@@ -128,7 +128,15 @@ class FileUpload extends Module {
     });
 
     if (this.data.hasDropzone) {
-      const dragEvents = ['drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave', 'drop'];
+      const dragEvents = [
+        'drag',
+        'dragstart',
+        'dragend',
+        'dragover',
+        'dragenter',
+        'dragleave',
+        'drop',
+      ];
 
       dragEvents.forEach((eventName) => {
         this.eventDelegate.on(eventName, this.options.domSelectors.dropzone, (e) => {
@@ -137,11 +145,27 @@ class FileUpload extends Module {
         });
       });
 
-      this.eventDelegate.on('dragover', this.options.domSelectors.dropzone, this.addDropzoneClass.bind(this));
-      this.eventDelegate.on('dragenter', this.options.domSelectors.dropzone, this.addDropzoneClass.bind(this));
+      this.eventDelegate.on(
+        'dragover',
+        this.options.domSelectors.dropzone,
+        this.addDropzoneClass.bind(this)
+      );
+      this.eventDelegate.on(
+        'dragenter',
+        this.options.domSelectors.dropzone,
+        this.addDropzoneClass.bind(this)
+      );
 
-      this.eventDelegate.on('dragleave', this.options.domSelectors.dropzone, this.removeDropzoneClass.bind(this));
-      this.eventDelegate.on('dragend', this.options.domSelectors.dropzone, this.removeDropzoneClass.bind(this));
+      this.eventDelegate.on(
+        'dragleave',
+        this.options.domSelectors.dropzone,
+        this.removeDropzoneClass.bind(this)
+      );
+      this.eventDelegate.on(
+        'dragend',
+        this.options.domSelectors.dropzone,
+        this.removeDropzoneClass.bind(this)
+      );
 
       this.eventDelegate.on('drop', this.options.domSelectors.dropzone, (e) => {
         this.removeDropzoneClass();
@@ -187,7 +211,9 @@ class FileUpload extends Module {
   }
 
   initFileList() {
-    const compiled = template(this.ui.itemTemplate.innerHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>'));
+    const compiled = template(
+      this.ui.itemTemplate.innerHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    );
     const fileListLength = this.ui.input.files.length;
 
     this.ui.list.innerHTML = '';
@@ -204,7 +230,9 @@ class FileUpload extends Module {
 
       this.ui.list.appendChild(parsedHTML);
 
-      parsedHTML.querySelector(this.options.domSelectors.delete).addEventListener('click', this.deleteFile.bind(this));
+      parsedHTML
+        .querySelector(this.options.domSelectors.delete)
+        .addEventListener('click', this.deleteFile.bind(this));
     }
   }
 
@@ -245,20 +273,24 @@ class FileUpload extends Module {
         }
       }
 
-      this.ui.input.dispatchEvent(new CustomEvent('validateDeferred', {
-        detail: {
-          field: this.ui.input,
-        },
-      }));
+      this.ui.input.dispatchEvent(
+        new CustomEvent('validateDeferred', {
+          detail: {
+            field: this.ui.input,
+          },
+        })
+      );
     } else {
       this.ui.element.remove();
     }
 
     if (isFirst) {
       fileUploads.forEach((uploadElement, counter) => {
-        uploadElement.dispatchEvent(new CustomEvent(FileUpload.events.mainMoved, {
-          detail: counter === 0 && isRequired,
-        }));
+        uploadElement.dispatchEvent(
+          new CustomEvent(FileUpload.events.mainMoved, {
+            detail: counter === 0 && isRequired,
+          })
+        );
       });
     }
 
@@ -277,17 +309,23 @@ class FileUpload extends Module {
 
     this.ui.element.parentElement.appendChild(clone);
 
-    new FileUpload(clone, {
-      counter: this.data.counter + 1,
-      htmlAttributes: this.data.htmlAttributes,
-    }, {
-      isDuplicated: true,
-    });
+    new FileUpload(
+      clone,
+      {
+        counter: this.data.counter + 1,
+        htmlAttributes: this.data.htmlAttributes,
+      },
+      {
+        isDuplicated: true,
+      }
+    );
 
     if (this.ui.form) {
-      this.ui.form.dispatchEvent(new CustomEvent(FileUpload.events.duplicated, {
-        detail: clone,
-      }));
+      this.ui.form.dispatchEvent(
+        new CustomEvent(FileUpload.events.duplicated, {
+          detail: clone,
+        })
+      );
     }
   }
 

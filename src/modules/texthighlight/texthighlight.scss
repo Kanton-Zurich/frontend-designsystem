@@ -2,8 +2,25 @@
   @include sizeCurve(padding, smallerRegular);
   @include sizeCurve(margin-top margin-bottom, medium);
 
-  *:last-child {
+  .text:last-child :last-child :last-child,
+  & > .mdl-richtext:last-child *:last-child,
+  & > :last-child,
+  .mod-margin--bottom:last-child,
+  .linklist:last-child .mdl-linklist--last {
     margin-bottom: 0;
+  }
+
+  // unset all changes from --bordered
+  h2.atm-heading--bordered {
+    &:before {
+      display: none;
+      content: '';
+    }
+    position: unset;
+    margin-top: 0;
+    margin-right: unset;
+
+    @include sizeCurve('padding-top', regular);
   }
 }
 

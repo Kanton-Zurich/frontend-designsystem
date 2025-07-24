@@ -1,15 +1,20 @@
-<div{{#if anchorNavReference}} id="{{anchorNavReference}}"{{/if}} class="mdl-news-teaser{{#if newsTeaserModuleHeader}} mdl-news-teaser--more-info{{/if}}" data-init="newsTeaser">
+<div
+  class="mdl-news-teaser{{#if moduleHeader}} mdl-news-teaser--more-info{{/if}}"
+  data-anchornav="fullwidth"
+  data-init="newsTeaser"
+>
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
 
-      {{#if newsTeaserModuleHeader}}
+      {{#if moduleHeader}}
         <div class="mdl-news-teaser__content cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-12 small-10 medium-10 large-10 xlarge-10">
           <div class="mdl-news-teaser__header">
-            <h2 class="atm-heading atm-heading--bordered">
-              {{{newsTeaserModuleHeader.title}}}
+            <h2 {{#if anchorNavReference}}id="{{anchorNavReference}}" data-anchornav="target"{{/if}}
+              class="atm-heading atm-heading--bordered">
+              {{{moduleHeader.title}}}
             </h2>
-            <a class="atm-text_link atm-text_link--icon" href="{{{newsTeaserModuleHeader.allArticleHref}}}">
-              {{{newsTeaserModuleHeader.allArticleLabel}}}
+            <a class="atm-text_link atm-text_link--icon" href="{{{moduleHeader.allArticleHref}}}">
+              {{{moduleHeader.allArticleLabel}}}
               <svg class="icon icon--iframe-arrow" focusable="false">
                 <use xlink:href="#arrow-right"></use>
               </svg>
@@ -36,7 +41,7 @@
           {{/each}}
         </ul>
       </div>
-      
+
       <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-12 small-10 medium-10 large-10 xlarge-8">
         {{#if newsTeaserLinkListData}}
           {{> "modules/linklist/linklist" newsTeaserLinkListData}}

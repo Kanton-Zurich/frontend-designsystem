@@ -16,30 +16,33 @@ const data = _.merge({}, defaultData, {
     text: 'Dies ist ein neuer Abschnitt',
   },
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
-
-      code: {
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        data: dataHelper.getFormattedJson(variantProps),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Default',
+        desc: 'Default implementation',
       },
     },
-  });
+  },
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
 
-  return variantData;
-});
+        code: {
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          data: dataHelper.getFormattedJson(variantProps),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+        },
+      },
+    });
+
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

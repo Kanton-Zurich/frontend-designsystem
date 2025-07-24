@@ -1,0 +1,26 @@
+{{#extend "layouts/layout"}}
+  {{#content "pageheader"}}
+    {{> "modules/page_header/page_header" props.modules.pageHeader}}
+  {{/content}}
+
+  {{#content "content"}}
+    <div class="mdl-anchornav__wrapper">
+      {{> "modules/lead_section/lead_section" props.modules.leadSectionData}}
+      {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
+    </div>
+    {{> "modules/topiclist/topiclist" props.modules.topiclist }}
+    {{> "modules/about/about" props.modules.about }}
+    {{> "modules/iframe/iframe" props.modules.iFrame }}
+    {{> "modules/news_teaser/news_teaser" props.modules.newsTeaser }}
+    {{> "modules/teaser/teaser" props.modules.teaser }}
+  {{/content}}
+
+  {{#content "pagefooter"}}
+    {{> "modules/contact/contact" props.modules.contact}}
+  {{/content}}
+
+  {{#content "footer"}}
+    {{> "modules/footer/footer" props.modules.footerData }}
+    {{> "modules/back_to/back_to" props.modules.backToData }}
+  {{/content}}
+{{/extend}}

@@ -4,22 +4,18 @@
       tiny: 0,
       medium: $sizeMini,
     ),
-    containerPadding :(
+    containerPadding: (
       tiny: $sizeSmallLarge,
       medium: $sizeBig,
       xlarge: $sizeBiggerBig,
     ),
-    imageContainerWidth :(
+    imageContainerWidth: (
       medium: 176px,
       large: 236px,
     ),
-    imageContainerWidthPromo :(
-      medium: 145px,
-      large: 168px,
-    ),
   );
 
-  background-color: $colorBlack5;
+  background-color: $colorBg;
   display: inline-block;
   width: 100%;
 
@@ -46,8 +42,8 @@
   }
 
   &__imagecontainer {
-    @include polyFluidSizing(min-width, map-get($personCardCurves,imageContainerWidth));
-    @include polyFluidSizing(min-height, map-get($personCardCurves,imageContainerWidth));
+    @include polyFluidSizing(min-width, map-get($personCardCurves, imageContainerWidth));
+    @include polyFluidSizing(min-height, map-get($personCardCurves, imageContainerWidth));
 
     overflow: hidden;
     line-height: 0;
@@ -68,13 +64,6 @@
         transform: translateX(-50%);
         margin-left: 50%;
       }
-    }
-  }
-
-  &--promo {
-    .mdl-person_card__imagecontainer {
-      @include polyFluidSizing(min-width, map-get($personCardCurves,imageContainerWidthPromo));
-      @include polyFluidSizing(min-height, map-get($personCardCurves,imageContainerWidthPromo));
     }
   }
 
@@ -113,5 +102,15 @@
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
       @include sizeCurve(margin-bottom, headingMarginBottom, $personCardCurves);
     }
+  }
+}
+
+/*
+  CZHDEV-4686
+  Set background-color of person_card to white when used in decision_tree.
+*/
+.mdl-decision_tree {
+  .mdl-person_card {
+    background-color: $colorWhite;
   }
 }

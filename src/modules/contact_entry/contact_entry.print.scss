@@ -1,0 +1,34 @@
+.mdl-contact_entry {
+  &__section {
+    display: block;
+  }
+
+  &__section-cell {
+    position: relative;
+    width: 32% !important; // stylelint-disable-line
+    float: left;
+    padding: 0 !important; // stylelint-disable-line
+    margin: 0 !important; // stylelint-disable-line
+
+    .mdl-contact_entry__cell-content {
+      margin: 0;
+      margin-left: 10px;
+      padding-left: 0 !important; // stylelint-disable-line
+    }
+
+    .mdl-contact_entry__cell-icon {
+      margin-left: 5px;
+      position: relative !important; // stylelint-disable-line
+      top: auto;
+      left: auto;
+    }
+  }
+
+  &--location {
+    .mdl-contact_entry__title {
+      .icon {
+        display: none;
+      }
+    }
+  }
+}

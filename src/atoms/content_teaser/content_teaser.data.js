@@ -14,53 +14,57 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     shortTitle: 'Topictitle',
-    buzzwords: 'Buzzword, Buzzword, Buzzword, Buzzword, Buzzword, Buzzword',
+    buzzwords:
+      'Innovation, Technologie, Nachhaltigkeit, Effizienz, Wachstum, Führung, Zusammenarbeit, Exzellenz, Kreativität, Fortschritt, Qualität, Digitalisierung, Flexibilität, Sicherheit, Verantwortung',
     target: '#',
     isPromotopic: false,
   },
 });
-const variants = _.mapValues({
-  default: {
-    meta: {
-      title: 'Default',
-      desc: 'Default implementation',
-    },
-  },
-  withoutBuzzwords: {
-    meta: {
-      title: 'Ohne Buzzwords',
-      desc: 'Ein Content Teaser ohne Buzzwords',
-    },
-    props: {
-      buzzwords: null,
-    },
-  },
-  promotopic: {
-    meta: {
-      title: 'Promotopic',
-      desc: 'Ein Content Teaser welcher als Promotopic ausgewählt ist.',
-    },
-    props: {
-      isPromotopic: true,
-    },
-  },
-}, (variant) => {
-  const variantProps = _.merge({}, data, variant).props;
-  const compiledVariant = () => handlebars.compile(template)(variantProps);
-  const variantData = _.merge({}, data, variant, {
-    meta: {
-      demo: compiledVariant,
-
-      code: {
-        template: templateConverter(template),
-        handlebars: dataHelper.getFormattedHandlebars(template),
-        data: dataHelper.getFormattedJson(variantProps),
-        html: dataHelper.getFormattedHtml(compiledVariant()),
+const variants = _.mapValues(
+  {
+    default: {
+      meta: {
+        title: 'Default',
+        desc: 'Default implementation',
       },
     },
-  });
-  return variantData;
-});
+    withoutBuzzwords: {
+      meta: {
+        title: 'Ohne Buzzwords',
+        desc: 'Ein Content Teaser ohne Buzzwords',
+      },
+      props: {
+        buzzwords: null,
+      },
+    },
+    promotopic: {
+      meta: {
+        title: 'Promotopic',
+        desc: 'Ein Content Teaser welcher als Promotopic ausgewählt ist.',
+      },
+      props: {
+        isPromotopic: true,
+      },
+    },
+  },
+  (variant) => {
+    const variantProps = _.merge({}, data, variant).props;
+    const compiledVariant = () => handlebars.compile(template)(variantProps);
+    const variantData = _.merge({}, data, variant, {
+      meta: {
+        demo: compiledVariant,
+
+        code: {
+          template: templateConverter(template),
+          handlebars: dataHelper.getFormattedHandlebars(template),
+          data: dataHelper.getFormattedJson(variantProps),
+          html: dataHelper.getFormattedHtml(compiledVariant()),
+        },
+      },
+    });
+    return variantData;
+  }
+);
 
 data.variants = variants;
 

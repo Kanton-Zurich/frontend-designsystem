@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 $tooltip-info-icon-size: 22px;
 $tooltip-bubble-max-width: 260px;
 $tooltip-bubble-close-icon-size: 14px;
@@ -117,7 +119,9 @@ $tooltip-bubble-close-icon-size: 14px;
 
       &:before {
         left: pxToRem(-$sizeTiny);
-        box-shadow: pxToRem(-$sizeMini) pxToRem(-$sizeMini) pxToRem($sizeTiny) pxToRem(-$sizeTiny) rgba(0, 0, 0, 0.16), -1px 1px 2px -1px rgba(0, 0, 0, 0.32);
+        box-shadow: pxToRem(-$sizeMini) pxToRem(-$sizeMini) pxToRem($sizeTiny) pxToRem(-$sizeTiny)
+            rgba(0, 0, 0, 0.16),
+          -1px 1px 2px -1px rgba(0, 0, 0, 0.32);
       }
     }
 
@@ -126,7 +130,9 @@ $tooltip-bubble-close-icon-size: 14px;
 
       &:before {
         right: pxToRem(-$sizeTiny);
-        box-shadow: pxToRem($sizeMini) pxToRem(-$sizeMini) pxToRem($sizeTiny) pxToRem(-$sizeTiny) rgba(0, 0, 0, 0.16), 1px -1px 2px -1px rgba(0, 0, 0, 0.32);
+        box-shadow: pxToRem($sizeMini) pxToRem(-$sizeMini) pxToRem($sizeTiny) pxToRem(-$sizeTiny)
+            rgba(0, 0, 0, 0.16),
+          1px -1px 2px -1px rgba(0, 0, 0, 0.32);
       }
     }
 
@@ -146,7 +152,9 @@ $tooltip-bubble-close-icon-size: 14px;
 
       &:before {
         top: pxToRem(-$sizeTiny);
-        box-shadow: pxToRem(-$sizeMini) pxToRem(-$sizeMini) pxToRem($sizeTiny) pxToRem(-$sizeTiny) rgba(0, 0, 0, 0.16), -1px -1px 2px -1px rgba(0, 0, 0, 0.32);
+        box-shadow: pxToRem(-$sizeMini) pxToRem(-$sizeMini) pxToRem($sizeTiny) pxToRem(-$sizeTiny)
+            rgba(0, 0, 0, 0.16),
+          -1px -1px 2px -1px rgba(0, 0, 0, 0.32);
       }
     }
 
@@ -155,7 +163,9 @@ $tooltip-bubble-close-icon-size: 14px;
 
       &:before {
         bottom: pxToRem(-$sizeTiny);
-        box-shadow: pxToRem($sizeMini) pxToRem($sizeMini) pxToRem($sizeTiny) pxToRem(-$sizeTiny) rgba(0, 0, 0, 0.16), 1px 1px 2px -1px rgba(0, 0, 0, 0.32);
+        box-shadow: pxToRem($sizeMini) pxToRem($sizeMini) pxToRem($sizeTiny) pxToRem(-$sizeTiny)
+            rgba(0, 0, 0, 0.16),
+          1px 1px 2px -1px rgba(0, 0, 0, 0.32);
       }
     }
 
@@ -191,10 +201,10 @@ $tooltip-bubble-close-icon-size: 14px;
         }
 
         &:hover {
-          color: $colorBlack100;
+          color: $colorBlack;
 
           &:after {
-            background: $colorBlack100;
+            background: $colorBlack;
           }
         }
       }
@@ -272,7 +282,7 @@ $tooltip-bubble-close-icon-size: 14px;
 
 /* // CZHDEV-3166 special case for tooltips before a .form__row */
 .form__section .mdl-tooltip {
-  padding: 0 $gapSize/2;
+  padding: 0 math.div($gapSize, 2);
 }
 
 .form__cell .mdl-tooltip {

@@ -1,21 +1,33 @@
 {{#extend "layouts/layout"}}
-  {{#content "header"}}
-    {{> "modules/page_header/page_header" props.modules.pageHeader.variants.colored.props }}
+  {{#content "pageheader"}}
+    {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
   {{/content}}
 
   {{#content "content"}}
-    {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
-    {{> "modules/topiclist/topiclist" props.modules.topiclist }}
+    <div class="mdl-anchornav__wrapper">
+      {{> "modules/lead_section/lead_section" props.modules.leadSectionData }}
+      {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
+    </div>
+    {{> "modules/focus_teaser/focus_teaser" props.modules.focusTeaserData }}
     {{> "modules/about/about" props.modules.about }}
-    {{> "modules/news_teaser/news_teaser" props.modules.newsTeaser }}
-    {{> "modules/social_media_stream/social_media_stream" props.modules.socialMediaStream }}
-    {{> "modules/contact/contact" props.modules.contact }}
-    {{> "modules/teaser/teaser" props.modules.teaser }}
+    {{> "modules/table/table" props.modules.tableFinance}}
+    {{> "modules/richtext/richtext" props.modules.richtextData }}
+    {{> "modules/teaser/teaser" props.modules.teaserData }}
+    {{> "modules/image_figure/image_figure" props.modules.imageFigureData }}
+    {{> "modules/video/video" props.modules.videoData }}
+    {{> "modules/table/table" props.modules.tableData }}
+    {{> "modules/iframe/iframe" props.modules.iFrameData }}
+    {{> "modules/decision_tree/decision_tree" props.modules.decisionTreeData }}
+  {{/content}}
 
+  {{#content "pagefooter"}}
+    {{> "modules/news_teaser/news_teaser" props.modules.newsTeaserData }}
+    {{> "modules/related_content/related_content" props.modules.relatedContentData }}
+    {{> "modules/contact/contact" props.modules.contact}}
   {{/content}}
 
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData }}
-    {{> "modules/back2top/back2top" props.modules.back2topData }}
+    {{> "modules/back_to/back_to" props.modules.backToData }}
   {{/content}}
 {{/extend}}

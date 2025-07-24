@@ -1,6 +1,9 @@
-<div class="mdl-locations" data-init="locations">
+<div class="mdl-locations" data-anchornav="fullwidth" data-init="locations">
     {{#if title}} <div class="mdl-locations__title">
-        <h{{{headingLevel}}} class="atm-heading atm-heading--bordered">{{ title }}</h{{{headingLevel}}}>
+      <h{{headingLevel}} class="atm-heading
+        {{#if_compare visualHeadingLevel "!==" headingLevel}}h{{visualHeadingLevel}}{{/if_compare}}
+        {{#if_compare visualHeadingLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+      >{{ title }}</h{{headingLevel}}>
     </div> {{/if}}
     <div class="mdl-locations__wrapper">
       <div class="mdl-locations__map" data-locations="map">
@@ -43,7 +46,7 @@
             </div>
             {{#each locationContacts}}
               <div class="mdl-locations__details_location" aria-hidden="true" data-locations="locationDetails">
-                {{> "modules/contact/contact" this}}
+                {{> "modules/contact_entry/contact_entry" this}}
               </div>
             {{/each}}
           </div>

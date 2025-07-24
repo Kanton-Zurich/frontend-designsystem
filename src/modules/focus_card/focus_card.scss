@@ -3,14 +3,14 @@
     tiny: 6,
     small: 10,
     medium: 9,
-    large: 8
+    large: 8,
   );
 
   $paddingSizes: (
     gutters: $grid-margin-gutters,
     items: (
       tiny: $sizeRegular,
-      large: $sizeLarge
+      large: $sizeLarge,
     ),
   );
 
@@ -43,10 +43,20 @@
       display: block;
       margin-bottom: $sizeRegular;
 
-      @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 6, $gridWidthColumns, $trailingGutter: false);
+      @include gridNestedOffset(
+        'width' 'height' 'min-width' 'min-height',
+        6,
+        $gridWidthColumns,
+        $trailingGutter: false
+      );
     }
     @include mq($from: medium) {
-      @include gridNestedOffset('width' 'height' 'min-width' 'min-height', 3, $gridWidthColumns, $trailingGutter: false);
+      @include gridNestedOffset(
+        'width' 'height' 'min-width' 'min-height',
+        3,
+        $gridWidthColumns,
+        $trailingGutter: false
+      );
     }
   }
 

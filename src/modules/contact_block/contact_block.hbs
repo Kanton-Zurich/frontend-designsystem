@@ -1,0 +1,36 @@
+<div class="mdl-contact_block
+  {{#if variant}}mdl-contact_block--{{variant}}{{/if}}
+  {{#if spa}}hidden{{/if}}" data-init="contactBlock">
+    <h{{headingLevel}} class="mdl-contact_block__title atm-heading
+      {{#if_compare visualHeadingLevel "!==" headingLevel}}h{{visualHeadingLevel}}{{/if_compare}}
+      {{#if_compare visualHeadingLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+      {{#if_compare variant "===" "leaders"}}data-text="title" data-leader="{{title}}" data-companyrepresentative="{{representativeTitle}}"{{/if_compare}}
+    >
+      {{title}}
+    </h{{headingLevel}}>
+    <ul class="mdl-contact_block__section">
+      {{#each sections}}
+        <li class="mdl-contact_block__section-cell {{#if ../spa}}hidden{{/if}}">
+          <hgroup class="mdl-contact_block__name-group {{#if headingHidden}}hidden{{/if}}">
+            <h3 class="mdl-contact_block__contact-name">
+              <span data-text="firstname">{{firstName}}</span>
+              <span data-text="lastname">{{lastName}}</span>
+            </h3>
+            <p class="mdl-contact_block__contact-jobtitle" data-text="jobtitle">{{jobTitle}}</p>
+          </hgroup>
+          <ul class="mdl-contact_block__detail-list">
+            {{#each items}}
+              <li class="mdl-contact_block__detail-wrapper {{#if ../../spa}}hidden{{/if}}">
+                <div class="mdl-contact_block__icon-wrapper">
+                  <svg class="mdl-contact_block__icon icon" focusable="false">
+                    <use xlink:href="#{{icon}}"></use>
+                  </svg>
+                </div>
+                <a class="mdl-contact_block__link atm-text_link" href="{{href}}">{{text}}</a>
+              </li>
+            {{/each}}
+          </ul>
+        </li>
+      {{/each}}
+    </ul>
+</div>

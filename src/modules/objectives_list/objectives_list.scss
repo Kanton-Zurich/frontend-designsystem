@@ -1,0 +1,71 @@
+.mdl-objectives_list {
+  @include sizeCurve('margin-bottom', big);
+
+  &--single-item {
+    @include sizeCurve('margin-bottom', smallerRegular);
+  }
+
+  &__list {
+    @include resetList();
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid $colorBlack10;
+  }
+
+  &__item-link {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--color-accent);
+
+    .atm-heading {
+      text-decoration: underline;
+      color: var(--color-accent);
+    }
+
+    &:hover {
+      box-shadow: 0 3px 0 -1px $colorBlack;
+      color: $colorBlack;
+
+      .atm-heading {
+        color: $colorBlack;
+      }
+    }
+  }
+
+  // overwrite default heading styles
+  &__item-title.atm-heading {
+    padding-top: 0;
+    margin: 0;
+
+    @include sizeCurve('padding-bottom', regular);
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
+    @include mq($to: small) {
+      font-size: pxToRem($sizeFontBiggerRegular);
+    }
+  }
+
+  &__item-label {
+    color: $colorBlack60;
+    font-size: $sizeFontTiny;
+    line-height: $sizeLineHeightBase;
+    font-family: $fontFamilyBlack;
+    margin: 0 0 pxToRem($sizeMini);
+    order: -1;
+
+    @include sizeCurve('padding-top', regular);
+  }
+
+  &__item-id {
+    padding-left: pxToRem($sizeMini);
+    font-family: $fontFamilyBase;
+  }
+}
+
+// overwrite default heading styles on detail pages
+.mod-smaller-headings .mdl-objectives_list__item-title.atm-heading {
+  @include h4__atm-heading;
+}

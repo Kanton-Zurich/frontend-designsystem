@@ -5,7 +5,7 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import SimpleScrollbar from 'simple-scrollbar';
 
 class Select extends Module {
@@ -22,33 +22,33 @@ class Select extends Module {
   private dropdownMaxItems: number;
 
   public ui: {
-    element: any,
-    trigger: any,
-    triggerValue: any,
-    triggerLabel: any,
-    dropdown: any,
-    filter: any,
-    filterContainer: HTMLDivElement,
-    list: any,
-    items: HTMLLIElement[],
-    inputItems: HTMLInputElement[],
-    applyButton: any,
-    applyButtonContainer: HTMLDivElement,
-    filterClearButton: any,
-    phoneInput: any,
+    element: any;
+    trigger: any;
+    triggerValue: any;
+    triggerLabel: any;
+    dropdown: any;
+    filter: any;
+    filterContainer: HTMLDivElement;
+    list: any;
+    items: HTMLLIElement[];
+    inputItems: HTMLInputElement[];
+    applyButton: any;
+    applyButtonContainer: HTMLDivElement;
+    filterClearButton: any;
+    phoneInput: any;
   };
 
   public options: {
-    inputDelay: number,
-    firefoxDelay: number,
-    itemVerticalMargin: number,
-    dropdownDelay: number,
-    typeAheadReset: number,
-    smallDropdownMaxItems: number,
-    largeDropdownMaxItems: number,
-    domSelectors: any,
-    stateClasses: any,
-    dataSelectors: any,
+    inputDelay: number;
+    firefoxDelay: number;
+    itemVerticalMargin: number;
+    dropdownDelay: number;
+    typeAheadReset: number;
+    smallDropdownMaxItems: number;
+    largeDropdownMaxItems: number;
+    domSelectors: any;
+    stateClasses: any;
+    dataSelectors: any;
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -106,7 +106,7 @@ class Select extends Module {
     if (this.ui.element.dataset[this.options.dataSelectors.maxItems]) {
       this.dropdownMaxItems = parseInt(
         this.ui.element.dataset[this.options.dataSelectors.maxItems],
-        10,
+        10
       );
     }
     this.hasTableList = this.ui.list.classList.contains(this.options.stateClasses.tableList);
@@ -123,7 +123,6 @@ class Select extends Module {
     if (this.isMultiSelect) {
       this.buttonPostfix = this.ui.element.dataset[this.options.dataSelectors.selectPostfix];
     }
-
 
     // Array of selection indicies
     this.selections = [];
@@ -167,14 +166,14 @@ class Select extends Module {
    */
   initEventListeners() {
     this.eventDelegate
-    // ------------------------------------------------------------
-    // On Click dropdown item
+      // ------------------------------------------------------------
+      // On Click dropdown item
       .on('mouseup', this.options.domSelectors.inputItems, (event) => {
         if (!this.isMultiSelect) {
           if (this.isFirefox) {
-            setTimeout((() => {
+            setTimeout(() => {
               this.closeDropdown();
-            }), this.options.firefoxDelay);
+            }, this.options.firefoxDelay);
           } else {
             this.closeDropdown();
           }
@@ -288,17 +287,19 @@ class Select extends Module {
         let newTarget = <any>evt.target;
         if (['ArrowUp', 'ArrowDown', 'Up', 'Down'].indexOf(pressed) >= 0) {
           if (this.isMultiSelect) {
-            let nextFocusable = ['ArrowUp', 'Up'].indexOf(pressed) >= 0
-              ? li.previousElementSibling
-              : li.nextElementSibling;
+            let nextFocusable =
+              ['ArrowUp', 'Up'].indexOf(pressed) >= 0
+                ? li.previousElementSibling
+                : li.nextElementSibling;
             while (nextFocusable) {
               if (!nextFocusable.classList.contains('hidden')) {
                 newTarget = nextFocusable.querySelector('input');
                 break;
               }
-              nextFocusable = ['ArrowUp', 'Up'].indexOf(pressed) >= 0
-                ? nextFocusable.previousElementSibling
-                : nextFocusable.nextElementSibling;
+              nextFocusable =
+                ['ArrowUp', 'Up'].indexOf(pressed) >= 0
+                  ? nextFocusable.previousElementSibling
+                  : nextFocusable.nextElementSibling;
             }
             newTarget.focus();
             evt.stopPropagation();
@@ -316,8 +317,12 @@ class Select extends Module {
       li.querySelector('input').addEventListener('keyup', (evt) => {
         const pressed = evt.key;
         if (['ArrowUp', 'ArrowDown', 'Up', 'Down'].indexOf(pressed) >= 0) {
-          const topOutOfBounds = this.ui.list.getBoundingClientRect().top > (document.activeElement.getBoundingClientRect().top + this.options.itemVerticalMargin); // eslint-disable-line
-          const bottomOutOfBounds = this.ui.list.getBoundingClientRect().bottom < (document.activeElement.getBoundingClientRect().bottom - this.options.itemVerticalMargin); // eslint-disable-line
+          const topOutOfBounds =
+            this.ui.list.getBoundingClientRect().top >
+            document.activeElement.getBoundingClientRect().top + this.options.itemVerticalMargin; // eslint-disable-line
+          const bottomOutOfBounds =
+            this.ui.list.getBoundingClientRect().bottom <
+            document.activeElement.getBoundingClientRect().bottom - this.options.itemVerticalMargin; // eslint-disable-line
           if (topOutOfBounds || bottomOutOfBounds) {
             const aElement = document.activeElement;
             li.nextElementSibling.querySelector('input').focus();
@@ -345,22 +350,28 @@ class Select extends Module {
           this.ui.filter.classList.remove('dirty');
         }
         if (event.key === 'Tab' && !event.shiftKey) {
-          const visibleItems = this.ui.element
-            .querySelectorAll(this.options.domSelectors.visibleInputItems);
+          const visibleItems = this.ui.element.querySelectorAll(
+            this.options.domSelectors.visibleInputItems
+          );
           if (visibleItems.length > 0) {
             visibleItems[0].focus();
             event.preventDefault();
           }
         }
       });
-      this.watch(this.ui.filter, 'value', debounce((key, before, after) => { // eslint-disable-line
-        if (after.length > 0 && !this.ui.filter.classList.contains('dirty')) {
-          this.ui.filter.classList.add('dirty');
-        } else if (after.length === 0 && this.ui.filter.classList.contains('dirty')) {
-          this.ui.filter.classList.remove('dirty');
-        }
-        this.setFilter(after);
-      }, this.options.inputDelay));
+      this.watch(
+        this.ui.filter,
+        'value',
+        debounce((key, before, after) => {
+          // eslint-disable-line
+          if (after.length > 0 && !this.ui.filter.classList.contains('dirty')) {
+            this.ui.filter.classList.add('dirty');
+          } else if (after.length === 0 && this.ui.filter.classList.contains('dirty')) {
+            this.ui.filter.classList.remove('dirty');
+          }
+          this.setFilter(after);
+        }, this.options.inputDelay)
+      );
     }
     // ------------------------------
     // Set disabled if initially set
@@ -382,12 +393,16 @@ class Select extends Module {
     this.ui.items.forEach((li) => {
       const searchString = filterValue.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
       const regex = new RegExp(searchString, 'i');
-      const testValue = filterAttribute ? li.querySelector('input').getAttribute(filterAttribute)
+      const testValue = filterAttribute
+        ? li.querySelector('input').getAttribute(filterAttribute)
         : li.querySelector('input').placeholder;
       li.querySelector('label').innerHTML = li.querySelector('input').placeholder;
       if (regex.test(testValue)) {
         if (!filterAttribute) {
-          li.querySelector('label').innerHTML = testValue.replace(regex, `<mark>${testValue.match(regex)[0]}</mark>`);
+          li.querySelector('label').innerHTML = testValue.replace(
+            regex,
+            `<mark>${testValue.match(regex)[0]}</mark>`
+          );
         }
         li.classList.remove('hidden');
         filteredValues.push(li.querySelector('input').value);
@@ -396,12 +411,11 @@ class Select extends Module {
       }
     });
     this.adjustContainerHeight();
-    this.ui.element
-      .dispatchEvent(new CustomEvent(Select.events.onItemsFiltered,
-        { detail: { filteredValues } }));
+    this.ui.element.dispatchEvent(
+      new CustomEvent(Select.events.onItemsFiltered, { detail: { filteredValues } })
+    );
     this.updateScrollMode(filteredValues.length);
   }
-
 
   /**
    * Handle value change and trigger event for each item individually
@@ -673,10 +687,11 @@ class Select extends Module {
           this.resetFocusOnTrigger();
         }, this.options.dropdownDelay);
       } else {
-        this.ui.element.querySelector(this.options.domSelectors.visibleInputItems)
-          .dispatchEvent(new CustomEvent('validateDeferred', {
+        this.ui.element.querySelector(this.options.domSelectors.visibleInputItems).dispatchEvent(
+          new CustomEvent('validateDeferred', {
             detail: { field: this.ui.inputItems[0] },
-          }));
+          })
+        );
         this.updateFlyingFocus(this.options.inputDelay);
       }
       this.emitClose();
@@ -690,14 +705,16 @@ class Select extends Module {
   adjustContainerHeight() {
     if (this.isOpen && !this.hasTableList) {
       // adjust height if single select
-      const visibleItems = this.ui.element
-        .querySelectorAll(this.options.domSelectors.visibleInputItems);
+      const visibleItems = this.ui.element.querySelectorAll(
+        this.options.domSelectors.visibleInputItems
+      );
       const itemHeight = visibleItems[0] ? visibleItems[0].getBoundingClientRect().height : 0;
       const maxHeight = itemHeight * this.dropdownMaxItems;
-      const itemsVerticalSize = (visibleItems.length * itemHeight);
-      const containerSize = Math.min(itemsVerticalSize, maxHeight)
-        + (this.ui.filterContainer ? this.ui.filterContainer.clientHeight : 0)
-        + (this.ui.applyButtonContainer ? this.ui.applyButtonContainer.clientHeight : 0);
+      const itemsVerticalSize = visibleItems.length * itemHeight;
+      const containerSize =
+        Math.min(itemsVerticalSize, maxHeight) +
+        (this.ui.filterContainer ? this.ui.filterContainer.clientHeight : 0) +
+        (this.ui.applyButtonContainer ? this.ui.applyButtonContainer.clientHeight : 0);
       this.ui.dropdown.style.height = `${containerSize}px`;
     }
   }

@@ -1,0 +1,94 @@
+.atm-tag {
+  color: $colorBlack60;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: pxToRem($sizeMini) pxToRem($sizeTiny);
+  gap: pxToRem($sizeMini);
+  border-radius: 5px;
+  font-size: $sizeFontTiny;
+  border: pxToRem(2px) solid $colorBlack20;
+
+  &__icon {
+    fill: currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: pxToRem(14px);
+  }
+
+  &--notification {
+    background-color: $colorViolet;
+    color: $colorWhite;
+    border: none;
+  }
+
+  &--notification#{&}--is-negative {
+    color: $colorViolet;
+  }
+
+  &--warning {
+    background-color: $colorRed;
+    color: $colorWhite;
+    border: none;
+  }
+
+  &--warning#{&}--is-negative {
+    color: $colorRed;
+  }
+
+  &--completed {
+    background-color: $colorBlack;
+    color: $colorWhite;
+    border: none;
+  }
+
+  &--completed#{&}--is-negative {
+    color: $colorBlack;
+  }
+
+  &--delayed {
+    background-color: $colorDarkBlue;
+    color: $colorWhite;
+    border: none;
+  }
+
+  &--delayed#{&}--is-negative {
+    color: $colorDarkBlue;
+  }
+
+  &--on-schedule {
+    background-color: $colorBlue;
+    color: $colorWhite;
+    border: none;
+  }
+
+  &--on-schedule#{&}--is-negative {
+    color: $colorBlue;
+  }
+
+  &--abandoned {
+    background-color: $colorBlack60;
+    color: $colorWhite;
+    border: none;
+  }
+
+  &--abandoned#{&}--is-negative {
+    color: $colorBlack60;
+  }
+
+  &--paused {
+    background-color: $colorBlack60;
+    color: $colorWhite;
+    border: none;
+  }
+
+  &--paused#{&}--is-negative {
+    color: $colorBlack60;
+  }
+
+  &--is-negative {
+    background: initial;
+  }
+}

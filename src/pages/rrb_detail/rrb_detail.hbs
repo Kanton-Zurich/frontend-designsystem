@@ -1,18 +1,24 @@
-{{#extend "layouts/layout"}}
+{{#extend "layouts/layout_detail"}}
   {{#content "header"}}
     {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
   {{/content}}
 
   {{#content "content"}}
-    {{>"modules/metablock/metablock" props.modules.metablockData}}
+    <div class="mdl-anchornav__wrapper">
+      {{>"modules/metablock/metablock" props.modules.metablockData}}
+      {{> "modules/anchornav/anchornav" props.modules.anchorNav }}
+    </div>
     {{>"atoms/smallcaption/smallcaption" props.modules.smallcaptionData }}
     {{>"modules/download_list/download_list" props.modules.downloadListData }}
-    {{> "modules/contact/contact" props.modules.contactData}}
+  {{/content}}
+
+  {{#content "pagefooter"}}
     {{> "modules/related_content/related_content" props.modules.releatedContentData}}
+    {{> "modules/contact/contact" props.modules.contactData}}
   {{/content}}
 
   {{#content "footer"}}
     {{> "modules/footer/footer" props.modules.footerData }}
-    {{> "modules/back2top/back2top" props.modules.back2topData}}
+    {{> "modules/back_to/back_to" props.modules.backToData}}
   {{/content}}
 {{/extend}}

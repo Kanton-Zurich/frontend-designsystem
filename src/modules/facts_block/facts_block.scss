@@ -1,0 +1,37 @@
+.mdl-facts_block {
+  --color-text-hover: #000;
+  --color-text: var(--color-accent);
+
+  &__title {
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
+    color: $colorBlack;
+  }
+
+  &__rows {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem($sizeBig);
+    padding-block-start: pxToRem($sizeSmallRegular);
+
+    @include sizeCurve('padding-block-end', smallerLarge);
+  }
+
+  .mdl-facts_row {
+    grid-template-rows: repeat(4, auto);
+    column-gap: pxToRem($sizeBig);
+    row-gap: 0;
+    grid-auto-columns: minmax(0, 1fr);
+
+    .mdl-fact_tile {
+      grid-row: 1 / -1;
+      grid-template-rows: subgrid;
+
+      &__content {
+        @include mq($to: medium) {
+          flex-direction: column;
+          gap: 0;
+        }
+      }
+    }
+  }
+}

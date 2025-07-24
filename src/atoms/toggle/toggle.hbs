@@ -1,4 +1,6 @@
-<label class="atm-toggle" for="{{id}}">
+<label class="atm-toggle {{#if labelLeft}}atm-toggle--label-left{{/if}}" for="{{id}}">
   <input type="checkbox" value="true" name="{{name}}" id="{{id}}" {{#if checked}}checked{{/if}} />
-  <span class="atm-toggle__label">{{label}}</span>
+  {{#if labelLeft}}{{label}}{{/if}}
+  <span class="atm-toggle__switch"></span>
+  {{#unless labelLeft}}{{label}}{{/unless}}
 </label>
