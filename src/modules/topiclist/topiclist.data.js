@@ -11,6 +11,7 @@ const inputFormData = require('../../atoms/form_input/form_input.data').props;
 const subnavigationTemplate = require('../subnavigation/subnavigation.data').variants.default.meta
   .code.template;
 const defButtonData = require('../../atoms/button/button.data.js');
+const defNotificationData = require('../notification/notification.data').variants.default.props;
 
 const template = dataHelper.getFileContent('topiclist.hbs');
 const data = _.merge({}, defaultData, {
@@ -296,6 +297,17 @@ const variants = _.mapValues(
           url: '/mocks/modules/topiclist/topiclist.json',
           searchUrl: '/pages/search/search.html?q={value}',
         }),
+        noResultsPlaceholder: {
+          title: 'Keine Ergebnisse zu Ihrer Suche gefunden.',
+          text: 'Überprüfen Sie die Schreibweise der eingegebenen Wörter. Versuchen Sie andere Stichwörter. Versuchen Sie allgemeinere Stichwörter.',
+          button: _.merge({}, defButtonData.variants.secondaryWithIcon.props, {
+            text: 'Suche zurücksetzen',
+            icon: 'undo',
+          }),
+        },
+        notificationData: _.merge({}, defNotificationData, {
+          message: 'Beim Laden der Daten ist ein Fehler aufgetreten!',
+        }),
       },
     },
     topicsNav: {
@@ -347,6 +359,9 @@ const variants = _.mapValues(
             icon: 'undo',
           }),
         },
+        notificationData: _.merge({}, defNotificationData, {
+          message: 'Beim Laden der Daten ist ein Fehler aufgetreten!',
+        }),
       },
     },
     organisationNav: {
@@ -394,6 +409,17 @@ const variants = _.mapValues(
             'Der Regierungsrat ist die oberste leitende und vollziehende Behörde des Kantons. Er wahrt die Verfassung und setzt die Gesetze, Verordnungen und die Beschlüsse des Kantonsrates um.',
           url: '#',
         },
+        noResultsPlaceholder: {
+          title: 'Keine Ergebnisse zu Ihrer Suche gefunden.',
+          text: 'Überprüfen Sie die Schreibweise der eingegebenen Wörter. Versuchen Sie andere Stichwörter. Versuchen Sie allgemeinere Stichwörter.',
+          button: _.merge({}, defButtonData.variants.secondaryWithIcon.props, {
+            text: 'Suche zurücksetzen',
+            icon: 'undo',
+          }),
+        },
+        notificationData: _.merge({}, defNotificationData, {
+          message: 'Beim Laden der Daten ist ein Fehler aufgetreten!',
+        }),
       },
     },
   },

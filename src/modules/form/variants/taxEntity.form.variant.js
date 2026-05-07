@@ -39,6 +39,8 @@ module.exports = {
                             isChecked: false,
                             additionalAttribute: 'data-tax_calc="inputEntity"',
                             validation: {
+                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                               isRequired: true,
                             },
                             value: 'individuals',
@@ -54,6 +56,8 @@ module.exports = {
                               'Berechnen des Steuerbetrages und/oder der Steuerrückstellung für Kapitalgesellschaften, Genossenschaften und ausländische Personengesamtheiten (Juristische Personen I)',
                             additionalAttribute: 'data-tax_calc="inputEntity"',
                             validation: {
+                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                               isRequired: true,
                             },
                             value: 'corporations',
@@ -69,6 +73,8 @@ module.exports = {
                               'Berechnen des Steuerbetrages und/oder der Steuerrückstellung für Vereine, Stiftungen und übrige juristische Personen (Juristische Personen II)',
                             additionalAttribute: 'data-tax_calc="inputEntity"',
                             validation: {
+                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                               isRequired: true,
                             },
                             value: 'associations',

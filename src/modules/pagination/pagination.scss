@@ -27,15 +27,8 @@
 
   &__page-count {
     padding: pxToRem($sizeSmallRegular) pxToRem($sizeRegular);
+    color: $colorTextSoft;
     font-size: $sizeFontSmall;
     margin: 0;
-  }
-
-  .mdl-search_page & {
-    display: none;
-  }
-
-  .mdl-search_page--show-results & {
-    display: flex;
   }
 }

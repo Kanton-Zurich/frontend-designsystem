@@ -79,6 +79,37 @@ const variants = _.mapValues(
         buttonText: 'Mehr erfahren',
       },
     },
+    search: {
+      meta: {
+        title: 'Search Variante',
+        desc: '',
+      },
+      props: {
+        name: 'Max Mustermann',
+        role: 'Berufs-, Studien- und Laufbahnberater',
+        contactInfo:
+          '<a href="mailto:max.mustermann@ajb.zh.ch" class="atm-text_link">max.mustermann@ajb.zh.ch</a><br><a href="tel:0432584892" class="atm-text_link">043 258 48 92 (Mo–Do)</a>', // eslint-disable-line
+        buttonText: 'Mehr erfahren',
+        hasImage: false,
+        hasButton: true,
+        isSearch: true,
+      },
+    },
+    searchWithoutRole: {
+      meta: {
+        title: 'Search Variante (Ohne Rolle)',
+        desc: '',
+      },
+      props: {
+        name: 'Max Mustermann',
+        contactInfo:
+          '<a href="mailto:max.mustermann@ajb.zh.ch" class="atm-text_link">max.mustermann@ajb.zh.ch</a><br><a href="tel:0432584892" class="atm-text_link">043 258 48 92 (Mo–Do)</a>', // eslint-disable-line
+        buttonText: 'Mehr erfahren',
+        hasImage: false,
+        hasButton: true,
+        isSearch: true,
+      },
+    },
   },
   (variant) => {
     const variantProps = _.merge({}, data, variant).props;

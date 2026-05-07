@@ -1,4 +1,7 @@
+import { createRequire } from 'module';
 import merge from 'lodash.merge';
+
+const require = createRequire(import.meta.url);
 
 export default function plugin({ defaults, options, task, env = {} }) {
   // eslint-disable-next-line global-require

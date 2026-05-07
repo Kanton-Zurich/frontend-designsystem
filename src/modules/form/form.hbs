@@ -1,5 +1,5 @@
 <fieldset class="form__section">
-  {{#if sectionTitle }}<legend class="atm-heading h{{headingLevel}} form__section-title">{{ sectionTitle }}</legend>{{/if}}
+  {{#if sectionTitle }}<legend class="atm-heading h{{headingLevel}} form__section-title {{#if additionalClasses}}{{{additionalClasses}}}{{/if}}">{{ sectionTitle }}</legend>{{/if}}
   {{#each groups}}
     <div class="form__group {{#if isDuplicatable}}form__group--duplicatable{{/if}}" {{#if isDuplicatable}}data-form="duplicatable"{{/if}} {{#if maxDuplications}}data-max-duplications="{{maxDuplications}}"{{/if}}>
       {{#each rows}}

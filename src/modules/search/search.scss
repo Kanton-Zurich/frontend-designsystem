@@ -1,63 +1,149 @@
 $searchCurves: (
   height: (
-    tiny: 48px,
-    xsmall: 56px,
+    tiny: $sizeSmallHuge,
+    xsmall: $sizeHuge,
     medium: 72px,
   ),
-  headMarginBottom: (
-    tiny: $sizeBiggerBig,
-    medium: $sizeSmallLarge + $sizeBig,
-    xlarge: $sizeLarge + $sizeBiggerBig,
+  searchFieldPadding: (
+    tiny: $sizeRegular,
+    medium: $sizeSmallLarge - 2,
+    large: $sizeSmallLarge,
   ),
 );
 
 .mdl-search {
+  margin-bottom: pxToRem($sizeRegular);
+
+  &--hide-most-searched .mdl-most_searched {
+    display: none;
+  }
+
   &__head {
     position: relative;
+    margin-top: pxToRem($sizeGiant);
+    margin-bottom: 0;
+    opacity: 0;
 
-    @include sizeCurve(margin-bottom, headMarginBottom, $searchCurves);
-
-    &:before {
-      position: absolute;
-      width: 100vw;
-      content: '';
-
-      top: 100%;
-      left: 0;
-
-      @include sizeCurve(height, borderHeight, $headerCurves);
-
-      background: $colorBlack;
+    @include transition(opacity);
+    @include mq($from: small) {
+      margin-left: 0;
     }
 
-    @include mq($to: small) {
-      margin-left: pxToRem($sizeBiggerBig + $sizeTiny);
+    .mdl-modal--opened & {
+      opacity: 1;
     }
 
-    .mdl-search--hide-tags & {
+    .mdl-search--hide-most-searched & {
       margin-bottom: 0;
     }
   }
 
-  &__icon {
+  &__clear {
     position: absolute;
-    left: pxToRem(-$sizeRegular);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    right: pxToRem(36px);
+    min-width: pxToRem($sizeLarge);
+    height: pxToRem($sizeLarge);
+    z-index: 1;
     top: 50%;
+    fill: $colorBlack60;
+    background: transparent;
     transform: translateX(-100%) translateY(-50%);
+
+    &:not(:disabled) {
+      &:hover,
+      &:focus,
+      &:active {
+        background: transparent;
+      }
+    }
+
+    &.dirty {
+      display: flex;
+    }
+
+    @include mq($to: medium) {
+      &:after {
+        content: '';
+        border-right: 2px solid $colorBlack40;
+        position: absolute;
+        top: 50%;
+        right: pxToRem(-$sizeTiny);
+        height: pxToRem($sizeLarge);
+        transform: translateY(-50%);
+      }
+    }
+    @include mq($from: medium) {
+      right: pxToRem(106px);
+    }
+
+    .icon {
+      transform: scale(0.6);
+    }
+  }
+
+  &__button {
+    position: absolute;
+    right: pxToRem($sizeSmallLarge);
+    top: 50%;
+    transform: translateX(0) translateY(-50%);
+
+    @include mq($to: medium) {
+      background: transparent;
+      padding: 0;
+      justify-content: center;
+      min-width: pxToRem($sizeLarge);
+      height: pxToRem($sizeLarge);
+
+      &:not(:disabled) {
+        &:hover,
+        &:focus,
+        &:active {
+          background: transparent;
+        }
+      }
+
+      .atm-button__text {
+        @include visuallyhidden;
+      }
+
+      .atm-button__icon {
+        transform: scale(1);
+        margin: 0 !important; // stylelint-disable-line
+      }
+    }
+    @include mq($from: medium) {
+      .atm-button__icon {
+        display: none;
+      }
+    }
+
+    &.atm-button--disabled {
+      opacity: 0.7;
+    }
   }
 
   &__input {
     width: 100%;
     display: block;
-    border: none;
+    border: 2px solid $colorBlack40;
+    border-radius: 2px;
+    font-family: $fontFamilyBase;
+    padding-right: $sizeGiant;
 
-    font-family: $fontFamilyBlack;
-
-    @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
-    @include sizeCurve(height line-height, height, $searchCurves);
+    @include mq($from: large) {
+      padding-right: $sizeGiant * 2;
+    }
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    @include sizeCurve(height, height, $searchCurves);
+    @include sizeCurve(padding-top, searchFieldPadding, $searchCurves);
+    @include sizeCurve(padding-bottom, searchFieldPadding, $searchCurves);
+    @include sizeCurve(padding-left, searchFieldPadding, $searchCurves);
 
     &:focus {
-      outline: none;
+      outline-color: $colorCyan;
     }
 
     &::placeholder,
@@ -71,39 +157,58 @@ $searchCurves: (
     }
   }
 
-  &__tag-group {
-    .mdl-search--hide-tags & {
+  &__autosuggest {
+    margin-bottom: 0;
+
+    .mdl-search--hide-most-searched & {
+      margin-bottom: reset;
+    }
+
+    .atm-content_teaser {
+      padding-left: pxToRem($sizeRegular);
+      padding-right: pxToRem($sizeRegular);
+    }
+
+    .mdl-content_nav__item {
+      &:hover {
+        background-color: $colorBlack10;
+      }
+
+      &:first-child {
+        margin-top: pxToRem($sizeRegular);
+      }
+    }
+
+    .atm-content_teaser__title,
+    .atm-content_teaser__content {
+      font-family: $fontFamilyBase;
+      color: $colorBlack40;
+    }
+
+    .searchhighlight {
+      background-color: transparent;
+      font-family: $fontFamilyBase;
+      color: $colorBlack;
+    }
+
+    .atm-content_teaser:after {
       display: none;
     }
 
-    @include mq($to: small) {
-      margin-left: pxToRem($sizeBiggerBig + $sizeTiny);
+    .atm-content_teaser:hover,
+    .atm-content_teaser:focus {
+      .atm-content_teaser__title,
+      .atm-content_teaser__content {
+        color: $colorBlack40;
+      }
+
+      &:after {
+        display: none;
+      }
     }
 
-    .mdl-tag-group__tags {
-      margin-left: pxToRem(-$sizeSmallRegular);
+    .atm-content_teaser__content {
+      @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
     }
-  }
-
-  &__tag-group,
-  &__input,
-  &__icon {
-    opacity: 0;
-
-    @include transition(opacity);
-
-    .mdl-modal--opened & {
-      opacity: 1;
-    }
-  }
-
-  &__autosuggest {
-    .atm-content_teaser__title {
-      font-family: $fontFamilyBase;
-    }
-  }
-
-  .atm-anchorlink--tag-top {
-    @include polyFluidSizing(font-size, map-get($fontSizeCurves, large));
   }
 }

@@ -477,6 +477,16 @@ const variants = _.mapValues(
         isInverted: true,
       },
     },
+    invertedZebra: {
+      meta: {
+        title: 'Invertiert Zebra',
+        desc: 'Invertierte Variante mit Zebra Muster',
+      },
+      props: {
+        isInverted: true,
+        isZebra: true,
+      },
+    },
     noTitle: {
       meta: {
         title: 'Ohne Titel',

@@ -1,0 +1,37 @@
+.mdl-content_page_card {
+  @include sizeCurve(padding-top padding-bottom, regular);
+
+  display: block;
+  text-decoration: none;
+
+  .atm-heading {
+    color: $colorBlue;
+  }
+
+  &:hover {
+    .atm-heading {
+      color: $colorBlack;
+    }
+  }
+
+  &__breadcrumb {
+    font-family: $fontFamilyBase;
+    font-size: pxToRem($sizeFontTiny);
+    color: $colorBlack60;
+    margin-bottom: pxToRem($sizeMini);
+  }
+
+  &__content {
+    color: $colorBlack60;
+
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
+
+    margin-top: pxToRem($sizeTiny);
+    margin-bottom: 0;
+
+    .searchhighlight {
+      color: $colorBlack;
+      background-color: transparent;
+    }
+  }
+}

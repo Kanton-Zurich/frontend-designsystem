@@ -13,6 +13,20 @@
       medium: 176px,
       large: 236px,
     ),
+    mdlBottomMargin: (
+      tiny: $sizeRegular,
+      small: $sizeSmallLarge,
+      medium: $sizeLarge,
+    ),
+    contactInfoMarginTop: (
+      tiny: $sizeSmallRegular,
+      medium: $sizeRegular,
+    ),
+    font: (
+      tiny: $sizeFontSmall,
+      small: $sizeFontRegular,
+      large: $sizeFontBiggerRegular,
+    ),
   );
 
   background-color: $colorBg;
@@ -31,9 +45,9 @@
 
   &__name {
     margin-top: 0;
+    margin-bottom: 0;
     line-height: $sizeLineHeightMedium;
     font-family: $fontFamilyBlack;
-    margin-bottom: pxToRem($sizeMini);
 
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
     @include mq($to: xsmall) {
@@ -101,6 +115,45 @@
 
       @include polyFluidSizing('font-size', map-get($fontSizeCurves, biggerRegular));
       @include sizeCurve(margin-bottom, headingMarginBottom, $personCardCurves);
+    }
+  }
+
+  &--search {
+    background-color: $colorBlack10;
+
+    @include sizeCurve(margin-bottom, mdlBottomMargin, $personCardCurves);
+
+    .mdl-person_card__name {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+    }
+
+    .mdl-person_card__role {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, small));
+    }
+
+    .mdl-person_card__contactinfo {
+      display: flex;
+      gap: pxToRem($sizeTiny);
+      flex-wrap: wrap;
+
+      @include sizeCurve(margin-top, contactInfoMarginTop, $personCardCurves);
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+      @include mq($to: small) {
+        font-family: $fontFamilyBlack;
+        color: $colorBlack60;
+      }
+    }
+
+    .mdl-person_card__container .atm-paragraph {
+      margin-bottom: 0;
+    }
+
+    .atm-heading {
+      margin-bottom: 0;
+    }
+
+    .atm-text_link {
+      border-bottom-color: $colorCyan;
     }
   }
 }

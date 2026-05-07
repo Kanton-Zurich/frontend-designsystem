@@ -8,6 +8,11 @@ $dialogCurves: (
     tiny: $sizeRegular,
     medium: $sizeSmallBig,
   ),
+  dialogTitle: (
+    small: $sizeFontMedium,
+    medium: $sizeFontLarge,
+    large: $sizeFontSmallBig,
+  ),
 );
 
 .mdl-dialog {
@@ -28,6 +33,35 @@ $dialogCurves: (
     opacity: 1;
     z-index: $zIndexFlyouts;
     transform: translateY(0);
+  }
+
+  &--three-columns {
+    .form__row {
+      column-gap: $sizeSmallRegular !important; // stylelint-disable-line
+    }
+
+    .form__cell {
+      flex-basis: calc(33% - ($sizeSmallRegular) / 2) !important; // stylelint-disable-line
+
+      @include mq($from: small, $to: large) {
+        flex-basis: calc(50% - ($sizeSmallRegular) / 2) !important; // stylelint-disable-line
+        $border: 1px solid rgba(0, 0, 0, 0.2);
+
+        &:nth-child(3) {
+          border-top: $border;
+        }
+      }
+      @include mq($from: medium) {
+        &:nth-child(2) {
+          border-top: none !important; // stylelint-disable-line
+        }
+      }
+      @include mq($from: large) {
+        &:nth-child(3) {
+          border-top: none !important; // stylelint-disable-line
+        }
+      }
+    }
   }
 
   /**
@@ -58,9 +92,10 @@ $dialogCurves: (
     background: $colorWhite;
 
     @include mq($from: medium) {
+      height: auto;
       width: 80vw;
       max-width: pxToRem(968px);
-      height: 80vh;
+      max-height: 80vh;
       left: 50%;
       transform: translateX(-50%) translateY(-50%);
     }
@@ -71,6 +106,10 @@ $dialogCurves: (
     grid-template-rows: 1fr auto;
     position: relative;
     height: 100%;
+
+    @include mq($from: medium) {
+      max-height: 80vh;
+    }
   }
 
   &__scroll-area {
@@ -79,6 +118,9 @@ $dialogCurves: (
 
     @include mq($from: medium) {
       padding: pxToRem($sizeBiggerBig);
+    }
+    @include mq($from: large) {
+      padding: pxToRem($sizeHuge);
     }
   }
 
@@ -106,14 +148,8 @@ $dialogCurves: (
     flex: 1;
     padding-top: 0;
     margin-bottom: 0;
-    font-size: pxToRem($sizeFontLarge);
 
-    @include mq($from: medium) {
-      font-size: pxToRem($sizeFontBig);
-    }
-    @include mq($from: xlarge) {
-      font-size: pxToRem($sizeFontBiggerBig);
-    }
+    @include polyFluidSizing(font-size, map-get($dialogCurves, dialogTitle));
   }
 
   &__close {

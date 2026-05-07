@@ -5,7 +5,6 @@ const defaultData = require('../../data/default.data.js');
 const formData = require('../form/form.data.js');
 const tableData = require('../table/table.data');
 const modalData = require('../modal/modal.data.js');
-const tocList = require('../toc_list/toc_list.data.js');
 const defButtonData = require('../../atoms/button/button.data.js');
 
 const template = dataHelper.getFileContent('edirectory.hbs');
@@ -32,11 +31,13 @@ const variants = _.mapValues(
       },
       props: {
         hasSpinner: true,
-        noDataMessage: 'Es gab leider einen Fehler. Bitte versuchen Sie es erneut.',
         form: formData.variants.eDirectory.props,
         table: tableData.variants.eDirectoryResultsSpa.props,
         modal: modalData.variants.eDirectory.props,
-        tocList: tocList.variants.eDirectory.props,
+        placeholderError: {
+          title: 'Die Inhalte konnten nicht geladen werden.',
+          text: 'Momentan sind die Inhalte nicht erreichbar. Versuchen Sie es später noch einmal.',
+        },
         placeholder: {
           title: 'Keine Ergebnisse gefunden.',
           text: 'Versuchen Sie es mit einer anderen Eingabe oder überprüfen Sie die Schreibweise.',
@@ -54,7 +55,6 @@ const variants = _.mapValues(
     const variantData = _.merge({}, data, variant, {
       meta: {
         demo: compiledVariant,
-
         code: {
           handlebars: dataHelper.getFormattedHandlebars(template),
           html: dataHelper.getFormattedHtml(compiledVariant()),

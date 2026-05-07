@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const path = require('path');
-const glob = require('glob');
+const { globSync } = require('node:fs');
 const dataHelper = require('@unic/estatico-data');
 const defaultData = require('./data/default.data.js');
 const defTopiclistData = require('./modules/topiclist/topiclist.data').variants.home.props;
@@ -51,7 +51,7 @@ const transform = (originalData, filePath) => {
 
 const getDataArray = (fileGlob, dataTransform) => {
   const data = [];
-  const paths = glob.sync(fileGlob);
+  const paths = globSync(fileGlob);
 
   _.each(paths, (filePath) => {
     const requirePath = path.resolve(filePath);

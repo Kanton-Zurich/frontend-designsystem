@@ -13,8 +13,8 @@ class Video extends Module {
   private daysToExpire: number;
   private setYoutubeIFrameSrc: Function;
   private getAltText: Function;
-  private showSignlanguageVideo: Boolean;
-  private youtubeConsentGiven: Boolean;
+  private showSignlanguageVideo: boolean;
+  private youtubeConsentGiven: boolean;
 
   public ui: {
     element: HTMLDivElement;

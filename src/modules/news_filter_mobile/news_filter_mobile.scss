@@ -78,7 +78,7 @@
       @include sizeCurve(width, backIconWidth, $filterSizes);
 
       use {
-        fill: rgba($colorText, 0.6);
+        fill: $colorTextSoft;
       }
     }
 

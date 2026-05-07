@@ -53,9 +53,11 @@ const data = _.merge({}, defaultData, {
       uuid: _.uniqueId('reply-to'),
       name: _.uniqueId('reply-to'),
       margin: true,
-      autofill: 'e_mail',
+      autofill: 'email',
       validation: {
         isRequired: true,
+        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
         errorMsg: 'Bitte geben Sie eine gültige Mail an.',
       },
       isFloatingLabel: true,
@@ -169,7 +171,7 @@ const variants = _.mapValues(
     },
     withEmptyStepAndlogic: {
       meta: {
-        title: 'Mit Formularlogik &  leerem Abschnit',
+        title: 'Mit Formularlogik & leerem Abschnitt',
         desc: 'Es gibt eine Formularlogik',
       },
       props: {
@@ -612,6 +614,56 @@ const variants = _.mapValues(
         navigation: {
           steps: ['Schritt', 'Abhängiger Schritt', 'Bestätigung'],
         },
+      },
+    },
+    emailConfiguration: {
+      meta: {
+        title: 'Erforderliche Bestätigung (formIDable)',
+        desc: 'E-Mail-Bestätigung immer sichtbar und erforderlich',
+      },
+      props: {
+        toggle: _.merge({}, toggle, {
+          checked: true,
+          disabled: true,
+          label: 'E-Mail Benachrichtigung erforderlich',
+        }),
+        isEmailRequired: true,
+        replyTo: _.merge({}, formInput, {
+          type: 'email',
+          label: 'Bestätigung per E-Mail schicken an',
+          uuid: _.uniqueId('reply-to'),
+          name: _.uniqueId('reply-to'),
+          margin: true,
+          autofill: 'email',
+          validation: {
+            isRequired: true,
+            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+            errorMsg: 'Bitte geben Sie eine gültige Mail an.',
+          },
+          isFloatingLabel: true,
+        }),
+        steps: [formVariants.dummyStep1.props, formVariants.careerInfo.props],
+      },
+    },
+    validationError: {
+      meta: {
+        title: 'Mit Validierungsfehler vom Server',
+        desc: 'Es wird ein Validierungsfehler (400) vom Server zurückgegeben',
+      },
+      props: {
+        action: '/mocks/modules/form/form.validation-error.json',
+        steps: [formVariants.dummyStep1.props, formVariants.phoneOnly.props],
+      },
+    },
+    serverError: {
+      meta: {
+        title: 'Mit Serverfehler',
+        desc: 'Es wird ein Serverfehler (500) zurückgegeben',
+      },
+      props: {
+        action: '/mocks/modules/form/form.server-error.json',
+        steps: [formVariants.dummyStep1.props, formVariants.phoneOnly.props],
       },
     },
   },

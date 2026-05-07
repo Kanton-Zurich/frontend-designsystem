@@ -71,6 +71,9 @@ import BackToChat from '../../../modules/back_to_chat/back_to_chat';
 import ContactBlock from '../../../modules/contact_block/contact_block';
 import Edirectory from '../../../modules/edirectory/edirectory';
 import Linklist from '../../../modules/linklist/linklist';
+import SearchResultList from '../../../modules/search_result_list/search_result_list';
+import ExtendedSearch from '../../../modules/extended_search/extended_search';
+import EventTeaser from '../../../modules/event_teaser/event_teaser';
 /* autoinsertmodulereference */ // eslint-disable-line
 
 import Form from './form.class';
@@ -152,6 +155,9 @@ class App {
     this.modules.contactBlock = ContactBlock;
     this.modules.edirectory = Edirectory;
     this.modules.linklist = Linklist;
+    this.modules.searchResultList = SearchResultList;
+    this.modules.extendedSearch = ExtendedSearch;
+    this.modules.eventTeaser = EventTeaser;
     /* autoinsertmodule */ // eslint-disable-line
 
     // expose initModule function
@@ -270,7 +276,7 @@ class App {
   }
 
   registerForms() {
-    const forms = document.querySelectorAll('form[novalidate]');
+    const forms = document.querySelectorAll<HTMLFormElement>('form[novalidate]');
 
     forms.forEach((form) => {
       if (!form.getAttribute('initialized')) {

@@ -1,15 +1,15 @@
-class FormGlobalHelper {
-  async validateField(field) {
-    const fieldType = field.getAttribute('type');
+export const HIDDEN_BY_RULE = 'form__element--hidden-by-rule';
 
-    if (field.closest('.form__element--hidden-by-rule') !== null) {
+export default class FormGlobalHelper {
+  async validateField(field: HTMLInputElement) {
+    if (field.closest(`.${HIDDEN_BY_RULE}`) !== null) {
       return {
         validationResult: true,
         messages: [],
       };
     }
 
-    switch (fieldType) {
+    switch (field.type) {
       case 'checkbox':
       case 'radio':
         return this.validateOptionField(field);
@@ -22,7 +22,7 @@ class FormGlobalHelper {
     }
   }
 
-  async validateTextField(field) {
+  async validateTextField(field: HTMLInputElement) {
     let requiredResult = true;
     let patternResult = true;
     const messages = [];
@@ -451,5 +451,3 @@ class FormGlobalHelper {
     return ageDate.getTime();
   }
 }
-
-export default FormGlobalHelper;

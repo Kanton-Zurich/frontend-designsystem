@@ -74,6 +74,9 @@ const data = _.merge({}, defaultData, {
                                             isChecked: false,
                                             additionalAttribute: 'data-tax_calc="inputEntity"',
                                             validation: {
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                               isRequired: true,
                                             },
                                             value: 'individuals',
@@ -90,6 +93,9 @@ const data = _.merge({}, defaultData, {
                                             additionalAttribute: 'data-tax_calc="inputEntity"',
                                             validation: {
                                               isRequired: true,
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                             },
                                             value: 'corporations',
                                           })
@@ -105,6 +111,9 @@ const data = _.merge({}, defaultData, {
                                             additionalAttribute: 'data-tax_calc="inputEntity"',
                                             validation: {
                                               isRequired: true,
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                             },
                                             value: 'associations',
                                           })
@@ -155,6 +164,9 @@ const data = _.merge({}, defaultData, {
                                               'data-tax_calc="inputTaxType-individuals"',
                                             validation: {
                                               isRequired: true,
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                             },
                                             value: 'income_assets',
                                           })
@@ -171,6 +183,9 @@ const data = _.merge({}, defaultData, {
                                               'data-tax_calc="inputTaxType-individuals"',
                                             validation: {
                                               isRequired: true,
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                             },
                                             value: 'federal',
                                           })
@@ -188,6 +203,9 @@ const data = _.merge({}, defaultData, {
                                               'data-tax_calc="inputTaxType-individuals"',
                                             validation: {
                                               isRequired: true,
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                             },
                                             value: 'benefit_payments',
                                           })
@@ -204,6 +222,9 @@ const data = _.merge({}, defaultData, {
                                               'data-tax_calc="inputTaxType-individuals"',
                                             validation: {
                                               isRequired: true,
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                             },
                                             value: 'benefit_payments_federal',
                                           })
@@ -220,6 +241,9 @@ const data = _.merge({}, defaultData, {
                                               'data-tax_calc="inputTaxType-individuals"',
                                             validation: {
                                               isRequired: true,
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                             },
                                             value: 'inheritance',
                                           })
@@ -236,6 +260,9 @@ const data = _.merge({}, defaultData, {
                                               'data-tax_calc="inputTaxType-corporations"',
                                             validation: {
                                               isRequired: true,
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                             },
                                             value: 'legal_simple',
                                           })
@@ -252,6 +279,9 @@ const data = _.merge({}, defaultData, {
                                               'data-tax_calc="inputTaxType-corporations"',
                                             validation: {
                                               isRequired: true,
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                             },
                                             value: 'legal_iterative',
                                           })
@@ -268,6 +298,9 @@ const data = _.merge({}, defaultData, {
                                               'data-tax_calc="inputTaxType-associations"',
                                             validation: {
                                               isRequired: true,
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                             },
                                             value: 'legal_simple',
                                           })
@@ -284,6 +317,9 @@ const data = _.merge({}, defaultData, {
                                               'data-tax_calc="inputTaxType-associations"',
                                             validation: {
                                               isRequired: true,
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                             },
                                             value: 'legal_iterative',
                                           })

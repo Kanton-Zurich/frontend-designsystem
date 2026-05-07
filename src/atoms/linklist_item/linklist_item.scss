@@ -42,7 +42,7 @@
   }
 
   // Sozialhilfeeintrag (CZHDEV-3005) & Inhaltsverzeichnis (CZHDEV-3178)
-  &--numbered {
+  &--toc {
     font-family: $fontFamilyBase;
 
     &-title {
@@ -55,6 +55,7 @@
 
     .atm-linklist_item__chapter-number {
       flex-shrink: 0;
+      font-feature-settings: 'tnum';
       min-width: pxToRem($chapterNumberMinWidth);
       padding-right: pxToRem($sizeTiny);
     }

@@ -16,7 +16,7 @@
     gap: pxToRem($sizeTiny);
     font-size: $sizeFontRegular;
     text-decoration: none;
-    color: rgba($colorText, 0.6);
+    color: $colorTextSoft;
     cursor: pointer;
 
     .icon use {

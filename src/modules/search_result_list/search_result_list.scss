@@ -1,0 +1,92 @@
+.mdl-search_result_list {
+  &__news-view {
+    font-family: $fontFamilyBase;
+    margin-bottom: pxToRem($sizeRegular);
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, tiny));
+
+    .atm-text_link {
+      font-size: pxToRem($sizeFontRegular);
+      margin-left: pxToRem($sizeTiny);
+    }
+  }
+
+  .atm-heading {
+    font-family: $fontFamilyBlack !important; //stylelint-disable-line
+  }
+
+  .atm-search_result_item {
+    padding: 0;
+  }
+
+  &__list {
+    padding-left: 0;
+  }
+
+  &--contentpage {
+    & + .mdl-texthighlight {
+      margin-bottom: pxToRem($sizeRegular);
+    }
+  }
+
+  &--service,
+  &--document,
+  &--person,
+  &--news {
+    border-bottom: none;
+
+    & + .mdl-texthighlight {
+      margin-bottom: pxToRem($sizeSmallHuge);
+      margin-top: pxToRem($sizeBiggerBig);
+    }
+  }
+
+  &--service {
+    & + .mdl-texthighlight {
+      margin-top: pxToRem($sizeLarge);
+    }
+  }
+
+  &--news {
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      display: block;
+      top: pxToRem(-$sizeTiny);
+      left: 0;
+      width: 100%;
+      height: calc(100% + #{pxToRem($sizeTiny)});
+      background-color: $colorBlack10;
+    }
+
+    .mdl-teaser_card {
+      margin: 0 pxToRem($sizeTiny) pxToRem($sizeTiny);
+    }
+
+    .atm-heading {
+      margin: pxToRem($sizeTiny) 0 !important; //stylelint-disable-line
+    }
+
+    .atm-paragraph {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      z-index: $zIndexInner;
+
+      &:before {
+        background-color: $colorBorderFrameHover;
+      }
+    }
+  }
+
+  .mdl-texthighlight--search {
+    @include mq($to: small) {
+      .atm-heading {
+        font-family: $fontFamilyBlack !important; //stylelint-disable-line
+      }
+    }
+  }
+}

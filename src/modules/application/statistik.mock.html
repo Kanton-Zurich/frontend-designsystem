@@ -1,0 +1,38 @@
+<div id="wrapper-68f5dde439b0d" style="max-width: 768px; margin-left: auto; margin-right: auto;">
+
+<div id="observablehq-wrapper-68f5dde439b0d"></div><div id="observablehq-css-68f5dde439b0d"></div><div id="observablehq-leuTheme-68f5dde439b0d"></div>
+</div>
+
+<script type="module">
+    const wrapperEl = document.querySelector("#wrapper-68f5dde439b0d");
+
+    import {Runtime, Inspector, Library} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
+    import define from "https://api.observablehq.com/d/bff80a3ad39d07c1.js?v=4";
+
+    const library = new Library();
+    const main = new Runtime().module(define, name => {
+
+    if (name === "wrapper") return new Inspector(document.querySelector("#observablehq-wrapper-68f5dde439b0d"));
+        if (name === "css") return new Inspector(document.querySelector("#observablehq-css-68f5dde439b0d"));
+        if (name === "leuTheme") return new Inspector(document.querySelector("#observablehq-leuTheme-68f5dde439b0d"));
+        if (name === "leuElements") return true;
+            
+    });
+
+    //redefine width to the wrapper width, only if width is actually used
+    if (main._scope.has('width')) {
+        main.redefine("width", library.Generators.observe(notify => {
+            let width = notify(wrapperEl.clientWidth); // initial width
+
+            function resized() {
+                let newWidth = wrapperEl.clientWidth;
+                if (newWidth !== width) {
+                notify(width = newWidth);
+                }
+            }
+
+            addEventListener("resize", resized);
+            return () => removeEventListener("resize", resized);
+        }));
+    }
+</script>

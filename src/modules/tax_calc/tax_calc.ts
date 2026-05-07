@@ -13,8 +13,7 @@ import {
   TaxCalcModuleOptions, //eslint-disable-line
 } from './tax_calc.options';
 import namespace from '../../assets/js/helpers/namespace';
-import jump from 'jump.js';
-import Form from '../../assets/js/helpers/form.class';
+import Form, { INVALID_FORM } from '../../assets/js/helpers/form.class';
 import WindowEventListener from '../../assets/js/helpers/events';
 import Select from '../select/select';
 
@@ -412,13 +411,7 @@ class TaxCalc extends Module {
         });
       })
       .on('click', this.options.domSelectors.editBtn, () => {
-        // the jump library is scrolling on window object. inside the modal
-        // context scrolling on window object is blocked
-        if (document.body.classList.contains('open-modal')) {
-          this.ui.beforeBlock.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          jump(this.options.domSelectors.beforeBlock);
-        }
+        this.ui.beforeBlock.scrollIntoView({ behavior: 'smooth' });
       });
   }
   private observeStickyEditBtn(): void {
@@ -841,11 +834,7 @@ class TaxCalc extends Module {
             this.ui.resultTaxYear.innerText = resp.taxYear ? resp.taxYear.value : '';
             this.initStickyEditBtn();
             setTimeout(() => {
-              if (document.body.classList.contains('open-modal')) {
-                this.ui.resultBlock.scrollIntoView({ behavior: 'smooth' });
-              } else {
-                jump(this.options.domSelectors.resultBlock);
-              }
+              this.ui.resultBlock.scrollIntoView({ behavior: 'smooth' });
             }, 800); // eslint-disable-line
           }
         },
@@ -914,7 +903,7 @@ class TaxCalc extends Module {
     return new Promise<void>((resolve, reject) => {
       setTimeout(() => {
         this.checkOpenPanelHeights();
-        if (!this.ui.formBase.hasAttribute('form-has-errors')) {
+        if (!this.ui.formBase.hasAttribute(INVALID_FORM)) {
           resolve();
         } else {
           reject();
@@ -924,7 +913,7 @@ class TaxCalc extends Module {
   }
 
   private formHasErrors() {
-    return !!this.ui.formBase.getAttribute('form-has-errors');
+    return !!this.ui.formBase.getAttribute(INVALID_FORM);
   }
 
   private checkOpenPanelHeights(): void {

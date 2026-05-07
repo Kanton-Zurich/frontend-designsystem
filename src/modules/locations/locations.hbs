@@ -10,12 +10,14 @@
         {{> "modules/map_view/map_view" mapData}}
       </div>
       <div class="mdl-locations__sidebar-wrapper cell medium-offset-1">
-        <div class="mdl-locations__sidebar{{#if_compare locationsList.links.length '===' 1}} mdl-locations__sidebar--single-location{{/if_compare}}"
-             data-locations="sidebar">
+        <div class="mdl-locations__sidebar
+          {{#if_compare locationsList.links.length '===' 1}}mdl-locations__sidebar--single-location{{/if_compare}}"
+          data-locations="sidebar"
+        >
           <div class="mdl-locations__filter">
             <div class="mdl-locations__filter_head">
               {{#if hasFilter}}
-              <form novalidate>{{> "atoms/form_input/form_input" locationsFormInput }}</form>
+                <form novalidate>{{> "atoms/form_input/form_input" locationsFormInput }}</form>
               {{/if}}
               {{#if subTitle}}
                 <h{{increment headingLevel}} class="atm-heading mdl-locations__subtitle">
@@ -37,15 +39,22 @@
                 {{> "modules/notification/notification" errorMessage }}
               {{/if}}
             </div>
-            {{#if ariaDescribedBy}}<p class="visuallyhidden mdl-locations__filter-message" data-locations="filterDescription" id="{{ariaDescribedBy.id}}">{{ariaDescribedBy.text}}</p>{{/if}}
+            {{#if ariaDescribedBy}}
+              <p class="visuallyhidden mdl-locations__filter-message" data-locations="filterDescription" id="{{ariaDescribedBy.id}}">
+                {{ariaDescribedBy.text}}
+              </p>
+            {{/if}}
             {{> "modules/linklist/linklist" locationsList}}
           </div>
-          <div class="mdl-locations__details" aria-hidden="true" data-locations="locationDetailsWrapper">
+          <div class="mdl-locations__details" data-locations="locationDetailsWrapper">
             <div class="mdl-locations__details_head">
               {{> "atoms/button/button" backBtn }}
             </div>
             {{#each locationContacts}}
-              <div class="mdl-locations__details_location" aria-hidden="true" data-locations="locationDetails">
+              <div class="mdl-locations__details_location"
+                {{#if_compare locationsList.links.length '>=' 1}}hidden{{/if_compare}}
+                data-locations="locationDetails"
+              >
                 {{> "modules/contact_entry/contact_entry" this}}
               </div>
             {{/each}}

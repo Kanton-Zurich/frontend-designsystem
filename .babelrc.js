@@ -14,7 +14,4 @@ export const presets = [
     debug: (env.L && env.L.length > 3),
   }],
 ];
-export const plugins = [
-  // Allow parsing of import()
-  '@babel/plugin-syntax-dynamic-import',
-];
+export const plugins = [];

@@ -1,5 +1,5 @@
 .atm-figcaption {
-  color: rgba($colorText, 0.6);
+  color: $colorTextSoft;
 
   @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));
 

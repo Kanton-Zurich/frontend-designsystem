@@ -20,6 +20,17 @@ $topiclistSizeCurves: (
     min-height: $loadingMinHeight;
   }
 
+  &__notification {
+    display: none;
+  }
+
+  &--error {
+    .mdl-topiclist__notification {
+      display: block;
+      margin-bottom: $sizeRegular;
+    }
+  }
+
   .mdl-topiclist__autosuggest {
     display: none;
 

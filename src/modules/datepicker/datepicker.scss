@@ -1,4 +1,5 @@
 $InputHeightRegular: 72px;
+$InputHeightMedium: 60px;
 
 .mdl-datepicker {
   position: relative;
@@ -6,7 +7,7 @@ $InputHeightRegular: 72px;
   .atm-form_input--icon {
     .flatpickr-calendar {
       .icon {
-        top: pxToRem($sizeSmallRegular);
+        top: pxToRem(14px);
       }
     }
   }
@@ -36,11 +37,22 @@ $InputHeightRegular: 72px;
       label {
         pointer-events: none;
         padding: 0;
-        top: pxToRem($sizeFontSmall);
+        top: pxToRem(14px);
         font-family: $fontFamilyBlack;
         font-size: pxToRem($sizeFontTiny);
         line-height: $sizeLineHeightBase;
         color: $colorBlack;
+      }
+
+      &.atm-form_input--medium {
+        .atm-form_input__input {
+          padding-top: $paddingMediumInput + $paddingDifferenceOnFocus;
+          padding-bottom: $paddingMediumInput - $paddingDifferenceOnFocus;
+        }
+
+        label {
+          top: pxToRem($sizeTiny);
+        }
       }
 
       /* ----- LABEL ON FOCUS/DIRTY ------ */
@@ -54,19 +66,26 @@ $InputHeightRegular: 72px;
     display: block;
   }
 
-  .flatpickr-wrapper,
-  .atm-form_input--floated .atm-form_input__input {
-    background-color: transparent;
-    text-overflow: ellipsis;
-    min-height: $InputHeightRegular;
-
-    i {
-      font-style: normal;
-      opacity: 1;
-    }
-  }
-
   .atm-form_input--floated {
+    .flatpickr-wrapper,
+    .atm-form_input__input {
+      background-color: transparent;
+      text-overflow: ellipsis;
+      min-height: $InputHeightRegular;
+
+      i {
+        font-style: normal;
+        opacity: 1;
+      }
+    }
+
+    &.atm-form_input--medium {
+      .flatpickr-wrapper,
+      .atm-form_input__input {
+        min-height: $InputHeightMedium;
+      }
+    }
+
     .icon {
       z-index: 0;
     }
@@ -126,7 +145,7 @@ $InputHeightRegular: 72px;
       border: 0;
       padding-left: 0;
       text-align: right;
-      color: rgba($colorText, 0.6);
+      color: $colorTextSoft;
       font-family: $fontFamilyBase;
 
       @include polyFluidSizing(font-size, map-get($fontSizeCurves, tiny));

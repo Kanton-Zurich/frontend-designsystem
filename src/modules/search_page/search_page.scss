@@ -1,12 +1,41 @@
+$tabCurves: (
+  tabVerticalSpace: (
+    tiny: $sizeRegular,
+    medium: $sizeSmallLarge,
+    xlarge: $sizeLarge,
+  ),
+);
+
+$noResultsCurves: (
+  placeholderMarginTop: (
+    tiny: $sizeBig,
+    medium: $sizeBiggerBig,
+    xlarge: $sizeSmallHuge,
+  ),
+);
+
 .mdl-search_page {
   @include sizeCurve(padding-bottom, big);
 
   position: relative;
 
+  .mdl-search__head {
+    opacity: 1;
+    margin-top: 0;
+  }
+
   &--loading {
     position: relative;
 
     .mdl-pagination {
+      display: none;
+    }
+
+    .mdl-search_page__results-head {
+      display: none;
+    }
+
+    .mdl-tabs__tab {
       display: none;
     }
   }
@@ -16,6 +45,7 @@
     min-height: $sizeHuge;
   }
 
+  &__validation,
   &__notification {
     display: none;
   }
@@ -23,53 +53,77 @@
   &__no-results {
     display: none;
 
-    h2.atm-heading {
-      line-height: $sizeLineHeightMedium;
+    @include sizeCurve(margin-top, placeholderMarginTop, $noResultsCurves);
 
-      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
-      @include mq($to: xsmall) {
-        line-height: $sizeLineHeightBase;
+    .mdl-placeholder__title.atm-heading {
+      margin-bottom: pxToRem($sizeTiny);
+    }
+
+    @include mq($to: medium) {
+      .mdl-placeholder__text.atm-paragraph {
+        margin-bottom: pxToRem($sizeRegular);
       }
     }
   }
 
-  &__results-head {
-    @include sizeCurve(margin-bottom, medium);
+  &__results-wrapper {
+    display: none;
   }
 
-  &__date-filter {
-    display: none;
+  &__results-head {
+    display: flex;
+    flex-direction: column;
+    gap: pxToRem($sizeTiny);
+    padding: pxToRem($sizeTiny) 0;
 
-    &--visible {
-      display: block;
+    .atm-text_link {
+      font-size: pxToRem($sizeFontRegular);
     }
   }
 
-  &__results-wrapper {
-    @include sizeCurve(margin-top, large);
-  }
+  &__autocorrection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 pxToRem($sizeMini);
 
-  &__counter {
-    font-size: pxToRem($sizeFontTiny);
-    font-family: $fontFamilyBlack;
-    display: block;
-    margin-bottom: 0;
+    p {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, supersmall));
+
+      margin: 0;
+    }
   }
 
   &__suggestions {
-    margin-top: $sizeMini;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: pxToRem($sizeTiny);
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, supersmall));
+
+    span {
+      display: contents;
+    }
   }
 
   &__results {
     @include sizeCurve(padding-bottom, small);
 
-    .mdl-service_list__item-title {
-      color: $colorBlack;
+    .mdl-service_card {
+      &:hover {
+        .mdl-service_card__title,
+        .mdl-service_card__text {
+          color: $colorBlack;
+        }
+      }
+
+      .mdl-service_card__title {
+        color: var(--color-accent);
+      }
     }
 
     .mdl-texthighlight {
-      margin-bottom: 1rem;
-
       .atm-heading {
         padding-bottom: $sizeTiny;
         font-family: $fontFamilyBlack;
@@ -77,7 +131,7 @@
 
       .mdl-linklist {
         .atm-linklist_item {
-          color: rgba($colorText, 0.6);
+          color: $colorTextSoft;
         }
       }
     }
@@ -88,41 +142,30 @@
   }
 
   &__list {
-    @include resetList;
-  }
-
-  &__tag-group {
-    @include sizeCurve(margin-top, small);
-  }
-
-  &__autocorrect {
-    display: none;
-  }
-
-  .atm-button--tag {
-    font-size: $sizeFontSmall;
-  }
-
-  .atm-radiobutton {
-    margin-top: $sizeMini;
+    padding: 0;
   }
 
   .mdl-search__autosuggest {
-    padding: pxToRem($sizeSmallRegular);
     margin-bottom: 0;
     background-color: $colorWhite;
     position: absolute;
     width: 100%;
     z-index: $zIndexDropDowns;
     box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.3); // stylelint-disable-line
+    top: 4.5rem;
 
-    .atm-content_teaser {
-      padding: pxToRem($sizeTiny) 0;
+    @include mq($to: medium) {
+      top: 3.5rem;
     }
 
     &.initially-hidden {
       display: none;
     }
+  }
+
+  .mdl-top_result {
+    @include sizeCurve(padding-bottom, tabVerticalSpace, $tabCurves);
+    border-bottom: 1px solid $colorBlack20;
   }
 
   &--no-results {
@@ -132,33 +175,23 @@
 
     .mdl-search_page__no-results {
       display: block;
-      margin-top: -2rem;
-
-      .atm-button {
-        background-color: transparent;
-        padding-left: 0;
-
-        &:hover {
-          background-color: transparent;
-        }
-
-        .icon {
-          margin: 0;
-        }
-
-        &:active {
-          color: $colorBlack;
-
-          .icon {
-            use {
-              fill: $colorBlack;
-            }
-          }
-        }
-      }
     }
 
+    .mdl-search_page__results-head,
+    .mdl-search_page__results,
     .mdl-pagination {
+      display: none;
+    }
+  }
+
+  &--invalid {
+    .mdl-search_page__validation {
+      display: block;
+    }
+
+    .mdl-search_page__no-results,
+    .mdl-search_page__results,
+    .mdl-search_page__results-head {
       display: none;
     }
   }
@@ -170,11 +203,10 @@
 
     .mdl-search_page__notification {
       display: block;
+      margin-top: pxToRem($sizeTiny);
     }
 
     .mdl-search_page__no-results,
-    .mdl-pagination,
-    .mdl-datepicker,
     .mdl-search_page__results,
     .mdl-search_page__results-head {
       display: none;
@@ -184,4 +216,48 @@
   /**
    * SPECIAL STYLES FOR THE RESULTS ITEMS
    */
+
+  .atm-heading {
+    font-family: $fontFamilyBlack !important; //stylelint-disable-line
+  }
+
+  .atm-search_result_item {
+    padding: 0;
+
+    mark {
+      background-color: transparent;
+      color: $colorBlack;
+    }
+  }
+
+  .mdl-texthighlight--search {
+    @include mq($to: small) {
+      .atm-heading {
+        font-family: $fontFamilyBase !important; //stylelint-disable-line
+      }
+    }
+  }
+
+  .mdl-search_result_list--news {
+    .mdl-top_result__container {
+      border: pxToRem($sizeTiny) solid $colorBlack10;
+
+      &:hover {
+        border-color: $colorBorderFrameHover;
+      }
+    }
+  }
+
+  &--show-results,
+  &--no-results,
+  &--error,
+  &--loading {
+    .mdl-most_searched {
+      display: none;
+    }
+
+    .mdl-search_page__results-wrapper {
+      display: block;
+    }
+  }
 }

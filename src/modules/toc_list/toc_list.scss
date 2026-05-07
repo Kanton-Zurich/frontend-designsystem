@@ -6,8 +6,8 @@ $fontsizecurveEDirectoryLarge: (
 
 .mdl-toc-list {
   @include gridBleed($fullwidth: true);
-  padding-top: pxToRem($sizeBig);
-  padding-bottom: pxToRem($sizeBig);
+  @include sizeCurve(padding-block-end, big);
+  padding-block-start: 0;
   background-color: $colorBlack5;
 
   &__header {
@@ -25,7 +25,8 @@ $fontsizecurveEDirectoryLarge: (
 
     // Overwrite heading atom style
     .atm-heading {
-      margin-top: pxToRem($sizeBig);
+      @include sizeCurve(padding-block-start, big);
+
       margin-bottom: pxToRem($sizeLarge);
     }
   }
@@ -41,13 +42,17 @@ $fontsizecurveEDirectoryLarge: (
         @include polyFluidSizing('font-size', $fontsizecurveEDirectoryLarge);
       }
     }
+  }
 
-    .mdl-accordion {
-      padding-bottom: $sizeBiggerBig;
+  .mdl-accordion {
+    @include sizeCurve(padding-block-end, smallerLarge);
 
-      .atm-heading {
-        padding-top: 0;
-      }
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    h3.atm-heading {
+      padding-top: 0;
     }
   }
 }

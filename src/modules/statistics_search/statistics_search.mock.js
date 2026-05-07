@@ -153,6 +153,39 @@ const data = {
       publicationType: 'Publikation',
       teaserImage: '../../assets/media/image/news_teaser_316x178_x15.jpeg',
     },
+    {
+      link: '../../pages/statistics_detail/statistics_detail.html',
+      tags: [
+        'katalog:bildungsstatistik/bildungsstufen/sekundarstufe2/allgemeinbildung',
+        'katalog:bildungsstatistik/bildungsbereich/volksschule',
+      ],
+      title: 'Bildungsstufen Sekundarstufe1 Allgemeinbildung',
+      text: 'Die Gesundheit am Zürcher Arbeitsplatz hat sich verbessert: Arbeitsunfälle haben deutlich abgenommen, immer mehr Menschen arbeiten auch nach dem Pensionsalter dank besserer Gesundheit weiter. Gleichzeitig sind in den letzten Jahren gesundheitsbedingte Absenzen gestiegen, nicht zuletzt aufgrund der Zunahme psychischer Erkrankungen. Dadurch entstehen der Zürcher Wirtschaft Kosten von über 2 Milliarden Franken. Das zeigt eine neue Studie des Amts für Wirtschaft. Mit dem Pilotprojekt Fachstelle Betrieblicher Gesundheitsschutz sensibilisiert der Kanton Zürich die Betriebe bezüglich psychosozialer Risiken und Gesundheitsschutz.',
+      publicationType: 'Publikation',
+      publicationDate: '14.12.2022',
+    },
+    {
+      link: '../../pages/statistics_detail/statistics_detail.html',
+      tags: [
+        'katalog:bildungsstatistik/bildungsstufen/sekundarstufe2/allgemeinbildung',
+        'katalog:bildungsstatistik/bildungsbereich/volksschule',
+      ],
+      title: 'Bildungsstufen Sekundarstufe1 Allgemeinbildung',
+      text: 'Die Gesundheit am Zürcher Arbeitsplatz hat sich verbessert: Arbeitsunfälle haben deutlich abgenommen, immer mehr Menschen arbeiten auch nach dem Pensionsalter dank besserer Gesundheit weiter. Gleichzeitig sind in den letzten Jahren gesundheitsbedingte Absenzen gestiegen, nicht zuletzt aufgrund der Zunahme psychischer Erkrankungen. Dadurch entstehen der Zürcher Wirtschaft Kosten von über 2 Milliarden Franken. Das zeigt eine neue Studie des Amts für Wirtschaft. Mit dem Pilotprojekt Fachstelle Betrieblicher Gesundheitsschutz sensibilisiert der Kanton Zürich die Betriebe bezüglich psychosozialer Risiken und Gesundheitsschutz.',
+      publicationType: 'Publikation',
+      publicationDate: '14.12.2022',
+    },
+    {
+      link: '../../pages/statistics_detail/statistics_detail.html',
+      tags: [
+        'katalog:bildungsstatistik/bildungsstufen/sekundarstufe2/allgemeinbildung',
+        'katalog:bildungsstatistik/bildungsbereich/volksschule',
+      ],
+      title: 'Bildungsstufen Sekundarstufe1 Allgemeinbildung',
+      text: 'Die Gesundheit am Zürcher Arbeitsplatz hat sich verbessert: Arbeitsunfälle haben deutlich abgenommen, immer mehr Menschen arbeiten auch nach dem Pensionsalter dank besserer Gesundheit weiter. Gleichzeitig sind in den letzten Jahren gesundheitsbedingte Absenzen gestiegen, nicht zuletzt aufgrund der Zunahme psychischer Erkrankungen. Dadurch entstehen der Zürcher Wirtschaft Kosten von über 2 Milliarden Franken. Das zeigt eine neue Studie des Amts für Wirtschaft. Mit dem Pilotprojekt Fachstelle Betrieblicher Gesundheitsschutz sensibilisiert der Kanton Zürich die Betriebe bezüglich psychosozialer Risiken und Gesundheitsschutz.',
+      publicationType: 'Publikation',
+      publicationDate: '14.12.2022',
+    },
   ],
 };
 

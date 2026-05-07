@@ -6,10 +6,10 @@
   @include sizeCurve(margin-bottom, small);
 
   border: 2px dashed $colorBlack20;
-  border-radius: $sizeMini;
+  border-radius: pxToRem($sizeMini);
 
   &__title.atm-heading {
-    margin-bottom: $sizeTiny;
+    margin-bottom: pxToRem($sizeTiny);
     padding-top: 0;
 
     @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
@@ -24,19 +24,22 @@
 
   &__button,
   & .atm-button {
-    display: block;
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: pxToRem($sizeTiny);
     font-size: $sizeFontSmall;
     font-family: $fontFamilyBlack;
     padding: $sizeSmallRegular $sizeLarge;
     line-height: $sizeLarge;
-
-    @include sizeCurve(margin-top, regular);
-
     margin-bottom: 0;
     text-decoration: none;
 
-    @include mq($from: xsmall) {
-      display: inline-block;
+    @include sizeCurve(margin-top, regular);
+
+    svg.atm-button__icon {
+      margin: 0;
     }
   }
 }

@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-cycle
 import Stepper from '../../../modules/stepper/stepper';
-import FormGlobalHelper from './form';
+import FormGlobalHelper, { HIDDEN_BY_RULE } from './form';
 import Module from './module';
 
 class FormRules {
@@ -29,7 +29,7 @@ class FormRules {
         inputSelector: '[data-input]',
       },
       stateClasses: {
-        hiddenByRule: 'form__element--hidden-by-rule',
+        hiddenByRule: HIDDEN_BY_RULE,
       },
       isStep: $ruleOwner.hasAttribute('data-step-index'),
     };

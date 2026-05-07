@@ -5,6 +5,9 @@ const { handlebars } = require('@unic/estatico-handlebars');
 const formInputHBS = dataHelper.getFileContent('../../../atoms/form_input/form_input.hbs');
 const formInputData = require('../../../atoms/form_input/form_input.data');
 
+const datepickerHBS = dataHelper.getFileContent('../../datepicker/datepicker.hbs');
+const datepickerData = require('../../datepicker/datepicker.data');
+
 const drillDownSelectHBS = dataHelper.getFileContent('../../drilldown_select/drilldown_select.hbs');
 const drillDownSelectData = require('../../drilldown_select/drilldown_select.data');
 
@@ -15,6 +18,7 @@ module.exports = {
   },
   props: {
     sectionTitle: 'Im Handbuch suchen',
+    additionalClasses: 'visuallyhidden',
     headingLevel: 2,
     groups: [
       {
@@ -26,6 +30,7 @@ module.exports = {
                   handlebars.compile(formInputHBS)(
                     _.merge({}, formInputData.variants.default.props, {
                       isFloatingLabel: true,
+                      isMedium: true,
                       label: 'Stichwort',
                       name: 'fullText',
                       uuid: 'fullTextSocialCare',
@@ -50,6 +55,7 @@ module.exports = {
                           label: 'Kapitel',
                           name: 'chapter',
                           uuid: 'chapterSocialCare',
+                          isMedium: true,
                         },
                       },
                       secondarySelectData: {
@@ -60,6 +66,7 @@ module.exports = {
                           label: 'Unterkapitel',
                           name: 'subChapter',
                           uuid: 'subChapterSocialCare',
+                          isMedium: true,
                         },
                       },
                     })
@@ -72,44 +79,38 @@ module.exports = {
             fields: [
               {
                 cellContent: () =>
-                  handlebars.compile(formInputHBS)(
-                    _.merge({}, formInputData.variants.floatValidateHint.props, {
-                      isFloatingLabel: true,
-                      label: 'Publikationsdatum',
-                      name: 'publication-date',
-                      uuid: 'publication-date-social-care',
-                      inputMask: '\\d\\d\\.[\\d.]\\d\\d[\\d.]\\.[\\d.]\\d\\d\\d\\d[\\d.]',
-                      maskPlaceholder: 'TT.MM.YYYY',
-                      hint: false,
-                      usedCustomIcon: true,
-                      validation: {
-                        pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',
-                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
-                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
-                        errorMsg: 'Datum bitte im Format TT.MM.YYYY eingeben!',
-                        isRequired: false,
+                  handlebars.compile(datepickerHBS)(
+                    _.merge({}, datepickerData.variants.defaultDate.props, {
+                      formInputData: {
+                        label: 'Publikationsdatum',
+                        name: 'publication-date',
+                        uuid: 'publication-date-social-care',
+                        isMedium: true,
+                        validation: {
+                          ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                          ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+                          errorMsg: 'Datum bitte im Format TT.MM.YYYY eingeben!',
+                          isRequired: false,
+                        },
                       },
                     })
                   ),
               },
               {
                 cellContent: () =>
-                  handlebars.compile(formInputHBS)(
-                    _.merge({}, formInputData.variants.floatValidateHint.props, {
-                      isFloatingLabel: true,
-                      label: 'Gültig seit',
-                      name: 'valide-since-date',
-                      uuid: 'valide-since-date-social-care',
-                      inputMask: '\\d\\d\\.[\\d.]\\d\\d[\\d.]\\.[\\d.]\\d\\d\\d\\d[\\d.]',
-                      maskPlaceholder: 'TT.MM.YYYY',
-                      usedCustomIcon: true,
-                      hint: false,
-                      validation: {
-                        pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',
-                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
-                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
-                        errorMsg: 'Datum bitte im Format TT.MM.YYYY eingeben!',
-                        isRequired: false,
+                  handlebars.compile(datepickerHBS)(
+                    _.merge({}, datepickerData.variants.defaultDate.props, {
+                      formInputData: {
+                        label: 'Gültig seit',
+                        name: 'valide-since-date',
+                        uuid: 'valide-since-date-social-care',
+                        isMedium: true,
+                        validation: {
+                          ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                          ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+                          errorMsg: 'Datum bitte im Format TT.MM.YYYY eingeben!',
+                          isRequired: false,
+                        },
                       },
                     })
                   ),

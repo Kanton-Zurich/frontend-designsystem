@@ -221,7 +221,44 @@ const variants = _.mapValues(
             linkListItemIsTOC: true,
             linkListItemIsTOCHeading: true,
             linkListItemChapterNumber: '2.1',
-            linkListItemTitle: 'Unterkapielüberschrift Aufgaben der Gemeinde verlinkt',
+            linkListItemTitle: 'Unterkapitelüberschrift Aufgaben der Gemeinde verlinkt',
+            linkListItemHref: '/',
+          },
+          {
+            linkListItemIsTOC: true,
+            linkListItemChapterNumber: '2.1.01',
+            linkListItemTitle: 'Aufgaben der Sozialbehörde',
+            linkListItemHref: '/',
+          },
+          {
+            linkListItemIsTOC: true,
+            linkListItemChapterNumber: '2.1.02',
+            linkListItemTitle: 'Organisation der Sozialbehörde',
+            linkListItemHref: '/',
+          },
+          {
+            linkListItemIsTOC: true,
+            linkListItemChapterNumber: '2.1.03',
+            linkListItemTitle: 'Organisation generell',
+            linkListItemHref: '/pages/zhlex_detail/zhlex_detail.html',
+          },
+        ],
+      },
+    },
+    numberedTOCLinkedSubheadingNoTitle: {
+      meta: {
+        title: 'Nummeriertes Inhaltsverzeichnis, Zwischenüberschrift verlinkt ohne Titel',
+        desc: 'Eingesetzt beim Sozialhilfehandbuch (CZHDEV-3005)',
+      },
+      props: {
+        isTOC: true,
+        linkListTitle: false,
+        links: [
+          {
+            linkListItemIsTOC: true,
+            linkListItemIsTOCHeading: true,
+            linkListItemChapterNumber: '2.1',
+            linkListItemTitle: 'Unterkapitelüberschrift Aufgaben der Gemeinde verlinkt',
             linkListItemHref: '/',
           },
           {
@@ -310,6 +347,71 @@ const variants = _.mapValues(
           {
             linkListItemIsTOC: true,
             linkListItemTitle: 'Organisation generell',
+            linkListItemHref: '/pages/zhlex_detail/zhlex_detail.html',
+          },
+        ],
+      },
+    },
+    unnumberedTOCSubheadingNoTitle: {
+      meta: {
+        title: 'Unnummeriertes Inhaltsverzeichnis, Zwischenüberschrift nicht verlinkt',
+        desc: 'Allgemeines Inhaltsverzeichnis (CZHDEV-3178)',
+      },
+      props: {
+        isTOC: true,
+        links: [
+          {
+            linkListItemIsTOC: true,
+            linkListItemIsTOCHeading: true,
+            linkListItemTitle: 'Unterkapitelüberschrift Aufgaben der Gemeinde',
+            linkListItemHref: false,
+          },
+          {
+            linkListItemIsTOC: true,
+            linkListItemTitle: 'Aufgaben der Sozialbehörde',
+            linkListItemHref: '/',
+          },
+          {
+            linkListItemIsTOC: true,
+            linkListItemTitle: 'Organisation der Sozialbehörde',
+            linkListItemHref: '/',
+          },
+          {
+            linkListItemIsTOC: true,
+            linkListItemTitle: 'Organisation generell',
+            linkListItemHref: '/pages/zhlex_detail/zhlex_detail.html',
+          },
+        ],
+      },
+    },
+    unnumberedTOCLinkedSubheadingNoTitle: {
+      meta: {
+        title: 'Unnummeriertes Inhaltsverzeichnis, Zwischenüberschrift verlinkt ohne Titel',
+        desc: 'Inhaltsverzeichnis OSS (CZHDEV-3075)',
+      },
+      props: {
+        isTOC: true,
+        linkListTitle: false,
+        links: [
+          {
+            linkListItemIsTOC: true,
+            linkListItemIsTOCHeading: true,
+            linkListItemTitle: 'Organisation und Aufgaben',
+            linkListItemHref: '/',
+          },
+          {
+            linkListItemIsTOC: true,
+            linkListItemTitle: 'Aufgaben der Sozialbehörde',
+            linkListItemHref: '/',
+          },
+          {
+            linkListItemIsTOC: true,
+            linkListItemTitle: 'Organisation der Sozialbehörde',
+            linkListItemHref: '/',
+          },
+          {
+            linkListItemIsTOC: true,
+            linkListItemTitle: 'Aufsichtstätigkeit des Bezirksrats über die Sozialbehörden',
             linkListItemHref: '/pages/zhlex_detail/zhlex_detail.html',
           },
         ],

@@ -44,6 +44,8 @@ module.exports = {
                       uuid: 'nationality',
                       describedBy: 'nationality__description',
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: true,
                       },
                     })
@@ -68,7 +70,11 @@ module.exports = {
                 cellContent: () =>
                   handlebars.compile(fileUploadHBS)(
                     _.merge({}, fileUploadData.variants.default.props, {
-                      validation: { isRequired: true },
+                      validation: {
+                        isRequired: true,
+                        ariaTextValid: 'Datei ist gültig.',
+                        ariaTextInvalid: 'Datei ist ungültig.',
+                      },
                     })
                   ),
               },
@@ -85,9 +91,12 @@ module.exports = {
                       label: 'PLZ',
                       name: 'zip_place_of_birth',
                       uuid: 'zip_place_of_birth',
+                      type: 'number',
                       validation: {
                         isRequired: true,
-                        pattern: '^[0-9]{4,4}$',
+                        pattern: '/^[1-9][0-9]{3}$/',
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
                       },
                       zipCity: {
@@ -115,6 +124,8 @@ module.exports = {
                       uuid: 'place_of_birth',
                       isZipCityTarget: true,
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: true,
                       },
                     })

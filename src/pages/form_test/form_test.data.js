@@ -9,7 +9,7 @@ const headerData = require('../../modules/header/header.data').variants.defaultW
 
 const defPageHeaderData = require('../../modules/page_header/page_header.data.js');
 const defFooterData = require('../../modules/footer/footer.data').variants.default.props;
-const defFormData = require('../../modules/form/form.data').variants;
+// const defFormData = require('../../modules/form/form.data').variants;
 const defStepperData = require('../../modules/stepper/stepper.data').props;
 
 const formInputHBS = dataHelper.getFileContent('../../atoms/form_input/form_input.hbs');
@@ -23,7 +23,7 @@ const checkboxData = require('../../atoms/checkbox/checkbox.data');
 const selectHBS = dataHelper.getFileContent('../../modules/select/select.hbs');
 const selectData = require('../../modules/select/select.data');
 
-const listDemoData = require('../../atoms/list/list.data');
+// const listDemoData = require('../../atoms/list/list.data');
 
 const radioHBS = dataHelper.getFileContent('../../atoms/radiobutton/radiobutton.hbs');
 const radioData = require('../../atoms/radiobutton/radiobutton.data');
@@ -154,6 +154,8 @@ const data = _.merge({}, defaultData, {
                           uuid: 'current_job',
                           validation: {
                             isRequired: true,
+                            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                           },
                         })
                       ),
@@ -184,6 +186,8 @@ const data = _.merge({}, defaultData, {
                           uuid: 'age',
                           validation: {
                             isRequired: true,
+                            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                           },
                         })
                       ),
@@ -214,6 +218,8 @@ const data = _.merge({}, defaultData, {
                           uuid: 'subAge',
                           validation: {
                             isRequired: true,
+                            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                           },
                         })
                       ),
@@ -247,6 +253,8 @@ const data = _.merge({}, defaultData, {
                                     value: 'privat',
                                     validation: {
                                       isRequired: true,
+                                      ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                      ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                     },
                                   })
                                 ),
@@ -259,6 +267,8 @@ const data = _.merge({}, defaultData, {
                                     value: 'juristisch',
                                     validation: {
                                       isRequired: true,
+                                      ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                      ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                     },
                                   })
                                 ),
@@ -271,6 +281,8 @@ const data = _.merge({}, defaultData, {
                                     value: 'dritt',
                                     validation: {
                                       isRequired: true,
+                                      ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                      ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                     },
                                   })
                                 ),
@@ -316,6 +328,8 @@ const data = _.merge({}, defaultData, {
                                     value: 'nat',
                                     validation: {
                                       isRequired: true,
+                                      ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                      ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                     },
                                   })
                                 ),
@@ -328,6 +342,8 @@ const data = _.merge({}, defaultData, {
                                     value: 'jur',
                                     validation: {
                                       isRequired: true,
+                                      ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                      ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                     },
                                   })
                                 ),

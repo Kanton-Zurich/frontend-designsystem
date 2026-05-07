@@ -16,7 +16,8 @@
   "rules": {
     "import/no-extraneous-dependencies": ["error", {
       "devDependencies": true,
-      "optionalDependencies": false
+      "optionalDependencies": false,
+      "packageDir": "./"
     }],
     "import/order": 0,
     "no-new": 0,

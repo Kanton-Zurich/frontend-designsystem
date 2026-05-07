@@ -10,17 +10,10 @@ export const sanitizeFileSize = (fileSize) => {
   return `${parseFloat((fileSize / k ** i).toFixed(dm))} ${sizes[i]}`;
 };
 
-export const sanitizeSearchString = (searchWord) => {
-  // eslint-disable-line
-  return searchWord.replace(/[\<\>\+\'\"\#\&]/gi, ''); // eslint-disable-line
-};
-/* eslint-disable */
-export const detectSafari = () => {
-  return !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
-};
-/* eslint-enable */
+export const sanitizeSearchString = (searchWord: string) => searchWord.replace(/[<>+'"#&]/gi, '');
 
-/* eslint-disable */
+export const detectSafari = () => !!navigator.userAgent.match(/Version\/[\d.]+.*Safari/);
+
 /**
  * Polyfill to get correct animation event for each browser
  * @param animationEventType
@@ -41,28 +34,30 @@ export const animationEvent = (animationEventType) => {
     }
   }
 };
-/* eslint-enable */
 
 /**
- * Extract url parameters
- * @param param
- * @param singleValue
+ * Retrieves one or more values from the current URL's search parameters.
+ *
+ * @param param - The name of the query parameter to retrieve.
+ * @param singleValue - Whether to return a single value (string) or all values (array).
+ * @returns A string, array of strings, or null if not present.
  */
-export const getURLParam = (param, singleValue = false) => {
-  let result = null;
-  const url = window.location.href;
-  const paramList = url.split('?').length > 1 ? url.split('?')[1].split('&') : null;
-  if (paramList) {
-    result = paramList
-      .filter((paramString) => paramString.substr(0, param.length) === param)
-      .map((item) => sanitizeSearchString(decodeURIComponent(item.split('=')[1].replace('#', '')))); // eslint-disable-line
-    if (result.length > 0 && singleValue) {
-      result = result[0].replace('#', '');
-    }
-  }
+// Overload signatures
+// eslint-disable-next-line no-unused-vars
+export function getURLParam(param: string, singleValue: true): string | null;
+// eslint-disable-next-line no-redeclare, no-unused-vars
+export function getURLParam(param: string, singleValue?: false): string[] | null;
 
-  return result && result.length > 0 ? result : null;
-};
+// Implementation
+// eslint-disable-next-line no-redeclare
+export function getURLParam(param: string, singleValue = false): string | string[] | null {
+  const searchParams = new URLSearchParams(window.location.search);
+  if (!searchParams.has(param)) return null;
+  const allValues = searchParams
+    .getAll(param)
+    .map((v) => sanitizeSearchString(decodeURIComponent(v)));
+  return singleValue ? allValues[0] : allValues;
+}
 
 /**
  * Get all URL params as object

@@ -39,6 +39,8 @@ module.exports = {
                         iconRight: 'arrow-right',
                         iconLeft: 'check',
                         validation: {
+                          ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                          ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                           isRequired: true,
                         },
                       },
@@ -61,6 +63,8 @@ module.exports = {
                         maxSize: 26214400,
                         fileTypes:
                           'text/csv, image/gif, text/html, image/jpeg, application/pdf, image/png, image/tiff, application/rtf, image/svg+xml, text/plain, application/xml',
+                        ariaTextValid: 'Datei ist gültig.',
+                        ariaTextInvalid: 'Datei ist ungültig.',
                         isRequired: true,
                       },
                       rules: JSON.stringify([
@@ -101,6 +105,8 @@ module.exports = {
                       name: 'income_assets',
                       uuid: 'income_assets',
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: false,
                       },
                       rules: JSON.stringify([

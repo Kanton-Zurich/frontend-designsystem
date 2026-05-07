@@ -26,6 +26,8 @@ const variants = _.mapValues(
       },
       props: {
         headingLevel: 4,
+        inputId: _.uniqueId('pagination_input'),
+        descriptionId: _.uniqueId('pagination_description'),
       },
     },
     fullWidth: {
@@ -36,6 +38,8 @@ const variants = _.mapValues(
       props: {
         fullWidth: true,
         headingLevel: 4,
+        inputId: _.uniqueId('pagination_input'),
+        descriptionId: _.uniqueId('pagination_description'),
       },
     },
   },

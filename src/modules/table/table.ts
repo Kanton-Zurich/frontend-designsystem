@@ -46,8 +46,8 @@ class Table extends Module {
     templateCell: HTMLTemplateElement;
   };
   public options: {
-    isFixedFirstColumn: Boolean;
-    isSortable: Boolean;
+    isFixedFirstColumn: boolean;
+    isSortable: boolean;
     domSelectors: {
       table: string;
       tableBody: string;

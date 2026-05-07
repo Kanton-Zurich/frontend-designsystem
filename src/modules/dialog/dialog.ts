@@ -109,9 +109,13 @@ class Dialog extends Module {
       );
     });
 
-    this.ui.element.querySelector(this.options.domSelectors.form).addEventListener('submit', () => {
-      this.closeDialog();
-    });
+    if (this.ui.form) {
+      this.ui.element
+        .querySelector(this.options.domSelectors.form)
+        .addEventListener('submit', () => {
+          this.closeDialog();
+        });
+    }
 
     // move to the end of the DOM
     (<any>window).estatico.helpers.bodyElement.appendChild(this.ui.element);
@@ -208,7 +212,9 @@ class Dialog extends Module {
           target.dispatchEvent(new CustomEvent(Dialog.events.opened));
         });
       }
-      this.ui.form.dispatchEvent(new CustomEvent(Form.events.resizeForm));
+      if (this.ui.form) {
+        this.ui.form.dispatchEvent(new CustomEvent(Form.events.resizeForm));
+      }
       this.dispatchVerticalResizeEvent();
     }, this.options.transitionTime);
 

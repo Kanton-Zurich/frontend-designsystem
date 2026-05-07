@@ -1,0 +1,55 @@
+$searchCurves: (
+  tagsHorizontalPadding: (
+    tiny: $sizeRegular,
+    medium: $sizeLarge,
+  ),
+  tagsVerticalPadding: (
+    tiny: $sizeTiny,
+    medium: $sizeSmallRegular,
+  ),
+  searchPaddingTop: (
+    tiny: $sizeSmallRegular,
+    medium: $sizeSmallLarge,
+    large: $sizeLarge,
+  ),
+  searchMarginBottom: (
+    tiny: $sizeSmallRegular,
+    medium: $sizeRegular,
+  ),
+);
+
+.mdl-most_searched {
+  @include sizeCurve(padding-top, searchPaddingTop, $searchCurves);
+
+  &__heading {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+    @include sizeCurve(margin-bottom, searchMarginBottom, $searchCurves);
+
+    color: $colorBlack60;
+    margin-top: 0;
+  }
+
+  &__tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: pxToRem($sizeTiny);
+    margin: 0;
+    padding: 0;
+  }
+
+  .atm-anchorlink--tag {
+    height: pxToRem($sizeSmallHuge);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+    line-height: $sizeLineHeightMedium;
+
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
+    @include sizeCurve(padding-top, tagsVerticalPadding, $searchCurves);
+    @include sizeCurve(padding-bottom, tagsVerticalPadding, $searchCurves);
+    @include sizeCurve(padding-left, tagsHorizontalPadding, $searchCurves);
+    @include sizeCurve(padding-right, tagsHorizontalPadding, $searchCurves);
+  }
+}

@@ -20,6 +20,7 @@ module.exports = {
   },
   props: {
     sectionTitle: null,
+    additionalClasses: 'visuallyhidden',
     groups: [
       {
         rows: [
@@ -30,6 +31,7 @@ module.exports = {
                   handlebars.compile(formInputHBS)(
                     _.merge({}, formInputData.variants.default.props, {
                       isFloatingLabel: true,
+                      isMedium: true,
                       label: 'Stichwort',
                       name: 'fullText',
                       uuid: _.uniqueId('stichwort'),
@@ -45,6 +47,7 @@ module.exports = {
                   handlebars.compile(formInputHBS)(
                     _.merge({}, formInputData.variants.default.props, {
                       isFloatingLabel: true,
+                      isMedium: true,
                       label: 'Erlasstitel',
                       name: 'enactmentTitle',
                       uuid: _.uniqueId('erlasstitel'),
@@ -56,6 +59,7 @@ module.exports = {
                   handlebars.compile(formInputHBS)(
                     _.merge({}, formInputData.variants.default.props, {
                       isFloatingLabel: true,
+                      isMedium: true,
                       label: 'Ordnungsnummer',
                       name: 'referenceNumber',
                       uuid: _.uniqueId('ordnungsnummer'),
@@ -88,6 +92,7 @@ module.exports = {
                       triggerInputData: {
                         label: 'Bandnummer',
                         uuid: 'bandnummer_os',
+                        isMedium: true,
                         validation: {
                           isRequired: false,
                         },
@@ -100,6 +105,7 @@ module.exports = {
                   handlebars.compile(formInputHBS)(
                     _.merge({}, formInputData.variants.default.props, {
                       isFloatingLabel: true,
+                      isMedium: true,
                       label: 'Seitenzahl in OS',
                       name: 'volumePageNumber',
                       uuid: 'seitenzahl_os',
@@ -130,6 +136,7 @@ module.exports = {
                         label: 'Erlass',
                         name: 'enactmentDate',
                         uuid: 'erlassdatum_os',
+                        isMedium: true,
                         validation: false,
                       },
                     })
@@ -143,6 +150,7 @@ module.exports = {
                         label: 'Inkraftsetzung',
                         name: 'entryIntoForceDate',
                         uuid: 'inkraftsetzungsdatum_os',
+                        isMedium: true,
                         validation: false,
                       },
                     })
@@ -160,6 +168,7 @@ module.exports = {
                         label: 'Publikation',
                         name: 'publicationDate',
                         uuid: 'publikationsdatum_os',
+                        isMedium: true,
                         validation: false,
                       },
                     })
@@ -173,6 +182,7 @@ module.exports = {
                         label: 'Aufhebung',
                         name: 'withdrawalDate',
                         uuid: 'aufhebungsdatum_os',
+                        isMedium: true,
                         validation: false,
                       },
                     })

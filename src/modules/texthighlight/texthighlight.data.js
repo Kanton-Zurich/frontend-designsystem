@@ -38,10 +38,22 @@ const variants = _.mapValues(
         title: 'Linkliste',
         desc: '',
       },
-      props: _.merge(dataLinklist.props, {
+      props: _.merge({}, dataLinklist.props, {
         linklistVariation: true,
         texthighlightId: _.uniqueId('texthighlight'),
         isLast: true,
+      }),
+    },
+    linklist_search: {
+      meta: {
+        title: 'Linkliste (Search)',
+        desc: '',
+      },
+      props: _.merge({}, dataLinklist.props, {
+        linklistVariation: true,
+        texthighlightId: _.uniqueId('texthighlight'),
+        isLast: true,
+        isSearch: true,
       }),
     },
     image: {

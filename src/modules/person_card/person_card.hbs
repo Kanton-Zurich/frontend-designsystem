@@ -1,7 +1,9 @@
-<div class="mdl-person_card {{#isStandalone}} mdl-person_card--standalone{{/isStandalone}}">
+<div class="mdl-person_card {{#isStandalone}} mdl-person_card--standalone{{/isStandalone}} {{#if isSearch}} mdl-person_card--search{{/if}}">
   <div class="mdl-person_card__container">
     <h{{headingLevel}} class="mdl-person_card__name">{{name}}</h{{headingLevel}}>
-    <p class="atm-paragraph mdl-person_card__role">{{role}}</p>
+    {{#if role}}
+      <p class="atm-paragraph mdl-person_card__role">{{role}}</p>
+    {{/if}}
     {{#if contactInfo}}
     <p class="atm-paragraph mdl-person_card__contactinfo">
       {{{contactInfo}}}

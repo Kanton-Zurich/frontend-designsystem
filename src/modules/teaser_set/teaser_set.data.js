@@ -101,6 +101,24 @@ const variants = _.mapValues(
         teaserSetItems: statisticsItems.slice(0, 9),
       },
     },
+    searchTeaser: {
+      meta: {
+        title: 'Search-Teaser',
+      },
+      props: {
+        additionalClasses: 'mdl-teaser_card--search',
+        moduleHeader: {
+          title: 'Ähnliche Themen',
+          allArticleHref: '#',
+          allArticleLabel: 'Alle Beiträge',
+          headinglevel: 4,
+          visualHeadingLevel: 2,
+          isSearchResult: false,
+        },
+        // eslint-disable-next-line no-magic-numbers
+        teaserSetItems: statisticsItems.slice(-3),
+      },
+    },
   },
   (variant) => {
     const variantProps = _.merge({}, data, variant).props;

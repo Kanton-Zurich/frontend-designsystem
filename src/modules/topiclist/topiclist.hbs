@@ -58,6 +58,12 @@
     </div>
   {{/if}}
 
+  {{#if notificationData}}
+    <div class="mdl-topiclist__notification">
+      {{> "modules/notification/notification" notificationData }}
+    </div>
+  {{/if}}
+
   <div class="mdl-topiclist__no-results-placeholder mdl-placeholder">
     <h3 class="atm-heading mdl-placeholder__title">{{noResultsPlaceholder.title}}</h3>
     <p class="atm-paragraph mdl-placeholder__text">{{noResultsPlaceholder.text}}</p>

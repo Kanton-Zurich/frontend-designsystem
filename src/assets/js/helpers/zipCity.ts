@@ -58,7 +58,15 @@ class ZipCity {
     };
 
     this.data = JSON.parse(this.fields.zip.getAttribute('data-zip'));
-
+    this.fields.zip.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key.length > 1 || e.ctrlKey || e.metaKey) {
+        return;
+      }
+      if (!/[0-9]/.test(e.key)) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    });
     this.setWatcher();
   }
 

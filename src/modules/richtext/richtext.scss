@@ -36,6 +36,11 @@
     }
   }
 
+  strong {
+    font-family: $fontFamilyBlack;
+    color: inherit;
+  }
+
   &__emphasis {
     @include sizeCurve('margin-bottom', medium);
     @include mq($from: tiny, $to: small) {

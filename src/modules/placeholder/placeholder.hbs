@@ -6,10 +6,6 @@
     {{text}}
   </p>
   {{#if button}}
-    <a href="{{button.href}}" class="mdl-placeholder__button atm-button atm-button--secondary">
-      <span class="atm-button__text">
-        {{button.text}}
-      </span>
-    </a>
+    {{>"atoms/button/button" button }}
   {{/if}}
 </div>

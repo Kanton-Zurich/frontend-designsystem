@@ -1,0 +1,119 @@
+.mdl-event_card {
+  $eventCardDay: (
+    fontSize: (
+      tiny: $sizeFontMedium,
+      medium: $sizeFontLarge,
+      large: $sizeFontSmallBig,
+    ),
+  );
+
+  display: flex;
+  gap: pxToRem($sizeRegular);
+  padding: pxToRem($sizeLarge);
+  padding-top: pxToRem($sizeSmallBig);
+  text-decoration: none;
+  position: relative;
+  background-color: $colorWhite;
+  color: $colorBlack;
+
+  @include mq($from: medium) {
+    gap: pxToRem($sizeSmallLarge);
+  }
+  @include mq($from: large) {
+    gap: pxToRem($sizeLarge);
+    align-items: center;
+    padding-top: pxToRem($sizeLarge);
+  }
+
+  &:hover {
+    border-color: $colorBlack20;
+
+    .mdl-event_card__info {
+      border-color: $colorBlack20;
+    }
+
+    .atm-heading {
+      color: $colorBlack;
+    }
+  }
+
+  &__date {
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+
+    @include mq($to: small) {
+      margin-top: 0;
+    }
+  }
+
+  &__day {
+    @include sizeCurve(font-size, fontSize, $eventCardDay);
+
+    font-family: $fontFamilyBlack;
+    line-height: $sizeLineHeightMedium;
+  }
+
+  &__month {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: $sizeFontRegular;
+    line-height: $sizeLineHeightNarrow;
+  }
+
+  .atm-heading {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+
+    color: var(--color-accent);
+    padding-top: 0;
+    margin-bottom: 0;
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__description-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: pxToRem($sizeMini);
+    margin-bottom: 0;
+    gap: pxToRem($sizeMini) pxToRem($sizeLarge);
+  }
+
+  &__description-text {
+    font-size: pxToRem($sizeFontRegular);
+    position: relative;
+
+    &:not(:last-child):after {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 1px;
+      top: 0;
+      right: pxToRem($sizeSmallRegular) * -1;
+      background-color: $colorBlack20;
+    }
+  }
+
+  &__info {
+    font-size: pxToRem($sizeFontTiny);
+    border: 2px solid $colorBlack10;
+    color: $colorBlack60;
+    background-color: $colorWhite;
+    border-bottom-left-radius: pxToRem($sizeMini);
+    height: pxToRem($sizeSmallBig);
+    padding: pxToRem($sizeMini) pxToRem($sizeTiny);
+    position: absolute;
+    top: pxToRem(-$sizeMini + 2);
+    right: pxToRem(-$sizeMini + 2);
+
+    @include mq($from: large) {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border-radius: pxToRem($sizeMini);
+      top: 0;
+      right: 0;
+    }
+  }
+}

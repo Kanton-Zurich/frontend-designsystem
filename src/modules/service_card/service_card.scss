@@ -1,0 +1,116 @@
+.mdl-service_card {
+  $serviceListCurves: (
+    itemPadding: (
+      tiny: $sizeRegular,
+      small: $sizeRegular + 2,
+      large: $sizeSmallLarge,
+    ),
+    mdlBottomMargin: (
+      tiny: $sizeRegular,
+      small: $sizeSmallLarge,
+      medium: $sizeLarge,
+    ),
+  );
+
+  text-decoration: none;
+  background-color: $colorBlack10;
+  display: flex;
+  gap: $sizeRegular;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+
+  @include sizeCurve(margin-bottom, mdlBottomMargin, $serviceListCurves);
+  @include sizeCurve(padding, itemPadding, $serviceListCurves);
+  @include mq($to: small) {
+    display: block;
+  }
+
+  &a {
+    cursor: pointer;
+
+    &:hover {
+      .mdl-service_card__title,
+      .mdl-service_card__text {
+        color: $colorBlack;
+      }
+    }
+
+    .atm-heading {
+      color: var(--color-accent);
+    }
+  }
+
+  &__title {
+    line-height: $sizeLineHeightMedium;
+    margin-bottom: 0;
+
+    @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+    @include mq($to: xsmall) {
+      line-height: $sizeLineHeightBase;
+    }
+  }
+
+  &__text {
+    margin-top: $sizeTiny;
+    margin-bottom: 0;
+    margin-right: $sizeTiny;
+
+    @include lineClamp(2);
+    @include mq($to: small) {
+      margin-right: 0;
+      margin-bottom: $sizeRegular;
+    }
+  }
+
+  &__description-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: pxToRem($sizeTiny);
+    margin-bottom: 0;
+    gap: pxToRem($sizeMini) pxToRem($sizeSmallRegular);
+
+    @include mq($to: small) {
+      flex-direction: column;
+    }
+  }
+
+  &__description-pair {
+    display: flex;
+    white-space: nowrap;
+
+    @include mq($to: small) {
+      flex-direction: column;
+      white-space: normal;
+      margin-bottom: pxToRem($sizeTiny);
+    }
+  }
+
+  &__description-term {
+    color: $colorBlack60;
+    font-size: pxToRem($sizeFontTiny);
+  }
+
+  &__description-description {
+    margin-left: pxToRem($sizeMini);
+    color: $colorBlack;
+    font-size: pxToRem($sizeFontTiny);
+    white-space: break-spaces;
+    word-break: break-word;
+
+    @include mq($to: small) {
+      margin-left: 0;
+    }
+  }
+
+  &__button {
+    display: inline-flex;
+    min-width: unset;
+    flex-shrink: 0;
+
+    @include mq($from: tiny, $to: small) {
+      margin-top: $sizeTiny;
+    }
+  }
+}

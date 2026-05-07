@@ -2,6 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const defButtonData = require('../../atoms/button/button.data.js');
 
 const template = dataHelper.getFileContent('placeholder.hbs');
 const data = _.merge({}, defaultData, {
@@ -24,10 +25,23 @@ const variants = _.mapValues(
       props: {
         title: 'Personen erfassen',
         text: 'Hier können Sie beispielsweise noch Kinder, Unterstützungsbedürftige Personen erfassen',
-        button: {
+        button: _.merge({}, defButtonData.variants.secondary.props, {
           text: 'Erfassen',
-          href: '#',
-        },
+        }),
+      },
+    },
+    withIconButton: {
+      meta: {
+        title: 'Keine Suchergebnisse',
+        desc: 'Mit Icon im Button',
+      },
+      props: {
+        title: 'Keine Ergebnisse zu «xyzbwhe» gefunden.',
+        text: 'Überprüfen Sie die Schreibweise der eingegebenen Wörter. Versuchen Sie andere Stichwörter. Versuchen Sie allgemeinere Stichwörter.',
+        button: _.merge({}, defButtonData.variants.secondaryWithIcon.props, {
+          text: 'Suche zurücksetzen',
+          icon: 'undo',
+        }),
       },
     },
     noButton: {
@@ -47,10 +61,9 @@ const variants = _.mapValues(
       },
       props: {
         text: 'Hier können Sie beispielsweise noch Kinder, Unterstützungsbedürftige Personen erfassen',
-        button: {
+        button: _.merge({}, defButtonData.variants.secondary.props, {
           text: 'Erfassen',
-          href: '#',
-        },
+        }),
       },
     },
     noTitleNoButton: {

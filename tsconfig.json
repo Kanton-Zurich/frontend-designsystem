@@ -3,15 +3,10 @@
     "module": "commonjs",
     "target": "ES2021",
     "sourceMap": true,
-    "downlevelIteration": true,
     "esModuleInterop": true,
-    "lib": [
-      "ES2021",
-      "DOM",
-      "DOM.Iterable"
-    ]
+    "skipLibCheck": true,
+    "types": ["iframe-resizer", "lodash", "node"],
+    "lib": ["ES2021", "DOM", "DOM.Iterable"]
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

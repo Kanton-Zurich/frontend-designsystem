@@ -267,6 +267,9 @@ const variants = _.mapValues(
                                             additionalAttribute:
                                               'data-tax_calc="inputTaxType-individuals"',
                                             validation: {
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                               isRequired: true,
                                             },
                                             value: 'income_assets',
@@ -283,6 +286,9 @@ const variants = _.mapValues(
                                             additionalAttribute:
                                               'data-tax_calc="inputTaxType-individuals"',
                                             validation: {
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                               isRequired: true,
                                             },
                                             value: 'federal',
@@ -300,6 +306,9 @@ const variants = _.mapValues(
                                             additionalAttribute:
                                               'data-tax_calc="inputTaxType-individuals"',
                                             validation: {
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                               isRequired: true,
                                             },
                                             value: 'benefit_payments',
@@ -316,6 +325,9 @@ const variants = _.mapValues(
                                             additionalAttribute:
                                               'data-tax_calc="inputTaxType-individuals"',
                                             validation: {
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                               isRequired: true,
                                             },
                                             value: 'benefit_payments_federal',
@@ -332,6 +344,9 @@ const variants = _.mapValues(
                                             additionalAttribute:
                                               'data-tax_calc="inputTaxType-individuals"',
                                             validation: {
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                               isRequired: true,
                                             },
                                             value: 'inheritance',
@@ -348,6 +363,9 @@ const variants = _.mapValues(
                                             additionalAttribute:
                                               'data-tax_calc="inputTaxType-corporations"',
                                             validation: {
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                               isRequired: true,
                                             },
                                             value: 'legal_simple',
@@ -364,6 +382,9 @@ const variants = _.mapValues(
                                             additionalAttribute:
                                               'data-tax_calc="inputTaxType-corporations"',
                                             validation: {
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                               isRequired: true,
                                             },
                                             value: 'legal_iterative',
@@ -380,6 +401,9 @@ const variants = _.mapValues(
                                             additionalAttribute:
                                               'data-tax_calc="inputTaxType-associations"',
                                             validation: {
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                               isRequired: true,
                                             },
                                             value: 'legal_simple',
@@ -396,6 +420,9 @@ const variants = _.mapValues(
                                             additionalAttribute:
                                               'data-tax_calc="inputTaxType-associations"',
                                             validation: {
+                                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                              ariaTextInvalid:
+                                                'Eingabe entspricht nicht den Vorgaben.',
                                               isRequired: true,
                                             },
                                             value: 'legal_iterative',
@@ -538,8 +565,8 @@ const variants = _.mapValues(
     },
     tableOfContents: {
       meta: {
-        title: 'Inhaltsverzeichnis (CZHDEV-3005)',
-        desc: 'Akkordeon für das Inhaltsverzeichnis der Sozialhilfe',
+        title: 'Inhaltsverzeichnis nummeriert',
+        desc: 'Akkordeon für das Inhaltsverzeichnis der Sozialhilfe (CZHDEV-3005)',
       },
       props: {
         heading: {
@@ -549,7 +576,6 @@ const variants = _.mapValues(
         },
         smallerHeadings: false,
         hasBackground: true,
-        indented: true,
         storeOrigin: true,
         items: [
           {
@@ -565,13 +591,13 @@ const variants = _.mapValues(
             accordionPanelID: _.uniqueId('accordionDemoId-'),
             children: [
               {
-                partial: linklistData.variants.numberedTOCLinkedSubheading.meta.demo,
+                partial: linklistData.variants.numberedTOCLinkedSubheadingNoTitle.meta.demo,
               },
               {
-                partial: linklistData.variants.numberedTOCLinkedSubheading.meta.demo,
+                partial: linklistData.variants.numberedTOCLinkedSubheadingNoTitle.meta.demo,
               },
               {
-                partial: linklistData.variants.numberedTOCLinkedSubheading.meta.demo,
+                partial: linklistData.variants.numberedTOCLinkedSubheadingNoTitle.meta.demo,
               },
             ],
           },
@@ -589,10 +615,10 @@ const variants = _.mapValues(
             accordionPanelID: _.uniqueId('accordionDemoId-'),
             children: [
               {
-                partial: linklistData.variants.numberedTOCSubheading.meta.demo,
+                partial: linklistData.variants.numberedTOCLinkedSubheadingNoTitle.meta.demo,
               },
               {
-                partial: linklistData.variants.numberedTOCSubheading.meta.demo,
+                partial: linklistData.variants.numberedTOCLinkedSubheadingNoTitle.meta.demo,
               },
             ],
           },
@@ -602,10 +628,10 @@ const variants = _.mapValues(
             accordionPanelID: _.uniqueId('accordionDemoId-'),
             children: [
               {
-                partial: linklistData.variants.numberedTOCLinkedSubheading.meta.demo,
+                partial: linklistData.variants.numberedTOCLinkedSubheadingNoTitle.meta.demo,
               },
               {
-                partial: linklistData.variants.numberedTOCLinkedSubheading.meta.demo,
+                partial: linklistData.variants.numberedTOCLinkedSubheadingNoTitle.meta.demo,
               },
             ],
           },
@@ -615,10 +641,10 @@ const variants = _.mapValues(
             accordionPanelID: _.uniqueId('accordionDemoId-'),
             children: [
               {
-                partial: linklistData.variants.numberedTOCSubheading.meta.demo,
+                partial: linklistData.variants.numberedTOCLinkedSubheadingNoTitle.meta.demo,
               },
               {
-                partial: linklistData.variants.numberedTOCSubheading.meta.demo,
+                partial: linklistData.variants.numberedTOCLinkedSubheadingNoTitle.meta.demo,
               },
             ],
           },
@@ -628,7 +654,82 @@ const variants = _.mapValues(
             accordionPanelID: _.uniqueId('accordionDemoId-'),
             children: [
               {
-                partial: linklistData.variants.numberedTOCLinkedSubheading.meta.demo,
+                partial: linklistData.variants.numberedTOCLinkedSubheadingNoTitle.meta.demo,
+              },
+            ],
+          },
+        ],
+      },
+    },
+    tableOfContentsOSS: {
+      meta: {
+        title: 'Inhaltsverzeichnis unnummeriert',
+        desc: 'Akkordeon für das Inhaltsverzeichnis des Orientierungsportals Unternehmen (CZHDEV-5075)',
+      },
+      props: {
+        heading: {
+          title: 'Inhaltsverzeichnis',
+          level: 2,
+          visuallyHidden: true,
+        },
+        smallerHeadings: false,
+        hasBackground: true,
+        storeOrigin: true,
+        items: [
+          {
+            title: 'Gründung',
+            accordionPanelID: _.uniqueId('accordionDemoId-'),
+            isLink: true,
+          },
+          {
+            title:
+              'Akkordeontitel der über mehrere Zeilen gehen soll und dabei noch länger wird, um sicherzustellen, dass er definitiv umbricht und auf mehreren Zeilen dargestellt wird',
+            accordionPanelID: _.uniqueId('accordionDemoId-'),
+            children: [
+              {
+                partial: linklistData.variants.unnumberedTOCLinkedSubheadingNoTitle.meta.demo,
+              },
+            ],
+          },
+          {
+            title:
+              'Link der über mehrere Zeilen gehen soll und dabei noch länger wird, um sicherzustellen, dass er definitiv umbricht und auf mehreren Zeilen dargestellt wird',
+            accordionPanelID: _.uniqueId('accordionDemoId-'),
+            isLink: true,
+          },
+          {
+            title: 'Mitarbeitende Inhaltsverzeichnis mehrzeilige Zwischenüberschriften verlinkt',
+            accordionPanelID: _.uniqueId('accordionDemoId-'),
+            children: [
+              {
+                partial: linklistData.variants.unnumberedTOCLinkedSubheadingNoTitle.meta.demo,
+              },
+            ],
+          },
+          {
+            title: 'Steuern und Abgaben',
+            accordionPanelID: _.uniqueId('accordionDemoId-'),
+            children: [
+              {
+                partial: linklistData.variants.unnumberedTOCLinkedSubheadingNoTitle.meta.demo,
+              },
+            ],
+          },
+          {
+            title: 'Umstrukturierung',
+            accordionPanelID: _.uniqueId('accordionDemoId-'),
+            children: [
+              {
+                partial: linklistData.variants.unnumberedTOCLinkedSubheadingNoTitle.meta.demo,
+              },
+            ],
+          },
+          {
+            title: 'Auflösung',
+            accordionPanelID: _.uniqueId('accordionDemoId-'),
+            children: [
+              {
+                partial: linklistData.variants.unnumberedTOCLinkedSubheadingNoTitle.meta.demo,
               },
             ],
           },
@@ -675,6 +776,40 @@ const variants = _.mapValues(
                   handlebars.compile(formHBS)(
                     defaultFormData.variants.measureResponsibleBodies.props
                   ),
+              },
+            ],
+          },
+        ],
+      },
+    },
+    extendedSearchForm: {
+      meta: {
+        title: 'Erweiterte Suche (CZHDEV-4746)',
+        desc: 'Erweiterte Suche für Massnahmen in der Regierungsplattform',
+      },
+      props: {
+        heading: {
+          title: false,
+        },
+        items: [
+          {
+            title: 'Themen',
+            accordionPanelID: _.uniqueId('accordionDemoId-'),
+            additionalClass: 'mdl-accordion__item--open',
+            children: [
+              {
+                partial: () =>
+                  handlebars.compile(formHBS)(defaultFormData.variants.extendedSearchTopics.props),
+              },
+            ],
+          },
+          {
+            title: 'Organisation',
+            accordionPanelID: _.uniqueId('accordionDemoId-'),
+            children: [
+              {
+                partial: () =>
+                  handlebars.compile(formHBS)(defaultFormData.variants.extendedSearchOrgs.props),
               },
             ],
           },
@@ -773,7 +908,6 @@ const variants = _.mapValues(
         },
         smallerHeadings: false,
         hasBackground: false,
-        indented: false,
         storeOrigin: true,
         items: [
           {
@@ -830,7 +964,6 @@ const variants = _.mapValues(
           visualLevel: 3,
         },
         hasBackground: false,
-        indented: false,
         storeOrigin: true,
         items: [
           {
@@ -855,7 +988,6 @@ const variants = _.mapValues(
           bordered: false,
         },
         hasBackground: false,
-        indented: false,
         storeOrigin: true,
         items: [
           {

@@ -1,0 +1,19 @@
+<div class="mdl-top_result">
+  <p class="mdl-top_result__label">Top Treffer <span class="mdl-top_result__type">{{resultType}}</span></p>
+  <div class="mdl-top_result__container">
+    {{#each results}}
+      {{> "modules/document_card/document_card" this}}
+    {{/each}}
+  </div>
+  <button class="mdl-top_result__more-results atm-text_link atm-text_link--icon">
+    <span>
+      <span class="mdl-top_result__count">{{numberOfAdditionalResults}}</span>
+      weitere
+      <span class="mdl-top_result__type">{{resultType}}</span>
+      gefunden
+    </span>
+    <svg class="icon mdl-top_result__more-results-icon" focusable="false">
+      <use xlink:href="#arrow-right"></use>
+    </svg>
+  </button>
+</div>

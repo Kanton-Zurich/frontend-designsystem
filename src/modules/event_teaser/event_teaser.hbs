@@ -1,0 +1,73 @@
+<div class="mdl-event_teaser"
+  data-init="eventTeaser"
+  {{#if apiUrl}}data-api-url="{{apiUrl}}"{{/if}}
+  {{#if organizerId}}data-organizer-id="{{organizerId}}"{{/if}}
+  {{#if attributeOptionIds}}data-attribute-option-ids="{{attributeOptionIds}}"{{/if}}
+  {{#if pageSize}}data-page-size="{{pageSize}}"{{/if}}
+  {{#if i18nLabels}}data-i18n-labels="{{i18nLabels}}"{{/if}}
+>
+  {{#if heading.title}}
+    <h{{heading.level}} class="atm-heading
+      {{#if_compare heading.visualLevel "!==" heading.level}}h{{heading.visualLevel}}{{/if_compare}}
+      {{#if_compare heading.visualLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+    >
+      {{heading.title}}
+    </h{{heading.level}}>
+  {{/if}}
+
+  <div class="atm-loading_circle">
+    <span class="atm-loading_circle__spinner"></span>
+  </div>
+
+  <ol class="mdl-event_teaser__list" hidden>
+  </ol>
+
+  <div class="mdl-placeholder" hidden data-event-teaser-placeholder>
+    <p class="mdl-placeholder__text atm-paragraph">
+      {{placeholder.text}}
+    </p>
+  </div>
+
+  <div class="mdl-notification" hidden data-event-teaser-notification>
+    <svg class="icon" focusable="false">
+      <use xlink:href="#caution"></use>
+    </svg>
+    <div class="mdl-notification__message">
+      <p>{{notification.message}}</p>
+    </div>
+  </div>
+
+  {{!-- Template for client-side rendering --}}
+  <script type="text/template" data-event-teaser-template>
+    <li class="mdl-event_teaser__item">
+      <a class="mdl-event_card" href="<%=link%>">
+        <div class="mdl-event_card__date">
+          <span class="mdl-event_card__day"><%=day%></span>
+          <span class="mdl-event_card__month"><%=month%></span>
+        </div>
+
+        <div class="mdl-event_card__content">
+          <h{{increment heading.level}} class="atm-heading mdl-event_card__title">
+            <%=title%>
+          </h{{increment heading.level}}>
+          <div class="mdl-event_card__description-list">
+            <% teaserText.forEach(function(text) { %>
+              <span class="mdl-event_card__description-text"><%=text%></span>
+            <% }); %>
+          </div>
+        </div>
+
+        <% if (label) { %>
+          <div class="mdl-event_card__info">
+            <%=label%>
+          </div>
+        <% } %>
+      </a>
+    </li>
+  </script>
+
+  {{#if textLink}}
+    {{> "atoms/text_link/text_link" textLink}}
+  {{/if}}
+
+</div>

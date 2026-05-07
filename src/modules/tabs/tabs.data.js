@@ -6,6 +6,7 @@ const defRichtextData = require('../richtext/richtext.data.js');
 const defStepperFormData = require('../stepper/stepper.data');
 const defCarouselData = require('../carousel/carousel.data');
 const defFlexDataData = require('../flex_data/flex_data.data');
+const defSearchResultListData = require('../search_result_list/search_result_list.data');
 
 const template = dataHelper.getFileContent('tabs.hbs');
 const data = _.merge({}, defaultData, {
@@ -30,7 +31,7 @@ const variants = _.mapValues(
           {
             title: 'Vor Ort',
             id: 'tabDemoId1',
-            data: '<p class="atm-paragraph">Wenn Ihr Ausweis vor dem 01.01.2013 ausgestellt wurde, müssen Sie ein neues Passfoto machen.  Ihr Reisebüro oder das Konsulat Ihres Reiseziels können Ihnen dabei helfen. </p>',
+            data: '<p class="atm-paragraph">Wenn Ihr Ausweis vor dem 01.01.2013 ausgestellt wurde, müssen Sie ein neues Passfoto machen. Ihr Reisebüro oder das Konsulat Ihres Reiseziels können Ihnen dabei helfen.</p>',
           },
           {
             title: 'Online',
@@ -76,6 +77,52 @@ const variants = _.mapValues(
             data: handlebars.compile(dataHelper.getFileContent('../flex_data/flex_data.hbs'))(
               _.merge({}, defFlexDataData.variants.zhlex_os.props, {})
             ),
+          },
+        ],
+      },
+    },
+    searchResults: {
+      meta: {
+        title: 'Suchresultate mit Beispieldaten',
+        desc: 'Horizontal scrollbare Tabs bei Overflow mit Schatten',
+      },
+      props: {
+        isScrollable: true,
+        tabs: [
+          {
+            title: 'Inhaltsseiten (<span class="mdl-search_page__count">52</span>)',
+            id: 'contentpage',
+            data: handlebars.compile(
+              dataHelper.getFileContent('../search_result_list/search_result_list.hbs')
+            )(defSearchResultListData.variants.contentpage.props),
+          },
+          {
+            title: 'Dokumente (<span class="mdl-search_page__count">16</span>)',
+            id: 'document',
+            data: handlebars.compile(
+              dataHelper.getFileContent('../search_result_list/search_result_list.hbs')
+            )(defSearchResultListData.variants.document.props),
+          },
+          {
+            title: 'News (<span class="mdl-search_page__count">43</span>)',
+            id: 'news',
+            data: handlebars.compile(
+              dataHelper.getFileContent('../search_result_list/search_result_list.hbs')
+            )(defSearchResultListData.variants.news.props),
+          },
+          {
+            title: 'Services (<span class="mdl-search_page__count">3</span>)',
+            id: 'service',
+            data: handlebars.compile(
+              dataHelper.getFileContent('../search_result_list/search_result_list.hbs')
+            )(defSearchResultListData.variants.service.props),
+          },
+          {
+            title: 'Personen (<span class="mdl-search_page__count">7</span>)',
+            id: 'person',
+            data: handlebars.compile(
+              dataHelper.getFileContent('../search_result_list/search_result_list.hbs')
+            )(defSearchResultListData.variants.person.props),
           },
         ],
       },

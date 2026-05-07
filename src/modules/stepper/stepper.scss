@@ -70,4 +70,8 @@
       display: block;
     }
   }
+
+  &__last-page-info--email-required .atm-toggle {
+    display: none;
+  }
 }

@@ -1,0 +1,23 @@
+<a class="mdl-event_card" href="{{{link}}}">
+  <div class="mdl-event_card__date">
+    <span class="mdl-event_card__day">{{day}}</span>
+    <span class="mdl-event_card__month">{{month}}</span>
+  </div>
+
+  <div class="mdl-event_card__content">
+    <h{{headingLevel}} class="atm-heading mdl-event_card__title">
+      {{{title}}}
+    </h{{headingLevel}}>
+    <div class="mdl-event_card__description-list">
+      {{#each teaserText}}
+        <span class="mdl-event_card__description-text">{{this}}</span>
+      {{/each}}
+    </div>
+  </div>
+
+  {{#if label}}
+    <div class="mdl-event_card__info">
+      {{label}}
+    </div>
+  {{/if}}
+</a>

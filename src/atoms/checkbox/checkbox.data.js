@@ -52,6 +52,8 @@ const variants = _.mapValues(
       props: {
         validation: {
           isRequired: true,
+          ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+          ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
         },
       },
     },

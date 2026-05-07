@@ -96,20 +96,20 @@ class DecisionTree extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.eventDelegate.on('click', this.options.domSelectors.nextButton, (event) => {
+    this.eventDelegate.on('click', this.options.domSelectors.nextButton, (event: PointerEvent) => {
       event.preventDefault();
-      const callback = (hasErrors) => {
-        if (!hasErrors) {
-          if (this.ui.stepper.getBoundingClientRect().y < 0) {
-            this.ui.element.scrollIntoView({ behavior: 'smooth' });
-          }
-          this.animStepChange(() => {
-            this.ui.stepper.dispatchEvent(new CustomEvent(Stepper.events.triggerNext));
-          });
-        }
-      };
       this.ui.stepper.dispatchEvent(
-        new CustomEvent(Stepper.events.triggerValidateSection, { detail: { callback } })
+        new CustomEvent(Stepper.events.triggerValidateSection, {
+          detail: {
+            callback: () => {
+              if (this.ui.stepper.getBoundingClientRect().y < 0)
+                this.ui.element.scrollIntoView({ behavior: 'smooth' });
+              this.animStepChange(() => {
+                this.ui.stepper.dispatchEvent(new CustomEvent(Stepper.events.triggerNext));
+              });
+            },
+          },
+        })
       );
     });
 
@@ -137,10 +137,6 @@ class DecisionTree extends Module {
           if (dataStepIndex === 0) {
             this.ui.navigation.scrollIntoView({ behavior: 'smooth' });
           } else {
-            // eslint-disable-next-line no-unused-vars
-            const marginTop = this.ui.heading
-              ? parseInt(getComputedStyle(this.ui.heading).marginTop.slice(0, -2), 10) // eslint-disable-line no-magic-numbers
-              : 0;
             this.ui.element.scrollIntoView({ behavior: 'smooth' });
           }
         }

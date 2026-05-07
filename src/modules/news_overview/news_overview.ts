@@ -628,21 +628,7 @@ class NewsOverview extends Module {
    */
   scrollTop() {
     setTimeout(() => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const rect = this.ui.element.getBoundingClientRect();
-      window.scroll(0, rect.top + scrollTop);
-    }, 0);
-  }
-
-  /**
-   * Scroll to bottom
-   */
-  scrollBottom() {
-    setTimeout(() => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const rect = this.ui.pagination.getBoundingClientRect();
-      const elementOffset = rect.height * 2; // eslint-disable-line
-      window.scroll(0, rect.top + scrollTop - window.innerHeight + elementOffset);
+      this.ui.newsGrid.scrollIntoView();
     }, 0);
   }
 

@@ -22,6 +22,7 @@ module.exports = {
                   handlebars.compile(formInputHBS)(
                     _.merge({}, formInputData.variants.default.props, {
                       isFloatingLabel: true,
+                      isMedium: true,
                       label: 'Stichwort',
                       name: 'fullText',
                       uuid: _.uniqueId('stichwort'),
@@ -37,6 +38,7 @@ module.exports = {
                   handlebars.compile(formInputHBS)(
                     _.merge({}, formInputData.variants.default.props, {
                       isFloatingLabel: true,
+                      isMedium: true,
                       label: 'Erlasstitel',
                       name: 'enactmentTitle',
                       uuid: _.uniqueId('erlasstitel'),
@@ -48,6 +50,7 @@ module.exports = {
                   handlebars.compile(formInputHBS)(
                     _.merge({}, formInputData.variants.default.props, {
                       isFloatingLabel: true,
+                      isMedium: true,
                       label: 'Ordnungsnummer',
                       name: 'referenceNumber',
                       uuid: _.uniqueId('ordnungsnummer'),

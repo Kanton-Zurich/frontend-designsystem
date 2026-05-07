@@ -5,12 +5,15 @@ const defaultData = require('../../data/default.data.js');
 
 const template = dataHelper.getFileContent('toc_list.hbs');
 
-const defLinklistData = require('../linklist/linklist.data').variants.numberedTOCLinkedSubheading
-  .props;
+const defLinklistData = require('../linklist/linklist.data').variants
+  .numberedTOCLinkedSubheadingNoTitle.props;
 const defUnnumberedLinklistData = require('../linklist/linklist.data').variants
-  .unnumberedTOCLinkedSubheading.props;
+  .unnumberedTOCLinkedSubheadingNoTitle.props;
 const defUnnumberedLinklistData2 = require('../linklist/linklist.data').variants
-  .unnumberedTOCSubheading.props;
+  .unnumberedTOCSubheadingNoTitle.props;
+const tocAccordionNumbered = require('../accordion/accordion.data').variants.tableOfContents.props;
+const tocAccordionUnnumbered = require('../accordion/accordion.data').variants.tableOfContentsOSS
+  .props;
 const eDirectoryLegislative = require('../accordion/accordion.data').variants.eDirectoryLegislative
   .props;
 const eDirectoryExecutive = require('../accordion/accordion.data').variants.eDirectoryExecutive
@@ -25,9 +28,8 @@ const defLinklistDataSec = {
     {
       linkListItemIsTOC: true,
       linkListItemIsTOCHeading: true,
-      linkListItemChapterNumber: '2.1',
-      linkListItemTitle: 'Aufgaben des Bezirkrates',
-      linkListItemHref: '/',
+      linkListItemChapterNumber: '2.2',
+      linkListItemTitle: 'Aufgaben des Bezirkrates nicht verlinkt',
     },
     {
       linkListItemIsTOC: true,
@@ -167,6 +169,55 @@ const defLinklistDataFifth = {
   ],
 };
 
+const subchapterLinklistNumberedData = {
+  headingLevel: 3,
+  isTOC: true,
+  links: [
+    {
+      linkListItemIsTOC: true,
+      linkListItemChapterNumber: '2.3.01',
+      linkListItemTitle: 'Überblick über die Aufgaben des Kantonalen Sozialamts',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsTOC: true,
+      linkListItemChapterNumber: '2.3.02',
+      linkListItemTitle: 'Aufgaben Amtsleitung des Kantonalen Sozialamts',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsTOC: true,
+      linkListItemChapterNumber: '2.3.03',
+      linkListItemTitle: 'Aufgaben der Abteilung Öffentliche Sozialhilfe',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsTOC: true,
+      linkListItemChapterNumber: '2.3.04',
+      linkListItemTitle: 'Aufgaben der Abteilung Soziale Einrichtungen',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsTOC: true,
+      linkListItemChapterNumber: '2.3.05',
+      linkListItemTitle: 'Aufgaben der Abteilung Asylkoordination',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsTOC: true,
+      linkListItemChapterNumber: '2.3.06',
+      linkListItemTitle: 'Aufgaben Abteilung Sozialversucherungen',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsTOC: true,
+      linkListItemChapterNumber: '2.3.03',
+      linkListItemTitle: 'Aufgaben Kantonale IV-Betriebe',
+      linkListItemHref: '/',
+    },
+  ],
+};
+
 const defUnnumberedLinklistData3 = {
   headingLevel: 3,
   isTOC: true,
@@ -177,6 +228,35 @@ const defUnnumberedLinklistData3 = {
       linkListItemIsTOCHeading: true,
       linkListItemTitle: 'Aufgaben des Bundes in der Sozialhilfe',
     },
+    {
+      linkListItemIsTOC: true,
+      linkListItemTitle: 'Sozialkonferenz des Kantons Zürich',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsTOC: true,
+      linkListItemTitle: 'Aufgaben der Informationsstelle des Zürcher Sozialwesens',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsTOC: true,
+      linkListItemTitle: 'Aufgaben Schweizerische Konferenz für Sozialhilfe SKOS',
+      linkListItemHref: '/',
+    },
+    {
+      linkListItemIsTOC: true,
+      linkListItemTitle:
+        'Aufgaben der Konferenz der schweizerischen Sozialdirektorinnen und Sozialdirektoren SODK',
+      linkListItemHref: '/',
+    },
+  ],
+};
+
+const subchapterLinklistUnnumberedData = {
+  headingLevel: 3,
+  isTOC: true,
+  isLast: true,
+  links: [
     {
       linkListItemIsTOC: true,
       linkListItemTitle: 'Sozialkonferenz des Kantons Zürich',
@@ -218,13 +298,32 @@ const variants = _.mapValues(
   {
     default: {
       meta: {
-        title: 'Nummeriertes Inhaltsverzeichnis',
+        title: 'Nummeriertes Inhaltsverzeichnis (Flexdata Suche)',
+        desc: 'In Akkordeon dargestellt, nummeriert, für Sozialhifehandbuch (CZHDEV-3005)',
+      },
+      props: {
+        useAccordion: true,
+        tocListChapters: [tocAccordionNumbered],
+      },
+    },
+    accordionUnnumbered: {
+      meta: {
+        title: 'Unnummeriertes Inhaltsverzeichnis (Flexdata Suche)',
+        desc: 'In Akkordeon dargestellt, unnummeriert, für Orientierungsportal Unternehmen (CZHDEV-5075)',
+      },
+      props: {
+        useAccordion: true,
+        tocListChapters: [tocAccordionUnnumbered],
+      },
+    },
+    chapterNumbered: {
+      meta: {
+        title: 'Nummeriertes Inhaltsverzeichnis (Kapitel)',
         desc: 'Offen dargestellt, nummeriert',
       },
       props: {
         moduleHeader: {
-          title: 'Inhalt',
-          headingBordered: true,
+          title: 'In diesem Kapitel',
           wholeTOCHref: '#',
           wholeTOCLabel: 'Gesamtes Inhaltsverzeichnis',
         },
@@ -237,14 +336,14 @@ const variants = _.mapValues(
         ],
       },
     },
-    unnumbered: {
+    chapterUnnumbered: {
       meta: {
-        title: 'Unnummeriertes Inhaltsverzeichnis',
+        title: 'Unnummeriertes Inhaltsverzeichnis (Kapitel)',
         desc: 'Offen dargestellt, unnummeriert',
       },
       props: {
         moduleHeader: {
-          title: 'Inhalt',
+          title: 'In diesem Kapitel',
         },
         tocListChapters: [
           defUnnumberedLinklistData,
@@ -253,12 +352,39 @@ const variants = _.mapValues(
         ],
       },
     },
+    subchapterNumbered: {
+      meta: {
+        title: 'Nummeriertes Inhaltsverzeichnis (Unterkapitel)',
+        desc: 'Offen dargestellt, nummeriert',
+      },
+      props: {
+        moduleHeader: {
+          title: 'In diesem Kapitel',
+          wholeTOCHref: '#',
+          wholeTOCLabel: 'Gesamtes Inhaltsverzeichnis',
+        },
+        tocListChapters: [subchapterLinklistNumberedData],
+      },
+    },
+    subchapterUnnumbered: {
+      meta: {
+        title: 'Unnummeriertes Inhaltsverzeichnis (Unterkapitel)',
+        desc: 'Offen dargestellt, unnummeriert',
+      },
+      props: {
+        moduleHeader: {
+          title: 'In diesem Kapitel',
+        },
+        tocListChapters: [subchapterLinklistUnnumberedData],
+      },
+    },
     eDirectory: {
       meta: {
         title: 'Behördenverzeichnis',
         desc: 'Behördenverzeichnis',
       },
       props: {
+        useAccordion: true,
         isEDirectory: true,
         moduleHeader: {
           title: 'Behörden',
@@ -273,6 +399,7 @@ const variants = _.mapValues(
         desc: 'Behördenverzeichnis, wenn keine API zur Verfügung steht.',
       },
       props: {
+        useAccordion: true,
         isEDirectory: true,
         moduleHeader: {
           title: 'Behörden',

@@ -30,12 +30,24 @@ const variants = _.mapValues(
     labelLeft: {
       meta: {
         title: 'Label links',
-        desc: 'Variante mit Label links vom Schalter',
+        desc: 'Variante mit Label links vom Schalter, mit Suchmarkierung',
       },
       props: {
-        label: 'Gebärdensprache',
+        label: '<mark class="searchhighlight">Gebärden</mark>sprache',
         id: 'signlanguage',
         labelLeft: true,
+      },
+    },
+    disabled: {
+      meta: {
+        title: 'An und inaktiv',
+        desc: 'Variante checked + disabled für formIDable',
+      },
+      props: {
+        checked: true,
+        disabled: true,
+        id: 'disabledtoggle',
+        label: 'E-Mail Benachrichtigung erforderlich',
       },
     },
   },

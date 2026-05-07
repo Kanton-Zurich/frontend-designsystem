@@ -27,6 +27,8 @@ const phoneOnly = require('./variants/phoneOnly.form.variant');
 const taxLegal = require('./variants/taxLegal.form.variant.js');
 const taxEntity = require('./variants/taxEntity.form.variant.js');
 const measurePolicyArea = require('./variants/measurePolicyArea.form.variant.js');
+const extendedSearchTopics = require('./variants/extendedSearchTopics.form.variant.js');
+const extendedSearchOrgs = require('./variants/extendedSearchOrgs.form.variant.js');
 const measureStatus = require('./variants/measureStatus.form.variant.js');
 const measureResponsibleBodies = require('./variants/measureResponsibleBodies.form.variant.js');
 const bildungsstufen = require('./variants/bildungsstufen.form.variant.js');
@@ -52,6 +54,7 @@ const zhlexOS = require('./variants/zhlexOS.form.variant.js');
 const hierarchicalRules = require('./variants/hierarchicalRules.form.variant.js');
 const rrb = require('./variants/rrb.form.variant.js');
 const socialCareHandbook = require('./variants/socialCareHandbook.form.variant.js');
+const oss = require('./variants/oss.form.variant.js');
 const eDirectory = require('./variants/eDirectory.form.variant.js');
 const dummyStep1 = require('./variants/dummyStep1.form.variant.js');
 const dummyStep2 = require('./variants/dummyStep2.form.variant.js');
@@ -95,6 +98,8 @@ const duplicateGroup = {
                 uuid: 'nationality',
                 describedBy: 'nationality__description',
                 validation: {
+                  ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                  ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                   isRequired: true,
                 },
               })
@@ -119,7 +124,11 @@ const duplicateGroup = {
           cellContent: () =>
             handlebars.compile(fileUploadHBS)(
               _.merge({}, fileUploadData.variants.default.props, {
-                validation: { isRequired: true },
+                validation: {
+                  ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                  ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+                  isRequired: true,
+                },
               })
             ),
         },
@@ -136,9 +145,12 @@ const duplicateGroup = {
                 label: 'PLZ',
                 name: 'zip_place_of_birth',
                 uuid: 'zip_place_of_birth',
+                type: 'number',
                 validation: {
                   isRequired: true,
-                  pattern: '^[0-9]{4,4}$',
+                  pattern: '/^[1-9][0-9]{3}$/',
+                  ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                  ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                   errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
                 },
                 zipCity: {
@@ -158,6 +170,8 @@ const duplicateGroup = {
                 uuid: 'place_of_birth',
                 isZipCityTarget: true,
                 validation: {
+                  ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                  ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                   isRequired: true,
                 },
               })
@@ -314,6 +328,8 @@ const variants = _.mapValues(
                                 id: 1,
                                 value: 'mrs',
                                 validation: {
+                                  ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                  ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                   isRequired: true,
                                 },
                               })
@@ -326,6 +342,8 @@ const variants = _.mapValues(
                                 id: 2,
                                 value: 'mr',
                                 validation: {
+                                  ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                  ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                   isRequired: true,
                                 },
                               })
@@ -338,6 +356,8 @@ const variants = _.mapValues(
                                 id: 3,
                                 value: 'no',
                                 validation: {
+                                  ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                  ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                   isRequired: true,
                                 },
                               })
@@ -358,6 +378,8 @@ const variants = _.mapValues(
                           name: 'prename',
                           uuid: 'prename',
                           validation: {
+                            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                             isRequired: true,
                           },
                         })
@@ -372,6 +394,8 @@ const variants = _.mapValues(
                           name: 'surname',
                           uuid: 'surname',
                           validation: {
+                            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                             isRequired: true,
                           },
                         })
@@ -415,6 +439,8 @@ const variants = _.mapValues(
                             inputRange:
                               '../../mocks/modules/form/form.validation.json?param={value}',
                             rangeErrorMsg: 'Diese E-Mail Adresse ist bei uns nicht registriert',
+                            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                           },
                         })
                       ),
@@ -429,6 +455,8 @@ const variants = _.mapValues(
                           uuid: 'url_input',
                           type: 'url',
                           validation: {
+                            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                             errorMsg: 'Bitte geben Sie eine gültige URL an.',
                           },
                         })
@@ -447,9 +475,12 @@ const variants = _.mapValues(
                           label: 'PLZ',
                           name: 'zip',
                           uuid: 'zip',
+                          type: 'number',
                           validation: {
                             isRequired: true,
-                            pattern: '^[0-9]{4,4}$',
+                            pattern: '/^[1-9][0-9]{3}$/',
+                            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                             errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
                           },
                           zipCity: {
@@ -469,6 +500,8 @@ const variants = _.mapValues(
                           uuid: 'city',
                           isZipCityTarget: true,
                           validation: {
+                            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                             isRequired: true,
                           },
                         })
@@ -526,6 +559,8 @@ const variants = _.mapValues(
                           type: 'email',
                           validation: {
                             isRequired: true,
+                            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                             errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
                           },
                         })
@@ -544,6 +579,8 @@ const variants = _.mapValues(
                             maxSize: 26214400,
                             fileTypes:
                               'text/csv, image/gif, text/html, image/jpeg, application/pdf, image/png, image/tiff, application/rtf, image/svg+xml, text/plain, application/xml',
+                            ariaTextValid: 'Datei ist gültig.',
+                            ariaTextInvalid: 'Datei ist ungültig.',
                             isRequired: true,
                           },
                         })
@@ -561,6 +598,8 @@ const variants = _.mapValues(
     taxLegal,
     taxEntity,
     measurePolicyArea,
+    extendedSearchTopics,
+    extendedSearchOrgs,
     measureStatus,
     measureResponsibleBodies,
     bildungsstufen,
@@ -586,6 +625,7 @@ const variants = _.mapValues(
     hierarchicalRules,
     rrb,
     socialCareHandbook,
+    oss,
     eDirectory,
     dummyStep1,
     dummyStep2,

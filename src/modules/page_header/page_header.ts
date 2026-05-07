@@ -55,8 +55,8 @@ class PageHeader extends Module {
     }
   }
 
-  setData(data) {
-    this.ui.title.textContent = data.title;
+  setData({ title }) {
+    this.ui.title.textContent = title;
   }
 
   /**
@@ -69,7 +69,7 @@ class PageHeader extends Module {
     this.eventDelegate.on(HeaderExpand.events.collapseTriggered, () => {
       this.setExpanded(false);
     });
-    this.eventDelegate.on(Modal.events.setData, (event) => {
+    this.eventDelegate.on(Modal.events.setData, (event: CustomEvent) => {
       this.setData(event.detail);
     });
   }

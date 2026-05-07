@@ -133,10 +133,10 @@ class MapView extends Module {
   }
 
   private onExtMarkerHighlight(ev: MarkerEvent): void {
-    this.log('External marker highlight on marker idx = ', ev.detail.idx);
+    // this.log('External marker highlight on marker idx = ', ev.detail.idx);
     const targetMarkerIdx = ev.detail.idx;
-    if (targetMarkerIdx >= 0 && targetMarkerIdx < this.markers.length) {
-      this.markers[targetMarkerIdx].fireEvent('mouseover');
+    if (this.markers[targetMarkerIdx]) {
+      this.markers[targetMarkerIdx].fire('mouseover');
     } else {
       this.markers.forEach((m) => {
         m.fire('mouseout');
@@ -145,7 +145,7 @@ class MapView extends Module {
   }
 
   private onExtMarkerShowHide(ev: MarkerEvent): void {
-    this.log('External marker show hide idx = ', ev.detail.idx);
+    // this.log('External marker show hide idx = ', ev.detail.idx);
     const targetMarkerIdx = ev.detail.idx;
     const targetMarkerVisible = ev.detail.visible;
     if (targetMarkerVisible) {
@@ -168,7 +168,7 @@ class MapView extends Module {
   }
 
   private doSelectMarker(markerIdx?: number): void {
-    this.log('Selected marker: ', markerIdx);
+    // this.log('Selected marker: ', markerIdx);
     this.markers.forEach((m, i) => {
       if (i === markerIdx) {
         m.setIcon(markerIconSelected);
@@ -244,9 +244,9 @@ class MapView extends Module {
     getLabelLayer().addTo(this.map);
 
     if (this.ui.centerBtn) {
-      this.log('User locate enabled.');
+      // this.log('User locate enabled.');
       this.map.on('locationfound', (ev: L.LocationEvent) => {
-        this.log('Locationfound event: ', ev);
+        // this.log('Locationfound event: ', ev);
         const userLatLng = ev.latlng;
         if (userLatLng) {
           if (!this.userPosMarker) {
@@ -262,8 +262,7 @@ class MapView extends Module {
         }
       });
       this.map.on('locationerror', (errorEv: L.ErrorEvent) => {
-        this.log('Failed to locate user.');
-        this.log('Locationerror event: ', errorEv);
+        this.log('Failed to locate user: ', errorEv);
       });
     }
     this.map.on('click', () => {
@@ -311,14 +310,14 @@ class MapView extends Module {
 
       this.markers.forEach((m, idx) => {
         m.on('mouseover', (ev) => {
-          this.log('Marker mouseover', ev.target);
+          // this.log('Marker mouseover', ev.target);
           if (!this.markerSelected) {
             ev.target.setIcon(markerIconHighlight);
             this.ui.mapContainer.dispatchEvent(MapView.markerMouseOverEvent(idx));
           }
         })
           .on('mouseout', (ev) => {
-            this.log('Marker mouseout', ev);
+            // this.log('Marker mouseout', ev);
             if (
               !this.markerSelected &&
               ev.target.getIcon().options.className !== 'mdl-map_view__marker_hidden'
@@ -328,7 +327,7 @@ class MapView extends Module {
             }
           })
           .on('click', (ev) => {
-            this.log('Marker click', ev);
+            // this.log('Marker click', ev);
             this.doSelectMarker(idx);
             this.ui.mapContainer.dispatchEvent(MapView.markerMouseClickedEvent(idx));
             L.DomEvent.stopPropagation(ev);

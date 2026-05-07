@@ -3,6 +3,7 @@ const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
 const dataQuote = require('../quote/quote.data');
+const linklistItemData = require('../../atoms/linklist_item/linklist_item.data');
 
 const template = dataHelper.getFileContent('richtext.hbs');
 const data = _.merge({}, defaultData, {
@@ -44,6 +45,7 @@ const data = _.merge({}, defaultData, {
       emphasisText:
         'Das richtige Paradigma von Projektmanagementerfolg stützt sich nicht auf die Einhaltung von Rahmenbedingungen,' +
         ' sondern orientiert sich am tieferen Sinn der Aufgabe: Das Transformieren von Ressourcen in Resultate, welche dem Unternehmen einen Nutzen stiften.',
+      downloadItem: linklistItemData.variants.download.props,
     },
     dataQuote.props
   ),
@@ -179,6 +181,21 @@ const variants = _.mapValues(
               '</p>',
           },
         ],
+      },
+    },
+    boldText: {
+      meta: {
+        title: 'Text-Formatierungsoptionen fett',
+        desc: '',
+      },
+      props: {
+        pText:
+          'P, test <strong>Interessierte</strong> können ab sofort die Genauigkeit ihrer  <strong>Smartphones</strong> und Navigationsgeräte überprüfen. Die' +
+          ' Baudirektion hat beim <a href="#" class="atm-text_link">Landesmuseum</a> in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen Kontrollpunktfür' +
+          ' mobile Geräte eingerichtet – den ersten in der Schweiz.P, Helvetic Roman Interessierte können ab sofort die' +
+          ' Genauigkeit ihrer Smartphones und <strong>Navigationsgeräte</strong> überprüfen.' +
+          ' Die Baudirektion hat beim Landesmuseum in Zürich einen Kontrollpunkt beim Landesmuseum in Zürich einen' +
+          ' Kontrollpunktfür mobile Geräte eingerichtet – den ersten in der Schweiz.',
       },
     },
   },

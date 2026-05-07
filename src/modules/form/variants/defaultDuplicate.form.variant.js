@@ -37,6 +37,8 @@ const duplicateGroup2 = {
                 name: 'group2_text',
                 uuid: 'group2_text',
                 validation: {
+                  ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                  ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                   isRequired: true,
                 },
               })
@@ -56,6 +58,8 @@ const duplicateGroup2 = {
                   validation: {
                     pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',
                     isRequired: true,
+                    ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                    ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                     errorMsg: 'Bitte geben Sie eine korrektes Datum an.',
                   },
                 }),
@@ -153,6 +157,8 @@ module.exports = {
                       name: 'prename',
                       uuid: 'prename2',
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: true,
                       },
                     })
@@ -167,6 +173,8 @@ module.exports = {
                       name: 'surname',
                       uuid: 'surname2',
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: true,
                       },
                     })
@@ -185,9 +193,12 @@ module.exports = {
                       label: 'PLZ',
                       name: 'zip2',
                       uuid: 'zip2',
+                      type: 'number',
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: true,
-                        pattern: '^[0-9]{4,4}$',
+                        pattern: '/^[1-9][0-9]{3}$/',
                         errorMsg: 'Bitte geben Sie eine gültige schweizerische Postleizahl an.',
                       },
                       zipCity: {
@@ -216,6 +227,8 @@ module.exports = {
                       isZipCityTarget: true,
                       validation: {
                         isRequired: true,
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                       },
                     })
                   ),
@@ -235,6 +248,8 @@ module.exports = {
                       type: 'email',
                       validation: {
                         isRequired: true,
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
                       },
                     })

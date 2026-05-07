@@ -147,3 +147,23 @@
     margin-bottom: 0;
   }
 }
+
+.mdl-teaser_card--search {
+  .mdl-teaser_set__item {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  @include mq($from: small, $media: screen) {
+    .mdl-teaser_set__item {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
+  }
+  @include mq($from: medium) {
+    .mdl-teaser_set__item {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
+  }
+}

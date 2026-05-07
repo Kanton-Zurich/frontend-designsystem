@@ -15,6 +15,8 @@ const data = _.merge({}, defaultData, {
     iconRight: 'arrow-right',
     iconLeft: 'check',
     validation: {
+      ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+      ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
       isRequired: true,
     },
   },
