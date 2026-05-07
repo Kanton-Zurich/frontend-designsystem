@@ -312,7 +312,7 @@ $selectScrollbarWidth: 30px;
       &__trigger-label {
         pointer-events: none;
         padding: 0;
-        top: pxToRem($sizeFontSmall);
+        top: pxToRem(14px);
         font-family: $fontFamilyBlack;
         font-size: pxToRem($sizeFontTiny);
         line-height: $sizeLineHeightBase;
@@ -327,9 +327,19 @@ $selectScrollbarWidth: 30px;
 
       &--reduced {
         .atm-form_input__input--trigger {
-          padding-top: 0;
-          padding-bottom: 0;
+          padding-block: 0;
         }
+      }
+    }
+
+    .atm-form_input--medium .atm-form_input {
+      &__input--trigger {
+        padding-top: $paddingMediumInput + $paddingDifferenceOnFocus;
+        padding-bottom: $paddingMediumInput - $paddingDifferenceOnFocus;
+      }
+
+      &__trigger-label {
+        top: pxToRem($sizeTiny);
       }
     }
   }

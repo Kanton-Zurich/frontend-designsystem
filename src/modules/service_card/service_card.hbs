@@ -1,0 +1,43 @@
+<{{#if href }}a href="{{href}}"{{else}}div{{/if}} class="mdl-service_card"
+  {{#if external}}
+    target="_blank"
+  {{else}}
+    data-url="{{serviceLink}}"
+    aria-controls="{{modalData.modalId}}"
+    role="button"
+    aria-haspopup="dialog"
+  {{/if}}
+>
+  <div class="mdl-service_card__container">
+    <h{{heading.level}} class="atm-heading mdl-service_card__title
+      {{#if heading.visualLevel}}h{{heading.visualLevel}}{{/if}}"
+    >
+      {{heading.title}}
+    </h{{heading.level}}>
+    {{#if teaserText}}
+      <p class="atm-paragraph mdl-service_card__text">{{teaserText}}</p>
+    {{/if}}
+    {{#if metadata}}
+      <dl class="mdl-service_card__description-list">
+        {{#each metadata}}
+          <div class="mdl-service_card__description-pair">
+            <dt class="mdl-service_card__description-term">{{term}}</dt>
+            <dd class="mdl-service_card__description-description">{{description}}</dd>
+          </div>
+        {{/each}}
+      </dl>
+    {{/if}}
+  </div>
+  {{#if buttonTitle}}
+    <span class="mdl-service_card__button atm-button atm-button--small" aria-hidden="true">
+      {{#if icon}}
+        <svg class="icon atm-button__icon" focusable="false">
+          <use xlink:href="#{{icon}}"></use>
+        </svg>
+      {{/if}}
+      <span class="atm-button__text">
+        {{buttonTitle}}
+      </span>
+    </span>
+  {{/if}}
+</{{#if href }}a{{else}}div{{/if}}>

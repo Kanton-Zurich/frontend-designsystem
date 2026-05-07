@@ -26,12 +26,12 @@
 
       .mdl-job-teaser__job-details {
         order: 3;
-        font-size: $sizeFontTiny;
+        font-size: pxToRem($sizeFontTiny);
         color: $colorBlack;
 
         span {
-          padding-right: 0.5rem;
-          margin-right: 0.5rem;
+          padding-right: pxToRem($sizeTiny);
+          margin-right: pxToRem($sizeTiny);
           line-height: 1;
           display: inline-block;
           border-right: 1px solid $colorBlack60;
@@ -64,7 +64,13 @@
     }
   }
 
+  &__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: pxToRem($sizeTiny);
+  }
+
   &__jobs {
-    padding-right: 0.5rem;
+    padding-right: pxToRem($sizeTiny);
   }
 }

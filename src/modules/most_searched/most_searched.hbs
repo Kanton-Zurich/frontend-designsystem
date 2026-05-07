@@ -1,0 +1,10 @@
+<div class="mdl-most_searched" data-init="mostSearched">
+  <h2 class="mdl-most_searched__heading">Meist gesucht</h2>
+  <ul class="mdl-most_searched__tags">
+    {{#each anchorlinks}}
+      <li>
+        {{> "atoms/anchorlink/anchorlink" this}}
+      </li>
+    {{/each}}
+  </ul>
+</div>

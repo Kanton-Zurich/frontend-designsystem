@@ -21,42 +21,120 @@ const variants = _.mapValues(
   {
     default: {
       meta: {
-        title: 'Default',
-        desc: 'Default implementation',
+        title: 'Volle Breite',
+        desc: 'Applikation, die die Layout-Breite nutzt',
       },
       props: {
-        canvas: true,
-        fullWidth: false,
+        windowWidth: false,
+        contentWidth: false,
         heading: {
           level: 2,
           visualLevel: 2,
           title: 'Single Page Application',
         },
-        altCaptionId: _.uniqueId('mdl-application__caption'),
+        altText: 'Alt text',
         caption: _.merge({}, defFigcaptionData, {
           caption: 'Canvas Titel <a class="atm-text_link" href="#">Quelle</a>',
-          altCaption: 'Alt text',
+          altCaptionId: _.uniqueId('mdl-application__caption'),
         }),
+        mock: 'canvas',
+      },
+    },
+    narrow: {
+      meta: {
+        title: 'Inhaltsbreite',
+        desc: 'Applikation, die die Inhaltsbreite nutzt',
+      },
+      props: {
+        windowWidth: false,
+        contentWidth: true,
+        heading: {
+          level: 2,
+          visualLevel: 2,
+          title: 'Single Page Application',
+        },
+        altText: 'Alt text',
+        caption: _.merge({}, defFigcaptionData, {
+          caption: 'Canvas Titel <a class="atm-text_link" href="#">Quelle</a>',
+          altCaptionId: _.uniqueId('mdl-application__caption'),
+        }),
+        mock: 'statistik',
+      },
+    },
+    narrowEncapsulated: {
+      meta: {
+        title: 'Inhaltsbreite (gekapselt)',
+        desc: 'Gekapselte Applikation, die die Inhaltsbreite nutzt',
+      },
+      props: {
+        encapsulated: true,
+        windowWidth: false,
+        contentWidth: true,
+        heading: {
+          level: 2,
+          visualLevel: 2,
+          title: 'Single Page Application',
+        },
+        altText: 'Alt text',
+        caption: _.merge({}, defFigcaptionData, {
+          caption: 'Canvas Titel <a class="atm-text_link" href="#">Quelle</a>',
+          altCaptionId: _.uniqueId('mdl-application__caption'),
+        }),
+        mock: 'steuerfuss',
+      },
+    },
+    wide: {
+      meta: {
+        title: 'Fenster-Breite',
+        desc: 'Applikation, die die gesamte Fenster-Breite nutzt',
+      },
+      props: {
+        windowWidth: true,
+        heading: {
+          level: 2,
+          visualLevel: 2,
+          title: 'Single Page Application',
+        },
+        altText: 'Alt text',
+        caption: _.merge({}, defFigcaptionData, {
+          caption: 'Canvas Titel <a class="atm-text_link" href="#">Quelle</a>',
+          altCaptionId: _.uniqueId('mdl-application__caption'),
+        }),
+        mock: 'canvas',
       },
     },
     fullWidth: {
       meta: {
-        title: 'Volle Breite',
-        desc: 'Default implementation',
+        title: 'Fenster-Breite in Modal',
+        desc: 'Applikation, die die gesamte Fenster-Breite nutzt für Darstellung in Modal (kein Titel, keine Caption)',
       },
       props: {
-        canvas: true,
-        fullWidth: true,
+        windowWidth: true,
+        mock: 'canvas',
+        altText: 'Alt text',
       },
     },
     zhApp: {
       meta: {
-        title: 'ZHApp Volle Breite',
-        desc: '',
+        title: 'ZHApp Fenster-Breite in Modal',
+        desc: 'Applikation, die die gesamte Fenster-Breite nutzt für Darstellung in Modal (kein Titel, keine Caption)',
       },
       props: {
-        zhApp: true,
-        fullWidth: true,
+        windowWidth: true,
+        mock: 'wahlen',
+        altText: 'Alt text',
+      },
+    },
+    notFound: {
+      meta: {
+        title: 'Ladefehler',
+        desc: 'HTML-Snippet wurde nicht gefunden',
+      },
+      props: {
+        mock: 'not-found',
+        windowWidth: false,
+        contentWidth: true,
+        altText: 'Alt text',
       },
     },
     singleDownload: {
@@ -65,19 +143,19 @@ const variants = _.mapValues(
         desc: 'Für SPA mit einem Download',
       },
       props: {
-        canvas: true,
         heading: {
           level: 2,
           visualLevel: 3,
           title: 'Single Page Application',
         },
         description: 'Grafik Beschreibung',
-        altCaptionId: _.uniqueId('mdl-application__caption'),
+        altText: 'Alt text',
         caption: _.merge({}, defFigcaptionData, {
           caption: 'Canvas Titel <a class="atm-text_link" href="#">Quelle</a>',
-          altCaption: 'Alt text',
+          altCaptionId: _.uniqueId('mdl-application__caption'),
         }),
         dataDownload: dataDownloadVariants.singleLink.props,
+        mock: 'canvas',
       },
     },
     multiDownload: {
@@ -86,19 +164,19 @@ const variants = _.mapValues(
         desc: 'Für SPA mit mehreren Downloads',
       },
       props: {
-        canvas: true,
         heading: {
           level: 2,
           visualLevel: 2,
           title: 'Single Page Application',
         },
         description: 'Grafik Beschreibung',
-        altCaptionId: _.uniqueId('mdl-application__caption'),
+        altText: 'Alt text',
         caption: _.merge({}, defFigcaptionData, {
           caption: 'Canvas Titel <a class="atm-text_link" href="#">Quelle</a>',
-          altCaption: 'Alt text',
+          altCaptionId: _.uniqueId('mdl-application__caption'),
         }),
         dataDownload: dataDownloadVariants.multi2.props,
+        mock: 'canvas',
       },
     },
   },

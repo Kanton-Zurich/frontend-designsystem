@@ -701,7 +701,7 @@
     @include transition(fill);
   }
 
-  &:hover {
+  &:not(:disabled):hover {
     color: $colorBlack;
 
     use {

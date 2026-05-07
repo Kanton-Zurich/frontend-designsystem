@@ -15,4 +15,16 @@
   &__contacts:has(.mdl-contact_block.hidden + .mdl-contact_block.hidden) {
     display: none;
   }
+
+  .mdl-service_card__title {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, regular));
+
+    padding-top: 0;
+  }
+
+  .mdl-service_card__text {
+    @include polyFluidSizing(font-size, map-get($fontSizeCurves, small));
+
+    color: $colorBlack;
+  }
 }

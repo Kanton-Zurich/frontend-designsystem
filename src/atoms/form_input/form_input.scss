@@ -7,6 +7,12 @@ $borderWidthRem: pxToRem($borderWidth);
 $targetInputHeight: 72px - $borderWidth * 2;
 $paddingInput: pxToRem(math.div($targetInputHeight - ($sizeFontRegular * $sizeLineHeightBase), 2));
 
+// VARIABLES FOR MEDIUM
+$targetMediumInputHeight: 60px - $borderWidth * 2;
+$paddingMediumInput: pxToRem(
+  math.div($targetMediumInputHeight - ($sizeFontRegular * $sizeLineHeightBase), 2)
+);
+
 // VARIABLES FOR SMALL
 $targetSmallInputHeight: 48px - $borderWidth * 2;
 $paddingSmallInput: pxToRem(
@@ -312,13 +318,85 @@ $triggerWidth: pxToRem(86px);
   }
 
   /* ------------------
+  ------ MEDIUM --------
+  ------------------ */
+
+  &--medium {
+    &.atm-form_input--floated {
+      .atm-form_input__input--textarea ~ label {
+        top: $borderWidthRem;
+        padding-top: $paddingMediumInput;
+      }
+
+      label {
+        top: $paddingMediumInput + $borderWidthRem;
+      }
+
+      /* ----- INPUT ON FOCUS/DIRTY ----- */
+      .atm-form_input__input:focus,
+      .atm-form_input__input.dirty {
+        padding-top: $paddingMediumInput + $paddingDifferenceOnFocus;
+        padding-bottom: $paddingMediumInput - $paddingDifferenceOnFocus;
+      }
+
+      /* ----- LABEL ON FOCUS/DIRTY ------ */
+      .atm-form_input__input:focus ~ label,
+      .atm-form_input__input.dirty ~ label {
+        top: pxToRem($sizeTiny);
+      }
+
+      // FOR TEXTAREA
+      .atm-form_input__input--textarea:focus ~ label,
+      .atm-form_input__input--textarea.dirty ~ label {
+        top: 2px;
+        padding-top: pxToRem($sizeTiny);
+      }
+    }
+
+    .atm-form_input__input {
+      padding-block: $paddingMediumInput;
+    }
+
+    .atm-form_input__input--trigger {
+      min-height: pxToRem($sizeRegular) * $sizeLineHeightBase + (2 * $paddingMediumInput) +
+        (2 * $borderWidthRem);
+
+      .icon {
+        top: $paddingMediumInput + $borderWidthRem;
+      }
+    }
+
+    .atm-form_input__trigger-label {
+      top: $paddingMediumInput + $borderWidthRem;
+    }
+
+    &.atm-form_input__input--trigger:focus {
+      .atm-form_input__trigger-label {
+        top: pxToRem($sizeTiny);
+      }
+    }
+
+    .atm-form_input__validate-icon,
+    .atm-form_input__functionality {
+      top: $paddingMediumInput + $borderWidthRem;
+    }
+
+    .atm-form_input__backdrop {
+      top: pxToRem(26px) + $borderWidthRem;
+    }
+
+    > .icon {
+      top: $paddingMediumInput + $borderWidthRem;
+    }
+  }
+
+  /* ------------------
   ------ SMALL --------
   ------------------ */
 
   &--small {
     .atm-form_input__input {
-      padding-top: $paddingSmallInput;
-      padding-bottom: $paddingSmallInput;
+      padding-block: $paddingSmallInput;
     }
 
     .atm-form_input__validate-icon,

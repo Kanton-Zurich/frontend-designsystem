@@ -9,6 +9,10 @@
     @include sizeCurve(margin-top, big);
   }
 
+  &:not(:has(.mdl-metablock__row > *)) {
+    margin-bottom: 0;
+  }
+
   &__row {
     @include mq($from: small) {
       display: flex;

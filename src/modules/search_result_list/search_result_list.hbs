@@ -1,0 +1,125 @@
+<div
+  class="mdl-search_result_list mod-smaller-headings"
+  aria-live="polite"
+  data-init="searchResultList"
+  data-type="{{type}}"
+  {{#if results}}data-search_result_list-results="{{results}}"{{/if}}
+>
+  <h3 class="visuallyhidden">{{title}}</h3>
+  {{#if_in type "news"}}
+    <p class="mdl-search_result_list__news-view">
+      Einfacher News finden auf:
+      <a class="atm-text_link" href="/pages/news_overview/news_overview.html">Newsübersicht</a>
+    </p>
+  {{/if_in}}
+  <ul class="mdl-search_result_list__list" data-init="servicelist"></ul>
+
+  <template data-search_result_list="template-linklist-item">
+    <li class="mdl-linklist__item">
+      <a class="atm-linklist_item" role="button" data-search_page="force">
+        <span class="atm-linklist_item__text">
+          <span></span>
+        </span>
+        <svg class="icon atm-linklist_item__arrow" focusable="false">
+          <use xlink:href="#arrow-right"></use>
+        </svg>
+      </a>
+    </li>
+  </template>
+
+  <template data-search_result_list="template-similar-terms">
+    <div class="mdl-texthighlight mdl-texthighlight--search">
+      <h4 class="atm-heading">Suchen nach</h4>
+      <div class="mdl-linklist atm-search_result_item__linklist">
+        <ul class="mdl-linklist__list"></ul>
+      </div>
+    </div>
+  </template>
+
+  {{#if paginationData}}{{> "modules/pagination/pagination" paginationData }}{{/if}}
+
+  {{#if_in type "contentpage"}}
+    <template data-search_result_list="template-top-result">
+      <div class="mdl-top_result">
+        <p class="mdl-top_result__label">Top Treffer <span class="mdl-top_result__type"></span></p>
+        <div class="mdl-top_result__container"></div>
+        <button class="mdl-top_result__more-results atm-text_link atm-text_link--icon">
+          <span><span class="mdl-top_result__count"></span> weitere <span class="mdl-top_result__type"></span> gefunden</span>
+          <svg class="icon mdl-top_result__more-results-icon" focusable="false">
+            <use xlink:href="#arrow-right"></use>
+          </svg>
+        </button>
+      </div>
+    </template>
+
+    <template data-search_result_list="template-contentpage">
+      <a class="mdl-content_page_card">
+        <div class="mdl-content_page_card__breadcrumb"></div>
+        <h4 class="atm-heading"></h4>
+        <p class="atm-paragraph mdl-content_page_card__content"></p>
+      </a>
+    </template>
+  {{/if_in}}
+
+  {{#if_in type "contentpage,document"}}
+    <template data-search_result_list="template-document">
+      <a class="mdl-document_card">
+        <div class="mdl-document_card__icon">
+          <svg class="mdl-document_card__svg icon" focusable="false"></svg>
+        </div>
+        <div class="mdl-document_card__content">
+          <h4 class="atm-heading"></h4>
+          <dl class="mdl-document_card__description-list"></dl>
+        </div>
+        <div class="mdl-document_card__download">
+          <span class="atm-linklist_item atm-linklist_item--download">
+            <svg class="icon atm-linklist_item__download" focusable="false">
+              <use xlink:href="#download"></use>
+            </svg>
+            <span class="atm-linklist_item__text">
+              <span>Download</span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </template>
+  {{/if_in}}
+
+  {{#if_in type "contentpage,news"}}
+    <template data-search_result_list="template-news">
+      <a class="mdl-teaser_card">
+        <h4 class="atm-heading"></h4>
+        <p class="mdl-teaser_card__label"></p>
+        <p class="atm-paragraph"></p>
+      </a>
+    </template>
+  {{/if_in}}
+
+  {{#if_in type "contentpage,service"}}
+    <template data-search_result_list="template-service">
+      <a class="mdl-service_card" role="button" aria-haspopup="dialog">
+        <div class="mdl-service_card__container">
+          <h4 class="atm-heading mdl-service_card__title"></h4>
+          <p class="atm-paragraph mdl-service_card__text"></p>
+        </div>
+        <span class="mdl-service_card__button atm-button atm-button--small" aria-hidden="true">
+          <span class="atm-button__text">Start</span>
+        </span>
+      </a>
+      <div class="mdl-modal" data-init="modal"></div>
+    </template>
+  {{/if_in}}
+
+  {{#if_in type "contentpage,person"}}
+    <template data-search_result_list="template-person">
+      <div class="mdl-person_card mdl-person_card--search">
+        <div class="mdl-person_card__container">
+          <h4 class="mdl-person_card__name atm-heading"></h4>
+            <p class="atm-paragraph mdl-person_card__role"></p>
+            <p class="atm-paragraph mdl-person_card__contactinfo"></p>
+          <a class="atm-button atm-button--small atm-button--secondary">Mehr erfahren</a>
+        </div>
+      </div>
+    </template>
+  {{/if_in}}
+</div>

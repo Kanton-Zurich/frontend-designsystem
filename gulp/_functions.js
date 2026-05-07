@@ -1,9 +1,9 @@
-const gulp = require('gulp');
-const fs = require('fs');
-const path = require('path');
-const gulpRename = require('gulp-rename');
-const strReplace = require('gulp-string-replace');
-const through = require('through2');
+import gulp from 'gulp';
+import fs from 'fs';
+import path from 'path';
+import gulpRename from 'gulp-rename';
+import strReplace from 'gulp-string-replace';
+import through from 'through2';
 
 const mimeTypes = {
   png: 'data:image/png;base64,',
@@ -99,4 +99,4 @@ const Inlinify = (srcFile, destination = false, rename = false) => {
     .pipe(gulp.dest(dest));
 };
 
-module.exports.Inlinify = Inlinify;
+export { Inlinify };

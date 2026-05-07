@@ -24,9 +24,9 @@ const data = _.merge({}, defaultData, {
     notificationData: _.merge({}, defNotificationData, {
       message: 'Beim Laden der Daten ist ein Fehler aufgetreten!',
     }),
-    resultCountTitle: '%1 Treffer zu ihrer Anfrage',
-    resultCountTitleMore: 'Mehr als %1 Treffer zu ihrer Anfrage',
-    noResultsTitle: 'Es wurden keine Ergebnisse gefunden. Bitte passen Sie Ihre Suche an.',
+    resultCountTitle: '%1 Datensätze',
+    resultCountTitleMore: 'Mehr als %1 Datensätze',
+    noResultsTitle: 'Es wurden keine Datensätze gefunden. Bitte passen Sie Ihre Suche an.',
   },
 });
 const variants = _.mapValues(
@@ -37,12 +37,22 @@ const variants = _.mapValues(
         desc: 'Default implementation',
       },
       props: {
+        title: 'Suche im Zürcher Steuerbuch',
+        headingLevel: 2,
+        visualHeadingLevel: 2,
         flexDataSource: '/mocks/modules/flex_data/flex_data_table.json',
         flexTableFormData: _.merge({}, defFormData.variants.steuerBuch.props),
+        pagination: _.merge({}, defPaginationData.variants.fullWidth.props, {
+          headingLevel: 3,
+          additionalClasses: 'hidden',
+        }),
         tableData: {
+          isInverted: true,
+          isZebra: true,
+          headingLevel: 3,
+          visualHeadingLevel: 3,
           tableTitle: '',
           hasTitle: true,
-          tableHeadingLevel: 4,
           hasColumnHeader: true,
           isWide: true,
           isStatic: true,
@@ -76,18 +86,21 @@ const variants = _.mapValues(
       },
       props: {
         flexDataSource: '/mocks/modules/flex_data/flex_data_zhlex_ls.json',
+        flexTableFormData: _.merge({}, defFormData.variants.zhlexLS.props),
         pagination: _.merge({}, defPaginationData.variants.fullWidth.props, {
+          headingLevel: 3,
           additionalClasses: 'hidden',
         }),
-        flexTableFormData: _.merge({}, defFormData.variants.zhlexLS.props),
         resultsTemplate: templateConverter(
           '<a href="{{link}}" class="atm-text_link">{{text}}</a>',
           false
         ),
         tableData: {
+          isInverted: true,
+          isZebra: true,
           tableTitle: '',
           hasTitle: true,
-          tableHeadingLevel: 4,
+          tableHeadingLevel: 3,
           hasColumnHeader: true,
           isWide: true,
           isStatic: true,
@@ -120,16 +133,21 @@ const variants = _.mapValues(
       },
       props: {
         flexDataSource: '/mocks/modules/flex_data/flex_data_zhlex_os.json',
-        pagination: defPaginationData.variants.fullWidth.props,
         flexTableFormData: _.merge({}, defFormData.variants.zhlexOS.props),
+        pagination: _.merge({}, defPaginationData.variants.fullWidth.props, {
+          headingLevel: 3,
+          additionalClasses: 'hidden',
+        }),
         resultsTemplate: templateConverter(
           '<a href="{{link}}" class="atm-text_link">{{text}}</a>',
           false
         ),
         tableData: {
+          isInverted: true,
+          isZebra: true,
           tableTitle: '',
           hasTitle: true,
-          tableHeadingLevel: 4,
+          tableHeadingLevel: 3,
           hasColumnHeader: true,
           isWide: true,
           isStatic: true,
@@ -161,10 +179,16 @@ const variants = _.mapValues(
         desc: '',
       },
       props: {
+        title: 'Suche',
+        headingLevel: 2,
+        visualHeadingLevel: 2,
         initialLoad: true,
-        pagination: defPaginationData.variants.default.props,
         flexDataSource: '/mocks/modules/flex_data/flex_data_generic.json',
         flexGenericFormData: _.merge({}, defFormData.variants.rrb.props),
+        pagination: _.merge({}, defPaginationData.variants.default.props, {
+          headingLevel: 3,
+          additionalClasses: 'hidden',
+        }),
         sortContextMenu: {
           lists: [
             {
@@ -231,24 +255,54 @@ const variants = _.mapValues(
       `,
       },
     },
+    oss: {
+      meta: {
+        title: 'Orientierungsportal Unternehmen (OSS)',
+        desc: 'Schema page with search result list instead of table',
+      },
+      props: {
+        title: 'Themen im Leben eines Unternehmens',
+        headingLevel: 2,
+        visualHeadingLevel: 2,
+        flexDataSource: '/mocks/modules/flex_data/flex_data_oss.json',
+        flexGenericFormData: _.merge({}, defFormData.variants.oss.props),
+        flexTableOfContents: _.merge({}, defAccordionData.variants.tableOfContentsOSS.props),
+        pagination: _.merge({}, defPaginationData.variants.default.props, {
+          headingLevel: 3,
+          additionalClasses: 'hidden',
+        }),
+        flexSearchResultList: {
+          type: 'contentpage',
+          title: 'Suchergebnisse',
+        },
+      },
+    },
     socialCareHandbook: {
       meta: {
         title: 'Sozialhilfehandbuch (CZHDEV-3005)',
         desc: '',
       },
       props: {
-        pagination: defPaginationData.variants.default.props,
+        title: 'Im Handbuch suchen',
+        headingLevel: 2,
+        visualHeadingLevel: 2,
         flexDataSource: '/mocks/modules/flex_data/flex_data_social_care_table.json',
         flexGenericFormData: _.merge({}, defFormData.variants.socialCareHandbook.props),
         flexTableOfContents: _.merge({}, defAccordionData.variants.tableOfContents.props),
+        pagination: _.merge({}, defPaginationData.variants.default.props, {
+          headingLevel: 3,
+          additionalClasses: 'hidden',
+        }),
         resultsTemplate: templateConverter(
           '<a href="{{link}}" class="atm-text_link">{{text}}</a>',
           false
         ),
         tableData: {
+          isInverted: true,
+          isZebra: true,
           tableTitle: '',
           hasTitle: true,
-          tableHeadingLevel: 4,
+          tableHeadingLevel: 3,
           hasColumnHeader: true,
           isWide: true,
           isStatic: true,
@@ -278,7 +332,6 @@ const variants = _.mapValues(
     const variantData = _.merge({}, data, variant, {
       meta: {
         demo: compiledVariant,
-
         code: {
           handlebars: dataHelper.getFormattedHandlebars(template),
           html: dataHelper.getFormattedHtml(compiledVariant()),

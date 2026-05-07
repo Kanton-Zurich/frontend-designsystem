@@ -30,6 +30,20 @@ export type MemberData = {
   website?: string;
 };
 
+export type ServiceData = {
+  id: string;
+  order: number;
+  title: string;
+  teaserText: string;
+  metadata: {
+    relevantChannel?: string;
+    electronicAddress?: string;
+    inputFileFormats?: string;
+    attachmentFileFormats?: string;
+  };
+  serviceUrl?: string;
+};
+
 export type OrganisationData = {
   type: OrganisationType;
   id: string;
@@ -41,6 +55,7 @@ export type OrganisationData = {
   leaders?: MemberData[];
   members?: MemberData[];
   organisations: OrganisationData[];
+  services?: ServiceData[];
   breadcrumbs?: NodeLink[];
   searchable?: string;
 };
@@ -56,10 +71,18 @@ type ResultData = {
   breadcrumbs: string;
 };
 
+// eslint-disable-next-line no-unused-vars
+type InsertableContent = string | Element | Element[] | ((el: Element) => void);
+
 const ROLE_LEADER = 'leader';
 const ROLE_REPRESENTATIVE = 'companyRepresentative';
+const ORG_TYPE_GROUP = 'group';
+const ORG_TYPE_AUTHORITY = 'authority';
 const MAX_RESULTS_PER_PAGE = 10;
+const MAX_ORG_CHILDREN = 20;
 const FILTERABLE_THRESHOLD = 40;
+const HIDDEN_CLASS = 'hidden';
+const DISABLED_CLASS = 'atm-button--disabled';
 
 class Edirectory extends Module {
   public ui: {
@@ -69,7 +92,6 @@ class Edirectory extends Module {
     clear: HTMLButtonElement;
     search: HTMLButtonElement;
     error: HTMLDivElement;
-    dismiss: HTMLButtonElement;
     results: HTMLDivElement;
     resultsCount: HTMLSpanElement;
     resultsTable: HTMLDivElement;
@@ -78,6 +100,12 @@ class Edirectory extends Module {
     noResultsClear: HTMLAnchorElement;
     modal: HTMLDivElement;
     toc: HTMLDivElement;
+    tocContent: HTMLDivElement;
+    accordionTemplate: HTMLTemplateElement;
+    accordionItemTemplateLinked: HTMLTemplateElement;
+    accordionItemTemplateCollapsible: HTMLTemplateElement;
+    linklistTemplate: HTMLTemplateElement;
+    linklistItemTemplate: HTMLTemplateElement;
   };
   public dataUrl: string;
   public treeData: TreeData;
@@ -99,7 +127,6 @@ class Edirectory extends Module {
         clear: '[data-edirectory-clear]',
         search: '[data-edirectory-search]',
         error: '[data-edirectory-error]',
-        dismiss: '[data-edirectory-dismiss]',
         results: '[data-edirectory-results]',
         resultsCount: '[data-edirectory-results] h3 span',
         resultsTable: '[data-edirectory-results] .mdl-table',
@@ -108,6 +135,12 @@ class Edirectory extends Module {
         noResultsClear: '[data-edirectory-no-results] .atm-button',
         modal: '.mdl-modal',
         toc: '.mdl-toc-list',
+        tocContent: '#mdl-edirectory__toc-content',
+        accordionTemplate: '#mdl-edirectory__accordion-template',
+        accordionItemTemplateLinked: '#mdl-edirectory__accordion-item-template--linked',
+        accordionItemTemplateCollapsible: '#mdl-edirectory__accordion-item-template--collapsible',
+        linklistTemplate: '#mdl-edirectory__linklist-template',
+        linklistItemTemplate: '#mdl-edirectory__linklist-item-template',
       },
       stateClasses: {
         loading: 'mdl-edirectory__form--loading',
@@ -129,7 +162,7 @@ class Edirectory extends Module {
       member.role === ROLE_LEADER || member.role === ROLE_REPRESENTATIVE;
 
     const includeInBreadcrumbs = (node: OrganisationData) =>
-      node.type === 'authority' ||
+      node.type === ORG_TYPE_AUTHORITY ||
       node.organisations.length > FILTERABLE_THRESHOLD ||
       !node.breadcrumbs;
 
@@ -159,6 +192,9 @@ class Edirectory extends Module {
       if (node.organisations) {
         node.organisations.sort((a: OrganisationData, b: OrganisationData) => a.order - b.order);
       }
+      if (node.services) {
+        node.services.sort((a: ServiceData, b: ServiceData) => a.order - b.order);
+      }
       node.searchable = searchable.join(' ').toLocaleLowerCase();
       this.idMap.set(node.id, node);
       if (node.organisations) {
@@ -166,14 +202,75 @@ class Edirectory extends Module {
       }
     };
 
+    const render = (template: HTMLTemplateElement, data: Record<string, InsertableContent>) => {
+      const html = document.importNode(template.content, true).firstElementChild;
+      if (!html) console.error(`Template returns no HTML:`, template);
+      for (const [selector, content] of Object.entries(data)) {
+        const el = selector === '' ? html : html.querySelector(selector);
+        if (el) {
+          if (typeof content === 'string') el.textContent = content;
+          else if (typeof content === 'function') content(el);
+          else if (Array.isArray(content)) content.forEach((item) => el.appendChild(item));
+          else if (content !== null) el.appendChild(content);
+          else console.error('Unexpected empty content for:', template, data);
+        }
+      }
+      return html;
+    };
+
+    const renderLinklist = (orgs: OrganisationData[]) =>
+      render(this.ui.linklistTemplate, {
+        '.mdl-linklist__list': orgs.map((org) =>
+          render(this.ui.linklistItemTemplate, {
+            '.atm-linklist_item': (el: HTMLAnchorElement) => {
+              el.href = `#${org.id}`;
+            },
+            '.atm-linklist_item__text > span': org.title,
+          })
+        ),
+      });
+
+    const renderAccordionItems = (orgs: OrganisationData[]) =>
+      orgs.map((org) =>
+        org.type === ORG_TYPE_GROUP &&
+        org.organisations.length &&
+        org.organisations.length <= MAX_ORG_CHILDREN
+          ? render(this.ui.accordionItemTemplateCollapsible, {
+              '.mdl-accordion__control': org.title,
+              '.mdl-accordion__panel-content': renderLinklist(org.organisations),
+            })
+          : render(this.ui.accordionItemTemplateLinked, {
+              '.mdl-accordion__button': (el: HTMLAnchorElement) => {
+                el.href = `#${org.id}`;
+              },
+              '.mdl-accordion__control': org.title,
+            })
+      );
+
+    const renderAccordion = (node: OrganisationData) => {
+      const items = renderAccordionItems(node.organisations);
+      const html = render(this.ui.accordionTemplate, {
+        h3: node.title,
+        '': items,
+      });
+      this.ui.tocContent.appendChild(html);
+    };
+
+    const showError = (message: string) => {
+      this.ui.form.classList.remove(this.options.stateClasses.loading);
+      this.ui.error.classList.remove(HIDDEN_CLASS);
+      this.ui.form.classList.add(HIDDEN_CLASS);
+      this.log(message);
+    };
+
     try {
       const response = await fetch(this.dataUrl);
-      if (!response.ok) {
-        this.ui.error.classList.remove('hidden');
-        console.error(`HTTP error! status: ${response.status}`);
-      }
+      if (!response.ok) showError(`HTTP error! Status: ${response.status}`);
       this.treeData = await response.json();
       this.treeData.rootOrganisations.forEach((org) => walkNode(org));
+
+      // Render TOC list
+      this.treeData.rootOrganisations.sort((a, b) => a.order - b.order).forEach(renderAccordion);
 
       // Signals
       [this.authorityId, this.setAuthorityId] = cause('');
@@ -211,9 +308,9 @@ class Edirectory extends Module {
               detail: pageCount,
             })
           );
-          this.ui.resultsPagination.classList.remove('hidden');
+          this.ui.resultsPagination.classList.remove(HIDDEN_CLASS);
         } else {
-          this.ui.resultsPagination.classList.add('hidden');
+          this.ui.resultsPagination.classList.add(HIDDEN_CLASS);
         }
       });
 
@@ -234,7 +331,7 @@ class Edirectory extends Module {
 
       this.ui.form.classList.remove(this.options.stateClasses.loading);
     } catch (error) {
-      console.error('Error:', error);
+      showError(`Could not load or parse data from ${this.dataUrl}: ${error}`);
     }
   }
 
@@ -252,41 +349,48 @@ class Edirectory extends Module {
     };
 
     const showResults = (hasResult: boolean) => {
-      this.ui.clear.classList.remove('hidden');
-      this.ui.toc.classList.add('hidden');
+      this.ui.clear.classList.remove(HIDDEN_CLASS);
+      this.ui.toc.classList.add(HIDDEN_CLASS);
 
       if (hasResult) {
-        this.ui.results.classList.remove('hidden');
-        this.ui.noResult.classList.add('hidden');
+        this.ui.results.classList.remove(HIDDEN_CLASS);
+        this.ui.noResult.classList.add(HIDDEN_CLASS);
       } else {
-        this.ui.noResult.classList.remove('hidden');
-        this.ui.results.classList.add('hidden');
+        this.ui.noResult.classList.remove(HIDDEN_CLASS);
+        this.ui.results.classList.add(HIDDEN_CLASS);
       }
     };
 
     const hideResults = () => {
-      this.ui.results.classList.add('hidden');
-      this.ui.noResult.classList.add('hidden');
-      this.ui.clear.classList.add('hidden');
-      this.ui.toc.classList.remove('hidden');
+      this.ui.results.classList.add(HIDDEN_CLASS);
+      this.ui.noResult.classList.add(HIDDEN_CLASS);
+      this.ui.clear.classList.add(HIDDEN_CLASS);
+      this.ui.toc.classList.remove(HIDDEN_CLASS);
     };
 
     const clearResults = () => {
       this.ui.query.value = '';
       window.location.hash = '';
+      this.ui.search.classList.add(DISABLED_CLASS);
+      this.ui.search.disabled = true;
       hideResults();
     };
 
     const validateSearchQuery = () => this.ui.query.value.length; // non-empty query
 
+    if (!validateSearchQuery()) {
+      this.ui.search.classList.add(DISABLED_CLASS);
+      this.ui.search.disabled = true;
+    }
+
     this.ui.query.addEventListener('input', () => {
       if (validateSearchQuery()) {
-        this.ui.clear.classList.remove('hidden');
-        this.ui.search.classList.remove('atm-button--disabled');
+        this.ui.clear.classList.remove(HIDDEN_CLASS);
+        this.ui.search.classList.remove(DISABLED_CLASS);
         this.ui.search.disabled = false;
       } else {
-        this.ui.clear.classList.add('hidden');
-        this.ui.search.classList.add('atm-button--disabled');
+        this.ui.clear.classList.add(HIDDEN_CLASS);
+        this.ui.search.classList.add(DISABLED_CLASS);
         this.ui.search.disabled = true;
       }
     });
@@ -333,10 +437,6 @@ class Edirectory extends Module {
 
       this.setSearchResults(results);
       showResults(results.length > 0);
-    });
-
-    this.ui.dismiss.addEventListener('click', () => {
-      this.ui.error.classList.add('hidden');
     });
 
     this.ui.resultsPagination.addEventListener(Pagination.events.change, (e: CustomEvent) => {

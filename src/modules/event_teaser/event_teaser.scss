@@ -1,0 +1,80 @@
+.mdl-event_teaser {
+  $teaserMargins: (
+    marginBottom: (
+      tiny: $sizeHuge,
+      large: $sizeGiant,
+    ),
+  );
+
+  $placeholderMargins: (
+    spaceBottom: (
+      tiny: $sizeRegular,
+      medium: $sizeSmallLarge,
+      large: $sizeLarge,
+    ),
+  );
+
+  @include sizeCurve(margin-block, marginBottom, $teaserMargins);
+
+  .atm-heading {
+    padding-top: 0;
+  }
+
+  &--loading {
+    .atm-loading_circle {
+      position: relative;
+      display: block;
+      min-height: $sizeHuge;
+      width: auto;
+      text-align: center;
+
+      .atm-loading_circle__spinner {
+        display: inline-block;
+      }
+    }
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: pxToRem($sizeTiny) 0 pxToRem($sizeLarge) 0;
+
+    @include sizeCurve(padding-bottom, spaceBottom, $placeholderMargins);
+  }
+
+  &__item {
+    position: relative;
+    background-color: $colorBlack10;
+
+    &:before {
+      content: '';
+      position: absolute;
+      display: block;
+      top: pxToRem(-$sizeTiny);
+      left: 0;
+      width: 100%;
+      height: calc(100% + #{pxToRem($sizeRegular)});
+      background-color: $colorBlack10;
+    }
+
+    &:hover {
+      z-index: $zIndexInner;
+
+      &:before {
+        background-color: $colorBlack20;
+      }
+    }
+
+    .mdl-event_card {
+      margin: 0 pxToRem($sizeTiny) pxToRem($sizeTiny);
+    }
+  }
+
+  .mdl-notification {
+    margin-bottom: pxToRem($sizeRegular);
+  }
+
+  .mdl-placeholder {
+    @include sizeCurve(margin-bottom, spaceBottom, $placeholderMargins);
+  }
+}

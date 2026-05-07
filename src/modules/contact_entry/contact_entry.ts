@@ -6,6 +6,9 @@
  */
 import Module from '../../assets/js/helpers/module';
 
+const SUCCESS_ICON_TIMEOUT = 1000;
+const ERROR_ICON_TIMEOUT = 3000;
+
 class ContactEntry extends Module {
   public ui: {
     element: any;
@@ -45,8 +48,14 @@ class ContactEntry extends Module {
       const confirm = this.ui.copyButton.parentNode.querySelector(
         '.mdl-contact_entry__copy-button-confirm'
       ) as HTMLSpanElement;
+      const confirmText = this.ui.copyButton.parentNode.querySelector(
+        '.mdl-contact_entry__copy-button-confirm-text'
+      ) as HTMLSpanElement;
       const caution = this.ui.copyButton.parentNode.querySelector(
         '.mdl-contact_entry__copy-button-caution'
+      ) as HTMLSpanElement;
+      const cautionText = this.ui.copyButton.parentNode.querySelector(
+        '.mdl-contact_entry__copy-button-caution-text'
       ) as HTMLSpanElement;
 
       this.eventDelegate.on('click', this.options.domSelectors.copyButton, () => {
@@ -55,11 +64,23 @@ class ContactEntry extends Module {
             .writeText(this.ui.copySource.innerText)
             .then(() => {
               confirm.style.display = 'block';
+              confirmText.style.display = 'block';
               caution.style.display = 'none';
+              cautionText.style.display = 'none';
+              setTimeout(() => {
+                confirm.style.display = 'none';
+                confirmText.style.display = 'none';
+              }, SUCCESS_ICON_TIMEOUT);
             })
             .catch(() => {
               caution.style.display = 'block';
+              cautionText.style.display = 'block';
               confirm.style.display = 'none';
+              confirmText.style.display = 'none';
+              setTimeout(() => {
+                caution.style.display = 'none';
+                cautionText.style.display = 'none';
+              }, ERROR_ICON_TIMEOUT);
             });
         }
       });

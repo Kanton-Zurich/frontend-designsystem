@@ -13,11 +13,11 @@ import { INTERACTION_ELEMENTS_QUERY } from '../../assets/js/helpers/constants';
 
 class ContextMenu extends Module {
   public options: {
-    showImmediate: Boolean;
+    showImmediate: boolean;
     attachTo: HTMLElement;
     trigger: HTMLButtonElement;
     domSelectors: any;
-    customTrigger: Boolean;
+    customTrigger: boolean;
     headerHeight: number;
     stateClasses: {
       active: string;
@@ -26,7 +26,7 @@ class ContextMenu extends Module {
 
   public data: {
     copiedNode: HTMLElement;
-    isActive: Boolean;
+    isActive: boolean;
     escapeEvent: any;
     uniqueId: string;
   };

@@ -15,7 +15,7 @@ class Topiclist extends Module {
   public options: {
     url: string;
     searchUrl: string;
-    hasFilter: Boolean;
+    hasFilter: boolean;
     inputDelay: number;
     maxEntries: number;
     maxLayer: number;
@@ -36,6 +36,7 @@ class Topiclist extends Module {
       visible: string;
       loading: string;
       noResult: string;
+      error: string;
     };
   };
 
@@ -108,6 +109,7 @@ class Topiclist extends Module {
         visible: 'mdl-topiclist--visible',
         loading: 'mdl-topiclist--loading',
         noResult: 'mdl-topiclist__autosuggest--no-result',
+        error: 'mdl-topiclist--error',
       },
     };
     super($element, defaultData, defaultOptions, data, options);
@@ -142,7 +144,7 @@ class Topiclist extends Module {
         }
       })
       .on('keyup', this.options.domSelectors.input, (event) => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' && this.ui.input.value.trim()) {
           if (this.options.searchUrl) {
             window.location.href = this.options.searchUrl.replace(
               '{value}',
@@ -154,7 +156,10 @@ class Topiclist extends Module {
 
     if (this.data.isNav) {
       this.eventDelegate.on(Modal.events.display, async () => {
-        if (!this.data.isNavInitialised) {
+        if (
+          !this.data.isNavInitialised ||
+          this.ui.element.classList.contains(this.options.stateClasses.error)
+        ) {
           await this.fetchData();
           if (Object.keys(this.data.json).length) {
             this.renderNavigation();
@@ -224,8 +229,9 @@ class Topiclist extends Module {
     return fetch(this.options.url)
       .then((response) => response.json())
       .then((response) => {
-        if (response) {
+        if (response && response.pages && response.pages.middleSection) {
           this.data.json = response;
+          this.hideErrorState();
 
           // Initialize the autosuggest, which we have data for now
           new Autosuggest(
@@ -237,13 +243,46 @@ class Topiclist extends Module {
             },
             this.data.json.pages.middleSection
           );
+        } else {
+          this.showErrorState();
         }
 
         this.ui.element.classList.remove(this.options.stateClasses.loading);
       })
       .catch((err) => {
         this.log('error', err);
+        this.ui.element.classList.remove(this.options.stateClasses.loading);
+        this.showErrorState();
       });
+  }
+
+  /**
+   * Shows error state when data fails to load
+   */
+  showErrorState() {
+    this.ui.element.classList.add(this.options.stateClasses.error);
+
+    // Hide default content when error occurs
+    if (this.ui.contentNav) {
+      this.ui.contentNav.classList.add(this.options.stateClasses.hidden);
+    }
+    if (this.ui.navigation) {
+      this.ui.navigation.classList.add(this.options.stateClasses.hidden);
+    }
+  }
+
+  /**
+   * Hides error state when data loads successfully after a previous failure
+   */
+  hideErrorState() {
+    this.ui.element.classList.remove(this.options.stateClasses.error);
+
+    if (this.ui.contentNav) {
+      this.ui.contentNav.classList.remove(this.options.stateClasses.hidden);
+    }
+    if (this.ui.navigation) {
+      this.ui.navigation.classList.remove(this.options.stateClasses.hidden);
+    }
   }
 
   /**

@@ -46,12 +46,21 @@ $toggleDimension: 32px;
     cursor: pointer;
   }
 
-  input:checked + &__switch {
+  input:checked ~ &__switch {
     background: $colorCyan;
 
     &:after {
       left: pxToRem($toggleWidth - $toggleDimension);
       border-color: $colorCyan;
+    }
+  }
+
+  input:checked:disabled ~ &__switch {
+    background: $colorAnthracite;
+
+    &:after {
+      left: pxToRem($toggleWidth - $toggleDimension);
+      border-color: $colorAnthracite;
     }
   }
 

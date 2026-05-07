@@ -45,6 +45,8 @@ module.exports = {
                       icon: 'angle_drop_down',
                       label: 'Staatsangehörigkeit',
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: true,
                       },
                     },
@@ -65,6 +67,8 @@ module.exports = {
                       type: 'text',
                       validation: {
                         isRequired: true,
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         errorMsg: 'Bitte geben Sie ihre Nationalität ein',
                       },
                       rules: JSON.stringify([

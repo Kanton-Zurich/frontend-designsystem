@@ -1,0 +1,22 @@
+<div class="mdl-extended_search" data-init="extendedSearch">
+    <button aria-expanded="false" class="mdl-extended_search__trigger">
+      <span class="mdl-extended_search__icon">
+        <svg class="icon" focusable="false" aria-hidden="true">
+          <use xlink:href="#filter-extended"></use>
+        </svg>
+    </span>
+    <span class="mdl-extended_search__text">Erweiterte Suche</span>
+  </button>
+  <div class="mdl-extended_search__dialog">
+    {{> "modules/dialog/dialog" modules.dialog }}
+  </div>
+  <div class="mdl-extended_search__controls">
+    <h3 class="visuallyhidden">Aktive Filter</h3>
+    <div class="mdl-extended_search__selection">
+      <p class="visuallyhidden" aria-hidden="false" data-extended_search="hasNoFilters">Aktuell sind keine Filter
+        ausgewählt</p>
+      {{>"modules/filter_pills/filter_pills" filterPillsData }}
+    </div>
+    {{> "atoms/loading_circle/loading_circle"}}
+  </div>
+</div>

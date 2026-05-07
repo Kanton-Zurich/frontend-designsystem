@@ -23,6 +23,7 @@ const data = _.merge({}, defaultData, {
   },
   props: {
     userMenu: false,
+    searchModal: true,
     logo: logoData.linked.props,
     navItem: [
       {
@@ -33,14 +34,6 @@ const data = _.merge({}, defaultData, {
         title: 'Organisation',
         modal: 'flyout-topics',
       },
-    ],
-    modals: [
-      _.merge({}, modalData.variants.topicFlyout.props, {
-        preview: false,
-      }),
-      _.merge({}, modalData.variants.searchFlyout.props, {
-        preview: false,
-      }),
     ],
   },
 });
@@ -53,6 +46,29 @@ const variants = _.mapValues(
       },
       props: {
         userMenu: devUserMenuDataLoggedOut,
+        modals: [
+          _.merge({}, modalData.variants.topicFlyout.props, {
+            preview: false,
+          }),
+          _.merge({}, modalData.variants.searchFlyout.props, {
+            preview: false,
+          }),
+        ],
+      },
+    },
+    defaultWithoutSearch: {
+      meta: {
+        title: 'Ohne Suchfunktion',
+        desc: 'Variante für Suchresultat-Seite ohne Suchfunktion im Header',
+      },
+      props: {
+        searchModal: false,
+        userMenu: devUserMenuDataLoggedOut,
+        modals: [
+          _.merge({}, modalData.variants.topicFlyout.props, {
+            preview: false,
+          }),
+        ],
       },
     },
     defaultWithUserLoggedIn: {
@@ -62,6 +78,14 @@ const variants = _.mapValues(
       },
       props: {
         userMenu: devUserMenuDataLoggedIn,
+        modals: [
+          _.merge({}, modalData.variants.topicFlyout.props, {
+            preview: false,
+          }),
+          _.merge({}, modalData.variants.searchFlyout.props, {
+            preview: false,
+          }),
+        ],
       },
     },
     invertedWithUserLoggedOut: {
@@ -72,6 +96,14 @@ const variants = _.mapValues(
       props: {
         inverted: true,
         userMenu: devUserMenuDataInvertedLoggedOut,
+        modals: [
+          _.merge({}, modalData.variants.topicFlyout.props, {
+            preview: false,
+          }),
+          _.merge({}, modalData.variants.searchFlyout.props, {
+            preview: false,
+          }),
+        ],
       },
     },
     invertedWithUserLoggedIn: {
@@ -82,6 +114,14 @@ const variants = _.mapValues(
       props: {
         inverted: true,
         userMenu: devUserMenuDataInvertedLoggedIn,
+        modals: [
+          _.merge({}, modalData.variants.topicFlyout.props, {
+            preview: false,
+          }),
+          _.merge({}, modalData.variants.searchFlyout.props, {
+            preview: false,
+          }),
+        ],
       },
     },
   },

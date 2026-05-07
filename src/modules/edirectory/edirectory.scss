@@ -44,6 +44,14 @@
     }
   }
 
+  &__toc-error {
+    @include sizeCurve(margin-bottom, big);
+  }
+
+  .mdl-accordion__item--open:after {
+    display: none;
+  }
+
   &__results {
     @include sizeCurve(margin-bottom, big);
 

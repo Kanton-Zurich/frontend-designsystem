@@ -18,7 +18,7 @@ module.exports = {
   },
   props: {
     sectionTitle: 'Suche im Zürcher Steuerbuch',
-    headingLevel: 2,
+    additionalClasses: 'visuallyhidden',
     groups: [
       {
         rows: [
@@ -29,6 +29,7 @@ module.exports = {
                   handlebars.compile(formInputHBS)(
                     _.merge({}, formInputData.variants.default.props, {
                       isFloatingLabel: true,
+                      isMedium: true,
                       label: 'Stichwort oder ZStB-Nr.',
                       name: 'query_string',
                       uuid: 'query_string',
@@ -50,6 +51,7 @@ module.exports = {
                         },
                         triggerInputData: {
                           label: 'Thema',
+                          isMedium: true,
                           name: 'thema',
                           uuid: 'thema',
                         },
@@ -60,6 +62,7 @@ module.exports = {
                         },
                         triggerInputData: {
                           label: 'Unterthema',
+                          isMedium: true,
                           name: 'unterthema',
                           uuid: 'unterthema',
                         },
@@ -82,6 +85,7 @@ module.exports = {
                         },
                       },
                       triggerInputData: {
+                        isMedium: true,
                         validation: {
                           isRequired: false,
                         },

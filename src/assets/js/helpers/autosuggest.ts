@@ -42,18 +42,13 @@ class Autosuggest {
   };
 
   private stateClasses: any;
-
   private data: AutosuggestData;
-
   private query: string;
-
   private results: Array<any> = [];
-
   private template: any;
-
   private selectedTerm: any;
-
   private disabled: boolean;
+  private controller: AbortController | undefined;
 
   constructor(options: AutosuggestOptions, data) {
     this.options = merge(
@@ -71,15 +66,14 @@ class Autosuggest {
       loading: 'mdl-content_nav--loading',
     };
 
-    if (this.options.autoHide) {
-      this.options.target.style.display = 'none';
-    }
+    if (this.options.autoHide) this.toggleAutosuggest();
 
     // Setting the lodash template
     this.template = template(this.options.template);
 
     this.selectedTerm = '';
     this.disabled = false;
+    this.controller = this.options.url ? new AbortController() : undefined;
 
     this.addWatcher();
     this.addEvents();
@@ -108,19 +102,22 @@ class Autosuggest {
    */
   addEvents() {
     this.options.input.addEventListener('keydown', (event) => {
+      const key = event.key || event.code;
       if (
-        (event.code === 'ArrowDown' && this.options.list.childElementCount > 0) ||
-        (this.options.preventEnter && (event.code === 'Enter' || event.key === 'Enter'))
+        (key === 'ArrowDown' && this.options.list.childElementCount > 0) ||
+        (this.options.preventEnter && key === 'Enter')
       ) {
         this.focusFirstItem();
         return false;
       }
-      if (event.code === 'Enter' || event.key === 'Enter') {
+      if (key === 'Enter') {
         this.options.parent.dispatchEvent(
           new CustomEvent(Autosuggest.events.termSelected, {
             detail: this.options.input.value,
           })
         );
+      } else if (key === 'Escape') {
+        this.toggleAutosuggest();
       }
       return true;
     });
@@ -166,13 +163,13 @@ class Autosuggest {
     if (this.selectedTerm !== this.query) {
       this.selectedTerm = this.query;
 
-      if (this.options.url) {
-        this.setLoading();
-        await this.fetchData();
-      }
-
+      this.emptyAutosuggest(!!this.controller);
       if (this.query.length > 1) {
-        this.emptyAutosuggest();
+        if (this.options.url) {
+          this.setLoading();
+          await this.fetchData();
+        }
+
         this.filterData();
         if (this.results.length > 0) {
           this.dispatchStatusEvent(Autosuggest.events.filtered, this.results.length);
@@ -180,12 +177,14 @@ class Autosuggest {
         } else {
           this.dispatchStatusEvent(Autosuggest.events.noResult);
         }
+
+        if (this.options.url) {
+          this.controller = new AbortController();
+          this.unsetLoading();
+        }
       } else {
-        this.emptyAutosuggest();
         this.dispatchStatusEvent(Autosuggest.events.reset);
       }
-
-      this.unsetLoading();
     }
   }
 
@@ -194,29 +193,29 @@ class Autosuggest {
   }
 
   onDisableNext() {
+    if (this.controller)
+      this.controller.abort(new DOMException('Autosuggest disabled', 'AbortError'));
     this.disabled = true;
+  }
+
+  /**
+   * Toggle visibility of the autosuggest
+   */
+  toggleAutosuggest(show = false) {
+    this.options.target.style.display = show ? 'block' : 'none';
   }
 
   /**
    * Emptying the autosuggest
    */
-  emptyAutosuggest() {
-    this.options.list.innerHTML = '';
-    if (this.options.autoHide) {
-      this.options.target.style.display = 'none';
+  emptyAutosuggest(restart = false) {
+    if (this.controller) {
+      this.data = [];
+      this.controller.abort(new DOMException('Autosuggest hidden', 'AbortError'));
+      if (restart) this.controller = this.options.url ? new AbortController() : undefined;
     }
-  }
-
-  /**
-   * Adding some autosuggest classes
-   */
-  addAutosuggest() {
-    this.options.parent.classList.add(this.classes.parent.filtered);
-  }
-
-  /* Removing the classes set by autosuggest on the parent */
-  removeAutosuggest() {
-    this.options.parent.classList.remove(this.classes.parent.filtered);
+    this.options.list.innerHTML = '';
+    if (this.options.autoHide) this.toggleAutosuggest();
   }
 
   /**
@@ -260,7 +259,7 @@ class Autosuggest {
       if (Object.prototype.hasOwnProperty.call(item, 'title')) {
         this.matchComplexItem(item, queryRegEx);
       } else if (typeof item === 'string') {
-        this.results.push(item.replace(queryRegEx, '<span class="bold">$1</span>'));
+        this.results.push(item.replace(queryRegEx, '<mark class="searchhighlight">$1</mark>'));
       }
     });
 
@@ -287,7 +286,11 @@ class Autosuggest {
       synonymMatch = item.synonyms.filter((synonym) => regEx.test(synonym)).length > 0;
     }
 
-    if (titleMatch || synonymMatch) this.results.push(item);
+    if (titleMatch || synonymMatch) {
+      const highlightedItem = { ...item };
+      highlightedItem.title = item.title.replace(regEx, '<mark class="searchhighlight">$1</mark>');
+      this.results.push(highlightedItem);
+    }
 
     if (Object.prototype.hasOwnProperty.call(item, 'subpages')) {
       item.subpages.forEach((page) => {
@@ -303,14 +306,10 @@ class Autosuggest {
    */
   renderResults() {
     this.results.forEach((result) => {
-      if (this.options.autoHide) {
-        this.options.target.style.removeProperty('display');
-      }
+      if (this.options.autoHide) this.toggleAutosuggest(true);
 
       let resultTerm = result;
-      if (typeof result === 'string') {
-        resultTerm = result.replace(/(<([^>]+)>)/gi, '');
-      }
+      if (typeof result === 'string') resultTerm = result.replace(/(<([^>]+)>)/gi, '');
       this.renderItem({
         shortTitle: Object.prototype.hasOwnProperty.call(result, 'title') ? result.title : result,
         buzzwords: '',
@@ -360,17 +359,23 @@ class Autosuggest {
    * @memberof Autosuggest
    */
   async fetchData() {
-    return fetch(`${this.options.url}?q=${encodeURIComponent(this.query)}`)
+    if (this.controller.signal.aborted) return;
+    return fetch(`${this.options.url}?q=${encodeURIComponent(this.query)}`, {
+      signal: this.controller.signal,
+    })
       .then((response) => (response.status === 200 ? response.json() : null)) // eslint-disable-line
-      .then((response) => {
-        if (this.disabled || !response) {
+      .then((json) => {
+        if (this.disabled || !json || this.controller.signal.aborted) {
           this.disabled = false;
           this.data = [];
           return;
         }
-        if (response && Object.prototype.hasOwnProperty.call(response, 'suggestions')) {
-          this.data = response.suggestions;
+        if (json && Object.prototype.hasOwnProperty.call(json, 'suggestions')) {
+          this.data = json.suggestions;
         }
+      })
+      .catch((err) => {
+        if (err.name !== 'AbortError') console.error(err.message ?? err);
       });
   }
 
@@ -395,6 +400,10 @@ class Autosuggest {
             break;
           case 'Enter':
             listItem.click();
+            break;
+          case 'Escape':
+            this.toggleAutosuggest();
+            this.options.input.focus();
             break;
           default:
             break;

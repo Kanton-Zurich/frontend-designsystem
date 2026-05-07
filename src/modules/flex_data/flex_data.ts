@@ -13,6 +13,8 @@ import namespace from '../../assets/js/helpers/namespace';
 import Pagination from '../pagination/pagination';
 import Accordion from '../accordion/accordion';
 import Datepicker from '../datepicker/datepicker';
+import SearchResultList from '../search_result_list/search_result_list';
+import { type SearchResultData } from '../search_page/search_page';
 
 class FlexData extends Module {
   public ui: {
@@ -20,6 +22,7 @@ class FlexData extends Module {
     results: HTMLDivElement;
     resultsTemplate: HTMLScriptElement;
     resultsGeneric: HTMLDivElement;
+    resultsSearchResultList: HTMLDivElement;
     genericSort: HTMLDivElement;
     genericSortDropdown: HTMLDivElement;
     genericSortButton: HTMLButtonElement;
@@ -52,6 +55,7 @@ class FlexData extends Module {
       domSelectors: {
         results: '.mdl-flex-data__results',
         resultsGeneric: '.mdl-flex-data__results .mdl-flex-data__results-generic',
+        resultsSearchResultList: '.mdl-flex-data__results .mdl-search_result_list',
         resultsGenericTitle: '.mdl-flex-data__results .mdl-flex-data__results-title',
         genericSort: '.mdl-flex-data__generic-sort',
         genericSortDropdown: '.mdl-flex-data__generic-sort .mdl-context_menu',
@@ -169,12 +173,14 @@ class FlexData extends Module {
         });
       });
     }
-    const sortParamElemet = this.ui.resultsTable ? this.ui.resultsTable : this.ui.resultsGeneric;
-    this.order = sortParamElemet.getAttribute('data-sort-direction');
-    this.orderBy = sortParamElemet.getAttribute('data-sort-column');
+    const sortParamElement = this.ui.resultsTable || this.ui.resultsGeneric;
+    if (sortParamElement) {
+      this.order = sortParamElement.getAttribute('data-sort-direction');
+      this.orderBy = sortParamElement.getAttribute('data-sort-column');
+    }
     const initialLoad = this.ui.element.hasAttribute('data-initial-load');
     // eslint-disable-next-line
-    if (getAllURLParams()['page'] || initialLoad) {
+    if (getAllURLParams()['page'] || getAllURLParams()['search'] || initialLoad) {
       this.updateViewFromURLParams();
       setTimeout(() => {
         if (this.isVisible()) {
@@ -290,7 +296,7 @@ class FlexData extends Module {
     sortSetting.setAttribute('aria-pressed', 'true');
     this.ui.genericSortButton.querySelector<HTMLSpanElement>(
       '.atm-form_input__trigger-value'
-    ).innerText = sortSetting.querySelector('span').innerText;
+    ).innerText = sortSetting.querySelector('span').textContent.trim();
   }
 
   /**
@@ -368,21 +374,7 @@ class FlexData extends Module {
    */
   scrollTop() {
     setTimeout(() => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const rect = this.ui.element.getBoundingClientRect();
-      window.scroll(0, rect.top + scrollTop);
-    }, 0);
-  }
-
-  /**
-   * Scroll to bottom
-   */
-  scrollBottom() {
-    setTimeout(() => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const rect = this.ui.pagination.getBoundingClientRect();
-      const elementOffset = rect.height * 2; // eslint-disable-line
-      window.scroll(0, rect.top + scrollTop - window.innerHeight + elementOffset);
+      this.ui.results.scrollIntoView();
     }, 0);
   }
 
@@ -441,16 +433,8 @@ class FlexData extends Module {
           tr.classList.add('mdl-table__row');
 
           // Added searchhighlight to link href CZHDEV-3007
-          let searchHighlightQuery = '';
-          const searchInputValue = <HTMLInputElement>(
-            this.ui.form.querySelector('input[type="text"]')
-          );
-          if (searchInputValue && searchInputValue.value) {
-            searchHighlightQuery = `?search=${encodeURIComponent(searchInputValue.value)}`;
-          }
-
           const props = {
-            link: `${item.link}${searchHighlightQuery}`,
+            link: this.getSearchHighlightUrl(item.link),
           };
           const resultsTableColumns = this.ui.resultsTableColumns.length
             ? this.ui.resultsTableColumns
@@ -498,6 +482,18 @@ class FlexData extends Module {
         }
       }
     }
+    // fill search result list
+    if (this.ui.resultsSearchResultList) {
+      this.ui.resultsGenericTitle.innerText = resultsTitle;
+      this.ui.resultsSearchResultList.dispatchEvent(
+        new CustomEvent(SearchResultList.events.update, {
+          detail: {
+            result: this.transformToSearchResultData(jsonData),
+            page: this.ui.paginationInput.value,
+          },
+        })
+      );
+    }
     // fill generic results
     if (this.ui.resultsGeneric) {
       this.ui.resultsGenericTitle.innerText = resultsTitle;
@@ -506,13 +502,57 @@ class FlexData extends Module {
       } else {
         this.ui.genericSort.classList.remove('hidden');
 
+        const templateData = {
+          ...jsonData,
+          data: (jsonData.data || []).map((item) => ({
+            ...item,
+            link: this.getSearchHighlightUrl(item.link),
+          })),
+        };
         this.ui.resultsGeneric.innerHTML = '';
         this.ui.resultsGeneric.innerHTML = this.markupFromTemplate(
           this.ui.resultsTemplate.innerHTML,
-          jsonData
+          templateData
         );
       }
     }
+  }
+
+  /**
+   * Append search highlight query param to a URL
+   * @param url
+   */
+  private getSearchHighlightUrl(url: string): string {
+    const searchInput = this.ui.form.querySelector<HTMLInputElement>('input[type="text"]');
+    if (!searchInput?.value) {
+      return url;
+    }
+    const urlObj = new URL(url, window.location.origin);
+    if (urlObj.origin !== window.location.origin) {
+      return url;
+    }
+    urlObj.searchParams.set('search', searchInput.value);
+    return urlObj.toString();
+  }
+
+  /**
+   * Transform Flex-Data backend response to SearchResultData format
+   */
+  private transformToSearchResultData(jsonData): SearchResultData {
+    return {
+      results: (jsonData?.data || []).map((item) => ({
+        ...item,
+        link: this.getSearchHighlightUrl(item.link),
+        type: 'contentpage',
+        typeLabel: '',
+      })),
+      resultsData: {
+        numberOfResults: jsonData?.numberOfResults || 0,
+        numberOfResultPages: jsonData?.numberOfResultPages || 0,
+        queryId: '',
+        resultsByType: [],
+      },
+    };
   }
 
   /**

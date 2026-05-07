@@ -22,17 +22,24 @@
   }
 
   iframe {
-    color: $colorBlack60;
+    display: block;
     position: relative;
+    padding: 0;
+    color: $colorBlack60;
     width: 1px;
     min-width: 100%;
     -webkit-overflow-scrolling: touch;
     overflow: auto;
-    margin-bottom: $sizeTiny;
     border: 2px solid $colorBlack10;
+
+    @include sizeCurve(margin-bottom, captionGap);
 
     // Hide scrollbar on wrapper in firefox
     scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   &--fullWidth {

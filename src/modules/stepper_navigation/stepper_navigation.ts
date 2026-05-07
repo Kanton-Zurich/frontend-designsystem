@@ -29,7 +29,7 @@ class StepperNavigation extends Module {
     stateClasses: any;
     hasRules: boolean;
     hasTooManySteps: boolean;
-    maxSteps: Number;
+    maxSteps: number;
   };
 
   constructor($element: any, data: Object, options: Object) {

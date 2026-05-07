@@ -4,33 +4,91 @@
  * @author
  * @copyright
  */
-import template from 'lodash/template';
-import { getURLParam } from '../../assets/js/helpers/common';
-
 import Module from '../../assets/js/helpers/module';
-import Pagination from '../pagination/pagination';
 import Autosuggest from '../../assets/js/helpers/autosuggest';
+import ExtendedSearch from '../extended_search/extended_search';
+import SearchResultList from '../search_result_list/search_result_list';
+import Pagination from '../pagination/pagination';
 
-import Datepicker from '../datepicker/datepicker';
 import Form from '../../assets/js/helpers/form.class';
+
+export type SearchResultMeta = {
+  term: string;
+  description: string;
+};
+
+export type SearchResultItem = {
+  type: string;
+  typeLabel: string;
+  title: string;
+  teaserText?: string;
+  link?: string;
+  isTopResult?: boolean;
+  breadcrumb?: string;
+  metadata?: SearchResultMeta[];
+  icon?: string;
+  publicationType?: string;
+  date?: string;
+  role?: string;
+  email?: string;
+  phone?: {
+    link: string;
+    title: string;
+  };
+};
+
+export type ResultByType = {
+  type: string;
+  typeLabel: string;
+  numberOfResults: number;
+};
+
+export type ResultsData = {
+  numberOfResultPages: number;
+  numberOfResults: number;
+  queryId: string;
+  resultsByType: ResultByType[];
+};
+
+export type SearchResultData = {
+  results: SearchResultItem[];
+  resultsData: ResultsData;
+  similarTerms?: string[];
+  autoCorrectedTerm?: string;
+};
+
+const STATUS_OK = 200;
+const STATUS_NO_CONTENT = 204;
+export const KNOWN_TYPES = ['contentpage', 'document', 'news', 'service', 'person'];
+export const DEFAULT_TYPE = 'contentpage';
+const TAG_NAME_TOPICS = 'extended-search-topics';
+const TAG_NAME_ORGS = 'extended-search-orgs';
 
 class SearchPage extends Module {
   public ui: {
-    input: HTMLInputElement;
     element: HTMLDivElement;
-    resultsHeadTemplate: HTMLScriptElement;
-    resultsHead: HTMLDivElement;
-    pagination: HTMLDivElement;
-    results: HTMLDivElement;
-    resultsTemplate: HTMLScriptElement;
-    wrapper: HTMLDivElement;
+    input: HTMLInputElement;
+    form: HTMLFormElement;
+    extendedSearch: HTMLDivElement;
+    dialog: HTMLDivElement;
+    dialogForm: HTMLFormElement;
     autosuggest: HTMLDivElement;
     autosuggestTemplate: HTMLScriptElement;
-    dateFilter: HTMLFormElement;
-    datePicker: HTMLDivElement;
+    wrapper: HTMLDivElement;
+    resultsHead: HTMLDivElement;
+    autocorrection: HTMLDivElement;
+    suggestions: HTMLParagraphElement;
+    didYouMeanTemplate: HTMLTemplateElement;
+    force: HTMLAnchorElement;
+    results: HTMLDivElement;
+    tabList: HTMLUListElement;
+    tabButtons: NodeListOf<HTMLButtonElement>;
+    moreOfType: HTMLButtonElement;
+    pagination: NodeListOf<HTMLDivElement>;
     notification: HTMLDivElement;
-    resetResults: any;
-    noResults: any;
+    noResults: HTMLDivElement;
+    resetResults: HTMLButtonElement;
+    clearButton: HTMLButtonElement;
   };
 
   public options: {
@@ -42,59 +100,63 @@ class SearchPage extends Module {
     minInputLength: number;
     autosuggestURL: string;
     autocorrect: string;
+    inEstatico: boolean;
   };
 
   public data: {
     type: string;
     page: number;
-    dateTo: Date;
-    dateFrom: Date;
+    topicTags?: string[];
+    orgTags?: string[];
   };
 
   public result: any;
-
   public query: string;
 
   private queryId: string;
   private sessionId: string;
+  private controller: AbortController;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {
-      type: 'all',
+      type: DEFAULT_TYPE,
       page: 1,
-      dateTo: '',
-      dateFrom: '',
     };
     const defaultOptions = {
       delay: 450,
       minInputLength: 3,
       sessionIdStorageKey: 'kzh-session-id',
+      inEstatico: false,
       domSelectors: {
-        input: '[data-search_page="input"]',
+        input: '[data-search="input"]',
         form: '[data-search_page="form"]',
-        resultsHeadTemplate: '[data-search_page="resultsHeadTemplate"]',
-        resultsHead: '[data-search_page="resultsHead"]',
-        pagination: '[data-init="pagination"]',
-        results: '[data-search_page="results"]',
-        resultsTemplate: '[data-search_page="resultsTemplate"]',
+        extendedSearch: '.mdl-extended_search',
+        dialog: '.mdl-dialog',
+        dialogForm: '.mdl-dialog__form',
+        autosuggest: '[data-search="autosuggest"]',
+        autosuggestTemplate: '[data-search="autosuggestTemplate"]',
         wrapper: '[data-search_page="wrapper"]',
-        autosuggest: '[data-search_page="autosuggest"]',
-        autosuggestTemplate: '[data-search_page="autosuggestTemplate"]',
-        dateFilter: '[data-search_page="dateFilter"]',
-        datePicker: '[data-init="datepicker"]',
+        resultsHead: '[data-search_page="resultsHead"]',
+        autocorrection: '.mdl-search_page__autocorrection',
+        suggestions: '.mdl-search_page__suggestions',
+        didYouMeanTemplate: '[data-search_page="didYouMeanTemplate"]',
         force: '[data-search_page="force"]',
-        alternativeTerm: '[data-search_page="alternativeTerm"]',
-        autocorrect: '[data-search_page="autocorrect"]',
+        results: '[data-search_page="results"]',
+        tabList: '[data-search_page="results"] .mdl-button_group',
+        tabButtons: '[data-search_page="results"] .mdl-button_group button',
+        moreOfType: '.mdl-top_result__more-results',
+        pagination: '[data-init="pagination"]',
         notification: '.mdl-search_page__notification',
         noResults: '.mdl-search_page__no-results',
         resetResults: '.mdl-search_page__no-results .atm-button',
+        clearButton: '.mdl-search__clear',
       },
       stateClasses: {
         showResults: 'mdl-search_page--show-results',
         showNoResults: 'mdl-search_page--no-results',
+        showValidation: 'mdl-search_page--invalid',
         showError: 'mdl-search_page--error',
         loading: 'mdl-search_page--loading',
-        dateFilterVisible: 'mdl-search_page__date-filter--visible',
       },
     };
 
@@ -102,13 +164,14 @@ class SearchPage extends Module {
 
     this.result = null;
     this.query = '';
+    this.controller = new AbortController();
 
     this.initUi();
 
     // setup session
     this.sessionId = (<any>window.sessionStorage).getItem(this.options.sessionIdStorageKey);
     if (!this.sessionId) {
-      this.sessionId = `zh_${Math.random().toString(36).substr(2, 16)}`; // eslint-disable-line
+      this.sessionId = `zh_${Math.random().toString(36).slice(2, 18)}`; // eslint-disable-line
       (<any>window.sessionStorage).setItem(this.options.sessionIdStorageKey, this.sessionId);
     }
 
@@ -141,47 +204,71 @@ class SearchPage extends Module {
    * Event listeners initialisation
    */
   initEventListeners() {
-    this.eventDelegate.on('submit', this.options.domSelectors.form, () => {
-      this.onQueryChange(null, null, this.ui.input.value);
-
+    this.eventDelegate.on('submit', this.options.domSelectors.form, (event: Event) => {
+      event.preventDefault();
+      this.onQueryChange(this.ui.input.value);
       return false;
     });
 
-    this.eventDelegate.on('click', this.options.domSelectors.force, (event, delegate) => {
-      this.ui.input.value = delegate.textContent;
-      this.onQueryChange(null, null, delegate.textContent, true, true);
+    // Listen to filterChanged event from extended search
+    this.ui.extendedSearch.addEventListener(ExtendedSearch.events.filterChanged, () => {
+      this.data.topicTags = Array.from(
+        this.ui.dialogForm.querySelectorAll(`[name="${TAG_NAME_TOPICS}"]:checked`),
+        (checkbox: HTMLInputElement) => checkbox.value
+      );
+      this.data.orgTags = Array.from(
+        this.ui.dialogForm.querySelectorAll(`[name="${TAG_NAME_ORGS}"]:checked`),
+        (checkbox: HTMLInputElement) => checkbox.value
+      );
+      this.onFilterChange();
     });
 
-    this.eventDelegate.on('click', this.options.domSelectors.alternativeTerm, (event, delegate) => {
-      this.ui.input.value = delegate.querySelector('span span').textContent;
-      this.onQueryChange(null, null, delegate.querySelector('span span').textContent, true, true);
+    this.eventDelegate.on('click', this.options.domSelectors.tabButtons, (event: PointerEvent) => {
+      this.onTabChange(event);
     });
 
-    this.eventDelegate.on('keydown', this.options.domSelectors.force, (event, delegate) => {
-      if (event.key === 'Enter') {
-        this.ui.input.value = delegate.textContent;
-        this.onQueryChange(null, null, delegate.textContent, true, true);
+    this.eventDelegate.on('click', this.options.domSelectors.moreOfType, () => {
+      document
+        .getElementById(this.result.results.find((item: SearchResultItem) => item.isTopResult).type)
+        .click();
+    });
+
+    this.eventDelegate.on(
+      'click',
+      this.options.domSelectors.force,
+      (_event: PointerEvent, delegate: HTMLAnchorElement) => {
+        const newTerm = delegate.textContent.trim();
+        this.ui.input.value = newTerm;
+        this.onQueryChange(newTerm, true, true);
       }
+    );
+
+    this.eventDelegate.on(
+      'keydown',
+      this.options.domSelectors.force,
+      (event: KeyboardEvent, delegate: HTMLAnchorElement) => {
+        if (event.key === 'Enter') {
+          const newTerm = delegate.textContent.trim();
+          this.ui.input.value = newTerm;
+          this.onQueryChange(newTerm, true, true);
+        }
+      }
+    );
+
+    this.ui.pagination.forEach((pagination) => {
+      pagination.addEventListener(Pagination.events.change, this.onPageChange.bind(this));
     });
 
-    this.ui.pagination.addEventListener(Pagination.events.change, this.onPageChange.bind(this));
     this.ui.resetResults.addEventListener('click', this.onResetResults.bind(this));
 
     this.ui.element.addEventListener(Autosuggest.events.termSelected, (event) => {
       const term = (<CustomEvent>event).detail;
       this.ui.input.value = term;
-
-      this.onQueryChange(null, null, term);
+      this.onQueryChange(term);
     });
 
     this.ui.input.addEventListener(Form.events.clearInput, () => {
-      this.onQueryChange(null, null, '');
-    });
-
-    this.ui.datePicker.addEventListener(Datepicker.events.dateSet, (event) => {
-      const { detail } = <CustomEvent>event;
-      [this.data.dateFrom, this.data.dateTo] = detail.dates;
-      this.onFilterChange(false);
+      this.onQueryChange('');
     });
   }
 
@@ -191,8 +278,11 @@ class SearchPage extends Module {
    * @memberof SearchPage
    */
   initWatchers() {
-    this.watch(this.data, 'page', (propName, oldValue, newValue) => {
-      this.ui.pagination.dispatchEvent(
+    this.watch(this.data, 'page', (_propName: string, _oldValue: string, newValue: string) => {
+      const pagination = this.ui.element.querySelector(
+        `#${this.data.type}-panel [data-init="pagination"]`
+      );
+      pagination.dispatchEvent(
         new CustomEvent(Pagination.events.setPage, {
           detail: newValue,
         })
@@ -200,337 +290,307 @@ class SearchPage extends Module {
     });
   }
 
-  initFilterEventListeners(addedDom) {
-    const radios = addedDom.querySelectorAll('[type="radio"]');
-
-    radios.forEach((filterButton) => {
-      filterButton.addEventListener('click', this.onFilterChange.bind(this));
-    });
-  }
-
   /**
    * When the search query gets changed
    *
-   * @param {string} propName
-   * @param {string} oldValue
    * @param {string} newValue
    * @param noAutoCorrection
    * @param noAutoSuggest
    * @memberof SearchPage
    */
-  async onQueryChange(
-    propName,
-    oldValue,
-    newValue,
+  onQueryChange(
+    newValue: string,
     noAutoCorrection: boolean = false,
     noAutoSuggest: boolean = false
   ) {
-    // eslint-disable-line
-    this.ui.autosuggest.dispatchEvent(new CustomEvent(Autosuggest.events.empty));
-    if (noAutoSuggest) {
+    this.query = newValue;
+    this.queryId = null;
+
+    if (noAutoSuggest)
       this.ui.autosuggest.dispatchEvent(new CustomEvent(Autosuggest.events.disableNext));
-    }
-    this.empty();
-    this.data.page = 1;
 
     if (newValue.length < this.options.minInputLength && !noAutoCorrection) {
-      this.ui.element.classList.remove(this.options.stateClasses.showResults);
-      this.query = newValue;
-
       if (this.query.length === 0) {
-        this.query = '';
-        this.data.type = 'all';
+        this.data.type = DEFAULT_TYPE;
         this.data.page = 1;
+        this.ui.element.classList.remove(this.options.stateClasses.showResults);
       }
 
       this.setFilterInUrl();
       this.showNoResults(false);
-
       return false;
     }
 
-    this.ui.wrapper.classList.add(this.options.stateClasses.loading);
-
-    this.query = newValue;
     this.setFilterInUrl();
-
-    return this.getData(
-      this.generateParams(true, false, false, false, true, false, noAutoCorrection),
-      (response) => {
-        this.result = response;
-        this.checkIfPickerVisible();
-        this.ui.autosuggest.dispatchEvent(new CustomEvent(Autosuggest.events.disableNext));
-        if (response.results) {
-          this.dispatchPageCount();
-          this.renderResults();
-          window.scroll(0, 0);
-        } else {
-          this.showNoResults(true);
-          this.renderHead();
-        }
-        this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
-      }
-    );
+    return this.getData(this.generateParams(false, true, noAutoCorrection));
   }
 
   onResetResults() {
     this.ui.input.value = '';
-    this.onQueryChange(null, null, '');
+    this.data.topicTags = [];
+    this.data.orgTags = [];
+    this.ui.extendedSearch.dispatchEvent(
+      new CustomEvent(ExtendedSearch.events.setFilter, {
+        detail: [],
+      })
+    );
+    this.ui.clearButton.classList.remove('dirty');
+    this.onQueryChange('');
     this.ui.input.focus();
   }
 
   /**
    * Generating the params
    *
-   * @param {false} query
-   * @param {false} type
-   * @param {false} page
-   * @param {false} dates
-   * @returns
+   * @param page
+   * @param sessionId
+   * @returns {Record<string, string | string[]>}
    * @memberof SearchPage
    */
   generateParams(
-    query: boolean = false,
-    type: boolean = false,
     page: boolean = false,
-    dates: boolean = false,
     sessionId: boolean = false,
-    queryId: boolean = false,
     noAutoCorrection: boolean = false
-  ) {
+  ): Record<string, string | string[]> {
     const paramObj: any = {};
 
-    if (query && this.query && this.query !== '') {
-      paramObj.fullText = this.query;
-    }
-
-    if (type && this.data.type !== 'all') {
-      paramObj.type = this.data.type;
-    }
-
-    if (page && this.data.page !== 1) {
-      paramObj.page = this.data.page;
-    }
-
-    if (sessionId && this.sessionId !== null) {
-      paramObj.sessionId = this.sessionId;
-    }
-
-    if (queryId && this.queryId !== null) {
-      paramObj.queryId = this.queryId;
-    }
+    if (this.query && this.query !== '') paramObj.fullText = this.query;
+    paramObj.type = this.data.type ?? DEFAULT_TYPE;
+    if (page && this.data.page !== 1) paramObj.page = this.data.page;
+    if (sessionId && this.sessionId !== null) paramObj.sessionId = this.sessionId;
+    if (this.queryId !== null) paramObj.queryId = this.queryId;
+    if (this.data.topicTags && this.data.topicTags.length > 0)
+      paramObj.topicTag = this.data.topicTags;
+    if (this.data.orgTags && this.data.orgTags.length > 0)
+      paramObj.organisationTag = this.data.orgTags;
 
     paramObj.noAutoCorrection = noAutoCorrection.toString();
-
-    if (
-      dates &&
-      typeof this.data.dateFrom !== 'undefined' &&
-      typeof this.data.dateTo !== 'undefined' &&
-      this.data.type === 'news'
-    ) {
-      paramObj.dateTo = this.getAPIDateString(this.data.dateTo);
-      paramObj.dateFrom = this.getAPIDateString(this.data.dateFrom);
-    }
 
     return paramObj;
   }
 
-  onFilterChange(event) {
-    this.emptyList();
+  updateQuery() {
+    const newValue = this.ui.input.value;
+    if (this.query !== newValue) {
+      this.query = newValue;
+      this.queryId = null;
+    }
+  }
+
+  onFilterChange() {
+    this.updateQuery();
+    this.setFilterInUrl();
+    return this.getData(this.generateParams(false, true));
+  }
+
+  onTabChange(event: PointerEvent) {
+    const target = event.target as HTMLButtonElement;
+    const button = target.closest('button') || target;
+    const buttonId = button?.id;
+
+    if (!buttonId || buttonId === this.data.type) return false;
+    if (buttonId === this.data.type) return false;
     this.data.page = 1;
+    this.data.type = buttonId;
 
-    if (event) {
-      if (event.target.value === this.data.type) {
-        return false;
-      }
-
-      this.data.type = event.target.value;
-    }
-
-    this.ui.wrapper.classList.add(this.options.stateClasses.loading);
-
+    this.updateQuery();
     this.setFilterInUrl();
-
-    return this.getData(this.generateParams(true, true, false, true, true), (response) => {
-      this.result = response;
-      this.checkIfPickerVisible();
-      if (response.results) {
-        this.dispatchPageCount();
-        this.renderResults(true);
-      } else {
-        this.showNoResults(true);
-        this.renderHead();
-      }
-    });
+    return this.getData(this.generateParams(false, true));
   }
 
-  onPageChange(event) {
-    if (event.detail.after === this.data.page) {
-      return false;
-    }
-
-    this.emptyList();
-    this.ui.wrapper.classList.add(this.options.stateClasses.loading);
-
+  onPageChange(event: CustomEvent) {
+    if (event.detail.after === this.data.page) return false;
     this.data.page = event.detail.after;
-    this.setFilterInUrl();
 
-    return this.getData(this.generateParams(true, true, true, true, true, true), (response) => {
-      this.result = response;
-      this.checkIfPickerVisible();
-      if (response.results) {
-        this.renderResults(true);
-        this.scrollTop();
-      } else {
-        this.showNoResults(true);
-        this.renderHead();
-      }
-    });
+    this.updateQuery();
+    this.setFilterInUrl();
+    return this.getData(this.generateParams(true, true, true));
   }
 
-  async getData(urlParams, callback) {
-    return fetch(this.generateURL(this.options.url, urlParams))
+  highlightSearchTerm(text: string): string {
+    if (!(typeof text === 'string') || !this.query) return text;
+    const regex = new RegExp(`(${this.query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }
+
+  async getData(urlParams: Record<string, string | string[]>) {
+    const isInvalid = this.query.length < this.options.minInputLength;
+    this.ui.element.classList.toggle(this.options.stateClasses.showValidation, isInvalid);
+    if (isInvalid) {
+      this.showNoResults(false);
+      return;
+    }
+
+    this.controller.abort(new DOMException('Newer search request', 'AbortError'));
+    this.controller = new AbortController();
+
+    this.ui.wrapper.classList.add(this.options.stateClasses.loading);
+    this.ui.autosuggest.dispatchEvent(new CustomEvent(Autosuggest.events.empty));
+
+    if (this.controller.signal.aborted) return;
+
+    return fetch(this.generateURL(this.options.url, urlParams), {
+      signal: this.controller.signal,
+    })
       .then((response) => {
-        // eslint-disable-next-line
-        if (response.status !== 200 && response.status !== 204) {
+        if (response.status !== STATUS_OK && response.status !== STATUS_NO_CONTENT) {
           throw new Error('Error fetching resource!');
         }
-        return response.json(); // eslint-disable-line
+        return response.json();
       })
-      .then((response: any) => {
-        if (response) {
-          if (response.resultsData && response.resultsData.queryId) {
-            this.queryId = response.resultsData.queryId;
-          }
-          this.showNoResults(false);
-          callback(response);
-          this.ui.element.classList.remove(this.options.stateClasses.showError);
-          this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
+      .then((response: SearchResultData) => {
+        if (this.controller.signal.aborted || !response) return;
+        if (response.resultsData && response.resultsData.queryId)
+          this.queryId = response.resultsData.queryId;
+
+        // Apply highlighting to results
+        if (response.results) {
+          response.results.forEach((item) => {
+            if (item.teaserText) item.teaserText = this.highlightSearchTerm(item.teaserText);
+          });
         }
+
+        this.result = response;
+        if (response.results && response.results.length) {
+          this.dispatchPageCount();
+          this.renderResults();
+          document.getElementById(this.data.type)?.click();
+        } else {
+          this.showNoResults(true);
+        }
+        this.ui.element.classList.remove(this.options.stateClasses.showError);
+        this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
       })
       .catch((err) => {
-        this.log('error', err);
+        if (err.name === 'AbortError') return;
+        this.log('Fehler:', err);
         this.ui.element.classList.add(this.options.stateClasses.showError);
         this.ui.wrapper.classList.remove(this.options.stateClasses.loading);
       });
   }
 
-  renderResults(listOnly = false) {
-    if (!listOnly) {
-      this.renderHead();
-    }
-    this.renderList();
-    if (!listOnly) {
-      (<any>window).estatico.helpers.app.registerForms();
-    }
-    this.ui.element.classList.add(this.options.stateClasses.showResults);
-    setTimeout(() => {
-      this.ui.autosuggest.dispatchEvent(new CustomEvent(Autosuggest.events.empty));
-    }, 0);
-  }
+  renderResults() {
+    this.ui.element.classList.remove(this.options.stateClasses.showNoResults);
 
-  renderHead() {
-    const templateData = {
-      originalTerm: this.query,
-      autocorrectedTerm: this.result.autoCorrectedTerm ? this.result.autoCorrectedTerm : '',
-      didYouMean: this.result.didYouMean ? this.result.didYouMean : null,
-      ...this.result.resultsData,
-    };
-    const compiledTemplate = template(this.ui.resultsHeadTemplate.innerHTML);
-    const generatedHTML = compiledTemplate({ ...templateData });
-    const parsedHTML = new DOMParser()
-      .parseFromString(generatedHTML, 'text/html')
-      .querySelector('div');
-
-    this.ui.resultsHead.innerHTML = '';
-    this.ui.resultsHead.appendChild(parsedHTML);
-    this.initUi();
-
-    if (this.data.type !== 'all') {
-      const radios = parsedHTML.querySelectorAll('[type="radio"]');
-
-      radios.forEach((radio) => {
-        if (radio.getAttribute('value') === this.data.type) (<HTMLInputElement>radio).click();
-      });
-    }
-
-    this.initFilterEventListeners(parsedHTML);
-
-    if (this.data.dateFrom && this.data.dateTo) {
-      this.setDatepickerInput();
-    }
-
-    if (templateData.autocorrectedTerm !== '') {
-      parsedHTML.querySelector(this.options.domSelectors.autocorrect).style.display = 'inline';
-    }
-  }
-
-  renderList() {
-    this.emptyList();
-    const compiledTemplate = template(this.ui.resultsTemplate.innerHTML);
-    const generatedHTML = compiledTemplate(this.result);
-    const parsedHTML = new DOMParser()
-      .parseFromString(generatedHTML, 'text/html')
-      .querySelector('ul');
-
-    this.ui.results.appendChild(parsedHTML);
-
-    (<any>window).estatico.helpers.app.registerModulesInElement(
-      this.ui.results.querySelector('ul')
-    );
-    (<any>window).estatico.helpers.app.initModulesInElement(this.ui.results.querySelector('ul'));
-  }
-
-  empty() {
-    this.ui.resultsHead.innerHTML = '';
-    this.ui.dateFilter.classList.remove(this.options.stateClasses.dateFilterVisible);
-    this.ui.datePicker.dispatchEvent(new CustomEvent(Datepicker.events.clear));
-    this.data = {
-      type: 'all',
-      page: 1,
-      dateTo: undefined,
-      dateFrom: undefined,
-    };
-
-    this.emptyList();
-  }
-
-  emptyList() {
-    const list = this.ui.results.querySelector('ul');
-
-    if (list) list.remove();
-  }
-
-  /**
-   * Generating the url with get params
-   *
-   * @param {*} params An object with all the params
-   * @memberof SearchPage
-   */
-  generateURL(baseURL, params) {
-    const keys = Object.keys(params);
-    let url = baseURL;
-
-    keys.forEach((key, index) => {
-      if (index === 0) {
-        url = `${url}?${key}=${encodeURIComponent(params[key])}`;
-      } else {
-        url = `${url}&${key}=${encodeURIComponent(params[key])}`;
+    // Fill count of ResultByType into tab buttons
+    this.ui.tabButtons.forEach((tab: HTMLButtonElement) => {
+      const countEl = tab.querySelector('.mdl-search_page__count');
+      if (countEl) {
+        const count =
+          this.result.resultsData.resultsByType.find(
+            (result: ResultByType) => result.type === tab.id
+          )?.numberOfResults ?? 0;
+        if (tab.id !== DEFAULT_TYPE) tab.classList.toggle('hidden', count === 0);
+        countEl.textContent = String(count);
       }
     });
 
-    return url;
+    // Show result head?
+    this.ui.resultsHead.hidden = !(this.result.didYouMean?.length || this.result.autoCorrectedTerm);
+
+    // Fill autocorrection if available
+    const autocorrection = this.ui.autocorrection;
+    const autocorrected = autocorrection.querySelector('.mdl-search_page__autocorrected');
+    const original = autocorrection.querySelector('.mdl-search_page__original');
+    if (autocorrection && autocorrected && original) {
+      autocorrection.hidden = !this.result.autoCorrectedTerm;
+      autocorrected.textContent = this.result.autoCorrectedTerm;
+      original.textContent = this.query;
+    }
+
+    // Fill suggestions if available
+    const suggestions = this.ui.suggestions;
+    const container = suggestions.querySelector('span');
+    if (suggestions) {
+      suggestions.hidden = !this.result.didYouMean?.length;
+      if (this.result.didYouMean?.length && container) {
+        container.textContent = ''; // empty first
+        this.result.didYouMean.forEach((suggestion: string) => {
+          const didYouMean = document.importNode(
+            this.ui.didYouMeanTemplate.content,
+            true
+          ).firstElementChild;
+          didYouMean.textContent = suggestion;
+          container.append(didYouMean);
+        });
+      }
+
+      this.updateFlyingFocus();
+    }
+
+    // Pass results to SearchResultList component
+    const resultList = this.ui.element.querySelector(
+      `#${this.data.type}-panel [data-init="searchResultList"]`
+    );
+    if (!resultList) return;
+    resultList.dispatchEvent(
+      new CustomEvent(SearchResultList.events.update, {
+        detail: {
+          result: this.result,
+          page: this.data.page,
+        },
+      })
+    );
+    document.getElementById(this.data.type)?.click();
+    this.ui.element.classList.add(this.options.stateClasses.showResults);
+    this.scrollTop();
+  }
+
+  empty() {
+    this.ui.resultsHead.hidden = true;
+    this.data = {
+      type: DEFAULT_TYPE,
+      page: 1,
+    };
+  }
+
+  /**
+   * Generates a full URL with query parameters and optional hash.
+   *
+   * @param baseURL - The base URL to which query params and hash will be appended.
+   * @param params - An object representing key-value pairs for query parameters.
+   * @param hash - Optional hash fragment to append (without the # symbol).
+   * @returns A fully constructed URL string.
+   */
+  generateURL(baseURL: string, params: Record<string, string | string[]>, hash = ''): string {
+    const url = new URL(
+      !this.options.inEstatico
+        ? baseURL
+        : params.type && params.type !== DEFAULT_TYPE
+        ? baseURL.replace('.json', `.${params.type}.json`)
+        : params.fullText === 'no results'
+        ? baseURL.replace('.json', `.no-results.json`)
+        : baseURL,
+      this.getBaseUrl()
+    );
+    const searchParams = new URLSearchParams();
+
+    for (const [key, value] of Object.entries(params)) {
+      if (value === undefined || value === null) continue;
+
+      if (Array.isArray(value)) {
+        for (const item of value) {
+          searchParams.append(key, item);
+        }
+      } else {
+        searchParams.append(key, value);
+      }
+    }
+
+    url.search = searchParams.toString();
+    if (hash) url.hash = hash;
+    return url.toString();
   }
 
   showNoResults(show: boolean) {
     if (show) {
-      const compiledTemplate = template(this.ui.element.getAttribute('data-search-no-results'));
-      const generatedHTML = compiledTemplate({ searchTerm: this.query });
-      this.ui.noResults.querySelector('.atm-heading').innerHTML = generatedHTML;
-      this.ui.element.classList.add(this.options.stateClasses.showNoResults);
-      return;
+      const span = this.ui.noResults.querySelector('.atm-heading span');
+      if (span) span.textContent = this.query;
+      else console.error('No span for search term in title of no results placeholder');
+    } else {
+      this.ui.element.classList.remove(this.options.stateClasses.showResults);
     }
-    this.ui.element.classList.remove(this.options.stateClasses.showNoResults);
+    this.ui.element.classList.toggle(this.options.stateClasses.showNoResults, show);
   }
 
   /**
@@ -539,65 +599,58 @@ class SearchPage extends Module {
    * @memberof SearchPage
    */
   dispatchPageCount() {
-    let pageCount = this.result.resultsData.numberOfResultPages;
+    let pageCount: number =
+      this.result.resultsData.resultsByType.find(
+        (result: ResultByType) => result.type === this.data.type
+      )?.numberOfResultPages ?? 1;
 
-    if (this.data.type !== 'all') {
-      const typeResultInfo = this.result.resultsData.resultsByType.find(
-        (resultByType) => resultByType.type === this.data.type
+    const pagination = this.ui.element.querySelector(
+      `#${this.data.type}-panel [data-init="pagination"]`
+    );
+    if (pagination) {
+      pagination.dispatchEvent(
+        new CustomEvent(Pagination.events.setPageCount, {
+          detail: pageCount,
+        })
       );
-
-      pageCount = typeResultInfo.numberOfResultPages;
+      pagination.dispatchEvent(
+        new CustomEvent(Pagination.events.setPage, {
+          detail: this.data.page,
+        })
+      );
     }
-
-    this.ui.pagination.dispatchEvent(
-      new CustomEvent(Pagination.events.setPageCount, {
-        detail: pageCount,
-      })
-    );
-    this.ui.pagination.dispatchEvent(
-      new CustomEvent(Pagination.events.setPage, {
-        detail: this.data.page,
-      })
-    );
   }
 
   getParamsInUrl() {
-    const query = getURLParam('q', true);
-    const type = getURLParam('type', true);
-    const page = getURLParam('page', true);
-    const dateTo = getURLParam('dateTo', true);
-    const dateFrom = getURLParam('dateFrom', true);
+    const searchParams = new URLSearchParams(window.location.search);
+    const query = searchParams.get('q')?.replaceAll('+', ' ') ?? '';
+    const type = searchParams.get('type') || decodeURIComponent(window.location.hash.substring(1));
+    const page = searchParams.get('page');
+    this.data.topicTags = searchParams
+      .getAll('topicTag')
+      .map((tag: string) => tag.replaceAll('+', ' '));
+    this.data.orgTags = searchParams
+      .getAll('organisationTag')
+      .map((tag: string) => tag.replaceAll('+', ' '));
 
     if (query) {
       this.query = query;
       this.ui.input.value = this.query;
     }
-    if (type) {
-      this.data.type = type;
-    }
-    if (page) {
-      this.data.page = parseInt(page, 10);
-    }
+    if (KNOWN_TYPES.includes(type)) this.data.type = type;
+    if (page) this.data.page = parseInt(page, 10);
+    queueMicrotask(() => {
+      this.ui.extendedSearch.dispatchEvent(
+        new CustomEvent(ExtendedSearch.events.setFilter, {
+          detail: [...this.data.topicTags, ...this.data.orgTags],
+        })
+      );
+    });
 
-    if (dateTo && dateFrom) {
-      this.data.dateTo = new Date(dateTo);
-      this.data.dateFrom = new Date(dateFrom);
-    }
-
-    if (query || type || page) {
+    if (query.length >= this.options.minInputLength) {
       this.ui.wrapper.classList.add(this.options.stateClasses.loading);
 
-      this.getData(this.generateParams(true, true, true, true, true), (response) => {
-        this.result = response;
-        this.checkIfPickerVisible();
-        if (response.results) {
-          this.dispatchPageCount();
-          this.renderResults();
-        } else {
-          this.showNoResults(true);
-          this.renderHead();
-        }
-      });
+      this.getData(this.generateParams(true, true));
     }
   }
 
@@ -607,48 +660,16 @@ class SearchPage extends Module {
       q: this.query,
     };
 
-    if (this.query === '') {
-      delete urlParams.q;
-    }
-
-    if (this.data.page !== 1) {
-      urlParams.page = this.data.page;
-    }
-    if (this.data.type !== 'all') {
-      urlParams.type = this.data.type;
-    }
-
-    if (
-      typeof this.data.dateFrom !== 'undefined' &&
-      typeof this.data.dateTo !== 'undefined' &&
-      this.data.type === 'news'
-    ) {
-      urlParams.dateFrom = this.getAPIDateString(this.data.dateFrom);
-      urlParams.dateTo = this.getAPIDateString(this.data.dateTo);
-    }
+    if (this.data.page !== 1) urlParams.page = this.data.page;
+    if (this.data.topicTags && this.data.topicTags.length > 0)
+      urlParams.topicTag = this.data.topicTags;
+    if (this.data.orgTags && this.data.orgTags.length > 0)
+      urlParams.organisationTag = this.data.orgTags;
 
     if (Object.keys(urlParams).length > 0) {
-      url = this.generateURL(url, urlParams);
+      url = this.generateURL(url, urlParams, this.data.type !== DEFAULT_TYPE ? this.data.type : '');
     }
     window.history.pushState({}, document.title, url);
-  }
-
-  checkIfPickerVisible() {
-    if (this.data.type === 'news') {
-      this.ui.dateFilter.classList.add(this.options.stateClasses.dateFilterVisible);
-    } else {
-      this.ui.dateFilter.classList.remove(this.options.stateClasses.dateFilterVisible);
-    }
-  }
-
-  setDatepickerInput() {
-    this.ui.datePicker.dispatchEvent(
-      new CustomEvent(Datepicker.events.injectDate, {
-        detail: {
-          date: [this.data.dateFrom, this.data.dateTo],
-        },
-      })
-    );
   }
 
   /**
@@ -656,9 +677,9 @@ class SearchPage extends Module {
    */
   scrollTop() {
     setTimeout(() => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const rect = this.ui.element.getBoundingClientRect();
-      window.scroll(0, rect.top + scrollTop);
+      this.ui.form.scrollIntoView({
+        behavior: 'smooth',
+      });
     }, 0);
   }
 

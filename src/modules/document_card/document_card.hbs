@@ -1,0 +1,21 @@
+<a class="mdl-document_card" href="{{{link}}}">
+  <div class="mdl-document_card__icon">
+    <svg class="mdl-document_card__svg icon" focusable="false">
+      <use xlink:href="#{{icon}}"></use>
+    </svg>
+  </div>
+  <div class="mdl-document_card__content">
+    <h4 class="atm-heading">{{title}}</h4>
+    <dl class="mdl-document_card__description-list">
+      {{#each teaserText}}
+        <div class="mdl-document_card__description-pair">
+          <dt class="mdl-document_card__description-term">{{term}}</dt>
+          <dd class="mdl-document_card__description-description">{{description}}</dd>
+        </div>
+      {{/each}}
+    </dl>
+  </div>
+  <div class="mdl-document_card__download">
+    {{> "atoms/linklist_item/linklist_item" downloadLink}}
+  </div>
+</a>

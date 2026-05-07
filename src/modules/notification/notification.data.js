@@ -89,6 +89,23 @@ const variants = _.mapValues(
         },
       },
     },
+    emailConfirmationNotification: {
+      meta: {
+        title: 'Noch ein Schritt fehlt (formIDable)',
+        desc: 'Der Hinweis wird angezeigt, wenn zum Abschluss noch ein Login notwendig ist.',
+      },
+      props: {
+        message:
+          'Für die vollständige Übermittlung Ihres Antrags müssen Sie sich über den untenstehenden Button in Ihr Konto einloggen.<br />Wir haben Ihnen ausserdem eine Bestätigungsmail an test@test.ch zugeschickt. Auch hier finden Sie den Link zum Login.',
+        title: 'Noch ein Schritt fehlt!',
+        icon: '#confirm',
+        isGreen: true,
+        button: {
+          label: 'Zum Login',
+          additionalAttribute: 'data-attr_selector="loginBtn"',
+        },
+      },
+    },
   },
   (variant) => {
     const variantProps = _.merge({}, data, variant).props;

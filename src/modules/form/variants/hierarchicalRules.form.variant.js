@@ -37,6 +37,8 @@ module.exports = {
                             id: 'hr1_1',
                             value: 'yes',
                             validation: {
+                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                               isRequired: true,
                             },
                           })
@@ -49,6 +51,8 @@ module.exports = {
                             id: 'hr1_2',
                             value: 'no',
                             validation: {
+                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                               isRequired: true,
                             },
                           })
@@ -87,6 +91,8 @@ module.exports = {
                             id: 'hr2_1',
                             value: 'yes',
                             validation: {
+                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                               isRequired: true,
                             },
                           })
@@ -99,6 +105,8 @@ module.exports = {
                             id: 'hr2_2',
                             value: 'no',
                             validation: {
+                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                               isRequired: true,
                             },
                           })

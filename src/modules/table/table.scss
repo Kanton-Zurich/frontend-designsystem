@@ -347,6 +347,39 @@
     }
   }
 
+  &--zebra {
+    @include sizeCurve(padding-top, medium);
+
+    padding-bottom: 0;
+
+    .mdl-table__title.atm-heading {
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, regular));
+      @include sizeCurve(margin-bottom, tiny);
+
+      font-family: $fontFamilyBase;
+      color: $colorBlack60;
+      font-weight: 400;
+    }
+
+    .mdl-table__head .mdl-table__cell {
+      background-color: transparent;
+    }
+
+    &.mdl-table--first-column-fixed .mdl-table__table .mdl-table__column-header:first-child {
+      background-color: transparent;
+    }
+  }
+
+  &--inverted.mdl-table--zebra {
+    tbody .mdl-table__row:nth-child(even) .mdl-table__cell {
+      background: $colorWhite;
+    }
+
+    tbody .mdl-table__row:nth-child(odd) .mdl-table__cell {
+      background: $colorBlack10;
+    }
+  }
+
   /**
    * Full width
    */
@@ -355,6 +388,9 @@
 
     .mdl-table__figure {
       @include gridBleed($fullwidth: true);
+      @include mq($from: medium, $to: large) {
+        transform: translateX(-50%);
+      }
     }
   }
 

@@ -30,13 +30,7 @@ export default function Logger(pluginName) {
 
     // We cannot properly use `gulplog.error` outside of `gulp-cli` (i.e. in tests)
     // Falling back to fancy-log instead
-    fancyLog(
-      chalk.cyan(pluginName),
-      err.plugin ? chalk.cyan(`(${err.plugin})`) : '',
-      err.fileName ? chalk.yellow(err.fileName) : '',
-      chalk.red(err.message),
-      stack
-    );
+    fancyLog(chalk.cyan(pluginName), err.plugin ? chalk.cyan(`(${err.plugin})`) : '', err.fileName ? chalk.yellow(err.fileName) : '', chalk.red(err.message), stack);
 
     if (!dev) {
       process.exit(1);

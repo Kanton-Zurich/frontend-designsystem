@@ -22,6 +22,10 @@
 
     @include sizeCurve('padding-top', regular);
   }
+
+  &--search {
+    margin-bottom: 0;
+  }
 }
 
 @each $key, $val in $tl-color-variations {
@@ -35,6 +39,18 @@
 
       .atm-paragraph {
         color: #{$val};
+      }
+
+      .atm-linklist_item--download {
+        color: #{$val};
+
+        &:hover {
+          color: $colorBlack;
+        }
+      }
+
+      .atm-linklist_item__download use {
+        fill: #{$val};
       }
 
       ul {

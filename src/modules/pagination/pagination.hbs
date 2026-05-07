@@ -9,10 +9,10 @@
     <div class="lyt-wrapper">
   {{/if}}
   <div class="mdl-pagination__input atm-form_input atm-form_input--small">
-    <label class="visuallyhidden" for="pagination_input_field">Seite</label>
-    <input id="pagination_input_field" class="atm-form_input__input" value="1" type="number" aria-describedby="paginationCountDescr">
+    <label class="visuallyhidden" for="{{inputId}}">Seite</label>
+    <input id="{{inputId}}" class="atm-form_input__input" value="1" type="number" aria-describedby="{{descriptionId}}" min="1" max="{{pageCount}}" />
   </div>
-  <p class="mdl-pagination__page-count" id="paginationCountDescr" aria-live="polite">
+  <p class="mdl-pagination__page-count" id="{{descriptionId}}" aria-live="polite">
     <em class="visuallyhidden"></em> von <span>{{pageCount}}</span>
   </p>
   <a class="mdl-pagination__button-prev atm-button atm-button--icon-only atm-button--secondary" href="">

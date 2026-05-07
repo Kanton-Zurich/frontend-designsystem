@@ -1,0 +1,98 @@
+.mdl-document_card {
+  display: flex;
+  gap: pxToRem($sizeRegular);
+  background-color: $colorBlack10;
+  padding: pxToRem($sizeSmallLarge);
+  text-decoration: none;
+  margin-bottom: pxToRem($sizeTiny);
+
+  &:hover {
+    .mdl-document_card__svg {
+      fill: $colorBlack;
+    }
+
+    button.atm-linklist_item .icon use {
+      fill: $colorBlack60;
+    }
+
+    .atm-linklist_item__text {
+      color: $colorBlack60;
+    }
+  }
+
+  .atm-heading {
+    color: $colorBlack;
+  }
+
+  .atm-linklist_item__download {
+    fill: $colorBlack60;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+
+    @include mq($to: small) {
+      margin-top: 0;
+    }
+  }
+
+  &__svg {
+    width: pxToRem($sizeLarge);
+    height: pxToRem($sizeLarge);
+    fill: $colorBlue;
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__description-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: pxToRem($sizeTiny);
+    margin-bottom: 0;
+    gap: pxToRem($sizeMini) pxToRem($sizeSmallRegular);
+  }
+
+  &__description-pair {
+    display: flex;
+    white-space: nowrap;
+  }
+
+  &__description-term {
+    color: $colorBlack60;
+    font-size: pxToRem($sizeFontTiny);
+  }
+
+  &__description-description {
+    margin-left: pxToRem($sizeMini);
+    color: $colorBlack;
+    font-size: pxToRem($sizeFontTiny);
+  }
+
+  &__download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .atm-linklist_item__download {
+      margin-right: pxToRem($sizeTiny);
+    }
+
+    .atm-linklist_item__text {
+      font-family: $fontFamilyBase;
+      font-size: pxToRem($sizeFontRegular);
+      line-height: $sizeLineHeightBase;
+      color: $colorBlack60;
+
+      @include mq($to: medium) {
+        @include visuallyhidden;
+      }
+    }
+
+    .atm-linklist_item:after {
+      display: none;
+    }
+  }
+}

@@ -28,6 +28,8 @@ module.exports = {
                       liveUpdate: true,
                       validation: {
                         isRequired: true,
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         errorMsg: 'Bitte gültigen Wert eingeben',
                       },
                     })

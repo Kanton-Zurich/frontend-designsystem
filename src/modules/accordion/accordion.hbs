@@ -1,7 +1,6 @@
 
 <div
   class="mdl-accordion
-  {{#if indented}}mdl-accordion--indented{{/if}}
   {{#if hasBackground}}mdl-accordion--cv-inverted cell small-offset-2 medium-offset-2 large-offset-2 tiny-12 small-10{{/if}}
   {{#if isContact}}mdl-accordion--contact{{/if}}
   {{#if toggleAll}}mdl-accordion--toggleall{{/if}}
@@ -13,14 +12,18 @@
 {{#if hasBackground}}
   <div class="lyt-wrapper">
     <div class="grid-x grid-margin-x">
-      <div class="cell {{#if indented}}medium-offset-1 small-12 medium-10{{else}}small-offset-2 medium-offset-2 small-10 medium-9{{/if}} large-offset-2 large-8">
+      <div class="cell small-offset-2 medium-offset-2 small-10 medium-9 large-offset-2 large-8">
 {{/if}}
   {{#if heading.title}}
     <h{{heading.level}}
       {{#if anchorNavReference}} id="{{anchorNavReference}}" data-anchornav="target"{{/if}}
-      class="atm-heading
-      {{#if_compare heading.visualLevel "!==" heading.level}}h{{heading.visualLevel}}{{/if_compare}}
-      {{#if_compare heading.visualLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+      {{#if heading.visuallyHidden}}
+        class="visuallyhidden"
+      {{else}}
+        class="atm-heading
+        {{#if_compare heading.visualLevel "!==" heading.level}}h{{heading.visualLevel}}{{/if_compare}}
+        {{#if_compare heading.visualLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
+      {{/if}}
     >
       {{heading.title}}
     </h{{heading.level}}>

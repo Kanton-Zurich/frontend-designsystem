@@ -107,11 +107,11 @@ const variants = _.mapValues(
         desc: 'Bietet zusätzliche Zeile für Adresseinträge und eine Entfernungsangabe über dem Arrow',
       },
       props: {
+        isButton: true,
         linkListItemIsLocation: true,
         linkListItemDistance: '2,0 km',
         linkListItemTitle: 'Strassenverkehrsamt Kanton Zürich',
         linkListItemLabel: 'Uetlibergstrasse 301, 8036 Zürich',
-        linkListItemHref: '/',
       },
     },
     download: {
@@ -144,7 +144,7 @@ const variants = _.mapValues(
       },
       props: {
         linkListItemHref: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        linkListItemLabel: 'RRB Nr. 258 | 21.03.2019 | Direktion der Justiz und des Inneren',
+        linkListItemLabel: 'RRB Nr. 258 | 21.03.2019 | Direktion der Justiz und des Inneren',
         linkListItemTitle:
           'ZHAW Hochschule Winterthur, Campus Technikumstrasse, Projektierung "Campus T" 1. Etappe, gebunde Ausgabe',
         isLegalFoundation: true,

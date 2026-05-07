@@ -34,6 +34,8 @@ const variants = _.mapValues(
           maskPlaceholder: 'HH:MM',
           validation: {
             isRequired: true,
+            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
             pattern: '^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$',
             errorMsg: 'Bitte geben Sie eine korrekte Uhrzeit an.',
           },
@@ -57,6 +59,8 @@ const variants = _.mapValues(
           validation: {
             pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',
             isRequired: true,
+            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
             errorMsg: 'Bitte geben Sie eine korrektes Datum an.',
           },
         }),
@@ -80,6 +84,8 @@ const variants = _.mapValues(
           validation: {
             pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',
             isRequired: true,
+            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
             errorMsg: 'Bitte geben Sie eine korrektes Datum an.',
           },
         }),
@@ -103,6 +109,8 @@ const variants = _.mapValues(
           validation: {
             pattern: '^\\d{2}.\\d{2}.\\d{4}\\s-\\s\\d{2}.\\d{2}.\\d{4}$',
             isRequired: true,
+            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
             errorMsg: 'Bitte geben Sie eine korrekte Zeitspanne an.',
           },
         }),
@@ -126,6 +134,8 @@ const variants = _.mapValues(
           validation: {
             pattern: '^\\d{2}.\\d{2}.\\d{4}\\s-\\s\\d{2}.\\d{2}.\\d{4}$',
             isRequired: false,
+            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
             errorMsg: 'Bitte geben Sie eine korrekte Zeitspanne an.',
           },
         }),
@@ -148,6 +158,8 @@ const variants = _.mapValues(
           validation: {
             pattern: '^\\d{2}.\\d{2}.\\d{4}\\s([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$',
             isRequired: true,
+            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
             errorMsg: 'Bitte geben Sie ein korrektes Datum an.',
           },
         }),
@@ -190,6 +202,8 @@ const variants = _.mapValues(
           validation: {
             pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',
             isRequired: true,
+            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
             errorMsg: 'Bitte geben Sie eine korrektes Datum an.',
           },
         }),

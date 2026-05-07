@@ -10,7 +10,15 @@
   @include clearfix;
 }
 
-.hidden {
+.hidden,
+[hidden] {
   /* eslint-disable-next-line */
   display: none !important; //stylelint-disable-line
 }
+
+ /* stylelint-disable */
+[lang$="-x-easy"] *,
+[lang$="-x-easy"] {
+  hyphens: none !important;
+}
+/* stylelint-enable */

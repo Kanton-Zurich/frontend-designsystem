@@ -1,9 +1,11 @@
+import { createRequire } from 'module';
 import TerserPlugin from 'terser-webpack-plugin';
 import UnminifiedWebpackPlugin from 'unminified-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-
-const env = require('minimist')(process.argv.slice(2));
 import { resolve as _resolve } from 'path';
+
+const require = createRequire(import.meta.url);
+const env = require('minimist')(process.argv.slice(2));
 
 export default [
   {

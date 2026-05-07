@@ -81,12 +81,17 @@ const data = _.merge({}, defaultData, {
         ],
       },
       flexDataData: _.assign(_.merge({}, defFlexDataData), {
+        title: 'Suche',
+        headingLevel: 2,
+        visualHeadingLevel: 2,
         flexDataSource: '/mocks/modules/flex_data/flex_data_table_alt.json',
         flexTableFormData: _.merge({}, defFormData.variants.decisions.props),
         tableData: {
+          isInverted: true,
+          isZebra: true,
           tableTitle: '',
           hasTitle: true,
-          tableHeadingLevel: 4,
+          headingLevel: 4,
           hasColumnHeader: true,
           isWide: true,
           isStatic: true,

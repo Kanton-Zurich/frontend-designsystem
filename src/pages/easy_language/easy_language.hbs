@@ -1,0 +1,18 @@
+{{#extend "layouts/layout_easy_language"}}
+  {{#content "pageheader"}}
+    {{> "modules/page_header/page_header" props.modules.pageHeaderData }}
+    {{> "modules/lang_switch/lang_switch" props.modules.langSwitchData}}
+  {{/content}}
+
+  {{#content "content"}}
+    <div class="mdl-anchornav__wrapper">
+      {{> "modules/teaser/teaser" props.modules.teaserData}}
+      {{> "modules/richtext/richtext" props.modules.richtextData}}
+    </div>
+  {{/content}}
+
+  {{#content "footer"}}
+    {{> "modules/footer/footer" props.modules.footerData }}
+    {{> "modules/back_to/back_to" props.modules.backToData}}
+  {{/content}}
+{{/extend}}

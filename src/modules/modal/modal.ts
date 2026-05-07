@@ -45,6 +45,7 @@ class Modal extends Module {
     membersTable: HTMLElement;
     membersPagination: HTMLElement;
     linkListOrganisations: HTMLElement;
+    serviceList: HTMLElement;
   };
 
   constructor($element: any, data: Object, options: Object) {
@@ -65,6 +66,7 @@ class Modal extends Module {
         membersTable: '.mdl-table',
         membersPagination: '.mdl-table .mdl-pagination',
         linkListOrganisations: '.mdl-linklist',
+        serviceList: '.mdl-service_list',
       },
       stateClasses: {
         beforeShow: 'mdl-modal--before-show',
@@ -452,7 +454,7 @@ class Modal extends Module {
         });
       });
       dispatchSetData('contactBlockOrganisation', [organisation]);
-      dispatchSetData('contactBlockLeaders', organisation.leaders || []);
+      dispatchSetData('contactBlockLeaders', organisation.leaders ?? []);
 
       setMembersList(organisation.members || []);
       setMembersPage(1);
@@ -479,6 +481,7 @@ class Modal extends Module {
       }
 
       dispatchSetData('linkListOrganisations', organisation);
+      dispatchSetData('serviceList', organisation.services ?? []);
     });
 
     // Effect to update the members list in the modal

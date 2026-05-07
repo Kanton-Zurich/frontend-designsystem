@@ -5,29 +5,32 @@
  * @copyright
  */
 import Module from '../../assets/js/helpers/module';
-import Impetus from 'impetus';
+import WindowEventListener from '../../assets/js/helpers/events';
 
 class Tabs extends Module {
   public ui: {
     element: HTMLDivElement;
     controls: HTMLDivElement;
+    controlsWrapper: HTMLDivElement;
     controlButtons: HTMLUListElement;
   };
   private tabs: HTMLElement[];
   private panels: HTMLElement[];
   private keys: any;
   private direction: any;
-  private impetus: any;
 
   constructor($element: any, data: Object, options: Object) {
     const defaultData = {};
     const defaultOptions = {
       domSelectors: {
         controls: '.mdl-tabs__controls',
+        controlsWrapper: '.mdl-tabs__controls-wrapper',
         controlButtons: '.mdl-tabs__controls .mdl-button_group',
       },
       stateClasses: {
         // activated: 'is-activated'
+        scrollLeft: 'mdl-tabs__controls-scroll-left',
+        scrollRight: 'mdl-tabs__controls-scroll-right',
       },
     };
     super($element, defaultData, defaultOptions, data, options);
@@ -75,50 +78,17 @@ class Tabs extends Module {
         this.keyupEventListener(event);
       });
     });
-    // swipe
-    if (this.ui.controls && this.ui.controlButtons) {
-      this.updateSwipeFunction(0);
-      this.impetus = new Impetus({
-        source: this.ui.controls,
-        boundX: [
-          -Math.abs(
-            this.ui.controlButtons.getBoundingClientRect().width -
-              this.ui.controls.getBoundingClientRect().width
-          ),
-          0,
-        ],
-        bounce: false,
-        multiplier: 1,
-        friction: 0,
-        update: this.updateSwipeFunction.bind(this),
-      });
-    }
-  }
 
-  private updateSwipeFunction(x) {
-    let translateX = x;
-    const clientWidth = this.ui.controlButtons.getBoundingClientRect().width;
-    const { width } = this.ui.controls.getBoundingClientRect();
-    if (width >= clientWidth) {
-      translateX = 0;
-    }
-    this.ui.controlButtons.style.transform = `translate(${translateX}px, 0px)`;
+    if (!this.ui.controls || !this.ui.controlsWrapper) return;
+    this.updateScrollIndicators();
 
-    this.ui.controls.classList.remove(
-      'mdl-tabs__controls-scroll-right',
-      'mdl-tabs__controls-scroll-left'
-    );
-    if (clientWidth > width) {
-      const scrollValue = Math.abs(translateX) / (clientWidth - width);
-      // eslint-disable-next-line
-      if (scrollValue > 0.05) {
-        this.ui.controls.classList.add('mdl-tabs__controls-scroll-right');
-      }
-      // eslint-disable-next-line
-      if (scrollValue < 0.95) {
-        this.ui.controls.classList.add('mdl-tabs__controls-scroll-left');
-      }
-    }
+    this.ui.controlsWrapper.addEventListener('scroll', () => {
+      this.updateScrollIndicators();
+    });
+
+    (<any>WindowEventListener).addDebouncedResizeListener(() => {
+      this.updateScrollIndicators();
+    });
   }
 
   private clickEventListener(event) {
@@ -147,11 +117,9 @@ class Tabs extends Module {
     if (this.direction[pressed]) {
       const index = +event.target.getAttribute('data-tab-index');
       if (index !== undefined) {
-        if (this.tabs[index + this.direction[pressed]]) {
-          this.tabs[index + this.direction[pressed]].focus();
-        } else if (pressed === this.keys.right || pressed === this.keys.down) {
-          this.tabs[0].focus();
-        }
+        const tab = this.tabs[index + this.direction[pressed]];
+        if (tab) tab.focus();
+        else if (pressed === this.keys.right || pressed === this.keys.down) this.tabs[0].focus();
       }
     }
   }
@@ -218,9 +186,23 @@ class Tabs extends Module {
   // Only activate tab on focus if it still has focus after the delay
   private checkTabFocus(target) {
     const focused = document.activeElement;
-    if (target === focused) {
-      this.activateTab(target, false);
-    }
+    if (target === focused) target.click();
+  }
+
+  /**
+   * Update scroll indicator classes based on current scroll position
+   */
+  private updateScrollIndicators() {
+    if (!this.ui.controls || !this.ui.controlsWrapper) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = this.ui.controlsWrapper;
+    const maxScrollLeft = scrollWidth - clientWidth;
+
+    this.ui.controls.classList.toggle(
+      this.options.stateClasses.scrollLeft,
+      scrollLeft < maxScrollLeft - 1
+    );
+    this.ui.controls.classList.toggle(this.options.stateClasses.scrollRight, scrollLeft > 0);
   }
 
   /**

@@ -48,9 +48,11 @@
                 <svg class="icon mdl-contact_entry__copy-button-confirm" focusable="false">
                   <use xlink:href="#confirm"></use>
                 </svg>
+                <span class="mdl-contact_entry__copy-button-confirm-text visuallyhidden">{{entryAddress.copytoclipboardButton.successMessage}}</span>
                 <svg class="icon mdl-contact_entry__copy-button-caution" focusable="false">
                   <use xlink:href="#caution"></use>
                 </svg>
+                <span class="mdl-contact_entry__copy-button-caution-text visuallyhidden">{{entryAddress.copytoclipboardButton.errorMessage}}</span>
               </div>
             {{/if}}
           </address>

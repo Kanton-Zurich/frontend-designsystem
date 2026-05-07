@@ -17,6 +17,7 @@ module.exports = {
   },
   props: {
     sectionTitle: 'Suche',
+    additionalClasses: 'visuallyhidden',
     headingLevel: 2,
     groups: [
       {
@@ -28,6 +29,7 @@ module.exports = {
                   handlebars.compile(formInputHBS)(
                     _.merge({}, formInputData.variants.default.props, {
                       isFloatingLabel: true,
+                      isMedium: true,
                       label: 'Stichwort',
                       name: 'fullText',
                       uuid: 'fullText',
@@ -43,6 +45,7 @@ module.exports = {
                   handlebars.compile(formInputHBS)(
                     _.merge({}, formInputData.variants.default.props, {
                       isFloatingLabel: true,
+                      isMedium: true,
                       label: 'RRB-Nr.',
                       name: 'decisionNumber',
                       uuid: 'decisionNumber',
@@ -73,6 +76,7 @@ module.exports = {
                       }),
                       triggerInputData: {
                         label: 'Jahr',
+                        isMedium: true,
                         validation: {
                           isRequired: false,
                         },
@@ -108,6 +112,7 @@ module.exports = {
                       }),
                       triggerInputData: {
                         label: 'Direktion',
+                        isMedium: true,
                         validation: {
                           isRequired: false,
                         },

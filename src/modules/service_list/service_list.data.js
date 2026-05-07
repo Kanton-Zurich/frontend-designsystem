@@ -2,6 +2,7 @@ const _ = require('lodash');
 const dataHelper = require('@unic/estatico-data');
 const { handlebars } = require('@unic/estatico-handlebars');
 const defaultData = require('../../data/default.data.js');
+const pagination = require('../../modules/pagination/pagination.data.js');
 
 const template = dataHelper.getFileContent('service_list.hbs');
 const data = _.merge({}, defaultData, {
@@ -101,6 +102,22 @@ const variants = _.mapValues(
           visualLevel: 3,
           title: 'Services',
         },
+      },
+    },
+    eDirectorySpa: {
+      meta: {
+        title: 'Behördenverzeichnis Services SPA',
+        desc: 'Implementierung für das Behördenverzeichnis',
+      },
+      props: {
+        heading: {
+          level: 2,
+          visualLevel: 3,
+          title: 'Anliegen',
+        },
+        spa: true,
+        items: [],
+        pagination: _.merge({}, pagination.variants.default.props, {}),
       },
     },
   },

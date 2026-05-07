@@ -41,7 +41,7 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
     margin-left: pxToRem(12px);
   }
 
-  &:hover {
+  &:not(:disabled):hover {
     background: $colorBlack80;
   }
 
@@ -87,16 +87,18 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
 
     background: rgba($colorBlack, 0.1);
 
-    &:hover {
-      background: rgba($colorBlack, 0.2);
-    }
+    &:not(:disabled) {
+      &:hover {
+        background: rgba($colorBlack, 0.2);
+      }
 
-    &:active {
-      background: $colorBlack;
-      color: $colorWhite;
+      &:active {
+        background: $colorBlack;
+        color: $colorWhite;
 
-      use {
-        fill: $colorWhite;
+        use {
+          fill: $colorWhite;
+        }
       }
     }
   }
@@ -131,7 +133,7 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
       fill: $colorBlack;
     }
 
-    &:hover {
+    &:not(:disabled):hover {
       background: rgba($colorWhite, 0.7);
     }
 
@@ -144,16 +146,23 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
         fill: $colorWhite;
       }
 
-      &:hover {
-        background: rgba($colorBlack, 0.4);
-      }
+      &:not(:disabled) {
+        &:hover {
+          background: rgba($colorBlack, 0.4);
+          color: $colorWhite;
 
-      &:active {
-        background: rgba($colorWhite, 1);
-        color: $colorBlack;
+          use {
+            fill: $colorWhite;
+          }
+        }
 
-        use {
-          fill: $colorBlack;
+        &:active {
+          background: rgba($colorWhite, 1);
+          color: $colorBlack;
+
+          use {
+            fill: $colorBlack;
+          }
         }
       }
     }
@@ -289,8 +298,8 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
   &--plain-text {
     @include textButton;
 
+    background-color: transparent !important; // stylelint-disable-line
     font-family: $fontFamilyBase;
-    background: none;
     padding: 0;
 
     .atm-button__icon {
@@ -300,10 +309,6 @@ $normalButtonSize: $sizeBiggerBig + $sizeTiny;
 
     .atm-button__text {
       order: 2;
-    }
-
-    &:hover {
-      background: none;
     }
   }
 }

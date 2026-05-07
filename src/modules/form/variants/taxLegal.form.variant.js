@@ -43,6 +43,8 @@ module.exports = {
                       icon: 'angle_drop_down',
                       label: 'Gemeinde',
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: true,
                       },
                     },
@@ -70,6 +72,8 @@ module.exports = {
                       icon: 'angle_drop_down',
                       label: 'Select Float Label',
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: true,
                       },
                     },

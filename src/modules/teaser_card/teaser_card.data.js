@@ -83,6 +83,22 @@ const variants = _.mapValues(
         headingLevel: 3,
       },
     },
+    teaserSearch: {
+      meta: {
+        title: 'Teaser Search',
+      },
+      props: {
+        link: '#',
+        publicationType: 'Medienmitteilung',
+        publicationDate: '14.12.2022',
+        title: 'Prognosezahlen öffentliche Volksschule',
+        text:
+          'Strassenbau Winterthur- / Überlandstrassen: Bitte planen Sie für Ihre Fahrt zum ' +
+          'Strassenverkehrsamt Hinwil genügend Zeit ein',
+        headingLevel: 3,
+        isTeaserSearch: true,
+      },
+    },
   },
   (variant) => {
     const variantProps = _.merge({}, data, variant).props;

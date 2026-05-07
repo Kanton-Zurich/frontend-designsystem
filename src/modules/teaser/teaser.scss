@@ -5,6 +5,21 @@ $teaserMargins: (
   ),
 );
 
+$teaserFontSize: (
+  regular: (
+    tiny: pxToRem($sizeFontLarge),
+    small: pxToRem($sizeFontSmallBig),
+    medium: pxToRem($sizeFontSmallBig),
+    large: pxToRem($sizeFontBiggerBig),
+  ),
+  smaller: (
+    tiny: pxToRem($sizeFontMedium),
+    small: pxToRem($sizeFontMedium),
+    medium: pxToRem($sizeFontLarge),
+    large: pxToRem($sizeFontSmallBig),
+  ),
+);
+
 .mdl-teaser {
   text-decoration: none;
   cursor: pointer;
@@ -58,20 +73,26 @@ $teaserMargins: (
   }
 
   &__title.atm-heading {
-    line-height: $sizeLineHeightNarrow;
+    line-height: $sizeLineHeightMedium;
+    overflow-y: hidden;
+    margin-bottom: pxToRem($sizeSmallRegular - 3);
 
-    @include sizeCurve('margin-bottom', regular);
-    @include polyFluidSizing(font-size, map-get($fontSizeCurves, big));
-    @include mq($to: small) {
+    @include sizeCurve(font-size, regular, $teaserFontSize);
+    @include mq($from: medium) {
+      margin-bottom: pxToRem($sizeSmallLarge - 3);
       line-height: $sizeLineHeightMedium;
     }
+    @include mq($from: large) {
+      line-height: $sizeLineHeightNarrow;
+    }
     @include mq($from: xlarge) {
-      line-height: $sizeLineHeightNarrower;
+      line-height: $sizeLineHeightNarrow;
+      margin-bottom: pxToRem($sizeLarge - 3);
     }
   }
 
   &__title--smaller.atm-heading {
-    @include polyFluidSizing('font-size', map-get($fontSizeCurves, medium));
+    @include sizeCurve(font-size, smaller, $teaserFontSize);
   }
 
   &__content {
@@ -119,6 +140,7 @@ $teaserMargins: (
     color: var(--color-accent);
     padding-top: 0;
     word-break: break-word;
+    padding-bottom: pxToRem(3);
 
     @include lineClamp(6);
     @include mq($from: large) {

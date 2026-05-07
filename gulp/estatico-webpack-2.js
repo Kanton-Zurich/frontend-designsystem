@@ -1,9 +1,9 @@
-import Plugin from './estatico-plugin-2';
-import Logger from './estatico-logger';
+import Plugin from './estatico-plugin-2.js';
+import Logger from './estatico-logger.js';
 
 // We export webpack to allow for complete flexibility in config overwrite
 import webpack from 'webpack';
-import webpackConfig from '../webpack.config';
+import webpackConfig from '../webpack.config.js';
 
 /**
  * Default config

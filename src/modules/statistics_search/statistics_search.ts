@@ -267,7 +267,6 @@ class StatisticsSearch extends Module {
     replaceState = false
   ) {
     const filterHash = this.createObjectHash([...this.filterTags]);
-    this.paginationInteraction = false;
     // only reload view if there is a change or forced load
     this.log(
       'updateFilterPills',
@@ -547,23 +546,25 @@ class StatisticsSearch extends Module {
       new CustomEvent(Pagination.events.setPageCount, { detail: this.numberOfResultPages })
     );
     const canonicalUrl = `${this.getBaseUrl()}?${this.currentUrl.split('?')[1]}`;
+    const constructedQuery = new URLSearchParams(this.currentUrl.split('?')[1]);
+    const currentPage = Number(constructedQuery.get('page')) || 1;
+
+    // Update pagination UI to show the current page
+    this.ui.pagination.dispatchEvent(
+      new CustomEvent(Pagination.events.setPage, { detail: currentPage })
+    );
     let prevUrl = '';
-    if (parseInt(this.ui.paginationInput.value, 10) > 1) {
-      prevUrl = `${this.getBaseUrl()}?${this.currentUrl
-        .split('?')[1]
-        .replace(
-          /page=(0|[1-9][0-9]*)/,
-          `page=${parseInt(this.ui.paginationInput.value, 10) - 1}`
-        )}`;
+    if (currentPage > 1) {
+      const prevQuery = new URLSearchParams(this.currentUrl.split('?')[1]);
+      prevQuery.set('page', String(currentPage - 1));
+      prevUrl = `${this.getBaseUrl()}?${prevQuery.toString()}`;
     }
+
     let nextUrl = '';
-    if (parseInt(this.ui.paginationInput.value, 10) < this.numberOfResultPages) {
-      nextUrl = `${this.getBaseUrl()}?${this.currentUrl
-        .split('?')[1]
-        .replace(
-          /page=(0|[1-9][0-9]*)/,
-          `page=${parseInt(this.ui.paginationInput.value, 10) + 1}`
-        )}`;
+    if (currentPage < this.numberOfResultPages) {
+      const nextQuery = new URLSearchParams(this.currentUrl.split('?')[1]);
+      nextQuery.set('page', String(currentPage + 1));
+      nextUrl = `${this.getBaseUrl()}?${nextQuery.toString()}`;
     }
     this.ui.pagination.dispatchEvent(
       new CustomEvent(Pagination.events.setCanonicalUrls, {
@@ -607,6 +608,7 @@ class StatisticsSearch extends Module {
       if (scroll) {
         this.scrollTop();
       }
+      this.paginationInteraction = false;
     }
   }
 
@@ -626,21 +628,7 @@ class StatisticsSearch extends Module {
    */
   scrollTop() {
     setTimeout(() => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const rect = this.ui.element.getBoundingClientRect();
-      window.scroll(0, rect.top + scrollTop);
-    }, 0);
-  }
-
-  /**
-   * Scroll to bottom
-   */
-  scrollBottom() {
-    setTimeout(() => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const rect = this.ui.pagination.getBoundingClientRect();
-      const elementOffset = rect.height * 2; // eslint-disable-line
-      window.scroll(0, rect.top + scrollTop - window.innerHeight + elementOffset);
+      this.ui.results.scrollIntoView();
     }, 0);
   }
 
@@ -659,8 +647,13 @@ class StatisticsSearch extends Module {
    * Assemble URL from base url and filters
    */
   private constructUrl() {
-    const queryString = new URLSearchParams();
-    queryString.append('page', this.ui.paginationInput.value || '1');
+    const queryString = new URLSearchParams(window.location.search);
+    const urlPage = queryString.get('page');
+    const uiPage = this.ui?.paginationInput?.value;
+    const pageToSet = (this.paginationInteraction ? uiPage : urlPage || uiPage) || '1';
+    queryString.set('page', String(pageToSet));
+    queryString.delete('tag');
+
     this.filterTags.forEach((filterTag) => queryString.append('tag', filterTag));
 
     const resultUrl = `${this.dataUrl}?${queryString.toString()}`;

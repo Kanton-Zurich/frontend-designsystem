@@ -12,6 +12,7 @@ interface ModuleDomSelectors {
   emptyListHint: string;
   notFoundTextTemplate: string;
   filterDescription: string;
+  filterWrapper: string;
   detailWrapper: string;
 }
 interface ModuleStateClasses {
@@ -45,7 +46,7 @@ const attrNames = {
 };
 const domSelectors: ModuleDomSelectors = {
   map: '[data-map-view=map]',
-  listItems: '[data-locations="listItem"]',
+  listItems: '.atm-linklist_item--location',
   distanceAnnotation: '.atm-linklist_item__distance',
   filterInput: '[data-locations="input"]',
   sidebar: '[data-locations="sidebar"]',
@@ -56,6 +57,7 @@ const domSelectors: ModuleDomSelectors = {
   toggleListBtn: '[data-locations="toggleList"]',
   emptyListHint: '[data-locations="emptyNote"]',
   notFoundTextTemplate: '[data-locations="emptyNoteTextTemplate"]',
+  filterWrapper: '.mdl-locations__filter',
   detailWrapper: '[data-locations="locationDetailsWrapper"]',
   filterDescription: '[data-locations="filterDescription"]',
 };

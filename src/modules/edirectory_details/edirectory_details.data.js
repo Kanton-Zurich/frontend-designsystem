@@ -5,6 +5,7 @@ const defaultData = require('../../data/default.data.js');
 const contactBlock = require('../contact_block/contact_block.data');
 const table = require('../table/table.data');
 const linklist = require('../linklist/linklist.data');
+const serviceList = require('../service_list/service_list.data');
 
 const template = dataHelper.getFileContent('edirectory_details.hbs');
 const data = _.merge({}, defaultData, {
@@ -20,6 +21,7 @@ const data = _.merge({}, defaultData, {
     contactLeaders: contactBlock.variants.leadersSpa.props,
     table: table.variants.eDirectoryMemberSpa.props,
     linklist: linklist.variants.eDirectorySpa.props,
+    serviceList: serviceList.variants.eDirectorySpa.props,
   },
 });
 const variants = _.mapValues(

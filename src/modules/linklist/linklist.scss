@@ -5,7 +5,11 @@
 
   &--toc {
     &:not(:last-child) {
-      margin-bottom: 0;
+      @include sizeCurve(margin-bottom, medium);
+    }
+
+    .mdl-linklist__list {
+      margin-block-start: pxToRem($sizeSmallRegular);
     }
 
     .mdl-linklist__title {
@@ -15,6 +19,7 @@
       .mdl-linklist__chapter-number {
         flex-grow: 0;
         flex-shrink: 0;
+        font-feature-settings: 'tnum';
         min-width: pxToRem($chapterNumberMinWidth);
         padding-right: pxToRem($sizeTiny);
       }
@@ -36,8 +41,7 @@
 
     &.mdl-linklist--toc {
       margin-bottom: 0;
-
-      @include sizeCurve(padding-bottom, big);
+      padding-bottom: 0;
     }
   }
 
@@ -69,7 +73,7 @@
   }
 
   .mdl-pagination {
-    margin-block-start: $sizeRegular;
+    margin-block-start: pxToRem($sizeRegular);
   }
 
   .mdl-placeholder {

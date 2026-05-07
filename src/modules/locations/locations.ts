@@ -9,6 +9,15 @@ import MapView, { MarkerEvent, UserLocateEvent } from '../map_view/map_view';
 import { DefaultOptions, LocationsModuleOptions } from './locations.options';
 import WindowEventListener from '../../assets/js/helpers/events';
 
+/**
+ * Helper function to convert a NodeList or HTMLCollection to an array.
+ *
+ * @param {E | NodeListOf<E>} elements - the NodeList or HTMLCollection to convert
+ * @returns {E[]} - the converted array
+ */
+const arrayFromMaybeNodeList = <E extends Element>(elements: E | NodeListOf<E>): E[] =>
+  elements instanceof NodeList ? Array.from(elements) : [elements];
+
 class Locations extends Module {
   public ui: {
     element: HTMLDivElement;
@@ -17,12 +26,13 @@ class Locations extends Module {
     backBtn: HTMLButtonElement;
     filterHead: HTMLDivElement;
     linkList: HTMLDivElement;
-    listItems: HTMLAnchorElement | HTMLAnchorElement[];
-    detailNodes: HTMLDivElement | HTMLDivElement[];
+    listItems: HTMLButtonElement | NodeListOf<HTMLButtonElement>;
+    detailNodes: HTMLDivElement | NodeListOf<HTMLDivElement>;
     map: HTMLDivElement;
     toggleListBtn: HTMLButtonElement;
     emptyListHint: HTMLDivElement;
     notFoundTextTemplate: HTMLTemplateElement;
+    filterWrapper: HTMLDivElement;
     detailWrapper: HTMLDivElement;
     filterDescription: HTMLParagraphElement;
   };
@@ -41,7 +51,10 @@ class Locations extends Module {
     this.initEventListeners();
 
     // init sideBar state (i.e. Tabindices)
-    this.toggleSidebarTabIndices(false, true);
+    this.toggleLocationDetails(
+      this.ui.sidebar.classList.contains(this.options.stateClasses.sidebar.singleItem) ? 0 : -1,
+      false // do not set focus on init
+    );
   }
 
   static get events() {
@@ -62,46 +75,53 @@ class Locations extends Module {
    */
   initEventListeners() {
     this.eventDelegate
-      .on('click', this.options.domSelectors.listItems, (event, target) => {
-        this.log('ListItem Click Event', event, target);
-        this.onListItemsSelect(target);
-      })
-      .on('keyup', this.options.domSelectors.listItems, (event, target) => {
-        const keyEvent = event as KeyboardEvent;
-        if (keyEvent.key === 'Enter') {
-          this.log('ListItem Keypress "Enter"', event, target);
+      .on(
+        'click',
+        this.options.domSelectors.listItems,
+        (event: MouseEvent, target: HTMLLIElement) => {
+          // this.log('ListItem Click Event', event, target);
           this.onListItemsSelect(target);
         }
-      })
-      .on('mouseover', this.options.domSelectors.listItems, (event, target) => {
-        const itemIndex = target.parentElement.getAttribute('data-linklist-itemindex');
-        this.log('Hover over item index: ', itemIndex);
-        this.highlightInMap(itemIndex);
-      })
-      .on('mouseout', this.options.domSelectors.listItems, (event, target) => {
-        this.log('ListItem MouseOut Event', event, target);
+      )
+      .on(
+        'keyup',
+        this.options.domSelectors.listItems,
+        (event: KeyboardEvent, target: HTMLLIElement) => {
+          const keyEvent = event as KeyboardEvent;
+          if (keyEvent.key === 'Enter') {
+            // this.log('ListItem Keypress "Enter"', event, target);
+            this.onListItemsSelect(target);
+          }
+        }
+      )
+      .on(
+        'mouseover',
+        this.options.domSelectors.listItems,
+        (_event: MouseEvent, target: HTMLLIElement) => {
+          // this.log('Hover over item index: ', itemIndex);
+          this.highlightInMap(this.getIndex(target));
+        }
+      )
+      .on('mouseout', this.options.domSelectors.listItems, () => {
         this.highlightInMap();
       })
-      .on('click', this.options.domSelectors.backBtn, (event, target) => {
-        this.log('BackBtn Click: ', event, target);
+      .on('click', this.options.domSelectors.backBtn, () => {
         this.onListItemsSelect();
       })
-      .on('keyup', this.options.domSelectors.backBtn, (event, target) => {
-        const keyEvent = event as KeyboardEvent;
-        if (keyEvent.key === 'Escape') {
-          this.log('BackBtn Keypress "Escape"', event, target);
+      .on('keyup', this.options.domSelectors.backBtn, (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          // this.log('BackBtn Keypress "Escape"', event);
           this.onListItemsSelect();
         }
       })
-      .on('keyup', this.options.domSelectors.detailNodes, (event, target) => {
-        const keyEvent = event as KeyboardEvent;
-        if (keyEvent.key === 'Escape') {
-          this.log('DetailNodes Keypress "Escape"', event, target);
+      .on('keyup', this.options.domSelectors.detailNodes, (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          // this.log('DetailNodes Keypress "Escape"', event);
           this.onListItemsSelect();
         }
       })
-      .on('click', this.options.domSelectors.toggleListBtn, (event, target) => {
-        this.log('ToggleListBtn Click: ', event, target);
+      .on('click', this.options.domSelectors.toggleListBtn, () => {
+        // this.log('ToggleListBtn Click');
         const sidebarClasses = this.ui.sidebar.classList;
         if (sidebarClasses.contains(this.options.stateClasses.sidebar.opened)) {
           sidebarClasses.remove(this.options.stateClasses.sidebar.opened);
@@ -112,44 +132,28 @@ class Locations extends Module {
 
     this.ui.map.addEventListener(MapView.events.markerMouseOver, (ev: MarkerEvent) => {
       const markerMouseOverIdx = ev.detail.idx;
-      this.log('Mouseover from map on marker', markerMouseOverIdx);
-
-      if (
-        this.ui.listItems &&
-        [].slice.call(this.ui.listItems).length > 0 &&
-        this.ui.listItems[0]
-      ) {
-        (this.ui.listItems as HTMLAnchorElement[]).forEach((listItem, i) => {
-          if (markerMouseOverIdx === i) {
-            listItem.classList.add(this.options.stateClasses.mapMarkerIsHovered);
-          } else {
-            listItem.classList.remove(this.options.stateClasses.mapMarkerIsHovered);
-          }
-        });
-      } else {
-        const singleItemsClasses = (this.ui.listItems as HTMLAnchorElement).classList;
-        if (markerMouseOverIdx === 0) {
-          singleItemsClasses.add(this.options.stateClasses.mapMarkerIsHovered);
-        } else {
-          singleItemsClasses.remove(this.options.stateClasses.mapMarkerIsHovered);
-        }
-      }
+      // this.log('Mouseover from map on marker', markerMouseOverIdx);
+      arrayFromMaybeNodeList(this.ui.listItems).forEach((listItem, i) => {
+        listItem.classList[markerMouseOverIdx === i ? 'add' : 'remove'](
+          this.options.stateClasses.mapMarkerIsHovered
+        );
+      });
     });
 
     this.ui.map.addEventListener(MapView.events.markerClicked, (ev: MarkerEvent) => {
       if ([].slice.call(this.ui.listItems).length > 1) {
         const clickedIdx = ev.detail.idx;
-        this.log('Marker clicked in map', clickedIdx);
-        this.toggleLocationDetails(clickedIdx);
+        // this.log('Marker clicked in map', clickedIdx);
+        this.toggleLocationDetails(clickedIdx, true);
       }
     });
 
     this.ui.map.addEventListener(MapView.events.userLocated, (ev: UserLocateEvent) => {
-      this.log('User located event: ', ev.detail);
+      // this.log('User located event: ', ev.detail);
       if (ev.detail.markerDistances) {
         const distances = ev.detail.markerDistances;
         if (distances.length > 1) {
-          (<HTMLElement[]>this.ui.listItems).forEach((item, i) => {
+          Array.from(this.ui.listItems as NodeListOf<HTMLElement>).forEach((item, i) => {
             this.addDistanceToListItem(item, distances[i]);
           });
         } else if (distances.length === 1) {
@@ -181,27 +185,28 @@ class Locations extends Module {
     this.setSideBarScrollArea();
   }
 
-  private onListItemsSelect(selectEventTarget?: HTMLElement): void {
-    let selectedItemIndex: number = -1;
-
-    if (selectEventTarget && selectEventTarget.parentElement) {
-      const targetItemIndexStr = selectEventTarget.parentElement.getAttribute(
-        this.options.attrNames.itemIndex
-      );
-      try {
-        selectedItemIndex = Number.parseInt(targetItemIndexStr, 10);
-      } catch (e) {
-        this.log('Failed to parse itemindex attribute. ', e);
-      }
-    }
-    this.log('Dispatch marker fix');
-    this.ui.map.dispatchEvent(MapView.extMarkerSelectEvent(selectedItemIndex));
-
-    this.toggleLocationDetails(selectedItemIndex);
+  private onListItemsSelect(target?: HTMLElement): void {
+    const itemIndex: number = this.getIndex(target);
+    // this.log('Dispatch marker fix');
+    this.toggleLocationDetails(itemIndex, true);
   }
 
-  private onFilterValueChange(propName, valueBefore, valueAfter) {
-    this.log('Filter Value changed', valueAfter);
+  private getIndex(target: HTMLElement): number {
+    let itemIndex = -1;
+    const listItem = target?.closest('li');
+    if (listItem) {
+      const itemIndexStr = listItem.getAttribute(this.options.attrNames.itemIndex);
+      try {
+        itemIndex = Number.parseInt(itemIndexStr, 10);
+      } catch (e) {
+        // this.log('Failed to parse itemindex attribute. ', e);
+      }
+    }
+    return itemIndex;
+  }
+
+  private onFilterValueChange(_propName: string, _valueBefore: string, valueAfter: string): void {
+    // this.log('Filter Value changed', valueAfter);
     const sidebarClasses = this.ui.sidebar.classList;
     if (!sidebarClasses.contains(this.options.stateClasses.sidebar.opened)) {
       sidebarClasses.add(this.options.stateClasses.sidebar.opened);
@@ -211,7 +216,6 @@ class Locations extends Module {
 
   private onFilterEvent(evt: any) {
     const { autoOpenSingleItem, text } = evt.detail;
-    this.ui.backBtn.click();
     this.filterListItemsByText(text, autoOpenSingleItem);
   }
 
@@ -220,7 +224,9 @@ class Locations extends Module {
   }
 
   private setSideBarScrollArea() {
-    this.ui.linkList.style.height = `calc(100% - ${this.ui.filterHead.clientHeight + 8}px)`; // eslint-disable-line
+    if (this.ui.linkList && this.ui.filterHead) {
+      this.ui.linkList.style.height = `calc(100% - ${this.ui.filterHead.clientHeight + 8}px)`; // eslint-disable-line
+    }
   }
 
   private addDistanceToListItem(item: HTMLElement, d: number) {
@@ -233,9 +239,10 @@ class Locations extends Module {
   }
 
   private sortListItemsByDistance() {
-    if (this.ui.listItems && [].slice.call(this.ui.listItems).length > 0 && this.ui.listItems[0]) {
+    const listItems = arrayFromMaybeNodeList(this.ui.listItems);
+    if (listItems.length) {
       const lis: HTMLElement[] = [];
-      (this.ui.listItems as HTMLElement[]).forEach((item) => {
+      listItems.forEach((item) => {
         lis.push(item.parentElement);
       });
 
@@ -252,57 +259,31 @@ class Locations extends Module {
     }
   }
 
-  private toggleLocationDetails(selectedItemIdx: number, singleItem: boolean = false): void {
-    if (selectedItemIdx >= 0) {
-      this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.onDetails);
-      this.ui.sidebar.classList.add(this.options.stateClasses.sidebar.opened);
-      if (singleItem) {
-        this.ui.backBtn.classList.add('hidden');
-      } else {
-        this.ui.backBtn.classList.remove('hidden');
-      }
-      this.toggleSidebarTabIndices(true);
-
-      this.ui.detailWrapper.setAttribute('aria-hidden', 'false');
-    } else {
-      this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.onDetails);
-      this.ui.sidebar.classList.remove(this.options.stateClasses.sidebar.opened);
-      this.toggleSidebarTabIndices();
-
-      this.ui.detailWrapper.setAttribute('aria-hidden', 'true');
-    }
-
-    this.showLocationDetailsForIndex(selectedItemIdx);
-    this.highlightInMap(selectedItemIdx, true);
+  private setTabable(el: HTMLElement, tabable: boolean) {
+    if (el) el.setAttribute('tabindex', tabable ? '0' : '-1');
   }
 
-  private toggleSidebarTabIndices(onDetails: boolean = false, initialLoad: boolean = false): void {
-    if (this.ui.listItems && [].slice.call(this.ui.listItems).length > 0 && this.ui.listItems[0]) {
-      (<HTMLAnchorElement[]>this.ui.listItems).forEach((listItem) => {
+  private toggleLocationDetails(selectedItemIdx: number, setHeadFocus: boolean = true): void {
+    const onDetails = selectedItemIdx >= 0 || !this.ui.linkList;
+    this.ui.sidebar.classList.toggle(this.options.stateClasses.sidebar.onDetails, onDetails);
+    this.ui.sidebar.classList.toggle(this.options.stateClasses.sidebar.opened, onDetails);
+    if (this.ui.listItems) {
+      arrayFromMaybeNodeList(this.ui.listItems).forEach((listItem) => {
         this.setTabable(listItem, !onDetails);
       });
-    } else {
-      this.setTabable(<HTMLAnchorElement>this.ui.listItems, !onDetails);
     }
-    this.setTabable(this.ui.filterInput, !onDetails);
-    this.setTabable(this.ui.backBtn, onDetails);
-
-    if (!onDetails) {
-      this.showLocationDetailsForIndex(-1, !initialLoad);
-    }
-  }
-
-  private setTabable(el: HTMLElement, tabable: boolean) {
-    if (el) {
-      el.setAttribute('tabindex', tabable ? '0' : '-1');
-    }
+    if (this.ui.filterInput) this.setTabable(this.ui.filterInput, !onDetails);
+    if (this.ui.backBtn) this.setTabable(this.ui.backBtn, onDetails);
+    this.showLocationDetailsForIndex(selectedItemIdx, setHeadFocus);
+    this.ui.map.dispatchEvent(MapView.extMarkerSelectEvent(selectedItemIdx));
+    this.highlightInMap(selectedItemIdx, true);
   }
 
   private filterListItemsByText(filterText: string, autoOpenSingleItem: boolean = false): void {
     const pattern = new RegExp(filterText, 'i');
     const messageTimeout = 3000;
 
-    const listItems = this.ui.listItems as HTMLAnchorElement[];
+    const listItems = Array.from(this.ui.listItems as NodeListOf<HTMLButtonElement>);
     let countHidden = 0;
     let lastIndex = -1;
     listItems.forEach((listNode, index) => {
@@ -310,19 +291,12 @@ class Locations extends Module {
       const searchText = listNode.hasAttribute('data-filter-attr')
         ? listNode.getAttribute('data-filter-attr')
         : listNode.innerText;
-      if (pattern.test(searchText)) {
-        this.ui.map.dispatchEvent(MapView.extMarkerShowHide(index, true));
-        parentElement.style.removeProperty('display');
-        parentElement.classList.remove('hide');
-        parentElement.setAttribute('aria-hidden', 'false');
-        lastIndex = index;
-      } else {
-        this.ui.map.dispatchEvent(MapView.extMarkerShowHide(index, false));
-        parentElement.classList.add('hide');
-        parentElement.style.display = 'none';
-        parentElement.setAttribute('aria-hidden', 'true');
-        countHidden += 1;
-      }
+      const isVisible = pattern.test(searchText);
+      this.ui.map.dispatchEvent(MapView.extMarkerShowHide(index, isVisible));
+      parentElement.hidden = !isVisible;
+      parentElement.classList.toggle('hide', !isVisible);
+      if (isVisible) lastIndex = index;
+      else countHidden += 1;
     });
 
     if (countHidden === listItems.length) {
@@ -347,75 +321,63 @@ class Locations extends Module {
 
     if (autoOpenSingleItem && listItems.length - countHidden === 1) {
       setTimeout(() => {
-        this.toggleLocationDetails(lastIndex, true);
-        this.ui.map.dispatchEvent(
-          new CustomEvent(MapView.events.fixMarker, { detail: { idx: lastIndex } })
-        );
+        this.toggleLocationDetails(lastIndex, false); // do not set focus when auto-opening
+      }, 0);
+    } else {
+      setTimeout(() => {
+        this.toggleLocationDetails(-1, false); // do not set focus when auto-opening
       }, 0);
     }
 
     this.ui.filterDescription.style.display = 'inherit';
-    this.ui.filterInput.setAttribute('aria-describedby', this.ui.filterDescription.id);
+    this.ui.filterInput?.setAttribute('aria-describedby', this.ui.filterDescription.id);
 
     setTimeout(() => {
       this.ui.filterDescription.removeAttribute('style');
-      this.ui.filterInput.removeAttribute('aria-describedby');
+      this.ui.filterInput?.removeAttribute('aria-describedby');
     }, messageTimeout);
   }
 
   private showLocationDetailsForIndex(indexToShow: number, setHeadFocus: boolean = true): void {
-    if (
-      this.ui.detailNodes &&
-      [].slice.call(this.ui.detailNodes).length > 0 &&
-      this.ui.detailNodes[0]
-    ) {
-      (<HTMLDivElement[]>this.ui.detailNodes).forEach((detailsContainer, i) => {
-        if (i === indexToShow) {
-          detailsContainer.classList.add(this.options.stateClasses.detailShow);
-          detailsContainer.setAttribute('aria-hidden', 'false');
-        } else {
-          detailsContainer.classList.remove(this.options.stateClasses.detailShow);
-          detailsContainer.setAttribute('aria-hidden', 'true');
-        }
-        detailsContainer.querySelectorAll('a').forEach((anchorEl) => {
-          this.setTabable(anchorEl, indexToShow === i);
+    if (!this.ui.detailNodes) return;
+    if (setHeadFocus) (document.activeElement as HTMLButtonElement).blur();
+    const detailsContainers = arrayFromMaybeNodeList(this.ui.detailNodes);
+    detailsContainers.forEach((detailsContainer, i) => {
+      const isActive = indexToShow === i;
+      detailsContainer
+        .querySelectorAll('a, button')
+        .forEach((el: HTMLAnchorElement | HTMLButtonElement) => {
+          this.setTabable(el, isActive);
         });
-      });
-    } else {
-      const detailsContainer = <HTMLDivElement>this.ui.detailNodes;
-      if (detailsContainer) {
-        if (indexToShow === 0) {
-          detailsContainer.classList.add(this.options.stateClasses.detailShow);
-        } else {
-          detailsContainer.classList.remove(this.options.stateClasses.detailShow);
-        }
-        detailsContainer.querySelectorAll('a').forEach((anchorEl) => {
-          this.setTabable(anchorEl, indexToShow === 0);
-        });
-      }
-    }
+      detailsContainer.hidden = !isActive;
+      detailsContainer.classList.toggle(this.options.stateClasses.detailShow, isActive);
+    });
+    const onDetails = indexToShow >= 0 || !this.ui.linkList;
+    this.ui.filterWrapper.hidden = onDetails;
+    this.ui.detailWrapper.hidden = !onDetails;
+    arrayFromMaybeNodeList(this.ui.listItems).forEach((item, i) => {
+      item.ariaExpanded = String(indexToShow === i);
+    });
+    const focusEl = onDetails
+      ? this.ui.backBtn ?? detailsContainers[indexToShow].querySelector('a, button')
+      : this.ui.linkList.querySelector<HTMLButtonElement>('[aria-expanded="true"]') ??
+        this.ui.filterInput ??
+        this.ui.linkList.querySelector('button');
 
     if (setHeadFocus) {
-      if (indexToShow > -1) {
-        setTimeout(() => {
-          this.ui.backBtn.focus();
-        }, this.options.focusDelay);
-      } else if (this.ui.filterInput) {
-        setTimeout(() => {
-          this.ui.filterInput.focus();
-        }, this.options.focusDelay);
-      }
+      setTimeout(() => {
+        focusEl.focus();
+        this.updateFlyingFocus();
+        // this.log('Active Element: ', document.activeElement);
+      }, this.options.focusDelay);
     }
   }
 
   private highlightInMap(highlightIndex?: number, force?: boolean): void {
     if (!this.keepMapHighlight || force) {
-      this.log('Dispatch Marker highlight');
+      // this.log('Dispatch Marker highlight');
       this.ui.map.dispatchEvent(MapView.extMarkerHighlightEvent(highlightIndex));
-
-      if (force) {
-        this.keepMapHighlight = highlightIndex > -1;
-      }
+      if (force) this.keepMapHighlight = highlightIndex > -1;
     }
   }
 

@@ -8,7 +8,7 @@ import Helper from '../../../../assets/js/helpers/helper';
 class Grid extends Helper {
   public logger: Function;
 
-  private isActive: Boolean = false;
+  private isActive: boolean = false;
 
   private domClasses = {
     wrapperClasses: ['.lyt-main-grid'],

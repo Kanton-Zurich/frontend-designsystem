@@ -11,6 +11,12 @@
     color: var(--color-accent);
   }
 
+  &--search {
+    .atm-heading {
+      margin-top: pxToRem($sizeTiny);
+    }
+  }
+
   &__date,
   &__label {
     font-size: $sizeFontTiny;

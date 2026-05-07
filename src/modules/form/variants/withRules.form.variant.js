@@ -77,6 +77,8 @@ module.exports = {
                         maxSize: 26214400,
                         fileTypes:
                           'text/csv, image/gif, text/html, image/jpeg, application/pdf, image/png, image/tiff, application/rtf, image/svg+xml, text/plain, application/xml',
+                        ariaTextValid: 'Datei ist gültig.',
+                        ariaTextInvalid: 'Datei ist ungültig.',
                         isRequired: true,
                       },
                       rules: JSON.stringify([

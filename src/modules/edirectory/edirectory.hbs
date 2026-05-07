@@ -2,20 +2,6 @@
   <h2 class="mdl-edirectory__title visuallyhidden">Im Behördenverzeichnis suchen</h2>
   <form action="#" novalidate class="mdl-edirectory__form mdl-edirectory__form--loading">
     {{> "modules/form/form" form }}
-    <div class="mdl-notification hidden" data-edirectory-error>
-      <svg class="icon" focusable="false">
-        <use xlink:href="#caution"></use>
-      </svg>
-      <div class="mdl-notification__message">
-        <p>{{ noDataMessage }}</p>
-      </div>
-      <button class="atm-button atm-button--icon-only atm-button--small" data-edirectory-dismiss>
-        <svg class="icon atm-button__icon" focusable="false">
-          <use xlink:href="#exit"></use>
-        </svg>
-        <span class="visuallyhidden">Fertig</span>
-      </button>
-    </div>
     <div class="mdl-edirectory__form-controls">
       <button data-edirectory-clear type="reset" class="atm-button atm-button--secondary hidden">Zurücksetzen</button>
       <button data-edirectory-search type="submit" class="atm-button atm-button--disabled">Suchen</button>
@@ -25,19 +11,91 @@
     {{/if}}
   </form>
 
-  <div class="mdl-edirectory__placeholder mdl-placeholder hidden" data-edirectory-no-results>
-    <h3 class="mdl-placeholder__title atm-heading">
-      {{placeholder.title}}
-    </h3>
-    <p class="mdl-placeholder__text atm-paragraph">
-      {{placeholder.text}}
-    </p>
-    {{>"atoms/button/button" placeholder.button }}
+  <div class="mdl-edirectory__placeholder hidden" data-edirectory-no-results>
+    {{> "modules/placeholder/placeholder" placeholder }}
   </div>
 
   <div class="mdl-edirectory__results hidden" data-edirectory-results>
     {{> "modules/table/table" table }}
   </div>
+
+  <div class="mdl-toc-list mdl-toc-list--e-directory" data-anchornav="fullwidth" data-init="tocList">
+    <div class="lyt-wrapper">
+      <div class="grid-x grid-margin-x">
+
+        <div class="mdl-toc-list__content cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-12 small-10 medium-10 large-10 xlarge-10">
+          <div class="mdl-toc-list__header">
+            <h2 id="toc_list" data-anchornav="target" class="atm-heading atm-heading--bordered">
+              Behörden
+            </h2>
+          </div>
+        </div>
+        <div class="mdl-edirectory__toc-error hidden cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-12 small-10 medium-9 large-8 xlarge-8" data-edirectory-error>
+          {{> "modules/placeholder/placeholder" placeholderError }}
+        </div>
+        <div id="mdl-edirectory__toc-content" class="mdl-toc-list__content cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 tiny-12 small-10 medium-9 large-8 xlarge-8" data-init="accordion linklist"></div>
+      </div>
+    </div>
+  </div>
+
+  <template id="mdl-edirectory__accordion-template">
+    <div class="mdl-accordion" data-accordion-store-origin>
+      <h3 class="atm-heading"></h3>
+      <p class="visuallyhidden">Verwenden Sie die Akkordeon-Bedienelemente, um die Sichtbarkeit der jeweiligen Panels (unterhalb der Bedienelemente) umzuschalten.</p>
+    </div>
+  </template>
+
+  <template id="mdl-edirectory__accordion-item-template--linked">
+    <div class="mdl-accordion__item" data-accordion="item">
+      <h4 class="mdl-accordion__header">
+        <a href="#" class="mdl-accordion__button" aria-controls="service-modal-edirectory">
+          <span class="mdl-accordion__control"></span>
+          <svg class="icon mdl-accordion__plus" focusable="false">
+            <use xlink:href="#arrow-right"></use>
+          </svg>
+        </a>
+      </h4>
+      <div class="mdl-accordion__panel" data-accordion="panel">
+        <div class="mdl-accordion__panel-content" data-accordion="panel-content"></div>
+      </div>
+    </div>
+  </template>
+
+  <template id="mdl-edirectory__accordion-item-template--collapsible">
+    <div class="mdl-accordion__item" data-accordion="item">
+      <h4 class="mdl-accordion__header">
+        <button class="mdl-accordion__button" aria-expanded="false" data-accordion="trigger" type="button">
+        <span class="mdl-accordion__control"></span>
+          <svg class="icon mdl-accordion__plus" focusable="false">
+            <use class="vertical" xlink:href="#plus-vertical" data-accordion="verticalIcon"></use>
+            <use xlink:href="#plus-horizontal"></use>
+          </svg>
+        </button>
+      </h4>
+      <div class="mdl-accordion__panel" data-accordion="panel">
+        <div class="mdl-accordion__panel-content" data-accordion="panel-content"></div>
+      </div>
+    </div>
+  </template>
+
+  <template id="mdl-edirectory__linklist-template">
+    <div class="mdl-linklist">
+      <ul class="mdl-linklist__list" data-linklist="linklist-list"></ul>
+    </div>
+  </template>
+
+  <template id="mdl-edirectory__linklist-item-template">
+    <li class="mdl-linklist__item">
+      <a class="atm-linklist_item atm-linklist_item--e-directory" href="#" aria-controls="service-modal-edirectory">
+        <span class="atm-linklist_item__text">
+          <span></span>
+        </span>
+        <svg class="icon atm-linklist_item__arrow" focusable="false">
+          <use xlink:href="#arrow-right"></use>
+        </svg>
+      </a>
+    </li>
+  </template>
+
   {{> "modules/modal/modal" modal }}
-  {{> "modules/toc_list/toc_list" tocList }}
 </div>

@@ -20,12 +20,12 @@
 
       {{#if confirmation}}
       <div class="mdl-stepper__step" data-stepper="step">
-      {{> "modules/notification/notification" confirmation}}
+        {{> "modules/notification/notification" confirmation}}
       </div>
       {{/if}}
     </div>
 
-    <div class="mdl-stepper__last-page-info" data-stepper="lastpage">
+    <div class="mdl-stepper__last-page-info {{#if isEmailRequired}}mdl-stepper__last-page-info--email-required{{/if}}" data-stepper="lastpage">
       {{#if toggle}}
         {{> "atoms/toggle/toggle" toggle}}
         {{> "atoms/form_input/form_input" replyTo}}

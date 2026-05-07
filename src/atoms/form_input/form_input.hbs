@@ -1,10 +1,18 @@
-<div class="atm-form_input{{#if isFloatingLabel}} atm-form_input--floated{{/if}}{{#if
-  isSmall}} atm-form_input--small{{/if}}{{#if unitLeft}} atm-form_input--unitLeft{{/if}}{{#if
-  iconOnly}} atm-form_input--icon{{/if}}{{#if isSelectTrigger}} atm-form_input--trigger{{/if}}{{#if
-  isTriggerWithInput}} atm-form_input--trigger-phone{{/if}}{{#if isReduced}} atm-form_input--reduced{{/if}}
-  {{#if isSearch}}atm-form_input--search{{/if}}{{#if margin}} atm-form_input--margin{{/if}}"
+<div
+  class="atm-form_input
+  {{#if isFloatingLabel}}atm-form_input--floated{{/if}}
+  {{#if isMedium}}atm-form_input--medium{{/if}}
+  {{#if isSmall}}atm-form_input--small{{/if}}
+  {{#if unitLeft}}atm-form_input--unitLeft{{/if}}
+  {{#if iconOnly}}atm-form_input--icon{{/if}}
+  {{#if isSelectTrigger}}atm-form_input--trigger{{/if}}
+  {{#if isTriggerWithInput}}atm-form_input--trigger-phone{{/if}}
+  {{#if isReduced}}atm-form_input--reduced{{/if}}
+  {{#if isSearch}}atm-form_input--search{{/if}}
+  {{#if margin}}atm-form_input--margin{{/if}}"
   {{#unless isSelectTrigger}} data-input{{/unless}}
-  {{#if rules}} data-rules="{{rules}}"{{/if}}>
+  {{#if rules}} data-rules="{{rules}}"{{/if}}
+>
 
   {{#if isSelectTrigger}}
     <button aria-expanded="false" id="{{uuid}}"{{#if disabled}} disabled{{/if}}

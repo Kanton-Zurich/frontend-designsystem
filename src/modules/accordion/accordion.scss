@@ -54,10 +54,6 @@ $accordionMap: (
     }
 
     &--open {
-      &:after {
-        content: none;
-      }
-
       .mdl-accordion__plus .vertical {
         transform: rotate(90deg);
       }
@@ -120,17 +116,19 @@ $accordionMap: (
     width: 100%;
     text-decoration: none;
 
+    @include sizeCurve(padding-top padding-bottom, small);
+
     &:not(.mdl-accordion__button--subhead) {
       display: flex;
       justify-content: space-between;
-      align-items: start;
     }
 
     &--subhead {
       &__flexbox {
         display: flex;
         justify-content: space-between;
-        align-items: start;
+
+        @include sizeCurve(padding-top padding-bottom, small);
       }
     }
   }
@@ -162,7 +160,6 @@ $accordionMap: (
 
   &__title-prefix {
     @include sizeCurve(padding-right, regular);
-    @include sizeCurve(margin-top, controlMargin, $accordionMap);
   }
 
   &__control {
@@ -179,8 +176,9 @@ $accordionMap: (
     overflow: hidden;
     margin-right: 2px;
     flex-shrink: 0;
+    align-self: center;
 
-    @include sizeCurve(margin-top margin-bottom margin-left, controlMargin, $accordionMap);
+    @include sizeCurve(margin-left, controlMargin, $accordionMap);
 
     use {
       fill: $colorBlack60;
@@ -224,6 +222,10 @@ $accordionMap: (
     }
   }
 
+  .mdl-linklist--toc .mdl-linklist__list {
+    margin-inline-start: pxToRem($chapterNumberMinWidth);
+  }
+
   .mdl-linklist--last,
   .mdl-download_list--last {
     @include sizeCurve(margin-bottom, regular);
@@ -231,30 +233,6 @@ $accordionMap: (
 
   .mdl-linklist--small-margin {
     @include sizeCurve(margin-bottom, regular);
-  }
-
-  /** Indented (table of contents/sozial care) variante **/
-  &--indented {
-    .mdl-accordion__panel-content {
-      padding-left: pxToRem(38px);
-
-      .mdl-linklist__title {
-        @include sizeCurve(padding-top padding-bottom, small);
-        display: flex;
-      }
-
-      > :not(.mdl-linklist:last-child) {
-        @include sizeCurve(margin-bottom, medium);
-      }
-
-      > .mdl-linklist:last-child {
-        margin-bottom: pxToRem($sizeHuge);
-
-        @include mq($to: small) {
-          margin-bottom: pxToRem($sizeBiggerBig);
-        }
-      }
-    }
   }
 
   /** Legacy "Inverted" style with light-gray background */

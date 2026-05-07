@@ -16,8 +16,8 @@
         </li>
       {{/each}}
     </ul>
-    <div id="{{mapId}}" class="mdl-map_view__container" data-map-view="map" aria-hidden="true"></div>
-    <div class="mdl-map_view__controls" aria-hidden="true">
+    <div id="{{mapId}}" class="mdl-map_view__container" data-map-view="map"></div>
+    <div class="mdl-map_view__controls">
       {{#if withUserLocate}}
         {{>"atoms/button/button" centerBtn }}
       {{/if}}

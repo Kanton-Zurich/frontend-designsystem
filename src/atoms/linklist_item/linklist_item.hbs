@@ -3,12 +3,11 @@
     {{#if linkListItemIsDownload}} atm-linklist_item--download{{/if}}
     {{#if isLegalFoundation}} atm-linklist_item--legalfoundation{{/if}}
     {{#if linkListItemIsLocation}} atm-linklist_item--location{{/if}}
-    {{#if linkListItemIsTOC}} atm-linklist_item--numbered{{/if}}
+    {{#if linkListItemIsTOC}} atm-linklist_item--toc{{/if}}
     {{#if linkListItemIsEDirectory}} atm-linklist_item--e-directory{{/if}}
-    {{#if linkListItemIsTOCHeading}} atm-linklist_item--numbered-title{{/if}}"
+    {{#if linkListItemIsTOCHeading}} atm-linklist_item--toc-title{{/if}}"
   {{#if linkListItemHref}}href="{{{linkListItemHref}}}"{{/if}}
   {{#if target}} target="_{{target}}"{{/if}}
-  {{#if linkListItemIsLocation}}tabindex="0"{{/if}}
   {{#if linkListItemIsDownload}}{{#unless isButton}}download{{/unless}}{{/if}}
   {{#if subTitlePattern}} data-subtitle-pattern="{{subTitlePattern}}"{{/if}}
   {{#if isButton}}aria-expanded="false"{{/if}}
@@ -64,14 +63,14 @@
 
   {{#unless linkListItemIsDownload}}
     {{#if linkListItemIsLocation}}
-      <div class="atm-linklist_item__distancearrow">
-        <div class="atm-linklist_item__distance">
+      <span class="atm-linklist_item__distancearrow">
+        <span class="atm-linklist_item__distance">
           {{#if linkListItemDistance}} {{ linkListItemDistance }}{{/if}}
-        </div>
+        </span>
         <svg class="icon atm-linklist_item__arrow" focusable="false">
             <use xlink:href="#arrow-right"></use>
         </svg>
-      </div>
+      </span>
     {{else}}
       {{#if linkListItemHref}}
         <svg class="icon atm-linklist_item__arrow" focusable="false">

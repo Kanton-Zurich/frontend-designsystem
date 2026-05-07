@@ -1,10 +1,10 @@
-import Plugin from './estatico-plugin-2';
-import Logger from './estatico-logger';
+import Plugin from './estatico-plugin-2.js';
+import Logger from './estatico-logger.js';
 
 import gulp from 'gulp';
 import plumber from 'gulp-plumber';
 import changed from 'gulp-changed-in-place';
-import eslint from 'gulp-eslint';
+import eslint from 'gulp-eslint-new';
 import through from 'through2';
 import chalk from 'chalk';
 import path from 'path';

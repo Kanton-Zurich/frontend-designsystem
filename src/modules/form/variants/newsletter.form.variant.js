@@ -41,6 +41,8 @@ module.exports = {
                             id: 1,
                             value: 'mrs',
                             validation: {
+                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                               isRequired: true,
                             },
                           })
@@ -53,6 +55,8 @@ module.exports = {
                             id: 2,
                             value: 'mr',
                             validation: {
+                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                               isRequired: true,
                             },
                           })
@@ -66,6 +70,8 @@ module.exports = {
                             value: 'no',
                             validation: {
                               isRequired: true,
+                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                             },
                           })
                         ),
@@ -85,6 +91,8 @@ module.exports = {
                       name: 'prename',
                       uuid: 'prename',
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: true,
                       },
                     })
@@ -99,6 +107,8 @@ module.exports = {
                       name: 'surname',
                       uuid: 'surname',
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: true,
                       },
                     })
@@ -118,6 +128,8 @@ module.exports = {
                       uuid: 'emailaddr',
                       type: 'email',
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         errorMsg: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
                         isRequired: true,
                       },
@@ -171,6 +183,8 @@ module.exports = {
                       icon: 'angle_drop_down',
                       label: 'Staatsangehörigkeit',
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: true,
                       },
                     },

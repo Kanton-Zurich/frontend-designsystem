@@ -71,6 +71,8 @@ const variants = _.mapValues(
             id: 1,
             value: 'mrs',
             validation: {
+              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
               isRequired: true,
             },
           }),
@@ -80,6 +82,8 @@ const variants = _.mapValues(
             id: 2,
             value: 'mr',
             validation: {
+              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
               isRequired: true,
             },
           }),
@@ -89,6 +93,8 @@ const variants = _.mapValues(
             id: 3,
             value: 'no',
             validation: {
+              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
               isRequired: true,
             },
           }),
@@ -100,6 +106,8 @@ const variants = _.mapValues(
           id: 'firstname',
           name: 'firstname',
           validation: {
+            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
             isRequired: true,
           },
         }),
@@ -110,6 +118,8 @@ const variants = _.mapValues(
           id: 'lastname',
           name: 'lastname',
           validation: {
+            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
             isRequired: true,
           },
         }),
@@ -120,6 +130,8 @@ const variants = _.mapValues(
           id: 'email',
           name: 'email',
           validation: {
+            ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+            ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
             isRequired: true,
           },
         }),

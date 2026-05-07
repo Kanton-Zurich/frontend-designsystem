@@ -7,35 +7,114 @@
       {{#if_compare heading.visualLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
     >{{heading.title}}</h{{heading.level}}>
   {{/if}}
-  <ul>
-    {{#each items}}
+
+  {{#if spa}}
+    <template data-servicelist="template-service-card--linked">
       <li>
-        <a href="{{href}}" class="mdl-service_list__item" {{#if external}}target="_blank" {{/if}} {{#unless
-          external}}data-url="{{serviceLink}}" aria-controls="{{modalData.modalId}}" role="button" {{/unless}}
-          aria-haspopup="dialog">
-          <div class="mdl-service_list__item-container">
-            <p class="atm-heading mdl-service_list__item-title">{{title}}</p>
-            {{#if text}}
-              <p class="atm-paragraph mdl-service_list__item-text">{{text}}</p>
-            {{/if}}
+        <a class="mdl-service_card">
+          <div class="mdl-service_card__container">
+            <h{{increment heading.level}} class="atm-heading mdl-service_card__title"></h{{increment heading.level}}>
+            <p class="atm-paragraph mdl-service_card__text"></p>
+            <dl class="mdl-service_card__description-list">
+              <div class="mdl-service_card__description-pair">
+                <dt class="mdl-service_card__description-term">Massgeblicher Kanal</dt>
+                <dd class="mdl-service_card__description-description" data-key="relevantChannel"></dd>
+              </div>
+              <div class="mdl-service_card__description-pair">
+                <dt class="mdl-service_card__description-term">Elektronische Adresse</dt>
+                <dd class="mdl-service_card__description-description" data-key="electronicAddress"></dd>
+              </div>
+              <div class="mdl-service_card__description-pair">
+                <dt class="mdl-service_card__description-term">Dateiformat Eingabe</dt>
+                <dd class="mdl-service_card__description-description" data-key="inputFileFormats"></dd>
+              </div>
+              <div class="mdl-service_card__description-pair">
+                <dt class="mdl-service_card__description-term">Dateiformat Beilagen</dt>
+                <dd class="mdl-service_card__description-description" data-key="attachmentFileFormats"></dd>
+              </div>
+            </dl>
           </div>
-          <span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
-            {{#if icon}}
-              <svg class="icon atm-button__icon" focusable="false">
-                <use xlink:href="#{{icon}}"></use>
-              </svg>
-            {{/if}}
-            <span class="atm-button__text">
-              {{buttonTitle}}
-            </span>
+          <span class="mdl-service_card__button atm-button atm-button--small" aria-hidden="true">
+            <svg class="icon atm-button__icon" focusable="false">
+              <use xlink:href="#lock"></use>
+            </svg>
+            <span class="atm-button__text">Starten</span>
           </span>
         </a>
-        {{#unless external}}
-          <div id="{{modalData.modalId}}" class="mdl-modal {{#unless staticHeader}}mdl-modal--dynamicheader{{/unless}}"
-            data-init="modal" aria-hidden="true" role="dialog">
-          </div>
-        {{/unless}}
       </li>
-    {{/each}}
+    </template>
+
+    <template data-servicelist="template-service-card--inert">
+      <li>
+        <div class="mdl-service_card">
+          <div class="mdl-service_card__container">
+            <h{{increment heading.level}} class="atm-heading mdl-service_card__title"></h{{increment heading.level}}>
+            <p class="atm-paragraph mdl-service_card__text"></p>
+            <dl class="mdl-service_card__description-list">
+              <div class="mdl-service_card__description-pair">
+                <dt class="mdl-service_card__description-term">Massgeblicher Kanal</dt>
+                <dd class="mdl-service_card__description-description" data-key="relevantChannel"></dd>
+              </div>
+              <div class="mdl-service_card__description-pair">
+                <dt class="mdl-service_card__description-term">Elektronische Adresse</dt>
+                <dd class="mdl-service_card__description-description" data-key="electronicAddress"></dd>
+              </div>
+              <div class="mdl-service_card__description-pair">
+                <dt class="mdl-service_card__description-term">Dateiformat Eingabe</dt>
+                <dd class="mdl-service_card__description-description" data-key="inputFileFormats"></dd>
+              </div>
+              <div class="mdl-service_card__description-pair">
+                <dt class="mdl-service_card__description-term">Dateiformat Beilagen</dt>
+                <dd class="mdl-service_card__description-description" data-key="attachmentFileFormats"></dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </li>
+    </template>
+  {{/if}}
+
+  <ul data-servicelist="list">
+    {{#unless spa}}
+      {{#each items}}
+        <li>
+          <a href="{{href}}"
+            class="mdl-service_list__item"
+            {{#if external}}
+              target="_blank"
+            {{else}}
+              data-url="{{serviceLink}}"
+              aria-controls="{{modalData.modalId}}"
+              role="button"
+              aria-haspopup="dialog"
+            {{/if}}
+          >
+            <div class="mdl-service_list__item-container">
+              <p class="atm-heading mdl-service_list__item-title">{{title}}</p>
+              {{#if text}}
+                <p class="atm-paragraph mdl-service_list__item-text">{{text}}</p>
+              {{/if}}
+            </div>
+            <span class="mdl-service_list__item-button atm-button atm-button--small" aria-hidden="true">
+              {{#if icon}}
+                <svg class="icon atm-button__icon" focusable="false">
+                  <use xlink:href="#{{icon}}"></use>
+                </svg>
+              {{/if}}
+              <span class="atm-button__text">
+                {{buttonTitle}}
+              </span>
+            </span>
+          </a>
+          {{#unless external}}
+            <div id="{{modalData.modalId}}" class="mdl-modal {{#unless staticHeader}}mdl-modal--dynamicheader{{/unless}}"
+              data-init="modal" aria-hidden="true" role="dialog">
+            </div>
+          {{/unless}}
+        </li>
+      {{/each}}
+    {{/unless}}
   </ul>
+
+  {{#if pagination}}{{> "modules/pagination/pagination" pagination}}{{/if}}
 </div>

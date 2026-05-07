@@ -20,6 +20,7 @@ module.exports = {
   },
   props: {
     sectionTitle: 'Suche',
+    additionalClasses: 'visuallyhidden',
     headingLevel: 2,
     groups: [
       {
@@ -42,6 +43,7 @@ module.exports = {
                       }),
                       triggerInputData: {
                         label: 'Entscheidungsinstanz',
+                        isMedium: true,
                         validation: {
                           isRequired: false,
                         },
@@ -54,6 +56,7 @@ module.exports = {
                   handlebars.compile(formInputHBS)(
                     _.merge({}, formInputData.variants.default.props, {
                       isFloatingLabel: true,
+                      isMedium: true,
                       label: 'Geschäftsnummer',
                       name: 'geschaeftsnummer',
                       uuid: 'geschaeftsnummer',
@@ -77,6 +80,7 @@ module.exports = {
                         label: 'Entscheidungsdatum von/bis',
                         name: 'entscheidungsdatum',
                         uuid: 'entscheidungsdatum',
+                        isMedium: true,
                         validation: false,
                       },
                     })
@@ -101,6 +105,7 @@ module.exports = {
                       }),
                       triggerInputData: {
                         label: 'Rechtsgebiet',
+                        isMedium: true,
                         validation: {
                           isRequired: false,
                         },
@@ -117,6 +122,7 @@ module.exports = {
                   handlebars.compile(formInputHBS)(
                     _.merge({}, formInputData.variants.default.props, {
                       isFloatingLabel: true,
+                      isMedium: true,
                       label: 'Stichwort',
                       name: 'stichwort',
                       uuid: 'stichwort',

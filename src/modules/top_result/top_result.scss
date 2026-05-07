@@ -1,0 +1,21 @@
+.mdl-top_result {
+  &__label {
+    font-family: $fontFamilyBlack;
+    font-size: pxToRem($sizeFontTiny);
+    margin-bottom: pxToRem($sizeTiny);
+  }
+
+  &__more-results {
+    font-family: $fontFamilyBase;
+    font-size: pxToRem($sizeFontRegular);
+    color: $colorBlack60;
+    margin-top: pxToRem($sizeRegular);
+    display: flex;
+    align-items: center;
+    gap: pxToRem($sizeTiny);
+  }
+
+  &__more-results-icon {
+    fill: $colorBlack60;
+  }
+}

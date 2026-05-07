@@ -21,7 +21,7 @@ const data = _.merge({}, defaultData, {
   props: {
     title: 'Title',
     skiplinks: skiplinksData,
-    header: headerData.variants.defaultWithUserLoggedOut.props,
+    header: headerData.variants.defaultWithoutSearch.props,
     modules: {
       pageHeader: {
         pageTitle: 'Suche',

@@ -168,7 +168,9 @@ $modalCurves: (
 
   &__close-label {
     @include mq($to: large) {
-      @include visuallyhidden;
+      .mdl-modal:not(.mdl-modal--search) & {
+        @include visuallyhidden;
+      }
     }
   }
 
@@ -195,12 +197,12 @@ $modalCurves: (
     }
   }
 
-  .mdl-application__wrapper--fullWidth,
+  .mdl-application__wrapper--window-width,
   .mdl-iframe--fullWidth {
     transform: initial;
     position: initial;
     margin-left: 0;
-    margin-top: 0;
+    margin-block: 0;
   }
 
   /**

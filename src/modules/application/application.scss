@@ -2,18 +2,16 @@
   &__wrapper {
     @include gridBleed($fullwidth: true);
 
-    &--fullWidth {
-      height: 100%;
-      position: fixed;
-      transform: none;
-      margin: 0;
-      left: 0;
-      overflow-y: scroll;
-
+    &--window-width {
       .mdl-application {
         position: relative;
         margin-top: 0;
-        margin-bottom: 0;
+      }
+
+      &:not(.mdl-application__wrapper--with-caption) {
+        .mdl-application {
+          margin-bottom: 0;
+        }
       }
     }
 
@@ -27,6 +25,10 @@
 
     &--with-title {
       margin-top: 0;
+    }
+
+    &--with-caption {
+      margin-bottom: 0;
     }
   }
 
@@ -55,5 +57,16 @@
     }
   }
 
-  margin-bottom: $sizeTiny;
+  & > .atm-loading_circle {
+    display: flex;
+    position: relative;
+    min-height: $sizeHuge;
+    width: 100%;
+  }
+
+  & > .hidden {
+    display: none;
+  }
+
+  @include sizeCurve(margin-bottom, captionGap);
 }

@@ -57,11 +57,11 @@ class Pagination extends Module {
     this.ui.next.addEventListener('mousedown', this.emitInteract.bind(this));
     this.ui.prev.addEventListener('keydown', this.emitInteract.bind(this));
     this.ui.prev.addEventListener('mousedown', this.emitInteract.bind(this));
-    this.ui.next.addEventListener('click', (event) => {
+    this.ui.next.addEventListener('click', (event: PointerEvent) => {
       this.ui.input.value = (parseInt(this.ui.input.value, 10) + 1).toString();
       event.preventDefault();
     });
-    this.ui.prev.addEventListener('click', (event) => {
+    this.ui.prev.addEventListener('click', (event: PointerEvent) => {
       this.ui.input.value = (parseInt(this.ui.input.value, 10) - 1).toString();
       event.preventDefault();
     });
@@ -69,24 +69,24 @@ class Pagination extends Module {
     this.ui.input.addEventListener('focusout', (event) => {
       this.onInputInteraction(event);
     });
-    this.ui.input.addEventListener('keyup', (event: any) => {
+    this.ui.input.addEventListener('keyup', (event: KeyboardEvent) => {
       if (event.key === 'Enter' || event.key === 'Space') {
         this.onInputInteraction(event);
       }
     });
-    this.eventDelegate.on(Pagination.events.setCanonicalUrls, (event) => {
+    this.eventDelegate.on(Pagination.events.setCanonicalUrls, (event: CustomEvent) => {
       const { prev, next } = event.detail;
       this.ui.prev.setAttribute('href', prev);
       this.ui.next.setAttribute('href', next);
     });
 
-    this.eventDelegate.on(Pagination.events.setPageCount, (event) => {
-      this.ui.pageCount.querySelector('span').innerHTML = event.detail;
+    this.eventDelegate.on(Pagination.events.setPageCount, (event: CustomEvent) => {
+      this.ui.pageCount.querySelector('span').textContent = String(event.detail);
       this.ui.element.setAttribute('data-pagecount', event.detail);
-      this.setPageButtonStyles(this.ui.input.value);
+      this.setPageButtonStyles(this.ui.input.valueAsNumber || 1);
     });
 
-    this.eventDelegate.on(Pagination.events.setPage, (event) => {
+    this.eventDelegate.on(Pagination.events.setPage, (event: CustomEvent) => {
       this.preventEmit = true;
       this.ui.input.value = event.detail;
       this.preventEmit = false;
@@ -95,40 +95,41 @@ class Pagination extends Module {
     this.setPageButtonStyles(1);
   }
 
-  onInputChange(property, oldValue, newValue, watchable) {
+  onInputChange(
+    _property: string,
+    oldValue: string,
+    newValue: string,
+    watchable: HTMLInputElement
+  ) {
     const maxPages = parseInt(this.ui.element.getAttribute('data-pagecount'), 10);
+    const oldValueNumber = parseInt(oldValue, 10);
+    const newValueNumber = parseInt(newValue, 10);
     if (document.activeElement !== watchable) {
-      if (isNaN(parseInt(newValue))) {
-        // eslint-disable-line
-        return;
-      }
-      if (newValue > maxPages) {
-        watchable.value = maxPages;
+      if (isNaN(newValueNumber)) return;
+
+      if (newValueNumber > maxPages) {
+        watchable.valueAsNumber = maxPages;
         this.setPageButtonStyles(maxPages);
         return;
       }
-      if (newValue < 1 && newValue.length > 0) {
-        watchable.value = 1;
+      if (newValueNumber < 1 && newValue.length > 0) {
+        watchable.valueAsNumber = 1;
         this.setPageButtonStyles(1);
         return;
       }
-      if (!isNaN(parseInt(oldValue, 10)) && (oldValue < 1 || oldValue > maxPages)) {
-        // eslint-disable-line
-        return;
-      }
-      this.lastValue = newValue;
+      if (!isNaN(oldValueNumber) && (oldValueNumber < 1 || oldValueNumber > maxPages)) return;
+      this.lastValue = newValueNumber;
       if (!this.preventEmit) {
-        this.emitChange(oldValue, newValue);
+        this.emitChange(oldValueNumber, newValueNumber);
       }
     } else {
-      if (newValue > maxPages) {
-        watchable.value = maxPages;
+      if (newValueNumber > maxPages) {
+        watchable.valueAsNumber = maxPages;
         this.setPageButtonStyles(maxPages);
         return;
       }
-      if (!isNaN(parseInt(newValue)) && newValue < 1) {
-        // eslint-disable-line
-        watchable.value = 1;
+      if (!isNaN(newValueNumber) && newValueNumber < 1) {
+        watchable.valueAsNumber = 1;
         this.setPageButtonStyles(1);
       }
     }
@@ -154,7 +155,7 @@ class Pagination extends Module {
    * @param oldValue
    * @param newValue
    */
-  emitChange(oldValue, newValue) {
+  emitChange(oldValue: number, newValue: number) {
     const pageChangeData = {
       detail: {
         before: oldValue,
@@ -177,9 +178,10 @@ class Pagination extends Module {
    * @param page
    * @param maxPages
    */
-  setPageButtonStyles(page) {
-    this.ui.pageCount.querySelector('em').innerHTML = this.ui.input.value;
+  setPageButtonStyles(page: number) {
+    this.ui.pageCount.querySelector('em').textContent = this.ui.input.value;
     const maxPages = parseInt(this.ui.element.getAttribute('data-pagecount'), 10);
+    this.ui.element.classList.toggle('hidden', maxPages === 1);
     this.ui.prev.classList.remove(this.options.stateClasses.buttonDisabled);
     this.ui.next.classList.remove(this.options.stateClasses.buttonDisabled);
     this.ui.prev.removeAttribute('disabled');

@@ -25,6 +25,8 @@ const demoAddressTextsDataFullWidth = [
 
 const demoCopyButton = {
   label: 'Adresse kopieren',
+  successMessage: 'Adresse wurde kopiert',
+  errorMessage: 'Adresse konnte nicht kopiert werden',
 };
 
 const demoAddressData = {

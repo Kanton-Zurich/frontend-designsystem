@@ -5,21 +5,37 @@
       {{#if_compare visualHeadingLevel "===" 2 }}atm-heading--bordered{{/if_compare}}"
     >{{title}}</h{{headingLevel}}>
   {{/if}}
-  <div class="mdl-flex-data__form">
-    <form novalidate>
-      {{#if flexTableFormData}}
-        {{> "modules/form/form" flexTableFormData }}
-      {{/if}}
-      {{#if flexGenericFormData}}
-        {{> "modules/form/form" flexGenericFormData }}
-      {{/if}}
-      <div class="mdl-flex-data__form-controls">
-        <button data-clear-flex type="button" class="atm-button atm-button--secondary hidden">Zurücksetzen</button>
-        <button data-search-flex type="button" class="atm-button ">Suchen</button>
+  <div class="mdl-flex-data__form-background" data-anchornav="fullwidth">
+    <div class="lyt-wrapper">
+      <div class="grid-x grid-margin-x">
+        <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+          <div class="mdl-flex-data__form">
+            <form novalidate>
+              {{#if flexTableFormData}}
+                {{> "modules/form/form" flexTableFormData }}
+              {{/if}}
+              {{#if flexGenericFormData}}
+                {{> "modules/form/form" flexGenericFormData }}
+              {{/if}}
+              <div class="mdl-flex-data__form-controls">
+                <button data-clear-flex type="button" class="atm-button atm-button--secondary hidden">Zurücksetzen</button>
+                <button data-search-flex type="button" class="atm-button ">Suchen</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-    </form>
+    </div>
   </div>
-  <div class="mdl-flex-data__results initially-hidden" data-result-count-title="{{resultCountTitle}}" data-no-results-title="{{noResultsTitle}}" data-result-count-title-more="{{resultCountTitleMore}}" aria-live="polite">
+  <div
+    class="mdl-flex-data__results initially-hidden"
+    data-result-count-title="{{resultCountTitle}}"
+    data-no-results-title="{{noResultsTitle}}"
+    data-result-count-title-more="{{resultCountTitleMore}}"
+    data-anchornav="fullwidth"
+    aria-live="polite"
+  >
+    {{#unless flexSearchResultList}}
     <script data-flex-template type="text/x-handlebars-template">
       {{#if tableData}}
         {{#each tableData.headers}}
@@ -32,34 +48,77 @@
             <td class="mdl-table__cell" data-table="cell"><a href="<%=link%>" class="atm-text_link">Details</a></td>
           {{/if}}
         {{/each}}
-      {{/if}}
-      {{#unless tableData}}
+      {{else}}
         {{{genericTemplate}}}
-      {{/unless}}
+      {{/if}}
     </script>
-    <h3 class="visuallyhidden" aria-live="polite">Resultate</h3>
+    {{/unless}}
     {{#if tableData}}
       {{> "modules/table/table" tableData }}
-    {{/if}}
-    {{#unless tableData}}
-      <div class="mdl-flex-data__generic-sort">
-        <h4 class="visuallyhidden">Sortierung</h4>
-        <div class="atm-form_input atm-form_input--trigger atm-form_input--reduced">
-          <button aria-expanded="false" aria-haspopup="true" class="mdl-flex-data__generic-sort-dropdown atm-form_input__input atm-form_input__input--trigger">
-            <span class="atm-form_input__trigger-label">Sortieren nach:</span>
-            <span class="atm-form_input__trigger-value">Relevanz</span>
-            <svg class="icon" focusable="false">
-              <use xlink:href="#angle_drop_down"></use>
-            </svg>
-          </button>
+    {{else}}
+      <div class="mdl-flex-data__results-bg">
+        <div class="lyt-wrapper">
+          <div class="grid-x grid-margin-x">
+            <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+              {{#if flexSearchResultList}}
+                <div
+                  class="mdl-search_result_list mod-smaller-headings"
+                  aria-live="polite"
+                  data-init="searchResultList"
+                  data-type="contentpage"
+                >
+                  <h3 class="mdl-flex-data__results-title"></h3>
+                  <ul class="mdl-search_result_list__list"></ul>
+                  <template data-search_result_list="template-contentpage">
+                    <a class="mdl-content_page_card">
+                      <div class="mdl-content_page_card__breadcrumb"></div>
+                      <h4 class="atm-heading"></h4>
+                      <p class="atm-paragraph mdl-content_page_card__content"></p>
+                    </a>
+                  </template>
+                </div>
+              {{else}}
+                <div class="mdl-flex-data__generic-wrapper">
+                  <div class="mdl-flex-data__generic-sort">
+                    <h3 class="visuallyhidden">Sortierung</h3>
+                    <div class="atm-form_input atm-form_input--trigger atm-form_input--reduced">
+                      <button
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        class="mdl-flex-data__generic-sort-dropdown atm-form_input__input atm-form_input__input--trigger"
+                      >
+                        <span class="atm-form_input__trigger-label">Sortieren nach:</span>
+                        <span class="atm-form_input__trigger-value">Relevanz</span>
+                        <svg class="icon" focusable="false">
+                          <use xlink:href="#angle_drop_down"></use>
+                        </svg>
+                      </button>
+                    </div>
+                    {{> "modules/context_menu/context_menu" sortContextMenu}}
+                  </div>
+                  <h3 class="mdl-flex-data__results-title"></h3>
+                  <div class="mdl-flex-data__results-generic" data-sort-direction="descending" data-sort-column="publicationDate"></div>
+                </div>
+              {{/if}}
+            </div>
+          </div>
         </div>
-        {{> "modules/context_menu/context_menu" sortContextMenu}}
       </div>
-      <h3 class="atm-heading mdl-flex-data__results-title"></h3>
-      <div class="mdl-flex-data__results-generic" data-sort-direction="descending" data-sort-column="publicationDate"></div>
-    {{/unless}}
-    <div class="mdl-flex-data__pagination">
-      {{> "modules/pagination/pagination" pagination }}
+    {{/if}}
+    <div class="mdl-flex-data__pagination-bg">
+      <div class="lyt-wrapper">
+        {{#unless tableData}}
+          <div class="grid-x grid-margin-x">
+            <div class="cell small-offset-2 medium-offset-2 large-offset-2 xlarge-offset-2 small-10 medium-9 large-8">
+        {{/unless}}
+            <div class="mdl-flex-data__pagination">
+              {{> "modules/pagination/pagination" pagination }}
+            </div>
+        {{#unless tableData}}
+            </div>
+          </div>
+        {{/unless}}
+      </div>
     </div>
     {{> "atoms/loading_circle/loading_circle"}}
   </div>

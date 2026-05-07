@@ -7,34 +7,117 @@
       display: inline-block;
     }
 
-    &:before,
-    &:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      width: pxToRem($sizeTiny);
-      height: pxToRem($sizeSmallHuge);
-    }
-
-    &-scroll-right {
-      &:before {
-        left: 0;
-        background: linear-gradient(90deg, rgba(0, 0, 0, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
-      }
-    }
-
-    &-scroll-left {
-      &:after {
-        right: 0;
-        background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.1) 100%);
-      }
-    }
-
     .mdl-button_group {
       @include sizeCurve(margin-bottom, medium);
 
       button {
         white-space: nowrap;
+      }
+    }
+  }
+
+  &--scrollable {
+    @include gridBleed($fullwidth: true);
+
+    .mdl-button_group {
+      margin-block: pxToRem($sizeTiny);
+
+      @include mq($from: medium) {
+        margin-block: pxToRem($sizeSmallRegular);
+      }
+      @include mq($from: large) {
+        margin-block: pxToRem($sizeRegular);
+      }
+
+      .atm-button {
+        border-radius: pxToRem($sizeTiny);
+        font-family: $fontFamilyBase;
+        padding: 0 pxToRem($sizeRegular);
+        height: pxToRem(36px);
+        margin-right: pxToRem($sizeTiny);
+
+        @include mq($from: medium) {
+          height: pxToRem($sizeBiggerBig);
+        }
+        @include mq($from: large) {
+          height: pxToRem(44px);
+        }
+      }
+    }
+
+    .mdl-tabs__controls {
+      margin-right: calc(-1 * var(--grid-outer-gutters));
+      margin-bottom: pxToRem($sizeLarge);
+      overflow-x: unset;
+
+      @include mq($from: large) {
+        margin-bottom: pxToRem($sizeBiggerBig);
+      }
+
+      &-wrapper {
+        display: block;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -40px;
+          left: 0;
+          width: 100vw;
+          height: 40px;
+          border-top: 1px solid rgba(0, 0, 0, 0.1);
+          box-shadow: inset -24px 24px 24px -24px rgba(0, 0, 0, 0.1);
+          z-index: -1;
+        }
+
+        &::before {
+          content: '';
+          position: absolute;
+          bottom: -24px;
+          left: 0;
+          width: 20vw;
+          height: 24px;
+          background: linear-gradient(to left, transparent, #fff 100%);
+        }
+      }
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        width: pxToRem($sizeTiny);
+        height: 100%;
+      }
+
+      &-scroll-right {
+        &::before {
+          left: 0;
+          background: linear-gradient(90deg, rgba(0, 0, 0, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+      }
+
+      &-scroll-left {
+        &::after {
+          right: 0;
+          background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
+        }
+      }
+
+      @include mq($from: medium) {
+        .mdl-tabs .mdl-tabs__controls-scroll-right::before {
+          display: none;
+        }
+
+        .mdl-tabs .mdl-tabs__controls-scroll-left::after {
+          display: none;
+        }
       }
     }
   }

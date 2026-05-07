@@ -38,6 +38,8 @@ module.exports = {
                             id: 11,
                             value: '1',
                             validation: {
+                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                               isRequired: true,
                             },
                           })
@@ -50,6 +52,8 @@ module.exports = {
                             id: 12,
                             value: '2',
                             validation: {
+                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                               isRequired: true,
                             },
                           })
@@ -62,6 +66,8 @@ module.exports = {
                             id: 313,
                             value: '3',
                             validation: {
+                              ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                              ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                               isRequired: true,
                             },
                           })
@@ -82,6 +88,8 @@ module.exports = {
                       name: 'current_job',
                       uuid: 'current_job',
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: true,
                       },
                     })
@@ -100,6 +108,8 @@ module.exports = {
                       name: 'education_origin',
                       uid: 'education_origin',
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: true,
                       },
                     })

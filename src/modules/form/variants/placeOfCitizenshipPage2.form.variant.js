@@ -26,6 +26,8 @@ module.exports = {
                       name: 'place_of_citizenship10',
                       uuid: _.uniqueId('place_of_citizenship'),
                       validation: {
+                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                         isRequired: true,
                       },
                       rules: JSON.stringify([

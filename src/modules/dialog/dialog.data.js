@@ -54,6 +54,26 @@ const variants = _.mapValues(
         },
       },
     },
+    extendedSearch: {
+      meta: {
+        title: 'Erweiterte-Suche',
+        desc: 'Erweiterte Suche für Massnahmen in der Regierungsplattform',
+      },
+      props: {
+        dialogId: _.uniqueId('dialog-'),
+        dialogTitle: 'Erweiterte Suche',
+        closeButtonLabel: 'Schliessen',
+        threeColumns: true,
+        modules: {
+          contentModules: [
+            () =>
+              handlebars.compile(dataHelper.getFileContent('../accordion/accordion.hbs'))(
+                defAccordionData.variants.extendedSearchForm.props
+              ),
+          ],
+        },
+      },
+    },
     statistic: {
       meta: {
         title: 'Statistik-Suche',

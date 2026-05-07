@@ -5,18 +5,28 @@
   &__content {
     display: flex;
     flex-direction: column;
-    gap: pxToRem($sizeRegular);
+    gap: pxToRem($sizeTiny);
 
     @include sizeCurve('padding-block', regular);
+    @include mq($from: large) {
+      gap: pxToRem($sizeRegular);
+    }
   }
 
-  h2.atm-heading {
-    font-family: $fontFamilyBase;
+  .mod-smaller-headings &,
+  & {
+    h2.atm-heading {
+      font-family: $fontFamilyBlack;
 
-    @include polyFluidSizing('font-size', map-get($fontSizeCurves, smallModFontSizeH5H6));
-    line-height: $sizeLineHeightBase;
-    margin-bottom: 0;
-    padding-top: 0;
+      @include polyFluidSizing('font-size', map-get($fontSizeCurves, xsmall));
+      line-height: $sizeLineHeightBase;
+      margin-bottom: 0;
+      padding-top: 0;
+
+      @include mq($from: small) {
+        font-family: $fontFamilyBase;
+      }
+    }
   }
 
   .atm-button {

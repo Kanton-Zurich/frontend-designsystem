@@ -1,18 +1,20 @@
 import Delegate from 'ftdomdelegate/main';
 import { watch } from 'wrist';
+import namespace from './namespace';
 import DuplicationElement from './duplication.class';
 import ZipCity from './zipCity';
+import FormGlobalHelper from './form';
 import FormRules from './formrules.class';
 import FileUpload from '../../../modules/file_upload/file_upload';
-import namespace from './namespace';
 import Datepicker from '../../../modules/datepicker/datepicker';
-import FormGlobalHelper from './form';
 import WindowEventListener from './events';
 import Module from './module';
 
-class Form {
+export const INVALID_FORM = 'form-has-errors';
+
+export default class Form {
   private ui: {
-    element: HTMLElement;
+    element: HTMLFormElement;
   };
 
   private options: {
@@ -43,8 +45,10 @@ class Form {
   };
 
   private eventDelegate: any;
+  public valid: boolean;
+  public sent: boolean;
 
-  constructor(el, enterKeyHandling = true) {
+  constructor(el: HTMLFormElement, enterKeyHandling = true) {
     this.ui = {
       element: el,
     };
@@ -371,10 +375,7 @@ class Form {
   }
 
   async validateField(field) {
-    //eslint-disable-line
-    if (this.ui.element.hasAttribute('is-reset')) {
-      return true;
-    }
+    if (this.ui.element.hasAttribute('is-reset')) return true;
 
     const validation = await window[namespace].form.validateField(field);
     const fileTimeout = 5;
@@ -434,9 +435,6 @@ class Form {
           });
         }, fileTimeout);
       }
-
-      this.ui.element.setAttribute('form-has-errors', 'true');
-
       return false;
     }
   }
@@ -487,32 +485,25 @@ class Form {
     }
   }
 
-  async validateSection(event) {
-    const formSections = event.detail.sections;
-    let errorsInSections = 0;
+  async validateSection(event: CustomEvent) {
+    const { sections, callback } = event.detail;
+    let errorCount = 0;
 
-    for (let h = 0; h < formSections.length; h++) {
-      // eslint-disable-line
-      const fieldsInSection = formSections[h].querySelectorAll(this.options.watchEmitters.input);
+    for (let h = 0; h < sections.length; h++) {
+      const fieldsInSection = sections[h].querySelectorAll(this.options.watchEmitters.input);
 
       for (let i = 0; i < fieldsInSection.length; i++) {
-        // eslint-disable-line
-        errorsInSections = !(await this.validateField(fieldsInSection[i])) // eslint-disable-line
-          ? (errorsInSections += 1)
-          : errorsInSections;
+        const valid = await this.validateField(fieldsInSection[i]);
+        if (!valid) errorCount++;
       }
     }
 
-    if (errorsInSections > 0) {
-      this.ui.element.setAttribute('form-has-errors', 'true');
-
+    this.ui.element.toggleAttribute(INVALID_FORM, errorCount > 0);
+    if (errorCount > 0)
       (<any>(
         this.ui.element.querySelector('.invalid input, .invalid textarea, .invalid button')
       )).focus();
-    } else {
-      this.ui.element.removeAttribute('form-has-errors');
-    }
-    return event.detail.callback && event.detail.callback();
+    if (callback) callback();
   }
 
   handleInputMask(domElement, oldValue, newValue) {
@@ -692,5 +683,3 @@ class Form {
     });
   }
 }
-
-export default Form;

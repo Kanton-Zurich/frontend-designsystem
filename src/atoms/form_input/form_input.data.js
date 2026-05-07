@@ -37,6 +37,8 @@ const variants = _.mapValues(
           min: 0,
           max: 10000000,
           isRequired: true,
+          ariaTextValid: 'Eingabe ist innerhalb des erlaubten Bereichs.',
+          ariaTextInvalid: 'Eingabe ist ausserhalb des erlaubten Bereichs.',
         },
       },
     },
@@ -93,6 +95,8 @@ const variants = _.mapValues(
         name: 'input_name',
         validation: {
           isRequired: true,
+          ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+          ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
         },
       },
     },
@@ -110,6 +114,8 @@ const variants = _.mapValues(
         name: 'input_name',
         validation: {
           isRequired: true,
+          ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+          ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
         },
       },
     },
@@ -212,6 +218,8 @@ const variants = _.mapValues(
         uuid: _.uniqueId('float_input_clear'),
         validation: {
           pattern: '^([a-zA-Z]){3,6}$',
+          ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+          ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
           errorMsg: 'Hier mindestens 3 und maximal 6 Buchstaben eingeben!',
           isRequired: true,
         },
@@ -243,10 +251,31 @@ const variants = _.mapValues(
         },
       },
     },
+    clearButtonMediumWithIcon: {
+      meta: {
+        title: 'Mittleres Eingabefeld mit löschen Function (und zusätzlichem Icon)',
+        desc: 'Mittleres Eingabefeld mit einer nach oben gleitenden Beschriftung (floating Label) bei Eingabe, einem Knopf zum zurücksetzen bzw löschen der Eingabe und zusätzlichem Icon.',
+      },
+      props: {
+        type: 'text',
+        label: 'Filter',
+        isFloatingLabel: true,
+        isMedium: true,
+        iconOnly: {
+          icon: 'inspect',
+        },
+        uuid: _.uniqueId('float_input_mediumClear'),
+        additionalFunctionality: {
+          icon: 'clear',
+          buttontype: 'clear',
+          ariaText: 'Lösche Eingabe',
+        },
+      },
+    },
     clearButtonSmallWithIcon: {
       meta: {
         title: 'Kleines Eingabefeld mit löschen Function (und zusätzlichem Icon)',
-        desc: 'Kleines Eingabefeld mit einer nach oben gleitenden Beschriftung (floating Label) bei Eingabe, einem Knopf zum zurücksetzen bzw löschen der Eingabe und zusätzlichem Icon.',
+        desc: 'Kleines Eingabefeld mit einem Knopf zum zurücksetzen bzw löschen der Eingabe und zusätzlichem Icon.',
       },
       props: {
         type: 'text',
@@ -255,7 +284,7 @@ const variants = _.mapValues(
         iconOnly: {
           icon: 'inspect',
         },
-        uuid: _.uniqueId('float_input_clear'),
+        uuid: _.uniqueId('float_input_smallClear'),
         additionalFunctionality: {
           icon: 'clear',
           buttontype: 'clear',
@@ -274,6 +303,8 @@ const variants = _.mapValues(
         uuid: _.uniqueId('float_input_password'),
         validation: {
           pattern: '^([a-zA-Z]){3,6}$',
+          ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+          ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
           errorMsg: 'Hier mindestens 3 und maximal 6 Buchstaben eingeben!',
           isRequired: true,
         },
@@ -462,6 +493,8 @@ const variants = _.mapValues(
         inputMask: 'currency_flat',
         validation: {
           pattern: "^[+-]?((\\.\\d+)|([\\d']+(\\.\\d+)?))$",
+          ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+          ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
           errorMsg: 'Hier muss eine Ganzzahl oder eine Gleitkommazahl eingegeben werden!',
           isRequired: true,
         },
@@ -482,6 +515,8 @@ const variants = _.mapValues(
         inputMask: 'currency',
         validation: {
           pattern: "^[+-]?((\\.\\d+)|([\\d']+(\\.\\d+)?))$",
+          ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+          ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
           errorMsg: 'Hier muss eine Ganzzahl oder eine Gleitkommazahl eingegeben werden!',
           isRequired: true,
         },
@@ -551,6 +586,29 @@ const variants = _.mapValues(
         label: 'Select Float Label',
         uuid: _.uniqueId('float_button-'),
         validation: {
+          ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+          ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
+          isRequired: true,
+        },
+      },
+    },
+    triggerMedium: {
+      meta: {
+        title: 'Mittlerer Select Trigger',
+        desc: 'Mittlerer Input mit floating Label',
+      },
+      props: {
+        type: 'text',
+        isSelectTrigger: true,
+        isFloatingLabel: true,
+        isMedium: true,
+        isInput: false,
+        icon: 'angle_drop_down',
+        label: 'Select Float Label',
+        uuid: _.uniqueId('float_button-'),
+        validation: {
+          ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+          ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
           isRequired: true,
         },
       },
@@ -575,6 +633,8 @@ const variants = _.mapValues(
         validation: {
           isRequired: true,
           pattern: '^[()\\- \\d]+$',
+          ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+          ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
           errorMsg: 'Die Eingabe entspricht nicht den Vorgaben für eine Telefonnummer.',
         },
       },

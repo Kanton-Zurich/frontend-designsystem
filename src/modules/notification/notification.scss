@@ -88,6 +88,11 @@
       height: auto;
       min-width: unset;
     }
+
+    .atm-button {
+      min-width: min-content;
+      text-align: center;
+    }
   }
 
   &--big {

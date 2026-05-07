@@ -178,6 +178,12 @@ $sizeCurves: (
     medium: $sizeLarge,
     xlarge: $sizeBig,
   ),
+  captionGap: (
+    tiny: $sizeSmallRegular,
+    small: $sizeRegular,
+    medium: $sizeSmallLarge,
+    large: $sizeLarge,
+  ),
   regular: (
     tiny: $sizeSmallRegular,
     xsmall: $sizeRegular,
@@ -339,6 +345,7 @@ $colorAnthraciteSoft: $colorBlack10;
 $colorGreenSoft: #ebf6eb;
 
 $colorText: $colorBlack;
+$colorTextSoft: rgb(from $colorBlack r g b / 0.6);
 $colorBorderFrameHover: #e4e4e4;
 $colorBg: $colorBlack5;
 
@@ -410,4 +417,4 @@ $spinnerColor: $colorCyan;
 $spinnerBorderSize: 2px;
 
 // Chapter number min-width (Richtext & Linklist)
-$chapterNumberMinWidth: 96px;
+$chapterNumberMinWidth: 36px;

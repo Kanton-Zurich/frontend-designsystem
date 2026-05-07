@@ -79,7 +79,7 @@ class FilterPills extends Module {
    * @param target
    */
   removeTag(target) {
-    this.ui.element.removeChild(target);
+    if (Array.from(this.ui.element.children).includes(target)) this.ui.element.removeChild(target);
     if (this.ui.element.querySelectorAll(this.options.domSelectors.pills).length < 1) {
       this.ui.clearButton.classList.add(this.options.domSelectors.hiddenControl);
     }

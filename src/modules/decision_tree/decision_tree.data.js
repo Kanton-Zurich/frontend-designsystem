@@ -143,6 +143,8 @@ const variants = _.mapValues(
                                       id: 'live_before_a',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -155,6 +157,8 @@ const variants = _.mapValues(
                                       id: 'live_before_b',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -201,6 +205,8 @@ const variants = _.mapValues(
                                       id: 'c_permit_group_1',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -213,6 +219,8 @@ const variants = _.mapValues(
                                       id: 'c_permit_group_2',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -271,6 +279,8 @@ const variants = _.mapValues(
                                       id: 'partnered_ch_1',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -283,6 +293,8 @@ const variants = _.mapValues(
                                       id: 'partnered_ch_2',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -557,6 +569,8 @@ const variants = _.mapValues(
                                       id: 'civil_status_a',
                                       value: 'ledig',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -569,6 +583,8 @@ const variants = _.mapValues(
                                       id: 'civil_status_b',
                                       value: 'verheiratet',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -581,6 +597,8 @@ const variants = _.mapValues(
                                       id: 'civil_status_c',
                                       value: 'partnerschaft',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -634,6 +652,8 @@ const variants = _.mapValues(
                                       id: 'verheirated3plus_a',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -646,6 +666,8 @@ const variants = _.mapValues(
                                       id: 'verheirated3plus_b',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -699,6 +721,8 @@ const variants = _.mapValues(
                                       id: 'verheirated6plus_a',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -711,6 +735,8 @@ const variants = _.mapValues(
                                       id: 'verheirated6plus_b',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -886,6 +912,8 @@ const variants = _.mapValues(
                                       id: 'c_permit_1',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -898,6 +926,8 @@ const variants = _.mapValues(
                                       id: 'c_permit_2',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -996,6 +1026,8 @@ const variants = _.mapValues(
                                       id: 'partnerschaft3plus_1',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1008,6 +1040,8 @@ const variants = _.mapValues(
                                       id: 'partnerschaft3plus_2',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1086,6 +1120,8 @@ const variants = _.mapValues(
                                       id: 'grosseltern_schweiz_1',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1098,6 +1134,8 @@ const variants = _.mapValues(
                                       id: 'grosseltern_schweiz_2',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1146,6 +1184,8 @@ const variants = _.mapValues(
                                       id: 'eltern_bewilligung_1',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1158,6 +1198,8 @@ const variants = _.mapValues(
                                       id: 'eltern_bewilligung_2',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1205,6 +1247,8 @@ const variants = _.mapValues(
                                       id: 'geboren_ch_1',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1217,6 +1261,8 @@ const variants = _.mapValues(
                                       id: 'geboren_ch_2',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1265,6 +1311,8 @@ const variants = _.mapValues(
                                       id: 'schule_5_ch_1',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1277,6 +1325,8 @@ const variants = _.mapValues(
                                       id: 'schule_5_ch_2',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1357,6 +1407,8 @@ const variants = _.mapValues(
                                       id: 'eltern_eingebuergert_1',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1369,6 +1421,8 @@ const variants = _.mapValues(
                                       id: 'eltern_eingebuergert_2',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1450,6 +1504,8 @@ const variants = _.mapValues(
                                       id: 'staatenlos_1',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1462,6 +1518,8 @@ const variants = _.mapValues(
                                       id: 'staatenlos_2',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1784,6 +1842,8 @@ const variants = _.mapValues(
                                       id: 'gleiche_gemeinde_1',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1796,6 +1856,8 @@ const variants = _.mapValues(
                                       id: 'gleiche_gemeinde_2',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1945,6 +2007,8 @@ const variants = _.mapValues(
                                       id: 'gleicher_kanton_1',
                                       value: 'ja',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -1957,6 +2021,8 @@ const variants = _.mapValues(
                                       id: 'gleicher_kanton-2',
                                       value: 'nein',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2166,6 +2232,8 @@ const variants = _.mapValues(
                                       isSingleSelect: true,
                                       setHiddenIndex: true,
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     }
@@ -2222,6 +2290,8 @@ const variants = _.mapValues(
                                       id: 'public__options-yes',
                                       value: 'public',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2234,6 +2304,8 @@ const variants = _.mapValues(
                                       id: 'public__options-no',
                                       value: 'private',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2301,6 +2373,8 @@ const variants = _.mapValues(
                                       id: 'canton-zh__options-yes',
                                       value: 'canton-zh',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2313,6 +2387,8 @@ const variants = _.mapValues(
                                       id: 'canton-zh__options-no',
                                       value: 'other',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2366,6 +2442,8 @@ const variants = _.mapValues(
                                       id: 'prim6-all-preparatory-courses__options-yes',
                                       value: 'all-preparatory-courses',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2378,6 +2456,8 @@ const variants = _.mapValues(
                                       id: 'prim6-all-preparatory-courses__options-no',
                                       value: 'not-all-preparatory-courses',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2439,6 +2519,8 @@ const variants = _.mapValues(
                                       id: 'seka2-requirement-levels__options-yes',
                                       value: 'requirement-levels',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2451,6 +2533,8 @@ const variants = _.mapValues(
                                       id: 'seka2-requirement-levels__options-no',
                                       value: 'no-requirement-levels',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2477,6 +2561,8 @@ const variants = _.mapValues(
                                       id: 'seka2-all-preparatory-courses__options-yes',
                                       value: 'all-preparatory-courses',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2489,6 +2575,8 @@ const variants = _.mapValues(
                                       id: 'seka2-all-preparatory-courses__options-no',
                                       value: 'not-all-preparatory-courses',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2551,6 +2639,8 @@ const variants = _.mapValues(
                                       id: 'seka3-requirement-levels__options-yes',
                                       value: 'requirement-levels',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2563,6 +2653,8 @@ const variants = _.mapValues(
                                       id: 'seka3-requirement-levels__options-no',
                                       value: 'no-requirement-levels',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2589,6 +2681,8 @@ const variants = _.mapValues(
                                       id: 'seka3-all-preparatory-courses__options-yes',
                                       value: 'all-preparatory-courses',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2601,6 +2695,8 @@ const variants = _.mapValues(
                                       id: 'seka3-all-preparatory-courses__options-no',
                                       value: 'not-all-preparatory-courses',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2673,6 +2769,8 @@ const variants = _.mapValues(
                                       id: 'all-requirement-level-i__options-yes',
                                       value: 'all-requirement-level-i',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2685,6 +2783,8 @@ const variants = _.mapValues(
                                       id: 'all-requirement-level-i__options-no',
                                       value: 'not-all-requirement-level-i',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2758,6 +2858,8 @@ const variants = _.mapValues(
                                       id: 'envisaged-school__options-other',
                                       value: 'other',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2770,6 +2872,8 @@ const variants = _.mapValues(
                                       id: 'envisaged-school__options-ims',
                                       value: 'ims',
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     })
@@ -2860,6 +2964,8 @@ const variants = _.mapValues(
                                       isSingleSelect: true,
                                       setHiddenIndex: true,
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     }
@@ -2924,6 +3030,8 @@ const variants = _.mapValues(
                                       isSingleSelect: true,
                                       setHiddenIndex: true,
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     }
@@ -3061,6 +3169,8 @@ const variants = _.mapValues(
                                       isSingleSelect: true,
                                       setHiddenIndex: true,
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     }
@@ -3125,6 +3235,8 @@ const variants = _.mapValues(
                                       isSingleSelect: true,
                                       setHiddenIndex: true,
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     }
@@ -3189,6 +3301,8 @@ const variants = _.mapValues(
                                       isSingleSelect: true,
                                       setHiddenIndex: true,
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     }
@@ -3253,6 +3367,8 @@ const variants = _.mapValues(
                                       isSingleSelect: true,
                                       setHiddenIndex: true,
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     }
@@ -3317,6 +3433,8 @@ const variants = _.mapValues(
                                       isSingleSelect: true,
                                       setHiddenIndex: true,
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     }
@@ -3381,6 +3499,8 @@ const variants = _.mapValues(
                                       isSingleSelect: true,
                                       setHiddenIndex: true,
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     }
@@ -3480,6 +3600,8 @@ const variants = _.mapValues(
                                       isSingleSelect: true,
                                       setHiddenIndex: true,
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     }
@@ -3544,6 +3666,8 @@ const variants = _.mapValues(
                                       isSingleSelect: true,
                                       setHiddenIndex: true,
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     }
@@ -3608,6 +3732,8 @@ const variants = _.mapValues(
                                       isSingleSelect: true,
                                       setHiddenIndex: true,
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     }
@@ -3672,6 +3798,8 @@ const variants = _.mapValues(
                                       isSingleSelect: true,
                                       setHiddenIndex: true,
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     }
@@ -3736,6 +3864,8 @@ const variants = _.mapValues(
                                       isSingleSelect: true,
                                       setHiddenIndex: true,
                                       validation: {
+                                        ariaTextValid: 'Eingabe entspricht den Vorgaben.',
+                                        ariaTextInvalid: 'Eingabe entspricht nicht den Vorgaben.',
                                         isRequired: true,
                                       },
                                     }

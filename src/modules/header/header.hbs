@@ -38,24 +38,25 @@
     {{#if userMenu}}
       {{> "modules/user_menu/user_menu" userMenu}}
     {{/if}}
-    <button
-      id="search"
-      type="button"
-      class="mdl-header__search atm-button"
-      data-header="openModal"
-      aria-expanded="false"
-      aria-haspopup="true"
-      aria-controls="flyout-search"
-      data-search
-    >
-      <span class="atm-button__text">
-        Suchen
-      </span>
-      <svg class="icon atm-button__icon" focusable="false">
-        <use xlink:href="#inspect"></use>
-      </svg>
-    </button>
-
+    {{#if searchModal}}
+      <button
+        id="search"
+        type="button"
+        class="mdl-header__search atm-button"
+        data-header="openModal"
+        aria-expanded="false"
+        aria-haspopup="true"
+        aria-controls="flyout-search"
+        data-search
+      >
+        <span class="atm-button__text">
+          Suchen
+        </span>
+        <svg class="icon atm-button__icon" focusable="false">
+          <use xlink:href="#inspect"></use>
+        </svg>
+      </button>
+    {{/if}}
   </div>
 </div>
 

@@ -1,0 +1,141 @@
+.mdl-extended_search {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: pxToRem($sizeTiny);
+
+  @include sizeCurve(margin-bottom, smallerRegular);
+
+  &__trigger {
+    @at-root button {
+      @include blankButton;
+    }
+
+    @include transition(color);
+
+    display: inline-flex;
+    align-items: center;
+    gap: pxToRem($sizeTiny);
+    font-size: $sizeFontRegular;
+    text-decoration: none;
+    color: $colorTextSoft;
+    cursor: pointer;
+
+    .icon use {
+      fill: $colorBlack60;
+      transition: fill $transitionTimeSimple $transitionEasingDefault;
+    }
+
+    &:hover:not([aria-expanded='true']) {
+      color: rgba($colorText, 1);
+
+      &:after {
+        transform: translateY(50%) scaleY(3);
+        background: $colorText;
+      }
+
+      .icon use {
+        fill: $colorText;
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__icon {
+    padding: pxToRem($sizeTiny);
+    margin: 0;
+    background-color: $colorBlack10;
+    border-radius: 50%;
+    transition: background-color $transitionTimeSimple $transitionEasingDefault;
+    position: relative;
+  }
+
+  .icon {
+    display: block;
+    height: 16px;
+    width: 16px;
+    margin: 0;
+  }
+
+  &__text {
+    margin: 0;
+    display: inline-block;
+  }
+
+  &--has-filters {
+    .mdl-extended_search__icon {
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: pxToRem($sizeTiny);
+        height: pxToRem($sizeTiny);
+        background-color: $colorCyan;
+        border-radius: 50%;
+      }
+    }
+
+    .mdl-extended_search__text {
+      position: relative;
+
+      &::after {
+        content: ':';
+        position: absolute;
+        top: 0;
+      }
+    }
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    gap: pxToRem($sizeTiny);
+
+    .atm-button__text {
+      color: $colorBlack60;
+      font-size: pxToRem($sizeFontRegular);
+    }
+
+    .atm-button {
+      width: pxToRem($sizeBig);
+      height: pxToRem($sizeBig);
+      padding: 0 pxToRem($sizeTiny);
+    }
+  }
+
+  &__controls {
+    display: contents;
+  }
+
+  .mdl-extended_search__selection {
+    display: contents;
+  }
+
+  .mdl-filter-pills {
+    display: contents;
+
+    .atm-button {
+      margin: 0;
+      color: $colorBlack;
+
+      &__icon {
+        top: unset;
+        right: pxToRem($sizeMini);
+        padding: pxToRem($sizeMini);
+        transform: none;
+
+        .icon {
+          transform: scale(0.4);
+        }
+      }
+    }
+  }
+
+  .atm-button__icon .icon use {
+    fill: $colorBlack;
+  }
+}
